@@ -21,6 +21,7 @@ const CourseApproval = createReactClass({
     displayName: 'CourseApproval',
 
     propTypes: {
+      course_slug: PropTypes.string,
       fetchSpecialUsers: PropTypes.func,
       fetchAllCampaigns: PropTypes.func,
       addUser: PropTypes.func,
@@ -40,6 +41,7 @@ const CourseApproval = createReactClass({
         selectedCampaigns: [],
         createdTagOption: [],
         selectedTags: [],
+        submitting: false,
       };
     },
 
@@ -126,8 +128,10 @@ const CourseApproval = createReactClass({
     },
 
     submitWikiEdStaff(programManager, wikiExpert) {
-      const { course_id } = this.props;
+      const { course_slug } = this.props;
       const addUserAction = this.props.addUser;
+
+      let promises = [];
 
       // Only add the program manager, if they are not already assigned a staff role
       if (!programManager.already_selected) {
@@ -137,7 +141,7 @@ const CourseApproval = createReactClass({
           role_description: null,
           real_name: programManager.realname
         };
-        addUserAction(course_id, { user: programManagerUserObject });
+        promises.push(addUserAction(course_slug, { user: programManagerUserObject }));
       }
 
       // Only add the selected wiki expert, if they are not already assigned a staff role
@@ -148,17 +152,21 @@ const CourseApproval = createReactClass({
           role_description: null,
           real_name: wikiExpert.realname
         };
-        addUserAction(course_id, { user: wikiExpertUserObject });
+        promises.push(addUserAction(course_slug, { user: wikiExpertUserObject }));
       }
+
+      return promises;
     },
 
     submitCampaigns() {
-      const { course_id } = this.props;
+      const { course_slug } = this.props;
+      let promises = [];
       if (this.state.selectedCampaigns.length > 0) {
         this.state.selectedCampaigns.forEach((campaign) => {
-          this.props.addCampaign(course_id, campaign.value);
+          promises.push(this.props.addCampaign(course_slug, campaign.value));
         });
       }
+      return promises;
     },
 
     submitTags() {
@@ -167,24 +175,36 @@ const CourseApproval = createReactClass({
 
       const newTags = difference(selectedTags, currentTags);
       const removedTags = difference(currentTags, selectedTags);
-      const { course_id } = this.props;
+      const { course_slug } = this.props;
 
+      let promises = [];
       newTags.forEach((tag) => {
-        this.props.addTag(course_id, tag);
+        promises.push(this.props.addTag(course_slug, tag));
       });
       removedTags.forEach((tag) => {
-        this.props.removeTag(course_id, tag);
+        promises.push(this.props.removeTag(course_slug, tag));
       });
     },
 
     submitApprovalForm() {
+      this.setState(({
+        submitting: true,
+      }));
+      
       // Get staff user objects from selected staff user options
       const programManager = this.props.wikiEdStaff.find(user => user.role === 'classroom_program_manager');
       const wikiExpert = this.props.wikiEdStaff.find(user => user.username === this.state.selectedWikiExpert.value);
 
-      this.submitWikiEdStaff(programManager, wikiExpert);
-      this.submitCampaigns();
-      this.submitTags();
+      let promises = [];
+      promises = promises.concat(this.submitWikiEdStaff(programManager, wikiExpert));
+      promises = promises.concat(this.submitCampaigns());
+      promises = promises.concat(this.submitTags());
+
+      Promise.all(promises).finally(() => {
+        this.setState({
+          submitting: false
+        })
+      })
     },
 
     render() {
@@ -280,13 +300,21 @@ const CourseApproval = createReactClass({
         </div>
       );
 
+      let approveButton;
+      approveButton = (this.state.submitting)
+        ? (<div className="course-approval-loader">
+            <div>Submitting ... </div>
+            <div className="loading__spinner__small" />
+          </div>)
+        : (<div className="controls">
+            <button className="dark button" onClick={this.submitApprovalForm}>Approve Course</button>
+          </div>);
+
       return (
-        <div className="module">
+        <div className="module course-approval">
           <div className="section-header">
             <h3>Course Approval Form</h3>
-            <div className="controls">
-              <button className="dark button" onClick={this.submitApprovalForm}>Approve Course</button>
-            </div>
+            {approveButton}
           </div>
           <div className="course-approval-form">
             {programManagerSelector}

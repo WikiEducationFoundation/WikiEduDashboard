@@ -95,7 +95,7 @@ export const Course = withRouter(createReactClass({
 
     let courseApprovalForm;
     if (this.showCourseApprovalForm()) {
-      courseApprovalForm = <CourseApproval />;
+      courseApprovalForm = <CourseApproval course_slug={this.props.course.slug}/>;
     }
     // //////////////////
     // Enrollment modal /
