@@ -16,7 +16,7 @@ import { getCourseApprovalStaff } from '../../selectors';
 import { STAFF_ROLE } from '../../constants';
 
 
-const CourseApproval = ({ course_slug, wikiEdStaff, allCampaigns, tags, allTags }) => {
+const CourseApproval = (props) => {
     const [selectedWikiExpert, setSelectedWikiExpert] = useState({});
     const [selectedCampaigns, setSelectedCampaigns] = useState([]);
     const [selectedTags, setSelectedTags] = useState([]);
@@ -24,41 +24,41 @@ const CourseApproval = ({ course_slug, wikiEdStaff, allCampaigns, tags, allTags 
     const [submitting, setSubmitting] = useState(false);
 
     useEffect(() => {
-        fetchSpecialUsers();
-        fetchAllCampaigns();
-        fetchAllTags();
+        props.fetchSpecialUsers();
+        props.fetchAllCampaigns();
+        props.fetchAllTags();
     }, []);
 
     useEffect(() => {
-        if (wikiEdStaff.length > 0) {
-          const wikiExpert = wikiEdStaff.find(user => user.role === 'wikipedia_expert');
-          const currentWikiExpert = wikiEdStaff.find(user => user.role === 'wikipedia_expert' && user.already_selected);
+        if (props.wikiEdStaff.length > 0) {
+          const wikiExpert = props.wikiEdStaff.find(user => user.role === 'wikipedia_expert');
+          const currentWikiExpert = props.wikiEdStaff.find(user => user.role === 'wikipedia_expert' && user.already_selected);
 
           setSelectedWikiExpert(
-            (currentWikiExpert !== null || currentWikiExpert !== undefined)
+            (currentWikiExpert !== null && currentWikiExpert !== undefined)
               ? { value: currentWikiExpert.username, label: `${currentWikiExpert.username} (${currentWikiExpert.realname})` }
               : { value: wikiExpert.username, label: `${wikiExpert.username} (${wikiExpert.realname})` }
           );
         }
 
-        if (allCampaigns.length > 0) {
+        if (props.allCampaigns.length > 0) {
            // Set the first campaign as default selected campaign
            // eslint-disable-next-line react/no-did-update-set-state
           setSelectedCampaigns([{
-            value: allCampaigns[0],
-            label: allCampaigns[0],
+            value: props.allCampaigns[0],
+            label: props.allCampaigns[0],
           }]);
         }
 
-        if (tags.length > 0) {
-          setSelectedTags(tags.map((tag) => {
+        if (props.tags.length > 0) {
+          setSelectedTags(props.tags.map((tag) => {
             return { value: tag.tag, label: tag.tag };
           }));
         }
-    }, [wikiEdStaff, allCampaigns, tags]);
+    }, [props.wikiEdStaff, props.allCampaigns, props.tags]);
 
     const setProgramManager = () => {
-        const programManager = wikiEdStaff.find(user => user.role === 'classroom_program_manager');
+        const programManager = props.wikiEdStaff.find(user => user.role === 'classroom_program_manager');
         return {
             value: programManager.username,
             label: `${programManager.username} (${programManager.realname})`
@@ -66,7 +66,7 @@ const CourseApproval = ({ course_slug, wikiEdStaff, allCampaigns, tags, allTags 
     };
 
     const setWikiExpertOptions = () => {
-        const wikiExperts = wikiEdStaff.filter(user => user.role === 'wikipedia_expert');
+        const wikiExperts = props.wikiEdStaff.filter(user => user.role === 'wikipedia_expert');
         const options = wikiExperts.map((user) => {
           return {
             value: user.username,
@@ -105,7 +105,7 @@ const CourseApproval = ({ course_slug, wikiEdStaff, allCampaigns, tags, allTags 
           role_description: null,
           real_name: programManager.realname
         };
-        promises.push(addUser(course_slug, { user: programManagerUserObject }));
+        promises.push(props.addUser(props.course_slug, { user: programManagerUserObject }));
       }
 
       // Only add the selected wiki expert, if they are not already assigned a staff role
@@ -116,7 +116,7 @@ const CourseApproval = ({ course_slug, wikiEdStaff, allCampaigns, tags, allTags 
           role_description: null,
           real_name: wikiExpert.realname
         };
-        promises.push(addUser(course_slug, { user: wikiExpertUserObject }));
+        promises.push(props.addUser(props.course_slug, { user: wikiExpertUserObject }));
       }
       return promises;
     };
@@ -125,14 +125,14 @@ const CourseApproval = ({ course_slug, wikiEdStaff, allCampaigns, tags, allTags 
       const promises = [];
       if (selectedCampaigns.length > 0) {
         selectedCampaigns.forEach((campaign) => {
-          promises.push(addCampaign(course_slug, campaign.value));
+          promises.push(props.addCampaign(props.course_slug, campaign.value));
         });
       }
       return promises;
     };
 
     const submitTags = () => {
-      const oldTags = tags.map(tag => tag.tag);
+      const oldTags = props.tags.map(tag => tag.tag);
       const currentTags = selectedTags.map(tag => tag.value);
 
       const newTags = difference(currentTags, oldTags);
@@ -140,10 +140,10 @@ const CourseApproval = ({ course_slug, wikiEdStaff, allCampaigns, tags, allTags 
 
       const promises = [];
       newTags.forEach((tag) => {
-        promises.push(addTag(course_slug, tag));
+        promises.push(props.addTag(props.course_slug, tag));
       });
       removedTags.forEach((tag) => {
-        promises.push(removeTag(course_slug, tag));
+        promises.push(props.removeTag(props.course_slug, tag));
       });
       return promises;
     };
@@ -152,8 +152,8 @@ const CourseApproval = ({ course_slug, wikiEdStaff, allCampaigns, tags, allTags 
       setSubmitting(true);
 
       // Get staff user objects from selected staff user options
-      const programManager = wikiEdStaff.find(user => user.role === 'classroom_program_manager');
-      const wikiExpert = wikiEdStaff.find(user => user.username === selectedWikiExpert.value);
+      const programManager = props.wikiEdStaff.find(user => user.role === 'classroom_program_manager');
+      const wikiExpert = props.wikiEdStaff.find(user => user.username === selectedWikiExpert.value);
 
       let promises = [];
       promises = promises.concat(submitWikiEdStaff(programManager, wikiExpert));
@@ -165,14 +165,14 @@ const CourseApproval = ({ course_slug, wikiEdStaff, allCampaigns, tags, allTags 
       });
     };
 
-    const programManager = wikiEdStaff.length > 0 ? setProgramManager() : null;
-    const wikiExpertOptions = wikiEdStaff.length > 0 ? setWikiExpertOptions() : [];
+    const programManager = props.wikiEdStaff.length > 0 ? setProgramManager() : null;
+    const wikiExpertOptions = props.wikiEdStaff.length > 0 ? setWikiExpertOptions() : [];
 
-    const campaignOptions = allCampaigns.map((campaign) => {
+    const campaignOptions = props.allCampaigns.map((campaign) => {
         return { value: campaign, label: campaign };
     });
 
-    const allTagOptions = uniq(allTags).map((tag) => {
+    const allTagOptions = uniq(props.allTags).map((tag) => {
       return { label: tag, value: tag };
     });
     const tagOptions = [...createdTagOption, ...allTagOptions];
