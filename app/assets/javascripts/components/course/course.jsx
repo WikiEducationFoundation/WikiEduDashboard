@@ -59,10 +59,10 @@ export const Course = withRouter(createReactClass({
 
   showCourseApprovalForm() {
     const location = this.props.router.location;
-    var onHomeTab = CourseUtils.onHomeTab(location);
-    var isAdmin = this.props.currentUser.isAdmin;
-    var isSubmitted = this.props.course.submitted;
-    var isPublished = this.props.course.published;
+    const onHomeTab = CourseUtils.onHomeTab(location);
+    const isAdmin = this.props.currentUser.isAdmin;
+    const isSubmitted = this.props.course.submitted;
+    const isPublished = this.props.course.published;
 
     if (onHomeTab && isAdmin && isSubmitted && !isPublished) { return true; }
     return false;
