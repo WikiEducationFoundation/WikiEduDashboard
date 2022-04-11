@@ -16,6 +16,7 @@
 # Author: Ladsgroup
 # Author: Mardetanha
 # Author: Mohammad ebz
+# Author: Mojtabakd
 # Author: NimaBagheriWP
 # Author: Ommmmid
 # Author: Reza1615
@@ -61,7 +62,7 @@ fa:
     opt_no: خیر
   dashboard:
     create_note: برای ایجاد نخستین دورهٔ خود، بر روی ایجاد دوره کلیک کنید.
-    explore_course_pages: در صفحات دوره‌ها کاوش کنید
+    explore_course_pages: در صفحه‌های دوره کاوش کنید
     explore_examples: کاوش در مثال‌ها
     join_note: پس از اینکه کد دسترسی را از مدرس‌تان دریافت کردید، بر روی «دوره‌تان
       را پیدا کنید» کلیک کنید و به آن بپیوندید.
@@ -356,7 +357,7 @@ fa:
       در %{date} تنظیم شده‌بود.
     unsubmitted: دوره‌های ثبت‌نشده
     untrained: آموزش‌ندیده
-    update_stats: روزآمدسازی آمارها
+    update_stats: به‌روزرسانی آمارها
     uploads_none: این کلاس در زمینهٔ تصاویر یا دیگر رسانه‌ها، هیچگونه مشارکتی در ویکی‌انبار
       نداشته‌است.
     user_recent_uploads: بارگذاری‌های اخیر
@@ -436,7 +437,7 @@ fa:
     edit_count_description: مجموع ویرایش‌ها
     per_user: '%{number}/کاربر'
     revisions: ویرایش‌های اخیر
-    update_status_heading: وضعیت بروزرسانی
+    update_status_heading: وضعیت به‌روزرسانی
     update_statistics_link: مشاهدهٔ بیشتر
     upload_count: بارگذاری‌های ویکی‌انبار
     uploads_in_use_count:
@@ -448,6 +449,7 @@ fa:
     view_count_description: بازدیدهای مقاله
     view: بازدیدها
     word_count: واژه‌های افزوده‌شده
+    general: عمومی
     total_revisions: مرور کلی
     aliases: نام‌های مستعار
     merged: ادغام‌شده
@@ -546,7 +548,7 @@ fa:
   uploads:
     file_name: نام پرونده
     header: پرونده‌های بارگذاری‌شده در ویکی‌انبار
-    image: نگاره
+    image: تصویر
     label: بارگذاری‌ها
     loading: در حال بارگیری بارگزاری‌ها ...
     none: این کلاس در زمینهٔ تصاویر یا دیگر رسانه‌ها، هیچگونه مشارکتی در ویکی‌انبار
