@@ -49,7 +49,7 @@ const ArticleFinder = createReactClass({
       this.props.fetchAssignments(this.props.course_id);
     }
     if (this.props.router.location.project) {
-      return this.updateFields('home_wiki', { language: this.props.router.location.language, project: this.props.router.location.project });
+      return this.updateFields('wiki', { language: this.props.router.location.language, project: this.props.router.location.project });
     }
     return this.updateFields('home_wiki', this.props.course.home_wiki);
   },
@@ -128,7 +128,7 @@ const ArticleFinder = createReactClass({
     wiki = wiki.value;
     this.setState({ isSubmitted: false });
     this.props.clearResults();
-    return this.updateFields('home_wiki', { language: wiki.language, project: wiki.project });
+    return this.updateFields('wiki', { language: wiki.language, project: wiki.project });
   },
 
   sortSelect(e) {
