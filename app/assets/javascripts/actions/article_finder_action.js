@@ -1,8 +1,10 @@
-import { chunk, map, includes, } from 'lodash-es';
+import { chunk, map, includes } from 'lodash-es';
 import promiseLimit from 'promise-limit';
 import { UPDATE_FIELD, RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE, INITIATE_SEARCH, RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT, RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, SORT_ARTICLE_FINDER, RECEIVE_KEYWORD_RESULTS, API_FAIL, CLEAR_RESULTS } from '../constants';
 import { queryUrl, categoryQueryGenerator, pageviewQueryGenerator, pageAssessmentQueryGenerator, pageRevisionQueryGenerator, pageRevisionScoreQueryGenerator, keywordQueryGenerator } from '../utils/article_finder_utils.js';
 import { ORESSupportedWiki, PageAssessmentSupportedWiki } from '../utils/article_finder_language_mappings.js';
+import { fetchWikidataLabels } from './wikidata_actions';
+
 
 const mediawikiApiBase = (language, project) => {
   if (project === 'wikidata') {
@@ -218,6 +220,7 @@ export const fetchKeywordResults = (keyword, wiki, offset = 0, continueResults =
     return data.query.search;
   })
   .then((articles) => {
+    if (wiki.project === 'wikidata') fetchWikidataLabels(articles, dispatch);
     return fetchPageAssessment(articles, wiki, dispatch, getState);
   })
   .catch(response => (dispatch({ type: API_FAIL, data: response })));

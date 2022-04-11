@@ -309,6 +309,7 @@ const ArticleFinder = createReactClass({
           <ArticleFinderRow
             article={article}
             title={title}
+            label={this.props.wikidataLabels[title]}
             key={article.pageid}
             courseSlug={this.props.course_id}
             course={this.props.course}
@@ -431,6 +432,7 @@ const ArticleFinder = createReactClass({
 const mapStateToProps = state => ({
   articles: getFilteredArticleFinder(state),
   unfilteredArticles: state.articleFinder.articles,
+  wikidataLabels: state.wikidataLabels.labels,
   loading: state.articleFinder.loading,
   search_term: state.articleFinder.search_term,
   min_views: state.articleFinder.min_views,
