@@ -35,6 +35,10 @@ describe 'Students Page', type: :feature, js: true do
                           real_name: 'Mr. Tester',
                           trained: true)
 
+    @user1 = create(:user, username: 'Allan.Aikins',
+                          real_name: 'Allan Aikins',
+                          trained: true)
+
     create(:courses_user,
            id: 1,
            course_id: @course.id,
@@ -66,6 +70,23 @@ describe 'Students Page', type: :feature, js: true do
     js_visit "/courses/#{@course.slug}/students/overview"
     sleep 1 # Try to avoid issue where this test fails with 0 rows found.
     expect(page).to have_content @user.username
+  end
+
+
+  describe 'students view for user names' do
+    let(:user) { create(:user) }
+
+    it 'loads students view for user names without period' do
+       js_visit "/courses/#{@course.slug}/students/articles/#{@user.username}"
+       sleep 1 # Try to avoid issue where this test fails with 0 rows found.
+       expect(page).to have_content @user.username
+    end
+
+     it 'loads students view for user names with period' do
+       js_visit "/courses/#{@course.slug}/students/articles/#{@user1.username}"
+       sleep 1 # Try to avoid issue where this test fails with 0 rows found.
+       expect(page).to have_content @user1.username
+    end
   end
 
   describe 'display of user name' do
