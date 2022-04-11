@@ -39,7 +39,7 @@ export const sortArticleFinder = (key) => {
   };
 };
 
-export const fetchCategoryResults = (category, home_wiki, cmcontinue = '', continueResults = false) => (dispatch, getState) => {
+export const fetchCategoryResults = (category, wiki, cmcontinue = '', continueResults = false) => (dispatch, getState) => {
   if (!continueResults) {
     dispatch({
       type: INITIATE_SEARCH,
@@ -53,12 +53,12 @@ export const fetchCategoryResults = (category, home_wiki, cmcontinue = '', conti
       }
     });
   }
-  return getDataForCategory(`Category:${category}`, home_wiki, cmcontinue, 0, dispatch, getState);
+  return getDataForCategory(`Category:${category}`, wiki, cmcontinue, 0, dispatch, getState);
 };
 
-const getDataForCategory = (category, home_wiki, cmcontinue, namespace = 0, dispatch, getState) => {
+const getDataForCategory = (category, wiki, cmcontinue, namespace = 0, dispatch, getState) => {
   const query = categoryQueryGenerator(category, cmcontinue, namespace);
-  return limit(() => queryUrl(mediawikiApiBase(home_wiki.language, home_wiki.project), query))
+  return limit(() => queryUrl(mediawikiApiBase(wiki.language, wiki.project), query))
   .then((data) => {
     // if (depth > 0) {
     //     depth -= 1;
@@ -71,7 +71,7 @@ const getDataForCategory = (category, home_wiki, cmcontinue, namespace = 0, disp
     return data.query.categorymembers;
   })
   .then((data) => {
-    fetchPageAssessment(data, home_wiki, dispatch, getState);
+    fetchPageAssessment(data, wiki, dispatch, getState);
   })
   .catch(response => (dispatch({ type: API_FAIL, data: response })));
 };
@@ -93,10 +93,10 @@ const getDataForCategory = (category, home_wiki, cmcontinue, namespace = 0, disp
 //   });
 // };
 
-const fetchPageViews = (articlesList, home_wiki, dispatch, getState) => {
+const fetchPageViews = (articlesList, wiki, dispatch, getState) => {
   const promises = chunk(articlesList, 5).map((articles) => {
     const query = pageviewQueryGenerator(map(articles, 'pageid'));
-    return limit(() => queryUrl(mediawikiApiBase(home_wiki.language, home_wiki.project), query))
+    return limit(() => queryUrl(mediawikiApiBase(wiki.language, wiki.project), query))
     .then(data => data.query.pages)
     .then((data) => {
       dispatch({
@@ -124,12 +124,12 @@ const fetchPageViews = (articlesList, home_wiki, dispatch, getState) => {
   });
 };
 
-const fetchPageAssessment = (articlesList, home_wiki, dispatch, getState) => {
-  if (PageAssessmentSupportedWiki[home_wiki.project] && includes(PageAssessmentSupportedWiki[home_wiki.project], home_wiki.language)) {
+const fetchPageAssessment = (articlesList, wiki, dispatch, getState) => {
+  if (PageAssessmentSupportedWiki[wiki.project] && includes(PageAssessmentSupportedWiki[wiki.project], wiki.language)) {
     const promises = chunk(articlesList, 20).map((articles) => {
       const query = pageAssessmentQueryGenerator(map(articles, 'title'));
 
-      return limit(() => queryUrl(mediawikiApiBase(home_wiki.language, home_wiki.project), query))
+      return limit(() => queryUrl(mediawikiApiBase(wiki.language, wiki.project), query))
       .then(data => data.query.pages)
       .then((data) => {
         dispatch({
@@ -142,18 +142,18 @@ const fetchPageAssessment = (articlesList, home_wiki, dispatch, getState) => {
 
     Promise.all(promises)
     .then(() => {
-      fetchPageRevision(articlesList, home_wiki, dispatch, getState);
+      fetchPageRevision(articlesList, wiki, dispatch, getState);
     });
   } else {
-    fetchPageRevision(articlesList, home_wiki, dispatch, getState);
+    fetchPageRevision(articlesList, wiki, dispatch, getState);
   }
 };
 
-const fetchPageRevision = (articlesList, home_wiki, dispatch, getState) => {
-  if (includes(ORESSupportedWiki.languages, home_wiki.language) && includes(ORESSupportedWiki.projects, home_wiki.project)) {
+const fetchPageRevision = (articlesList, wiki, dispatch, getState) => {
+  if (includes(ORESSupportedWiki.languages, wiki.language) && includes(ORESSupportedWiki.projects, wiki.project)) {
     const promises = chunk(articlesList, 20).map((articles) => {
       const query = pageRevisionQueryGenerator(map(articles, 'title'));
-      return limit(() => queryUrl(mediawikiApiBase(home_wiki.language, home_wiki.project), query))
+      return limit(() => queryUrl(mediawikiApiBase(wiki.language, wiki.project), query))
       .then(data => data.query.pages)
       .then((data) => {
         dispatch({
@@ -163,32 +163,32 @@ const fetchPageRevision = (articlesList, home_wiki, dispatch, getState) => {
         return data;
       })
       .then((data) => {
-        return fetchPageRevisionScore(data, home_wiki, dispatch);
+        return fetchPageRevisionScore(data, wiki, dispatch);
       })
       .catch(response => (dispatch({ type: API_FAIL, data: response })));
     });
     Promise.all(promises)
     .then(() => {
-      fetchPageViews(articlesList, home_wiki, dispatch, getState);
+      fetchPageViews(articlesList, wiki, dispatch, getState);
     });
   } else {
-    fetchPageViews(articlesList, home_wiki, dispatch, getState);
+    fetchPageViews(articlesList, wiki, dispatch, getState);
   }
 };
 
-const fetchPageRevisionScore = (revids, home_wiki, dispatch) => {
+const fetchPageRevisionScore = (revids, wiki, dispatch) => {
     const query = pageRevisionScoreQueryGenerator(map(revids, (revid) => {
       return revid.revisions[0].revid;
-    }), home_wiki.project);
-    return promiseLimit(4)(() => queryUrl(oresApiBase(home_wiki.language, home_wiki.project), query))
-    .then(data => data[`${home_wiki.project === 'wikidata' ? 'wikidata' : home_wiki.language}wiki`].scores)
+    }), wiki.project);
+    return promiseLimit(4)(() => queryUrl(oresApiBase(wiki.language, wiki.project), query))
+    .then(data => data[`${wiki.project === 'wikidata' ? 'wikidata' : wiki.language}wiki`].scores)
     .then((data) => {
       dispatch({
         type: RECEIVE_ARTICLE_REVISIONSCORE,
         data: {
           data: data,
-          language: home_wiki.language,
-          project: home_wiki.project,
+          language: wiki.language,
+          project: wiki.project,
         }
       });
     })
@@ -196,7 +196,7 @@ const fetchPageRevisionScore = (revids, home_wiki, dispatch) => {
 };
 
 
-export const fetchKeywordResults = (keyword, home_wiki, offset = 0, continueResults = false) => (dispatch, getState) => {
+export const fetchKeywordResults = (keyword, wiki, offset = 0, continueResults = false) => (dispatch, getState) => {
   if (!continueResults) {
     dispatch({
       type: INITIATE_SEARCH
@@ -211,7 +211,7 @@ export const fetchKeywordResults = (keyword, home_wiki, offset = 0, continueResu
     });
   }
   const query = keywordQueryGenerator(keyword, offset);
-  return limit(() => queryUrl(mediawikiApiBase(home_wiki.language, home_wiki.project), query))
+  return limit(() => queryUrl(mediawikiApiBase(wiki.language, wiki.project), query))
   .then((data) => {
     dispatch({
       type: RECEIVE_KEYWORD_RESULTS,
@@ -220,8 +220,8 @@ export const fetchKeywordResults = (keyword, home_wiki, offset = 0, continueResu
     return data.query.search;
   })
   .then((articles) => {
-    if (home_wiki.project === 'wikidata') fetchWikidataLabels(articles, dispatch);
-    return fetchPageAssessment(articles, home_wiki, dispatch, getState);
+    if (wiki.project === 'wikidata') fetchWikidataLabels(articles, dispatch);
+    return fetchPageAssessment(articles, wiki, dispatch, getState);
   })
   .catch(response => (dispatch({ type: API_FAIL, data: response })));
 };
