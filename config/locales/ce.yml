@@ -11,8 +11,8 @@ ce:
     log_out: Болх дӀаберзор
     recent_activity: Дукха хан йоцуш дийнарг
     report_problem: Проблемех хаам бар
-    request_account: Декъашхочун агӀо ехар
-    sign_up: ДӀайаздар кхоллар
+    request_account: Аккаунт йехар
+    sign_up: ДӀайаздала
   articles:
     wiki: Вики
   campaign:
@@ -37,7 +37,7 @@ ce:
   uploads:
     label: Чуйаьхнарш
   users:
-    request_confirmation: Бакъалла езий хьуна хӀара декъашхочун агӀо?
+    request_confirmation: Бакъалла йезий хьуна хӀара аккаунт?
     training_module_name: Дешаран модуль
     training_module_status: Статус
   error:

@@ -548,6 +548,7 @@ sv:
       other: filer används i artiklar
     view_count_description: Artikelvisningar
     view: Visningar
+    general: Allmänt
   namespace:
     main: Huvudnamnrymd
     user: Användarnamnrymd
