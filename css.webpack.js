@@ -72,7 +72,7 @@ module.exports = (env) => {
       }),
       // generates a RTL version of the emitted CSS files
       // this is done only in production
-      ...(env.production ? [new WebpackRTLPlugin({
+      ...(env.production || env.coverage ? [new WebpackRTLPlugin({
         filename: '../stylesheets/rtl-[name].[contenthash].css'
       })] : []),
       // css-loader generates unnecesary js files (but with .styl extension)
