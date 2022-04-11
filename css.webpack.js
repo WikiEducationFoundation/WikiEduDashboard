@@ -71,9 +71,10 @@ module.exports = (env) => {
         filename: env.development ? '../stylesheets/[name].css' : '../stylesheets/[name].[hash].css',
       }),
       // generates a RTL version of the emitted CSS files
-      new WebpackRTLPlugin({
-        filename: env.development ? '../stylesheets/rtl-[name].css' : '../stylesheets/rtl-[name].[contenthash].css'
-      }),
+      // this is done only in production
+      ...(env.production || env.coverage ? [new WebpackRTLPlugin({
+        filename: '../stylesheets/rtl-[name].[contenthash].css'
+      })] : []),
       // css-loader generates unnecesary js files (but with .styl extension)
       // the following will remove that
       new ExcludeAssetsPlugin({
