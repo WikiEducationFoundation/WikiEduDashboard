@@ -14,18 +14,21 @@ import { processAssignments } from '@components/overview/my_articles/utils/proce
 import setOtherEditedArticles from '@components/students/utils/setOtherEditedArticles';
 import ArticleUtils from '../../../../../utils/article_utils';
 import { selectUserByUsernameParam } from '../../../../util/helpers.js';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useParams, Navigate } from 'react-router-dom';
 
 export const SelectedStudent = ({
   groupedArticles, assignments, course, current_user, fetchArticleDetails,
   fetchUserRevisions, hasExercisesOrTrainings, openKey, setUploadFilters,
   sort, sortUsers, toggleUI, trainingStatus, wikidataLabels, userRevisions,
-  students
+  students, articlesUrl
 }) => {
   const location = useLocation();
   const { username } = useParams();
   const selected = selectUserByUsernameParam(students, username);
-
+  if (!selected) {
+    // if user does not exist, then redirect to the articles home page
+    return <Navigate to={articlesUrl}/>;
+  }
   const {
     assigned, reviewing
   } = processAssignments({ assignments, course, current_user: selected });

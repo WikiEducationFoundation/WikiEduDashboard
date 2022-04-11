@@ -1,3 +1,4 @@
+
 import {
   RECEIVE_REVISIONS,
   REVISIONS_LOADING,
@@ -9,9 +10,14 @@ import {
 import { fetchWikidataLabelsForRevisions } from './wikidata_actions';
 import logErrorMessage from '../utils/log_error_message';
 import request from '../utils/request';
+import { fetchRevisionsFromUsers } from '../utils/mediawiki_revisions_utils';
+import { fetchRevisionsAndReferences } from './media_wiki_revisions_actions';
+import { sortRevisionsByDate } from '../utils/revision_utils';
+import { INCREASE_LIMIT } from '../constants/revisions';
+import { STUDENT_ROLE } from '../constants/user_roles';
 
-const fetchRevisionsPromise = async (courseId, limit, isCourseScoped) => {
-  const response = await request(`/courses/${courseId}/revisions.json?limit=${limit}&course_scoped=${isCourseScoped}`);
+const fetchCourseScopedRevisionsPromise = async (course, limit) => {
+  const response = await request(`/courses/${course.slug}/revisions.json?limit=${limit}&course_scoped=true`);
   if (!response.ok) {
     logErrorMessage(response);
     const data = await response.text();
@@ -21,20 +27,53 @@ const fetchRevisionsPromise = async (courseId, limit, isCourseScoped) => {
   return response.json();
 };
 
-export const fetchRevisions = (courseId, limit, isCourseScoped = false) => (dispatch) => {
-  let actionType;
-  if (isCourseScoped) {
-    actionType = RECEIVE_COURSE_SCOPED_REVISIONS;
-    dispatch({ type: COURSE_SCOPED_REVISIONS_LOADING });
-  } else {
-    actionType = RECEIVE_REVISIONS;
-    dispatch({ type: REVISIONS_LOADING });
+const fetchRevisionsPromise = async (course, users, last_date, dispatch) => {
+  const { revisions, last_date: new_last_date } = await fetchRevisionsFromUsers(course, users, 7, last_date);
+  course.revisions = sortRevisionsByDate(revisions);
+
+  // we don't await this. When the assessments/references get laoded, the action is dispatched
+  fetchRevisionsAndReferences(revisions, dispatch);
+  return { course, last_date: new_last_date };
+};
+
+export const fetchRevisions = course => async (dispatch, getState) => {
+  dispatch({ type: REVISIONS_LOADING });
+  const state = getState();
+  const users = state.users.users.filter(user => user.role === STUDENT_ROLE);
+  if (users.length === 0) {
+    course.revisions = [];
+    dispatch({
+      type: RECEIVE_REVISIONS,
+      data: { course },
+    });
+    return;
+  }
+  if (state.revisions.revisionsDisplayed.length < state.revisions.revisions.length) {
+    // no need to fetch new revisions
+    return dispatch({
+      type: INCREASE_LIMIT
+    });
   }
   return (
-    fetchRevisionsPromise(courseId, limit, isCourseScoped)
+    fetchRevisionsPromise(course, users, state.revisions.last_date, dispatch)
       .then((resp) => {
         dispatch({
-          type: actionType,
+          type: RECEIVE_REVISIONS,
+          data: resp,
+        });
+        fetchWikidataLabelsForRevisions(resp.course.revisions, dispatch);
+      })
+      .catch(response => (dispatch({ type: API_FAIL, data: response })))
+  );
+};
+
+export const fetchCourseScopedRevisions = (course, limit) => async (dispatch) => {
+  dispatch({ type: COURSE_SCOPED_REVISIONS_LOADING });
+  return (
+    fetchCourseScopedRevisionsPromise(course, limit)
+      .then((resp) => {
+        dispatch({
+          type: RECEIVE_COURSE_SCOPED_REVISIONS,
           data: resp,
           limit: limit
         });
@@ -45,5 +84,4 @@ export const fetchRevisions = (courseId, limit, isCourseScoped = false) => (disp
       .catch(response => (dispatch({ type: API_FAIL, data: response })))
   );
 };
-
 export const sortRevisions = key => ({ type: SORT_REVISIONS, key: key });

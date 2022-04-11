@@ -133,6 +133,7 @@ diq:
     alert_type: Babet
     alert_user_id: Karber
     campaign: Kampanya
+    campaigns: Kampanyeyi
     created_at: Tarix
     data_instructors: Musnayoği
     description: Şınasnayış
@@ -152,7 +153,7 @@ diq:
     calendar:
       legend: Kıtabek
     cancel: Bıtexelne
-    campaigns: 'Kohorti:'
+    campaigns: 'Kampanyeyi:'
     campaign_articles: '%{title} Meqaley'
     campaign_courses: '%{title} Kursi'
     campaign_select: Ju kampanya weçinê
@@ -221,6 +222,7 @@ diq:
     cancel: Bıtexelne
     course: Program
     courses: Programi
+    campaigns: 'Kampanyeyi:'
     creator:
       assignment_end_placeholder: SSSS-AA-RR
       assignment_start_placeholder: SSSS-AA-RR

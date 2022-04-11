@@ -3,7 +3,7 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import RevisionList from './revision_list.jsx';
-import { fetchRevisions, sortRevisions } from '../../actions/revisions_actions.js';
+import { fetchRevisions, sortRevisions, fetchCourseScopedRevisions } from '../../actions/revisions_actions.js';
 import Loading from '../common/loading.jsx';
 
 const RevisionHandler = createReactClass({
@@ -40,7 +40,11 @@ const RevisionHandler = createReactClass({
       // For Course Scoped Revisions, fetching in componentDidUpdate
       // because in most cases, users would not be using these, so we
       // will fetch only when the user initially goes there, hence saving extra queries
-      this.props.fetchRevisions(this.props.course_id, this.props.limit);
+      if (this.state.isCourseScoped) {
+        this.props.fetchCourseScopedRevisions(this.props.course, this.props.courseScopedLimit);
+      } else {
+        this.props.fetchRevisions(this.props.course);
+      }
     }
   },
 
@@ -51,7 +55,7 @@ const RevisionHandler = createReactClass({
     // If user reaches the course scoped part initially, and there are no
     // loaded course scoped revisions, we fetch course scoped revisions
     if (toggledIsCourseScoped && !this.props.courseScopedRevisionsLoaded) {
-      this.props.fetchRevisions(this.props.course_id, this.props.courseScopedLimit, true);
+      this.props.fetchCourseScopedRevisions(this.props.course, this.props.courseScopedLimit);
     }
   },
 
@@ -70,15 +74,15 @@ const RevisionHandler = createReactClass({
   // by keeping track of revisionsLoaded and courseScopedRevisionsLoaded
   showMore() {
     if (this.state.isCourseScoped) {
-      return this.props.fetchRevisions(this.props.course_id, this.props.courseScopedLimit + 100, true);
+      return this.props.fetchCourseScopedRevisions(this.props.course, this.props.courseScopedLimit + 100);
     }
-    return this.props.fetchRevisions(this.props.course_id, this.props.limit + 100);
+    return this.props.fetchRevisions(this.props.course);
   },
 
   render() {
     // Boolean to indicate whether the revisions in the current section (all scoped or course scoped are loaded)
     const loaded = (!this.state.isCourseScoped && this.props.revisionsLoaded) || (this.state.isCourseScoped && this.props.courseScopedRevisionsLoaded);
-    const revisions = this.state.isCourseScoped ? this.props.courseScopedRevisions : this.props.revisions;
+    const revisions = this.state.isCourseScoped ? this.props.courseScopedRevisions : this.props.revisionsDisplayed;
 
     let showMoreButton;
     if ((!this.state.isCourseScoped && !this.props.limitReached) || (this.state.isCourseScoped && !this.props.courseScopedLimitReached)) {
@@ -96,7 +100,7 @@ const RevisionHandler = createReactClass({
               <option value="title">{I18n.t('revisions.title')}</option>
               <option value="revisor">{I18n.t('revisions.edited_by')}</option>
               <option value="characters">{I18n.t('revisions.chars_added')}</option>
-              <option value="references">{I18n.t('revisions.references')}</option>
+              <option value="references_added">{I18n.t('revisions.references')}</option>
               <option value="date">{I18n.t('revisions.date_time')}</option>
             </select>
           </div>
@@ -120,9 +124,8 @@ const mapStateToProps = state => ({
   courseScopedLimit: state.revisions.courseScopedLimit,
   courseScopedLimitReached: state.revisions.courseScopedLimitReached,
   courseScopedRevisions: state.revisions.courseScopedRevisions,
-  limit: state.revisions.limit,
   limitReached: state.revisions.limitReached,
-  revisions: state.revisions.revisions,
+  revisionsDisplayed: state.revisions.revisionsDisplayed,
   wikidataLabels: state.wikidataLabels.labels,
   courseScopedRevisionsLoaded: state.revisions.courseScopedRevisionsLoaded,
   revisionsLoaded: state.revisions.revisionsLoaded,
@@ -131,7 +134,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   fetchRevisions,
-  sortRevisions
+  sortRevisions,
+  fetchCourseScopedRevisions
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(RevisionHandler);
