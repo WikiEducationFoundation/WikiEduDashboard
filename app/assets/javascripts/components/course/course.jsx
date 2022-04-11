@@ -27,7 +27,7 @@ import Notifications from '../common/notifications.jsx';
 import CourseAlerts from './course_alerts';
 import { getStudentCount, getCurrentUser, getWeeksArray } from '../../selectors';
 import ActivityHandler from '../activity/activity_handler';
-import CourseApproval from '../overview/course_approval';
+import CourseApproval from './course_approval';
 
 export const Course = withRouter(createReactClass({
   displayName: 'Course',
