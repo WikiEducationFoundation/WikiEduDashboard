@@ -859,7 +859,7 @@ describe Course, type: :model do
       before { create(:tag, tag: 'submitted', course: course) }
 
       it 'returns the time the tag was added' do
-        expect(course.submitted_at).to be_within(1.second).of(Time.zone.now)
+        expect(course.submitted_at).to be_within(2.seconds).of(Time.zone.now)
       end
     end
   end
