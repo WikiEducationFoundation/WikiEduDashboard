@@ -35,7 +35,7 @@ describe 'Students Page', type: :feature, js: true do
                           real_name: 'Mr. Tester',
                           trained: true)
 
-    @user1 = create(:user, username: 'Allan.Aikins',
+    @user_with_period = create(:user, username: 'Allan.Aikins',
                           real_name: 'Allan Aikins',
                           trained: true)
 
@@ -44,6 +44,12 @@ describe 'Students Page', type: :feature, js: true do
            course_id: @course.id,
            user_id: @user.id,
            real_name: @user.real_name)
+
+    create(:courses_user,
+           id: 2,
+           course_id: @course.id,
+           user_id: @user_with_period.id,
+           real_name: @user_with_period.real_name)
 
     article = create(:article,
                      id: 1,
@@ -77,15 +83,13 @@ describe 'Students Page', type: :feature, js: true do
     let(:user) { create(:user) }
 
     it 'loads students view for user names without period' do
-       js_visit "/courses/#{@course.slug}/students/articles/#{@user.username}"
-       sleep 1 # Try to avoid issue where this test fails with 0 rows found.
+       visit "/courses/#{@course.slug}/students/articles/#{@user.username}"
        expect(page).to have_content @user.username
     end
 
      it 'loads students view for user names with period' do
-       js_visit "/courses/#{@course.slug}/students/articles/#{@user1.username}"
-       sleep 1 # Try to avoid issue where this test fails with 0 rows found.
-       expect(page).to have_content @user1.username
+       visit "/courses/#{@course.slug}/students/articles/#{@user_with_period.username}"
+       expect(page).to have_content @user_with_period.username
     end
   end
 
