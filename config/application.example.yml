@@ -126,3 +126,7 @@
 # Username of user who will receive requests for technical help from the Get Help button
 # Can be left blank.
   technical_help_staff: 'Sage (Wiki Ed)'
+
+# Secret for authentication with Wikimedia Event Center
+# Generate one for production or staging via `rails secret`
+# WikimediaCampaignsPlatformSecret: 

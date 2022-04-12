@@ -32,6 +32,7 @@ Metrics/ClassLength:
     - 'app/controllers/surveys_controller.rb'
     - 'app/controllers/campaigns_controller.rb'
     - 'app/controllers/courses_controller.rb'
+    - 'app/controllers/users_controller.rb'
     - 'lib/importers/revision_score_importer.rb'
     - 'lib/wizard_timeline_manager.rb'
     - 'lib/wiki_course_edits.rb'
