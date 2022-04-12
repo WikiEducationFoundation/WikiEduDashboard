@@ -8068,6 +8068,11 @@ node-releases@^2.0.2:
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-2.0.2.tgz#7139fe71e2f4f11b47d4d2986aaf8c48699e0c01"
   integrity sha512-XxYDdcQ6eKqp/YjI+tb2C5WM2LgjnZrfYg4vgQt49EK268b6gYCHsBLrK2qvJo4FmCtqmKezb0WZFK4fkrZNsg==
 
+node-version@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/node-version/-/node-version-2.0.0.tgz#6d2960680316d4b6722c76bdffd2dbcc05cc10e3"
+  integrity sha512-uQqN+/BiN+5gChfO8RQUR7kHoaC7ln41ox0+/2vEGyHGZ3sSDlaFW5v7qkJx3TfdOns4qiGWzsVAHNwTVG3juA==
+
 normalize-package-data@^2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/normalize-package-data/-/normalize-package-data-2.5.0.tgz#e66db1838b200c1dfc233225d12cb36520e234a8"

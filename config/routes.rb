@@ -173,6 +173,8 @@ Rails.application.routes.draw do
         id: /.*/
       }
     get 'find_course/:course_id' => 'courses#find'
+    get 'course_copy_prod' => 'copy_course_from_production#index'
+    post 'course_copy_prod' => 'copy_course_from_production#copy', as: 'copy_course_from_production'
   end
 
   # Categories

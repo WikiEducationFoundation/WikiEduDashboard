@@ -55,6 +55,7 @@
     "moment": "2.29.1",
     "moment-locales-webpack-plugin": "^1.2.0",
     "moment-recur": "^1.0.7",
+    "node-version": "^2.0.0",
     "nouislider": "^14.2.0",
     "parsleyjs": "^2.9.2",
     "promise-limit": "^2.7.0",
