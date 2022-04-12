@@ -6,7 +6,7 @@ class CopyCourseFromProductionController < ApplicationController
   before_action :require_admin_permissions
 
   def index
-    
+    @copied_course = nil
   end
 
   def copy
