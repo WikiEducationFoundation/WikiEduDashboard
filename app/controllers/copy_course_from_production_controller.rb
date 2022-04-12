@@ -3,10 +3,10 @@
 #= Controller for copying course from production to test
 class CopyCourseFromProductionController < ApplicationController
   respond_to :html
-  before_action :require_permissions
+  before_action :require_admin_permissions
 
   def index
-    @created_course = ''
+    
   end
 
   def copy

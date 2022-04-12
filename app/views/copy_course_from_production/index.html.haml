@@ -3,18 +3,15 @@
 .container.dashboard
   %header
     %h1
-      = 'Copy course'
+      = 'Copy course from production'
 
 %section
   .container
     %hr
-    
-    %div.create-modal-wrapper{class: @created_course.errors.any? || params[:create] ? 'show-create-modal' : 'hidden'}
-      = render 'create_modal'
 
 .container
   = form_tag copy_course_from_production_path, class: 'explore-courses', method: :post do
-    = text_field_tag(:save, '', placeholder: 'Copy here course URL')
+    = text_field_tag(:save, '', placeholder: 'Copy course URL here...')
     %button{type: 'submit'}
       %i.icon.icon-check
  
