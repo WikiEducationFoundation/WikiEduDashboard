@@ -94,11 +94,15 @@ class WikiAssignmentOutput
     header = new_tag.present? ? '' : section_header
     existing_tag = "{{#{template_name(@templates, 'course_assignment')} | course = #{@course_page}"
 
-    # We're looking for an existing instance of the tag template, and optionally preceded
-    # (in the case of removing the tag) by the section header. This way, when we're removing a tag
-    # that is in the standard-format section, we remove the whole section rather than leaving an
-    # empty one.
-    tag_matcher = /(#{Regexp.quote(header)}[\n\r]+)?#{Regexp.quote(existing_tag)}[^}]*\}\}/
+    # We're looking for an existing instance of the tag template, in the case of removing the tag,
+    # we're also looking for the (optional) preceding section header. This way, when we're
+    # removing a tag that is in the standard-format section, we remove the whole section rather
+    # than leaving an empty one.
+    tag_matcher = if new_tag.present?
+                    /#{Regexp.quote(existing_tag)}[^}]*\}\}/
+                  else
+                    /(#{Regexp.quote(header)}[\n\r]+)?#{Regexp.quote(existing_tag)}[^}]*\}\}/
+                  end
     page_content.gsub!(tag_matcher, new_tag)
 
     # If we replaced an existing tag with the new version of it, we're done.
