@@ -39,14 +39,13 @@ describe 'Students Page', type: :feature, js: true do
                           real_name: 'Allan Aikins',
                           trained: true)
 
-
     create(:courses_user,
            id: 1,
            course_id: @course.id,
            user_id: @user.id,
            real_name: @user.real_name)
 
-     create(:courses_user,
+    create(:courses_user,
            id: 2,
            course_id: @course.id,
            user_id: @user_with_period.id,
