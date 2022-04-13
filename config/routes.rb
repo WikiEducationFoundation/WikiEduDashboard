@@ -157,7 +157,8 @@ Rails.application.routes.draw do
         :as => 'show',
         constraints: {
           school: /[^\/]*/,
-          titleterm: /[^\/]*/
+          titleterm: /[^\/]*/,
+          _subsubsubpage: /.*/
         }
 
     get 'embed/course_stats/:school/:titleterm(/:_subpage(/:_subsubpage))' => 'embed#course_stats',
