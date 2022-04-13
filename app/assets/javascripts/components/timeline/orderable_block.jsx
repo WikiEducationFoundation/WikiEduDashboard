@@ -15,14 +15,20 @@ const OrderableBlock = createReactClass({
     onDrag: PropTypes.func.isRequired,
     onMoveUp: PropTypes.func.isRequired,
     onMoveDown: PropTypes.func.isRequired,
-    isDragging: PropTypes.bool.isRequired
+    isDragging: PropTypes.bool.isRequired,
+    blocks: PropTypes.array
   },
 
   render() {
     const opacity = this.props.isDragging ? 0.5 : 1;
+    const marginTop = '2em';
+    const marginBottom = '2em';
+    const rounded = marginTop;
+    const animating = rounded !== 75;
+    const willChange = animating ? 'top' : 'initial';
 
     return (
-      <div className="block block--orderable" style={{ opacity }}>
+      <div className="block block--orderable" style={{ opacity, marginTop, marginBottom, animating, willChange }}>
         <h4 className="block-title">{this.props.title}</h4>
         <p>{this.props.kind}</p>
         <button onClick={this.props.onMoveDown} className="button border" aria-label={I18n.t('timeline.move_block_down')} disabled={this.props.disableDown}>

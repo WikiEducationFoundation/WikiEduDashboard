@@ -1,8 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-// import { Motion, spring } from 'react-motion';
-import { useSpring, animated, Spring } from 'react-spring';
+import { useSpring, Spring } from 'react-spring';
 import TransitionGroup from '../common/css_transition_group';
 import Block from './block.jsx';
 import OrderableBlock from './orderable_block.jsx';
@@ -111,12 +110,13 @@ const Week = createReactClass({
           const animating = rounded !== i * 75;
           const willChange = animating ? 'top' : 'initial';
           const blockLineStyle = useSpring({
-            top: rounded,
+            top: 0,
             position: 'absolute',
             width: '100%',
             left: 0,
             willChange,
-            marginLeft: 0
+            marginLeft: 0,
+            marginBottom: '2em'
           });
           return (
             <li style={blockLineStyle}>
@@ -138,7 +138,7 @@ const Week = createReactClass({
         };
         return (
           <Spring key={block.id} from={{ y: i * 75 }} to={{ y: i * 75 }}>
-			  {orderableBlock}  
+            {orderableBlock}
           </Spring>
         );
       }
