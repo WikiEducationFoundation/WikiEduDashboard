@@ -155,6 +155,7 @@ scn:
     assignments_table:
       article_name: Nomu
   metrics:
+    general: Ginirali
     aliases: Alias
     merged: Junciutu
     created: Criatu

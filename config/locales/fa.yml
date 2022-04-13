@@ -16,6 +16,7 @@
 # Author: Ladsgroup
 # Author: Mardetanha
 # Author: Mohammad ebz
+# Author: Mojtabakd
 # Author: NimaBagheriWP
 # Author: Ommmmid
 # Author: Reza1615
@@ -28,7 +29,7 @@ fa:
       مقدار را کاهش یا افزایش دهید.
   application:
     cancel: انصراف
-    dashboard: داشبورد ویکی برنامهٔ آموزشی
+    dashboard: پیش‌خوان برنامۀ آموزشی ویکی
     documentation: مستندات
     error: این اقدام با خطا مواجه شد
     explore: کاوش
@@ -43,7 +44,7 @@ fa:
     log_in_extended: ورود با ویکی‌پدیا
     log_in: ورود
     log_out: خروج
-    my_dashboard: داشبورد من
+    my_dashboard: پیش‌خوان من
     recent_activity: فعالیت‌های اخیر
     report_problem: گزارش مشکل
     search: پرسشی بپرسید
@@ -61,7 +62,7 @@ fa:
     opt_no: خیر
   dashboard:
     create_note: برای ایجاد نخستین دورهٔ خود، بر روی ایجاد دوره کلیک کنید.
-    explore_course_pages: در صفحات دوره‌ها کاوش کنید
+    explore_course_pages: در صفحه‌های دوره کاوش کنید
     explore_examples: کاوش در مثال‌ها
     join_note: پس از اینکه کد دسترسی را از مدرس‌تان دریافت کردید، بر روی «دوره‌تان
       را پیدا کنید» کلیک کنید و به آن بپیوندید.
@@ -77,8 +78,8 @@ fa:
     explore: کاوش
     log_in: ورود با ویکی‌پدیا
     sign_up: نام‌نویسی با ویکی‌پدیا
-    sign_up_help: برای استفاده از داشبورد، نیاز خواهید داشت تا از طریق ویکی‌پدیا وارد
-      شوید و اجازهٔ دسترسی به حساب کاربری‌تان را بدهید. می‌توانید از حساب کاربری که
+    sign_up_help: برای استفاده از پیش‌خوان، نیاز خواهید داشت تا از طریق ویکی‌پدیا
+      وارد شوید و اجازهٔ دسترسی به حسابتان را بدهید. می‌توانید از حساب ویکی‌پدیا که
       از قبل داشتید استفاده کنید یا یک حساب تازه ایجاد نمایید.
   activity:
     all: فعالیت
@@ -178,7 +179,7 @@ fa:
     campaign: کمپین
     campaigns: کمپین‌ها
     customize_passcode: رمز عبور پیش‌فرض
-    data_articles: صفحات ویرایش‌شده
+    data_articles: صفحه‌های ویرایش‌شده
     default_passcode: رمز عبور پیش‌فرض
     description: توضیحات
     none: هیچ‌کدام
@@ -287,9 +288,8 @@ fa:
       one: Instructor
       other: Instructors
     instructors: اساتید
-    invitation: |-
-      از شما برای پیوستن به %{title} دعوت شده‌است. برای پیوستن به این دورهٔ آموزشی، می‌بایست با حساب کاربری ویکی‌پدیا وارد شوید.
-      اگر هنوز حساب کاربری ویکی‌پدیا ندارید، برای دریافت آن به‌طور رایگان نام‌نویسی کنید.
+    invitation: از شما برای پیوستن به %{title} دعوت شده‌است. برای پیوستن، شما نیاز
+      به ورود با یک حساب ویکی‌پدیا دارید.
     join: پیوستن
     join_course: پیوستن به دوره
     join_course_as_volunteer: داوطلب برای کمک
@@ -357,7 +357,7 @@ fa:
       در %{date} تنظیم شده‌بود.
     unsubmitted: دوره‌های ثبت‌نشده
     untrained: آموزش‌ندیده
-    update_stats: روزآمدسازی آمارها
+    update_stats: به‌روزرسانی آمارها
     uploads_none: این کلاس در زمینهٔ تصاویر یا دیگر رسانه‌ها، هیچگونه مشارکتی در ویکی‌انبار
       نداشته‌است.
     user_recent_uploads: بارگذاری‌های اخیر
@@ -429,7 +429,7 @@ fa:
     articles_created_generic_wikidata: آیتم‌های ایجادشده
     articles_edited: مقاله‌های ویرایش‌شده
     articles_edited_generic_wikidata: آیتم‌های ویرایش‌شده
-    characters: کاراکترها
+    characters: نویسه‌ها
     char_added: کاراکترهای افزوده‌شده
     char_changed: کاراکترهای تغییریافته
     char: کاراکترهای افزوده‌شده
@@ -437,7 +437,7 @@ fa:
     edit_count_description: مجموع ویرایش‌ها
     per_user: '%{number}/کاربر'
     revisions: ویرایش‌های اخیر
-    update_status_heading: وضعیت بروزرسانی
+    update_status_heading: وضعیت به‌روزرسانی
     update_statistics_link: مشاهدهٔ بیشتر
     upload_count: بارگذاری‌های ویکی‌انبار
     uploads_in_use_count:
@@ -449,6 +449,7 @@ fa:
     view_count_description: بازدیدهای مقاله
     view: بازدیدها
     word_count: واژه‌های افزوده‌شده
+    general: عمومی
     total_revisions: مرور کلی
     aliases: نام‌های مستعار
     merged: ادغام‌شده
@@ -547,7 +548,7 @@ fa:
   uploads:
     file_name: نام پرونده
     header: پرونده‌های بارگذاری‌شده در ویکی‌انبار
-    image: نگاره
+    image: تصویر
     label: بارگذاری‌ها
     loading: در حال بارگیری بارگزاری‌ها ...
     none: این کلاس در زمینهٔ تصاویر یا دیگر رسانه‌ها، هیچگونه مشارکتی در ویکی‌انبار
@@ -645,7 +646,7 @@ fa:
   error_401:
     header: مجاز نیست. >:-(
     explanation: مجاز به اجرای این درخواست نیستید. اگر فکر می‌کنید که این پیام خطا
-      را به‌اشتباه دریافت کرده‌اید، لطفاً با مسئول این داشبورد تماس بگیرید و مشکل
+      را به‌اشتباه دریافت کرده‌اید، لطفاً با مسئول این پیش‌خوان تماس بگیرید و مشکل
       را اطلاع دهید.
   error_incorrect_passcode:
     header: کد دسترسی نامعتبر است  :-(
@@ -655,11 +656,11 @@ fa:
     header: صفحه یافت نشد. :-(
   error_422:
     header: 422 — unprocessable entity.  :-(
-    explanation: چیزی اشتباه شده‌است. لطفاً با مسئول نگهداری این داشبورد تماس بگیرید
+    explanation: چیزی اشتباه شده‌است. لطفاً با مسئول نگهداری این پیش‌خوان تماس بگیرید
       و دربارهٔ این مشکل به آن‌ها اطلاع دهید.
   error_500:
     header: ۵۰۰ — خطای درونی کارگزار.  :-(
-    explanation: چیزی اشتباه شده‌است. لطفاً با مسئول نگهداری این داشبورد تماس بگیرید
+    explanation: چیزی اشتباه شده‌است. لطفاً با مسئول نگهداری این پیش‌خوان تماس بگیرید
       و دربارهٔ این مشکل به آن‌ها اطلاع دهید.
   login_error:
     header: خطا در ورود به سامانه

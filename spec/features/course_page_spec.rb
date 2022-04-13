@@ -75,6 +75,9 @@ describe 'the course page', type: :feature, js: true do
              course_id: 10001,
              user_id: i.to_s)
     end
+    # for testing Activity using Media Wiki API
+    user = create(:user, username: 'DSMalhotra')
+    create(:courses_user, user: user, course: course)
 
     ratings = ['fl', 'fa', 'a', 'ga', 'b', 'c', 'start', 'stub', 'list', nil]
     (1...article_count / 2).each do |i|
@@ -472,8 +475,10 @@ describe 'the course page', type: :feature, js: true do
 
   describe 'activity view' do
     it 'displays a list of edits' do
-      js_visit "/courses/#{slug}/activity"
-      expect(page).to have_content 'Article 1'
+      Capybara.using_wait_time 10 do
+        js_visit "/courses/#{slug}/activity"
+        expect(page).to have_css('.revision', minimum: 5)
+      end
     end
   end
 
@@ -512,7 +517,8 @@ describe 'the course page', type: :feature, js: true do
       expect(AverageViewsImporter).to receive(:update_outdated_average_views)
       expect_any_instance_of(CourseUploadImporter).to receive(:run)
       visit "/courses/#{slug}/manual_update"
-      updated_user_count = user_count + 1
+      # this is 2 since there's another user(DSMalhotra) for testing the activity view
+      updated_user_count = user_count + 2
       expect(page).to have_content "#{updated_user_count}\nStudent Editors"
       expect(page).to have_content 'This Week'
     end

@@ -12,6 +12,12 @@ const EnrollCard = ({
         <h1>{I18n.t('courses.ended')}</h1>
       </div>
     );
+  } else if (course.flags.event_sync) {
+    messageBody = (
+      <div>
+        <h1>{I18n.t('courses.controlled_by_event_center')}</h1>
+      </div>
+    );
   } else if (enrolledParam !== undefined) {
     // Enrollment is complete
     if (enrolledParam === 'true') {

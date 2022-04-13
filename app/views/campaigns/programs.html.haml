@@ -34,7 +34,7 @@
     %table.table.table--hoverable.table--sortable
       %thead
         %tr
-          %th.sort.sortable.asc{'data-default-order' => 'asc', 'data-sort' => 'title'}
+          %th.sort.sortable{'data-default-order' => 'asc', 'data-sort' => 'title'}
             = t("#{@presenter.course_string_prefix}.courses")
             %span.sortable-indicator
           %th.sort.sortable{style: 'width: 200px;', 'data-default-order' => 'asc', 'data-sort' => 'school'}
@@ -42,7 +42,7 @@
             %span.sortable-indicator
           - if Features.wiki_ed?
             %th Instructor
-          %th.sort.sortable{style: 'width: 165px;', 'data-default-order' => 'desc', 'data-sort' => 'revisions'}
+          %th.sort.sortable.desc{style: 'width: 165px;', 'data-default-order' => 'desc', 'data-sort' => 'revisions'}
             .tooltip-trigger
               = t('metrics.revisions')
               %span.sortable-indicator

@@ -184,6 +184,18 @@ describe UsersController, type: :request do
         expect(subject).to eq(200)
       end
 
+      context 'when the course is controlled by event_sync' do
+        before do
+          course.flags[:event_sync] = '1234'
+          course.save
+        end
+
+        it 'returns unauthorized' do
+          delete "/courses/#{course.slug}/user", params: delete_params
+          expect(subject).to eq(401)
+        end
+      end
+
       context 'when the user is already removed' do
         before do
           allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)

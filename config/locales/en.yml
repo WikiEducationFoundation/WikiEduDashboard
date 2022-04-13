@@ -182,7 +182,7 @@ en:
     none: This course has not edited any articles.
     preview: Brief preview of Article
     rating: Class
-    rating_doc: The rating an article has been assigned by WikiProjects on Wikipedia. These ratings may corresponds to much older versions, so they are just a rough indicator of article maturity.
+    rating_doc: The rating an article has been assigned by WikiProjects on Wikipedia. These ratings may correspond to much older versions, so they are just a rough indicator of article maturity.
     rating_docs:
       fa: "%{class} (Featured article) — Wikipedia's highest rating, probably too mature an article for a new editor's main project"
       fl: "%{class} (Featured list) — Wikipedia's highest rating for lists"
@@ -471,6 +471,7 @@ en:
     confirm_course_deletion: Are you sure you want to delete the course titled %{title}? If so, type the title of the course to proceed.
     confirm_course_deletion_failed: '"%{title}" is not the title of this course. The course has not been deleted.'
     confirm_manual_update: Are you sure you want to run a manual update? The most recent revisions will be imported and then the page will reload. This process may take some time.
+    controlled_by_event_center: Enrollment in this event is controlled by Wikimedia Event Center. It cannot be joined from the Dashboard.
     course: Course
     course_dates_calendar_instructions: >
       Select dates to add or remove them from the schedule (e.g., holidays, no
@@ -645,6 +646,7 @@ en:
       cannot_join_twice: Users may not join the same course twice.
       not_yet_approved: This course has not yet been approved for enrollment.
       withdrawn: This course has been marked as withdrawn — possibly by mistake. Contact Wiki Education staff to re-enable it.
+      invalid_sync: Enrollment in this event is controlled by Wikimedia Event Center. It cannot be joined from the Dashboard.
     join_details: To join this course, you need to get the passcode — or an enrollment link that includes the passcode — from the instructor. If you haven't received this, contact your instructor.
     join_no_passcode: Are you sure you want to join this course?
     launch_wizard: Launch the Wizard
@@ -1476,7 +1478,7 @@ en:
   login_error:
     header: "Login Error"
     explanation: >
-      It looks like there was an problem with the sign in process. (Sorry about that! It happens occasionally.) Please try logging in or enrolling again.
+      It looks like there was a problem with the sign in process. (Sorry about that! It happens occasionally.) Please try logging in or enrolling again.
   # This is a maintenance script message.
   timeout: "A request to the %{api} API has timed out and will be retried %{tries} times."
 

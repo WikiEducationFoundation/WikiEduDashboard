@@ -478,7 +478,7 @@ qqq:
       a number.
     start: |-
       Label for the start date of a course
-      '{{Identical|Start}}'
+      {{Identical|Start}}
     start_typing: Placeholder message in an input, prompting the user to type
     students: Label for link to the list of students for a course (Wiki Ed only)
     students_count: |-

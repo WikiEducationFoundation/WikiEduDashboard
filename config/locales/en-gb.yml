@@ -81,7 +81,7 @@ en-gb:
     none: This course has not edited any articles.
     rating: Class
     rating_doc: The rating an article has been assigned by WikiProjects on Wikipedia.
-      These ratings may corresponds to much older versions, so they are just a rough
+      These ratings may correspond to much older versions, so they are just a rough
       indicator of article maturity.
     rating_docs:
       fa: '%{class} (Featured article) — Wikipedia''s highest rating, probably too

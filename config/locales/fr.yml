@@ -188,7 +188,7 @@ fr:
     none: Ce cours n’a modifié aucun article.
     preview: Bref aperçu de l’article
     rating: Classe
-    rating_doc: La notation a été attribuée à un article par WikiProjects sur Wikipédia.
+    rating_doc: La notation attribuée à un article par WikiProjets sur Wikipédia.
       Ces notes peuvent correspondre à des versions plus anciennes ; elles sont donc
       simplement un indicateur approximatif de la maturité de l’article.
     rating_docs:
@@ -1155,6 +1155,10 @@ fr:
     qualifiers_added: Qualificateurs ajoutés
     redirects_created: Redirections créées
     references_added: Références ajoutées
+    references_added_info: Ceci peut n’être qu’un décompte partiel des références
+      ajoutées. Il est basé sur les résumés des modifications et certaines modifications
+      qui ajoutent des références sont classées à la place en tant que « Revendication
+      modifiée » ou « Revendication créée ».
     restorations_performed: Restauration effectuées
     reverts_performed: Révocations effectuées
   namespace:

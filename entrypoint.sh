@@ -11,5 +11,5 @@ set -x
 service mysql start
 redis-server --daemonize yes
 rails s -d -b 0.0.0.0
-yarn
+# yarn
 yarn start

@@ -31,6 +31,7 @@ ENV['test_user_password'] = 'testpassword'
 # https://meta.wikimedia.org/wiki/Special:OAuthListConsumers/view/b56122b2abe01f163349c9d0a6bcded5
 ENV['wikipedia_token'] = 'b56122b2abe01f163349c9d0a6bcded5'
 ENV['wikipedia_secret'] = '507c74d4c4cb6015c9087b2decb80d82b96b905e'
+ENV['WikimediaCampaignsPlatformSecret'] = 'SharedSecret'
 
 Rails.application.configure do
   # Settings specified here will take

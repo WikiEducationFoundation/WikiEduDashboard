@@ -60,7 +60,7 @@ const RevisionList = createReactClass({
         label: I18n.t('revisions.chars_added'),
         desktop_only: true
       },
-      references: {
+      references_added: {
         label: I18n.t('revisions.references'),
         desktop_only: true,
         info_key: `metrics.${ArticleUtils.projectSuffix(this.props.course.home_wiki.project, 'references_doc')}`

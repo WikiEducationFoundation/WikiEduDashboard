@@ -18,10 +18,10 @@
     %table.table.table--hoverable.table--sortable
       %thead
         %tr
-          %th.sort.sortable.asc{"data-default-order" => "asc", "data-sort" => "username"}
+          %th.sort.sortable{"data-default-order" => "asc", "data-sort" => "username"}
             = t('users.username')
             %span.sortable-indicator
-          %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "revision-count"}
+          %th.sort.sortable.desc{"data-default-order" => "desc", "data-sort" => "revision-count"}
             = t('courses.edit_count')
             %span.sortable-indicator
           %th.sort.sortable{"data-default-order" => "asc", "data-sort" => "title"}

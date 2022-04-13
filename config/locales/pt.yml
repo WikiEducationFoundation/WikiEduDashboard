@@ -314,7 +314,10 @@ pt:
       heading: Atribuir revisões de pares aleatórias
       tooltip_message: Atribui artigos aleatórios (com a contagem de revisão por pares
         como número máximo) a cada aluno.
-      limit_exceeded: Cada estudante já está a rever pelo menos %{maximum} artigo(s).
+      tooltip_message_wikidata: Atribui elementos aleatórios (com a contagem de revisão
+        por pares como número máximo) a cada aluno.
+      limit_exceeded: Cada aluno já está a rever pelo menos %{maximum} artigo(s).
+      limit_exceeded_wikidata: Cada aluno já está a rever pelo menos %{maximum} elemento(s).
     remove: Remover
     reviewers: Revisor(es)
     review_other: Atribuir/remover uma revisão de pares
@@ -322,6 +325,8 @@ pt:
     review_self_wikidata: Rever um elemento
     review_tooltip: Isto é para os artigos a que planeia fazer revisão por pares ou
       comentar.
+    review_tooltip_wikidata: Isto é para os elementos a que planeia fazer revisão
+      por pares ou comentar.
     sandbox_draft_link: Rascunho de teste
     select: Selecionar
     warning_untracked_wiki: 'Note que o artigo que escolheu está numa wiki que não
@@ -373,6 +378,9 @@ pt:
     data_editor_usernames: Nomes de utilizador dos editores
     data_editor_usernames_info: Lista de nomes de utilizador dos editores, um por
       linha
+    data_wikidata: Estatísticas Wikidata
+    data_wikidata_info: Decomposição detalhada da atividade na wiki Wikidata, com
+      base nos resumos de edição
     default_course_type: Tipo de curso predeterminado
     default_passcode: Código de acesso padrão
     default_passcode_explanation: 'Por omissão, os novos programas desta campanha
@@ -397,6 +405,7 @@ pt:
     slug: Linha composta
     search_campaigns: Pesquisar campanhas
     use_start_end_dates: Utilizar datas iniciais e finais
+    search: Pesquisar
   categories:
     add_category: Adicionar categoria
     add_psid: Adicionar PSID PetScan
@@ -433,7 +442,7 @@ pt:
     assignment_edits_enabled: Edições relativas a trabalhos ativadas
     assignment_edits_enabled_tooltip: Se ativadas, o painel de controlo publicará
       uma predefinição na página de discussão por cada artigo atribuído.
-    accounts_generation_enabled: Geração de pedidos de contas ativada
+    accounts_generation_enabled: Geração de pedidos de conta ativada
     accounts_generation_explanation: Isto vai permitir que os participantes introduzam
       o seu endereço de correio eletrónico e o nome de utilizador desejado, em vez
       de criarem contas novas. Poderá então criar as contas a partir deste Painel
@@ -441,7 +450,7 @@ pt:
     accounts_generation_confirm_message: Tem a certeza de que deseja ativar pedidos
       de contas?
     activity: Atividade
-    active_courses: '%{course_type} ativos'
+    active_courses: Cursos ativos
     add_trainings: Adicione formações ao seu calendário de trabalhos. Atribuir módulos
       de formação é uma parte essencial das boas práticas da Wiki Educação.
     alerts: Alertas
@@ -452,9 +461,13 @@ pt:
     actions: Ações
     articles: Artigos
     article_viewer: Leitor de artigos
+    article_viewer_wikidata: Leitor de elementos
+    articles_i_am_reviewing_wikidata: Elementos que estou a rever entre pares
     articles_i_am_reviewing: Artigos que estou a rever entre pares
     articles_i_will_create: Artigos que vou criar
+    articles_i_will_create_wikidata: Elementos que vou criar
     articles_i_am_updating: Artigos que estou a atualizar
+    articles_i_am_updating_wikidata: Elementos que estou a atualizar
     assignment_headings:
       assigned_articles: Artigos atribuídos
       assigned_articles_wikidata: Elementos atribuídos
@@ -659,6 +672,12 @@ pt:
       one: Professor
       other: Professores
     instructors: Professores
+    instructor_message: Esta interface "Os meus artigos" é a mesma que os alunos têm.
+      Pode usá-la para percorrer os mesmos passos que os alunos irão percorrer. No
+      entanto, só as contribuições dos alunos serão registadas.
+    instructor_message_wikidata: Esta interface "Os meus elementos" é a mesma que
+      os alunos têm. Pode usá-la para percorrer os mesmos passos que os alunos irão
+      percorrer. No entanto, só as contribuições dos alunos serão registadas.
     invitation: Foi convidado a participar em %{title}. Para inscrever-se, precisa
       de iniciar sessão com a sua conta na Wikipedia.
     invitation_username_advice: Se ainda não tiver uma conta na Wikipédia, registe-se
@@ -688,6 +707,7 @@ pt:
     loading: A carregar...
     milestones_none: Este curso não possui objetivos atualmente.
     my_articles: Os meus artigos
+    my_articles_wikidata: Os meus elementos
     needs_update: Agendar atualização de dados
     new_week: Adicionar nova semana
     new_account_check_username: Verificar a disponibilidade do nome de utilizador
@@ -741,8 +761,12 @@ pt:
       other: '%{count} contas solicitadas pendentes.'
     requested_accounts_alert_view: Ver
     retain_available_articles: Reter os artigos disponíveis
+    retain_available_articles_wikidata: Reter os elementos disponíveis
     retain_available_articles_info: Quando ativada, selecionar um artigo disponível
       não o remove da lista, permitindo que vários estudantes selecionem o mesmo artigo.
+    retain_available_articles_info_wikidata: Quando ativada, selecionar um elemento
+      disponível não o remove da lista, permitindo que vários estudantes selecionem
+      o mesmo elemento.
     review_timeline: 'Agora, reveja o seu calendário de trabalhos e faça as alterações
       necessárias. Quando estiver satisfeito, pode submetê-lo para aprovação da equipa
       da Wiki Educação. Após a aprovação, receberá um URL de matrícula que os alunos
@@ -975,24 +999,35 @@ pt:
       learn_more: Se o trabalho do aluno piorou o artigo, recomendamos que o edite.
         Caso contrário, informe-nos sobre os problemas para que possamos corrigi-los
         mais tarde.
+      learn_more_wikidata: Se o trabalho do aluno piorou o elemento, recomendamos
+        que o edite. Caso contrário, informe-nos sobre os problemas para que possamos
+        corrigi-los mais tarde.
       learn_more_button: Saiba mais
       submit_issue: Quais são os problemas importantes deste artigo?
+      submit_issue_wikidata: Quais são os problemas importantes deste elemento?
       submit_issue_placeholder: Quanto mais representar a perspetiva dos especialistas
         e mais forem os detalhes que puder fornecer, melhor.
       thank_you: Obrigado! Entre em contacto com o especialista da sua Wiki se tiver
         mais perguntas.
     exercises_and_trainings: '%{prefix} Exercícios e formações'
-    no_assignments: Este aluno não tem artigos atribuídos de momento. Pode atribuir-lhe
+    no_assignments: Este aluno não tem artigos atribuídos neste momento. Pode atribuir-lhe
       um artigo usando os botões acima.
+    no_assignments_wikidata: Este aluno não tem elementos atribuídos neste momento.
+      Pode atribuir-lhe um elemento usando os botões acima.
     overview: '%{prefix} Visão geral'
     reviewing_articles: A rever artigos
+    reviewing_articles_wikidata: A rever elementos
     select_student:
       title: Selecionar %{prefix}
       content: atribuir e ver atribuições de artigos
+      content_wikidata: atribuir e ver atribuições de elementos
   metrics:
     label: Atividade do curso
     last_update: Última atualização das estatísticas
     next_update: Próxima atualização estimada
+    late_update: Era esperada uma atualização nova em %{late_update_time}. Isto pode
+      significar que a atualização está a demorar mais do que era esperado ou pode
+      indicar um problema que está a bloquear as atualizações.
     no_update: O painel ainda não importou nenhum dado para este programa.
     enqueued_update: Este programa foi adicionado à fila de atualizações.
     first_update: Início estimado da atualização de estatísticas
@@ -1001,11 +1036,15 @@ pt:
     articles_created: Artigos criados
     articles_created_wikidata: Elementos criados
     articles_created_generic: Páginas criadas
+    articles_created_generic_wikidata: Elementos criados
     articles_edited: Artigos editados
     articles_edited_wikidata: Elementos editados
     articles_edited_generic: Páginas editadas
+    articles_edited_generic_wikidata: Elementos editados
     article_scoped_program_info: Este é um 'Programa limitado por artigos', que só
       conta edições dos artigos e categorias atribuídos.
+    article_scoped_program_info_wikidata: Este é um 'Programa limitado por artigos',
+      que só conta edições dos elementos e categorias atribuídos.
     bytes_added: Bytes acrescentados
     characters: Caracteres
     char_added: Caracteres adicionados
@@ -1053,26 +1092,54 @@ pt:
     uploads_in_use_count:
       one: arquivo usado em um artigo
       other: arquivos usados em artigos
+    uploads_in_use_count_wikidata:
+      one: ficheiro usado num elemento
+      other: ficheiros usados em elementos
     upload_usages_count:
-      one: total de uso considerando todos os idiomas
-      other: total de usos considerando todos os idiomas
-    view_count_description: Visualizações de artigo
+      one: utilização total considerando todas as línguas
+      other: utilizações totais considerando todas as línguas
+    view_count_description: Visualizações de artigos
+    view_count_description_wikidata: Visualizações de elementos
     view_data_unavailable: Não há dados visíveis disponíveis
     view: Visualizações
     wiki_ed_help: Usar o botão 'Obter ajuda' para reportar um problema.
-    word_count: Palavras Adicionadas
+    word_count: Palavras adicionadas
     word_count_average: Número médio de palavras
+    general: Geral
+    total_revisions: Total de revisões
+    claims: Alegações
+    aliases: Nomes alternativos
+    merged: Fundidos
+    created: Criados
+    changed: Alterados
+    removed: Removidos
+    cleared: Esvaziados
+    added: Adicionados
+    descriptions: Descrições
+    interwiki_links_added: Hiperligações interwikis adicionadas
+    labels: Etiquetas
+    no_data: Não há dados
+    other_updates: Outras atualizações
+    qualifiers_added: Qualificadores adicionados
+    redirects_created: Redirecionamentos criados
+    references_added: Referências adicionadas
+    references_added_info: Esta contagem das referências adicionadas pode ser só parcial.
+      A contagem é baseada no resumos de edição na wiki Wikidata e algumas edições
+      que adicionam referências são antes classificadas como "Alegação alterada" ou
+      "Alegação criada".
+    restorations_performed: Restaurações efetuadas
+    reverts_performed: Reversões efetuadas
   namespace:
     main: Domínio principal
     main_char_added: Caracteres adicionados ao domínio principal
-    user: Domínio Utilizador
-    user_char_added: Caracteres adicionados ao espaço nominal de utilizador
+    user: Espaço nominal do utilizador
+    user_char_added: Caracteres adicionados ao espaço nominal do utilizador
     user_ns: Utilizador
   recent_activity:
     active_courses: O artigo está ativo em
     article_title: Título
     datetime: Data/Horário
-    did_you_know_eligible: Sabia que Elegível
+    did_you_know_eligible: Elegível para "Sabia que..."
     image: Imagem
     file_name: Nome do ficheiro
     no_dyk_eligible: Não há atualmente nenhum artigo "Sabia que..." elegível.
@@ -1089,27 +1156,27 @@ pt:
       ao próprio artigo — o respetivo conteúdo pode ter sido eliminado por motivos
       de direitos de autor.
     recent_edits: Edições recentes
-    recent_uploads: Últimos Envios
-    revision_author: Autor da Revisão
-    revision_datetime: Data/Horário da Revisão
-    revision_score: Pontuação da Revisão
-    show_courses: Mostrar Apenas Meus Cursos
+    recent_uploads: Últimos carregamentos
+    revision_author: Autor da revisão
+    revision_datetime: Data e hora da revisão
+    revision_score: Pontuação da revisão
+    show_courses: Mostrar só os meus cursos
     uploaded_by: Enviado por
-    usage_count: Total de Uso
+    usage_count: Contagem de utilizações
   revisions:
-    chars_added: Caracteres Adicionados
+    chars_added: Caracteres adicionados
     references: Referências Adicionadas
     class: Classe
-    date_time: Data/Hora
+    date_time: Data e hora
     diff: dif
     diff_show: Mostrar
     diff_hide: Ocultar
     edit_time_span: As edições ocorreram de %{first_time} a %{last_time}
     edited_by: Editado por
     edited_on: Editado em %{edit_date}
-    loading: Carregando revisões...
+    loading: A carregar revisões...
     none: Este curso não tem nenhuma atividade recente de edição.
-    time_doc: Horário de cada revisão em seu horário local
+    time_doc: Hora de cada revisão na sua hora local
     title: Título
     view_on_wiki: Ver diferenças na wiki
     see_more: Ver mais
@@ -1167,16 +1234,16 @@ pt:
         e outras referências. Considere usar a revisão por pares ou nomear o artigo
         para o estado bom. Se o artigo ainda não estiver devidamente formatado, faça-o
         agora.
-      b: Alguns aspetos do conteúdo e estilo precisam ser abordados. Pode ser necessário
-        ter conhecimentos especializados. A inclusão de materiais de suporte deve
-        ser considerada, na prática, e o artigo deve ser verificado, em conformidade
-        com o Livro de Estilo e as diretrizes relacionadas.
-      c: Uma edição considerável é necessária para fechar as lacunas no conteúdo e
-        solucionar os problemas de limpeza.
+      b: Alguns aspetos de conteúdo e estilo precisam de ser endereçados. Pode ser
+        necessário ter conhecimentos especializados. A inclusão de materiais de suporte
+        deve ser considerada, se for prática, e deve ser verificado que o artigo está
+        em conformidade com o livro de estilo e diretrizes de estilo relacionadas.
+      c: São necessárias alterações consideráveis para preencher lacunas de conteúdo
+        e solucionar problemas de limpeza.
       start: O fornecimento das referências e fontes confiáveis deve vir em primeiro
         lugar. O artigo também precisa de melhorias consideráveis no conteúdo e na
-        organização. Também realize correções gramaticais, ortográficas, o estilo
-        de escrita e evite o uso de gírias.
+        organização. Realize também correções gramaticais, ortográficas e do estilo
+        de escrita, e remova o uso de gíria.
       stub: Qualquer edição ou material adicional podem ser úteis. O fornecimento
         de conteúdo significativo deve ser uma prioridade. A melhor solução para transformar
         um artigo da classe Provisório num artigo da classe Iniciado é acrescentar
@@ -1309,8 +1376,10 @@ pt:
   users:
     already_enrolled: Esse utilizador já está matriculado!
     assign_articles: Atribuir artigos
+    assign_articles_wikidata: Atribuir elementos
     assign_articles_done: Concluído
     assigned: Artigos atribuídos
+    assigned_wikidata: Elementos atribuídos
     assignees: Aluno(s)
     loading_authorship_data: a carregar dados de autoria
     authorship_data_not_fetched: não foi possível obter os dados de autoria
@@ -1320,6 +1389,7 @@ pt:
       a quantidade do conteúdo novo que o utilizador acrescentou. Restaurar o conteúdo
       eliminado também aumentará este total.
     chars_added: Os caracteres foram acrescentados<br>(artigo | utilizador | rascunho)
+    chars_added_wikidata: Caracteres acrescentados<br>(elemento | utilizador | rascunho)
     contributions: Contribuições de utilizador
     contributions_history_full: Ver o histórico completo de contribuições
     contributions_more: Ver mais contribuições
@@ -1339,6 +1409,7 @@ pt:
     last_name: Apelido
     loading: A carregar os utilizadores...
     characters_added_mainspace: Caracteres acrescentados (artigo)
+    characters_added_mainspace_wikidata: Caracteres acrescentados (elemento)
     characters_added_short: 'EP: %{mainspace}, EU: %{userspace}'
     characters_added_userspace: Caracteres acrescentados (utilizador)
     characters_added_draftspace: Caracteres acrescentados (rascunho)

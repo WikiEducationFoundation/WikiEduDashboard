@@ -157,7 +157,8 @@ Rails.application.routes.draw do
         :as => 'show',
         constraints: {
           school: /[^\/]*/,
-          titleterm: /[^\/]*/
+          titleterm: /[^\/]*/,
+          _subsubsubpage: /.*/
         }
 
     get 'embed/course_stats/:school/:titleterm(/:_subpage(/:_subsubpage))' => 'embed#course_stats',
@@ -391,6 +392,10 @@ Rails.application.routes.draw do
     put '/salesforce/update/:course_id' => 'salesforce#update'
     get '/salesforce/create_media' => 'salesforce#create_media'
   end
+
+  # Wikimedia Event Center
+  post '/wikimedia_event_center/confirm_event_sync' => 'wikimedia_event_center#confirm_event_sync'
+  post '/wikimedia_event_center/update_event_participants' => 'wikimedia_event_center#update_event_participants'
 
   # Experiments
   namespace :experiments do

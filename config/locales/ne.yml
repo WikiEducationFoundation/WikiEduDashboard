@@ -706,7 +706,7 @@ ne:
       to let them know about the problem.
   login_error:
     header: प्रवेश त्रुटी
-    explanation: It looks like there was an problem with the sign in process. (त्यसको
+    explanation: It looks like there was a problem with the sign in process. (त्यसको
       लागि माफी चाहन्छौँ! यदि यस्तो भइरहे।) लग इन गर्न पुनः प्रयास गर्नुहोस् या फेरि
       समावेश हुनुहोस्।
   survey:
