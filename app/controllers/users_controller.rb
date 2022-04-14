@@ -140,8 +140,15 @@ class UsersController < ApplicationController
   def remove
     set_course_and_user
     return if @user.nil?
-    @course_user = CoursesUsers.find_by(user_id: @user.id,
-                                        course_id: @course.id,
+    # For events controlled by Event Center, only non-student roles
+    # can be changed on the Dashboard. Student role is handled
+    # via WikimediaEventCenterController.
+    if @course.controlled_by_event_center? && student_role?
+      render json: { message: I18n.t('courses.controlled_by_event_center') }, status: :unauthorized
+      return
+    end
+
+    @course_user = CoursesUsers.find_by(user: @user, course: @course,
                                         role: enroll_params[:role])
     if @course_user.nil? # This will happen if the user was already removed.
       render 'users', formats: :json

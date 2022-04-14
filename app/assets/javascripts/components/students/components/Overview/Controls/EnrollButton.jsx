@@ -109,6 +109,9 @@ export class EnrollButton extends React.Component {
   }
 
   render() {
+    // Disable the button for courses controlled by Wikimedia Event Center
+    if (this.props.course.flags.event_sync) { return null; }
+
     const users = this.props.users.map((user) => {
       let removeButton;
       if (this.props.role !== 1 || this.props.users.length >= 2 || this.props.current_user.admin) {

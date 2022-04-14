@@ -35,7 +35,7 @@ const isEntityTitle = (title) => {
   return isQItem || isPropertyOrLexeme;
 };
 
-const fetchWikidataLabels = (wikidataEntities, dispatch) => {
+export const fetchWikidataLabels = (wikidataEntities, dispatch) => {
   if (wikidataEntities.length === 0) { return; }
   const qNumbers = map(wikidataEntities, 'title')
                      .filter(isEntityTitle)
@@ -51,8 +51,6 @@ const fetchWikidataLabels = (wikidataEntities, dispatch) => {
       });
   });
 };
-
-
 
 export const fetchWikidataLabelsForArticles = (articles, dispatch) => {
   const wikidataEntities = filter(articles, { project: 'wikidata' });

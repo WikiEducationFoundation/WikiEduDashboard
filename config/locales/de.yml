@@ -13,6 +13,7 @@
 # Author: Jikrau
 # Author: Killarnee
 # Author: Metalhead64
+# Author: Ngschaider
 # Author: Sebastian Wallroth
 # Author: Taresi
 # Author: ToBeFree
@@ -430,6 +431,9 @@ de:
     confirm_manual_update: Bist du sicher, dass du eine manuelle Aktualisierung durchführen
       möchtest? Die aktuellsten Versionen werden importiert und die Seite wird anschließend
       neu geladen. Dieser Vorgang kann einige Zeit in Anspruch nehmen.
+    controlled_by_event_center: Die Teilnahme an dieser Veranstaltung ist durch das
+      Wikimedia Event Center geregelt. Ihr kann nicht über das Dashboard beigetreten
+      werden.
     course: Kurs
     course_dates_calendar_instructions: Wähle Daten aus, um sie in dem Plan hinzuzufügen
       oder zu entfernen (z.&nbsp;B. Feiertage oder schulfreie Tage). Klicke das Datum
@@ -618,6 +622,8 @@ de:
     join_failure_details:
       cannot_join_twice: Benutzer können sich nicht zweimal in denselben Kurs einschreiben.
       not_yet_approved: Dieser Kurs wurde noch nicht zur Einschreibung freigegeben.
+      invalid_sync: Die Teilnahme an dieser Veranstaltung ist durch das Wikimedia
+        Event Center geregelt. Ihr kann nicht über das Dashboard beigetreten werden.
     join_details: Um diesem Kurs beizutreten, benötigst du vom Kursleiter den Passcode
       oder einen Einschreibungslink, der den Passcode enthält. Falls du diesen nicht
       erhalten hast, kontaktiere deinen Kursleiter.

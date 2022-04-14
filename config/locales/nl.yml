@@ -154,9 +154,9 @@ nl:
     new: (nieuw)
     none: Deze cursus heeft geen bewerkte pagina's.
     rating: Klasse
-    rating_doc: De waardering van een pagina is toegewezen door WikiProjecten op Wikipedia.
-      Deze waarderingen kunnen gebaseerd zijn op veel oudere versies, dus ze zijn
-      een ruwe indicator van de volwassenheid van een pagina.
+    rating_doc: De waardering van een artikel is toegekend door WikiProjecten op Wikipedia.
+      Deze waarderingen kunnen gebaseerd zijn op veel oudere versies en zijn dus maar
+      een ruwe aanduiding van de volwassenheid van het artikel.
     rating_docs:
       fa: '%{class} (uitgelicht artikel) – De hoogste waardering in Wikipedia, waarschijnlijk
         een te volwassen pagina voor het hoofdproject van een nieuwe redacteur'

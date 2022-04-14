@@ -112,9 +112,12 @@ const AvailableActions = createReactClass({
     if ((user.isEnrolled) || user.admin || user.isAdvancedRole) {
       // If user is a student, show the 'leave' button.
       if (user.isStudent || user.isOnlineVolunteer) {
-        controls.push((
-          <div key="leave" className="available-action"><button onClick={this.leave} className="button">{CourseUtils.i18n('leave_course', course.string_prefix)}</button></div>
-        ));
+        // 'Leave' is not available if the course is controlled by Event Center.
+        if (!course.flags.event_sync) {
+          controls.push((
+            <div key="leave" className="available-action"><button onClick={this.leave} className="button">{CourseUtils.i18n('leave_course', course.string_prefix)}</button></div>
+          ));
+        }
       }
       // If course is not published, show the 'delete' button to instructors and admins.
       // Show a disabled version of it on P&E Dashboard even if a course is published,
@@ -136,7 +139,8 @@ const AvailableActions = createReactClass({
       }
     // If user has no role or is logged out, and if he is not on enrollment page, show 'Join course' button.
     // On enrollment page, 'Join course' button is not shown in Actions component to avoid confusion.
-    } else if (!course.ended && !isEnrollmentURL) {
+    // The 'Join course' button is not shown for courses controlled by Wikimedia Event Center
+    } else if (!course.ended && !isEnrollmentURL && !course.flags.event_sync) {
       controls.push(
         <div key="join" className="available-action"><button onClick={this.join} className="button">{CourseUtils.i18n('join_course', course.string_prefix)}</button></div>
       );

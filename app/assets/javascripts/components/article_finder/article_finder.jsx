@@ -49,7 +49,7 @@ const ArticleFinder = createReactClass({
       this.props.fetchAssignments(this.props.course_id);
     }
     if (this.props.router.location.project) {
-      return this.updateFields('home_wiki', { language: this.props.router.location.language, project: this.props.router.location.project });
+      return this.updateFields('wiki', { language: this.props.router.location.language, project: this.props.router.location.project });
     }
     return this.updateFields('home_wiki', this.props.course.home_wiki);
   },
@@ -128,7 +128,7 @@ const ArticleFinder = createReactClass({
     wiki = wiki.value;
     this.setState({ isSubmitted: false });
     this.props.clearResults();
-    return this.updateFields('home_wiki', { language: wiki.language, project: wiki.project });
+    return this.updateFields('wiki', { language: wiki.language, project: wiki.project });
   },
 
   sortSelect(e) {
@@ -309,6 +309,7 @@ const ArticleFinder = createReactClass({
           <ArticleFinderRow
             article={article}
             title={title}
+            label={this.props.wikidataLabels[title]}
             key={article.pageid}
             courseSlug={this.props.course_id}
             course={this.props.course}
@@ -431,6 +432,7 @@ const ArticleFinder = createReactClass({
 const mapStateToProps = state => ({
   articles: getFilteredArticleFinder(state),
   unfilteredArticles: state.articleFinder.articles,
+  wikidataLabels: state.wikidataLabels.labels,
   loading: state.articleFinder.loading,
   search_term: state.articleFinder.search_term,
   min_views: state.articleFinder.min_views,
