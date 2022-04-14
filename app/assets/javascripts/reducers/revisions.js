@@ -32,6 +32,8 @@ const initialState = {
   courseScopedRevisionsLoaded: false,
   last_date: moment().utc().format(),
   revisionsDisplayed: [],
+  referencesLoaded: false,
+  assessmentsLoaded: false
 };
 
 const isLimitReachedCourseSpecific = (revs, limit) => {
@@ -67,7 +69,7 @@ export default function revisions(state = initialState, action) {
       };
     }
     case RECEIVE_REFERENCES: {
-      const newState = { ...state };
+      const newState = { ...state, referencesLoaded: true };
       const revisionsArray = newState.revisions;
       const referencesAdded = action.data.referencesAdded;
       newState.revisions = revisionsArray.map((revision) => {
@@ -79,7 +81,7 @@ export default function revisions(state = initialState, action) {
       return newState;
     }
     case RECEIVE_ASSESSMENTS: {
-      const newState = { ...state };
+      const newState = { ...state, assessmentsLoaded: true };
       const revisionsArray = newState.revisions;
       const pageAssessments = action.data.assessments;
       newState.revisions = revisionsArray.map((revision) => {
@@ -116,7 +118,9 @@ export default function revisions(state = initialState, action) {
         limitReached: isLimitReached(action.data.course.start, state.last_date),
         revisionsLoaded: true,
         last_date: action.data.last_date,
-        revisionsDisplayed
+        revisionsDisplayed,
+        referencesLoaded: false,
+        assessmentsLoaded: false
       };
     }
     case RECEIVE_COURSE_SCOPED_REVISIONS:
