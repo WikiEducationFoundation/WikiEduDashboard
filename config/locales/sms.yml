@@ -43,6 +43,7 @@ sms:
     created_at: Peiʹvvmieʹrr
     course: Kurss
     delete_campaign: Jaukkâd tän kampaanj
+    search_campaigns: Ooʒʒ kampaanjid
   categories:
     add_category: Lââʹzzet kategoria
     add_psid: Lââʹzzet PetScan PSID
@@ -132,6 +133,7 @@ sms:
   training:
     view: Čuäʹjet
     page: Seidd
+    view_module_source: čuäʹjet moduulkääiv
   users:
     contributions: Õõʹnni muttâz
     contribution_statistics: Muʹttemstatistiikk

@@ -517,6 +517,9 @@ fr:
     confirm_manual_update: Êtes-vous sûr de vouloir exécuter une mise à jour manuelle ?
       Les révisions les plus récentes seront importées puis la page rechargée. Ce
       processus peut prendre un peu de temps.
+    controlled_by_event_center: Les inscriptions à cet évènement sont contrôlées par
+      le Centre des évènements Wikimedia. Il n’est pas possible de s’y inscrire depuis
+      le Tableau de bord.
     course: Cours
     course_dates_calendar_instructions: Sélectionner les dates à ajouter ou à supprimer
       de l’agenda (par ex., vacances et congés, école fermée). Cliquer sur la date
@@ -723,6 +726,9 @@ fr:
       not_yet_approved: Ce cours n’a pas encore été approuvé pour l’inscription.
       withdrawn: Ce cours a été marqué comme retiré — peut-être par erreur. Contactez
         le personnel de Wiki Education pour le réactiver.
+      invalid_sync: Les inscriptions à cet évènement sont contrôlées par le Centre
+        des évènements Wikimedia. Il n’est pas possible de s’y inscrire depuis le
+        Tableau de bord.
     join_details: Pour rejoindre ce cours, vous devez obtenir le code d’accès — ou
       un lien d’inscription qui l’inclut — de la part du formateur. Si vous ne l’avez
       pas reçu, contactez votre formateur.

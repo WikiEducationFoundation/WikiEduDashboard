@@ -60,6 +60,9 @@ fa:
     opt_out: خیر
     opt_yes: بله
     opt_no: خیر
+  article_statuses:
+    reading_the_article: مطالعهٔ مقاله
+    providing_feedback: ارائه بازخورد
   dashboard:
     create_note: برای ایجاد نخستین دورهٔ خود، بر روی ایجاد دوره کلیک کنید.
     explore_course_pages: در صفحه‌های دوره کاوش کنید
@@ -341,6 +344,7 @@ fa:
     submitted_heading: دوره‌های ثبت‌شده
     submitted_note: دورهٔ شما ثبت شده‌است. کارمندان ویکی برنامهٔ آموزشی آن را بازبینی
       خواهند کرد و با شما در تماس خواهند بود.
+    suggestions_sending: در حال ارسال بازخورد...
     user_role: نقش
     submitted: ثبت شده
     submitted_at: ثبت شده در
