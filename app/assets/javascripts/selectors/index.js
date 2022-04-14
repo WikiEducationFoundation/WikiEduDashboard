@@ -117,6 +117,7 @@ export const getCurrentUser = createSelector(
 export const getAvailableCampaigns = createSelector(
   [getCourseCampaigns, getAllCampaigns], (campaigns, allCampaigns) => {
     campaigns = campaigns.map(campaign => campaign.title);
+    allCampaigns = allCampaigns.map(campaign => campaign.title);
     return difference(allCampaigns, campaigns);
   }
 );
