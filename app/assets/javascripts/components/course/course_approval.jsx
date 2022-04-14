@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { connect } from 'react-redux';
 import { difference, uniq } from 'lodash-es';
+import moment from 'moment';
 
 import PropTypes from 'prop-types';
 import Select from 'react-select';
@@ -42,12 +43,7 @@ const CourseApproval = (props) => {
         }
 
         if (props.allCampaigns.length > 0) {
-           // Set the first campaign as default selected campaign
-           // eslint-disable-next-line react/no-did-update-set-state
-          setSelectedCampaigns([{
-            value: props.allCampaigns[0],
-            label: props.allCampaigns[0],
-          }]);
+          setDefaultCampaign();
         }
 
         if (props.tags.length > 0) {
@@ -74,6 +70,44 @@ const CourseApproval = (props) => {
           };
         });
         return options;
+    };
+
+    const setDefaultCampaign = () => {
+      const start_date = props.course.start;
+      const month = moment(start_date).month();
+      const year = moment(start_date).year();
+
+      let term;
+      switch (month) {
+        case 11:
+          term = `spring_${year + 1}`;
+          break;
+
+        case 0: case 1: case 2: case 3:
+          term = `spring_${year}`;
+          break;
+
+        case 4: case 5: case 6:
+          term = `summer_${year}`;
+          break;
+
+        case 7: case 8: case 9: case 10:
+          term = `fall_${year}`;
+          break;
+
+        default:
+          term = '';
+          break;
+      }
+
+      const defaultCampaign = props.allCampaigns.filter(campaign => campaign.slug === term);
+
+      if (defaultCampaign.length > 0) {
+        setSelectedCampaigns([{
+          value: defaultCampaign[0].title,
+          label: defaultCampaign[0].title
+        }]);
+      }
     };
 
     const handleWikiExpertChange = (selectedOption) => {
@@ -105,7 +139,7 @@ const CourseApproval = (props) => {
           role_description: null,
           real_name: programManager.realname
         };
-        promises.push(props.addUser(props.course_slug, { user: programManagerUserObject }));
+        promises.push(props.addUser(props.course.slug, { user: programManagerUserObject }));
       }
 
       // Only add the selected wiki expert, if they are not already assigned a staff role
@@ -116,7 +150,7 @@ const CourseApproval = (props) => {
           role_description: null,
           real_name: wikiExpert.realname
         };
-        promises.push(props.addUser(props.course_slug, { user: wikiExpertUserObject }));
+        promises.push(props.addUser(props.course.slug, { user: wikiExpertUserObject }));
       }
       return promises;
     };
@@ -125,7 +159,7 @@ const CourseApproval = (props) => {
       const promises = [];
       if (selectedCampaigns.length > 0) {
         selectedCampaigns.forEach((campaign) => {
-          promises.push(props.addCampaign(props.course_slug, campaign.value));
+          promises.push(props.addCampaign(props.course.slug, campaign.value));
         });
       }
       return promises;
@@ -140,10 +174,10 @@ const CourseApproval = (props) => {
 
       const promises = [];
       newTags.forEach((tag) => {
-        promises.push(props.addTag(props.course_slug, tag));
+        promises.push(props.addTag(props.course.slug, tag));
       });
       removedTags.forEach((tag) => {
-        promises.push(props.removeTag(props.course_slug, tag));
+        promises.push(props.removeTag(props.course.slug, tag));
       });
       return promises;
     };
@@ -169,7 +203,7 @@ const CourseApproval = (props) => {
     const wikiExpertOptions = props.wikiEdStaff.length > 0 ? setWikiExpertOptions() : [];
 
     const campaignOptions = props.allCampaigns.map((campaign) => {
-        return { value: campaign, label: campaign };
+        return { value: campaign.title, label: campaign.title };
     });
 
     const allTagOptions = uniq(props.allTags).map((tag) => {
@@ -281,7 +315,7 @@ const CourseApproval = (props) => {
 };
 
 CourseApproval.propTypes = {
-    course_slug: PropTypes.string,
+    course: PropTypes.object,
     fetchSpecialUsers: PropTypes.func,
     fetchAllCampaigns: PropTypes.func,
     addUser: PropTypes.func,
@@ -296,6 +330,7 @@ CourseApproval.propTypes = {
 };
 
 const mapStateToProps = state => ({
+    course: state.course,
     wikiEdStaff: getCourseApprovalStaff(state),
     allCampaigns: state.campaigns.all_campaigns,
     tags: state.tags.tags,
