@@ -35,6 +35,8 @@ const CourseApproval = (props) => {
       const wikiExpert = props.wikiEdStaff.find(user => user.role === 'wikipedia_expert');
       const currentWikiExpert = props.wikiEdStaff.find(user => user.role === 'wikipedia_expert' && user.already_selected);
 
+      // Check if there exists a wiki expert who is already allotted a staff role. If yes, set that
+      // user as selectedWikiExpert. Else, set the first wikipedia expert user as the selectedWikiExpert.
       setSelectedWikiExpert(
         (currentWikiExpert !== null && currentWikiExpert !== undefined)
           ? { value: currentWikiExpert.username, label: `${currentWikiExpert.username} (${currentWikiExpert.realname})` }
@@ -73,6 +75,9 @@ const CourseApproval = (props) => {
   };
 
   const setDefaultCampaign = () => {
+    // Try to infer the best suitable campaign from the start date of course.
+    // Use the month and year to get the suitable term and compare it with the campaign slug.
+
     const start_date = props.course.start;
     const month = moment(start_date).month();
     const year = moment(start_date).year();
@@ -101,7 +106,6 @@ const CourseApproval = (props) => {
     }
 
     const defaultCampaign = props.allCampaigns.filter(campaign => campaign.slug === term);
-
     if (defaultCampaign.length > 0) {
       setSelectedCampaigns([{
         value: defaultCampaign[0].title,
@@ -169,8 +173,8 @@ const CourseApproval = (props) => {
     const oldTags = props.tags.map(tag => tag.tag);
     const currentTags = selectedTags.map(tag => tag.value);
 
-    const newTags = difference(currentTags, oldTags);
-    const removedTags = difference(oldTags, currentTags);
+    const newTags = difference(currentTags, oldTags); // newly added tags
+    const removedTags = difference(oldTags, currentTags); // tags removed by current selection
 
     const promises = [];
     newTags.forEach((tag) => {
