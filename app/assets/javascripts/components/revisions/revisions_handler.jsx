@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import RevisionList from './revision_list.jsx';
 import { fetchRevisions, sortRevisions, fetchCourseScopedRevisions } from '../../actions/revisions_actions.js';
 import Loading from '../common/loading.jsx';
+import ProgressIndicator from '../common/progress_indicator.jsx';
 
 const RevisionHandler = createReactClass({
   displayName: 'RevisionHandler',
@@ -124,15 +125,7 @@ const RevisionHandler = createReactClass({
         />
         {!loaded && <Loading/>}
         {loaded && showMoreButton}
-        {loaded && metaDataLoading && (
-          <div id="progress" >
-            <div className="text-center">
-              <div className="loading__spinner__small" />
-              {this.getLoadingMessage()}
-            </div>
-          </div>
-          )
-        }
+        {loaded && metaDataLoading && <ProgressIndicator message={this.getLoadingMessage()}/>}
       </div>
     );
   }
