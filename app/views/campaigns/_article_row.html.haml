@@ -3,11 +3,11 @@
     = link_to article.full_title, article.url
     = t('articles.deleted') if article.deleted
   %td.char_added
-    = article_course.character_sum
+    = number_to_human article_course.character_sum/5.175
   %td.references
     = article_course.references_count
   %td.views
-    = article_course.view_count
+    = number_to_human article_course.view_count
   %td.lang_project
     %small
       = "#{article.wiki.language}.#{article.wiki.project}"
