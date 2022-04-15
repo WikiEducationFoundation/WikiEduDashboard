@@ -14,8 +14,8 @@
         %select.sorts{rel: 'campaign-articles'}
           %option{rel: 'asc', value: 'title'}
             = t("articles.title")
-          %option{rel: 'desc', value: 'char_added'}
-            = t("metrics.char_added")
+          %option{rel: 'desc', value: 'characters'}
+            = t("metrics.word_count")
           %option{rel: 'desc', value: 'references'}
             = t("metrics.references_count")
           %option{rel: 'desc', value: 'views'}
@@ -31,13 +31,13 @@
           %th.sort.sortable{'data-default-order' => 'asc', 'data-sort' => 'title'}
             = t('articles.title')
             %span.sortable-indicator
-          %th.sort.sortable.desc{'data-default-order' => 'desc', 'data-sort' => 'char_added'}
+          %th.sort.sortable{style: 'width: 172px;', 'data-default-order' => 'desc', 'data-sort' => 'characters'}
             .tooltip-trigger
-              = t('metrics.char_added')
+              = t('metrics.word_count')
               %span.sortable-indicator
               %span.tooltip-indicator
               .tooltip.dark
-                %p= t('articles.character_doc')
+                %p= course_i18n('word_count_doc')
           %th.sort.sortable{'data-default-order' => 'desc', 'data-sort' => 'references'}
             .tooltip-trigger
               = t('metrics.references_count')
