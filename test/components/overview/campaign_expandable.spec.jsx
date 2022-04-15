@@ -13,7 +13,10 @@ describe('CampaignEditable', () => {
     string_prefix: 'course_generic',
     id: 1,
   };
-  const allCampaigns = ['Cool campaign', 'Not cool campaign'];
+  const allCampaigns = [
+    { title: 'Cool campaign', slug: 'cool_campaign' },
+    { title: 'Not cool campaign', slug: 'not_cool_campaign' }
+  ];
   const initialState = { campaigns: { campaigns } };
   const reduxStoreWithCampaigns = createStore(reducer, initialState, compose(applyMiddleware(thunk)));
 
