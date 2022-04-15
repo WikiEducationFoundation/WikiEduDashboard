@@ -3,10 +3,10 @@
 require 'net/http'
 
 class CopyCourseFromProduction
-  attr_reader :course, :course_data, :course_slug
+  attr_reader :course, :course_data
 
   def initialize(url)
-    @course_slug = make_copy_of(url)
+    course = make_copy_of(url)
   end
 
   private
@@ -14,10 +14,10 @@ class CopyCourseFromProduction
   def make_copy_of(url)
     @copied_data = get_main_course_data(url)
 
-    add_course(copied_data)
+    add_course(@copied_data)
     add_user_to_course(url)
 
-    course.slug
+    course
   end
 
   def get_main_course_data(url)
@@ -41,7 +41,7 @@ class CopyCourseFromProduction
       copied_data
     )
     # Add the tracked wikis
-    @course_data['wikis'].each do |wiki_hash|
+    course_data['wikis'].each do |wiki_hash|
       wiki = Wiki.get_or_create(language: wiki_hash['language'],
                                 project: wiki_hash['project'])
       next if wiki.id == home_wiki.id # home wiki was automatically added already

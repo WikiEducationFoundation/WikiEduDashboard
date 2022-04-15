@@ -11,10 +11,9 @@ class CopyCourseFromProductionController < ApplicationController
 
   def copy
     copied_course = CopyCourseFromProduction.new(params[:url])
-    pp 'Course created!'
     pp "http://localhost:3000/courses/#{copied_course.course_slug}"
     redirect_to copy_course_from_production_path,
-                locals: { created_course: copied_course.course_slug },
-                notice: "Course #{copied_course.course_slug} was created."
+                locals: { copied_course: copied_course.course_slug },
+                notice: "Course #{copied_course.title} was created. http://localhost:3000/courses/#{copied_course.course_slug}"
   end
 end
