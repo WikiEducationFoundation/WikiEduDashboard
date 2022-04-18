@@ -58,13 +58,15 @@ export const Course = withRouter(createReactClass({
   },
 
   showCourseApprovalForm() {
-    const location = this.props.router.location;
-    const onHomeTab = CourseUtils.onHomeTab(location);
-    const isAdmin = this.props.currentUser.isAdmin;
+    // Render the form only to admins
+    if (!this.props.currentUser.isAdmin) { return false; }
+    // Render the form only on home tab
+    if (!CourseUtils.onHomeTab(this.props.router.location)) { return false; }
+
     const isSubmitted = this.props.course.submitted;
     const isPublished = this.props.course.published;
-
-    if (onHomeTab && isAdmin && isSubmitted && !isPublished) { return true; }
+    // Render the form only if course is submitted for approval and not yet published
+    if (isSubmitted && !isPublished) { return true; }
     return false;
   },
 

@@ -492,74 +492,72 @@ const Details = createReactClass({
     }
 
     const shared = (
-      <div>
-        <div className="module course-details">
-          <div className="section-header">
-            <h3>{I18n.t('application.details')}</h3>
-            {this.props.controls()}
-          </div>
-          <div className="module__data extra-line-height">
-            <Instructors {...this.props} />
-            <div className="details-form">
-              <div className="group-left">
-                {online}
-                {campus}
-                {staff}
-                <div><p className="red">{this.props.firstErrorMessage}</p></div>
-                {school}
-                {title}
-                {term}
-                {academic_system}
-                {wikiSelector}
-                {multiWikiSelector}
-                <form>
-                  {passcode}
-                  {expectedStudents}
-                  <DatePicker
-                    onChange={this.updateCourseDates}
-                    value={this.props.course.start}
-                    value_key="start"
-                    validation={CourseDateUtils.isDateValid}
-                    editable={this.props.editable}
-                    label={CourseUtils.i18n('start', this.props.course.string_prefix)}
-                    showTime={this.props.course.use_start_and_end_times}
-                    required={true}
-                  />
-                  <DatePicker
-                    onChange={this.updateCourseDates}
-                    value={this.props.course.end}
-                    value_key="end"
-                    editable={this.props.editable}
-                    validation={CourseDateUtils.isDateValid}
-                    label={CourseUtils.i18n('end', this.props.course.string_prefix)}
-                    date_props={dateProps.end}
-                    enabled={Boolean(this.props.course.start)}
-                    showTime={this.props.course.use_start_and_end_times}
-                    required={true}
-                  />
-                </form>
-              </div>
-              <div className="group-right">
-                {timelineStart}
-                {timelineEnd}
-                {subject}
-                {courseLevelSelector}
-                {courseFormatSelector}
-                {tags}
-                {courseTypeSelector}
-                {submittedSelector}
-                {stayInSandboxToggle}
-                {retainAvailableArticlesToggle}
-                {privacySelector}
-                {timelineToggle}
-                {onlineVolunteersToggle}
-                {wikiEditsToggle}
-                {editSettingsToggle}
-                {withdrawnSelector}
-              </div>
+      <div className="module course-details">
+        <div className="section-header">
+          <h3>{I18n.t('application.details')}</h3>
+          {this.props.controls()}
+        </div>
+        <div className="module__data extra-line-height">
+          <Instructors {...this.props} />
+          <div className="details-form">
+            <div className="group-left">
+              {online}
+              {campus}
+              {staff}
+              <div><p className="red">{this.props.firstErrorMessage}</p></div>
+              {school}
+              {title}
+              {term}
+              {academic_system}
+              {wikiSelector}
+              {multiWikiSelector}
+              <form>
+                {passcode}
+                {expectedStudents}
+                <DatePicker
+                  onChange={this.updateCourseDates}
+                  value={this.props.course.start}
+                  value_key="start"
+                  validation={CourseDateUtils.isDateValid}
+                  editable={this.props.editable}
+                  label={CourseUtils.i18n('start', this.props.course.string_prefix)}
+                  showTime={this.props.course.use_start_and_end_times}
+                  required={true}
+                />
+                <DatePicker
+                  onChange={this.updateCourseDates}
+                  value={this.props.course.end}
+                  value_key="end"
+                  editable={this.props.editable}
+                  validation={CourseDateUtils.isDateValid}
+                  label={CourseUtils.i18n('end', this.props.course.string_prefix)}
+                  date_props={dateProps.end}
+                  enabled={Boolean(this.props.course.start)}
+                  showTime={this.props.course.use_start_and_end_times}
+                  required={true}
+                />
+              </form>
             </div>
-            {campaigns}
+            <div className="group-right">
+              {timelineStart}
+              {timelineEnd}
+              {subject}
+              {courseLevelSelector}
+              {courseFormatSelector}
+              {tags}
+              {courseTypeSelector}
+              {submittedSelector}
+              {stayInSandboxToggle}
+              {retainAvailableArticlesToggle}
+              {privacySelector}
+              {timelineToggle}
+              {onlineVolunteersToggle}
+              {wikiEditsToggle}
+              {editSettingsToggle}
+              {withdrawnSelector}
+            </div>
           </div>
+          {campaigns}
         </div>
       </div>
     );

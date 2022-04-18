@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 
 import { connect } from 'react-redux';
 import { difference, uniq } from 'lodash-es';
-import moment from 'moment';
 
 import PropTypes from 'prop-types';
 import Select from 'react-select';
@@ -15,6 +14,7 @@ import { removeTag, fetchAllTags, addTag } from '../../actions/tag_actions';
 import { addUser } from '../../actions/user_actions';
 import { getCourseApprovalStaff } from '../../selectors';
 import { STAFF_ROLE } from '../../constants';
+import { inferDefaultCampaign } from './utils/inferDefaultCampaign';
 
 
 const CourseApproval = (props) => {
@@ -45,7 +45,10 @@ const CourseApproval = (props) => {
     }
 
     if (props.allCampaigns.length > 0) {
-      setDefaultCampaign();
+      const defaultCampaign = inferDefaultCampaign(props.allCampaigns, props.course.start);
+      if (defaultCampaign !== null) {
+        setSelectedCampaigns({ value: defaultCampaign.title, label: defaultCampaign.title });
+      }
     }
 
     if (props.tags.length > 0) {
@@ -72,46 +75,6 @@ const CourseApproval = (props) => {
       };
     });
     return options;
-  };
-
-  const setDefaultCampaign = () => {
-    // Try to infer the best suitable campaign from the start date of course.
-    // Use the month and year to get the suitable term and compare it with the campaign slug.
-
-    const start_date = props.course.start;
-    const month = moment(start_date).month();
-    const year = moment(start_date).year();
-
-    let term;
-    switch (month) {
-      case 11:
-        term = `spring_${year + 1}`;
-        break;
-
-      case 0: case 1: case 2: case 3:
-        term = `spring_${year}`;
-        break;
-
-      case 4: case 5: case 6:
-        term = `summer_${year}`;
-        break;
-
-      case 7: case 8: case 9: case 10:
-        term = `fall_${year}`;
-        break;
-
-      default:
-        term = '';
-        break;
-    }
-
-    const defaultCampaign = props.allCampaigns.filter(campaign => campaign.slug === term);
-    if (defaultCampaign.length > 0) {
-      setSelectedCampaigns([{
-        value: defaultCampaign[0].title,
-        label: defaultCampaign[0].title
-      }]);
-    }
   };
 
   const handleWikiExpertChange = (selectedOption) => {
@@ -275,7 +238,7 @@ const CourseApproval = (props) => {
   const campaignsSelector = (
     <div className="course-approval-field form-group">
       <div className="group-left form-group">
-        <label htmlFor="campaign">Add Campaigns</label>
+        <label htmlFor="campaign">Add Campaigns <span className="form-required-indicator">*</span></label>
       </div>
       <div className="group-right">
         <Select
