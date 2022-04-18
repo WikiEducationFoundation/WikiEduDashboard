@@ -911,4 +911,6 @@ qqq:
     submit: Submit button label {{Identical|Submit}}
     tools: Label for tools table column {{Identical|Tools}}
     unassign_article_self: Button label to unassign an article to self
+  training_status:
+    continue: '{{Identical/Continue}}'
 ...

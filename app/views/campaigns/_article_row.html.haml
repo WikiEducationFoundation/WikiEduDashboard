@@ -7,7 +7,7 @@
   %td.references
     = article_course.references_count
   %td.views
-    = article_course.view_count
+    = number_to_human article_course.view_count
   %td.lang_project
     %small
       = "#{article.wiki.language}.#{article.wiki.project}"

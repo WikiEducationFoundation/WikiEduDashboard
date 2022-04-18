@@ -499,6 +499,8 @@ pt:
     confirm_manual_update: Tem a certeza de que deseja atualizar manualmente? As revisões
       mais recentes serão importadas e a página será recarregada. Este processo pode
       levar algum tempo.
+    controlled_by_event_center: A inscrição neste evento é controlada pelo Centro
+      de Eventos Wikimedia. Não se pode inscrever através do painel de controlo.
     course: Curso
     course_dates_calendar_instructions: Selecione datas para adicioná-las ou removê-las
       da agenda (por exemplo, férias, sem escola). Clique na data para escolher entre
@@ -697,6 +699,8 @@ pt:
       not_yet_approved: Este curso ainda não foi aprovado para matrículas.
       withdrawn: Esse curso foi marcado como retirado — talvez por engano. Contacte
         o pessoal da Educação Wiki para o restabelecer.
+      invalid_sync: A inscrição neste evento é controlada pelo Centro de Eventos Wikimedia.
+        Não se pode inscrever através do painel de controlo.
     join_details: Para entrar neste curso, precisa de uma palavra-passe — ou uma hiperligação
       que inclua a palavra-passe — do professor. Se ainda não a recebeu, contacte
       o seu professor.
