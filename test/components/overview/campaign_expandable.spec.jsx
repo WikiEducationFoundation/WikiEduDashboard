@@ -17,7 +17,7 @@ describe('CampaignEditable', () => {
     { title: 'Cool campaign', slug: 'cool_campaign' },
     { title: 'Not cool campaign', slug: 'not_cool_campaign' }
   ];
-  const initialState = { campaigns: { campaigns } };
+  const initialState = { campaigns: { campaigns: campaigns, all_campaigns: allCampaigns } };
   const reduxStoreWithCampaigns = createStore(reducer, initialState, compose(applyMiddleware(thunk)));
 
   it('it opens the component when editable is true', () => {
@@ -25,7 +25,6 @@ describe('CampaignEditable', () => {
       <Provider store={reduxStoreWithCampaigns}>
         <CampaignEditable
           campaigns={campaigns}
-          allCampaigns={allCampaigns}
           course={course}
           editable={true}
         />
@@ -39,7 +38,6 @@ describe('CampaignEditable', () => {
       <Provider store={reduxStoreWithCampaigns}>
         <CampaignEditable
           campaigns={campaigns}
-          allCampaigns={allCampaigns}
           course={course}
           editable={false}
         />
