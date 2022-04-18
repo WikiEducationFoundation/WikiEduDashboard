@@ -7,8 +7,17 @@
 # Author: ಮಲ್ನಾಡಾಚ್ ಕೊಂಕ್ಣೊ
 ---
 kn:
+  number:
+    human:
+      decimal_units:
+        units:
+          thousand: ಸಾ
+          million: ದ
+          billion: ಶ
   application:
+    cancel: ರದ್ದುಮಾಡಿ
     cookie_consent_see_more: ಇನ್ನಷ್ಟು ನೋಡಿ.
+    documentation: ದಾಖಲೀಕರಣ
     greeting2: ಸುಸ್ವಾಗತ!
     greeting: ನಮಸ್ಕಾರ!
     help: ಸಹಾಯ
@@ -16,6 +25,7 @@ kn:
     log_in: ಲಾಗಿನ್
     log_out: ಲಾಗ್ ಔಟ್
     recent_activity: ಇತ್ತೀಚಿನ ಚಟುವಟಿಕೆ
+    search: ಒಂದು ಪ್ರಶ್ನೆ ಕೇಳಿ
     submit: ಸಲ್ಲಿಸಿ
     change: ಬದಲಾಯಿಸಿ
     details: ವಿವರಗಳು
@@ -69,6 +79,7 @@ kn:
     created_at: ದಿನಾಂಕ
     none: ಯಾವುದೂ ಇಲ್ಲ
     title: ಶೀರ್ಷಿಕೆ
+    search: ಹುಡುಕು
   categories:
     add_category: ವರ್ಗ ಸೇರಿಸಿ
     name: ಹೆಸರು
@@ -77,10 +88,13 @@ kn:
     remove: ತೆಗೆ
   courses:
     activity: ಚಟುವಟಿಕೆ
+    actions: ಕ್ರಿಯೆಗಳು
     articles: ಲೇಖನಗಳು
     assignment_headings:
       available_articles: ಲಭ್ಯವಿರುವ ಲೇಖನಗಳು
       available_articles_wikidata: ಲಭ್ಯವಿರುವ ವಸ್ತುಗಳು
+    campaign_articles: '%{title} ಲೇಖನಗಳು'
+    campaign_users: '%{title} ಸಂಪಾದಕರು'
     creator:
       end_date: ಮುಕ್ತಾಯದ ದಿನಾಂಕ
       start_date: ಆರಂಭದ ದಿನಾಂಕ
@@ -88,9 +102,19 @@ kn:
     delete_suggestion: ಅಳಿಸು
     error:
       user_exists: ಕ್ಷಮಿಸಿ, %{username} ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಬಳಕೆದಾರರಲ್ಲ.
+    loading: ತುಂಬಿಸಲಾಗುತ್ತಿದೆ…
+    my_articles: ನನ್ನ ಲೇಖನಗಳು
     new_week: ಹೊಸ ವಾರ ಸೇರಿಸಿ
+    new_account_email: ಇ-ಅಂಚೆ ವಿಳಾಸ
+    new_account_email_placeholder: name@example.org
+    none: ಯಾವುದೂ ಇಲ್ಲ
     overview: ಮುಖ್ಯಪುಟ
+    private: ಖಾಸಗಿ
+    requested_accounts_alert_view: ವೀಕ್ಷಿಸಿ
+    school: ಶಾಲೆ
+    student: ವಿದ್ಯಾರ್ಥಿ
     students: ವಿದ್ಯಾರ್ಥಿಗಳು
+    students_count: '# ವಿದ್ಯಾರ್ಥಿಗಳು'
     students_none: ಈ ಪಠ್ಯದಲ್ಲಿ ಯಾವುದೇ ವಿದ್ಯಾರ್ಥಿಗಳಿಲ್ಲ.
     students_short: ವಿದ್ಯಾರ್ಥಿಗಳು
     title: ಶೀರ್ಷಿಕೆ
