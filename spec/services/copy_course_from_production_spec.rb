@@ -3,7 +3,9 @@
 require 'rails_helper'
 
 describe CopyCourseFromProduction do
-  let(:existent_prod_course) { 'https://dashboard.wikiedu.org/courses/University_of_California_Merced/Feminism,_Handmaids_and_Wild_Seeds_(Spring_2021)' }
+  let(:existent_prod_course) do
+    'https://dashboard.wikiedu.org/courses/University_of_California_Merced/Feminism,_Handmaids_and_Wild_Seeds_(Spring_2021)'
+  end
 
   context 'with courses in production' do
     let(:subject) do

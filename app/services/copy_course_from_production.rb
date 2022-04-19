@@ -6,7 +6,7 @@ class CopyCourseFromProduction
   attr_reader :course, :course_data
 
   def initialize(url)
-    course = make_copy_of(url)
+    @course = make_copy_of(url)
   end
 
   private
