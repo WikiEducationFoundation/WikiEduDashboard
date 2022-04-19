@@ -47,7 +47,7 @@ const CourseApproval = (props) => {
     if (props.allCampaigns.length > 0) {
       const defaultCampaign = inferDefaultCampaign(props.allCampaigns, props.course.start);
       if (defaultCampaign !== null) {
-        setSelectedCampaigns({ value: defaultCampaign.title, label: defaultCampaign.title });
+        setSelectedCampaigns([{ value: defaultCampaign.title, label: defaultCampaign.title }]);
       }
     }
 
@@ -86,6 +86,10 @@ const CourseApproval = (props) => {
   };
 
   const handleTagChange = (selectedOption) => {
+    if (!selectedOption) {
+      return setSelectedTags(null);
+    }
+
     // The value includes `__isNew__: true` if it's a user-created option.
     // In that case, we need to add it to the list of options, so that it shows up as selected.
     const isNew = selectedOption.__isNew__;
@@ -182,7 +186,7 @@ const CourseApproval = (props) => {
   const programManagerSelector = (
     <div className="course-approval-field form-group">
       <div className="group-left form-group">
-        <label htmlFor="program_manager">Add Program Manager</label>
+        <label htmlFor="program_manager">Add Program Manager:</label>
       </div>
       <div className="group-right">
         <Select
@@ -200,7 +204,7 @@ const CourseApproval = (props) => {
   const wikiExpertSelector = (
     <div className="course-approval-field form-group">
       <div className="group-left form-group">
-        <label htmlFor="wiki_expert">Add Wikipedia Expert</label>
+        <label htmlFor="wiki_expert">Add Wikipedia Expert:</label>
       </div>
       <div className="group-right">
         <Select
@@ -218,7 +222,7 @@ const CourseApproval = (props) => {
   const tagsSelector = (
     <div className="course-approval-field form-group">
       <div className="group-left form-group">
-        <label htmlFor="campaign">Add Tags</label>
+        <label htmlFor="campaign">Add Tags:</label>
       </div>
       <div className="group-right">
         <CreatableSelect
@@ -238,12 +242,13 @@ const CourseApproval = (props) => {
   const campaignsSelector = (
     <div className="course-approval-field form-group">
       <div className="group-left form-group">
-        <label htmlFor="campaign">Add Campaigns <span className="form-required-indicator">*</span></label>
+        <label htmlFor="campaign">Add Campaigns: <span className="form-required-indicator">*</span></label>
       </div>
       <div className="group-right">
         <Select
           id={'campaign'}
           value={campaignOptions.empty ? null : selectedCampaigns}
+          placeholder={I18n.t('courses.campaign_select')}
           onChange={handleCampaignsChange}
           options={campaignOptions}
           simpleValue
@@ -255,14 +260,15 @@ const CourseApproval = (props) => {
     </div>
   );
 
+  const approveButtonState = (selectedCampaigns === null || selectedCampaigns.length === 0) ? 'disabled' : '';
   const approveButton = (submitting) ? (
     <div className="course-approval-loader">
-      <div>Submitting ... </div>
+      <div>Approving ... </div>
       <div className="loading__spinner__small" />
     </div>
     ) : (
       <div className="controls">
-        <button className="dark button" onClick={submitApprovalForm}>Approve Course</button>
+        <button className={`dark button ${approveButtonState}`} onClick={submitApprovalForm}>Approve Course</button>
       </div>);
 
   return (
