@@ -21,7 +21,14 @@ describe CopyCourseFromProduction do
     it 'copy course to dev env' do
       result = subject.result
       expect(result['course']).not_to be_nil
-    end
+      expect(result['course'].instructors).not_to be_nil
+      expect(result['course'].students).not_to be_nil
+      expect(result['course'].assignments).not_to be_nil
 
+      # testing examples
+      expect(result['course'].instructors.first.username).to eq('Joshua_Stone')
+      expect(result['course'].students.length).to eq(40)
+      expect(result['course'].assignments.length) > 0
+    end
   end
 end
