@@ -6,12 +6,13 @@ describe CopyCourseFromProductionController, type: :request do
   describe '#copy' do
     let(:user) { create(:user) }
     let(:admin) { create(:admin) }
-    let(:existent_prod_course) do
-      'https://dashboard.wikiedu.org/courses/University_of_South_Carolina/Invertebrate_Zoology_(Spring_2022)'
+    let(:url_base) { 'https://dashboard.wikiedu.org/courses/' }
+    let(:existent_prod_course_slug) do
+      'University_of_South_Carolina/Invertebrate_Zoology_(Spring_2022)'
     end
 
     let(:subject) do
-      copy route, params: { url: existent_prod_course }
+      copy route, params: { url: url_base + existent_prod_course_slug }
     end
 
     context 'when the user is an admin' do
@@ -22,7 +23,7 @@ describe CopyCourseFromProductionController, type: :request do
       it 'copies the course' do
         subject
         expect(response.status).to eq(200)
-        expect(Course.exists?(title: existent_prod_course)).to eq(true)
+        expect(Course.exists?(slug: existent_prod_course_slug)).to eq(true)
       end
     end
 
