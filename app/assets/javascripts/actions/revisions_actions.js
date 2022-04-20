@@ -5,7 +5,9 @@ import {
   RECEIVE_COURSE_SCOPED_REVISIONS,
   COURSE_SCOPED_REVISIONS_LOADING,
   SORT_REVISIONS,
-  API_FAIL
+  API_FAIL,
+  RECEIVE_ASSESSMENTS,
+  RECEIVE_REFERENCES
 } from '../constants';
 import { fetchWikidataLabelsForRevisions } from './wikidata_actions';
 import logErrorMessage from '../utils/log_error_message';
@@ -45,6 +47,14 @@ export const fetchRevisions = course => async (dispatch, getState) => {
     dispatch({
       type: RECEIVE_REVISIONS,
       data: { course },
+    });
+    dispatch({
+      type: RECEIVE_REFERENCES,
+      data: { },
+    });
+    dispatch({
+      type: RECEIVE_ASSESSMENTS,
+      data: { },
     });
     return;
   }
