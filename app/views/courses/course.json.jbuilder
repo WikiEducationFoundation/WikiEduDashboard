@@ -14,6 +14,7 @@ json.course do
 
   json.wikis @course.wikis, :language, :project
   json.timeline_enabled @course.timeline_enabled?
+  json.disable_student_emails @course.disable_student_emails?
   json.academic_system @course.academic_system
   json.home_wiki_bytes_per_word @course.home_wiki.bytes_per_word
   json.home_wiki_edits_enabled @course.home_wiki.edits_enabled?

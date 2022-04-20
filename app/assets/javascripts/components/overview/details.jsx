@@ -17,6 +17,7 @@ import PrivacySelector from './privacy_selector.jsx';
 import WithdrawnSelector from './withdrawn_selector.jsx';
 import TimelineToggle from './timeline_toggle.jsx';
 import OnlineVolunteersToggle from './online_volunteers_toggle.jsx';
+import DisableStudentEmailsToggle from './disable_student_emails.jsx';
 import StayInSandboxToggle from './stay_in_sandbox_toggle';
 import RetainAvailableArticlesToggle from './retain_available_articles_toggle';
 
@@ -310,6 +311,7 @@ const Details = createReactClass({
     let courseFormatSelector;
     let timelineToggle;
     let onlineVolunteersToggle;
+    let disableStudentEmailsToggle;
     let wikiEditsToggle;
     let editSettingsToggle;
     let withdrawnSelector;
@@ -407,6 +409,17 @@ const Details = createReactClass({
     if (canRename && !isClassroomProgramType) {
       timelineToggle = (
         <TimelineToggle
+          course={this.props.course}
+          editable={this.props.editable}
+          updateCourse={this.props.updateCourse}
+        />
+      );
+    }
+
+    // Users who can rename a course are also allowed to toggle the student email on/off.
+    if (canRename && !isClassroomProgramType) {
+      disableStudentEmailsToggle = (
+        <DisableStudentEmailsToggle
           course={this.props.course}
           editable={this.props.editable}
           updateCourse={this.props.updateCourse}
@@ -552,6 +565,7 @@ const Details = createReactClass({
               {privacySelector}
               {timelineToggle}
               {onlineVolunteersToggle}
+              {disableStudentEmailsToggle}
               {wikiEditsToggle}
               {editSettingsToggle}
               {withdrawnSelector}

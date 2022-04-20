@@ -279,6 +279,7 @@ class CoursesController < ApplicationController
     update_boolean_flag :timeline_enabled
     update_boolean_flag :wiki_edits_enabled
     update_boolean_flag :online_volunteers_enabled
+    update_boolean_flag :disable_student_emails
     update_boolean_flag :stay_in_sandbox
     update_boolean_flag :retain_available_articles
     update_edit_settings

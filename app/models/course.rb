@@ -415,6 +415,10 @@ class Course < ApplicationRecord
     flags[:retain_available_articles].present?
   end
 
+  def disable_student_emails?
+    flags[:disable_student_emails].present?
+  end
+
   # Overridden for some course types
   def cloneable?
     !tag?('no_clone')
