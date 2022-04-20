@@ -14,21 +14,26 @@ describe CopyCourseFromProduction do
     end
 
     it 'copies the course' do
-      subject
-      expect(Course.exists?(slug: existent_prod_course_slug)).to eq(true)
+      VCR.use_cassette("load_course") do
+        subject
+        expect(Course.exists?(slug: existent_prod_course_slug)).to eq(true)
+      end
     end
 
     it 'copy course to dev env' do
-      result = subject.result
-      expect(result['course']).not_to be_nil
-      expect(result['course'].instructors).not_to be_nil
-      expect(result['course'].students).not_to be_nil
-      expect(result['course'].assignments).not_to be_nil
+      VCR.use_cassette("load_course") do
+        subject
+        result = subject.result
+        expect(result['course']).not_to be_nil
+        expect(result['course'].instructors).not_to be_nil
+        expect(result['course'].students).not_to be_nil
+        expect(result['course'].assignments).not_to be_nil
 
-      # testing examples
-      expect(result['course'].instructors.first.username).to eq('Joshua_Stone')
-      expect(result['course'].students.length).to eq(40)
-      expect(result['course'].assignments.length) > 0
+        # testing examples
+        expect(result['course'].instructors.first.username).to eq('Joshua_Stone')
+        expect(result['course'].students.length).to eq(40)
+        expect(result['course'].assignments.length) > 0
+      end
     end
   end
 end
