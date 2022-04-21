@@ -8,9 +8,7 @@
 %section
   .container
     %hr
-    - if !flash[:notice].blank?
-      = flash[:notice]
-
+   
 .container
   = form_tag copy_course_from_production_path, class: 'explore-courses', method: :post do
     = text_field_tag(:url, '', placeholder: 'Copy course URL here...')

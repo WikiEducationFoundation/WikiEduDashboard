@@ -6,13 +6,14 @@ class CopyCourseFromProductionController < ApplicationController
   before_action :require_admin_permissions
 
   def index
-    @copied_course = nil
+    @copied = nil
   end
 
   def copy
-    copied_course = CopyCourseFromProduction.new(params[:url])
+    copied = CopyCourseFromProduction.new(params[:url])
     redirect_to copy_course_from_production_path,
-                locals: { copied_course: copied_course.course_slug },
-                notice: "Course #{copied_course.title} was created. http://localhost:3000/courses/#{copied_course.course_slug}"
+                locals: { copied_course: copied.course.slug },
+                notice: "Course #{copied.course.title} was created.
+                        &nbsp;<a href=\"/courses/#{copied.course.slug}\">Go to course</a>"
   end
 end

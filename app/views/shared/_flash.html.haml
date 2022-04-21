@@ -1,5 +1,5 @@
 - if flash[:notice]
-  .notification= flash[:notice]
+  .notification= flash[:notice].html_safe
 
 - unless ENV['sitenotice'].blank?
   .notification.sitenotice= raw ENV['sitenotice'].dup.force_encoding("UTF-8")

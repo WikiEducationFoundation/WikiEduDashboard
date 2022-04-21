@@ -14,14 +14,14 @@ describe CopyCourseFromProduction do
     end
 
     it 'copies the course' do
-      VCR.use_cassette("load_course") do
+      VCR.use_cassette('load_course') do
         subject
         expect(Course.exists?(slug: existent_prod_course_slug)).to eq(true)
       end
     end
 
     it 'copy course to dev env' do
-      VCR.use_cassette("load_course") do
+      VCR.use_cassette('load_course') do
         subject
         result = subject.result
         expect(result['course']).not_to be_nil
