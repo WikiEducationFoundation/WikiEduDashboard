@@ -22,17 +22,16 @@ describe CopyCourseFromProduction do
 
     it 'copy course to dev env' do
       VCR.use_cassette('load_course') do
-        subject
-        result = subject.result
-        expect(result['course']).not_to be_nil
-        expect(result['course'].instructors).not_to be_nil
-        expect(result['course'].students).not_to be_nil
-        expect(result['course'].assignments).not_to be_nil
+        result = described_class.new(url_base + existent_prod_course_slug)
+        expect(result.course).not_to be_nil
+        expect(result.course.instructors).not_to be_nil
+        expect(result.course.students).not_to be_nil
+        expect(result.course.assignments).not_to be_nil
 
         # testing examples
-        expect(result['course'].instructors.first.username).to eq('Joshua_Stone')
-        expect(result['course'].students.length).to eq(40)
-        expect(result['course'].assignments.length) > 0
+        expect(result.course.instructors.first.username).to eq('Joshua Stone')
+        expect(result.course.students.length).to eq(31)
+        expect(result.course.assignments.length) > 0
       end
     end
   end
