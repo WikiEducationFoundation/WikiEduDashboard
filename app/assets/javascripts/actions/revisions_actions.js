@@ -29,7 +29,8 @@ const fetchAllArticles = async (course) => {
     response.responseText = data;
     throw response;
   }
-  return response.json();
+  const json = await response.json();
+  return json.course.articles;
 };
 
 const fetchRevisionsPromise = async (course, users, last_date, dispatch) => {
@@ -40,9 +41,10 @@ const fetchRevisionsPromise = async (course, users, last_date, dispatch) => {
   fetchRevisionsAndReferences(revisions, dispatch);
   return { course, last_date: new_last_date };
 };
-const fetchRevisionsCourseSpecificPromise = async (course, users, last_date, dispatch) => {
-  const articles = await fetchAllArticles(course);
-  const trackedArticles = new Set(articles.course.articles.filter(article => article.tracked).map(article => article.title));
+const fetchRevisionsCourseSpecificPromise = async (course, users, last_date, dispatch, articles) => {
+  const trackedArticles = new Set(
+    articles.filter(article => article.tracked).map(article => article.title)
+  );
 
   if (trackedArticles.size === 0) {
     // no need to fetch
@@ -108,7 +110,9 @@ export const fetchRevisions = course => async (dispatch, getState) => {
 export const fetchCourseScopedRevisions = (course, limit) => async (dispatch, getState) => {
   const state = getState();
   const users = state.users.users.filter(user => user.role === STUDENT_ROLE);
+
   dispatch({ type: COURSE_SCOPED_REVISIONS_LOADING });
+
   if (users.length === 0) {
     course.revisions = [];
     dispatch({
@@ -125,17 +129,26 @@ export const fetchCourseScopedRevisions = (course, limit) => async (dispatch, ge
     });
     return;
   }
+
   if (state.revisions.revisionsDisplayedCourseSpecific.length < state.revisions.courseScopedRevisions.length) {
     // no need to fetch new revisions
     return dispatch({
       type: INCREASE_LIMIT_COURSE_SPECIFIC
     });
   }
+  let articles;
+  if (state.articles.limitReached) {
+    // no need to fetch articles again
+    articles = state.articles.articles;
+  } else {
+    articles = await fetchAllArticles(course);
+  }
   return (
     fetchRevisionsCourseSpecificPromise(
         course, users,
         state.revisions.last_date_course_specific ?? course.last,
-        dispatch
+        dispatch,
+        articles
       )
       .then((resp) => {
         dispatch({
