@@ -8,7 +8,9 @@ import {
   API_FAIL,
   RECEIVE_ASSESSMENTS,
   RECEIVE_REFERENCES,
-  INCREASE_LIMIT_COURSE_SPECIFIC
+  INCREASE_LIMIT_COURSE_SPECIFIC,
+  RECEIVE_ASSESSMENTS_COURSE_SPECIFIC,
+  RECEIVE_REFERENCES_COURSE_SPECIFIC
 } from '../constants';
 import { fetchWikidataLabelsForRevisions } from './wikidata_actions';
 import logErrorMessage from '../utils/log_error_message';
@@ -39,9 +41,23 @@ const fetchRevisionsPromise = async (course, users, last_date, dispatch) => {
   return { course, last_date: new_last_date };
 };
 const fetchRevisionsCourseSpecificPromise = async (course, users, last_date, dispatch) => {
-  const result = await fetchAllArticles(course);
+  const articles = await fetchAllArticles(course);
+  const trackedArticles = new Set(articles.course.articles.filter(article => article.tracked).map(article => article.title));
+
+  if (trackedArticles.size === 0) {
+    // no need to fetch
+    dispatch({
+      type: RECEIVE_REFERENCES_COURSE_SPECIFIC,
+      data: { },
+    });
+    dispatch({
+      type: RECEIVE_ASSESSMENTS_COURSE_SPECIFIC,
+      data: { },
+    });
+    return { course: { revisions: [] }, last_date: course.start };
+  }
+
   const { revisions, last_date: new_last_date } = await fetchRevisionsFromUsers(course, users, 7, last_date);
-  const trackedArticles = new Set(result.course.articles.filter(article => article.tracked).map(article => article.title));
   const trackedRevisions = revisions.filter(revision => trackedArticles.has(revision.title));
 
   course.revisions = sortRevisionsByDate(trackedRevisions);
@@ -93,6 +109,22 @@ export const fetchCourseScopedRevisions = (course, limit) => async (dispatch, ge
   const state = getState();
   const users = state.users.users.filter(user => user.role === STUDENT_ROLE);
   dispatch({ type: COURSE_SCOPED_REVISIONS_LOADING });
+  if (users.length === 0) {
+    course.revisions = [];
+    dispatch({
+      type: RECEIVE_COURSE_SCOPED_REVISIONS,
+      data: { course },
+    });
+    dispatch({
+      type: RECEIVE_REFERENCES_COURSE_SPECIFIC,
+      data: { },
+    });
+    dispatch({
+      type: RECEIVE_ASSESSMENTS_COURSE_SPECIFIC,
+      data: { },
+    });
+    return;
+  }
   if (state.revisions.revisionsDisplayedCourseSpecific.length < state.revisions.courseScopedRevisions.length) {
     // no need to fetch new revisions
     return dispatch({
