@@ -18,8 +18,8 @@ import { sortRevisionsByDate } from '../utils/revision_utils';
 import { INCREASE_LIMIT } from '../constants/revisions';
 import { STUDENT_ROLE } from '../constants/user_roles';
 
-const fetchCourseScopedRevisionsPromise = async (course, limit) => {
-  const response = await request(`/courses/${course.slug}/revisions.json?limit=${limit}&course_scoped=true`);
+const fetchAllArticles = async (course) => {
+  const response = await request(`/courses/${course.slug}/articles.json?limit=500`);
   if (!response.ok) {
     logErrorMessage(response);
     const data = await response.text();
@@ -35,6 +35,15 @@ const fetchRevisionsPromise = async (course, users, last_date, dispatch) => {
 
   // we don't await this. When the assessments/references get laoded, the action is dispatched
   fetchRevisionsAndReferences(revisions, dispatch);
+  return { course, last_date: new_last_date };
+};
+const fetchRevisionsCourseSpecificPromise = async (course, users, last_date) => {
+  const result = await fetchAllArticles(course);
+  const { revisions, last_date: new_last_date } = await fetchRevisionsFromUsers(course, users, 7, last_date);
+  const trackedArticles = new Set(result.course.articles.filter(article => article.tracked).map(article => article.title));
+  const trackedRevisions = revisions.filter(revision => trackedArticles.has(revision.title));
+
+  course.revisions = sortRevisionsByDate(trackedRevisions);
   return { course, last_date: new_last_date };
 };
 
@@ -77,10 +86,18 @@ export const fetchRevisions = course => async (dispatch, getState) => {
   );
 };
 
-export const fetchCourseScopedRevisions = (course, limit) => async (dispatch) => {
+export const fetchCourseScopedRevisions = (course, limit) => async (dispatch, getState) => {
+  const state = getState();
+  const users = state.users.users.filter(user => user.role === STUDENT_ROLE);
   dispatch({ type: COURSE_SCOPED_REVISIONS_LOADING });
+  if (state.revisions.revisionsDisplayedCourseSpecific.length < state.revisions.courseScopedRevisions.length) {
+    // no need to fetch new revisions
+    return dispatch({
+      type: 'INCREASE_LIMIT_COURSE_SPECIFIC'
+    });
+  }
   return (
-    fetchCourseScopedRevisionsPromise(course, limit)
+    fetchRevisionsCourseSpecificPromise(course, users, state.revisions.last_date_course_specific ?? course.last)
       .then((resp) => {
         dispatch({
           type: RECEIVE_COURSE_SCOPED_REVISIONS,

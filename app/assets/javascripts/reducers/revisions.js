@@ -12,7 +12,7 @@ import { sortByKey } from '../utils/model_utils';
 import moment from 'moment';
 
 // this is the max number of revisions we will add to the table when there's a new fetch request
-const REVISIONS_INITIAL = 200;
+const REVISIONS_INITIAL = 10;
 
 // this is the max number of revisions we will add to the table when no new fetch request is needed
 const REVISIONS_INCREMENT = 50;
@@ -22,7 +22,6 @@ const initialState = {
   revisions: [],
   limitReached: false,
   courseScopedRevisions: [],
-  courseScopedLimit: 50,
   courseScopedLimitReached: false,
   sort: {
     key: null,
@@ -31,13 +30,11 @@ const initialState = {
   revisionsLoaded: false,
   courseScopedRevisionsLoaded: false,
   last_date: moment().utc().format(),
+  last_date_course_specific: null,
   revisionsDisplayed: [],
+  revisionsDisplayedCourseSpecific: [],
   referencesLoaded: false,
   assessmentsLoaded: false
-};
-
-const isLimitReachedCourseSpecific = (revs, limit) => {
-  return (revs.length < limit);
 };
 
 const isLimitReached = (course_start, last_date) => {
@@ -66,6 +63,28 @@ export default function revisions(state = initialState, action) {
         ...state,
         revisionsDisplayed,
         revisionsLoaded: true
+      };
+    }
+    case 'INCREASE_LIMIT_COURSE_SPECIFIC': {
+      let revisionsDisplayedCourseSpecific = state.revisionsDisplayedCourseSpecific.concat(
+        state.courseScopedRevisions.slice(
+            state.revisionsDisplayedCourseSpecific.length, state.revisionsDisplayedCourseSpecific.length + REVISIONS_INCREMENT
+          )
+      );
+      // since newly fetched revisions are sorted by date(descending) if the user changes the sorting parameter and then loads
+      // more revisions, the table would not be sorted correctly. The new revisions would just be appended to the end
+      // the following condition checks if we should sort the revisions
+      if ((state.sort.key !== 'date' && state.sort.key !== null) || (state.sort.key === 'date' && state.sort.sortKey !== null)) {
+        // either the sorting is on the basis of date(ascending) or any other parameter(ascending or descending)
+        // state.sort.key !== null ensures that this doesn't run on the first load
+        const desc = state.sort.sortKey === null;
+        const absolute = state.sort.key === 'characters';
+        revisionsDisplayedCourseSpecific = sortByKey(revisionsDisplayedCourseSpecific, state.sort.key, null, desc, absolute).newModels;
+      }
+      return {
+        ...state,
+        revisionsDisplayedCourseSpecific,
+        courseScopedRevisionsLoaded: true
       };
     }
     case RECEIVE_REFERENCES: {
@@ -123,14 +142,25 @@ export default function revisions(state = initialState, action) {
         assessmentsLoaded: false
       };
     }
-    case RECEIVE_COURSE_SCOPED_REVISIONS:
+    case RECEIVE_COURSE_SCOPED_REVISIONS: {
+      let revisionsDisplayedCourseSpecific = state.revisionsDisplayedCourseSpecific.concat(
+        action.data.course.revisions.slice(0, REVISIONS_INITIAL)
+      );
+      if ((state.sort.key !== 'date' && state.sort.key !== null) || (state.sort.key === 'date' && state.sort.sortKey !== null)) {
+        const desc = state.sort.sortKey === null;
+        const absolute = state.sort.key === 'characters';
+        revisionsDisplayedCourseSpecific = sortByKey(revisionsDisplayedCourseSpecific, state.sort.key, null, desc, absolute).newModels;
+      }
+
       return {
         ...state,
-        courseScopedRevisions: action.data.course.revisions,
-        courseScopedLimit: action.limit,
-        courseScopedLimitReached: isLimitReachedCourseSpecific(action.data.course.revisions, action.limit),
-        courseScopedRevisionsLoaded: true
+        courseScopedRevisions: state.courseScopedRevisions.concat(action.data.course.revisions),
+        courseScopedLimitReached: isLimitReached(action.data.course.start, state.last_date_course_specific),
+        courseScopedRevisionsLoaded: true,
+        last_date_course_specific: action.data.last_date,
+        revisionsDisplayedCourseSpecific
       };
+    }
     case REVISIONS_LOADING:
       return {
         ...state,
@@ -146,10 +176,10 @@ export default function revisions(state = initialState, action) {
       const desc = action.key === state.sort.sortKey;
 
       const sortedRevisions = sortByKey(state.revisionsDisplayed, action.key, null, desc, absolute);
-      const sortedCourseScopedRevisions = sortByKey(state.courseScopedRevisions, action.key, null, desc, absolute);
+      const sortedCourseScopedRevisions = sortByKey(state.revisionsDisplayedCourseSpecific, action.key, null, desc, absolute);
       return { ...state,
         revisionsDisplayed: sortedRevisions.newModels,
-        courseScopedRevisions: sortedCourseScopedRevisions.newModels,
+        revisionsDisplayedCourseSpecific: sortedCourseScopedRevisions.newModels,
         sort: {
           sortKey: desc ? null : action.key,
           key: action.key
