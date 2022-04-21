@@ -6,7 +6,9 @@ import {
   SORT_REVISIONS,
   RECEIVE_REFERENCES,
   RECEIVE_ASSESSMENTS,
-  INCREASE_LIMIT
+  INCREASE_LIMIT,
+  INCREASE_LIMIT_COURSE_SPECIFIC,
+  RECEIVE_REFERENCES_COURSE_SPECIFIC
 } from '../constants';
 import { sortByKey } from '../utils/model_utils';
 import moment from 'moment';
@@ -67,7 +69,7 @@ export default function revisions(state = initialState, action) {
         revisionsLoaded: true
       };
     }
-    case 'INCREASE_LIMIT_COURSE_SPECIFIC': {
+    case INCREASE_LIMIT_COURSE_SPECIFIC: {
       let revisionsDisplayedCourseSpecific = state.revisionsDisplayedCourseSpecific.concat(
         state.courseScopedRevisions.slice(
             state.revisionsDisplayedCourseSpecific.length, state.revisionsDisplayedCourseSpecific.length + REVISIONS_INCREMENT
@@ -101,7 +103,7 @@ export default function revisions(state = initialState, action) {
       });
       return newState;
     }
-    case 'RECEIVE_REFERENCES_COURSE_SPECIFIC': {
+    case RECEIVE_REFERENCES_COURSE_SPECIFIC: {
       const newState = { ...state, courseSpecificReferencesLoaded: true };
       const revisionsArray = newState.courseScopedRevisions;
       const referencesAdded = action.data.referencesAdded;

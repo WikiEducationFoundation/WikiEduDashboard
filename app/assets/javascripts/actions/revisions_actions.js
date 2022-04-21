@@ -7,7 +7,8 @@ import {
   SORT_REVISIONS,
   API_FAIL,
   RECEIVE_ASSESSMENTS,
-  RECEIVE_REFERENCES
+  RECEIVE_REFERENCES,
+  INCREASE_LIMIT_COURSE_SPECIFIC
 } from '../constants';
 import { fetchWikidataLabelsForRevisions } from './wikidata_actions';
 import logErrorMessage from '../utils/log_error_message';
@@ -95,7 +96,7 @@ export const fetchCourseScopedRevisions = (course, limit) => async (dispatch, ge
   if (state.revisions.revisionsDisplayedCourseSpecific.length < state.revisions.courseScopedRevisions.length) {
     // no need to fetch new revisions
     return dispatch({
-      type: 'INCREASE_LIMIT_COURSE_SPECIFIC'
+      type: INCREASE_LIMIT_COURSE_SPECIFIC
     });
   }
   return (
