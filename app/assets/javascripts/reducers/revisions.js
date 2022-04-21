@@ -12,7 +12,7 @@ import { sortByKey } from '../utils/model_utils';
 import moment from 'moment';
 
 // this is the max number of revisions we will add to the table when there's a new fetch request
-const REVISIONS_INITIAL = 10;
+const REVISIONS_INITIAL = 200;
 
 // this is the max number of revisions we will add to the table when no new fetch request is needed
 const REVISIONS_INCREMENT = 50;
@@ -34,7 +34,9 @@ const initialState = {
   revisionsDisplayed: [],
   revisionsDisplayedCourseSpecific: [],
   referencesLoaded: false,
-  assessmentsLoaded: false
+  courseSpecificReferencesLoaded: false,
+  assessmentsLoaded: false,
+  courseSpecificAssessmentsLoaded: false
 };
 
 const isLimitReached = (course_start, last_date) => {
@@ -99,6 +101,18 @@ export default function revisions(state = initialState, action) {
       });
       return newState;
     }
+    case 'RECEIVE_REFERENCES_COURSE_SPECIFIC': {
+      const newState = { ...state, courseSpecificReferencesLoaded: true };
+      const revisionsArray = newState.courseScopedRevisions;
+      const referencesAdded = action.data.referencesAdded;
+      newState.courseScopedRevisions = revisionsArray.map((revision) => {
+        return { references_added: referencesAdded?.[revision?.revid], ...revision };
+      });
+      newState.revisionsDisplayedCourseSpecific = state.revisionsDisplayedCourseSpecific.map((revision) => {
+        return { references_added: referencesAdded?.[revision?.revid], ...revision };
+      });
+      return newState;
+    }
     case RECEIVE_ASSESSMENTS: {
       const newState = { ...state, assessmentsLoaded: true };
       const revisionsArray = newState.revisions;
@@ -112,6 +126,28 @@ export default function revisions(state = initialState, action) {
         };
       });
       newState.revisionsDisplayed = state.revisionsDisplayed.map((revision) => {
+        return {
+          rating_num: pageAssessments?.[revision.revid]?.rating_num,
+          pretty_rating: pageAssessments?.[revision.revid]?.pretty_rating,
+          rating: pageAssessments?.[revision.revid]?.rating,
+          ...revision
+        };
+      });
+      return newState;
+    }
+    case 'RECEIVE_ASSESSMENTS_COURSE_SPECIFIC': {
+      const newState = { ...state, courseSpecificAssessmentsLoaded: true };
+      const revisionsArray = newState.courseScopedRevisions;
+      const pageAssessments = action.data.assessments;
+      newState.courseScopedRevisions = revisionsArray.map((revision) => {
+        return {
+          rating_num: pageAssessments?.[revision.revid]?.rating_num,
+          pretty_rating: pageAssessments?.[revision.revid]?.pretty_rating,
+          rating: pageAssessments?.[revision.revid]?.rating,
+          ...revision
+        };
+      });
+      newState.revisionsDisplayedCourseSpecific = state.revisionsDisplayedCourseSpecific.map((revision) => {
         return {
           rating_num: pageAssessments?.[revision.revid]?.rating_num,
           pretty_rating: pageAssessments?.[revision.revid]?.pretty_rating,

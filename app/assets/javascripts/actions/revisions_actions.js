@@ -37,13 +37,15 @@ const fetchRevisionsPromise = async (course, users, last_date, dispatch) => {
   fetchRevisionsAndReferences(revisions, dispatch);
   return { course, last_date: new_last_date };
 };
-const fetchRevisionsCourseSpecificPromise = async (course, users, last_date) => {
+const fetchRevisionsCourseSpecificPromise = async (course, users, last_date, dispatch) => {
   const result = await fetchAllArticles(course);
   const { revisions, last_date: new_last_date } = await fetchRevisionsFromUsers(course, users, 7, last_date);
   const trackedArticles = new Set(result.course.articles.filter(article => article.tracked).map(article => article.title));
   const trackedRevisions = revisions.filter(revision => trackedArticles.has(revision.title));
 
   course.revisions = sortRevisionsByDate(trackedRevisions);
+  fetchRevisionsAndReferences(trackedRevisions, dispatch, true);
+
   return { course, last_date: new_last_date };
 };
 
@@ -97,7 +99,11 @@ export const fetchCourseScopedRevisions = (course, limit) => async (dispatch, ge
     });
   }
   return (
-    fetchRevisionsCourseSpecificPromise(course, users, state.revisions.last_date_course_specific ?? course.last)
+    fetchRevisionsCourseSpecificPromise(
+        course, users,
+        state.revisions.last_date_course_specific ?? course.last,
+        dispatch
+      )
       .then((resp) => {
         dispatch({
           type: RECEIVE_COURSE_SCOPED_REVISIONS,
