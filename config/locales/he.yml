@@ -5,6 +5,7 @@
 # Author: Deborahjay
 # Author: Drorsnir
 # Author: Esh77
+# Author: Ex-Diktator
 # Author: Guycn2
 # Author: IKhitron
 # Author: LaG roiL
@@ -487,7 +488,7 @@ he:
     course_details: פרטי הקורס
     subject: נושא
     submitted: נשלח
-    submitted_at: נשלח ב
+    submitted_at: נשלח בתאריך
     tag_select: לבחור או ליצור תג
     tags: 'תגים:'
     term: מועד

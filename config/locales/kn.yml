@@ -135,7 +135,12 @@ kn:
     students_taught: ಒಟ್ಟು ಸಂಪಾದಕರು
     students_short: ಸಂಪಾದಕರು
   editable:
+    edit: ಸಂಪಾದಿಸಿ
+    cancel: ರದ್ದುಮಾಡಿ
     save: ಉಳಿಸಿ
+  instructor_view:
+    assignments_table:
+      article_name: ಹೆಸರು
   metrics:
     activity: ಇತ್ತೀಚಿನ ಚಟುವಟಿಕೆ
     articles_created: ಸೃಷ್ಟಿಸಿದ ಲೇಖನಗಳು
@@ -143,6 +148,71 @@ kn:
     date_time: ದಿನಾಂಕ/ಸಮಯ
     edit_count_description: ಒಟ್ಟು ಸಂಪಾದನೆಗಳು
     revisions: ಇತ್ತೀಚೆಗಿನ ಸಂಪಾದನೆಗಳು
+    tags: ಟ್ಯಾಗ್‌ಗಳು
+    view: ವೀಕ್ಷಣೆಗಳು
+  recent_activity:
+    article_title: ಶೀರ್ಷಿಕೆ
+    datetime: ದಿನಾಂಕ/ಸಮಯ
+    image: ಚಿತ್ರ
+    file_name: ಕಡತದ ಹೆಸರು
+  revisions:
+    date_time: ದಿನಾಂಕ/ಸಮಯ
+    diff: ವ್ಯತ್ಯಾಸ
+    diff_show: ತೋರಿಸು
+    diff_hide: ಅಡಗಿಸು
+    title: ಶೀರ್ಷಿಕೆ
+    see_more: ಇನ್ನಷ್ಟು ನೋಡಿ
+    show_all: ಎಲ್ಲಾ ತೋರಿಸಿ
+  resources:
+    label: ಸಂಪನ್ಮೂಲಗಳು
+  settings:
+    admin_users:
+      new:
+        form_placeholder: ಬಳಕೆದಾರರ ಹೆಸರು
+    special_users:
+      new:
+        form_placeholder: ಬಳಕೆದಾರರ ಹೆಸರು
   timeline:
     empty_week_3: ಅಥವಾ
+    this_week_title_default: ಈ ವಾರ
+  training:
+    next: ಮುಂದಿನ ಪುಟ
+    page: ಪುಟ
+    previous: < ಹಿಂದಿನ
+    table_of_contents: ಪರಿವಿಡಿ
+    done: ಮುಗಿಯಿತು!
+  uploads:
+    file_name: ಕಡತದ ಹೆಸರು
+    image: ಚಿತ್ರ
+  users:
+    contributions: ಬಳಕೆದಾರರ ಕಾಣಿಕೆಗಳು
+    editors: ಸಂಪಾದಕರು
+    edits: ಸಂಪಾದನೆಗಳು
+    first_name: ಮೊದಲ ಹೆಸರು
+    last_name: ಕೊನೆಯ ಹೆಸರು
+    name: ಹೆಸರು
+    number_of_articles:
+      one: '%{count} ಲೇಖನ'
+      other: '%{count} ಲೇಖನಗಳು'
+    username: ಬಳಕೆದಾರರ ಹೆಸರು
+    username_placeholder: ಬಳಕೆದಾರರ ಹೆಸರು
+    useremail_placeholder: ಇ-ಅಂಚೆ
+    role:
+      student: ವಿದ್ಯಾರ್ಥಿ
+  wizard:
+    summary: ಸಾರಾಂಶ
+  error_404:
+    header: ಪುಟ ಸಿಗಲಿಲ್ಲ :-(
+  error_500:
+    header: ಆಂತರಿಕ ಸರ್ವರ್ ದೋಷ. :-(
+  survey:
+    email:
+      headline: ನಮಸ್ಕಾರ, %{username}
+  article_finder:
+    search: ಹುಡುಕು
+    submit: ಸಲ್ಲಿಸಿ
+    tools: ಉಪಕರಣಗಳು
+  training_status:
+    continue: ಮುಂದುವರೆಸಿ
+    view: ವೀಕ್ಷಿಸಿ
 ...

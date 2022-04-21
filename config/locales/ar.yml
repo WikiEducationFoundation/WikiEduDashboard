@@ -6,6 +6,7 @@
 # Author: Azouz.anis
 # Author: Dr. Mohammed
 # Author: Eyas
+# Author: FiberAhmed
 # Author: Haytham morsy
 # Author: Hhaboh162002
 # Author: Maroen1990
@@ -63,7 +64,7 @@ ar:
     my_dashboard: لوحتي
     recent_activity: النشاطات الحديثة
     report_problem: أبلغ عن مشكلة
-    request_account: اطلب حسابا
+    request_account: اطلب حسابًا
     request_account_create: إنشاء حساب
     search: طرح سؤال
     search_results:
