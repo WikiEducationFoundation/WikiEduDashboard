@@ -107,7 +107,7 @@ const RevisionHandler = createReactClass({
     if (!this.state.isCourseScoped) {
       metaDataLoading = !this.props.referencesLoaded || !this.props.assessmentsLoaded;
     } else {
-      metaDataLoading = !this.props.courseSpecificReferencesLoaded;
+      metaDataLoading = !this.props.courseSpecificReferencesLoaded || !this.props.courseSpecificAssessmentsLoaded;
     }
     let showMoreButton;
     if ((!this.state.isCourseScoped && !this.props.limitReached) || (this.state.isCourseScoped && !this.props.courseScopedLimitReached)) {
