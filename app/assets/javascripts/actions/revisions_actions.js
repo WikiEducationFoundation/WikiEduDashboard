@@ -58,10 +58,8 @@ const fetchRevisionsCourseSpecificPromise = async (course, users, last_date, dis
     });
     return { course: { revisions: [] }, last_date: course.start };
   }
-
-  const { revisions, last_date: new_last_date } = await fetchRevisionsFromUsers(course, users, 7, last_date);
-  const trackedRevisions = revisions.filter(revision => trackedArticles.has(revision.title));
-
+  const filter = revision => trackedArticles.has(revision.title);
+  const { revisions: trackedRevisions, last_date: new_last_date } = await fetchRevisionsFromUsers(course, users, 7, last_date, filter);
   course.revisions = sortRevisionsByDate(trackedRevisions);
   fetchRevisionsAndReferences(trackedRevisions, dispatch, true);
 
