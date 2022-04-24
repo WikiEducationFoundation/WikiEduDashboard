@@ -28,6 +28,15 @@ const CourseApproval = (props) => {
     props.fetchSpecialUsers();
     props.fetchAllCampaigns();
     props.fetchAllTags();
+
+    // Cleanup function to clear all states after component unmounts
+    return function cleanUp() {
+      setSelectedWikiExpert({});
+      setSelectedCampaigns([]);
+      setSelectedTags([]);
+      setCreatedTagOption([]);
+      setSubmitting(false);
+    }
   }, []);
 
   useEffect(() => {
