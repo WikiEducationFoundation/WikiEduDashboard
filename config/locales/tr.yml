@@ -182,8 +182,8 @@ tr:
     preview: Maddenin kısa önizlemesi
     rating: Sınıf
     rating_doc: Bir maddenin derecelendirmesi Vikipedi üzerinde VikiProje tarafından
-      atanmıştır. Bu derecelendirmeler daha eski sürümlere karşılık gelebilir, bu
-      nedenle bunlar yalnızca madde olgunluğunun kaba bir göstergesidir.
+      atanmıştır. Bu derecelendirmeler çok daha eski sürümlere karşılık gelebilir,
+      bu nedenle bunlar yalnızca madde olgunluğunun kaba bir göstergesidir.
     rating_docs:
       fa: '%{class} (Seçkin madde) — Vikipedi''nin en yüksek reytingli ve muhtemelen
         yeni bir editörün ana projesi için oldukça olgun bir maddesidir'
