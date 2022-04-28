@@ -205,6 +205,7 @@ sd:
     add_template: سانچو وجهو
     add_this_category: هي زمرو وجهو
     add_this_template: ھي سانچو وجهو
+    name: نالو
     category_name: ڏَسان (زمري) جو نالو
     template_name: سانچي جو نالو
     remove: هٽايو
@@ -379,6 +380,9 @@ sd:
     loading: واپرائيندڙَ اتاري رهيا آهيون...
     name: نالو
     none: ڪي بہ شرڪت ڪندڙ نہ آهن.
+    number_of_articles:
+      one: '%{count} مضمون'
+      other: '%{count} مضمونَ'
     recent_revisions: تازيون سنوارون
     revisions_doc: هن سنواريندڙ پاران گذريل 7 ڏينھن ۾ ڪيل سنوارن جو انگ
     reviewers: نظرثاني ڪندڙ

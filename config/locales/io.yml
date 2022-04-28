@@ -27,6 +27,8 @@ io:
   articles:
     article_title: Titulo dil artiklo
     hide: Celez
+  assignments:
+    reviewers: Revizero(revizeri)
   campaign:
     campaign: Kampanio
     campaigns: Kampanii
@@ -50,6 +52,7 @@ io:
       one: Volontario
       other: Volontarii
   courses_generic:
+    cancel: Nihiligar
     campaigns: 'Kampanii:'
   editable:
     edit: Redakto
