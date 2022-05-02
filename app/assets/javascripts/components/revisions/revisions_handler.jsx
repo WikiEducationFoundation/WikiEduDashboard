@@ -113,12 +113,15 @@ const RevisionHandler = createReactClass({
     if ((!this.state.isCourseScoped && !this.props.limitReached) || (this.state.isCourseScoped && !this.props.courseScopedLimitReached)) {
       showMoreButton = <div><button className="button ghost stacked right" onClick={this.showMore}>{I18n.t('revisions.see_more')}</button></div>;
     }
+
+    // we only fetch articles data for a max of 500 articles(for course specific revisions).
+    // If there are more than 500 articles, the toggle button is not shown
     const revisionFilterButton = <div><button className="button ghost stacked right" onClick={this.toggleCourseSpecific}>{this.revisionFilterButtonText()}</button></div>;
     return (
       <div id="revisions">
         <div className="section-header">
           <h3>{I18n.t('application.recent_activity')}</h3>
-          {revisionFilterButton}
+          {this.props.course.article_count <= 500 && revisionFilterButton}
           <div className="sort-select">
             <select className="sorts" name="sorts" onChange={this.sortSelect}>
               <option value="rating_num">{I18n.t('revisions.class')}</option>
