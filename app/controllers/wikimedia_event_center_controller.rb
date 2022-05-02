@@ -4,6 +4,8 @@ require_dependency "#{Rails.root}/lib/importers/user_importer"
 
 # API for communicating with the Wikimedia Event Center
 class WikimediaEventCenterController < ApplicationController
+  # For an API, we disable CSRF protection. We're using the `secret` parameter instead.
+  skip_before_action :verify_authenticity_token
   respond_to :json
 
   # Method for linking an Event Center event to a not-yet-in-use Dashboard Course
