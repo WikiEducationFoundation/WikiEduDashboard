@@ -6,6 +6,7 @@ import RevisionList from './revision_list.jsx';
 import { fetchRevisions, sortRevisions, fetchCourseScopedRevisions } from '../../actions/revisions_actions.js';
 import Loading from '../common/loading.jsx';
 import ProgressIndicator from '../common/progress_indicator.jsx';
+import { ARTICLE_FETCH_LIMIT } from '../../constants/revisions.js';
 
 const RevisionHandler = createReactClass({
   displayName: 'RevisionHandler',
@@ -121,7 +122,7 @@ const RevisionHandler = createReactClass({
       <div id="revisions">
         <div className="section-header">
           <h3>{I18n.t('application.recent_activity')}</h3>
-          {this.props.course.article_count <= 500 && revisionFilterButton}
+          {this.props.course.article_count <= ARTICLE_FETCH_LIMIT && revisionFilterButton}
           <div className="sort-select">
             <select className="sorts" name="sorts" onChange={this.sortSelect}>
               <option value="rating_num">{I18n.t('revisions.class')}</option>

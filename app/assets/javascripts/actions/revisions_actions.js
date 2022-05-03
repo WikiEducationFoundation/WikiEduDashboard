@@ -18,11 +18,11 @@ import request from '../utils/request';
 import { fetchRevisionsFromUsers } from '../utils/mediawiki_revisions_utils';
 import { fetchRevisionsAndReferences } from './media_wiki_revisions_actions';
 import { sortRevisionsByDate } from '../utils/revision_utils';
-import { INCREASE_LIMIT } from '../constants/revisions';
+import { INCREASE_LIMIT, ARTICLE_FETCH_LIMIT } from '../constants/revisions';
 import { STUDENT_ROLE } from '../constants/user_roles';
 
 const fetchAllArticles = async (course) => {
-  const response = await request(`/courses/${course.slug}/articles.json?limit=500`);
+  const response = await request(`/courses/${course.slug}/articles.json?limit=${ARTICLE_FETCH_LIMIT}`);
   if (!response.ok) {
     logErrorMessage(response);
     const data = await response.text();
