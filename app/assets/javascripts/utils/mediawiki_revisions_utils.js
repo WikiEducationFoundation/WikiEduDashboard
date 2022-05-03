@@ -44,7 +44,9 @@ const fetchAll = async (API_URL, params, continue_str) => {
   return allData;
 };
 
-export const fetchRevisionsFromUsers = async (course, users, days, last_date) => {
+// filter is a function which is used to filter the fetched articles
+// currently its used to filter tracked articles
+export const fetchRevisionsFromUsers = async (course, users, days, last_date, filter) => {
   const usernames = users.map(user => user.username);
 
   let revisions = [];
@@ -61,7 +63,12 @@ export const fetchRevisionsFromUsers = async (course, users, days, last_date) =>
     for (const value of resolvedValues) {
       const { revisions: items, exitNext } = value;
       keepRunning = !exitNext;
-      revisions.push(...items);
+      if (filter) {
+        revisions.push(...(items.filter(filter)));
+      } else {
+        // if filter is not passed, simply add all the revisions
+        revisions.push(...items);
+      }
     }
     last_date = moment(last_date).subtract(days, 'days').format();
     if (revisions.length < 50) {

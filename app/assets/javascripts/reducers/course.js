@@ -37,7 +37,8 @@ const initialState = {
   training_library_slug: 'students',
   loading: true,
   updates: {},
-  wikis: []
+  wikis: [],
+  article_count: 0
 };
 
 
