@@ -36,7 +36,7 @@ const CourseApproval = (props) => {
       setSelectedTags([]);
       setCreatedTagOption([]);
       setSubmitting(false);
-    }
+    };
   }, []);
 
   useEffect(() => {
