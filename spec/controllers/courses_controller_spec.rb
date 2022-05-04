@@ -218,6 +218,22 @@ describe CoursesController, type: :request do
       end
     end
 
+    describe 'toggling disable student emails' do
+      it 'sets the disable student emails flag to true' do
+        expect(course.flags[:disable_student_emails]).to be_nil
+        params = { id: course.slug, course: { disable_student_emails: true } }
+        put "/courses/#{course.slug}", params: params, as: :json
+        expect(course.reload.flags[:disable_student_emails]).to eq(true)
+      end
+
+      it 'sets the disable student emails flag to false' do
+        expect(course.flags[:disable_student_emails]).to be_nil
+        params = { id: course.slug, course: { disable_student_emails: false } }
+        put "/courses/#{course.slug}", params: params, as: :json
+        expect(course.reload.flags[:disable_student_emails]).to eq(false)
+      end
+    end
+
     describe 'updating "last_reviewed"' do
       it 'sets the timestamp and reviewer' do
         expect(course.flags['last_reviewed']).to be_nil
