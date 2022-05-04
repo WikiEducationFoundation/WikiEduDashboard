@@ -5,7 +5,7 @@ const campaigns = [
   { id: 1, title: 'Spring 2022', slug: 'spring_2022' },
   { id: 2, title: 'Summer 2022', slug: 'summer_2022' },
   { id: 3, title: 'Fall 2022', slug: 'fall_2022' }
-]
+];
 let start_date;
 
 describe('No matching campaign', () => {
