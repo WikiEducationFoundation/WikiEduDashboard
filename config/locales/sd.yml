@@ -188,7 +188,7 @@ sd:
     alert_label: اطلاع مهم
     alert_type: قِسم
     alert_user_id: واپرائيندڙ
-    all_campaigns: سڀ مهمون (All Campaigns)
+    all_campaigns: سڀ مھمون
     already_exists: ان نالي سان مهم اڳ ۾ ئي موجود آهي! ڪو ٻيو عنوان، يا سُرخي آزمايو.
     campaign: مهم (Campaign)
     campaigns: مهم (Campaign)
@@ -205,6 +205,7 @@ sd:
     add_template: سانچو وجهو
     add_this_category: هي زمرو وجهو
     add_this_template: ھي سانچو وجهو
+    name: نالو
     category_name: ڏَسان (زمري) جو نالو
     template_name: سانچي جو نالو
     remove: هٽايو
@@ -379,6 +380,9 @@ sd:
     loading: واپرائيندڙَ اتاري رهيا آهيون...
     name: نالو
     none: ڪي بہ شرڪت ڪندڙ نہ آهن.
+    number_of_articles:
+      one: '%{count} مضمون'
+      other: '%{count} مضمونَ'
     recent_revisions: تازيون سنوارون
     revisions_doc: هن سنواريندڙ پاران گذريل 7 ڏينھن ۾ ڪيل سنوارن جو انگ
     reviewers: نظرثاني ڪندڙ
@@ -400,7 +404,7 @@ sd:
   error:
     oauth_invalid: توھان جو وڪيپيڊيا مختيارنامو ختم ٿي چڪو آھي. ٻيھر داخل ٿيو.
     unsupported_browser:
-      header: اڻ ٽيڪيل جھانگُو
+      header: سپورٽ-نہ-ٿيل برائوزر.  :-(
       explanation: توهان اهڙو جھانگُو استعمال ڪري رهيا آهيو، جيڪو ڊيشبورڊ سان موافق
         نہ آهي. هيءَ سرزمين انٽرنيت ايڪسپلورر جي 11هين يا اڃا نئين ورزن، ڪروم ۽ فائرفاڪس
         جي نون ورزنس، ۽ ڪن ٻين جديد جھانگُوئن تي ٺيڪ نظر ايندي آهي.

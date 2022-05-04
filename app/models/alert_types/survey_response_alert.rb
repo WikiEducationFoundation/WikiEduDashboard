@@ -20,9 +20,8 @@
 #  details        :text(65535)
 #
 
-# Alert for a course that has become moderately active in mainspace, intended for
-# Wiki Ed's communication staff to follow up with media outlets related to the course.
-# Similar to ProductiveCourseAlert, but with a different productivity threshold
+# Alert for a survey response that meets conditions
+# specified in the survey question. See SurveyResponseAlertManager.
 class SurveyResponseAlert < Alert
   def main_subject
     "#{question_text_excerpt} - #{user.username}"

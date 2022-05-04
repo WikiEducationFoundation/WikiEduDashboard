@@ -40,6 +40,7 @@ json.course do
 
   json.created_count number_to_human @course.new_article_count
   json.edited_count number_to_human @course.article_count
+  json.article_count @course.article_count
   json.edit_count number_to_human @course.revision_count
   json.student_count @course.user_count
   json.trained_count @course.trained_count

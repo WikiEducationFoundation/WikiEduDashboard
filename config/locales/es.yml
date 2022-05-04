@@ -25,6 +25,7 @@
 # Author: Joanmp17
 # Author: Johny Weissmuller Jr
 # Author: Jorgito
+# Author: Josuert
 # Author: KATRINE1992
 # Author: Koavf
 # Author: Lemondoge
@@ -1018,8 +1019,8 @@ es:
       de este panel para informarles sobre el problema.
   login_error:
     header: Error de inicio de sesión
-    explanation: Parece que hubo un problema con el proceso de registro. (Lo sentimos.
-      Esto sucede ocasionalmente.) Intenta iniciar sesión o inscribirte de nuevo.
+    explanation: Parece que hubo un problema con el proceso de registro. (Lo sentimos!
+      Esto sucede ocasionalmente.) Intenta iniciar sesión o inscribirse de nuevo.
   survey:
     login_message: Gracias por tu tiempo. Inicia sesión en tu panel de Wiki Ed para
       participar en la encuesta.

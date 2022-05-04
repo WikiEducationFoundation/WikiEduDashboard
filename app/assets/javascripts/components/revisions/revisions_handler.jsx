@@ -6,6 +6,7 @@ import RevisionList from './revision_list.jsx';
 import { fetchRevisions, sortRevisions, fetchCourseScopedRevisions } from '../../actions/revisions_actions.js';
 import Loading from '../common/loading.jsx';
 import ProgressIndicator from '../common/progress_indicator.jsx';
+import { ARTICLE_FETCH_LIMIT } from '../../constants/revisions.js';
 
 const RevisionHandler = createReactClass({
   displayName: 'RevisionHandler',
@@ -50,11 +51,20 @@ const RevisionHandler = createReactClass({
   },
 
   getLoadingMessage() {
-    if (!this.props.assessmentsLoaded) {
-      return 'Loading page assessments';
-    }
-    if (!this.props.referencesLoaded) {
-      return 'Loading references';
+    if (!this.state.isCourseScoped) {
+      if (!this.props.assessmentsLoaded) {
+        return 'Loading page assessments';
+      }
+      if (!this.props.referencesLoaded) {
+        return 'Loading references';
+      }
+    } else {
+      if (!this.props.courseSpecificAssessmentsLoaded) {
+        return 'Loading page assessments';
+      }
+      if (!this.props.courseSpecificReferencesLoaded) {
+        return 'Loading references';
+      }
     }
   },
 
@@ -92,18 +102,27 @@ const RevisionHandler = createReactClass({
   render() {
     // Boolean to indicate whether the revisions in the current section (all scoped or course scoped are loaded)
     const loaded = (!this.state.isCourseScoped && this.props.revisionsLoaded) || (this.state.isCourseScoped && this.props.courseScopedRevisionsLoaded);
-    const revisions = this.state.isCourseScoped ? this.props.courseScopedRevisions : this.props.revisionsDisplayed;
-    const metaDataLoading = !this.props.referencesLoaded || !this.props.assessmentsLoaded;
+    const revisions = this.state.isCourseScoped ? this.props.revisionsDisplayedCourseSpecific : this.props.revisionsDisplayed;
+    let metaDataLoading;
+
+    if (!this.state.isCourseScoped) {
+      metaDataLoading = !this.props.referencesLoaded || !this.props.assessmentsLoaded;
+    } else {
+      metaDataLoading = !this.props.courseSpecificReferencesLoaded || !this.props.courseSpecificAssessmentsLoaded;
+    }
     let showMoreButton;
     if ((!this.state.isCourseScoped && !this.props.limitReached) || (this.state.isCourseScoped && !this.props.courseScopedLimitReached)) {
       showMoreButton = <div><button className="button ghost stacked right" onClick={this.showMore}>{I18n.t('revisions.see_more')}</button></div>;
     }
+
+    // we only fetch articles data for a max of 500 articles(for course specific revisions).
+    // If there are more than 500 articles, the toggle button is not shown
     const revisionFilterButton = <div><button className="button ghost stacked right" onClick={this.toggleCourseSpecific}>{this.revisionFilterButtonText()}</button></div>;
     return (
       <div id="revisions">
         <div className="section-header">
           <h3>{I18n.t('application.recent_activity')}</h3>
-          {revisionFilterButton}
+          {this.props.course.article_count <= ARTICLE_FETCH_LIMIT && revisionFilterButton}
           <div className="sort-select">
             <select className="sorts" name="sorts" onChange={this.sortSelect}>
               <option value="rating_num">{I18n.t('revisions.class')}</option>
@@ -132,17 +151,18 @@ const RevisionHandler = createReactClass({
 });
 
 const mapStateToProps = state => ({
-  courseScopedLimit: state.revisions.courseScopedLimit,
   courseScopedLimitReached: state.revisions.courseScopedLimitReached,
-  courseScopedRevisions: state.revisions.courseScopedRevisions,
   limitReached: state.revisions.limitReached,
   revisionsDisplayed: state.revisions.revisionsDisplayed,
+  revisionsDisplayedCourseSpecific: state.revisions.revisionsDisplayedCourseSpecific,
+  courseSpecificAssessmentsLoaded: state.revisions.courseSpecificAssessmentsLoaded,
   wikidataLabels: state.wikidataLabels.labels,
   courseScopedRevisionsLoaded: state.revisions.courseScopedRevisionsLoaded,
   revisionsLoaded: state.revisions.revisionsLoaded,
   sort: state.revisions.sort,
   referencesLoaded: state.revisions.referencesLoaded,
-  assessmentsLoaded: state.revisions.assessmentsLoaded
+  assessmentsLoaded: state.revisions.assessmentsLoaded,
+  courseSpecificReferencesLoaded: state.revisions.courseSpecificReferencesLoaded
 });
 
 const mapDispatchToProps = {

@@ -6,6 +6,7 @@
 # Author: A Retired User
 # Author: AYZ04
 # Author: Assoc
+# Author: BlackShadowG
 # Author: Camilali0609
 # Author: Deathkon
 # Author: Endermoon
@@ -239,6 +240,7 @@ zh-CN:
 
       已选择%{currentCount}/%{total}
     peer_review_count_tooltip: 您应该选择%{total} 个条目来同行审核
+    peer_review_link: 同行评审
     random_peer_review:
       confirm_addition: 在大多数情况下，您应当仅在所有学生都已分配他们的主要文章后使用此功能。您也可以让您的学生选择他们自己的同行评审，或者您可以通过点击学生所在行然后使用“分配/删除同行评审”按钮来手动分配同行评审。点击“OK”分配共计
         %{count} 个额外的同行评审，每个学生最多从同学的文章中选择 %{maximum} 个。
@@ -298,6 +300,7 @@ zh-CN:
     title: 标题
     slug: 重击
     use_start_end_dates: 使用开始和结束日期
+    search: 搜索
   categories:
     add_category: 添加分类
     add_psid: 添加PetScan PSID

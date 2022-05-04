@@ -5,7 +5,12 @@ import {
   RECEIVE_COURSE_SCOPED_REVISIONS,
   COURSE_SCOPED_REVISIONS_LOADING,
   SORT_REVISIONS,
-  API_FAIL
+  API_FAIL,
+  RECEIVE_ASSESSMENTS,
+  RECEIVE_REFERENCES,
+  INCREASE_LIMIT_COURSE_SPECIFIC,
+  RECEIVE_ASSESSMENTS_COURSE_SPECIFIC,
+  RECEIVE_REFERENCES_COURSE_SPECIFIC
 } from '../constants';
 import { fetchWikidataLabelsForRevisions } from './wikidata_actions';
 import logErrorMessage from '../utils/log_error_message';
@@ -13,18 +18,19 @@ import request from '../utils/request';
 import { fetchRevisionsFromUsers } from '../utils/mediawiki_revisions_utils';
 import { fetchRevisionsAndReferences } from './media_wiki_revisions_actions';
 import { sortRevisionsByDate } from '../utils/revision_utils';
-import { INCREASE_LIMIT } from '../constants/revisions';
+import { INCREASE_LIMIT, ARTICLE_FETCH_LIMIT } from '../constants/revisions';
 import { STUDENT_ROLE } from '../constants/user_roles';
 
-const fetchCourseScopedRevisionsPromise = async (course, limit) => {
-  const response = await request(`/courses/${course.slug}/revisions.json?limit=${limit}&course_scoped=true`);
+const fetchAllArticles = async (course) => {
+  const response = await request(`/courses/${course.slug}/articles.json?limit=${ARTICLE_FETCH_LIMIT}`);
   if (!response.ok) {
     logErrorMessage(response);
     const data = await response.text();
     response.responseText = data;
     throw response;
   }
-  return response.json();
+  const json = await response.json();
+  return json.course.articles;
 };
 
 const fetchRevisionsPromise = async (course, users, last_date, dispatch) => {
@@ -33,6 +39,30 @@ const fetchRevisionsPromise = async (course, users, last_date, dispatch) => {
 
   // we don't await this. When the assessments/references get laoded, the action is dispatched
   fetchRevisionsAndReferences(revisions, dispatch);
+  return { course, last_date: new_last_date };
+};
+const fetchRevisionsCourseSpecificPromise = async (course, users, last_date, dispatch, articles) => {
+  const trackedArticles = new Set(
+    articles.filter(article => article.tracked).map(article => article.title)
+  );
+
+  if (trackedArticles.size === 0) {
+    // no need to fetch
+    dispatch({
+      type: RECEIVE_REFERENCES_COURSE_SPECIFIC,
+      data: { },
+    });
+    dispatch({
+      type: RECEIVE_ASSESSMENTS_COURSE_SPECIFIC,
+      data: { },
+    });
+    return { course: { revisions: [] }, last_date: course.start };
+  }
+  const filter = revision => trackedArticles.has(revision.title);
+  const { revisions: trackedRevisions, last_date: new_last_date } = await fetchRevisionsFromUsers(course, users, 7, last_date, filter);
+  course.revisions = sortRevisionsByDate(trackedRevisions);
+  fetchRevisionsAndReferences(trackedRevisions, dispatch, true);
+
   return { course, last_date: new_last_date };
 };
 
@@ -45,6 +75,14 @@ export const fetchRevisions = course => async (dispatch, getState) => {
     dispatch({
       type: RECEIVE_REVISIONS,
       data: { course },
+    });
+    dispatch({
+      type: RECEIVE_REFERENCES,
+      data: { },
+    });
+    dispatch({
+      type: RECEIVE_ASSESSMENTS,
+      data: { },
     });
     return;
   }
@@ -67,10 +105,49 @@ export const fetchRevisions = course => async (dispatch, getState) => {
   );
 };
 
-export const fetchCourseScopedRevisions = (course, limit) => async (dispatch) => {
+export const fetchCourseScopedRevisions = (course, limit) => async (dispatch, getState) => {
+  const state = getState();
+  const users = state.users.users.filter(user => user.role === STUDENT_ROLE);
+
   dispatch({ type: COURSE_SCOPED_REVISIONS_LOADING });
+
+  if (users.length === 0) {
+    course.revisions = [];
+    dispatch({
+      type: RECEIVE_COURSE_SCOPED_REVISIONS,
+      data: { course },
+    });
+    dispatch({
+      type: RECEIVE_REFERENCES_COURSE_SPECIFIC,
+      data: { },
+    });
+    dispatch({
+      type: RECEIVE_ASSESSMENTS_COURSE_SPECIFIC,
+      data: { },
+    });
+    return;
+  }
+
+  if (state.revisions.revisionsDisplayedCourseSpecific.length < state.revisions.courseScopedRevisions.length) {
+    // no need to fetch new revisions
+    return dispatch({
+      type: INCREASE_LIMIT_COURSE_SPECIFIC
+    });
+  }
+  let articles;
+  if (state.articles.limitReached) {
+    // no need to fetch articles again
+    articles = state.articles.articles;
+  } else {
+    articles = await fetchAllArticles(course);
+  }
   return (
-    fetchCourseScopedRevisionsPromise(course, limit)
+    fetchRevisionsCourseSpecificPromise(
+        course, users,
+        state.revisions.last_date_course_specific ?? course.last,
+        dispatch,
+        articles
+      )
       .then((resp) => {
         dispatch({
           type: RECEIVE_COURSE_SCOPED_REVISIONS,
