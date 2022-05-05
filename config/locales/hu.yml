@@ -24,11 +24,22 @@ hu:
           billion: mrd
           trillion: B
           quadrillion: brd
+  accessibility:
+    number_field: Ez egy számmező. A legtöbb böngésző által megjelenített gombok növelik
+      vagy csökkentik a bevitt értéket.
   application:
     cancel: Mégse
-    dashboard: Wiki Ed Műszerfal
+    cookie_consent: Ez az oldal sütiket használ, hogy Ön bejelentkezve maradjon, és
+      tárolja a Wikipédia-fiókjával kapcsolatos információkat.
+    cookie_consent_acknowledge: Értem
+    cookie_consent_see_more: Tovább
+    dashboard: Wiki Ed kezelőpult
     documentation: Dokumentáció
+    error: 'Hiba történt:'
     explore: Felfedezés
+    field_required: A mező kitöltése kötelező.
+    field_invalid_characters: Ez a mező érvénytelen karaktereket tartalmaz
+    field_invalid_date: Ebben a mezőben a dátumot YYYY-MM-DD formátumban kell megadni.
     field_invalid_date_time: A befejezésnek a kezdet után kell lennie. (Az órák 0-tól
       23-ig tartanak.)
     greeting2: Üdvözlünk!
@@ -39,37 +50,86 @@ hu:
     log_in_extended: Bejelentkezés Wikipédiával
     log_in: Bejelentkezés
     log_out: Kijelentkezés
+    my_dashboard: Kezelőpult
     recent_activity: Legutóbbi tevékenységek
     report_problem: Probléma jelentése
+    request_account: Igényelj fiókot
+    request_account_create: Fiók létrehozása
     search: kérdés feltevése
+    no_results: Nincs találat '%{query}'-re.
     sign_up_extended: Regisztráció Wikipédiával
+    sign_up_wikipedia: Vagy regisztrálj a Wikipédián
     sign_up_log_in_extended: Wikipédiával
     sign_up: Regisztráció
     submit: Elküld
     training: Gyakorlás
+    change: Módosítás
+    details: Részletek
+    confirm: Rendben
+    opt_in: Igen
+    opt_out: Nem
+    opt_yes: igen
+    opt_no: nem
+  article_statuses:
+    not_yet_started: Első lépések
+    in_progress: Gyakorlás a homokozóban
+    reading_the_article: Szócikk olvasása
+    providing_feedback: Visszajelzés küldése
+    post_to_talk: Írás üzenőoldalra
   home:
     explore: Felfedezés
     log_in: Bejelentkezés Wikipédiával
     sign_up: Regisztráció Wikipédiával
   activity:
     all: Tevékenység
+    label: Tevékenység
   articles:
+    articles: Szócikkek
+    article_not_found: Ez a szócikk még nem létezik.
+    next: Tovább
+    previous: Előző
+    article_title: Szócikk címe
+    deleted: (törölve)
     edited_mobile: Szócikkek
     filter:
+      new: Új
       existing: Meglévő
+    hide: Elrejt
+    history: (történet)
     label: Szócikkek
     loading: Szócikkek betöltése...
+    new: (új)
+    see_more: Tovább
     title: Cím
     title_example: Szócikk címe
     articles_short: Szócikkek
   articles_generic:
     articles_short: Lapok
   assignments:
+    article_link: Szócikk
+    group_members: Csoporttagok
     label: Hozzárendelés
+    remove: Eltávolít
+    select: Kiválaszt
   blocks:
     milestones:
       title: Mérföldkövek
+  campaign:
+    campaign: Kampány
+    campaigns: Kampányok
+    created_at: Dátum
+    data_articles: Szerkesztett oldalak
+    data_editor_usernames: Szerkesztőnevek
+    description: Leírás
+    delete_campaign: Kampány törlése
+    search: Keresés
+  categories:
+    add_category: Új kategória
+    name: Név
+    category_name: Kategórianév
+    remove: Eltávolít
   courses:
+    activity: Tevékenység
     delete_suggestion: Törlés
     join: Csatlakozás
     launch_wizard: A varázsló indítása
@@ -126,9 +186,9 @@ hu:
     invalid_file_format: A fájl mentése sikertelen. Tölts fel egy PDF vagy Word-fájlt.
     unsupported_browser:
       header: Nem támogatott böngésző. :-(
-      explanation: A böngésződ nem kompatibilis a vezérlőpulttal. Az oldal az Internet
-        Explorer 11-es vagy újabb, a Chrome és a Firefox friss verzióival és más modern
-        böngészőkkel működik jól.
+      explanation: Olyan böngészőprogramot használsz, amely nem kompatibilis a kezelőpulttal.
+        Ez az oldal jól működik a Chrome, Firefox, Edge és más modern böngészők legújabb
+        verzióiban.
   error_404:
     header: A lap nem található. :-(
   error_500:

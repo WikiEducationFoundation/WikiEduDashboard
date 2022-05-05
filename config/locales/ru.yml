@@ -26,6 +26,7 @@
 # Author: Mailman
 # Author: Mouse21
 # Author: Movses
+# Author: Nataev
 # Author: Nzeemin
 # Author: Okras
 # Author: Pacha Tchernof
@@ -149,9 +150,11 @@ ru:
     edited_by: Изменил(а)
     label: Активность
   articles:
+    articles: Статьи
     article_not_found: Эта статья пока не создана.
     article_development: (разработка статьи)
     assigned: Назначенные статьи
+    assignments_none: Назначенных статей пока нет.
     available: Доступные статьи
     no_available: Нет доступных статей
     next: Следующая
@@ -161,9 +164,12 @@ ru:
     character_doc: Общее число символов, добавленных в статьи участвующими редакторами
       между датами начала и окончания.
     deleted: (удалено)
+    does_not_exist: Статья не существует. Создайте черновую страницу и назначьте себя
+      на нее, чтобы получать предложения.
     edited: Статей отредактировано
     edited_by: 'Под редакцией:'
     edited_mobile: Статьи
+    edited_none: Отредактированных статей пока нет.
     filter:
       wiki_all: Все
       new: Новые
