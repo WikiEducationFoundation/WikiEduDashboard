@@ -2,13 +2,193 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Malikxan
+# Author: Nataev
 # Author: Sociologist
 ---
 uz:
+  number:
+    human:
+      decimal_units:
+        units:
+          thousand: K
+          million: M
+          billion: M
+          trillion: T
+          quadrillion: K
+  application:
+    cancel: Bekor qilish
+    dashboard: Vikipediya Taʼlim dasturi paneli
+    documentation: Hujjat
+    field_required: Ushbu qator toʻldirilishi shart
+    greeting2: Xush kelibsiz!
+    greeting_extended: Vikipediyaga xush kelibsiz
+    greeting: Salom!
+    help: Yordam
+    home: Bosh sahifa
+    log_in_extended: Vikipediya hisobi bilan kirish
+    log_in: Kirish
+    log_out: Chiqish
+    my_dashboard: Mening panelim
+    recent_activity: Soʻnggi faoliyat
+    report_problem: Muammo haqida xabar berish
+    request_account: Hisob yaratilishini iltimos qilish
+    request_account_create: Hisob yaratish
+    search: Savol berish
+    sign_up_extended: Vikipediya hisobi yordamida roʻyxatdan oʻtish
+    sign_up_wikipedia: yoki Vikipediyada roʻyxatdan oʻtish
+    sign_up_log_in_extended: Vikipediya hisobi bilan
+    sign_up: Roʻyxatdan oʻtish
+    submit: Joʻnatish
+    training: Trening
+    change: Oʻzgartirish
+    details: Tafsilotlar
+    confirm: OK
+    opt_in: Ha
+    opt_out: Yoʻq
+    opt_yes: ha
+    opt_no: yoʻq
+  article_statuses:
+    not_yet_started: Boshlash
+    in_progress: Qumloqda ishlash
+    ready_for_mainspace: Ishni asosiy nomfazoga oʻtkazish
+    assignment_completed: Topshiriq tugallangan deb belgilandi
+    reading_the_article: Maqolani oʻqish
+    providing_feedback: Fikr-mulohaza yuborish
+    post_to_talk: Munozara sahifasida yozish
+    peer_review_completed: Koʻrib chiqish yakunlandi
+  dashboard:
+    create_note: Ilk kursingizni yaratish uchun „Kurs yaratish“ tugmasini bosing
+    explore_course_pages: Kurs sahifalarini koʻrib chiqish
+    explore_examples: Misollarni koʻrib chiqish
+  home:
+    log_in: Vikipediya hisobi bilan kirish
+    sign_up: Vikipediya hisobi yordamida roʻyxatdan oʻtish
+  activity:
+    all: Faoliyat
+    label: Faoliyat
+  articles:
+    articles: Maqolalar
+    article_not_found: Bu maqola hali yaratilmagan
+    next: Keyingisi
+    previous: Avvalgisi
+    article_title: Maqola nomi
+    edited_mobile: Maqolalar
+    filter:
+      wiki_all: Barchasi
+      new: Yangi
+    find: Maqolalarni topish
+    hide: Yashirish
+    history: (tarix)
+    label: Maqolalar
+    loading: Maqolalar yuklanmoqda...
+    new: (yangi)
+    rating: Sinf
+    title_example: Maqola nomi
+    view: Maqolani koʻrish
+    view_all: Barchasini koʻrish
+    articles_short: Maqolalar
+  articles_generic:
+    articles_short: Sahifalar
   assignments:
+    article_link: Maqola
+    add_available_submit: Maqolalar qoʻshish
+    bibliography: Bibliografiya
+    group_members: Guruh aʼzolari
+    remove: Olib tashlash
     reviewers: Tekshiruvchi(lar)
+    sandbox_draft_link: Qumloq qoralamasi
+    select: Tanlash
+  campaign:
+    add_organizer: Tashkilotchi qoʻshish
+    alert_article: Maqola nomi
+    alert_type: Turi
+    alert_user_id: Foydalanuvchi
+    created_at: Sana
+    course: Kurs
+    description: Tavsif
+    none: Hech qaysi
+    organizers: Tashkilotchilar
+    program_template: Dastur andozasi
+    search: Qidiruv
+  categories:
+    add_category: Turkum qoʻshish
+    add_template: Andoza qoʻshish
+    add_this_category: Bu turkumni qoʻshish
+    add_this_template: Bu andozani qoʻshish
+    name: Nomi
+    template_name: Andoza nomi
+    remove: Olib tashlash
+  courses:
+    activity: Faoliyat
+    actions: Amallar
+    articles: Maqolalar
+    cancel: Bekor qilish
+    campaign_articles: '%{title} Maqolalar'
+    campaign_courses: '%{title} Kurslar'
+    course: Kurs
+    course_description: Kurslar
+    courses: Kurslar
+    creator:
+      course_title: Kurs nomi
+      course_types:
+        edit_a_thon_name: Vikiyoz
+      create_label: Yangi kurs yaratish
+      create_short: Kurs yaratish
+      role_description_options:
+      - Instruktor
+    current: Joriy kurslar
+    delete_course: Kursni oʻchirish
+    delete_suggestion: Oʻchirish
+    feedback: Fikr-mulohazalar
+    join: Qoʻshilish
+    join_course: Kursga qoʻshilish
+    loading: Yuklanmoqda…
+    my_articles: Maqolalarim
+    new_account_email: E-pochta manzilingiz
+    new_account_email_placeholder: name@example.org
+    none: Hech qaysi
+    please_log_in: Iltimos, hisobingizga kiring.
+    requested_accounts_alert_view: Koʻrish
+    student: Talaba
+    students: Talabalar
+    students_short: Talabalar
+    course_details: Kurs tafsilotlari
+    tags: 'Teglar:'
+    training_nav: Treningga oʻtish
+  courses_generic:
+    all_courses: Barcha dasturlar
+    cancel: Bekor qilish
+    course: Dastur
+    courses: Dasturlar
+    creator:
+      course_term: Qachon
+      course_term_placeholder: Qachon
+      course_title: Dastur nomi
+      save_cloned_course: Saqlash
+    delete_course: Dasturni oʻchirish
+    join_course: Dasturga qoʻshilish
+    request_accounts: Hisob yaratilishini iltimos qilish
+    students_count: Qatnashchilar soni
+    term: Qachon
+    view_page: Dastur sahifasini koʻrish
+  editable:
+    edit: Tahrirlash
+    cancel: Bekor qilish
+    save: Saqlash
+    edit_description: Tavsifni tahrirlash
+    edit_details: Tafsilotlarni tahrirlash
+    edit_template: Andozani tahrirlash
   metrics:
+    label: Kurs faoliyati
+    activity: Soʻnggi faoliyat
     bytes_added: Bayt qoʻshildi
+    characters: Belgilar
+    close_modal: Yopish
+    date_time: Sana/Vaqt
+    outreach_help: Yordam kerakmi? Yuqori paneldagi 'Muammo haqida xabar berish' boʻlimiga
+      qarang.
+    tags: Teglar
+    view: Koʻrishlar
     created: Yaratildi
     changed: Oʻzgartirildi
     removed: Olib tashlandi
@@ -17,6 +197,68 @@ uz:
     descriptions: Tavsiflar
     no_data: Maʼlumot yoʻq
     other_updates: Boshqa yangilanishlar
+  namespace:
+    main: Asosiyfazo
+    user_ns: Foydalanuvchi
+  recent_activity:
+    datetime: Sana/Vaqt
+    image: Tasvir
+    file_name: Fayl nomi
+  revisions:
+    class: Sinf
+    date_time: Sana/Vaqt
+    diff: farq
+    diff_show: Koʻrsatish
+    diff_hide: Yashirish
+    show_all: Barchasini koʻrsatish
+  settings:
+    special_users:
+      new:
+        form_placeholder: Foydalanuvchi nomi
+  timeline:
+    add_week: Hafta qoʻshish
+    block_assignment: Topshiriq
+    empty_week_3: yoki
+    week_number: '%{number} hafta'
+  training:
+    view: Koʻrish
+    page: Sahifa
+    previous: < Avvalgisi
+    done: Bajarildi!
   users:
+    assign_articles_done: Bajarildi
     contributions: Foydalanuvchi hissasi
+    first_name: Ism
+    last_name: Familiya
+    loading: Foydalanuvchilar yuklanmoqda...
+    sandboxes: qumloq
+    sub_navigation:
+      assignments_and_exercises: Topshiriqlar va mashqlar
+    training_module_status: Status
+    training_module_time:
+      minutes: Daq
+      seconds: Sek
+    user_training_status: Trening statusi
+    username: Foydalanuvchi nomi
+    username_placeholder: Foydalanuvchi nomi
+    useremail_placeholder: E-pochta
+    role:
+      student: Talaba
+  wizard:
+    assignment_dates: Topshiriq muddati
+  error_404:
+    header: Sahifa topilmadi. :-(
+  survey:
+    email:
+      headline: Salom, %{username}
+      closing: Samimiyat ila,
+  article_finder:
+    remove_article: Maqolani olib tashlash
+    search: Qidiruv
+    show_options: Opsiyalarni koʻrsatish
+    submit: Joʻnatish
+    tools: Asboblar
+  training_status:
+    continue: Davom etish
+    view: Koʻrish
 ...
