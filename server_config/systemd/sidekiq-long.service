@@ -15,7 +15,8 @@ WorkingDirectory=/var/www/dashboard/current
 # If you use rbenv:
 # ExecStart=/bin/bash -lc '/home/deploy/.rbenv/shims/bundle exec sidekiq -e production'
 # If you use the system's ruby:
-ExecStart=/usr/local/rvm/bin/rvm default do bundle exec sidekiq -e production --queue long_update --queue medium_update --concurrency 1
+# ExecStart=/usr/local/rvm/bin/rvm default do bundle exec sidekiq -e production --queue long_update --queue medium_update --concurrency 1
+ExecStart=/home/sage/.rvm/bin/rvm default do bundle exec sidekiq -e production --queue long_update --queue medium_update --concurrency 1
 User=root
 Group=root
 UMask=0002

@@ -16,7 +16,8 @@ WorkingDirectory=/var/www/dashboard/current
 # NOTE: We keep concurrency at 1 for this process because it is the one that handles wiki edits, and we
 # don't ever want to attempt two edits from the same account concurrently, as this can result in failed
 # edits because mediawiki will only issue a user one valid edit token at a time.
-ExecStart=/usr/local/rvm/bin/rvm default do bundle exec sidekiq -e production --queue default --concurrency 1
+# ExecStart=/usr/local/rvm/bin/rvm default do bundle exec sidekiq -e production --queue default --concurrency 1
+ExecStart=/home/sage/.rvm/bin/rvm default do bundle exec sidekiq -e production --queue default --concurrency 1
 User=root
 Group=root
 UMask=0002

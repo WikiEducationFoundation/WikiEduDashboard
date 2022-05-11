@@ -7,15 +7,15 @@
 set :branch, ENV["TRAVIS_COMMIT"] || 'production'
 set :rails_env, 'production'
 
-role :app, %w(deploy@dashboard.wikiedu.org)
-role :web, %w(deploy@dashboard.wikiedu.org)
-role :db,  %w(deploy@dashboard.wikiedu.org)
+role :app, %w(sage@dashboard.wikiedu.org)
+role :web, %w(sage@dashboard.wikiedu.org)
+role :db,  %w(sage@dashboard.wikiedu.org)
 
-set :user, 'deploy'
+set :user, 'sage'
 set :address, 'dashboard.wikiedu.org'
 
 set :deploy_to, '/var/www/dashboard'
-set :rvm_type, :system
+# set :rvm_type, :system
 set :default_env, { 'PASSENGER_INSTANCE_REGISTRY_DIR' => '/var/www/dashboard/shared/tmp/pids' }
 
 # This is normally set from the deploying machine's newrelic.yml.
