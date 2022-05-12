@@ -39,6 +39,7 @@ class OverdueTrainingAlert < Alert
   def send_email
     return if emails_disabled?
     return if opted_out?
+    return if course.disable_student_emails?
     OverdueTrainingAlertMailer.send_email(self)
   end
 

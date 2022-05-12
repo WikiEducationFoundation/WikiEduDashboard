@@ -590,6 +590,8 @@ en:
     delete_course: Delete course
     delete_suggestion: Delete
     delete_course_instructions: You may delete this page if all campaigns are removed first.
+    disable_student_emails: Disable Student Emails
+    disable_student_emails_tooltip: Disabling student email will stop some notification emails from being sent to students for this course.
     dismiss_survey: Dismiss
     dismiss_survey_confirm: Are you sure you want to permanently dismiss this survey?
     download_stats_data: Download stats
