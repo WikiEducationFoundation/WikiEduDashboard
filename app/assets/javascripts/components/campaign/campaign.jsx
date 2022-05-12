@@ -32,10 +32,8 @@ export const Campaign = createReactClass({
 
     let campaignHandler;
     if (window.location.href.match(/overview/)) {
-      const countButtons = document.querySelectorAll('button').length;
-      const correction = countButtons > 0 ? `${(countButtons - 1) * 58}px` : '0px';
       campaignHandler = (
-        <div className="high-modal" style={{ marginTop: `${correction}` }}>
+        <div className="high-modal">
           <CampaignOverviewHandler {...this.props} />
         </div>
         );
