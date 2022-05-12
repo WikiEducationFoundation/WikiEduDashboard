@@ -417,7 +417,8 @@ const Details = createReactClass({
     }
 
     // Users who can rename a course are also allowed to toggle the student email on/off.
-    if (canRename) {
+    // But email is only relevant for Wiki Education courses.
+    if (canRename && Features.wikiEd) {
       disableStudentEmailsToggle = (
         <DisableStudentEmailsToggle
           course={this.props.course}
