@@ -220,14 +220,14 @@ describe CoursesController, type: :request do
 
     describe 'toggling disable student emails' do
       it 'sets the disable student emails flag to true' do
-        expect(course.flags[:disable_student_emails]).to be_nil
+        expect(course.disable_student_emails?).to be false
         params = { id: course.slug, course: { disable_student_emails: true } }
         put "/courses/#{course.slug}", params: params, as: :json
         expect(course.reload.flags[:disable_student_emails]).to eq(true)
       end
 
       it 'sets the disable student emails flag to false' do
-        expect(course.flags[:disable_student_emails]).to be_nil
+        expect(course.disable_student_emails?).to be false
         params = { id: course.slug, course: { disable_student_emails: false } }
         put "/courses/#{course.slug}", params: params, as: :json
         expect(course.reload.flags[:disable_student_emails]).to eq(false)
