@@ -26,7 +26,7 @@ export default function campaigns(state = initialState, action) {
     case RECEIVE_ALL_CAMPAIGNS: {
       const newState = {
         ...state,
-        all_campaigns: action.data.values
+        all_campaigns: action.data.campaigns
         };
       return newState;
       }

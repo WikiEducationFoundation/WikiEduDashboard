@@ -10,8 +10,8 @@ class LookupsController < ApplicationController
   def campaign
     @model = 'campaign'
     @key = 'title'
-    @values = Campaign.all.order(created_at: :desc).pluck(:title)
-    render 'index'
+    @values = Campaign.all.order(created_at: :desc)
+    render 'campaigns'
   end
 
   # Used to generate list of existing tags for pulldown
@@ -20,6 +20,6 @@ class LookupsController < ApplicationController
     @model = 'tag'
     @key = 'tag'
     @values = Tag.all.pluck(:tag)
-    render 'index'
+    render 'tags'
   end
 end
