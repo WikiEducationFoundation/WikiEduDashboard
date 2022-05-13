@@ -152,7 +152,7 @@ ON THE SERVER
 - Add systemd services for the app's sidekiq processes
   - copy the .service files from `server_config/systemd` into the systemd directory ( `/etc/systemd/system` on Debian)
     - Change the user and group lines to match the user who owns the deployment process (and one of their groups)
-  - enable each service: `systemcl enable sidekiq-default`, etc.
+  - enable each service: `systemctl enable sidekiq-default`, etc.
 
 ON YOUR MACHINE
 -------------
