@@ -20,9 +20,9 @@ describe CategoryImporter do
     end
 
     context 'for depth 1' do
-      let(:category) { 'Category:Monty Python films' }
-      let(:article_in_cat) { "Monty Python's Life of Brian" }
-      let(:article_in_subcat) { 'Knights Who Say "Ni!"' }
+      let(:category) { 'Category:Monty Python' }
+      let(:article_in_cat) { 'Monty Python v. American Broadcasting Companies, Inc.' }
+      let(:article_in_subcat) { "Monty Python's Life of Brian" }
       let(:depth) { 1 }
 
       it 'works recursively for subcategories' do
