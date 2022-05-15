@@ -44,6 +44,8 @@ const Article = createReactClass({
   render() {
     const ratingClass = `rating ${this.props.article.rating}`;
     const ratingMobileClass = `${ratingClass} tablet-only`;
+    const isDeleted = this.props.article.deleted;
+    const deletedMessage = I18n.t('articles.deleted_message');
 
     // Uses Course Utils Helper
     const formattedTitle = CourseUtils.formattedArticleTitle(this.props.article, this.props.course.home_wiki, this.props.wikidataLabel);
@@ -76,17 +78,21 @@ const Article = createReactClass({
     const isWikipedia = project === 'wikipedia';
 
     return (
-      <tr className="article">
+      <tr className={`article ${isDeleted ? 'deleted' : ' '}`}>
         <td className="tooltip-trigger desktop-only-tc">
           {isWikipedia && <p className="rating_num hidden">{this.props.article.rating_num}</p>}
-          {isWikipedia && <div className={ratingClass}><p>{this.props.article.pretty_rating || '-'}</p></div>}
+          {isWikipedia && <div className={ratingClass}><p>{!isDeleted ? (this.props.article.pretty_rating || '-') : 'DE'}</p></div>}
           {isWikipedia && <div className="tooltip dark">
-            <p>{I18n.t(`articles.rating_docs.${this.props.article.rating || '?'}`, { class: this.props.article.rating || '' })}</p>
+            <p>
+              {
+                !isDeleted ? I18n.t(`articles.rating_docs.${this.props.article.rating || '?'}`, { class: this.props.article.rating || '' }) : deletedMessage
+              }
+            </p>
             {/* eslint-disable-next-line */}
           </div>}
         </td>
         <td>
-          {isWikipedia && <div className={ratingMobileClass}><p>{this.props.article.pretty_rating || '-'}</p></div>}
+          {isWikipedia && <div className={ratingMobileClass}><p>{!isDeleted ? (this.props.article.pretty_rating || '-') : 'DE'}</p></div>}
           {isWikipedia && <div />}
           <div className="title">
             <a href={this.props.article.url} target="_blank" className="inline">{formattedTitle} {(this.props.article.new_article ? ` ${I18n.t('articles.new')}` : '')}</a>

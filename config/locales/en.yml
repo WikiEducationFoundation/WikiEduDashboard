@@ -224,6 +224,8 @@ en:
       structure of a good article, but it does not take into account the content
       itself. (These scores are only available for English Wikipedia articles.)
     articles_short: Articles
+    deleted_message: >
+      This article might have been deleted - the dashboard can sometimes get out of sync, and incorrectly mark an article as deleted
 
   items:
     items: Items
