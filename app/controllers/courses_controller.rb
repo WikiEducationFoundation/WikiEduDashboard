@@ -88,12 +88,6 @@ class CoursesController < ApplicationController
     set_limit
   end
 
-  def revisions
-    set_course
-    set_course_scoped
-    set_limit
-  end
-
   def users
     set_course
   end

@@ -133,8 +133,6 @@ Rails.application.routes.draw do
         constraints: { slug: /.*/ }
     get 'courses/:slug/articles.json' => 'courses#articles',
         constraints: { slug: /.*/ }
-    get 'courses/:slug/revisions.json' => 'courses#revisions',
-        constraints: { slug: /.*/ }
     get 'courses/:slug/users.json' => 'courses#users',
         constraints: { slug: /.*/ }
     get 'courses/:slug/assignments.json' => 'courses#assignments',
