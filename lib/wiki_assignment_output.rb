@@ -98,19 +98,42 @@ class WikiAssignmentOutput
     # we're also looking for the (optional) preceding section header. This way, when we're
     # removing a tag that is in the standard-format section, we remove the whole section rather
     # than leaving an empty one.
-    tag_matcher = if new_tag.present?
-                    /#{Regexp.quote(existing_tag)}[^}]*\}\}/
-                  else
-                    /(#{Regexp.quote(header)}[\n\r]+)?#{Regexp.quote(existing_tag)}[^}]*\}\}/
-                  end
-    page_content.gsub!(tag_matcher, new_tag)
+
+    if new_tag.present?
+      replace_or_add_assignment_tag(page_content, existing_tag, new_tag)
+    else
+      remove_assignment_tag(page_content, existing_tag, header)
+    end
+  end
+
+  def replace_or_add_assignment_tag(page_content, existing_tag, new_tag)
+    tag_matcher = /
+                    #{Regexp.quote(existing_tag)}[^}]*\}\} # assignment template
+                    ([\n\r]+#{updated_by_signature_pattern})? # optional linebreaks and signature
+                  /x
+    new_tag_with_signature = if en_wiki?
+                               "#{new_tag}\n#{updated_by_signature}"
+                             else
+                               new_tag
+                             end
+    page_content.gsub!(tag_matcher, new_tag_with_signature)
 
     # If we replaced an existing tag with the new version of it, we're done.
-    return page_content if page_content.include?(new_tag)
+    return page_content if page_content.include?(new_tag_with_signature)
 
     # Otherwise, we need to add the tag to the right place.
-    page_content = insert_tag_into_talk_page(page_content, new_tag)
+    page_content = insert_tag_into_talk_page(page_content, new_tag_with_signature)
+    page_content
+  end
 
+  def remove_assignment_tag(page_content, existing_tag, header)
+    tag_matcher = /
+                    (#{Regexp.quote(header)}[\n\r]+)? # optional header and linebreaks
+                    #{Regexp.quote(existing_tag)}[^}]*\}\} # assignment template
+                    ([\n\r]+#{updated_by_signature_pattern})? # optional linebreaks and signature
+                  /x
+
+    page_content.gsub!(tag_matcher, '')
     page_content
   end
 
@@ -204,10 +227,28 @@ class WikiAssignmentOutput
   # based on the RfC here:
   # https://en.wikipedia.org/w/index.php?title=Wikipedia:Education_noticeboard&oldid=1072013453#How_should_Wiki_Education_assignments_be_announced_on_article_talk_page?
   def add_template_in_new_section(page_content, template)
-    "#{page_content}\n\n#{section_header}\n#{template}\n"
+    "#{page_content}\n\n#{section_header}\n#{template}\n#{updated_by_signature}\n"
   end
 
   def section_header
     "==Wiki Education assignment: #{@course.title}=="
   end
+
+  def updated_by_signature
+    return '' unless en_wiki?
+    # rubocop:disable Layout/LineLength
+    '<span class="wikied-assignment" style="font-size:85%;">— Assignment last updated by ~~~~</span>'
+    # rubocop:enable Layout/LineLength
+  end
+
+  # rubocop:disable Layout/LineLength
+  # Regex to match the wikied-assignment span tag of a signature, like this:
+  # <span class="wikied-assignment" style="font-size:85%;">— Assignment last updated by [[User:Sage (Wiki Ed)|Sage (Wiki Ed)]] ([[User talk:Sage (Wiki Ed)|talk]]) 18:02, 11 May 2022 (UTC)</span>
+  def updated_by_signature_pattern
+    return '' unless en_wiki?
+    opening_tag = '<span class="wikied-assignment" style="font-size:85%;">'
+    closing_tag = '</span>'
+    /#{Regexp.quote(opening_tag)}— Assignment last updated by .+#{Regexp.quote(closing_tag)}/
+  end
+  # rubocop:enable Layout/LineLength
 end
