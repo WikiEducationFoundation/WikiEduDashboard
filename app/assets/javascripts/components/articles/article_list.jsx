@@ -162,6 +162,7 @@ const ArticleList = createReactClass({
     // this allows for links to directly view a specific article.
     const showArticleId = Number(location.search.split('showArticle=')[1]);
     const deletedMessage = I18n.t('articles.deleted_message');
+    const pageLogsMessage = I18n.t('articles.page_logs');
     const articleElements = this.props.articles.map((article, index) => (
       <Article
         article={article}
@@ -179,6 +180,7 @@ const ArticleList = createReactClass({
         lastIndex={this.props.articles.length}
         selectedIndex={this.state.selectedIndex}
         deletedMessage={deletedMessage}
+        pageLogsMessage={pageLogsMessage}
       />
     ));
 

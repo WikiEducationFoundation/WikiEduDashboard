@@ -226,7 +226,7 @@ en:
     articles_short: Articles
     deleted_message: >
       According to the Dashboard's data, this page has been deleted. (In some cases, page moves, history merges or other actions can result in an article being incorrectly listed as deleted. Deleted articles may also be later undeleted. For articles that are not actually deleted, or have been subsequently restored, the Dashboard will usually reflect this within one or two days.)
-
+    page_logs: (page logs)
 
   items:
     items: Items
