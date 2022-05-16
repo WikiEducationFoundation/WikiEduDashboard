@@ -75,7 +75,7 @@ const CourseAlerts = createReactClass({
       if (course.submitted) {
         // Show instructors the 'submitted' notice.
         if (!userRoles.isAdmin) {
-          alerts.push(<CourseAlert key="submit" message={I18n.t('courses.submitted_note')} />);
+          alerts.push(<CourseAlert key="submit" message={I18n.t('courses.submitted_note')} buttonLink="/training" actionMessage={'View Training Modules'}/>);
           // Instruct admins to approve the course by adding a campaign.
         } else {
           const homeLink = `${this.props.courseLinkParams}/home`;
