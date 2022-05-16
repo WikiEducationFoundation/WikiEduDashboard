@@ -64,9 +64,11 @@ describe WikiAssignmentOutput do
                                                         selfie_talk)
           # rubocop:disable Layout/LineLength
           expected_section = "==Wiki Education assignment: #{course.title}==\n{{dashboard.wikiedu.org assignment | course = "
+          expected_signature = '<span class="wikied-assignment" style="font-size:85%;">— Assignment last updated by ~~~~</span>'
           # rubocop:enable Layout/LineLength
 
           expect(page_content).to include(expected_section)
+          expect(page_content).to include(expected_signature)
         end
       end
 
@@ -121,6 +123,7 @@ describe WikiAssignmentOutput do
             ==Wiki Education assignment: Language in Hawaiʻi and the Pacific==
 
             {{dashboard.wikiedu.org assignment | course = Wikipedia:Wiki_Ed/University_of_Hawaiʻi_at_Mānoa/Language_in_Hawaiʻi_and_the_Pacific_(Fall_2016) | assignments = [[User:Keï|Keï]] }}
+            <span class="wikied-assignment" style="font-size:85%;">— Assignment last updated by [[User:Sage (Wiki Ed)|Sage (Wiki Ed)]] ([[User talk:Sage (Wiki Ed)|talk]]) 18:02, 11 May 2022 (UTC)</span>
 
             == Some other section ==
 
@@ -131,6 +134,7 @@ describe WikiAssignmentOutput do
                          )
           expect(page_content).not_to include('{{dashboard.wikiedu.org assignment')
           expect(page_content).not_to include('==Wiki Education assignment:')
+          expect(page_content).not_to include('Assignment last updated')
           expect(page_content).to include('== Some section ==')
           expect(page_content).to include('== Some other section ==')
         end
@@ -145,6 +149,7 @@ describe WikiAssignmentOutput do
             ==Wiki Education assignment: Language in Hawaiʻi and the Pacific==
 
             {{dashboard.wikiedu.org assignment | course = Wikipedia:Wiki_Ed/University_of_Hawaiʻi_at_Mānoa/Language_in_Hawaiʻi_and_the_Pacific_(Fall_2016) | assignments = [[User:Keï|Keï]] }}
+            <span class="wikied-assignment" style="font-size:85%;">— Assignment last updated by [[User:Sage (Wiki Ed)|Sage (Wiki Ed)]] ([[User talk:Sage (Wiki Ed)|talk]]) 18:02, 11 May 2022 (UTC)</span>
 
             == Some other section ==
 
@@ -163,6 +168,9 @@ describe WikiAssignmentOutput do
           expect(page_content).to include('== Some section ==')
           expect(page_content).to include('User:Ragesoss')
           expect(page_content).not_to include('User:Keï')
+          expect(page_content).not_to include('Sage (Wiki Ed)')
+          expect(page_content).not_to include('18:02, 11 May 2022')
+          expect(page_content).to include('~~~~')
         end
       end
     end
