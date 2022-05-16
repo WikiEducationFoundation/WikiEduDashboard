@@ -314,7 +314,7 @@ describe 'New course creation and editing', type: :feature do
       accept_confirm do
         first('a.button').click
       end
-      expect(page).to have_content 'Your course has been submitted.'
+      expect(page).to have_content 'Your course has been successfully submitted.'
 
       Course.last.weeks.each_with_index do |week, i|
         expect(week.order).to eq(i + 1)
