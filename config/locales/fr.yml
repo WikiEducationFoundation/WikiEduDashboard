@@ -659,6 +659,9 @@ fr:
     delete_suggestion: Supprimer
     delete_course_instructions: Vous ne pouvez supprimer cette page que si toutes
       les campagnes ont été supprimées.
+    disable_student_emails: Désactiver les courriels aux élèves
+    disable_student_emails_tooltip: Désactiver les courriels aux élèves arrêtera certains
+      courriels de notification envoyés aux élèves durant ce cours.
     dismiss_survey: Fermer
     dismiss_survey_confirm: Êtes-vous certain(e) de vouloir rejeter définitivement
       ce sondage ?

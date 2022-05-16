@@ -60,6 +60,10 @@ uz:
     create_note: Ilk kursingizni yaratish uchun „Kurs yaratish“ tugmasini bosing
     explore_course_pages: Kurs sahifalarini koʻrib chiqish
     explore_examples: Misollarni koʻrib chiqish
+    join_note: Oʻqituvchingizdan kod olganingizdan keyin, kursni topish va unga qoʻshilish
+      uchun „Kursingizni topish“ tugmasini bosing.
+    no_courses_instructor: Aftidan, sizda hali hech qanday kurs yoʻq.
+    no_courses_student: Aftidan, hali siz kursga qoʻshilganingiz yoʻq.
   home:
     log_in: Vikipediya hisobi bilan kirish
     sign_up: Vikipediya hisobi yordamida roʻyxatdan oʻtish
@@ -72,6 +76,7 @@ uz:
     next: Keyingisi
     previous: Avvalgisi
     article_title: Maqola nomi
+    deleted: (oʻchirilgan)
     edited_mobile: Maqolalar
     filter:
       wiki_all: Barchasi
@@ -86,6 +91,7 @@ uz:
     title_example: Maqola nomi
     view: Maqolani koʻrish
     view_all: Barchasini koʻrish
+    wiki: Viki
     articles_short: Maqolalar
   articles_generic:
     articles_short: Sahifalar
@@ -164,8 +170,12 @@ uz:
       course_term: Qachon
       course_term_placeholder: Qachon
       course_title: Dastur nomi
+      create_new: Mustaqil dastur yaratish
+      find: Dastur topish
+      participate_in_campaign: Kampaniyada ishtirok etish
       save_cloned_course: Saqlash
     delete_course: Dasturni oʻchirish
+    explore: Dasturlarni topish
     join_course: Dasturga qoʻshilish
     request_accounts: Hisob yaratilishini iltimos qilish
     students_count: Qatnashchilar soni

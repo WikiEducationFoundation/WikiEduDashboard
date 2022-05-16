@@ -402,7 +402,7 @@ ru:
     passcode_prompt: 'Введите пароль, чтобы присоединиться:'
     please_log_in: Представьтесь, пожалуйста.
     private: Скрытый
-    requested_accounts_alert_view: Просмотр
+    requested_accounts_alert_view: Посмотреть
     revisions_doc: Число правок за последние %{timeframe} дней
     school: Школа
     search_courses: Искать курсы
@@ -574,7 +574,7 @@ ru:
   training:
     continue: Продолжить (%{progress})
     start: Начать
-    view: Просмотр
+    view: Посмотреть
     next: Следующая страница
     page: Страница
     previous: < Предыдущая

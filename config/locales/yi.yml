@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Har-wradim
+# Author: Pacha Tchernof
 # Author: פוילישער
 ---
 yi:
@@ -58,7 +59,7 @@ yi:
       wiki_all: אַלע
       new: ניי
     hide: באַהאַלטן
-    history: (היסטאריע)
+    history: (היסטאָריע)
     label: אַרטיקלען
     loading: אנלאדן ארטיקלען…
     new: (ניי)
