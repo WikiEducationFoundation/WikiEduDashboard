@@ -21,7 +21,8 @@ const Article = createReactClass({
     showOnMount: PropTypes.bool,
     setSelectedIndex: PropTypes.func,
     lastIndex: PropTypes.number,
-    selectedIndex: PropTypes.number
+    selectedIndex: PropTypes.number,
+    deletedMessage: PropTypes.string
   },
 
   getInitialState() {
@@ -45,7 +46,6 @@ const Article = createReactClass({
     const ratingClass = `rating ${this.props.article.rating}`;
     const ratingMobileClass = `${ratingClass} tablet-only`;
     const isDeleted = this.props.article.deleted;
-    const deletedMessage = I18n.t('articles.deleted_message');
 
     // Uses Course Utils Helper
     const formattedTitle = CourseUtils.formattedArticleTitle(this.props.article, this.props.course.home_wiki, this.props.wikidataLabel);
@@ -85,7 +85,7 @@ const Article = createReactClass({
           {isWikipedia && <div className="tooltip dark">
             <p>
               {
-                !isDeleted ? I18n.t(`articles.rating_docs.${this.props.article.rating || '?'}`, { class: this.props.article.rating || '' }) : deletedMessage
+                !isDeleted ? I18n.t(`articles.rating_docs.${this.props.article.rating || '?'}`, { class: this.props.article.rating || '' }) : this.props.deletedMessage
               }
             </p>
             {/* eslint-disable-next-line */}

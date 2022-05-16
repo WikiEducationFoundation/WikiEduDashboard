@@ -225,7 +225,8 @@ en:
       itself. (These scores are only available for English Wikipedia articles.)
     articles_short: Articles
     deleted_message: >
-      This article might have been deleted - the dashboard can sometimes get out of sync, and incorrectly mark an article as deleted
+      According to the Dashboard's data, this page has been deleted. (In some cases, page moves, history merges or other actions can result in an article being incorrectly listed as deleted. Deleted articles may also be later undeleted. For articles that are not actually deleted, or have been subsequently restored, the Dashboard will usually reflect this within one or two days.)
+
 
   items:
     items: Items
