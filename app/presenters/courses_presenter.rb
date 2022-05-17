@@ -39,7 +39,7 @@ class CoursesPresenter
     articles = campaign.articles_courses.tracked
                        .includes(article: :wiki)
                        .includes(:course).where(courses: { private: false })
-                       .paginate(page: @page, per_page: 1000)
+                       .paginate(page: @page, per_page: 100)
     articles = articles.order('articles.deleted', character_sum: :desc) unless too_many
     articles
   end
@@ -48,7 +48,7 @@ class CoursesPresenter
     ArticlesCourses.tracked.includes(article: :wiki)
                    .includes(:course).where(courses: { private: false })
                    .where(course: @courses_list)
-                   .paginate(page: @page, per_page: 1000)
+                   .paginate(page: @page, per_page: 100)
   end
 
   def can_remove_course?
