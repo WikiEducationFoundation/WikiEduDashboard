@@ -25,7 +25,7 @@ Layout/LineLength:
   Max: 100
 
 Metrics/ClassLength:
-  Max: 128 # We should bring this down, ideally to the default of 100
+  Max: 130 # We should bring this down, ideally to the default of 100
   Exclude: # These are too big, and should be shrunk if feasible.
     - 'app/models/alert.rb'
     - 'app/models/course.rb'
