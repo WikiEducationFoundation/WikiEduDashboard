@@ -370,6 +370,7 @@ en:
     delete_campaign: Delete this campaign
     disable_account_requests: Disable account requests
     enable_account_requests: Enable account requests
+    newest_campaigns: Newest Campaigns
     no_alerts: This campaign has no alerts
     no_passcode: no passcode
     none: None

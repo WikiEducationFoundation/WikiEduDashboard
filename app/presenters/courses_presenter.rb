@@ -95,9 +95,8 @@ class CoursesPresenter
     active_courses.order('recent_revision_count DESC, title').paginate(page: @page, per_page: 100)
   end
 
-  def campaigns_by_num_courses
-    # Sort first by number of courses, then by campaign title
-    campaigns.sort_by { |campaign| [-campaign.courses.count, campaign.title] }
+  def newest_campaigns
+    campaigns.order('created_at DESC').limit(10)
   end
 
   def can_create?
