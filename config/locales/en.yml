@@ -384,6 +384,7 @@ en:
     random_passcode: a random passcode
     requested_accounts: Requested accounts
     title: Title
+    too_many_articles: The edited article list for this campaign is too long to be displayed. Please view individual courses/programs/events to see the articles edited.
     slug: Slug
     search_campaigns: Search campaigns
     use_start_end_dates: Use start and end dates

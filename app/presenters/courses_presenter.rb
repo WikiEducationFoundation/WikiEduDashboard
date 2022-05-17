@@ -30,18 +30,22 @@ class CoursesPresenter
     @campaign ||= Campaign.find_by(slug: campaign_param)
   end
 
-  # If there are too many articles, this query can take a VERY long time.
-  ARTICLE_SORTING_LIMIT = 50000
   def campaign_articles
     return tag_articles if @tag
 
-    too_many = campaign.articles_courses.count > ARTICLE_SORTING_LIMIT
     articles = campaign.articles_courses.tracked
                        .includes(article: :wiki)
                        .includes(:course).where(courses: { private: false })
                        .paginate(page: @page, per_page: 100)
-    articles = articles.order('articles.deleted', character_sum: :desc) unless too_many
+    # Sorting can be particularly slow for large numbers of articles.
+    articles = articles.order('articles.deleted', character_sum: :desc) unless too_many_articles?
     articles
+  end
+
+  # If there are too many articles, rendering a page of them can take a very long time.
+  ARTICLE_LIMIT = 50000
+  def too_many_articles?
+    @too_many ||= campaign.articles_courses.count > ARTICLE_LIMIT
   end
 
   def tag_articles
