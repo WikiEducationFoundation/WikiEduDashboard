@@ -200,6 +200,7 @@ qqq:
       would see that. (It is there to indicate progress during the update process,
       when page view data is being imported.)
     articles_short: '{{identical|Article}}'
+    page_logs: Link to the MediaWiki page logs of an article
   articles_wikidata:
     articles_short: '{{identical|Item}}'
   articles_generic:
