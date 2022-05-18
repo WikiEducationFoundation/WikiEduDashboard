@@ -370,6 +370,7 @@ en:
     delete_campaign: Delete this campaign
     disable_account_requests: Disable account requests
     enable_account_requests: Enable account requests
+    newest_campaigns: Newest Campaigns
     no_alerts: This campaign has no alerts
     no_passcode: no passcode
     none: None
@@ -383,6 +384,7 @@ en:
     random_passcode: a random passcode
     requested_accounts: Requested accounts
     title: Title
+    too_many_articles: The edited article list for this campaign is too long to be displayed. Please view individual courses/programs/events to see the articles edited.
     slug: Slug
     search_campaigns: Search campaigns
     use_start_end_dates: Use start and end dates

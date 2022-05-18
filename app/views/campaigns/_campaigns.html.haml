@@ -1,7 +1,7 @@
 %section#campaigns
   .section-header
     %h3
-      = t('campaign.active_campaigns')
+      = t('campaign.newest_campaigns')
     .sort-select
       %select.sorts{rel: "campaigns"}
         %option{rel: "asc", value: "title"}= t("courses.title")
@@ -61,7 +61,7 @@
             = t("courses.creation_date")
             %span.sortable-indicator
     %tbody.list
-      - presenter.campaigns_by_num_courses.each do |campaign|
+      - presenter.newest_campaigns.each do |campaign|
         - campaign_presenter = CoursesPresenter.new(current_user: current_user, campaign_param: campaign.slug)
         = render 'campaigns/row', presenter: campaign_presenter, campaign: campaign
   .campaigns-actions

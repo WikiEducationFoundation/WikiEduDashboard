@@ -30,25 +30,29 @@ class CoursesPresenter
     @campaign ||= Campaign.find_by(slug: campaign_param)
   end
 
-  # If there are too many articles, this query can take a VERY long time.
-  ARTICLE_SORTING_LIMIT = 50000
   def campaign_articles
     return tag_articles if @tag
 
-    too_many = campaign.articles_courses.count > ARTICLE_SORTING_LIMIT
     articles = campaign.articles_courses.tracked
                        .includes(article: :wiki)
                        .includes(:course).where(courses: { private: false })
-                       .paginate(page: @page, per_page: 1000)
-    articles = articles.order('articles.deleted', character_sum: :desc) unless too_many
+                       .paginate(page: @page, per_page: 100)
+    # Sorting can be particularly slow for large numbers of articles.
+    articles = articles.order('articles.deleted', character_sum: :desc) unless too_many_articles?
     articles
+  end
+
+  # If there are too many articles, rendering a page of them can take a very long time.
+  ARTICLE_LIMIT = 50000
+  def too_many_articles?
+    @too_many ||= campaign.articles_courses.count > ARTICLE_LIMIT
   end
 
   def tag_articles
     ArticlesCourses.tracked.includes(article: :wiki)
                    .includes(:course).where(courses: { private: false })
                    .where(course: @courses_list)
-                   .paginate(page: @page, per_page: 1000)
+                   .paginate(page: @page, per_page: 100)
   end
 
   def can_remove_course?
@@ -95,9 +99,8 @@ class CoursesPresenter
     active_courses.order('recent_revision_count DESC, title').paginate(page: @page, per_page: 100)
   end
 
-  def campaigns_by_num_courses
-    # Sort first by number of courses, then by campaign title
-    campaigns.sort_by { |campaign| [-campaign.courses.count, campaign.title] }
+  def newest_campaigns
+    campaigns.order('created_at DESC').limit(10)
   end
 
   def can_create?

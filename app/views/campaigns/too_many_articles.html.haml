@@ -1,0 +1,9 @@
+- content_for :before_title, t('courses.campaign_articles', title: @campaign.title) + ' — '
+
+#react_root{data: {slug: @campaign.slug}}
+
+.container
+  %section.overview.container
+
+.container
+  %h3= t('campaign.too_many_articles')

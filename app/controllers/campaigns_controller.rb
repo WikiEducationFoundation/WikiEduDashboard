@@ -67,6 +67,11 @@ class CampaignsController < ApplicationController
   def articles
     set_page
     set_presenter
+    # If there are more edited articles than the limit, we disable the feed of campaign articles
+    if @presenter.too_many_articles?
+      render 'too_many_articles'
+      return
+    end
   end
 
   def users
