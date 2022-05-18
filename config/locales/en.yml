@@ -224,6 +224,9 @@ en:
       structure of a good article, but it does not take into account the content
       itself. (These scores are only available for English Wikipedia articles.)
     articles_short: Articles
+    deleted_message: >
+      According to the Dashboard's data, this page has been deleted. (In some cases, page moves, history merges or other actions can result in an article being incorrectly listed as deleted. Deleted articles may also be later undeleted. For articles that are not actually deleted, or have been subsequently restored, the Dashboard will usually reflect this within one or two days.)
+    page_logs: (page logs)
 
   items:
     items: Items

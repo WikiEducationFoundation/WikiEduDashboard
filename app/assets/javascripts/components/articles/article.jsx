@@ -6,6 +6,8 @@ import ArticleViewer from '@components/common/ArticleViewer/containers/ArticleVi
 import DiffViewer from '../revisions/diff_viewer.jsx';
 import ArticleGraphs from './article_graphs.jsx';
 import Switch from 'react-switch';
+import { url } from '../../utils/wiki_utils.js';
+import { stringify } from 'query-string';
 
 const Article = createReactClass({
   displayName: 'Article',
@@ -21,7 +23,8 @@ const Article = createReactClass({
     showOnMount: PropTypes.bool,
     setSelectedIndex: PropTypes.func,
     lastIndex: PropTypes.number,
-    selectedIndex: PropTypes.number
+    selectedIndex: PropTypes.number,
+    deletedMessage: PropTypes.string
   },
 
   getInitialState() {
@@ -44,7 +47,14 @@ const Article = createReactClass({
   render() {
     const ratingClass = `rating ${this.props.article.rating}`;
     const ratingMobileClass = `${ratingClass} tablet-only`;
-
+    const isDeleted = this.props.article.deleted;
+    const wiki = {
+      language: this.props.article.language,
+      project: this.props.article.project
+    };
+    const pageLogURL = `https://${url(wiki)}/wiki/Special:Log?${stringify({
+      page: this.props.article.title
+    })}`;
     // Uses Course Utils Helper
     const formattedTitle = CourseUtils.formattedArticleTitle(this.props.article, this.props.course.home_wiki, this.props.wikidataLabel);
     const historyUrl = `${this.props.article.url}?action=history`;
@@ -76,24 +86,37 @@ const Article = createReactClass({
     const isWikipedia = project === 'wikipedia';
 
     return (
-      <tr className="article">
+      <tr className={`article ${isDeleted ? 'deleted' : ' '}`}>
         <td className="tooltip-trigger desktop-only-tc">
           {isWikipedia && <p className="rating_num hidden">{this.props.article.rating_num}</p>}
-          {isWikipedia && <div className={ratingClass}><p>{this.props.article.pretty_rating || '-'}</p></div>}
+          {isWikipedia && <div className={ratingClass}><p>{!isDeleted ? (this.props.article.pretty_rating || '-') : 'DE'}</p></div>}
           {isWikipedia && <div className="tooltip dark">
-            <p>{I18n.t(`articles.rating_docs.${this.props.article.rating || '?'}`, { class: this.props.article.rating || '' })}</p>
+            <p>
+              {
+                !isDeleted ? I18n.t(`articles.rating_docs.${this.props.article.rating || '?'}`, { class: this.props.article.rating || '' }) : this.props.deletedMessage
+              }
+            </p>
             {/* eslint-disable-next-line */}
           </div>}
         </td>
         <td>
-          {isWikipedia && <div className={ratingMobileClass}><p>{this.props.article.pretty_rating || '-'}</p></div>}
+          {isWikipedia && <div className={ratingMobileClass}><p>{!isDeleted ? (this.props.article.pretty_rating || '-') : 'DE'}</p></div>}
           {isWikipedia && <div />}
           <div className="title">
             <a href={this.props.article.url} target="_blank" className="inline">{formattedTitle} {(this.props.article.new_article ? ` ${I18n.t('articles.new')}` : '')}</a>
             <br />
-            <small>
-              <a href={historyUrl} target="_blank" className="inline">{I18n.t('articles.history')}</a> | <ArticleGraphs article={this.props.article} />
-            </small>
+            {!isDeleted
+              ? (
+                <small>
+                  <a href={historyUrl} target="_blank" className="inline">{I18n.t('articles.history')}</a> | <ArticleGraphs article={this.props.article} />
+                </small>
+              )
+              : (
+                <small>
+                  <a href={pageLogURL} target="_blank" className="inline">{this.props.pageLogsMessage}</a>
+                </small>
+              )
+            }
           </div>
         </td>
         {contentAdded}

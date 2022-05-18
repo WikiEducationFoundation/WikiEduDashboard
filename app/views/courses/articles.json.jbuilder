@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 json.course do
-  json.articles @course.articles_courses.live.includes(article: :wiki).limit(@limit) do |ac|
+  json.articles @course.articles_courses.includes(article: :wiki).limit(@limit) do |ac|
     article = ac.article
     json.call(ac, :character_sum, :references_count, :view_count, :new_article, :tracked)
-    json.call(article, :id, :namespace, :rating)
+    json.call(article, :id, :namespace, :rating, :deleted)
     json.title article.full_title
     json.language article.wiki.language
     json.project article.wiki.project
