@@ -189,6 +189,11 @@ class Course < ApplicationRecord
     where("courses.#{relative_to} <= '#{ready_date}'")
   end
 
+  ###########
+  # Aliases #
+  ###########
+  alias_attribute :institution, :school
+
   ##################
   # Course content #
   ##################
