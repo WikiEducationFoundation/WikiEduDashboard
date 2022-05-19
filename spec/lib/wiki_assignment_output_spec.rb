@@ -123,6 +123,7 @@ describe WikiAssignmentOutput do
             ==Wiki Education assignment: Language in Hawaiʻi and the Pacific==
 
             {{dashboard.wikiedu.org assignment | course = Wikipedia:Wiki_Ed/University_of_Hawaiʻi_at_Mānoa/Language_in_Hawaiʻi_and_the_Pacific_(Fall_2016) | assignments = [[User:Keï|Keï]] }}
+
             <span class="wikied-assignment" style="font-size:85%;">— Assignment last updated by [[User:Sage (Wiki Ed)|Sage (Wiki Ed)]] ([[User talk:Sage (Wiki Ed)|talk]]) 18:02, 11 May 2022 (UTC)</span>
 
             == Some other section ==
@@ -149,6 +150,7 @@ describe WikiAssignmentOutput do
             ==Wiki Education assignment: Language in Hawaiʻi and the Pacific==
 
             {{dashboard.wikiedu.org assignment | course = Wikipedia:Wiki_Ed/University_of_Hawaiʻi_at_Mānoa/Language_in_Hawaiʻi_and_the_Pacific_(Fall_2016) | assignments = [[User:Keï|Keï]] }}
+
             <span class="wikied-assignment" style="font-size:85%;">— Assignment last updated by [[User:Sage (Wiki Ed)|Sage (Wiki Ed)]] ([[User talk:Sage (Wiki Ed)|talk]]) 18:02, 11 May 2022 (UTC)</span>
 
             == Some other section ==
