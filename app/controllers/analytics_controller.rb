@@ -100,7 +100,7 @@ class AnalyticsController < ApplicationController
 
   def all_courses
     # Anyone can get data for nonprivate courses; only admins can private course data.
-    @courses = current_user.admin? ? Course.all : Course.nonprivate
+    @courses = current_user&.admin? ? Course.all : Course.nonprivate
   end
 
   def all_campaigns
