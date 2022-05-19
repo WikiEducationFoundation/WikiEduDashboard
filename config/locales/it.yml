@@ -601,8 +601,10 @@ it:
       suo creatore. Per approvarlo, aggiungerlo a una campagna nella pagina panoramica.
     submitted_and_pending_heading: Presentato e in attesa di approvazione
     submitted_heading: Corsi presentati
-    submitted_note: Il tuo corso è stato presentato. Il personale di Wiki Education
-      lo controllerà e si metterà in contatto per tutte le domande.
+    submitted_note: Il tuo corso è stato presentato correttamente. Il personale di
+      Wiki Education lo controllerà e si metterà in contatto per tutte le domande.
+      Nel frattempo, se vuoi rivedere i materiali di formazione di Wiki Education,
+      puoi vedere l'elenco completo delle risorse per insegnanti e studenti.
     suggestions_feedback: Hai suggerimenti per migliorare questa funzionalità? Facci
       sapere!
     user_role: Ruolo

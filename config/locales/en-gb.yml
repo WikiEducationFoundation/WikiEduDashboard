@@ -6,6 +6,7 @@
 # Author: Bjh21
 # Author: Chase me ladies, I'm the Cavalry
 # Author: Codynguyen1116
+# Author: MxYamato
 # Author: Pierpao
 # Author: Samwilson
 # Author: Sau226
@@ -130,7 +131,11 @@ en-gb:
     milestones:
       title: Milestones
   campaign:
+    newest_campaigns: Newest Campaigns
     none: None
+    too_many_articles: The edited article list for this campaign is too long to be
+      displayed. Please view individual courses/programs/events to see the articles
+      edited.
   courses:
     activity: Activity
     already_enrolled: You are already a part of '%{title}'!
