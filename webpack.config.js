@@ -36,6 +36,10 @@ module.exports = (env) => {
         }
       })
     ],
+    optimization: {
+      ...jsConfig.optimization,
+      ...cssConfig.optimization,
+    }
   };
   if (env.development) {
     output.devServer = {

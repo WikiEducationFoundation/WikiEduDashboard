@@ -25,6 +25,7 @@
     "create-react-class": "^15.7.0",
     "cross-fetch": "^3.1.5",
     "css-loader": "^6.7.1",
+    "css-minimizer-webpack-plugin": "^4.0.0",
     "deep-freeze": "^0.0.1",
     "del": "^6.0.0",
     "enzyme": "^3.11.0",
@@ -87,6 +88,7 @@
     "reselect": "^4.0.0",
     "rev-del": "^2.0.0",
     "rewire": "^5.0.0",
+    "rtlcss-webpack-plugin": "^4.0.7",
     "run-sequence": "^2.2.1",
     "rupture": "^0.7.1",
     "should": "^13.2.1",
@@ -106,7 +108,6 @@
     "webpack-bundle-analyzer": "^4.5.0",
     "webpack-dev-server": "^4.9.0",
     "webpack-manifest-plugin": "^5.0.0",
-    "webpack-rtl-plugin": "^2.0.0",
     "wnumb": "^1.2.0"
   },
   "scripts": {

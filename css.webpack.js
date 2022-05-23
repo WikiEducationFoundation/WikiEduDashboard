@@ -1,6 +1,7 @@
 const config = require('./config');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const WebpackRTLPlugin = require('webpack-rtl-plugin');
+const RtlCssPlugin = require('rtlcss-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 const cssSource = `./${config.sourcePath}/${config.cssDirectory}`;
 
@@ -47,11 +48,16 @@ module.exports = (env) => {
       }),
       // generates a RTL version of the emitted CSS files
       // this is done only in production/coverage
-      ...(env.production || env.coverage ? [new WebpackRTLPlugin({
-        filename: '../stylesheets/rtl-[name].[contenthash].css'
+      ...(env.production || env.coverage ? [new RtlCssPlugin({
+        filename: '../stylesheets/rtl-[name].[fullhash].css'
       })] : []),
     ],
-    watch: env.watch_js,
+    optimization: {
+      minimizer: [
+        '...',
+        new CssMinimizerPlugin(),
+      ],
+    },
     stats: 'minimal',
   };
 };
