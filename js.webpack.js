@@ -26,7 +26,7 @@ module.exports = (env) => {
   const outputPath = doHot
     ? path.resolve(appRoot, `${config.outputPath}/${config.jsDirectory}`)
     : path.resolve(`${config.outputPath}/${config.jsDirectory}`);
-  const devtool = env.production ? 'source-map' : 'eval-cheap-module-source-map';
+  const devtool = env.production ? 'source-map' : 'cheap-module-source-map';
   if (env.coverage) {
     // In coverage mode, every React component should
     // be bundled within main.js
