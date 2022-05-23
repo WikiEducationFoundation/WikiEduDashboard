@@ -24,7 +24,7 @@
     "core-js": "^3.21.1",
     "create-react-class": "^15.7.0",
     "cross-fetch": "^3.1.5",
-    "css-loader": "^3.5.3",
+    "css-loader": "^6.7.1",
     "deep-freeze": "^0.0.1",
     "del": "^6.0.0",
     "enzyme": "^3.11.0",
@@ -50,7 +50,7 @@
     "markdown-it": "^12.3.2",
     "markdown-it-footnote": "^3.0.2",
     "merge-stream": "^2.0.0",
-    "mini-css-extract-plugin": "^0.9.0",
+    "mini-css-extract-plugin": "^2.6.0",
     "mkdirp": "^1.0.4",
     "moment": "2.29.3",
     "moment-locales-webpack-plugin": "^1.2.0",
@@ -102,22 +102,20 @@
     "velocity-animate": "^1.5.1",
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0",
-    "webpack": "^4.44.1",
+    "webpack": "^5.72.1",
     "webpack-bundle-analyzer": "^4.5.0",
-    "webpack-dev-server": "^3.10.3",
-    "webpack-exclude-assets-plugin": "^0.1.1",
-    "webpack-manifest-plugin": "2.2.0",
+    "webpack-dev-server": "^4.9.0",
+    "webpack-manifest-plugin": "^5.0.0",
     "webpack-rtl-plugin": "^2.0.0",
     "wnumb": "^1.2.0"
   },
   "scripts": {
     "test": "jest",
     "lint-non-build": "eslint 'test/**/*.{jsx,js}' '*.js'",
-    "start": "node prepare.js && parallel-webpack --config=webpack.multi.js -m=0 --watch -- --env.development --env.watch_js",
-    "coverage": "node prepare.js && parallel-webpack --config=webpack.multi.js -m=0 -- --env.development --env.coverage",
-    "hot": "node prepare.js && webpack-dev-server --env.development",
-    "build": "node prepare.js && parallel-webpack --config=webpack.multi.js -m=0 -- --env.production",
-    "analyze": "webpack --env.production --env.stats --profile --json > stats.json && webpack-bundle-analyzer stats.json public/assets/javascripts"
+    "start": "node prepare.js && webpack serve --env development --client-overlay --client-progress --progress",
+    "coverage": "node prepare.js && webpack build --env development --env coverage",
+    "build": "node prepare.js && webpack build --env production --node-env production",
+    "analyze": "webpack --env production --env stats --profile --json > stats.json && webpack-bundle-analyzer stats.json public/assets/javascripts"
   },
   "engines": {
     "yarn": ">= 1.0.0"
@@ -127,7 +125,7 @@
     "@babel/plugin-transform-runtime": "^7.9.0",
     "babel-plugin-root-import": "^6.5.0",
     "eslint-import-resolver-babel-plugin-root-import": "^1.1.1",
-    "eslint-webpack-plugin": "2",
+    "eslint-webpack-plugin": "^3.1.1",
     "parallel-webpack": "^2.6.0",
     "stylus-native-loader": "^1.1.2",
     "webpack-cli": "^4.9.0"

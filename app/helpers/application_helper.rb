@@ -42,13 +42,13 @@ module ApplicationHelper
   end
 
   def fingerprinted(path, filename, file_prefix = nil)
-    manifest_path = "#{Rails.root}/public/#{path}/js-manifest.json"
+    manifest_path = "#{Rails.root}/public/#{path}/manifest.json"
     manifest = Oj.load(File.read(File.expand_path(manifest_path, __FILE__)))
     "#{file_prefix}#{manifest[filename + '.js']}"
   end
 
   def css_fingerprinted(filename, file_prefix = '')
-    manifest_path = "#{Rails.root}/public/assets/javascripts/css-manifest.json"
+    manifest_path = "#{Rails.root}/public/assets/javascripts/manifest.json"
     manifest = Oj.load(File.read(File.expand_path(manifest_path, __FILE__)))
     "/assets/stylesheets/#{manifest[file_prefix + filename + '.css'].split('/').last}"
   end
