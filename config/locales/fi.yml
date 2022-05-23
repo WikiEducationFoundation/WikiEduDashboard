@@ -188,6 +188,7 @@ fi:
       että artikkeli noudattaa Wikipedian käytänteitä ja rakennetta hyville artikkeleille,
       mutta se ei kerro mitään artikkelin sisällöstä. (Pisteet ovat saatavilla vain
       englanninkielisen Wikipedian artikkeleille.)'
+    page_logs: (sivun lokit)
   items:
     items: Kohteet
     assigned: Määritetyt kohteet
@@ -269,6 +270,7 @@ fi:
       täytyy olla:'
     description: Kuvaus
     delete_campaign: Poista tämä kampanja
+    newest_campaigns: Uusimmat kampanjat
     no_alerts: Tällä kampanjalla ei ole hälytyksiä
     no_passcode: ei pääsykoodia
     none: Ei mitään

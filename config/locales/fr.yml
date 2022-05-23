@@ -1596,7 +1596,7 @@ fr:
       one: Veuillez sélectionner au moins %{count} option.
       other: Veuillez sélectionner au moins %{count} options.
     read_less: Lire moins
-    read_more: Lire plus
+    read_more: Lire davantage
     review_selections: Veuillez vérifier vos sélections ci-dessous. Cliquez pour modifier
       une sélection. Quand ce sera fini, cliquez sur « Soumettre » pour terminer l’assistant
       et construire votre agenda.

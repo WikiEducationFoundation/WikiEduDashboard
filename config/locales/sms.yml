@@ -134,6 +134,8 @@ sms:
     view: Čuäʹjet
     page: Seidd
     view_module_source: čuäʹjet moduulkääiv
+  uploads:
+    file_name: Teâttõsnõmm
   users:
     contributions: Õõʹnni muttâz
     contribution_statistics: Muʹttemstatistiikk
