@@ -72,10 +72,11 @@ module.exports = (env) => {
       new LodashModuleReplacementPlugin(config.requiredLodashFeatures),
       new MomentLocalesPlugin(),
       new ESLintPlugin({
-        extensions: ['js', 'jsx'],
-        exclude: ['vendor', 'node_modules'],
-        cache: true,
+        files: 'app/assets/javascripts/**/*.{js,jsx}',
         failOnError: !!env.production,
+        threads: true,
+        lintDirtyModulesOnly: true,
+        cache: true
       }),
     ],
     optimization: {
