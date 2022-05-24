@@ -22,12 +22,9 @@ const entry = {
 };
 
 module.exports = (env) => {
-  const doHot = env.development && !env.watch_js;
-  const outputPath = doHot
-    ? path.resolve(appRoot, `${config.outputPath}/${config.jsDirectory}`)
-    : path.resolve(`${config.outputPath}/${config.jsDirectory}`);
+  const outputPath = path.resolve(appRoot, `${config.outputPath}/${config.jsDirectory}`);
 
-    let devtool;
+  let devtool;
   // see https://webpack.js.org/configuration/devtool/ for the detailed descriptions of these
   if (env.production) {
     devtool = 'source-map';
@@ -47,7 +44,7 @@ module.exports = (env) => {
     entry,
     output: {
       path: outputPath,
-      filename: doHot ? '[name].js' : '[name].[chunkhash].js',
+      filename: env.development ? '[name].js' : '[name].[chunkhash].js',
       publicPath: '/assets/javascripts/',
     },
     module: {
@@ -92,9 +89,6 @@ module.exports = (env) => {
         }
       },
     },
-    watch: env.watch_js,
-    // eval causes trouble with instrumenting and outputs the transformed code which is not useful with coverage data
-    // cheap-module-source-map outputs an almost original code at the best possible speed which helps in evaluating the coverage data
     devtool,
     stats: env.stats ? 'normal' : 'minimal',
   };
