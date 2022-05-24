@@ -59,6 +59,7 @@ module.exports = (env) => {
             loader: require.resolve('babel-loader'),
             options: {
               cacheDirectory: true,
+              cacheCompression: false
             },
           },
         },
