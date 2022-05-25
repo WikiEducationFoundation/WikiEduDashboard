@@ -71,14 +71,14 @@ module.exports = (env) => {
       // identity, or simpler alternatives.
       new LodashModuleReplacementPlugin(config.requiredLodashFeatures),
       new MomentLocalesPlugin(),
-      new ESLintPlugin({
+      !env.DISABLE_ESLINT && new ESLintPlugin({
         files: 'app/assets/javascripts/**/*.{js,jsx}',
         failOnError: !!env.production,
-        threads: true,
+        threads: !!env.production,
         lintDirtyModulesOnly: true,
         cache: true
       }),
-    ],
+    ].filter(Boolean),
     optimization: {
       splitChunks: {
         cacheGroups: {
