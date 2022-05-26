@@ -146,9 +146,9 @@ essentials:
     blocks:
       -
         if: add_to_article
-        title: Add to an article
+        title: Make a small edit
         kind: 1
-        training_module_ids: [8, 35] # Adding citations, Exercise: Add to an article
+        training_module_ids: [8, 35] # Adding citations, Exercise: Make a small edit
         graded: true
         points: 10
         content: |
