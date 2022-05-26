@@ -22,7 +22,6 @@
         #user_name
           %p
             User: #{@user.username}
-
         - if current_user == @user
           #edit_profile
             .controls
@@ -40,13 +39,16 @@
         #details_right
 
           .section
-            - if current_user == @user || current_user&.admin?
-              - if @user.email.present?
-                #user_id
+            #user_email
+              - if current_user == @user || current_user&.admin?
+                - if @user.email.present?
                   #icon
                     &#x2709;
-                  %p
-                    #{@user.email}
+                .rails_editable-field
+                  - if @user.email.present?
+                    %p.rails_editable-content
+                      = @user.email
+                  = text_area(:email, :email, class: 'rails_editable-input', placeholder: t("users.useremail_placeholder"))
 
           .section
             #user_location
