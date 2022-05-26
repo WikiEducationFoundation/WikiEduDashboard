@@ -14,7 +14,8 @@ export class StudentRevisionsList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpen: false
+      isOpen: false,
+      namespace: 'article'
     };
 
     this.toggleDrawer = this.toggleDrawer.bind(this);
@@ -34,6 +35,19 @@ export class StudentRevisionsList extends React.Component {
     this.setState({ isOpen: !this.state.isOpen });
   }
 
+  onNamespaceChange = (e) => {
+    return this.setState({ namespace: e.target.value});
+  }
+
+  namespaceToId(nm) {
+    const mapping = {
+      'article': 0,
+      'talk': 1 ,
+      'user': 2
+    }
+    return mapping[nm];
+  }
+
   render() {
     const {
       course, student, fetchUserRevisions, wikidataLabels, userRevisions
@@ -41,6 +55,11 @@ export class StudentRevisionsList extends React.Component {
     const { isOpen } = this.state;
 
     if (!userRevisions[student.id]) fetchUserRevisions(course.id, student.id);
+    let filteredRevisions = [];
+    if (userRevisions[student.id]!==undefined && userRevisions[student.id]!==null) {
+      filteredRevisions = userRevisions[student.id].filter(rev => rev.article.namespace==this.namespaceToId(this.state.namespace));
+    }
+
     const uploadsLink = `/courses/${course.slug}/uploads`;
     const elements = [
       <StudentRevisionRow
@@ -57,7 +76,7 @@ export class StudentRevisionsList extends React.Component {
         course={course}
         exerciseView={true}
         isOpen={isOpen}
-        revisions={userRevisions[student.id]}
+        revisions={filteredRevisions}
         wikidataLabels={wikidataLabels}
       />
     ];
@@ -67,10 +86,26 @@ export class StudentRevisionsList extends React.Component {
     } = studentListKeys(course);
     const keys = { recent_revisions, character_sum_ms, references_count, total_uploads };
 
+    const filterLabel = <b>Namespace Filter:</b>;
+    const filterRevisions = (
+      <select
+        className="filter-revisions"
+        value={this.state.namespace}
+        onChange={this.onNamespaceChange}
+      >
+        <option value="article">Article</option>
+        <option value="user">User</option>
+        <option value="talk">Talk</option>
+      </select>
+    );
     return (
       <div className="list__wrapper">
         <h4 className="assignments-list-title">
           {I18n.t('users.revisions')}
+          <div className="wrap-filters">
+            {filterLabel}
+            {filterRevisions}
+          </div>
         </h4>
         <List
           elements={elements}
