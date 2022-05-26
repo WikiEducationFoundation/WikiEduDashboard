@@ -9,9 +9,11 @@ json.course do
       if revision.article.nil?
         json.title 'Deleted article'
         json.url nil
+        json.namespace nil
       else
         json.title revision.article.full_title
         json.url revision.article.url
+        json.namespace revision.article.namespace
       end
     end
   end
