@@ -152,6 +152,7 @@ describe UserProfilesController, type: :request do
 
       it 'updates the bio' do
         post route, params: { username: user.username,
+                              email: { email: user.email },
                               user_profile: { id: profile.id,
                                               user_id: profile.user_id,
                                               bio: 'Howdy' } }
@@ -160,6 +161,7 @@ describe UserProfilesController, type: :request do
 
       it 'updates the location' do
         post route, params: { username: user.username,
+                              email: { email: user.email },
                               user_profile: { id: profile.id,
                                               user_id: profile.user_id,
                                               location: 'Seattle' } }
@@ -168,6 +170,7 @@ describe UserProfilesController, type: :request do
 
       it 'updates the Institution' do
         post route, params: { username: user.username,
+                              email: { email: user.email },
                               user_profile: { id: profile.id,
                                               user_id: profile.user_id,
                                               institution: 'Institution' } }
@@ -177,6 +180,7 @@ describe UserProfilesController, type: :request do
       it 'updates the Image' do
         file = fixture_file_upload('wiki-logo.png', 'image/png')
         post route, params: { username: user.username,
+                              email: { email: user.email },
                               user_profile: { id: profile.id,
                                               user_id: profile.user_id,
                                               image: file } }
@@ -187,10 +191,20 @@ describe UserProfilesController, type: :request do
       it 'updates the Image Link' do
         file_link = 'https://fake_link.com/fake_picture.jpg'
         post route, params: { username: user.username,
+                              email: { email: user.email },
                               user_profile: { id: profile.id,
                                               user_id: profile.user_id,
                                               image_file_link: file_link } }
         expect(user.user_profile.image_file_link).to eq(file_link)
+      end
+
+      it 'updates users email' do
+        user.email = 'fake_email@gmail.com'
+        post route, params: { username: user.username,
+                              email: { email: user.email },
+                              user_profile: { id: profile.id,
+                                              user_id: profile.user_id } }
+        expect(user.email).to eq('fake_email@gmail.com')
       end
     end
 
