@@ -15,7 +15,7 @@ export class StudentRevisionsList extends React.Component {
     super(props);
     this.state = {
       isOpen: false,
-      namespace: 'article'
+      namespace: 'all'
     };
 
     this.toggleDrawer = this.toggleDrawer.bind(this);
@@ -57,7 +57,11 @@ export class StudentRevisionsList extends React.Component {
     if (!userRevisions[student.id]) fetchUserRevisions(course.id, student.id);
     let filteredRevisions = [];
     if (userRevisions[student.id] !== undefined && userRevisions[student.id] !== null) {
-      filteredRevisions = userRevisions[student.id].filter(rev => rev.article.namespace === this.namespaceToId(this.state.namespace));
+      filteredRevisions = (this.state.namespace === 'all')
+        ? userRevisions[student.id]
+        : userRevisions[student.id].filter((rev) => {
+          return rev.article.namespace === this.namespaceToId(this.state.namespace);
+        });
     }
 
     const uploadsLink = `/courses/${course.slug}/uploads`;
@@ -93,6 +97,7 @@ export class StudentRevisionsList extends React.Component {
         value={this.state.namespace}
         onChange={this.onNamespaceChange}
       >
+        <option value="all">All</option>
         <option value="article">Article</option>
         <option value="user">User</option>
         <option value="talk">Talk</option>
