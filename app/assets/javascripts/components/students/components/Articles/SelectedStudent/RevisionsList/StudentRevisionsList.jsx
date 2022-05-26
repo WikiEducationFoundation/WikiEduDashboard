@@ -21,6 +21,19 @@ export class StudentRevisionsList extends React.Component {
     this.toggleDrawer = this.toggleDrawer.bind(this);
   }
 
+  onNamespaceChange = (e) => {
+    return this.setState({ namespace: e.target.value });
+  };
+
+  namespaceToId(nm) {
+    const mapping = {
+      article: 0,
+      talk: 1,
+      user: 2
+    };
+    return mapping[nm];
+  }
+
   _shouldShowRealName() {
     const STUDENT_ROLE = 0;
     const { current_user, student } = this.props;
@@ -35,19 +48,6 @@ export class StudentRevisionsList extends React.Component {
     this.setState({ isOpen: !this.state.isOpen });
   }
 
-  onNamespaceChange = (e) => {
-    return this.setState({ namespace: e.target.value});
-  }
-
-  namespaceToId(nm) {
-    const mapping = {
-      'article': 0,
-      'talk': 1 ,
-      'user': 2
-    }
-    return mapping[nm];
-  }
-
   render() {
     const {
       course, student, fetchUserRevisions, wikidataLabels, userRevisions
@@ -56,8 +56,8 @@ export class StudentRevisionsList extends React.Component {
 
     if (!userRevisions[student.id]) fetchUserRevisions(course.id, student.id);
     let filteredRevisions = [];
-    if (userRevisions[student.id]!==undefined && userRevisions[student.id]!==null) {
-      filteredRevisions = userRevisions[student.id].filter(rev => rev.article.namespace==this.namespaceToId(this.state.namespace));
+    if (userRevisions[student.id] !== undefined && userRevisions[student.id] !== null) {
+      filteredRevisions = userRevisions[student.id].filter(rev => rev.article.namespace === this.namespaceToId(this.state.namespace));
     }
 
     const uploadsLink = `/courses/${course.slug}/uploads`;
