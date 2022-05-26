@@ -24,6 +24,7 @@ class UserProfilesController < ApplicationController
       @user_profile.image_file_link = nil
     end
     @user_profile.update! user_profile_params
+    @user.update! user_email_params
     flash[:notice] = 'Profile Updated'
     redirect_to controller: 'user_profiles', action: 'show'
   end
@@ -85,6 +86,10 @@ class UserProfilesController < ApplicationController
 
   def user_profile_params
     params.require(:user_profile).permit(:bio, :image, :location, :institution, :image_file_link)
+  end
+
+  def user_email_params
+    params.require(:email).permit(:email)
   end
 
   def set_user
