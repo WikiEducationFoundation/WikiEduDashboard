@@ -23,9 +23,11 @@ sms:
     edited_mobile: Artikkeeʹl
     filter:
       wiki_all: Puk
+      new: Ođđ
     hide: Čiõǥǥ
     history: (historia)
     label: Artikkeeʹl
+    new: (ođđ artikkel)
     see_more: Lââʹssteâđ
     view: Čuäʹjet artikkeeʹl
     articles_short: Artikkeeʹl
@@ -44,6 +46,7 @@ sms:
     course: Kurss
     delete_campaign: Jaukkâd tän kampaanj
     search_campaigns: Ooʒʒ kampaanjid
+    search: Ooʒʒ
   categories:
     add_category: Lââʹzzet kategoria
     add_psid: Lââʹzzet PetScan PSID

@@ -78,8 +78,8 @@ namespace :deploy do
       # Ignore chmod errors and force an exit code of 0, so that Capistrano
       # continues deployment. This reduces the breakage when there are
       # permissions problems with the tmp directory.
-      execute "chmod -R 777 #{current_path}/tmp/cache || :"
-      execute "chmod -R g+w #{release_path}"
+      execute "sudo chmod -R 777 #{current_path}/tmp/cache || :"
+      execute "sudo chmod -R g+w #{release_path}"
     end
   end
 
