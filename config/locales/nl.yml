@@ -46,6 +46,8 @@ nl:
       weergegeven worden zullen de invoer verhogen en verlagen.
   application:
     cancel: Annuleren
+    cookie_consent: Deze site gebruikt cookies om u ingelogd te houden en slaat informatie
+      op met betrekking tot uw Wikipedia-account.
     cookie_consent_acknowledge: Ik begrijp
     cookie_consent_see_more: Bekijk meer.
     create_accounts: Maak Wikipedia accounts
@@ -101,6 +103,10 @@ nl:
     peer_review_completed: Beoordeling voltooid
   dashboard:
     create_note: Klik op "Cursus aanmaken" om je eerste cursus aan te maken.
+    create_preparation_note: Houd uw academische kalender bij de hand voordat u begint;
+      de opdrachtontwerper gebruikt de vergaderdata van uw klas - met inbegrip van
+      eventuele schoolpauzes en vakanties - om uw tijdlijn in het door u gekozen datumbereik
+      in te passen. U kunt de tijdlijn altijd aanpassen aan uw behoeften.
     explore_course_pages: Verken de cursuspagina's
     explore_examples: Verken voorbeelden
     join_note: Als je een wachtwoord van je instructeur krijgt, klik dan op "Vind
@@ -112,6 +118,15 @@ nl:
       om de slag te gaan. Dit duurt ongeveer 30 minuten om deze te voltooien.
     review_orientation: Review oriëntatie
     start_orientation: Training beginnen
+    blog_headline: Actualiteiten van Wiki Education
+    about_programs: 'Deze site volgt wiki-activiteiten via Programma''s: individuele
+      evenementen zoals een bewerkingsactie of een schoolcursus. Elk programma maakt
+      deel uit van een of meer campagnes, die samengevoegde statistieken over de programma''s
+      leveren.'
+    about_creating_programs: Als u een afzonderlijk, onafhankelijk evenement organiseert,
+      kunt u nu een programma maken. Maakt uw evenement deel uit van iets groters,
+      dan zoekt of maakt u de campagne ervoor, en dan kunt u vanaf de campagnepagina
+      een nieuw programma maken.
   home:
     explore: Verkennen
     log_in: Aanmelden met Wikipedia
@@ -121,13 +136,20 @@ nl:
       met een bestaand Wikipedia-account of een nieuwe aanmaken.
   alerts:
     alert_label: Meldingen
+    no_alerts: Geen meldingen gevonden.
   activity:
     all: Activiteit
     edited_by: Bewerkt door
     label: Activiteit
   articles:
     articles: Artikelen
+    article_not_found: Dit artikel is nog niet aangemaakt.
+    article_development: (artikelontwikkeling)
+    articles_shown: Toont %{count} van %{total}
     assigned: Toegewezen pagina's
+    assignments_none: Er zijn nog geen toegewezen artikelen.
+    available: Beschikbare artikelen
+    no_available: Geen beschikbare artikelen
     next: Volgende
     previous: Vorige
     article_title: Artikelnaam
@@ -139,6 +161,8 @@ nl:
       de home-wiki van dit programma, samen met andere wiki's waarvoor een opdracht
       of een beschikbaar artikel beschikbaar is.
     deleted: (verwijderd)
+    does_not_exist: Het artikel bestaat niet. Maak een zandbakpagina aan en wijs uzelf
+      daaraan toe om suggesties te ontvangen.
     edited: Pagina's bewerkt
     edited_by: 'Bewerkt door:'
     edited_mobile: Pagina's
@@ -147,8 +171,13 @@ nl:
       wiki_all: Allemaal
       new: Nieuw
       existing: bestaand
+      new_and_existing: Nieuwe en bestaande
+      tracked: Gevolgd
       untracked: Niet bijgehouden
+      tracked_and_untracked: Gevolgd en niet gevolgd
+    find: Artikelen zoeken
     hide: Verbergen
+    history: (geschiedenis)
     label: Pagina's
     loading: Bezig met pagina's laden...
     new: (nieuw)
