@@ -1,20 +1,17 @@
 import React from 'react';
 import { useDrop } from 'react-dnd';
 
-export const DummyBlock = ({ week_id, onMoveDownWeek, onMoveUpWeek }) => {
+export const DummyBlock = ({ week_id, moveBlock }) => {
   const [{ isOverCurrent }, drop] = useDrop(
     () => ({
       accept: 'block',
-      drop(_item, monitor) {
+      drop(item, monitor) {
         const didDrop = monitor.didDrop();
         if (didDrop) {
           return;
         }
-        if (_item.item.week_id <= week_id) {
-          onMoveDownWeek(_item.item.id);
-        } else {
-          onMoveUpWeek(_item.item.id);
-        }
+        // item.item is the block. 0 is the target index in the week.
+        moveBlock(item.item, week_id, 0);
       },
       collect: monitor => ({
         isOverCurrent: monitor.isOver({ shallow: true }),
