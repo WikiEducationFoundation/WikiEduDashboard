@@ -107,7 +107,7 @@ const Timeline = createReactClass({
     return this.props.insertBlock(block, newWeekId, targetIndex);
   },
 
-  _handleMoveBlock(moveUp, blockId) {
+  _handleMoveBlock(moveUp, blockId, weekOnly = false) {
     for (let i = 0; i < this.props.weeks.length; i += 1) {
       const week = this.props.weeks[i];
       const blocks = this.getBlocksInWeek(week.id);
@@ -115,7 +115,7 @@ const Timeline = createReactClass({
         const block = blocks[j];
         if (blockId === block.id) {
           let atIndex;
-          if ((moveUp && j === 0) || (!moveUp && j === blocks.length - 1)) {
+          if ((moveUp && j === 0) || (!moveUp && j === blocks.length - 1) || weekOnly) {
             // Move to adjacent week
             const toWeek = this.props.weeks[moveUp ? i - 1 : i + 1];
             if (moveUp) {
