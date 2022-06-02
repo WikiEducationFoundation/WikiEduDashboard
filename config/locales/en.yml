@@ -1201,6 +1201,7 @@ en:
     empty_week_2: start editing this week
     empty_week_3: "or"
     empty_week_4: use the assignment wizard to create a timeline.
+    empty_week_drag_items: Empty week. Drag items here
     first_week_title: First Active Week
     gradeable_value: Value
     gradeables_none: This timeline has no assignments marked as graded.

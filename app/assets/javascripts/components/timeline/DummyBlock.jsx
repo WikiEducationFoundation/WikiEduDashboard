@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDrop } from 'react-dnd';
 
-export const DummyBlock = ({ week_id, moveBlock }) => {
+export const DummyBlock = ({ week_id, moveBlock, text }) => {
   const [{ isOverCurrent }, drop] = useDrop(
     () => ({
       accept: 'block',
@@ -19,7 +19,6 @@ export const DummyBlock = ({ week_id, moveBlock }) => {
     }),
     [],
   );
-  const text = 'Empty week. Drag items here ';
   let backgroundColor = '#919090';
   if (isOverCurrent) {
     backgroundColor = '#676EB4';
