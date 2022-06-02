@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDrop } from 'react-dnd';
 
-export const DummyBlock = ({ week_id, onMoveBlockDown, onMoveBlockUp }) => {
+export const DummyBlock = ({ week_id, onMoveDownWeek, onMoveUpWeek }) => {
   const [{ isOverCurrent }, drop] = useDrop(
     () => ({
       accept: 'block',
@@ -11,13 +11,12 @@ export const DummyBlock = ({ week_id, onMoveBlockDown, onMoveBlockUp }) => {
           return;
         }
         if (_item.item.week_id <= week_id) {
-          onMoveBlockDown(_item.item.id, true);
+          onMoveDownWeek(_item.item.id);
         } else {
-          onMoveBlockUp(_item.item.id, true);
+          onMoveUpWeek(_item.item.id);
         }
       },
       collect: monitor => ({
-        isOver: monitor.isOver(),
         isOverCurrent: monitor.isOver({ shallow: true }),
       }),
     }),

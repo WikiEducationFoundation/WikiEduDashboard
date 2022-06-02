@@ -107,7 +107,7 @@ const Timeline = createReactClass({
     return this.props.insertBlock(block, newWeekId, targetIndex);
   },
 
-  _handleMoveBlock(moveUp, blockId, weekOnly = false) {
+  _handleMoveBlock(moveUp, weekOnly, blockId) {
     for (let i = 0; i < this.props.weeks.length; i += 1) {
       const week = this.props.weeks[i];
       const blocks = this.getBlocksInWeek(week.id);
@@ -255,8 +255,10 @@ const Timeline = createReactClass({
               saveGlobalChanges={this.props.saveGlobalChanges}
               canBlockMoveUp={this._canBlockMoveUp.bind(this, week, (week.order - 1))}
               canBlockMoveDown={this._canBlockMoveDown.bind(this, week, (week.order - 1))}
-              onMoveBlockUp={this._handleMoveBlock.bind(this, true)}
-              onMoveBlockDown={this._handleMoveBlock.bind(this, false)}
+              onMoveBlockUp={this._handleMoveBlock.bind(this, true, false)}
+              onMoveBlockDown={this._handleMoveBlock.bind(this, false, false)}
+              onMoveUpWeek={this._handleMoveBlock.bind(this, true, true)}
+              onMoveDownWeek={this._handleMoveBlock.bind(this, false, true)}
               onBlockDrag={this._handleBlockDrag}
               weeksBeforeTimeline={weeksBeforeTimeline}
               trainingLibrarySlug={this.props.course.training_library_slug}

@@ -157,7 +157,7 @@ const Week = createReactClass({
             timeout={250}
           >
             <ul style={style} className="week__block-list list-unstyled">
-              {blocks.length ? blocks : <DummyBlock week_id={this.props.week.id} onMoveBlockUp={this.props.onMoveBlockUp} onMoveBlockDown={this.props.onMoveBlockDown}/>}
+              {blocks.length ? blocks : <DummyBlock week_id={this.props.week.id} onMoveUpWeek={this.props.onMoveUpWeek} onMoveDownWeek={this.props.onMoveDownWeek}/>}
             </ul>
           </TransitionGroup>
         )
