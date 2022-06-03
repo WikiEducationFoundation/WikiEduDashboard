@@ -142,7 +142,7 @@ describe UserProfilesController, type: :request do
     let(:route) { "/users/update/#{user.username}" }
 
     context 'user profile is of the current user' do
-      let(:user) { create(:user) }
+      let(:user) { create(:user, email: 'fake_email@gmail.com') }
       let(:profile) { create(:user_profile, user_id: user.id) }
 
       before do
@@ -198,13 +198,13 @@ describe UserProfilesController, type: :request do
         expect(user.user_profile.image_file_link).to eq(file_link)
       end
 
-      it 'updates users email' do
-        user.email = 'fake_email@gmail.com'
+      it 'updates users email address' do
+        updated_email = 'updated_email@gmail.com'
         post route, params: { username: user.username,
-                              email: { email: user.email },
+                              email: { email: updated_email },
                               user_profile: { id: profile.id,
                                               user_id: profile.user_id } }
-        expect(user.email).to eq('fake_email@gmail.com')
+        expect(user.reload.email).to eq(updated_email)
       end
     end
 
