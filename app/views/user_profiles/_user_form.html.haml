@@ -43,7 +43,7 @@
               - if current_user == @user || current_user&.admin?
                 - if @user.email.present?
                   #icon
-                    &#x2709;
+                    %p &#x2709;
                 .rails_editable-field
                   - if @user.email.present?
                     %p.rails_editable-content
