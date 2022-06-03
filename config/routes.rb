@@ -227,6 +227,8 @@ Rails.application.routes.draw do
   get 'course_revisions_csv' => 'analytics#course_revisions_csv'
   get 'course_wikidata_csv' => 'analytics#course_wikidata_csv'
   get 'all_courses_csv' => 'analytics#all_courses_csv'
+  get 'all_courses' => 'analytics#all_courses'
+  get 'all_campaigns' => 'analytics#all_campaigns'
 
   # Campaigns
   resources :campaigns, param: :slug, except: :show do

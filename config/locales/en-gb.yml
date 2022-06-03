@@ -6,6 +6,7 @@
 # Author: Bjh21
 # Author: Chase me ladies, I'm the Cavalry
 # Author: Codynguyen1116
+# Author: MxYamato
 # Author: Pierpao
 # Author: Samwilson
 # Author: Sau226
@@ -80,9 +81,6 @@ en-gb:
     new: (new)
     none: This course has not edited any articles.
     rating: Class
-    rating_doc: The rating an article has been assigned by WikiProjects on Wikipedia.
-      These ratings may correspond to much older versions, so they are just a rough
-      indicator of article maturity.
     rating_docs:
       fa: '%{class} (Featured article) — Wikipedia''s highest rating, probably too
         mature an article for a new editor''s main project'
@@ -115,7 +113,6 @@ en-gb:
     assign_self: Assign myself an article
     confirm_add_available: Are you sure you want to add %{title}?
     confirm_addition: Are you sure you want to assign %{title} to %{username}?
-    confirm_deletion: Are you sure you want to delete this article assignment?
     label: Assign
     loading: Loading assignments...
     none_short: No articles assigned
@@ -130,7 +127,11 @@ en-gb:
     milestones:
       title: Milestones
   campaign:
+    newest_campaigns: Newest Campaigns
     none: None
+    too_many_articles: The edited article list for this campaign is too long to be
+      displayed. Please view individual courses/programs/events to see the articles
+      edited.
   courses:
     activity: Activity
     already_enrolled: You are already a part of '%{title}'!
@@ -217,8 +218,6 @@ en-gb:
       one: Instructor
       other: Instructors
     instructors: Instructors
-    invitation: You’ve been invited to join %{title}. To join the course, you need
-      to log in with a Wikipedia account.
     join: Join
     join_course: Join course
     join_prompt: Join '%{title}'?

@@ -91,6 +91,22 @@ class AnalyticsController < ApplicationController
               filename: "all_courses-#{Time.zone.today}.csv"
   end
 
+  #################
+  # WMF Analytics #
+  #################
+
+  # JSON endpoints requested by Krishna Chaitanya Velaga of WMF's
+  # Community Data and Evaluation team
+
+  def all_courses
+    # Anyone can get data for nonprivate courses; only admins can private course data.
+    @courses = current_user&.admin? ? Course.all : Course.nonprivate
+  end
+
+  def all_campaigns
+    @campaigns = Campaign.all
+  end
+
   ###################
   # Output builders #
   ###################

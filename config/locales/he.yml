@@ -27,7 +27,7 @@ he:
   number:
     human:
       decimal_units:
-        format: '%n% u'
+        format: '%n %u'
         units:
           thousand: א'
           million: מ'

@@ -112,7 +112,7 @@ class WikiAssignmentOutput
                     ([\n\r]+#{updated_by_signature_pattern})? # optional linebreaks and signature
                   /x
     new_tag_with_signature = if en_wiki?
-                               "#{new_tag}\n#{updated_by_signature}"
+                               "#{new_tag}\n\n#{updated_by_signature}"
                              else
                                new_tag
                              end
@@ -227,7 +227,7 @@ class WikiAssignmentOutput
   # based on the RfC here:
   # https://en.wikipedia.org/w/index.php?title=Wikipedia:Education_noticeboard&oldid=1072013453#How_should_Wiki_Education_assignments_be_announced_on_article_talk_page?
   def add_template_in_new_section(page_content, template)
-    "#{page_content}\n\n#{section_header}\n#{template}\n#{updated_by_signature}\n"
+    "#{page_content}\n\n#{section_header}\n#{template}\n"
   end
 
   def section_header

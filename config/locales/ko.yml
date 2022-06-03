@@ -146,6 +146,7 @@ ko:
     view_on_wiki: 위키에서 보기
     edit_size: 편집 크기
     wiki: 위키
+    page_logs: (문서 기록)
   items:
     items: 항목
     assigned: 할당된 항목
@@ -198,6 +199,7 @@ ko:
     description: 설명
     disable_account_requests: 계정 요청 비활성화
     enable_account_requests: 계정 요청 활성화
+    newest_campaigns: 새 캠페인
     no_passcode: 비밀코드 없음
     none: 없음
     program_template: 프로그램 틀

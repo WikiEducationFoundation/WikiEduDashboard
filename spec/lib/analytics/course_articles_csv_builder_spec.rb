@@ -8,7 +8,7 @@ describe CourseArticlesCsvBuilder do
   let(:user) { create(:user, registered_at: course.start + 1.minute) }
   let!(:courses_user) { create(:courses_user, course: course, user: user) }
 
-  let(:article) { create(:article) }
+  let(:article) { create(:article, title: 'First_Article') }
   let(:article2) { create(:article, title: 'Second_Article') }
   let(:revision_count) { 5 }
   let(:subject) { described_class.new(course).generate_csv }
@@ -56,5 +56,11 @@ describe CourseArticlesCsvBuilder do
       expect(subject).to include(article.title)
       expect(subject).not_to include(article2.title)
     end
+  end
+
+  it 'handles missing Article records gracefully' do
+    article.destroy
+    expect(subject).not_to include('First_Article')
+    expect(subject).to include('Second_Article')
   end
 end

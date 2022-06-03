@@ -738,8 +738,10 @@ tr:
       Onaylamak için, Genel Bakış sayfasındaki bir kampanyaya ekleyin.
     submitted_and_pending_heading: Gönderilen ve Bekleyen Onay
     submitted_heading: Gönderilen Kurslar
-    submitted_note: Kursunuz gönderildi. Wiki Education personeli bunu değerlendirecek
-      ve herhangi bir sorun olursa iletişime geçecektir.
+    submitted_note: Kursunuz başarıyla gönderildi. Viki Eğitim personeli onu inceleyecek
+      ve herhangi bir soruyla temasa geçecektir. Bu arada, iki Eğitim'in eğitim materyallerini
+      incelemek isterseniz, eğitmenler ve öğrenciler için kaynakların tam listesini
+      görüntüleyebilirsiniz.
     suggestions_feedback: Bu özelliği geliştirmek için herhangi bir öneriniz var mı?
       Bilmemize izin ver!
     suggestions_sending: Geri Bildirim Gönderiliyor...

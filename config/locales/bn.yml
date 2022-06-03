@@ -19,6 +19,7 @@
 # Author: ZI Jony
 # Author: আজিজ
 # Author: আফতাবুজ্জামান
+# Author: মোঃ মারুফ হাসান24
 ---
 bn:
   application:
@@ -156,6 +157,7 @@ bn:
     campaign: প্রচারাভিযান
     created_at: তারিখ
     course: কোর্স
+    newest_campaigns: নতুন প্রচারাভিযান
     no_passcode: কোন পাসকোড নেই
     none: কোনটিই নয়
     requested_accounts: অনুরোধকৃত অ্যাকাউন্ট

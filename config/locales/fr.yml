@@ -242,6 +242,14 @@ fr:
       le contenu lui-même. (Ces statistiques ne sont disponibles que pour les articles
       de l’édition en anglais de Wikipédia).
     articles_short: Articles
+    deleted_message: Selon les données du tableau de bord, cette page a été effacée.
+      (Dans quelques cas, des déplacements de pages, des fusions d’historique ou d’autres
+      actions peuvent résulter en un article incorrectement listé comme supprimé.
+      Les articles supprimés peuvent également être restaurés plus tard. Pour les
+      articles qui ne sont pas réellement effacés ou qui ont été restaurés par la
+      suite, le tableau de bord en tiendra compte habituellement au bout d’un ou deux
+      jours).
+    page_logs: (journaux des pages)
   items:
     items: Éléments
     article_not_found: Cet élément n’a pas encore été créé.
@@ -406,6 +414,7 @@ fr:
     delete_campaign: Supprimer cette campagne
     disable_account_requests: Désactiver les demandes de compte
     enable_account_requests: Activer les demandes de compte
+    newest_campaigns: Nouvelles campagnes
     no_alerts: Cette campagne n’a aucune alerte
     no_passcode: aucun mot de passe
     none: Aucun
@@ -418,6 +427,9 @@ fr:
     random_passcode: un code d’accès aléatoire
     requested_accounts: Comptes demandés
     title: Titre
+    too_many_articles: La liste des articles modifiés pour cette campagne est trop
+      longue pour être affichée. Veuillez consulter les cours / programmes / événements
+      individuels pour voir les articles modifiés.
     slug: Limace
     search_campaigns: Rechercher les campagnes
     use_start_end_dates: Utiliser les dates de début et de fin
@@ -653,7 +665,7 @@ fr:
       et le nombre d’utilisations de chaque média téléversé.
     data_wikidata: Statistiques de Wikidata
     data_wikidata_info: Répartition détaillée de l’activité de Wikidata, d’après les
-      résumés de modification
+      résumés des modifications
     dates_too_long: La durée maximale est d’un an.
     delete_course: Supprimer le cours
     delete_suggestion: Supprimer
@@ -832,7 +844,9 @@ fr:
     submitted_and_pending_heading: Soumis et en attente d’approbation
     submitted_heading: Cours soumis
     submitted_note: Votre cours a été soumis. L’équipe de Wiki Éducation l’examinera
-      et vous contactera pour toute question.
+      et vous contactera pour toute question. En attendant, si vous souhaitez passer
+      en revue les matériels de formation de Wiki Éducation, vous pouvez consulter
+      la liste complète des ressources pour instructeurs et élèves.
     suggestions_feedback: Vous avez des suggestions pour améliorer cette fonctionnalité ?
       Faites-le nous savoir !
     suggestions_sending: Envoi en cours du commentaire…
@@ -1582,7 +1596,7 @@ fr:
       one: Veuillez sélectionner au moins %{count} option.
       other: Veuillez sélectionner au moins %{count} options.
     read_less: Lire moins
-    read_more: Lire plus
+    read_more: Lire davantage
     review_selections: Veuillez vérifier vos sélections ci-dessous. Cliquez pour modifier
       une sélection. Quand ce sera fini, cliquez sur « Soumettre » pour terminer l’assistant
       et construire votre agenda.

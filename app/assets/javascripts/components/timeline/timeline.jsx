@@ -133,7 +133,6 @@ const Timeline = createReactClass({
       }
     }
   },
-
   _canBlockMoveDown(week, weekIndexInTimeline, block, blockIndexInWeek) {
     if (weekIndexInTimeline === this.props.weeks.length - 1 && blockIndexInWeek === this.getBlocksInWeek(week.id).length - 1) { return false; }
     // TODO: return false if it's the last block in the last non-blackout week
@@ -261,6 +260,7 @@ const Timeline = createReactClass({
               weeksBeforeTimeline={weeksBeforeTimeline}
               trainingLibrarySlug={this.props.course.training_library_slug}
               current_user={this.props.current_user}
+              moveBlock={this._moveBlock}
             />
           </div>
         )

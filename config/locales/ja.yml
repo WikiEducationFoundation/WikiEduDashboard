@@ -162,6 +162,7 @@ ja:
     wp10: 構造の完成度
     wp10_doc: 「Structural Completeness」指数は特定の記事がウィキペディアの成長した記事の型にどれほど適合するかを示し、機械学習に基づく
       Objective Revision Evaluation Service を使います(https://ores.wikimedia.org/)。指数の算出は記事のサイズ、参考文献と内部リンクの件数やその他の文の基本要素に依拠します。通常、高得点はその記事がウィキペディアで採用する良質な記事の構造の規則に従っているという意味ですが、記事の内容そのものは考慮していません。(これらのスコア提示は英語版ウィキペディア限定です。)
+    page_logs: （ページの記録）
   items:
     article_not_found: このアイテムはまだ作成されていません。
     find: アイテムを探す
@@ -687,6 +688,7 @@ ja:
     assignment_dates_instructions: ウィキペディアの課題について、日程の開始日と終了日を選択します。開始日を変更すると、連動して日程全体が動きます。
     blackout_week_created: 今週は既に日程が入っています。先にそれらを別の週へ移してから、今週に設定したクラスの最終の開講日を削除します。
     block_assignment: 課題
+    block_custom: カスタム
     course_dates: コースの日程
     course_dates_instructions: コース全日程 (ウィキペディアの課題以外を含む) の開始日と終了日を選択します。
     course_end: コース終了

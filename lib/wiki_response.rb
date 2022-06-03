@@ -116,7 +116,7 @@ class WikiResponse
       # The info message for such errors is something like this:
       # The authorization headers in your request are not valid: Nonce already used: kj7w9...
       @current_user.update(wiki_token: 'invalid') unless info.include?('Nonce already used')
-    when 'blocked', 'autoblocked'
+    when 'blocked', 'autoblocked', 'wikimedia-globalblocking-ipblocked-range'
       BlockedEditsWorker.schedule_notifications(user: @current_user, response_data: @response_data)
     end
 

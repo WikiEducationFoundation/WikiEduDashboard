@@ -39,7 +39,7 @@ class Wiki < ApplicationRecord
   validates_inclusion_of :project, in: PROJECTS
 
   LANGUAGES = %w[
-    aa ab ace ady af ak als am an ang ar arc arz as ast atj av ay az azb
+    aa ab ace ady af ak als am ami an ang ar arc arz as ast atj av ay az azb
     ba ban bar bat-smg bcl be be-tarask be-x-old bg bh bi bjn bm bn bo bpy br bs
     bug bxr ca cbk-zam cdo ce ceb ch cho chr chy ckb cmn co commons cr crh cs csb cu
     cv cy da dag de din diq dk dsb dty dv dz ee egl el eml en eo epo es et eu ext fa
@@ -50,9 +50,9 @@ class Wiki < ApplicationRecord
     ltg lv lzh mad mai map-bms mdf mg mh mhr mi min minnan mk ml mn mo mr mrj ms mt
     mus mwl my myv mzn na nah nan nap nb nds nds-nl ne new ng nia nl nn no nov nrm
     nso nv ny oc olo om or os pa pag pam pap pcd pdc pfl pi pih pl pms pnb pnt ps
-    pt qu rm rmy rn ro roa-rup roa-tara ru rue rup rw sa sah sat sc scn sco sd se
-    sg sgs sh si simple sk sl sm sn so sq sr srn ss st stq su sv sw szl ta tcy te
-    tet tg th ti tk tl tn to tpi tr ts tt tum tw ty tyv udm ug uk ur uz ve
+    pt pwn qu rm rmy rn ro roa-rup roa-tara ru rue rup rw sa sah sat sc scn sco sd se
+    sg sgs sh si simple sk sl sm sn so sq sr srn ss st stq su sv sw szl szy ta tay tcy te
+    tet tg th ti tk tl tn to tpi tr trv ts tt tum tw ty tyv udm ug uk ur uz ve
     vec vep vi vls vo vro w wa war wikipedia wo wuu xal xh xmf yi yo yue za
     zea zh zh-cfr zh-classical zh-cn zh-min-nan zh-tw zh-yue zu
   ].freeze
