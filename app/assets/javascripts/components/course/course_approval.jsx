@@ -25,7 +25,7 @@ const CourseApproval = (props) => {
   const [selectedCampaigns, setSelectedCampaigns] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
   const [createdTagOption, setCreatedTagOption] = useState([]);
-  const [salesforceId, setSalesforceId] = useState("");
+  const [salesforceId, setSalesforceId] = useState('');
   const [showInvalidIdMessage, setShowInvalidIdMessage] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
@@ -177,7 +177,7 @@ const CourseApproval = (props) => {
     if (!rawSalesforceId) {
       // Return true as empty text field is allowed
       // Return empty array required for concatenation
-      return { isValid: true, promise: [] }; 
+      return { isValid: true, promise: [] };
     }
     const _salesforceId = extractSalesforceId(rawSalesforceId);
     if (!_salesforceId) {
@@ -304,7 +304,7 @@ const CourseApproval = (props) => {
 
   let invalidIdMessage;
   if (showInvalidIdMessage) {
-    invalidIdMessage = <p className='form-group invalid'>The entered Id is not valid.</p>
+    invalidIdMessage = <p className="form-group invalid">The entered Id is not valid.</p>;
   }
 
   const salesforceIdField = (
@@ -335,7 +335,7 @@ const CourseApproval = (props) => {
       <div className="controls">
         <button className={`dark button ${approveButtonState}`} onClick={submitApprovalForm}>Approve Course</button>
       </div>);
-  
+
   return (
     <div className="module course-approval">
       <div className="section-header">
