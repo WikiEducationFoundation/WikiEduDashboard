@@ -8,6 +8,7 @@ import StudentRevisionRow from './StudentRevisionRow';
 
 // Libraries
 import CourseUtils from '~/app/assets/javascripts/utils/course_utils.js';
+import ArticleUtils from '~/app/assets/javascripts/utils/article_utils.js';
 import studentListKeys from '@components/students/shared/StudentList/student_list_keys.js';
 
 export class StudentRevisionsList extends React.Component {
@@ -22,16 +23,24 @@ export class StudentRevisionsList extends React.Component {
   }
 
   onNamespaceChange = (e) => {
+    // Open the drawer when filter is used
+    if (!this.state.isOpen) this.setState({ isOpen: true });
     return this.setState({ namespace: e.target.value });
   };
 
-  namespaceToId(nm) {
-    const mapping = {
-      article: 0,
-      talk: 1,
-      user: 2
-    };
-    return mapping[nm];
+  // filter the revisions according to namespace
+  getfilteredRevisions() {
+    const { student, userRevisions } = this.props;
+
+    let revisions = [];
+    if (userRevisions[student.id] !== undefined && userRevisions[student.id] !== null) {
+      revisions = (this.state.namespace === 'all')
+        ? userRevisions[student.id]
+        : userRevisions[student.id].filter((rev) => {
+          return rev.article.namespace === ArticleUtils.namespaceToId(this.state.namespace);
+        });
+    }
+    return revisions;
   }
 
   _shouldShowRealName() {
@@ -55,15 +64,7 @@ export class StudentRevisionsList extends React.Component {
     const { isOpen } = this.state;
 
     if (!userRevisions[student.id]) fetchUserRevisions(course.id, student.id);
-    let filteredRevisions = [];
-    if (userRevisions[student.id] !== undefined && userRevisions[student.id] !== null) {
-      filteredRevisions = (this.state.namespace === 'all')
-        ? userRevisions[student.id]
-        : userRevisions[student.id].filter((rev) => {
-          return rev.article.namespace === this.namespaceToId(this.state.namespace);
-        });
-    }
-
+    const filteredRevisions = this.getfilteredRevisions();
     const uploadsLink = `/courses/${course.slug}/uploads`;
     const elements = [
       <StudentRevisionRow
@@ -97,10 +98,10 @@ export class StudentRevisionsList extends React.Component {
         value={this.state.namespace}
         onChange={this.onNamespaceChange}
       >
-        <option value="all">All</option>
-        <option value="article">Article</option>
-        <option value="user">User</option>
-        <option value="talk">Talk</option>
+        <option value="all">{I18n.t('namespace.filter.all_ns')}</option>
+        <option value="article">{I18n.t('namespace.filter.article_ns')}</option>
+        <option value="user">{I18n.t('namespace.filter.user_ns')}</option>
+        <option value="talk">{I18n.t('namespace.filter.talk_ns')}</option>
       </select>
     );
     return (
