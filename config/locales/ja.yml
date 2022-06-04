@@ -688,6 +688,7 @@ ja:
     assignment_dates_instructions: ウィキペディアの課題について、日程の開始日と終了日を選択します。開始日を変更すると、連動して日程全体が動きます。
     blackout_week_created: 今週は既に日程が入っています。先にそれらを別の週へ移してから、今週に設定したクラスの最終の開講日を削除します。
     block_assignment: 課題
+    block_custom: カスタム
     course_dates: コースの日程
     course_dates_instructions: コース全日程 (ウィキペディアの課題以外を含む) の開始日と終了日を選択します。
     course_end: コース終了

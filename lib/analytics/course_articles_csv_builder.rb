@@ -29,7 +29,10 @@ class CourseArticlesCsvBuilder
   # rubocop:disable Metrics/AbcSize
   def set_articles_edited
     @articles_edited = {}
-    @course.tracked_revisions.includes(:user, article: :wiki).map do |edit|
+    @course.tracked_revisions.includes(:user, article: :wiki).each do |edit|
+      # Skip if the Article record is missing
+      next unless edit.article
+
       article_edits = @articles_edited[edit.article_id] || new_article_entry(edit)
       article_edits[:characters][edit.mw_rev_id] = edit.characters
       article_edits[:references][edit.mw_rev_id] = edit.references_added

@@ -73,13 +73,13 @@ categories:
         name: 'Exercise: Choose your article'
         description: Find possible topics to work on by exploring Wikipedia.
       - slug: finalize-topic-exercise
-        name: 'Exercise: Finalizing your topic and finding sources'
+        name: 'Exercise: Building your bibliography'
         description: Decide which topic to work on, and begin finding sources.
       - slug: 'choose-topic-from-list-exercise'
         name: 'Exercise: Choose your article (from a list)'
         description: Select an article to work on from your class's list, and begin finding sources.
       - slug: add-to-article-exercise
-        name: 'Exercise: Add to an article'
+        name: 'Exercise: Make a small edit'
         description: Practice editing by adding a missing citation to an article.
       - slug: copyedit-exercise
         name: 'Exercise: Copyedit an article'

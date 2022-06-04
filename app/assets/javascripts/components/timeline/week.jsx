@@ -1,11 +1,11 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import { Motion, spring } from 'react-motion';
 import TransitionGroup from '../common/css_transition_group';
 import Block from './block.jsx';
-import OrderableBlock from './orderable_block.jsx';
 import DateCalculator from '../../utils/date_calculator.js';
+import SpringBlock from './SpringBlock';
+import { DummyBlock } from './DummyBlock';
 
 const Week = createReactClass({
   displayName: 'Week',
@@ -106,42 +106,7 @@ const Week = createReactClass({
     const blocks = this.props.blocks.map((block, i) => {
       // If in reorderable mode
       if (this.props.reorderable) {
-        const orderableBlock = (value) => {
-          const rounded = Math.round(value.y);
-          const animating = rounded !== i * 75;
-          const willChange = animating ? 'top' : 'initial';
-          const blockLineStyle = {
-            top: rounded,
-            position: 'absolute',
-            width: '100%',
-            left: 0,
-            willChange,
-            marginLeft: 0
-          };
-          return (
-            <li style={blockLineStyle}>
-              <OrderableBlock
-                block={block}
-                canDrag={true}
-                animating={animating}
-                onDrag={this.props.onBlockDrag.bind(null, i)}
-                onMoveUp={this.props.onMoveBlockUp.bind(null, block.id)}
-                onMoveDown={this.props.onMoveBlockDown.bind(null, block.id)}
-                disableDown={!this.props.canBlockMoveDown(block, i)}
-                disableUp={!this.props.canBlockMoveUp(block, i)}
-                index={i}
-                title={block.title}
-                kind={[I18n.t('timeline.block_in_class'), I18n.t('timeline.block_assignment'), I18n.t('timeline.block_milestone'), I18n.t('timeline.block_custom')][block.kind]}
-              />
-            </li>
-          );
-        };
-
-        return (
-          <Motion key={block.id} defaultStyle={{ y: i * 75 }} style={{ y: spring(i * 75, [220, 30]) }}>
-            {orderableBlock}
-          </Motion>
-        );
+        return <SpringBlock block={block} i={i} key={block.id} {...this.props}/>;
       }
       // If not in reorderable mode
       return (
@@ -184,7 +149,7 @@ const Week = createReactClass({
       this.props.reorderable
         ? (style = {
           position: 'relative',
-          height: blocks.length * 75,
+          height: Math.max(75, blocks.length * 75),
           transition: 'height 500ms ease-in-out'
         },
           <TransitionGroup
@@ -192,7 +157,7 @@ const Week = createReactClass({
             timeout={250}
           >
             <ul style={style} className="week__block-list list-unstyled">
-              {blocks}
+              {blocks.length ? blocks : <DummyBlock text={I18n.t('timeline.empty_week_drag_items')} week_id={this.props.week.id} moveBlock={this.props.moveBlock}/>}
             </ul>
           </TransitionGroup>
         )
