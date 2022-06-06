@@ -5,16 +5,19 @@ import { difference, uniq } from 'lodash-es';
 
 import PropTypes from 'prop-types';
 import Select from 'react-select';
+import TextInput from '../common/text_input';
 import CreatableSelect from 'react-select/creatable';
 import selectStyles from '../../styles/single_select';
 
 import { fetchSpecialUsers } from '../../actions/settings_actions';
 import { fetchAllCampaigns, addCampaign } from '../../actions/campaign_actions';
 import { removeTag, fetchAllTags, addTag } from '../../actions/tag_actions';
+import { linkToSalesforce } from '../../actions/course_actions';
 import { addUser } from '../../actions/user_actions';
 import { getCourseApprovalStaff } from '../../selectors';
 import { STAFF_ROLE } from '../../constants';
 import { inferDefaultCampaign } from './utils/inferDefaultCampaign';
+import { extractSalesforceId } from '../../utils/salesforce_utils.js';
 
 
 const CourseApproval = (props) => {
@@ -22,6 +25,8 @@ const CourseApproval = (props) => {
   const [selectedCampaigns, setSelectedCampaigns] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
   const [createdTagOption, setCreatedTagOption] = useState([]);
+  const [salesforceId, setSalesforceId] = useState('');
+  const [showInvalidIdMessage, setShowInvalidIdMessage] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
@@ -108,6 +113,10 @@ const CourseApproval = (props) => {
     setSelectedTags(selectedOption);
   };
 
+  const handleSalesforceIdChange = (key, value) => {
+    return setSalesforceId(value);
+  };
+
 
   const submitWikiEdStaff = (programManager, wikiExpert) => {
     const promises = [];
@@ -162,6 +171,23 @@ const CourseApproval = (props) => {
     return promises;
   };
 
+  // Check if entered id is valid and return it if it is valid
+  const validateSalesforceId = () => {
+    const rawSalesforceId = salesforceId;
+    if (!rawSalesforceId) {
+      // Return true as empty text field is allowed
+      // Return empty array required for concatenation
+      return { isValid: true, promise: [] };
+    }
+    const _salesforceId = extractSalesforceId(rawSalesforceId);
+    if (!_salesforceId) {
+      // Return false if extracted id is invalid
+      return { isValid: false, promise: null };
+    }
+    const promise = props.linkToSalesforce(props.course.id, _salesforceId);
+    return { isValid: true, promise: [promise] };
+  };
+
   const submitApprovalForm = () => {
     setSubmitting(true);
 
@@ -170,6 +196,13 @@ const CourseApproval = (props) => {
     const wikiExpert = props.wikiEdStaff.find(user => user.username === selectedWikiExpert.value);
 
     let promises = [];
+    const idValidation = validateSalesforceId();
+    if (!idValidation.isValid) {
+      setSubmitting(false);
+      setShowInvalidIdMessage(true);
+      return;
+    }
+    promises = promises.concat(idValidation.promise);
     promises = promises.concat(submitWikiEdStaff(programManager, wikiExpert));
     promises = promises.concat(submitCampaigns());
     promises = promises.concat(submitTags());
@@ -269,6 +302,29 @@ const CourseApproval = (props) => {
     </div>
   );
 
+  let invalidIdMessage;
+  if (showInvalidIdMessage) {
+    invalidIdMessage = <p className="form-group invalid">The entered Id is not valid.</p>;
+  }
+
+  const salesforceIdField = (
+    <div className="course-approval-field form-group">
+      <div className="group-left form-group">
+        <label htmlFor="campaign">Add Salesforce Id: </label>
+      </div>
+      <div className="group-right">
+        <TextInput
+          onChange={handleSalesforceIdChange}
+          value={salesforceId}
+          value_key="salesforceId"
+          editable={true}
+          type="text"
+        />
+        {invalidIdMessage}
+      </div>
+    </div>
+  );
+
   const approveButtonState = (selectedCampaigns === null || selectedCampaigns.length === 0) ? 'disabled' : '';
   const approveButton = (submitting) ? (
     <div className="course-approval-loader">
@@ -291,6 +347,7 @@ const CourseApproval = (props) => {
         {wikiExpertSelector}
         {tagsSelector}
         {campaignsSelector}
+        {salesforceIdField}
       </div>
     </div>
   );
@@ -308,7 +365,8 @@ CourseApproval.propTypes = {
   allTags: PropTypes.array,
   fetchAllTags: PropTypes.func,
   addTag: PropTypes.func,
-  removeTag: PropTypes.func
+  removeTag: PropTypes.func,
+  linkToSalesforce: PropTypes.func
 };
 
 const mapStateToProps = state => ({
@@ -327,6 +385,7 @@ const mapDispatchToProps = {
   addCampaign,
   addTag,
   removeTag,
+  linkToSalesforce
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CourseApproval);
