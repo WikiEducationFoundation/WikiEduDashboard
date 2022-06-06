@@ -1053,7 +1053,11 @@ en:
     main_char_added: Mainspace chars added
     user: Userspace
     user_char_added: Userspace chars added
-    user_ns: User
+    filter:
+      all_ns: All
+      article_ns: Article
+      user_ns: User
+      talk_ns: Talk
 
   recent_activity:
     active_courses: Article is active in
@@ -1313,7 +1317,7 @@ en:
     none: There are no participants.
     no_articles: No articles
     no_articles_wikidata: No items
-    no_revisions: This editor has made no revisions.
+    no_revisions: (no revisions)
     no_highlighting: "No text from the current version of the article is attributed to this editor. Check the page history to see their edits."
     number_of_articles:
       one: "%{count} article"

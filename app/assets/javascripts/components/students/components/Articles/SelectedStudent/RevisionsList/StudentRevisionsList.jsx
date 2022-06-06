@@ -8,16 +8,39 @@ import StudentRevisionRow from './StudentRevisionRow';
 
 // Libraries
 import CourseUtils from '~/app/assets/javascripts/utils/course_utils.js';
+import ArticleUtils from '~/app/assets/javascripts/utils/article_utils.js';
 import studentListKeys from '@components/students/shared/StudentList/student_list_keys.js';
 
 export class StudentRevisionsList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpen: false
+      isOpen: false,
+      namespace: 'all'
     };
 
     this.toggleDrawer = this.toggleDrawer.bind(this);
+  }
+
+  onNamespaceChange = (e) => {
+    // Open the drawer when filter is used
+    if (!this.state.isOpen) this.setState({ isOpen: true });
+    return this.setState({ namespace: e.target.value });
+  };
+
+  // filter the revisions according to namespace
+  getfilteredRevisions() {
+    const { student, userRevisions } = this.props;
+
+    let revisions = [];
+    if (userRevisions[student.id] !== undefined && userRevisions[student.id] !== null) {
+      revisions = (this.state.namespace === 'all')
+        ? userRevisions[student.id]
+        : userRevisions[student.id].filter((rev) => {
+          return rev.article.namespace === ArticleUtils.namespaceToId(this.state.namespace);
+        });
+    }
+    return revisions;
   }
 
   _shouldShowRealName() {
@@ -41,6 +64,7 @@ export class StudentRevisionsList extends React.Component {
     const { isOpen } = this.state;
 
     if (!userRevisions[student.id]) fetchUserRevisions(course.id, student.id);
+    const filteredRevisions = this.getfilteredRevisions();
     const uploadsLink = `/courses/${course.slug}/uploads`;
     const elements = [
       <StudentRevisionRow
@@ -57,7 +81,7 @@ export class StudentRevisionsList extends React.Component {
         course={course}
         exerciseView={true}
         isOpen={isOpen}
-        revisions={userRevisions[student.id]}
+        revisions={filteredRevisions}
         wikidataLabels={wikidataLabels}
       />
     ];
@@ -67,10 +91,27 @@ export class StudentRevisionsList extends React.Component {
     } = studentListKeys(course);
     const keys = { recent_revisions, character_sum_ms, references_count, total_uploads };
 
+    const filterLabel = <b>Namespace Filter:</b>;
+    const filterRevisions = (
+      <select
+        className="filter-revisions"
+        value={this.state.namespace}
+        onChange={this.onNamespaceChange}
+      >
+        <option value="all">{I18n.t('namespace.filter.all_ns')}</option>
+        <option value="article">{I18n.t('namespace.filter.article_ns')}</option>
+        <option value="user">{I18n.t('namespace.filter.user_ns')}</option>
+        <option value="talk">{I18n.t('namespace.filter.talk_ns')}</option>
+      </select>
+    );
     return (
       <div className="list__wrapper">
         <h4 className="assignments-list-title">
           {I18n.t('users.revisions')}
+          <div className="wrap-filters">
+            {filterLabel}
+            {filterRevisions}
+          </div>
         </h4>
         <List
           elements={elements}

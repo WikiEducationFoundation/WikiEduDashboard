@@ -20,4 +20,14 @@ export default class ArticleUtils {
   static projectSuffix(project, messageKey) {
     return project === 'wikidata' ? `${messageKey}_wikidata` : messageKey;
   }
+
+  // Mapping of namespace to its id
+  static namespaceToId(namespace) {
+    const mapping = {
+      article: 0,
+      talk: 1,
+      user: 2
+    };
+    return mapping[namespace];
+  }
 }
