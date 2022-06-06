@@ -1369,6 +1369,8 @@ fr:
     empty_week_2: commencer à modifier cette semaine
     empty_week_3: ou
     empty_week_4: utiliser l’assistant d’affectation pour créer un agenda.
+    empty_week_drag_items: Semaine vide. Vous pouvez déplacer ici un bloc d’une autre
+      semaine.
     first_week_title: Première semaine active
     gradeable_value: Valeur
     gradeables_none: Cet agenda n’a aucune affectation marquée comme évaluée.
