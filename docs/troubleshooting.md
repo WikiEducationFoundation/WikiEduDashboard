@@ -1,6 +1,20 @@
 [Back to README](../README.md)
 
-## Common setup issues
+## Installing Ruby
+
+### on Mac OS
+- You'll likely need `homebrew` before you can install Ruby.
+- Both `rvm` and `rbenv` are good ways to install Ruby.
+- If you run into errors during Ruby installation, run `brew doctor` and follow the advice given, if any.
+
+### on Windows
+- It's highly recommended to use WSL2 for your development environment. Verify that you have version 2 enabled. `rvm` or `rbenv` should work from there.
+
+### on Linux
+- Use `rvm` or `rbenv`.
+
+
+## Other common setup issues
 
 - **Most integration tests fail with an exception.** This is usually caused by an improperly installed/linked version of QT, particularly on OSX. [This wiki section](https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit#video-playback-mp4-on-osx-requires-qt-5) should set you straight.
 
