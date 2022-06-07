@@ -30,6 +30,8 @@ const routes = (
     <Route path="/tickets/dashboard/:id" element={<TicketShowHandler />} />
     <Route path="/campaigns/:campaign_slug/*" element={<Campaign />} />
     <Route path="/tagged_courses/:tag/alerts" element={<TaggedCourseAlerts />} />
+    {/* this prevents the "route not found" warning for pages which are server rendered */}
+    <Route path="*" element={<div style={{ display: 'none' }}/>} />
   </Routes>
 );
 
