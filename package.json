@@ -115,8 +115,8 @@
     "lint-non-build": "eslint 'test/**/*.{jsx,js}' '*.js'",
     "start": "node prepare.js && webpack serve --env development --client-overlay --client-progress --progress",
     "start:no-lint": "node prepare.js && webpack serve --env development --env DISABLE_ESLINT --client-overlay --client-progress --progress",
-    "coverage": "node prepare.js && webpack build --env development --env coverage",
-    "build": "node prepare.js && webpack build --env production --node-env production",
+    "coverage": "node prepare.js && webpack build --env development --env coverage --progress",
+    "build": "node prepare.js && webpack build --env production --node-env production --progress",
     "analyze": "webpack --env production --env stats --profile --json > stats.json && webpack-bundle-analyzer stats.json public/assets/javascripts"
   },
   "engines": {
