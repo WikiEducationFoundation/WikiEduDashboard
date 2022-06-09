@@ -14,7 +14,7 @@ namespace :generate do
       funs.each do |fun|
         counter += 1
         text = text.sub(fun, "*/module_#{counter}") # Replaces the function with module_{number}
-        fun = fun.gsub(%r/\/[*]{3}\/ \(function/, "var module_#{counter} = (function")
+        fun = fun.gsub(%r/\/[*]{3}\/ \(/, "var module_#{counter} = (")
         # The above names the individual modules in the format module_{number}
         filename = File
                    .basename(fun.scan(/![*]{3}(.*)[*]{3}!/).second.first.squish, '.*')
