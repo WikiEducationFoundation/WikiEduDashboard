@@ -37,7 +37,8 @@ atj:
   metrics:
     date_time: Tatokonakisitc/Tato tipahikaneak
   namespace:
-    user_ns: Ka mitatc
+    filter:
+      user_ns: Ka mitatc
   recent_activity:
     article_title: E icinikatek masinihikan
     image: Masinasowin

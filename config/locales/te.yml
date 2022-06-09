@@ -98,7 +98,8 @@ te:
       సారాంశాలపై ఆధారపడినది. మూలాలను చేర్చిన కొన్ని దిద్దుబాట్లను "Changed claim"
       అని గానీ "Created claim" అని గానీ వర్గీకరించి ఉండవచ్చు.
   namespace:
-    user_ns: వాడుకరి
+    filter:
+      user_ns: వాడుకరి
   recent_activity:
     datetime: తేదీ/సమయం
     image: బొమ్మ

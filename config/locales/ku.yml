@@ -20,7 +20,8 @@ ku:
     view_count_description: Dîtinên Gotara
     view: Dîtin
   namespace:
-    user_ns: Bikarhêner
+    filter:
+      user_ns: Bikarhêner
   uploads:
     none: Pel nehatiye barkirin
     usages: Bikaranîn

@@ -299,7 +299,8 @@ hy:
   namespace:
     main: Գլխավոր անվանատարածք
     user: Մասնակցի անվանատարածք
-    user_ns: Մասնակից
+    filter:
+      user_ns: Մասնակից
   recent_activity:
     image: Պատկեր
   revisions:

@@ -209,7 +209,8 @@ uz:
     other_updates: Boshqa yangilanishlar
   namespace:
     main: Asosiyfazo
-    user_ns: Foydalanuvchi
+    filter:
+      user_ns: Foydalanuvchi
   recent_activity:
     datetime: Sana/Vaqt
     image: Tasvir

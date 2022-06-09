@@ -633,7 +633,11 @@ ja:
   namespace:
     main: メイン空間
     user: ユーザー空間
-    user_ns: ユーザー
+    filter:
+      all_ns: すべて
+      article_ns: 記事
+      user_ns: ユーザー
+      talk_ns: トーク
   recent_activity:
     active_courses: 記事が使用されるコース
     article_title: タイトル

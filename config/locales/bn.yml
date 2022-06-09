@@ -317,7 +317,8 @@ bn:
   namespace:
     main: নামস্থান
     user: ব্যবহারকারীস্থান
-    user_ns: ব্যবহারকারী
+    filter:
+      user_ns: ব্যবহারকারী
   recent_activity:
     article_title: শিরোনাম
     datetime: তারিখ/সময়

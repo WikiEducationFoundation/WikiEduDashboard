@@ -492,7 +492,8 @@ ko:
     references_added: 각주 추가됨
   namespace:
     user: 사용자 공간
-    user_ns: 사용자
+    filter:
+      user_ns: 사용자
   recent_activity:
     article_title: 제목
     datetime: 날짜/시간

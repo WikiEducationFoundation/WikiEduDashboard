@@ -53,7 +53,8 @@ az:
     next_update: Növbəti təxmini güncəlləştirmə
     date_time: Tarix/Vaxt
   namespace:
-    user_ns: İstifadəçi
+    filter:
+      user_ns: İstifadəçi
   revisions:
     date_time: Tarix/Vaxt
 ...

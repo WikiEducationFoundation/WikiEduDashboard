@@ -253,7 +253,8 @@ eo:
     tags: Etikedoj
     view: Vidoj
   namespace:
-    user_ns: Uzanto
+    filter:
+      user_ns: Uzanto
   recent_activity:
     image: Bildo
     file_name: Dosiernomo

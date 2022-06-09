@@ -105,7 +105,8 @@ azb:
     activity: سوْن چالیشمالار
     tags: اِتیکتلر
   namespace:
-    user_ns: ایشلدن
+    filter:
+      user_ns: ایشلدن
   recent_activity:
     image: عکس
     file_name: فایل آدی

@@ -770,7 +770,8 @@ sr-el:
     main_char_added: Dodato slova u GIP
     user: Korisnički prostor
     user_char_added: Dodano slova u KP
-    user_ns: Korisnik
+    filter:
+      user_ns: Korisnik
   recent_activity:
     active_courses: Članak je aktivan u
     article_title: Naslov članka

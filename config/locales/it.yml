@@ -770,7 +770,11 @@ it:
   namespace:
     main: Ambiente principale
     main_char_added: Caratteri aggiunti namespace principale
-    user_ns: Utente
+    filter:
+      all_ns: Tutto
+      article_ns: Voce
+      user_ns: Utente
+      talk_ns: Discussione
   recent_activity:
     active_courses: La voce è attiva in
     datetime: Data/Ora
@@ -902,7 +906,7 @@ it:
     none: Non ci sono partecipanti.
     no_articles: Nessuna voce
     no_articles_wikidata: Nessun elemento
-    no_revisions: Questo editor non ha creato versioni.
+    no_revisions: (nessuna versione)
     number_of_articles:
       one: '%{count} voce'
       other: '%{count} voci'

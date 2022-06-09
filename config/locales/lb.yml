@@ -438,7 +438,11 @@ lb:
     no_data: Keng Donnéeën
   namespace:
     user: Benotzernummraum
-    user_ns: Benotzer
+    filter:
+      all_ns: All
+      article_ns: Artikel
+      user_ns: Benotzer
+      talk_ns: Diskussioun
   recent_activity:
     article_title: Titel
     datetime: Datum/Zäit
@@ -554,7 +558,7 @@ lb:
     none: Dëse Cours huet keng Participanten.
     no_articles: Keng Artikelen
     no_articles_wikidata: Keng Elementer
-    no_revisions: Dësen Auteur huet keng Ännerunge gemaach.
+    no_revisions: (keng Versiounen)
     number_of_articles:
       one: Een Artikel
       other: '%{count} Artikelen'

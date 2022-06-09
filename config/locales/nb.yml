@@ -668,7 +668,8 @@ nb:
     main_char_added: Tegn lagt til i hovednavnerommet
     user: Brukernavnerommet
     user_char_added: Tegn lagt til i brukernavnerommet
-    user_ns: Bruker
+    filter:
+      user_ns: Bruker
   recent_activity:
     active_courses: Artikkelen er aktiv på
     article_title: Artikkeltittel

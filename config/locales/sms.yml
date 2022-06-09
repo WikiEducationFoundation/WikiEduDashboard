@@ -113,7 +113,8 @@ sms:
     tags: Ǩeâlggal
     update_statistics_link: Lââʹssteâđ
   namespace:
-    user_ns: Õõʹnni
+    filter:
+      user_ns: Õõʹnni
   recent_activity:
     file_name: Teâttõsnõmm
   revisions:

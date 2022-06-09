@@ -10,6 +10,8 @@ io:
     cookie_consent_see_more: Videz pluse.
     error: 'Eventis ula eroro:'
     explore: Explorez
+    greeting2: Bonveno!
+    greeting: Saluto!
     home: Chefpagino
     log_in_extended: Enirez uzanta Wikipedio
     log_in: Enirez
@@ -36,7 +38,11 @@ io:
     none: Nula
     search: Serchez
   courses:
+    active_courses: Aktiva kampanii
     campaigns: 'Kampanii:'
+    campaign_courses: '%{title} Kampanii'
+    course_description: Kampanii
+    courses: Kampanii
     error:
       user_exists_on_wiki: Pardonez, %{username} ne existas kom uzero che %{domain}.
     join_failure_details:
@@ -55,9 +61,12 @@ io:
   courses_generic:
     cancel: Nihiligar
     campaigns: 'Kampanii:'
+    creator:
+      save_cloned_course: Konservez
   editable:
     edit: Redakto
     cancel: Nuligar
+    save: Konservez
   instructor_view:
     bad_work:
       learn_more_button: Savez pluse
@@ -90,6 +99,10 @@ io:
     up_to_date_with_training: Aktualigo pri aprentiseso
   wizard:
     read_more: Lektez pluse
+  survey:
+    email:
+      headline: Saluto, %{username}
+      course: 'Kampanio: %{course_info}'
   training_status:
     completed_at: Kompletigita ye la
 ...

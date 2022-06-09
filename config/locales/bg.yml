@@ -222,7 +222,8 @@ bg:
   namespace:
     main_char_added: Добавени знаци в основното пространство
     user_char_added: Добавени знаци в потребителското пространство
-    user_ns: Потребител
+    filter:
+      user_ns: Потребител
   recent_activity:
     article_title: Заглавие на статията
     datetime: Дата/Час

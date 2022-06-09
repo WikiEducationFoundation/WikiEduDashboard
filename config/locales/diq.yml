@@ -248,7 +248,8 @@ diq:
     main_char_added: Karakterê sercay debyay
     user: Cay karberi
     user_char_added: Karakterê karberi debyay
-    user_ns: Karber
+    filter:
+      user_ns: Karber
   recent_activity:
     active_courses: Wesiqe de aktiv o
     article_title: Sernameyê meqaleyi

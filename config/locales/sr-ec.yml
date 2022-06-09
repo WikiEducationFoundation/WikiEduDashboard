@@ -802,7 +802,8 @@ sr-ec:
     main_char_added: Додато слова у ГИП
     user: Кориснички простор
     user_char_added: Додано слова у КП
-    user_ns: Корисник
+    filter:
+      user_ns: Корисник
   recent_activity:
     active_courses: Чланак је активан у
     article_title: Наслов чланка

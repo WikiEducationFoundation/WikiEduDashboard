@@ -552,7 +552,8 @@ sv:
   namespace:
     main: Huvudnamnrymd
     user: Användarnamnrymd
-    user_ns: Användare
+    filter:
+      user_ns: Användare
   recent_activity:
     article_title: Artikeltitel
     datetime: Datum/tid

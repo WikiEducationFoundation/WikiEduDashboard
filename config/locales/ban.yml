@@ -105,10 +105,16 @@ ban:
     cancel: Wangdé
   metrics:
     upload_count: Unggah Commons
+  namespace:
+    filter:
+      all_ns: Sinamian
+      article_ns: Suratan
+      talk_ns: Pabligbagan
   recent_activity:
     image: Gambar
   uploads:
     label: Unggah
   users:
     edits: Becikang
+    no_revisions: (tanpa révisi)
 ...

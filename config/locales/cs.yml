@@ -830,7 +830,8 @@ cs:
     main_char_added: Přidáno znaků v hlavním jmenném prostoru
     user: Uživatelský prostor
     user_char_added: Přidáno znaků v hlavním uživatelském prostoru
-    user_ns: Uživatel
+    filter:
+      user_ns: Uživatel
   recent_activity:
     active_courses: Článek je aktivní v
     article_title: Název článku

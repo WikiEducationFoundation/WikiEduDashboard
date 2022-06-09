@@ -97,7 +97,8 @@ ckb:
     view_count_description: بینینەکانی وتار
     view: بینینەکان
   namespace:
-    user_ns: بەکارھێنەر
+    filter:
+      user_ns: بەکارھێنەر
   recent_activity:
     article_title: ناونیشانی وتار
     datetime: ڕێکەوت/کات

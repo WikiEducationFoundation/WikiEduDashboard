@@ -74,7 +74,8 @@ mr:
       other: लेखात वापरलेल्या संचिका
     word_count: जोडलेले शब्द
   namespace:
-    user_ns: सदस्य
+    filter:
+      user_ns: सदस्य
   revisions:
     class: वर्ग
     date_time: दिनांक/वेळ

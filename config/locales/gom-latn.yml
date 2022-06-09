@@ -27,7 +27,8 @@ gom-latn:
     date_time: Tarikh/Vell
     edit_count_description: Melloun Sompadon
   namespace:
-    user_ns: Vapurpi
+    filter:
+      user_ns: Vapurpi
   revisions:
     edited_by: 'Sompadon kela:'
     time_doc: Doreka uzollnecho tumchea thollavea vellapormonnem vell

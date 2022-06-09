@@ -783,7 +783,8 @@ eu:
     main_char_added: Izen-tarte nagusira gehitutako karaktereak
     user: Lankide orria
     user_char_added: Lankide orrira gehitutako karaktereak
-    user_ns: Erabiltzailea
+    filter:
+      user_ns: Erabiltzailea
   recent_activity:
     active_courses: Artikulua aktibo ondorengoetan dago
     article_title: Artikuluaren izenburua

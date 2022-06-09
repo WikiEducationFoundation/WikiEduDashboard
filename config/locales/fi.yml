@@ -701,7 +701,11 @@ fi:
     main_char_added: Päänimiavaruuteen lisätyt merkit
     user: Käyttäjänimiavaruus
     user_char_added: Käyttäjänimiavaruuteen lisätyt merkit
-    user_ns: Käyttäjä
+    filter:
+      all_ns: Kaikki
+      article_ns: Artikkeli
+      user_ns: Käyttäjä
+      talk_ns: Keskustelu
   recent_activity:
     active_courses: Artikkeli on käsittelyssä
     article_title: Otsikko

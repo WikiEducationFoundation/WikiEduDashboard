@@ -219,7 +219,8 @@ skr-arab:
     tags: ٹیگ
     view: ݙکھالے
   namespace:
-    user_ns: ورتݨ آلا
+    filter:
+      user_ns: ورتݨ آلا
   recent_activity:
     article_title: مضمون دا عنوان
     datetime: تریخ/ویلا

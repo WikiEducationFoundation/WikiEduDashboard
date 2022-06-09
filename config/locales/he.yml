@@ -665,7 +665,8 @@ he:
     main_char_added: מס' התווים שנוספו למרחב הערכים הראשי
     user: מרחב משתמש
     user_char_added: מס' תווים שנוספו למרחב המשתמש
-    user_ns: משתמש
+    filter:
+      user_ns: משתמש
   recent_activity:
     active_courses: 'הערך פעיל ב:'
     article_title: כותרת

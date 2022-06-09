@@ -182,7 +182,8 @@ ta:
   namespace:
     main: முதன்மைவெளி
     user: பயனர்வெளி
-    user_ns: பயனர்
+    filter:
+      user_ns: பயனர்
   recent_activity:
     article_title: கட்டுரைத் தலைப்பு
     datetime: நாள்/நேரம்

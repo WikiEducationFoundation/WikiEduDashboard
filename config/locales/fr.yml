@@ -1189,7 +1189,11 @@ fr:
     main_char_added: Caractères ajoutés à l’espace principal
     user: Espace utilisateur
     user_char_added: Caractères ajoutés à l’espace utilisateur
-    user_ns: Utilisateur
+    filter:
+      all_ns: Tous
+      article_ns: Article
+      user_ns: Utilisateur
+      talk_ns: Discussion
   recent_activity:
     active_courses: L’article est actif dans
     article_title: Titre
@@ -1482,7 +1486,7 @@ fr:
     none: Il n’y a aucun participant.
     no_articles: Aucun article
     no_articles_wikidata: Aucun élément
-    no_revisions: Ce rédacteur n’a fait aucune révision.
+    no_revisions: (aucune révision)
     no_highlighting: Aucun texte de la version actuelle de l’article n’est attribué
       à cet rédacteur. Vérifiez l’historique de la page pour voir ses modifications.
     number_of_articles:

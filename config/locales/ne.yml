@@ -515,7 +515,8 @@ ne:
     main_char_added: मेनस्पेसमा थपिएका अक्षरहरू
     user: युजरस्पेस
     user_char_added: युजरस्पेसमा थपिएका अक्षरहरू
-    user_ns: प्रयोगकर्ता
+    filter:
+      user_ns: प्रयोगकर्ता
   recent_activity:
     active_courses: लेख निम्नमा सक्रिय छ
     article_title: लेख शीर्षक

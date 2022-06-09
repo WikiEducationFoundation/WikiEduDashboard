@@ -378,7 +378,8 @@ be:
     main_char_added: Дадзены сімвалы на асноўнай прасторы
     user: Прастора карыстальніка
     user_char_added: Сімвалы дададзеныя на прасторы карыстальнікаў.
-    user_ns: Карыстальнік
+    filter:
+      user_ns: Карыстальнік
   recent_activity:
     active_courses: Артыкул актыўны ў
     article_title: Назва артыкула

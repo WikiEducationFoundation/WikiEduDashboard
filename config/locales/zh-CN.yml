@@ -681,7 +681,8 @@ zh-CN:
     main_char_added: 主命名空间字符已添加
     user: 用户命名空间
     user_char_added: 添加的用户命名空间字符
-    user_ns: 用户
+    filter:
+      user_ns: 用户
   recent_activity:
     active_courses: 条目活跃于
     article_title: 标题
@@ -879,7 +880,7 @@ zh-CN:
     name: 名字
     none: 这里没有参与者。
     no_articles: 没有条目
-    no_revisions: 这位编辑者没有做出修订。
+    no_revisions: （没有修订版本）
     number_of_articles:
       one: '%{count}个条目'
       other: '%{count}个条目'

@@ -998,7 +998,8 @@ pt-br:
     main_char_added: Caracteres adicionados ao domínio principal
     user: Espaço do usuário
     user_char_added: Caracteres adicionados ao domínio Usuário
-    user_ns: Usuário
+    filter:
+      user_ns: Usuário
   recent_activity:
     active_courses: O artigo está ativo em
     article_title: Título do Artigo

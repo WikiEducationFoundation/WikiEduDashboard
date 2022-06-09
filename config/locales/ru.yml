@@ -538,7 +538,8 @@ ru:
     main_char_added: Добавлено символов в основном пространстве
     user: Пространство участника
     user_char_added: Добавлено символов в пространстве участника
-    user_ns: Участник
+    filter:
+      user_ns: Участник
   recent_activity:
     article_title: Заголовок
     datetime: Дата/время

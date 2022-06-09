@@ -373,7 +373,8 @@ mk:
     main_char_added: Додадени знаци во главниот простор
     user: Кориснички простор
     user_char_added: Додадени знаци во корисничкиот простор
-    user_ns: Корисник
+    filter:
+      user_ns: Корисник
   recent_activity:
     article_title: Наслов на статијата
     datetime: Датум/време

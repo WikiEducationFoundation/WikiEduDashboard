@@ -49,7 +49,8 @@ sat:
     edit_count_description: ᱡᱚᱛᱚ ᱥᱟᱯᱲᱟᱣᱠᱩ
     revisions: ᱱᱮᱛᱟᱨ ᱥᱟᱯᱲᱟᱣᱠᱩ
   namespace:
-    user_ns: ᱵᱮᱵᱦᱟᱨᱤᱡ
+    filter:
+      user_ns: ᱵᱮᱵᱦᱟᱨᱤᱡ
   recent_activity:
     datetime: ᱛᱟᱹᱨᱤᱠᱷ/ᱚᱠᱛᱚ
     image: ᱪᱤᱛᱟᱹᱨ

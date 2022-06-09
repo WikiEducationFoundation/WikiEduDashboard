@@ -210,7 +210,8 @@ gl:
     main_char_added: Caracteres engadidos ó espazo principal
     user: Espazo de usuario
     user_char_added: Caracteres engadidos ó espazo de usuario
-    user_ns: Usuario
+    filter:
+      user_ns: Usuario
   revisions:
     loading: Cargando revisións...
     none: Este curso non ten actividade recente de edición na Wikipedia.

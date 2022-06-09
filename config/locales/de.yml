@@ -16,6 +16,7 @@
 # Author: Ngschaider
 # Author: Sebastian Wallroth
 # Author: Taresi
+# Author: ThisCarthing
 # Author: ToBeFree
 # Author: Umherirrender
 # Author: WikiBayer
@@ -988,7 +989,9 @@ de:
     main_char_added: Hauptnamensraum-Zeichen hinzugefügt
     user: Benutzernamensraum
     user_char_added: Benutzernamensraum-Zeichen hinzugefügt
-    user_ns: Benutzer/in
+    filter:
+      article_ns: Artikel
+      user_ns: Benutzer/in
   recent_activity:
     active_courses: Artikel ist aktiv in
     article_title: Artikeltitel
@@ -1256,7 +1259,7 @@ de:
     name: Name
     none: Es gibt keine Teilnehmer.
     no_articles: Keine Artikel
-    no_revisions: Dieser Autor hat keine Bearbeitungen durchgeführt.
+    no_revisions: (keine Bearbeitungen)
     number_of_articles:
       one: Ein Artikel
       other: '%{count} Artikel'

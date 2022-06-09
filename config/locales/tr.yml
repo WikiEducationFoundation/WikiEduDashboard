@@ -1025,7 +1025,8 @@ tr:
     main_char_added: Ana boşluk karakterleri eklendi
     user: Kullanıcı alanı
     user_char_added: Kullanıcı alanı karakterleri eklendi
-    user_ns: Kullanıcı
+    filter:
+      user_ns: Kullanıcı
   recent_activity:
     active_courses: Madde etkindir
     article_title: Başlık

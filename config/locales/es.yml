@@ -701,7 +701,8 @@ es:
     main_char_added: Caracteres añadidos en el espacio principal
     user: Espacio de usuarios
     user_char_added: Caracteres añadidos en el espacio de usuarios
-    user_ns: Usuario
+    filter:
+      user_ns: Usuario
   recent_activity:
     active_courses: El artículo está activo en
     article_title: Título

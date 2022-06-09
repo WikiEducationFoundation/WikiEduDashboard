@@ -1,6 +1,7 @@
 # Messages for Irish (Gaeilge)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Dowlinme
 # Author: Nmacu
 ---
 ga:
@@ -9,6 +10,9 @@ ga:
       an t-ionchar a ardú nó a ísliú.
   application:
     cancel: Cealaigh
+    cookie_consent_acknowledge: Tuigim
+    cookie_consent_see_more: Féach níos mó.
+    create_accounts: Cruthaigh cuntais Vicipéid
     dashboard: Deais Vicoideachas
     documentation: Doiciméadú
     error: 'Tharla earráid:'
@@ -27,8 +31,12 @@ ga:
     my_dashboard: Mo Deais
     recent_activity: Gníomhaíochtaí le gairid
     report_problem: Tuairiscigh fadhb
+    request_account: Déan iarratas ar chuntas
+    request_account_create: Cruthaigh cuntas
     search: cuir ceist
+    no_results: Fuarthas torthaí ar bith le haghaidh %{query}
     sign_up_extended: Cláraigh le Vicipéid
+    sign_up_wikipedia: Nó cláraigh ar Vicipéid
     sign_up_log_in_extended: leis An Vicipéid
     sign_up: Cláraigh
     submit: Cuir isteach
@@ -36,6 +44,9 @@ ga:
     change: Athraigh
     details: Sonraí
     confirm: OK
+  article_statuses:
+    not_yet_started: Ag cur tús leis
+    in_progress: Ag obair leis an gClár Dubh
   dashboard:
     create_note: Cliceáil ar Cruthaigh Cúrsa le do chéad chúrsa a chruthú
     explore_course_pages: Breathnaigh ar Leathanaigh na gCúrsaí
@@ -282,7 +293,11 @@ ga:
     main_char_added: Carachtair curtha leis an bpríomhspás
     user: Spás an úsáideora
     user_char_added: Carachtair curtha le spás an úsáideora
-    user_ns: Úsáideoir
+    filter:
+      all_ns: Uile
+      article_ns: Alt
+      user_ns: Úsáideoir
+      talk_ns: Plé
   recent_activity:
     active_courses: Alt atá gníomhach i
     article_title: Teideal an ailt
@@ -322,6 +337,7 @@ ga:
     loading: Ag lódáil úsáideoirí...
     name: Ainm
     none: Níl aon rannpháirtithe ann.
+    no_revisions: (gan leasuithe)
     recent_revisions: Athuithe is déanaí
     reviewers: Athbhreithneoir(í)
     reviewing: Ag athbhreithniú

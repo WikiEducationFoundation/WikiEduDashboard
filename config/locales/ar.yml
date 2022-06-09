@@ -907,7 +907,11 @@ ar:
     main_char_added: الحروف المضافة للنطاق الرئيسي
     user: نطاق المستخدم
     user_char_added: الحروف المضافة لنطاق المستخدم
-    user_ns: مستخدم
+    filter:
+      all_ns: الكل
+      article_ns: مقالة
+      user_ns: مستخدم
+      talk_ns: نقاش
   recent_activity:
     active_courses: المقالة نشطة في
     article_title: عنوان المقالة

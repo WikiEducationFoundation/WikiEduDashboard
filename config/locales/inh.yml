@@ -18,7 +18,8 @@ inh:
     creator:
       start_date: Доладалара таьрахь
   namespace:
-    user_ns: Доакъашхо
+    filter:
+      user_ns: Доакъашхо
   users:
     username: Доакъашхочун цIи
     username_placeholder: Доакъашхочун цIи
