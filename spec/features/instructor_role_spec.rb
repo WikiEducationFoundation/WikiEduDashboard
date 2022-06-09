@@ -195,10 +195,11 @@ describe 'Instructor users', type: :feature, js: true do
 
       sleep 1
       # Notify users with overdue training
-      page.accept_confirm do
-        find('button.notify_overdue').click
+      accept_alert do
+        accept_confirm do
+          find('button.notify_overdue').click
+        end
       end
-      sleep 1
     end
   end
 end
