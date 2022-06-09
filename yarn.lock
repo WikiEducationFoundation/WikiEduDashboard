@@ -9923,10 +9923,15 @@ time-stamp@^1.0.0:
   resolved "https://registry.yarnpkg.com/time-stamp/-/time-stamp-1.1.0.tgz#764a5a11af50561921b133f3b44e618687e0f5c3"
   integrity sha1-dkpaEa9QVhkhsTPztE5hhofg9cM=
 
-tinymce@^5.2.2, tinymce@^5.5.1:
+tinymce@^5.5.1:
   version "5.8.1"
   resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-5.8.1.tgz#f6ace70e47cf6b5b0a63f52cf38e4ae04a35ba58"
   integrity sha512-1zGXdZplWQafstlC7sri0ttCgMagsiXDc9N3I8JNrPOsWAeTfq4AAJWZoxsQBYn8gYcuPu/WzMKG5SoJjxI1VA==
+
+tinymce@^6.0.3:
+  version "6.0.3"
+  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-6.0.3.tgz#993db09afa473a764ad8b594cdaf744b2c7e2e74"
+  integrity sha512-4cu80kWF7nRGhviE10poZtjTkl3jNL+lycilCMfdm3KU5V7FtiQQrKbEo6GInXT05RY78Ha/NFP0gOBELcSpfg==
 
 tmp@^0.0.33:
   version "0.0.33"
