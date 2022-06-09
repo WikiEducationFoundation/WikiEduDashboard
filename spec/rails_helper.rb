@@ -12,8 +12,6 @@ require 'capybara/rails'
 require 'capybara/rspec'
 require 'capybara-screenshot/rspec'
 
-require 'coverage_helper' if ENV['COVERAGE'] == 'true'
-
 Capybara.register_driver :selenium do |app|
   capabilities = Selenium::WebDriver::Remote::Capabilities
                  .chrome(chromeOptions: { w3c: false })
@@ -94,6 +92,7 @@ RSpec.configure do |config|
 
   # fail on javascript errors in feature specs
   config.after(:each, type: :feature, js: true) do |example|
+    dump_js_coverage
     # `Capybara.reset_sessions!` here would ensure that any error
     # logs from this session can be captured now, by closing any open connections.
     # Otherwise, if they show up after the `manage.logs.get` step, they

@@ -33,6 +33,23 @@ ENV['wikipedia_token'] = 'b56122b2abe01f163349c9d0a6bcded5'
 ENV['wikipedia_secret'] = '507c74d4c4cb6015c9087b2decb80d82b96b905e'
 ENV['WikimediaCampaignsPlatformSecret'] = 'SharedSecret'
 
+FileUtils.mkdir_p(".nyc_output")
+Dir.glob("./.nyc_output/*").each{ |f| FileUtils.rm(f) }
+
+def dump_js_coverage
+  return unless ENV["COVERAGE"]
+
+  page_coverage = page.evaluate_script("JSON.stringify(window.__coverage__);")
+  return if page_coverage.blank?
+
+  File.open(Rails.root.join(".nyc_output", "temp.json"), "w") do |report|
+    report.puts page_coverage
+  end
+  
+  system("npx nyc merge .nyc_output .nyc_output/out.json && rm .nyc_output/temp.json")
+end
+
+
 Rails.application.configure do
   # Settings specified here will take
   # precedence over those in config/application.rb.
