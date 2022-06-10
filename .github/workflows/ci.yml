@@ -68,7 +68,7 @@ jobs:
       - name: JavaScript test suite 
         run: |
             yarn
-            yarn build
+            yarn coverage
             yarn run test 
       
       - name: JavaScript linting

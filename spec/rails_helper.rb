@@ -119,6 +119,12 @@ RSpec.configure do |config|
       end
     end
   end
+  config.after(:suite) do
+    if ENV["COVERAGE"] == 'true'
+      Rails.application.load_tasks
+      Rake::Task['generate:coverage'].invoke
+    end
+  end
 end
 
 Shoulda::Matchers.configure do |config|

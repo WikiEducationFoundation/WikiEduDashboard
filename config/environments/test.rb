@@ -46,7 +46,7 @@ def dump_js_coverage
     report.puts page_coverage
   end
   
-  system("npx nyc merge .nyc_output .nyc_output/out.json && rm .nyc_output/temp.json")
+  system("npx nyc merge .nyc_output .nyc_output/out.json >> /dev/null && rm .nyc_output/temp.json")
 end
 
 
