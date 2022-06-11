@@ -120,7 +120,7 @@ RSpec.configure do |config|
     end
   end
   config.after(:suite) do
-    if ENV["COVERAGE"] == 'true'
+    if ENV['COVERAGE'] == 'true'
       Rails.application.load_tasks
       Rake::Task['generate:coverage'].invoke
     end
