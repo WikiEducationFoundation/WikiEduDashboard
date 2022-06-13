@@ -10,25 +10,86 @@
 # Author: Mirzali
 ---
 ku-latn:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: Hzr
+          million: M
+          billion: Milyar
+          trillion: Trilyon
+          quadrillion: Qatrilyon
+  accessibility:
+    number_field: Ec vihê nimreyê ye. Bûtonên ku ji aliyê piraniya gerokan ve hatiye
+      çêkirin wê têketanê bilind bike û kêm bike.
   application:
     cancel: Betal bike
-    dashboard: Panela Wiki Ed'ê
+    cookie_consent: Ev malper kûkiyan bi kar tîne daku te têketî bihêle, û agahiyên
+      eleqedarê hesabê te yê Wîkîpediyayê muhafeze dike.
+    cookie_consent_acknowledge: Ez têgihîştim
+    cookie_consent_see_more: Zêdetir bibîne.
+    create_accounts: Hesabên Wîkîpediyayê çêke
+    dashboard: Panela Wiki Edê
+    documentation: Belgekirin
+    error: 'Çewtiyeke hebû:'
+    explore: Kişf bike
+    field_required: Ev der hewce ye
+    field_invalid_characters: Hin karakterên nederbasdar hene li vê derê
+    field_invalid_date: Li vê qadê demê bi formata SSSS-MM-RR binivîse
+    field_invalid_date_time: Dawî divê piştî destpêkê be. (Saet ji 0 heya 23ê ne.)
     greeting2: Tu bi xêr hatî!
+    greeting_extended: Bi xêr hatî Wîkîpediyayê
     greeting: Silav!
     help: Alîkarî
     home: Destpêk
+    log_in_extended: Bi Wîkîpediyayê têkeve
     log_in: Têkeve
     log_out: Derkeve
+    my_dashboard: Panela Min a Kontrolê
+    recent_activity: Aktîvîteyên Dawî
+    report_problem: Pirsgirêkekê rapor bike
+    request_account: Hesabekî Bixwaze
+    request_account_create: Hesabekî çêke
     search: pirsekê bike
+    search_results:
+      one: '%{count} Encam ji bo: ''%{search_terms}'''
+      other: '%{count} Encamên ji bo: ''%{search_terms}'''
+    no_results: Ti encameke nehate dîtin ji bo '%{query}'
+    sign_up_extended: Bi Wîkîpediyayê qeyd bibe
+    sign_up_wikipedia: An li ser Wîkîpediyayê qeyd bibe
+    sign_up_log_in_extended: bi Wîkîpediyayê
     sign_up: Têkeve
     submit: Tomar bike
+    training: Perwerdehî
     change: Biguherîne
+    details: Detay
+    confirm: Baş e
     opt_in: Erê
     opt_out: Na
+    opt_yes: erê
+    opt_no: na
+  article_statuses:
+    not_yet_started: Gavên Destpêkê
+    in_progress: Li derdoreke ceribandinê dixebite
+    ready_for_review: Reşnivîs Tê Berfirehkirin
+    ready_for_mainspace: Karê neqlê Qada Esasî dike
+    assignment_completed: Tayînkirin Wekî Temambûyî Hate Îşaretkirin
+    reading_the_article: Xwendina Gotarê
+    providing_feedback: Şandina Paşragihanê
+    post_to_talk: Parvekirina li Gotûbêjê
+    peer_review_completed: Kontrol temam bû
+  dashboard:
+    create_note: Pêl bike ser Kursê Çêke ji bo ku kursa xwe ya pêşîn çêkî.
+  home:
+    log_in: Bi Wîkîpediyayê têkeve
+    sign_up: Bi Wîkîpediyayê qeyd bibe
   activity:
     all: Çalakî
     edited_by: Hat Sererastkirin Ji Alî
+    label: Çalakî
   articles:
+    articles: Gotar
     article_not_found: Ev gotar hêj nehatiye çêkirin.
     edited_mobile: Gotar
     label: Gotar

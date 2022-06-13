@@ -30,12 +30,14 @@ io:
   articles:
     article_title: Titulo dil artiklo
     hide: Celez
+    title: Titulo
   assignments:
     reviewers: Revizero(revizeri)
   campaign:
     campaign: Kampanio
     campaigns: Kampanii
     none: Nula
+    title: Titulo
     search: Serchez
   courses:
     active_courses: Aktiva kampanii
@@ -55,6 +57,7 @@ io:
     students: Lernanti
     tag_select: Selektez o kreez etiketo
     tags: 'Etiketi:'
+    title: Titulo
     volunteer:
       one: Volontario
       other: Volontarii
@@ -72,10 +75,13 @@ io:
       learn_more_button: Savez pluse
   metrics:
     tags: Etiketi
+  recent_activity:
+    article_title: Titulo
   revisions:
     diff: difero
     diff_show: Montrez
     diff_hide: Celez
+    title: Titulo
   timeline:
     gradeable_value: Valoro
     week_number: Semano %{number}
