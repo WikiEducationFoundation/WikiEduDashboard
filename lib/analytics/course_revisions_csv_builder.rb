@@ -26,6 +26,9 @@ class CourseRevisionsCsvBuilder
   def set_revisions
     @new_revisions = {}
     @course.revisions.includes(:wiki, :article, :user).map do |edit|
+      # Skip if the Article record is missing
+      next unless edit.article
+
       revision_edits = @new_revisions[edit.article_id] || new_revision(edit)
       update_title_username(revision_edits, edit)
       revision_edits[:mw_rev_id] = edit.mw_rev_id
