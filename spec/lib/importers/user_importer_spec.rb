@@ -178,7 +178,7 @@ describe UserImporter do
     end
   end
 
-  describe '.update_user_from_metawiki' do
+  describe '.update_user_from_wiki' do
     let(:course) { create(:course) }
 
     it 'cleans up records when there are collisions' do
@@ -188,9 +188,18 @@ describe UserImporter do
         create(:courses_user, user: dupe, course: course)
 
         expect(Sentry).to receive(:capture_exception).and_call_original
-        described_class.update_user_from_metawiki(dupe)
+        described_class.update_user_from_wiki(dupe, MetaWiki.new)
 
         expect(original.courses_users.count).to eq(1)
+      end
+    end
+
+    it 'sets the registration date from English Wikipedia' do
+      VCR.use_cassette 'user/enwiki_only_account' do
+        user = create(:user, username: 'Brady2421')
+        enwiki = Wiki.get_or_create(language: 'en', project: 'wikipedia')
+        described_class.update_user_from_wiki(user, enwiki)
+        expect(user.registered_at).not_to be_nil
       end
     end
   end

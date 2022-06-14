@@ -64,10 +64,14 @@ class UserImporter
     return User.find_or_create_by(username: username)
   end
 
-  def self.update_users(users=nil)
+  # There are some users who have a local wiki account, but do not have one
+  # on MetaWiki, so this can be used to check for registration date on MetaWiki by default,
+  # but also for other wikis if needed.
+  def self.update_users(users=nil, wiki=nil)
+    wiki ||= MetaWiki.new
     users ||= User.where(registered_at: nil)
     users.each do |user|
-      update_user_from_metawiki(user)
+      update_user_from_wiki(user, wiki)
     end
   end
 
@@ -105,8 +109,8 @@ class UserImporter
     user_data&.dig('centralids', 'CentralAuth')
   end
 
-  def self.update_user_from_metawiki(user)
-    user_data = WikiApi.new(MetaWiki.new).get_user_info(user.username)
+  def self.update_user_from_wiki(user, wiki)
+    user_data = WikiApi.new(wiki).get_user_info(user.username)
     return if user_data['missing']
     user.update!(username: user_data['name'],
                  registered_at: user_data['registration'],
