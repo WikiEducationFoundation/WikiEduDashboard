@@ -18,4 +18,10 @@ describe 'campaign articles page', type: :feature, js: true do
     visit "/campaigns/#{campaign.slug}/articles"
     expect(page).to have_content('ExampleArticle')
   end
+
+  it 'shows an explanation when there are too many articles' do
+    allow_any_instance_of(CoursesPresenter).to receive(:too_many_articles?).and_return(true)
+    visit "/campaigns/#{campaign.slug}/articles"
+    expect(page).to have_content('article list for this campaign is too long to be displayed')
+  end
 end
