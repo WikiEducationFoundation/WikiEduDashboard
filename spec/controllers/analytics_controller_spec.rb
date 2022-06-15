@@ -155,4 +155,20 @@ describe AnalyticsController, type: :request do
       expect(response.body).to include('Usage Stats')
     end
   end
+
+  describe '#all_courses' do
+    it 'returns JSON data about courses' do
+      get '/all_courses.json'
+      expect(JSON.parse(response.body)).to be_a(Hash)
+      expect(response.body).to include(Course.first.slug)
+    end
+  end
+
+  describe '#all_campaigns' do
+    it 'returns JSON data about campaigns' do
+      get '/all_campaigns.json'
+      expect(JSON.parse(response.body)).to be_a(Hash)
+      expect(response.body).to include(Campaign.first.slug)
+    end
+  end
 end
