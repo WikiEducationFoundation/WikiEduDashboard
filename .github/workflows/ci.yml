@@ -74,7 +74,7 @@ jobs:
       - name: JavaScript linting
         run: yarn lint-non-build
 
-      - name: Test & publish code coverage
+      - name: Ruby rspec test suite
         uses: paambaati/codeclimate-action@v3.0.0
         env:
           COVERAGE: true
