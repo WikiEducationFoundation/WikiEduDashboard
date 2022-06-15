@@ -358,10 +358,6 @@ class CoursesController < ApplicationController
     @limit = params[:limit]
   end
 
-  def set_course_scoped
-    @course_scoped = params[:course_scoped] == 'true'
-  end
-
   # If the user could make an edit to the course, this verifies that
   # their tokens are working. If their credentials are found to be invalid,
   # they get logged out immediately, and this method redirects them to the home
