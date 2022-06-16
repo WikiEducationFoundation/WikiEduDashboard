@@ -229,7 +229,9 @@ describe 'the course page', type: :feature, js: true do
       within '.sidebar' do
         click_button 'Edit Details'
         find('input.passcode').set ''
-        click_button 'Save'
+        accept_alert do
+          click_button 'Save'
+        end
       end
       expect(Course.last.passcode).to eq(previous_passcode)
     end

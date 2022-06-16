@@ -68,19 +68,21 @@ jobs:
       - name: JavaScript test suite 
         run: |
             yarn
-            yarn build
+            yarn coverage
             yarn run test 
       
       - name: JavaScript linting
         run: yarn lint-non-build
-      
+
       - name: Ruby rspec test suite
-        run : COVERAGE=true bundle exec rspec spec/ --color --profile --format documentation
+        uses: paambaati/codeclimate-action@v3.0.0
+        env:
+          COVERAGE: true
+          CC_TEST_REPORTER_ID: f0d5d763ddc6b3f980ba0fb0c38e7c27c0dffc4a5787cd7d5b8c2b0c3b2e27e2
+        with:
+          coverageCommand: bundle exec rspec spec/ --color --profile --format documentation
+          coverageLocations: |
+            ${{github.workspace}}/public/js_coverage/lcov.info:lcov
             
       - name: Ruby linting
         run: bundle exec rubocop
-            
-    
-              
-      
-     

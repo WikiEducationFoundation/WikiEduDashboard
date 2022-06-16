@@ -30,6 +30,7 @@ module.exports = {
   env: {
     test: {
       plugins: [
+        'istanbul',
         '@babel/plugin-transform-modules-commonjs',
         '@babel/plugin-transform-runtime'
       ],

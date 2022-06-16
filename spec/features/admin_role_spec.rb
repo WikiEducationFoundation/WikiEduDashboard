@@ -130,6 +130,7 @@ describe 'Admin users', type: :feature, js: true do
       end
       sleep 1
       visit "/courses/#{Course.first.slug}"
+      sleep 2
       expect(page).not_to have_content 'My Tag'
     end
   end

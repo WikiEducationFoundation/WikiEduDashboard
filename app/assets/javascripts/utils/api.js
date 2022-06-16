@@ -400,7 +400,7 @@ const API = {
       throw response;
     }
     alert('Students with overdue trainings notified!');
-    return response.json();
+    return response.text();
   },
 
   async greetStudents(courseId) {

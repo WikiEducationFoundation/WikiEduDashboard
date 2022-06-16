@@ -239,8 +239,10 @@ describe 'campaign overview page', type: :feature, js: true do
 
       it 'throws an error if you enter the wrong campaign title when trying to delete it' do
         wrong_title = 'Not the title of the campaign'
-        accept_alert(with: wrong_title) do
-          find('.campaign-delete .button').click
+        accept_alert do
+          accept_alert(with: wrong_title) do
+            find('.campaign-delete .button').click
+          end
         end
       end
     end

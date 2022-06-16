@@ -14,8 +14,6 @@ const outputPath = path.resolve(`${config.outputPath}`);
 
 module.exports = (env) => {
   const mode = env.development ? 'development' : 'production';
-  const mainEntry = env.coverage ? 'main-coverage.js' : 'main.js';
-
   let devtool = 'eval-cheap-source-map';
   // see https://webpack.js.org/configuration/devtool/ for the detailed descriptions of these
   if (env.production) {
@@ -25,7 +23,7 @@ module.exports = (env) => {
   }
 
   const entries = {
-    main: [`${jsSource}/${mainEntry}`, `${cssSource}/main.styl`],
+    main: [`${jsSource}/main.js`, `${cssSource}/main.styl`],
     styleguide: [`${jsSource}/styleguide/styleguide.jsx`, `${cssSource}/styleguide.styl`],
 
     sentry: [`${jsSource}/sentry.js`],
