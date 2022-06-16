@@ -66,6 +66,9 @@ io:
     campaigns: 'Kampanii:'
     creator:
       save_cloned_course: Konservez
+    student_editors: Redakteri
+    students: Redakteri
+    students_short: Redakteri
   editable:
     edit: Redakto
     cancel: Nuligar
