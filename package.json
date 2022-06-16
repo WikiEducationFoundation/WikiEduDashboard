@@ -5,7 +5,7 @@
   "dependencies": {
     "@babel/core": "^7.17.5",
     "@babel/plugin-proposal-object-rest-spread": "^7.17.3",
-    "@babel/plugin-transform-modules-commonjs": "^7.16.8",
+    "@babel/plugin-transform-modules-commonjs": "^7.18.2",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
     "@babel/register": "^7.17.0",
