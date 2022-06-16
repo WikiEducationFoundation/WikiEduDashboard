@@ -4,6 +4,9 @@ import thunk from 'redux-thunk';
 
 export const getStore = () => {
   const reactRoot = document.getElementById('react_root');
+  if (!reactRoot) {
+    return null;
+  }
   const currentUserFromHtml = JSON.parse(reactRoot.getAttribute('data-current_user'));
   const admins = JSON.parse(reactRoot.getAttribute('data-admins'));
 
