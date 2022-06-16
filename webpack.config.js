@@ -7,6 +7,7 @@ const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const config = require('./config');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 const jsSource = `./${config.sourcePath}/${config.jsDirectory}`;
 const cssSource = `./${config.sourcePath}/${config.cssDirectory}`;
@@ -119,7 +120,10 @@ module.exports = (env) => {
           }
           return file;
         }
-      })
+      }),
+      (env.development && !env.coverage) && new ReactRefreshWebpackPlugin({ overlay: {
+        sockPort: 8080
+      } })
     ].filter(Boolean),
 
     optimization: {
@@ -145,7 +149,11 @@ module.exports = (env) => {
     stats: env.stats ? 'normal' : 'minimal',
   };
 
-  if (env.development) {
+  if (env.development && env.memory) {
+    output.devServer = {
+      hot: true
+    };
+  } else if (env.development) {
     output.devServer = {
       devMiddleware: {
         publicPath: path.join(__dirname, '/public'),
