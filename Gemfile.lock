@@ -299,6 +299,12 @@ GEM
       activesupport (>= 5.0.0)
     json (2.6.2)
     jwt (2.4.1)
+    kt-paperclip (7.1.1)
+      activemodel (>= 4.2.0)
+      activesupport (>= 4.2.0)
+      marcel (~> 1.0.1)
+      mime-types
+      terrapin (~> 0.6.0)
     launchy (2.5.0)
       addressable (~> 2.7)
     listen (3.7.0)
@@ -319,9 +325,6 @@ GEM
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2021.0901)
-    mimemagic (0.3.10)
-      nokogiri (~> 1)
-      rake
     mini_mime (1.1.2)
     mini_portile2 (2.8.0)
     minitest (5.16.2)
@@ -373,12 +376,6 @@ GEM
     paper_trail (12.3.0)
       activerecord (>= 5.2)
       request_store (~> 1.1)
-    paperclip (6.1.0)
-      activemodel (>= 4.2.0)
-      activesupport (>= 4.2.0)
-      mime-types
-      mimemagic (~> 0.3.0)
-      terrapin (~> 0.6.0)
     parallel (1.22.1)
     parser (3.1.2.0)
       ast (~> 2.4.1)
@@ -645,6 +642,7 @@ DEPENDENCIES
   http_accept_language
   i18n-js
   jbuilder
+  kt-paperclip
   mailgun-ruby
   mediawiki_api!
   memory_profiler
@@ -659,7 +657,6 @@ DEPENDENCIES
   omniauth-rails_csrf_protection
   pandoc-ruby
   paper_trail
-  paperclip
   piwik_analytics!
   premailer-rails
   pry-rails

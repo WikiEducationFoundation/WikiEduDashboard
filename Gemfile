@@ -16,7 +16,7 @@ gem 'activerecord-import' # Used to save batches of new ActiveRecord objects
 # Used for cloning surveys and courses.
 gem 'deep_cloneable'
 gem 'paper_trail' # Save histories of record changes related to surveys
-gem "paperclip" # used by Course and UserProfile for file attachments. Deprecated.
+gem "kt-paperclip" # used by Course and UserProfile for file attachments.
 gem 'sidekiq' # Framework for running background worker jobs
 gem 'sidekiq-unique-jobs' # Plugin to prevent duplicate jobs in the sidekiq queue
 gem 'sidekiq-cron' # Plugin for cron-style recurring jobs in Sidekiq
