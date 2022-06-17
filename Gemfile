@@ -93,6 +93,12 @@ gem 'pandoc-ruby' # Text converter, for markdown<->html<->wikitext conversions
 gem 'rack-mini-profiler'
 gem 'stackprof'
 
+### Temporary additions for Ruby 3.1 compatibility
+# These should be removed after the upgrade to Rails 7
+gem 'net-smtp', require: false
+gem 'net-imap', require: false
+gem 'net-pop', require: false
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', platforms: [:mri_21]
