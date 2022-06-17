@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.7.1'
+ruby '3.1.2'
 
 ### Basic Framework
 gem 'rails', '6.1.4.7'
