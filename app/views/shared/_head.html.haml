@@ -30,7 +30,7 @@
       enableGetHelpButton: #{Features.enable_get_help_button? && user_signed_in?},
       enableAdvancedFeatures: "#{ENV['ENABLE_ADVANCED_FEATURES']}",
       consentBanner: #{user_signed_in? && !Rails.env.test?},
-      tinyMceUrl: '#{user_signed_in? ? hot_javascript_path("tinymce") : ''}'
+      user_signed_in: #{user_signed_in?}
     }
 
     WikiProjects = document.querySelector('meta[name="data-projects"]').content

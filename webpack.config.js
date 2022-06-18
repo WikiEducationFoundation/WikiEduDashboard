@@ -33,7 +33,6 @@ module.exports = (env) => {
     survey_results: [`${jsSource}/surveys/survey-results.jsx`],
     campaigns: [`${jsSource}/campaigns.js`],
     charts: [`${jsSource}/charts.js`],
-    tinymce: [`${jsSource}/tinymce.js`],
     embed_course_stats: [`${jsSource}/embed_course_stats.js`],
     accordian: [`${jsSource}/accordian.js`],
 
@@ -130,10 +129,10 @@ module.exports = (env) => {
       splitChunks: {
         cacheGroups: {
           defaultVendors: {
-            test: /[\\/]node_modules[\\/]((?!(chart)).*)[\\/]/,
-            chunks: chunk => !/tinymce/.test(chunk.name),
+            test: /[\\/]node_modules[\\/]((?!(chart|tinymce)).*)[\\/]/,
+            chunks: 'all',
             name: 'vendors'
-          }
+          },
         }
       },
       minimizer: [
