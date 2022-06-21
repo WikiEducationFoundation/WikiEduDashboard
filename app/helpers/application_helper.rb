@@ -18,7 +18,7 @@ module ApplicationHelper
   end
 
   def dashboard_stylesheet_tag(filename)
-    if Features.hot_loading? && Rails.env.development?
+    if Features.hot_loading?
       filename = "#{rtl? ? 'rtl-' : nil}#{filename}"
       stylesheet_link_tag "http://localhost:8080/assets/stylesheets/#{filename}.css"
     else
@@ -37,9 +37,7 @@ module ApplicationHelper
   # :nocov:
 
   def hot_javascript_path(filename)
-    if Features.hot_loading? && Rails.env.development?
-      return "http://localhost:8080/assets/javascripts/#{filename}.js"
-    end
+    return "http://localhost:8080/assets/javascripts/#{filename}.js" if Features.hot_loading?
     fingerprinted('/assets/javascripts/', filename)
   end
 
