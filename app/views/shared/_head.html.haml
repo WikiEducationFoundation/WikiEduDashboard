@@ -40,7 +40,7 @@
     SalesforceServer = "#{ENV['SF_SERVER']}"
 
   = hot_javascript_tag "vendors"
-  - unless ENV['DISABLE_SENTRY']
+  - if Features.sentry?
     = hot_javascript_tag("sentry")
     // Sentry logging
     %script

@@ -45,6 +45,10 @@ class Features
     ENV['hot_loading'] == 'true'
   end
 
+  def self.sentry?
+    ENV['hot_loading'] != 'true' && ENV['DISABLE_SENTRY'] != 'true'
+  end
+
   def self.email?
     !ENV['mailgun_key'].nil?
   end
