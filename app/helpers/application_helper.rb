@@ -18,23 +18,14 @@ module ApplicationHelper
   end
 
   def dashboard_stylesheet_tag(filename)
-    if Features.hot_loading?
-      filename = "#{rtl? ? 'rtl-' : nil}#{filename}"
-      stylesheet_link_tag "/assets/stylesheets/#{filename}.css"
-    else
-      file_prefix = rtl? ? 'rtl-' : ''
-      stylesheet_link_tag css_fingerprinted(filename, file_prefix),
-                          media: 'all'
-    end
+    filename = "#{rtl? ? 'rtl-' : nil}#{filename}.css"
+    filename = css_fingerprinted(filename) unless Features.hot_loading?
+    stylesheet_link_tag "/assets/stylesheets/#{filename}", media: 'all'
   end
 
-  # This gets overridden during tests via coverage_helper.rb, so
-  # we can't collect coverage data for the real method.
-  # :nocov:
   def hot_javascript_tag(filename)
     javascript_include_tag hot_javascript_path(filename)
   end
-  # :nocov:
 
   def hot_javascript_path(filename)
     return "/assets/javascripts/#{filename}.js" if Features.hot_loading?
@@ -47,10 +38,10 @@ module ApplicationHelper
     "#{file_prefix}#{manifest[filename + '.js']}"
   end
 
-  def css_fingerprinted(filename, file_prefix = '')
+  def css_fingerprinted(filename)
     manifest_path = "#{Rails.root}/public/assets/javascripts/manifest.json"
     manifest = Oj.load(File.read(File.expand_path(manifest_path, __FILE__)))
-    "/assets/stylesheets/#{manifest[file_prefix + filename + '.css'].split('/').last}"
+    manifest[filename].split('/').last
   end
 
   def i18n_javascript_tag(locale)
