@@ -23,6 +23,7 @@ For Windows, the easiest way to get an environment set up is to [use Ubuntu with
 ## Prerequisite
 There are some basic requirements for the script to work:
 - git (to clone the repository)
+- node version 14 or 16
 - python 3.5 or newer
 - ruby 2.7.1
 - apt (debian) or homebrew (MacOS)
