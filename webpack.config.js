@@ -7,6 +7,7 @@ const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const config = require('./config');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 const jsSource = `./${config.sourcePath}/${config.jsDirectory}`;
 const cssSource = `./${config.sourcePath}/${config.cssDirectory}`;
@@ -32,7 +33,6 @@ module.exports = (env) => {
     survey_results: [`${jsSource}/surveys/survey-results.jsx`],
     campaigns: [`${jsSource}/campaigns.js`],
     charts: [`${jsSource}/charts.js`],
-    tinymce: [`${jsSource}/tinymce.js`],
     embed_course_stats: [`${jsSource}/embed_course_stats.js`],
     accordian: [`${jsSource}/accordian.js`],
 
@@ -119,17 +119,20 @@ module.exports = (env) => {
           }
           return file;
         }
-      })
+      }),
+      (env.development && !env.coverage) && new ReactRefreshWebpackPlugin({ overlay: {
+        sockPort: 8080
+      } })
     ].filter(Boolean),
 
     optimization: {
       splitChunks: {
         cacheGroups: {
           defaultVendors: {
-            test: /[\\/]node_modules[\\/]((?!(chart)).*)[\\/]/,
-            chunks: chunk => !/tinymce/.test(chunk.name),
+            test: /[\\/]node_modules[\\/]((?!(chart|tinymce)).*)[\\/]/,
+            chunks: 'all',
             name: 'vendors'
-          }
+          },
         }
       },
       minimizer: [
@@ -145,7 +148,11 @@ module.exports = (env) => {
     stats: env.stats ? 'normal' : 'minimal',
   };
 
-  if (env.development) {
+  if (env.development && env.memory) {
+    output.devServer = {
+      hot: true
+    };
+  } else if (env.development) {
     output.devServer = {
       devMiddleware: {
         publicPath: path.join(__dirname, '/public'),

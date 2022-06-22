@@ -388,6 +388,8 @@ GEM
       rack (>= 1.2.0)
     rack-protection (2.2.0)
       rack
+    rack-proxy (0.7.2)
+      rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (6.1.4.7)
@@ -640,6 +642,7 @@ DEPENDENCIES
   puma
   rack-cors
   rack-mini-profiler
+  rack-proxy (~> 0.7.2)
   rails (= 6.1.4.7)
   rails-controller-testing
   rails-erd
