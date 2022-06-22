@@ -10151,10 +10151,10 @@ stylelint-config-standard@^20.0.0:
   dependencies:
     stylelint-config-recommended "^3.0.0"
 
-stylus-native-loader@^1.1.2:
-  version "1.4.5"
-  resolved "https://registry.yarnpkg.com/stylus-native-loader/-/stylus-native-loader-1.4.5.tgz#2e5f036af7dcc47a3471ff4847f57405b7165f86"
-  integrity sha512-73PBQT3L49YoRZj9g1wb2ifCGH2oP5BfhW6l//m3oMcfylEzqqe6UlItRbSjo+2gEBFyo5bvc5kmh07cEhvIHw==
+stylus-native-loader@^1.4.7:
+  version "1.4.7"
+  resolved "https://registry.yarnpkg.com/stylus-native-loader/-/stylus-native-loader-1.4.7.tgz#90de72d4b965f848be879f9614ba0b4fd3e47666"
+  integrity sha512-mlW7+vWmGe88fJU6fpXr5FBY82eINQ2QPg6u91sM4vKmk0dbEl1v2hPKi7CUrmalmzLqoYCRc45z1g5uXf1I9Q==
 
 stylus@^0.54.8:
   version "0.54.8"
