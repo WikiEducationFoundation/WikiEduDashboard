@@ -56,7 +56,7 @@ jobs:
       
       - name: JavaScript test suite 
         run: |
-            yarn
+            yarn install --immutable
             yarn coverage
             yarn run test 
       
