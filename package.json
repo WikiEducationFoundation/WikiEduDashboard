@@ -138,5 +138,6 @@
   },
   "resolutions": {
     "babel-core": "7.0.0-bridge.0"
-  }
+  },
+  "packageManager": "yarn@3.2.1"
 }

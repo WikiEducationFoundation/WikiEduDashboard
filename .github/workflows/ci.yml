@@ -19,18 +19,6 @@ jobs:
       - name: setup Redis
         uses: supercharge/redis-github-action@1.4.0
       
-      # to speed up the execution time of Github Actions
-      - name: setup caching for vendor and node_modules
-        uses: actions/cache@v2
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-        with:
-          path: |-
-            vendor
-            node_modules
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-                ${{ runner.os }}-yarn-
-      
       # Setting up MariaDB based upon 'config/database.example.yml'
       - name: setup MariaDB server
         uses: getong/mariadb-action@v1.1  
@@ -49,9 +37,10 @@ jobs:
            bundler-cache: true
      
       - name: setup Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: '14'
+          cache: 'yarn'
 
       - name: setup Dashboard database
         env:
