@@ -29,6 +29,7 @@ class UpdateCourseStats
     update_article_status if should_update_article_status?
     update_average_pageviews
     update_caches
+    update_namespace_stats
     import_summaries_and_update_wikidata_stats if wikidata
     @course.update(needs_update: false)
     @end_time = Time.zone.now
@@ -75,6 +76,14 @@ class UpdateCourseStats
     @course.update_cache
     HistogramPlotter.delete_csv(course: @course) # clear cached structural completeness data
     log_update_progress :course_cache_updated
+  end
+
+  def update_namespace_stats
+    UpdateNamespaceStats.new(@course)
+  end
+
+  def wikibook
+    @wikibook ||= Wiki.get_or_create(language: 'en', project: 'wikibooks')
   end
 
   def import_summaries_and_update_wikidata_stats
