@@ -82,10 +82,6 @@ class UpdateCourseStats
     UpdateNamespaceStats.new(@course)
   end
 
-  def wikibook
-    @wikibook ||= Wiki.get_or_create(language: 'en', project: 'wikibooks')
-  end
-
   def import_summaries_and_update_wikidata_stats
     UpdateWikidataStatsWorker.new.perform(@course)
     log_update_progress :wikidata_stats_updated
