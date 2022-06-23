@@ -27,6 +27,10 @@ hi:
       या कमी आएगी।
   application:
     cancel: रद्द करें
+    cookie_consent: यह साइट आपको लॉग इन रखने के लिए कुकीज़ का उपयोग करती है और आपके
+      विकिपीडिया खाते से संबंधित जानकारी संग्रहीत करती है।
+    cookie_consent_see_more: और देखें
+    create_accounts: विकिपीडिया खाते बनाएँ
     dashboard: विकि शिक्षा डैशबोर्ड
     documentation: प्रलेखन
     error: 'एक त्रुटि हुई:'
@@ -46,6 +50,8 @@ hi:
     my_dashboard: मेरा नियंत्रण-पट्ट
     recent_activity: कुछ देर पहले के क्रियाकलाप
     report_problem: समस्या के बारे में बताएं
+    request_account: अकाउंट हेतु अनुरोध
+    request_account_create: खाता बनायें
     search: सवाल पूछें
     sign_up_extended: विकिपीडिया के साथ जुड़ें
     sign_up_wikipedia: या विकिपीडिया पर साइन अप करें
@@ -56,6 +62,8 @@ hi:
     change: बदलाव
     details: विवरण
     confirm: ठीक है
+    opt_in: हाँ
+    opt_out: नहीं
     opt_yes: हाँ
     opt_no: नहीं
   dashboard:
@@ -99,26 +107,39 @@ hi:
     label: गतिविधि
   articles:
     articles: लेख
+    article_not_found: यह लेख अभी तक नहीं बनाया गया है।
     article_development: |2-
 
       (लेख का विकास)
     assigned: निरुपित किए गए लेख
     available: उपलब्ध लेख
+    next: अगला
+    previous: पिछला
+    article_title: लेख का शीर्षक
     assigned_to: को निरूपित
     character_doc: प्रारंभिक और समाप्ति तिथियों के बीच नामांकित संपादकों के लेखों
       में वर्णों का योग
     cross_wiki_tracking: प्रारंभ और समाप्ति तिथियों के बीच संपादित मुख्य पेज को नीचे
       सूचीबद्ध किया गया है। डैशबोर्ड इस कार्यक्रम को गृह विकी से योगदान में खींचता
       है, साथ ही किसी अन्य विकी के लिए जिसके लिए सौंपा हुआ कार्य या उपलब्ध लेख है
+    deleted: (हटाया गया)
     edited: संपादित लेख
     edited_by: 'द्वारा संपादित:'
     edited_mobile: लेख
+    edited_none: अभी तक कोई संपादित लेख नहीं हैं।
+    filter:
+      wiki_all: सभी
+      new: नया
+      existing: मौजूदा
+      new_and_existing: नया और मौजूदा
+    find: लेख खोजें
     hide: छुपाएँ
     history: (इतिहास)
     label: लेख
     loading: लेख लोड हो रहे...
     new: (नया)
     none: इस कोर्स ने किसी भी लेख को संपादित नहीं किया है।
+    preview: लेख का संक्षिप्त पूर्वावलोकन
     rating: कक्षा
     rating_doc: विकीप्रोजेक्ट द्वारा एक लेख को विकिपीडिया पर श्रेणी निर्धारण के लिए
       सौंपा गया है। ये रेटिंग अधिक पुराने संस्करणों से मेल खा सकते हैं, इसलिए वे लेख
@@ -140,6 +161,7 @@ hi:
       '?': बिना मूल्यांकन का - एक लेख जिसे अभी तक विकिपीडिया की गुणवत्ता के पैमाने
         पर मूल्यांकन नहीं किया गया है
       does_not_exist: यह लेख विकिपीडिया पर मौजूद नहीं है
+    see_more: और देखें
     show_cumulative_changes: संचयी परिवर्तन दिखाएं
     show_current_version: वर्तमान संस्करण दिखाएं
     title: शीर्षक
@@ -150,6 +172,7 @@ hi:
     view_on_wiki: विकी पर देखें
     views_added: '%{count} के लिए %{title} नया दृश्य जोड़ा गया'
     edit_size: आकार संपादित करें
+    wiki: विकी
     wp10: संरचनात्मक पूर्णता
     wp10_doc: '''संरचनात्मक पूर्णता'' अंक मशीन सीखने-आधारित उद्देश्य संशोधन मूल्यांकन
       सेवा (https://ores.wikimedia.org/) के आधार पर, एक परिपक्व विकिपीडिया लेख के
@@ -159,13 +182,18 @@ hi:
       लेख की संरचना के लिए विकिपीडिया के सम्मेलनों का पालन करता है, लेकिन यह सामग्री
       को अपनेआप ध्यान में नहीं लेता है (ये स्कोर केवल अंग्रेज़ी विकिपीडिया लेखों के
       लिए उपलब्ध हैं।)'
+    articles_short: लेख
+  articles_generic:
+    articles_short: पृष्ठ
   assignments:
     article: लेख %{title} को असाइन किया गया था
+    article_link: लेख
     already_exists: यह सौंपा गया कार्य पहले से मौजूद है!
     title_too_large: शीर्षक 255 वर्णों से अधिक नहीं होना चाहिए
     assignees: अनुदिष्ट(रों)
     assign_other: एक लेख निर्दिष्ट करें
     add_available: एक उपलब्ध लेख जोड़ें
+    add_available_submit: लेख जोड़ें
     assign_self: अपने आप को एक लेख निरुपित करें
     assign_tooltip: एक निर्धारित लेख वह है जिसे आप बनाने या सुधारने की योजना बनाते
       हैं।
@@ -190,6 +218,7 @@ hi:
   campaign:
     active_campaigns: सक्रिय अभियान
     add_organizer: आयोजक जोड़ें
+    alert_article: लेख का शीर्षक
     all_campaigns: सभी अभियान
     already_exists: वह अभियान पहले से मौजूद है! कृपया एक अलग शीर्षक या स्लग के साथ
       पुनः प्रयास करें।
@@ -198,6 +227,7 @@ hi:
     campaign_deleted: अभियान "%{title}" हटा दिया गया है
     campaign_not_updated: अभियान का नवीनीकरण नहीं किया जा सका
     campaign_updated: अभियान का नवीनीकरण किया गया
+    created_at: दिनांक
     confirm_campaign_deletion: क्या आप वाकई "%{title}" नामक अभियान को हटाना चाहते
       हैं? यदि हां, तो आगे बढ़ने के लिए अभियान का शीर्षक टाइप करें।
     confirm_campaign_deletion_failed: '"%{title}" इस अभियान का शीर्षक नहीं है। अभियान
@@ -224,6 +254,9 @@ hi:
     title: शीर्षक
     use_start_end_dates: प्रारंभ और समाप्ति तिथियों का उपयोग करें
     search: खोजें
+  categories:
+    remove: हटायें
+    timestamp: अन्तिम अद्यतन
   courses:
     school_system: शैक्षणिक प्रणाली
     activity: गतिविधि
@@ -289,11 +322,15 @@ hi:
       course_term_placeholder: अवधि
       course_types:
         edit_a_thon_name: एडिट-अ-थॉन
+      start_date: प्रारम्भ तिथि
       start_date_placeholder: YYYY-MM-DD
       subject: विषय
+    delete_suggestion: हटाएँ
     expected_students: अपेक्षित छात्र
     feedback: आपके सुझाव
     instructors: शिक्षक
+    join: शामिल हों
+    join_course: पाठ्यक्रम में शामिल हों
     join_no_passcode: क्या आप वाकई इस पाठ्यक्रम में शामिल होना चाहते हैं?
     loading: लोड हो रहा है…
     private: निजी

@@ -37,6 +37,11 @@ module.exports = {
       ignore: [
         'i18n/*.js'
       ]
+    },
+    development: {
+      plugins: [
+        'react-refresh/babel',
+      ]
     }
   }
 };
