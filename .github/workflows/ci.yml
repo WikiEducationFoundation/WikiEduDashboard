@@ -51,7 +51,14 @@ jobs:
             cp config/application.example.yml config/application.yml
             cp config/database.example.yml config/database.yml
             bin/rails db:migrate RAILS_ENV=test
-      
+        
+      - name: Cache Webpack cache
+        id: cache-webpack
+        uses: actions/cache@v3
+        with:
+          path: node_modules/.cache/
+          key: ${{ runner.os }}-webpack
+          
       #Testing the pushed code onwards
       
       - name: JavaScript test suite 
