@@ -40,7 +40,8 @@ class UpdateNamespaceStats
 	# Returns a joint model of revisions and articles
 	def namespace_articles_revisions(nm)
 		course_wikis_ids = @course.wikis.pluck(:id)
-		@course.revisions.where(wiki_id: course_wikis_ids).joins(:article)
+		articles_revisions = @course.revisions.where(wiki_id: course_wikis_ids).joins(:article)
+		articles_revisions.where(articles: {namespace: nm})
 	end
 
 	def edited_articles_count(nm)
