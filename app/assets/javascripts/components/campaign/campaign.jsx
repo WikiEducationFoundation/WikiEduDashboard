@@ -53,8 +53,8 @@ export const Campaign = createReactClass({
           </section>
           {campaignHandler}
           <Routes>
-            <Route path=":campaign_slug/ores_plot" element={<CampaignOresPlot />} />
-            <Route path=":campaign_slug/alerts" element={<CampaignAlerts />} />
+            <Route path="ores_plot" element={<CampaignOresPlot />} />
+            <Route path="alerts" element={<CampaignAlerts />} />
           </Routes>
         </div>
       </div >
