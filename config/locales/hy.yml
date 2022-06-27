@@ -300,6 +300,8 @@ hy:
     main: Գլխավոր անվանատարածք
     user: Մասնակցի անվանատարածք
     filter:
+      all_ns: Բոլորը
+      article_ns: Հոդված
       user_ns: Մասնակից
   recent_activity:
     image: Պատկեր
