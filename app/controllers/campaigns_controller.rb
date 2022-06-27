@@ -263,8 +263,4 @@ class CampaignsController < ApplicationController
           .permit(:slug, :description, :template_description, :title, :start, :end,
                   :default_course_type, :default_passcode)
   end
-
-  def search_params
-    params.permit(:search)
-  end
 end
