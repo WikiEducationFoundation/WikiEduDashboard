@@ -12,8 +12,8 @@ import UserProfile from '../user_profiles/user_profile.jsx';
 import SettingsHandler from '../settings/settings_handler.jsx';
 import TicketsHandler from '../tickets/tickets_handler.jsx';
 import TicketShowHandler from '../tickets/ticket_show_handler.jsx';
-import Campaign from '../campaign/campaign.jsx';
 import TaggedCourseAlerts from '../alerts/tagged_course_alerts.jsx';
+import CampaignsHandler from '../campaign/campaigns_handler.jsx';
 
 const routes = (
   <Routes>
@@ -28,7 +28,7 @@ const routes = (
     <Route path="/training/*" element={<TrainingApp />} />
     <Route path="/tickets/dashboard" element={<TicketsHandler />} />
     <Route path="/tickets/dashboard/:id" element={<TicketShowHandler />} />
-    <Route path="/campaigns/:campaign_slug/*" element={<Campaign />} />
+    <Route path="/campaigns/*" element={<CampaignsHandler />} />
     <Route path="/tagged_courses/:tag/alerts" element={<TaggedCourseAlerts />} />
     {/* this prevents the "route not found" warning for pages which are server rendered */}
     <Route path="*" element={<div style={{ display: 'none' }}/>} />

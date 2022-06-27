@@ -2,13 +2,20 @@ import {
   RECEIVE_CAMPAIGNS,
   RECEIVE_ALL_CAMPAIGNS,
   ADD_CAMPAIGN,
-  DELETE_CAMPAIGN
+  DELETE_CAMPAIGN,
+  SORT_CAMPAIGNS
 } from '../constants/campaigns.js';
+import { sortByKey } from '../utils/model_utils';
 
 const initialState = {
   campaigns: [],
   all_campaigns: [],
-  isLoaded: false
+  isLoaded: false,
+  all_campaigns_loaded: false,
+  sort: {
+    key: null,
+    sortKey: null,
+  },
 };
 
 export default function campaigns(state = initialState, action) {
@@ -26,10 +33,23 @@ export default function campaigns(state = initialState, action) {
     case RECEIVE_ALL_CAMPAIGNS: {
       const newState = {
         ...state,
-        all_campaigns: action.data.campaigns
+        all_campaigns: action.data.campaigns,
+        all_campaigns_loaded: true
         };
       return newState;
       }
+    case SORT_CAMPAIGNS: {
+      const desc = action.key === state.sort.sortKey;
+      const newCampaigns = sortByKey(state.all_campaigns, action.key, null, desc);
+      return {
+        ...state,
+        all_campaigns: newCampaigns.newModels,
+        sort: {
+          sortKey: desc ? null : action.key,
+          key: action.key
+        },
+      };
+    }
     default:
       return state;
   }

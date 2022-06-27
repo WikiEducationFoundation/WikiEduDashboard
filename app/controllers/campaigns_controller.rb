@@ -20,12 +20,6 @@ class CampaignsController < ApplicationController
   DETAILS_FIELDS = %w[title start end].freeze
 
   def index
-    @query = search_params[:search]
-    @campaigns = if @query.present?
-                   @results = Campaign.where('lower(title) like ?', "%#{@query.downcase}%")
-                 else
-                   Campaign.all
-                 end
     @campaign = Campaign.new
   end
 
