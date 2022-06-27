@@ -1,7 +1,9 @@
-const List = require('list.js');
+window.onload = () => {
+  const createCampaignButton = document.querySelector('.create-campaign-button');
+  const createModalWrapper = document.querySelector('.create-modal-wrapper');
+  const wizardPanel = document.querySelector('.wizard__panel');
 
-$(() => {
-  $('.campaign-delete').on('submit', (e) => {
+  document.querySelector('.campaign-delete')?.addEventListener('submit', (e) => {
     const title = prompt(I18n.t('campaign.confirm_campaign_deletion', { title: e.target.dataset.title }));
     if (title !== e.target.dataset.title) {
       if (title !== null) {
@@ -39,71 +41,56 @@ $(() => {
     $(e.target).find('.pop__container').removeClass('open');
   });
 
-  $('.remove-organizer-form').on('submit', (e) => {
+  document.querySelector('.remove-organizer-form')?.addEventListener('submit', (e) => {
     if (!confirm(I18n.t('users.remove_confirmation', { username: e.target.dataset.username }))) {
       e.preventDefault();
     }
   });
 
-  $('#use_dates').on('change', (e) => {
-    $('.campaign-dates').toggleClass('hidden', !e.target.checked);
-    if (!e.target.checked) {
-      $('#campaign_start').val('');
-      $('#campaign_end').val('');
+  document.querySelector('#use_dates')?.addEventListener('change', (e) => {
+    if (e.target.checked) {
+      document.querySelector('.campaign-dates')?.classList.remove('hidden');
+    } else {
+      document.querySelector('.campaign-dates')?.classList.add('hidden');
+      document.querySelector('#campaign_start').value = '';
+      document.querySelector('#campaign_end').value = '';
     }
   });
 
-  $('.campaign_passcode').on('change', () => {
-    $('.customized_passcode').toggleClass('hidden', !$('#campaign_default_passcode_custom')[0].checked);
-    if (!$('#campaign_default_passcode_custom')[0].checked) {
-      $('#campaign_default_passcode').val('');
-    }
-  });
-
-  $('.create-campaign-button').on('click', () => {
-    $('.create-modal-wrapper').removeClass('hidden');
-
-    setTimeout(() => {
-      $(document).off('click.campaign-popover').on('click.campaign-popover', (cp) => {
-        if (!$(cp.target).parents('.wizard-wrapper').length) {
-          $('.create-modal-wrapper').addClass('hidden');
-          $(document).off('click.campaign-popover');
-        }
-      });
-    });
-  });
-
-  $('.button__cancel').on('click', (e) => {
-    e.preventDefault();
-    $('.create-modal-wrapper').addClass('hidden');
-    $(document).off('click.campaign-popover');
-  });
-
-  if ($('.create-modal-wrapper').hasClass('show-create-modal')) {
-    $('.create-campaign-button').trigger('click');
-  }
-  // Campaign sorting
-  // only sort if there are tables to sort
-  let campaignList;
-  if ($('.campaign-list table').length) {
-    campaignList = new List('js-campaigns', {
-      valueNames: [
-        'title'
-      ]
-    });
-  }
-
-  return $('select.sorts').on('change', function () {
-    const list = (() => {
-      switch ($(this).attr('rel')) {
-        case 'campaigns': return campaignList;
-        default: break;
+  document.querySelectorAll('.campaign_passcode')?.forEach((radio) => {
+    radio.addEventListener('change', () => {
+      if (document.querySelector('#campaign_default_passcode_custom')?.checked) {
+        document.querySelector('.customized_passcode')?.classList.remove('hidden');
+      } else {
+        document.querySelector('.customized_passcode')?.classList.add('hidden');
+        document.querySelector('#campaign_custom_default_passcode').value = '';
       }
-})();
-    if (list) {
-      return list.sort($(this).val(), {
-        order: $(this).children('option:selected').attr('rel')
-      });
-    }
+    });
   });
-});
+
+  // this event listener fires when you click outside the modal
+  // it hides the modal, and then removes itself as an event handler
+  const clickOutsideModalHandler = (event) => {
+    if (!wizardPanel.contains(event.target)) {
+      createModalWrapper.classList.add('hidden');
+      document.removeEventListener('click', clickOutsideModalHandler);
+    }
+  };
+
+  createCampaignButton?.addEventListener('click', () => {
+    createModalWrapper.classList.remove('hidden');
+    setTimeout(() => {
+      document.addEventListener('click', clickOutsideModalHandler);
+    });
+  });
+
+  document.querySelector('.button__cancel')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    createModalWrapper.classList.add('hidden');
+    document.removeEventListener('click', clickOutsideModalHandler);
+  });
+
+  if (createModalWrapper?.classList.contains('show-create-modal')) {
+    createCampaignButton.click();
+  }
+};
