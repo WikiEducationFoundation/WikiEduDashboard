@@ -321,7 +321,7 @@ GEM
       rake
     mini_mime (1.1.2)
     mini_portile2 (2.8.0)
-    minitest (5.16.0)
+    minitest (5.16.1)
     msgpack (1.4.5)
     multipart-post (2.2.3)
     mysql2 (0.5.4)
@@ -488,7 +488,7 @@ GEM
     rubocop-performance (1.14.2)
       rubocop (>= 1.7.0, < 2.0)
       rubocop-ast (>= 0.4.0)
-    rubocop-rails (2.12.3)
+    rubocop-rails (2.15.1)
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 1.7.0, < 2.0)
@@ -562,7 +562,7 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.8)
-    unicode-display_width (2.1.0)
+    unicode-display_width (2.2.0)
     validates_email_format_of (1.6.3)
       i18n
     vcr (6.1.0)
