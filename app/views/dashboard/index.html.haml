@@ -1,5 +1,11 @@
 - content_for :after_title, " - #{t("application.my_dashboard")}"
 
+-# this is the react root when the route is /course_creator
+- if request.path.include?('/course_creator')
+  #react_root{data: {default_course_type: @pres.default_course_type,
+                   course_string_prefix: Features.default_course_string_prefix,
+                   course_creation_notice: Deadlines.course_creation_notice,
+                   use_start_and_end_times: @pres.default_use_start_and_end_times ? 'true' : 'false'}}
 .container.dashboard
   %header
     %h1= @pres.heading_message
@@ -80,7 +86,7 @@
   - if @blog_posts.present?
     = render "blog"
 
-  - if @pres.campaign_organizer?
-
+  - if @pres.campaign_organizer? && !request.path.include?('/course_creator')
     %h2= t("campaign.campaigns")
+    -# this is the react root when at the root page
     #react_root
