@@ -14,6 +14,7 @@ import TicketsHandler from '../tickets/tickets_handler.jsx';
 import TicketShowHandler from '../tickets/ticket_show_handler.jsx';
 import TaggedCourseAlerts from '../alerts/tagged_course_alerts.jsx';
 import CampaignsHandler from '../campaign/campaigns_handler.jsx';
+import CampaignListHomePage from '../campaign/campaign_list_home_page.jsx';
 
 const routes = (
   <Routes>
@@ -30,6 +31,7 @@ const routes = (
     <Route path="/tickets/dashboard/:id" element={<TicketShowHandler />} />
     <Route path="/campaigns/*" element={<CampaignsHandler />} />
     <Route path="/tagged_courses/:tag/alerts" element={<TaggedCourseAlerts />} />
+    <Route index element={<CampaignListHomePage/>} />
     {/* this prevents the "route not found" warning for pages which are server rendered */}
     <Route path="*" element={<div style={{ display: 'none' }}/>} />
   </Routes>

@@ -5,21 +5,8 @@ import { useSearchParams } from 'react-router-dom';
 import { fetchAllCampaigns, sortCampaigns } from '../../actions/campaign_actions';
 import List from '../common/list';
 import Loading from '../common/loading';
-import CampaignRow from './campaign_row';
 
-const keys = {
-  title: {
-    label: 'Title',
-    desktop_only: false,
-  },
-  csv: {
-    label: 'CSVs',
-    desktop_only: false,
-    sortable: false
-  },
-};
-
-const CampaignList = () => {
+const CampaignList = ({ keys, showSearch, RowElement }) => {
   const { all_campaigns, all_campaigns_loaded, sort } = useSelector(state => state.campaigns);
   const [searchParams, setSearchParams] = useSearchParams();
   const search = searchParams.get('search');
@@ -49,14 +36,18 @@ const CampaignList = () => {
   if (!all_campaigns_loaded) {
     return <Loading/>;
   }
-  const campaignElements = filteredCampaigns.map(campaign => <CampaignRow campaign={campaign} key={campaign.slug}/>);
+  const campaignElements = filteredCampaigns.map(campaign => <RowElement campaign={campaign} key={campaign.slug}/>);
 
   return (
     <div className="container">
-      <div className="explore-courses">
-        <input type="text" name="name" id="name" placeholder={I18n.t('campaign.search_campaigns')} ref={inputRef}/>
-        <button onClick={onClickHandler}><i className="icon icon-search" /></button>
-      </div>
+      {
+      showSearch && (
+        <div className="explore-courses">
+          <input type="text" name="name" id="name" placeholder={I18n.t('campaign.search_campaigns')} ref={inputRef}/>
+          <button onClick={onClickHandler}><i className="icon icon-search" /></button>
+        </div>
+        )
+      }
       <List
         elements={campaignElements}
         keys={keys}
