@@ -1,9 +1,9 @@
 import I18n from 'i18n-js';
 import React from 'react';
 import CampaignList from './campaign_list';
-import CampaignRowHomePage from './campaign_row_home_page';
+import DetailedCampaignRow from './detailed_campaign_row';
 
-const CampaignListHomePage = () => {
+const DetailedCampaignList = ({ limit, headerText }) => {
   const keys = {
     title: {
       label: I18n.t('campaign.campaigns'),
@@ -48,8 +48,8 @@ const CampaignListHomePage = () => {
     };
   }
   return (
-    <CampaignList RowElement={CampaignRowHomePage} keys={keys}/>
+    <CampaignList RowElement={DetailedCampaignRow} keys={keys} limit={limit} headerText={headerText}/>
   );
 };
 
-export default CampaignListHomePage;
+export default DetailedCampaignList;

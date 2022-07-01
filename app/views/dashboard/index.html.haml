@@ -87,6 +87,5 @@
     = render "blog"
 
   - if @pres.campaign_organizer? && !request.path.include?('/course_creator')
-    %h2= t("campaign.campaigns")
     -# this is the react root when at the root page
     #react_root

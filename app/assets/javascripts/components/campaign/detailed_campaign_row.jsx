@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CampaignRowHomePage = ({ campaign }) => {
+const DetailedCampaignRow = ({ campaign }) => {
   return (
     <tr>
       <td className="table-link-cell"><a href={`/campaigns/${campaign.slug}`} >{campaign.title}</a></td>
@@ -31,4 +31,4 @@ const CampaignRowHomePage = ({ campaign }) => {
   );
 };
 
-export default CampaignRowHomePage;
+export default DetailedCampaignRow;

@@ -10,9 +10,7 @@
     %button{type: 'submit'}
       %i.icon.icon-search
   = render 'search', query: @query, results: @results
-  // expire the campaigns cache every day. Caches are locale-specific.
-  - cache "#{Date.today}}-explore-campaigns-#{locale}" do
-    = render 'campaigns/campaigns', presenter: @presenter
+  #react_root{"data-current_user" => current_user ? { admin: current_user.admin?, id: current_user.id }.to_json : '{ "admin": false, "id": null }'}
   // It's too slow and not very useful to list the default campaign courses
   // on Programs & Events Dashboard. The division is far below the fold anyway.
   - if Features.wiki_ed?

@@ -5,12 +5,17 @@ import { useSearchParams } from 'react-router-dom';
 import { fetchAllCampaigns, sortCampaigns } from '../../actions/campaign_actions';
 import List from '../common/list';
 import Loading from '../common/loading';
+import DropdownSortSelect from '../common/dropdown_sort_select';
 
-const CampaignList = ({ keys, showSearch, RowElement }) => {
+const CampaignList = ({ keys, showSearch, RowElement, limit, headerText }) => {
   const { all_campaigns, all_campaigns_loaded, sort } = useSelector(state => state.campaigns);
   const [searchParams, setSearchParams] = useSearchParams();
   const search = searchParams.get('search');
-  const filteredCampaigns = search ? all_campaigns.filter(campaign => campaign.title.toLowerCase().includes(search.toLowerCase())) : all_campaigns;
+  let filteredCampaigns = search ? all_campaigns.filter(campaign => campaign.title.toLowerCase().includes(search.toLowerCase())) : all_campaigns;
+  if (limit) {
+    // take first "limit" elements
+    filteredCampaigns = filteredCampaigns.slice(0, limit);
+  }
   const dispatch = useDispatch();
   const inputRef = useRef();
 
@@ -40,6 +45,12 @@ const CampaignList = ({ keys, showSearch, RowElement }) => {
 
   return (
     <div className="container">
+      {headerText && (
+        <div className="section-header">
+          <h2>{headerText}</h2>
+          <DropdownSortSelect keys={keys} sortSelect={sortBy}/>
+        </div>
+      )}
       {
       showSearch && (
         <div className="explore-courses">
