@@ -7,15 +7,11 @@ import List from '../common/list';
 import Loading from '../common/loading';
 import DropdownSortSelect from '../common/dropdown_sort_select';
 
-const CampaignList = ({ keys, showSearch, RowElement, limit, headerText }) => {
+const CampaignList = ({ keys, showSearch, RowElement, headerText, userOnly, newest }) => {
   const { all_campaigns, all_campaigns_loaded, sort } = useSelector(state => state.campaigns);
   const [searchParams, setSearchParams] = useSearchParams();
   const search = searchParams.get('search');
-  let filteredCampaigns = search ? all_campaigns.filter(campaign => campaign.title.toLowerCase().includes(search.toLowerCase())) : all_campaigns;
-  if (limit) {
-    // take first "limit" elements
-    filteredCampaigns = filteredCampaigns.slice(0, limit);
-  }
+  const filteredCampaigns = search ? all_campaigns.filter(campaign => campaign.title.toLowerCase().includes(search.toLowerCase())) : all_campaigns;
   const dispatch = useDispatch();
   const inputRef = useRef();
 
@@ -34,7 +30,7 @@ const CampaignList = ({ keys, showSearch, RowElement, limit, headerText }) => {
   };
 
   useEffect(() => {
-    dispatch(fetchAllCampaigns());
+    dispatch(fetchAllCampaigns(userOnly, newest));
   }, []);
 
 

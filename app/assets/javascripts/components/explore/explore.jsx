@@ -8,7 +8,7 @@ const Explore = () => {
   const user = getCurrentUser(useSelector(state => state));
   return (
     <div id="campaigns">
-      <DetailedCampaignList limit={10} headerText={I18n.t('campaign.newest_campaigns')} />
+      <DetailedCampaignList headerText={I18n.t('campaign.newest_campaigns')} newest/>
       <div className="campaigns-actions" >
         {user.admin && <a className="button dark" href="campaigns/new?create=true">{I18n.t('campaign.create_campaign')}</a>}
         <a href="/campaigns" className="button">

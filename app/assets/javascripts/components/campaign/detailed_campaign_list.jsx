@@ -3,7 +3,7 @@ import React from 'react';
 import CampaignList from './campaign_list';
 import DetailedCampaignRow from './detailed_campaign_row';
 
-const DetailedCampaignList = ({ limit, headerText }) => {
+const DetailedCampaignList = ({ newest, headerText, userOnly }) => {
   const keys = {
     title: {
       label: I18n.t('campaign.campaigns'),
@@ -48,7 +48,7 @@ const DetailedCampaignList = ({ limit, headerText }) => {
     };
   }
   return (
-    <CampaignList RowElement={DetailedCampaignRow} keys={keys} limit={limit} headerText={headerText}/>
+    <CampaignList RowElement={DetailedCampaignRow} keys={keys} newest={newest} headerText={headerText} userOnly={userOnly}/>
   );
 };
 

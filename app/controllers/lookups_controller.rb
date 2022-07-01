@@ -8,10 +8,13 @@ class LookupsController < ApplicationController
 
   # Used to generate list of existing campaigns for pulldown
   def campaign
+    user_only = params[:user_only]
+    newest = params[:newest]
     @model = 'campaign'
     @key = 'title'
-    @values = Campaign.all.order(created_at: :desc)
-    render 'campaigns'
+    @values = user_only == 'true' ? current_user.campaigns : Campaign.all.order(created_at: :desc)
+    @values = @values.limit(10) if newest == 'true'
+    render user_only == 'true' ? 'user_campaigns' : 'campaigns'
   end
 
   # Used to generate list of existing tags for pulldown

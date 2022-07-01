@@ -82,8 +82,8 @@ export const addCampaign = (courseId, campaignId) => (dispatch) => {
   );
 };
 
-const fetchAllCampaignsPromise = async () => {
-  const response = await request('/lookups/campaign.json');
+const fetchAllCampaignsPromise = async (userOnly, newest) => {
+  const response = await request(`/lookups/campaign.json?user_only=${userOnly}&newest=${newest}`);
   if (!response.ok) {
     logErrorMessage(response);
     const data = await response.text();
@@ -93,9 +93,9 @@ const fetchAllCampaignsPromise = async () => {
   return response.json();
 };
 
-export const fetchAllCampaigns = () => (dispatch) => {
+export const fetchAllCampaigns = (userOnly, newest) => (dispatch) => {
   return (
-    fetchAllCampaignsPromise()
+    fetchAllCampaignsPromise(userOnly, newest)
       .then((data) => {
         dispatch({
           type: RECEIVE_ALL_CAMPAIGNS,
