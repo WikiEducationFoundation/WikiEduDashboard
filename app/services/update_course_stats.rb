@@ -30,6 +30,7 @@ class UpdateCourseStats
     update_average_pageviews
     update_caches
     import_summaries_and_update_wikidata_stats if wikidata
+    update_namespace_stats
     @course.update(needs_update: false)
     @end_time = Time.zone.now
     UpdateLogger.update_course(@course, 'start_time' => @start_time.to_datetime,
@@ -84,6 +85,10 @@ class UpdateCourseStats
 
   def wikidata
     @course.wikis.find { |wiki| wiki.project == 'wikidata' }
+  end
+
+  def update_namespace_stats
+    UpdateNamespaceStats.new(@course)
   end
 
   def log_update_progress(step)

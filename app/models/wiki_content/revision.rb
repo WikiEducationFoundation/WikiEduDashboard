@@ -31,6 +31,7 @@ class Revision < ApplicationRecord
   scope :live, -> { where(deleted: false) }
   scope :user, -> { where(system: false) }
   scope :suspected_plagiarism, -> { where.not(ithenticate_id: nil) }
+  scope :namespace, -> (ns) { joins(:article).where(articles: { namespace: ns }) }
 
   # Helps with importing data
   alias_attribute :rev_id, :mw_rev_id

@@ -26,6 +26,7 @@ class ArticlesCourses < ApplicationRecord
   scope :ready_for_update, -> { joins(:course).merge(Course.ready_for_update).distinct }
   scope :tracked, -> { where(tracked: true).distinct }
   scope :not_tracked, -> { where(tracked: false).distinct }
+  scope :namespace, -> (ns) { joins(:article).where(articles: { namespace: ns }) }
 
   serialize :user_ids, Array # This text field only stores user ids as text
 
@@ -100,7 +101,7 @@ class ArticlesCourses < ApplicationRecord
 
   def self.update_from_course(course)
     course_article_ids = course.articles.where(wiki: course.wikis).pluck(:id)
-    revision_article_ids = get_mainspace_revisions(course.revisions).distinct.pluck(:article_id)
+    revision_article_ids = course.revisions.distinct.pluck(:article_id)
 
     # Remove all the ArticlesCourses that do not correspond to course revisions.
     # That may happen if the course dates changed, so some revisions are no
@@ -126,9 +127,5 @@ class ArticlesCourses < ApplicationRecord
       next if valid_article_ids.include?(article_id)
       find(id).destroy
     end
-  end
-
-  def self.get_mainspace_revisions(revisions)
-    revisions.joins(:article).where(articles: { namespace: '0' })
   end
 end
