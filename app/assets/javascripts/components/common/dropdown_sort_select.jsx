@@ -11,6 +11,8 @@ const DropdownSortSelect = ({ keys, sortSelect }) => {
   return (
     <div className="sort-select">
       <select className="sorts" name="sorts" onChange={onChangeHandler}>
+        {/* this ensures that clicking on the first item fires the change listener */}
+        <option defaultChecked style={{ display: 'none' }}/>
         {Object.entries(keys).map(([key, value]) =>
           <option key={key} value={key}>{value.label}</option>
       )}

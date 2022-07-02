@@ -40,12 +40,54 @@ describe 'the explore page', type: :feature, js: true do
   end
 
   describe 'campaigns list' do
+    before do
+      @campaign_name_a = create(:campaign, title: 'A campaign starting with A',
+        start: Date.civil(2016, 1, 10),
+        end: Date.civil(2016, 2, 10))
+      @campaign_name_z = create(:campaign, title: 'Z campaign starting with Z',
+        start: Date.civil(2015, 1, 10),
+        end: Date.civil(2016, 2, 10))
+      @campaign_name_b = create(:campaign, title: 'Better campaign starting with B',
+        start: Date.civil(2016, 1, 10),
+        end: Date.civil(2017, 2, 10))
+    end
+
     it 'list active campaigns' do
-      campaign2 = create(:campaign, title: 'My old not as awesome campaign',
-                                    start: Date.civil(2016, 1, 10),
-                                    end: Date.civil(2016, 2, 10))
       visit '/explore'
-      expect(page).to have_content(campaign2.title)
+      expect(page).to have_content(@campaign_name_a.title)
+      expect(page).to have_content(@campaign_name_z.title)
+      expect(page).to have_content(@campaign_name_b.title)
+      expect(page).to have_content(campaign.title)
+    end
+
+    describe 'allow sorting by' do
+      it 'clicking on header' do
+        visit '/explore'
+        page.find('th.sortable', text: 'Campaigns').click
+        titles = page.all('tr .table-link-cell.title')
+        expect(titles[0].text).to eq(@campaign_name_a.title)
+        expect(titles[1].text).to eq(@campaign_name_b.title)
+        expect(titles[2].text).to eq(campaign.title) # starts with S
+        expect(titles[3].text).to eq(@campaign_name_z.title)
+        expect(page).to have_selector(:css, 'th.title.sortable.asc')
+        # reverse sort
+        page.find('th.title.sortable').click
+        expect(page).to have_selector(:css, 'th.title.sortable.desc')
+      end
+
+      it 'dropdown' do
+        visit '/explore'
+        find('.sort-select select.sorts').click
+        find('option', text: 'Campaigns').click
+
+        expect(page).to have_selector(:css, 'th.title.sortable.asc')
+        titles = page.all('tr .table-link-cell.title')
+
+        expect(titles[0].text).to eq(@campaign_name_a.title)
+        expect(titles[1].text).to eq(@campaign_name_b.title)
+        expect(titles[2].text).to eq(campaign.title) # starts with S
+        expect(titles[3].text).to eq(@campaign_name_z.title)
+      end
     end
   end
 
