@@ -39,6 +39,16 @@ describe 'the explore page', type: :feature, js: true do
     end
   end
 
+  describe 'campaigns list' do
+    it 'list active campaigns' do
+      campaign2 = create(:campaign, title: 'My old not as awesome campaign',
+                                    start: Date.civil(2016, 1, 10),
+                                    end: Date.civil(2016, 2, 10))
+      visit '/explore'
+      expect(page).to have_content(campaign2.title)
+    end
+  end
+
   describe 'course list' do
     it 'is sortable' do
       visit '/explore'

@@ -19,16 +19,6 @@ describe ExploreController, type: :request do
       expect(response).to redirect_to(campaign_path(campaign.slug))
     end
 
-    it 'list active campaigns' do
-      campaign2 = create(:campaign, title: 'My old not as awesome campaign',
-                                    start: Date.civil(2016, 1, 10),
-                                    end: Date.civil(2016, 2, 10))
-      get '/explore'
-      expect(response.status).to eq(200)
-      expect(response.body).to include(campaign.title)
-      expect(response.body).not_to include(campaign2.title)
-    end
-
     describe 'lists active courses of the default campaign' do
       let(:course) do
         create(:course, title: 'My awesome course',
