@@ -13,7 +13,7 @@ const DetailedCampaignList = ({ newest, headerText, userOnly }) => {
       label: 'Programs',
       desktop_only: false,
     },
-    new_articles_count: {
+    new_article_count: {
       label: I18n.t('metrics.articles_created'),
       desktop_only: false
     },
