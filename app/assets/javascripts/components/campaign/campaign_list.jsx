@@ -20,7 +20,14 @@ const CampaignList = ({ keys, showSearch, RowElement, headerText, userOnly, newe
   };
 
   if (sort.key) {
-    keys[sort.key].order = (sort.sortKey) ? 'asc' : 'desc';
+    // eslint-disable-next-line no-restricted-syntax
+    for (const key of Object.keys(keys)) {
+      if (key === sort.key) {
+        keys[sort.key].order = (sort.sortKey) ? 'asc' : 'desc';
+      } else {
+        keys[key].order = undefined;
+      }
+    }
   }
 
   const onClickHandler = () => {
