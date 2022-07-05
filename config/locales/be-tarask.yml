@@ -322,6 +322,8 @@ be-tarask:
   revisions:
     diff_show: Паказаць
     diff_hide: Схаваць
+  timeline:
+    discard_all_changes: Адкінуць усе зьмены
   uploads:
     label: Загрузкі
   article_finder:

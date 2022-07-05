@@ -32,7 +32,7 @@ eu:
     cancel: Utzi
     cookie_consent: Gune honek cookie-ak erabiltzen ditu konektatuta mantentzeko eta
       zure Wikipedia kontuarekin lotutako informazioa biltzen du.
-    cookie_consent_acknowledge: Ulertzen dut
+    cookie_consent_acknowledge: Ulertu dut
     cookie_consent_see_more: Gehiago ikusi.
     create_accounts: Wikipedia kontuak sortu
     dashboard: Wiki Hezkuntzako Arbela
@@ -125,6 +125,8 @@ eu:
     edited_by: Nork editatua
     label: Jarduera
   articles:
+    articles: Artikuluak
+    article_not_found: Artikulu hau ez da sortu oraindik.
     article_development: (artikuluaren garapena)
     articles_shown: '%{count}ikusgai %{total}-(e)tik'
     assigned: Esleitutako artikuluak

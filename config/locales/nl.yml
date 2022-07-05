@@ -25,6 +25,7 @@
 # Author: RadioAzureus
 # Author: Ragesoss
 # Author: Romaine
+# Author: Rots61
 # Author: SPQRobin
 # Author: Siebrand
 # Author: Sjoerddebruin
@@ -446,6 +447,7 @@ nl:
     assignment_end: Einde gebeurtenis
     assignments_none: Aan dit project zijn geen artikelen toegewezen.
     assignment_start: Begin gebeurtenis
+    cancel: Annuleren
     creator:
       assignment_start_placeholder: YYYY-MM-DD
       checking_for_uniqueness: Dit programma wordt gecontroleerd op uniciteit.
