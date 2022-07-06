@@ -93,7 +93,9 @@ const fetchAllCampaignsPromise = async (userOnly, newest) => {
   return response.json();
 };
 
-export const fetchAllCampaigns = (userOnly, newest) => (dispatch) => {
+// if userOnly is set to true, only campaigns the user has created will be returned
+// newest limits the campaigns to the 10 most recent ones
+export const fetchAllCampaigns = (userOnly = false, newest = false) => (dispatch) => {
   return (
     fetchAllCampaignsPromise(userOnly, newest)
       .then((data) => {
