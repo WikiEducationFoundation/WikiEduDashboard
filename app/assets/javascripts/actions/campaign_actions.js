@@ -82,8 +82,8 @@ export const addCampaign = (courseId, campaignId) => (dispatch) => {
   );
 };
 
-const fetchAllCampaignsPromise = async (userOnly, newest) => {
-  const response = await request(`/lookups/campaign.json?user_only=${userOnly}&newest=${newest}`);
+const fetchAllCampaignsPromise = async () => {
+  const response = await request('/lookups/campaign.json');
   if (!response.ok) {
     logErrorMessage(response);
     const data = await response.text();
@@ -93,11 +93,38 @@ const fetchAllCampaignsPromise = async (userOnly, newest) => {
   return response.json();
 };
 
+
+export const fetchAllCampaigns = () => (dispatch) => {
+  return (
+    fetchAllCampaignsPromise()
+      .then((data) => {
+        dispatch({
+          type: RECEIVE_ALL_CAMPAIGNS,
+          data
+        });
+      })
+      .catch(response => (dispatch({ type: API_FAIL, data: response })))
+  );
+};
+
+const fetchCampaignStatisticsPromise = async (userOnly, newest) => {
+  const response = await request(`/campaigns/statistics.json?user_only=${userOnly}&newest=${newest}`);
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
+  }
+  return response.json();
+};
+
+
+// this function returns the campaigns along with their statistics data
 // if userOnly is set to true, only campaigns the user has created will be returned
 // newest limits the campaigns to the 10 most recent ones
-export const fetchAllCampaigns = (userOnly = false, newest = false) => (dispatch) => {
+export const fetchCampaignStatistics = (userOnly = false, newest = false) => (dispatch) => {
   return (
-    fetchAllCampaignsPromise(userOnly, newest)
+    fetchCampaignStatisticsPromise(userOnly, newest)
       .then((data) => {
         dispatch({
           type: RECEIVE_ALL_CAMPAIGNS,

@@ -48,7 +48,7 @@ const DetailedCampaignList = ({ newest, headerText, userOnly }) => {
     };
   }
   return (
-    <CampaignList RowElement={DetailedCampaignRow} keys={keys} newest={newest} headerText={headerText} userOnly={userOnly}/>
+    <CampaignList RowElement={DetailedCampaignRow} keys={keys} newest={newest} headerText={headerText} userOnly={userOnly} showStatistics/>
   );
 };
 

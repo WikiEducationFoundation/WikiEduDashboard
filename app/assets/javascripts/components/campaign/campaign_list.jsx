@@ -2,12 +2,12 @@ import I18n from 'i18n-js';
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
-import { fetchAllCampaigns, sortCampaigns } from '../../actions/campaign_actions';
+import { fetchAllCampaigns, fetchCampaignStatistics, sortCampaigns } from '../../actions/campaign_actions';
 import List from '../common/list';
 import Loading from '../common/loading';
 import DropdownSortSelect from '../common/dropdown_sort_select';
 
-const CampaignList = ({ keys, showSearch, RowElement, headerText, userOnly, newest }) => {
+const CampaignList = ({ keys, showSearch, RowElement, headerText, userOnly, newest, showStatistics = false }) => {
   const { all_campaigns, all_campaigns_loaded, sort } = useSelector(state => state.campaigns);
   const [searchParams, setSearchParams] = useSearchParams();
   const search = searchParams.get('search');
@@ -37,7 +37,11 @@ const CampaignList = ({ keys, showSearch, RowElement, headerText, userOnly, newe
   };
 
   useEffect(() => {
-    dispatch(fetchAllCampaigns(userOnly, newest));
+    if (showStatistics) {
+      dispatch(fetchCampaignStatistics(userOnly, newest));
+    } else {
+      dispatch(fetchAllCampaigns());
+    }
   }, []);
 
 
