@@ -69,7 +69,7 @@ If you know your way around Rails, here's the very short version. Some additiona
       *  or update `database.yml` with valid credentials to connect to the database
 6. Create a new database named as `dashboard` using the command `CREATE DATABASE dashboard`.
 7. Run `rake db:migrate` to migrate all database tables.
-8. Install yarn
+8. Install yarn (modern)
 9. Run `yarn` to download the required javascript packages
 10. **Building assets:**
       * `yarn start` to built the development version
@@ -124,7 +124,8 @@ If you know your way around Rails, here's the very short version. Some additiona
     - $ `bundle install`
     - If some gems fail to install, you may need to install some dependencies, such as: `libmysqlclient-dev libpq-dev libqtwebkit-dev`
 
-- [Install Yarn](https://yarnpkg.com/lang/en/docs/install/)
+- [Install Yarn Modern](https://yarnpkg.com/getting-started/install)
+
 - Install node modules via Yarn:
     - $ `yarn`
 
