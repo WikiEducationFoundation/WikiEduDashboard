@@ -173,8 +173,8 @@ class CampaignsController < ApplicationController
   def statistics
     user_only = params[:user_only]
     newest = params[:newest]
-    @values = user_only == 'true' ? current_user.campaigns : Campaign.all.order(created_at: :desc)
-    @values = @values.limit(10) if newest == 'true'
+    @campaigns = user_only == 'true' ? current_user.campaigns : Campaign.all.order(created_at: :desc)
+    @campaigns = @campaigns.limit(10) if newest == 'true'
     render user_only == 'true' ? 'user_statistics' : 'statistics'
   end
 

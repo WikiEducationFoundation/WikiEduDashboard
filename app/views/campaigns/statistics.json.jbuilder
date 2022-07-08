@@ -1,6 +1,6 @@
 # frozen_string_literal: true
-json.cache! ["#{Time.zone}}-explore-campaigns-#{locale}", @values], expires_in: 1.day do
-  json.campaigns @values do |campaign|
+json.cache! ["#{Time.zone}}-explore-campaigns-#{locale}", @campaigns], expires_in: 1.day do
+  json.campaigns @campaigns do |campaign|
     presenter = CoursesPresenter.new(
       current_user: current_user,
       campaign_param: campaign.slug

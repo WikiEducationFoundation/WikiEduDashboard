@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-json.campaigns @values do |campaign|
+json.campaigns @campaigns do |campaign|
   presenter = CoursesPresenter.new(
     current_user: current_user,
     campaign_param: campaign.slug
