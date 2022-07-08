@@ -31,7 +31,8 @@
       enableAdvancedFeatures: "#{ENV['ENABLE_ADVANCED_FEATURES']}",
       consentBanner: #{user_signed_in? && !Rails.env.test?},
       user_signed_in: #{user_signed_in?},
-      open_course_creation: #{Features.open_course_creation?}
+      open_course_creation: #{Features.open_course_creation?},
+      default_course_string_prefix: "#{Features.default_course_string_prefix}"
     }
 
     WikiProjects = document.querySelector('meta[name="data-projects"]').content

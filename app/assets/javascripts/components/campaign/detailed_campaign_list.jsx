@@ -10,7 +10,7 @@ const DetailedCampaignList = ({ newest, headerText, userOnly }) => {
       desktop_only: false,
     },
     course_count: {
-      label: 'Programs',
+      label: I18n.t(`${Features.default_course_string_prefix}.courses`),
       desktop_only: false,
     },
     new_article_count: {
