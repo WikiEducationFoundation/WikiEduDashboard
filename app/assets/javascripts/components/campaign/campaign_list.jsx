@@ -6,12 +6,13 @@ import { fetchAllCampaigns, fetchCampaignStatistics, sortCampaigns } from '../..
 import List from '../common/list';
 import Loading from '../common/loading';
 import DropdownSortSelect from '../common/dropdown_sort_select';
+import SearchBar from '../common/search_bar';
 
 const CampaignList = ({ keys, showSearch, RowElement, headerText, userOnly, newest, showStatistics = false }) => {
   const { all_campaigns, all_campaigns_loaded, sort } = useSelector(state => state.campaigns);
   const [searchParams, setSearchParams] = useSearchParams();
   const search = searchParams.get('search');
-  const filteredCampaigns = search ? all_campaigns.filter(campaign => campaign.title.toLowerCase().includes(search.toLowerCase())) : all_campaigns;
+  const filteredCampaigns = showSearch && search ? all_campaigns.filter(campaign => campaign.title.toLowerCase().includes(search.toLowerCase())) : all_campaigns;
   const dispatch = useDispatch();
   const inputRef = useRef();
 
@@ -60,9 +61,8 @@ const CampaignList = ({ keys, showSearch, RowElement, headerText, userOnly, newe
       )}
       {
       showSearch && (
-        <div className="explore-courses">
-          <input type="text" name="name" id="name" placeholder={I18n.t('campaign.search_campaigns')} ref={inputRef}/>
-          <button onClick={onClickHandler}><i className="icon icon-search" /></button>
+        <div className="explore-courses" >
+          <SearchBar ref={inputRef} onClickHandler={onClickHandler} placeholder={I18n.t('campaign.search_campaigns')}/>
         </div>
         )
       }

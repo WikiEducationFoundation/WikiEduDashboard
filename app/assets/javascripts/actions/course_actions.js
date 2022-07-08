@@ -1,10 +1,11 @@
 import {
   ADD_NOTIFICATION, API_FAIL, UPDATE_COURSE, RECEIVE_COURSE, RECEIVE_COURSE_UPDATE,
   PERSISTED_COURSE, DISMISS_SURVEY_NOTIFICATION, TOGGLE_EDITING_SYLLABUS,
-  START_SYLLABUS_UPLOAD, SYLLABUS_UPLOAD_SUCCESS, LINKED_TO_SALESFORCE, COURSE_SLUG_EXISTS
+  START_SYLLABUS_UPLOAD, SYLLABUS_UPLOAD_SUCCESS, LINKED_TO_SALESFORCE, COURSE_SLUG_EXISTS, RECEIVE_COURSE_SEARCH_RESULTS, SORT_COURSE_SEARCH_RESULTS, FETCH_COURSE_SEARCH_RESULTS
 } from '../constants';
 import API from '../utils/api.js';
 import CourseUtils from '../utils/course_utils';
+import request from '../utils/request';
 
 export const fetchCourse = courseSlug => (dispatch) => {
   return API.fetch(courseSlug, 'course')
@@ -149,3 +150,17 @@ export const greetStudents = courseId => (dispatch) => {
     .then(data => dispatch({ type: 'GREETED_STUDENTS', data }))
     .catch(data => ({ type: API_FAIL, data }));
 };
+
+
+export const searchPrograms = searchQuery => async (dispatch) => {
+  dispatch({ type: FETCH_COURSE_SEARCH_RESULTS });
+  const response = await request(`/courses/search.json?search=${searchQuery}`);
+  if (!response.ok) {
+    const data = await response.text();
+    return dispatch({ type: API_FAIL, data });
+  }
+  const data = await response.json();
+  return dispatch({ type: RECEIVE_COURSE_SEARCH_RESULTS, data });
+};
+
+export const sortCourseSearchResults = key => ({ type: SORT_COURSE_SEARCH_RESULTS, key: key });

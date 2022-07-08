@@ -13,15 +13,5 @@ class ExploreController < ApplicationController
                                       campaign_param: CampaignsPresenter.default_campaign_slug)
     @campaign = @presenter.campaign
     redirect_to '/' unless @campaign
-    set_search if params[:search].present?
-  end
-
-  def set_search
-    search_presenter = CoursesPresenter.new(
-      current_user: current_user,
-      courses_list: Course.where(private: false)
-    )
-    @query = params[:search]
-    @results = search_presenter.search_courses(@query)
   end
 end

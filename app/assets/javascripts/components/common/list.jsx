@@ -13,7 +13,9 @@ const List = createReactClass({
     elements: PropTypes.node,
     none_message: PropTypes.string,
     sortBy: PropTypes.func,
-    stickyHeader: PropTypes.bool
+    stickyHeader: PropTypes.bool,
+    info_key: PropTypes.string,
+    info_key_options: PropTypes.object,
   },
 
   getInitialState() {
@@ -83,9 +85,10 @@ const List = createReactClass({
       }
       if (keyObj.info_key) {
         headerClass += ' tooltip-trigger';
+        const options = keyObj.info_key_options ?? {};
         tooltip = [(
           <div key="tt" className="tooltip dark">
-            <p>{I18n.t(keyObj.info_key)}</p>
+            <p>{I18n.t(keyObj.info_key, options)}</p>
           </div>
         ), (
           <span key="ttindicator" className="tooltip-indicator" />

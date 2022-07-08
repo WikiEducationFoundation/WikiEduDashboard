@@ -120,6 +120,7 @@ Rails.application.routes.draw do
         :as => :refresh_ores_data, constraints: { id: /.*/ }
     get 'courses/*id/check' => 'courses#check',
         :as => :check, constraints: { id: /.*/ }
+    get 'courses/search.json' => 'courses#search'
     match 'courses/*id/campaign' => 'courses#list',
           constraints: { id: /.*/ }, via: [:post, :delete]
     match 'courses/*id/tag' => 'courses#tag',
@@ -323,6 +324,7 @@ Rails.application.routes.draw do
   # Misc
   # get 'courses' => 'courses#index'
   get 'explore' => 'explore#index'
+  get 'explore/search' => 'explore#search'
   get 'unsubmitted_courses' => 'unsubmitted_courses#index'
   get 'active_courses' => 'active_courses#index'
   get '/courses_by_wiki/:language.:project(.org)' => 'courses_by_wiki#show'

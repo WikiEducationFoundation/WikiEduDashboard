@@ -73,6 +73,15 @@ class CoursesController < ApplicationController
     redirect_to "/courses/#{course.slug}"
   end
 
+  def search
+    search_presenter = CoursesPresenter.new(
+      current_user: current_user,
+      courses_list: Course.where(private: false)
+    )
+    @query = params[:search]
+    @courses = search_presenter.search_courses(@query)
+  end
+
   ##############################
   # Course data json endpoints #
   ##############################
