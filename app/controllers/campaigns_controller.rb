@@ -173,7 +173,9 @@ class CampaignsController < ApplicationController
   def statistics
     user_only = params[:user_only]
     newest = params[:newest]
+    # rubocop:disable Layout/LineLength
     @campaigns = user_only == 'true' ? current_user.campaigns : Campaign.all.order(created_at: :desc)
+    # rubocop:enable Layout/LineLength
     @campaigns = @campaigns.limit(10) if newest == 'true'
     render user_only == 'true' ? 'user_statistics' : 'statistics'
   end
