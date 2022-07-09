@@ -193,12 +193,10 @@ with a few example events with editing activity.
       $ `rails s`
 
 3. **Compile assets**
-    - The `yarn start` command will build the project's javascripts and stylesheets
-    (in lieu of the rails asset pipeline), and watch the assets directory, recompiling
-    after changes to javascript, jsx and stylesheet files. Using `yarn build` instead
-    will generate the minified production version of assets.
 
-      $ `yarn start`
+    The `yarn start` command will build the project's javascripts and stylesheets(in lieu of the rails asset pipeline), and watch the assets directory, recompiling after changes to javascript, jsx and stylesheet files. Using `yarn build` instead will generate the minified production version of assets.
+
+    You can also use `yarn hot` to enable HMR. [See more](#hot-module-replacement).
 
 4. The frontend is now visible at http://localhost:3000/
 
@@ -209,3 +207,13 @@ with a few example events with editing activity.
 ## Design
 
 The living style guide illustrates many of the design building blocks of the dashboard, which you can use for creating new features: http://localhost:3000/styleguide
+
+## Hot Module Replacement
+
+For pages which are primarily rendered in react, you can use the hot module replacement feature of webpack. This allows you to edit a component and see its changes reflect in the browser without reloading the page. You can learn more about HMR [here](https://webpack.js.org/concepts/hot-module-replacement/)
+
+To enable HMR, set `hot_loading` to `true` in `config/application.yml`. Next, run `yarn hot`.
+
+With HMR, no files are written to the filesystem. Instead, the browser will ask the server for the latest version of the files, which serves the files in memory.
+
+This also means that to run the test suite(which require the files to be present on the disk), you need to run `yarn build` instead.
