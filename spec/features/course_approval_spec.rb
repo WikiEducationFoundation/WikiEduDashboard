@@ -87,13 +87,13 @@ describe 'Course Approval', type: :feature, js: true do
 
       it 'submits the form' do
         visit "/courses/#{Course.first.slug}"
-        sleep 1 # Workaround for race condition if all fetches haven't completed before button is clicked
+        sleep 1 # Workaround: race condition if fetches haven't completed before button is clicked
         click_button 'Approve Course'
         expect(page).to have_content 'Your course has been published'
         # rubocop:disable Layout/LineLength
         expect(page).not_to have_content 'This course has been submitted for approval by its creator'
         # rubocop:enable Layout/LineLength
-        sleep 1 # Workaround for possible race condition, if some update requests haven't completed yet
+        sleep 1 # Workaround: possible race condition if all update requests haven't completed yet
       end
     end
   end
