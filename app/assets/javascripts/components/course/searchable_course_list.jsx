@@ -6,6 +6,7 @@ import { searchPrograms, sortCourseSearchResults } from '../../actions/course_ac
 import Loading from '../common/loading';
 import { useDispatch, useSelector } from 'react-redux';
 import CourseList from './course_list';
+import CourseRow from './course_row';
 
 const default_course_string_prefix = Features.default_course_string_prefix;
 const keys = {
@@ -93,7 +94,7 @@ const SearchableCourseList = () => {
     <>
       <SearchBar onClickHandler={fetchResults} ref={searchRef} placeholder={I18n.t(`${default_course_string_prefix}.search_courses`)} value={search ?? ''} name="program-search"/>
       {search && !loaded && <Loading />}
-      {search && loaded && <CourseList keys={keys} courses={results} none_message={I18n.t('application.no_results', { query: search })} sortBy={sortBy}/>}
+      {search && loaded && <CourseList keys={keys} courses={results} none_message={I18n.t('application.no_results', { query: search })} sortBy={sortBy} RowElement={CourseRow}/>}
     </>
   );
 };

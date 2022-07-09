@@ -5,14 +5,4 @@
     %h1=  ENV['dashboard_title']
 
 .container
-  -# = form_tag explore_path, class: 'explore-courses', method: :get do
-  -#   = text_field_tag(:search, '', placeholder: t("#{@presenter.course_string_prefix}.search_courses"))
-  -#   %button{type: 'submit'}
-  -#     %i.icon.icon-search
-  -# = render 'search', query: @query, results: @results
   #react_root{"data-current_user" => current_user ? { admin: current_user.admin?, id: current_user.id }.to_json : '{ "admin": false, "id": null }'}
-  // It's too slow and not very useful to list the default campaign courses
-  // on Programs & Events Dashboard. The division is far below the fold anyway.
-  - if Features.wiki_ed?
-    %hr
-    = render 'courses/campaign_courses', presenter: @presenter

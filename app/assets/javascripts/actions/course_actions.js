@@ -1,7 +1,7 @@
 import {
   ADD_NOTIFICATION, API_FAIL, UPDATE_COURSE, RECEIVE_COURSE, RECEIVE_COURSE_UPDATE,
   PERSISTED_COURSE, DISMISS_SURVEY_NOTIFICATION, TOGGLE_EDITING_SYLLABUS,
-  START_SYLLABUS_UPLOAD, SYLLABUS_UPLOAD_SUCCESS, LINKED_TO_SALESFORCE, COURSE_SLUG_EXISTS, RECEIVE_COURSE_SEARCH_RESULTS, SORT_COURSE_SEARCH_RESULTS, FETCH_COURSE_SEARCH_RESULTS
+  START_SYLLABUS_UPLOAD, SYLLABUS_UPLOAD_SUCCESS, LINKED_TO_SALESFORCE, COURSE_SLUG_EXISTS, RECEIVE_COURSE_SEARCH_RESULTS, SORT_COURSE_SEARCH_RESULTS, FETCH_COURSE_SEARCH_RESULTS, RECEIVE_ACTIVE_COURSES, SORT_ACTIVE_COURSES
 } from '../constants';
 import API from '../utils/api.js';
 import CourseUtils from '../utils/course_utils';
@@ -164,3 +164,15 @@ export const searchPrograms = searchQuery => async (dispatch) => {
 };
 
 export const sortCourseSearchResults = key => ({ type: SORT_COURSE_SEARCH_RESULTS, key: key });
+
+export const fetchActiveCourses = campaign_slug => async (dispatch) => {
+  const response = await request(`/campaigns/${campaign_slug}/active_courses.json`);
+  if (!response.ok) {
+    const data = await response.text();
+    return dispatch({ type: API_FAIL, data });
+  }
+  const data = await response.json();
+  return dispatch({ type: RECEIVE_ACTIVE_COURSES, data });
+};
+
+export const sortActiveCourses = key => ({ type: SORT_ACTIVE_COURSES, key: key });

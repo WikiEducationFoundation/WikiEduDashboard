@@ -250,6 +250,7 @@ Rails.application.routes.draw do
       put 'add_organizer'
       put 'remove_organizer'
       put 'remove_course'
+      get 'active_courses'
     end
   end
   

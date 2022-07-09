@@ -12,7 +12,7 @@ class CampaignsController < ApplicationController
                                         update destroy add_organizer remove_organizer
                                         remove_course courses ores_plot articles_csv
                                         revisions_csv alerts students instructors
-                                        wikidata]
+                                        wikidata active_courses]
   before_action :require_create_permissions, only: [:create]
   before_action :require_write_permissions, only: %i[update destroy add_organizer
                                                      remove_organizer remove_course edit]
@@ -168,6 +168,14 @@ class CampaignsController < ApplicationController
     flash[:notice] = t(message, title: params[:course_title],
                                 campaign_title: @campaign.title)
     redirect_to programs_campaign_path(@campaign.slug)
+  end
+
+  def active_courses
+    presenter = CoursesPresenter.new(
+      current_user: current_user,
+      campaign_param: @campaign.slug
+    )
+    @courses = presenter.active_courses_by_recent_edits
   end
 
   def statistics

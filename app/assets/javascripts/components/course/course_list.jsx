@@ -1,12 +1,21 @@
 import React from 'react';
 import List from '../common/list';
-import CourseRow from './course_row';
+import DropdownSortSelect from '../common/dropdown_sort_select';
 
-
-const CourseList = ({ keys, courses, none_message, sortBy }) => {
-  const elements = courses.map(course => <CourseRow course={course} key={course.slug}/>);
+const CourseList = ({ keys, courses, none_message, sortBy, RowElement, headerText, showSortDropdown }) => {
+  const elements = courses.map(course => <RowElement course={course} key={course.slug}/>);
   return (
-    <List keys={keys} elements={elements} none_message={none_message} sortable={true} sortBy={sortBy}/>
+    <>
+      {
+        showSortDropdown
+        && (
+        <div className="section-header">
+          <h2>{headerText}</h2>
+          <DropdownSortSelect keys={keys} sortSelect={sortBy}/>
+        </div>
+      )}
+      <List keys={keys} elements={elements} none_message={none_message} sortable={true} sortBy={sortBy}/>
+    </>
   );
 };
 

@@ -39,6 +39,7 @@ import validations from './validations';
 import wikidataLabels from './wikidata_labels';
 import wizard from './wizard';
 import course_search_results from './course_search_results';
+import active_courses from './active_courses';
 
 const reducer = combineReducers({
   admins: (state = {}) => state, // only set from preloaded state
@@ -82,7 +83,8 @@ const reducer = combineReducers({
   validations,
   wikidataLabels,
   wizard,
-  course_search_results
+  course_search_results,
+  active_courses,
 });
 
 export default reducer;

@@ -36,3 +36,4 @@ export * from './validations';
 export * from './wikidata_labels';
 export * from './wizard';
 export * from './course_search_results';
+export * from './active_courses';
