@@ -1,8 +1,4 @@
 - content_for :after_title, " - #{t(Features.wiki_ed? ? 'application.explore' : 'courses_generic.explore')}"
 
-%header.main-page
-  .container
-    %h1=  ENV['dashboard_title']
-
 .container
   #react_root{"data-current_user" => current_user ? { admin: current_user.admin?, id: current_user.id }.to_json : '{ "admin": false, "id": null }'}

@@ -42,6 +42,7 @@
 
     SentryDsn = "#{ENV['sentry_public_dsn']}"
     SalesforceServer = "#{ENV['SF_SERVER']}"
+    dashboardTitle = "#{ENV['dashboard_title']}"
 
   = hot_javascript_tag "vendors"
   - if Features.sentry?

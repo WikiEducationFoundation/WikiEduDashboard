@@ -34,7 +34,7 @@ const routes = (
     <Route path="/tagged_courses/:tag/alerts" element={<TaggedCourseAlerts />} />
     <Route index element={<DetailedCampaignList headerText={I18n.t('campaign.campaigns')} userOnly={true}/>} />
     <Route path="/dashboard" element={<DetailedCampaignList headerText={I18n.t('campaign.campaigns')} userOnly={true}/>} />
-    <Route path="/explore" element={<Explore />} />
+    <Route path="/explore" element={<Explore dashboardTitle={window.dashboardTitle}/>} />
     {/* this prevents the "route not found" warning for pages which are server rendered */}
     <Route path="*" element={<div style={{ display: 'none' }}/>} />
   </Routes>
