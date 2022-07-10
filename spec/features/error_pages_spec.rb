@@ -36,7 +36,7 @@ describe 'error pages' do
     it 'says there was a server error' do
       allow(CoursesPresenter).to receive(:new).and_raise(StandardError)
       visit '/'
-      expect(page).to have_content 'internal server error'
+      expect(page).to have_content 'Internal Server Error'
       expect(page.status_code).to eq(500)
     end
   end

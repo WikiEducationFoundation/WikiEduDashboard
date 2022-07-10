@@ -85,7 +85,7 @@ describe 'open course creation', type: :feature, js: true do
   it 'enables the "find your program" button' do
     visit root_path
     click_link 'Find a Program'
-    page.find('#campaigns')
+    page.find('#campaigns_list')
   end
 
   it 'creates a course belonging to a given campaign' do
