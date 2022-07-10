@@ -18,26 +18,7 @@ describe 'the explore page', type: :feature, js: true do
            user_id: user.id,
            role: CoursesUsers::Roles::STUDENT_ROLE)
   end
-
-  describe 'control bar' do
-    it 'allows sorting via dropdown' do
-      visit '/explore'
-
-      # sorting via dropdown
-      find('#courses select.sorts').find(:xpath, 'option[2]').select_option
-      expect(page).to have_selector('[data-sort="revisions"].sort.desc')
-      find('#courses select.sorts').find(:xpath, 'option[3]').select_option
-      expect(page).to have_selector('[data-sort="characters"].sort.desc')
-      find('#courses select.sorts').find(:xpath, 'option[5]').select_option
-      expect(page).to have_selector('[data-sort="references"].sort.desc')
-      find('#courses select.sorts').find(:xpath, 'option[6]').select_option
-      expect(page).to have_selector('[data-sort="views"].sort.desc')
-      find('#courses select.sorts').find(:xpath, 'option[7]').select_option
-      expect(page).to have_selector('[data-sort="students"].sort.desc')
-      find('#courses select.sorts').find(:xpath, 'option[1]').select_option
-      expect(page).to have_selector('[data-sort="title"].sort.asc')
-    end
-  end
+  let(:admin) { create(:admin) }
 
   describe 'campaigns list' do
     before do
@@ -63,25 +44,25 @@ describe 'the explore page', type: :feature, js: true do
     describe 'allow sorting by' do
       it 'clicking on header' do
         visit '/explore'
-        page.find('th.sortable', text: 'Campaigns').click
-        titles = page.all('tr .table-link-cell.title')
+        page.find('#campaigns_list th.sortable', text: 'Campaigns').click
+        titles = page.all('#campaigns_list tr .table-link-cell.title')
         expect(titles[0].text).to eq(@campaign_name_a.title)
         expect(titles[1].text).to eq(@campaign_name_b.title)
         expect(titles[2].text).to eq(campaign.title) # starts with S
         expect(titles[3].text).to eq(@campaign_name_z.title)
-        expect(page).to have_selector(:css, 'th.title.sortable.asc')
+        expect(page).to have_selector(:css, '#campaigns_list th.title.sortable.asc')
         # reverse sort
-        page.find('th.title.sortable').click
-        expect(page).to have_selector(:css, 'th.title.sortable.desc')
+        page.find('#campaigns_list th.title.sortable').click
+        expect(page).to have_selector(:css, '#campaigns_list th.title.sortable.desc')
       end
 
       it 'dropdown' do
         visit '/explore'
-        find('.sort-select select.sorts').click
-        find('option', text: 'Campaigns').click
+        find('#campaigns_list .sort-select select.sorts').click
+        find('#campaigns_list option', text: 'Campaigns').click
 
-        expect(page).to have_selector(:css, 'th.title.sortable.asc')
-        titles = page.all('tr .table-link-cell.title')
+        expect(page).to have_selector(:css, '#campaigns_list th.title.sortable.asc')
+        titles = page.all('#campaigns_list tr .table-link-cell.title')
 
         expect(titles[0].text).to eq(@campaign_name_a.title)
         expect(titles[1].text).to eq(@campaign_name_b.title)
@@ -89,57 +70,105 @@ describe 'the explore page', type: :feature, js: true do
         expect(titles[3].text).to eq(@campaign_name_z.title)
       end
     end
+
+    it 'is clickable' do
+      visit '/explore'
+      find('#campaigns_list .table tbody tr', text: @campaign_name_a.title).click
+      expect(page).to have_current_path("/campaigns/#{@campaign_name_a.slug}/programs")
+    end
   end
 
   describe 'course list' do
-    it 'is sortable' do
-      visit '/explore'
+    before do
+      @course_active_name_a = create(
+        :course,
+        title: 'An awesome course starting with A',
+        start: Date.civil(2016, 1, 10),
+        end: Date.civil(2050, 1, 10),
+        slug: 'foo/my_awesome_course'
+      )
+      @course_active_name_z = create(
+        :course,
+        title: 'Z course starting with Z',
+        start: Date.civil(2016, 1, 10),
+        end: Date.civil(2050, 1, 10),
+        slug: 'foo/another_awesome_course'
+      )
+      @course_inactive = create(
+        :course,
+        title: 'course2',
+        slug: 'foo/course2',
+        start: Date.civil(2016, 1, 10),
+        end: Date.civil(2016, 2, 10)
+      )
+      CampaignsCourses.create(
+        course_id: @course_active_name_a.id,
+        campaign_id: Campaign.default_campaign.id
+      )
+      CampaignsCourses.create(
+        course_id: @course_active_name_z.id,
+        campaign_id: Campaign.default_campaign.id
+      )
+      CampaignsCourses.create(
+        course_id: @course_inactive.id,
+        campaign_id: Campaign.default_campaign.id
+      )
+    end
 
-      # Sortable by title
-      expect(page).to have_selector('#courses [data-sort="title"].sort.asc')
-      find('#courses [data-sort="title"].sort').click
-      expect(page).to have_selector('#courses [data-sort="title"].sort.desc')
+    describe 'lists active courses of the default campaign' do
+      it 'for admins' do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+        visit '/explore'
+        expect(page).to have_content(@course_active_name_a.title)
+        expect(page).to have_content(@course_active_name_z.title)
+        expect(page).not_to have_content(@course_inactive.title)
+      end
 
-      # Sortable by character count
-      find('#courses [data-sort="characters"].sort').click
-      expect(page).to have_selector('#courses [data-sort="characters"].sort.desc')
-      find('#courses [data-sort="characters"].sort').click
-      expect(page).to have_selector('#courses [data-sort="characters"].sort.asc')
+      it 'for everyone else' do
+        visit '/explore'
+        expect(page).to have_content(@course_active_name_a.title)
+        expect(page).to have_content(@course_active_name_z.title)
+        expect(page).not_to have_content(@course_inactive.title)
+      end
+    end
 
-      # Sortable by references count
-      find('#courses [data-sort="references"].sort').click
-      expect(page).to have_selector('#courses [data-sort="references"].sort.desc')
-      find('#courses [data-sort="references"].sort').click
-      expect(page).to have_selector('#courses [data-sort="references"].sort.asc')
+    describe 'allow sorting by' do
+      it 'clicking on header' do
+        visit '/explore'
+        page.find('#active_courses th.sortable', text: 'Courses').click
+        titles = page.all('#active_courses tr .table-link-cell.title')
+        expect(titles[0].text).to eq(@course_active_name_a.title)
+        expect(titles[1].text).to eq(@course_active_name_z.title)
+        expect(titles[2].text).to eq(course.title) # starts with Ų
+        expect(page).to have_selector(:css, '#active_courses th.title.sortable.asc')
 
-      # Sortable by view count
-      find('#courses [data-sort="views"].sort').click
-      expect(page).to have_selector('#courses [data-sort="views"].sort.desc')
-      find('#courses [data-sort="views"].sort').click
-      expect(page).to have_selector('#courses [data-sort="views"].sort.asc')
+        # reverse sort
+        page.find('#active_courses th.sortable', text: 'Courses').click
+        titles = page.all('#active_courses tr .table-link-cell.title')
 
-      # Sortable by student count
-      find('#courses [data-sort="students"].sort').click
-      expect(page).to have_selector('#courses [data-sort="students"].sort.desc')
-      find('#courses [data-sort="students"].sort').click
-      expect(page).to have_selector('#courses [data-sort="students"].sort.asc')
+        expect(titles[0].text).to eq(course.title) # starts with Ų
+        expect(titles[1].text).to eq(@course_active_name_z.title)
+        expect(titles[2].text).to eq(@course_active_name_a.title)
+        expect(page).to have_selector(:css, '#active_courses th.title.sortable.desc')
+      end
+
+      it 'dropdown' do
+        visit '/explore'
+        find('#active_courses .sort-select select.sorts').click
+        find('#active_courses option', text: 'Courses').click
+
+        titles = page.all('#active_courses tr .table-link-cell.title')
+
+        expect(titles[0].text).to eq(@course_active_name_a.title)
+        expect(titles[1].text).to eq(@course_active_name_z.title)
+        expect(titles[2].text).to eq(course.title) # starts with Ų
+        expect(page).to have_selector(:css, '#active_courses th.title.sortable.asc')
+      end
     end
   end
 
   describe 'rows' do
     let(:refs_tags_key) { 'feature.wikitext.revision.ref_tags' }
-
-    it 'allows navigation to a campaign page' do
-      visit '/explore'
-      find('#campaigns .table tbody tr:first-child').click
-      expect(page).to have_current_path("/campaigns/#{campaign.slug}/programs")
-    end
-
-    it 'allows navigation to a course page' do
-      visit '/explore'
-      find('#courses .table tbody tr:first-child').click
-      expect(CGI.unescape(current_path)).to eq("/courses/#{course.slug}")
-    end
 
     it 'shows the stats accurately' do
       create(:article, id: 1,
@@ -161,12 +190,13 @@ describe 'the explore page', type: :feature, js: true do
              })
       Course.update_all_caches
       visit '/explore'
-
       # Number of courses
-      expect(page.find('#campaigns .table tbody tr:first-child .num-courses-human').text).to eq('1')
+      num_courses_human = page.find('#campaigns_list tr:first-child .num-courses-human').text
+      expect(num_courses_human).to eq('1')
 
       # Recent revisions
-      expect(page.find('#courses .table tbody tr:first-child .revisions').text).to eq('1')
+      num_revisions = page.find('#active_courses .table tbody tr:first-child .revisions').text
+      expect(num_revisions).to eq('1')
     end
   end
 
@@ -183,8 +213,8 @@ describe 'the explore page', type: :feature, js: true do
     it 'returns courses that match the search term' do
       visit '/explore'
       expect(page).not_to have_content('Cool course')
-      fill_in('search', with: 'cool')
-      find('input#search').send_keys(:enter)
+      fill_in('program-search', with: 'cool')
+      find('input[name="program-search"]').send_keys(:enter)
       expect(page).to have_content('Cool course')
     end
   end
