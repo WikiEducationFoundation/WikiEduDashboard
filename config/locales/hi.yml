@@ -44,28 +44,34 @@ hi:
     greeting: नमस्ते!
     help: सहायता
     home: घर
-    log_in_extended: विकिपीडिया में प्रवेश करें
-    log_in: लॉगिन करें
-    log_out: प्रस्थान
-    my_dashboard: मेरा नियंत्रण-पट्ट
-    recent_activity: कुछ देर पहले के क्रियाकलाप
-    report_problem: समस्या के बारे में बताएं
+    log_in_extended: विकिपीडिया में लॉग-इन करें
+    log_in: लॉग-इन करें
+    log_out: लॉग-आउट करें
+    my_dashboard: मेरा डैशबोर्ड
+    recent_activity: हाल की गतिविधि
+    report_problem: समस्या की सूचना दें
     request_account: अकाउंट हेतु अनुरोध
     request_account_create: खाता बनायें
     search: सवाल पूछें
     sign_up_extended: विकिपीडिया के साथ जुड़ें
-    sign_up_wikipedia: या विकिपीडिया पर साइन अप करें
+    sign_up_wikipedia: या विकिपीडिया पर साइन-अप करें
     sign_up_log_in_extended: विकिपीडिया के साथ
-    sign_up: साइन अप करें
+    sign_up: साइन-अप करें
     submit: जमा करें
     training: प्रशिक्षण
-    change: बदलाव
+    change: बदलें
     details: विवरण
     confirm: ठीक है
     opt_in: हाँ
     opt_out: नहीं
     opt_yes: हाँ
     opt_no: नहीं
+  article_statuses:
+    not_yet_started: शुरुआत कर रहे हैं
+    reading_the_article: लेख पढ़ रहे हैं
+    providing_feedback: प्रतिक्रिया प्रदान कर रहे हैं
+    post_to_talk: टॉक पेज पर पोस्ट कर रहे हैं
+    peer_review_completed: समीक्षा पूरी की गई
   dashboard:
     create_note: अपना पहला पाठ्यक्रम बनाने के लिए पाठ्यक्रम बनाएँ पर क्लिक करें।
     create_preparation_note: शुरू करने से पहले अपने अकादमिक कैलेंडर को अपने पास रखें;
@@ -78,7 +84,7 @@ hi:
     join_note: एक बार जब आप अपने निर्देशक से पासकोड प्राप्त कर लें, तो उसे ढूंढने
       और उससे जुड़ने के लिए अपना कोर्स ढूंढें पर क्लिक करें।
     no_courses_instructor: लगता है कि आप किसी कोर्स से नहीं जुड़े हुए हैं।
-    no_courses_student: लगता है कि आप किसी भी पाठ्यक्रम से नहीं जुड़े हैं।
+    no_courses_student: लगता है कि आप किसी भी कोर्स से नहीं जुड़े हैं।
     opt_out: निर्देशन से जुड़ने के लिए अर्जी दें
     orientation_notice: एक कोर्स बनाने से पहले आप, शुरूआत करने में आपकी सहायता करने
       के लिए चलें, अपने निर्देशन के माध्यम से चलें। (इसे पूरा होने में लगभग 30 मिनट
@@ -96,11 +102,13 @@ hi:
       हैं
   home:
     explore: अन्वेषण
-    log_in: विकिपीडिया में प्रवेश (लॉगिन) करें
+    log_in: विकिपीडिया से लॉग-इन करें
     sign_up: विकिपीडिया के साथ जुड़ें
     sign_up_help: डैशबोर्ड का उपयोग करने के लिए, आपको विकिपीडिया के माध्यम से साइन
       इन करना होगा और इसे अपने खाते तक पहुंचने की अनुमति देना होगा। आप मौजूदा विकिपीडिया
       खाते से लॉग इन कर सकते हैं, या एक नया खाता बना सकते हैं।
+  alerts:
+    alert_label: सूचना
   activity:
     all: गतिविधि
     edited_by: द्वारा संपादित
@@ -113,6 +121,7 @@ hi:
       (लेख का विकास)
     assigned: निरुपित किए गए लेख
     available: उपलब्ध लेख
+    no_available: कोई उपलब्ध लेख नहीं है
     next: अगला
     previous: पिछला
     article_title: लेख का शीर्षक
@@ -124,7 +133,7 @@ hi:
       है, साथ ही किसी अन्य विकी के लिए जिसके लिए सौंपा हुआ कार्य या उपलब्ध लेख है
     deleted: (हटाया गया)
     edited: संपादित लेख
-    edited_by: 'द्वारा संपादित:'
+    edited_by: 'संपादनकर्ता:'
     edited_mobile: लेख
     edited_none: अभी तक कोई संपादित लेख नहीं हैं।
     filter:
@@ -133,10 +142,10 @@ hi:
       existing: मौजूदा
       new_and_existing: नया और मौजूदा
     find: लेख खोजें
-    hide: छुपाएँ
+    hide: छिपाएँ
     history: (इतिहास)
     label: लेख
-    loading: लेख लोड हो रहे...
+    loading: लेख लोड हो रहे हैं...
     new: (नया)
     none: इस कोर्स ने किसी भी लेख को संपादित नहीं किया है।
     preview: लेख का संक्षिप्त पूर्वावलोकन
@@ -183,6 +192,9 @@ hi:
       को अपनेआप ध्यान में नहीं लेता है (ये स्कोर केवल अंग्रेज़ी विकिपीडिया लेखों के
       लिए उपलब्ध हैं।)'
     articles_short: लेख
+  items:
+    available: उपलब्ध आइटम
+    search: किसी आइटम के लिए विकिडेटा खोजें
   articles_generic:
     articles_short: पृष्ठ
   assignments:
@@ -219,6 +231,7 @@ hi:
     active_campaigns: सक्रिय अभियान
     add_organizer: आयोजक जोड़ें
     alert_article: लेख का शीर्षक
+    alert_user_id: सदस्य
     all_campaigns: सभी अभियान
     already_exists: वह अभियान पहले से मौजूद है! कृपया एक अलग शीर्षक या स्लग के साथ
       पुनः प्रयास करें।
@@ -236,6 +249,7 @@ hi:
       निकालना चाहते हैं?
     course_already_removed: '"%{campaign_title}" अभियान से "%{title}" पहले से ही निकाल
       दिया गया था'
+    course: कोर्स
     course_removed: '"%{campaign_title}" अभियान से "%{title}" हटा दिया गया है'
     create_campaign: नया अभियान बनाए
     create_my_campaign: अपना अभियान बनाएं!
@@ -255,6 +269,8 @@ hi:
     use_start_end_dates: प्रारंभ और समाप्ति तिथियों का उपयोग करें
     search: खोजें
   categories:
+    name: नाम
+    category_name: श्रेणी का नाम
     remove: हटायें
     timestamp: अन्तिम अद्यतन
   courses:

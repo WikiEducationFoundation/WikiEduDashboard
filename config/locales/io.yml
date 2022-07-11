@@ -32,6 +32,7 @@ io:
     hide: Celez
     title: Titulo
   assignments:
+    remove: Removar artiklo
     reviewers: Revizero(revizeri)
   campaign:
     campaign: Kampanio
@@ -39,6 +40,8 @@ io:
     none: Nula
     title: Titulo
     search: Serchez
+  categories:
+    remove: Removar
   courses:
     active_courses: Aktiva kampanii
     campaigns: 'Kampanii:'
@@ -102,6 +105,7 @@ io:
     sub_navigation:
       assignments_and_exercises: Taski & Exercici
       student_overview: '%{prefix}  Supervido'
+    training_module_status: Stando
     training_module_time:
       minutes: Minuti
       seconds: Sekundi
