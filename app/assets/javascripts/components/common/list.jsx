@@ -74,7 +74,7 @@ const List = createReactClass({
       const key = iterable[i];
       const keyObj = keys[key];
       let headerOnClick;
-      let headerClass = '';
+      let headerClass = key;
       let tooltip;
       headerClass += keyObj.desktop_only ? ' desktop-only-tc' : '';
       if ((sortable !== false) && (keyObj.sortable !== false)) {

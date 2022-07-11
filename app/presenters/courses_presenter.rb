@@ -66,10 +66,6 @@ class CoursesPresenter
     @campaign_organizer ||= campaign.organizers.include?(current_user)
   end
 
-  def campaigns
-    Campaign.active
-  end
-
   def courses
     @courses_list
   end
@@ -97,10 +93,6 @@ class CoursesPresenter
 
   def active_courses_by_recent_edits
     active_courses.order('recent_revision_count DESC, title').paginate(page: @page, per_page: 100)
-  end
-
-  def newest_campaigns
-    campaigns.order('created_at DESC').limit(10)
   end
 
   def can_create?

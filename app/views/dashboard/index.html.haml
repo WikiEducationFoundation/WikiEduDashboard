@@ -1,6 +1,8 @@
 - content_for :after_title, " - #{t("application.my_dashboard")}"
 
-#react_root{data: {default_course_type: @pres.default_course_type,
+-# this is the react root when the route is /course_creator
+- if request.path.include?('/course_creator')
+  #react_root{data: {default_course_type: @pres.default_course_type,
                    course_string_prefix: Features.default_course_string_prefix,
                    course_creation_notice: Deadlines.course_creation_notice,
                    use_start_and_end_times: @pres.default_use_start_and_end_times ? 'true' : 'false'}}
@@ -84,58 +86,6 @@
   - if @blog_posts.present?
     = render "blog"
 
-  - if @pres.campaign_organizer?
-
-    %h2= t("campaign.campaigns")
-
-    %section#campaigns
-      %table.table.table--hoverable.table--sortable
-        %thead
-          %tr
-            %th.sort.sortable.asc{"data-default-order" => "asc", "data-sort" => "title"}
-              = t('campaign.campaigns')
-              %span.sortable-indicator
-            %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "num-courses", style: "width: 150px"}
-              .tooltip-trigger
-                = t("#{Features.default_course_string_prefix}.courses")
-                %span.sortable-indicator
-            %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "articles-created", style: "width: 140px"}
-              .tooltip-trigger
-                = t('metrics.articles_created')
-                %span.sortable-indicator
-            %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "articles-edited", style: "width: 140px"}
-              .tooltip-trigger
-                = t('metrics.articles_edited')
-                %span.sortable-indicator
-            %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "characters", style: "width: 172px;"}
-              .tooltip-trigger
-                = t("metrics.word_count")
-                %span.sortable-indicator
-                %span.tooltip-indicator
-                .tooltip.dark
-                  %p= course_i18n("word_count_doc")
-            %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "references", style: "width: 172px;"}
-              .tooltip-trigger
-                = t("metrics.references_count")
-                %span.sortable-indicator
-                %span.tooltip-indicator
-                .tooltip.dark
-                  %p= t("metrics.references_doc")
-            %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "views", style: "width: 125px;"}
-              .tooltip-trigger
-                = t("metrics.view")
-                %span.sortable-indicator
-                %span.tooltip-indicator
-                .tooltip.dark
-                  %p= t("courses.view_doc")
-            %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "students", style: "width: 150px;"}
-              = t("users.editors")
-              %span.sortable-indicator
-            - unless Features.wiki_ed?
-              %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "creation-date", style: "width: 160px"}
-                = t("courses.creation_date")
-                %span.sortable-indicator
-        %tbody.list
-          - @pres.campaigns.each do |campaign|
-            - campaign_presenter = CoursesPresenter.new(current_user: current_user, campaign_param: campaign.slug)
-            = render 'campaigns/row', presenter: campaign_presenter, campaign: campaign
+  - if @pres.campaign_organizer? && !request.path.include?('/course_creator')
+    -# this is the react root when at the root page
+    #react_root

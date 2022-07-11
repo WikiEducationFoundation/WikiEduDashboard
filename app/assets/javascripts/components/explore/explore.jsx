@@ -1,0 +1,23 @@
+import I18n from 'i18n-js';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { getCurrentUser } from '../../selectors';
+import DetailedCampaignList from '../campaign/detailed_campaign_list';
+
+const Explore = () => {
+  const user = getCurrentUser(useSelector(state => state));
+  const showCreateCampaignButton = user.admin || Features.open_course_creation;
+  return (
+    <div id="campaigns">
+      <DetailedCampaignList headerText={I18n.t('campaign.newest_campaigns')} newest/>
+      <div className="campaigns-actions" >
+        {showCreateCampaignButton && <a className="button dark" href="campaigns/new?create=true">{I18n.t('campaign.create_campaign')}</a>}
+        <a href="/campaigns" className="button">
+          {I18n.t('campaign.all_campaigns')} <span className="icon icon-rt_arrow" />
+        </a>
+      </div>
+    </div>
+  );
+};
+
+export default Explore;

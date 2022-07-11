@@ -18,46 +18,4 @@
     %div.create-modal-wrapper{class: @campaign.errors.any? || params[:create] ? 'show-create-modal' : 'hidden'}
       = render 'create_modal'
 
-.container
-  = form_tag campaigns_path, class: 'explore-courses', method: :get do
-    = text_field_tag(:search, '', placeholder: t('campaign.search_campaigns'))
-    %button{type: 'submit'}
-      %i.icon.icon-search
-  - if @query.present?
-    - if @campaigns.exists?
-      - if @results.count > 1
-        %h4
-          = t('application.search_results.other', search_terms: @query, count: @results.count)
-      - else
-        %h4
-          = t('application.search_results.one', search_terms: @query, count: @results.count)
-    - else
-      %h4
-        = t('application.no_results', query: @query)
-  - if @campaigns.exists?
-    %section#js-campaigns.campaign-list
-      %table.table.table--sortable
-        %thead
-          %tr
-            %th.sort.sortable.asc{'data-default-order' => 'asc', 'data-sort' => 'title'}
-              Title
-              %span.sortable-indicator
-            %th{:colspan => "5"}
-              CSVs
-        %tbody.list
-          - @campaigns.each do |campaign|
-            %tr
-              %td.title
-                = link_to campaign.title, "/campaigns/#{campaign.slug}/overview"
-              %td
-                = link_to 'students', "/campaigns/#{campaign.slug}/students.csv"
-              %td
-                = link_to 'students by course', "/campaigns/#{campaign.slug}/students.csv?course=true"
-              %td
-                = link_to 'instructors by course', "/campaigns/#{campaign.slug}/instructors.csv?course=true"
-              %td
-                = link_to 'course data', "/campaigns/#{campaign.slug}/courses.csv"
-              %td
-                = link_to 'pages edited', "/campaigns/#{campaign.slug}/articles_csv.csv"
-              %td
-                = link_to 'revision data', "/campaigns/#{campaign.slug}/revisions_csv.csv"
+%div#react_root
