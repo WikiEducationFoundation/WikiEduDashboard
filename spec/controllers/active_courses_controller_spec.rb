@@ -9,7 +9,7 @@ describe ActiveCoursesController, type: :request do
     end
 
     it 'lists a soon-ending course' do
-      get '/active_courses'
+      get '/active_courses.json'
       expect(response.body).to include(course.title)
     end
   end
