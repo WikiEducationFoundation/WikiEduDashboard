@@ -10,8 +10,7 @@ const ActiveCoursesHandler = ({ dashboardTitle }) => {
         </div>
       </header>
       <div id="active_courses">
-
-        <ActiveCourseList campaignOnly={false}/>
+        <ActiveCourseList defaultCampaignOnly={false}/>
       </div>
     </>
   );
