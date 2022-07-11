@@ -50,7 +50,7 @@ module BatchUpdateLogging
   end
 
   def delete_pid_file(type)
-    File.delete UPDATE_PID_FILES[type] if File.exist? UPDATE_PID_FILES[type]
+    FileUtils.rm_rf UPDATE_PID_FILES[type]
   end
 
   def updates_paused?

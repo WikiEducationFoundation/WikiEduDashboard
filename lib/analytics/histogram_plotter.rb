@@ -22,7 +22,7 @@ class HistogramPlotter
   end
 
   def delete_csv
-    File.delete csv_path if File.exist? csv_path
+    FileUtils.rm_rf csv_path
   end
 
   private

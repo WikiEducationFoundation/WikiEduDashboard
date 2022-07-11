@@ -223,8 +223,6 @@ RSpec/Rails/HaveHttpStatus:
   Enabled: false
 RSpec/FactoryBot/SyntaxMethods:
   Enabled: false
-Lint/NonAtomicFileOperation:
-  Enabled: false
 Rails/CompactBlank:
   Enabled: false
 Rails/I18nLocaleTexts:
