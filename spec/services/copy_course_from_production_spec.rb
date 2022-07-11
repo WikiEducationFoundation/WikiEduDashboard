@@ -31,7 +31,6 @@ describe CopyCourseFromProduction do
         # testing examples
         expect(result.course.instructors.first.username).to eq('Joshua Stone')
         expect(result.course.students.length).to eq(31)
-        expect(result.course.assignments.length).to be_positive
       end
     end
   end
