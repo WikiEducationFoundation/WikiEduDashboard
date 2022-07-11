@@ -30,7 +30,7 @@ const Explore = ({ dashboardTitle }) => {
       && (
         <div id="active_courses">
 
-          <ActiveCourseList />
+          <ActiveCourseList campaignOnly={true}/>
           <div className="campaigns-actions">
             {showCreateButton && <a className="button dark" href="/course_creator">{I18n.t(`${Features.course_string_prefix}.creator.create_new`)}</a>}
             <a href="/campaigns" className="button">

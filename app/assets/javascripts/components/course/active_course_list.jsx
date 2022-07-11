@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchActiveCourses, sortActiveCourses } from '../../actions/course_actions';
+import { fetchActiveCampaignCourses, fetchActiveCourses, sortActiveCourses } from '../../actions/course_actions';
 import Loading from '../common/loading';
 import ActiveCourseRow from './active_course_row';
 import CourseList from './course_list';
@@ -36,13 +36,18 @@ const keys = {
   },
 };
 
-const ActiveCourseList = () => {
+// if `defaultCampaignOnly` is set to true, it will show the active courses from the default campaign only
+// if it is false, it will show the active courses from all campaigns
+const ActiveCourseList = ({ defaultCampaignOnly = true }) => {
   const { isLoaded, courses, sort } = useSelector(state => state.active_courses);
   const dispatch = useDispatch();
 
-
   useEffect(() => {
-    dispatch(fetchActiveCourses(Features.default_campaign_slug));
+    if (defaultCampaignOnly) {
+      dispatch(fetchActiveCampaignCourses(Features.default_campaign_slug));
+    } else {
+      dispatch(fetchActiveCourses());
+    }
   }, []);
 
   if (sort.key) {

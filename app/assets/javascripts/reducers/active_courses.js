@@ -1,6 +1,7 @@
 import {
   RECEIVE_ACTIVE_COURSES,
-  SORT_ACTIVE_COURSES
+  SORT_ACTIVE_COURSES,
+  RECEIVE_CAMPAIGN_ACTIVE_COURSES
 } from '../constants/active_courses';
 import { sortByKey } from '../utils/model_utils';
 
@@ -9,14 +10,14 @@ const initialState = {
     key: null,
     sortKey: null,
   },
-  // this stores the active courses for a single campaign
   courses: [],
   isLoaded: false,
 };
 
 export default function active_courses(state = initialState, action) {
   switch (action.type) {
-    case RECEIVE_ACTIVE_COURSES: {
+    case RECEIVE_ACTIVE_COURSES:
+    case RECEIVE_CAMPAIGN_ACTIVE_COURSES: {
       return {
         ...state,
         courses: action.data.courses,
