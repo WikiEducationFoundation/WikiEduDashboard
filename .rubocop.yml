@@ -199,3 +199,39 @@ RSpec/SubjectDeclaration:
   Enabled: false
 Rails/RedundantTravelBack:
   Enabled: false
+Rails/DurationArithmetic:
+  Enabled: false
+Layout/LineContinuationSpacing:
+  Enabled: false
+Style/FetchEnvVar:
+  Enabled: false
+RSpec/BeEq:
+  Enabled: false
+Style/OpenStructUse:
+  Enabled: false
+Layout/LineContinuationLeadingSpace:
+  Enabled: false
+RSpec/VerifiedDoubleReference:
+  Enabled: false
+RSpec/ChangeByZero:
+  Enabled: false
+RSpec/BeNil:
+  Enabled: false
+RSpec/Capybara/SpecificMatcher:
+  Enabled: false
+RSpec/Rails/HaveHttpStatus:
+  Enabled: false
+RSpec/FactoryBot/SyntaxMethods:
+  Enabled: false
+Lint/NonAtomicFileOperation:
+  Enabled: false
+Rails/CompactBlank:
+  Enabled: false
+Rails/I18nLocaleTexts:
+  Enabled: false
+Layout/FirstHashElementIndentation:
+  Enabled: false
+Style/CollectionCompact:
+  Enabled: false
+Rails/RedundantPresenceValidationOnBelongsTo:
+  Enabled: false
