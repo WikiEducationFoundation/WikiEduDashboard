@@ -231,5 +231,3 @@ Rails/I18nLocaleTexts:
   Enabled: false
 Layout/FirstHashElementIndentation:
   Enabled: false
-Style/CollectionCompact:
-  Enabled: false
