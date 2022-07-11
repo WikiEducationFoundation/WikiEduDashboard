@@ -41,7 +41,6 @@ class Article < ApplicationRecord
   scope :assigned, -> { joins(:assignments).distinct }
 
   validates :title, presence: true
-  validates :wiki_id, presence: true
   validates :mw_page_id, presence: true
 
   before_validation :set_defaults_and_normalize

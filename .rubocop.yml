@@ -233,5 +233,3 @@ Layout/FirstHashElementIndentation:
   Enabled: false
 Style/CollectionCompact:
   Enabled: false
-Rails/RedundantPresenceValidationOnBelongsTo:
-  Enabled: false
