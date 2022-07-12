@@ -75,6 +75,15 @@ const List = createReactClass({
     for (let i = 0; i < iterable.length; i += 1) {
       const key = iterable[i];
       const keyObj = keys[key];
+      if (keyObj.hidden) {
+        // even though the column is hidden, the user can still use it to sort from the dropdown
+        // the reason we hide it is because the data here is already present in another column. For example,
+        // the words added column also contains the average word count information so it is not necessary
+        // for it to have its own column
+
+        // eslint-disable-next-line no-continue
+        continue;
+      }
       let headerOnClick;
       let headerClass = key;
       let tooltip;

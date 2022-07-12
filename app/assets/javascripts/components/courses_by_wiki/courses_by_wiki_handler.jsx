@@ -37,6 +37,14 @@ const keys = {
     label: I18n.t('users.editors'),
     desktop_only: false,
   },
+  average_word_count: {
+    label: I18n.t('metrics.word_count_average'),
+    hidden: true
+  },
+  trained_count: {
+    label: I18n.t('courses.untrained'),
+    hidden: true
+  },
   ...(!Features.wikiEd ? {
     creation_date: {
       label: I18n.t('courses.creation_date'),
