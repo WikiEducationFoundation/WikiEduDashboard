@@ -34,7 +34,7 @@
       open_course_creation: #{Features.open_course_creation?},
       default_course_string_prefix: "#{Features.default_course_string_prefix}",
       default_campaign_slug: "#{CampaignsPresenter.default_campaign_slug}",
-      course_string_prefix: "#{CoursesPresenter.new(current_user: current_user,campaign_param: CampaignsPresenter.default_campaign_slug).course_string_prefix}"
+      course_string_prefix: "#{Features.default_course_string_prefix}"
     }
 
     WikiProjects = document.querySelector('meta[name="data-projects"]').content

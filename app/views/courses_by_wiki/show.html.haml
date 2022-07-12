@@ -7,5 +7,7 @@
   .container
     = render 'courses/header_stats', presenter: @presenter
 
+:javascript
+  Features.course_string_prefix = "#{@presenter.course_string_prefix}"
 .container
   #react_root{"data-current_user" => current_user ? { admin: current_user.admin?, id: current_user.id }.to_json : '{ "admin": false, "id": null }'}
