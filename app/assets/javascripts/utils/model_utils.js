@@ -32,6 +32,9 @@ export const sortByKey = (models, sortKey, previousKey = null, desc = false, abs
   // null. The desired order requires the null values to be in the end instead
   // of beginning.
   const sortFunc = (model) => {
+    if (typeof model[sortKey] === 'string') {
+      return model[sortKey].toLowerCase();
+    }
     return model?.[sortKey] ?? 0;
   };
 
