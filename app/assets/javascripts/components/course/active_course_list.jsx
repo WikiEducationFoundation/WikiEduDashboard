@@ -34,6 +34,12 @@ const keys = {
     label: I18n.t('users.editors'),
     desktop_only: false,
   },
+  ...(!Features.wikiEd ? {
+    creation_date: {
+      label: I18n.t('courses.creation_date'),
+      desktop_only: false
+    }
+  } : {}),
 };
 
 // if `defaultCampaignOnly` is set to true, it will show the active courses from the default campaign only
