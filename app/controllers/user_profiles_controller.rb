@@ -105,7 +105,7 @@ class UserProfilesController < ApplicationController
   end
 
   def valid_email?
-    return true if user_email_params['email'].blank? # allow deleting email 
+    return true if user_email_params['email'].blank? # allow deleting email
     ValidatesEmailFormatOf::validate_email_format(user_email_params['email']).nil?
   end
 end
