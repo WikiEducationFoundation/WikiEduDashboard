@@ -24,7 +24,7 @@ class UserProfilesController < ApplicationController
       @user_profile.image_file_link = nil
     end
     @user_profile.update! user_profile_params
-    @user.update! user_email_params
+    @user.update! user_email_params if valid_email?
     flash[:notice] = 'Profile Updated'
     redirect_to controller: 'user_profiles', action: 'show'
   end
@@ -102,5 +102,10 @@ class UserProfilesController < ApplicationController
   def set_user_profile
     @user_profile = @user.user_profile
     @user_profile = @user.create_user_profile if @user_profile.nil?
+  end
+
+  def valid_email?
+    return true if user_email_params['email'].blank? # allow deleting email 
+    ValidatesEmailFormatOf::validate_email_format(user_email_params['email']).nil?
   end
 end
