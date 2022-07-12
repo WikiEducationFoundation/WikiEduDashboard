@@ -4,9 +4,11 @@ import {
   START_SYLLABUS_UPLOAD, SYLLABUS_UPLOAD_SUCCESS, LINKED_TO_SALESFORCE, COURSE_SLUG_EXISTS, RECEIVE_COURSE_SEARCH_RESULTS, SORT_COURSE_SEARCH_RESULTS, FETCH_COURSE_SEARCH_RESULTS, RECEIVE_ACTIVE_COURSES, SORT_ACTIVE_COURSES,
   RECEIVE_CAMPAIGN_ACTIVE_COURSES
 } from '../constants';
+import { RECEIVE_WIKI_COURSES, SORT_WIKI_COURSES } from '../constants/wiki_courses';
 import API from '../utils/api.js';
 import CourseUtils from '../utils/course_utils';
 import request from '../utils/request';
+import { url } from '../utils/wiki_utils';
 
 export const fetchCourse = courseSlug => (dispatch) => {
   return API.fetch(courseSlug, 'course')
@@ -189,3 +191,16 @@ export const fetchActiveCourses = () => async (dispatch) => {
   const data = await response.json();
   return dispatch({ type: RECEIVE_ACTIVE_COURSES, data });
 };
+
+export const fetchCoursesFromWiki = wiki => async (dispatch) => {
+  const wiki_url = url(wiki);
+  const response = await request(`/courses_by_wiki/${wiki_url}.json`);
+  if (!response.ok) {
+    const data = await response.text();
+    return dispatch({ type: API_FAIL, data });
+  }
+  const data = await response.json();
+  return dispatch({ type: RECEIVE_WIKI_COURSES, data });
+};
+
+export const sortWikiCourses = key => ({ type: SORT_WIKI_COURSES, key: key });

@@ -17,6 +17,7 @@ import CampaignsHandler from '../campaign/campaigns_handler.jsx';
 import DetailedCampaignList from '../campaign/detailed_campaign_list';
 import Explore from '../explore/explore.jsx';
 import ActiveCoursesHandler from '../active_courses/active_courses_handler.jsx';
+import CoursesByWikiHandler from '../courses_by_wiki/courses_by_wiki_handler.jsx';
 
 const routes = (
   <Routes>
@@ -37,6 +38,8 @@ const routes = (
     <Route path="/dashboard" element={<DetailedCampaignList headerText={I18n.t('campaign.campaigns')} userOnly={true}/>} />
     <Route path="/explore" element={<Explore dashboardTitle={window.dashboardTitle}/>} />
     <Route path="/active_courses" element={<ActiveCoursesHandler dashboardTitle={window.dashboardTitle}/>}/>
+    <Route path="/courses_by_wiki/:wiki_url" element={<CoursesByWikiHandler />}/>
+
 
     {/* this prevents the "route not found" warning for pages which are server rendered */}
     <Route path="*" element={<div style={{ display: 'none' }}/>} />

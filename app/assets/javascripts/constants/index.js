@@ -37,3 +37,4 @@ export * from './wikidata_labels';
 export * from './wizard';
 export * from './course_search_results';
 export * from './active_courses';
+export * from './wiki_courses';
