@@ -99,6 +99,17 @@ class Upload extends React.Component {
     }
 
     if (this.state.isUploadViewerOpen) {
+      if (this.props.view === LIST_VIEW) {
+        return (
+          <tr>
+            <td>
+              <Modal>
+                <UploadViewer closeUploadViewer={this.isUploadViewerOpen} upload={this.props.upload} imageFile={this.state.imageFile} />
+              </Modal>
+            </td>
+          </tr>
+        );
+      }
       return (
         <Modal>
           <UploadViewer closeUploadViewer={this.isUploadViewerOpen} upload={this.props.upload} imageFile={this.state.imageFile} />
