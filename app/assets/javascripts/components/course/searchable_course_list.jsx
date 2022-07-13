@@ -8,6 +8,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import CourseList from './course_list';
 import CourseRow from './course_row';
 
+// this comes from lib/revision_stat.rb
+const REVISION_TIMEFRAME = 7; // this is in days
+
 const default_course_string_prefix = Features.default_course_string_prefix;
 const keys = {
   title: {
@@ -25,7 +28,7 @@ const keys = {
   recent_revision_count: {
     label: I18n.t('metrics.revisions'),
     info_key: 'courses.revisions_doc',
-    info_key_options: { timeframe: 7 }
+    info_key_options: { timeframe: REVISION_TIMEFRAME }
   },
   word_count: {
     label: I18n.t('metrics.word_count'),
