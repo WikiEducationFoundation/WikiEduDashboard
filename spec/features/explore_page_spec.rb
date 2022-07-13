@@ -165,6 +165,12 @@ describe 'the explore page', type: :feature, js: true do
         expect(page).to have_selector(:css, '#active_courses th.title.sortable.asc')
       end
     end
+
+    it 'is clickable' do
+      visit '/explore'
+      find('#active_courses .table tbody tr', text: course.title).click
+      expect(CGI.unescape(current_path)).to eq("/courses/#{course.slug}/")
+    end
   end
 
   describe 'rows' do
