@@ -4,6 +4,7 @@ import {
   RECEIVE_CAMPAIGN_ACTIVE_COURSES
 } from '../constants/active_courses';
 import { sortByKey } from '../utils/model_utils';
+import { COURSE_SORT_DESCENDING } from '../utils/course_utils';
 
 const initialState = {
   sort: {
@@ -13,6 +14,7 @@ const initialState = {
   courses: [],
   isLoaded: false,
 };
+
 
 export default function active_courses(state = initialState, action) {
   switch (action.type) {
@@ -25,13 +27,17 @@ export default function active_courses(state = initialState, action) {
       };
     }
     case SORT_ACTIVE_COURSES: {
-      const desc = action.key === state.sort.sortKey;
-      const newCourses = sortByKey(state.courses, action.key, null, desc);
+      const sorted = sortByKey(
+        state.courses,
+        action.key,
+        state.sort.sortKey,
+        COURSE_SORT_DESCENDING[action.key]
+      );
       return {
         ...state,
-        courses: newCourses.newModels,
+        courses: sorted.newModels,
         sort: {
-          sortKey: desc ? null : action.key,
+          sortKey: sorted.newKey,
           key: action.key
         },
       };

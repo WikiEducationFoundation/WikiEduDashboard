@@ -1,5 +1,6 @@
 import { RECEIVE_WIKI_COURSES, SORT_WIKI_COURSES } from '../constants/wiki_courses';
 import { sortByKey } from '../utils/model_utils';
+import { COURSE_SORT_DESCENDING } from '../utils/course_utils';
 
 const initialState = {
   isLoaded: false,
@@ -20,13 +21,17 @@ export default function wiki_courses(state = initialState, action) {
       };
     }
     case SORT_WIKI_COURSES: {
-      const desc = action.key === state.sort.sortKey;
-      const newCourses = sortByKey(state.courses, action.key, null, desc);
+      const sorted = sortByKey(
+        state.courses,
+        action.key,
+        state.sort.sortKey,
+        COURSE_SORT_DESCENDING[action.key]
+      );
       return {
         ...state,
-        courses: newCourses.newModels,
+        courses: sorted.newModels,
         sort: {
-          sortKey: desc ? null : action.key,
+          sortKey: sorted.newKey,
           key: action.key
         },
       };
