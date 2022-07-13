@@ -1,5 +1,5 @@
 import '../testHelper';
-import { formatOption, url, trackedWikisMaker } from '../../app/assets/javascripts/utils/wiki_utils';
+import { formatOption, toWikiDomain, trackedWikisMaker } from '../../app/assets/javascripts/utils/wiki_utils';
 
 
 describe('formatOption', () => {
@@ -24,7 +24,7 @@ describe('url', () => {
         language: 'en',
         project: 'wikipedia'
       };
-      const result = url(wikiData);
+      const result = toWikiDomain(wikiData);
       expect(result).toStrictEqual('en.wikipedia.org');
     }
   );
@@ -35,7 +35,7 @@ describe('url', () => {
         language: null,
         project: 'wikipedia'
       };
-      const result = url(wikiData);
+      const result = toWikiDomain(wikiData);
       expect(result).toStrictEqual('www.wikipedia.org');
     }
   );
