@@ -30,4 +30,36 @@ export default class ArticleUtils {
     };
     return mapping[namespace];
   }
+
+  static NamespaceTitleFromId = {
+    0: "main",
+    1: "talk",
+    2: "user",
+    4: "project",
+    6: "file",
+    10: "template",
+    104: "page",
+    108: "book",
+    110: "wikijunior",
+    114: "translation",
+    118: "draft",
+    120: "property",
+    122: "query",
+    146: "lexeme",
+    100: {
+      wiktionary: "appendix",
+      wikisource: "portal",
+      wikiversity: "school"
+    },
+    102: {
+      wikisource: "author",
+      wikibooks: "cookbook",
+      wikiversity: "portal"
+    },
+    106: {
+      wiktionary: "rhymes",
+      wikisource: "index",
+      wikiversity: "collection"
+    }
+  }
 }

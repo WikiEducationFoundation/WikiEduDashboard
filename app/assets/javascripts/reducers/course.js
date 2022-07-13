@@ -38,6 +38,7 @@ const initialState = {
   loading: true,
   updates: {},
   wikis: [],
+  namespaces: [],
   article_count: 0
 };
 

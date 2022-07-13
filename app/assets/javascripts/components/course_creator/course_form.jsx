@@ -138,6 +138,15 @@ const CourseForm = (props) => {
     props.course.wikis.push({ language: 'en', project: 'wikipedia' });
   }
 
+  // Set main namespace for tracking by default for all wikis
+  if (props.course.namespaces && !props.course.namespaces.length) {
+    const ns = props.course.wikis.map((wiki) => {
+      const namespaces = [0]; // mainspace id
+      return { wiki, namespaces };
+    });
+    props.course.namespaces = ns;
+  }
+
   if (props.defaultCourse !== 'ClassroomProgramCourse') {
     home_wiki = (
       <div className="form-group home-wiki">

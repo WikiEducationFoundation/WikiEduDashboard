@@ -25,13 +25,15 @@ const selectStyles = {
     border: '2px solid #D9D9D9',
     backgroundColor: '#F2F2F2'
   }),
-  multiValueRemove: base => ({
-    ...base,
-    color: '#676EB4',
-    backgroundColor: '#F2F2F2',
-    borderRadius: 0,
-    '&:hover': { backgroundColor: '#D9D9D9', color: '#676EB4' }
-  })
+  multiValueRemove: (base, props) => (
+    (props.data.isClearableValue ?? true) ? {
+      ...base,
+      color: '#676EB4',
+      backgroundColor: '#F2F2F2',
+      borderRadius: 0,
+      '&:hover': { backgroundColor: '#D9D9D9', color: '#676EB4' }
+    } : { ...base, display: 'none' }
+  )
 };
 
 export default selectStyles;
