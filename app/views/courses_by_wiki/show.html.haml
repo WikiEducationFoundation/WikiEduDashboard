@@ -1,11 +1,2 @@
-- content_for :after_title, " - #{@wiki.domain} Programs"
-
-%header.main-page
-  .container
-    %h1= @wiki.domain
-
-  .container
-    = render 'courses/header_stats', presenter: @presenter
-
 .container
   #react_root{"data-current_user" => current_user ? { admin: current_user.admin?, id: current_user.id }.to_json : '{ "admin": false, "id": null }'}

@@ -9,6 +9,8 @@ const initialState = {
     key: null,
     sortKey: null,
   },
+  statistics: {},
+  wiki_domain: '',
 };
 
 export default function wiki_courses(state = initialState, action) {
@@ -17,7 +19,9 @@ export default function wiki_courses(state = initialState, action) {
       return {
         ...state,
         isLoaded: true,
-        courses: action.data.courses
+        courses: action.data.courses,
+        statistics: action.data.statistics,
+        wiki_domain: action.data.wiki_domain
       };
     }
     case SORT_WIKI_COURSES: {
