@@ -32,10 +32,15 @@ export const sortByKey = (models, sortKey, previousKey = null, desc = false, abs
   // null. The desired order requires the null values to be in the end instead
   // of beginning.
   const sortFunc = (model) => {
+    // this makes string comparisons case insensitive
     if (typeof model[sortKey] === 'string') {
       return model[sortKey].toLowerCase();
     }
-    return model?.[sortKey] ?? 0;
+    // if the property doesn't exist, we default to 0
+    // this prevents the app from crashing if the property doesn't exist
+    // this can happen if the user tries to sort by a property whose networked request has not yet returned
+    // or has failed
+    return model[sortKey] ?? 0;
   };
 
   const reverse = !sameKey !== !desc; // sameKey OR desc is truthy, but not both
