@@ -95,10 +95,6 @@ class CoursesPresenter
     active_courses.order('recent_revision_count DESC, title').limit(100)
   end
 
-  def can_create?
-    current_user && (current_user.admin? || Features.open_course_creation?)
-  end
-
   COURSE_SUMS_SQL = 'SUM(character_sum), ' \
                     'SUM(article_count), ' \
                     'SUM(new_article_count), ' \
