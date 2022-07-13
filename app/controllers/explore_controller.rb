@@ -9,9 +9,7 @@ class ExploreController < ApplicationController
     # Redirect to new campaign overview page if a parameter is given, for backwards compatibility
     campaign_param = params[:campaign] || params[:cohort]
     redirect_to campaign_path(campaign_param) if campaign_param
-    @presenter = CoursesPresenter.new(current_user: current_user,
-                                      campaign_param: CampaignsPresenter.default_campaign_slug)
-    @campaign = @presenter.campaign
-    redirect_to '/' unless @campaign
+    campaign = Campaign.find_by(slug: CampaignsPresenter.default_campaign_slug)
+    redirect_to '/' unless campaign
   end
 end
