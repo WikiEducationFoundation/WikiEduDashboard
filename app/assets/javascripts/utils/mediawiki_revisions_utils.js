@@ -4,7 +4,7 @@
 import { flatten, chunk } from 'lodash-es';
 import { stringify } from 'query-string';
 import request from './request';
-import { url } from './wiki_utils';
+import { toWikiDomain } from './wiki_utils';
 import moment from 'moment';
 
 // the MediaWiki API sends back revisions in pages
@@ -125,7 +125,7 @@ const fetchAllRevisions = async (API_URL, days, usernames, wiki, course_start, l
 // wrapper function around fetchAllRevisions. This gets all the revisions returned by that function
 // adds some properties we require on the front end, like url, article_url, etc
 const fetchRevisionsFromWiki = async (days, wiki, usernames, course_start, last_date) => {
-  const prefix = `https://${url(wiki)}`;
+  const prefix = `https://${toWikiDomain(wiki)}`;
   const API_URL = `${prefix}/w/api.php`;
   const { revisions, exitNext } = await fetchAllRevisions(API_URL, days, usernames, wiki, course_start, last_date);
   for (const revision of revisions) {

@@ -5,7 +5,7 @@ import jQuery from 'jquery';
 import moment from 'moment';
 import SalesforceMediaButtons from '../articles/salesforce_media_buttons.jsx';
 import Loading from '../common/loading.jsx';
-import { url } from '../../utils/wiki_utils';
+import { toWikiDomain } from '../../utils/wiki_utils';
 
 const DiffViewer = createReactClass({
   displayName: 'DiffViewer',
@@ -130,7 +130,7 @@ const DiffViewer = createReactClass({
   },
 
   wikiUrl(revision) {
-    return `https://${url(revision.wiki)}`;
+    return `https://${toWikiDomain(revision.wiki)}`;
   },
 
   diffUrl(lastRevision, firstRevision) {

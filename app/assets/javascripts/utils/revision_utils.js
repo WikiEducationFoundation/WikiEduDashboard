@@ -1,7 +1,7 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-restricted-syntax */
 import { ORESSupportedWiki, PageAssessmentSupportedWiki, PageAssessmentGrades } from '../utils/article_finder_language_mappings';
-import { url } from './wiki_utils';
+import { toWikiDomain } from './wiki_utils';
 
 // this helper function takes in a list of objects of the ratings as returned by the ORES API
 // it first merges all the objects into one big one and extracts the assessment information.
@@ -52,14 +52,14 @@ export const getWikiMap = (revisions) => {
   for (const revision of revisions) {
     if (supportsPageAssessments(revision.wiki) || isSupportedORESWiki(revision.wiki)
     ) {
-      if (wikiMap.has(url(revision.wiki))) {
-        const value = wikiMap.get(url(revision.wiki));
+      if (wikiMap.has(toWikiDomain(revision.wiki))) {
+        const value = wikiMap.get(toWikiDomain(revision.wiki));
         value.push(revision);
-        wikiMap.set(url(revision.wiki), value);
+        wikiMap.set(toWikiDomain(revision.wiki), value);
       } else {
         const value = [];
         value.push(revision);
-        wikiMap.set(url(revision.wiki), value);
+        wikiMap.set(toWikiDomain(revision.wiki), value);
       }
     }
   }

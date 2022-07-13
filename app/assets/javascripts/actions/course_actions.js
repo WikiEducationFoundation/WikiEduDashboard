@@ -7,7 +7,7 @@ import {
 import API from '../utils/api.js';
 import CourseUtils from '../utils/course_utils';
 import request from '../utils/request';
-import { url } from '../utils/wiki_utils';
+import { toWikiDomain } from '../utils/wiki_utils';
 
 export const fetchCourse = courseSlug => (dispatch) => {
   return API.fetch(courseSlug, 'course')
@@ -192,7 +192,7 @@ export const fetchActiveCourses = () => async (dispatch) => {
 };
 
 export const fetchCoursesFromWiki = wiki => async (dispatch) => {
-  const wiki_url = url(wiki);
+  const wiki_url = toWikiDomain(wiki);
   const response = await request(`/courses_by_wiki/${wiki_url}.json`);
   if (!response.ok) {
     const data = await response.text();
