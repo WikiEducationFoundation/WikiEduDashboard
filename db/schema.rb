@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_12_192806) do
+ActiveRecord::Schema.define(version: 2022_07_12_182735) do
 
   create_table "alerts", id: :integer, charset: "utf8mb4", force: :cascade do |t|
     t.integer "course_id"
@@ -236,6 +236,14 @@ ActiveRecord::Schema.define(version: 2022_01_12_192806) do
     t.boolean "withdrawn", default: false
     t.integer "references_count", default: 0
     t.index ["slug"], name: "index_courses_on_slug", unique: true
+  end
+
+  create_table "courses_namespaces", charset: "utf8mb4", force: :cascade do |t|
+    t.integer "namespace"
+    t.bigint "courses_wikis_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["courses_wikis_id"], name: "index_courses_namespaces_on_courses_wikis_id"
   end
 
   create_table "courses_users", id: :integer, charset: "utf8mb4", force: :cascade do |t|
@@ -595,4 +603,5 @@ ActiveRecord::Schema.define(version: 2022_01_12_192806) do
   end
 
   add_foreign_key "course_stats", "courses"
+  add_foreign_key "courses_namespaces", "courses_wikis", column: "courses_wikis_id", on_delete: :cascade
 end

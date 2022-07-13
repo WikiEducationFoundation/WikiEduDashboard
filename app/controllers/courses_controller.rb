@@ -32,6 +32,7 @@ class CoursesController < ApplicationController
     end
     @course = course_creation_manager.create
     update_courses_wikis
+    update_courses_namespaces
     update_academic_system
     update_course_format
   end
@@ -42,6 +43,7 @@ class CoursesController < ApplicationController
     slug_from_params if should_set_slug?
     @course.update update_params
     update_courses_wikis
+    update_courses_namespaces
     update_flags
     ensure_passcode_set
     UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
@@ -267,6 +269,29 @@ class CoursesController < ApplicationController
       Wiki.get_or_create(language: wiki[:language], project: wiki[:project])
     end
     @course.update_wikis(new_wikis)
+  end
+
+  def courses_namespaces_params
+    params
+      .require(:course)
+      .permit(namespaces: [wiki: [:language, :project], namespaces: []])
+  end
+
+  def update_courses_namespaces
+    wiki_ns_obj = courses_namespaces_params[:namespaces]
+    wiki_ns_obj.each do |obj|
+      wiki = obj[:wiki]
+      namespaces = obj[:namespaces]
+      namespaces = [0] if !namespaces.length
+      language = Wiki.language_for_multilingual(language: wiki[:language], project: wiki[:project])
+      course_wiki = @course.courses_wikis.joins(:wiki).find_by(wiki: { language: language, project: wiki[:project]})
+      updated_namespaces = []
+      namespaces.each do |ns|
+        course_ns = course_wiki.courses_namespaces.find_or_create_by(namespace: ns)
+        updated_namespaces << course_ns
+      end
+      course_wiki.update_namespaces(updated_namespaces)
+    end
   end
 
   def update_flags

@@ -15,4 +15,9 @@ class CoursesWikis < ApplicationRecord
 
   belongs_to :course
   belongs_to :wiki
+  has_many :courses_namespaces, class_name: 'CoursesNamespaces', dependent: :destroy
+  
+  def update_namespaces(updated_ns)
+    update(courses_namespaces: updated_ns)
+  end
 end

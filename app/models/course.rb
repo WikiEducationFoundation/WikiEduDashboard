@@ -127,6 +127,8 @@ class Course < ApplicationRecord
   has_many :courses_wikis, class_name: 'CoursesWikis', dependent: :destroy
   has_many :wikis, through: :courses_wikis
 
+  has_many :courses_namespaces, through: :courses_wikis
+
   serialize :flags, Hash
 
   module ClonedStatus
@@ -285,7 +287,14 @@ class Course < ApplicationRecord
   end
 
   def tracked_namespaces
-    return [0, 102]
+    courses_wikis.map do |cw|
+      wiki = cw.wiki
+      language = wiki.language || 'www'
+      project = wiki.project
+      wiki_hash = [[:language, language], [:project, project]].to_h
+      ns = cw.courses_namespaces.pluck(:namespace)
+      [[:wiki, wiki_hash], [:namespaces, ns]].to_h
+    end
   end
 
   def suspected_plagiarism

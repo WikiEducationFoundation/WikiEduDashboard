@@ -13,6 +13,7 @@ json.course do
             :update_until, :withdrawn, :created_at)
 
   json.wikis @course.wikis, :language, :project
+  json.namespaces @course.tracked_namespaces
   json.timeline_enabled @course.timeline_enabled?
   json.disable_student_emails @course.disable_student_emails?
   json.academic_system @course.academic_system
@@ -34,7 +35,7 @@ json.course do
   json.enroll_url "#{request.base_url}#{course_slug_path(@course.slug)}/enroll/"
   json.wiki_string_prefix @course.home_wiki.string_prefix
 
-  if @course.course_stat
+  if @course.course_stat && @course.wikis.pluck(:id).include?(300)
     @course.course_stat.stats_hash = format_wikidata_stats(@course.course_stat.stats_hash)
     json.course_stats @course.course_stat, :id, :stats_hash
   end

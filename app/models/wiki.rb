@@ -63,6 +63,19 @@ class Wiki < ApplicationRecord
     'wikisource' => 'wikisource.org'
   }.freeze
 
+  PROJECTS_NAMESPACES = {
+    'wikipedia': [0,2,4,6,10,118],
+    'wikibooks': [0,2,6,108,102,110],
+    'wikidata': [0,2,4],
+    'wikimedia': [0,2,4],
+    'wikinews': [0,2,4],
+    'wikiquote': [0,2,4],
+    'wikisource': [0,2,4],
+    'wikiversity': [0,2,4],
+    'wikivoyage': [0,2,4],
+    'wiktionary': [0,2,4,100]
+  }.freeze
+
   #################
   # Class methods #
   #################
