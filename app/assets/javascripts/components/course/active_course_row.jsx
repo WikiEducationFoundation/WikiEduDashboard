@@ -11,7 +11,9 @@ const ActiveCourseRow = ({ course }) => {
       </td>
       <td className="table-link-cell word-count">
         <a href={`/courses/${course.slug}/`}>
-          {course.human_word_count}
+          <div>
+            {course.human_word_count}
+          </div>
           <small>
             ({I18n.t('metrics.per_user', { number: course.average_word_count })})
           </small>
@@ -25,7 +27,9 @@ const ActiveCourseRow = ({ course }) => {
       </td>
       <td className="table-link-cell user-count">
         <a href={`/courses/${course.slug}/`}>
-          {course.user_count}
+          <div>
+            {course.user_count}
+          </div>
           <small>
             {I18n.t('users.training_complete_count', { count: course.trained_count })}
           </small>
