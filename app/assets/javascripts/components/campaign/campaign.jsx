@@ -47,7 +47,9 @@ export const Campaign = createReactClass({
         <div className="container campaign_main">
           <section className="overview container">
             <CampaignStats campaign={this.props.campaign} />
-            {this.props.campaign.course_stats && <WikidataOverviewStats
+            {this.props.campaign.course_stats &&
+            this.props.campaign.course_stats['www.wikidata.org'] &&
+            <WikidataOverviewStats
               statistics={this.props.campaign.course_stats['www.wikidata.org']}
             />}
           </section>

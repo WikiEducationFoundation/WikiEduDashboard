@@ -29,14 +29,25 @@ module CourseHelper
     I18n.t("#{string_prefix}.#{message_key}")
   end
 
-  def format_wikidata_stats(course_stats)
-    course_stats['www.wikidata.org']['other updates'] += course_stats['www.wikidata.org']['unknown']
-    course_stats['www.wikidata.org'].reject! { |k, _v| k == 'unknown' }
-    course_stats.each_value do |stat|
-      stat.each do |key, value|
-        stat[key] = number_to_human(value)
+  def format_course_stats(course_stats)
+    if course_stats['www.wikidata.org']
+      course_stats['www.wikidata.org']['other updates'] += course_stats['www.wikidata.org']['unknown']
+      course_stats['www.wikidata.org'].reject! { |k, _v| k == 'unknown' }
+
+      # convert wikidata stats to human readable values
+      course_stats['www.wikidata.org'].each do |key, value|
+        course_stats['www.wikidata.org'][key] = number_to_human(value)
       end
     end
+    # convert namespace stats to human readable values
+    course_stats['namespace_stats'].each_value do |wiki_stats|
+      wiki_stats.each_value do |ns_stats|
+        ns_stats.each do |key, value|
+          ns_stats[key] = number_to_human(value)
+        end
+      end
+    end
+  
     course_stats
   end
 end

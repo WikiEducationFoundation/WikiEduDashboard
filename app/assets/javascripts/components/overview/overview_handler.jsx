@@ -168,7 +168,9 @@ const Overview = createReactClass({
       <section className="overview container">
         { syllabusUpload }
         <OverviewStats course={course} />
-        {course.course_stats && <WikidataOverviewStats
+        {course.course_stats &&
+        course.course_stats.stats_hash['www.wikidata.org'] &&
+        <WikidataOverviewStats
           statistics={course.course_stats.stats_hash['www.wikidata.org']}
         />}
         <StatisticsUpdateInfo course={course} />
