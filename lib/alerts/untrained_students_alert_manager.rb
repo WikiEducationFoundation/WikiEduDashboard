@@ -37,7 +37,7 @@ class UntrainedStudentsAlertManager
     end
     # Courses without enough meeting dates to fit all Week records can have nil
     # assignment dates.
-    assignment_dates.reject!(&:nil?)
+    assignment_dates.compact!
     assignment_dates.select { |date| date < Time.zone.now }.sort
   end
 end

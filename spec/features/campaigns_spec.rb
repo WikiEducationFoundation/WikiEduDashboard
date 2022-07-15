@@ -20,14 +20,36 @@ describe 'campaigns page', type: :feature, js: true do
     end
   end
 
-  context 'campaigns list' do
-    it 'lists the campaigns' do
-      campaign = create(:campaign, id: 10001,
-                                   title: 'My awesome Spring 2016 campaign',
-                                   slug: 'spring_2016',
-                                   description: 'This is the best campaign')
-      visit '/campaigns'
-      within('.campaign-list') { expect(page).to have_content(campaign.title) }
+  describe 'search functionality' do
+    before do
+      @spring2016 = create(:campaign, id: 10001,
+        title: 'My awesome Spring 2016 campaign',
+        slug: 'spring2016',
+        description: 'This is the best campaign')
+      @spring2015 = create(:campaign, id: 12221,
+        title: 'another spring campaign',
+        slug: 'spring2015',
+        description: 'This campaign could be better')
+    end
+
+    context 'campaigns list' do
+      it 'lists the campaigns' do
+        visit '/campaigns'
+        expect(page).to have_content(@spring2016.title)
+        expect(page).to have_content(@spring2015.title)
+      end
+
+      it 'renders the search results' do
+        visit '/campaigns?search=some'
+        # Should return only one campaign which matches the search criteria
+        expect(page).to have_content(@spring2016.title)
+        expect(page).not_to have_content(@spring2015.title)
+      end
+
+      it 'renders the "No results found"' do
+        visit '/campaigns?search=xyz'
+        expect(page).to have_content('No results found')
+      end
     end
   end
 

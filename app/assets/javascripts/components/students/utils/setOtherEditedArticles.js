@@ -1,4 +1,4 @@
-import { includes } from 'lodash';
+import { includes } from 'lodash-es';
 
 export default (articlesById, assignments = [], student) => {
   // assignmentsByArticleId holds all the assignments grouped/sorted by articleIds

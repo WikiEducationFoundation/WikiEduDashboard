@@ -15,7 +15,9 @@ sms:
     home: Ouddseidd
     log_in: Ǩeeʹrjtõõđ sizz
     log_out: Ǩeeʹrjtõõđ åålǥas
+    report_problem: Iʹlmmet čuõlmâst
     request_account_create: Raaj tobdldõõǥǥ
+    sign_up: Raaj tobdldõõǥǥ
     change: Muuʹtt
     details: Teâđ
   articles:
@@ -149,6 +151,9 @@ sms:
     references_count: Lââʹzztum teâttkääiv
     username: Õõʹnninõmm
     username_placeholder: Õõʹnninõmm
+    useremail_placeholder: E-pååʹštaddrõs
+  user_profiles:
+    image_link_placeholder: Lââʹzzet kartt- leʹbe snimldõkliiŋk (jiõččvääldlaž)
   wizard:
     summary: Õʹhtteǩeässmõš
   survey:

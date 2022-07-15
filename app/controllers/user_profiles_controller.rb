@@ -24,6 +24,7 @@ class UserProfilesController < ApplicationController
       @user_profile.image_file_link = nil
     end
     @user_profile.update! user_profile_params
+    @user.update! user_email_params if valid_email?
     flash[:notice] = 'Profile Updated'
     redirect_to controller: 'user_profiles', action: 'show'
   end
@@ -87,6 +88,10 @@ class UserProfilesController < ApplicationController
     params.require(:user_profile).permit(:bio, :image, :location, :institution, :image_file_link)
   end
 
+  def user_email_params
+    params.require(:email).permit(:email)
+  end
+
   def set_user
     # Per MediaWiki convention, underscores in username urls represent spaces
     username = CGI.unescape(params[:username]).tr('_', ' ')
@@ -97,5 +102,10 @@ class UserProfilesController < ApplicationController
   def set_user_profile
     @user_profile = @user.user_profile
     @user_profile = @user.create_user_profile if @user_profile.nil?
+  end
+
+  def valid_email?
+    return true if user_email_params['email'].blank? # allow deleting email
+    ValidatesEmailFormatOf::validate_email_format(user_email_params['email']).nil?
   end
 end

@@ -473,7 +473,7 @@ he:
     stay_in_sandbox: להישאר בארגז החול
     students: משתתפים
     students_taught: תלמידים למדו
-    students_count: מס' משתתפים
+    students_count: מספר המשתתפים
     student_editors: משתתפים עורכים
     students_none: בתוכנית \ בקורס \ במיזם הזה אין משתתפים.
     students_short: משתתפים
@@ -601,7 +601,7 @@ he:
     students: עורכים
     students_none: לפרויקט זה אין עורכים מורשים.
     students_short: עורכים
-    students_count: מס' משתתפים
+    students_count: מספר המשתתפים
     term: מתי
     uploads_none: במסגרת התוכנית \ הקורס \ המיזם הזה לא נתרמו תמונות או קובצי מדיה
       אחרים לוויקישיתוף.

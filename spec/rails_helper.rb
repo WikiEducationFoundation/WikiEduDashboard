@@ -111,10 +111,11 @@ RSpec.configure do |config|
           # Don't fail on these.
           next if /Failed to load resource/.match?(error.message)
 
-          expect(error.level).not_to eq('SEVERE'), error.message
-          next unless error.level == 'WARNING'
-          warn 'WARN: javascript warning'
+          warn 'JavaScript warning / error'
+          warn error.level
+          warn error
           warn error.message
+          expect(error.level).not_to eq('SEVERE'), error.message
         end
       end
     end

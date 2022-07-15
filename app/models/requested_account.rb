@@ -20,6 +20,10 @@ class RequestedAccount < ApplicationRecord
     "'#{email}' is not a valid email address."
   end
 
+  def updated_email_message
+    'The email for this requested username has been updated.'
+  end
+
   private
 
   def email_format

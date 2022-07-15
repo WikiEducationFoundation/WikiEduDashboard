@@ -106,8 +106,8 @@ const UploadViewer = createReactClass({
     let categoriesList = [];
     let categories;
     forEach(get(metadata, 'categories', []), (category) => {
-      categoriesList.push(<span> | </span>);
-      categoriesList.push(<a href={`https://commons.wikimedia.org/wiki/${category.title}`} target="_blank">{category.title.slice('Category:'.length)}</a>);
+      categoriesList.push(<span key={`span-${category.title}`}> | </span>);
+      categoriesList.push(<a href={`https://commons.wikimedia.org/wiki/${category.title}`} target="_blank" key={`link-${category.title}`}>{category.title.slice('Category:'.length)}</a>);
     });
     if (categoriesList.length > 0) {
       categoriesList = categoriesList.splice(1);

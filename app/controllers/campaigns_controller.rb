@@ -20,12 +20,6 @@ class CampaignsController < ApplicationController
   DETAILS_FIELDS = %w[title start end].freeze
 
   def index
-    @query = search_params[:search]
-    @campaigns = if @query.present?
-                   @results = Campaign.where('lower(title) like ?', "%#{@query.downcase}%")
-                 else
-                   Campaign.all
-                 end
     @campaign = Campaign.new
   end
 
@@ -176,6 +170,16 @@ class CampaignsController < ApplicationController
     redirect_to programs_campaign_path(@campaign.slug)
   end
 
+  def statistics
+    user_only = params[:user_only]
+    newest = params[:newest]
+    # rubocop:disable Layout/LineLength
+    @campaigns = user_only == 'true' ? current_user.campaigns : Campaign.all.order(created_at: :desc)
+    # rubocop:enable Layout/LineLength
+    @campaigns = @campaigns.limit(10) if newest == 'true'
+    render user_only == 'true' ? 'user_statistics' : 'statistics'
+  end
+
   #######################
   # CSV-related actions #
   #######################
@@ -268,9 +272,5 @@ class CampaignsController < ApplicationController
     params.require(:campaign)
           .permit(:slug, :description, :template_description, :title, :start, :end,
                   :default_course_type, :default_passcode)
-  end
-
-  def search_params
-    params.permit(:search)
   end
 end

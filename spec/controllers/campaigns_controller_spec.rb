@@ -4,28 +4,9 @@ require 'rails_helper'
 
 describe CampaignsController, type: :request do
   describe '#index' do
-    before do
-      Campaign.create(title: 'A wonderful campaign',
-                      default_passcode: 'custom')
-    end
-
     it 'renders a 200' do
       get '/campaigns'
       expect(response.status).to eq(200)
-    end
-
-    it 'renders the search results' do
-      get '/campaigns', params: { search: 'won' }
-
-      # Should return only one campaign which matches the search criteria
-      expect(response.body).to include('A wonderful campaign')
-      expect(response.body).not_to include('Spring 2015')
-    end
-
-    it 'renders the "No results found"' do
-      get '/campaigns', params: { search: 'xyz' }
-
-      expect(response.body).to include('No results found')
     end
   end
 

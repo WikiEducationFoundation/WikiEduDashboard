@@ -132,6 +132,7 @@ class RequestedAccountsController < ApplicationController
     existing_request = RequestedAccount.find_by(course: @course, username: params[:username])
     if existing_request
       existing_request.update_attribute(:email, params[:email])
+      render json: { message: existing_request.updated_email_message }
       yield
     end
   end

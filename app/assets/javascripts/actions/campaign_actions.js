@@ -1,4 +1,4 @@
-import { RECEIVE_CAMPAIGNS, SORT_CAMPAIGNS, DELETE_CAMPAIGN, API_FAIL, RECEIVE_ALL_CAMPAIGNS, ADD_CAMPAIGN } from '../constants';
+import { RECEIVE_COURSE_CAMPAIGNS, SORT_CAMPAIGNS_WITH_STATS, DELETE_CAMPAIGN, API_FAIL, RECEIVE_ALL_CAMPAIGNS, ADD_CAMPAIGN, RECEIVE_CAMPAIGNS_WITH_STATS } from '../constants';
 import logErrorMessage from '../utils/log_error_message';
 import request from '../utils/request';
 
@@ -18,7 +18,7 @@ export const fetchCampaigns = courseId => (dispatch) => {
     fetchCampaignsPromise(courseId)
       .then((data) => {
         dispatch({
-          type: RECEIVE_CAMPAIGNS,
+          type: RECEIVE_COURSE_CAMPAIGNS,
           data
         });
       })
@@ -26,7 +26,7 @@ export const fetchCampaigns = courseId => (dispatch) => {
   );
 };
 
-export const sortCampaigns = key => ({ type: SORT_CAMPAIGNS, key: key });
+export const sortCampaigns = key => ({ type: SORT_CAMPAIGNS_WITH_STATS, key: key });
 
 const removeCampaignsPromise = async (courseId, campaignId) => {
   const response = await request(`/courses/${courseId}/campaign.json`, {
@@ -93,12 +93,41 @@ const fetchAllCampaignsPromise = async () => {
   return response.json();
 };
 
+
 export const fetchAllCampaigns = () => (dispatch) => {
   return (
     fetchAllCampaignsPromise()
       .then((data) => {
         dispatch({
           type: RECEIVE_ALL_CAMPAIGNS,
+          data
+        });
+      })
+      .catch(response => (dispatch({ type: API_FAIL, data: response })))
+  );
+};
+
+const fetchCampaignStatisticsPromise = async (userOnly, newest) => {
+  const response = await request(`/campaigns/statistics.json?user_only=${userOnly}&newest=${newest}`);
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
+  }
+  return response.json();
+};
+
+
+// this function returns the campaigns along with their statistics data
+// if userOnly is set to true, only campaigns the user has created will be returned
+// newest limits the campaigns to the 10 most recent ones
+export const fetchCampaignStatistics = (userOnly = false, newest = false) => (dispatch) => {
+  return (
+    fetchCampaignStatisticsPromise(userOnly, newest)
+      .then((data) => {
+        dispatch({
+          type: RECEIVE_CAMPAIGNS_WITH_STATS,
           data
         });
       })

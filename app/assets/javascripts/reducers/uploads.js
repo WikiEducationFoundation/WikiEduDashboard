@@ -93,10 +93,10 @@ export default function uploads(state = initialState, action) {
       const views = [];
       forEach(action.data, (fileView) => {
         let fileViews = 0;
-        forEach(fileView.items, (article) => {
+        forEach(fileView?.items, (article) => {
           fileViews += get(article, 'views');
         });
-        views.push(Math.round(fileViews / fileView.items.length));
+        views.push(Math.round(fileViews / fileView?.items.length));
       });
       return {
         ...state,

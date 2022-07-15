@@ -38,7 +38,6 @@ class Revision < ApplicationRecord
 
   validates :mw_page_id, presence: true
   validates :mw_rev_id, presence: true
-  validates :wiki_id, presence: true
 
   serialize :features, Hash
   serialize :features_previous, Hash

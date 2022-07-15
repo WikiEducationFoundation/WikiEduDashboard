@@ -456,10 +456,19 @@ describe 'the course page', type: :feature, js: true do
       expect(page).to have_selector('div.tile-view')
     end
 
-    it 'displays list view when list view is selected' do
+    it 'displays list view and upload viewer when list view is selected' do
       visit "/courses/#{slug}/uploads"
+      expect(page).to have_selector('div.upload')
       find('button#list-view').click
       expect(page).to have_selector('div.list-view')
+      upload_element = first('tr.upload')
+      within(upload_element) do
+        first('img').click
+      end
+      expect(page).to have_selector('div.upload-viewer')
+      # Closes upload viewer
+      find('button.icon-close').click
+      expect(page).not_to have_selector('div.upload-viewer')
     end
 
     it 'displays upload viewer when upload is clicked' do

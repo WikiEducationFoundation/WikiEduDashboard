@@ -13,7 +13,7 @@ namespace :batch do
   desc 'Resume updates'
   task resume: :environment do
     pid_file = 'tmp/batch_pause.pid'
-    File.delete pid_file if File.exist? pid_file
+    FileUtils.rm_rf pid_file
     Sentry.capture_message 'Updates resumed.', level: 'warning'
   end
 end

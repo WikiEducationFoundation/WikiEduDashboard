@@ -28,10 +28,10 @@ Running `yarn test` will run the entire client-side test suite. During developme
 You can run the entire test suite, including a fresh compilation of assets, with `yarn build && rspec && yarn test`.
 
 ## Test Coverage
-All new code should be covered with appropriate tests. Much of the Javascript-dependent UI is covered by Poltergeist integration tests. Whenever possible, new Javascript functionality should be tested in isolation via Javascript tests instead (or additionally), as the integration tests tend to be both slower and more brittle.
+All new code should be covered with appropriate tests. In most cases, new features should be covered by RSpec feature specs.
 
 ## RSpec Test Coverage
-Istanbul is used to provide the test coverage for RSpec feature tests. When the full test suite is run, the report is generated and can be
+Istanbul is used to provide JavaScript test coverage for RSpec feature tests, in addition to the Ruby coverage provided by simplecov. When the full test suite is run, the JavaScript report is generated and can be
 accessed at `http://localhost:3000/js_coverage/index.html` which means to view the report you have to have the server running
 by doing `rails s`
 
