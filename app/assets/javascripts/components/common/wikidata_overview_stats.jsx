@@ -4,7 +4,7 @@ import OverviewStat from './OverviewStats/overview_stat';
 import I18n from 'i18n-js';
 
 const WikidataOverviewStats = ({ statistics, classNameSuffix }) => {
-  let className = "wikidata-stats-container";
+  let className = 'wikidata-stats-container';
   if (classNameSuffix) className = `${className} ${classNameSuffix}`;
 
   return (

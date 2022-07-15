@@ -513,9 +513,7 @@ const Details = createReactClass({
       namespaceSelector = (
         <div className="form-group namespace-select">
           <span className="text-input-component__label">
-            <strong>
-             {'Tracked Namespaces: '}
-            </strong>
+            <strong>{'Tracked Namespaces: '}</strong>
           </span>
           <NamespaceSelect
             wikis={this.props.course.wikis}

@@ -7,10 +7,10 @@ import Select from 'react-select';
 const projects_namespaces_ids = JSON.parse(ProjectNamespaces);
 
 const NamespaceSelect = (props) => {
-	const [selectedNamespaces, setSelectedNamespaces] = useState([]);
-	const [options, setOptions] = useState([]);
+  const [selectedNamespaces, setSelectedNamespaces] = useState([]);
+  const [options, setOptions] = useState([]);
 
-	useEffect(() => {
+  useEffect(() => {
     const namespaces = props.namespaces;
     const selected = namespaces.map((obj) => {
       const wiki = obj.wiki;
@@ -23,26 +23,26 @@ const NamespaceSelect = (props) => {
         const label = `${ns_title} (${language}.${project}.org)`;
         const isClearableValue = ns_id !== 0;
         return { label, value, isClearableValue };
-      })
+      });
     }).reduce((a, b) => a.concat(b));
     setSelectedNamespaces(selected);
-	}, [props.namespaces]);
+  }, [props.namespaces]);
 
   useEffect(() => {
     updateNamespacesFromWikis();
-    const options = optionsFromWikis();
-    setOptions(options);
-	}, [props.wikis]);
+    const newOptions = optionsFromWikis();
+    setOptions(newOptions);
+  }, [props.wikis]);
 
   const namespaceTitle = (id, project) => {
-    var title = ArticleUtils.NamespaceTitleFromId[id];
-    if (typeof(title) !== "string") title = title[project];
+    let title = ArticleUtils.NamespaceTitleFromId[id];
+    if (typeof (title) !== 'string') title = title[project];
     return I18n.t(`namespace.${title}`);
-  }
+  };
 
-	const updateNamespacesFromWikis = () => {
-		const tracked_wikis = props.wikis;
-		const tracked_namespaces = props.namespaces;
+  const updateNamespacesFromWikis = () => {
+    const tracked_wikis = props.wikis;
+    const tracked_namespaces = props.namespaces;
 
     const new_namespaces = tracked_wikis.map((wiki) => {
       wiki.language = wiki.language || 'www'; // for multilingual wikis, language is null
@@ -54,15 +54,13 @@ const NamespaceSelect = (props) => {
       if (ns_obj !== undefined && ns_obj !== null) {
         namespaces = ns_obj.namespaces;
         if (ArrayUtils.hasObject(namespaces, main_ns_id)) return { wiki, namespaces };
-        else { 
-          namespaces.unshift(main_ns_id);
-          return { wiki, namespaces };
-        }
+        namespaces.unshift(main_ns_id);
+        return { wiki, namespaces };
       }
       return { wiki, namespaces };
     });
     updateNamespaces(new_namespaces);
-	};
+  };
 
   const optionsFromWikis = () => {
     const tracked_wikis = props.wikis;
@@ -77,27 +75,27 @@ const NamespaceSelect = (props) => {
       });
     }).reduce((a, b) => a.concat(b));
     return new_options;
-  }
-  
-  const handleChange = (options) => {
-    const tracked_wikis = props.wikis;
-		const tracked_namespaces = tracked_wikis.map((wiki) => {
-      wiki.language = wiki.language || 'www';
-			let namespaces = [];
-			options.forEach((opt) => {
-				const value = JSON.parse(opt.value);
-				if (JSON.stringify(value.wiki) == JSON.stringify(wiki)) {
-					namespaces.push(value.ns_id);
-				}
-			});
-			return { wiki, namespaces };
-		});
-    updateNamespaces(tracked_namespaces)
-  }
+  };
 
-	const updateNamespaces = (namespaces) => {
-		props.onChange(namespaces);
-	};
+  const handleChange = (selectedOptions) => {
+    const tracked_wikis = props.wikis;
+    const tracked_namespaces = tracked_wikis.map((wiki) => {
+      wiki.language = wiki.language || 'www';
+      const namespaces = [];
+      selectedOptions.forEach((opt) => {
+        const value = JSON.parse(opt.value);
+        if (JSON.stringify(value.wiki) === JSON.stringify(wiki)) {
+          namespaces.push(value.ns_id);
+        }
+      });
+      return { wiki, namespaces };
+    });
+    updateNamespaces(tracked_namespaces);
+  };
+
+  const updateNamespaces = (namespaces) => {
+    props.onChange(namespaces);
+  };
 
   if (props.readOnly) {
     const namespaceList = props.namespaces.map((obj) => {
@@ -118,19 +116,19 @@ const NamespaceSelect = (props) => {
     );
   }
 
-	return (
-		<div>
-			<Select
-				id = 'namespace_select'
-				value = {selectedNamespaces}
-				onChange = {handleChange}
-				options = {options}
-				styles={props.styles}
-				isMulti = {true}
-				isClearable={false}
-			/>
-		</div>
-	);
-}
+  return (
+    <div>
+      <Select
+        id = "namespace_select"
+        value = {selectedNamespaces}
+        onChange = {handleChange}
+        options = {options}
+        styles={props.styles}
+        isMulti = {true}
+        isClearable={false}
+      />
+    </div>
+  );
+};
 
 export default NamespaceSelect;

@@ -12,29 +12,29 @@ const WikiOverviewStats = ({ wikidataStats, wikiNamespaceStats }) => {
   const [currentTabId, setCurrentTabId] = useState(0);
 
   const getTabTitle = (id, wiki) => {
-    const project = wiki.split(".")[1];
-    var ns_title = ArticleUtils.NamespaceTitleFromId[id];
-    if (typeof(ns_title) !== "string") ns_title = ns_title[project];
+    const project = wiki.split('.')[1];
+    let ns_title = ArticleUtils.NamespaceTitleFromId[id];
+    if (typeof (ns_title) !== 'string') ns_title = ns_title[project];
     return `${I18n.t(`namespace.${ns_title}`)} (${wiki})`;
-  }
-  
+  };
+
   const getContentTitle = (id, wiki) => {
-    const project = wiki.split(".")[1];
-    var ns_title = ArticleUtils.NamespaceTitleFromId[id];
-    if (typeof(ns_title) !== "string") ns_title = ns_title[project];
+    const project = wiki.split('.')[1];
+    let ns_title = ArticleUtils.NamespaceTitleFromId[id];
+    if (typeof (ns_title) !== 'string') ns_title = ns_title[project];
     return `Wiki: ${wiki}, Namespace: ${I18n.t(`namespace.${ns_title}`)}`;
-  }
+  };
 
   const onTabChange = (e) => {
     return setCurrentTabId(e.currentTarget.id);
-  }
+  };
 
   const hasWikidataStats = wikidataStats !== null;
-  const isWikidata = (hasWikidataStats && currentTabId == 0);
+  const isWikidata = (hasWikidataStats && currentTabId === 0);
 
   let statsData = [];
   if (hasWikidataStats) {
-    statsData.push({ id: 0, tabTitle: "Wikidata", data: wikidataStats });
+    statsData.push({ id: 0, tabTitle: 'Wikidata', data: wikidataStats });
   }
 
   let i = hasWikidataStats ? 1 : 0;
@@ -45,27 +45,28 @@ const WikiOverviewStats = ({ wikidataStats, wikiNamespaceStats }) => {
         const tabTitle = getTabTitle(ns, wiki);
         const contentTitle = getContentTitle(ns, wiki);
         return { id, tabTitle, contentTitle, data };
-      })
+      });
   }).reduce((a, b) => a.concat(b)));
 
   const tabsList = statsData.map((obj) => {
     return (
-      <WikiOverviewTabs 
+      <WikiOverviewTabs
         key={obj.id}
         id={obj.id}
         onClick={onTabChange}
-        title={obj.tabTitle} 
-        active={currentTabId == obj.id}/>
-    )
+        title={obj.tabTitle}
+        active={currentTabId === obj.id}
+      />
+    );
   });
 
-  const contentTitle = (isWikidata) ? null : statsData[currentTabId]["contentTitle"];
-  const data = statsData[currentTabId]["data"];
+  const contentTitle = (isWikidata) ? null : statsData[currentTabId].contentTitle;
+  const data = statsData[currentTabId].data;
   const content = (isWikidata)
-    ? <WikidataOverviewStats statistics={data} classNameSuffix={'wiki-overview'}/> 
+    ? <WikidataOverviewStats statistics={data} classNameSuffix={'wiki-overview'}/>
     : <NamespaceOverviewStats data={data} />;
 
-  return(
+  return (
     <div className="wiki-overview-stats-container">
       <div className="tabs-container">
         {tabsList}
