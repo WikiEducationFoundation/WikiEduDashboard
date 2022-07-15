@@ -15,14 +15,14 @@ const WikiOverviewStats = ({ wikidataStats, wikiNamespaceStats }) => {
     const project = wiki.split(".")[1];
     var ns_title = ArticleUtils.NamespaceTitleFromId[id];
     if (typeof(ns_title) !== "string") ns_title = ns_title[project];
-    return `${ns_title} (${wiki})`;
+    return `${I18n.t(`namespace.${ns_title}`)} (${wiki})`;
   }
   
   const getContentTitle = (id, wiki) => {
     const project = wiki.split(".")[1];
     var ns_title = ArticleUtils.NamespaceTitleFromId[id];
     if (typeof(ns_title) !== "string") ns_title = ns_title[project];
-    return `Wiki: ${wiki}, Namespace: ${ns_title}`;
+    return `Wiki: ${wiki}, Namespace: ${I18n.t(`namespace.${ns_title}`)}`;
   }
 
   const onTabChange = (e) => {
@@ -51,6 +51,7 @@ const WikiOverviewStats = ({ wikidataStats, wikiNamespaceStats }) => {
   const tabsList = statsData.map((obj) => {
     return (
       <WikiOverviewTabs 
+        key={obj.id}
         id={obj.id}
         onClick={onTabChange}
         title={obj.tabTitle} 

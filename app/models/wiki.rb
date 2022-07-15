@@ -64,16 +64,16 @@ class Wiki < ApplicationRecord
   }.freeze
 
   PROJECTS_NAMESPACES = {
-    'wikipedia': [0,2,4,6,10,118],
-    'wikibooks': [0,2,6,108,102,110],
-    'wikidata': [0,2,4],
-    'wikimedia': [0,2,4],
-    'wikinews': [0,2,4],
-    'wikiquote': [0,2,4],
-    'wikisource': [0,2,4],
-    'wikiversity': [0,2,4],
-    'wikivoyage': [0,2,4],
-    'wiktionary': [0,2,4,100]
+    'wikipedia': [0,2,4,6,10,12,14,118],
+    'wikibooks': [0,2,4,6,8,10,12,14,108,102,110],
+    'wikidata': [0,2,4,6,8,10,12,14,146],
+    'wikimedia': [0,2,4,6,8,10,12,14],
+    'wikinews': [0,2,4,6,8,10,12,14],
+    'wikiquote': [0,2,4,6,8,10,12,14],
+    'wikisource': [0,2,4,6,8,10,12,14,100,102,106],
+    'wikiversity': [0,2,4,6,8,10,12,14,100,102,106],
+    'wikivoyage': [0,2,4,6,8,10,12,14],
+    'wiktionary': [0,2,4,6,8,10,12,14,100,106]
   }.freeze
 
   #################

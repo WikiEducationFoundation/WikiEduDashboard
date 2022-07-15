@@ -37,7 +37,7 @@ const NamespaceSelect = (props) => {
   const namespaceTitle = (id, project) => {
     var title = ArticleUtils.NamespaceTitleFromId[id];
     if (typeof(title) !== "string") title = title[project];
-    return title;
+    return I18n.t(`namespace.${title}`);
   }
 
 	const updateNamespacesFromWikis = () => {
@@ -98,6 +98,25 @@ const NamespaceSelect = (props) => {
 	const updateNamespaces = (namespaces) => {
 		props.onChange(namespaces);
 	};
+
+  if (props.readOnly) {
+    const namespaceList = props.namespaces.map((obj) => {
+      const wiki = obj.wiki;
+      const project = wiki.project;
+      const language = wiki.language;
+
+      return obj.namespaces.map((ns) => {
+        const ns_title = namespaceTitle(ns, project);
+        const ns_wiki_title = `${ns_title}(${language}.${project}.org), `;
+        return <span key={ns_wiki_title}>{ns_wiki_title}</span>;
+      });
+    }).reduce((a, b) => a.concat(b));
+    return (
+      <>
+        {namespaceList}
+      </>
+    );
+  }
 
 	return (
 		<div>

@@ -1053,6 +1053,28 @@ en:
     main_char_added: Mainspace chars added
     user: Userspace
     user_char_added: Userspace chars added
+    project: Project
+    file: File
+    mediaWiki: MediaWiki
+    template: Template
+    help: Help
+    category: Category
+    page: Page
+    book: Book
+    wikijunior: WikiJunior
+    translation: Translation
+    draft: Draft
+    property: Property
+    query: Query
+    lexeme: Lexeme
+    appendix: Appendix
+    portal: Portal
+    school: School
+    author: Author
+    cookbook: Cookbook
+    rhymes: Rhymes
+    index: Index
+    collection: Collection
     filter:
       all_ns: All
       article_ns: Article
