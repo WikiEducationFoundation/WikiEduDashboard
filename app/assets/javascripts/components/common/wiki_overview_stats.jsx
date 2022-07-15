@@ -61,7 +61,7 @@ const WikiOverviewStats = ({ wikidataStats, wikiNamespaceStats }) => {
   const contentTitle = (isWikidata) ? null : statsData[currentTabId]["contentTitle"];
   const data = statsData[currentTabId]["data"];
   const content = (isWikidata)
-    ? <WikidataOverviewStats statistics={data} /> 
+    ? <WikidataOverviewStats statistics={data} classNameSuffix={'wiki-overview'}/> 
     : <NamespaceOverviewStats data={data} />;
 
   return(

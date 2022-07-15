@@ -45,7 +45,7 @@ const NamespaceSelect = (props) => {
 		const tracked_namespaces = props.namespaces;
 
     const new_namespaces = tracked_wikis.map((wiki) => {
-      wiki.language = wiki.language || 'www'; // for multilingual wikis language is null
+      wiki.language = wiki.language || 'www'; // for multilingual wikis, language is null
       let namespaces = [0];
       const main_ns_id = 0;
       const ns_obj = tracked_namespaces.find((obj) => {

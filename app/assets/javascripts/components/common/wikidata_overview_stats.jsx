@@ -3,9 +3,12 @@ import PropTypes from 'prop-types';
 import OverviewStat from './OverviewStats/overview_stat';
 import I18n from 'i18n-js';
 
-const WikidataOverviewStats = ({ statistics }) => {
+const WikidataOverviewStats = ({ statistics, classNameSuffix }) => {
+  let className = "wikidata-stats-container";
+  if (classNameSuffix) className = `${className} ${classNameSuffix}`;
+
   return (
-    <div className="wikidata-stats-container">
+    <div className={className}>
       <h2 className="wikidata-stats-title">Wikidata stats</h2>
       <div className="wikidata-display">
         <div className="stat-display__row">
@@ -216,7 +219,8 @@ const WikidataOverviewStats = ({ statistics }) => {
 };
 
 WikidataOverviewStats.propTypes = {
-  statistics: PropTypes.object
+  statistics: PropTypes.object,
+  classNameSuffix: PropTypes.string
 };
 
   export default WikidataOverviewStats;

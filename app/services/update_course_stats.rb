@@ -83,12 +83,12 @@ class UpdateCourseStats
     log_update_progress :wikidata_stats_updated
   end
 
-  def wikidata
-    @course.wikis.find { |wiki| wiki.project == 'wikidata' }
-  end
-
   def update_namespace_stats
     UpdateNamespaceStats.new(@course)
+  end
+
+  def wikidata
+    @course.wikis.find { |wiki| wiki.project == 'wikidata' }
   end
 
   def log_update_progress(step)
