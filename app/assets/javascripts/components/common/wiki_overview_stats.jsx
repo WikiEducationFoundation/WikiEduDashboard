@@ -26,7 +26,7 @@ const WikiOverviewStats = ({ wikidataStats, wikiNamespaceStats }) => {
   };
 
   const onTabChange = (e) => {
-    return setCurrentTabId(e.currentTarget.id);
+    return setCurrentTabId(Number(e.currentTarget.id));
   };
 
   const hasWikidataStats = wikidataStats !== null;

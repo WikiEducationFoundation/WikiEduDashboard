@@ -279,10 +279,9 @@ class Course < ApplicationRecord
                                   .collect(&:training_module_ids).flatten
   end
 
-  def tracked_revisions(namespace=0)
+  def tracked_revisions
     revisions.where.not(article_id: articles_courses.not_tracked.pluck(:article_id))
              .where(wiki_id: wiki_ids)
-             .namespace(namespace)
   end
 
   def tracked_namespaces
@@ -338,12 +337,12 @@ class Course < ApplicationRecord
     "#{home_wiki.base_url}/wiki/#{wiki_title}"
   end
 
-  def edited_articles_courses(namespace = 0)
-    articles_courses.tracked.live.namespace(namespace)
+  def edited_articles_courses
+    articles_courses.tracked.live
   end
 
-  def new_articles_courses(namespace = 0)
-    edited_articles_courses(namespace).new_article
+  def new_articles_courses
+    edited_articles_courses.new_article
   end
 
   def new_articles_on(wiki)
