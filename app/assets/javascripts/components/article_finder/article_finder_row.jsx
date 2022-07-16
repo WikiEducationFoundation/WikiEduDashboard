@@ -189,7 +189,8 @@ const ArticleFinderRow = createReactClass({
           {pageviews}
         </td>
         {button}
-      </tr>);
+      </tr>
+    );
   }
 });
 

@@ -43,7 +43,8 @@ export default class RangeGraph extends Component {
                   onMouseLeave={() => { this.showValue(null); }}
                   style={{ position: 'absolute', display: 'block', width: 10, left: -10, bottom: 0, height: (increment * answers[key]) }}
                 />
-              </div>);
+              </div>
+            );
           })}
           <span className="results__range-graph__max">{max}</span>
         </div>

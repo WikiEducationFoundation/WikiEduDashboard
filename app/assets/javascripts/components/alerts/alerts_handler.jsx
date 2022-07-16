@@ -75,7 +75,7 @@ const AlertsHandler = createReactClass({
     }
     return (
       <div>{alertList}</div>
-      );
+    );
     }
 });
 
