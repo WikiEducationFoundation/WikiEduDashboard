@@ -15,6 +15,7 @@ const outputPath = path.resolve(`${config.outputPath}`);
 
 module.exports = (env) => {
   const mode = env.development ? 'development' : 'production';
+  const isProductionOrCI = env.production || env.coverage;
   let devtool = 'eval-cheap-source-map';
   // see https://webpack.js.org/configuration/devtool/ for the detailed descriptions of these
   if (env.production) {
@@ -94,10 +95,10 @@ module.exports = (env) => {
       new MomentLocalesPlugin(),
       !env.DISABLE_ESLINT && new ESLintPlugin({
         files: 'app/assets/javascripts/**/*.{js,jsx}',
-        failOnError: !!env.production,
-        threads: !!env.production,
-        lintDirtyModulesOnly: true,
-        cache: true
+        failOnError: isProductionOrCI,
+        threads: isProductionOrCI,
+        lintDirtyModulesOnly: !isProductionOrCI,
+        cache: !isProductionOrCI
       }),
 
       new MiniCssExtractPlugin({
