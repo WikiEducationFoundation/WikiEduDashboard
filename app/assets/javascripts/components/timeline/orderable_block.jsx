@@ -31,7 +31,8 @@ const OrderableBlock = createReactClass({
         <button onClick={this.props.onMoveUp} className="button border" aria-label={I18n.t('timeline.move_block_up')} disabled={this.props.disableUp}>
           <i className="icon icon-arrow-up" />
         </button>
-      </div>);
+      </div>
+    );
   }
 });
 
