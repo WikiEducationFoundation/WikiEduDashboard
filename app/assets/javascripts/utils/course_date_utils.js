@@ -1,17 +1,29 @@
 import { filter } from 'lodash-es';
-import { isValid, format, parseISO, isAfter, differenceInMonths, startOfWeek, addDays, differenceInWeeks, endOfWeek, getDay, addWeeks, isBefore } from 'date-fns';
+import {
+  isValid,
+  format,
+  parseISO,
+  isAfter,
+  differenceInMonths,
+  startOfWeek,
+  addDays,
+  differenceInWeeks,
+  endOfWeek,
+  getDay,
+  addWeeks,
+  isBefore,
+} from 'date-fns';
 import { toDate } from './date_utils';
 
 const CourseDateUtils = {
-  validationRegex() {
-    // Matches YYYY-MM-DD
-    return /^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$/;
-  },
-
   isDateValid(date) {
     return /^20\d{2}-\d{2}-\d{2}/.test(date) && isValid(toDate(date));
   },
 
+  /**
+   * @param  {Date} datetime
+   * @param  {boolean} showTime=false
+   */
   formattedDateTime(datetime, showTime = false) {
     let timeZoneAbbr = '';
     let timeFormat = '';
@@ -52,7 +64,7 @@ const CourseDateUtils = {
   // for changing one of the date fields and returns a course where all the dates
   // are consistent with each other.
   updateCourseDates(prevCourse, valueKey, value) {
-    const updatedCourse = Object.assign({}, prevCourse);
+    const updatedCourse = Object.assign({}, prevCourse); // clone the course
     updatedCourse[valueKey] = value;
     // Just return with the new value if it doesn't pass validation
     // or if it it lacks timeline dates
@@ -91,7 +103,10 @@ const CourseDateUtils = {
 
   moreWeeksThanAvailable(course, weeks, exceptions) {
     if (!weeks || !weeks.length) { return false; }
-    const nonBlackoutWeeks = filter(this.weekMeetings(course, exceptions), mtg => mtg.length > 0);
+    const nonBlackoutWeeks = filter(
+      this.weekMeetings(course, exceptions),
+      mtg => mtg.length > 0
+    );
     return weeks.length > nonBlackoutWeeks.length;
   },
 
@@ -100,7 +115,9 @@ const CourseDateUtils = {
     let noMeetingsThisWeek = true;
     [0, 1, 2, 3, 4, 5, 6].forEach((i) => {
       const wkDay = format(addDays(startOfWeek(selectedDay), i), 'yyyyMMdd');
-      if (this.courseMeets(course.weekdays, i, wkDay, exceptions.join(','))) { return noMeetingsThisWeek = false; }
+      if (this.courseMeets(course.weekdays, i, wkDay, exceptions.join(','))) {
+        return (noMeetingsThisWeek = false);
+      }
     });
     return noMeetingsThisWeek;
   },
@@ -120,7 +137,7 @@ const CourseDateUtils = {
     const courseWeeks = differenceInWeeks(weekEnd, weekStart, { roundingMethod: 'round' });
     const meetings = [];
 
-    __range__(0, (courseWeeks - 1), true).forEach((week) => {
+    for (let week = 0; week < courseWeeks; week += 1) {
       weekStart = addWeeks(startOfWeek(toDate(course.timeline_start)), week);
 
       // Account for the first partial week, which may not have 7 days.
@@ -132,25 +149,29 @@ const CourseDateUtils = {
       }
 
       const ms = [];
-      __range__(firstDayOfWeek, 6, true).forEach((i) => {
+      for (let i = firstDayOfWeek; i < 7; i += 1) {
         const day = addDays(weekStart, i);
         if (course && this.courseMeets(course.weekdays, i, format(day, 'yyyyMMdd'), exceptions)) {
-          return ms.push(format(day, 'EEEE (MM/dd)'));
+          ms.push(format(day, 'EEEE (MM/dd)'));
         }
-      });
-      if (ms.length === 0) {
-        return meetings.push([]);
       }
-      return meetings.push(ms);
-    });
+      meetings.push(ms);
+    }
     return meetings;
   },
 
   courseMeets(weekdays, i, formatted, exceptions) {
-    if (!exceptions && exceptions !== '') { return false; }
+    if (!exceptions && exceptions !== '') {
+      return false;
+    }
     exceptions = exceptions.split ? exceptions.split(',') : exceptions;
-    if (weekdays[i] === '1' && !__in__(formatted, exceptions)) { return true; }
-    if (weekdays[i] === '0' && __in__(formatted, exceptions)) { return true; }
+
+    if (weekdays[i] === '1' && !exceptions.includes(formatted)) {
+      return true;
+    }
+    if (weekdays[i] === '0' && exceptions.includes(formatted)) {
+      return true;
+    }
     return false;
   },
 
@@ -158,7 +179,9 @@ const CourseDateUtils = {
   openWeeks(weekMeetings) {
     let openWeekCount = 0;
     weekMeetings.forEach((meetingArray) => {
-      if (meetingArray.length > 0) { return openWeekCount += 1; }
+      if (meetingArray.length > 0) {
+        return openWeekCount += 1;
+      }
     });
     return openWeekCount;
   },
@@ -178,28 +201,5 @@ const CourseDateUtils = {
     return this.currentWeekIndex(timelineStart) + 1;
   }
 };
-
-function __range__(left, right, inclusive) {
-  const range = [];
-  const ascending = left < right;
-
-  let endOfRange;
-  if (!inclusive) {
-    endOfRange = right;
-  } else if (ascending) {
-    endOfRange = right + 1;
-  } else {
-    endOfRange = right - 1;
-  }
-
-  for (let i = left; ascending ? i < endOfRange : i > endOfRange; ascending ? i += 1 : i -= 1) {
-    range.push(i);
-  }
-  return range;
-}
-
-function __in__(needle, haystack) {
-  return haystack.indexOf(needle) >= 0;
-}
 
 export default CourseDateUtils;

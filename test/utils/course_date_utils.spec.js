@@ -100,14 +100,6 @@ describe('courseDateUtils.isDateValid', () => {
   });
 });
 
-describe('CourseDateUtils.validationRegex', () => {
-  test('returns a regex that matches YYYY-[M]M-[D]D', () => {
-    const validationRegex = CourseDateUtils.validationRegex();
-    expect('2015-02-24'.match(validationRegex)[0]).toBe('2015-02-24');
-    expect('2015-13-25'.match(validationRegex)).toBeNull();
-  });
-});
-
 describe('CourseDateUtils.formattedDateTime', () => {
   test('returns a date string', () => {
     const input = new Date(2016, 10, 19, 17, 15, 14);
