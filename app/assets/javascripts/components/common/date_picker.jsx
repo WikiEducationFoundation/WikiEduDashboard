@@ -5,7 +5,7 @@ import DayPicker from 'react-day-picker';
 import OnClickOutside from 'react-onclickoutside';
 import { range, includes } from 'lodash-es';
 import moment from 'moment';
-
+import { startOfDay, endOfDay, isValid, isAfter, parseISO } from 'date-fns';
 import InputHOC from '../high_order/input_hoc.jsx';
 import Conditional from '../high_order/conditional.jsx';
 import CourseDateUtils from '../../utils/course_date_utils.js';
@@ -92,7 +92,7 @@ const DatePicker = createReactClass({
    * @return {String} formatted date
    */
   getFormattedDateTime() {
-    return CourseDateUtils.formattedDateTime(this.getDate(), this.props.showTime);
+    return CourseDateUtils.formattedDateTime(this.getDate().toDate(), this.props.showTime);
   },
 
   getTimeDropdownOptions(type) {
@@ -138,7 +138,7 @@ const DatePicker = createReactClass({
    */
   handleDateFieldBlur(e) {
     const { value } = e.target;
-    if (this.isValidDate(value) && !this.isDayDisabled(value)) {
+    if (this.isValidDate(value) && !this.isDayDisabled(parseISO(value))) {
       this.setState({ value }, () => {
         this.onChangeHandler();
       });
@@ -187,16 +187,15 @@ const DatePicker = createReactClass({
     return currentDate === this.state.value;
   },
 
-  isDayDisabled(date) {
-    const currentDate = this.moment(date);
+  isDayDisabled(currentDate) {
     if (this.props.date_props) {
-      const minDate = this.moment(this.props.date_props.minDate, 'YYYY-MM-DD').startOf('day');
-      if (minDate.isValid() && currentDate < minDate) {
+      const minDate = startOfDay(this.props.date_props.minDate);
+      if (isValid(minDate) && isAfter(minDate, currentDate)) {
         return true;
       }
 
-      const maxDate = this.moment(this.props.date_props.maxDate, 'YYYY-MM-DD').endOf('day');
-      if (maxDate.isValid() && currentDate > maxDate) {
+      const maxDate = endOfDay(this.props.date_props.maxDate);
+      if (isValid(maxDate) && isAfter(maxDate, currentDate)) {
         return true;
       }
     }
@@ -254,9 +253,8 @@ const DatePicker = createReactClass({
 
       let minDate;
       if (this.props.date_props && this.props.date_props.minDate) {
-        const minDateValue = this.moment(this.props.date_props.minDate, 'YYYY-MM-DD');
-        if (minDateValue.isValid()) {
-          minDate = minDateValue;
+        if (isValid(this.props.date_props.minDate)) {
+          minDate = this.props.date_props.minDate;
         }
       }
 
