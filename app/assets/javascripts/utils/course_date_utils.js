@@ -137,7 +137,8 @@ const CourseDateUtils = {
     const courseWeeks = differenceInWeeks(weekEnd, weekStart, { roundingMethod: 'round' });
     const meetings = [];
 
-    for (let week = 0; week < courseWeeks; week += 1) {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const week of range(0, (courseWeeks - 1), true)) {
       weekStart = addWeeks(startOfWeek(toDate(course.timeline_start)), week);
 
       // Account for the first partial week, which may not have 7 days.
@@ -149,7 +150,8 @@ const CourseDateUtils = {
       }
 
       const ms = [];
-      for (let i = firstDayOfWeek; i < 7; i += 1) {
+      // eslint-disable-next-line no-restricted-syntax
+      for (const i of range(firstDayOfWeek, 6, true)) {
         const day = addDays(weekStart, i);
         if (course && this.courseMeets(course.weekdays, i, format(day, 'yyyyMMdd'), exceptions)) {
           ms.push(format(day, 'EEEE (MM/dd)'));
@@ -159,7 +161,6 @@ const CourseDateUtils = {
     }
     return meetings;
   },
-
   courseMeets(weekdays, i, formatted, exceptions) {
     if (!exceptions && exceptions !== '') {
       return false;
@@ -201,5 +202,22 @@ const CourseDateUtils = {
     return this.currentWeekIndex(timelineStart) + 1;
   }
 };
+
+function* range(left, right, inclusive) {
+  const ascending = left < right;
+
+  let endOfRange;
+  if (!inclusive) {
+    endOfRange = right;
+  } else if (ascending) {
+    endOfRange = right + 1;
+  } else {
+    endOfRange = right - 1;
+  }
+
+  for (let i = left; ascending ? i < endOfRange : i > endOfRange; ascending ? i += 1 : i -= 1) {
+    yield i;
+  }
+}
 
 export default CourseDateUtils;
