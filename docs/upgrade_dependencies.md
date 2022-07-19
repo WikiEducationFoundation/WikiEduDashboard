@@ -1,5 +1,13 @@
 ## Upgrading Ruby ##
 
+### Install the new Ruby in your development environment
+
+If using RVM:
+* `rvm get head`
+* `rvm install ruby-x.x.x`
+* `gem install bundler`
+* `bundle install` from the project directory
+
 ### Prepare the code
 Update the code where the specific Ruby version is specified:
 * `Gemfile`
@@ -34,6 +42,12 @@ LoadModule passenger_module /home/sage/.rvm/gems/ruby-3.1.2/gems/passenger-6.0.1
 </IfModule>
 
 ```
+
+On non-web application servers (ie, servers just running Sidekiq processes):
+* stop the Sidekiq processes
+* install Ruby and Bundler, and set the default
+* pull the latest code and run `bundle install` (with the new Ruby version)
+* restart the Sidekiq processes
 
 ### Deploy
 
