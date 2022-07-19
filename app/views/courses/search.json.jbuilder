@@ -6,7 +6,6 @@ json.courses @courses do |course|
     :id,
     :title,
     :slug,
-    :description,
     :school,
     :term,
     :word_count,
@@ -21,6 +20,6 @@ json.courses @courses do |course|
   json.human_word_count number_to_human(course.word_count)
   json.human_view_sum number_to_human(course.view_sum)
   json.creation_date I18n.l course.created_at.to_date
-  json.instructor course.courses_users.where(role: 1).first&.real_name
+  json.instructor course.instructors.map(&:real_name).first
   json.human_average_word_count number_to_human(course.average_word_count)
 end
