@@ -33,7 +33,7 @@ jobs:
       - name: setup Ruby
         uses: ruby/setup-ruby@v1    
         with:
-           ruby-version: 2.7.1
+           ruby-version: 3.1.2
            bundler-cache: true
      
       - name: setup Node

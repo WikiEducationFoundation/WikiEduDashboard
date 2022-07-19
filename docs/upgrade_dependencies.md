@@ -3,8 +3,9 @@
 ### Prepare the code
 Update the code where the specific Ruby version is specified:
 * `Gemfile`
-* `.travis.yml`
-* `docs/setup.md`
+* `.github/workflows/ci.yml`
+* `docs/setup.md` and related setup scripts
+* `Dockerfile`
 
 Make sure the tests pass on travis with the new Ruby.
 

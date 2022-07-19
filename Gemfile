@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.7.1'
+ruby '3.1.2'
 
 ### Basic Framework
 gem 'rails', '6.1.4.7'
@@ -16,7 +16,7 @@ gem 'activerecord-import' # Used to save batches of new ActiveRecord objects
 # Used for cloning surveys and courses.
 gem 'deep_cloneable'
 gem 'paper_trail' # Save histories of record changes related to surveys
-gem "paperclip" # used by Course and UserProfile for file attachments. Deprecated.
+gem "kt-paperclip" # used by Course and UserProfile for file attachments.
 gem 'sidekiq' # Framework for running background worker jobs
 gem 'sidekiq-unique-jobs' # Plugin to prevent duplicate jobs in the sidekiq queue
 gem 'sidekiq-cron' # Plugin for cron-style recurring jobs in Sidekiq
@@ -55,6 +55,7 @@ gem 'faraday' # Standard HTTP library
 gem 'mediawiki_api', git: 'https://github.com/ragesoss/mediawiki-ruby-api', branch: 'master' # Library for querying mediawiki API
 gem 'restforce' # Salesforce API access
 gem 'oj' # JSON Parsing library
+gem 'rss' # Standard RSS library
 
 ### Internationalization
 gem 'http_accept_language'
@@ -92,6 +93,12 @@ gem 'pandoc-ruby' # Text converter, for markdown<->html<->wikitext conversions
 ### Performance
 gem 'rack-mini-profiler'
 gem 'stackprof'
+
+### Temporary additions for Ruby 3.1 compatibility
+# These should be removed after the upgrade to Rails 7
+gem 'net-smtp', require: false
+gem 'net-imap', require: false
+gem 'net-pop', require: false
 
 group :development do
   gem 'better_errors'

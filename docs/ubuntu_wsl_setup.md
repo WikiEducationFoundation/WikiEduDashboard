@@ -16,7 +16,7 @@
 4. Close and reopen the Ubuntu terminal (to activate RVM)
 5. In Ubuntu terminal:
    1. `sudo usermod -a -G rvm $USER` where $User is your UNIX username (preferably restart your machine after this step)
-   2. `rvm install 2.7.1`
+   2. `rvm install 3.1.2`
    3.  Clone the WikiEduDashboard git repo and enter the directory
    4.  In config folder:
        1. Either save `application.example.yml` and `database.example.yml` as `application.yml` and `database.yml`, respectively, or 
