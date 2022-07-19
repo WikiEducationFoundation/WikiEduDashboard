@@ -142,15 +142,17 @@ describe('courseDateUtils.weeksBeforeTimeline', () => {
   });
 });
 
-// describe 'CourseDateUtils.wouldCreateBlackoutWeek', ->
-//   one_of_two_meetings = '2015-11-24'
-//   result = CourseDateUtils.wouldCreateBlackoutWeek(typicalCourse, one_of_two_meetings, exceptions)
-//   expect(result).toEqual false
-//
-//   only_meeting = '2015-12-09'
-//   result = CourseDateUtils.wouldCreateBlackoutWeek(typicalCourse, only_meeting, exceptions)
-//   expect(result).toEqual true
-//
-// describe 'CourseDateUtils.weekMeetings', ->
-// describe 'CourseDateUtils.meetings', ->
-// describe 'CourseDateUtils.courseMeets', ->
+describe('CourseDateUtils.wouldCreateBlackoutWeek', () => {
+  test('returns true if a blackout week', () => {
+    // 2015-08-01 is a Friday
+    // course meets on Tuesdays and Thursdays so we add those as an exception to create a blackout week
+    const output = CourseDateUtils.wouldCreateBlackoutWeek(typicalCourse, '2015-08-28', ['20150825', '20150827']);
+    expect(output).toBe(true);
+  });
+
+  test('returns false if not a blackout week', () => {
+    // no exceptions, means that this week is not a blackout one
+    const output = CourseDateUtils.wouldCreateBlackoutWeek(typicalCourse, '2015-08-28', []);
+    expect(output).toBe(false);
+  });
+});
