@@ -249,8 +249,7 @@ export const getAllWeeksArray = createSelector(
     // The index 'i' represents the zero-index week number. However, weekNumber
     // property indicates week number starting from 1. Both empty and non-empty
     // weeks are included in this numbering scheme.
-    const meetings = CourseDateUtils.meetings(course);
-    const weekMeetings = CourseDateUtils.weekMeetings(meetings, course, course.day_exceptions);
+    const weekMeetings = CourseDateUtils.weekMeetings(course, course.day_exceptions);
     const allWeeks = [];
     let i = 0;
     weeksArray.forEach((week) => {

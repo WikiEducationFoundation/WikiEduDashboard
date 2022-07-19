@@ -85,15 +85,13 @@ const TimelineHandler = createReactClass({
     if (this.props.course.loading) {
       return <div />;
     }
-    const meetings = CourseDateUtils.meetings(this.props.course);
-    const weekMeetings = CourseDateUtils.weekMeetings(meetings, this.props.course, this.props.course.day_exceptions);
+    const weekMeetings = CourseDateUtils.weekMeetings(this.props.course, this.props.course.day_exceptions);
     const openWeeks = CourseDateUtils.openWeeks(weekMeetings);
 
     const courseProps = {
       key: 'wizard_handler',
       course: this.props.course,
       weeks: this.props.weeks,
-      meetings,
       open_weeks: openWeeks
     };
 

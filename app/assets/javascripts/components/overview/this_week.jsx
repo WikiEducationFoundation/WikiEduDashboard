@@ -39,8 +39,7 @@ const ThisWeek = ({ course, weeks, current_user }) => {
   if (weeks) {
     weekIndex = currentWeek + 1;
 
-    const meetings = CourseDateUtils.meetings(course);
-    weekMeetings = CourseDateUtils.weekMeetings(meetings, course, course.day_exceptions);
+    weekMeetings = CourseDateUtils.weekMeetings(course, course.day_exceptions);
     const emptyWeeksAtStart = emptyWeeksAtBeginning(weekMeetings);
     const daysUntilBeginning = emptyWeeksAtStart * 7;
     const isFirstWeek = moment().diff(course.timeline_start, 'days') <= daysUntilBeginning;

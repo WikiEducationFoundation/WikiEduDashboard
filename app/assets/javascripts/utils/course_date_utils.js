@@ -1,18 +1,29 @@
 import { filter } from 'lodash-es';
-import moment from 'moment';
-
-require('moment-recur');
+import {
+  isValid,
+  format,
+  parseISO,
+  isAfter,
+  differenceInMonths,
+  startOfWeek,
+  addDays,
+  differenceInWeeks,
+  endOfWeek,
+  getDay,
+  addWeeks,
+  isBefore,
+} from 'date-fns';
+import { toDate } from './date_utils';
 
 const CourseDateUtils = {
-  validationRegex() {
-    // Matches YYYY-MM-DD
-    return /^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$/;
-  },
-
   isDateValid(date) {
-    return /^20\d{2}-\d{2}-\d{2}/.test(date) && moment(date).isValid();
+    return /^20\d{2}-\d{2}-\d{2}/.test(date) && isValid(toDate(date));
   },
 
+  /**
+   * @param  {Date} datetime
+   * @param  {boolean} showTime=false
+   */
   formattedDateTime(datetime, showTime = false) {
     let timeZoneAbbr = '';
     let timeFormat = '';
@@ -21,33 +32,31 @@ const CourseDateUtils = {
       timeFormat = ' HH:mm';
       try {
         timeZoneAbbr = ' ';
-        timeZoneAbbr += moment(datetime).toDate().toString().split('(')[1].slice(0, -1);
+        timeZoneAbbr += datetime.toString().split('(')[1].slice(0, -1);
       } catch (err) {
         timeZoneAbbr = '';
       }
     }
-    const format = `YYYY-MM-DD${timeFormat}`;
-    return moment(datetime).format(format) + timeZoneAbbr;
+    const dateFormat = `yyyy-MM-dd${timeFormat}`;
+    return format(datetime, dateFormat) + timeZoneAbbr;
   },
 
   // Returns an object of minDate and maxDate props for each date field of a course
   dateProps(course) {
-    const startDate = moment(course.start, 'YYYY-MM-DD');
-
+    const startDate = parseISO(course.start);
     const props = {
       end: {
         minDate: startDate
       },
       timeline_start: {
         minDate: startDate,
-        maxDate: moment(course.timeline_end, 'YYYY-MM-DD')
+        maxDate: parseISO(course.timeline_end)
       },
       timeline_end: {
-        minDate: moment(course.timeline_start, 'YYYY-MM-DD'),
-        maxDate: moment(course.end, 'YYYY-MM-DD')
+        minDate: parseISO(course.timeline_start),
+        maxDate: parseISO(course.end)
       }
     };
-
     return props;
   },
 
@@ -55,25 +64,21 @@ const CourseDateUtils = {
   // for changing one of the date fields and returns a course where all the dates
   // are consistent with each other.
   updateCourseDates(prevCourse, valueKey, value) {
-    const updatedCourse = $.extend({}, prevCourse);
+    const updatedCourse = Object.assign({}, prevCourse); // clone the course
     updatedCourse[valueKey] = value;
     // Just return with the new value if it doesn't pass validation
     // or if it it lacks timeline dates
     if (!this.isDateValid(value) || !updatedCourse.timeline_start) { return updatedCourse; }
-
-    if (moment(updatedCourse.start, 'YYYY-MM-DD').isAfter(updatedCourse.timeline_start, 'YYYY-MM-DD') && valueKey !== 'timeline_start') {
+    if (isAfter(toDate(updatedCourse.start), toDate(updatedCourse.timeline_start)) && valueKey !== 'timeline_start') {
       updatedCourse.timeline_start = updatedCourse.start;
     }
-    if (moment(updatedCourse.timeline_start, 'YYYY-MM-DD').isAfter(updatedCourse.timeline_end, 'YYYY-MM-DD') && valueKey !== 'timeline_end') {
+    if (isAfter(toDate(updatedCourse.timeline_start), toDate(updatedCourse.timeline_end)) && valueKey !== 'timeline_end') {
       updatedCourse.timeline_end = updatedCourse.timeline_start;
     }
-    if (moment(updatedCourse.timeline_end, 'YYYY-MM-DD').isAfter(updatedCourse.end, 'YYYY-MM-DD') && valueKey !== 'end') {
+    if (isAfter(toDate(updatedCourse.timeline_end), toDate(updatedCourse.end)) && valueKey !== 'end') {
       updatedCourse.end = updatedCourse.timeline_end;
     }
-    if (moment(updatedCourse.start, 'YYYY-MM-DD').isAfter(updatedCourse.timeline_start, 'YYYY-MM-DD') && valueKey !== 'timeline_start') {
-      updatedCourse.timeline_start = updatedCourse.start;
-    }
-    if (moment(updatedCourse.timeline_start, 'YYYY-MM-DD').isAfter(updatedCourse.end) && valueKey !== 'timeline_start') {
+    if (isAfter(toDate(updatedCourse.timeline_start), toDate(updatedCourse.end)) && valueKey !== 'timeline_start') {
       updatedCourse.timeline_start = updatedCourse.end;
     }
 
@@ -93,49 +98,48 @@ const CourseDateUtils = {
   MAX_MONTHS: 13,
 
   courseTooLong(course) {
-    return moment(course.end).diff(moment(course.start), 'months') > this.MAX_MONTHS;
+    return differenceInMonths(toDate(course.end), toDate(course.start)) > this.MAX_MONTHS;
   },
 
   moreWeeksThanAvailable(course, weeks, exceptions) {
     if (!weeks || !weeks.length) { return false; }
-    const nonBlackoutWeeks = filter(this.weekMeetings(this.meetings(course), course, exceptions), mtg => mtg.length > 0);
+    const nonBlackoutWeeks = filter(
+      this.weekMeetings(course, exceptions),
+      mtg => mtg.length > 0
+    );
     return weeks.length > nonBlackoutWeeks.length;
   },
 
   wouldCreateBlackoutWeek(course, day, exceptions) {
-    const selectedDay = moment(day);
+    const selectedDay = toDate(day);
     let noMeetingsThisWeek = true;
     [0, 1, 2, 3, 4, 5, 6].forEach((i) => {
-      const wkDay = selectedDay.day(0).add(i, 'days').format('YYYYMMDD');
-      if (this.courseMeets(course.weekdays, i, wkDay, exceptions.join(','))) { return noMeetingsThisWeek = false; }
+      const wkDay = format(addDays(startOfWeek(selectedDay), i), 'yyyyMMdd');
+      if (this.courseMeets(course.weekdays, i, wkDay, exceptions.join(','))) {
+        return (noMeetingsThisWeek = false);
+      }
     });
     return noMeetingsThisWeek;
   },
 
   weeksBeforeTimeline(course) {
-    const courseStart = moment(course.start).startOf('week');
-    const timelineStart = moment(course.timeline_start).startOf('week');
-    return timelineStart.diff(courseStart, 'week');
+    const courseStart = startOfWeek(toDate(course.start));
+    const timelineStart = startOfWeek(toDate(course.timeline_start));
+    return differenceInWeeks(timelineStart, courseStart);
   },
 
   // Returns array describing weekday meetings for each week
   // Ex: [["Sunday (01/09)"], ["Sunday (01/16)", "Wednesday (01/19)", "Thursday (01/20)"], []]
-  weekMeetings(recurrence, course, exceptions) {
-    if (!recurrence) { return []; }
-    const weekEnd = recurrence.endDate();
-    weekEnd.day(6);
-    let weekStart = recurrence.startDate();
-    const firstWeekStart = recurrence.startDate().day();
-    weekStart.day(0);
-    const courseWeeks = Math.ceil(weekEnd.diff(weekStart, 'weeks', true));
-    if (!recurrence.rules || recurrence.rules[0].measure !== 'daysOfWeek') {
-      return [];
-    }
-
+  weekMeetings(course, exceptions) {
+    const weekEnd = endOfWeek(toDate(course.timeline_end));
+    let weekStart = startOfWeek(toDate(course.timeline_start));
+    const firstWeekStart = getDay(toDate(course.timeline_start));
+    const courseWeeks = differenceInWeeks(weekEnd, weekStart, { roundingMethod: 'round' });
     const meetings = [];
 
-    __range__(0, (courseWeeks - 1), true).forEach((week) => {
-      weekStart = moment(recurrence.startDate()).startOf('week').add(week, 'weeks');
+    // eslint-disable-next-line no-restricted-syntax
+    for (const week of range(0, (courseWeeks - 1), true)) {
+      weekStart = addWeeks(startOfWeek(toDate(course.timeline_start)), week);
 
       // Account for the first partial week, which may not have 7 days.
       let firstDayOfWeek;
@@ -146,43 +150,29 @@ const CourseDateUtils = {
       }
 
       const ms = [];
-      __range__(firstDayOfWeek, 6, true).forEach((i) => {
-        const day = moment(weekStart).add(i, 'days');
-        if (course && this.courseMeets(course.weekdays, i, day.format('YYYYMMDD'), exceptions)) {
-          return ms.push(day.format('dddd (MM/DD)'));
+      // eslint-disable-next-line no-restricted-syntax
+      for (const i of range(firstDayOfWeek, 6, true)) {
+        const day = addDays(weekStart, i);
+        if (course && this.courseMeets(course.weekdays, i, format(day, 'yyyyMMdd'), exceptions)) {
+          ms.push(format(day, 'EEEE (MM/dd)'));
         }
-      });
-      if (ms.length === 0) {
-        return meetings.push([]);
       }
-      return meetings.push(ms);
-    });
-    return meetings;
-  },
-
-  meetings(course) {
-    let meetings;
-    if (course.weekdays) {
-      meetings = moment().recur(course.timeline_start, course.timeline_end);
-      const weekdays = [];
-      course.weekdays.split('').forEach((wd, i) => {
-        if (wd !== '1') { return; }
-        const day = moment().weekday(i);
-        return weekdays.push(moment.localeData().weekdays(day));
-      });
-      meetings.every(weekdays).daysOfWeek();
-      course.day_exceptions.split(',').forEach((e) => {
-        if (e.length > 0) { return meetings.except(moment(e, 'YYYYMMDD')); }
-      });
+      meetings.push(ms);
     }
     return meetings;
   },
-
   courseMeets(weekdays, i, formatted, exceptions) {
-    if (!exceptions && exceptions !== '') { return false; }
+    if (!exceptions && exceptions !== '') {
+      return false;
+    }
     exceptions = exceptions.split ? exceptions.split(',') : exceptions;
-    if (weekdays[i] === '1' && !__in__(formatted, exceptions)) { return true; }
-    if (weekdays[i] === '0' && __in__(formatted, exceptions)) { return true; }
+
+    if (weekdays[i] === '1' && !exceptions.includes(formatted)) {
+      return true;
+    }
+    if (weekdays[i] === '0' && exceptions.includes(formatted)) {
+      return true;
+    }
     return false;
   },
 
@@ -190,17 +180,20 @@ const CourseDateUtils = {
   openWeeks(weekMeetings) {
     let openWeekCount = 0;
     weekMeetings.forEach((meetingArray) => {
-      if (meetingArray.length > 0) { return openWeekCount += 1; }
+      if (meetingArray.length > 0) {
+        return openWeekCount += 1;
+      }
     });
     return openWeekCount;
   },
 
   isEnded(course) {
-    return moment(course.end, 'YYYY-MM-DD').isBefore();
+    return isBefore(toDate(course.end), new Date());
   },
 
   currentWeekIndex(timelineStart) {
-    return Math.max(moment().startOf('week').diff(moment(timelineStart).startOf('week'), 'weeks'), 0);
+    const diff = differenceInWeeks(startOfWeek(new Date()), startOfWeek(toDate(timelineStart)));
+    return Math.max(diff, 0);
   },
 
   currentWeekOrder(timelineStart) {
@@ -210,8 +203,7 @@ const CourseDateUtils = {
   }
 };
 
-function __range__(left, right, inclusive) {
-  const range = [];
+function* range(left, right, inclusive) {
   const ascending = left < right;
 
   let endOfRange;
@@ -224,13 +216,8 @@ function __range__(left, right, inclusive) {
   }
 
   for (let i = left; ascending ? i < endOfRange : i > endOfRange; ascending ? i += 1 : i -= 1) {
-    range.push(i);
+    yield i;
   }
-  return range;
-}
-
-function __in__(needle, haystack) {
-  return haystack.indexOf(needle) >= 0;
 }
 
 export default CourseDateUtils;

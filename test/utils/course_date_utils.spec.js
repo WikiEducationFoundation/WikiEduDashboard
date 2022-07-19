@@ -100,14 +100,6 @@ describe('courseDateUtils.isDateValid', () => {
   });
 });
 
-describe('CourseDateUtils.validationRegex', () => {
-  test('returns a regex that matches YYYY-[M]M-[D]D', () => {
-    const validationRegex = CourseDateUtils.validationRegex();
-    expect('2015-02-24'.match(validationRegex)[0]).toBe('2015-02-24');
-    expect('2015-13-25'.match(validationRegex)).toBeNull();
-  });
-});
-
 describe('CourseDateUtils.formattedDateTime', () => {
   test('returns a date string', () => {
     const input = new Date(2016, 10, 19, 17, 15, 14);
@@ -150,15 +142,38 @@ describe('courseDateUtils.weeksBeforeTimeline', () => {
   });
 });
 
-// describe 'CourseDateUtils.wouldCreateBlackoutWeek', ->
-//   one_of_two_meetings = '2015-11-24'
-//   result = CourseDateUtils.wouldCreateBlackoutWeek(typicalCourse, one_of_two_meetings, exceptions)
-//   expect(result).toEqual false
-//
-//   only_meeting = '2015-12-09'
-//   result = CourseDateUtils.wouldCreateBlackoutWeek(typicalCourse, only_meeting, exceptions)
-//   expect(result).toEqual true
-//
-// describe 'CourseDateUtils.weekMeetings', ->
-// describe 'CourseDateUtils.meetings', ->
-// describe 'CourseDateUtils.courseMeets', ->
+describe('CourseDateUtils.wouldCreateBlackoutWeek', () => {
+  test('returns true if exceptions on all meeting days', () => {
+    // 2015-08-01 is a Friday
+    // course meets on Tuesdays and Thursdays so we add those as an exception to create a blackout week
+    const output = CourseDateUtils.wouldCreateBlackoutWeek(typicalCourse, '2015-08-28', ['20150825', '20150827']);
+    expect(output).toBe(true);
+  });
+
+  test('returns false if no exceptions', () => {
+    // no exceptions, means that this week is not a blackout one
+    const output = CourseDateUtils.wouldCreateBlackoutWeek(typicalCourse, '2015-08-28', []);
+    expect(output).toBe(false);
+  });
+
+  test('returns false if an exception is on a non meeting day', () => {
+    // set exceptions on both Tuesdays and Thursdays, which are meeting days
+    const meeting_exceptions = ['20150825', '20150827'];
+    // however, also set an exception for a day that is not a meeting day
+    meeting_exceptions.push('20150826');
+
+    const output = CourseDateUtils.wouldCreateBlackoutWeek(typicalCourse, '2015-08-28', meeting_exceptions);
+    // this would cause it to be not a blackout week
+    expect(output).toBe(false);
+  });
+
+  test('returns false if not all meeting days are exceptions', () => {
+    // set exceptions on both Tuesdays which is meeting day
+    const meeting_exceptions = ['20150825'];
+
+    // but don't set an exception for a Thursday which is also a meeting day
+    const output = CourseDateUtils.wouldCreateBlackoutWeek(typicalCourse, '2015-08-28', meeting_exceptions);
+    // this would cause it to be not a blackout week
+    expect(output).toBe(false);
+  });
+});

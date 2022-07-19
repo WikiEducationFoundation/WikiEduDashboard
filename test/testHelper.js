@@ -23,7 +23,6 @@ configure({ adapter: new Adapter() });
 const sinon = require('sinon');
 const $ = require('jquery');
 const moment = require('moment');
-const momentRecur = require('moment-recur');
 const I18n = require('../public/assets/javascripts/i18n.js'); // eslint-disable-line import/no-unresolved
 const chai = require('chai');
 const sinonChai = require('sinon-chai');
@@ -35,7 +34,6 @@ global.reduxStore = reduxStore;
 global.$ = $;
 global.sinon = sinon;
 global.moment = moment;
-global['moment-recur'] = momentRecur;
 global.I18n = I18n;
 global.Features = {};
 global.currentUser = {};
