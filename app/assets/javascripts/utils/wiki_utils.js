@@ -1,4 +1,4 @@
-const url = (wiki) => {
+const toWikiDomain = (wiki) => {
   const subdomain = wiki.language || 'www';
   return `${subdomain}.${wiki.project}.org`;
 };
@@ -6,7 +6,7 @@ const url = (wiki) => {
 const formatOption = (wiki) => {
   return {
     value: JSON.stringify(wiki),
-    label: url(wiki)
+    label: toWikiDomain(wiki)
   };
 };
 
@@ -20,4 +20,4 @@ const trackedWikisMaker = (course) => {
   }
   return trackedWikis;
 };
-export { trackedWikisMaker, formatOption, url };
+export { trackedWikisMaker, formatOption, toWikiDomain };

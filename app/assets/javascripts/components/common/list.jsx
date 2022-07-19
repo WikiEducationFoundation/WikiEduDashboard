@@ -13,7 +13,9 @@ const List = createReactClass({
     elements: PropTypes.node,
     none_message: PropTypes.string,
     sortBy: PropTypes.func,
-    stickyHeader: PropTypes.bool
+    stickyHeader: PropTypes.bool,
+    info_key: PropTypes.string,
+    info_key_options: PropTypes.object,
   },
 
   getInitialState() {
@@ -73,6 +75,15 @@ const List = createReactClass({
     for (let i = 0; i < iterable.length; i += 1) {
       const key = iterable[i];
       const keyObj = keys[key];
+      if (keyObj.hidden) {
+        // even though the column is hidden, the user can still use it to sort from the dropdown
+        // the reason we hide it is because the data here is already present in another column. For example,
+        // the words added column also contains the average word count information so it is not necessary
+        // for it to have its own column
+
+        // eslint-disable-next-line no-continue
+        continue;
+      }
       let headerOnClick;
       let headerClass = key;
       let tooltip;
@@ -83,9 +94,10 @@ const List = createReactClass({
       }
       if (keyObj.info_key) {
         headerClass += ' tooltip-trigger';
+        const options = keyObj.info_key_options ?? {};
         tooltip = [(
           <div key="tt" className="tooltip dark">
-            <p>{I18n.t(keyObj.info_key)}</p>
+            <p>{I18n.t(keyObj.info_key, options)}</p>
           </div>
         ), (
           <span key="ttindicator" className="tooltip-indicator" />

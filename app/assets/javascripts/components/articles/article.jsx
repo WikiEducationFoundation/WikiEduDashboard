@@ -6,7 +6,7 @@ import ArticleViewer from '@components/common/ArticleViewer/containers/ArticleVi
 import DiffViewer from '../revisions/diff_viewer.jsx';
 import ArticleGraphs from './article_graphs.jsx';
 import Switch from 'react-switch';
-import { url } from '../../utils/wiki_utils.js';
+import { toWikiDomain } from '../../utils/wiki_utils.js';
 import { stringify } from 'query-string';
 
 const Article = createReactClass({
@@ -52,7 +52,7 @@ const Article = createReactClass({
       language: this.props.article.language,
       project: this.props.article.project
     };
-    const pageLogURL = `https://${url(wiki)}/wiki/Special:Log?${stringify({
+    const pageLogURL = `https://${toWikiDomain(wiki)}/wiki/Special:Log?${stringify({
       page: this.props.article.title
     })}`;
     // Uses Course Utils Helper

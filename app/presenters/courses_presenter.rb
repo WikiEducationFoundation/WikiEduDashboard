@@ -92,11 +92,7 @@ class CoursesPresenter
   end
 
   def active_courses_by_recent_edits
-    active_courses.order('recent_revision_count DESC, title').paginate(page: @page, per_page: 100)
-  end
-
-  def can_create?
-    current_user && (current_user.admin? || Features.open_course_creation?)
+    active_courses.order('recent_revision_count DESC, title').limit(100)
   end
 
   COURSE_SUMS_SQL = 'SUM(character_sum), ' \

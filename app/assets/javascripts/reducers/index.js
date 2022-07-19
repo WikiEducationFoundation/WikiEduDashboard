@@ -38,8 +38,12 @@ import users from './users';
 import validations from './validations';
 import wikidataLabels from './wikidata_labels';
 import wizard from './wizard';
+import course_search_results from './course_search_results';
+import active_courses from './active_courses';
+import wiki_courses from './wiki_courses';
 
 const reducer = combineReducers({
+  active_courses,
   admins: (state = {}) => state, // only set from preloaded state
   alerts,
   articleDetails,
@@ -53,6 +57,7 @@ const reducer = combineReducers({
   course,
   courseAlerts,
   courseCreator,
+  course_search_results,
   currentUserFromHtml: (state = {}) => state, // only set from preloaded state
   didYouKnow,
   exercises,
@@ -80,7 +85,8 @@ const reducer = combineReducers({
   users,
   validations,
   wikidataLabels,
-  wizard
+  wiki_courses,
+  wizard,
 });
 
 export default reducer;

@@ -1,10 +1,13 @@
 import {
   ADD_NOTIFICATION, API_FAIL, UPDATE_COURSE, RECEIVE_COURSE, RECEIVE_COURSE_UPDATE,
   PERSISTED_COURSE, DISMISS_SURVEY_NOTIFICATION, TOGGLE_EDITING_SYLLABUS,
-  START_SYLLABUS_UPLOAD, SYLLABUS_UPLOAD_SUCCESS, LINKED_TO_SALESFORCE, COURSE_SLUG_EXISTS
-} from '../constants';
+  START_SYLLABUS_UPLOAD, SYLLABUS_UPLOAD_SUCCESS, LINKED_TO_SALESFORCE, COURSE_SLUG_EXISTS, RECEIVE_COURSE_SEARCH_RESULTS, SORT_COURSE_SEARCH_RESULTS, FETCH_COURSE_SEARCH_RESULTS, RECEIVE_ACTIVE_COURSES, SORT_ACTIVE_COURSES,
+  RECEIVE_CAMPAIGN_ACTIVE_COURSES, RECEIVE_WIKI_COURSES, SORT_WIKI_COURSES
+} from '../constants/index';
 import API from '../utils/api.js';
 import CourseUtils from '../utils/course_utils';
+import request from '../utils/request';
+import { toWikiDomain } from '../utils/wiki_utils';
 
 export const fetchCourse = courseSlug => (dispatch) => {
   return API.fetch(courseSlug, 'course')
@@ -149,3 +152,54 @@ export const greetStudents = courseId => (dispatch) => {
     .then(data => dispatch({ type: 'GREETED_STUDENTS', data }))
     .catch(data => ({ type: API_FAIL, data }));
 };
+
+
+export const searchPrograms = searchQuery => async (dispatch) => {
+  dispatch({ type: FETCH_COURSE_SEARCH_RESULTS });
+  const response = await request(`/courses/search.json?search=${searchQuery}`);
+  if (!response.ok) {
+    const data = await response.text();
+    return dispatch({ type: API_FAIL, data });
+  }
+  const data = await response.json();
+  return dispatch({ type: RECEIVE_COURSE_SEARCH_RESULTS, data });
+};
+
+export const sortCourseSearchResults = key => ({ type: SORT_COURSE_SEARCH_RESULTS, key: key });
+
+// this fetches the active courses of a particular campaign(which currently is just the default campaign)
+export const fetchActiveCampaignCourses = campaign_slug => async (dispatch) => {
+  const response = await request(`/campaigns/${campaign_slug}/active_courses.json`);
+  if (!response.ok) {
+    const data = await response.text();
+    return dispatch({ type: API_FAIL, data });
+  }
+  const data = await response.json();
+  return dispatch({ type: RECEIVE_CAMPAIGN_ACTIVE_COURSES, data });
+};
+
+export const sortActiveCourses = key => ({ type: SORT_ACTIVE_COURSES, key: key });
+
+// this fetches the active courses across all campaigns
+export const fetchActiveCourses = () => async (dispatch) => {
+  const response = await request('/active_courses.json');
+  if (!response.ok) {
+    const data = await response.text();
+    return dispatch({ type: API_FAIL, data });
+  }
+  const data = await response.json();
+  return dispatch({ type: RECEIVE_ACTIVE_COURSES, data });
+};
+
+export const fetchCoursesFromWiki = wiki => async (dispatch) => {
+  const wiki_url = toWikiDomain(wiki);
+  const response = await request(`/courses_by_wiki/${wiki_url}.json`);
+  if (!response.ok) {
+    const data = await response.text();
+    return dispatch({ type: API_FAIL, data });
+  }
+  const data = await response.json();
+  return dispatch({ type: RECEIVE_WIKI_COURSES, data });
+};
+
+export const sortWikiCourses = key => ({ type: SORT_WIKI_COURSES, key: key });

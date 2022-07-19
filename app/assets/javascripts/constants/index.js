@@ -1,3 +1,4 @@
+export * from './active_courses';
 export * from './alert';
 export * from './api';
 export * from './article_details';
@@ -10,6 +11,7 @@ export * from './categories';
 export * from './confirm';
 export * from './course';
 export * from './course_alerts';
+export * from './course_search_results';
 export * from './did_you_know';
 export * from './exercises';
 export * from './feedback';
@@ -34,5 +36,5 @@ export * from './training';
 export * from './training_status';
 export * from './validations';
 export * from './wikidata_labels';
+export * from './wiki_courses';
 export * from './wizard';
-

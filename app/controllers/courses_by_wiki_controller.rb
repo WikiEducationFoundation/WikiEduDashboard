@@ -1,14 +1,21 @@
 # frozen_string_literal: true
 
 class CoursesByWikiController < ApplicationController
-  respond_to :html
+  respond_to :html, :json
 
   before_action :set_wiki
 
   def show
-    @courses_list = Course.where(home_wiki: @wiki).order(id: :desc)
-    @courses_list = @courses_list.where("year(created_at) = #{params[:year].to_i}") if params[:year]
-    @presenter = CoursesPresenter.new(current_user: current_user, courses_list: @courses_list)
+    respond_to do |format|
+      format.html { render }
+      format.json do
+        courses_list = Course.where(home_wiki: @wiki).order(id: :desc)
+        # rubocop:disable Layout/LineLength
+        courses_list = courses_list.where("year(created_at) = #{params[:year].to_i}") if params[:year]
+        # rubocop:enable Layout/LineLength
+        @presenter = CoursesPresenter.new(current_user: current_user, courses_list: courses_list)
+      end
+    end
   end
 
   private

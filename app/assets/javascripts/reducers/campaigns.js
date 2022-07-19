@@ -9,6 +9,17 @@ import {
 } from '../constants/campaigns.js';
 import { sortByKey } from '../utils/model_utils';
 
+// these keys are to be sorted in descending order on first click
+const SORT_DESCENDING = {
+  course_count: true,
+  new_article_count: true,
+  article_count: true,
+  word_count: true,
+  references_count: true,
+  view_sum: true,
+  user_count: true,
+};
+
 const initialState = {
   campaigns: [],
   all_campaigns: [],
@@ -43,13 +54,17 @@ export default function campaigns(state = initialState, action) {
     }
     case SORT_CAMPAIGNS_WITH_STATS:
     case SORT_ALL_CAMPAIGNS: {
-      const desc = action.key === state.sort.sortKey;
-      const newCampaigns = sortByKey(state.all_campaigns, action.key, null, desc);
+      const sorted = sortByKey(
+        state.all_campaigns,
+        action.key,
+        state.sort.sortKey,
+        SORT_DESCENDING[action.key]
+      );
       return {
         ...state,
-        all_campaigns: newCampaigns.newModels,
+        all_campaigns: sorted.newModels,
         sort: {
-          sortKey: desc ? null : action.key,
+          sortKey: sorted.newKey,
           key: action.key
         },
       };

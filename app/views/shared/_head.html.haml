@@ -32,7 +32,9 @@
       consentBanner: #{user_signed_in? && !Rails.env.test?},
       user_signed_in: #{user_signed_in?},
       open_course_creation: #{Features.open_course_creation?},
-      default_course_string_prefix: "#{Features.default_course_string_prefix}"
+      default_course_string_prefix: "#{Features.default_course_string_prefix}",
+      default_campaign_slug: "#{CampaignsPresenter.default_campaign_slug}",
+      course_string_prefix: "#{Features.default_course_string_prefix}"
     }
 
     WikiProjects = document.querySelector('meta[name="data-projects"]').content
@@ -40,6 +42,7 @@
 
     SentryDsn = "#{ENV['sentry_public_dsn']}"
     SalesforceServer = "#{ENV['SF_SERVER']}"
+    dashboardTitle = "#{ENV['dashboard_title']}"
 
   = hot_javascript_tag "vendors"
   - if Features.sentry?

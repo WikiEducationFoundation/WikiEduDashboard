@@ -265,3 +265,15 @@ export default class CourseUtils {
     return title;
   }
 }
+
+// these keys are to be sorted in descending order on first click
+// this is used in the various reducers to sort the courses based on a key
+export const COURSE_SORT_DESCENDING = {
+  recent_revision_count: true,
+  word_count: true,
+  references_count: true,
+  view_sum: true,
+  user_count: true,
+  average_word_count: true,
+  trained_count: true,
+};
