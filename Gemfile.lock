@@ -294,7 +294,6 @@ GEM
     i18n-js (3.9.2)
       i18n (>= 0.6.6)
     io-wait (0.2.1)
-    ipaddr (1.2.4)
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
@@ -372,8 +371,7 @@ GEM
     omniauth-rails_csrf_protection (1.0.1)
       actionpack (>= 4.2)
       omniauth (~> 2.0)
-    openssl (2.2.1)
-      ipaddr
+    openssl (3.0.0)
     orm_adapter (0.5.0)
     pandoc-ruby (2.1.6)
     paper_trail (12.3.0)
@@ -660,7 +658,7 @@ DEPENDENCIES
   oj
   omniauth-mediawiki!
   omniauth-rails_csrf_protection
-  openssl (< 3)
+  openssl (< 4)
   pandoc-ruby
   paper_trail
   piwik_analytics!

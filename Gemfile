@@ -114,7 +114,7 @@ group :development do
   gem 'capistrano-rails'
   gem 'capistrano-bundler'
   gem 'capistrano-passenger'
-  gem 'openssl', '<3' # workaround for openssl bug: https://github.com/ruby/openssl/issues/489
+  gem 'openssl', '<4' # workaround for openssl bug: https://github.com/ruby/openssl/issues/489
   gem 'rails-erd' # Generates`erd.pdf`
   gem 'annotate' # Generates automatic schema notations on model files
   gem 'faker', require: false # Generates random data for example records
