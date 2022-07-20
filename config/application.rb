@@ -57,6 +57,9 @@ module WikiEduDashboard
     # Rails cache with Dalli/memcached
     config.cache_store = :mem_cache_store, 'localhost', { pool_size: 5, expires_in: 7.days, compress: false, value_max_bytes: 1024 * 1024 * 4 }
 
+    # Handle YAML safe loading of serialized Ruby objects
+    config.active_record.yaml_column_permitted_classes = [Symbol, BigDecimal, DateTime]
+
     config.action_dispatch.return_only_media_type_on_content_type = false
 
     config.middleware.insert_before 0, Rack::Cors do
