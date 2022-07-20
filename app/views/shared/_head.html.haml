@@ -2,7 +2,8 @@
   %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}
   - before = content_for?(:before_title) ? yield(:before_title) : ''
   - after = content_for?(:after_title) ? yield(:after_title) : ''
-  %title= raw "#{before}#{ENV['dashboard_title']}#{after}"
+  - title= raw "#{ENV['dashboard_title']}"
+  %title= raw "#{before}#{title}#{after}"
   = logo_favicon_tag
   %meta{content: ENV['meta_description'] || 'Wiki Dashboard', name: "description"}
   - if Features.wiki_ed?
@@ -42,7 +43,7 @@
 
     SentryDsn = "#{ENV['sentry_public_dsn']}"
     SalesforceServer = "#{ENV['SF_SERVER']}"
-    dashboardTitle = "#{ENV['dashboard_title']}"
+    dashboardTitle = "#{title}"
 
   = hot_javascript_tag "vendors"
   - if Features.sentry?
