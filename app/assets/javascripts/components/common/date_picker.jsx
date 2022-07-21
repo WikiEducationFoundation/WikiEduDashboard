@@ -195,7 +195,7 @@ const DatePicker = createReactClass({
       }
 
       const maxDate = endOfDay(this.props.date_props.maxDate);
-      if (isValid(maxDate) && isAfter(maxDate, currentDate)) {
+      if (isValid(maxDate) && isAfter(currentDate, maxDate)) {
         return true;
       }
     }
