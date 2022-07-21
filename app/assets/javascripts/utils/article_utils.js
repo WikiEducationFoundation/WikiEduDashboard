@@ -57,5 +57,5 @@ export default class ArticleUtils {
       wikisource: 'index',
       wikiversity: 'collection'
     }
-  }
+  };
 }

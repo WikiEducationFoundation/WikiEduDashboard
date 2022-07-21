@@ -4,8 +4,8 @@ import OverviewStat from './OverviewStats/overview_stat';
 import I18n from 'i18n-js';
 
 const WikidataOverviewStats = ({ statistics, isCourseOverview }) => {
-  let containerClass = "wikidata-stats-container";
-  if (isCourseOverview) containerClass = "wikidata-stats-container course-overview"
+  let containerClass = 'wikidata-stats-container';
+  if (isCourseOverview) containerClass = 'wikidata-stats-container course-overview';
   return (
     <div className={containerClass}>
       <h2 className="wikidata-stats-title">Wikidata stats</h2>

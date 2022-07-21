@@ -32,12 +32,12 @@ const OverviewStatsTabs = ({ statistics }) => {
   const hasWikidataStats = () => {
     if (statistics['www.wikidata.org']) return true;
     return false;
-  }
+  };
 
   const statsDataList = [];
   // if there are wikidata overview stats, they should be displayed on first tab
   if (hasWikidataStats) {
-    statsDataList.push({ 
+    statsDataList.push({
       id: 0,
       tabTitle: 'Wikidata',
       contentTitle: null, // title for wikidata stats already exists in WikidataOverviewStats component
@@ -48,7 +48,7 @@ const OverviewStatsTabs = ({ statistics }) => {
   let index = hasWikidataStats ? 1 : 0;
   Object.keys(statistics).forEach((wiki_ns) => {
     if (!wiki_ns.includes('namespace')) return; // return if it doesn't contain namespace stats
-    
+
     const ns_id = Number(wiki_ns.split('-')[2]); // namespace id
     const wiki = wiki_ns.split('-')[0];
     const id = index;
