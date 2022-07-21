@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '3.1.2'
 
 ### Basic Framework
-gem 'rails', '6.1.6.1'
+gem 'rails', '7.0.3.1'
 gem 'jbuilder' # DSL for building JSON view templates
 gem 'haml-rails' # HTML template language, used instead of ERB
 gem 'bootsnap', require: false # Makes rails boot faster via caching
@@ -93,12 +93,6 @@ gem 'pandoc-ruby' # Text converter, for markdown<->html<->wikitext conversions
 ### Performance
 gem 'rack-mini-profiler'
 gem 'stackprof'
-
-### Temporary additions for Ruby 3.1 compatibility
-# These should be removed after the upgrade to Rails 7
-gem 'net-smtp', require: false
-gem 'net-imap', require: false
-gem 'net-pop', require: false
 
 group :development do
   gem 'better_errors'
