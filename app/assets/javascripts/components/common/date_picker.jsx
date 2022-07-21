@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import DayPicker from 'react-day-picker';
 import OnClickOutside from 'react-onclickoutside';
 import { range, includes } from 'lodash-es';
-import moment from 'moment';
-import { startOfDay, endOfDay, isValid, isAfter, parseISO } from 'date-fns';
+import { startOfDay, endOfDay, isValid, isAfter, parseISO, getHours, getMinutes, setHours, setMinutes } from 'date-fns';
 import InputHOC from '../high_order/input_hoc.jsx';
 import Conditional from '../high_order/conditional.jsx';
 import CourseDateUtils from '../../utils/course_date_utils.js';
+import { formatWithoutTime, toDate } from '../../utils/date_utils.js';
 
 const DatePicker = createReactClass({
   displayName: 'DatePicker',
@@ -45,11 +45,11 @@ const DatePicker = createReactClass({
 
   getInitialState() {
     if (this.props.value) {
-      const dateObj = this.moment(this.props.value);
+      const dateObj = toDate(this.props.value);
       return {
-        value: dateObj.format('YYYY-MM-DD'),
-        hour: dateObj.hour(),
-        minute: dateObj.minute(),
+        value: formatWithoutTime(dateObj),
+        hour: getHours(dateObj),
+        minute: getMinutes(dateObj),
         datePickerVisible: false
       };
     }
@@ -68,22 +68,22 @@ const DatePicker = createReactClass({
    * @return {null}
    */
   onChangeHandler() {
-    const e = { target: { value: this.getDate().format() } };
+    const e = { target: { value: formatWithoutTime(this.getDate()) } };
     this.props.onChange(e);
   },
 
   /**
-   * Get moment object of currently select date, hour and minute
-   * @return {moment}
+   * Get date object of currently select date, hour and minute
+   * @return {Date}
    */
   getDate() {
-    let dateObj = this.moment(this.state.value, 'YYYY-MM-DD');
-    dateObj = dateObj.hour(this.state.hour);
-    return dateObj.minute(this.state.minute);
+    let dateObj = toDate(this.state.value);
+    dateObj = setHours(dateObj, this.state.hour);
+    return setMinutes(dateObj, this.state.minute);
   },
 
   getFormattedDate() {
-    return this.getDate().format('YYYY-MM-DD');
+    return formatWithoutTime(this.getDate());
   },
 
   /**
@@ -92,7 +92,7 @@ const DatePicker = createReactClass({
    * @return {String} formatted date
    */
   getFormattedDateTime() {
-    return CourseDateUtils.formattedDateTime(this.getDate().toDate(), this.props.showTime);
+    return CourseDateUtils.formattedDateTime(this.getDate(), this.props.showTime);
   },
 
   getTimeDropdownOptions(type) {
@@ -106,13 +106,13 @@ const DatePicker = createReactClass({
   },
 
   handleDatePickerChange(selectedDate) {
-    const date = this.moment(selectedDate);
+    const date = toDate(selectedDate);
     if (this.isDayDisabled(date)) {
       return;
     }
     this.refs.datefield.focus();
     this.setState({
-      value: date.format('YYYY-MM-DD'),
+      value: formatWithoutTime(date),
       datePickerVisible: false
     }, this.onChangeHandler);
   },
@@ -183,7 +183,7 @@ const DatePicker = createReactClass({
   },
 
   isDaySelected(date) {
-    const currentDate = this.moment(date).format('YYYY-MM-DD');
+    const currentDate = formatWithoutTime(date);
     return currentDate === this.state.value;
   },
 
@@ -209,11 +209,7 @@ const DatePicker = createReactClass({
    */
   isValidDate(value) {
     const validationRegex = /^20\d\d-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])/;
-    return validationRegex.test(value) && moment(value, 'YYYY-MM-DD').isValid();
-  },
-
-  moment(...args) {
-    return this.props.showTime ? moment(...args) : moment(...args).utc().local();
+    return validationRegex.test(value) && isValid(toDate(value));
   },
 
   showCurrentDate() {
@@ -259,13 +255,13 @@ const DatePicker = createReactClass({
       }
 
       // don't validate YYYY-MM-DD format so we can update the daypicker as they type
-      const date = moment(this.state.value, 'YYYY-MM-DD');
-      if (date.isValid()) {
-        currentMonth = this.moment(date).toDate();
+      const date = parseISO(this.state.value);
+      if (isValid(date)) {
+        currentMonth = date;
       } else if (minDate) {
-        currentMonth = this.moment(minDate).toDate();
+        currentMonth = minDate;
       } else {
-        currentMonth = this.moment().toDate();
+        currentMonth = new Date();
       }
 
       const modifiers = {

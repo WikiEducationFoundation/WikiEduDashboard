@@ -1,4 +1,5 @@
-import moment from 'moment';
+import { addDays, format, min, startOfWeek } from 'date-fns';
+import { toDate } from './date_utils';
 
 class DateCalculator {
   constructor(beginning, ending, loopIndex, opts) {
@@ -10,19 +11,19 @@ class DateCalculator {
 
   startDate() {
     const index = this.opts.zeroIndexed === true ? this.loopIndex : this.loopIndex - 1;
-    return moment(this.beginning).startOf('week').add(7 * index, 'day');
+    return addDays(startOfWeek(toDate(this.beginning)), 7 * index);
   }
 
   start() {
-    return this.startDate().format('MM/DD');
+    return format(this.startDate(), 'MM/dd');
   }
 
   endDate() {
-    return moment.min(this.startDate().clone().add(6, 'day'), moment(this.ending));
+    return min([addDays(this.startDate(), 6), toDate(this.ending)]);
   }
 
   end() {
-    return this.endDate().format('MM/DD');
+    return format(this.endDate(), 'MM/dd');
   }
 }
 

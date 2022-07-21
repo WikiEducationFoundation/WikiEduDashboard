@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { capitalize } from 'lodash-es';
-import moment from 'moment';
 
 // Helper Functions
 import { getExerciseStatus, isTrainingDue, orderByDueDate } from '@components/students/utils/trainingHelperFunctions';
+import { toDate } from '../../../../../../utils/date_utils';
+import { format } from 'date-fns';
 
 // Helper Components
 const ExerciseStatusCell = ({ status, sandboxUrl }) => {
@@ -17,7 +18,8 @@ const ExerciseStatusCell = ({ status, sandboxUrl }) => {
 };
 
 const generateRow = () => (exercise) => {
-  const dueDate = moment(exercise.due_date).format('MMM Do, YYYY');
+  // const dueDate = moment(exercise.due_date).format('MMM Do, YYYY');
+  const dueDate = format(toDate(exercise.due_date), 'MMM do, yyyy');
   const exerciseStatus = getExerciseStatus(exercise);
   return (
     <tr className={exercise.due_date && isTrainingDue(exercise.due_date) ? 'student-training-module due-training' : 'student-training-module'} key={exercise.id}>

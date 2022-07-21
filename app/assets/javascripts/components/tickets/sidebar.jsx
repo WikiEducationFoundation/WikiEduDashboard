@@ -1,11 +1,12 @@
 import React from 'react';
-import moment from 'moment';
 import withRouter from '../util/withRouter';
 import { Link } from 'react-router-dom';
 
 import TicketStatusHandler from './ticket_status_handler';
 import TicketOwnerHandler from './ticket_owner_handler';
 import { STATUSES } from './util';
+import { toDate } from '../../utils/date_utils';
+import { formatDistanceToNow } from 'date-fns';
 
 export class Sidebar extends React.Component {
   notifyOwner() {
@@ -31,7 +32,7 @@ export class Sidebar extends React.Component {
 
     return (
       <section className="sidebar">
-        <section className="created-at">Created <time className="bold">{moment(createdAt).fromNow()}</time></section>
+        <section className="created-at">Created <time className="bold">{formatDistanceToNow(toDate(createdAt))}</time></section>
         <section className="status">
           Ticket is currently <span className={`${status.toLowerCase()} bold`}>{status}</span>
           <TicketStatusHandler ticket={ticket} />
