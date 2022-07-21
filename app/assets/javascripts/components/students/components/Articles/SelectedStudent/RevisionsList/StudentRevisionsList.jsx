@@ -8,7 +8,6 @@ import StudentRevisionRow from './StudentRevisionRow';
 
 // Libraries
 import CourseUtils from '~/app/assets/javascripts/utils/course_utils.js';
-import ArticleUtils from '~/app/assets/javascripts/utils/article_utils.js';
 import studentListKeys from '@components/students/shared/StudentList/student_list_keys.js';
 
 export class StudentRevisionsList extends React.Component {
@@ -16,7 +15,7 @@ export class StudentRevisionsList extends React.Component {
     super(props);
     this.state = {
       isOpen: false,
-      namespace: 'all'
+      namespace: -1 // show all namespace revisions by default
     };
 
     this.toggleDrawer = this.toggleDrawer.bind(this);
@@ -25,7 +24,7 @@ export class StudentRevisionsList extends React.Component {
   onNamespaceChange = (e) => {
     // Open the drawer when filter is used
     if (!this.state.isOpen) this.setState({ isOpen: true });
-    return this.setState({ namespace: e.target.value });
+    return this.setState({ namespace: Number(e.target.value) });
   };
 
   // filter the revisions according to namespace
@@ -34,10 +33,10 @@ export class StudentRevisionsList extends React.Component {
 
     let revisions = [];
     if (userRevisions[student.id] !== undefined && userRevisions[student.id] !== null) {
-      revisions = (this.state.namespace === 'all')
+      revisions = (this.state.namespace === -1)
         ? userRevisions[student.id]
         : userRevisions[student.id].filter((rev) => {
-          return rev.article.namespace === ArticleUtils.namespaceToId(this.state.namespace);
+          return rev.article.namespace === this.state.namespace;
         });
     }
     return revisions;
@@ -98,10 +97,10 @@ export class StudentRevisionsList extends React.Component {
         value={this.state.namespace}
         onChange={this.onNamespaceChange}
       >
-        <option value="all">{I18n.t('namespace.filter.all_ns')}</option>
-        <option value="article">{I18n.t('namespace.filter.article_ns')}</option>
-        <option value="user">{I18n.t('namespace.filter.user_ns')}</option>
-        <option value="talk">{I18n.t('namespace.filter.talk_ns')}</option>
+        <option value={-1}>{I18n.t('namespace.all')}</option>
+        <option value={0}>{I18n.t('namespace.article')}</option>
+        <option value={2}>{I18n.t('namespace.user')}</option>
+        <option value={1}>{I18n.t('namespace.talk')}</option>
       </select>
     );
     return (
