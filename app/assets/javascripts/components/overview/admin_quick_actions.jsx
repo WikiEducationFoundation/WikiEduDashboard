@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import GreetStudentsButton from './greet_students_button.jsx';
+import { formatISO } from 'date-fns';
+import { getUTCDate } from '../../utils/date_utils.js';
 
 // Helper Functions
 const DetailsText = ({ flags }) => (
@@ -36,7 +38,7 @@ export const AdminQuickActions = ({ course, current_user, persistCourse, greetSt
       onClick={() => {
         course.last_reviewed = {
           username: current_user.username,
-          timestamp: moment.utc().format()
+          timestamp: formatISO(getUTCDate()),
         };
         persistCourse(course.slug);
       }}

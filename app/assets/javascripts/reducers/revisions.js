@@ -12,7 +12,8 @@ import {
 } from '../constants';
 import { sortByKey } from '../utils/model_utils';
 import moment from 'moment';
-
+import { getUTCDate } from '../utils/date_utils';
+import { formatISO } from 'date-fns';
 // this is the max number of revisions we will add to the table when there's a new fetch request
 const REVISIONS_INITIAL = 200;
 
@@ -31,7 +32,7 @@ const initialState = {
   },
   revisionsLoaded: false,
   courseScopedRevisionsLoaded: false,
-  last_date: moment().utc().format(),
+  last_date: formatISO(getUTCDate()),
   last_date_course_specific: null,
   revisionsDisplayed: [],
   revisionsDisplayedCourseSpecific: [],

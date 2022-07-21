@@ -15,3 +15,24 @@ export const formatWithTime = (date) => {
   // example - 2022-07-21 11:02 AM
   return format(toDate(date), 'yyyy-MM-dd p');
 };
+
+export const formatWithoutTime = (date) => {
+  // example - 2022-07-21
+  return format(toDate(date), 'yyyy-MM-dd');
+};
+
+// since date-fns is based on the inbuilt Date object(which doesn't carry Timezone information),
+// we need this helper to get the date in UTC
+// see https://github.com/date-fns/date-fns/issues/376#issuecomment-353871093
+export const getUTCDate = (dateString = Date.now()) => {
+  const date = new Date(dateString);
+
+  return new Date(
+    date.getUTCFullYear(),
+    date.getUTCMonth(),
+    date.getUTCDate(),
+    date.getUTCHours(),
+    date.getUTCMinutes(),
+    date.getUTCSeconds(),
+  );
+};
