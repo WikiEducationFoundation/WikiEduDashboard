@@ -13,7 +13,7 @@ describe 'course update statistics', type: :feature, js: true do
           'error_count' => 0
         }
       },
-     'average_update_delay' => 1.hour
+     'average_update_delay' => 1.hour.to_s
     }
   end
 

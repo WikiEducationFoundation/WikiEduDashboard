@@ -138,7 +138,8 @@ describe UpdateCourseStats do
 
     context 'when a Programs & Events Dashboard course has a potentially long update time' do
       let(:course) do
-        create(:course, start: 1.day.ago, end: 1.year.from_now, flags: { longest_update: 1.hour })
+        create(:course, start: 1.day.ago, end: 1.year.from_now,
+                        flags: { longest_update: 1.hour.to_i })
       end
 
       before do

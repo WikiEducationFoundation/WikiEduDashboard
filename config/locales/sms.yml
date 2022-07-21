@@ -18,14 +18,17 @@ sms:
     report_problem: Iʹlmmet čuõlmâst
     request_account_create: Raaj tobdldõõǥǥ
     sign_up: Raaj tobdldõõǥǥ
+    submit: Vuõlttâd
     change: Muuʹtt
     details: Teâđ
   articles:
+    articles: Artikkeeʹl
     deleted: (jaukkuum)
     edited_mobile: Artikkeeʹl
     filter:
       wiki_all: Puk
       new: Ođđ
+    find: Ooʒʒ artikkeeʹlid
     hide: Čiõǥǥ
     history: (historia)
     label: Artikkeeʹl
@@ -56,6 +59,7 @@ sms:
     add_this_category: Lââʹzzet tän kategoria
     add_this_psid: Lââʹzzet tän PSID
     add_this_template: Lââʹzzet tän maall
+    articles_count: Artikkelmieʹrr
     name: Nõmm
     category_name: Kategorianõmm
     psid_name: PSID
@@ -63,6 +67,7 @@ sms:
     remove: Jaukkâd
   courses:
     all_courses: Puk kuurs
+    articles: Artikkeeʹl
     campaigns: 'Kampanjj-joouk:'
     course: Kurss
     course_description: Kuurs
@@ -148,6 +153,7 @@ sms:
     first_name: Risttnõmm
     last_name: Sokknõmm
     name: Nõmm
+    no_articles: Artikkeeʹl jie leäkku
     references_count: Lââʹzztum teâttkääiv
     username: Õõʹnninõmm
     username_placeholder: Õõʹnninõmm
@@ -162,6 +168,7 @@ sms:
   article_finder:
     hide_options: Čiõǥǥ asetõõzzid
     show_options: Čuäʹjet asetõõzzid
+    submit: Ruõkk
   training_status:
     view: Čuäʹjet
 ...
