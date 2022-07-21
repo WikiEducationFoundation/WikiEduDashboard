@@ -38,7 +38,8 @@ const initialState = {
   loading: true,
   updates: {},
   wikis: [],
-  article_count: 0
+  article_count: 0,
+  course_stats: {}
 };
 
 
