@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import DayPicker from 'react-day-picker';
 import OnClickOutside from 'react-onclickoutside';
 import { range, includes } from 'lodash-es';
-import { startOfDay, endOfDay, isValid, isAfter, parseISO, getHours, getMinutes, setHours, setMinutes } from 'date-fns';
+import { startOfDay, endOfDay, isValid, isAfter, parseISO, getHours, getMinutes, setHours, setMinutes, formatISO } from 'date-fns';
 import InputHOC from '../high_order/input_hoc.jsx';
 import Conditional from '../high_order/conditional.jsx';
 import CourseDateUtils from '../../utils/course_date_utils.js';
@@ -68,7 +68,7 @@ const DatePicker = createReactClass({
    * @return {null}
    */
   onChangeHandler() {
-    const e = { target: { value: formatWithoutTime(this.getDate()) } };
+    const e = { target: { value: formatISO(this.getDate()) } };
     this.props.onChange(e);
   },
 
@@ -217,6 +217,7 @@ const DatePicker = createReactClass({
   },
 
   render() {
+    console.log(`showTime: ${this.props.showTime}`);
     const spacer = this.props.spacer || ': ';
     let label;
     let timeLabel;
