@@ -1,4 +1,4 @@
-import { format, parseISO } from 'date-fns';
+import { format, isValid, parseISO } from 'date-fns';
 
 // this exists because unlike moment-js, date-fns doesn't have a generalized toDate function
 /**
@@ -8,7 +8,18 @@ export const toDate = (date) => {
   if (date instanceof Date) {
     return date;
   }
-  return parseISO(date);
+  // should not really happen in production, but it's here for making the tests pass
+  // this is what moment js does for invalid dates
+  if (date === null || date === undefined) {
+    return new Date();
+  }
+
+  const parsedDate = parseISO(date);
+  if (!isValid(parsedDate)) {
+    // eslint-disable-next-line no-console
+    console.log(`Invalid date - ${date}`);
+  }
+  return parsedDate;
 };
 
 export const formatWithTime = (date) => {
