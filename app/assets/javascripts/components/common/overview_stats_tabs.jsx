@@ -15,30 +15,29 @@ const OverviewStatsTabs = ({ statistics }) => {
     return setCurrentTabId(Number(e.currentTarget.id));
   };
 
-  const statsDataList = [];
+  const statsList = [];
+  const tabsList = [];
+
   let index = 0;
   Object.keys(statistics).forEach((wiki_ns_key) => {
-    const id = index;
     const statsTitle = ArticleUtils.overviewStatsTitle(wiki_ns_key);
-    const data = statistics[wiki_ns_key];
-    statsDataList.push({ id, statsTitle, data });
+    const statsData = statistics[wiki_ns_key];
+    
+    statsList.push({ statsTitle, statsData });
+    tabsList.push(
+      <OverviewStatsTab
+        key={index}
+        id={index}
+        onClick={onTabChange}
+        title={statsTitle}
+        active={currentTabId === index}
+      />
+    )
     index += 1;
   });
 
-  const tabsList = statsDataList.map((obj) => {
-    return (
-      <OverviewStatsTab
-        key={obj.id}
-        id={obj.id}
-        onClick={onTabChange}
-        title={obj.statsTitle}
-        active={currentTabId === obj.id}
-      />
-    );
-  });
-
-  const title = statsDataList[currentTabId].statsTitle;
-  const data = statsDataList[currentTabId].data;
+  const title = statsList[currentTabId].statsTitle;
+  const data = statsList[currentTabId].statsData;
   const content = (title === 'www.wikidata.org')
     ? <WikidataOverviewStats statistics={data} isCourseOverview={true}/>
     : <NamespaceOverviewStats statistics={data} />;
