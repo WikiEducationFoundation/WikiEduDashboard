@@ -55,8 +55,6 @@
     "merge-stream": "^2.0.0",
     "mini-css-extract-plugin": "^2.6.0",
     "mkdirp": "^1.0.4",
-    "moment": "^2.29.4",
-    "moment-locales-webpack-plugin": "^1.2.0",
     "nouislider": "^14.2.0",
     "nyc": "^15.1.0",
     "parsleyjs": "^2.9.2",

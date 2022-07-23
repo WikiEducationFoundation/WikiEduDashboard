@@ -22,18 +22,15 @@ configure({ adapter: new Adapter() });
 
 const sinon = require('sinon');
 const $ = require('jquery');
-const moment = require('moment');
 const I18n = require('../public/assets/javascripts/i18n.js'); // eslint-disable-line import/no-unresolved
 const chai = require('chai');
 const sinonChai = require('sinon-chai');
-
 
 const reduxStore = createStore(reducer, applyMiddleware(thunk));
 
 global.reduxStore = reduxStore;
 global.$ = $;
 global.sinon = sinon;
-global.moment = moment;
 global.I18n = I18n;
 global.Features = {};
 global.currentUser = {};

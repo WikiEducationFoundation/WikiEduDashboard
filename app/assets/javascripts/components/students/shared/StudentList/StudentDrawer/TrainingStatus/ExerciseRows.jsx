@@ -18,7 +18,6 @@ const ExerciseStatusCell = ({ status, sandboxUrl }) => {
 };
 
 const generateRow = () => (exercise) => {
-  // const dueDate = moment(exercise.due_date).format('MMM Do, YYYY');
   const dueDate = format(toDate(exercise.due_date), 'MMM do, yyyy');
   const exerciseStatus = getExerciseStatus(exercise);
   return (

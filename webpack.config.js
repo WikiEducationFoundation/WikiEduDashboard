@@ -4,7 +4,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const RtlCssPlugin = require('rtlcss-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
-const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const config = require('./config');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
@@ -90,9 +89,6 @@ module.exports = (env) => {
       ],
     },
     plugins: [
-      // Creates smaller Lodash builds by replacing feature sets of modules with noop,
-      // identity, or simpler alternatives.
-      new MomentLocalesPlugin(),
       !env.DISABLE_ESLINT && new ESLintPlugin({
         files: 'app/assets/javascripts/**/*.{js,jsx}',
         failOnError: isProductionOrCI,

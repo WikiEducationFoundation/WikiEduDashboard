@@ -217,7 +217,6 @@ const DatePicker = createReactClass({
   },
 
   render() {
-    console.log(`showTime: ${this.props.showTime}`);
     const spacer = this.props.spacer || ': ';
     let label;
     let timeLabel;
