@@ -1,5 +1,5 @@
 import '../testHelper';
-import { formatOption, toWikiDomain, trackedWikisMaker } from '../../app/assets/javascripts/utils/wiki_utils';
+import { formatOption, toWikiDomain, trackedWikisMaker, overviewStatsTitle } from '../../app/assets/javascripts/utils/wiki_utils';
 
 
 describe('formatOption', () => {
@@ -66,4 +66,23 @@ describe('trackedWikisMaker', () => {
       expect(result).toStrictEqual([]);
     }
   );
+});
+
+describe('overviewStatsTitle', () => {
+  test(
+    'returns title in form of \'wiki - namespace\' if stats are for a tracked namespace',
+    () => {
+      const wiki_ns_key = 'en.wikibooks.org-namespace-102';
+      const result = overviewStatsTitle(wiki_ns_key);
+      const expected = 'en.wikibooks.org - Cookbook';
+      expect(result).toBe(expected);
+    });
+  test(
+    'returns wiki domain as title if stats are for wikidata overview',
+    () => {
+      const wiki_ns_key = 'www.wikidata.org';
+      const result = overviewStatsTitle(wiki_ns_key);
+      const expected = 'www.wikidata.org';
+      expect(result).toBe(expected);
+    });
 });
