@@ -34,9 +34,22 @@ export const formatWithoutTime = (date) => {
 
 // since date-fns is based on the inbuilt Date object(which doesn't carry Timezone information),
 // we need this helper to get the date in UTC
-// see https://github.com/date-fns/date-fns/issues/376#issuecomment-353871093
 // and https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString
 export const getUTCDateString = (dateString = new Date()) => {
   const date = new Date(dateString);
   return date.toISOString();
+};
+
+// see https://github.com/date-fns/date-fns/issues/376#issuecomment-353871093
+// a hack really since the timezone for this is still the local one but the values are in UTC
+// as long as we don't use the timezone information we can use this
+export const nativeDateToUTCDate = (date) => {
+  return new Date(
+    date.getUTCFullYear(),
+    date.getUTCMonth(),
+    date.getUTCDate(),
+    date.getUTCHours(),
+    date.getUTCMinutes(),
+    date.getUTCSeconds(),
+  );
 };
