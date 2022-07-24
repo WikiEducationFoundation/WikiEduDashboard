@@ -23,11 +23,11 @@ const trackedWikisMaker = (course) => {
   return trackedWikis;
 };
 
-// Get tabs and stats title for tabbed course overview stats.
+// Get label for tabs and stats data of tabbed course overview stats.
 // Here, wiki_ns_key is key of a course_stats object, which 
 // identifies wiki or wiki-namespace of stats,
 // eg.: 'en.wikibooks.org-namespace-102', 'www.wikidata.org'
-const overviewStatsTitle = (wiki_ns_key) => {
+const overviewStatsLabel = (wiki_ns_key) => {
   // If stats are for wikidata overview, directly return the wiki domain
   if (!wiki_ns_key.includes('namespace')) return wiki_ns_key;
   const project = wiki_ns_key.split('.')[1];
@@ -37,4 +37,4 @@ const overviewStatsTitle = (wiki_ns_key) => {
   if (typeof (ns_title) !== 'string') ns_title = ns_title[project];
   return `${wiki_domain} - ${I18n.t(`namespace.${ns_title}`)}`;
 };
-export { trackedWikisMaker, formatOption, toWikiDomain, overviewStatsTitle };
+export { trackedWikisMaker, formatOption, toWikiDomain, overviewStatsLabel };

@@ -5,7 +5,7 @@ import OverviewStatsTab from './OverviewStats/overview_stats_tab';
 import NamespaceOverviewStats from './OverviewStats/namespace_overview_stats';
 import WikidataOverviewStats from './wikidata_overview_stats';
 
-import ArticleUtils from '../../utils/article_utils';
+import { overviewStatsLabel } from '../../utils/wiki_utils';
 
 
 const OverviewStatsTabs = ({ statistics }) => {
@@ -20,7 +20,7 @@ const OverviewStatsTabs = ({ statistics }) => {
 
   let index = 0;
   Object.keys(statistics).forEach((wiki_ns_key) => {
-    const statsTitle = ArticleUtils.overviewStatsTitle(wiki_ns_key);
+    const statsTitle = overviewStatsLabel(wiki_ns_key);
     const statsData = statistics[wiki_ns_key];
     
     statsList.push({ statsTitle, statsData });
