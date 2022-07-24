@@ -24,7 +24,7 @@ const trackedWikisMaker = (course) => {
 };
 
 // Get label for tabs and stats data of tabbed course overview stats.
-// Here, wiki_ns_key is key of a course_stats object, which 
+// Here, wiki_ns_key is key of a course_stats object, which
 // identifies wiki or wiki-namespace of stats,
 // eg.: 'en.wikibooks.org-namespace-102', 'www.wikidata.org'
 const overviewStatsLabel = (wiki_ns_key) => {

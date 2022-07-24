@@ -22,7 +22,7 @@ const OverviewStatsTabs = ({ statistics }) => {
   Object.keys(statistics).forEach((wiki_ns_key) => {
     const statsTitle = overviewStatsLabel(wiki_ns_key);
     const statsData = statistics[wiki_ns_key];
-    
+
     statsList.push({ statsTitle, statsData });
     tabsList.push(
       <OverviewStatsTab
@@ -32,7 +32,7 @@ const OverviewStatsTabs = ({ statistics }) => {
         title={statsTitle}
         active={currentTabId === index}
       />
-    )
+    );
     index += 1;
   });
 
