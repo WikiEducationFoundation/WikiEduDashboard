@@ -24,8 +24,10 @@ export class ArticleViewerAPI {
     // fine; they should link to the footnotes within the ArticleViewer.
     const absoluteLink = `<a href="${this.builder.wikiURL()}/`;
     // This matches links that don't start with # or http. These are
-    // assumed to be relative links to other wiki pages.
-    const relativeLinkMatcher = /(<a href=")(?!http)[^#]/g;
+    // assumed to be relative links to other wiki pages. It supports
+    // an optional title attribute like `title="Property:P31"`, which is
+    // included in Wikidata links, but will strip that title out.
+    const relativeLinkMatcher = /(<a (title="[\w\d:]+" )?href=")(?!http)[^#]/g;
     return {
       html: html.replace(relativeLinkMatcher, absoluteLink),
       ...status
