@@ -7,16 +7,19 @@ import { format, isValid, parseISO } from 'date-fns';
 // this exists because unlike moment-js, date-fns doesn't have a generalized toDate function
 /**
  * @param  {Date|string} date
+ * @param {boolean} suppressError
 */
-export const toDate = (date) => {
+export const toDate = (date, suppressError) => {
   if (date instanceof Date) {
     return date;
   }
   // should not really happen in production, but it's here for making the tests pass
   // this is what moment js does for invalid dates
   if (date === null || date === undefined) {
-    // eslint-disable-next-line no-console
-    console.error('date is null or undefined');
+    if (!suppressError) {
+      // eslint-disable-next-line no-console
+      console.error('date is null or undefined');
+    }
     return new Date();
   }
 

@@ -123,7 +123,8 @@ describe 'activity page', type: :feature, js: true do
       let!(:upload) do
         create(:commons_upload,
                file_name: 'File:Blowing a raspberry.ogv',
-               user_id: user.id)
+               user_id: user.id,
+               uploaded_at: 2.days.ago)
       end
 
       it 'displays a list of recent uploads' do

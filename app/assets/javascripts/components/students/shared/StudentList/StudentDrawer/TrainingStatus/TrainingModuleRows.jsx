@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import { formatDateWithTime, toDate } from '../../../../../../utils/date_utils';
 // Helper Functions
 import { isTrainingDue, orderByDueDate } from '@components/students/utils/trainingHelperFunctions';
-import { endOfDay, format, isBefore, intervalToDuration } from 'date-fns';
+import { endOfDay, format, isBefore, intervalToDuration, isValid } from 'date-fns';
 
 export const TrainingModuleRows = ({ trainings }) => {
   trainings.sort(orderByDueDate);
   return trainings.map((trainingModule) => {
-    const dueDate = toDate(trainingModule.due_date);
+    // due_date is not defined for the user profile page. This prevents the error from toDate if due_date is not defined
+    const dueDate = toDate(trainingModule.due_date, !trainingModule.due_date);
     const dueDateFormatted = format(dueDate, 'MMM do, yyyy');
     const overdue = trainingModule.overdue || isBefore(
       endOfDay(dueDate),
@@ -47,7 +48,10 @@ export const TrainingModuleRows = ({ trainings }) => {
 
     return (
       <tr className={trainingModule.due_date && isTrainingDue(trainingModule.due_date) ? 'student-training-module due-training' : 'student-training-module'} key={trainingModule.id}>
-        <td>{trainingModule.module_name} <small>Due by { dueDateFormatted }</small></td>
+        <td>{trainingModule.module_name}
+          {/* Only display the date if it is valid. On the users page, we don't fetch the due date so this is expected */}
+          {isValid(dueDateFormatted) && <small>Due by { dueDateFormatted }</small>}
+        </td>
         <td>
           { moduleStatus }
         </td>

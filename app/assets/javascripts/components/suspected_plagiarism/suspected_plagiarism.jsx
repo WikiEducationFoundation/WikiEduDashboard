@@ -9,7 +9,7 @@ const SuspectedPlagiarism = ({ revision }) => {
         <a href={revision.article_url} target="_blank" className="inline"><p className="title">{revision.title}</p></a>
       </td>
       <td className="desktop-only-tc">{revision.username}</td>
-      <td className="date"><a href={revision.url}>{formatDateWithTime(revision.date)}</a></td>
+      <td className="date"><a href={revision.url}>{formatDateWithTime(revision.datetime)}</a></td>
       <td className="desktop-only-tc"><a href={revision.report_url} target="_blank">Report</a></td>
     </tr>
   );
