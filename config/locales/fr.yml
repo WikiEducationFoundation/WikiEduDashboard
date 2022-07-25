@@ -1252,7 +1252,7 @@ fr:
         confirm_add_admin: Accorder l’administration
         confirm_remove_admin: Retirer les droits d’administration pour
         already_admin: '%{username} est déjà un administrateur !'
-        elevate_success: '%{username} a été promu(e) administrateur/trice.'
+        elevate_success: '%{username} a été promu(e) administrateur ou administratrice.'
       remove:
         revoke_button: Révoquer un(e) administrateur/trice
         revoke_button_confirm: Révoquer les droits d’administration pour %{username}
@@ -1269,7 +1269,7 @@ fr:
         confirm_remove_special_user: Retirer les privilèges d’utilisateur spécial
           pour
         already_is: '%{username} est déjà un(e) {position} !'
-        elevate_success: '%{username} est promu(e) {position}.'
+        elevate_success: '%{username} a été promu(e) en {position}.'
       remove:
         revoke_button: Révoquer un utilisateur spécial
         revoke_button_confirm: Révoquer les droits d’utilisateur spécial de %{username}
