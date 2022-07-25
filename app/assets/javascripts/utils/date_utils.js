@@ -15,6 +15,8 @@ export const toDate = (date) => {
   // should not really happen in production, but it's here for making the tests pass
   // this is what moment js does for invalid dates
   if (date === null || date === undefined) {
+    // eslint-disable-next-line no-console
+    console.error('date is null or undefined');
     return new Date();
   }
 
