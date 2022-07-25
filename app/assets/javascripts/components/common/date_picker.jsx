@@ -8,7 +8,7 @@ import { startOfDay, endOfDay, isValid, isAfter, parseISO, getHours, getMinutes,
 import InputHOC from '../high_order/input_hoc.jsx';
 import Conditional from '../high_order/conditional.jsx';
 import CourseDateUtils from '../../utils/course_date_utils.js';
-import { formatWithoutTime, toDate } from '../../utils/date_utils.js';
+import { formatDateWithoutTime, toDate } from '../../utils/date_utils.js';
 
 const DatePicker = createReactClass({
   displayName: 'DatePicker',
@@ -47,7 +47,7 @@ const DatePicker = createReactClass({
     if (this.props.value) {
       const dateObj = toDate(this.props.value);
       return {
-        value: formatWithoutTime(dateObj),
+        value: formatDateWithoutTime(dateObj),
         hour: getHours(dateObj),
         minute: getMinutes(dateObj),
         datePickerVisible: false
@@ -83,7 +83,7 @@ const DatePicker = createReactClass({
   },
 
   getFormattedDate() {
-    return formatWithoutTime(this.getDate());
+    return formatDateWithoutTime(this.getDate());
   },
 
   /**
@@ -112,7 +112,7 @@ const DatePicker = createReactClass({
     }
     this.refs.datefield.focus();
     this.setState({
-      value: formatWithoutTime(date),
+      value: formatDateWithoutTime(date),
       datePickerVisible: false
     }, this.onChangeHandler);
   },
@@ -183,7 +183,7 @@ const DatePicker = createReactClass({
   },
 
   isDaySelected(date) {
-    const currentDate = formatWithoutTime(date);
+    const currentDate = formatDateWithoutTime(date);
     return currentDate === this.state.value;
   },
 

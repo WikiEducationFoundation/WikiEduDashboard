@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { formatWithTime, toDate } from '../../../../../../utils/date_utils';
+import { formatDateWithTime, toDate } from '../../../../../../utils/date_utils';
 // Helper Functions
 import { isTrainingDue, orderByDueDate } from '@components/students/utils/trainingHelperFunctions';
 import { endOfDay, format, isBefore, intervalToDuration } from 'date-fns';
@@ -24,7 +24,7 @@ export const TrainingModuleRows = ({ trainings }) => {
       moduleStatus = (
         <>
           <span className="completed">
-            {I18n.t('training_status.completed_at')}: {formatWithTime(trainingModule.completion_date)}
+            {I18n.t('training_status.completed_at')}: {formatDateWithTime(trainingModule.completion_date)}
           </span>
           { overdue && <span> ({I18n.t('training_status.late')})</span> }
           <br/>

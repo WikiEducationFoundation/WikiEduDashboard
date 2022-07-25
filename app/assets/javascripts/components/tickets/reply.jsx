@@ -4,15 +4,15 @@ import linkifyHtml from 'linkifyjs/html';
 import { MESSAGE_KIND_NOTE } from '../../constants/tickets';
 import HelperIcon from './helper_icon';
 import DeleteNote from './delete_note';
-import { formatWithTime } from '../../utils/date_utils';
+import { formatDateWithTime } from '../../utils/date_utils';
 
 export const Reply = ({ message }) => {
   const { sender, details } = message;
 
-  const deliveredTime = formatWithTime(details.delivered);
+  const deliveredTime = formatDateWithTime(details.delivered);
   const delivered = `Delivered on ${deliveredTime}`;
 
-  const failedTime = formatWithTime(details.delivery_failed);
+  const failedTime = formatDateWithTime(details.delivery_failed);
   const failed = `Failed on ${failedTime}`;
 
   let subject;
@@ -55,7 +55,7 @@ export const Reply = ({ message }) => {
           <p>From: {from}</p>
         </span>
         <span className="created-at">
-          <p>Created: {formatWithTime(message.created_at)}</p>
+          <p>Created: {formatDateWithTime(message.created_at)}</p>
         </span>
         <span>
           {

@@ -5,7 +5,7 @@ import { forEach, get } from 'lodash-es';
 import OnClickOutside from 'react-onclickoutside';
 import { connect } from 'react-redux';
 import { setUploadViewerMetadata, setUploadPageViews, resetUploadsViews } from '../../actions/uploads_actions.js';
-import { formatWithoutTime } from '../../utils/date_utils.js';
+import { formatDateWithoutTime } from '../../utils/date_utils.js';
 
 const UploadViewer = createReactClass({
   displayName: 'UploadViewer',
@@ -138,7 +138,7 @@ const UploadViewer = createReactClass({
               <tbody>
                 <tr>
                   <td className="row-details bg-grey">Date:&nbsp;</td>
-                  <td className="row-details">{formatWithoutTime(this.props.upload.uploaded_at)}</td>
+                  <td className="row-details">{formatDateWithoutTime(this.props.upload.uploaded_at)}</td>
                 </tr>
                 <tr>
                   <td className="row-details bg-grey">Author:&nbsp;</td>

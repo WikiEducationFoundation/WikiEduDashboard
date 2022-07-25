@@ -5,7 +5,7 @@ import jQuery from 'jquery';
 import SalesforceMediaButtons from '../articles/salesforce_media_buttons.jsx';
 import Loading from '../common/loading.jsx';
 import { toWikiDomain } from '../../utils/wiki_utils';
-import { formatWithTime } from '../../utils/date_utils.js';
+import { formatDateWithTime } from '../../utils/date_utils.js';
 
 const DiffViewer = createReactClass({
   displayName: 'DiffViewer',
@@ -293,7 +293,7 @@ const DiffViewer = createReactClass({
     // Edit summary for range of revisions:
     //  > First and last times for edits to article (from first applicable rev to last)
     if (!this.props.first_revision) {
-      revisionDateTime = formatWithTime(this.props.revision.date);
+      revisionDateTime = formatDateWithTime(this.props.revision.date);
 
       diffComment = <p className="diff-comment">{this.state.comment}</p>;
 
@@ -304,8 +304,8 @@ const DiffViewer = createReactClass({
           {I18n.t('revisions.chars_added')})
         </p>);
     } else {
-      firstRevTime = formatWithTime(this.state.firstRevDateTime);
-      lastRevTime = formatWithTime(this.state.lastRevDateTime);
+      firstRevTime = formatDateWithTime(this.state.firstRevDateTime);
+      lastRevTime = formatDateWithTime(this.state.lastRevDateTime);
 
       timeSpan = I18n.t('revisions.edit_time_span',
         { first_time: firstRevTime, last_time: lastRevTime });

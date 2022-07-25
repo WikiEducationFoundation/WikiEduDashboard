@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { handleResolveAlert } from '../../actions/alert_actions';
-import { formatWithTime } from '../../utils/date_utils';
+import { formatDateWithTime } from '../../utils/date_utils';
 
 const Alert = ({ alert, adminAlert, resolveAlert }) => {
   let resolveCell;
@@ -34,7 +34,7 @@ const Alert = ({ alert, adminAlert, resolveAlert }) => {
 
   return (
     <tr className="alert">
-      <td className="desktop-only-tc date">{formatWithTime(alert.created_at)}</td>
+      <td className="desktop-only-tc date">{formatDateWithTime(alert.created_at)}</td>
       {alertTypeCell}
       <td className="desktop-only-tc"><a target="_blank" href={`/courses/${alert.course_slug}`}>{alert.course}</a></td>
       <td className="desktop-only-tc"><a target="_blank" href={`/users/${alert.user}`}>{alert.user}</a></td>

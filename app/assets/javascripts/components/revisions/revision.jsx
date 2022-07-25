@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import DiffViewer from './diff_viewer.jsx';
 import CourseUtils from '../../utils/course_utils.js';
-import { formatWithTime } from '../../utils/date_utils.js';
+import { formatDateWithTime } from '../../utils/date_utils.js';
 
 const Revision = ({ revision, index, wikidataLabel, course, setSelectedIndex, lastIndex, selectedIndex }) => {
   const ratingClass = `rating ${revision.rating}`;
@@ -27,7 +27,7 @@ const Revision = ({ revision, index, wikidataLabel, course, setSelectedIndex, la
       <td className="desktop-only-tc">{revision.revisor}</td>
       <td className="desktop-only-tc">{revision.characters}</td>
       <td className="desktop-only-tc">{revision.references_added}</td>
-      <td className="desktop-only-tc date"><a href={revision.url}>{formatWithTime(revision.date)}</a></td>
+      <td className="desktop-only-tc date"><a href={revision.url}>{formatDateWithTime(revision.date)}</a></td>
       <td>
         <DiffViewer
           index={index}

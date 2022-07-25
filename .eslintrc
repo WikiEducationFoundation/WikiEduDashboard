@@ -84,7 +84,6 @@
   "globals": {
     "I18n": true,
     "_": true,
-    "moment": true,
     "Sentry": true,
     "SurveyDetails": true,
     "Features": true,

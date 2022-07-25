@@ -6,14 +6,14 @@ import DiffViewer from '@components/revisions/diff_viewer.jsx';
 
 // Helpers
 import CourseUtils from '~/app/assets/javascripts/utils/course_utils';
-import { formatWithTime } from '~/app/assets/javascripts/utils/date_utils';
+import { formatDateWithTime } from '../../../../../utils/date_utils';
 
 export const RevisionRow = ({ course, index, revision, revisions, selectedIndex, student, wikidataLabels, showDiff }) => {
   const article = revision.article;
   const label = wikidataLabels[article.title];
   const formattedTitle = CourseUtils.formattedArticleTitle(article, course.home_wiki, label);
   const details = I18n.t('users.revision_characters_and_views', { characters: revision.characters, views: revision.views });
-  const revisionDate = formatWithTime(revision.date);
+  const revisionDate = formatDateWithTime(revision.date);
   return (
     <tr key={revision.id}>
       <td>
