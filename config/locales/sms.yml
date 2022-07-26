@@ -13,6 +13,7 @@ sms:
     cookie_consent_see_more: Lââʹssteâđ
     greeting: Tiõrv!
     home: Ouddseidd
+    log_in_extended: Ǩeeʹrjtõõđ sizz Wikipediain
     log_in: Ǩeeʹrjtõõđ sizz
     log_out: Ǩeeʹrjtõõđ åålǥas
     report_problem: Iʹlmmet čuõlmâst
@@ -34,7 +35,9 @@ sms:
     label: Artikkeeʹl
     new: (ođđ artikkel)
     see_more: Lââʹssteâđ
+    title: Nõmm
     view: Čuäʹjet artikkeeʹl
+    edit_size: Muuʹtt šorradvuõđ
     articles_short: Artikkeeʹl
   articles_generic:
     articles_short: Seeid
@@ -49,7 +52,9 @@ sms:
     campaign: Kampanjj
     created_at: Peiʹvvmieʹrr
     course: Kurss
+    description: Deskriptt
     delete_campaign: Jaukkâd tän kampaanj
+    title: Kampaanj nõmm
     search_campaigns: Ooʒʒ kampaanjid
     search: Ooʒʒ
   categories:
@@ -73,6 +78,7 @@ sms:
     course_description: Kuurs
     courses: Kuurs
     creator:
+      course_description: Kuurs deskriptt
       course_term_placeholder: Lookkâmpââʹjj
       create_label: Raaj ođđ kuurs
       create_new: Raaj ođđ kuurs
@@ -87,13 +93,16 @@ sms:
     duration: Kuurs pešttmõš
     features_feedback: 'Automaattlaž eʹtǩǩõõzz:'
     feedback: Maacctõs
+    new_week: Lââʹzzet ođđ neäʹttel
     new_account_email: E-pååʹštaddrõs
     please_log_in: Ǩeeʹrjtõõđ sizz.
     requested_accounts_alert_view: Čuäʹjet
     search_courses: Ooʒʒ kuursid
     tags: 'Ǩeâlggal:'
     term: Lookkâmpââʹjj
+    title: Kurssnõmm
     update_stats: Muʹttemstatistiikk
+    user_suggestions: 'Õõʹnnʼji eʹtǩǩõõzz:'
     view: Čuäʹjet kuurs
     view_page: Čuäʹjet kuurs seeid
     view_wiki: Čuäʹjet Wikipediast
@@ -110,6 +119,7 @@ sms:
   editable:
     edit: Muuʹtt
     save: Ruõkk
+    edit_description: Muuʹtt deskriipt
     edit_template: Muuʹtt maall
   instructor_view:
     bad_work:
@@ -123,10 +133,12 @@ sms:
     filter:
       user_ns: Õõʹnni
   recent_activity:
+    article_title: Nõmm
     file_name: Teâttõsnõmm
   revisions:
     diff_show: Čuäʹjet
     diff_hide: Čiõǥǥ
+    title: Nõmm
     see_more: Lââʹssteâđ
     show_all: Čuäʹjet pukid
   settings:
@@ -162,6 +174,8 @@ sms:
     image_link_placeholder: Lââʹzzet kartt- leʹbe snimldõkliiŋk (vaʹlljeemnallšem)
   wizard:
     summary: Õʹhtteǩeässmõš
+  error_404:
+    header: Seidd ij käunnʼjam. :-(
   survey:
     email:
       headline: Tiõrv, %{username}

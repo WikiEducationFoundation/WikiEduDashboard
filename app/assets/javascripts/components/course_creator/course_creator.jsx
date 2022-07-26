@@ -408,6 +408,6 @@ const mapDispatchToProps = ({
 });
 
 // exporting two difference ways as a testing hack.
-export const ConnectedCourseCreator = connect(mapStateToProps, mapDispatchToProps)(CourseCreator);
+export default connect(mapStateToProps, mapDispatchToProps)(CourseCreator);
 
-export default CourseCreator;
+export { CourseCreator };

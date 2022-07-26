@@ -2,7 +2,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 
 import '../../testHelper';
-import CourseCreator from '../../../app/assets/javascripts/components/course_creator/course_creator.jsx';
+import { CourseCreator } from '../../../app/assets/javascripts/components/course_creator/course_creator.jsx';
 
 describe('CourseCreator', () => {
   describe('render', () => {

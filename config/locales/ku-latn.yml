@@ -82,8 +82,12 @@ ku-latn:
   dashboard:
     create_note: Pêl bike ser Kursê Çêke ji bo ku kursa xwe ya pêşîn çêkî.
   home:
+    explore: Kişf bike
     log_in: Bi Wîkîpediyayê têkeve
     sign_up: Bi Wîkîpediyayê qeyd bibe
+  alerts:
+    alert_label: Alarm
+    no_alerts: Ti alarmekî nehat dîtin.
   activity:
     all: Çalakî
     edited_by: Hat Sererastkirin Ji Alî
