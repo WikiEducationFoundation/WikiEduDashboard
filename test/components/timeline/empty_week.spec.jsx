@@ -15,6 +15,8 @@ describe('EmptyWeek', () => {
     const TestEmptyWeek = mount(
       <EmptyWeek
         addWeek={jest.fn()}
+        timeline_start="2018-01-01"
+        timeline_end="2018-01-31"
       />
     );
     it('gives the empty text if timeline and edit permissions are empty', () => {
@@ -31,6 +33,8 @@ describe('EmptyWeek', () => {
           edit_permissions
           course={course}
           addWeek={jest.fn()}
+          timeline_start="2018-01-01"
+          timeline_end="2018-01-31"
         />
       </MemoryRouter>
     );
@@ -48,6 +52,8 @@ describe('EmptyWeek', () => {
         <EmptyWeek
           emptyTimeline
           addWeek={jest.fn()}
+          timeline_start="2018-01-01"
+          timeline_end="2018-01-31"
         />
       </MemoryRouter>
     );

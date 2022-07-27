@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 
 // Components
 import List from '@components/common/list.jsx';
@@ -9,6 +8,8 @@ import StudentDrawer from '@components/students/shared/StudentList/StudentDrawer
 
 // Libraries
 import CourseUtils from '~/app/assets/javascripts/utils/course_utils.js';
+import { toDate } from '../../../../../../utils/date_utils';
+import { addDays, isAfter } from 'date-fns';
 
 // Helper Functions
 const showRecent = (course) => {
@@ -17,7 +18,7 @@ const showRecent = (course) => {
   // updated.
   const lastUpdate = course.updates.last_update;
   if (!lastUpdate) return false;
-  return moment.utc(lastUpdate.end_time).add(7, 'days').isAfter(moment());
+  return isAfter(addDays(toDate(lastUpdate.end_time), 7), new Date());
 };
 
 export const StudentExerciseList = (props) => {

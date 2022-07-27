@@ -1,14 +1,15 @@
 import React from 'react';
-import moment from 'moment';
 import { nextUpdateExpected, getLastUpdateSummary, getTotaUpdatesMessage, getUpdateLogs } from '../../utils/statistic_update_info_utils';
 import ArticleUtils from '../../utils/article_utils';
+import { isAfter, format } from 'date-fns';
+import { getUTCDate, toDate } from '../../utils/date_utils';
 
 const StatisticsUpdateModal = (props) => {
   const course = props.course;
   const helpMessage = Features.wikiEd ? I18n.t('metrics.wiki_ed_help') : I18n.t('metrics.outreach_help');
-  const updatesEndMoment = moment.utc(course.update_until);
-  const futureUpdatesRemaining = updatesEndMoment.isAfter();
-  const futureUpdatesMessage = futureUpdatesRemaining ? I18n.t('metrics.future_updates_remaining.true', { date: updatesEndMoment.format('MMMM Do YYYY') }) : I18n.t('metrics.future_updates_remaining.false');
+  const updatesEndMoment = toDate(course.update_until);
+  const futureUpdatesRemaining = isAfter(updatesEndMoment, new Date());
+  const futureUpdatesMessage = futureUpdatesRemaining ? I18n.t('metrics.future_updates_remaining.true', { date: format(getUTCDate(updatesEndMoment), 'MMMM do yyyy') }) : I18n.t('metrics.future_updates_remaining.false');
   const additionalUpdateMessage = course.needs_update ? I18n.t('metrics.non_updating_course_update') : '';
 
   const lastUpdateSummary = getLastUpdateSummary(course);

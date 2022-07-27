@@ -3,14 +3,15 @@ import { shallow } from 'enzyme';
 
 import '../../testHelper';
 import StatisticsUpdateInfo from '../../../app/assets/javascripts/components/overview/statistics_update_info.jsx';
+import { addSeconds, formatDistanceToNow, subHours } from 'date-fns';
 
 describe('for a mixture of successful and failure update logs', () => {
-  const current = moment();
-  const oneHourAgo = moment().subtract(1, 'hours');
-  const twoHoursAgo = moment().subtract(2, 'hours');
-  const fourHoursAgo = moment().subtract(4, 'hours');
-  const fiveHoursAgo = moment().subtract(5, 'hours');
-  const sixHoursAgo = moment().subtract(6, 'hours');
+  const current = new Date();
+  const oneHourAgo = subHours(current, 1);
+  const twoHoursAgo = subHours(current, 2);
+  const fourHoursAgo = subHours(current, 4);
+  const fiveHoursAgo = subHours(current, 5);
+  const sixHoursAgo = subHours(current, 6);
 
   const firstSuccessLog = {
     start_time: fiveHoursAgo.toISOString(),
@@ -51,9 +52,9 @@ describe('for a mixture of successful and failure update logs', () => {
         average_delay: 3600
       }
     };
-    const lastSuccessfulUpdateMoment = moment().subtract(1, 'hours');
-    const lastSuccessfulUpdateMessage = `${I18n.t('metrics.last_update')}: ${lastSuccessfulUpdateMoment.fromNow()}`;
-    const nextUpdateMessage = `${I18n.t('metrics.next_update')}: ${lastSuccessfulUpdateMoment.add(course.updates.average_delay, 'seconds').fromNow()}`;
+    const lastSuccessfulUpdateMoment = subHours(new Date(), 1);
+    const lastSuccessfulUpdateMessage = `${I18n.t('metrics.last_update')}: ${formatDistanceToNow(lastSuccessfulUpdateMoment, { addSuffix: true })}`;
+    const nextUpdateMessage = `${I18n.t('metrics.next_update')}: ${formatDistanceToNow(addSeconds(lastSuccessfulUpdateMoment, course.updates.average_delay), { addSuffix: true })}`;
 
     const wrapper = shallow(<StatisticsUpdateInfo course={course}/>);
     expect(wrapper.text().includes(lastSuccessfulUpdateMessage)).toEqual(true);
@@ -77,9 +78,9 @@ describe('for a mixture of successful and failure update logs', () => {
       }
     };
 
-    const lastSuccessfulUpdateMoment = moment();
-    const lastSuccessfulUpdateMessage = `${I18n.t('metrics.last_update')}: ${lastSuccessfulUpdateMoment.fromNow()}`;
-    const nextUpdateMessage = `${I18n.t('metrics.next_update')}: ${lastSuccessfulUpdateMoment.add(course.updates.average_delay, 'seconds').fromNow()}`;
+    const lastSuccessfulUpdateMoment = new Date();
+    const lastSuccessfulUpdateMessage = `${I18n.t('metrics.last_update')}: ${formatDistanceToNow(lastSuccessfulUpdateMoment, { addSuffix: true })}`;
+    const nextUpdateMessage = `${I18n.t('metrics.next_update')}: ${formatDistanceToNow(addSeconds(lastSuccessfulUpdateMoment, course.updates.average_delay), { addSuffix: true })}`;
 
     const wrapper = shallow(<StatisticsUpdateInfo course={course}/>);
     expect(wrapper.text().includes(lastSuccessfulUpdateMessage)).toEqual(true);

@@ -1,10 +1,11 @@
-import moment from 'moment';
+import { getMonth, getYear } from 'date-fns';
+import { toDate } from '~/app/assets/javascripts/utils/date_utils';
 
 export const inferDefaultCampaign = (campaigns, course_start) => {
   // Try to infer the best suitable campaign from the start date of course.
   // Use the month and year to get the suitable term and compare it with the campaign slug.
-  const month = moment(course_start).month();
-  const year = moment(course_start).year();
+  const month = getMonth(toDate(course_start));
+  const year = getYear(toDate(course_start));
 
   let term;
   switch (month) {

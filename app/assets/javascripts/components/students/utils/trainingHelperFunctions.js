@@ -1,6 +1,6 @@
 import { Date } from 'core-js';
-import moment from 'moment';
-
+import { toDate } from '../../../utils/date_utils';
+import { isBefore } from 'date-fns';
 // This function returns the status of exercise
 // returns status as unread/complete/incomplete depending on the deadline status and flags if any
 export const getExerciseStatus = (exercise) => {
@@ -26,4 +26,4 @@ export const isTrainingDue = (date) => {
 };
 
 // This is a sorting function that returns the earlier training of the two inputs
-export const orderByDueDate = (a, b) => (moment(a.due_date).isBefore(b.due_date) ? -1 : 1);
+export const orderByDueDate = (a, b) => (isBefore(toDate(a.due_date), toDate(b.due_date)) ? -1 : 1);

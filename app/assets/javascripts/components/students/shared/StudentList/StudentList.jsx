@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 
 // Components
 import List from '@components/common/list.jsx';
@@ -10,6 +9,9 @@ import StudentRow from '@components/students/shared/StudentList/StudentRow.jsx';
 import CourseUtils from '~/app/assets/javascripts/utils/course_utils.js';
 import studentListKeys from './student_list_keys';
 
+import { addDays, isAfter } from 'date-fns';
+import { toDate } from '../../../../utils/date_utils';
+
 // Helper Functions
 const showRecent = (course) => {
   // If the last update was not more than 7 days ago, show the 'recent edits'
@@ -17,7 +19,7 @@ const showRecent = (course) => {
   // updated.
   const lastUpdate = course.updates.last_update;
   if (!lastUpdate) return false;
-  return moment.utc(lastUpdate.end_time).add(7, 'days').isAfter(moment());
+  return isAfter(addDays(toDate(lastUpdate.end_time), 7), new Date());
 };
 
 export const StudentList = (props) => {

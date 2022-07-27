@@ -425,11 +425,13 @@ describe 'the course page', type: :feature, js: true do
 
   describe 'uploads view' do
     before do
-      create(:commons_upload,
-             user_id: 1,
-             file_name: 'File:Example.jpg',
-             uploaded_at: '2015-06-01',
-             thumburl: 'https://upload.wikimedia.org/wikipedia/commons/c/c3/Real_Grottolella.png')
+      @commons_upload = create(
+        :commons_upload,
+        user_id: 1,
+        file_name: 'File:Example.jpg',
+        uploaded_at: '2015-06-01',
+        thumburl: 'https://upload.wikimedia.org/wikipedia/commons/c/c3/Real_Grottolella.png'
+      )
     end
 
     it 'displays a list of uploads' do
@@ -454,6 +456,7 @@ describe 'the course page', type: :feature, js: true do
       visit "/courses/#{slug}/uploads"
       find('button#tile-view').click
       expect(page).to have_selector('div.tile-view')
+      expect(page).to have_content format_local_datetime(@commons_upload.uploaded_at)
     end
 
     it 'displays list view and upload viewer when list view is selected' do
@@ -466,6 +469,8 @@ describe 'the course page', type: :feature, js: true do
         first('img').click
       end
       expect(page).to have_selector('div.upload-viewer')
+      expect(page).to have_content format_local_date(@commons_upload.uploaded_at)
+
       # Closes upload viewer
       find('button.icon-close').click
       expect(page).not_to have_selector('div.upload-viewer')
@@ -478,6 +483,8 @@ describe 'the course page', type: :feature, js: true do
       upload_element.click
       expect(page).to have_selector('div.upload-viewer')
       expect(page).to have_content upload_text
+      expect(page).to have_content format_local_date(@commons_upload.uploaded_at)
+
       # Closes upload viewer
       find('button.icon-close').click
       expect(page).not_to have_selector('div.upload-viewer')

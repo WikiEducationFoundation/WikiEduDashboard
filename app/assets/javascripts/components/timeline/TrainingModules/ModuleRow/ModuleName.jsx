@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
+import { toDate } from '~/app/assets/javascripts/utils/date_utils';
+import { format } from 'date-fns';
 
 export const ModuleName = ({ due_date, isExercise, name }) => {
   const date = due_date ? due_date.replace(/\//g, '-') : null;
-  const dueDate = moment(date).format('MMM Do');
+  const dueDate = format(toDate(date), 'MMM do');
   return (
     <td className="block__training-modules-table__module-name">
       {name}

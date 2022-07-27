@@ -168,3 +168,11 @@ def pass_pending_spec
   end
   raise 'this test passed — this time'
 end
+
+def format_local_datetime(date)
+  date.localtime.strftime('%Y-%m-%d %I:%M %p')
+end
+
+def format_local_date(date)
+  date.localtime.strftime('%Y-%m-%d')
+end

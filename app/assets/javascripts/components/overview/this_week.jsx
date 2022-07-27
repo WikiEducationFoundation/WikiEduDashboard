@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import moment from 'moment';
 import Week from '../timeline/week.jsx';
 import CourseDateUtils from '../../utils/course_date_utils.js';
+import { differenceInDays } from 'date-fns';
+import { toDate } from '../../utils/date_utils.js';
 
 const emptyWeeksAtBeginning = function (weekMeetings) {
   let count = 0;
@@ -42,7 +43,7 @@ const ThisWeek = ({ course, weeks, current_user }) => {
     weekMeetings = CourseDateUtils.weekMeetings(course, course.day_exceptions);
     const emptyWeeksAtStart = emptyWeeksAtBeginning(weekMeetings);
     const daysUntilBeginning = emptyWeeksAtStart * 7;
-    const isFirstWeek = moment().diff(course.timeline_start, 'days') <= daysUntilBeginning;
+    const isFirstWeek = differenceInDays(new Date(), toDate(course.timeline_start)) <= daysUntilBeginning;
     if (isFirstWeek) {
       const weekMeetingsIndex = emptyWeeksAtBeginning(weekMeetings);
       thisWeekMeetings = weekMeetings[weekMeetingsIndex];

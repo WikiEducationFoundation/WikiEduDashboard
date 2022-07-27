@@ -5,7 +5,8 @@ import { flatten, chunk } from 'lodash-es';
 import { stringify } from 'query-string';
 import request from './request';
 import { toWikiDomain } from './wiki_utils';
-import moment from 'moment';
+import { toDate } from './date_utils';
+import { subDays, formatISO, subYears, isBefore } from 'date-fns';
 
 // the MediaWiki API sends back revisions in pages
 // except the last page, each page has a continue token
@@ -70,7 +71,7 @@ export const fetchRevisionsFromUsers = async (course, users, days, last_date, fi
         revisions.push(...items);
       }
     }
-    last_date = moment(last_date).subtract(days, 'days').format();
+    last_date = formatISO(subDays(toDate(last_date), days));
     if (revisions.length < 50) {
       // go back at most 2 years
       days = Math.min(365 * 2, 3 * days);
@@ -89,14 +90,14 @@ export const fetchRevisionsFromUsers = async (course, users, days, last_date, fi
 const fetchAllRevisions = async (API_URL, days, usernames, wiki, course_start, last_date) => {
   let ucend;
   let exitNext = false;
-  if (moment(last_date).subtract(days, 'days').isBefore(course_start)) {
-    ucend = moment(course_start).format();
+  if (isBefore(subDays(toDate(last_date), days), toDate(course_start))) {
+    ucend = formatISO(toDate(course_start));
     exitNext = true;
-  } else if (moment(last_date).subtract(days, 'days').isBefore(moment().subtract(5, 'years'))) {
-    ucend = moment().subtract(5, 'years').format();
+  } else if (isBefore(subDays(toDate(last_date), days), subYears(new Date(), 5))) {
+    ucend = formatISO(subYears(new Date(), 5));
     exitNext = true;
   } else {
-    ucend = moment(last_date).subtract(days, 'days').format();
+    ucend = formatISO(subDays(toDate(last_date), days));
   }
 
   // since a max of 50 users are allowed in one query
@@ -112,7 +113,7 @@ const fetchAllRevisions = async (API_URL, days, usernames, wiki, course_start, l
       ucprop: 'ids|title|sizediff|timestamp',
       uclimit: 50,
       ucend,
-      ucstart: moment(last_date).format(),
+      ucstart: formatISO(toDate(last_date)),
       ucdir: 'older',
     };
     usernamePromises.push(fetchAll(API_URL, params, 'uccontinue'));
