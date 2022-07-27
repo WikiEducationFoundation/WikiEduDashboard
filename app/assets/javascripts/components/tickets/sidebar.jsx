@@ -32,7 +32,7 @@ export class Sidebar extends React.Component {
 
     return (
       <section className="sidebar">
-        <section className="created-at">Created <time className="bold">{formatDistanceToNow(toDate(createdAt))}</time></section>
+        <section className="created-at">Created <time className="bold">{formatDistanceToNow(toDate(createdAt), { addSuffix: true })}</time></section>
         <section className="status">
           Ticket is currently <span className={`${status.toLowerCase()} bold`}>{status}</span>
           <TicketStatusHandler ticket={ticket} />

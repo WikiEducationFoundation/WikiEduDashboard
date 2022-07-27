@@ -53,8 +53,8 @@ describe('for a mixture of successful and failure update logs', () => {
       }
     };
     const lastSuccessfulUpdateMoment = subHours(new Date(), 1);
-    const lastSuccessfulUpdateMessage = `${I18n.t('metrics.last_update')}: ${formatDistanceToNow(lastSuccessfulUpdateMoment)}`;
-    const nextUpdateMessage = `${I18n.t('metrics.next_update')}: ${formatDistanceToNow(addSeconds(lastSuccessfulUpdateMoment, course.updates.average_delay))}`;
+    const lastSuccessfulUpdateMessage = `${I18n.t('metrics.last_update')}: ${formatDistanceToNow(lastSuccessfulUpdateMoment, { addSuffix: true })}`;
+    const nextUpdateMessage = `${I18n.t('metrics.next_update')}: ${formatDistanceToNow(addSeconds(lastSuccessfulUpdateMoment, course.updates.average_delay), { addSuffix: true })}`;
 
     const wrapper = shallow(<StatisticsUpdateInfo course={course}/>);
     expect(wrapper.text().includes(lastSuccessfulUpdateMessage)).toEqual(true);
@@ -79,8 +79,8 @@ describe('for a mixture of successful and failure update logs', () => {
     };
 
     const lastSuccessfulUpdateMoment = new Date();
-    const lastSuccessfulUpdateMessage = `${I18n.t('metrics.last_update')}: ${formatDistanceToNow(lastSuccessfulUpdateMoment)}`;
-    const nextUpdateMessage = `${I18n.t('metrics.next_update')}: ${formatDistanceToNow(addSeconds(lastSuccessfulUpdateMoment, course.updates.average_delay))}`;
+    const lastSuccessfulUpdateMessage = `${I18n.t('metrics.last_update')}: ${formatDistanceToNow(lastSuccessfulUpdateMoment, { addSuffix: true })}`;
+    const nextUpdateMessage = `${I18n.t('metrics.next_update')}: ${formatDistanceToNow(addSeconds(lastSuccessfulUpdateMoment, course.updates.average_delay), { addSuffix: true })}`;
 
     const wrapper = shallow(<StatisticsUpdateInfo course={course}/>);
     expect(wrapper.text().includes(lastSuccessfulUpdateMessage)).toEqual(true);

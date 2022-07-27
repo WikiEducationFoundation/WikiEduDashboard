@@ -21,17 +21,17 @@ const getLastUpdateMessage = (course) => {
   const lastUpdateMoment = lastSuccessfulUpdateMoment(course.flags.update_logs);
   if (lastUpdateMoment) {
     const averageDelay = course.updates.average_delay ?? 0;
-    lastUpdateMessage = `${I18n.t('metrics.last_update')}: ${formatDistanceToNow(lastUpdateMoment)}.`;
+    lastUpdateMessage = `${I18n.t('metrics.last_update')}: ${formatDistanceToNow(lastUpdateMoment, { addSuffix: true })}.`;
     const nextUpdateExpectedTime = addSeconds(lastUpdateMoment, averageDelay);
     isNextUpdateAfter = isAfter(nextUpdateExpectedTime, new Date());
-    nextUpdateMessage = `${I18n.t('metrics.next_update')}: ${formatDistanceToNow(nextUpdateExpectedTime)}.`;
+    nextUpdateMessage = `${I18n.t('metrics.next_update')}: ${formatDistanceToNow(nextUpdateExpectedTime, { addSuffix: true })}.`;
   }
   return [lastUpdateMessage, nextUpdateMessage, isNextUpdateAfter];
 };
 
 const nextUpdateExpected = (course) => {
   if (!course.flags.update_logs) {
-   return formatDistanceToNow(firstUpdateTime(course.flags.first_update));
+   return formatDistanceToNow(firstUpdateTime(course.flags.first_update), { addSuffix: true });
   }
   if (lastSuccessfulUpdateMoment(course.flags.update_logs) === null) {
     return 'unknown';
@@ -39,7 +39,7 @@ const nextUpdateExpected = (course) => {
   const lastUpdateMoment = lastSuccessfulUpdateMoment(course.flags.update_logs);
   const averageDelay = course.updates.average_delay || 0;
   const nextUpdateTime = addSeconds(lastUpdateMoment, averageDelay);
-  return formatDistanceToNow(nextUpdateTime);
+  return formatDistanceToNow(nextUpdateTime, { addSuffix: true });
 };
 
 
@@ -62,7 +62,7 @@ const getFirstUpdateMessage = (course) => {
   if (course.flags.first_update) {
     const nextUpdateExpectedTime = firstUpdateTime(course.flags.first_update);
     isNextUpdateAfter = isAfter(nextUpdateExpectedTime, new Date());
-    nextUpdateMessage = `${I18n.t('metrics.first_update')}: ${formatDistanceToNow(nextUpdateExpectedTime)}.`;
+    nextUpdateMessage = `${I18n.t('metrics.first_update')}: ${formatDistanceToNow(nextUpdateExpectedTime, { addSuffix: true })}.`;
     lastUpdateMessage = `${I18n.t('metrics.enqueued_update')}`;
   } else {
     lastUpdateMessage = `${I18n.t('metrics.no_update')}`;

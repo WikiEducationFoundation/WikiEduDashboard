@@ -27,7 +27,7 @@ const Category = ({ course, category, remove, editable }) => {
   if (lastUpdate) {
     lastUpdateMessage = isSameDay(toDate(category.created_at), lastUpdate)
       ? '---'
-      : `${I18n.t('metrics.last_update')}: ${formatDistanceToNow(lastUpdate)}`;
+      : `${I18n.t('metrics.last_update')}: ${formatDistanceToNow(lastUpdate, { addSuffix: true })}`;
   }
 
   return (
