@@ -37,7 +37,7 @@ export const toDate = (date, suppressError) => {
 export const formatDateWithTime = (date) => {
   // example - 2022-07-21 11:02 AM
   // everything is 0 padded
-  return format(toDate(date), 'yyyy-MM-dd KK:mm a');
+  return format(toDate(date), 'yyyy-MM-dd hh:mm a');
 };
 
 /**
