@@ -42,7 +42,7 @@ describe 'activity page', type: :feature, js: true do
              article_id: article2.id,
              wp10: RevisionAnalyticsService::DEFAULT_DYK_WP10_LIMIT,
              user_id: user2.id,
-             date: 2.days.ago)
+             date: 3.days.ago)
     end
 
     before do
@@ -72,12 +72,17 @@ describe 'activity page', type: :feature, js: true do
         within '.activity-table' do
           expect(page).to have_content article.title.tr('_', ' ')
           expect(page).to have_content article2.title.tr('_', ' ')
+          expect(page).to have_content format_local_datetime revision.date
+          expect(page).to have_content format_local_datetime revision2.date
         end
         check 'Show My Courses Only'
         within '.activity-table' do
           expect(page).to have_content article.title.tr('_', ' ')
           expect(page).not_to have_content article2.title.tr('_', ' ')
+          expect(page).to have_content format_local_datetime revision.date
+          expect(page).not_to have_content format_local_datetime revision2.date
         end
+        # sleep 10
       end
     end
 
