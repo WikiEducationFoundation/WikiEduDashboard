@@ -58,4 +58,11 @@ export default class ArticleUtils {
       wikiversity: 'collection'
     }
   };
+
+  // Get namespace id from its title
+  static getNamespaceId(namespace) {
+    const ns_id_mapping = this.NamespaceIdMapping;
+    const ns_id = Object.keys(ns_id_mapping).find(ns => ns_id_mapping[ns] === namespace);
+    return Number(ns_id);
+  }
 }
