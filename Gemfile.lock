@@ -237,7 +237,7 @@ GEM
     fugit (1.5.3)
       et-orbi (~> 1, >= 1.2.7)
       raabro (~> 1.4)
-    fuzzily_reloaded (1.0.0)
+    fuzzily_reloaded (1.0.1)
       activerecord (>= 5.1)
     globalid (1.0.0)
       activesupport (>= 5.0)
