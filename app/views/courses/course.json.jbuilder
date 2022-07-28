@@ -35,7 +35,7 @@ json.course do
   json.wiki_string_prefix @course.home_wiki.string_prefix
 
   if @course.course_stat
-    @course.course_stat.stats_hash = format_wikidata_stats(@course.course_stat.stats_hash)
+    @course.course_stat.stats_hash = format_course_stats(@course.course_stat.stats_hash)
     json.course_stats @course.course_stat, :id, :stats_hash
   end
 
