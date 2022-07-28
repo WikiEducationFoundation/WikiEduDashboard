@@ -22,6 +22,8 @@ sms:
     submit: Vuõlttâd
     change: Muuʹtt
     details: Teâđ
+  home:
+    log_in: Ǩeeʹrjtõõđ sizz Wikipediain
   articles:
     articles: Artikkeeʹl
     deleted: (jaukkuum)
@@ -35,6 +37,7 @@ sms:
     label: Artikkeeʹl
     new: (ođđ artikkel)
     see_more: Lââʹssteâđ
+    show_current_version: Čuäʹjet ođđsumus versio
     title: Nõmm
     view: Čuäʹjet artikkeeʹl
     edit_size: Muuʹtt šorradvuõđ
@@ -54,6 +57,7 @@ sms:
     course: Kurss
     description: Deskriptt
     delete_campaign: Jaukkâd tän kampaanj
+    newest_campaigns: Ođđsumus kampaanj
     title: Kampaanj nõmm
     search_campaigns: Ooʒʒ kampaanjid
     search: Ooʒʒ
@@ -131,6 +135,7 @@ sms:
     update_statistics_link: Lââʹssteâđ
   namespace:
     filter:
+      article_ns: Artikkel
       user_ns: Õõʹnni
   recent_activity:
     article_title: Nõmm
@@ -157,15 +162,22 @@ sms:
     view: Čuäʹjet
     page: Seidd
     view_module_source: čuäʹjet moduulkääiv
+    kind:
+      discussion: Saǥstõõllmõš
   uploads:
     file_name: Teâttõsnõmm
+    label: Ruõkkmõõžž
   users:
     contributions: Õõʹnni muttâz
     contribution_statistics: Muʹttemstatistiikk
+    edits: muttâz
     first_name: Risttnõmm
     last_name: Sokknõmm
     name: Nõmm
     no_articles: Artikkeeʹl jie leäkku
+    number_of_articles:
+      one: '%{count} artikkel'
+      other: '%{count} artikkeeʹl'
     references_count: Lââʹzztum teâttkääiv
     username: Õõʹnninõmm
     username_placeholder: Õõʹnninõmm
@@ -173,6 +185,7 @@ sms:
   user_profiles:
     image_link_placeholder: Lââʹzzet kartt- leʹbe snimldõkliiŋk (vaʹlljeemnallšem)
   wizard:
+    read_more: Čuäʹjet lââʹzz
     summary: Õʹhtteǩeässmõš
   error_404:
     header: Seidd ij käunnʼjam. :-(
