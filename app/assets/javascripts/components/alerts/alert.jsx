@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import { connect } from 'react-redux';
 
 import { handleResolveAlert } from '../../actions/alert_actions';
+import { formatDateWithTime } from '../../utils/date_utils';
 
 const Alert = ({ alert, adminAlert, resolveAlert }) => {
   let resolveCell;
@@ -34,7 +34,7 @@ const Alert = ({ alert, adminAlert, resolveAlert }) => {
 
   return (
     <tr className="alert">
-      <td className="desktop-only-tc date">{moment(alert.created_at).format('YYYY-MM-DD   h:mm A')}</td>
+      <td className="desktop-only-tc date">{formatDateWithTime(alert.created_at)}</td>
       {alertTypeCell}
       <td className="desktop-only-tc"><a target="_blank" href={`/courses/${alert.course_slug}`}>{alert.course}</a></td>
       <td className="desktop-only-tc"><a target="_blank" href={`/users/${alert.user}`}>{alert.user}</a></td>

@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import GreetStudentsButton from './greet_students_button.jsx';
+import { format, toDate } from 'date-fns';
+import { getUTCDateString } from '../../utils/date_utils.js';
 
 // Helper Functions
 const DetailsText = ({ flags }) => (
@@ -12,7 +13,7 @@ const DetailsText = ({ flags }) => (
     </strong>&nbsp;on
     <br />
     <strong>
-      {moment(flags.last_reviewed.timestamp).format('LLLL')}
+      {format(toDate(flags.last_reviewed.timestamp), 'PPPP p')}
     </strong>
   </p>
 );
@@ -36,7 +37,7 @@ export const AdminQuickActions = ({ course, current_user, persistCourse, greetSt
       onClick={() => {
         course.last_reviewed = {
           username: current_user.username,
-          timestamp: moment.utc().format()
+          timestamp: getUTCDateString(),
         };
         persistCourse(course.slug);
       }}

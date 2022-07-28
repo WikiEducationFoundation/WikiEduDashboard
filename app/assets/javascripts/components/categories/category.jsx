@@ -1,6 +1,7 @@
 import React from 'react';
 import CourseUtils from '../../utils/course_utils';
-import moment from 'moment';
+import { toDate } from '../../utils/date_utils';
+import { isSameDay, formatDistanceToNow } from 'date-fns';
 
 const Category = ({ course, category, remove, editable }) => {
   let removeButton;
@@ -21,13 +22,12 @@ const Category = ({ course, category, remove, editable }) => {
   } else {
     link = `https://${course.home_wiki.language}.${course.home_wiki.project}.org/wiki/${catName}`;
   }
-  const lastUpdate = category.updated_at;
-  const lastUpdateMoment = moment.utc(lastUpdate);
+  const lastUpdate = toDate(category.updated_at);
   let lastUpdateMessage;
   if (lastUpdate) {
-    lastUpdateMessage = moment(lastUpdate).isSame(category.created_at)
+    lastUpdateMessage = isSameDay(toDate(category.created_at), lastUpdate)
       ? '---'
-      : `${I18n.t('metrics.last_update')}: ${lastUpdateMoment.fromNow()}`;
+      : `${I18n.t('metrics.last_update')}: ${formatDistanceToNow(lastUpdate, { addSuffix: true })}`;
   }
 
   return (

@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
 import { throttle } from 'lodash-es';
-import moment from 'moment';
 
 import Week from './week.jsx';
 import EmptyWeek from './empty_week.jsx';
@@ -16,6 +15,8 @@ import EditableRedux from '../high_order/editable_redux';
 import DateCalculator from '../../utils/date_calculator.js';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
+import { toDate } from '../../utils/date_utils.js';
+import { differenceInWeeks } from 'date-fns';
 
 const Timeline = createReactClass({
   displayName: 'Timeline',
@@ -361,9 +362,10 @@ const Timeline = createReactClass({
         <CourseLink className="week-nav__action week-nav__link" to={courseLink}>{CourseUtils.i18n('edit_course_dates', this.props.course.string_prefix)}</CourseLink>
       );
 
-      const start = moment(this.props.course.timeline_start);
-      const end = moment(this.props.course.timeline_end);
-      const timelineFull = (moment(end - start).weeks()) - weekComponents.length <= 0;
+      const start = toDate(this.props.course.timeline_start);
+      const end = toDate(this.props.course.timeline_end);
+      const weeksDiff = differenceInWeeks(end, start);
+      const timelineFull = weeksDiff - weekComponents.length <= 0;
       addWeekLink = timelineFull ? (
         <li>
           <label className="week-nav__action week-nav__link disabled tooltip-trigger">

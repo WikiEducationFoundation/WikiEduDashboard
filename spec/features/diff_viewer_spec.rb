@@ -32,6 +32,7 @@ describe 'difference viewer', type: :feature, js: true do
       expect(page).to have_content('-22 Chars Added')
       expect(page).to have_content('large fields').once
       expect(page).to have_content('There are four sections of each class for NC to 10').twice
+      expect(page).to have_content(format_local_datetime(Time.parse('2020-03-07T17:34:00.0000Z')))
     end
   end
 end

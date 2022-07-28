@@ -11,8 +11,8 @@ import {
   RECEIVE_REFERENCES_COURSE_SPECIFIC
 } from '../constants';
 import { sortByKey } from '../utils/model_utils';
-import moment from 'moment';
-
+import { getUTCDateString, toDate } from '../utils/date_utils';
+import { isAfter, isBefore, subYears } from 'date-fns';
 // this is the max number of revisions we will add to the table when there's a new fetch request
 const REVISIONS_INITIAL = 200;
 
@@ -31,7 +31,7 @@ const initialState = {
   },
   revisionsLoaded: false,
   courseScopedRevisionsLoaded: false,
-  last_date: moment().utc().format(),
+  last_date: getUTCDateString(),
   last_date_course_specific: null,
   revisionsDisplayed: [],
   revisionsDisplayedCourseSpecific: [],
@@ -42,7 +42,7 @@ const initialState = {
 };
 
 const isLimitReached = (course_start, last_date) => {
-  return moment(course_start).isAfter(moment(last_date)) || moment(last_date).isBefore(moment().subtract(5, 'years'));
+  return isAfter(toDate(course_start), toDate(last_date)) || isBefore(toDate(last_date), subYears(new Date(), 5));
 };
 
 export default function revisions(state = initialState, action) {

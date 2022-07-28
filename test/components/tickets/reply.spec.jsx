@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-
+import { subDays } from 'date-fns';
 import { MESSAGE_KIND_REPLY, MESSAGE_KIND_NOTE } from '../../../app/assets/javascripts/constants/tickets';
 import { Reply } from '../../../app/assets/javascripts/components/tickets/reply.jsx';
 import '../../testHelper';
@@ -12,7 +12,8 @@ describe('Tickets', () => {
       details: {
         delivered: new Date(),
         sender_email: 'sender@email.com',
-        subject: 'My Subject'
+        subject: 'My Subject',
+        delivery_failed: subDays(new Date(), 7)
       },
       kind: MESSAGE_KIND_REPLY,
       sender: {},

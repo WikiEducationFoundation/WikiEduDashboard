@@ -15,7 +15,8 @@ describe('Tickets', () => {
     };
     const props = {
       currentUser: {},
-      ticket
+      ticket,
+      createdAt: new Date(),
     };
     const component = shallow(<Sidebar {...props} />);
 

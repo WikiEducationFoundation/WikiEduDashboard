@@ -1,18 +1,18 @@
 import React from 'react';
-import moment from 'moment';
 import linkifyHtml from 'linkifyjs/html';
 
 import { MESSAGE_KIND_NOTE } from '../../constants/tickets';
 import HelperIcon from './helper_icon';
 import DeleteNote from './delete_note';
+import { formatDateWithTime } from '../../utils/date_utils';
 
 export const Reply = ({ message }) => {
   const { sender, details } = message;
 
-  const deliveredTime = moment(details.delivered).format('YYYY/MM/DD h:mm a');
+  const deliveredTime = formatDateWithTime(details.delivered);
   const delivered = `Delivered on ${deliveredTime}`;
 
-  const failedTime = moment(details.delivery_failed).format('YYYY/MM/DD h:mm a');
+  const failedTime = formatDateWithTime(details.delivery_failed);
   const failed = `Failed on ${failedTime}`;
 
   let subject;
@@ -55,7 +55,7 @@ export const Reply = ({ message }) => {
           <p>From: {from}</p>
         </span>
         <span className="created-at">
-          <p>Created: {moment(message.created_at).format('MMM DD, YYYY h:mm a')}</p>
+          <p>Created: {formatDateWithTime(message.created_at)}</p>
         </span>
         <span>
           {
