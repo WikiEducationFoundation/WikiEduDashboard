@@ -17,28 +17,28 @@ const NamespaceOverviewStats = ({ statistics }) => {
         className="stat-display__value"
         stat = {statistics.edited_count}
         statMsg={I18n.t('metrics.articles_edited')}
-        renderZero={true}
+        renderZero={false}
       />
       <OverviewStat
         id="total-edits"
         className="stat-display__value"
         stat = {statistics.revision_count}
         statMsg={I18n.t('metrics.edit_count_description')}
-        renderZero={true}
+        renderZero={false}
       />
       <OverviewStat
         id="student-editors"
         className="stat-display__value"
         stat={statistics.user_count}
         statMsg={I18n.t('courses.student_editors')}
-        renderZero={true}
+        renderZero={false}
       />
       <OverviewStat
         id="word-count"
         className="stat-display__value"
         stat={statistics.word_count}
         statMsg={I18n.t('metrics.word_count')}
-        renderZero={true}
+        renderZero={false}
       />
       <OverviewStat
         id="references-count"
@@ -52,7 +52,7 @@ const NamespaceOverviewStats = ({ statistics }) => {
         className="stat-display__value"
         stat={statistics.views_count}
         statMsg={I18n.t('metrics.view_count_description')}
-        renderZero={true}
+        renderZero={false}
       />
     </div>
     );
