@@ -1,8 +1,9 @@
 %tr{:class => "#{user ? date_highlight_class(course) : ''}", "data-link" => "#{course_slug_path(course.slug)}"}
   %td.title{:role => "button", :tabindex => "0"}
-    = course.title
-    %span.creation-date.hidden
-      = course.created_at
+    %a.course-link{:href => "#{course_slug_path(course.slug)}"}
+      = course.title
+      %span.creation-date.hidden
+        = course.created_at
   %td.creation-date
     = course.created_at.strftime('%Y-%m-%d')
   %td.instructor
