@@ -78,7 +78,7 @@ module Errors
     private
 
     def json?(request)
-      return true if request.media_type.include? 'json'
+      return true if request.format.to_s.include? 'json'
       request.fullpath.include? '.json'
     end
   end

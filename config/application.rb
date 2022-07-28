@@ -10,6 +10,8 @@ module WikiEduDashboard
   class Application < Rails::Application
     config.autoload_paths += Dir[Rails.root.join("app", "models", "{*/}")]
     config.autoload_paths += Dir[Rails.root.join("app", "workers", "{*/}")]
+    config.eager_load_paths += Dir[Rails.root.join("app", "models", "{*/}")]
+    config.eager_load_paths += Dir[Rails.root.join("app", "workers", "{*/}")]
 
     config.generators do |g|
       g.test_framework :rspec,
@@ -47,9 +49,6 @@ module WikiEduDashboard
 
     # Set fallback locale to en, which is the source locale.
     config.i18n.fallbacks = [:en]
-
-    # Disables native processing of Sass and Coffeescript
-    config.assets.enabled = false
 
     # Use custom error pages (like 404) instead of Rails defaults
     config.exceptions_app = self.routes
