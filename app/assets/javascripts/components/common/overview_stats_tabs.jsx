@@ -11,7 +11,9 @@ const OverviewStatsTabs = ({ statistics }) => {
   const [currentTabId, setCurrentTabId] = useState(0);
 
   const onTabChange = (e) => {
-    return setCurrentTabId(Number(e.currentTarget.id));
+    const tabId = e.currentTarget.id;
+    const tabIdNumber = Number(tabId.split('-')[1]);
+    return setCurrentTabId(tabIdNumber);
   };
 
   const statsList = [];
