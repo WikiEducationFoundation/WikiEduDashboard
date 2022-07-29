@@ -2,7 +2,7 @@
 
 class UnsubmittedCourseAlertManager
   def create_alerts
-    unsubmitted_recently_started_courses.each do |course|
+    unsubmitted_recently_created_courses.each do |course|
       next if Alert.exists?(course_id: course.id,
                             type: 'UnsubmittedCourseAlert')
 
@@ -20,7 +20,7 @@ class UnsubmittedCourseAlertManager
   # When we start sending out pings, we don't want to send them for older ones that
   # were for previous terms.
   MAX_TIME_AFTER_CREATION = 3.months
-  def unsubmitted_recently_started_courses
+  def unsubmitted_recently_created_courses
     ClassroomProgramCourse.unsubmitted
                           .where('courses.created_at <= ?', TIME_AFTER_CREATION.ago)
                           .where('courses.created_at >= ?', MAX_TIME_AFTER_CREATION.ago)
