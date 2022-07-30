@@ -4,24 +4,24 @@ require 'rails_helper'
 
 describe 'Detailed course overview stats', type: :feature, js: true do
   let(:course) { create(:course, start: '2022-01-01', end: '2023-01-01') }
+
   before do
     create(:course_stats, course: course,
-      stats_hash: {
+    stats_hash: {
         'www.wikidata.org': {
-          'claims created': 35,
-          'other updates': 2,
-          'unknown': 6
+          'claims created' => 35,
+          'other updates' => 2,
+          'unknown' => 6
         },
         'en.wikibooks.org-namespace-102': {
-          'new_count': 5,
-          'edited_count': 72
+          'new_count' => 5,
+          'edited_count' => 72
         },
         'en.wikipedia.org-namespace-0': {
-          'new_count': 16,
-          'edited_count': 103
+          'new_count' => 16,
+          'edited_count' => 103
         }
-      }
-    )
+      })
     visit "/courses/#{course.slug}"
   end
 
@@ -45,7 +45,9 @@ describe 'Detailed course overview stats', type: :feature, js: true do
 
     page.find('.tab', text: 'en.wikipedia.org - Mainspace').click
     expect(page.find('.tab.active')).to have_content('en.wikipedia.org - Mainspace')
+    # rubocop:disable Layout/LineLength
     expect(page.find('.content-container .title')).not_to have_content('en.wikibooks.org - Cookbook')
+    # rubocop:enable Layout/LineLength
     expect(page.find('.content-container .title')).to have_content('en.wikipedia.org - Mainspace')
     expect(page.find('.content-container')).to have_content("16\nArticles Created")
   end

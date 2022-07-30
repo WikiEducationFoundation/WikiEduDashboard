@@ -151,9 +151,9 @@ class CoursesPresenter
   end
 
   def wikidata_stats
-    stats ||= courses.joins(:course_stat).where.not(course_stats: nil).map { |course|
+    stats ||= courses.joins(:course_stat).where.not(course_stats: nil).filter_map do |course|
       course.course_stat.stats_hash['www.wikidata.org']
-    }.compact
+    end
     return { 'www.wikidata.org' => stats.inject { |a, b| a.merge(b) { |_, x, y| x + y } } }
   end
 
