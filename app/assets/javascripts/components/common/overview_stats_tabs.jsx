@@ -38,10 +38,12 @@ const OverviewStatsTabs = ({ statistics }) => {
   });
 
   const content = <OverviewStatsContent content={statsList[currentTabId]} />;
+  // Hide tabs container if there is only one tab
+  const tabsClass = `tabs-container${(tabsList.length === 1) ? ' hide' : ''}`
 
   return (
     <div className="overview-stats-tabs-container">
-      <div className="tabs-container">
+      <div className={tabsClass}>
         {tabsList}
       </div>
       {content}

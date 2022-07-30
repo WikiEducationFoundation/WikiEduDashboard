@@ -69,10 +69,13 @@
 .overview-stats-tabs-container
   background-color: #fff;
   border: 1px solid #e2e2e2;
-  padding: 20px
+  padding: 0px 20px 20px 20px
 
   .tabs-container
-    padding: 0px
+    &.hide
+      display: none
+    
+    padding: 20px 0px 0px 0px
     display: inline-flex
     width: 100%
     border-bottom: 2px solid $brand_primary
@@ -87,7 +90,6 @@
 
       p
         font-size: 13px
-        font-weight: 600
         color: #666
 
       &.active
@@ -95,6 +97,7 @@
         border: none
         p
           color: #fff
+          font-weight: 600
 
   .content-container
     padding: 0px
