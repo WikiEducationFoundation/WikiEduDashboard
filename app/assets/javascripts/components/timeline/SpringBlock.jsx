@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { useSpring } from '@react-spring/web';
+import React, { useEffect, useState } from 'react';
 import OrderableBlock from './orderable_block.jsx';
 
 export default function SpringBlock({
@@ -10,27 +9,21 @@ export default function SpringBlock({
   onMoveBlockDown,
   canBlockMoveDown,
   canBlockMoveUp,
+  animationDuration
 }) {
-  const [y, setY] = useState(i * 75);
-  useSpring({
-    y: i * 75,
-    onChange(change) {
-      setY(change.value.y);
-    },
-  });
-  const animating = Math.round(y) !== i * 75;
-  const willChange = animating ? 'top' : 'initial';
+  const [animating, setAnimating] = useState(false);
+
+  useEffect(() => {
+    setAnimating(true);
+
+    // the animation lasts for 250ms. So we need to wait for that before we set animating to false
+    setTimeout(() => {
+      setAnimating(false);
+    }, animationDuration);
+  }, [i]);
+
   return (
-    <li
-      style={{
-        top: y,
-        position: 'absolute',
-        width: '100%',
-        left: 0,
-        willChange,
-        marginLeft: 0,
-      }}
-    >
+    <li>
       <OrderableBlock
         block={block}
         canDrag={true}
