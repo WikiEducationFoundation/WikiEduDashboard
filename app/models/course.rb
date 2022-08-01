@@ -283,7 +283,7 @@ class Course < ApplicationRecord
   end
 
   def tracked_namespaces
-    return ['0']
+    return [0]
   end
 
   def suspected_plagiarism
