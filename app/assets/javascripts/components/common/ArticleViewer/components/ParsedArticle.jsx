@@ -2,15 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 
-const wikilinkMatcher = new RegExp('<a href=', 'g');
-const blankTargetLink = '<a target="_blank" href=';
+const httpLinkMatcher = /(<a href="http)/g;
+const blankTargetLink = '<a target="_blank" href="http';
 
 export const ParsedArticle = ({ highlightedHtml, whocolorHtml, parsedArticle }) => {
   let articleHTML = highlightedHtml || whocolorHtml || parsedArticle;
 
-  // This sets `target="_blank"` for all of the link in the article HTML,
+  // This sets `target="_blank"` for all of the non-anchor links in the article HTML,
   // so that clicking one will open it in a new tab.
-  articleHTML = articleHTML?.replace(wikilinkMatcher, blankTargetLink);
+  articleHTML = articleHTML?.replace(httpLinkMatcher, blankTargetLink);
 
   return (
     <div className="parsed-article" dangerouslySetInnerHTML={{ __html: articleHTML }} />
