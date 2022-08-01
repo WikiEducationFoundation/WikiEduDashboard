@@ -55,6 +55,7 @@ sms:
     campaign: Kampanjj
     created_at: Peiʹvvmieʹrr
     course: Kurss
+    create_campaign: Ođđ kampaanj raajjmõš
     description: Deskriptt
     delete_campaign: Jaukkâd tän kampaanj
     newest_campaigns: Ođđsumus kampaanj
@@ -89,6 +90,7 @@ sms:
       create_short: Raaj kuurs
       find: Ooʒʒ kuurs
       save_cloned_course: Ruõkk ođđ kuurs
+      start_date: Äʹlǧǧempeiʹvv
     data_download_info: Laadd teâđaid CSV-teâttõssân.
     data_wikidata: Wikidata-statistiikk
     delete_course: Jaukkâd kuurs
@@ -157,7 +159,9 @@ sms:
     editing: Muʹttemeʹtǩǩõõzz
   timeline:
     add_week: Lââʹzzet neäʹttel
+    discard_all_changes: Tirššâl puk muttsid
     gradeable_value: Ärvv
+    week_number: Neäʹttel %{number}
   training:
     view: Čuäʹjet
     page: Seidd

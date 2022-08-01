@@ -25,6 +25,7 @@
 # Author: Shizhao
 # Author: Shuiwater
 # Author: SomeyaMako
+# Author: Stang
 # Author: StarrySky
 # Author: TsuyaMarisa
 # Author: Viztor
@@ -458,7 +459,7 @@ zh-CN:
     join_no_passcode: 您确定要加入这个课程么？
     leave_confirmation: 您确定要离开这个课程么？
     leave_course: 离开课程
-    loading: 正在载入……
+    loading: 正在加载……
     milestones_none: 此课程目前没有任何里程碑。
     my_articles: 我的条目
     needs_update: 计划数据更新

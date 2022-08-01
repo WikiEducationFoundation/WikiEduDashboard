@@ -1625,8 +1625,8 @@ fr:
         Edge et d’autres navigateurs modernes.
   error_401:
     header: Non autorisé. >:-(
-    explanation: Vous n’avez pas le droit pas d’exécuter cette requête. Si vous pensez
-      avoir eu cet avertissement par erreur, veuillez contacter les mainteneurs de
+    explanation: Vous n’avez pas l’autorisation d’exécuter cette requête. Si vous
+      pensez avoir reçu cet avis par erreur, veuillez contacter les mainteneurs de
       ce tableau de bord pour les informer du problème.
     json_explanation: Il semble que vous avez été déconnecté. Veuillez actualiser
       la page, vous connecter et essayer à nouveau.
