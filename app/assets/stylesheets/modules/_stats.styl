@@ -66,11 +66,58 @@
     &:before
       left 50%
 
+.overview-stats-tabs-container
+  background-color: #fff;
+  border: 1px solid #e2e2e2;
+  padding: 0px 20px 20px 20px
+
+  .tabs-container
+    &.hide
+      display: none
+    
+    padding: 20px 0px 0px 0px
+    display: inline-flex
+    width: 100%
+    border-bottom: 2px solid $brand_primary
+
+    .tab
+      padding: 8px 12px 8px 12px
+      min-width: 200px
+      cursor pointer
+      margin-right: 20px
+      position: relative
+      top: 2px
+
+      p
+        font-size: 13px
+        color: #666
+
+      &.active
+        background-color: $brand_primary
+        border: none
+        p
+          color: #fff
+          font-weight: 600
+
+  .content-container
+    padding: 0px
+
+    .title
+      font-size 20px
+      font-weight 500
+      line-height 55px
+      -webkit-font-smoothing auto
+      margin 0
+
 .wikidata-stats-container
   background-color: #fff;
   border: 1px solid #e2e2e2;
   padding: 0px 20px 10px 20px;
   margin 0 0 20px 0
+
+  &.course-overview
+    border: none
+    padding: 0px
 
   .wikidata-stats-title
     font-size 20px

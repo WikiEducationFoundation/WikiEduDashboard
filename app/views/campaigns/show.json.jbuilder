@@ -31,7 +31,7 @@ if @campaign
     json.created_at @campaign.created_at
 
     if @presenter.wikidata_stats['www.wikidata.org']
-      json.course_stats format_wikidata_stats(@presenter.wikidata_stats)
+      json.course_stats format_course_stats(@presenter.wikidata_stats)
     end
   end
 end

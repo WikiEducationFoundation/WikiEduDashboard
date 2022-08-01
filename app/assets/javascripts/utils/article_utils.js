@@ -21,13 +21,48 @@ export default class ArticleUtils {
     return project === 'wikidata' ? `${messageKey}_wikidata` : messageKey;
   }
 
-  // Mapping of namespace to its id
-  static namespaceToId(namespace) {
-    const mapping = {
-      article: 0,
-      talk: 1,
-      user: 2
-    };
-    return mapping[namespace];
+  // The following mapping is also present in article.rb file and,
+  // wiki.rb has mapping of wikis to namespaces. Hence, any modifications
+  // in namespaces should also reflect in the corresponding files.
+  static NamespaceIdMapping = {
+    0: 'main',
+    1: 'talk',
+    2: 'user',
+    4: 'project',
+    6: 'file',
+    8: 'mediaWiki',
+    10: 'template',
+    12: 'help',
+    14: 'category',
+    104: 'page',
+    108: 'book',
+    110: 'wikijunior',
+    114: 'translation',
+    118: 'draft',
+    120: 'property',
+    122: 'query',
+    146: 'lexeme',
+    100: {
+      wiktionary: 'appendix',
+      wikisource: 'portal',
+      wikiversity: 'school'
+    },
+    102: {
+      wikisource: 'author',
+      wikibooks: 'cookbook',
+      wikiversity: 'portal'
+    },
+    106: {
+      wiktionary: 'rhymes',
+      wikisource: 'index',
+      wikiversity: 'collection'
+    }
+  };
+
+  // Get namespace id from its title
+  static getNamespaceId(namespace) {
+    const ns_id_mapping = this.NamespaceIdMapping;
+    const ns_id = Object.keys(ns_id_mapping).find(ns => ns_id_mapping[ns] === namespace);
+    return Number(ns_id);
   }
 }

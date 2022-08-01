@@ -23,7 +23,7 @@ describe 'A Wikidata course', type: :feature, js: true do
 
   it 'shows Wikidata stats on the Home tab' do
     visit "/courses/#{course.slug}"
-    expect(page).to have_content('Wikidata stats')
+    expect(page).to have_content('www.wikidata.org')
     expect(page).to have_content('Claims')
   end
 

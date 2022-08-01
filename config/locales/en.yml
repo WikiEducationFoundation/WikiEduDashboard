@@ -1049,15 +1049,35 @@ en:
     reverts_performed: Reverts performed
 
   namespace:
+    all: All
     main: Mainspace
     main_char_added: Mainspace chars added
+    article: Article
+    talk: Talk
     user: Userspace
     user_char_added: Userspace chars added
-    filter:
-      all_ns: All
-      article_ns: Article
-      user_ns: User
-      talk_ns: Talk
+    project: Project
+    file: File
+    mediaWiki: MediaWiki
+    template: Template
+    help: Help
+    category: Category
+    page: Page
+    book: Book
+    wikijunior: WikiJunior
+    translation: Translation
+    draft: Draft
+    property: Property
+    query: Query
+    lexeme: Lexeme
+    appendix: Appendix
+    portal: Portal
+    school: School
+    author: Author
+    cookbook: Cookbook
+    rhymes: Rhymes
+    index: Index
+    collection: Collection
 
   recent_activity:
     active_courses: Article is active in

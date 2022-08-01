@@ -16,7 +16,7 @@ export class StudentRevisionsList extends React.Component {
     super(props);
     this.state = {
       isOpen: false,
-      namespace: 'all'
+      namespace: 'all' // show all namespace revisions by default
     };
 
     this.toggleDrawer = this.toggleDrawer.bind(this);
@@ -37,7 +37,8 @@ export class StudentRevisionsList extends React.Component {
       revisions = (this.state.namespace === 'all')
         ? userRevisions[student.id]
         : userRevisions[student.id].filter((rev) => {
-          return rev.article.namespace === ArticleUtils.namespaceToId(this.state.namespace);
+          const current_ns_id = ArticleUtils.getNamespaceId(this.state.namespace);
+          return rev.article.namespace === current_ns_id;
         });
     }
     return revisions;
@@ -98,10 +99,10 @@ export class StudentRevisionsList extends React.Component {
         value={this.state.namespace}
         onChange={this.onNamespaceChange}
       >
-        <option value="all">{I18n.t('namespace.filter.all_ns')}</option>
-        <option value="article">{I18n.t('namespace.filter.article_ns')}</option>
-        <option value="user">{I18n.t('namespace.filter.user_ns')}</option>
-        <option value="talk">{I18n.t('namespace.filter.talk_ns')}</option>
+        <option value={'all'}>{I18n.t('namespace.all')}</option>
+        <option value={'main'}>{I18n.t('namespace.main')}</option>
+        <option value={'user'}>{I18n.t('namespace.user')}</option>
+        <option value={'talk'}>{I18n.t('namespace.talk')}</option>
       </select>
     );
     return (

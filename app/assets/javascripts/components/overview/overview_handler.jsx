@@ -24,7 +24,7 @@ import { fetchOnboardingAlert } from '../../actions/course_alert_actions';
 import { fetchTags } from '../../actions/tag_actions';
 import { addValidation, setValid, setInvalid, activateValidations } from '../../actions/validation_actions';
 import { getStudentUsers, getWeeksArray, getAllWeeksArray, firstValidationErrorMessage, isValid } from '../../selectors';
-import WikidataOverviewStats from '../common/wikidata_overview_stats';
+import OverviewStatsTabs from '../common/overview_stats_tabs';
 
 const Overview = createReactClass({
   displayName: 'Overview',
@@ -164,13 +164,17 @@ const Overview = createReactClass({
     ) : (
       <div className="sidebar" />
     );
+
+    let overviewStatsTabs;
+    if (course.course_stats && course.course_stats.stats_hash) {
+      overviewStatsTabs = <OverviewStatsTabs statistics={course.course_stats.stats_hash}/>;
+    }
+
     return (
       <section className="overview container">
         { syllabusUpload }
         <OverviewStats course={course} />
-        {course.course_stats && <WikidataOverviewStats
-          statistics={course.course_stats.stats_hash['www.wikidata.org']}
-        />}
+        {overviewStatsTabs}
         <StatisticsUpdateInfo course={course} />
         {userArticles}
         <div className="primary">
