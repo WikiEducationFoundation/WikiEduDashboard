@@ -1,5 +1,5 @@
+import { Flipped } from 'react-flip-toolkit';
 import React, { useState } from 'react';
-import { useSpring } from '@react-spring/web';
 import OrderableBlock from './orderable_block.jsx';
 
 export default function SpringBlock({
@@ -11,38 +11,31 @@ export default function SpringBlock({
   canBlockMoveDown,
   canBlockMoveUp,
 }) {
-  const [y, setY] = useState(i * 75);
-  useSpring({
-    y: i * 75,
-    onChange(change) {
-      setY(change.value.y);
-    },
-  });
-  const animating = Math.round(y) !== i * 75;
-  const willChange = animating ? 'top' : 'initial';
+  const [animating, setAnimating] = useState(false);
   return (
-    <li
-      style={{
-        top: y,
-        position: 'absolute',
-        width: '100%',
-        left: 0,
-        willChange,
-        marginLeft: 0,
+    <Flipped
+      key={block.id}
+      flipId={block.id}
+      onComplete={() => {
+        setAnimating(false);
+      }}
+      onStartImmediate={() => {
+          setAnimating(true);
       }}
     >
-      <OrderableBlock
-        block={block}
-        canDrag={true}
-        animating={animating}
-        onDrag={onBlockDrag.bind(null, i)}
-        onMoveUp={onMoveBlockUp.bind(null, block.id)}
-        onMoveDown={onMoveBlockDown.bind(null, block.id)}
-        disableDown={!canBlockMoveDown(block, i)}
-        disableUp={!canBlockMoveUp(block, i)}
-        index={i}
-        title={block.title}
-        kind={
+      <li>
+        <OrderableBlock
+          block={block}
+          canDrag={true}
+          animating={animating}
+          onDrag={onBlockDrag.bind(null, i)}
+          onMoveUp={onMoveBlockUp.bind(null, block.id)}
+          onMoveDown={onMoveBlockDown.bind(null, block.id)}
+          disableDown={!canBlockMoveDown(block, i)}
+          disableUp={!canBlockMoveUp(block, i)}
+          index={i}
+          title={block.title}
+          kind={
           [
             I18n.t('timeline.block_in_class'),
             I18n.t('timeline.block_assignment'),
@@ -50,7 +43,8 @@ export default function SpringBlock({
             I18n.t('timeline.block_custom'),
           ][block.kind]
         }
-      />
-    </li>
+        />
+      </li>
+    </Flipped>
   );
 }

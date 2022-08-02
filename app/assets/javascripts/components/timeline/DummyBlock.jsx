@@ -30,7 +30,7 @@ export const DummyBlock = ({ week_id, moveBlock, text }) => {
         border: '1px solid #dedcdc',
         color: 'white',
         backgroundColor,
-        height: '100%',
+        height: '75px',
         fontSize: '1rem',
         display: 'grid',
         placeItems: 'center'
