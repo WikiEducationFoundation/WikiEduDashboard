@@ -52,15 +52,3 @@ The [api.js](/app/assets/javascripts/utils/api.js) file contains many of the AJA
 
 ## Yarn dependency management
 When dependencies need to be added or updated, do so using Yarn — for example, `yarn add <package_name>`. This will automatically update the yarn.lock file.
-
-### Lodash
-We use [lodash-webpack-plugin](https://github.com/lodash/lodash-webpack-plugin) to drastically reduce our lodash bundle size. It however requires some configuration.
-
-In the `config.js`, the [feature sets](https://github.com/lodash/lodash-webpack-plugin#feature-sets) that are required for the lodash functions we use, are enabled via the `requiredLodashFeatures` object.
-
-If you introduce a new lodash function to the codebase, make sure that it belongs to the [feature sets](https://github.com/lodash/lodash-webpack-plugin#feature-sets) already enabled, or enable it in the
-`requiredLodashFeatures` within `config.js` to make sure it works as expected.
-
-**Note:** `chain` method or chaining the lodash methods makes the size of the lodash package bigger. 
-
-So avoid chaining the methods and go for [less expensive alternatives](https://medium.com/bootstart/why-using-chain-is-a-mistake-9bc1f80d51ba).

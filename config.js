@@ -41,15 +41,4 @@ module.exports = {
 
   // Name of main CSS file
   cssMainFiles: '+(main|training|surveys|styleguide)',
-
-  // The below feature sets are required for the lodash functions we use.
-  // If in future, there is a need to use an additional lodash method other than what we already use,
-  // make sure that the function belongs to one of the feature sets enabled below and if not,
-  // enable the appropriate feature set by adding to the below config for the function to work as expected.
-  // https://github.com/lodash/lodash-webpack-plugin#feature-sets
-  requiredLodashFeatures: {
-    collections: true,
-    shorthands: true,
-    flattening: true
-  }
 };
