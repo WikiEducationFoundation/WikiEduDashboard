@@ -77,7 +77,6 @@
 
 # To set up error logging via Sentry, add a Sentry project url here:
   sentry_dsn: 'http://somelongkey:anotherlongkey@sentry.myserver.com/1'
-  sentry_public_dsn: 'http://anotherlongkey@sentry.myserver.com/1'
 
 # The slug for the default campaign
   default_campaign: "miscellanea"

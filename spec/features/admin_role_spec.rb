@@ -155,19 +155,28 @@ describe 'Admin users', type: :feature, js: true do
     end
   end
 
-  describe 'clicking "Greet Students"' do
+  describe 'admin quick actions' do
     before do
       JoinCourse.new(user: admin, role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE,
                      course: Course.first)
     end
 
-    it 'schedules a GreetStudents worker' do
+    it 'clicking "Greet Students" schedules a GreetStudents worker' do
       stub_token_request
       expect(GreetStudentsWorker).to receive(:schedule_greetings)
       visit "/courses/#{Course.first.slug}"
       accept_confirm do
         click_button 'Greet students'
       end
+    end
+
+    it 'clicking "Mark as Reviewed" updates the last-reviewed timestamp' do
+      stub_token_request
+      expect(UpdateCourseWorker).to receive(:schedule_edits)
+      visit "/courses/#{Course.first.slug}"
+      expect(page).not_to have_content 'Last Reviewed:'
+      click_button 'Mark as Reviewed'
+      expect(page).to have_content 'Last Reviewed:'
     end
   end
 end

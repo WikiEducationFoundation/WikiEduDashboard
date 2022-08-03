@@ -42,7 +42,6 @@
 
 # To set up error logging via Sentry, add a Sentry project url here:
   sentry_dsn: 'https://d4898c589b5f47349f4aae14353c541e@sentry.wikiedu.org/4'
-  sentry_public_dsn: 'https://d4898c589b5f47349f4aae14353c541e@sentry.wikiedu.org/4'
 
 # The slug for the default cohort
   default_campaign: "miscellanea"
