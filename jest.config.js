@@ -11,7 +11,9 @@ module.exports = {
     'app/assets/javascripts',
     'node_modules'
   ],
+
+  // all these are ESM modules which must be converted to CJS
   transformIgnorePatterns: [
-    '/node_modules/(?!lodash-es)'
-  ]
+    '/node_modules/(?!@react-dnd|react-dnd|dnd-core|react-dnd-html5-backend|lodash-es)',
+  ],
 };
