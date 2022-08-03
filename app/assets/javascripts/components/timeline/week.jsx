@@ -1,11 +1,10 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import TransitionGroup from '../common/css_transition_group';
 import Block from './block.jsx';
 import DateCalculator from '../../utils/date_calculator.js';
 import SpringBlock from './SpringBlock';
-import { DummyBlock } from './DummyBlock';
+import BlockList from './BlockList';
 
 const Week = createReactClass({
   displayName: 'Week',
@@ -68,7 +67,6 @@ const Week = createReactClass({
     return this.props.index + this.props.weeksBeforeTimeline;
   },
   render() {
-    let style;
     const dateCalc = new DateCalculator(this.props.timeline_start, this.props.timeline_end, this.props.index, { zeroIndexed: false });
     let weekDatesContent;
     let meetDates;
@@ -147,20 +145,7 @@ const Week = createReactClass({
 
     const weekContent = (
       this.props.reorderable
-        ? (style = {
-          position: 'relative',
-          height: Math.max(75, blocks.length * 75),
-          transition: 'height 500ms ease-in-out'
-        },
-          <TransitionGroup
-            classNames="shrink"
-            timeout={250}
-          >
-            <ul style={style} className="week__block-list list-unstyled">
-              {blocks.length ? blocks : <DummyBlock text={I18n.t('timeline.empty_week_drag_items')} week_id={this.props.week.id} moveBlock={this.props.moveBlock}/>}
-            </ul>
-          </TransitionGroup>
-        )
+          ? <BlockList blocks={this.props.blocks} week_id={this.props.week.id} moveBlock={this.props.moveBlock} {...this.props}/>
         : (
           <ul className="week__block-list list-unstyled">
             {blocks}
