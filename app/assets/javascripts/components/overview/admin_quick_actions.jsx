@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import GreetStudentsButton from './greet_students_button.jsx';
-import { format, toDate } from 'date-fns';
+import { format, toDate, parseISO } from 'date-fns';
 import { getUTCDateString } from '../../utils/date_utils.js';
 
 // Helper Functions
@@ -13,7 +13,7 @@ const DetailsText = ({ flags }) => (
     </strong>&nbsp;on
     <br />
     <strong>
-      {format(toDate(flags.last_reviewed.timestamp), 'PPPP p')}
+      {format(toDate(parseISO(flags.last_reviewed.timestamp)), 'PPPP p')}
     </strong>
   </p>
 );
