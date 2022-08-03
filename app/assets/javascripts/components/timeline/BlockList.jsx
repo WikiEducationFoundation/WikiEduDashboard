@@ -4,8 +4,10 @@ import SpringBlock from './SpringBlock';
 import { Flipper } from 'react-flip-toolkit';
 
 const BlockList = ({ blocks, moveBlock, week_id, ...props }) => {
-  const springBlocks = blocks.map((block, i) => <SpringBlock block={block} i={i} key={block.id} {...props} />);
-
+  const springBlocks = blocks.map((block, i) => {
+    block.order = i;
+    return <SpringBlock block={block} i={i} key={block.id} {...props} />;
+  });
   return (
     <Flipper flipKey={blocks.map(block => block.id).join('')} spring="stiff">
       <ul className="week__block-list list-unstyled" style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
