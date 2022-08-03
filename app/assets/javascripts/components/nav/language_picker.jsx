@@ -3,6 +3,7 @@ import Select from 'react-select';
 import { compact, without } from 'lodash-es';
 import languageNames from '../../utils/language_names';
 import selectStyles from '../../styles/select';
+import request from '../../utils/request';
 
 const getNativeName = (code) => {
   const language = languageNames[code];
@@ -18,7 +19,9 @@ class LanguagePicker extends React.Component {
       return;
     }
     if (window.currentUser.id !== '') {
-      $.post(`/update_locale/${name}`, () => {
+      request(`/update_locale/${name}`, {
+        method: 'POST',
+      }).then(req => req.text()).then(() => {
         location.reload();
       });
     } else {

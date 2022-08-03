@@ -193,12 +193,18 @@ wizard-width = 860px
         border-top 1px solid transparent
         box-sizing content-box
         overflow hidden
-        display none
-        margin-top 18px
-        padding 15px 0 0
+        height 0px
         width 100%
+        transition all .2s ease-in-out
+        opacity 0
         &.open
           border-color mischka
+      .wizard__option__description.open
+        height 100%
+        margin-top 18px
+        padding 15px 0 0
+        opacity 1
+      
       .wizard__option__more
         background athens
         border-top 1px solid mischka

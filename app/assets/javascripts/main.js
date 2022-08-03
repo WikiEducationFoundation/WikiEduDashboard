@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // renders other components depending on the route.
   import('./components/app.jsx');
   import('./utils/editable.js');
-  import('./utils/users_profile.js');
   import('events').then(({default: events}) => {
     events.EventEmitter.defaultMaxListeners = 30;
   });

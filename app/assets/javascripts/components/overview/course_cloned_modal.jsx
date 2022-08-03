@@ -91,7 +91,7 @@ const CourseClonedModal = createReactClass({
   },
 
   updateCourse(valueKey, value) {
-    const updatedCourse = $.extend(true, {}, this.state.course);
+    const updatedCourse = structuredClone(this.state.course);
     updatedCourse[valueKey] = value;
     this.setState({
       valuesUpdated: true,

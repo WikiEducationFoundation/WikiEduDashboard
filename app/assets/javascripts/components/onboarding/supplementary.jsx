@@ -29,7 +29,7 @@ export const OnboardingSupplementary = createReactClass({
     e.preventDefault();
     this.setState({ sending: true });
 
-    const user = $('#react_root').data('current_user');
+    const user = document.querySelector('#react_root')?.dataset.current_user;
     const { heardFrom, referralDetails, whyHere, otherReason } = this.state;
     const body = {
       heardFrom,

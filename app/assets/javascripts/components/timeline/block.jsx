@@ -37,7 +37,7 @@ const Block = createReactClass({
   },
 
   passedUpdateBlock(selectedIds) {
-    const newBlock = $.extend(true, {}, this.props.block);
+    const newBlock = structuredClone(this.props.block);
     newBlock.training_module_ids = selectedIds;
     return this.props.updateBlock(newBlock);
   },

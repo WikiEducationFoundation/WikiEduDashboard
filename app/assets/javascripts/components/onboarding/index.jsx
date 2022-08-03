@@ -15,7 +15,7 @@ const getReturnToParam = function () {
   return (returnTo && returnTo[1]) || '/';
 };
 
-const getCurrentUser = () => $('#react_root').data('current_user');
+const getCurrentUser = () => document.querySelector('#react_root')?.dataset.current_user;
 
 const setProps = ({ pathname }) => ({
   pathname, returnToParam: getReturnToParam(), currentUser: getCurrentUser()

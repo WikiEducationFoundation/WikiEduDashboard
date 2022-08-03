@@ -16,13 +16,18 @@ const Option = createReactClass({
     selectWizardOption: PropTypes.func.isRequired
   },
 
+  getInitialState() {
+    this.descriptionRef = React.createRef(null);
+    return {};
+  },
+
   select() {
     if (this.props.option.required) { return; }
     return this.props.selectWizardOption(this.props.panel_index, this.props.index);
   },
 
   expand() {
-    $(this.expandable).slideToggle();
+    this.descriptionRef?.current.classList.toggle('open');
   },
 
   render() {
@@ -49,7 +54,7 @@ const Option = createReactClass({
         moreClassName += ' open';
       }
       expand = (
-        <div className={expandClassName} ref={div => this.expandable = div}>
+        <div className={expandClassName} ref={this.descriptionRef}>
           <div dangerouslySetInnerHTML={{ __html: md.render(this.props.option.description) }} />
         </div>
       );

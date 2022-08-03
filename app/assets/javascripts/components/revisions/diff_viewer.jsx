@@ -1,7 +1,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import jQuery from 'jquery';
 import SalesforceMediaButtons from '../articles/salesforce_media_buttons.jsx';
 import Loading from '../common/loading.jsx';
 import { toWikiDomain } from '../../utils/wiki_utils';
@@ -163,51 +162,48 @@ const DiffViewer = createReactClass({
     const wikiUrl = this.wikiUrl(props.revision);
     const queryBase = `${wikiUrl}/w/api.php?action=query&prop=revisions&origin=*&format=json`;
     const diffUrl = `${queryBase}&revids=${props.first_revision.mw_rev_id}`;
-    jQuery.ajax(
-      {
-        url: diffUrl,
-        success: (data) => {
-          const revisionData = data.query.pages[props.first_revision.mw_page_id].revisions[0];
-          const parentRevisionId = revisionData.parentid;
-          this.setState({ parentRevisionId });
-          this.fetchDiff(this.diffUrl(props.revision, props.first_revision));
-        }
-      });
+
+    fetch(diffUrl)
+    .then(resp => resp.json())
+    .then((data) => {
+      const revisionData = data.query.pages[props.first_revision.mw_page_id].revisions[0];
+      const parentRevisionId = revisionData.parentid;
+      this.setState({ parentRevisionId });
+      this.fetchDiff(this.diffUrl(props.revision, props.first_revision));
+    });
   },
 
   fetchDiff(diffUrl) {
-    jQuery.ajax(
-      {
-        url: diffUrl,
-        success: (data) => {
-          let firstRevisionData;
-          try {
-            firstRevisionData = data.query.pages[this.props.revision.mw_page_id].revisions[0];
-          } catch (_err) {
-            firstRevisionData = {};
-          }
-          let lastRevisionData;
-          try {
-            lastRevisionData = data.query.pages[this.props.revision.mw_page_id].revisions[1];
-          } catch (_err) { /* noop */ }
+    fetch(diffUrl)
+    .then(resp => resp.json())
+    .then((data) => {
+      let firstRevisionData;
+      try {
+        firstRevisionData = data.query.pages[this.props.revision.mw_page_id].revisions[0];
+      } catch (_err) {
+        firstRevisionData = {};
+      }
+      let lastRevisionData;
+      try {
+        lastRevisionData = data.query.pages[this.props.revision.mw_page_id].revisions[1];
+      } catch (_err) { /* noop */ }
 
-          // Data may or may not include the diff.
-          let diff;
-          if (firstRevisionData.diff) {
-            diff = firstRevisionData.diff['*'];
-          } else {
-            diff = '<div class="warning">This revision is not available. It may have been deleted. More details may be available on wiki.</div>';
-          }
+      // Data may or may not include the diff.
+      let diff;
+      if (firstRevisionData.diff) {
+        diff = firstRevisionData.diff['*'];
+      } else {
+        diff = '<div class="warning">This revision is not available. It may have been deleted. More details may be available on wiki.</div>';
+      }
 
-          this.setState({
-            diff: diff,
-            comment: firstRevisionData.comment,
-            fetched: true,
-            firstRevDateTime: firstRevisionData.timestamp,
-            lastRevDateTime: lastRevisionData ? lastRevisionData.timestamp : null
-          });
-        }
+      this.setState({
+        diff: diff,
+        comment: firstRevisionData.comment,
+        fetched: true,
+        firstRevDateTime: firstRevisionData.timestamp,
+        lastRevDateTime: lastRevisionData ? lastRevisionData.timestamp : null
       });
+    });
   },
 
   previousArticle() {
