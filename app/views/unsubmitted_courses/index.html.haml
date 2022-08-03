@@ -11,7 +11,7 @@
         %select.sorts{:rel => "courses"}
           %option{:rel => "asc", :value => "title"}= t("courses.title")
           %option{:rel => "desc", :value => "creation-date"}= t("courses.creation_date")
-    %table.table.table--hoverable.table--sortable
+    %table.table.table--sortable
       %thead
         %tr
           %th.sort.sortable.asc{"data-default-order" => "asc", "data-sort" => "title"}

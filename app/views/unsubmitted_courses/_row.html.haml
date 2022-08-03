@@ -1,5 +1,5 @@
-%tr{:class => "#{user ? date_highlight_class(course) : ''}", "data-link" => "#{course_slug_path(course.slug)}"}
-  %td.title{:role => "button", :tabindex => "0"}
+%tr{:class => "#{user ? date_highlight_class(course) : ''}"}
+  %td.title
     %a.course-link{:href => "#{course_slug_path(course.slug)}"}
       = course.title
       %span.creation-date.hidden
