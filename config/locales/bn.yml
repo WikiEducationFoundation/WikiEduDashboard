@@ -317,8 +317,28 @@ bn:
   namespace:
     main: নামস্থান
     user: ব্যবহারকারীস্থান
-    filter:
-      user_ns: ব্যবহারকারী
+    project: প্রকল্প
+    file: ফাইল
+    mediaWiki: মিডিয়াউইকি
+    template: টেমপ্লেট
+    help: সাহায্য
+    category: বিষয়শ্রেণী
+    page: পাতা
+    book: বই
+    wikijunior: উইকিজুনিয়র
+    translation: অনুবাদ
+    draft: খসড়া
+    property: বৈশিষ্ট্য
+    query: কোয়েরি
+    lexeme: আভিধানিক শব্দ
+    appendix: পরিশিষ্ট
+    portal: প্রবেশদ্বার
+    school: বিদ্যালয়
+    author: লেখক
+    cookbook: রান্নার বই
+    rhymes: ছড়া
+    index: নির্ঘণ্ট
+    collection: সংগ্রহ
   recent_activity:
     article_title: শিরোনাম
     datetime: তারিখ/সময়

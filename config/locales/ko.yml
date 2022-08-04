@@ -492,8 +492,22 @@ ko:
     references_added: 각주 추가됨
   namespace:
     user: 사용자 공간
-    filter:
-      user_ns: 사용자
+    project: 프로젝트
+    file: 파일
+    mediaWiki: 미디어위키
+    help: 도움말
+    category: 분류
+    page: 페이지
+    book: 책
+    wikijunior: 위키주니어
+    translation: 번역
+    draft: 초안
+    property: 속성
+    query: 쿼리
+    appendix: 부록
+    portal: 포털
+    school: 학교
+    index: 색인
   recent_activity:
     article_title: 제목
     datetime: 날짜/시간

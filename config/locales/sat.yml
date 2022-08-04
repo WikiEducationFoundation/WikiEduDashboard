@@ -48,9 +48,6 @@ sat:
     date_time: ᱛᱟᱹᱨᱤᱠᱷ/ᱚᱠᱛᱚ
     edit_count_description: ᱡᱚᱛᱚ ᱥᱟᱯᱲᱟᱣᱠᱩ
     revisions: ᱱᱮᱛᱟᱨ ᱥᱟᱯᱲᱟᱣᱠᱩ
-  namespace:
-    filter:
-      user_ns: ᱵᱮᱵᱦᱟᱨᱤᱡ
   recent_activity:
     datetime: ᱛᱟᱹᱨᱤᱠᱷ/ᱚᱠᱛᱚ
     image: ᱪᱤᱛᱟᱹᱨ

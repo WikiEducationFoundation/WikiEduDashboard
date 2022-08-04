@@ -328,8 +328,6 @@ sd:
   namespace:
     main: مک پولار
     user: يُوزرپولار
-    filter:
-      user_ns: واپرائيندڙ
   recent_activity:
     article_title: مضمون جو عنوان
     datetime: تاريخ/وقت

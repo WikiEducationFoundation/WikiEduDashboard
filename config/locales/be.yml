@@ -4,6 +4,7 @@
 # Author: Artsiom91
 # Author: Helaku
 # Author: Ihar Dorinel
+# Author: Kareyac
 # Author: Kevit
 # Author: Liashko
 # Author: Maksim L.
@@ -378,8 +379,24 @@ be:
     main_char_added: Дадзены сімвалы на асноўнай прасторы
     user: Прастора карыстальніка
     user_char_added: Сімвалы дададзеныя на прасторы карыстальнікаў.
-    filter:
-      user_ns: Карыстальнік
+    project: Праект
+    file: Файл
+    mediaWiki: МедыяВікі
+    template: Шаблон
+    help: Даведка
+    category: Катэгорыя
+    page: Старонка
+    book: Кніга
+    wikijunior: ВікіЮніёр
+    translation: Пераклад
+    property: Уласцівасць
+    query: Запыт
+    lexeme: Лексема
+    portal: Партал
+    school: Школа
+    author: Аўтар
+    cookbook: Кулінарная кніга
+    collection: Калекцыя
   recent_activity:
     active_courses: Артыкул актыўны ў
     article_title: Назва артыкула

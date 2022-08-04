@@ -403,8 +403,6 @@ br:
     main_char_added: Arouezennoù ouzhpennet d'an egorenn bennañ
     user: Egorenn implijerien
     user_char_added: Arouzennoù ouzhpennet d'an egorenn implijerien
-    filter:
-      user_ns: Implijer
   recent_activity:
     active_courses: Oberiant eo ar pennad e
     article_title: Titl

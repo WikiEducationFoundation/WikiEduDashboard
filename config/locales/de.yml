@@ -987,11 +987,9 @@ de:
   namespace:
     main: Hauptnamensraum
     main_char_added: Hauptnamensraum-Zeichen hinzugefügt
+    article: Artikel
     user: Benutzernamensraum
     user_char_added: Benutzernamensraum-Zeichen hinzugefügt
-    filter:
-      article_ns: Artikel
-      user_ns: Benutzer/in
   recent_activity:
     active_courses: Artikel ist aktiv in
     article_title: Artikeltitel

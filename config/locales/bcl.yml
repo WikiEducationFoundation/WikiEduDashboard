@@ -59,8 +59,6 @@ bcl:
     view: Mga tanawon
   namespace:
     user_char_added: Espasyo-nin-paragamit na mga tsar pinagdugang
-    filter:
-      user_ns: Paragamit
   revisions:
     loading: Ikinakarga an mga rebisyon...
     none: An kursong ini dae nagkaigwa kan pinakahuring aktibidad nin pagliliwat sa

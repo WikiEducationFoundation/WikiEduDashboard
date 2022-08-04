@@ -151,9 +151,6 @@ hu:
     students: Szerkesztők
     students_short: Szerkesztők
     term: Mikor
-  namespace:
-    filter:
-      user_ns: Felhasználó
   recent_activity:
     plagiarism_report: Plágiumjelentés
   revisions:

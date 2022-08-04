@@ -289,15 +289,13 @@ ga:
     word_count: Focail Curtha Leis
     word_count_average: Líon Focal Meánach
   namespace:
+    all: Uile
     main: Príomhspás
     main_char_added: Carachtair curtha leis an bpríomhspás
+    article: Alt
+    talk: Plé
     user: Spás an úsáideora
     user_char_added: Carachtair curtha le spás an úsáideora
-    filter:
-      all_ns: Uile
-      article_ns: Alt
-      user_ns: Úsáideoir
-      talk_ns: Plé
   recent_activity:
     active_courses: Alt atá gníomhach i
     article_title: Teideal an ailt

@@ -124,8 +124,6 @@ ps:
     view: کتنې
   namespace:
     user: کارن تشيال
-    filter:
-      user_ns: کارن
   recent_activity:
     datetime: نېټه/وخت
     image: انځور

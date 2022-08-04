@@ -96,9 +96,6 @@ ckb:
     tags: تاگەکان
     view_count_description: بینینەکانی وتار
     view: بینینەکان
-  namespace:
-    filter:
-      user_ns: بەکارھێنەر
   recent_activity:
     article_title: ناونیشانی وتار
     datetime: ڕێکەوت/کات

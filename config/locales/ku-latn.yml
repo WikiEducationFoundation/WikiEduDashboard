@@ -6,6 +6,7 @@
 # Author: Cûndûllah el-Kurdî
 # Author: George Animal
 # Author: Ghybu
+# Author: Gomada
 # Author: Kur
 # Author: Mirzali
 ---
@@ -160,12 +161,9 @@ ku-latn:
     date_time: Dîrok/Katjimêr
     edit_count_description: Hemû Guherandin
     per_user: '%{number}/bikarhêner'
-    revisions: Guhartinên Dawî
+    revisions: Guhertinên Dawî
     view_count_description: Dîtinên Gotara
     view: Dîtin
-  namespace:
-    filter:
-      user_ns: Bikarhêner
   recent_activity:
     article_title: Sernavê gotarê
     datetime: Dîrok/Katjimêr
@@ -197,7 +195,7 @@ ku-latn:
     last_name: Paşnav
     loading: Bikarhêner tên barkirin...
     name: Nav
-    recent_revisions: Guhartinên Dawî
+    recent_revisions: Guhertinên Dawî
     username: Navê bikarhêner
     username_placeholder: Navê bikarhêner
   wizard:

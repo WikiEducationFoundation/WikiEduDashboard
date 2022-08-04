@@ -903,15 +903,13 @@ ar:
     word_count: الكلمات المضافة
     word_count_average: متوسط ​​عدد الكلمات
   namespace:
+    all: الكل
     main: النطاق الرئيسي
     main_char_added: الحروف المضافة للنطاق الرئيسي
+    article: مقالة
+    talk: نقاش
     user: نطاق المستخدم
     user_char_added: الحروف المضافة لنطاق المستخدم
-    filter:
-      all_ns: الكل
-      article_ns: مقالة
-      user_ns: مستخدم
-      talk_ns: نقاش
   recent_activity:
     active_courses: المقالة نشطة في
     article_title: عنوان المقالة

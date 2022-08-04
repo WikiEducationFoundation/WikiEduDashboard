@@ -776,8 +776,6 @@ ca:
     main_char_added: Caràcters afegits a l'espai principal
     user: Espai d'usuari
     user_char_added: Caràcters afegits a l'espai d'usuari
-    filter:
-      user_ns: Usuari
   recent_activity:
     active_courses: L'article és actiu a
     article_title: Títol de l'article

@@ -373,8 +373,25 @@ mk:
     main_char_added: Додадени знаци во главниот простор
     user: Кориснички простор
     user_char_added: Додадени знаци во корисничкиот простор
-    filter:
-      user_ns: Корисник
+    project: Проект
+    file: Податотека
+    mediaWiki: МедијаВики
+    template: Предлошка
+    help: Помош
+    category: Категорија
+    page: Страница
+    book: Книга
+    wikijunior: ВикиЈуниор
+    translation: Превод
+    draft: Нацрт
+    property: Својство
+    query: Барање
+    lexeme: Лексема
+    portal: Портал
+    school: Училиште
+    author: Автор
+    index: Индекс
+    collection: Збирка
   recent_activity:
     article_title: Наслов на статијата
     datetime: Датум/време

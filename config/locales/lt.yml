@@ -381,8 +381,6 @@ lt:
     reverts_performed: Atlikti grąžinimai
   namespace:
     main: Pagrindinė sritis
-    filter:
-      user_ns: Naudotojas
   recent_activity:
     active_courses: Straipsnis aktyvus
     article_title: Straipsnio Pavadinimas

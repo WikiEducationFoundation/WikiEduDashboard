@@ -818,8 +818,6 @@ zh-TW:
     main_char_added: 主空間字元以加入
     user: 使用者命名空間
     user_char_added: 使用者空間字元以加入
-    filter:
-      user_ns: 使用者
   recent_activity:
     active_courses: 條目使用於
     article_title: 條目標題

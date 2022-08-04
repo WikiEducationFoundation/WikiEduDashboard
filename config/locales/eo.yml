@@ -252,9 +252,6 @@ eo:
     per_user: '%{number}/uzanto'
     tags: Etikedoj
     view: Vidoj
-  namespace:
-    filter:
-      user_ns: Uzanto
   recent_activity:
     image: Bildo
     file_name: Dosiernomo

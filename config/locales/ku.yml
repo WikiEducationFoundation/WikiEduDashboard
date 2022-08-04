@@ -19,9 +19,6 @@ ku:
     edit_count_description: Hemû Guherandin
     view_count_description: Dîtinên Gotara
     view: Dîtin
-  namespace:
-    filter:
-      user_ns: Bikarhêner
   uploads:
     none: Pel nehatiye barkirin
     usages: Bikaranîn

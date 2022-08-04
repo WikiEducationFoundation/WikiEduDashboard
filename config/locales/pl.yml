@@ -651,8 +651,6 @@ pl:
     main_char_added: Dodano znaków do przestrzeni głównej
     user: Przestrzeń użytkownika
     user_char_added: Dodano znaków do przestrzeni użytkowników
-    filter:
-      user_ns: Użytkownik
   recent_activity:
     active_courses: Artykuł gra rolę w
     article_title: Tytuł artykułu

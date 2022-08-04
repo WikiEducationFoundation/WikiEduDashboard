@@ -52,9 +52,6 @@ az:
     last_update: Son statistik məlumatların yeniləməsi
     next_update: Növbəti təxmini güncəlləştirmə
     date_time: Tarix/Vaxt
-  namespace:
-    filter:
-      user_ns: İstifadəçi
   revisions:
     date_time: Tarix/Vaxt
 ...

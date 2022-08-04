@@ -36,9 +36,6 @@ atj:
     save: Kinokepitcikanik
   metrics:
     date_time: Tatokonakisitc/Tato tipahikaneak
-  namespace:
-    filter:
-      user_ns: Ka mitatc
   recent_activity:
     article_title: E icinikatek masinihikan
     image: Masinasowin

@@ -378,6 +378,12 @@ hi:
     created: बनाया गया
     removed: हटाया गया
     added: जोड़ा गया
+  namespace:
+    file: फ़ाइल
+    page: पृष्ठ
+    book: पुस्तक
+    property: गुणधर्म
+    school: विद्यालय
   recent_activity:
     article_title: लेख शीर्षक
     datetime: दिनांक/समय

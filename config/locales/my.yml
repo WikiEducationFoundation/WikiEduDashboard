@@ -150,9 +150,6 @@ my:
   editable:
     cancel: မလုပ်တော့ပါ
     edit_description: ဖော်ပြချက် တည်းဖြတ်ရန်
-  namespace:
-    filter:
-      user_ns: အသုံးပြုသူ
   revisions:
     title: ခေါင်းစဉ်
     see_more: ပို၍ ကြည့်ရန်

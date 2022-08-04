@@ -252,8 +252,6 @@ oc:
   namespace:
     main: Espaci principal
     user: Espaci utilizaire
-    filter:
-      user_ns: Utilizaire
   recent_activity:
     article_title: Títol de l'article
     datetime: Data/Ora

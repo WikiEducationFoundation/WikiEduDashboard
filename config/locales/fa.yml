@@ -472,8 +472,6 @@ fa:
     main_char_added: کاراکترهای افزوده‌شده فضای اصلی
     user: فضای نام کاربر
     user_char_added: کاراکترهای افزوده‌شده فضای کاربر
-    filter:
-      user_ns: کاربر
   recent_activity:
     active_courses: مقاله فعال است در
     article_title: عنوان مقاله

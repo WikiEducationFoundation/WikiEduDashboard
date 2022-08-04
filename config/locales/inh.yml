@@ -17,9 +17,6 @@ inh:
     alerts: Хабар дáр
     creator:
       start_date: Доладалара таьрахь
-  namespace:
-    filter:
-      user_ns: Доакъашхо
   users:
     username: Доакъашхочун цIи
     username_placeholder: Доакъашхочун цIи

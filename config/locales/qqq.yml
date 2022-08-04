@@ -629,8 +629,6 @@ qqq:
     main_char_added: Label for number of characters added to the Main namespace.
     user: Long label for the User namespace.
     user_char_added: Label for number of characters added to the User namespace.
-    filter:
-      user_ns: Wiki title for the user namespace.
   recent_activity:
     active_courses: Header for a list of courses associated with an article (Wiki
       Ed only)

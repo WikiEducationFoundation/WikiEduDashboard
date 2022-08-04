@@ -682,8 +682,6 @@ zh-CN:
     main_char_added: 主命名空间字符已添加
     user: 用户命名空间
     user_char_added: 添加的用户命名空间字符
-    filter:
-      user_ns: 用户
   recent_activity:
     active_courses: 条目活跃于
     article_title: 标题

@@ -538,8 +538,24 @@ ru:
     main_char_added: Добавлено символов в основном пространстве
     user: Пространство участника
     user_char_added: Добавлено символов в пространстве участника
-    filter:
-      user_ns: Участник
+    project: Проект
+    file: Файл
+    template: Шаблон
+    help: Справка
+    category: Категория
+    page: Страница
+    book: Книга
+    translation: Перевод
+    property: Свойство
+    query: Запрос
+    lexeme: Лексема
+    appendix: Приложение
+    portal: Портал
+    school: Школа
+    author: Автор
+    cookbook: Кулинарная книга
+    index: Индекс
+    collection: Коллекция
   recent_activity:
     article_title: Заголовок
     datetime: Дата/время

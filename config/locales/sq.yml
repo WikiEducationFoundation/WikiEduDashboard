@@ -473,8 +473,6 @@ sq:
     main_char_added: Gërmat shtuar në hapësirën e artikujve
     user: Hapësira e përdoruesit
     user_char_added: Gërma të shtuara në hapësirën e përdoruesit
-    filter:
-      user_ns: Përdoruesi
   recent_activity:
     active_courses: Artiulli është aktiv në
     article_title: Titulli i Artikullit

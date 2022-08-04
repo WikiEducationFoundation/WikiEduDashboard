@@ -573,8 +573,6 @@ cy:
   namespace:
     main: Prif Barth
     user: Parth Defnyddiwr
-    filter:
-      user_ns: Defnyddiwr
   recent_activity:
     active_courses: Mae'r erthygl ar waith yn
     article_title: Teitl yr Erthygl

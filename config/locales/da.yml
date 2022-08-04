@@ -964,8 +964,6 @@ da:
     main_char_added: Tegn tilføjet i hovedområdet
     user: Brugerrum
     user_char_added: Tegn tilføjet brugerområdet
-    filter:
-      user_ns: Bruger
   recent_activity:
     active_courses: Artiklen er aktiv på
     article_title: Titel

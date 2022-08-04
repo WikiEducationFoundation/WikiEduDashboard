@@ -1102,8 +1102,6 @@ uk:
     main_char_added: Додано символів в основному просторі
     user: Простір користувача
     user_char_added: Додано символів в просторі користувача
-    filter:
-      user_ns: Користувач
   recent_activity:
     active_courses: Стаття активна в
     article_title: Назва

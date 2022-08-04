@@ -54,8 +54,6 @@ si:
   namespace:
     main: ප්‍රධාන නාමාවකාශය
     user: පරිශීලක නාමාවකාශය
-    filter:
-      user_ns: පරිශීලක
   revisions:
     loading: සංස්කරණයන් පූරණය වෙමින්...
   timeline:

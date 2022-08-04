@@ -39,9 +39,6 @@ olo:
     edit_count_description: Edituičendat kaikkiedah
     view_count_description: Stuat'oin kaččokerrat
     view: Kaččokerrat
-  namespace:
-    filter:
-      user_ns: Käyttäi
   tasks:
     conseq: Tehtävy %{task} jo ruadau!
     constant: Tehtävy %{task} ei voi ruadua kuni tehtävy update_daily ruadau.

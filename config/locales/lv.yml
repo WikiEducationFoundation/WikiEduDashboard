@@ -329,6 +329,8 @@ lv:
     view: Skatījumi
     word_count: Pievienotie vārdi
     word_count_average: Vidējais vārdu skaits
+  namespace:
+    translation: Tulkojums
   recent_activity:
     article_title: Raksta nosaukums
     datetime: Datums/laiks

@@ -522,8 +522,6 @@ nl:
     main_char_added: Tekens toegevoegd aan de hoofdnaamruimte
     user: Gebruikersruimte
     user_char_added: Tekens toegevoegd aan de gebruikersruimte
-    filter:
-      user_ns: Gebruiker
   recent_activity:
     active_courses: Artikel is actief in
     article_title: Titel

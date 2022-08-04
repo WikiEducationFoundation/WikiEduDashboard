@@ -437,12 +437,10 @@ lb:
     labels: Etiketten
     no_data: Keng Donnéeën
   namespace:
+    all: All
+    article: Artikel
+    talk: Diskussioun
     user: Benotzernummraum
-    filter:
-      all_ns: All
-      article_ns: Artikel
-      user_ns: Benotzer
-      talk_ns: Diskussioun
   recent_activity:
     article_title: Titel
     datetime: Datum/Zäit

@@ -153,6 +153,9 @@ be-tarask:
       tracked: Адсочваныя
       untracked: Неадсочваныя
       tracked_and_untracked: Адсочваныя і неадсочваныя
+    find: Знайсьці артыкулы
+    hide: Схаваць
+    history: (гісторыя)
     label: Артыкулы
     loading: Загрузка артыкулаў…
     new: (новы)

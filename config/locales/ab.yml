@@ -150,9 +150,6 @@ ab:
     edit_count_description: Ариашарақәа зынӡа
     revisions: Аҵыхәтәантәи ариашарақәа
     tags: Атегқәа
-  namespace:
-    filter:
-      user_ns: Алахәыла
   recent_activity:
     article_title: Ахьӡ
     image: Асахьа

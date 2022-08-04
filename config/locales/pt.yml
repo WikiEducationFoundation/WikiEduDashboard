@@ -1138,8 +1138,6 @@ pt:
     main_char_added: Caracteres adicionados ao domínio principal
     user: Espaço nominal do utilizador
     user_char_added: Caracteres adicionados ao espaço nominal do utilizador
-    filter:
-      user_ns: Utilizador
   recent_activity:
     active_courses: O artigo está ativo em
     article_title: Título

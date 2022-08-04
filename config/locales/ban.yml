@@ -106,10 +106,9 @@ ban:
   metrics:
     upload_count: Unggah Commons
   namespace:
-    filter:
-      all_ns: Sinamian
-      article_ns: Suratan
-      talk_ns: Pabligbagan
+    all: Sinamian
+    article: Suratan
+    talk: Pabligbagan
   recent_activity:
     image: Gambar
   uploads:

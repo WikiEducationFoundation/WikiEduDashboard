@@ -85,9 +85,6 @@ smn:
     close_modal: Toopâ
     tags: Kilgoleh
     upload_count: Vuorkkiimeh Commonsin
-  namespace:
-    filter:
-      user_ns: Kevttee
   recent_activity:
     image: Kove
     file_name: Tiätuvuárkkánommâ

@@ -136,9 +136,7 @@ sms:
     tags: Ǩeâlggal
     update_statistics_link: Lââʹssteâđ
   namespace:
-    filter:
-      article_ns: Artikkel
-      user_ns: Õõʹnni
+    article: Artikkel
   recent_activity:
     article_title: Nõmm
     file_name: Teâttõsnõmm

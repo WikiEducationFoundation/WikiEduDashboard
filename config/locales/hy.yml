@@ -297,12 +297,27 @@ hy:
     view: Դիտումներ
     word_count: Ավելացված բառեր
   namespace:
+    all: Բոլորը
     main: Գլխավոր անվանատարածք
+    article: Հոդված
     user: Մասնակցի անվանատարածք
-    filter:
-      all_ns: Բոլորը
-      article_ns: Հոդված
-      user_ns: Մասնակից
+    project: Նախագիծ
+    file: Նիշք
+    mediaWiki: ՄեդիաՎիքի
+    template: Կաղապար
+    help: Օգնություն
+    category: Կատեգորիա
+    page: Էջ
+    book: Գիրք
+    translation: Թարգմանություն
+    query: Հարցում
+    appendix: Հավելված
+    portal: Պորտալ
+    school: Դպրոց
+    author: Հեղինակ
+    cookbook: Խոհարարական գիրք
+    index: Ինդեքս
+    collection: Հավաքածու
   recent_activity:
     image: Պատկեր
   revisions:

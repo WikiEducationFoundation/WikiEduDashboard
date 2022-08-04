@@ -846,8 +846,6 @@ et:
     main_char_added: Põhiruumis lisatud märke
     user: Kasutajaruum
     user_char_added: Kasutajaruumis lisatud märke
-    filter:
-      user_ns: Kasutaja
   recent_activity:
     active_courses: Artikliga seotud kursused
     article_title: Artikli pealkiri

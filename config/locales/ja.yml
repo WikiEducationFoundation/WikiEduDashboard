@@ -631,13 +631,29 @@ ja:
     references_added: 参考文献を追加しました
     reverts_performed: 差し戻しは実行されました
   namespace:
+    all: すべて
     main: メイン空間
+    article: 記事
+    talk: トーク
     user: ユーザー空間
-    filter:
-      all_ns: すべて
-      article_ns: 記事
-      user_ns: ユーザー
-      talk_ns: トーク
+    project: プロジェクト
+    file: ファイル
+    mediaWiki: MediaWiki
+    template: テンプレート
+    help: ヘルプ
+    category: カテゴリ
+    page: ページ
+    book: 書籍
+    wikijunior: ウィキジュニア
+    translation: 翻訳
+    draft: 下書き
+    property: プロパティ
+    query: クエリ
+    portal: ポータル
+    school: 学校
+    author: 作者
+    index: 目次
+    collection: コレクション
   recent_activity:
     active_courses: 記事が使用されるコース
     article_title: タイトル

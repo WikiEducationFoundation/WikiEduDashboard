@@ -697,15 +697,13 @@ fi:
     other_updates: Muut päivitykset
     redirects_created: Ohjaukset luotu
   namespace:
+    all: Kaikki
     main: Päänimiavaruus
     main_char_added: Päänimiavaruuteen lisätyt merkit
+    article: Artikkeli
+    talk: Keskustelu
     user: Käyttäjänimiavaruus
     user_char_added: Käyttäjänimiavaruuteen lisätyt merkit
-    filter:
-      all_ns: Kaikki
-      article_ns: Artikkeli
-      user_ns: Käyttäjä
-      talk_ns: Keskustelu
   recent_activity:
     active_courses: Artikkeli on käsittelyssä
     article_title: Otsikko

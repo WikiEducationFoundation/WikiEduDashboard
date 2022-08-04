@@ -104,9 +104,6 @@ azb:
   metrics:
     activity: سوْن چالیشمالار
     tags: اِتیکتلر
-  namespace:
-    filter:
-      user_ns: ایشلدن
   recent_activity:
     image: عکس
     file_name: فایل آدی

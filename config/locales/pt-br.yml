@@ -9,6 +9,7 @@
 # Author: Contraexemplo
 # Author: Cristofer Alves
 # Author: Dianakc
+# Author: Duke of Wikipädia
 # Author: EVinente
 # Author: Eduardo Addad de Oliveira
 # Author: Eduardoaddad
@@ -143,10 +144,12 @@ pt-br:
     edited_by: Editado por
     label: Atividade
   articles:
+    articles: Artigos
     article_not_found: Este artigo ainda não foi criado.
     article_development: (desenvolvimento do artigo)
     articles_shown: Mostrando %{count} de %{total}
     assigned: Artigos atribuídos
+    assignments_none: Ainda não há nenhum artigo atribuído.
     available: Artigos disponíveis
     no_available: Nenhum artigo disponível
     next: Próximo
@@ -165,7 +168,7 @@ pt-br:
     edited: Artigos editados
     edited_by: 'Editado por:'
     edited_mobile: Artigos
-    edited_none: '%{title} não editou nenhum artigo.'
+    edited_none: Ainda não há nenhum artigo editado.
     filter:
       wiki_all: Todos
       new: Novo
@@ -174,12 +177,14 @@ pt-br:
       tracked: Rastreado
       untracked: Não rastreado
       tracked_and_untracked: Rastreado e não rastreado
+    find: Encontrar artigos
     hide: Ocultar
     history: (histórico)
     label: Artigos
     loading: Carregando artigos...
     new: (novo)
     none: Este curso não editou nenhum artigo.
+    preview: Antevisão breve do artigo
     rating: Qualidade
     rating_doc: A avaliação que um artigo recebeu por um WikiProjeto na Wikipédia.
       Essas avaliações podem corresponder a versões muito antigas, então elas são
@@ -202,6 +207,7 @@ pt-br:
         de qualidade da Wikipédia
       does_not_exist: Este artigo não existe na Wikipédia
     see_more: Veja mais
+    search: Pesquisar um artigo na Wikipédia
     show_cumulative_changes: Mostrar Mudanças acumuladas
     show_current_version: Ver versão atual
     show_current_version_with_authorship_highlighting: Versão atual com destaque de
@@ -232,6 +238,39 @@ pt-br:
       bom artigo mas não leva em conta o conteúdo em si. (Essas notas só estão disponíveis
       para a Wikipédia em inglês.)
     articles_short: Artigos
+    deleted_message: De acordo com os dados do Dashboard, esta página foi excluída.
+      (Em alguns casos, movimentos de página, mesclagem de histórico ou outras ações
+      podem resultar em um artigo listado incorretamente como excluído. Os artigos
+      excluídos também podem ser recuperados posteriormente. Para artigos que não
+      foram realmente excluídos ou que foram restaurados posteriormente, o Painel
+      geralmente refletir isso dentro de um ou dois dias.)
+    page_logs: (registros da página)
+  items:
+    items: Itens
+    article_not_found: Este item ainda não foi criado.
+    assigned: Itens Atribuídos
+    assignments_none: Ainda não há itens atribuídos.
+    available: Itens Disponíveis
+    character_doc: A soma de caracteres adicionados aos itens por editores inscritos
+      entre as datas de início e término
+    cross_wiki_tracking: As páginas do domínio principal editadas entre as datas de
+      início e término estão listadas abaixo. O painel extrai contribuições do wiki
+      inicial deste programa, juntamente com quaisquer outros wikis para os quais
+      haja uma Atribuição ou um Item Disponível.
+    does_not_exist: O Item não existe. Crie uma página de teste e atribua-se a ela
+      para receber sugestões.
+    edited: Itens editados
+    edited_none: Ainda não há itens editados.
+    find: Encontrar Itens
+    preview: Antevisão breve do Item
+    search: Pesquisar um item no Wikidata
+    tracked_doc: Apenas itens rastreados contribuem para as estatísticas deste programa.
+      Quando os itens são marcados como não rastreados, eles serão removidos das estatísticas
+      durante a próxima atualização de dados.
+    view_doc: As visualizações estimadas para cada item desde que foi editado pela
+      primeira vez, por meio da atualização de estatísticas mais recente. Você pode
+      usar pageviews.toolforge.org para ver os números exatos.
+    title_example: Título do item
   articles_wikidata:
     articles_short: Itens
   articles_generic:
@@ -239,25 +278,34 @@ pt-br:
   assignments:
     article: O artigo %{title} foi atribuído a você.
     article_link: Artigo
+    article_link_wikidata: Item
     already_exists: Essa atribuição já existe!
     title_too_large: O título não deve exceder 255 caracteres
     assignees: Assinante(s)
-    assign_other: Atribuir um artigo
+    assign_other: Atribuir/remover um artigo
+    assign_other_wikidata: Atribuir/remover um item
     add_available: Adicionar artigos disponíveis
+    add_available_wikidata: Adicionar itens disponíveis
     add_available_placeholder: Adicionar um título de artigo ou URL por linha
+    add_available_placeholder_wikidata: Adicione um título de item ou URL por linha
     add_available_submit: Adicionar artigos
+    add_available_submit_wikidata: Adicionar itens
     assign_self: Atribuir um artigo a mim mesmo
+    assign_self_wikidata: Atribuir um item a mim mesmo
     assign_tooltip: Um artigo designado é aquele que você planeja criar ou melhorar.
+    assign_tooltip_wikidata: Um item atribuído é aquele que você planeja criar ou
+      melhorar.
     bibliography: Bibliografia
     clone: Clonar
     confirm_add_available: Tem certeza de que deseja adicionar %{title}?
     confirm_addition: Tem certeza que quer atribuir %{title} a %{username}?
-    confirm_deletion: Você tem certeza que deseja excluir esta atribuição a um artigo?
+    confirm_deletion: Tem certeza de que deseja excluir esta tarefa?
     editors: Atribuído a
     group_members: Membros do grupo
     label: Atribuir
     loading: Carregando atribuições...
     none_short: Nenhum artigo atribuído
+    none_short_wikidata: Nenhum item atribuído
     none: Este curso não possui artigos atribuídos.
     no_available: Este curso não tem artigos disponíveis.
     peer_review_count: '%{currentCount}/%{total} selecionado'
@@ -266,18 +314,38 @@ pt-br:
     peer_review_link: Revisão por pares
     peer_review_link_personalized: Revisão por pares de %{username}
     random_peer_review:
-      confirm_addition: Isso irá atribuir um total de %{count} revisão(ões) por pares
-        adicional(is), com um máximo de %{maximum} para cada estudante, escolhido
-        dentre os artigos de seus colegas de classe.
+      confirm_addition: Na maioria dos casos, você só deve usar isso depois que todos
+        os alunos tiverem seus artigos principais atribuídos. Alternativamente, você
+        pode pedir aos seus alunos que escolham suas próprias revisões por pares ou
+        você pode atribuir manualmente revisões por pares clicando na linha de um
+        aluno e, em seguida, usando o botão "Atribuir/remover uma revisão por pares".
+        Clicar em "OK" atribuirá um total de %{count} revisão(ões) adicional(is) por
+        pares, com um máximo de %{maximum} para cada aluno, escolhido entre os artigos
+        de seus colegas.
+      confirm_addition_wikidata: Na maioria dos casos, você só deve usar isso depois
+        que todos os alunos tiverem seus itens principais atribuídos. Alternativamente,
+        você pode pedir aos seus alunos que escolham suas próprias revisões por pares
+        ou você pode atribuir manualmente revisões por pares clicando na linha de
+        um aluno e, em seguida, usando o botão "Atribuir/remover uma revisão por pares".
+        Clicar em "OK" atribuirá um total de %{count} revisão(ões) adicional(is) por
+        pares, com um máximo de %{maximum} para cada aluno, escolhido entre os itens
+        de seus colegas.
       heading: Atribuir revisões de pares aleatórias
       tooltip_message: Atribui artigos aleatórios (com a contagem de revisão por pares
         como o número máximo) para cada aluno.
+      tooltip_message_wikidata: Atribui itens aleatórios (com a contagem de revisão
+        por pares como o número máximo) a cada aluno.
       limit_exceeded: Cada estudante já está revisando pelo menos %{maximum} artigo(s).
+      limit_exceeded_wikidata: Cada aluno já está revisando pelo menos %{maximum}
+        item(ns).
     remove: Remover
     reviewers: Revisor(es)
-    review_other: Atribuir uma revisão por pares
+    review_other: Atribuir/remover uma revisão por pares
     review_self: Revisar um artigo
+    review_self_wikidata: Revisar um item
     review_tooltip: Isto é para artigo(s) que você planeja realizar revisão por pares
+      ou fornecer comentários.
+    review_tooltip_wikidata: Isso é para itens que você planeja revisar por pares
       ou fornecer comentários.
     sandbox_draft_link: Rascunho de teste
     select: Selecionar
@@ -328,6 +396,9 @@ pt-br:
     data_editors_by_course_info: Lista dos editores inscritos e dos seus cursos/programas
     data_editor_usernames: Nomes de usuários dos editores
     data_editor_usernames_info: Lista de nomes de usuários do editor, um por linha
+    data_wikidata: Estatísticas do Wikidata
+    data_wikidata_info: Análise detalhada da atividade do Wikidata, com base em resumos
+      de edição
     default_course_type: Tipo do curso predeterminado
     default_passcode: Código de acesso padrão
     default_passcode_explanation: 'Por padrão, os novos programas nesta campanha devem
@@ -336,6 +407,7 @@ pt-br:
     delete_campaign: Deletar essa campanha
     disable_account_requests: Desativar solicitações de conta
     enable_account_requests: Ativar as solicitações de contas
+    newest_campaigns: Campanhas mais recentes
     no_alerts: Esta campanha não tem alertas
     no_passcode: sem código de acesso
     none: Nenhum
@@ -348,9 +420,13 @@ pt-br:
     random_passcode: um código de acesso aleatório
     requested_accounts: Contas solicitadas
     title: Título
+    too_many_articles: A lista de artigos editados para esta campanha é muito longa
+      para ser exibida. Por favor, veja cursos/programas/eventos individuais para
+      ver os artigos editados.
     slug: URL semântico
     search_campaigns: Pesquisar campanhas
     use_start_end_dates: Use datas de início e fim
+    search: Pesquisar
   categories:
     add_category: Adicionar categoria
     add_psid: Adicionar PetScan PSID
@@ -387,7 +463,7 @@ pt-br:
     assignment_edits_enabled: Edições de atribuição ativadas
     assignment_edits_enabled_tooltip: Se ativado, o painel irá postar um modelo para
       a página de discussão de cada artigo atribuído.
-    accounts_generation_enabled: Geração de solicitação de contas ativada
+    accounts_generation_enabled: Geração de solicitação de conta ativada
     accounts_generation_explanation: Isso permitirá que os participantes insiram o
       endereço de e-mail e o nome de usuário desejado, em vez de criar novas contas.
       Você poderá criar as contas desse painel e adicioná-las como participantes do
@@ -395,7 +471,7 @@ pt-br:
     accounts_generation_confirm_message: Tem a certeza de que deseja ativar as solicitações
       de contas?
     activity: Atividade
-    active_courses: '%{course_type} ativo'
+    active_courses: Cursos ativos
     add_trainings: Por favor, adicione treinamentos de alunos ao seu cronograma de
       tarefas. A atribuição de módulos de treinamento é uma parte essencial das melhores
       práticas da Wiki Ed.
@@ -407,13 +483,21 @@ pt-br:
     actions: Ações
     articles: Artigos
     article_viewer: Visualizador de artigos
+    article_viewer_wikidata: Visualizador de itens
+    articles_i_am_reviewing_wikidata: Itens que estou revisando por pares
     articles_i_am_reviewing: Artigos que estou revisando
+    articles_i_will_create: Artigos que vou criar
+    articles_i_will_create_wikidata: Itens que vou criar
     articles_i_am_updating: Artigos eu estou atualizando.
+    articles_i_am_updating_wikidata: Itens que estou atualizando
     assignment_headings:
       assigned_articles: Artigos atribuídos
+      assigned_articles_wikidata: Itens Atribuídos
       assigned_reviews: Revisões atribuídas
       available_articles: Artigos disponíveis
+      available_articles_wikidata: Itens Disponíveis
       available_reviews: Artigos dos colegas
+      available_reviews_wikidata: Itens dos colegas
     assignment_end: Fim da atribuição
     assignment_start: Início da atribuição
     calendar:
@@ -437,6 +521,8 @@ pt-br:
     confirm_manual_update: Você tem certeza de que deseja atualizar manualmente? As
       revisões mais recentes serão importadas e a página será recarregada. Este processo
       pode levar algum tempo.
+    controlled_by_event_center: A inscrição neste evento é controlada pelo Centro
+      de eventos Wikimedia. Ele não pode ser associado a partir do Painel.
     course: Curso
     course_dates_calendar_instructions: Selecione datas para adicionar ou removê-las
       do calendário (por exemplo, feriados, sem aula etc). Clique na data para alternar
@@ -570,6 +656,9 @@ pt-br:
     delete_suggestion: Eliminar
     delete_course_instructions: Para poder excluir esta página, você deve primeiramente
       remover todas as campanhas.
+    disable_student_emails: Desativar e-mails de alunos
+    disable_student_emails_tooltip: Desativar o e-mail do aluno impedirá que alguns
+      e-mails de notificação sejam enviados aos alunos deste curso.
     dismiss_survey: Dispensar
     dismiss_survey_confirm: Tem certeza que deseja ignorar permanentemente este questionário?
     download_stats_data: Baixar as estatísticas
@@ -593,6 +682,7 @@ pt-br:
       exists: Esse curso já existe! Por favor, tente novamente com um título, escola
         ou termo diferente.
       user_exists: Desculpe, o usuário %{username} não existe.
+      user_exists_on_wiki: Desculpe, %{username} não é um usuário existente em %{domain}.
       invalid_language_or_project: Idioma/projeto inválido
       invalid_slug: Escola ou título em branco para o curso.
       duplicate_slug: Outro programa chamado %{slug} já existe.
@@ -607,6 +697,12 @@ pt-br:
       one: Instrutor
       other: Instrutores
     instructors: Instrutores
+    instructor_message: Essa é a mesma interface de Meus Artigos que os alunos têm.
+      Você pode usá-lo para percorrer as mesmas etapas pelas quais os alunos passarão.
+      No entanto, apenas as contribuições dos alunos serão rastreadas.
+    instructor_message_wikidata: Esta é a mesma interface Meus Itens que os alunos
+      têm. Você pode usá-lo para percorrer as mesmas etapas pelas quais os alunos
+      passarão. No entanto, apenas as contribuições dos alunos serão rastreadas.
     invitation: Você foi convidado a participar de %{title}. Para participar, precisa
       entrar com a sua conta na Wikipédia.
     invitation_username_advice: Se você ainda não tiver uma conta na Wikipédia, registre-se
@@ -625,6 +721,8 @@ pt-br:
       not_yet_approved: Esse curso ainda não foi aprovado para inscrição.
       withdrawn: Esse curso foi marcado como suspenso — talvez sem querer. Entre em
         contato com a equipe do Wiki Education para reabilitá-lo.
+      invalid_sync: A inscrição neste evento é controlada pelo Centro de eventos Wikimedia.
+        Ele não pode ser associado a partir do Painel.
     join_details: Para entrar nesse curso, você precisa de uma senha - ou um link
       de inscrição que inclui a senha - do instrutor. Se ainda não recebeu isto, contate
       o seu instrutor.
@@ -635,6 +733,7 @@ pt-br:
     loading: Carregando…
     milestones_none: Este curso atualmente não tem quaisquer marcos.
     my_articles: Meus artigos
+    my_articles_wikidata: Meus itens
     needs_update: Agendar atualização de dados
     new_week: Adicionar nova semana
     new_account_check_username: Verificar a disponibilidade do nome de usuário
@@ -687,8 +786,12 @@ pt-br:
       other: '%{count} contas solicitadas pendentes.'
     requested_accounts_alert_view: Ver
     retain_available_articles: Reter os artigos disponíveis
+    retain_available_articles_wikidata: Reter itens disponíveis
     retain_available_articles_info: Quando ativada, selecionar um artigo disponível
       não o remove da lista, permitindo que vários estudantes selecionem o mesmo artigo.
+    retain_available_articles_info_wikidata: Quando habilitado, selecionar um Item
+      Disponível não o remove da lista, permitindo que um grupo de alunos selecione
+      o mesmo item.
     review_timeline: 'Agora, revise o cronograma da sua atribuição, personalizando-o
       para atender às suas necessidades. Quando estiver satisfeito, você pode enviá-lo
       para aprovação pela equipe da Wiki Educação. Depois de aprovado, você receberá
@@ -713,8 +816,10 @@ pt-br:
       aprová-lo, adicione-o a uma turma na página de Visão geral.
     submitted_and_pending_heading: Submetido e pendente de aprovação
     submitted_heading: Cursos Submetidos
-    submitted_note: Seu curso foi submetido. A equipe da Wiki Education irá analisá-lo
-      e entrar em contato com qualquer dúvida.
+    submitted_note: Seu curso foi enviado com sucesso. A equipe do Wiki Education
+      irá analisá-lo e entrar em contato com qualquer dúvida. Enquanto isso, se você
+      quiser revisar os materiais de treinamento do Wiki Education, poderá ver a lista
+      completa de recursos para instrutores e alunos.
     suggestions_feedback: Há algumas sugestões que você queira fazer para melhorar
       esta funcionalidade? Informe-nos!
     suggestions_sending: Enviando comentário...
@@ -782,6 +887,8 @@ pt-br:
     withdrawn: Não fez atribuição
     word_count_doc: Uma estimativa do número de palavras adicionadas ao espaço principal
       pelos estudantes do curso durante o semestre do curso
+    word_count_doc_wikidata: Uma estimativa do número de palavras adicionadas aos
+      itens do espaço principal pelos alunos do curso durante o período do curso
     yourcourses: Seus cursos
     survey:
       notification_message: Responda nossa pesquisa sobre este curso
@@ -794,6 +901,7 @@ pt-br:
     articles_i_am_reviewing: Artigos que estou revisando
     assignment_headings:
       available_reviews: Disponível para revisão
+      available_reviews_wikidata: Disponível para revisão
     assignment_end: Fim do evento
     assignments_none: Este projeto não tem artigos indicados.
     assignment_start: Início do evento
@@ -889,6 +997,8 @@ pt-br:
     view_page: Ver a Página do Programa
     word_count_doc: Uma estimativa do número de palavras adicionadas em artigos do  domínio
       principal pelos editores do programa durante a duração deste.
+    word_count_doc_wikidata: Uma estimativa do número de palavras adicionadas aos
+      itens do espaço principal pelos editores do programa durante a vigência do programa
     yourcourses: Seus Programas
   editable:
     edit: Editar
@@ -903,16 +1013,21 @@ pt-br:
   instructor_view:
     article_assignments: '%{prefix} Atribuições'
     assignments_table:
-      article_name: Nome do artigo
+      article_name: Nome
       current_stage: Estágio atual
       relevant_links: Links relevantes
     assigned_articles: Artigos atribuídos
+    assigned_articles_wikidata: Itens Atribuídos
     bad_work:
       learn_more: Se o trabalho do aluno piorou o artigo, recomendamos que você o
         edite. Caso contrário, informe-nos sobre os problemas para que possamos corrigi-los
         mais tarde.
+      learn_more_wikidata: Se o trabalho do aluno piorou o item, recomendamos que
+        você o edite você mesmo. Caso contrário, informe-nos sobre os problemas para
+        que possamos corrigi-los mais tarde.
       learn_more_button: Saiba mais
       submit_issue: Quais são os problemas significativos com este artigo?
+      submit_issue_wikidata: Quais são os problemas significativos com este item?
       submit_issue_placeholder: Quanto mais perspectiva e detalhes você puder fornecer,
         melhor.
       thank_you: Obrigado! Entre em contato com o seu especialista da Wiki se tiver
@@ -920,25 +1035,39 @@ pt-br:
     exercises_and_trainings: '%{prefix} Exercícios e Treinamentos'
     no_assignments: Atualmente, este aluno não possui artigos atribuídos. Você pode
       atribuir um artigo usando os botões acima.
+    no_assignments_wikidata: Este aluno atualmente não tem itens atribuídos. Você
+      pode atribuir um item usando os botões acima.
     overview: '%{prefix} Visão geral'
     reviewing_articles: Revendo artigos
+    reviewing_articles_wikidata: Revisando itens
     select_student:
       title: Selecionar %{prefix}
       content: atribuir e visualizar atribuições de artigos
+      content_wikidata: atribuir e visualizar atribuições de itens
   metrics:
     label: Atividade do curso
     last_update: Última atualização de estatísticas
     next_update: Próxima atualização estimada
+    late_update: Uma nova atualização era esperada em %{late_update_time}. Isso pode
+      significar que a atualização está demorando mais do que o esperado ou pode indicar
+      um problema que está bloqueando as atualizações.
+    no_update: O Dashboard ainda não importou nenhum dado para este programa.
+    enqueued_update: Este programa foi adicionado à fila de atualização.
+    first_update: Início estimado da atualização das estatísticas
     activity: Atividade recente
     are_trained: estão em dia com o treinamento
     articles_created: Artigos criados
     articles_created_wikidata: Itens criados
     articles_created_generic: Páginas criadas
+    articles_created_generic_wikidata: Itens criados
     articles_edited: Artigos editados
     articles_edited_wikidata: Itens editados
     articles_edited_generic: Páginas editadas
+    articles_edited_generic_wikidata: Itens editados
     article_scoped_program_info: Este é um 'programa com escopo de artigos', que conta
       apenas edições nos artigos e categorias atribuídos.
+    article_scoped_program_info_wikidata: Este é um 'Programa limitado por artigos',
+      que só conta edições dos elementos e categorias atribuídos.
     bytes_added: Bytes Adicionado
     characters: Caracteres
     char_added: Caracteres adicionados
@@ -969,6 +1098,10 @@ pt-br:
     references_doc: Este é o número de etiquetas de referência adicionadas aos artigos
       e pode incluir várias referências à mesma fonte. Os dados provêm do modelo de
       qualidade de artigos ORES e só estão disponíveis para alguns idiomas.
+    references_doc_wikidata: Este é o número de etiquetas de referência adicionadas
+      aos elementos e pode incluir várias referências à mesma fonte. Os dados provêm
+      do modelo de qualidade de elementos ORES e só estão disponíveis para algumas
+      línguas.
     replag_info: O painel de controle recupera dados de edição dos bancos de dados
       de réplica do WMF Cloud. Às vezes, esses bancos de dados estão ausentes das
       edições mais recentes devido ao atraso na replicação (replag). Nesse caso, as
@@ -982,27 +1115,76 @@ pt-br:
     uploads_in_use_count:
       one: arquivo usado em um artigo
       other: arquivos usados em artigos
+    uploads_in_use_count_wikidata:
+      one: arquivo usado em um item
+      other: arquivos usados em itens
     upload_usages_count:
       one: total de uso considerando todos os idiomas
       other: total de usos considerando todos os idiomas
     view_count_description: Visualizações de artigo
+    view_count_description_wikidata: Visualizações de itens
     view_data_unavailable: Não há dados visíveis disponíveis
     view: Visitas
     wiki_ed_help: Use o botão 'Obter ajuda' para relatar um problema.
     word_count: Palavras adicionadas
     word_count_average: Número médio de palavras
     general: Geral
+    total_revisions: Total de revisões
+    claims: Reivindicações
+    aliases: Apelidos
+    merged: Mesclado
+    created: Criado
+    changed: Modificado
+    removed: Removido
+    cleared: Limpo
+    added: Adicionado
+    descriptions: Descrições
+    interwiki_links_added: Hiperligações interwikis adicionadas
+    labels: Etiquetas
+    no_data: Sem dados
+    other_updates: Outras atualizações
+    qualifiers_added: Qualificadores adicionados
+    redirects_created: Redirecionamentos criados
     references_added: Referências adicionadas
+    references_added_info: Isso pode ser apenas uma contagem parcial de referências
+      adicionadas. Ele é baseado em resumos de edição do Wikidata, e algumas edições
+      que adicionam referências são classificadas como "Reivindicação alterada" ou
+      "Reivindicação criada".
+    restorations_performed: Restaurações efetuadas
+    reverts_performed: Reversões efetuadas
   namespace:
+    all: Tudo
     main: Domínio principal
     main_char_added: Caracteres adicionados ao domínio principal
+    article: Artigo
+    talk: Discussão
     user: Espaço do usuário
     user_char_added: Caracteres adicionados ao domínio Usuário
-    filter:
-      user_ns: Usuário
+    project: Projeto
+    file: Arquivo
+    mediaWiki: MediaWiki
+    template: Predefinição
+    help: Ajuda
+    category: Categoria
+    page: Página
+    book: Livro
+    wikijunior: WikiJúnior
+    translation: Tradução
+    draft: Rascunho
+    property: Propriedade
+    query: Consulta
+    lexeme: Lexema
+    appendix: Apêndice
+    portal: Portal
+    school: Escola
+    author: Autor
+    cookbook: Livro de receitas
+    rhymes: Rimas
+    index: Índice
+    collection: Coleção
   recent_activity:
     active_courses: O artigo está ativo em
-    article_title: Título do Artigo
+    article_title: Título
     datetime: Data/Horário
     did_you_know_eligible: Sabia que elegível
     image: Imagem
@@ -1171,6 +1353,8 @@ pt-br:
     empty_week_2: começar a editar esta semana
     empty_week_3: ou
     empty_week_4: utilizar assistente para criar uma linha do tempo.
+    empty_week_drag_items: Semana vazia. Você pode mover um bloco de outra semana
+      aqui.
     first_week_title: Primeira semana ativa
     gradeable_value: Valor
     gradeables_none: Este cronograma não tem tarefas marcadas com nota.
@@ -1239,8 +1423,10 @@ pt-br:
   users:
     already_enrolled: Aquele usuário já está inscrito!
     assign_articles: Indicar artigos
+    assign_articles_wikidata: Atribuir Itens
     assign_articles_done: Feito
     assigned: Artigos atribuídos
+    assigned_wikidata: Itens Atribuídos
     assignees: Indicado(s)
     loading_authorship_data: carregando dados de autoria
     authorship_data_not_fetched: não foi possível obter os dados de autoria
@@ -1250,6 +1436,7 @@ pt-br:
       de conteúdo novo que o usuário adicionou. Restaurar conteúdo eliminado também
       aumentará este total.
     chars_added: Caracteres adicionados<br>(artigo | usuário | rascunho)
+    chars_added_wikidata: Caracteres adicionados<br>(item | usuário | rascunho)
     contributions: Contribuições do usuário
     contributions_history_full: Ver histórico de contribuições completo
     contributions_more: Ver mais contribuições
@@ -1269,6 +1456,7 @@ pt-br:
     last_name: Sobrenome
     loading: Carregando usuários...
     characters_added_mainspace: Caracteres adicionados  (artigo)
+    characters_added_mainspace_wikidata: Caracteres adicionados (item)
     characters_added_short: 'EP: %{mainspace}, EU: %{userspace}'
     characters_added_userspace: Caracteres adicionados (usuário)
     characters_added_draftspace: Caracteres adicionados (rascunho)
@@ -1277,12 +1465,15 @@ pt-br:
     name: Nome
     none: Não há participantes.
     no_articles: Sem artigo
-    no_revisions: Este editor não fez nenhuma revisão.
+    no_articles_wikidata: Nenhum item
+    no_revisions: (nenhuma revisão)
     no_highlighting: Nenhum texto da versão atual do artigo é atribuído a este editor.
       Verifique o histórico da página para ver suas edições.
     number_of_articles:
       one: '%{count} artigo'
       other: '%{count} artigos'
+    number_of_articles_wikidata:
+      other: um=%{count} itens
     profile: perfil
     recent_revisions: Edições recentes
     references_count: Referências adicionadas
@@ -1439,8 +1630,8 @@ pt-br:
       por isso! Acontece às vezes.) Por favor, tente de novo iniciar a sessão ou fazer
       a autentificação.
   survey:
-    login_message: Obrigado por seu tempo. Por favor, inicie a sessão em seu painel
-      de controle do Wiki Educação para participar da pesquisa.
+    login_message: Obrigado pelo seu tempo. Por favor, conecte-se no Painel para responder
+      à pesquisa.
     notification_explanation: Ao ativar a opção abaixo, usuários receberão correios
       eletrônicos de acordo com a programação de notificações, além de ver notificações
       no navegador. Se não a ativar, apenas serão mostradas notificações no navegador.
@@ -1476,8 +1667,11 @@ pt-br:
       why_are_you_here: O que você gostaria de fazer?
   article_finder:
     add_available_article: Adicionar como artigo disponível
+    add_available_article_wikidata: Adicionar como item disponível
     article_finder: Localizador de artigos
+    article_finder_wikidata: Localizador de itens
     article_quality: Qualidade do Artigo(0-100)
+    article_quality_wikidata: Qualidade do item (0-100)
     assign_article_self: Atribuir a si
     average_views: Média de visualizações por dia
     category_search: Pesquisar por categoria
@@ -1487,23 +1681,30 @@ pt-br:
     fetching_pageviews: Buscando vistas de página
     fetching_revisions: Buscando revisões de página
     fetched_articles: Artigos buscados
+    fetched_articles_wikidata: Itens Buscados
     filtered_articles: Artigos filtrados
+    filtered_articles_wikidata: Itens filtrados
     hide_options: Ocultar opções
     keyword_search: Pesquisa por palavra-chave
     minimum_views_label: Visualizações mínimas
     more_results: Mais resultados
     no_article_found: Nenhum artigo encontrado nesta categoria
+    no_article_found_wikidata: Nenhum item encontrado nesta categoria
     page_assessment_class: Classe
     relevanceIndex: Índice de Relevância
     remove_article: Remover artigo
+    remove_article_wikidata: Remover itens
     search: Pesquisar
     searching_articles: Pesquisando artigos
+    searching_articles_wikidata: Pesquisando itens
     search_placeholder: Digite sua palavra-chave
     show_options: Mostrar opções
     subheading_message: Vamos encontrar um artigo da Wikipedia para trabalhar.
+    subheading_message_wikidata: Vamos encontrar um item do Wikidata para trabalhar.
     submit: Enviar
     tools: Ferramentas
     unassign_article_self: Remover atribuição de artigo
+    unassign_article_self_wikidata: Desatribuir Item
   training_status:
     completed: Completado
     continue: Continuar

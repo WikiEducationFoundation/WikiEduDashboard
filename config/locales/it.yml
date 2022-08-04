@@ -768,13 +768,30 @@ it:
     word_count_average: Conteggio medio parole
     general: Generale
   namespace:
+    all: Tutto
     main: Ambiente principale
     main_char_added: Caratteri aggiunti namespace principale
-    filter:
-      all_ns: Tutto
-      article_ns: Voce
-      user_ns: Utente
-      talk_ns: Discussione
+    article: Voce
+    talk: Discussione
+    project: Progetto
+    file: File
+    mediaWiki: MediaWiki
+    template: Template
+    help: Aiuto
+    category: Categoria
+    page: Pagina
+    book: Libro
+    translation: Traduzione
+    draft: Bozza
+    property: Proprietà
+    query: Interrogazione
+    lexeme: Lessema
+    appendix: Appendice
+    portal: Portale
+    school: Scuola
+    author: Autore
+    index: Indice
+    collection: Collezione
   recent_activity:
     active_courses: La voce è attiva in
     datetime: Data/Ora

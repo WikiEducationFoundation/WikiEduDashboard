@@ -1185,15 +1185,35 @@ fr:
     restorations_performed: Restauration effectuées
     reverts_performed: Révocations effectuées
   namespace:
+    all: Tous
     main: Espace principal
     main_char_added: Caractères ajoutés à l’espace principal
+    article: Article
+    talk: Discussion
     user: Espace utilisateur
     user_char_added: Caractères ajoutés à l’espace utilisateur
-    filter:
-      all_ns: Tous
-      article_ns: Article
-      user_ns: Utilisateur
-      talk_ns: Discussion
+    project: Projet
+    file: Fichier
+    mediaWiki: MediaWiki
+    template: Modèle
+    help: Aide
+    category: Catégorie
+    page: Page
+    book: Livre
+    wikijunior: WikiJunior
+    translation: Traduction
+    draft: Brouillon
+    property: Propriété
+    query: Requête
+    lexeme: Lexème
+    appendix: Annexe
+    portal: Portail
+    school: École
+    author: Auteur
+    cookbook: Livre de recettes
+    rhymes: Rimes
+    index: Index
+    collection: Collection
   recent_activity:
     active_courses: L’article est actif dans
     article_title: Titre
