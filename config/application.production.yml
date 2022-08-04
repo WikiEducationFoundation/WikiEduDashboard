@@ -22,7 +22,6 @@ course_prefix: "Wikipedia:Wiki_Ed"
 course_announcement_page: 'Wikipedia:Education_noticeboard/Wiki_Ed_course_submissions'
 
 sentry_dsn: <SECRET>
-sentry_public_dsn: <SECRET>
 
 default_campaign: "spring_2018"
 edit_en.wikipedia.org: "true"
