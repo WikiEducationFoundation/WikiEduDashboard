@@ -49,6 +49,7 @@ class PushCourseToSalesforce
       salesforce_fields[:Did_not_do_assignment__c] = true
       salesforce_fields[:Status__c] = 'Complete'
     end
+    salesforce_fields.merge!(wikidata_fields)
     salesforce_fields
   end
 
@@ -84,6 +85,21 @@ class PushCourseToSalesforce
   end
   # rubocop:enable Metrics/MethodLength
   # rubocop:enable Metrics/AbcSize
+
+  def wikidata_fields
+    return {} unless wikidata_stats
+    {
+      Wikidata_items_created__c: wikidata_stats['items created'] || 0,
+      Wikidata_claims_added_removed_or_edited__c: (wikidata_stats['claims created'] || 0) +
+        (wikidata_stats['claims removed'] || 0) +
+        (wikidata_stats['claims changed'] || 0),
+      Wikidata_references_added__c: wikidata_stats['references added'] || 0
+    }
+  end
+
+  def wikidata_stats
+    @course.course_stat&.stats_hash&.[]('www.wikidata.org')
+  end
 
   def words_added_in_thousands
     WordCount.from_characters(@course.character_sum).to_f / 1000

@@ -59,6 +59,29 @@ describe PushCourseToSalesforce do
       end
     end
 
+    context 'when the course has wikidata stats' do
+      let(:stats_hash) do
+        { 'www.wikidata.org' =>
+          { 'claims created' => 157,
+            'claims changed' => 91,
+            'claims removed' => 21,
+            'items created' => 10,
+            'references added' => 5 } }
+      end
+
+      before do
+        create(:course_stats, course: course, stats_hash: stats_hash)
+      end
+
+      it 'includes key wikidata stats' do
+        expect_any_instance_of(Restforce::Data::Client).to receive(:update!).and_return(true)
+        fields = subject.send :course_salesforce_fields
+        expect(fields[:Wikidata_items_created__c]).to eq(10)
+        expect(fields[:Wikidata_claims_added_removed_or_edited__c]).to eq(157 + 91 + 21)
+        expect(fields[:Wikidata_references_added__c]).to eq(5)
+      end
+    end
+
     context 'when the course is withdrawn' do
       let(:withdrawn) { true }
 
