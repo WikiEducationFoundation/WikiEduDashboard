@@ -10,8 +10,8 @@ export const DummyBlock = ({ week_id, moveBlock, text }) => {
         if (didDrop) {
           return;
         }
-        // item.item is the block. 0 is the target index in the week.
-        moveBlock(item.item, week_id, 0);
+        // item is the block. 0 is the target index in the week.
+        moveBlock(item, week_id, 0);
       },
       collect: monitor => ({
         isOverCurrent: monitor.isOver({ shallow: true }),

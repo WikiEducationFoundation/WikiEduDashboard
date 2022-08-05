@@ -50,7 +50,13 @@ module.exports = (env) => {
     entry: entries,
     resolve: {
       extensions: ['.js', '.jsx', '.styl'],
-      symlinks: false
+      symlinks: false,
+      // bug in React 17. Should be removed when we upgrade to React 18
+      // See https://github.com/react-dnd/react-dnd/issues/3423#issuecomment-1092621793
+      fallback: {
+        'react/jsx-runtime': 'react/jsx-runtime.js',
+        'react/jsx-dev-runtime': 'react/jsx-dev-runtime.js',
+      },
     },
 
     module: {
