@@ -51,4 +51,16 @@ describe UpdateWikiNamespaceStats do
     expect(stats).to have_key(:reference_count)
     expect(stats).to have_key(:view_count)
   end
+
+  it 'updates the wiki-namespace stats correctly' do
+    stats = course.course_stat.stats_hash['en.wikibooks.org-namespace-102']
+
+    expect(stats[:edited_count]).to eq 1
+    expect(stats[:new_count]).to eq 1
+    expect(stats[:revision_count]).to eq 4
+    expect(stats[:user_count]).to eq 1
+    expect(stats[:word_count]).to eq 262
+    expect(stats[:reference_count]).to eq 0
+    expect(stats[:view_count]).to eq 0
+  end
 end
