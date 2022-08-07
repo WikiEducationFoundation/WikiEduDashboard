@@ -5,9 +5,8 @@ import InstructorStats from './instructor_stats.jsx';
 import StudentStats from './student_stats.jsx';
 
 const getState = function () {
-  const isStudent = document.querySelector('#react_root')?.dataset.isstudent;
-  const isInstructor = document.querySelector('#react_root')?.dataset.isinstructor;
-
+  const isStudent = JSON.parse(document.querySelector('#react_root')?.dataset.isstudent);
+  const isInstructor = JSON.parse(document.querySelector('#react_root')?.dataset.isinstructor);
   return {
     isStudent: isStudent,
     isInstructor: isInstructor,
