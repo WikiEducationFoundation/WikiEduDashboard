@@ -9,22 +9,22 @@ import Permissions from './permissions.jsx';
 import Finished from './finished.jsx';
 
 import Notifications from '../common/notifications.jsx';
+import { useSelector } from 'react-redux';
 
 const getReturnToParam = function () {
   const returnTo = window.location.search.match(/return_to=([^&]*)/);
   return (returnTo && returnTo[1]) || '/';
 };
 
-const getCurrentUser = () => document.querySelector('#react_root')?.dataset.current_user;
-
 const setProps = ({ pathname }) => ({
-  pathname, returnToParam: getReturnToParam(), currentUser: getCurrentUser()
+  pathname, returnToParam: getReturnToParam()
 });
 
 // Router root
 const Root = () => {
   const location = useLocation();
-  const props = setProps(location);
+  const currentUser = useSelector(state => state.currentUserFromHtml);
+  const props = { ...setProps(location), currentUser };
   return (
     <div className="container">
       <Notifications />

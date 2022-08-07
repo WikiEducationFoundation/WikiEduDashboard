@@ -29,7 +29,7 @@ export const OnboardingSupplementary = createReactClass({
     e.preventDefault();
     this.setState({ sending: true });
 
-    const user = document.querySelector('#react_root')?.dataset.current_user;
+    const user = this.props.user;
     const { heardFrom, referralDetails, whyHere, otherReason } = this.state;
     const body = {
       heardFrom,
@@ -115,5 +115,8 @@ export const OnboardingSupplementary = createReactClass({
 });
 
 const mapDispatchToProps = { addNotification };
+const mapStateToProps = state => ({
+  user: state.currentUserFromHtml
+});
 
-export default withRouter(connect(null, mapDispatchToProps)(OnboardingSupplementary));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(OnboardingSupplementary));
