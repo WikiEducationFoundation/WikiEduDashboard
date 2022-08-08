@@ -59,6 +59,8 @@ module WikiEduDashboard
     # Handle YAML safe loading of serialized Ruby objects
     config.active_record.yaml_column_permitted_classes = [Symbol, BigDecimal, DateTime, Date, Time, ActiveSupport::TimeWithZone, ActiveSupport::TimeZone]
 
+    config.active_record.legacy_connection_handling = false
+
     config.action_dispatch.return_only_media_type_on_content_type = false
 
     config.middleware.insert_before 0, Rack::Cors do
