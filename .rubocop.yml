@@ -19,7 +19,7 @@ AllCops:
     - 'app/views/**/**/*.haml'
     - 'docs/**/*'
     - 'setup/*'
-  TargetRubyVersion: 2.7
+  TargetRubyVersion: 3.1
 
 Layout/LineLength:
   Max: 100
