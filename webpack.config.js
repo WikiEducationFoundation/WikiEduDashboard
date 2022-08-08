@@ -132,7 +132,8 @@ module.exports = (env) => {
       splitChunks: {
         cacheGroups: {
           defaultVendors: {
-            test: /[\\/]node_modules[\\/]((?!(chart|tinymce)).*)[\\/]/,
+            // all of these modules are imported dynamically so they should not be included in the vendor bundle
+            test: /[\\/]node_modules[\\/]((?!(chart|tinymce|jquery-ui)).*)[\\/]/,
             chunks: 'all',
             name: 'vendors'
           },

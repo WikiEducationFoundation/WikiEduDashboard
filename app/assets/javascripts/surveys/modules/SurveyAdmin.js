@@ -1,5 +1,3 @@
-import 'jquery-ui/ui/widgets/sortable';
-import 'jquery-ui/ui/widgets/tabs';
 import autosize from 'autosize';
 import striptags from 'striptags';
 import Utils from './SurveyUtils.js';
@@ -15,7 +13,9 @@ const CONDITIONAL_COMPARISON_OPERATORS = `\
 `;
 
 const SurveyAdmin = {
-  init() {
+  async init() {
+    await import('jquery-ui/ui/widgets/sortable');
+    await import('jquery-ui/ui/widgets/tabs');
     $('[data-tabs]').tabs();
     autosize($('textarea'));
     this.cacheSelectors();

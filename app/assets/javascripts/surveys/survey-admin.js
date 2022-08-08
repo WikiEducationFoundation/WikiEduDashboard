@@ -1,7 +1,7 @@
 import SurveyAdmin from './modules/SurveyAdmin.js';
 import SurveyAssignmentAdmin from './modules/SurveyAssignmentAdmin.js';
 
-document.onload = () => {
+window.onload = () => {
   SurveyAdmin.init();
   return SurveyAssignmentAdmin.init();
 };
