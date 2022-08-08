@@ -13,11 +13,11 @@ class UpdateWikiNamespaceStats
     stats = {
       edited_count: edited_articles_count,
       new_count: new_articles_count,
-      revision_count: revision_count,
-      user_count: user_count,
-      word_count: word_count,
-      reference_count: reference_count,
-      view_count: view_count
+      revision_count:,
+      user_count:,
+      word_count:,
+      reference_count:,
+      view_count:
     }
     course_stats = CourseStat.find_or_create_by(course_id: @course.id)
     course_stats.stats_hash[stat_key] = stats

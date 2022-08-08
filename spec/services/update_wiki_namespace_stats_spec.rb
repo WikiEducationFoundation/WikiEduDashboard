@@ -13,8 +13,8 @@ describe UpdateWikiNamespaceStats do
     stub_wiki_validation
     course.campaigns << Campaign.first
     course.wikis << wiki
-    JoinCourse.new(course: course, user: user1, role: 0)
-    JoinCourse.new(course: course, user: user2, role: 0)
+    JoinCourse.new(course:, user: user1, role: 0)
+    JoinCourse.new(course:, user: user2, role: 0)
     allow_any_instance_of(Course).to receive(:tracked_namespaces).and_return([0, 102])
     VCR.use_cassette 'course_update' do
       UpdateCourseStats.new(course)
