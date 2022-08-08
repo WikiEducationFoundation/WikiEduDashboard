@@ -182,6 +182,12 @@ ta:
   namespace:
     main: முதன்மைவெளி
     user: பயனர்வெளி
+    file: கோப்பு
+    mediaWiki: மீடியாவிக்கி
+    help: உதவி
+    page: பக்கம்
+    translation: மொழிபெயர்ப்பு
+    school: பள்ளி
   recent_activity:
     article_title: கட்டுரைத் தலைப்பு
     datetime: நாள்/நேரம்
