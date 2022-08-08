@@ -18,7 +18,7 @@ class CourseWikidataCsvBuilder
     hash_stats = @course
                  .course_stat.stats_hash['www.wikidata.org']
                  .merge({ 'course name' => @course.title })
-    CSV_HEADERS.map { |elmnt| hash_stats.fetch elmnt, '' }
+    CSV_HEADERS.map { |elmnt| hash_stats.fetch elmnt, 0 }
   end
 
   CSV_HEADERS = [
