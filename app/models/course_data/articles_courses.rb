@@ -111,14 +111,15 @@ class ArticlesCourses < ApplicationRecord
     destroy_invalid_records(course, valid_article_ids)
 
     # Add new ArticlesCourses
-    ActiveRecord::Base.transaction do
-      revision_article_ids.each do |article_id|
-        next if course_article_ids.include?(article_id)
-        article = Article.find(article_id)
-        next unless course.wikis.include?(article.wiki)
-        course.articles << article
-      end
+    # Using `insert_all` is massively more efficient than inserting them one at a time.
+    article_ids_without_ac = revision_article_ids - course_article_ids
+    tracked_wiki_ids = course.wikis.pluck(:id)
+    new_article_ids = Article.where(id: article_ids_without_ac, wiki_id: tracked_wiki_ids)
+                             .pluck(:id)
+    new_records = new_article_ids.map do |id|
+      { article_id: id, course_id: course.id }
     end
+    insert_all new_records unless new_records.empty?
   end
 
   def self.destroy_invalid_records(course, valid_article_ids)
