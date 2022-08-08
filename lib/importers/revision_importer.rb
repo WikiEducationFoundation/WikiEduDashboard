@@ -62,8 +62,7 @@ class RevisionImporter
   def import_revisions(data)
     # Use revision data fetched from Replica to add new Revisions as well as
     # new Articles where appropriate.
-    # Keep it to 100 articles per slice to keep query sizes and lengths reasonable.
-    data.each_slice(100) do |sub_data|
+    data.each_slice(10000) do |sub_data|
       import_revisions_slice(sub_data)
     end
   end
@@ -112,8 +111,7 @@ class RevisionImporter
     # We need a slightly different article dictionary format here
     article_dict = @articles.each_with_object({}) { |a, memo| memo[a.mw_page_id] = a.id }
     revisions = sub_data_to_revision_attributes(sub_data, users, article_dict)
-    # Limit batch size to make sure we don't send too large a SQL string
-    Revision.import revisions, on_duplicate_key_ignore: true, batch_size: 50
+    Revision.import revisions, on_duplicate_key_ignore: true
 
     DuplicateArticleDeleter.new(@wiki).resolve_duplicates(@articles)
   end
