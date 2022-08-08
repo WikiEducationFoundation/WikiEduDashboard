@@ -11,14 +11,14 @@ describe 'A Wikidata course', type: :feature, js: true do
   before do
     stub_wiki_validation
     course.campaigns << Campaign.first
-    create(:courses_user, course: course, user: user)
-    create(:revision, article: article, user: user, date: '2019-01-01')
-    create(:articles_course, course: course, article: article, user_ids: [user.id])
+    create(:courses_user, course:, user:)
+    create(:revision, article:, user:, date: '2019-01-01')
+    create(:articles_course, course:, article:, user_ids: [user.id])
     create(:course_stats,
            stats_hash: { 'www.wikidata.org' => {
              'claims created' => 12, 'other updates' => 1, 'unknown' => 1
            } },
-           course: course)
+           course:)
   end
 
   it 'shows Wikidata stats on the Home tab' do

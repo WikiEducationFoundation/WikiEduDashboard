@@ -16,12 +16,12 @@ describe TrainingProgressManager do
   let(:last_slide_completed) { slides.first.slug }
   let!(:tmu) do
     create(:training_modules_users, user_id: user&.id, training_module_id: t_module.id,
-                                    last_slide_completed: last_slide_completed,
-                                    completed_at: completed_at)
+                                    last_slide_completed:,
+                                    completed_at:)
   end
   let(:completed_at) { nil }
   let(:ids) { [t_module.id] }
-  let(:week) { create(:week, course: course) }
+  let(:week) { create(:week, course:) }
   let(:course) { create(:course) }
   let!(:block) do
     create(:block, training_module_ids: ids, week_id: week.id)

@@ -48,7 +48,7 @@ describe RevisionImporter do
     let(:revision_count) { 0 }
 
     before do
-      create(:courses_user, course: course, user: user, revision_count: revision_count)
+      create(:courses_user, course:, user:, revision_count:)
     end
 
     context 'when there are no edits' do
@@ -65,8 +65,8 @@ describe RevisionImporter do
       let(:revision_count) { 1 }
 
       before do
-        Revision.create(user: user, date: 'Fri, 27 Jul 2018 05:09:32 UTC +00:00', wiki: home_wiki,
-                        article: article, mw_page_id: 164007, mw_rev_id: 852177599)
+        Revision.create(user:, date: 'Fri, 27 Jul 2018 05:09:32 UTC +00:00', wiki: home_wiki,
+                        article:, mw_page_id: 164007, mw_rev_id: 852177599)
       end
 
       it 'only imports newer edits' do

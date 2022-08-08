@@ -27,9 +27,9 @@ describe TicketsController, type: :request do
 
   before do
     login_as admin
-    TicketDispenser::Message.create(ticket: ticket, kind: TicketDispenser::Message::Kinds::NOTE,
+    TicketDispenser::Message.create(ticket:, kind: TicketDispenser::Message::Kinds::NOTE,
                                     content: 'this is a note')
-    TicketDispenser::Message.create(ticket: ticket, kind: TicketDispenser::Message::Kinds::REPLY,
+    TicketDispenser::Message.create(ticket:, kind: TicketDispenser::Message::Kinds::REPLY,
                                     content: 'this is a reply')
     TicketDispenser::Message.create(
       ticket: unknown_sender_ticket,
@@ -116,7 +116,7 @@ describe TicketsController, type: :request do
   describe '#notify_owner' do
     let(:recipient) { create(:admin, username: 'otheradmin', email: 'otheradmin@email.com') }
     let(:message) do
-      TicketDispenser::Message.create(ticket: ticket, kind: TicketDispenser::Message::Kinds::NOTE,
+      TicketDispenser::Message.create(ticket:, kind: TicketDispenser::Message::Kinds::NOTE,
                                       content: 'this is a note')
     end
 

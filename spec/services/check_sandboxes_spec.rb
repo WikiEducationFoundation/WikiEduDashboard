@@ -11,13 +11,13 @@ describe CheckSandboxes do
   end
 
   before do
-    create(:courses_user, course: course, user: user)
-    create(:revision, article: sandbox, user: user, date: course.start + 1.day)
+    create(:courses_user, course:, user:)
+    create(:revision, article: sandbox, user:, date: course.start + 1.day)
   end
 
   it 'returns a list of unreliable source rule violations' do
     VCR.use_cassette('check_sandboxes') do
-      result = described_class.new(course: course).check_sandboxes
+      result = described_class.new(course:).check_sandboxes
       expect(result.flatten).to include('dailysabah.com')
     end
   end

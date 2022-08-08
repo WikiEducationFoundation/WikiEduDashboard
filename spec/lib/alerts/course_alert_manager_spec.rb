@@ -16,8 +16,8 @@ describe CourseAlertManager do
                     timeline_end: course_end,
                     end: course_end,
                     weekdays: '0101010',
-                    expected_students: expected_students,
-                    user_count: user_count)
+                    expected_students:,
+                    user_count:)
   end
   let(:course_start) { 16.days.ago }
   let(:course_end) { 1.month.from_now }
@@ -28,14 +28,14 @@ describe CourseAlertManager do
 
   let(:enroll_admin) do
     create(:courses_user,
-           course: course,
+           course:,
            user: admin,
            role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE)
   end
   let(:enroll_student) do
     create(:courses_user,
-           course: course,
-           user: user,
+           course:,
+           user:,
            role: CoursesUsers::Roles::STUDENT_ROLE)
   end
 
@@ -53,7 +53,7 @@ describe CourseAlertManager do
   describe '#create_no_students_alerts' do
     before do
       # These alerts are only created if the course is approved.
-      create(:campaigns_course, course: course, campaign: Campaign.first)
+      create(:campaigns_course, course:, campaign: Campaign.first)
     end
 
     it 'creates an Alert record and emails a greeter' do
@@ -83,7 +83,7 @@ describe CourseAlertManager do
       end
 
       it 'does not create a second Alert for the same course' do
-        Alert.create(type: 'OverEnrollmentAlert', course: course)
+        Alert.create(type: 'OverEnrollmentAlert', course:)
         expect(Alert.count).to eq(1)
         subject.create_over_enrollment_alerts
         expect(Alert.count).to eq(1)
@@ -141,10 +141,10 @@ describe CourseAlertManager do
         week.blocks << Block.new(training_module_ids: [1, 2, 3])
         course.weeks << week
         create(:courses_user,
-               course: course,
-               user: user,
+               course:,
+               user:,
                role: CoursesUsers::Roles::STUDENT_ROLE)
-        create(:campaigns_course, course: course, campaign: Campaign.first)
+        create(:campaigns_course, course:, campaign: Campaign.first)
         course.update_cache
       end
 

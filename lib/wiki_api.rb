@@ -60,7 +60,7 @@ class WikiApi
 
   def get_page_info(titles)
     query_params = { prop: 'info',
-                     titles: titles }
+                     titles: }
     response = query(query_params)
     response&.status == 200 ? response.data : nil
   end
@@ -69,7 +69,7 @@ class WikiApi
     titles = [titles] unless titles.is_a?(Array)
     titles = titles.sort_by(&:downcase)
 
-    query_parameters = { titles: titles,
+    query_parameters = { titles:,
                          prop: 'pageassessments',
                          redirects: 'true' }
     response = fetch_all(query_parameters)
@@ -108,7 +108,7 @@ class WikiApi
     sleep 1 if too_many_requests?(e)
     retry unless tries.zero?
     log_error(e, update_service: @update_service,
-              sentry_extra: { action: action, query: query, api_url: @api_url })
+              sentry_extra: { action:, query:, api_url: @api_url })
     return nil
   end
 

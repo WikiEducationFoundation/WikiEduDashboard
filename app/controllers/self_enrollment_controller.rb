@@ -32,7 +32,7 @@ class SelfEnrollmentController < ApplicationController
       format.html { redirect_to course_slug_path(@course.slug, enrolled: true) }
       format.json do
         message = I18n.t('courses.join_successful', title: @course.title)
-        render json: { message: message }, status: :ok
+        render json: { message: }, status: :ok
       end
     end
   end
@@ -60,7 +60,7 @@ class SelfEnrollmentController < ApplicationController
         redirect_to course_slug_path(@course.slug)
       end
       format.json do
-        render json: { message: message }, status: :bad_request
+        render json: { message: }, status: :bad_request
       end
     end
 
@@ -121,7 +121,7 @@ class SelfEnrollmentController < ApplicationController
   def add_user_to_course
     @result = JoinCourse.new(course: @course,
                              user: current_user,
-                             role: role,
+                             role:,
                              real_name: current_user.real_name).result
   end
 

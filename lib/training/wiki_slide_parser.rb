@@ -106,8 +106,8 @@ class WikiSlideParser
     return unless text
     explanation = template_parameter_value(@quiz_template, "explanation_#{number}")
     { id: number,
-      text: text,
-      explanation: explanation }
+      text:,
+      explanation: }
   end
 
   def convert_image_templates

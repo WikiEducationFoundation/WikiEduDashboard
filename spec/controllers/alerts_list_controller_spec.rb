@@ -44,7 +44,7 @@ describe AlertsListController, type: :request do
         end
 
         it 'shows onboarding alerts for instructors of a course' do
-          create(:courses_user, course: course, user: new_user,
+          create(:courses_user, course:, user: new_user,
                                 role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
           get "/alerts_list.json?course_id=#{course.id}"
 

@@ -20,7 +20,7 @@ describe CourseMeetingsManager do
            timeline_start: t_start,
            timeline_end: t_end,
            day_exceptions: day_ex,
-           weekdays: weekdays,
+           weekdays:,
            type: course_type)
   end
 
@@ -285,32 +285,32 @@ describe CourseMeetingsManager do
     let(:slug) { 'University_of_Chicago/History_of_Skepticism_(Winter_Quarter)' }
 
     it 'rounds times within the same week to zero' do
-      course = create(:course, slug: slug, start: '2017-07-02', timeline_start: '2017-07-05')
+      course = create(:course, slug:, start: '2017-07-02', timeline_start: '2017-07-05')
       expect(described_class.new(course).weeks_before_timeline).to be(0)
     end
 
     it 'counts whole weeks accurately, Sunday to Sunday' do
-      course = create(:course, slug: slug, start: '2017-07-02', timeline_start: '2017-07-09')
+      course = create(:course, slug:, start: '2017-07-02', timeline_start: '2017-07-09')
       expect(described_class.new(course).weeks_before_timeline).to be(1)
     end
 
     it 'counts partial weeks if they cross between Sunday-bounded weeks' do
-      course = create(:course, slug: slug, start: '2017-07-06', timeline_start: '2017-07-10')
+      course = create(:course, slug:, start: '2017-07-06', timeline_start: '2017-07-10')
       expect(described_class.new(course).weeks_before_timeline).to be(1)
     end
 
     it 'rounds down to the number of week boundaries crossed' do
-      course = create(:course, slug: slug, start: '2017-07-02', timeline_start: '2017-07-13')
+      course = create(:course, slug:, start: '2017-07-02', timeline_start: '2017-07-13')
       expect(described_class.new(course).weeks_before_timeline).to be(1)
     end
 
     it 'works for longer stretches' do
-      course = create(:course, slug: slug, start: '2017-08-29', timeline_start: '2017-10-23')
+      course = create(:course, slug:, start: '2017-08-29', timeline_start: '2017-10-23')
       expect(described_class.new(course).weeks_before_timeline).to be(8)
     end
 
     it 'works for exactly two weeks between start and timeline start' do
-      course = create(:course, slug: slug, start: '2018-01-09', timeline_start: '2018-01-23')
+      course = create(:course, slug:, start: '2018-01-09', timeline_start: '2018-01-23')
       expect(described_class.new(course).weeks_before_timeline).to be(2)
     end
   end

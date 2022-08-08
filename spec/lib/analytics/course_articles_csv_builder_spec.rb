@@ -6,7 +6,7 @@ require "#{Rails.root}/lib/analytics/course_articles_csv_builder"
 describe CourseArticlesCsvBuilder do
   let(:course) { create(:course) }
   let(:user) { create(:user, registered_at: course.start + 1.minute) }
-  let!(:courses_user) { create(:courses_user, course: course, user: user) }
+  let!(:courses_user) { create(:courses_user, course:, user:) }
 
   let(:article) { create(:article, title: 'First_Article') }
   let(:article2) { create(:article, title: 'Second_Article') }
@@ -16,14 +16,14 @@ describe CourseArticlesCsvBuilder do
   before do
     # multiple revisions for first article
     revision_count.times do |i|
-      create(:revision, mw_rev_id: i, user: user, date: course.start + 1.minute, article: article)
+      create(:revision, mw_rev_id: i, user:, date: course.start + 1.minute, article:)
     end
     # one revision for second article
-    create(:revision, mw_rev_id: 123, user: user, date: course.start + 1.minute, article: article2)
+    create(:revision, mw_rev_id: 123, user:, date: course.start + 1.minute, article: article2)
     # revisions with nil and characters, to make sure this does not cause problems
-    create(:revision, mw_rev_id: 124, user: user, date: course.start + 1.minute, article: article2,
+    create(:revision, mw_rev_id: 124, user:, date: course.start + 1.minute, article: article2,
                       characters: nil)
-    create(:revision, mw_rev_id: 125, user: user, date: course.start + 1.minute, article: article2,
+    create(:revision, mw_rev_id: 125, user:, date: course.start + 1.minute, article: article2,
                       characters: -500)
   end
 
@@ -37,8 +37,8 @@ describe CourseArticlesCsvBuilder do
   end
 
   it 'excludes untracked articles' do
-    create(:articles_course, course: course, article: article, tracked: false)
-    create(:articles_course, course: course, article: article2, tracked: true)
+    create(:articles_course, course:, article:, tracked: false)
+    create(:articles_course, course:, article: article2, tracked: true)
     expect(subject.split("\n").count).to eq(2)
     expect(subject).not_to include(article.title)
     expect(subject).to include(article2.title)
@@ -48,7 +48,7 @@ describe CourseArticlesCsvBuilder do
     let(:course) { create(:article_scoped_program) }
 
     before do
-      create(:assignment, user: user, course: course, article: article)
+      create(:assignment, user:, course:, article:)
     end
 
     it 'only includes in-scope articles' do

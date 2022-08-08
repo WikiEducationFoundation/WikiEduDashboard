@@ -37,7 +37,7 @@ class ArticlesForDeletionMonitor
 
   def self.enabled_wikis
     settings_record.value.map do |wiki, settings|
-      { wiki: wiki, settings: settings }
+      { wiki:, settings: }
     end
   end
 

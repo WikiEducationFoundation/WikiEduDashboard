@@ -10,7 +10,7 @@ class CheckWikiEmailWorker
 
   def perform(user_id)
     user = User.find(user_id)
-    emailable = CheckWikiEmail.new(user: user, wiki: Wiki.default_wiki).emailable?
+    emailable = CheckWikiEmail.new(user:, wiki: Wiki.default_wiki).emailable?
     return if emailable
     WikiEmailMailer.send_email_warning(user)
   end

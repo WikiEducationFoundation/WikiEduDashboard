@@ -43,7 +43,7 @@ class TaggedCoursesController < ApplicationController
     @courses = Tag.courses_tagged_with(@tag)
     # This fake Campaign is so that we can reuse campaigns views
     @campaign = Campaign.new(slug: @tag, title: "Tag: #{@tag}")
-    @presenter = CoursesPresenter.new(current_user: current_user, tag: @tag,
+    @presenter = CoursesPresenter.new(current_user:, tag: @tag,
                                       courses_list: @courses, page: @page)
   end
 end

@@ -14,7 +14,7 @@ describe 'Private courses' do
 
   context 'when the user is enrolled in the course' do
     before do
-      JoinCourse.new(course: course, user: user, role: CoursesUsers::Roles::STUDENT_ROLE)
+      JoinCourse.new(course:, user:, role: CoursesUsers::Roles::STUDENT_ROLE)
     end
 
     it 'renders the course normally' do

@@ -9,9 +9,9 @@ class OverEnrollmentAlertManager
     @courses.each do |course|
       next unless course.type == 'ClassroomProgramCourse'
       next unless over_enrolled?(course)
-      next if Alert.exists?(course: course, type: 'OverEnrollmentAlert', resolved: false)
+      next if Alert.exists?(course:, type: 'OverEnrollmentAlert', resolved: false)
 
-      alert = Alert.create(type: 'OverEnrollmentAlert', course: course)
+      alert = Alert.create(type: 'OverEnrollmentAlert', course:)
       alert.email_course_admins
     end
   end

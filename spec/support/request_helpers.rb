@@ -58,7 +58,7 @@ module RequestHelpers
   def stub_account_creation(wiki: nil)
     # Stub out the creation of accounts at Wikipedia
     # First the request for edit tokens for a user
-    stub_account_creation_token_request(wiki: wiki)
+    stub_account_creation_token_request(wiki:)
 
     # Then the account creation request itself
     success = '{"createaccount":{"status":"PASS", "username":"Ragesock"}}'
@@ -73,7 +73,7 @@ module RequestHelpers
   def stub_account_creation_failure_userexists(wiki: nil)
     # Stub out the creation of accounts at Wikipedia
     # First the request for edit tokens for a user
-    stub_account_creation_token_request(wiki: wiki)
+    stub_account_creation_token_request(wiki:)
 
     # Then the account creation request itself
     failure = '{"createaccount":{"status":"FAIL",
@@ -88,7 +88,7 @@ module RequestHelpers
   def stub_account_creation_failure_unexpected(wiki: nil)
     # Stub out the creation of accounts at Wikipedia
     # First the request for edit tokens for a user
-    stub_account_creation_token_request(wiki: wiki)
+    stub_account_creation_token_request(wiki:)
 
     # Then the account creation request itself
     failure = '{"createaccount":{"username":"Ragetest 99"}}'
@@ -102,7 +102,7 @@ module RequestHelpers
   def stub_account_creation_failure_throttle(wiki: nil)
     # Stub out the creation of accounts at Wikipedia
     # First the request for edit tokens for a user
-    stub_account_creation_token_request(wiki: wiki)
+    stub_account_creation_token_request(wiki:)
 
     # Then the account creation request itself
     failure = '{"createaccount":{"status":"FAIL",
@@ -117,7 +117,7 @@ module RequestHelpers
   def stub_account_creation_failure_captcha(wiki: nil)
     # Stub out the creation of accounts at Wikipedia
     # First the request for edit tokens for a user
-    stub_account_creation_token_request(wiki: wiki)
+    stub_account_creation_token_request(wiki:)
 
     # Then the account creation request itself
     failure = '{"createaccount":{"status":"FAIL",

@@ -52,7 +52,7 @@ class WikiPageviews
   def recent_views
     start_date = 50.days.ago
     end_date = 1.day.ago
-    url = query_url(start_date: start_date, end_date: end_date)
+    url = query_url(start_date:, end_date:)
     parse_results(api_get(url))
   end
 
@@ -68,7 +68,7 @@ class WikiPageviews
   end
 
   def fetch_view_data(start_date, end_date)
-    url = query_url(start_date: start_date, end_date: end_date)
+    url = query_url(start_date:, end_date:)
     data = api_get url
     parse_results(data)
   end

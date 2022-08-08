@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe BasicCourse do
   let(:flags) { nil }
-  let(:subject) { create(:basic_course, flags: flags) }
+  let(:subject) { create(:basic_course, flags:) }
 
   describe '#assignment_edits_enabled?' do
     it 'should return true by default' do

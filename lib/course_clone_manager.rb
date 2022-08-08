@@ -132,7 +132,7 @@ class CourseCloneManager
 
   def copy_campaigns
     @course.campaigns.each do |campaign|
-      CampaignsCourses.create(course: @clone, campaign: campaign)
+      CampaignsCourses.create(course: @clone, campaign:)
     end
   end
 

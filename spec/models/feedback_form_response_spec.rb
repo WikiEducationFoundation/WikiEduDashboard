@@ -14,7 +14,7 @@
 require 'rails_helper'
 
 describe FeedbackFormResponse do
-  let(:response) { create(:feedback_form_response, subject: subject) }
+  let(:response) { create(:feedback_form_response, subject:) }
 
   describe '#topic' do
     context 'when subject is a training url' do

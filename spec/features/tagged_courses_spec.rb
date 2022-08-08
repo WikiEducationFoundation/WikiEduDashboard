@@ -9,9 +9,9 @@ describe 'tagged courses pages', type: :feature, js: true do
 
   before do
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
-    create(:tag, course: course, tag: 'test_tag')
-    create(:articles_course, article: article, course: course)
-    create(:alert, course: course, type: 'BadWorkAlert')
+    create(:tag, course:, tag: 'test_tag')
+    create(:articles_course, article:, course:)
+    create(:alert, course:, type: 'BadWorkAlert')
   end
 
   it 'show list of courses with the tag' do

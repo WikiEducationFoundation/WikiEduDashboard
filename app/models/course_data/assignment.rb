@@ -34,11 +34,11 @@ class Assignment < ApplicationRecord
   validates_uniqueness_of :article_title, scope: %i[course_id user_id role wiki_id],
                                           case_sensitive: true
 
-  INVALID_CHARACTER_MATCHER = /\A[^{}\[\]\t<>]+\Z/.freeze
+  INVALID_CHARACTER_MATCHER = /\A[^{}\[\]\t<>]+\Z/
   validates :article_title, format: { with: INVALID_CHARACTER_MATCHER }
-  LEADING_COLON_MATCHER = /\A[^:]/.freeze
+  LEADING_COLON_MATCHER = /\A[^:]/
   validates :article_title, format: { with: LEADING_COLON_MATCHER }
-  SPECIAL_PAGE_MATCHER = /\A(?!Special:).*/.freeze
+  SPECIAL_PAGE_MATCHER = /\A(?!Special:).*/
   validates :article_title, format: { with: SPECIAL_PAGE_MATCHER }
   scope :assigned, -> { where(role: 0) }
   scope :reviewing, -> { where(role: 1) }
@@ -76,8 +76,8 @@ class Assignment < ApplicationRecord
   # but for the same Article in the same course.
   def sibling_assignments
     Assignment
-      .where(course_id: course_id, article_id: article_id)
-      .where.not(id: id)
+      .where(course_id:, article_id:)
+      .where.not(id:)
       .where.not(user: user_id)
   end
 
@@ -100,8 +100,8 @@ class Assignment < ApplicationRecord
   def set_sandbox_url
     return unless user
     # If the sandbox already exists, use that URL instead
-    existing = Assignment.where(course: course, article_title: article_title, wiki: wiki)
-                         .where.not(user: user).first
+    existing = Assignment.where(course:, article_title:, wiki:)
+                         .where.not(user:).first
     if existing
       self.sandbox_url = existing.sandbox_url
     else

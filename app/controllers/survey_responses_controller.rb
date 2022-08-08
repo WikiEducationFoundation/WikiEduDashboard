@@ -8,7 +8,7 @@ class SurveyResponsesController < ApplicationController
     @responses = []
     Rapidfire::AnswerGroup.order(created_at: :desc).first(100).each do |answer_group|
       @responses << { user: User.find(answer_group.user_id),
-                      answer_group: answer_group,
+                      answer_group:,
                       question_group: answer_group.question_group }
     end
   end

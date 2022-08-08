@@ -11,7 +11,7 @@ describe RevisionFeedbackController, type: :request do
     context 'When the article exists' do
       before do
         VCR.use_cassette 'ores_features' do
-          get '/revision_feedback', params: params
+          get '/revision_feedback', params:
         end
       end
 

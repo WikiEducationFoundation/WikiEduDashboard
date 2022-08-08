@@ -8,7 +8,7 @@ class MassEmail::TermRecapController < ApplicationController
   def send_recap_emails
     set_campaign
     eligible_courses.each do |course|
-      TermRecapEmailWorker.send_email(course: course, campaign: @campaign)
+      TermRecapEmailWorker.send_email(course:, campaign: @campaign)
     end
 
     flash[:notice] = "Emails are going out for #{eligible_courses.count} courses."

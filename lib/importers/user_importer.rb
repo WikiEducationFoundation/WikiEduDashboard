@@ -47,7 +47,7 @@ class UserImporter
     # the API returns data if you replace it with lower case.
     username[0] = username[0].capitalize.to_s unless username.empty?
 
-    user = User.find_by(username: username)
+    user = User.find_by(username:)
     return user if user
 
     # All users are expected to have an account on the central wiki, no matter
@@ -61,7 +61,7 @@ class UserImporter
 
     # At this point, if we still can't find a record with this username,
     # we finally create and return it.
-    return User.find_or_create_by(username: username)
+    return User.find_or_create_by(username:)
   end
 
   # There are some users who have a local wiki account, but do not have one
@@ -101,7 +101,7 @@ class UserImporter
   def self.user_with_same_global_id(username)
     global_id = get_global_id(username)
     return unless global_id
-    User.find_by(global_id: global_id)
+    User.find_by(global_id:)
   end
 
   def self.get_global_id(username)

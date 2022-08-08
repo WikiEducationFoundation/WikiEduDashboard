@@ -50,7 +50,7 @@ class CoursesController < ApplicationController
 
   def destroy
     validate
-    DeleteCourseWorker.schedule_deletion(course: @course, current_user: current_user)
+    DeleteCourseWorker.schedule_deletion(course: @course, current_user:)
     render json: { success: true }
   end
 
@@ -75,7 +75,7 @@ class CoursesController < ApplicationController
 
   def search
     search_presenter = CoursesPresenter.new(
-      current_user: current_user,
+      current_user:,
       courses_list: Course.where(private: false)
     )
     @query = params[:search]
@@ -142,7 +142,7 @@ class CoursesController < ApplicationController
 
   def check
     course_exists = Course.exists?(slug: params[:id])
-    render json: { course_exists: course_exists }
+    render json: { course_exists: }
   end
 
   # JSON method for listing/unlisting course
@@ -231,7 +231,7 @@ class CoursesController < ApplicationController
     CourseSubmissionMailerWorker.schedule_email(@course, instructor)
     AnnounceCourseWorker.schedule_announcement(course: @course,
                                                editing_user: current_user,
-                                               instructor: instructor)
+                                               instructor:)
   end
 
   def should_set_slug?

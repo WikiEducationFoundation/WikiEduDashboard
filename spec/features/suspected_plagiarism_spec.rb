@@ -8,9 +8,9 @@ describe 'Suspected Plagiarism', type: :feature, js: true do
 
   before do
     course.campaigns << Campaign.first
-    create(:courses_user, course: course, user: user)
-    create(:revision, article: article, user: user, date: '2019-01-01')
-    create(:articles_course, course: course, article: article, user_ids: [user.id])
+    create(:courses_user, course:, user:)
+    create(:revision, article:, user:, date: '2019-01-01')
+    create(:articles_course, course:, article:, user_ids: [user.id])
   end
 
   context 'when there are no revisions suspected of plagiarism' do
@@ -23,7 +23,7 @@ describe 'Suspected Plagiarism', type: :feature, js: true do
 
   context 'when there are revisions suspected of plagiarism' do
     let(:revision) do
-      create(:revision, article: article, user: user, date: '2019-01-01', ithenticate_id: 1)
+      create(:revision, article:, user:, date: '2019-01-01', ithenticate_id: 1)
     end
 
     context 'when logged in as a student' do

@@ -56,11 +56,11 @@ describe Alert do
   describe 'types' do
     it 'all implement #main_subject' do
       Alert::ALERT_TYPES.each do |type|
-        described_class.create(type: type,
-                               article: article,
-                               course: course,
-                               revision: revision,
-                               user: user,
+        described_class.create(type:,
+                               article:,
+                               course:,
+                               revision:,
+                               user:,
                                subject_id: alert_subject(type)&.id)
         expect(described_class.last.main_subject).to be_a(String)
       end
@@ -68,7 +68,7 @@ describe Alert do
 
     it 'all implement #url' do
       Alert::ALERT_TYPES.each do |type|
-        described_class.create(type: type,
+        described_class.create(type:,
                                article_id: article.id,
                                course_id: course.id,
                                revision_id: revision.id,
@@ -79,7 +79,7 @@ describe Alert do
 
     it 'all implement #resolve_explanation' do
       Alert::ALERT_TYPES.each do |type|
-        described_class.create(type: type,
+        described_class.create(type:,
                                article_id: article.id,
                                course_id: course.id,
                                revision_id: revision.id,
@@ -133,7 +133,7 @@ describe Alert do
 
     it 'still sends emails for other alert types' do
       expect_any_instance_of(AlertMailer).to receive(:alert).and_return(mock_mailer)
-      create(:courses_user, course: course, user: admin,
+      create(:courses_user, course:, user: admin,
                             role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE)
       described_class.create(type: 'ActiveCourseAlert',
                              article_id: article.id,

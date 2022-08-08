@@ -18,36 +18,36 @@ describe 'random peer reviews', type: :feature, js: true do
 
   before do
     create(:campaigns_course, campaign_id: campaign.id, course_id: course.id)
-    JoinCourse.new(course: course, user: instructor, role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
-    JoinCourse.new(course: course, user: student1, role: CoursesUsers::Roles::STUDENT_ROLE)
-    JoinCourse.new(course: course, user: student2, role: CoursesUsers::Roles::STUDENT_ROLE)
+    JoinCourse.new(course:, user: instructor, role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+    JoinCourse.new(course:, user: student1, role: CoursesUsers::Roles::STUDENT_ROLE)
+    JoinCourse.new(course:, user: student2, role: CoursesUsers::Roles::STUDENT_ROLE)
 
     # Student1 assigned 3 articles, already reviewing 1 article
-    create(:assignment, course: course, article_title: football_article.title, user: student1,
+    create(:assignment, course:, article_title: football_article.title, user: student1,
            role: Assignment::Roles::ASSIGNED_ROLE, wiki: course.home_wiki,
            article: football_article)
-    create(:assignment, course: course, article_title: basketball_article.title, user: student1,
+    create(:assignment, course:, article_title: basketball_article.title, user: student1,
            role: Assignment::Roles::ASSIGNED_ROLE, wiki: course.home_wiki,
            article: basketball_article)
-    create(:assignment, course: course, article_title: hockey_article.title, user: student1,
+    create(:assignment, course:, article_title: hockey_article.title, user: student1,
            role: Assignment::Roles::ASSIGNED_ROLE, wiki: course.home_wiki, article: hockey_article)
-    create(:assignment, course: course, article_title: tennis_article.title, user: student1,
+    create(:assignment, course:, article_title: tennis_article.title, user: student1,
            role: Assignment::Roles::REVIEWING_ROLE, wiki: course.home_wiki, article: tennis_article)
 
     # Student2 assigned 2 articles, reviewing none
-    create(:assignment, course: course, article_title: skating_article.title, user: student2,
+    create(:assignment, course:, article_title: skating_article.title, user: student2,
            role: Assignment::Roles::ASSIGNED_ROLE, wiki: course.home_wiki, article: skating_article)
-    create(:assignment, course: course, article_title: cricket_article.title, user: student2,
+    create(:assignment, course:, article_title: cricket_article.title, user: student2,
            role: Assignment::Roles::ASSIGNED_ROLE, wiki: course.home_wiki, article: cricket_article)
 
     # Instructor is assigned an article as well, which should't be included among assigned reviews
-    create(:assignment, course: course, article_title: polo_article.title, user: instructor,
+    create(:assignment, course:, article_title: polo_article.title, user: instructor,
            role: Assignment::Roles::ASSIGNED_ROLE, wiki: course.home_wiki, article: polo_article)
 
     # Available articles not assigned to any student
-    create(:assignment, course: course, article_title: 'Article that does not exist',
+    create(:assignment, course:, article_title: 'Article that does not exist',
            role: Assignment::Roles::ASSIGNED_ROLE, wiki: course.home_wiki)
-    create(:assignment, course: course, article_title: 'Another article that does not exist',
+    create(:assignment, course:, article_title: 'Another article that does not exist',
            role: Assignment::Roles::ASSIGNED_ROLE, wiki: course.home_wiki)
 
     login_as(instructor, scope: :user)
@@ -57,8 +57,8 @@ describe 'random peer reviews', type: :feature, js: true do
   it 'displays message if no more can be assigned according to limits' do
     # Assigning one more revewing article to Student2
     article = Article.first
-    create(:assignment, course: course, article_title: article.title, user: student2,
-           role: Assignment::Roles::REVIEWING_ROLE, wiki: course.home_wiki, article: article)
+    create(:assignment, course:, article_title: article.title, user: student2,
+           role: Assignment::Roles::REVIEWING_ROLE, wiki: course.home_wiki, article:)
 
     VCR.use_cassette 'assignments/random_peer_review' do
       visit "/courses/#{course.slug}/students/overview"

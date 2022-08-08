@@ -9,7 +9,7 @@ describe WikiPreferencesManager do
   end
 
   let(:user) { create(:user, wiki_token: 'foo', wiki_secret: 'bar') }
-  let(:manager) { described_class.new(user: user) }
+  let(:manager) { described_class.new(user:) }
 
   # As with WikiEdits, we're only testing that the normal responses get handled
   # properly. We just stub the mediawiki API.

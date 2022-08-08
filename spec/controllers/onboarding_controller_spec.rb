@@ -5,7 +5,7 @@ require 'rails_helper'
 describe OnboardingController, type: :request do
   before { stub_list_users_query }
 
-  let(:user) { create(:user, onboarded: onboarded) }
+  let(:user) { create(:user, onboarded:) }
 
   describe 'onboarding route' do
     describe 'when not authenticated' do

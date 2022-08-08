@@ -11,7 +11,7 @@ class TermRecapEmailScheduler
     eligible_courses(courses).each do |course|
       campaign = student_program_campaign(course)
       next unless campaign
-      TermRecapEmailWorker.send_email(course: course, campaign: campaign)
+      TermRecapEmailWorker.send_email(course:, campaign:)
     end
   end
 
@@ -37,7 +37,7 @@ class TermRecapEmailScheduler
 
   # We only want to send recaps for Student program courses, which
   # are in campaigns like "spring_2021" or "summer_2023"
-  STUDENT_PROGRAM_CAMPAIGN_MATCHER = /(^spring|fall|summer)_202.$/.freeze
+  STUDENT_PROGRAM_CAMPAIGN_MATCHER = /(^spring|fall|summer)_202.$/
   def student_program_campaign?(campaign_slug)
     campaign_slug.match?(STUDENT_PROGRAM_CAMPAIGN_MATCHER)
   end

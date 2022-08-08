@@ -15,7 +15,7 @@ describe AlertMailer do
     context 'for an ArticlesForDeletionAlert' do
       let(:alert) do
         create(:alert, type: 'ArticlesForDeletionAlert',
-                       article: article, user: user, course: course)
+                       article:, user:, course:)
         Alert.last
       end
 

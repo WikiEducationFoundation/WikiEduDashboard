@@ -2,7 +2,7 @@
 json.cache! ["#{Time.zone}}-explore-campaigns-#{locale}", @campaigns], expires_in: 1.day do
   json.campaigns @campaigns do |campaign|
     presenter = CoursesPresenter.new(
-      current_user: current_user,
+      current_user:,
       campaign_param: campaign.slug
     )
     json.call(campaign, :id, :title, :slug)

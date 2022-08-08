@@ -23,11 +23,11 @@ describe TrainingSlide do
   describe '.inflate' do
     let(:slug) { 'slide-slug' }
     let(:subject) do
-      described_class.inflate({ id: 1, title: 'ohai', slug: slug }, slug)
+      described_class.inflate({ id: 1, title: 'ohai', slug: }, slug)
     end
 
     it 'prints an error message if a slide cannot be saved' do
-      described_class.create!(id: 1000, title: 'foo', slug: slug)
+      described_class.create!(id: 1000, title: 'foo', slug:)
       expect(STDOUT).to receive(:puts).with(/#{slug}/)
       expect { subject }.to raise_error ActiveRecord::RecordNotUnique
     end

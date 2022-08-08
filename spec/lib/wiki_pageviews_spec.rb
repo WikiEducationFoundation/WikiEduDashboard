@@ -10,8 +10,8 @@ describe WikiPageviews do
       let(:start_date) { '2015-10-01'.to_date }
       let(:end_date) { '2015-11-01'.to_date }
       let(:subject) do
-        described_class.new(article).views_for_article(start_date: start_date,
-                                                       end_date: end_date)
+        described_class.new(article).views_for_article(start_date:,
+                                                       end_date:)
       end
 
       it 'returns a hash of daily views for all the requested dates' do
@@ -60,12 +60,12 @@ describe WikiPageviews do
     end
 
     context 'for an unviewed article' do
-      let(:article) { create(:article, title: title, wiki: wiki) }
+      let(:article) { create(:article, title:, wiki:) }
       let(:wiki) { create(:wiki, project: 'wikisource', language: 'fr') }
       let(:title) { 'Voyages,_aventures_et_combats/Chapitre_18' }
       let(:start_date) { Date.new(2017, 4, 1) }
       let(:subject) do
-        described_class.new(article).views_for_article(start_date: start_date,
+        described_class.new(article).views_for_article(start_date:,
                                                        end_date: start_date + 1.month)
       end
 
@@ -80,7 +80,7 @@ describe WikiPageviews do
 
   describe '.average_views_for_article' do
     let(:subject) { described_class.new(article).average_views }
-    let(:article) { create(:article, title: title) }
+    let(:article) { create(:article, title:) }
 
     context 'for a popular article' do
       let(:title) { 'Facebook' }
@@ -156,7 +156,7 @@ describe WikiPageviews do
     end
 
     context 'for an article that exist but has no view data' do
-      let(:article) { create(:article, title: title, wiki: wiki) }
+      let(:article) { create(:article, title:, wiki:) }
       let(:wiki) { create(:wiki, project: 'wikisource', language: 'fr') }
       let(:title) { 'Voyages,_aventures_et_combats/Chapitre_18' }
       let(:subject) { described_class.new(article).average_views }

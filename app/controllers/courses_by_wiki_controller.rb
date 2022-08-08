@@ -13,7 +13,7 @@ class CoursesByWikiController < ApplicationController
         # rubocop:disable Layout/LineLength
         courses_list = courses_list.where("year(created_at) = #{params[:year].to_i}") if params[:year]
         # rubocop:enable Layout/LineLength
-        @presenter = CoursesPresenter.new(current_user: current_user, courses_list: courses_list)
+        @presenter = CoursesPresenter.new(current_user:, courses_list:)
       end
     end
   end

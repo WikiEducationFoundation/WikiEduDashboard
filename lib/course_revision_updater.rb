@@ -9,7 +9,7 @@ class CourseRevisionUpdater
   ###############
   def self.import_revisions(course, all_time:, update_service: nil)
     return if no_point_in_importing_revisions?(course)
-    new(course, update_service: update_service).update_revisions_for_relevant_wikis(all_time)
+    new(course, update_service:).update_revisions_for_relevant_wikis(all_time)
     ArticlesCourses.update_from_course(course)
   end
 
@@ -32,7 +32,7 @@ class CourseRevisionUpdater
   def update_revisions_for_relevant_wikis(all_time)
     @course.wikis.each do |wiki|
       RevisionImporter.new(wiki, @course, update_service: @update_service)
-                      .import_revisions_for_course(all_time: all_time)
+                      .import_revisions_for_course(all_time:)
     end
   end
 end

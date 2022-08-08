@@ -10,7 +10,7 @@ describe QuestionsController, type: :request do
 
       before do
         params = { id: question_id, format: :json }
-        get "/surveys/question_group_question/#{question_id}", params: params
+        get "/surveys/question_group_question/#{question_id}", params:
       end
 
       it 'renders the question in json' do
@@ -26,7 +26,7 @@ describe QuestionsController, type: :request do
 
       before do
         params = { id: question_id, position: 50 }
-        put '/surveys/question_position', params: params
+        put '/surveys/question_position', params:
       end
 
       it 'updates the postion' do

@@ -188,8 +188,8 @@ describe Course, type: :model do
     subject { course.valid? }
 
     let(:course) do
-      described_class.new(passcode: passcode,
-                          type: type,
+      described_class.new(passcode:,
+                          type:,
                           start: '2013-01-01',
                           end: '2013-07-01',
                           home_wiki_id: 1)
@@ -227,7 +227,7 @@ describe Course, type: :model do
       it 'saves nil passcode' do
         passcode = nil
         course = build(:legacy_course,
-                       passcode: passcode)
+                       passcode:)
         expect(course.valid?).to eq(true)
       end
     end
@@ -312,11 +312,11 @@ describe Course, type: :model do
   describe '#trained_count' do
     before do
       create(:user, id: 1, trained: 0)
-      create(:courses_user, user_id: 1, course: course, role: CoursesUsers::Roles::STUDENT_ROLE)
+      create(:courses_user, user_id: 1, course:, role: CoursesUsers::Roles::STUDENT_ROLE)
       create(:user, username: 'user2', id: 2, trained: 1)
-      create(:courses_user, user_id: 2, course: course, role: CoursesUsers::Roles::STUDENT_ROLE)
+      create(:courses_user, user_id: 2, course:, role: CoursesUsers::Roles::STUDENT_ROLE)
       create(:user, username: 'user3', id: 3, trained: 1)
-      create(:courses_user, user_id: 3, course: course, role: CoursesUsers::Roles::STUDENT_ROLE)
+      create(:courses_user, user_id: 3, course:, role: CoursesUsers::Roles::STUDENT_ROLE)
     end
 
     context 'after the introduction of in-dashboard training modules' do
@@ -335,16 +335,16 @@ describe Course, type: :model do
       end
 
       it 'returns the whole student count before assigned trainings are due' do
-        week = create(:week, course: course)
-        create(:block, week: week, training_module_ids: [1, 2])
+        week = create(:week, course:)
+        create(:block, week:, training_module_ids: [1, 2])
         travel_to Time.zone.local(2016, 1, 2)
         course.update_cache
         expect(course.trained_count).to eq(3)
       end
 
       it 'returns the count of students who are not overude on trainings' do
-        week = create(:week, course: course)
-        create(:block, week: week, training_module_ids: [1, 2])
+        week = create(:week, course:)
+        create(:block, week:, training_module_ids: [1, 2])
         # User who completed all assigned modules
         create(:training_modules_users, training_module_id: 1, user_id: 1,
                                         completed_at: '2016-01-09'.to_date)
@@ -396,7 +396,7 @@ describe Course, type: :model do
   end
 
   describe '#wiki_edits_enabled?' do
-    let(:course) { build(:basic_course, flags: flags) }
+    let(:course) { build(:basic_course, flags:) }
     let(:subject) { course.wiki_edits_enabled? }
 
     context 'when the :wiki_edits_enabled flag is set false' do
@@ -445,7 +445,7 @@ describe Course, type: :model do
 
     context 'for a BasicCourse with the no_clone tag' do
       let(:course) { build(:basic_course) }
-      let!(:tag) { create(:tag, tag: 'no_clone', course: course) }
+      let!(:tag) { create(:tag, tag: 'no_clone', course:) }
 
       it 'returns false' do
         expect(subject).to be false
@@ -454,7 +454,7 @@ describe Course, type: :model do
 
     context 'for a ClassroomProgramCourse with the cloneable tag' do
       let(:course) { build(:course) }
-      let!(:tag) { create(:tag, tag: 'cloneable', course: course) }
+      let!(:tag) { create(:tag, tag: 'cloneable', course:) }
 
       it 'returns true' do
         expect(subject).to be true
@@ -581,7 +581,7 @@ describe Course, type: :model do
 
     it 'implements required methods for every course type' do
       Course::COURSE_TYPES.each do |type|
-        create(:course, type: type, slug: "foo/#{type}")
+        create(:course, type:, slug: "foo/#{type}")
         course = described_class.last
         expect(course.type).to eq(type)
         # #string_prefix
@@ -620,7 +620,7 @@ describe Course, type: :model do
 
       it 'implements required methods for every course type that has edit_settings' do
         Course::COURSE_TYPES.each do |type|
-          create(:course, type: type, flags: flags, slug: "foo/#{type}")
+          create(:course, type:, flags:, slug: "foo/#{type}")
           course = described_class.last
           expect(course.type).to eq(type)
           # #wiki_edits_enabled?
@@ -644,7 +644,7 @@ describe Course, type: :model do
 
       it 'implements required methods for every course type that has academic_system' do
         Course::COURSE_TYPES.each do |type|
-          create(:course, type: type, flags: flags, slug: "foo/#{type}")
+          create(:course, type:, flags:, slug: "foo/#{type}")
           course = described_class.last
           expect(course.academic_system).to eq('semester')
         end
@@ -668,8 +668,8 @@ describe Course, type: :model do
     let(:course_scope) do
       survey_assignment.campaigns.first.courses.ready_for_survey(
         days: n,
-        before: before,
-        relative_to: relative_to
+        before:,
+        relative_to:
       )
     end
 
@@ -752,8 +752,8 @@ describe Course, type: :model do
     let(:course_will_be_ready_scope) do
       survey_assignment.campaigns.first.courses.will_be_ready_for_survey(
         days: n,
-        before: before,
-        relative_to: relative_to
+        before:,
+        relative_to:
       )
     end
 
@@ -856,7 +856,7 @@ describe Course, type: :model do
     end
 
     context 'when the course has a "submitted" tag' do
-      before { create(:tag, tag: 'submitted', course: course) }
+      before { create(:tag, tag: 'submitted', course:) }
 
       it 'returns the time the tag was added' do
         expect(course.submitted_at).to be_within(2.seconds).of(Time.zone.now)
@@ -888,12 +888,12 @@ describe Course, type: :model do
     # Article edited during the course
     let(:article) { create(:article, namespace: 1) }
     let!(:revision) do
-      create(:revision, date: course.start + 1.minute, article: article, user: user)
+      create(:revision, date: course.start + 1.minute, article:, user:)
     end
     # Article edited outside the course
     let(:article2) { create(:article, namespace: 1) }
     let!(:revision2) do
-      create(:revision, date: course.start + 2.minutes, article: article, user: user,
+      create(:revision, date: course.start + 2.minutes, article:, user:,
              ithenticate_id: 1)
     end
 

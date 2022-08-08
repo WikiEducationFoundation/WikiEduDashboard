@@ -8,14 +8,14 @@ def mock_mailer
 end
 
 describe ActiveCourseAlertManager do
-  let(:course) { create(:course, user_count: user_count, character_sum: character_sum) }
+  let(:course) { create(:course, user_count:, character_sum:) }
   let(:instructor) { create(:user, email: 'teach@wiki.edu') }
   let(:subject) { described_class.new([course]) }
 
   before do
     create(:user, username: 'Eryk (Wiki Ed)', email: 'eryk@wikiedu.org')
     SpecialUsers.set_user('communications_manager', 'Eryk (Wiki Ed)')
-    create(:courses_user, user: instructor, course: course,
+    create(:courses_user, user: instructor, course:,
                           role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
   end
 

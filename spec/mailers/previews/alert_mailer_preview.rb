@@ -70,7 +70,7 @@ class AlertMailerPreview < ActionMailer::Preview
   end
 
   def example_alert(type: 'HighQualityArticleEditAlert')
-    Alert.new(type: type, article: example_article,
+    Alert.new(type:, article: example_article,
               course: example_course, id: 9)
   end
 
@@ -99,7 +99,7 @@ class AlertMailerPreview < ActionMailer::Preview
     Alert.create(type: 'SurveyResponseAlert',
                  user: answer.user,
                  subject_id: answer.question.id,
-                 details: details)
+                 details:)
   end
 
   def create_answer
@@ -109,17 +109,17 @@ class AlertMailerPreview < ActionMailer::Preview
     question_group.surveys << survey
     answer_group = Rapidfire::AnswerGroup
                    .new(id: 999999,
-                        question_group: question_group,
+                        question_group:,
                         user: example_student)
     question = Rapidfire::Question
                .create!(id: 999999,
                         question_text: 'What are you studying ?',
-                        question_group: question_group)
+                        question_group:)
     answer = Rapidfire::Answer
              .new(answer_text: 'Physics',
                   follow_up_answer_text: 'Really ?',
-                  answer_group: answer_group,
-                  question: question)
+                  answer_group:,
+                  question:)
     answer.user = example_student
     answer
   end

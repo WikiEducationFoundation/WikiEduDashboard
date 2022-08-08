@@ -181,10 +181,10 @@ describe 'the explore page', type: :feature, js: true do
                        title: 'Selfie',
                        namespace: 0)
       create(:articles_course,
-             course: course,
+             course:,
              article_id: 1)
       create(:revision,
-             user: user,
+             user:,
              article_id: 1,
              date: 6.days.ago,
              characters: 9000,
@@ -213,7 +213,7 @@ describe 'the explore page', type: :feature, js: true do
     end
 
     before do
-      create(:courses_user, course: course2, user: user, role: 1)
+      create(:courses_user, course: course2, user:, role: 1)
     end
 
     it 'returns courses that match the search term' do

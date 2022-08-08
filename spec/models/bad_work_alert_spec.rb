@@ -30,7 +30,7 @@ describe BadWorkAlert do
   let(:article) { create(:article) }
 
   before do
-    create(:articles_course, course: course, article: article)
+    create(:articles_course, course:, article:)
     courses_users = [
       { course_id: course.id, user_id: student.id, role: CoursesUsers::Roles::STUDENT_ROLE },
       { course_id: course.id, user_id: instructor.id, role: CoursesUsers::Roles::INSTRUCTOR_ROLE },
@@ -40,7 +40,7 @@ describe BadWorkAlert do
   end
 
   it 'should create a new alert with the message and target user set' do
-    alert = create(:bad_work_alert, user: instructor, course: course, article: article)
+    alert = create(:bad_work_alert, user: instructor, course:, article:)
     expect(alert.message).to include("BadWorkAlert for #{article.title}")
     expect(alert.message).to include(alert.url)
     expect(alert.target_user_id).to equal(expert.id)
@@ -49,7 +49,7 @@ describe BadWorkAlert do
   it 'should include a message if specified' do
     message = 'a personalized message from the instructor'
     alert = create(:bad_work_alert,
-                   user: instructor, course: course, article: article, message: message)
+                   user: instructor, course:, article:, message:)
 
     expect(alert.message).to include(message)
   end

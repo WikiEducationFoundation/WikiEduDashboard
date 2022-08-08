@@ -6,7 +6,7 @@ require "#{Rails.root}/lib/analytics/course_revisions_csv_builder"
 describe CourseRevisionsCsvBuilder do
   let(:course) { create(:course) }
   let(:user) { create(:user, registered_at: course.start + 1.minute) }
-  let!(:courses_user) { create(:courses_user, course: course, user: user) }
+  let!(:courses_user) { create(:courses_user, course:, user:) }
 
   let(:article) { create(:article) }
   let(:article2) { create(:article, title: 'Second_Article') }
@@ -15,14 +15,14 @@ describe CourseRevisionsCsvBuilder do
 
   before do
     revision_count.times do |i|
-      create(:revision, mw_rev_id: i, user: user, date: course.start + 1.minute, article: article)
+      create(:revision, mw_rev_id: i, user:, date: course.start + 1.minute, article:)
     end
     # one revision for second article
-    create(:revision, mw_rev_id: 123, user: user, date: course.start + 1.minute, article: article2)
+    create(:revision, mw_rev_id: 123, user:, date: course.start + 1.minute, article: article2)
     # revisions with nil and characters, to make sure this does not cause problems
-    create(:revision, mw_rev_id: 124, user: user, date: course.start + 1.minute, article: article2,
+    create(:revision, mw_rev_id: 124, user:, date: course.start + 1.minute, article: article2,
                       characters: nil)
-    create(:revision, mw_rev_id: 125, user: user, date: course.start + 1.minute, article: article2,
+    create(:revision, mw_rev_id: 125, user:, date: course.start + 1.minute, article: article2,
                       characters: -500)
   end
 

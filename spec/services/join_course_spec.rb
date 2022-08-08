@@ -13,11 +13,11 @@ describe JoinCourse do
   let(:withdrawn_course) { create(:course, withdrawn: true) }
 
   let(:subject) do
-    described_class.new(course: course, user: user,
+    described_class.new(course:, user:,
                         role: CoursesUsers::Roles::STUDENT_ROLE)
   end
   let(:enroll_as_instructor) do
-    described_class.new(course: course, user: user,
+    described_class.new(course:, user:,
                         role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
   end
 
@@ -29,7 +29,7 @@ describe JoinCourse do
   context 'with real name' do
     let(:course) { create(:basic_course) }
     let(:subject) do
-      described_class.new(course: course, user: user,
+      described_class.new(course:, user:,
                           role: CoursesUsers::Roles::STUDENT_ROLE,
                           real_name: 'student name')
     end
@@ -44,7 +44,7 @@ describe JoinCourse do
   context 'without real name' do
     let(:course) { create(:basic_course) }
     let(:subject) do
-      described_class.new(course: course, user: user,
+      described_class.new(course:, user:,
                           role: CoursesUsers::Roles::STUDENT_ROLE,
                           real_name: nil)
     end
@@ -120,7 +120,7 @@ describe JoinCourse do
     let(:course) { create(:course, flags: { event_sync: '1234' }) }
 
     it 'allows adding a stduent via event_sync param' do
-      result = described_class.new(course: course, user: second_user,
+      result = described_class.new(course:, user: second_user,
                                    role: CoursesUsers::Roles::STUDENT_ROLE,
                                    event_sync: true).result
       expect(result['failure']).to be_nil
@@ -128,14 +128,14 @@ describe JoinCourse do
     end
 
     it 'fails for student role without the event_sync param' do
-      result = described_class.new(course: course, user: second_user,
+      result = described_class.new(course:, user: second_user,
                                    role: CoursesUsers::Roles::STUDENT_ROLE).result
       expect(result['failure']).to eq('invalid_sync')
       expect(result['success']).to be_nil
     end
 
     it 'allows adding instructor role without the event_sync param' do
-      result = described_class.new(course: course, user: second_user,
+      result = described_class.new(course:, user: second_user,
                                    role: CoursesUsers::Roles::INSTRUCTOR_ROLE).result
       expect(result['failure']).to be_nil
       expect(result['success']).not_to be_nil

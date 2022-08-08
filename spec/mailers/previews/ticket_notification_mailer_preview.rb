@@ -7,8 +7,8 @@ class TicketNotificationMailerPreview < ActionMailer::Preview
                       permissions: User::Permissions::ADMIN)
     recipient = User.new(username: 'flanagan.hyder')
     TicketNotificationMailer.notify(
-      course: course, message: message, recipient: recipient,
-      sender: sender, bcc_to_salesforce: false
+      course:, message:, recipient:,
+      sender:, bcc_to_salesforce: false
     )
   end
 
@@ -18,8 +18,8 @@ class TicketNotificationMailerPreview < ActionMailer::Preview
                          real_name: 'Delano (Wiki Edu)',
                          permissions: User::Permissions::ADMIN)
     TicketNotificationMailer.notify(
-      course: course, message: message, recipient: recipient,
-      sender: sender, bcc_to_salesforce: false
+      course:, message:, recipient:,
+      sender:, bcc_to_salesforce: false
     )
   end
 
@@ -27,8 +27,8 @@ class TicketNotificationMailerPreview < ActionMailer::Preview
     owner = User.admin.first
     tickets = TicketDispenser::Ticket.first(20)
     TicketNotificationMailer.open_tickets_notify(
-      owner: owner,
-      tickets: tickets
+      owner:,
+      tickets:
     )
   end
 
@@ -48,10 +48,10 @@ class TicketNotificationMailerPreview < ActionMailer::Preview
       convoco ulterius bibo confugo.</p>
     )
     ticket = TicketDispenser::Ticket.first || TicketDispenser::Dispenser.call(
-      content: content,
-      course: course,
+      content:,
+      course:,
       owner: recipient(:admin),
-      sender: sender
+      sender:
     )
     ticket.messages.last
   end

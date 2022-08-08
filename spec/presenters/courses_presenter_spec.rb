@@ -29,8 +29,8 @@ describe CoursesPresenter do
     let(:course) { create(:course) }
 
     before do
-      create(:articles_course, course: course, article: article, tracked: true)
-      create(:articles_course, course: course, article: article_two, tracked: false)
+      create(:articles_course, course:, article:, tracked: true)
+      create(:articles_course, course:, article: article_two, tracked: false)
       course.campaigns << Campaign.first
     end
 
@@ -74,7 +74,7 @@ describe CoursesPresenter do
   end
 
   describe '#campaign' do
-    subject { described_class.new(current_user: user, campaign_param: campaign_param).campaign }
+    subject { described_class.new(current_user: user, campaign_param:).campaign }
 
     let(:user) { create(:admin) }
     let(:campaign_param) { campaign_param }

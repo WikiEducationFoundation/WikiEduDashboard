@@ -9,7 +9,7 @@ describe GreetUngreetedStudents do
   let(:subject) { described_class.new(course, greeter) }
 
   before do
-    create(:courses_user, user: student, course: course)
+    create(:courses_user, user: student, course:)
     stub_raw_action
     stub_contributors_query
     stub_oauth_edit

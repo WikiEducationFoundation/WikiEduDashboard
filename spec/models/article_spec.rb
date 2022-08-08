@@ -51,7 +51,7 @@ describe Article, type: :model do
 
   describe '#namespace_prefix' do
     let(:wiki) { create(:wiki, language: 'incubator', project: 'wikimedia') }
-    let(:article) { create(:article, wiki: wiki, namespace: Article::Namespaces::PROJECT) }
+    let(:article) { create(:article, wiki:, namespace: Article::Namespaces::PROJECT) }
 
     it 'handles *.wikimedia.org wikis' do
       stub_wiki_validation

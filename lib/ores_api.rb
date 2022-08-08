@@ -41,7 +41,7 @@ class OresApi
   rescue StandardError => e
     url = ORES_SERVER_URL + url_query
     log_error(e, update_service: @update_service,
-              sentry_extra: { url: url, response_body: response_body,
+              sentry_extra: { url:, response_body:,
                               project_code: @project_code, project_model: @project_model })
     return {}
   end

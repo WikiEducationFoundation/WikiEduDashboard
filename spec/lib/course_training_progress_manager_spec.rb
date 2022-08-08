@@ -6,10 +6,10 @@ require "#{Rails.root}/lib/course_training_progress_manager"
 describe CourseTrainingProgressManager do
   before { TrainingModule.load_all }
 
-  let(:user)     { create(:user, trained: trained) }
+  let(:user)     { create(:user, trained:) }
   let(:trained)  { true }
   let(:start)    { Date.new(2016, 1, 1) }
-  let(:course)   { create(:course, start: start, timeline_start: start) }
+  let(:course)   { create(:course, start:, timeline_start: start) }
   let(:cu)       { create(:courses_users, course_id: course.id, user_id: user.id) }
 
   let(:week)     { create(:week, course_id: course.id) }
@@ -18,13 +18,13 @@ describe CourseTrainingProgressManager do
   # Training Modules block
   let(:tm_ids)   { [1, 2] }
   let(:create_block_with_tm_ids) do
-    create(:block, week_id: week.id, training_module_ids: tm_ids, due_date: due_date)
+    create(:block, week_id: week.id, training_module_ids: tm_ids, due_date:)
   end
 
   # Exercise block
   let(:ex_ids) { [35, 37] }
   let(:create_block_with_ex_ids) do
-    create(:block, week_id: week.id, training_module_ids: ex_ids, due_date: due_date)
+    create(:block, week_id: week.id, training_module_ids: ex_ids, due_date:)
   end
 
   describe '#course_training_progress' do

@@ -16,7 +16,7 @@ describe WikiTrainingLoader do
     end
 
     let(:subject) do
-      described_class.new(content_class: content_class, slug_list: slug_list)
+      described_class.new(content_class:, slug_list:)
     end
     let(:slug_list) { nil }
 

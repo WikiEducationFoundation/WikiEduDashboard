@@ -10,8 +10,8 @@ class RevisionScoreImporter
   ################
   def self.update_revision_scores_for_all_wikis
     OresApi::AVAILABLE_WIKIPEDIAS.each do |language|
-      new(language: language).update_revision_scores
-      new(language: language).update_previous_revision_scores
+      new(language:).update_revision_scores
+      new(language:).update_previous_revision_scores
     end
 
     new(language: nil, project: 'wikidata').update_revision_scores
@@ -21,9 +21,9 @@ class RevisionScoreImporter
   def self.update_revision_scores_for_course(course, update_service: nil)
     course.wikis.each do |wiki|
       next unless OresApi.valid_wiki?(wiki)
-      new(wiki: wiki, course: course, update_service: update_service)
+      new(wiki:, course:, update_service:)
         .update_revision_scores
-      new(wiki: wiki, course: course, update_service: update_service)
+      new(wiki:, course:, update_service:)
         .update_previous_revision_scores
     end
   end
@@ -31,7 +31,7 @@ class RevisionScoreImporter
   def initialize(language: 'en', project: 'wikipedia', wiki: nil, course: nil, update_service: nil)
     @course = course
     @update_service = update_service
-    @wiki = wiki || Wiki.get_or_create(language: language, project: project)
+    @wiki = wiki || Wiki.get_or_create(language:, project:)
     @ores_api = OresApi.new(@wiki, @update_service)
   end
 
@@ -40,7 +40,7 @@ class RevisionScoreImporter
     ores_data = @ores_api.get_revision_data([rev_id])
     features = ores_data.dig(wiki_key, 'scores', rev_id.to_s, model_key, 'features')
     rating = ores_data.dig(wiki_key, 'scores', rev_id.to_s, model_key, 'score', 'prediction')
-    return { features: features, rating: rating }
+    return { features:, rating: }
   end
 
   def update_revision_scores
@@ -98,7 +98,7 @@ class RevisionScoreImporter
       article_completeness = weighted_mean_score(scores[parent_id])
       features_previous = scores[parent_id]&.dig(model_key, 'features')
       Revision.find_by(mw_rev_id: mw_rev_id.to_i, wiki: @wiki)
-              .update(wp10_previous: article_completeness, features_previous: features_previous)
+              .update(wp10_previous: article_completeness, features_previous:)
     end
   end
 

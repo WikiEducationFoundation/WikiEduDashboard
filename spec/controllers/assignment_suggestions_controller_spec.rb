@@ -26,7 +26,7 @@ describe AssignmentSuggestionsController, type: :request do
   describe '#destroy' do
     let(:assignment) { create(:assignment) }
     let(:assignment_suggestion) do
-      create(:assignment_suggestion, user: owner, assignment: assignment)
+      create(:assignment_suggestion, user: owner, assignment:)
     end
     let(:owner) { create(:user) }
     let(:nonowner) { create(:user, username: 'AnotherUser') }

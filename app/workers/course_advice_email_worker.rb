@@ -12,6 +12,6 @@ class CourseAdviceEmailWorker
     course = Course.find(course_id)
     # stop sending emails to courses that were withdrawn
     return unless course.approved?
-    CourseAdviceMailer.send_email(course: course, subject: subject)
+    CourseAdviceMailer.send_email(course:, subject:)
   end
 end

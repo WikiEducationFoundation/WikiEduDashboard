@@ -10,7 +10,7 @@ class AssignmentUpdater
   def self.update_assignment_article_ids_and_titles
     Assignment.where(article_id: nil).find_each do |assignment|
       title = assignment.article_title.tr(' ', '_')
-      article = Article.where(namespace: 0, wiki_id: assignment.wiki_id).find_by(title: title)
+      article = Article.where(namespace: 0, wiki_id: assignment.wiki_id).find_by(title:)
       next if article.nil?
       update_assignment_from_article(assignment, article)
     end

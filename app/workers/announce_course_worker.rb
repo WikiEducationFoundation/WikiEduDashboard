@@ -15,8 +15,8 @@ class AnnounceCourseWorker
     editing_user = User.find(editing_user_id)
     instructor = User.find(instructor_id)
     WikiCourseEdits.new(action: 'announce_course',
-                        course: course,
+                        course:,
                         current_user: editing_user,
-                        instructor: instructor)
+                        instructor:)
   end
 end

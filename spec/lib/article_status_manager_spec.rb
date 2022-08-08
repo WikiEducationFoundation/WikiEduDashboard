@@ -12,7 +12,7 @@ describe ArticleStatusManager do
 
   let(:course) { create(:course, start: 1.year.ago, end: 1.year.from_now) }
   let(:user) { create(:user) }
-  let!(:courses_user) { create(:courses_user, course: course, user: user) }
+  let!(:courses_user) { create(:courses_user, course:, user:) }
 
   describe '.update_article_status_for_course' do
     it 'marks deleted articles as "deleted"' do
@@ -23,7 +23,7 @@ describe ArticleStatusManager do
                title: 'Noarticle',
                namespace: 0,
                updated_at: 2.days.ago)
-        create(:revision, date: 1.day.ago, article_id: 1, user: user)
+        create(:revision, date: 1.day.ago, article_id: 1, user:)
 
         described_class.update_article_status_for_course(course)
         expect(Article.find(1).deleted).to be true
@@ -40,7 +40,7 @@ describe ArticleStatusManager do
                title: 'Audi',
                namespace: 0,
                updated_at: 2.days.ago)
-        create(:revision, date: 1.day.ago, article_id: 100, user: user)
+        create(:revision, date: 1.day.ago, article_id: 100, user:)
 
         # es.wikipedia
         course.wikis << create(:wiki, id: 2, language: 'es', project: 'wikipedia')
@@ -51,7 +51,7 @@ describe ArticleStatusManager do
                namespace: 0,
                wiki_id: 2,
                updated_at: 2.days.ago)
-        create(:revision, date: 1.day.ago, article_id: 10000001, user: user)
+        create(:revision, date: 1.day.ago, article_id: 10000001, user:)
 
         described_class.update_article_status_for_course(course)
 
@@ -69,13 +69,13 @@ describe ArticleStatusManager do
                title: 'Audi',
                namespace: 0,
                updated_at: 2.days.ago)
-        create(:revision, date: 1.day.ago, article_id: 100, user: user)
+        create(:revision, date: 1.day.ago, article_id: 100, user:)
         create(:article,
                id: 848,
                mw_page_id: 848,
                title: 'Audi',
                namespace: 0)
-        create(:revision, date: 1.day.ago, article_id: 848, user: user)
+        create(:revision, date: 1.day.ago, article_id: 848, user:)
 
         described_class.update_article_status_for_course(course)
         expect(Article.find_by(mw_page_id: 100).deleted).to eq(true)
@@ -90,7 +90,7 @@ describe ArticleStatusManager do
                title: 'Audi_Cars', # 'Audi' is the actual title
                namespace: 2,
                updated_at: 2.days.ago)
-        create(:revision, date: 1.day.ago, article_id: 848, user: user)
+        create(:revision, date: 1.day.ago, article_id: 848, user:)
 
         described_class.update_article_status_for_course(course)
         expect(Article.find(848).namespace).to eq(0)
@@ -110,8 +110,8 @@ describe ArticleStatusManager do
              title: 'Port_of_Spain_Gazette',
              deleted: true,
              updated_at: 2.days.ago)
-      create(:revision, date: 1.day.ago, article_id: 53001516, user: user)
-      create(:revision, date: 1.day.ago, article_id: 53058287, user: user)
+      create(:revision, date: 1.day.ago, article_id: 53001516, user:)
+      create(:revision, date: 1.day.ago, article_id: 53058287, user:)
 
       VCR.use_cassette 'article_status_manager/undeletion_duplicate' do
         described_class.update_article_status_for_course(course)
@@ -126,7 +126,7 @@ describe ArticleStatusManager do
              title: 'Port_of_Spain_Gazette',
              deleted: true,
              updated_at: 2.days.ago)
-      create(:revision, date: 1.day.ago, article_id: 53058287, user: user)
+      create(:revision, date: 1.day.ago, article_id: 53058287, user:)
 
       VCR.use_cassette 'article_status_manager/undeletion' do
         described_class.update_article_status_for_course(course)
@@ -138,7 +138,7 @@ describe ArticleStatusManager do
       let(:zh_wiki) { create(:wiki, language: 'zh', project: 'wikipedia') }
       # https://zh.wikipedia.org/wiki/%E9%BB%83%F0%A8%A5%88%E7%91%A9
       let(:title) { CGI.escape('黃𨥈瑩') }
-      let(:article) { create(:article, wiki: zh_wiki, title: title, mw_page_id: 420741) }
+      let(:article) { create(:article, wiki: zh_wiki, title:, mw_page_id: 420741) }
 
       it 'skips updates when the title is a unicode dumps' do
         stub_wiki_validation
@@ -169,7 +169,7 @@ describe ArticleStatusManager do
                title: 'Yōji Sakate',
                namespace: 0,
                updated_at: 2.days.ago)
-        create(:revision, date: 1.day.ago, article_id: 46745170, user: user)
+        create(:revision, date: 1.day.ago, article_id: 46745170, user:)
 
         create(:article,
                id: 46364485,
@@ -178,7 +178,7 @@ describe ArticleStatusManager do
                title: 'Yōji_Sakate',
                namespace: 0,
                updated_at: 2.days.ago)
-        create(:revision, date: 1.day.ago, article_id: 46364485, user: user)
+        create(:revision, date: 1.day.ago, article_id: 46364485, user:)
 
         described_class.update_article_status_for_course(course)
       end
@@ -193,7 +193,7 @@ describe ArticleStatusManager do
                           deleted: true,
                           namespace: 1,
                           updated_at: 2.days.ago)
-        create(:revision, date: 1.day.ago, article_id: 3914927, user: user)
+        create(:revision, date: 1.day.ago, article_id: 3914927, user:)
         article2 = create(:article,
                           id: 46394760,
                           mw_page_id: 46394760,
@@ -201,7 +201,7 @@ describe ArticleStatusManager do
                           deleted: false,
                           namespace: 1,
                           updated_at: 2.days.ago)
-        create(:revision, date: 1.day.ago, article_id: 46394760, user: user)
+        create(:revision, date: 1.day.ago, article_id: 46394760, user:)
 
         described_class.update_article_status_for_course(course)
         expect(article1.mw_page_id).to eq(3914927)
@@ -219,7 +219,7 @@ describe ArticleStatusManager do
                updated_at: 2.days.ago)
         create(:revision,
                date: 1.day.ago,
-               user: user,
+               user:,
                article_id: 2262715,
                mw_page_id: 2262715,
                mw_rev_id: 648515801)
@@ -241,14 +241,14 @@ describe ArticleStatusManager do
                title: 'Audi',
                namespace: 0,
                updated_at: 2.days.ago)
-        create(:revision, date: 1.day.ago, article_id: 848, user: user)
+        create(:revision, date: 1.day.ago, article_id: 848, user:)
         create(:article,
                id: 1,
                mw_page_id: 1,
                title: 'Noarticle',
                namespace: 0,
                updated_at: 2.days.ago)
-        create(:revision, date: 1.day.ago, article_id: 1, user: user)
+        create(:revision, date: 1.day.ago, article_id: 1, user:)
 
         allow_any_instance_of(Replica).to receive(:get_existing_articles_by_id).and_return(nil)
         described_class.update_article_status_for_course(course)
@@ -265,14 +265,14 @@ describe ArticleStatusManager do
                title: 'Audi',
                namespace: 0,
                updated_at: 2.days.ago)
-        create(:revision, date: 1.day.ago, article_id: 848, user: user)
+        create(:revision, date: 1.day.ago, article_id: 848, user:)
         create(:article,
                id: 1,
                mw_page_id: 1,
                title: 'Noarticle',
                namespace: 0,
                updated_at: 2.days.ago)
-        create(:revision, date: 1.day.ago, article_id: 1, user: user)
+        create(:revision, date: 1.day.ago, article_id: 1, user:)
 
         allow_any_instance_of(Replica).to receive(:post_existing_articles_by_title).and_return(nil)
         described_class.update_article_status_for_course(course)
@@ -290,7 +290,7 @@ describe ArticleStatusManager do
                namespace: 0,
                deleted: true,
                updated_at: 2.days.ago)
-        create(:revision, date: 1.day.ago, article_id: 50661367, user: user)
+        create(:revision, date: 1.day.ago, article_id: 50661367, user:)
         described_class.update_article_status_for_course(course)
         expect(Article.find(50661367).deleted).to eq(false)
       end
@@ -304,7 +304,7 @@ describe ArticleStatusManager do
                title: 'Antiochis_of_Tlos',
                namespace: 0,
                updated_at: 2.days.ago)
-        create(:revision, date: 1.day.ago, article_id: 50661367, user: user)
+        create(:revision, date: 1.day.ago, article_id: 50661367, user:)
         described_class.update_article_status_for_course(course)
         expect(Article.find(50661367).updated_at > 30.seconds.ago).to eq(true)
       end
@@ -318,7 +318,7 @@ describe ArticleStatusManager do
                title: 'Antiochis_of_Tlos',
                namespace: 0,
                updated_at: 12.hours.ago)
-        create(:revision, date: 1.day.ago, article_id: 50661367, user: user)
+        create(:revision, date: 1.day.ago, article_id: 50661367, user:)
         described_class.update_article_status_for_course(course)
         expect(Article.find(50661367).updated_at <= 12.hours.ago).to eq(true)
       end
@@ -366,8 +366,8 @@ describe ArticleStatusManager do
                            namespace: 2,
                            updated_at: 2.days.ago)
           assignment = create(:assignment, article_title: 'Audi_Cars',
-                                           article: article,
-                                           course: course)
+                                           article:,
+                                           course:)
           described_class.new.update_status([article])
           expect(assignment.reload.article_title).to eq('Audi')
         end

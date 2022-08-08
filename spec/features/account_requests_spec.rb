@@ -9,7 +9,7 @@ describe 'Account requests', type: :feature, js: true do
   before do
     allow(Features).to receive(:wiki_ed?).and_return(false)
     course.campaigns << Campaign.first
-    JoinCourse.new(course: course, user: instructor,
+    JoinCourse.new(course:, user: instructor,
                    role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
     stub_token_request
   end

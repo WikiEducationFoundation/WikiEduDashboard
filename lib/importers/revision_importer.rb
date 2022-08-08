@@ -156,7 +156,7 @@ class RevisionImporter
           date: rev_data['date'],
           characters: rev_data['characters'],
           article_id: articles[mw_page_id],
-          mw_page_id: mw_page_id,
+          mw_page_id:,
           user_id: users[rev_data['username']],
           new_article: string_to_boolean(rev_data['new_article']),
           system: string_to_boolean(rev_data['system']),

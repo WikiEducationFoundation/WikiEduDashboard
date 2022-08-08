@@ -13,22 +13,22 @@ describe 'timeline editing', type: :feature, js: true do
                     timeline_start: start_date,
                     timeline_end: start_date + 2.months,
                     weekdays: '0101010',
-                    submitted: submitted)
-    week = create(:week, course: course)
-    create(:block, week: week,
+                    submitted:)
+    week = create(:week, course:)
+    create(:block, week:,
                    id: 1,
                    kind: Block::KINDS['assignment'],
                    title: 'Block Title',
                    training_module_ids: [1],
                    order: 0,
                    points: 50)
-    create(:block, week: week,
+    create(:block, week:,
                    id: 2,
                    kind: Block::KINDS['in_class'],
                    title: 'Another Title',
                    training_module_ids: [2],
                    order: 1)
-    create(:block, week: week,
+    create(:block, week:,
                    id: 3,
                    kind: Block::KINDS['milestone'],
                    title: 'Third Title',

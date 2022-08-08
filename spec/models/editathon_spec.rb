@@ -52,7 +52,7 @@ require 'rails_helper'
 
 describe Editathon do
   let(:flags) { nil }
-  let(:subject) { create(:editathon, flags: flags) }
+  let(:subject) { create(:editathon, flags:) }
 
   describe '#assignment_edits_enabled?' do
     it 'returns false' do

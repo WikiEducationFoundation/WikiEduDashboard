@@ -14,10 +14,10 @@ describe 'Articles Edited view', type: :feature, js: true do
 
     course = create(
       :course,
-      slug: slug,
+      slug:,
       start: '2017-01-01',
       end: '2021-01-01',
-      home_wiki: home_wiki
+      home_wiki:
     )
 
     article_en_wiki = create(
@@ -47,35 +47,35 @@ describe 'Articles Edited view', type: :feature, js: true do
     )
 
     course.campaigns << Campaign.first
-    create(:courses_user, course: course, user: user)
-    create(:revision, article: article_en_wiki, user: user, date: '2019-01-01')
-    create(:revision, article: new_article_es_wiktionary, user: user, date: '2018-01-01')
-    create(:revision, article: article_wikidata, user: user, date: '2020-04-01')
-    create(:revision, article: new_article_wikidata, user: user, date: '2020-03-01')
-    create(:revision, article: untracked_article_wikidata, user: user, date: '2020-05-01')
+    create(:courses_user, course:, user:)
+    create(:revision, article: article_en_wiki, user:, date: '2019-01-01')
+    create(:revision, article: new_article_es_wiktionary, user:, date: '2018-01-01')
+    create(:revision, article: article_wikidata, user:, date: '2020-04-01')
+    create(:revision, article: new_article_wikidata, user:, date: '2020-03-01')
+    create(:revision, article: untracked_article_wikidata, user:, date: '2020-05-01')
 
     create(
       :articles_course,
-      course: course,
+      course:,
       article: article_en_wiki,
       user_ids: [user.id]
     )
     create(
       :articles_course,
-      course: course,
+      course:,
       article: new_article_es_wiktionary,
       user_ids: [user.id],
       new_article: true
     )
     create(
       :articles_course,
-      course: course,
+      course:,
       article: article_wikidata,
       user_ids: [user.id]
     )
     create(
       :articles_course,
-      course: course,
+      course:,
       article: new_article_wikidata,
       user_ids: [user.id],
       new_article: true
@@ -83,7 +83,7 @@ describe 'Articles Edited view', type: :feature, js: true do
 
     create(
       :articles_course,
-      course: course,
+      course:,
       article: untracked_article_wikidata,
       user_ids: [user.id],
       tracked: false

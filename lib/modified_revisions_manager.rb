@@ -55,11 +55,11 @@ class ModifiedRevisionsManager
   def handle_moved_revision(moved)
     mw_page_id = moved['rev_page']
 
-    unless Article.exists?(wiki_id: @wiki.id, mw_page_id: mw_page_id)
+    unless Article.exists?(wiki_id: @wiki.id, mw_page_id:)
       ArticleImporter.new(@wiki).import_articles([mw_page_id])
     end
 
-    article = Article.find_by(wiki_id: @wiki.id, mw_page_id: mw_page_id, deleted: false)
+    article = Article.find_by(wiki_id: @wiki.id, mw_page_id:, deleted: false)
 
     # Don't update the revision to point to a new article if there isn't one.
     # This may happen if the article gets moved and then deleted, and there's
@@ -68,6 +68,6 @@ class ModifiedRevisionsManager
 
     revision = Revision.find_by(wiki_id: @wiki.id, mw_rev_id: moved['rev_id'])
     return unless revision
-    revision.update(article_id: article.id, mw_page_id: mw_page_id)
+    revision.update(article_id: article.id, mw_page_id:)
   end
 end

@@ -34,7 +34,7 @@ class UserProfilesController < ApplicationController
     @individual_stats_presenter = IndividualStatisticsPresenter.new(user: @user)
     @courses_list = public_courses
                     .where(courses_users: { role: CoursesUsers::Roles::INSTRUCTOR_ROLE })
-    @courses_presenter = CoursesPresenter.new(current_user: current_user,
+    @courses_presenter = CoursesPresenter.new(current_user:,
                                               courses_list: @courses_list)
     @user_uploads = CommonsUpload.where(user_id: @user.id).order(uploaded_at: :desc).first(20)
     @max_project = max_project
@@ -43,7 +43,7 @@ class UserProfilesController < ApplicationController
   def stats_graphs
     @courses_list = public_courses
                     .where(courses_users: { role: CoursesUsers::Roles::INSTRUCTOR_ROLE })
-    @courses_presenter = CoursesPresenter.new(current_user: current_user,
+    @courses_presenter = CoursesPresenter.new(current_user:,
                                               courses_list: @courses_list)
   end
 
@@ -95,7 +95,7 @@ class UserProfilesController < ApplicationController
   def set_user
     # Per MediaWiki convention, underscores in username urls represent spaces
     username = CGI.unescape(params[:username]).tr('_', ' ')
-    @user = User.find_by(username: username)
+    @user = User.find_by(username:)
   end
 
   # Use callbacks to share common setup or constraints between actions.

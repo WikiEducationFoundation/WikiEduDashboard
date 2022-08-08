@@ -67,7 +67,7 @@ class TrainingModule < ApplicationRecord
     TrainingLibrary.load
     TrainingModule.load
     # Reload the requested module's slides
-    training_module = TrainingModule.find_by(slug: slug)
+    training_module = TrainingModule.find_by(slug:)
     raise ModuleNotFound, "No module #{slug} found!" unless training_module
     TrainingSlide.load(slug_list: training_module.slide_slugs)
   end

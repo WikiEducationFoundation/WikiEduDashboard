@@ -3,5 +3,5 @@
 json.assignments course.assignments
                        .eager_load(:user, :wiki)
                        .includes(article: :wiki, course: :home_wiki) do |assignment|
-  json.partial! 'assignments/assignment', course: assignment.course, assignment: assignment
+  json.partial! 'assignments/assignment', course: assignment.course, assignment:
 end

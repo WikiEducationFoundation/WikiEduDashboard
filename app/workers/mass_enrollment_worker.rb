@@ -14,15 +14,15 @@ class MassEnrollmentWorker
   def perform(course_id, editing_user_id, enrollment_results)
     course = Course.find(course_id)
     editing_user = User.find(editing_user_id)
-    WikiCourseEdits.new(action: :update_course, course: course, current_user: editing_user)
+    WikiCourseEdits.new(action: :update_course, course:, current_user: editing_user)
 
     enrollment_results.each do |username, result|
       next unless result.key?('success')
-      enrolling_user = User.find_by(username: username)
+      enrolling_user = User.find_by(username:)
       WikiCourseEdits.new(action: :enroll_in_course,
-                          course: course,
+                          course:,
                           current_user: editing_user,
-                          enrolling_user: enrolling_user)
+                          enrolling_user:)
     end
   end
 end

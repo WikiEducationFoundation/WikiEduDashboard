@@ -26,7 +26,7 @@ describe MassEnrollmentController, type: :request do
   end
 
   describe '#add_users' do
-    let(:request_params) { { course_id: course.slug, usernames: usernames } }
+    let(:request_params) { { course_id: course.slug, usernames: } }
 
     context 'when user has permission to edit course' do
       before do

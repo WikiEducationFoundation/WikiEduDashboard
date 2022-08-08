@@ -24,12 +24,12 @@ describe 'Survey navigation and rendering', type: :feature, js: true do
     before do
       login_as(instructor, scope: :user)
 
-      create(:articles_course, article_id: article.id, course: course)
+      create(:articles_course, article_id: article.id, course:)
 
       @courses_user = create(
         :courses_user,
         user: instructor,
-        course: course,
+        course:,
         role: 1
       )
 
@@ -71,7 +71,7 @@ describe 'Survey navigation and rendering', type: :feature, js: true do
         survey_id: @survey.id
       )
       create(:survey_notification,
-             course: course,
+             course:,
              survey_assignment_id: survey_assignment.id,
              courses_users_id: @courses_user.id)
     end

@@ -11,7 +11,7 @@ class FaqTopic
 
   def self.update(slug:, name:, faqs:)
     record = Setting.find_or_create_by(key: 'faq_topics')
-    record.value[slug] = { name: name, faqs: faqs }
+    record.value[slug] = { name:, faqs: }
     record.save
     @setting_record = record
   end

@@ -10,10 +10,10 @@ describe 'Assigned Articles view', type: :feature, js: true do
   before do
     login_as(user)
     course.campaigns << Campaign.first
-    create(:courses_user, course: course, user: user)
+    create(:courses_user, course:, user:)
     create(:assignment, article_title: 'Nancy_Tuana',
-                        course: course, article: article,
-                        user: user)
+                        course:, article:,
+                        user:)
   end
 
   it 'lets users submit feedback about articles' do

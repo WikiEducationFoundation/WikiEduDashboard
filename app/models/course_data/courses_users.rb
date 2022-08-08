@@ -92,7 +92,7 @@ class CoursesUsers < ApplicationRecord
   end
 
   def live_revisions
-    course.tracked_revisions.joins(:article).where(user_id: user_id).live
+    course.tracked_revisions.joins(:article).where(user_id:).live
   end
 
   def update_character_sum(revisions)
@@ -104,12 +104,12 @@ class CoursesUsers < ApplicationRecord
   # rubocop:disable Metrics/AbcSize
   def update_cache
     revisions = live_revisions
-    self.total_uploads = course.uploads.where(user_id: user_id).count
+    self.total_uploads = course.uploads.where(user_id:).count
     update_character_sum(revisions)
     self.references_count = references_sum(revisions)
     self.revision_count = revisions.where(articles: { deleted: false }).size || 0
     self.recent_revisions = RevisionStat.recent_revisions_for_courses_user(self).count
-    assignments = user.assignments.where(course_id: course_id)
+    assignments = user.assignments.where(course_id:)
     self.assigned_article_title = assignments.empty? ? '' : assignments.first.article_title
     save
   end
@@ -120,7 +120,7 @@ class CoursesUsers < ApplicationRecord
   ##################
   def character_sum(revisions, namespace)
     revisions
-      .where(articles: { namespace: namespace, deleted: false })
+      .where(articles: { namespace:, deleted: false })
       .where('characters >= 0')
       .sum(:characters) || 0
   end
@@ -132,7 +132,7 @@ class CoursesUsers < ApplicationRecord
   end
 
   def cleanup
-    Assignment.where(user_id: user_id, course_id: course_id).destroy_all
+    Assignment.where(user_id:, course_id:).destroy_all
     survey_notifications.destroy_all
     CourseCleanupManager.new(course, user).cleanup_articles
   end

@@ -110,9 +110,9 @@ class Survey < ApplicationRecord
     return @separated_questions unless @separated_questions.nil?
     @separated_questions = []
     questions_in_order.each do |question|
-      @separated_questions << { question: question, followup: false }
+      @separated_questions << { question:, followup: false }
       next if question.follow_up_question_text.blank?
-      @separated_questions << { question: question, followup: true }
+      @separated_questions << { question:, followup: true }
     end
     @separated_questions
   end

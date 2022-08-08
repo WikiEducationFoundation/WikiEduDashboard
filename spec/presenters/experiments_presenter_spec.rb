@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe ExperimentsPresenter do
   let(:subject) { described_class.new(course) }
-  let(:course) { create(:course, flags: flags) }
+  let(:course) { create(:course, flags:) }
 
   describe '#experiment' do
     context 'when the course is not in an experiment' do

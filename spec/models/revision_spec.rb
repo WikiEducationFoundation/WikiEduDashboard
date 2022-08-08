@@ -38,7 +38,7 @@ describe Revision, type: :model do
       before do
         stub_wiki_validation
         create(:revision,
-               mw_rev_id: mw_rev_id,
+               mw_rev_id:,
                article_id: 45010238,
                mw_page_id: 45010238)
         create(:revision,
@@ -62,7 +62,7 @@ describe Revision, type: :model do
       before do
         stub_wiki_validation
         create(:revision,
-               mw_rev_id: mw_rev_id,
+               mw_rev_id:,
                article_id: 90010238,
                mw_page_id: 90010238,
                new_article: true,
@@ -94,7 +94,7 @@ describe Revision, type: :model do
       before do
         stub_wiki_validation
         create(:revision,
-               mw_rev_id: mw_rev_id,
+               mw_rev_id:,
                mw_page_id: 78240014,
                article_id: 78240014,
                new_article: false,
@@ -127,7 +127,7 @@ describe Revision, type: :model do
       before do
         stub_wiki_validation
         create(:revision,
-               mw_rev_id: mw_rev_id,
+               mw_rev_id:,
                article_id: 79010238,
                mw_page_id: 79010238,
                features: {
@@ -163,7 +163,7 @@ describe Revision, type: :model do
       before do
         stub_wiki_validation
         create(:revision,
-               mw_rev_id: mw_rev_id,
+               mw_rev_id:,
                article_id: 55010239,
                mw_page_id: 55010239,
                features: {
@@ -199,7 +199,7 @@ describe Revision, type: :model do
       before do
         stub_wiki_validation
         create(:revision,
-               mw_rev_id: mw_rev_id,
+               mw_rev_id:,
                article_id: 55012289,
                mw_page_id: 55012289,
                features: {

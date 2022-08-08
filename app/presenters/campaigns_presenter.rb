@@ -11,6 +11,6 @@ class CampaignsPresenter
   end
 
   def self.update_default_campaign(slug)
-    default_campaign_setting.update(value: { slug: slug })
+    default_campaign_setting.update(value: { slug: })
   end
 end

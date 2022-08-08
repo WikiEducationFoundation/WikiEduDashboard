@@ -22,8 +22,8 @@ describe SandboxedCourseMainspaceMonitor do
     let(:article) { create(:article) }
     let(:chars_added) { 2062 }
     let!(:articles_course) do
-      create(:articles_course, article: article,
-                               course: course,
+      create(:articles_course, article:,
+                               course:,
                                character_sum: chars_added)
     end
 

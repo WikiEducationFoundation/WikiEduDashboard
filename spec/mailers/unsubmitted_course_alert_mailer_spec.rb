@@ -6,7 +6,7 @@ describe UnsubmittedCourseAlertMailer do
   describe '#send_email' do
     let(:classroom_program_manager) { create(:user, username: 'CPM', email: 'cpm@wikiedu.org') }
     let(:course) { create(:course) }
-    let(:alert) { create(:unsubmitted_course_alert, user: instructor, course: course) }
+    let(:alert) { create(:unsubmitted_course_alert, user: instructor, course:) }
     let(:mail) { described_class.send_email(alert) }
 
     before do

@@ -7,7 +7,7 @@ class UnsubmittedCourseAlertManager
                             type: 'UnsubmittedCourseAlert')
 
       alert = Alert.create(type: 'UnsubmittedCourseAlert',
-                           course: course,
+                           course:,
                            user: course.instructors.first)
       alert.send_email
     end

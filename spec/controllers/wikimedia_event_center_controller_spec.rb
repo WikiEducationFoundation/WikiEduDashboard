@@ -13,16 +13,16 @@ describe WikimediaEventCenterController, type: :request do
   before do
     allow(Features).to receive(:wiki_ed?).and_return(false)
     course.campaigns << Campaign.first
-    JoinCourse.new(course: course, user: facilitator, role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+    JoinCourse.new(course:, user: facilitator, role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
   end
 
   describe '#confirm_event_sync' do
     subject do
       post '/wikimedia_event_center/confirm_event_sync', params: {
-        course_slug: course_slug,
+        course_slug:,
         organizer_username: organizer.username,
         event_id: '12345',
-        secret: secret,
+        secret:,
         format: :json
       }
     end
@@ -67,7 +67,7 @@ describe WikimediaEventCenterController, type: :request do
 
     context 'when the course already has participants' do
       before do
-        JoinCourse.new(course: course, user: non_organizer, role: CoursesUsers::Roles::STUDENT_ROLE)
+        JoinCourse.new(course:, user: non_organizer, role: CoursesUsers::Roles::STUDENT_ROLE)
       end
 
       it 'returns an error code' do
@@ -96,8 +96,8 @@ describe WikimediaEventCenterController, type: :request do
       post '/wikimedia_event_center/update_event_participants', params: {
         course_slug: course.slug,
         organizer_username: organizer.username,
-        event_id: event_id,
-        secret: secret,
+        event_id:,
+        secret:,
         participant_usernames: usernames,
         format: :json
       }
@@ -127,7 +127,7 @@ describe WikimediaEventCenterController, type: :request do
       let(:usernames) { [] }
 
       before do
-        JoinCourse.new(course: course, user: non_organizer,
+        JoinCourse.new(course:, user: non_organizer,
                        role: CoursesUsers::Roles::STUDENT_ROLE, event_sync: true)
       end
 

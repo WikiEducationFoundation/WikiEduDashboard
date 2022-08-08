@@ -23,8 +23,8 @@ describe WikiCourseOutput do
     end
 
     it 'returns a wikitext version of the course' do
-      week1 = create(:week, id: 2, course: course)
-      week2 = create(:week, id: 3, course: course)
+      week1 = create(:week, id: 2, course:)
+      week2 = create(:week, id: 3, course:)
       create(:block,
              id: 4,
              title: 'Block 1 title',
@@ -54,25 +54,25 @@ describe WikiCourseOutput do
                          slug: 'Campaign Slug 2')
       create(:campaigns_course,
              campaign: campaign1,
-             course: course)
+             course:)
       create(:campaigns_course,
              campaign: campaign2,
-             course: course)
+             course:)
       create(:courses_user,
              user: student,
-             course: course,
+             course:,
              role: 0)
-      create(:courses_user, user: instructor, course: course, role: 1, real_name: 'Jacque')
+      create(:courses_user, user: instructor, course:, role: 1, real_name: 'Jacque')
       create(:assignment,
              id: 1,
              user: student,
-             course: course,
+             course:,
              role: 0,
              article_title: 'My article')
       create(:assignment,
              id: 2,
              user: student,
-             course: course,
+             course:,
              role: 1,
              article_title: 'Your article')
       response = described_class.new(course.reload).translate_course_to_wikitext

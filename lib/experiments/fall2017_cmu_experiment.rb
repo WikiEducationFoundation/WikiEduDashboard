@@ -75,7 +75,7 @@ class Fall2017CmuExperiment
     email_code = GeneratePasscode.call(length: 16)
     first_instructor = @course.instructors.first
     Fall2017CmuExperimentMailer.send_invitation(@course, first_instructor, email_code)
-    update_status('email_sent', email_just_sent: true, email_code: email_code)
+    update_status('email_sent', email_just_sent: true, email_code:)
     sleep 2 unless Rails.env.test? # pause to avoid email rate-limiting
   end
 

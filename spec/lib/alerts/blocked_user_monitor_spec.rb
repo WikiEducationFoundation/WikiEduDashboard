@@ -9,7 +9,7 @@ describe BlockedUserMonitor do
     let(:course) { create(:course) }
 
     before do
-      create(:courses_user, user: user, course: course)
+      create(:courses_user, user:, course:)
       stub_block_log_query
     end
 

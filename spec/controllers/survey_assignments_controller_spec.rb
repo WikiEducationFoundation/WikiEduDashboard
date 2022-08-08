@@ -24,7 +24,7 @@ describe SurveyAssignmentsController, type: :request do
           follow_up_days_after_first_notification: follow_up,
           published: true,
           notes: 'foo',
-          send_email: send_email,
+          send_email:,
           custom_email_subject: 'bar',
           custom_email_body: 'baz',
           custom_email_signature: '',
@@ -50,7 +50,7 @@ describe SurveyAssignmentsController, type: :request do
     let(:user) { create(:user, email: 'foo@bar.com') }
     let(:courses_user) { create(:courses_user, user_id: user.id) }
     let(:survey_assignment) do
-      create(:survey_assignment, send_email: send_email, survey_id: survey.id)
+      create(:survey_assignment, send_email:, survey_id: survey.id)
     end
     let!(:survey_notification) do
       create(:survey_notification, survey_assignment_id: survey_assignment.id,

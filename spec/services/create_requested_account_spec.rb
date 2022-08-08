@@ -5,14 +5,14 @@ require 'rails_helper'
 describe CreateRequestedAccount do
   let(:creator) { create(:admin) }
   let(:super_admin) { create(:super_admin) }
-  let(:course) { create(:course, home_wiki: home_wiki) }
+  let(:course) { create(:course, home_wiki:) }
   let(:home_wiki) { Wiki.get_or_create(language: 'fr', project: 'wikipedia') }
   let(:en_wiki) { Wiki.find 1 }
   let(:user) { create(:user) }
   let(:requested_account) do
     create(
       :requested_account,
-      course: course,
+      course:,
       username: user.username,
       email: 'email@example.com'
     )
@@ -71,7 +71,7 @@ describe CreateRequestedAccount do
     expect(WikiEdits).to receive(:new).with(en_wiki).and_return(en_wiki_edits)
 
     expect(homewiki_wiki_edits).to receive(:create_account)
-      .with(creator: creator, username: anything, email: anything, reason: anything)
+      .with(creator:, username: anything, email: anything, reason: anything)
       .and_call_original
     expect(en_wiki_edits).to receive(:create_account)
       .with(creator: super_admin, username: anything, email: anything, reason: anything)
@@ -89,7 +89,7 @@ describe CreateRequestedAccount do
     expect(WikiEdits).to receive(:new).with(home_wiki).and_return(homewiki_wiki_edits)
     expect(WikiEdits).to receive(:new).with(en_wiki).and_return(en_wiki_edits)
     expect(homewiki_wiki_edits).to receive(:create_account)
-      .with(creator: creator, username: anything, email: anything, reason: anything)
+      .with(creator:, username: anything, email: anything, reason: anything)
       .and_call_original
     expect(en_wiki_edits).to receive(:create_account)
       .with(creator: super_admin, username: anything, email: anything, reason: anything)
@@ -103,7 +103,7 @@ describe CreateRequestedAccount do
     expect(WikiEdits).to receive(:new).twice.and_call_original
     expect(WikiEdits).to receive(:new).with(home_wiki).and_return(homewiki_wiki_edits)
     expect(homewiki_wiki_edits).to receive(:create_account)
-      .with(creator: creator, username: anything, email: anything, reason: anything)
+      .with(creator:, username: anything, email: anything, reason: anything)
       .and_call_original
     expect(en_wiki_edits).not_to receive(:create_account)
       .with(creator: super_admin, username: anything, email: anything, reason: anything)

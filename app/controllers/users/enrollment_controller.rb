@@ -41,8 +41,8 @@ class Users::EnrollmentController < ApplicationController
     return unless @user.nil?
     username = enroll_params[:user_id] || enroll_params[:username]
     domain = @course.home_wiki.domain
-    message = I18n.t('courses.error.user_exists_on_wiki', username: username, domain: domain)
-    render json: { message: message },
+    message = I18n.t('courses.error.user_exists_on_wiki', username:, domain:)
+    render json: { message: },
            status: :not_found
     yield
   end
@@ -71,7 +71,7 @@ class Users::EnrollmentController < ApplicationController
   def ensure_enrollment_success
     return unless @result['failure']
     message = I18n.t("courses.join_failure_details.#{@result['failure']}")
-    render json: { message: message }, status: :not_found
+    render json: { message: }, status: :not_found
     yield
   end
 
@@ -132,7 +132,7 @@ class Users::EnrollmentController < ApplicationController
     assignments = @course_user.assignments
     assignments.each do |assignment|
       WikiCourseEdits.new(action: :remove_assignment, course: @course,
-                          current_user: current_user, assignment: assignment)
+                          current_user:, assignment:)
     end
   end
 
@@ -150,7 +150,7 @@ class Users::EnrollmentController < ApplicationController
 
   def find_or_import_user_by_username
     username = enroll_params[:username]
-    @user = User.find_by(username: username)
+    @user = User.find_by(username:)
     @user = UserImporter.new_from_username(username, @course.home_wiki) if @user.nil?
   end
 

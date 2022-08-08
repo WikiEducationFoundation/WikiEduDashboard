@@ -18,7 +18,7 @@ class SurveysQuestionGroup < ApplicationRecord
   belongs_to :survey
 
   def self.by_position(survey_id)
-    where(survey_id: survey_id).order('position asc')
+    where(survey_id:).order('position asc')
   end
 
   def question_group

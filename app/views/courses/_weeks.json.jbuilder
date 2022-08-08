@@ -13,6 +13,6 @@ json.weeks course.weeks.eager_load(:blocks) do |week|
   json.end_date start_date.present? ? start_date.end_of_week(:sunday).strftime('%m/%d') : nil
   json.title week.title
   json.blocks week.blocks do |block|
-    json.partial! 'courses/block', block: block, course: course
+    json.partial! 'courses/block', block:, course:
   end
 end

@@ -47,7 +47,7 @@ class WikiEdits
     params = { action: 'edit',
                title: page_title,
                text: content,
-               summary: summary,
+               summary:,
                format: 'json' }
 
     api_post params, current_user
@@ -69,7 +69,7 @@ class WikiEdits
     params = { action: 'edit',
                title: page_title,
                prependtext: content,
-               summary: summary,
+               summary:,
                format: 'json' }
 
     api_post params, current_user
@@ -87,10 +87,10 @@ class WikiEdits
   # choisir un nom différent.", "messagecode"=>"userexists"}}
   def create_account(creator:, username:, email:, reason: '')
     params = { action: 'createaccount',
-               username: username,
-               email: email,
+               username:,
+               email:,
                mailpassword: 1,
-               reason: reason,
+               reason:,
                # This is a required parameter for the API, which is used for
                # multi-step account creation where, for example, the end user must
                # solve a CAPTCHA before the process finishes.
@@ -122,7 +122,7 @@ class WikiEdits
     # Make the request
     response = tokens.access_token.post(@wiki.api_url, data)
     response_data = Oj.load(response.body)
-    WikiResponse.capture(response_data, current_user: current_user,
+    WikiResponse.capture(response_data, current_user:,
                                         post_data: data,
                                         type: data[:action])
     response_data
@@ -144,7 +144,7 @@ class WikiEdits
 
     # Handle Mediawiki API response
     token_response = Oj.load(get_token.body)
-    WikiResponse.capture(token_response, current_user: current_user, type: 'tokens')
+    WikiResponse.capture(token_response, current_user:, type: 'tokens')
     handle_token_response_errors(token_response) { |err| return { status: 'failed', error: err } }
 
     OpenStruct.new(action_token: token_response['query']['tokens']["#{type}token"],

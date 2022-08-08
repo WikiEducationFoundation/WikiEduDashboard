@@ -16,7 +16,7 @@ describe CampaignsController, type: :request do
     let(:title) { 'My New? Campaign 5!' }
     let(:expected_slug) { 'my_new_campaign_5' }
     let(:campaign_params) do
-      { campaign: { title: title,
+      { campaign: { title:,
                     default_passcode: 'custom',
                     custom_default_passcode: 'ohai' } }
     end
@@ -39,7 +39,7 @@ describe CampaignsController, type: :request do
       end
 
       it 'does not create duplicate titles' do
-        Campaign.create(title: title, slug: 'foo')
+        Campaign.create(title:, slug: 'foo')
         post '/campaigns', params: campaign_params
         expect(Campaign.last.slug).to eq('foo')
       end
@@ -70,7 +70,7 @@ describe CampaignsController, type: :request do
     let(:admin) { create(:admin) }
     let(:campaign) { create(:campaign) }
     let(:description) { 'My new campaign is the best campaign ever!' }
-    let(:campaign_params) { { slug: campaign.slug, description: description } }
+    let(:campaign_params) { { slug: campaign.slug, description: } }
     let(:request_params) { { campaign: campaign_params, slug: campaign.slug } }
 
     it 'returns a 401 if the user is not an admin and not an organizer of the campaign' do
@@ -233,10 +233,10 @@ describe CampaignsController, type: :request do
 
     before do
       campaign.courses << course
-      create(:assignment, course: course, user: student, article_title: 'Music',
+      create(:assignment, course:, user: student, article_title: 'Music',
              role: Assignment::Roles::ASSIGNED_ROLE)
-      create(:assignment, course: course, user: student, article_title: 'Selfie',
-             article: article, role: Assignment::Roles::REVIEWING_ROLE)
+      create(:assignment, course:, user: student, article_title: 'Selfie',
+             article:, role: Assignment::Roles::REVIEWING_ROLE)
     end
 
     it 'returns list of students and instructors' do
@@ -387,12 +387,12 @@ describe CampaignsController, type: :request do
     let(:campaign) { create(:campaign) }
     let(:article) { create(:article) }
     let(:user) { create(:user) }
-    let!(:revision) { create(:revision, article: article, user: user, date: course.start + 1.hour) }
+    let!(:revision) { create(:revision, article:, user:, date: course.start + 1.hour) }
     let!(:course_stats) do
       create(:course_stats, stats_hash: { 'www.wikidata.org' => {
                'claims created' => 12, 'other updates' => 1, 'unknown' => 1
              } },
-             course: course)
+             course:)
     end
     let(:request_params) { { slug: campaign.slug, format: :csv } }
 
@@ -400,7 +400,7 @@ describe CampaignsController, type: :request do
       stub_wiki_validation
       login_as(user)
       campaign.courses.push course, another_course
-      create(:courses_user, course: course, user: user)
+      create(:courses_user, course:, user:)
     end
 
     after do

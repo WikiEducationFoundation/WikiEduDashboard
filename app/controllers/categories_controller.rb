@@ -10,7 +10,7 @@ class CategoriesController < ApplicationController
     set_wiki
     name = ArticleUtils.format_article_title(params[:category_name])
     @category = Category.find_or_create_by(wiki: @wiki, depth: params[:depth],
-                                           name: name, source: params[:source])
+                                           name:, source: params[:source])
     @course.categories << @category
     render 'courses/categories'
   rescue ActiveRecord::RecordNotUnique

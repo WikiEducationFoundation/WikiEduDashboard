@@ -10,7 +10,7 @@ describe 'course overview page', type: :feature, js: true do
     create(:course,
            id: 10001,
            title: 'This.course',
-           slug: slug,
+           slug:,
            start: course_start.to_date,
            end: course_end.to_date,
            timeline_start: course_start.to_date,
@@ -26,7 +26,7 @@ describe 'course overview page', type: :feature, js: true do
   end
   let(:week) { create(:week, course_id: course.id) }
   let(:content) { 'Edit Wikipedia' }
-  let!(:block)  { create(:block, week_id: week.id, content: content) }
+  let!(:block)  { create(:block, week_id: week.id, content:) }
   let(:admin)   { create(:admin) }
 
   before do

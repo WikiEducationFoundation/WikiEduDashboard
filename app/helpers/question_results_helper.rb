@@ -12,7 +12,7 @@ module QuestionResultsHelper
     answers = question_answers(question)
     {
       type: question_type_to_string(question),
-      question: question,
+      question:,
       sentiment: question.track_sentiment ? question_answers_average_sentiment(answers) : nil,
       answer_options: question.answer_options.split(Rapidfire.answers_delimiter),
       answers: parse_answers(question),
@@ -31,7 +31,7 @@ module QuestionResultsHelper
   def question_answers(question)
     question.answers.map do |answer|
       course = answer.course(@survey.id)
-      { data: answer, user: answer.user, course: course, campaigns: course&.campaigns,
+      { data: answer, user: answer.user, course:, campaigns: course&.campaigns,
         tags: course&.tags, sentiment: calculate_sentiment(question, answer) }
     end
   end
@@ -55,7 +55,7 @@ module QuestionResultsHelper
     label = 'neutral' if average.zero?
     {
       average: average.round(2),
-      label: label
+      label:
     }
   end
 

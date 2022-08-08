@@ -7,17 +7,17 @@ describe CourseEditsCsvBuilder do
   let(:course) { create(:course) }
   let(:user) { create(:user) }
   let(:article) { create(:article) }
-  let!(:courses_user) { create(:courses_user, course: course, user: user) }
+  let!(:courses_user) { create(:courses_user, course:, user:) }
   let(:revision_count) { 5 }
   let(:subject) { described_class.new(course).generate_csv }
 
   before do
     # revisions during the course
     revision_count.times do |i|
-      create(:revision, mw_rev_id: i, user: user, date: course.start + 1.minute, article: article)
+      create(:revision, mw_rev_id: i, user:, date: course.start + 1.minute, article:)
     end
     # revision outside the course
-    create(:revision, mw_rev_id: 123, user: user, date: course.start - 1.minute)
+    create(:revision, mw_rev_id: 123, user:, date: course.start - 1.minute)
   end
 
   it 'creates a CSV with a header and a row of data for each course revision' do

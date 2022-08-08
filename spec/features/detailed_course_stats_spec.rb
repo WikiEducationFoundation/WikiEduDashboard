@@ -6,7 +6,7 @@ describe 'Detailed course overview stats', type: :feature, js: true do
   let(:course) { create(:course, start: '2022-01-01', end: '2023-01-01') }
 
   before do
-    create(:course_stats, course: course,
+    create(:course_stats, course:,
     stats_hash: {
         'www.wikidata.org': {
           'claims created' => 35,

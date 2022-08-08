@@ -46,7 +46,7 @@ describe RevisionsController, type: :request do
 
     it 'returns only tracked revisions' do
       # Doesn't include untracked revisions
-      create(:articles_course, course: course, article: article, tracked: false)
+      create(:articles_course, course:, article:, tracked: false)
       get '/revisions', params: params
       expect(assigns(:revisions).count).to eq(0)
 

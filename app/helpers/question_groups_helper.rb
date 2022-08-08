@@ -40,7 +40,7 @@ module QuestionGroupsHelper
       return false if @course.nil?
 
       matching = @question_group_campaigns_ids.select do |campaign_id|
-        CampaignsCourses.where(course_id: @course.id, campaign_id: campaign_id).any?
+        CampaignsCourses.where(course_id: @course.id, campaign_id:).any?
       end
       matching.count == @question_group_campaigns_ids.count
     end

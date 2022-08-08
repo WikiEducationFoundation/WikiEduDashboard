@@ -68,7 +68,7 @@ describe ScheduleCourseUpdates do
       before do
         Sidekiq::Testing.disable!
         create(:course, start: 1.day.ago, end: 2.months.from_now,
-                        slug: 'Medium/Course', needs_update: true, flags: flags)
+                        slug: 'Medium/Course', needs_update: true, flags:)
         create(:course, slug: 'VeryLong/Updates', needs_update: true,
                         flags: { very_long_update: true })
       end

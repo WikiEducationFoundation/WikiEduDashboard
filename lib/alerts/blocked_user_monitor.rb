@@ -64,12 +64,12 @@ class BlockedUserMonitor
   end
 
   def alert_exists?(block, user)
-    BlockedUserAlert.exists?(user: user, details: block)
+    BlockedUserAlert.exists?(user:, details: block)
   end
 
   def create_alert_and_send_email(block, user)
     BlockedUserAlert
-      .create(user: user, details: block, course: user.courses.last)
+      .create(user:, details: block, course: user.courses.last)
       .email_content_expert
   end
 end

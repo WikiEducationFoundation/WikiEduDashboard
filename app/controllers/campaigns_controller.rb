@@ -172,7 +172,7 @@ class CampaignsController < ApplicationController
 
   def active_courses
     presenter = CoursesPresenter.new(
-      current_user: current_user,
+      current_user:,
       campaign_param: @campaign.slug
     )
     @courses = presenter.active_courses_by_recent_edits
@@ -226,7 +226,7 @@ class CampaignsController < ApplicationController
     if File.exist? "public#{CSV_PATH}/#{filename}"
       redirect_to "#{CSV_PATH}/#{filename}"
     else
-      CampaignCsvWorker.generate_csv(campaign: @campaign, filename: filename, type: type,
+      CampaignCsvWorker.generate_csv(campaign: @campaign, filename:, type:,
                                      include_course: csv_params[:course])
       render plain: 'This file is being generated. Please try again shortly.', status: :ok
     end
@@ -256,12 +256,12 @@ class CampaignsController < ApplicationController
   end
 
   def set_presenter
-    @presenter = CoursesPresenter.new(current_user: current_user,
+    @presenter = CoursesPresenter.new(current_user:,
                                       campaign_param: @campaign.slug, page: @page)
   end
 
   def add_organizer_to_campaign(user)
-    CampaignsUsers.create(user: user,
+    CampaignsUsers.create(user:,
                           campaign: @campaign,
                           role: CampaignsUsers::Roles::ORGANIZER_ROLE)
   end

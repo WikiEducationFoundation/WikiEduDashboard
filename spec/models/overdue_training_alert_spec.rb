@@ -27,12 +27,12 @@ describe OverdueTrainingAlert do
   let(:student) { create(:user, email: 'student@example.edu') }
   before do
     TrainingModule.load_all
-    create(:user_profile, user: student, email_preferences: email_preferences)
+    create(:user_profile, user: student, email_preferences:)
   end
 
   let(:alert) do
     create(:overdue_training_alert,
-           user: student, course: course,
+           user: student, course:,
            details: { 'plagiarism' => { due_date: 1.day.ago,
                                         status: 'overdue',
                                         progress: '85% Complete' } })

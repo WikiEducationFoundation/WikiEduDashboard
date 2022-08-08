@@ -17,7 +17,7 @@ describe AddUsers do
   end
 
   let(:subject) do
-    described_class.new(course: course, usernames_list: usernames_list)
+    described_class.new(course:, usernames_list:)
   end
 
   it 'returns all submitted usernames, and normalizes the ones that exist' do

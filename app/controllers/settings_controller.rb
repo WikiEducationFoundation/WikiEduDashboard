@@ -20,7 +20,7 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
         admins = User.where(permissions: 1)
                      .or(User.where(permissions: 3))
 
-        render json: { admins: admins }
+        render json: { admins: }
       end
     end
   end
@@ -63,7 +63,7 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
 
   def special_users
     @special_users = SpecialUsers.special_users.transform_values do |username|
-      User.where(username: username)
+      User.where(username:)
     end
   end
 
@@ -143,7 +143,7 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
         username: @user.username,
         position: @position
       )
-      yield json: { message: message }, status: 422
+      yield json: { message: }, status: 422
     end
     SpecialUsers.set_user(@position, @user.username)
     message = I18n.t(
@@ -151,7 +151,7 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
       username: @user.username,
       position: @position
     )
-    yield json: { message: message }, status: 200
+    yield json: { message: }, status: 200
   end
 
   ##
@@ -164,7 +164,7 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
         username: @user.username,
         position: @position
       )
-      yield json: { message: message }, status: 422
+      yield json: { message: }, status: 422
     end
     SpecialUsers.remove_user(@position, username: @user.username)
     message = I18n.t(
@@ -172,7 +172,7 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
       username: @user.username,
       position: @position
     )
-    yield json: { message: message }, status: 200
+    yield json: { message: }, status: 200
   end
 
   ##
@@ -181,12 +181,12 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
     # if user was already an admin or super admin
     if @user.admin?
       message = I18n.t('settings.admin_users.new.already_admin', username: @user.username)
-      yield json: { message: message }, status: 422
+      yield json: { message: }, status: 422
     end
     # happy path!
     @user.update permissions: User::Permissions::ADMIN
     message = I18n.t('settings.admin_users.new.elevate_success', username: @user.username)
-    yield json: { message: message }, status: 200
+    yield json: { message: }, status: 200
   end
 
   ##
@@ -195,25 +195,25 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
     # already an instructor
     if @user.instructor_permissions?
       message = I18n.t('settings.admin_users.remove.already_instructor', username: @user.username)
-      yield json: { message: message }, status: 422
+      yield json: { message: }, status: 422
     end
 
     if @user.super_admin?
       message = I18n.t('settings.admin_users.remove.no_super_admin')
-      yield json: { message: message }, status: 422
+      yield json: { message: }, status: 422
     end
 
     # happy path
     @user.update permissions: User::Permissions::INSTRUCTOR
     message = I18n.t('settings.admin_users.remove.demote_success', username: @user.username)
-    yield json: { message: message }, status: 200
+    yield json: { message: }, status: 200
   end
 
   ##
   # yield up an error message if no user is found.
   def ensure_user_exists(username)
     return unless @user.nil?
-    render json: { message: I18n.t('courses.error.user_exists', username: username) },
+    render json: { message: I18n.t('courses.error.user_exists', username:) },
            status: :not_found
     yield
   end

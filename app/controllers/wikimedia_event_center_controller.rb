@@ -121,7 +121,7 @@ class WikimediaEventCenterController < ApplicationController
       user = UserImporter.new_from_username(username)
       next unless user
       JoinCourse.new(course: @course,
-                     user: user,
+                     user:,
                      role: CoursesUsers::Roles::STUDENT_ROLE,
                      event_sync: true)
     end
@@ -130,9 +130,9 @@ class WikimediaEventCenterController < ApplicationController
   def remove_participants(removed_participants)
     removed_participants.each do |username|
       # A user to be removed definitely exists in the database already.
-      user = User.find_by!(username: username)
+      user = User.find_by!(username:)
       CoursesUsers.find_by(course: @course,
-                           user: user,
+                           user:,
                            role: CoursesUsers::Roles::STUDENT_ROLE)&.destroy
     end
   end

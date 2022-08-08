@@ -20,7 +20,7 @@ class MassEnrollmentController < ApplicationController
     usernames_list = params[:usernames].lines.map(&:strip)
     raise TooManyUsersError if too_many_users?(usernames_list)
 
-    @results = AddUsers.new(course: @course, usernames_list: usernames_list).add_all_at_once
+    @results = AddUsers.new(course: @course, usernames_list:).add_all_at_once
     MassEnrollmentWorker.schedule_edits(course: @course,
                                         editing_user: current_user,
                                         enrollment_results: @results)

@@ -15,7 +15,7 @@ class TrainingBase
 
   # called for each child class in initializers/training_content.rb
   def self.load(slug_list: nil, content_class: self)
-    loader = training_loader_class.new(content_class: content_class, slug_list: slug_list)
+    loader = training_loader_class.new(content_class:, slug_list:)
     loader.load_content
   end
 

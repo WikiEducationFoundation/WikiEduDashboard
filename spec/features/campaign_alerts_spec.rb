@@ -14,7 +14,7 @@ describe 'campaign alerts page', type: :feature, js: true do
     create(
       :alert,
       type: 'ArticlesForDeletionAlert',
-      course: course,
+      course:,
       created_at: '2020-05-29T15:21:53.000Z'
     )
   end

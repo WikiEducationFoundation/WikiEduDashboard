@@ -26,8 +26,8 @@ class DeleteCourseWorker
     # destroy the course, clean up the on-wiki copy if necessary
     course.destroy
     WikiCourseEdits.new(action: :update_course,
-                        course: course,
-                        current_user: current_user,
+                        course:,
+                        current_user:,
                         delete: true)
   end
 

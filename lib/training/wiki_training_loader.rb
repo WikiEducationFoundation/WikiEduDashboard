@@ -44,7 +44,7 @@ class WikiTrainingLoader
     content = new_from_wiki_page(wiki_page)
     unless content&.valid?
       Sentry.capture_message 'Invalid wiki training content',
-                             level: 'warning', extra: { content: content, wiki_page: wiki_page }
+                             level: 'warning', extra: { content:, wiki_page: }
       return
     end
     @collection << content
@@ -71,20 +71,20 @@ class WikiTrainingLoader
     base_page = content['wiki_page']
     return content unless base_page
     wikitext = WikiApi.new(MetaWiki.new).get_page_content(base_page)
-    training_content_and_translations(content: content, base_page: base_page, wikitext: wikitext)
+    training_content_and_translations(content:, base_page:, wikitext:)
   end
 
   # wikitext pages have the slide id and slug embedded in the page title
   def new_from_wikitext_page(wiki_page, wikitext)
     content = slug_and_id_from(wiki_page)
-    training_content_and_translations(content: content, base_page: wiki_page, wikitext: wikitext)
+    training_content_and_translations(content:, base_page: wiki_page, wikitext:)
   end
 
   # Gets the training hashes for the page itself and any translations that exist.
   def training_content_and_translations(content:, base_page:, wikitext:)
-    full_content = content.merge training_hash_from(wiki_page: base_page, wikitext: wikitext)
+    full_content = content.merge training_hash_from(wiki_page: base_page, wikitext:)
     full_content['translations'] = {}
-    translated_pages(base_page: base_page, base_page_wikitext: wikitext).each do |translated_page|
+    translated_pages(base_page:, base_page_wikitext: wikitext).each do |translated_page|
       language = translated_page.split('/').last
       full_content['translations'][language] = training_hash_from(wiki_page: translated_page)
     end

@@ -25,7 +25,7 @@ def mock_mailer
 end
 
 describe SurveyNotification do
-  let(:user) { create(:user, email: email) }
+  let(:user) { create(:user, email:) }
   let(:email) { 'instructor@example.edu' }
   let(:course) { create(:course) }
   let(:courses_user) { create(:courses_user, course_id: course.id, user_id: user.id) }
@@ -35,7 +35,7 @@ describe SurveyNotification do
   let(:survey_assignment) do
     create(:survey_assignment, follow_up_days_after_first_notification: follow_up_days,
                                survey_id: survey.id, courses_user_role: role,
-                               email_template: email_template)
+                               email_template:)
   end
   let(:role) { CoursesUsers::Roles::INSTRUCTOR_ROLE }
   let(:email_template) { 'instructor_survey' }
@@ -46,11 +46,11 @@ describe SurveyNotification do
            survey_assignment_id: survey_assignment.id,
            courses_users_id: courses_user.id,
            course_id: course.id,
-           email_sent_at: email_sent_at,
-           last_follow_up_sent_at: last_follow_up_sent_at,
-           follow_up_count: follow_up_count,
-           completed: completed,
-           dismissed: dismissed)
+           email_sent_at:,
+           last_follow_up_sent_at:,
+           follow_up_count:,
+           completed:,
+           dismissed:)
   end
   let(:follow_up_count) { 0 }
   let(:completed) { false }

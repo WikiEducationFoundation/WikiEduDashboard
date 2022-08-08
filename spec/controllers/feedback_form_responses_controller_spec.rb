@@ -15,7 +15,7 @@ describe FeedbackFormResponsesController, type: :request do
           let(:referer) { 'wikipedia.org' }
 
           it 'sets referer from params' do
-            get '/feedback', params: { referer: referer }
+            get '/feedback', params: { referer: }
             expect(assigns(:subject)).to eq(referer)
           end
         end
@@ -116,7 +116,7 @@ describe FeedbackFormResponsesController, type: :request do
       let(:body) { 'bananas' }
 
       it 'creates successfully' do
-        post '/feedback_form_responses', params: { feedback_form_response: { body: body } }
+        post '/feedback_form_responses', params: { feedback_form_response: { body: } }
         expect(FeedbackFormResponse.last.body).to eq(body)
         expect(response.status).to eq(302)
       end

@@ -8,7 +8,7 @@ describe 'dashboard', type: :feature, js: true do
   let(:user) do
     create(:user,
            onboarded: true, real_name: 'test',
-           email: 'email@email.com', permissions: permissions)
+           email: 'email@email.com', permissions:)
   end
 
   context 'with no courses' do

@@ -20,10 +20,10 @@ class Deadlines
                                   before_deadline_message:, after_deadline_message:)
     record = Setting.find_or_create_by(key: 'deadlines')
     record.value['student_program'] = {
-      recruiting_term: recruiting_term,
-      deadline: deadline,
-      before_deadline_message: before_deadline_message,
-      after_deadline_message: after_deadline_message
+      recruiting_term:,
+      deadline:,
+      before_deadline_message:,
+      after_deadline_message:
     }
     record.save
     @setting_record = record

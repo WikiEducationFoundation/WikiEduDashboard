@@ -8,7 +8,7 @@ describe OverdueTrainingAlertManager do
   let(:course) { create(:course, start: start_date) }
   let(:start_date) { '2018-06-07'.to_date }
   let(:week) { create(:week) }
-  let(:block) { create(:block, training_module_ids: [1, 2, 3], due_date: due_date) }
+  let(:block) { create(:block, training_module_ids: [1, 2, 3], due_date:) }
   let(:due_date) { nil }
   let(:exercise_week) { create(:week) }
   let(:exercise_block) { create(:block, training_module_ids: [38], due_date: exercise_due_date) }
@@ -17,7 +17,7 @@ describe OverdueTrainingAlertManager do
 
   before do
     TrainingModule.load_all
-    create(:courses_user, user: user, course: course)
+    create(:courses_user, user:, course:)
     allow(Features).to receive(:email?).and_return(true)
     course.weeks << [week, exercise_week]
     week.blocks << block
@@ -66,7 +66,7 @@ describe OverdueTrainingAlertManager do
     let(:due_date) { 5.days.ago }
 
     it 'does not create a new alert' do
-      create(:overdue_training_alert, user: user, course: course, created_at: 5.days.ago)
+      create(:overdue_training_alert, user:, course:, created_at: 5.days.ago)
       expect(OverdueTrainingAlert.count).to eq(1)
       subject
       expect(OverdueTrainingAlert.count).to eq(1)
@@ -77,7 +77,7 @@ describe OverdueTrainingAlertManager do
     let(:due_date) { 11.days.ago }
 
     it 'creates another alert' do
-      create(:overdue_training_alert, user: user, course: course, created_at: 11.days.ago)
+      create(:overdue_training_alert, user:, course:, created_at: 11.days.ago)
       expect(OverdueTrainingAlert.count).to eq(1)
       subject
       expect(OverdueTrainingAlert.count).to eq(2)

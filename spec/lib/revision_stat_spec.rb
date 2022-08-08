@@ -18,11 +18,11 @@ describe RevisionStat do
   let(:date) { 7.days.ago.to_date }
 
   describe '#get_records' do
-    subject { described_class.get_records(date: date, course: course) }
+    subject { described_class.get_records(date:, course:) }
 
     before do
       # Add user to course
-      create(:courses_user, course: course, user: user)
+      create(:courses_user, course:, user:)
     end
 
     context 'date' do

@@ -39,7 +39,7 @@ class PagePileApi
     project = @pile_data['project']
     return if [@wiki.language, @wiki.project] == [language, project]
 
-    @wiki = Wiki.get_or_create(language: language, project: project)
+    @wiki = Wiki.get_or_create(language:, project:)
     @category.update(wiki: @wiki)
   end
 

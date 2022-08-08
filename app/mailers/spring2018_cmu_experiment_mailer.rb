@@ -4,7 +4,7 @@ class Spring2018CmuExperimentMailer < ApplicationMailer
   def self.send_invitation(course, instructor, email_code, reminder: false)
     return unless Features.email?
     return if instructor.email.nil?
-    email(course, instructor, email_code, reminder: reminder).deliver_now
+    email(course, instructor, email_code, reminder:).deliver_now
   end
 
   def email(course, instructor, email_code, reminder: false)
@@ -18,6 +18,6 @@ class Spring2018CmuExperimentMailer < ApplicationMailer
                     "#{@course.id}/#{email_code}/opt_out"
     mail(to: @instructor.email,
          reply_to: 'robert.kraut@cmu.edu',
-         subject: subject)
+         subject:)
   end
 end

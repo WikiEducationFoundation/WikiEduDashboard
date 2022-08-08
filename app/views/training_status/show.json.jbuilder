@@ -5,7 +5,7 @@ json.course do
     training_progress_manager = TrainingProgressManager.new(@user, training_module)
     due_date_manager = TrainingModuleDueDateManager.new(
       course: @course,
-      training_module: training_module,
+      training_module:,
       user: @user
     )
 

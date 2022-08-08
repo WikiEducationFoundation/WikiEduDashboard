@@ -13,6 +13,6 @@ class UpdateAssignmentsWorker
   def perform(course_id, editing_user_id)
     course = Course.find(course_id)
     editing_user = User.find(editing_user_id)
-    WikiCourseEdits.new(action: :update_assignments, course: course, current_user: editing_user)
+    WikiCourseEdits.new(action: :update_assignments, course:, current_user: editing_user)
   end
 end

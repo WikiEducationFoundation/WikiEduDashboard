@@ -9,7 +9,7 @@ describe HistogramPlotter do
   let(:opts) { { existing_only: true, minimum_improvement: 1 } }
   let(:article) { create(:article) }
   let(:revision) do
-    create(:revision, article: article, date: 1.day.ago, wp10: 70, wp10_previous: 1)
+    create(:revision, article:, date: 1.day.ago, wp10: 70, wp10_previous: 1)
   end
 
   before do
@@ -22,7 +22,7 @@ describe HistogramPlotter do
 
   context 'when there is no article data' do
     it 'returns an empty CSV' do
-      csv = described_class.csv(course: course)
+      csv = described_class.csv(course:)
       expect(File.readlines(csv).count).to eq(1)
     end
   end
@@ -33,11 +33,11 @@ describe HistogramPlotter do
     end
 
     it 'returns a deletable CSV with article data for a course' do
-      csv = described_class.csv(course: course)
+      csv = described_class.csv(course:)
       expect(File.readlines(csv).count).to eq(2)
 
       expect(File.exist?(csv)).to eq(true)
-      described_class.delete_csv(course: course)
+      described_class.delete_csv(course:)
       expect(File.exist?(csv)).to eq(false)
     end
 

@@ -219,7 +219,7 @@ describe User do
     let(:user) { create(:user) }
 
     before do
-      create(:user_profile, user: user, image_file_link: 'https://example.com/cat.png')
+      create(:user_profile, user:, image_file_link: 'https://example.com/cat.png')
     end
 
     it 'returns a URL when the user has an image set' do

@@ -37,17 +37,17 @@ describe 'Student users', type: :feature, js: true do
     page.current_window.resize_to(1920, 1080)
     create(:courses_user,
            user: instructor,
-           course: course,
+           course:,
            role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
     create(:campaigns_course,
-           campaign: campaign,
-           course: course)
+           campaign:,
+           course:)
     create(:campaigns_course,
-           campaign: campaign,
+           campaign:,
            course: editathon)
     create(:courses_user,
            user: classmate,
-           course: course,
+           course:,
            role: CoursesUsers::Roles::STUDENT_ROLE)
   end
 
@@ -253,8 +253,8 @@ describe 'Student users', type: :feature, js: true do
       login_as(user, scope: :user)
 
       create(:courses_user,
-             course: course,
-             user: user,
+             course:,
+             user:,
              role: CoursesUsers::Roles::STUDENT_ROLE)
 
       visit root_path

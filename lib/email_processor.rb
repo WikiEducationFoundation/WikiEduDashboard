@@ -98,7 +98,7 @@ class EmailProcessor
       owner_id: @owner&.id,
       project_id: @course&.id,
       sender_id: @sender&.id,
-      details: details
+      details:
     )
   end
 
@@ -112,7 +112,7 @@ class EmailProcessor
       content: @content,
       reference_id: @reference_id,
       sender_id: @sender&.id,
-      details: details
+      details:
     )
   end
 end

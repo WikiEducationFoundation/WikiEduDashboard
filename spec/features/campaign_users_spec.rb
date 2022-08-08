@@ -8,7 +8,7 @@ describe 'campaign users page', type: :feature, js: true do
   let(:campaign) { create(:campaign) }
   let(:course) { create(:course) }
   let(:article) { create(:article, title: 'ExampleArticle') }
-  let!(:courses_user) { create(:courses_user, course: course, user: user) }
+  let!(:courses_user) { create(:courses_user, course:, user:) }
   let!(:campaigns_course) do
     create(:campaigns_course, campaign_id: campaign.id,
                               course_id: course.id)

@@ -14,9 +14,9 @@ describe 'My Articles', type: :feature, js: true do
     ActionController::Base.allow_forgery_protection = true
     stub_info_query # for the query that checks whether an article exists
 
-    create(:courses_user, user: student, course: course)
-    create(:assignment, course: course, article_title: 'Border_Collie', user: nil, role: ASSIGNED)
-    create(:assignment, course: course, article_title: 'Poodle', user: classmate, role: ASSIGNED)
+    create(:courses_user, user: student, course:)
+    create(:assignment, course:, article_title: 'Border_Collie', user: nil, role: ASSIGNED)
+    create(:assignment, course:, article_title: 'Poodle', user: classmate, role: ASSIGNED)
     login_as(student)
   end
 
@@ -37,7 +37,7 @@ describe 'My Articles', type: :feature, js: true do
   end
 
   it 'lets a student choose a second article' do
-    create(:assignment, course: course, article_title: 'Shiba_Inu', user: student, role: ASSIGNED)
+    create(:assignment, course:, article_title: 'Shiba_Inu', user: student, role: ASSIGNED)
 
     visit "/courses/#{course.slug}"
     expect(page).to have_content 'My Articles'

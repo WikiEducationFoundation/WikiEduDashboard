@@ -7,12 +7,12 @@ describe 'user profile pages', type: :feature, js: true do
   let(:course) { create(:course) }
   let(:course2) { create(:course, slug: 'course/2') }
   let(:article) { create(:article) }
-  let!(:revision) { create(:revision, date: course.start + 1.hour, user: user, article: article) }
+  let!(:revision) { create(:revision, date: course.start + 1.hour, user:, article:) }
 
   before do
-    create(:courses_user, user: user, course: course, role: CoursesUsers::Roles::STUDENT_ROLE)
-    create(:courses_user, user: user, course: course2, role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
-    create(:articles_course, course: course, article: article)
+    create(:courses_user, user:, course:, role: CoursesUsers::Roles::STUDENT_ROLE)
+    create(:courses_user, user:, course: course2, role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+    create(:articles_course, course:, article:)
   end
 
   it 'shows contribution statistics' do
@@ -25,7 +25,7 @@ describe 'user profile pages', type: :feature, js: true do
   context 'when user has done training(s)' do
     before do
       TrainingModule.load
-      create(:training_modules_users, user: user, training_module_id: TrainingModule.first.id,
+      create(:training_modules_users, user:, training_module_id: TrainingModule.first.id,
                                       completed_at: Time.zone.now)
     end
 

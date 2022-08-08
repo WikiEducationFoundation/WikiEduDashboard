@@ -16,8 +16,8 @@ class TagManager
 
   def add(tag:, key: nil)
     create_attrs = { course_id: @course.id,
-                     tag: tag,
-                     key: key }
+                     tag:,
+                     key: }
     Tag.create(create_attrs)
   end
 
@@ -32,7 +32,7 @@ class TagManager
             # user#returning_instructor?.
             creator.returning_instructor? ? 'returning_instructor' : 'first_time_instructor'
           end
-    add(tag: tag, key: 'course_creator')
+    add(tag:, key: 'course_creator')
 
     add(tag: 'cloneable') if cloneable?
   end

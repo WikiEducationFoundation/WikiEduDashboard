@@ -4,13 +4,13 @@ require 'rails_helper'
 require "#{Rails.root}/app/services/update_course_from_salesforce"
 
 describe UpdateCourseFromSalesforce do
-  let(:course) { create(:course, flags: flags) }
+  let(:course) { create(:course, flags:) }
   let(:salesforce_id) { 'a2qQ0101015h4HF' }
   let(:mock_salesforce_record) { { 'Course_Closed_Date__c' => '2018-06-07' } }
   let(:subject) { described_class.new(course) }
 
   context 'when a course has a Salesforce record' do
-    let(:flags) { { salesforce_id: salesforce_id } }
+    let(:flags) { { salesforce_id: } }
 
     it 'updates the record with the closed date' do
       expect_any_instance_of(Restforce::Data::Client).to receive(:find)

@@ -15,7 +15,7 @@ describe WikiAssignmentOutput do
            title: 'Language in Hawaiʻi and the Pacific',
            school: 'University of Hawaiʻi at Mānoa',
            term: 'Fall 2016',
-           home_wiki: home_wiki,
+           home_wiki:,
            slug: 'University_of_Hawaiʻi_at_Mānoa/Language_in_Hawaiʻi_and_the_Pacific_(Fall_2016)',
            submitted: true)
     create(:assignment,

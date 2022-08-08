@@ -49,7 +49,7 @@ describe 'the course page', type: :feature, js: true do
     course = create(:course,
                     id: 10001,
                     title: 'This.course',
-                    slug: slug,
+                    slug:,
                     start: course_start.to_date,
                     end: course_end.to_date,
                     timeline_start: course_start.to_date,
@@ -77,7 +77,7 @@ describe 'the course page', type: :feature, js: true do
     end
     # for testing Activity using Media Wiki API
     user = create(:user, username: 'DSMalhotra')
-    create(:courses_user, user: user, course: course)
+    create(:courses_user, user:, course:)
 
     ratings = ['fl', 'fa', 'a', 'ga', 'b', 'c', 'start', 'stub', 'list', nil]
     (1...article_count / 2).each do |i|
@@ -216,7 +216,7 @@ describe 'the course page', type: :feature, js: true do
     end
 
     it 'get academic_system' do
-      academic_system = Course.find_by(slug: slug).academic_system
+      academic_system = Course.find_by(slug:).academic_system
       expect(academic_system).to eq('semester')
     end
   end
@@ -250,7 +250,7 @@ describe 'the course page', type: :feature, js: true do
           click_button 'Save'
         end
         sleep 2
-        home_wiki_id = Course.find_by(slug: slug).home_wiki_id
+        home_wiki_id = Course.find_by(slug:).home_wiki_id
         expect(home_wiki_id).to eq(es_wiktionary.id)
       end
     end
@@ -293,8 +293,8 @@ describe 'the course page', type: :feature, js: true do
       course = Course.first
       wiki = Wiki.first
       AssignmentManager.new(user_id: nil,
-                            course: course,
-                            wiki: wiki,
+                            course:,
+                            wiki:,
                             title: 'Education',
                             role: 0).create_assignment
       js_visit "/courses/#{slug}/articles"
@@ -355,8 +355,8 @@ describe 'the course page', type: :feature, js: true do
       course = Course.first
       wiki = Wiki.first
       AssignmentManager.new(user_id: nil,
-                            course: course,
-                            wiki: wiki,
+                            course:,
+                            wiki:,
                             title: 'Education',
                             role: 0).create_assignment
       js_visit "/courses/#{slug}/articles/available"
@@ -381,8 +381,8 @@ describe 'the course page', type: :feature, js: true do
                               role: CoursesUsers::Roles::STUDENT_ROLE)
         wiki = Wiki.first
         AssignmentManager.new(user_id: nil,
-                              course: course,
-                              wiki: wiki,
+                              course:,
+                              wiki:,
                               title: 'Education',
                               role: 0).create_assignment
 
@@ -403,7 +403,7 @@ describe 'the course page', type: :feature, js: true do
     before do
       Revision.last.update(date: 2.days.ago, user_id: User.first.id)
       CoursesUsers.last.update(
-        course_id: Course.find_by(slug: slug).id,
+        course_id: Course.find_by(slug:).id,
         user_id: User.first.id
       )
       CoursesUsers.update_all_caches CoursesUsers.all
@@ -524,8 +524,8 @@ describe 'the course page', type: :feature, js: true do
       user = create(:user)
       course = Course.find(10001)
       create(:courses_user,
-             course: course,
-             user: user,
+             course:,
+             user:,
              role: 0)
       login_as(super_admin)
       stub_oauth_edit
@@ -560,8 +560,8 @@ describe 'the course page', type: :feature, js: true do
     let(:course) { create(course_type) }
 
     before do
-      create(:articles_course, article: article, course: course)
-      create(:articles_course, article: article2, course: course)
+      create(:articles_course, article:, course:)
+      create(:articles_course, article: article2, course:)
       create(:revision, article_id: article.id, user_id: user.id, date: course.start + 1.hour)
       create(:revision, article_id: article2.id, user_id: user.id, date: course.start + 1.hour)
       course.students << user

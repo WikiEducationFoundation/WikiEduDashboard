@@ -10,7 +10,7 @@ describe CourseUploadImporter do
   let(:user) { create(:user, username: 'Kippelboy') }
 
   before do
-    create(:courses_user, user: user, course: course)
+    create(:courses_user, user:, course:)
   end
 
   describe '.run' do

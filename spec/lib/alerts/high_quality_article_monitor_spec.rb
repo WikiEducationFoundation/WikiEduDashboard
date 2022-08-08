@@ -37,7 +37,7 @@ describe HighQualityArticleMonitor do
     end
 
     before do
-      create(:courses_user, course: course, user: instructor,
+      create(:courses_user, course:, user: instructor,
                             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
 
       allow_any_instance_of(CategoryImporter).to receive(:page_titles_for_category)

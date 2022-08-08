@@ -52,8 +52,8 @@ describe CourseRevisionUpdater do
       VCR.use_cassette 'course_revision_updater' do
         course = create(:course, start: '2016-03-20', end: '2016-03-31'.to_date.end_of_day)
         user = create(:user, username: 'Tedholtby')
-        create(:courses_user, course: course,
-                              user: user,
+        create(:courses_user, course:,
+                              user:,
                               role: CoursesUsers::Roles::STUDENT_ROLE)
 
         described_class.import_revisions(course, all_time: true)
@@ -67,7 +67,7 @@ describe CourseRevisionUpdater do
       VCR.use_cassette 'course_revision_updater' do
         course = create(:course, start: '2016-03-20', end: '2016-03-30')
         user = create(:user, id: 15, username: 'Tedholtby')
-        create(:courses_user, course: course, user: user,
+        create(:courses_user, course:, user:,
                               role: CoursesUsers::Roles::STUDENT_ROLE)
 
         described_class.import_revisions(course, all_time: false)
@@ -111,7 +111,7 @@ describe CourseRevisionUpdater do
       expect_any_instance_of(RevisionImporter).not_to receive(:import_revisions_for_course)
       course = create(:article_scoped_program)
       student = create(:user)
-      create(:courses_user, course: course, user: student)
+      create(:courses_user, course:, user: student)
       described_class.import_revisions(course, all_time: true)
     end
   end

@@ -164,7 +164,7 @@ describe RevisionScoreImporter do
     let(:language) { 'en' }
     let(:project) { 'wikipedia' }
     let(:subject) do
-      described_class.new(language: language, project: project)
+      described_class.new(language:, project:)
                      .fetch_ores_data_for_revision_id(rev_id)
     end
 
@@ -195,8 +195,8 @@ describe RevisionScoreImporter do
       stub_wiki_validation
       OresApi::AVAILABLE_WIKIPEDIAS.each do |lang|
         wiki = Wiki.get_or_create(language: lang, project: 'wikipedia')
-        article = create(:article, wiki: wiki)
-        create(:revision, article: article, wiki: wiki, mw_rev_id: 12345)
+        article = create(:article, wiki:)
+        create(:revision, article:, wiki:, mw_rev_id: 12345)
       end
       wikidata_item = create(:article, wiki: wikidata)
       create(:revision, article: wikidata_item, wiki: wikidata, mw_rev_id: 12345)

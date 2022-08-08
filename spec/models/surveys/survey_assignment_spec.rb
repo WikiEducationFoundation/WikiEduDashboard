@@ -73,9 +73,9 @@ RSpec.describe SurveyAssignment, type: :model do
 
   describe '#status' do
     let(:survey_assignment) do
-      create(:survey_assignment, survey_id: survey.id, published: published, courses_user_role: 1)
+      create(:survey_assignment, survey_id: survey.id, published:, courses_user_role: 1)
     end
-    let(:survey) { create(:survey, closed: closed) }
+    let(:survey) { create(:survey, closed:) }
     let(:closed) { false }
     let(:subject) { survey_assignment.status }
 

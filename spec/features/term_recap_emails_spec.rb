@@ -17,7 +17,7 @@ describe 'term recap emails page', type: :feature, js: true do
     course.campaigns << Campaign.first
     active_course.campaigns << Campaign.first
     ongoing_course.campaigns << Campaign.first
-    JoinCourse.new(course: course, user: admin, role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+    JoinCourse.new(course:, user: admin, role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
     JoinCourse.new(course: active_course, user: admin, role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
     JoinCourse.new(course: ongoing_course, user: admin, role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
     login_as admin

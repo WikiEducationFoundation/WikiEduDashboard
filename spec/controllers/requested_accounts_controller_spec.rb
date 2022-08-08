@@ -16,9 +16,9 @@ describe RequestedAccountsController, type: :request do
       let(:requested_account) do
         create(
           :requested_account,
-          course: course,
-          username: username,
-          email: email
+          course:,
+          username:,
+          email:
         )
       end
 
@@ -51,9 +51,9 @@ describe RequestedAccountsController, type: :request do
       let(:requested_account) do
         create(
           :requested_account,
-          course: course,
-          username: username,
-          email: email
+          course:,
+          username:,
+          email:
         )
       end
 
@@ -65,7 +65,7 @@ describe RequestedAccountsController, type: :request do
       it 'returns an error if the email is invalid' do
         put '/requested_accounts', params: { passcode: course.passcode,
                                              course_slug: course.slug,
-                                             username: username,
+                                             username:,
                                              email: 'invalidemail' }
         expect(response.status).to eq(422)
         expect(response.body).to include('invalidemail')
@@ -75,7 +75,7 @@ describe RequestedAccountsController, type: :request do
         expect(course.requested_accounts.count).to eq(0)
         put '/requested_accounts', params: { passcode: course.passcode,
                                              course_slug: course.slug,
-                                             username: username, email: email }
+                                             username:, email: }
         expect(course.requested_accounts.count).to eq(1)
       end
 
@@ -91,7 +91,7 @@ describe RequestedAccountsController, type: :request do
       it 'returns a 500 if user is not authorized create accounts now' do
         put '/requested_accounts', params: { passcode: course.passcode,
                                              course_slug: course.slug,
-                                             username: username,
+                                             username:,
                                              email: 'newemail@example.com',
                                              create_account_now: true }
         expect(response.status).to eq(500)
@@ -114,7 +114,7 @@ describe RequestedAccountsController, type: :request do
     describe '#create_accounts' do
       let(:route) { "/requested_accounts/#{course.slug}/create" }
 
-      before { RequestedAccount.create(course_id: course.id, username: username, email: email) }
+      before { RequestedAccount.create(course_id: course.id, username:, email:) }
 
       it 'does not create the accounts if user is not authorized' do
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
@@ -136,7 +136,7 @@ describe RequestedAccountsController, type: :request do
 
     describe '#create_all_accounts' do
       before do
-        RequestedAccount.create(course_id: course.id, username: username, email: email)
+        RequestedAccount.create(course_id: course.id, username:, email:)
       end
 
       it 'does not create the accounts if user is not authorized' do
@@ -170,7 +170,7 @@ describe RequestedAccountsController, type: :request do
     describe '#destroy' do
       let(:route) { "/requested_accounts/#{course.slug}/#{requested_account.id}/delete" }
       let!(:requested_account) do
-        create(:requested_account, course_id: course.id, username: username, email: email)
+        create(:requested_account, course_id: course.id, username:, email:)
       end
 
       it 'deletes a request account if user is authorized' do

@@ -26,7 +26,7 @@ class TicketNotificationMailer < ApplicationMailer
     @ticket_dashboard_link = "https://#{ENV['dashboard_url']}/tickets/dashboard"
 
     mail(to: @recipient.email,
-         bcc: bcc,
+         bcc:,
          cc: carbon_copy,
          from: @sender.email,
          subject: email_subject,
@@ -44,7 +44,7 @@ class TicketNotificationMailer < ApplicationMailer
               end
 
     mail(to: owner.email,
-         subject: subject)
+         subject:)
   end
 
   private

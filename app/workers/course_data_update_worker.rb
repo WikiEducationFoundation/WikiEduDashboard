@@ -9,7 +9,7 @@ class CourseDataUpdateWorker
                   retry: 0 # Move job to the 'dead' queue if it fails
 
   def self.update_course(course_id:, queue:)
-    CourseDataUpdateWorker.set(queue: queue).perform_async(course_id)
+    CourseDataUpdateWorker.set(queue:).perform_async(course_id)
   end
 
   def perform(course_id)

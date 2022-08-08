@@ -9,7 +9,7 @@ describe 'ticket system', type: :feature, js: true do
   before do
     login_as admin
     stub_token_request
-    create(:courses_user, course: course, user: admin,
+    create(:courses_user, course:, user: admin,
                           role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE)
   end
 

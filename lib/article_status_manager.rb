@@ -175,7 +175,7 @@ class ArticleStatusManager
     mw_page_id = same_title_page['page_id']
     namespace = same_title_page['page_namespace']
 
-    article = Article.find_by(wiki_id: @wiki.id, title: title, namespace: namespace, deleted: false)
+    article = Article.find_by(wiki_id: @wiki.id, title:, namespace:, deleted: false)
 
     return unless article_data_matches?(article, title, deleted_page_ids)
     update_article_page_id(article, mw_page_id)
@@ -191,18 +191,18 @@ class ArticleStatusManager
   end
 
   def update_article_page_id(article, mw_page_id)
-    if Article.exists?(mw_page_id: mw_page_id, wiki_id: @wiki.id)
+    if Article.exists?(mw_page_id:, wiki_id: @wiki.id)
       # Catches case where update_constantly has
       # already added this article under a new ID
       article.update(deleted: true)
     else
-      article.update(mw_page_id: mw_page_id)
+      article.update(mw_page_id:)
     end
   end
 
   def find_article_by_mw_page_id(mw_page_id)
-    article = Article.find_by(wiki_id: @wiki.id, mw_page_id: mw_page_id, deleted: false)
-    article ||= Article.find_by(wiki_id: @wiki.id, mw_page_id: mw_page_id)
+    article = Article.find_by(wiki_id: @wiki.id, mw_page_id:, deleted: false)
+    article ||= Article.find_by(wiki_id: @wiki.id, mw_page_id:)
     article
   end
 end

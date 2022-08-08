@@ -131,7 +131,7 @@ class Replica
     tries -= 1
     sleep 2 && retry unless tries.zero?
     log_error(e, update_service: @update_service,
-              sentry_extra: { endpoint: endpoint, query: query,
+              sentry_extra: { endpoint:, query:,
                               language: @wiki.language, project: @wiki.project })
   end
 

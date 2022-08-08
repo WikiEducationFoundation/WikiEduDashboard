@@ -8,15 +8,15 @@ describe CreateSalesforceMediaRecord do
   let(:article) { create(:article) }
   let(:subject) do
     described_class.new(
-      course: course,
-      user: user,
-      article: article,
+      course:,
+      user:,
+      article:,
       before_rev_id: 1234,
       after_rev_id: 3456
     )
   end
 
-  before { create(:articles_course, course: course, article: article) }
+  before { create(:articles_course, course:, article:) }
 
   it 'calls #create! on the Restforce client and returns a url' do
     expect_any_instance_of(Restforce::Data::Client).to receive(:create!)

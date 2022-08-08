@@ -84,7 +84,7 @@ class WikiCourseEdits
       next unless article.namespace == Article::Namespaces::MAINSPACE
       next if article.deleted
       update_assignments_for_article(title: article.title,
-                                     assignments_for_same_article: assignments_for_same_article)
+                                     assignments_for_same_article:)
     end
   end
 
@@ -159,8 +159,8 @@ class WikiCourseEdits
     sandbox_template = @generator.sandbox_template(@dashboard_url)
     sandbox = "User:#{@enrolling_user.username}/sandbox"
 
-    AddSandboxTemplate.new(home_wiki: @home_wiki, sandbox: sandbox,
-                           sandbox_template: sandbox_template, current_user: @current_user)
+    AddSandboxTemplate.new(home_wiki: @home_wiki, sandbox:,
+                           sandbox_template:, current_user: @current_user)
   end
 
   def repost_with_sanitized_links(wiki_title, wiki_text, summary, spamlist)
@@ -188,7 +188,7 @@ class WikiCourseEdits
     # rubocop:enable Layout/LineLength
     message = { sectiontitle: section_title,
                 text: announcement,
-                summary: summary }
+                summary: }
 
     @wiki_editor.add_new_section(@current_user, announcement_page, message)
   end
@@ -210,8 +210,8 @@ class WikiCourseEdits
     talk_title = "Talk:#{title.tr(' ', '_')}"
 
     page_content = WikiAssignmentOutput.wikitext(course: @course,
-                                                 title: title,
-                                                 talk_title: talk_title,
+                                                 title:,
+                                                 talk_title:,
                                                  assignments: assignments_for_same_article,
                                                  templates: @templates)
 

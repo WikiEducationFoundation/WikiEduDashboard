@@ -5,7 +5,7 @@ require 'rails_helper'
 describe 'students with assigned exercise modules', type: :feature, js: true do
   let(:student) { create(:user) }
   let(:course) { create(:course, weekdays: '1111111') }
-  let(:week) { create(:week, course: course) }
+  let(:week) { create(:week, course:) }
   let(:evaluate_exercise_id) { 34 }
   let(:presentation_exercise_id) { 40 }
   let(:assigned_ids) { [evaluate_exercise_id] }
@@ -13,7 +13,7 @@ describe 'students with assigned exercise modules', type: :feature, js: true do
   before do
     ActionController::Base.allow_forgery_protection = true
     TrainingModule.load_all
-    create(:block, week: week, training_module_ids: assigned_ids)
+    create(:block, week:, training_module_ids: assigned_ids)
     course.campaigns << Campaign.first
     course.users << student
     create(:training_modules_users, user: student, training_module_id: evaluate_exercise_id,

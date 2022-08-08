@@ -21,7 +21,7 @@ describe RequestedAccountsCampaignsController, type: :request do
     let(:requested_account) do
       create(
         :requested_account,
-        course: course,
+        course:,
         username: 'username',
         email: 'email@example.com'
       )

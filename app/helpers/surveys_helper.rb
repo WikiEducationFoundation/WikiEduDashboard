@@ -18,7 +18,7 @@ module SurveysHelper
 
   def render_matrix_answer_labels(answer)
     render partial: 'rapidfire/answers/matrix_answer_labels',
-           locals: { answer: answer, course: @course }
+           locals: { answer:, course: @course }
   end
 
   def survey_preview_url(survey)
@@ -43,7 +43,7 @@ module SurveysHelper
     select_tag(field_name, options_for_select(options),
                include_blank: multiple ? 'Select all that apply' : 'Select an option',
                required: required_question?(answer),
-               multiple: multiple)
+               multiple:)
   end
 
   def answer_options(answer, course)
@@ -91,8 +91,8 @@ module SurveysHelper
     return { question_group: @question_group,
       answer_group_builder: @answer_group_builder,
       question_group_index: index,
-      surveys_question_group: surveys_question_group,
-      total: total,
+      surveys_question_group:,
+      total:,
       results: is_results_view }
   end
 

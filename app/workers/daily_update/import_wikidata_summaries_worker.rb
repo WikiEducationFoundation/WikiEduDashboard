@@ -13,7 +13,7 @@ class ImportWikidataSummariesWorker
         summary = WikidataSummaryParser.fetch_summary(rev)
         next if summary.nil?
         begin
-          rev.update!(summary: summary)
+          rev.update!(summary:)
         rescue ActiveRecord::StatementInvalid => e
           Sentry.capture_exception e
           rev.update(summary: CGI.escape(summary))

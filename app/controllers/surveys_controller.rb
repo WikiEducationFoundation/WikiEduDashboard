@@ -46,7 +46,7 @@ class SurveysController < ApplicationController
       format.html
       format.csv do
         filename = "#{@survey.name}-results#{Time.zone.today}.csv"
-        send_data @survey.to_csv, filename: filename
+        send_data @survey.to_csv, filename:
       end
     end
   end

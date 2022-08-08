@@ -65,19 +65,19 @@ class DeUserfyingEditAlertMonitor
   def create_alert(user_id, course_id, article_id, revision_id, details)
     return if alert_already_exists?(course_id, article_id, revision_id)
     alert = Alert.create!(type: 'DeUserfyingAlert',
-                          user_id: user_id,
-                          course_id: course_id,
-                          article_id: article_id,
-                          revision_id: revision_id,
-                          details: details)
+                          user_id:,
+                          course_id:,
+                          article_id:,
+                          revision_id:,
+                          details:)
     alert.email_content_expert
   end
 
   def alert_already_exists?(course_id, article_id, revision_id)
     Alert.exists?(type: 'DeUserfyingAlert',
-                  course_id: course_id,
-                  article_id: article_id,
-                  revision_id: revision_id)
+                  course_id:,
+                  article_id:,
+                  revision_id:)
   end
 
   def courses_for_a_student(id)
@@ -90,9 +90,9 @@ class DeUserfyingEditAlertMonitor
 
   def article_by_mw_page_id(mw_page_id)
     wiki_id = @wiki.id
-    unless Article.exists?(wiki_id: wiki_id, mw_page_id: mw_page_id)
+    unless Article.exists?(wiki_id:, mw_page_id:)
       ArticleImporter.new(@wiki).import_articles([mw_page_id])
     end
-    Article.find_by(wiki_id: wiki_id, mw_page_id: mw_page_id)
+    Article.find_by(wiki_id:, mw_page_id:)
   end
 end

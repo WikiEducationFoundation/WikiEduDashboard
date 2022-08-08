@@ -12,7 +12,7 @@ describe FirstStudentAlertManager do
   before do
     create(:user, username: 'Eryk (Wiki Ed)', email: 'eryk@wikiedu.org')
     SpecialUsers.set_user('communications_manager', 'Eryk (Wiki Ed)')
-    create(:courses_user, user: instructor, course: course,
+    create(:courses_user, user: instructor, course:,
                           role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
   end
 
@@ -25,7 +25,7 @@ describe FirstStudentAlertManager do
 
   context 'when the first student joined recently' do
     before do
-      create(:courses_user, user: student, course: course,
+      create(:courses_user, user: student, course:,
                             role: CoursesUsers::Roles::STUDENT_ROLE)
     end
 
@@ -37,7 +37,7 @@ describe FirstStudentAlertManager do
 
   context 'when the first student joined 4 days ago' do
     before do
-      create(:courses_user, user: student, course: course,
+      create(:courses_user, user: student, course:,
                             role: CoursesUsers::Roles::STUDENT_ROLE,
                             created_at: 4.days.ago)
     end
@@ -50,7 +50,7 @@ describe FirstStudentAlertManager do
 
   context 'when there is already an alert' do
     before do
-      create(:courses_user, user: student, course: course,
+      create(:courses_user, user: student, course:,
                             role: CoursesUsers::Roles::STUDENT_ROLE)
       create(:alert, type: 'FirstEnrolledStudentAlert', course_id: course.id)
     end

@@ -109,7 +109,7 @@ class User < ApplicationRecord
   # Instance methods #
   ####################
   def roles(course)
-    { id: id, admin: admin?, campaign_organizer: campaign_organizer?(course) }
+    { id:, admin: admin?, campaign_organizer: campaign_organizer?(course) }
   end
 
   def talk_page

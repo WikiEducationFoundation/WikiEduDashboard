@@ -11,7 +11,7 @@ describe Spring2018CmuExperiment do
     4.times do |i|
       course = create(:course, slug: "spring course number #{i}", id: i)
       course.campaigns << spring_2018
-      create(:courses_user, course: course, user: user,
+      create(:courses_user, course:, user:,
                             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
     end
   end
@@ -19,12 +19,12 @@ describe Spring2018CmuExperiment do
   let(:block) do
     create(
       :block,
-      week: week,
+      week:,
       title: 'Get started on Wikipedia',
       training_module_ids: [1, 2]
     )
   end
-  let(:week) { create(:week, course: course) }
+  let(:week) { create(:week, course:) }
   let(:course) { create(:course, flags: { Spring2018CmuExperiment::STATUS_KEY => 'email_sent' }) }
 
   describe '.process_courses' do

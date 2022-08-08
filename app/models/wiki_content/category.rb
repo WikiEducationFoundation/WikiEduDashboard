@@ -48,7 +48,7 @@ class Category < ApplicationRecord
   end
 
   def article_ids
-    @article_ids ||= Article.where(namespace: 0, wiki_id: wiki_id, title: article_titles).pluck(:id)
+    @article_ids ||= Article.where(namespace: 0, wiki_id:, title: article_titles).pluck(:id)
   end
 
   def name_with_prefix

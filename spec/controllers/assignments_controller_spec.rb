@@ -290,7 +290,7 @@ describe AssignmentsController, type: :request do
         create(:assignment, course_id: course.id, user_id: user.id, role: 0, article_title: title)
       end
       let(:duplicate_assignment_params) do
-        { user_id: user.id, course_slug: course.slug, title: title, role: 0, format: :json }
+        { user_id: user.id, course_slug: course.slug, title:, role: 0, format: :json }
       end
 
       before do
@@ -308,7 +308,7 @@ describe AssignmentsController, type: :request do
     context 'when the title is invalid' do
       let(:title) { 'My [invalid] title' }
       let(:invalid_assignment_params) do
-        { user_id: user.id, course_slug: course.slug, title: title, role: 0, format: :json }
+        { user_id: user.id, course_slug: course.slug, title:, role: 0, format: :json }
       end
 
       before do
@@ -355,7 +355,7 @@ describe AssignmentsController, type: :request do
     end
 
     context 'when the claim succeeds' do
-      before { create(:courses_user, course: course, user: user) }
+      before { create(:courses_user, course:, user:) }
 
       it 'renders a 200 and the assignment belongs to the user' do
         put "/assignments/#{assignment.id}/claim", params: request_params
@@ -365,7 +365,7 @@ describe AssignmentsController, type: :request do
     end
 
     context 'when the assignment was already claimed by another user' do
-      before { create(:courses_user, course: course, user: user) }
+      before { create(:courses_user, course:, user:) }
 
       it 'renders a 409' do
         assignment.update(user_id: 1)
@@ -376,9 +376,9 @@ describe AssignmentsController, type: :request do
 
     context 'when the same article is already assigned to the user' do
       before do
-        create(:courses_user, course: course, user: user)
-        create(:assignment, article_title: assignment.article_title, user: user,
-                            course: course, role: assignment.role)
+        create(:courses_user, course:, user:)
+        create(:assignment, article_title: assignment.article_title, user:,
+                            course:, role: assignment.role)
         expect_any_instance_of(Course).to receive(:retain_available_articles?).and_return(true)
       end
 
@@ -397,7 +397,7 @@ describe AssignmentsController, type: :request do
 
     context 'when the course is set to retain available articles' do
       before do
-        create(:courses_user, course: course, user: user)
+        create(:courses_user, course:, user:)
         allow_any_instance_of(Course).to receive(:retain_available_articles?).and_return(true)
       end
 
@@ -411,9 +411,9 @@ describe AssignmentsController, type: :request do
   end
 
   describe 'PATCH #update_status' do
-    let(:assignment) { create(:assignment, course: course, role: 0) }
+    let(:assignment) { create(:assignment, course:, role: 0) }
     let(:request_params) do
-      { course_id: course.id, id: assignment.id, user_id: user.id, format: :json, status: status }
+      { course_id: course.id, id: assignment.id, user_id: user.id, format: :json, status: }
     end
 
     context 'when a status param is provided' do

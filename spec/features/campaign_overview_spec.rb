@@ -16,7 +16,7 @@ describe 'campaign overview page', type: :feature, js: true do
   let(:campaign) do
     create(:campaign,
            title: 'Spring 2016 campaign',
-           slug: slug,
+           slug:,
            description: 'This is the best campaign')
   end
 
@@ -186,7 +186,7 @@ describe 'campaign overview page', type: :feature, js: true do
         username = 'Nonexistent user'
         fill_in('username', with: username)
         find('.add-organizer-button').click
-        expect(page).to have_content(I18n.t('courses.error.user_exists', username: username))
+        expect(page).to have_content(I18n.t('courses.error.user_exists', username:))
         expect(campaign.reload.organizers.collect(&:username)).not_to include(username)
       end
 

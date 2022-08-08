@@ -17,7 +17,7 @@ class TrainedStudentsManager
       @course.training_modules.any? do |training_module|
         TrainingModuleDueDateManager.new(
           course: @course,
-          training_module: training_module,
+          training_module:,
           user: student
         ).overdue?
       end

@@ -11,6 +11,6 @@ class SalesforceCredentials
   end
 
   def self.update(password, token)
-    setting.update(value: { password: password, security_token: token })
+    setting.update(value: { password:, security_token: token })
   end
 end

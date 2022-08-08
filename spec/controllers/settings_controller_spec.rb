@@ -85,7 +85,7 @@ describe SettingsController, type: :request do
 
     let(:post_params) do
       params = { user: { username: @user.username }, format: @format_type }
-      post @action, params: params
+      post @action, params:
     end
 
     context 'user is not an admin' do
@@ -150,7 +150,7 @@ describe SettingsController, type: :request do
     let(:post_params) do
       params = { format: @format_type,
                   user: { username: @user.username } }
-      post @action, params: params
+      post @action, params:
     end
 
     context 'user is an admin' do
@@ -223,15 +223,15 @@ describe SettingsController, type: :request do
     let(:post_params) do
       params = { format: @format_type,
                   special_user: { username: @user.username,
-                                  position: position } }
-      post @action, params: params
+                                  position: } }
+      post @action, params:
     end
 
     let(:post_invalid_position_params) do
       params = { format: @format_type,
                   special_user: { username: @user.username,
                                   position: 'apositionhasnoname' } }
-      post @action, params: params
+      post @action, params:
     end
 
     let(:position) { 'classroom_program_manager' }
@@ -257,7 +257,7 @@ describe SettingsController, type: :request do
           I18n.t(
             'settings.special_users.new.elevate_success',
             username: @user.username,
-            position: position
+            position:
           )
         )
       end
@@ -285,7 +285,7 @@ describe SettingsController, type: :request do
           I18n.t(
             'settings.special_users.new.already_is',
             username: @user.username,
-            position: position
+            position:
           )
         )
       end
@@ -312,7 +312,7 @@ describe SettingsController, type: :request do
           I18n.t(
             'settings.special_users.new.elevate_success',
             username: @user.username,
-            position: position
+            position:
           )
         )
       end
@@ -340,7 +340,7 @@ describe SettingsController, type: :request do
           I18n.t(
             'settings.special_users.new.already_is',
             username: @user.username,
-            position: position
+            position:
           )
         )
       end
@@ -382,7 +382,7 @@ describe SettingsController, type: :request do
       params = { format: @format_type,
                   special_user: { username: @user.username,
                                   position: 'communications_manager' } }
-      post @action, params: params
+      post @action, params:
     end
 
     context 'user is a communications_manager' do

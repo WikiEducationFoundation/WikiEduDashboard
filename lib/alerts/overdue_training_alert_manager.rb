@@ -28,8 +28,8 @@ class OverdueTrainingAlertManager
     overdue = false
     course.training_modules.each do |training_module|
       next unless training_module.training?
-      due_date_manager = TrainingModuleDueDateManager.new(course: course, user: student,
-                                                          training_module: training_module)
+      due_date_manager = TrainingModuleDueDateManager.new(course:, user: student,
+                                                          training_module:)
       overdue = true if due_date_manager.overdue?
       status[training_module.slug] = construct_status(due_date_manager)
     end
@@ -37,14 +37,14 @@ class OverdueTrainingAlertManager
     return unless overdue
     status = status.sort_by { |_slug, details| details[:due_date] }.to_h
     alert = Alert.create(type: 'OverdueTrainingAlert', user: student,
-                         course: course, details: status)
+                         course:, details: status)
     # OverdueTrainingAlert will not send the email if user has opted out of this email type
     alert.send_email
   end
 
   def any_recent_alerts?(course, student)
     earliest_date = OverdueTrainingAlert::MINIMUM_DAYS_BETWEEN_ALERTS.days.ago
-    Alert.where(course: course, user: student, type: 'OverdueTrainingAlert')
+    Alert.where(course:, user: student, type: 'OverdueTrainingAlert')
          .exists?(['created_at > ?', earliest_date])
   end
 

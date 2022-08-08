@@ -16,7 +16,7 @@ describe TrainingController, type: :request do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
     end
 
-    let(:request_params) { { library_id: library_id } }
+    let(:request_params) { { library_id: } }
 
     context 'library is legit' do
       it 'sets the library' do
@@ -39,8 +39,8 @@ describe TrainingController, type: :request do
 
     let(:request_params) do
       {
-        library_id: library_id,
-        module_id: module_id
+        library_id:,
+        module_id:
       }
     end
 

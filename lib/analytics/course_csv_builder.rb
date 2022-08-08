@@ -104,7 +104,7 @@ class CourseCsvBuilder
   end
 
   def revisions_by_namespace(namespace)
-    @course.tracked_revisions.joins(:article).where(articles: { namespace: namespace }).count
+    @course.tracked_revisions.joins(:article).where(articles: { namespace: }).count
   end
 
   def training_completion_rate

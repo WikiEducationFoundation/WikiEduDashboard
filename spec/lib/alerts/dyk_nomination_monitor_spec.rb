@@ -54,7 +54,7 @@ describe DYKNominationMonitor do
     end
 
     it 'emails course creator' do
-      create(:courses_user, user: instructor, course: course,
+      create(:courses_user, user: instructor, course:,
                           role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
       described_class.create_alerts_for_course_articles
       expect(Alert.last.email_sent_at).not_to be_nil

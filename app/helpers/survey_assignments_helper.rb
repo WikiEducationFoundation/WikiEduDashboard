@@ -28,12 +28,12 @@ module SurveyAssignmentsHelper
   def user_role_select(f, selected: {})
     f.select :courses_user_role,
              options_for_select(ROLES.collect { |r| [r.values[0], r.values[1]] },
-                                selected: selected)
+                                selected:)
   end
 
   def email_template_select(f, selected:)
     f.select :email_template,
-             options_for_select(SurveyMailer::TEMPLATES, selected: selected)
+             options_for_select(SurveyMailer::TEMPLATES, selected:)
   end
 
   def user_role(survey_assignment, total = 2)

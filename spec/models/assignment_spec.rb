@@ -37,8 +37,8 @@ describe Assignment do
         user = create(:user)
         article = create(:article)
         article_title = article.title
-        assignment = create(:assignment, course: course, user: user,
-                             article: article, article_title: article.title,
+        assignment = create(:assignment, course:, user:,
+                             article:, article_title: article.title,
                              wiki_id: 1)
 
         base_url = "https://#{assignment.wiki.language}.#{assignment.wiki.project}.org/wiki"
@@ -52,9 +52,9 @@ describe Assignment do
         user = create(:user)
         article = create(:article)
         article_title = article.title
-        assignment = create(:assignment, course: course, user: user,
-                             article: article, article_title: article.title,
-                             wiki: wiki)
+        assignment = create(:assignment, course:, user:,
+                             article:, article_title: article.title,
+                             wiki:)
 
         base_url = 'https://www.wikidata.org/wiki'
         expected = "#{base_url}/User:#{user.username}/#{article_title}"
@@ -69,11 +69,11 @@ describe Assignment do
 
         # Another classmate is assigned that article first
         classmate = create(:user, username: 'ClassmateUsername')
-        create(:assignment, course: course, user: classmate,
-                article: article, article_title: article_title, wiki_id: 1)
+        create(:assignment, course:, user: classmate,
+                article:, article_title:, wiki_id: 1)
 
-        assignment = create(:assignment, course: course, user: user,
-                             article: article, article_title: article_title,
+        assignment = create(:assignment, course:, user:,
+                             article:, article_title:,
                              wiki_id: 1)
 
         base_url = "https://#{assignment.wiki.language}.#{assignment.wiki.project}.org/wiki"
@@ -85,8 +85,8 @@ describe Assignment do
         course = create(:course)
         user = create(:user)
         article_title = 'New_Article'
-        assignment = create(:assignment, course: course, user: user,
-                             article_title: article_title, wiki_id: 1)
+        assignment = create(:assignment, course:, user:,
+                             article_title:, wiki_id: 1)
 
         base_url = "https://#{assignment.wiki.language}.#{assignment.wiki.project}.org/wiki"
         expected = "#{base_url}/User:#{user.username}/#{article_title}"
@@ -97,8 +97,8 @@ describe Assignment do
         course = create(:course)
         user = create(:user)
         article = create(:article, title: 'Brown_Bear,_Brown_Bear,_What_Do_You_See?')
-        assignment = create(:assignment, course: course, user: user,
-                             article: article, article_title: article.title,
+        assignment = create(:assignment, course:, user:,
+                             article:, article_title: article.title,
                              wiki_id: 1)
 
         base_url = "https://#{assignment.wiki.language}.#{assignment.wiki.project}.org/wiki"

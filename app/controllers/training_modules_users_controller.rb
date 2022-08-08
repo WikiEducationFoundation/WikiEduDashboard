@@ -7,7 +7,7 @@ class TrainingModulesUsersController < ApplicationController
   def index
     course = Course.find(params[:course_id])
     user = User.find_by(id: params[:user_id]) if params[:user_id]
-    render 'courses/_blocks', locals: { blocks: course.blocks, course: course, user: user }
+    render 'courses/_blocks', locals: { blocks: course.blocks, course:, user: }
   end
 
   def create_or_update
@@ -26,7 +26,7 @@ class TrainingModulesUsersController < ApplicationController
     block = Block.find(params[:block_id])
     mark_completion_status(params[:complete], block.course.id)
 
-    render 'courses/_block', locals: { block: block, course: block.course }
+    render 'courses/_block', locals: { block:, course: block.course }
   end
 
   private

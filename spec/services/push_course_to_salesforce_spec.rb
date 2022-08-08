@@ -3,22 +3,22 @@
 require 'rails_helper'
 
 describe PushCourseToSalesforce do
-  let(:course) { create(:course, flags: flags, expected_students: 51, withdrawn: withdrawn) }
+  let(:course) { create(:course, flags:, expected_students: 51, withdrawn:) }
   let(:content_expert) { create(:admin, username: 'abcdefg') }
   let(:subject) { described_class.new(course) }
   let(:salesforce_id) { 'a2qQ0101015h4HF' }
-  let(:week) { create(:week, course: course) }
+  let(:week) { create(:week, course:) }
   let(:withdrawn) { false }
 
   before do
     Setting.create(key: 'content_expert_salesforce_ids',
                    value: { content_expert.username => 'abcdefg' })
-    JoinCourse.new(course: course, user: content_expert,
+    JoinCourse.new(course:, user: content_expert,
                    role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE)
   end
 
   context 'when a course has a Salesforce record already' do
-    let(:flags) { { salesforce_id: salesforce_id } }
+    let(:flags) { { salesforce_id: } }
 
     it 'updates the record' do
       expect_any_instance_of(Restforce::Data::Client).to receive(:update!).and_return(true)
@@ -27,14 +27,14 @@ describe PushCourseToSalesforce do
 
     it 'works for a VisitingScholarship' do
       expect_any_instance_of(Restforce::Data::Client).to receive(:update!).and_return(true)
-      visiting_scholarship = create(:visiting_scholarship, flags: flags)
+      visiting_scholarship = create(:visiting_scholarship, flags:)
       subject = described_class.new(visiting_scholarship)
       expect(subject.result).to eq(true)
     end
 
     it 'works for a FellowsCohort' do
       expect_any_instance_of(Restforce::Data::Client).to receive(:update!).and_return(true)
-      fellows_cohort = create(:fellows_cohort, flags: flags)
+      fellows_cohort = create(:fellows_cohort, flags:)
       subject = described_class.new(fellows_cohort)
       expect(subject.result).to eq(true)
     end
@@ -48,8 +48,8 @@ describe PushCourseToSalesforce do
     context 'when the course has sandbox and mainspace blocks' do
       before do
         # These are used for generate date for some optional fields.
-        create(:block, week: week, title: 'Start drafting your contributions')
-        create(:block, week: week, title: 'Begin moving your work to Wikipedia')
+        create(:block, week:, title: 'Start drafting your contributions')
+        create(:block, week:, title: 'Begin moving your work to Wikipedia')
       end
 
       it 'sets the sandbox and mainspace assignment blocks' do
@@ -70,7 +70,7 @@ describe PushCourseToSalesforce do
       end
 
       before do
-        create(:course_stats, course: course, stats_hash: stats_hash)
+        create(:course_stats, course:, stats_hash:)
       end
 
       it 'includes key wikidata stats' do

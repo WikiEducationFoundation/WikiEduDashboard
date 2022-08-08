@@ -46,7 +46,7 @@ class CreateRequestedAccount
 
   def process_request(creator, creation_reason)
     @wiki_edits = WikiEdits.new(@wiki)
-    @response = @wiki_edits.create_account(creator: creator,
+    @response = @wiki_edits.create_account(creator:,
                                            username: @username,
                                            email: @email,
                                            reason: creation_reason)

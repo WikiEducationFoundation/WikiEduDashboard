@@ -36,11 +36,11 @@ describe EmailProcessor do
     let(:course) { create(:course) }
 
     let(:student) { create(:user, username: 'student', email: 'student@email.com') }
-    let!(:student_courses_user) { create(:courses_user, user: student, course: course) }
+    let!(:student_courses_user) { create(:courses_user, user: student, course:) }
 
     let(:expert) { create(:admin, greeter: true, username: 'expert', email: 'expert@wikiedu.org') }
     let!(:expert_courses_user) do
-      create(:courses_user, user: expert, course: course, role: 4)
+      create(:courses_user, user: expert, course:, role: 4)
     end
 
     it 'will ignore emails with the specified code' do
@@ -50,7 +50,7 @@ describe EmailProcessor do
       email = create(:email,
                      to: [{ email: expert.email }],
       from: { email: student.email },
-      body: body)
+      body:)
       processor = described_class.new(email)
       processor.process
 
@@ -118,7 +118,7 @@ describe EmailProcessor do
       email = create(:email,
                      to: [{ email: expert.email }],
                      from: { email: student.email },
-                     body: body,
+                     body:,
                      raw_body: body)
       processor = described_class.new(email)
       processor.process

@@ -21,7 +21,7 @@ describe SurveyResponseAlertManager do
   let(:create_answer) do
     answer_group = create(:answer_group, user_id: user.id)
     create(:answer, answer_group_id: answer_group.id, question_id: question.id,
-      answer_text: answer_text)
+      answer_text:)
   end
 
   let(:include_question) do

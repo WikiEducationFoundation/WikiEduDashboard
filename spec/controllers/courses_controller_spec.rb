@@ -15,7 +15,7 @@ describe CoursesController, type: :request do
 
     context 'for an valid course path' do
       it 'renders a 200' do
-        course_params = { school: school, titleterm: titleterm }
+        course_params = { school:, titleterm: }
         get "/courses/#{course.slug}", params: course_params
         expect(response.status).to eq(200)
       end
@@ -23,7 +23,7 @@ describe CoursesController, type: :request do
 
     context 'when a spider tries index.php' do
       it 'renders a plain text 404' do
-        course_params = { school: school, titleterm: titleterm, endpoint: 'index', format: 'php' }
+        course_params = { school:, titleterm:, endpoint: 'index', format: 'php' }
         get "/courses/#{course.slug}", params: course_params
         expect(response.status).to eq(404)
         expect(response.headers['Content-Type']).to match %r{text/plain}
@@ -248,7 +248,7 @@ describe CoursesController, type: :request do
 
     it 'raises if course is not found' do
       params = { id: 'peanut-butter', course: course_params }
-      expect { put "/courses/#{course.id}", params: params, as: :json }
+      expect { put "/courses/#{course.id}", params:, as: :json }
         .to raise_error(ActionController::RoutingError)
     end
 
@@ -268,7 +268,7 @@ describe CoursesController, type: :request do
       it 'does not announce course' do
         expect_any_instance_of(WikiCourseEdits).not_to receive(:announce_course)
         params = { id: course.slug, course: course_params }
-        put "/courses/#{course.slug}", params: params, as: :json
+        put "/courses/#{course.slug}", params:, as: :json
       end
     end
 
@@ -282,7 +282,7 @@ describe CoursesController, type: :request do
         expect_any_instance_of(WikiCourseEdits).to receive(:announce_course)
         expect(CourseSubmissionMailer).to receive(:send_submission_confirmation)
         params = { id: course.slug, course: course_params }
-        put "/courses/#{course.slug}", params: params, headers: headers, as: :json
+        put "/courses/#{course.slug}", params:, headers:, as: :json
       end
     end
   end
@@ -305,7 +305,7 @@ describe CoursesController, type: :request do
             term: 'Fall 2015',
             start: '2015-01-05',
             end: '2015-12-20',
-            role_description: role_description,
+            role_description:,
             passcode: 'passcode' }
         end
 
@@ -494,13 +494,13 @@ describe CoursesController, type: :request do
     let(:user) { create(:admin, email: 'user@example.edu') }
     let(:teaching_assistant) { create(:user, username: 'TA', email: 'ta@example.com') }
     let(:week) { create(:week) }
-    let!(:choose_topics_block) { create(:block, title: 'Choose possible topics', week: week) }
+    let!(:choose_topics_block) { create(:block, title: 'Choose possible topics', week:) }
     let!(:bibliographies_block) do
-      create(:block, title: 'Finalize your topic and find sources', week: week)
+      create(:block, title: 'Finalize your topic and find sources', week:)
     end
-    let!(:drafting_block) { create(:block, title: 'Start drafting your contributions', week: week) }
-    let!(:peer_review_block) { create(:block, title: 'Peer review', week: week) }
-    let!(:assessment_block) { create(:block, title: 'Final article', week: week) }
+    let!(:drafting_block) { create(:block, title: 'Start drafting your contributions', week:) }
+    let!(:peer_review_block) { create(:block, title: 'Peer review', week:) }
+    let!(:assessment_block) { create(:block, title: 'Final article', week:) }
 
     before do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
@@ -543,14 +543,14 @@ describe CoursesController, type: :request do
         it 'sends an email if course has no previous campaigns' do
           expect(CourseApprovalMailer).to receive(:send_approval_notification).twice
           params = { id: course.slug, campaign: { title: campaign.title } }
-          post "/courses/#{course.slug}/campaign", params: params, as: :json
+          post "/courses/#{course.slug}/campaign", params:, as: :json
         end
 
         it 'does not send an email if course is already approved' do
           course.campaigns << create(:campaign)
           expect(CourseApprovalMailer).not_to receive(:send_approval_notification)
           params = { id: course.slug, campaign: { title: campaign.title } }
-          post "/courses/#{course.slug}/campaign", params: params, as: :json
+          post "/courses/#{course.slug}/campaign", params:, as: :json
         end
 
         context 'for a course with the biographies tag' do
@@ -561,7 +561,7 @@ describe CoursesController, type: :request do
             params = { id: course.slug, campaign: { title: campaign.title } }
             post "/courses/#{course.slug}/campaign", params: params, as: :json
             expect(CourseAdviceMailer).to have_received(:send_email)
-              .with(course: course, subject: 'biographies')
+              .with(course:, subject: 'biographies')
           end
         end
 
@@ -572,7 +572,7 @@ describe CoursesController, type: :request do
             expect(CoursesUsers.all.length).to eq(3) # two instructors plus staffer
 
             role = CoursesUsers::Roles::WIKI_ED_STAFF_ROLE
-            expect(CoursesUsers.where(role: role).length).to eq(1)
+            expect(CoursesUsers.where(role:).length).to eq(1)
           end
         end
 
@@ -585,7 +585,7 @@ describe CoursesController, type: :request do
             expect(CoursesUsers.all.length).to eq(2) # two instructors
 
             role = CoursesUsers::Roles::WIKI_ED_STAFF_ROLE
-            expect(CoursesUsers.where(role: role).length).to eq(0)
+            expect(CoursesUsers.where(role:).length).to eq(0)
           end
         end
       end
@@ -618,7 +618,7 @@ describe CoursesController, type: :request do
       let(:tag) { 'pizza' }
 
       it 'creates a tag' do
-        params = { id: course.slug, tag: { tag: tag } }
+        params = { id: course.slug, tag: { tag: } }
         post "/courses/#{course.slug}/tag", params: params, as: :json
         expect(Tag.last.tag).to eq(tag)
         expect(Tag.last.course_id).to eq(course.id)
@@ -726,8 +726,8 @@ describe CoursesController, type: :request do
 
   describe '#alerts' do
     let(:course) { create(:course, slug: slug_params) }
-    let!(:public_alert) { create(:alert, course: course, type: 'BlockedEditsAlert') }
-    let!(:private_alert) { create(:alert, course: course, type: 'BadWorkAlert') }
+    let!(:public_alert) { create(:alert, course:, type: 'BlockedEditsAlert') }
+    let!(:private_alert) { create(:alert, course:, type: 'BadWorkAlert') }
     let(:admin) { create(:admin) }
     let(:user) { create(:user) }
 

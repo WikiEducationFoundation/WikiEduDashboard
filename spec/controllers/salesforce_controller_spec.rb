@@ -60,7 +60,7 @@ describe SalesforceController, type: :request do
     context 'when user is an admin' do
       before do
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
-        create(:articles_course, course: course, article: article)
+        create(:articles_course, course:, article:)
       end
 
       let(:subject) do

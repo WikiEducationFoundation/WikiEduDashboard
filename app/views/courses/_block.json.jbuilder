@@ -10,9 +10,9 @@ if block.training_module_ids.present?
     # For modules that aren't found, simply skip sending info.
     next unless tm
     due_date_manager = TrainingModuleDueDateManager.new(
-      course: course,
+      course:,
       training_module: tm,
-      user: user
+      user:
     )
     json.call(tm, :slug, :id, :name, :kind)
     json.module_progress due_date_manager.module_progress

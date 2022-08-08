@@ -5,7 +5,7 @@ require_relative '../../app/presenters/individual_statistics_presenter'
 
 describe IndividualStatisticsPresenter do
   describe 'individual_article_views' do
-    subject { described_class.new(user: user) }
+    subject { described_class.new(user:) }
 
     let(:course1) { create(:course, start: 1.year.ago, end: 1.day.ago) }
     let(:course2) { create(:course, slug: 'foo/2', start: 1.year.ago, end: 1.day.ago) }

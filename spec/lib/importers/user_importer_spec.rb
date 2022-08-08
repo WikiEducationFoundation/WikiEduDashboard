@@ -10,8 +10,8 @@ describe UserImporter do
         info = OpenStruct.new(name: 'Ragesock')
         credentials = OpenStruct.new(token: 'foo', secret: 'bar')
         hash = OpenStruct.new(uid: '14093230',
-                              info: info,
-                              credentials: credentials)
+                              info:,
+                              credentials:)
         imported_user = described_class.from_omniauth(hash)
         expect(imported_user.username).to eq('Ragesock')
       end
@@ -22,8 +22,8 @@ describe UserImporter do
       info = OpenStruct.new(name: 'Ragesock')
       credentials = OpenStruct.new(token: 'foo', secret: 'bar')
       hash = OpenStruct.new(uid: '14093230',
-                            info: info,
-                            credentials: credentials)
+                            info:,
+                            credentials:)
       auth = described_class.from_omniauth(hash)
       expect(auth.id).to eq(existing.id)
     end
@@ -33,8 +33,8 @@ describe UserImporter do
       info = OpenStruct.new(name: 'New Username')
       credentials = OpenStruct.new(token: 'foo', secret: 'bar')
       hash = OpenStruct.new(uid: '1234',
-                            info: info,
-                            credentials: credentials)
+                            info:,
+                            credentials:)
       auth = described_class.from_omniauth(hash)
       expect(auth.id).to eq(existing.id)
       expect(User.find(1).username).to eq('New Username')
@@ -185,7 +185,7 @@ describe UserImporter do
       VCR.use_cassette 'user/new_from_renamed_user' do
         original = create(:user, username: 'Ragesock', global_id: 14093230)
         dupe = create(:user, username: ' Ragesock')
-        create(:courses_user, user: dupe, course: course)
+        create(:courses_user, user: dupe, course:)
 
         expect(Sentry).to receive(:capture_exception).and_call_original
         described_class.update_user_from_wiki(dupe, MetaWiki.new)

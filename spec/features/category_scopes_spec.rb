@@ -7,7 +7,7 @@ describe 'Tracked categories and template', js: true do
   let(:user) { create(:user) }
 
   before do
-    JoinCourse.new(course: course, user: user, role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+    JoinCourse.new(course:, user:, role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
     login_as user
     stub_oauth_edit
   end

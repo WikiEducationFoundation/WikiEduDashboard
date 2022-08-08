@@ -20,8 +20,8 @@ class ExperimentsPresenter
                'with their assignment?',
       read_more: 'Read more here.',
       read_more_link: 'https://wikiedu.org/intertwine-research-collaboration/',
-      opt_in_link: opt_in_link,
-      opt_out_link: opt_out_link
+      opt_in_link:,
+      opt_out_link:
     }
   end
 

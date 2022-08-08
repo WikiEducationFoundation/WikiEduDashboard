@@ -5,7 +5,7 @@ require 'rails_helper'
 describe SurveysController, type: :request do
   let(:admin) { create(:admin) }
   let(:user) { create(:user) }
-  let(:survey) { create(:survey, confidential_results: confidential_results, closed: closed) }
+  let(:survey) { create(:survey, confidential_results:, closed:) }
   let(:confidential_results) { false }
   let(:closed) { false }
 

@@ -156,8 +156,8 @@ describe Wiki do
 
       it 'creates and returns the record' do
         VCR.use_cassette('wiki') do
-          expect(described_class.find_by(language: language, project: project)).to be_nil
-          wiki = described_class.get_or_create(language: language, project: project)
+          expect(described_class.find_by(language:, project:)).to be_nil
+          wiki = described_class.get_or_create(language:, project:)
           expect(wiki).to be_persisted
           expect(wiki.language).to eq(language)
           expect(wiki.project).to eq(project)
@@ -170,10 +170,10 @@ describe Wiki do
 
         it 'creates and returns the multilingual project' do
           VCR.use_cassette 'wiki' do
-            existing_record = described_class.find_by(project: project)
+            existing_record = described_class.find_by(project:)
             expect(existing_record).to be_nil
 
-            wiki = described_class.get_or_create(language: language, project: project)
+            wiki = described_class.get_or_create(language:, project:)
             expect(wiki.project).to eq(project)
             expect(wiki.language).to eq(language)
             expect(wiki).to be_persisted

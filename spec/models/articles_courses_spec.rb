@@ -28,9 +28,9 @@ describe ArticlesCourses, type: :model do
 
     before do
       # Make an ArticlesCourses record
-      create(:articles_course, article: article, course: course)
+      create(:articles_course, article:, course:)
       # Add user to course
-      create(:courses_user, course: course, user: user)
+      create(:courses_user, course:, user:)
     end
 
     it 'updates data for article-course relationships' do
@@ -39,8 +39,8 @@ describe ArticlesCourses, type: :model do
 
       # Add a revision.
       create(:revision,
-             user: user,
-             article: article,
+             user:,
+             article:,
              date: 1.day.ago,
              characters: 9000,
              features: {
@@ -50,8 +50,8 @@ describe ArticlesCourses, type: :model do
 
       # Deleted revision, which should not count towards stats.
       create(:revision,
-             user: user,
-             article: article,
+             user:,
+             article:,
              date: Time.zone.today,
              characters: 9001,
              deleted: true)
@@ -69,7 +69,7 @@ describe ArticlesCourses, type: :model do
     end
 
     it 'updates new_article for a new_article revision by student' do
-      create(:revision, article: article, user: user, date: 1.week.ago, new_article: true)
+      create(:revision, article:, user:, date: 1.week.ago, new_article: true)
 
       described_class.update_all_caches(described_class.all)
       article_course = described_class.first
@@ -78,7 +78,7 @@ describe ArticlesCourses, type: :model do
     end
 
     it 'updates new_article for a system and new_article revision by another editor' do
-      create(:revision, article: article, user: instructor, date: 1.week.ago,
+      create(:revision, article:, user: instructor, date: 1.week.ago,
                         system: true, new_article: true)
 
       described_class.update_all_caches(described_class.all)
@@ -97,14 +97,14 @@ describe ArticlesCourses, type: :model do
     let(:talk_page) { create(:article, title: 'Talk page', namespace: 1) }
 
     before do
-      create(:courses_user, user: user, course: course,
+      create(:courses_user, user:, course:,
                             role: CoursesUsers::Roles::STUDENT_ROLE)
-      create(:revision, article: article, user: user, date: 1.week.ago,
+      create(:revision, article:, user:, date: 1.week.ago,
                         system: true, new_article: true)
-      create(:revision, article: article, user: user, date: 6.days.ago)
+      create(:revision, article:, user:, date: 6.days.ago)
       # old revision before course
-      create(:revision, article: article2, user: user, date: 2.years.ago)
-      create(:revision, article: talk_page, user: user, date: 1.week.ago)
+      create(:revision, article: article2, user:, date: 2.years.ago)
+      create(:revision, article: talk_page, user:, date: 1.week.ago)
     end
 
     it 'creates new ArticlesCourses records from course revisions' do
@@ -116,7 +116,7 @@ describe ArticlesCourses, type: :model do
     end
 
     it 'destroys ArticlesCourses that do not correspond to course revisions' do
-      create(:articles_course, id: 500, article: article2, course: course)
+      create(:articles_course, id: 500, article: article2, course:)
       create(:articles_course, id: 501, article: article2, course: another_course)
       described_class.update_from_course(course)
       expect(described_class.exists?(500)).to eq(false)

@@ -70,7 +70,7 @@ describe WikiApi do
       VCR.use_cassette 'wiki/continue_response' do
         titles = %(apple Fruit ecosystem Pear)
         # With a low palimit, this query will need to continue
-        continue_query = { titles: titles,
+        continue_query = { titles:,
                            prop: 'pageassessments',
                            redirects: 'true',
                            palimit: 2 }

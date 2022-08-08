@@ -78,7 +78,7 @@ module BatchUpdateLogging
   SPARSE_LOG_RATE = 10 # log 1 out of 10 updates
   def sparse_log_end_of_update(message, update_number)
     to_sentry = (update_number % SPARSE_LOG_RATE).zero?
-    log_end_of_update(message, to_sentry: to_sentry)
+    log_end_of_update(message, to_sentry:)
   end
 
   def log_end_of_update(message, to_sentry: true)

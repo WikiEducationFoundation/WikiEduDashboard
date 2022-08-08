@@ -17,8 +17,8 @@ describe UpdateWikidataStats do
     before do
       stub_wiki_validation
       item = create(:article, mw_page_id: 15101047, wiki: wikidata)
-      create(:courses_user, course: course, user: user, role: CoursesUsers::Roles::STUDENT_ROLE)
-      create(:revision, id: 653145, article: item, wiki: wikidata, user: user,
+      create(:courses_user, course:, user:, role: CoursesUsers::Roles::STUDENT_ROLE)
+      create(:revision, id: 653145, article: item, wiki: wikidata, user:,
         date: Time.zone.local(2022, 0o1, 0o6, 0, 0, 0o1), deleted: false, mw_rev_id: 1556860240,
         mw_page_id: 15101047, summary: nil)
       described_class.new(course)

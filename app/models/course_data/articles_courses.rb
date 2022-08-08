@@ -52,11 +52,11 @@ class ArticlesCourses < ApplicationRecord
   end
 
   def live_manual_revisions
-    course.revisions.live.where(article_id: article_id)
+    course.revisions.live.where(article_id:)
   end
 
   def all_revisions
-    course.all_revisions.where(article_id: article_id)
+    course.all_revisions.where(article_id:)
   end
 
   def article_revisions

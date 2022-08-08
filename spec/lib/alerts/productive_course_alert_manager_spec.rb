@@ -8,7 +8,7 @@ def mock_mailer
 end
 
 describe ProductiveCourseAlertManager do
-  let(:course) { create(:course, user_count: user_count, character_sum: character_sum) }
+  let(:course) { create(:course, user_count:, character_sum:) }
   let(:subject) { described_class.new([course]) }
 
   context 'when there are no users' do

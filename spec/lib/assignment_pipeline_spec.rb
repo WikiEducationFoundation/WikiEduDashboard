@@ -21,7 +21,7 @@ describe AssignmentPipeline do
 
     describe '#status' do
       it 'returns the "not_yet_started" status if there is no status' do
-        pipeline = described_class.new(assignment: assignment)
+        pipeline = described_class.new(assignment:)
 
         actual = pipeline.status
         expected = described_class::AssignmentStatuses::NOT_YET_STARTED
@@ -31,7 +31,7 @@ describe AssignmentPipeline do
 
     describe '#all_statuses' do
       it 'returns all the available statuses for the provided pipeline' do
-        pipeline = described_class.new(assignment: assignment)
+        pipeline = described_class.new(assignment:)
 
         actual = pipeline.all_statuses
         expect(actual.length).to equal(5)
@@ -40,7 +40,7 @@ describe AssignmentPipeline do
 
     describe '#update_status' do
       it 'sets the assignment status and updates the time' do
-        pipeline = described_class.new(assignment: assignment)
+        pipeline = described_class.new(assignment:)
 
         status = described_class::AssignmentStatuses::READY_FOR_MAINSPACE
         pipeline.update_status(status)
@@ -52,7 +52,7 @@ describe AssignmentPipeline do
       end
 
       it 'will only set the assignment if the status is valid' do
-        pipeline = described_class.new(assignment: assignment)
+        pipeline = described_class.new(assignment:)
         in_progress_status = described_class::AssignmentStatuses::NOT_YET_STARTED
         expect(pipeline.status).to eq(in_progress_status)
         expect(assignment.flags[:assignment]).to be(nil)
@@ -82,7 +82,7 @@ describe AssignmentPipeline do
 
     describe '#status' do
       it 'returns the "reading_article" status if there is no status' do
-        pipeline = described_class.new(assignment: assignment)
+        pipeline = described_class.new(assignment:)
 
         actual = pipeline.status
         expected = described_class::ReviewStatuses::READING_ARTICLE
@@ -92,7 +92,7 @@ describe AssignmentPipeline do
 
     describe '#all_statuses' do
       it 'returns all the available statuses for the provided pipeline' do
-        pipeline = described_class.new(assignment: assignment)
+        pipeline = described_class.new(assignment:)
 
         actual = pipeline.all_statuses
         expect(actual.length).to equal(4)
@@ -101,7 +101,7 @@ describe AssignmentPipeline do
 
     describe '#update_status' do
       it 'sets the assignment status and updates the time' do
-        pipeline = described_class.new(assignment: assignment)
+        pipeline = described_class.new(assignment:)
 
         status = described_class::ReviewStatuses::PEER_REVIEW_COMPLETED
         pipeline.update_status(status)
@@ -113,7 +113,7 @@ describe AssignmentPipeline do
       end
 
       it 'will only set the assignment if the status is valid' do
-        pipeline = described_class.new(assignment: assignment)
+        pipeline = described_class.new(assignment:)
         in_progress_status = described_class::ReviewStatuses::READING_ARTICLE
         expect(pipeline.status).to eq(in_progress_status)
         expect(assignment.flags[:review]).to be(nil)

@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe UpdateCourseStats do
-  let(:course) { create(:course, flags: flags) }
+  let(:course) { create(:course, flags:) }
   let(:subject) { described_class.new(course) }
   let(:enwiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
   let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }
@@ -43,7 +43,7 @@ describe UpdateCourseStats do
       stub_wiki_validation
       course.campaigns << Campaign.first
       course.wikis << Wiki.get_or_create(language: nil, project: 'wikidata')
-      JoinCourse.new(course: course, user: user, role: 0)
+      JoinCourse.new(course:, user:, role: 0)
       VCR.use_cassette 'course_update' do
         subject
       end

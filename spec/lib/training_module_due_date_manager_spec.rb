@@ -20,17 +20,17 @@ describe TrainingModuleDueDateManager do
     create(:training_modules_users,
            training_module_id: t_module.id,
            user_id: user&.id,
-           completed_at: completed_at)
+           completed_at:)
   end
   let(:due_date) { t_start + 1.week }
   let(:week)     { create(:week, course_id: course.id, order: 1) }
   let!(:block) do
-    create(:block, week_id: week.id, training_module_ids: ids, due_date: due_date)
+    create(:block, week_id: week.id, training_module_ids: ids, due_date:)
   end
 
   describe '#computed_due_date' do
     subject do
-      described_class.new(course: course, training_module: t_module, user: user)
+      described_class.new(course:, training_module: t_module, user:)
                      .computed_due_date
     end
 
@@ -84,7 +84,7 @@ describe TrainingModuleDueDateManager do
 
   describe '#overdue?' do
     subject do
-      described_class.new(course: course, training_module: t_module, user: user)
+      described_class.new(course:, training_module: t_module, user:)
                      .overdue?
     end
 
@@ -140,7 +140,7 @@ describe TrainingModuleDueDateManager do
 
   describe '#deadline_status' do
     subject do
-      described_class.new(course: course, training_module: t_module, user: user)
+      described_class.new(course:, training_module: t_module, user:)
                      .deadline_status
     end
 
@@ -187,7 +187,7 @@ describe TrainingModuleDueDateManager do
 
   describe '#overall_due_date' do
     subject do
-      described_class.new(course: course, training_module: t_module, user: user)
+      described_class.new(course:, training_module: t_module, user:)
                      .overall_due_date
     end
 

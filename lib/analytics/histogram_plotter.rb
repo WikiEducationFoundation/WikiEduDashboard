@@ -4,11 +4,11 @@ require_dependency "#{Rails.root}/lib/analytics/ores_diff_csv_builder"
 
 class HistogramPlotter
   def self.csv(course: nil, campaign: nil)
-    new(course: course, campaign: campaign).csv_path
+    new(course:, campaign:).csv_path
   end
 
   def self.delete_csv(course: nil, campaign: nil)
-    new(course: course, campaign: campaign, csv: true).delete_csv
+    new(course:, campaign:, csv: true).delete_csv
   end
 
   def initialize(campaign: nil, course: nil, csv: nil)

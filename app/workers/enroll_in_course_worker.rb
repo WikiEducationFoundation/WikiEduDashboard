@@ -16,11 +16,11 @@ class EnrollInCourseWorker
     editing_user = User.find(editing_user_id)
     enrolling_user = User.find(enrolling_user_id)
     WikiCourseEdits.new(action: :enroll_in_course,
-                        course: course,
+                        course:,
                         current_user: editing_user,
-                        enrolling_user: enrolling_user)
+                        enrolling_user:)
     WikiCourseEdits.new(action: :update_course,
-                        course: course,
+                        course:,
                         current_user: editing_user)
 
     return unless set_wiki_preferences

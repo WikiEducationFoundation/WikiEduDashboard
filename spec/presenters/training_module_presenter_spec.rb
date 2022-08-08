@@ -10,7 +10,7 @@ describe TrainingModulePresenter do
   let(:library_id) { lib.slug }
   let(:mod)        { TrainingModule.find_by(slug: 'editing-basics') }
   let(:module_id)  { mod.slug }
-  let(:mod_params) { { library_id: library_id, module_id: module_id } }
+  let(:mod_params) { { library_id:, module_id: } }
 
   describe '#cta_button_text' do
     subject { described_class.new(user, mod_params).cta_button_text }

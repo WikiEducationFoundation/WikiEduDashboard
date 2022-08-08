@@ -20,12 +20,12 @@ class AddUsers
   def add_one_by_one(username)
     user = find_or_import_user(username) { return }
     @results[user.username] = JoinCourse.new(course: @course,
-                                             user: user,
+                                             user:,
                                              role: CoursesUsers::Roles::STUDENT_ROLE).result
   end
 
   def find_or_import_user(username)
-    user = User.find_by(username: username)
+    user = User.find_by(username:)
     user ||= UserImporter.new_from_username(username, @course.home_wiki)
     return user if user.present?
 

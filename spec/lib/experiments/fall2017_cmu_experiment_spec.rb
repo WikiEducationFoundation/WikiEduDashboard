@@ -11,7 +11,7 @@ describe Fall2017CmuExperiment do
     4.times do |i|
       course = create(:course, slug: "fall course number #{i}", id: i)
       course.campaigns << fall_2017
-      create(:courses_user, course: course, user: user,
+      create(:courses_user, course:, user:,
                             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
     end
   end

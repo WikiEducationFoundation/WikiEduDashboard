@@ -6,7 +6,7 @@ require "#{Rails.root}/lib/wiki_course_edits"
 describe WikiCourseEdits do
   let(:home_wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
   let(:slug) { 'Missouri_SandT/History_of_Science_(Fall_2019)' }
-  let(:course) { create(:course, id: 1, submitted: true, home_wiki: home_wiki, slug: slug) }
+  let(:course) { create(:course, id: 1, submitted: true, home_wiki:, slug:) }
   let(:user) { create(:user) }
   let(:enrolling_user) { create(:user, username: 'Belajane41') }
   # rubocop:disable Layout/LineLength
@@ -26,14 +26,14 @@ describe WikiCourseEdits do
     it 'edits a Wikipedia page representing a course' do
       expect_any_instance_of(WikiEdits).to receive(:post_whole_page).and_call_original
       described_class.new(action: :update_course,
-                          course: course,
+                          course:,
                           current_user: user)
     end
 
     it 'edits the course page with the delete option' do
       expect_any_instance_of(WikiEdits).to receive(:post_whole_page).and_call_original
       described_class.new(action: :update_course,
-                          course: course,
+                          course:,
                           current_user: user,
                           delete: true)
     end
@@ -42,7 +42,7 @@ describe WikiCourseEdits do
       stub_oauth_edit_spamblock # MediaWiki API returns an array of URL matches
       expect_any_instance_of(WikiEdits).to receive(:post_whole_page).twice.and_call_original
       described_class.new(action: :update_course,
-                          course: course,
+                          course:,
                           current_user: user)
     end
 
@@ -50,7 +50,7 @@ describe WikiCourseEdits do
       stub_oauth_edit_spamblock_multiple # MediaWiki API returns a JSON object of URL matches
       expect_any_instance_of(WikiEdits).to receive(:post_whole_page).twice.and_call_original
       described_class.new(action: :update_course,
-                          course: course,
+                          course:,
                           current_user: user)
     end
   end
@@ -61,7 +61,7 @@ describe WikiCourseEdits do
       expect_any_instance_of(WikiEdits).to receive(:add_to_page_top) # userpage edit
       expect_any_instance_of(WikiEdits).to receive(:add_new_section) # noticeboard edit
       described_class.new(action: :announce_course,
-                          course:  course,
+                          course:,
                           current_user: user,
                           instructor: nil) # defaults to current user
     end
@@ -74,7 +74,7 @@ describe WikiCourseEdits do
                 "{{course instructor | course = [[#{course.wiki_title}]] }}\n",
                 "New course announcement: [[#{course.wiki_title}]].")
         described_class.new(action: :announce_course,
-                            course:  course,
+                            course:,
                             current_user: user,
                             instructor: nil)
       end
@@ -86,7 +86,7 @@ describe WikiCourseEdits do
       it 'makes no edit' do
         expect_any_instance_of(WikiEdits).not_to receive(:add_to_page_top)
         described_class.new(action: :announce_course,
-                            course:  course,
+                            course:,
                             current_user: user,
                             instructor: nil)
       end
@@ -107,7 +107,7 @@ describe WikiCourseEdits do
           expect_any_instance_of(WikiEdits).to receive(:add_to_page_top)
           expect_any_instance_of(WikiEdits).to receive(:add_new_section)
           described_class.new(action: :announce_course,
-                              course:  course,
+                              course:,
                               current_user: user,
                               instructor: nil)
         end
@@ -119,7 +119,7 @@ describe WikiCourseEdits do
                   "{{program instructor | course = [[#{course.wiki_title}]] }}\n",
                   "New course announcement: [[#{course.wiki_title}]].")
           described_class.new(action: :announce_course,
-                              course:  course,
+                              course:,
                               current_user: user,
                               instructor: nil)
         end
@@ -135,7 +135,7 @@ describe WikiCourseEdits do
           expect_any_instance_of(WikiEdits).not_to receive(:add_to_page_top)
           expect_any_instance_of(WikiEdits).not_to receive(:add_new_section)
           described_class.new(action: :announce_course,
-                              course:  course,
+                              course:,
                               current_user: user,
                               instructor: nil)
         end
@@ -148,9 +148,9 @@ describe WikiCourseEdits do
       course.update(flags: { 'edit_settings' => { 'enrollment_edits_enabled' => false } })
       expect_any_instance_of(WikiEdits).not_to receive(:add_to_page_top)
       described_class.new(action: :enroll_in_course,
-                          course: course,
+                          course:,
                           current_user: user,
-                          enrolling_user: enrolling_user)
+                          enrolling_user:)
     end
     # Posts to the Wiki Education dashboard by default in tests
 
@@ -159,9 +159,9 @@ describe WikiCourseEdits do
       expect_any_instance_of(WikiEdits).to receive(:add_to_page_top).twice
       allow_any_instance_of(WikiApi).to receive(:get_page_content).and_return('')
       described_class.new(action: :enroll_in_course,
-                          course: course,
+                          course:,
                           current_user: user,
-                          enrolling_user: enrolling_user)
+                          enrolling_user:)
     end
 
     it 'does not repost templates that are already present' do
@@ -171,9 +171,9 @@ describe WikiCourseEdits do
         .and_return(user_page_content,
                     talk_template)
       described_class.new(action: :enroll_in_course,
-                          course: course,
+                          course:,
                           current_user: user,
-                          enrolling_user: enrolling_user)
+                          enrolling_user:)
     end
 
     context 'makes correct edits on P&E Outreach Dashboard' do
@@ -193,9 +193,9 @@ describe WikiCourseEdits do
             # Sandbox templates are skipped for non-Wiki Ed edits.
             expect_any_instance_of(WikiEdits).to receive(:add_to_page_top).twice
             described_class.new(action: :enroll_in_course,
-                                course: course,
+                                course:,
                                 current_user: user,
-                                enrolling_user: enrolling_user)
+                                enrolling_user:)
           end
         end
 
@@ -208,9 +208,9 @@ describe WikiCourseEdits do
           it 'does not post to P&E Dashboard' do
             expect_any_instance_of(WikiEdits).not_to receive(:add_to_page_top)
             described_class.new(action: :enroll_in_course,
-                                course: course,
+                                course:,
                                 current_user: user,
-                                enrolling_user: enrolling_user)
+                                enrolling_user:)
           end
         end
       end
@@ -226,8 +226,8 @@ describe WikiCourseEdits do
     before do
       stub_wiki_validation
       stub_raw_action
-      create(:courses_user, user: user, course: course)
-      create(:courses_user, user: instructor, course: course,
+      create(:courses_user, user:, course:)
+      create(:courses_user, user: instructor, course:,
                             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
     end
 
@@ -247,7 +247,7 @@ describe WikiCourseEdits do
                article_id: selfie_talk.id,
                role: Assignment::Roles::REVIEWING_ROLE)
         described_class.new(action: :update_assignments,
-                            course: course,
+                            course:,
                             current_user: user)
       end
     end
@@ -279,7 +279,7 @@ describe WikiCourseEdits do
         it 'updates talk pages and course page with assignment info' do
           expect_any_instance_of(WikiEdits).to receive(:post_whole_page).at_least(:once)
           described_class.new(action: :update_assignments,
-                              course: course,
+                              course:,
                               current_user: user)
         end
 
@@ -297,7 +297,7 @@ describe WikiCourseEdits do
             it 'posts to P&E Dashboard' do
               expect_any_instance_of(WikiEdits).to receive(:post_whole_page).at_least(:once)
               described_class.new(action: :update_assignments,
-                                  course: course,
+                                  course:,
                                   current_user: user)
             end
           end
@@ -309,7 +309,7 @@ describe WikiCourseEdits do
             it 'does not post to P&E Dashboard' do
               expect_any_instance_of(WikiEdits).not_to receive(:post_whole_page)
               described_class.new(action: :update_assignments,
-                                  course: course,
+                                  course:,
                                   current_user: user)
             end
           end
@@ -327,7 +327,7 @@ describe WikiCourseEdits do
                  article_id: redirect.id,
                  role: Assignment::Roles::ASSIGNED_ROLE)
           described_class.new(action: :update_assignments,
-                              course: course,
+                              course:,
                               current_user: user)
         end
 
@@ -340,7 +340,7 @@ describe WikiCourseEdits do
                  article_id: nil,
                  role: Assignment::Roles::ASSIGNED_ROLE)
           described_class.new(action: :update_assignments,
-                              course: course,
+                              course:,
                               current_user: user)
         end
 
@@ -353,7 +353,7 @@ describe WikiCourseEdits do
                  article_id: selfie.id,
                  role: Assignment::Roles::ASSIGNED_ROLE)
           described_class.new(action: :update_assignments,
-                              course: course,
+                              course:,
                               current_user: user)
         end
 
@@ -366,7 +366,7 @@ describe WikiCourseEdits do
                  article_id: selfie.id,
                  role: Assignment::Roles::ASSIGNED_ROLE)
           described_class.new(action: :update_assignments,
-                              course: course,
+                              course:,
                               current_user: user)
         end
       end
@@ -377,15 +377,15 @@ describe WikiCourseEdits do
       let(:pt_selfie) { create(:article, wiki: home_wiki, title: 'Selfie') }
       let(:campaign) { create(:campaign) }
       let!(:campaigns_course) do
-        create(:campaigns_course, campaign: campaign, course: course)
+        create(:campaigns_course, campaign:, course:)
       end
 
       before do
         allow(ENV).to receive(:[]).and_call_original
         allow(ENV).to receive(:[]).with('dashboard_url').and_return('outreachdashboard.wmflabs.org')
         create(:assignment,
-               user: user,
-               course: course,
+               user:,
+               course:,
                article_title: 'Selfie',
                article: pt_selfie,
                wiki: home_wiki,
@@ -396,7 +396,7 @@ describe WikiCourseEdits do
         expect_any_instance_of(WikiEdits).to receive(:post_whole_page).at_least(:once)
         allow_any_instance_of(Wiki).to receive(:edits_enabled?).and_return(true)
         described_class.new(action: :update_assignments,
-                            course: course,
+                            course:,
                             current_user: user)
       end
     end

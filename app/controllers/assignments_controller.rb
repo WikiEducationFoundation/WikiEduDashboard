@@ -86,7 +86,7 @@ class AssignmentsController < ApplicationController
 
   def remove_assignment_template
     # This is done syncronously because the assignment gets destroyed.
-    WikiCourseEdits.new(action: :remove_assignment, course: @course, current_user: current_user,
+    WikiCourseEdits.new(action: :remove_assignment, course: @course, current_user:,
                         assignment: @assignment)
   end
 
@@ -129,7 +129,7 @@ class AssignmentsController < ApplicationController
     home_wiki = @course.home_wiki
     language = params[:language].presence || home_wiki.language
     project = params[:project].presence || home_wiki.project
-    @wiki = Wiki.get_or_create(language: language, project: project) || home_wiki
+    @wiki = Wiki.get_or_create(language:, project:) || home_wiki
   end
 
   def set_new_assignment

@@ -74,8 +74,8 @@ class Wiki < ApplicationRecord
   end
 
   def self.get_or_create(language:, project:)
-    language = language_for_multilingual(language: language, project: project)
-    find_or_create_by(language: language, project: project)
+    language = language_for_multilingual(language:, project:)
+    find_or_create_by(language:, project:)
   end
 
   def self.language_for_multilingual(language:, project:)
