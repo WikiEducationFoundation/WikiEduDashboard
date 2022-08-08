@@ -1,21 +1,23 @@
 import { forEach } from 'lodash-es';
 import logErrorMessage from './log_error_message';
+import fetchJsonp from 'fetch-jsonp';
+import { stringify } from 'query-string';
 
-export const queryUrl = (url, query = {}) => {
-  return new Promise((res, rej) => {
-    return $.ajax({
-      url: url,
-      dataType: 'jsonp',
-      data: query,
-      success: (data) => {
-        return res(data);
-      },
-    })
-    .fail((obj) => {
-      logErrorMessage(obj);
-      return rej(obj);
-    });
-  });
+export const queryUrl = async (url, query = {}) => {
+  const hasParams = url.includes('?'); // the url might already have params
+
+  // if the url already has params, we need to add a & to the query string
+  // if not, we need to add a ? to the query string
+  const queryString = `${hasParams ? '&' : '?'}${stringify(query)}`; // add the query string
+
+  const response = await fetchJsonp(`${url}${queryString}`);
+  if (!response.ok) {
+    const data = await response.text();
+    response.responseText = data;
+    logErrorMessage(response);
+    throw response;
+  }
+  return response.json();
 };
 
 export const categoryQueryGenerator = (category, cmcontinue, namespace) => {

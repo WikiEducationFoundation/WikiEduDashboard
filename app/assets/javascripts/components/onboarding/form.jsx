@@ -42,8 +42,6 @@ const Form = createReactClass({
     e.preventDefault();
     this.setState({ sending: true });
     this.state.user.instructor = this.state.instructor === 'true';
-    $('#react_root').data('current_user', this.state.user);
-
     return OnboardAPI.onboard({
       real_name: this.state.name,
       email: this.state.email,

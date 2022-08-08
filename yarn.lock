@@ -2737,6 +2737,7 @@ __metadata:
     eslint-plugin-jsx-a11y: ^6.2.3
     eslint-plugin-react: ^7.20.5
     eslint-webpack-plugin: ^3.1.1
+    fetch-jsonp: ^1.2.1
     i18n-js: ^3.5.1
     isomorphic-fetch: ^3.0.0
     jeet: ^7.2.0
@@ -6318,6 +6319,13 @@ __metadata:
   dependencies:
     bser: 2.1.1
   checksum: 8510230778ab3a51c27dffb1b76ef2c24fab672a42742d3c0a45c2e9d1e5f20210b1fbca33486088da4a9a3958bde96b5aec0a63aac9894b4e9df65c88b2cbd6
+  languageName: node
+  linkType: hard
+
+"fetch-jsonp@npm:^1.2.1":
+  version: 1.2.1
+  resolution: "fetch-jsonp@npm:1.2.1"
+  checksum: cff3bf270ec5736c80a00ada02d12af12b90582a5a0be60c49d7b1d32933a33c176b9a281273d6ae9e57d87a31149a86291081c20ed804ce7ee679987d915cab
   languageName: node
   linkType: hard
 
