@@ -2,6 +2,7 @@
 
 #react_root{data: {slug: @campaign.slug}}
 
+= javascript_include_tag '/assets/javascripts/jquery.min.js'
 = hot_javascript_tag 'campaigns'
 
 - if @campaign.errors.any?

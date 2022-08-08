@@ -1,6 +1,7 @@
 - content_for :after_title, "#{@survey.name} Results"
 
 - content_for :additional_javascripts do
+  = javascript_include_tag '/assets/javascripts/jquery.min.js'
   = hot_javascript_tag("survey_results")
 
 = render 'results_admin_header'

@@ -24,11 +24,7 @@ module ApplicationHelper
   end
 
   def hot_javascript_tag(filename)
-    js_path = hot_javascript_path(filename)
-    if (filename == 'campaigns') || (filename.include? 'survey')
-      return javascript_include_tag '/assets/javascripts/jquery.min.js', js_path
-    end
-    javascript_include_tag js_path
+    javascript_include_tag hot_javascript_path(filename)
   end
 
   def hot_javascript_path(filename)

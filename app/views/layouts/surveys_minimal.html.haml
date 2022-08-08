@@ -15,6 +15,7 @@
     %main#main{"data-user-id" => current_user&.id, :role => "main"}
       = yield
     = render "shared/foot"
+    = javascript_include_tag '/assets/javascripts/jquery.min.js'
     = hot_javascript_tag("survey") unless @accessibility_mode
     - if can_administer?
       = hot_javascript_tag("survey_admin")
