@@ -585,7 +585,7 @@ GEM
       unf_ext
     unf_ext (0.0.8)
     unicode-display_width (2.2.0)
-    validates_email_format_of (1.7.0)
+    validates_email_format_of (1.7.2)
       i18n
     vcr (6.1.0)
     warden (1.2.9)
