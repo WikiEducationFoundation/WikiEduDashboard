@@ -160,6 +160,22 @@ describe Commons do
     end
   end
 
+  describe '#get_image_data' do
+    bad_query = { prop: 'imageinfo', iiprop: 'url', iiurlheight: 480, pageids: [
+      107709976, 111662244, 109767821, 109782162, 109782164, 109782168, 109782171, 109782172,
+      109782180, 109782183
+    ], iilimit: 50 }
+
+    # Testing workaround for MediaWiki bug
+    # https://phabricator.wikimedia.org/T101532
+    it 'handles broken continues gracefully' do
+      VCR.use_cassette 'commons/cotinue_loop' do
+        result = described_class.new(bad_query).get_image_data('imageinfo', 'iicontinue')
+        expect(result.length).to be > 10
+      end
+    end
+  end
+
   describe '.api_get' do
     it 'handles typical network errors' do
       stub_commons_503_error

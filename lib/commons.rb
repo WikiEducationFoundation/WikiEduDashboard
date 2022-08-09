@@ -130,6 +130,12 @@ class Commons
       @image_data << r if r[@prop].present?
     end
     @continue = response['continue'] # nil if there is no continue
+    return if @continue.nil?
+
+    # Workaround for MediaWiki bug where continue runs the same query infinitely
+    # https://phabricator.wikimedia.org/T101532
+    @continue = nil if @query[@continue_param] == @continue[@continue_param]
+
     @query[@continue_param] = @continue[@continue_param] if @continue
   end
 
