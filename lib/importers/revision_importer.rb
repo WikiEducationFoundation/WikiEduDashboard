@@ -68,8 +68,11 @@ class RevisionImporter
   end
 
   # Get revisions made by a set of users between two dates.
+  # We limit the number of usernames per query in order to avoid
+  # hitting the memory limit of the Replica endpoint.
+  MAX_USERNAMES = 10
   def get_revisions(users, start, end_date)
-    Utils.chunk_requests(users, 40) do |block|
+    Utils.chunk_requests(users, MAX_USERNAMES) do |block|
       Replica.new(@wiki, @update_service).get_revisions block, start, end_date
     end
   end
