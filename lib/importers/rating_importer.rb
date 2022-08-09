@@ -5,6 +5,10 @@ class RatingImporter
   ################
   # Entry points #
   ################
+
+  # MediaWiki allows a maximum of 50 values in the "titles" parameter.
+  API_MAX_TITLES = 50
+
   def self.update_all_ratings
     # Since the rating scraper is only based on the English Wikipedia 1.0 rating
     # system, we only include articles from en.wiki.
@@ -14,7 +18,7 @@ class RatingImporter
     articles = Article.current.live
                       .namespace(0)
                       .where(wiki_id:)
-                      .find_in_batches(batch_size: 30)
+                      .find_in_batches(batch_size: API_MAX_TITLES)
     update_ratings(articles)
   end
 
@@ -23,12 +27,12 @@ class RatingImporter
     edited_articles = Article.current
                              .where(rating_updated_at: nil).namespace(0)
                              .where(wiki_id:)
-                             .find_in_batches(batch_size: 30)
+                             .find_in_batches(batch_size: API_MAX_TITLES)
     update_ratings(edited_articles)
     assigned_articles = Article.assigned
                                .where(rating_updated_at: nil).namespace(0)
                                .where(wiki_id:)
-                               .find_in_batches(batch_size: 30)
+                               .find_in_batches(batch_size: API_MAX_TITLES)
     update_ratings(assigned_articles)
   end
 
