@@ -5,7 +5,7 @@ require_dependency "#{Rails.root}/lib/errors/api_error_handling"
 
 #= Fetches wiki revision data from an endpoint that provides SQL query
 #= results from a replica wiki database on wmflabs:
-#=   https://wikiedudashboard.wmflabs.org/
+#=   https://dashboard-replica-endpoint.wmcloud.org/
 #= For what's going on at the other end, see:
 #=   https://github.com/WikiEducationFoundation/WikiEduDashboardTools
 class Replica
@@ -97,7 +97,7 @@ class Replica
   # query appropriate to that endpoint, return the parsed json response.
   #
   # Example revisions.php query:
-  #   https://wikiedudashboard.toolforge.org/revisions.php?lang=en&project=wikipedia&usernames[]=Ragesoss&start=20140101003430&end=20171231003430
+  #   https://dashboard-replica-endpoint.wmcloud.org//revisions.php?lang=en&project=wikipedia&usernames[]=Ragesoss&start=20140101003430&end=20171231003430
   #
   # Example revisions.php parsed response:
   # [{"page_id"=>"44962463",
@@ -162,8 +162,10 @@ class Replica
     Net::HTTP::get_response(URI.parse(url))
   end
 
+  REPLICA_TOOL_URL = 'https://dashboard-replica-endpoint.wmcloud.org/'
+
   def do_post(endpoint, key, data)
-    url = "https://wikiedudashboard.toolforge.org/#{endpoint}"
+    url = "#{REPLICA_TOOL_URL}#{endpoint}"
     database_params = project_database_params_post
     Net::HTTP::post_form(URI.parse(url),
                          'db' => database_params['db'],
@@ -174,15 +176,14 @@ class Replica
 
   # Query URL for the WikiEduDashboardTools repository
   def compile_query_url(endpoint, query)
-    base_url = 'https://wikiedudashboard.toolforge.org/'
-    "#{base_url}#{endpoint}?#{project_database_params}&#{query}"
+    "#{REPLICA_TOOL_URL}#{endpoint}?#{project_database_params}&#{query}"
   end
 
   ###############################
   # Replica database parameters #
   ###############################
 
-  # wikiedudashboard.toolforge.org connects to a replica database for whatever
+  # The dashboard replica endpoint tool connects to a replica database for whatever
   # wiki is being queried. Normally the database names can be derived directly
   # from the language code and project — and this happens at the toolforge
   # end of things — but some wikis don't follow the simple normal convention.
