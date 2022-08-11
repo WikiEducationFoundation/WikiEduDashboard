@@ -13,7 +13,7 @@ class WikidataSummaryImporter
         summary = summaries[rev.mw_rev_id]
         next if summary.nil?
 
-        rev.update(summary: CGI.escape(summary))
+        rev.update!(summary: CGI.escape(summary))
       end
     end
   end
