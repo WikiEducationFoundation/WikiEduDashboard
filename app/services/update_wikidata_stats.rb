@@ -14,7 +14,7 @@ class UpdateWikidataStats
 
   def import_summaries
     return if wikidata_revisions_without_summaries.empty?
-    WikidataSummaryImporter.import_missing_summaries wikidata_revisions_without_summaries
+    WikidataSummaryImporter.new.import_missing_summaries wikidata_revisions_without_summaries
   end
 
   # Get Wikidata stats based on revision's summaries

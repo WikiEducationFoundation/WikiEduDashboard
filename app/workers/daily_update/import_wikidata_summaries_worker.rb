@@ -7,6 +7,6 @@ class ImportWikidataSummariesWorker
   sidekiq_options lock: :until_executed
 
   def perform
-    WikidataSummaryImporter.import_all_missing_summaries
+    WikidataSummaryImporter.new.import_all_missing_summaries
   end
 end
