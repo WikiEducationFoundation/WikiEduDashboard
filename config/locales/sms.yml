@@ -137,6 +137,7 @@ sms:
     update_statistics_link: Lââʹssteâđ
   namespace:
     article: Artikkel
+    file: Teâttõs
   recent_activity:
     article_title: Nõmm
     file_name: Teâttõsnõmm
@@ -176,6 +177,7 @@ sms:
     first_name: Risttnõmm
     last_name: Sokknõmm
     name: Nõmm
+    none: Tän kuursâst ij leäkku ni õhtt vuässõõtti.
     no_articles: Artikkeeʹl jie leäkku
     number_of_articles:
       one: '%{count} artikkel'

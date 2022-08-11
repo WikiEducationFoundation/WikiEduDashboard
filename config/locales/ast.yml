@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Ajeje Brazorf
 # Author: Macofe
+# Author: Tokvo
 # Author: Xuacu
 ---
 ast:
@@ -643,6 +644,8 @@ ast:
     main_char_added: Caráuteres añadíos nel espaciu principal
     user: Espaciu d'usuariu
     user_char_added: Caráuteres añadíos nel espaciu d'usuariu
+    page: Páxina
+    book: Llibru
   recent_activity:
     active_courses: L'artículu ta activu en
     article_title: Títulu del artículu

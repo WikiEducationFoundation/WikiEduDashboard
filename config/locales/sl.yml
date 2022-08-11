@@ -15,6 +15,8 @@ sl:
     home: Domov
     log_in_extended: Prijava z Wikipedijo
     log_in: Prijava
+    log_out: Odjava
+    sign_up: Ustvari račun
     submit: Pošlji
     details: Podrobnosti
     confirm: V redu
@@ -37,6 +39,7 @@ sl:
     name: Ime
     remove: Odstrani
   courses:
+    actions: Dejanja
     articles: Članki
     campaigns: 'Kampanje:'
     creator:
@@ -55,22 +58,33 @@ sl:
     edit: Uredi
     cancel: Prekliči
     save: Shrani
+  instructor_view:
+    assignments_table:
+      article_name: Ime
   metrics:
     bytes_added: Zlogov dodanih
     last_reviewed: Zadnjič pregledano
   revisions:
     title: Naslov
+  settings:
+    admin_users:
+      new:
+        form_placeholder: Uporabniško ime
   training:
     page: Stran
+    done: Končano!
   uploads:
     label: Naložitve
   users:
+    assign_articles_done: Končano
     contribution_statistics: Statistika prispevkov
     name: Ime
     number_of_articles:
       one: '%{count} članek'
       other: '%{count} članka'
     training_module_status: Stanje
+    username: Uporabniško ime
+    username_placeholder: Uporabniško ime
     role:
       visitor: Obiskovalec
       student: Študent/učenec
@@ -79,6 +93,7 @@ sl:
       online_volunteer: Spletni prostovoljec
       wiki_ed_staff: Kolektiv Wikiizobraževanja
   wizard:
+    select_one_option: Prosimo, izberite 1 možnost.
     read_more: Preberi še kaj
     summary: Povzetek
 ...
