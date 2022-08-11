@@ -28,6 +28,7 @@ import CourseFormatSelector from '../course_creator/course_format_selector';
 import selectStyles from '../../styles/select';
 import WikiSelect from '../common/wiki_select.jsx';
 import Modal from '../common/modal.jsx';
+import NamespaceSelect from '../common/namespace_select.jsx';
 
 import EditableRedux from '../high_order/editable_redux.jsx';
 import TextInput from '../common/text_input.jsx';
@@ -118,6 +119,10 @@ const Details = createReactClass({
     };
     wikis = CourseUtils.normalizeWikis(wikis, home_wiki);
     this.props.updateCourse({ ...this.props.course, wikis });
+  },
+
+  handleNamespaceChange(namespaces) {
+    this.props.updateCourse({ ...this.props.course, namespaces });
   },
 
   poll() {
@@ -319,6 +324,7 @@ const Details = createReactClass({
     let retainAvailableArticlesToggle;
     let wikiSelector;
     let multiWikiSelector;
+    let namespaceSelector;
 
     if (this.props.current_user.admin) {
       subject = (
@@ -505,6 +511,21 @@ const Details = createReactClass({
       );
     }
 
+    namespaceSelector = (
+      <div className="form-group namespace-select">
+        <span className="text-input-component__label">
+          <strong>{'Tracked Namespaces: '}</strong>
+        </span>
+        <NamespaceSelect
+          wikis={this.props.course.wikis}
+          namespaces={this.props.course.namespaces}
+          onChange={this.handleNamespaceChange}
+          readOnly={!this.props.editable}
+          styles={{ ...selectStyles, singleValue: null }}
+        />
+      </div>
+    );
+
     const shared = (
       <div className="module course-details">
         <div className="section-header">
@@ -525,6 +546,7 @@ const Details = createReactClass({
               {academic_system}
               {wikiSelector}
               {multiWikiSelector}
+              {namespaceSelector}
               <form>
                 {passcode}
                 {expectedStudents}
