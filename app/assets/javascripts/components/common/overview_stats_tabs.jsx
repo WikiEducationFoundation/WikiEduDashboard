@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import OverviewStatsTab from './OverviewStats/overview_stats_tab';
 import OverviewStatsContent from './OverviewStats/overview_stats_content';
 
-import { overviewStatsLabel } from '../../utils/wiki_utils';
+import { wikiNamespaceLabel } from '../../utils/wiki_utils';
 
 
 const OverviewStatsTabs = ({ statistics }) => {
@@ -21,7 +21,9 @@ const OverviewStatsTabs = ({ statistics }) => {
 
   let index = 0;
   Object.keys(statistics).forEach((wiki_ns_key) => {
-    const statsTitle = overviewStatsLabel(wiki_ns_key);
+    const wiki = wiki_ns_key.split('-')[0];
+    const namespace = wiki_ns_key.split('-')[2];
+    const statsTitle = wikiNamespaceLabel(wiki, namespace);
     const statsData = statistics[wiki_ns_key];
 
     statsList.push({ statsTitle, statsData });
