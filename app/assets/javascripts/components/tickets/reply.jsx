@@ -8,12 +8,17 @@ import { formatDateWithTime } from '../../utils/date_utils';
 
 export const Reply = ({ message }) => {
   const { sender, details } = message;
+  let delivered_message;
+  let failed_message;
+  if (details.delivered) {
+    const deliveredTime = formatDateWithTime(details.delivered);
+    delivered_message = `Delivered on ${deliveredTime}`;
+  }
 
-  const deliveredTime = formatDateWithTime(details.delivered);
-  const delivered = `Delivered on ${deliveredTime}`;
-
-  const failedTime = formatDateWithTime(details.delivery_failed);
-  const failed = `Failed on ${failedTime}`;
+  if (details.delivery_failed) {
+    const failedTime = formatDateWithTime(details.delivery_failed);
+    failed_message = `Failed on ${failedTime}`;
+  }
 
   let subject;
   let messageClass;
@@ -59,12 +64,12 @@ export const Reply = ({ message }) => {
         </span>
         <span>
           {
-            message.details.delivered
-            && <HelperIcon imageName="check" altText={delivered} />
+            delivered_message
+            && <HelperIcon imageName="check" altText={delivered_message} />
           }
           {
-            message.details.delivery_failed
-            && <HelperIcon imageName="minus" altText={failed} />
+            failed_message
+            && <HelperIcon imageName="minus" altText={failed_message} />
           }
         </span>
       </aside>
