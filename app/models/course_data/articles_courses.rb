@@ -74,7 +74,9 @@ class ArticlesCourses < ApplicationRecord
     # We use the 'all_revisions' scope so that the dashboard system edits that
     # create sandboxes are not excluded, since those are often wind up being the
     # first edit of a mainspace article's revision history
-    self.new_article = all_revisions.exists?(new_article: true) ||
+    self.new_article = new_article || # If it's already known to be new, that won't change
+                       all_revisions.exists?(new_article: true) || # First edit was by a student
+                       # First edit was done automatically by the Dashboard during the course
                        article_revisions.exists?(new_article: true, system: true)
     save
   end
