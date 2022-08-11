@@ -23,14 +23,6 @@ describe WikidataSummaryParser do
     analysis_output = described_class.analyze_revisions(Revision.all)
     expect(analysis_output['claims created']).to eq(1)
     expect(analysis_output['items cleared']).to eq(1)
-  end
-
-  it 'handles encoding problems gracefully' do
-    allow_any_instance_of(Revision).to receive(:update!).and_raise(ActiveRecord::StatementInvalid)
-    expect(Sentry).to receive(:capture_exception).at_least(:once)
-
-    VCR.use_cassette 'wikidata_summaries' do
-      ImportWikidataSummariesWorker.perform_async
-    end
+    expect(analysis_output['descriptions added']).to eq(1)
   end
 end

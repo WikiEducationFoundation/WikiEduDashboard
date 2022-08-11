@@ -44,20 +44,6 @@ class WikidataSummaryParser
     stats
   end
 
-  def self.fetch_summary(revision)
-    query = {
-      prop: 'revisions',
-      rvprop: 'comment',
-      revids: revision.mw_rev_id
-    }
-    data = WikiApi.new(revision.wiki).query(query)
-    page_data = data.data['pages']
-    # Deleted revisions return data without a 'pages' key, like:
-    # {"batchcomplete":"","query":{"badrevids":{"968242606":{"revid":968242606}}}}
-    return unless page_data
-    page_data.values.first['revisions'].first['comment']
-  end
-
   def initialize(summary)
     @summary = summary || ''
   end

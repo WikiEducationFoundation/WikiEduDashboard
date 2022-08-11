@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/wikidata_summary_parser"
+require_dependency "#{Rails.root}/lib/importers/wikidata_summary_importer"
 
 class UpdateWikidataStats
   def initialize(course)
@@ -13,18 +14,7 @@ class UpdateWikidataStats
 
   def import_summaries
     return if wikidata_revisions_without_summaries.empty?
-    wikidata_revisions_without_summaries.find_in_batches do |rev_batch|
-      rev_batch.each do |rev|
-        summary = WikidataSummaryParser.fetch_summary(rev)
-        next if summary.nil?
-        begin
-          rev.update!(summary:)
-        rescue ActiveRecord::StatementInvalid => e
-          Sentry.capture_exception e
-          rev.update(summary: CGI.escape(summary))
-        end
-      end
-    end
+    WikidataSummaryImporter.import_missing_summaries wikidata_revisions_without_summaries
   end
 
   # Get Wikidata stats based on revision's summaries

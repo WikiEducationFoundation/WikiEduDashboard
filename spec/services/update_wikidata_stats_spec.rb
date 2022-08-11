@@ -33,12 +33,5 @@ describe UpdateWikidataStats do
       expect(CourseStat.last.stats_hash).not_to be_nil
       expect(CourseStat.last.course_id).to eq(Course.last.id)
     end
-
-    it 'handles encoding problems gracefully', :vcr do
-      allow_any_instance_of(Revision).to receive(:update!).and_raise(ActiveRecord::StatementInvalid)
-      expect(Sentry).to receive(:capture_exception).at_least(:once)
-      Revision.last.update(summary: nil)
-      described_class.new(course)
-    end
   end
 end
