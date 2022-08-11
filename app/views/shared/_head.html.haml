@@ -16,6 +16,7 @@
   = i18n_javascript_tag I18n.locale.to_s
   %meta{name: "data-projects", content: Wiki::PROJECTS.to_json}
   %meta{name: "data-languages", content: Wiki::LANGUAGES.to_json}
+  %meta{name: "data-namespaces", content: Wiki::PROJECTS_NAMESPACES.to_json}
   :javascript
     I18n.defaultLocale = "#{I18n.default_locale}";
     I18n.locale = "#{I18n.locale}";
@@ -40,6 +41,7 @@
 
     WikiProjects = document.querySelector('meta[name="data-projects"]').content
     WikiLanguages = document.querySelector('meta[name="data-languages"]').content
+    ProjectNamespaces = document.querySelector('meta[name="data-namespaces"]').content
 
     SentryDsn = "#{ENV['sentry_dsn']}"
     SalesforceServer = "#{ENV['SF_SERVER']}"
