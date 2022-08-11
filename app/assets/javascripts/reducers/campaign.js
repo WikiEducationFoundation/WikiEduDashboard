@@ -30,6 +30,7 @@ const initialState = {
   start: false,
   end: false,
   loading: true,
+  course_stats: {}
 };
 
 export default function campaign(state = initialState, action) {
