@@ -509,22 +509,24 @@ const Details = createReactClass({
           />
         </div>
       );
-    }
 
-    namespaceSelector = (
-      <div className="form-group namespace-select">
-        <span className="text-input-component__label">
-          <strong>{'Tracked Namespaces: '}</strong>
-        </span>
-        <NamespaceSelect
-          wikis={this.props.course.wikis}
-          namespaces={this.props.course.namespaces}
-          onChange={this.handleNamespaceChange}
-          readOnly={!this.props.editable}
-          styles={{ ...selectStyles, singleValue: null }}
-        />
-      </div>
-    );
+      namespaceSelector = (
+        <div className="form-group namespace-select">
+          <span className="text-input-component__label">
+            <strong>
+              {I18n.t('courses.namespaces')}:&nbsp;
+            </strong>
+          </span>
+          <NamespaceSelect
+            wikis={this.props.course.wikis}
+            namespaces={this.props.course.namespaces}
+            onChange={this.handleNamespaceChange}
+            readOnly={!this.props.editable}
+            styles={{ ...selectStyles, singleValue: null }}
+          />
+        </div>
+      );
+    }
 
     const shared = (
       <div className="module course-details">
