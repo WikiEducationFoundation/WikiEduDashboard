@@ -44,7 +44,7 @@ const NamespaceSelect = (props) => {
     const updated_options = props.wikis.map((wiki) => {
       const language = wiki.language || 'www';
       const project = wiki.project;
-      const domain = `${language}.${project}.org`
+      const domain = `${language}.${project}.org`;
       return projects_namespaces_ids[project].map((ns) => {
         const label = wikiNamespaceLabel(domain, ns);
         const value = `${domain}-namespace-${ns}`;
@@ -57,7 +57,7 @@ const NamespaceSelect = (props) => {
   const handleChange = (selectedOptions) => {
     const tracked_namespaces = selectedOptions.map((option) => {
       return option.value;
-    })
+    });
     updateNamespaces(tracked_namespaces);
   };
 
