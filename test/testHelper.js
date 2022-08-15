@@ -64,7 +64,7 @@ global.WikiLanguages = JSON.stringify([
   'vec', 'vep', 'vi', 'vls', 'vo', 'vro', 'w', 'wa', 'war', 'wikipedia', 'wo', 'wuu', 'xal', 'xh', 'xmf', 'yi', 'yo', 'yue', 'za',
   'zea', 'zh', 'zh-cfr', 'zh-classical', 'zh-cn', 'zh-min-nan', 'zh-tw', 'zh-yue', 'zu'
 ]);
-
+global.ProjectNamespaces = JSON.stringify({ wikipedia: [0, 2] });
 
 require('../public/assets/javascripts/i18n/en'); // eslint-disable-line import/no-unresolved
 
