@@ -88,7 +88,8 @@
     "SurveyDetails": true,
     "Features": true,
     "WikiLanguages": true,
-    "WikiProjects": true
+    "WikiProjects": true,
+    "ProjectNamespaces": true
   },
   "env": {
     "jest": true,
