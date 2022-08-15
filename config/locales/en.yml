@@ -630,6 +630,7 @@ en:
     gradeables_none: This course has no gradeable assignments.
     home_wiki: Home Wiki
     multi_wiki: Tracked Wikis
+    namespaces: Tracked Namespaces
     instructor:
       one: Instructor
       other: Instructors
