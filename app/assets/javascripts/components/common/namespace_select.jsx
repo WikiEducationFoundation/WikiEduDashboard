@@ -58,6 +58,7 @@ const NamespaceSelect = (props) => {
   };
 
   const handleChange = (selectedOptions) => {
+    if (!selectedOptions) return updateNamespaces([]);
     const tracked_namespaces = selectedOptions.map((option) => {
       return option.value;
     });
