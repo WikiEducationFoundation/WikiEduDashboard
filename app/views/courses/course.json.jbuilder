@@ -13,6 +13,7 @@ json.course do
             :update_until, :withdrawn, :created_at)
 
   json.wikis @course.wikis, :language, :project
+  json.namespaces format_wiki_namespaces(@course.course_wiki_namespaces)
   json.timeline_enabled @course.timeline_enabled?
   json.disable_student_emails @course.disable_student_emails?
   json.academic_system @course.academic_system

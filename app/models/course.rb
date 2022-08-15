@@ -127,6 +127,8 @@ class Course < ApplicationRecord
   has_many :courses_wikis, class_name: 'CoursesWikis', dependent: :destroy
   has_many :wikis, through: :courses_wikis
 
+  has_many :course_wiki_namespaces, class_name: 'CourseWikiNamespaces', through: :courses_wikis
+
   serialize :flags, Hash
 
   module ClonedStatus

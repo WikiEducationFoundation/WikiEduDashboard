@@ -42,4 +42,12 @@ module CourseHelper
     end
     course_stats
   end
+
+  def format_wiki_namespaces(wiki_namespaces)
+    wiki_namespaces.map do |wiki_ns|
+      wiki_domain = wiki_ns.courses_wikis.wiki.domain
+      namespace = wiki_ns.namespace
+      "#{wiki_domain}-namespace-#{namespace}"
+    end
+  end
 end
