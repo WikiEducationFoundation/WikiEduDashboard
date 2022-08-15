@@ -22,12 +22,11 @@ const OverviewStatsTabs = ({ statistics }) => {
   let index = 0;
   Object.keys(statistics).forEach((wiki_ns_key) => {
     let statsTitle;
-    if (wiki_ns_key.contains('namespace')) {
+    if (wiki_ns_key.includes('namespace')) {
       const wiki = wiki_ns_key.split('-')[0];
       const namespace = wiki_ns_key.split('-')[2];
       statsTitle = wikiNamespaceLabel(wiki, namespace);
-    }
-    else { statsTitle = wiki_ns_key; }
+    } else { statsTitle = wiki_ns_key; }
     const statsData = statistics[wiki_ns_key];
 
     statsList.push({ statsTitle, statsData });
