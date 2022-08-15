@@ -511,4 +511,11 @@ describe CampaignsController, type: :request do
       expect(response.body).to include(course.title)
     end
   end
+
+  describe '#current_term' do
+    it 'redirects to the corresponding subpage for the default term' do
+      get '/current_term/articles'
+      expect(response).to redirect_to '/campaigns/spring_2015/articles'
+    end
+  end
 end

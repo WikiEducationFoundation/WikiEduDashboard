@@ -188,6 +188,10 @@ class CampaignsController < ApplicationController
     render user_only == 'true' ? 'user_statistics' : 'statistics'
   end
 
+  def current_term
+    redirect_to "/campaigns/#{Campaign.default_campaign.slug}/#{params[:subpage]}"
+  end
+
   #######################
   # CSV-related actions #
   #######################
