@@ -141,6 +141,7 @@ sms:
   recent_activity:
     article_title: Nõmm
     file_name: Teâttõsnõmm
+    uploaded_by: 'Ruõkkâm:'
   revisions:
     diff_show: Čuäʹjet
     diff_hide: Čiõǥǥ
@@ -170,6 +171,7 @@ sms:
   uploads:
     file_name: Teâttõsnõmm
     label: Ruõkkmõõžž
+    uploaded_by: 'Ruõkkâm:'
   users:
     contributions: Õõʹnni muttâz
     contribution_statistics: Muʹttemstatistiikk

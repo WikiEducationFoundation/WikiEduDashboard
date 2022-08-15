@@ -222,6 +222,20 @@ bg:
   namespace:
     main_char_added: Добавени знаци в основното пространство
     user_char_added: Добавени знаци в потребителското пространство
+    project: Проект
+    file: Файл
+    template: Шаблон
+    help: Помощ
+    category: Категория
+    page: Страница
+    book: Книга
+    translation: Превод
+    property: Свойство
+    portal: Портал
+    school: Училище
+    author: Автор
+    cookbook: Готварска книга
+    index: Индекс
   recent_activity:
     article_title: Заглавие на статията
     datetime: Дата/Час

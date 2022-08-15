@@ -71,6 +71,7 @@ yi:
     wiki: וויקי
   campaign:
     none: קיין
+    title: טיטל
   courses:
     articles: אַרטיקלען
     calendar:
@@ -82,8 +83,10 @@ yi:
       find: טרעפט אייער קורס
       start_date: אָנהייב דאַטע
     school: שולע
+    title: טיטל
   courses_generic:
     all_courses: אלע פראגראמען
+    cancel: אַנולירן
     creator:
       course_school: אַנשטאַלט
       course_title: פראגראם־טיטל
@@ -92,10 +95,18 @@ yi:
     school: אנשטאלט
     student_editors: רעדאקטארן
     students_short: רעדאקטארן
+  editable:
+    cancel: אַנולירן
   metrics:
     tags: טאַגן
+  recent_activity:
+    article_title: טיטל
+  revisions:
+    title: טיטל
   timeline:
     block_milestone: מיילן־שטיין
+  training:
+    page: בלאַט
   users:
     assign_articles_done: ערליידיקט
   article_finder:
