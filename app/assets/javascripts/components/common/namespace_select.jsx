@@ -26,6 +26,8 @@ const NamespaceSelect = (props) => {
     updateOptionsFromWikis();
   }, [props.wikis]);
 
+  // Filters currently selected namespaces according to tracked wikis
+  // There shouldn't be any tracked namespace without corresponding tracked wiki
   const updateNamespacesFromWikis = () => {
     const current_namespaces = props.namespaces;
 
@@ -40,6 +42,7 @@ const NamespaceSelect = (props) => {
   updateNamespaces(updated_namespaces);
   };
 
+  // Updates options according to tracked wikis
   const updateOptionsFromWikis = () => {
     const updated_options = props.wikis.map((wiki) => {
       const language = wiki.language || 'www';
