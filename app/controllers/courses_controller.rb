@@ -287,6 +287,8 @@ class CoursesController < ApplicationController
   def update_course_wiki_namespaces
     namespaces = course_wiki_namespaces_params
 
+    # Each entry in namespaces uses wiki domain and namespace
+    # Eg.: for cookbook, its "en.wikibooks.org-namespace-102"
     @course.courses_wikis.each do |course_wiki|
       wiki_domain = course_wiki.wiki.domain
       cw_ns = []
