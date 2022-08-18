@@ -10,6 +10,7 @@
 # Author: Hugo
 # Author: Ilimanaq29
 # Author: Janbery
+# Author: Kareyac
 # Author: Marek Pavlica
 # Author: Martin Urbanec
 # Author: Matěj Suchánek
@@ -830,6 +831,18 @@ cs:
     main_char_added: Přidáno znaků v hlavním jmenném prostoru
     user: Uživatelský prostor
     user_char_added: Přidáno znaků v hlavním uživatelském prostoru
+    project: Projekt
+    file: Soubor
+    template: Šablona
+    category: Kategorie
+    page: Stránka
+    book: Kniha
+    translation: Překlad
+    query: Dotaz
+    lexeme: Lexém
+    portal: Portál
+    school: Škola
+    author: Autor
   recent_activity:
     active_courses: Článek je aktivní v
     article_title: Název článku

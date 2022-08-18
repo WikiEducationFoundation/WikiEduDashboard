@@ -18,6 +18,7 @@
 # Author: Rachmat04
 # Author: RaymondSutanto94
 # Author: Sonic Speedy
+# Author: Veracious
 ---
 id:
   number:
@@ -165,6 +166,24 @@ id:
       model kualitas artikel ORES, dan hanya tersedia untuk beberapa bahasa.
     update_statistics_link: Lihat selengkapnya
     word_count: Kata ditambahkan
+  namespace:
+    project: Proyek
+    file: Berkas
+    mediaWiki: MediaWiki
+    template: Templat
+    help: Bantuan
+    category: Kategori
+    page: Halaman
+    book: Buku
+    wikijunior: WikiJunior
+    draft: Draf
+    query: Kueri
+    lexeme: Leksem
+    portal: Portal
+    school: Sekolah
+    cookbook: Buku masak
+    index: Indeks
+    collection: Koleksi
   recent_activity:
     datetime: Tanggal/Waktu
     possible_plagiarism: Kemungkinan Plagiarisme
@@ -178,6 +197,10 @@ id:
     diff: beda
     time_doc: Waktu setiap revisi dalam waktu lokal Anda
     see_more: Lihat selengkapnya
+  settings:
+    admin_users:
+      new:
+        form_placeholder: Nama pengguna
   timeline:
     blackout_week_created: Ada blok dijadwalkan minggu ini. Silakan pindahkan ke seminggu
       lagi sebelum Anda menghapus pertemuan kelas terakhir dari minggu ini.
@@ -202,6 +225,8 @@ id:
     training_complete:
       one: telah diperbarui dengan pelatihan
       other: telah diperbarui dengan pelatihan
+    username: Nama pengguna
+    username_placeholder: Nama pengguna
   user_profiles:
     institution_placeholder: Nama institusi (opsional)
   wizard:
