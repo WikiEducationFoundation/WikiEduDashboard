@@ -21,9 +21,7 @@
 # If you're running an old version, you can use something
 # like this:
 #
-fallbacks: :en
-export_i18n_js: "public/assets/javascripts"
 translations:
-  - file: "public/assets/javascripts/i18n/%{locale}.js"
-    only: "*"
-#
+  - file: "public/assets/javascripts/i18n/:locale.json"
+    patterns: 
+      - "*"

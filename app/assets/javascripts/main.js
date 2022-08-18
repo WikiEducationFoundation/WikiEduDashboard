@@ -7,16 +7,16 @@
 // core-js/stable and regenerator-runtime/runtime are directly included to polyfill ES features and to use transpiled generator functions respectively, as @babel/polyfill is deprecated.
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
+import fetchTranslations from './config/i18n';
 
 require('location-origin');
 require('@rails/ujs').start(); // Enables rails-ujs, which adds JavaScript enhancement to some Rails views
 window.List = require('list.js'); // List is used for sorting tables outside of React
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   /* eslint-disable */
-  import('i18n-js').then(({ default: I18n }) => {
-    window.I18n = I18n;
-  });
+
+  await fetchTranslations();
   import('./utils/course.js'); // This adds jquery features for some views outside of React
   
   // This is the main React entry point. It renders the navbar throughout the app, and

@@ -1,4 +1,3 @@
-import I18n from 'i18n-js';
 import React from 'react';
 import CampaignList from './campaign_list';
 import DetailedCampaignRow from './detailed_campaign_row';

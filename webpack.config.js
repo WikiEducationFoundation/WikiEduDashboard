@@ -146,7 +146,6 @@ module.exports = (env) => {
     },
     externals: {
       jquery: 'jQuery',
-      'i18n-js': 'I18n'
     },
     devtool,
     stats: env.stats ? 'normal' : 'minimal',

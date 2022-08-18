@@ -10,14 +10,11 @@
   = dashboard_stylesheet_tag("main")
   %script(src="https://unpkg.com/react@16.0.0/umd/react.production.min.js")
   %script(src="https://unpkg.com/react-dom@16.0.0/umd/react-dom.production.min.js")
-
-  = javascript_include_tag '/assets/javascripts/i18n'
-  = i18n_javascript_tag I18n.locale.to_s
   :javascript
-    I18n.defaultLocale = "#{I18n.default_locale}";
-    I18n.locale = "#{I18n.locale}";
-    I18n.availableLocales = #{I18n.available_locales.to_json.html_safe}
-
+    locale = "#{I18n.locale.to_s}"
+    defaultLocale = "#{I18n.default_locale}";
+    availableLocales = #{I18n.available_locales.to_json}
+  :javascript
   %body
     %div
       = yield
