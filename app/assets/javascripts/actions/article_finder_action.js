@@ -1,6 +1,6 @@
 import { chunk, map, includes } from 'lodash-es';
 import promiseLimit from 'promise-limit';
-import { UPDATE_FIELD, RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE, INITIATE_SEARCH, RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT, RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, SORT_ARTICLE_FINDER, RECEIVE_KEYWORD_RESULTS, API_FAIL, CLEAR_RESULTS } from '../constants';
+import { UPDATE_FINDER_FIELD, RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE, INITIATE_SEARCH, RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT, RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, SORT_ARTICLE_FINDER, RECEIVE_KEYWORD_RESULTS, API_FAIL, CLEAR_RESULTS } from '../constants';
 import { queryUrl, categoryQueryGenerator, pageviewQueryGenerator, pageAssessmentQueryGenerator, pageRevisionQueryGenerator, pageRevisionScoreQueryGenerator, keywordQueryGenerator } from '../utils/article_finder_utils.js';
 import { ORESSupportedWiki, PageAssessmentSupportedWiki } from '../utils/article_finder_language_mappings.js';
 import { fetchWikidataLabels } from './wikidata_actions';
@@ -24,7 +24,7 @@ const limit = promiseLimit(10);
 
 export const updateFields = (key, value) => (dispatch) => {
   dispatch({
-    type: UPDATE_FIELD,
+    type: UPDATE_FINDER_FIELD,
     data: {
       key: key,
       value: value,
@@ -46,7 +46,7 @@ export const fetchCategoryResults = (category, wiki, cmcontinue = '', continueRe
     });
   } else {
     dispatch({
-      type: UPDATE_FIELD,
+      type: UPDATE_FINDER_FIELD,
       data: {
         key: 'fetchState',
         value: 'ARTICLES_LOADING',
@@ -203,7 +203,7 @@ export const fetchKeywordResults = (keyword, wiki, offset = 0, continueResults =
     });
   } else {
     dispatch({
-      type: UPDATE_FIELD,
+      type: UPDATE_FINDER_FIELD,
       data: {
         key: 'fetchState',
         value: 'ARTICLES_LOADING',

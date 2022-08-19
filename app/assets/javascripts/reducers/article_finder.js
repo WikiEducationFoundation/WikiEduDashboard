@@ -2,7 +2,7 @@ import { cloneDeep, forEach, reduce, find } from 'lodash-es';
 import { extractClassGrade } from '../utils/article_finder_utils.js';
 import { sortByKey } from '../utils/model_utils';
 import { ORESWeights } from '../utils/article_finder_language_mappings.js';
-import { UPDATE_FIELD, RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE,
+import { UPDATE_FINDER_FIELD, RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE,
   RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT,
   RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, SORT_ARTICLE_FINDER, RECEIVE_KEYWORD_RESULTS, INITIATE_SEARCH, CLEAR_RESULTS } from '../constants';
 
@@ -30,7 +30,7 @@ const initialState = {
 
 export default function articleFinder(state = initialState, action) {
   switch (action.type) {
-    case UPDATE_FIELD: {
+    case UPDATE_FINDER_FIELD: {
       const newState = { ...state };
       newState[action.data.key] = action.data.value;
       return newState;
