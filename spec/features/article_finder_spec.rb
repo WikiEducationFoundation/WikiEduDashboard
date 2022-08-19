@@ -5,9 +5,12 @@ require 'rails_helper'
 describe 'article finder', type: :feature, js: true do
   let(:course) { create(:course) }
   let(:admin) { create(:admin) }
+  let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }
 
   before do
     login_as(admin)
+    stub_wiki_validation
+    course.wikis << wikidata
     stub_oauth_edit
   end
 
@@ -19,5 +22,19 @@ describe 'article finder', type: :feature, js: true do
     end
     expect(page).to have_content 'Monkey selfie copyright dispute'
     expect(page).to have_content 'Add as available article'
+  end
+
+  it 'works for other tracked wikis besides the home wiki' do
+    visit "/courses/#{course.slug}/article_finder"
+    click_link 'Change'
+    find('div.wiki-select').click
+    within('.wiki-select') do
+      find('input').send_keys('www.wikidata', :enter)
+    end
+    within '.article-finder-form' do
+      fill_in 'category', with: 'Selfie'
+      click_button 'Submit'
+    end
+    expect(page).to have_content 'Q12068677'
   end
 end

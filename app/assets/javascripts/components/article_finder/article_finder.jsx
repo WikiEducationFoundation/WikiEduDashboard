@@ -107,16 +107,16 @@ const ArticleFinder = createReactClass({
       });
     } else if (this.props.search_type === 'keyword') {
       this.buildURL();
-      return this.props.fetchKeywordResults(this.props.search_term, this.props.home_wiki);
+      return this.props.fetchKeywordResults(this.props.search_term, this.props.selectedWiki);
     }
-    return this.props.fetchCategoryResults(this.props.search_term, this.props.home_wiki);
+    return this.props.fetchCategoryResults(this.props.search_term, this.props.selectedWiki);
   },
 
   fetchMoreResults() {
     if (this.props.search_type === 'keyword') {
-      return this.props.fetchKeywordResults(this.props.search_term, this.props.home_wiki, this.props.offset, true);
+      return this.props.fetchKeywordResults(this.props.search_term, this.props.selectedWiki, this.props.offset, true);
     }
-    return this.props.fetchCategoryResults(this.props.search_term, this.props.home_wiki, this.props.cmcontinue, true);
+    return this.props.fetchCategoryResults(this.props.search_term, this.props.selectedWiki, this.props.cmcontinue, true);
   },
 
   handleChange(e) {
@@ -189,7 +189,7 @@ const ArticleFinder = createReactClass({
     const articleQuality = (
       <div>
         <div className="form-group range-container">
-          <label className="mb2">{I18n.t(`article_finder.${ArticleUtils.projectSuffix(this.props.home_wiki.project, 'article_quality')}`)}</label>
+          <label className="mb2">{I18n.t(`article_finder.${ArticleUtils.projectSuffix(this.props.selectedWiki.project, 'article_quality')}`)}</label>
           <InputRange
             maxValue={100}
             minValue={0}
@@ -270,11 +270,11 @@ const ArticleFinder = createReactClass({
       const order = (this.props.sort.sortKey) ? 'asc' : 'desc';
       keys[this.props.sort.key].order = order;
     }
-    if (!includes(ORESSupportedWiki.languages, this.props.home_wiki.language) || !includes(ORESSupportedWiki.projects, this.props.home_wiki.project)) {
+    if (!includes(ORESSupportedWiki.languages, this.props.selectedWiki.language) || !includes(ORESSupportedWiki.projects, this.props.selectedWiki.project)) {
       delete keys.revScore;
     }
 
-    if (!PageAssessmentSupportedWiki[this.props.home_wiki.project] || !includes(PageAssessmentSupportedWiki[this.props.home_wiki.project], this.props.home_wiki.language)) {
+    if (!PageAssessmentSupportedWiki[this.props.selectedWiki.project] || !includes(PageAssessmentSupportedWiki[this.props.selectedWiki.project], this.props.selectedWiki.language)) {
       delete keys.grade;
     }
 
@@ -288,8 +288,8 @@ const ArticleFinder = createReactClass({
           if (!element.language && !element.project) {
             return {
                 ...element,
-                language: this.props.home_wiki.language,
-                project: this.props.home_wiki.project
+                language: this.props.selectedWiki.language,
+                project: this.props.selectedWiki.project
               };
           }
           return element;
@@ -299,9 +299,9 @@ const ArticleFinder = createReactClass({
         let assignment;
         if (this.props.course_id) {
           if (this.props.current_user.isAdvancedRole) {
-            assignment = find(modifiedAssignmentsArray, { article_title: title, user_id: null, language: this.props.home_wiki.language, project: this.props.home_wiki.project });
+            assignment = find(modifiedAssignmentsArray, { article_title: title, user_id: null, language: this.props.selectedWiki.language, project: this.props.selectedWiki.project });
           } else if (this.props.current_user.role === STUDENT_ROLE) {
-            assignment = find(modifiedAssignmentsArray, { article_title: title, user_id: this.props.current_user.id, language: this.props.home_wiki.language, project: this.props.home_wiki.project });
+            assignment = find(modifiedAssignmentsArray, { article_title: title, user_id: this.props.current_user.id, language: this.props.selectedWiki.language, project: this.props.selectedWiki.project });
           }
         }
 
@@ -313,7 +313,7 @@ const ArticleFinder = createReactClass({
             key={article.pageid}
             courseSlug={this.props.course_id}
             course={this.props.course}
-            home_wiki={this.props.home_wiki}
+            selectedWiki={this.props.selectedWiki}
             assignment={assignment}
             addAssignment={this.props.addAssignment}
             deleteAssignment={this.props.deleteAssignment}
@@ -328,7 +328,7 @@ const ArticleFinder = createReactClass({
           sortable={true}
           table_key="category-articles"
           className="table--expandable table--hoverable"
-          none_message={I18n.t(`article_finder.${ArticleUtils.projectSuffix(this.props.home_wiki.project, 'no_article_found')}`)}
+          none_message={I18n.t(`article_finder.${ArticleUtils.projectSuffix(this.props.selectedWiki.project, 'no_article_found')}`)}
           sortBy={this.props.sortArticleFinder}
         />
       );
@@ -355,11 +355,11 @@ const ArticleFinder = createReactClass({
           <div className="stat-display">
             <div className="stat-display__stat" id="articles-fetched">
               <div className="stat-display__value">{fetchedCount}</div>
-              <small>{I18n.t(`article_finder.${ArticleUtils.projectSuffix(this.props.home_wiki.project, 'fetched_articles')}`)}</small>
+              <small>{I18n.t(`article_finder.${ArticleUtils.projectSuffix(this.props.selectedWiki.project, 'fetched_articles')}`)}</small>
             </div>
             <div className="stat-display__stat" id="articles-filtered">
               <div className="stat-display__value">{filteredCount}</div>
-              <small>{I18n.t(`article_finder.${ArticleUtils.projectSuffix(this.props.home_wiki.project, 'filtered_articles')}`)}</small>
+              <small>{I18n.t(`article_finder.${ArticleUtils.projectSuffix(this.props.selectedWiki.project, 'filtered_articles')}`)}</small>
             </div>
           </div>
         </div>
@@ -367,7 +367,7 @@ const ArticleFinder = createReactClass({
     }
 
     const loaderMessage = {
-      ARTICLES_LOADING: I18n.t(`article_finder.${ArticleUtils.projectSuffix(this.props.home_wiki.project, 'searching_articles')}`),
+      ARTICLES_LOADING: I18n.t(`article_finder.${ArticleUtils.projectSuffix(this.props.selectedWiki.project, 'searching_articles')}`),
       TITLE_RECEIVED: I18n.t('article_finder.fetching_assessments'),
       PAGEASSESSMENT_RECEIVED: I18n.t('article_finder.fetching_revisions'),
       REVISION_RECEIVED: I18n.t('article_finder.fetching_scores'),
@@ -388,8 +388,8 @@ const ArticleFinder = createReactClass({
 
     const options = (
       <SelectedWikiOption
-        language={this.props.home_wiki.language || 'www'}
-        project={this.props.home_wiki.project}
+        language={this.props.selectedWiki.language || 'www'}
+        project={this.props.selectedWiki.project}
         handleWikiChange={this.handleWikiChange}
         trackedWikis={trackedWikis}
       />
@@ -398,9 +398,9 @@ const ArticleFinder = createReactClass({
     return (
       <div className="container">
         <header>
-          <h1 className="title">{I18n.t(`article_finder.${ArticleUtils.projectSuffix(this.props.home_wiki.project, 'article_finder')}`)}</h1>
+          <h1 className="title">{I18n.t(`article_finder.${ArticleUtils.projectSuffix(this.props.selectedWiki.project, 'article_finder')}`)}</h1>
           <div>
-            {I18n.t(`article_finder.${ArticleUtils.projectSuffix(this.props.home_wiki.project, 'subheading_message')}`)}
+            {I18n.t(`article_finder.${ArticleUtils.projectSuffix(this.props.selectedWiki.project, 'subheading_message')}`)}
           </div>
         </header>
         <div className="article-finder-form">
@@ -447,6 +447,7 @@ const mapStateToProps = state => ({
   fetchState: state.articleFinder.fetchState,
   sort: state.articleFinder.sort,
   home_wiki: state.articleFinder.home_wiki,
+  selectedWiki: state.articleFinder.wiki || state.articleFinder.home_wiki
 });
 
 const mapDispatchToProps = {

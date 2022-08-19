@@ -35,8 +35,8 @@ const ArticleFinderRow = createReactClass({
   assignArticle(userId = null) {
     const assignment = {
       title: decodeURIComponent(this.props.title).trim(),
-      project: this.props.home_wiki.project,
-      language: this.props.home_wiki.language,
+      project: this.props.selectedWiki.project,
+      language: this.props.selectedWiki.language,
       course_slug: this.props.courseSlug,
       user_id: userId,
       role: ASSIGNED_ROLE,
@@ -76,7 +76,7 @@ const ArticleFinderRow = createReactClass({
     }
 
     let revScore;
-    if (includes(ORESSupportedWiki.languages, this.props.home_wiki.language) && includes(ORESSupportedWiki.projects, this.props.home_wiki.project)) {
+    if (includes(ORESSupportedWiki.languages, this.props.selectedWiki.language) && includes(ORESSupportedWiki.projects, this.props.selectedWiki.project)) {
       if (this.props.article.fetchState === 'PAGEASSESSMENT_RECEIVED' || this.props.article.fetchState === 'REVISION_RECEIVED') {
         revScore = (<td><div className="results-loading"> &nbsp; &nbsp; </div></td>);
       } else if (this.props.article.revScore) {
@@ -89,16 +89,16 @@ const ArticleFinderRow = createReactClass({
     }
 
     let grade;
-    if (PageAssessmentSupportedWiki[this.props.home_wiki.project] && includes(PageAssessmentSupportedWiki[this.props.home_wiki.project], this.props.home_wiki.language)) {
+    if (PageAssessmentSupportedWiki[this.props.selectedWiki.project] && includes(PageAssessmentSupportedWiki[this.props.selectedWiki.project], this.props.selectedWiki.language)) {
       if (this.props.article.fetchState === 'TITLE_RECEIVED') {
         grade = (<td><div className="results-loading"> &nbsp; &nbsp; </div></td>);
       } else if (this.props.article.grade) {
-        const gradeClass = `rating ${PageAssessmentGrades[this.props.home_wiki.project][this.props.home_wiki.language][this.props.article.grade].class}`;
+        const gradeClass = `rating ${PageAssessmentGrades[this.props.selectedWiki.project][this.props.selectedWiki.language][this.props.article.grade].class}`;
         grade = (
           <td className="tooltip-trigger">
-            <div className={gradeClass}><p>{PageAssessmentGrades[this.props.home_wiki.project][this.props.home_wiki.language][this.props.article.grade].pretty || '-'}</p></div>
+            <div className={gradeClass}><p>{PageAssessmentGrades[this.props.selectedWiki.project][this.props.selectedWiki.language][this.props.article.grade].pretty || '-'}</p></div>
             <div className="tooltip dark">
-              <p>{I18n.t(`articles.rating_docs.${PageAssessmentGrades[this.props.home_wiki.project][this.props.home_wiki.language][this.props.article.grade].class || '?'}`, { class: this.props.article.grade || '' })}</p>
+              <p>{I18n.t(`articles.rating_docs.${PageAssessmentGrades[this.props.selectedWiki.project][this.props.selectedWiki.language][this.props.article.grade].class || '?'}`, { class: this.props.article.grade || '' })}</p>
             </div>
           </td>
         );
@@ -121,14 +121,14 @@ const ArticleFinderRow = createReactClass({
         const className = `button small add-available-article ${this.state.isLoading ? 'disabled' : ''}`;
         button = (
           <td>
-            <button className={className} onClick={() => this.unassignArticle()}>{I18n.t(`article_finder.${ArticleUtils.projectSuffix(this.props.home_wiki.project, 'remove_article')}`)}</button>
+            <button className={className} onClick={() => this.unassignArticle()}>{I18n.t(`article_finder.${ArticleUtils.projectSuffix(this.props.selectedWiki.project, 'remove_article')}`)}</button>
           </td>
         );
       } else {
         const className = `button small add-available-article ${this.state.isLoading ? 'disabled' : 'dark'}`;
         button = (
           <td>
-            <button className={className} onClick={() => this.assignArticle()}>{I18n.t(`article_finder.${ArticleUtils.projectSuffix(this.props.home_wiki.project, 'add_available_article')}`)}</button>
+            <button className={className} onClick={() => this.assignArticle()}>{I18n.t(`article_finder.${ArticleUtils.projectSuffix(this.props.selectedWiki.project, 'add_available_article')}`)}</button>
           </td>
         );
       }
@@ -137,7 +137,7 @@ const ArticleFinderRow = createReactClass({
         const className = `button small add-available-article ${this.state.isLoading ? 'disabled' : ''}`;
         button = (
           <td>
-            <button className={className} onClick={() => this.unassignArticle(this.props.current_user.id)}>{I18n.t(`article_finder.${ArticleUtils.projectSuffix(this.props.home_wiki.project, 'unassign_article_self')}`)}</button>
+            <button className={className} onClick={() => this.unassignArticle(this.props.current_user.id)}>{I18n.t(`article_finder.${ArticleUtils.projectSuffix(this.props.selectedWiki.project, 'unassign_article_self')}`)}</button>
           </td>
         );
       } else {
@@ -153,13 +153,13 @@ const ArticleFinderRow = createReactClass({
 
     const article = {
       ...this.props.article,
-      language: this.props.home_wiki.language,
-      project: this.props.home_wiki.project,
-      url: `https://${this.props.home_wiki.language}.${this.props.home_wiki.project}.org/wiki/${this.props.article.title.replace(/ /g, '_')}`,
+      language: this.props.selectedWiki.language,
+      project: this.props.selectedWiki.project,
+      url: `https://${this.props.selectedWiki.language}.${this.props.selectedWiki.project}.org/wiki/${this.props.article.title.replace(/ /g, '_')}`,
     };
-    if (this.props.home_wiki.project === 'wikidata') {
+    if (this.props.selectedWiki.project === 'wikidata') {
       delete article.language;
-      article.url = `https://${this.props.home_wiki.project}.org/wiki/${this.props.article.title.replace(/ /g, '_')}`;
+      article.url = `https://${this.props.selectedWiki.project}.org/wiki/${this.props.article.title.replace(/ /g, '_')}`;
     }
 
     const articleViewer = (
