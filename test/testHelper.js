@@ -22,7 +22,6 @@ configure({ adapter: new Adapter() });
 
 const sinon = require('sinon');
 const $ = require('jquery');
-const I18n = require('../public/assets/javascripts/i18n.js'); // eslint-disable-line import/no-unresolved
 const chai = require('chai');
 const sinonChai = require('sinon-chai');
 
@@ -31,7 +30,6 @@ const reduxStore = createStore(reducer, applyMiddleware(thunk));
 global.reduxStore = reduxStore;
 global.$ = $;
 global.sinon = sinon;
-global.I18n = I18n;
 global.Features = {};
 global.currentUser = {};
 global.WikiProjects = JSON.stringify([
@@ -64,8 +62,5 @@ global.WikiLanguages = JSON.stringify([
   'vec', 'vep', 'vi', 'vls', 'vo', 'vro', 'w', 'wa', 'war', 'wikipedia', 'wo', 'wuu', 'xal', 'xh', 'xmf', 'yi', 'yo', 'yue', 'za',
   'zea', 'zh', 'zh-cfr', 'zh-classical', 'zh-cn', 'zh-min-nan', 'zh-tw', 'zh-yue', 'zu'
 ]);
-
-
-require('../public/assets/javascripts/i18n/en'); // eslint-disable-line import/no-unresolved
 
 chai.use(sinonChai);
