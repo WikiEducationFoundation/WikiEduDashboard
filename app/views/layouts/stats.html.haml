@@ -11,6 +11,7 @@
   %script(src="https://unpkg.com/react@16.0.0/umd/react.production.min.js")
   %script(src="https://unpkg.com/react-dom@16.0.0/umd/react-dom.production.min.js")
   :javascript
+    locale_json = #{File.read("public/assets/javascripts/i18n/#{I18n.locale.to_s}.json").html_safe}
     locale = "#{I18n.locale.to_s}"
     defaultLocale = "#{I18n.default_locale}";
     availableLocales = #{I18n.available_locales.to_json}
