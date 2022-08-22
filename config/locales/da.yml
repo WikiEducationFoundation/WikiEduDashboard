@@ -124,10 +124,12 @@ da:
     edited_by: Redigeret af
     label: Aktivitet
   articles:
+    articles: Artikler
     article_not_found: Denne artikel er endnu ikke oprettet.
     article_development: (artikeludvikling)
     articles_shown: Viser %{count} af %{total}
     assigned: Tildelte artikler
+    assignments_none: Der er ingen tildelte artikler endnu.
     available: Tilgængelige artikler
     no_available: Ingen tilgængelige artikler
     next: Næste
@@ -145,6 +147,7 @@ da:
     edited: Artikler redigeret
     edited_by: 'Redigeret af:'
     edited_mobile: Artikler
+    edited_none: Der er endnu ingen redigerede artikler.
     filter:
       wiki_all: Alle
       new: Nye
@@ -153,16 +156,18 @@ da:
       tracked: Tracked
       untracked: Ikke tracked
       tracked_and_untracked: Tracked og ikke-tracked
+    find: Find artikler
     hide: Skjul
     history: (historik)
     label: Artikler
     loading: Indlæser artikler ...
     new: (ny)
     none: Dette kursus har ikke redigeret artikler.
+    preview: Kort forhåndsvisning af artiklen
     rating: Klasse
-    rating_doc: Rangeringen som en artikel er blevet tildelt af WikiProjects på Wikipedia.
-      Disse rangeringer kan muligvis korrespondere til ældre versioner, så de er kun
-      en vejledende indikering af en artikels form.
+    rating_doc: Den rangering som en artikel er blevet tildelt af WikiProjects på
+      Wikipedia. Disse rangeringer kan muligvis korrespondere til ældre versioner,
+      så de er kun en vejledende indikering af en artikels modenhed.
     rating_docs:
       fa: '%{class} (Featured article) — Wikipedias højeste rating. Muligvis for vanskelig
         at opnå til at være en ny brugers hovedprojekt'
@@ -179,6 +184,7 @@ da:
       '?': Unrated — en artikel som endnu ikke er blevet rated på Wikipedias kvalitetsskala
       does_not_exist: Denne artikel findes ikke på Wikipedia
     see_more: Se mere
+    search: Søg på Wikipedia efter en artikel
     show_cumulative_changes: Vis kumulative ændringer
     show_current_version: Vis nuværende version
     show_current_version_with_authorship_highlighting: Nuværende version med forfatterskabfremhævelse
@@ -208,6 +214,21 @@ da:
       men tager ikke højde for selve indholdet. (Disse bedømmelser er kun tilgængelige
       for engelske Wikipediaartikler).
     articles_short: Artikler
+    deleted_message: Ifølge Dashboards data er denne side blevet slettet. (I nogle
+      tilfælde kan sideflytninger, historikfletninger eller andre handlinger resultere
+      i, at en artikel fejlagtigt bliver opført som slettet. Slettede artikler kan
+      også senere blive slettet. For artikler, der faktisk ikke er slettet, eller
+      som efterfølgende er blevet gendannet, vil Dashboard normalt afspejle dette
+      inden for en eller to dage.)
+    page_logs: (sidelogfiler)
+  items:
+    items: Elementer
+    article_not_found: Dette element er ikke oprettet endnu.
+    assigned: Tildelte elementer
+    assignments_none: Der er ingen tildelte elementer endnu.
+    available: Tilgængelige elementer
+    character_doc: Summen af antal tegn som er lagt til i artikler af indmeldte brugere
+      mellem start- og slutningsdatoerne.
   articles_wikidata:
     articles_short: Emner
   articles_generic:
@@ -218,8 +239,10 @@ da:
     already_exists: Denne tildeling findes allerede!
     title_too_large: Titlen bør ikke være længere end 255 tegn
     assignees: Tildelt til
-    assign_other: Tildel en artikel
+    assign_other: Tildel/fjern en artikel
+    assign_other_wikidata: Tildel/fjern et element
     add_available: Tilføj tilgængelige artikler
+    add_available_wikidata: Tilføj tilgængelige elementer
     add_available_placeholder: Tilføj en artikel-titel eller url pr linje
     add_available_submit: Tilføj artikler
     assign_self: Tildel mig selv en artikel
@@ -251,7 +274,7 @@ da:
       limit_exceeded: Hver studerende gennemser allerede mindst %{maximum} artikler.
     remove: Fjern
     reviewers: Anmeldere
-    review_other: Tildel et gennemsyn
+    review_other: Tildel/fjern et gennemsyn
     review_self: Anmeld en artikel
     review_tooltip: Dette er til artikler som du planlægger at gennemse eller give
       feedback på.
@@ -372,7 +395,7 @@ da:
     accounts_generation_confirm_message: Er du sikker på at du ønsker at tænde for
       kontoforespørgselsfunktionen?
     activity: Aktivitet
-    active_courses: Aktive %{course_type}
+    active_courses: Aktive kurser
     add_trainings: Tilføj venligst de studerendes træninger til din tidslinje med
       opgaver. Det at tildele træningsopgaver er en vigtig del af Wiki Eds best practice.
     alerts: Alarmer

@@ -228,6 +228,14 @@ pt:
       mas não leva em conta o conteúdo em si. (Estas notas só estão disponíveis para
       os artigos da Wikipédia em inglês.)
     articles_short: Artigos
+    deleted_message: De acordo com os dados do painel de controlo, esta página foi
+      eliminada. (Nalguns casos, as movimentações de páginas, fusões de históricos
+      e outras operações podem resultar na inclusão incorreta de um artigo na lista
+      de eliminados. Os artigos eliminados também podem ser restaurados posteriormente.
+      Para os artigos que não tenham sido realmente eliminados ou que tenham sido
+      restaurados posteriormente, o painel de controlo geralmente espelha essa realidade
+      dentro de um ou dois dias.)
+    page_logs: (registos da página)
   items:
     items: Elementos
     article_not_found: Este elemento ainda não foi criado.
@@ -389,6 +397,7 @@ pt:
     delete_campaign: Eliminar esta campanha
     disable_account_requests: Desativar as solicitações de contas
     enable_account_requests: Ativar as solicitações de contas
+    newest_campaigns: Campanhas mais recentes
     no_alerts: Esta campanha não tem alertas
     no_passcode: sem código de acesso
     none: Nenhum
@@ -402,6 +411,9 @@ pt:
     random_passcode: um código de acesso aleatório
     requested_accounts: Contas solicitadas
     title: Título
+    too_many_articles: A lista dos artigos editados nesta campanha é demasiado longa
+      para ser apresentada. Consulte os cursos, programas ou eventos individuais para
+      ver a respetiva lista de artigos editados.
     slug: Linha composta
     search_campaigns: Pesquisar campanhas
     use_start_end_dates: Utilizar datas iniciais e finais
@@ -634,6 +646,9 @@ pt:
     delete_suggestion: Eliminar
     delete_course_instructions: Para poder excluir esta página, deve primeiramente
       remover todas as campanhas.
+    disable_student_emails: Desativar mensagens de correio para alunos
+    disable_student_emails_tooltip: Desativar as mensagens de correio para alunos
+      impedirá que sejam enviadas aos estudantes algumas notificações sobre este curso.
     dismiss_survey: Ignorar
     dismiss_survey_confirm: Tem a certeza de que deseja ignorar permanentemente este
       inquérito?
@@ -796,7 +811,9 @@ pt:
     submitted_and_pending_heading: Enviado e pendente de aprovação
     submitted_heading: Cursos enviados
     submitted_note: O seu curso foi enviado. A equipa da Wiki Educação irá analisá-lo
-      e entrar em contacto em caso de eventuais dúvidas.
+      e entrar em contacto consigo em caso de eventuais dúvidas. Entretanto, se quiser
+      consultar os materiais educativos da Wiki Educação, pode ver a lista completa
+      de recursos para professores e estudantes.
     suggestions_feedback: Há algumas sugestões que queira fazer para melhorar esta
       funcionalidade? Informe-nos!
     suggestions_sending: A enviar comentário...
@@ -1134,10 +1151,35 @@ pt:
     restorations_performed: Restaurações efetuadas
     reverts_performed: Reversões efetuadas
   namespace:
+    all: Todos
     main: Domínio principal
     main_char_added: Caracteres adicionados ao domínio principal
+    article: Artigo
+    talk: Discussão
     user: Espaço nominal do utilizador
     user_char_added: Caracteres adicionados ao espaço nominal do utilizador
+    project: Projeto
+    file: Ficheiro
+    mediaWiki: MediaWiki
+    template: Predefinição
+    help: Ajuda
+    category: Categoria
+    page: Página
+    book: Livro
+    wikijunior: WikiJúnior
+    translation: Tradução
+    draft: Rascunho
+    property: Propriedade
+    query: Consulta
+    lexeme: Lexema
+    appendix: Apêndice
+    portal: Portal
+    school: Escola
+    author: Autor
+    cookbook: Livro de receitas
+    rhymes: Rimas
+    index: Índice
+    collection: Conjunto
   recent_activity:
     active_courses: O artigo está ativo em
     article_title: Título
@@ -1311,6 +1353,7 @@ pt:
     empty_week_2: começar a editar esta semana
     empty_week_3: ou
     empty_week_4: utilize o assistente de atribuição de trabalhos para criar um calendário.
+    empty_week_drag_items: Semana vazia. Pode mover para aqui um bloco de outra semana.
     first_week_title: Primeira semana ativa
     gradeable_value: Valor
     gradeables_none: Este calendário não tem trabalhos marcados com uma nota.
@@ -1422,7 +1465,7 @@ pt:
     none: Não há participantes.
     no_articles: Não há artigos
     no_articles_wikidata: Não há elementos
-    no_revisions: Este editor não realizou nenhuma revisão.
+    no_revisions: (nenhuma revisão)
     no_highlighting: Nenhum do texto da versão atual do artigo está atribuído a este
       editor. Verifique o historial da página para ver as edições em questão.
     number_of_articles:

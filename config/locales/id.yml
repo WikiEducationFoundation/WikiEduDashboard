@@ -58,6 +58,7 @@ id:
     sign_up: Daftar
     training: Pelatihan
     change: Ubah
+    details: Rincian
     confirm: OK
     opt_in: Ya
     opt_out: Tidak
@@ -186,6 +187,7 @@ id:
     collection: Koleksi
   recent_activity:
     datetime: Tanggal/Waktu
+    image: Gambar
     possible_plagiarism: Kemungkinan Plagiarisme
     recent_uploads: Unggahan Terkini
     revision_datetime: Tanggal/Waktu Revisi
@@ -211,6 +213,7 @@ id:
     kind:
       training: Pelatihan
   uploads:
+    image: Gambar
     label: Unggahan
     none: Kelas ini belum memberikan kontribusi setiap gambar atau file media lainnya
       untuk Wikimedia Commons.
