@@ -14,8 +14,6 @@ describe 'ticket system', type: :feature, js: true do
   end
 
   it 'creates a ticket from a help request and lets an admin reply' do
-    pending 'This fails because of an controlled/uncontrolled input warning in GetHelpButton.'
-
     # Make a ticket
     visit "/courses/#{course.slug}"
     click_button 'Get Help'
@@ -61,6 +59,7 @@ describe 'ticket system', type: :feature, js: true do
     accept_prompt do
       click_button 'Delete Ticket'
     end
-    pass_pending_spec
+
+    expect(page).to have_content 'No tickets'
   end
 end

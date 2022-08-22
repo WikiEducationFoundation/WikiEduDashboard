@@ -319,7 +319,7 @@ export const getFilteredTickets = createSelector(
     let ownerFilter = ticket => ticket;
     let statusFilter = ticket => ticket;
     if (ownerIds.length) {
-      ownerFilter = ticket => ownerIds.includes(ticket.owner.id);
+      ownerFilter = ticket => ownerIds.includes(ticket.owner?.id);
     }
     if (statuses.length) {
       statusFilter = ticket => statuses.includes(ticket.status);

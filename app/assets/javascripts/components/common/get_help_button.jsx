@@ -174,7 +174,6 @@ const GetHelpButton = createReactClass({
         <div className="get-help-form">
           <p><strong>To: {this.state.selectedTargetUser.username}</strong></p>
           <form onSubmit={this.submitNeedHelpMessage} className="mb0">
-            <input name="targetUser" type="hidden" value={this.state.selectedTargetUser.id} />
             <fieldset>
               <label htmlFor="message" className="input-wrapper">
                 <span>Your Message:</span>
