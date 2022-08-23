@@ -53,7 +53,7 @@
       Sentry.init({ dsn: SentryDsn, autoSessionTracking: false});
       Sentry.setContext(currentUser);
 
-  -# = javascript_include_tag '/assets/javascripts/jquery.min.js'
+  = javascript_include_tag '/assets/javascripts/jquery.min.js'
   // The following path will be only available when a user is logged in
   // and is used to load tinymce dynamically.
   = content_for :javascripts

@@ -1,5 +1,3 @@
-import './utils/editable';
-
 window.onload = () => {
   const createCampaignButton = document.querySelector('.create-campaign-button');
   const createModalWrapper = document.querySelector('.create-modal-wrapper');
