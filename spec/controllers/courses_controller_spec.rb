@@ -183,7 +183,8 @@ describe CoursesController, type: :request do
         { language: 'en', project: 'wikipedia' },
         { language: 'en', project: 'wikibooks' }
       ]
-      course_params[:namespaces] = ['en.wikipedia.org-namespace-0', 'en.wikibooks.org-namespace-102']
+      course_params[:namespaces] =
+        ['en.wikipedia.org-namespace-0', 'en.wikibooks.org-namespace-102']
       params = { id: course.slug, course: course_params }
       put "/courses/#{course.slug}", params: params, as: :json
       expect(course.course_wiki_namespaces.count).to eq(2)
@@ -194,7 +195,8 @@ describe CoursesController, type: :request do
         { language: 'en', project: 'wikipedia' },
         { language: 'en', project: 'wikibooks' }
       ]
-      course_params[:namespaces] = ['en.wikipedia.org-namespace-0', 'en.wikibooks.org-namespace-102']
+      course_params[:namespaces] =
+        ['en.wikipedia.org-namespace-0', 'en.wikibooks.org-namespace-102']
       params = { id: course.slug, course: course_params }
       put "/courses/#{course.slug}", params: params, as: :json
       expect(course.course_wiki_namespaces.count).to eq(2)
