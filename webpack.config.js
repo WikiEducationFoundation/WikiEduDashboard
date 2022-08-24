@@ -35,6 +35,7 @@ module.exports = (env) => {
     charts: [`${jsSource}/charts.js`],
     embed_course_stats: [`${jsSource}/embed_course_stats.js`],
     accordian: [`${jsSource}/accordian.js`],
+    editable: [`${jsSource}/utils/editable.js`],
 
     surveys: [`${cssSource}/surveys.styl`],
     training: [`${cssSource}/training.styl`],
