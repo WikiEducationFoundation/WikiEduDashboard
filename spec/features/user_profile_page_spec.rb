@@ -15,6 +15,20 @@ describe 'user profile pages', type: :feature, js: true do
     create(:articles_course, course:, article:)
   end
 
+  it 'lets the user update their own email and other info' do
+    login_as user
+    visit "/users/#{user.username}"
+    click_button 'Edit Details'
+    expect(page).to have_button 'Save'
+    expect(page).to have_button 'Cancel'
+    expect(page).not_to have_button 'Edit Details'
+    fill_in 'email_email', with: 'tester@wikiedu.org'
+    fill_in 'user_profile_bio', with: 'Wikipedian from Seattle'
+    click_button 'Save'
+    expect(page).to have_button 'Edit Details'
+    expect(page).to have_content 'tester@wikiedu.org'
+  end
+
   it 'shows contribution statistics' do
     visit "/users/#{user.username}"
     expect(page).to have_content 'Total impact made by Sage as an instructor'
