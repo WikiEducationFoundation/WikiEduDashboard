@@ -1,3 +1,5 @@
+= javascript_include_tag '/assets/javascripts/jquery.min.js'
+= hot_javascript_tag 'editable'
 #profile
   = form_for(@user_profile, url: {action: "update", :username => @user.username}, html: { class: 'rails_editable',  multipart: true }) do
     #disclaimer

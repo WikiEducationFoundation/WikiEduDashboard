@@ -18,10 +18,10 @@ document.addEventListener('DOMContentLoaded', () => {
     window.I18n = I18n;
   });
   import('./utils/course.js'); // This adds jquery features for some views outside of React
+  
   // This is the main React entry point. It renders the navbar throughout the app, and
   // renders other components depending on the route.
   import('./components/app.jsx');
-  import('./utils/editable.js');
   import('events').then(({default: events}) => {
     events.EventEmitter.defaultMaxListeners = 30;
   });
