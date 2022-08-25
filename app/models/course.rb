@@ -284,10 +284,6 @@ class Course < ApplicationRecord
              .where(wiki_id: wiki_ids)
   end
 
-  def tracked_namespaces
-    return [0]
-  end
-
   def suspected_plagiarism
     revisions.suspected_plagiarism
   end
