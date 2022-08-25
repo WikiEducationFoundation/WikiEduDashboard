@@ -818,6 +818,25 @@ zh-TW:
     main_char_added: 主空間字元以加入
     user: 使用者命名空間
     user_char_added: 使用者空間字元以加入
+    project: 專案
+    file: 檔案
+    mediaWiki: MediaWiki
+    template: 模板
+    help: 說明
+    category: 分類
+    page: 頁面
+    book: 書籍
+    wikijunior: Wikijunior
+    translation: 翻譯
+    draft: 草稿
+    property: 屬性
+    query: 查詢
+    lexeme: 詞位
+    appendix: 附錄
+    portal: 主題
+    author: 作者
+    cookbook: 操作手冊
+    index: 索引
   recent_activity:
     active_courses: 條目使用於
     article_title: 條目標題
