@@ -39,20 +39,7 @@ class TicketNotificationMailerPreview < ActionMailer::Preview
   end
 
   def message
-    content = %(
-      <p>Hi there,</p>
-      <p>Tabella et aspernatur verecundia comburo et averto addo abutor
-      caelestis sed adduco. Similique argentum deduco crustulum solium utrum
-      undique denique. Vesco surgo ex pauci aveho aperiam. Arx volutabrum
-      canonicus quo addo theatrum arcesso cognatus cohors. Tepidus auris qui
-      convoco ulterius bibo confugo.</p>
-    )
-    ticket = TicketDispenser::Ticket.first || TicketDispenser::Dispenser.call(
-      content:,
-      course:,
-      owner: recipient(:admin),
-      sender:
-    )
+    ticket = TicketDispenser::Ticket.first
     ticket.messages.last
   end
 end
