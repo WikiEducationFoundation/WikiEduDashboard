@@ -8,6 +8,6 @@ class FirstEnrolledStudentAlertMailerPreview < ActionMailer::Preview
   private
 
   def alert
-    FirstEnrolledStudentAlert.new(course: Course.last)
+    FirstEnrolledStudentAlert.new(course: Course.nonprivate.last)
   end
 end

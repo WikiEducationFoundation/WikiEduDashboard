@@ -12,6 +12,6 @@ class TermRecapMailerPreview < ActionMailer::Preview
   private
 
   def example_course
-    Course.where('revision_count > 20').first
+    Course.nonprivate.where('revision_count > 20').first
   end
 end

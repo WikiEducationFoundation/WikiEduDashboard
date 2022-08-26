@@ -8,10 +8,13 @@ class UnsubmittedCourseAlertMailerPreview < ActionMailer::Preview
   private
 
   def alert
-    user = User.first
     Alert.new(type: 'UnsubmittedCourseAlert',
               course: Course.new(slug: 'Example_University/Example_Course_(term)'),
-              user:,
-              target_user: user)
+              user: example_user,
+              target_user: example_user)
+  end
+
+  def example_user
+    User.new(email: 'sage@example.com', username: 'Ragesoss')
   end
 end

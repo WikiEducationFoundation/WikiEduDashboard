@@ -2,12 +2,12 @@
 
 class WikiEmailMailerPreview < ActionMailer::Preview
   def email_warning
-    WikiEmailMailer.email(user)
+    WikiEmailMailer.email(example_user)
   end
 
   private
 
-  def user
-    User.first
+  def example_user
+    User.new(email: 'sage@example.com', username: 'Ragesoss')
   end
 end

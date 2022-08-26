@@ -30,8 +30,8 @@ class SurveyMailerPreview < ActionMailer::Preview
 
   def example_notification
     notification = SurveyNotification.new(
-      survey_assignment_id: SurveyAssignment.last.id,
-      course_id: Course.last.id
+      survey_assignment: SurveyAssignment.last,
+      course: Course.nonprivate.last
     )
     def notification.user
       User.new(email: 'sage@example.com', username: 'Ragesoss')

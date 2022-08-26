@@ -10,6 +10,6 @@ class SuspectedPlagiarismMailerPreview < ActionMailer::Preview
   private
 
   def example_user
-    User.where(permissions: 1)
+    User.admin
   end
 end
