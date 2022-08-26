@@ -36,7 +36,7 @@ class CourseAdviceMailerPreview < ActionMailer::Preview
   private
 
   def example_course
-    Course.last
+    Course.nonprivate.last
   end
 
   def sandbox_only_course

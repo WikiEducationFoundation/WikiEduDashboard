@@ -37,13 +37,7 @@ class AlertMailerPreview < ActionMailer::Preview
   end
 
   def survey_response_alert
-    # Maybe there is no SurveyResponseAlert in the DB
-    # To test preview, one must before create an instance
-    # To do so: execute the following code in console:
-    # AlertMailerPreview.new.send(:create_example_survey_response_alert)
-    # Cf. https://github.com/WikiEducationFoundation/WikiEduDashboard/issues/4650
-    # Cf. https://github.com/WikiEducationFoundation/WikiEduDashboard/pull/4749
-    AlertMailer.alert(SurveyResponseAlert.last, example_user)
+    AlertMailer.alert(example_survey_response_alert, example_user)
   end
 
   private
@@ -86,41 +80,20 @@ class AlertMailerPreview < ActionMailer::Preview
               course: example_course)
   end
 
-  def create_example_survey_response_alert
-    answer = create_answer
+  def example_survey_response_alert
+    answer = Rapidfire::Answer.last
+    question = answer.question
     details =
       {
-        question: answer.question.question_text,
-        answer: answer.answer_text,
-        followup: answer.follow_up_answer_text,
+        question: question.question_text,
+        answer: 'This is the answer',
+        followup: 'This is the follow-up answer',
         source: SurveyResponseAlertManager.new.source(answer)
       }
 
-    Alert.create(type: 'SurveyResponseAlert',
-                 user: answer.user,
-                 subject_id: answer.question.id,
-                 details:)
-  end
-
-  def create_answer
-    survey = Survey.new(name: 'Test survey')
-    question_group = Rapidfire::QuestionGroup.new(id: 999999, name: 'Test question group')
-    survey.rapidfire_question_groups << question_group
-    question_group.surveys << survey
-    answer_group = Rapidfire::AnswerGroup
-                   .new(id: 999999,
-                        question_group:,
-                        user: example_student)
-    question = Rapidfire::Question
-               .create!(id: 999999,
-                        question_text: 'What are you studying ?',
-                        question_group:)
-    answer = Rapidfire::Answer
-             .new(answer_text: 'Physics',
-                  follow_up_answer_text: 'Really ?',
-                  answer_group:,
-                  question:)
-    answer.user = example_student
-    answer
+    Alert.new(type: 'SurveyResponseAlert',
+              user: example_user,
+              subject_id: question.id,
+              details:)
   end
 end

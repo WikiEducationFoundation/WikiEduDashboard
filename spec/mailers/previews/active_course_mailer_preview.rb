@@ -2,7 +2,7 @@
 
 class ActiveCourseMailerPreview < ActionMailer::Preview
   def submission
-    ActiveCourseMailer.email(Course.last, example_user)
+    ActiveCourseMailer.email(Course.nonprivate.last, example_user)
   end
 
   private
