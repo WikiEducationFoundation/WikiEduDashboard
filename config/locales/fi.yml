@@ -17,6 +17,7 @@
 # Author: Surjection
 # Author: Susannaanas
 # Author: Valtlait
+# Author: Yupik
 ---
 fi:
   number:
@@ -903,7 +904,7 @@ fi:
     username: Käyttäjänimi
     username_placeholder: Käyttäjänimi
     useremail_placeholder: Sähköpostiosoite
-    userpasscode_placeholder: Pääsykoodi
+    userpasscode_placeholder: Salasana
     role:
       description: Rooli kurssissa
       visitor: Vierailija

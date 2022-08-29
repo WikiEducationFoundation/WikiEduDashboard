@@ -25,7 +25,10 @@ sl:
   home:
     explore: Raziskuj
   articles:
+    articles: Članki
     edited_mobile: Članki
+    filter:
+      wiki_all: Vsi
     label: Članki
     title: Naslov
   assignments:
@@ -64,6 +67,7 @@ sl:
   metrics:
     bytes_added: Zlogov dodanih
     last_reviewed: Zadnjič pregledano
+    labels: Oznake
   revisions:
     title: Naslov
   settings:

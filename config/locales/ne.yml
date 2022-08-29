@@ -1,6 +1,7 @@
 # Messages for Nepali (नेपाली)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Bada Kaji
 # Author: Nirajan pant
 # Author: जनक राज भट्ट
 # Author: पर्वत सुबेदी
@@ -515,6 +516,18 @@ ne:
     main_char_added: मेनस्पेसमा थपिएका अक्षरहरू
     user: युजरस्पेस
     user_char_added: युजरस्पेसमा थपिएका अक्षरहरू
+    project: परियोजना
+    template: ढाँचा
+    help: सहायता
+    category: श्रेणी
+    page: पृष्ठ
+    book: पुस्तक
+    translation: अनुवाद
+    draft: मस्यौदा
+    query: प्रश्न
+    school: विद्यालय
+    author: लेखक
+    index: अनुक्रम
   recent_activity:
     active_courses: लेख निम्नमा सक्रिय छ
     article_title: लेख शीर्षक

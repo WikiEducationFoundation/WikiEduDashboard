@@ -77,9 +77,11 @@ smn:
     please_log_in: Čáládât siisâ.
     tags: 'Kilgoleh:'
   courses_generic:
+    cancel: Jooskâ
     creator:
       save_cloned_course: Vuorkkii
   editable:
+    cancel: Jooskâ
     save: Vuorkkii
   metrics:
     close_modal: Toopâ

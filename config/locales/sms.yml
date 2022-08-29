@@ -9,8 +9,10 @@ sms:
       decimal_units:
         format: '%n%u'
   application:
+    cancel: Jõõsk
     cookie_consent_acknowledge: Fiʹttjam
     cookie_consent_see_more: Lââʹssteâđ
+    greeting2: Tiõrvpueʹttem!
     greeting: Tiõrv!
     home: Ouddseidd
     log_in_extended: Ǩeeʹrjtõõđ sizz Wikipediain
@@ -59,6 +61,7 @@ sms:
     description: Deskriptt
     delete_campaign: Jaukkâd tän kampaanj
     newest_campaigns: Ođđsumus kampaanj
+    no_passcode: ij peittsääʹnn
     title: Kampaanj nõmm
     search_campaigns: Ooʒʒ kampaanjid
     search: Ooʒʒ
@@ -77,8 +80,13 @@ sms:
     remove: Jaukkâd
   courses:
     all_courses: Puk kuurs
+    archived: Arkiivõsttum kuurs
     articles: Artikkeeʹl
+    calendar:
+      legend: Čiʹlǧǧtõs
+    cancel: Jõõsk
     campaigns: 'Kampanjj-joouk:'
+    campaign_select: Vaʹlljed kampaanj
     course: Kurss
     course_description: Kuurs
     courses: Kuurs
@@ -101,6 +109,8 @@ sms:
     feedback: Maacctõs
     new_week: Lââʹzzet ođđ neäʹttel
     new_account_email: E-pååʹštaddrõs
+    passcode: Peittsääʹnn
+    passcode_none: Ij peittsääʹnn
     please_log_in: Ǩeeʹrjtõõđ sizz.
     requested_accounts_alert_view: Čuäʹjet
     search_courses: Ooʒʒ kuursid
@@ -115,6 +125,8 @@ sms:
   courses_generic:
     add_campaign: Lââʹzzet kampaanj
     all_courses: Puk prograamm
+    archived: Arkiivõsttum prograamm
+    cancel: Jõõsk
     creator:
       create_label: Raaj ođđ prograamm
       create_short: Raaj prograamm
@@ -124,6 +136,7 @@ sms:
     explore: Ooʒʒ prograammi
   editable:
     edit: Muuʹtt
+    cancel: Jõõsk
     save: Ruõkk
     edit_description: Muuʹtt deskriipt
     edit_template: Muuʹtt maall
@@ -176,6 +189,7 @@ sms:
   users:
     contributions: Õõʹnni muttâz
     contribution_statistics: Muʹttemstatistiikk
+    course_passcode: 'Peittsääʹnn:'
     edits: muttâz
     first_name: Risttnõmm
     last_name: Sokknõmm
@@ -189,13 +203,19 @@ sms:
     username: Õõʹnninõmm
     username_placeholder: Õõʹnninõmm
     useremail_placeholder: E-pååʹštaddrõs
+    userpasscode_placeholder: Peittsääʹnn
   user_profiles:
     image_link_placeholder: Lââʹzzet kartt- leʹbe snimldõkliiŋk (vaʹlljeemnallšem)
   wizard:
+    select_one_option: Vaʹlljed õõut vaajtõsmääin.
     read_more: Čuäʹjet lââʹzz
     summary: Õʹhtteǩeässmõš
+  error_incorrect_passcode:
+    header: Vââǥǥlaž peittsääʹnn.  :-(
   error_404:
     header: Seidd ij käunnʼjam. :-(
+  error_500:
+    header: 500 — siiskâž servervââʹǩǩ.  :-(
   survey:
     email:
       headline: Tiõrv, %{username}
