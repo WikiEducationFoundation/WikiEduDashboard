@@ -113,6 +113,7 @@ sms:
     passcode_none: Ij peittsääʹnn
     please_log_in: Ǩeeʹrjtõõđ sizz.
     requested_accounts_alert_view: Čuäʹjet
+    school: Mättjemstrooiʹtel
     search_courses: Ooʒʒ kuursid
     tags: 'Ǩeâlggal:'
     term: Lookkâmpââʹjj
@@ -179,6 +180,7 @@ sms:
   training:
     view: Čuäʹjet
     page: Seidd
+    table_of_contents: Siiskâžlooǥǥtõs
     view_module_source: čuäʹjet moduulkääiv
     kind:
       discussion: Saǥstõõllmõš
@@ -200,6 +202,7 @@ sms:
       one: '%{count} artikkel'
       other: '%{count} artikkeeʹl'
     references_count: Lââʹzztum teâttkääiv
+    training_module_status: Status
     username: Õõʹnninõmm
     username_placeholder: Õõʹnninõmm
     useremail_placeholder: E-pååʹštaddrõs

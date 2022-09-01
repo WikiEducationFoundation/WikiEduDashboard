@@ -303,9 +303,9 @@ fr:
       créer ou d’améliorer.
     bibliography: Bibliographie
     clone: Cloner
-    confirm_add_available: Êtes-vous sûr de vouloir ajouter %{title} ?
+    confirm_add_available: Êtes-vous sûr(e) de vouloir ajouter %{title} ?
     confirm_addition: Êtes-vous sûr de vouloir assigner %{title} à %{username} ?
-    confirm_deletion: Êtes-vous sûr de vouloir supprimer cette affectation ?
+    confirm_deletion: Êtes-vous sûr(e) de vouloir supprimer cette affectation ?
     editors: Assigné à
     group_members: Membres du groupe
     label: Assigner
@@ -550,8 +550,8 @@ fr:
       assignment_start: Début de l’affectation
       assignment_start_placeholder: AAAA-MM-JJ
       cancel_course_clone: Annuler le clonage du cours
-      cancel_course_clone_confirm: Êtes-vous sûr de vouloir arrêter le clonage de
-        ce cours ?
+      cancel_course_clone_confirm: Êtes-vous sûr(e) de vouloir arrêter le clonage
+        de ce cours ?
       checking_for_uniqueness: Ce cours a été vérifié en terme d’unicité.
       choose_clone: Choisir un cours à dupliquer.
       clone_previous: Dupliquer le cours précédent
@@ -747,7 +747,7 @@ fr:
     join_details: Pour rejoindre ce cours, vous devez obtenir le code d’accès — ou
       un lien d’inscription qui l’inclut — de la part du formateur. Si vous ne l’avez
       pas reçu, contactez votre formateur.
-    join_no_passcode: Êtes-vous certain(e) de vouloir suivre ce cours ?
+    join_no_passcode: Êtes-vous sûr(e) de vouloir suivre ce cours ?
     launch_wizard: Lancer l’assistant
     leave_confirmation: Êtes-vous certain(e) de vouloir quitter ce cours ?
     leave_course: Quitter le cours
@@ -1423,7 +1423,7 @@ fr:
     next: Page suivante
     page: Page
     page_number: Page %{number} sur %{total}
-    previous: ◀︎ Précédent
+    previous: ◂ Précédent
     table_of_contents: Table des matières
     training_library: Bibliothèque de formation
     logged_out: Vous êtes déconnecté. Vous ne recevrez pas de crédit pour l’achèvement
@@ -1519,7 +1519,7 @@ fr:
     recent_revisions: Modifications récentes
     references_count: Références ajoutées
     remove_confirmation: Êtes-vous sûr(e) de vouloir supprimer %{username} ?
-    request_confirmation: Êtes-vous certain(e) de vouloir demander ce compte ?
+    request_confirmation: Êtes-vous sûr(e) de vouloir demander ce compte ?
     requested_account_status:
       success_message: 'Succès : %{result_description}'
       failure_message: 'Échec : %{result_description}'
