@@ -218,7 +218,7 @@ def proceed_to_next_slide
 end
 
 def find_correct_answer_by_trial_and_error
-  (0..10).each do |current_answer|
+  10.times do |current_answer|
     within('.training__slide') do
       all('input')[current_answer].click
     end
