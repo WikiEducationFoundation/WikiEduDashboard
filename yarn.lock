@@ -1946,10 +1946,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rails/ujs@npm:^6.0.3-2":
-  version: 6.1.6
-  resolution: "@rails/ujs@npm:6.1.6"
-  checksum: 7b811ea6a08c77335dbee60279b84bd245093b282dba53fc646a06d0e7fe20ac38eb4d73feab5845d5a25c6d1e9cd408ad3245baa962e63eb66bc8ca1dc67d37
+"@rails/ujs@npm:^7.0.3-1":
+  version: 7.0.3
+  resolution: "@rails/ujs@npm:7.0.3"
+  checksum: 0c9bd6bf18044be261c02764d313126f7176a73f75a3d7eb18d96a1f6ef6a936e50f82e32b884460571165708e743a0962aa36ac605a510c41ef64fc9d3c8c0d
   languageName: node
   linkType: hard
 
@@ -2707,7 +2707,7 @@ __metadata:
     "@babel/preset-react": ^7.16.7
     "@babel/register": ^7.17.0
     "@pmmmwh/react-refresh-webpack-plugin": ^0.5.7
-    "@rails/ujs": ^6.0.3-2
+    "@rails/ujs": ^7.0.3-1
     "@sentry/browser": ^6.18.1
     "@tinymce/tinymce-react": ^3.12.6
     "@wojtekmaj/enzyme-adapter-react-17": ^0.6.6

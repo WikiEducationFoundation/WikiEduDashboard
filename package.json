@@ -9,7 +9,7 @@
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
     "@babel/register": "^7.17.0",
-    "@rails/ujs": "^6.0.3-2",
+    "@rails/ujs": "^7.0.3-1",
     "@sentry/browser": "^6.18.1",
     "@tinymce/tinymce-react": "^3.12.6",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.6",
