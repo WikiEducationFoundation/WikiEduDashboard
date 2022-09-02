@@ -2719,8 +2719,9 @@ __metadata:
     babel-plugin-istanbul: ^6.1.1
     babel-plugin-root-import: ^6.5.0
     chai: ^4.3.4
-    chart.js: ^3.2.1
-    chartkick: ^4.0.4
+    chart.js: ^3.9.1
+    chartjs-adapter-date-fns: ^2.0.0
+    chartkick: ^4.2.0
     core-js: ^3.21.1
     create-react-class: ^15.7.0
     cross-fetch: ^3.1.5
@@ -4033,14 +4034,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chart.js@npm:>=3.0.2, chart.js@npm:^3.2.1":
+"chart.js@npm:>=3.0.2":
   version: 3.8.0
   resolution: "chart.js@npm:3.8.0"
   checksum: 0360212bf5d534effc8475a1aa705ba7257a315af368b5e8eecf476f0bd57a6bb80ad740e870d552f2d11e134dd1497ccef02950d7e626c21a400ff00ecf59af
   languageName: node
   linkType: hard
 
-"chartjs-adapter-date-fns@npm:>=2.0.0":
+"chart.js@npm:^3.9.1":
+  version: 3.9.1
+  resolution: "chart.js@npm:3.9.1"
+  checksum: 9ab0c0ac01215af0b3f020f2e313030fd6e347b48ed17d5484ee9c4e8ead45e78ae71bea16c397621c386b409ce0b14bf17f9f6c2492cd15b56c0f433efdfff6
+  languageName: node
+  linkType: hard
+
+"chartjs-adapter-date-fns@npm:>=2.0.0, chartjs-adapter-date-fns@npm:^2.0.0":
   version: 2.0.0
   resolution: "chartjs-adapter-date-fns@npm:2.0.0"
   peerDependencies:
@@ -4049,7 +4057,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chartkick@npm:^4.0.4":
+"chartkick@npm:^4.2.0":
   version: 4.2.0
   resolution: "chartkick@npm:4.2.0"
   dependencies:
@@ -8782,7 +8790,7 @@ __metadata:
   resolution: "list.js@https://github.com/WikiEducationFoundation/list.js.git#commit=3be71e3414d60e8a40b41a0ca8d582f2f40f9308"
   dependencies:
     string-natural-compare: ^2.0.2
-  checksum: ea0e976ceae4ddc2b7c78ec41214ceabc4e65368261cc635324b1ef0b7fb67cfca0de6f9af0eb6399da08f31480a5804a2927496ea3b238544b6317f2ad0f687
+  checksum: b853ac7141ebd1bf530ca6104950c0ec0f43b1b4d791db8488ba4523011c72301f62e344e1b8aaf060f69fbd93207826ab4ece0a40c99f6c1c929af417e2f9ec
   languageName: node
   linkType: hard
 
@@ -12301,7 +12309,7 @@ __metadata:
   resolution: "slick-carousel@https://github.com/cfoehrdes/slick.git#commit=a4d85536c42951933e1d887bcc013615e25b03e7"
   dependencies:
     jquery: ">=1.7.2"
-  checksum: cfa2527b8425260101f0232d5f0aa4c20b8e9b3954ec82a5c006ddd0b3e682b82e696fa6180eff8c7076a07dc6be15f57168247a1383bd7a706d569385e0599e
+  checksum: 30b5f877b84b8edd48ea7bfb39813c95622cb8f0351956b2398b42b092eca5eeaf593482b904010d77360e04c7a2f5d76e06ba642847450e334368a01f100022
   languageName: node
   linkType: hard
 
