@@ -133,14 +133,14 @@ class ArticlesCourses < ApplicationRecord
 
   def self.get_revisions_by_namespaces(course)
     # Return all mainspace article revisions if there are no tracked namespaces
-    if course.course_wiki_namespaces.length == 0
+    if course.tracked_namespaces.length == 0
       return course.revisions.joins(:article).where(articles: { namespace: 0 })
     end
     # Otherwise, return revisions corresponding to tracked wikis and namespaces only
     revisions = []
-    course.course_wiki_namespaces.each do |course_wiki_ns|
-      wiki = course_wiki_ns.courses_wikis.wiki
-      namespace = course_wiki_ns.namespace
+    course.tracked_namespaces.each do |wiki_ns|
+      wiki = wiki_ns[:wiki]
+      namespace = wiki_ns[:namespace]
       revisions.concat course.revisions.joins(:article).where(articles: { wiki: wiki, namespace: namespace })
     end
     revisions

@@ -284,6 +284,14 @@ class Course < ApplicationRecord
              .where(wiki_id: wiki_ids)
   end
 
+  def tracked_namespaces
+    course_wiki_namespaces.map do |course_wiki_ns|
+      wiki = course_wiki_ns.courses_wikis.wiki
+      namespace = course_wiki_ns.namespace
+      { :wiki => wiki, :namespace => namespace }
+    end
+  end
+
   def suspected_plagiarism
     revisions.suspected_plagiarism
   end
