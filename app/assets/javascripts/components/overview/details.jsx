@@ -517,6 +517,14 @@ const Details = createReactClass({
               {I18n.t('courses.namespaces')}:&nbsp;
             </strong>
           </span>
+          <div className="tooltip-trigger">
+            <img src ="/assets/images/info.svg" alt = "tooltip default logo" />
+            <div className="tooltip large dark">
+              <p>
+                {I18n.t('namespace.tracked_namespaces_info')}
+              </p>
+            </div>
+          </div>
           <NamespaceSelect
             wikis={this.props.course.wikis}
             namespaces={this.props.course.namespaces}
