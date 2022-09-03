@@ -1080,6 +1080,10 @@ en:
     rhymes: Rhymes
     index: Index
     collection: Collection
+    tracked_namespaces_info: >
+      Only the articles corresponding to Tracked Namespaces will contribute to the topline 
+      overview stats, like 'Articles Edited', 'Total Edits', 'Words Added', etc. Hence, only 
+      track the namespaces that your program aims to improve.
 
   recent_activity:
     active_courses: Article is active in
