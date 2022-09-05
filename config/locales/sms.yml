@@ -55,6 +55,7 @@ sms:
   campaign:
     alert_user_id: Õõʹnni
     campaign: Kampanjj
+    campaign_not_updated: Kampaanj peiʹvvummuš ij oʹnnstam
     created_at: Peiʹvvmieʹrr
     course: Kurss
     create_campaign: Ođđ kampaanj raajjmõš
