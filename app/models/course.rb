@@ -285,11 +285,17 @@ class Course < ApplicationRecord
   end
 
   def tracked_namespaces
-    course_wiki_namespaces.map do |course_wiki_ns|
-      wiki = course_wiki_ns.courses_wikis.wiki
-      namespace = course_wiki_ns.namespace
-      { :wiki => wiki, :namespace => namespace }
-    end
+    courses_wikis.map do |course_wiki|
+      wiki = course_wiki.wiki
+      wiki_namespaces = course_wiki.course_wiki_namespaces
+      if wiki_namespaces.length == 0
+        { :wiki => wiki, :namespace => 0 }
+      else
+        wiki_namespaces.map do |wiki_ns|
+          { :wiki => wiki, :namespace => wiki_ns.namespace }
+        end
+      end
+    end.flatten
   end
 
   def suspected_plagiarism
