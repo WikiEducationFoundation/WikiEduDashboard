@@ -54,7 +54,7 @@ describe('URLBuilder', () => {
   describe('#wikiwhoColorURL', () => {
     it('should create a wikiwhoColorURL when given a valid article', () => {
       const helper = new URLBuilder({ article: defaults.article });
-      const expected = 'https://wikiwho-api.wmcloud.org/en/whocolor/v1.0.0-beta/Brown%20Bear%2C%20Brown%20Bear%2C%20What%20Do%20You%20See%3F/';
+      const expected = 'https://wikiwho-api.wmcloud.org/en/whocolor/v1.0.0-beta/Brown%20Bear%2C%20Brown%20Bear%2C%20What%20Do%20You%20See%3F/0/';
       expect(helper.wikiwhoColorURL()).toEqual(expected);
     });
     it('should throw an error if the language is missing', () => {
