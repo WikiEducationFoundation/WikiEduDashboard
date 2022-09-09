@@ -33,7 +33,9 @@ export class URLBuilder {
     if (!language) throw new TypeError('Article language is missing!');
     if (!title) throw new TypeError('Article title is missing!');
 
-    const url = `${WIKIWHO_DOMAIN}/${language}/whocolor/v1.0.0-beta/${encodeURIComponent(title)}/`;
+    // Add `/0` to the end of the URL to work around wikiwho API bug with article titles that include slashes.
+    // See https://github.com/wikimedia/wikiwho_api/pull/4/commits/8f421a20c62288a1a29bcef75fffa0a21d2c92a6
+    const url = `${WIKIWHO_DOMAIN}/${language}/whocolor/v1.0.0-beta/${encodeURIComponent(title)}/0/`;
     return url;
   }
 
