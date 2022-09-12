@@ -2,6 +2,7 @@
 // Vendor Requirements [imports]
 //--------------------------------------------------------
 import { assign, throttle } from 'lodash-es';
+import Rails from '@rails/ujs';
 //--------------------------------------------------------
 // Required Internal Modules
 //--------------------------------------------------------
@@ -19,6 +20,7 @@ const rangeslider = require('nouislider');
 const wNumb = require('wnumb');
 require('slick-carousel');
 require('velocity-animate');
+
 // const markdown = require('../../utils/markdown_it.js').default();
 
 //--------------------------------------------------------
@@ -277,6 +279,9 @@ const Survey = {
     $.ajax({
       type: 'PUT',
       url: '/survey_notification',
+      headers: {
+        'X-CSRF-Token': Rails.csrfToken()
+      },
       dataType: 'json',
       data: {
         survey_notification: {
