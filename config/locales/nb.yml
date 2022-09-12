@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Danmichaelo
+# Author: EdoAug
 # Author: JohSan65
 # Author: Jon Harald Søby
 # Author: Jon Harald Søby (WMNO)
@@ -775,7 +776,7 @@ nb:
       Er du sikker på at du vil slette denne tidslinja og starte på nytt?
 
       Dette kan ikke gjøres om.
-    discard_all_changes: Se bort fra alle endringer
+    discard_all_changes: Tilbakestill alle endringer
     delete_timeline_and_start_over: Slett tidslinje
     due_default: Frist neste uke
     empty_week_1: For å komme i gang,
