@@ -18,10 +18,6 @@ set :deploy_to, '/var/www/dashboard'
 
 set :default_env, { 'PASSENGER_INSTANCE_REGISTRY_DIR' => '/var/www/dashboard/shared/tmp/pids' }
 
-# This is normally set from the deploying machine's newrelic.yml.
-# The ENV variable is for deployment via travis-ci.
-set :newrelic_license_key, ENV['NEWRELIC_LICENSE_KEY']
-set :newrelic_appname, 'Wiki Ed Dashboard (staging)'
 namespace :deploy do
   after "deploy:updated", "newrelic:notice_deployment"
 end
