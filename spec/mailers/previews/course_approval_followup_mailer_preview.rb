@@ -2,7 +2,7 @@
 
 class CourseApprovalFollowupMailerPreview < ActionMailer::Preview
   def approval_followup
-    CourseApprovalFollowupMailer.email(example_course, example_user, example_staffer)
+    CourseApprovalFollowupMailer.email(example_course, example_staffer, example_instructors)
   end
 
   private
@@ -14,8 +14,8 @@ class CourseApprovalFollowupMailerPreview < ActionMailer::Preview
     )
   end
 
-  def example_user
-    User.new(email: 'sage@example.com', username: 'Ragesoss')
+  def example_instructors
+    [User.new(email: 'sage@example.com', username: 'Ragesoss')]
   end
 
   def example_staffer

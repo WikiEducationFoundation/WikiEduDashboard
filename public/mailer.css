@@ -15,6 +15,10 @@ section.message, section.message p, .paragraph {
   text-align:left;
 }
 
+li.numbered-item {
+  color: #666666;
+}
+
 .date {
   text-align: right;
 }

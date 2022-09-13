@@ -5,17 +5,17 @@ class CourseApprovalFollowupMailer < ApplicationMailer
     return unless Features.email?
     return unless course.instructors.pluck(:email).any?
     staffer = SpecialUsers.classroom_program_manager
-    email(course, staffer).deliver_now
+    instructors = course.instructors
+    email(course, staffer, instructors).deliver_now
   end
 
-  def email(course, staffer)
+  def email(course, staffer, instructors)
     @course = course
-    @instructors = @course.instructors
     @staffer = staffer
-    @greeted_users = @instructors.map { |user| user.real_name || user.username }.to_sentence
+    @greeted_users = instructors.map { |user| user.real_name || user.username }.to_sentence
     @course_link = "https://#{ENV['dashboard_url']}/courses/#{@course.slug}"
     @enroll_link = "#{@course_link}?enroll=#{@course.passcode}"
-    mail(to: @instructors.pluck(:email),
+    mail(to: instructors.map(&:email),
          reply_to: @staffer.email,
          subject: 'Tips for beginning your Wikipedia assignment')
   end
