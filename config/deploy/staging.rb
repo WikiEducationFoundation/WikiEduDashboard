@@ -23,7 +23,6 @@ set :default_env, { 'PASSENGER_INSTANCE_REGISTRY_DIR' => '/var/www/dashboard/sha
 set :newrelic_license_key, ENV['NEWRELIC_LICENSE_KEY']
 set :newrelic_appname, 'Wiki Ed Dashboard (staging)'
 namespace :deploy do
-  after "deploy:upload_compiled_assets", "upload_javascript_coverage"
   after "deploy:updated", "newrelic:notice_deployment"
 end
 # Extended Server Syntax

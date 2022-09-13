@@ -63,15 +63,6 @@ namespace :deploy do
     end
   end
 
-  desc 'Upload javascript coverage'
-  task :upload_javascript_coverage do
-    run_locally do
-      user = fetch(:user)
-      user = user ? "#{user}@" : user
-      execute "rsync -r -u -v public/js_coverage/ #{user}#{fetch(:address)}:#{release_path}/public/js_coverage"
-    end
-  end
-
   desc 'ensure permissions on /tmp'
   task :ensure_tmp_permissions do
     on roles(:all) do
