@@ -102,7 +102,7 @@ class ArticlesCourses < ApplicationRecord
 
   def self.update_from_course(course)
     course_article_ids = course.articles.where(wiki: course.wikis).pluck(:id)
-    revision_article_ids = get_revisions_by_namespaces(course).pluck(:article_id)
+    revision_article_ids = article_ids_by_namespaces(course)
 
     # Remove all the ArticlesCourses that do not correspond to course revisions.
     # That may happen if the course dates changed, so some revisions are no
@@ -131,12 +131,12 @@ class ArticlesCourses < ApplicationRecord
     end
   end
 
-  def self.get_revisions_by_namespaces(course)
-    # Return revisions corresponding to tracked wikis and namespaces
+  def self.article_ids_by_namespaces(course)
+    # Return article ids from revisions corresponding to tracked wikis and namespaces
     course.tracked_namespaces.map do |wiki_ns|
       wiki = wiki_ns[:wiki]
       namespace = wiki_ns[:namespace]
       course.revisions.joins(:article).where(articles: { wiki: wiki, namespace: namespace })
-    end.flatten
+    end.flatten.pluck(:article_id)
   end
 end
