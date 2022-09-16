@@ -133,10 +133,12 @@ class ArticlesCourses < ApplicationRecord
 
   def self.article_ids_by_namespaces(course)
     # Return article ids from revisions corresponding to tracked wikis and namespaces
+    article_ids = []
     course.tracked_namespaces.map do |wiki_ns|
       wiki = wiki_ns[:wiki]
       namespace = wiki_ns[:namespace]
-      course.revisions.joins(:article).where(articles: { wiki: wiki, namespace: namespace })
-    end.flatten.pluck(:article_id)
+      article_ids << course.revisions.joins(:article).where(articles: { wiki: wiki, namespace: namespace }).distinct.pluck(:article_id)
+    end
+    return article_ids
   end
 end
