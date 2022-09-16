@@ -91,6 +91,12 @@ describe('courseUtils.i18n', () => {
 });
 
 describe('courseUtils.articleFromTitleInput', () => {
+  test('strips trailing whitespace', () => {
+    const input = 'Robot selfie ';
+    const output = courseUtils.articleFromTitleInput(input);
+    expect(output.title).toBe('Robot selfie');
+  });
+
   test('replaces underscores', () => {
     const input = 'Robot_selfie';
     const output = courseUtils.articleFromTitleInput(input);

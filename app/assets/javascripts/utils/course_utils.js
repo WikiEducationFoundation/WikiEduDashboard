@@ -57,7 +57,7 @@ export default class CourseUtils {
   static articleFromTitleInput(articleTitleInput) {
     const articleTitle = articleTitleInput;
     if (!/http/.test(articleTitle)) {
-      const title = articleTitle.replace(/_/g, ' ');
+      const title = articleTitle.replace(/_/g, ' ').trim();
       return {
         title,
         project: null,
