@@ -288,11 +288,11 @@ class Course < ApplicationRecord
     courses_wikis.map do |course_wiki|
       wiki = course_wiki.wiki
       wiki_namespaces = course_wiki.course_wiki_namespaces
-      if wiki_namespaces.length == 0
-        { :wiki => wiki, :namespace => 0 }
+      if wiki_namespaces.length.zero?
+        { wiki:, namespace: 0 }
       else
         wiki_namespaces.map do |wiki_ns|
-          { :wiki => wiki, :namespace => wiki_ns.namespace }
+          { wiki:, namespace: wiki_ns.namespace }
         end
       end
     end.flatten

@@ -137,7 +137,8 @@ class ArticlesCourses < ApplicationRecord
     course.tracked_namespaces.map do |wiki_ns|
       wiki = wiki_ns[:wiki]
       namespace = wiki_ns[:namespace]
-      article_ids << course.revisions.joins(:article).where(articles: { wiki: wiki, namespace: namespace }).distinct.pluck(:article_id)
+      article_ids << course.revisions.joins(:article).where(articles: { wiki:, namespace: })
+                           .distinct.pluck(:article_id)
     end
     return article_ids
   end

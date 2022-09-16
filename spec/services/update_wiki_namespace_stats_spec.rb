@@ -8,7 +8,7 @@ describe UpdateWikiNamespaceStats do
   let(:cookbook_ns) { 102 }
   let(:user1) { create(:user, username: 'Jamzze') } # user with cookbook edits
   let(:user2) { create(:user, username: 'FieldMarine') } # user with other namespace edits
-  let(:cookbook_course_wiki) { create(:courses_wikis, course: course, wiki: wikibooks) }
+  let(:cookbook_course_wiki) { create(:courses_wikis, course:, wiki: wikibooks) }
 
   before do
     stub_wiki_validation
