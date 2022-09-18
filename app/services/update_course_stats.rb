@@ -87,7 +87,7 @@ class UpdateCourseStats
     @course.course_wiki_namespaces.each do |course_wiki_ns|
       wiki = course_wiki_ns.courses_wikis.wiki
       namespace = course_wiki_ns.namespace
-      UpdateWikiNamespaceStats(@course, wiki, namespace)
+      UpdateWikiNamespaceStats.new(@course, wiki, namespace)
     end
   end
 
