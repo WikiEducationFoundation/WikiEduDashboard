@@ -30,6 +30,7 @@ class UpdateCourseStats
     update_average_pageviews
     update_caches
     import_summaries_and_update_wikidata_stats if wikidata
+    update_wiki_namespace_stats
     @course.update(needs_update: false)
     @end_time = Time.zone.now
     UpdateLogger.update_course(@course, 'start_time' => @start_time.to_datetime,
@@ -80,6 +81,14 @@ class UpdateCourseStats
   def import_summaries_and_update_wikidata_stats
     UpdateWikidataStatsWorker.new.perform(@course)
     log_update_progress :wikidata_stats_updated
+  end
+
+  def update_wiki_namespace_stats
+    @course.course_wiki_namespaces.each do |course_wiki_ns|
+      wiki = course_wiki_ns.courses_wikis.wiki
+      namespace = course_wiki_ns.namespace
+      UpdateWikiNamespaceStats(@course, wiki, namespace)
+    end
   end
 
   def wikidata
