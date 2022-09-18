@@ -140,6 +140,6 @@ class ArticlesCourses < ApplicationRecord
       article_ids << course.revisions.joins(:article).where(articles: { wiki:, namespace: })
                            .distinct.pluck(:article_id)
     end
-    return article_ids
+    return article_ids.flatten
   end
 end
