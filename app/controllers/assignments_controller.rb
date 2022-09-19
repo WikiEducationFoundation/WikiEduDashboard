@@ -136,7 +136,7 @@ class AssignmentsController < ApplicationController
     @assignment = AssignmentManager.new(user_id: assignment_params[:user_id],
                                         course: @course,
                                         wiki: @wiki,
-                                        title: assignment_params[:title],
+                                        title: assignment_params[:title].strip,
                                         role: assignment_params[:role]).create_assignment
   end
 

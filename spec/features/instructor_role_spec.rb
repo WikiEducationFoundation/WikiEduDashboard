@@ -176,6 +176,16 @@ describe 'Instructor users', type: :feature, js: true do
       pass_pending_spec
     end
 
+    it 'is able to add Available Articles' do
+      visit "/courses/#{Course.first.slug}/articles/available"
+      click_button 'Add available articles'
+      fill_in 'add_available_articles', with: "First article \nSecond article "
+      click_button 'Add articles'
+      expect(page).to have_button 'Remove'
+      expect(page).to have_content 'First article'
+      expect(page).to have_content 'Second article'
+    end
+
     it 'is able to remove students from the course' do
       pending 'This sometimes fails on travis.'
 
