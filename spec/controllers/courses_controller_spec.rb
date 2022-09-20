@@ -178,6 +178,34 @@ describe CoursesController, type: :request do
       expect(course.wikis.last.language).to eq('fr')
     end
 
+    it 'adds namespaces' do
+      course_params[:wikis] = [
+        { language: 'en', project: 'wikipedia' },
+        { language: 'en', project: 'wikibooks' }
+      ]
+      course_params[:namespaces] =
+        ['en.wikipedia.org-namespace-0', 'en.wikibooks.org-namespace-102']
+      params = { id: course.slug, course: course_params }
+      put "/courses/#{course.slug}", params: params, as: :json
+      expect(course.course_wiki_namespaces.count).to eq(2)
+    end
+
+    it 'deletes namespaces if corresponding wiki is deleted' do
+      course_params[:wikis] = [
+        { language: 'en', project: 'wikipedia' },
+        { language: 'en', project: 'wikibooks' }
+      ]
+      course_params[:namespaces] =
+        ['en.wikipedia.org-namespace-0', 'en.wikibooks.org-namespace-102']
+      params = { id: course.slug, course: course_params }
+      put "/courses/#{course.slug}", params: params, as: :json
+      expect(course.course_wiki_namespaces.count).to eq(2)
+      course.reload
+      course_params[:wikis].pop
+      put "/courses/#{course.slug}", params: params, as: :json
+      expect(course.course_wiki_namespaces.count).to eq(1)
+    end
+
     context 'setting passcode' do
       let(:course) { create(:course, slug: slug_params) }
 

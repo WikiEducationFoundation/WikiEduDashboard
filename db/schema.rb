@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_12_192806) do
-
+ActiveRecord::Schema[7.0].define(version: 2022_08_15_143028) do
   create_table "alerts", id: :integer, charset: "utf8mb4", force: :cascade do |t|
     t.integer "course_id"
     t.integer "user_id"
@@ -186,9 +185,17 @@ ActiveRecord::Schema.define(version: 2022_01_12_192806) do
   create_table "course_stats", charset: "utf8mb4", force: :cascade do |t|
     t.text "stats_hash"
     t.integer "course_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["course_id"], name: "index_course_stats_on_course_id"
+  end
+
+  create_table "course_wiki_namespaces", charset: "utf8mb4", force: :cascade do |t|
+    t.integer "namespace"
+    t.bigint "courses_wikis_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["courses_wikis_id"], name: "index_course_wiki_namespaces_on_courses_wikis_id"
   end
 
   create_table "courses", id: :integer, charset: "utf8mb4", force: :cascade do |t|
@@ -270,8 +277,8 @@ ActiveRecord::Schema.define(version: 2022_01_12_192806) do
   end
 
   create_table "faqs", charset: "utf8mb4", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "title", null: false
     t.text "content"
   end
@@ -595,4 +602,5 @@ ActiveRecord::Schema.define(version: 2022_01_12_192806) do
   end
 
   add_foreign_key "course_stats", "courses"
+  add_foreign_key "course_wiki_namespaces", "courses_wikis", column: "courses_wikis_id", on_delete: :cascade
 end

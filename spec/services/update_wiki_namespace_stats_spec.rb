@@ -4,22 +4,24 @@ require 'rails_helper'
 
 describe UpdateWikiNamespaceStats do
   let(:course) { create(:course, start: Date.new(2022, 8, 1), end: Date.new(2022, 8, 2)) }
-  let(:wiki) { Wiki.get_or_create(language: 'en', project: 'wikibooks') }
-  let(:namespace) { 102 }
+  let(:wikibooks) { Wiki.get_or_create(language: 'en', project: 'wikibooks') }
+  let(:cookbook_ns) { 102 }
   let(:user1) { create(:user, username: 'Jamzze') } # user with cookbook edits
   let(:user2) { create(:user, username: 'FieldMarine') } # user with other namespace edits
+  let(:cookbook_course_wiki) { create(:courses_wikis, course:, wiki: wikibooks) }
 
   before do
     stub_wiki_validation
     course.campaigns << Campaign.first
-    course.wikis << wiki
+
+    create(:course_wiki_namespaces, courses_wikis: cookbook_course_wiki, namespace: 0)
+    create(:course_wiki_namespaces, courses_wikis: cookbook_course_wiki, namespace: cookbook_ns)
     JoinCourse.new(course:, user: user1, role: 0)
     JoinCourse.new(course:, user: user2, role: 0)
-    allow_any_instance_of(Course).to receive(:tracked_namespaces).and_return([0, 102])
     VCR.use_cassette 'course_update' do
       UpdateCourseStats.new(course)
     end
-    described_class.new(course, wiki, namespace)
+    described_class.new(course, wikibooks, cookbook_ns)
   end
 
   it 'adds articles with only tracked namespaces to article_courses' do

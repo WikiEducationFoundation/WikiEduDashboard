@@ -32,6 +32,7 @@ class CoursesController < ApplicationController
     end
     @course = course_creation_manager.create
     update_courses_wikis
+    update_course_wiki_namespaces
     update_academic_system
     update_course_format
   end
@@ -42,6 +43,7 @@ class CoursesController < ApplicationController
     slug_from_params if should_set_slug?
     @course.update update_params
     update_courses_wikis
+    update_course_wiki_namespaces
     update_flags
     ensure_passcode_set
     UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
@@ -276,6 +278,29 @@ class CoursesController < ApplicationController
       Wiki.get_or_create(language: wiki[:language], project: wiki[:project])
     end
     @course.update_wikis(new_wikis)
+  end
+
+  def course_wiki_namespaces_params
+    params.require(:course).permit(namespaces: [])[:namespaces]
+  end
+
+  def update_course_wiki_namespaces
+    namespaces = course_wiki_namespaces_params
+    return unless namespaces.present?
+    # Each entry in namespaces uses wiki domain and namespace
+    # Eg.: for cookbook, its "en.wikibooks.org-namespace-102"
+    @course.courses_wikis.each do |course_wiki|
+      wiki_domain = course_wiki.wiki.domain
+      course_wiki_namespaces = []
+      namespaces.each do |ns|
+        ns_wiki_domain = ns.split('-', 2)[0]
+        next if ns_wiki_domain != wiki_domain
+        ns_id = ns.split('-', 3)[2].to_i
+        cw_ns = course_wiki.course_wiki_namespaces.find_or_create_by(namespace: ns_id)
+        course_wiki_namespaces << cw_ns
+      end
+      course_wiki.update_namespaces(course_wiki_namespaces)
+    end
   end
 
   def update_flags
