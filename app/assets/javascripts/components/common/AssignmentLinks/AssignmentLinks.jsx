@@ -44,9 +44,13 @@ const AssignmentLinks = ({ assignment, courseType, user, project, editMode }) =>
     }
   }
 
-  const article = (
-    <a key={`article-${id}`} href={article_url} target="_blank">{I18n.t(`assignments.${ArticleUtils.projectSuffix(project, 'article_link')}`)}</a>
-  );
+  // Only show mainspace article link if the article already exists.
+  if (assignment.article_id) {
+    const articleLink = (
+      <a key={`article-${id}`} href={article_url} target="_blank">{I18n.t(`assignments.${ArticleUtils.projectSuffix(project, 'article_link')}`)}</a>
+    );
+    actions.push(articleLink);
+  }
 
   let groupMembers;
   if (editors) {
@@ -63,7 +67,7 @@ const AssignmentLinks = ({ assignment, courseType, user, project, editMode }) =>
   }
 
   // const reviewers = <ReviewerLink key={`reviewers-${id}`} reviewers={assignment.reviewers} />;
-  const links = actions.concat(article).reduce(interleaveSeparators, []);
+  const links = actions.reduce(interleaveSeparators, []);
 
   return (
     <section className="editors">
