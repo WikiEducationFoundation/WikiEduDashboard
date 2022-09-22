@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Balyozxane
 # Author: Bikarhêner
+# Author: Biyolojiyabikurdi
 # Author: Cûndûllah el-Kurdî
 # Author: George Animal
 # Author: Ghybu
@@ -22,12 +23,12 @@ ku-latn:
           trillion: Trilyon
           quadrillion: Qatrilyon
   accessibility:
-    number_field: Ec vihê nimreyê ye. Bûtonên ku ji aliyê piraniya gerokan ve hatiye
-      çêkirin wê têketanê bilind bike û kêm bike.
+    number_field: Ev qada hejmarê ye. Bişkokên ko ji aliyê piraniya gerokan ve têne
+      pêşkeşkirin wê têketinê zêde bike û kêm bike.
   application:
     cancel: Betal bike
     cookie_consent: Ev malper kûkiyan bi kar tîne daku te têketî bihêle, û agahiyên
-      eleqedarê hesabê te yê Wîkîpediyayê muhafeze dike.
+      eleqedarê hesabê te yê Wîkîpediyayê embar dike.
     cookie_consent_acknowledge: Ez têgihîştim
     cookie_consent_see_more: Zêdetir bibîne.
     create_accounts: Hesabên Wîkîpediyayê çêke
@@ -35,11 +36,11 @@ ku-latn:
     documentation: Belgekirin
     error: 'Çewtiyeke hebû:'
     explore: Kişf bike
-    field_required: Ev der hewce ye
-    field_invalid_characters: Hin karakterên nederbasdar hene li vê derê
+    field_required: Ev der pêwîst e
+    field_invalid_characters: Di vê qadê de hin karekterên nederbasdar hene
     field_invalid_date: Li vê qadê demê bi formata SSSS-MM-RR binivîse
     field_invalid_date_time: Dawî divê piştî destpêkê be. (Saet ji 0 heya 23ê ne.)
-    greeting2: Tu bi xêr hatî!
+    greeting2: Xêr hatî!
     greeting_extended: Bi xêr hatî Wîkîpediyayê
     greeting: Silav!
     help: Alîkarî
@@ -48,7 +49,7 @@ ku-latn:
     log_in: Têkeve
     log_out: Derkeve
     my_dashboard: Panela Min a Kontrolê
-    recent_activity: Aktîvîteyên Dawî
+    recent_activity: çalakiya Dawî
     report_problem: Pirsgirêkekê rapor bike
     request_account: Hesabekî Bixwaze
     request_account_create: Hesabekî çêke
@@ -57,14 +58,14 @@ ku-latn:
       one: '%{count} Encam ji bo: ''%{search_terms}'''
       other: '%{count} Encamên ji bo: ''%{search_terms}'''
     no_results: Ti encameke nehate dîtin ji bo '%{query}'
-    sign_up_extended: Bi Wîkîpediyayê qeyd bibe
-    sign_up_wikipedia: An li ser Wîkîpediyayê qeyd bibe
+    sign_up_extended: Bi Wîkîpediyayê re qeyd bibe
+    sign_up_wikipedia: An jî li ser Wîkîpediyayê qeyd bibe
     sign_up_log_in_extended: bi Wîkîpediyayê
-    sign_up: Têkeve
+    sign_up: Qeyd bibe
     submit: Tomar bike
     training: Perwerdehî
     change: Biguherîne
-    details: Detay
+    details: Hûrgilî
     confirm: Baş e
     opt_in: Erê
     opt_out: Na
@@ -74,37 +75,94 @@ ku-latn:
     not_yet_started: Gavên Destpêkê
     in_progress: Li derdoreke ceribandinê dixebite
     ready_for_review: Reşnivîs Tê Berfirehkirin
-    ready_for_mainspace: Karê neqlê Qada Esasî dike
+    ready_for_mainspace: Xebatê diguhazîne bo Qada Esasî
     assignment_completed: Tayînkirin Wekî Temambûyî Hate Îşaretkirin
-    reading_the_article: Xwendina Gotarê
+    reading_the_article: Gotar Xwendin
     providing_feedback: Şandina Paşragihanê
     post_to_talk: Parvekirina li Gotûbêjê
-    peer_review_completed: Kontrol temam bû
+    peer_review_completed: Çavlêgerandin Qediya
   dashboard:
     create_note: Pêl bike ser Kursê Çêke ji bo ku kursa xwe ya pêşîn çêkî.
+    explore_course_pages: Çav li pelên qûrsê bigerîne
+    explore_examples: Mînakan bîbîne
+    join_note: Gava te ji mamoste(dersdar) koda têperînê wergirt, li ser  “Find Your
+      Cours”e bitikîne ko qûrsê bibînî û tevlê bibî.
+    no_courses_instructor: Wisa dixuyê ko tu qûrsên te nin e.
+    no_courses_student: Wisa dixuye ko tu hê tevlê qûrsek nebûyî.
+    orientation_notice: Berê tu qûrsek çê bikî, de em bi arastekirinê alîkariya te
+      bikin bo destpêkirinê.(Bi qasî 30 xulekan digire)
+    review_orientation: Çav li arastekirinê bigerîne
+    start_orientation: Arastekirinê bide destpêkirin
+    blog_headline: Nûçeyên Dawî ji Perwerdehiya Wiki
   home:
     explore: Kişf bike
     log_in: Bi Wîkîpediyayê têkeve
     sign_up: Bi Wîkîpediyayê qeyd bibe
+    sign_up_help: Ji bo bikaranîna qontrola panelê, divê hûn bi rêya Wîkîpediyayê
+      têkevinê û destûrê bidin ko bigihîje hesabê we. Hûn dikarin bi hesabek Wîkîpediya
+      ya heyî têkevinê, an jî hesabek nû çêbikin.
   alerts:
     alert_label: Alarm
     no_alerts: Ti alarmekî nehat dîtin.
   activity:
     all: Çalakî
-    edited_by: Hat Sererastkirin Ji Alî
+    edited_by: Hat Sererastkirin Ji Aliyê
     label: Çalakî
   articles:
     articles: Gotar
     article_not_found: Ev gotar hêj nehatiye çêkirin.
+    article_development: (pêşveçûna gotarê)
+    articles_shown: '%{count} ji %{total} nîşan dide'
+    assigned: Gotarên Tayînkirî
+    assignments_none: Hê gotarên tayînkirî nînin.
+    available: Gotarên Berdest
+    no_available: Gotarên berdest nîn e
+    next: Pêşve
+    previous: Yê berê
+    article_title: Sernavê Gotarê
+    character_doc: Hejmara karakterên ku ji hêla edîtorên tomarkirî ve di navbera
+      dîrokên destpêk û dawiyê de li gotaran hatine zêdekirin
+    deleted: (hat jêbirîn)
+    edited: Gotarên sereraskirî
+    edited_by: 'Hat sererastkirin ji aliyê:'
     edited_mobile: Gotar
+    edited_none: Hê gotarên sererastkrî nîne.
+    filter:
+      wiki_all: Hemû
+      new: Nû
+      existing: Ya heyî
+      new_and_existing: Nû û Ya heyî
+    find: Li Gotaran Bigere
+    hide: Veşêre
+    history: (dîrok)
     label: Gotar
     loading: Gotar tên barkirin...
     new: (nû)
+    none: Vê qursê tu gotar sererast nekiriye.
+    preview: Kurte pêşdîtina Gotarê
+    rating: Cor
+    rating_docs:
+      does_not_exist: Ev gotar li ser wîkîpediyayê tune
+    see_more: Zêdetir bibîne
+    search: Li Wîkîpediyayê li gotarekê bigerin
+    show_cumulative_changes: Guhertinên kelekebûyî nîşan bide
+    show_current_version: Guhertoya Niha Nîşan Bide
     title: Sernav
     title_example: Sernavê gotarê
+    tools: Amûrên nirxandinê
     view: Gotarê Bibîne
     view_all: Hemûyan Bibîne
+    view_on_wiki: Li ser wîkiyê binêre
+    edit_size: Qebareya sererastkirinê
     wiki: Wîkî
+    articles_short: Gotar
+  items:
+    article_not_found: Ev mijar hê nehatiye peydakirin.
+    assigned: Mijarên tayinkirî
+    assignments_none: Hê mijarên tayînkirî ninin.
+    available: Mijarên Berdest
+    character_doc: Hejmara karakterên ku ji hêla edîtorên tomarkirî ve di navbera
+      dîrokên destpêk û dawiyê de li mijaran hatine zêdekirin
   assignments:
     select: Hilbijêre
   campaign:
