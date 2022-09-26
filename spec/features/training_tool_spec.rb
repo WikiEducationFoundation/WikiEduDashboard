@@ -141,6 +141,41 @@ describe 'Training', type: :feature, js: true do
     end
   end
 
+  describe 'display message if none available' do
+    context 'when wiki_education mode' do
+      let(:url) { '/reload_trainings?module=all' }
+
+      before do
+        ENV['wiki_education'] = 'true'
+        TrainingLibrary.delete_all
+        visit '/training'
+      end
+
+      it 'displays proper message in wiki_ed mode' do
+        expect(page.html)
+          .to include(I18n.t('training.no_training_library_records_wiki_ed_mode',
+                             url:))
+      end
+
+      it 'includes a link' do
+        expect(page).to have_link(href: url)
+      end
+    end
+
+    context 'when in non wiki_education mode' do
+      before do
+        ENV['wiki_education'] = 'false'
+        TrainingLibrary.delete_all
+        visit '/training'
+      end
+
+      it 'displays proper message in non wiki_ed mode' do
+        expect(page.html)
+          .to include(I18n.t('training.no_training_library_records_non_wiki_ed_mode'))
+      end
+    end
+  end
+
   describe 'finish module button' do
     context 'logged in user' do
       it 'redirects to their dashboard' do

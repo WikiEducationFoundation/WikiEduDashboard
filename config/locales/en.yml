@@ -1271,6 +1271,8 @@ en:
       exercise: Exercise
       discussion: Discussion
       training: Training
+    no_training_library_records_wiki_ed_mode: There are no TrainingLibrary records in the database. Click <a href="%{url}"> here</a> to load training data from the training_content/ yaml files.
+    no_training_library_records_non_wiki_ed_mode: There are no TrainingLibrary records in the database.
 
   uploads:
     credit: Credit
