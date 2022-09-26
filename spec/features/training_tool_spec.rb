@@ -146,7 +146,7 @@ describe 'Training', type: :feature, js: true do
       let(:url) { '/reload_trainings?module=all' }
 
       before do
-        ENV['wiki_education'] = 'true'
+        allow(Features).to receive(:wiki_ed?).and_return(true)
         TrainingLibrary.delete_all
         visit '/training'
       end
@@ -164,7 +164,7 @@ describe 'Training', type: :feature, js: true do
 
     context 'when in non wiki_education mode' do
       before do
-        ENV['wiki_education'] = 'false'
+        allow(Features).to receive(:wiki_ed?).and_return(false)
         TrainingLibrary.delete_all
         visit '/training'
       end
