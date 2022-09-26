@@ -115,7 +115,8 @@ it:
     sign_up: Registrati con Wikipedia
     sign_up_help: Per utilizzare il pannello di controllo, dovrai fare login tramite
       Wikipedia e fornire autorizzazione per accedere alla tua utenza. Puoi accedere
-      con una utenza esistente di Wikipedia o crearne una nuova.
+      con una utenza esistente di Wikipedia o crearne una nuova. Se non riesci a creare
+      un'utenza, contatta dashboard@wikiedu.org.
   alerts:
     alert_label: Avvisi
     no_alerts: Nessun avviso trovato.

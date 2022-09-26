@@ -11,6 +11,7 @@
 # Author: FF-11
 # Author: FF11
 # Author: Jikrau
+# Author: Justman10000
 # Author: Killarnee
 # Author: Metalhead64
 # Author: Ngschaider
@@ -123,9 +124,10 @@ de:
     explore: Entdecken
     log_in: Mit Wikipedia anmelden
     sign_up: Mit Wikipedia registrieren
-    sign_up_help: Um das Dashboard zu nutzen, musst du dich bei Wikipedia anmelden
-      und Zugriff auf dein Benutzerkonto gewähren. Du kannst dich mit einem vorhandenen
-      Wikipedia-Benutzerkonto anmelden oder ein neues erstellen.
+    sign_up_help: Um das Dashboard zu verwenden, musst du dich bei Wikipedia anmelden
+      und dem Dashboard die Erlaubnis geben, auf dein Konto zuzugreifen. Du kannst
+      dich mit einem bestehenden Wikipedia-Konto anmelden oder ein neues erstellen.
+      Wenn du kein Konto erstellen kannst, wende dich an dashboard@wikiedu.org.
   alerts:
     alert_label: Meldungen
     no_alerts: Keine Meldungen gefunden

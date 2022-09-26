@@ -137,7 +137,8 @@ fr:
     sign_up: S’inscrire à Wikipédia
     sign_up_help: Pour utiliser le tableau de bord, vous devez vous connecter via
       Wikipédia et lui donner le droit d’accéder à votre compte. Vous pouvez vous
-      connecter avec un compte Wikipédia existant ou en créer un nouveau.
+      connecter avec un compte Wikipédia existant ou en créer un nouveau. Si vous
+      ne parvenez pas à créer de compte, contactez dashboard@wikiedu.org.
   alerts:
     alert_label: Alertes
     no_alerts: Aucune alerte trouvée.

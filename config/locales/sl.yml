@@ -24,6 +24,10 @@ sl:
     opt_out: Ne
   home:
     explore: Raziskuj
+    sign_up_help: Za uporabo nadzorne plošče se morate prijaviti prek Wikipedije in
+      ji podeliti dovoljenje za dostop do vašega računa. Lahko se prijavite z obstoječim
+      računom Wikipedije ali ustvarite novega. Če ne morete ustvariti računa, se obrnite
+      na dashboard@wikiedu.org.
   articles:
     articles: Članki
     edited_mobile: Članki
@@ -37,6 +41,7 @@ sl:
     campaign: Kampanja
     campaigns: Kampanje
     description: Opis
+    none: Noben
     title: Naslov
   categories:
     name: Ime
@@ -50,6 +55,7 @@ sl:
       start_date: Datum začetka
     delete_suggestion: Izbriši
     loading: Nalaganje ...
+    none: Noben
     overview: Domov
     title: Naslov
   courses_generic:
@@ -69,6 +75,8 @@ sl:
     last_reviewed: Zadnjič pregledano
     labels: Oznake
   revisions:
+    diff_show: Prikaži
+    diff_hide: Skrij
     title: Naslov
   settings:
     admin_users:
