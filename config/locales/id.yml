@@ -5,6 +5,7 @@
 # Author: Arief
 # Author: Arifin.wijaya
 # Author: ArlandGa
+# Author: DARMAS BUDI SANTOSO
 # Author: Daud I.F. Argana
 # Author: Hidayatsrf
 # Author: Joseagush
@@ -72,6 +73,10 @@ id:
     explore: Jelajah
     log_in: Masuk dengan Wikipedia
     sign_up: Masuk dengan Wikipedia
+    sign_up_help: To use the dashboard, you'll need to sign in through Wikipedia and
+      give it permission to access your account. You can log in with an existing Wikipedia
+      account, or create a new one. If you're unable to create an account, contact
+      dashboard@wikiedu.org.
   alerts:
     alert_label: Peringatan
     no_alerts: Peringatan tidak ditemukan.

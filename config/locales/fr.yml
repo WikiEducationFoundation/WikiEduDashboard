@@ -460,7 +460,7 @@ fr:
     name: Nom
     category_name: Nom de la catégorie
     psid_name: PSID
-    pileid_name: ID de PagePile
+    pileid_name: Identifiant de PagePile
     template_name: Nom du modèle
     none: Il n’y a aucune catégorie suivie.
     remove: Supprimer
@@ -1237,9 +1237,9 @@ fr:
       des raisons de droit d’auteur).
     recent_edits: Modifications récentes
     recent_uploads: Téléversements récents
-    revision_author: Auteur de la version
-    revision_datetime: Horodatage de la version
-    revision_score: Score de la version
+    revision_author: Auteur de la révision
+    revision_datetime: Horodatage de la révision
+    revision_score: Score de la révision
     show_courses: Afficher uniquement mes cours
     uploaded_by: Téléversé par
     usage_count: Compteur d’utilisations

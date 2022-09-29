@@ -74,6 +74,8 @@ sl:
     bytes_added: Zlogov dodanih
     last_reviewed: Zadnjič pregledano
     labels: Oznake
+  recent_activity:
+    file_name: Ime datoteke
   revisions:
     diff_show: Prikaži
     diff_hide: Skrij
