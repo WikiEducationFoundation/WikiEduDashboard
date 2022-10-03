@@ -1,0 +1,72 @@
+# Messages for Tyap (Tyap)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Kambai Akau
+---
+kcg:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: K
+          million: M
+          billion: B
+          trillion: T
+          quadrillion: Q
+  application:
+    cancel: Lyang
+    cookie_consent_acknowledge: N fi̱k
+    cookie_consent_see_more: Nwuan nkyang jhyang.
+    create_accounts: Khwuk li̱la̱n Wukipedia
+    error: 'Ghyuap ku nshyia̱:'
+    explore: Kat a li
+    field_required: Á̱ cat kyai huni
+    greeting2: Ma̱aba̱n!/Tyebaa!
+    greeting_extended: Foo ma̱ng bai Wukipedia
+    greeting: Foo ang!
+    help: Beang
+    home: Mali
+    log_in_extended: Nwuo ma̱ng Wukipedia
+    log_in: Nwuo
+    log_out: Ghwut
+    recent_activity: Naat Mbwuot Mmam Nani
+    request_account: Cat a̱la̱n
+    request_account_create: Khwuk a̱la̱n
+    search: lyip lyip
+    search_results:
+      one: '%{count} Kyang á̱ shyia̱ a̱ni tazwa: ''%{search_terms}'''
+      other: '%{count} Kyang á̱ shyia̱ a̱ni tazwa: ''%{search_terms}'''
+    no_results: Á̱ shyia̱ kyang tazwa '%{query}' bah
+    sign_up_log_in_extended: ma̱ng Wukipedia
+    submit: Neap ndyo
+    training: Tyiet
+    change: Shai
+    details: A̱kyokyuat nkhang
+    confirm: Ndei
+    opt_in: Ii
+    opt_out: Kaai
+    opt_yes: ii
+    opt_no: kaai
+  articles:
+    next: Si̱ a̱zanson
+    previous: Si̱ a̱ma̱lyim
+    article_title: A̱lyoot Ati̱kut
+    assigned_to: Nwuak
+    filter:
+      wiki_all: A̱mgba̱m
+      new: A̱fai
+      existing: A̱ nshyia̱
+      new_and_existing: A̱fai ma̱ng Si̱ ku nshyia̱
+    hide: Ta̱kup
+    history: (nkhang)
+    label: A̱yaati̱kut
+    loading: A̱ nyia̱ lodi a̱yaati̱kut ba...
+    new: (a̱fai)
+    title: A̱lyoot
+    title_example: A̱lyoot ati̱kut
+    edit_size: Shi Jhyuk
+    wiki: Wuki
+    wp10: Jhyem Nok hu
+    articles_short: A̱yaati̱kut
+...

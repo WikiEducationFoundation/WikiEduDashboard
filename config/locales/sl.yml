@@ -57,6 +57,7 @@ sl:
     loading: Nalaganje ...
     none: Noben
     overview: Domov
+    start: Začetek
     title: Naslov
   courses_generic:
     cancel: Prekliči
@@ -85,6 +86,7 @@ sl:
       new:
         form_placeholder: Uporabniško ime
   training:
+    start: Začetek
     page: Stran
     done: Končano!
   uploads:

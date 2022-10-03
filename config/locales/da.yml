@@ -113,8 +113,8 @@ da:
     explore: Udforsk
     log_in: Log på med Wikipedia
     sign_up: Registrer dig hos Wikipedia
-    sign_up_help: For at bruger værktøjet skal du logge ind via Wikipedia og give
-      tilladelse til at din konto får adgang. Du kan logge ind med en eksisterende
+    sign_up_help: For at bruge dashboardet skal du logge ind via Wikipedia og give
+      det tilladelse til at få adgang til din konto. Du kan logge ind med en eksisterende
       Wikipedia-konto eller oprette en ny.
   alerts:
     alert_label: Alarmer
@@ -229,6 +229,23 @@ da:
     available: Tilgængelige elementer
     character_doc: Summen af antal tegn som er lagt til i artikler af indmeldte brugere
       mellem start- og slutningsdatoerne.
+    cross_wiki_tracking: Hovedsprogets artikler redigeret mellem start- og slutdatoerne
+      vises herunder. I kontrolpanelet hentes bidrag fra hjemmewikien for dette program,
+      samt for alle andre wikier hvor der er en aflevering eller en tilgængelig artikel.
+    does_not_exist: Artiklen eksisterer ikke. Opret en Sandkasse-side og tildel dig
+      selv til den for at få forslag.
+    edited: Objekter redigeret
+    edited_none: Der er endnu ingen redigerede elementer.
+    find: Find elementer
+    preview: Kort forhåndsvisning af elementet
+    search: Søg Wikidata for et element
+    tracked_doc: Kun sporede elementer bidrager til statistikken for dette program.
+      Når elementer er markeret som usporede, vil de blive fjernet fra statistikken
+      ved næste opdatering.
+    view_doc: De anslåede visninger af hvert element, siden det først blev redigeret,
+      gennem den seneste statistikopdatering. Du kan bruge pageviews.toolforge.org
+      til at se de nøjagtige tal.
+    title_example: Element-titel
   articles_wikidata:
     articles_short: Emner
   articles_generic:
@@ -236,6 +253,7 @@ da:
   assignments:
     article: Artiklen %{title} er nu tildelt dig.
     article_link: Artikel
+    article_link_wikidata: Element
     already_exists: Denne tildeling findes allerede!
     title_too_large: Titlen bør ikke være længere end 255 tegn
     assignees: Tildelt til
@@ -244,20 +262,26 @@ da:
     add_available: Tilføj tilgængelige artikler
     add_available_wikidata: Tilføj tilgængelige elementer
     add_available_placeholder: Tilføj en artikel-titel eller url pr linje
+    add_available_placeholder_wikidata: Tilføj en elementtitel eller URL pr linje
     add_available_submit: Tilføj artikler
+    add_available_submit_wikidata: Tilføj elementer
     assign_self: Tildel mig selv en artikel
+    assign_self_wikidata: Tilføj mig selv et element
     assign_tooltip: En tildelt artikel er en artikel, som du planlægger at oprette
+      eller forbedre.
+    assign_tooltip_wikidata: Et tildelt element er et, som du planlægger at oprette
       eller forbedre.
     bibliography: Bibliografi
     clone: Klon
     confirm_add_available: Er du sikker på du vil tilføje %{title}?
     confirm_addition: Er du sikker på du vil tildele %{title} til %{username}?
-    confirm_deletion: Er du sikker på at du vil slette denne tildeling af en artikel?
+    confirm_deletion: Er du sikker på, at du vil slette denne tildeling?
     editors: Tildelt til
     group_members: Gruppemedlemmer
     label: Tildel
     loading: Indlæser tildelinger ...
     none_short: Ingen artikler tildelt
+    none_short_wikidata: Ingen elementer tildelt
     none: Dette kursus har ingen tildelte artikler.
     no_available: Dette kursus har ingen tilgængelige artikler.
     peer_review_count: '%{currentCount}/%{total} valgt'
@@ -265,19 +289,37 @@ da:
     peer_review_link: Gennemsyn
     peer_review_link_personalized: '%{username}s gennemsyn'
     random_peer_review:
-      confirm_addition: Dette vil i alt tildele yderligere %{count} gennemsyn, med
-        et max antal på %{maximum} for hver studerende, valgt blandt deres holdkammeraters
-        artikler.
+      confirm_addition: I de fleste tilfælde bør du først bruge dette, når alle elever
+        har fået tildelt deres hovedartikler. Alternativt kan du bede dine elever
+        om at vælge deres egne peer reviews, eller du kan manuelt tildele peer reviews
+        ved at klikke på en elevs række og derefter bruge knappen "Tildel/fjern en
+        peer review". Ved at klikke på "OK" tildeles i alt %{count} yderligere peer
+        review(s), med et maksimum på %{maximum} for hver elev, valgt blandt deres
+        klassekammeraters artikler.
+      confirm_addition_wikidata: I de fleste tilfælde bør du først bruge dette, når
+        alle elever har fået tildelt deres hovedelementer. Alternativt kan du bede
+        dine elever om at vælge deres egne peer reviews, eller du kan manuelt tildele
+        peer reviews ved at klikke på en elevs række og derefter bruge knappen "Tildel/fjern
+        en peer review". Ved at klikke på "OK" tildeles i alt %{count} yderligere
+        peer review(s), med et maksimum på %{maximum} for hver elev, valgt blandt
+        deres klassekammeraters emner.
       heading: Tildel tilfældige gennemsyn
       tooltip_message: Tildel tilfældige artikler (med gennemsynstallet som maksimum)
         til hver studerende.
+      tooltip_message_wikidata: Tildeler tilfældige elementer (med peer review tæller
+        som det maksimale antal) til hver elev.
       limit_exceeded: Hver studerende gennemser allerede mindst %{maximum} artikler.
+      limit_exceeded_wikidata: Hver studerende gennemser allerede mindst %{maximum}
+        elementer.
     remove: Fjern
     reviewers: Anmeldere
     review_other: Tildel/fjern et gennemsyn
     review_self: Anmeld en artikel
+    review_self_wikidata: Gennemse et element
     review_tooltip: Dette er til artikler som du planlægger at gennemse eller give
       feedback på.
+    review_tooltip_wikidata: Dette er til element(er) som du planlægger at gennemse
+      eller give feedback på.
     sandbox_draft_link: Sandkassekladde
     select: Vælg
     warning_untracked_wiki: 'Vær opmærksom på at den artikel som du netop har valgt,
@@ -328,6 +370,8 @@ da:
     data_editors_by_course_info: Liste over tilmeldte bidragsydere og deres kurser/programmer
     data_editor_usernames: Bidragsyderes brugernavne
     data_editor_usernames_info: Liste med bidragsydernes brugernavne. En per linje
+    data_wikidata: Wikidata statistik
+    data_wikidata_info: Detaljeret opdeling af Wikidata-aktivitet baseret på redigeringsresuméer
     default_course_type: Standard kursustype
     default_passcode: Standard adgangskode
     default_passcode_explanation: 'Som standard bør nye programmer i denne kampagne
@@ -336,6 +380,7 @@ da:
     delete_campaign: Slet denne kampagne
     disable_account_requests: Sluk for kontoanmodninger
     enable_account_requests: Tænd for kontobegæring
+    newest_campaigns: Nyeste kampagner
     no_alerts: Denne kampagne har ingen alarmer
     no_passcode: ingen adgangskode
     none: Ingen
@@ -351,6 +396,7 @@ da:
     slug: Slug
     search_campaigns: Søg efter kampagner
     use_start_end_dates: Brug start- og slutningdatoer
+    search: Søg
   categories:
     add_category: Tilføj kategori
     add_psid: Tilføj PetScan PSID
