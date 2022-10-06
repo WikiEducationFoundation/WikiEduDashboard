@@ -393,6 +393,9 @@ da:
     random_passcode: en tilfældig adgangskode
     requested_accounts: Anmodede konti
     title: Titel
+    too_many_articles: Den redigerede artikelliste for denne kampagne er for lang
+      til at blive vist. Se venligst individuelle kurser/programmer/begivenheder for
+      at se artiklerne redigeret.
     slug: Slug
     search_campaigns: Søg efter kampagner
     use_start_end_dates: Brug start- og slutningdatoer
@@ -433,7 +436,7 @@ da:
     assignment_edits_enabled: Tændt for opgaveredigering
     assignment_edits_enabled_tooltip: Hvis tændt, vil der på kontrolpanelet blive
       oprettet en skabelon til diskussionssiden for hver tildelt opgave.
-    accounts_generation_enabled: Tændt for kontoanmodningsgenerering
+    accounts_generation_enabled: Generering af kontoanmodninger aktiveret
     accounts_generation_explanation: Dette vil deltagere mulighed for at skrive deres
       email og et ønsket brugernavn, i stedet for at de selv skal oprette en ny konto.
       Du vil herefter kunne oprette en konto til dem fra kontrolpanelet og tilføje
@@ -452,12 +455,21 @@ da:
     actions: Handlinger
     articles: Artikler
     article_viewer: Artikelvisning
+    article_viewer_wikidata: Elementviser
+    articles_i_am_reviewing_wikidata: Elementer, jeg peer reviewer
     articles_i_am_reviewing: Artikler jeg giver gennemsyn
+    articles_i_will_create: Artikler jeg vil oprette
+    articles_i_will_create_wikidata: Elementer jeg vil skabe
+    articles_i_am_updating: Artikler jeg opdaterer
+    articles_i_am_updating_wikidata: Elementer jeg opdaterer
     assignment_headings:
       assigned_articles: Tildelte artikler
+      assigned_articles_wikidata: Tildelte elementer
       assigned_reviews: Tildelte gennemsyn
       available_articles: Tilgængelige artikler
+      available_articles_wikidata: Tilgængelige elementer
       available_reviews: Klassekammeraters artikler
+      available_reviews_wikidata: Klassekammeraters elementer
     assignment_end: Opgaveslut
     assignment_start: Opgavestart
     calendar:
@@ -481,6 +493,8 @@ da:
     confirm_manual_update: Er du sikker på at du vil køre en manuel opdatering? De
       seneste ændringer vil blive importeret og siden vil genindlæses. Denne proces
       kan vare lidt.
+    controlled_by_event_center: Tilmelding til denne begivenhed styres af Wikimedia
+      Event Center. Det kan ikke tilsluttes fra Dashboard.
     course: Kursus
     course_dates_calendar_instructions: Vælg datoer for at tilføje eller fjerne dem
       fra kalenderen (fx ferier). Klik på datoen for at skifte mellem ikke-valgt,
@@ -607,10 +621,14 @@ da:
     data_wikidata: Wikidata stats
     data_wikidata_info: Detaljeret opgørelse af Wikidata-aktivitet, baseret på optælling
       af redigeringer
+    dates_too_long: Den maksimale længde er et år.
     delete_course: Slet kursus
     delete_suggestion: Slet
     delete_course_instructions: Du kan slette denne side, hvis alle kampagner fjernes
       først.
+    disable_student_emails: Deaktiver studerendes e-mails
+    disable_student_emails_tooltip: Deaktivering af elevmail vil forhindre, at nogle
+      notifikationsmails sendes til elever for dette kursus.
     dismiss_survey: Luk
     dismiss_survey_confirm: Er du sikker på at du permanent vil afvise denne undersøgelse?
     download_stats_data: Download stats
@@ -634,6 +652,8 @@ da:
       exists: Dette kursus eksisterer allerede! Prøv venligst igen med en anden titel,
         skole eller tidsrum.
       user_exists: Beklager, %{username} er ikke en eksisterende bruger.
+      user_exists_on_wiki: Beklager, %{username} er ikke en eksisterende bruger på
+        %{domain}.
       invalid_language_or_project: Ugyldigt sprog/projekt
       invalid_slug: Tom skole/titel for kurset.
       duplicate_slug: Der findes allerede et program med navnet %{slug}.
@@ -648,6 +668,12 @@ da:
       one: Instruktør
       other: Instruktører
     instructors: Undervisere
+    instructor_message: Dette er den samme brugerflade til Mine Artikler, som eleverne
+      har. Du kan bruge den til at gennemgå de samme trin, som eleverne skal igennem.
+      Det er dog kun studerendes bidrag, der vil blive sporet.
+    instructor_message_wikidata: Dette er den samme brugerflade til Mine Elementer,
+      som eleverne har. Du kan bruge den til at gennemgå de samme trin, som eleverne
+      skal igennem. Det er dog kun studerendes bidrag, der vil blive sporet.
     invitation: Du er blevet inviteret til at deltage i %{title}. For at deltage skal
       du først logge din ind med en Wikipedia-konto.
     invitation_username_advice: Hvis du endnu ikke har en Wikipedia-konto, kan du
@@ -665,6 +691,8 @@ da:
       not_yet_approved: Dette kursus er endnu ikke åbnet for indskrivning.
       withdrawn: Dette kursus er markeret som tilbagetrukket — muligvis fejlagtigt.
         Kontakt personale hos Wiki Education for at genaktivere det.
+      invalid_sync: Tilmelding til denne begivenhed styres af Wikimedia Event Center.
+        Det kan ikke tilsluttes fra Dashboardet.
     join_details: For at deltage i dette kursus skal du have en adgangskode eller
       et indskrivningslink, der indeholder adgangskoden, fra din instruktør. Kontakt
       din instruktør, hvis du ikke har modtaget dette.
@@ -675,6 +703,7 @@ da:
     loading: Indlæser...
     milestones_none: Dette kursus har endnu ikke nogen milepæle.
     my_articles: Mine artikler
+    my_articles_wikidata: Mine Elementer
     needs_update: Planlæg dataopdatering
     new_week: Tilføj ny uge
     new_account_check_username: Tjek tilgængelighed for brugernavn
@@ -728,9 +757,13 @@ da:
       other: '%{count} anmodede konti venter.'
     requested_accounts_alert_view: Vis
     retain_available_articles: Behold tilgængelige artikler
+    retain_available_articles_wikidata: Behold tilgængelige elementer
     retain_available_articles_info: Når tændt, bliver en tilgængelig artikel ikke
       fjernet fra listen, hvilket gør det muligt for flere personer at vælge den samme
       artikel.
+    retain_available_articles_info_wikidata: Når det er aktiveret, vil valg af et
+      tilgængeligt element ikke fjerne det fra listen, hvilket giver en gruppe elever
+      mulighed for at vælge det samme element.
     review_timeline: 'Nu kan du gennemse din tidslinje med opgaver og tilpasse den
       som du ønsker. Når du er tilfreds, kan du indsende den til godkendelse til  Wiki
       Education. Når den er godkendt vil du modtage en tilmeldings-url, som deltagere
@@ -755,8 +788,10 @@ da:
       kurset. For at godkende det, skal du tilføje det til en kampagne på oversigtssiden.
     submitted_and_pending_heading: Tilføjede & Afventende Godkendelser
     submitted_heading: Tilføjede kurser
-    submitted_note: Dit kursus er blevet tilføjet. Wiki Education personalet vil gennemse
-      det og kontakte dig, hvis der er spørgsmål.
+    submitted_note: Dit kursus er blevet indsendt. Wiki Education-medarbejdere vil
+      gennemgå det og tage kontakt med eventuelle spørgsmål. I mellemtiden, hvis du
+      gerne vil gennemgå Wiki Educations undervisningsmateriale, kan du se den fulde
+      liste over ressourcer til instruktører og studerende.
     suggestions_feedback: Har du forslag til at forbedre denne funktion? Fortæl os!
     suggestions_sending: Sender tilbagemelding…
     suggestions_sent: Feedback er sendt. Tak for dit input.
@@ -821,6 +856,8 @@ da:
     withdrawn: Udførte ikke opgaven
     word_count_doc: Et anslået antal ord tilføjet til hovedområdets artikler af deltagerne
       under kursus
+    word_count_doc_wikidata: Et skøn over antallet af ord, som kursets studerende
+      har tilføjet til projektets elementer i løbet af kursusperioden
     yourcourses: Dine kurser
     survey:
       notification_message: Deltag i vores undersøgelse for dette kursus.
@@ -833,6 +870,7 @@ da:
     articles_i_am_reviewing: Artikler jeg gennemser
     assignment_headings:
       available_reviews: Tilgængelig til gennemsyn
+      available_reviews_wikidata: Tilgængelig til gennemsyn
     assignment_end: Arrangementet slutter
     assignments_none: Dette projekt har ingen tildelte artikler.
     assignment_start: Arrangementet starter
@@ -928,6 +966,8 @@ da:
     view_page: Vis programside
     word_count_doc: Et anslået antal ord tilføjet til hovedområdets artikler af deltagerne
       under kursus
+    word_count_doc_wikidata: Et anslået antal ord tilføjet til hovedområdets artikler
+      af deltagerne under kursusperioden
     yourcourses: Dine programmer
   editable:
     edit: Rediger
@@ -942,41 +982,60 @@ da:
   instructor_view:
     article_assignments: '%{prefix} opgaver'
     assignments_table:
-      article_name: Artikelnavn
+      article_name: Navn
       current_stage: Nuværende trin
       relevant_links: Relevante links
     assigned_articles: Tildelte artikler
+    assigned_articles_wikidata: Tildelte elementer
     bad_work:
       learn_more: Hvis en deltagers arbejde gør en artikel ringere, opfordrer vi dig
         til at redigere artiklen selv. Ellers gør os opmærksomme på problemet, sådan
         at vi kan rette artiklen på et senere tidspunkt.
+      learn_more_wikidata: Hvis en deltagers arbejde gør et element ringere, opfordrer
+        vi dig til at redigere det selv. Ellers gør os opmærksomme på problemet, sådan
+        at vi kan rette det på et senere tidspunkt.
       learn_more_button: Lær mere
       submit_issue: Hvad er de udtalte problemer med denne artikel?
+      submit_issue_wikidata: Hvad er de udtalte problemer med dette element?
       submit_issue_placeholder: Jo flere oplysninger og detaljer du kan tilføre, jo
         bedre.
       thank_you: Tak! Kontakt din wiki-ekspert hvis du har yderligere spørgsmål.
     exercises_and_trainings: '%{prefix} Øvelser & Træninger'
     no_assignments: Denne deltager har endnu ikke nogle tildelte artikler. Du kan
       tildele en artikel ved at benytte knapperne herover.
+    no_assignments_wikidata: Denne elev har i øjeblikket ingen tildelte elementer.
+      Du kan tildele et element ved at bruge knapperne ovenfor.
     overview: '%{prefix} oversigt'
     reviewing_articles: Gennemser artikler
+    reviewing_articles_wikidata: Gennemse elementer
     select_student:
       title: Vælg %{prefix}
       content: at tildele eller se artikeltildelinger
+      content_wikidata: at tildele eller se tildelinger
   metrics:
     label: Kursusaktivitet
     last_update: Statistik sidst opdateret
     next_update: Næste forventede opdatering
+    late_update: Der forventedes en ny opdatering %{late_update_time}. Dette kan betyde,
+      at opdateringen tager længere tid end forventet, eller det kan indikere et problem,
+      der blokerer opdateringer.
+    no_update: Dashboardet har endnu ikke importeret nogen data for dette program.
+    enqueued_update: Dette program er blevet tilføjet til opdateringskøen.
+    first_update: Estimeret start på statistikopdatering
     activity: Seneste aktivitet
     are_trained: er ajour med træningen
     articles_created: Artikler oprettet
     articles_created_wikidata: Skabte objekter
     articles_created_generic: Sider oprettet
+    articles_created_generic_wikidata: Elementer oprettet
     articles_edited: Artikler redigeret
     articles_edited_wikidata: Objekter redigeret
     articles_edited_generic: Sider redigeret
+    articles_edited_generic_wikidata: Elementer redigeret
     article_scoped_program_info: Dette er et 'Artikelfokuseret program', der kun tæller
       redigeringer af tildelte artikler og kategorier.
+    article_scoped_program_info_wikidata: Dette er et 'Artikelfokuseret program',
+      der kun tæller redigeringer af tildelte artikler og kategorier.
     bytes_added: Bytes tilføjet
     characters: Tegn
     char_added: Tegn tilføjet
@@ -1007,6 +1066,9 @@ da:
     references_doc: Dette er antallet af referencemærker tilføjet til artikler, og
       kan desuden omfatte flere referencer til den samme kilde. Disse data kommer
       fra ORES-artikelkvalitetsmodellen og er kun tilgængelig på nogle sprog.
+    references_doc_wikidata: Dette er antallet af referencemærker, der er tilføjet
+      til elementer. Dette kan omfatte flere referencer til den samme kilde. Dataene
+      kommer fra ORES-varekvalitetsmodellen og er kun tilgængelige for nogle sprog.
     replag_info: Dit kontrolpanel henter data fra WMF cloud replica databaserne. Nogle
       gange kan disse databaser mangle de seneste redigeringer på grund af replikations-forsinkelse
       (replag). Når dette sker, vil de manglende redigeringer blive vist lidt senere.
@@ -1019,20 +1081,72 @@ da:
     uploads_in_use_count:
       one: fil anvendt i en artikel
       other: filer anvendt i artikler
+    uploads_in_use_count_wikidata:
+      one: fil anvendt i en artikel
+      other: filer anvendt i artikler
     upload_usages_count:
       one: total brug på tværs af sprog
       other: total brug på tværs af sprog
     view_count_description: Artikel visninger
+    view_count_description_wikidata: Elementviser
     view_data_unavailable: Ingen tilgængelige data
     view: Visninger
     wiki_ed_help: Benyt 'Få Hjælp' knappen for at anmelde et problem.
     word_count: Ord tilføjet
     word_count_average: Gennemsnitligt antal ord
+    general: Generelt
+    total_revisions: Samlede revisioner
+    claims: Krav
+    aliases: Aliasser
+    merged: Flettet
+    created: Oprettet
+    changed: Ændret
+    removed: Fjernet
+    cleared: Ryddet
+    added: Tilføjet
+    descriptions: Beskrivelser
+    interwiki_links_added: Interwiki-links tilføjet
+    labels: Etiketter
+    no_data: Ingen data
+    other_updates: Andre opdateringer
+    qualifiers_added: Kvalifikationer tilføjet
+    redirects_created: Omdirigeringer oprettet
+    references_added: Referencer tilføjet
+    references_added_info: Dette kan kun være en delvis optælling af tilføjede referencer.
+      Det er baseret på Wikidata-redigeringsresuméer, og nogle redigeringer, der tilføjer
+      referencer, klassificeres i stedet som et "Ændret krav" eller "Oprettet krav".
+    restorations_performed: Restaureringer udført
+    reverts_performed: Tilbageføringer udført
   namespace:
+    all: Alle
     main: Hovedrum
     main_char_added: Tegn tilføjet i hovedområdet
+    article: Artikel
+    talk: Diskussion
     user: Brugerrum
     user_char_added: Tegn tilføjet brugerområdet
+    project: Projekt
+    file: Fil
+    mediaWiki: MediaWiki
+    template: Skabelon
+    help: Hjælp
+    category: Kategori
+    page: Side
+    book: Bog
+    wikijunior: WikiJunior
+    translation: Oversættelse
+    draft: Kladde
+    property: Egenskab
+    query: Forespørgsel
+    lexeme: Lexeme
+    appendix: Appendix
+    portal: Portal
+    school: Skole
+    author: Forfatter
+    cookbook: Kogebog
+    rhymes: Rim
+    index: Indeks
+    collection: Samling
   recent_activity:
     active_courses: Artiklen er aktiv på
     article_title: Titel
@@ -1196,6 +1310,7 @@ da:
     empty_week_2: begynd at redigér i denne uge
     empty_week_3: eller
     empty_week_4: brug opgaveguiden for at oprette en tidslinje.
+    empty_week_drag_items: Tom uge. Du kan flytte en blok fra en anden uge her.
     first_week_title: Første aktive uge
     gradeable_value: Værdi
     gradeables_none: Denne tidslinje har ingen opgaver markeret som karaktergivende.
@@ -1264,8 +1379,10 @@ da:
   users:
     already_enrolled: Denne bruger er allerede tilmeldt!
     assign_articles: Tildel artikler
+    assign_articles_wikidata: Tildel elementer
     assign_articles_done: Udført
     assigned: Tildelte artikler
+    assigned_wikidata: Tildelte elementer
     assignees: Tildelt(e)
     loading_authorship_data: indlæser forfatterskabsdata
     authorship_data_not_fetched: kunne ikke hente forfatterskabsdata
@@ -1274,6 +1391,7 @@ da:
       tal geafspejler ikke nødvendigvis hvor meget nyt indhold brugeren har lagt til.
       At genetablere fjernet indhold vil også øge denne sum.
     chars_added: Tegn tilføjet<br>(artikel | bruger | kladde)
+    chars_added_wikidata: Tegn tilføjet<br>(element | bruger | kladde)
     contributions: Brugerbidrag
     contributions_history_full: Vis den fuldstændige bidragshistorik
     contributions_more: Vis flere bidrag
@@ -1293,6 +1411,7 @@ da:
     last_name: Efternavn
     loading: Laster brugere ...
     characters_added_mainspace: Tegn tilføjet (artikel)
+    characters_added_mainspace_wikidata: Tegn tilføjet (element)
     characters_added_short: 'HO: %{mainspace}, BO: %{userspace}'
     characters_added_userspace: Tegn tilføjet (bruger)
     characters_added_draftspace: Tegn tilføjet (kladde)
@@ -1301,12 +1420,16 @@ da:
     name: Navn
     none: Der er ingen deltagere.
     no_articles: Ingen artikler
-    no_revisions: Denne bruger har ikke lavet nogle revideringer.
+    no_articles_wikidata: Ingen elementer
+    no_revisions: (ingen revisioner)
     no_highlighting: Ingen tekst fra den nuværende version af artiklen er krediteret
       til denne bruger. Tjek siden historik for at se deres redigeringer.
     number_of_articles:
       one: '%{count} artikel'
       other: '%{count} artikler'
+    number_of_articles_wikidata:
+      one: '%{count} element'
+      other: '%{count} elementer'
     profile: profil
     recent_revisions: Seneste redigeringer
     references_count: Referencer tilføjet
@@ -1456,8 +1579,8 @@ da:
       Det sker nogle gange.) Prøv venligst at logge dig ind igen eller at tilmelde
       dig igen.
   survey:
-    login_message: Tak for din tid. Vær venlig at logge ind på dit Wiki Education
-      kontrolpanel for at gennemføre undersøgelsen.
+    login_message: Tak for din tid. Vær venlig at logge ind på dit kontrolpanel for
+      at gennemføre undersøgelsen.
     notification_explanation: Hvis feltet herunder er markeret, vil brugere modtage
       emails i henhold til deres notificeringskalender, ud over at de også kan se
       disse notificeringer i browseren. Hvis feltet ikke er markeret, vil de kun se
@@ -1491,8 +1614,11 @@ da:
       why_are_you_here: Hvad kunne du tænke dig at gøre?
   article_finder:
     add_available_article: Tilføj som tilgængelig artikel
+    add_available_article_wikidata: Tilføj som tilgængeligt element
     article_finder: Artikel-finder
+    article_finder_wikidata: Element finder
     article_quality: Artikelkvalitet(0-100)
+    article_quality_wikidata: Elements kvalitet (0-100)
     assign_article_self: Tildel dig selv
     average_views: Gennemsnitlig visning per dag
     category_search: Kategori søgning
@@ -1502,23 +1628,30 @@ da:
     fetching_pageviews: Henter sidevisninger
     fetching_revisions: Henter siderevisioner
     fetched_articles: Hentede artikler
+    fetched_articles_wikidata: Hentede elementer
     filtered_articles: Filtrerede artikler
+    filtered_articles_wikidata: Filtrerede elementer
     hide_options: Skjul valgmuligheder
     keyword_search: Søg via keywords
     minimum_views_label: Mindste antal visninger
     more_results: Flere resultater
     no_article_found: Ingen artikler fundet i denne kategori
+    no_article_found_wikidata: Ingen elementer fundet i denne kategori
     page_assessment_class: Klasse
     relevanceIndex: Relevans-index
     remove_article: Fjern artikel
+    remove_article_wikidata: Fjern elementer
     search: Søg
     searching_articles: Søger artikler
+    searching_articles_wikidata: Søger elementer
     search_placeholder: Skriv dit nøgleord
     show_options: Vis valgmuligheer
     subheading_message: Lad os finde en Wikipedia-artikel at arbejde med.
+    subheading_message_wikidata: Lad os finde et Wikidata-element at arbejde med.
     submit: Indsend
     tools: Værktøjer
     unassign_article_self: Ikke-tildelt artikel
+    unassign_article_self_wikidata: Fjern tildeling af element
   training_status:
     completed: Fuldført
     continue: Fortsæt

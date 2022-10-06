@@ -48,6 +48,10 @@ kcg:
     opt_out: Kaai
     opt_yes: ii
     opt_no: kaai
+  article_statuses:
+    not_yet_started: Tsa
+    reading_the_article: Fang Ati̱kut
+    providing_feedback: Nwuak A̱di̱dam
   articles:
     next: Si̱ a̱zanson
     previous: Si̱ a̱ma̱lyim

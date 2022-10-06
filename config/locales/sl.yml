@@ -37,6 +37,7 @@ sl:
     title: Naslov
   assignments:
     remove: Odstrani
+    sandbox_draft_link: Osnutek peskovnika
   campaign:
     campaign: Kampanja
     campaigns: Kampanje
@@ -58,6 +59,7 @@ sl:
     none: Noben
     overview: Domov
     start: Začetek
+    stay_in_sandbox: Ostani v peskovniku
     title: Naslov
   courses_generic:
     cancel: Prekliči
