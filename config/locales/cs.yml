@@ -119,7 +119,8 @@ cs:
     sign_up: Zaregistrovat se skrze Wikipedii
     sign_up_help: Chcete-li nástěnku používat, přihlaste se prosím se svým účtem na
       Wikipedii a povolte přístup ke svému účtu. Můžete se přihlásit k již existujícímu
-      účtu na Wikipedii, nebo si vytvořit nový.
+      účtu na Wikipedii, nebo si vytvořit nový. Pokud se vám nedaří účet vytvořit,
+      kontaktujte dashboard@wikiedu.org.
   alerts:
     alert_label: Upozornění
     no_alerts: Nenalezena žádná upozornění.
@@ -128,9 +129,11 @@ cs:
     edited_by: Editoval(a)
     label: Aktivita
   articles:
+    articles: Články
     article_development: (rozvoj článku)
     articles_shown: Zobrazuje se %{count} z %{total}
     assigned: Přiřazené články
+    assignments_none: Zatím nejsou žádné přiřazené články.
     available: Články k dispozici
     no_available: Žádné dostupné články
     next: Další
@@ -149,6 +152,7 @@ cs:
     edited: Editované články
     edited_by: 'Editoval:'
     edited_mobile: Články
+    edited_none: Zatím nejsou žádné upravené články.
     filter:
       wiki_all: Vše
       new: Nové
@@ -157,6 +161,7 @@ cs:
       tracked: Sledované
       untracked: Nesledované
       tracked_and_untracked: Sledované a nesledované
+    find: Najít články
     hide: Skrýt
     history: (historie)
     label: Články
@@ -212,6 +217,9 @@ cs:
       článku, ale nezohledňuje obsah článku. (Výsledky jsou dostupné pouze pro články
       v anglické Wikipedii.)
     articles_short: Články
+  items:
+    assignments_none: Zatím nejsou žádné přiřazené položky.
+    edited_none: Zatím nejsou žádné upravené položky.
   articles_wikidata:
     articles_short: Položky
   articles_generic:
@@ -219,10 +227,11 @@ cs:
   assignments:
     article: Článek %{title} je nyní přiřazen vám.
     article_link: Předmět
+    article_link_wikidata: Položka
     already_exists: Tento článek už byl zadán!
     title_too_large: Titulek by neměl přesáhnout 255 písmen
     assignees: Přiřazení
-    assign_other: Přiřadit článek
+    assign_other: Přiřadit/odebrat článek
     add_available: Přidat dostupný článek
     add_available_placeholder: Přidejte na každý řádek jeden název článku nebo jednu
       URL
@@ -235,6 +244,7 @@ cs:
     confirm_addition: Chcete skutečně zadat článek %{title} uživateli %{username}?
     confirm_deletion: Chcete skutečně odstranit tento zadaný článek?
     editors: Přiřazen k
+    group_members: Členové skupiny
     label: Zadat
     loading: Načítání zadaných článků...
     none_short: Žádné zadané články
@@ -244,7 +254,7 @@ cs:
     peer_review_link: Recenze
     remove: Odebrat
     reviewers: Recenzent(i)
-    review_other: Zadat recenzi
+    review_other: Zadat/odebrat recenzi
     review_self: Recenzovat článek
     review_tooltip: Tímto můžete sledovat, který článek/které články máte v plánu
       zrecenzovat nebo k němu/nim alespoň poskytnout zpětnou vazbu.
@@ -286,6 +296,7 @@ cs:
     data_courses: Souhrnná data z kurzu
     data_courses_info: Základní metriky pro každý kurz/program.
     data_articles: Editovaných stránek
+    data_revisions: Data o revizích
     data_articles_info: Podrobnosti o každé sledované stránce v kampani
     data_revisions_info: Podrobnosti o každé revizi sledovaných stránek v kampani
     data_instructors: Instruktoři
@@ -358,6 +369,8 @@ cs:
     archived: Archivované kurzy
     actions: Možnosti
     articles: Články
+    articles_i_will_create: Články, které vytvořím
+    articles_i_am_updating: Články, které upravuji
     assignment_headings:
       assigned_articles: Přiřazené články
       assigned_reviews: Přiřazené recenze
@@ -485,6 +498,8 @@ cs:
     data_articles_info: Data stránek obsahují počty editací každé stránky, které stránky
       jsou nové a počty zobrazení stránek. Tyto počty zobrazení mohou být zastaralé
       pro ukončené kurzy, proto je obsaženo i URL k WMF Tool Labs.
+    data_revisions_info: Data o revizích obsahují počet revizí kurzu, ID revize, ID
+      článku, které články jsou nové a celkový počet zhlédnutí stránky.
     data_download_info: Stáhnout data ve formátu CSV.
     data_overview: Přehledová data
     data_overview_info: Přehledová data poskytují celkové statistiky o projektu.
@@ -495,6 +510,7 @@ cs:
     data_students_info: Údaje editorů obsahují seznam všech přihlášených editorů,
       počty editací a zda v průběhu projektu registrovali své účty.
     data_uploads: Data týkající se nahraných souborů na Commons
+    data_revisions: Data o revizích
     data_uploads_info: Data týkající se nahraných souborů na Commons zobrazují název
       a počet použití každého nahraného mediálního souboru.
     delete_course: Smazat kurz
@@ -508,6 +524,9 @@ cs:
     duration: Průběh kurzů
     edit_count: Počet editací
     edit_course_dates: Upravit termíny kurzů
+    embed_course_stats: Vložit statistiky kurzu jinam
+    embed_course_stats_description: Chcete-li vložit statistiky tohoto kurzu na jiný
+      web, zkopírujte a vložte tento fragment kódu do
     enable_account_requests: Povolit žádosti o účet
     end: Konec
     ended: Kurz již skončil.
@@ -534,8 +553,8 @@ cs:
       one: instruktor
       other: instruktoři
     instructors: Instruktoři
-    invitation: Byli jste pozváni k připojení se ke kurzu %{title}, ale nejprve se
-      musíte přihlásit ke svému účtu.
+    invitation: Byli jste pozváni k připojení se k %{title}, ale nejprve se musíte
+      přihlásit ke svému účtu.
     invitation_username_advice: Pokud nemáte svůj účet na Wikipedii, zaregistrujte
       se. Vaše uživatelské jméno může být anonymní nebo může obsahovat vaše osobní
       údaje, dle vašeho přání. (Sdílené účty nejsou povoleny.)
@@ -706,6 +725,8 @@ cs:
       assignment_end_placeholder: RRRR-MM-DD
       assignment_start: Začátek události
       assignment_start_placeholder: RRRR-MM-DD
+      cancel_course_clone: Zrušit kopírování kurzu
+      cancel_course_clone_confirm: Opravdu chcete zastavit kopírování tohoto kurzu?
       checking_for_uniqueness: Pro tento projekt je kontrolována jeho jedinečnost.
       choose_clone: Vyberte program ke zkopírování.
       clone_previous: Kopírovat předchozí projekt
@@ -790,10 +811,14 @@ cs:
     edit_template: Upravit šablonu
     rename_confirmation: Vlastnosti kurzu, které ovlivňují podobu URL, se změnily.
       Toto rozbije veškeré sem mířící odkazy. Jste si jist, že toto chcete udělat?
+  instructor_view:
+    overview: '%{prefix} – Přehled'
   metrics:
     label: Aktivity kurzu
     last_update: Poslední aktualizace statistik
     next_update: Další předpokládaná aktualizace
+    enqueued_update: Tento kurz byl přidán do fronty aktualizací.
+    first_update: Předpokládaný začátek aktualizace statistik
     activity: Nedávná aktivita
     are_trained: účastníků projektu
     articles_created: Vytvořené stránky
@@ -812,7 +837,12 @@ cs:
     edit_count_description: Celkový počet editací
     per_user: '%{number}/uživatel'
     revisions: Poslední editace
+    references_count: Přidáno referencí
+    references_doc: Toto je počet značek ref přidaných do článků a může obsahovat
+      vícero referencí na tentýž zdroj. Data pocházejí z modelu kvality článku systému
+      ORES a jsou dostupná jen v některých jazycích.
     tags: Štítky
+    update_statistics_link: Zobrazit více
     upload_count: Nahrané soubory na Commons
     uploads_in_use_count:
       one: soubor použitý v článku
@@ -845,7 +875,7 @@ cs:
     author: Autor
   recent_activity:
     active_courses: Článek je aktivní v
-    article_title: Název článku
+    article_title: Název
     datetime: Datum/čas
     image: Obrázek
     file_name: Název souboru
@@ -864,7 +894,7 @@ cs:
     usage_count: Počet použití
   revisions:
     chars_added: Přidáno znaků
-    references: Přidány reference
+    references: Přidáno referencí
     class: Třída
     date_time: Datum/Čas
     diff: rozdíl
@@ -1039,14 +1069,14 @@ cs:
     name: Jméno
     none: Nejsou žádní účastníci
     no_articles: Žádné články
-    no_revisions: Tento editor neprovedl žádnou revizi.
+    no_revisions: (žádné revize)
     number_of_articles:
       one: '%{count} článek'
       few: '%{count} články'
       other: '%{count} článků'
     profile: profil
     recent_revisions: Poslední editace
-    references_count: Přidány reference
+    references_count: Přidáno referencí
     remove_confirmation: Jste si jist, že chcete odebrat %{username}?
     request_confirmation: Jste si jisti, že opravdu chcete žádat o tyto účty?
     revision_characters_and_views: 'Přidáno znaků: %{characters}, Zobrazení stránky:
@@ -1056,6 +1086,8 @@ cs:
     reviewing: Recenzuje
     revisions: Revize
     sandboxes: pískoviště
+    sub_navigation:
+      student_overview: '%{prefix} – Přehled'
     total_uploads: Celkový počet uploadů
     training_complete:
       one: je obeznámen s tréninkem
@@ -1161,8 +1193,8 @@ cs:
     explanation: Zdá se, že se vyskytl problém s přihlášením. (Omlouváme se, občas
       se to stane.) Zkuste to prosím znovu.
   survey:
-    login_message: Děkujeme za váš čas. Přihlaste se prosím do vaší Wiki Education
-      nástěnky, abyste se dostali k průzkumu.
+    login_message: Děkujeme za váš čas. Přihlaste se prosím do Nástěnky, abyste se
+      dostali k průzkumu.
     notification_explanation: Pokud je pole dole zaškrtnuto, uživatel bude, mimo upozornění
       v prohlížeči, dostávat i emaily, v závislosti na nastavení upozornění. Pokud
       ne, budou se zobrazovat pouze upozornění v prohlížeči.

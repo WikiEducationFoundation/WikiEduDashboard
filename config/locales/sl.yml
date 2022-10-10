@@ -60,12 +60,16 @@ sl:
     overview: Domov
     start: Začetek
     stay_in_sandbox: Ostani v peskovniku
+    tags: 'Oznake:'
     title: Naslov
   courses_generic:
     cancel: Prekliči
     campaigns: 'Kampanje:'
     creator:
       save_cloned_course: Shrani
+    student_editors: Urejevalci
+    students: Urejevalci
+    students_short: Urejevalci
   editable:
     edit: Uredi
     cancel: Prekliči
@@ -76,6 +80,7 @@ sl:
   metrics:
     bytes_added: Zlogov dodanih
     last_reviewed: Zadnjič pregledano
+    tags: Oznake
     labels: Oznake
   recent_activity:
     file_name: Ime datoteke

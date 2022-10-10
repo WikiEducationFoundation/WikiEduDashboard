@@ -36,7 +36,7 @@ ku-latn:
     documentation: Belgekirin
     error: 'Çewtiyeke hebû:'
     explore: Kişf bike
-    field_required: Ev der pêwîst e
+    field_required: Ev der hewce ye
     field_invalid_characters: Di vê qadê de hin karekterên nederbasdar hene
     field_invalid_date: Li vê qadê demê bi formata SSSS-MM-RR binivîse
     field_invalid_date_time: Dawî divê piştî destpêkê be. (Saet ji 0 heya 23ê ne.)
@@ -100,7 +100,8 @@ ku-latn:
     sign_up: Bi Wîkîpediyayê qeyd bibe
     sign_up_help: Ji bo bikaranîna qontrola panelê, divê hûn bi rêya Wîkîpediyayê
       têkevinê û destûrê bidin ko bigihîje hesabê we. Hûn dikarin bi hesabek Wîkîpediya
-      ya heyî têkevinê, an jî hesabek nû çêbikin.
+      ya heyî têkevinê, an jî hesabek nû çêbikin. Ger tu nikaribî hesabekî çêkî, bi
+      dashboard@wikiedu.org re têkiliyê deyne.
   alerts:
     alert_label: Alarm
     no_alerts: Ti alarmekî nehat dîtin.
