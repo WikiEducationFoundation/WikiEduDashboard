@@ -13,8 +13,8 @@ class WikimediaEventCenterController < ApplicationController
   # {
   #  "course_slug": string // the unique URL slug for the Course
   #  "event_id": string or integer // a unique ID for the Event Center event
-  #  "organizer_username": string // the username of the Event Center event's organizer.
-  #                               // Must match a user in the "facilitator" role for the Course.
+  #  "organizer_usernames": array of strings // the username(s) of the event's organizer(s).
+  #    // Must match one or more users in the "facilitator" role for the Course.
   #  "secret": string // shared secret between the Event Center and the Dashboard
   # }
   # On failure, returns a JSON object with the error message and error code.
@@ -37,8 +37,7 @@ class WikimediaEventCenterController < ApplicationController
   # {
   #  "course_slug": string // the unique URL slug for the Course
   #  "event_id": string or integer // a unique ID for the Event Center event
-  #  "organizer_username": string // the username of the Event Center event's organizer.
-  #                               // Must match a user in the "facilitator" role for the Course.
+  #  "organizer_usernames": array of strings // the username(s) of the event's organizer(s).
   #  "secret": string // shared secret between the Event Center and the Dashboard
   #  "participant_usernames": array of strings // usernames of event's current participants
   # }
@@ -50,7 +49,6 @@ class WikimediaEventCenterController < ApplicationController
   def update_event_participants
     verify_secret { return }
     set_course { return }
-    verify_organizer { return }
     verify_event_sync { return }
     add_or_remove_participants
     render json: { success: true }
@@ -74,8 +72,12 @@ class WikimediaEventCenterController < ApplicationController
   end
 
   def verify_organizer
-    @organizer = UserImporter.new_from_username(params[:organizer_username])
-    raise NotOrganizerError unless @organizer&.instructor?(@course)
+    # At least one organizer must be an instructor/facilitator for the course.
+    @organizer = params[:organizer_usernames].find do |organizer_username|
+      UserImporter.new_from_username(organizer_username)&.instructor?(@course)
+    end
+
+    raise NotOrganizerError unless @organizer.present?
   rescue NotOrganizerError => e
     render json: { error: e.message, error_code: e.code }, status: :unauthorized
     yield

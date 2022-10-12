@@ -20,7 +20,7 @@ describe WikimediaEventCenterController, type: :request do
     subject do
       post '/wikimedia_event_center/confirm_event_sync', params: {
         course_slug:,
-        organizer_username: organizer.username,
+        organizer_usernames: [organizer.username],
         event_id: '12345',
         secret:,
         format: :json
