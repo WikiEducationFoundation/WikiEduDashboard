@@ -66,9 +66,10 @@ If you know your way around Rails, here's the very short version. Some additiona
 3. Copy `config/application.example.yml` to `config/application.yml` 
 4. Copy `config/database.example.yml` to `config/database.yml`
 5. Now **login into your database**
-      *  Either create a new user using`CREATE USER 'wiki'@'localhost' IDENTIFIED BY 'wikiedu'`
+      *  Either create a new user using `CREATE USER 'wiki'@localhost IDENTIFIED BY 'wikiedu';`. Verify you created a new user using the command `SELECT User FROM mysql.user;`
       *  or update `database.yml` with valid credentials to connect to the database
-6. Create a new database named as `dashboard` using the command `CREATE DATABASE dashboard`.
+6. Create a new database named as `dashboard` using the command `CREATE DATABASE dashboard;`
+      * To verify whether your database was created, use the command `SHOW DATABASES;`
 7. Run `rake db:migrate` to migrate all database tables.
 8. Install yarn (modern)
 9. Run `yarn` to download the required javascript packages
