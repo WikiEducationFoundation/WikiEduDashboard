@@ -11,6 +11,7 @@ class TrainingController < ApplicationController
     @libraries = TrainingLibrary.all.sort_by do |library|
       library.slug == @focused_library_slug ? 0 : 1
     end
+    render 'no_training_module' if @libraries.empty?
   end
 
   def show

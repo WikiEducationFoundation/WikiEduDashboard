@@ -3,27 +3,20 @@
   %h1 Training Libraries
   %ul.training-libraries.no-bullets.no-margin
     - defocus_class = @focused_library_slug ? 'training-library-defocus' : ''
-    - unless @libraries.empty?
-      - @libraries.each do |library|
-        - next if library.exclude_from_index?
-        - focus_class = @focused_library_slug == library.slug ? 'training-library-focus' : defocus_class
-        %li{class: "training-libraries__individual-library no-left-margin #{focus_class}"}
-          %a.action-card.action-card-index{href: "/training/#{library.slug}"}
-            %header.action-card-header
-              %h3.action-card-title
-                = library.translated_name
-              %span.icon-container
-                %i.action-card-icon.icon.icon-rt_arrow
-          .action-card-text
-            %h3 Included Modules:
-            %ul
-              - library.categories.pluck('modules').flatten.each do |training_module|
-                %li
-                  %a{href: "/training/#{library.slug}/#{training_module['slug']}", target: "_blank"}
-                    = training_module['name']
-    - else
-      - if Features.wiki_ed?
-        = sanitize t("training.no_training_library_records_wiki_ed_mode", url: '/reload_trainings?module=all')
-      - else
-        = t("training.no_training_library_records_non_wiki_ed_mode")
-
+    - @libraries.each do |library|
+      - next if library.exclude_from_index?
+      - focus_class = @focused_library_slug == library.slug ? 'training-library-focus' : defocus_class
+      %li{class: "training-libraries__individual-library no-left-margin #{focus_class}"}
+        %a.action-card.action-card-index{href: "/training/#{library.slug}"}
+          %header.action-card-header
+            %h3.action-card-title
+              = library.translated_name
+            %span.icon-container
+              %i.action-card-icon.icon.icon-rt_arrow
+        .action-card-text
+          %h3 Included Modules:
+          %ul
+            - library.categories.pluck('modules').flatten.each do |training_module|
+              %li
+                %a{href: "/training/#{library.slug}/#{training_module['slug']}", target: "_blank"}
+                  = training_module['name']
