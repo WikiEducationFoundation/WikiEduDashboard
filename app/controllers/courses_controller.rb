@@ -285,8 +285,7 @@ class CoursesController < ApplicationController
   end
 
   def update_course_wiki_namespaces
-    namespaces = course_wiki_namespaces_params
-    return unless namespaces.present?
+    namespaces = course_wiki_namespaces_params || []
     # Each entry in namespaces uses wiki domain and namespace
     # Eg.: for cookbook, its "en.wikibooks.org-namespace-102"
     @course.courses_wikis.each do |course_wiki|
