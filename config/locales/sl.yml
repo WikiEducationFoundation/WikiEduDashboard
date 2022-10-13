@@ -55,6 +55,7 @@ sl:
       end_date: Datum konca
       start_date: Datum začetka
     delete_suggestion: Izbriši
+    dismiss_survey: Opusti
     loading: Nalaganje ...
     none: Noben
     overview: Domov
@@ -64,7 +65,10 @@ sl:
     title: Naslov
   courses_generic:
     cancel: Prekliči
+    course: Program
+    courses: Programi
     campaigns: 'Kampanje:'
+    campaign_courses: Programi %{title}
     creator:
       save_cloned_course: Shrani
     student_editors: Urejevalci
@@ -83,6 +87,7 @@ sl:
     tags: Oznake
     labels: Oznake
   recent_activity:
+    article_title: Naslov
     file_name: Ime datoteke
   revisions:
     diff_show: Prikaži

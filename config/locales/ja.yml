@@ -509,6 +509,7 @@ ja:
     edit_count: 編集回数
     edit_course_dates: コース日程を編集
     embed_course_stats: コースの統計を埋め込む
+    embed_course_stats_description: このプログラムの統計を外部のウェブサイトに埋め込むには、このコード・スニペットをコピーペーストします。
     enable_account_requests: アカウント開設を有効にする
     end: 終了
     ended: コースは終了済みです。
@@ -519,21 +520,36 @@ ja:
     courses_enrolled: 登録済みのコース
     error:
       exists: そのコースは既に出されています！ コース名、学校、規約を変更してやり直してください。
+      user_exists: 申し訳ありませんが、%{username} という利用者の登録はありません。
+      user_exists_on_wiki: 申し訳ありませんが、%{username} という利用者は %{domain} に登録がありません。
       invalid_language_or_project: 言語/プロジェクトが無効です
       invalid_slug: コースの学校名もしくはコース名を白紙化
+      duplicate_slug: '%{slug} という同名のプログラムが既に存在します。'
+    expected_students: 学生数の予想
     features_feedback: '自動提案:'
     feedback: フィードバック
+    feedback_loading: 提案を読み込んでいます。しばらくお待ちください……
     gradeables_none: このコースには採点できる課題が指定されていません。
+    home_wiki: ホームウィキ
     multi_wiki: 追跡するウィキ
+    instructor:
+      other: 指導者
     instructors: 講師
-    invitation: '%{title}に参加するようお奨めされています。登録するには、ウィキペディアの利用者アカウントでログインしてください。'
+    instructor_message: この表示は、学生が使用する My Articles インターフェイスと同じものです。学生がたどる手順を視察できます。ただし実際に作業をしても、学生ではないため貢献は後で追跡できません。
+    instructor_message_wikidata: この表示は、学生が使用する My Items インターフェイスと同じものです。学生がたどる手順を視察できます。ただし実際に作業をしても、学生ではないため貢献は後で追跡できません。
+    invitation: '%{title}に招待されました。ウィキペディアの利用者アカウントでログインすると、参加登録ができます。'
+    invitation_username_advice: まだウィキペディアの利用者アカウントを持っていない場合は、この場で登録してください。利用者名は誰だかわからない無機質な名前でも、個性を表すのでも、希望に応じて決めてください。（アカウント共有は許されません。）
     join: 参加
     join_course: コースに参加
+    join_course_as_volunteer: ボランティアとして手伝う
     join_prompt: 「%{title}」に参加しますか?
     join_successful: 「%{title}」に参加しました。ダッシュボードは定期的にあなたの貢献を自動記録します。どんな影響を与えたか、また後でチェックしに来てください！
+    join_failed: 登録に失敗しました。
     join_failure_details:
       cannot_join_twice: 利用者は同じコースに2回登録することはできません。
       not_yet_approved: このコースの登録はまだ始まっていません。
+      withdrawn: このコースは取り下げ済みです — おそらく誤捜査と思われます。再度、有効にするには、ウィキ教育の担当者にご連絡ください。
+      invalid_sync: このイベントには、ダッシュボードから直接の参加はできません。登録手順は、ウィキメディア・イベント・センターが管理しています。
     join_details: このコースに参加するには講師から、パスコードを入手してください — あるいは登録用リンクを入手するとパスコードが付いてきます。もしまだ受信していない場合は、講師にご連絡するようお願いします。
     join_no_passcode: ほんとうにこのコースに参加しますか？
     launch_wizard: ウィザードを起動
@@ -547,10 +563,15 @@ ja:
     new_week: 新しい週の追加
     new_account_check_username: ユーザー名の使用可能状況を確認する
     new_account_email: メールアドレス
+    new_account_email_placeholder: name@example.org
+    new_account_info: アカウント登録は、メールアドレスと希望するユーザー名を入力し、リクエストしてください。調整役の誰かがアカウントを作成すると、パスワードをメールで送信します。
     new_account_info_admin: 新人編集者の利用者アカウントを作成するには、メールアドレスと希望する利用者名を入力します。アカウント開設が完了すると、ご本人にメールでパスワードが届きます。
     new_account_username: 希望利用者名
     new_account_username_invalid: これは有効な利用者名ではありません。
+    new_account_username_placeholder: ウィキ編集者 123
+    new_account_username_taken: その利用名は既に他の人が使っています。別の名前を考えてください。
     new_account_submit: アカウント申請
+    new_account_submitted: アカウントのリクエストを提出しました。こレデプログラム調整役がアカウントをきちんと作成する準備が整いました。あなたのアカウントが作成されると、メールでそのアカウントのパスワードをお届けする予定です。
     no_campaign: このプログラムを開設して利用者の参加を受け入れるには、まずキャンペーンに追加します。どのキャンペーンを選べばよいか迷った場合は、「その他」Miscellanea
       を選びます。
     nocourses: まだどのコースにも登録していません。
@@ -949,17 +970,35 @@ ja:
     email:
       headline: こんにちは、%{username}
       message_line1: 学期が有意義であったことをお祈りしています。ウィキ・エデュケーションではぜひ皆さんからご意見ご感想を寄せていただき、リソースの改善やウィキペディアを課題に指定された皆さんへのサポート向上につなげたいと望んでいます。現状の改善には、皆さんの声が大変重視しています。
+      message_line2: よろしければ指導者アンケートに回答していただけませんか？ 時間は15分ほどです。ウィキペディアを教材にしてよかったと思えて価値のある授業案を改善するため、ぜひ下のボタンを押してお力を貸してください。
       course: コース： %{course_info}
+      closing: よろしくお願いします。
+      signed: '- ウィキ教育チーム一同'
       link: 調査の実施
     follow_up:
       message: ご利用の%{course_title}コースに関する調査について、お知らせします。この調査にお答えいただき、ウィキペディアを課題に指定された皆さんへのサポート改善にご協力くだされば幸いです。
+  feedback_form_responses:
+    no_responses: フィードバックへの返信はまだありません。
+  wiki_api:
+    create_account_reason: この利用者は %{event} の参加者です。
+  onboarding:
+    supplementary:
+      header: 私たちのことをどこでお聞きになりましたか？
+      where_did_you_hear: 最初にウィキ教育の話を聞かれたのは、どこで、またはどなたからですか？
+      why_are_you_here: 何から始めましょうか？
   article_finder:
     add_available_article: 存在する記事として追加
     add_available_article_wikidata: 利用可能なアイテムとして追加
     article_finder: 記事を見つける
+    article_finder_wikidata: 項目検索
     article_quality: 記事の品質（0-100）
+    article_quality_wikidata: 項目の質（0-100点として）
     assign_article_self: 担当に立候補する
+    average_views: 1日平均の閲覧回数
     category_search: カテゴリ検索
+    completeness_estimate: 完成度スコア
+    fetching_assessments: ページ評価を取得
+    fetching_scores: 完成度スコアを取得
     fetched_articles: 獲得した記事
     hide_options: オプションを隠す
     keyword_search: キーワード検索
@@ -973,6 +1012,8 @@ ja:
     search_placeholder: キーワードを入力
     show_options: オプションを表示
     subheading_message: 作業対象のウィキペディア記事を探しましょう。
+    subheading_message_wikidata: 作業対象のウィキペディア記事を探しましょう。
+    submit: 提出
     tools: ツール
   training_status:
     due: '%{due_date} 〆切'

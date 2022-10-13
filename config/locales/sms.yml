@@ -226,6 +226,7 @@ sms:
       headline: Tiõrv, %{username}
   article_finder:
     hide_options: Čiõǥǥ asetõõzzid
+    search: Ooʒʒ
     show_options: Čuäʹjet asetõõzzid
     submit: Ruõkk
   training_status:
