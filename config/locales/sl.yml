@@ -24,8 +24,8 @@ sl:
     opt_out: Ne
   home:
     explore: Raziskuj
-    sign_up_help: Za uporabo nadzorne plošče se morate prijaviti prek Wikipedije in
-      ji podeliti dovoljenje za dostop do vašega računa. Lahko se prijavite z obstoječim
+    sign_up_help: Za uporabo nadzorne plošče se morate prijaviti v Wikipediji in ji
+      podeliti dovoljenje za dostop do vašega računa. Lahko se prijavite z obstoječim
       računom Wikipedije ali ustvarite novega. Če ne morete ustvariti računa, se obrnite
       na dashboard@wikiedu.org.
   articles:
@@ -34,6 +34,7 @@ sl:
     filter:
       wiki_all: Vsi
     label: Članki
+    new: (novo)
     title: Naslov
   assignments:
     remove: Odstrani
@@ -57,6 +58,7 @@ sl:
     delete_suggestion: Izbriši
     dismiss_survey: Opusti
     loading: Nalaganje ...
+    new_account_email_placeholder: ime@example.org
     none: Noben
     overview: Domov
     start: Začetek
@@ -101,6 +103,10 @@ sl:
     start: Začetek
     page: Stran
     done: Končano!
+    no_training_library_records_wiki_ed_mode: V zbirki podatkov ni zapisov TrainingLibrary.
+      Če želite naložiti podatke o usposabljanju iz datotek training_content/yaml,
+      kliknite <a href="%{url}">tukaj</a>.
+    no_training_library_records_non_wiki_ed_mode: V zbirki podatkov ni zapisov TrainingLibrary.
   uploads:
     label: Naložitve
   users:

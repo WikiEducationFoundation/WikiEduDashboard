@@ -423,6 +423,7 @@ zh-CN:
     duration: 课程持续时间
     edit_count: 编辑数
     edit_course_dates: 编辑课程日期
+    embed_course_stats_description: 要将此程序的统计信息嵌入另一个网站，请将此代码段复制并粘贴到
     enable_account_requests: 启用帐户请求
     end: 结束
     ended: 课程已启用。
@@ -661,6 +662,8 @@ zh-CN:
     missing_data_heading: 丢失或者是意想不到的结果？
     per_user: '%{number}/用户'
     revisions: 最近编辑
+    references_count: 添加的参考文献
+    references_doc: 这是添加到条目中的参考标签的数量，可以包括对同一来源的多次参考。该数据来自ORES的条目质量模型，仅适用于某些语言。
     tags: 标签
     update_status_heading: 更新状态。
     update_statistics_link: 查看更多
@@ -671,7 +674,7 @@ zh-CN:
     upload_usages_count:
       one: 跨语言使用总计
       other: 跨语言使用总计
-    view_count_description: 条目查阅
+    view_count_description: 条目浏览量
     view_data_unavailable: 没有可用的视图数据
     view: 查看
     word_count: 添加的文字
@@ -1029,7 +1032,7 @@ zh-CN:
     remove_article: 移除条目
     search: 搜索
     searching_articles: 正在搜索条目
-    search_placeholder: 输入您的密码
+    search_placeholder: 输入您的关键词
     show_options: 显示选项
     subheading_message: 让我们查找需要操作的条目
     submit: 提交

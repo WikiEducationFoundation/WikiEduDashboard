@@ -1442,6 +1442,11 @@ fr:
       exercise: Exercice
       discussion: Discussion
       training: Formation
+    no_training_library_records_wiki_ed_mode: Il n’y a aucun enregistrement « TrainingLibrary »
+      dans la base de données. Cliquez <a href="%{url}">ici</a> pour charger des données
+      de formation à partir de fichiers training_content/yaml.
+    no_training_library_records_non_wiki_ed_mode: Il n’y a aucun enregistrement « TrainingLibrary »
+      dans la base de données.
   uploads:
     credit: Crédit
     file_name: Nom de fichier
