@@ -9,6 +9,6 @@ class TrainingModulesController < ApplicationController
   end
 
   def show
-    @training_module = TrainingModule.find_by(slug: params[:module_id])
+    @training_module = TrainingModule.find_by(id: params[:id])
   end
 end

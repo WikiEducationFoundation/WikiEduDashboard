@@ -4,7 +4,7 @@ require_dependency "#{Rails.root}/lib/wiki_pageviews"
 
 class AverageViewsImporter
   DAYS_UNTIL_OUTDATED = 14
-  def self.update_outdated_average_views(articles)
+  def self.update_outdated_average_views(articles, update_service: nil)
     articles.where(average_views_updated_at: nil).or(
       articles.where('average_views_updated_at < ?', DAYS_UNTIL_OUTDATED.days.ago)
     ).includes(:wiki).find_in_batches(batch_size: 200) do |article_group|

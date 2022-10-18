@@ -54,7 +54,7 @@ class UpdateCourseStats
   end
 
   def update_categories
-    Category.refresh_categories_for(@course)
+    Category.refresh_categories_for(@course, update_service: self)
     log_update_progress :categories_updated
   end
 
@@ -64,7 +64,7 @@ class UpdateCourseStats
   end
 
   def update_average_pageviews
-    AverageViewsImporter.update_outdated_average_views(@course.articles)
+    AverageViewsImporter.update_outdated_average_views(@course.articles, update_service: self)
     log_update_progress :average_pageviews_updated
   end
 

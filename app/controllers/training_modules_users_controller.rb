@@ -32,7 +32,7 @@ class TrainingModulesUsersController < ApplicationController
   private
 
   def set_training_module
-    @training_module = TrainingModule.find_by(slug: params[:module_id])
+    @training_module = TrainingModule.find_by(id: params[:id])
   end
 
   def set_slide
