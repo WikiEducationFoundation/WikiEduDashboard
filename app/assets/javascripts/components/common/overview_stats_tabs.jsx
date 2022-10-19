@@ -8,6 +8,8 @@ import { wikiNamespaceLabel } from '../../utils/wiki_utils';
 
 
 const OverviewStatsTabs = ({ statistics }) => {
+  if (Object.keys(statistics).length === 0) { return null; }
+
   const [currentTabId, setCurrentTabId] = useState(0);
 
   const onTabChange = (e) => {
