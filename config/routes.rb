@@ -401,6 +401,7 @@ Rails.application.routes.draw do
   # Wikimedia Event Center
   post '/wikimedia_event_center/confirm_event_sync' => 'wikimedia_event_center#confirm_event_sync'
   post '/wikimedia_event_center/update_event_participants' => 'wikimedia_event_center#update_event_participants'
+  post '/wikimedia_event_center/unsync_event' => 'wikimedia_event_center#unsync_event'
 
   # Experiments
   namespace :experiments do

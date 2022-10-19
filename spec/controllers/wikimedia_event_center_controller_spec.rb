@@ -23,15 +23,28 @@ describe WikimediaEventCenterController, type: :request do
         organizer_usernames: [organizer.username],
         event_id: '12345',
         secret:,
+        dry_run:,
         format: :json
       }
     end
+
+    let(:dry_run) { nil }
 
     context 'everything is in order' do
       it 'enables event sync' do
         expect(course.flags[:event_sync]).to be_nil
         subject
         expect(course.reload.flags[:event_sync]).to eq('12345')
+      end
+    end
+
+    context 'it is a dry_run' do
+      let(:dry_run) { true }
+
+      it 'does not enable event sync' do
+        expect(course.flags[:event_sync]).to be_nil
+        subject
+        expect(course.flags[:event_sync]).to be_nil
       end
     end
 
@@ -91,6 +104,44 @@ describe WikimediaEventCenterController, type: :request do
     end
   end
 
+  describe '#unsync_event' do
+    subject do
+      post '/wikimedia_event_center/unsync_event', params: {
+        course_slug:,
+        organizer_usernames: [organizer.username],
+        event_id: '12345',
+        secret:,
+        dry_run:,
+        format: :json
+      }
+    end
+
+    let(:dry_run) { nil }
+
+    before do
+      course.flags[:event_sync] = '12345'
+      course.save!
+    end
+
+    context 'everything is in order' do
+      it 'disables event sync' do
+        expect(course.flags[:event_sync]).to eq('12345')
+        subject
+        expect(course.reload.flags[:event_sync]).to be_nil
+      end
+    end
+
+    context 'it is a dry_run' do
+      let(:dry_run) { true }
+
+      it 'does not enable event sync' do
+        expect(course.flags[:event_sync]).to eq('12345')
+        subject
+        expect(course.reload.flags[:event_sync]).to eq('12345')
+      end
+    end
+  end
+
   describe '#update_event_participants' do
     subject do
       post '/wikimedia_event_center/update_event_participants', params: {
@@ -98,12 +149,14 @@ describe WikimediaEventCenterController, type: :request do
         organizer_username: organizer.username,
         event_id:,
         secret:,
+        dry_run:,
         participant_usernames: usernames,
         format: :json
       }
     end
 
     let(:event_id) { '12345' }
+    let(:dry_run) { nil }
 
     before do
       course.flags[:event_sync] = '12345'
@@ -133,6 +186,17 @@ describe WikimediaEventCenterController, type: :request do
 
       it 'removes participants' do
         expect(course.students.count).to eq(1)
+        subject
+        expect(course.reload.students.count).to eq(0)
+      end
+    end
+
+    context 'when it is a dry run' do
+      let(:dry_run) { true }
+      let(:usernames) { %w[RandomUser AnotherRandomUser DefinitelyNotARealUserAtAllEver] }
+
+      it 'does not add or remove participants' do
+        expect(course.students.count).to eq(0)
         subject
         expect(course.reload.students.count).to eq(0)
       end

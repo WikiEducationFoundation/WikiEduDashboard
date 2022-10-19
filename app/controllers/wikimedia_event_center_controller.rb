@@ -16,6 +16,7 @@ class WikimediaEventCenterController < ApplicationController
   #  "organizer_usernames": array of strings // the username(s) of the event's organizer(s).
   #    // Must match one or more users in the "facilitator" role for the Course.
   #  "secret": string // shared secret between the Event Center and the Dashboard
+  #  "dry_run": boolean (optional) // if truthy, will verify that event sync can be enabled.
   # }
   # On failure, returns a JSON object with the error message and error code.
   # Possible error codes:
@@ -32,6 +33,27 @@ class WikimediaEventCenterController < ApplicationController
     render json: { success: true }
   end
 
+  # Method for disconnecting an Event Center event from a Dashboard course
+  # POST /wikimedia_event_center/unsync_event as JSON
+  # {
+  #  "course_slug": string // the unique URL slug for the Course
+  #  "event_id": string or integer // a unique ID for the Event Center event
+  #  "secret": string // shared secret between the Event Center and the Dashboard
+  #  "dry_run": boolean (optional) // if truthy, will verify that event can be unsynced
+  # }
+  # On failure, returns a JSON object with the error message and error code.
+  # Possible error codes:
+  #   invalid_secret - The shared secret doesn't match
+  #   course_not_found - A Course with the provided slug doesn't exist
+  #   sync_not_enabled - This Course isn't linked to the Event Center event (based on event_id)
+  def unsync_event
+    verify_secret { return }
+    set_course { return }
+    verify_event_sync { return }
+    disable_event_sync
+    render json: { success: true }
+  end
+
   # Method for syncing the participant list of a Course from an Event Center event
   # POST /wikimedia_event_center/update_event_participants as JSON
   # {
@@ -40,6 +62,8 @@ class WikimediaEventCenterController < ApplicationController
   #  "organizer_usernames": array of strings // the username(s) of the event's organizer(s).
   #  "secret": string // shared secret between the Event Center and the Dashboard
   #  "participant_usernames": array of strings // usernames of event's current participants
+  #  "dry_run": boolean (optional) // if True, will verify that event is synced
+  #    // and ready for participant updates.
   # }
   # Possible error codes:
   #   invalid_secret - The shared secret doesn't match
@@ -89,11 +113,20 @@ class WikimediaEventCenterController < ApplicationController
     # Only allow one Event to control each course
     raise SyncAlreadyEnabledError if @course.flags[:event_sync]
 
+    return if params[:dry_run]
+
     @course.flags[:event_sync] = params[:event_id]
     @course.save
   rescue AlreadyInUseError, SyncAlreadyEnabledError => e
     render json: { error: e.message, error_code: e.code }, status: :conflict
     yield
+  end
+
+  def disable_event_sync
+    return if params[:dry_run]
+
+    @course.flags.delete(:event_sync)
+    @course.save
   end
 
   def verify_event_sync
@@ -104,6 +137,8 @@ class WikimediaEventCenterController < ApplicationController
   end
 
   def add_or_remove_participants
+    return if params[:dry_run]
+
     synced_participants = params[:participant_usernames].reject(&:blank?)
     current_participants = @course.students.pluck(:username)
 
