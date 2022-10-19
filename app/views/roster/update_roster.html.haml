@@ -1,0 +1,3 @@
+= simple_form_for @user do |f|
+  = f.input :username, required: true, label: 'Enter updated username:', error: 'Username is mandatory, please specify one.'
+  = f.button :submit, data: { confirm: 'The username was updated.' }
