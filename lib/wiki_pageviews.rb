@@ -3,10 +3,11 @@
 # Fetches pageview data from the Wikimedia pageviews REST API
 # Documentation: https://wikimedia.org/api/rest_v1/?doc#!/Pageviews_data/get_metrics_pageviews_per_article_project_access_agent_article_granularity_start_end
 class WikiPageviews
-  def initialize(article)
+  def initialize(article, update_service: nil)
     @article = article
     @title = article.title
     @wiki = article.wiki
+    @update_service = update_service
   end
   ################
   # Entry points #
@@ -27,7 +28,7 @@ class WikiPageviews
   def views_for_article(opts = {})
     start_date = opts[:start_date] || 1.month.ago
     end_date = opts[:end_date] || Time.zone.today
-    daily_view_data = fetch_view_data(start_date, end_date)
+    daily_view_data = fetch_view_data(start_date, end_date, update_service)
     return unless daily_view_data
 
     views = {}

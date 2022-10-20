@@ -14,7 +14,7 @@ class AverageViewsImporter
 
   # We get some 429 / too many requests errors with 8
   MAX_HTTP_CONCURRENCY = 3
-  def self.update_average_views(articles)
+  def self.update_average_views(articles, update_service: nil)
     pool = Concurrent::FixedThreadPool.new(MAX_HTTP_CONCURRENCY)
     average_views = Concurrent::Hash.new
     time = Time.zone.today
@@ -30,9 +30,9 @@ class AverageViewsImporter
     Article.update(average_views.keys, average_views.values)
   end
 
-  def self.update_average_views_for_article(article, average_views, time)
+  def self.update_average_views_for_article(article, average_views, time, update_service:nil)
     average_views[article.id] = {
-      average_views: WikiPageviews.new(article).average_views,
+      average_views: WikiPageviews.new(article, update_service: update_service).average_views,
       average_views_updated_at: time
     }
   end
