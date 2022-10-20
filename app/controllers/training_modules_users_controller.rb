@@ -2,8 +2,7 @@
   respond_to :j
 class TrainingModulesUsersController < ApplicationController
 
-  before_action :require_signed_in, only: [:create_or_update, :mark_exercise_complete, :find_slide]
-  around_action :disable_override_to_param_course
+  before_action :require_signed_in, only: [:create_or_update, :mark_exercise_complete]
 
   def index
     course = Course.find(params[:course_id])
@@ -82,10 +81,4 @@ class TrainingModulesUsersController < ApplicationController
     @training_module_user.save
   end
 
-  def disable_override_to_param_course
-    TrainingSlide.toggle_override_to_param(false)
-    yield
-    TrainingSlide.toggle_override_to_param(true)
-  end
-end
 end

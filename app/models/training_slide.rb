@@ -48,25 +48,18 @@ class TrainingSlide < ApplicationRecord
     TrainingBase.base_path
   end
 
-  def self.override_to_param_enabled?
-    true
-  end
+  
 
-  def self.toggle_override_to_param(enabled)
-    singleton_class.instance_eval do
-      define_method(:override_to_param_enabled?) do |enabled|
-        enabled
-      end
-    end
-  end
+  
 
   ####################
   # Instance methods #
   ####################
 
   def to_param
-    return super unless self.class.override_to_param_enabled?
     return nil unless persisted?
+    id
+    [id, slug].join('-')
     slug
   end
   end
