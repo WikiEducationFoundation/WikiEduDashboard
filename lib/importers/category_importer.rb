@@ -12,11 +12,12 @@ class CategoryImporter
   ################
   # Entry points #
   ################
-  def initialize(wiki, opts={})
+  def initialize(wiki, opts={}, update_service:nil)
     @wiki = wiki
     @depth = opts[:depth] || 0
     @min_views = opts[:min_views] || 0
     @max_wp10 = opts[:max_wp10] || 100
+    @update_service = update_service
   end
 
   def mainspace_page_titles_for_category(category, depth=0)
@@ -46,7 +47,7 @@ class CategoryImporter
     pages = []
     continue = true
     until continue.nil?
-      cat_response = WikiApi.new(@wiki).query query
+      cat_response = WikiApi.new(@wiki, @update_service).query query
       pages_batch = cat_response.data['categorymembers']
       pages += pages_batch
       continue = cat_response['continue']
