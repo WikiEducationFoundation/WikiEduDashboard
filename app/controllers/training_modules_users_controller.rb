@@ -1,8 +1,9 @@
 # frozen_string_literal: true
-
+  respond_to :j
 class TrainingModulesUsersController < ApplicationController
-  respond_to :json
+
   before_action :require_signed_in, only: [:create_or_update, :mark_exercise_complete, :find_slide]
+  around_action :disable_override_to_param_course
 
   def index
     course = Course.find(params[:course_id])
@@ -30,11 +31,11 @@ class TrainingModulesUsersController < ApplicationController
   end
 
   def find_slide
-    @dashboard_url = 'https://outreachdashboard.wmflabs.org/'
-    library_id = @training_library.id
-    module_id = @training_module.id
+    #@dashboard_url = 'https://outreachdashboard.wmflabs.org/'
+    #library_id = @training_library.id
+    #module_id = @training_module.id
     @slide = TrainingSlide.find(params[:id])
-    redirect_to '#{dashboard_url}/training/#{library_id}/#{module_id}/#{slide_id}'
+   # redirect_to '#{dashboard_url}/training/#{library_id}/#{module_id}/#{slide_id}'
   end
 
   private
@@ -80,4 +81,11 @@ class TrainingModulesUsersController < ApplicationController
     @training_module_user.mark_completion(value, course_id)
     @training_module_user.save
   end
+
+  def disable_override_to_param_course
+    TrainingSlide.toggle_override_to_param(false)
+    yield
+    TrainingSlide.toggle_override_to_param(true)
+  end
+end
 end
