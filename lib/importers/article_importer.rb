@@ -4,16 +4,17 @@ require_dependency "#{Rails.root}/lib/replica"
 
 #= Imports articles from Wikipedia into the dashboard database
 class ArticleImporter
-  def initialize(wiki)
+  def initialize(wiki, update_service:nil)
     @wiki = wiki
     @articles = []
+    @update_service = update_service
   end
 
   def import_articles(ids)
     article_ids = ids.map { |id| { 'mw_page_id' => id } }
     articles_data = []
     article_ids.each_slice(40) do |some_article_ids|
-      some_article_data = Replica.new(@wiki).get_existing_articles_by_id some_article_ids
+      some_article_data = Replica.new(@wiki, @update_service).get_existing_articles_by_id some_article_ids
       next if some_article_data.nil?
       articles_data += some_article_data
     end
@@ -26,7 +27,7 @@ class ArticleImporter
     # 40 is too much for some languages, such as bn.wipedia.org
     titles.each_slice(30) do |some_article_titles|
       query = { prop: 'info', titles: some_article_titles }
-      response = WikiApi.new(@wiki).query(query)
+      response = WikiApi.new(@wiki, @update_service).query(query)
       results = response&.data
       next if results.blank?
       results = results['pages']

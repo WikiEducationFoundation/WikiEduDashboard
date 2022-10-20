@@ -6,8 +6,9 @@ require_dependency "#{Rails.root}/lib/utils"
 
 #= Updates records for revisions that were moved or deleted on Wikipedia
 class ModifiedRevisionsManager
-  def initialize(wiki)
+  def initialize(wiki, update_service)
     @wiki = wiki
+    @update_service = update_service
   end
 
   def move_or_delete_revisions(revisions=nil)
@@ -30,7 +31,7 @@ class ModifiedRevisionsManager
 
   def fetch_existing_revisions_from(revisions)
     Utils.chunk_requests(revisions, 100) do |block|
-      Replica.new(@wiki).get_existing_revisions_by_id block
+      Replica.new(@wiki, @update_service).get_existing_revisions_by_id block
     end
   end
 
@@ -56,7 +57,7 @@ class ModifiedRevisionsManager
     mw_page_id = moved['rev_page']
 
     unless Article.exists?(wiki_id: @wiki.id, mw_page_id:)
-      ArticleImporter.new(@wiki).import_articles([mw_page_id])
+      ArticleImporter.new(@wiki, @update_service).import_articles([mw_page_id])
     end
 
     article = Article.find_by(wiki_id: @wiki.id, mw_page_id:, deleted: false)

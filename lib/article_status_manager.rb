@@ -5,15 +5,16 @@ require_dependency "#{Rails.root}/lib/assignment_updater"
 
 #= Updates articles to reflect deletion and page moves on Wikipedia
 class ArticleStatusManager
-  def initialize(wiki = nil)
+  def initialize(wiki = nil, update_service: nil)
     @wiki = wiki || Wiki.default_wiki
+    @update_service = update_service
   end
 
   ################
   # Entry points #
   ################
 
-  def self.update_article_status_for_course(course)
+  def self.update_article_status_for_course(course, update_service)
     course.wikis.each do |wiki|
       # Updating only those articles which are updated more than  1 day ago
       course.pages_edited
@@ -23,7 +24,7 @@ class ArticleStatusManager
         # Using in_batches so that the update_at of all articles in the batch can be
         # excuted in a single query, otherwise if we use find_in_batches, query for
         # each article for updating the same would be required
-        new(wiki).update_status(article_batch)
+        new(wiki, update_service).update_status(article_batch)
         article_batch.touch_all(:updated_at)
       end
     end
@@ -33,7 +34,7 @@ class ArticleStatusManager
   # Per-wiki methods #
   ####################
 
-  def update_status(articles)
+  def update_status(articles, update_service)
     # This is used for problem cases where articles can't be easily disambiguated
     # because of duplicate records with the same mw_page_id. It's only used if
     # `articles` is just one record.
@@ -55,7 +56,7 @@ class ArticleStatusManager
     update_undeleted_articles(articles)
 
     limbo_revisions = Revision.where(mw_page_id: @deleted_page_ids)
-    ModifiedRevisionsManager.new(@wiki).move_or_delete_revisions limbo_revisions
+    ModifiedRevisionsManager.new(@wiki, update_service: @updated_service).move_or_delete_revisions limbo_revisions
   end
 
   ##################

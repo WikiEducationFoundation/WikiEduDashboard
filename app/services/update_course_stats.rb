@@ -59,7 +59,7 @@ class UpdateCourseStats
   end
 
   def update_article_status
-    ArticleStatusManager.update_article_status_for_course(@course)
+    ArticleStatusManager.update_article_status_for_course(@course, update_service: self)
     log_update_progress :article_status_updated
   end
 
