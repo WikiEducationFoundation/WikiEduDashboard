@@ -29,6 +29,7 @@ Metrics/ClassLength:
   Exclude: # These are too big, and should be shrunk if feasible.
     - 'app/models/alert.rb'
     - 'app/models/course.rb'
+    - 'app/models/wiki.rb'
     - 'app/controllers/surveys_controller.rb'
     - 'app/controllers/campaigns_controller.rb'
     - 'app/controllers/courses_controller.rb'
