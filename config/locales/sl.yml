@@ -130,4 +130,6 @@ sl:
     select_one_option: Prosimo, izberite 1 možnost.
     read_more: Preberi še kaj
     summary: Povzetek
+  training_status:
+    continue: Nadaljuj
 ...
