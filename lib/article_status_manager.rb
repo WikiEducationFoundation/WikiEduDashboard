@@ -5,7 +5,8 @@ require_dependency "#{Rails.root}/lib/assignment_updater"
 
 #= Updates articles to reflect deletion and page moves on Wikipedia
 class ArticleStatusManager
-  def initialize(wiki = nil)
+  def initialize(wiki = nil, update_service:nil)
+    @update_service = update_service
     @wiki = wiki || Wiki.default_wiki
   end
 
@@ -13,7 +14,7 @@ class ArticleStatusManager
   # Entry points #
   ################
 
-  def self.update_article_status_for_course(course)
+  def self.update_article_status_for_course(course, update_service:nil)
     course.wikis.each do |wiki|
       # Updating only those articles which are updated more than  1 day ago
       course.pages_edited
@@ -23,7 +24,7 @@ class ArticleStatusManager
         # Using in_batches so that the update_at of all articles in the batch can be
         # executed in a single query, otherwise if we use find_in_batches, query for
         # each article for updating the same would be required
-        new(wiki).update_status(article_batch)
+        new(wiki, update_service: @update_service).update_status(article_batch)
         article_batch.touch_all(:updated_at)
       end
     end
@@ -81,7 +82,7 @@ class ArticleStatusManager
   def article_data_from_replica(articles)
     @failed_request_count = 0
     synced_articles = Utils.chunk_requests(articles, 100) do |block|
-      request_results = Replica.new(@wiki).get_existing_articles_by_id block
+      request_results = Replica.new(@wiki, @update_service).get_existing_articles_by_id block
       @failed_request_count += 1 if request_results.nil?
       request_results
     end
@@ -161,7 +162,7 @@ class ArticleStatusManager
     maybe_deleted = Article.where(mw_page_id: deleted_page_ids, wiki_id: @wiki.id)
     return if maybe_deleted.empty?
     # These pages have titles that match Articles in our DB with deleted ids
-    request_results = Replica.new(@wiki).post_existing_articles_by_title maybe_deleted
+    request_results = Replica.new(@wiki, @update_service).post_existing_articles_by_title maybe_deleted
     @failed_request_count += 1 if request_results.nil?
 
     # Update articles whose IDs have changed (keyed on title and namespace)
