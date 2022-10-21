@@ -21,7 +21,7 @@ class ArticleStatusManager
             .where('articles.updated_at < ?', 1.day.ago)
             .in_batches do |article_batch|
         # Using in_batches so that the update_at of all articles in the batch can be
-        # excuted in a single query, otherwise if we use find_in_batches, query for
+        # executed in a single query, otherwise if we use find_in_batches, query for
         # each article for updating the same would be required
         new(wiki).update_status(article_batch)
         article_batch.touch_all(:updated_at)

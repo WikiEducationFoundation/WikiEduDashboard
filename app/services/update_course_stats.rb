@@ -17,8 +17,8 @@ class UpdateCourseStats
 
   def initialize(course, full: false)
     @course = course
-    # If the upate was explicitly requested by a user,
-    # it could be because the dates or other paramters were just changed.
+    # If the update was explicitly requested by a user,
+    # it could be because the dates or other parameters were just changed.
     # In that case, do a full update rather than just fetching the most
     # recent revisions.
     @full_update = full || @course.needs_update
@@ -59,7 +59,7 @@ class UpdateCourseStats
   end
 
   def update_article_status
-    ArticleStatusManager.update_article_status_for_course(@course)
+    ArticleStatusManager.update_article_status_for_course(@course, update_serivice: self)
     log_update_progress :article_status_updated
   end
 
