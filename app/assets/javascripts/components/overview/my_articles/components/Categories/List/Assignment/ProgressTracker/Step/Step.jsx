@@ -10,7 +10,7 @@ import Reviewers from './Reviewers.jsx';
 import ButtonNavigation from './ButtonNavigation.jsx';
 
 export const Step = ({
-  assignment, content, courseSlug, index, status, title, trainings, last = false,
+  assignment, content, courseSlug, index, status, title, trainings, buttonLabel, stepAction, last = false,
   updateAssignmentStatus, fetchAssignments
 }) => {
   const active = assignment.assignment_status === status;
@@ -29,6 +29,8 @@ export const Step = ({
         last={last}
         updateAssignmentStatus={updateAssignmentStatus}
         fetchAssignments={fetchAssignments}
+        buttonLabel={buttonLabel}
+        stepAction={stepAction}
       />
     </article>
   );

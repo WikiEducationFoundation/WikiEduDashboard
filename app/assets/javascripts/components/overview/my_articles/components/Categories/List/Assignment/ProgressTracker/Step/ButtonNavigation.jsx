@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const update = ({
   assignment, courseSlug,
-  updateAssignmentStatus, fetchAssignments
+  updateAssignmentStatus, fetchAssignments, stepAction
 }, undo = false) => async () => {
   const {
     assignment_all_statuses: statuses,
@@ -14,11 +14,14 @@ const update = ({
 
   await updateAssignmentStatus(assignment, updated);
   await fetchAssignments(courseSlug);
+  if (stepAction) {
+    await stepAction();
+  }
 };
 
 export const ButtonNavigation = (props) => {
   const {
-    active, index
+    active, index, buttonLabel
   } = props;
 
   return (
@@ -39,7 +42,7 @@ export const ButtonNavigation = (props) => {
         disabled={!active}
         onClick={update(props)}
       >
-        Mark Complete &raquo;
+        {buttonLabel || 'Mark Complete'} &raquo;
       </button>
     </nav>
   );

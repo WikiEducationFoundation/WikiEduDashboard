@@ -18,6 +18,11 @@ export function submitBadWorkAlert(data) {
   };
 }
 
+export function submitReviewRequestAlert(_data) {
+  // console.log('ohai');
+  //
+}
+
 export function submitNeedHelpAlert(data) {
   return function (dispatch, getState) {
     // Don't double-submit.
