@@ -123,9 +123,9 @@ pt:
     explore: Explorar
     log_in: Entrar via Wikipédia
     sign_up: Registar-se via Wikipédia
-    sign_up_help: Para utilizar o painel de controlo, precisará de iniciar sessão
-      na Wikipédia para ter acesso à sua conta. Autentique-se com uma conta já existente
-      na Wikipédia ou crie uma nova.
+    sign_up_help: Para utilizar o painel de controlo, terá de iniciar sessão na Wikipédia
+      e dar-lhe permissão para aceder à sua conta. Pode entrar com uma conta existente
+      da Wikipédia ou criar uma nova. Se não conseguir criar uma conta, contacte dashboard@wikiedu.org.
   alerts:
     alert_label: Alertas
     no_alerts: Não foi encontrado nenhum alerta.
@@ -1400,6 +1400,11 @@ pt:
       exercise: Exercício
       discussion: Discussão
       training: Formação
+    no_training_library_records_wiki_ed_mode: Não há registos da biblioteca de formações
+      na base de dados. Clique <a href="%{url}">aqui</a> para carregar dados de formações
+      dos ficheiros yaml em training_content/.
+    no_training_library_records_non_wiki_ed_mode: Não há registos da biblioteca de
+      formações na base de dados.
   uploads:
     credit: Créditos
     file_name: Nome do ficheiro

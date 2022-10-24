@@ -1101,8 +1101,10 @@ uk:
     restorations_performed: Виконані реставрації
     reverts_performed: Повернення виконано
   namespace:
+    all: Усе
     main: Основний простір
     main_char_added: Додано символів в основному просторі
+    talk: Обговорення
     user: Простір користувача
     user_char_added: Додано символів в просторі користувача
   recent_activity:

@@ -26,17 +26,18 @@ bn:
     cancel: বাতিল
     cookie_consent_acknowledge: আমি বুঝেছি
     cookie_consent_see_more: আরো দেখুন।
+    create_accounts: উইকিপিডিয়া অ্যাকাউন্ট তৈরি করুন
     dashboard: উইকি এডু ড্যাশবোর্ড
     documentation: নথিপত্র
-    error: 'একটি ভুল অাছে:'
+    error: 'একটি ত্রুটি হয়েছে:'
     explore: অন্বেষণ করুন
-    field_required: বিষয়টি প্রয়োজনীয়
+    field_required: এই ঘরটি পূরণ করা আবশ্যক
     field_invalid_characters: এখানে অকার্যকর অক্ষর রয়েছে
     field_invalid_date: এখানে বববব-মম-দদ বিন্যাসে একটি তারিখ প্রয়োজন
-    field_invalid_date_time: সমাপ্তি অবশ্যই শুরুর পরে হতে হবে। (ঘন্টা ০ থেকে ২৩ পর্যন্ত)
+    field_invalid_date_time: সমাপ্তি অবশ্যই শুরুর পরে হতে হবে। (ঘণ্টা ০ থেকে ২৩ পর্যন্ত)
     greeting2: স্বাগতম!
     greeting_extended: উইকিপিডিয়ায় স্বাগতম
-    greeting: নমস্কার!
+    greeting: হ্যালো!
     help: সাহায্য
     home: প্রধান পাতা
     log_in_extended: উইকিপিডিয়া দিয়ে প্রবেশ করুন
@@ -45,6 +46,7 @@ bn:
     my_dashboard: আমার ড্যাশবোর্ড
     recent_activity: সাম্প্রতিক কার্যকালাপ
     report_problem: সমস্যার কথা জানান
+    request_account: অ্যাকাউন্টের অনুরোধ করুন
     request_account_create: অ্যাকাউন্ট তৈরি করুন
     search: প্রশ্ন থাকলে জিজ্ঞাস করুন
     sign_up_extended: উইকিপিডিয়া দিয়ে নিবন্ধন করুন
@@ -59,6 +61,8 @@ bn:
     opt_out: না
     opt_yes: হ্যাঁ
     opt_no: না
+  article_statuses:
+    not_yet_started: শুরু করুন
   dashboard:
     create_note: অাপনার প্রথম কোর্স তৈরি করতে কোর্স তৈরী করুনে চাপ দিন।
     create_preparation_note: শুরুর পূর্বে একাডেমিক পঞ্জিকা হাতে প্রাপ্তির বিষয় নিশ্চিত
@@ -72,6 +76,7 @@ bn:
     no_courses_student: মনে হচ্ছে আপনি এখন পর্যন্ত কোন কোর্সে অংশগ্রহণ করেননি।
     opt_out: পরিচিত পর্বে অংশ না নেয়ার অনুরোধ
   home:
+    explore: অন্বেষণ করুন
     log_in: উইকিপিডিয়া দিয়ে প্রবেশ করুন
     sign_up: উইকিপিডিয়া দিয়ে নিবন্ধন করুন
     sign_up_help: যতিফলক ব্যবহার করতে, আপনাকে উইকিপিডিয়ার মাধ্যমে প্রবেশ করতে হবে
@@ -90,7 +95,7 @@ bn:
     article_title: নিবন্ধের শিরোনাম
     assigned_to: কে নির্ধারিত
     deleted: (অপসারিত)
-    edited: সম্পাদিত নিবন্ধসমূহ
+    edited: সম্পাদিত নিবন্ধ
     edited_by: 'সম্পাদনা করেছেন:'
     edited_mobile: নিবন্ধ
     filter:
@@ -127,6 +132,7 @@ bn:
     edited: সম্পাদিত আইটেমসমূহ
     title_example: আইটেমের শিরোনাম
   assignments:
+    article_link: নিবন্ধ
     article_link_wikidata: আইটেম
     title_too_large: শিরোনামের অক্ষর ২৫৫টির বেশী হতে পারবে না
     add_available_wikidata: উপলব্ধ আইটেমগুলো যুক্ত করুন
@@ -252,7 +258,7 @@ bn:
       one: স্বেচ্ছাসেবক
       other: স্বেচ্ছাসেবক
   courses_generic:
-    all_courses: সকল কার্যক্রমসমুহ
+    all_courses: সকল কার্যক্রম
     cancel: বাতিল
     course: প্রোগ্রাম
     courses_taught: প্রোগ্রামের ধারণা
