@@ -14,7 +14,7 @@ class ArticleStatusManager
   # Entry points #
   ################
 
-  def self.update_article_status_for_course(course, update_service: nil)
+  def self.update_article_status_for_course(course)
     course.wikis.each do |wiki|
       # Updating only those articles which are updated more than  1 day ago
       course.pages_edited
@@ -162,8 +162,7 @@ class ArticleStatusManager
     maybe_deleted = Article.where(mw_page_id: deleted_page_ids, wiki_id: @wiki.id)
     return if maybe_deleted.empty?
     # These pages have titles that match Articles in our DB with deleted ids
-    request_results = Replica.new(@wiki, 
-    @update_service).post_existing_articles_by_title maybe_deleted
+    request_results = Replica.new(@wiki).post_existing_articles_by_title maybe_deleted
     @failed_request_count += 1 if request_results.nil?
 
     # Update articles whose IDs have changed (keyed on title and namespace)
