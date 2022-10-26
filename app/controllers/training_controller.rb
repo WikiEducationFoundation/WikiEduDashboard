@@ -21,14 +21,10 @@ class TrainingController < ApplicationController
   end
 
   def training_module
-    #if params[:id].is_a? Integer
-    #  TrainingModule.find_by(id: params[:id])
-    #else
-    #  TrainingModule.find_by(slug: params[:module_id])
-    #end
-    fail_if_entity_not_found(TrainingModule, params[:module_id])
    
-    # Save the return-to source, typically a course page, so that
+    fail_if_entity_not_found(TrainingModule, params[:module_id])
+
+   # Save the return-to source, typically a course page, so that
     # at the end of the training we can return the user to where they
     # started from.
     session[:training_return_to] = request.referer
@@ -38,10 +34,6 @@ class TrainingController < ApplicationController
     add_module_breadcrumb(@pres.training_module)
   end
 
-  def find
-    training_module = TrainingModule.find(params[:id])
-    redirect_to '/training/students/#{training_module.slug}'
-  end
 
   def slide_view
     training_module = TrainingModule.find_by(slug: params[:module_id])
@@ -87,10 +79,12 @@ class TrainingController < ApplicationController
     add_breadcrumb training_module.translated_name, :training_module_path
   end
 
+
   def fail_if_entity_not_found(entity, finder)
     return if entity.find_by(slug: finder).present?
     raise ActionController::RoutingError, 'not found'
   end
 end
+
 
 
