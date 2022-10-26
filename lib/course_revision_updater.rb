@@ -2,7 +2,7 @@
 require_dependency "#{Rails.root}/lib/replica"
 require_dependency "#{Rails.root}/lib/importers/revision_importer"
 
-#= Fetches and imports new revisions for courses
+#= Fetches and imports new revisions for courses and creates ArticlesCourses records
 class CourseRevisionUpdater
   ###############
   # Entry point #
