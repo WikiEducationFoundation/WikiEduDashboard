@@ -48,10 +48,6 @@ class TrainingSlide < ApplicationRecord
     TrainingBase.base_path
   end
 
-  
-
-  
-
   ####################
   # Instance methods #
   ####################
