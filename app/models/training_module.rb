@@ -59,8 +59,6 @@ class TrainingModule < ApplicationRecord
     TrainingBase.load_all
   end
 
-  
-
   # This reloads all the library and module content, but only updates the slides
   # for the module with the given slug.
   def self.reload_module(slug:)
