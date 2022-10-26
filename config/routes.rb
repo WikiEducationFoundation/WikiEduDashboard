@@ -315,6 +315,8 @@ Rails.application.routes.draw do
   post 'training_modules_users/exercise' => 'training_modules_users#mark_exercise_complete'
   get 'reload_trainings' => 'training#reload'
 
+  get 'find_training_slide/:library_id/:module_id/:slide_id' => 'training_modules_users#find'
+
   get 'training_status' => 'training_status#show'
   get 'user_training_status' => 'training_status#user'
 

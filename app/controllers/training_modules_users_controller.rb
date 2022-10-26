@@ -29,7 +29,26 @@ class TrainingModulesUsersController < ApplicationController
     render 'courses/_block', locals: { block:, course: block.course }
   end
 
+  def find
+    set_training_library
+    set_training_module
+    @find_training_slide ||= if is_number?(params[:slide_id])
+      TrainingSlide.find_by(id: params[:slide_id])
+    else
+      TrainingSlide.find_by(slug: params[:slide_id])
+    end
+    redirect_to "/training/#{@library.slug}/#{@training_module.slug}/#{@find_training_slide.slug}"
+
+  end
+
   private
+  def is_number?(string)
+    string.to_i.to_s == string
+  end
+
+  def set_training_library
+    @library = TrainingLibrary.find_by(slug: params[:library_id])
+  end
 
   def set_training_module
     @training_module = TrainingModule.find_by(slug: params[:module_id])
