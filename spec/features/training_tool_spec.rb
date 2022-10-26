@@ -171,7 +171,7 @@ describe 'Training', type: :feature, js: true do
 
     describe 'find_training_module' do
       it 'redirects to a dashboard module' do
-        library = TrainingLibrary.find_by(slug: params[:library_id])
+        library = TrainingLibrary.find_by(slug: 'editing-wikipedia')
       visit "/find_training_module/#{library.slug}/#{module_2.id}"
       expect(response).to redirect_to("/training/#{library.slug}/#{module_2.slug}")
     end
