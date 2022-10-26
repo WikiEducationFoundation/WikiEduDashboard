@@ -7,6 +7,7 @@ DESIRED_TRAINING_MODULES = [{ slug: 'evaluating-articles' }].freeze
 describe 'Training', type: :feature, js: true do
   let(:user) { create(:user, id: 1) }
   let(:module_2) { TrainingModule.find_by(slug: 'evaluating-articles') }
+  let(:library_2) {TrainingLibrary.find_by(slug: 'editing-wikipedia') }
 
   before(:all) do
     TrainingModule.load_all
@@ -171,9 +172,8 @@ describe 'Training', type: :feature, js: true do
 
     describe 'find_training_module' do
       it 'redirects to a dashboard module' do
-        library = TrainingLibrary.find_by(slug: 'editing-wikipedia')
-      visit "/find_training_module/#{library.slug}/#{module_2.id}"
-      expect(response).to redirect_to("/training/#{library.slug}/#{module_2.slug}")
+      visit "/find_training_module/#{library_2.slug}/#{module_2.id}"
+      expect(response).to redirect_to("/training/#{library_2.slug}/#{module_2.slug}")
     end
   end
   end
