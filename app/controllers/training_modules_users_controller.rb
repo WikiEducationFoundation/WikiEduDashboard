@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-  respond_to :json
+  
 class TrainingModulesUsersController < ApplicationController
-
+  respond_to :json
   before_action :require_signed_in, only: [:create_or_update, :mark_exercise_complete]
 
   def index
