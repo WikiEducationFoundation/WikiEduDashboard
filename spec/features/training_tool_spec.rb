@@ -6,7 +6,7 @@ DESIRED_TRAINING_MODULES = [{ slug: 'evaluating-articles' }].freeze
 
 describe 'Training', type: :feature, js: true do
   let(:user) { create(:user, id: 1) }
-  let(:module_2) { TrainingModule.find_by(slug: 'evaluating-articles') }
+  let(:module_2) { TrainingModule.find_by(slug: 'evaluating-articles', id: 10009) }
 
   before(:all) do
     TrainingModule.load_all
@@ -69,6 +69,12 @@ describe 'Training', type: :feature, js: true do
     after do
       login_as(user, scope: :user)
     end
+
+    it 'loads module index by ID' do
+      #TrainingSlide.load
+      visit "/training/students/#{module_2.id}"
+      expect(page).to have_current_path("/training/students/#{module_2.slug}")
+      end
 
     it 'describes the module' do
       expect(page).to have_content module_2.name

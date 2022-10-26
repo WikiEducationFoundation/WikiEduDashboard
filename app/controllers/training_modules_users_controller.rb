@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-  respond_to :j
+  respond_to :json
 class TrainingModulesUsersController < ApplicationController
 
   before_action :require_signed_in, only: [:create_or_update, :mark_exercise_complete]
@@ -27,14 +27,6 @@ class TrainingModulesUsersController < ApplicationController
     mark_completion_status(params[:complete], block.course.id)
 
     render 'courses/_block', locals: { block:, course: block.course }
-  end
-
-  def find_slide
-    #@dashboard_url = 'https://outreachdashboard.wmflabs.org/'
-    #library_id = @training_library.id
-    #module_id = @training_module.id
-    @slide = TrainingSlide.find(params[:id])
-   # redirect_to '#{dashboard_url}/training/#{library_id}/#{module_id}/#{slide_id}'
   end
 
   private

@@ -56,13 +56,13 @@ class TrainingSlide < ApplicationRecord
   # Instance methods #
   ####################
 
-  def to_param
-    return nil unless persisted?
-    id
-    [id, slug].join('-')
-    slug
-  end
-  end
+  #def to_param
+    #return nil unless persisted?
+    #id
+    #[id, slug].join('-')
+   # slug
+ # end
+  #end
 
   def self.inflate(all_content, slug, wiki_page = nil)
     slide = TrainingSlide.find_or_initialize_by(id: all_content['id'])

@@ -307,6 +307,10 @@ Rails.application.routes.draw do
   get 'training' => 'training#index'
   get 'training/:library_id' => 'training#show', as: :training_library
   get 'training/:library_id/:module_id' => 'training#training_module', as: :training_module
+
+  #get 'training/:library_id/:id' => 'training#find'
+
+
   get 'training_modules_users' => 'training_modules_users#index'
   post 'training_modules_users' => 'training_modules_users#create_or_update'
   post 'training_modules_users/exercise' => 'training_modules_users#mark_exercise_complete'
@@ -322,7 +326,7 @@ Rails.application.routes.draw do
   get 'training_modules' => 'training_modules#index'
   get 'training_module' => 'training_modules#show'
 
-  get 'find_training_slide/:id' => 'training_modules_users#find_slide'
+ # get 'find_training_slide/:id' => 'training_modules_users#find_slide'
 
 
   # Misc
