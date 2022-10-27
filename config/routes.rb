@@ -446,6 +446,4 @@ Rails.application.routes.draw do
   match '/599', to: 'errors#login_error', via: :all
   match '/500', to: 'errors#internal_server_error', via: :all
 
-  # Enhancements
-  get '/update_roster' => 'roster#update_roster'
 end

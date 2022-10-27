@@ -19,10 +19,3 @@
         = topic.name
       - else
         %a.topic-link{href: "/faq?topic=#{topic.slug}"}= topic.name
-    %hr
-      - if params[:all]
-        All questions
-      - else
-        %a.topic-link{href: "/faq?all=true"} All questions
-        %br
-        %a.topic-link{href: "/update_roster"} Update student roster

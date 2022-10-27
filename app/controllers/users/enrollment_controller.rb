@@ -164,4 +164,15 @@ class Users::EnrollmentController < ApplicationController
   def update_course_page_and_assignment_talk_templates
     UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
   end
+
+  ##################
+  # Updating a user #
+  ##################
+  def update_username
+    set_course_and_user
+    ensure_user_exists { return }
+    return if enroll_params.key? :username
+    @user = UserImporter.update_username_for_global_id
+    render 'users', formats: :json
+  end
 end
