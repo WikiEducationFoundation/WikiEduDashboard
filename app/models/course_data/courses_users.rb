@@ -92,7 +92,8 @@ class CoursesUsers < ApplicationRecord
   end
 
   def live_revisions
-    course.tracked_revisions.joins(:article).where(user_id:).live
+    course_article_ids = course.articles.pluck(:id)
+    course.tracked_revisions.joins(:article).where(user_id:, article_id: course_article_ids).live
   end
 
   def update_character_sum(revisions)

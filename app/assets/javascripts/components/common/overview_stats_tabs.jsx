@@ -4,10 +4,12 @@ import PropTypes from 'prop-types';
 import OverviewStatsTab from './OverviewStats/overview_stats_tab';
 import OverviewStatsContent from './OverviewStats/overview_stats_content';
 
-import { overviewStatsLabel } from '../../utils/wiki_utils';
+import { wikiNamespaceLabel } from '../../utils/wiki_utils';
 
 
 const OverviewStatsTabs = ({ statistics }) => {
+  if (Object.keys(statistics).length === 0) { return null; }
+
   const [currentTabId, setCurrentTabId] = useState(0);
 
   const onTabChange = (e) => {
@@ -21,7 +23,12 @@ const OverviewStatsTabs = ({ statistics }) => {
 
   let index = 0;
   Object.keys(statistics).forEach((wiki_ns_key) => {
-    const statsTitle = overviewStatsLabel(wiki_ns_key);
+    let statsTitle;
+    if (wiki_ns_key.includes('namespace')) {
+      const wiki = wiki_ns_key.split('-')[0];
+      const namespace = wiki_ns_key.split('-')[2];
+      statsTitle = wikiNamespaceLabel(wiki, namespace);
+    } else { statsTitle = wiki_ns_key; }
     const statsData = statistics[wiki_ns_key];
 
     statsList.push({ statsTitle, statsData });

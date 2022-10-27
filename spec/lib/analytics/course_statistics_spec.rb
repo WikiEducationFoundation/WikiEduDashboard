@@ -25,6 +25,7 @@ describe CourseStatistics do
       create(:revision, date: 2.years.ago, article_id: id2, user_id: id2)
       create(:article, id: id2, title: "Article_#{id2}")
       create(:commons_upload, id: id2, user_id: id2, uploaded_at: 2.years.ago, usage_count: 1)
+      ArticlesCourses.update_from_course(Course.find(id))
       CoursesUsers.update_all_caches(CoursesUsers.ready_for_update)
     end
   end

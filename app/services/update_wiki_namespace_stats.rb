@@ -1,6 +1,27 @@
 # frozen_string_literal: true
 
 class UpdateWikiNamespaceStats
+  def self.clear_untracked_namespace_data(course)
+    tracked_keys = stat_keys(course.course_wiki_namespaces)
+    course_stats = CourseStat.find_or_create_by(course_id: course.id)
+    course_stats.stats_hash.each_key do |key|
+      next unless key.include?('-namespace-') # only clear namespace data, not wikidata stats, etc.
+      next if tracked_keys.include?(key)
+      course_stats.stats_hash.delete(key)
+    end
+    course_stats.save
+  end
+
+  def self.stat_keys(course_wiki_namespaces)
+    course_wiki_namespaces.map do |course_wiki_ns|
+      stat_key(course_wiki_ns.courses_wikis.wiki, course_wiki_ns.namespace)
+    end
+  end
+
+  def self.stat_key(wiki, namespace)
+    "#{wiki.domain}-namespace-#{namespace}"
+  end
+
   def initialize(course, wiki, namespace)
     @course = course
     @wiki = wiki
@@ -9,7 +30,6 @@ class UpdateWikiNamespaceStats
   end
 
   def update_stats
-    stat_key = "#{@wiki.domain}-namespace-#{@namespace}"
     stats = {
       edited_count: edited_articles_count,
       new_count: new_articles_count,
@@ -20,9 +40,11 @@ class UpdateWikiNamespaceStats
       view_count:
     }
     course_stats = CourseStat.find_or_create_by(course_id: @course.id)
-    course_stats.stats_hash[stat_key] = stats
+    course_stats.stats_hash[UpdateWikiNamespaceStats.stat_key(@wiki, @namespace)] = stats
     course_stats.save
   end
+
+  private
 
   # live, tracked course revisions filtered by wiki and namespace
   def revisions_filtered_by_wiki_namespace
