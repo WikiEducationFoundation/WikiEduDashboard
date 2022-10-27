@@ -19,7 +19,8 @@ describe UpdateWikiNamespaceStats do
     course.campaigns << Campaign.first
 
     create(:course_wiki_namespaces, courses_wikis: cookbook_course_wiki, namespace: cookbook_ns)
-    create(:course_wiki_namespaces, courses_wikis: enwiki_course_wiki, namespace: file_ns) # not mainspace
+    create(:course_wiki_namespaces, courses_wikis: enwiki_course_wiki,
+                                    namespace: file_ns) # not mainspace
     JoinCourse.new(course:, user: user1, role: 0)
     JoinCourse.new(course:, user: user2, role: 0)
     VCR.use_cassette 'course_update' do
