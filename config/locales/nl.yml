@@ -132,9 +132,10 @@ nl:
     explore: Verkennen
     log_in: Aanmelden met Wikipedia
     sign_up: Registreren via Wikipedia
-    sign_up_help: Om het dashboard te gebruiken, moet u zich aanmelden via Wikipedia
-      en het toestemming geven voor toegang tot uw account. U kunt zich aanmelden
-      met een bestaand Wikipedia-account of een nieuwe aanmaken.
+    sign_up_help: Om het dashboard te gebruiken moet u zich aanmelden via Wikipedia
+      en daar toestemming geven voor toegang tot uw account. U kunt zich aanmelden
+      met een bestaand Wikipedia-account of een nieuw aanmaken. Als het niet lukt
+      om een account aan te maken, neem dan contact op met dashboard@wikiedu.org.
   alerts:
     alert_label: Meldingen
     no_alerts: Geen meldingen gevonden.
@@ -183,6 +184,7 @@ nl:
     loading: Bezig met pagina's laden...
     new: (nieuw)
     none: Deze cursus heeft geen bewerkte pagina's.
+    preview: Korte samenvatting van het artikel
     rating: Klasse
     rating_doc: De waardering van een artikel is toegekend door WikiProjecten op Wikipedia.
       Deze waarderingen kunnen gebaseerd zijn op veel oudere versies en zijn dus maar
@@ -205,7 +207,12 @@ nl:
       '?': Zonder beoordeling — een pagina die nog niet is beoordeeld op de kwaliteitsschaal
         van Wikipedia
       does_not_exist: Dit artikel bestaat niet op Wikipedia
+    see_more: Bekijk meer
+    search: Op Wikipedia naar een artikel zoeken
+    show_cumulative_changes: Cumulatieve wijzigingen weergeven
     show_current_version: Huidige versie bekijken
+    show_current_version_with_authorship_highlighting: Huidige versie met markering
+      van auteurschap
     title: Naam
     title_example: Paginanaam
     view: Pagina bekijken
