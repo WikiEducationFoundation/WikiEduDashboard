@@ -24,7 +24,11 @@ describe RevisionImporter do
       create(:revision, user_id: user.id, article_id: article.id, date: course_1.start + 1.month)
     end
 
-    before { CoursesUsers.all.collect(&:update_cache) }
+    before do
+      ArticlesCourses.update_from_course(course_1)
+      ArticlesCourses.update_from_course(course_2)
+      CoursesUsers.all.collect(&:update_cache)
+    end
 
     it 'returns users who have no revisions for the given course' do
       result = described_class.new(Wiki.default_wiki, course_2).send(:users_with_no_revisions)
