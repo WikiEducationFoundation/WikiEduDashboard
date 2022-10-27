@@ -207,5 +207,21 @@ describe Users::EnrollmentController, type: :request do
         end
       end
     end
+
+    context 'UPDATE' do
+      let(:update_params) do
+        { id: course.slug,
+          user: { user_id: user.id, role: CoursesUsers::Roles::STUDENT_ROLE } }
+      end
+
+      before do
+        post "/courses/#{course.slug}/user", params: post_params
+      end
+
+      it 'updates the username'
+        update "/courses/#{course.slug}/user", params: update_params
+        expect(CoursesUsers.count).to eq(0)
+      end
+    end
   end
 end
