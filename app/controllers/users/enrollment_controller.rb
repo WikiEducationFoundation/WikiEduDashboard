@@ -171,7 +171,7 @@ class Users::EnrollmentController < ApplicationController
   def update_username
     set_course_and_user
     ensure_user_exists { return }
-    return if enroll_params.key? :username
+    return unless enroll_params.key? :username
     @user = UserImporter.update_username_for_global_id
     render 'users', formats: :json
   end
