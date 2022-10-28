@@ -9,7 +9,8 @@ class TrainingController < ApplicationController
 
   def index
     @search = params[:search_training]
-    @focused_library_slug, @libraries = TrainingResourceQueryObject.find_libraries(@search, current_user)
+    @focused_library_slug, @libraries = TrainingResourceQueryObject
+                                        .find_libraries(@search, current_user)
 
     unless @search
       render 'no_training_module' if @libraries.empty?
