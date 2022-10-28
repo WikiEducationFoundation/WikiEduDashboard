@@ -176,6 +176,23 @@ describe 'Training', type: :feature, js: true do
     end
   end
 
+  describe 'display of a search form' do
+    before do
+      TrainingSlide.load
+      visit '/training'
+    end
+
+    it 'displays a simple search input' do
+      expect(page).to have_field('search_training')
+    end
+
+    it 'displays search results' do
+      fill_in('search_training', with: 'cnn')
+      click_button('glass_training')
+      expect(page).to have_content('Wikipedia policies')
+    end
+  end
+
   describe 'finish module button' do
     context 'logged in user' do
       it 'redirects to their dashboard' do

@@ -2,16 +2,18 @@
 
 require_dependency "#{Rails.root}/lib/training_progress_manager"
 require_dependency "#{Rails.root}/lib/data_cycle/training_update"
+require_dependency "#{Rails.root}/lib/training/training_resource_query_object"
 
 class TrainingController < ApplicationController
   layout 'training'
 
   def index
-    @focused_library_slug = current_user&.courses&.last&.training_library_slug
-    @libraries = TrainingLibrary.all.sort_by do |library|
-      library.slug == @focused_library_slug ? 0 : 1
+    @search = params[:search_training]
+    @focused_library_slug, @libraries = TrainingResourceQueryObject.find_libraries(@search, current_user)
+
+    unless @search
+      render 'no_training_module' if @libraries.empty?
     end
-    render 'no_training_module' if @libraries.empty?
   end
 
   def show

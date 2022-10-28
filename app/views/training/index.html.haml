@@ -1,6 +1,11 @@
 - content_for :before_title, "Training Libraries - "
 .container.training
   %h1 Training Libraries
+  .search-bar{style: 'position:relative'}
+    = form_tag("/training", method: "get") do
+      = text_field_tag(:search_training, '', placeholder: t('training.search_training_resources'), style: 'width: 100%; height: 3rem;font-size: 15px')
+      %button{type: 'submit', name: 'glass_training', style: 'position: absolute; right: 20px'}
+        %i.icon.icon-search
   %ul.training-libraries.no-bullets.no-margin
     - defocus_class = @focused_library_slug ? 'training-library-defocus' : ''
     - @libraries.each do |library|
