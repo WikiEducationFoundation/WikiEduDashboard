@@ -14,14 +14,24 @@ class TrainingModulesController < ApplicationController
  
   #new code
   def find
-    set_training_library
+   # set_training_library
     @find_training_module ||= if is_number?(params[:module_id])
       TrainingModule.find_by(id: params[:module_id])
     else
       TrainingModule.find_by(slug: params[:module_id])
     end
-    redirect_to "/training/#{@library.slug}/#{@find_training_module.slug}"
+    find_corresponding_library
+    redirect_to "/training/#{@find_training_library.slug}/#{@find_training_module.slug}"
 
+  end
+
+  def find_corresponding_library
+    @find_training_library ||= if is_number?(params[:module_id])
+    #@find_training_library = TrainingLibrary.all.select(:categories).select(:modules).where("slug = ?", params[:module_id])
+      TrainingLibrary.all.where("categories.modules.id LIKE ?", params[:module_id])
+    else
+      TrainingLibrary.all.where("categories.modules.slug LIKE ?", params[:module_id]) 
+    end
   end
 
     private
