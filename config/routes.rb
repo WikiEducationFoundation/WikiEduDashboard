@@ -308,14 +308,14 @@ Rails.application.routes.draw do
   get 'training/:library_id' => 'training#show', as: :training_library
   get 'training/:library_id/:module_id' => 'training#training_module', as: :training_module
 
-  get 'find_training_module/:module_id' => 'training_modules#find'
+  get 'find_training_module/:module_id' => 'training_modules#find_module'
 
   get 'training_modules_users' => 'training_modules_users#index'
   post 'training_modules_users' => 'training_modules_users#create_or_update'
   post 'training_modules_users/exercise' => 'training_modules_users#mark_exercise_complete'
   get 'reload_trainings' => 'training#reload'
 
-  get 'find_training_slide/:library_id/:module_id/:slide_id' => 'training_modules_users#find'
+  get 'find_training_slide/:slide_id' => 'training_modules#find_slide'
 
   get 'training_status' => 'training_status#show'
   get 'user_training_status' => 'training_status#user'
@@ -326,9 +326,6 @@ Rails.application.routes.draw do
   # API for slides for a module
   get 'training_modules' => 'training_modules#index'
   get 'training_module' => 'training_modules#show'
-
- # get 'find_training_slide/:id' => 'training_modules_users#find_slide'
-
 
   # Misc
   # get 'courses' => 'courses#index'

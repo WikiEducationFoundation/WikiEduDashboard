@@ -30,16 +30,61 @@ class TrainingModulesUsersController < ApplicationController
   end
 
   def find
-    set_training_library
-    set_training_module
     @find_training_slide ||= if is_number?(params[:slide_id])
       TrainingSlide.find_by(id: params[:slide_id])
     else
       TrainingSlide.find_by(slug: params[:slide_id])
     end
-    redirect_to "/training/#{@library.slug}/#{@training_module.slug}/#{@find_training_slide.slug}"
+    find_corresponding_module
+    find_corresponding_library
+    redirect_to "/training/#{@library_slug}/#{@module_slug}/#{@find_training_slide.slug}"
 
   end
+
+  def find_corresponding_module
+    ts_slug = @find_training_slide.id
+    @training_module = TrainingModule.all.find_each do |tm|
+      ts = tm.slide_slugs
+      @module_slug = tm.slug
+      #puts ts.inspect
+       ts_slug.in? ts 
+        @module_slug
+      
+      
+    end
+     #categories = library.categories
+     #@library_slug = library.slug
+     #categories.each do |key, value|
+      # puts key
+      # puts value
+      # if key == 'modules'
+      #  puts value[1].each do |key, value|
+      #    puts key
+       #   puts value.include?(@find_training_module.slug)
+       #   @library_slug
+       # end
+       #end
+      #end
+   # end
+   end
+
+   def find_corresponding_library
+    @training_library = TrainingLibrary.all.find_each do |library|
+     categories = library.categories
+     @library_slug = library.slug
+     categories.each do |key, value|
+       puts key
+       puts value
+       if key == 'modules'
+        puts value[1].each do |key, value|
+          puts key
+          puts value.include?(@module_slug)
+          @library_slug
+        end
+       end
+      end
+    end
+    end
 
   private
   def is_number?(string)

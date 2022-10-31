@@ -13,7 +13,7 @@ class TrainingModulesController < ApplicationController
   end
  
   #new code
-  def find
+  def find_module
     @find_training_module ||= if is_number?(params[:module_id])
       TrainingModule.find_by(id: params[:module_id])
     else
@@ -21,7 +21,28 @@ class TrainingModulesController < ApplicationController
     end
     find_corresponding_library
     redirect_to "/training/#{@library_slug}/#{@find_training_module.slug}"
+  end
 
+  def find_slide
+    @find_training_slide ||= if is_number?(params[:slide_id])
+      TrainingSlide.find_by(id: params[:slide_id])
+    else
+      TrainingSlide.find_by(slug: params[:slide_id])
+    end
+    #find_corresponding_module
+    #find_corresponding_library
+    redirect_to "/training/#{@library_slug}/#{@module_slug}/#{@find_training_slide.slug}"
+  end
+
+  def find_corresponding_module
+    ts_slug = @find_training_slide.slug
+    @training_module = TrainingModule.all.find_each do |tm|
+      ts = tm.slide_slugs
+      @module_slug = tm.slug
+      #puts ts.inspect
+       ts_slug.in? ts 
+        @module_slug
+    end
   end
 
   def find_corresponding_library

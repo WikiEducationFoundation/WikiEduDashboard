@@ -169,12 +169,6 @@ describe 'Training', type: :feature, js: true do
         expect(page).to have_current_path('/training/students')
       end
     end
-
-    describe 'find_training_module' do
-      it 'redirects to a dashboard module' do
-      visit "/find_training_module/#{module_2.id}"
-      expect(response).to redirect_to("/training/#{library_2.slug}/#{module_2.slug}")
-    end
   end
   end
 
