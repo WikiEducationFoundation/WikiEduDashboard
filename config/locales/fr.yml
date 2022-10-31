@@ -711,6 +711,7 @@ fr:
     gradeables_none: Ce cours n’a aucune affectation notable.
     home_wiki: Wiki principal
     multi_wiki: Wikis tracés
+    namespaces: Espaces de noms suivis
     instructor:
       one: Instructeur
       other: Instructeurs
@@ -1215,6 +1216,10 @@ fr:
     rhymes: Rimes
     index: Index
     collection: Collection
+    tracked_namespaces_info: Seuls les articles qui correspondent aux espaces de noms
+      suivis contribueront aux statistiques générales principales, comme « Articles
+      modifiés », « Modifications totales », « Mots ajoutés », etc. Par conséquent,
+      cela ne suit que les espaces de noms que votre programme vise à améliorer.
   recent_activity:
     active_courses: L’article est actif dans
     article_title: Titre

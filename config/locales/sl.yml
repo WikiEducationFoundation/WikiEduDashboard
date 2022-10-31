@@ -57,6 +57,7 @@ sl:
       start_date: Datum začetka
     delete_suggestion: Izbriši
     dismiss_survey: Opusti
+    namespaces: Sledeni imenski prostori
     loading: Nalaganje ...
     new_account_email_placeholder: ime@example.org
     none: Noben
@@ -89,6 +90,11 @@ sl:
     last_reviewed: Zadnjič pregledano
     tags: Oznake
     labels: Oznake
+  namespace:
+    tracked_namespaces_info: K statističnim pregledom na vrhu bodo prispevali samo
+      članki, ki ustrezajo sledenim imenskim prostorom, kot so »Urejeni članki«, »Skupno
+      urejanje«, »Dodane besede« ipd. Sledite samo imenskim prostorom, ki jih vaš
+      program želi izboljšati.
   recent_activity:
     article_title: Naslov
     file_name: Ime datoteke

@@ -776,7 +776,7 @@ cs:
     leave_course: Opustit projekt
     milestones_none: Tento kurz v současné době nemá žádné milníky.
     not_permitted: Nemáte oprávnění pro editaci tohoto programu.
-    published: 'Tento kurz byl publikován. Studenti se mohou zapsat navštívením následující
+    published: 'Tento kurz byl publikován. Editoři se mohou zapsat navštívením následující
       URL:'
     request_accounts: Požádat o účty
     revisions_none: Tento projekt nemá nedávnou editační aktivitu.
@@ -788,7 +788,7 @@ cs:
     student: Editor
     students: Editoři
     students_taught: Celkový počet editorů
-    students_none: Tento projekt nemá žádné zapsané studenty.
+    students_none: Tento projekt nemá žádné zapsané editoři.
     students_short: Editoři
     students_count: Počet účastníků
     term: Kdy

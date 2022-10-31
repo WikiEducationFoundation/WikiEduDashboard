@@ -9,6 +9,7 @@
 # Author: Lilitik22
 # Author: Vahe Gharakhanyan
 # Author: Աշոտ1997
+# Author: Սերգեյ Սաֆարյան
 ---
 hy:
   application:
@@ -367,6 +368,8 @@ hy:
     training_module_status: Կարգավիճակ
     training_module_time:
       seconds: Վրկ
+    username: Օգտանուն
+    username_placeholder: Օգտանուն
   wizard:
     assignment_dates: Հանձնարարության ժամկետներ
     assignment_type: Հանձնարարության տեսակ

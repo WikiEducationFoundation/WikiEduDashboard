@@ -910,10 +910,11 @@ de:
   instructor_view:
     article_assignments: '%{prefix} Zuordnungen'
     assignments_table:
-      article_name: Artikelname
+      article_name: Name
       current_stage: Aktueller Status
       relevant_links: Relevante links
     assigned_articles: Zugeordnete Artikel
+    assigned_articles_wikidata: Zugewiesene Elemente
     bad_work:
       learn_more: Wenn die Arbeit eines Schülers den Artikel schlechter gemacht hat,
         ermutigen wir dich ihn selbst zu bearbeiten. Lass uns ansonsten über die Probleme

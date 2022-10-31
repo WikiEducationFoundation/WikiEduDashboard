@@ -412,6 +412,7 @@ nb:
     gradeables_none: Dette kurset har ingen oppgaver som kan karaktersettes.
     home_wiki: Hjemmewiki
     multi_wiki: Inkluderte wikier
+    namespaces: Overvåkede navnerom
     instructor:
       one: Instruktør
       other: Instruktører

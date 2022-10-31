@@ -61,6 +61,7 @@ smn:
   assignments:
     article_link: Artikkâl
     add_available_submit: Lasseet artikkâlijd
+    remove: Siho
   campaign:
     alert_user_id: Kevttee
     search: Uusâ
@@ -68,9 +69,11 @@ smn:
     add_category: Lasseet luoka
     name: Nommâ
     template_name: Myenster nommâ
+    remove: Siho
   courses:
     alerts: Larmâdâsah
     articles: Artikkâleh
+    delete_suggestion: Siho
     home_wiki: Päikkiwiki
     new_account_email: Šleđgâpostâčujottâs
     overview: Päikki
