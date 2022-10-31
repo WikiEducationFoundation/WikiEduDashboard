@@ -172,7 +172,7 @@ describe 'Training', type: :feature, js: true do
 
     describe 'find_training_module' do
       it 'redirects to a dashboard module' do
-      visit "/find_training_module/#{library_2.slug}/#{module_2.id}"
+      visit "/find_training_module/#{module_2.id}"
       expect(response).to redirect_to("/training/#{library_2.slug}/#{module_2.slug}")
     end
   end

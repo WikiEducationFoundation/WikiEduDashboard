@@ -14,32 +14,36 @@ class TrainingModulesController < ApplicationController
  
   #new code
   def find
-   # set_training_library
     @find_training_module ||= if is_number?(params[:module_id])
       TrainingModule.find_by(id: params[:module_id])
     else
       TrainingModule.find_by(slug: params[:module_id])
     end
     find_corresponding_library
-    redirect_to "/training/#{@find_training_library.slug}/#{@find_training_module.slug}"
+    redirect_to "/training/#{@library_slug}/#{@find_training_module.slug}"
 
   end
 
   def find_corresponding_library
-    @find_training_library ||= if is_number?(params[:module_id])
-    #@find_training_library = TrainingLibrary.all.select(:categories).select(:modules).where("slug = ?", params[:module_id])
-      TrainingLibrary.all.where("categories.modules.id LIKE ?", params[:module_id])
-    else
-      TrainingLibrary.all.where("categories.modules.slug LIKE ?", params[:module_id]) 
+  @training_library = TrainingLibrary.all.find_each do |library|
+   categories = library.categories
+   @library_slug = library.slug
+   categories.each do |key, value|
+     puts key
+     puts value
+     if key == 'modules'
+      puts value[1].each do |key, value|
+        puts key
+        puts value.include?(@find_training_module.slug)
+        @library_slug
+      end
+     end
     end
+  end
   end
 
     private
     def is_number?(string)
       string.to_i.to_s == string
     end
-
-    def set_training_library
-      @library = TrainingLibrary.find_by(slug: params[:library_id])
-    end
-end
+ end
