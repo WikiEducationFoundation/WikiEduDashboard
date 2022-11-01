@@ -28,3 +28,4 @@ class DeletedTimelineAlert <Alert
         flash[:success] = "Deleted timeline
         redirect_to timeline_path" (@courses)
     end
+    
