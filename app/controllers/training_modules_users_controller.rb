@@ -29,72 +29,7 @@ class TrainingModulesUsersController < ApplicationController
     render 'courses/_block', locals: { block:, course: block.course }
   end
 
-  def find
-    @find_training_slide ||= if is_number?(params[:slide_id])
-      TrainingSlide.find_by(id: params[:slide_id])
-    else
-      TrainingSlide.find_by(slug: params[:slide_id])
-    end
-    find_corresponding_module
-    find_corresponding_library
-    redirect_to "/training/#{@library_slug}/#{@module_slug}/#{@find_training_slide.slug}"
-
-  end
-
-  def find_corresponding_module
-    ts_slug = @find_training_slide.id
-    @training_module = TrainingModule.all.find_each do |tm|
-      ts = tm.slide_slugs
-      @module_slug = tm.slug
-      #puts ts.inspect
-       ts_slug.in? ts 
-        @module_slug
-      
-      
-    end
-     #categories = library.categories
-     #@library_slug = library.slug
-     #categories.each do |key, value|
-      # puts key
-      # puts value
-      # if key == 'modules'
-      #  puts value[1].each do |key, value|
-      #    puts key
-       #   puts value.include?(@find_training_module.slug)
-       #   @library_slug
-       # end
-       #end
-      #end
-   # end
-   end
-
-   def find_corresponding_library
-    @training_library = TrainingLibrary.all.find_each do |library|
-     categories = library.categories
-     @library_slug = library.slug
-     categories.each do |key, value|
-       puts key
-       puts value
-       if key == 'modules'
-        puts value[1].each do |key, value|
-          puts key
-          puts value.include?(@module_slug)
-          @library_slug
-        end
-       end
-      end
-    end
-    end
-
   private
-  def is_number?(string)
-    string.to_i.to_s == string
-  end
-
-  def set_training_library
-    @library = TrainingLibrary.find_by(slug: params[:library_id])
-  end
-
   def set_training_module
     @training_module = TrainingModule.find_by(slug: params[:module_id])
   end
@@ -136,5 +71,4 @@ class TrainingModulesUsersController < ApplicationController
     @training_module_user.mark_completion(value, course_id)
     @training_module_user.save
   end
-
 end

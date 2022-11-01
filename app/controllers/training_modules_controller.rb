@@ -29,8 +29,8 @@ class TrainingModulesController < ApplicationController
     else
       TrainingSlide.find_by(slug: params[:slide_id])
     end
-    #find_corresponding_module
-    #find_corresponding_library
+    find_corresponding_module
+    find_corresponding_library
     redirect_to "/training/#{@library_slug}/#{@module_slug}/#{@find_training_slide.slug}"
   end
 
