@@ -82,6 +82,7 @@ class Alert < ApplicationRecord
     BlockedUserAlert
     ContinuedCourseActivityAlert
     DeletedUploadsAlert
+    DeletedTimelineAlert
     DiscretionarySanctionsAssignmentAlert
     DiscretionarySanctionsEditAlert
     DYKNominationAlert
