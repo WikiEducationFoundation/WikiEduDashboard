@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# Handles incoming email via griddler, turning emails @dashboard.wikiedu.org forwarded by Mailgun
+# into Tickets
 class EmailProcessor
   def initialize(email)
     @email = email
