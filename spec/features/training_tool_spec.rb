@@ -7,7 +7,6 @@ DESIRED_TRAINING_MODULES = [{ slug: 'evaluating-articles' }].freeze
 describe 'Training', type: :feature, js: true do
   let(:user) { create(:user, id: 1) }
   let(:module_2) { TrainingModule.find_by(slug: 'evaluating-articles') }
-  let(:library_2) {TrainingLibrary.find_by(slug: 'editing-wikipedia') }
 
   before(:all) do
     TrainingModule.load_all
@@ -170,7 +169,7 @@ describe 'Training', type: :feature, js: true do
       end
     end
   end
-  end
+
 
   DESIRED_TRAINING_MODULES.each do |module_slug|
     describe "'#{module_slug[:slug]}' module" do
