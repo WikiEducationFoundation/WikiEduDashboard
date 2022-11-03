@@ -17,6 +17,10 @@ export const TrainingModuleRows = ({ trainings }) => {
     );
     let moduleStatus;
     if (trainingModule.completion_date) {
+      // Only display completion times under 1 hour, since
+      // after that it probably means it was completed in
+      // multiple sessions and we can't tell how much time
+      // was actually spent on it.
       let completionTime = '';
       if (trainingModule.completion_time <= 60 * 60) {
         const completion_time_duration = intervalToDuration({ start: 0, end: trainingModule.completion_time * 1000 });
