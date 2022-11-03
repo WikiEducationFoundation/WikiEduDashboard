@@ -184,7 +184,6 @@ describe 'Training', type: :feature, js: true do
       end
     end
   end
-end
 
 def go_through_module_from_start_to_finish(training_module)
   visit "/training/students/#{training_module.slug}"
