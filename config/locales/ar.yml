@@ -124,9 +124,9 @@ ar:
     explore: استكشف
     log_in: تسجيل الدخول عبر ويكيبيديا
     sign_up: إنشاء حساب عبر ويكيبيديا
-    sign_up_help: كي تستخدم لوحة التحكم; سوف تحتاج لتسجيل الدخول عن طريق ويكيبيديا
-      ومنحه الإذن للوصول إلى حسابك، يمكنك تسجيل الدخول مستخدما حساب ويكيبيديا موجودة
-      أو إنشاء حساب جديد.
+    sign_up_help: لاستخدام لوحة القيادة ، ستحتاج إلى تسجيل الدخول من خلال ويكيبيديا
+      ومنحها الإذن للوصول إلى حسابك. يمكنك تسجيل الدخول باستخدام حساب Wikipedia موجود
+      ، أو إنشاء حساب جديد. إذا لم تتمكن من إنشاء حساب ، فاتصل بـ dashboard@wikiedu.org.
   alerts:
     alert_label: تنبيهات
     no_alerts: لم يتم العثور على تنبيهات.
@@ -135,10 +135,12 @@ ar:
     edited_by: تم التعديل بواسطة
     label: النشاط
   articles:
+    articles: المقالات
     article_not_found: لم يتم إنشاء هذه المقالة بعد.
     article_development: (تطوير المقالات)
     articles_shown: عرض %{count} من %{total}
     assigned: المقالات المخصصة
+    assignments_none: لا توجد مقالات مخصصة حتى الآن.
     available: المقالات المتاحة
     no_available: لا مقالات متوفرة
     next: التالي
@@ -156,6 +158,7 @@ ar:
     edited: المقالات التي عُدلت
     edited_by: 'التعديلات بواسطة:'
     edited_mobile: المقالات
+    edited_none: لا توجد مقالات محررة حتى الآن.
     filter:
       wiki_all: الكل
       new: الجديدة
@@ -164,16 +167,17 @@ ar:
       tracked: متتبع
       untracked: غير متتبع
       tracked_and_untracked: متتبع وغير متتبع
+    find: البحث عن المقالات
     hide: أخف
     history: تاريخ
     label: المقالات
     loading: جارٍ تحميل المقالات...
     new: (جديد)
     none: هذه الدورة لم تحرر أية مقالات.
+    preview: معاينة موجزة للمادة
     rating: رتبة
-    rating_doc: التقييم الذي حصلت عليه إحدى المقالات من مشاريع الويكي على ويكيبيديا.
-      قد تتماشى هذه التقييمات مع نسخ قديمة، لذا فهي ليست إلا مؤشر عام على مستوى اكتمال
-      المقالة.
+    rating_doc: تم تعيين تصنيف مقال بواسطة WikiProjects على ويكيبيديا. قد تتوافق هذه
+      التصنيفات مع الإصدارات الأقدم بكثير ، لذا فهي مجرد مؤشر تقريبي لنضج المقالة.
     rating_docs:
       fa: '%{class} (مقالة مختارة): أعلى تصنيفات ويكيبيديا، وربما تكون مقالة ناضجة
         نضجا لا يلائم استخدامها مشروعا رئيسيا لمحرر جديد'
@@ -190,6 +194,7 @@ ar:
       '?': 'غير مصنفة: مقالة غير مصنفة على أساس جودة ويكيبيديا'
       does_not_exist: هذه المقالة غير موجودة على ويكيبيديا
     see_more: طالع المزيد
+    search: ابحث في ويكيبيديا عن مقال
     show_cumulative_changes: أظهر التغييرات التراكمية
     show_current_version: عرض النسخة الحالية
     show_current_version_with_authorship_highlighting: النسخة الحالية دون تظليل المؤلف
@@ -216,6 +221,36 @@ ar:
       إلى أن المقالة تتبع أعراف ويكيبيديا الخاصة ببنية المقالة الجيدة إلا أنه لا ينظر
       بعين الاعتبار للمحتوى ذاته. (هذه النقاط متاحة فقط لمقالات ويكيبيديا الإنجليزية).
     articles_short: المقالات
+    deleted_message: وفقًا لبيانات لوحة التحكم ، تم حذف هذه الصفحة. (في بعض الحالات
+      ، يمكن أن يؤدي نقل الصفحة أو دمج المحفوظات أو الإجراءات الأخرى إلى إدراج مقالة
+      بشكل غير صحيح على أنها محذوفة. قد يتم أيضًا إلغاء حذف المقالات المحذوفة لاحقًا.
+      بالنسبة للمقالات التي لم يتم حذفها فعليًا أو تمت استعادتها لاحقًا ، فإن لوحة
+      التحكم عادةً تعكس هذا في غضون يوم أو يومين.)
+    page_logs: (سجلات الصفحة)
+  items:
+    items: العناصر
+    article_not_found: لم يتم إنشاء هذا العنصر بعد.
+    assigned: العناصر المعينة
+    assignments_none: لا توجد عناصر معينة حتى الآن.
+    available: القطع المتاحة
+    character_doc: مجموع الأحرف التي تمت إضافتها إلى العناصر بواسطة المحررين المسجلين
+      بين تاريخي البدء والانتهاء
+    cross_wiki_tracking: يتم سرد الصفحات الرئيسية التي تم تحريرها بين تاريخي البدء
+      والانتهاء أدناه. تسحب لوحة القيادة المساهمات من موقع wiki الرئيسي لهذا البرنامج
+      ، جنبًا إلى جنب مع أي مواقع wiki أخرى يوجد بها واجب أو عنصر متاح.
+    does_not_exist: العنصر غير موجود. قم بإنشاء صفحة Sandbox وقم بتعيين ذلك بنفسك
+      لتلقي الاقتراحات.
+    edited: العناصر المعدلة
+    edited_none: لا توجد عناصر تم تعديلها حتى الآن.
+    find: البحث عن العناصر
+    preview: معاينة موجزة للعنصر
+    search: ابحث في ويكي بيانات عن عنصر
+    tracked_doc: تساهم العناصر المتعقبة فقط في إحصاءات هذا البرنامج. عندما يتم وضع
+      علامة على العناصر على أنها لم يتم تعقبها ، ستتم إزالتها من الإحصائيات أثناء
+      تحديث البيانات التالي.
+    view_doc: المشاهدات المقدرة لكل عنصر منذ تحريره لأول مرة ، من خلال آخر تحديث للإحصائيات.
+      يمكنك استخدام pageviews.toolforge.org لرؤية الأرقام الدقيقة.
+    title_example: عنوان البند
   articles_wikidata:
     articles_short: العناصر
   articles_generic:
@@ -223,25 +258,33 @@ ar:
   assignments:
     article: المقالة التي تحمل العنوان %{title} مخصصة الآن لك.
     article_link: مقالة
+    article_link_wikidata: عنصر
     already_exists: هذه المهمة موجودة بالفعل!
     title_too_large: يجب أن لا يزيد العنوان عن عدد 255 محرف
     assignees: المخصص له(م)
-    assign_other: تعيين مقال
+    assign_other: تعيين / إزالة مقال
+    assign_other_wikidata: تعيين / إزالة عنصر
     add_available: إضافة مقالات متاحة
+    add_available_wikidata: أضف العناصر المتاحة
     add_available_placeholder: أضف عنوان مقالة أو مسارا واحد لكل سطر
+    add_available_placeholder_wikidata: أضف عنوان عنصر واحدًا أو عنوان URL لكل سطر
     add_available_submit: إضافة مقالات
+    add_available_submit_wikidata: إضافة عناصر
     assign_self: تعيين مقالة لنفسي
+    assign_self_wikidata: خصص لنفسي عنصرًا
     assign_tooltip: المقالة المخصصة هي مقالة تعتزم إنشاءها أو تحسين مستواها.
+    assign_tooltip_wikidata: العنصر المعين هو العنصر الذي تخطط لإنشائه أو تحسينه.
     bibliography: قائمة الأعمال
     clone: استنساخ
     confirm_add_available: هل أنت متأكد أنك تريد إضافة %{title}?
     confirm_addition: هل أنت متأكد أنك تريد تعيين %{title} ل%{username}?
-    confirm_deletion: هل أنت متأكد أنك تريد حذف هذه المقالة المعينة؟
+    confirm_deletion: هل أنت متأكد أنك تريد حذف هذا الواجب؟
     editors: مخصص لـ
     group_members: أعضاء المجموعة
     label: تعيين
     loading: تحميل الواجبات...
     none_short: لا توجد مقالات معينة
+    none_short_wikidata: لم يتم تعيين عناصر
     none: هذه الدورة ليست بها مقالات معينة.
     no_available: هذه الدورة ليست بها مقالات متاحة.
     peer_review_count: '%{currentCount}/%{total} تم اختيارها'
@@ -249,16 +292,35 @@ ar:
     peer_review_link: استعراض النظراء
     peer_review_link_personalized: '%{username}'' مراجعات دقيقة'
     random_peer_review:
+      confirm_addition: في معظم الحالات ، يجب ألا تستخدم هذا إلا بعد أن يتم تعيين
+        مقالاتهم الرئيسية لجميع الطلاب. بدلاً من ذلك ، يمكنك أن تطلب من طلابك اختيار
+        مراجعات الأقران الخاصة بهم أو يمكنك تعيين مراجعات الزملاء يدويًا بالنقر فوق
+        صف الطالب ثم استخدام الزر "تعيين / إزالة مراجعة الأقران". يؤدي النقر فوق "موافق"
+        إلى تعيين إجمالي %{count} مراجعة (مراجعات) زملاء إضافية ، بحد أقصى %{maximum}
+        لكل طالب ، يتم اختياره من بين مقالات زملائه في الفصل.
+      confirm_addition_wikidata: في معظم الحالات ، يجب ألا تستخدم هذا إلا بعد تعيين
+        العناصر الرئيسية لجميع الطلاب. بدلاً من ذلك ، يمكنك أن تطلب من طلابك اختيار
+        مراجعات الأقران الخاصة بهم أو يمكنك تعيين مراجعات الزملاء يدويًا بالنقر فوق
+        صف الطالب ثم استخدام الزر "تعيين / إزالة مراجعة الأقران". يؤدي النقر فوق "موافق"
+        إلى تعيين إجمالي %{count} مراجعة (مراجعات) زملاء إضافية ، بحد أقصى %{maximum}
+        لكل طالب ، يتم اختياره من بين عناصر زملائهم في الفصل.
       heading: قم بتعيين مراجعات عشوائية من الأقران
       tooltip_message: يخصص مقالات عشوائية (مع عدد مراجعات الزملاء كأقصى عدد) لكل
         طالب.
+      tooltip_message_wikidata: يخصص عناصر عشوائية (مع عد مراجعة الأقران كأقصى عدد)
+        لكل طالب.
       limit_exceeded: يقوم كل طالب بالفعل بمراجعة %{maximum} من المقالات على الأقل.
+      limit_exceeded_wikidata: يقوم كل طالب بالفعل بمراجعة %{maximum} عنصر (عناصر)
+        على الأقل.
     remove: إزالة
     reviewers: المراجع(ون)
-    review_other: تعيين مراجعة أقران
+    review_other: تعيين / إزالة مراجعة الأقران
     review_self: مراجعة مقال
+    review_self_wikidata: مراجعة عنصر
     review_tooltip: هذا الجزء مخصص لمقالة(ات) تعتزم مراجعة زملاء لها أو تقديم آراء
       وملاحظات عليها.
+    review_tooltip_wikidata: هذا للعنصر (العناصر) الذي تخطط لمراجعة الأقران أو تقديم
+      ملاحظات بشأنه.
     sandbox_draft_link: مسودة الملعب
     select: اختر
     warning_untracked_wiki: 'انتبه رجاءً لأنك اخترتَ مقالةً في نسخة من مواقع ويكيميديا
@@ -317,6 +379,7 @@ ar:
     delete_campaign: حذف هذه الحملة
     disable_account_requests: تعطيل طلبات الحسابات
     enable_account_requests: تمكين طلبات الحسابات
+    newest_campaigns: أحدث الحملات
     no_alerts: هذه الحملة لا تحتوي على إشعارات
     no_passcode: لا توجد كلمة سر
     none: لا شيء
@@ -329,6 +392,8 @@ ar:
     random_passcode: كلمة سر عشوائية
     requested_accounts: الحسابات المطلوبة
     title: العنوان
+    too_many_articles: قائمة المقالات المحررة لهذه الحملة طويلة جدًا بحيث يتعذر عرضها.
+      يرجى عرض الدورات / البرامج / الأحداث الفردية لرؤية المقالات المحررة.
     slug: سبيكة
     search_campaigns: الحملات القائمة على البحث
     use_start_end_dates: استخدام تاريخ بدء وتاريخ نهاية
@@ -382,12 +447,21 @@ ar:
     actions: الإجراءات
     articles: المقالات
     article_viewer: عارض المقالات
+    article_viewer_wikidata: عارض العنصر
+    articles_i_am_reviewing_wikidata: العناصر التي أراجعها من قبل الأقران
     articles_i_am_reviewing: مقالات أشارك في مراجعتها
+    articles_i_will_create: مقالات سأقوم بإنشائها
+    articles_i_will_create_wikidata: العناصر التي سأقوم بإنشائها
+    articles_i_am_updating: المقالات التي أقوم بتحديثها
+    articles_i_am_updating_wikidata: العناصر التي أقوم بتحديثها
     assignment_headings:
       assigned_articles: المقالات المخصصة
+      assigned_articles_wikidata: العناصر المعينة
       assigned_reviews: المراجعات المخصصة
       available_articles: المقالات المتاحة
+      available_articles_wikidata: القطع المتاحة
       available_reviews: مقالات زملاء الدراسة
+      available_reviews_wikidata: عناصر زملاء الدراسة
     assignment_end: نهاية التخصيص
     assignment_start: بدء التعيين
     calendar:
@@ -409,6 +483,8 @@ ar:
     confirm_course_deletion_failed: '"%{title}" ليس عنوا هذه الدورة؛ لم يتم حذفه الدورة.'
     confirm_manual_update: هل أنت متأكد أنك ترغب في تشغيل تحديث يدوي؟ سوف تستورد أحدث
       المراجعات ومن ثم سوف يُعاد تحميل الصفحة، قد تستغرق هذه العملية بعض الوقت.
+    controlled_by_event_center: يتم التحكم في التسجيل في هذا الحدث من قبل Wikimedia
+      Event Center. لا يمكن ضمها من لوحة القيادة.
     course: دورة
     course_dates_calendar_instructions: حدد تواريخ لإضافتها أو إزالتها من الجدول الزمني
       (على سبيل المثال، أيام العطل، لا مدرسة)، انقر على التاريخ المراد تغييره بين
@@ -525,6 +601,10 @@ ar:
     delete_suggestion: حذف
     delete_course_instructions: يمكنك حذف هذه الصفحة لو كانت كافة الحملات قد أُزيلت
       أولا.
+    disable_student_emails: تعطيل رسائل البريد الإلكتروني للطلاب
+    disable_student_emails_tooltip: سيؤدي تعطيل البريد الإلكتروني للطالب إلى إيقاف
+      إرسال بعض رسائل البريد الإلكتروني الخاصة بالإشعارات إلى الطلاب في هذه الدورة
+      التدريبية.
     dismiss_survey: تجاهل
     dismiss_survey_confirm: هل أنت متأكد أنك تريد رفض هذا المسح بشكل دائم؟
     download_stats_data: إحصاءات التنزيل
@@ -547,6 +627,7 @@ ar:
       exists: هذا المقرر الدراسي موجود بالفعل! حاول مرة أخرى بعنوان مختلف أو مدرسة
         مختلفة أو فصل دراسي مختلف.
       user_exists: عذرا، %{username} ليس مستخدما موجودا.
+      user_exists_on_wiki: عذرًا ، %{username} ليس مستخدمًا موجودًا في %{domain}.
       invalid_language_or_project: لغة/مشروع غير صالح
       invalid_slug: اسم مدرسة أو عنوان مقرر دراسي فارغ.
       duplicate_slug: يوجد برنامج آخر يحمل الاسم %{slug} بالفعل.
@@ -557,12 +638,19 @@ ar:
     gradeables_none: هذا المقرر الدراسي لا يحتوي على فروض يمكن تقييمها.
     home_wiki: الويكي الرئيسي
     multi_wiki: الويكيات المتعقبة
+    namespaces: مساحات الأسماء المتعقبة
     instructor:
       one: مدرب
       other: مدربون
     instructors: المدربون
-    invitation: لقد تمت دعوتك للانضمام إلى %{title}، للانضمام إلى الدورة; تحتاج إلى
-      تسجيل الدخول باستخدام حساب ويكيبيديا.
+    instructor_message: هذه هي نفس واجهة "مقالاتي" التي يمتلكها الطلاب. يمكنك استخدامه
+      للمشي خلال نفس الخطوات التي يمر بها الطلاب. ومع ذلك ، سيتم تتبع مساهمات الطلاب
+      فقط.
+    instructor_message_wikidata: هذه هي نفس واجهة "عناصري" التي يمتلكها الطلاب. يمكنك
+      استخدامه للمشي خلال نفس الخطوات التي يمر بها الطلاب. ومع ذلك ، سيتم تتبع مساهمات
+      الطلاب فقط.
+    invitation: لقد تمت دعوتك للانضمام إلى %{title}. للانضمام ، تحتاج إلى تسجيل الدخول
+      باستخدام حساب Wikipedia.
     invitation_username_advice: إذا لم يكن لديك حساب ويكيبيديا بعد، أنشئ حساب الآن،
       يمكن أن يكون اسم المستخدم الخاص بك مجهولًا -أو كما تعُرَف شخصيا- كما تشاء. (لا
       يُسمَح بالحسابات المشتركة.)
@@ -576,6 +664,10 @@ ar:
     join_failure_details:
       cannot_join_twice: لا يجوز للمستخدمين الانضمام إلى نفس الدورة مرتين.
       not_yet_approved: لم تتم الموافقة على هذه الدورة حتى الآن للتسجيل.
+      withdrawn: تم وضع علامة على هذه الدورة على أنها مسحوبة - ربما عن طريق الخطأ.
+        اتصل بفريق Wiki Education لإعادة تمكينه.
+      invalid_sync: يتم التحكم في التسجيل في هذا الحدث من قبل Wikimedia Event Center.
+        لا يمكن ضمها من لوحة القيادة.
     join_details: للانضمام إلى هذه الدورة; تحتاج إلى الحصول على رمز المرور - أو رابط
       التسجيل الذي يتضمن رمز المرور - من المدرب. إذا لم تكن قد تلقيته، فاتصل بمعلمك.
     join_no_passcode: هل أنت متأكد من أنك تريد الانضمام إلى هذه الدورة؟
@@ -585,6 +677,7 @@ ar:
     loading: جارٍ التحميل...
     milestones_none: هذه الدورة ليست بها أية معالم حاليا.
     my_articles: مقالاتي
+    my_articles_wikidata: حاجياتي
     needs_update: تحديث بيانات الجدول الزمني
     new_week: إضافة أسبوع جديد
     new_account_check_username: تحقق من توفر اسم المستخدم
@@ -635,8 +728,11 @@ ar:
       other: '%{count} الحسابات المطلوبة معلقة.'
     requested_accounts_alert_view: عرض
     retain_available_articles: الاحتفاظ بالمقالات المتاحة
+    retain_available_articles_wikidata: احتفظ بالعناصر المتاحة
     retain_available_articles_info: عند التفعيل، لا يؤدي تحديد مقالة متاحة إلى إزالتها
       من القائمة، مما يسمح لمجموعة من الطلاب بتحديد نفس المقالة.
+    retain_available_articles_info_wikidata: عند التمكين ، لا يؤدي تحديد العنصر المتاح
+      إلى إزالته من القائمة ، مما يسمح لمجموعة من الطلاب بتحديد نفس العنصر.
     review_timeline: 'الآن، قم بمراجعة الجدول الزمني لمهمتك، وتخصيصه ليناسب احتياجاتك،
       بمجرد رضاك​​، يمكنك إرساله للموافقة عليه من قبل موظفي ويكي التعليم، بمجرد الموافقة،
       ستتلقى مسار تسجيل يمكن للطلاب استخدامه للانضمام إلى الدورة التدريبية والوصول
@@ -660,8 +756,9 @@ ar:
       عليها; أضفها إلى حملة على صفحة نظرة عامة.
     submitted_and_pending_heading: قُدمت وبانتظار الموافقة
     submitted_heading: الدورات المقدمة
-    submitted_note: لقد تم تقديم دورتك، سيقوم موظفو ويكي التعليم بمراجعتها والتواصل
-      بأية أسئلة.
+    submitted_note: تم تقديم دورتك التدريبية بنجاح. سيقوم طاقم Wiki Education بمراجعته
+      والاتصال بأي أسئلة. في غضون ذلك ، إذا كنت ترغب في مراجعة المواد التدريبية الخاصة
+      بـ Wiki Education ، فيمكنك عرض القائمة الكاملة للموارد للمعلمين والطلاب.
     suggestions_feedback: هل لديك أية اقتراحات لتحسين هذه الميزة؟ دعنا نعرف!
     suggestions_sending: جارٍ إرسال ملاحظات...
     suggestions_sent: تم إرسال ردود الفعل، شكرا لمساهمتك.
@@ -722,6 +819,8 @@ ar:
     withdrawn: لم تقم بالإحالة
     word_count_doc: تقدير عدد الكلمات التي تمت إضافتها إلى مقالات النطاق الرئيسي من
       قبل طلاب الدورة التدريبية أثناء فترة الدورة التدريبية
+    word_count_doc_wikidata: تقدير لعدد الكلمات التي تمت إضافتها إلى عناصر المساحة
+      الرئيسية بواسطة طلاب الدورة التدريبية خلال فترة الدورة التدريبية
     yourcourses: دوراتك
     survey:
       notification_message: شارك في استبياننا لهذه الدورة.
@@ -734,6 +833,7 @@ ar:
     articles_i_am_reviewing: المقالات التي أراجعها
     assignment_headings:
       available_reviews: متاحة للمراجعة
+      available_reviews_wikidata: متاح للمراجعة
     assignment_end: نهاية الحدث
     assignments_none: هذه الدورة ليست بها مقالات معينة.
     assignment_start: بداية الحدث
@@ -825,6 +925,8 @@ ar:
     view_page: عرض صفحة البرنامج
     word_count_doc: تقدير عدد الكلمات التي تمت إضافتها إلى مقالات النطاق الرئيسي من
       قبل طلاب البرنامج أثناء فترة البرنامج
+    word_count_doc_wikidata: تقدير لعدد الكلمات المضافة إلى عناصر المساحة الرئيسية
+      بواسطة محرري البرنامج أثناء فترة البرنامج
     yourcourses: برامجك
   editable:
     edit: تعديل
@@ -838,40 +940,57 @@ ar:
   instructor_view:
     article_assignments: '%{prefix} المقالات المسندة'
     assignments_table:
-      article_name: اسم المقالة
+      article_name: اسم
       current_stage: المرحلة الحالية
       relevant_links: الوصلات المتعلقة
     assigned_articles: تعيين مقالات
+    assigned_articles_wikidata: العناصر المعينة
     bad_work:
       learn_more: إذا جعل عمل الطالب المقالة أسوأ، فإننا نشجعك على تحريره بنفسك. وإلا،
         فأخبرنا بالمشكلات حتى نتمكن من إصلاحها لاحقا.
+      learn_more_wikidata: إذا أدى عمل الطالب إلى جعل العنصر أسوأ ، فنحن نشجعك على
+        تعديله بنفسك. بخلاف ذلك ، أخبرنا بالمشكلات حتى نتمكن من حلها لاحقًا.
       learn_more_button: معرفة المزيد
       submit_issue: ما هي المشاكل الهامة في هذه المقالة؟
+      submit_issue_wikidata: ما هي المشاكل الهامة مع هذا البند؟
       submit_issue_placeholder: كلما كان بإمكانك تقديم منظور وتفاصيل أكثر خبرة، كان
         ذلك أفضل.
       thank_you: شكرا لك! اتصل بخبير الويكي الخاص بك إذا كانت لديك أسئلة إضافية.
     exercises_and_trainings: مهام وتدريبات %{prefix}
     no_assignments: لم تُسنَد أي مقالات لهذا الطالب حالياً. يمكنك أن تُسنِدَ إليه
       مقالةً من الاختيارات أعلاه.
+    no_assignments_wikidata: هذا الطالب حاليا ليس لديه عناصر معينة. يمكنك تعيين عنصر
+      باستخدام الأزرار أعلاه.
     overview: '%{prefix} مقدمة'
     reviewing_articles: مراجعة المقالات
+    reviewing_articles_wikidata: مراجعة العناصر
     select_student:
       title: اختر %{prefix}
       content: لإسناد المقالات أو عرض المقالات المسندة
+      content_wikidata: لتعيين وعرض تعيينات العناصر
   metrics:
     label: نشاط المساق
     last_update: آخر تحديث للإحصاءات
     next_update: التحديث التقديري التالي
+    late_update: تحديث جديد متوقع %{late_update_time}. قد يعني هذا أن التحديث يستغرق
+      وقتًا أطول من المتوقع ، أو قد يشير إلى وجود مشكلة تمنع التحديثات.
+    no_update: لم تستورد Dashboard أي بيانات لهذا البرنامج حتى الآن.
+    enqueued_update: تمت إضافة هذا البرنامج إلى قائمة انتظار التحديث.
+    first_update: البداية المقدرة لتحديث الإحصائيات
     activity: آخر نشاط
     are_trained: محدثة مع التدريب
     articles_created: المقالات التي تم إنشاؤها
     articles_created_wikidata: العناصر المنشأة
     articles_created_generic: الصفحات المنشأة
+    articles_created_generic_wikidata: العناصر التي تم إنشاؤها
     articles_edited: المقالات التي تم تعديلها
     articles_edited_wikidata: العناصر المعدلة
     articles_edited_generic: الصفحات المعدلة
+    articles_edited_generic_wikidata: تم تحرير العناصر
     article_scoped_program_info: هذا هو "برنامج نطاق المقالة"، والذي يحسب فقط التعديلات
       على المقالات والفئات المعينة.
+    article_scoped_program_info_wikidata: هذا هو "برنامج نطاق المقالة" ، والذي يحسب
+      فقط التعديلات على العناصر والفئات المعينة.
     bytes_added: البايتات المضافة
     characters: الأحرف
     char_added: الحروف المضافة
@@ -883,26 +1002,74 @@ ar:
     error_count_message: واجهت لوحة التحكم %{error_count} خطأ أثناء التحديث الأخير.
     future_updates_remaining:
       1: سيستمر تحديث الإحصائيات حتى %{date}.
+      "": لم يعد يتم تحديث إحصائيات هذا البرنامج بانتظام.
     last_reviewed: المراجعات الأخيرة
+    missing_data_heading: نتائج مفقودة أو غير متوقعة؟
+    missing_data_info: تشمل القضايا الشائعة
+    non_updating_course_update: تمت جدولة التحديث لمرة واحدة ، والذي من المفترض أن
+      يتم قريبًا.
+    last_update_failed: فشل التحديث الأخير لهذه الدورة.
+    last_update_success: تم تشغيل التحديث الأخير بنجاح ، لذا يجب أن تكون الإحصائيات
+      محدثة.
+    outreach_help: تحتاج مساعدة؟ راجع "الإبلاغ عن مشكلة" في شريط التنقل.
     per_user: '%{number}/مستخدم'
+    recent_updates_summary: من بين آخر %{total} من التحديثات ، فشل %{failure_count}
+      وواجه %{error_count} أخطاء.
     revisions: تعديلات حديثة
     references_count: المراجع المضافة
     references_doc: هذا هو عدد وسوم المراجع المضافة إلى المقالات، ويمكن أن يتضمن إشارات
       متعددة إلى نفس المصدر، تأتي البيانات من نموذج جودة المقالة ORES، وهي متاحة فقط
       لبعض اللغات.
+    references_doc_wikidata: هذا هو عدد العلامات المرجعية المضافة إلى العناصر ، ويمكن
+      أن تتضمن مراجع متعددة لنفس المصدر. تأتي البيانات من نموذج جودة عنصر ORES ، وهي
+      متوفرة فقط لبعض اللغات.
+    replag_info: تسترد لوحة المعلومات بيانات التحرير من قواعد بيانات النسخة المتماثلة
+      لـ WMF Cloud. أحيانًا تفتقد قواعد البيانات هذه أحدث عمليات التحرير بسبب تأخر
+      النسخ المتماثل (إعادة الترقيم). في هذه الحالة ، ستظهر التعديلات المفقودة لاحقًا.
+    replag_link: تحقق من إعادة التسمية
     tags: الوسوم
+    total_updates: العدد الإجمالي للتحديثات حتى الآن
+    update_status_heading: تحديث الحالة
+    update_statistics_link: شاهد المزيد
     upload_count: مرفوعات كومنز
     uploads_in_use_count:
       one: ملف مستخدم في مقالة
       other: ملفات مستخدمة في مقالات
+    uploads_in_use_count_wikidata: '{{PLURAL | واحد = ملف مستخدم في عنصر | ملفات مستخدمة
+      في العناصر}}'
     upload_usages_count:
       one: إجمالي الاستخدام عبر اللغات
       other: إجمالي الاستخدامات عبر اللغات
     view_count_description: مشاهدات المقالة
+    view_count_description_wikidata: طرق عرض العناصر
     view_data_unavailable: لا تتوفر بيانات معاينة
     view: المشاهدات
+    wiki_ed_help: استخدم زر "الحصول على المساعدة" للإبلاغ عن مشكلة.
     word_count: الكلمات المضافة
     word_count_average: متوسط ​​عدد الكلمات
+    general: عام
+    total_revisions: إجمالي المراجعات
+    claims: المطالبات
+    aliases: اسماء مستعارة
+    merged: مندمجة
+    created: تم الإنشاء
+    changed: غيرت
+    removed: تمت إزالته
+    cleared: مسح
+    added: تمت إضافته
+    descriptions: الأوصاف
+    interwiki_links_added: تمت إضافة روابط Interwiki
+    labels: تسميات
+    no_data: لا توجد بيانات
+    other_updates: تحديثات أخرى
+    qualifiers_added: تمت إضافة المؤهلات
+    redirects_created: تم إنشاء عمليات إعادة التوجيه
+    references_added: تمت إضافة المراجع
+    references_added_info: قد يكون هذا فقط عددًا جزئيًا من المراجع المضافة. يعتمد
+      على ملخصات تحرير Wikidata ، ويتم تصنيف بعض التعديلات التي تضيف مراجع على أنها
+      "مطالبة متغيرة" أو "مطالبة تم إنشاؤها" بدلاً من ذلك.
+    restorations_performed: إجراء الترميمات
+    reverts_performed: تتم العودة
   namespace:
     all: الكل
     main: النطاق الرئيسي
@@ -911,9 +1078,35 @@ ar:
     talk: نقاش
     user: نطاق المستخدم
     user_char_added: الحروف المضافة لنطاق المستخدم
+    project: المشروع
+    file: ملف
+    mediaWiki: ميدياويكي
+    template: قالب
+    help: مساعدة
+    category: التصنيف
+    page: الصفحة
+    book: كتاب
+    wikijunior: ويكي جونيور
+    translation: ترجمة
+    draft: مسودة
+    property: خاصية
+    query: استعلام
+    lexeme: مفردة
+    appendix: زائدة
+    portal: بوابة
+    school: مدرسة
+    author: المؤلف
+    cookbook: كتاب الطبخ
+    rhymes: القوافي
+    index: فهرس
+    collection: المجموعة
+    tracked_namespaces_info: ستساهم فقط المقالات المقابلة لـ Tracked Namespaces في
+      إحصائيات النظرة العامة ، مثل "المقالات المحررة" و "إجمالي التعديلات" و "الكلمات
+      المضافة" وما إلى ذلك ، وبالتالي ، تتبع فقط مساحات الأسماء التي يهدف برنامجك
+      إلى تحسينها.
   recent_activity:
     active_courses: المقالة نشطة في
-    article_title: عنوان المقالة
+    article_title: العنوان
     datetime: تاريخ/وقت
     did_you_know_eligible: هل تعلم مؤهَّلا
     image: الصورة
@@ -923,6 +1116,12 @@ ar:
     no_edits: لا توجد تعديلات حديثة.
     plagiarism_report: تقرير الانتحال
     possible_plagiarism: انتحال محتمل
+    plagiarism_explanation: يستخدم نظام الكشف عن الانتحال في ويكيبيديا Turnitin /
+      iThenticate لمقارنة التعديلات الجديدة بالنص المنشور. هذه التقارير ليست دقيقة
+      بنسبة 100٪. على سبيل المثال ، قد يؤدي الاقتباس المباشر مع الإسناد المناسب إلى
+      تقرير سرقة أدبية إيجابي خاطئ. يرجى مراجعة مساهمات الطالب وتفاصيل التقرير قبل
+      اتخاذ أي إجراء. (إذا وجدت أن التغيير - أو المقالة بأكملها - لا يمكن الوصول إليه
+      ، فربما تم حذف المحتوى لأسباب تتعلق بحقوق النشر.)
     recent_edits: تعديلات حديثة
     recent_uploads: أحدث المرفوعات
     revision_author: 'مؤلف المراجعة:'
@@ -948,6 +1147,8 @@ ar:
     title: عنوان
     view_on_wiki: عرض الفرق على الويكي
     see_more: طالع المزيد
+    show_all: اعرض الكل
+    show_course_specific: عرض خاص بالمقرر الدراسي
   resources:
     label: مصادر
     header: الموارد والتدريب
@@ -1059,6 +1260,7 @@ ar:
     empty_week_2: بدء التحرير هذا الأسبوع
     empty_week_3: أو
     empty_week_4: استخدام معالج المهمات لوضع جدول زمني.
+    empty_week_drag_items: أسبوع فارغ. يمكنك نقل كتلة من أسبوع آخر هنا.
     first_week_title: الأسبوع النشط الأول
     gradeable_value: القيمة
     gradeables_none: هذا الجدول الزمني ليست به مهام عُلِّمَت كمتدرجة.
@@ -1104,6 +1306,11 @@ ar:
       exercise: تمرين
       discussion: نقاش
       training: تدريب
+    no_training_library_records_wiki_ed_mode: لا توجد سجلات TrainingLibrary في قاعدة
+      البيانات. انقر <a href="%{url}">هنا</a> لتحميل بيانات التدريب من ملفات training_content
+      / yaml.
+    no_training_library_records_non_wiki_ed_mode: لا توجد سجلات TrainingLibrary في
+      قاعدة البيانات.
   uploads:
     credit: الإحالات
     file_name: اسم الملف
@@ -1125,8 +1332,10 @@ ar:
   users:
     already_enrolled: تم التحق من هذا المستخدم بالفعل!
     assign_articles: تعيين مقالات
+    assign_articles_wikidata: تعيين العناصر
     assign_articles_done: تم
     assigned: المقالات المخصصة
+    assigned_wikidata: العناصر المعينة
     assignees: التعيين(ات)
     loading_authorship_data: تحميل بيانات التأليف
     authorship_data_not_fetched: لا يمكن جلب بيانات التأليف
@@ -1135,6 +1344,7 @@ ar:
       بالضرورة مقدار المحتوى الجديد الذي أضافه المستخدم، ستؤدي استعادة المحتوى الذي
       تمت إزالته إلى زيادة هذا المجموع أيضا.
     chars_added: الحروف المضافة <br>(مقالة | مستخدم | مسودة)
+    chars_added_wikidata: تمت إضافة الأحرف<br> (عنصر | مستخدم | مسودة)
     contributions: مساهمات المستخدم
     contributions_history_full: عرض تاريخ المساهمات كاملا
     contributions_more: عرض المزيد من المساهمات
@@ -1154,6 +1364,7 @@ ar:
     last_name: الاسم الأخير
     loading: جارٍ تحميل المستخدمين...
     characters_added_mainspace: الحروف المضافة (مقالة)
+    characters_added_mainspace_wikidata: تمت إضافة الأحرف (عنصر)
     characters_added_short: 'النطاف الرئيسي: %{mainspace}، نطاق المستخدم: %{userspace}'
     characters_added_userspace: الحروف المضافة (مستخدم)
     characters_added_draftspace: الحروف المضافة (مسودة)
@@ -1162,10 +1373,16 @@ ar:
     name: الاسم
     none: لا يوجد مشاركون.
     no_articles: لا توجد مقالات
-    no_revisions: هذا المحرر لم يقم بأية مراجعة.
+    no_articles_wikidata: لا توجد عناصر
+    no_revisions: (لا توجد مراجعات)
+    no_highlighting: لم يُنسب أي نص من الإصدار الحالي للمقالة إلى هذا المحرر. تحقق
+      من محفوظات الصفحة لرؤية تعديلاتهم.
     number_of_articles:
       one: '%{count} مقالة'
       other: '%{count} مقالات'
+    number_of_articles_wikidata:
+      one: '%{count} عناصر'
+      other: '%{count} عنصر'
     profile: الملف الشخصي
     recent_revisions: تعديلات حديثة
     references_count: المراجع المضافة
@@ -1214,6 +1431,12 @@ ar:
     useremail_placeholder: البريد الإلكتروني
     userpasscode_placeholder: رمز المرور
     words_added: الكلمات المضافة<br>(مقالة | مستخدم | مسودة)
+    word_count_doc: تقدير للمقدار الإجمالي للمحتوى الذي أضافه المستخدم إلى المقالات
+      المباشرة وصفحات مساحة المستخدمين (صناديق الحماية) ومساحة اسم المسودة. يتم حساب
+      تقديرات عدد الكلمات من مجموع التغييرات في حجم الصفحة عبر جميع عمليات التحرير
+      التي أضافت أكثر من تلك التي تمت إزالتها. لا يعكس هذا الرقم بالضرورة مقدار المحتوى
+      الجديد الذي أضافه المستخدم. ستؤدي استعادة المحتوى المحذوف أيضًا إلى زيادة هذا
+      الإجمالي.
     role:
       description: الدور في الدورة
       visitor: زائر
@@ -1309,8 +1532,7 @@ ar:
     explanation: يبدو أن هناك مشكلة في عملية تسجيل الدخول. (عذرا عن ذلك!هذا يحدث في
       بعض الأحيان.) يُرجَى محاولة تسجيل الدخول أو تسجيل حساب جديد.
   survey:
-    login_message: شكرا لك على وقتك. الرجاء تسجيل الدخول إلى حسابك في لوحة ويكي التعليم
-      للحصول على الاستبيان.
+    login_message: شكرا لوقتك. الرجاء تسجيل الدخول إلى لوحة التحكم لإجراء الاستبيان.
     notification_explanation: إذا تم تحديد ما يلي، سيتلقى المستخدمون رسائل إلكترونية
       وفقا لجدول الإشعارات، بالإضافة إلى رؤية الإشعارات في المتصفح، إذا لم يكن الأمر
       كذلك، فسيتم عرض الإشعارات فقط في المتصفح.
@@ -1343,8 +1565,11 @@ ar:
       why_are_you_here: ماذا تريد أن تفعل؟
   article_finder:
     add_available_article: الإضافة كمقالة متاحة
+    add_available_article_wikidata: إضافة كعنصر متاح
     article_finder: الباحث عن المقالات
+    article_finder_wikidata: الباحث عن العنصر
     article_quality: جودة المقالة (0-100)
+    article_quality_wikidata: جودة العنصر (0-100)
     assign_article_self: عيِّن نفسك
     average_views: متوسط ​​المشاهدات لكل يوم
     category_search: تصنيف البحث
@@ -1354,23 +1579,30 @@ ar:
     fetching_pageviews: جارٍ جلب مشاهدات الصفحة
     fetching_revisions: جارٍ جلب مراجعات الصفحة
     fetched_articles: المقالات المجلوبة
+    fetched_articles_wikidata: العناصر التي تم جلبها
     filtered_articles: المقالات المفلترة
+    filtered_articles_wikidata: العناصر التي تمت تصفيتها
     hide_options: إخفاء الخيارات
     keyword_search: الكلمة الرئيسية للبحث
     minimum_views_label: الحد الأدنى للمعاينات
     more_results: نتائج أكثر
     no_article_found: لم يتم العثور على مقالات في هذا التصنيف
+    no_article_found_wikidata: لا توجد عناصر في هذه الفئة
     page_assessment_class: الرتبة
     relevanceIndex: مؤشر الصلة
     remove_article: أزل المقالة
+    remove_article_wikidata: إزالة العناصر
     search: بحث
     searching_articles: جارٍ البحث في المقالات
+    searching_articles_wikidata: البحث عن العناصر
     search_placeholder: أدخل كلمة البحث
     show_options: عرض الخيارات
     subheading_message: دعنا نجد مقالة ويكيبيديا للعمل عليها.
+    subheading_message_wikidata: دعنا نعثر على عنصر ويكي بيانات للعمل عليه.
     submit: إرسال
     tools: الأدوات
     unassign_article_self: إلغاء تعيين المقالة
+    unassign_article_self_wikidata: إلغاء تعيين العنصر
   training_status:
     completed: مكتمل
     continue: استمرار

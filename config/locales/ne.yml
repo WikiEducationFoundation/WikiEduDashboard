@@ -653,6 +653,7 @@ ne:
     course_passcode: 'पासकोड:'
     editors: सम्पादकहरू
     edits: सम्पादनहरू
+    edits_by: 'सम्पादनकर्ता:'
     first_name: पहिलो नाम
     last_name: अन्तिम नाम
     loading: प्रयोगकर्ताहरू लोड गर्दै...

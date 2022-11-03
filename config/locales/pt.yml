@@ -685,6 +685,7 @@ pt:
     gradeables_none: Este curso não tem trabalhos com classificação.
     home_wiki: Wiki de acolhimento
     multi_wiki: Wikis monitorizadas
+    namespaces: Espaços nominais monitorizados
     instructor:
       one: Professor
       other: Professores
@@ -1180,6 +1181,10 @@ pt:
     rhymes: Rimas
     index: Índice
     collection: Conjunto
+    tracked_namespaces_info: Só os artigos que correspondem aos espaços nominais monitorizados
+      irão contribuir para as estatísticas gerais principais, como "Artigos editados",
+      "Total de edições", "Palavras adicionadas", etc. Por isso, monitorize só os
+      espaços nominais que o seu programa pretende melhorar.
   recent_activity:
     active_courses: O artigo está ativo em
     article_title: Título

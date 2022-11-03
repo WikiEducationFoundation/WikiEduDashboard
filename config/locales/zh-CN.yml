@@ -21,6 +21,7 @@
 # Author: NACHOgao3
 # Author: NeverBehave
 # Author: Njzjz
+# Author: PexEric
 # Author: Phenolla
 # Author: Shizhao
 # Author: Shuiwater
@@ -173,6 +174,7 @@ zh-CN:
     loading: 正在加载条目...
     new: （新）
     none: 此课程没有编辑任何条目。
+    preview: 条目简要预览
     rating: 等级
     rating_doc: 条目的等级由维基百科的对应专题分配。这些等级可能与旧有版本相对应，因此这些评级只是粗略的条目成熟度指标。
     rating_docs:
@@ -188,6 +190,7 @@ zh-CN:
       '?': 未评级 — 一篇未被维基百科质量等级体系评级的条目
       does_not_exist: 此条目在维基百科不存在
     see_more: 查看更多
+    search: 在维基百科中搜索条目
     show_cumulative_changes: 显示累计更改
     show_current_version: 显示当前版本
     show_current_version_with_authorship_highlighting: 当前版本w/作者高亮
@@ -206,6 +209,20 @@ zh-CN:
     wp10: 结构完整性
     wp10_doc: “结构完整性”分数是以采用基于机器阅读的目标修订评估服务ORES（https://ores.wikimedia.org/ ）为基础，代表某个条目符合成熟的维基百科条目的程度。这些分数基于条目大小、参考文献和wiki链接数、以及其他基本文本功能计算。高分通常表明一个条目遵守维基百科有关优良条目结构的惯例，但它并未考虑认为是内容本身。（这些分数只适用于英语维基百科条目。）
     articles_short: 条目
+    deleted_message: 根据仪表板的数据，这个页面已经被删除。(在某些情况下，页面移动、历史合并或其他行动可能会导致文章被错误地列为删除。被删除的文章后来也可能被撤销。对于那些实际上没有被删除的文章，或者后来被恢复的文章，仪表板通常会在一两天内反映出来）。
+    page_logs: （页面日志）
+  items:
+    items: 项目
+    article_not_found: 此表格尚未创建。
+    assigned: 已分配用户
+    assignments_none: 还没有任何已编辑的条目。
+    available: 可用过滤器
+    character_doc: 由登记编辑者在开始和结束日期之间，添加至条目的字符总和
+    cross_wiki_tracking: 在开始日期和结束日期期间编辑的主空间页面如下。控制面板从此计划的主wiki拉进贡献，与这里有分配任务或有意义条目的其他wiki一样。
+    does_not_exist: 条目不存在。创建沙盒页面并将您分配给该页面以接收建议。
+    edited: 已编辑的项目
+    edited_none: 还没有任何已编辑的条目。
+    find: 查找项目
   articles_wikidata:
     articles_short: 项目
   articles_generic:
