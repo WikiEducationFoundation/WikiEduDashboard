@@ -33,6 +33,7 @@ sl:
     edited_mobile: Članki
     filter:
       wiki_all: Vsi
+    history: (zgodovina)
     label: Članki
     new: (novo)
     title: Naslov
@@ -53,10 +54,11 @@ sl:
     articles: Članki
     campaigns: 'Kampanje:'
     creator:
-      end_date: Datum konca
-      start_date: Datum začetka
+      end_date: Končni datum
+      start_date: Začetni datum
     delete_suggestion: Izbriši
     dismiss_survey: Opusti
+    feedback: Odziv
     namespaces: Sledeni imenski prostori
     loading: Nalaganje ...
     new_account_email_placeholder: ime@example.org
@@ -107,6 +109,7 @@ sl:
       new:
         form_placeholder: Uporabniško ime
   timeline:
+    gradeable_value: Vrednost
     title: Časovnica
   training:
     start: Začetek

@@ -154,8 +154,10 @@ sms:
     article: Artikkel
     project: Projeʹktt
     file: Teâttõs
+    category: Kategoria
   recent_activity:
     article_title: Nõmm
+    image: Kaart da snimldõõǥǥ
     file_name: Teâttõsnõmm
     uploaded_by: 'Ruõkkâm:'
   revisions:
@@ -188,6 +190,7 @@ sms:
       discussion: Saǥstõõllmõš
   uploads:
     file_name: Teâttõsnõmm
+    image: Kartt leʼbe snimldõk
     label: Ruõkkmõõžž
     uploaded_by: 'Ruõkkâm:'
   users:

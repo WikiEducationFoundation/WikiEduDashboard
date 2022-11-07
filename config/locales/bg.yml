@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Kareyac
+# Author: Pelajanela
 # Author: Spiritia
 # Author: StanProg
 # Author: Ted Masters
@@ -56,22 +57,42 @@ bg:
     explore: Разгледайте!
     log_in: Влизане с помощ на Уикипедия
     sign_up: Регистрация с помощ на Уикипедия
+  alerts:
+    alert_label: Известия
   activity:
     all: Дейност
     edited_by: Редактирано от
     label: Дейност
   articles:
+    articles: Статии
+    assigned: Възложени статии
+    available: Налични статии
     next: Следваща
     deleted: (изтрито)
     edited: Редактирани статии
     edited_by: 'Редактирано от:'
     edited_mobile: Статии
+    edited_none: Все още няма редактирани статии.
+    filter:
+      tracked: Под наблюдение
+      untracked: Не е под наблюдение
+      tracked_and_untracked: Наблюдавани и ненаблюдавани
+    find: Намиране на статии
     hide: Скриване
     history: (история)
     label: Статии
     loading: Зареждане на статии...
     new: (нова)
+    none: До момента в този курс няма редактирани статии.
+    preview: Бърз преглед на статия
     rating: Клас
+    rating_doc: Оценката, дадена на съответната статия от Уикипроекти в Уикипедия.
+      Тези оценки може да се отнасят до много по-стари версии, така че те дават само
+      относителна представа за прогреса на статията.
+    rating_docs:
+      fa: '%{class} (Избрана статия) — най-високата оценка в Уикипедия; най-вероятно
+        статия, развита твърде добре, за да бъде основен проект на начинаещ редактор'
+      fl: '%{class} (Избран списък) — най-високата оценка в Уикипедия за списъци'
     show_current_version: Показване на текущата версия
     title: Заглавие
     title_example: Заглавие на статията
@@ -101,6 +122,9 @@ bg:
     course_already_removed: „%{title}“ вече е изтрита от кампания „%{campaign_title}“
     course_removed: „%{title}“ е отстранен от кампания „%{campaign_title}“
     create_campaign: Създаване на нова кампания
+    data_instructors_info: Списък на инструкторите/ръководителите и техните курсове/програми
+    data_editors_by_course_info: Списък с редактори и курсовете/програмите, в които
+      участват
     description: Описание
     delete_campaign: Изтриване на кампанията
     none: Няма
@@ -120,6 +144,8 @@ bg:
     all_courses: Всички курсове
     actions: Действия
     articles: Статии
+    articles_i_am_reviewing: Статии, които оценявам
+    articles_i_am_updating: Статии, които редактирам
     assignment_end: Края на заданието
     assignment_start: Начало на заданието
     calendar:
@@ -141,6 +167,7 @@ bg:
       clone_this: Клониране на този курс
       clone_successful: Обновена информация за клониран курс
       course_description: Описание на курса
+      course_private: Частна програма (видима само от администратори и ръководители)
       course_title: Заглавие на курса
       create_button: Създай курса ми!
       create_label: Създаване на нов курс
@@ -188,18 +215,24 @@ bg:
       от тяхното първо редактиране на всяка статия
     yourcourses: Вашите курсове
   courses_generic:
+    articles_i_am_reviewing: Статии, които преглеждам
     cancel: Отказ
     courses: Програми
     campaigns: 'Кампании:'
     campaign_courses: Програми от %{title}
     creator:
+      course_school: Институция
       course_title: Заглавие на програмата
       find: Намери програма
       save_cloned_course: Съхраняване
+    enrollment: Добавяне/отстраняване на редактори
     explore: Търсене на програми
     expected_students: Очаквани редактори
+    instructors: Ръководители
+    school: Институция
     student_editors: Редактори
     students: Редактори
+    students_taught: Всички редактори
     view_other: Преглед на други кампании
   editable:
     edit: Редактиране
@@ -210,15 +243,18 @@ bg:
     activity: Последна активност
     articles_created: Създадени статии
     articles_edited: Редактирани статии
+    bytes_added: Добавени байта
     char_added: Добавени знаци
     char: Добавени знаци
     date_time: Дата/Час
     edit_count_description: Общо редакции
     revisions: Скорошни редакции
+    references_count: Добавени източници
     upload_count: Качвания в Общомедия
     view_count_description: Посетени статии
     view: Посещения
     word_count: Добавени думи
+    references_added: Добавени източници
   namespace:
     main_char_added: Добавени знаци в основното пространство
     user_char_added: Добавени знаци в потребителското пространство
@@ -252,10 +288,13 @@ bg:
     diff_hide: Скриване
     loading: Зареждане на версии...
     title: Заглавие
+  resources:
+    label: Ресурси
   timeline:
     add_week: Добавяне на седмица
     gradeable_value: Стойност
     this_week_title_default: Тази седмица
+    title: График
     week_number: Седмица %{number}
   training:
     start: Начало

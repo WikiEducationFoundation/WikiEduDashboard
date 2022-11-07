@@ -788,7 +788,7 @@ cs:
     student: Editor
     students: Editoři
     students_taught: Celkový počet editorů
-    students_none: Tento projekt nemá žádné zapsané editoři.
+    students_none: Tento projekt nemá žádné zapsané editory.
     students_short: Editoři
     students_count: Počet účastníků
     term: Kdy
