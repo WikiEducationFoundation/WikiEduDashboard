@@ -6,13 +6,14 @@ require_dependency "#{Rails.root}/lib/training/training_resource_query_object"
 
 class TrainingController < ApplicationController
   layout 'training'
+  before_action :init_query_object, only: :index
 
   def index
-    @search = params[:search_training]
-    @focused_library_slug, @libraries = TrainingResourceQueryObject
-                                        .find_libraries(@search, current_user)
+    if @search
+      @slides = @query_object.selected_slides_and_excerpt
+    else
+      @focused_library_slug, @libraries = @query_object.all_libraries
 
-    unless @search
       render 'no_training_module' if @libraries.empty?
     end
   end
@@ -83,5 +84,10 @@ class TrainingController < ApplicationController
   def fail_if_entity_not_found(entity, finder)
     return if entity.find_by(slug: finder).present?
     raise ActionController::RoutingError, 'not found'
+  end
+
+  def init_query_object
+    @search = params[:search_training]
+    @query_object = TrainingResourceQueryObject.new(current_user, @search)
   end
 end

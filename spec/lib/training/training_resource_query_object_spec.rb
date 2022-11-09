@@ -10,20 +10,24 @@ describe TrainingResourceQueryObject do
 
   let(:current_user) { create(:user) }
 
-  describe '::find_libraries' do
+  describe '#selected_slides_and_excerpt' do
     before do
       TrainingSlide.load
     end
 
     # The azertyuiop string is supposed not to be present in DB
     it 'returns empty array if not found' do
-      expect(described_class.find_libraries('azertyuiop', current_user)[1].size).to eq 0
+      expect(query_object('azertyuiop').selected_slides_and_excerpt.size).to eq 0
     end
 
     # At the time of writing, there are 2 occurences of CNN in DB
     # In content text field in the TrainingSlide object
     it 'returns an array of modules' do
-      expect(described_class.find_libraries('cnn', current_user)[1].size).to eq 2
+      expect(query_object('cnn').selected_slides_and_excerpt.size).to eq 2
     end
   end
+end
+
+def query_object(search = nil)
+  described_class.new(current_user, search)
 end

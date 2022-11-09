@@ -1,0 +1,11 @@
+%ul.training-libraries.no-bullets.no-margin.action-card-text
+  - @slides.each do |slide|
+    %li
+      %a{href: "/training/#{slide[:path]}", target: "_blank"}
+        = slide[:title]
+      (
+      %a{href: "/training/#{slide[:module]}", target: "_blank"}      
+        = slide[:module_name]
+      )
+      %br
+      = sanitize(slide[:excerpt], tags: ['mark'])
