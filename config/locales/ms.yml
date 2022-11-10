@@ -71,8 +71,11 @@ ms:
     edited_by: Disunting oleh
     label: Aktiviti
   articles:
+    articles: Rencana
     articles_shown: Menunjukkan %{count} daripada %{total}
     assigned: Rencana Ditugaskan
+    available: Rencana Tersedia
+    no_available: Tiada Rencana Tersedia
     next: Seterusnya
     previous: Sebelumnya
     article_title: Tajuk Rencana
@@ -86,6 +89,7 @@ ms:
       new: Baru
       tracked: Dijejak
       untracked: Tidak dijejak
+    find: Cari Rencana
     hide: Sorokkan
     history: (sejarah)
     label: Rencana
@@ -105,6 +109,8 @@ ms:
     wiki: Wiki
     articles_short: Rencana
     page_logs: (log laman)
+  items:
+    items: Butir
   articles_wikidata:
     articles_short: Butir
   articles_generic:
@@ -114,13 +120,17 @@ ms:
     title_too_large: Panjangnya tajuk tidak melebihi 255 aksara
     assign_other: Tugaskan rencana
     add_available_submit: Tambah rencana
+    assign_self: Tugaskan diri saya sebuah rencana
     bibliography: Bibliografi
     editors: Ditugaskan kepada
     label: Tugaskan
     loading: Memuatkan tugasan...
     none_short: Tiada rencana ditugaskan
     none: Kursus ini tiada rencana yang ditugaskan.
+    random_peer_review:
+      heading: Tugaskan ulasan rakan rawak
     remove: Buang
+    review_self: Ulas rencana
     sandbox_draft_link: Draf Kotak Pasir
     select: Pilih
   campaign:
@@ -173,6 +183,7 @@ ms:
     article_viewer: Pemapar Rencana
     assignment_headings:
       assigned_articles: Rencana Ditugaskan
+      available_articles: Rencana Tersedia
     calendar:
       legend: Petunjuk
     cancel: Batalkan
@@ -210,12 +221,14 @@ ms:
     edit_count: Kiraan Suntingan
     edit_course_dates: Sunting Tarikh Kursus
     embed_course_stats: Benamkan Perangkaan Kursus
+    enable_account_requests: Bolehkan permohonan akaun
     end: Tamat
     error:
       invalid_language_or_project: Bahasa/Projek tidak sah
     feedback: Maklum balas
     home_wiki: Wiki Rumah
     multi_wiki: Wiki Dijejak
+    namespaces: Ruang Nama Terjejak
     join: Sertai
     join_course: Sertai kursus
     join_course_as_volunteer: Sukarela membantu
@@ -266,6 +279,8 @@ ms:
     student_editors: Penyunting
     students: Penyunting
     students_taught: Jumlah Penyunting
+    uploads_none: Projek ini tidak menyumbang sebarang imej atau fail media lain kepada
+      Wikimedia Commons.
   editable:
     edit_description: Sunting Keterangan
     edit_details: Sunting Butiran
@@ -275,25 +290,34 @@ ms:
   metrics:
     last_update: Kemas kini perangkaan terakhir
     next_update: Kemas kini anggaran seterusnya
+    enqueued_update: Program ini telah ditambahkan ke baris gilir kemas kini.
+    first_update: Anggaran mula kemas kini perangkaan
     articles_created_wikidata: Item Tercipta
     articles_created_generic: Rencana Tercipta
     articles_edited_wikidata: Item Tersunting
-    articles_edited_generic: Halaman Tersunting
+    articles_edited_generic: Laman Tersunting
     bytes_added: Bait Ditambah
+    char_added: Aks Ditambah
+    char: Aks Ditambah
     edit_count_description: Jumlah Suntingan
     revisions: Suntingan Terkini
     references_count: Rujukan Ditambah
     update_statistics_link: Lihat lagi
     upload_count: Muat Naik Commons
+    view_count_description: Paparan Rencana
+    view: Paparan
   recent_activity:
     no_edits: Tiada suntingan terkini.
+    possible_plagiarism: Kemungkinan Plagiarisme
     recent_edits: Suntingan Terkini
     recent_uploads: Muat Naik Terkini
     uploaded_by: Dimuat Naik Oleh
   revisions:
+    chars_added: Aks Ditambah
     references: Rujukan Ditambah
     none: Kursus ini tiada kegiatan menyunting terkini.
     see_more: Lihat lagi
+    show_course_specific: Tunjuk Khusus Kursus
   uploads:
     header: Fail Dimuat Naik ke Wikimedia Commons
     label: Muat Naik
@@ -307,6 +331,7 @@ ms:
     chars_added: Aksara Ditambah<br>(rencana | pengguna | draf)
     course_passcode: 'Kod laluan:'
     editors: Penyunting
+    enrolled_success: '%{username} telah berjaya ditambahkan!'
     characters_added_draftspace: Aksara Ditambah (draf)
     my_assigned: 'Ditugaskan:'
     my_reviewing: 'Meninjau semula:'
@@ -314,6 +339,7 @@ ms:
     recent_revisions: Suntingan Terkini
     references_count: Rujukan Ditambah
     references_doc: Bilangan rujukan ditambah atau dibuang oleh penyunting ini
+    reviewing: Mengulas
     sub_navigation:
       assignments_and_exercises: Tugasan & Latihan
       editor_overview: Gambaran Keseluruhan Penyunting

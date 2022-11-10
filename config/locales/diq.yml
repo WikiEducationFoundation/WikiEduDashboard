@@ -43,9 +43,9 @@ diq:
     request_account_create: Hesab vıraze
     search: persê bıperse
     search_results:
-      one: '%{count} neticey: ''%{search_terms}'''
-      other: '%{count} Neticey:''%{search_terms}'''
-    no_results: '''%{query}'' rê neticey nêvineyay'
+      one: '%{count} Neticeyi: ''%{search_terms}'''
+      other: '%{count} Neticeyi:''%{search_terms}'''
+    no_results: '''%{query}'' rê neticeyi nêvêniyayi'
     sign_up_extended: Ebe Wikipediya ra cıkewe
     sign_up_wikipedia: Yana Wikipedia rê qeyd bıbê
     sign_up_log_in_extended: ebe Wikipediya ra

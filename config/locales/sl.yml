@@ -6,6 +6,9 @@
 # Author: Pickle12
 ---
 sl:
+  accessibility:
+    number_field: To je številsko polje. Gumbi, ki jih prikaže večina brskalnikov,
+      bodo povečali ali zmanjšali vnos.
   application:
     cancel: Prekliči
     dashboard: Nadzorna plošča urejanja wikija
