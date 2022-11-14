@@ -20,7 +20,9 @@ class TrainingResourceQueryObject
 
   def selected_slides_and_excerpt
     slugs = search_content_in_slides.map do |slide|
-      { slide: slide.slug, title: slide.title, excerpt: excerpt(slide.content) }
+      { slide: slide.slug,
+        title: highlight_kword_in(slide.title),
+        excerpt: excerpt(slide.sanitized_content) }
     end
     add_libr_and_mod_slugs(slugs)
 
@@ -31,10 +33,14 @@ class TrainingResourceQueryObject
 
   def add_libr_and_mod_slugs(slugs)
     slugs.each do |slug|
-      slug[:module], slug[:module_name] =
-        module_of_a_slide(slug[:slide]).then { |tm| [tm.slug, tm.name] }
-      slug[:library] = library_of_a_module(slug[:module]).slug
+      trningmod = module_of_a_slide(slug[:slide])
+      next if trningmod.nil?
+
+      slug[:module], slug[:module_name] = [trningmod.slug, trningmod.slug]
+      library_of_a_module(slug[:module]).then { |lib| slug[:library] = lib.slug unless lib.nil? }
     end
+
+    reject_module_without_library(slugs)
   end
 
   def module_of_a_slide(slide_slug)
@@ -45,6 +51,10 @@ class TrainingResourceQueryObject
     TrainingLibrary.all.find do |lib|
       lib.categories.pluck('modules').flatten.find { |o| o['slug'] == training_module }
     end
+  end
+
+  def reject_module_without_library(slugs)
+    slugs.reject! { |obj| obj[:library].nil? }
   end
 
   def slide_paths_with_excerpt(slugs)
@@ -64,10 +74,19 @@ class TrainingResourceQueryObject
   def search_content_in_slides
     srch = "%#{@search}%"
     TrainingSlide
-      .where('content LIKE ? or title LIKE ?', srch, srch)
+      .select(:id, :slug, :title, "REGEXP_REPLACE(content, '#{ignore}', '') AS sanitized_content")
+      .where("REGEXP_REPLACE(content, '#{ignore}', '') LIKE ? or title LIKE ?", srch, srch)
+  end
+
+  def ignore
+    '<img.*>|<a href.*>|\\(http.*\\)'
   end
 
   def excerpt(text)
     StringUtils.excerpt(text, @search, EXCERPT_LENGTH)
+  end
+
+  def highlight_kword_in(title)
+    StringUtils.highlight_kword(title, @search)
   end
 end
