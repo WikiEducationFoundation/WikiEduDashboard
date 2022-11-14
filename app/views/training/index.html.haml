@@ -4,7 +4,7 @@
   .search-bar{style: 'position:relative'}
     = form_tag("/training", method: "get") do
       = text_field_tag(:search_training, '', placeholder: t('training.search_training_resources'), style: 'width: 100%; height: 3rem;font-size: 15px')
-      %button{type: 'submit', style: 'position: absolute; right: 20px; top: 10px'}
+      %button{type: 'submit', id: 'training_search_button', style: 'position: absolute; right: 20px; top: 10px'}
         %i.icon.icon-search
   - if @search
     = render 'search_results'

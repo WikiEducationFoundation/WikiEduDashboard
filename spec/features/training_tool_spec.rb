@@ -188,8 +188,8 @@ describe 'Training', type: :feature, js: true do
 
     it 'displays search results' do
       fill_in('search_training', with: 'cnn')
-      click_button('glass_training')
-      expect(page).to have_content('Wikipedia policies')
+      click_button('training_search_button')
+      expect(page).to have_content('Policies and guidelines: basic overview')
     end
   end
 
