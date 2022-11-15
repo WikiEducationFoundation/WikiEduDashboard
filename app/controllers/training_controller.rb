@@ -2,16 +2,20 @@
 
 require_dependency "#{Rails.root}/lib/training_progress_manager"
 require_dependency "#{Rails.root}/lib/data_cycle/training_update"
+require_dependency "#{Rails.root}/lib/training/training_resource_query_object"
 
 class TrainingController < ApplicationController
   layout 'training'
+  before_action :init_query_object, only: :index
 
   def index
-    @focused_library_slug = current_user&.courses&.last&.training_library_slug
-    @libraries = TrainingLibrary.all.sort_by do |library|
-      library.slug == @focused_library_slug ? 0 : 1
+    if @search
+      @slides = @query_object.selected_slides_and_excerpt
+    else
+      @focused_library_slug, @libraries = @query_object.all_libraries
+
+      render 'no_training_module' if @libraries.empty?
     end
-    render 'no_training_module' if @libraries.empty?
   end
 
   def show
@@ -80,5 +84,10 @@ class TrainingController < ApplicationController
   def fail_if_entity_not_found(entity, finder)
     return if entity.find_by(slug: finder).present?
     raise ActionController::RoutingError, 'not found'
+  end
+
+  def init_query_object
+    @search = params[:search_training]
+    @query_object = TrainingResourceQueryObject.new(current_user, @search)
   end
 end
