@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+#require 'spec_helper'
 
 DESIRED_TRAINING_MODULES = [{ slug: 'evaluating-articles' }].freeze
 
@@ -229,3 +230,4 @@ def find_correct_answer_by_trial_and_error
     break if next_button['disabled'].nil?
   end
 end
+

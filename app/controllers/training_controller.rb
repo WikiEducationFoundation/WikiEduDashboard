@@ -22,7 +22,7 @@ class TrainingController < ApplicationController
 
   def training_module
     fail_if_entity_not_found(TrainingModule, params[:module_id])
-  # Save the return-to source, typically a course page, so that
+    # Save the return-to source, typically a course page, so that
     # at the end of the training we can return the user to where they
     # started from.
     session[:training_return_to] = request.referer
@@ -31,7 +31,6 @@ class TrainingController < ApplicationController
     add_library_breadcrumb
     add_module_breadcrumb(@pres.training_module)
   end
-
 
   def slide_view
     training_module = TrainingModule.find_by(slug: params[:module_id])
@@ -76,7 +75,6 @@ class TrainingController < ApplicationController
   def add_module_breadcrumb(training_module)
     add_breadcrumb training_module.translated_name, :training_module_path
   end
-
 
   def fail_if_entity_not_found(entity, finder)
     return if entity.find_by(slug: finder).present?
