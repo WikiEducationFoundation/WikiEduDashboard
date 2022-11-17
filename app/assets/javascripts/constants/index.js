@@ -15,7 +15,6 @@ export * from './course_search_results';
 export * from './did_you_know';
 export * from './exercises';
 export * from './feedback';
-export * from './need_help_alert';
 export * from './new_accounts';
 export * from './notifications';
 export * from './ui';

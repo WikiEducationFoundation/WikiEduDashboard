@@ -62,7 +62,8 @@ const mapDispatchToProps = {
   initiateConfirm,
   deleteAssignment,
   fetchAssignments,
-  updateAssignmentStatus
+  updateAssignmentStatus,
+  dispatch: dis => dis
 };
 
 export default connect(null, mapDispatchToProps)(Assignment);

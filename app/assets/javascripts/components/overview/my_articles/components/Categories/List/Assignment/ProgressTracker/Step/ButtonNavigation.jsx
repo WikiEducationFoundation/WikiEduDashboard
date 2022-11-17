@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const update = ({
-  assignment, courseSlug,
-  updateAssignmentStatus, fetchAssignments, stepAction
+  assignment, course,
+  updateAssignmentStatus, fetchAssignments, stepAction, dispatch
 }, undo = false) => async () => {
   const {
     assignment_all_statuses: statuses,
@@ -13,9 +13,9 @@ const update = ({
   const updated = (undo ? statuses[i - 1] : statuses[i + 1]) || status;
 
   await updateAssignmentStatus(assignment, updated);
-  await fetchAssignments(courseSlug);
+  await fetchAssignments(course.slug);
   if (stepAction) {
-    await stepAction();
+    await stepAction({ assignment, course })(dispatch);
   }
 };
 
@@ -52,7 +52,7 @@ ButtonNavigation.propTypes = {
   // props
   active: PropTypes.bool.isRequired,
   assignment: PropTypes.object.isRequired,
-  courseSlug: PropTypes.string.isRequired,
+  course: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
   // actions
   updateAssignmentStatus: PropTypes.func.isRequired,

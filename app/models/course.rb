@@ -439,6 +439,10 @@ class Course < ApplicationRecord
     flags[:disable_student_emails].present?
   end
 
+  def review_bibliography?
+    flags[:review_bibliography].present?
+  end
+
   # Overridden for some course types
   def cloneable?
     !tag?('no_clone')
