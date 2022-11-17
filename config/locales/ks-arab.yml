@@ -1,0 +1,49 @@
+# Messages for Kashmiri (Arabic script) (کٲشُر)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Iflaq
+# Author: Rishabhbhat
+# Author: Tajamul9
+---
+ks-arab:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: ساس
+          million: مِلیَن
+          billion: بِلیَن
+          trillion: ٹرٛیَن
+  application:
+    greeting: سَلام!
+    help: مَدَتھ
+    home: اَہَم صَفہٕ
+    log_in_extended: وِکیٖپیٖڈیا ستؠ گژھِو دٲخل
+    log_in: دٲخِل گٔژھِو
+    log_out: خٲرِج گٔژھِو
+    my_dashboard: مؠون ڈیش بورڈ
+    request_account_create: کھاتہٕ بَنٲیو
+    confirm: ٹھیٖک چھُ
+    opt_in: آ
+    opt_out: نہَ
+    opt_yes: آ
+    opt_no: نَہ
+  articles:
+    edited_mobile: مَضموٗن
+    filter:
+      wiki_all: سٲری
+    history: (تَوٲریٖخ)
+    label: مَضموٗن
+  articles_generic:
+    articles_short: صَفہٕ
+  assignments:
+    article_link: مَضموٗن
+  campaign:
+    alert_user_id: صٲرِف
+    created_at: تٲریٖخ
+  namespace:
+    help: مَدَتھ
+    book: کِتاب
+    translation: تَرجَمہٕ
+...

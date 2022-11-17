@@ -125,6 +125,9 @@ sl:
       Če želite naložiti podatke o usposabljanju iz datotek training_content/yaml,
       kliknite <a href="%{url}">tukaj</a>.
     no_training_library_records_non_wiki_ed_mode: V zbirki podatkov ni zapisov TrainingLibrary.
+    search_training_resources: Poiščite vire za usposabljanje
+    no_training_resource_match_your_search: Z vašim iskanjem se ne ujema noben vir
+      za usposabljanje
   uploads:
     label: Naložitve
   users:

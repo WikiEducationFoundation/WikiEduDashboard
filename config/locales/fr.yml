@@ -1452,6 +1452,9 @@ fr:
       de formation à partir de fichiers training_content/yaml.
     no_training_library_records_non_wiki_ed_mode: Il n’y a aucun enregistrement « TrainingLibrary »
       dans la base de données.
+    search_training_resources: Rechercher des ressources de formation
+    no_training_resource_match_your_search: Aucune ressource de formation ne correspond
+      à votre recherche
   uploads:
     credit: Crédit
     file_name: Nom de fichier

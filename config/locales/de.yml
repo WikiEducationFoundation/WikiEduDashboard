@@ -1203,6 +1203,9 @@ de:
     kind:
       exercise: Übung
       discussion: Diskussion
+    search_training_resources: Suche nach Schulungsressourcen
+    no_training_resource_match_your_search: Keine Trainingsressource entspricht deiner
+      Suche
   uploads:
     credit: Danksagung
     file_name: Dateiname

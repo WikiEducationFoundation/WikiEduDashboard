@@ -10,6 +10,7 @@
 # Author: Palnatoke
 # Author: Peterleth
 # Author: Saederup92
+# Author: SiGNOUT
 # Author: Steenth
 # Author: Tinamalmgren
 ---
@@ -1357,6 +1358,8 @@ da:
       exercise: Øvelse
       discussion: Diskussion
       training: Træning
+    search_training_resources: Søg efter træningsressourcer
+    no_training_resource_match_your_search: Ingen træningsressource matcher din søgning
   uploads:
     credit: Kredit
     file_name: Filnavn
