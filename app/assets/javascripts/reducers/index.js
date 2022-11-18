@@ -3,6 +3,7 @@ import alerts from './alerts';
 import articleDetails from './article_details';
 import articleFinder from './article_finder';
 import articles from './articles';
+import badWorkAlert from './bad_work_alert';
 import assignments from './assignments';
 import campaign from './campaign';
 import campaigns from './campaigns';
@@ -50,6 +51,7 @@ const reducer = combineReducers({
   articleFinder,
   articles,
   assignments,
+  badWorkAlert,
   campaign,
   campaigns,
   categories,

@@ -18,6 +18,8 @@ export function submitBadWorkAlert(data) {
   };
 }
 
+export const resetBadWorkAlert = () => ({ type: types.RESET_BAD_WORK_ALERT });
+
 export function submitReviewRequestAlert({ assignment, course }) {
   const data = {
     user_id: assignment.user_id,

@@ -27,7 +27,7 @@ import ArticleViewerAPI from '@components/common/ArticleViewer/utils/ArticleView
 import colors from '@components/common/ArticleViewer/constants/colors';
 
 // Actions
-import { resetNeedHelpAlert, submitBadWorkAlert } from '~/app/assets/javascripts/actions/alert_actions.js';
+import { resetBadWorkAlert, submitBadWorkAlert } from '~/app/assets/javascripts/actions/alert_actions.js';
 
 export class ArticleViewer extends React.Component {
   constructor(props) {
@@ -136,7 +136,7 @@ export class ArticleViewer extends React.Component {
     if (!this.state.showArticle) { return; }
     this.hideBadArticleAlert();
     this.setState({ showArticle: false });
-    this.props.resetNeedHelpAlert();
+    this.props.resetBadWorkAlert();
     // removes the article parameter from the URL
     this.removeParamFromURL(e);
   }
@@ -353,9 +353,9 @@ ArticleViewer.propTypes = {
 };
 
 const clickOutsideComponent = OnClickOutside(ArticleViewer);
-const mapStateToProps = ({ needHelpAlert }) => ({ alertStatus: needHelpAlert });
+const mapStateToProps = ({ badWorkAlert }) => ({ alertStatus: badWorkAlert });
 const mapDispatchToProps = {
-  resetNeedHelpAlert,
+  resetBadWorkAlert,
   submitBadWorkAlert
 };
 export default connect(mapStateToProps, mapDispatchToProps)(clickOutsideComponent);
