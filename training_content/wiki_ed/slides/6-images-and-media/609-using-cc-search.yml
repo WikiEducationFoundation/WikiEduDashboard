@@ -1,22 +1,22 @@
 id: 609
-title: Using CC Search
+title: Using Openverse Search
 summary:
 content: |
   Creative Commons is a non-profit that helps spread the word about free
   licenses. It's not actually connected to Wikipedia, but they've created a
   search engine that will help find materials that fit a certain type of license:
-  CC Search. Let's look at how it works.
+  Openverse. Let's look at how it works.
 
-  First, go to <a href="https://search.creativecommons.org/" target="_blank">search.creativecommons.org</a>.
+  First, go to <a href="https://wordpress.org/openverse/" target="_blank">wordpress.org/openverse</a>.
 
-  Next to the green “CC Search” box, type in the topic of your search, just like
-  you would any search engine. Beneath the search query, you MUST click the two
-  boxes, “use for commercial purposes…” and “modify, adapt, build upon…”. If you
-  do not click those two boxes, you may NOT be able to use the images you find
-  through this search on Wikipedia.
+  In the search bar, click "All content" and change it to "Images". Then, type 
+  the topic of your search into the search box just like you would with any 
+  search engine. Click "Search".
 
-  Click the boxes below the search box to choose which sites you want to search
-  for Wikipedia-acceptable images.
+  When results appear, click "Filters" in the upper righthand corner. You MUST 
+  click the two boxes "Use commercially" and "Modify or adapt". If you do not 
+  click those two boxes, you may NOT be able to use the images you find through 
+  this search on Wikipedia.
 
-  When you find an image, make a note. We’ll show you later on how to add that
+  When you find an image, make a note. We'll show you later on how to add that 
   image to Wikimedia Commons, so you can include it in your Wikipedia article.
