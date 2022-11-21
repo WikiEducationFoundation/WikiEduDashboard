@@ -24,7 +24,7 @@ export function submitReviewRequestAlert({ assignment, course }) {
   const data = {
     user_id: assignment.user_id,
     course_id: course.id,
-    message: `Ready for review: <a href="${assignment.sandbox_url}/bibliography">${assignment.sandbox_url}/bibliography</a>`
+    subject_id: assignment.id // The 'subject' for the Alert record is the Assignment id.
   };
 
   return function (dispatch) {

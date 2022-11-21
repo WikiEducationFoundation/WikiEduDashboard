@@ -23,10 +23,19 @@
 # Alert for a request for a Wiki Expert to review an draft article or bibliography
 class ReviewRequestAlert < Alert
   def main_subject
-    "???"
+    "Review request: #{assignment.article_title} — #{course.slug}"
   end
 
   def url
-    "???"
+    "#{assignment.sandbox_url}/bibliography"
+  end
+
+  # The 'subject' for the Alert record is the Assignment id.
+  def assignment
+    @assignment ||= Assignment.find_by(id: subject_id)
+  end
+
+  def message
+    "Ready for review: <a href=\"#{url}\">#{url}</a>"
   end
 end
