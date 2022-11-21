@@ -14,6 +14,7 @@ sl:
     dashboard: Nadzorna plošča urejanja vikija
     explore: Raziskuj
     greeting2: Pozdravljeni!
+    greeting: Pozdravljeni!
     help: Pomoč
     home: Domov
     log_in_extended: Prijava z Wikipedijo
@@ -62,6 +63,7 @@ sl:
     creator:
       end_date: Končni datum
       start_date: Začetni datum
+    current: Trenutni tečaji
     delete_suggestion: Izbriši
     dismiss_survey: Opusti
     feedback: Odziv
@@ -153,6 +155,9 @@ sl:
     summary: Povzetek
   error_no_course:
     explanation: Predmet %{slug} ne obstaja.
+  survey:
+    email:
+      headline: Pozdravljeni, %{username}
   training_status:
     continue: Nadaljuj
 ...

@@ -13,6 +13,7 @@ se:
   categories:
     template_name: Málle namma
   courses:
+    new_account_email: E-poastačujuhus
     tags: 'Gilkorat:'
     timeline_link: Áigelinnjá
   metrics:

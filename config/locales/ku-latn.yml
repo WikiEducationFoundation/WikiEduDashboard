@@ -146,8 +146,8 @@ ku-latn:
       does_not_exist: Ev gotar li ser wîkîpediyayê tune
     see_more: Zêdetir bibîne
     search: Li Wîkîpediyayê li gotarekê bigerin
-    show_cumulative_changes: Guhertinên kelekebûyî nîşan bide
-    show_current_version: Guhertoya Niha Nîşan Bide
+    show_cumulative_changes: Guhartinên kelekebûyî nîşan bide
+    show_current_version: Guhartoya Niha Nîşan Bide
     title: Sernav
     title_example: Sernavê gotarê
     tools: Amûrên nirxandinê
@@ -216,11 +216,11 @@ ku-latn:
     articles_created: Gotar Hate Çêkirin
     articles_edited: Gotar Hate Sererastkirin
     characters: Karakter
-    char_changed: Karakter Hate Guhertin
+    char_changed: Karakter Hate Guhartin
     date_time: Dîrok/Katjimêr
-    edit_count_description: Hemû Guherandin
+    edit_count_description: Hemû Guhartin
     per_user: '%{number}/bikarhêner'
-    revisions: Guhertinên Dawî
+    revisions: Guhartinên Dawî
     view_count_description: Dîtinên Gotara
     view: Dîtin
   recent_activity:
@@ -254,7 +254,7 @@ ku-latn:
     last_name: Paşnav
     loading: Bikarhêner tên barkirin...
     name: Nav
-    recent_revisions: Guhertinên Dawî
+    recent_revisions: Guhartinên Dawî
     username: Navê bikarhêner
     username_placeholder: Navê bikarhêner
   wizard:
