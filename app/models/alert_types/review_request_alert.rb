@@ -23,10 +23,12 @@
 # Alert for a request for a Wiki Expert to review an draft article or bibliography
 class ReviewRequestAlert < Alert
   def main_subject
+    return '' unless assignment
     "Review request: #{assignment.article_title} — #{course.slug}"
   end
 
   def url
+    return '' unless assignment
     "#{assignment.sandbox_url}/bibliography"
   end
 
