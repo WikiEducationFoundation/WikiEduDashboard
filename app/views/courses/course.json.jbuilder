@@ -54,7 +54,7 @@ json.course do
   json.updates average_delay: @course.flags['average_update_delay'],
                last_update: @course.flags['update_logs']&.values&.last
 
-  if user_role.zero? # student role
+  if [CoursesUsers::Roles::INSTRUCTOR_ROLE, CoursesUsers::Roles::INSTRUCTOR_ROLE].include? user_role
     json.incomplete_assigned_modules @course.training_progress_manager
                                             .incomplete_assigned_modules(current_user)
   end
@@ -80,7 +80,7 @@ json.course do
     json.canUploadSyllabus false
   end
 
-  if user_role == 1 # instructor
+  if user_role == CoursesUsers::Roles::INSTRUCTOR_ROLE
     exeriment_presenter = ExperimentsPresenter.new(@course)
     json.experiment_notification exeriment_presenter.notification if exeriment_presenter.experiment
   end
