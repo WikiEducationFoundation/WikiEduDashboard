@@ -55,6 +55,7 @@ class Alert < ApplicationRecord
     OverEnrollmentAlert
     ProductiveCourseAlert
     ProtectedArticleAssignmentAlert
+    ReviewRequestAlert
     SandboxedCourseMainspaceAlert
     SurveyResponseAlert
     UnsubmittedCourseAlert

@@ -1,22 +1,26 @@
+import { submitReviewRequestAlert } from '../../../../actions/alert_actions';
+
 export default (assignment, course) => {
+  const reviewBibliography = course.review_bibliography;
+
   if (course.stay_in_sandbox) {
     return [
-      completeBibliography(assignment),
+      completeBibliography(assignment, reviewBibliography),
       createInSandbox(assignment),
       expandYourDraft(assignment),
       prepareForMainspace(assignment)
     ];
   }
   return [
-    completeBibliography(assignment),
+    completeBibliography(assignment, reviewBibliography),
     createInSandbox(assignment),
     expandYourDraft(assignment),
     moveYourWork(assignment)
   ];
 };
 
-const completeBibliography = (assignment) => {
-  return {
+const completeBibliography = (assignment, reviewBibliography) => {
+  const bibliographyStep = {
     title: 'Complete your bibliography',
     content: 'Compile a list of reliable and verifiable secondary sources for the subject you\'ll be contributing to.',
     status: 'not_yet_started',
@@ -32,6 +36,11 @@ const completeBibliography = (assignment) => {
       }
     ]
   };
+  if (reviewBibliography) {
+    bibliographyStep.buttonLabel = 'Ready for review';
+    bibliographyStep.stepAction = submitReviewRequestAlert;
+  }
+  return bibliographyStep;
 };
 
 const createInSandbox = (assignment) => {

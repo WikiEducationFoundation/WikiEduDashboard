@@ -469,24 +469,10 @@ const API = {
     return response.json();
   },
 
-  async createBadWorkAlert(opts) {
+  async createAlert(opts, alert_type) {
     const response = await request('/alerts', {
       method: 'POST',
-      body: JSON.stringify( { ...opts, alert_type: 'BadWorkAlert' })
-    });
-    if (!response.ok) {
-      logErrorMessage(response);
-      const data = await response.text();
-      response.responseText = data;
-      throw response;
-    }
-    return response.json();
-  },
-
-  async createNeedHelpAlert(opts) {
-    const response = await request('/alerts', {
-      method: 'POST',
-      body: JSON.stringify( { ...opts, alert_type: 'NeedHelpAlert' })
+      body: JSON.stringify( { ...opts, alert_type })
     });
     if (!response.ok) {
       logErrorMessage(response);

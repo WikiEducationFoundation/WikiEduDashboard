@@ -23,7 +23,7 @@ export class ProgressTracker extends React.Component {
   render() {
     const {
       assignment, course,
-      fetchAssignments, updateAssignmentStatus
+      fetchAssignments, updateAssignmentStatus, dispatch
     } = this.props;
     const { show } = this.state;
 
@@ -31,11 +31,12 @@ export class ProgressTracker extends React.Component {
       <Step
         {...content}
         assignment={assignment}
-        courseSlug={course.slug}
+        course={course}
         index={index}
         key={index}
         fetchAssignments={fetchAssignments}
         updateAssignmentStatus={updateAssignmentStatus}
+        dispatch={dispatch}
       />
     ));
 

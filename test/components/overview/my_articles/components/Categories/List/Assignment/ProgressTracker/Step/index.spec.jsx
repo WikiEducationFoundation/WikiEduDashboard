@@ -8,7 +8,7 @@ describe('Step', () => {
   const props = {
     assignment: {},
     content: 'content',
-    courseSlug: 'course/slug',
+    course: { slug: 'course/slug' },
     index: 1,
     status: 'status',
     title: 'title',

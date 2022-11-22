@@ -7,7 +7,8 @@ class AlertsController < ApplicationController
 
   ALERT_TYPES = {
     'NeedHelpAlert' => NeedHelpAlert,
-    'BadWorkAlert' => BadWorkAlert
+    'BadWorkAlert' => BadWorkAlert,
+    'ReviewRequestAlert' => ReviewRequestAlert
   }.freeze
   # Creates alerts based on parameters. Doesn't require admin permission.
   # Other type of alerts are created via the update cycle, not directly by users.
@@ -68,7 +69,7 @@ class AlertsController < ApplicationController
   end
 
   def alert_params
-    params.permit(:alert_type, :article_id, :course_id, :message, :target_user_id)
+    params.permit(:alert_type, :article_id, :course_id, :message, :target_user_id, :subject_id)
   end
 
   def set_default_target_user

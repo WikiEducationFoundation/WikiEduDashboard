@@ -11,9 +11,26 @@ import request from '../utils/request';
 // Redux.
 export function submitBadWorkAlert(data) {
   return function (dispatch) {
-    dispatch({ type: types.NEED_HELP_ALERT_SUBMITTED });
-    return API.createBadWorkAlert(data)
-      .then(() => (dispatch({ type: types.NEED_HELP_ALERT_CREATED })))
+    dispatch({ type: types.BAD_WORK_ALERT_SUBMITTED });
+    return API.createAlert(data, 'BadWorkAlert')
+      .then(() => (dispatch({ type: types.BAD_WORK_ALERT_CREATED })))
+      .catch(response => (dispatch({ type: types.API_FAIL, data: response })));
+  };
+}
+
+export const resetBadWorkAlert = () => ({ type: types.RESET_BAD_WORK_ALERT });
+
+export function submitReviewRequestAlert({ assignment, course }) {
+  const data = {
+    user_id: assignment.user_id,
+    course_id: course.id,
+    subject_id: assignment.id // The 'subject' for the Alert record is the Assignment id.
+  };
+
+  return function (dispatch) {
+    dispatch({ type: types.REVIEW_REQUEST_ALERT_SUBMITTED });
+    return API.createAlert(data, 'ReviewRequestAlert')
+      .then(() => (dispatch({ type: types.REVIEW_REQUEST_ALERT_CREATED })))
       .catch(response => (dispatch({ type: types.API_FAIL, data: response })));
   };
 }
@@ -24,7 +41,7 @@ export function submitNeedHelpAlert(data) {
     if (getState().needHelpAlert.submitting) { return; }
 
     dispatch({ type: types.NEED_HELP_ALERT_SUBMITTED });
-    return API.createNeedHelpAlert(data)
+    return API.createAlert(data, 'NeedHelpAlert')
       .then(() => (dispatch({ type: types.NEED_HELP_ALERT_CREATED })))
       .catch(response => (dispatch({ type: types.API_FAIL, data: response })));
   };
