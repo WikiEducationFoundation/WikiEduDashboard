@@ -1410,6 +1410,9 @@ pt:
       dos ficheiros yaml em training_content/.
     no_training_library_records_non_wiki_ed_mode: Não há registos da biblioteca de
       formações na base de dados.
+    search_training_resources: Pesquisar recursos de formação
+    no_training_resource_match_your_search: Nenhum recurso de formação corresponde
+      à sua pesquisa
   uploads:
     credit: Créditos
     file_name: Nome do ficheiro

@@ -6,7 +6,12 @@
 se:
   application:
     cookie_consent_see_more: Lassedieđut
+    log_in_extended: Čálit sisa Wikipediain
+    log_in: Čálit sisa
+    log_out: Čálit olggos
   articles:
+    filter:
+      new: Ođđa
     see_more: Lassedieđut
   assignments:
     select: Vállje
@@ -16,6 +21,11 @@ se:
     new_account_email: E-poastačujuhus
     tags: 'Gilkorat:'
     timeline_link: Áigelinnjá
+  courses_generic:
+    creator:
+      save_cloned_course: Vurke
+  editable:
+    save: Vurke
   metrics:
     tags: Gilkorat
   recent_activity:

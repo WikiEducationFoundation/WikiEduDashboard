@@ -273,7 +273,7 @@ bg:
     cookbook: Готварска книга
     index: Индекс
   recent_activity:
-    article_title: Заглавие на статията
+    article_title: Заглавие
     datetime: Дата/Час
     image: Изображение
     no_edits: Няма скорошни редакции.

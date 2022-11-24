@@ -15,6 +15,7 @@
 # Author: Hanyanbo98
 # Author: Interestinghe
 # Author: Josephine W.
+# Author: Lakejason0
 # Author: Liuxinyu970226
 # Author: Looong
 # Author: Macofe
@@ -303,8 +304,8 @@ zh-CN:
     default_passcode_explanation: 默认情况下，此运动中的新计划应有：
     description: 描述
     delete_campaign: 删除此运动
-    disable_account_requests: 禁用帐户请求
-    enable_account_requests: 启用帐户请求
+    disable_account_requests: 禁用账号请求
+    enable_account_requests: 启用账号请求
     no_alerts: 此活动没有提醒
     no_passcode: 无密码
     none: 无
@@ -441,7 +442,7 @@ zh-CN:
     edit_count: 编辑数
     edit_course_dates: 编辑课程日期
     embed_course_stats_description: 要将此程序的统计信息嵌入另一个网站，请将此代码段复制并粘贴到
-    enable_account_requests: 启用帐户请求
+    enable_account_requests: 启用账号请求
     end: 结束
     ended: 课程已启用。
     enroll: 注册

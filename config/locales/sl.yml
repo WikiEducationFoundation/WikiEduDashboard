@@ -47,6 +47,7 @@ sl:
   assignments:
     remove: Odstrani
     sandbox_draft_link: Osnutek peskovnika
+    select: Izberi
   campaign:
     campaign: Kampanja
     campaigns: Kampanje
