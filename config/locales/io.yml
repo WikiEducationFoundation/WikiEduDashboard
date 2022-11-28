@@ -28,8 +28,11 @@ io:
     all: Aktiveso
     label: Aktiveso
   articles:
+    articles: Artikli
     article_title: Titulo dil artiklo
+    edited_mobile: Artikli
     hide: Celez
+    label: Artikli
     title: Titulo
   assignments:
     remove: Removar artiklo
@@ -44,6 +47,7 @@ io:
     remove: Removar
   courses:
     active_courses: Aktiva kampanii
+    articles: Artikli
     campaigns: 'Kampanii:'
     campaign_courses: '%{title} Kampanii'
     course_description: Kampanii
@@ -100,6 +104,9 @@ io:
   users:
     assign_articles_done: Facita
     exercises_and_trainings: Exerci & Aprentiteso
+    number_of_articles:
+      one: '%{count} artiklo'
+      other: '%{count} artikli'
     profile: profilo
     revisions: Revizuri
     sub_navigation:
@@ -112,6 +119,7 @@ io:
     up_to_date_with_training: Aktualigo pri aprentiseso
   wizard:
     read_more: Lektez pluse
+    summary: Rezumo
   survey:
     email:
       headline: Saluto, %{username}

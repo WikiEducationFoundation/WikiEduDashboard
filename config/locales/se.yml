@@ -1,24 +1,32 @@
 # Messages for Northern Sami (davvisámegiella)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Kimberli Mäkäräinen (WMNO)
 # Author: Yupik
 ---
 se:
   application:
     cookie_consent_see_more: Lassedieđut
-    log_in_extended: Čálit sisa Wikipediain
+    log_in_extended: Čálit sisa Wikipedia bokte
     log_in: Čálit sisa
     log_out: Čálit olggos
+  home:
+    log_in: Čálit sisa Wikipedia bokte
   articles:
+    deleted: (sihkkojuvvon)
     filter:
       new: Ođđa
+    hide: Čiega
     see_more: Lassedieđut
   assignments:
     select: Vállje
   categories:
     template_name: Málle namma
   courses:
+    delete_suggestion: Sihko
+    feedback: Máhcahat
     new_account_email: E-poastačujuhus
+    please_log_in: Čálit sisa.
     tags: 'Gilkorat:'
     timeline_link: Áigelinnjá
   courses_generic:
@@ -26,6 +34,9 @@ se:
       save_cloned_course: Vurke
   editable:
     save: Vurke
+  instructor_view:
+    bad_work:
+      learn_more_button: Lassedieđut
   metrics:
     tags: Gilkorat
   recent_activity:

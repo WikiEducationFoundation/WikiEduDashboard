@@ -311,7 +311,7 @@ ja:
     data_editors_by_course: コース別編集者
     data_editors_by_course_info: 参加する編集者名簿と選択コース・プログラム
     data_editor_usernames: 編集者ユーザ名
-    data_editor_usernames_info: 1行に1つの編集者ユーザー名の一覧
+    data_editor_usernames_info: 編集者ユーザの名簿、1件ごとに改行
     data_wikidata: ウィキデータ統計
     data_wikidata_info: ウィキデータの詳細な活動の内訳、基準は編集要約
     default_course_type: コースの既定のタイプ
@@ -364,10 +364,11 @@ ja:
     tracked_categories: 追跡するカテゴリとPSID、パージパイルID、テンプレート
     timestamp: 最終更新日
   courses:
+    school_system: 授業用システム
     assignment_edits_enabled: 課題の編集が有効になりました
     assignment_edits_enabled_tooltip: ダッシュボードを有効にすると、割り当てられた記事のトークページにテンプレートが投稿されます。
     accounts_generation_enabled: アカウントの申請作成は有効です
-    accounts_generation_explanation: これにより参加者はEメールアドレスや希望する利用者名を入力でき、新規アカウントを自分で作成する手間を省けます。主催者はこのダッシュボードを使ってアカウントを作成し、同時にプログラム参加者として登録ができます。<!--
+    accounts_generation_explanation: これにより参加者はEメールアドレスや希望する利用者名を入力でき、新規アカウントを自分で作成する手間を省けます。主催者はこのダッシュボードを使って対象者のアカウントを作成し、同時にプログラム参加者として登録ができます。<!--
       この機能を利用するには、このプログラムのホームウィキで「アカウント作成者」権限を得る必要があります。 -->
     accounts_generation_confirm_message: アカウント申請をほんとうに有効にしますか？
     activity: 活動
@@ -450,7 +451,7 @@ ja:
       course_title: コース名
       course_types:
         basic_course_name: 基本プログラム
-        basic_course_description: このプログラムタイプは、だれか参加者が記事もしくはメインスペースのページを編集したとき、追跡するためにあります。プログラムのホームウィキで自動ウィキ編集を有効にすると、このプログラムのオンウィキ版が自動作成され、更新されます。
+        basic_course_description: このプログラムの種類は、だれか参加者が記事もしくはメイン名前空間のページを編集したときに、追跡するためにあります。プログラムのホームウィキで自動ウィキ編集を有効にすると、このプログラムのオンウィキ版が自動作成され、更新されます。
         edit_a_thon_name: エディタソン
         edit_a_thon_description: エディタソンプログラムは記事もしくはメインスペースのページに編集が加えられたかどうか追跡します。既定では、このプログラムは自動編集を行いません。
         article_scoped_program_name: 記事特化型プログラム
@@ -516,7 +517,7 @@ ja:
     enroll: 入会
     enrollment: 学生を追加/削除
     enrollment_edits_enabled: 入会の編集が有効になりました
-    enrollment_edits_enabled_tooltip: 有効にすると、プログラムに新規参加した編集者の利用者ページとトークページにテンプレートを投稿します。
+    enrollment_edits_enabled_tooltip: 有効にすると、プログラムに新規参加した編集者の利用者ページとトークページに自動処理でテンプレートを投稿します。
     courses_enrolled: 登録済みのコース
     error:
       exists: そのコースは既に出されています！ コース名、学校、規約を変更してやり直してください。
@@ -532,13 +533,14 @@ ja:
     gradeables_none: このコースには採点できる課題が指定されていません。
     home_wiki: ホームウィキ
     multi_wiki: 追跡するウィキ
+    namespaces: 追跡中の名前空間
     instructor:
       other: 指導者
     instructors: 講師
     instructor_message: この表示は、学生が使用する My Articles インターフェイスと同じものです。学生がたどる手順を視察できます。ただし実際に作業をしても、学生ではないため貢献は後で追跡できません。
     instructor_message_wikidata: この表示は、学生が使用する My Items インターフェイスと同じものです。学生がたどる手順を視察できます。ただし実際に作業をしても、学生ではないため貢献は後で追跡できません。
     invitation: '%{title}に招待されました。ウィキペディアの利用者アカウントでログインすると、参加登録ができます。'
-    invitation_username_advice: まだウィキペディアの利用者アカウントを持っていない場合は、この場で登録してください。利用者名は誰だかわからない無機質な名前でも、個性を表すのでも、希望に応じて決めてください。（アカウント共有は許されません。）
+    invitation_username_advice: まだウィキペディアの利用者アカウントがない場合は、この場で登録してください。利用者名は誰だかわからない無機質な名前でも、個性を表すのでも、希望に応じて決めてください。（アカウント共有は許されません。）
     join: 参加
     join_course: コースに参加
     join_course_as_volunteer: ボランティアとして手伝う
@@ -546,7 +548,7 @@ ja:
     join_successful: 「%{title}」に参加しました。ダッシュボードは定期的にあなたの貢献を自動記録します。どんな影響を与えたか、また後でチェックしに来てください！
     join_failed: 登録に失敗しました。
     join_failure_details:
-      cannot_join_twice: 利用者は同じコースに2回登録することはできません。
+      cannot_join_twice: 利用者は同じコースに1回しか登録できません。
       not_yet_approved: このコースの登録はまだ始まっていません。
       withdrawn: このコースは取り下げ済みです — おそらく誤捜査と思われます。再度、有効にするには、ウィキ教育の担当者にご連絡ください。
       invalid_sync: このイベントには、ダッシュボードから直接の参加はできません。登録手順は、ウィキメディア・イベント・センターが管理しています。
@@ -561,17 +563,18 @@ ja:
     my_articles_wikidata: 私のアイテム
     needs_update: 統計データ更新
     new_week: 新しい週の追加
-    new_account_check_username: ユーザー名の使用可能状況を確認する
+    new_account_check_username: ユーザ名が登録可能かどうか確認する
     new_account_email: メールアドレス
     new_account_email_placeholder: name@example.org
-    new_account_info: アカウント登録は、メールアドレスと希望するユーザー名を入力し、リクエストしてください。調整役の誰かがアカウントを作成すると、パスワードをメールで送信します。
-    new_account_info_admin: 新人編集者の利用者アカウントを作成するには、メールアドレスと希望する利用者名を入力します。アカウント開設が完了すると、ご本人にメールでパスワードが届きます。
+    new_account_info: アカウント登録は、メールアドレスと希望するユーザ名を入力し、リクエストしてください。調整役の誰かがアカウントを作成すると、仮パスワードをメールで送信します。
+    new_account_info_admin: 新人編集者の利用者アカウントを作成するには、メールアドレスと希望する利用者名を入力します。アカウント開設が完了すると、ご本人にメールで仮パスワードが届きます。
     new_account_username: 希望利用者名
     new_account_username_invalid: これは有効な利用者名ではありません。
     new_account_username_placeholder: ウィキ編集者 123
     new_account_username_taken: その利用名は既に他の人が使っています。別の名前を考えてください。
     new_account_submit: アカウント申請
     new_account_submitted: アカウントのリクエストを提出しました。これでプログラム調整役がアカウントをきちんと作成する準備が整いました。あなたのアカウントが作成されると、メールでそのアカウントのパスワードをお届けする予定です。
+    new_account_submitted_admin: アカウント作成のリクエストを作成しました。生徒（受講者）の皆さんに、メールの受信トレイを確認、新しいパスワードを取得するよう指示してください。
     no_campaign: このプログラムを開設して利用者の参加を受け入れるには、まずキャンペーンに追加します。どのキャンペーンを選べばよいか迷った場合は、「その他」Miscellanea
       を選びます。
     nocourses: まだどのコースにも登録していません。
@@ -579,25 +582,38 @@ ja:
     none: なし
     not_permitted: このコースを編集する権限がありません。
     notify_untrained_confirmation: この操作は受講者全員を対象に、それぞれのトークページに割り当てのトレーニングモジュールを期限内に完了しなかったというお知らせを表示させます。ほんとうに実行してよろしいですか？
+    no_available_actions: 実行できるアクションはありません
+    online_volunteers_enabled: オンラインボランティアを承認
     online_volunteers_tooltip: Enabling Online Volunteers を使い、利用者の編集者にボランティアとして参加してもらいます。その編集は追跡されません。
+    ores_plot: ORES
     overview: ホーム
     passcode: パスコード
+    passcode_none: パスコードがありません
     passcode_prompt: パスコード
     please_log_in: ログインしてください。
     private: 非公開
     published: コースを公開しました！ 以下のURLを開くと、受講者はコースに登録できます。
     rating_feedback: この記事の推定評価：
     requested_accounts: アカウント申請
+    requested_accounts_alert: '{{PLURAL|one=%{count} 件のアカウントがリクエストされ保留中です。'
     requested_accounts_alert_view: 表示
+    retain_available_articles: 対象の記事を保持する
+    retain_available_articles_wikidata: 対象の項目を保持する
+    retain_available_articles_info: 有効にすると選択した対象の記事は一覧に残り、同じ記事を受講者（生徒）のグループにも表示、選択できるようにします。
+    retain_available_articles_info_wikidata: 有効にすると選択した対象の項目は一覧に残り、同じ項目を受講者（生徒）のグループにも表示、選択できるようにします。
     review_timeline: さて、課題の日程表の案ができたところで点検してみましょう。必要に応じて細部をカスタム化します。満足する形にまとまった段階で、ウィキ教育の担当者から承認を得てください。承認されるとURLが発給され、受講生がコースに登録したりトレーニングに参加したりできるようになります。
       (注記： 公開した後でも編集ができます。)
     revisions_doc: 過去%{timeframe}日にわたる編集の件数
     revisions_none: このコースでは最近、ウィキペディアを編集していません。
     school: 学校
+    school_and_term: 機関／学期（時期）
     search_courses: コースの検索
     start: 開始
+    start_typing: 入力を開始
+    stay_in_sandbox: サンドボックスにとどまる
     student: 学生
     students: 学生
+    students_taught: 教えた受講者（生徒）
     students_count: '# 学生'
     student_editors: 学生の編集者
     students_none: このコースには受講者がいません。
@@ -605,7 +621,8 @@ ja:
     submitted_admin: このコースの作成者が承認を依頼しています。承認するには、Overviewページのキャンペーン項目にこのコース名を追加してください。
     submitted_and_pending_heading: 提出済みで受理待ち
     submitted_heading: 提供したコース
-    submitted_note: コースの提出が完了しました。ウィキ教育財団の職員が査読し、もし不明点があればご連絡をします。
+    submitted_note: コース提出が成功しました。ウィキ教育財団の職員が査読し、もし不明点があればご連絡をします。お待ちいただく期間に指導者向けと受講者対象のウィキ教育財団の研修教材（training
+      materials）の閲覧ができますので、一覧をご参照ください。
     suggestions_feedback: この機能を改善するアイデアはありませんか？ ぜひ投稿してください！
     suggestions_sending: フィードバックを送信中...
     suggestions_sent: フィードバックが送信されました。ご意見ありがとうございます。
@@ -616,6 +633,7 @@ ja:
       ClassroomProgram の場合のみに限定されます。
     subject: 件名
     submitted: 提供済
+    submitted_at: 送信日時
     tag_select: タグを選択または作成してください
     tags: 'タグ:'
     term: 規約
@@ -639,7 +657,7 @@ ja:
     user_suggestions_prompt: 記事の編集者に対するアドバイス
     view_other: 他の告知を見る
     view: コースを見る
-    view_doc: 特定の編集者が個別の記事に初めて編集を加えて以降の、参加編集者が編集した記事の閲覧総数
+    view_doc: 特定の編集者が初めて編集を加えた時点以降の、当該の記事ごとの閲覧総数の推計
     view_page: コースのページを見る
     view_wiki: ウィキペディアで見る
     volunteer: ボランティア
@@ -650,6 +668,7 @@ ja:
     wiki_course_page_enabled_tooltip: 有効にすると、プログラムやその利用者、課題が変更されるたび、オンウィキのミラーというページに反映されます。
     wiki_edits_enabled: ウィキ編集を有効にする
     wiki_edits_enabled_tooltip: ウィキ編集機能を有効にすると、このプログラムについてオンウィキの自動編集が有効になります。無効に設定しないと、さまざまなテンプレートが、利用者ページあるいは割り当ての記事のトークページその他に自動で追加されます。
+    wiki_staff: ウィキ教育財団職員
     withdrawn: 課題を提出していません
     word_count_doc: コース期間中に受講者がメインスペースの記事に追加すると予測される文字数の合計
     yourcourses: 自分のコース
@@ -660,6 +679,7 @@ ja:
     add_campaign: 告知の追加
     all_courses: すべてのプログラム
     archived: アーカイブされたプログラム
+    articles_i_am_reviewing: 自分が査読担当の記事
     assignment_headings:
       available_reviews: 査読を受付中
       available_reviews_wikidata: 査読を受付中
@@ -669,6 +689,7 @@ ja:
     cancel: キャンセル
     course: プログラム
     courses: プログラム
+    courses_taught: これまでに教えたプログラム
     campaigns: '告知:'
     campaign_courses: '%{title} プログラム'
     creator:
@@ -676,6 +697,13 @@ ja:
       assignment_end_placeholder: YYYY-MM-DD
       assignment_start: イベント開始
       assignment_start_placeholder: YYYY-MM-DD
+      cancel_course_clone: プログラムの複製を中止
+      cancel_course_clone_confirm: プログラムの複製をほんとうに中止しますか？
+      choose_clone: 複製するプログラムを選択します。
+      clone_previous: 既存のプログラムを複製する
+      clone_this: このプログラムを複製する
+      clone_successful: プログラムは正常に複製されました
+      clone_successful_details: プログラムの複製が完了しました。下の「保存」ボタンをクリックして終了します。
       course_dates_info: プログラムの開始日と終了日を記入します。活動終了直後に発生した関連のある編集を取りこぼさないよう、主な活動の終了時点より数時間もしくは数日、プログラム終了日を先送りすることができます。
       course_description: プログラムの説明
       course_description_placeholder: これはどんなプログラムで、ウィキ上で参加者はどんな活動をしますか？ 詳しい情報を加え、他の編集者から見て参加者がどんなことを成し遂げるのか背景が伝わるようにします。
@@ -689,7 +717,8 @@ ja:
       create_short: プログラムを作成
       end_date: 活動追跡の終了
       find: プログラムを見つける
-      intro: プログラムのURLを決める要素はプログラム名と主催者名です。ホームウィキとは、参加者が活動するメインページ（ウィキ）のことで、このウィキで行う編集は既定で記録されます。多言語や複数プロジェクトのあるプログラムの場合は、「追跡されるウィキ」に明確に追加されたウィキごとに投稿を記録します。ウィキプログラムのページ作成は、「プログラムを作成する！」ボタンを押して開始します。
+      intro: プログラムのURLを決める要素はプログラム名と主催者名です。ホームウィキとは、参加者が活動するメインページ（ウィキ）のことで、このウィキで行う編集は既定で記録されます。多言語版や複数プロジェクトのあるプログラムの場合は、「追跡するウィキ」に明確に追加したウィキごとに投稿を記録します。ウィキプログラムのページ作成を始めるには、「プログラムを作成する！」ボタンを押してください。
+      new_or_clone: 今すぐ新しいプログラムを作成するか、「複製」オプションを使い、すでに参加した別のプログラムをコピーしてください。
       participate_in_campaign: 告知に参加する
       save_cloned_course: 保存
       start_date: 活動追跡の開始
@@ -703,7 +732,9 @@ ja:
     expected_students: 予想編集者数
     instructors: 促進者
     join_course: プログラムに参加
+    join_details: このプログラムに参加するには、調整役からパスコード — またはパスコードを含むリンク — を取得してください。
     leave_course: プログラムを終了
+    milestones_none: このプロジェクトには現在、マイルストーンがありません。
     not_permitted: このプログラムを編集する権限がありません。
     published: このプロジェクトは公開されました！ 参加する編集者は以下のURLで登録を受け付けます。
     request_accounts: アカウント申請
@@ -719,9 +750,13 @@ ja:
     students_short: 編集者
     students_count: 参加者数
     term: 日時
+    unsubmitted: 提供してないプログラム
+    uploads_none: このプロジェクトからウィキメディア コモンズに投稿された画像その他のメディアはありません。
+    user_uploads_none: 選択した利用者は、このプロジェクトにまだ画像その他のメディア・ファイルを投稿していません。
     view_other: 他の告知を見る
     view_page: プログラム ページを見る
     word_count_doc: メイン空間の記事に追加された文字数増分の推計のうち、プログラム期間中にプログラムの編集者が加筆した部分
+    word_count_doc_wikidata: メイン空間の項目に追加された文字数増分の推計のうち、プログラム期間中にプログラムの編集者が加筆した部分
     yourcourses: 自分のプログラム
   editable:
     edit: 編集
@@ -734,17 +769,34 @@ ja:
   instructor_view:
     assignments_table:
       article_name: 名前
+    assigned_articles: 課題の記事
+    bad_work:
+      learn_more: 生徒の作業のせいで記事の質が下がった場合は、ご自分で編集するようにお勧めします。それ以外の場合は問題についてお知らせをお願いしており、後日、こちらで修正に努めます。
+      submit_issue: この記事にはどんな重大な問題がありますか？
+    no_assignments: この学生は現在、 記事の割り当てを受けていません。上のボタンを押すと、記事の割り当てができます。
+    reviewing_articles: 記事の査読
+    select_student:
+      content: 記事を割り当てたり、記事の割り当て方を確認する
   metrics:
     label: コース活動
+    no_update: このプログラムのデータは、まだダッシュボードにはインポートしてありません。
     activity: 最近の活動
     articles_created: 作製した記事
     articles_created_generic_wikidata: 項目を作成しました
     articles_edited: 編集した記事
     articles_edited_generic_wikidata: 項目を編集しました
+    article_scoped_program_info: これは「記事特化型のプログラム」であり、割り当てた記事とカテゴリのみ編集回数を計算します。
+    article_scoped_program_info_wikidata: これは「記事特化型のプログラム」であり、割り当てた項目とカテゴリのみ編集回数を計算します。
     characters: 文字
+    char_added: 追加した文字数
+    char: 追加した文字
     close_modal: 閉じる
     date_time: 日付/時刻
     edit_count_description: 総編集回数
+    future_updates_remaining:
+      "": このプログラムの統計は、既に定期的な更新を終了しています。
+    last_update_success: 直近の更新は成功しており、統計は最新版のはずです。
+    per_user: '%{number}ワード/利用者'
     revisions: 最近の編集
     references_doc: この数字は記事に追加された参照タグの総数を示し、同一の情報源を指す複数の参照も含まれる可能性があります。データの基本は ORES
       記事品質モデルで、設定言語は限定されています。
@@ -768,13 +820,15 @@ ja:
     other_updates: 他の更新
     redirects_created: リダイレクトが作成されました
     references_added: 参考文献を追加しました
+    references_added_info: これは、追加した脚注の一部分の計数に過ぎないかもしれません。ウィキデータの編集要約に基づいているため、脚注を追加した編集なのに、一部は「主張の変更」または「主張の作成」として分類されます。
     reverts_performed: 差し戻しは実行されました
   namespace:
     all: すべて
     main: メイン空間
+    main_char_added: メイン名前空間に追加した文字数
     article: 記事
     talk: トーク
-    user: ユーザー空間
+    user: 利用者名前空間
     project: プロジェクト
     file: ファイル
     mediaWiki: MediaWiki
@@ -793,6 +847,7 @@ ja:
     author: 作者
     index: 目次
     collection: コレクション
+    tracked_namespaces_info: トップラインの概要には「編集された記事」、「編集合計」、「追加された語数」など、追跡された名前空間に対応する記事のみ統計を取ります。したがって、追跡はプログラムにおいて改善を目指す名前空間に限定しています。
   recent_activity:
     active_courses: 記事が使用されるコース
     article_title: タイトル
@@ -801,12 +856,15 @@ ja:
     file_name: ファイル名
     no_dyk_eligible: 現在、月間新記事賞に当該する記事はありません。
     no_edits: 最近の編集はありません。
+    plagiarism_explanation: ウィキペディアのには剽窃検出システムがあり、Turnitin/iThenticate を使用して、公開された文章に照らして新しい編集内を比べます。これらのシステムのレポートの正確性は、100%ではありません。たとえば適切な帰属を伴う直接的な引用であっても、剽窃レポートは偽陽性として扱う可能性があります。学生の寄稿とレポートの詳細を確認するまでは、行動を起こさないでください。（変更箇所
+      — または記事全体 — を表示できない場合は、著作権に関連する理由により、すでにコンテンツが削除された可能性があります。）
     recent_edits: 最近の編集
     recent_uploads: 最近のアップロード
     revision_author: 指定版の投稿者
     show_courses: 自分のコースのみ表示
     uploaded_by: アップロードしたユーザー
   revisions:
+    chars_added: 追加した文字数
     class: クラス
     date_time: 日付/時刻
     diff: 差分
@@ -824,12 +882,24 @@ ja:
   settings:
     admin_users:
       new:
-        form_placeholder: ユーザー名
+        form_placeholder: 利用者名
         confirm_remove_admin: 次の人の管理者権限を除去。
+        already_admin: '%{username} さんは既存の管理者です。'
+      remove:
+        revoke_button_confirm: '%{username}さんの管理者権限を取り消す'
+        already_instructor: '%{username} さんは既存のインストラクターです。'
     special_users:
       new:
+        form_label: 特別な利用者権限を付与する
         form_placeholder: ユーザー名
+        confirm_add_special_user: 特別な利用者を追加
         confirm_remove_special_user: 特別利用者権限を次の人から除去。
+        already_is: '%{username} さんは既存の{position}です。'
+      remove:
+        revoke_button: 特別な利用者を撤回
+        revoke_button_confirm: '%{username} さんの特別な利用者権限を撤回'
+        already_is_not: '%{username} さんは特別な利用者ではありません。'
+        demote_success: '%{username} は現在、一般の利用者です。'
   suggestions:
     editing: 編集の提案
     suggestion_docs:
@@ -837,10 +907,13 @@ ja:
       a: 記事を微調整するには専門知識が必要で、書式の問題解決が必要な場合があります。査読が役に立つかもしれません。
       ga: テーマや書式に精通した人による編集が役に立ちます。既存の特集記事で同様の話題に関するものと比較し、コンテンツが弱い、もしくは欠落している分野を強調できる場合があります。
       bplus: まだ言及が足りない場所を専門家の助言で評価したり、イラストや歴史的背景およびさらなる参考文献によって改善できるかもしれません。査読を検討するか、良好な記事に推薦してください。まだウィキ文で記述されていない部分がこの記事に残っているなら、今が改善のチャンスです。
+      b: コンテンツと文体には対処を要する側面がいくつかあります。ときには専門知識が必要な場合があります。記事はスタイルマニュアルおよび関連する書式のガイドラインに準拠しているかどうか、全般的にチェックする必要があり、実用性があるなら典拠となる資料の加筆を検討してください。
       c: 大幅に編集することにより、コンテンツのギャップを解消して問題点のクリーンアップ解決にご協力ください。
       start: 第一に、出典を信頼できる情報源にするべきです。また記事には内容および構成に実質的な改善が求められます。さらに文法や綴り、書き方を改善し、専門用語の使用を改める必要があります。
       stub: 編集やその他の素材の追加も役に立つはずです。意味のあるコンテンツの提供が優先事項であり、スタブクラスの記事をスタートクラスに格上げする最善の解決策は、トピックが重要であると出典付きの理由を追加することです。
       fl: コンテンツは十分で、新しい情報が入手できるまで追加は不要です。
+      list: 一覧記事とは、ウィキペディアに実際に掲載された記事のリンク集として、的確な記事名を集めて整理します。
+      disambig: 新しい記事としてその名前で立項したものを、追加として数えます。記事名には必ずしも「(曖昧さ回避)」ページを伴う必要はないため、そのような記事の命名が的確かどうか、よく検討してください。
       '?': 提案がありません - 記事が未査読か評価に関する提案がありません。
       does_not_exist: この記事はウィキペディアにはありません
   timeline:
@@ -877,6 +950,7 @@ ja:
     image: 画像
     label: アップロード
     usage_doc: この画像を使用するウィキペディアの記事の件数
+    usage_count_gallery_tile: '%{usage_count}件の記事で使用'
     usages: 使用法
   users:
     already_enrolled: そのユーザーはすでに登録済みです！
@@ -888,6 +962,7 @@ ja:
     authorship_data_not_fetched: 作成者データを取得できませんでした
     character_doc: この名前空間に特定の利用者が追加したコンテンツの量は、ページサイズを増加させた編集ごとに文字数の増分を足して算出します。ただしこの数字は、当該の利用者が追加したコンテンツの実数を必ずしも反映しません。除去されたコンテンツを復元しても、この合計値は増えるからです。
     chars_added: 追加した文字数<br>(記事 | 利用者 | 下書き)
+    chars_added_wikidata: 追加した文字数<br>(記事 | 利用者 | 下書き)
     contributions: 投稿記録
     contributions_history_full: 完全な投稿履歴を見る
     contributions_more: 他の投稿を表示
@@ -903,17 +978,23 @@ ja:
     last_name: 姓
     loading: 利用者を読み込み中...
     characters_added_mainspace: 追加した文字数 (記事の件数)
+    characters_added_mainspace_wikidata: 追加した文字数 (項目)
     characters_added_short: 'MS: %{mainspace}、US: %{userspace}'
+    characters_added_draftspace: 追加した文字数 (下書き)
     my_assigned: '割り当て済み:'
     name: 名前
     none: 参加者はいません。
     no_articles: 記事はありません
     no_articles_wikidata: アイテムがありません
-    no_revisions: この編集者による変更履歴はありません。
+    no_revisions: （変更履歴なし）
+    no_highlighting: 記事の現在の版に、この編集者による文章はありません。ページの変更履歴をチェックして、当該の編集者の編集内容を確認してください。
     number_of_articles:
       other: '%{count}件の記事'
     recent_revisions: 最近の編集
     remove_confirmation: ほんとうに%{username}を削除してよいですか？
+    requested_account_status:
+      success_message: '成功: %{result_description}件'
+    revision_characters_and_views: '追加された文字: %{characters}文字、ビュー: %{views}件'
     revisions_doc: 過去7日間にわたるこの編集者の編集実績
     references_doc: この編集者が追加もしくは削除した参照項目の件数
     sandboxes: サンドボックス
@@ -923,6 +1004,9 @@ ja:
     username_placeholder: 利用者名
     useremail_placeholder: メール
     userpasscode_placeholder: パスコード
+    words_added: 追加した文字数<br>(記事 | 利用者 | 下書き)
+    word_count_doc: 特定の利用者による活発な記事、利用者空間ページ（サンドボックス）および 下書き名前空間に追加したコンテンツの合計の見積もり。文字数の見積もりは、編集により削除した文字数を超過する文字数の追加に着目して、ページ
+      サイズの変化を計算します。この文字数には、必ずしも利用者が追加した新しいコンテンツの量が反映されるわけではありません。文字数の合計は、削除されたコンテンツを復元しても増加するからです。
     role:
       description: コースでの役割
       visitor: 訪問者
@@ -956,7 +1040,10 @@ ja:
     unsupported_browser:
       header: サポートされていないブラウザ。  :-(
   error_incorrect_passcode:
+    header: 'パスワードが正しくありません。/:'
     explanation: このコースに登録するパスコートが間違っています。現在のコース参加用パスコードを講師に尋ねてください。手続きを再開するには、以下に正しいパスコードを入力します。
+  error_no_course:
+    explanation: その%{slug}コースは存在しません。
   error_404:
     explanation: このページは存在しません。コース用のダッシュボードを開こうとしている場合、そのコースがダッシュボードに登録されていない可能性があります。、
   error_422:
@@ -999,7 +1086,11 @@ ja:
     completeness_estimate: 完成度スコア
     fetching_assessments: ページ評価を取得
     fetching_scores: 完成度スコアを取得
+    fetching_pageviews: ページビューを取得する
+    fetching_revisions: ページの更新記録を取得
     fetched_articles: 獲得した記事
+    fetched_articles_wikidata: 取得済みの項目
+    filtered_articles: 記事を絞り込み
     hide_options: オプションを隠す
     keyword_search: キーワード検索
     more_results: その他の結果
@@ -1009,13 +1100,25 @@ ja:
     remove_article_wikidata: 項目を除去
     search: 検索
     searching_articles: 記事の検索
+    searching_articles_wikidata: 項目を検索中です
     search_placeholder: キーワードを入力
     show_options: オプションを表示
     subheading_message: 作業対象のウィキペディア記事を探しましょう。
     subheading_message_wikidata: 作業対象のウィキペディア記事を探しましょう。
     submit: 提出
     tools: ツール
+    unassign_article_self: 記事を課題から除外
   training_status:
+    completed: 完了済み
+    continue: 続ける
+    completed_at: 完了日時
+    completion_time: 完了時間
+    late: 遅延
+    view: 閲覧
+    started: 開催中
+    not_started: 開催前
     due: '%{due_date} 〆切'
     assignment_status: トレーニングの割り当て (%{status})
+  multi_wiki:
+    selector_placeholder: ウィキのドメイン名の入力を開始する
 ...
