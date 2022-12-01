@@ -288,8 +288,8 @@ fr:
     already_exists: Cette affectation existe déjà !
     title_too_large: Le titre ne doit pas dépasser 255 caractères
     assignees: Affectation(s)
-    assign_other: Affecter/enlever un article
-    assign_other_wikidata: Affecter/enlever un élément
+    assign_other: Affecter / retirer un article
+    assign_other_wikidata: Affecter / retirer un élément
     add_available: Ajouter des articles disponibles
     add_available_wikidata: Ajouter les éléments disponibles
     add_available_placeholder: Ajouter un titre d’article ou une URL par ligne
@@ -324,19 +324,20 @@ fr:
       confirm_addition: Dans la plupart des cas, vous ne devrez utiliser cela qu’une
         fois que tous les étudiants ont eu leurs articles principaux affectés. Au
         choix, vous pouvez demander à vos étudiants de choisir leurs propres relectures
-        par pair, ou vous pouvez affecter manuellement les relectures par pair en
-        cliquant sur la ligne d’un étudiant puis en utilisant le bouton « Affecter/enlever
-        une relecture par pair ». Cliquer sur « OK » affectera un total de %{count}
-        relecture(s) par pair supplémentaire(s), avec un maximum de %{maximum} pour
-        chaque étudiant, choisi parmi les articles de leurs camarades.
+        par un pair, ou bien vous pouvez affecter manuellement les relectures par
+        un pair en cliquant sur la ligne d’un étudiant puis en utilisant le bouton
+        « Affecter / retirer une relecture par un pair ». Cliquer sur « OK » affectera
+        un total de %{count} relecture(s) supplémentaire(s) par un pair, avec un maximum
+        de %{maximum} pour chaque étudiant, choisies parmi les articles de leurs camarades
+        de classe.
       confirm_addition_wikidata: Dans la plupart des cas, vous ne devez utiliser cela
         qu’après que tous les étudiants ont eu leurs éléments principaux affectés.
         Au choix, vous pouvez demander à vos étudiants de choisir leurs propres relectures
-        par un pair, ou vous pouvez affecter manuellement des relectures par pair
-        en cliquant sur la ligne d’un étudiant et puis en utilisant le bouton  « Affecter/enlever
-        une relecture par pair ». Cliquer sur « OK » affectera un total de %{count}
-        relecture(s) par pair supplémentaire(s), avec un maximum de %{maximum} pour
-        chaque étudiant, choisis parmi les éléments de leurs camarades de classe.
+        par un pair, ou vous pouvez affecter manuellement des relectures par un pair
+        en cliquant sur la ligne d’un étudiant et puis en utilisant le bouton « Affecter / retirer
+        une relecture par un pair ». Cliquer sur « OK » affectera un total de %{count}
+        relecture(s) supplémentaire(s) par un pair, avec un maximum de %{maximum}
+        pour chaque étudiant, choisies parmi les éléments de leurs camarades de classe.
       heading: Assigner des relectures par des pairs aléatoires
       tooltip_message: Affecte des articles aléatoires (avec le compte des revues
         de pair en nombre maximum) à chaque étudiant.
@@ -344,9 +345,9 @@ fr:
         relecture par pair jusqu’au nombre maximal) à chaque étudiant.
       limit_exceeded: Chaque étudiant relit déjà au moins %{maximum} article(s).
       limit_exceeded_wikidata: Chaque étudiant relit déjà au moins %{maximum} élément(s).
-    remove: Supprimer
+    remove: Retirer
     reviewers: Relecteur(s)
-    review_other: Affecter/enlever une relecture par pair
+    review_other: Affecter / retirer une relecture par un pair
     review_self: Relire un article
     review_self_wikidata: Relire un élément
     review_tooltip: Ceci est prévu pour les articles que vous prévoyez de relire ou
@@ -463,7 +464,7 @@ fr:
     pileid_name: Identifiant de PagePile
     template_name: Nom du modèle
     none: Il n’y a aucune catégorie suivie.
-    remove: Supprimer
+    remove: Retirer
     tracked_categories: Catégories suivies, PSID, ID de PagePile et modèles
     timestamp: Dernière mise à jour du
   courses:
@@ -1169,7 +1170,7 @@ fr:
     merged: Fusionné
     created: Créé
     changed: Changé
-    removed: Enlevé
+    removed: Retiré
     cleared: Effacé
     added: Ajouté
     descriptions: Descriptions
@@ -1753,7 +1754,7 @@ fr:
     page_assessment_class: Classe
     relevanceIndex: Indice de pertinence
     remove_article: Retirer l’article
-    remove_article_wikidata: Enlever les éléments
+    remove_article_wikidata: Retirer les éléments
     search: Rechercher
     searching_articles: Recherche en cours d’articles
     searching_articles_wikidata: Recherche d’éléments
