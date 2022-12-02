@@ -42,7 +42,7 @@ const MultiSelectField = createReactClass({
       <div className="section">
         <Select
           closeOnSelect={!stayOpen}
-          disabled={disabled}
+          isDisabled={disabled}
           isMulti
           onChange={this.handleSelectChange}
           options={options}
