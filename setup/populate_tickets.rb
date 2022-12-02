@@ -41,7 +41,7 @@ def populate_tickets_demo
   if instructor.blank?
     puts "No instructor found! Creating instructor..."
     user = UserImporter.new_from_username(instructor_username)
-    CoursesUsers.find_or_create_by(user: user, project: course, role: 2)
+    CoursesUsers.find_or_create_by(user: user, course: course, role: 2)
     puts "Default instructor created!\n\n"
   else
     puts "Instructor already exists!\n\n"
