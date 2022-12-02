@@ -2,6 +2,7 @@ import {
   DELETE_TICKET,
   FETCH_TICKETS,
   FILTER_TICKETS,
+  EMPTY_LIST,
   RECEIVE_TICKETS,
   SELECT_TICKET,
   SET_MESSAGES_TO_READ,
@@ -16,7 +17,8 @@ const initialState = {
   selected: {},
   filters: {
     owners: [],
-    statuses: []
+    statuses: [],
+    search: ''
   },
   loading: true,
   sort: {
@@ -85,6 +87,12 @@ export default function (state = initialState, action) {
     case FILTER_TICKETS: {
       const newFilters = { ...state.filters, ...action.filters };
       return { ...state, filters: newFilters };
+    }
+    case EMPTY_LIST: {
+      return {
+        ...state,
+        all: []
+      };
     }
     case RECEIVE_TICKETS: {
       return {

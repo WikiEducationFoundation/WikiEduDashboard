@@ -1194,6 +1194,9 @@ en:
 
   tickets:
     none: "No tickets"
+    search_tickets: Go to Search tickets mode
+    list_tickets: Go back to Tickets list
+    search_bar_placeholder: Search tickets
 
   timeline:
     add_week: Add Week
