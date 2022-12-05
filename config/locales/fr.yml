@@ -443,7 +443,7 @@ fr:
     add_template: Ajouter un modèle
     add_this_category: Ajouter cette catégorie
     add_this_psid: Ajouter ce PSID
-    add_this_pileid: Ajouter cet ID de PagePile
+    add_this_pileid: Ajouter cet identifiant de PagePile
     add_this_template: Ajouter ce modèle
     import_articles_description: La liste des articles dans une catégorie est mise
       à jour périodiquement et après un ajout cela peut prendre quelque temps pour
