@@ -301,7 +301,6 @@ GEM
       concurrent-ruby (~> 1.0)
     i18n-js (3.9.2)
       i18n (>= 0.6.6)
-    ipaddr (1.2.4)
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
@@ -378,8 +377,7 @@ GEM
     omniauth-rails_csrf_protection (1.0.1)
       actionpack (>= 4.2)
       omniauth (~> 2.0)
-    openssl (2.2.1)
-      ipaddr
+    openssl (3.0.0)
     orm_adapter (0.5.0)
     pandoc-ruby (2.1.6)
     paper_trail (13.0.0)
@@ -604,6 +602,7 @@ GEM
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     will_paginate (3.3.1)
+    x25519 (1.0.10)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.6.0)
@@ -658,7 +657,7 @@ DEPENDENCIES
   oj
   omniauth-mediawiki!
   omniauth-rails_csrf_protection
-  openssl (< 3)
+  openssl (~> 3)
   pandoc-ruby
   paper_trail
   piwik_analytics!
@@ -701,6 +700,7 @@ DEPENDENCIES
   webdrivers
   webmock
   will_paginate
+  x25519
 
 RUBY VERSION
    ruby 3.1.2p20
