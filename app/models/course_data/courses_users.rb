@@ -91,13 +91,18 @@ class CoursesUsers < ApplicationRecord
     role.positive? && user.permissions == 1 && user.greeter == false
   end
 
-  def live_revisions
+  def live_revisions_in_tracked_namespaces
     course_article_ids = course.articles.pluck(:id)
-    course.tracked_revisions.joins(:article).where(user_id:, article_id: course_article_ids).live
+    live_revisions.where(article_id: course_article_ids)
   end
 
-  def update_character_sum(revisions)
-    self.character_sum_ms = character_sum(revisions, Article::Namespaces::MAINSPACE)
+  def live_revisions
+    course.tracked_revisions.joins(:article).where(user_id:).live
+  end
+
+  def update_character_sum(revisions, tracked_namespace_revisions)
+    self.character_sum_ms = character_sum(tracked_namespace_revisions,
+                                          Article::Namespaces::MAINSPACE)
     self.character_sum_us = character_sum(revisions, Article::Namespaces::USER)
     self.character_sum_draft = character_sum(revisions, Article::Namespaces::DRAFT)
   end
@@ -105,9 +110,10 @@ class CoursesUsers < ApplicationRecord
   # rubocop:disable Metrics/AbcSize
   def update_cache
     revisions = live_revisions
+    tracked_namespace_revisions = live_revisions_in_tracked_namespaces
     self.total_uploads = course.uploads.where(user_id:).count
-    update_character_sum(revisions)
-    self.references_count = references_sum(revisions)
+    update_character_sum(revisions, tracked_namespace_revisions)
+    self.references_count = references_sum(tracked_namespace_revisions)
     self.revision_count = revisions.where(articles: { deleted: false }).size || 0
     self.recent_revisions = RevisionStat.recent_revisions_for_courses_user(self).count
     assignments = user.assignments.where(course_id:)

@@ -27,28 +27,25 @@ describe CoursesUsers, type: :model do
 
   describe '.update_all_caches' do
     let(:refs_tags_key) { 'feature.wikitext.revision.ref_tags' }
+    let(:user) { create(:user, username: 'User') }
+    let(:course) { create(:course, start: '2015-01-01'.to_date, end: '2015-07-01'.to_date) }
+    let(:article) { create(:article, title: 'Selfie') }
+    let(:talk_page) { create(:article, title: 'Selfie', namespace: Article::Namespaces::TALK) }
+    let(:sandbox) { create(:article, title: 'User/Selfie', namespace: Article::Namespaces::USER) }
+    let(:draft) { create(:article, title: 'Selfie', namespace: Article::Namespaces::DRAFT) }
+    let(:courses_user) do
+      create(:courses_user,
+             course:,
+             user:,
+             assigned_article_title: 'Selfie',
+             real_name: 'John Smith')
+    end
 
     before do
       # Add a user, a course, an article, and a revision.
-      create(:user,
-             id: 1,
-             username: 'Ragesoss')
-
-      create(:course,
-             id: 1,
-             start: '2015-01-01'.to_date,
-             end: '2015-07-01'.to_date,
-             title: 'Underwater basket-weaving')
-
-      create(:article,
-             id: 1,
-             title: 'Selfie',
-             namespace: 0)
-
       create(:revision,
-             id: 1,
-             user_id: 1,
-             article_id: 1,
+             user:,
+             article:,
              date: '2015-03-01'.to_date,
              characters: 9000,
              features: {
@@ -60,38 +57,49 @@ describe CoursesUsers, type: :model do
 
       # Assign the article to the user.
       create(:assignment,
-             course_id: 1,
-             user_id: 1,
-             article_id: 1,
+             course:,
+             user:,
+             article:,
              article_title: 'Selfie')
-
-      # Make a course-user and save it.
-      create(:courses_user,
-             id: 1,
-             course_id: 1,
-             user_id: 1,
-             assigned_article_title: 'Selfie',
-             real_name: 'John Smith')
 
       # Make an article-course.
       create(:articles_course,
-             id: 1,
-             article_id: 1,
-             course_id: 1)
+             article:,
+             course:)
+
+      # Add a talk page, sandbox and draft edits
+      create(:revision,
+             user:,
+             article: talk_page,
+             date: '2015-03-01'.to_date,
+             characters: 500)
+      create(:revision,
+             user:,
+             article: sandbox,
+             date: '2015-03-01'.to_date,
+             characters: 600)
+      create(:revision,
+             user:,
+             article: draft,
+             date: '2015-03-01'.to_date,
+             characters: 700)
+      # create the CoursesUsers record
+      courses_user
     end
 
     it 'updates data for course-user relationships' do
       # Update caches for all CoursesUsers
-      described_class.update_all_caches(described_class.where(id: 1))
+      described_class.update_all_caches(described_class.all)
 
       # Fetch the created CoursesUsers entry
       course_user = described_class.all.first
 
       # Check to see if the expected data got cached
-      expect(course_user.revision_count).to eq(1)
+      expect(course_user.revision_count).to eq(4)
       expect(course_user.assigned_article_title).to eq('Selfie')
       expect(course_user.character_sum_ms).to eq(9000)
-      expect(course_user.character_sum_us).to eq(0)
+      expect(course_user.character_sum_us).to eq(600)
+      expect(course_user.character_sum_draft).to eq(700)
       expect(course_user.references_count).to eq(5)
       expect(course_user.real_name).to eq('John Smith')
     end
@@ -100,7 +108,7 @@ describe CoursesUsers, type: :model do
       ArticlesCourses.first.update(tracked: false)
       described_class.update_all_caches(described_class.where(id: 1))
       # Fetch the created CoursesUsers entry
-      course_user = described_class.all.first
+      course_user = courses_user
       # Check if the stats are empty
       # Check to see if the expected data got cached
       expect(course_user.revision_count).to eq(0)
