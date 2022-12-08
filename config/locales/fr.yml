@@ -465,7 +465,7 @@ fr:
     template_name: Nom du modèle
     none: Il n’y a aucune catégorie suivie.
     remove: Retirer
-    tracked_categories: Catégories suivies, PSID, ID de PagePile et modèles
+    tracked_categories: Catégories suivies, PSID, identifiants de PagePile et modèles
     timestamp: Dernière mise à jour du
   courses:
     school_system: Système académique

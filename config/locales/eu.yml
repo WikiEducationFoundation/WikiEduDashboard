@@ -27,7 +27,7 @@ eu:
           quadrillion: Q
   accessibility:
     number_field: Hau zenbakizko eremu bat da. Nabigatzaile gehienek dakartzaten botoiek
-      igo edo jaitsi egingo dute sartutakoa.
+      handitu edo txikiagotu egingo dute sartutakoa.
   application:
     cancel: Utzi
     cookie_consent: Gune honek cookie-ak erabiltzen ditu konektatuta mantentzeko eta
@@ -444,7 +444,7 @@ eu:
       sartzen da, zein orri diren berriak, eta ikustaldiak guztira. Ikustaldi balio
       horiek zaharkituta egon daitezke dagoeneko amaitu diren ikastaroetarako; beraz,
       baduzu WMF Tool Labs ikustaldien tresnarako url bat ere.
-    data_download_info: Datuak CSV formatuak jaitsi.
+    data_download_info: Deskargatu datuak CSV formatuan.
     data_overview: Datu orokorrak
     data_overview_info: Datu orokorrak aukerak proiektu osoari buruzko estatistika
       metatuak hornitzen ditu.
@@ -464,7 +464,7 @@ eu:
       kendu badira.
     dismiss_survey: Baztertu
     dismiss_survey_confirm: Ziur zaude inkesta betiko baztertu nahi duzula?
-    download_stats_data: Estatistikak jaitsi
+    download_stats_data: Deskargatu estatistikak
     duration: Ikastaroaren iraupena
     edit_count: Aldatu zenbatzea
     edit_course_dates: Ikastaroaren datak aldatu

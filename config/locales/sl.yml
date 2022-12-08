@@ -118,6 +118,7 @@ sl:
       new:
         form_placeholder: Uporabniško ime
   timeline:
+    empty_week_3: ali
     gradeable_value: Vrednost
     title: Časovnica
   training:

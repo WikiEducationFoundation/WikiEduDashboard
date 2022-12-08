@@ -2,16 +2,69 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Lizalizaufa
+# Author: MR973
 # Author: Азат Хәлилов
 # Author: Вильданова Гюзель
 # Author: Ләйсән
 # Author: Янмурза Баки
 ---
 ba:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+  accessibility:
+    number_field: Был һан ҡыры. Күпселек браузерҙар күрһәткән төймәләрҙе ҡулланып,
+      ҡиммәтте арттырырға һәм кәметергә мөмкин.
   application:
+    cancel: Кире алыу
+    cookie_consent: Был сайтта һеҙҙең системаға инеү өсөн cookie файлдары ҡулланыла
+      һәм Википедия аккаунтына ҡағылышлы мәғлүмәт һаҡлана.
+    cookie_consent_acknowledge: Аңлайым
+    cookie_consent_see_more: Тулыраҡ мәғлүмәт.
+    create_accounts: Википедияла аккаунт булдырығыҙ
+    dashboard: Панель Wiki Ed
+    documentation: Документация
+    error: 'Хата килеп сыҡты:'
+    explore: Тикшерегеҙ
     field_invalid_date_time: Яңынан башлағас тамамланасаҡ. (0-дән 23 сәғәткә тиклем
       арауыҡта.)
-    change: Үҙгәртергә
+    greeting2: Рәхим итегеҙ!
+    greeting_extended: Википедияға рәхим итегеҙ
+    greeting: Сәләм!
+    help: Ярҙам
+    home: Баш бит
+    log_in_extended: Википедия ярҙамында инеү
+    log_in: Инеү
+    log_out: Сығыу
+    my_dashboard: Минең панель
+    recent_activity: Һуңғы ғәмәл
+    report_problem: Проблема тураһында хәбәр итеү
+    request_account: Аккаунт һорау
+    request_account_create: Аккаунт булдырыу
+    search: һорау биреү
+    search_results:
+      one: '%{count} Һөҙөмтә: ''%{search_terms}'''
+      other: '%{count} Һөҙөмтәләр: ''%{search_terms}'''
+    no_results: '''%{query}'' һорауы буйынса бер нәмә лә табылманы'
+    sign_up_extended: Википедияла теркәлегеҙ
+    sign_up_wikipedia: Йәки Википедияға инегеҙ
+    sign_up_log_in_extended: Википедия аша
+    sign_up: Теркәлеү
+    submit: Ебәреү
+    training: Уҡыу
+    change: Үҙгәртеү
+    details: Тулыраҡ мәғлүмәт
+    confirm: OK
+    opt_in: Эйе
+    opt_out: Юҡ
+    opt_yes: эйе
+    opt_no: юҡ
+  article_statuses:
+    not_yet_started: Эште башлау
+    assignment_completed: Эш үтәлгән тип билдәләнгән
+    reading_the_article: Мәҡәләне уҡыу
+    providing_feedback: Кире бәйләнеште тәьмин итеү
   articles:
     new: (яңы)
   courses:

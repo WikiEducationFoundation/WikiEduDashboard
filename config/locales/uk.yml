@@ -1311,6 +1311,10 @@ uk:
       exercise: Вправа
       discussion: Обговорення
       training: Навчання
+    no_training_library_records_wiki_ed_mode: У базі даних немає записів TrainingLibrary.
+      Натисніть <a href="%{url}">тут</a> , щоб завантажити навчальні дані з файлів
+      training_content/ yaml.
+    no_training_library_records_non_wiki_ed_mode: У базі даних немає записів TrainingLibrary.
   uploads:
     credit: Автор(и)
     file_name: Назва файлу
