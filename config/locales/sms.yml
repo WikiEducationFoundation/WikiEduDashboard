@@ -28,6 +28,7 @@ sms:
     log_in: Ǩeeʹrjtõõđ sizz Wikipediain
   articles:
     articles: Artikkeeʹl
+    article_title: Artikkeeʹl nõmm
     deleted: (jaukkuum)
     edited_mobile: Artikkeeʹl
     filter:
@@ -41,6 +42,7 @@ sms:
     see_more: Lââʹssteâđ
     show_current_version: Čuäʹjet ođđsumus versio
     title: Nõmm
+    title_example: Artikkeeʹl nõmm
     view: Čuäʹjet artikkeeʹl
     edit_size: Muuʹtt šorradvuõđ
     articles_short: Artikkeeʹl
@@ -53,6 +55,7 @@ sms:
     remove: Jaukkâd
     select: Vaʹlljed
   campaign:
+    alert_article: Artikkeeʹl nõmm
     alert_user_id: Õõʹnni
     campaign: Kampanjj
     campaign_not_updated: Kampaanj peiʹvvummuš ij oʹnnstam
