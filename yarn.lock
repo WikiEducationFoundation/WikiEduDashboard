@@ -2744,7 +2744,7 @@ __metadata:
     jeet: ^7.2.0
     jest: ^26.0.1
     jquery: ^3.5.1
-    jquery-ui: ^1.13.1
+    jquery-ui: ^1.13.2
     jsdom: ^16.2.2
     json-loader: ^0.5.4
     jsx-require-extension: ^0.2.0
@@ -8450,12 +8450,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jquery-ui@npm:^1.13.1":
-  version: 1.13.1
-  resolution: "jquery-ui@npm:1.13.1"
+"jquery-ui@npm:^1.13.2":
+  version: 1.13.2
+  resolution: "jquery-ui@npm:1.13.2"
   dependencies:
     jquery: ">=1.8.0 <4.0.0"
-  checksum: 5eba4be23cad9a173b222a1a28c5126416209b3923ec5f0f83d85aaab385d567a23f3a399889b0f83dedfe13fafa55d32dc4deb9a13aa138cbca9a1b863fe4a1
+  checksum: 0d04a4b86e703d6ff71bcc37335f99be137b03fa24fa22f00f61f5aac132e7143b7d6dd9973ad4f72366e102826e417bc3d88c1640f7dd824961a7131bd3966a
   languageName: node
   linkType: hard
 
