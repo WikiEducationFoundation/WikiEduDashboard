@@ -87,7 +87,6 @@
     "redux-thunk": "^2.4.1",
     "require-dir": "1.2.0",
     "reselect": "^4.0.0",
-    "rev-del": "^2.0.0",
     "rewire": "^5.0.0",
     "rtlcss-webpack-plugin": "^4.0.7",
     "run-sequence": "^2.2.1",
