@@ -8,6 +8,7 @@ json.tickets do
       json.username ticket.sender[:username]
       json.real_name ticket.sender[:real_name]
       json.email ticket.sender[:email]
+      json.role ticket.sender[:role]
     end
     json.owner do
       json.id ticket.owner.id
@@ -19,9 +20,20 @@ json.tickets do
       json.title ticket.project.title
       json.slug ticket.project.slug
     end
+    json.read ticket.read
     json.messages do
       json.array! ticket.messages do |message|
-        json.message message
+        json.content message.content
+        json.id message.id
+        json.kind message.kind
+        json.read message.read
+        json.sender do
+          json.sender_id message.sender_id
+          json.real_name message.sender.real_name
+        end
+        json.details message.details
+        json.created_at message.created_at
+        json.updated_at message.updated_at
       end
     end
     json.subject ticket.subject

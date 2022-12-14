@@ -8,6 +8,7 @@ import List from '../common/list.jsx';
 import SearchBar from '../common/search_bar';
 import TicketOwnersFilter from './ticket_owners_filter';
 import TicketStatusesFilter from './ticket_statuses_filter';
+import SearchTypeSelector from './search_type_selector';
 import { fetchTickets, sortTickets, setInitialTicketFilters, emptyList } from '../../actions/tickets_actions';
 import { getFilteredTickets } from '../../selectors';
 
@@ -16,12 +17,11 @@ export class TicketsHandler extends React.Component {
     super(props);
     this.state = {
       page: 0,
-      displaySearchBar: 'none',
-      displayFilters: 'block',
       mode: 'filter',
-      search_mode_label: I18n.t('tickets.search_tickets')
+      searchType: 'no_search'
     };
-    this.searchRef = React.createRef();
+    this.searchBarRef = React.createRef();
+    this.searchTypeRef = React.createRef();
   }
 
   componentDidMount() {
@@ -32,16 +32,16 @@ export class TicketsHandler extends React.Component {
   }
 
   doSearch = () => {
-    this.props.emptyList();
-    this.props.fetchTickets({ query: this.searchRef?.current.value });
+    this.props.fetchTickets({ search: this.searchBarRef?.current.value, what: this.state.searchType });
   };
 
-  toggleMode = () => {
-    if (this.state.displaySearchBar === 'none') {
-      this.setState({ displaySearchBar: 'block', displayFilters: 'none', mode: 'search', search_mode_label: I18n.t('tickets.list_tickets') });
-    } else {
-      this.setState({ displaySearchBar: 'none', displayFilters: 'block', mode: 'filter', search_mode_label: I18n.t('tickets.search_tickets') });
+  changeMode = (e) => {
+    this.setState({ searchType: e.value });
+    if (e.value === 'no_search') {
+      this.setState({ mode: 'filter' });
       this.props.fetchTickets();
+    } else {
+      this.setState({ mode: 'search' });
     }
   };
 
@@ -112,26 +112,24 @@ export class TicketsHandler extends React.Component {
       <main className="container ticket-dashboard">
         <h1 className="mt4">Ticketing Dashboard</h1>
         <div>
-          <div style={{ display: this.state.displayFilters }}>
+          <div>
             <span className="pull-left w10">Status: </span>
-            <TicketStatusesFilter />
+            <TicketStatusesFilter disabled={this.state.mode === 'search'}/>
             <span className="pull-left w10">Owner: </span>
-            <TicketOwnersFilter />
+            <TicketOwnersFilter disabled={this.state.mode === 'search'}/>
           </div>
-          <div style={{ display: this.state.displaySearchBar }}>
+          <div>
+            <SearchTypeSelector
+              value={this.state.searchType}
+              ref={this.searchTypeRef}
+              handleChange={this.changeMode}
+            />
             <SearchBar
-              onClickHandler={this.doSearch} ref={this.searchRef}
-              name="tickets-search"
+              name="tickets_search"
+              onClickHandler={this.doSearch} ref={this.searchBarRef}
               placeholder={I18n.t('tickets.search_bar_placeholder')}
             />
           </div>
-          <button
-            onClick={this.toggleMode}
-            name="toggle-mode-button"
-            className="button"
-          >
-            {this.state.search_mode_label}
-          </button>
         </div>
         <hr/>
         <List

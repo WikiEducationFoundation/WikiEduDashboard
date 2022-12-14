@@ -7,13 +7,14 @@ import { STATUSES } from './util';
 
 const options = Object.entries(STATUSES).map(([value, label]) => ({ label, value }));
 
-export const TicketStatusesFilter = ({ setStatusesFilter, statusesFilter }) => {
+export const TicketStatusesFilter = ({ setStatusesFilter, statusesFilter, disabled }) => {
   return (
     <MultiSelectField
       options={options}
       label="Filter by status"
       selected={statusesFilter}
       setSelectedFilters={setStatusesFilter}
+      disabled={disabled}
     />
   );
 };

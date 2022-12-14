@@ -108,7 +108,8 @@ const fetchSomeTickets = async (dispatch, page, search, batchSize = 100) => {
   // if search param is set => search in DB
   if (Object.keys(search).length >= 1) {
     path = '/tickets/search';
-    paramsObj.query = search.query;
+    paramsObj.search = search.search;
+    paramsObj.what = search.what;
   }
   const url_query = new URLSearchParams(paramsObj).toString();
   const response = await request(`${path}?${url_query}`);

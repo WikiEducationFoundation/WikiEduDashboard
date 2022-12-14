@@ -19,7 +19,7 @@ class TicketsController < ApplicationController
   end
 
   def search
-    @tickets = TicketQueryObject.new(params).search_by_username_or_by_email
+    @tickets = TicketQueryObject.new(params).search
     respond_to :json
   end
 
