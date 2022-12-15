@@ -18,6 +18,7 @@
 # Author: Wwycheuk
 # Author: Xiplus
 # Author: 列维劳德
+# Author: 捍粵者
 ---
 zh-TW:
   number:
@@ -107,7 +108,8 @@ zh-TW:
     explore: 探索
     log_in: 登入至維基百科
     sign_up: 註冊維基百科
-    sign_up_help: 要使用資訊看板，您需要使用維基百科帳號登入，並允許資訊看板存取維基百科帳號權限。您可以用已經存在的維基帳號登入或是建立一個新的。
+    sign_up_help: 要使用資訊看板，您需要使用維基百科帳號登入，並允許資訊看板存取維基百科帳號權限。您可以用已經存在的維基帳號登入或是建立一個新的。如果無法建立帳號的話，請聯絡
+      dashboard@wikiedu.org。
   alerts:
     alert_label: 提醒
     no_alerts: 找不到提醒。
@@ -116,6 +118,7 @@ zh-TW:
     edited_by: 編輯自
     label: 活動
   articles:
+    articles: 條目
     article_not_found: 此條目尚未創建。
     article_development: （條目發展）
     articles_shown: 顯示 %{total} 個條目裡的 %{count} 個
@@ -134,6 +137,7 @@ zh-TW:
     edited: 編輯的條目
     edited_by: 編輯自：
     edited_mobile: 條目
+    edited_none: 還沒有編輯過的條目。
     filter:
       wiki_all: 全部
       new: 新的
@@ -142,6 +146,7 @@ zh-TW:
       tracked: 已追蹤
       untracked: 已取消追蹤
       tracked_and_untracked: 已追蹤與取消追蹤
+    find: 尋找條目
     hide: 隱藏
     history: （歷史）
     label: 條目
@@ -201,7 +206,7 @@ zh-TW:
     clone: 複製
     confirm_add_available: 確定要加入 %{title} 嗎？
     confirm_addition: 確定要將 %{title}分配給 %{username}？
-    confirm_deletion: 確定要刪除此條目分配作業嗎？
+    confirm_deletion: 確定要刪除分配作業嗎？
     editors: 分配給
     group_members: 群組成員
     label: 分配
@@ -214,16 +219,14 @@ zh-TW:
     peer_review_link: 同行評審
     peer_review_link_personalized: '%{username}的同行評審'
     random_peer_review:
-      confirm_addition: |-
-        在大部分情況下，您應只在所有學生都有分配到他們的主條目時使用。
-        您也可以讓您的學生挑選他們的同行評審，或著您可以用手動的方式，採用透過點擊學生的所在列，然後使用「分配/移除同行評審」按鈕來分配同行評審。
-        點擊「確認」後，這將會分配一共 %{count} 額外的同行評審，每位學生可從同學們的條目裡最多挑選出 %{maximum} 個。
+      confirm_addition: 在大部分情況下，您應只在所有學生都有分配到他們的主條目時使用。您也可以讓您的學生挑選他們的同行評審，或著用手動的方式，採用透過點擊學生的所在列，然後使用「分配/移除同行評審」按鈕來分配同行評審。點擊「確認」後，這將會分配一共
+        %{count} 額外的同行評審，每位學生可從同學們的條目裡最多挑選出 %{maximum} 個。
       heading: 分配隨機同行評審
       tooltip_message: 分配隨機條目（以同行評審數為最大數目）給各學生。
       limit_exceeded: 每位學生至少已檢閱 %{maximum} 個條目。
     remove: 移除
     reviewers: 審核者
-    review_other: 分配/移除同行評審
+    review_other: 分配／移除同行評審
     review_self: 審核條目
     review_tooltip: 這是用於您打算同行評審、或是提供意見回饋的條目。
     sandbox_draft_link: 沙盒草稿
@@ -249,7 +252,7 @@ zh-TW:
     campaign_not_updated: 不能更新競賽
     campaign_updated: 競賽已更新
     created_at: 日期
-    confirm_campaign_deletion: 確定要刪除標題為「%{title}」的競賽嗎？如果是，請輸入該競賽的標題以進行處理。
+    confirm_campaign_deletion: 確定要刪除比賽「%{title}」？是就輸入比賽標題繼續。
     confirm_campaign_deletion_failed: 「%{title}」不是此競賽的標題。競賽未被刪除
     confirm_course_removal: 確定您要從競賽「%{campaign_title}」移除「%{title}」嗎？
     course_already_removed: '%{title}已從競賽「%{campaign_title}」移除'
@@ -327,7 +330,7 @@ zh-TW:
     accounts_generation_explanation: 這將允許參與者輸入他們的電子郵件地址，以及想要的使用者名稱，而不是讓他們自行建立新的帳號。您之後可從此份資訊看板來建立帳號，並同時將他們新增為方案參與者。
     accounts_generation_confirm_message: 您確定您要啟用帳號申請嗎？
     activity: 活躍度
-    active_courses: 啟動%{course_type}
+    active_courses: 啟動課程
     add_trainings: 請添加學生培訓至您分配到的時間軸。分配培訓模組是 Wiki 教育最佳實踐的重要部分。
     alerts: 提醒
     all_courses: 所有課程
@@ -566,9 +569,7 @@ zh-TW:
     submitted_admin: 這個課程已經由建立者發佈開設申請。想要准許申請的話，請在概述頁添增競賽。
     submitted_and_pending_heading: 已送出，待批閱
     submitted_heading: 已送出的課程。
-    submitted_note: |-
-      您的課程已送出。
-      維基教育的成員將審核此課程，若有任何問題會與您聯繫。
+    submitted_note: 您的課程已成功送出。維基教育的成員將審核此課程，若有任何問題會與您聯繫。與此同時，你可以透過閱覽教師與學生的完整列表，查閱維基教育的訓練教材。
     suggestions_feedback: 有任何改善此功能的建議嗎？請讓我們知道！
     suggestions_sending: 意見回饋寄送中...
     suggestions_sent: 意見回饋已寄送，感謝您所填入的內容。
@@ -718,7 +719,7 @@ zh-TW:
   instructor_view:
     article_assignments: '%{prefix}分配'
     assignments_table:
-      article_name: 條目名稱
+      article_name: 名稱
       current_stage: 目前階段
       relevant_links: 相關連結
     assigned_articles: 已分配條目
@@ -766,7 +767,7 @@ zh-TW:
     last_reviewed: 最新審核
     missing_data_heading: 缺少或非預期的結果？
     missing_data_info: 常見問題包括
-    non_updating_course_update: 已排定一次性更新，應即將進行。
+    non_updating_course_update: 已排定單次更新，應即將開始。
     last_update_failed: 此課程的最新更新失敗。
     last_update_success: 最新更新執行成功，統計內容應是最新的。
     outreach_help: 需要幫助？請參閱在導航欄中的「回報問題」。
@@ -839,7 +840,7 @@ zh-TW:
     index: 索引
   recent_activity:
     active_courses: 條目使用於
-    article_title: 條目標題
+    article_title: 標題
     datetime: 日期/時間
     did_you_know_eligible: 符合 "您知道嗎" 資格
     image: 圖片
@@ -904,7 +905,7 @@ zh-TW:
         confirm_add_special_user: 添加特殊使用者
         confirm_remove_special_user: 移除特殊使用者的權限有關於
         already_is: '%{username} 已是{position}！'
-        elevate_success: '%{username} 被升等為{position}。'
+        elevate_success: '%{username}升為{position}。'
       remove:
         revoke_button: 撤回特殊使用者
         revoke_button_confirm: 撤回 %{username} 的特殊使用者權限
@@ -914,7 +915,7 @@ zh-TW:
   suggestions:
     editing: 編輯建議
     suggestion_docs:
-      fa: 除非有可用的新訊息，否則不必進一步添加內容，而進一步改善散文質量通常是可行的。
+      fa: 沒有可用的新資料就不必添加更多內容，而改善散文質素則通常可行。
       a: 可能需要專業程度知識來改善該條目，並需要解決風格上的問題。可試試採用同行評審來處理。
       ga: 一些由主題和風格專家做出的編輯是有幫助的，與現有類似主題的典範條目比較有機會突顯出不足或缺失的內容範圍。
       bplus: 可透過輸入來自於專家所評估出涵蓋範圍缺失那些項目、所需要的插圖、歷史背景、和進一步的參考資料等內容來改進。可考慮同行評審或提名優良條目狀態。若條目還沒有維基化，那現在就是時候了。
@@ -929,8 +930,8 @@ zh-TW:
       '?': 建議不可用 - 條目未評級或是建議內容對於評級無用。
       does_not_exist: 維基百科上無此條目
   tasks:
-    conseq: 課題 %{task}已在進行！
-    constant: 當 update_daily 執行時課題 %{task}無法進行。
+    conseq: 課題%{task}已開始！
+    constant: update_daily執行時無法執行任務%{task}。
     paused: 因為排程更新已被暫停，使得課題 %{task}無法執行。執行 "rake batch:resume" 來還原更新。
   tickets:
     none: 無許可
@@ -1062,7 +1063,7 @@ zh-TW:
     name: 名稱
     none: 沒有參與者。
     no_articles: 沒有條目
-    no_revisions: 這位編輯者沒有做出修訂。
+    no_revisions: （無修訂）
     no_highlighting: 條目的目前版本中沒有文字內容歸因於該名編輯者。檢查頁面歷史來查看他們的編輯。
     number_of_articles:
       one: '%{count} 個條目'
@@ -1142,7 +1143,7 @@ zh-TW:
   wizard:
     assignment_dates: 分配作業日期
     assignment_description: 選擇您的分配作業時間表起始日期。例如若您想要在課程上第二週開始您的維基計劃專案，設定分配開始日期在課程開始日期的後一週。此分配工具將建立適用您所選擇之時間表日期的草稿時間軸
-    assignment_type: 學生們將會為他們的維基百科分配作業完成什麼呢？
+    assignment_type: 學生將會為他們的維基百科分配作業完成什麼？
     calendar_instructions: 選擇日期，以便從行事曆中增加或移除這些時間（例如假日或不上課的時候）。這能夠讓課程建立工具精準的開出你的分配作業時段。點選一個日期可以從非課程時段、上課時段、以及休假時段三種設定之間轉換。
     confirm_dates: 選擇您課程的課程日期、每週會議與假日。
     course_dates: 課程日期
