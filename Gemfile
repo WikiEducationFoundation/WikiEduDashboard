@@ -6,6 +6,7 @@ gem 'rails', '7.0.4'
 gem 'jbuilder' # DSL for building JSON view templates
 gem 'haml-rails' # HTML template language, used instead of ERB
 gem 'bootsnap', require: false # Makes rails boot faster via caching
+gem 'faker', require: false # Generates random data for example records
 gem 'figaro' # easy access to ENV variables. Deprecated.
 gem 'puma'
 
@@ -112,7 +113,6 @@ group :development do
   gem 'x25519' # workaround for openssl bug: https://github.com/ruby/openssl/issues/489
   gem 'rails-erd' # Generates`erd.pdf`
   gem 'annotate' # Generates automatic schema notations on model files
-  gem 'faker', require: false # Generates random data for example records
   gem 'memory_profiler' # Unsafe for production use
 end
 
