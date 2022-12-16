@@ -1356,6 +1356,8 @@ fr:
       jour.
   tickets:
     none: Aucun ticket
+    search_bar_placeholder: Recherchez des tickets
+    chose_search_type: Choisissez votre type de recherche
   timeline:
     add_week: Ajouter une semaine
     arrange_timeline: Organiser l’agenda

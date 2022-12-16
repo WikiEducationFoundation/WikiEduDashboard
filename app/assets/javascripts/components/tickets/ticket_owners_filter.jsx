@@ -4,7 +4,7 @@ import MultiSelectField from '../common/multi_select_field.jsx';
 
 import { setTicketOwnersFilter } from '../../actions/tickets_actions';
 
-export const TicketOwnersFilter = ({ admins, setOwnersFilter, ownerFilters }) => {
+export const TicketOwnersFilter = ({ admins, setOwnersFilter, ownerFilters, disabled }) => {
   const options = admins.map(([username, id]) => ({ label: username, value: id }));
   options.push({ label: 'unassigned', value: null });
 
@@ -14,6 +14,7 @@ export const TicketOwnersFilter = ({ admins, setOwnersFilter, ownerFilters }) =>
       label="Filter by owner"
       selected={ownerFilters}
       setSelectedFilters={setOwnersFilter}
+      disabled={disabled}
     />
   );
 };

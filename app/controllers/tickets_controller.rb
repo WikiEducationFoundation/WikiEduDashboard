@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/tickets/ticket_query_object"
+
 class TicketsController < ApplicationController
   before_action :require_admin_permissions
 
@@ -14,6 +16,11 @@ class TicketsController < ApplicationController
 
   def notify_owner
     send_ticket_notification(true)
+  end
+
+  def search
+    @tickets = TicketQueryObject.new(params).search
+    respond_to :json
   end
 
   private

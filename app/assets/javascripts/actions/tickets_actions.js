@@ -10,7 +10,8 @@ import {
   SORT_TICKETS,
   TICKET_STATUS_OPEN,
   UPDATE_TICKET,
-  MESSAGE_KIND_NOTE_DELETE
+  MESSAGE_KIND_NOTE_DELETE,
+  EMPTY_LIST
 } from '../constants/tickets';
 import { STATUSES } from '../components/tickets/util';
 import { API_FAIL } from '../constants/api';
@@ -99,23 +100,34 @@ export const readAllMessages = ticket => async (dispatch) => {
   dispatch({ type: SET_MESSAGES_TO_READ, data: json });
 };
 
-const fetchSomeTickets = async (dispatch, page, batchSize = 100) => {
+const fetchSomeTickets = async (dispatch, page, search, batchSize = 100) => {
   const offset = batchSize * page;
-  const response = await request(`/td/tickets?limit=${batchSize}&offset=${offset}`);
+  const paramsObj = { limit: batchSize, offset: offset };
+  // Initial display => TicketDispenser
+  let path = '/td/tickets';
+  // if search param is set => search in DB
+  if (Object.keys(search).length >= 1) {
+    path = '/tickets/search';
+    paramsObj.search = search.search;
+    paramsObj.what = search.what;
+  }
+  const url_query = new URLSearchParams(paramsObj).toString();
+  const response = await request(`${path}?${url_query}`);
+
   return response.json().then(({ tickets }) => {
     dispatch({ type: RECEIVE_TICKETS, data: tickets });
   });
 };
 
 // Fetch as many tickets as possible
-export const fetchTickets = () => async (dispatch) => {
+export const fetchTickets = (search = {}) => async (dispatch) => {
   dispatch({ type: FETCH_TICKETS });
 
   const batches = Array.from({ length: 10 }, (_el, index) => index);
   // Ensures that each promise will run sequentially
   return batches.reduce(async (previousPromise, batch) => {
     await previousPromise;
-    return fetchSomeTickets(dispatch, batch);
+    return fetchSomeTickets(dispatch, batch, search);
   }, Promise.resolve());
 };
 
@@ -197,3 +209,6 @@ export const setInitialTicketFilters = () => (dispatch, getState) => {
   dispatch(setTicketOwnersFilter([currentUserOption, unassignedOption]));
 };
 
+export const emptyList = () => (dispatch) => {
+  dispatch({ type: EMPTY_LIST });
+};

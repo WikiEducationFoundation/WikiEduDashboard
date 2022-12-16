@@ -5,17 +5,23 @@ import Row from './tickets_table_row';
 import Pagination from './pagination';
 import Loading from '../common/loading';
 import List from '../common/list.jsx';
+import SearchBar from '../common/search_bar';
 import TicketOwnersFilter from './ticket_owners_filter';
 import TicketStatusesFilter from './ticket_statuses_filter';
-import { fetchTickets, sortTickets, setInitialTicketFilters } from '../../actions/tickets_actions';
+import SearchTypeSelector from './search_type_selector';
+import { fetchTickets, sortTickets, setInitialTicketFilters, emptyList } from '../../actions/tickets_actions';
 import { getFilteredTickets } from '../../selectors';
 
 export class TicketsHandler extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      page: 0
+      page: 0,
+      mode: 'filter',
+      searchType: 'no_search'
     };
+    this.searchBarRef = React.createRef();
+    this.searchTypeRef = React.createRef();
   }
 
   componentDidMount() {
@@ -25,12 +31,35 @@ export class TicketsHandler extends React.Component {
     }
   }
 
+  doSearch = () => {
+    this.props.fetchTickets({ search: this.searchBarRef?.current.value, what: this.state.searchType });
+  };
+
+  changeMode = (e) => {
+    this.setState({ searchType: e.value });
+    if (e.value === 'no_search') {
+      this.setState({ mode: 'filter' });
+      this.props.fetchTickets();
+    } else {
+      this.setState({ mode: 'search' });
+    }
+  };
+
+  getTickets = () => {
+    if (this.state.mode === 'filter') {
+      return this.props.filteredTickets;
+    }
+
+    return this.props.tickets.all;
+  };
+
   goToPage(page) {
     this.setState({ page });
   }
 
   render() {
     if (this.props.tickets.loading) return <Loading />;
+
 
     const keys = {
       sender: {
@@ -68,7 +97,7 @@ export class TicketsHandler extends React.Component {
     const TICKETS_PER_PAGE = 10;
 
     const pagesLength = Math.floor((this.props.filteredTickets.length - 1) / TICKETS_PER_PAGE) + 1;
-    const elements = this.props.filteredTickets
+    const elements = this.getTickets()
       .slice(this.state.page * TICKETS_PER_PAGE, this.state.page * TICKETS_PER_PAGE + TICKETS_PER_PAGE)
       .map(ticket => <Row key={ticket.id} ticket={ticket} />);
 
@@ -83,10 +112,24 @@ export class TicketsHandler extends React.Component {
       <main className="container ticket-dashboard">
         <h1 className="mt4">Ticketing Dashboard</h1>
         <div>
-          <span className="pull-left w10">Status: </span>
-          <TicketStatusesFilter />
-          <span className="pull-left w10">Owner: </span>
-          <TicketOwnersFilter />
+          <div>
+            <span className="pull-left w10">Status: </span>
+            <TicketStatusesFilter disabled={this.state.mode === 'search'}/>
+            <span className="pull-left w10">Owner: </span>
+            <TicketOwnersFilter disabled={this.state.mode === 'search'}/>
+          </div>
+          <div>
+            <SearchTypeSelector
+              value={this.state.searchType}
+              ref={this.searchTypeRef}
+              handleChange={this.changeMode}
+            />
+            <SearchBar
+              name="tickets_search"
+              onClickHandler={this.doSearch} ref={this.searchBarRef}
+              placeholder={I18n.t('tickets.search_bar_placeholder')}
+            />
+          </div>
         </div>
         <hr/>
         <List
@@ -115,7 +158,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   fetchTickets,
   sortTickets,
-  setInitialTicketFilters
+  setInitialTicketFilters,
+  emptyList
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

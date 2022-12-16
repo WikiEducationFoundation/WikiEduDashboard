@@ -9,12 +9,12 @@ const MultiSelectField = createReactClass({
   propTypes: {
     label: PropTypes.string,
     options: PropTypes.array,
+    disabled: PropTypes.bool
   },
 
   getInitialState() {
     return {
       removeSelected: true,
-      disabled: false,
       stayOpen: false,
       value: this.props.selected,
       rtl: false,
@@ -36,13 +36,13 @@ const MultiSelectField = createReactClass({
   },
 
   render() {
-    const { disabled, stayOpen, value } = this.state;
+    const { stayOpen, value } = this.state;
     const options = this.props.options;
     return (
       <div className="section">
         <Select
           closeOnSelect={!stayOpen}
-          disabled={disabled}
+          isDisabled={this.props.disabled || false}
           isMulti
           onChange={this.handleSelectChange}
           options={options}
