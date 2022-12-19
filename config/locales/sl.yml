@@ -117,6 +117,9 @@ sl:
     admin_users:
       new:
         form_placeholder: Uporabniško ime
+  tickets:
+    search_bar_placeholder: Iskanje zahtevkov
+    chose_search_type: Izberite vrsto iskanja
   timeline:
     empty_week_3: ali
     gradeable_value: Vrednost

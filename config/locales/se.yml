@@ -19,9 +19,11 @@ se:
     hide: Čiega
     see_more: Lassedieđut
   assignments:
+    remove: Sihko
     select: Vállje
   categories:
     template_name: Málle namma
+    remove: Sihko
   courses:
     delete_suggestion: Sihko
     feedback: Máhcahat
@@ -39,6 +41,7 @@ se:
       learn_more_button: Lassedieđut
   metrics:
     tags: Gilkorat
+    removed: Sihkkojuvvon
   recent_activity:
     file_name: Fiilanamma
   revisions:
@@ -52,4 +55,7 @@ se:
   users:
     first_name: Ovdanamma
     last_name: Goargu
+    useremail_placeholder: E-poastačujuhus
+  article_finder:
+    remove_article: Sihko artihkkala
 ...
