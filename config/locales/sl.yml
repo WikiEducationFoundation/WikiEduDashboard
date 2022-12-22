@@ -78,6 +78,7 @@ sl:
     tags: 'Oznake:'
     timeline_link: Časovnica
     title: Naslov
+    view_page: Ogled strani tečaja
   courses_generic:
     cancel: Prekliči
     course: Program
@@ -89,6 +90,7 @@ sl:
     student_editors: Urejevalci
     students: Urejevalci
     students_short: Urejevalci
+    view_page: Ogled strani programa
   editable:
     edit: Uredi
     cancel: Prekliči
@@ -117,6 +119,10 @@ sl:
     admin_users:
       new:
         form_placeholder: Uporabniško ime
+  suggestions:
+    suggestion_docs:
+      list: Seznami naj bodo seznami delujočih povezav na članke v Wikipediji, ki
+        so ustrezno poimenovane in urejene.
   tickets:
     search_bar_placeholder: Iskanje zahtevkov
     chose_search_type: Izberite vrsto iskanja

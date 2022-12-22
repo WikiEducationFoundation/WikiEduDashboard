@@ -17,6 +17,7 @@
 # Author: Steeve815
 # Author: Strayblues
 # Author: Uziel302
+# Author: Xnet1234
 # Author: YaronSh
 # Author: המקיסט
 # Author: מקף
@@ -726,6 +727,7 @@ he:
       batch:resume' כדי לחזור לעדכונים.
   tickets:
     none: אין כרטיסים
+    search_bar_placeholder: חיפוש כרטיסים
   timeline:
     add_week: הוספת שבוע
     arrange_timeline: ארגון לוח הזמנים
