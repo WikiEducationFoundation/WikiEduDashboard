@@ -377,7 +377,7 @@ GEM
     omniauth-rails_csrf_protection (1.0.1)
       actionpack (>= 4.2)
       omniauth (~> 2.0)
-    openssl (3.0.0)
+    openssl (3.1.0)
     orm_adapter (0.5.0)
     pandoc-ruby (2.1.6)
     paper_trail (13.0.0)
