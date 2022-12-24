@@ -83,7 +83,9 @@ export default function articles(state = initialState, action) {
         state.articles,
         action.key,
         state.sort.sortKey,
-        SORT_DESCENDING[action.key]
+        SORT_DESCENDING[action.key],
+        undefined,
+        action.refresh
       );
       return {
         ...state,

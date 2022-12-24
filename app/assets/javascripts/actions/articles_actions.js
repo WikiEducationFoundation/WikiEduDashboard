@@ -18,7 +18,7 @@ const fetchArticlesPromise = (courseId, limit) => {
 };
 
 
-export const fetchArticles = (courseId, limit) => (dispatch) => {
+export const fetchArticles = (courseId, limit, refresh = false) => (dispatch) => {
   return (
     fetchArticlesPromise(courseId, limit)
       .then((resp) => {
@@ -29,7 +29,8 @@ export const fetchArticles = (courseId, limit) => (dispatch) => {
         });
         dispatch({
           type: types.SORT_ARTICLES,
-          key: 'character_sum'
+          key: 'character_sum',
+          refresh
         });
         // Now that we received the articles data, query wikidata.org for the labels
         // of any Wikidata entries that are among the articles.
@@ -39,7 +40,7 @@ export const fetchArticles = (courseId, limit) => (dispatch) => {
   );
 };
 
-export const sortArticles = key => ({ type: types.SORT_ARTICLES, key: key });
+export const sortArticles = (key, refresh) => ({ type: types.SORT_ARTICLES, key: key, refresh });
 
 export const filterArticles = wiki => ({ type: types.SET_PROJECT_FILTER, wiki: wiki });
 

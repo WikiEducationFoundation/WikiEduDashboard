@@ -1,5 +1,9 @@
-import React, { Suspense, lazy } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import React, { Suspense, lazy, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Route, Routes, useLocation } from 'react-router-dom';
+import { fetchArticles } from '../../actions/articles_actions.js';
+import { fetchAssignments } from '../../actions/assignment_actions.js';
+import { fetchUsers } from '../../actions/user_actions.js';
 import Loading from '../common/loading.jsx';
 
 const Course = lazy(() => import('../course/course.jsx'));
@@ -20,32 +24,60 @@ const TrainingApp = lazy(() => import('../../training/components/training_app.js
 const ActiveCoursesHandler = lazy(() => import('../active_courses/active_courses_handler.jsx'));
 const CoursesByWikiHandler = lazy(() => import('../courses_by_wiki/courses_by_wiki_handler.jsx'));
 
-const routes = (
-  <Suspense fallback={<Loading />}>
-    <Routes>
-      <Route path="/onboarding/*" element={<Onboarding />} />
-      <Route path="/recent-activity/*" element={<RecentActivityHandler />} />
-      <Route path="/courses/:course_school/:course_title/*" element={<Course />} />
-      <Route path="/course_creator" element={<ConnectedCourseCreator />} />
-      <Route path="/users/:username" element={<UserProfile />} />
-      <Route path="/alerts_list" element={<AdminAlerts />} />
-      <Route path="/settings" element={<SettingsHandler />} />
-      <Route path="/article_finder" element={<ArticleFinder />} />
-      <Route path="/training/*" element={<TrainingApp />} />
-      <Route path="/tickets/dashboard" element={<TicketsHandler />} />
-      <Route path="/tickets/dashboard/:id" element={<TicketShowHandler />} />
-      <Route path="/campaigns/*" element={<CampaignsHandler />} />
-      <Route path="/tagged_courses/:tag/alerts" element={<TaggedCourseAlerts />} />
-      <Route index element={<DetailedCampaignList headerText={I18n.t('campaign.campaigns')} userOnly={true}/>} />
-      <Route path="/dashboard" element={<DetailedCampaignList headerText={I18n.t('campaign.campaigns')} userOnly={true}/>} />
-      <Route path="/explore" element={<Explore dashboardTitle={window.dashboardTitle}/>} />
-      <Route path="/active_courses" element={<ActiveCoursesHandler dashboardTitle={window.dashboardTitle}/>}/>
-      <Route path="/courses_by_wiki/:wiki_url" element={<CoursesByWikiHandler />}/>
+const routes = () => {
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const courseSlug = useSelector(state => state.course.slug);
+  const limit = useSelector(state => state.articles.limit);
 
-      {/* this prevents the "route not found" warning for pages which are server rendered */}
-      <Route path="*" element={<div style={{ display: 'none' }}/>} />
-    </Routes>
-  </Suspense>
+  useEffect(() => {
+    refreshData(location, courseSlug, dispatch, limit);
+  }, [location.pathname]);
+
+  return (
+    <Suspense fallback={<Loading />}>
+      <Routes>
+        <Route path="/onboarding/*" element={<Onboarding />} />
+        <Route path="/recent-activity/*" element={<RecentActivityHandler />} />
+        <Route path="/courses/:course_school/:course_title/*" element={<Course />} />
+        <Route path="/course_creator" element={<ConnectedCourseCreator />} />
+        <Route path="/users/:username" element={<UserProfile />} />
+        <Route path="/alerts_list" element={<AdminAlerts />} />
+        <Route path="/settings" element={<SettingsHandler />} />
+        <Route path="/article_finder" element={<ArticleFinder />} />
+        <Route path="/training/*" element={<TrainingApp />} />
+        <Route path="/tickets/dashboard" element={<TicketsHandler />} />
+        <Route path="/tickets/dashboard/:id" element={<TicketShowHandler />} />
+        <Route path="/campaigns/*" element={<CampaignsHandler />} />
+        <Route path="/tagged_courses/:tag/alerts" element={<TaggedCourseAlerts />} />
+        <Route index element={<DetailedCampaignList headerText={I18n.t('campaign.campaigns')} userOnly={true}/>} />
+        <Route path="/dashboard" element={<DetailedCampaignList headerText={I18n.t('campaign.campaigns')} userOnly={true}/>} />
+        <Route path="/explore" element={<Explore dashboardTitle={window.dashboardTitle}/>} />
+        <Route path="/active_courses" element={<ActiveCoursesHandler dashboardTitle={window.dashboardTitle}/>}/>
+        <Route path="/courses_by_wiki/:wiki_url" element={<CoursesByWikiHandler />}/>
+
+        {/* this prevents the "route not found" warning for pages which are server rendered */}
+        <Route path="*" element={<div style={{ display: 'none' }}/>} />
+      </Routes>
+    </Suspense>
 );
+};
 
 export default routes;
+
+function refreshData(location, courseSlug, dispatch, limit) {
+  if (location.pathname.match(/\/.+students\/(overview|assignments).*/)) {
+    if (courseSlug !== null && courseSlug !== undefined) {
+      dispatch(fetchUsers(courseSlug));
+    }
+  } else if (location.pathname.includes('/articles/edited')) {
+    if (courseSlug !== null && courseSlug !== undefined) {
+      dispatch(fetchArticles(courseSlug, limit, true));
+    }
+  } else if (location.pathname.includes('/articles/assigned')) {
+    if (courseSlug !== null && courseSlug !== undefined) {
+      dispatch(fetchAssignments(courseSlug));
+    }
+  }
+}
+
