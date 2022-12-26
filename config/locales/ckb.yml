@@ -3,22 +3,62 @@
 # Export driver: phpyaml
 # Author: Aram
 # Author: Arya sarhan
+# Author: Sakura emad
 # Author: Épine
 # Author: ئارام بکر
 ---
 ckb:
+  number:
+    human:
+      decimal_units:
+        format: '%n% u'
+        units:
+          thousand: ک
+          million: م
+          billion: ب
+          trillion: ت
+          quadrillion: کیو
   application:
+    cancel: ھەڵوەشاندنەوە
+    cookie_consent: ئەم ماڵپەڕە کووکی بەکاردەهێنێت بۆ ئەوەی تۆ بچیتە ژوورەوە، و زانیارییەکانی
+      پەیوەست بە ئەژمێری ویکیپیدیاکەتەوە هەڵدەگرێت.
+    cookie_consent_acknowledge: تێدەگەم.
     cookie_consent_see_more: زیاتر ببینە.
+    create_accounts: دروستکردنی ھەژماری ویکیپیدیا
+    dashboard: ویکی ئێد داشبۆرد
+    documentation: بەڵگەنامە
+    error: 'هەڵەیەک هەبوو:'
+    explore: بگەڕێ
+    field_required: ئەم خانەیە پێویستە
+    field_invalid_characters: ئەم بەشە پیتی نادروستی هەیە
+    field_invalid_date: ئەم بەشە پێویستی بە ڕێکەوتێک هەیە بە شێوەی YYYY-MM-DD (ساڵ-ڕۆژ-مانگ)
+    field_invalid_date_time: کۆتایی دەبێت دوای دەستپێکردن بێت. (کاتژمێرەکان لە 0 بۆ
+      23 دەڕوات.)
+    greeting2: بەخێربێیت!
     greeting_extended: بەخێربێیت بۆ ویکیپیدیا
+    greeting: سڵاو!
+    help: یارمەتی
     home: ماڵەوە
+    log_in_extended: بە ویکیپیدیا بچۆرە ژوورەوە
     log_in: بچۆ ژوورەوە
     log_out: بچۆ دەرەوە
+    my_dashboard: داشبۆردی من
     recent_activity: دوایین چالاکی
+    report_problem: سکاڵا لە کێشەیەک بدە
     request_account: داخوازی ھەژمار
     request_account_create: ھەژمار دروست بکە
     search: پرسیار بکە
+    search_results:
+      one: '%{count} ئەنجام بۆ: '' %{search_terms}'''
+      other: '% {count} ئەنجامەکان بۆ: ''%{search_terms}'''
+    no_results: هیچ ئەنجامێک بۆ '%{query}' نەدۆزرایەوە.
+    sign_up_extended: لەڕێگەی ویکیپیدیا ناوت تۆمار بکە
+    sign_up_wikipedia: یان لەناو ویکیپیدیا ناوت تۆمار بکە
+    sign_up_log_in_extended: لەگەڵ ویکیپیدیا
     sign_up: خۆ تۆمارکردن
     submit: ناردن
+    training: ڕاهێنان
+    change: گۆڕین
     details: وردەکارییەکان
     confirm: باشە
     opt_in: بەڵێ
@@ -27,22 +67,46 @@ ckb:
     opt_no: نەخێر
   article_statuses:
     not_yet_started: دەست پێ کردن
+    in_progress: کارکردن لە خۆڵەپەتانێ
+    ready_for_review: فراوانکردنی ڕەشنووس
+    ready_for_mainspace: گواستنەوەی کار بۆ بۆشایی ناوی سەرەکی
+    assignment_completed: ئەرکەکە وەک تەواوکراو نیشانکرا
+  dashboard:
+    create_note: بۆ دروستکردنی یەکەم کۆرست کرتە لەسەر دروستکردنی کۆرس بکە.
+    explore_course_pages: لاپەڕەکانی کۆرسەکە بگەڕێ
+    explore_examples: نموونەکان بکۆڵەرەوە
+    join_note: کاتێک وشەی نھێنییەکەت لە ڕاهێنەرەکەت وەرگرت، کرتە لەسەر کۆرسەکەت بدۆزەرەوە
+      بکە بۆ دۆزینەوە و بەشداریکردنی لێی.
+    no_courses_instructor: وا دیارە هیچ کۆرسێکت نییە.
+    no_courses_student: وادیارە هێشتا بەشداری ھیچ کۆرسێکت نەکردبێت.
+  home:
+    explore: بگەڕێ
+    log_in: بە ویکیپیدیا بچۆرە ژوورەوە
+    sign_up: لەڕێگەی ویکیپیدیا ناوت تۆمار بکە
   alerts:
     alert_label: ھۆشدارەکان
     no_alerts: ھیچ ھۆشدارێک نەدۆزرایەوە.
   activity:
     all: چالاکی
+    edited_by: دەستکاری کراوە لەلایەن
     label: چالاکی
   articles:
     articles: وتارەکان
     next: دواتر
     previous: پێشوو
+    article_title: ناونیشانی وتار
     deleted: (سڕدرایەوە)
+    edited: وتارە دەستکاریکراوەکان
     edited_mobile: وتارەکان
     filter:
       wiki_all: ھەموو
       new: نوێ
+    hide: شاردنەوە
     history: (مێژوو)
+    new: (نوێ)
+    rating: پۆل
+    see_more: زیاتر ببینە
+    title: ناونیشان
   articles_wikidata:
     articles_short: بەندەکان
   articles_generic:

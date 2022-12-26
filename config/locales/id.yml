@@ -206,6 +206,7 @@ id:
       new:
         form_placeholder: Nama pengguna
   tickets:
+    search_bar_placeholder: Cari tiket
     chose_search_type: Pilih jenis pencarian
   timeline:
     blackout_week_created: Ada blok dijadwalkan minggu ini. Silakan pindahkan ke seminggu

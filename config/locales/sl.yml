@@ -32,6 +32,9 @@ sl:
       podeliti dovoljenje za dostop do vašega računa. Lahko se prijavite z obstoječim
       računom Wikipedije ali ustvarite novega. Če ne morete ustvariti računa, se obrnite
       na dashboard@wikiedu.org.
+  alerts:
+    alert_label: Opomniki
+    no_alerts: Ni najdenih opomnikov.
   articles:
     articles: Članki
     edited_mobile: Članki
@@ -40,7 +43,9 @@ sl:
     history: (zgodovina)
     label: Članki
     new: (novo)
+    show_current_version: Prikaži trenutno različico
     title: Naslov
+    view_all: Pokaži vse
   items:
     does_not_exist: Ta predmet ne obstaja. Da prejmete predloge, ustvarite peskovnik
       in se mu dodelite.
@@ -49,9 +54,11 @@ sl:
     sandbox_draft_link: Osnutek peskovnika
     select: Izberi
   campaign:
+    alert_label: Opomniki kampanj
     campaign: Kampanja
     campaigns: Kampanje
     description: Opis
+    no_alerts: Ta kampanja nima opomnikov
     none: Noben
     title: Naslov
   categories:
@@ -69,10 +76,13 @@ sl:
     dismiss_survey: Opusti
     feedback: Povratne informacije
     namespaces: Sledeni imenski prostori
+    join_failed: Vpis ni uspel.
     loading: Nalaganje ...
     new_account_email_placeholder: ime@example.org
     none: Noben
     overview: Domov
+    private: Zasebni
+    requested_accounts_alert_view: Ogled
     start: Začetek
     stay_in_sandbox: Ostani v peskovniku
     tags: 'Oznake:'
@@ -87,6 +97,7 @@ sl:
     campaign_courses: Programi %{title}
     creator:
       save_cloned_course: Shrani
+    edit_course_dates: Uredi datume projekta
     student_editors: Urejevalci
     students: Urejevalci
     students_short: Urejevalci
@@ -101,15 +112,19 @@ sl:
   metrics:
     bytes_added: Zlogov dodanih
     last_reviewed: Zadnjič pregledano
+    last_update_failed: Zadnja posodobitev tega tečaja ni uspela.
     tags: Oznake
     labels: Oznake
   namespace:
+    project: Projekt
+    translation: Prevod
     tracked_namespaces_info: K statističnim pregledom na vrhu bodo prispevali samo
       članki, ki ustrezajo sledenim imenskim prostorom, kot so »Urejeni članki«, »Skupno
       urejanje«, »Dodane besede« ipd. Sledite samo imenskim prostorom, ki jih vaš
       program želi izboljšati.
   recent_activity:
     article_title: Naslov
+    image: Slika
     file_name: Ime datoteke
   revisions:
     diff_show: Prikaži
@@ -132,6 +147,7 @@ sl:
     title: Časovnica
   training:
     start: Začetek
+    view: Ogled
     page: Stran
     done: Končano!
     no_training_library_records_wiki_ed_mode: V zbirki podatkov ni zapisov TrainingLibrary.
@@ -142,6 +158,7 @@ sl:
     no_training_resource_match_your_search: Z vašim iskanjem se ne ujema noben vir
       za usposabljanje
   uploads:
+    image: Slika
     label: Naložitve
   users:
     assign_articles_done: Končano
@@ -171,4 +188,5 @@ sl:
       headline: Pozdravljeni, %{username}
   training_status:
     continue: Nadaljuj
+    view: Ogled
 ...
