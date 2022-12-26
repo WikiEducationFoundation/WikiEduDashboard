@@ -7,7 +7,8 @@ const initialState = {
     sortKey: null,
     key: null,
   },
-  isLoaded: false
+  isLoaded: false,
+  lastRequestTimestamp: 0 // UNIX timestamp of last request - in milliseconds
 };
 
 const SORT_DESCENDING = {
@@ -22,7 +23,12 @@ const SORT_DESCENDING = {
 
 export default function users(state = initialState, action) {
   switch (action.type) {
-    case RECEIVE_USERS:
+    case RECEIVE_USERS: return {
+      ...state,
+      users: action.data.course.users,
+      isLoaded: true,
+      lastRequestTimestamp: Date.now()
+    };
     case ADD_USER:
     case REMOVE_USER:
       return {

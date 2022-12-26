@@ -1,10 +1,8 @@
 import React, { Suspense, lazy, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Route, Routes, useLocation } from 'react-router-dom';
-import { fetchArticles } from '../../actions/articles_actions.js';
-import { fetchAssignments } from '../../actions/assignment_actions.js';
-import { fetchUsers } from '../../actions/user_actions.js';
 import Loading from '../common/loading.jsx';
+import { refreshData } from './refresh.js';
 
 const Course = lazy(() => import('../course/course.jsx'));
 const Onboarding = lazy(() => import('../onboarding/index.jsx'));
@@ -27,11 +25,16 @@ const CoursesByWikiHandler = lazy(() => import('../courses_by_wiki/courses_by_wi
 const routes = () => {
   const location = useLocation();
   const dispatch = useDispatch();
-  const courseSlug = useSelector(state => state.course.slug);
-  const limit = useSelector(state => state.articles.limit);
+  const refreshArgs = {
+    lastUserRequestTimestamp: useSelector(state => state.users.lastRequestTimestamp),
+    courseSlug: useSelector(state => state.course.slug),
+    limit: useSelector(state => state.articles.limit),
+    lastRequestArticleTimestamp: useSelector(state => state.articles.lastRequestTimestamp),
+    lastRequestAssignmentTimestamp: useSelector(state => state.assignments.lastRequestTimestamp)
+  };
 
   useEffect(() => {
-    refreshData(location, courseSlug, dispatch, limit);
+    refreshData(location, refreshArgs, dispatch);
   }, [location.pathname]);
 
   return (
@@ -60,24 +63,7 @@ const routes = () => {
         <Route path="*" element={<div style={{ display: 'none' }}/>} />
       </Routes>
     </Suspense>
-);
+  );
 };
 
 export default routes;
-
-function refreshData(location, courseSlug, dispatch, limit) {
-  if (location.pathname.match(/\/.+students\/(overview|assignments).*/)) {
-    if (courseSlug !== null && courseSlug !== undefined) {
-      dispatch(fetchUsers(courseSlug));
-    }
-  } else if (location.pathname.includes('/articles/edited')) {
-    if (courseSlug !== null && courseSlug !== undefined) {
-      dispatch(fetchArticles(courseSlug, limit, true));
-    }
-  } else if (location.pathname.includes('/articles/assigned')) {
-    if (courseSlug !== null && courseSlug !== undefined) {
-      dispatch(fetchAssignments(courseSlug));
-    }
-  }
-}
-

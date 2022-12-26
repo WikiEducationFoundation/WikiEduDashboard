@@ -23,7 +23,8 @@ const initialState = {
   trackedStatusFilter: 'tracked',
   loading: true,
   newnessFilterEnabled: false,
-  trackedStatusFilterEnabled: false
+  trackedStatusFilterEnabled: false,
+  lastRequestTimestamp: 0 // UNIX timestamp of last request - in milliseconds
 };
 
 const SORT_DESCENDING = {
@@ -74,7 +75,8 @@ export default function articles(state = initialState, action) {
         trackedStatusFilter,
         newnessFilterEnabled,
         trackedStatusFilterEnabled,
-        loading: false
+        loading: false,
+        lastRequestTimestamp: Date.now()
       };
     }
 

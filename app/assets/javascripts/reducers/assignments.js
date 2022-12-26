@@ -5,7 +5,8 @@ import { RECEIVE_ASSIGNMENTS, ADD_ASSIGNMENT, DELETE_ASSIGNMENT, UPDATE_ASSIGNME
 const initialState = {
   assignments: [],
   sortKey: null,
-  loading: true
+  loading: true,
+  lastRequestTimestamp: 0 // UNIX timestamp of last request - in milliseconds
 };
 
 const SORT_DESCENDING = {};
@@ -19,7 +20,8 @@ export default function assignments(state = initialState, action) {
       return {
         assignments: sortedModel.newModels,
         sortKey: sortedModel.newKey,
-        loading: false
+        loading: false,
+        lastRequestTimestamp: Date.now()
       };
     }
     case ADD_ASSIGNMENT: {
