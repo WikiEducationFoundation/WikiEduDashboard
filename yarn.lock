@@ -8670,7 +8670,7 @@ __metadata:
   resolution: "list.js@https://github.com/WikiEducationFoundation/list.js.git#commit=3be71e3414d60e8a40b41a0ca8d582f2f40f9308"
   dependencies:
     string-natural-compare: ^2.0.2
-  checksum: ea0e976ceae4ddc2b7c78ec41214ceabc4e65368261cc635324b1ef0b7fb67cfca0de6f9af0eb6399da08f31480a5804a2927496ea3b238544b6317f2ad0f687
+  checksum: b853ac7141ebd1bf530ca6104950c0ec0f43b1b4d791db8488ba4523011c72301f62e344e1b8aaf060f69fbd93207826ab4ece0a40c99f6c1c929af417e2f9ec
   languageName: node
   linkType: hard
 
@@ -12072,7 +12072,7 @@ __metadata:
   resolution: "slick-carousel@https://github.com/cfoehrdes/slick.git#commit=a4d85536c42951933e1d887bcc013615e25b03e7"
   dependencies:
     jquery: ">=1.7.2"
-  checksum: cfa2527b8425260101f0232d5f0aa4c20b8e9b3954ec82a5c006ddd0b3e682b82e696fa6180eff8c7076a07dc6be15f57168247a1383bd7a706d569385e0599e
+  checksum: 30b5f877b84b8edd48ea7bfb39813c95622cb8f0351956b2398b42b092eca5eeaf593482b904010d77360e04c7a2f5d76e06ba642847450e334368a01f100022
   languageName: node
   linkType: hard
 
