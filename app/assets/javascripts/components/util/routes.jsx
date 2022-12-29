@@ -28,7 +28,7 @@ const routes = () => {
   const refreshArgs = {
     lastUserRequestTimestamp: useSelector(state => state.users.lastRequestTimestamp),
     courseSlug: useSelector(state => state.course.slug),
-    limit: useSelector(state => state.articles.limit),
+    articlesLimit: useSelector(state => state.articles.limit),
     lastRequestArticleTimestamp: useSelector(state => state.articles.lastRequestTimestamp),
     lastRequestAssignmentTimestamp: useSelector(state => state.assignments.lastRequestTimestamp)
   };

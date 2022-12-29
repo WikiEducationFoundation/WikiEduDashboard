@@ -21,7 +21,7 @@ export const refreshData = (location, args, dispatch) => {
   const {
     lastUserRequestTimestamp,
     courseSlug,
-    limit,
+    articlesLimit,
     lastRequestArticleTimestamp,
     lastRequestAssignmentTimestamp
   } = args;
@@ -36,7 +36,7 @@ export const refreshData = (location, args, dispatch) => {
   // if we're on the articles route, refresh the article data
   if (location.pathname.includes('/articles/edited')) {
     if (courseSlug !== null && courseSlug !== undefined && isStale(lastRequestArticleTimestamp)) {
-      dispatch(fetchArticles(courseSlug, limit, true));
+      dispatch(fetchArticles(courseSlug, articlesLimit, true));
     }
   }
 
