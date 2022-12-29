@@ -111,9 +111,11 @@ sl:
       article_name: Ime
   metrics:
     bytes_added: Zlogov dodanih
+    char_changed: Spremenjenih znakov
     last_reviewed: Zadnjič pregledano
     last_update_failed: Zadnja posodobitev tega tečaja ni uspela.
     tags: Oznake
+    changed: Spremenjen
     labels: Oznake
   namespace:
     project: Projekt

@@ -13,6 +13,8 @@ inh:
   application:
     greeting: Моаршал да шуга!
     search: хаттар ле
+  campaign:
+    alert_user_id: Доакъашхо
   courses:
     alerts: Хабар дáр
     creator:

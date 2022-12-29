@@ -64,6 +64,7 @@ smn:
     remove: Siho
   campaign:
     alert_user_id: Kevttee
+    description: Kuvvim
     search: Uusâ
   categories:
     add_category: Lasseet luoka
