@@ -19,7 +19,7 @@ export const getFiltered = (models, options) => {
 // already sorted by, and the default sorting direction.
 // If you sort a second time by the same key, then it will reverse the sorting.
 // Otherwise, it will just sort by that key.
-export const sortByKey = (models, sortKey, previousKey = null, desc = false, absolute = false) => {
+export const sortByKey = (models, sortKey, previousKey = null, desc = false, absolute = false, refresh = false) => {
   const sameKey = sortKey === previousKey;
   let newKey;
   if (sameKey) {
@@ -43,7 +43,9 @@ export const sortByKey = (models, sortKey, previousKey = null, desc = false, abs
     return model[sortKey] ?? 0;
   };
 
-  const reverse = !sameKey !== !desc; // sameKey OR desc is truthy, but not both
+  // if we're simply refreshing, we don't want to consider the previous key
+  const reverse = refresh ? desc : !sameKey !== !desc; // sameKey OR desc is truthy, but not both
+
   let newModels;
   if (absolute) {
     const sorted = sortBy(models, [o => Math.abs(o[sortKey])]);
