@@ -33,7 +33,17 @@ const routes = () => {
     lastRequestAssignmentTimestamp: useSelector(state => state.assignments.lastRequestTimestamp)
   };
 
+
   // this is called whenever the route changes
+  // it ensures that the user isn't displayed stale/outdated data for a route
+  // they previously visited(and thus had already loaded the data for in the Redux store)
+  // this fires the refreshData function, which does a series of URL checks and checks to see if
+  // the data is stale, and if so, refresh it by triggering the appropriate Redux action
+  // see refresh.js for more details on how this works
+
+  // the reason this exists here rather than in the individual components is to make the
+  // entire thing more centralized and easier to maintain. Besides, the fact that the
+  // this component deals with just the routes means that unnecessary re-renders are avoided
   useEffect(() => {
     refreshData(location, refreshArgs, dispatch);
   }, [location.pathname]);
