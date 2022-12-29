@@ -33,6 +33,7 @@ const routes = () => {
     lastRequestAssignmentTimestamp: useSelector(state => state.assignments.lastRequestTimestamp)
   };
 
+  // this is called whenever the route changes
   useEffect(() => {
     refreshData(location, refreshArgs, dispatch);
   }, [location.pathname]);

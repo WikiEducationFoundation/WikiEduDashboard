@@ -17,6 +17,7 @@ export const isStale = (lastRequestTimestamp, staleTime = 60 * 1000) => {
 // used to refresh stale data on the following routes:
 // 1. /courses/:course_school/:course_title/students/*
 // 2. /courses/:course_school/:course_title/articles/*
+// The data is refreshed only if it is stale (older than 60 seconds)
 export const refreshData = (location, args, dispatch) => {
   const {
     lastUserRequestTimestamp,
