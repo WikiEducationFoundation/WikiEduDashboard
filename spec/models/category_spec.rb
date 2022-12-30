@@ -182,6 +182,18 @@ RSpec.describe Category, type: :model do
       create(:category, name: 'WikiProject Punjab', wiki: Wiki.find(1), source: 'template')
     end
 
+    let(:emoji_cat) do
+      create(:category, name: 'Redirects from emoji', wiki: Wiki.find(1), source: 'category')
+    end
+
+    it 'escapes four-byte emoji titles' do
+      VCR.use_cassette 'categories' do
+        emoji_cat.refresh_titles
+        expect(emoji_cat.article_titles).not_to include '💫'
+        expect(emoji_cat.article_titles).to include '%F0%9F%92%AB'
+      end
+    end
+
     it 'does not include Discussão: prefix in titles' do
       VCR.use_cassette 'categories' do
         category1.refresh_titles

@@ -20,6 +20,8 @@ require_dependency "#{Rails.root}/lib/petscan_api.rb"
 require_dependency "#{Rails.root}/lib/pagepile_api.rb"
 
 class Category < ApplicationRecord
+  include EncodingHelper
+
   belongs_to :wiki
   has_many :categories_courses, class_name: 'CategoriesCourses', dependent: :destroy
   has_many :courses, through: :categories_courses
@@ -39,7 +41,7 @@ class Category < ApplicationRecord
 
   def refresh_titles
     self.article_titles = title_list_from_wiki.map do |title|
-      ArticleUtils.format_article_title(title)
+      sanitize_4_byte_string ArticleUtils.format_article_title(title)
     end
     save
     # Using touch to update the timestamps even when there is actually no
