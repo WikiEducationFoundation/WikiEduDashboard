@@ -18,6 +18,7 @@ se:
     filter:
       new: Ođđa
     hide: Čiega
+    new: (ođđa artihkal)
     see_more: Lassedieđut
   assignments:
     remove: Sihko
@@ -32,6 +33,7 @@ se:
     feedback: Máhcahat
     new_account_email: E-poastačujuhus
     please_log_in: Čálit sisa.
+    search_courses: Oza kurssaid
     tags: 'Gilkorat:'
     timeline_link: Áigelinnjá
   courses_generic:
@@ -54,11 +56,16 @@ se:
   timeline:
     title: Áigelinnjá
   training:
+    view: Čájet
     page: Siidu
   users:
     first_name: Ovdanamma
     last_name: Goargu
     useremail_placeholder: E-poastačujuhus
+  wizard:
+    read_more: Čájet lasi
   article_finder:
     remove_article: Sihko artihkkala
+  training_status:
+    view: Čájet
 ...

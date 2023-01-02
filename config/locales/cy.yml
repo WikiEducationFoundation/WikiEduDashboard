@@ -1,6 +1,7 @@
 # Messages for Welsh (Cymraeg)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Afalau
 # Author: Ajeje Brazorf
 # Author: Cymrodor
 # Author: Robin Owain
@@ -85,7 +86,7 @@ cy:
     assigned: Erthyglau a aseiniwyd
     available: Erthyglau Sydd Ar Gael
     no_available: Dim Erthyglau Ar Gael
-    next: Nesa
+    next: Nesaf
     previous: Cynt
     article_title: Teitl yr Erthygl
     assigned_to: Aseiniwyd I

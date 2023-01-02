@@ -35,6 +35,9 @@ sl:
   alerts:
     alert_label: Opomniki
     no_alerts: Ni najdenih opomnikov.
+  activity:
+    all: Dejavnost
+    label: Dejavnost
   articles:
     articles: Članki
     edited_mobile: Članki
@@ -55,6 +58,7 @@ sl:
     select: Izberi
   campaign:
     alert_label: Opomniki kampanj
+    alert_user_id: Uporabnik
     campaign: Kampanja
     campaigns: Kampanje
     description: Opis
@@ -68,12 +72,15 @@ sl:
     actions: Dejanja
     articles: Članki
     campaigns: 'Kampanje:'
+    campaign_select: Izberite kampanjo
     creator:
       end_date: Končni datum
       start_date: Začetni datum
     current: Trenutni tečaji
+    data_revisions: Podatki o redakcijah
     delete_suggestion: Izbriši
     dismiss_survey: Opusti
+    ended: Tečaj je končan.
     feedback: Povratne informacije
     namespaces: Sledeni imenski prostori
     join_failed: Vpis ni uspel.
@@ -120,6 +127,7 @@ sl:
   namespace:
     project: Projekt
     translation: Prevod
+    query: Poizvedba
     tracked_namespaces_info: K statističnim pregledom na vrhu bodo prispevali samo
       članki, ki ustrezajo sledenim imenskim prostorom, kot so »Urejeni članki«, »Skupno
       urejanje«, »Dodane besede« ipd. Sledite samo imenskim prostorom, ki jih vaš
@@ -128,6 +136,7 @@ sl:
     article_title: Naslov
     image: Slika
     file_name: Ime datoteke
+    usage_count: Število uporab
   revisions:
     diff_show: Prikaži
     diff_hide: Skrij
@@ -162,13 +171,16 @@ sl:
   uploads:
     image: Slika
     label: Naložitve
+    usage_count: Število uporab
   users:
     assign_articles_done: Končano
     contribution_statistics: Statistika prispevkov
     name: Ime
+    no_revisions: (brez redakcij)
     number_of_articles:
       one: '%{count} članek'
       other: '%{count} članka'
+    revisions: Redakcije
     training_module_status: Stanje
     username: Uporabniško ime
     username_placeholder: Uporabniško ime

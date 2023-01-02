@@ -80,6 +80,7 @@ smn:
     new_account_email: Šleđgâpostâčujottâs
     overview: Päikki
     please_log_in: Čáládât siisâ.
+    search_courses: Uusâ kuursâid
     tags: 'Kilgoleh:'
   courses_generic:
     cancel: Jooskâ
@@ -104,6 +105,7 @@ smn:
   timeline:
     save_all_changes: Vuorkkii puoh
   training:
+    view: Čääiti
     next: Čuávuvâš sijđo
     page: Sijđo
   uploads:
@@ -114,6 +116,8 @@ smn:
     name: Nommâ
     username: Kevtteenommâ
     username_placeholder: Kevtteenommâ
+  wizard:
+    read_more: Čääiti lase
   article_finder:
     search: Uusâ
     submit: Vuorkkii
