@@ -40,23 +40,30 @@ sl:
     label: Dejavnost
   articles:
     articles: Članki
+    article_title: Naslov članka
     edited_mobile: Članki
     filter:
       wiki_all: Vsi
     history: (zgodovina)
     label: Članki
     new: (novo)
+    preview: Kratek predogled članka
+    rating: Razred
     show_current_version: Prikaži trenutno različico
     title: Naslov
+    title_example: Naslov članka
     view_all: Pokaži vse
   items:
     does_not_exist: Ta predmet ne obstaja. Da prejmete predloge, ustvarite peskovnik
       in se mu dodelite.
+    preview: Kratek predogled predmeta
+    title_example: Naslov predmeta
   assignments:
     remove: Odstrani
     sandbox_draft_link: Osnutek peskovnika
     select: Izberi
   campaign:
+    alert_article: Naslov članka
     alert_label: Opomniki kampanj
     alert_user_id: Uporabnik
     campaign: Kampanja
@@ -65,31 +72,48 @@ sl:
     no_alerts: Ta kampanja nima opomnikov
     none: Noben
     title: Naslov
+    search_campaigns: Preišči kampanje
+    search: Išči
   categories:
     name: Ime
+    template_name: Ime predloge
     remove: Odstrani
   courses:
+    active_courses: Aktivni tečaji
     actions: Dejanja
     articles: Članki
+    cancel: Prekliči
     campaigns: 'Kampanje:'
+    campaign_articles: Članki za »%{title}«
+    campaign_courses: Tečaji za »%{title}«
     campaign_select: Izberite kampanjo
+    campaign_users: Urejevalci »%{title}«
+    courses: Tečaji
     creator:
+      cancel_course_clone: Prekliči klon tečaja
+      course_title: Naslov tečaja
+      create_label: Ustvari nov tečaj
       end_date: Končni datum
       start_date: Začetni datum
     current: Trenutni tečaji
     data_revisions: Podatki o redakcijah
     delete_suggestion: Izbriši
     dismiss_survey: Opusti
+    embed_course_stats_description: Za vdelavo statistike tega programa v drugo spletno
+      mesto kopirajte in prilepite ta delček kode
     ended: Tečaj je končan.
     feedback: Povratne informacije
     namespaces: Sledeni imenski prostori
+    join_prompt: Se želite pridružiti »%{title}«?
     join_failed: Vpis ni uspel.
     loading: Nalaganje ...
+    new_week: Dodaj nov teden
     new_account_email_placeholder: ime@example.org
     none: Noben
     overview: Domov
     private: Zasebni
     requested_accounts_alert_view: Ogled
+    search_courses: Poišči tečaje
     start: Začetek
     stay_in_sandbox: Ostani v peskovniku
     tags: 'Oznake:'
@@ -103,8 +127,12 @@ sl:
     campaigns: 'Kampanje:'
     campaign_courses: Programi %{title}
     creator:
+      cancel_course_clone: Prekliči klon programa
+      course_title: Naslov programa
+      create_label: Ustvari nov program
       save_cloned_course: Shrani
     edit_course_dates: Uredi datume projekta
+    search_courses: Poišči programe
     student_editors: Urejevalci
     students: Urejevalci
     students_short: Urejevalci
@@ -119,6 +147,7 @@ sl:
   metrics:
     bytes_added: Zlogov dodanih
     char_changed: Spremenjenih znakov
+    date_time: Datum/čas
     last_reviewed: Zadnjič pregledano
     last_update_failed: Zadnja posodobitev tega tečaja ni uspela.
     tags: Oznake
@@ -126,6 +155,7 @@ sl:
     labels: Oznake
   namespace:
     project: Projekt
+    page: Stran
     translation: Prevod
     query: Poizvedba
     tracked_namespaces_info: K statističnim pregledom na vrhu bodo prispevali samo
@@ -134,12 +164,18 @@ sl:
       program želi izboljšati.
   recent_activity:
     article_title: Naslov
+    datetime: Datum/čas
     image: Slika
     file_name: Ime datoteke
+    revision_datetime: Datum/čas redakcije
     usage_count: Število uporab
   revisions:
+    class: Razred
+    date_time: Datum/čas
+    diff: razl
     diff_show: Prikaži
     diff_hide: Skrij
+    time_doc: Čas vsake redakcije v vašem lokalnem času
     title: Naslov
   settings:
     admin_users:
@@ -153,6 +189,7 @@ sl:
     search_bar_placeholder: Iskanje zahtevkov
     chose_search_type: Izberite vrsto iskanja
   timeline:
+    block_assignment: Dodelitev
     empty_week_3: ali
     gradeable_value: Vrednost
     title: Časovnica
@@ -160,6 +197,7 @@ sl:
     start: Začetek
     view: Ogled
     page: Stran
+    table_of_contents: Kazalo vsebine
     done: Končano!
     no_training_library_records_wiki_ed_mode: V zbirki podatkov ni zapisov TrainingLibrary.
       Če želite naložiti podatke o usposabljanju iz datotek training_content/yaml,
@@ -171,10 +209,14 @@ sl:
   uploads:
     image: Slika
     label: Naložitve
+    time_doc: Čas vsake naložitve v vašem lokalnem času
+    uploaded_at: Čas naložitve
     usage_count: Število uporab
   users:
     assign_articles_done: Končano
     contribution_statistics: Statistika prispevkov
+    first_name: Ime
+    last_name: Priimek
     name: Ime
     no_revisions: (brez redakcij)
     number_of_articles:
@@ -200,7 +242,12 @@ sl:
   survey:
     email:
       headline: Pozdravljeni, %{username}
+  article_finder:
+    category_search: Poišči po kategorijah
+    keyword_search: Iskanje po ključni besedi
+    search: Išči
   training_status:
     continue: Nadaljuj
+    completion_time: Čas dokončanja
     view: Ogled
 ...
