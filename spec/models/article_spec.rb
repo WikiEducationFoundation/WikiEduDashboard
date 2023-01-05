@@ -18,6 +18,7 @@
 #  average_views_updated_at :date
 #  wiki_id                  :integer
 #  mw_page_id               :integer
+#  index_hash               :string(255)
 #
 
 require 'rails_helper'

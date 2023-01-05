@@ -3,7 +3,7 @@
 #
 # Table name: settings
 #
-#  id         :bigint(8)        not null, primary key
+#  id         :bigint           not null, primary key
 #  key        :string(255)
 #  value      :text(65535)
 #  created_at :datetime         not null

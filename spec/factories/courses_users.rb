@@ -18,6 +18,7 @@
 #  real_name              :string(255)
 #  role_description       :string(255)
 #  total_uploads          :integer
+#  references_count       :integer          default(0)
 #
 
 FactoryBot.define do

@@ -3,14 +3,14 @@
 #
 # Table name: training_libraries
 #
-#  id                 :bigint(8)        not null, primary key
+#  id                 :bigint           not null, primary key
 #  name               :string(255)
 #  wiki_page          :string(255)
+#  slug               :string(255)
 #  introduction       :text(65535)
 #  categories         :text(16777215)
 #  translations       :text(16777215)
-#  exclude_from_index :boolean          default: false
-#  slug               :string(255)
+#  exclude_from_index :boolean          default(FALSE)
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #

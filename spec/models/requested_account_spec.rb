@@ -3,7 +3,7 @@
 #
 # Table name: requested_accounts
 #
-#  id         :bigint(8)        not null, primary key
+#  id         :bigint           not null, primary key
 #  course_id  :integer
 #  username   :string(255)
 #  email      :string(255)
