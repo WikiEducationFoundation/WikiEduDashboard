@@ -51,6 +51,7 @@ class CourseStudentsCsvBuilder
 
   CSV_HEADERS = %w[
     username
+    global_id
     enrollment_timestamp
     registered_at
     revisions_during_project
@@ -65,6 +66,7 @@ class CourseStudentsCsvBuilder
   # rubocop:disable Metrics/AbcSize
   def row(courses_user)
     row = [courses_user.user.username]
+    row << courses_user.user.global_id
     row << courses_user.created_at
     row << courses_user.user.registered_at
     row << courses_user.revision_count
