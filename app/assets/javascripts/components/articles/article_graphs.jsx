@@ -1,7 +1,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import OnClickOutside from 'react-onclickoutside';
 import Wp10Graph from './wp10_graph.jsx';
 import EditSizeGraph from './edit_size_graph.jsx';
 import Loading from '../common/loading.jsx';
@@ -23,6 +22,21 @@ const ArticleGraphs = createReactClass({
     };
   },
 
+  componentDidMount() {
+    this.ref = React.createRef();
+  },
+
+  componentDidUpdate(_, prevState) {
+    if (this.state.showGraph && !prevState.showGraph) {
+      // Add event listener when the component is visible
+      document.addEventListener('mousedown', this.handleClickOutside);
+    }
+    if (!this.state.showGraph && prevState.showGraph) {
+      // remove event listener when the component is hidden
+      document.removeEventListener('mousedown', this.handleClickOutside);
+    }
+  },
+
   getData() {
     if (this.state.articleData) { return; }
 
@@ -33,6 +47,13 @@ const ArticleGraphs = createReactClass({
       .then((data) => {
         this.setState({ articleData: data });
       });
+  },
+
+  handleClickOutside(event) {
+    const element = this.ref.current;
+    if (element && !element.contains(event.target)) {
+      this.hideGraph();
+    }
   },
 
   showGraph() {
@@ -49,10 +70,6 @@ const ArticleGraphs = createReactClass({
   hideGraph() {
     this.state.articleData = null;
     this.setState({ showGraph: false });
-  },
-
-  handleClickOutside() {
-    this.hideGraph();
   },
 
   graphId() {
@@ -138,7 +155,7 @@ const ArticleGraphs = createReactClass({
     return (
       <a onClick={this.showGraph} className="inline">
         {I18n.t('articles.article_development')}
-        <div className={className}>
+        <div className={className} ref={this.ref}>
           <div className="radio-row">
             {radioInput}
             {editSize}
@@ -150,4 +167,4 @@ const ArticleGraphs = createReactClass({
   }
 });
 
-export default OnClickOutside(ArticleGraphs);
+export default ArticleGraphs;

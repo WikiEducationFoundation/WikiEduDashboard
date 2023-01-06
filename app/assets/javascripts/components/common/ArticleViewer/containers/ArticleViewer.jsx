@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import OnClickOutside from 'react-onclickoutside';
 
 // Utilities
 import { forEach, union } from 'lodash-es';
@@ -49,6 +48,8 @@ export class ArticleViewer extends React.Component {
     this.showBadArticleAlert = this.showBadArticleAlert.bind(this);
     this.submitBadWorkAlert = this.submitBadWorkAlert.bind(this);
     this.isWhocolorLang = this.isWhocolorLang.bind(this);
+    this.handleClickOutside = this.handleClickOutside.bind(this);
+    this.ref = React.createRef();
   }
 
   componentDidMount() {
@@ -73,6 +74,14 @@ export class ArticleViewer extends React.Component {
         if (!prevState.userIdsFetched) {
           this.fetchUserIds();
       }
+    }
+    if (!prevState.showArticle && this.state.showArticle) {
+      // Add event listener when the component is visible
+      document.addEventListener('mousedown', this.handleClickOutside);
+    }
+    if (prevState.showArticle && !this.state.showArticle) {
+      // Remove event listener when the component is hidden
+      document.removeEventListener('mousedown', this.handleClickOutside);
     }
   }
 
@@ -139,10 +148,6 @@ export class ArticleViewer extends React.Component {
     this.props.resetBadWorkAlert();
     // removes the article parameter from the URL
     this.removeParamFromURL(e);
-  }
-
-  handleClickOutside() {
-    this.hideArticle();
   }
 
   isWhocolorLang() {
@@ -249,6 +254,13 @@ export class ArticleViewer extends React.Component {
     });
   }
 
+  handleClickOutside(event) {
+    const element = this.ref.current;
+    if (element && !element.contains(event.target)) {
+      this.hideArticle(event);
+    }
+  }
+
   render() {
     const {
       alertStatus, article, current_user = {}, showButtonClass, showPermalink = true,
@@ -283,7 +295,7 @@ export class ArticleViewer extends React.Component {
     }
 
     return (
-      <div className="ignore-react-onclickoutside">
+      <div ref={this.ref}>
         <div className={`article-viewer ${showArticle ? '' : 'hidden'}`}>
           <div className="article-header">
             <p>
@@ -349,13 +361,12 @@ ArticleViewer.propTypes = {
   showButtonClass: PropTypes.string,
   showOnMount: PropTypes.bool,
   title: PropTypes.string,
-  users: PropTypes.array
+  users: PropTypes.array,
 };
 
-const clickOutsideComponent = OnClickOutside(ArticleViewer);
 const mapStateToProps = ({ badWorkAlert }) => ({ alertStatus: badWorkAlert });
 const mapDispatchToProps = {
   resetBadWorkAlert,
   submitBadWorkAlert
 };
-export default connect(mapStateToProps, mapDispatchToProps)(clickOutsideComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(ArticleViewer);
