@@ -19,6 +19,14 @@ class AssignmentPipeline
     PEER_REVIEW_COMPLETED = 'peer_review_completed'
   end
 
+  module SandboxStatuses
+    DOES_NOT_EXIST = 'does_not_exist'
+    EXISTS_IN_USERSPACE = 'exists_in_userspace'
+    EXISTS_IN_DRAFT_SPACE = 'exists_in_draft_space'
+    EXISTS_IN_MAINSPACE = 'exists_in_mainspace'
+    EXISTS_ELSEWHERE = 'exists_elsewhere'
+  end
+
   PIPELINES = {
     assignment: [
       AssignmentStatuses::NOT_YET_STARTED,
@@ -32,26 +40,64 @@ class AssignmentPipeline
       ReviewStatuses::PROVIDING_FEEDBACK,
       ReviewStatuses::POST_TO_TALK,
       ReviewStatuses::PEER_REVIEW_COMPLETED
+    ].freeze,
+    bibliography_sandbox: [
+      SandboxStatuses::DOES_NOT_EXIST,
+      SandboxStatuses::EXISTS_IN_USERSPACE,
+      SandboxStatuses::EXISTS_IN_DRAFT_SPACE,
+      SandboxStatuses::EXISTS_IN_MAINSPACE,
+      SandboxStatuses::EXISTS_ELSEWHERE
+    ].freeze,
+    draft_sandbox: [
+      SandboxStatuses::DOES_NOT_EXIST,
+      SandboxStatuses::EXISTS_IN_USERSPACE,
+      SandboxStatuses::EXISTS_IN_DRAFT_SPACE,
+      SandboxStatuses::EXISTS_IN_MAINSPACE,
+      SandboxStatuses::EXISTS_ELSEWHERE
+    ].freeze,
+    review_sandbox: [
+      SandboxStatuses::DOES_NOT_EXIST,
+      SandboxStatuses::EXISTS_IN_USERSPACE,
+      SandboxStatuses::EXISTS_IN_DRAFT_SPACE,
+      SandboxStatuses::EXISTS_IN_MAINSPACE,
+      SandboxStatuses::EXISTS_ELSEWHERE
     ].freeze
   }.freeze
 
   def initialize(assignment:)
     @assignment = assignment
-    @flags = assignment.flags
     @key = assignment.editing? ? :assignment : :review
     @all_statuses = PIPELINES[@key]
   end
 
   def status
-    return @all_statuses.first unless @flags[@key]
-    @flags[@key][:status]
+    return @all_statuses.first unless @assignment.flags[@key]
+    @assignment.flags[@key][:status]
   end
 
   def update_status(new_status)
     return unless @all_statuses.include?(new_status)
-    @flags[@key] = {} unless @flags[@key]
-    @flags[@key][:status] = new_status
-    @flags[@key][:updated_at] = Time.zone.now
+    @assignment.flags[@key] = {} unless @assignment.flags[@key]
+    @assignment.flags[@key][:status] = new_status
+    @assignment.flags[@key][:updated_at] = Time.zone.now
+    @assignment.save
+  end
+
+  def draft_sandbox_status
+    @assignment.flags.dig(@key, :draft) || SandboxStatuses::DOES_NOT_EXIST
+  end
+
+  def bibliography_sandbox_status
+    @assignment.flags.dig(@key, :bibliography) || SandboxStatuses::DOES_NOT_EXIST
+  end
+
+  def peer_review_sandbox_status
+    @assignment.flags.dig(@key, :review) || SandboxStatuses::DOES_NOT_EXIST
+  end
+
+  def update_sandbox_status(sandbox_key, new_status)
+    @assignment.flags[@key] = {} unless @assignment.flags[@key]
+    @assignment.flags[@key][sandbox_key] = new_status
     @assignment.save
   end
 end
