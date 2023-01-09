@@ -9,6 +9,7 @@ require_dependency "#{Rails.root}/lib/alerts/untrained_students_alert_manager"
 require_dependency "#{Rails.root}/lib/alerts/continued_course_activity_alert_manager"
 require_dependency "#{Rails.root}/lib/alerts/deleted_uploads_alert_manager"
 require_dependency "#{Rails.root}/lib/alerts/unsubmitted_course_alert_manager"
+require_dependency "#{Rails.root}/services/deleted_timeline_notification.rb"
 require_dependency "#{Rails.root}/lib/alerts/sandboxed_course_mainspace_monitor"
 
 class CourseAlertManager
@@ -23,6 +24,7 @@ class CourseAlertManager
     course_alert_manager.create_deleted_uploads_alerts
     course_alert_manager.create_continued_course_activity_alerts
     course_alert_manager.create_submitted_course_alerts
+    course_alert_manager.create_deleted_timeline_alerts
     course_alert_manager.create_sandboxed_course_mainspace_alerts
   end
 
@@ -56,6 +58,10 @@ class CourseAlertManager
 
   def create_deleted_uploads_alerts
     DeletedUploadsAlertManager.new(@courses_to_check).create_alerts
+  end
+
+  def create_deleted_timeline_alerts
+    DeletedTimelineNotification.new.create_alerts
   end
 
   def create_continued_course_activity_alerts
