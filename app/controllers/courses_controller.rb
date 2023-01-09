@@ -197,6 +197,9 @@ class CoursesController < ApplicationController
   def delete_all_weeks
     @course = find_course_by_slug(params[:id])
     @course.weeks.destroy_all
+    if @course.approved? 
+      DeletedTimelineNotification.new(course)
+    end
     render plain: '', status: :ok
   end
 
