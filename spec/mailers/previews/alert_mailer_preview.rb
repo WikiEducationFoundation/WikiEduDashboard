@@ -8,6 +8,10 @@ class AlertMailerPreview < ActionMailer::Preview
     AlertMailer.alert(example_alert(type: 'ArticlesForDeletionAlert'), example_user)
   end
 
+  def blocked_edits_alert
+    AlertMailer.alert(example_blocked_edits_alert, example_user)
+  end
+
   def productive_course_alert
     AlertMailer.alert(example_alert(type: 'ProductiveCourseAlert'), example_user)
   end
@@ -94,6 +98,27 @@ class AlertMailerPreview < ActionMailer::Preview
     Alert.new(type: 'SurveyResponseAlert',
               user: example_user,
               subject_id: question.id,
+              details:)
+  end
+
+  def example_blocked_edits_alert
+    details = { 'error' =>  { 'code' => 'blocked',
+      'info' => 'You have been blocked from editing.',
+      'blockinfo' =>
+       { 'blockid' => 17605815,
+        'blockedby' => 'Blablubbs',
+        'blockedbyid' => 22922645,
+        'blockreason' => '{{Colocationwebhost}} <!-- Linode -->',
+        'blockedtimestamp' => '2023-01-07T12:40:30Z',
+        'blockexpiry' => '2025-02-07T12:40:30Z',
+        'blocknocreate' => '',
+        'blockedtimestampformatted' => '12:40, 7 January 2023',
+        'blockexpiryformatted' => '12:40, 7 February 2025',
+        'blockexpiryrelative' => 'in 2 years' },
+      '*' =>
+       'See https://en.wikipedia.org/w/api.php for API usage.' } }
+    Alert.new(type: 'BlockedEditsAlert',
+              user: example_user,
               details:)
   end
 end
