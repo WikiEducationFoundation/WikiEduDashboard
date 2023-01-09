@@ -12,6 +12,7 @@ sl:
   application:
     cancel: Prekliči
     dashboard: Nadzorna plošča urejanja vikija
+    error: 'Prišlo je do napake:'
     explore: Raziskuj
     greeting2: Pozdravljeni!
     greeting: Pozdravljeni!
@@ -22,6 +23,7 @@ sl:
     log_out: Odjava
     sign_up: Ustvari račun
     submit: Pošlji
+    change: Spremeni
     details: Podrobnosti
     confirm: V redu
     opt_in: Da
@@ -44,6 +46,7 @@ sl:
     edited_mobile: Članki
     filter:
       wiki_all: Vsi
+      new: Nov
     history: (zgodovina)
     label: Članki
     new: (novo)
@@ -80,9 +83,12 @@ sl:
     remove: Odstrani
   courses:
     active_courses: Aktivni tečaji
+    archived: Arhivirani tečaji
     actions: Dejanja
     articles: Članki
     cancel: Prekliči
+    character_doc: Skupno število znakov, ki so jih udeleženci tečaja v času tečaja
+      dodali člankom v glavnem imenskem prostoru
     campaigns: 'Kampanje:'
     campaign_articles: Članki za »%{title}«
     campaign_courses: Tečaji za »%{title}«
@@ -91,6 +97,8 @@ sl:
     courses: Tečaji
     creator:
       cancel_course_clone: Prekliči klon tečaja
+      course_term: Termin tečaja
+      course_term_placeholder: Termin
       course_title: Naslov tečaja
       create_label: Ustvari nov tečaj
       end_date: Končni datum
@@ -113,14 +121,21 @@ sl:
     overview: Domov
     private: Zasebni
     requested_accounts_alert_view: Ogled
+    school_and_term: Ustanova/termin
     search_courses: Poišči tečaje
     start: Začetek
     stay_in_sandbox: Ostani v peskovniku
     tags: 'Oznake:'
+    term: Termin
     timeline_link: Časovnica
     title: Naslov
     view_page: Ogled strani tečaja
+    word_count_doc: Ocena števila besed, ki so jih udeleženci tečaja v času tečaja
+      dodali člankom v glavnem imenskem prostoru
+    word_count_doc_wikidata: Ocena števila besed, ki so jih udeleženci tečaja v času
+      tečaja dodali predmetom v glavnem imenskem prostoru
   courses_generic:
+    archived: Arhivirani programi
     cancel: Prekliči
     course: Program
     courses: Programi
@@ -137,6 +152,10 @@ sl:
     students: Urejevalci
     students_short: Urejevalci
     view_page: Ogled strani programa
+    word_count_doc: Ocena števila besed, ki so jih udeleženci programa v času programa
+      dodali člankom v glavnem imenskem prostoru
+    word_count_doc_wikidata: Ocena števila besed, ki so jih udeleženci programa v
+      času programa dodali predmetom v glavnem imenskem prostoru
   editable:
     edit: Uredi
     cancel: Prekliči
@@ -146,11 +165,15 @@ sl:
       article_name: Ime
   metrics:
     bytes_added: Zlogov dodanih
+    char_added: Dodani znaki
     char_changed: Spremenjenih znakov
+    char: Dodani znaki
+    close_modal: Zapri
     date_time: Datum/čas
     last_reviewed: Zadnjič pregledano
     last_update_failed: Zadnja posodobitev tega tečaja ni uspela.
     tags: Oznake
+    word_count: Dodane besede
     changed: Spremenjen
     labels: Oznake
   namespace:
@@ -158,6 +181,7 @@ sl:
     page: Stran
     translation: Prevod
     query: Poizvedba
+    lexeme: Leksem
     tracked_namespaces_info: K statističnim pregledom na vrhu bodo prispevali samo
       članki, ki ustrezajo sledenim imenskim prostorom, kot so »Urejeni članki«, »Skupno
       urejanje«, »Dodane besede« ipd. Sledite samo imenskim prostorom, ki jih vaš
@@ -167,9 +191,17 @@ sl:
     datetime: Datum/čas
     image: Slika
     file_name: Ime datoteke
+    plagiarism_explanation: Sistem Wikipedije za odkrivanje plagiatorstva uporablja
+      za primerjavo novih urejanj z objavljenim besedilom Turnitin/iThenticate. Ta
+      poročila niso 100-odstotno točna. Neposreden citat z ustreznim pripisom lahko
+      na primer sproži lažno pozitivno poročilo o plagiatorstvu. Preden ukrepate,
+      preglejte prispevke študenta in podrobnosti poročila. (Če ugotovite, da sprememba
+      — ali celoten članek — ni dostopna, je bila vsebina morda izbrisana zaradi avtorskih
+      pravic.)
     revision_datetime: Datum/čas redakcije
     usage_count: Število uporab
   revisions:
+    references: Sklici dodani
     class: Razred
     date_time: Datum/čas
     diff: razl
@@ -215,6 +247,7 @@ sl:
   users:
     assign_articles_done: Končano
     contribution_statistics: Statistika prispevkov
+    enrolled_success: '%{username} je bil_a uspešno dodan_a!'
     first_name: Ime
     last_name: Priimek
     name: Ime
@@ -237,15 +270,22 @@ sl:
     select_one_option: Prosimo, izberite 1 možnost.
     read_more: Preberi še kaj
     summary: Povzetek
+  error:
+    form_errors: Preverite obrazec glede napak.
   error_no_course:
     explanation: Predmet %{slug} ne obstaja.
+  login_error:
+    header: Napaka pri prijavi
   survey:
     email:
       headline: Pozdravljeni, %{username}
   article_finder:
     category_search: Poišči po kategorijah
     keyword_search: Iskanje po ključni besedi
+    relevanceIndex: Indeks ustreznosti
     search: Išči
+    searching_articles: Iskanje člankov
+    searching_articles_wikidata: Iskanje predmetov
   training_status:
     continue: Nadaljuj
     completion_time: Čas dokončanja

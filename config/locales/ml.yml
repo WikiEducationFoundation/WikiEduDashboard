@@ -2,21 +2,39 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Adithyak1997
+# Author: Akbarali
 # Author: Jameela P.
 # Author: Jinoytommanjaly
 # Author: Kiran Gopi
 # Author: Praveenp
 ---
 ml:
+  number:
+    human:
+      decimal_units:
+        format: '%n% u'
+        units:
+          thousand: കെ
+          million: എം
+          billion: ബി
+          trillion: ടി
+          quadrillion: ക്യു
+  accessibility:
+    number_field: ഇതൊരു നമ്പർ ഫീൽഡാണ്. മിക്ക ബ്രൗസറുകളും റെൻഡർ ചെയ്യുന്ന ബട്ടണുകൾ
+      ഇൻപുട്ട് വർദ്ധിപ്പിക്കുകയും കുറയ്ക്കുകയും ചെയ്യും.
   application:
     cancel: റദ്ദാക്കുക
+    cookie_consent: ഈ സൈറ്റ് നിങ്ങളെ ലോഗിൻ ചെയ്യാനും നിങ്ങളുടെ വിക്കിപീഡിയ അക്കൗണ്ടുമായി
+      ബന്ധപ്പെട്ട വിവരങ്ങൾ സംഭരിക്കാനും കുക്കികൾ ഉപയോഗിക്കുന്നു.
     cookie_consent_acknowledge: എനിക്ക് മനസ്സിലായി
     cookie_consent_see_more: കൂടുതൽ കാണുക.
     create_accounts: വിക്കിപീഡിയ അംഗത്വങ്ങൾ സൃഷ്ടിക്കുക
     dashboard: വിക്കി എഡ് ഡാഷ്ബോർഡ്
     documentation: വിവരണം
     error: 'ഒരു പിഴവ്:'
+    explore: പര്യവേഷണം
     field_required: ഇത് നിർബന്ധമായും പൂരിപ്പിക്കുക
+    field_invalid_date: ഈ ഫീൽഡിന് YYYY-MM-DD ഫോർമാറ്റിൽ ഒരു തീയതി ആവശ്യമാണ്
     greeting2: സ്വാഗതം!
     greeting_extended: വിക്കിപീഡിയയിലേക്ക് സ്വാഗതം
     greeting: നമസ്കാരം!

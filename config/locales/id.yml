@@ -156,6 +156,8 @@ id:
     student_editors: Penyunting
     students: Penyunting
     view_other: Lihat kampanye lain
+  editable:
+    save: Simpan
   metrics:
     char_added: Karakter Ditambahkan
     char: Karakter Ditambahkan
