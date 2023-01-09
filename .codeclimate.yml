@@ -1,7 +1,7 @@
 engines:
   rubocop:
     enabled: true
-    channel: rubocop-1-10-0
+    channel: rubocop-1-39-0
   eslint:
     enabled: true
     channel: "eslint-7"
