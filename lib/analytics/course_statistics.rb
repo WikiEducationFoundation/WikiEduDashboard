@@ -31,6 +31,7 @@ class CourseStatistics
       articles_edited: @article_ids.count,
       articles_created: @surviving_article_ids.count,
       articles_deleted: @deleted_article_ids.count,
+      references_added: @references_added,
       file_uploads: @upload_ids.count,
       files_in_use: @used_count,
       global_usages: @usage_count,
@@ -87,6 +88,7 @@ class CourseStatistics
     @student_ids = students.pluck(:user_id).uniq
     @characters_added = students.sum(:character_sum_ms)
     @words_added = WordCount.from_characters(@characters_added)
+    @references_added = students.sum(:references_count)
     nonstudents = CoursesUsers.where(course_id: @course_ids, role: [1, 2, 3, 4])
     @nonstudent_ids = nonstudents.pluck(:user_id).uniq
     @pure_student_ids = @student_ids - @nonstudent_ids
