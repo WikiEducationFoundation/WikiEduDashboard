@@ -42,12 +42,12 @@ describe CourseStudentsCsvBuilder do
       columns = line.split(',')
       username = columns[0]
       user_result = expected_result[username]
-      # column 9 is 'registered_during_project', which should be true
-      expect(columns[8]).to eq('true')
-      # column 10 is 'total_articles_created'
-      expect(columns[9]).to eq(user_result[:articles_created])
-      # column 11 is 'total_articles_edited'
-      expect(columns[10]).to eq(user_result[:articles_updated])
+      # column 10 is 'registered_during_project', which should be true
+      expect(columns[9]).to eq('true')
+      # column 11 is 'total_articles_created'
+      expect(columns[10]).to eq(user_result[:articles_created])
+      # column 12 is 'total_articles_edited'
+      expect(columns[11]).to eq(user_result[:articles_updated])
     end
   end
 end
