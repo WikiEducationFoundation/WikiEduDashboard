@@ -7,7 +7,8 @@ class BlocksController < ApplicationController
     block = Block.find(params[:id]).destroy
     course = block.course
     if course.approved? 
-      DeletedTimelineNotification.new(course)
+      DeletedTimelineAlertManager.new(course)
+      DeletedTimelineAlertManager.create_alerts
     end
     render plain: '', status: :ok
   end
