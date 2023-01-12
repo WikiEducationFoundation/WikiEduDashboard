@@ -11,6 +11,7 @@ sl:
       bodo povečali ali zmanjšali vnos.
   application:
     cancel: Prekliči
+    cookie_consent_see_more: Prikaži več.
     dashboard: Nadzorna plošča urejanja vikija
     error: 'Prišlo je do napake:'
     explore: Raziskuj
@@ -49,9 +50,11 @@ sl:
       new: Nov
     history: (zgodovina)
     label: Članki
+    loading: Nalaganje člankov ...
     new: (novo)
     preview: Kratek predogled članka
     rating: Razred
+    see_more: Več o tem
     show_current_version: Prikaži trenutno različico
     title: Naslov
     title_example: Naslov članka
@@ -62,6 +65,7 @@ sl:
     preview: Kratek predogled predmeta
     title_example: Naslov predmeta
   assignments:
+    loading: Nalaganje dodelitev ...
     remove: Odstrani
     sandbox_draft_link: Osnutek peskovnika
     select: Izberi
@@ -74,10 +78,13 @@ sl:
     description: Opis
     no_alerts: Ta kampanja nima opomnikov
     none: Noben
+    program_template: Predloga programa
     title: Naslov
     search_campaigns: Preišči kampanje
     search: Išči
   categories:
+    add_template: Dodaj predlogo
+    add_this_template: Dodaj to predlogo
     name: Ime
     template_name: Ime predloge
     remove: Odstrani
@@ -97,6 +104,7 @@ sl:
     courses: Tečaji
     creator:
       cancel_course_clone: Prekliči klon tečaja
+      course_description: Opis tečaja
       course_term: Termin tečaja
       course_term_placeholder: Termin
       course_title: Naslov tečaja
@@ -135,6 +143,7 @@ sl:
     word_count_doc_wikidata: Ocena števila besed, ki so jih udeleženci tečaja v času
       tečaja dodali predmetom v glavnem imenskem prostoru
   courses_generic:
+    add_campaign: Dodaj kampanjo
     archived: Arhivirani programi
     cancel: Prekliči
     course: Program
@@ -143,6 +152,7 @@ sl:
     campaign_courses: Programi %{title}
     creator:
       cancel_course_clone: Prekliči klon programa
+      course_description: Opis programa
       course_title: Naslov programa
       create_label: Ustvari nov program
       save_cloned_course: Shrani
@@ -160,9 +170,15 @@ sl:
     edit: Uredi
     cancel: Prekliči
     save: Shrani
+    edit_description: Uredi opis
+    edit_template: Uredi predlogo
   instructor_view:
     assignments_table:
       article_name: Ime
+    bad_work:
+      learn_more_button: Več o tem
+    select_student:
+      title: Izberi %{prefix}
   metrics:
     bytes_added: Zlogov dodanih
     char_added: Dodani znaki
@@ -171,13 +187,16 @@ sl:
     close_modal: Zapri
     date_time: Datum/čas
     last_reviewed: Zadnjič pregledano
+    missing_data_heading: Manjkajoči ali nepričakovani zadetki?
     last_update_failed: Zadnja posodobitev tega tečaja ni uspela.
     tags: Oznake
+    update_statistics_link: Več o tem
     word_count: Dodane besede
     changed: Spremenjen
     labels: Oznake
   namespace:
     project: Projekt
+    template: Predloga
     page: Stran
     translation: Prevod
     query: Poizvedba
@@ -207,8 +226,11 @@ sl:
     diff: razl
     diff_show: Prikaži
     diff_hide: Skrij
+    loading: Nalaganje redakcij ...
     time_doc: Čas vsake redakcije v vašem lokalnem času
     title: Naslov
+    see_more: Več o tem
+    show_all: Prikaži vse
   settings:
     admin_users:
       new:
@@ -224,6 +246,7 @@ sl:
     block_assignment: Dodelitev
     empty_week_3: ali
     gradeable_value: Vrednost
+    save_all_changes: Shrani vse
     title: Časovnica
   training:
     start: Začetek
@@ -241,15 +264,18 @@ sl:
   uploads:
     image: Slika
     label: Naložitve
+    loading: Nalaganje naložitev ...
     time_doc: Čas vsake naložitve v vašem lokalnem času
     uploaded_at: Čas naložitve
     usage_count: Število uporab
   users:
     assign_articles_done: Končano
+    loading_authorship_data: nalaganje podatkov o avtorstvu
     contribution_statistics: Statistika prispevkov
     enrolled_success: '%{username} je bil_a uspešno dodan_a!'
     first_name: Ime
     last_name: Priimek
+    loading: Nalaganje uporabnikov ...
     name: Ime
     no_revisions: (brez redakcij)
     number_of_articles:
@@ -282,6 +308,7 @@ sl:
   article_finder:
     category_search: Poišči po kategorijah
     keyword_search: Iskanje po ključni besedi
+    more_results: Več zadetkov
     relevanceIndex: Indeks ustreznosti
     search: Išči
     searching_articles: Iskanje člankov
