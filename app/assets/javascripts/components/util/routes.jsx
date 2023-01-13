@@ -1,3 +1,4 @@
+import ProgressIndicator from '@components/common/progress_indicator.jsx';
 import React, { Suspense, lazy, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Route, Routes, useLocation } from 'react-router-dom';
@@ -25,6 +26,7 @@ const CoursesByWikiHandler = lazy(() => import('../courses_by_wiki/courses_by_wi
 const routes = () => {
   const location = useLocation();
   const dispatch = useDispatch();
+  const refreshing = useSelector(state => state.refreshing.refreshing);
   const refreshArgs = {
     lastUserRequestTimestamp: useSelector(state => state.users.lastRequestTimestamp),
     courseSlug: useSelector(state => state.course.slug),
@@ -32,7 +34,6 @@ const routes = () => {
     lastRequestArticleTimestamp: useSelector(state => state.articles.lastRequestTimestamp),
     lastRequestAssignmentTimestamp: useSelector(state => state.assignments.lastRequestTimestamp)
   };
-
 
   // this is called whenever the route changes
   // it ensures that the user isn't displayed stale/outdated data for a route
@@ -73,6 +74,7 @@ const routes = () => {
         {/* this prevents the "route not found" warning for pages which are server rendered */}
         <Route path="*" element={<div style={{ display: 'none' }}/>} />
       </Routes>
+      {refreshing && <ProgressIndicator message="Refreshing Data"/>}
     </Suspense>
   );
 };
