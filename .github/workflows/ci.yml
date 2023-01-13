@@ -14,7 +14,9 @@ jobs:
         uses: actions/checkout@v2
       
       - name: install Pandoc
-        uses: r-lib/actions/setup-pandoc@v1
+        uses: r-lib/actions/setup-pandoc@v2
+        with:
+          pandoc-version: '2.9.2.1'
       
       - name: setup Redis
         uses: supercharge/redis-github-action@1.4.0
