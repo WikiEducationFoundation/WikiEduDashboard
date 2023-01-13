@@ -4,9 +4,9 @@ class WeeksController < ApplicationController
   respond_to :json
 
   def destroy
-    Week.find(params[:id]).destroy
+    week = Week.find(params[:id]).destroy
     course = week.course
-    if course.approved? 
+    if course.present? 
       DeletedTimelineAlertManager.new(course)
       DeletedTimelineAlertManager.create_alerts
     end

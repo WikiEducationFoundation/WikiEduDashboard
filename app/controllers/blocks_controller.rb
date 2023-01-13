@@ -6,7 +6,7 @@ class BlocksController < ApplicationController
   def destroy
     block = Block.find(params[:id]).destroy
     course = block.course
-    if course.approved? 
+    if course.present? 
       DeletedTimelineAlertManager.new(course)
       DeletedTimelineAlertManager.create_alerts
     end
