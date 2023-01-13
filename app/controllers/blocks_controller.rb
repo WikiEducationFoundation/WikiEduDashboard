@@ -1,14 +1,14 @@
 # frozen_string_literal: true
-
+require "#{Rails.root}/lib/alerts/deleted_timeline_alert_manager"
 class BlocksController < ApplicationController
   respond_to :json
 
   def destroy
-    block = Block.find(params[:id]).destroy
-    course = block.course
-    if course.present? 
+    course = Block.find(params[:id]).course
+    Block.find(params[:id]).destroy
+    if course.approved? 
+      puts 'block destroy alert generated'
       DeletedTimelineAlertManager.new(course)
-      DeletedTimelineAlertManager.create_alerts
     end
     render plain: '', status: :ok
   end

@@ -4,11 +4,12 @@ class WeeksController < ApplicationController
   respond_to :json
 
   def destroy
-    week = Week.find(params[:id]).destroy
-    course = week.course
-    if course.present? 
+    puts 1
+    course = Week.find(params[:id]).course
+    puts Week.find(params[:id]).inspect
+    Week.find(params[:id]).destroy
+    if course.approved? 
       DeletedTimelineAlertManager.new(course)
-      DeletedTimelineAlertManager.create_alerts
     end
     render plain: '', status: :ok
   end

@@ -13,15 +13,17 @@ describe DeletedTimelineAlertManager do
   let (:adding_blocks_without_training_module) do
     create(:block, week_id: week.id)
   end  
-    let (:adding_blocks_with_training_module) do
+  let (:adding_blocks_with_training_module) do
     create(:block, week_id: week.id, training_module_ids: [1])
   end  
-  let(:subject) { described_class.new(course) }
+  let(:subject) do
+    described_class.new(course) 
+  end
   
   context 'when course is not approved' do
     it 'does not create an alert' do
       adding_blocks_without_training_module
-      subject.create_alerts
+      subject
       expect(Alert.count).to eq(0)
     end
   end
@@ -30,7 +32,7 @@ describe DeletedTimelineAlertManager do
     it 'create an alert' do
       adding_blocks_without_training_module
       course_approved
-      subject.create_alerts
+      subject
       expect(Alert.count).to eq(1)
     end
   end
@@ -38,7 +40,7 @@ describe DeletedTimelineAlertManager do
     it 'does not create an alert' do
       adding_blocks_with_training_module
       course_approved
-      subject.create_alerts
+      subject
       expect(Alert.count).to eq(0)
     end
   end

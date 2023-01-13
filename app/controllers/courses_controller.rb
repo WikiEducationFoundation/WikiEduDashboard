@@ -199,7 +199,6 @@ class CoursesController < ApplicationController
     @course.weeks.destroy_all
     if @course.approved? 
       DeletedTimelineAlertManager.new(course)
-      DeletedTimelineAlertManager.create_alerts
     end
     render plain: '', status: :ok
   end
