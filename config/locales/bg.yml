@@ -299,6 +299,7 @@ bg:
   training:
     start: Начало
     page: Страница
+    table_of_contents: Съдържание
   uploads:
     header: Качени файлове в Общомедия
     image: Изображение

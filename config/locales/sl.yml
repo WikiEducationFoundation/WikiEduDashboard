@@ -300,6 +300,8 @@ sl:
     form_errors: Preverite obrazec glede napak.
   error_no_course:
     explanation: Predmet %{slug} ne obstaja.
+  error_404:
+    header: Stran ni bila najdena. :-(
   login_error:
     header: Napaka pri prijavi
   survey:
