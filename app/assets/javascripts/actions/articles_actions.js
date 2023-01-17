@@ -2,6 +2,7 @@ import * as types from '../constants';
 import logErrorMessage from '../utils/log_error_message';
 import { fetchWikidataLabelsForArticles } from './wikidata_actions';
 import request from '../utils/request';
+import { DONE_REFRESHING_DATA } from '../constants';
 
 const fetchArticlesPromise = (courseId, limit) => {
   return request(`/courses/${courseId}/articles.json?limit=${limit}`)
@@ -32,6 +33,9 @@ export const fetchArticles = (courseId, limit, refresh = false) => (dispatch) =>
           key: 'character_sum',
           refresh
         });
+        if (refresh) {
+          dispatch({ type: DONE_REFRESHING_DATA });
+        }
         // Now that we received the articles data, query wikidata.org for the labels
         // of any Wikidata entries that are among the articles.
         fetchWikidataLabelsForArticles(resp.course.articles, dispatch);

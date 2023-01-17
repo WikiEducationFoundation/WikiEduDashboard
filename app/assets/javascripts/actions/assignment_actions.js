@@ -3,6 +3,7 @@ import * as types from '../constants';
 import logErrorMessage from '../utils/log_error_message';
 import request from '../utils/request';
 import { addNotification } from './notification_actions.js';
+import { DONE_REFRESHING_DATA } from '../constants';
 
 
 
@@ -20,7 +21,7 @@ const fetchAssignmentsPromise = (courseSlug) => {
     });
 };
 
-export const fetchAssignments = courseSlug => (dispatch) => {
+export const fetchAssignments = (courseSlug, refresh = false) => (dispatch) => {
   return (
     fetchAssignmentsPromise(courseSlug)
       .then((resp) => {
@@ -28,6 +29,9 @@ export const fetchAssignments = courseSlug => (dispatch) => {
           type: types.RECEIVE_ASSIGNMENTS,
           data: resp
         });
+        if (refresh) {
+          dispatch({ type: DONE_REFRESHING_DATA });
+        }
       })
       .catch(response => dispatch({ type: types.API_FAIL, data: response }))
   );

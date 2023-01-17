@@ -42,6 +42,7 @@ import wizard from './wizard';
 import course_search_results from './course_search_results';
 import active_courses from './active_courses';
 import wiki_courses from './wiki_courses';
+import refreshing from './refreshing';
 
 const reducer = combineReducers({
   active_courses,
@@ -70,6 +71,7 @@ const reducer = combineReducers({
   persistedCourse,
   recentEdits,
   recentUploads,
+  refreshing,
   revisions,
   suspectedPlagiarism,
   settings,
