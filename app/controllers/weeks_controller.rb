@@ -6,9 +6,7 @@ class WeeksController < ApplicationController
   def destroy
     course = Week.find(params[:id]).course
     Week.find(params[:id]).destroy
-    if course.approved? 
-      DeletedTimelineAlertManager.new(course)
-    end
+    DeletedTimelineAlertManager.new(course)
     render plain: '', status: :ok
   end
 end
