@@ -12,6 +12,7 @@ sl:
   application:
     cancel: Prekliči
     cookie_consent_see_more: Prikaži več.
+    create_accounts: Ustvari račune Wikipedije
     dashboard: Nadzorna plošča urejanja vikija
     error: 'Prišlo je do napake:'
     explore: Raziskuj
@@ -79,6 +80,7 @@ sl:
     no_alerts: Ta kampanja nima opomnikov
     none: Noben
     program_template: Predloga programa
+    requested_accounts: Zahtevani računi
     title: Naslov
     search_campaigns: Preišči kampanje
     search: Išči
@@ -128,7 +130,9 @@ sl:
     none: Noben
     overview: Domov
     private: Zasebni
+    requested_accounts: Zahtevani računi
     requested_accounts_alert_view: Ogled
+    revisions_doc: Število urejanj v zadnjih %{timeframe} dneh
     school_and_term: Ustanova/termin
     search_courses: Poišči tečaje
     start: Začetek
@@ -137,11 +141,14 @@ sl:
     term: Termin
     timeline_link: Časovnica
     title: Naslov
+    view: Ogled tečaja
     view_page: Ogled strani tečaja
     word_count_doc: Ocena števila besed, ki so jih udeleženci tečaja v času tečaja
       dodali člankom v glavnem imenskem prostoru
     word_count_doc_wikidata: Ocena števila besed, ki so jih udeleženci tečaja v času
       tečaja dodali predmetom v glavnem imenskem prostoru
+    survey:
+      notification_message: Izpolnite našo anketo za ta tečaj.
   courses_generic:
     add_campaign: Dodaj kampanjo
     archived: Arhivirani programi
@@ -157,10 +164,12 @@ sl:
       create_label: Ustvari nov program
       save_cloned_course: Shrani
     edit_course_dates: Uredi datume projekta
+    request_accounts: Zahtevaj račune
     search_courses: Poišči programe
     student_editors: Urejevalci
     students: Urejevalci
     students_short: Urejevalci
+    students_count: Število udeležencev
     view_page: Ogled strani programa
     word_count_doc: Ocena števila besed, ki so jih udeleženci programa v času programa
       dodali člankom v glavnem imenskem prostoru
@@ -195,6 +204,7 @@ sl:
     changed: Spremenjen
     labels: Oznake
   namespace:
+    all: Vsi
     project: Projekt
     template: Predloga
     page: Stran
@@ -254,6 +264,8 @@ sl:
     page: Stran
     table_of_contents: Kazalo vsebine
     done: Končano!
+    kind:
+      discussion: Pogovor
     no_training_library_records_wiki_ed_mode: V zbirki podatkov ni zapisov TrainingLibrary.
       Če želite naložiti podatke o usposabljanju iz datotek training_content/yaml,
       kliknite <a href="%{url}">tukaj</a>.
