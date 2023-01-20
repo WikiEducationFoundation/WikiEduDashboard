@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import withRouter from '../util/withRouter';
 import * as ArticleActions from '../../actions/article_actions';
 import List from '../common/list.jsx';
@@ -11,6 +11,8 @@ import CourseOresPlot from './course_ores_plot.jsx';
 import articleListKeys from './article_list_keys';
 import ArticleUtils from '../../utils/article_utils.js';
 import { parse, stringify } from 'query-string';
+import ReactPaginate from 'react-paginate';
+import { SET_ARTICLES_PAGE } from '../../constants';
 
 const defaults_params = { wiki: 'all', tracked: 'tracked', newness: 'both' };
 
@@ -283,7 +285,7 @@ const ArticleList = createReactClass({
     if (!this.props.limitReached) {
       showMoreSection = (
         <div className="see-more">
-          <button className="button ghost" onClick={this.showMore}>{I18n.t('articles.see_more')}</button>
+          <PaginationControls showMore={this.showMore}/>
           <p>{I18n.t('articles.articles_shown', { count: articleElements.length, total: this.props.course.edited_count })}</p>
         </div>
       );
@@ -318,3 +320,36 @@ const mapDispatchToProps = dispatch => ({
 
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ArticleList));
+
+export const PaginationControls = ({ showMore }) => {
+  const dispatch = useDispatch();
+  const handlePageChange = ({ selected }) => {
+    dispatch({ type: SET_ARTICLES_PAGE, page: selected + 1 });
+  };
+  const totalPages = useSelector(state => state.articles.totalPages);
+
+  return (
+    <div style={{
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    }}
+    >
+      <ReactPaginate
+        pageCount={totalPages}
+        nextLabel="Next"
+        previousLabel="Previous"
+        breakLabel="..."
+        containerClassName={'pagination'}
+        onPageChange={handlePageChange}
+      />
+      <button
+        style={{ width: 'max-content', height: 'max-content' }}
+        className="button ghost" onClick={showMore}
+      >
+        {I18n.t('articles.see_more')}
+      </button>
+
+    </div>
+  );
+};
