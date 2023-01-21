@@ -12,7 +12,7 @@ class AlertMailerPreview < ActionMailer::Preview
     AlertMailer.alert(example_blocked_edits_alert, example_user)
   end
   
-  def deleted_timeline_alert
+  def check_timeline
     AlertMailer.alert(example_alert(type: 'CheckTimeline'), example_user)
   end
 
