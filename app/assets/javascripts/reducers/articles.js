@@ -7,7 +7,8 @@ import {
   SET_NEWNESS_FILTER,
   SET_TRACKED_STATUS_FILTER,
   UPDATE_ARTICLE_TRACKED_STATUS,
-  SET_ARTICLES_PAGE
+  SET_ARTICLES_PAGE,
+  ARTICLES_PER_PAGE
 } from '../constants';
 
 const initialState = {
@@ -80,7 +81,7 @@ export default function articles(state = initialState, action) {
         trackedStatusFilterEnabled,
         loading: false,
         lastRequestTimestamp: Date.now(),
-        totalPages: Math.ceil(action.data.course.articles.length / 100)
+        totalPages: Math.ceil(action.data.course.articles.length / ARTICLES_PER_PAGE)
       };
     }
 
