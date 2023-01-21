@@ -21,7 +21,7 @@
 #
 
 # Alert for a course whose timeline is deleted
-class DeletedTimelineAlert < Alert
+class CheckTimeline < Alert
   def main_subject
     course.slug
   end

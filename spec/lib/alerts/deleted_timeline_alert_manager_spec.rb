@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/alerts/deleted_timeline_alert_manager"
+require "#{Rails.root}/lib/alerts/check_timeline_manager"
 
-describe DeletedTimelineAlertManager do
+describe CheckTimelineManager do
   let(:course) { create(:course) }
-  let(:week) { create(:week, course_id: course.id, title: "Week1", created_at: 1.month.ago, updated_at: 5.days.from_now ) 
-               create(:week, course_id: course.id, title: "Week2", created_at: 1.month.ago, updated_at: 5.days.from_now )}
+  let(:week) do
+    create(:week, course_id: course.id, title: "Week1", created_at: 1.month.ago, updated_at: 5.days.from_now ) 
+    create(:week, course_id: course.id, title: "Week2", created_at: 1.month.ago, updated_at: 5.days.from_now )
+  end
   let (:course_approved) do
     course.campaigns << Campaign.first
   end  

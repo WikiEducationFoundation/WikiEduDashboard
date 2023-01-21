@@ -38,7 +38,7 @@ class Alert < ApplicationRecord
     BlockedEditsAlert
     BlockedUserAlert
     ContinuedCourseActivityAlert
-    DeletedTimelineAlert
+    CheckTimeline
     DeletedUploadsAlert
     DeUserfyingAlert
     DiscretionarySanctionsAssignmentAlert

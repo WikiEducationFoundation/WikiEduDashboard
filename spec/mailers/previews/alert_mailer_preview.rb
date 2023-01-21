@@ -13,7 +13,7 @@ class AlertMailerPreview < ActionMailer::Preview
   end
   
   def deleted_timeline_alert
-    AlertMailer.alert(Alert.where(type: 'DeletedTimelineAlert').last, example_user)
+    AlertMailer.alert(example_alert(type: 'CheckTimeline'), example_user)
   end
 
   def productive_course_alert
