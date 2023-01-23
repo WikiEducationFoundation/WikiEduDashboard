@@ -7,9 +7,10 @@ describe WeeksController, type: :request do
     let(:course) { create(:course) }
     let!(:week) { create(:week, course_id: course.id) }
     let(:admin) { create(:admin, id: 2) }
-    let (:course_approved) do
+    let(:course_approved) do
       course.campaigns << Campaign.first
-    end  
+    end
+
     before do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
     end
@@ -22,6 +23,7 @@ describe WeeksController, type: :request do
         expect(Alert.count).to eq(0)
       end
     end
+
     context 'when course is approved' do
       it 'create an alert and destroys the week' do
         course_approved
