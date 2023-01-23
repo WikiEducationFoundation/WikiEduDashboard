@@ -56,6 +56,7 @@ sl:
     preview: Kratek predogled članka
     rating: Razred
     see_more: Več o tem
+    show_cumulative_changes: Prikaži kumulativne spremembe
     show_current_version: Prikaži trenutno različico
     title: Naslov
     title_example: Naslov članka
@@ -90,6 +91,7 @@ sl:
     name: Ime
     template_name: Ime predloge
     remove: Odstrani
+    timestamp: Zadnja posodobitev dne
   courses:
     active_courses: Aktivni tečaji
     archived: Arhivirani tečaji
@@ -189,6 +191,7 @@ sl:
     select_student:
       title: Izberi %{prefix}
   metrics:
+    last_update: Zadnja posodobitev statistike
     bytes_added: Zlogov dodanih
     char_added: Dodani znaki
     char_changed: Spremenjenih znakov
@@ -246,6 +249,7 @@ sl:
       new:
         form_placeholder: Uporabniško ime
   suggestions:
+    editing: Predlogi za urejanje
     suggestion_docs:
       list: Seznami naj bodo seznami delujočih povezav na članke v Wikipediji, ki
         so ustrezno poimenovane in urejene.
@@ -254,6 +258,7 @@ sl:
     chose_search_type: Izberite vrsto iskanja
   timeline:
     block_assignment: Dodelitev
+    discard_all_changes: Zavrzi vse spremembe
     empty_week_3: ali
     gradeable_value: Vrednost
     save_all_changes: Shrani vse
