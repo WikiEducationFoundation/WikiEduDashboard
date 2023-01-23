@@ -8,6 +8,8 @@ import SlideMenu from './slide_menu.jsx';
 import Quiz from './quiz.jsx';
 import Notifications from '../../components/common/notifications.jsx';
 import I18n from 'i18n-js';
+import Alert from './Alert';
+
 
 
 const md = require('../../utils/markdown_it.js').default({ openLinksExternally: true });
@@ -60,12 +62,21 @@ const getSlideInfo = (training, locale) => {
 
 const keys = { rightKey: 39, leftKey: 37 };
 
+
+let count=0; 
+let nooftimes=0;  //helper variables for Alerthandler function.
+let enteringTime = new Date().getTime();
+
+
 const TrainingSlideHandler = () => {
   const training = useSelector(state => state.training);
   const routeParams = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [baseTitle, setBaseTitle] = useState('');
+   
+
+  
 
   const setSlideCompleted_FC = (slideId) => {
     const userId = __guard__(document.getElementById('main'), x => x.getAttribute('data-user-id'));
@@ -76,12 +87,28 @@ const TrainingSlideHandler = () => {
       user_id: userId
     }));
   };
+  
+ 
+  
+  
+ 
+  const [isShown, setIsShown] = useState(false);
+  
+  const Alerthandler = event => {  //This function checks whether alert should be shown or not.
+    count++;
+    let clickingTime = new Date().getTime()-enteringTime; 
+    if(count>=4  && clickingTime<10000 && nooftimes<2 ){
+      setIsShown(current => !current);
+      nooftimes++;
+      count = 0;
+    }
+  };
 
-  const next = () => {
+  const next = () => {   
     const nextSlug = training.nextSlide.slug;
-
     dispatch(setCurrentSlide(nextSlug));
     setSlideCompleted_FC(nextSlug);
+    Alerthandler(); 
   };
 
   const prev = () => {
@@ -121,7 +148,7 @@ const TrainingSlideHandler = () => {
     // training has changed, so update the title of the slide
     const { slideTitle } = getSlideInfo(training, I18n.locale);
     document.title = `${slideTitle} - ${baseTitle}`;
-
+ 
     return () => {
       // cleanup. Removes the old event listener
       return window.removeEventListener('keyup', handleKeyPress);
@@ -150,6 +177,7 @@ const TrainingSlideHandler = () => {
 
   if (__guard__(training.nextSlide, x1 => x1.slug)) {
     nextLink = (
+      <>
       <SlideLink
         slideId={training.nextSlide.slug}
         buttonText={training.currentSlide.buttonText || I18n.t('training.next')}
@@ -158,6 +186,8 @@ const TrainingSlideHandler = () => {
         params={routeParams}
         onClick={next}
       />
+       {isShown && <Alert/>}
+      </>
     );
   } else {
     let nextHref = returnToLink();
@@ -201,6 +231,7 @@ const TrainingSlideHandler = () => {
         params={routeParams}
         onClick={prev}
       />
+
     );
   }
 
