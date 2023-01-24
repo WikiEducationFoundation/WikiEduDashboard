@@ -3,7 +3,7 @@ import { SET_ARTICLES_PAGE } from '../../constants';
 import React from 'react';
 import ReactPaginate from 'react-paginate';
 
-export const PaginatedArticleControls = ({ showMore }) => {
+export const PaginatedArticleControls = ({ showMore, limitReached }) => {
   const dispatch = useDispatch();
 
   const handlePageChange = ({ selected }) => {
@@ -17,6 +17,7 @@ export const PaginatedArticleControls = ({ showMore }) => {
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
+      paddingBottom: '1em'
     }}
     >
       <ReactPaginate
@@ -27,13 +28,17 @@ export const PaginatedArticleControls = ({ showMore }) => {
         containerClassName={'pagination'}
         onPageChange={handlePageChange}
       />
-      <button
-        style={{ width: 'max-content', height: 'max-content' }}
-        className="button ghost" onClick={showMore}
-      >
-        {I18n.t('articles.see_more')}
-      </button>
-
+      {
+        !limitReached
+        && (
+          <button
+            style={{ width: 'max-content', height: 'max-content' }}
+            className="button ghost" onClick={showMore}
+          >
+            {I18n.t('articles.see_more')}
+          </button>
+        )
+      }
     </div>
   );
 };

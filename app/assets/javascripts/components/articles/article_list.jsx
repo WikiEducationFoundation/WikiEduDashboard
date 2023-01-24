@@ -279,16 +279,13 @@ const ArticleList = createReactClass({
         </div>
       </div>
     );
-
-    let showMoreSection;
-    if (!this.props.limitReached) {
-      showMoreSection = (
-        <div className="see-more">
-          <PaginatedArticleControls showMore={this.showMore}/>
-          <p>{I18n.t('articles.articles_shown', { count: articleElements.length, total: this.props.course.edited_count })}</p>
-        </div>
-      );
-    }
+    const limitReached = this.props.limitReached;
+    const showMoreSection = (
+      <div className="see-more">
+        <PaginatedArticleControls showMore={this.showMore} limitReached={limitReached}/>
+        {!limitReached && <p>{I18n.t('articles.articles_shown', { count: articleElements.length, total: this.props.course.edited_count })}</p>}
+      </div>
+    );
 
     return (
       <div id="articles" className="mt4">
