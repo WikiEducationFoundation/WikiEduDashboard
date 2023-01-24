@@ -29,4 +29,8 @@ class CheckTimeline < Alert
   def url
     course_url
   end
+
+  def self.default_message
+    'All the training modules have been removed from the course'
+  end
 end
