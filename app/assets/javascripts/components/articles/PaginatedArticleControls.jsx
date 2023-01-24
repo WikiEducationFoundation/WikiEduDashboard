@@ -3,6 +3,8 @@ import { SET_ARTICLES_PAGE } from '../../constants';
 import React from 'react';
 import ReactPaginate from 'react-paginate';
 
+const nextLabel = I18n.t('articles.next');
+const previousLabel = I18n.t('articles.previous');
 export const PaginatedArticleControls = ({ showMore, limitReached }) => {
   const dispatch = useDispatch();
 
@@ -22,8 +24,8 @@ export const PaginatedArticleControls = ({ showMore, limitReached }) => {
     >
       <ReactPaginate
         pageCount={totalPages}
-        nextLabel="Next"
-        previousLabel="Previous"
+        nextLabel={nextLabel}
+        previousLabel={previousLabel}
         breakLabel="..."
         containerClassName={'pagination'}
         onPageChange={handlePageChange}
