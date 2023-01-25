@@ -15,6 +15,7 @@ import { enableAccountRequests } from '../../actions/new_account_actions.js';
 import { needsUpdate, linkToSalesforce, updateSalesforceRecord, deleteCourse } from '../../actions/course_actions';
 import { STUDENT_ROLE, ONLINE_VOLUNTEER_ROLE } from '../../constants/user_roles';
 import { removeUser } from '../../actions/user_actions';
+import I18n from 'i18n-js';
 
 const AvailableActions = createReactClass({
   displayName: 'AvailableActions',
@@ -118,6 +119,10 @@ const AvailableActions = createReactClass({
             <div key="leave" className="available-action"><button onClick={this.leave} className="button">{CourseUtils.i18n('leave_course', course.string_prefix)}</button></div>
           ));
         }
+      }
+      // If user is admin, go to list of tickets related to this course
+      if (user.admin) {
+        controls.push((<div key="search" className="available-action"><a href={`/tickets/dashboard?search_by_course=${this.props.course.slug}`} className="button">{I18n.t('courses.search_all_tickets_for_this_course')}</a></div>));
       }
       // If course is not published, show the 'delete' button to instructors and admins.
       // Show a disabled version of it on P&E Dashboard even if a course is published,
