@@ -15,28 +15,38 @@ import { getFilteredTickets } from '../../selectors';
 export class TicketsHandler extends React.Component {
   constructor(props) {
     super(props);
+    this.SearchByCourseParamInURL = this.getCourseSearchParamInURL();
     this.state = {
       page: 0,
       mode: 'filter',
-      searchType: 'no_search'
+      searchType: this.SearchByCourseParamInURL ? 'by_course' : 'no_search',
+      searchText: this.SearchByCourseParamInURL || ''
     };
     this.searchBarRef = React.createRef();
     this.searchTypeRef = React.createRef();
   }
 
   componentDidMount() {
-    if (!this.props.tickets.all.length) {
-      this.props.fetchTickets();
-      this.props.setInitialTicketFilters();
-    }
+    if (this.SearchByCourseParamInURL) {
+      this.props.fetchTickets({ search: this.SearchByCourseParamInURL, what: 'by_course' });
+    } else if (!this.props.tickets.all.length) {
+        this.props.fetchTickets();
+        this.props.setInitialTicketFilters();
+      }
+  }
+
+  getCourseSearchParamInURL() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('search_by_course');
   }
 
   doSearch = () => {
     this.props.fetchTickets({ search: this.searchBarRef?.current.value, what: this.state.searchType });
+    this.setState({ searchText: this.searchBarRef?.current.value });
   };
 
   changeMode = (e) => {
-    this.setState({ searchType: e.value });
+    this.setState({ searchType: e.value, searchText: '' });
     if (e.value === 'no_search') {
       this.setState({ mode: 'filter' });
       this.props.fetchTickets();
@@ -126,6 +136,7 @@ export class TicketsHandler extends React.Component {
             />
             <SearchBar
               name="tickets_search"
+              value={this.state.searchText}
               onClickHandler={this.doSearch} ref={this.searchBarRef}
               placeholder={I18n.t('tickets.search_bar_placeholder')}
             />

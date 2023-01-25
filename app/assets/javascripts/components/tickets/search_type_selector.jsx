@@ -7,7 +7,8 @@ const SearchTypeSelector = ({ handleChange, value }, ref) => {
     { value: 'no_search', label: 'No search' },
     { value: 'by_email_or_username', label: 'Search by email or user name' },
     { value: 'in_content', label: 'Search in content' },
-    { value: 'in_subject', label: 'Search in subject' }
+    { value: 'in_subject', label: 'Search in subject' },
+    { value: 'by_course', label: 'Search by course slug' }
   ];
 
   return (
