@@ -3,8 +3,12 @@
 require 'rails_helper'
 
 describe 'ticket dashboard', type: :feature, js: true do
-  let(:course) { create(:course) }
-  let(:course2) { create(:course, slug: 'course/2') }
+  let(:course) do
+    create(:course,
+           slug: 'NASA_School/Fly_me_to_the_moon',
+           title: 'Fly me to the moon')
+  end
+  let(:course2) { create(:course, slug: 'Pasteur_Institue/Intro_to_microbiology') }
   let(:admin) { create(:admin, email: 'spec@wikiedu.org') }
   let(:user) { create(:user, username: 'arogers', email: 'aron@packers.nfl.org') }
   let(:user2) { create(:user, username: 'pmahomes', email: 'pat@chiefs.nfl.org') }
@@ -125,6 +129,66 @@ describe 'ticket dashboard', type: :feature, js: true do
       end.count
 
       expect(nb_of_lines).to eq 1
+    end
+
+    it 'finds one match by course slug' do
+      select_from_selectbox.call('Search by course slug')
+
+      fill_in 'tickets_search', with: 'NASA_School/Fly_me_to_the_moon'
+      find('input[name="tickets_search"]').send_keys(:enter)
+
+      nb_of_lines = within 'tbody' do
+        all('tr[class^="table-row"]')
+      end.count
+
+      expect(nb_of_lines).to eq 1
+    end
+
+    it 'finds no match with an unknown slug' do
+      select_from_selectbox.call('Search by course slug')
+
+      fill_in 'tickets_search', with: 'Unknown_School/school_is_closed'
+      find('input[name="tickets_search"]').send_keys(:enter)
+
+      nb_of_lines = within 'tbody' do
+        all('tr[class^="table-row"]')
+      end.count
+
+      expect(nb_of_lines).to eq 0
+    end
+
+    it 'displays tickets coming from course page', :aggregate_failures do
+      stub_oauth_edit
+      visit "/courses/#{course.slug}"
+      find_link(I18n.t('courses.search_all_tickets_for_this_course')).click
+      url = URI(current_url)
+      param, slug = url.query.split('=')
+
+      expect(url.path).to eq '/tickets/dashboard'
+      expect(param).to eq 'search_by_course'
+      expect(slug).to eq course.slug
+      expect(find('input[name="tickets_search"]').value).to eq course.slug
+      expect(find_link(course.title).visible?).to be true
+    end
+
+    it 'displays tickets coming from a ticket page', :aggregate_failures do
+      stub_oauth_edit
+      ticket = TicketDispenser::Ticket.first
+      visit "/tickets/dashboard/#{ticket.id}"
+
+      # bc opens in a new tab
+      ticket_window = window_opened_by do
+        find_link("Search all tickets for course: #{ticket.project.title}").click
+      end
+      within_window ticket_window do
+        url = URI(current_url)
+        param, slug = url.query.split('=')
+        expect(url.path).to eq '/tickets/dashboard'
+        expect(param).to eq 'search_by_course'
+        expect(slug).to eq course.slug
+        expect(find('input[name="tickets_search"]').value).to eq course.slug
+        expect(find_link(course.title).visible?).to be true
+      end
     end
   end
 end
