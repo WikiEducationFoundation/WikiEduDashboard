@@ -48,7 +48,7 @@ export class Sidebar extends React.Component {
               : 'Course Unknown'
           }
         </section>
-        <section className="course-name">
+        <section className="related-tickets">
           <Link target="_blank" to={`/tickets/dashboard?search_by_course=${ticket.project.slug}`}>
             Search all tickets for course: {ticket.project.title}
           </Link>

@@ -15,7 +15,6 @@ import { enableAccountRequests } from '../../actions/new_account_actions.js';
 import { needsUpdate, linkToSalesforce, updateSalesforceRecord, deleteCourse } from '../../actions/course_actions';
 import { STUDENT_ROLE, ONLINE_VOLUNTEER_ROLE } from '../../constants/user_roles';
 import { removeUser } from '../../actions/user_actions';
-import I18n from 'i18n-js';
 
 const AvailableActions = createReactClass({
   displayName: 'AvailableActions',
