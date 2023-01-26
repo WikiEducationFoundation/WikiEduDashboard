@@ -69,6 +69,6 @@ export default class ArticleUtils {
   }
 }
 
-export const getPageRange = (currentPage) => {
-  return `${(currentPage - 1) * ARTICLES_PER_PAGE + 1} - ${currentPage * ARTICLES_PER_PAGE}`;
+export const getPageRange = (currentPage, numberOfArticles) => {
+  return `${(currentPage - 1) * ARTICLES_PER_PAGE + 1} - ${Math.min(numberOfArticles, currentPage * ARTICLES_PER_PAGE)}`;
 };
