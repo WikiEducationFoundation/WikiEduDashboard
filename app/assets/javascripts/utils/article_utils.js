@@ -1,3 +1,5 @@
+import { ARTICLES_PER_PAGE } from '../constants';
+
 export default class ArticleUtils {
   // Returns article or item, based on home Wiki project.
   static articlesOrItems(project) {
@@ -66,3 +68,7 @@ export default class ArticleUtils {
     return Number(ns_id);
   }
 }
+
+export const getPageRange = (currentPage) => {
+  return `${(currentPage - 1) * ARTICLES_PER_PAGE + 1} - ${currentPage * ARTICLES_PER_PAGE}`;
+};

@@ -283,7 +283,6 @@ const ArticleList = createReactClass({
     const showMoreSection = (
       <div className="see-more">
         <PaginatedArticleControls showMore={this.showMore} limitReached={limitReached}/>
-        {!limitReached && <p>{I18n.t('articles.articles_shown', { count: articleElements.length, total: this.props.course.edited_count })}</p>}
       </div>
     );
 

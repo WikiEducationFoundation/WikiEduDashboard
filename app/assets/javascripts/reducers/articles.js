@@ -8,7 +8,8 @@ import {
   SET_TRACKED_STATUS_FILTER,
   UPDATE_ARTICLE_TRACKED_STATUS,
   SET_ARTICLES_PAGE,
-  ARTICLES_PER_PAGE
+  ARTICLES_PER_PAGE,
+  RESET_PAGES
 } from '../constants';
 
 const initialState = {
@@ -141,6 +142,9 @@ export default function articles(state = initialState, action) {
 
     case SET_ARTICLES_PAGE: {
       return { ...state, currentPage: action.page };
+    }
+    case RESET_PAGES: {
+      return { ...state, currentPage: 1, totalPages: action.totalPages };
     }
 
     default:
