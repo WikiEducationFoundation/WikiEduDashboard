@@ -66,9 +66,9 @@ const keys = { rightKey: 39, leftKey: 37 };
 
 
 //helper variables for Alerthandler function.
-let count=0; 
-let nooftimes=0;  
-let enteringTime = new Date().getTime();
+let count = 0; 
+let nooftimes = 0;  
+const enteringTime = new Date().getTime();
 
 
 const TrainingSlideHandler = () => {
@@ -77,8 +77,8 @@ const TrainingSlideHandler = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [baseTitle, setBaseTitle] = useState('');
-   
- 
+
+
   const setSlideCompleted_FC = (slideId) => {
     const userId = __guard__(document.getElementById('main'), x => x.getAttribute('data-user-id'));
     if (!userId) { return; }
@@ -88,27 +88,27 @@ const TrainingSlideHandler = () => {
       user_id: userId
     }));
   };
-  
- 
+
+
   const [isShown, setIsShown] = useState(false);
- 
-  //This function checks whether alert should be shown or not.
+
+  // this function checks whether alert should be shown or not.
   const Alerthandler = (event) => { 
-    if(routeParams.library_id == 'students'){
+    if(routeParams.library_id === 'students'){
     count = count + 1;
-    let clickingTime = new Date().getTime() - enteringTime; 
-    if (count > 3  && clickingTime<10000 && nooftimes < 2 ){
+    const clickingTime = new Date().getTime() - enteringTime;
+    if (count > 3  && clickingTime < 10000 && nooftimes < 2){
       setIsShown(current => !current);
       nooftimes = nooftimes + 1;
       count = 0;
-    }}
+    } }
   };
 
-  const next = () => {   
+  const next = () => {
     const nextSlug = training.nextSlide.slug;
     dispatch(setCurrentSlide(nextSlug));
     setSlideCompleted_FC(nextSlug);
-    Alerthandler(); 
+    Alerthandler();
   };
 
   const prev = () => {
