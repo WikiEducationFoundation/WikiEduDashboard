@@ -30,6 +30,8 @@ sl:
     confirm: V redu
     opt_in: Da
     opt_out: Ne
+  article_statuses:
+    ready_for_mainspace: Prestavitev dela v glavni imenski prostor
   home:
     explore: Raziskuj
     sign_up_help: Za uporabo nadzorne plošče se morate prijaviti v Wikipediji in ji
@@ -88,6 +90,8 @@ sl:
   categories:
     add_template: Dodaj predlogo
     add_this_template: Dodaj to predlogo
+    confirm_category_addition: Ste prepričani, da želite slediti prispevke v kategorijo
+      »%{name}«?
     name: Ime
     template_name: Ime predloge
     remove: Odstrani
