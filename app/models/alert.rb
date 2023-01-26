@@ -67,6 +67,7 @@ class Alert < ApplicationRecord
   RESOLVABLE_ALERT_TYPES = %w[
     ArticlesForDeletionAlert
     BadWorkAlert
+    CheckTimeline
     ContinuedCourseActivityAlert
     DiscretionarySanctionsAssignmentAlert
     DiscretionarySanctionsEditAlert

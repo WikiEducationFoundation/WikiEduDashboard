@@ -4,8 +4,8 @@ class BlocksController < ApplicationController
   respond_to :json
 
   def destroy
-    course = Block.find(params[:id]).course
-    Block.find(params[:id]).destroy
+    block = Block.find(params[:id]).destroy
+    course = block.course
     CheckTimelineManager.new(course)
     render plain: '', status: :ok
   end

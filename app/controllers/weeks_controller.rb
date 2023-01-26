@@ -4,8 +4,8 @@ class WeeksController < ApplicationController
   respond_to :json
 
   def destroy
-    course = Week.find(params[:id]).course
-    Week.find(params[:id]).destroy
+    week = Week.find(params[:id]).destroy
+    course = week.course
     CheckTimelineManager.new(course)
     render plain: '', status: :ok
   end
