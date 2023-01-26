@@ -65,9 +65,9 @@ const getSlideInfo = (training, locale) => {
 const keys = { rightKey: 39, leftKey: 37 };
 
 
-//helper variables for Alerthandler function.
-let count = 0; 
-let nooftimes = 0;  
+// helper variables for Alerthandler function.
+let count = 0;
+let nooftimes = 0;
 const enteringTime = new Date().getTime();
 
 
@@ -93,15 +93,16 @@ const TrainingSlideHandler = () => {
   const [isShown, setIsShown] = useState(false);
 
   // this function checks whether alert should be shown or not.
-  const Alerthandler = (event) => { 
-    if(routeParams.library_id === 'students'){
-    count = count + 1;
+  const Alerthandler = () => {
+    if (routeParams.library_id === 'students') {
+    count += 1;
     const clickingTime = new Date().getTime() - enteringTime;
-    if (count > 3  && clickingTime < 10000 && nooftimes < 2){
+    if (count > 3 && clickingTime < 10000 && nooftimes < 2) {
       setIsShown(current => !current);
-      nooftimes = nooftimes + 1;
+      nooftimes += 1;
       count = 0;
-    } }
+    } 
+    }
   };
 
   const next = () => {
@@ -138,7 +139,7 @@ const TrainingSlideHandler = () => {
       if (e.which === keys.rightKey && training.nextSlide) {
         if (disableNext(training)) { return; }
         const params = extend(navParams, { slide_id: training.nextSlide.slug });
-        next();
+         next();
         return navigate(trainingUrl(params));
         
       }
@@ -178,7 +179,7 @@ const TrainingSlideHandler = () => {
 
   if (__guard__(training.nextSlide, x1 => x1.slug)) {
     nextLink = (
-      <>
+    <>
       <SlideLink
         slideId={training.nextSlide.slug}
         buttonText={training.currentSlide.buttonText || I18n.t('training.next')}
@@ -188,7 +189,7 @@ const TrainingSlideHandler = () => {
         onClick={next}
       />
          {isShown && <Alert/>}
-      </>
+    </>
     );
   } else {
     let nextHref = returnToLink();
