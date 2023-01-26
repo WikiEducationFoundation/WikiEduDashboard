@@ -1,30 +1,22 @@
-//This alert component pops up when the user is going through training too fast.
-
-import React from 'react'
-import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@mui/material'
-import {useState} from 'react'
-
+import React from 'react';
+import { useState } from 'react';
 
 export default function Alert() {
-
-    const[open, setOpen] = useState(true)
+  const [open, setOpen] = useState(true);
 
   return (
     <>
-    <Dialog open = {open} 
-    onClose={()=> setOpen(false)} 
-    aria-labelledby='dialog-title'
-    aria-describedby='dialog-description'>
-
-        <DialogTitle id='dialog-title'>Please take your time!</DialogTitle>
-        <DialogContent>
-            <DialogContentText id='dialog-description'>It is very important that you learn the training content thoroughly.</DialogContentText>
-        </DialogContent>
-        <DialogActions>
-            <Button color='success' onClick={()=> setOpen(false)}>Close</Button>
-        </DialogActions>       
-    </Dialog>
-    
+      {open && (
+        <div className="alert-box-container">
+          <div className="alert-box">
+            <h2 className="alert-title">Please take your time!</h2>
+            <p className="alert-content">It is very important that you learn the training content thoroughly.</p>
+            <div className="alert-button-container">
+              <button className="alert-button" onClick={() => setOpen(false)}>CLOSE</button>
+            </div>
+          </div>
+        </div>
+      )};
     </>
   )
-}
+};

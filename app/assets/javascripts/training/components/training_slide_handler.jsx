@@ -12,6 +12,7 @@ import Alert from './Alert';
 
 
 
+
 const md = require('../../utils/markdown_it.js').default({ openLinksExternally: true });
 
 const __guard__ = (value, transform) => {
@@ -21,6 +22,7 @@ const __guard__ = (value, transform) => {
 const moduleId = (params) => {
   return __guard__(params, x => x.module_id);
 };
+
 
 const returnToLink = () => {
   return document.getElementById('react_root').getAttribute('data-return-to');
@@ -63,8 +65,9 @@ const getSlideInfo = (training, locale) => {
 const keys = { rightKey: 39, leftKey: 37 };
 
 
+//helper variables for Alerthandler function.
 let count=0; 
-let nooftimes=0;  //helper variables for Alerthandler function.
+let nooftimes=0;  
 let enteringTime = new Date().getTime();
 
 
@@ -75,9 +78,7 @@ const TrainingSlideHandler = () => {
   const dispatch = useDispatch();
   const [baseTitle, setBaseTitle] = useState('');
    
-
-  
-
+ 
   const setSlideCompleted_FC = (slideId) => {
     const userId = __guard__(document.getElementById('main'), x => x.getAttribute('data-user-id'));
     if (!userId) { return; }
@@ -89,19 +90,18 @@ const TrainingSlideHandler = () => {
   };
   
  
-  
-  
- 
   const [isShown, setIsShown] = useState(false);
-  
-  const Alerthandler = event => {  //This function checks whether alert should be shown or not.
-    count++;
-    let clickingTime = new Date().getTime()-enteringTime; 
-    if(count>=4  && clickingTime<10000 && nooftimes<2 ){
+ 
+  //This function checks whether alert should be shown or not.
+  const Alerthandler = (event) => { 
+    if(routeParams.library_id == 'students'){
+    count = count + 1;
+    let clickingTime = new Date().getTime() - enteringTime; 
+    if (count > 3  && clickingTime<10000 && nooftimes < 2 ){
       setIsShown(current => !current);
-      nooftimes++;
+      nooftimes = nooftimes + 1;
       count = 0;
-    }
+    }}
   };
 
   const next = () => {   
@@ -140,6 +140,7 @@ const TrainingSlideHandler = () => {
         const params = extend(navParams, { slide_id: training.nextSlide.slug });
         next();
         return navigate(trainingUrl(params));
+        
       }
     };
 
@@ -163,7 +164,7 @@ const TrainingSlideHandler = () => {
       </div>
     );
   }
-  if (training.valid === false) {
+  if (training.valid === false) { 
     return (
       <div className="training__slide__notification" key="invalid">
         <div className="container">
@@ -186,7 +187,7 @@ const TrainingSlideHandler = () => {
         params={routeParams}
         onClick={next}
       />
-       {isShown && <Alert/>}
+         {isShown && <Alert/>}
       </>
     );
   } else {
