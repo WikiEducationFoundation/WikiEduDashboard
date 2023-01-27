@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/alerts/check_timeline_manager"
+require "#{Rails.root}/lib/alerts/check_timeline_alert_manager"
 
-describe CheckTimelineManager do
+describe CheckTimelineAlertManager do
   let(:course) { create(:course) }
   let(:week) do
     create(:week, course_id: course.id, title: 'Week1', created_at: 1.month.ago,

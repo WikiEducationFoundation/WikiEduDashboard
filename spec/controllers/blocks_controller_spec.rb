@@ -31,7 +31,7 @@ describe BlocksController, type: :request do
         expect(Block.count).to eq(1)
         delete "/blocks/#{block.id}", params: { id: block.id, format: :json }
         expect(Block.count).to eq(0)
-        expect(Alert.first.type).to eq('CheckTimeline')
+        expect(CheckTimelineAlert.count).to eq(1)
       end
     end
   end
