@@ -50,7 +50,7 @@ export class Sidebar extends React.Component {
         </section>
         <section className="related-tickets">
           <Link target="_blank" to={`/tickets/dashboard?search_by_course=${ticket.project.slug}`}>
-            Search all tickets for course: {ticket.project.title}
+            Search all tickets for: {ticket.project.title}
           </Link>
         </section>
         <section className="course-user-details">
