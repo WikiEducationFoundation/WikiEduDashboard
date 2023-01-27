@@ -178,7 +178,7 @@ describe 'ticket dashboard', type: :feature, js: true do
 
       # bc opens in a new tab
       ticket_window = window_opened_by do
-        find_link("Search all tickets for course: #{ticket.project.title}").click
+        find_link("Search all tickets for: #{ticket.project.title}").click
       end
       within_window ticket_window do
         url = URI(current_url)

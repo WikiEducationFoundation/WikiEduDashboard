@@ -29,7 +29,7 @@ describe('Tickets', () => {
       expect(component.find('.sidebar .course-name').text()).toEqual('Course Unknown');
 
       expect(component.find('.sidebar .related-tickets').length).toBeTruthy;
-      expect(component.find('.sidebar .related-tickets').text()).toEqual('Search all tickets for course: ');
+      expect(component.find('.sidebar .related-tickets').text()).toEqual('Search all tickets for: ');
 
       expect(component.find('.sidebar .user-record').length).toBeTruthy;
       expect(component.find('.sidebar .user-record').text()).toEqual('Unknown User Record');
