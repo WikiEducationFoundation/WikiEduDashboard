@@ -101,7 +101,7 @@ const TrainingSlideHandler = () => {
       setIsShown(current => !current);
       nooftimes += 1;
       count = 0;
-    } 
+    }
     }
   };
 
@@ -139,9 +139,8 @@ const TrainingSlideHandler = () => {
       if (e.which === keys.rightKey && training.nextSlide) {
         if (disableNext(training)) { return; }
         const params = extend(navParams, { slide_id: training.nextSlide.slug });
-         next();
+        next();
         return navigate(trainingUrl(params));
-        
       }
     };
 
@@ -150,7 +149,7 @@ const TrainingSlideHandler = () => {
     // training has changed, so update the title of the slide
     const { slideTitle } = getSlideInfo(training, I18n.locale);
     document.title = `${slideTitle} - ${baseTitle}`;
- 
+
     return () => {
       // cleanup. Removes the old event listener
       return window.removeEventListener('keyup', handleKeyPress);
@@ -165,7 +164,7 @@ const TrainingSlideHandler = () => {
       </div>
     );
   }
-  if (training.valid === false) { 
+  if (training.valid === false) {
     return (
       <div className="training__slide__notification" key="invalid">
         <div className="container">
@@ -179,17 +178,17 @@ const TrainingSlideHandler = () => {
 
   if (__guard__(training.nextSlide, x1 => x1.slug)) {
     nextLink = (
-    <>
-      <SlideLink
-        slideId={training.nextSlide.slug}
-        buttonText={training.currentSlide.buttonText || I18n.t('training.next')}
-        disabled={disableNext(training)}
-        button={true}
-        params={routeParams}
-        onClick={next}
-      />
-         {isShown && <Alert/>}
-    </>
+      <>
+        <SlideLink
+          slideId={training.nextSlide.slug}
+          buttonText={training.currentSlide.buttonText || I18n.t('training.next')}
+          disabled={disableNext(training)}
+          button={true}
+          params={routeParams}
+          onClick={next}
+        />
+        {isShown && <Alert/>}
+      </>
     );
   } else {
     let nextHref = returnToLink();
