@@ -119,6 +119,10 @@ const AvailableActions = createReactClass({
           ));
         }
       }
+      // If user is admin, go to list of tickets related to this course
+      if (user.admin) {
+        controls.push((<div key="search" className="available-action"><a href={`/tickets/dashboard?search_by_course=${this.props.course.slug}`} className="button">{I18n.t('courses.search_all_tickets_for_this_course')}</a></div>));
+      }
       // If course is not published, show the 'delete' button to instructors and admins.
       // Show a disabled version of it on P&E Dashboard even if a course is published,
       // so that users can see the instructions for how to enable deletion.
