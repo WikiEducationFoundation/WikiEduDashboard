@@ -28,7 +28,7 @@ updated_at: 5.days.from_now)
     it 'does not create an alert' do
       adding_blocks_without_training_module
       subject
-      expect(Alert.count).to eq(0)
+      expect(CheckTimelineAlert.count).to eq(0)
     end
   end
 
@@ -37,7 +37,7 @@ updated_at: 5.days.from_now)
       adding_blocks_without_training_module
       course_approved
       subject
-      expect(Alert.count).to eq(1)
+      expect(CheckTimelineAlert.count).to eq(1)
     end
   end
 
@@ -46,7 +46,7 @@ updated_at: 5.days.from_now)
       adding_blocks_with_training_module
       course_approved
       subject
-      expect(Alert.count).to eq(0)
+      expect(CheckTimelineAlert.count).to eq(0)
     end
   end
 end

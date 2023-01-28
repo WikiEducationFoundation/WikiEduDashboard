@@ -12,12 +12,12 @@ class CheckTimelineAlertManager
     return if @course.training_module_ids.any?
     return if alert_already_exists?
     alert = Alert.create(type: 'CheckTimelineAlert',
-                         course_id: @course.id,
+                         course: @course,
                          message: CheckTimelineAlert.default_message)
     alert.email_content_expert
   end
 
   def alert_already_exists?
-    CheckTimelineAlert.exists?(course_id: @course.id, resolved: false)
+    CheckTimelineAlert.exists?(course: @course, resolved: false)
   end
 end

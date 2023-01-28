@@ -20,7 +20,7 @@ describe WeeksController, type: :request do
         expect(Week.count).to eq(1)
         delete "/weeks/#{week.id}", params: { id: week.id, format: :json }
         expect(Week.count).to eq(0)
-        expect(Alert.count).to eq(0)
+        expect(CheckTimelineAlert.count).to eq(0)
       end
     end
 
@@ -30,7 +30,7 @@ describe WeeksController, type: :request do
         expect(Week.count).to eq(1)
         delete "/weeks/#{week.id}", params: { id: week.id, format: :json }
         expect(Week.count).to eq(0)
-        expect(Alert.count).to eq(1)
+        expect(CheckTimelineAlert.count).to eq(1)
       end
     end
   end
