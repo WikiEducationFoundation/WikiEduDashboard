@@ -36,12 +36,12 @@ class CheckTimelineAlert < Alert
 
   def resolve_explanation
     <<~EXPLANATION
-      Resolving this alert means the course has some timeline. A new
-      alert will be generated if it again nominated or tagged for timeline deletion.
+      Resolving this alert means the course has at least one training module again. A new
+      alert will be generated if the last timeline block with a training gets removed.
     EXPLANATION
   end
 
   def self.default_message
-    'All the training modules have been removed from the course'
+    'All the training modules have been removed from the course.'
   end
 end
