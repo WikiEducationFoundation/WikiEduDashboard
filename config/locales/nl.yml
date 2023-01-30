@@ -37,52 +37,52 @@ nl:
       decimal_units:
         format: '%n%u'
         units:
-          thousand: K
-          million: M
-          billion: B
-          trillion: T
-          quadrillion: Q
+          thousand: k
+          million: mln
+          billion: mld
+          trillion: bln
+          quadrillion: bld
   accessibility:
-    number_field: Dit is een numeriek veld. De knoppen die door de meeste browsers
-      weergegeven worden zullen de invoer verhogen en verlagen.
+    number_field: Dit is een numeriek veld. De meeste browsers tonen hier knoppen
+      waarmee u de invoer kunt verhogen en verlagen.
   application:
     cancel: Annuleren
     cookie_consent: Deze site gebruikt cookies om u ingelogd te houden en slaat informatie
       op met betrekking tot uw Wikipedia-account.
-    cookie_consent_acknowledge: Ik begrijp
-    cookie_consent_see_more: Bekijk meer.
-    create_accounts: Maak Wikipedia accounts
+    cookie_consent_acknowledge: Ik begrijp het
+    cookie_consent_see_more: Meer zien.
+    create_accounts: Wikipedia-accounts aanmaken
     dashboard: Wiki Ed Dashboard
     documentation: Documentatie
     error: 'Er is een fout opgetreden:'
     explore: Verkennen
-    field_required: Dit is een verplicht veld
+    field_required: Dit veld is verplicht
     field_invalid_characters: Dit veld heeft ongeldige tekens
     field_invalid_date: Dit veld vereist een datum in JJJJ-MM-DD-indeling
-    field_invalid_date_time: Het einde moet na de start zijn. (Uren gaan van 0 tot
+    field_invalid_date_time: Het einde moet na het begin zijn. (Uren gaan van 0 tot
       23.)
     greeting2: Welkom!
     greeting_extended: Welkom op Wikipedia
     greeting: Hallo!
-    help: Help
+    help: Hulp
     home: Startpagina
-    log_in_extended: Aanmelden bij Wikipedia
+    log_in_extended: Aanmelden met Wikipedia
     log_in: Aanmelden
     log_out: Afmelden
     my_dashboard: Mijn dashboard
     recent_activity: Recente activiteit
     report_problem: Een probleem melden
     request_account: Account aanvragen
-    request_account_create: Een nieuw account aanmaken
-    search: stel een vraag
+    request_account_create: Een account aanmaken
+    search: een vraag stellen
     search_results:
       one: '%{count} resultaat voor: ''%{search_terms}'''
       other: '%{count} resultaten voor: ''%{search_terms}'''
-    no_results: Geen resultaten gevonden voor “%{query}”
+    no_results: Geen resultaten gevonden voor '%{query}'
     sign_up_extended: Registreren via Wikipedia
-    sign_up_wikipedia: Of meld je aan op Wikipedia
+    sign_up_wikipedia: Of maak een account aan op Wikipedia
     sign_up_log_in_extended: met Wikipedia
-    sign_up: Inschrijven
+    sign_up: Registreren
     submit: Verzenden
     training: Training
     change: Wijzigen

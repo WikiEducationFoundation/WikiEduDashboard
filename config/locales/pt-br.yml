@@ -27,6 +27,7 @@
 # Author: Pedrofariasm
 # Author: Peter Fernando
 # Author: Raphaelras
+# Author: Robertpontes
 # Author: Rodrigo codignoli
 # Author: Rukasuoribera
 # Author: Svjatysberega
@@ -801,6 +802,7 @@ pt-br:
     revisions_none: Este curso não tem atividade recente de edição na Wikipédia.
     school: Escola
     school_and_term: Instituição/Quando
+    search_all_tickets_for_this_course: Pesquisar todos os tickets para este curso
     search_courses: Pesquisar cursos
     start: Iniciar
     start_typing: Começar a escrever

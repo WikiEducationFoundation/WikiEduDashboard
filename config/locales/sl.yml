@@ -140,6 +140,7 @@ sl:
     requested_accounts_alert_view: Ogled
     revisions_doc: Število urejanj v zadnjih %{timeframe} dneh
     school_and_term: Ustanova/termin
+    search_all_tickets_for_this_course: Preišči vse kartice za ta tečaj
     search_courses: Poišči tečaje
     start: Začetek
     stay_in_sandbox: Ostani v peskovniku
