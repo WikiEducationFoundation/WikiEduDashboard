@@ -38,6 +38,7 @@ class Alert < ApplicationRecord
     BlockedEditsAlert
     BlockedUserAlert
     ContinuedCourseActivityAlert
+    CheckTimelineAlert
     DeletedUploadsAlert
     DeUserfyingAlert
     DiscretionarySanctionsAssignmentAlert
@@ -66,6 +67,7 @@ class Alert < ApplicationRecord
   RESOLVABLE_ALERT_TYPES = %w[
     ArticlesForDeletionAlert
     BadWorkAlert
+    CheckTimelineAlert
     ContinuedCourseActivityAlert
     DiscretionarySanctionsAssignmentAlert
     DiscretionarySanctionsEditAlert

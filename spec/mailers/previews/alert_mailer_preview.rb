@@ -12,6 +12,10 @@ class AlertMailerPreview < ActionMailer::Preview
     AlertMailer.alert(example_blocked_edits_alert, example_user)
   end
 
+  def check_timeline_alert
+    AlertMailer.alert(example_alert(type: 'CheckTimelineAlert'), example_user)
+  end
+
   def productive_course_alert
     AlertMailer.alert(example_alert(type: 'ProductiveCourseAlert'), example_user)
   end
