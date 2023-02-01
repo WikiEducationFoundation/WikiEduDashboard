@@ -4,6 +4,26 @@ import PropTypes from 'prop-types';
 // Components
 import ArticleViewerLegend from '@components/common/article_viewer_legend.jsx';
 
+const printArticleViewer = () => {
+  const printWindow = window.open('', '_blank', '');
+  const doc = printWindow.document;
+
+  doc.open();
+  doc.write(document.querySelector('#article-scrollbox-id').innerHTML);
+
+  // copy over the stylesheets
+  document.head.querySelectorAll('link, style').forEach((htmlElement) => {
+    doc.head.appendChild(htmlElement.cloneNode(true));
+  });
+  doc.close();
+  printWindow.focus();
+
+  // Loading the stylesheets can take a while, so we wait a bit before printing.
+  setTimeout(() => {
+    printWindow.print();
+  }, 500);
+};
+
 export const Footer = ({
   article, colors, failureMessage, showArticleFinder, highlightedHtml, isWhocolorLang,
   whocolorFailed, users
@@ -33,15 +53,37 @@ export const Footer = ({
   }
 
   return (
-    <div className="article-footer">
+    <div
+      className="article-footer"
+      style={{
+      display: 'flex',
+      alignItems: 'center',
+      padding: '0 1em',
+    }}
+    >
       {articleViewerLegend}
       <a
         className="button dark small pull-right article-viewer-button"
         href={article.url}
         target="_blank"
+        style={{
+          height: 'max-content',
+          width: 'max-content',
+          whiteSpace: 'nowrap'
+        }}
       >
         {I18n.t('articles.view_on_wiki')}
       </a>
+      <button
+        className="button dark small"
+        style={{
+          height: 'max-content',
+          width: 'max-content',
+        }}
+        onClick={printArticleViewer}
+      >
+        Print
+      </button>
     </div>
   );
 };
