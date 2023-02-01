@@ -3,26 +3,7 @@ import PropTypes from 'prop-types';
 
 // Components
 import ArticleViewerLegend from '@components/common/article_viewer_legend.jsx';
-
-const printArticleViewer = () => {
-  const printWindow = window.open('', '_blank', '');
-  const doc = printWindow.document;
-
-  doc.open();
-  doc.write(document.querySelector('#article-scrollbox-id').innerHTML);
-
-  // copy over the stylesheets
-  document.head.querySelectorAll('link, style').forEach((htmlElement) => {
-    doc.head.appendChild(htmlElement.cloneNode(true));
-  });
-  doc.close();
-  printWindow.focus();
-
-  // Loading the stylesheets can take a while, so we wait a bit before printing.
-  setTimeout(() => {
-    printWindow.print();
-  }, 500);
-};
+import { printArticleViewer } from '../../../../utils/article_viewer';
 
 export const Footer = ({
   article, colors, failureMessage, showArticleFinder, highlightedHtml, isWhocolorLang,
