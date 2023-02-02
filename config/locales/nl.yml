@@ -385,6 +385,7 @@ nl:
     revisions_doc: Het aantal bewerkingen in de afgelopen %{timeframe} dagen
     revisions_none: Deze cursus heeft geen recente bijbehorende Wikipediabewerkingen.
     school: School
+    search_all_tickets_for_this_course: Alle tickets voor deze cursus zoeken
     start: Start
     start_typing: Start met typen
     students: Studenten

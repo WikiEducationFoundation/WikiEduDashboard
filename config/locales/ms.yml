@@ -246,6 +246,7 @@ ms:
     passcode_prompt: 'Masukkan kod laluan untuk sertai:'
     school: Sekolah
     school_and_term: Institusi/Penggal
+    search_all_tickets_for_this_course: Cari semua tiket untuk kursus ini
     start: Mula
     students: Pelajar
     student_editors: Penyunting Pelajar

@@ -69,8 +69,10 @@ sl:
     preview: Kratek predogled predmeta
     title_example: Naslov predmeta
   assignments:
+    article_link_wikidata: Predmet
     loading: Nalaganje dodelitev ...
     remove: Odstrani
+    review_self_wikidata: Ponovni pregled predmeta
     sandbox_draft_link: Osnutek peskovnika
     select: Izberi
   campaign:
@@ -79,6 +81,7 @@ sl:
     alert_user_id: Uporabnik
     campaign: Kampanja
     campaigns: Kampanje
+    created_at: Datum
     description: Opis
     no_alerts: Ta kampanja nima opomnikov
     none: Noben
@@ -101,6 +104,7 @@ sl:
     archived: Arhivirani tečaji
     actions: Dejanja
     articles: Članki
+    article_viewer_wikidata: Pregledovalnik predmetov
     cancel: Prekliči
     character_doc: Skupno število znakov, ki so jih udeleženci tečaja v času tečaja
       dodali člankom v glavnem imenskem prostoru
@@ -208,6 +212,7 @@ sl:
     last_update_failed: Zadnja posodobitev tega tečaja ni uspela.
     tags: Oznake
     update_statistics_link: Več o tem
+    view_count_description_wikidata: Ogledi predmeta
     word_count: Dodane besede
     changed: Spremenjen
     labels: Oznake
@@ -298,6 +303,7 @@ sl:
     first_name: Ime
     last_name: Priimek
     loading: Nalaganje uporabnikov ...
+    characters_added_mainspace_wikidata: Dodani znaki (predmet)
     name: Ime
     no_revisions: (brez redakcij)
     number_of_articles:
@@ -330,6 +336,7 @@ sl:
     email:
       headline: Pozdravljeni, %{username}
   article_finder:
+    article_finder_wikidata: Iskalnik predmetov
     category_search: Poišči po kategorijah
     keyword_search: Iskanje po ključni besedi
     more_results: Več zadetkov
@@ -337,6 +344,7 @@ sl:
     search: Išči
     searching_articles: Iskanje člankov
     searching_articles_wikidata: Iskanje predmetov
+    unassign_article_self_wikidata: Prekliči dodelitev predmeta
   training_status:
     continue: Nadaljuj
     completion_time: Čas dokončanja
