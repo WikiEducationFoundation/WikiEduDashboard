@@ -44,17 +44,14 @@ module ApplicationHelper
     manifest[filename].split('/').last
   end
 
-  def get_valid_locale(locale)
-    # this is for when a variant of a locale is used, e.g. 'en-US' which doesn't have a
-    # corresponding i18n file. In that case, we use the base locale, e.g. 'en'
-    unless File.exist?("#{Rails.root}/public/assets/javascripts/i18n/#{locale}.js")
-      locale = locale.split('-').first
-    end
+  def en_if_invalid(locale)
+    # if the locale is not valid, use the default locale
+    return 'en' unless File.exist?("#{Rails.root}/public/assets/javascripts/i18n/#{locale}.js")
     locale
   end
 
   def i18n_javascript_tag(locale)
-    locale = get_valid_locale(locale)
+    locale = en_if_invalid(locale)
     md5 = Digest::MD5.file("#{Rails.root}/public/assets/javascripts/i18n/#{locale}.js").hexdigest
     javascript_include_tag "/assets/javascripts/i18n/#{locale}.js?v=#{md5}"
   end

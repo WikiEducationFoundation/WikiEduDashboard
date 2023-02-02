@@ -19,7 +19,7 @@
     window.i18n = i18n;
     window.I18n = i18n;
   
-  = i18n_javascript_tag get_valid_locale I18n.locale.to_s
+  = i18n_javascript_tag en_if_invalid I18n.locale.to_s
   :javascript
     I18n.defaultLocale = "#{I18n.default_locale}";
     I18n.locale = "#{I18n.locale}";

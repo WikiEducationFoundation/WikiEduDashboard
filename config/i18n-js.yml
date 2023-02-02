@@ -8,3 +8,6 @@ export_files:
   files:
     - template: template.erb
       output: "%{dir}/%{base_name}.js"
+
+embed_fallback_translations:
+  enabled: true
