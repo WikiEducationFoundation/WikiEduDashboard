@@ -19,9 +19,9 @@
   %meta{name: "data-languages", content: Wiki::LANGUAGES.to_json}
   %meta{name: "data-namespaces", content: Wiki::PROJECTS_NAMESPACES.to_json}
   :javascript
-    I18n.defaultLocale = "#{I18n.default_locale}";
-    I18n.locale = "#{I18n.locale}";
-    I18n.availableLocales = #{I18n.available_locales.to_json.html_safe}
+    I18n.defaultLocale = "#{get_valid_locale I18n.default_locale.to_s}";
+    I18n.locale = "#{get_valid_locale I18n.locale.to_s}";
+    I18n.availableLocales = #{I18n.available_locales.to_json.html_safe};
 
     currentUser = {
       id: "#{current_user&.id || ''}",
