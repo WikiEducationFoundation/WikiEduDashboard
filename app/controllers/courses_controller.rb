@@ -50,7 +50,10 @@ class CoursesController < ApplicationController
     UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
     render json: { course: @course }
   rescue Wiki::InvalidWikiError => e
-    render json: { errors: e, message: I18n.t('courses.error.invalid_language_or_project') },
+    language = params.dig(:course, :home_wiki, :language)
+    project = params.dig(:course, :home_wiki, :project)
+    message = I18n.t('courses.error.invalid_wiki', language:, project:)
+    render json: { errors: e, message: },
            status: :not_found
   end
 
