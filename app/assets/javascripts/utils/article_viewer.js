@@ -3,12 +3,21 @@ export const printArticleViewer = () => {
   const doc = printWindow.document;
 
   doc.open();
+  const pageHeader = document.createElement('div');
+  pageHeader.classList.add('header-print-article-viewer');
+
+  pageHeader.appendChild(document.querySelector('.article-viewer-title').cloneNode(true));
+  pageHeader.appendChild(document.querySelector('.user-legend-wrap').cloneNode(true));
+
+  doc.write(pageHeader.outerHTML);
   doc.write(document.querySelector('#article-scrollbox-id').innerHTML);
+  doc.body.classList.add('print-article-viewer');
 
   // copy over the stylesheets
   document.head.querySelectorAll('link, style').forEach((htmlElement) => {
     doc.head.appendChild(htmlElement.cloneNode(true));
   });
+
   doc.close();
   printWindow.focus();
 
