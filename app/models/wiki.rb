@@ -190,10 +190,10 @@ class Wiki < ApplicationRecord
   end
 
   class InvalidWikiError < StandardError
-    def initialize(project, language)
-      super
+    def initialize(project, language, msg = 'Invalid Language/Project')
       @project = project
       @language = language
+      super(msg)
     end
 
     def domain_name
