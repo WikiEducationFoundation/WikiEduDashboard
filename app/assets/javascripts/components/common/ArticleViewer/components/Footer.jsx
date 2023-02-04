@@ -63,7 +63,7 @@ export const Footer = ({
         }}
         onClick={printArticleViewer}
       >
-        Print
+        {I18n.t('application.print')}
       </button>
     </div>
   );
