@@ -50,8 +50,7 @@ class CoursesController < ApplicationController
     UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
     render json: { course: @course }
   rescue Wiki::InvalidWikiError => e
-    domain_name = e.domain_name
-    message = I18n.t('courses.error.invalid_wiki', domain_name:)
+    message = I18n.t('courses.error.invalid_wiki', domain: e.domain)
     render json: { errors: e, message: },
            status: :not_found
   end

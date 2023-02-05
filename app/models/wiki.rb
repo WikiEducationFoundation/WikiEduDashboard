@@ -177,27 +177,27 @@ class Wiki < ApplicationRecord
       return
     end
 
-    raise InvalidWikiError.new(project, language) unless PROJECTS.include?(project)
-    raise InvalidWikiError.new(project, language) unless LANGUAGES.include?(language)
+    raise InvalidWikiError.new(domain) unless PROJECTS.include?(project)
+    raise InvalidWikiError.new(domain) unless LANGUAGES.include?(language)
   end
 
   def ensure_wiki_exists
     return if errors.any? # Skip this check if the wiki had a validation error.
     site_info = WikiApi.new(self).query(meta: :siteinfo)
-    raise InvalidWikiError.new(project, language) if site_info.nil?
+    raise InvalidWikiError.new(domain) if site_info.nil?
     servername = site_info.data.dig('general', 'servername')
-    raise InvalidWikiError.new(project, language) unless base_url == "https://#{servername}"
+    raise InvalidWikiError.new(domain) unless base_url == "https://#{servername}"
   end
 
   class InvalidWikiError < StandardError
-    def initialize(project, language, msg = 'Invalid Language/Project')
-      @project = project
-      @language = language
+    def initialize(domain, msg = 'Invalid Language/Project')
+      @msg = msg
+      @domain = domain
       super(msg)
     end
 
-    def domain_name
-      "#{@language}.#{@project}.org"
+    def domain
+      @domain
     end
   end
 end
