@@ -7,6 +7,34 @@ $body_font = "Open Sans", "Source Sans Pro", arial, sans-serif
 $heading_font = $body_font
 $h1_font = "Source Sans Pro", "Open Sans", arial, sans-serif
 
+body.print-article-viewer
+  print-color-adjust exact
+  display flex
+  flex-direction: column
+  align-items center
+  background-color white
+  .user-legend-wrap
+    .user-legend
+      margin 0
+    background transparent
+    display flex
+    flex-wrap wrap
+    gap 5px
+    justify-content end
+    width max-content
+    :nth-child(1)
+      display grid
+      place-items center
+  .parsed-article
+    margin-top 0
+  .header-print-article-viewer
+    display flex
+    justify-content space-between
+    align-items center
+    padding 0 30px
+    width 100%
+
+
 body.home
   color $body_color
   font-family $body_font

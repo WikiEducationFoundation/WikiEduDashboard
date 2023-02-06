@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 // Components
 import ArticleViewerLegend from '@components/common/article_viewer_legend.jsx';
+import { printArticleViewer } from '../../../../utils/article_viewer';
 
 export const Footer = ({
   article, colors, failureMessage, showArticleFinder, highlightedHtml, isWhocolorLang,
@@ -33,15 +34,37 @@ export const Footer = ({
   }
 
   return (
-    <div className="article-footer">
+    <div
+      className="article-footer"
+      style={{
+      display: 'flex',
+      alignItems: 'center',
+      padding: '0 1em',
+    }}
+    >
       {articleViewerLegend}
       <a
         className="button dark small pull-right article-viewer-button"
         href={article.url}
         target="_blank"
+        style={{
+          height: 'max-content',
+          width: 'max-content',
+          whiteSpace: 'nowrap'
+        }}
       >
         {I18n.t('articles.view_on_wiki')}
       </a>
+      <button
+        className="button dark small"
+        style={{
+          height: 'max-content',
+          width: 'max-content',
+        }}
+        onClick={printArticleViewer}
+      >
+        {I18n.t('application.print')}
+      </button>
     </div>
   );
 };
