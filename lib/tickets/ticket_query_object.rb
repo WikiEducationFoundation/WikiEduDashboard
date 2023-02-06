@@ -16,6 +16,8 @@ class TicketQueryObject
       search_by_subject
     when 'in_content'
       search_by_content
+    when 'by_course'
+      search_by_course
     end
   end
 
@@ -48,6 +50,13 @@ class TicketQueryObject
         .pluck(:id) })
            .offset(@offset)
            .limit(@limit)
+  end
+
+  def search_by_course
+    tickets
+      .where(project: Course.find_by(slug: @search))
+      .offset(@offset)
+      .limit(@limit)
   end
 
   private

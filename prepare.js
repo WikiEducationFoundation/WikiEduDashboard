@@ -17,7 +17,7 @@ console.log('\x1b[33m%s\x1b[0m', `Finished cleaning stale assets after ${elapsed
 
 // export i18n files
 console.log('Started emitting i18n translations');
-execSync('bundle exec rails i18n:js:export');
+execSync('bundle exec i18n export -c ./config/i18n-js.yml');
 console.log('\x1b[33m%s\x1b[0m', `Finished emitting i18n translations after ${elapsed(process.hrtime(start))} seconds`);
 
 // copies static assets from the source to assets folder

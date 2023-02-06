@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import { sortBy, difference, uniq, filter, includes, pickBy, find } from 'lodash-es';
 import { getFiltered } from '../utils/model_utils';
-import { STUDENT_ROLE, INSTRUCTOR_ROLE, ONLINE_VOLUNTEER_ROLE, CAMPUS_VOLUNTEER_ROLE, STAFF_ROLE, fetchStates } from '../constants';
+import { STUDENT_ROLE, INSTRUCTOR_ROLE, ONLINE_VOLUNTEER_ROLE, CAMPUS_VOLUNTEER_ROLE, STAFF_ROLE, fetchStates, ARTICLES_PER_PAGE } from '../constants';
 import UserUtils from '../utils/user_utils.js';
 import { PageAssessmentGrades } from '../utils/article_finder_language_mappings.js';
 import CourseDateUtils from '../utils/course_date_utils.js';
@@ -16,6 +16,7 @@ const getAllEditedArticles = state => state.articles.articles;
 const getWikiFilter = state => state.articles.wikiFilter;
 const getNewnessFilter = state => state.articles.newnessFilter;
 const getTrackedStatusFilter = state => state.articles.trackedStatusFilter;
+const getCurrentArticlesPage = state => state.articles.currentPage;
 const getAlerts = state => state.alerts.alerts;
 const getAlertFilters = state => state.alerts.selectedFilters;
 const getArticleFinderState = state => state.articleFinder;
@@ -169,6 +170,13 @@ export const getArticlesByTrackedStatus = createSelector(
       default:
         return articles;
     }
+  }
+);
+
+export const getArticlesByPage = createSelector(
+  [getArticlesByTrackedStatus, getCurrentArticlesPage], (articles, page) => {
+    const toSkip = (page - 1) * ARTICLES_PER_PAGE;
+    return articles.slice(toSkip, toSkip + ARTICLES_PER_PAGE);
   }
 );
 

@@ -6,7 +6,10 @@ import {
   SET_PROJECT_FILTER,
   SET_NEWNESS_FILTER,
   SET_TRACKED_STATUS_FILTER,
-  UPDATE_ARTICLE_TRACKED_STATUS
+  UPDATE_ARTICLE_TRACKED_STATUS,
+  SET_ARTICLES_PAGE,
+  ARTICLES_PER_PAGE,
+  RESET_PAGES
 } from '../constants';
 
 const initialState = {
@@ -17,6 +20,8 @@ const initialState = {
     key: null,
     sortKey: null
   },
+  totalPages: 1,
+  currentPage: 1,
   wikis: [],
   wikiFilter: { project: 'all' },
   newnessFilter: 'both',
@@ -76,7 +81,8 @@ export default function articles(state = initialState, action) {
         newnessFilterEnabled,
         trackedStatusFilterEnabled,
         loading: false,
-        lastRequestTimestamp: Date.now()
+        lastRequestTimestamp: Date.now(),
+        totalPages: Math.ceil(action.data.course.articles.length / ARTICLES_PER_PAGE)
       };
     }
 
@@ -132,6 +138,13 @@ export default function articles(state = initialState, action) {
         trackedStatusFilter = 'both';
       }
       return { ...state, trackedStatusFilterEnabled, trackedStatusFilter, articles: updatedArticles };
+    }
+
+    case SET_ARTICLES_PAGE: {
+      return { ...state, currentPage: action.page };
+    }
+    case RESET_PAGES: {
+      return { ...state, currentPage: 1, totalPages: action.totalPages };
     }
 
     default:

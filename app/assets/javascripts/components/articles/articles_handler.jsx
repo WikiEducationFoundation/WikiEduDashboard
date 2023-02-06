@@ -13,7 +13,7 @@ import AvailableArticles from '../articles/available_articles.jsx';
 import CategoryHandler from '../categories/category_handler.jsx';
 import { fetchArticles, sortArticles, filterArticles, filterNewness, filterTrackedStatus } from '../../actions/articles_actions.js';
 import { fetchAssignments } from '../../actions/assignment_actions';
-import { getArticlesByTrackedStatus } from '../../selectors';
+import { getArticlesByPage } from '../../selectors';
 import { delayFetchAssignmentsAndArticles } from '../util/helpers';
 import ArticleUtils from '../../utils/article_utils.js';
 
@@ -118,7 +118,7 @@ export const ArticlesHandler = withRouter(createReactClass({
 
 const mapStateToProps = state => ({
   limit: state.articles.limit,
-  articles: getArticlesByTrackedStatus(state),
+  articles: getArticlesByPage(state),
   limitReached: state.articles.limitReached,
   wikis: state.articles.wikis,
   wikidataLabels: state.wikidataLabels.labels,

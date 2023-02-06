@@ -25,6 +25,17 @@ describe 'language_switcher', type: :feature, js: true do
       expect(page).to have_current_path(root_path(locale: 'fr'))
       expect(page).to have_text('Se connecter à Wikipédia')
     end
+
+    it 'fallbacks to en for locales with incomplete translations' do
+      visit root_path(locale: 'az')
+      expect(page).to have_current_path(root_path(locale: 'az'))
+      expect(page).to have_text('Daxil ol')
+      expect(page).to have_text('Kömək')
+
+      # az.application.training is missing so it should fallback to en
+      expect(page).to have_no_content('[missing "az.')
+      expect(page).to have_content('Training')
+    end
   end
 
   context 'user logged in' do

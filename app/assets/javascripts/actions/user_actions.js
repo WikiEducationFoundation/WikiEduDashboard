@@ -1,9 +1,14 @@
 import API from '../utils/api.js';
-import { RECEIVE_USERS, ADD_USER, REMOVE_USER, SORT_USERS, API_FAIL } from '../constants';
+import { RECEIVE_USERS, ADD_USER, REMOVE_USER, SORT_USERS, API_FAIL, DONE_REFRESHING_DATA } from '../constants';
 
-export const fetchUsers = courseSlug => (dispatch) => {
+export const fetchUsers = (courseSlug, refresh = false) => (dispatch) => {
   return API.fetch(courseSlug, 'users')
-    .then(data => dispatch({ type: RECEIVE_USERS, data }))
+    .then((data) => {
+      dispatch({ type: RECEIVE_USERS, data });
+      if (refresh) {
+        dispatch({ type: DONE_REFRESHING_DATA });
+      }
+    })
     .catch(data => dispatch({ type: API_FAIL, data }));
 };
 

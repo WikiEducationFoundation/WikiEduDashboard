@@ -12,15 +12,16 @@
 
   = content_for :head
 
-  = javascript_include_tag '/assets/javascripts/i18n'
+  = hot_javascript_tag "vendors"
+  = hot_javascript_tag "i18n"
   = i18n_javascript_tag I18n.locale.to_s
   %meta{name: "data-projects", content: Wiki::PROJECTS.to_json}
   %meta{name: "data-languages", content: Wiki::LANGUAGES.to_json}
   %meta{name: "data-namespaces", content: Wiki::PROJECTS_NAMESPACES.to_json}
   :javascript
-    I18n.defaultLocale = "#{I18n.default_locale}";
-    I18n.locale = "#{I18n.locale}";
-    I18n.availableLocales = #{I18n.available_locales.to_json.html_safe}
+    I18n.defaultLocale = "#{en_if_invalid I18n.default_locale.to_s}";
+    I18n.locale = "#{en_if_invalid I18n.locale.to_s}";
+    I18n.availableLocales = #{I18n.available_locales.to_json.html_safe};
 
     currentUser = {
       id: "#{current_user&.id || ''}",
@@ -47,7 +48,6 @@
     SalesforceServer = "#{ENV['SF_SERVER']}"
     dashboardTitle = "#{title}"
 
-  = hot_javascript_tag "vendors"
   - if Features.sentry?
     = hot_javascript_tag("sentry")
     // Sentry logging

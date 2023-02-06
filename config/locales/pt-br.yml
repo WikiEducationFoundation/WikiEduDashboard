@@ -24,9 +24,11 @@
 # Author: Macofe
 # Author: Mariagarbin
 # Author: Maxan
+# Author: Mello25
 # Author: Pedrofariasm
 # Author: Peter Fernando
 # Author: Raphaelras
+# Author: Robertpontes
 # Author: Rodrigo codignoli
 # Author: Rukasuoribera
 # Author: Svjatysberega
@@ -133,9 +135,10 @@ pt-br:
     explore: Explorar
     log_in: Entrar via Wikipédia
     sign_up: Criar conta pela Wikipédia
-    sign_up_help: Para utilizar o painel de controle, você precisará iniciar uma sessão
-      na Wikipédia e autorizar o acesso a sua conta de usuário. Inicie a sessão com
-      uma conta já existente na Wikipédia ou crie uma nova.
+    sign_up_help: Para usar o painel, você precisará fazer login na Wikipédia e conceder
+      permissão para acessar sua conta. Você pode fazer login com uma conta da Wikipédia
+      existente ou criar uma nova. Se você não conseguir criar uma conta, entre em
+      contato com dashboard@wikiedu.org.
   alerts:
     alert_label: Alertas
     no_alerts: Nenhum alerta encontrado.
@@ -693,6 +696,7 @@ pt-br:
     gradeables_none: Este curso não tem atribuições graduáveis.
     home_wiki: Wiki principal
     multi_wiki: Wikis rastreadas
+    namespaces: Espaços nominais rastreados
     instructor:
       one: Instrutor
       other: Instrutores
@@ -801,6 +805,7 @@ pt-br:
     revisions_none: Este curso não tem atividade recente de edição na Wikipédia.
     school: Escola
     school_and_term: Instituição/Quando
+    search_all_tickets_for_this_course: Pesquisar todos os tickets para este curso
     search_courses: Pesquisar cursos
     start: Iniciar
     start_typing: Começar a escrever
@@ -1182,6 +1187,10 @@ pt-br:
     rhymes: Rimas
     index: Índice
     collection: Coleção
+    tracked_namespaces_info: Somente os artigos correspondentes aos espaços nominais
+      rastreados contribuirão para as estatísticas gerais da linha principal, como
+      'Artigos editados', 'Edições totais', 'Palavras adicionadas', etc. Portanto,
+      rastreie apenas os espaços nominais que seu programa pretende melhorar.
   recent_activity:
     active_courses: O artigo está ativo em
     article_title: Título
@@ -1315,6 +1324,8 @@ pt-br:
       foram pausadas. Execute 'rake batch:resume' para retomar atualizações.
   tickets:
     none: Sem ingressos
+    search_bar_placeholder: Procurar tickets
+    chose_search_type: Escolha um tipo de pesquisa
   timeline:
     add_week: Adicionar semana
     arrange_timeline: Organizar cronograma
@@ -1401,6 +1412,14 @@ pt-br:
       exercise: Exercício
       discussion: Discussão
       training: Treinamento
+    no_training_library_records_wiki_ed_mode: Não há registros de TrainingLibrary
+      no banco de dados. Clique <a href="%{url}">aqui</a> para carregar os dados de
+      treinamento dos arquivos training_content/ yaml.
+    no_training_library_records_non_wiki_ed_mode: Não há registros de TrainingLibrary
+      no banco de dados.
+    search_training_resources: Pesquisar recursos de treinamento
+    no_training_resource_match_your_search: Nenhum recurso de treinamento corresponde
+      à sua pesquisa
   uploads:
     credit: Crédito
     file_name: Nome do Arquivo

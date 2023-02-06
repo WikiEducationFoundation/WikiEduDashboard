@@ -5,6 +5,16 @@
 # Author: McDutchie
 ---
 ia:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: k
+          million: mln
+          billion: mld
+          trillion: bln
+          quadrillion: bld
   accessibility:
     number_field: Isto es un campo de numero. Le buttones generate sur le major parte
       de navigatores incrementa e decrementa le entrata.
@@ -14,6 +24,7 @@ ia:
       informationes associate a tu conto de Wikipedia.
     cookie_consent_acknowledge: Io comprende
     cookie_consent_see_more: Vider plus.
+    create_accounts: Crear contos de Wikipedia
     error: 'Un error ha occurrite:'
     explore: Explorar
     field_required: Iste campo es obligatori
@@ -44,11 +55,14 @@ ia:
       un instructor debe adder le sequente wiki a iste curso: %{wiki}'
   courses:
     join_no_passcode: Es tu secur de voler sequer iste curso?
+    search_all_tickets_for_this_course: Cercar tote le billetes pro iste curso
     timeline_enabled: Chronologia activate
   metrics:
     articles_created_generic: Paginas create
   revisions:
     see_more: Vider plus
+  tickets:
+    none: Necun billet
   training:
     table_of_contents: Tabula del contentos
     kind:

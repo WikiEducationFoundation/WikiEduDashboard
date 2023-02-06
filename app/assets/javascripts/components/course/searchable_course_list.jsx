@@ -1,4 +1,3 @@
-import I18n from 'i18n-js';
 import React, { useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import SearchBar from '../common/search_bar';

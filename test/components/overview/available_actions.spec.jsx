@@ -49,21 +49,24 @@ describe('AvailableActions', () => {
     );
 
     const actions = TestAvailableActions.find('.available-action');
-    expect(actions.length).toEqual(5);
+    expect(actions.length).toEqual(6);
 
-    const deleteButton = actions.at(0);
+    const searchButton = actions.at(0);
+    expect(searchButton.text()).toEqual(I18n.t('courses.search_all_tickets_for_this_course'));
+
+    const deleteButton = actions.at(1);
     expect(deleteButton.text()).toEqual('Delete course');
 
-    const enableAccountRequestsButton = actions.at(1);
+    const enableAccountRequestsButton = actions.at(2);
     expect(enableAccountRequestsButton.text()).toEqual('Enable account requests');
 
-    const downloadStatsButton = actions.at(2);
+    const downloadStatsButton = actions.at(3);
     expect(downloadStatsButton.text()).toEqual('Download stats');
 
-    const embedStatsButton = actions.at(3);
+    const embedStatsButton = actions.at(4);
     expect(embedStatsButton.text()).toEqual('Embed Course Stats');
 
-    const cloneCourseButton = actions.at(4);
+    const cloneCourseButton = actions.at(5);
     expect(cloneCourseButton.text()).toEqual('Clone This Course');
   });
 
@@ -90,18 +93,21 @@ describe('AvailableActions', () => {
     );
 
     const actions = TestAvailableActions.find('.available-action');
-    expect(actions.length).toEqual(4);
+    expect(actions.length).toEqual(5);
 
-    const enableAccountRequestsButton = actions.at(0);
+    const searchButton = actions.at(0);
+    expect(searchButton.text()).toEqual(I18n.t('courses.search_all_tickets_for_this_course'));
+
+    const enableAccountRequestsButton = actions.at(1);
     expect(enableAccountRequestsButton.text()).toEqual('Enable account requests');
 
-    const downloadStatsButton = actions.at(1);
+    const downloadStatsButton = actions.at(2);
     expect(downloadStatsButton.text()).toEqual('Download stats');
 
-    const embedStatsButton = actions.at(2);
+    const embedStatsButton = actions.at(3);
     expect(embedStatsButton.text()).toEqual('Embed Course Stats');
 
-    const cloneCourseButton = actions.at(3);
+    const cloneCourseButton = actions.at(4);
     expect(cloneCourseButton.text()).toEqual('Clone This Course');
   });
 });

@@ -7,6 +7,7 @@ ps:
   application:
     cancel: ناگارل
     dashboard: ويکي زده کړه ډشبورډ
+    documentation: لاسوندکښنه
     field_required: دې ډاگي ته اړتيا ده
     greeting2: ښه راغلئ!
     greeting_extended: ويکيپېډيا ته ښه راغلئ
@@ -25,6 +26,10 @@ ps:
     submit: سپارل
     training: تمرين
     change: بدلول
+    opt_yes: هو
+    opt_no: نه
+  article_statuses:
+    not_yet_started: پیل کول
   home:
     log_in: د ويکيپېډيا له لارې ورننوتل
     sign_up: د ويکيپېډيا له لارې نومليکنه
@@ -34,6 +39,10 @@ ps:
     label: فعاليت
   articles:
     edited_mobile: ليکنې
+    filter:
+      wiki_all: ټول
+      new: نوی
+    hide: پټول
     label: ليکنې
     loading: ليکنې برسېرېږي...
     new: (نوی)
