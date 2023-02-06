@@ -95,6 +95,8 @@ smn:
     tags: Kilgoleh
     upload_count: Vuorkkiimeh Commonsin
     removed: Sikkum
+  namespace:
+    lexeme: Lekseem
   recent_activity:
     image: Kove
     file_name: Tiätuvuárkkánommâ
