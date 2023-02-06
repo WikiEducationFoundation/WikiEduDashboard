@@ -49,6 +49,10 @@ class CoursesController < ApplicationController
     ensure_passcode_set
     UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
     render json: { course: @course }
+  rescue Wiki::InvalidWikiError => e
+    message = I18n.t('courses.error.invalid_wiki', domain: e.domain)
+    render json: { errors: e, message: },
+           status: :not_found
   end
 
   def destroy
