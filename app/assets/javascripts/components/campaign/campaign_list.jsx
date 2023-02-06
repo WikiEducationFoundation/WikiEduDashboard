@@ -1,4 +1,3 @@
-import I18n from 'i18n-js';
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';

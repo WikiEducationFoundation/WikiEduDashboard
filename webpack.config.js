@@ -36,6 +36,7 @@ module.exports = (env) => {
     embed_course_stats: [`${jsSource}/embed_course_stats.js`],
     accordian: [`${jsSource}/accordian.js`],
     editable: [`${jsSource}/utils/editable.js`],
+    i18n: [`${jsSource}/i18n.js`],
 
     surveys: [`${cssSource}/surveys.styl`],
     training: [`${cssSource}/training.styl`],
@@ -147,7 +148,6 @@ module.exports = (env) => {
     },
     externals: {
       jquery: 'jQuery',
-      'i18n-js': 'I18n'
     },
     devtool,
     stats: env.stats ? 'normal' : 'minimal',

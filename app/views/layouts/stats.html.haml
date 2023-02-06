@@ -10,9 +10,16 @@
   = dashboard_stylesheet_tag("main")
   %script(src="https://unpkg.com/react@16.0.0/umd/react.production.min.js")
   %script(src="https://unpkg.com/react-dom@16.0.0/umd/react-dom.production.min.js")
+  %script(src="https://cdn.jsdelivr.net/npm/i18n-js@4.2.2/dist/browser/index.js")
+ 
+  :javascript
+    const i18n = new I18n.I18n();
+    i18n.enableFallback = true;
 
-  = javascript_include_tag '/assets/javascripts/i18n'
-  = i18n_javascript_tag I18n.locale.to_s
+    window.i18n = i18n;
+    window.I18n = i18n;
+  
+  = i18n_javascript_tag en_if_invalid I18n.locale.to_s
   :javascript
     I18n.defaultLocale = "#{I18n.default_locale}";
     I18n.locale = "#{I18n.locale}";

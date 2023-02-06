@@ -14,9 +14,6 @@ window.List = require('list.js'); // List is used for sorting tables outside of 
 
 document.addEventListener('DOMContentLoaded', () => {
   /* eslint-disable */
-  import('i18n-js').then(({ default: I18n }) => {
-    window.I18n = I18n;
-  });
   import('./utils/course.js'); // This adds jquery features for some views outside of React
   
   // This is the main React entry point. It renders the navbar throughout the app, and
