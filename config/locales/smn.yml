@@ -42,6 +42,7 @@ smn:
     next: Čuávuvâš
     previous: Oovdeb
     article_title: Artikkâl paječaalâ
+    deleted: (sikkum)
     edited_by: 'Hammim:'
     edited_mobile: Artikkâleh
     filter:
@@ -94,6 +95,8 @@ smn:
     tags: Kilgoleh
     upload_count: Vuorkkiimeh Commonsin
     removed: Sikkum
+  namespace:
+    lexeme: Lekseem
   recent_activity:
     image: Kove
     file_name: Tiätuvuárkkánommâ

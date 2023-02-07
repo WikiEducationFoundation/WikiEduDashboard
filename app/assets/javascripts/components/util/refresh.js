@@ -1,6 +1,7 @@
 import { fetchArticles } from '../../actions/articles_actions';
 import { fetchAssignments } from '../../actions/assignment_actions';
 import { fetchUsers } from '../../actions/user_actions';
+import { REFRESHING_DATA } from '../../constants';
 
 // this tells us if the data is stale and needs to be refreshed
 /**
@@ -30,13 +31,15 @@ export const refreshData = (location, args, dispatch) => {
   // if we're on either of the student's routes, refresh the student data
   if (location.pathname.match(/\/.+students\/(overview|articles).*/)) {
     if (courseSlug !== null && courseSlug !== undefined && isStale(lastUserRequestTimestamp)) {
-      dispatch(fetchUsers(courseSlug));
+      dispatch({ type: REFRESHING_DATA });
+      dispatch(fetchUsers(courseSlug, true));
     }
   }
 
   // if we're on the articles route, refresh the article data
   if (location.pathname.includes('/articles/edited')) {
     if (courseSlug !== null && courseSlug !== undefined && isStale(lastRequestArticleTimestamp)) {
+      dispatch({ type: REFRESHING_DATA });
       dispatch(fetchArticles(courseSlug, articlesLimit, true));
     }
   }
@@ -44,7 +47,8 @@ export const refreshData = (location, args, dispatch) => {
   // as for the assignments, we refresh the data if we're on the assignments route or the student's overview route(which also shows the assignments)
   if (location.pathname.includes('/articles/assigned') || location.pathname.match(/\/.+students\/(overview|articles).*/)) {
     if (courseSlug !== null && courseSlug !== undefined && isStale(lastRequestAssignmentTimestamp)) {
-      dispatch(fetchAssignments(courseSlug));
+      dispatch({ type: REFRESHING_DATA });
+      dispatch(fetchAssignments(courseSlug, true));
     }
   }
 };

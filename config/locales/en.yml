@@ -82,6 +82,7 @@ en:
     opt_out: "No"
     opt_yes: "yes"
     opt_no: "no"
+    print: Print
 
   article_statuses:
     not_yet_started: Getting Started
@@ -621,6 +622,7 @@ en:
       user_exists: "Sorry, %{username} is not an existing user."
       user_exists_on_wiki: "Sorry, %{username} is not an existing user on %{domain}."
       invalid_language_or_project: Invalid language/project
+      invalid_wiki: "Cannot connect to %{domain}. It may not be a valid wiki."
       invalid_slug: Blank school/title for course.
       duplicate_slug: "Another program called %{slug} already exists."
     expected_students: Expected Students
@@ -732,6 +734,7 @@ en:
     revisions_none: This course has no recent Wikipedia editing activity.
     school: School
     school_and_term: Institution/Term
+    search_all_tickets_for_this_course: Search all tickets for this course
     search_courses: Search courses
     start: Start
     start_typing: Start typing

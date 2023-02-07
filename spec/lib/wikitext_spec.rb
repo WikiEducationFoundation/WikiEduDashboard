@@ -11,7 +11,7 @@ describe Wikitext do
       title = subject.markdown_to_mediawiki('# Title #')
       text = subject.markdown_to_mediawiki('This is some plain text')
       response = title + text
-      expect(response).to eq("= Title =\n\nThis is some plain text\n\n")
+      expect(response).to eq("= Title =\nThis is some plain text\n")
     end
 
     it 'renders a list without a blank line preceding it, a la GitHub-style markdown' do

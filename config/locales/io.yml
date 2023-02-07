@@ -5,53 +5,228 @@
 # Author: Joao Xavier
 ---
 io:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: K
+          million: M
+          billion: B
+          trillion: T
+          quadrillion: Q
+  accessibility:
+    number_field: Ca intervalo mustas plenigesas per nombri. En la maxim multa retonavigili,
+      ca butoni augmentos o diminutos la valoroquanto.
   application:
     cancel: Nuligar
+    cookie_consent: Ca ret-situo uzas ''cookies'' por mantenar vu konektata, e konservas
+      informi pri vua konto che Wikipedio.
+    cookie_consent_acknowledge: Me komprenas
     cookie_consent_see_more: Videz pluse.
+    create_accounts: Krear konti che Wikipedio
+    dashboard: Wiki e Tablero
+    documentation: Dokumentaro
     error: 'Eventis ula eroro:'
     explore: Explorez
+    field_required: Opciono bezonata
+    field_invalid_characters: Ca intervalo havas nevalida karakteri
+    field_invalid_date: Ca intervalo bezonas dato segun formato YYYY-MM-DD (yaro-monato-dio)
+    field_invalid_date_time: La fino mustas esar pos la komenco. (Hori iras de 0 til
+      23.)
     greeting2: Bonveno!
+    greeting_extended: Bonveno a Wikipedio
     greeting: Saluto!
+    help: Helpo
     home: Chefpagino
     log_in_extended: Enirez uzanta Wikipedio
     log_in: Enirez
+    log_out: Ekirar
+    my_dashboard: Mea tablero
+    recent_activity: Recenta agado
+    report_problem: Raportez problemo
+    request_account: Demandez konto
+    request_account_create: Kreez konto
+    search: questionez
+    search_results:
+      one: '%{count} rezulto por: ''%{search_terms}'''
+      other: '%{count} rezulti por: ''%{search_terms}'''
+    no_results: Nula rezulti trovesis por '%{query}'
+    sign_up_extended: Registragez uzanta Wikipedio
+    sign_up_wikipedia: Od enrejistrez su che Wikipedio
+    sign_up_log_in_extended: kun Wikipedio
     sign_up: Registragez
     submit: Sendar
+    training: Probanta
     change: Modifiko
+    details: Detali
     confirm: O.K.
     opt_in: "Yes"
     opt_out: "No"
+    opt_yes: "yes"
+    opt_no: "no"
+  article_statuses:
+    not_yet_started: Komencanta
+    in_progress: Uzar probeyo
+    ready_for_review: Expansar esbosuro
+    ready_for_mainspace: Transferar laboro a definitiva loko
+    assignment_completed: Tasko definita kom kompleta
+    reading_the_article: Lektanta artiklo
+    providing_feedback: Furnisar ''feedback''
+    post_to_talk: Skribar en diskuto-pagino
+    peer_review_completed: Revizo kompletigita
+  dashboard:
+    create_note: Kliktez ''Krear kurso'' por krear vua unesma kurso.
+    explore_course_pages: Examinar pagini dil kurso
+    explore_examples: Examinar exempli
+    join_note: Pos recevor pasovorto de vua instruktero, kliktez "Trovar mea kurso"
+      (''Find Your Course'') por trovar ol, e partoprenez.
+    no_courses_instructor: Semblas ke vu havas nula kurso.
+    no_courses_student: Semblas ke vu ankore ne matrikulizis su en irga kurso.
+    start_orientation: Komencez orientalizo
+    blog_headline: Recenta novaji de ''Wiki Education''
   home:
     explore: Explorez
     sign_up: Registragez uzanta Wikipedio
+  alerts:
+    alert_label: Avizi
+    no_alerts: Nula avizi trovesis.
   activity:
     all: Aktiveso
+    edited_by: Redaktita da
     label: Aktiveso
   articles:
     articles: Artikli
+    article_not_found: Ca artiklo ankore ne kreesis.
+    article_development: (developado di artiklo)
+    articles_shown: Montranta %{count} ek %{total}
+    assigned: Atribuit artikli
+    assignments_none: Nula artiklo atribuesis ankore.
+    available: Disponebl artikli
+    no_available: Nula artiklo disponebla
+    next: Sequanta
+    previous: Antea
     article_title: Titulo dil artiklo
+    assigned_to: Atribuita a
+    deleted: (efacita)
     edited_mobile: Artikli
+    filter:
+      wiki_all: Omni
+      new: Nova
+      existing: Existanta
+      new_and_existing: Nova ed existanta
+      tracked: Sequita
+      untracked: Ne sequita
+      tracked_and_untracked: Sequita e nesequita
+    find: Trovar artikli
     hide: Celez
+    history: (versionaro)
     label: Artikli
+    loading: Karganta artikli...
+    new: (nova)
+    none: Ca kurso ankore ne redaktis irga artiklo.
+    preview: Kurta rezumo pri l'artiklo
+    rating: Klaso
     title: Titulo
+    articles_short: Artikli
   assignments:
+    clone: Facar exakta kopiuro
+    group_members: Membri dil grupo
+    label: Asignar
+    loading: Karganta taski...
+    no_available: Ca kurso havas nula artikli disponebla.
+    peer_review_count: '%{currentCount}/%{total} selektita'
+    peer_review_count_tooltip: Vu mustas selektar %{total} artikli por atencoza revizo.
+    peer_review_link: Atencoza revizo
+    peer_review_link_personalized: Atencoza revizo da %{username}
+    random_peer_review:
+      confirm_addition: |-
+        En la maxim multa kazi, vu mustos uzar to nur pos ke omna lernanti recevos lia precipua artikli. Altralatere, vu povos demandar ke vua studianti selektez pari por facar la revizi, o mem vu povos selektar pari di studianti por revizar artikli, kliktanta en la kolumno kun la nomo di irga studianto, e pose kliktanta la butono ''"Assign/remove a peer review"''.
+
+        Kliktanta "OK" kreos plusa %{count} par(o/i) por revizar, kun admaxime %{maximum} por irga studianto, selektita inter l'artikli de lia kolegi.
     remove: Removar artiklo
     reviewers: Revizero(revizeri)
   campaign:
+    alert_type: Tipo
+    alert_user_id: Uzero
+    all_campaigns: Omna kampanii
+    already_exists: La kampanio ja existas! Voluntez probar itere, uzanta diferanta
+      titulo, o ''slug''.
     campaign: Kampanio
     campaigns: Kampanii
+    campaign_deleted: La kampanio "%{title}" eliminesis
+    campaign_not_updated: Ne povis aktualigar la kampanio
+    campaign_updated: Kampanio aktualigita
+    created_at: Dato
+    confirm_campaign_deletion: Ka vu fakte deziras efacar la kampanio "%{title}"?
+      Se yes, skribez la titulo di la kampanio, por konfirmar.
+    confirm_campaign_deletion_failed: '"%{title}" ne esas la titulo di ca kampanio.
+      La kampanio ne efacesis.'
+    confirm_course_removal: Ka vu fakte deziras removar "%{title}" de la kampanio
+      "%{campaign_title}"?
+    create_campaign: Krear nova kampanio
+    create_my_campaign: Kreez mea kampanio!
+    customize_passcode: pasovorto ''default''
+    data_download_info: Descharjez kom CSV datumi pri la kampanio
+    data_articles: Pagini redaktita
+    data_revisions: Datumi pri revizi
+    data_articles_info: Detali pri omna pagini sequita, qui redaktesis dum la kampanio
+    data_instructors: Instrucioni
     none: Nula
     title: Titulo
     search: Serchez
   categories:
+    name: Nomo
+    category_name: Kategorio-nomo
+    psid_name: PSID
+    pileid_name: '''''PagePile'''' #'
+    template_name: Nomo dil shablono
+    none: Nula kategorii sequesas.
     remove: Removar
+    timestamp: Lastafoye modifikita ye
   courses:
+    school_system: Akademiala sistemo
+    activity: Aktiveso
     active_courses: Aktiva kampanii
+    alerts: Avizi
+    all_courses: Omna kursi
+    already_enrolled: Vu ja esas parto de '%{title}'!
+    already_exists: To ja existas por ca kurso!
+    archived: Kursi sendita ad arkivo
+    actions: Agadi
     articles: Artikli
+    article_viewer: Artiklo-vidilo
+    article_viewer_wikidata: Detalo-vidilo
+    articles_i_am_reviewing_wikidata: Kozi quin me examinas detaloze.
+    articles_i_am_reviewing: Artikli quin me revizas detaloze
+    articles_i_will_create: Artikli quin me kreos
+    articles_i_will_create_wikidata: Detali quin me kreos
+    articles_i_am_updating: Artikli quin me aktualigas
+    articles_i_am_updating_wikidata: Detali quin me aktualigas
+    assignment_headings:
+      assigned_articles: Atribuit artikli
+      assigned_articles_wikidata: Atribuita detali
+      assigned_reviews: Atribuita revizi
+      available_articles: Disponebl artikli
+      available_articles_wikidata: Disponebla detali
+      available_reviews: Artikli de kolegi
+      available_reviews_wikidata: Detali facita da kolegi
+    assignment_end: Fino di atribuo
+    assignment_start: Komenco di atribuo
+    calendar:
+      legend: Surskriburo
+      legend_class_canceled: Vakancodio/Abrogita
+      legend_class_meeting: Renkontro di studianti
+      legend_class_not_meeting: Nula regulala renkontro
+    cancel: Anular
     campaigns: 'Kampanii:'
     campaign_courses: '%{title} Kampanii'
     course_description: Kampanii
     courses: Kampanii
+    download_stats_data: Descharjez statistiki
+    duration: Durado dil kurso
+    edit_count: Kontado di redakturi
+    end: Fino
     error:
       user_exists_on_wiki: Pardonez, %{username} ne existas kom uzero che %{domain}.
     join_failure_details:
@@ -73,6 +248,7 @@ io:
     campaigns: 'Kampanii:'
     creator:
       save_cloned_course: Konservez
+    not_permitted: Vu ne havas permiso por redaktar ca programo.
     student_editors: Redakteri
     students: Redakteri
     students_short: Redakteri
@@ -81,17 +257,26 @@ io:
     cancel: Nuligar
     save: Konservez
   instructor_view:
+    assignments_table:
+      article_name: Nomo
     bad_work:
       learn_more_button: Savez pluse
   metrics:
     tags: Etiketi
+    view: Quantafoye ol videsis
+    total_revisions: Quanto di revizuri
   recent_activity:
     article_title: Titulo
   revisions:
+    class: Klaso
     diff: difero
     diff_show: Montrez
     diff_hide: Celez
     title: Titulo
+  settings:
+    admin_users:
+      new:
+        form_placeholder: Nomo dil uzero
   timeline:
     gradeable_value: Valoro
     week_number: Semano %{number}
@@ -117,6 +302,8 @@ io:
       minutes: Minuti
       seconds: Sekundi
     up_to_date_with_training: Aktualigo pri aprentiseso
+    username: Nomo dil uzero
+    username_placeholder: Nomo dil uzero
   wizard:
     read_more: Lektez pluse
     summary: Rezumo

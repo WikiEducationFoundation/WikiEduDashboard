@@ -7,9 +7,7 @@ import SlideLink from './slide_link.jsx';
 import SlideMenu from './slide_menu.jsx';
 import Quiz from './quiz.jsx';
 import Notifications from '../../components/common/notifications.jsx';
-import I18n from 'i18n-js';
 import Alert from './Alert';
-
 
 
 

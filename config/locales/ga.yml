@@ -2,14 +2,27 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Dowlinme
+# Author: Kwekubo
 # Author: Nmacu
 ---
 ga:
+  number:
+    human:
+      decimal_units:
+        format: '%n% u'
+        units:
+          thousand: K
+          million: M
+          billion: B
+          trillion: T
+          quadrillion: C
   accessibility:
     number_field: Is réimse uimhreach í seo. Déanfaidh na cnaipí a léiríonn do bhrabhsálaí
       an t-ionchar a ardú nó a ísliú.
   application:
     cancel: Cealaigh
+    cookie_consent: Úsáideann an suíomh seo fianáin le go bhfanfaidh tú logáilte isteach,
+      agus stórálann sé faisnéis a bhaineann le do chuntas Vicipéide.
     cookie_consent_acknowledge: Tuigim
     cookie_consent_see_more: Féach níos mó.
     create_accounts: Cruthaigh cuntais Vicipéid
@@ -20,6 +33,8 @@ ga:
     field_required: Tá an réimse seo riachtanach
     field_invalid_characters: Tá carachtair neamhbhailí ag an réimse seo
     field_invalid_date: Tá dáta san fhormáid BBBB-MM-LL ag teastáil sa réimse seo
+    field_invalid_date_time: Ní foláir an deireadh a bheith tar éis an tosaithe. (Téann
+      uaireanta ó 0 go 23.)
     greeting2: Fáilte!
     greeting_extended: Fáilte go dtí An Vicipéid
     greeting: Haigh!
@@ -29,7 +44,7 @@ ga:
     log_in: Logáil isteach
     log_out: Logáil amach
     my_dashboard: Mo Deais
-    recent_activity: Gníomhaíochtaí le gairid
+    recent_activity: Gníomhaíocht le Déanaí
     report_problem: Tuairiscigh fadhb
     request_account: Déan iarratas ar chuntas
     request_account_create: Cruthaigh cuntas
@@ -65,16 +80,18 @@ ga:
     sign_up: Cláraigh le Vicipéid
   activity:
     all: Gníomhaíocht
-    edited_by: Athraithe Ag
+    edited_by: Arna Chur in Eagar ag
     label: Gníomhaíocht
   articles:
+    articles: Ailt
     assigned: Ailt Bronnta
     available: Ailt atá ar fáil
     assigned_to: Bronnta Ar
     deleted: (scriosta)
-    edited: Ailt Athraithe
-    edited_by: 'Athraithe ag:'
+    edited: Ailt a Chuireadh in Eagar
+    edited_by: Arna chur in eagar agː
     edited_mobile: Ailt
+    find: Aimsigh Ailt
     hide: Folaigh
     label: Ailt
     loading: Ailt ag lódáil...
@@ -86,6 +103,8 @@ ga:
     view: Breathaigh ar Alt
     view_all: Breathnaigh ar gach rud
     wiki: Vicí
+  items:
+    edited: Míreanna a chuireadh in eagar
   assignments:
     remove: Bain
     reviewers: Léirmheastóir(í)
@@ -94,7 +113,7 @@ ga:
     select: Roghnaigh
   blocks:
     milestones:
-      title: Clochmhílte
+      title: Garspriocanna
   campaign:
     active_campaigns: Feachtais Reatha
     add_organizer: Eagraí breise
@@ -106,6 +125,7 @@ ga:
     campaign_updated: Feachtas nuashonraithe
     create_campaign: Cruthaigh Feachtas Nua
     create_my_campaign: Cruthaigh mo fheachtas!
+    data_articles: Leathanaigh a chuireadh in eagar
     description: Cur síos
     delete_campaign: Scrios an Feachtas seo
     none: Tada
@@ -182,6 +202,7 @@ ga:
     enroll: Cláraigh
     enrollment: Clárúchán
     courses_enrolled: Cúrsaí cláraithe
+    expected_students: Mic Léinn a bhFuiltear ag Súil Leo
     feedback: Aiseolas
     instructors: Teagascóirí
     join: Ceangal
@@ -248,6 +269,7 @@ ga:
     enrollment: Rannpháirtíocht
     explore: Aimsigh Cláir
     courses_enrolled: Cláir a glacadh páirt iontu
+    expected_students: Eagarthóirí a bhFuiltear ag Súil Leo
     instructors: Áisitheoirí
     join_course: Cláraigh leis an gclár
     leave_course: Fág an clár
@@ -271,27 +293,29 @@ ga:
     edit_details: Athraigh na Sonraí
     edit_template: Athraigh an Teimpléad
   metrics:
-    activity: Gníomhaíochtaí le gairid
+    activity: Gníomhaíocht le Déanaí
     articles_created: Ailt Cruthaithe
     articles_edited: Ailt Athraithe
+    articles_edited_wikidata: Míreanna a Chuireadh in Eagar
+    articles_edited_generic_wikidata: Míreanna a Chuireadh in Eagar
     characters: Carachtair
-    char_added: Carachtair Curtha Leis
+    char_added: Carachtair a Chuireadh Leis
     char_changed: Carachtair Athraithe
-    char: Carachtair Curtha Leis
+    char: Carachtair a Chuireadh Leis
     date_time: Dáta/Am
-    edit_count_description: Athruithe Iomlán
+    edit_count_description: Líon na n-Athruithe
     per_user: '%{number}/úsáideoir'
     revisions: Athruithe le Gairid
     tags: Clibeanna
-    upload_count: Uaslódálacha don 'Commons'
-    view_count_description: Amhairc ar Ailt
+    upload_count: Uaslódálacha chuig Commons
+    view_count_description: Amais ar Ailt
     view: Amhairc
-    word_count: Focail Curtha Leis
+    word_count: Focail a Chuireadh Leis
     word_count_average: Líon Focal Meánach
   namespace:
     all: Uile
     main: Príomhspás
-    main_char_added: Carachtair curtha leis an bpríomhspás
+    main_char_added: Carachtair Príomhspáis a chuireadh leis
     article: Alt
     talk: Plé
     user: Spás an úsáideora
@@ -302,6 +326,8 @@ ga:
     datetime: Dáta/Am
     image: Íomhá
     file_name: Ainm an Chomhaid
+    plagiarism_report: Tuarascáíl Bradála
+    possible_plagiarism: Ábhar a d'Fhéadfaí Breathnú Air mar Bhradáil
     recent_edits: Athuithe is déanaí
     recent_uploads: Uaslódálacha is déanaí
   revisions:
@@ -310,22 +336,32 @@ ga:
     diff: difr
     diff_show: Taispeáin
     diff_hide: Folaigh
-    edited_by: Athraithe Ag
+    edited_by: Arna Chur in Eagar ag
     edited_on: Athraithe ar %{edit_date}
     loading: Ag lódáil athbhreithnithe...
     title: Teideal
+  resources:
+    label: Acmhainní
   timeline:
+    block_in_class: Sa Rang
+    block_milestone: Garsprioc
+    this_week_title_default: An tSeachtain Seo
     title: Amlíne
+    view_full_timeline: Féach ar an Amlíne Iomlán
     week_number: Seachtain %{number}
   training:
     start: Tosaigh
     view: Amharc
   uploads:
     file_name: Ainm an Chomhaid
+    header: Comhaid a Uaslódáladh chuig Wikimedia Commons
     image: Íomhá
     label: Uaslódálacha
     loading: Ag lódáil uaslódálacha...
+    select_label: Scag de réir an uaslódálaí
     uploaded_by: Uaslódáilte Ag
+    uploaded_on: Uaslódáilte Ar
+    usage_count_gallery_tile: Arna úsáid in %{usage_count} alt
   users:
     assign_articles_done: Déanta
     course_passcode: 'Paschód:'

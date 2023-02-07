@@ -44,7 +44,14 @@ module ApplicationHelper
     manifest[filename].split('/').last
   end
 
+  def en_if_invalid(locale)
+    # if the locale is not valid, use the default locale
+    return 'en' unless File.exist?("#{Rails.root}/public/assets/javascripts/i18n/#{locale}.js")
+    locale
+  end
+
   def i18n_javascript_tag(locale)
+    locale = en_if_invalid(locale)
     md5 = Digest::MD5.file("#{Rails.root}/public/assets/javascripts/i18n/#{locale}.js").hexdigest
     javascript_include_tag "/assets/javascripts/i18n/#{locale}.js?v=#{md5}"
   end

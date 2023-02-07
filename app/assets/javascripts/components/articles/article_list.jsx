@@ -11,6 +11,7 @@ import CourseOresPlot from './course_ores_plot.jsx';
 import articleListKeys from './article_list_keys';
 import ArticleUtils from '../../utils/article_utils.js';
 import { parse, stringify } from 'query-string';
+import { PaginatedArticleControls } from './PaginatedArticleControls';
 
 const defaults_params = { wiki: 'all', tracked: 'tracked', newness: 'both' };
 
@@ -278,16 +279,12 @@ const ArticleList = createReactClass({
         </div>
       </div>
     );
-
-    let showMoreSection;
-    if (!this.props.limitReached) {
-      showMoreSection = (
-        <div className="see-more">
-          <button className="button ghost" onClick={this.showMore}>{I18n.t('articles.see_more')}</button>
-          <p>{I18n.t('articles.articles_shown', { count: articleElements.length, total: this.props.course.edited_count })}</p>
-        </div>
-      );
-    }
+    const limitReached = this.props.limitReached;
+    const showMoreSection = (
+      <div className="see-more">
+        <PaginatedArticleControls showMore={this.showMore} limitReached={limitReached}/>
+      </div>
+    );
 
     return (
       <div id="articles" className="mt4">

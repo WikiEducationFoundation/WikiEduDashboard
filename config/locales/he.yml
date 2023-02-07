@@ -838,7 +838,7 @@ he:
     characters_added_short: 'המרחב הראשי: %{mainspace}, מרחב המשתמש: %{userspace}'
     characters_added_userspace: תווים שנוספו (משתמש)
     characters_added_draftspace: תווים שנוספו (טיוטה)
-    my_assigned: משוייך
+    my_assigned: 'משויך:'
     my_reviewing: 'בבדיקה:'
     name: שם
     none: אין משתתפים.

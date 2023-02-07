@@ -27,3 +27,19 @@ end
 
 puts "Bibliography count: #{bibliography_count}"
 
+campaign = Campaign.find_by_slug 'fall_2022'
+
+from_list_courses = campaign.courses.select { |c| c.training_module_ids.include? 36 }
+explore_courses = campaign.courses.to_a - from_list_courses
+
+bibliography_count = 0
+from_list_courses.each do |course|
+  bibliographies = course.sandboxes.map(&:title).select { |sb| sb.include? 'Bibliography' }
+  bibliography_count += bibliographies.count
+end
+
+bibliography_count = 0
+explore_courses.each do |course|
+  bibliographies = course.sandboxes.map(&:title).select { |sb| sb.include? 'Bibliography' }
+  bibliography_count += bibliographies.count
+end
