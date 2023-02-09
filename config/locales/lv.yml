@@ -48,6 +48,7 @@ lv:
     opt_out: Nē
     opt_yes: jā
     opt_no: nē
+    print: Drukāt
   alerts:
     alert_label: Brīdinājumi
   activity:

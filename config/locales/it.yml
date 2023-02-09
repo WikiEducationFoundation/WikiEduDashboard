@@ -81,6 +81,7 @@ it:
     opt_out: "No"
     opt_yes: sì
     opt_no: "no"
+    print: Stampa
   dashboard:
     create_note: Clicca su "Crea corso" per creare il tuo primo corso.
     create_preparation_note: Assicurati di avere il tuo calendario accademico a portata

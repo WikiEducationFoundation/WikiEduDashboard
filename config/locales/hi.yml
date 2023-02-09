@@ -66,6 +66,7 @@ hi:
     opt_out: नहीं
     opt_yes: हाँ
     opt_no: नहीं
+    print: प्रिंट करें
   article_statuses:
     not_yet_started: शुरुआत कर रहे हैं
     reading_the_article: लेख पढ़ रहे हैं

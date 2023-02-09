@@ -77,6 +77,7 @@ sr-ec:
     opt_out: Не
     opt_yes: да
     opt_no: не
+    print: Штампај
   dashboard:
     create_note: Кликните на „Направи курс“ да бисте направили свој први курс.
     create_preparation_note: Будите сигурни да имате свој академски календар при руци

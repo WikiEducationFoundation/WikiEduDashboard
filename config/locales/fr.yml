@@ -94,6 +94,7 @@ fr:
     opt_out: Non
     opt_yes: oui
     opt_no: non
+    print: Imprimer
   article_statuses:
     not_yet_started: Commencer
     in_progress: Travailler dans un bac à sable
@@ -703,6 +704,8 @@ fr:
       user_exists_on_wiki: Désolé, %{username} n’est pas un utilisateur existant sur
         %{domain}.
       invalid_language_or_project: Langue ou projet non valide
+      invalid_wiki: Impossible de se connecter à %{domain}. Ce n’est peut-être pas
+        un wiki valide.
       invalid_slug: École ou titre du cours non renseigné.
       duplicate_slug: Un autre programme appelé %{slug} existe déjà.
     expected_students: Étudiants attendus
