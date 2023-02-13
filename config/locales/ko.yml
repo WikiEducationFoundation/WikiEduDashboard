@@ -77,6 +77,7 @@ ko:
     opt_out: 아니오
     opt_yes: 예
     opt_no: 아니오
+    print: 인쇄
   article_statuses:
     not_yet_started: 시작하기
     in_progress: 연습장에서 작업

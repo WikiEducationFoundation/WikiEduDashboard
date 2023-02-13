@@ -95,6 +95,7 @@ pt-br:
     opt_out: Não
     opt_yes: sim
     opt_no: não
+    print: Imprimir
   article_statuses:
     not_yet_started: Primeiros passos
     in_progress: Trabalhando na área de testes

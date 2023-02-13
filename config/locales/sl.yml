@@ -233,6 +233,7 @@ sl:
       urejanje«, »Dodane besede« ipd. Sledite samo imenskim prostorom, ki jih vaš
       program želi izboljšati.
   recent_activity:
+    active_courses: Članek je aktiven v
     article_title: Naslov
     datetime: Datum/čas
     image: Slika

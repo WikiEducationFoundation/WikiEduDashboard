@@ -246,6 +246,7 @@ io:
   courses_generic:
     cancel: Nihiligar
     campaigns: 'Kampanii:'
+    campaign_courses: '%{title} Programi'
     creator:
       save_cloned_course: Konservez
     not_permitted: Vu ne havas permiso por redaktar ca programo.
