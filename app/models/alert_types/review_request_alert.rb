@@ -29,7 +29,7 @@ class ReviewRequestAlert < Alert
 
   def url
     return '' unless assignment
-    "#{assignment.sandbox_url}/bibliography"
+    "#{assignment.sandbox_url}/Bibliography"
   end
 
   # The 'subject' for the Alert record is the Assignment id.
