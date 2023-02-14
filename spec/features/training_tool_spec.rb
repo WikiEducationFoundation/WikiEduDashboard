@@ -264,6 +264,12 @@ def check_slide_contents(slide, slide_number, slide_count)
 end
 
 def proceed_to_next_slide
+  if driver.find_element(:class, 'alert-button').displayed?
+    driver.find_element(:class, 'alert-button').click
+    button = page.first('button.ghost-button', minimum: 0)
+    find_correct_answer_by_trial_and_error unless button.nil?
+    page.first('a.slide-nav.btn.btn-primary.icon-rt_arrow').click
+  end
   button = page.first('button.ghost-button', minimum: 0)
   find_correct_answer_by_trial_and_error unless button.nil?
   page.first('a.slide-nav.btn.btn-primary.icon-rt_arrow').click
