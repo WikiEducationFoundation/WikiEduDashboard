@@ -7,6 +7,7 @@ function elapsed(hrtime) {
 }
 
 function getHashOfI18nFiles() {
+  // we use the sha1sum of the i18n files to determine if we need to rebuild
   return execSync('cat config/locales/* | sha1sum').toString().split('-')[0].trim();
 }
 
@@ -18,11 +19,16 @@ const config = require('./config');
 const fs = require('fs');
 
 let fullRebuild = false;
+
 try {
   const lastHash = fs.readFileSync(`${config.buildCache}/i18n/hash.txt`).toString();
   const currentHash = getHashOfI18nFiles();
+
+  // check if the previous hash is the same as the current hash
+  // if same, we can skip the i18n export
   fullRebuild = lastHash.trim() !== currentHash.trim();
 } catch (e) {
+  // if however, the cache files are not found, we need to rebuild
   execSync(`mkdir -p ${config.buildCache}/i18n`);
   fullRebuild = true;
 }
@@ -39,8 +45,12 @@ if (fullRebuild) {
   console.log('\x1b[33m%s\x1b[0m', `Finished emitting i18n translations after ${elapsed(process.hrtime(start))} seconds`);
 
   const hash = getHashOfI18nFiles();
+
+  // copy i18n files to cache
   exec(`cp ${config.outputPath}/${config.jsDirectory}/i18n.js ${config.buildCache}/i18n/i18n.js`);
   exec(`cp ${config.outputPath}/${config.jsDirectory}/i18n ${config.buildCache}/i18n/i18n -r`);
+
+  // write the hash value
   fs.writeFile(`${config.buildCache}/i18n/hash.txt`, hash, () => {
     console.log('Updated cache');
   });
@@ -64,6 +74,7 @@ const copyPaths = [{
   to: `${config.outputPath}/${config.jsDirectory}/skins`,
 }];
 
+// if we're not doing a full rebuild, we need to copy the files from the cache to the output folder
 if (!fullRebuild) {
   copyPaths.push({
     from: `${config.buildCache}/i18n/i18n.js`,
