@@ -99,6 +99,7 @@ ru:
     opt_out: Нет
     opt_yes: да
     opt_no: нет
+    print: Печать
   article_statuses:
     not_yet_started: Начало работы
     in_progress: Работа в песочнице

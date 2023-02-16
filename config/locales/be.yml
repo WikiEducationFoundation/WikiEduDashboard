@@ -76,6 +76,7 @@ be:
     opt_out: Не
     opt_yes: так
     opt_no: не
+    print: Друкаваць
   article_statuses:
     not_yet_started: Пачаць
     in_progress: Праца ў пясочніцы

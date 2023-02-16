@@ -1287,7 +1287,7 @@ fr:
       remove:
         revoke_button: Révoquer un(e) administrateur/trice
         revoke_button_confirm: Révoquer les droits d’administration pour %{username}
-        revoking_button_working: Révocation en cours…
+        revoking_button_working: Révocation en cours...
         already_instructor: '%{username} est déjà un(e) instructeur/trice !'
         demote_success: '%{username} a été modifié(e) en instructeur/trice.'
         no_super_admin: Impossible de révoquer les droit d’administration pour un(e)
@@ -1468,7 +1468,7 @@ fr:
     header: Fichiers téléversés sur Wikimedia Commons
     image: Image
     label: Téléversements
-    loading: Chargement en cours des téléversements…
+    loading: Chargement en cours des téléversements...
     none: Cette classe n’a contribué avec aucune image ni aucun autre fichier média
       à Wikimedia Commons.
     select_label: Filtrer par téléverseur

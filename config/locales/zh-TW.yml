@@ -435,7 +435,7 @@ zh-TW:
     data_articles_info: 條目資料包含著任一頁面的編輯次數、那些為新的頁面、以及頁面瀏覽次數。對於已結束的課程來說頁面瀏覽次數可能為過期，因此包含著維基媒體基金會頁面瀏覽工具的
       URL。
     data_revisions_info: 修訂資料包含課程修訂次數、修訂 ID、條目 ID，該頁面為新的頁面和頁面瀏覽次數總計。
-    data_download_info: 以 CVS 格式下載資料。
+    data_download_info: 以 CSV 格式下載資料。
     data_overview: 概要資料
     data_overview_info: 概要資料提供出整體專案的累計統計。
     data_edits: 編輯資料

@@ -47,6 +47,7 @@ sl:
     label: Dejavnost
   articles:
     articles: Članki
+    assignments_none: Ni še nobenega dodeljenega članka.
     article_title: Naslov članka
     edited_mobile: Članki
     filter:
@@ -65,8 +66,10 @@ sl:
     title_example: Naslov članka
     view_all: Pokaži vse
   items:
+    assignments_none: Ni še nobenih dodeljenih predmetov.
     does_not_exist: Ta predmet ne obstaja. Da prejmete predloge, ustvarite peskovnik
       in se mu dodelite.
+    edited_none: Ni še nobenih urejenih predmetov.
     preview: Kratek predogled predmeta
     title_example: Naslov predmeta
   assignments:
@@ -98,6 +101,7 @@ sl:
       »%{name}«?
     name: Ime
     template_name: Ime predloge
+    none: Ni sledenih kategorij.
     remove: Odstrani
     timestamp: Zadnja posodobitev dne
   courses:
@@ -238,6 +242,7 @@ sl:
     datetime: Datum/čas
     image: Slika
     file_name: Ime datoteke
+    no_edits: Ni nedavnih urejanj.
     plagiarism_explanation: Sistem Wikipedije za odkrivanje plagiatorstva uporablja
       za primerjavo novih urejanj z objavljenim besedilom Turnitin/iThenticate. Ta
       poročila niso 100-odstotno točna. Neposreden citat z ustreznim pripisom lahko
@@ -310,6 +315,8 @@ sl:
     loading: Nalaganje uporabnikov ...
     characters_added_mainspace_wikidata: Dodani znaki (predmet)
     name: Ime
+    none: Ni udeležencev.
+    no_articles_wikidata: Ni predmetov
     no_revisions: (brez redakcij)
     number_of_articles:
       one: '%{count} članek'
@@ -340,6 +347,8 @@ sl:
   survey:
     email:
       headline: Pozdravljeni, %{username}
+  feedback_form_responses:
+    no_responses: Povratnih informacij še ni.
   article_finder:
     article_finder_wikidata: Iskalnik predmetov
     category_search: Poišči po kategorijah
