@@ -44,3 +44,4 @@ Your system has cmdtest installed, which provides a different program as yarn. U
 - **To check if redis is running as a daemon in Linux** `ps aux | grep redis-server`
 
 - Use node v10 or lower to avoid any errors.
+- **For WSL users , if rspec tests are taking too long to run** make sure to fork the repo in the linux file system and not in the windows partition. Use command `pwd` to know the exact path of your repo. If the path starts with `/mnt/`, the repo is in windows partition. Follow the documentation availible at link: https://learn.microsoft.com/en-us/windows/wsl/filesystems to know more about storing and moving files in the linux file system. 
