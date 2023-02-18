@@ -1,0 +1,6 @@
+.container
+  %h2= 'Enter Username to update' 
+  = form_with url: '/update_username', method: :post do
+    = label_tag :username, 'Enter Username'
+    = text_field_tag :username
+    = submit_tag 'Update Username'
