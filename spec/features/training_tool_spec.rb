@@ -264,12 +264,10 @@ def check_slide_contents(slide, slide_number, slide_count)
 end
 
 def proceed_to_next_slide
-  if page.has_selector?('button.alert-button')
-    alert_button = page.find('button.alert-button')
-    alert_button.click
-    button = page.first('button.ghost-button', minimum: 0)
-    find_correct_answer_by_trial_and_error unless button.nil?
-    page.first('a.slide-nav.btn.btn-primary.icon-rt_arrow').click
+  if page.has_selector?('.alert-box-container', wait: 10)
+    within('.alert-box-container') do
+      page.execute_script("$('.alert-box-container').hide()")
+    end
   end
   button = page.first('button.ghost-button', minimum: 0)
   find_correct_answer_by_trial_and_error unless button.nil?
