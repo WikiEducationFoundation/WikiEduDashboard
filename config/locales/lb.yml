@@ -5,6 +5,7 @@
 # Author: Les Meloures
 # Author: Robby
 # Author: Soued031
+# Author: Volvox
 ---
 lb:
   application:
@@ -51,6 +52,7 @@ lb:
     opt_out: Neen
     opt_yes: jo
     opt_no: neen
+    print: Drécken
   article_statuses:
     not_yet_started: Fir unzefänken
     in_progress: An enger Sandkëscht schaffen

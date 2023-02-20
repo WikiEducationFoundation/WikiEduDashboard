@@ -297,6 +297,7 @@ hy:
     view_count_description: Հոդվածի դիտումներ
     view: Դիտումներ
     word_count: Ավելացված բառեր
+    general: Ընդհանուր
   namespace:
     all: Բոլորը
     main: Գլխավոր անվանատարածք
