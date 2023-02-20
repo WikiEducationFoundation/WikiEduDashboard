@@ -76,6 +76,7 @@ be:
     opt_out: Не
     opt_yes: так
     opt_no: не
+    print: Друкаваць
   article_statuses:
     not_yet_started: Пачаць
     in_progress: Праца ў пясочніцы
@@ -357,7 +358,7 @@ be:
     create_campaign: Стварыце новую кампанію
     create_my_campaign: Стварыце маю кампанію!
     customize_passcode: прадвызначаны пароль-код
-    data_download_info: Загрузіць даныя кампаніі як CSV
+    data_download_info: Спампаваць даныя кампаніі як CSV
     data_courses: Даныя агляду курса
     data_courses_info: Асноўныя паказчыкі для кожнага курса/праграмы
     data_articles: Старонкі зменены
@@ -559,7 +560,7 @@ be:
       subject: Прадмет
     current: Бягучыя курсы
     data_articles: Даныя артыкулаў
-    data_download_info: Загрузіць даныя ў фармаце CSV.
+    data_download_info: Спампаваць даныя ў фармаце CSV.
     data_overview: Агляд даных
     data_overview_info: Агляд даных дае зводную статыстыку для праекта агулам.
     data_edits: Змяніць даныя
@@ -579,7 +580,7 @@ be:
     delete_suggestion: Выдаліць
     dismiss_survey: Прапусціць
     dismiss_survey_confirm: Вы ўпэўнены, што хочаце назаўсёды закрыць гэтае апытанне?
-    download_stats_data: Загрузіць статыстыку
+    download_stats_data: Спампаваць статыстыку
     duration: Працягласць курса
     edit_count: Колькасць правак
     edit_course_dates: Правіць даты курса

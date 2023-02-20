@@ -39,6 +39,7 @@ skr-arab:
     opt_out: کو
     opt_yes: جیا
     opt_no: کو
+    print: چھاپو
   dashboard:
     create_note: آپݨاں پہلا کورس بݨاوݨ کیتے کورس بݨاؤ تے کلک کرو۔
     explore_examples: مثالاں لبھو

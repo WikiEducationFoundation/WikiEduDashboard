@@ -94,6 +94,7 @@ fr:
     opt_out: Non
     opt_yes: oui
     opt_no: non
+    print: Imprimer
   article_statuses:
     not_yet_started: Commencer
     in_progress: Travailler dans un bac à sable
@@ -703,6 +704,8 @@ fr:
       user_exists_on_wiki: Désolé, %{username} n’est pas un utilisateur existant sur
         %{domain}.
       invalid_language_or_project: Langue ou projet non valide
+      invalid_wiki: Impossible de se connecter à %{domain}. Ce n’est peut-être pas
+        un wiki valide.
       invalid_slug: École ou titre du cours non renseigné.
       duplicate_slug: Un autre programme appelé %{slug} existe déjà.
     expected_students: Étudiants attendus
@@ -1284,7 +1287,7 @@ fr:
       remove:
         revoke_button: Révoquer un(e) administrateur/trice
         revoke_button_confirm: Révoquer les droits d’administration pour %{username}
-        revoking_button_working: Révocation en cours…
+        revoking_button_working: Révocation en cours...
         already_instructor: '%{username} est déjà un(e) instructeur/trice !'
         demote_success: '%{username} a été modifié(e) en instructeur/trice.'
         no_super_admin: Impossible de révoquer les droit d’administration pour un(e)
@@ -1465,7 +1468,7 @@ fr:
     header: Fichiers téléversés sur Wikimedia Commons
     image: Image
     label: Téléversements
-    loading: Chargement en cours des téléversements…
+    loading: Chargement en cours des téléversements...
     none: Cette classe n’a contribué avec aucune image ni aucun autre fichier média
       à Wikimedia Commons.
     select_label: Filtrer par téléverseur

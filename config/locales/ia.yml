@@ -45,6 +45,7 @@ ia:
     sign_up_log_in_extended: con Wikipedia
     change: Cambiar
     opt_in: Si
+    print: Imprimer
   articles:
     article_development: (disveloppamento de articulo)
     articles_shown: Se monstra %{count} de %{total}
@@ -54,6 +55,8 @@ ia:
       non traciate per iste curso. Pro traciar le contributiones a iste articulo,
       un instructor debe adder le sequente wiki a iste curso: %{wiki}'
   courses:
+    error:
+      invalid_wiki: Non pote connecter a %{domain}. Pote non esser un wiki valide.
     join_no_passcode: Es tu secur de voler sequer iste curso?
     search_all_tickets_for_this_course: Cercar tote le billetes pro iste curso
     timeline_enabled: Chronologia activate

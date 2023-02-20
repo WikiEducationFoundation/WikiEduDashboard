@@ -78,6 +78,7 @@ ja:
     opt_out: いいえ
     opt_yes: はい
     opt_no: いいえ
+    print: 印刷
   article_statuses:
     not_yet_started: はじめに
     in_progress: サンドボックスで作業する

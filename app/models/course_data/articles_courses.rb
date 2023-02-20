@@ -120,7 +120,12 @@ class ArticlesCourses < ApplicationRecord
     new_records = new_article_ids.map do |id|
       { article_id: id, course_id: course.id }
     end
-    insert_all new_records unless new_records.empty?
+
+    return if new_records.empty?
+    # Do this is batches to avoid running the MySQL server out of memory
+    new_records.each_slice(5000) do |new_record_slice|
+      insert_all new_record_slice
+    end
   end
 
   def self.destroy_invalid_records(course, valid_article_ids)

@@ -84,6 +84,7 @@ he:
     opt_out: לא
     opt_yes: כן
     opt_no: לא
+    print: הדפסה
   article_statuses:
     not_yet_started: איך להתחיל
     in_progress: עבודה בטיוטה
@@ -115,12 +116,16 @@ he:
     about_programs: האתר הזה עוקב אחרי פעילויות ויקי באמצעות תוכניות – אירועים פרטניים
       כגון מרתון עריכה או קורס במוסד חינוכי. כל תוכנית היא חלק ממבצע אחד או יותר,
       שמספקים סטטיסטיקות משולבות לתוכניות.
+    about_creating_programs: אם מדובר באירוע בודד ועצמאי, ניתן ליצור תוכנית כעת. אם
+      האירוע שלך הוא חלק ממשהו גדול יותר, יש למצוא או ליצור את הקמפיין עבורו. לאחר
+      מכן ניתן ליצור תוכנית חדשה מתוך דף הקמפיין.
   home:
     explore: תוכניות קיימות
     log_in: כניסה עם חשבון ויקיפדיה
     sign_up: הרשמה עם חשבון ויקיפדיה
     sign_up_help: כדי להשתמש בלוח הבקרה, יש להיכנס לחשבון באמצעות ויקיפדיה ולתת הרשאה
-      לגשת לחשבון שלך. באפשרותך להיכנס לחשבון ויקיפדיה קיים, או ליצור חשבון חדש.
+      לגשת לחשבון שלך. באפשרותך להיכנס לחשבון ויקיפדיה קיים, או ליצור חשבון חדש. אם
+      ישנה בעיה ביצירת החשבון החדש, יש ליצור קשר עם dashboard@wikiedu.org.
   alerts:
     alert_label: התראות
     no_alerts: לא נמצאו התראות.
@@ -129,7 +134,12 @@ he:
     edited_by: נערך על-ידי
     label: פעילות
   articles:
+    articles: ערכים
+    article_not_found: הערך הזה טרם נוצר.
+    article_development: (פיתוח ערך)
+    articles_shown: הצגת %{count} מתוך %{total}
     assigned: ערכים שהוקצו
+    assignments_none: עדיין אין ערכים שהוקצו.
     available: ערכים זמינים
     no_available: אין ערכים זמינים
     next: הבא
@@ -148,12 +158,17 @@ he:
       new: חדשים
       existing: קיימים
       new_and_existing: חדשים וגם קיימים
+      tracked: במעקב
+      untracked: לא במעקב
+      tracked_and_untracked: במעקב ולא במעקב
+    find: מציאת ערכים
     hide: הסתרה
     history: (היסטוריה)
     label: ערכים
     loading: טעינת ערכים...
     new: (חדש)
     none: בקורס הזה לא נערכו שום ערכים.
+    preview: תצוגה מקדימה קצרה של ערך
     rating: דירוג
     rating_doc: הדירוג שניתן לאיכותם של ערכים בוויקיפדיות שונות (כמו בוויקיפדיה האנגלית),
       נעשה דרך מיזמי־ויקי בנושאים שונים. הדירוג עשוי להתייחס לגרסאות ישנות של הערך,
@@ -176,9 +191,11 @@ he:
       '?': לא מדורג – ערך שעדיין לא דורג בסולם האיכות של ויקיפדיה
       does_not_exist: הערך אינו קיים בוויקיפדיה
     see_more: לטעון עוד
+    search: חיפוש בוויקיפדיה עבור ערך
     show_cumulative_changes: הצגת שינויים מצטברים
     show_current_version: הצג גרסה נוכחית
     title: כותרת \ שם
+    tracked: במעקב
     title_example: שם הערך
     tools: כלי הערכה
     view: הצגת הערך
@@ -199,6 +216,24 @@ he:
       את הסטנדרט הוויקיפדי למבנה של ערך הכתוב טוב, אך הוא אינו מתייחס לתוכן עצמו.
       \nשימו לב שנכון להיום הציון הזה זמין רק לערכים שנכתבו בוויקיפדיה האנגלית."
     articles_short: ערכים
+    page_logs: (יומני הדף)
+  items:
+    items: פריטים
+    article_not_found: הפריט הזה טרם נוצר.
+    assigned: פריטים שהוקצו
+    assignments_none: עדיין אין פריטים שהוקצו.
+    available: פריטים זמינים
+    character_doc: סך התווים שנוספו לפריטים על־ידי עורכים רשומים בין תאריכי ההתחלה
+      והסיום
+    cross_wiki_tracking: דפי המרחב הראשי שנערכו בין תאריכי ההתחלה והסיום מפורטים להלן.
+      לוח המחוונים שואב תרומות מהוויקי הביתי של התוכנית הזאת, לצד כל אתרי הוויקי הנוספים
+      שיש עבורם מטלה או פריט זמין.
+    edited: פריטים שנערכו
+    edited_none: עדיין אין פריטים שנערכו.
+    find: מציאת פריטים
+    preview: תצוגה מקדימה קצרה של פריט
+    search: חיפוש בוויקינתונים עבור פריט
+    title_example: כותרת פריט
   articles_wikidata:
     articles_short: פריטים
   articles_generic:
@@ -206,32 +241,48 @@ he:
   assignments:
     article: הערך %{title} כעת מוקצה אליך.
     article_link: ערך
+    article_link_wikidata: פריט
     already_exists: הקצאה זו כבר קיימת!
     title_too_large: הכותרת לא אמורה לחרוג מ־255 תווים
     assignees: משתתפים שהוקצה להם ערך
     assign_other: שיוך ערך/ביטול שיוך
+    assign_other_wikidata: הקצאת/הסרת פריט
     add_available: הוספת ערכים זמינים
+    add_available_wikidata: הוספת פריטים זמינים
     add_available_placeholder: יש להוסיף שם אחד או כתובת URL אחת של ערך בכל שורה
+    add_available_placeholder_wikidata: יש להוסיף כותרת או כתובת URL אחת של פריט בכל
+      שורה
     add_available_submit: הוספת הערכים
+    add_available_submit_wikidata: הוספת פריטים
     assign_self: הקצאת ערך לעצמי
+    assign_self_wikidata: הקצאת פריט לעצמי
     assign_tooltip: ערך מוקצה הוא ערך שאתם מתכננים ליצור או לשפר.
+    assign_tooltip_wikidata: פריט מוקצה הוא פריט שאתם מתכננים ליצור או לשפר.
     bibliography: ביבליוגרפיה
     clone: שכפול
     confirm_add_available: האם ברצונך באמת להוסיף את %{title}?
     confirm_addition: האם ברצונך באמת להקצות את %{title} למשתמש %{username}?
     confirm_deletion: באמת למחוק את ההקצאה הזאת?
     editors: משויך ל
+    group_members: חברי קבוצה
     label: שיוך
     loading: טעינת משימות...
     none_short: אין ערכים משוייכים
+    none_short_wikidata: לא הוקצו פריטים
     none: לא שויכו ערכים לקורס הזה.
     no_available: לקורס הזה אין ערכים זמינים.
+    peer_review_count: '%{currentCount}/%{total} נבחרו'
+    peer_review_count_tooltip: יש לבחור %{total} ערכים לביקורת עמיתים.
     peer_review_link: סקירת עמיתים
     peer_review_link_personalized: סקירת העמיתים של %{username}
+    random_peer_review:
+      heading: הקצאת ביקורות עמיתים אקראיות
     remove: הסרה
     reviewers: בודקים\בודקות
     review_other: שיוך סוקר/ביטול שיוך
     review_self: בדיקת ערך
+    review_self_wikidata: סקירת פריט
+    sandbox_draft_link: טיוטת ארגז חול
     select: בחירה
     warning_untracked_wiki: 'נא לשים לב לכך שהערך שבחרת נמצא בוויקי שאינו במעקב בקורס
       הזה. כדי לעקוב אחרי תרומות לערך הזה, המנחה צריך להוסיף ויקי לקורס: %{wiki}'
@@ -264,6 +315,7 @@ he:
     create_campaign: יצירת מסע פרסום חדש
     create_my_campaign: יצירת מסע הפרסום שלי!
     customize_passcode: קד גישה התחלתי
+    data_download_info: הורדת נתוני אירוע כקובצי CSV
     data_courses: נתונים כללים על הקורס
     data_courses_info: מדדים בסיסיים לכל קורס / תוכנית
     data_articles: דפים שנערכו

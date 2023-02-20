@@ -30,6 +30,7 @@ sl:
     confirm: V redu
     opt_in: Da
     opt_out: Ne
+    print: Natisni
   article_statuses:
     ready_for_mainspace: Prestavitev dela v glavni imenski prostor
   home:
@@ -46,6 +47,7 @@ sl:
     label: Dejavnost
   articles:
     articles: Članki
+    assignments_none: Ni še nobenega dodeljenega članka.
     article_title: Naslov članka
     edited_mobile: Članki
     filter:
@@ -64,8 +66,10 @@ sl:
     title_example: Naslov članka
     view_all: Pokaži vse
   items:
+    assignments_none: Ni še nobenih dodeljenih predmetov.
     does_not_exist: Ta predmet ne obstaja. Da prejmete predloge, ustvarite peskovnik
       in se mu dodelite.
+    edited_none: Ni še nobenih urejenih predmetov.
     preview: Kratek predogled predmeta
     title_example: Naslov predmeta
   assignments:
@@ -97,6 +101,7 @@ sl:
       »%{name}«?
     name: Ime
     template_name: Ime predloge
+    none: Ni sledenih kategorij.
     remove: Odstrani
     timestamp: Zadnja posodobitev dne
   courses:
@@ -130,6 +135,9 @@ sl:
     embed_course_stats_description: Za vdelavo statistike tega programa v drugo spletno
       mesto kopirajte in prilepite ta delček kode
     ended: Tečaj je končan.
+    error:
+      invalid_wiki: Ni mogoče vzpostaviti povezave z %{domain}. Morda ni veljaven
+        wiki.
     feedback: Povratne informacije
     namespaces: Sledeni imenski prostori
     join_prompt: Se želite pridružiti »%{title}«?
@@ -229,10 +237,12 @@ sl:
       urejanje«, »Dodane besede« ipd. Sledite samo imenskim prostorom, ki jih vaš
       program želi izboljšati.
   recent_activity:
+    active_courses: Članek je aktiven v
     article_title: Naslov
     datetime: Datum/čas
     image: Slika
     file_name: Ime datoteke
+    no_edits: Ni nedavnih urejanj.
     plagiarism_explanation: Sistem Wikipedije za odkrivanje plagiatorstva uporablja
       za primerjavo novih urejanj z objavljenim besedilom Turnitin/iThenticate. Ta
       poročila niso 100-odstotno točna. Neposreden citat z ustreznim pripisom lahko
@@ -305,6 +315,8 @@ sl:
     loading: Nalaganje uporabnikov ...
     characters_added_mainspace_wikidata: Dodani znaki (predmet)
     name: Ime
+    none: Ni udeležencev.
+    no_articles_wikidata: Ni predmetov
     no_revisions: (brez redakcij)
     number_of_articles:
       one: '%{count} članek'
@@ -335,6 +347,8 @@ sl:
   survey:
     email:
       headline: Pozdravljeni, %{username}
+  feedback_form_responses:
+    no_responses: Povratnih informacij še ni.
   article_finder:
     article_finder_wikidata: Iskalnik predmetov
     category_search: Poišči po kategorijah

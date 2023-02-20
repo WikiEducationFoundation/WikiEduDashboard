@@ -92,6 +92,7 @@ nl:
     opt_out: Nee
     opt_yes: ja
     opt_no: nee
+    print: Afdrukken
   article_statuses:
     not_yet_started: Aan de slag
     in_progress: Werken in zandbak
@@ -337,6 +338,8 @@ nl:
       exists: Die cursus bestaat al. Probeer het opnieuw met een andere naam, school
         of termijn.
       user_exists: '%{username} is geen bestaande gebruiker.'
+      invalid_wiki: Kan geen verbinding maken met %{domain}. Het is mogelijk geen
+        geldige wiki.
     expected_students: Verwachte studenten
     gradeables_none: Deze cursus heeft nog geen te beoordelen opdrachten.
     instructor:
