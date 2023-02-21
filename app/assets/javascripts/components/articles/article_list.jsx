@@ -282,7 +282,7 @@ const ArticleList = createReactClass({
     const limitReached = this.props.limitReached;
     const showMoreSection = (
       <div className="see-more">
-        <PaginatedArticleControls showMore={this.showMore} limitReached={limitReached}/>
+        <PaginatedArticleControls showMore={this.showMore} limitReached={limitReached} />
       </div>
     );
 
@@ -304,10 +304,12 @@ const ArticleList = createReactClass({
   }
 });
 
-const mapStateToProps = state => ({
-  articleDetails: state.articleDetails,
-  sort: state.articles.sort,
-});
+const mapStateToProps = (state) => {
+  return ({
+    articleDetails: state.articleDetails,
+    sort: state.articles.sort,
+  });
+};
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({ ...ArticleActions }, dispatch)

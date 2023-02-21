@@ -1,26 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import * as ArticleActions from '../../../../../../actions/articles_actions';
+import { bindActionCreators } from 'redux';
 
 // Components
 import EditedUnassignedArticleRow from './EditedUnassignedArticleRow';
 import List from '@components/common/list.jsx';
+import { connect } from 'react-redux';
+import withRouter from '../../../../../util/withRouter.jsx';
 
-export const EditedUnassignedArticles = ({
+const EditedUnassignedArticles = ({
   articles, course, current_user, showArticleId, title, user,
-  fetchArticleDetails
+  fetchArticleDetails, ...props
 }) => {
   const rows = articles.map(article => (
     <EditedUnassignedArticleRow
       key={`article-${article.id}`}
       article={article}
-      course={course}
+      course={course} s
       current_user={current_user}
       fetchArticleDetails={fetchArticleDetails}
       showArticleId={showArticleId}
       user={user}
     />
   ));
-
   const options = { desktop_only: false, sortable: false };
   const keys = {
     article_name: {
@@ -32,10 +35,18 @@ export const EditedUnassignedArticles = ({
       ...options
     }
   };
+  const getCourseSlug = () => {
+    const { course_school, course_title } = props.router.params;
+    return `${course_school}/${course_title}`;
+  };
 
+  const showMore = () => {
+    return props.actions.fetchArticles(getCourseSlug(), props.limit + 500);
+  };
   return (
     <div className="list__wrapper">
       <h4 className="assignments-list-title">{title}</h4>
+
       <List
         elements={rows}
         className="table--expandable table--hoverable"
@@ -44,6 +55,18 @@ export const EditedUnassignedArticles = ({
         stickyHeader={false}
         sortable={false}
       />
+      <div className="see-more">
+        {!props.limitReached
+          && (
+            <button
+              style={{ width: 'max-content', height: 'max-content', marginTop: '20px' }}
+              className="button ghost articles-see-more-btn " onClick={showMore}
+            >
+              {I18n.t('articles.see_more')}
+            </button>
+          )
+        }
+      </div>
     </div>
   );
 };
@@ -58,4 +81,20 @@ EditedUnassignedArticles.propTypes = {
   fetchArticleDetails: PropTypes.func.isRequired
 };
 
-export default EditedUnassignedArticles;
+const mapStateToProps = (state) => {
+  return ({
+    articleDetails: state.articleDetails,
+    sort: state.articles.sort,
+    limit: state.articles.limit,
+    limitReached: state.articles.limitReached,
+  });
+};
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({ ...ArticleActions }, dispatch)
+});
+
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EditedUnassignedArticles));
+
+
