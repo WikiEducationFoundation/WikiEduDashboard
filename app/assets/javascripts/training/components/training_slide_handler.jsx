@@ -7,7 +7,7 @@ import SlideLink from './slide_link.jsx';
 import SlideMenu from './slide_menu.jsx';
 import Quiz from './quiz.jsx';
 import Notifications from '../../components/common/notifications.jsx';
-import Alert from './Alert';
+import FastTrainingAlert from './fast_training_alert';
 
 
 
@@ -67,6 +67,9 @@ const keys = { rightKey: 39, leftKey: 37 };
 let count = 0;
 let nooftimes = 0;
 const enteringTime = new Date().getTime();
+const max_no_times_alert_shown = 1;
+const min_time_spent = 10000;
+const max_click_count = 3;
 
 
 const TrainingSlideHandler = () => {
@@ -90,12 +93,12 @@ const TrainingSlideHandler = () => {
 
   const [isShown, setIsShown] = useState(false);
 
-  // this function checks whether alert should be shown or not.
-  const Alerthandler = () => {
+  // this function checks whether fastTrainingAlert should be shown or not.
+  const fast_Training_Alert_handler = () => {
     if (routeParams.library_id === 'students') {
     count += 1;
     const clickingTime = new Date().getTime() - enteringTime;
-    if (count > 3 && clickingTime < 10000 && nooftimes < 2) {
+    if (count > max_click_count && clickingTime < min_time_spent && nooftimes <= max_no_times_alert_shown) {
       setIsShown(current => !current);
       nooftimes += 1;
       count = 0;
@@ -107,7 +110,7 @@ const TrainingSlideHandler = () => {
     const nextSlug = training.nextSlide.slug;
     dispatch(setCurrentSlide(nextSlug));
     setSlideCompleted_FC(nextSlug);
-    Alerthandler();
+    fast_Training_Alert_handler();
   };
 
   const prev = () => {
@@ -185,7 +188,7 @@ const TrainingSlideHandler = () => {
           params={routeParams}
           onClick={next}
         />
-        {isShown && <Alert/>}
+        {isShown && <FastTrainingAlert/>}
       </>
     );
   } else {
