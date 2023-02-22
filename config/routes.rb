@@ -98,6 +98,8 @@ Rails.application.routes.draw do
       constraints: { course_slug: /.*/ }
   get '/requested_accounts' => 'requested_accounts#index'
   post '/requested_accounts' => 'requested_accounts#create_all_accounts'
+  get '/update_username' => 'update_username#index'
+  post '/update_username' => 'update_username#update'
 
   # Self-enrollment: joining a course by entering a passcode or visiting a url
   get 'courses/:course_id/enroll/(:passcode)' => 'self_enrollment#enroll_self',
@@ -448,7 +450,4 @@ Rails.application.routes.draw do
   match '/599', to: 'errors#login_error', via: :all
   match '/500', to: 'errors#internal_server_error', via: :all
 
-  #Enhancements
-  get '/update_username' => 'update_username#index'
-  post '/update_username' => 'update_username#update'
 end

@@ -75,6 +75,30 @@ class UserImporter
     end
   end
 
+  # There are some users who updated their username through MetaWiki, and
+  # to get their updated username get reflected in the dahsboard, they need to relogin.
+  # So, this method will update the username without making the user relogin
+  def self.update_username_for_changed_metawiki_usernames(username)
+    username = String.new(username)
+    # mediawiki mostly treats spaces and underscores as equivalent, but spaces
+    # are the canonical form. Replica will not return revisions for the underscore
+    # versions.
+    username.tr!('_', ' ')
+    # Remove any leading or trailing whitespace that snuck through.
+    username.gsub!(/^[[:space:]]+/, '')
+    username.gsub!(/[[:space:]]+$/, '')
+
+    # Remove common invisible characters from beginning or end of username
+    username[0] = '' while CHARACTERS_TO_TRIM.include? username[0]
+    username[-1] = '' while CHARACTERS_TO_TRIM.include? username[-1]
+    # Remove "User:" prefix if present.
+    username.gsub!(/^User:/, '')
+    # All mediawiki usernames have the first letter capitalized, although
+    # the API returns data if you replace it with lower case.
+    username[0] = username[0].capitalize.to_s unless username.empty?
+    update_username_for_global_id(username)
+  end
+
   ##################
   # Helper methods #
   ##################

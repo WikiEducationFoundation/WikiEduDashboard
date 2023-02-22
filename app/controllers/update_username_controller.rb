@@ -11,7 +11,7 @@ class UpdateUsernameController < ApplicationController
 
   def update
     @username = params['username']
-    UserImporter.update_username_for_global_id(@username)
+    UserImporter.update_username_for_changed_metawiki_usernames(@username)
     redirect_to '/'
   end
 end

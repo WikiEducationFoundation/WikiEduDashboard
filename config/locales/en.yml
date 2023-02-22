@@ -1289,7 +1289,7 @@ en:
   update_username:
     header: Update a changed username
     info: If a user has changed the username for their Wikimedia account, enter the new username here to update it on the Dashboard.
-    label: New Username
+    label: New username
     button: Update
 
   uploads:
