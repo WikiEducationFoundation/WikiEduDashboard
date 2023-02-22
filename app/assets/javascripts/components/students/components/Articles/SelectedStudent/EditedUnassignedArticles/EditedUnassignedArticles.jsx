@@ -17,7 +17,7 @@ const EditedUnassignedArticles = ({
     <EditedUnassignedArticleRow
       key={`article-${article.id}`}
       article={article}
-      course={course} s
+      course={course}
       current_user={current_user}
       fetchArticleDetails={fetchArticleDetails}
       showArticleId={showArticleId}
