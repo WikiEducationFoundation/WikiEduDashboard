@@ -80,8 +80,6 @@ EditedUnassignedArticles.propTypes = {
 
 const mapStateToProps = (state) => {
   return ({
-    articleDetails: state.articleDetails,
-    sort: state.articles.sort,
     limit: state.articles.limit,
     limitReached: state.articles.limitReached,
   });
