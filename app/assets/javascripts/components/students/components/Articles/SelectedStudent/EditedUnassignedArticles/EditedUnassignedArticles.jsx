@@ -35,13 +35,10 @@ const EditedUnassignedArticles = ({
       ...options
     }
   };
-  const getCourseSlug = () => {
-    const { course_school, course_title } = props.router.params;
-    return `${course_school}/${course_title}`;
-  };
+
 
   const showMore = () => {
-    return props.actions.fetchArticles(getCourseSlug(), props.limit + 500);
+    return props.actions.fetchArticles(course.slug, props.limit + 500);
   };
   return (
     <div className="list__wrapper">
