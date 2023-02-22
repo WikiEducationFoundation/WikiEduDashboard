@@ -18,20 +18,19 @@ const fetchArticlesPromise = (courseId, limit) => {
     });
 };
 
-
-export const fetchArticles = (courseId, limit, refresh = false) => (dispatch) => {
-  return (
-    fetchArticlesPromise(courseId, limit)
+export const fetchArticles = (courseId, limit, refresh = false) => {
+  return (dispatch) => {
+    return fetchArticlesPromise(courseId, limit)
       .then((resp) => {
         dispatch({
           type: types.RECEIVE_ARTICLES,
           data: resp,
-          limit: limit
+          limit: limit,
         });
         dispatch({
           type: types.SORT_ARTICLES,
           key: 'character_sum',
-          refresh
+          refresh,
         });
         if (refresh) {
           dispatch({ type: DONE_REFRESHING_DATA });
@@ -39,15 +38,30 @@ export const fetchArticles = (courseId, limit, refresh = false) => (dispatch) =>
         // Now that we received the articles data, query wikidata.org for the labels
         // of any Wikidata entries that are among the articles.
         fetchWikidataLabelsForArticles(resp.course.articles, dispatch);
-       })
-      .catch(response => dispatch({ type: types.API_FAIL, data: response }))
-  );
+      })
+      .catch((response) => {
+        dispatch({ type: types.API_FAIL, data: response });
+      });
+  };
 };
 
-export const sortArticles = (key, refresh) => ({ type: types.SORT_ARTICLES, key: key, refresh });
+export const sortArticles = (key, refresh) => ({
+  type: types.SORT_ARTICLES,
+  key: key,
+  refresh,
+});
 
-export const filterArticles = wiki => ({ type: types.SET_PROJECT_FILTER, wiki: wiki });
+export const filterArticles = wiki => ({
+  type: types.SET_PROJECT_FILTER,
+  wiki: wiki,
+});
 
-export const filterNewness = newness => ({ type: types.SET_NEWNESS_FILTER, newness });
+export const filterNewness = newness => ({
+  type: types.SET_NEWNESS_FILTER,
+  newness,
+});
 
-export const filterTrackedStatus = trackedStatus => ({ type: types.SET_TRACKED_STATUS_FILTER, trackedStatus });
+export const filterTrackedStatus = trackedStatus => ({
+  type: types.SET_TRACKED_STATUS_FILTER,
+  trackedStatus,
+});
