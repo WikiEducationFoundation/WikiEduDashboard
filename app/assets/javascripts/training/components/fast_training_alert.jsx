@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function FastTrainingAlert() {
+function FastTrainingAlert() {
   const [open, setOpen] = useState(true);
 
   return (
@@ -21,3 +21,24 @@ export default function FastTrainingAlert() {
     </>
   );
 }
+
+let count = 0;
+let nooftimes = 0;
+const enteringTime = new Date().getTime();
+const max_no_times_alert_shown = 1;
+const min_time_spent = 10000;
+const max_click_count = 3;
+
+const fastTrainingAlertHandler = (routeParams, setIsShown) => {
+  if (routeParams.library_id === 'students') {
+    count += 1;
+    const clickingTime = new Date().getTime() - enteringTime;
+    if (count > max_click_count && clickingTime < min_time_spent && nooftimes <= max_no_times_alert_shown) {
+      setIsShown(current => !current);
+      nooftimes += 1;
+      count = 0;
+    }
+  }
+};
+
+export { FastTrainingAlert, fastTrainingAlertHandler };

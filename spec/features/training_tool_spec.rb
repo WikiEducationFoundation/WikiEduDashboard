@@ -266,7 +266,7 @@ end
 def proceed_to_next_slide
   if page.has_selector?('.alert-box-container', wait: 10)
     within('.alert-box-container') do
-      page.execute_script("$('.alert-box-container').hide()")
+      find('.alert-button').click
     end
   end
   button = page.first('button.ghost-button', minimum: 0)
