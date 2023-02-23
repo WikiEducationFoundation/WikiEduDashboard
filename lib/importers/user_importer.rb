@@ -29,24 +29,7 @@ class UserImporter
   CHARACTERS_TO_TRIM = [LTR_MARK, RTL_MARK].freeze
 
   def self.new_from_username(username, home_wiki=nil)
-    username = String.new(username)
-    # mediawiki mostly treats spaces and underscores as equivalent, but spaces
-    # are the canonical form. Replica will not return revisions for the underscore
-    # versions.
-    username.tr!('_', ' ')
-    # Remove any leading or trailing whitespace that snuck through.
-    username.gsub!(/^[[:space:]]+/, '')
-    username.gsub!(/[[:space:]]+$/, '')
-
-    # Remove common invisible characters from beginning or end of username
-    username[0] = '' while CHARACTERS_TO_TRIM.include? username[0]
-    username[-1] = '' while CHARACTERS_TO_TRIM.include? username[-1]
-    # Remove "User:" prefix if present.
-    username.gsub!(/^User:/, '')
-    # All mediawiki usernames have the first letter capitalized, although
-    # the API returns data if you replace it with lower case.
-    username[0] = username[0].capitalize.to_s unless username.empty?
-
+    username = username_sanitization(username)
     user = User.find_by(username:)
     return user if user
 
@@ -79,6 +62,21 @@ class UserImporter
   # to get their updated username get reflected in the dahsboard, they need to relogin.
   # So, this method will update the username without making the user relogin
   def self.update_username_for_changed_metawiki_usernames(username)
+    update_username_for_global_id(username_sanitization(username))
+  end
+
+  ##################
+  # Helper methods #
+  ##################
+
+  def self.update_user_from_auth(user, auth)
+    user.update(global_id: auth.uid,
+                username: auth.info.name,
+                wiki_token: auth.credentials.token,
+                wiki_secret: auth.credentials.secret)
+  end
+
+  def self.username_sanitization(username)
     username = String.new(username)
     # mediawiki mostly treats spaces and underscores as equivalent, but spaces
     # are the canonical form. Replica will not return revisions for the underscore
@@ -96,18 +94,7 @@ class UserImporter
     # All mediawiki usernames have the first letter capitalized, although
     # the API returns data if you replace it with lower case.
     username[0] = username[0].capitalize.to_s unless username.empty?
-    update_username_for_global_id(username)
-  end
-
-  ##################
-  # Helper methods #
-  ##################
-
-  def self.update_user_from_auth(user, auth)
-    user.update(global_id: auth.uid,
-                username: auth.info.name,
-                wiki_token: auth.credentials.token,
-                wiki_secret: auth.credentials.secret)
+    return username
   end
 
   def self.user_account_exists?(username, home_wiki)
