@@ -22,6 +22,7 @@ describe 'Update username controller', type: :feature, js: true do
         expect(page).to have_content(I18n.t('update_username.username_updated'))
       end
     end
+
     it 'enter wrong username' do
       VCR.use_cassette('update_username') do
         create(:user, username: 'Old Username', global_id: '14093230')
@@ -32,6 +33,7 @@ describe 'Update username controller', type: :feature, js: true do
         expect(page).to have_content(I18n.t('update_username.not_found'))
       end
     end
+
     it 'and do not enter username' do
       VCR.use_cassette('update_username') do
         visit '/update_username'
