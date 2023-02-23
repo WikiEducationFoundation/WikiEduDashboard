@@ -23,6 +23,7 @@ sl:
     log_in_extended: Prijava z Wikipedijo
     log_in: Prijava
     log_out: Odjava
+    no_results: Za »%{query}« ni bil najden noben zadetek
     sign_up: Ustvari račun
     submit: Pošlji
     change: Spremeni
@@ -74,6 +75,7 @@ sl:
     title_example: Naslov predmeta
   assignments:
     article_link_wikidata: Predmet
+    confirm_deletion: Ali res želite izbrisati to dodelitev?
     loading: Nalaganje dodelitev ...
     remove: Odstrani
     review_self_wikidata: Ponovni pregled predmeta
@@ -86,6 +88,7 @@ sl:
     campaign: Kampanja
     campaigns: Kampanje
     created_at: Datum
+    data_revisions: Podatki o redakcijah
     description: Opis
     no_alerts: Ta kampanja nima opomnikov
     none: Noben
@@ -121,6 +124,7 @@ sl:
     courses: Tečaji
     creator:
       cancel_course_clone: Prekliči klon tečaja
+      cancel_course_clone_confirm: Ali res želite ustaviti kloniranje tega predmeta?
       course_description: Opis tečaja
       course_term: Termin tečaja
       course_term_placeholder: Termin
@@ -129,6 +133,10 @@ sl:
       end_date: Končni datum
       start_date: Začetni datum
     current: Trenutni tečaji
+    data_articles: Podatki o člankih
+    data_overview: Pregledni podatki
+    data_edits: Podatki o urejanjih
+    data_students: Podatki o urejevalcih
     data_revisions: Podatki o redakcijah
     delete_suggestion: Izbriši
     dismiss_survey: Opusti
@@ -142,10 +150,13 @@ sl:
     namespaces: Sledeni imenski prostori
     join_prompt: Se želite pridružiti »%{title}«?
     join_failed: Vpis ni uspel.
+    join_no_passcode: Ali se res želite pridružiti temu predmetu?
+    leave_confirmation: Ali res želite zapustiti ta tečaj?
     loading: Nalaganje ...
     new_week: Dodaj nov teden
     new_account_email_placeholder: ime@example.org
     none: Noben
+    not_permitted: Nimate dovoljenja za urejanje tega tečaja.
     overview: Domov
     private: Zasebni
     requested_accounts: Zahtevani računi
@@ -178,11 +189,13 @@ sl:
     campaign_courses: Programi %{title}
     creator:
       cancel_course_clone: Prekliči klon programa
+      cancel_course_clone_confirm: Ali res želite ustaviti kloniranje tega programa?
       course_description: Opis programa
       course_title: Naslov programa
       create_label: Ustvari nov program
       save_cloned_course: Shrani
     edit_course_dates: Uredi datume projekta
+    not_permitted: Nimate dovoljenja za urejanje tega programa.
     request_accounts: Zahtevaj račune
     search_courses: Poišči programe
     student_editors: Urejevalci
@@ -221,9 +234,11 @@ sl:
     tags: Oznake
     update_statistics_link: Več o tem
     view_count_description_wikidata: Ogledi predmeta
+    view_data_unavailable: Ni razpoložljivih podatkov o ogledu
     word_count: Dodane besede
     changed: Spremenjen
     labels: Oznake
+    no_data: Ni podatkov
   namespace:
     all: Vsi
     project: Projekt
@@ -278,6 +293,14 @@ sl:
     chose_search_type: Izberite vrsto iskanja
   timeline:
     block_assignment: Dodelitev
+    delete_week_confirmation: |-
+      Ste prepričani, da želite izbrisati ta teden? To bo izbrisalo teden in vse pridružene blokade.
+
+      Tega ni mogoče razveljaviti.
+    delete_weeks_confirmation: |-
+      Ste prepričani, da želite izbrisati to celotno časovnico in začeti znova?
+
+      Tega ni mogoče razveljaviti.
     discard_all_changes: Zavrzi vse spremembe
     empty_week_3: ali
     gradeable_value: Vrednost
@@ -321,6 +344,7 @@ sl:
     number_of_articles:
       one: '%{count} članek'
       other: '%{count} članka'
+    request_confirmation: Ali res želite zaprositi za ta račun?
     revisions: Redakcije
     training_module_status: Stanje
     username: Uporabniško ime

@@ -62,6 +62,7 @@ cy:
     opt_in: Ydw
     opt_out: Nac ydw
     opt_yes: Ydw
+    print: Argraffu
   dashboard:
     create_note: Cliciwch ar 'Creu Cwrs' i wneud hynny.
     explore_course_pages: Archwilio Tudalennau'r Cwrs

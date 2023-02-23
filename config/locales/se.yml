@@ -6,6 +6,7 @@
 ---
 se:
   application:
+    cancel: Šluhtte
     cookie_consent_see_more: Lassedieđut
     greeting2: Bures boahtin!
     log_in_extended: Čálit sisa Wikipedia bokte
@@ -38,9 +39,11 @@ se:
     tags: 'Gilkorat:'
     timeline_link: Áigelinnjá
   courses_generic:
+    cancel: Šluhtte
     creator:
       save_cloned_course: Vurke
   editable:
+    cancel: Šluhtte
     save: Vurke
   instructor_view:
     bad_work:

@@ -8,6 +8,10 @@
 # Author: Volvox
 ---
 lb:
+  number:
+    human:
+      decimal_units:
+        format: '%n %u'
   application:
     cancel: Ofbriechen
     cookie_consent_acknowledge: Ech verstinn

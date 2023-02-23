@@ -59,6 +59,7 @@ el:
     opt_out: Όχι
     opt_yes: ναι
     opt_no: όχι
+    print: Εκτύπωση
   article_statuses:
     not_yet_started: Ξεκινώντας
     providing_feedback: Παροχή ανατροφοδότησης
