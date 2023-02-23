@@ -68,7 +68,7 @@ const TrainingSlideHandler = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [baseTitle, setBaseTitle] = useState('');
-  
+
   // useState for fastTrainingAlertHandler function
   const [isShown, setIsShown] = useState(false);
 
