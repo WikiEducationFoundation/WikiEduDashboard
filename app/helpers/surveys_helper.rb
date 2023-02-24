@@ -88,6 +88,7 @@ module SurveysHelper
     @answer_group_builder = Rapidfire::AnswerGroupBuilder.new(params: {},
                                                               user: current_user,
                                                               question_group: @question_group)
+    @questions = surveys_question_group.rapidfire_question_group.questions
     return { question_group: @question_group,
       answer_group_builder: @answer_group_builder,
       question_group_index: index,

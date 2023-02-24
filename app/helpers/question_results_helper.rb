@@ -30,7 +30,7 @@ module QuestionResultsHelper
 
   def question_answers(question)
     question.answers.map do |answer|
-      course = answer.course(@survey.id)
+      course = answer.course(@survey.id, answer.user)
       { data: answer, user: answer.user, course:, campaigns: course&.campaigns,
         tags: course&.tags, sentiment: calculate_sentiment(question, answer) }
     end
