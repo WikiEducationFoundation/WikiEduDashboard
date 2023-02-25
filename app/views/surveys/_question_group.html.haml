@@ -35,7 +35,7 @@
 
           - if results
             = render partial: "rapidfire/answers/question_text", locals: {f: answer_form, answer: answer}
-            = render partial: "question_results", locals: { question: @questions.find(answer.question.id) }
+            = render partial: "question_results", locals: { question: @id_to_question[answer.question.id] }
           - else
             = render_answer_form_helper(answer, answer_form)
 

@@ -83,6 +83,7 @@ module SurveysHelper
     answer.question.validation_rules[:grouped_question]
   end
 
+  # rubocop:disable Metrics/MethodLength
   def question_group_locals(surveys_question_group, index, total, is_results_view:)
     @question_group = surveys_question_group.rapidfire_question_group
     @answer_group_builder = Rapidfire::AnswerGroupBuilder.new(params: {},
@@ -93,6 +94,12 @@ module SurveysHelper
                  .questions
                  .includes(answers: { user: :survey_notifications })
 
+    @id_to_question = {}
+
+    @questions.each do |question|
+      @id_to_question[question.id] = question
+    end
+
     return { question_group: @question_group,
       answer_group_builder: @answer_group_builder,
       question_group_index: index,
@@ -100,6 +107,7 @@ module SurveysHelper
       total:,
       results: is_results_view }
   end
+  # rubocop:enable Metrics/MethodLength
 
   def question_conditional_string(question)
     return '' if question.nil?
