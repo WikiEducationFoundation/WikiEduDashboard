@@ -95,7 +95,7 @@ module SurveysHelper
                  .includes(answers: { user: :survey_notifications })
 
     @id_to_question = {}
-
+    @survey_user_cache = {}
     @questions.each do |question|
       @id_to_question[question.id] = question
     end
