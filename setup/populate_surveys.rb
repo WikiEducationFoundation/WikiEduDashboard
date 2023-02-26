@@ -1,14 +1,17 @@
 # frozen_string_literal: true
 ActiveRecord::Base.logger = Logger.new(STDOUT)
+
 def populate_survey_questions
+  clear_survey_questions
   group = Rapidfire::QuestionGroup.find_or_create_by(
     name: "Populated Survey",
     tags: ""
   )
-  Rapidfire::Question.where(question_group_id: group.id).destroy_all
   to_create = []
+  
+  n_questions = ENV['questions'] || 100
 
-  1..100.times do |i|
+  1..n_questions.to_i.times do |i|
     to_create << {
       question_group_id: group.id, 
       question_text: "Question #{i}", 
@@ -35,23 +38,16 @@ def populate_survey_questions
 end
 
 def populate_survey_answers
+  clear_survey_answers
   question_group = Rapidfire::QuestionGroup.find_by(name: "Populated Survey")
-  to_delete = []
-  Rapidfire::AnswerGroup.where(
-    question_group_id: question_group.id,
-  ).each do |answer_group|
-    Rapidfire::Answer.where(
-      answer_group_id: answer_group.id
-    ).each do |answer|
-      to_delete << answer
-    end
-  end
-  Rapidfire::Answer.delete(to_delete)
   to_create = []
-  1..100.times do |round|
+
+  n_responses = ENV['responses'] || 100
+
+  1..n_responses.to_i.times do |round|
     answer_group = Rapidfire::AnswerGroup.create(
       question_group_id: question_group.id,
-      user_id: User.first.id,
+      user_id: User.order('RAND()').first.id,
     )
     Rapidfire::Question.where(
       question_group_id: question_group.id,
@@ -64,4 +60,26 @@ def populate_survey_answers
     end
   end
   Rapidfire::Answer.insert_all(to_create)
+end
+
+def clear_survey_answers
+  question_group = Rapidfire::QuestionGroup.find_by(name: "Populated Survey")
+  to_delete = []
+  Rapidfire::AnswerGroup.where(
+    question_group_id: question_group.id,
+  ).each do |answer_group|
+    Rapidfire::Answer.where(
+      answer_group_id: answer_group.id
+    ).each do |answer|
+      to_delete << answer
+    end
+  end
+  Rapidfire::Answer.delete(to_delete)
+end
+
+def clear_survey_questions
+  question_group = Rapidfire::QuestionGroup.find_by(name: "Populated Survey")
+  Rapidfire::Question.where(
+    question_group_id: question_group.id,
+  ).destroy_all
 end

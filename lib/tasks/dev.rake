@@ -18,7 +18,14 @@ namespace :dev do
   end
   desc 'Populate Survey Questions'
   task populate_surveys: :environment do
-    populate_survey_questions
-    populate_survey_answers
+    mode = ENV['mode']
+    case mode
+    when 'clear'
+      clear_survey_questions
+      clear_survey_answers
+    else
+      populate_survey_questions
+      populate_survey_answers
+    end
   end
 end
