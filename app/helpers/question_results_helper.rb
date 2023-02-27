@@ -8,8 +8,8 @@
 require 'sentimental'
 
 module QuestionResultsHelper
-  def question_results_data(question)
-    answers = question_answers(question)
+  def question_results_data(question, survey_user_cache)
+    answers = question_answers(question, survey_user_cache)
     {
       type: question_type_to_string(question),
       question:,
@@ -28,9 +28,14 @@ module QuestionResultsHelper
     answers.map { |a| a.split(Rapidfire.answers_delimiter) }.flatten
   end
 
-  def question_answers(question)
+  def question_answers(question, survey_user_cache)
     question.answers.map do |answer|
-      course = answer.course(@survey.id)
+      if survey_user_cache.key?(answer.user.id)
+        course = survey_user_cache[answer.user.id]
+      else
+        course = answer.course(@survey.id, answer.user)
+        survey_user_cache[answer.user.id] = course
+      end
       { data: answer, user: answer.user, course:, campaigns: course&.campaigns,
         tags: course&.tags, sentiment: calculate_sentiment(question, answer) }
     end

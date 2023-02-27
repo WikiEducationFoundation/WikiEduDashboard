@@ -18,14 +18,21 @@ Rails.application.config.to_prepare do
   Rapidfire::Answer.class_eval do
     has_one :user, through: :answer_group
 
-    def notification(survey_id)
-      notifications = user.survey_notifications.completed
+    def notification(survey_id, curr_user=nil)
+      if curr_user.nil?
+        # if curr_user is nil, then we haven't preloaded the user's notifications
+        notifications = user.survey_notifications.completed
+      else
+        # if it isn't nil, then we have preloaded the user's notifications via includes in app/views/surveys/_question_group.html.haml
+        notifications = curr_user.survey_notifications.completed
+      end
+      
       return nil if notifications.empty?
       notifications.map {|n| n if n.survey.id == survey_id }.compact.first
     end
 
-    def course(survey_id)
-      n = notification(survey_id)
+    def course(survey_id, curr_user=nil)
+      n = notification(survey_id, curr_user)
       return nil if n.nil?
       n.course
     end
