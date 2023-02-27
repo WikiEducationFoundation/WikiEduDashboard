@@ -38,7 +38,7 @@ def populate_survey_questions
 end
 
 def populate_survey_answers
-  clear_survey_answers
+  # clear_survey_answers
   question_group = Rapidfire::QuestionGroup.find_by(name: "Populated Survey")
   to_create = []
 
@@ -64,6 +64,8 @@ end
 
 def clear_survey_answers
   question_group = Rapidfire::QuestionGroup.find_by(name: "Populated Survey")
+  return unless question_group
+
   to_delete = []
   Rapidfire::AnswerGroup.where(
     question_group_id: question_group.id,
@@ -79,6 +81,8 @@ end
 
 def clear_survey_questions
   question_group = Rapidfire::QuestionGroup.find_by(name: "Populated Survey")
+  return unless question_group
+
   Rapidfire::Question.where(
     question_group_id: question_group.id,
   ).destroy_all
