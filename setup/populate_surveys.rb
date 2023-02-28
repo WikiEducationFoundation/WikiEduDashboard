@@ -38,7 +38,7 @@ def populate_survey_questions
 end
 
 def populate_survey_answers
-  # clear_survey_answers
+  clear_survey_answers
   question_group = Rapidfire::QuestionGroup.find_by(name: "Populated Survey")
   to_create = []
 
