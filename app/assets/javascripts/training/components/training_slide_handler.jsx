@@ -7,6 +7,8 @@ import SlideLink from './slide_link.jsx';
 import SlideMenu from './slide_menu.jsx';
 import Quiz from './quiz.jsx';
 import Notifications from '../../components/common/notifications.jsx';
+import { FastTrainingAlert, fastTrainingAlertHandler } from './fast_training_alert';
+
 
 
 const md = require('../../utils/markdown_it.js').default({ openLinksExternally: true });
@@ -18,6 +20,7 @@ const __guard__ = (value, transform) => {
 const moduleId = (params) => {
   return __guard__(params, x => x.module_id);
 };
+
 
 const returnToLink = () => {
   return document.getElementById('react_root').getAttribute('data-return-to');
@@ -66,6 +69,9 @@ const TrainingSlideHandler = () => {
   const dispatch = useDispatch();
   const [baseTitle, setBaseTitle] = useState('');
 
+  // useState for fastTrainingAlertHandler function
+  const [isShown, setIsShown] = useState(false);
+
   const setSlideCompleted_FC = (slideId) => {
     const userId = __guard__(document.getElementById('main'), x => x.getAttribute('data-user-id'));
     if (!userId) { return; }
@@ -78,9 +84,9 @@ const TrainingSlideHandler = () => {
 
   const next = () => {
     const nextSlug = training.nextSlide.slug;
-
     dispatch(setCurrentSlide(nextSlug));
     setSlideCompleted_FC(nextSlug);
+    fastTrainingAlertHandler(routeParams, setIsShown);
   };
 
   const prev = () => {
@@ -149,14 +155,17 @@ const TrainingSlideHandler = () => {
 
   if (__guard__(training.nextSlide, x1 => x1.slug)) {
     nextLink = (
-      <SlideLink
-        slideId={training.nextSlide.slug}
-        buttonText={training.currentSlide.buttonText || I18n.t('training.next')}
-        disabled={disableNext(training)}
-        button={true}
-        params={routeParams}
-        onClick={next}
-      />
+      <>
+        <SlideLink
+          slideId={training.nextSlide.slug}
+          buttonText={training.currentSlide.buttonText || I18n.t('training.next')}
+          disabled={disableNext(training)}
+          button={true}
+          params={routeParams}
+          onClick={next}
+        />
+        {isShown && <FastTrainingAlert/>}
+      </>
     );
   } else {
     let nextHref = returnToLink();
@@ -200,6 +209,7 @@ const TrainingSlideHandler = () => {
         params={routeParams}
         onClick={prev}
       />
+
     );
   }
 
