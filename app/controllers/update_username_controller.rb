@@ -11,15 +11,13 @@ class UpdateUsernameController < ApplicationController
 
   def update
     @username = params['username']
+    user = UserImporter.update_username_for_changed_metawiki_usernames(@username)
     if @username.blank?
       flash[:error] = t('update_username.empty_username')
+    elsif user.nil?
+      flash[:error] = t('update_username.not_found')
     else
-      user = UserImporter.update_username_for_changed_metawiki_usernames(@username)
-      if user.nil?
-        flash[:error] = t('update_username.not_found')
-      else
-        flash[:notice] = t('update_username.username_updated')
-      end
+      flash[:notice] = t('update_username.username_updated')
     end
     redirect_to '/update_username'
   end

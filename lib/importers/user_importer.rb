@@ -29,7 +29,7 @@ class UserImporter
   CHARACTERS_TO_TRIM = [LTR_MARK, RTL_MARK].freeze
 
   def self.new_from_username(username, home_wiki=nil)
-    username = username_sanitization(username)
+    username = sanitize_username(username)
     user = User.find_by(username:)
     return user if user
 
@@ -62,7 +62,7 @@ class UserImporter
   # to get their updated username get reflected in the dahsboard, they need to relogin.
   # So, this method will update the username without making the user relogin
   def self.update_username_for_changed_metawiki_usernames(username)
-    update_username_for_global_id(username_sanitization(username))
+    update_username_for_global_id(sanitize_username(username))
   end
 
   ##################
@@ -76,7 +76,7 @@ class UserImporter
                 wiki_secret: auth.credentials.secret)
   end
 
-  def self.username_sanitization(username)
+  def self.sanitize_username(username)
     username = String.new(username)
     # mediawiki mostly treats spaces and underscores as equivalent, but spaces
     # are the canonical form. Replica will not return revisions for the underscore
