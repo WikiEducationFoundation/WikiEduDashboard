@@ -5,8 +5,7 @@ require_dependency "#{Rails.root}/lib/importers/user_importer"
 class UpdateUsernameController < ApplicationController
   before_action :require_signed_in
   respond_to :html, :json
-  def index
-  end
+  def index; end
 
   def update
     username = UserImporter.sanitize_username params['username']
