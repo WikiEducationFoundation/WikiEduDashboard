@@ -58,13 +58,6 @@ class UserImporter
     end
   end
 
-  # There are some users who updated their username through MetaWiki, and
-  # to get their updated username get reflected in the dahsboard, they need to relogin.
-  # So, this method will update the username without making the user relogin
-  def self.update_username_for_changed_metawiki_usernames(username)
-    update_username_for_global_id(sanitize_username(username))
-  end
-
   ##################
   # Helper methods #
   ##################

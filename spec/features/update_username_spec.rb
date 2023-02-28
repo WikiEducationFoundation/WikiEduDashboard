@@ -39,7 +39,7 @@ describe 'Update username controller', type: :feature, js: true do
         visit '/update_username'
         fill_in('username', with: '')
         click_button 'update_username'
-        expect(page).to have_content(I18n.t('update_username.empty_username'))
+        expect(page).to have_content(I18n.t('update_username.header'))
       end
     end
   end

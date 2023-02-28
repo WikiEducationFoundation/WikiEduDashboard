@@ -1289,7 +1289,6 @@ en:
   update_username:
     header: Update a changed username
     not_found: User not found for entered username.
-    empty_username: Username cannot be empty.
     username_updated: Username Updated Successfully!
     info: If a user has changed the username for their Wikimedia account, enter the new username here to update it on the Dashboard.
     label: New username
