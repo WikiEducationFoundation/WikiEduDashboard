@@ -25,15 +25,16 @@ function FastTrainingAlert() {
 let count = 0;
 let nooftimes = 0;
 const enteringTime = new Date().getTime();
-const max_no_times_alert_shown = 1;
-const min_time_spent = 10000;
-const max_click_count = 3;
+const MAX_NO_TIMES_ALERT_SHOWN = 1;
+// min time spent for 3 clicks to trigger alert set to 10 seconds
+const MIN_TIME_SPENT = 10000;
+const MAX_CLICK_COUNT = 3;
 
 const fastTrainingAlertHandler = (routeParams, setIsShown) => {
   if (routeParams.library_id === 'students') {
     count += 1;
     const clickingTime = new Date().getTime() - enteringTime;
-    if (count > max_click_count && clickingTime < min_time_spent && nooftimes <= max_no_times_alert_shown) {
+    if (count > MAX_CLICK_COUNT && clickingTime < MIN_TIME_SPENT && nooftimes <= MAX_NO_TIMES_ALERT_SHOWN) {
       setIsShown(current => !current);
       nooftimes += 1;
       count = 0;
