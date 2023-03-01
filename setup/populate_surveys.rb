@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-ActiveRecord::Base.logger = Logger.new(STDOUT)
 
 def populate_survey_questions
   clear_survey_questions
