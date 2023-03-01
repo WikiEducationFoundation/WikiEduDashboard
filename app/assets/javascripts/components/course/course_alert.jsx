@@ -40,7 +40,7 @@ const CourseAlert = createReactClass({
     }
     const messages = [].concat(this.props.message);
     return (
-      <div className={this.props.className ? `${this.props.className} notification` : 'notification'}>
+      <div className={this.props.className ? `${this.props.className} notification` : 'notification'} id="course-alerts">
         <div className="container">
           { messages.map((message, i) => <p key={i}>{ message }</p>) }
           {action}

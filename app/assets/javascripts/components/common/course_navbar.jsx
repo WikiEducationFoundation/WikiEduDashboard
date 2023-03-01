@@ -74,7 +74,7 @@ const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
   return (
     <div className="container">
       {courseLinkElement}
-      <nav>
+      <nav id="navbar-main" >
         <div className="nav__item" id="overview-link">
           <p><NavLink to={homeLink} className={({ isActive }) => (isActive ? 'active' : homeLinkClassName)}>{I18n.t('courses.overview')}</NavLink></p>
         </div>

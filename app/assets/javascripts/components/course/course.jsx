@@ -42,9 +42,20 @@ export const Course = withRouter(createReactClass({
     persistCourse: PropTypes.func.isRequired,
     fetchTimeline: PropTypes.func.isRequired
   },
+  getInitialState() {
+    return { navBarHeight: 0, courseAlertsHeight: 0 };
+  },
 
   // Fetch all the data needed to render a course page
   componentDidMount() {
+    this.timer = setTimeout(
+      () => {
+        const availableWidthPx = document.getElementById('navbar-main');
+        const courseAlertsHeight = document.getElementById('course-alerts');
+        this.setState(() => ({ navBarHeight: availableWidthPx?.clientHeight, courseAlertsHeight: courseAlertsHeight?.clientHeight }));
+      },
+      1000,
+    );
     const courseSlug = this.getCourseSlug();
     this.props.fetchCourse(courseSlug);
     this.props.fetchUsers(courseSlug);
@@ -131,19 +142,21 @@ export const Course = withRouter(createReactClass({
             <Notifications />
           </Affix>
         </div>
-        <CourseAlerts
-          courseAlerts={this.props.courseAlerts}
-          course={course}
-          userRoles={userRoles}
-          weeks={this.props.weeks}
-          courseLinkParams={this._courseLinkParams()}
-          usersLoaded={this.props.usersLoaded}
-          studentCount={this.props.studentCount}
-          updateCourse={this.props.updateCourse}
-          persistCourse={this.props.persistCourse}
-          dismissNotification={this.props.dismissNotification}
-        />
-        <div className="course_main container">
+        <div style={{ marginTop: `${this.state.navBarHeight}px` }} className="course-alerts-wrapper">
+          <CourseAlerts
+            courseAlerts={this.props.courseAlerts}
+            course={course}
+            userRoles={userRoles}
+            weeks={this.props.weeks}
+            courseLinkParams={this._courseLinkParams()}
+            usersLoaded={this.props.usersLoaded}
+            studentCount={this.props.studentCount}
+            updateCourse={this.props.updateCourse}
+            persistCourse={this.props.persistCourse}
+            dismissNotification={this.props.dismissNotification}
+          />
+        </div>
+        <div className="course_main container" style={{ marginTop: `${this.state.courseAlertsHeight}px` }}>
           <Confirm />
           {courseApprovalForm}
           {enrollCard}
