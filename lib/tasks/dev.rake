@@ -23,7 +23,12 @@ namespace :dev do
     when 'clear'
       clear_survey_questions
       clear_survey_answers
+      clear_survey
+      clear_survey_notifications
+      clear_courses
+      clear_users
     else
+      populate_courses
       populate_survey_questions
       populate_survey_answers
     end
