@@ -1285,6 +1285,15 @@ en:
     no_training_library_records_non_wiki_ed_mode: There are no TrainingLibrary records in the database.
     search_training_resources: Search for training resources
     no_training_resource_match_your_search: No training resource matches your search
+
+  update_username:
+    header: Update a changed username
+    not_found: User not found for entered username.
+    username_updated: Username Updated Successfully!
+    info: If a user has changed the username for their Wikimedia account, enter the new username here to update it on the Dashboard.
+    label: New username
+    button: Update
+
   uploads:
     credit: Credit
     file_name: File Name

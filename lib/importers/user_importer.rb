@@ -29,24 +29,7 @@ class UserImporter
   CHARACTERS_TO_TRIM = [LTR_MARK, RTL_MARK].freeze
 
   def self.new_from_username(username, home_wiki=nil)
-    username = String.new(username)
-    # mediawiki mostly treats spaces and underscores as equivalent, but spaces
-    # are the canonical form. Replica will not return revisions for the underscore
-    # versions.
-    username.tr!('_', ' ')
-    # Remove any leading or trailing whitespace that snuck through.
-    username.gsub!(/^[[:space:]]+/, '')
-    username.gsub!(/[[:space:]]+$/, '')
-
-    # Remove common invisible characters from beginning or end of username
-    username[0] = '' while CHARACTERS_TO_TRIM.include? username[0]
-    username[-1] = '' while CHARACTERS_TO_TRIM.include? username[-1]
-    # Remove "User:" prefix if present.
-    username.gsub!(/^User:/, '')
-    # All mediawiki usernames have the first letter capitalized, although
-    # the API returns data if you replace it with lower case.
-    username[0] = username[0].capitalize.to_s unless username.empty?
-
+    username = sanitize_username(username)
     user = User.find_by(username:)
     return user if user
 
@@ -84,6 +67,27 @@ class UserImporter
                 username: auth.info.name,
                 wiki_token: auth.credentials.token,
                 wiki_secret: auth.credentials.secret)
+  end
+
+  def self.sanitize_username(username)
+    username = String.new(username)
+    # mediawiki mostly treats spaces and underscores as equivalent, but spaces
+    # are the canonical form. Replica will not return revisions for the underscore
+    # versions.
+    username.tr!('_', ' ')
+    # Remove any leading or trailing whitespace that snuck through.
+    username.gsub!(/^[[:space:]]+/, '')
+    username.gsub!(/[[:space:]]+$/, '')
+
+    # Remove common invisible characters from beginning or end of username
+    username[0] = '' while CHARACTERS_TO_TRIM.include? username[0]
+    username[-1] = '' while CHARACTERS_TO_TRIM.include? username[-1]
+    # Remove "User:" prefix if present.
+    username.gsub!(/^User:/, '')
+    # All mediawiki usernames have the first letter capitalized, although
+    # the API returns data if you replace it with lower case.
+    username[0] = username[0].capitalize.to_s unless username.empty?
+    return username
   end
 
   def self.user_account_exists?(username, home_wiki)
