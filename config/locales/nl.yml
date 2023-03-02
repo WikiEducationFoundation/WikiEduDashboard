@@ -615,6 +615,14 @@ nl:
     view: Bekijken
     logged_out: Je bent afgemeld. Je ontvangt geen krediet voor het voltooien van
       deze module, tenzij je je aanmeldt.
+  update_username:
+    header: Een wijziging van gebruikersnaam doorvoeren
+    not_found: Gebruiker niet gevonden voor ingevoerde gebruikersnaam.
+    username_updated: De gebruikersnaam is bijgewerkt.
+    info: Als een gebruiker de gebruikersnaam voor diens Wikimedia-account heeft gewijzigd,
+      voer dan hier de nieuwe gebruikersnaam in om deze bij te werken op het Dashboard.
+    label: Nieuwe gebruikersnaam
+    button: Bijwerken
   uploads:
     label: Uploads
     loading: Bezig met het laden van uploads...

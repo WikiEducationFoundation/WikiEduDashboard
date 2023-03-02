@@ -376,6 +376,8 @@ lv:
     page: Lapa
     kind:
       discussion: Diskusija
+  update_username:
+    button: Atjaunināt
   uploads:
     file_name: Faila nosaukums
     header: Wikimedia Commons augšupielādētie faili

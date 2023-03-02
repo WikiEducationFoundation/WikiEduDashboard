@@ -530,6 +530,8 @@ lb:
       exercise: Exercice
       discussion: Diskussioun
       training: Formatioun
+  update_username:
+    label: Neie Benotzernumm
   uploads:
     file_name: Numm vum Fichier
     image: Bild
@@ -552,7 +554,7 @@ lb:
     course_passcode: 'Passcode:'
     editors: Auteuren
     edits_by: 'Ännerunge vum:'
-    enroll_confirmation: Sidd Dir sécher datt Dir %{username} derbäisetze wëllt?
+    enroll_confirmation: Sidd Dir sécher, datt Dir %{username} derbäisetze wëllt?
     enrolled_success: '%{username} gouf derbäigesat!'
     first_name: Virnumm
     last_name: Familljennumm
@@ -569,7 +571,7 @@ lb:
     profile: Profil
     recent_revisions: Rezent Ännerungen
     references_count: Referenzen derbäigesat
-    remove_confirmation: Sidd Dir sécher datt Dir %{username} ewechhuele wëllt?
+    remove_confirmation: Sidd Dir sécher, datt Dir %{username} ewechhuele wëllt?
     request_confirmation: Sidd Dir sécher datt Dir dëse Benotzerkont ufroe wëllt?
     revisions: Versiounen
     sandboxes: Sandkëschten

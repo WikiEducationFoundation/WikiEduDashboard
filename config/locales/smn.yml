@@ -91,7 +91,9 @@ smn:
     cancel: Jooskâ
     save: Vuorkkii
   metrics:
+    activity: Vorâs nubástusah
     close_modal: Toopâ
+    revisions: Vorâs nubástusah
     tags: Kilgoleh
     upload_count: Vuorkkiimeh Commonsin
     removed: Sikkum
@@ -117,6 +119,7 @@ smn:
     first_name: Ovdânommâ
     last_name: Suhânommâ
     name: Nommâ
+    recent_revisions: Vorâs nubástusah
     username: Kevtteenommâ
     username_placeholder: Kevtteenommâ
   wizard:

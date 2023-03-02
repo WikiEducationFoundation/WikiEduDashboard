@@ -887,6 +887,9 @@ it:
     done: Fatto!
     kind:
       discussion: Discussione
+  update_username:
+    label: Nuovo nome utente
+    button: Aggiorna
   uploads:
     file_name: Nome del file
     header: File caricati su Wikimedia Commons

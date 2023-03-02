@@ -20,6 +20,7 @@
 # Author: Tmv
 # Author: Yusuke1109
 # Author: きこねす
+# Author: もなー(偽物)
 ---
 ja:
   number:
@@ -947,6 +948,13 @@ ja:
     previous: < 前へ
     table_of_contents: 目次
     view_module_source: モジュールのソースを表示
+  update_username:
+    header: 変更されたユーザー名の更新
+    not_found: 入力されたユーザー名のユーザーが見つかりません。
+    username_updated: ユーザー名の更新に成功しました。
+    info: ユーザがWikimediaのユーザー名を変更した場合は、ここに新しいユーザー名を入力してダッシュボードを更新してください。
+    label: 新しい利用者名
+    button: 更新
   uploads:
     credit: クレジット
     file_name: ファイル名

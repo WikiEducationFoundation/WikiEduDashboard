@@ -1462,6 +1462,15 @@ fr:
     search_training_resources: Rechercher des ressources de formation
     no_training_resource_match_your_search: Aucune ressource de formation ne correspond
       à votre recherche
+  update_username:
+    header: Mettre à jour un nom d’utilisateur modifié
+    not_found: Utilisateur introuvable pour le nom d’utilisateur saisi.
+    username_updated: Nom d’utilisateur mis à jour avec succès !
+    info: Si un utilisateur a changé de nom d’utilisateur pour son compte Wikimedia,
+      saisissez le nouveau nom d’utilisateur ici pour le mettre à jour sur le tableau
+      de bord.
+    label: Nouveau nom d’utilisateur
+    button: Mettre à jour
   uploads:
     credit: Crédit
     file_name: Nom de fichier

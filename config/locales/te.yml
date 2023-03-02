@@ -5,6 +5,7 @@
 # Author: Naidugari Jayanna
 # Author: Pranayraj1985
 # Author: Ravichandra
+# Author: V Bhavya
 # Author: Veeven
 ---
 te:
@@ -106,6 +107,12 @@ te:
     diff_hide: దాచు
   timeline:
     gradeable_value: విలువ
+  update_username:
+    header: మార్చబడిన వినియోగదారు పేరును నవీకరించండి
+    not_found: వినియోగదారు పేరు విజయవంతంగా నవీకరించబడింది
+    username_updated: వినియోగదారు పేరు విజయవంతంగా నవీకరించబడింది
+    label: కొత్త వాడుకరి పేరు
+    button: నవీకరించు
   uploads:
     image: బొమ్మ
   users:

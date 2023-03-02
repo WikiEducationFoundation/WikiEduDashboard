@@ -261,6 +261,9 @@ skr-arab:
     next: اڳلا ورقہ
     page: ورقہ
     done: مکمل!
+  update_username:
+    label: نواں ورتݨ ناں
+    button: اپ ݙیٹ
   uploads:
     file_name: فائل دا ناں
     image: تصویر

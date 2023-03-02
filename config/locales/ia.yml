@@ -70,6 +70,14 @@ ia:
     table_of_contents: Tabula del contentos
     kind:
       discussion: Discussion
+  update_username:
+    header: Actualisar un nomine de usator cambiate
+    not_found: Le usator correspondente al nomine fornite non ha essite trovate.
+    username_updated: Le nomine de usator ha essite actualisate correctemente.
+    info: Si un usator ha cambiate le nomine de usator de su conto Wikimedia, insere
+      le nove nomine de usator hic pro actualisar lo sur le tabuliero de instrumentos.
+    label: Nove nomine de usator
+    button: Actualisar
   uploads:
     credit: Credito
   users:

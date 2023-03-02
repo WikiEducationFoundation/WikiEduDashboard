@@ -73,6 +73,8 @@ sl:
     edited_none: Ni še nobenih urejenih predmetov.
     preview: Kratek predogled predmeta
     title_example: Naslov predmeta
+  articles_generic:
+    articles_short: Strani
   assignments:
     article_link_wikidata: Predmet
     confirm_deletion: Ali res želite izbrisati to dodelitev?
@@ -88,6 +90,7 @@ sl:
     campaign: Kampanja
     campaigns: Kampanje
     created_at: Datum
+    data_articles: Urejene strani
     data_revisions: Podatki o redakcijah
     description: Opis
     no_alerts: Ta kampanja nima opomnikov
@@ -123,6 +126,8 @@ sl:
     campaign_users: Urejevalci »%{title}«
     courses: Tečaji
     creator:
+      assignment_end: Konec dodelitve
+      assignment_start: Začetek dodelitve
       cancel_course_clone: Prekliči klon tečaja
       cancel_course_clone_confirm: Ali res želite ustaviti kloniranje tega predmeta?
       course_description: Opis tečaja
@@ -169,6 +174,7 @@ sl:
     stay_in_sandbox: Ostani v peskovniku
     tags: 'Oznake:'
     term: Termin
+    timeline: Podrobnosti dodelitve
     timeline_link: Časovnica
     title: Naslov
     view: Ogled tečaja
@@ -222,6 +228,8 @@ sl:
       title: Izberi %{prefix}
   metrics:
     last_update: Zadnja posodobitev statistike
+    articles_created_generic: Ustvarjene strani
+    articles_edited_generic: Urejene strani
     bytes_added: Zlogov dodanih
     char_added: Dodani znaki
     char_changed: Spremenjenih znakov
@@ -321,6 +329,14 @@ sl:
     search_training_resources: Poiščite vire za usposabljanje
     no_training_resource_match_your_search: Z vašim iskanjem se ne ujema noben vir
       za usposabljanje
+  update_username:
+    header: Posodobite spremenjeno uporabniško ime
+    not_found: Za vneseno uporabniško ime ni bilo mogoče najti uporabnika.
+    username_updated: Uporabniško ime je uspešno posodobljeno!
+    info: Če je uporabnik spremenil uporabniško ime za svoj Wikimedia račun, tukaj
+      vnesite novo uporabniško ime, da ga posodobite na nadzorni plošči.
+    label: Novo uporabniško ime
+    button: Posodobi
   uploads:
     image: Slika
     label: Naložitve
@@ -357,6 +373,7 @@ sl:
       online_volunteer: Spletni prostovoljec
       wiki_ed_staff: Kolektiv Wikiizobraževanja
   wizard:
+    assignment_dates: Datumi dodelitve
     select_one_option: Prosimo, izberite 1 možnost.
     read_more: Preberi še kaj
     summary: Povzetek

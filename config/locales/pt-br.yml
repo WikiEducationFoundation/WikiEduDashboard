@@ -28,6 +28,7 @@
 # Author: Pedrofariasm
 # Author: Peter Fernando
 # Author: Raphaelras
+# Author: Re demz
 # Author: Robertpontes
 # Author: Rodrigo codignoli
 # Author: Rukasuoribera
@@ -1421,6 +1422,14 @@ pt-br:
     search_training_resources: Pesquisar recursos de treinamento
     no_training_resource_match_your_search: Nenhum recurso de treinamento corresponde
       à sua pesquisa
+  update_username:
+    header: Atualize um nome de usuário que foi mudado
+    not_found: Nenhum usuário foi encontrado para o nome de usuário dado.
+    username_updated: Nome de usuário atualizado com sucesso!
+    info: Se um usuário mudou o nome de usuário da conta Wikimedia, coloque aqui o
+      novo nome de usuário para atualizar o painel.
+    label: Novo nome de usuário
+    button: Atualizar
   uploads:
     credit: Crédito
     file_name: Nome do Arquivo
