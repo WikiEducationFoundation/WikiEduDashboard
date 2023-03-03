@@ -69,10 +69,6 @@ class SurveyNotification < ApplicationRecord
            follow_up_count: follow_up_count + 1)
   end
 
-  def survey_assignment
-    SurveyAssignment.find(survey_assignment_id)
-  end
-
   def survey
     survey_assignment.survey
   end

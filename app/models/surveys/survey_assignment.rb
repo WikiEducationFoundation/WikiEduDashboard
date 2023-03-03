@@ -87,10 +87,6 @@ class SurveyAssignment < ApplicationRecord
     CoursesUsers.where(course: courses_ready_for_notifications, role: courses_user_role)
   end
 
-  def survey
-    Survey.find_by(id: survey_id)
-  end
-
   def active?
     published && !courses_with_pending_notifications.empty?
   end
