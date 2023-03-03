@@ -276,23 +276,20 @@ const Survey = {
 
   updateSurveyNotification() {
     if (this.surveyNotificationId === undefined) { return; }
-    $.ajax({
-      type: 'PUT',
-      url: '/survey_notification',
+    fetch('/survey_notification', {
+      credentials: 'include',
+      method: 'PUT',
       headers: {
+        'Content-Type': 'application/json',
         'X-CSRF-Token': Rails.csrfToken()
       },
-      dataType: 'json',
-      data: {
+      body: JSON.stringify({
         survey_notification: {
           id: this.surveyNotificationId,
           dismissed: true,
           completed: true
         }
-      },
-      success() {
-        // console.log(data);
-      }
+      })
     });
   },
 
