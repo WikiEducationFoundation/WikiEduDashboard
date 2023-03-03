@@ -64,6 +64,8 @@ const SurveyAdmin = {
     this.$matrix_options_checkbox = $('[data-matrix-checkbox]');
     this.$course_data_type_select = $('#question_course_data_type');
     this.$answer_options = $('[data-answer-options]');
+    this.$csrf_token = document.querySelector('meta[name="csrf-token"]');
+
     return this.$range_input_options = $('[data-question-type-options="RangeInput"');
   },
 
@@ -85,11 +87,10 @@ const SurveyAdmin = {
       update(e, ui) {
         const itemId = ui.item.data('item-id');
         const position = ui.item.index() + 1; // acts_as_list defaults to start at 1
-        return $.ajax({
-          type: 'PUT',
-          url: '/surveys/question_position',
-          dataType: 'json',
-          data: { question_group_id: questionGroupId, id: itemId, position }
+        return fetch('/surveys/question_position', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': SurveyAdmin.$csrf_token.content },
+          body: JSON.stringify({ question_group_id: questionGroupId, id: itemId, position })
         });
       }
     });
@@ -117,7 +118,7 @@ const SurveyAdmin = {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+            'X-CSRF-Token': SurveyAdmin.$csrf_token.content
           },
           body: JSON.stringify({ survey_id: surveyId, question_group_id: itemId, position })
         });
