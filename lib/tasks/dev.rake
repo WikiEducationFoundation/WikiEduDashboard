@@ -21,17 +21,9 @@ namespace :dev do
     mode = ENV['mode']
     case mode
     when 'clear'
-      clear_survey_questions
-      clear_survey_answers
-      clear_survey
-      clear_survey_notifications
-      clear_courses
-      clear_users
-      clear_rapidfire_question_groups
+      clear_all
     else
-      populate_courses
-      populate_survey_questions
-      populate_survey_answers
+      populate_all
     end
   end
 end

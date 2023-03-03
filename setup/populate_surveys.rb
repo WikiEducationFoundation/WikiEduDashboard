@@ -1,9 +1,24 @@
 # frozen_string_literal: true
 
-def populate_courses
+def clear_all
+  clear_survey_questions
+  clear_survey_answers
+  clear_survey
+  clear_survey_notifications
   clear_courses
+  clear_users
+  clear_rapidfire_question_groups
+end
+
+def populate_all
+  clear_all
   populate_users
-  
+  populate_courses
+  populate_survey_questions
+  populate_survey_answers
+end
+
+def populate_courses
   n_courses = ENV['courses'] || 100
   to_insert = []
   n_courses.to_i.times do |i|
@@ -13,7 +28,9 @@ def populate_courses
     }
   end
   Course.insert_all(to_insert)
+
   courses_users = []
+  
   Course.last(n_courses).each do |course|
     random_users = User.where(email: "generated user").order("RAND()").limit(20)
     random_users.each do |random_user|
@@ -28,7 +45,6 @@ def populate_courses
 end
 
 def populate_users
-  clear_users
   n_users = ENV['users'] || 100
   to_insert = []
   n_users.to_i.times do |i|
@@ -40,20 +56,7 @@ def populate_users
   User.insert_all(to_insert)
 end
 
-def clear_users
-  User.where(email: "generated user").delete_all
-end
-
-def clear_courses
-  Course.where(title: "generated course").destroy_all
-end
-
 def populate_survey_questions
-  clear_survey_questions
-  clear_rapidfire_question_groups
-  clear_survey
-  clear_survey_notifications
-
   2.times do |i|
     Rapidfire::QuestionGroup.create(
       name: "generated group",
@@ -132,7 +135,6 @@ def populate_survey_questions
 end
 
 def populate_survey_answers
-  clear_survey_answers
   question_groups = Rapidfire::QuestionGroup.where(name: "generated group").to_a
 
   to_create = []
@@ -159,6 +161,14 @@ def populate_survey_answers
     i += 1
   end
   Rapidfire::Answer.insert_all(to_create)
+end
+
+def clear_users
+  User.where(email: "generated user").delete_all
+end
+
+def clear_courses
+  Course.where(title: "generated course").destroy_all
 end
 
 def clear_survey_answers_for_group question_group
