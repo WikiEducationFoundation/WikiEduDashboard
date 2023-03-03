@@ -150,6 +150,7 @@ class SurveysController < ApplicationController
   def set_question_groups
     @question_groups = Rapidfire::QuestionGroup.all
     @surveys_question_groups = SurveysQuestionGroup.by_position(params[:id])
+    @survey_user_cache = {}
   end
 
   # This removes the question groups that do not apply to the course, because

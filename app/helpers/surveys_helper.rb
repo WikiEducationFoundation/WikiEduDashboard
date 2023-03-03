@@ -95,9 +95,17 @@ module SurveysHelper
                  .includes(answers: { user: :survey_notifications })
 
     @id_to_question = {}
-    @survey_user_cache = {}
     @questions.each do |question|
       @id_to_question[question.id] = question
+    end
+
+    @question_answers_count = Rapidfire::Answer
+                              .where(question_id: @questions.pluck(:id))
+                              .group(:question_id).count
+
+    @answer_group_builder.answers.each do |answer|
+      question = @id_to_question[answer.question_id]
+      answer.question = question
     end
 
     return { question_group: @question_group,
