@@ -14,13 +14,12 @@ def populate_courses
   end
   Course.insert_all(to_insert)
   courses_users = []
-  to_insert.each_with_index do |course, i|
-    course_id = Course.find_by(slug: "course-#{i}").id
-    1..20.times do |i|
-      user_id = User.where(email: "generated user").order("RAND()").first.id
+  Course.last(n_courses).each do |course|
+    random_users = User.where(email: "generated user").order("RAND()").limit(20)
+    random_users.each do |random_user|
       courses_users << {
-        course_id: course_id,
-        user_id: user_id,
+        course_id: course.id,
+        user_id: random_user.id,
         role: 0
       }
     end
@@ -51,26 +50,30 @@ end
 
 def populate_survey_questions
   clear_survey_questions
+  clear_rapidfire_question_groups
   clear_survey
   clear_survey_notifications
 
-  question_group_1 = Rapidfire::QuestionGroup.find_or_create_by(
-    name: "generated group 1",
-    tags: ""
-  )
-  question_group_2 = Rapidfire::QuestionGroup.find_or_create_by(
-    name: "generated group 2",
-    tags: ""
-  )
+  2.times do |i|
+    Rapidfire::QuestionGroup.create(
+      name: "generated group",
+      tags: ""
+    )
+  end
+  
+  question_groups = Rapidfire::QuestionGroup.last(2).to_a
 
   to_create = []
   survey_notifications = []
   
   n_questions = ENV['questions'] || 100
-
+  j = 0
   1..n_questions.to_i.times do |i|
+    if j == question_groups.length
+      j = 0
+    end
     to_create << {
-      question_group_id: n_questions % 2 == 0 ? question_group_1.id : question_group_2.id, 
+      question_group_id: question_groups[j].id, 
       question_text: "Question #{i}", 
       type: "Rapidfire::Questions::Checkbox", 
       position: i,
@@ -90,6 +93,7 @@ def populate_survey_questions
         less_than_or_equal_to: ''
       }
     }
+    j += 1
   end
   
   generated_survey = Survey.create(
@@ -106,16 +110,13 @@ def populate_survey_questions
   
   Rapidfire::Question.insert_all(to_create)
   
-  SurveysQuestionGroup.create(
-    survey_id: generated_survey.id,
-    rapidfire_question_group_id: question_group_1.id,
-    position: 1
-  )
-  SurveysQuestionGroup.create(
-    survey_id: generated_survey.id,
-    rapidfire_question_group_id: question_group_2.id,
-    position: 2
-  )
+  question_groups.each_with_index do |question_group, i|
+    SurveysQuestionGroup.create(
+      survey_id: generated_survey.id,
+      rapidfire_question_group_id: question_group.id,
+      position: i + 1
+    )
+  end
 
   User.where(email: "generated user").includes(:courses_users).each do |user|
     user.courses_users.each do |courses_user|
@@ -132,15 +133,16 @@ end
 
 def populate_survey_answers
   clear_survey_answers
-  question_group_1 = Rapidfire::QuestionGroup.find_by(name: "generated group 1")
-  question_group_2 = Rapidfire::QuestionGroup.find_by(name: "generated group 2")
+  question_groups = Rapidfire::QuestionGroup.where(name: "generated group").to_a
 
   to_create = []
-
+  i = 0
   n_responses = ENV['responses'] || 200
-
   1..n_responses.to_i.times do |round|
-    question_group_id = round % 2 == 0 ? question_group_1.id : question_group_2.id
+    if i == question_groups.length
+      i = 0
+    end
+    question_group_id = question_groups[i].id
     answer_group = Rapidfire::AnswerGroup.create(
       question_group_id: question_group_id,
       user_id: User.where(email: 'generated user').order('RAND()').first.id,
@@ -154,54 +156,51 @@ def populate_survey_answers
         answer_text: ["A","B","C","D"].sample
       }
     end
+    i += 1
   end
   Rapidfire::Answer.insert_all(to_create)
 end
 
-def clear_survey_answers 
-  question_group_1 = Rapidfire::QuestionGroup.find_by(name: "generated group 1")
-  question_group_2 = Rapidfire::QuestionGroup.find_by(name: "generated group 2")
-
+def clear_survey_answers_for_group question_group
+  return unless question_group
   to_delete = []
-  if question_group_1
-    Rapidfire::AnswerGroup.where(
-      question_group_id: question_group_1.id,
-    ).each do |answer_group|
-      Rapidfire::Answer.where(
-        answer_group_id: answer_group.id
-      ).each do |answer|
-        to_delete << answer
-      end
-    end
-  end
-  if question_group_2
-    Rapidfire::AnswerGroup.where(
-      question_group_id: question_group_2.id,
-    ).each do |answer_group|
-      Rapidfire::Answer.where(
-        answer_group_id: answer_group.id
-      ).each do |answer|
-        to_delete << answer
-      end
+  Rapidfire::AnswerGroup.where(
+    question_group_id: question_group.id,
+  ).each do |answer_group|
+    Rapidfire::Answer.where(
+      answer_group_id: answer_group.id
+    ).each do |answer|
+      to_delete << answer
     end
   end
   Rapidfire::Answer.delete(to_delete)
 end
 
-def clear_survey_questions
-  question_group_1 = Rapidfire::QuestionGroup.find_by(name: "generated group 1")
-  question_group_2 = Rapidfire::QuestionGroup.find_by(name: "generated group 2")
+def clear_survey_questions_for_group question_group
+  return unless question_group
+  Rapidfire::Question.where(
+    question_group_id: question_group.id,
+  ).destroy_all
+end
 
-  if question_group_1
-    Rapidfire::Question.where(
-      question_group_id: question_group_1.id,
-    ).destroy_all
+def clear_survey_answers 
+  question_groups = Rapidfire::QuestionGroup.where(name: "generated group")
+
+  question_groups.each do |question_group|
+    clear_survey_answers_for_group question_group
   end
-  if question_group_2
-    Rapidfire::Question.where(
-      question_group_id: question_group_2.id,
-    ).destroy_all
+end
+
+def clear_survey_questions
+  question_groups = Rapidfire::QuestionGroup.where(name: "generated group")
+
+  question_groups.each do |question_group|
+    clear_survey_questions_for_group question_group
   end
+end
+
+def clear_rapidfire_question_groups
+  Rapidfire::QuestionGroup.where(name: "generated group").delete_all
 end
 
 def clear_survey

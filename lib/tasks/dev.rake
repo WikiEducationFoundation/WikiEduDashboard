@@ -27,6 +27,7 @@ namespace :dev do
       clear_survey_notifications
       clear_courses
       clear_users
+      clear_rapidfire_question_groups
     else
       populate_courses
       populate_survey_questions
