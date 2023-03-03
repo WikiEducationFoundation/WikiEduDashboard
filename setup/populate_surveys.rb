@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 
+GENERATED_USER = "generated user"
+GENERATED_COURSE = "generated course"
+GENERATED_GROUP = "generated group"
+GENERATED_SURVEY = "generated survey"
+
 def clear_all
   clear_survey_questions
   clear_survey_answers
@@ -23,7 +28,7 @@ def populate_courses
   to_insert = []
   n_courses.to_i.times do |i|
     to_insert << {
-      title: "generated course",
+      title: GENERATED_COURSE,
       slug: "course-#{i}",
     }
   end
@@ -32,7 +37,7 @@ def populate_courses
   courses_users = []
   
   Course.last(n_courses).each do |course|
-    random_users = User.where(email: "generated user").order("RAND()").limit(20)
+    random_users = User.where(email: GENERATED_USER).order("RAND()").limit(20)
     random_users.each do |random_user|
       courses_users << {
         course_id: course.id,
@@ -49,8 +54,8 @@ def populate_users
   to_insert = []
   n_users.to_i.times do |i|
     to_insert << {
-      username: "generated user #{i}",
-      email: "generated user"
+      username: "#{GENERATED_USER} #{i}",
+      email: GENERATED_USER
     }
   end
   User.insert_all(to_insert)
@@ -59,7 +64,7 @@ end
 def populate_survey_questions
   2.times do |i|
     Rapidfire::QuestionGroup.create(
-      name: "generated group",
+      name: GENERATED_GROUP,
       tags: ""
     )
   end
@@ -100,7 +105,7 @@ def populate_survey_questions
   end
   
   generated_survey = Survey.create(
-    name: "generated survey",
+    name: GENERATED_SURVEY,
     open: 1,
     closed: 0
   )
@@ -121,7 +126,7 @@ def populate_survey_questions
     )
   end
 
-  User.where(email: "generated user").includes(:courses_users).each do |user|
+  User.where(email: GENERATED_USER).includes(:courses_users).each do |user|
     user.courses_users.each do |courses_user|
       survey_notifications << {
         survey_assignment_id: assignment.id,
@@ -135,7 +140,7 @@ def populate_survey_questions
 end
 
 def populate_survey_answers
-  question_groups = Rapidfire::QuestionGroup.where(name: "generated group").to_a
+  question_groups = Rapidfire::QuestionGroup.where(name: GENERATED_GROUP).to_a
 
   to_create = []
   i = 0
@@ -147,7 +152,7 @@ def populate_survey_answers
     question_group_id = question_groups[i].id
     answer_group = Rapidfire::AnswerGroup.create(
       question_group_id: question_group_id,
-      user_id: User.where(email: 'generated user').order('RAND()').first.id,
+      user_id: User.where(email: GENERATED_USER).order('RAND()').first.id,
     )
     Rapidfire::Question.where(
       question_group_id: question_group_id,
@@ -164,11 +169,11 @@ def populate_survey_answers
 end
 
 def clear_users
-  User.where(email: "generated user").delete_all
+  User.where(email: GENERATED_USER).delete_all
 end
 
 def clear_courses
-  Course.where(title: "generated course").destroy_all
+  Course.where(title: GENERATED_COURSE).destroy_all
 end
 
 def clear_survey_answers_for_group question_group
@@ -194,7 +199,7 @@ def clear_survey_questions_for_group question_group
 end
 
 def clear_survey_answers 
-  question_groups = Rapidfire::QuestionGroup.where(name: "generated group")
+  question_groups = Rapidfire::QuestionGroup.where(name: GENERATED_GROUP)
 
   question_groups.each do |question_group|
     clear_survey_answers_for_group question_group
@@ -202,7 +207,7 @@ def clear_survey_answers
 end
 
 def clear_survey_questions
-  question_groups = Rapidfire::QuestionGroup.where(name: "generated group")
+  question_groups = Rapidfire::QuestionGroup.where(name: GENERATED_GROUP)
 
   question_groups.each do |question_group|
     clear_survey_questions_for_group question_group
@@ -210,11 +215,11 @@ def clear_survey_questions
 end
 
 def clear_rapidfire_question_groups
-  Rapidfire::QuestionGroup.where(name: "generated group").delete_all
+  Rapidfire::QuestionGroup.where(name: GENERATED_GROUP).delete_all
 end
 
 def clear_survey
-  survey = Survey.find_by(name: "generated survey")
+  survey = Survey.find_by(name: GENERATED_SURVEY)
   return unless survey
 
   SurveysQuestionGroup.where(survey_id: survey.id).destroy_all
@@ -222,7 +227,7 @@ def clear_survey
 end
 
 def clear_survey_notifications
-  survey = Survey.find_by(name: "generated survey")
+  survey = Survey.find_by(name: GENERATED_SURVEY)
   return unless survey
 
   assignment = SurveyAssignment.where(survey_id: survey.id)
