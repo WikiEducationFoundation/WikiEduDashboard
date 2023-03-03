@@ -112,11 +112,14 @@ const SurveyAdmin = {
       update(e, ui) {
         const itemId = ui.item.data('item-id');
         const position = ui.item.index() + 1; // acts_as_list defaults to start at 1
-        return $.ajax({
-          type: 'POST',
-          url: '/surveys/update_question_group_position',
-          dataType: 'json',
-          data: { survey_id: surveyId, question_group_id: itemId, position }
+        return fetch('/surveys/update_question_group_position', {
+          credentials: 'include',
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+          },
+          body: JSON.stringify({ survey_id: surveyId, question_group_id: itemId, position })
         });
       }
     });
