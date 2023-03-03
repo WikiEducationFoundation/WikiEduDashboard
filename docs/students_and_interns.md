@@ -1,5 +1,12 @@
 Through Wikimedia Foundation, the Wiki Education Dashboard project often participates in Outreachy and Google Summer of Code (GSoC), as well as Google Code-In (GCI). We also welcome contributions from other new developers who want to help the Wikimedia community and build their software skills in the context of a professional codebase.
 
+## Quick start guide
+1. Request a Slack invite, join the chat, and say hi.
+2. Set up a development environment. If you get stuck, first check the troubleshooting doc, and then ask Slack.
+3. Read the CONTRIBUTING file and this file, and browse the other docs.
+4. Open a PR to improve the setup instructions if you faced any difficulties that weren't covered in the docs.
+5. Find one issue you'd like to start with. Post a comment on GitHub, and/or let us know on Slack that you're working on it. (If someone else said they are working on it very recently, you should find a different issue. If someone said they were working on it more than a few months ago, it's likely not being worked on anymore.)
+
 ## Outreachy and GSoC
 If you're thinking of applying to Outreachy and/or GSoC, please read this section!
 
