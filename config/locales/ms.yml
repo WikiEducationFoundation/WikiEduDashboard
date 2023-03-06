@@ -47,6 +47,7 @@ ms:
     opt_out: Tidak
     opt_yes: ya
     opt_no: tidak
+    print: Cetak
   article_statuses:
     reading_the_article: Membaca Rencana
     providing_feedback: Memberi Maklum Balas
@@ -319,6 +320,9 @@ ms:
     none: Kursus ini tiada kegiatan menyunting terkini.
     see_more: Lihat lagi
     show_course_specific: Tunjuk Khusus Kursus
+  update_username:
+    label: Nama pengguna baru
+    button: Kemas kini
   uploads:
     header: Fail Dimuat Naik ke Wikimedia Commons
     label: Muat Naik

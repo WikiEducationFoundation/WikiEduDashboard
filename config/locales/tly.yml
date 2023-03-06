@@ -58,6 +58,8 @@ tly:
       course_term: Kenə
       course_term_placeholder: Kenə
     term: Kenə
+  metrics:
+    added: Əlovə be
   revisions:
     date_time: Tarix/Vaxt
     diff: fərğ

@@ -29,6 +29,7 @@ ks-arab:
     opt_out: نہَ
     opt_yes: آ
     opt_no: نَہ
+    print: چھانپ
   articles:
     edited_mobile: مَضموٗن
     filter:
@@ -46,4 +47,7 @@ ks-arab:
     help: مَدَتھ
     book: کِتاب
     translation: تَرجَمہٕ
+  update_username:
+    label: نو صارف ناو
+    button: اَپڈیٹ
 ...

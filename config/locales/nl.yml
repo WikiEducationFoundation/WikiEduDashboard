@@ -260,7 +260,7 @@ nl:
     already_enrolled: Je bent onderdeel van "%{title}"!
     already_exists: Dat bestaat al in voor deze cursus!
     archived: Gearchiveerde cursussen
-    actions: Acties
+    actions: Handelingen
     articles: Pagina's
     assignment_end: Einde opdracht
     assignment_start: Begin opdracht
@@ -372,7 +372,7 @@ nl:
     new_account_username_invalid: Dit is geen geldige gebruikersnaam.
     nocourses: Je neemt niet deel aan een cursus.
     none: Geen
-    no_available_actions: Geen acties beschikbaar
+    no_available_actions: Geen beschikbare handelingen
     overview: Startpagina
     passcode: Wachtwoord
     passcode_none: Geen wachtwoord

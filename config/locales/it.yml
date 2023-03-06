@@ -6,6 +6,7 @@
 # Author: Annibale covini gerolamo
 # Author: Anto
 # Author: Beta16
+# Author: Camillo Pellizzari
 # Author: Einreiher
 # Author: Fierodelveneto
 # Author: Gianfranco
@@ -130,6 +131,7 @@ it:
     article_not_found: Questa voce non è stata ancora creata.
     article_development: (sviluppo della voce)
     assigned: Voci assegnate
+    assignments_none: Non ci sono ancora voci assegnate.
     available: Voci disponibili
     no_available: Non ci sono voci disponibili
     next: Successivo
@@ -211,8 +213,11 @@ it:
     articles_short: Voci
   items:
     items: Elementi
+    article_not_found: Questo elemento non è stato ancora creato.
+    assigned: Elementi assegnati
     available: Elementi disponibili
     edited: Elementi modificati
+    title_example: Titolo dell'elemento
   articles_wikidata:
     articles_short: Elementi
   articles_generic:
@@ -227,6 +232,7 @@ it:
     assign_other: Assegna/rimuovi una voce
     assign_other_wikidata: Assegna/rimuovi un elemento
     add_available: Aggiungi voci disponibili
+    add_available_wikidata: Aggiungi elementi disponibili
     add_available_placeholder: Aggiungi il titolo di una voce o un URL per riga
     add_available_placeholder_wikidata: Aggiungi il titolo di un elemento o un URL
       per riga
@@ -235,6 +241,8 @@ it:
     assign_self: Assegnami una voce
     assign_self_wikidata: Assegnami un elemento
     assign_tooltip: Una voce assegnata è quella che pianifichi di creare o migliorare.
+    assign_tooltip_wikidata: Un elemento assegnato è un elemento che prevedi di creare
+      o migliorare.
     bibliography: Bibliografia
     confirm_add_available: Sei sicuro di voler aggiungere %{title}?
     confirm_addition: Sei sicuro di voler assegnare %{title} a %{username}?
@@ -751,6 +759,7 @@ it:
     missing_data_info: I problemi più comuni includono
     per_user: '%{number}/utente'
     revisions: Modifiche recenti
+    references_count: Riferimenti aggiunti
     references_doc: Questo è il numero di tag di note aggiunti alle voci e possono
       includere più riferimenti alla stessa fonte. I dati provengono dal modello di
       qualità ORES della voce ed è disponibile solo per alcune lingue.
@@ -769,6 +778,7 @@ it:
     word_count: Parole aggiunte
     word_count_average: Conteggio medio parole
     general: Generale
+    references_added: Riferimenti aggiunti
   namespace:
     all: Tutto
     main: Ambiente principale
@@ -922,7 +932,9 @@ it:
     first_name: Nome
     last_name: Cognome
     loading: Caricamento utenti...
+    characters_added_mainspace: Caratteri aggiunti (voci)
     characters_added_short: 'NP: %{mainspace}, NU: %{userspace}'
+    characters_added_userspace: Caratteri aggiunti (namespace utente)
     my_assigned: 'Assegnati:'
     name: Nome
     none: Non ci sono partecipanti.
@@ -937,11 +949,13 @@ it:
       other: '%{count} elementi'
     profile: profilo
     recent_revisions: Modifiche recenti
+    references_count: Riferimenti aggiunti
     remove_confirmation: Sei sicuro di voler rimuovere %{username}?
     revision_characters_and_views: 'Caratteri aggiunti: %{characters}, Visualizzazioni:
       %{views}'
     revisions_doc: Il numero di modifiche effettuate da questo contributore negli
       ultimi 7 giorni
+    references_doc: Il numero di riferimenti aggiunti o rimossi da questo utente
     reviewers: Revisori
     revisions: Versioni
     total_uploads: Totale caricamenti

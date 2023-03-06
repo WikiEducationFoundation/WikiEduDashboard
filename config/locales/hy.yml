@@ -51,6 +51,7 @@ hy:
     opt_out: Ոչ
     opt_yes: այո
     opt_no: ոչ
+    print: Տպել
   article_statuses:
     not_yet_started: Աշխատանքի սկիզբ
     in_progress: Աշխատանք ավազարկղում

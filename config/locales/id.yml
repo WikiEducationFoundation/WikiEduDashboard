@@ -219,6 +219,8 @@ id:
   training:
     kind:
       training: Pelatihan
+  update_username:
+    label: Nama pengguna baru
   uploads:
     image: Gambar
     label: Unggahan
