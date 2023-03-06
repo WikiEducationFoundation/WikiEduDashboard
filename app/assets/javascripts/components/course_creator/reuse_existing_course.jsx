@@ -10,9 +10,13 @@ const ReuseExistingCourse = ({ selectClassName, courseSelect, useThisClassAction
   );
   return (
     <div className={selectClassName}>
-      {courseSelect}
-      {assignmentsWithoutUsers && checkBoxLabel}
-      <button className="button dark" onClick={useThisClassAction}>{CourseUtils.i18n('creator.clone_this', stringPrefix)}</button>
+      <div className="select-checkbox-wrapper">
+        <div className="select-checkbox">
+          {courseSelect}
+          {assignmentsWithoutUsers && checkBoxLabel}
+        </div>
+        <button className="button dark" onClick={useThisClassAction}>{CourseUtils.i18n('creator.clone_this', stringPrefix)}</button>
+      </div>
       <button className="button dark right" onClick={cancelCloneAction}>{CourseUtils.i18n('cancel', stringPrefix)}</button>
     </div>
   );

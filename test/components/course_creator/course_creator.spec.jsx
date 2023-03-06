@@ -20,6 +20,7 @@ describe('CourseCreator', () => {
         courseCreator={{}}
         fetchCoursesForUser={() => { }}
         cloneableCourses={['some_course']}
+        coursesWithoutUsers={['some_course']}
         course={reduxStore.getState().course}
         updateCourse={updateCourseSpy}
         fetchCampaign={fetchCampaignSpy}
