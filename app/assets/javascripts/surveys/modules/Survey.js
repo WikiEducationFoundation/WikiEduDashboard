@@ -8,6 +8,7 @@ import Rails from '@rails/ujs';
 //--------------------------------------------------------
 
 import Utils from './SurveyUtils.js';
+import request from '../../utils/request';
 
 //--------------------------------------------------------
 // Vendor Requirements [requires]
@@ -20,6 +21,7 @@ const rangeslider = require('nouislider');
 const wNumb = require('wnumb');
 require('slick-carousel');
 require('velocity-animate');
+
 
 // const markdown = require('../../utils/markdown_it.js').default();
 
@@ -261,6 +263,7 @@ const Survey = {
           'Content-Type': 'application/json',
           'X-CSRF-Token': Rails.csrfToken()
         },
+        redirect: 'manual'
         // success(d) { return console.log('success', d); },
         // error(er) { return console.log('error', er); }
       });
@@ -278,13 +281,8 @@ const Survey = {
 
   updateSurveyNotification() {
     if (this.surveyNotificationId === undefined) { return; }
-    fetch('/survey_notification', {
-      credentials: 'include',
+    request('/survey_notification', {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRF-Token': Rails.csrfToken()
-      },
       body: JSON.stringify({
         survey_notification: {
           id: this.surveyNotificationId,
