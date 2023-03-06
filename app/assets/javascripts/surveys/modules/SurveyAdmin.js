@@ -176,12 +176,18 @@ const SurveyAdmin = {
   },
 
   getQuestion(id) {
-    return $.ajax({
-      url: `/surveys/question_group_question/${id}`,
-      method: 'get',
-      dataType: 'json',
-      contentType: 'application/json',
+    return fetch(`/surveys/question_group_question/${id}`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': SurveyAdmin.$csrf_token.content
+      },
       success: $.proxy(this, 'handleConditionalQuestionSelect')
+    }).then((response) => {
+      if (response.ok) {
+        $.proxy(this, 'handleConditionalQuestionSelect');
+      }
     });
   },
 

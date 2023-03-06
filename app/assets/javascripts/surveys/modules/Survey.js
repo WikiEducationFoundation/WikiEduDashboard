@@ -253,12 +253,14 @@ const Survey = {
     $form.on('submit', function (e) {
       e.preventDefault();
       const data = _context.processQuestionGroupData($(this).serializeArray());
-      return $.ajax({
-        url,
-        method,
-        data: JSON.stringify(data),
-        dataType: 'json',
-        contentType: 'application/json',
+      return fetch(url, {
+        method: method,
+        body: JSON.stringify(data),
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': Rails.csrfToken()
+        },
         // success(d) { return console.log('success', d); },
         // error(er) { return console.log('error', er); }
       });
