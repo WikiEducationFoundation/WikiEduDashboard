@@ -176,6 +176,7 @@ const SurveyAdmin = {
   },
 
   getQuestion(id) {
+    const that = this; // This is done to store the correct "this" pointer to the object while inside the promise
     return fetch(`/surveys/question_group_question/${id}`, {
       method: 'GET',
       credentials: 'include',
@@ -183,11 +184,9 @@ const SurveyAdmin = {
         'Content-Type': 'application/json',
         'X-CSRF-Token': SurveyAdmin.$csrf_token.content
       },
-      success: $.proxy(this, 'handleConditionalQuestionSelect')
-    }).then((response) => {
-      if (response.ok) {
-        $.proxy(this, 'handleConditionalQuestionSelect');
-      }
+    }).then(response => response.json())
+      .then((data) => {
+        SurveyAdmin.handleConditionalQuestionSelect.call(that, data);
     });
   },
 
