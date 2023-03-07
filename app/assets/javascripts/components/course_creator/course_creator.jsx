@@ -368,7 +368,6 @@ const CourseCreator = createReactClass({
               assignmentsWithoutUsers={showCheckbox}
               copyCourseAssignments={this.state.copyCourseAssignments}
               setCopyCourseAssignments={this.setCopyCourseAssignments}
-              labelText={I18n.t('courses.creator.copy_assignments')}
             />
             <CourseForm
               courseFormClass={courseFormClass}
