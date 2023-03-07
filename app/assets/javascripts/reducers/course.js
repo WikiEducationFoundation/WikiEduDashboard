@@ -2,6 +2,7 @@ import { reject } from 'lodash-es';
 import {
   RECEIVE_INITIAL_CAMPAIGN,
   RECEIVE_COURSE_CLONE,
+  RECEIVE_COURSE_CLONE_WITH_ASSIGNMENT,
   RECEIVE_COURSE,
   RECEIVE_COURSE_UPDATE,
   PERSISTED_COURSE,
@@ -75,6 +76,8 @@ export default function course(state = initialState, action) {
     case DELETE_CAMPAIGN:
       return { ...state, published: action.data.course.published };
     case RECEIVE_COURSE_CLONE:
+      return { loading: false, ...action.data.course };
+    case RECEIVE_COURSE_CLONE_WITH_ASSIGNMENT:
       return { loading: false, ...action.data.course };
     case DISMISS_SURVEY_NOTIFICATION: {
       return {

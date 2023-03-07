@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { includes } from 'lodash-es';
 
 import { updateCourse } from '../../actions/course_actions';
-import { fetchCampaign, submitCourse, cloneCourse } from '../../actions/course_creation_actions.js';
+import { fetchCampaign, submitCourse, cloneCourse, cloneCourseWithAssignment } from '../../actions/course_creation_actions.js';
 import { fetchCoursesForUser } from '../../actions/user_courses_actions.js';
 import { setValid, setInvalid, checkCourseSlug, activateValidations, resetValidations } from '../../actions/validation_actions';
 import { getCloneableCourses, isValid, firstValidationErrorMessage, getCoursesWithoutUsers } from '../../selectors';
@@ -34,6 +34,7 @@ const CourseCreator = createReactClass({
     submitCourse: PropTypes.func.isRequired,
     fetchCampaign: PropTypes.func.isRequired,
     cloneCourse: PropTypes.func.isRequired,
+    cloneCourseWithAssignment: PropTypes.func.isRequired,
     loadingUserCourses: PropTypes.bool.isRequired,
     setValid: PropTypes.func.isRequired,
     setInvalid: PropTypes.func.isRequired,
@@ -254,7 +255,7 @@ const CourseCreator = createReactClass({
     const select = this.courseSelect;
     const courseId = select.options[select.selectedIndex].getAttribute('data-id-key');
     if (this.state.copyCourseAssignments) {
-      // Diffrent Call
+      this.props.cloneCourseWithAssignment(courseId, this.campaignParam());
     } else {
       this.props.cloneCourse(courseId, this.campaignParam());
     }
@@ -367,7 +368,7 @@ const CourseCreator = createReactClass({
               assignmentsWithoutUsers={showCheckbox}
               copyCourseAssignments={this.state.copyCourseAssignments}
               setCopyCourseAssignments={this.setCopyCourseAssignments}
-              labelText={CourseUtils.i18n('creator.copy_assignments', this.state.course_string_prefix)}
+              labelText={I18n.t('courses.creator.copy_assignments')}
             />
             <CourseForm
               courseFormClass={courseFormClass}
@@ -428,6 +429,7 @@ const mapDispatchToProps = ({
   updateCourse,
   submitCourse,
   cloneCourse,
+  cloneCourseWithAssignment,
   setValid,
   setInvalid,
   checkCourseSlug,

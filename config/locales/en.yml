@@ -534,7 +534,7 @@ en:
       create_button: Create my Course!
       create_label: Create New Course
       create_new: Create a New Course
-      copy_assignments: Clone Available Articles list
+      copy_courses_with_assignments: Clone Available Articles list
       create_short: Create Course
       end_date: End date
       end_date_placeholder: YYYY-MM-DD

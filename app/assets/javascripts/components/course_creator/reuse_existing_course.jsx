@@ -5,19 +5,17 @@ const ReuseExistingCourse = ({ selectClassName, courseSelect, useThisClassAction
   const checkBoxLabel = (
     <span style={{ marginLeft: '1vh', marginRight: '3vh' }}>
       <input type="checkbox" name="checkbox" id="checkbox_id" checked={copyCourseAssignments} onChange={setCopyCourseAssignments}/>
-      <label htmlFor="checkbox_id">{labelText}</label>
+      <label htmlFor="checkbox_id">{I18n.t('courses.creator.copy_courses_with_assignments')}</label>
     </span>
   );
   return (
     <div className={selectClassName}>
-      <div className="select-checkbox-wrapper">
-        <div className="select-checkbox">
-          {courseSelect}
-          {assignmentsWithoutUsers && checkBoxLabel}
-        </div>
+      <div>
+        {courseSelect}
         <button className="button dark" onClick={useThisClassAction}>{CourseUtils.i18n('creator.clone_this', stringPrefix)}</button>
+        <button className="button dark right" onClick={cancelCloneAction}>{CourseUtils.i18n('cancel', stringPrefix)}</button>
       </div>
-      <button className="button dark right" onClick={cancelCloneAction}>{CourseUtils.i18n('cancel', stringPrefix)}</button>
+      {assignmentsWithoutUsers && checkBoxLabel}
     </div>
   );
 };

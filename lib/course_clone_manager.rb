@@ -11,7 +11,26 @@ class CourseCloneManager
 
   def clone!
     @clone = @course.dup
+    course_clone
+    return @clone
+  # If a course with the new slug already exists — an incomplete clone of the
+  # same course — then return the previously-created clone.
+  rescue ActiveRecord::RecordNotUnique
+    return Course.find_by(slug: @clone.slug)
+  end
 
+  def clone_with_assignment!
+    @clone = @course.dup
+    course_clone
+    copy_assignments
+    return @clone
+  # If a course with the new slug already exists — an incomplete clone of the
+  # same course — then return the previously-created clone.
+  rescue ActiveRecord::RecordNotUnique
+    return Course.find_by(slug: @clone.slug)
+  end
+
+  def course_clone
     set_courses_wikis
     set_placeholder_start_and_end_dates
     sanitize_clone_info
@@ -21,12 +40,6 @@ class CourseCloneManager
     tag_course
     add_flags
     add_campaigns
-
-    return @clone
-  # If a course with the new slug already exists — an incomplete clone of the
-  # same course — then return the previously-created clone.
-  rescue ActiveRecord::RecordNotUnique
-    return Course.find_by(slug: @clone.slug)
   end
 
   private
@@ -63,6 +76,20 @@ class CourseCloneManager
       title: @clone.title,
       slug: @clone.slug
     )
+  end
+
+  def copy_assignments
+    @course.assignments.assigned.each do |assignment|
+      if assignment.user_id.nil?
+        Assignment.create(
+          role: 0,
+          article_title: assignment.article_title,
+          article_id: assignment.article_id,
+          wiki_id: assignment.wiki_id,
+          course_id: @clone.id
+        )
+      end
+    end
   end
 
   def duplicate_timeline

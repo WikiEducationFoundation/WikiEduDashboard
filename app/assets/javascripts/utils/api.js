@@ -179,6 +179,21 @@ const API = {
     return response.json();
   },
 
+  async cloneCourseWithAssignment(id, campaign) {
+    const campaignQueryParam = campaign ? `?campaign_slug=${campaign}` : ''
+    const response = await request(`/clone_course_with_assignments/${id}${campaignQueryParam}`, {
+      method: 'POST'
+    });
+
+    if (!response.ok) {
+      logErrorMessage(response);
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
+    }
+    return response.json();
+  },
+
   async fetchUserCourses(userId) {
     const response = await request(`/courses_users.json?user_id=${userId}`);
 

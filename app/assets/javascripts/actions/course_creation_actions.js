@@ -3,6 +3,7 @@ import request from '../utils/request';
 import logErrorMessage from '../utils/log_error_message';
 
 import { RECEIVE_INITIAL_CAMPAIGN, CREATED_COURSE, RECEIVE_COURSE_CLONE, API_FAIL } from '../constants';
+import { RECEIVE_COURSE_CLONE_WITH_ASSIGNMENT } from '../constants/course.js';
 
 const fetchCampaignPromise = async (slug) => {
   const response = await request(`/campaigns/${slug}.json`);
@@ -33,5 +34,11 @@ export const submitCourse = (course, failureCallback) => (dispatch) => {
 export const cloneCourse = (courseId, campaign) => (dispatch) => {
   return API.cloneCourse(courseId, campaign)
     .then(resp => dispatch({ type: RECEIVE_COURSE_CLONE, data: resp }))
+    .catch(resp => dispatch({ type: API_FAIL, data: resp }));
+};
+
+export const cloneCourseWithAssignment = (courseId, campaign) => (dispatch) => {
+  return API.cloneCourseWithAssignment(courseId, campaign)
+    .then(resp => dispatch({ type: RECEIVE_COURSE_CLONE_WITH_ASSIGNMENT, data: resp }))
     .catch(resp => dispatch({ type: API_FAIL, data: resp }));
 };
