@@ -260,10 +260,10 @@ const Survey = {
         body: JSON.stringify(data),
         credentials: 'include',
         headers: {
+          Accept: 'application/json',
           'Content-Type': 'application/json',
           'X-CSRF-Token': Rails.csrfToken()
         },
-        redirect: 'manual'
         // success(d) { return console.log('success', d); },
         // error(er) { return console.log('error', er); }
       });
