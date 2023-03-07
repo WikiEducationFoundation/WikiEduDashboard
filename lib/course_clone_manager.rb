@@ -79,16 +79,15 @@ class CourseCloneManager
   end
 
   def copy_assignments
-    @course.assignments.assigned.each do |assignment|
-      if assignment.user_id.nil?
-        Assignment.create(
-          role: 0,
-          article_title: assignment.article_title,
-          article_id: assignment.article_id,
-          wiki_id: assignment.wiki_id,
-          course_id: @clone.id
-        )
-      end
+    @course.assignments.each do |assignment|
+      next unless assignment.user_id.nil?
+      Assignment.create(
+        role: 0,
+        article_title: assignment.article_title,
+        article_id: assignment.article_id,
+        wiki_id: assignment.wiki_id,
+        course_id: @clone.id
+      )
     end
   end
 
