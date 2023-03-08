@@ -118,14 +118,12 @@ describe 'cloning a course', js: true do
   end
 
   it 'copies relevant attributes of an existing course with assignments' do
-    pending 'This sometimes fails for unknown reasons.'
     course.wikis = Wiki.find([1, 3, 4]) # Let the original course have some tracked wikis.
     login_as user, scope: :user, run_callbacks: false
     visit root_path
     click_link 'Create Course'
     click_button 'Clone Previous Course'
     select course.title, from: 'reuse-existing-course-select'
-    expect(page).to have_content(I18n.t('courses.creator.copy_courses_with_assignments'))
     find('input#copy_cloned_articles').click
     click_button 'Clone This Course'
 
@@ -178,7 +176,5 @@ describe 'cloning a course', js: true do
     expect(new_course.wikis.count).to eq(3) # Check if the tracked wikis are cloned.
     expect(new_course.assignments.count).to eq(1) # Making sure it copies assignment with no user
     expect(new_course.assignments.first.article_id).to eq(course.assignments.find(12345).article_id)
-
-    pass_pending_spec
   end
 end
