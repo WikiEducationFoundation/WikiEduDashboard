@@ -6,10 +6,10 @@ import { Link } from 'react-router-dom';
 import { includes } from 'lodash-es';
 
 import { updateCourse } from '../../actions/course_actions';
-import { fetchCampaign, submitCourse, cloneCourse, cloneCourseWithAssignment } from '../../actions/course_creation_actions.js';
+import { fetchCampaign, submitCourse, cloneCourse } from '../../actions/course_creation_actions.js';
 import { fetchCoursesForUser } from '../../actions/user_courses_actions.js';
 import { setValid, setInvalid, checkCourseSlug, activateValidations, resetValidations } from '../../actions/validation_actions';
-import { getCloneableCourses, isValid, firstValidationErrorMessage, getCoursesWithoutUsers } from '../../selectors';
+import { getCloneableCourses, isValid, firstValidationErrorMessage, getAssignmentsWithoutUsers } from '../../selectors';
 
 import Notifications from '../common/notifications.jsx';
 import Modal from '../common/modal.jsx';
@@ -34,7 +34,6 @@ const CourseCreator = createReactClass({
     submitCourse: PropTypes.func.isRequired,
     fetchCampaign: PropTypes.func.isRequired,
     cloneCourse: PropTypes.func.isRequired,
-    cloneCourseWithAssignment: PropTypes.func.isRequired,
     loadingUserCourses: PropTypes.bool.isRequired,
     setValid: PropTypes.func.isRequired,
     setInvalid: PropTypes.func.isRequired,
@@ -254,11 +253,7 @@ const CourseCreator = createReactClass({
   useThisClass() {
     const select = this.courseSelect;
     const courseId = select.options[select.selectedIndex].getAttribute('data-id-key');
-    if (this.state.copyCourseAssignments) {
-      this.props.cloneCourseWithAssignment(courseId, this.campaignParam());
-    } else {
-      this.props.cloneCourse(courseId, this.campaignParam());
-    }
+    this.props.cloneCourse(courseId, this.campaignParam(), this.state.copyCourseAssignments);
     return this.setState({ isSubmitting: true, shouldRedirect: true });
   },
   change: function (event) {
@@ -419,7 +414,7 @@ const mapStateToProps = state => ({
   validations: state.validations.validations,
   isValid: isValid(state),
   firstErrorMessage: firstValidationErrorMessage(state),
-  coursesWithoutUsers: getCoursesWithoutUsers(state),
+  coursesWithoutUsers: getAssignmentsWithoutUsers(state),
 });
 
 const mapDispatchToProps = ({
@@ -428,7 +423,6 @@ const mapDispatchToProps = ({
   updateCourse,
   submitCourse,
   cloneCourse,
-  cloneCourseWithAssignment,
   setValid,
   setInvalid,
   checkCourseSlug,

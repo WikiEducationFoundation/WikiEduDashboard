@@ -3,34 +3,16 @@ require_dependency "#{Rails.root}/lib/tag_manager"
 
 #= Procedures for creating a duplicate of an existing course for reuse
 class CourseCloneManager
-  def initialize(course, user, campaign_slug=nil)
+  def initialize(course, user, clone_assignments, campaign_slug=nil)
     @course = course
     @user = user
     @campaign = Campaign.find_by(slug: campaign_slug) if campaign_slug
+    @clone_assignments = clone_assignments
   end
 
   def clone!
     @clone = @course.dup
-    course_clone
-    return @clone
-  # If a course with the new slug already exists — an incomplete clone of the
-  # same course — then return the previously-created clone.
-  rescue ActiveRecord::RecordNotUnique
-    return Course.find_by(slug: @clone.slug)
-  end
 
-  def clone_with_assignment!
-    @clone = @course.dup
-    course_clone
-    copy_assignments
-    return @clone
-  # If a course with the new slug already exists — an incomplete clone of the
-  # same course — then return the previously-created clone.
-  rescue ActiveRecord::RecordNotUnique
-    return Course.find_by(slug: @clone.slug)
-  end
-
-  def course_clone
     set_courses_wikis
     set_placeholder_start_and_end_dates
     sanitize_clone_info
@@ -40,6 +22,13 @@ class CourseCloneManager
     tag_course
     add_flags
     add_campaigns
+
+    copy_assignments if @clone_assignments
+    return @clone
+  # If a course with the new slug already exists — an incomplete clone of the
+  # same course — then return the previously-created clone.
+  rescue ActiveRecord::RecordNotUnique
+    return Course.find_by(slug: @clone.slug)
   end
 
   private

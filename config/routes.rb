@@ -169,7 +169,6 @@ Rails.application.routes.draw do
     }
 
     post 'clone_course/:id' => 'course_clone#clone', as: 'course_clone'
-    post 'clone_course_with_assignments/:id' => 'course_clone#clone_with_assignment', as: 'clone_course_with_assignments'
     post 'courses/:id/update_syllabus' => 'courses/syllabuses#update'
     delete 'courses/:id/delete_all_weeks' => 'courses#delete_all_weeks',
       constraints: {

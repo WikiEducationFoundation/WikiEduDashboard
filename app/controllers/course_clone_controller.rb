@@ -10,20 +10,9 @@ class CourseCloneController < ApplicationController
     check_permission
 
     campaign_slug = clone_params[:campaign_slug]
-    new_course = CourseCloneManager.new(@course, current_user, campaign_slug).clone!
-
-    respond_to do |format|
-      format.json { render json: { course: new_course.as_json } }
-      format.html { redirect_to "/courses/#{new_course.slug}" }
-    end
-  end
-
-  def clone_with_assignment
-    @course = Course.find(params[:id])
-    check_permission
-
-    campaign_slug = clone_params[:campaign_slug]
-    new_course = CourseCloneManager.new(@course, current_user, campaign_slug).clone_with_assignment!
+    clone_assignments = copy_assignments[:copy_assignments]
+    new_course = CourseCloneManager.new(@course, current_user, clone_assignments,
+                                        campaign_slug).clone!
 
     respond_to do |format|
       format.json { render json: { course: new_course.as_json } }
@@ -41,5 +30,9 @@ class CourseCloneController < ApplicationController
 
   def clone_params
     params.permit(:campaign_slug)
+  end
+
+  def copy_assignments
+    params.permit(:copy_assignments)
   end
 end
