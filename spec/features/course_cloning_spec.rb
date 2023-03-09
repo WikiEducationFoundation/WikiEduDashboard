@@ -51,9 +51,9 @@ describe 'cloning a course', js: true do
     create(:assignment, course_id: course.id, id: 12345)
   end
 
-  after do
-    logout
-  end
+  # after do
+  #   logout
+  # end
 
   it 'copies relevant attributes of an existing course' do
     pending 'This sometimes fails for unknown reasons.'
