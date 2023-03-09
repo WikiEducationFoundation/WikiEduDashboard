@@ -331,7 +331,7 @@ const CourseCreator = createReactClass({
     const reuseCourseSelect = <select id="reuse-existing-course-select" ref={(dropdown) => { this.courseSelect = dropdown; }} onChange={this.onDropdownChange}>{options}</select>;
 
     let showCheckbox;
-    if (this.props.assignmentsWithoutUsers && this.props.assignmentsWithoutUsers.length > 0) {
+    if (this.props.assignmentsWithoutUsers.length > 0) {
       showCheckbox = true;
     } else {
       showCheckbox = false;
