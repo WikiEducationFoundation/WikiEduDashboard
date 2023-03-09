@@ -9,7 +9,7 @@ import { updateCourse } from '../../actions/course_actions';
 import { fetchCampaign, submitCourse, cloneCourse } from '../../actions/course_creation_actions.js';
 import { fetchCoursesForUser } from '../../actions/user_courses_actions.js';
 import { setValid, setInvalid, checkCourseSlug, activateValidations, resetValidations } from '../../actions/validation_actions';
-import { getCloneableCourses, isValid, firstValidationErrorMessage, getAssignmentsWithoutUsers } from '../../selectors';
+import { getCloneableCourses, isValid, firstValidationErrorMessage, getAvailableArticles } from '../../selectors';
 
 import Notifications from '../common/notifications.jsx';
 import Modal from '../common/modal.jsx';
@@ -70,11 +70,11 @@ const CourseCreator = createReactClass({
     this.props.fetchCoursesForUser(window.currentUser.id);
     },
 
-    setCopyCourseAssignments() {
-      return this.setState({
-        copyCourseAssignments: !this.state.copyCourseAssignments
-      });
-    },
+  setCopyCourseAssignments() {
+    return this.setState({
+      copyCourseAssignments: !this.state.copyCourseAssignments
+    });
+  },
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
@@ -235,7 +235,7 @@ const CourseCreator = createReactClass({
 
   showCloneChooser() {
     this.props.fetchAssignments(this.props.cloneableCourses[0].slug);
-    this.setState({ showCloneChooser: true });
+    return this.setState({ showCloneChooser: true });
   },
 
   cancelClone() {
@@ -256,9 +256,10 @@ const CourseCreator = createReactClass({
     this.props.cloneCourse(courseId, this.campaignParam(), this.state.copyCourseAssignments);
     return this.setState({ isSubmitting: true, shouldRedirect: true });
   },
-  change: function (event) {
+
+  change(event) {
     this.props.fetchAssignments(event.target.value);
-},
+  },
 
   render() {
     if (this.props.loadingUserCourses) {
@@ -326,10 +327,10 @@ const CourseCreator = createReactClass({
     const selectClassName = `select-container ${selectClass}`;
     const eventFormClass = this.state.showEventDates ? '' : 'hidden';
     const eventClass = `${eventFormClass}`;
-    const reuseCourseSelect = <select id="reuse-existing-course-select" style={{ width: '20vw' }} ref={(dropdown) => { this.courseSelect = dropdown; }} onChange={this.change}>{options}</select>;
+    const reuseCourseSelect = <select id="reuse-existing-course-select" ref={(dropdown) => { this.courseSelect = dropdown; }} onChange={this.change}>{options}</select>;
 
     let showCheckbox;
-    if (this.props.coursesWithoutUsers.length > 0) {
+    if (this.props.assignmentsWithoutUsers.length > 0) {
       showCheckbox = true;
     } else {
       showCheckbox = false;
@@ -414,7 +415,7 @@ const mapStateToProps = state => ({
   validations: state.validations.validations,
   isValid: isValid(state),
   firstErrorMessage: firstValidationErrorMessage(state),
-  coursesWithoutUsers: getAssignmentsWithoutUsers(state),
+  assignmentsWithoutUsers: getAvailableArticles(state),
 });
 
 const mapDispatchToProps = ({

@@ -166,7 +166,7 @@ const API = {
 
   async cloneCourse(id, campaign, copyAssignments) {
     const campaignQueryParam = campaign ? `?campaign_slug=${campaign}` : ''
-    const copyAssignmentsQueryParam = `?copy_assignments=${copyAssignments}`
+    const copyAssignmentsQueryParam = copyAssignments ? `?copy_assignments=${copyAssignments}` : '?copy_assignments=false' 
     const response = await request(`/clone_course/${id}${campaignQueryParam}${copyAssignmentsQueryParam}`, {
       method: 'POST'
     });

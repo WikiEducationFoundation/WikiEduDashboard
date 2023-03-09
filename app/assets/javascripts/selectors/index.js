@@ -139,7 +139,7 @@ export const getCloneableCourses = createSelector(
   }
 );
 
-export const getAssignmentsWithoutUsers = createSelector(
+export const getAvailableArticles = createSelector(
   [assignments], (assignment) => {
     return getFiltered(assignment, { user_id: null });
   }
