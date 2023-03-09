@@ -1,13 +1,7 @@
 import React from 'react';
 import CourseUtils from '../../utils/course_utils.js';
 
-const ReuseExistingCourse = ({ selectClassName, courseSelect, useThisClassAction, options, stringPrefix, cancelCloneAction, assignmentsWithoutUsers, setCopyCourseAssignments, copyCourseAssignments, labelText }) => { // eslint-disable-line no-unused-vars
-  const checkBoxLabel = (
-    <span style={{ marginTop: '1vh' }}>
-      <input id="copy_cloned_articles" type="checkbox" checked={copyCourseAssignments} onChange={setCopyCourseAssignments}/>
-      <label htmlFor="checkbox_id">{I18n.t('courses.creator.copy_courses_with_assignments')}</label>
-    </span>
-  );
+const ReuseExistingCourse = ({ selectClassName, courseSelect, useThisClassAction, options, stringPrefix, cancelCloneAction, assignmentsWithoutUsers, checkBoxLabel }) => { // eslint-disable-line no-unused-vars
   return (
     <div className={selectClassName}>
       <div>

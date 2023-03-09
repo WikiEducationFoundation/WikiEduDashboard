@@ -46,7 +46,8 @@ describe CourseCloneManager do
 
   context 'newly cloned course' do
     before do
-      described_class.new(Course.find(1), User.find(1), false).clone!
+      described_class.new(course: Course.find(1), user: User.find(1),
+                          clone_assignments: false).clone!
     end
 
     it 'has creating instructor carried over' do
@@ -113,7 +114,8 @@ describe CourseCloneManager do
   context 'when open course creation is enabled' do
     before do
       allow(Features).to receive(:open_course_creation?).and_return(true)
-      described_class.new(Course.find(1), User.find(1), false).clone!
+      described_class.new(course: Course.find(1), user: User.find(1),
+                          clone_assignments: false).clone!
     end
 
     it 'carries over campaigns' do
@@ -122,11 +124,15 @@ describe CourseCloneManager do
   end
 
   context 'when a course with the same temporary slug already exists' do
-    before { described_class.new(Course.find(1), User.find(1), false).clone! }
+    before do
+      described_class.new(course: Course.find(1), user: User.find(1),
+                          clone_assignments: false).clone!
+    end
 
     it 'returns the existing clone' do
       existing_clone = Course.last
-      reclone = described_class.new(Course.find(1), User.find(1), false).clone!
+      reclone = described_class.new(course: Course.find(1), user: User.find(1),
+                                    clone_assignments: false).clone!
       expect(reclone).to eq(existing_clone)
     end
   end
@@ -134,7 +140,8 @@ describe CourseCloneManager do
   context 'cloned LegacyCourse' do
     before do
       Course.find(1).update(type: 'LegacyCourse')
-      described_class.new(Course.find(1), User.find(1), false).clone!
+      described_class.new(course: Course.find(1), user: User.find(1),
+                          clone_assignments: false).clone!
     end
 
     it 'sets the new course type to ClassroomProgramCourse' do
@@ -146,7 +153,8 @@ describe CourseCloneManager do
     it 'allows for the campaign to be set' do
       slug = 'new_campaign_slug'
       new_campaign = create(:campaign, id: 2, title: 'New Campaign', slug:)
-      campaign_clone = described_class.new(Course.find(1), User.find(1), false, slug).clone!
+      campaign_clone = described_class.new(course: Course.find(1), user: User.find(1),
+                                           clone_assignments: false, campaign_slug: slug).clone!
 
       expect(campaign_clone.campaigns.length).to eq(1)
       expect(campaign_clone.campaigns).to include(new_campaign)

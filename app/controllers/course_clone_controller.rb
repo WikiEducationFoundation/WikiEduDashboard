@@ -10,9 +10,9 @@ class CourseCloneController < ApplicationController
     check_permission
 
     campaign_slug = clone_params[:campaign_slug]
-    clone_assignments = copy_assignments[:copy_assignments]
-    new_course = CourseCloneManager.new(@course, current_user, clone_assignments,
-                                        campaign_slug).clone!
+    clone_assignments = clone_assignments_params[:copy_assignments]
+    new_course = CourseCloneManager.new(course: @course, user: current_user, clone_assignments:,
+                                        campaign_slug:).clone!
 
     respond_to do |format|
       format.json { render json: { course: new_course.as_json } }
@@ -32,7 +32,7 @@ class CourseCloneController < ApplicationController
     params.permit(:campaign_slug)
   end
 
-  def copy_assignments
+  def clone_assignments_params
     params.permit(:copy_assignments)
   end
 end

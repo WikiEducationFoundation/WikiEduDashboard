@@ -139,6 +139,7 @@ export const getCloneableCourses = createSelector(
   }
 );
 
+// This returns all the Articles with user_id null
 export const getAvailableArticles = createSelector(
   [assignments], (assignment) => {
     return getFiltered(assignment, { user_id: null });

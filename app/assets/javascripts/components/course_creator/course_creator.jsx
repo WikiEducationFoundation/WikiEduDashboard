@@ -70,9 +70,10 @@ const CourseCreator = createReactClass({
     this.props.fetchCoursesForUser(window.currentUser.id);
     },
 
-  setCopyCourseAssignments() {
+  setCopyCourseAssignments(e) {
+    const scoped = e.target.checked;
     return this.setState({
-      copyCourseAssignments: !this.state.copyCourseAssignments
+      copyCourseAssignments: scoped
     });
   },
 
@@ -330,11 +331,17 @@ const CourseCreator = createReactClass({
     const reuseCourseSelect = <select id="reuse-existing-course-select" ref={(dropdown) => { this.courseSelect = dropdown; }} onChange={this.change}>{options}</select>;
 
     let showCheckbox;
-    if (this.props.assignmentsWithoutUsers.length > 0) {
+    if (this.props.assignmentsWithoutUsers && this.props.assignmentsWithoutUsers.length > 0) {
       showCheckbox = true;
     } else {
       showCheckbox = false;
     }
+    const checkBoxLabel = (
+      <span style={{ marginTop: '1vh' }}>
+        <input id="copy_cloned_articles" type="checkbox" onChange={this.setCopyCourseAssignments}/>
+        <label htmlFor="checkbox_id">{I18n.t('courses.creator.copy_courses_with_assignments')}</label>
+      </span>
+    );
 
     return (
       <Modal key="modal">
@@ -362,8 +369,7 @@ const CourseCreator = createReactClass({
               stringPrefix={this.state.course_string_prefix}
               cancelCloneAction={this.cancelClone}
               assignmentsWithoutUsers={showCheckbox}
-              copyCourseAssignments={this.state.copyCourseAssignments}
-              setCopyCourseAssignments={this.setCopyCourseAssignments}
+              checkBoxLabel={checkBoxLabel}
             />
             <CourseForm
               courseFormClass={courseFormClass}

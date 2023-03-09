@@ -3,7 +3,7 @@ require_dependency "#{Rails.root}/lib/tag_manager"
 
 #= Procedures for creating a duplicate of an existing course for reuse
 class CourseCloneManager
-  def initialize(course, user, clone_assignments, campaign_slug=nil)
+  def initialize(course:, user:, clone_assignments:, campaign_slug: nil)
     @course = course
     @user = user
     @campaign = Campaign.find_by(slug: campaign_slug) if campaign_slug
@@ -68,8 +68,7 @@ class CourseCloneManager
   end
 
   def copy_assignments
-    @course.assignments.each do |assignment|
-      next unless assignment.user_id.nil?
+    @course.assignments.where(user_id: nil).each do |assignment|
       Assignment.create(
         role: 0,
         article_title: assignment.article_title,
