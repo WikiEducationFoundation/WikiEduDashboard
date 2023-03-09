@@ -16,7 +16,7 @@ yi:
     field_invalid_characters: דאס פֿעלד האט אומגוליטיגע כאראקטערן
     greeting2: ברוך הבא!
     greeting_extended: ברוך הבא צו וויקיפעדיע
-    greeting: האלא!
+    greeting: העלאָ!
     help: הילף
     home: היים
     log_in_extended: אַרײַנלאגירן צו וויקיפעדיע
@@ -48,6 +48,7 @@ yi:
     edited_by: רעדאקטירט דורך
     label: אקטיוויטעט
   articles:
+    articles: אַרטיקלען
     next: נעקסטער
     previous: פֿריערדיקער
     article_title: ארטיקל־טיטל
@@ -69,6 +70,8 @@ yi:
     view: באַקוקן אַרטיקל
     view_all: באקוקן אַלע
     wiki: וויקי
+  articles_generic:
+    articles_short: בלעטער
   campaign:
     none: קיין
     title: טיטל
@@ -82,6 +85,7 @@ yi:
       end_date: סוף דאַטע
       find: טרעפט אייער קורס
       start_date: אָנהייב דאַטע
+    feedback: פֿידבעק
     school: שולע
     title: טיטל
   courses_generic:
@@ -93,22 +97,33 @@ yi:
       find: טרעפֿן א פראגראם
       save_cloned_course: אויפֿהיטן
     school: אנשטאלט
-    student_editors: רעדאקטארן
-    students_short: רעדאקטארן
+    student_editors: רעדאַקטאָרן
+    students: רעדאַקטאָרן
+    students_short: רעדאַקטאָרן
   editable:
     cancel: אַנולירן
   metrics:
     tags: טאַגן
+  namespace:
+    page: בלאַט
   recent_activity:
     article_title: טיטל
   revisions:
+    diff_hide: באַהאַלטן
     title: טיטל
   timeline:
     block_milestone: מיילן־שטיין
+    week_number: וואָך %{number}
   training:
     page: בלאַט
   users:
     assign_articles_done: ערליידיקט
+    number_of_articles:
+      one: '%{count} אַרטיקל'
+      other: '%{count} אַרטיקלען'
+  survey:
+    email:
+      headline: העלאָ, %{username}
   article_finder:
     no_article_found: קיין אַרטיקל נישט געפונען אין דער דאָזיקער קאַטעגאָריע
     relevanceIndex: שייכדיקייט־אינדעקס
