@@ -7,6 +7,7 @@
 // core-js/stable and regenerator-runtime/runtime are directly included to polyfill ES features and to use transpiled generator functions respectively, as @babel/polyfill is deprecated.
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
+import i18n from './i18n';
 
 require('location-origin');
 require('@rails/ujs').start(); // Enables rails-ujs, which adds JavaScript enhancement to some Rails views
@@ -22,5 +23,11 @@ document.addEventListener('DOMContentLoaded', () => {
   import('events').then(({default: events}) => {
     events.EventEmitter.defaultMaxListeners = 30;
   });
-    /* eslint-enable */
+    
 });
+
+i18n.defaultLocale = defaultLocale;
+i18n.locale = locale;
+i18n.availableLocales = availableLocales;
+i18n.store(stores)
+/* eslint-enable */
