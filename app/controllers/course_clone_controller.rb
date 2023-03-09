@@ -10,7 +10,7 @@ class CourseCloneController < ApplicationController
     check_permission
 
     campaign_slug = clone_params[:campaign_slug]
-    clone_assignments = clone_assignments_params[:copy_assignments]
+    clone_assignments = clone_params[:copy_assignments]
     new_course = CourseCloneManager.new(course: @course, user: current_user, clone_assignments:,
                                         campaign_slug:).clone!
 
@@ -29,10 +29,6 @@ class CourseCloneController < ApplicationController
   end
 
   def clone_params
-    params.permit(:campaign_slug)
-  end
-
-  def clone_assignments_params
-    params.permit(:copy_assignments)
+    params.permit(:campaign_slug, :copy_assignments)
   end
 end

@@ -70,10 +70,12 @@ const CourseCreator = createReactClass({
     this.props.fetchCoursesForUser(window.currentUser.id);
     },
 
+  onDropdownChange(event) {
+    this.props.fetchAssignments(event.target.value);
+  },
   setCopyCourseAssignments(e) {
-    const scoped = e.target.checked;
     return this.setState({
-      copyCourseAssignments: scoped
+      copyCourseAssignments: e.target.checked
     });
   },
 
@@ -258,9 +260,7 @@ const CourseCreator = createReactClass({
     return this.setState({ isSubmitting: true, shouldRedirect: true });
   },
 
-  change(event) {
-    this.props.fetchAssignments(event.target.value);
-  },
+
 
   render() {
     if (this.props.loadingUserCourses) {
@@ -328,7 +328,7 @@ const CourseCreator = createReactClass({
     const selectClassName = `select-container ${selectClass}`;
     const eventFormClass = this.state.showEventDates ? '' : 'hidden';
     const eventClass = `${eventFormClass}`;
-    const reuseCourseSelect = <select id="reuse-existing-course-select" ref={(dropdown) => { this.courseSelect = dropdown; }} onChange={this.change}>{options}</select>;
+    const reuseCourseSelect = <select id="reuse-existing-course-select" ref={(dropdown) => { this.courseSelect = dropdown; }} onChange={this.onDropdownChange}>{options}</select>;
 
     let showCheckbox;
     if (this.props.assignmentsWithoutUsers && this.props.assignmentsWithoutUsers.length > 0) {
