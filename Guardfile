@@ -21,7 +21,7 @@ end
 
 guard 'rails', environment: 'development', host: ENV['RAILS_HOST'] || 'localhost' do
   watch('Gemfile.lock')
-  watch(%r{^(config|lib)/.*})
+  watch(%r{^(config|lib)/(?!locales/|i18n-js.yml).*})
   watch(%r{training_content/.+\.yml})
 end
 
@@ -81,4 +81,10 @@ guard :rspec, cmd: 'bundle exec rspec' do
   watch(%r{^spec/acceptance/steps/(.+)_steps\.rb$}) do |m|
     Dir[File.join("**/#{m[1]}.feature")][0] || 'spec/acceptance'
   end
+end
+
+
+guard :"i18n-js", run_on_start: false, config_file: "./config/i18n-js.yml", require_file: "./config/environment.rb" do
+  watch(%r{^(app|config)/locales/.+\.(yml|po)$})
+  watch(%r{^config/i18n-js.yml$})
 end
