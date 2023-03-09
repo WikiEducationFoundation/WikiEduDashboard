@@ -306,29 +306,28 @@ export class AssignButton extends React.Component {
   assign(e) {
     e.preventDefault();
     const { course, role } = this.props;
+    this.state.title.split('\n').forEach((assignment_title) => {
+      const assignment = {
+        title: decodeURIComponent(assignment_title).trim(),
+        project: this.state.project,
+        language: this.state.language,
+        course_slug: course.slug,
+        role: role
+      };
 
-    const assignment = {
-      title: decodeURIComponent(this.state.title).trim(),
-      project: this.state.project,
-      language: this.state.language,
-      course_slug: course.slug,
-      role: role
-    };
+      if (!assignment.title || assignment.title === 'undefined') return;
+      if (assignment.title.length > 255) {
+        // Title shouldn't exceed 255 chars to prevent mysql errors
+        return alert(I18n.t('assignments.title_too_large'));
+      }
 
-    if (!assignment.title || assignment.title === 'undefined') return;
-    if (assignment.title.length > 255) {
-      // Title shouldn't exceed 255 chars to prevent mysql errors
-      return alert(I18n.t('assignments.title_too_large'));
-    }
-
-    // Determine whether or not this assignment matches
-    // a tracked course wiki
-    const isInTrackedWiki = this.isAssignmentForTrackedWiki(course.wikis, assignment);
-    return this._onConfirmHandler({
-      action: this.props.addAssignment,
-      assignment,
-      isInTrackedWiki,
-      title: assignment.title
+      const action = this.props.addAssignment;
+      const { student } = this.props;
+      const studentId = (student && student.id) || null;
+      action({
+        ...assignment,
+          user_id: studentId
+      });
     });
   }
 
@@ -432,13 +431,18 @@ export class AssignButton extends React.Component {
         );
         // Add a single assignment
       } else {
+        const onSubmit = (e, ...args) => {
+          this.assign(e, ...args);
+          this.setState({ title: '' });
+        };
+
         assignmentInput = (
           <td>
             <NewAssignmentInput
               language={this.state.language}
               project={this.state.project}
               title={this.state.title}
-              assign={this.assign.bind(this)}
+              assign={onSubmit}
               trackedWikis={trackedWikis}
               handleChangeTitle={this.handleChangeTitle.bind(this)}
               handleWikiChange={this.handleWikiChange.bind(this)}
