@@ -13,4 +13,4 @@
       = "#{article.wiki.language}.#{article.wiki.project}"
   %td.course_title
     %small
-      = link_to article_course.course.slug, "/courses/#{article_course.course.slug}"
+      = link_to article_course.course.slug.gsub('_',' '), "/courses/#{article_course.course.slug}"
