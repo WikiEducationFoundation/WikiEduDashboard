@@ -5,7 +5,7 @@ const NewAssignmentInput = ({
   language, project, title,
   assign, handleChangeTitle, handleWikiChange, trackedWikis
 }) => {
-  const articles = title.split('\n').filter(Boolean).length;
+  const articles = title.split('\n').length;
   const multipleArticles = articles > 1;
   return (
     <form
@@ -36,7 +36,7 @@ const NewAssignmentInput = ({
         width: 'max-content',
       }}
       >
-        {multipleArticles ? 'Assign All' : I18n.t('assignments.label')}
+        {multipleArticles ? I18n.t('assignments.label_all') : I18n.t('assignments.label')}
       </button>
       <SelectedWikiOption
         language={language}
