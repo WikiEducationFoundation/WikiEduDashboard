@@ -30,13 +30,12 @@ describe 'multiwiki assignments', type: :feature, js: true do
       button.click
 
       within('#users') do
-        first('input').set(
+        first('textarea').set(
           'https://ta.wiktionary.org/wiki/%E0%AE%86%E0%AE%99%E0%AF%8D%E0%AE%95%E0%AE%BF%E0%AE%B2%E0%AE%AE%E0%AF%8D',
           rapid: false
         )
       end
       click_button 'Assign'
-      click_button 'OK'
       visit "/courses/#{course.slug}/students/articles"
       first('.student-selection .student').click
 
@@ -58,7 +57,7 @@ describe 'multiwiki assignments', type: :feature, js: true do
       button.click
 
       within('#users') do
-        find('input', visible: true).set('No le des prisa, dolor')
+        find('textarea', visible: true).set('No le des prisa, dolor')
         click_link 'Change'
         find('div.wiki-select').click
         within('.wiki-select') do
@@ -67,7 +66,6 @@ describe 'multiwiki assignments', type: :feature, js: true do
       end
 
       click_button 'Assign'
-      click_button 'OK'
 
       visit "/courses/#{course.slug}/students/articles"
       first('.student-selection .student').click
@@ -89,10 +87,9 @@ describe 'multiwiki assignments', type: :feature, js: true do
       expect(button).to have_content 'Assign/remove an article'
       button.click
       within('#users') do
-        first('input').set('https://wikisource.org/wiki/Heyder_Cansa')
+        first('textarea').set('https://wikisource.org/wiki/Heyder_Cansa')
       end
       click_button 'Assign'
-      click_button 'OK'
       visit "/courses/#{course.slug}/students/articles"
       first('.student-selection .student').click
 
@@ -113,10 +110,9 @@ describe 'multiwiki assignments', type: :feature, js: true do
       expect(button).to have_content 'Assign/remove an article'
       button.click
       within('#users') do
-        first('input').set('https://incubator.wikimedia.org/wiki/Wp/kiu/Heyder_Cansa')
+        first('textarea').set('https://incubator.wikimedia.org/wiki/Wp/kiu/Heyder_Cansa')
       end
       click_button 'Assign'
-      click_button 'OK'
       visit "/courses/#{course.slug}/students/articles"
       first('.student-selection .student').click
 
