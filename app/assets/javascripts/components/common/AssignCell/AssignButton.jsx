@@ -306,7 +306,7 @@ export class AssignButton extends React.Component {
   assign(e) {
     e.preventDefault();
     const { course, role } = this.props;
-    this.state.title.split('\n').forEach((assignment_title) => {
+    this.state.title.split('\n').filter(Boolean).forEach((assignment_title) => {
       const assignment = {
         title: decodeURIComponent(assignment_title).trim(),
         project: this.state.project,
