@@ -243,14 +243,24 @@ export class AssignButton extends React.Component {
     e.preventDefault();
 
     const title = e.target.value;
-    const assignment = CourseUtils.articleFromTitleInput(title);
-    const language = assignment.language || this.state.language;
-    const project = assignment.project || this.state.project;
+    const articlesTitles = [];
+    let language;
+    let project;
+    title.split('\n').forEach((articleTitle) => {
+      if (!articleTitle) {
+        articlesTitles.push('');
+        return;
+      }
+      const temp = CourseUtils.articleFromTitleInput(articleTitle);
+      articlesTitles.push(temp.title);
+      language = temp.language;
+      project = temp.project;
+    });
 
     return this.setState({
-      title: assignment.title,
-      project,
-      language
+      title: articlesTitles.join('\n'),
+      project: project || this.state.project,
+      language: language || this.state.language
     });
   }
 

@@ -47,6 +47,35 @@ describe 'multiwiki assignments', type: :feature, js: true do
     end
   end
 
+  it 'creates valid assignments from multiple article titles' do
+    VCR.use_cassette 'multiwiki_assignment' do
+      visit "/courses/#{course.slug}/students/articles"
+      first('.student-selection .student').click
+
+      button = first('.assign-button')
+      expect(button).to have_content 'Assign/remove an article'
+      button.click
+
+      within('#users') do
+        first('textarea').set(
+          "Terre\nhttps://fr.wikipedia.org/wiki/Anglais"
+        )
+      end
+      click_button 'Assign all'
+
+      visit "/courses/#{course.slug}/students/articles"
+      first('.student-selection .student').click
+
+      expect(page).to have_content 'Terre'
+      expect(page).to have_content 'Anglais'
+
+      expect(page).to have_css('a[href*="https://fr.wikipedia.org"]', text: 'Article', count: 2)
+
+      expect(page).to have_css('a[href="https://fr.wikipedia.org/wiki/Anglais"]')
+      expect(page).to have_css('a[href="https://fr.wikipedia.org/wiki/Terre"]')
+    end
+  end
+
   it 'creates a valid assignment from an article and a project and language from tracked Wikis' do
     VCR.use_cassette 'multiwiki_assignment' do
       visit "/courses/#{course.slug}/students/articles"
