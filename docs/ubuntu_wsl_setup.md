@@ -1,7 +1,6 @@
 1. Enable WSL and virtual machines (via "Turn Windows features on or off")
 2. Install Ubuntu from Microsoft Store and make sure it's set for WSL 2
    1. Optional: install Windows Terminal
-
 3. In Ubuntu terminal
    1. `sudo apt-add-repository -y ppa:rael-gc/rvm`
    2. `sudo apt-get update`
@@ -17,7 +16,7 @@
 5. In Ubuntu terminal:
    1. `sudo usermod -a -G rvm $USER` where $User is your UNIX username (preferably restart your machine after this step)
    2. `rvm install 3.1.2`
-   3.  Clone the WikiEduDashboard git repo and enter the directory
+   3.  Clone the WikiEduDashboard git repo and enter the directory (Make sure to clone your repository in the linux partition)
    4.  In config folder:
        1. Either save `application.example.yml` and `database.example.yml` as `application.yml` and `database.yml`, respectively, or 
        2. Copy `application.example.yml` to `application.yml` and `database.example.yml` to `database.yml` using cp command.
