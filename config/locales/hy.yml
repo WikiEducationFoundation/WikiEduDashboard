@@ -345,6 +345,8 @@ hy:
     done: Արված է
     kind:
       discussion: քննարկում
+  update_username:
+    button: Թարմացնել
   uploads:
     image: Պատկեր
     label: Բեռնումներ

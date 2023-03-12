@@ -64,6 +64,8 @@ const SurveyAdmin = {
     this.$matrix_options_checkbox = $('[data-matrix-checkbox]');
     this.$course_data_type_select = $('#question_course_data_type');
     this.$answer_options = $('[data-answer-options]');
+    this.$csrf_token = document.querySelector('meta[name="csrf-token"]');
+
     return this.$range_input_options = $('[data-question-type-options="RangeInput"');
   },
 
@@ -85,11 +87,10 @@ const SurveyAdmin = {
       update(e, ui) {
         const itemId = ui.item.data('item-id');
         const position = ui.item.index() + 1; // acts_as_list defaults to start at 1
-        return $.ajax({
-          type: 'PUT',
-          url: '/surveys/question_position',
-          dataType: 'json',
-          data: { question_group_id: questionGroupId, id: itemId, position }
+        return fetch('/surveys/question_position', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': SurveyAdmin.$csrf_token.content },
+          body: JSON.stringify({ question_group_id: questionGroupId, id: itemId, position })
         });
       }
     });
@@ -112,11 +113,14 @@ const SurveyAdmin = {
       update(e, ui) {
         const itemId = ui.item.data('item-id');
         const position = ui.item.index() + 1; // acts_as_list defaults to start at 1
-        return $.ajax({
-          type: 'POST',
-          url: '/surveys/update_question_group_position',
-          dataType: 'json',
-          data: { survey_id: surveyId, question_group_id: itemId, position }
+        return fetch('/surveys/update_question_group_position', {
+          credentials: 'include',
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': SurveyAdmin.$csrf_token.content
+          },
+          body: JSON.stringify({ survey_id: surveyId, question_group_id: itemId, position })
         });
       }
     });
@@ -172,12 +176,17 @@ const SurveyAdmin = {
   },
 
   getQuestion(id) {
-    return $.ajax({
-      url: `/surveys/question_group_question/${id}`,
-      method: 'get',
-      dataType: 'json',
-      contentType: 'application/json',
-      success: $.proxy(this, 'handleConditionalQuestionSelect')
+    const that = this; // This is done to store the correct "this" pointer to the object while inside the promise
+    return fetch(`/surveys/question_group_question/${id}`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': SurveyAdmin.$csrf_token.content
+      },
+    }).then(response => response.json())
+      .then((data) => {
+        SurveyAdmin.handleConditionalQuestionSelect.call(that, data);
     });
   },
 

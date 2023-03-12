@@ -8,6 +8,7 @@ import Rails from '@rails/ujs';
 //--------------------------------------------------------
 
 import Utils from './SurveyUtils.js';
+import request from '../../utils/request';
 
 //--------------------------------------------------------
 // Vendor Requirements [requires]
@@ -20,6 +21,7 @@ const rangeslider = require('nouislider');
 const wNumb = require('wnumb');
 require('slick-carousel');
 require('velocity-animate');
+
 
 // const markdown = require('../../utils/markdown_it.js').default();
 
@@ -253,12 +255,15 @@ const Survey = {
     $form.on('submit', function (e) {
       e.preventDefault();
       const data = _context.processQuestionGroupData($(this).serializeArray());
-      return $.ajax({
-        url,
-        method,
-        data: JSON.stringify(data),
-        dataType: 'json',
-        contentType: 'application/json',
+      return fetch(url, {
+        method: method,
+        body: JSON.stringify(data),
+        credentials: 'include',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': Rails.csrfToken()
+        },
         // success(d) { return console.log('success', d); },
         // error(er) { return console.log('error', er); }
       });
@@ -276,23 +281,15 @@ const Survey = {
 
   updateSurveyNotification() {
     if (this.surveyNotificationId === undefined) { return; }
-    $.ajax({
-      type: 'PUT',
-      url: '/survey_notification',
-      headers: {
-        'X-CSRF-Token': Rails.csrfToken()
-      },
-      dataType: 'json',
-      data: {
+    request('/survey_notification', {
+      method: 'PUT',
+      body: JSON.stringify({
         survey_notification: {
           id: this.surveyNotificationId,
           dismissed: true,
           completed: true
         }
-      },
-      success() {
-        // console.log(data);
-      }
+      })
     });
   },
 

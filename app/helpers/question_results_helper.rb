@@ -65,7 +65,7 @@ module QuestionResultsHelper
   end
 
   def respondents(question, question_answers_count)
-    total = question_answers_count[question.id]
+    total = question_answers_count[question.id] || 0
     label = 'Respondents'
     label.pluralize if total > 1
     "#{total} #{label}"
