@@ -28,3 +28,5 @@
    10. `rails s`
 
 6. Now you should have it running at localhost:3000
+
+For troubleshooting, look at the end of the document: [Troubleshooting](./troubleshooting.md)
