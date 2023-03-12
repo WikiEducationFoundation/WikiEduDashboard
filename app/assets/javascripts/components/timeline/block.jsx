@@ -277,7 +277,5 @@ const Block = createReactClass({
 const mapDispatchToProps = { initiateConfirm };
 
 export default connect(null, mapDispatchToProps)(
-  // Expandable(Block)
   Block
 );
-// export default Block;
