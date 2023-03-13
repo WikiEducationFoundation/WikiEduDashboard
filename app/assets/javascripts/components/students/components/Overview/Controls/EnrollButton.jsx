@@ -116,12 +116,12 @@ export class EnrollButton extends React.Component {
       let removeButton;
       if (this.props.role !== 1 || this.props.users.length >= 2 || this.props.current_user.admin) {
         removeButton = (
-          <button className="button border plus" onClick={this.unenroll.bind(this, user.id)}>Remove</button>
+          <button className="button border plus" aria-label="Remove user" onClick={this.unenroll.bind(this, user.id)}>-</button>
         );
       }
       return (
         <tr key={`${user.id}_enrollment`}>
-          <td className="remove-button">{user.username}{removeButton}</td>
+          <td>{user.username}{removeButton}</td>
         </tr>
       );
     });

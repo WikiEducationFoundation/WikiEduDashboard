@@ -70,11 +70,11 @@ const TagEditable = createReactClass({
     // In editable mode we'll show a list of tags and a remove button plus a selector to add new tags
     const tagList = this.props.tags.map((tag) => {
       const removeButton = (
-        <button className="button border plus" onClick={this.removeTag.bind(this, tag.tag)}>Remove</button>
+        <button className="button border plus" aria-label="Remove tag" onClick={this.removeTag.bind(this, tag.tag)}>-</button>
       );
       return (
         <tr key={`${tag.id}_tag`}>
-          <td className="remove-button">{tag.tag}{removeButton}</td>
+          <td>{tag.tag}{removeButton}</td>
         </tr>
       );
     });
