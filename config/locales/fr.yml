@@ -1249,7 +1249,7 @@ fr:
     recent_uploads: Téléversements récents
     revision_author: Auteur de la révision
     revision_datetime: Horodatage de la révision
-    revision_score: Score de la révision
+    revision_score: Pointage de la version
     show_courses: Afficher uniquement mes cours
     uploaded_by: Téléversé par
     usage_count: Compteur d’utilisations

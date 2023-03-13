@@ -30,14 +30,14 @@ tly:
       wiki_all: Həmə
       new: Tojə
     hide: Niyon bıkə
-    history: (tarix)
+    history: (torix)
     new: (nuə)
     wiki: Viki
   articles_generic:
     articles_short: Səhifə
   campaign:
     all_campaigns: Həmə Kampaniyə
-    created_at: Tarix
+    created_at: Torix
     description: Təsvir
   categories:
     name: Nom
@@ -61,7 +61,7 @@ tly:
   metrics:
     added: Əlovə be
   revisions:
-    date_time: Tarix/Vaxt
+    date_time: Torix/Zəmon
     diff: fərğ
   uploads:
     image: Şəkl

@@ -609,6 +609,10 @@ ru:
       Нажмите <a href="%{url}">здесь</a>, чтобы загрузить данные обучения из файлов
       training_content/yaml.
     no_training_library_records_non_wiki_ed_mode: В базе данных нет записей TrainingLibrary.
+  update_username:
+    username_updated: Имя участника успешно обновлено!
+    label: Новое имя участника
+    button: Обновить
   uploads:
     credit: Создатели
     file_name: Имя файла

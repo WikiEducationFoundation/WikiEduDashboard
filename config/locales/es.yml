@@ -834,6 +834,11 @@ es:
       exercise: Ejercicio
       discussion: Discusión
       training: Entrenamiento
+  update_username:
+    not_found: No se encontró la cuenta correspondiente al nombre introducido.
+    username_updated: El nombre de usuario se actualizó correctamente.
+    label: Nombre de usuario nuevo
+    button: Actualizar
   uploads:
     credit: Crédito
     file_name: Nombre del archivo

@@ -147,6 +147,7 @@ sl:
     dismiss_survey: Opusti
     embed_course_stats_description: Za vdelavo statistike tega programa v drugo spletno
       mesto kopirajte in prilepite ta delček kode
+    end: Konec
     ended: Tečaj je končan.
     error:
       invalid_wiki: Ni mogoče vzpostaviti povezave z %{domain}. Morda ni veljaven
