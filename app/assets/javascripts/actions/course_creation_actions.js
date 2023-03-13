@@ -30,8 +30,8 @@ export const submitCourse = (course, failureCallback) => (dispatch) => {
     });
 };
 
-export const cloneCourse = (courseId, campaign) => (dispatch) => {
-  return API.cloneCourse(courseId, campaign)
+export const cloneCourse = (courseId, campaign, copyAssignments) => (dispatch) => {
+  return API.cloneCourse(courseId, campaign, copyAssignments)
     .then(resp => dispatch({ type: RECEIVE_COURSE_CLONE, data: resp }))
     .catch(resp => dispatch({ type: API_FAIL, data: resp }));
 };

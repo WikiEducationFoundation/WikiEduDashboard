@@ -12,6 +12,7 @@ const getCurrentUserFromHtml = state => state.currentUserFromHtml;
 const getCourseCampaigns = state => state.campaigns.campaigns;
 const getAllCampaigns = state => state.campaigns.all_campaigns;
 const getUserCourses = state => state.userCourses.userCourses;
+const assignments = state => state.assignments.assignments;
 const getAllEditedArticles = state => state.articles.articles;
 const getWikiFilter = state => state.articles.wikiFilter;
 const getNewnessFilter = state => state.articles.newnessFilter;
@@ -135,6 +136,13 @@ export const getAvailableTags = createSelector(
 export const getCloneableCourses = createSelector(
   [getUserCourses], (userCourses) => {
     return getFiltered(userCourses, { cloneable: true });
+  }
+);
+
+// This returns all the Articles with user_id null
+export const getAvailableArticles = createSelector(
+  [assignments], (assignment) => {
+    return getFiltered(assignment, { user_id: null });
   }
 );
 
