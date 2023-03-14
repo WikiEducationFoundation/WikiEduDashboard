@@ -2799,7 +2799,7 @@ __metadata:
     stylelint-config-standard: ^20.0.0
     stylus: ^0.54.8
     stylus-native-loader: ^1.1.2
-    tinymce: ^5.2.2
+    tinymce: ^6.3.2
     url-loader: ^4.1.0
     uuid: ^3.4.0
     velocity-animate: ^1.5.1
@@ -12532,10 +12532,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tinymce@npm:^5.2.2, tinymce@npm:^5.5.1":
+"tinymce@npm:^5.5.1":
   version: 5.10.5
   resolution: "tinymce@npm:5.10.5"
   checksum: a3251922019dd82a87dcb80a41f46d289781a88efd8644d0227618ca9983159008c8ebb61ab8d99fcf94da8a69946b78c9e1e73eaa53b5c7eeb2e6fa8b58c1bb
+  languageName: node
+  linkType: hard
+
+"tinymce@npm:^6.3.2":
+  version: 6.3.2
+  resolution: "tinymce@npm:6.3.2"
+  checksum: 55148be4178aabffbf63e74a3dff3219186eae0ff762965bfc88113c2c710c6a643ef48adee201ad1d33d4367791c8a68259e5d0aea19a6c05dce04d85caadb2
   languageName: node
   linkType: hard
 
