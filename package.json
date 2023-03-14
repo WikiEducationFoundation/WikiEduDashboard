@@ -45,7 +45,6 @@
     "jquery": "^3.5.1",
     "jquery-ui": "^1.13.2",
     "jsdom": "^16.2.2",
-    "json-loader": "^0.5.4",
     "jsx-require-extension": "^0.2.0",
     "linkifyjs": "^2.1.9",
     "list.js": "git+https://github.com/WikiEducationFoundation/list.js.git",

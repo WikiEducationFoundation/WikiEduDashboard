@@ -2746,7 +2746,6 @@ __metadata:
     jquery: ^3.5.1
     jquery-ui: ^1.13.2
     jsdom: ^16.2.2
-    json-loader: ^0.5.4
     jsx-require-extension: ^0.2.0
     linkifyjs: ^2.1.9
     list.js: "git+https://github.com/WikiEducationFoundation/list.js.git"
@@ -8448,13 +8447,6 @@ __metadata:
   bin:
     jsesc: bin/jsesc
   checksum: b8b44cbfc92f198ad972fba706ee6a1dfa7485321ee8c0b25f5cedd538dcb20cde3197de16a7265430fce8277a12db066219369e3d51055038946039f6e20e17
-  languageName: node
-  linkType: hard
-
-"json-loader@npm:^0.5.4":
-  version: 0.5.7
-  resolution: "json-loader@npm:0.5.7"
-  checksum: c7d054edf7fd5338847f49008df3cdf744f64507584dff3e6d28f500604eedd9130ca1639caa61747b36ab141e7e8db0e86f8514b2244b6d8b0eb634f1154875
   languageName: node
   linkType: hard
 
