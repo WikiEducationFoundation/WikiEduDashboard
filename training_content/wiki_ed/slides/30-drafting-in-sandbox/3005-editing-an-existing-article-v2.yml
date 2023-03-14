@@ -1,4 +1,5 @@
 ---
+id: 3005
 title: Editing an existing article?
 content: |+
   If you're editing an existing article, a sandbox is a great place to
@@ -20,5 +21,7 @@ content: |+
       name of the original article, then save it by clicking **Publish changes**.
   5.  Re-enter Edit mode in your sandbox, make your changes, and publish
       them.
+  6.  Format your additions in bold to make easy to differentiate your
+      work from the existing content. (You'll need to remove this formatting
+      when you move your changes back into the live article later on.)
 
-id: 3005
