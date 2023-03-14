@@ -242,19 +242,26 @@ export class AssignButton extends React.Component {
   handleChangeTitle(e) {
     e.preventDefault();
 
-    const title = e.target.value;
+    // this text contains the titles/links of the article separated by new lines
+    const text = e.target.value;
     const articlesTitles = [];
+
     let language;
     let project;
-    title.split('\n').forEach((articleTitle) => {
+
+    // loop for each individual article
+    text.split('\n').forEach((articleTitle) => {
+      // if the article title is empty, then skip it
       if (!articleTitle) {
+        // add an empty string to the array so that new lines are preserved
         articlesTitles.push('');
         return;
       }
-      const temp = CourseUtils.articleFromTitleInput(articleTitle);
-      articlesTitles.push(temp.title);
-      language = temp.language;
-      project = temp.project;
+
+      const article = CourseUtils.articleFromTitleInput(articleTitle);
+      articlesTitles.push(article.title);
+      language = article.language;
+      project = article.project;
     });
 
     return this.setState({
