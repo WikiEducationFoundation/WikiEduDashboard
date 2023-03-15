@@ -6,6 +6,8 @@
 mn:
   application:
     log_in: Гарах
+  dashboard:
+    flash_notice: Таны хуудсыг х.
   home:
     log_in: Википедиад нэвтрэн орох
   courses:

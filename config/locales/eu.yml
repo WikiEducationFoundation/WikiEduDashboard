@@ -84,6 +84,7 @@ eu:
     post_to_talk: Elkarrizketan argitaratu
     peer_review_completed: Berrikusketa osatua
   dashboard:
+    flash_notice: Ez duzu sarrera eskuragarria orrialde horretara.
     create_note: Klik egin Ikastaroa sortu zure lehenengo ikastaroa sortzeko
     create_preparation_note: 'Eduki zure ikasturteko egutegia aldean hasi baino lehen;
       lana diseinatzeko tresnak zure klasearen bilkura datak erabiliko ditu (tartean

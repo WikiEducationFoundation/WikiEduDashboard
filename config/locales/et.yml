@@ -65,6 +65,7 @@ et:
     opt_yes: jah
     opt_no: ei
   dashboard:
+    flash_notice: Sul pole sellele lehele juurdepääsuõigust.
     create_note: Oma esimese kursuse loomiseks vajuta lingile "Loo uus kursus".
     create_preparation_note: 'Kursuse loomisega alustades tasub hoida käepärast akadeemiline
       kalender. Õppetöö planeerimise tööriist paigutab õppetöö toimumiskuupäevade

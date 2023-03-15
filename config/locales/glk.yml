@@ -9,4 +9,6 @@ glk:
     sign_up_log_in_extended: ويکيپديا أمرأ
   courses:
     overview: خؤنه
+  dashboard:
+    flash_notice: تون دسترسی به برگه اون رو نداری.
 ...

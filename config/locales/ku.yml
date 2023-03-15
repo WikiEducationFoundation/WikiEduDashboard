@@ -9,6 +9,8 @@ ku:
   activity:
     all: Çalakî
     edited_by: Hat Sererastkirin Ji Alî
+  dashboard:
+    flash_notice: Şunı saifege erişemersiniz.
   metrics:
     activity: Aktîvîteyên Dawî
     articles_created: Gotar Hate Çêkirin

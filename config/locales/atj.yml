@@ -30,6 +30,8 @@ atj:
     title: Icinikatew
   courses_generic:
     cancel: Ponipita
+  dashboard:
+    flash_notice: Nikatcicik kicinikatc nipiy.
   editable:
     edit: Meckotcita
     cancel: Ponipita

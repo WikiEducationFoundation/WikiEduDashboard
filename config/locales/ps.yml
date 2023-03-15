@@ -30,6 +30,8 @@ ps:
     opt_no: نه
   article_statuses:
     not_yet_started: پیل کول
+  dashboard:
+    flash_notice: تاسو دغه پاڼه ته لاسرسی نلری.
   home:
     log_in: د ويکيپېډيا له لارې ورننوتل
     sign_up: د ويکيپېډيا له لارې نومليکنه

@@ -64,6 +64,7 @@ cy:
     opt_yes: Ydw
     print: Argraffu
   dashboard:
+    flash_notice: Nid oes gan chi fynediad at y dudalen hon.
     create_note: Cliciwch ar 'Creu Cwrs' i wneud hynny.
     explore_course_pages: Archwilio Tudalennau'r Cwrs
     explore_examples: Archwilio Engreifftiau

@@ -8,6 +8,8 @@ is:
   courses:
     new_account_email: Tölvupóstfang
     school: Skóli
+  dashboard:
+    flash_notice: Þú hefur ekki aðgang að þeirri síðu.
   users:
     useremail_placeholder: Tölvupóstur
 ...

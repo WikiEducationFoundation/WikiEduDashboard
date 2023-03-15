@@ -35,6 +35,7 @@ ab:
     change: Иԥсахтәуп
     confirm: OK
   dashboard:
+    flash_notice: Аҧхәажәыбзэ тхьыблэз ҭырцәынтә иашаллахьын.
     explore_examples: Иҵатәуп аҿырԥштәқәа
     blog_headline: Wiki Education аҵыхәтәантәи ажәабжьқәа
   home:

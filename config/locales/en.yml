@@ -96,6 +96,7 @@ en:
     peer_review_completed: Review Completed
 
   dashboard:
+    flash_notice: You don't have access to that page.
     create_note: Click on Create Course to create your first course.
     create_preparation_note: >
       Be sure to have your academic calendar on hand before you begin; the

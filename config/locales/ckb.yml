@@ -72,6 +72,7 @@ ckb:
     ready_for_mainspace: گواستنەوەی کار بۆ بۆشایی ناوی سەرەکی
     assignment_completed: ئەرکەکە وەک تەواوکراو نیشانکرا
   dashboard:
+    flash_notice: تۆ دەسەڵاتی کردنەوەی ئەم پەڕەیە نییە.
     create_note: بۆ دروستکردنی یەکەم کۆرست کرتە لەسەر دروستکردنی کۆرس بکە.
     explore_course_pages: لاپەڕەکانی کۆرسەکە بگەڕێ
     explore_examples: نموونەکان بکۆڵەرەوە

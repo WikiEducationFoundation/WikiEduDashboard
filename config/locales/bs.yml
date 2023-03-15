@@ -35,6 +35,7 @@ bs:
     details: Detalji
     confirm: U redu
   dashboard:
+    flash_notice: Nemate pristup toj stranici.
     explore_examples: Istražite primjere
   home:
     explore: Istraži

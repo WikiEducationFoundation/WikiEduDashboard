@@ -84,6 +84,7 @@ sv:
     post_to_talk: Posta på diskussionssidan
     peer_review_completed: Bedömning avslutad
   dashboard:
+    flash_notice: Du har inte åtkomst till den sidan.
     create_note: Klicka på "Skapa kurs" för att skapa din första kurs.
     explore_course_pages: Utforska kursussidorna
     explore_examples: Utforska exempel

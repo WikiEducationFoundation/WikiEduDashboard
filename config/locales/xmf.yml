@@ -33,6 +33,8 @@ xmf:
     creator:
       checking_for_uniqueness: თე პროგრამა უნიკალურობაშ გეშა იმორსებუაფუ.
       find: პროგრამაშ გორუა
+  dashboard:
+    flash_notice: ليس لديك حق الوصول إلى تلك الصفحة.
   instructor_view:
     bad_work:
       learn_more_button: ქიგეგით უმოსი

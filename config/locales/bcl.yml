@@ -53,6 +53,8 @@ bcl:
     view_wiki: Tanawon sa Wikipedia
     weeks_none: An kursong ini mayo pa nin oras.
     yourcourses: An saimong mga Kurso
+  dashboard:
+    flash_notice: Dai mo maaraman an pag-entra sa sadit na pahina.
   metrics:
     characters: Mga Letra
     char_changed: Mga karakter pinagliwat

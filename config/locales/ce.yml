@@ -28,6 +28,8 @@ ce:
   courses_generic:
     creator:
       course_school: Институт
+  dashboard:
+    flash_notice: Нохчийн эн эхалара тера а хъалугӀулар ял.
   metrics:
     last_update: Статистика тӀаьххьара карлайаккхар
     activity: Дукха хан йоцуш дийнарг

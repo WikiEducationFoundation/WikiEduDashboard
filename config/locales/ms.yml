@@ -52,6 +52,7 @@ ms:
     reading_the_article: Membaca Rencana
     providing_feedback: Memberi Maklum Balas
   dashboard:
+    flash_notice: Anda tidak mempunyai akses ke laman itu.
     create_note: Klik Cipta Kursus untuk mencipta kursus pertama anda.
     explore_course_pages: Jelajah Laman Kursus
     explore_examples: Jelajah Contoh Kursus

@@ -295,6 +295,8 @@ lv:
     term: Kad
     view_page: Skatīt programmas lapu
     yourcourses: Tavas programmas
+  dashboard:
+    flash_notice: Jums nav piekļuves tam lapas.
   editable:
     edit: Labot
     cancel: Atcelt

@@ -48,6 +48,8 @@ az:
     students_short: Tələbələr
     submitted_at: Göndərilib
     title: Başlıq
+  dashboard:
+    flash_notice: Bu səhifəyə giriş hüququnuz yoxdur.
   metrics:
     last_update: Son statistik məlumatların yeniləməsi
     next_update: Növbəti təxmini güncəlləştirmə

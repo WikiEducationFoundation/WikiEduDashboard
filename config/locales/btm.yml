@@ -44,6 +44,7 @@ btm:
     opt_in: Olo
     opt_out: Inda
   dashboard:
+    flash_notice: Holan sahat tu halaman i.
     create_note: Klik Baen pangkajoan tuna mambaen pangkajoan parjolomu
     create_preparation_note: Pastion anso puna kalender akademismy i tangan dompak
       so imuloi ho; alat desain tugas nangkan mamake tanggal rapat kalas mu - tarmasuk

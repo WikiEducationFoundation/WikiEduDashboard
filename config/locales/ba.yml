@@ -79,6 +79,8 @@ ba:
   courses_generic:
     courses: Прогресс
     enrollment: Ҡатнашыу
+  dashboard:
+    flash_notice: Бул битене керегезлеләреңез юк.
   editable:
     edit: Үҙгәртергә
     cancel: Кире алырға

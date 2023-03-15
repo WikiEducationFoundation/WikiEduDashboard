@@ -81,6 +81,7 @@ fi:
   article_statuses:
     not_yet_started: Aloittaminen
   dashboard:
+    flash_notice: Sinulla ei ole pääsyä sille sivulle.
     create_note: Luo ensimmäinen kurssissi klikkaamalla Luo uusi kurssi.
     create_preparation_note: Varmista, että sinulla on akateeminen kalenterisi saatavilla
       ennen aloittamista. Tehtävän luontityökalu käyttää kurssin kokoontumispäiviä

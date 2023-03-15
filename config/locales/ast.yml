@@ -77,6 +77,7 @@ ast:
     post_to_talk: Espublizando na Páxina d'alderique
     peer_review_completed: Revisión completada
   dashboard:
+    flash_notice: Nun tienes accesu a esa páxina.
     create_note: Fai click en Crear cursu pa crear el to primer cursu.
     create_preparation_note: Asegúrate de tener el to calendariu académicu a mano
       antes d'empezar; la ferramienta de diseñu de xeres va usar les feches de les

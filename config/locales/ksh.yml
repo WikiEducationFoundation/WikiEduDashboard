@@ -13,6 +13,7 @@ ksh:
     search: Schtäll en Frohch
     change: Änndere
   dashboard:
+    flash_notice: Du häs nejn Zougang zo der Sigg.
     opt_out: Donn noh_m Affschallde vun dä Ennföhrog frohre
     review_orientation: Donn de Ennföhrong norr_ens dorschlohre
   activity:

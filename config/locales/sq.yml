@@ -48,6 +48,7 @@ sq:
   article_statuses:
     providing_feedback: Ofroni sugjerime
   dashboard:
+    flash_notice: Ju nuk keni qasje në atë faqe.
     create_note: Shtyp në Krijo Kurs për të krijuar kursin tuaj të parë.
     create_preparation_note: Sigurohu që të keni kalendarin tuaj afër para se të filloni;
       mjeti i projektimit të detyrave do të përdorë datat e takimit të klasës tuaj

@@ -139,6 +139,8 @@ sms:
       save_cloned_course: Ruõkk
     delete_course: Jaukkâd prograamm
     explore: Ooʒʒ prograammi
+  dashboard:
+    flash_notice: Etne lä meaddüll tääʹrján guelddet
   editable:
     edit: Muuʹtt
     cancel: Jõõsk

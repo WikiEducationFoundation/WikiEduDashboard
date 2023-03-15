@@ -100,6 +100,8 @@ yi:
     student_editors: רעדאַקטאָרן
     students: רעדאַקטאָרן
     students_short: רעדאַקטאָרן
+  dashboard:
+    flash_notic: איר האָט ניט צוטריט צו די זייט.
   editable:
     cancel: אַנולירן
   metrics:

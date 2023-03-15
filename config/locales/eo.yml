@@ -66,6 +66,7 @@ eo:
     opt_yes: jes
     opt_no: ne
   dashboard:
+    flash_notice: Vi ne havas aliron al tiu paĝo.
     create_note: Premu la butonon Krei Kurson por krei vian unua kurson.
     explore_course_pages: Esplori Kursajn Paĝojn
     explore_examples: Esplori Ekzemplojn

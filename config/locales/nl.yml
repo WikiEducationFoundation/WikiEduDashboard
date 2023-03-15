@@ -104,6 +104,7 @@ nl:
     post_to_talk: Posten op de overlegpagina
     peer_review_completed: Beoordeling voltooid
   dashboard:
+    flash_notice: U hebt geen toegang tot die pagina.
     create_note: Klik op "Cursus aanmaken" om je eerste cursus aan te maken.
     create_preparation_note: Houd uw academische kalender bij de hand voordat u begint;
       de opdrachtontwerper gebruikt de vergaderdata van uw klas - met inbegrip van

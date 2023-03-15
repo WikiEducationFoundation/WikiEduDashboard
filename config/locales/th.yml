@@ -41,6 +41,7 @@ th:
     opt_in: ใช่
     opt_out: ไม่
   dashboard:
+    flash_notice: คุณไม่มีสิทธิ์เข้าถึงหน้านี้.
     create_note: คลิกที่ สร้างหลักสูตร เพื่อสร้างหลักสูตรแรกของคุณ
     explore_course_pages: สำรวจหน้าหลักสูตร
     explore_examples: ตัวอย่างการสำรวจ

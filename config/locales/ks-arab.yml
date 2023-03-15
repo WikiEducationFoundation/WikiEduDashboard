@@ -43,6 +43,8 @@ ks-arab:
   campaign:
     alert_user_id: صٲرِف
     created_at: تٲریٖخ
+  dashboard:
+    flash_notice: توہان ٹھیکہ آن لائن تہ پہنچنے کا دائرہ رکھتے نہیں.
   namespace:
     help: مَدَتھ
     book: کِتاب

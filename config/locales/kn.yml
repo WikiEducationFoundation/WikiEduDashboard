@@ -134,6 +134,8 @@ kn:
     students: ಸಂಪಾದಕರು
     students_taught: ಒಟ್ಟು ಸಂಪಾದಕರು
     students_short: ಸಂಪಾದಕರು
+  dashboard:
+    flash_notice: ನೀವು ಆ ಪುಟಕ್ಕೆ ಪ್ರವೇಶವನ್ನು ಹೊಂದಿಲ್ಲ.
   editable:
     edit: ಸಂಪಾದಿಸಿ
     cancel: ರದ್ದುಮಾಡಿ

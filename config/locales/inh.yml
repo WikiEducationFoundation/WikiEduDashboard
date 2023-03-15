@@ -19,6 +19,8 @@ inh:
     alerts: Хабар дáр
     creator:
       start_date: Доладалара таьрахь
+  dashboard:
+    flash_notice: Хlакх гӏот
   users:
     username: Доакъашхочун цIи
     username_placeholder: Доакъашхочун цIи

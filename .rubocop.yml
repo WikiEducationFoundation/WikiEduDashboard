@@ -227,6 +227,6 @@ RSpec/FactoryBot/SyntaxMethods:
 Rails/CompactBlank:
   Enabled: false
 Rails/I18nLocaleTexts:
-  Enabled: false
+  Enabled: true
 Layout/FirstHashElementIndentation:
   Enabled: false

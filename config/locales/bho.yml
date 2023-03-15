@@ -7,4 +7,6 @@ bho:
   courses_generic:
     courses: प्रोग्राम
     enrollment: भागीदारी
+  dashboard:
+    flash_notice: आपन त हवा भोजपुरी खोजी पृष्ठ के उपयोग करी न सकता।.
 ...

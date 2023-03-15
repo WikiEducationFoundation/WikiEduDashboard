@@ -113,6 +113,7 @@ zh-CN:
     post_to_talk: 发布到对话页
     peer_review_completed: 审查完成
   dashboard:
+    flash_notice: 您无法访问该页面。
     create_note: 点击“创建课程”以创建您的第一次课程。
     create_preparation_note: 在开始之前，请确保您手上有您的校历；作业设计工具将使用您班级的会议日期——包含任何学校休息日和节假日——以使您的时间表适应您选择的日期范围。记住，您总是可以编辑时间表以与您的需求相符。
     explore_course_pages: 浏览课程页面

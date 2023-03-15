@@ -32,6 +32,8 @@ hr:
     campaigns: 'Kampanje:'
     student: Uređivač
     students_count: Broj sudionika
+  dashboard:
+    flash_notice: Nemate pristup toj stranici.
   instructor_view:
     assignments_table:
       article_name: Ime članka

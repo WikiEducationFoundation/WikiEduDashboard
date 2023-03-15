@@ -64,6 +64,7 @@ fa:
     reading_the_article: مطالعهٔ مقاله
     providing_feedback: ارائه بازخورد
   dashboard:
+    flash_notice: به آن صفحه دسترسی ندارید.
     create_note: برای ایجاد نخستین دورهٔ خود، بر روی ایجاد دوره کلیک کنید.
     explore_course_pages: در صفحه‌های دوره کاوش کنید
     explore_examples: کاوش در مثال‌ها

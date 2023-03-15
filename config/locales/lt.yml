@@ -40,6 +40,7 @@ lt:
     change: Keisti
     details: Informacija
   dashboard:
+    flash_notice: Jūs neturite prieigos prie to puslapio.
     explore_course_pages: Naršyti Kurso Puslapius
     explore_examples: Naršyti Pavyzdžius
     no_courses_instructor: Atrodo, kad neturite jokių kursų.

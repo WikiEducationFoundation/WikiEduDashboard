@@ -12,6 +12,8 @@ kiu:
     cancel: Bıtexelne
   courses_generic:
     cancel: Bıtexelne
+  dashboard:
+    flash_notice: Wina pagey xo de nêkey.
   editable:
     cancel: Bıtexelne
   settings:

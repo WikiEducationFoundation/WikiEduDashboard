@@ -147,6 +147,8 @@ scn:
       course_term: Quannu
       course_term_placeholder: Quannu
       save_cloned_course: Sarva
+  dashboard:
+    flash_notice: Non hai accessu a sta pagina.
   editable:
     cancel: Annulla
     save: Sarva

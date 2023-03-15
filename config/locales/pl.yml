@@ -78,6 +78,7 @@ pl:
     opt_yes: Tak
     opt_no: Nie
   dashboard:
+    flash_notice: Nie masz dostępu do tej strony.
     create_note: Kliknij w Stwórz kurs by utworzyć swój pierwszy kurs.
     create_preparation_note: Zanim zaczniesz, miej pod ręką swój kalendarz roku akademickiego.
       Narzędzie do tworzenia zadań wykorzysta godziny twoich spotkań z uczniami -

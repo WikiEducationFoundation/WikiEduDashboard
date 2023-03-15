@@ -87,6 +87,7 @@ hu:
     post_to_talk: Írás üzenőoldalra
     peer_review_completed: Értékelés befejezve
   dashboard:
+    flash_notice: Nincs hozzáférése ehhez az oldalhoz.
     create_note: Kattints a Kurzus létrehozása gombra az első kurzusod létrehozásához.
     create_preparation_note: Mielőtt elkezdenéd, mindenképpen legyen kéznél az akadémiai
       naptár; a feladattervezési eszköz az osztály találkozási dátumait fogja használni

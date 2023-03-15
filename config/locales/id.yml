@@ -67,6 +67,7 @@ id:
     opt_yes: ya
     opt_no: tidak
   dashboard:
+    flash_notice: Anda tidak memiliki akses ke halaman tersebut.
     explore_course_pages: Jelajahi Course Pages
     explore_examples: Contoh penjelajahan
     opt_out: Permintaan untuk memilih keluar dari orientasi

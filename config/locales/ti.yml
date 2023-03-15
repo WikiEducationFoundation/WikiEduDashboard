@@ -18,6 +18,8 @@ ti:
     opt_out: ኣይፋል
     opt_yes: እወ
     opt_no: ኣይፋል
+  dashboard:
+    flash_notice: ምስ ገጽ የለውም አይደለም.
   home:
     explore: ዳህስስ
   activity:

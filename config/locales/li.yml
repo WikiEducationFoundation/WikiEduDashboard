@@ -4,6 +4,8 @@
 # Author: Pahles
 ---
 li:
+  dashboard:
+    flash_notice: Geer höbt geine toegank toet dat bladzied.
   revisions:
     diff_show: Tuin
   users:

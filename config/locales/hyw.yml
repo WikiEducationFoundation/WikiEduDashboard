@@ -22,6 +22,8 @@ hyw:
   courses:
     actions: Գործողութիւններ
     articles: Յօդուածներ
+  dashboard:
+    flash_notice: Դուք մուտքագրելու իրավունք չունեք այս էջին
   metrics:
     activity: Վերջին փոփոխութիւնները
   timeline:

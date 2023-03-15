@@ -31,4 +31,6 @@ kum:
     confirm: OK
     opt_in: Дюр
     opt_out: Ёкъ
+  dashboard:
+    flash_notice: Dir hutt keng Zougang zu där Säit.
 ...

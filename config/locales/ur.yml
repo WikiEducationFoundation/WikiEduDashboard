@@ -29,6 +29,7 @@ ur:
     training: تربیت
     change: تبدیل کریں
   dashboard:
+    flash_notice: آپ کو اس صفحے تک رسائی نہیں ہے.
     create_note: اپنا پہلا نصاب بنانے کے لیے نصاب بنائیں پر کلک کریں
   activity:
     all: سرگرمی

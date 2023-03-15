@@ -18,4 +18,6 @@ lki:
     title: نؤم سروڵگ
   courses:
     activity: کار-فعالیت
+  dashboard:
+    flash_notice: Лъарзин ю пынар гьумел.
 ...

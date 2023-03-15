@@ -36,6 +36,7 @@ zh-hant:
     submit: 送出
     training: 培訓
   dashboard:
+    flash_notice: 您無法訪問該頁面。
     create_note: 點擊創建課程以創建您的第一次課程
     create_preparation_note: 請您在開始之前，確認手上有學校的行事曆；任務設計工具會用到您課堂的會面日期（包括所有校內停課日和假日），好讓時間線能適合您選擇的日期範圍。記住，您可以隨時編輯時間線，以符合您的需求。
     explore_course_pages: 瀏覽課程頁面

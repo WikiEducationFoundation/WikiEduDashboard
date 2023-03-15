@@ -32,6 +32,7 @@ pnb:
     details: تفصیل
     confirm: اوکے
   dashboard:
+    flash_notice: تسیں اوہ صفحہ تک رسائی نہیں رکھدے.
     explore_examples: مثالاں لبھو
   namespace:
     lexeme: شبداولی

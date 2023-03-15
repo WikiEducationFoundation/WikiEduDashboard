@@ -46,6 +46,7 @@ ban:
     opt_yes: inggih
     opt_no: nénten
   dashboard:
+    flash_notice: Anda tusing dados ngakses ka halaman puniki.
     explore_examples: Conto pajelajahan
   home:
     explore: Jelajahin

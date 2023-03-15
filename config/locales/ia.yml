@@ -60,6 +60,8 @@ ia:
     join_no_passcode: Es tu secur de voler sequer iste curso?
     search_all_tickets_for_this_course: Cercar tote le billetes pro iste curso
     timeline_enabled: Chronologia activate
+  dashboard:
+    flash_notice: Tu non ha accesso a iste pagina.
   metrics:
     articles_created_generic: Paginas create
   revisions:

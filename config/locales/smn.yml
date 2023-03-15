@@ -87,6 +87,8 @@ smn:
     cancel: Jooskâ
     creator:
       save_cloned_course: Vuorkkii
+  dashboard:
+    flash_notice: Eanaš ii leat áššedovddu dihtosis.
   editable:
     cancel: Jooskâ
     save: Vuorkkii

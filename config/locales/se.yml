@@ -12,6 +12,8 @@ se:
     log_in_extended: Čálit sisa Wikipedia bokte
     log_in: Čálit sisa
     log_out: Čálit olggos
+  dashboard:
+    flash_notice: Ii leat ovddit sidjiide dávggas.
   home:
     log_in: Čálit sisa Wikipedia bokte
   articles:

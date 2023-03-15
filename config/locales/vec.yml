@@ -63,6 +63,7 @@ vec:
     opt_yes: sì
     opt_no: "no"
   dashboard:
+    flash_notice: No ghe gavemo el permesso par vardar cuesta pagina.
     create_note: Schicia so "Crea corso" par crear el to primo corso.
     create_preparation_note: Sigurate de ver el to całendario academego a portada
       de man prima de scumisiare; el instrumento de projetasion del conpito el dopararà

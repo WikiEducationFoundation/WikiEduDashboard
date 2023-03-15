@@ -32,6 +32,8 @@ olo:
     view_wiki: Kačo Wikipedies
     wiki_staff: Wiki Ed -ruadajat
     yourcourses: Sinun kursat
+  dashboard:
+    flash_notice: Teillä ei ole pääsyä sen sivun kylhään.
   metrics:
     activity: Jälgimäzin toimindu
     articles_created: Luajitut stuat'at

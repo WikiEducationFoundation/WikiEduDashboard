@@ -58,6 +58,8 @@ tly:
       course_term: Kenə
       course_term_placeholder: Kenə
     term: Kenə
+  dashboard:
+    flash_notice: O səhifəyə girmək üçün icazəniz yoxdur.
   metrics:
     added: Əlovə be
   revisions:

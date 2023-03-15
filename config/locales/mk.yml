@@ -48,6 +48,7 @@ mk:
     opt_yes: да
     opt_no: не
   dashboard:
+    flash_notice: Немате пристап до таа страница.
     create_note: Стиснете на „Направи курс“ за да го направите вашиот прв курс.
     explore_course_pages: Истражете ги курсните страници
     explore_examples: Истражете примери

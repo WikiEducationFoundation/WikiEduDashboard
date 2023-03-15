@@ -18,6 +18,8 @@ mr:
     sign_up_log_in_extended: विकिपिडियासह
     training: प्रशिक्षण
     change: बदल
+  dashboard:
+    flash_notice: तुम्हाला त्या पृष्ठाचा प्रवेश नाही.
   home:
     explore: शोध करा
     log_in: विकिपीडियात सनोंद प्रवेश करा

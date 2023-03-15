@@ -70,6 +70,7 @@ nb:
     opt_yes: ja
     opt_no: nei
   dashboard:
+    flash_notice: Du har ikke tilgang til den siden.
     create_note: Klikk på «Opprett kurs» for å opprette ditt første kurs.
     create_preparation_note: Sørg for at du har den akademiske kalenderen tilgjengelig
       før du begynner; verktøyet for oppgaveoppsett bruker datoene klassen møtes –

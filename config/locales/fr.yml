@@ -106,6 +106,7 @@ fr:
     post_to_talk: Publier sur la page de discussion
     peer_review_completed: Révision terminée
   dashboard:
+    flash_notice: Vous n'avez pas accès à cette page.
     create_note: Cliquer sur « Créer un cours » pour créer votre premier cours
     create_preparation_note: Assurez-vous d’avoir votre calendrier scolaire sous la
       main avant de commencer ; l’outil de prévision des affectations utilisera les
