@@ -8,6 +8,7 @@ describe('ButtonNavigation', () => {
   const props = {
     active: true,
     assignment: {},
+    course: {},
     courseSlug: 'course/slug',
     index: 1,
     updateAssignmentStatus: jest.fn(),
