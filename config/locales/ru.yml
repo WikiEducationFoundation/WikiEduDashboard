@@ -346,6 +346,7 @@ ru:
       create_button: Создать свой курс!
       create_label: Создать новый курс!
       create_new: Создать новый курс
+      copy_courses_with_assignments: Клонировать список доступных статей
       create_short: Создать курс
       end_date: Дата окончания
       end_date_placeholder: ГГГГ-ММ-ДД

@@ -78,6 +78,7 @@ sl:
   assignments:
     article_link_wikidata: Predmet
     confirm_deletion: Ali res želite izbrisati to dodelitev?
+    label_all: Dodeli vse
     loading: Nalaganje dodelitev ...
     remove: Odstrani
     review_self_wikidata: Ponovni pregled predmeta
@@ -135,6 +136,7 @@ sl:
       course_term_placeholder: Termin
       course_title: Naslov tečaja
       create_label: Ustvari nov tečaj
+      copy_courses_with_assignments: Kloniraj seznam razpoložljivih člankov
       end_date: Končni datum
       start_date: Začetni datum
     current: Trenutni tečaji
@@ -225,6 +227,7 @@ sl:
       article_name: Ime
     bad_work:
       learn_more_button: Več o tem
+      thank_you: Hvala vam! Če imate dodatna vprašanja, se obrnite na svojega Zikistrokovnjaka.
     select_student:
       title: Izberi %{prefix}
   metrics:
