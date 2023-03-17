@@ -5,6 +5,7 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import Loading from '../common/loading.jsx';
 import { refreshData } from './refresh.js';
 
+const Usage = lazy(() => import('../usage/Usage.jsx'));
 const Course = lazy(() => import('../course/course.jsx'));
 const Onboarding = lazy(() => import('../onboarding/index.jsx'));
 const ConnectedCourseCreator = lazy(() => import('../course_creator/course_creator.jsx'));
@@ -70,7 +71,7 @@ const routes = () => {
         <Route path="/explore" element={<Explore dashboardTitle={window.dashboardTitle}/>} />
         <Route path="/active_courses" element={<ActiveCoursesHandler dashboardTitle={window.dashboardTitle}/>}/>
         <Route path="/courses_by_wiki/:wiki_url" element={<CoursesByWikiHandler />}/>
-
+        <Route path="/usage" element={<Usage />}/>
         {/* this prevents the "route not found" warning for pages which are server rendered */}
         <Route path="*" element={<div style={{ display: 'none' }}/>} />
       </Routes>

@@ -1,56 +1,58 @@
 - content_for :after_title, ' - Usage Stats'
 = hot_javascript_tag("charts")
 
-%header.main-page
-  .container
-    %h1 Usage Stats
-.container
-  %section
-    .section-header
-      %h3
-        = "Total users: #{@user_count}"
-        %br
-        = "OAuth users: #{@logged_in_count}"
-        %br
-        = "Unique program facilitators / course instructors: #{@course_instructor_count}"
-        %br
-        = "Unique project home wikis: #{@home_wiki_count}"
-        %br
-        = "Unique wikis interacted with: #{@total_wikis_touched}"
-      %div.section-header
-        Courses / Programs over time
-        - i = 0
-        - data = Course.all.order(:created_at).map { |c| i += 1; [c.created_at, i.to_i] }
-        = line_chart([{ name: 'count', data: data }], legend: false)
+#react_root
 
-      %div.section-header
+-# %header.main-page
+-#   .container
+-#     %h1 Usage Stats
+-# .container
+-#   %section
+-#     .section-header
+-#       %h3
+-#         = "Total users: #{@user_count}"
+-#         %br
+-#         = "OAuth users: #{@logged_in_count}"
+-#         %br
+-#         = "Unique program facilitators / course instructors: #{@course_instructor_count}"
+-#         %br
+-#         = "Unique project home wikis: #{@home_wiki_count}"
+-#         %br
+-#         = "Unique wikis interacted with: #{@total_wikis_touched}"
+-#       %div.section-header
+-#         Courses / Programs over time
+-#         - i = 0
+-#         - data = Course.all.order(:created_at).map { |c| i += 1; [c.created_at, i.to_i] }
+-#         = line_chart([{ name: 'count', data: data }], legend: false)
 
-        - years = 2015..Time.now.year
-        - courses_data, editors_data, leaders_data, created_data, edited_data, revisions_data = [], [], [], [], [], []
-        - data = years.map do |year|
-          - courses = Course.where("year(created_at) = #{year}")
-          - courses_data << [year, courses.count]
-          - editors_data << [year, CoursesUsers.with_student_role.where(course: courses).pluck(:user_id).uniq.count]
-          - leaders_data << [year, CoursesUsers.with_instructor_role.where(course: courses).pluck(:user_id).uniq.count]
-          - created_data << [year, courses.sum(:new_article_count)]
-          - edited_data << [year, courses.sum(:article_count)]
-          - revisions_data << [year, courses.sum(:revision_count)] 
+-#       %div.section-header
 
-        Yearly stats (by program creation date)
-        = column_chart([{ name: 'Program leaders', data: leaders_data }])
-        = column_chart([{ name: 'Programs', data: courses_data }])
-        = column_chart([{ name: 'Editors', data: editors_data }])
-        = column_chart([{ name: 'Articles Created', data: created_data }])
-        = column_chart([{ name: 'Articles Edited', data: edited_data }])
-        = column_chart([{ name: 'Revisions', data: revisions_data }])
+-#         - years = 2015..Time.now.year
+-#         - courses_data, editors_data, leaders_data, created_data, edited_data, revisions_data = [], [], [], [], [], []
+-#         - data = years.map do |year|
+-#           - courses = Course.where("year(created_at) = #{year}")
+-#           - courses_data << [year, courses.count]
+-#           - editors_data << [year, CoursesUsers.with_student_role.where(course: courses).pluck(:user_id).uniq.count]
+-#           - leaders_data << [year, CoursesUsers.with_instructor_role.where(course: courses).pluck(:user_id).uniq.count]
+-#           - created_data << [year, courses.sum(:new_article_count)]
+-#           - edited_data << [year, courses.sum(:article_count)]
+-#           - revisions_data << [year, courses.sum(:revision_count)]
 
-  %section
-    .section-header
-      Courses / Programs per wiki:
-      - Wiki.all.order(:language, :project).each do |wiki|
-        %li
-          %a{href: "/courses_by_wiki/#{wiki.domain}"}= "#{wiki.domain}: #{Course.where(home_wiki: wiki).count}"
+-#         Yearly stats (by program creation date)
+-#         = column_chart([{ name: 'Program leaders', data: leaders_data }])
+-#         = column_chart([{ name: 'Programs', data: courses_data }])
+-#         = column_chart([{ name: 'Editors', data: editors_data }])
+-#         = column_chart([{ name: 'Articles Created', data: created_data }])
+-#         = column_chart([{ name: 'Articles Edited', data: edited_data }])
+-#         = column_chart([{ name: 'Revisions', data: revisions_data }])
 
-  %section
-    .section-header
-      %a.button.dark{href: '/all_courses_csv'} Generate CSV of all programs
+-#   %section
+-#     .section-header
+-#       Courses / Programs per wiki:
+-#       - Wiki.all.order(:language, :project).each do |wiki|
+-#         %li
+-#           %a{href: "/courses_by_wiki/#{wiki.domain}"}= "#{wiki.domain}: #{Course.where(home_wiki: wiki).count}"
+
+-#   %section
+-#     .section-header
+-#       %a.button.dark{href: '/all_courses_csv'} Generate CSV of all programs
