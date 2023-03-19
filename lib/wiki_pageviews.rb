@@ -38,8 +38,8 @@ class WikiPageviews
     views
   end
 
-  def average_views
-    daily_view_data = recent_views
+  def average_views(start_date=nil, end_date=nil)
+    daily_view_data = recent_views(start_date, end_date)
     average_views = calculate_average_views(daily_view_data)
     average_views
   end
@@ -49,9 +49,9 @@ class WikiPageviews
   ##################
   private
 
-  def recent_views
-    start_date = 50.days.ago
-    end_date = 1.day.ago
+  def recent_views(start_date, end_date)
+    start_date = start_date || 50.days.ago
+    end_date = end_date || 1.day.ago
     url = query_url(start_date:, end_date:)
     parse_results(api_get(url))
   end
