@@ -25,7 +25,7 @@ const Description = createReactClass({
     return (
       <div className="module course-description">
         <div className="section-header">
-          <h3>{this.props.title}</h3>
+          <h3>{this.props.title.replaceAll('_', ' ')}</h3>
           {this.props.controls()}
         </div>
         <div className="module__data">

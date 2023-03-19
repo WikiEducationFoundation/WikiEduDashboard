@@ -160,7 +160,7 @@ const Details = createReactClass({
       school = (
         <TextInput
           onChange={this.updateSlugPart}
-          value={this.props.course.school}
+          value={canRename ? this.props.course.school : this.props.course.school.replaceAll('_', ' ')}
           value_key="school"
           validation={CourseUtils.courseSlugRegex()}
           editable={canRename}
