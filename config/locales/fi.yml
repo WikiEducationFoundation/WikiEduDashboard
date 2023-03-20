@@ -828,6 +828,8 @@ fi:
     done: Tehty!
     check_answer: Tarkista vastaus
     included_modules: Sisällytetyt moduulit
+  update_username:
+    label: Uusi käyttäjänimi
   uploads:
     file_name: Tiedostonimi
     header: Wikimedia Commonsiin tallennetut tiedostot

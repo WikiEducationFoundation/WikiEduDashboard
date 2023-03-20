@@ -52,18 +52,26 @@ se:
   metrics:
     tags: Gilkorat
     removed: Sihkkojuvvon
+  namespace:
+    file: Fiila
   recent_activity:
     file_name: Fiilanamma
   revisions:
     diff_show: Čájet
     diff_hide: Čiega
     see_more: Lassedieđut
+  settings:
+    admin_users:
+      new:
+        form_placeholder: Geavaheaddjinamma
   timeline:
     title: Áigelinnjá
   training:
     view: Čájet
     next: Čuovvovaš siidu
     page: Siidu
+  uploads:
+    file_name: Fiilanamma
   users:
     first_name: Ovdanamma
     last_name: Goargu
