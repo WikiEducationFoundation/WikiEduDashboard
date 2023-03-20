@@ -72,6 +72,7 @@ const routes = () => {
         <Route path="/active_courses" element={<ActiveCoursesHandler dashboardTitle={window.dashboardTitle}/>}/>
         <Route path="/courses_by_wiki/:wiki_url" element={<CoursesByWikiHandler />}/>
         <Route path="/usage" element={<Usage />}/>
+
         {/* this prevents the "route not found" warning for pages which are server rendered */}
         <Route path="*" element={<div style={{ display: 'none' }}/>} />
       </Routes>
