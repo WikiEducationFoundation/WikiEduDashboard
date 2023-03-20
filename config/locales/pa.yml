@@ -13,8 +13,6 @@ pa:
     none: ਕੋਈ ਵੀ ਨਹੀਂ
     start: ਸ਼ੁਰੂ ਕਰੋ
     start_typing: ਲਿਖਣਾ ਸ਼ੁਰੂ ਕਰੋ
-  dashboard:
-    flash_notice: ਤੁਸੀਂ ਉਸ ਸਫ਼ੇ ਤੱਕ ਪਹੁੰਚ ਨਹੀਂ ਹੈ।
   editable:
     edit: ਸੋਧੋ
     cancel: ਰੱਦ ਕਰੋ

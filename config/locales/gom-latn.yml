@@ -21,8 +21,6 @@ gom-latn:
   courses_generic:
     enroll: Sompadok zod
     enrollment: Sampadokank Zodd/Kadd
-  dashboard:
-    flash_notice: ليس لديك حق الوصول إلى تلك الصفحة.
   metrics:
     articles_created: Rochlele lekh
     articles_edited: Sompadit Lekh

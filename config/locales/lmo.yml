@@ -8,8 +8,6 @@ lmo:
     articles: Articoi
     assignments_none: Per intanta a gh'è minga de vos assegnade.
     edited_none: Gh'è nan'mò de vos modifegade.
-  dashboard:
-    flash_notice: Ti n'as minga l'adess a chësta pàgina.
   items:
     items: Element
     assigned: Element assegnad

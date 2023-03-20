@@ -63,7 +63,6 @@ ml:
     providing_feedback: അഭിപ്രായം രേഖപ്പെടുത്തുക
     post_to_talk: സംവാദ താളിലേക്ക് പോസ്റ്റ് ചെയ്യുന്നു
   dashboard:
-    flash_notice: നിങ്ങൾ ആ പേജിലേക്ക് പ്രവേശിക്കുവാൻ കഴിയില്ല.
     explore_examples: ഉദാഹരണങ്ങൾ കണ്ടെത്തുക
     no_courses_instructor: താങ്കൾക്ക് കോഴ്സുകളൊന്നുമില്ല.
     no_courses_student: താങ്കൾ ഒരു കോഴ്സിനും ഇതുവരെ ചേർന്നിട്ടില്ല.

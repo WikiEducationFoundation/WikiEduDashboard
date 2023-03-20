@@ -33,8 +33,6 @@ ug-arab:
     requested_accounts: ھېسابات ئىلتىماس قىلىش
   courses_generic:
     request_accounts: ھېسابات ئىلتىماس قىلىش
-  dashboard:
-    flash_notice: ئۇ شەھەرلىكقا كىرىش ھوقۇقىڭىز يوق.
   timeline:
     empty_week_3: ياكى
   users:

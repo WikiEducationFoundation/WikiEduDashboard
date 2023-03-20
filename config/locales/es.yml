@@ -96,7 +96,6 @@ es:
     opt_no: "no"
     print: Imprimir
   dashboard:
-    flash_notice: No tienes acceso a esa página.
     create_note: Haz clic en Crear curso para crear tu primer curso.
     create_preparation_note: Asegúrate de tener tu calendario académico a mano antes
       de comenzar; la herramienta de diseño de tareas usará las fechas de las reuniones

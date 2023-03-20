@@ -89,7 +89,6 @@ cs:
     opt_yes: ano
     opt_no: ne
   dashboard:
-    flash_notice: Nemáte přístup k této stránce.
     create_note: Zvolte tlačítko "Vytvořit kurz" a vytvořte si svůj první kurz.
     create_preparation_note: Dříve než začnete, se ujistěte, že máte po ruce akademický
       kalendář; nástroj pro návrh přiřazení použije data setkání vaší třídy — včetně

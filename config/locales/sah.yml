@@ -12,8 +12,6 @@ sah:
     available: Тоҕоостоох Ыстатыйалар
   assignments:
     add_available: Тоҕоостоох ыстатыйаны киллэр
-  dashboard:
-    flash_notice: у тус тус баатарбатаны алдьахсанын көрөнү таһаарыы.
   users:
     contributions_history_full: Википедиҕа киллэрбит бары кылаатын көрөргө
     training_module_name: Үөрэнэр модуль

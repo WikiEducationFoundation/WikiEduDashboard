@@ -86,7 +86,6 @@ da:
     post_to_talk: Skriv på diskussionssiden
     peer_review_completed: Gennemsyn fuldført
   dashboard:
-    flash_notice: Du har ikke adgang til den side.
     create_note: Klik på Opret kursus for at oprette dit første kursus.
     create_preparation_note: Sørg for, at du har din akademiske kalender tilgængelig
       før du begynder; værktøjet for opgavetildeling bruger datoerne klassen mødes

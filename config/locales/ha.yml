@@ -77,7 +77,6 @@ ha:
     post_to_talk: Wallafa a shafin tattaunawa
     peer_review_completed: An Kammala Nazari
   dashboard:
-    flash_notice: Ba ka yi harshe don wannan shafi.
     create_note: Danna kan Ƙirƙiri Course don ƙirƙirar darasin ku na farko.
   courses:
     error:

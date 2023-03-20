@@ -88,7 +88,6 @@ ko:
     post_to_talk: 토론 문서에 게시
     peer_review_completed: 리뷰 완료
   dashboard:
-    flash_notice: 해당 페이지에 액세스할 수 없습니다.
     create_note: 코스 만들기 버튼을 클릭해 새 코스를 만들어 보세요.
     explore_course_pages: 코스 문서 둘러보기
     explore_examples: 예시 둘러보기

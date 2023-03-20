@@ -6,8 +6,6 @@
 roa-tara:
   course:
     students_short: Studinde
-  dashboard:
-    flash_notice: Ti nni non havi accessu a stu pàgghene.
   metrics:
     student_editors: Studinde cangiature
 ...

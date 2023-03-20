@@ -13,8 +13,6 @@ dty:
     overview: घर
     students: इस्कुल्या
     students_short: इस्कुल्या
-  dashboard:
-    flash_notice: तपाईंलाई त्यो पृष्ठमा पहुँच छैन.
   users:
     name: नाऊ
   user_profiles:

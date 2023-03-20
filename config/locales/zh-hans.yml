@@ -35,7 +35,6 @@ zh-hans:
     training: 培训
     change: 更改
   dashboard:
-    flash_notice: 您无法访问该页面。
     create_note: 点击创建课程以创建您的第一次课程。
     explore_course_pages: 浏览课程页面
     explore_examples: 浏览示例

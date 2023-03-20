@@ -66,8 +66,6 @@ sl:
     title: Naslov
     title_example: Naslov članka
     view_all: Pokaži vse
-  dashboard:
-    flash_notice: Nimate dostopa do te strani
   items:
     assignments_none: Ni še nobenih dodeljenih predmetov.
     does_not_exist: Ta predmet ne obstaja. Da prejmete predloge, ustvarite peskovnik

@@ -41,8 +41,6 @@ si:
     title: මාතෘකාව
     view_wiki: විකිපීඩියා මත පෙන්වන්න
     yourcourses: ඔබේ පාඨමාලාවන්
-  dashboard:
-    flash_notice: ඔබට එය පිළිතුරු පෙන්වා නොමැත
   metrics:
     activity: මෑත ක්‍රියාකාරකම්
     articles_created: නිර්මිත ලිපි

@@ -16,8 +16,6 @@ pam:
   courses:
     courses: Deng kursu
     students: Deng estudyanti
-  dashboard:
-    flash_notice: E maliari kau mu ngeni ya ing pamagkulit kang atin ya pamagbisita king pekamaragul a bage.
   revisions:
     date_time: Petsa/Oras
     edited_by: Miyalilan nang

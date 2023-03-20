@@ -17,8 +17,6 @@ tt-cyrl:
     calendar:
       legend: Аңлатма
     title: Исем
-  dashboard:
-    flash_notice: Сез бу биткәгә керү һөкүмеңіз юк.
   revisions:
     class: Сыйныф
     diff_show: Күрсәтү

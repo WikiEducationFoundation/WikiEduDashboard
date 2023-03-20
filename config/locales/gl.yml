@@ -79,7 +79,6 @@ gl:
     post_to_talk: Publicar na páxina de conversa
     peer_review_completed: Revisión completada
   dashboard:
-    flash_notice: Non tes acceso a esa páxina.
     create_note: Prema en "Crear Curso" para crear o seu primeiro curso.
     create_preparation_note: Aseguúrese de ter a man o seu calendario académico antes
       de comezar; a ferramenta de deseño de tarefas usará as datas das sesións  (incluídas

@@ -61,7 +61,6 @@ hy:
     post_to_talk: Հրապարակվում է քննարկման էջում
     peer_review_completed: Նախադիտումն ավարտված է
   dashboard:
-    flash_notice: Դուք չունեք մուտքի իրավունք այդ էջին
     create_note: Սեղմեք Ստեղծել Դասընթաց, որպեսզի ստեղծեք ձեր առաջին դասընթացը։
     explore_course_pages: Ուսումնասիրել դասընթացների էջերը
     explore_examples: Ուսումնասիրել նմուշները

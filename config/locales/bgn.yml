@@ -6,8 +6,6 @@
 bgn:
   application:
     greeting: سلام علیکم
-  dashboard:
-    flash_notice: تو دا صفحه ت پورت دیمیں نیسی.
   users:
     username: کار زوروکین نام
     username_placeholder: کار زوروکین نام

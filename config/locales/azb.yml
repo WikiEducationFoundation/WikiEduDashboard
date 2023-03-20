@@ -32,7 +32,6 @@ azb:
     details: جوزئیات
     confirm: اوْلسون
   dashboard:
-    flash_notice: شما دسترسی به این صفحه ندارید.
     explore_examples: میثاللاردا آختار
   home:
     explore: آختار

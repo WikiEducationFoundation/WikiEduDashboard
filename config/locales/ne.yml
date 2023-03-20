@@ -77,7 +77,6 @@ ne:
     post_to_talk: वार्तालाप पृष्ठमा पेश गरिँदै
     peer_review_completed: समीक्षा पूरा भयो
   dashboard:
-    flash_notice: तपाईंलाई त्यो पृष्ठमा पहुँच छैन।
     create_note: तपाईँको पाठ्यक्रम सुरु गर्न पाठ्यक्रम निर्माण गर्नुहोस्‍मा क्लिक
       गर्नुहोस्।
     create_preparation_note: Be sure to have your academic calendar on hand before

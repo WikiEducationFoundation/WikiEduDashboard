@@ -66,8 +66,6 @@ shn:
       other: ၵေႃႉၸွႆႈၶဝ်
     weeks_none: '%{title}ဢမ်ႇမီး ၼႃႈၵၢၼ်ယွႆႈယႅမ်း'
     yourcourses: ၶူတ်ႉသ် ၸဝ်ႈၵဝ်ႇ
-  dashboard:
-    flash_notice: သင်၏စာမျက်နှာကိုကြည့်နိုင
   revisions:
     loading: တိုၵ်ႉလူတ်ႇ ဢၼ်မႄးၶိုၼ်း
     time_doc: ၶၢဝ်းယၢမ်း ဢၼ်ပိၼ်ႇလႅၵ်ႈ ၸွမ်းၼႃႈတီႈ ၸဝ်ႈၵဝ်ႇ

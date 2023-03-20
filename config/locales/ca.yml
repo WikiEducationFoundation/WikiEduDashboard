@@ -83,7 +83,6 @@ ca:
     ready_for_review: Desplegant l'esborrany
     ready_for_mainspace: Moure la feina a l'espai principal
   dashboard:
-    flash_notice: No teniu accés a aquesta pàgina.
     create_note: Feu clic a Crea Curs per crear el vostre primer curs.
     create_preparation_note: Assegureu-vos que teniu el vostre calendari acadèmic
       a mà abans de començar; l'eina per dissenyar les tasques utilitzarà com a referència

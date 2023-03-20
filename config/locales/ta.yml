@@ -161,8 +161,6 @@ ta:
     students_taught: மொத்தத் தொகுப்பாளர்கள்
     students_short: தொகுப்பாளர்கள்
     term: எப்பொழுது
-  dashboard:
-    flash_notice: நீங்கள் அந்த பக்கத்துக்கு அணுகல் பெற முடியாது.
   editable:
     edit: தொகு
     cancel: கைவிடுக

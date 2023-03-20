@@ -7,8 +7,6 @@
 udm:
   application:
     log_out: Потыны
-  dashboard:
-    flash_notice: Тез адӥлӥне ижӧсь нытӥм.
   users:
     contributions: Викиавтор гожтэмъёсы
 ...

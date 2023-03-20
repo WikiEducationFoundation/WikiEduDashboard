@@ -48,7 +48,7 @@ class FeedbackFormResponsesController < ApplicationController
 
   def check_user_auth
     return if current_user&.admin?
-    flash[:notice] = t('dashboard.flash_notice')
+    flash[:notice] = "You don't have access to that page."
     redirect_to root_path
     yield
   end

@@ -62,7 +62,6 @@ br:
     not_yet_started: Kregiñ ganti
     in_progress: Pleustriñ en ur poull-traezh
   dashboard:
-    flash_notice: N'eus ket aotre d'ar bajenn-mañ ganit.
     create_note: Klikit war Krouiñ ur gentel evit krouiñ ho kentel gentañ.
     explore_course_pages: Ergerzhet ar pajennadoù kentelioù
     explore_examples: Ergerzhet ar skouerioù

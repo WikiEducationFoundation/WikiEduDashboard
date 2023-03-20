@@ -21,8 +21,6 @@ gom-deva:
   courses_generic:
     enroll: संपादक जोडात
     enrollment: सहभाग
-  dashboard:
-    flash_notice: तुम्कांचें तो लेख संपादित करायचें नाहीं.
   revisions:
     edited_by: वरवीं संपादीत
     time_doc: दरेका उजळणेचो तुमच्या थळाव्या वेळाप्रमाण वेळ

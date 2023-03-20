@@ -63,7 +63,6 @@ oc:
     post_to_talk: Publicar sus la pagina de discutida
     peer_review_completed: Repassada acabada
   dashboard:
-    flash_notice: Avètz pas accès a aquesta pagina.
     create_note: Clicar sus "Crear un cors" per crear lo vòstre primièr cors.
     create_preparation_note: Asseguratz-vos qu'avètz lo vòstre calendari academic
       a man abans de començar; l'aisina de prevision dels pòstes  utilizarà  los jorns

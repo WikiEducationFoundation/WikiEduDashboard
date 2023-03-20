@@ -52,8 +52,6 @@ fit:
     cancel: Lopeta
     creator:
       save_cloned_course: Säästä
-  dashboard:
-    flash_notice: Et siird muanhan älgäle sisälle sivhie.
   editable:
     edit: Mookkaa
     cancel: Lopeta

@@ -62,7 +62,6 @@ roa-tara:
     opt_yes: sìne
     opt_no: none
   dashboard:
-    flash_notice: Non accede a stu pàgene.
     explore_examples: Esplore le esembie
     review_orientation: Oriendamende d'a reviste
   home:

@@ -31,8 +31,6 @@ ro:
     yourcourses: Cursurile dumneavoastră
   courses_generic:
     school_system: Sistem Academic
-  dashboard:
-    flash_notice: Nu aveți acces la acea pagină.
   users:
     contributions: Contribuții utilizator
     contributions_more: Vezi mai multe contribuții

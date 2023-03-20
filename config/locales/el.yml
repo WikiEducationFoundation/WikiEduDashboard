@@ -65,7 +65,6 @@ el:
     providing_feedback: Παροχή ανατροφοδότησης
     peer_review_completed: Η αναθεώρηση ολοκληρώθηκε
   dashboard:
-    flash_notice: Δεν έχετε πρό.
     explore_course_pages: Εξερεύνηση των σελίδων μαθήματος
     explore_examples: Εξερεύνηση παραδειγμάτων
     blog_headline: Πρόσφατα Νέα από την Εκπαίδευση Wiki

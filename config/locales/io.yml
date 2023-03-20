@@ -76,7 +76,6 @@ io:
     post_to_talk: Skribar en diskuto-pagino
     peer_review_completed: Revizo kompletigita
   dashboard:
-    flash_notice: Vu ne havas akceso ad ta pagino.
     create_note: Kliktez ''Krear kurso'' por krear vua unesma kurso.
     explore_course_pages: Examinar pagini dil kurso
     explore_examples: Examinar exempli

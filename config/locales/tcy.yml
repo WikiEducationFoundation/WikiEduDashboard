@@ -21,8 +21,6 @@ tcy:
     requested_accounts_alert_view: ನೋಟ
   courses_generic:
     enrollment: ಸಂಪೊಲಿಪುನಕ್ಲೆನ್ ಸೇರಲೆ/ದೆತ್ತ್‌ಪಾಡ್ಲೆ
-  dashboard:
-    flash_notice: ليس لديك حق الوصول إلى تلك الصفحة.
   recent_activity:
     recent_uploads: ಇಂಚಿಪ ಸೇರ್ಸಯಿನವೂ
   users:

@@ -11,8 +11,6 @@ nah:
   blocks:
     milestones:
       title: Tepāmmachiyōtl
-  dashboard:
-    flash_notice: Auh ye no cuextli tlein ye oncan ye cuexyo.
   metrics:
     view: Tlachiyaliztli
   namespace:

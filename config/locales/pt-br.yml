@@ -108,7 +108,6 @@ pt-br:
     post_to_talk: Postando na página de discussão
     peer_review_completed: Revisão concluída
   dashboard:
-    flash_notice: Você não tem acesso a essa página.
     create_note: Clique em Criar Curso para criar seu primeiro curso.
     create_preparation_note: Certifique-se de ter seu calendário acadêmico à mão antes
       de começar; a ferramenta de projeto de tarefa usará as datas de encontro com

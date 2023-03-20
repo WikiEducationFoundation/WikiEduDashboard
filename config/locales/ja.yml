@@ -91,7 +91,6 @@ ja:
     post_to_talk: トークページに投稿する
     peer_review_completed: レビューは完了しました
   dashboard:
-    flash_notice: そのページにアクセスする権限がありません.
     create_note: 「コースを作成」をクリックすることで、最初のコースを作成できます。
     create_preparation_note: はじめる前に、学校の行事予定を準備しておきましょう。課題計画ツールはあなたの予定が期間に収まるように、休校日や休日を含む会議の日付を使用します。予定はあなたの都合に合わせていつでも変更できます。
     explore_course_pages: コースページを見る

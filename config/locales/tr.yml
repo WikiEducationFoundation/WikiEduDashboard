@@ -103,7 +103,6 @@ tr:
     post_to_talk: Tartışma Sayfasına Gönderme
     peer_review_completed: İnceleme Tamamlandı
   dashboard:
-    flash_notice: Bu sayfaya erişiminiz yok.
     create_note: İlk dersinizi oluşturmak için Oluştur'a tıklayın.
     create_preparation_note: Başlamadan önce akademik takviminizi hazır bulundurun;
       ödev tasarım aracı, zaman çizelgenizi seçtiğiniz tarih aralığına uydurmak için

@@ -63,7 +63,6 @@ ga:
     not_yet_started: Ag cur tús leis
     in_progress: Ag obair leis an gClár Dubh
   dashboard:
-    flash_notice: Níl rochtain agat ar an leathanach sin.
     create_note: Cliceáil ar Cruthaigh Cúrsa le do chéad chúrsa a chruthú
     explore_course_pages: Breathnaigh ar Leathanaigh na gCúrsaí
     explore_examples: Breathnaigh ar Shamplaí

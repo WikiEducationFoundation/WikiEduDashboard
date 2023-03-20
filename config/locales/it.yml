@@ -84,7 +84,6 @@ it:
     opt_no: "no"
     print: Stampa
   dashboard:
-    flash_notice: Non hai accesso a quella pagina.
     create_note: Clicca su "Crea corso" per creare il tuo primo corso.
     create_preparation_note: Assicurati di avere il tuo calendario accademico a portata
       di mano prima di iniziare; lo strumento di progettazione dell'assegnazione utilizzerà

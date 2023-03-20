@@ -80,7 +80,6 @@ sr-ec:
     opt_no: не
     print: Штампај
   dashboard:
-    flash_notice: Nemate pristup toj stranici.
     create_note: Кликните на „Направи курс“ да бисте направили свој први курс.
     create_preparation_note: Будите сигурни да имате свој академски календар при руци
       пре него што почнете; алат за дизајн задатака ће користити термине састанака

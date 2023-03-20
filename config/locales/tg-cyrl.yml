@@ -86,8 +86,6 @@ tg-cyrl:
       save_cloned_course: Захира кардан
     enroll: Иловаи муҳаррир
     enrollment: Иштирок
-  dashboard:
-    flash_notice: Шумо ба ин саҳифа дастрасӣ наҳед.
   metrics:
     date_time: Сана/Соат
     edit_count_description: Тамоми вироишот

@@ -22,8 +22,6 @@ blk:
     alerts: ဖေႏသေချက်ဖုံႏ
     actions: ခွုမ်မာꩻချက်ဖိုင်ႏ
     overview: အဓိကလိတ်မဲ့ငါ
-  dashboard:
-    flash_notice: သင်တို့သည်ဤစာမျက်နှာသို့မရပါ
   revisions:
     title: ကꩻတူႏရဲန်ႏ
 ...

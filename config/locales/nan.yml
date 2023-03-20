@@ -10,8 +10,6 @@ nan:
     post_to_talk: Huat-pòo kàu Thó-lūn Ia̍h
   courses_generic:
     student: Pian-tsiá
-  dashboard:
-    flash_notice: Lí ê tī-thé koán-khì khu lâi.
   instructor_view:
     article_assignments: '%{prefix} Hun-phuè'
     assignments_table:

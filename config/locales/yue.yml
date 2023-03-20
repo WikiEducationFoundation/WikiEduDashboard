@@ -16,8 +16,6 @@ yue:
     log_out: 簽走
   courses:
     creation_date: 創建嘅日期
-  dashboard:
-    flash_notice: 你冇權限去到嗰個網頁.
   wizard:
     select_one_option: 請選擇一個
   error:

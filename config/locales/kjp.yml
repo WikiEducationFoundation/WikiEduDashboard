@@ -72,6 +72,4 @@ kjp:
   courses_generic:
     creator:
       assignment_start_placeholder: YYYY-MM-DD
-  dashboard:
-    flash_notice: ကျေးဇူးပြု၍ ဤစာမျက်နှာကိုသင်မထိုးဆောင်ပါ။.
 ...

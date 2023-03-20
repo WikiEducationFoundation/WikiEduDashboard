@@ -67,7 +67,6 @@ sr-el:
     opt_yes: da
     opt_no: ne
   dashboard:
-    flash_notice: Vi nemate pristup toj stranici.
     create_note: Kliknite na „Napravi kurs“ da biste napravili svoj prvi kurs.
     create_preparation_note: Budite sigurni da imate svoj akademski kalendar pri ruci
       pre nego što počnete; alat za dizajn zadataka će koristiti termine sastanaka

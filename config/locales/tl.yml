@@ -32,8 +32,6 @@ tl:
     delete_course: Tanggalin ang programa
     leave_course: Iwanan ang programa
     view_page: Ipakita ang Programa Pahina
-  dashboard:
-    flash_notice: Wala kang pahintulot na ma-access ang pahinang iyon.
   revisions:
     date_time: Petsa/Oras
     edited_by: Inedit ni/ng
