@@ -1,16 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
-function StatsDisplay() {
-  const StatsURL = 'http://localhost:3000/usage.json';
-  const [stats, setStats] = useState([]);
-  const fetchStats = () => {
-    fetch(StatsURL)
-    .then(res => res.json())
-    .then(data => setStats(data.stats));
-  };
-  useEffect(() => {
-    fetchStats();
-  }, []);
+function StatsDisplay({ stats }) {
   return (
     <div className="container campaign_main">
       <section className="overview container">
