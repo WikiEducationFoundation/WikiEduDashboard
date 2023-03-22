@@ -44,7 +44,7 @@ echo [+] XAMPP install complete!
 echo [*] Creating databases...
 echo CREATE DATABASE IF NOT EXISTS dashboard DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci; > setup.sql
 echo CREATE DATABASE IF NOT EXISTS dashboard_testing DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci; >> setup.sql
-"C:\xampp\mysql\bin\mysql.exe" -u root < setup.sql
+"C:\xampp\mysql\bin\mysql" -u root < setup.sql
 del setup.sql
 
 echo [+] Databases created!
@@ -55,7 +55,7 @@ echo [+] Databases created!
 echo [*] Creating user for MySQL...
 echo GRANT ALL PRIVILEGES ON dashboard.* TO 'wiki'@'localhost'; >> setup.sql
 echo GRANT ALL PRIVILEGES ON dashboard_testing.* TO 'wiki'@'localhost'; >> setup.sql
-"C:\xampp\mysql\bin\mysql.exe" -u root < setup.sql
+"C:\xampp\mysql\bin\mysql" -u root < setup.sql
 del setup.sql
 echo [+] Database user created!
 

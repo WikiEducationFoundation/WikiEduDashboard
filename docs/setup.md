@@ -88,23 +88,27 @@ If you know your way around Rails, here's the very short version. Some additiona
 
 - Pre-requisites for setup on Windows:
     - Install Git from [the official Windows package](https://git-scm.com/download/win)
+    - Install Python from [python for Windows](https://www.python.org/downloads/windows/)
+    - Install Ruby 3.1.2 (RVM is documented here; rbenv also works fine.)
+      - OSX/Debian:
+        - From the WikiEduDashboard directory, run the curl script from [rvm.io](https://rvm.io/)
+        - Use **rvm:** `rvm install 3.1.2` followed by `rvm use 3.1.2`
+        - or use **rbenv:** `rbenv install 3.1.2` followed by `rbenv local 3.1.2`
+      - Windows:
+        - Install Ruby+Devkit[ruby installer package](https://rubyinstaller.org/downloads/)
+    - Install Node:
+      - Debian: `sudo apt install nodejs`
+      - OSX: `brew install node` (this assumes you are using [homebrew](brew.sh))
+      - Windows: [Download the installer](https://nodejs.org/)
 
+- Installation steps
+- For setup on Windows:
+  - Ensure your User Administrator has a password
+  - Run your Git CMD as the Administrator - Chocolatey and other installations will require administrative rights
 - Fork our repo from https://github.com/WikiEducationFoundation/WikiEduDashboard..
 - In the console, download a copy of your forked repo with `git clone https://github.com/your_username/WikiEduDashboard.git` where `your_username` is your GitHub username.
 - Enter the new WikiEduDashboard directory with `cd WikiEduDashboard`.
 - On OSX/Debian, make sure you are in the "sudo" group.
-- Install Ruby 3.1.2 (RVM is documented here; rbenv also works fine.)
-    - OSX/Debian:
-       - From the WikiEduDashboard directory, run the curl script from [rvm.io](https://rvm.io/)
-       - Use **rvm:** `rvm install 3.1.2` followed by `rvm use 3.1.2`
-       - or use **rbenv:** `rbenv install 3.1.2` followed by `rbenv local 3.1.2`
-    - Windows:
-       - Use [RailsInstaller](http://railsinstaller.org/en)
-       - Install [Ruby DevKit](https://github.com/oneclick/rubyinstaller/wiki/Development-Kit)
-- Install Node:
-  - Debian: `sudo apt install nodejs`
-  - OSX: `brew install node` (this assumes you are using [homebrew](brew.sh))
-  - Windows: [Download the installer](https://nodejs.org/)
 
 - Create mysql development and test database:
     - Install mariadb-server (or mysql-server)

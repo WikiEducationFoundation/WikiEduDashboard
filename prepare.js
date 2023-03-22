@@ -31,7 +31,7 @@ try {
   // check if the previous hash is the same as the current hash
   // if same, we can skip the i18n export
   fullRebuild = lastHash.trim() !== currentHash.trim();
-} catch (e)  {
+} catch (e) {
   // if however, the cache files are not found, we need to rebuild
   const i18nCachePath = isWindows ? '.\\build_cache\\i18n' : `${config.buildCache}/i18n`;
 
