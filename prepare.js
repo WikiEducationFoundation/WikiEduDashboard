@@ -18,6 +18,10 @@ const exec = require('child_process').exec;
 const config = require('./config');
 const fs = require('fs');
 
+const path = require('path');
+
+const isWindows = process.platform === 'win32';
+
 let fullRebuild = false;
 
 try {
@@ -27,16 +31,31 @@ try {
   // check if the previous hash is the same as the current hash
   // if same, we can skip the i18n export
   fullRebuild = lastHash.trim() !== currentHash.trim();
-} catch (e) {
+} catch (e)  {
   // if however, the cache files are not found, we need to rebuild
-  execSync(`mkdir -p ${config.buildCache}/i18n`);
+  const i18nCachePath = isWindows ? '.\\build_cache\\i18n' : `${config.buildCache}/i18n`;
+
+  if (!fs.existsSync(i18nCachePath)) {
+    const cmd = isWindows ? `mkdir ${i18nCachePath}` : `mkdir -p ${i18nCachePath}`;
+    execSync(cmd);
+  } else {
+    console.log(`${i18nCachePath} already exists`);
+  }
+
   fullRebuild = true;
-}
+  }
 
 // cleans the stale assets
 console.log('Started cleaning stale assets');
-execSync(`rm -rf ${config.outputPath}`);
-console.log('\x1b[33m%s\x1b[0m', `Finished cleaning stale assets after ${elapsed(process.hrtime(start))} seconds`);
+const outputPath = path.normalize(config.outputPath);
+
+// Check if the directory exists before attempting to delete it
+if (fs.existsSync(outputPath)) {
+  // Use path.join to construct the path using the correct path separator
+  const cmd = isWindows ? `rmdir /s /q "${outputPath}"` : `rm -rf "${outputPath}"`;
+  execSync(cmd);
+  console.log('\x1b[33m%s\x1b[0m', `Finished cleaning stale assets after ${elapsed(process.hrtime(start))} seconds`);
+}
 
 if (fullRebuild) {
   // export i18n files
@@ -56,7 +75,13 @@ if (fullRebuild) {
   });
 } else {
   console.log('\x1b[33m%s\x1b[0m', 'Skipping i18n export - found cached version');
-  execSync(`mkdir -p ${config.outputPath}/${config.jsDirectory}`);
+  const i18nDir = isWindows ? '.\\config.outputPath\\config.jsDirectory' : `${config.outputPath}/${config.jsDirectory}`;
+  if (!fs.existsSync(i18nDir)) {
+  const cmt = isWindows ? 'mkdir .\\config.outputPath\\config.jsDirectory' : `mkdir -p ${config.outputPath}/${config.jsDirectory}`;
+  execSync(cmt);
+} else {
+  console.log('i18n directory already exists, skipping mkdir');
+}
 }
 
 // copies static assets from the source to assets folder

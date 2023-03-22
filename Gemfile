@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '3.1.2'
+ruby '>= 3.1.2'
 
 ### Basic Framework
 gem 'rails', '7.0.4'
@@ -86,14 +86,14 @@ gem 'pandoc-ruby' # Text converter, for markdown<->html<->wikitext conversions
 # You might need to uncomment these on Windows if you aren't using WSL.
 
 # TZ information is not available on Windows, needs to be installed separately
-# gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 
 # for those who don't have a native readline utility installed
 # gem 'rb-readline', platforms: [:mingw, :mswin, :x64_mingw]
 
 ### Performance
 gem 'rack-mini-profiler'
-gem 'stackprof'
+# gem 'stackprof'
 
 group :development do
   gem 'better_errors'

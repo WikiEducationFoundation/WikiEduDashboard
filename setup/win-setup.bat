@@ -5,16 +5,16 @@ echo [*] Installing chocolatey...
 @"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
 echo [+] Chco installed!
 
-echo [*] Installing ruby+devkit...
-choco install ruby2.devkit --version 4.7.2.2013022403 -y
-echo [+] Ruby+devkit installed!
-
 echo [*] Installing Node.js...
 choco install nodejs-lts -y
 echo [+] Node.js installed!
 
 echo [*] Installing Gems...
+@echo off
 call gem install bundler
+call gem update --system
+call gem install mysql2 -v 0.5.4 --platform=ruby -- --with-mysql-lib="C:\xampp\mysql\lib" --withmysql-include="C:\xampp\mysql\include"'
+setx PATH "%PATH%;C:\xampp" /M
 call bundle install
 echo [+] Gems installed!
 
@@ -38,15 +38,25 @@ echo [+] Configuration files created!
 
 echo [*] Installing XAMPP...
 choco install bitnami-xampp -y
-start C:\xampp\mysql\bin\mysqld
 echo [+] XAMPP install complete!
+@echo off
 
 echo [*] Creating databases...
-echo CREATE DATABASE IF NOT EXISTS dashboard DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci; CREATE DATABASE IF NOT EXISTS dashboard_testing DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci; exit| C:\xampp\mysql\bin\mysql -u root
+echo CREATE DATABASE IF NOT EXISTS dashboard DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci; > setup.sql
+echo CREATE DATABASE IF NOT EXISTS dashboard_testing DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci; >> setup.sql
+"C:\xampp\mysql\bin\mysql.exe" -u root < setup.sql
+del setup.sql
+
 echo [+] Databases created!
 
-echo [*] Creating User for Mysql...
-echo CREATE USER 'wiki'@'localhost' IDENTIFIED BY 'wikiedu';GRANT ALL PRIVILEGES ON dashboard . * TO 'wiki'@'localhost';GRANT ALL PRIVILEGES ON dashboard_testing . * TO 'wiki'@'localhost';exit| C:\xampp\mysql\bin\mysql -u root
+
+@echo off
+
+echo [*] Creating user for MySQL...
+echo GRANT ALL PRIVILEGES ON dashboard.* TO 'wiki'@'localhost'; >> setup.sql
+echo GRANT ALL PRIVILEGES ON dashboard_testing.* TO 'wiki'@'localhost'; >> setup.sql
+"C:\xampp\mysql\bin\mysql.exe" -u root < setup.sql
+del setup.sql
 echo [+] Database user created!
 
 
@@ -57,8 +67,8 @@ echo [+] Redis installed!
 SET "PATH=%PATH%;%LOCALAPPDATA%\Yarn\bin"
 
 echo [*] Migrating databases...
-call rake db:migrate
-call rake db:migrate RAILS_ENV=test
+call rails db:migrate
+call rails db:migrate RAILS_ENV=test
 echo [+] Database migration complete!
 
 echo Your developmental environment setup is complete. If you there are any errors, please refer to the docs for manual installation, or ask for help.
