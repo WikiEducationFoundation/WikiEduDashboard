@@ -31,14 +31,14 @@ const options = {
 };
 
 
-export function LineChartComponent({ year, Data, Label }) {
+export function LineChartComponent({ Data, Label }) {
   const data = {
-    labels: year,
+    labels: Data.map(arr => arr[0]),
     datasets: [
       {
         id: 1,
         label: Label,
-        data: Data,
+        data: Data.map(arr => arr[1]),
         backgroundColor: 'rgba(147,173,224,255)',
       }
     ],

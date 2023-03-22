@@ -13,7 +13,8 @@ function Usage() {
     editedData: [],
     revisionsData: [],
     courseOverTime: [],
-    stats: []
+    stats: [],
+    links: []
   });
   const fetchStats = () => {
     fetch('/usage.json')
@@ -27,8 +28,9 @@ function Usage() {
         createdData: values.created_data,
         editedData: values.editedData,
         revisionsData: values.revisions_data,
-        courseOverTime: values.courseOverTime,
-        stats: values.stats
+        courseOverTime: values.course_over_time,
+        stats: values.stats,
+        links: values.links
       });
     });
   };
@@ -50,7 +52,7 @@ function Usage() {
           <div className="primary">
             <section style={{ marginBottom: '1rem' }}>
               Courses / Programs over time
-              <LineChartComponent year={data.years} Data={data.courseOverTime} Label={'Courses Over Time'}/>
+              <LineChartComponent Data={data.courseOverTime} Label={'Courses Over Time'}/>
             </section>
             <section>
               Yearly stats (by program creation date)
@@ -74,9 +76,11 @@ function Usage() {
                   <h3>Course/Programs per Wiki :</h3>
                 </div>
                 <div className="module__data extra-line-height">
-                  <li>
-                    <a href="/courses_by_wiki/en.wikipedia.org">en.wikipedia.org: 0</a>
-                  </li>
+                  {data.links.map(val => (
+                    <li>
+                      <a href={val[0]}>{val[1]}: {val[2]}</a>
+                    </li>
+                  ))}
                 </div>
               </div>
             </div>

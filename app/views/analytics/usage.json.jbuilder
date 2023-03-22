@@ -1,12 +1,23 @@
-json.stats [{ Name: 'Total Users', val: @user_count },{ Name: 'OAuth Users', val: @logged_in_count },{ Name: 'Course Instructors', val: @course_instructor_count },{ Name: 'Home Wikis', val: @home_wiki_count },{ Name: 'Wiki Interactions', val: @total_wikis_touched }]
+# frozen_string_literal: true
 
-years = 2015..Time.now.year
-@yrs = 2015..Time.now.year
+json.stats [
+  { Name: 'Total Users', val: @user_count },
+  { Name: 'OAuth Users', val: @logged_in_count },
+  { Name: 'Course Instructors', val: @course_instructor_count },
+  { Name: 'Home Wikis', val: @home_wiki_count },
+  { Name: 'Wiki Interactions', val: @total_wikis_touched }
+]
+
+years = 2015..Time.zone.now.year
+@yrs = 2015..Time.zone.now.year
 json.years_count do
   json.array! @yrs
 end
-json.course_over_time years.map do |year|
-  json.merge! Course.all.order(:created_at).map { |c| i += 1; [c.created_at, i.to_i] }
+json.course_over_time years.map do
+  json.merge! Course.all.order(:created_at).map do |c|
+    i += 1
+    [c.created_at, i.to_i]
+  end
 end
 json.courses_data years.map do |year|
   courses = Course.where("year(created_at) = #{year}")
@@ -32,4 +43,6 @@ json.revisions_data years.map do |year|
   courses = Course.where("year(created_at) = #{year}")
   json.merge! courses.sum(:revision_count)
 end
-
+json.links Wiki.all.order(:language, :project).each do |wiki|
+  json.merge! ['/courses_by_wiki/' + wiki.domain, wiki.domain, Course.where(home_wiki: wiki).count]
+end
