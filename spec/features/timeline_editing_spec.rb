@@ -112,10 +112,9 @@ describe 'timeline editing', type: :feature, js: true do
     sleep 0.5
     within('.week-1') do
       find('.block__edit-block', match: :first).click
-      accept_confirm do
-        click_button 'Delete Block'
-      end
+      click_button 'Delete Block'
     end
+    click_button 'OK'
 
     expect(page).not_to have_content 'Block Title'
     sleep 1
@@ -145,10 +144,9 @@ describe 'timeline editing', type: :feature, js: true do
     sleep 0.5
     within ".week-1 .block-kind-#{Block::KINDS['in_class']}" do
       find('.block__edit-block', match: :first).click
-      accept_confirm do
-        click_button 'Delete Block'
-      end
+      click_button 'Delete Block'
     end
+    click_button 'OK'
     sleep 1
 
     # click Save All
