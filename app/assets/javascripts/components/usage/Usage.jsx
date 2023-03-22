@@ -4,8 +4,7 @@ import { BarChartComponent } from './BarChartComponent';
 import { LineChartComponent } from './LineChartComponent';
 
 function Usage() {
-  const StatsURL = '/usage.json';
-  const [Data, setData] = useState({
+  const [data, setData] = useState({
     years: [],
     courseData: [],
     editorsData: [],
@@ -17,19 +16,19 @@ function Usage() {
     stats: []
   });
   const fetchStats = () => {
-    fetch(StatsURL)
+    fetch('/usage.json')
     .then(res => res.json())
-    .then((data) => {
+    .then((values) => {
       setData({
-        years: data.years_count,
-        courseData: data.courses_data,
-        editorsData: data.editors_data,
-        leadersData: data.leaders_data,
-        createdData: data.created_data,
-        editedData: data.editedData,
-        revisionsData: data.revisions_data,
-        courseOverTime: data.courseOverTime,
-        stats: data.stats
+        years: values.years_count,
+        courseData: values.courses_data,
+        editorsData: values.editors_data,
+        leadersData: values.leaders_data,
+        createdData: values.created_data,
+        editedData: values.editedData,
+        revisionsData: values.revisions_data,
+        courseOverTime: values.courseOverTime,
+        stats: values.stats
       });
     });
   };
@@ -46,21 +45,21 @@ function Usage() {
       <div className="course_main container">
         <div/>
         <section className="container overview">
-          <StatsDisplay stats={Data.stats}/>
+          <StatsDisplay stats={data.stats}/>
           <div/>
           <div className="primary">
             <section style={{ marginBottom: '1rem' }}>
               Courses / Programs over time
-              <LineChartComponent year={Data.years} Data={Data.courseOverTime} Label={'Courses Over Time'}/>
+              <LineChartComponent year={data.years} Data={data.courseOverTime} Label={'Courses Over Time'}/>
             </section>
             <section>
               Yearly stats (by program creation date)
-              <BarChartComponent year={Data.years} Data={Data.courseData} Label={'Programs'}/>
-              <BarChartComponent year={Data.years} Data={Data.editorsData} Label={'Editors'}/>
-              <BarChartComponent year={Data.years} Data={Data.leadersData} Label={'Program leaders'}/>
-              <BarChartComponent year={Data.years} Data={Data.createdData} Label={'Articles Created'}/>
-              <BarChartComponent year={Data.years} Data={Data.editedData} Label={'Articles Edited'}/>
-              <BarChartComponent year={Data.years} Data={Data.revisionsData} Label={'Revisions'}/>
+              <BarChartComponent year={data.years} Data={data.courseData} Label={'Programs'}/>
+              <BarChartComponent year={data.years} Data={data.editorsData} Label={'Editors'}/>
+              <BarChartComponent year={data.years} Data={data.leadersData} Label={'Program leaders'}/>
+              <BarChartComponent year={data.years} Data={data.createdData} Label={'Articles Created'}/>
+              <BarChartComponent year={data.years} Data={data.editedData} Label={'Articles Edited'}/>
+              <BarChartComponent year={data.years} Data={data.revisionsData} Label={'Revisions'}/>
             </section>
             <section>
               <div className="section-header">
