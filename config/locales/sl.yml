@@ -34,6 +34,8 @@ sl:
     print: Natisni
   article_statuses:
     ready_for_mainspace: Prestavitev dela v glavni imenski prostor
+  dashboard:
+    explore_course_pages: Raziščite strani tečajev
   home:
     explore: Raziskuj
     sign_up_help: Za uporabo nadzorne plošče se morate prijaviti v Wikipediji in ji
