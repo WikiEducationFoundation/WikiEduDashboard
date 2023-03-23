@@ -86,7 +86,7 @@ If you know your way around Rails, here's the very short version. Some additiona
     - To install rvm, you'll first need a gpg utility. You can install the GPG Suite from gpgtools.org
     - Homebrew will install itself when you run the rvm install command, if you don't have it already.
 
-- Pre-requisites for setup on Windows:
+- Pre-requisites for setup:
     - Install Git from [the official Windows package](https://git-scm.com/download/win)
     - Install Python from [python for Windows](https://www.python.org/downloads/windows/)
     - Install Ruby 3.1.2 (RVM is documented here; rbenv also works fine.)
@@ -102,9 +102,18 @@ If you know your way around Rails, here's the very short version. Some additiona
       - Windows: [Download the installer](https://nodejs.org/)
 
 - Installation steps
+1. ### Recommended (WSL)
+ - Install [wsl](https://learn.microsoft.com/en-us/windows/wsl/install)
+ - Get Ubuntu from Microsoft store and setup your user.
+ - Ensure you have the mentioned prerequisites
+ - Follow the steps in ##Running on Local
+2. 
 - For setup on Windows:
   - Ensure your User Administrator has a password
   - Run your Git CMD as the Administrator - Chocolatey and other installations will require administrative rights
+  - If you encounter problems with your Administrator account ensure it's not disabled on Computer Management>Local Users and Groups>Users> Administrator
+
+## Running on Local
 - Fork our repo from https://github.com/WikiEducationFoundation/WikiEduDashboard..
 - In the console, download a copy of your forked repo with `git clone https://github.com/your_username/WikiEduDashboard.git` where `your_username` is your GitHub username.
 - Enter the new WikiEduDashboard directory with `cd WikiEduDashboard`.
@@ -129,6 +138,11 @@ If you know your way around Rails, here's the very short version. Some additiona
     - $ `gem install bundler`
     - $ `bundle install`
     - If some gems fail to install, you may need to install some dependencies, such as: `libmysqlclient-dev libpq-dev libqtwebkit-dev`
+    ## Note
+    On Windows kindly do this if you encounter issues with the gems
+    Uncomment tz info in your Gemfile
+    Comment out stackprof in your Gemfile
+    Git stash these changes to avoid affecting Unix-based systems
 
 - [Install Yarn Modern](https://yarnpkg.com/getting-started/install)
 

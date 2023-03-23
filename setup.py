@@ -27,7 +27,7 @@ def dnf_setup():
 
 def win_setup():
     print ("Your system is found to be Windows")
-    subprocess.run("runas /user:Administrator \"setup\win-setup.bat\"",
+    subprocess.run("runas /user:Administrator \"setup\win-setup.bat\" && \"setup\win-setup.bat\"",
                    shell=True, check=True)
 
 
@@ -36,7 +36,10 @@ def osx_setup():
     subprocess.run("sudo chmod 775 setup/macOS-setup.sh && setup/macOS-setup.sh",
                    shell=True, check=True)
 
-if platform.platform().lower().find('ubuntu') != -1 \
+if "microsoft" in platform.uname().release.lower():
+    print("Your system is found to have WSL.")
+    deb_setup()
+elif platform.platform().lower().find('ubuntu') != -1 \
         or platform.platform().lower().find('debian') != -1 \
         or platform.platform().lower().find('elementary') != -1 \
         or platform.uname().version.lower().find('ubuntu') != -1:

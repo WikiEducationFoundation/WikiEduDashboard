@@ -11,6 +11,9 @@ echo [+] Node.js installed!
 
 echo [*] Installing Gems...
 call gem install bundler
+call gem update --system
+call gem install mysql2 -v 0.5.4 --platform=ruby -- --with-mysql-lib="C:\xampp\mysql\lib" --withmysql-include="C:\xampp\mysql\include"'
+setx PATH "%PATH%;C:\xampp\mysql\bin" /M
 call bundle install
 echo [+] Gems installed!
 
@@ -49,6 +52,7 @@ echo [+] Databases created!
 @echo off
 
 echo [*] Creating user for MySQL...
+echo "CREATE USER 'wiki'@'localhost' IDENTIFIED BY 'wikiedu';
 echo GRANT ALL PRIVILEGES ON dashboard.* TO 'wiki'@'localhost'; >> setup.sql
 echo GRANT ALL PRIVILEGES ON dashboard_testing.* TO 'wiki'@'localhost'; >> setup.sql
 "C:\xampp\mysql\bin\mysql" -u root < setup.sql
