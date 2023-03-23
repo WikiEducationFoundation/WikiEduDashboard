@@ -93,7 +93,7 @@ gem 'pandoc-ruby' # Text converter, for markdown<->html<->wikitext conversions
 
 ### Performance
 gem 'rack-mini-profiler'
-gem 'stackprof'
+# gem 'stackprof'
 
 group :development do
   gem 'better_errors'
