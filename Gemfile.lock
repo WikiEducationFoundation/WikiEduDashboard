@@ -584,8 +584,6 @@ GEM
     timeout (0.3.0)
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
-    tzinfo-data (1.2022.7)
-      tzinfo (>= 1.0.0)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.8.2)
@@ -701,7 +699,6 @@ DEPENDENCIES
   simple_form
   simplecov
   ticket_dispenser!
-  tzinfo-data
   validates_email_format_of
   vcr
   webdrivers
