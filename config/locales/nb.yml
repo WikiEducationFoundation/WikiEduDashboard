@@ -983,7 +983,7 @@ nb:
   survey:
     login_message: Takk for tiden din. Logg inn på Wiki Education-dashbordet for å
       ta undersøkelsen.
-    notification_explanation: Om boksen nedenfor er merket av vil brukere få epost
+    notification_explanation: Om boksen nedenfor er merket av vil brukerne få e-post
       i følge varselplanen, i tillegg til å få varsel i nettleseren. Om den ikke er
       merket av vil kun varsler i nettleseren vises.
     notification_schedule_explanation: Varsler inkluderer nettleservarsler og eposter,

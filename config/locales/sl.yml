@@ -34,6 +34,8 @@ sl:
     print: Natisni
   article_statuses:
     ready_for_mainspace: Prestavitev dela v glavni imenski prostor
+  dashboard:
+    explore_course_pages: Raziščite strani tečajev
   home:
     explore: Raziskuj
     sign_up_help: Za uporabo nadzorne plošče se morate prijaviti v Wikipediji in ji
@@ -78,6 +80,7 @@ sl:
   assignments:
     article_link_wikidata: Predmet
     confirm_deletion: Ali res želite izbrisati to dodelitev?
+    label_all: Dodeli vse
     loading: Nalaganje dodelitev ...
     remove: Odstrani
     review_self_wikidata: Ponovni pregled predmeta
@@ -135,6 +138,7 @@ sl:
       course_term_placeholder: Termin
       course_title: Naslov tečaja
       create_label: Ustvari nov tečaj
+      copy_courses_with_assignments: Kloniraj seznam razpoložljivih člankov
       end_date: Končni datum
       start_date: Začetni datum
     current: Trenutni tečaji
@@ -147,6 +151,7 @@ sl:
     dismiss_survey: Opusti
     embed_course_stats_description: Za vdelavo statistike tega programa v drugo spletno
       mesto kopirajte in prilepite ta delček kode
+    end: Konec
     ended: Tečaj je končan.
     error:
       invalid_wiki: Ni mogoče vzpostaviti povezave z %{domain}. Morda ni veljaven
@@ -224,6 +229,7 @@ sl:
       article_name: Ime
     bad_work:
       learn_more_button: Več o tem
+      thank_you: Hvala vam! Če imate dodatna vprašanja, se obrnite na svojega Zikistrokovnjaka.
     select_student:
       title: Izberi %{prefix}
   metrics:

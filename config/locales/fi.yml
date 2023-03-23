@@ -499,6 +499,7 @@ fi:
     search_courses: Etsi kursseja
     start: Alkaa
     start_typing: Aloita kirjoittaminen
+    student: Opiskelija
     students: Opiskelijat
     students_taught: Opiskelijoita
     students_count: '# opiskelijaa'
@@ -526,6 +527,7 @@ fi:
     timeline: Tehtävän tiedot
     timeline_enabled: AIkajana päällä
     timeline_link: Aikajana
+    timeline_nav: Siirry aikajanalle
     time_zone_message: Aloitus- ja lopetusajat näkyvät paikallisessa ajassa.
     title: Otsikko
     training_due: Kurssin tehtäväksi on lisätty harjoitusmoduuli "%{title}", ja sen
@@ -826,6 +828,8 @@ fi:
     done: Tehty!
     check_answer: Tarkista vastaus
     included_modules: Sisällytetyt moduulit
+  update_username:
+    label: Uusi käyttäjänimi
   uploads:
     file_name: Tiedostonimi
     header: Wikimedia Commonsiin tallennetut tiedostot

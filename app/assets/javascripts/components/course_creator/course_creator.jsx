@@ -9,7 +9,7 @@ import { updateCourse } from '../../actions/course_actions';
 import { fetchCampaign, submitCourse, cloneCourse } from '../../actions/course_creation_actions.js';
 import { fetchCoursesForUser } from '../../actions/user_courses_actions.js';
 import { setValid, setInvalid, checkCourseSlug, activateValidations, resetValidations } from '../../actions/validation_actions';
-import { getCloneableCourses, isValid, firstValidationErrorMessage } from '../../selectors';
+import { getCloneableCourses, isValid, firstValidationErrorMessage, getAvailableArticles } from '../../selectors';
 
 import Notifications from '../common/notifications.jsx';
 import Modal from '../common/modal.jsx';
@@ -20,6 +20,7 @@ import NewOrClone from './new_or_clone.jsx';
 import ReuseExistingCourse from './reuse_existing_course.jsx';
 import CourseForm from './course_form.jsx';
 import CourseDates from './course_dates.jsx';
+import { fetchAssignments } from '../../actions/assignment_actions';
 
 const CourseCreator = createReactClass({
   displayName: 'CourseCreator',
@@ -55,7 +56,8 @@ const CourseCreator = createReactClass({
       default_course_type: this.props.courseCreator.defaultCourseType,
       course_string_prefix: this.props.courseCreator.courseStringPrefix,
       use_start_and_end_times: this.props.courseCreator.useStartAndEndTimes,
-      courseCreationNotice: this.props.courseCreator.courseCreationNotice
+      courseCreationNotice: this.props.courseCreator.courseCreationNotice,
+      copyCourseAssignments: false,
     };
   },
 
@@ -66,6 +68,15 @@ const CourseCreator = createReactClass({
       this.props.fetchCampaign(campaignParam);
     }
     this.props.fetchCoursesForUser(window.currentUser.id);
+    },
+
+  onDropdownChange(event) {
+    this.props.fetchAssignments(event.target.value);
+  },
+  setCopyCourseAssignments(e) {
+    return this.setState({
+      copyCourseAssignments: e.target.checked
+    });
   },
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -226,6 +237,7 @@ const CourseCreator = createReactClass({
   },
 
   showCloneChooser() {
+    this.props.fetchAssignments(this.props.cloneableCourses[0].slug);
     return this.setState({ showCloneChooser: true });
   },
 
@@ -244,9 +256,11 @@ const CourseCreator = createReactClass({
   useThisClass() {
     const select = this.courseSelect;
     const courseId = select.options[select.selectedIndex].getAttribute('data-id-key');
-    this.props.cloneCourse(courseId, this.campaignParam());
+    this.props.cloneCourse(courseId, this.campaignParam(), this.state.copyCourseAssignments);
     return this.setState({ isSubmitting: true, shouldRedirect: true });
   },
+
+
 
   render() {
     if (this.props.loadingUserCourses) {
@@ -310,11 +324,24 @@ const CourseCreator = createReactClass({
     const cloneOptions = showNewOrClone ? '' : ' hidden';
     const controlClass = `wizard__panel__controls ${courseDates}`;
     const selectClass = showCloneChooser ? '' : ' hidden';
-    const options = this.props.cloneableCourses.map((course, i) => <option key={i} data-id-key={course.id}>{course.title}</option>);
+    const options = this.props.cloneableCourses.map((course, i) => <option key={i} data-id-key={course.id} value={course.slug}>{course.title}</option>);
     const selectClassName = `select-container ${selectClass}`;
     const eventFormClass = this.state.showEventDates ? '' : 'hidden';
     const eventClass = `${eventFormClass}`;
-    const reuseCourseSelect = <select id="reuse-existing-course-select" ref={(dropdown) => { this.courseSelect = dropdown; }}>{options}</select>;
+    const reuseCourseSelect = <select id="reuse-existing-course-select" ref={(dropdown) => { this.courseSelect = dropdown; }} onChange={this.onDropdownChange}>{options}</select>;
+
+    let showCheckbox;
+    if (this.props.assignmentsWithoutUsers.length > 0) {
+      showCheckbox = true;
+    } else {
+      showCheckbox = false;
+    }
+    const checkBoxLabel = (
+      <span style={{ marginTop: '1vh' }}>
+        <input id="copy_cloned_articles" type="checkbox" onChange={this.setCopyCourseAssignments}/>
+        <label htmlFor="checkbox_id">{I18n.t('courses.creator.copy_courses_with_assignments')}</label>
+      </span>
+    );
 
     return (
       <Modal key="modal">
@@ -341,6 +368,8 @@ const CourseCreator = createReactClass({
               useThisClassAction={this.useThisClass}
               stringPrefix={this.state.course_string_prefix}
               cancelCloneAction={this.cancelClone}
+              assignmentsWithoutUsers={showCheckbox}
+              checkBoxLabel={checkBoxLabel}
             />
             <CourseForm
               courseFormClass={courseFormClass}
@@ -391,7 +420,8 @@ const mapStateToProps = state => ({
   loadingUserCourses: state.userCourses.loading,
   validations: state.validations.validations,
   isValid: isValid(state),
-  firstErrorMessage: firstValidationErrorMessage(state)
+  firstErrorMessage: firstValidationErrorMessage(state),
+  assignmentsWithoutUsers: getAvailableArticles(state),
 });
 
 const mapDispatchToProps = ({
@@ -404,7 +434,8 @@ const mapDispatchToProps = ({
   setInvalid,
   checkCourseSlug,
   activateValidations,
-  resetValidations
+  resetValidations,
+  fetchAssignments
 });
 
 // exporting two difference ways as a testing hack.

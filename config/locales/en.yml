@@ -284,6 +284,7 @@ en:
     editors: Assigned to
     group_members: Group members
     label: Assign
+    label_all: Assign all
     loading: Loading assignments...
     none_short: No articles assigned
     none_short_wikidata: No items assigned
@@ -534,6 +535,7 @@ en:
       create_button: Create my Course!
       create_label: Create New Course
       create_new: Create a New Course
+      copy_courses_with_assignments: Clone Available Articles list
       create_short: Create Course
       end_date: End date
       end_date_placeholder: YYYY-MM-DD

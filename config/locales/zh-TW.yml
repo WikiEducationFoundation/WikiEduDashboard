@@ -78,6 +78,7 @@ zh-TW:
     opt_out: 否
     opt_yes: 是
     opt_no: 否
+    print: 列印
   article_statuses:
     not_yet_started: 入門
     in_progress: 在沙盒裡作業
@@ -123,6 +124,7 @@ zh-TW:
     article_development: （條目發展）
     articles_shown: 顯示 %{total} 個條目裡的 %{count} 個
     assigned: 已分配條目
+    assignments_none: 還沒有分配的條目。
     available: 尚待分配的條目
     no_available: 沒有可用的條目
     next: 下一個
@@ -153,6 +155,7 @@ zh-TW:
     loading: 讀取條目中...
     new: ' (新)'
     none: 此課程沒有編輯任何條目。
+    preview: 條目簡要預覽
     rating: 等級
     rating_doc: 這個條目的等級已經由維基百科上的對應專題分配。這些等級可能對應到很早期的版本，所以只能當成條目成熟度的粗略指標。
     rating_docs:
@@ -168,6 +171,7 @@ zh-TW:
       '?': 未評級 — 未在維基百科的品質等級評量的條目。
       does_not_exist: 維基百科無此條目
     see_more: 查看更多
+    search: 在維基百科中搜尋條目
     show_cumulative_changes: 顯示累積更改次數
     show_current_version: 顯示目前版本
     show_current_version_with_authorship_highlighting: 彰顯作者在目前版本的所作編輯
@@ -186,6 +190,19 @@ zh-TW:
     wp10: 結構完整性
     wp10_doc: 「結構完整性」評分，是以採用機器學習架構的客觀性修訂版本評估服務（https://ores.wikimedia.org/）作為依據，來反應出一篇條目內容在符合完整維基條目方面的程度。評分計算的基準項目有條目長度大小、參考來源的數量、內部連結、和其它基本的文字樣式表現。在不考量內容描述的情況下，一篇高分的條目通常代表著它有遵循維基百科上對於良好條目架構的共識。（這些評分僅適用於英語維基百科）
     articles_short: 條目
+    page_logs: （頁面日誌）
+  items:
+    items: 項目
+    article_not_found: 此項目尚未建立。
+    assigned: 已分配項目
+    assignments_none: 還沒有分配的項目。
+    available: 可用項目
+    edited: 已編輯項目
+    edited_none: 還沒有編輯過的項目。
+    find: 尋找項目
+    preview: 項目簡要預覽
+    search: 在維基數據中搜尋項目
+    title_example: 項目標題
   articles_wikidata:
     articles_short: 項目
   articles_generic:
@@ -193,14 +210,20 @@ zh-TW:
   assignments:
     article: 條目%{title}現在已被分配給您。
     article_link: 條目
+    article_link_wikidata: 項目
     already_exists: 此分配作業已存在！
     title_too_large: 標題不可超出 255 個字元
     assignees: 被分配者
     assign_other: 分配/移除條目
+    assign_other_wikidata: 分配/移除項目
     add_available: 加入可用的條目
+    add_available_wikidata: 添加可用項目
     add_available_placeholder: 在每行添加一個條目標題或 URL
+    add_available_placeholder_wikidata: 在每行添加一個項目標題或 URL
     add_available_submit: 添加條目
+    add_available_submit_wikidata: 添加項目
     assign_self: 指定自己一個條目
+    assign_self_wikidata: 給自己分配一個項目
     assign_tooltip: 一個是您計劃創建、或改善的已分配條目
     bibliography: 參考書目
     clone: 複製
@@ -224,6 +247,7 @@ zh-TW:
       heading: 分配隨機同行評審
       tooltip_message: 分配隨機條目（以同行評審數為最大數目）給各學生。
       limit_exceeded: 每位學生至少已檢閱 %{maximum} 個條目。
+      limit_exceeded_wikidata: 每位學生至少已審核 %{maximum} 個項目。
     remove: 移除
     reviewers: 審核者
     review_other: 分配／移除同行評審
@@ -275,6 +299,7 @@ zh-TW:
     data_editor_usernames: 編輯者使用者名稱
     data_editor_usernames_info: 編輯者使用者名稱清單，一行一個
     data_wikidata: 維基數據統計
+    data_wikidata_info: 基於編輯摘要的維基數據活動詳細分類
     default_course_type: 預設課程類型
     default_passcode: 預設選課代碼
     default_passcode_explanation: 預設情況下，此活動的新方案應有：
@@ -282,6 +307,7 @@ zh-TW:
     delete_campaign: 刪除此競賽
     disable_account_requests: 停用帳號申請
     enable_account_requests: 啟用帳號申請
+    newest_campaigns: 最新競賽
     no_alerts: 此競賽沒有提醒
     no_passcode: 沒有選課代碼
     none: 無
@@ -342,12 +368,17 @@ zh-TW:
     article_viewer: 條目檢視者
     articles_i_am_reviewing: 我正在同行評審的條目
     articles_i_will_create: 我將建立的條目
+    articles_i_will_create_wikidata: 我將會建立的項目
     articles_i_am_updating: 我在更新的條目
+    articles_i_am_updating_wikidata: 我正在更新的項目
     assignment_headings:
       assigned_articles: 已分配條目
+      assigned_articles_wikidata: 已分配項目
       assigned_reviews: 已分配審核
       available_articles: 可用的條目
+      available_articles_wikidata: 可用項目
       available_reviews: 同學的條目
+      available_reviews_wikidata: 同學的項目
     assignment_end: 分配作業結束
     assignment_start: 分配作業開始
     calendar:
@@ -451,6 +482,7 @@ zh-TW:
     delete_course: 刪除課程
     delete_suggestion: 刪除
     delete_course_instructions: 若所有競賽都已被移除的情況下，您可以刪除此頁面。
+    disable_student_emails: 停用學生電子郵件
     dismiss_survey: 關閉
     dismiss_survey_confirm: 確定要永久刪除此調查嗎？
     download_stats_data: 下載統計資料
@@ -472,6 +504,7 @@ zh-TW:
       user_exists: 抱歉，%{username} 並非存在的使用者。
       user_exists_on_wiki: 很抱歉，%{username} 並非存在於 %{domain} 的使用者。
       invalid_language_or_project: 無法使用的語言或專案
+      invalid_wiki: 無法連接到 %{domain}。它可能不是有效的 wiki。
       invalid_slug: 清空用於課程的學校/標題。
       duplicate_slug: 另一個稱為%{slug}的方案已存在。
     expected_students: 預計學生
@@ -481,6 +514,7 @@ zh-TW:
     gradeables_none: 此項課程沒有可批閱的分配作業。
     home_wiki: 主 wiki
     multi_wiki: 追蹤的 wiki
+    namespaces: 追蹤命名空間
     instructor:
       other: 導師
     instructors: 導師
@@ -506,6 +540,7 @@ zh-TW:
     loading: 載入中⋯⋯
     milestones_none: 此課程現在並沒有任何里程碑。
     my_articles: 我的所有條目。
+    my_articles_wikidata: 我的項目
     needs_update: 行事曆資料更新
     new_week: 新增新的一週
     new_account_check_username: 檢查用戶名可用性
@@ -546,6 +581,7 @@ zh-TW:
       other: '%{count} 個請求帳號待定中。'
     requested_accounts_alert_view: 檢視
     retain_available_articles: 保持可用條目
+    retain_available_articles_wikidata: 保持可用項目
     retain_available_articles_info: 當啟用後，選擇一個不會從清單裡刪除的可用條目，允許學生群組來選擇同一條目。
     review_timeline: |-
       現在，請確認您的分配計畫時間表，並自訂內容來符合您的需求。
@@ -723,13 +759,16 @@ zh-TW:
       current_stage: 目前階段
       relevant_links: 相關連結
     assigned_articles: 已分配條目
+    assigned_articles_wikidata: 已分配項目
     bad_work:
       learn_more: 如果學生的作業反而讓條目變得不好，我們鼓勵您自行編輯。或者是讓我們了解問題，以便事後修正。
+      learn_more_wikidata: 如果學生的作業反而讓項目變得不好，我們鼓勵您自行編輯。或者是讓我們了解問題，以便事後修正。
       learn_more_button: 了解更多
       submit_issue: 此條目重大的問題是什麼？
+      submit_issue_wikidata: 此項目重大的問題是什麼？
       submit_issue_placeholder: 您能提供越多專業的觀點與細節，就能夠更好。
       thank_you: 謝謝您！若您有額外的問題，請聯絡您的 Wiki 專家。
-    exercises_and_trainings: '%{prefix}練習與訓練'
+    exercises_and_trainings: '%{prefix}練習與培訓'
     no_assignments: 此學生目前沒有分配到條目，您可以透過使用以上按鈕來分配條目給對方。
     overview: '%{prefix}概要'
     reviewing_articles: 審核條目中
@@ -748,9 +787,11 @@ zh-TW:
     articles_created: 已建立的條目
     articles_created_wikidata: 已建立項目
     articles_created_generic: 已建立頁面
+    articles_created_generic_wikidata: 項目已建立
     articles_edited: 已編輯的條目
     articles_edited_wikidata: 項目已編輯
     articles_edited_generic: 頁面已編輯
+    articles_edited_generic_wikidata: 項目已編輯
     article_scoped_program_info: 此為「條目範圍方案」，這只會計算所分配到條目與分類的編輯次數。
     bytes_added: 已添加位元組
     characters: 字元
@@ -796,6 +837,7 @@ zh-TW:
     wiki_ed_help: 使用「取得幫助」按鈕來回報問題。
     word_count: 加入的文字
     word_count_average: 平均字數
+    general: 一般
     total_revisions: 修訂總計
     claims: 宣告
     aliases: 別名
@@ -815,8 +857,11 @@ zh-TW:
     restorations_performed: 還原已執行
     reverts_performed: 還原已執行
   namespace:
+    all: 全部
     main: 主空間
     main_char_added: 主空間字元以加入
+    article: 條目
+    talk: 討論
     user: 使用者命名空間
     user_char_added: 使用者空間字元以加入
     project: 專案
@@ -835,9 +880,12 @@ zh-TW:
     lexeme: 詞位
     appendix: 附錄
     portal: 主題
+    school: 學校
     author: 作者
     cookbook: 操作手冊
+    rhymes: 押韻
     index: 索引
+    collection: 收藏
   recent_activity:
     active_courses: 條目使用於
     article_title: 標題
@@ -935,6 +983,7 @@ zh-TW:
     paused: 因為排程更新已被暫停，使得課題 %{task}無法執行。執行 "rake batch:resume" 來還原更新。
   tickets:
     none: 無許可
+    chose_search_type: 選擇搜尋類型
   timeline:
     add_week: 增加週
     arrange_timeline: 安排時間軸
@@ -967,6 +1016,7 @@ zh-TW:
     empty_week_2: 開始編輯本週內容
     empty_week_3: 或
     empty_week_4: 使用分配作業精靈來建立時間軸。
+    empty_week_drag_items: 空週。你可以在這裡從另一個星期移動一個區塊。
     first_week_title: 活躍首週
     gradeable_value: 數值
     gradeables_none: 此時間軸上沒有分配作業被標註分級。
@@ -1008,6 +1058,15 @@ zh-TW:
       exercise: 練習
       discussion: 討論
       training: 培訓
+    no_training_library_records_wiki_ed_mode: 資料庫裡沒有 TrainingLibrary 紀錄。請點擊<a href="%{url}">此處</a>從
+      training_content/yaml 檔案載入培訓資料。
+    no_training_library_records_non_wiki_ed_mode: 資料庫裡沒有 TrainingLibrary 紀錄。
+  update_username:
+    header: 更新已更改的使用者名稱
+    not_found: 找不到所輸入名稱的使用者。
+    username_updated: 使用者名稱更新成功！
+    label: 新使用者名稱
+    button: 更新
   uploads:
     credit: 製作者
     file_name: 檔案名稱
@@ -1029,13 +1088,16 @@ zh-TW:
   users:
     already_enrolled: 這位使用者已經登記！
     assign_articles: 分配條目
+    assign_articles_wikidata: 分配項目
     assign_articles_done: 完成
     assigned: 已分配條目
+    assigned_wikidata: 已分配項目
     assignees: 被分配者
     loading_authorship_data: 載入作者資料中
     authorship_data_not_fetched: 無法索取作者資料
     character_doc: 加入此命名空間的內容加入總數。計算方式是把所有編輯的增加頁面文字量的編輯進行加總。這個數字並不完全代表使用者所增加的新內容，還原原本的內容也會被計算為加入總數之中。
     chars_added: 已增加字元<br> (條目|使用者|草稿)
+    chars_added_wikidata: 新增的字元<br> (條目|使用者|草稿)
     contributions: 使用者貢獻
     contributions_history_full: 檢視完整的貢獻歷史
     contributions_more: 檢視更多貢獻
@@ -1055,6 +1117,7 @@ zh-TW:
     last_name: 姓
     loading: 使用者載入中...
     characters_added_mainspace: 新增的字元（條目）
+    characters_added_mainspace_wikidata: 新增的字元（項目）
     characters_added_short: 主空間：%{mainspace}，使用者空間：%{userspace}
     characters_added_userspace: 新增的字元（使用者）
     characters_added_draftspace: 新增的字元（草稿）
@@ -1063,11 +1126,15 @@ zh-TW:
     name: 名稱
     none: 沒有參與者。
     no_articles: 沒有條目
+    no_articles_wikidata: 沒有項目
     no_revisions: （無修訂）
     no_highlighting: 條目的目前版本中沒有文字內容歸因於該名編輯者。檢查頁面歷史來查看他們的編輯。
     number_of_articles:
       one: '%{count} 個條目'
       other: '%{count} 個條目'
+    number_of_articles_wikidata:
+      one: '%{count} 個項目'
+      other: '%{count} 個項目'
     profile: 個人檔案
     recent_revisions: 近期編輯
     references_count: 參考來源已添加
@@ -1214,8 +1281,10 @@ zh-TW:
       why_are_you_here: 您想要做什麼？
   article_finder:
     add_available_article: 添加為可用條目
+    add_available_article_wikidata: 添加為可用項目
     article_finder: 條目查找
     article_quality: 條目品質（0 - 100）
+    article_quality_wikidata: 項目品質（0-100）
     assign_article_self: 分配給您自己
     average_views: 每日平均檢視
     category_search: 分類搜尋
@@ -1231,17 +1300,21 @@ zh-TW:
     minimum_views_label: 最小檢視數
     more_results: 更多結果
     no_article_found: 此分類裡沒有條目
+    no_article_found_wikidata: 在此分類裡找不到項目
     page_assessment_class: 等級
     relevanceIndex: 關聯索引
     remove_article: 移除條目
+    remove_article_wikidata: 移除項目
     search: 搜尋
     searching_articles: 搜尋條目中
     search_placeholder: 輸入您的關鍵詞
     show_options: 顯示選項
     subheading_message: 讓我們來找出影響的維基百科條目
+    subheading_message_wikidata: 讓我們來找出影響的維基數據項目
     submit: 提交
     tools: 工具
     unassign_article_self: 取消分配條目
+    unassign_article_self_wikidata: 取消分配項目
   training_status:
     completed: 已完成
     continue: 繼續
