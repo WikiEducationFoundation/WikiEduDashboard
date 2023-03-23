@@ -27,7 +27,7 @@ def dnf_setup():
 
 def win_setup():
     print ("Your system is found to be Windows")
-    subprocess.run("runas /user:Administrator \"setup\win-setup.bat\" && \"setup\win-setup.bat\"",
+    subprocess.run("runas /user:Administrator \"setup\win-setup.bat\"",
                    shell=True, check=True)
 
 

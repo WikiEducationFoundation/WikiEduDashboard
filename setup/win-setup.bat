@@ -10,11 +10,7 @@ choco install nodejs-lts -y
 echo [+] Node.js installed!
 
 echo [*] Installing Gems...
-@echo off
 call gem install bundler
-call gem update --system
-call gem install mysql2 -v 0.5.4 --platform=ruby -- --with-mysql-lib="C:\xampp\mysql\lib" --withmysql-include="C:\xampp\mysql\include"'
-setx PATH "%PATH%;C:\xampp" /M
 call bundle install
 echo [+] Gems installed!
 
@@ -38,8 +34,8 @@ echo [+] Configuration files created!
 
 echo [*] Installing XAMPP...
 choco install bitnami-xampp -y
+start C:\xampp\mysql\bin\mysqld
 echo [+] XAMPP install complete!
-@echo off
 
 echo [*] Creating databases...
 echo CREATE DATABASE IF NOT EXISTS dashboard DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci; > setup.sql
@@ -57,6 +53,10 @@ echo GRANT ALL PRIVILEGES ON dashboard.* TO 'wiki'@'localhost'; >> setup.sql
 echo GRANT ALL PRIVILEGES ON dashboard_testing.* TO 'wiki'@'localhost'; >> setup.sql
 "C:\xampp\mysql\bin\mysql" -u root < setup.sql
 del setup.sql
+echo CREATE DATABASE IF NOT EXISTS dashboard DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci; CREATE DATABASE IF NOT EXISTS dashboard_testing DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci; exit| C:\xampp\mysql\bin\mysql -u root
+echo [+] Databases created!
+echo [*] Creating User for Mysql...
+echo CREATE USER 'wiki'@'localhost' IDENTIFIED BY 'wikiedu';GRANT ALL PRIVILEGES ON dashboard . * TO 'wiki'@'localhost';GRANT ALL PRIVILEGES ON dashboard_testing . * TO 'wiki'@'localhost';exit| C:\xampp\mysql\bin\mysql -u root
 echo [+] Database user created!
 
 
