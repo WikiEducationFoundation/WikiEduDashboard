@@ -107,7 +107,7 @@ If you know your way around Rails, here's the very short version. Some additiona
  - Get Ubuntu from Microsoft store and setup your user.
  - Ensure you have the mentioned prerequisites
  - Follow the steps in ##Running on Local
-2. 
+2. ### Option 2
 - For setup on Windows:
   - Ensure your User Administrator has a password
   - Run your Git CMD as the Administrator - Chocolatey and other installations will require administrative rights
@@ -140,7 +140,6 @@ If you know your way around Rails, here's the very short version. Some additiona
     - If some gems fail to install, you may need to install some dependencies, such as: `libmysqlclient-dev libpq-dev libqtwebkit-dev`
     ## Note
     On Windows kindly do this if you encounter issues with the gems
-    Uncomment tz info in your Gemfile
     Comment out stackprof in your Gemfile
     Git stash these changes to avoid affecting Unix-based systems
 
