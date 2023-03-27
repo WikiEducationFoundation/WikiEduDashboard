@@ -77,6 +77,34 @@ class WikiApi
     ArticleRatingExtractor.new(pages).ratings
   end
 
+  def deleted_logs(last_run_timestamp)
+    query_parameters = {
+      list: 'logevents',
+      leaction: 'delete/delete',
+      lelimit: 500,
+      lestart: last_run_timestamp,
+      leprop: 'ids|timestamp',
+      ledir: 'newer'
+    }
+    response = fetch_all(query_parameters)
+    response['logevents'] = [] if response['logevents'].nil?
+    response
+  end
+
+  def restored_logs(last_run_timestamp)
+    query_parameters = {
+      list: 'logevents',
+      leaction: 'delete/restore',
+      lelimit: 500,
+      lestart: last_run_timestamp,
+      leprop: 'ids|timestamp',
+      ledir: 'newer'
+    }
+    response = fetch_all(query_parameters)
+    response['logevents'] = [] if response['logevents'].nil?
+    response
+  end
+
   ###################
   # Private methods #
   ###################

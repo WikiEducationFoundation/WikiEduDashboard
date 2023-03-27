@@ -48,11 +48,7 @@ class ArticleStatusManager
     # This happens in situations such as history merges.
     # If articles move in between title/namespace updates and mw_page_id updates,
     # then it's possible to end up with inconsistent data.
-    update_article_ids @deleted_page_ids
-
-    # Delete and undelete articles as appropriate
-    update_deleted_articles(articles)
-    update_undeleted_articles(articles)
+    # update_article_ids @deleted_page_ids
 
     limbo_revisions = Revision.where(mw_page_id: @deleted_page_ids)
     ModifiedRevisionsManager.new(@wiki).move_or_delete_revisions limbo_revisions
@@ -102,8 +98,7 @@ class ArticleStatusManager
 
       begin
         article.update!(title: article_data['page_title'],
-                        namespace: article_data['page_namespace'],
-                        deleted: false)
+                        namespace: article_data['page_namespace'])
         # Find corresponding Assignment records and update the titles
         AssignmentUpdater.update_assignments_for_article(article)
       rescue ActiveRecord::RecordNotUnique => e
@@ -116,24 +111,6 @@ class ArticleStatusManager
       rescue ActiveRecord::StatementInvalid => e # workaround for 4-byte unicode errors
         Sentry.capture_exception e
       end
-    end
-  end
-
-  def update_deleted_articles(articles)
-    return unless @failed_request_count.zero?
-    articles.each do |article|
-      next unless @deleted_page_ids.include? article.mw_page_id
-      # Reload to account for articles that have had their mw_page_id changed
-      # because the page was moved rather than deleted.
-      next unless @deleted_page_ids.include? article.reload.mw_page_id
-      article.update_attribute(:deleted, true)
-    end
-  end
-
-  def update_undeleted_articles(articles)
-    articles.filter(&:deleted).each do |article|
-      next unless @synced_ids.include? article.mw_page_id
-      handle_undeletion(article)
     end
   end
 
