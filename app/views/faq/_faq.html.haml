@@ -1,6 +1,6 @@
 %div{class: "faq #{expanded ? 'expanded' : 'collapsed'}" ,id: "faq-#{faq.id}"}
   .faq-header{onclick: "toggleAccordian('faq-#{faq.id}')"}
-    %h2.faq-title=faq.title
+    %h2.faq-title= link_to faq.title, faq_path(faq.id)
     - if current_user&.admin?
       .edit-link= link_to 'edit', edit_faq_path(faq)
     .icon.icon-arrow
