@@ -7,7 +7,7 @@ class DeletedArticlesWorker
     last_run = Setting.find_or_create_by(key: 'deleted_articles')
     last_timestamp = last_run.value['timestamp'] || 1.week.ago.to_i
     Wiki.all.each do |wiki|
-      articles = Article.where(wiki:, deleted: false)
+      articles = Article.where(wiki:)
       wiki_api = WikiApi.new(wiki)
       deleted_articles_ids = {}
       restored_articles_ids = {}
