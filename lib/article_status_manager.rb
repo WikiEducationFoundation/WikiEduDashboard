@@ -30,18 +30,17 @@ class ArticleStatusManager
   # end
 
   def self.update_status(course)
-    articles = course.wikis
-    articles.each do |article|
+    course.wikis.each do |wiki|
       # Get the previous namespace of the article
-      previous_namespace = article.namespace
+      previous_namespace = wiki.namespace
 
       # Update the status of the article
-      article.update_status
+      wiki.update_status
 
       # Check if the namespace has changed
-      if previous_namespace == Article::NAMESPACE_MAIN && article.namespace != Article::NAMESPACE_MAIN
+      if previous_namespace == Article::NAMESPACE_MAIN && wiki.namespace != Article::NAMESPACE_MAIN
         # Call the ArticleNamespaceChangeAlertManager to create the new alert
-        ArticleNamespaceChangeAlertManager.create_alert(article, previous_namespace, article.namespace, course)
+        ArticleNamespaceChangeAlertManager.create_alert(wiki, previous_namespace, wiki.namespace, course)
       end
     end
   end
