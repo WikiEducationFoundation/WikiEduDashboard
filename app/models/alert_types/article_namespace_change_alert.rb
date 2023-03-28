@@ -11,7 +11,7 @@ class ArticleNamespaceChangeAlertManager
       alert.save
   
       # Notify the Wiki Expert for the associated course
-      WikiEduDashboardMailer.alert_notification(course, alert).deliver_now
+      AlertMailer.send_alert_email(alert, course)
     end
   end
   
