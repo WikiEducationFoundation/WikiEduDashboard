@@ -71,8 +71,8 @@ echo [+] Redis installed!
 SET "PATH=%PATH%;%LOCALAPPDATA%\Yarn\bin"
 
 echo [*] Migrating databases...
-call rails db:migrate
-call rails db:migrate RAILS_ENV=test
+call rake db:migrate
+call rake db:migrate RAILS_ENV=test
 echo [+] Database migration complete!
 
 echo Your developmental environment setup is complete. If you there are any errors, please refer to the docs for manual installation, or ask for help.
