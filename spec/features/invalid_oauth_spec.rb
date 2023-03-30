@@ -2,7 +2,8 @@
 
 require 'rails_helper'
 
-describe 'a user with invalid oauth credentials', type: :feature do
+describe 'user authentication with oauth credentials', type: :feature do
+describe 'a user with invalid oauth credentials' do
   before do
     user = create(:user, wiki_token: 'invalid')
     login_as user
@@ -28,4 +29,5 @@ describe 'a user whose oauth credentials expire', type: :feature do
     expect(page).to have_current_path(root_path)
     expect(page).to have_content 'Your Wikipedia authorization has expired'
   end
+end
 end
