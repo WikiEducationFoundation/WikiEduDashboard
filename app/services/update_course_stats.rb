@@ -6,9 +6,9 @@ require_dependency "#{Rails.root}/lib/importers/course_upload_importer"
 require_dependency "#{Rails.root}/lib/data_cycle/update_logger"
 require_dependency "#{Rails.root}/lib/analytics/histogram_plotter"
 require_dependency "#{Rails.root}/lib/importers/revision_score_importer"
-require_dependency "#{Rails.root}/lib/importers/average_views_importer"
-require_dependency "#{Rails.root}/lib/errors/update_service_error_helper"
-require_dependency "#{Rails.root}/lib/data_cycle/course_queue_sorting"
+require_dependency Rails.root.join('lib', 'importers', 'average_views_importer')
+require_dependency Rails.root.join('lib', 'errors', 'update_service_error_helper')
+require_dependency Rails.root.join('lib', 'data_cycle', 'course_queue_sorting')
 
 #= Pulls in new revisions for a single course and updates the corresponding records
 class UpdateCourseStats
