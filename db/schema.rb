@@ -514,7 +514,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_15_143028) do
     t.index ["user_id", "training_module_id"], name: "index_training_modules_users_on_user_id_and_training_module_id", unique: true
   end
 
-  create_table "training_slides", charset: "utf8mb4", force: :cascade do |t|
+  create_table "training_slides", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", options: "ENGINE=InnoDB ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "title"
     t.string "title_prefix"
     t.string "summary"
@@ -582,7 +582,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_15_143028) do
     t.string "event", null: false
     t.string "whodunnit"
     t.text "object", size: :long
-    t.datetime "created_at", precision: nil
+    t.datetime "created_at"
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
