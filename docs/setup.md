@@ -141,6 +141,7 @@ If you know your way around Rails, here's the very short version. Some additiona
     ## Note
     On Windows kindly do this if you encounter issues with the gems
     Comment out stackprof in your Gemfile
+    Uncomment tz-info in your Gemfile
     Git stash these changes to avoid affecting Unix-based systems
 
 - [Install Yarn Modern](https://yarnpkg.com/getting-started/install)
