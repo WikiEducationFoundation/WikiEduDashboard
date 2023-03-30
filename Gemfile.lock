@@ -575,6 +575,7 @@ GEM
     sshkit (1.21.3)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
+    stackprof (0.2.24)
     strscan (3.0.1)
     temple (0.8.2)
     terrapin (0.6.0)
@@ -584,8 +585,6 @@ GEM
     timeout (0.3.0)
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
-    tzinfo-data (1.2023.1)
-      tzinfo (>= 1.0.0)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.8.2)
@@ -700,8 +699,8 @@ DEPENDENCIES
   sidekiq-unique-jobs
   simple_form
   simplecov
+  stackprof
   ticket_dispenser!
-  tzinfo-data
   validates_email_format_of
   vcr
   webdrivers
