@@ -139,6 +139,7 @@ sl:
       course_title: Naslov tečaja
       create_label: Ustvari nov tečaj
       copy_courses_with_assignments: Kloniraj seznam razpoložljivih člankov
+      create_short: Ustvari tečaj
       end_date: Končni datum
       start_date: Začetni datum
     current: Trenutni tečaji
@@ -184,6 +185,9 @@ sl:
     title: Naslov
     view: Ogled tečaja
     view_page: Ogled strani tečaja
+    wiki_edits_enabled_tooltip: Če je omogočeno vikiurejanje, bodo za ta program v
+      vikiju opravljena avtomatizirana urejanja. Če ne želite dodati predlog na uporabniške
+      strani, pogovorne strani dodeljenih člankov idr., vikiurejanje onemogočite.
     word_count_doc: Ocena števila besed, ki so jih udeleženci tečaja v času tečaja
       dodali člankom v glavnem imenskem prostoru
     word_count_doc_wikidata: Ocena števila besed, ki so jih udeleženci tečaja v času
@@ -204,6 +208,7 @@ sl:
       course_description: Opis programa
       course_title: Naslov programa
       create_label: Ustvari nov program
+      create_short: Ustvari program
       save_cloned_course: Shrani
     edit_course_dates: Uredi datume projekta
     not_permitted: Nimate dovoljenja za urejanje tega programa.
