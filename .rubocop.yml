@@ -164,8 +164,6 @@ RSpec/ExpectInHook:
   Enabled: false
 RSpec/MultipleDescribes:
   Enabled: false
-RSpec/ExampleWording:
-  Enabled: false
 Style/DateTime:
   Enabled: false
 Rails/ContentTag:
