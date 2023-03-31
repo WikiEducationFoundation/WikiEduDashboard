@@ -33,6 +33,7 @@ class Alert < ApplicationRecord
 
   ALERT_TYPES = %w[
     ActiveCourseAlert
+    ArticleNamespaceChangeAlertManager
     ArticlesForDeletionAlert
     BadWorkAlert
     BlockedEditsAlert
@@ -66,6 +67,7 @@ class Alert < ApplicationRecord
 
   RESOLVABLE_ALERT_TYPES = %w[
     ArticlesForDeletionAlert
+    ArticleNamespaceChangeAlertManager
     BadWorkAlert
     CheckTimelineAlert
     ContinuedCourseActivityAlert
