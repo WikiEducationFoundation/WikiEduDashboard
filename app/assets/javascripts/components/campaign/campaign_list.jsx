@@ -68,7 +68,7 @@ const CampaignList = ({ keys, showSearch, RowElement, headerText, userOnly, newe
       <List
         elements={campaignElements}
         keys={keys}
-        none_message={I18n.t('application.no_results', { query: inputRef?.current?.value })}
+        none_message={I18n.t('application.no_results', { query: inputRef?.current?.value || ' ' })}
         sortable={true}
         sortBy={sortBy}
         className="table--expandable table--hoverable"
