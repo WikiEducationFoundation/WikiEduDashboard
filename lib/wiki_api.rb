@@ -111,18 +111,18 @@ class WikiApi
   private
 
   def fetch_all(query)
-    @query = query
-    @data = {}
-    until @continue == 'done'
-      @query.merge! @continue unless @continue.nil?
-      response = mediawiki('query', @query)
-      return @data unless response # fall back gracefully if the query fails
-      @data.deep_merge! response.data
+    data = {}
+    continue = nil
+    until continue == 'done'
+      query.merge! continue unless continue.nil?
+      response = mediawiki('query', query)
+      return data unless response # fall back gracefully if the query fails
+      data.deep_merge! response.data
       # The 'continue' value is nil if the batch is complete
-      @continue = response['continue'] || 'done'
+      continue = response['continue'] || 'done'
     end
 
-    @data
+    data
   end
 
   def mediawiki(action, query)
