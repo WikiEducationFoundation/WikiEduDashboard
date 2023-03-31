@@ -54,6 +54,50 @@ class ArticleStatusManager
     ModifiedRevisionsManager.new(@wiki).move_or_delete_revisions limbo_revisions
   end
 
+  # Check whether any deleted pages still exist with a different article_id.
+  # If so, update the Article to use the new id.
+  def self.update_article_ids(deleted_page_ids, wiki)
+    maybe_deleted = Article.where(mw_page_id: deleted_page_ids, wiki:)
+    return if maybe_deleted.empty?
+    # These pages have titles that match Articles in our DB with deleted ids
+    request_results = Replica.new(wiki).post_existing_articles_by_title maybe_deleted
+
+    # Update articles whose IDs have changed (keyed on title and namespace)
+    request_results&.each do |stp|
+      resolve_page_id(stp, deleted_page_ids)
+    end
+  end
+
+  def self.resolve_page_id(same_title_page, deleted_page_ids, wiki)
+    title = same_title_page['page_title']
+    mw_page_id = same_title_page['page_id']
+    namespace = same_title_page['page_namespace']
+
+    article = Article.find_by(wiki:, title:, namespace:, deleted: false)
+
+    return unless article_data_matches?(article, title, deleted_page_ids)
+    update_article_page_id(article, mw_page_id)
+  end
+
+  def self.article_data_matches?(article, title, deleted_page_ids)
+    return false if article.nil?
+    return false unless deleted_page_ids.include?(article.mw_page_id)
+    # This catches false positives when the query for page_title matches
+    # a case variant.
+    return false unless article.title == title
+    true
+  end
+
+  def self.update_article_page_id(article, mw_page_id, wiki)
+    if Article.exists?(mw_page_id:, wiki:)
+      # Catches case where update_constantly has
+      # already added this article under a new ID
+      article.update(deleted: true)
+    else
+      article.update(mw_page_id:)
+    end
+  end
+
   ##################
   # Helper methods #
   ##################
@@ -130,51 +174,6 @@ class ArticleStatusManager
     # If article data is collected from Replica, the article is not currently deleted
     return false if article.deleted
     true
-  end
-
-  # Check whether any deleted pages still exist with a different article_id.
-  # If so, update the Article to use the new id.
-  def update_article_ids(deleted_page_ids)
-    maybe_deleted = Article.where(mw_page_id: deleted_page_ids, wiki_id: @wiki.id)
-    return if maybe_deleted.empty?
-    # These pages have titles that match Articles in our DB with deleted ids
-    request_results = Replica.new(@wiki).post_existing_articles_by_title maybe_deleted
-    @failed_request_count += 1 if request_results.nil?
-
-    # Update articles whose IDs have changed (keyed on title and namespace)
-    request_results&.each do |stp|
-      resolve_page_id(stp, deleted_page_ids)
-    end
-  end
-
-  def resolve_page_id(same_title_page, deleted_page_ids)
-    title = same_title_page['page_title']
-    mw_page_id = same_title_page['page_id']
-    namespace = same_title_page['page_namespace']
-
-    article = Article.find_by(wiki_id: @wiki.id, title:, namespace:, deleted: false)
-
-    return unless article_data_matches?(article, title, deleted_page_ids)
-    update_article_page_id(article, mw_page_id)
-  end
-
-  def article_data_matches?(article, title, deleted_page_ids)
-    return false if article.nil?
-    return false unless deleted_page_ids.include?(article.mw_page_id)
-    # This catches false positives when the query for page_title matches
-    # a case variant.
-    return false unless article.title == title
-    true
-  end
-
-  def update_article_page_id(article, mw_page_id)
-    if Article.exists?(mw_page_id:, wiki_id: @wiki.id)
-      # Catches case where update_constantly has
-      # already added this article under a new ID
-      article.update(deleted: true)
-    else
-      article.update(mw_page_id:)
-    end
   end
 
   def find_article_by_mw_page_id(mw_page_id)
