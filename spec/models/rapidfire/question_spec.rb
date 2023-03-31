@@ -14,8 +14,7 @@ describe Rapidfire::Question do
       expect(valid_question.errors[:answer_options].size).to eq(0)
     end
 
-    it 'should not raise an error if the question type has changed to'\
-       " one that doesn't require answer options" do
+    it 'does not raise an error if the question type has changed to one that doesn't require answer options" do
       valid_question = build(:q_radio, course_data_type: 'Students')
       valid_question.type = 'Rapidfire::Questions::RangeInput'
       valid_question.answer_options = ''

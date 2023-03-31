@@ -769,12 +769,12 @@ describe CoursesController, type: :request do
         get "/courses/#{course.slug}/alerts.json", as: :json
       end
 
-      it 'should return a list of alerts' do
+      it 'returns a list of alerts' do
         expect(response.status).to eq(200)
         expect(response.body).to include('alerts')
       end
 
-      it 'should contain all alerts' do
+      it 'contains all alerts' do
         expect(response.parsed_body['alerts'].length).to eq(2)
       end
     end
@@ -785,12 +785,12 @@ describe CoursesController, type: :request do
         get "/courses/#{course.slug}/alerts.json", as: :json
       end
 
-      it 'should return a list of alerts' do
+      it 'returns a list of alerts' do
         expect(response.status).to eq(200)
         expect(response.body).to include('alerts')
       end
 
-      it 'should contain only the public alert' do
+      it 'contains only the public alert' do
         alerts = response.parsed_body['alerts']
         expect(alerts.length).to eq(1)
         expect(alerts[0]['id']).to eq(public_alert.id)

@@ -48,7 +48,7 @@ describe Revision, type: :model do
                wiki_id: enwikidata.id)
       end
 
-      it 'should return zero' do
+      it 'returns zero' do
         val = described_class.find_by(mw_rev_id: 95249249).references_added
         wikidata_val = described_class.find_by(mw_rev_id: 95249256).references_added
         expect(val).to eq(0)
@@ -80,7 +80,7 @@ describe Revision, type: :model do
                })
       end
 
-      it 'should return no. of references added' do
+      it 'returns no. of references added' do
         val = described_class.find_by(mw_rev_id: 857571904).references_added
         wikidata_val = described_class.find_by(mw_rev_id: 840608564).references_added
         expect(val).to eq(10)
@@ -113,7 +113,7 @@ describe Revision, type: :model do
                })
       end
 
-      it 'should return 0 references added' do
+      it 'returns 0 references added' do
         val = described_class.find_by(mw_rev_id: 89023457).references_added
         wikidata_val = described_class.find_by(mw_rev_id: 89023158).references_added
         expect(val).to eq(0)
@@ -185,7 +185,7 @@ describe Revision, type: :model do
                })
       end
 
-      it 'should return positive value' do
+      it 'returns positive value' do
         val = described_class.find_by(mw_rev_id: 870348507).references_added
         wikidata_val = described_class.find_by(mw_rev_id: 870348508).references_added
         expect(val).to eq(5)
@@ -212,7 +212,7 @@ describe Revision, type: :model do
                })
       end
 
-      it 'should include the shortened footnote template references' do
+      it 'includes the shortened footnote template references' do
         val = described_class.find_by(mw_rev_id: 902872698).references_added
         expect(val).to eq(134)
       end
