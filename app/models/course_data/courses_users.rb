@@ -20,7 +20,7 @@
 #  total_uploads          :integer
 #
 
-require_dependency "#{Rails.root}/lib/course_cleanup_manager"
+require_dependency Rails.root.join('lib/course_cleanup_manager')
 
 #= Course + User join model
 class CoursesUsers < ApplicationRecord

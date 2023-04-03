@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/training_progress_manager"
+require_dependency Rails.root.join('lib/training_progress_manager')
 
 class TrainingModuleDueDateManager
   def initialize(opts)

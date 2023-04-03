@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/importers/rating_importer"
+require Rails.root.join('lib/importers/rating_importer')
 
 describe RatingImporter do
   describe '.update_ratings' do

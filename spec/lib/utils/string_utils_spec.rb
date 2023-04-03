@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/utils/string_utils"
+require Rails.root.join('lib/utils/string_utils')
 
 describe StringUtils do
   describe '#excerpt' do

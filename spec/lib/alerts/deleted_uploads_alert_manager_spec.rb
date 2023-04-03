@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/alerts/deleted_uploads_alert_manager"
+require Rails.root.join('lib/alerts/deleted_uploads_alert_manager')
 
 describe DeletedUploadsAlertManager do
   let(:course) { create(:course) }

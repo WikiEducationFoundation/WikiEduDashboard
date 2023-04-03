@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/wikidata_summary_parser"
-require_dependency "#{Rails.root}/lib/importers/wikidata_summary_importer"
+require_dependency Rails.root.join('lib/wikidata_summary_parser')
+require_dependency Rails.root.join('lib/importers/wikidata_summary_importer')
 
 class UpdateWikidataStats
   def initialize(course)

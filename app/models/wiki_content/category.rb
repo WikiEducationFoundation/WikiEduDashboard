@@ -13,11 +13,11 @@
 #  source         :string(255)      default("category")
 #
 
-require_dependency "#{Rails.root}/lib/importers/category_importer"
-require_dependency "#{Rails.root}/lib/importers/transclusion_importer"
-require_dependency "#{Rails.root}/lib/article_utils"
-require_dependency "#{Rails.root}/lib/petscan_api.rb"
-require_dependency "#{Rails.root}/lib/pagepile_api.rb"
+require_dependency Rails.root.join('lib/importers/category_importer')
+require_dependency Rails.root.join('lib/importers/transclusion_importer')
+require_dependency Rails.root.join('lib/article_utils')
+require_dependency Rails.root.join('lib/petscan_api.rb')
+require_dependency Rails.root.join('lib/pagepile_api.rb')
 
 class Category < ApplicationRecord
   include EncodingHelper

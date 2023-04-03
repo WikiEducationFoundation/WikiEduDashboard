@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/alerts/unsubmitted_course_alert_manager"
+require Rails.root.join('lib/alerts/unsubmitted_course_alert_manager')
 
 describe UnsubmittedCourseAlertManager do
   let(:subject) { described_class.new }

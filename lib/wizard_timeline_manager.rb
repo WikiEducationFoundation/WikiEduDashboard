@@ -21,7 +21,7 @@ class WizardTimelineManager
     @tags = wizard_params['wizard_output']['tags'] || []
 
     # Load the wizard content building blocks.
-    content_path = "#{Rails.root}/config/wizard/#{wizard_id}/content.yml"
+    content_path = Rails.root.join("config/wizard/#{wizard_id}/content.yml")
     @all_content = YAML.load_file(content_path)
 
     @timeline = []

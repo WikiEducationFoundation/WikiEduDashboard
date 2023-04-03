@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/articles_courses_cleaner"
+require_dependency Rails.root.join('lib/articles_courses_cleaner')
 
 class CleanArticlesCoursesWorker
   include Sidekiq::Worker

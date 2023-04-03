@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/article_utils"
+require_dependency Rails.root.join('lib/article_utils')
 
 class CategoriesController < ApplicationController
   respond_to :json

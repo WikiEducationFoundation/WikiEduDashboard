@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/revision_stat"
-require_dependency "#{Rails.root}/lib/course_training_progress_manager"
+require_dependency Rails.root.join('lib/revision_stat')
+require_dependency Rails.root.join('lib/course_training_progress_manager')
 
 #= Service for updating the counts that are cached on Course objects
 class CourseCacheManager

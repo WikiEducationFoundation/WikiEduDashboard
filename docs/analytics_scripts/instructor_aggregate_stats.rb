@@ -1,6 +1,6 @@
 # Script to create a CSV file with aggregate stats for all instructors
 # This is basically the same data that shows up on the user profile page.
-require "#{Rails.root}/app/presenters/courses_presenter"
+require Rails.root.join('app/presenters/courses_presenter')
 
 instructors = CoursesUsers.where(role: CoursesUsers::Roles::INSTRUCTOR_ROLE).map(&:user).uniq.compact
 

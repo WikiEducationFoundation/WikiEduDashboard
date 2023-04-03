@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'net/http'
-require_dependency "#{Rails.root}/lib/importers/user_importer"
-require_dependency "#{Rails.root}/app/services/update_course_stats"
+require_dependency Rails.root.join('lib/importers/user_importer')
+require_dependency Rails.root.join('app/services/update_course_stats')
 
 def make_copy_of(url)
   # Get the main course data

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/course_revision_updater"
+require Rails.root.join('lib/course_revision_updater')
 
 describe CourseRevisionUpdater do
   describe 'imported revisions and articles' do

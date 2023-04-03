@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/student_greeting_checker"
-require_dependency "#{Rails.root}/lib/wiki_course_edits"
+require_dependency Rails.root.join('lib/student_greeting_checker')
+require_dependency Rails.root.join('lib/wiki_course_edits')
 
 class GreetUngreetedStudents
   def initialize(course, greeter)

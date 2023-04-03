@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/wiki_pageviews"
+require Rails.root.join('lib/wiki_pageviews')
 
 describe WikiPageviews do
   describe '.views_for_article' do

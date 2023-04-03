@@ -1,4 +1,4 @@
-require "#{Rails.root}/lib/importers/user_importer"
+require Rails.root.join('lib/importers/user_importer')
 
 class ImporterLegacy
   def initialize(campaign)

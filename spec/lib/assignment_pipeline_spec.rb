@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/assignment_pipeline"
+require Rails.root.join('lib/assignment_pipeline')
 
 describe AssignmentPipeline do
   describe 'Assignments' do

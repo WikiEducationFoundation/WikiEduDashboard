@@ -30,7 +30,7 @@ describe 'syllabus upload', type: :feature, js: true do
       expect(page).to have_content 'Syllabus'
       click_button 'edit'
       find('input[type="file"]', visible: false)
-        .attach_file "#{Rails.root}/spec/fixtures/files/syllabus.pdf", make_visible: true
+        .attach_file Rails.root.join('spec/fixtures/files/syllabus.pdf'), make_visible: true
       click_link 'save'
       expect(page).not_to have_content 'Syllabus'
       expect(course.reload.syllabus_file_name).to eq('syllabus.pdf')

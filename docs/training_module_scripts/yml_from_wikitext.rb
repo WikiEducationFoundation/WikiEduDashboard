@@ -1,5 +1,5 @@
 # Take wikitext for a training module, convert it into yml files.
-require "#{Rails.root}/lib/training/wiki_slide_parser"
+require Rails.root.join('lib/training/wiki_slide_parser')
 require 'fileutils'
 
 module_number = 33

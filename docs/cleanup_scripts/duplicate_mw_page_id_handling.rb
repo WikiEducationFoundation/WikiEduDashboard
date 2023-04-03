@@ -1,5 +1,5 @@
-require "#{Rails.root}/lib/article_status_manager"
-require "#{Rails.root}/lib/duplicate_article_deleter"
+require Rails.root.join('lib/article_status_manager')
+require Rails.root.join('lib/duplicate_article_deleter')
 
 class DuplicatePageIdHandler
   def self.process_all

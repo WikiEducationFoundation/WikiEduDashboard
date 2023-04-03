@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/ores_api"
-require_dependency "#{Rails.root}/lib/wiki_api"
+require_dependency Rails.root.join('lib/ores_api')
+require_dependency Rails.root.join('lib/wiki_api')
 
 #= Imports revision scoring data from ores.wikimedia.org
 class RevisionScoreImporter

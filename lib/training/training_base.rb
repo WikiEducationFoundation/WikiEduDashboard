@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/training/yaml_training_loader"
-require_dependency "#{Rails.root}/lib/training/wiki_training_loader"
+require_dependency Rails.root.join('lib/training/yaml_training_loader')
+require_dependency Rails.root.join('lib/training/wiki_training_loader')
 
 class TrainingBase
   # cattr_accessor would be cause children's implementations to conflict w/each other
@@ -33,9 +33,9 @@ class TrainingBase
 
   def self.base_path
     if ENV['training_path']
-      "#{Rails.root}/#{ENV['training_path']}"
+      Rails.root.join(ENV['training_path'].to_s)
     else
-      "#{Rails.root}/training_content/wiki_ed"
+      Rails.root.join('training_content/wiki_ed')
     end
   end
 

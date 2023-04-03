@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/importers/article_importer"
-require_dependency "#{Rails.root}/lib/replica"
-require_dependency "#{Rails.root}/lib/utils"
+require_dependency Rails.root.join('lib/importers/article_importer')
+require_dependency Rails.root.join('lib/replica')
+require_dependency Rails.root.join('lib/utils')
 
 #= Updates records for revisions that were moved or deleted on Wikipedia
 class ModifiedRevisionsManager

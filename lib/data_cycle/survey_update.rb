@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/data_cycle/batch_update_logging"
-require_dependency "#{Rails.root}/lib/surveys/survey_notifications_manager"
+require_dependency Rails.root.join('lib/data_cycle/batch_update_logging')
+require_dependency Rails.root.join('lib/surveys/survey_notifications_manager')
 
 class SurveyUpdate
   include BatchUpdateLogging

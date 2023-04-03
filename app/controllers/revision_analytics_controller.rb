@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/revision_analytics_service"
+require_dependency Rails.root.join('lib/revision_analytics_service')
 
 # Controller for Revision Analytics features
 class RevisionAnalyticsController < ApplicationController

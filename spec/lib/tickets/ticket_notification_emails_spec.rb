@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/tickets/ticket_notification_emails"
+require Rails.root.join('lib/tickets/ticket_notification_emails')
 
 describe TicketNotificationEmails do
   let(:owner) { create(:admin, email: 'admin@wikiedu.org') }

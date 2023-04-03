@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/course_training_progress_manager"
+require Rails.root.join('lib/course_training_progress_manager')
 
 describe 'course stats', type: :feature, js: true do
   let(:trained)    { 1 }

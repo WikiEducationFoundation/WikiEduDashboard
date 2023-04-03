@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/email_processor"
+require Rails.root.join('lib/email_processor')
 
 describe EmailProcessor do
   let(:forwarded_email) do

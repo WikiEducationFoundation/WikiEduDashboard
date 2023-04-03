@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/commons"
+require Rails.root.join('lib/commons')
 
 describe Commons do
   describe '.get_uploads' do

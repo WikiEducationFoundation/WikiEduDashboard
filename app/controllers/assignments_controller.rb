@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 require 'uri'
-require_dependency "#{Rails.root}/lib/assignment_manager"
-require_dependency "#{Rails.root}/lib/wiki_course_edits"
-require_dependency "#{Rails.root}/app/workers/update_assignments_worker"
-require_dependency "#{Rails.root}/app/workers/update_course_worker"
+require_dependency Rails.root.join('lib/assignment_manager')
+require_dependency Rails.root.join('lib/wiki_course_edits')
+require_dependency Rails.root.join('app/workers/update_assignments_worker')
+require_dependency Rails.root.join('app/workers/update_course_worker')
 
 # Controller for Assignments
 class AssignmentsController < ApplicationController

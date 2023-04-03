@@ -16,7 +16,7 @@
 #  points              :integer
 #
 
-require_dependency "#{Rails.root}/lib/block_date_manager"
+require_dependency Rails.root.join('lib/block_date_manager')
 
 #= Block model
 class Block < ApplicationRecord

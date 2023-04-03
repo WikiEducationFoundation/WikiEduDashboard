@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/automated_emails/term_recap_email_scheduler"
+require Rails.root.join('lib/automated_emails/term_recap_email_scheduler')
 
 describe TermRecapEmailScheduler do
   let(:student_program_campaign) { create(:campaign, title: 'Spring 2021', slug: 'spring_2021') }

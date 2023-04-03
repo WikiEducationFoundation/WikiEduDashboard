@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/errors/rescue_development_errors"
+require Rails.root.join('lib/errors/rescue_development_errors')
 
 describe Errors::RescueDevelopmentErrors, type: :controller do
   describe 'when ActionView::Template::Error is raised' do

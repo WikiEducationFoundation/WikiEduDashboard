@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/alerts/first_student_alert_manager"
+require Rails.root.join('lib/alerts/first_student_alert_manager')
 
 describe FirstStudentAlertManager do
   let(:course) { create(:course) }

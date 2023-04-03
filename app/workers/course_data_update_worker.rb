@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require_dependency "#{Rails.root}/app/services/update_course_stats"
+require_dependency Rails.root.join('app/services/update_course_stats')
 
 class CourseDataUpdateWorker
   THIRTY_DAYS = 60 * 60 * 24 * 30

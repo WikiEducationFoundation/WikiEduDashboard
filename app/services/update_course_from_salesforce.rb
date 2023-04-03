@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/word_count"
+require_dependency Rails.root.join('lib/word_count')
 
 #= Pulls course-related data from Salesforce
 class UpdateCourseFromSalesforce

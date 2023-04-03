@@ -4,7 +4,7 @@
 # in the DB.
 
 require 'faker'
-require_dependency "#{Rails.root}/lib/importers/user_importer"
+require_dependency Rails.root.join('lib/importers/user_importer')
 
 def populate_tickets_demo
   puts "Searching for super admin..."

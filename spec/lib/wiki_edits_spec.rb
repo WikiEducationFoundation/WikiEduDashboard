@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/wiki_edits"
+require Rails.root.join('lib/wiki_edits')
 
 describe WikiEdits do
   # We're not testing any of the network stuff, nor whether the requests are

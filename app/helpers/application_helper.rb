@@ -33,26 +33,26 @@ module ApplicationHelper
   end
 
   def fingerprinted(path, filename, file_prefix = nil)
-    manifest_path = "#{Rails.root}/public/#{path}/manifest.json"
+    manifest_path = Rails.root.join("public/#{path}/manifest.json")
     manifest = Oj.load(File.read(File.expand_path(manifest_path, __FILE__)))
     "#{file_prefix}#{manifest[filename + '.js']}"
   end
 
   def css_fingerprinted(filename)
-    manifest_path = "#{Rails.root}/public/assets/javascripts/manifest.json"
+    manifest_path = Rails.root.join('public/assets/javascripts/manifest.json')
     manifest = Oj.load(File.read(File.expand_path(manifest_path, __FILE__)))
     manifest[filename].split('/').last
   end
 
   def en_if_invalid(locale)
     # if the locale is not valid, use the default locale
-    return 'en' unless File.exist?("#{Rails.root}/public/assets/javascripts/i18n/#{locale}.js")
+    return 'en' unless Rails.root.join("public/assets/javascripts/i18n/#{locale}.js").exist?
     locale
   end
 
   def i18n_javascript_tag(locale)
     locale = en_if_invalid(locale)
-    md5 = Digest::MD5.file("#{Rails.root}/public/assets/javascripts/i18n/#{locale}.js").hexdigest
+    md5 = Digest::MD5.file(Rails.root.join("public/assets/javascripts/i18n/#{locale}.js")).hexdigest
     javascript_include_tag "/assets/javascripts/i18n/#{locale}.js?v=#{md5}"
   end
 

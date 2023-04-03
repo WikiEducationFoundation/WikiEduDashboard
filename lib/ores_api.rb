@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/errors/api_error_handling"
+require_dependency Rails.root.join('lib/errors/api_error_handling')
 
 # Gets data from ORES — Objective Revision Evaluation Service
 # https://meta.wikimedia.org/wiki/Objective_Revision_Evaluation_Service

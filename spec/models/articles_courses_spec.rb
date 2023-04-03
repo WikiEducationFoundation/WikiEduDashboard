@@ -14,8 +14,8 @@
 #
 
 require 'rails_helper'
-require "#{Rails.root}/lib/importers/article_importer"
-require "#{Rails.root}/lib/articles_courses_cleaner"
+require Rails.root.join('lib/importers/article_importer')
+require Rails.root.join('lib/articles_courses_cleaner')
 
 describe ArticlesCourses, type: :model do
   let(:article) { create(:article, average_views: 1234) }

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/tickets/ticket_query_object"
+require_dependency Rails.root.join('lib/tickets/ticket_query_object')
 
 class TicketsController < ApplicationController
   before_action :require_admin_permissions

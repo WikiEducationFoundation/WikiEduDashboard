@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/data_cycle/daily_update"
+require Rails.root.join('lib/data_cycle/daily_update')
 
 describe DailyUpdate do
   before do

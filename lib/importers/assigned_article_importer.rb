@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/importers/article_importer"
+require_dependency Rails.root.join('lib/importers/article_importer')
 
 class AssignedArticleImporter
   def initialize(wiki)

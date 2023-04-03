@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/alerts/overdue_training_alert_manager"
+require Rails.root.join('lib/alerts/overdue_training_alert_manager')
 
 describe OverdueTrainingAlertManager do
   let(:subject) { described_class.new([course]).create_alerts }

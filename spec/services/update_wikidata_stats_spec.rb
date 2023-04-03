@@ -2,8 +2,8 @@
 
 require 'rails_helper'
 
-require "#{Rails.root}/lib/importers/revision_importer"
-require "#{Rails.root}/app/services/update_wikidata_stats"
+require Rails.root.join('lib/importers/revision_importer')
+require Rails.root.join('app/services/update_wikidata_stats')
 
 describe UpdateWikidataStats do
   describe 'import_summaries' do

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/wikitext"
+require Rails.root.join('lib/wikitext')
 
 describe Wikitext do
   let(:subject) { described_class }

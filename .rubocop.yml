@@ -110,8 +110,6 @@ Rails/I18nLocaleTexts:
 # or they should be moved to the 'Permanent' section
 # if we decide they shouldn't be fixed.
 
-Rails/FilePath:
-  Enabled: false
 Rails/SkipsModelValidations:
   Enabled: false
 Performance/UnfreezeString:

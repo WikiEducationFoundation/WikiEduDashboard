@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/experiments/fall2017_cmu_experiment"
+require_dependency Rails.root.join('lib/experiments/fall2017_cmu_experiment')
 
 module Experiments
   class Fall2017CmuExperimentController < ApplicationController

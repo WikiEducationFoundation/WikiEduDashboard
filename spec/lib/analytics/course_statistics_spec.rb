@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/analytics/course_statistics"
+require Rails.root.join('lib/analytics/course_statistics')
 
 describe CourseStatistics do
   let(:course_ids) { [1, 2, 3, 10001, 10002, 10003] }

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/ores_api"
+require Rails.root.join('lib/ores_api')
 
 describe OresApi do
   context 'when the wiki is not a wikipedia or wikidata' do

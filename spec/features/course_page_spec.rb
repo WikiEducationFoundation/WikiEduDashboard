@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/app/services/update_course_stats"
-require "#{Rails.root}/lib/assignment_manager"
+require Rails.root.join('app/services/update_course_stats')
+require Rails.root.join('lib/assignment_manager')
 
 MILESTONE_BLOCK_KIND = 2
 

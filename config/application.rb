@@ -44,7 +44,7 @@ module WikiEduDashboard
     # Fallback to default locale when messages are missing.
     config.i18n.fallbacks = true
 
-    require "#{Rails.root}/config/cldr_pluralization"
+    require Rails.root.join('config/cldr_pluralization')
     I18n::Backend::Simple.send(:include, I18n::Backend::CldrPluralization)
 
     # Set fallback locale to en, which is the source locale.

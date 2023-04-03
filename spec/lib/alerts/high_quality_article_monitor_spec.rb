@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/alerts/high_quality_article_monitor"
+require Rails.root.join('lib/alerts/high_quality_article_monitor')
 
 describe HighQualityArticleMonitor do
   describe '.create_alerts_for_course_articles' do

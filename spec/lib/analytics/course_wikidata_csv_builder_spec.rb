@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/analytics/course_wikidata_csv_builder.rb"
+require Rails.root.join('lib/analytics/course_wikidata_csv_builder.rb')
 
 describe CourseWikidataCsvBuilder do
   let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }

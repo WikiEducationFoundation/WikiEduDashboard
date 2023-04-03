@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/tag_manager"
+require_dependency Rails.root.join('lib/tag_manager')
 
 #= Factory for handling the initial creation of a course
 class CourseCreationManager

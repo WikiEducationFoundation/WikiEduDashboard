@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/analytics/course_uploads_csv_builder"
+require Rails.root.join('lib/analytics/course_uploads_csv_builder')
 
 describe CourseUploadsCsvBuilder do
   let(:course) { create(:course) }

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/wiki_edits"
-require_dependency "#{Rails.root}/lib/importers/user_importer"
+require_dependency Rails.root.join('lib/wiki_edits')
+require_dependency Rails.root.join('lib/importers/user_importer')
 
 # Processes a RequestedAccount by creating a new mediawiki account, and
 # creating the User record upon success.

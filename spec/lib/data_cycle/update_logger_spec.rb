@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/data_cycle/update_logger"
+require Rails.root.join('lib/data_cycle/update_logger')
 
 describe UpdateLogger do
   describe '.update_settings_record' do

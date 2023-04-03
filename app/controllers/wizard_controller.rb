@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/wizard_timeline_manager"
+require_dependency Rails.root.join('lib/wizard_timeline_manager')
 
 #= Controller for timeline functionality
 class WizardController < ApplicationController
@@ -12,7 +12,7 @@ class WizardController < ApplicationController
   # ADW config #
   ##############
   def wizard_index
-    content_path = "#{Rails.root}/config/wizard/wizard_index.yml"
+    content_path = Rails.root.join('config/wizard/wizard_index.yml')
     all_content = YAML.safe_load(File.read(File.expand_path(content_path, __FILE__)))
     # Additional wizard options can be added conditionally to all_content, such as
     # a 'from scratch' option that was previously enabled for returning instructors.
@@ -23,7 +23,7 @@ class WizardController < ApplicationController
 
   def wizard
     wizard_id = params[:wizard_id]
-    content_path = "#{Rails.root}/config/wizard/#{wizard_id}/wizard.yml"
+    content_path = Rails.root.join("config/wizard/#{wizard_id}/wizard.yml")
     all_content = YAML.safe_load(File.read(File.expand_path(content_path, __FILE__)))
     respond_to do |format|
       format.json { render json: all_content.to_json }
