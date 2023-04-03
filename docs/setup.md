@@ -106,6 +106,7 @@ If you know your way around Rails, here's the very short version. Some additiona
  - Install [wsl](https://learn.microsoft.com/en-us/windows/wsl/install)
  - Get Ubuntu from Microsoft store and setup your user.
  - Ensure you have the mentioned prerequisites
+ - Run the script from your Ubuntu terminal
  - Follow the steps in ##Running on Local
 2. ### Option 2
 - For setup on Windows:

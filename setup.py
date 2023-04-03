@@ -26,8 +26,21 @@ def dnf_setup():
 
 
 def win_setup():
-    print ("Your system is found to be Windows")
-    subprocess.run("runas /user:Administrator \"setup\win-setup.bat\" && \"setup\win-setup.bat\"",
+    # check if WSL is installed
+    wsl_installed = subprocess.call(['powershell.exe', '-Command', 'Get-WindowsOptionalFeature -Online | where FeatureName -eq \'Microsoft-Windows-Subsystem-Linux\''],
+                                     stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    if wsl_installed == 0:
+        # check if WSL is enabled
+        wsl_enabled = subprocess.call(['powershell.exe', '-Command', 'Get-WindowsOptionalFeature -Online | where FeatureName -eq \'Microsoft-Windows-Subsystem-Linux\' | select State | where {$_.State -eq \'Enabled\'}'],
+                                      stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        if wsl_enabled == 0:
+            print("Your system is found to be Windows Subsystem for Linux")
+            deb_setup()
+        else:
+            print("Please enable Windows Subsystem for Linux and restart your computer before running this script.")
+    else:
+        print ("Your system is found to be Windows")
+        subprocess.run("runas /user:Administrator \"setup\win-setup.bat\" && \"setup\win-setup.bat\"",
                    shell=True, check=True)
 
 
@@ -36,10 +49,7 @@ def osx_setup():
     subprocess.run("sudo chmod 775 setup/macOS-setup.sh && setup/macOS-setup.sh",
                    shell=True, check=True)
 
-if "microsoft" in platform.uname().release.lower():
-    print("Your system is found to have WSL.")
-    deb_setup()
-elif platform.platform().lower().find('ubuntu') != -1 \
+if platform.platform().lower().find('ubuntu') != -1 \
         or platform.platform().lower().find('debian') != -1 \
         or platform.platform().lower().find('elementary') != -1 \
         or platform.uname().version.lower().find('ubuntu') != -1:
