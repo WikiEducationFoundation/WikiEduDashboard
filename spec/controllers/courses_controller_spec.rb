@@ -209,7 +209,11 @@ describe CoursesController, type: :request do
     context 'setting passcode' do
       let(:course) { create(:course, slug: slug_params) }
 
-      before { course.update(passcode: nil) }
+      before do
+        # skip validations here - some course types allow nil passcodes, some dont
+        course.passcode = nil
+        course.save(validate: false)
+      end
 
       it 'sets randomly if it is nil and not in params' do
         params = { id: course.slug, course: { title: 'foo' } }
