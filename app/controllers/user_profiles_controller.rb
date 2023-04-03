@@ -56,7 +56,7 @@ class UserProfilesController < ApplicationController
 
   def delete_profile_image
     @user.user_profile.image.destroy
-    @user.user_profile.update_attribute(:image_file_link, nil)
+    @user.user_profile.update(image_file_link: nil)
     @user.user_profile.save
     redirect_to controller: 'user_profiles', action: 'show', username: @user.username
   end

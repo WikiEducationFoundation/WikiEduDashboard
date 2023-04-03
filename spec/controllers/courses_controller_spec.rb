@@ -209,7 +209,7 @@ describe CoursesController, type: :request do
     context 'setting passcode' do
       let(:course) { create(:course, slug: slug_params) }
 
-      before { course.update_attribute(:passcode, nil) }
+      before { course.update(passcode: nil) }
 
       it 'sets randomly if it is nil and not in params' do
         params = { id: course.slug, course: { title: 'foo' } }
