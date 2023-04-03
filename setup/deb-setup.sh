@@ -117,8 +117,6 @@ else
 fi
 
 printf '[*] Installing Gems... \n'
-output_line "sudo apt install libmysqlclient-dev" && print_success "${CLEAR_LINE}[+] Gems installed\n"
-output_line "gem install mysql2" && print_success "${CLEAR_LINE}[+] Gems installed\n"
 output_line "bundle install" && print_success "${CLEAR_LINE}[+] Gems installed\n"
 
 printf '[*] Checking for application configurations... \n'
