@@ -2846,7 +2846,7 @@ __metadata:
     prop-types: ^15.7.2
     query-string: 7.1.1
     react: ^17.0.2
-    react-burger-menu: 2.6.13
+    react-burger-menu: 3.0.9
     react-cookie-consent: ^8.0.1
     react-day-picker: 7.4.8
     react-dnd: ^16.0.0
@@ -10520,9 +10520,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-burger-menu@npm:2.6.13":
-  version: 2.6.13
-  resolution: "react-burger-menu@npm:2.6.13"
+"react-burger-menu@npm:3.0.9":
+  version: 3.0.9
+  resolution: "react-burger-menu@npm:3.0.9"
   dependencies:
     browserify-optional: ^1.0.0
     classnames: ^2.2.6
@@ -10530,9 +10530,9 @@ __metadata:
     prop-types: ^15.7.2
     snapsvg-cjs: 0.0.6
   peerDependencies:
-    react: ">=0.14.0 <17.0.0"
-    react-dom: ">=0.14.0 <17.0.0"
-  checksum: 20e7cac8260ca0f5a700edd0e023b9dbed248ddd63df5d039bb81ba83c0cbdc8b98f13d4590cfc45e0e681ae5d5152fb45e2b1896593a2e75de8cddc887587c3
+    react: ">=0.14.0"
+    react-dom: ">=0.14.0"
+  checksum: 551311daa79e7ae64ad987ed5113f500221cb8401362458dfb9d7b4c9ea1a39a3c51977d3d4b990877585f8ce6de90efca92710140e1b15b4da77d04ad6d9d6e
   languageName: node
   linkType: hard
 
