@@ -75,6 +75,8 @@ se:
   users:
     first_name: Ovdanamma
     last_name: Goargu
+    username: Geavaheaddjinamma
+    username_placeholder: Geavaheaddjinamma
     useremail_placeholder: E-poastačujuhus
   wizard:
     read_more: Čájet lasi

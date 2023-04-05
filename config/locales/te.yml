@@ -60,6 +60,7 @@ te:
     new: (కొత్తది)
     rating: తరగతి
   assignments:
+    label_all: అన్నింటినీ కేటాయించండి
     remove: తీసివెయ్యి
   campaign:
     data_wikidata: వికీడేటా గణాంకాలు

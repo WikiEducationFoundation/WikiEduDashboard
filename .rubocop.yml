@@ -112,8 +112,6 @@ Rails/I18nLocaleTexts:
 
 Rails/FilePath:
   Enabled: false
-Rails/SkipsModelValidations:
-  Enabled: false
 Performance/UnfreezeString:
   Enabled: false
 Style/GuardClause:
@@ -161,8 +159,6 @@ RSpec/MessageSpies:
 RSpec/DescribeClass:
   Enabled: false
 RSpec/ExpectInHook:
-  Enabled: false
-RSpec/MultipleDescribes:
   Enabled: false
 Style/DateTime:
   Enabled: false

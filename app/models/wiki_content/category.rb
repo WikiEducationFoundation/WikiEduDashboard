@@ -44,9 +44,11 @@ class Category < ApplicationRecord
       sanitize_4_byte_string ArticleUtils.format_article_title(title)
     end
     save
+    # rubocop:disable Rails/SkipsModelValidations
     # Using touch to update the timestamps even when there is actually no
     # updation (SQL update query) in the category
     touch(:updated_at)
+    # rubocop:enable Rails/SkipsModelValidations
   end
 
   def article_ids

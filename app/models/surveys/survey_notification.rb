@@ -51,7 +51,7 @@ class SurveyNotification < ApplicationRecord
     return if email_sent_at.present?
     return if user.email.nil?
     SurveyMailer.send_notification(self)
-    update_attribute(:email_sent_at, Time.zone.now)
+    update(email_sent_at: Time.zone.now)
   rescue Mailgun::CommunicationError => e
     Sentry.capture_exception e, extra: { username: user.username,
                                          email: user.email,

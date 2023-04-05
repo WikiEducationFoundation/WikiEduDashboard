@@ -70,7 +70,7 @@ describe CourseTrainingProgressManager do
                    training_module_id: tm_id,
                    user_id: user.id)
           end
-          TrainingModulesUsers.last.update_attribute(:completed_at, 1.hour.ago)
+          TrainingModulesUsers.last.update(completed_at: 1.hour.ago)
         end
 
         it 'returns "1/1 training modules completed"' do
@@ -89,7 +89,7 @@ describe CourseTrainingProgressManager do
                    training_module_id: tm_id,
                    user_id: user.id)
           end
-          TrainingModulesUsers.last.update_attribute(:completed_at, 1.hour.ago)
+          TrainingModulesUsers.last.update(completed_at: 1.hour.ago)
         end
 
         it 'returns "1/2 training modules completed"' do
@@ -109,8 +109,8 @@ describe CourseTrainingProgressManager do
                    user_id: user.id)
           end
           # Complete module 1 and 35
-          TrainingModulesUsers.first.update_attribute(:completed_at, 1.hour.ago)
-          TrainingModulesUsers.last.update_attribute(:completed_at, 1.hour.ago)
+          TrainingModulesUsers.first.update(completed_at: 1.hour.ago)
+          TrainingModulesUsers.last.update(completed_at: 1.hour.ago)
         end
 
         it 'returns "1/2 training modules completed"' do
@@ -166,8 +166,8 @@ describe CourseTrainingProgressManager do
                    user_id: user.id)
           end
           exercise = TrainingModulesUsers.last
-          exercise.update_attribute(:completed_at, 1.hour.ago)
-          exercise.update_attribute(:flags, marked_complete: true)
+          exercise.update(completed_at: 1.hour.ago)
+          exercise.update(flags: { marked_complete: true })
         end
 
         it 'returns "1/1 exercise completed"' do
@@ -187,8 +187,8 @@ describe CourseTrainingProgressManager do
                    user_id: user.id)
           end
           exercise = TrainingModulesUsers.last
-          exercise.update_attribute(:completed_at, 1.hour.ago)
-          exercise.update_attribute(:flags, marked_complete: true)
+          exercise.update(completed_at: 1.hour.ago)
+          exercise.update(flags: { marked_complete: true })
         end
 
         it 'returns "1/2 exercises completed"' do
@@ -208,10 +208,10 @@ describe CourseTrainingProgressManager do
                    user_id: user.id)
           end
           # Complete module 1 and 35
-          TrainingModulesUsers.first.update_attribute(:completed_at, 1.hour.ago)
+          TrainingModulesUsers.first.update(completed_at: 1.hour.ago)
           exercise = TrainingModulesUsers.last
-          exercise.update_attribute(:completed_at, 1.hour.ago)
-          exercise.update_attribute(:flags, marked_complete: true)
+          exercise.update(completed_at: 1.hour.ago)
+          exercise.update(flags: { marked_complete: true })
         end
 
         it 'returns "1/2 exercises completed"' do
