@@ -2847,7 +2847,7 @@ __metadata:
     query-string: 7.1.1
     react: ^17.0.2
     react-burger-menu: 2.6.13
-    react-cookie-consent: ^3.0.0
+    react-cookie-consent: ^8.0.1
     react-day-picker: 7.4.8
     react-dnd: ^16.0.0
     react-dnd-html5-backend: ^16.0.0
@@ -8197,7 +8197,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-cookie@npm:^2.2.0":
+"js-cookie@npm:^2.2.1":
   version: 2.2.1
   resolution: "js-cookie@npm:2.2.1"
   checksum: 9b1fb980a1c5e624fd4b28ea4867bb30c71e04c4484bb3a42766344c533faa684de9498e443425479ec68609e96e27b60614bfe354877c449c631529b6d932f2
@@ -10536,14 +10536,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-cookie-consent@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "react-cookie-consent@npm:3.0.0"
+"react-cookie-consent@npm:^8.0.1":
+  version: 8.0.1
+  resolution: "react-cookie-consent@npm:8.0.1"
   dependencies:
-    js-cookie: ^2.2.0
+    js-cookie: ^2.2.1
   peerDependencies:
-    react: ^16.4.0
-  checksum: 298b85822ccb3249480ac055efb6035161b8e6366463d7f0154c42f6cfed84bf230f019843b356bacb2aafbef3cd90dc54394a9bdfdd9dcc114c974541fb94a7
+    react: ">=16"
+  checksum: c99f3e40e3091c439956498158b5b8906cce170763836d6fade98a06ce667eca25aaf3bc407e10a6fb72fc44e5178a2ebf14cbbe4e1b5684a74b7d7f484bd359
   languageName: node
   linkType: hard
 
