@@ -1,0 +1,28 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+                = "Hello #{@user.username}!"
+              "Possible Edit on an Article Detected"
+              %p.paragraph
+                Wikipedia's system detected  an edit from one
+                of the students enrolled in
+                #{link_to @course.title, "https://#{ENV['dashboard_url']}/courses/#{@course.slug}", class: 'link'}.
+              %p.paragraph
+                #{link_to @user.username, "https://#{ENV['dashboard_url']}/users/#{@user.url_encoded_username}", class: 'link'}
+                moved
+                "#{link_to @article.full_title, @article_url, class: 'link'}", this article from the available articles to work on it.
+              %p.paragraph
+                Check on this article to find out whether the student needs any help. 
+            %td.expander
+        %table
+          %th
+            %tr
+              %tbody
+                %table.row
+        
