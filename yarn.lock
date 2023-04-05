@@ -2856,7 +2856,7 @@ __metadata:
     react-flip-toolkit: ^7.0.14
     react-input-range: ^1.3.0
     react-onclickoutside: ^6.9.0
-    react-paginate: ^6.3.2
+    react-paginate: ^8.1.5
     react-redux: ^7.2.3
     react-refresh: ^0.14.0
     react-router-dom: ^6.2.2
@@ -10393,7 +10393,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.5.7, prop-types@npm:^15.5.8, prop-types@npm:^15.6.0, prop-types@npm:^15.6.1, prop-types@npm:^15.6.2, prop-types@npm:^15.7.0, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
+"prop-types@npm:^15, prop-types@npm:^15.5.7, prop-types@npm:^15.5.8, prop-types@npm:^15.6.0, prop-types@npm:^15.6.2, prop-types@npm:^15.7.0, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -10675,14 +10675,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-paginate@npm:^6.3.2":
-  version: 6.5.0
-  resolution: "react-paginate@npm:6.5.0"
+"react-paginate@npm:^8.1.5":
+  version: 8.1.5
+  resolution: "react-paginate@npm:8.1.5"
   dependencies:
-    prop-types: ^15.6.1
+    prop-types: ^15
   peerDependencies:
-    react: ^16.0.0
-  checksum: 39397de9a330e9ed16b2422d5893f47e16b5f7f188bf59ce4f60beeb16cfdba0ba76c7f0ca1b733d7282821a4e984ae64fb1a7086ecc22b416af95c1ff974fec
+    react: ^16 || ^17 || ^18
+  checksum: c808ab046e036605f37c12ef3b06b41fa882a2bc1e27fe29f9db968d7018887aa0573941c23f7e5e41cde9344fb70e6ee686c047d12c9bf89f353a75dbb47a8f
   languageName: node
   linkType: hard
 
