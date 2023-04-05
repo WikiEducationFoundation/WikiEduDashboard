@@ -44,6 +44,6 @@ class DYKNominationAlert < Alert
   def email_instructors_and_wikipedia_experts
     return if emails_disabled?
     DidYouKnowAlertMailer.send_dyk_email(self)
-    update_attribute(:email_sent_at, Time.zone.now)
+    update(email_sent_at: Time.zone.now)
   end
 end

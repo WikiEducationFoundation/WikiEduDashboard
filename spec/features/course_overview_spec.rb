@@ -51,7 +51,7 @@ describe 'course overview page', type: :feature, js: true do
     let(:timeline_start) { '2025-02-11'.to_date + 2.weeks } # a Tuesday
 
     before do
-      course.update_attribute(:timeline_start, timeline_start)
+      course.update(timeline_start:)
       visit "/courses/#{course.slug}"
       sleep 1
     end

@@ -112,8 +112,6 @@ Rails/I18nLocaleTexts:
 
 Rails/FilePath:
   Enabled: false
-Rails/SkipsModelValidations:
-  Enabled: false
 Performance/UnfreezeString:
   Enabled: false
 Style/GuardClause:

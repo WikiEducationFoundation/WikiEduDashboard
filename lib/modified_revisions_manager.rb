@@ -45,11 +45,15 @@ class ModifiedRevisionsManager
   end
 
   def update_deleted_revisions(rev_ids)
+    # rubocop:disable Rails/SkipsModelValidations
     Revision.where(wiki_id: @wiki.id, mw_rev_id: rev_ids).update_all(deleted: true)
+    # rubocop:enable Rails/SkipsModelValidations
   end
 
   def update_nondeleted_revisions(rev_ids)
+    # rubocop:disable Rails/SkipsModelValidations
     Revision.where(wiki_id: @wiki.id, mw_rev_id: rev_ids).update_all(deleted: false)
+    # rubocop:enable Rails/SkipsModelValidations
   end
 
   def handle_moved_revision(moved)
