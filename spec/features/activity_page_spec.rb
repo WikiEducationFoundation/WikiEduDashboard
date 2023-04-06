@@ -12,7 +12,7 @@ describe 'activity page', type: :feature, js: true do
   describe 'non-admins' do
     let(:user) { create(:user) }
 
-    it 'shouldn\'t be linked for non-admins' do
+    it 'is not linked for non-admins' do
       within '.top-nav' do
         expect(page).not_to have_content 'Admin'
       end

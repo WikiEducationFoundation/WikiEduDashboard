@@ -160,8 +160,6 @@ RSpec/DescribeClass:
   Enabled: false
 RSpec/ExpectInHook:
   Enabled: false
-RSpec/ExampleWording:
-  Enabled: false
 Style/DateTime:
   Enabled: false
 Rails/ContentTag:

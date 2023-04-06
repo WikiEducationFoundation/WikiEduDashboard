@@ -14,7 +14,7 @@ describe 'Suspected Plagiarism', type: :feature, js: true do
   end
 
   context 'when there are no revisions suspected of plagiarism' do
-    it 'should show a no suspected plagiarism text' do
+    it 'shows a no suspected plagiarism text' do
       no_revision = 'There are not currently any recent revisions suspected of plagiarism.'
       visit "/courses/#{course.slug}/activity/plagiarism"
       expect(page).to have_content no_revision
@@ -32,7 +32,7 @@ describe 'Suspected Plagiarism', type: :feature, js: true do
         stub_oauth_edit
       end
 
-      it 'should show a list for plagiarism without the link to plagiarism report' do
+      it 'shows a list for plagiarism without the link to plagiarism report' do
         visit "/courses/#{course.slug}/activity/plagiarism"
         expect(page).to have_link(revision.article.full_title, href: revision.article.url)
         expect(page).to have_link(href: revision.url)
@@ -48,7 +48,7 @@ describe 'Suspected Plagiarism', type: :feature, js: true do
         stub_oauth_edit
       end
 
-      it 'should show a list for plagiarism containing the correct links' do
+      it 'shows a list for plagiarism containing the correct links' do
         visit "/courses/#{course.slug}/activity/plagiarism"
         expect(page).to have_link(revision.article.full_title, href: revision.article.url)
         expect(page).to have_link(href: revision.url)
