@@ -24,11 +24,11 @@ describe UpdateWikidataStats do
       described_class.new(course)
     end
 
-    it 'should import summaries', :vcr do
+    it 'imports summaries', :vcr do
       expect(Revision.last.summary).not_to be_nil
     end
 
-    it 'should create record in CourseStat table', :vcr do
+    it 'creates record in CourseStat table', :vcr do
       expect(CourseStat.count).to eq(1)
       expect(CourseStat.last.stats_hash).not_to be_nil
       expect(CourseStat.last.course_id).to eq(Course.last.id)

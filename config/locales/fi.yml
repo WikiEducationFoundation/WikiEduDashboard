@@ -190,6 +190,7 @@ fi:
       että artikkeli noudattaa Wikipedian käytänteitä ja rakennetta hyville artikkeleille,
       mutta se ei kerro mitään artikkelin sisällöstä. (Pisteet ovat saatavilla vain
       englanninkielisen Wikipedian artikkeleille.)'
+    articles_short: Artikkelit
     page_logs: (sivun lokit)
   items:
     items: Kohteet
@@ -302,7 +303,7 @@ fi:
     tracked_categories: Seuratut luokat, PSID, PagePile-tunniste ja mallineet
   courses:
     activity: Toiminta
-    active_courses: Aktiiviset %{course_type}
+    active_courses: Aktiiviset kurssit
     alerts: Hälytykset
     all_courses: Kaikki kurssit
     already_enrolled: Olet jo ilmoittautunut kurssille '%{title}'!
@@ -436,7 +437,7 @@ fi:
       other: ohjaajat
     instructors: Ohjaajat
     invitation: Sinut on kutsuttu ilmoittautumaan kurssille %{title}. Ilmoittautuaksesi
-      kurssille sinun täytyy kirjautua sisään Wikipedia-tunnuksella.
+      sinun täytyy kirjautua sisään Wikipedia-tunnuksen avulla.
     invitation_username_advice: Jos sinulla ei vielä ole Wikipedia-tunnusta, luo sellainen
       nyt. Käyttäjänimesti voi olla yhtä anonyymi tai tunnistettava kuin itse haluat.
       Yhteistunnusten luonti ei kuitenkaan ole sallittua.
@@ -879,7 +880,7 @@ fi:
     name: Nimi
     none: Tällä kurssilla ei ole osallistujia.
     no_articles: Ei artikkeleita
-    no_revisions: Tämä muokkaaja ei ole tehnyt muutoksia.
+    no_revisions: (ei muutoksia)
     number_of_articles:
       one: '%{count} artikkeli'
       other: '%{count} artikkelia'

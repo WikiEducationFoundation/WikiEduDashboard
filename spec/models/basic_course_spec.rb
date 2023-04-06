@@ -7,7 +7,7 @@ describe BasicCourse do
   let(:subject) { create(:basic_course, flags:) }
 
   describe '#assignment_edits_enabled?' do
-    it 'should return true by default' do
+    it 'returns true by default' do
       expect(subject.assignment_edits_enabled?).to eq(true)
     end
 
@@ -18,7 +18,7 @@ describe BasicCourse do
         }
       end
 
-      it 'should return the value of the set flag' do
+      it 'returns the value of the set flag' do
         expect(subject.assignment_edits_enabled?).to eq(false)
       end
     end

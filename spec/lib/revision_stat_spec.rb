@@ -49,7 +49,7 @@ describe RevisionStat do
 
     context 'course id' do
       context 'not for this course' do
-        before { course.update_column(:id, 1000) }
+        before { course.update(id: 1000) }
 
         it 'does not include in scope' do
           expect(subject).to eq(0)
@@ -88,7 +88,7 @@ describe RevisionStat do
     end
 
     context 'for user' do
-      before { user.update_attribute(:id, user_id) }
+      before { user.update(id: user_id) }
 
       context 'user has courses users' do
         let(:user_id) { user.id }
@@ -115,7 +115,7 @@ describe RevisionStat do
       end
 
       context 'user has no revisions' do
-        before { revision.update_attribute(:user_id, (user.id - 1)) }
+        before { revision.update(user_id: (user.id - 1)) }
 
         it 'is empty' do
           expect(subject.count).to eq(0)

@@ -496,7 +496,7 @@ class Course < ApplicationRecord
   # Weeks are expected to have the same order as their ids.
   def reorder_weeks
     weeks.each_with_index do |week, i|
-      week.update_attribute(:order, i + 1)
+      week.update(order: i + 1)
     end
   end
 

@@ -94,7 +94,12 @@ class CourseCloneManager
 
   def clear_meeting_days_and_due_dates
     @clone.update(day_exceptions: '', weekdays: '0000000', no_day_exceptions: false)
+
+    # we can use `update_all` since there are no callbacks on Block
+    # rubocop:disable Rails/SkipsModelValidations
     @clone.blocks.update_all(due_date: nil)
+    # rubocop:enable Rails/SkipsModelValidations
+
     @clone.reload
   end
 

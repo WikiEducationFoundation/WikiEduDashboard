@@ -121,6 +121,7 @@ sr-ec:
     edited_by: Уредио корисник
     label: Активност
   articles:
+    articles: Чланци
     article_development: (развој чланка)
     articles_shown: Приказују се %{count} од %{total}
     assigned: Додељени чланци
@@ -791,8 +792,8 @@ sr-ec:
     update_status_heading: Ажурирај стање
     upload_count: Отпремања на Оставу
     uploads_in_use_count:
-      one: фајл искоришћен у чланцима
-      other: фајла искоришћена у чланцима
+      one: датотека коришћења у чланку
+      other: датотека искоришћених у чланцима
     upload_usages_count:
       one: укупно коришћење на свим језицима
       other: укупна коришћења на свим језицима

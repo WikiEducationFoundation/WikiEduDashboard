@@ -88,7 +88,7 @@ describe CourseMeetingsManager do
     end
 
     context 'course with saturday exception' do
-      it 'should exclude the specified saturday' do
+      it 'excludes the specified saturday' do
         saturday_course = create(:course,
                                  id: 10001,
                                  title: 'Saturday',

@@ -40,7 +40,7 @@ class UploadImporter
                  .find_in_batches(batch_size: 50) do |file_batch|
       deleted_files = Commons.find_missing_files file_batch
       CommonsUpload.transaction do
-        deleted_files.each { |file| file.update_attribute(:deleted, true) }
+        deleted_files.each { |file| file.update(deleted: true) }
       end
     end
   end

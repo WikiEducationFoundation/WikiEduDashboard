@@ -14,7 +14,10 @@ class WikiEdits
   #######################
   def oauth_credentials_valid?(current_user)
     get_tokens(current_user)
+    # this will only update the `updated_at` field, and will skip callbacks
+    # rubocop:disable Rails/SkipsModelValidations
     current_user.touch
+    # rubocop:enable Rails/SkipsModelValidations
     current_user.wiki_token != 'invalid'
   end
 

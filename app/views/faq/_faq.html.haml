@@ -1,6 +1,9 @@
-%div{class: "faq #{expanded ? 'expanded' : 'collapsed'}" ,id: "faq-#{faq.id}"}
+%div{class: "faq #{expanded ? 'expanded' : 'collapsed'}", id: "faq-#{faq.id}"}
   .faq-header{onclick: "toggleAccordian('faq-#{faq.id}')"}
-    %h2.faq-title=faq.title
+    - if params[:action] == 'show' # check if current page is the show page
+      %h2.faq-title= faq.title
+    - else
+      %h2.faq-title= link_to faq.title, faq_path(faq.id), onclick: "event.stopPropagation();"
     - if current_user&.admin?
       .edit-link= link_to 'edit', edit_faq_path(faq)
     .icon.icon-arrow

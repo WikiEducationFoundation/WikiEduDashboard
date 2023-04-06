@@ -110,8 +110,6 @@ Rails/I18nLocaleTexts:
 # or they should be moved to the 'Permanent' section
 # if we decide they shouldn't be fixed.
 
-Rails/SkipsModelValidations:
-  Enabled: false
 Performance/UnfreezeString:
   Enabled: false
 Style/GuardClause:
@@ -159,10 +157,6 @@ RSpec/MessageSpies:
 RSpec/DescribeClass:
   Enabled: false
 RSpec/ExpectInHook:
-  Enabled: false
-RSpec/MultipleDescribes:
-  Enabled: false
-RSpec/ExampleWording:
   Enabled: false
 Style/DateTime:
   Enabled: false

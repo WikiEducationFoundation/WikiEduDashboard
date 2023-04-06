@@ -39,14 +39,14 @@ describe BadWorkAlert do
     CoursesUsers.create(courses_users)
   end
 
-  it 'should create a new alert with the message and target user set' do
+  it 'creates a new alert with the message and target user set' do
     alert = create(:bad_work_alert, user: instructor, course:, article:)
     expect(alert.message).to include("BadWorkAlert for #{article.title}")
     expect(alert.message).to include(alert.url)
     expect(alert.target_user_id).to equal(expert.id)
   end
 
-  it 'should include a message if specified' do
+  it 'includes a message if specified' do
     message = 'a personalized message from the instructor'
     alert = create(:bad_work_alert,
                    user: instructor, course:, article:, message:)

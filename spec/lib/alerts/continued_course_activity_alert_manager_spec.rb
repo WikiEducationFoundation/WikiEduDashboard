@@ -76,7 +76,7 @@ describe ContinuedCourseActivityAlertManager do
       revision
       subject.create_alerts
 
-      Alert.first.update_attribute(:resolved, true)
+      Alert.first.update(resolved: true)
 
       subject.create_alerts
 
