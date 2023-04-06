@@ -331,6 +331,7 @@ sl:
     page: Stran
     table_of_contents: Kazalo vsebine
     done: Končano!
+    invalid: Ta diapozitiv žal ne obstaja!
     kind:
       discussion: Pogovor
     no_training_library_records_wiki_ed_mode: V zbirki podatkov ni zapisov TrainingLibrary.
