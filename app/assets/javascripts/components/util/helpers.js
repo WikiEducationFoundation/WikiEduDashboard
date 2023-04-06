@@ -102,3 +102,11 @@ export const selectUserByUsernameParam = (users, usernameParam) => {
   selectedUser = users.find(({ username }) => username.replace('?', '%3F') === usernameParam);
   return selectedUser;
 };
+
+export const canUserCreateAccount = async () => {
+  const response = await fetch('https://en.wikipedia.org/w/api.php?action=query&meta=userinfo&uiprop=cancreateaccount&format=json&origin=*');
+  const data = await response.json();
+
+  // cancreateaccounterror is present if the user cannot create an account
+  return !data.query.userinfo.cancreateaccounterror;
+};
