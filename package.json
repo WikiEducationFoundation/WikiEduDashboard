@@ -81,7 +81,7 @@
     "react-transition-group": "4.4.2",
     "redux": "^4.0.5",
     "redux-mock-store": "^1.5.4",
-    "redux-thunk": "^2.4.1",
+    "redux-thunk": "^2.4.2",
     "require-dir": "1.2.0",
     "reselect": "^4.0.0",
     "rewire": "^5.0.0",
