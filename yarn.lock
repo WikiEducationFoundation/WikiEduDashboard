@@ -2830,7 +2830,8 @@ __metadata:
     jquery: ^3.5.1
     jquery-ui: ^1.13.2
     jsdom: ^16.2.2
-    linkifyjs: ^2.1.9
+    linkify-html: ^4.1.1
+    linkifyjs: ^4.1.1
     list.js: "git+https://github.com/WikiEducationFoundation/list.js.git"
     location-origin: ^1.1.4
     lodash: ^4.17.21
@@ -8462,6 +8463,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"linkify-html@npm:^4.1.1":
+  version: 4.1.1
+  resolution: "linkify-html@npm:4.1.1"
+  peerDependencies:
+    linkifyjs: ^4.0.0
+  checksum: 5df8752ad9183678e44e631787ba7256c0ac17e39eab78bacc0953a6ad83cfe23caacd7614f21e8231d0c2f3a31d5f02ef4a26a4b7799662b0583221f50f5ea7
+  languageName: node
+  linkType: hard
+
 "linkify-it@npm:^3.0.1":
   version: 3.0.3
   resolution: "linkify-it@npm:3.0.3"
@@ -8471,14 +8481,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"linkifyjs@npm:^2.1.9":
-  version: 2.1.9
-  resolution: "linkifyjs@npm:2.1.9"
-  peerDependencies:
-    jquery: ">= 1.11.0"
-    react: ">= 0.14.0"
-    react-dom: ">= 0.14.0"
-  checksum: 0ddb6eca62464f01075a0c9f9faf916e29ea67b4dd58e79157d34925a1ce647a705ec5a047573fabfbc15df9fa56e0d1c755e641ee425015217e940420a55556
+"linkifyjs@npm:^4.1.1":
+  version: 4.1.1
+  resolution: "linkifyjs@npm:4.1.1"
+  checksum: 312b75ec9bc6e7107f2b70e50682e8baccd7b94a64bf7b88cecd352032126b0d6fa7ea41394c417a178c718caa79b70e6ab3570eee7b96a12399689d666e68fb
   languageName: node
   linkType: hard
 
