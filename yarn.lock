@@ -2879,7 +2879,7 @@ __metadata:
     sinon-chai: ^3.5.0
     slick-carousel: "git+https://github.com/cfoehrdes/slick.git#a4d85536c42951933e1d887bcc013615e25b03e7"
     striptags: ^3.2.0
-    stylelint-config-standard: ^20.0.0
+    stylelint-config-standard: ^32.0.0
     stylus: ^0.54.8
     stylus-native-loader: ^1.1.2
     tinymce: ^5.2.2
@@ -12329,23 +12329,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stylelint-config-recommended@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "stylelint-config-recommended@npm:3.0.0"
+"stylelint-config-recommended@npm:^11.0.0":
+  version: 11.0.0
+  resolution: "stylelint-config-recommended@npm:11.0.0"
   peerDependencies:
-    stylelint: ">=10.1.0"
-  checksum: 8f02b2cd20269eca1aedb78b66b2085c16568463f225c5b5c80df61288b5b96a0ded2eeb8fa226eec442ef00ceac15a48cd499a3e5a4575a33215dedec298767
+    stylelint: ^15.3.0
+  checksum: f6bed5995235d61a2b4bcae086fab925df3b824c77ef585f9f0f9b891b1409c0aa8ae49e8f53d6a2f851be8f7928a7d95e2b17ee876f248ce88f718a3892bf6f
   languageName: node
   linkType: hard
 
-"stylelint-config-standard@npm:^20.0.0":
-  version: 20.0.0
-  resolution: "stylelint-config-standard@npm:20.0.0"
+"stylelint-config-standard@npm:^32.0.0":
+  version: 32.0.0
+  resolution: "stylelint-config-standard@npm:32.0.0"
   dependencies:
-    stylelint-config-recommended: ^3.0.0
+    stylelint-config-recommended: ^11.0.0
   peerDependencies:
-    stylelint: ">=10.1.0"
-  checksum: 04d1a7d17cbe41ed550eb61294ee6f98044ee5722b6bafd16c378a38067ae44deb575b056ab8369e9936934caf42044282ffe907e9b935660daddedc57a2a561
+    stylelint: ^15.4.0
+  checksum: 05f7481f93e0fd3d2e69ba6ef3b3b8347c2340fcc6732e3f4289cc1067ae74e87f6474b4385b8936a0ff062cc3dd08c5cc50e27d96994c6176a69d055a75537a
   languageName: node
   linkType: hard
 
