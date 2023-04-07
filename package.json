@@ -92,7 +92,7 @@
     "sinon-chai": "^3.5.0",
     "slick-carousel": "git+https://github.com/cfoehrdes/slick.git#a4d85536c42951933e1d887bcc013615e25b03e7",
     "striptags": "^3.2.0",
-    "stylelint-config-standard": "^20.0.0",
+    "stylelint-config-standard": "^32.0.0",
     "stylus": "^0.54.8",
     "tinymce": "^5.2.2",
     "url-loader": "^4.1.0",
