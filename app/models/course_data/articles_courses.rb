@@ -98,7 +98,8 @@ class ArticlesCourses < ApplicationRecord
     # Update average if they haven't been updated yet
     # If yes, then update only if it has been over 7 days
     return average_pageviews if last_updated && (current_date - last_updated) < 7
-    start_date = earliest_edit.to_date
+    # start_date = earliest_edit.to_date
+    start_date = 4.day.ago
     end_date = current_date
     new_average = WikiPageviews.new(article).average_views(start_date, end_date)
     check_pageviews_spike(new_average, average_pageviews, last_updated, current_date)
