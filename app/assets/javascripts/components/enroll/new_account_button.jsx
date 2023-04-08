@@ -56,7 +56,7 @@ const NewAccountButton = createReactClass({
             <img className="info-img" src="/assets/images/info.svg" alt="tooltip default logo" />
             <div className="tooltip dark large">
               <p>
-                Your IP address has been blocked from creating an account. Try connecting from a different network or contact your instructor for more information.
+                {I18n.t('error.ip_blocked')}
               </p>
             </div>
           </div>
