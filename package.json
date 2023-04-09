@@ -73,7 +73,7 @@
     "react-paginate": "^8.1.5",
     "react-redux": "^7.2.3",
     "react-router-dom": "^6.2.2",
-    "react-router-hash-link": "^1.2.2",
+    "react-router-hash-link": "^2.4.3",
     "react-scroll": "^1.8.1",
     "react-select": "^5.7.2",
     "react-switch": "^6.0.0",
