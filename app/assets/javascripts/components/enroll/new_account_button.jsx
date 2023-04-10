@@ -2,6 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import NewAccountModal from './new_account_modal.jsx';
+import { canUserCreateAccount } from '@components/util/helpers';
 
 const NewAccountButton = createReactClass({
   displayName: 'NewAccountButton',
@@ -9,15 +10,21 @@ const NewAccountButton = createReactClass({
   propTypes: {
     course: PropTypes.object.isRequired,
     passcode: PropTypes.string,
-    currentUser: PropTypes.object.isRequired
+    currentUser: PropTypes.object.isRequired,
   },
 
   getInitialState() {
     return {
-      showModal: false
+      showModal: false,
+      disabled: false,
     };
   },
 
+  componentDidMount() {
+    canUserCreateAccount().then((canCreate) => {
+      this.setState({ disabled: !canCreate });
+    });
+  },
   openModal() {
     this.setState({ showModal: true });
   },
@@ -32,9 +39,29 @@ const NewAccountButton = createReactClass({
     // endpoint for the user to register an account on their own.
     if (!course.account_requests_enabled) {
       return (
-        <a data-method="post" href={`/users/auth/mediawiki_signup?origin=${window.location}`} className="button auth signup border margin">
-          <i className="icon icon-wiki-logo" />{I18n.t('application.sign_up_extended')}
-        </a>
+        <>
+          <a
+            data-method="post"
+            href={`/users/auth/mediawiki_signup?origin=${window.location}`}
+            className={`button auth signup border margin ${this.state.disabled ? 'disabled' : ''}`}
+            style={{
+              marginRight: '0'
+            }}
+          >
+            <i className="icon icon-wiki-logo" />
+            {I18n.t('application.sign_up_extended')}
+          </a>
+          {this.state.disabled && (
+          <div className="tooltip-trigger tooltip-small">
+            <img className="info-img" src="/assets/images/info.svg" alt="tooltip default logo" />
+            <div className="tooltip dark large">
+              <p>
+                {I18n.t('error.ip_blocked')}
+              </p>
+            </div>
+          </div>
+        )}
+        </>
       );
     }
 
