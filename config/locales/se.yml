@@ -22,7 +22,9 @@ se:
     hide: Čiega
     new: (ođđa artihkal)
     see_more: Lassedieđut
+    view: Čájet artihkkala
     view_all: Čájet buot
+    view_on_wiki: Čájet wikis
   assignments:
     remove: Sihko
     select: Vállje
@@ -36,9 +38,11 @@ se:
     feedback: Máhcahat
     new_account_email: E-poastačujuhus
     please_log_in: Čálit sisa.
+    requested_accounts_alert_view: Čájet
     search_courses: Oza kurssaid
     tags: 'Gilkorat:'
     timeline_link: Áigelinnjá
+    view_wiki: Čájet Wikipedias
   courses_generic:
     cancel: Šluhtte
     creator:
@@ -83,5 +87,6 @@ se:
   article_finder:
     remove_article: Sihko artihkkala
   training_status:
+    continue: Joatkke
     view: Čájet
 ...

@@ -303,7 +303,7 @@ zh-TW:
     data_download_info: 下載競賽資料成 CSV
     data_courses: 課程概要資料
     data_courses_info: 各課程/方案的基本指標
-    data_articles: 頁面已編輯
+    data_articles: 已編輯的頁面
     data_revisions: 修訂資料
     data_articles_info: 由競賽所編輯的各追蹤頁面詳情
     data_revisions_info: 有關各競賽的追蹤修訂詳情
@@ -823,7 +823,7 @@ zh-TW:
     articles_created_generic_wikidata: 項目已建立
     articles_edited: 編輯的條目
     articles_edited_wikidata: 項目已編輯
-    articles_edited_generic: 頁面已編輯
+    articles_edited_generic: 已編輯的頁面
     articles_edited_generic_wikidata: 項目已編輯
     article_scoped_program_info: 此為「條目範圍方案」，這只會計算所分配到條目與分類的編輯次數。
     article_scoped_program_info_wikidata: 此為「條目範圍方案」，這只會計算所分配到項目與分類的編輯次數。

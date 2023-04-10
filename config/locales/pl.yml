@@ -15,6 +15,7 @@
 # Author: Takidelfin
 # Author: Tar Lócesilion
 # Author: The Polish
+# Author: WaldiSt
 # Author: Warchlak
 # Author: Woytecr
 ---
@@ -195,6 +196,7 @@ pl:
     confirm_deletion: Czy na pewno chcesz usunąć to zadanie?
     editors: Przypisany do
     label: Przypisz
+    label_all: Przypisz wszystkie
     loading: Wczytuję zadane artykuły…
     none_short: Żaden artykuł nie został zadany
     none: Ten kurs nie ma przypisanych artykułów.
@@ -356,6 +358,7 @@ pl:
       create_button: Stwórz mój program
       create_label: Stwórz nowy kurs
       create_new: Stwórz nowy kurs
+      copy_courses_with_assignments: Sklonuj listę dostępnych artykułów
       create_short: Stwórz kurs
       end_date: Data zakończenia
       end_date_placeholder: Data zakończenia (RRRR-MM-DD)

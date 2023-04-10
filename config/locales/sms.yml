@@ -44,6 +44,7 @@ sms:
     title: Nõmm
     title_example: Artikkeeʹl nõmm
     view: Čuäʹjet artikkeeʹl
+    view_on_wiki: Čuäʹjet wikist
     edit_size: Muuʹtt šorradvuõđ
     articles_short: Artikkeeʹl
   articles_generic:
