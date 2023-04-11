@@ -1,5 +1,5 @@
 import React from 'react';
-import linkifyHtml from 'linkifyjs/html';
+import linkifyHtml from 'linkify-html';
 
 import { MESSAGE_KIND_NOTE } from '../../constants/tickets';
 import HelperIcon from './helper_icon';

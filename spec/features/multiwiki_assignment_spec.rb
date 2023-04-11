@@ -30,13 +30,12 @@ describe 'multiwiki assignments', type: :feature, js: true do
       button.click
 
       within('#users') do
-        first('input').set(
+        first('textarea').set(
           'https://ta.wiktionary.org/wiki/%E0%AE%86%E0%AE%99%E0%AF%8D%E0%AE%95%E0%AE%BF%E0%AE%B2%E0%AE%AE%E0%AF%8D',
           rapid: false
         )
       end
       click_button 'Assign'
-      click_button 'OK'
       visit "/courses/#{course.slug}/students/articles"
       first('.student-selection .student').click
 
@@ -45,6 +44,35 @@ describe 'multiwiki assignments', type: :feature, js: true do
         link = first('.assignment-links a')
         expect(link[:href]).to include('ta.wiktionary')
       end
+    end
+  end
+
+  it 'creates valid assignments from multiple article titles' do
+    VCR.use_cassette 'multiwiki_assignment' do
+      visit "/courses/#{course.slug}/students/articles"
+      first('.student-selection .student').click
+
+      button = first('.assign-button')
+      expect(button).to have_content 'Assign/remove an article'
+      button.click
+
+      within('#users') do
+        first('textarea').set(
+          "Terre\nhttps://fr.wikipedia.org/wiki/Anglais"
+        )
+      end
+      click_button 'Assign all'
+
+      visit "/courses/#{course.slug}/students/articles"
+      first('.student-selection .student').click
+
+      expect(page).to have_content 'Terre'
+      expect(page).to have_content 'Anglais'
+
+      expect(page).to have_css('a[href*="https://fr.wikipedia.org"]', text: 'Article', count: 2)
+
+      expect(page).to have_css('a[href="https://fr.wikipedia.org/wiki/Anglais"]')
+      expect(page).to have_css('a[href="https://fr.wikipedia.org/wiki/Terre"]')
     end
   end
 
@@ -58,7 +86,7 @@ describe 'multiwiki assignments', type: :feature, js: true do
       button.click
 
       within('#users') do
-        find('input', visible: true).set('No le des prisa, dolor')
+        find('textarea', visible: true).set('No le des prisa, dolor')
         click_link 'Change'
         find('div.wiki-select').click
         within('.wiki-select') do
@@ -67,7 +95,6 @@ describe 'multiwiki assignments', type: :feature, js: true do
       end
 
       click_button 'Assign'
-      click_button 'OK'
 
       visit "/courses/#{course.slug}/students/articles"
       first('.student-selection .student').click
@@ -89,10 +116,9 @@ describe 'multiwiki assignments', type: :feature, js: true do
       expect(button).to have_content 'Assign/remove an article'
       button.click
       within('#users') do
-        first('input').set('https://wikisource.org/wiki/Heyder_Cansa')
+        first('textarea').set('https://wikisource.org/wiki/Heyder_Cansa')
       end
       click_button 'Assign'
-      click_button 'OK'
       visit "/courses/#{course.slug}/students/articles"
       first('.student-selection .student').click
 
@@ -113,10 +139,9 @@ describe 'multiwiki assignments', type: :feature, js: true do
       expect(button).to have_content 'Assign/remove an article'
       button.click
       within('#users') do
-        first('input').set('https://incubator.wikimedia.org/wiki/Wp/kiu/Heyder_Cansa')
+        first('textarea').set('https://incubator.wikimedia.org/wiki/Wp/kiu/Heyder_Cansa')
       end
       click_button 'Assign'
-      click_button 'OK'
       visit "/courses/#{course.slug}/students/articles"
       first('.student-selection .student').click
 

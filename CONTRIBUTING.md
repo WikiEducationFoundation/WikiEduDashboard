@@ -31,7 +31,7 @@ If you're a new developer and you're looking for an easy way to get involved, tr
 #### Code Style
 This project adheres as strictly as possible to the community [Ruby Style Guide](https://github.com/bbatsov/ruby-style-guide). [Rubocop](https://github.com/bbatsov/rubocop) is used for this purpose and its associated editor integrations are highly recommended for contributors.
 
-The project has a mix of templating and compiled languages, including both erb and haml for Rails templates, and a mix of pure javascript and jsx for the frontend. We're trying to standardize on haml, javascript, and jsx for everything. **Please use haml, javascript, and/or jsx** for new files; erb, coffeescript, and cjsx are deprecated.
+The project has a mix of templating and compiled languages, including haml for Rails templates, and a mix of pure javascript and jsx for the frontend, and Stylus for stylesheets.
 
 All javascript and jsx files must pass eslint.
 

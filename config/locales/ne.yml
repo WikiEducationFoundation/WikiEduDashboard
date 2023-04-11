@@ -445,7 +445,7 @@ ne:
       create_short: कार्यक्रम सिर्जना गर्नुहोस्
       find: कार्यक्रम खोज्नुहोस्
       participate_in_campaign: अभियानमा सहभागी हुनुहोस्
-      save_cloned_course: संग्रह गर्नुहोस्
+      save_cloned_course: सङ्ग्रह गर्नुहोस्
     delete_course: कार्यक्रम मेट्नुहोस्
     edit_course_dates: आयोजना मितिहरू सम्पादन गर्नुहोस्
     enroll: सम्पादक थप्नुहोस्
@@ -476,7 +476,7 @@ ne:
   editable:
     edit: सम्पादन
     cancel: रद्द गर्नुहोस्
-    save: संग्रह गर्नुहोस्
+    save: सङ्ग्रह गर्नुहोस्
     edit_description: वर्णन सम्पादन गर्नुहोस्
     edit_details: जानकारी सम्पादन गर्नुहोस्
     edit_template: ढाँचा सम्पादन गर्नुहोस्

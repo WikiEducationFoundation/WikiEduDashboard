@@ -221,6 +221,7 @@ const TrainingSlideHandler = () => {
   if (training.currentSlide.assessment) {
     quiz = (
       <Quiz
+        key={training.currentSlide.index}
         question={assessment.question}
         answers={assessment.answers}
         selectedAnswer={training.currentSlide.selectedAnswer}

@@ -200,6 +200,8 @@ mnw:
     image: ဗီုရုပ်
     file_name: ယၟု ဝှာၚ်
   revisions:
+    diff_show: ထ္ၜး
+    diff_hide: ပၞုက်
     title: က္ဍိုပ်လိက်
   settings:
     admin_users:

@@ -182,7 +182,7 @@ describe EmailProcessor do
     context 'forwarded emails when the sender uses an email that is not in the Users table' do
       let!(:sender) { create(:user, username: 'Jprof', email: 'jprof-alternative@edu.edu') }
 
-      it 'should assign the owner and the sender_email appropriately' do
+      it 'assigns the owner and the sender_email appropriately' do
         email = create(:email,
                        to: [{ email: expert.email }],
                        from: { email: 'helaine@wikiedu.org' },
@@ -204,7 +204,7 @@ describe EmailProcessor do
     context 'forwarded emails from a known email address' do
       let!(:sender) { create(:user, username: 'Jprof', email: 'jprof@edu.edu') }
 
-      it 'should assign the owner and the sender_email appropriately' do
+      it 'assigns the owner and the sender_email appropriately' do
         email = create(:email,
                        to: [{ email: expert.email }],
                        from: { email: 'helaine@wikiedu.org' },
@@ -262,7 +262,7 @@ describe EmailProcessor do
   end
 
   describe '#retrieve_forwarder_email' do
-    it 'should return the first email from a forwarded message' do
+    it 'returns the first email from a forwarded message' do
       body = <<~EXAMPLE
         Example email test\r\n\r\n---------- Forwarded message ---------\r\nFrom:
         Person A <aaa@email.com>\r\nDate: Mon, Apr 8, 2019 at 3:42 PM\r\n
@@ -276,7 +276,7 @@ describe EmailProcessor do
   end
 
   describe '#retrieve_course_by_url' do
-    it 'should return a course slug from a URL' do
+    it 'returns a course slug from a URL' do
       body = <<~EXAMPLE
         Example email test\r\n\r\nhttps://example.org/courses/example/slug
       EXAMPLE
@@ -286,7 +286,7 @@ describe EmailProcessor do
       expect(described_class.new(email).retrieve_course_slug_by_url).to eq(expected_result)
     end
 
-    it 'should return a course slug from a complex URL' do
+    it 'returns a course slug from a complex URL' do
       body = <<~EXAMPLE
         Example email test\r\n\r\nhttps://example.org/courses/example/slug/articles/edited?showArticle=1
       EXAMPLE
@@ -296,7 +296,7 @@ describe EmailProcessor do
       expect(described_class.new(email).retrieve_course_slug_by_url).to eq(expected_result)
     end
 
-    it 'should return nil if a matching slug cannot be found' do
+    it 'returns nil if a matching slug cannot be found' do
       body = <<~EXAMPLE
         Example email test\r\n\r\nhttps://example.org/courses/incorrect
       EXAMPLE

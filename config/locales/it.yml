@@ -250,6 +250,7 @@ it:
     editors: Assegnato  a
     group_members: Membri del gruppo
     label: Assegna
+    label_all: Assegna tutto
     loading: Caricando gli incarichi...
     none_short: Nessuna voce assegnata
     none: Questo corso non ha voci assegnate.
@@ -459,6 +460,7 @@ it:
       create_button: Crea il mio corso!
       create_label: Crea nuovo corso
       create_new: Crea un nuovo corso
+      copy_courses_with_assignments: Clona l'elenco delle voci disponibili
       create_short: Crea corso
       end_date: Data di fine
       end_date_placeholder: AAAA-MM-GG

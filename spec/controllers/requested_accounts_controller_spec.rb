@@ -22,13 +22,13 @@ describe RequestedAccountsController, type: :request do
         )
       end
 
-      it 'should raise an error if the user is not signed in' do
+      it 'raises an error if the user is not signed in' do
         get '/requested_accounts'
         expect(response.status).to eq(401)
         expect(response.body).to include('authorized')
       end
 
-      it 'should raise an error if the user is not an admin' do
+      it 'raises an error if the user is not an admin' do
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
         get '/requested_accounts'
@@ -36,7 +36,7 @@ describe RequestedAccountsController, type: :request do
         expect(response.body).to include('authorized')
       end
 
-      it 'should load the page with requested accounts if the user is an admin' do
+      it 'loads the page with requested accounts if the user is an admin' do
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
 
         requested_account

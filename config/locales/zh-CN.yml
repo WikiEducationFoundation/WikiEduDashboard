@@ -32,6 +32,7 @@
 # Author: TsuyaMarisa
 # Author: Viztor
 # Author: WDLJT
+# Author: Winston Sung
 # Author: Xiplus
 # Author: Yanjiazhang
 # Author: Yfdyh000
@@ -110,7 +111,7 @@ zh-CN:
     assignment_completed: 任务标记完成
     reading_the_article: 阅读文章
     providing_feedback: 提供反馈
-    post_to_talk: 发布到对话页
+    post_to_talk: 发布到讨论页
     peer_review_completed: 审查完成
   dashboard:
     create_note: 点击“创建课程”以创建您的第一次课程。

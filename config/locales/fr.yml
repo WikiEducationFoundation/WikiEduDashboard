@@ -310,7 +310,8 @@ fr:
     confirm_deletion: Êtes-vous sûr(e) de vouloir supprimer cette affectation ?
     editors: Assigné à
     group_members: Membres du groupe
-    label: Assigner
+    label: Affecter
+    label_all: Affecter tout
     loading: Chargement des affectations...
     none_short: Aucun article affecté
     none_short_wikidata: Aucun élément affecté
@@ -604,6 +605,7 @@ fr:
       create_button: Créer mon cours !
       create_label: Créer un nouveau cours
       create_new: Créer un nouveau cours
+      copy_courses_with_assignments: Cloner la liste des articles disponibles
       create_short: Créer un cours
       end_date: Date de fin
       end_date_placeholder: AAAA-MM-JJ
@@ -1249,7 +1251,7 @@ fr:
     recent_uploads: Téléversements récents
     revision_author: Auteur de la révision
     revision_datetime: Horodatage de la révision
-    revision_score: Score de la révision
+    revision_score: Pointage de la version
     show_courses: Afficher uniquement mes cours
     uploaded_by: Téléversé par
     usage_count: Compteur d’utilisations

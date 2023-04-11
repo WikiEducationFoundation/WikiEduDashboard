@@ -3,10 +3,11 @@ require_dependency "#{Rails.root}/lib/tag_manager"
 
 #= Procedures for creating a duplicate of an existing course for reuse
 class CourseCloneManager
-  def initialize(course, user, campaign_slug=nil)
+  def initialize(course:, user:, clone_assignments:, campaign_slug: nil)
     @course = course
     @user = user
     @campaign = Campaign.find_by(slug: campaign_slug) if campaign_slug
+    @clone_assignments = clone_assignments
   end
 
   def clone!
@@ -22,6 +23,7 @@ class CourseCloneManager
     add_flags
     add_campaigns
 
+    copy_assignments if @clone_assignments
     return @clone
   # If a course with the new slug already exists — an incomplete clone of the
   # same course — then return the previously-created clone.
@@ -65,6 +67,18 @@ class CourseCloneManager
     )
   end
 
+  def copy_assignments
+    @course.assignments.where(user_id: nil).each do |assignment|
+      Assignment.create(
+        role: 0,
+        article_title: assignment.article_title,
+        article_id: assignment.article_id,
+        wiki_id: assignment.wiki_id,
+        course_id: @clone.id
+      )
+    end
+  end
+
   def duplicate_timeline
     # Be sure to create them in the correct order, to ensure that Course#reorder_weeks
     # does not misorder them on save. deep_clone does not necessarily create records
@@ -80,7 +94,12 @@ class CourseCloneManager
 
   def clear_meeting_days_and_due_dates
     @clone.update(day_exceptions: '', weekdays: '0000000', no_day_exceptions: false)
+
+    # we can use `update_all` since there are no callbacks on Block
+    # rubocop:disable Rails/SkipsModelValidations
     @clone.blocks.update_all(due_date: nil)
+    # rubocop:enable Rails/SkipsModelValidations
+
     @clone.reload
   end
 

@@ -1,0 +1,124 @@
+# Messages for Swahili (Kiswahili)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Edwingudfriend
+# Author: Magotech
+# Author: Rance
+# Author: Yasen igra
+---
+sw:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: K
+          million: M
+          billion: B
+          trillion: T
+          quadrillion: Q
+  accessibility:
+    number_field: Hii ni sehemu ya namba. Vitufe vilivyotoholewa na vivinjari vingi
+      vitaongeza na kupunguza ingizo.
+  application:
+    cancel: Batilisha
+    cookie_consent: Tovuti hii hutumia vidakuzi kukuweka ukiwa umeingia, na huhifadhi
+      taarifa zinazohusiana na akaunti yako ya Wikipedia.
+    cookie_consent_acknowledge: Naelewa
+    cookie_consent_see_more: Tazama zaidi
+    create_accounts: Unda akaunti za Wikipedia
+    dashboard: Dashibodi ya Wiki Ed
+    documentation: Mwongozo
+    error: 'Kulikuwa na hitilafu:'
+    explore: Chunguza
+    field_required: Sehemu hii inahitajika.
+    field_invalid_characters: Sehemu hii ina ingizo lisilo sahihi
+    field_invalid_date: Sehemu hii inahitaji tarehe katika muundo wa YYYY-MM-DD
+    field_invalid_date_time: Mwisho lazima uwe baada ya kuanza. (Saa huenda kutoka
+      0 hadi 23.)
+    greeting2: Karibu!
+    greeting_extended: Karibu kwenye Wikipedia
+    greeting: Habari!
+    help: Msaada
+    home: Mwanzo
+    log_in_extended: Ingia na Wikipedia
+    log_in: Ingia
+    log_out: Toka
+    my_dashboard: Dashibodi Yangu
+    recent_activity: Shughuli za Hivi Karibuni
+    report_problem: Ripoti tatizo
+    request_account: Omba akaunti
+    request_account_create: Unda akaunti
+    search: Uliza Swali
+    search_results:
+      one: '%{count} Matokeo ya: '' %{search_terms}'''
+      other: '% {count} Matokeo ya: ''%{search_terms}'''
+    no_results: Hakuna matokeo yaliyopatikana ya '%{query}'
+    sign_up_extended: Jisajili na Wikipedia
+    sign_up_wikipedia: Au jisajili kwenye Wikipedia
+    sign_up_log_in_extended: na Wikipedia
+    sign_up: Jisajili
+    submit: Wasilisha
+    training: Mafunzo
+    change: Badilisha
+    details: Maelezo
+    confirm: Sawa
+    opt_in: Ndiyo
+    opt_out: Hapana
+    opt_yes: ndiyo
+    opt_no: Hapana
+    print: Chapisha
+  article_statuses:
+    not_yet_started: Kuanza
+    in_progress: Kufanyia kazi katika sanduki la mchanga
+    ready_for_review: Kupanua Rasimu
+    ready_for_mainspace: Kuhamishia kazi katika kurasa kuu
+    assignment_completed: Kazi Imetiwa Alama Imekamilika
+    reading_the_article: Kusoma Makala
+    providing_feedback: Kutoa Maoni
+    post_to_talk: Kuchapisha kwa Ukurasa wa Majadiliano
+    peer_review_completed: Uhakiki Umekamilika
+  dashboard:
+    create_note: Bofya kwenye Unda Kozi ili kuunda kozi yako ya kwanza.
+    create_preparation_note: Hakikisha kuwa na kalenda yako ya kitaaluma mkononi kabla
+      ya kuanza; zana ya kubuni ya kazi itatumia tarehe za mikutano za darasa lako
+      - ikiwa ni pamoja na mapumziko ya shule na likizo yoyote - ili kupatanisha rekodi
+      yako ya matukio katika kipindi unachochagua. Kumbuka, unaweza kuhariri rekodi
+      kalenda yako ili kutoshea mahitaji yako.
+    explore_course_pages: Chunguza Kurasa za Kozi
+    explore_examples: Tazama Mifano
+    join_note: Mara tu unapopokea nambari ya siri kutoka kwa mwalimu wako, bofya Tafuta
+      Kozi Yako ili kuipata na kuiunga.
+    no_courses_instructor: Inaonekana huna kozi yoyote.
+    no_courses_student: Inaonekana bado hujajiunga na kozi.
+    opt_out: Omba kujiondoa kwenye uelekezaji
+    orientation_notice: Kabla ya kuunda kozi, hebu tupitie maelekezo ili kukusaidia
+      kuanza. (Inachukua kama dakika 30 kukamilisha.)
+    review_orientation: Pitia Maelekezo
+    start_orientation: Anza Mafunzo ya awali
+    blog_headline: Habari za hivi karibuni kutoka Wiki Education
+    about_programs: Tovuti hii hufuatilia shughuli za wiki kupitia Programu - matukio
+      ya mtu binafsi kama vile warsha au kozi ya shule. Kila Mpango ni sehemu ya Kampeni
+      moja au zaidi, ambazo hutoa takwimu za jumla katika Programu
+  assignments:
+    random_peer_review:
+      confirm_addition: Je! Una uhakika unataka kugawa jumla ya makala {%} kwa darasa
+        zima na kiwango cha juu cha% {maximum} kwa kila mwanafunzi?
+      heading: Wape mapitio ya wenzao
+      tooltip_message: Hupeana nakala za nasibu (na hesabu ya ukaguzi wa rika kama
+        nambari ya juu) kwa kila mwanafunzi.
+      limit_exceeded: Kila mwanafunzi tayari anakagua nakala (s) za angalau% {maximum}.
+  courses:
+    view: Tazama msimbo
+  courses_generic:
+    user_uploads_none: Watumiaji waliochaguliwa hawajachangia picha zozote au midia
+      zingine zozote katika mradi huu
+  timeline:
+    week_number: Wiki ya %{number}
+  training:
+    previous: -liyopita
+  users:
+    contributions_history_full: Tazama historia kamili ya uchangiaji
+    no_highlighting: Hakuna maandishi kutoka kwa toleo la sasa la kifungu hicho yanayotokana
+      na mhariri huyu. Angalia historia ya ukurasa ili uone mabadiliko yao.
+...

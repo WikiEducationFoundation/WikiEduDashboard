@@ -141,12 +141,12 @@ const AvailableActions = createReactClass({
           <div key="needs_update" className="available-action"><button className="button" onClick={this.needsUpdate}>{I18n.t('courses.needs_update')}</button></div>
         ));
       }
-    // If user has no role or is logged out, and if he is not on enrollment page, show 'Join course' button.
+    // If user has no role and is logged in, and if he is not on enrollment page, show 'Join course' button.
     // On enrollment page, 'Join course' button is not shown in Actions component to avoid confusion.
     // The 'Join course' button is not shown for courses controlled by Wikimedia Event Center
-    } else if (!course.ended && !isEnrollmentURL && !course.flags.event_sync) {
+    } else if (!course.ended && !isEnrollmentURL && !course.flags.event_sync && user.id) {
       controls.push(
-        <div key="join" className="available-action"><button onClick={this.join} className="button">{CourseUtils.i18n('join_course', course.string_prefix)}</button></div>
+        <div key="join" className="available-action"><button onClick={() => this.join()} className="button">{CourseUtils.i18n('join_course', course.string_prefix)}</button></div>
       );
       // On P&E Dashboard, offer option to join as online volunteer
       if (!Features.wikiEd && course.online_volunteers_enabled) {

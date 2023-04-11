@@ -1,6 +1,8 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
 import TextInput from '../common/text_input.jsx';
 import DatePicker from '../common/date_picker.jsx';
 import TextAreaInput from '../common/text_area_input.jsx';
@@ -8,6 +10,7 @@ import TrainingModules from './TrainingModules/TrainingModules';
 import BlockTypeSelect from './block_type_select.jsx';
 import TrainingModulesViewMode from './TrainingModules/TrainingModulesViewMode.jsx';
 import { BLOCK_KIND_RESOURCES } from '../../constants';
+import { initiateConfirm } from '../../actions/confirm_actions.js';
 
 const DEFAULT_POINTS = 10;
 
@@ -26,7 +29,8 @@ const Block = createReactClass({
     all_training_modules: PropTypes.array,
     weekStart: PropTypes.object,
     trainingLibrarySlug: PropTypes.string.isRequired,
-    current_user: PropTypes.object
+    current_user: PropTypes.object,
+    initiateConfirm: PropTypes.func.isRequired
   },
 
   updateBlock(valueKey, value) {
@@ -43,9 +47,10 @@ const Block = createReactClass({
   },
 
   deleteBlock() {
-    if (confirm('Are you sure you want to delete this block? This will delete the block and all of its content.\n\nThis cannot be undone.')) {
-      return this.props.deleteBlock(this.props.block.id);
-    }
+    const confirmMessage = 'Are you sure you want to delete this block? This will delete the block and all of its content.\n\nThis cannot be undone.';
+    const deleteBlock = this.props.deleteBlock;
+    const onConfirm = () => deleteBlock(this.props.block.id);
+    return this.props.initiateConfirm({ confirmMessage, onConfirm });
   },
 
   _setEditable() {
@@ -269,5 +274,8 @@ const Block = createReactClass({
 }
 );
 
+const mapDispatchToProps = { initiateConfirm };
 
-export default Block;
+export default connect(null, mapDispatchToProps)(
+  Block
+);
