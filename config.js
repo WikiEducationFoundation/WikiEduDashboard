@@ -6,9 +6,6 @@ module.exports = {
   // Source path
   sourcePath: 'app/assets',
 
-  // Build cache path
-
-  buildCache: '.build_cache',
   // View path
   viewPath: 'app/views',
 
