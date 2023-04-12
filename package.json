@@ -11,7 +11,7 @@
     "@babel/register": "^7.18.9",
     "@rails/ujs": "^7.0.3-1",
     "@sentry/browser": "^6.18.1",
-    "@tinymce/tinymce-react": "^3.12.6",
+    "@tinymce/tinymce-react": "^4.3.0",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.6",
     "autosize": "^4.0.2",
     "babel-core": "^7.0.0-bridge.0",
