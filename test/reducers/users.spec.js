@@ -24,6 +24,13 @@ describe('users reducer', () => {
     () => {
       const initialState = users(undefined, { type: null });
       deepFreeze(initialState);
+      const newInitialState = {
+        users: users_array,
+        sort: {
+          defaultKey: 'username'
+        }
+      };
+      deepFreeze(newInitialState);
 
       const action = (type, users_array) => ({
         type: type,
@@ -39,8 +46,11 @@ describe('users reducer', () => {
         { id: 2, username: 'bar', role: 'admin' }
       ];
       const mockedReceivedAction = action(RECEIVE_USERS, users_array);
-      const receiveUserState = users(initialState, mockedReceivedAction);
-      expect(receiveUserState.users).toEq(users_array);
+      const receiveUserState = users(newInitialState, mockedReceivedAction);
+      expect(receiveUserState.users).toEqual([
+        { id: 2, username: 'bar', role: 'admin' },
+        { id: 1, username: 'foo', role: 'student' }
+      ]);
       expect(receiveUserState.isLoaded).toBe(true);
 
       users_array = [
