@@ -27,7 +27,7 @@ describe('users reducer', () => {
       const newInitialState = {
         users: users_array,
         sort: {
-          defaultKey: 'username'
+          initialSortKey: 'last_name'
         }
       };
       deepFreeze(newInitialState);
@@ -42,14 +42,14 @@ describe('users reducer', () => {
       });
 
       let users_array = [
-        { id: 1, username: 'foo', role: 'student' },
-        { id: 2, username: 'bar', role: 'admin' }
+        { id: 1, username: 'foo', role: 'student', name: 'foo bar' },
+        { id: 2, username: 'bar', role: 'admin', name: 'foo user' }
       ];
       const mockedReceivedAction = action(RECEIVE_USERS, users_array);
       const receiveUserState = users(newInitialState, mockedReceivedAction);
       expect(receiveUserState.users).toEqual([
-        { id: 2, username: 'bar', role: 'admin' },
-        { id: 1, username: 'foo', role: 'student' }
+        { id: 1, username: 'foo', role: 'student', name: 'foo bar' },
+        { id: 1, username: 'foo', role: 'student', name: 'foo user' }
       ]);
       expect(receiveUserState.isLoaded).toBe(true);
 
