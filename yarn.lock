@@ -2847,7 +2847,6 @@ __metadata:
     prop-types: ^15.7.2
     query-string: 7.1.1
     react: ^17.0.2
-    react-burger-menu: 2.6.13
     react-cookie-consent: ^8.0.1
     react-day-picker: 7.4.8
     react-dnd: ^16.0.0
@@ -3067,13 +3066,6 @@ __metadata:
     require-from-string: ^2.0.2
     uri-js: ^4.2.2
   checksum: 5e0ff226806763be73e93dd7805b634f6f5921e3e90ca04acdf8db81eed9d8d3f0d4c5f1213047f45ebbf8047ffe0c840fa1ef2ec42c3a644899f69aa72b5bef
-  languageName: node
-  linkType: hard
-
-"amdefine@npm:>=0.0.4":
-  version: 1.0.1
-  resolution: "amdefine@npm:1.0.1"
-  checksum: 9d4e15b94641643a9385b2841b4cb2bcf4e8e2f741ea4bd475c93ad7bab261ad4ed827a32e9c549b38b98759c4526c173ae4e6dde8caeb75ee5cebedc9863762
   languageName: node
   linkType: hard
 
@@ -3319,28 +3311,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ast-transform@npm:0.0.0":
-  version: 0.0.0
-  resolution: "ast-transform@npm:0.0.0"
-  dependencies:
-    escodegen: ~1.2.0
-    esprima: ~1.0.4
-    through: ~2.3.4
-  checksum: 61e770b783634793be963e054530b018340603355f7b3a14127f70fe0c52d5053b4e5e5399cc2b958ae587a961db30465f2404172a35520ecbbaf75fd1912233
-  languageName: node
-  linkType: hard
-
 "ast-types-flow@npm:^0.0.7":
   version: 0.0.7
   resolution: "ast-types-flow@npm:0.0.7"
   checksum: a26dcc2182ffee111cad7c471759b0bda22d3b7ebacf27c348b22c55f16896b18ab0a4d03b85b4020dce7f3e634b8f00b593888f622915096ea1927fa51866c4
-  languageName: node
-  linkType: hard
-
-"ast-types@npm:^0.7.0":
-  version: 0.7.8
-  resolution: "ast-types@npm:0.7.8"
-  checksum: 4e1496b575b4dc05861249a1275e73475deee61f0a07c0903de2ca90c38c6ac15ae64442deb30d845c5b7693261c82a17213bf1ca9dd6783a66c11c4b63fa3fb
   languageName: node
   linkType: hard
 
@@ -3737,26 +3711,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"browser-resolve@npm:^1.8.1":
-  version: 1.11.3
-  resolution: "browser-resolve@npm:1.11.3"
-  dependencies:
-    resolve: 1.1.7
-  checksum: 431bfc1a17406362a3010a2c35503eb7d1253dbcb8081c1ce236ddb0b954a33d52dcaf0b07f64c0f20394d6eeec1be4f6551da3734ce9ed5dcc38e876c96d5d5
-  languageName: node
-  linkType: hard
-
-"browserify-optional@npm:^1.0.0":
-  version: 1.0.1
-  resolution: "browserify-optional@npm:1.0.1"
-  dependencies:
-    ast-transform: 0.0.0
-    ast-types: ^0.7.0
-    browser-resolve: ^1.8.1
-  checksum: ef65fb4a7b58933f8009b8636915497db7ef994fcd15f2c0bd9eb628d66656417ee2d9041a28111a3d85d5e81f6000308950acd26283a296295d766ef1829452
-  languageName: node
-  linkType: hard
-
 "browserslist@npm:^4.0.0, browserslist@npm:^4.14.5, browserslist@npm:^4.16.6, browserslist@npm:^4.20.2, browserslist@npm:^4.20.3, browserslist@npm:^4.21.0":
   version: 4.21.1
   resolution: "browserslist@npm:4.21.1"
@@ -4098,13 +4052,6 @@ __metadata:
     isobject: ^3.0.0
     static-extend: ^0.1.1
   checksum: be108900801e639e50f96a7e4bfa8867c753a7750a7603879f3981f8b0a89cba657497a2d5f40cd4ea557ff15d535a100818bb486baf6e26fe5d7872e75f1078
-  languageName: node
-  linkType: hard
-
-"classnames@npm:^2.2.6":
-  version: 2.3.1
-  resolution: "classnames@npm:2.3.1"
-  checksum: 14db8889d56c267a591f08b0834989fe542d47fac659af5a539e110cc4266694e8de86e4e3bbd271157dbd831361310a8293e0167141e80b0f03a0f175c80960
   languageName: node
   linkType: hard
 
@@ -5450,24 +5397,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"escodegen@npm:~1.2.0":
-  version: 1.2.0
-  resolution: "escodegen@npm:1.2.0"
-  dependencies:
-    esprima: ~1.0.4
-    estraverse: ~1.5.0
-    esutils: ~1.0.0
-    source-map: ~0.1.30
-  dependenciesMeta:
-    source-map:
-      optional: true
-  bin:
-    escodegen: ./bin/escodegen.js
-    esgenerate: ./bin/esgenerate.js
-  checksum: c0fea6d7107409280def6614007103165c7fa33b76c1dda8e87083c9f2b2be12716acf38a1c96f7b01cda966280bf71f25be871412876b09f7f256acea317cdd
-  languageName: node
-  linkType: hard
-
 "eslint-config-airbnb-base@npm:^13.2.0":
   version: 13.2.0
   resolution: "eslint-config-airbnb-base@npm:13.2.0"
@@ -5813,16 +5742,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esprima@npm:~1.0.4":
-  version: 1.0.4
-  resolution: "esprima@npm:1.0.4"
-  bin:
-    esparse: ./bin/esparse.js
-    esvalidate: ./bin/esvalidate.js
-  checksum: 6dcc6aa86ae37d1bb1f0f4d374fa9f0ca34d4293e80398cf4cd6fa4471a2be770cbf9ee9b2158b529888b5a9f0db7a4d7e78d4e88f8c90649b963d294c8a44ad
-  languageName: node
-  linkType: hard
-
 "esquery@npm:^1.0.1, esquery@npm:^1.4.0":
   version: 1.4.0
   resolution: "esquery@npm:1.4.0"
@@ -5855,13 +5774,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"estraverse@npm:~1.5.0":
-  version: 1.5.1
-  resolution: "estraverse@npm:1.5.1"
-  checksum: f2d62bfd22a106f53c043f643f5d73a1b3004e58d6c215dec9f9fcc1d1356daf5e7417a3384d45367e224871a67b298e081e1aa06ceb361425f98264f33dcac0
-  languageName: node
-  linkType: hard
-
 "esutils@npm:^2.0.2":
   version: 2.0.3
   resolution: "esutils@npm:2.0.3"
@@ -5869,24 +5781,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esutils@npm:~1.0.0":
-  version: 1.0.0
-  resolution: "esutils@npm:1.0.0"
-  checksum: 7c524f1744219908698ea4b5349f494bf7e308d3b5f4a459b08c24cb0f35ef0de450f6d8cf9683c96f9339699e80ce2e1ffb530b5a255ec8b50a1e1e50140ffc
-  languageName: node
-  linkType: hard
-
 "etag@npm:~1.8.1":
   version: 1.8.1
   resolution: "etag@npm:1.8.1"
   checksum: 571aeb3dbe0f2bbd4e4fadbdb44f325fc75335cd5f6f6b6a091e6a06a9f25ed5392f0863c5442acb0646787446e816f13cbfc6edce5b07658541dff573cab1ff
-  languageName: node
-  linkType: hard
-
-"eve@npm:~0.5.1":
-  version: 0.5.4
-  resolution: "eve@npm:0.5.4"
-  checksum: 217ebf167cabaed9056733044a34809e483a58d96a1c1f925e3de99e60f501701622f359f17e5d68fbba0e4fd39391cc62ad284bffcf714efba32b2eee1f5899
   languageName: node
   linkType: hard
 
@@ -10526,22 +10424,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-burger-menu@npm:2.6.13":
-  version: 2.6.13
-  resolution: "react-burger-menu@npm:2.6.13"
-  dependencies:
-    browserify-optional: ^1.0.0
-    classnames: ^2.2.6
-    eve: ~0.5.1
-    prop-types: ^15.7.2
-    snapsvg-cjs: 0.0.6
-  peerDependencies:
-    react: ">=0.14.0 <17.0.0"
-    react-dom: ">=0.14.0 <17.0.0"
-  checksum: 20e7cac8260ca0f5a700edd0e023b9dbed248ddd63df5d039bb81ba83c0cbdc8b98f13d4590cfc45e0e681ae5d5152fb45e2b1896593a2e75de8cddc887587c3
-  languageName: node
-  linkType: hard
-
 "react-cookie-consent@npm:^8.0.1":
   version: 8.0.1
   resolution: "react-cookie-consent@npm:8.0.1"
@@ -11175,13 +11057,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"resolve@npm:1.1.7":
-  version: 1.1.7
-  resolution: "resolve@npm:1.1.7"
-  checksum: afd20873fbde7641c9125efe3f940c2a99f6b1f90f1b7b743e744bdaac1cb105b2e4e0317bcc052ed7e31d57afa86b394a4dc9a1b33a297977be134fdf0250ab
-  languageName: node
-  linkType: hard
-
 "resolve@npm:^1.1.6, resolve@npm:^1.10.0, resolve@npm:^1.14.2, resolve@npm:^1.18.1, resolve@npm:^1.19.0, resolve@npm:^1.20.0, resolve@npm:^1.22.0, resolve@npm:^1.9.0":
   version: 1.22.1
   resolution: "resolve@npm:1.22.1"
@@ -11205,13 +11080,6 @@ __metadata:
   bin:
     resolve: bin/resolve
   checksum: c438ac9a650f2030fd074219d7f12ceb983b475da2d89ad3d6dd05fbf6b7a0a8cd37d4d10b43cb1f632bc19f22246ab7f36ebda54d84a29bfb2910a0680906d3
-  languageName: node
-  linkType: hard
-
-"resolve@patch:resolve@1.1.7#~builtin<compat/resolve>":
-  version: 1.1.7
-  resolution: "resolve@patch:resolve@npm%3A1.1.7#~builtin<compat/resolve>::version=1.1.7&hash=07638b"
-  checksum: e9dbca78600ae56835c43a09f1276876c883e4b4bbd43e2683fa140671519d2bdebeb1c1576ca87c8c508ae2987b3ec481645ac5d3054b0f23254cfc1ce49942
   languageName: node
   linkType: hard
 
@@ -11870,26 +11738,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snapsvg-cjs@npm:0.0.6":
-  version: 0.0.6
-  resolution: "snapsvg-cjs@npm:0.0.6"
-  dependencies:
-    snapsvg: 0.5.1
-  peerDependencies:
-    eve: ~0.5.1
-  checksum: eaa0ad308a315ec5aed4cf8489fc64918631eea54048b02fa7525dd482d3ca23e3dc1692425166937f0b399ac9d7ad4da1c0325f9e026546640cce8810733863
-  languageName: node
-  linkType: hard
-
-"snapsvg@npm:0.5.1":
-  version: 0.5.1
-  resolution: "snapsvg@npm:0.5.1"
-  dependencies:
-    eve: ~0.5.1
-  checksum: 776121c08903c76e6e4c6a6620c59540879698d72a3a8125961afbde3b218139b0641ca786aac48de2026d8ac27d9a4457f6e88096fc478a8c4e45e261c7482d
-  languageName: node
-  linkType: hard
-
 "sockjs@npm:^0.3.24":
   version: 0.3.24
   resolution: "sockjs@npm:0.3.24"
@@ -11984,15 +11832,6 @@ __metadata:
   version: 0.7.4
   resolution: "source-map@npm:0.7.4"
   checksum: 01cc5a74b1f0e1d626a58d36ad6898ea820567e87f18dfc9d24a9843a351aaa2ec09b87422589906d6ff1deed29693e176194dc88bcae7c9a852dc74b311dbf5
-  languageName: node
-  linkType: hard
-
-"source-map@npm:~0.1.30":
-  version: 0.1.43
-  resolution: "source-map@npm:0.1.43"
-  dependencies:
-    amdefine: ">=0.0.4"
-  checksum: 0a230f8cae8a8ea70bd36701c33d01fb0c437b798508a561c896a99b42f5af81a206176a250fc654c7c57a736b8081c4b4a6c9887455f7d2724f847451f1d7d9
   languageName: node
   linkType: hard
 
@@ -12572,7 +12411,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"through@npm:^2.3.6, through@npm:~2.3.4":
+"through@npm:^2.3.6":
   version: 2.3.8
   resolution: "through@npm:2.3.8"
   checksum: a38c3e059853c494af95d50c072b83f8b676a9ba2818dcc5b108ef252230735c54e0185437618596c790bbba8fcdaef5b290405981ffa09dce67b1f1bf190cbd
