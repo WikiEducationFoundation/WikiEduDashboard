@@ -49,7 +49,7 @@ describe('users reducer', () => {
       const receiveUserState = users(newInitialState, mockedReceivedAction);
       expect(receiveUserState.users).toEqual([
         { id: 1, username: 'foo', role: 'student', name: 'foo bar' },
-        { id: 1, username: 'foo', role: 'student', name: 'foo user' }
+        { id: 2, username: 'bar', role: 'admin', name: 'foo user' }
       ]);
       expect(receiveUserState.isLoaded).toBe(true);
 
