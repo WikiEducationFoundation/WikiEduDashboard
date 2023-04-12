@@ -27,7 +27,7 @@ describe('users reducer', () => {
       const newInitialState = {
         users: users_array,
         sort: {
-          initialSortKey: 'last_name'
+          initialSortKey: 'real_name'
         }
       };
       deepFreeze(newInitialState);
