@@ -40,7 +40,7 @@ describe('users reducer', () => {
       ];
       const mockedReceivedAction = action(RECEIVE_USERS, users_array);
       const receiveUserState = users(initialState, mockedReceivedAction);
-      expect(receiveUserState.users).toEqual(users_array);
+      expect(receiveUserState.users).toEq(users_array);
       expect(receiveUserState.isLoaded).toBe(true);
 
       users_array = [
