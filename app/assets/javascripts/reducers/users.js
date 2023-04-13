@@ -24,7 +24,7 @@ const SORT_DESCENDING = {
 export default function users(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_USERS: {
-      const sortedUsers = sortByKey(action.data.course.users, state.sort.sortKey, 'username');
+      const sortedUsers = sortByKey(action.data.course.users, state.sort.sortKey, 'username', null, false, false, true);
       return {
         ...state,
         users: sortedUsers.newModels,
