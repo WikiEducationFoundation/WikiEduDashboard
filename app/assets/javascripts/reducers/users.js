@@ -6,6 +6,7 @@ const initialState = {
   sort: {
     sortKey: null,
     key: null,
+    initialSortKey: 'real_name'
   },
   isLoaded: false,
   lastRequestTimestamp: 0 // UNIX timestamp of last request - in milliseconds
@@ -24,8 +25,7 @@ const SORT_DESCENDING = {
 export default function users(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_USERS: {
-      const initialSortKey = 'real_name';
-      const sortKey = state.sort.sortKey || initialSortKey;
+      const sortKey = state.sort.sortKey || state.sort.initialSortKey;
       const sortedUsers = sortByKey(action.data.course.users, sortKey, 'username');
       return {
         ...state,
