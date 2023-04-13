@@ -393,6 +393,9 @@ sl:
     summary: Povzetek
   error:
     form_errors: Preverite obrazec glede napak.
+    ip_blocked: S to napravo trenutno ne morete ustvariti računa. To se lahko zgodi,
+      če vaš IP-naslov blokira Wikipedia ali če je že dosegel dnevno omejitev za nove
+      račune. Poskusite se povezati iz drugega omrežja.
   error_no_course:
     explanation: Predmet %{slug} ne obstaja.
   error_404:
