@@ -10,6 +10,7 @@ class WikidataSummaryParser
     'claims changed' => :changed_claim?,
     'claims removed' => :removed_claim?,
     'items created' => :created_item?,
+    'lexeme items created' => :created_lexeme_item?,
     'labels added' => :added_label?,
     'labels changed' => :changed_label?,
     'labels removed' => :removed_label?,
@@ -68,6 +69,7 @@ class WikidataSummaryParser
       !changed_label? &&
       !removed_label? &&
       !created_item? &&
+      !created_lexeme_item? &&
       !merged_from? &&
       !merged_to? &&
       !added_interwiki_link? &&
@@ -138,6 +140,10 @@ class WikidataSummaryParser
 
   def created_item?
     @summary.include? 'wbeditentity-create'
+  end
+
+  def created_lexeme_item?
+    @summary.include? 'wbeditentity-create-lexeme'
   end
 
   # This edit summary can mean adding a claim, but it seems to be generic for edits
