@@ -254,6 +254,7 @@ fr:
     page_logs: (journaux des pages)
   items:
     items: Éléments
+    lexeme: Lexème
     article_not_found: Cet élément n’a pas encore été créé.
     assigned: Éléments affectés
     assignments_none: Il n’y a encore aucun élément affecté.
