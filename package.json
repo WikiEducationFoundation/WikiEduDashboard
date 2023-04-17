@@ -38,7 +38,6 @@
     "eslint-plugin-react": "^7.20.5",
     "fetch-jsonp": "^1.2.1",
     "i18n-js": "^4.2.2",
-    "isomorphic-fetch": "^3.0.0",
     "jeet": "^7.2.0",
     "jest": "^26.0.1",
     "jquery": "^3.5.1",
