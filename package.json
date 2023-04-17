@@ -29,7 +29,6 @@
     "css-minimizer-webpack-plugin": "^4.0.0",
     "date-fns": "^2.28.0",
     "deep-freeze": "^0.0.1",
-    "del": "^6.0.0",
     "enzyme": "^3.11.0",
     "eslint": "^8.10.0",
     "eslint-config-airbnb": "^17.1.1",
