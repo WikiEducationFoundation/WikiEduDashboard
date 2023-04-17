@@ -290,6 +290,7 @@ io:
   users:
     assign_articles_done: Facita
     exercises_and_trainings: Exerci & Aprentiteso
+    first_name: Prenomo
     number_of_articles:
       one: '%{count} artiklo'
       other: '%{count} artikli'
