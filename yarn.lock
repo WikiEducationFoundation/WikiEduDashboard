@@ -2795,7 +2795,7 @@ __metadata:
     "@sentry/browser": ^6.18.1
     "@tinymce/tinymce-react": ^3.12.6
     "@wojtekmaj/enzyme-adapter-react-17": ^0.6.6
-    autosize: ^4.0.2
+    autosize: ^6.0.1
     babel-core: ^7.0.0-bridge.0
     babel-loader: ^8.2.2
     babel-plugin-add-module-exports: ^1.0.2
@@ -3351,10 +3351,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"autosize@npm:^4.0.2":
-  version: 4.0.4
-  resolution: "autosize@npm:4.0.4"
-  checksum: da3a53a699ef8a4cfea8f0eea2303459b3986754278d506f60c08084b3a0a34bd6fa525becaf1edcffe4eb9517b67a6442aacf6b02aee1d406e5a794ec47d4ce
+"autosize@npm:^6.0.1":
+  version: 6.0.1
+  resolution: "autosize@npm:6.0.1"
+  checksum: 116635be9479baee6dd9c4f0545fbd07318e83bcdb198f9c41c0594af82ca52a1e0cce38797dcbda9d321467805293e66a3b2f3e01a82952ff879c50e2c813e8
   languageName: node
   linkType: hard
 
