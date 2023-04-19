@@ -95,12 +95,24 @@ class ArticlesCourses < ApplicationRecord
     return unless earliest_edit
     last_updated = views_updated_at ? views_updated_at.to_date : nil
     current_date = Time.now.utc.to_date
-    # Update average if they haven't been updated yet
+    # Update the average if it hasn't been updated yet
     # If yes, then update only if it has been over 7 days
     return average_pageviews if last_updated && (current_date - last_updated) < 7
-    start_date = earliest_edit.to_date
-    end_date = current_date
-    new_average = WikiPageviews.new(article).average_views(start_date, end_date)
+
+    # In order to optimize the computation of average, we do a small trick.
+    # We don't fetch the pageviews data since earliest_edit. As we already have the average
+    # value till last_updated date, we get the total count by multiplying it with the number
+    # of days. Hence, we fetch the pageviews data only for last 7 days and then calculate
+    # the new average value by dividing total count by total number of days since earliest edit.
+
+    last_week_average = WikiPageviews.new(article).average_views(last_updated, current_date)
+    # Total sum of pageviews from earliest edit till last updated
+    views_count_1 = average_pageviews * (last_updated - earliest_edit.to_date)
+    # Total sum of pageviews from last_updated till current_date
+    views_count_2 = last_week_average * (current_date - last_updated)
+    new_average = (views_count_1 + views_count_2) / (current_date - earliest_edit.to_date)
+
+    # Check if newly calculated average satisfies the criteria for spike in pageviews
     check_pageviews_spike(new_average, average_pageviews, last_updated, current_date)
     self.views_updated_at = Time.now.utc
     new_average
