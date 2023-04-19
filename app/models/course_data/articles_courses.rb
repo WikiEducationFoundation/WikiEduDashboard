@@ -125,7 +125,7 @@ class ArticlesCourses < ApplicationRecord
     # Alert if there have been atleast 100 views since checked last time.
     daily_view_data.each do |_key, value|
       if (value - old_average) > 100
-        # Alert
+        PageviewSpikeMailer.send_spike_alert_email(article_course)
         break
       end
     end

@@ -1,0 +1,59 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %tr
+            %td.main-content
+              %h1.headline
+                = "#{@article.title} has a spike in pageviews!"
+              %p.paragraph
+                = "The Wiki Education Dashboard has detected a sudden increase in the count of "
+                = "pageviews of the article <strong>#{@article.title}<strong> of the course "
+                = "<strong>#{@course.title}<strong>. This typically represents a success story, "
+                = "where user created or improved content becomes highly relevant to the public."
+        %table
+          %tr
+            %td.main-content.link-cell
+              %a.button_link{:href => @articles_link}
+                = @course.title + " Articles Edited"
+            %td.expander
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+                You can select the article from the list of edited articles on <strong>Articles tab</strong> of your
+                dashboard.wikiedu.org course page.
+        %table
+          %tr
+            %td.main-content
+              %figure{style: "width: 100%;"}
+                %img{src: "https://upload.wikimedia.org/wikipedia/commons/d/dd/Articles_tab_of_Wiki_Education_Dashboard.png"}
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+                The Article Viewer tool, accessible by clicking the <strong>page icon</strong>
+                in the <em>Assessment tools</em> column, will highlight the parts
+                of the article that your students wrote.
+        %table
+          %tr
+            %td.main-content
+              %figure{style: "width: 100%;"}
+                %img{src: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Authorship_highlighing_on_dashboard.wikiedu.org.png/1187px-Authorship_highlighing_on_dashboard.wikiedu.org.png"}
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+                The Diff Viewer, accessible via the <strong>plus/minus icon</strong>,
+                shows how the article's wiki code changed from the first student
+                edit through the last.
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+                Best regards,
+                %br
+                %em
+                  The Wiki Education team
