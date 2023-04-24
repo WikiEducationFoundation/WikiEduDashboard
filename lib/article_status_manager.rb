@@ -25,7 +25,9 @@ class ArticleStatusManager
         # excuted in a single query, otherwise if we use find_in_batches, query for
         # each article for updating the same would be required
         new(wiki).update_status(article_batch)
+        # rubocop:disable Rails/SkipsModelValidations
         article_batch.touch_all(:updated_at)
+        # rubocop:enable Rails/SkipsModelValidations
       end
     end
   end
