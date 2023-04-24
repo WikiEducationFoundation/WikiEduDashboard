@@ -194,7 +194,7 @@ class CoursesController < ApplicationController
 
   def needs_update
     @course = find_course_by_slug(params[:id])
-    @course.update_attribute(:needs_update, true)
+    @course.update(needs_update: true)
     render json: { result: I18n.t('courses.creator.update_scheduled') },
            status: :ok
   end
@@ -262,7 +262,7 @@ class CoursesController < ApplicationController
 
   def ensure_passcode_set
     return unless course_params[:passcode].nil?
-    @course.update_attribute(:passcode, GeneratePasscode.call)
+    @course.update(passcode: GeneratePasscode.call)
   end
 
   def initial_campaign_params

@@ -16,6 +16,7 @@ ks-arab:
           billion: بِلیَن
           trillion: ٹرٛیَن
   application:
+    greeting2: خٲر مَقدَم!
     greeting: سَلام!
     help: مَدَتھ
     home: اَہَم صَفہٕ

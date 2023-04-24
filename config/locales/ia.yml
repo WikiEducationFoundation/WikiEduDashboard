@@ -51,10 +51,13 @@ ia:
     articles_shown: Se monstra %{count} de %{total}
     history: (historia)
   assignments:
+    label_all: Assignar totes
     warning_untracked_wiki: 'Nota ben que le articulo que tu ha seligite es un wiki
       non traciate per iste curso. Pro traciar le contributiones a iste articulo,
       un instructor debe adder le sequente wiki a iste curso: %{wiki}'
   courses:
+    creator:
+      copy_courses_with_assignments: Clonar le lista de articulos disponibile
     error:
       invalid_wiki: Non pote connecter a %{domain}. Pote non esser un wiki valide.
     join_no_passcode: Es tu secur de voler sequer iste curso?

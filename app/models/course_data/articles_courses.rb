@@ -124,7 +124,9 @@ class ArticlesCourses < ApplicationRecord
     return if new_records.empty?
     # Do this is batches to avoid running the MySQL server out of memory
     new_records.each_slice(5000) do |new_record_slice|
+      # rubocop:disable Rails/SkipsModelValidations
       insert_all new_record_slice
+      # rubocop:enable Rails/SkipsModelValidations
     end
   end
 

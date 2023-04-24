@@ -47,6 +47,6 @@ class HighQualityArticleAssignmentAlert < Alert
   def email_involved_users
     return if emails_disabled?
     HighQualityArticleAssignmentMailer.send_email(self)
-    update_attribute(:email_sent_at, Time.zone.now)
+    update(email_sent_at: Time.zone.now)
   end
 end

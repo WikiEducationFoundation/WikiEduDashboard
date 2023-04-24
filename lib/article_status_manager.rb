@@ -129,7 +129,7 @@ class ArticleStatusManager
       # Reload to account for articles that have had their mw_page_id changed
       # because the page was moved rather than deleted.
       next unless @deleted_page_ids.include? article.reload.mw_page_id
-      article.update_attribute(:deleted, true)
+      article.update(deleted: true)
     end
   end
 
@@ -147,7 +147,9 @@ class ArticleStatusManager
     # If there is only one copy of the article, it was already found and updated
     # via `update_title_and_namespace`
     return unless nondeleted_article
+    # rubocop:disable Rails/SkipsModelValidations
     article.revisions.update_all(article_id: nondeleted_article.id)
+    # rubocop:enable Rails/SkipsModelValidations
   end
 
   def data_matches_article?(article_data, article)

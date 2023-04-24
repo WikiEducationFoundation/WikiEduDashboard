@@ -24,7 +24,9 @@ namespace :assignment do
     Assignment.where('created_at < ?', '2019-08-01'.to_date).find_each do |assignment|
       url = generate_generic_sandbox_url(assignment)
       # update_columns will skip the callbacks on assignment
+      # rubocop:disable Rails/SkipsModelValidations
       assignment.update_columns(sandbox_url: url) if url
+      # rubocop:enable Rails/SkipsModelValidations
     end
   end
 end

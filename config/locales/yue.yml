@@ -4,16 +4,53 @@
 # Author: Hello903hello
 # Author: Moon0319
 # Author: Obonggi
+# Author: Z423x5c6
 ---
 yue:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
   application:
+    cookie_consent_acknowledge: 我明白
     cookie_consent_see_more: 睇多啲。
     create_accounts: 開維基百科戶口
+    documentation: 文檔
+    explore: 探索
+    greeting2: 歡迎！
+    greeting_extended: 歡迎嚟到維基百科
     greeting: 哈佬！
     help: 幫手
     home: 頭版
     log_in: 簽到
     log_out: 簽走
+    search: 問問題
+    sign_up: 開戶口
+    submit: 遞交
+    change: 改動
+    details: 細節
+    confirm: OK
+    opt_in: 係
+    opt_out: 唔係
+    opt_yes: 係
+    opt_no: 唔係
+    print: 打印
+  activity:
+    all: 活動
+    label: 活動
+  articles:
+    articles: 文章
+    next: 下一個
+    previous: 上一個
+    article_title: 文章標題
+    deleted: (刪咗)
+    filter:
+      wiki_all: 全部
+      new: 新
+    hide: 收埋
+    history: (歷史)
+    label: 文章
+    title: 標題
   courses:
     creation_date: 創建嘅日期
   wizard:
