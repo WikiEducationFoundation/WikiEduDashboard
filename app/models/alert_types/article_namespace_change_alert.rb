@@ -31,19 +31,6 @@ class ArticleNamespaceChangeAlert < Alert
     article_url
   end
 
-  # def email_body
-  #   <<~BODY
-  #     Hi #{content_expert.username},
-
-  #     The article "#{article.title}" has been moved from the #{namespace_name(old_namespace)} namespace to the #{namespace_name(new_namespace)} namespace.
-
-  #     #{url}
-
-  #     Thanks,
-  #     #{site_name} #{signature}
-  #   BODY
-  # end
-
   # private
 
   def article
