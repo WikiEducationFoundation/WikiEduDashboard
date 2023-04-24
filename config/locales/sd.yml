@@ -327,7 +327,9 @@ sd:
     general: عام
     redirects_created: چورڻا سرجيا ويا
   namespace:
+    all: سڀ
     main: مک پولار
+    article: مضمون
     user: يُوزرپولار
   recent_activity:
     article_title: مضمون جو عنوان
@@ -352,6 +354,7 @@ sd:
     block_milestone: سنگ-ميلَ
     due_default: مٿين هفتي واجب
     empty_week_3: يا
+    reset_titles: پاڻمرادوڏنل طرف ٻيھر مرتب ڪريو
     save_all_changes: سڀ سانڍيو
     this_week_title_default: هن هفتي
     title: اوقاتي خط
@@ -420,4 +423,6 @@ sd:
       اهڙي آگاهي ڏيو.
   login_error:
     header: داخل ٿيڻ چڪ
+  article_finder:
+    tools: اوزارَ
 ...
