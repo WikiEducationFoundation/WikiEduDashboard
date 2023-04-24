@@ -28,13 +28,7 @@ class ArticleNamespaceChangeAlert < Alert
   end
 
   def url
-    article_url
-  end
-
-  # private
-
-  def article
-    @article ||= Article.find_by(id: article_id)
+    article.url
   end
 end
 

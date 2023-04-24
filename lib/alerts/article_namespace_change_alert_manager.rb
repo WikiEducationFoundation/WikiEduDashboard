@@ -4,13 +4,14 @@ class ArticleChangeNamespaceAlertManager
     def self.create_alerts_for_article_namespace_change
       new.create_alerts_for_article_namespace_change
     end
-  
+
     def initialize
-      @articles = ArticlesCourses.article_ids_by_namespaces(['main', 'user', 'draft'])
+      @articles = Article.all
+      @article_courses = ArticlesCourses.includes(:course).where(article_id: @articles.pluck(:id)).distinct
     end
   
     def create_alerts_for_article_namespace_change
-      @articles.each do |article|
+      @article_courses.each do |article|
         next unless namespace_changed?(article)
         next if Alert.exists?(article_id: article.id, type: 'ArticleNamespaceChangeAlert')
         alert = Alert.create(type: 'ArticleNamespaceChangeAlert',
