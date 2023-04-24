@@ -2,6 +2,7 @@
 
 require_dependency "#{Rails.root}/lib/modified_revisions_manager"
 require_dependency "#{Rails.root}/lib/assignment_updater"
+require_dependency "#{Rails.root}/lib/alerts/course_alert_manager"
 
 #= Updates articles to reflect deletion and page moves on Wikipedia
 class ArticleStatusManager
@@ -13,34 +14,18 @@ class ArticleStatusManager
   # Entry points #
   ################
 
-  # def self.update_article_status_for_course(course)
-  #   course.wikis.each do |wiki|
-  #     # Updating only those articles which are updated more than  1 day ago
-  #     course.pages_edited
-  #           .where(wiki_id: wiki.id)
-  #           .where('articles.updated_at < ?', 1.day.ago)
-  #           .in_batches do |article_batch|
-  #       # Using in_batches so that the update_at of all articles in the batch can be
-  #       # excuted in a single query, otherwise if we use find_in_batches, query for
-  #       # each article for updating the same would be required
-  #       new(wiki).update_status(article_batch)
-  #       article_batch.touch_all(:updated_at)
-  #     end
-  #   end
-  # end
-
   def self.update_article_status_for_course(course)
     course.wikis.each do |wiki|
-      # Get the previous namespace of the article
-      previous_namespace = wiki.namespace
-
-      # Update the status of the article
-      wiki.update_status
-
-      # Check if the namespace has changed
-      if previous_namespace == Article::NAMESPACE_MAIN && wiki.namespace != Article::NAMESPACE_MAIN
-        # Call the ArticleNamespaceChangeAlertManager to create the new alert
-        ArticleNamespaceChangeAlertManager.create_alert(wiki, previous_namespace, wiki.namespace, course)
+      # Updating only those articles which are updated more than  1 day ago
+      course.pages_edited
+            .where(wiki_id: wiki.id)
+            .where('articles.updated_at < ?', 1.day.ago)
+            .in_batches do |article_batch|
+        # Using in_batches so that the update_at of all articles in the batch can be
+        # excuted in a single query, otherwise if we use find_in_batches, query for
+        # each article for updating the same would be required
+        new(wiki).update_status(article_batch)
+        article_batch.touch_all(:updated_at)
       end
     end
   end
@@ -59,6 +44,7 @@ class ArticleStatusManager
 
     # First we find any pages that just moved, and update title and namespace.
     update_title_and_namespace @synced_articles
+    CourseAlertManager.create_alerts_for_article_namespace_change
 
     # Now we check for pages that have changed mw_page_ids.
     # This happens in situations such as history merges.
@@ -120,6 +106,7 @@ class ArticleStatusManager
         article.update!(title: article_data['page_title'],
                         namespace: article_data['page_namespace'],
                         deleted: false)
+        puts article
         # Find corresponding Assignment records and update the titles
         AssignmentUpdater.update_assignments_for_article(article)
       rescue ActiveRecord::RecordNotUnique => e

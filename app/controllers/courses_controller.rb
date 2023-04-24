@@ -143,6 +143,13 @@ class CoursesController < ApplicationController
     @show_report = current_user&.can_edit?(@course)
   end
 
+  def article_namespace_change
+    set_course
+    @article = Article.find(params[:id])
+    old_namespace = @article.namespace
+    new_namespace = params[:namespace]
+  end
+
   ##########################
   # User-initiated actions #
   ##########################
