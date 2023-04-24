@@ -108,7 +108,6 @@ class ArticleStatusManager
         article.update!(title: article_data['page_title'],
                         namespace: article_data['page_namespace'],
                         deleted: false)
-        puts article
         # Find corresponding Assignment records and update the titles
         AssignmentUpdater.update_assignments_for_article(article)
       rescue ActiveRecord::RecordNotUnique => e
