@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require_dependency "#{Rails.root}/models/course_data/articles_courses"
 
 class ArticleChangeNamespaceAlertManager
     def self.create_alerts_for_article_namespace_change
