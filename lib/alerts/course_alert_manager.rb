@@ -73,7 +73,7 @@ class CourseAlertManager
     SandboxedCourseMainspaceMonitor.create_alerts_for_active_courses
   end
 
-  def self.create_article_namespace_change_alerts
+  def create_article_namespace_change_alerts
     ArticleChangeNamespaceAlertManager.create_alerts_for_article_namespace_change
   end
 end

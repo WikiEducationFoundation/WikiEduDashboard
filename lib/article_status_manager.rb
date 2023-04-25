@@ -46,7 +46,7 @@ class ArticleStatusManager
 
     # First we find any pages that just moved, and update title and namespace.
     update_title_and_namespace @synced_articles
-    CourseAlertManager.create_article_namespace_change_alerts
+    CourseAlertManager.new.create_article_namespace_change_alerts
 
     # Now we check for pages that have changed mw_page_ids.
     # This happens in situations such as history merges.
