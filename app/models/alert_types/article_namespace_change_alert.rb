@@ -24,11 +24,10 @@
 
 class ArticleNamespaceChangeAlert < Alert
   def main_subject
-    "#{article.title}"
+    article.title.to_s
   end
 
   def url
     article.url
   end
 end
-

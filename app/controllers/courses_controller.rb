@@ -146,8 +146,6 @@ class CoursesController < ApplicationController
   def article_namespace_change
     set_course
     @article = Article.find(params[:id])
-    old_namespace = @article.namespace
-    new_namespace = params[:namespace]
   end
 
   ##########################
