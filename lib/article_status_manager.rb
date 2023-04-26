@@ -46,7 +46,6 @@ class ArticleStatusManager
 
     # First we find any pages that just moved, and update title and namespace.
     update_title_and_namespace @synced_articles
-    ArticleChangeNamespaceAlertManager.create_alerts_for_article_namespace_change
 
     # Now we check for pages that have changed mw_page_ids.
     # This happens in situations such as history merges.
@@ -110,6 +109,10 @@ class ArticleStatusManager
                         deleted: false)
         # Find corresponding Assignment records and update the titles
         AssignmentUpdater.update_assignments_for_article(article)
+
+        if article.namespace != 0
+          ArticleChangeNamespaceAlertManager.create_alerts_for_article_namespace_change
+        end
       rescue ActiveRecord::RecordNotUnique => e
         # if this is a duplicate article record, moving the revisions to the non-deleted
         # copy should prevent it from being part of a future update.
