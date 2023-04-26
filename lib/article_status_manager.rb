@@ -2,7 +2,7 @@
 
 require_dependency "#{Rails.root}/lib/modified_revisions_manager"
 require_dependency "#{Rails.root}/lib/assignment_updater"
-require_dependency "#{Rails.root}/lib/alerts/course_alert_manager"
+require_dependency "#{Rails.root}/lib/alerts/article_namespace_change_alert_manager"
 
 #= Updates articles to reflect deletion and page moves on Wikipedia
 class ArticleStatusManager
@@ -46,7 +46,7 @@ class ArticleStatusManager
 
     # First we find any pages that just moved, and update title and namespace.
     update_title_and_namespace @synced_articles
-    CourseAlertManager.new.create_article_namespace_change_alerts
+    ArticleChangeNamespaceAlertManager.create_alerts_for_article_namespace_change
 
     # Now we check for pages that have changed mw_page_ids.
     # This happens in situations such as history merges.
