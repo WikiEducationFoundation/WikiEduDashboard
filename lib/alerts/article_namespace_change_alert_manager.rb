@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 class ArticleChangeNamespaceAlertManager
-  def self.create_alerts_for_article_namespace_change
+  # rubocop:disable Lint/UnusedMethodArgument
+  def self.create_alerts_for_article_namespace_change(article)
     new.create_alerts_for_article_namespace_change
   end
+  # rubocop:enable Lint/UnusedMethodArgument
 
   def initialize
     @articles = Article.all
