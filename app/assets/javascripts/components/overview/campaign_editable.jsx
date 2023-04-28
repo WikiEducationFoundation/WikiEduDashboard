@@ -13,9 +13,8 @@ import Conditional from '../high_order/conditional.jsx';
 import { removeCampaign, fetchAllCampaigns, addCampaign } from '../../actions/campaign_actions';
 import { fetchUsers } from '../../actions/user_actions';
 
-const CampaignEditable = ({ course_id, campaigns, open, is_open, stop }) => {
+const CampaignEditable = ({ course_id, campaigns, is_open, stop }) => {
   const [selectedCampaigns, setSelectedCampaigns] = useState([]);
-  console.log(open, is_open, stop);
   const campaignSelectRef = useRef(null);
   const dispatch = useDispatch();
 
