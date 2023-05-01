@@ -94,8 +94,6 @@ If you know your way around Rails, here's the very short version. Some additiona
         - From the WikiEduDashboard directory, run the curl script from [rvm.io](https://rvm.io/)
         - Use **rvm:** `rvm install 3.1.2` followed by `rvm use 3.1.2`
         - or use **rbenv:** `rbenv install 3.1.2` followed by `rbenv local 3.1.2`
-      - Windows:
-        - Install Ruby+Devkit[ruby installer package](https://rubyinstaller.org/downloads/)
     - Install Node:
       - Debian: `sudo apt install nodejs`
       - OSX: `brew install node` (this assumes you are using [homebrew](brew.sh))
@@ -103,10 +101,8 @@ If you know your way around Rails, here's the very short version. Some additiona
 
 - Installation steps
 1. ### Recommended (WSL)
- - Install [wsl](https://learn.microsoft.com/en-us/windows/wsl/install)
- - Get Ubuntu from Microsoft store and setup your user.
- - Ensure you have the mentioned prerequisites
- - Run the script from your Ubuntu terminal
+ - Follow the steps as indicated in the [WSL-Ubuntu-setup](ubuntu_wsl_setup.md)
+ - Run the script from your Ubuntu terminal - python3 setup.py
  - Follow the steps in ##Running on Local
 2. ### Option 2
 - For setup on Windows:
