@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: ASHmed
+# Author: Alshamiri1
 # Author: Ayatun
 # Author: Azouz.anis
 # Author: Dr. Mohammed
@@ -86,6 +87,7 @@ ar:
     opt_out: لا
     opt_yes: نعم
     opt_no: لا
+    print: طباعة
   article_statuses:
     not_yet_started: ابدأ
     in_progress: العمل في الملعب
@@ -282,6 +284,7 @@ ar:
     editors: مخصص لـ
     group_members: أعضاء المجموعة
     label: تعيين
+    label_all: تعيين الكل
     loading: تحميل الواجبات...
     none_short: لا توجد مقالات معينة
     none_short_wikidata: لم يتم تعيين عناصر
@@ -545,6 +548,7 @@ ar:
       create_button: أنشئ مساقي
       create_label: إنشاء مساق جديد
       create_new: أنشئ مساقا جديدا
+      copy_courses_with_assignments: استنساخ قائمة المقالات المتاحة
       create_short: أنشئ المساق
       end_date: تاريخ الانتهاء
       end_date_placeholder: سسسس-شش-يي
@@ -741,6 +745,7 @@ ar:
     revisions_none: هذه الدورة ليس لها نشاط في تحرير ويكيبيديا مؤخرا.
     school: مدرسة
     school_and_term: مؤسسة/فصل دراسي
+    search_all_tickets_for_this_course: ابحث في جميع التذاكر لهذا المقرر التعليمي
     search_courses: البحث في الدورات
     start: البداية
     start_typing: ابدأ الكتابة
@@ -1221,6 +1226,8 @@ ar:
       'rake batch:resume' لاستئناف التحديثات.
   tickets:
     none: لا تذاكر
+    search_bar_placeholder: تذاكر البحث
+    chose_search_type: اختار نوع البحث
   timeline:
     add_week: إضافة أسبوع
     arrange_timeline: ترتيب الجدول الزمني
@@ -1311,6 +1318,16 @@ ar:
       / yaml.
     no_training_library_records_non_wiki_ed_mode: لا توجد سجلات TrainingLibrary في
       قاعدة البيانات.
+    search_training_resources: ابحث عن مصادر التدريب
+    no_training_resource_match_your_search: لا يوجد مصدر تدريب يطابق بحثك
+  update_username:
+    header: قم بتحديث اسم مستخدم تم تغييره
+    not_found: لم يتم العثور على المستخدم لاسم المستخدم الذي تم إدخاله.
+    username_updated: تم تحديث اسم المستخدم بنجاح!
+    info: إذا قام المستخدم بتغيير اسم المستخدم لحساب ويكيميديا ​​الخاص به ، أدخل اسم
+      المستخدم الجديد هنا لتحديثه على لوحة التحكم الرئيسية.
+    label: اسم مستخدم جديد
+    button: تحديث
   uploads:
     credit: الإحالات
     file_name: اسم الملف
@@ -1502,6 +1519,9 @@ ar:
       explanation: انت تستخدم متصفحا غير متوافق مع اللوحة؛ هذا الموقع يعمل بشكل جيد
         على إنترنت إكسبلورر الإصدار 11 أو إصدار لاحق، وعلى الإصدارات الأخيرة من كروم
         وفايرفوكس، وعلى المتصفحات الحديثة الأخرى.
+    ip_blocked: لا يمكنك حاليا إنشاء حساب من هذا الجهاز.  يحدث هذا إذا تم حظر عنوان
+      IP الخاص بك بواسطة Wikipedia أو وصل بالفعل إلى الحد اليومي للحسابات الجديدة.  حاول
+      الاتصال من شبكة مختلفة.
   error_401:
     header: غير مصرح. >:-(
     explanation: غير مسموح لك لتنفيذ هذا الطلب، إذا كنت تعتقد أنه قد وصل إليك هذا

@@ -1580,6 +1580,9 @@ hu:
       explanation: Olyan böngészőprogramot használsz, amely nem kompatibilis a kezelőpulttal.
         Ez az oldal jól működik a Chrome, Firefox, Edge és más modern böngészők legújabb
         verzióiban.
+    ip_blocked: Erről az eszközről jelenleg nem tudsz fiókot létrehozni. Lehetséges,
+      hogy a Wikipédia blokkolta az IP-címed, vagy elérted az egy nap alatt létrehozható
+      új fiókok maximális számát. Próbálj csatlakozni egy másik hálózatról!
   error_401:
     header: Jogosulatlan. >:-(
     explanation: Nincs jogosultságod ennek a kérésnek a végrehajtására. Ha úgy gondolod,
