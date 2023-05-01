@@ -159,7 +159,7 @@ fr:
     next: Suivant
     previous: Précédent
     article_title: Titre de l’article
-    assigned_to: Assigné à
+    assigned_to: Affecté à
     character_doc: Le total du nombre de caractères ajoutés aux articles par les rédacteurs
       inscrits entre les dates de début et de fin
     cross_wiki_tracking: Les pages de l’espace de noms principal modifiées entre les
@@ -306,11 +306,12 @@ fr:
     bibliography: Bibliographie
     clone: Cloner
     confirm_add_available: Êtes-vous sûr(e) de vouloir ajouter %{title} ?
-    confirm_addition: Êtes-vous sûr de vouloir assigner %{title} à %{username} ?
+    confirm_addition: Êtes-vous sûr(e) de vouloir affecter %{title} à %{username} ?
     confirm_deletion: Êtes-vous sûr(e) de vouloir supprimer cette affectation ?
-    editors: Assigné à
+    editors: Affecté à
     group_members: Membres du groupe
-    label: Assigner
+    label: Affecter
+    label_all: Affecter tout
     loading: Chargement des affectations...
     none_short: Aucun article affecté
     none_short_wikidata: Aucun élément affecté
@@ -339,7 +340,7 @@ fr:
         une relecture par un pair ». Cliquer sur « OK » affectera un total de %{count}
         relecture(s) supplémentaire(s) par un pair, avec un maximum de %{maximum}
         pour chaque étudiant, choisies parmi les éléments de leurs camarades de classe.
-      heading: Assigner des relectures par des pairs aléatoires
+      heading: Affecter des relectures par des pairs aléatoires
       tooltip_message: Affecte des articles aléatoires (avec le compte des revues
         de pair en nombre maximum) à chaque étudiant.
       tooltip_message_wikidata: Affecte des éléments aléatoires (avec un nombre de
@@ -604,6 +605,7 @@ fr:
       create_button: Créer mon cours !
       create_label: Créer un nouveau cours
       create_new: Créer un nouveau cours
+      copy_courses_with_assignments: Cloner la liste des articles disponibles
       create_short: Créer un cours
       end_date: Date de fin
       end_date_placeholder: AAAA-MM-JJ
@@ -1249,7 +1251,7 @@ fr:
     recent_uploads: Téléversements récents
     revision_author: Auteur de la révision
     revision_datetime: Horodatage de la révision
-    revision_score: Score de la révision
+    revision_score: Pointage de la version
     show_courses: Afficher uniquement mes cours
     uploaded_by: Téléversé par
     usage_count: Compteur d’utilisations
@@ -1673,6 +1675,10 @@ fr:
       explanation: Vous utilisez un navigateur qui n’est pas compatible avec le tableau
         de bord. Le site fonctionne bien avec les versions récentes de Chrome, Firefox,
         Edge et d’autres navigateurs modernes.
+    ip_blocked: Vous ne pouvez actuellement pas créer de compte à partir de cet appareil.
+      Cela peut arriver si votre adresse IP est bloquée par Wikipédia ou a déjà atteint
+      la limite quotidienne de nouveaux comptes. Essayez de vous connecter à partir
+      d’un autre réseau.
   error_401:
     header: Non autorisé. >:-(
     explanation: Vous n’avez pas l’autorisation d’exécuter cette requête. Si vous

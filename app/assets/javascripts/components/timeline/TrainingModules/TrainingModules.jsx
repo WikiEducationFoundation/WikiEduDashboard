@@ -1,7 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import Select from 'react-select';
+import Select, { components } from 'react-select';
 import { filter, compact } from 'lodash-es';
 import selectStyles from '../../../styles/select';
 
@@ -50,13 +50,21 @@ const TrainingModules = createReactClass({
   },
 
   trainingSelector() {
+    const MultiValueRemove = (props) => {
+      return (
+        <components.MultiValueRemove {...props}>
+          <components.CrossIcon aria-hidden={false} aria-label={'Remove Module'} />
+        </components.MultiValueRemove>
+      );
+    };
     const options = filter(compact(this.props.all_modules), module => module.status !== 'deprecated')
-                    .map(module => ({ value: module.id, label: module.name + this.moduleLabel(module.kind) }));
+      .map(module => ({ value: module.id, label: module.name + this.moduleLabel(module.kind) }));
     return (
       <div className="block__training-modules">
         <div>
           <h4>Training modules</h4>
           <Select
+            components={{ MultiValueRemove }}
             isMulti={true}
             name="block-training-modules"
             value={this.state.value}
@@ -89,7 +97,7 @@ const TrainingModules = createReactClass({
     return (
       <div className="block__training-modules">
         <div>
-          { this.props.header ? <h4 id={headerId}>{ header }</h4> : null }
+          {this.props.header ? <h4 id={headerId}>{header}</h4> : null}
           <table className="table table--small">
             <tbody>
               {modules}

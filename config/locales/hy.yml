@@ -55,7 +55,9 @@ hy:
   article_statuses:
     not_yet_started: Աշխատանքի սկիզբ
     in_progress: Աշխատանք ավազարկղում
+    ready_for_review: Ընդլայնվող սեվագիր
     ready_for_mainspace: Աշխատանքը տեղափոխվում է հիմնական անվանատարածք
+    assignment_completed: Առաջադրանքը նշված է որպես ավարտված
     reading_the_article: Կարդալ հոդվածը
     providing_feedback: Կարծիք հայտնել
     post_to_talk: Հրապարակվում է քննարկման էջում
@@ -82,6 +84,7 @@ hy:
   articles:
     articles: Հոդվածներ
     assigned: Հանձնարարված հոդվածներ
+    available: Հասանելի հոդվածներ
     next: Հաջորդ
     previous: Նախորդ
     article_title: Հոդվածի վերնագիր
@@ -92,6 +95,8 @@ hy:
     filter:
       wiki_all: Բոլորը
       new: Նոր
+      existing: Գոյություն ունեցող
+      new_and_existing: Նոր և գոյություն ունեցող
     find: Գտնել հոդվածներ
     hide: Թաքցնել
     history: (պատմություն)
@@ -100,8 +105,8 @@ hy:
     new: (նոր)
     rating: Դաս
     rating_docs:
-      b: B-դաս — չափավոր զարգացած հոդված.
-      start: Մեկնարկի դաս — կարճ հոդված է, որը պետք է լրացնել.
+      b: '%{class}-դաս — չափավոր զարգացած հոդված.'
+      start: '%{class}-դաս — կարճ հոդված է, որը պետք է լրացնել.'
       does_not_exist: Այս հոդվածը գոյություն չունի ՝ Վիքիպեդիայում
     see_more: Տեսնել ավելին
     show_current_version: Ցույց տալ ընթացիկ տարբերակը
@@ -164,7 +169,9 @@ hy:
     course_removed: '"%{title}" հեռացվել է %{campaign_title}" քարոզարշավից'
     create_campaign: Ստեղծել նոր համագործակցություն
     data_articles: Խմբագրված էջեր
+    data_wikidata: Վիքիտվյալների վիճակագրություն
     description: Նկարագրություն
+    newest_campaigns: Նորագույն արշավները
     organizers: Կազմակերպիչներ
     organizer_added: '%{user} մասնակիցն այժմ %{title} համագործակցության կազմակերպիչն
       է:'
@@ -206,6 +213,7 @@ hy:
       expected_number: Ուսանողների ակնկալվող քանակ
       start_date: Սկսելու ամսաթիվ
       subject: Թեմա
+    data_wikidata: Վիքիտվյալների վիճակագրություն
     delete_suggestion: Ջնջել
     dismiss_survey: Փակել
     download_stats_data: Ներբեռնել վիճակագրությունը
@@ -244,7 +252,8 @@ hy:
       one: Կամավոր
       other: Կամավորներ
   courses_generic:
-    assignments_none: Այս նախագծում չկան հանձնարարված հոդվածներ Վիքիպեդիայից։
+    assignments_none: Այս նախագծում չկան հանձնարարված հոդվածներ։
+    assignment_start: Միջոցառման սկիզբ
     cancel: Չեղարկել
     creator:
       assignment_end_placeholder: ՏՏՏՏ-ԱԱ-ՕՕ
@@ -258,7 +267,7 @@ hy:
       create_label: Ստեղծել նոր նախագիծ
       create_new: Ստեղծել նոր նախագիծ
       create_short: Ստեղծել նախագիծ
-      find: Գտի՛ր քո նախագիծը
+      find: Գտեք ծրագիր
       save_cloned_course: Հիշել
     edit_course_dates: Խմբագրել նախագծի ամսաթվերը
     enroll: Ավելացնել խմբագրին
@@ -266,6 +275,8 @@ hy:
     expected_students: Ակնկալվող խմբագիրներ
     instructors: Նախաձեռնողներ
     join_course: Միանալ ծրագրին
+    school: Հաստատություն
+    school_and_term: Հաստատություն/Երբ
     student_editors: Խմբագիրներ
     student: Խմբագիր
     students: Խմբագիրներ
@@ -299,10 +310,14 @@ hy:
     view: Դիտումներ
     word_count: Ավելացված բառեր
     general: Ընդհանուր
+    labels: Պիտակներ
+    no_data: Տվյալներ չկան
+    other_updates: Այլ թարմացումներ
   namespace:
     all: Բոլորը
     main: Գլխավոր անվանատարածք
     article: Հոդված
+    talk: Քննարկում
     user: Մասնակցի անվանատարածք
     project: Նախագիծ
     file: Նիշք
@@ -314,6 +329,7 @@ hy:
     book: Գիրք
     translation: Թարգմանություն
     query: Հարցում
+    lexeme: Բառույթ
     appendix: Հավելված
     portal: Պորտալ
     school: Դպրոց
@@ -327,6 +343,7 @@ hy:
     diff_show: Ցուցադրել
     diff_hide: Թաքցնել
     edited_by: Խմբագրված
+    edited_on: Խմբագրվել է %{edit_date}-ին
     loading: Տարբերակների բեռնում․․․
     time_doc: Յուրաքանչյուր վերանայման ժամանակը տեղական ժամանակով
     title: Վերնագիր
@@ -335,6 +352,9 @@ hy:
     suggestion_docs:
       does_not_exist: 'Այս հոդվածը Վիքիպեդիայում գոյություն չունի:'
   timeline:
+    add_week: Ավելացնել շաբաթ
+    arrange_timeline: Կազմակերպել ժամանակացույցը
+    block_custom: Կարգավորվող
     empty_week_3: կամ
     this_week_title_default: Այս շաբաթ
   training:
@@ -342,7 +362,15 @@ hy:
     view: Դիտել
     next: Հաջորդ էջ
     page: Էջ
+    previous: < Նախորդ
+    table_of_contents: Բովանդակություն
+    training_library: Ուսումնական գրադարան
     done: Արված է
+    check_answer: Ստուգել պատասխանը
+    included_modules: Ներառված մոդուլներ
+    view_library_source: դիտել գրադարանի աղբյուրը
+    view_module_source: դիտել մոդուլի աղբյուրը
+    reload_from_source: վերաբեռնել աղբյուրից
     kind:
       discussion: քննարկում
   update_username:
@@ -374,10 +402,16 @@ hy:
       seconds: Վրկ
     username: Օգտանուն
     username_placeholder: Օգտանուն
+    useremail_placeholder: Էլ. փոստ
+    userpasscode_placeholder: Անցակոդ
+    role:
+      visitor: Այցելու
+      student: Ուսանող
   wizard:
     assignment_dates: Հանձնարարության ժամկետներ
     assignment_type: Հանձնարարության տեսակ
     read_more: Կարդալ ավելին
+    summary: Ամփոփում
   error_404:
     header: Էջը չի գտնվել :-(
   login_error:
@@ -385,4 +419,10 @@ hy:
   survey:
     email:
       headline: Ողջո՜ւյն, %{username}
+  article_finder:
+    search: Որոնել
+    searching_articles: Հոդվածների որոնում
+    tools: Գործիքներ
+  training_status:
+    continue: Շարունակել
 ...

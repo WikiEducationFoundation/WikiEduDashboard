@@ -6,7 +6,9 @@ import Header from '@components/overview/my_articles/components/Categories/List/
 
 describe('Header', () => {
   const props = {
-    article: {},
+    article: {
+      project: 'project'
+    },
     articleTitle: 'title',
     assignment: {},
     course: { slug: 'course/slug', type: 'ClassroomProgramCourse' },

@@ -57,7 +57,7 @@ class TrainingModulesUsersController < ApplicationController
   end
 
   def complete_module
-    @training_module_user.update_attribute(:completed_at, Time.now.utc)
+    @training_module_user.update(completed_at: Time.now.utc)
   end
 
   def last_slide?

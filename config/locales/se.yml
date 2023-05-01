@@ -22,7 +22,9 @@ se:
     hide: Čiega
     new: (ođđa artihkal)
     see_more: Lassedieđut
+    view: Čájet artihkkala
     view_all: Čájet buot
+    view_on_wiki: Čájet wikis
   assignments:
     remove: Sihko
     select: Vállje
@@ -36,9 +38,11 @@ se:
     feedback: Máhcahat
     new_account_email: E-poastačujuhus
     please_log_in: Čálit sisa.
+    requested_accounts_alert_view: Čájet
     search_courses: Oza kurssaid
     tags: 'Gilkorat:'
     timeline_link: Áigelinnjá
+    view_wiki: Čájet Wikipedias
   courses_generic:
     cancel: Šluhtte
     creator:
@@ -52,26 +56,37 @@ se:
   metrics:
     tags: Gilkorat
     removed: Sihkkojuvvon
+  namespace:
+    file: Fiila
   recent_activity:
     file_name: Fiilanamma
   revisions:
     diff_show: Čájet
     diff_hide: Čiega
     see_more: Lassedieđut
+  settings:
+    admin_users:
+      new:
+        form_placeholder: Geavaheaddjinamma
   timeline:
     title: Áigelinnjá
   training:
     view: Čájet
     next: Čuovvovaš siidu
     page: Siidu
+  uploads:
+    file_name: Fiilanamma
   users:
     first_name: Ovdanamma
     last_name: Goargu
+    username: Geavaheaddjinamma
+    username_placeholder: Geavaheaddjinamma
     useremail_placeholder: E-poastačujuhus
   wizard:
     read_more: Čájet lasi
   article_finder:
     remove_article: Sihko artihkkala
   training_status:
+    continue: Joatkke
     view: Čájet
 ...

@@ -7,7 +7,7 @@
       = text_field_tag(:search, @query, placeholder: 'search', id: 'faq_search')
       %button.search#submit_search{type: 'submit'}
         %i.icon.icon-search
-.container
+.container.faq-body
   .faq-list
     - @faqs.each do |faq|
       = render 'faq', faq: faq, expanded: @faqs.one?

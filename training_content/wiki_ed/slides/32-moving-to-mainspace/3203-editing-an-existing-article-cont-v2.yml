@@ -1,22 +1,24 @@
 ---
+id: 3203
 title: Editing an existing article (cont.)
 content: |
   Here's how to move your drafted content:
 
   1.  Open your sandbox in Edit mode. (References and other templates will
       break if you copy from Read mode.)
-  2.  Select the portion you want to move into the live article.
-  3.  Open the original article in Edit mode and add your content into the
+  2.  If you added bold formatting to differentiate your additions from
+      existing content, remove it now.
+  3.  Select the portion you want to move into the live article.
+  4.  Open the original article in Edit mode and add your content into the
       article.
-  4.  Add an edit summary that says it was copied from your sandbox, and
+  5.  Add an edit summary that says it was copied from your sandbox, and
       click 'Publish changes'. (Include a link to your sandbox, like
       `[[User:Your Username/sandbox]]`, in the edit summary.)
-  5.  Repeat this process for any other parts of the article you worked
+  6.  Repeat this process for any other parts of the article you worked
       on.
-  6.  Make sure that the lead section reflects the new content you've
+  7.  Make sure that the lead section reflects the new content you've
       added. And copy-edit the article to ensure your additions mesh
       well with the preexisting content.
 
   Once you've gotten the hang of it, you can make additional changes directly in
   the article, or repeat the sandbox procedure each time you add new content.
-id: 3203

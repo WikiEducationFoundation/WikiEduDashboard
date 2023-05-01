@@ -99,7 +99,7 @@ class UserImporter
 
   def self.update_username_for_global_id(username)
     existing_user = user_with_same_global_id(username)
-    existing_user&.update_attribute(:username, username)
+    existing_user&.update(username:)
   end
 
   def self.user_with_same_global_id(username)
@@ -126,7 +126,12 @@ class UserImporter
 
   def self.handle_duplicate_user(user, user_data)
     existing_user = User.find_by(username: user_data['name'])
+
+    # We can use the more efficient `update_all` since there are no callbacks on revisions
+    # rubocop:disable Rails/SkipsModelValidations
     user.revisions.update_all(user_id: existing_user.id)
+    # rubocop:enable Rails/SkipsModelValidations
+
     user.courses_users.each do |cu|
       next if CoursesUsers.exists?(course_id: cu.course_id, user_id: existing_user.id)
       cu.update(user_id: existing_user.id)

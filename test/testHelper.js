@@ -65,6 +65,6 @@ global.WikiLanguages = JSON.stringify([
 ]);
 global.ProjectNamespaces = JSON.stringify({ wikipedia: [0, 2] });
 
-require('../public/assets/javascripts/i18n/en'); // eslint-disable-line import/no-unresolved
+I18n.store(window.stores);
 
 chai.use(sinonChai);

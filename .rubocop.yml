@@ -99,6 +99,8 @@ Layout/EmptyLineAfterGuardClause:
   Enabled: false # Not very helpful
 Layout/HashAlignment:
   Enabled: false # Hashes look uglier when corrected
+Rails/I18nLocaleTexts:
+  Enabled: false # Generally the translations are done manually so most times many language translations will be missing while the fallback message is English
   
 ########################
 # Temporary exceptions #
@@ -109,8 +111,6 @@ Layout/HashAlignment:
 # if we decide they shouldn't be fixed.
 
 Rails/FilePath:
-  Enabled: false
-Rails/SkipsModelValidations:
   Enabled: false
 Performance/UnfreezeString:
   Enabled: false
@@ -159,10 +159,6 @@ RSpec/MessageSpies:
 RSpec/DescribeClass:
   Enabled: false
 RSpec/ExpectInHook:
-  Enabled: false
-RSpec/MultipleDescribes:
-  Enabled: false
-RSpec/ExampleWording:
   Enabled: false
 Style/DateTime:
   Enabled: false
@@ -225,8 +221,6 @@ RSpec/Rails/HaveHttpStatus:
 RSpec/FactoryBot/SyntaxMethods:
   Enabled: false
 Rails/CompactBlank:
-  Enabled: false
-Rails/I18nLocaleTexts:
   Enabled: false
 Layout/FirstHashElementIndentation:
   Enabled: false

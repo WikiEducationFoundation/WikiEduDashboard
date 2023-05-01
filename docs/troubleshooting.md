@@ -45,3 +45,16 @@ Your system has cmdtest installed, which provides a different program as yarn. U
 
 - Use node v10 or lower to avoid any errors.
 - **For WSL users , if rspec tests are taking too long to run** make sure to fork the repo in the linux file system and not in the windows partition. Use command `pwd` to know the exact path of your repo. If the path starts with `/mnt/`, the repo is in windows partition. Follow the documentation availible at link: https://learn.microsoft.com/en-us/windows/wsl/filesystems to know more about storing and moving files in the linux file system. 
+
+	If you have received error related to dependencies(`sudo apt-get install -y redis-server mariadb-server libmariadb-dev rvm nodejs npm pandoc`), try to install packages one by one and figure out which packages are creating problems).
+
+**Solution to some of the errors for WSL users:**
+
+- **mariaDB Package error** (`The following packages have unmet dependencies: mariadb-server : Depends: mariadb-server-10.4 (>= 1:10.4.8+maria~disco) but it is not going to be installed`):
+   	Try `sudo aptitude install mariadb-server`: you will get suggestions of the packages not installed. When prompted for accepting the solution - write 'n', then it will fix itself and will again prompt for reinstalling mariadb packages - this time write 'y'. Reopen the terminal and check if you can start mariadb server.
+- **npm error**(`unmet dependencies`): Try using `aptitude`.
+   	`sudo apt-get install aptitude`
+   	`sudo aptitude install npm`
+- **rvm install 3.1.2' command error** (`cannot create directory...: Permission denied`): Try using `rvm fix-permissions system; rvm fix-permissions user`
+   	
+- **error: `usermod: group 'rvm' does not exist:`** Try `sudo groupadd rvm`

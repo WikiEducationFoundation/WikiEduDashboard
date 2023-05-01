@@ -33,7 +33,7 @@ class FirstEnrolledStudentAlert < Alert
   def send_email
     return if emails_disabled?
     FirstEnrolledStudentAlertMailer.send_email(self)
-    update_attribute(:email_sent_at, Time.zone.now)
+    update(email_sent_at: Time.zone.now)
   end
 
   def from_user

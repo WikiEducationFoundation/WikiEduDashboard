@@ -97,6 +97,7 @@ lv:
     bibliography: Bibliogrāfija
     clone: Klonēt
     label: Piešķirt
+    label_all: Piešķirt visus
     loading: Ielādē uzdevumus...
     none_short: Nav piešķirtu rakstu
     remove: Noņemt

@@ -55,6 +55,7 @@ smn:
     title_example: Artikkâl nommâ
     view: Čääiti artikkâl
     view_all: Čääiti puoh
+    view_on_wiki: Čääiti wikist
     wiki: Wiki
     articles_short: Artikkâleh
   articles_generic:
@@ -83,6 +84,7 @@ smn:
     please_log_in: Čáládât siisâ.
     search_courses: Uusâ kuursâid
     tags: 'Kilgoleh:'
+    view_wiki: Čääiti Wikipediast
   courses_generic:
     cancel: Jooskâ
     creator:

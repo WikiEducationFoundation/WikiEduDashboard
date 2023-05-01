@@ -190,6 +190,7 @@ fi:
       että artikkeli noudattaa Wikipedian käytänteitä ja rakennetta hyville artikkeleille,
       mutta se ei kerro mitään artikkelin sisällöstä. (Pisteet ovat saatavilla vain
       englanninkielisen Wikipedian artikkeleille.)'
+    articles_short: Artikkelit
     page_logs: (sivun lokit)
   items:
     items: Kohteet
@@ -302,7 +303,7 @@ fi:
     tracked_categories: Seuratut luokat, PSID, PagePile-tunniste ja mallineet
   courses:
     activity: Toiminta
-    active_courses: Aktiiviset %{course_type}
+    active_courses: Aktiiviset kurssit
     alerts: Hälytykset
     all_courses: Kaikki kurssit
     already_enrolled: Olet jo ilmoittautunut kurssille '%{title}'!
@@ -436,7 +437,7 @@ fi:
       other: ohjaajat
     instructors: Ohjaajat
     invitation: Sinut on kutsuttu ilmoittautumaan kurssille %{title}. Ilmoittautuaksesi
-      kurssille sinun täytyy kirjautua sisään Wikipedia-tunnuksella.
+      sinun täytyy kirjautua sisään Wikipedia-tunnuksen avulla.
     invitation_username_advice: Jos sinulla ei vielä ole Wikipedia-tunnusta, luo sellainen
       nyt. Käyttäjänimesti voi olla yhtä anonyymi tai tunnistettava kuin itse haluat.
       Yhteistunnusten luonti ei kuitenkaan ole sallittua.
@@ -499,6 +500,7 @@ fi:
     search_courses: Etsi kursseja
     start: Alkaa
     start_typing: Aloita kirjoittaminen
+    student: Opiskelija
     students: Opiskelijat
     students_taught: Opiskelijoita
     students_count: '# opiskelijaa'
@@ -526,6 +528,7 @@ fi:
     timeline: Tehtävän tiedot
     timeline_enabled: AIkajana päällä
     timeline_link: Aikajana
+    timeline_nav: Siirry aikajanalle
     time_zone_message: Aloitus- ja lopetusajat näkyvät paikallisessa ajassa.
     title: Otsikko
     training_due: Kurssin tehtäväksi on lisätty harjoitusmoduuli "%{title}", ja sen
@@ -826,6 +829,8 @@ fi:
     done: Tehty!
     check_answer: Tarkista vastaus
     included_modules: Sisällytetyt moduulit
+  update_username:
+    label: Uusi käyttäjänimi
   uploads:
     file_name: Tiedostonimi
     header: Wikimedia Commonsiin tallennetut tiedostot
@@ -875,7 +880,7 @@ fi:
     name: Nimi
     none: Tällä kurssilla ei ole osallistujia.
     no_articles: Ei artikkeleita
-    no_revisions: Tämä muokkaaja ei ole tehnyt muutoksia.
+    no_revisions: (ei muutoksia)
     number_of_articles:
       one: '%{count} artikkeli'
       other: '%{count} artikkelia'

@@ -1,25 +1,40 @@
 .faq-header
-  input
-    width 100%
-    max-width 400px
-  button.search
-    right 30px
-    position relative
-    color #888
-  button.search:hover
-    color inherit
+  form
+    display flex
+    justify-content center
+    input
+      width 100%
+      max-width 400px
+    button.search
+      right 30px
+      position relative
+      color #888
+    button.search:hover
+      color inherit
+.faq-body
+  display flex
+  justify-content space-between
+  gap 20px
 
-.faq-list
-  width 70%
-  float left
+  .faq-list
+    width 70%
+
+  .faq-topic-list
+    width 20%
+
+  @media only screen and (max-width: 500px)
+    flex-direction column-reverse
+    .faq-list
+      width 100%
+
+    .faq-topic-list
+      width 100%
+
 
 .faq-feedback
   margin-top 20px
   float left
 
-.faq-topic-list
-  width 20%
-  float right
 
 .faq
   border-bottom 1px solid #ccc
