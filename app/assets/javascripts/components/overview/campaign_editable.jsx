@@ -41,6 +41,8 @@ const CampaignEditable = createReactClass({
   handleChangeCampaign(values) {
     if (values.length > 0) {
       this.setState({ selectedCampaigns: values });
+    } else {
+      this.setState({ selectedCampaigns: [] });
     }
   },
 
@@ -119,6 +121,7 @@ const CampaignEditable = createReactClass({
                 value={this.state.selectedCampaigns}
                 placeholder={I18n.t('courses.campaign_select')}
                 onChange={this.handleChangeCampaign}
+                onInputChange={this.handleClearSelect}
                 options={campaignOptions}
                 styles={selectStyles}
                 isClearable

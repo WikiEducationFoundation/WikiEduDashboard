@@ -159,7 +159,7 @@ fr:
     next: Suivant
     previous: Précédent
     article_title: Titre de l’article
-    assigned_to: Assigné à
+    assigned_to: Affecté à
     character_doc: Le total du nombre de caractères ajoutés aux articles par les rédacteurs
       inscrits entre les dates de début et de fin
     cross_wiki_tracking: Les pages de l’espace de noms principal modifiées entre les
@@ -306,9 +306,9 @@ fr:
     bibliography: Bibliographie
     clone: Cloner
     confirm_add_available: Êtes-vous sûr(e) de vouloir ajouter %{title} ?
-    confirm_addition: Êtes-vous sûr de vouloir assigner %{title} à %{username} ?
+    confirm_addition: Êtes-vous sûr(e) de vouloir affecter %{title} à %{username} ?
     confirm_deletion: Êtes-vous sûr(e) de vouloir supprimer cette affectation ?
-    editors: Assigné à
+    editors: Affecté à
     group_members: Membres du groupe
     label: Affecter
     label_all: Affecter tout
@@ -340,7 +340,7 @@ fr:
         une relecture par un pair ». Cliquer sur « OK » affectera un total de %{count}
         relecture(s) supplémentaire(s) par un pair, avec un maximum de %{maximum}
         pour chaque étudiant, choisies parmi les éléments de leurs camarades de classe.
-      heading: Assigner des relectures par des pairs aléatoires
+      heading: Affecter des relectures par des pairs aléatoires
       tooltip_message: Affecte des articles aléatoires (avec le compte des revues
         de pair en nombre maximum) à chaque étudiant.
       tooltip_message_wikidata: Affecte des éléments aléatoires (avec un nombre de

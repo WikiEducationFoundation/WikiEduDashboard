@@ -1,32 +1,28 @@
 1. Enable WSL and virtual machines (via "Turn Windows features on or off")
-2. Install Ubuntu from Microsoft Store and make sure it's set for WSL 2
-   1. Optional: install Windows Terminal
-3. In Ubuntu terminal
-   1. `sudo apt-add-repository -y ppa:rael-gc/rvm`
-   2. `sudo apt-get update`
-   3. `sudo apt-get install -y redis-server mariadb-server libmariadb-dev rvm nodejs npm pandoc`
-   4. `sudo npm install --global yarn`
-   5. `sudo service mysql start`
-   6. Create mysql user `wiki` with password `wikiedu`:
-      1. `sudo mysql`
-      2. `CREATE USER 'wiki' IDENTIFIED BY 'wikiedu';`
-      3. `GRANT ALL PRIVILEGES ON *.* TO 'wiki';`
-      4. `exit;`
-4. Close and reopen the Ubuntu terminal (to activate RVM)
-5. In Ubuntu terminal:
-   1. `sudo usermod -a -G rvm $USER` where $User is your UNIX username (preferably restart your machine after this step)
-   2. `rvm install 3.1.2`
-   3.  Clone the WikiEduDashboard git repo and enter the directory (Make sure to clone your repository in the linux partition)
-   4.  In config folder:
-       1. Either save `application.example.yml` and `database.example.yml` as `application.yml` and `database.yml`, respectively, or 
-       2. Copy `application.example.yml` to `application.yml` and `database.example.yml` to `database.yml` using cp command.
-   5. `bundle install`
-   6. `yarn`
-   7. `yarn build`
-   8. `bundle exec rake db:create`
-   9. `bundle exec rake db:migrate`
-   10. `rails s`
-
-6. Now you should have it running at localhost:3000
+   1. Open "Turn Windows features on or off" from the control panel
+   2. Select "Windows Subsystem for Linux" and "Virtual Machine Platform"
+   3. Windows will prompt you to restart your system to enable these.
+2. Install "Ubuntu" app
+   1. Open "Microsoft Store", search for and install the app "Ubuntu"
+   2. Optional: install Windows Terminal from the Microsoft Store as well
+   3. Check whether you are on WSL 2: open a Windows terminal and enter ``. If your system is on WSL 1, try the upgrade command `wsl --set-version Ubuntu 2`. You may need to take additional steps to enable WSL 2, such as installing a kernel upgrade and enabling virtualization in your BIOS. See https://learn.microsoft.com/en-us/windows/wsl/install
+3. Launch the Ubuntu app, which opens an Ubuntu terminal, and then:
+   1. Create your Ubuntu username and password (if this is the first time using the Ubuntu system)
+   2. Add the RVM repo so you can install Ruby: `sudo apt-add-repository -y ppa:rael-gc/rvm`
+   3. Install RVM: `sudo apt install rvm`
+   4. Add your user to the rvm group: `sudo usermod -a -G rvm [your username]`
+   5. Close and reopen the Ubuntu terminal to activate RVM
+4. Get the Dashboard code and install Ruby and other prerequisites.
+   1. If you haven't done so already, fork this repo on Github
+   2. From Ubuntu terminal, clone your forked repo by replacing the URL in this command: `git clone https://WikiEducationFoundation/WikiEduDashboard.git`. For performance, it's important to install this in the WSL filesystem.
+   3. Enter the Dashboard directory, then attempt to install the Dashboard's current Ruby version (updating the version number in this command if necessary): `rvm install 3.1.2`.
+   5. `sudo apt-get update`
+   6. `sudo apt-get install -y mariadb-server libmariadb-dev`
+   7. Start the database: `sudo /etc/init.d/mariadb start`
+5. The rest of the installation process should work the same way as a normal Linux installation, and the setup script can automate most of it: `python3 setup.py`. If the setup script fails, refer to the manual setup procedures in `setup.md` to continue.
+6. Build the assets: `yarn build`
+7. Run `rails s`. Now you should have a development running and accessible via web browser at localhost:3000.
 
 For troubleshooting, look at the end of the document: [Troubleshooting](./troubleshooting.md)
+
+If this doesn't work smoothly, please let the maintainers know about what went wrong (and what you did to work around the problem, if you found one).

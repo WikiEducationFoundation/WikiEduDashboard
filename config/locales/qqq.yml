@@ -565,7 +565,11 @@ qqq:
       create_new: Button to start the program creation process
       create_short: Short version of link to start a new program
       find: Button to find an existing program
-      intro: Explanation of how to use the program creation form
+      intro: |-
+        Explanation of how to use the program creation form.
+
+        * "Tracked Wikis" is {{msg-wm|Wikiedudashboard-courses.multi wiki}}
+        * "Create my Program!" is {{msg-wm|Wikiedudashboard-courses generic.creator.create button}}
       save_cloned_course: '{{Identical|Save}}'
     explore: |-
       The alternative wording for generic courses.
