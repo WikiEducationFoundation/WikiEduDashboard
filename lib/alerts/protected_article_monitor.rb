@@ -1,10 +1,13 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/importers/category_importer"
+require_dependency "#{Rails.root}/app/helpers/encoding_helper"
 
 # This class identifies articles that have a high protection level
 # that are assigned to students.
 class ProtectedArticleMonitor
+  include EncodingHelper
+
   def self.create_alerts_for_assigned_articles
     new.create_alerts_from_page_titles
   end
@@ -37,7 +40,7 @@ class ProtectedArticleMonitor
   def normalize_titles
     @page_titles = (@fp_titles + @xc_titles).map do |title|
       next if title.blank?
-      title.tr(' ', '_')
+      sanitize_4_byte_string title.tr(' ', '_')
     end
     @page_titles.compact!
     @page_titles.uniq!
