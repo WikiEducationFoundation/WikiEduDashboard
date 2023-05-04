@@ -139,7 +139,8 @@ class WikidataSummaryParser
   end
 
   def created_item?
-    @summary.include? 'wbeditentity-create'
+    @summary.include?('wbeditentity-create') &&
+      @summary.exclude?('wbeditentity-create-lexeme')
   end
 
   def created_lexeme_item?
