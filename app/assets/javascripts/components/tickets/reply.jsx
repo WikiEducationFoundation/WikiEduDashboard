@@ -53,7 +53,7 @@ export const Reply = ({ message }) => {
         {subject}
         { cc }
         { (subject || cc) && <hr /> }
-        <div className="plaintext message-body" dangerouslySetInnerHTML={{ __html: linkifyHtml(message.content) }} />
+        <div className="plaintext message-body" dangerouslySetInnerHTML={{ __html: linkifyHtml(message.content, { target: { url: '_blank' } }) }} />
       </section>
       <aside className="reply-details">
         <span className="from">
