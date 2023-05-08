@@ -2778,7 +2778,7 @@ __metadata:
     chart.js: ^3.9.1
     chartjs-adapter-date-fns: ^2.0.0
     chartkick: ^4.2.0
-    core-js: ^3.21.1
+    core-js: ^3.30.2
     create-react-class: ^15.7.0
     cross-fetch: ^3.1.5
     css-loader: ^6.7.1
@@ -4293,10 +4293,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"core-js@npm:^3.21.1":
-  version: 3.23.3
-  resolution: "core-js@npm:3.23.3"
-  checksum: f517546388e468bd3155afbf06f38f8fe0448134fe086c4ed9c4d371d52db71e80585073b59362948777e01f2377ef7064925e1a3d9312a1c56da47eadfaca9a
+"core-js@npm:^3.30.2":
+  version: 3.30.2
+  resolution: "core-js@npm:3.30.2"
+  checksum: 73d47e2b9d9f502800973982d08e995bbf04832e20b04e04be31dd7607247158271315e9328788a2408190e291c7ffbefad141167b1e57dea9f983e1e723541e
   languageName: node
   linkType: hard
 
