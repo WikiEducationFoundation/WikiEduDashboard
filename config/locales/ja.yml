@@ -312,8 +312,8 @@ ja:
     data_instructors_info: インストラクター／調整役と担当コース／プログラムの一覧
     data_editors_by_course: コース別編集者
     data_editors_by_course_info: 参加する編集者名簿と選択コース・プログラム
-    data_editor_usernames: 編集者ユーザ名
-    data_editor_usernames_info: 編集者ユーザの名簿、1件ごとに改行
+    data_editor_usernames: 編集者の利用者名
+    data_editor_usernames_info: 編集者の利用者名の名簿、1件ごとに改行
     data_wikidata: ウィキデータ統計
     data_wikidata_info: ウィキデータの詳細な活動の内訳、基準は編集要約
     default_course_type: コースの既定のタイプ
@@ -504,7 +504,7 @@ ja:
     delete_suggestion: 削除
     delete_course_instructions: このページを削除するには、まずキャンペーンをすべて削除してください。
     disable_student_emails: 学生のメールを無効にする
-    disable_student_emails_tooltip: 学生のメールを無効にすると、このコースの通知電子メールは一部が学生に送信されなくなります。
+    disable_student_emails_tooltip: 学生のメールを無効にすると、このコースの通知メールは一部が学生に送信されなくなります。
     dismiss_survey: 閉じる
     dismiss_survey_confirm: このアンケートを完全に除去してもよろしいですか?
     download_stats_data: 統計をダウンロード
@@ -565,10 +565,10 @@ ja:
     my_articles_wikidata: 私のアイテム
     needs_update: 統計データ更新
     new_week: 新しい週の追加
-    new_account_check_username: ユーザ名が登録可能かどうか確認する
+    new_account_check_username: 利用者名が登録可能かどうか確認する
     new_account_email: メールアドレス
     new_account_email_placeholder: name@example.org
-    new_account_info: アカウント登録は、メールアドレスと希望するユーザ名を入力し、リクエストしてください。調整役の誰かがアカウントを作成すると、仮パスワードをメールで送信します。
+    new_account_info: アカウント登録は、メールアドレスと希望する利用者名を入力し、リクエストしてください。調整役の誰かがアカウントを作成すると、仮パスワードをメールで送信します。
     new_account_info_admin: 新人編集者の利用者アカウントを作成するには、メールアドレスと希望する利用者名を入力します。アカウント開設が完了すると、ご本人にメールで仮パスワードが届きます。
     new_account_username: 希望利用者名
     new_account_username_invalid: これは有効な利用者名ではありません。
@@ -655,7 +655,7 @@ ja:
     uploads_none: このクラスからウィキメディア コモンズに投稿された画像その他のメディアはありません。
     user_uploads_none: この利用者からウィキメディア コモンズに投稿された画像その他のメディアはありません。
     user_recent_uploads: 最近のアップロード
-    user_suggestions: 'ユーザーの提案:'
+    user_suggestions: '利用者の提案:'
     user_suggestions_prompt: 記事の編集者に対するアドバイス
     view_other: 他の告知を見る
     view: コースを見る
@@ -864,7 +864,7 @@ ja:
     recent_uploads: 最近のアップロード
     revision_author: 指定版の投稿者
     show_courses: 自分のコースのみ表示
-    uploaded_by: アップロードしたユーザー
+    uploaded_by: アップロードした利用者
   revisions:
     chars_added: 追加した文字数
     class: クラス
@@ -949,10 +949,10 @@ ja:
     table_of_contents: 目次
     view_module_source: モジュールのソースを表示
   update_username:
-    header: 変更されたユーザー名の更新
-    not_found: 入力されたユーザー名のユーザーが見つかりません。
+    header: 変更された利用者名の更新
+    not_found: 入力された名前の利用者が見つかりません。
     username_updated: ユーザー名の更新に成功しました。
-    info: ユーザがWikimediaのユーザー名を変更した場合は、ここに新しいユーザー名を入力してダッシュボードを更新してください。
+    info: 利用者がウィキメディアの利用者名を変更した場合は、ここに新しい利用者名を入力してダッシュボードを更新してください。
     label: 新しい利用者名
     button: 更新
   uploads:
@@ -964,7 +964,7 @@ ja:
     usage_count_gallery_tile: '%{usage_count}件の記事で使用'
     usages: 使用法
   users:
-    already_enrolled: そのユーザーはすでに登録済みです！
+    already_enrolled: その利用者名は既に登録されています。
     assign_articles: 記事を課題に指定
     assign_articles_done: 完了
     assigned: 課題の記事
@@ -983,7 +983,7 @@ ja:
     edits: 編集
     edits_by: '編集担当:'
     enroll_confirmation: ほんとうに%{username}を追加しますか？
-    enroll_url: 'ユーザーはこのURLにアクセスして参加できます:'
+    enroll_url: '利用者はこの URL にアクセスして参加できます:'
     enrolled_success: '%{username}は正常に追加されました！'
     first_name: 名
     last_name: 姓

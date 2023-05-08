@@ -250,6 +250,7 @@ sd:
     delete_suggestion: ڊاھيو
     dismiss_survey: برخواست ڪريو
     duration: ڪورس جو دورانيو
+    edit_count: سنوارن جو ڳاڻيٽو
     end: پُڄاڻي
     ended: ڪورس ختم ٿي ويو آهي.
     error:
@@ -305,12 +306,17 @@ sd:
     school_and_term: ادارو (انسٽيٽيوٽ)/ڪڏهن
     student_editors: سنواريندڙَ
     students: ايڊيٽرَ
-    students_taught: ڪُل سنواريندڙَ (Total Editors)
+    students_taught: ڪُل سنواريندڙَ
     term: ڪڏهن
     yourcourses: توهان جا پروگرامَ
   editable:
     edit: سانڍيو
     save: سانڍيو
+  instructor_view:
+    assignments_table:
+      article_name: نالو
+    bad_work:
+      learn_more_button: وڌيڪ ڄاڻيو
   metrics:
     activity: تازي سرگرمي
     articles_created: سرجيل مضمون
@@ -425,4 +431,6 @@ sd:
     header: داخل ٿيڻ چڪ
   article_finder:
     tools: اوزارَ
+  training_status:
+    completed: مڪمل
 ...

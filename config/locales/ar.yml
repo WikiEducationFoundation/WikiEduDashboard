@@ -633,6 +633,7 @@ ar:
       user_exists: عذرا، %{username} ليس مستخدما موجودا.
       user_exists_on_wiki: عذرًا ، %{username} ليس مستخدمًا موجودًا في %{domain}.
       invalid_language_or_project: لغة/مشروع غير صالح
+      invalid_wiki: لا يمكن الاتصال بـ %{domain}.  قد لا يكون ويكيًا صالحًا.
       invalid_slug: اسم مدرسة أو عنوان مقرر دراسي فارغ.
       duplicate_slug: يوجد برنامج آخر يحمل الاسم %{slug} بالفعل.
     expected_students: الطلاب المتوقعون
