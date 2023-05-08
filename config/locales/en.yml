@@ -232,6 +232,7 @@ en:
 
   items:
     items: Items
+    lexeme: Lexeme
     article_not_found: "This item has not been created yet."
     assigned: Assigned Items
     assignments_none: There are no assigned items yet.

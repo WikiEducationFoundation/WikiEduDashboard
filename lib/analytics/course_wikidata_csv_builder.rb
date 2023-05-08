@@ -27,6 +27,7 @@ class CourseWikidataCsvBuilder
     'claims changed',
     'claims removed',
     'items created',
+    'lexeme items created',
     'labels added',
     'labels changed',
     'labels removed',

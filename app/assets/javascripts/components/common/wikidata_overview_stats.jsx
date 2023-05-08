@@ -213,8 +213,18 @@ const WikidataOverviewStats = ({ statistics, isCourseOverview }) => {
             />
           </div>
         </div>
-
-
+        <div className="stat-display__row">
+          <h5 className="stats-label">{I18n.t('items.lexeme')}</h5>
+          <div className="stat-display__value-group">
+            <OverviewStat
+              id="lexeme-created"
+              className="stat-display__value-small"
+              stat={statistics['lexeme items created']}
+              statMsg={I18n.t('metrics.created')}
+              renderZero={true}
+            />
+          </div>
+        </div>
       </div>
     </div>
     );
