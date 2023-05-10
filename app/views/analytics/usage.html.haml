@@ -29,20 +29,17 @@
         - courses_data, editors_data, leaders_data, created_data, edited_data, revisions_data = [], [], [], [], [], []
         - data = years.map do |year|
           - courses = Course.where("year(created_at) = #{year}")
-          - courses_data << [year, courses.count]
-          - editors_data << [year, CoursesUsers.with_student_role.where(course: courses).pluck(:user_id).uniq.count]
-          - leaders_data << [year, CoursesUsers.with_instructor_role.where(course: courses).pluck(:user_id).uniq.count]
-          - created_data << [year, courses.sum(:new_article_count)]
-          - edited_data << [year, courses.sum(:article_count)]
-          - revisions_data << [year, courses.sum(:revision_count)] 
+          - courses_data << [year.to_s, courses.count]
+          - editors_data << [year.to_s, CoursesUsers.with_student_role.where(course: courses).pluck(:user_id).uniq.count]
+          - leaders_data << [year.to_s, CoursesUsers.with_instructor_role.where(course: courses).pluck(:user_id).uniq.count]
+          - created_data << [year.to_s, courses.sum(:new_article_count)]
+          - edited_data << [year.to_s, courses.sum(:article_count)]
+          - revisions_data << [year.to_s, courses.sum(:revision_count)] 
 
         Yearly stats (by program creation date)
-        = column_chart([{ name: 'Program leaders', data: leaders_data }])
-        = column_chart([{ name: 'Programs', data: courses_data }])
-        = column_chart([{ name: 'Editors', data: editors_data }])
-        = column_chart([{ name: 'Articles Created', data: created_data }])
-        = column_chart([{ name: 'Articles Edited', data: edited_data }])
-        = column_chart([{ name: 'Revisions', data: revisions_data }])
+        = line_chart([{ name: 'Program leaders', data: leaders_data }, { name: 'Programs', data: courses_data }, { name: 'Editors', data: editors_data }])
+        = line_chart([{ name: 'Articles Created', data: created_data }, { name: 'Articles Edited', data: edited_data }, { name: 'Revisions', data: revisions_data }])
+
 
   %section
     .section-header
