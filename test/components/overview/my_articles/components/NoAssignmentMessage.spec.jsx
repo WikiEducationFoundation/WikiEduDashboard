@@ -5,7 +5,7 @@ import '../../../../testHelper';
 import NoAssignmentMessage from '../../../../../app/assets/javascripts/components/overview/my_articles/components/NoAssignmentMessage';
 
 describe('NoAssignmentMessage', () => {
-  const component = shallow(<NoAssignmentMessage />);
+  const component = shallow(<NoAssignmentMessage course={{ type: 'ClassroomProgramCourse' }}/>);
   it('should render', () => {
     expect(component).toMatchSnapshot();
   });
