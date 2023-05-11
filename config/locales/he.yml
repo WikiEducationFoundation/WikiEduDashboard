@@ -219,6 +219,7 @@ he:
     page_logs: (יומני הדף)
   items:
     items: פריטים
+    lexeme: יחידה מילונית
     article_not_found: הפריט הזה טרם נוצר.
     assigned: פריטים שהוקצו
     assignments_none: עדיין אין פריטים שהוקצו.

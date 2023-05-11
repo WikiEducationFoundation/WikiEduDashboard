@@ -72,6 +72,8 @@ skr-arab:
     view_on_wiki: وکی تے ݙکھالا
     wiki: وکی
     articles_short: مقالے
+  items:
+    lexeme: مفرد لفظ
   articles_wikidata:
     articles_short: آئٹم
   articles_generic:

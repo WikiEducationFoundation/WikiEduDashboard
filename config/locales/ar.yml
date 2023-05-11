@@ -231,6 +231,7 @@ ar:
     page_logs: (سجلات الصفحة)
   items:
     items: العناصر
+    lexeme: مفردة
     article_not_found: لم يتم إنشاء هذا العنصر بعد.
     assigned: العناصر المعينة
     assignments_none: لا توجد عناصر معينة حتى الآن.

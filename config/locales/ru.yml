@@ -222,6 +222,8 @@ ru:
     edit_size: Изменить размер
     wiki: Вики
     articles_short: Статьи
+  items:
+    lexeme: Лексема
   articles_wikidata:
     articles_short: Элементы
   articles_generic:

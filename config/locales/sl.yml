@@ -69,6 +69,7 @@ sl:
     title_example: Naslov članka
     view_all: Pokaži vse
   items:
+    lexeme: Leksem
     assignments_none: Ni še nobenih dodeljenih predmetov.
     does_not_exist: Ta predmet ne obstaja. Da prejmete predloge, ustvarite peskovnik
       in se mu dodelite.

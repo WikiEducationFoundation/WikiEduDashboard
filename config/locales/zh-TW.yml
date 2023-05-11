@@ -194,6 +194,7 @@ zh-TW:
     page_logs: （頁面日誌）
   items:
     items: 項目
+    lexeme: 詞位
     article_not_found: 此項目尚未建立。
     assigned: 已分配項目
     assignments_none: 還沒有分配的項目。

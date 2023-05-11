@@ -213,6 +213,7 @@ it:
     articles_short: Voci
   items:
     items: Elementi
+    lexeme: Lessema
     article_not_found: Questo elemento non è stato ancora creato.
     assigned: Elementi assegnati
     available: Elementi disponibili

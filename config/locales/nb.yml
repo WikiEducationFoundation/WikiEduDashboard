@@ -182,6 +182,8 @@ nb:
       artikkelen følger Wikipedias konvensjoner for strukturen til en god artikkel,
       men tar ikke hensyn til selve innholdet. (Disse skårene er kun tilgjengelige
       for artikler på Wikipedia på engelsk.)
+  items:
+    lexeme: Leksem
   assignments:
     article: Artikkelen %{title} ble tildelt deg.
     article_link: Artikler

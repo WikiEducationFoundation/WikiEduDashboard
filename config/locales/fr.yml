@@ -199,9 +199,9 @@ fr:
       fl: '%{class} (liste vedette) — la plus haute notation de Wikipédia pour les
         listes'
       a: classe %{class} — article très développé qui pourrait être trop mature pour
-        être le projet principal d’un nouvel éditeur
+        être le projet principal d’un nouveau rédacteur
       ga: '%{class} (bon article) — un article bien développé qui pourrait être trop
-        mature pour être le projet principal d’un nouvel éditeur'
+        mature pour être le projet principal d’un nouveau rédacteur'
       b: classe %{class} — un article modérément développé
       c: classe %{class} — un article intermédiaire, avec des possibilités d’amélioration
       start: classe %{class} — un article préliminaire avec beaucoup de possibilités
@@ -1559,7 +1559,7 @@ fr:
     revision_characters_and_views: 'Caractères ajoutés : %{characters} ; vues : %{views}'
     revisions_doc: Le nombre de modifications faites par ce rédacteur durant les 7
       derniers jours
-    references_doc: Le nombre de références ajoutées ou retirées par cet éditeur
+    references_doc: Le nombre de références ajoutées ou retirées par ce rédacteur
     reviewers: Relecteur(s)
     reviewing: Relecture en cours
     revisions: Révisions
