@@ -40,7 +40,7 @@ export class MyArticlesContainer extends React.Component {
     let noArticlesMessage;
     if (!assigned.length && current_user.isStudent) {
       if (Features.wikiEd) {
-        noArticlesMessage = <MyArticlesNoAssignmentMessage />;
+        noArticlesMessage = <MyArticlesNoAssignmentMessage course={course} />;
       } else {
         noArticlesMessage = <p id="no-assignment-message">{I18n.t(`assignments.${ArticleUtils.projectSuffix(course.home_wiki.project, 'none_short')}`)}</p>;
       }
