@@ -37,9 +37,10 @@
           - revisions_data << [year.to_s, courses.sum(:revision_count)] 
 
         Yearly stats (by program creation date)
-        = column_chart([{ name: 'Program leaders', data: leaders_data }, { name: 'Programs', data: courses_data }, { name: 'Editors', data: editors_data }])
-        = column_chart([{ name: 'Articles Created', data: created_data }, { name: 'Articles Edited', data: edited_data }, { name: 'Revisions', data: revisions_data }])
-
+        = column_chart([{ name: 'Program leaders', data: leaders_data }, { name: 'Events', data: courses_data }])
+        = column_chart([{ name: 'Event participants', data: editors_data }])
+        = column_chart([{ name: 'Pages Created', data: created_data }, { name: 'Pages Edited', data: edited_data }])
+        = column_chart([{ name: 'Revisions', data: revisions_data }])
 
   %section
     .section-header
