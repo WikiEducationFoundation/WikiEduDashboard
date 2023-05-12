@@ -11,7 +11,7 @@
     box-shadow 0 0 15px 0 rgba(0, 0, 0, .2)
     left 50%
     opacity 0
-    visibility hidden
+    display none
     pointer-events none
     position absolute
     top calc(100% + 14px)
@@ -26,7 +26,7 @@
       left 0
     &.open
       opacity 1
-      visibility visible
+      display block
       pointer-events all
       /*@replace: translateX(0px) translateY(0) scale(1, 1)*/ transform translateX(0px) translateY(0) scale(1, 1)
       /*@replace: translateX(0px) translateY(0) scale(1, 1)*/ -webkit-transform translateX(0px) translateY(0) scale(1, 1)
