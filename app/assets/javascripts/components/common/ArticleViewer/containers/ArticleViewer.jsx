@@ -151,16 +151,17 @@ export class ArticleViewer extends React.Component {
   }
 
   isWhocolorLang() {
-    // Supported languages for https://api.wikiwho.net/ as of 2018-02-11
+    // Supported languages for https://wikiwho-api.wmcloud.org as of 2023-05-15
+    // See https://github.com/wikimedia/wikiwho_api/blob/main/wikiwho_api/settings_wmcloud.py#L21
     const { article } = this.props;
-    const supported = ['de', 'en', 'es', 'eu', 'tr'];
+    const supported = ['ar', 'de', 'en', 'es', 'eu', 'fr', 'hu', 'id', 'it', 'ja', 'nl', 'pl', 'pt', 'tr'];
     return supported.includes(article.language) && article.project === 'wikipedia';
   }
 
   // This takes the extended_html from the whoColor API, and replaces the span
   // annotations with ones that are more convenient to style in React.
   // The matching and replacing of spans is tightly coupled to the span format
-  // provided by the whoColor API: https://github.com/wikiwho/WhoColor
+  // provided by the whoColor API: https://github.com/wikimedia/wikiwho_api
   highlightAuthors() {
     let html = this.state.whocolorHtml;
     if (!html) { return; }
