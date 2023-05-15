@@ -230,6 +230,7 @@ de:
       verfügbar.
     articles_short: Artikel
   items:
+    lexeme: Lexeme
     search: Suche ein Element in Wikidata
   articles_wikidata:
     articles_short: Einträge

@@ -66,10 +66,10 @@ ja:
     search_results:
       other: '''%{search_terms}''に対して：検索結果は%{count}件'
     no_results: 「%{query}」で検索しましたがヒットしませんでした
-    sign_up_extended: ウィキペディアにユーザー登録
+    sign_up_extended: ウィキペディアに利用者登録
     sign_up_wikipedia: またはWikipediaにサインアップする
     sign_up_log_in_extended: ウィキペディアに
-    sign_up: ユーザー登録
+    sign_up: 利用者登録
     submit: 送信
     training: トレーニング
     change: 変更内容
@@ -354,7 +354,7 @@ ja:
     confirm_psid_addition: PetScan PSID "%{name}"の投稿をほんとうに追跡しますか？
     confirm_pileid_addition: ページパイル ID "%{name}"の投稿をほんとうに追跡しますか？
     confirm_template_addition: ほんとうにテンプレート「%{name}」の投稿をウォッチリストに入れますか?
-    depth: サブカテゴリの深さ
+    depth: 下位カテゴリの深さ
     articles_count: 記事数
     name: 項目名
     category_name: カテゴリ名
@@ -584,7 +584,7 @@ ja:
     none: なし
     not_permitted: このコースを編集する権限がありません。
     notify_untrained_confirmation: この操作は受講者全員を対象に、それぞれのトークページに割り当てのトレーニングモジュールを期限内に完了しなかったというお知らせを表示させます。ほんとうに実行してよろしいですか？
-    no_available_actions: 実行できるアクションはありません
+    no_available_actions: 実行できる操作はありません
     online_volunteers_enabled: オンラインボランティアを承認
     online_volunteers_tooltip: Enabling Online Volunteers を使い、利用者の編集者にボランティアとして参加してもらいます。その編集は追跡されません。
     ores_plot: ORES
@@ -893,7 +893,7 @@ ja:
     special_users:
       new:
         form_label: 特別な利用者権限を付与する
-        form_placeholder: ユーザー名
+        form_placeholder: 利用者名
         confirm_add_special_user: 特別な利用者を追加
         confirm_remove_special_user: 特別利用者権限を次の人から除去。
         already_is: '%{username} さんは既存の{position}です。'
@@ -951,7 +951,7 @@ ja:
   update_username:
     header: 変更された利用者名の更新
     not_found: 入力された名前の利用者が見つかりません。
-    username_updated: ユーザー名の更新に成功しました。
+    username_updated: 利用者名を更新しました。
     info: 利用者がウィキメディアの利用者名を変更した場合は、ここに新しい利用者名を入力してダッシュボードを更新してください。
     label: 新しい利用者名
     button: 更新

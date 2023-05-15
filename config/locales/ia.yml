@@ -70,7 +70,7 @@ ia:
   tickets:
     none: Necun billet
   training:
-    table_of_contents: Tabula del contentos
+    table_of_contents: Tabula de contento
     kind:
       discussion: Discussion
   update_username:
