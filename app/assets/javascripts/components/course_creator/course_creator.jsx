@@ -204,7 +204,6 @@ const CourseCreator = createReactClass({
   },
 
   showCourseForm(programName) {
-    console.log(programName);
     this.updateCourseType('type', programName);
 
     return this.setState({
@@ -229,7 +228,6 @@ const CourseCreator = createReactClass({
     this.props.activateValidations();
     if (this.expectedStudentsIsValid() && this.titleSubjectAndDescriptionAreValid()) {
       this.props.resetValidations();
-      console.log('setting state');
       return this.setState({
         showCourseDates: false,
         showCourseScoping: true,

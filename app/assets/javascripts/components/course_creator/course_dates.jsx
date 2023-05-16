@@ -92,6 +92,7 @@ const CourseDates = (props) => {
       {timelineStart}
       {timelineEnd}
       {props.showTimeValues ? timeZoneMessage : null}
+      {/* these are only shown when the user has chosen program type as article scoped */}
       <div style={{
         display: 'flex',
         justifyContent: 'space-between',
