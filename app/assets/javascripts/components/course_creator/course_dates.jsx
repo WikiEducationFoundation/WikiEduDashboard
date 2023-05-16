@@ -92,6 +92,37 @@ const CourseDates = (props) => {
       {timelineStart}
       {timelineEnd}
       {props.showTimeValues ? timeZoneMessage : null}
+      <div style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+      }}
+      >
+        {
+        props.back
+        && (
+          <button
+            onClick={props.back}
+            id="back"
+            className="dark button button__submit next"
+          >
+            Back
+          </button>
+          )
+        }
+        {
+        props.next
+        && (
+          <button
+            onClick={props.next}
+            id="next"
+            className="dark button button__submit next"
+          >
+            Next
+          </button>
+          )
+        }
+      </div>
+
     </div>
   );
 };

@@ -58,6 +58,7 @@ const CourseCreator = createReactClass({
       use_start_and_end_times: this.props.courseCreator.useStartAndEndTimes,
       courseCreationNotice: this.props.courseCreator.courseCreationNotice,
       copyCourseAssignments: false,
+      showingCreateCourseButton: false,
     };
   },
 
@@ -203,11 +204,13 @@ const CourseCreator = createReactClass({
   },
 
   showCourseForm(programName) {
+    console.log(programName);
     this.updateCourseType('type', programName);
 
     return this.setState({
       showCourseForm: true,
-      showWizardForm: false
+      showWizardForm: false,
+      showCourseScoping: false,
     });
   },
 
@@ -217,7 +220,21 @@ const CourseCreator = createReactClass({
       this.props.resetValidations();
       return this.setState({
         showCourseDates: true,
+        showCourseScoping: false,
         showCourseForm: false
+      });
+    }
+  },
+  showCourseScoping() {
+    this.props.activateValidations();
+    if (this.expectedStudentsIsValid() && this.titleSubjectAndDescriptionAreValid()) {
+      this.props.resetValidations();
+      console.log('setting state');
+      return this.setState({
+        showCourseDates: false,
+        showCourseScoping: true,
+        showCourseForm: false,
+        showNewOrClone: false
       });
     }
   },
@@ -272,13 +289,15 @@ const CourseCreator = createReactClass({
     let showNewOrClone;
     let showWizardForm;
     let showCourseDates;
-
+    let showCourseScoping;
     if (this.state.showWizardForm) {
       showWizardForm = true;
     } else if (this.state.showCourseDates) {
       showCourseDates = true;
     } else if (this.state.showCourseForm) {
       showCourseForm = true;
+    } else if (this.state.showCourseScoping) {
+      showCourseScoping = true;
     } else if (this.state.showCloneChooser) {
       showCloneChooser = true;
       // If user has no courses, just open the CourseForm immediately because there are no cloneable courses.
@@ -316,13 +335,24 @@ const CourseCreator = createReactClass({
     let courseFormClass = 'wizard__form';
     let courseWizard = 'wizard__program';
     let courseDates = 'wizard__dates';
+    let courseScoping = 'wizard__scoping';
 
     courseFormClass += showCourseForm ? '' : ' hidden';
     courseWizard += showWizardForm ? '' : ' hidden';
     courseDates += showCourseDates ? '' : ' hidden';
+    courseScoping += showCourseScoping ? '' : ' hidden';
+
+    // the scoping modal is only enabled for ArticleScopedPrograms
+    const scopingModalEnabled = this.props.course.type === 'ArticleScopedProgram';
+
+    // we're on the last page if
+    // 1. scopingModalEnabled is enabled, and we're currently showing the course scoping
+    // 2. scopingModalEnabled is disabled, and we're currently showing the course dates
+    // in both the cases, we show the create course button
+    const showingCreateCourseButton = (scopingModalEnabled && showCourseScoping) || (!scopingModalEnabled && showCourseDates);
 
     const cloneOptions = showNewOrClone ? '' : ' hidden';
-    const controlClass = `wizard__panel__controls ${courseDates}`;
+    const controlClass = `wizard__panel__controls ${showingCreateCourseButton ? '' : 'hidden'}`;
     const selectClass = showCloneChooser ? '' : ' hidden';
     const options = this.props.cloneableCourses.map((course, i) => <option key={i} data-id-key={course.id} value={course.slug}>{course.title}</option>);
     const selectClassName = `select-container ${selectClass}`;
@@ -394,10 +424,15 @@ const CourseCreator = createReactClass({
               stringPrefix={this.state.course_string_prefix}
               updateCourseProps={this.props.updateCourse}
               enableTimeline={this.props.courseCreator.useStartAndEndTimes}
+              next={scopingModalEnabled && this.showCourseScoping}
+              back={scopingModalEnabled && this.backToCourseForm}
             />
+            <div className={courseScoping}>
+              <h1>Course Scoping</h1>
+            </div>
             <div className={controlClass}>
               <div className="left">
-                <button onClick={this.backToCourseForm} className="dark button">Back</button>
+                <button onClick={scopingModalEnabled ? this.showCourseDates : this.backToCourseForm} className="dark button">Back</button>
                 <p className="tempCourseIdText">{this.state.tempCourseId}</p>
               </div>
               <div className="right">
