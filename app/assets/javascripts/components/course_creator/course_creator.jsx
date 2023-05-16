@@ -21,6 +21,7 @@ import ReuseExistingCourse from './reuse_existing_course.jsx';
 import CourseForm from './course_form.jsx';
 import CourseDates from './course_dates.jsx';
 import { fetchAssignments } from '../../actions/assignment_actions';
+import CourseScoping from './course_scoping_methods';
 
 const CourseCreator = createReactClass({
   displayName: 'CourseCreator',
@@ -59,6 +60,7 @@ const CourseCreator = createReactClass({
       courseCreationNotice: this.props.courseCreator.courseCreationNotice,
       copyCourseAssignments: false,
       showingCreateCourseButton: false,
+      onLastScoping: false,
     };
   },
 
@@ -78,6 +80,22 @@ const CourseCreator = createReactClass({
     return this.setState({
       copyCourseAssignments: e.target.checked
     });
+  },
+
+  getWizardController({ hidden, backFunction }) {
+    return (
+      <div className={`wizard__panel__controls ${hidden ? 'hidden' : ''}`}>
+        <div className="left">
+          <button onClick={backFunction || this.backToCourseForm} className="dark button">Back</button>
+          <p className="tempCourseIdText">{this.state.tempCourseId}</p>
+        </div>
+        <div className="right">
+          <div><p className="red">{this.props.firstErrorMessage}</p></div>
+          <Link className="button" to="/" id="course_cancel">{I18n.t('application.cancel')}</Link>
+          <button onClick={this.saveCourse} className="dark button button__submit">{CourseUtils.i18n('creator.create_button', this.state.course_string_prefix)}</button>
+        </div>
+      </div>
+    );
   },
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -333,24 +351,21 @@ const CourseCreator = createReactClass({
     let courseFormClass = 'wizard__form';
     let courseWizard = 'wizard__program';
     let courseDates = 'wizard__dates';
-    let courseScoping = 'wizard__scoping';
 
     courseFormClass += showCourseForm ? '' : ' hidden';
     courseWizard += showWizardForm ? '' : ' hidden';
     courseDates += showCourseDates ? '' : ' hidden';
-    courseScoping += showCourseScoping ? '' : ' hidden';
 
     // the scoping modal is only enabled for ArticleScopedPrograms
     const scopingModalEnabled = this.props.course.type === 'ArticleScopedProgram';
 
     // we're on the last page if
-    // 1. scopingModalEnabled is enabled, and we're currently showing the course scoping
+    // 1. scopingModalEnabled is enabled, and we're currently showing the course scoping modal's last page
     // 2. scopingModalEnabled is disabled, and we're currently showing the course dates
-    // in both the cases, we show the create course button
-    const showingCreateCourseButton = (scopingModalEnabled && showCourseScoping) || (!scopingModalEnabled && showCourseDates);
+    // the second one is handled below. The first case is handled inside of app/assets/javascripts/components/course_creator/scoping_method.jsx
+    const showingCreateCourseButton = !scopingModalEnabled && showCourseDates;
 
     const cloneOptions = showNewOrClone ? '' : ' hidden';
-    const controlClass = `wizard__panel__controls ${showingCreateCourseButton ? '' : 'hidden'}`;
     const selectClass = showCloneChooser ? '' : ' hidden';
     const options = this.props.cloneableCourses.map((course, i) => <option key={i} data-id-key={course.id} value={course.slug}>{course.title}</option>);
     const selectClassName = `select-container ${selectClass}`;
@@ -370,6 +385,7 @@ const CourseCreator = createReactClass({
         <label htmlFor="checkbox_id">{I18n.t('courses.creator.copy_courses_with_assignments')}</label>
       </span>
     );
+
 
     return (
       <Modal key="modal">
@@ -425,20 +441,12 @@ const CourseCreator = createReactClass({
               next={scopingModalEnabled && this.showCourseScoping}
               back={scopingModalEnabled && this.backToCourseForm}
             />
-            <div className={courseScoping}>
-              <h1>Course Scoping</h1>
-            </div>
-            <div className={controlClass}>
-              <div className="left">
-                <button onClick={scopingModalEnabled ? this.showCourseDates : this.backToCourseForm} className="dark button">Back</button>
-                <p className="tempCourseIdText">{this.state.tempCourseId}</p>
-              </div>
-              <div className="right">
-                <div><p className="red">{this.props.firstErrorMessage}</p></div>
-                <Link className="button" to="/" id="course_cancel">{I18n.t('application.cancel')}</Link>
-                <button onClick={this.saveCourse} className="dark button button__submit">{CourseUtils.i18n('creator.create_button', this.state.course_string_prefix)}</button>
-              </div>
-            </div>
+            <CourseScoping
+              show={showCourseScoping}
+              wizardController={this.getWizardController}
+              showCourseDates={this.showCourseDates}
+            />
+            {!scopingModalEnabled && this.getWizardController({ hidden: !showingCreateCourseButton })}
           </div>
         </div>
       </Modal>
