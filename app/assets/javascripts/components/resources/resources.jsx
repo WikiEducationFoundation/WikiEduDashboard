@@ -122,7 +122,7 @@ const Resources = ({ weeks, current_user, course }) => {
         </div>
         {additionalResources}
         { Features.wikiEd && <Templates /> }
-        <Handouts trainingLibrarySlug={trainingLibrarySlug} blocks={blocks} />
+        { Features.wikiEd && <Handouts trainingLibrarySlug={trainingLibrarySlug} blocks={blocks} /> }
       </div>
     </div>
   );
