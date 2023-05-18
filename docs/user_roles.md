@@ -121,3 +121,5 @@ toggle between these configurations.
 ## Loading training modules
 
 In `wiki_education` mode, you can load the full set of training modules from .yml files by visiting `/reload_trainings?module=all`.
+
+In non-`wiki_education` mode, training content is loaded from meta.wikimedia.org, along with translations (if available) for each slide. The default configuration will load the same training content as Programs & Events Dashboard users, but you can change the training library, module and slide index pages in `application.yml` to test with a different or smaller set of content. Because the translations can take a while to load, you probably want to load individual modules instead of all of them at once. For example, visiting `/reload_trainings?module=wikipedia-essentials` will load only the Wikipiedia Essentials module.
