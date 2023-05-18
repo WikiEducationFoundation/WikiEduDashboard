@@ -1,0 +1,5 @@
+export const TOGGLE_SCOPING_METHOD = 'TOGGLE_SCOPING_METHOD';
+export const CATEGORIES = 'CATEGORIES';
+export const TEMPLATES = 'TEMPLATES';
+export const PAGEPILE = 'PAGEPILE';
+export const PETSCAN = 'PETSCAN';

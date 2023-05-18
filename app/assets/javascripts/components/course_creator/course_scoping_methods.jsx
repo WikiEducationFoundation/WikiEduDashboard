@@ -2,18 +2,19 @@ import React, { useState } from 'react';
 import { ScopingMethod } from './scoping_method';
 import ScopingMethodTypes from './scoping_method_types';
 import CategoriesScoping from './categories_scoping';
-
-const scopingMethods = [
-  'Scoping Methods',
-  'Categories',
-  'Templates',
-  'PagePile',
-  'PetScan'
-];
+import { useSelector } from 'react-redux';
+import { getLongDescription, getScopingMethodLabel } from '@components/util/scoping_methods';
 
 const CourseScoping = ({ show, wizardController, showCourseDates }) => {
+  const selectedScopingMethods = useSelector(state => state.scopingMethods.selected);
+  const scopingMethods = [
+    'index',
+    ...selectedScopingMethods
+  ];
+
   const [pageNumber, setPageNumber] = useState(0);
   const canGoPrev = pageNumber > 0;
+
   const canGoNext = pageNumber < scopingMethods.length - 1;
 
   const nextPage = (i) => {
@@ -31,15 +32,6 @@ const CourseScoping = ({ show, wizardController, showCourseDates }) => {
     }
   };
 
-  const getDescription = () => {
-    if (pageNumber === 0) {
-      return I18n.t('courses_generic.creator.scoping_methods.about');
-    }
-    if (pageNumber === 1) {
-      return I18n.t('courses_generic.creator.scoping_methods.categories_desc');
-    }
-    return '';
-  };
 
   return (
     <div className={`wizard__scoping ${show ? '' : 'hidden'}`}>
@@ -47,8 +39,8 @@ const CourseScoping = ({ show, wizardController, showCourseDates }) => {
         index={pageNumber}
         nextPage={nextPage}
         prevPage={prevPage}
-        description={getDescription()}
-        name={scopingMethods[pageNumber]}
+        description={getLongDescription(scopingMethods[pageNumber])}
+        name={getScopingMethodLabel(scopingMethods[pageNumber])}
         canGoNext={canGoNext}
         canGoPrev={canGoPrev}
         wizardController={wizardController}

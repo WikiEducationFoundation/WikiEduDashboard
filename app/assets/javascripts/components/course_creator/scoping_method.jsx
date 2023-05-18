@@ -17,7 +17,7 @@ export const ScopingMethod = ({
       }}
       >{name}
       </h3>
-      {description.split('\n').map(paragraph => paragraph && <p>{paragraph}</p>)}
+      {description.split('\n').map((paragraph, i) => paragraph && <p key={i}>{paragraph}</p>)}
       <div style={{
         margin: '1.5em 0',
       }}
@@ -30,13 +30,15 @@ export const ScopingMethod = ({
           style={{
             display: 'flex',
             justifyContent: 'space-between',
+            borderTop: '1px solid #ced1dd',
+            paddingTop: '20px'
           }}
         >
           <button
             onClick={prevPage.bind(null, index)}
             className="dark button button__submit"
           >
-            Prev
+            Back
           </button>
           <button
             onClick={nextPage.bind(null, index)}

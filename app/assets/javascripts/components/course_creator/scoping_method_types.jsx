@@ -1,29 +1,30 @@
+import { useDispatch, useSelector } from 'react-redux';
 import SelectableBox from '../common/selectable_box';
 import React from 'react';
+import { allScopingMethods, getScopingMethodLabel, getShortDescription } from '@components/util/scoping_methods';
 
 const ScopingMethodTypes = () => {
+  const dispatch = useDispatch();
+  const selected = useSelector(state => state.scopingMethods.selected);
+
+  const toggleScopingMethod = (methodName) => {
+    dispatch({ type: 'TOGGLE_SCOPING_METHOD', method: methodName });
+  };
+
+
+
   return (
     <div className="scoping-method-types">
-      <SelectableBox
-        description={I18n.t('courses_generic.creator.scoping_methods.categories_short_desc')}
-        heading={I18n.t('courses_generic.creator.scoping_methods.categories')}
-        style={{ width: '90%', margin: 0 }}
-      />
-      <SelectableBox
-        description={I18n.t('courses_generic.creator.scoping_methods.templates_short_desc')}
-        heading={I18n.t('courses_generic.creator.scoping_methods.templates')}
-        style={{ width: '90%', margin: 0 }}
-      />
-      <SelectableBox
-        description={I18n.t('courses_generic.creator.scoping_methods.petscan_short_desc')}
-        heading={I18n.t('courses_generic.creator.scoping_methods.petscan')}
-        style={{ width: '90%', margin: 0 }}
-      />
-      <SelectableBox
-        description={I18n.t('courses_generic.creator.scoping_methods.pagepile_short_desc')}
-        heading={I18n.t('courses_generic.creator.scoping_methods.pagepile')}
-        style={{ width: '90%', margin: 0 }}
-      />
+      {allScopingMethods.map(method => (
+        <SelectableBox
+          key={method}
+          description={getShortDescription(method)}
+          heading={getScopingMethodLabel(method)}
+          style={{ width: '90%', margin: 0 }}
+          onClick={toggleScopingMethod.bind(null, method)}
+          selected={selected.includes(method)}
+        />
+      ))}
     </div>
   );
 };

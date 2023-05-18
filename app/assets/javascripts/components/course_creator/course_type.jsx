@@ -25,12 +25,6 @@ const CourseType = ({ wizardClass, wizardAction }) => {
     <div className={wizardClass}>
       {map(courseTypes, (program) => {
         return (
-          // <div key={program.name} onClick={wizardAction.bind(null, program.type)} className="program-description">
-          //   <h4><strong>{program.name}</strong></h4>
-          //   <p>
-          //     {program.description}
-          //   </p>
-          // </div>
           <SelectableBox key={program.name} onClick={wizardAction.bind(null, program.type)} heading={program.name} description={program.description} />
         );
       })}
