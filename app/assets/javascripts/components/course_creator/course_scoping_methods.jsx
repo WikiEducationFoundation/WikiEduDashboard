@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { ScopingMethod } from './scoping_method';
+import ScopingMethodTypes from './scoping_method_types';
+import CategoriesScoping from './categories_scoping';
 
 const scopingMethods = [
+  'Scoping Methods',
   'Categories',
   'Templates',
   'PagePile',
@@ -28,18 +31,31 @@ const CourseScoping = ({ show, wizardController, showCourseDates }) => {
     }
   };
 
+  const getDescription = () => {
+    if (pageNumber === 0) {
+      return I18n.t('courses_generic.creator.scoping_methods.about');
+    }
+    if (pageNumber === 1) {
+      return I18n.t('courses_generic.creator.scoping_methods.categories_desc');
+    }
+    return '';
+  };
+
   return (
     <div className={`wizard__scoping ${show ? '' : 'hidden'}`}>
       <ScopingMethod
         index={pageNumber}
         nextPage={nextPage}
         prevPage={prevPage}
-        description={'none'}
+        description={getDescription()}
         name={scopingMethods[pageNumber]}
         canGoNext={canGoNext}
         canGoPrev={canGoPrev}
         wizardController={wizardController}
-      />
+      >
+        {pageNumber === 0 && <ScopingMethodTypes />}
+        {pageNumber === 1 && <CategoriesScoping />}
+      </ScopingMethod>
     </div>
   );
 };

@@ -8,11 +8,21 @@ export const ScopingMethod = ({
   prevPage,
   canGoNext,
   wizardController,
+  children
 }) => {
   return (
     <>
-      <h1>{name}</h1>
-      <p>{description}</p>
+      <h3 style={{
+        fontWeight: 'lighter',
+      }}
+      >{name}
+      </h3>
+      {description.split('\n').map(paragraph => paragraph && <p>{paragraph}</p>)}
+      <div style={{
+        margin: '1.5em 0',
+      }}
+      >{children}
+      </div>
       {/* if we there any remaining scoping methods, show the next button */}
       {/* otherwise, display the create course button(part of wizard controller) */}
       {canGoNext ? (

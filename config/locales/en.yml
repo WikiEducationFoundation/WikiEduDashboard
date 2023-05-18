@@ -885,6 +885,25 @@ en:
       participate_in_campaign: Participate in a Campaign
       save_cloned_course: Save
       start_date: Start of activity tracking
+      scoping_methods:
+        scoping_methods: Scoping Methods
+        about: >
+          This is what lets the dashboard know which articles you wish to track. The articles tracked contribute to the course statistics and are displayed on the articles tab. Rather than adding each article you wish to track individually, you can add filters to track several of them at once.
+          
+          Say you only want to track pages created from the “Historic sites templates” or pages which belong to the category “Algebra” but not “Geometry”. With the correct scoping method, doing this is incredibly easy
+        categories: Categories
+        categories_short_desc: Categories are intended to group together pages on similar subjects. Categories are normally found at the bottom of an article page.
+        categories_desc: >
+          Categories are intended to group together pages on similar subjects. Categories help readers to find, and navigate around, a subject area, to see pages sorted by title, and to thus find article relationships. 
+
+          You can enter the categories whose pages you wish to track. If the depth is set to 0, only the direct pages will be tracked. 
+        templates: Templates
+        templates_short_desc: Templates are pages intended to be included in other pages. Templates are normally found at the top of an article page.
+        petscan: PetScan
+        petscan_short_desc: PetScan is a tool that allows you to search for pages based on a wide range of criteria - pages in a category, pages that belong to a WikiProject, pages that have a certain template, etc
+        pagepile: PagePile
+        pagepile_short_desc: PagePile is a tool that allows you to create a list of pages which doesn't change over time and is identified by a unique ID
+
     delete_course: Delete program
     edit_course_dates: Edit Project Dates
     end: Activity tracking end
