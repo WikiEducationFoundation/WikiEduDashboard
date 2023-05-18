@@ -264,7 +264,7 @@ he:
     confirm_add_available: האם ברצונך באמת להוסיף את %{title}?
     confirm_addition: האם ברצונך באמת להקצות את %{title} למשתמש %{username}?
     confirm_deletion: באמת למחוק את ההקצאה הזאת?
-    editors: משויך ל
+    editors: מוקצה ל־
     group_members: חברי קבוצה
     label: שיוך
     loading: טעינת משימות...
