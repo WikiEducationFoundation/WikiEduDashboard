@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Link } from 'react-router-dom';
 
-import { Sidebar } from '../../../app/assets/javascripts/components/tickets/sidebar.jsx';
+import Sidebar from '../../../app/assets/javascripts/components/tickets/sidebar.jsx';
 import '../../testHelper';
 
 describe('Tickets', () => {
