@@ -97,7 +97,7 @@ class WikimediaEventCenterController < ApplicationController
 
   def verify_organizer
     # At least one organizer must be an instructor/facilitator for the course.
-    @organizer = params[:organizer_usernames].find do |organizer_username|
+    @organizer = params[:organizer_usernames]&.find do |organizer_username|
       UserImporter.new_from_username(organizer_username)&.instructor?(@course)
     end
 
