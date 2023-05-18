@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 
 import AlertsHandler from './alerts_handler.jsx';
@@ -21,10 +20,6 @@ const AdminAlerts = () => {
       adminAlert={true}
     />
   );
-};
-
-AdminAlerts.propTypes = {
-  fetchAdminAlerts: PropTypes.func,
 };
 
 export default (AdminAlerts);
