@@ -18,7 +18,7 @@ export const getScopingMethodLabel = (method) => {
     case PETSCAN:
       return I18n.t('courses_generic.creator.scoping_methods.petscan');
     case 'index':
-      return 'Scoping Methods';
+      return I18n.t('courses_generic.creator.scoping_methods.configure');
     default:
       return '';
   }
