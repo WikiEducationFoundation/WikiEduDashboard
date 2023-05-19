@@ -1,0 +1,9 @@
+name: 'Cite a systemic review'
+id: 63
+kind: 'exercise'
+description: |
+  Practice adding citations to medical content on Wikipedia using systematic reviews produced by the Patient Centered Outcomes Research Institute (PCORI).
+slides:
+  - slug: pcori-systematic-reviews # 6301
+  - slug: evaluate-the-reviews # 6302
+  - slug: cite-a-review # 6303
