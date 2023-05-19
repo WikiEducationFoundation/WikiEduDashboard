@@ -244,7 +244,7 @@ const CourseCreator = createReactClass({
   },
   showCourseScoping() {
     this.props.activateValidations();
-    if (this.expectedStudentsIsValid() && this.titleSubjectAndDescriptionAreValid()) {
+    if (this.expectedStudentsIsValid() && this.titleSubjectAndDescriptionAreValid() && this.dateTimesAreValid()) {
       this.props.resetValidations();
       return this.setState({
         showCourseDates: false,
@@ -438,8 +438,11 @@ const CourseCreator = createReactClass({
               stringPrefix={this.state.course_string_prefix}
               updateCourseProps={this.props.updateCourse}
               enableTimeline={this.props.courseCreator.useStartAndEndTimes}
+              // the following properties are only required when scopingModalEnabled is enabled
+              // that is, when the selected course type is ArticleScopedProgram
               next={scopingModalEnabled && this.showCourseScoping}
               back={scopingModalEnabled && this.backToCourseForm}
+              firstErrorMessage={scopingModalEnabled && this.props.firstErrorMessage}
             />
             <CourseScoping
               show={showCourseScoping}

@@ -93,14 +93,15 @@ const CourseDates = (props) => {
       {timelineEnd}
       {props.showTimeValues ? timeZoneMessage : null}
       {/* these are only shown when the user has chosen program type as article scoped */}
-      <div style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-      }}
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          gap: '1em',
+        }}
       >
-        {
-        props.back
-        && (
+        {props.back && (
           <button
             onClick={props.back}
             id="back"
@@ -108,11 +109,18 @@ const CourseDates = (props) => {
           >
             Back
           </button>
-          )
-        }
-        {
-        props.next
-        && (
+        )}
+        {props.firstErrorMessage && (
+          <span
+            className="red"
+            style={{
+              marginLeft: 'auto',
+            }}
+          >
+            {props.firstErrorMessage}
+          </span>
+        )}
+        {props.next && (
           <button
             onClick={props.next}
             id="next"
@@ -120,10 +128,8 @@ const CourseDates = (props) => {
           >
             Next
           </button>
-          )
-        }
+        )}
       </div>
-
     </div>
   );
 };
