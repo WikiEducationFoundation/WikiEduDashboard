@@ -1,25 +1,47 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import { Link } from 'react-router-dom';
+import { mount } from 'enzyme';
+import { Link, MemoryRouter, Route, Routes } from 'react-router-dom';
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
 
-import { Sidebar } from '../../../app/assets/javascripts/components/tickets/sidebar.jsx';
+import Sidebar from '../../../app/assets/javascripts/components/tickets/sidebar.jsx';
 import '../../testHelper';
+import { Provider } from 'react-redux';
+
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
 
 describe('Tickets', () => {
+  const store = mockStore({
+    admins: []
+  });
+  const ticket = {
+    project: {},
+    owner: {},
+    sender: {},
+    status: 0
+  };
+  const props = {
+    currentUser: {},
+    ticket,
+    createdAt: new Date(),
+  };
+  const MockProvider = (mockProps) => {
+    return (
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/tickets/dashboard/5']}>
+          <Routes>
+            <Route
+              path="/tickets/dashboard/:ticket_id"
+              element={<Sidebar {...mockProps} />}
+            />
+          </Routes>
+        </MemoryRouter>
+      </Provider>
+    );
+  };
+  const component = mount(<MockProvider {...props} />);
   describe('Sidebar', () => {
-    const ticket = {
-      project: {},
-      owner: {},
-      sender: {},
-      status: 0
-    };
-    const props = {
-      currentUser: {},
-      ticket,
-      createdAt: new Date(),
-    };
-    const component = shallow(<Sidebar {...props} />);
-
     it('should display the standard information', () => {
       expect(component.find('.sidebar .created-at').length).toBeTruthy;
       expect(component.find('.sidebar .status').length).toBeTruthy;
@@ -44,7 +66,7 @@ describe('Tickets', () => {
       ticket.owner = { id: 1 };
       props.currentUser = { id: 1 };
 
-      const sidebar = shallow(<Sidebar {...props} />);
+      const sidebar = mount(<MockProvider {...props} />);
       const text = sidebar.find('.sidebar .owner').text();
 
       expect(text).toContain('You');
@@ -55,7 +77,7 @@ describe('Tickets', () => {
     it('should display the course name if a course is given', () => {
       ticket.project = { id: 1, title: 'Title', slug: 'title-slug' };
 
-      const courseName = shallow(<Sidebar {...props} />).find('.sidebar .course-name');
+      const courseName = mount(<MockProvider {...props} />).find('.sidebar .course-name');
       const link = courseName.children().first();
       expect(link.type()).toEqual(Link);
 
@@ -67,7 +89,7 @@ describe('Tickets', () => {
     it('should display the user name if a user is given', () => {
       ticket.sender = { id: 1, username: 'username' };
 
-      const sidebar = shallow(<Sidebar {...props} />);
+      const sidebar = mount(<MockProvider {...props} />);
       const text = sidebar.find('.sidebar .user-record').text();
 
       expect(text).toContain('username');
