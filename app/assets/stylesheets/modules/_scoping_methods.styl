@@ -4,8 +4,21 @@
   gap: 1em
   justify-items center
 
-  .program-description.program-description.program-description
-    padding 0.5em
+  .program-description
+    padding 0.5em !important
+    position relative
+
     &.selected
-      outline 2px solid #878dcd
-      border-color: #878dcd
+      outline 2px solid #878dcd !important
+      border-color: #878dcd !important
+    
+    .checkbox-image
+      border 1px solid mischka
+      border-width 0 0 1px 1px
+      height 30px
+      position absolute
+      right 0
+      top 0
+      transition all .2s ease-in-out
+      width 30px
+      background #878dcd
