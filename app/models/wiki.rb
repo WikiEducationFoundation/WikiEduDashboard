@@ -51,7 +51,7 @@ class Wiki < ApplicationRecord
     mus mwl my myv mzn na nah nan nap nb nds nds-nl ne new ng nia nl nn no nov nqo nrm
     nso nv ny oc olo om or os pa pag pam pap pcd pcm pdc pfl pi pih pl pms pnb pnt ps
     pt pwn qu rm rmy rn ro roa-rup roa-tara ru rue rup rw sa sah sat sc scn sco sd se
-    sg sgs sh shi shn si simple sk skr sl sm smn sn so sq sr srn ss st stq su sv sw szl
+    sg sgs sh shi shn shy si simple sk skr sl sm smn sn so sq sr srn ss st stq su sv sw szl
     szy ta tay tcy te tet tg th ti tk tl tn to tpi tr trv ts tt tum tw ty tyv udm ug uk
     ur uz ve vec vep vi vls vo vro w wa war wikipedia wo wuu xal xh xmf yi yo yue za
     zea zh zh-cfr zh-classical zh-cn zh-min-nan zh-tw zh-yue zu
