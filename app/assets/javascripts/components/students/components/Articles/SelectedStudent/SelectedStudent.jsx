@@ -18,7 +18,7 @@ import { useLocation, useParams, Navigate } from 'react-router-dom';
 
 export const SelectedStudent = ({
   groupedArticles, assignments, course, current_user, fetchArticleDetails,
-  fetchUserRevisions, hasExercisesOrTrainings, openKey, setUploadFilters,
+  fetchUserRevisions, hasExercisesOrTrainings, openKey,
   sort, sortUsers, toggleUI, trainingStatus, wikidataLabels, userRevisions,
   students, articlesUrl
 }) => {
@@ -27,7 +27,7 @@ export const SelectedStudent = ({
   const selected = selectUserByUsernameParam(students, username);
   if (!selected) {
     // if user does not exist, then redirect to the articles home page
-    return <Navigate to={articlesUrl}/>;
+    return <Navigate to={articlesUrl} />;
   }
   const {
     assigned, reviewing
@@ -104,14 +104,8 @@ export const SelectedStudent = ({
       <StudentRevisionsList
         key={`student-revisions-${selected.id}`}
         course={course}
-        current_user={current_user}
         fetchUserRevisions={fetchUserRevisions}
-        openKey={openKey}
-        setUploadFilters={setUploadFilters}
-        sort={sort}
-        sortUsers={sortUsers}
         student={selected}
-        trainingStatus={trainingStatus}
         wikidataLabels={wikidataLabels}
         userRevisions={userRevisions}
       />
