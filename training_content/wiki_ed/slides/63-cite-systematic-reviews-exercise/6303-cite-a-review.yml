@@ -4,8 +4,22 @@ content: |
   1. Find the review's DOI, which Wikipedia can use to generate a full citation automatically. (The DOI is included within the "Suggested citation" of each review, or on the previous slide.)
   2. Navigate back to your chosen Wikipedia article. Click “edit” above the section or article you want to edit. Place your cursor where you plan to add the reference. Usually this will be at the end of a sentence, and always after any punctuation.
   3. On the Visual Editor’s toolbar, click the “Cite” button.
-  4. Copy and paste the DOI into the "Automatic" input field, then click “Generate”.
-  5. Click “Insert", then click "Publish" to save your change.
-  6. If you need to re-use the citation in another place in the article, click the Cite button, then select“Re-use” and find the Systematic Review you’d like to cite.
+
+  <figure style="width: 100%">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/63/Visual_Editor_with_guider_on_Cite_button%2C_with_label_expanded.png" />
+    <figcaption>
+      Depending on the size of your screen, the Cite button may include the "Cite" label...
+    </figcaption>
+  </figure>
+  <figure style="width: 100%">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Visual_Editor_with_guider_on_Cite_button%2C_with_label_collapsed.png" />
+    <figcaption>
+      ...or just the double quotation mark icon.
+    </figcaption>
+  </figure>
+
+  4. Copy and paste the DOI into the "Automatic" input field, then click "Generate".
+  5. Click "Insert", then click "Publish" to save your change.
+  6. If you need to re-use the citation in another place in the article, click the Cite button, then select "Re-use" and find the Systematic Review you’d like to cite.
 
   You can read more about PCORI and medical sourcing on Wikipedia [here](https://upload.wikimedia.org/wikipedia/commons/3/37/How_to_cite_PCORI_Systematic_Reviews_on_Wikipedia_-_Wiki_Education_handout.pdf).
