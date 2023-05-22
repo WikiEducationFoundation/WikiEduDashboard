@@ -1,10 +1,19 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import '../../../../../../../../../testHelper';
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import { Provider } from 'react-redux';
 
 import ButtonNavigation from '../../../../../../../../../../app/assets/javascripts/components/overview/my_articles/components/Categories/List/Assignment/ProgressTracker/Step/ButtonNavigation';
 
+
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
 describe('ButtonNavigation', () => {
+  const store = mockStore({
+  });
+
   const props = {
     active: true,
     assignment: {},
@@ -15,8 +24,16 @@ describe('ButtonNavigation', () => {
     fetchAssignments: jest.fn()
   };
 
+  const MockProvider = (mockProps) => {
+    return (
+      <Provider store={store}>
+        <ButtonNavigation {...mockProps} />
+      </Provider >
+    );
+  };
+
   it('should show the Mark Complete button and Go Back a Step button', () => {
-    const component = shallow(<ButtonNavigation {...props} />);
+    const component = mount(<MockProvider {...props} />);
     const buttons = component.find('button');
 
     expect(buttons.length).toEqual(2);
@@ -25,7 +42,7 @@ describe('ButtonNavigation', () => {
   });
 
   it('should not show the Go Back a Step button if it is the first step', () => {
-    const component = shallow(<ButtonNavigation {...props} index={0} />);
+    const component = mount(<MockProvider {...props} index={0} />);
     const buttons = component.find('button');
 
     expect(buttons.length).toEqual(1);
@@ -33,7 +50,7 @@ describe('ButtonNavigation', () => {
   });
 
   it('should disable all buttons if the step is not active', () => {
-    const component = shallow(<ButtonNavigation {...props} active={false} />);
+    const component = mount(<MockProvider {...props} active={false} />);
     const buttons = component.find('button');
 
     expect(buttons.length).toEqual(2);
