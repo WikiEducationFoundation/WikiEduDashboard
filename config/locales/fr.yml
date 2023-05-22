@@ -237,7 +237,7 @@ fr:
     wp10_doc: L’évaluation de la « complétude structurale » mesure le degré d’adéquation
       d’un article au modèle d’un article mature de Wikipédia, donné par le service
       d’évaluation objective des versions (https://ores.wikimedia.org/) basé sur l’apprentissage
-      par la machine. Ces valeurs sont calculées sur la taille de l’article, le nombre
+      automatique. Ces valeurs sont calculées sur la taille de l’article, le nombre
       de références et de liens Wiki, ainsi que d’autres caractéristiques de base
       du texte. Une valeur élevée indique généralement qu’un article suit les conventions
       de Wikipédia pour la structure d’un bon article, mais il ne prend pas en compte
