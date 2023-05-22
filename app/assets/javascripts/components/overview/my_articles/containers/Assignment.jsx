@@ -10,38 +10,33 @@ import { initiateConfirm } from '~/app/assets/javascripts/actions/confirm_action
 import { deleteAssignment, fetchAssignments, updateAssignmentStatus } from '~/app/assets/javascripts/actions/assignment_actions';
 
 // Main Component
-export class Assignment extends React.Component {
-  isComplete() {
-    const { assignment } = this.props;
+export const Assignment = (props) => {
+  const { assignment, course, wikidataLabels } = props;
+  const isAssignmentComplete = () => {
     const allStatuses = assignment.assignment_all_statuses;
     const lastStatus = allStatuses[allStatuses.length - 1];
     return assignment.assignment_status === lastStatus;
-  }
+  };
 
-  render() {
-    const { assignment, course, wikidataLabels } = this.props;
+  const {
+    article, title
+  } = CourseUtils.articleAndArticleTitle(assignment, course, wikidataLabels);
 
-    const {
-      article, title
-    } = CourseUtils.articleAndArticleTitle(assignment, course, wikidataLabels);
+  const isClassroomProgram = course.type === 'ClassroomProgramCourse';
+  const enable = isClassroomProgram && Features.wikiEd;
+  const isComplete = isAssignmentComplete();
+  const articlesProps = { ...props, article, articleTitle: title, isComplete };
+  const progressTracker = isComplete
+    ? <MyArticlesCompletedAssignment />
+    : <MyArticlesProgressTracker {...articlesProps} />;
 
-    const isComplete = this.isComplete();
-    const isClassroomProgram = course.type === 'ClassroomProgramCourse';
-    const enable = isClassroomProgram && Features.wikiEd;
-
-    const props = { ...this.props, article, articleTitle: title, isComplete };
-    const progressTracker = isComplete
-      ? <MyArticlesCompletedAssignment />
-      : <MyArticlesProgressTracker {...props} />;
-
-    return (
-      <div className={`my-assignment mb1${(isComplete && enable) ? ' complete' : ''}`}>
-        <MyArticlesHeader {...props} />
-        { enable ? progressTracker : null }
-      </div>
-    );
-  }
-}
+  return (
+    <div className={`my-assignment mb1${(isComplete && enable) ? ' complete' : ''}`}>
+      <MyArticlesHeader {...articlesProps} />
+      {enable ? progressTracker : null}
+    </div>
+  );
+};
 
 Assignment.propTypes = {
   // props
