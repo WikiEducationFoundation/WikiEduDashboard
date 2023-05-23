@@ -1,10 +1,9 @@
-// @ts-nocheck
 import React from 'react';
 import { mount } from 'enzyme';
 import '../../../../../../../../../testHelper';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { updateAssignmentStatus, fetchAssignments } from '../../../../../../../../../../app/assets/javascripts/actions/assignment_actions';
+import { updateAssignmentStatus } from '../../../../../../../../../../app/assets/javascripts/actions/assignment_actions';
 import MarkAsIncompleteButton from '../../../../../../../../../../app/assets/javascripts/components/overview/my_articles/components/Categories/List/Assignment/Header/Actions/MarkAsIncompleteButton';
 import { Provider } from 'react-redux';
 
