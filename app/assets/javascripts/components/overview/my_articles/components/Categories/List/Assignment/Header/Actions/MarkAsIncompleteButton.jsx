@@ -1,36 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { updateAssignmentStatus, fetchAssignments } from '../../../../../../../../../actions/assignment_actions';
 
-const update = ({
-  assignment, courseSlug,
-  handleUpdateAssignment, refreshAssignments
-}) => async () => {
+const update = ({ assignment, courseSlug, dispatch }) => async () => {
   const statuses = assignment.assignment_all_statuses;
   const prev = statuses[statuses.length - 2];
 
-  await handleUpdateAssignment(assignment, prev);
-  await refreshAssignments(courseSlug);
+  await dispatch(updateAssignmentStatus(assignment, prev));
+  await dispatch(fetchAssignments(courseSlug));
 };
 
-export const MarkAsIncompleteButton = props => (
-  <div>
-    <button
-      className="button danger small"
-      onClick={update(props)}
-    >
-      Mark as Incomplete
-    </button>
-  </div>
-);
+export const MarkAsIncompleteButton = (props) => {
+  const dispatch = useDispatch();
+  return (
+    <div>
+      <button
+        className="button danger small"
+        onClick={update({ ...props, dispatch })}
+      >
+        Mark as Incomplete
+      </button>
+    </div>
+  );
+};
 
 MarkAsIncompleteButton.propTypes = {
-  // props
   assignment: PropTypes.object.isRequired,
   courseSlug: PropTypes.string.isRequired,
-
-  // actions
-  handleUpdateAssignment: PropTypes.func.isRequired,
-  refreshAssignments: PropTypes.func.isRequired,
 };
 
 export default MarkAsIncompleteButton;

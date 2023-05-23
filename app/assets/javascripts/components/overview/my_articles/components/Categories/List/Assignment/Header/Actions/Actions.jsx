@@ -13,7 +13,7 @@ import Feedback from '~/app/assets/javascripts/components/common/feedback.jsx';
 
 export const Actions = ({
   article, assignment, courseSlug, current_user, isComplete, username,
-  isEnglishWikipedia, isClassroomProgram, handleUpdateAssignment, refreshAssignments, unassign
+  isEnglishWikipedia, isClassroomProgram, unassign
 }) => {
   if (isComplete) {
     // If complete, only return the following
@@ -24,8 +24,6 @@ export const Actions = ({
           key="mark-incomplete-button"
           assignment={assignment}
           courseSlug={courseSlug}
-          handleUpdateAssignment={handleUpdateAssignment}
-          refreshAssignments={refreshAssignments}
         />
       </section>
     );
@@ -76,8 +74,6 @@ Actions.propTypes = {
 
   // actions
   isEnglishWikipedia: PropTypes.func.isRequired,
-  handleUpdateAssignment: PropTypes.func.isRequired,
-  refreshAssignments: PropTypes.func.isRequired,
   unassign: PropTypes.func.isRequired,
 };
 
