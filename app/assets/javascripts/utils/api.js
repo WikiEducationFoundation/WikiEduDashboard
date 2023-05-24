@@ -3,6 +3,7 @@ import logErrorMessage from './log_error_message';
 import request from './request';
 import { stringify } from 'query-string';
 import Rails from '@rails/ujs';
+import { toWikiDomain } from './wiki_utils';
 
 const SentryLogger = {};
 
@@ -536,6 +537,25 @@ const API = {
     }
     return response.json();
   },
+
+  async getCategoriesWithPrefix(wiki, prefix){
+    const params = {
+      action: 'query',
+      list: 'allcategories',
+      acprefix: prefix,
+      origin: '*',
+      format: 'json',
+    };
+    const response = await fetch(
+      `https://${toWikiDomain(wiki)}/w/api.php?${stringify(params)}`
+    );
+    const json = await response.json();
+    
+    return json.query.allcategories.map(category => ({
+      value: category['*'],
+      label: category['*'],
+    }));
+  }
 };
 
 export default API;

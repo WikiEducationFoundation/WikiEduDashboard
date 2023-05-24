@@ -3,3 +3,5 @@ export const CATEGORIES = 'CATEGORIES';
 export const TEMPLATES = 'TEMPLATES';
 export const PAGEPILE = 'PAGEPILE';
 export const PETSCAN = 'PETSCAN';
+export const UPDATE_CATEGORY_DEPTH = 'UPDATE_CATEGORY_DEPTH';
+export const UPDATE_CATEGORIES = 'UPDATE_CATEGORIES';

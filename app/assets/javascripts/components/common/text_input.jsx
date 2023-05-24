@@ -24,7 +24,8 @@ const TextInput = createReactClass({
     onBlur: PropTypes.func,
     onClick: PropTypes.func,
     append: PropTypes.node,
-    onKeyDown: PropTypes.func
+    onKeyDown: PropTypes.func,
+    _value: PropTypes.any,
     // validation: Regex used by Conditional
     // required: bool used by Conditional
   },
@@ -74,7 +75,7 @@ const TextInput = createReactClass({
         <input
           className={className}
           id={this.props.id}
-          value={this.props.value || ''}
+          value={this.props._value !== undefined ? this.props._value : this.props.value || ''}
           onChange={this.props.onChange}
           autoFocus={this.props.focus}
           onFocus={this.props.onFocus}
