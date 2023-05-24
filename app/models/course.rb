@@ -503,7 +503,7 @@ class Course < ApplicationRecord
   # Makes sure that the home wiki
   # is always a part of courses wikis.
   def ensure_home_wiki_in_courses_wikis
-    wikis.push(home_wiki) unless wikis.include? home_wiki
+    wikis.push(home_wiki) unless wikis.map(&:id).include? home_wiki.id
   end
 
   private

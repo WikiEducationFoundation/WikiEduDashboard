@@ -40,7 +40,7 @@ describe CourseCloneManager do
     create(:tag, course_id: 1, tag: 'arbitrary_tag')
   end
 
-  let(:clone) { Course.last }
+  let(:clone) { Course.where.not(id: 1).last }
   let(:original) { Course.find(1) }
   let(:instructor) { User.find(1) }
 
@@ -158,6 +158,23 @@ describe CourseCloneManager do
 
       expect(campaign_clone.campaigns.length).to eq(1)
       expect(campaign_clone.campaigns).to include(new_campaign)
+    end
+  end
+
+  context 'with multiple tracked wikis' do
+    let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }
+
+    before do
+      stub_wiki_validation
+      course = Course.find(1)
+      course.wikis.push wikidata
+
+      described_class.new(course: Course.find(1), user: User.find(1),
+                          clone_assignments: false).clone!
+    end
+
+    it 'carries wikis over to clone' do
+      expect(clone.wikis.include?(wikidata)).to be true
     end
   end
 end

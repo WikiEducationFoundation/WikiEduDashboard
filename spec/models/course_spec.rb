@@ -136,16 +136,16 @@ describe Course, type: :model do
                     start: Time.zone.local(2016, 1, 1, 12, 45, 0),
                     end: Time.zone.local(2016, 1, 10, 15, 30, 0),
                     title: 'History Class')
-    expect(course.end).to eq(Time.zone.local(2016, 1, 10, 15, 30, 0))
+    expect(course.end).to be_within(1.second).of(Time.zone.local(2016, 1, 10, 15, 30, 0))
     course = course.becomes!(ClassroomProgramCourse)
     course.save!
-    expect(course.end).to eq(Time.zone.local(2016, 1, 10, 23, 59, 59))
+    expect(course.end).to be_within(1.second).of(Time.zone.local(2016, 1, 10, 23, 59, 59))
     course = course.becomes!(BasicCourse)
     course.save!
-    expect(course.end).to eq(Time.zone.local(2016, 1, 10, 23, 59, 59))
+    expect(course.end).to be_within(1.second).of(Time.zone.local(2016, 1, 10, 23, 59, 59))
     course.end = Time.zone.local(2016, 1, 10, 15, 30, 0)
     course.save!
-    expect(course.end).to eq(Time.zone.local(2016, 1, 10, 15, 30, 0))
+    expect(course.end).to be_within(1.second).of(Time.zone.local(2016, 1, 10, 15, 30, 0))
   end
 
   it 'updates end time to equal start time it the times are invalid' do

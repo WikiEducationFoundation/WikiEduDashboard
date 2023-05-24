@@ -34,7 +34,8 @@ class CourseCloneManager
   private
 
   def set_courses_wikis
-    @clone.wikis.push(@course.wikis)
+    wiki_ids = @course.wikis.map(&:id)
+    @clone.wikis.push Wiki.where(id: wiki_ids)
   end
 
   def set_placeholder_start_and_end_dates
