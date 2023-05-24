@@ -12,7 +12,7 @@
 #  school                :string(255)
 #  term                  :string(255)
 #  character_sum         :integer          default(0)
-#  view_sum              :bigint(8)        default(0)
+#  view_sum              :bigint           default(0)
 #  user_count            :integer          default(0)
 #  article_count         :integer          default(0)
 #  revision_count        :integer          default(0)
@@ -36,7 +36,7 @@
 #  upload_usages_count   :integer          default(0)
 #  syllabus_file_name    :string(255)
 #  syllabus_content_type :string(255)
-#  syllabus_file_size    :integer
+#  syllabus_file_size    :bigint
 #  syllabus_updated_at   :datetime
 #  home_wiki_id          :integer
 #  recent_revision_count :integer          default(0)
@@ -46,6 +46,7 @@
 #  level                 :string(255)
 #  private               :boolean          default(FALSE)
 #  withdrawn             :boolean          default(FALSE)
+#  references_count      :integer          default(0)
 #
 
 require_dependency "#{Rails.root}/lib/course_cache_manager"
@@ -503,7 +504,7 @@ class Course < ApplicationRecord
   # Makes sure that the home wiki
   # is always a part of courses wikis.
   def ensure_home_wiki_in_courses_wikis
-    wikis.push(home_wiki) unless wikis.map(&:id).include? home_wiki.id
+    wikis.push(home_wiki) unless wikis.include? home_wiki
   end
 
   private
