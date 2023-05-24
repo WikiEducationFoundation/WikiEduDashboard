@@ -904,7 +904,16 @@ en:
         petscan_short_desc: PetScan is a tool that allows you to search for pages based on a wide range of criteria - pages in a category, pages that belong to a WikiProject, pages that have a certain template, etc
         pagepile: PagePile
         pagepile_short_desc: PagePile is a tool that allows you to create a list of pages which doesn't change over time and is identified by a unique ID
+        templates_desc: >
+          A template is a Wikipedia page created to be included in other pages. Templates usually contain repetitive material that might need to show up on a larger number of articles or pages. They are commonly used for boilerplate messages, standardized warnings or notices, infoboxes, navigational boxes, and similar purposes.
+        pagepile_desc: >
+          PagePile is a tool developed by the Wikimedia Foundation for the Wikimedia projects, including Wikipedia. It allows users to collect and organize a group of web page links into a single bundle called a "pile." These piles can then be easily shared with others, enabling collaborative work and information sharing.
 
+          PagePile serves as a convenient way to gather and present a curated set of Wikipedia articles or other web pages related to a specific topic or theme. It can be used for various purposes, such as creating reading lists, compiling research materials, organizing articles for a project, or simply bookmarking a collection of pages for personal reference
+        petscan_desc: >
+          PetScan is another tool developed by the Wikimedia Foundation that allows users to generate custom lists of Wikipedia pages based on specific criteria. It is a powerful tool for retrieving and filtering information from Wikipedia's vast database of articles.
+
+          PetScan offers a user-friendly interface that allows users to specify various parameters to create highly targeted lists. These parameters include categories, namespaces, templates, linked pages, page properties, and more. Users can combine multiple criteria to refine their search and generate a customized list of articles that meet their specific requirements.
     delete_course: Delete program
     edit_course_dates: Edit Project Dates
     end: Activity tracking end
