@@ -4,6 +4,10 @@ import PropTypes from 'prop-types';
 // components
 import Actions from './Actions/Actions.jsx';
 import MyArticlesAssignmentLinks from './MyArticlesAssignmentLinks.jsx';
+import { initiateConfirm } from '@actions/confirm_actions';
+import { deleteAssignment } from '@actions/assignment_actions';
+
+import { useDispatch } from 'react-redux';
 
 const isEnglishWikipedia = ({ assignment, course }) => () => {
   const { language, project } = assignment;
@@ -26,41 +30,41 @@ const isEnglishWikipedia = ({ assignment, course }) => () => {
 
 const isClassroomProgram = course => (course.type === 'ClassroomProgramCourse');
 
-const unassign = ({ assignment, course, initiateConfirm, deleteAssignment }) => {
+const unassign = ({ assignment, course, dispatch }) => {
   const body = { course_slug: course.slug, ...assignment };
   const confirmMessage = I18n.t('assignments.confirm_deletion');
-  const onConfirm = () => deleteAssignment(body);
+  const onConfirm = () => dispatch(deleteAssignment(body));
 
-  return () => initiateConfirm({ confirmMessage, onConfirm });
+  return () => dispatch(initiateConfirm({ confirmMessage, onConfirm }));
 };
 
 export const Header = ({
-  article, articleTitle, assignment, course, current_user, isComplete, username,
-  deleteAssignment, fetchAssignments, initiateConfirm, updateAssignmentStatus
-}) => (
-  <header aria-label={`${articleTitle} assignment`} className="header-wrapper">
-    <MyArticlesAssignmentLinks
-      articleTitle={articleTitle}
-      project={article.project}
-      assignment={assignment}
-      courseType={course.type}
-      current_user={current_user}
-    />
-    <Actions
-      article={article}
-      assignment={assignment}
-      courseSlug={course.slug}
-      current_user={current_user}
-      isEnglishWikipedia={isEnglishWikipedia({ assignment, course })}
-      isClassroomProgram={isClassroomProgram(course)}
-      isComplete={isComplete}
-      refreshAssignments={fetchAssignments}
-      unassign={unassign({ assignment, course, initiateConfirm, deleteAssignment })}
-      handleUpdateAssignment={updateAssignmentStatus}
-      username={username}
-    />
-  </header>
-);
+  article, articleTitle, assignment, course, current_user, isComplete, username
+}) => {
+  const dispatch = useDispatch();
+  return (
+    <header aria-label={`${articleTitle} assignment`} className="header-wrapper">
+      <MyArticlesAssignmentLinks
+        articleTitle={articleTitle}
+        project={article.project}
+        assignment={assignment}
+        courseType={course.type}
+        current_user={current_user}
+      />
+      <Actions
+        article={article}
+        assignment={assignment}
+        courseSlug={course.slug}
+        current_user={current_user}
+        isEnglishWikipedia={isEnglishWikipedia({ assignment, course })}
+        isClassroomProgram={isClassroomProgram(course)}
+        isComplete={isComplete}
+        unassign={unassign({ assignment, course, deleteAssignment, dispatch })}
+        username={username}
+      />
+    </header>
+  );
+};
 
 Header.propTypes = {
   // props
@@ -71,11 +75,6 @@ Header.propTypes = {
   current_user: PropTypes.object.isRequired,
   isComplete: PropTypes.bool.isRequired,
   username: PropTypes.string.isRequired,
-  // actions
-  deleteAssignment: PropTypes.func.isRequired,
-  fetchAssignments: PropTypes.func.isRequired,
-  initiateConfirm: PropTypes.func.isRequired,
-  updateAssignmentStatus: PropTypes.func.isRequired,
 };
 
 export default Header;

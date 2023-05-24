@@ -1,10 +1,25 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import '../../../../../../../../testHelper';
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import { Provider } from 'react-redux';
 
 import Header from '@components/overview/my_articles/components/Categories/List/Assignment/Header/Header.jsx';
 
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
 describe('Header', () => {
+  const store = mockStore({
+  });
+
+  const MockProvider = (mockProps) => {
+    return (
+      <Provider store={store}>
+        <Header {...mockProps} />
+      </Provider >
+    );
+  };
   const props = {
     article: {
       project: 'project'
@@ -22,7 +37,7 @@ describe('Header', () => {
   };
 
   it('displays the links and actions', () => {
-    const component = shallow(<Header {...props} />);
+    const component = mount(<MockProvider {...props} />);
     expect(component).toMatchSnapshot();
   });
 });

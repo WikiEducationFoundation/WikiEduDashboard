@@ -4,7 +4,8 @@
     "baseUrl": ".",
     "jsx": "preserve",
     "paths": {
-      "@components/*": [ "./app/assets/javascripts/components/*" ]
+      "@components/*": [ "./app/assets/javascripts/components/*" ],
+      "@actions/*": [ "./app/assets/javascripts/actions/*" ]
     }
   },
   "include": [ "app" ]

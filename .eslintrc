@@ -111,6 +111,10 @@
         {
           "rootPathPrefix": "@constants",
           "rootPathSuffix": "./app/assets/javascripts/constants"
+        },
+        {
+          "rootPathPrefix": "@actions/",
+          "rootPathSuffix": "./app/assets/javascripts/actions"
         }
       ]
     }

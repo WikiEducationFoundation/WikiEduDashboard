@@ -21,10 +21,7 @@ export class ProgressTracker extends React.Component {
   }
 
   render() {
-    const {
-      assignment, course,
-      fetchAssignments, updateAssignmentStatus, dispatch
-    } = this.props;
+    const { assignment, course } = this.props;
     const { show } = this.state;
 
     const steps = processes(assignment, course).map((content, index) => (
@@ -34,9 +31,6 @@ export class ProgressTracker extends React.Component {
         course={course}
         index={index}
         key={index}
-        fetchAssignments={fetchAssignments}
-        updateAssignmentStatus={updateAssignmentStatus}
-        dispatch={dispatch}
       />
     ));
 
@@ -67,10 +61,6 @@ ProgressTracker.propTypes = {
   // props
   assignment: PropTypes.object.isRequired,
   course: PropTypes.object.isRequired,
-
-  // actions
-  fetchAssignments: PropTypes.func.isRequired,
-  updateAssignmentStatus: PropTypes.func.isRequired,
 };
 
 export default ProgressTracker;
