@@ -541,8 +541,9 @@ const API = {
   async getCategoriesWithPrefix(wiki, prefix){
     const params = {
       action: 'query',
-      list: 'allcategories',
-      acprefix: prefix,
+      list: 'search',
+      srsearch: `intitle:${prefix}`,
+      srnamespace: 14,
       origin: '*',
       format: 'json',
     };
@@ -551,9 +552,9 @@ const API = {
     );
     const json = await response.json();
     
-    return json.query.allcategories.map(category => ({
-      value: category['*'],
-      label: category['*'],
+    return json.query.search.map(category => ({
+      value: category.title,
+      label: category.title,
     }));
   }
 };
