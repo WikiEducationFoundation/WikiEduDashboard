@@ -22,6 +22,10 @@ module.exports = {
           {
             rootPathSuffix: './app/assets/javascripts/constants',
             rootPathPrefix: '@constants/'
+          },
+          {
+            rootPathSuffix: './app/assets/javascripts/actions',
+            rootPathPrefix: '@actions/'
           }
         ]
       }

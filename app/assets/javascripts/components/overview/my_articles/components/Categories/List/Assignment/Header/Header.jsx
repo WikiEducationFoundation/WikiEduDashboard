@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 // components
 import Actions from './Actions/Actions.jsx';
 import MyArticlesAssignmentLinks from './MyArticlesAssignmentLinks.jsx';
-import { initiateConfirm } from '../../../../../../../../actions/confirm_actions';
-import { deleteAssignment } from '../../../../../../../../actions/assignment_actions';
+import { initiateConfirm } from '@actions/confirm_actions';
+import { deleteAssignment } from '@actions/assignment_actions';
 
 import { useDispatch } from 'react-redux';
 

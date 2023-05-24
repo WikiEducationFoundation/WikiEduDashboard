@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { updateAssignmentStatus, fetchAssignments } from '../../../../../../../../../actions/assignment_actions';
+import { updateAssignmentStatus, fetchAssignments } from '@actions/assignment_actions';
 
 const update = ({ assignment, courseSlug, dispatch }) => async () => {
   const statuses = assignment.assignment_all_statuses;
