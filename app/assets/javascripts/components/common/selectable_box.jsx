@@ -5,9 +5,7 @@ const SelectableBox = ({ onClick, heading, description, style, selected }) => {
     <div key={heading} onClick={onClick} className={`program-description ${selected ? 'selected' : ''}`} style={style}>
       {selected && <img src="/assets/images/check.svg" alt="checkbox" className="checkbox-image" />}
       <h4><strong>{heading}</strong></h4>
-      <p>
-        {description}
-      </p>
+      {description.split('\n').map((paragraph, i) => paragraph && <p key={i}>{paragraph}</p>)}
     </div>
   );
 };

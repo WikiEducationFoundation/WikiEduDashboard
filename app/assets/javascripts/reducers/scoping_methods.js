@@ -1,4 +1,4 @@
-import { TOGGLE_SCOPING_METHOD, UPDATE_CATEGORIES, UPDATE_CATEGORY_DEPTH, UPDATE_TEMPLATES } from '../constants/scoping_methods';
+import { TOGGLE_SCOPING_METHOD, UPDATE_CATEGORIES, UPDATE_CATEGORY_DEPTH, UPDATE_PETSCAN_IDS, UPDATE_TEMPLATES } from '../constants/scoping_methods';
 
 const initialState = {
   selected: [],
@@ -8,7 +8,11 @@ const initialState = {
   },
   templates: {
     include: [],
-  }
+  },
+  petscan: {
+    psids: [],
+  },
+  descriptionHidden: false,
 };
 
 export default function course(state = initialState, action) {
@@ -52,6 +56,17 @@ export default function course(state = initialState, action) {
         }
       };
     }
+
+    case UPDATE_PETSCAN_IDS: {
+      return {
+        ...state,
+        petscan: {
+          ...state.petscan,
+          psids: action.psids
+        }
+      };
+    }
+
     default:
       return state;
   }

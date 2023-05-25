@@ -17,7 +17,7 @@ export const ScopingMethod = ({
       }}
       >{name}
       </h3>
-      {description.split('\n').map((paragraph, i) => paragraph && <p key={i}>{paragraph}</p>)}
+      {description && description.split('\n').map((paragraph, i) => paragraph && <p key={i}>{paragraph}</p>)}
       <div style={{
         margin: '1.5em 0',
       }}

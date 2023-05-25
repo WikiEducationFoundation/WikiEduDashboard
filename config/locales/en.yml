@@ -914,6 +914,16 @@ en:
           PetScan is another tool developed by the Wikimedia Foundation that allows users to generate custom lists of Wikipedia pages based on specific criteria. It is a powerful tool for retrieving and filtering information from Wikipedia's vast database of articles.
 
           PetScan offers a user-friendly interface that allows users to specify various parameters to create highly targeted lists. These parameters include categories, namespaces, templates, linked pages, page properties, and more. Users can combine multiple criteria to refine their search and generate a customized list of articles that meet their specific requirements.
+        petscan_have_psid_title: I have a PetScan ID
+        petscan_not_have_psid_title: I don't have a PetScan ID
+        petscan_have_psid_desc: >
+          Use this if you have already built a PetScan query and have the ID for it. You can find the ID in the URL of the PetScan query. For example, if the URL of the PetScan query is https://petscan.wmflabs.org/?psid=1234567, then the ID is 1234567.
+
+          If you don't have a PetScan ID, you can build a query using the PetScan tool and then come back here to enter the ID.
+        petscan_not_have_psid_desc: >
+          Use this if you don't have a PetScan ID and wish to use a simplified builder to create it. This lacks some of the advanced features of the PetScan tool, but is easier to use and you don't have to leave the dashboard to build the query!
+        petscan_create_psid: Create a PetScan ID using the official PetScan tool
+
     delete_course: Delete program
     edit_course_dates: Edit Project Dates
     end: Activity tracking end
