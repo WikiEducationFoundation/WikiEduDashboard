@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import BarGraph from './BarGraph.jsx';
 import TextResults from './TextResults.jsx';
 import RangeGraph from './RangeGraph.jsx';
 import FollowUpQuestionResults from './FollowUpQuestionResults.jsx';
 
-export default class QuestionResults extends Component {
-  _renderQuestionResults(question) {
+const QuestionResults = (props) => {
+  const _renderQuestionResults = (question) => {
     const { type } = question;
     switch (type) {
       case 'radio':
@@ -20,19 +20,14 @@ export default class QuestionResults extends Component {
       default:
         return null;
     }
-  }
+  };
 
-  _data() {
-    return null;
-  }
+  return (
+    <div>
+      {_renderQuestionResults(props)}
+      <FollowUpQuestionResults {...props} />
+    </div>
+  );
+};
 
-  render() {
-    return (
-      <div>
-        {this._renderQuestionResults(this.props)}
-        <FollowUpQuestionResults {...this.props} />
-        {this._data()}
-      </div>
-    );
-  }
-}
+export default (QuestionResults);
