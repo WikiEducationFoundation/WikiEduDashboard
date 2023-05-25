@@ -553,8 +553,8 @@ const API = {
     const json = await response.json();
     
     return json.query.search.map(category => ({
-      value: category.title,
-      label: category.title,
+      value: category.title.replace('Category:', '').trim(),
+      label: category.title.replace('Category:', '').trim(),
     }));
   }
 };
