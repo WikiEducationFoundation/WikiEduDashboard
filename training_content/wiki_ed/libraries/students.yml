@@ -84,6 +84,9 @@ categories:
       - slug: copyedit-exercise
         name: 'Exercise: Copyedit an article'
         description: Practice editing by improving an existing article through small copyedits.
+      - slug: cite-systematic-reviews-exercise
+        name: 'Exercise: Cite a systemic review'
+        description: Practice adding citations to medical content using systematic reviews.
       - slug: peer-review
         name: 'Exercise: Peer review'
         description: Review articles drafted by classmates and suggest improvements.
