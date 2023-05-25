@@ -2,12 +2,12 @@ import React from 'react';
 import AsyncSelect from 'react-select/async';
 import { useSelector, useDispatch } from 'react-redux';
 import { debounce } from 'lodash';
-import API from '../../utils/api';
-import TextInput from '../common/text_input';
+import API from '../../../utils/api';
+import TextInput from '../../common/text_input';
 import {
   UPDATE_CATEGORIES,
   UPDATE_CATEGORY_DEPTH,
-} from '../../constants/scoping_methods';
+} from '../../../constants/scoping_methods';
 
 const CategoriesScoping = () => {
   const home_wiki = useSelector(state => state.course.home_wiki);

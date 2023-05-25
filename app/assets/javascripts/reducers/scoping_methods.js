@@ -1,10 +1,13 @@
-import { TOGGLE_SCOPING_METHOD, UPDATE_CATEGORIES, UPDATE_CATEGORY_DEPTH } from '../constants/scoping_methods';
+import { TOGGLE_SCOPING_METHOD, UPDATE_CATEGORIES, UPDATE_CATEGORY_DEPTH, UPDATE_TEMPLATES } from '../constants/scoping_methods';
 
 const initialState = {
   selected: [],
   categories: {
     depth: 1,
     tracked: [],
+  },
+  templates: {
+    include: [],
   }
 };
 
@@ -37,6 +40,15 @@ export default function course(state = initialState, action) {
         categories: {
           ...state.categories,
           tracked: action.categories
+        }
+      };
+    }
+    case UPDATE_TEMPLATES: {
+      return {
+        ...state,
+        templates: {
+          ...state.templates,
+          include: action.templates
         }
       };
     }

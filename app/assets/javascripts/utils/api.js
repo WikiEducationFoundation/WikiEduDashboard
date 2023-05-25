@@ -538,12 +538,30 @@ const API = {
     return response.json();
   },
 
-  async getCategoriesWithPrefix(wiki, prefix){
+  async getCategoriesWithPrefix(wiki, search_term){
+    return this.searchForPages(
+      wiki, 
+      search_term, 
+      14, 
+      (title)=>title.replace('Category:','').trim()
+    );
+  },
+
+  async getTemplatesWithPrefix(wiki, search_term){
+    return this.searchForPages(
+      wiki,
+      search_term, 
+      10,
+      (title)=>title.replace('Template:','').trim()
+    );
+  },
+
+  async searchForPages(wiki, search_term, namespace, map=(el)=>el){
     const params = {
       action: 'query',
       list: 'search',
-      srsearch: `intitle:${prefix}`,
-      srnamespace: 14,
+      srsearch: `intitle:${search_term}`,
+      srnamespace: namespace,
       origin: '*',
       format: 'json',
     };
@@ -553,8 +571,8 @@ const API = {
     const json = await response.json();
     
     return json.query.search.map(category => ({
-      value: category.title.replace('Category:', '').trim(),
-      label: category.title.replace('Category:', '').trim(),
+      value: map(category.title),
+      label: map(category.title)
     }));
   }
 };
