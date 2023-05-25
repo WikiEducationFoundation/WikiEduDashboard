@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import TextInput from '../../common/text_input';
 import {
+  UPDATE_CATEGORIES,
   UPDATE_CATEGORY_DEPTH
 } from '../../../constants/scoping_methods';
 import CategoryAutoCompleteInput from '../../common/ScopingMethods/autocomplete_categories_input';
@@ -13,7 +14,7 @@ const CategoriesScoping = () => {
   return (
     <div className="scoping-methods-categories">
       <div className="form-group">
-        <CategoryAutoCompleteInput />
+        <CategoryAutoCompleteInput label="Categories to track:" actionType={UPDATE_CATEGORIES}/>
       </div>
       <TextInput
         type="number"

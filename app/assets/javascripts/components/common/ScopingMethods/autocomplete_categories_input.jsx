@@ -3,9 +3,8 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AsyncSelect from 'react-select/async';
 import API from '../../../utils/api';
-import { UPDATE_CATEGORIES } from '../../../constants/scoping_methods';
 
-const CategoryAutoCompleteInput = () => {
+const CategoryAutoCompleteInput = ({ label, actionType }) => {
   const dispatch = useDispatch();
   const home_wiki = useSelector(state => state.course.home_wiki);
 
@@ -21,14 +20,14 @@ const CategoryAutoCompleteInput = () => {
 
   const updateCategories = (categories) => {
     dispatch({
-      type: UPDATE_CATEGORIES,
+      type: actionType,
       categories,
     });
   };
 
   return (
     <>
-      <label htmlFor="categories">Categories to track: </label>
+      <label htmlFor="categories">{label} </label>
       <AsyncSelect
         loadOptions={loadOptions}
         placeholder="Start typing to search"

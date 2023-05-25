@@ -3,9 +3,8 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AsyncSelect from 'react-select/async';
 import API from '../../../utils/api';
-import { UPDATE_TEMPLATES } from '../../../constants/scoping_methods';
 
-const TemplatesAutoCompleteInput = () => {
+const TemplatesAutoCompleteInput = ({ label, actionType }) => {
   const dispatch = useDispatch();
   const home_wiki = useSelector(state => state.course.home_wiki);
 
@@ -23,14 +22,14 @@ const TemplatesAutoCompleteInput = () => {
 
   const updateTemplates = (templates) => {
     dispatch({
-      type: UPDATE_TEMPLATES,
+      type: actionType,
       templates,
     });
   };
 
   return (
     <>
-      <label htmlFor="templates">Templates to include: </label>
+      <label htmlFor="templates">{label}</label>
       <AsyncSelect
         loadOptions={loadOptions}
         placeholder="Start typing to search"
