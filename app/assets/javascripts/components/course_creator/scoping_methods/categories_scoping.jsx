@@ -1,49 +1,19 @@
 import React from 'react';
-import AsyncSelect from 'react-select/async';
-import { useSelector, useDispatch } from 'react-redux';
-import { debounce } from 'lodash';
-import API from '../../../utils/api';
+import { useDispatch, useSelector } from 'react-redux';
 import TextInput from '../../common/text_input';
 import {
-  UPDATE_CATEGORIES,
-  UPDATE_CATEGORY_DEPTH,
+  UPDATE_CATEGORY_DEPTH
 } from '../../../constants/scoping_methods';
+import CategoryAutoCompleteInput from '../../common/ScopingMethods/autocomplete_categories_input';
 
 const CategoriesScoping = () => {
-  const home_wiki = useSelector(state => state.course.home_wiki);
   const depth = useSelector(state => state.scopingMethods.categories.depth);
   const dispatch = useDispatch();
-
-  const search = async (query) => {
-    const data = await API.getCategoriesWithPrefix(home_wiki, query);
-    return data;
-  };
-
-  const _loadOptions = (query, callback) => {
-    search(query).then(resp => callback(resp));
-  };
-
-  const loadOptions = debounce(_loadOptions, 300);
-
-  const updateCategories = (categories) => {
-    dispatch({
-      type: UPDATE_CATEGORIES,
-      categories,
-    });
-  };
 
   return (
     <div className="scoping-methods-categories">
       <div className="form-group">
-        <label htmlFor="categories">Categories to track: </label>
-        <AsyncSelect
-          loadOptions={loadOptions}
-          placeholder="Start typing to search"
-          isMulti
-          id="categories"
-          onChange={updateCategories}
-          noOptionsMessage={() => 'No categories found'}
-        />
+        <CategoryAutoCompleteInput />
       </div>
       <TextInput
         type="number"
