@@ -120,6 +120,8 @@ sl:
     actions: Dejanja
     articles: Članki
     article_viewer_wikidata: Pregledovalnik predmetov
+    calendar:
+      legend: Legenda
     cancel: Prekliči
     character_doc: Skupno število znakov, ki so jih udeleženci tečaja v času tečaja
       dodali člankom v glavnem imenskem prostoru
