@@ -39,6 +39,10 @@ permissions, or use another account and select the 'instructor' option from the
 onboarding process (http://localhost:3000/onboarding). Either way, you'll be able
 to create new courses/programs after that from the home page.
 
+## Assigning special roles
+
+To assign users to special roles. Go to the `/settings` page in the dashboard (http://localhost:3000/settings). This will allow you to give users admin privileges and other special user permissions such as classroom program manager, technical help staff, Wikipedia expert and many others. Note that your account needs to have admin permissions to access the page (refer to [Admin permissions](#admin-permissions) for more information) 
+
 ## Creating a course/program
 
 Click 'Create Course' from the home page and proceed from there. Once you've created
