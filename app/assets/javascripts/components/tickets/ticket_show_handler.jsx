@@ -14,9 +14,10 @@ import {
   fetchTickets,
   notifyOfMessage,
   readAllMessages,
-  selectTicket } from '../../actions/tickets_actions';
+  selectTicket
+} from '../../actions/tickets_actions';
 
-export class TicketShow extends React.Component {
+export class TicketShowHandler extends React.Component {
   componentDidMount() {
     const id = this.props.router.params.id;
     const ticket = this.props.ticketsById[id];
@@ -70,4 +71,4 @@ const mapDispatchToProps = {
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
-export default withRouter(connector(TicketShow));
+export default withRouter(connector(TicketShowHandler));
