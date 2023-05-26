@@ -92,7 +92,7 @@
     "tinymce": "^5.2.2",
     "uuid": "^3.4.0",
     "velocity-animate": "^1.5.1",
-    "webpack": "^5.72.1",
+    "webpack": "^5.84.1",
     "webpack-bundle-analyzer": "^4.5.0",
     "webpack-dev-server": "^4.9.0",
     "webpack-manifest-plugin": "^5.0.0",
