@@ -8,8 +8,10 @@ import ExerciseRows from './ExerciseRows';
 import {
   TRAINING_MODULE_KIND
 } from '~/app/assets/javascripts/constants';
+import { useSelector } from 'react-redux';
 
-const TrainingStatus = ({ exercises, trainingModules }) => {
+const TrainingStatus = ({ trainingModules }) => {
+  const exercises = useSelector(state => state.exercises);
   if (!trainingModules.length) return <div />;
 
   const exerciseTable = !!exercises.count && (
@@ -44,14 +46,13 @@ const TrainingStatus = ({ exercises, trainingModules }) => {
 
   return (
     <>
-      { exerciseTable }
-      { trainingModuleTable }
+      {exerciseTable}
+      {trainingModuleTable}
     </>
   );
 };
 
 TrainingStatus.propTypes = {
-  exercises: PropTypes.object,
   trainingModules: PropTypes.array
 };
 
