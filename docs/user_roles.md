@@ -32,7 +32,7 @@ You can do so from the rails console:
 - $ `rails c`
 - > `User.find_by(username: '<your username>').update_attribute(:permissions, 1)`
 
-If you need a higher level of permission above admin. Consider giving your main account super admin permissions instead:
+If you need a higher level of permission above admin, consider giving your main account super admin permissions instead:
 - $ `rails c`
 - > `User.find_by(username: '<your username>').update_attribute(:permissions, 3)`
 
@@ -45,7 +45,7 @@ to create new courses/programs after that from the home page.
 
 ## Assigning special roles
 
-To assign users to special roles. Go to the `/settings` page in the dashboard (http://localhost:3000/settings). This will allow you to give users admin privileges and other special user permissions such as classroom program manager, technical help staff, Wikipedia expert and many others. Note that your account needs to have super admin permissions to access the page (refer to [Admin permissions](#admin-permissions) for more information) 
+To assign users to special roles, go to the `/settings` page in the dashboard (http://localhost:3000/settings). This will allow you to give users admin privileges and other special user permissions such as classroom program manager, technical help staff, Wikipedia expert and many others. Note that your account needs to have super admin permissions to access the page (refer to [Admin permissions](#admin-permissions) for more information). 
 
 ## Creating a course/program
 
