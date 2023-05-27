@@ -4,9 +4,10 @@ import ScopingMethodTypes from './scoping_method_types';
 import CategoriesScoping from './scoping_methods/categories_scoping';
 import { useSelector } from 'react-redux';
 import { getLongDescription, getScopingMethodLabel } from '@components/util/scoping_methods';
-import { CATEGORIES, PETSCAN, TEMPLATES } from '../../constants/scoping_methods';
+import { CATEGORIES, PAGEPILE, PETSCAN, TEMPLATES } from '../../constants/scoping_methods';
 import TemplatesScoping from './scoping_methods/templates_scoping';
 import PetScanScoping from './scoping_methods/petscan_scoping';
+import PagePileScoping from './scoping_methods/pagepile_scoping';
 
 const CourseScoping = ({ show, wizardController, showCourseDates }) => {
   const selectedScopingMethods = useSelector(state => state.scopingMethods.selected);
@@ -61,6 +62,7 @@ const CourseScoping = ({ show, wizardController, showCourseDates }) => {
         {pageName === CATEGORIES && <CategoriesScoping />}
         {pageName === TEMPLATES && <TemplatesScoping />}
         {pageName === PETSCAN && <PetScanScoping hideDescription={hideDescription}/>}
+        {pageName === PAGEPILE && <PagePileScoping />}
       </ScopingMethod>
     </div>
   );
