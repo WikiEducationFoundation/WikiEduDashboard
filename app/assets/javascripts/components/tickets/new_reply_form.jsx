@@ -4,6 +4,10 @@ import TextAreaInput from '../common/text_area_input.jsx';
 import TextInput from '../common/text_input.jsx';
 import { MESSAGE_KIND_NOTE, MESSAGE_KIND_REPLY, TICKET_STATUS_AWAITING_RESPONSE, TICKET_STATUS_RESOLVED } from '../../constants/tickets';
 import { INSTRUCTOR_ROLE } from '../../constants/user_roles';
+import {
+  createReply,
+  fetchTicket,
+} from '../../actions/tickets_actions';
 
 const isBlank = (string) => {
   if (/\S/.test(string)) {
@@ -87,8 +91,8 @@ export class NewReplyForm extends React.Component {
       body = { ...body, details };
     }
 
-    this.props.createReply(body, status, bccToSalesforce)
-      .then(() => this.props.fetchTicket(ticket.id))
+    this.props.dispatch(createReply(body, status, bccToSalesforce))
+      .then(() => this.props.dispatch(fetchTicket(ticket.id)))
       .then(() => this.setState({ cc: '', content: '', sending: false }));
   }
 
