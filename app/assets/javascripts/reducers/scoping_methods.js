@@ -1,4 +1,4 @@
-import { TOGGLE_SCOPING_METHOD, UPDATE_CATEGORIES, UPDATE_CATEGORY_DEPTH, UPDATE_PETSCAN_IDS, UPDATE_PETSCAN_ON_HOME_PAGE, UPDATE_TEMPLATES } from '../constants/scoping_methods';
+import { TOGGLE_SCOPING_METHOD, UPDATE_CATEGORIES, UPDATE_CATEGORY_DEPTH, UPDATE_EXCLUDE_CATEGORIES_PETSCAN, UPDATE_EXCLUDE_TEMPLATES_PETSCAN, UPDATE_INCLUDE_CATEGORIES_PETSCAN, UPDATE_INCLUDE_TEMPLATES_PETSCAN, UPDATE_PETSCAN_IDS, UPDATE_PETSCAN_ON_HOME_PAGE, UPDATE_TEMPLATES } from '../constants/scoping_methods';
 
 const initialState = {
   selected: [],
@@ -12,6 +12,10 @@ const initialState = {
   petscan: {
     on_home_page: true,
     psids: [],
+    categories_includes: [],
+    categories_excludes: [],
+    templates_includes: [],
+    templates_excludes: [],
   },
   descriptionHidden: false,
 };
@@ -72,6 +76,45 @@ export default function course(state = initialState, action) {
         petscan: {
           ...state.petscan,
           on_home_page: action.on_home_page
+        }
+      };
+    }
+
+    case UPDATE_INCLUDE_CATEGORIES_PETSCAN: {
+      return {
+        ...state,
+        petscan: {
+          ...state.petscan,
+          categories_includes: action.categories
+        }
+      };
+    }
+
+    case UPDATE_INCLUDE_TEMPLATES_PETSCAN: {
+      return {
+        ...state,
+        petscan: {
+          ...state.petscan,
+          templates_includes: action.templates
+        }
+      };
+    }
+
+    case UPDATE_EXCLUDE_CATEGORIES_PETSCAN: {
+      return {
+        ...state,
+        petscan: {
+          ...state.petscan,
+          categories_excludes: action.categories
+        }
+      };
+    }
+    case UPDATE_EXCLUDE_TEMPLATES_PETSCAN: {
+      return {
+        ...state,
+        petscan: {
+          ...state.petscan,
+          templates_excludes: action.templates
         }
       };
     }

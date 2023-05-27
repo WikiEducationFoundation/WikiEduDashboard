@@ -1,3 +1,4 @@
+import { stringify } from 'query-string';
 import { CATEGORIES, PAGEPILE, PETSCAN, TEMPLATES } from '../../constants/scoping_methods';
 
 export const allScopingMethods = [
@@ -54,4 +55,30 @@ export const getLongDescription = (method) => {
     default:
       return '';
   }
+};
+
+export const generatePetScanUrl = ({ templates_includes, templates_excludes, categories_includes, categories_excludes }) => {
+  const baseUrl = 'https://petscan.wmflabs.org/?';
+  const params = {
+    templates_any: templates_includes.map(x => x.label).join('\n'),
+    templates_no: templates_excludes.map(x => x.label).join('\n'),
+    categories: categories_includes.map(x => x.label).join('\n'),
+    negcats: categories_excludes.map(x => x.label).join('\n'),
+    doit: false,
+    'ns[0]': true,
+    format: 'html',
+  };
+
+  return `${baseUrl}?${stringify(params)}`;
+};
+
+export const generatePetScanID = async ({ templates_includes, templates_excludes, categories_includes, categories_excludes }) => {
+  const request_url = generatePetScanUrl({ templates_includes, templates_excludes, categories_includes, categories_excludes });
+  const response = await fetch(request_url);
+
+  const html = await response.text();
+
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, 'text/html');
+  return doc.querySelector('span[name="psid"]').textContent;
 };
