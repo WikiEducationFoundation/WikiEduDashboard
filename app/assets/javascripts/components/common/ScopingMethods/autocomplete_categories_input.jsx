@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import AsyncSelect from 'react-select/async';
 import API from '../../../utils/api';
 
-const CategoryAutoCompleteInput = ({ label, actionType }) => {
+const CategoryAutoCompleteInput = ({ label, actionType, initial }) => {
   const dispatch = useDispatch();
   const home_wiki = useSelector(state => state.course.home_wiki);
 
@@ -35,6 +35,7 @@ const CategoryAutoCompleteInput = ({ label, actionType }) => {
         id="categories"
         onChange={updateCategories}
         noOptionsMessage={() => 'No categories found'}
+        defaultValue={initial}
       />
     </>
   );

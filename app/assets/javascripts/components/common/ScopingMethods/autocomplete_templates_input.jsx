@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import AsyncSelect from 'react-select/async';
 import API from '../../../utils/api';
 
-const TemplatesAutoCompleteInput = ({ label, actionType }) => {
+const TemplatesAutoCompleteInput = ({ label, actionType, initial }) => {
   const dispatch = useDispatch();
   const home_wiki = useSelector(state => state.course.home_wiki);
 
@@ -37,6 +37,7 @@ const TemplatesAutoCompleteInput = ({ label, actionType }) => {
         id="templates"
         onChange={updateTemplates}
         noOptionsMessage={() => 'No Templates found'}
+        defaultValue={initial}
       />
     </>
   );

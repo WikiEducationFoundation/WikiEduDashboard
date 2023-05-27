@@ -9,12 +9,13 @@ import CategoryAutoCompleteInput from '../../common/ScopingMethods/autocomplete_
 
 const CategoriesScoping = () => {
   const depth = useSelector(state => state.scopingMethods.categories.depth);
+  const categories = useSelector(state => state.scopingMethods.categories.tracked);
   const dispatch = useDispatch();
 
   return (
     <div className="scoping-methods-categories">
       <div className="form-group">
-        <CategoryAutoCompleteInput label="Categories to track:" actionType={UPDATE_CATEGORIES}/>
+        <CategoryAutoCompleteInput label="Categories to track:" actionType={UPDATE_CATEGORIES} initial={categories}/>
       </div>
       <TextInput
         type="number"
