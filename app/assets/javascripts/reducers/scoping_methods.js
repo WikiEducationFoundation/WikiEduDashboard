@@ -1,4 +1,4 @@
-import { TOGGLE_SCOPING_METHOD, UPDATE_CATEGORIES, UPDATE_CATEGORY_DEPTH, UPDATE_PETSCAN_IDS, UPDATE_TEMPLATES } from '../constants/scoping_methods';
+import { TOGGLE_SCOPING_METHOD, UPDATE_CATEGORIES, UPDATE_CATEGORY_DEPTH, UPDATE_PETSCAN_IDS, UPDATE_PETSCAN_ON_HOME_PAGE, UPDATE_TEMPLATES } from '../constants/scoping_methods';
 
 const initialState = {
   selected: [],
@@ -10,6 +10,7 @@ const initialState = {
     include: [],
   },
   petscan: {
+    on_home_page: true,
     psids: [],
   },
   descriptionHidden: false,
@@ -56,13 +57,21 @@ export default function course(state = initialState, action) {
         }
       };
     }
-
     case UPDATE_PETSCAN_IDS: {
       return {
         ...state,
         petscan: {
           ...state.petscan,
           psids: action.psids
+        }
+      };
+    }
+    case UPDATE_PETSCAN_ON_HOME_PAGE: {
+      return {
+        ...state,
+        petscan: {
+          ...state.petscan,
+          on_home_page: action.on_home_page
         }
       };
     }

@@ -1,4 +1,6 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { PETSCAN, UPDATE_PETSCAN_ON_HOME_PAGE } from '../../constants/scoping_methods';
 
 export const ScopingMethod = ({
   name,
@@ -8,8 +10,22 @@ export const ScopingMethod = ({
   prevPage,
   canGoNext,
   wizardController,
-  children
+  children,
+  scopingMethod
 }) => {
+  const isOnPetScanHomePage = useSelector(state => state.scopingMethods.petscan.on_home_page);
+  const dispatch = useDispatch();
+  let ignorePageIndex = false;
+  if (scopingMethod === PETSCAN && !isOnPetScanHomePage) {
+    ignorePageIndex = true;
+  }
+  const dispatchGoToPetScanHomePage = (value) => {
+    dispatch({
+      type: UPDATE_PETSCAN_ON_HOME_PAGE,
+      on_home_page: value,
+    });
+  };
+
   return (
     <>
       <h3 style={{
@@ -35,7 +51,16 @@ export const ScopingMethod = ({
           }}
         >
           <button
-            onClick={prevPage.bind(null, index)}
+            onClick={() => {
+              if (ignorePageIndex) {
+                dispatch({
+                  type: UPDATE_PETSCAN_ON_HOME_PAGE,
+                  on_home_page: true,
+                });
+              } else {
+                prevPage(index);
+              }
+            }}
             className="dark button button__submit"
           >
             Back
@@ -48,7 +73,7 @@ export const ScopingMethod = ({
           </button>
         </div>
       ) : (
-        wizardController({ hidden: false, backFunction: prevPage.bind(null, index) })
+        wizardController({ hidden: false, backFunction: ignorePageIndex ? dispatchGoToPetScanHomePage.bind(null, true) : prevPage.bind(null, index) })
       )}
     </>
   );

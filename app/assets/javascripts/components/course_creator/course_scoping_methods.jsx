@@ -50,6 +50,7 @@ const CourseScoping = ({ show, wizardController, showCourseDates }) => {
         index={pageNumber}
         nextPage={nextPage}
         prevPage={prevPage}
+        scopingMethod={scopingMethods[pageNumber]}
         description={!descriptionHidden && getLongDescription(scopingMethods[pageNumber])}
         name={getScopingMethodLabel(scopingMethods[pageNumber])}
         canGoNext={canGoNext}
