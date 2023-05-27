@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import TextAreaInput from '../common/text_area_input.jsx';
 import TextInput from '../common/text_input.jsx';
@@ -8,6 +8,7 @@ import {
   createReply,
   fetchTicket,
 } from '../../actions/tickets_actions';
+import { useDispatch } from 'react-redux';
 
 const isBlank = (string) => {
   if (/\S/.test(string)) {
@@ -16,68 +17,66 @@ const isBlank = (string) => {
   return true;
 };
 
-export class NewReplyForm extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      cc: '',
-      content: '',
-      plainText: '',
-      sending: false,
-      showCC: false,
-      bccToSalesforce: false
-    };
-  }
+const NewReplyForm = ({ ticket, currentUser }) => {
+  const dispatch = useDispatch();
+  const [replyDetails, setReplyDetails] = useState({
+    cc: '',
+    content: '',
+    plainText: '',
+    sending: false,
+    showCC: false,
+    bccToSalesforce: false
+  });
 
-  componentDidMount() {
-    this.setState({
-      bccToSalesforce: this.props.ticket.sender.role === INSTRUCTOR_ROLE
-    });
-  }
+  useEffect(() => {
+    setReplyDetails(prevState => ({ ...prevState, bccToSalesforce: ticket.sender.role === INSTRUCTOR_ROLE }));
+  }, [ticket]);
 
-  onChange(_key, content) {
-    this.setState({
-      [_key]: content
-    });
-  }
+  const onChange = (_key, content) => {
+    setReplyDetails(prevState => ({ ...prevState, [_key]: content }));
+  };
 
-  onTextAreaChange(_key, content, _e) {
-    this.setState({
-      content,
-      plainText: content
-    });
-  }
+  const onTextAreaChange = (_key, content, _e) => {
+    setReplyDetails(prevState => ({
+      ...prevState, content: content, plainText: content
+    }));
+  };
 
-  onCCClick(e) {
+  const onCCClick = (e) => {
     e.preventDefault();
-    this.setState({
-      showCC: !this.state.showCC
-    });
-  }
+    setReplyDetails(prevState => ({
+      ...prevState, showCC: !prevState.showCC
+    }));
+  };
 
-  onReply(e) {
-    this.setState({ sending: true });
-    this.onSubmit(e, TICKET_STATUS_AWAITING_RESPONSE, MESSAGE_KIND_REPLY);
-  }
+  const onReply = (e) => {
+    setReplyDetails(prevState => ({ ...prevState, sending: true }));
+    onSubmit(e, TICKET_STATUS_AWAITING_RESPONSE, MESSAGE_KIND_REPLY);
+  };
 
-  onCreateNote(e) {
-    this.setState({ sending: true });
-    this.onSubmit(e, this.props.ticket.status, MESSAGE_KIND_NOTE); // Leave status unchanged
-  }
+  const onCreateNote = (e) => {
+    setReplyDetails(prevState => ({ ...prevState, sending: true }));
+    onSubmit(e, ticket.status, MESSAGE_KIND_NOTE); // Leave status unchanged
+  };
 
-  onResolve(e) {
-    this.setState({ sending: true });
-    this.onSubmit(e, TICKET_STATUS_RESOLVED, MESSAGE_KIND_REPLY);
-  }
+  const onResolve = (e) => {
+    setReplyDetails(prevState => ({ ...prevState, sending: true }));
+    onSubmit(e, TICKET_STATUS_RESOLVED, MESSAGE_KIND_REPLY);
+  };
 
-  onSubmit(e, status, kind) {
+  const onSubmit = (e, status, kind) => {
     e.preventDefault();
-    if (isBlank(this.state.plainText)) return this.setState({ sending: false });
+    if (isBlank(replyDetails.plainText)) {
+      setReplyDetails(prevState => ({ ...prevState, sending: false }));
+      return;
+    }
 
-    const { cc, content, bccToSalesforce } = this.state;
-    const ccEmails = this._ccEmailsSplit(cc);
-    if (!this._ccEmailsAreValid(ccEmails)) return this.setState({ sending: false });
-    const { currentUser, ticket } = this.props;
+    const { cc, content, bccToSalesforce } = replyDetails;
+    const ccEmails = _ccEmailsSplit(cc);
+    if (!_ccEmailsAreValid(ccEmails)) {
+      setReplyDetails(prevState => ({ ...prevState, sending: false }));
+      return;
+    }
     let body = {
       content,
       kind,
@@ -86,123 +85,120 @@ export class NewReplyForm extends React.Component {
       read: true
     };
 
-    if (this.state.cc) {
+    if (replyDetails.cc) {
       const details = { cc: ccEmails.map(email => ({ email })) };
       body = { ...body, details };
     }
 
-    this.props.dispatch(createReply(body, status, bccToSalesforce))
-      .then(() => this.props.dispatch(fetchTicket(ticket.id)))
-      .then(() => this.setState({ cc: '', content: '', sending: false }));
-  }
+    dispatch(createReply(body, status, bccToSalesforce))
+      .then(() => dispatch(fetchTicket(ticket.id)))
+      .then(() => setReplyDetails(prevState => ({ ...prevState, cc: '', content: '', sending: false }))
+      );
+  };
+  const toggleBcc = (e) => {
+    setReplyDetails(prevState => ({ ...prevState, bccToSalesforce: e.target.checked }));
+  };
 
-  toggleBcc(e) {
-    this.setState({ bccToSalesforce: e.target.checked });
-  }
-
-  _ccEmailsSplit(emailString = '') {
+  const _ccEmailsSplit = (emailString = '') => {
     return emailString.split(',')
       .map(email => email.trim())
       .filter(email => email);
-  }
+  };
 
-  _ccEmailsAreValid(emails) {
+  const _ccEmailsAreValid = (emails) => {
     if (!emails.length) return true;
     const regexp = RegExp(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i);
     return emails.every(email => regexp.test(email));
-  }
+  };
 
-  render() {
-    const ticket = this.props.ticket;
-    const name = ticket.sender && (ticket.sender.real_name || ticket.sender.username);
-    const toAddress = name ? ` to ${name}` : null;
-    // Using the lastTicketId for the input key means that a new, blank
-    // input will be created after a new message is successfully added.
-    const lastTicketId = ticket.messages[ticket.messages.length - 1].id;
-    return (
-      <form className="tickets-reply">
-        <h3>
-          Send a Reply{toAddress}
-          <button
-            alt="Show BCC"
-            title="Show BCC"
-            className="button border plus"
-            onClick={this.onCCClick.bind(this)}
-          >
-            +
-          </button>
-          <div className="pull-right">
-            <small>
-              BCC to Salesforce
-              <input
-                checked={this.state.bccToSalesforce}
-                className="ml1 top2"
-                id="bcc"
-                name="bcc"
-                onChange={this.toggleBcc.bind(this)}
-                type="checkbox"
-              />
-            </small>
-          </div>
-        </h3>
-        {
-          this.state.showCC
-          && (
-            <div className="cc-fields">
-              <label>CC:</label>
-              <TextInput
-                id="cc"
-                onChange={this.onChange.bind(this)}
-                value={this.state.cc}
-                value_key="cc"
-                editable
-                placeholder={'Place emails here, separated by commas'}
-              />
-            </div>
-          )
-        }
-        <div className="bg-white">
-          <TextAreaInput
-            key={`reply-to-${lastTicketId}`}
-            id="content"
-            editable
-            label="Enter your reply"
-            onChange={this.onTextAreaChange.bind(this)}
-            value={this.state.content}
-            value_key="content"
-            wysiwyg={true}
-          />
+  const name = ticket.sender && (ticket.sender.real_name || ticket.sender.username);
+  const toAddress = name ? ` to ${name}` : null;
+  // Using the lastTicketId for the input key means that a new, blank
+  // input will be created after a new message is successfully added.
+  const lastTicketId = ticket.messages[ticket.messages.length - 1].id;
+  return (
+    <form className="tickets-reply">
+      <h3>
+        Send a Reply{toAddress}
+        <button
+          alt="Show BCC"
+          title="Show BCC"
+          className="button border plus"
+          onClick={onCCClick.bind(this)}
+        >
+          +
+        </button>
+        <div className="pull-right">
+          <small>
+            BCC to Salesforce
+            <input
+              checked={replyDetails.bccToSalesforce}
+              className="ml1 top2"
+              id="bcc"
+              name="bcc"
+              onChange={toggleBcc.bind(this)}
+              type="checkbox"
+            />
+          </small>
         </div>
-        <button
-          className="button dark margin right mt2"
-          disabled={this.state.sending}
-          id="reply-resolve"
-          onClick={this.onResolve.bind(this)}
-          type="submit"
-        >
-          Send Reply and Resolve Ticket
-        </button>
-        <button
-          className="button dark right mt2"
-          disabled={this.state.sending}
-          id="reply"
-          onClick={this.onReply.bind(this)}
-          type="submit"
-        >
-          Send Reply
-        </button>
-        <button
-          className="button left mt2"
-          disabled={this.state.sending}
-          id="create-note"
-          onClick={this.onCreateNote.bind(this)}
-          type="submit"
-        >
-          Create Note
-        </button>
-      </form>
-    );
-  }
-}
+      </h3>
+      {
+        replyDetails.showCC
+        && (
+          <div className="cc-fields">
+            <label>CC:</label>
+            <TextInput
+              id="cc"
+              onChange={onChange.bind(this)}
+              value={replyDetails.cc}
+              value_key="cc"
+              editable
+              placeholder={'Place emails here, separated by commas'}
+            />
+          </div>
+        )
+      }
+      <div className="bg-white">
+        <TextAreaInput
+          key={`reply-to-${lastTicketId}`}
+          id="content"
+          editable
+          label="Enter your reply"
+          onChange={onTextAreaChange.bind(this)}
+          value={replyDetails.content}
+          value_key="content"
+          wysiwyg={true}
+        />
+      </div>
+      <button
+        className="button dark margin right mt2"
+        disabled={replyDetails.sending}
+        id="reply-resolve"
+        onClick={onResolve.bind(this)}
+        type="submit"
+      >
+        Send Reply and Resolve Ticket
+      </button>
+      <button
+        className="button dark right mt2"
+        disabled={replyDetails.sending}
+        id="reply"
+        onClick={onReply.bind(this)}
+        type="submit"
+      >
+        Send Reply
+      </button>
+      <button
+        className="button left mt2"
+        disabled={replyDetails.sending}
+        id="create-note"
+        onClick={onCreateNote.bind(this)}
+        type="submit"
+      >
+        Create Note
+      </button>
+    </form>
+  );
+};
 
 export default NewReplyForm;

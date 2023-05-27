@@ -3,16 +3,13 @@ import { Link } from 'react-router-dom';
 import Reply from './reply';
 import Sidebar from './sidebar';
 import NewReplyForm from './new_reply_form';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 export const TicketShow = ({
-  createReply,
   deleteTicket,
-  fetchTicket,
   notifyOfMessage,
   ticket,
 }) => {
-  const dispatch = useDispatch();
   const currentUser = useSelector(state => state.currentUserFromHtml);
 
   const createdAt = ticket.messages[0].created_at;
@@ -29,10 +26,7 @@ export const TicketShow = ({
         {replies}
         <NewReplyForm
           ticket={ticket}
-          createReply={createReply}
           currentUser={currentUser}
-          fetchTicket={fetchTicket}
-          dispatch={dispatch}
         />
       </section>
       <Sidebar

@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 
 import { INSTRUCTOR_ROLE } from '../../../app/assets/javascripts/constants/user_roles';
 import {
@@ -11,6 +11,12 @@ import {
 } from '../../../app/assets/javascripts/constants/tickets';
 import { NewReplyForm } from '../../../app/assets/javascripts/components/tickets/new_reply_form';
 import '../../testHelper';
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import { Provider } from 'react-redux';
+
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
 
 describe('Tickets', () => {
   describe('NewReplyForm', () => {
@@ -27,18 +33,28 @@ describe('Tickets', () => {
     };
     const createReplyFn = jest.fn(() => Promise.resolve());
     const fetchTicketFn = jest.fn(() => Promise.resolve());
+    const mockDispatchFn = jest.fn(() => Promise.resolve());
+
     const props = {
       currentUser: {
         id: 1
       },
       ticket,
-      createReply: createReplyFn,
-      fetchTicket: fetchTicketFn
+      fetchTicket: fetchTicketFn,
+      dispatch: mockDispatchFn
     };
-    const form = shallow(<NewReplyForm {...props} />);
+    const store = mockStore({ validations: { validations: { key: 2 } } });
+    const MockProvider = (mockProps) => {
+      return (
+        <Provider store={store}>
+          <NewReplyForm {...mockProps} />
+        </Provider >
+      );
+    };
+    const form = mount(<MockProvider {...props} />).find('.tickets-reply');
 
     afterEach(() => {
-      form.instance().setState({
+      form.setState({
         cc: '',
         content: '',
         plainText: '',
@@ -81,7 +97,7 @@ describe('Tickets', () => {
       expect(form.find('#cc').length).toBeTruthy;
     });
     it('does not create a new reply if there is no content', async () => {
-      await form.find('#reply-resolve').simulate('click', { preventDefault: () => {} });
+      await form.find('#reply-resolve').simulate('click', { preventDefault: () => { } });
       expect(createReplyFn).not.toHaveBeenCalled();
       expect(fetchTicketFn).not.toHaveBeenCalled();
     });
@@ -113,7 +129,7 @@ describe('Tickets', () => {
         content: content,
         plainText: content
       });
-      await form.find('#reply-resolve').simulate('click', { preventDefault: () => {} });
+      await form.find('#reply-resolve').simulate('click', { preventDefault: () => { } });
 
       const body = {
         content,
@@ -132,7 +148,7 @@ describe('Tickets', () => {
         content: content,
         plainText: content
       });
-      await form.find('#reply').simulate('click', { preventDefault: () => {} });
+      await form.find('#reply').simulate('click', { preventDefault: () => { } });
 
       const body = {
         content,
@@ -151,7 +167,7 @@ describe('Tickets', () => {
         content: content,
         plainText: content
       });
-      await form.find('#create-note').simulate('click', { preventDefault: () => {} });
+      await form.find('#create-note').simulate('click', { preventDefault: () => { } });
 
       const body = {
         content,
