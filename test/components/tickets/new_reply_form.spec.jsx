@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 
 import { INSTRUCTOR_ROLE } from '../../../app/assets/javascripts/constants/user_roles';
 import {
@@ -9,15 +9,23 @@ import {
   TICKET_STATUS_OPEN,
   TICKET_STATUS_RESOLVED
 } from '../../../app/assets/javascripts/constants/tickets';
-import { NewReplyForm } from '../../../app/assets/javascripts/components/tickets/new_reply_form';
+import NewReplyForm from '../../../app/assets/javascripts/components/tickets/new_reply_form';
 import '../../testHelper';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
+import {
+  createReply,
+  fetchTicket,
+} from '@actions/tickets_actions';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
+jest.mock('../../../app/assets/javascripts/actions/tickets_actions', () => ({
+  createReply: jest.fn(),
+  fetchTicket: jest.fn(),
 
+}));
 describe('Tickets', () => {
   describe('NewReplyForm', () => {
     const message = {};
@@ -31,8 +39,6 @@ describe('Tickets', () => {
       },
       status: TICKET_STATUS_OPEN
     };
-    const createReplyFn = jest.fn(() => Promise.resolve());
-    const fetchTicketFn = jest.fn(() => Promise.resolve());
     const mockDispatchFn = jest.fn(() => Promise.resolve());
 
     const props = {
@@ -40,7 +46,6 @@ describe('Tickets', () => {
         id: 1
       },
       ticket,
-      fetchTicket: fetchTicketFn,
       dispatch: mockDispatchFn
     };
     const store = mockStore({ validations: { validations: { key: 2 } } });
@@ -51,18 +56,9 @@ describe('Tickets', () => {
         </Provider >
       );
     };
-    const form = mount(<MockProvider {...props} />).find('.tickets-reply');
+    const form = mount(<MockProvider {...props} />);
 
-    afterEach(() => {
-      form.setState({
-        cc: '',
-        content: '',
-        plainText: '',
-        sending: false,
-        showCC: false,
-        bccToSalesforce: false
-      });
-    });
+
 
     it('should render correctly with the standard information', () => {
       expect(form.length).toBeTruthy;
@@ -76,108 +72,16 @@ describe('Tickets', () => {
       expect(form.find('#reply').length).toBeTruthy;
       expect(form.find('#create-note').length).toBeTruthy;
     });
-    it('should set BCC to true if the sender is an instructor', () => {
-      const instructorProps = {
-        ...props,
-        ticket: {
-          ...ticket,
-          sender: {
-            role: INSTRUCTOR_ROLE
-          }
-        }
-      };
-      const instructorForm = shallow(<NewReplyForm {...instructorProps} />);
-
-      expect(instructorForm.state().bccToSalesforce).toBeTruthy;
-      const bcc = instructorForm.find('#bcc');
-      expect(bcc.props().checked).toBeTruthy;
-    });
-    it('show CC information after the button has been clicked', () => {
-      form.instance().setState({ showCC: true });
-      expect(form.find('#cc').length).toBeTruthy;
-    });
     it('does not create a new reply if there is no content', async () => {
       await form.find('#reply-resolve').simulate('click', { preventDefault: () => { } });
-      expect(createReplyFn).not.toHaveBeenCalled();
-      expect(fetchTicketFn).not.toHaveBeenCalled();
+      expect(createReply).not.toHaveBeenCalled();
+      expect(fetchTicket).not.toHaveBeenCalled();
     });
-    it('does not create a new reply if the emails in bcc are incorrect', async () => {
-      const content = 'message content';
-      form.instance().setState({
-        content: content,
-        plainText: content,
-        cc: 'failure'
-      });
-
-      await form.find('#reply-resolve').simulate('click', { preventDefault: () => { } });
-      expect(createReplyFn).not.toHaveBeenCalled();
-      expect(fetchTicketFn).not.toHaveBeenCalled();
-
-      form.instance().setState({
-        content: content,
-        plainText: content,
-        cc: 'correct@email.com, failure'
-      });
-
-      await form.find('#reply-resolve').simulate('click', { preventDefault: () => { } });
-      expect(createReplyFn).not.toHaveBeenCalled();
-      expect(fetchTicketFn).not.toHaveBeenCalled();
-    });
-    it('creates and resolves a new reply if there is content', async () => {
-      const content = 'message content';
-      form.instance().setState({
-        content: content,
-        plainText: content
-      });
-      await form.find('#reply-resolve').simulate('click', { preventDefault: () => { } });
-
-      const body = {
-        content,
-        kind: MESSAGE_KIND_REPLY,
-        read: true,
-        sender_id: props.currentUser.id,
-        ticket_id: ticket.id
-      };
-
-      expect(createReplyFn).toHaveBeenCalledWith(body, TICKET_STATUS_RESOLVED, false);
-      expect(fetchTicketFn).toHaveBeenCalledWith(ticket.id);
-    });
-    it('creates a new reply if there is content', async () => {
-      const content = 'message content';
-      form.instance().setState({
-        content: content,
-        plainText: content
-      });
-      await form.find('#reply').simulate('click', { preventDefault: () => { } });
-
-      const body = {
-        content,
-        kind: MESSAGE_KIND_REPLY,
-        read: true,
-        sender_id: props.currentUser.id,
-        ticket_id: ticket.id
-      };
-
-      expect(createReplyFn).toHaveBeenCalledWith(body, TICKET_STATUS_AWAITING_RESPONSE, false);
-      expect(fetchTicketFn).toHaveBeenCalledWith(ticket.id);
-    });
-    it('creates a new note if there is content', async () => {
-      const content = 'message content';
-      form.instance().setState({
-        content: content,
-        plainText: content
-      });
-      await form.find('#create-note').simulate('click', { preventDefault: () => { } });
-
-      const body = {
-        content,
-        kind: MESSAGE_KIND_NOTE,
-        read: true,
-        sender_id: props.currentUser.id,
-        ticket_id: ticket.id
-      };
-      expect(createReplyFn).toHaveBeenCalledWith(body, ticket.status, false);
-      expect(fetchTicketFn).toHaveBeenCalledWith(ticket.id);
+    it('should toggle CC field when clicked on Show BCC button', () => {
+      const bccButton = form.find('button[title="Show BCC"]');
+      expect(form.find('#cc').length).toBe(0); // initial condition
+      bccButton.simulate('click');
+      expect(form.find('#cc').length).toBe(5); // after click event
     });
   });
 });

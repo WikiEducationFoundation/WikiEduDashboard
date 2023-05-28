@@ -124,7 +124,7 @@ const NewReplyForm = ({ ticket, currentUser }) => {
           alt="Show BCC"
           title="Show BCC"
           className="button border plus"
-          onClick={onCCClick.bind(this)}
+          onClick={onCCClick}
         >
           +
         </button>
@@ -136,7 +136,7 @@ const NewReplyForm = ({ ticket, currentUser }) => {
               className="ml1 top2"
               id="bcc"
               name="bcc"
-              onChange={toggleBcc.bind(this)}
+              onChange={toggleBcc}
               type="checkbox"
             />
           </small>
@@ -149,7 +149,7 @@ const NewReplyForm = ({ ticket, currentUser }) => {
             <label>CC:</label>
             <TextInput
               id="cc"
-              onChange={onChange.bind(this)}
+              onChange={onChange}
               value={replyDetails.cc}
               value_key="cc"
               editable
@@ -164,7 +164,7 @@ const NewReplyForm = ({ ticket, currentUser }) => {
           id="content"
           editable
           label="Enter your reply"
-          onChange={onTextAreaChange.bind(this)}
+          onChange={onTextAreaChange}
           value={replyDetails.content}
           value_key="content"
           wysiwyg={true}
@@ -172,27 +172,27 @@ const NewReplyForm = ({ ticket, currentUser }) => {
       </div>
       <button
         className="button dark margin right mt2"
-        disabled={replyDetails.sending}
+        disabled={replyDetails.sending || !replyDetails.content}
         id="reply-resolve"
-        onClick={onResolve.bind(this)}
+        onClick={onResolve}
         type="submit"
       >
         Send Reply and Resolve Ticket
       </button>
       <button
         className="button dark right mt2"
-        disabled={replyDetails.sending}
+        disabled={replyDetails.sending || !replyDetails.content}
         id="reply"
-        onClick={onReply.bind(this)}
+        onClick={onReply}
         type="submit"
       >
         Send Reply
       </button>
       <button
         className="button left mt2"
-        disabled={replyDetails.sending}
+        disabled={replyDetails.sending || !replyDetails.content}
         id="create-note"
-        onClick={onCreateNote.bind(this)}
+        onClick={onCreateNote}
         type="submit"
       >
         Create Note
