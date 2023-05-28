@@ -1,13 +1,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import { INSTRUCTOR_ROLE } from '../../../app/assets/javascripts/constants/user_roles';
 import {
-  MESSAGE_KIND_NOTE,
-  MESSAGE_KIND_REPLY,
-  TICKET_STATUS_AWAITING_RESPONSE,
   TICKET_STATUS_OPEN,
-  TICKET_STATUS_RESOLVED
 } from '../../../app/assets/javascripts/constants/tickets';
 import NewReplyForm from '../../../app/assets/javascripts/components/tickets/new_reply_form';
 import '../../testHelper';
