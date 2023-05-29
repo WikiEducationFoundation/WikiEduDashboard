@@ -10,6 +10,7 @@ class WikiSlideParser
     remove_noinclude
     remove_translation_markers
     remove_translate_tags
+    remove_span_tags
     extract_quiz_template
     extract_category_templates # only relevant for TrainingLibrary
     convert_image_templates
@@ -75,6 +76,14 @@ class WikiSlideParser
     @wikitext.gsub!(%r{\s*</translate>}, '')
     @wikitext.gsub!(/<tvar.*?>/, '')
     @wikitext.gsub!(%r{</>}, '')
+  end
+
+  def remove_span_tags
+    # Remove both the tags and any excess whitespace within them,
+    # Aim is to get rid of <span lang="en" dir="ltr" class="mw-content-ltr">
+    # that may appear in cas of incomplete translations.
+    @wikitext.gsub!(/<span .*?>\s*/, '')
+    @wikitext.gsub!(%r{\s*</span>}, '')
   end
 
   def extract_quiz_template

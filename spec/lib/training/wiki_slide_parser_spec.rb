@@ -206,6 +206,30 @@ describe WikiSlideParser do
     WIKITEXT
   end
 
+  # https://meta.wikimedia.org/w/index.php?title=Special:ExportTranslations&language=es&group=page-Training+modules%2Fdashboard%2Flibraries%2Fediting-wikipedia
+  let(:uncomplete_spanish_translation) do
+    <<~WIKITEXT
+      <noinclude><languages /></noinclude>
+      <span lang="en" dir="ltr" class="mw-content-ltr">== Wikipedia Training Modules ==</span>#{' '}
+
+      <span lang="en" dir="ltr" class="mw-content-ltr">This set of modules helps new editors get started with Wikipedia. This page lists every module, including specialized modules for particular topics.</span>
+
+      {{Training module category
+      | title =  <span lang="en" dir="ltr" class="mw-content-ltr">Basics</span>
+      | description =  <span lang="en" dir="ltr" class="mw-content-ltr">These modules cover the basic rules of Wikipedia.</span>
+      | module_name_1 =  <span lang="en" dir="ltr" class="mw-content-ltr">Wikipedia Essentials</span>
+      | module_slug_1 = wikipedia-essentials
+      | module_description_1 =  <span lang="en" dir="ltr" class="mw-content-ltr">An overview of Wikipedia's main rules</span>
+      | module_name_2 = <span lang="en" dir="ltr" class="mw-content-ltr">Editing Basics</span>
+      | module_slug_2 = editing-basics
+      | module_description_2 =  <span lang="en" dir="ltr" class="mw-content-ltr">An introduction to editing Wikipedia pages</span>
+      | module_name_3 =  <span lang="en" dir="ltr" class="mw-content-ltr">Evaluating Articles and Sources</span>
+      | module_slug_3 = evaluating-articles
+      | module_description_3 =  <span lang="en" dir="ltr" class="mw-content-ltr">Advice for thinking critically about Wikipedia article quality</span>
+      }}
+    WIKITEXT
+  end
+
   describe '#title' do
     it 'extracts title from translation-enabled source wikitext' do
       output = described_class.new(source_wikitext.dup).title
@@ -235,6 +259,11 @@ describe WikiSlideParser do
     it 'works for training libraries' do
       output = described_class.new(editathons_library_wikitext.dup).title
       expect(output).to eq('Running Editathons and other Editing Events')
+    end
+
+    it 'extracts title propery if span tags' do
+      output = described_class.new(uncomplete_spanish_translation.dup).title
+      expect(output).to eq('Wikipedia Training Modules')
     end
   end
 
@@ -278,6 +307,11 @@ describe WikiSlideParser do
     it 'handles nil input' do
       output = described_class.new(''.dup).content
       expect(output).to eq('')
+    end
+
+    it 'strips span tags from content' do
+      output = described_class.new(uncomplete_spanish_translation.dup).content
+      expect(output).not_to match('<span')
     end
   end
 
