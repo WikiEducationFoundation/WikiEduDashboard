@@ -5,21 +5,27 @@ import TicketOwnerHandler from './ticket_owner_handler';
 import { STATUSES } from './util';
 import { toDate } from '../../utils/date_utils';
 import { formatDistanceToNow } from 'date-fns';
+import {
+  deleteTicket,
+  notifyOfMessage,
+} from '../../actions/tickets_actions';
+import { useDispatch } from 'react-redux';
 
-const Sidebar = ({ createdAt, currentUser, deleteTicket, notifyOfMessage, ticket }) => {
+const Sidebar = ({ createdAt, currentUser, ticket }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const notifyOwner = () => {
-    notifyOfMessage({
+    dispatch(notifyOfMessage({
       message_id: ticket.messages[ticket.messages.length - 1].id,
       sender_id: currentUser.id
-    });
+    }));
   };
 
   const deleteSelectedTicket = () => {
     if (!confirm('Are you sure you want to delete this ticket?')) return;
 
-    deleteTicket(ticket.id)
+    dispatch(deleteTicket(ticket.id))
       .then(() => navigate('/tickets/dashboard'));
   };
   const assignedTo = ticket.owner.id === currentUser.id ? 'You' : ticket.owner.username;
