@@ -25,18 +25,16 @@ export class BadWorkAlert extends React.Component {
 
   render() {
     const { isSubmitting, message } = this.state;
-    const { alertStatus } = this.props;
 
     return (
       <section className="article-alert">
         <article className="learn-more">
-          <p>{ I18n.t(`instructor_view.bad_work.${ArticleUtils.projectSuffix(this.props.project, 'learn_more')}`) }</p>
+          <p>{I18n.t(`instructor_view.bad_work.${ArticleUtils.projectSuffix(this.props.project, 'learn_more')}`)}</p>
           <a target="_blank" className="button dark" href="/training/instructors/fixing-bad-articles/instructors-role-in-cleanup">
             {I18n.t('instructor_view.bad_work.learn_more_button')}
           </a>
         </article>
         <SubmitIssuePanel
-          alertStatus={alertStatus}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
           isSubmitting={isSubmitting}
@@ -48,9 +46,6 @@ export class BadWorkAlert extends React.Component {
   }
 }
 BadWorkAlert.propTypes = {
-  alertStatus: PropTypes.shape({
-    created: PropTypes.bool.isRequired
-  }).isRequired,
   project: PropTypes.string.isRequired,
   submitBadWorkAlert: PropTypes.func.isRequired
 };

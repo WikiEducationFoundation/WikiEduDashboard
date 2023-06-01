@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 // Utilities
 import { forEach, union } from 'lodash-es';
@@ -40,8 +40,8 @@ import { resetBadWorkAlert, submitBadWorkAlert } from '~/app/assets/javascripts/
     'useEffect' fetches MediaWiki user IDs for coloration as soon as the usernames are available
 */
 const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
-  fetchArticleDetails, assignedUsers, article, course, alertStatus, current_user = {},
-  showButtonClass, showPermalink = true, title, ...props }) => {
+  fetchArticleDetails, assignedUsers, article, course, current_user = {},
+  showButtonClass, showPermalink = true, title }) => {
   const [failureMessage, setFailureMessage] = useState(null);
   const [fetched, setFetched] = useState(false);
   const [highlightedHtml, setHighlightedHtml] = useState(null);
@@ -53,6 +53,7 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
   const [whoColorHtml, setWhoColorHtml] = useState(null);
   const [parsedArticle, setParsedArticle] = useState(null);
 
+  const dispatch = useDispatch();
   const ref = useRef();
 
   useEffect(() => {
@@ -127,7 +128,7 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
     if (!showArticle) { return; }
     setShowBadArticleAlert(false);
     setShowArticle(false);
-    props.resetBadWorkAlert();
+    dispatch(resetBadWorkAlert());
     // removes the article parameter from the URL
     removeParamFromURL(e);
   };
@@ -219,14 +220,6 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
       });
   };
 
-  const _submitBadWorkAlert = (message) => {
-    props.submitBadWorkAlert({
-      article_id: article.id,
-      course_id: course.id,
-      message
-    });
-  };
-
   const handleClickOutside = (event) => {
     const element = ref.current;
     if (element && !element.contains(event.target)) {
@@ -277,9 +270,12 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
         {
           showBadArticleAlert && (
             <BadWorkAlert
-              alertStatus={alertStatus}
               project={article.project}
-              submitBadWorkAlert={_submitBadWorkAlert}
+              submitBadWorkAlert={message => dispatch(submitBadWorkAlert({
+                article_id: article.id,
+                course_id: course.id,
+                message
+              }))} // Passed as a function that calls dispatch
             />
           )
         }
@@ -308,7 +304,6 @@ ArticleViewer.defaultProps = {
 };
 
 ArticleViewer.propTypes = {
-  alertStatus: PropTypes.object.isRequired,
   article: PropTypes.shape({
     id: PropTypes.number,
     language: PropTypes.string,
@@ -326,9 +321,4 @@ ArticleViewer.propTypes = {
   users: PropTypes.array,
 };
 
-const mapStateToProps = ({ badWorkAlert }) => ({ alertStatus: badWorkAlert });
-const mapDispatchToProps = {
-  resetBadWorkAlert,
-  submitBadWorkAlert
-};
-export default connect(mapStateToProps, mapDispatchToProps)(ArticleViewer);
+export default (ArticleViewer);

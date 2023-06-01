@@ -4,8 +4,10 @@ import ArticleUtils from '../../../../../utils/article_utils';
 
 // Components
 import TextAreaInput from '@components/common/text_area_input.jsx';
+import { useSelector } from 'react-redux';
 
-export const SubmitIssuePanel = ({ alertStatus, handleChange, handleSubmit, isSubmitting, message, project }) => {
+export const SubmitIssuePanel = ({ handleChange, handleSubmit, isSubmitting, message, project }) => {
+  const alertStatus = useSelector(state => state.badWorkAlert);
   if (alertStatus.created) {
     return (
       <article className="submit-alert">
@@ -37,9 +39,6 @@ export const SubmitIssuePanel = ({ alertStatus, handleChange, handleSubmit, isSu
 };
 
 SubmitIssuePanel.propTypes = {
-  alertStatus: PropTypes.shape({
-    created: PropTypes.bool.isRequired
-  }).isRequired,
   handleChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   message: PropTypes.string.isRequired,
