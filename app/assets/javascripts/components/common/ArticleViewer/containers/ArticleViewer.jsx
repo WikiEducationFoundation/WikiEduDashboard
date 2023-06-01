@@ -62,6 +62,13 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
     }
   }, [showArticle]);
 
+  // Wait for whocolor API to return the raw HTML before highlighting it
+  useEffect(() => {
+    if (whoColorHtml) {
+      highlightAuthors();
+    }
+  }, [whoColorHtml]);
+
   // This runs when the user accesses the articleViewer directly from a permalink
   useEffect(() => {
     if (showOnMount) {
@@ -147,8 +154,8 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
   const highlightAuthors = () => {
     let html = whoColorHtml;
     if (!html) { return; }
-    let i = 0;
-    forEach(usersState, (user) => {
+
+    forEach(usersState, (user, i) => {
       // Move spaces inside spans, so that background color is continuous
       html = html.replace(/ (<span class="editor-token.*?>)/g, '$1 ');
 
@@ -160,7 +167,6 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
       const authorSpanMatcher = new RegExp(`<span class="editor-token token-editor-${user.userid}`, 'g');
       html = html.replace(authorSpanMatcher, styledAuthorSpan);
       if (prevHtml !== html) user.activeRevision = true;
-      i += 1;
     });
     setHighlightedHtml(html);
   };
@@ -185,7 +191,6 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
     api.fetchWhocolorHtml()
       .then((response) => {
         setWhoColorHtml(response.html);
-        highlightAuthors();
       }).catch((error) => {
         setWhoColorFailed(true);
         setFailureMessage(error.message);
