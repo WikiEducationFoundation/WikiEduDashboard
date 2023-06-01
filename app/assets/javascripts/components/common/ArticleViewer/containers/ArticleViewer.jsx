@@ -28,14 +28,6 @@ import colors from '@components/common/ArticleViewer/constants/colors';
 // Actions
 import { resetBadWorkAlert, submitBadWorkAlert } from '~/app/assets/javascripts/actions/alert_actions.js';
 
-// const usePreviousValue = (value) => {
-//   const ref = useRef();
-//   useEffect(() => {
-//     ref.current = value;
-//   });
-//   return ref.current;
-// };
-
 const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel, fetchArticleDetails, assignedUsers, article, course,
   alertStatus, current_user = {}, showButtonClass, showPermalink = true, title, ...props }) => {
   const [failureMessage, setFailureMessage] = useState(null);
@@ -51,20 +43,15 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
 
   const ref = useRef();
 
-  // const prevUsers = usePreviousValue(users);
-  // const prevUserIdsFetched = usePreviousValue(userIdsFetched);
-
-  // useEffect(() => {
-  //     console.log('prevUsers:', prevUsers, 'users:', users, 'prevUserIdsFetched:', prevUserIdsFetched);
-  //     if (!prevUsers && users) {
-  //       if (!prevUserIdsFetched) {
-  //         fetchUserIds();
-  //       }
-  //     }
-  //   }, []);
+  useEffect(() => {
+    if (showArticle && users) {
+      fetchUserIds();
+    }
+  }, [showArticle]);
 
   useEffect(() => {
     if (showOnMount) {
+      fetchUserIds();
       openArticle();
     }
   }, [showOnMount]);
@@ -80,12 +67,6 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
   // addition to the users prop, which in this case contains all the users that have edited
   // the article but not been assigned to it. The assignedUsers prop, if available, is then
   // used in the fetchUserIds function.
-
-  useEffect(() => {
-    if (users && !userIdsFetched) {
-      fetchUserIds();
-    }
-  }, [users, userIdsFetched]);
 
   useEffect(() => {
     if (showArticle) {
