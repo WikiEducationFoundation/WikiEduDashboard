@@ -11,11 +11,27 @@
 # Author: Nikosgranturismogt
 # Author: Norhorn
 # Author: SkarletWitch
+# Author: Spyridon Eftychios Kokotos
 # Author: Ανώνυμος Βικιπαιδιστής
 ---
 el:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: K
+          million: M
+          billion: B
+          trillion: T
+          quadrillion: Q
+  accessibility:
+    number_field: Αυτό είναι ένα πεδίο αριθμών. Τα κουμπιά που απεικονίζονται από
+      τις περισσότερες περιηγήσεις θα αυξάνουν και θα μειώνουν την εισαγωγή.
   application:
     cancel: Ακύρωση
+    cookie_consent: Ο ιστότοπος αυτός χρησιμοποιεί cookies για να παραμείνετε συνδεδεμένοι,
+      και αποθηκεύει πληροφορίες σχετικές με τον λογαριασμό σας στην Wikipedia
     cookie_consent_acknowledge: Καταλαβαίνω
     cookie_consent_see_more: Δείτε περισσότερα.
     create_accounts: Δημιουργία λογαριασμών Βικιπαίδειας
@@ -62,6 +78,9 @@ el:
     print: Εκτύπωση
   article_statuses:
     not_yet_started: Ξεκινώντας
+    in_progress: Δουλεύω στο Sandbox
+    ready_for_mainspace: Μεταφέρω την εργασία στον κύριο χώρο
+    reading_the_article: Διαβάζοντας Άρθρα
     providing_feedback: Παροχή ανατροφοδότησης
     peer_review_completed: Η αναθεώρηση ολοκληρώθηκε
   dashboard:
@@ -152,6 +171,7 @@ el:
     create_campaign: Δημιουργία νέας εκστρατείας
     create_my_campaign: Δημιουργία της εκστρατείας μου!
     customize_passcode: ένας προεπιλεγμένος κωδικός πρόσβασης
+    data_download_info: Κατεβάσετε τα δεδομένα της καμπάνιας σε μορφή CSV
     default_course_type: προεπιλεγμένος τύπος μαθήματος
     default_passcode: Προεπιλεγμένος κωδικός πρόσβασης
     default_passcode_explanation: 'Από προεπιλογή, τα νέα προγράμματα σε αυτή την

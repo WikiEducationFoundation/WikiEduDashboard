@@ -709,6 +709,7 @@ fi:
     talk: Keskustelu
     user: Käyttäjänimiavaruus
     user_char_added: Käyttäjänimiavaruuteen lisätyt merkit
+    translation: Käännös
   recent_activity:
     active_courses: Artikkeli on käsittelyssä
     article_title: Otsikko

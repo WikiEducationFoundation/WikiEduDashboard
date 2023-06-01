@@ -69,6 +69,7 @@ be-tarask:
     opt_out: Не
     opt_yes: так
     opt_no: не
+    print: Друкаваць
   article_statuses:
     not_yet_started: Пачатак працы
     in_progress: Работа ў пясочніцы
@@ -218,12 +219,29 @@ be-tarask:
       Калі артыкул насамрэч ня быў выдалены ці ўжо адноўлены, зьвесткі пра яго на
       Dashboard абновяцца праз адзін-два дні).
   items:
+    items: Элемэнты
+    lexeme: Лексэма
+    article_not_found: Гэты элемэнт яшчэ ня створаны.
+    assigned: Прызначаныя элемэнты
+    assignments_none: Прызначаных элемэнтаў яшчэ няма.
+    available: Даступныя элемэнты
     cross_wiki_tracking: Унізе пералічаныя старонкі асноўнай прасторы назваў, якія
       рэдагаваліся між датамі пачатку і завяршэньня. Панэль інструмэнтаў зьбірае ўнёскі
       з дамашняй вікі гэтай праграмы, а таксама зь любой іншай вікі, для якіх існуе
       прызначэньне або даступны элемэнт.
+    edited: Элемэнты адрэдагаваныя
+    edited_none: Рэдагаваных элемэнтаў яшчэ няма.
+    find: Знайсьці элемэнты
+    preview: Кароткі прагляд элемэнта
     search: Шукаць прадмет у Вікізьвестках
+    title_example: Назва элемэнту
+  articles_wikidata:
+    articles_short: Элемэнты
+  articles_generic:
+    articles_short: Старонкі
   assignments:
+    article_link: Артыкул
+    article_link_wikidata: Элемэнт
     already_exists: Заданьне ўжо існуе!
     assignees: Выканаўца(-ы)
     assign_other: Прызначыць/выдаліць артыкул
@@ -253,17 +271,38 @@ be-tarask:
     milestones:
       title: Дасягненьні
   campaign:
+    create_campaign: Стварыць новую кампанію
+    create_my_campaign: Стварыць сваю кампанію!
+    customize_passcode: дапомны код доступу
+    default_course_type: Дапомны тып курсу
+    default_passcode: Дапомны код доступу
+    default_passcode_explanation: 'Дапомна новыя праграмы ў гэтай кампаніі мусяць
+      мець:'
+    description: Апісаньне
     delete_campaign: Выдаліць гэтую кампанію
     disable_account_requests: Адключыць запыты ўліковых запісаў
     enable_account_requests: Уключыць запыты ўліковых запісаў
+    newest_campaigns: Найноўшыя кампаніі
     none: Няма
+  categories:
+    name: Назва
+    category_name: Назва катэгорыі
   courses:
     activity: Актыўнасьць
+    active_courses: Актыўныя курсы
     already_enrolled: Вы ўжо зьяўляецеся часткай «%{title}»!
     already_exists: Гэта ўжо існуе ў курсе!
     archived: Архіваваныя курсы
     actions: Дзеяньні
     articles: Артыкулы
+    assignment_headings:
+      assigned_articles: Прызначаныя артыкулы
+      assigned_articles_wikidata: Прызначаныя элемэнты
+      assigned_reviews: Прызначаныя рэцэнзіі
+      available_articles: Даступныя артыкулы
+      available_articles_wikidata: Даступныя элемэнты
+      available_reviews: Артыкулы аднаклясьнікаў
+      available_reviews_wikidata: Элемэнты аднаклясьнікаў
     assignment_end: Канец прызначэньня
     assignment_start: Пачатак прызначэньня
     calendar:
@@ -272,9 +311,14 @@ be-tarask:
       legend_class_meeting: Сустрэча клясы
       legend_class_not_meeting: Няма заплянаваных сустрэчаў
       select_meeting_days: Выберыце дні тыдню, па якіх зьбіраецца Вашая кляса.
+    cancel: Скасаваць
     character_doc: Сума знакаў, дададзеных да артыкулаў з асноўнай прасторы студэнтамі
       курсу на працягу тэрміну курсу
     campaigns: 'Групы:'
+    campaign_articles: '%{title} артыкулы'
+    campaign_courses: '%{title} курсы'
+    campaign_select: Абярыце кампанію
+    campaign_users: '%{title} рэдактары'
     confirm_course_deletion: Вы ўпэўнены, што жадаеце выдаліць курс пад назовам %{title}?
       Калі так, дык набярыце ягоную назву дзеля працягу.
     confirm_course_deletion_failed: «%{title}» — гэта ня назва курсу. Курс ня быў
@@ -285,6 +329,8 @@ be-tarask:
       з улікам тыдняў, якія ня маюць заплянаваных сустрэчаў.
     course_description: Курсы
     courses: Курсы
+    creator:
+      expected_number: Чаканая колькасьць студэнтаў
     error:
       user_exists_on_wiki: Прабачце, %{username} не зьяўляецца існым удзельнікам на
         %{domain}.

@@ -5,6 +5,7 @@
 # Author: Moon0319
 # Author: Obonggi
 # Author: Z423x5c6
+# Author: 捍粵者
 ---
 yue:
   number:
@@ -54,7 +55,7 @@ yue:
   courses:
     creation_date: 創建嘅日期
   wizard:
-    select_one_option: 請選擇一個
+    select_one_option: 請揀一項
   error:
     invalid_file_format: 文件無法保存。請上傳PDF或者Word文檔。
 ...
