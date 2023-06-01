@@ -28,8 +28,20 @@ import colors from '@components/common/ArticleViewer/constants/colors';
 // Actions
 import { resetBadWorkAlert, submitBadWorkAlert } from '~/app/assets/javascripts/actions/alert_actions.js';
 
-const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel, fetchArticleDetails, assignedUsers, article, course,
-  alertStatus, current_user = {}, showButtonClass, showPermalink = true, title, ...props }) => {
+/*
+  Quick summary of the ArticleViewer component's main logic
+
+  The 'openArticle()' function opens the 'articleViewer' component.
+
+  If usernames are already available in the props:
+    'openArticle()' fetches MediaWiki user IDs for coloration
+  If the usernames aren't already available in the props:
+    'openArticle()' fetches the usernames
+    'useEffect' fetches MediaWiki user IDs for coloration as soon as the usernames are available
+*/
+const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
+  fetchArticleDetails, assignedUsers, article, course, alertStatus, current_user = {},
+  showButtonClass, showPermalink = true, title, ...props }) => {
   const [failureMessage, setFailureMessage] = useState(null);
   const [fetched, setFetched] = useState(false);
   const [highlightedHtml, setHighlightedHtml] = useState(null);
@@ -49,6 +61,7 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
     }
   }, [showArticle]);
 
+  // This runs when the user accesses the articleViewer directly from a permalink
   useEffect(() => {
     if (showOnMount) {
       fetchUserIds();
@@ -56,21 +69,8 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
     }
   }, [showOnMount]);
 
-  // When 'show' is clicked, this component may or may not already have
-  // users data (a list of usernames) in its props. If it does, then 'show' will
-  // fetch the MediaWiki user ids, which are used for coloration. Those can't be
-  // fetched until the usernames are available, so 'show' will fetch the usernames
-  // first in that case. In that case, componentDidUpdate fetches the
-  // user ids as soon as usernames are avaialable. In case the articleViewer is
-  // accessed through the Students/Editors tab, an extra prop called assignedUsers,that
-  // holds all users extracted from assigned articles, will be passed to the articleViewer in
-  // addition to the users prop, which in this case contains all the users that have edited
-  // the article but not been assigned to it. The assignedUsers prop, if available, is then
-  // used in the fetchUserIds function.
-
   useEffect(() => {
     if (showArticle) {
-      // Add event listener when the component is visible
       document.addEventListener('mousedown', handleClickOutside);
     }
     return () => document.removeEventListener('mousedown', handleClickOutside);
@@ -194,12 +194,13 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
   // These are mediawiki user ids, and don't necessarily match the dashboard
   // database user ids, so we must fetch them by username from the wiki.
   const fetchUserIds = () => {
-    // if articleViewer is accessed through Students/Editors tab, a combination
-    // of both assignedUsers and users will be passed to the URLBuilder, whenever the
-    // fetchUserIds function is called. However, if the articleViewer is accessed
-    // through any other tab, e.g Articles tab, only the users prop will be passed
-    // to the URLBuilder as the assignedUsers prop would be undefined. In this case
-    // the users prop will be combined with an empty array.
+    /*
+      if articleViewer is accessed through Students/Editors tab, a combination
+      of both assignedUsers and users will be passed to the URLBuilder.
+      However, if the articleViewer is accessed through any other tab. Only the users prop will be passed
+      to the URLBuilder as the assignedUsers prop would be undefined.
+      In this case, the users prop will be combined with an empty array.
+     */
     const allUsers = union(assignedUsers || [], users);
     const builder = new URLBuilder({ article: article, users: allUsers });
     const api = new ArticleViewerAPI({ builder });
