@@ -11,6 +11,7 @@ require_dependency "#{Rails.root}/app/models/course_data/block"
 require_dependency "#{Rails.root}/lib/data_cycle/batch_update_logging"
 require_dependency "#{Rails.root}/lib/assignment_updater"
 require_dependency "#{Rails.root}/lib/importers/plagiabot_importer"
+require_dependency "#{Rails.root}/app/services/check_assignment_status"
 require_dependency "#{Rails.root}/lib/importers/rating_importer"
 require_dependency "#{Rails.root}/lib/data_cycle/update_cycle_alert_generator"
 require_dependency "#{Rails.root}/lib/student_greeting_checker"
@@ -32,6 +33,7 @@ class ConstantUpdate
     log_start_of_update 'Constant update tasks are beginning.'
     update_revisions_and_articles
     update_new_article_ratings
+    check_assignment_sandboxes if Features.wiki_ed?
     update_status_of_ungreeted_students if Features.wiki_ed?
     generate_alerts # from UpdateCycleAlertGenerator
     sparse_log_end_of_update 'Constant update finished.', UpdateLogger.number_of_constant_updates
@@ -52,6 +54,11 @@ class ConstantUpdate
 
     log_message 'Checking for plagiarism in recent revisions'
     PlagiabotImporter.find_recent_plagiarism
+  end
+
+  def check_assignment_sandboxes
+    log_message 'Updating assignment sandbox statuses'
+    CheckAssignmentStatus.check_current_assignments
   end
 
   def update_new_article_ratings

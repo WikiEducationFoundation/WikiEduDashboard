@@ -4,6 +4,16 @@
 # or if they've been created already, checks their
 # current size and location
 class CheckAssignmentStatus
+  def self.check_current_assignments
+    return unless Features.wiki_ed?
+
+    Course.current.each do |course|
+      course.assignments.where.not(user: nil).each do |assignment|
+        new(assignment)
+      end
+    end
+  end
+
   def initialize(assignment)
     @assignment = assignment
     @sandboxes = {}
