@@ -13,7 +13,7 @@ class UnsubmittedCourseAlertMailer < ApplicationMailer
     @classroom_program_manager = SpecialUsers.classroom_program_manager
     subject = 'Reminder: Submit your Wiki Education course page'
     mail(to: @instructor.email,
-         reply_to: @classroom_program_manager.email,
+         reply_to: @classroom_program_manager&.email,
          subject:)
   end
 end
