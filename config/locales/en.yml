@@ -1087,8 +1087,8 @@ en:
     index: Index
     collection: Collection
     tracked_namespaces_info: >
-      Only the articles corresponding to Tracked Namespaces will contribute to the topline 
-      overview stats, like 'Articles Edited', 'Total Edits', 'Words Added', etc. Hence, only 
+      Only the articles corresponding to Tracked Namespaces will contribute to the topline
+      overview stats, like 'Articles Edited', 'Total Edits', 'Words Added', etc. Hence, only
       track the namespaces that your program aims to improve.
 
   recent_activity:
@@ -1391,6 +1391,10 @@ en:
       editor_overview: Editor Overview
       exercises_and_trainings: Exercises & Trainings
       student_overview: "%{prefix}  Overview"
+      watch_list:
+        students_add: "Add all %{prefix} to Watchlist"
+        instructional_message: You're about to add your students' talk pages to your watchlist, to stay updated on their discussions and contributions. Clicking 'OK' will add all the students to the watchlist. Continue?
+        tooltip_message:  Easily track discussions on students talk pages by adding them to your watchlist.
     total_uploads: "Total Uploads"
     training_complete:
       one: "is up-to-date with training"

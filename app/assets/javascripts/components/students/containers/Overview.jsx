@@ -8,6 +8,7 @@ import StudentsSubNavigation from '@components/students/components/StudentsSubNa
 import Controls from '@components/students/components/Overview/Controls/Controls.jsx';
 import StudentList from '../shared/StudentList/StudentList.jsx';
 import RandomPeerAssignButton from '@components/students/components/RandomPeerAssignButton.jsx';
+import AddToWatchlistButton from '@components/students/components/AddToWatchlistButton.jsx';
 import Loading from '@components/common/loading.jsx';
 
 export class Overview extends React.Component {
@@ -46,6 +47,7 @@ export class Overview extends React.Component {
         }
 
         <RandomPeerAssignButton {...this.props} />
+        { current_user.isAdvancedRole ? (<AddToWatchlistButton slug={course.slug} prefix={prefix} />) : null }
         { this.props.loadingAssignments && <Loading /> }
 
         { !this.props.loadingAssignments && (
