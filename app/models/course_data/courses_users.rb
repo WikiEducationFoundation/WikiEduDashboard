@@ -122,6 +122,10 @@ class CoursesUsers < ApplicationRecord
   end
   # rubocop: enable Metrics/AbcSize
 
+  def user_page(students)
+    students.map { |user| "User:#{user.username}" }
+  end
+
   ##################
   # Helper methods #
   ##################

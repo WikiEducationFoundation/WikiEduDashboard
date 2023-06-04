@@ -46,8 +46,11 @@ export class Overview extends React.Component {
           ) : null
         }
 
-        <RandomPeerAssignButton {...this.props} />
-        { current_user.isAdvancedRole ? (<AddToWatchlistButton slug={course.slug} prefix={prefix} />) : null }
+        <div className="action-buttons-container">
+          <RandomPeerAssignButton {...this.props} />
+          { current_user.isAdvancedRole ? (<AddToWatchlistButton slug={course.slug} prefix={prefix} />) : null }
+        </div>
+
         { this.props.loadingAssignments && <Loading /> }
 
         { !this.props.loadingAssignments && (

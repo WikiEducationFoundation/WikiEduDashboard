@@ -637,60 +637,6 @@ describe CoursesController, type: :request do
     end
   end
 
-  describe '#add_to_watchlist' do
-    let(:course) { create(:course, slug: slug_params) }
-    let(:user)   { create(:admin) }
-
-    before do
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-      allow_any_instance_of(ApplicationController).to receive(:user_signed_in?).and_return(true)
-    end
-
-    context 'when the oauth credentials are valid' do
-      let(:student_names) { ['John Doe', 'Jane Smith'] }
-
-      before do
-        allow_any_instance_of(CourseStudents).to receive(:getstudent_names)
-          .and_return(student_names)
-        allow_any_instance_of(WatchlistEdits).to receive(:oauth_credentials_valid?)
-          .with(user).and_return(true)
-      end
-
-      it 'calls the correct methods with the expected parameters' do
-        expect_any_instance_of(CourseStudents).to receive(:getstudent_names)
-        expect_any_instance_of(WatchlistEdits).to receive(:oauth_credentials_valid?)
-          .with(user)
-
-        post "/courses/#{course.slug}/students/add_to_watchlist", params: { slug: course.slug }
-        session[:user_id] = user.id
-
-        expect(response).to have_http_status(:no_content)
-      end
-    end
-
-    context 'when the oauth credentials are invalid' do
-      let(:student_names) { ['John Doe', 'Jane Smith'] }
-
-      before do
-        allow_any_instance_of(CourseStudents).to receive(:getstudent_names)
-          .and_return(student_names)
-        allow_any_instance_of(WatchlistEdits).to receive(:oauth_credentials_valid?)
-          .with(user).and_return(false)
-      end
-
-      it 'calls the correct methods with the expected parameters' do
-        expect_any_instance_of(CourseStudents).to receive(:getstudent_names)
-        expect_any_instance_of(WatchlistEdits).to receive(:oauth_credentials_valid?)
-          .with(user)
-
-        post "/courses/#{course.slug}/students/add_to_watchlist", params: { slug: course.slug }
-        session[:user_id] = user.id
-
-        expect(response).to have_http_status(:no_content)
-      end
-    end
-  end
-
   describe '#tag' do
     let(:course) { create(:course, slug: slug_params) }
     let(:user)   { create(:admin) }

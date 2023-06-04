@@ -5,41 +5,26 @@ require "#{Rails.root}/lib/watchlist_edits"
 
 describe WatchlistEdits do
   before do
-    create(:user, id: 1, wiki_token: 'foo', wiki_secret: 'bar')
     create(:user, id: 2, username: 'user2', wiki_token: 'foo', wiki_secret: 'bar')
   end
 
-  let(:current_user) { User.find(1) }
   let(:watchlist_edits) { described_class.new }
 
   describe '#oauth_credentials_valid?' do
-    context 'when current_user is nil' do
-      it 'returns "no current user"' do
-        response = watchlist_edits.oauth_credentials_valid?(nil)
-        expect(response).to eq({ status: 'no current user' })
-      end
+    let(:tokens) { OpenStruct.new(action_token: 'token', access_token: 'access_token') }
+    let(:wiki_edits) { instance_double(WikiEdits) }
+    let(:current_user) { User.find(2) }
+
+    before do
+      allow(watchlist_edits).to receive(:get_tokens).and_return(tokens)
+      allow(watchlist_edits).to receive(:add_to_watchlist)
+      allow(WikiEdits).to receive(:new).and_return(wiki_edits)
     end
 
-    context 'when current_user is present' do
-      before do
-        access_token_double = instance_double('OAuth::AccessToken')
-        allow(access_token_double).to receive(:get).and_return(
-          instance_double('Net::HTTPResponse',
-                          code: '200', body: '{"query":{"tokens":{"watchtoken":"abc123"}}}')
-        )
-        allow(watchlist_edits).to receive(:oauth_access_token).and_return(access_token_double)
-        stub_token_request
-      end
-
-      it 'calls fetch_watch_token' do
-        expect(watchlist_edits).to receive(:fetch_watch_token).with(current_user)
-        watchlist_edits.oauth_credentials_valid?(current_user)
-      end
-
-      it 'calls add_to_watchlist' do
-        expect(watchlist_edits).to receive(:add_to_watchlist)
-        watchlist_edits.oauth_credentials_valid?(current_user)
-      end
+    it 'calls get_tokens, sets watch and access tokens, and calls add_to_watchlist' do
+      expect(watchlist_edits).to receive(:get_tokens).with(current_user, 'watch').and_return(tokens)
+      expect(watchlist_edits).to receive(:add_to_watchlist)
+      watchlist_edits.oauth_credentials_valid?(current_user)
     end
   end
 

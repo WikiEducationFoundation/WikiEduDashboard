@@ -8,8 +8,6 @@ require_dependency "#{Rails.root}/lib/course_creation_manager"
 require_dependency "#{Rails.root}/app/workers/update_course_worker"
 require_dependency "#{Rails.root}/app/workers/notify_untrained_users_worker"
 require_dependency "#{Rails.root}/app/workers/announce_course_worker"
-require_dependency "#{Rails.root}/lib/course_students"
-require_dependency "#{Rails.root}/lib/watchlist_edits"
 require "#{Rails.root}/lib/alerts/check_timeline_alert_manager"
 
 #= Controller for course functionality
@@ -150,12 +148,6 @@ class CoursesController < ApplicationController
   ##########################
 
   # /courses/:slug/students/add_to_watchlist
-  def add_to_watchlist
-    course = find_course_by_slug(params[:slug])
-    student_names = CourseStudents.new(course).getstudent_names
-    WatchlistEdits.new(course.home_wiki, student_names).oauth_credentials_valid?(current_user)
-  end
-
   def check
     course_exists = Course.exists?(slug: params[:id])
     render json: { course_exists: }

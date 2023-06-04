@@ -45,7 +45,7 @@ describe('AddToWatchlistButton', () => {
 
   it('should render the tooltip message', () => {
     const tooltip = wrapper.find('.tooltip');
-    expect(tooltip.text()).toBe(I18n.t('users.sub_navigation.watch_list.tooltip _message'));
+    expect(tooltip.text()).toBe(I18n.t('users.sub_navigation.watch_list.tooltip_message'));
   });
 });
 
