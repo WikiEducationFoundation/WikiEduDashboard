@@ -4,8 +4,9 @@ class TicketNotificationMailerPreview < ActionMailer::Preview
   def message_to_student
     sender = User.new(username: 'admin',
                       real_name: 'Delano (Wiki Edu)',
-                      permissions: User::Permissions::ADMIN)
-    recipient = User.new(username: 'flanagan.hyder')
+                      permissions: User::Permissions::ADMIN,
+                      email: 'admin@mail.com')
+    recipient = User.new(username: 'flanagan.hyder', email: 'recipient@mail.com')
     TicketNotificationMailer.notify(
       course:, message:, recipient:,
       sender:, bcc_to_salesforce: false
@@ -13,10 +14,11 @@ class TicketNotificationMailerPreview < ActionMailer::Preview
   end
 
   def message_to_instructor
-    sender = User.new(username: 'flanagan.hyder')
+    sender = User.new(username: 'flanagan.hyder', email: 'student@mail.com')
     recipient = User.new(username: 'admin',
                          real_name: 'Delano (Wiki Edu)',
-                         permissions: User::Permissions::ADMIN)
+                         permissions: User::Permissions::ADMIN,
+                         email: 'admin@mail.com')
     TicketNotificationMailer.notify(
       course:, message:, recipient:,
       sender:, bcc_to_salesforce: false
@@ -39,7 +41,21 @@ class TicketNotificationMailerPreview < ActionMailer::Preview
   end
 
   def message
-    ticket = TicketDispenser::Ticket.first
-    ticket.messages.last
+    message1 = OpenStruct.new(
+      reply?: 0,
+      content: 'I cannot log to this course ...',
+      details: { cc: [{ email: 'other@email.com' }], delivered: Time.zone.now },
+      created_at: Time.zone.now
+    )
+    message2 = OpenStruct.new(
+      reply?: 0,
+      content: 'Did you properly register ?',
+      details: { cc: [{ email: 'other@email.com' }], delivered: Time.zone.now },
+      created_at: Time.zone.now
+    )
+    ticket = OpenStruct.new(messages: [message1, message2])
+    message1.ticket = ticket
+    message2.ticket = ticket
+    message2
   end
 end
