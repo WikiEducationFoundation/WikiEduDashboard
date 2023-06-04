@@ -88,7 +88,7 @@ const Overview = createReactClass({
     if (query.syllabus_upload === 'true' && this.props.current_user.admin) {
       syllabusUpload = (
         <Modal modalClass="course__syllabus-upload">
-          <SyllabusUpload {...this.props} />
+          <SyllabusUpload course={this.props.course} />
         </Modal>
       );
     }
@@ -167,12 +167,12 @@ const Overview = createReactClass({
 
     let overviewStatsTabs;
     if (course.course_stats && course.course_stats.stats_hash) {
-      overviewStatsTabs = <OverviewStatsTabs statistics={course.course_stats.stats_hash}/>;
+      overviewStatsTabs = <OverviewStatsTabs statistics={course.course_stats.stats_hash} />;
     }
 
     return (
       <section className="overview container">
-        { syllabusUpload }
+        {syllabusUpload}
         <OverviewStats course={course} />
         {overviewStatsTabs}
         <StatisticsUpdateInfo course={course} />
@@ -196,7 +196,7 @@ const mapStateToProps = state => ({
   firstErrorMessage: firstValidationErrorMessage(state),
   isValid: isValid(state),
   courseCreationNotice: state.courseCreator.courseCreationNotice
- });
+});
 
 const mapDispatchToProps = {
   initiateConfirm,
