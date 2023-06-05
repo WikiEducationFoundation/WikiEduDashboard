@@ -7,6 +7,7 @@
 se:
   application:
     cancel: Šluhtte
+    cookie_consent_acknowledge: Mun ipmirdan
     cookie_consent_see_more: Lassedieđut
     greeting2: Bures boahtin!
     log_in_extended: Čálit sisa Wikipedia bokte
@@ -15,17 +16,32 @@ se:
   home:
     log_in: Čálit sisa Wikipedia bokte
   articles:
+    articles: Artihkkalat
     next: Čuovvovaš
     deleted: (sihkkojuvvon)
+    edited_mobile: Artihkkalat
     filter:
+      wiki_all: Buot
       new: Ođđa
+    find: Oza artihkkaliid
     hide: Čiega
+    history: (historjá)
+    label: Artihkkalat
+    loading: Viežžamin artihkkaliid...
     new: (ođđa artihkal)
     see_more: Lassedieđut
     view: Čájet artihkkala
     view_all: Čájet buot
     view_on_wiki: Čájet wikis
+    articles_short: Artihkkalat
+  items:
+    lexeme: Leksema
+  articles_generic:
+    articles_short: Siiddut
   assignments:
+    article_link: Artihkal
+    add_available_submit: Lasit artihkkaliid
+    loading: Viežžamin bargguid...
     remove: Sihko
     select: Vállje
   campaign:
@@ -34,8 +50,10 @@ se:
     template_name: Málle namma
     remove: Sihko
   courses:
+    articles: Artihkkalat
     delete_suggestion: Sihko
     feedback: Máhcahat
+    loading: Viežžamin…
     new_account_email: E-poastačujuhus
     please_log_in: Čálit sisa.
     requested_accounts_alert_view: Čájet
@@ -58,12 +76,14 @@ se:
     tags: Gilkorat
     removed: Sihkkojuvvon
   namespace:
+    article: Artihkal
     file: Fiila
   recent_activity:
     file_name: Fiilanamma
   revisions:
     diff_show: Čájet
     diff_hide: Čiega
+    loading: Viežžamin veršuvnnaid
     see_more: Lassedieđut
   settings:
     admin_users:
@@ -80,6 +100,7 @@ se:
   users:
     first_name: Ovdanamma
     last_name: Goargu
+    loading: Viežžamin geavaheddjiid...
     username: Geavaheaddjinamma
     username_placeholder: Geavaheaddjinamma
     useremail_placeholder: E-poastačujuhus

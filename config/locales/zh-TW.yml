@@ -679,7 +679,7 @@ zh-TW:
     wiki_edits_enabled_tooltip: 若 wiki 編輯被啟用，此方案會自動進行 wiki 編輯。若您不想要模板新增到使用者頁面、已分配條目的討論頁等等，請停用
       wiki 編輯。
     wiki_staff: 維基教育成員
-    withdrawn: 沒有做出分配
+    withdrawn: 沒有分配
     word_count_doc: 在課程期間由選課學生所添增到主命名空間條目的增加字詞估計量
     word_count_doc_wikidata: 在課程期間由選課學生所添增到主命名空間項目的增加字詞估計量
     yourcourses: 您的課程

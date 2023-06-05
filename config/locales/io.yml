@@ -223,6 +223,7 @@ io:
     campaign_courses: '%{title} Kampanii'
     course_description: Kampanii
     courses: Kampanii
+    dismiss_survey: Eskartar
     download_stats_data: Descharjez statistiki
     duration: Durado dil kurso
     edit_count: Kontado di redakturi
