@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 // Utilities
 import { forEach, union } from 'lodash-es';
@@ -28,145 +28,134 @@ import colors from '@components/common/ArticleViewer/constants/colors';
 // Actions
 import { resetBadWorkAlert, submitBadWorkAlert } from '~/app/assets/javascripts/actions/alert_actions.js';
 
-export class ArticleViewer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      failureMessage: null,
-      fetched: false,
-      highlightedHtml: null,
-      showArticle: false,
-      showBadArticleAlert: false,
-      whocolorFailed: false,
-      users: []
-    };
+/*
+  Quick summary of the ArticleViewer component's main logic
 
-    this.showArticle = this.showArticle.bind(this);
-    this.showButtonLabel = this.showButtonLabel.bind(this);
-    this.hideArticle = this.hideArticle.bind(this);
-    this.hideBadArticleAlert = this.hideBadArticleAlert.bind(this);
-    this.showBadArticleAlert = this.showBadArticleAlert.bind(this);
-    this.submitBadWorkAlert = this.submitBadWorkAlert.bind(this);
-    this.isWhocolorLang = this.isWhocolorLang.bind(this);
-    this.handleClickOutside = this.handleClickOutside.bind(this);
-    this.ref = React.createRef();
-  }
+  The 'openArticle()' function opens the 'articleViewer' component.
 
-  componentDidMount() {
-    if (this.props.showOnMount) {
-      this.showArticle();
+  If usernames are already available in the props:
+    'openArticle()' fetches MediaWiki user IDs for coloration
+  If the usernames aren't already available in the props:
+    'openArticle()' fetches the usernames
+    'useEffect' fetches MediaWiki user IDs for coloration as soon as the usernames are available
+*/
+const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
+  fetchArticleDetails, assignedUsers, article, course, current_user = {},
+  showButtonClass, showPermalink = true, title }) => {
+  const [failureMessage, setFailureMessage] = useState(null);
+  const [fetched, setFetched] = useState(false);
+  const [highlightedHtml, setHighlightedHtml] = useState(null);
+  const [showArticle, setShowArticle] = useState(false);
+  const [showBadArticleAlert, setShowBadArticleAlert] = useState(false);
+  const [whoColorFailed, setWhoColorFailed] = useState(false);
+  const [usersState, setUsersState] = useState([]);
+  const [userIdsFetched, setUserIdsFetched] = useState(false);
+  const [whoColorHtml, setWhoColorHtml] = useState(null);
+  const [parsedArticle, setParsedArticle] = useState(null);
+
+  const dispatch = useDispatch();
+  const ref = useRef();
+
+  useEffect(() => {
+    if (showArticle && users) {
+      fetchUserIds();
     }
-  }
+  }, [showArticle]);
 
-  // When 'show' is clicked, this component may or may not already have
-  // users data (a list of usernames) in its props. If it does, then 'show' will
-  // fetch the MediaWiki user ids, which are used for coloration. Those can't be
-  // fetched until the usernames are available, so 'show' will fetch the usernames
-  // first in that case. In that case, componentDidUpdate fetches the
-  // user ids as soon as usernames are avaialable. In case the articleViewer is
-  // accessed through the Students/Editors tab, an extra prop called assignedUsers,that
-  // holds all users extracted from assigned articles, will be passed to the articleViewer in
-  // addition to the users prop, which in this case contains all the users that have edited
-  // the article but not been assigned to it. The assignedUsers prop, if available, is then
-  // used in the fetchUserIds function.
-  componentDidUpdate(prevProps, prevState) {
-    if (!prevProps.users && this.props.users) {
-        if (!prevState.userIdsFetched) {
-          this.fetchUserIds();
-      }
+  // Wait for whocolor API to return the raw HTML before highlighting it
+  useEffect(() => {
+    if (whoColorHtml) {
+      highlightAuthors();
     }
-    if (!prevState.showArticle && this.state.showArticle) {
-      // Add event listener when the component is visible
-      document.addEventListener('mousedown', this.handleClickOutside);
+  }, [whoColorHtml]);
+
+  // This runs when the user accesses the articleViewer directly from a permalink
+  useEffect(() => {
+    if (showOnMount) {
+      fetchUserIds();
+      openArticle();
     }
-    if (prevState.showArticle && !this.state.showArticle) {
-      // Remove event listener when the component is hidden
-      document.removeEventListener('mousedown', this.handleClickOutside);
+  }, [showOnMount]);
+
+  useEffect(() => {
+    if (showArticle) {
+      document.addEventListener('mousedown', handleClickOutside);
     }
-  }
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [showArticle]);
 
-  hideBadArticleAlert() {
-    this.setState({ showBadArticleAlert: false });
-  }
-
-  showBadArticleAlert() {
-    this.setState({ showBadArticleAlert: true });
-  }
-
-  showButtonLabel() {
-    const { showArticleFinder, showButtonLabel } = this.props;
-    if (showArticleFinder) return ArticleUtils.I18n('preview', this.props.article.project);
+  const getShowButtonLabel = () => {
+    if (showArticleFinder) return ArticleUtils.I18n('preview', article.project);
     if (showButtonLabel) return showButtonLabel;
-    if (this.isWhocolorLang()) {
+    if (isWhocolorLang()) {
       return I18n.t('articles.show_current_version_with_authorship_highlighting');
     }
     return I18n.t('articles.show_current_version');
-  }
+  };
 
   // It takes the data sent as the parameter and appends to the current Url
-  addParamToURL(urlParam) {
-    if (this.props.showArticleFinder) { return; }
+  const addParamToURL = (urlParam) => {
+    if (showArticleFinder) { return; }
     window.history.pushState({}, '', `?showArticle=${urlParam}`);
-  }
+  };
 
-  // It takes a synthetic event to check if it exist
+  // It takes a synthetic event to check if it exists
   // It checks if the node(viewer) doesn't exist
   // if either case is true, it removes all parameters from the URL(starting from the ?)
-  removeParamFromURL(event) {
-    if (this.props.showArticleFinder) { return; }
+  const removeParamFromURL = (event) => {
+    if (showArticleFinder) { return; }
     const viewer = document.getElementsByClassName('article-viewer')[0];
     if (!viewer || event) {
       if (window.location.search) {
         window.history.replaceState(null, null, window.location.pathname);
       }
     }
-  }
+  };
 
-  showArticle() {
-    this.setState({ showArticle: true });
-    if (!this.state.fetched) {
-      this.fetchParsedArticle();
+  const openArticle = () => {
+    setShowArticle(true);
+    if (!fetched) {
+      fetchParsedArticle();
     }
 
-    if (!this.props.users && !this.props.showArticleFinder) {
-      this.props.fetchArticleDetails();
-    } else if (!this.state.userIdsFetched && !this.props.showArticleFinder) {
-      this.fetchUserIds();
+    if (!users && !showArticleFinder) {
+      fetchArticleDetails();
+    } else if (!userIdsFetched && !showArticleFinder) {
+      fetchUserIds();
     }
     // WhoColor is only available for some languages
-    if (!this.state.whocolorFetched && this.isWhocolorLang()) {
-      this.fetchWhocolorHtml();
+    if (isWhocolorLang()) {
+      fetchWhocolorHtml();
     }
     // Add article id in the URL
-    this.addParamToURL(this.props.article.id);
-  }
+    addParamToURL(article.id);
+  };
 
-  hideArticle(e) {
-    if (!this.state.showArticle) { return; }
-    this.hideBadArticleAlert();
-    this.setState({ showArticle: false });
-    this.props.resetBadWorkAlert();
+  const hideArticle = (e) => {
+    if (!showArticle) { return; }
+    setShowBadArticleAlert(false);
+    setShowArticle(false);
+    dispatch(resetBadWorkAlert());
     // removes the article parameter from the URL
-    this.removeParamFromURL(e);
-  }
+    removeParamFromURL(e);
+  };
 
-  isWhocolorLang() {
+  const isWhocolorLang = () => {
     // Supported languages for https://wikiwho-api.wmcloud.org as of 2023-05-15
     // See https://github.com/wikimedia/wikiwho_api/blob/main/wikiwho_api/settings_wmcloud.py#L21
-    const { article } = this.props;
     const supported = ['ar', 'de', 'en', 'es', 'eu', 'fr', 'hu', 'id', 'it', 'ja', 'nl', 'pl', 'pt', 'tr'];
     return supported.includes(article.language) && article.project === 'wikipedia';
-  }
+  };
 
   // This takes the extended_html from the whoColor API, and replaces the span
   // annotations with ones that are more convenient to style in React.
   // The matching and replacing of spans is tightly coupled to the span format
   // provided by the whoColor API: https://github.com/wikimedia/wikiwho_api
-  highlightAuthors() {
-    let html = this.state.whocolorHtml;
+  const highlightAuthors = () => {
+    let html = whoColorHtml;
     if (!html) { return; }
-    let i = 0;
-    forEach(this.state.users, (user) => {
+
+    forEach(usersState, (user, i) => {
       // Move spaces inside spans, so that background color is continuous
       html = html.replace(/ (<span class="editor-token.*?>)/g, '$1 ');
 
@@ -178,55 +167,48 @@ export class ArticleViewer extends React.Component {
       const authorSpanMatcher = new RegExp(`<span class="editor-token token-editor-${user.userid}`, 'g');
       html = html.replace(authorSpanMatcher, styledAuthorSpan);
       if (prevHtml !== html) user.activeRevision = true;
-      i += 1;
     });
-    this.setState({ highlightedHtml: html });
-  }
+    setHighlightedHtml(html);
+  };
 
-  fetchParsedArticle() {
-    const builder = new URLBuilder({ article: this.props.article });
+  const fetchParsedArticle = () => {
+    const builder = new URLBuilder({ article: article });
     const api = new ArticleViewerAPI({ builder });
     api.fetchParsedArticle()
       .then((response) => {
-        this.setState({
-          ...response,
-          parsedArticle: response.parsedArticle.html
-        });
+        setParsedArticle(response.parsedArticle.html);
+        setFetched(response.fetched);
       }).catch((error) => {
-        this.setState({
-          failureMessage: error.message,
-          fetched: true,
-          whocolorFailed: true,
-        });
+        setFailureMessage(error.message);
+        setFetched(true);
+        setWhoColorFailed(true);
       });
-  }
+  };
 
-  fetchWhocolorHtml() {
-    const builder = new URLBuilder({ article: this.props.article });
+  const fetchWhocolorHtml = () => {
+    const builder = new URLBuilder({ article: article });
     const api = new ArticleViewerAPI({ builder });
     api.fetchWhocolorHtml()
       .then((response) => {
-        this.setState({ whocolorHtml: response.html });
-        this.highlightAuthors();
+        setWhoColorHtml(response.html);
       }).catch((error) => {
-        this.setState({
-          whocolorFailed: true,
-          failureMessage: error.message
-        });
+        setWhoColorFailed(true);
+        setFailureMessage(error.message);
       });
-  }
+  };
 
   // These are mediawiki user ids, and don't necessarily match the dashboard
   // database user ids, so we must fetch them by username from the wiki.
-  fetchUserIds() {
-    // if articleViewer is accessed through Students/Editors tab, a combination
-    // of both assignedUsers and users will be passed to the URLBuilder, whenever the
-    // fetchUserIds function is called. However, if the articleViewer is accessed
-    // through any other tab, e.g Articles tab, only the users prop will be passed
-    // to the URLBuilder as the assignedUsers prop would be undefined. In this case
-    // the users prop will be combined with an empty array.
-    const users = union(this.props.assignedUsers || [], this.props.users);
-    const builder = new URLBuilder({ article: this.props.article, users });
+  const fetchUserIds = () => {
+    /*
+      if articleViewer is accessed through Students/Editors tab, a combination
+      of both assignedUsers and users will be passed to the URLBuilder.
+      However, if the articleViewer is accessed through any other tab. Only the users prop will be passed
+      to the URLBuilder as the assignedUsers prop would be undefined.
+      In this case, the users prop will be combined with an empty array.
+     */
+    const allUsers = union(assignedUsers || [], users);
+    const builder = new URLBuilder({ article: article, users: allUsers });
     const api = new ArticleViewerAPI({ builder });
     api.fetchUserIds()
       .then((response) => {
@@ -234,120 +216,99 @@ export class ArticleViewer extends React.Component {
           user.name = decodeURIComponent(user.name);
           user.activeRevision = false;
         });
-        this.setState({
-          users: response.query.users,
-          userIdsFetched: true
-        });
+        setUsersState(response.query.users);
+        setUserIdsFetched(true);
       }).catch((error) => {
-        this.setState({
-          failureMessage: error.message,
-          fetched: true,
-          whocolorFailed: true,
-        });
+        setFailureMessage(error.message);
+        setFetched(true);
+        setWhoColorFailed(true);
       });
-  }
+  };
 
-  submitBadWorkAlert(message) {
-    this.props.submitBadWorkAlert({
-      article_id: this.props.article.id,
-      course_id: this.props.course.id,
-      message
-    });
-  }
-
-  handleClickOutside(event) {
-    const element = this.ref.current;
+  const handleClickOutside = (event) => {
+    const element = ref.current;
     if (element && !element.contains(event.target)) {
-      this.hideArticle(event);
+      hideArticle(event);
     }
-  }
+  };
 
-  render() {
-    const {
-      alertStatus, article, current_user = {}, showButtonClass, showPermalink = true,
-      showArticleFinder, title
-    } = this.props;
-    const {
-      failureMessage, fetched, highlightedHtml, showArticle,
-      showBadArticleAlert, whocolorFailed, users
-    } = this.state;
-
-    // If the article viewer is hidden, show the icon instead.
-    if (!showArticle) {
-      // If a title was provided, show the article viewer with the title.
-      if (title) {
-        return (
-          <TitleOpener
-            showArticle={this.showArticle}
-            showButtonClass={showButtonClass}
-            showButtonLabel={this.showButtonLabel}
-            title={title}
-          />
-        );
-      }
+  // If the article viewer is hidden, show the icon instead.
+  if (!showArticle) {
+    // If a title was provided, show the article viewer with the title.
+    if (title) {
       return (
-        <IconOpener
-          showArticle={this.showArticle}
+        <TitleOpener
+          showArticle={openArticle}
           showButtonClass={showButtonClass}
-          showButtonLabel={this.showButtonLabel}
-          article={this.props.article}
+          showButtonLabel={getShowButtonLabel}
+          title={title}
         />
       );
     }
-
     return (
-      <div ref={this.ref}>
-        <div className={`article-viewer ${showArticle ? '' : 'hidden'}`}>
-          <div className="article-header">
-            <p>
-              <span className="article-viewer-title">{trunc(article.title, 56)}</span>
-              {
-                showPermalink && <Permalink articleId={article.id} />
-              }
-              <CloseButton hideArticle={this.hideArticle} />
-              {
-                current_user.isAdvancedRole && (
-                  <BadWorkAlertButton showBadArticleAlert={this.showBadArticleAlert} />
-                )
-              }
-            </p>
-          </div>
-          {
-            showBadArticleAlert && (
-              <BadWorkAlert
-                alertStatus={alertStatus}
-                project={this.props.article.project}
-                submitBadWorkAlert={this.submitBadWorkAlert}
-              />
-            )
-          }
-          <div id="article-scrollbox-id" className="article-scrollbox">
-            {
-              fetched ? <ParsedArticle {...this.state} /> : <Loading />
-            }
-          </div>
-          <Footer
-            article={article}
-            colors={colors}
-            failureMessage={failureMessage}
-            isWhocolorLang={this.isWhocolorLang}
-            highlightedHtml={highlightedHtml}
-            showArticleFinder={showArticleFinder}
-            whocolorFailed={whocolorFailed}
-            users={users}
-          />
-        </div>
-      </div>
+      <IconOpener
+        showArticle={openArticle}
+        showButtonClass={showButtonClass}
+        showButtonLabel={getShowButtonLabel}
+        article={article}
+      />
     );
   }
-}
+
+  return (
+    <div ref={ref}>
+      <div className={`article-viewer ${showArticle ? '' : 'hidden'}`}>
+        <div className="article-header">
+          <p>
+            <span className="article-viewer-title">{trunc(article.title, 56)}</span>
+            {
+              showPermalink && <Permalink articleId={article.id} />
+            }
+            <CloseButton hideArticle={hideArticle} />
+            {
+              current_user.isAdvancedRole && (
+                <BadWorkAlertButton showBadArticleAlert={() => setShowBadArticleAlert(true)} /> // Passed as a function for onclick
+              )
+            }
+          </p>
+        </div>
+        {
+          showBadArticleAlert && (
+            <BadWorkAlert
+              project={article.project}
+              submitBadWorkAlert={message => dispatch(submitBadWorkAlert({
+                article_id: article.id,
+                course_id: course.id,
+                message
+              }))} // Passed as a function that calls dispatch
+            />
+          )
+        }
+        <div id="article-scrollbox-id" className="article-scrollbox">
+          {
+            fetched ? <ParsedArticle highlightedHtml={highlightedHtml} whocolorHtml={whoColorHtml} parsedArticle={parsedArticle} /> : <Loading />
+          }
+        </div>
+        <Footer
+          article={article}
+          colors={colors}
+          failureMessage={failureMessage}
+          isWhocolorLang={isWhocolorLang}
+          highlightedHtml={highlightedHtml}
+          showArticleFinder={showArticleFinder}
+          whoColorFailed={whoColorFailed}
+          users={usersState}
+        />
+      </div>
+    </div>
+  );
+};
 
 ArticleViewer.defaultProps = {
   showArticleFinder: false
 };
 
 ArticleViewer.propTypes = {
-  alertStatus: PropTypes.object.isRequired,
   article: PropTypes.shape({
     id: PropTypes.number,
     language: PropTypes.string,
@@ -365,9 +326,4 @@ ArticleViewer.propTypes = {
   users: PropTypes.array,
 };
 
-const mapStateToProps = ({ badWorkAlert }) => ({ alertStatus: badWorkAlert });
-const mapDispatchToProps = {
-  resetBadWorkAlert,
-  submitBadWorkAlert
-};
-export default connect(mapStateToProps, mapDispatchToProps)(ArticleViewer);
+export default (ArticleViewer);
