@@ -266,9 +266,9 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
             }
             <CloseButton hideArticle={hideArticle} />
             {
-              current_user.isAdvancedRole && (
+              current_user.isAdvancedRole && !showArticleFinder ? (
                 <BadWorkAlertButton showBadArticleAlert={() => setShowBadArticleAlert(true)} /> // Passed as a function for onclick
-              )
+              ) : ''
             }
           </p>
         </div>
