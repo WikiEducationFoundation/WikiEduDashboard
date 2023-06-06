@@ -9,7 +9,7 @@ import Controls from '@components/students/components/Overview/Controls/Controls
 import StudentList from '../shared/StudentList/StudentList.jsx';
 import RandomPeerAssignButton from '@components/students/components/RandomPeerAssignButton.jsx';
 import Loading from '@components/common/loading.jsx';
-
+import AddToWatchlistButton from '@components/students/components/AddToWatchlistButton.jsx';
 export class Overview extends React.Component {
   componentDidMount() {
     // sets the title of this tab
@@ -45,7 +45,11 @@ export class Overview extends React.Component {
           ) : null
         }
 
-        <RandomPeerAssignButton {...this.props} />
+        <div className="action-buttons-container">
+          <RandomPeerAssignButton {...this.props} />
+          { current_user.isAdvancedRole ? (<AddToWatchlistButton slug={course.slug} prefix={prefix} />) : null }
+        </div>
+
         { this.props.loadingAssignments && <Loading /> }
 
         { !this.props.loadingAssignments && (

@@ -184,4 +184,18 @@ describe CoursesUsers, type: :model do
       expect(subject.program_manager).to eq(true)
     end
   end
+
+  describe '#user_page' do
+    let(:students) do
+      [instance_double('User', username: 'Student1'), instance_double('User', username: 'Student2')]
+    end
+    let(:courses_users) { described_class.new }
+
+    it 'returns user pages in the correct format' do
+      expected_result = ['User:Student1', 'User:Student2']
+      result = courses_users.user_page(students)
+
+      expect(result).to eq(expected_result)
+    end
+  end
 end

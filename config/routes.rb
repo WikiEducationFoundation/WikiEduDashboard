@@ -162,6 +162,9 @@ Rails.application.routes.draw do
           _subsubsubpage: /.*/
         }
 
+    post '/courses/:slug/students/add_to_watchlist', to: 'courses/watchlist#add_to_watchlist', as: 'add_to_watchlist',
+        constraints: { slug: /.*/ }
+
     get 'embed/course_stats/:school/:titleterm(/:_subpage(/:_subsubpage))' => 'embed#course_stats',
     constraints: {
         school: /[^\/]*/,
@@ -255,7 +258,7 @@ Rails.application.routes.draw do
       get 'active_courses'
     end
   end
-  
+
   get 'campaigns/statistics.json' => 'campaigns#statistics'
   get 'campaigns/:slug.json',
       controller: :campaigns,
