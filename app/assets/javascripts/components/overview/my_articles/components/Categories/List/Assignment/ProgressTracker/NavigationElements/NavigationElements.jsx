@@ -7,7 +7,7 @@ import ListItem from './ListItem';
 // helpers
 import processes from '@components/overview/my_articles/step_processes';
 
-export const Navigation = ({ assignment, show, course }) => {
+export const Navigation = ({ assignment, showTracker, course }) => {
   const lis = processes(assignment, course).map((props, i) => (
     <ListItem
       {...props}
@@ -19,9 +19,9 @@ export const Navigation = ({ assignment, show, course }) => {
 
   return (
     <ul>
-      { lis }
+      {lis}
       {
-        show
+        showTracker
           ? <li className="icon icon-arrow-reverse table-expandable-indicator limit-size" />
           : <li className="icon icon-arrow table-expandable-indicator limit-size" />
       }
@@ -32,7 +32,7 @@ export const Navigation = ({ assignment, show, course }) => {
 Navigation.propTypes = {
   // props
   assignment: PropTypes.object.isRequired,
-  show: PropTypes.bool.isRequired,
+  showTracker: PropTypes.bool.isRequired,
 };
 
 export default Navigation;

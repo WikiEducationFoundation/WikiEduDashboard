@@ -12,9 +12,9 @@ export function answerTotals(question) {
   return optionTotals;
 }
 
-export function answerFrequency(question) {
+export function answerFrequency(answers) {
   const counts = {};
-  question.answers.forEach((answer) => {
+  answers.forEach((answer) => {
     if (counts[answer] === undefined) {
       counts[answer] = 1;
     } else {

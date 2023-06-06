@@ -4,13 +4,29 @@
 # Author: Ajeje Brazorf
 # Author: Anakmalaysia
 # Author: CyberTroopers
+# Author: Hakimi97
 # Author: SNN95
 # Author: Tofeiku
 # Author: Yusozim
 ---
 ms:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: ribu
+          million: juta
+          billion: B
+          trillion: T
+          quadrillion: Q
+  accessibility:
+    number_field: Ini merupakan medan nombor. Butang yang diterap dari kebanyakan
+      pelayar akan menambah dan mengurangkan input.
   application:
     cancel: Batal
+    cookie_consent: Tapak ini menggunakan kuki untuk memastikan anda tetap log masuk,
+      dan menyimpan maklumat yang berkaitan dengan akaun Wikipedia anda.
     cookie_consent_acknowledge: Saya faham
     cookie_consent_see_more: Lihat lagi.
     create_accounts: Cipta akaun Wikipedia
@@ -20,6 +36,9 @@ ms:
     explore: Jelajah
     field_required: Medan ini diperlukan.
     field_invalid_characters: Medan ini mempunyai aksara tidak sah
+    field_invalid_date: Medan ini memerlukan tarikh dalam format YYYY-MM-DD
+    field_invalid_date_time: Pengakhiran mestilah selepas permulaan. (Jam pergi dari
+      0 hingga 23.)
     greeting2: Selamat datang!
     greeting_extended: Selamat datang ke Wikipedia
     greeting: Helo!
@@ -34,6 +53,10 @@ ms:
     request_account: Mohon akaun
     request_account_create: Buka akaun
     search: tanyakan soalan
+    search_results:
+      one: '%{count} Keputusan untuk: '' %{search_terms}'''
+      other: '% {count} Keputusan untuk: ''%{search_terms}'''
+    no_results: Tiada hasil ditemui untuk '%{query}'
     sign_up_extended: Daftar masuk dengan Wikipedia
     sign_up_wikipedia: Atau daftar di Wikipedia
     sign_up_log_in_extended: dengan Wikipedia
@@ -49,8 +72,14 @@ ms:
     opt_no: tidak
     print: Cetak
   article_statuses:
+    not_yet_started: Permulaan
+    in_progress: Menyunting di Kotak Pasir
+    ready_for_review: Mengembangkan Draf
+    ready_for_mainspace: Memindahkan Kerja ke Ruang Utama
+    assignment_completed: Tugasan Ditanda Selesai
     reading_the_article: Membaca Rencana
     providing_feedback: Memberi Maklum Balas
+    post_to_talk: Mengulas di Laman Perbincangan
   dashboard:
     create_note: Klik Cipta Kursus untuk mencipta kursus pertama anda.
     explore_course_pages: Jelajah Laman Kursus
