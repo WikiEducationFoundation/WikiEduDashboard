@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/tag_manager"
+require_dependency "#{Rails.root}/lib/article_utils"
 
 #= Factory for handling the initial creation of a course
 class CourseCreationManager
   attr_reader :wiki, :invalid_reason
 
-  def initialize(course_params, wiki_params, initial_campaign_params,
+  def initialize(course_params, wiki_params, scoping_methods, initial_campaign_params,
                  instructor_role_description, current_user)
+    @scoping_methods = scoping_methods
     @course_params = course_params
     @wiki_params = wiki_params
     @initial_campaign_params = initial_campaign_params
@@ -16,6 +18,7 @@ class CourseCreationManager
     @overrides = {}
     set_wiki
     set_slug
+    set_scoping_methods
   end
 
   def valid?
@@ -114,5 +117,21 @@ class CourseCreationManager
 
   def add_tags_to_course
     TagManager.new(@course).initial_tags(creator: @instructor)
+  end
+
+  def set_scoping_methods
+    return if @scoping_methods.empty?
+    add_categories_to_course @scoping_methods[:categories] if @scoping_methods[:categories]
+  end
+
+  def add_categories_to_course(category_params)
+    depth = category_params[:depth]
+    @overrides[:categories] = []
+
+    category_params[:tracked].each do |category|
+      name = ArticleUtils.format_article_title(category[:value])
+      category = Category.find_or_create_by(name:, depth:, wiki: @wiki)
+      @overrides[:categories] << category
+    end
   end
 end

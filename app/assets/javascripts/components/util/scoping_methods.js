@@ -82,3 +82,17 @@ export const generatePetScanID = async ({ templates_includes, templates_excludes
   const doc = parser.parseFromString(html, 'text/html');
   return doc.querySelector('span[name="psid"]').textContent;
 };
+
+
+export const getScopingMethods = (scopingMethods) => {
+  const { selected } = scopingMethods;
+  const result = {};
+
+  // eslint-disable-next-line no-restricted-syntax
+  for (const selectedItem of selected) {
+    // only add the scoping method to the final object if it is selected
+    result[selectedItem.toLowerCase()] = scopingMethods[selectedItem.toLowerCase()];
+  }
+
+  return result;
+};

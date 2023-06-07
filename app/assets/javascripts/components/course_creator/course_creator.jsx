@@ -22,6 +22,7 @@ import CourseForm from './course_form.jsx';
 import CourseDates from './course_dates.jsx';
 import { fetchAssignments } from '../../actions/assignment_actions';
 import CourseScoping from './course_scoping_methods';
+import { getScopingMethods } from '../util/scoping_methods';
 
 const CourseCreator = createReactClass({
   displayName: 'CourseCreator',
@@ -152,6 +153,7 @@ const CourseCreator = createReactClass({
         // then we must reset justSubmitted so that the user can fix the problem
         // and submit again.
         const onSaveFailure = () => this.setState({ justSubmitted: false });
+        cleanedCourse.scoping_methods = getScopingMethods(this.props.scopingMethods);
         this.props.submitCourse({ course: cleanedCourse }, onSaveFailure);
       }
     } else if (!this.props.validations.exists.valid) {
@@ -466,6 +468,7 @@ const mapStateToProps = state => ({
   isValid: isValid(state),
   firstErrorMessage: firstValidationErrorMessage(state),
   assignmentsWithoutUsers: getAvailableArticles(state),
+  scopingMethods: state.scopingMethods,
 });
 
 const mapDispatchToProps = ({
