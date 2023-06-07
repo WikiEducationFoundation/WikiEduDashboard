@@ -543,7 +543,8 @@ const API = {
       wiki, 
       search_term, 
       14, 
-      (title)=>title.replace('Category:','').trim()
+      // replace everything until first colon, then trim
+      (title)=>title.replace(/^[^:]+:/,'').trim()
     );
   },
 
