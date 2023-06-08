@@ -1,21 +1,16 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { deleteNote } from '../../actions/tickets_actions';
 
-class DeleteNote extends React.Component {
-      onClick(e) {
-            e.preventDefault();
-            this.props.deleteNote(this.props.messageId);
-      }
-
-      render() {
-            return <img src="/assets/images/delete-icon.png" alt="delete icon" onClick={this.onClick.bind(this)} />;
-      }
-}
-
-const mapDispatchToProps = {
-      deleteNote
+const DeleteNote = ({ messageId }) => {
+  const dispatch = useDispatch();
+  const onClick = (e) => {
+    e.preventDefault();
+    dispatch(deleteNote(messageId));
+  };
+  return <img src="/assets/images/delete-icon.png" alt="delete icon" onClick={onClick} />;
 };
 
 
-export default connect(null, mapDispatchToProps)(DeleteNote);
+
+export default (DeleteNote);
