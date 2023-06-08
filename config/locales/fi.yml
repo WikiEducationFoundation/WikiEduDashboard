@@ -112,7 +112,7 @@ fi:
     sign_up: Luo tunnus Wikipedian kautta
     sign_up_help: Sinun täytyy kirjautua Wikipedian kautta, ja antaa ohjausnäkymälle
       oikeus käyttää tiliäsi. Voit käyttää olemassa olevaa Wikipedia-tunnusta tai
-      luoda uuden.
+      luoda uuden. Jos et pysty luomaan tunnusta, ota yhteyttä dashboard@wikiedu.org.
   activity:
     all: Toiminta
     edited_by: Muokannut
@@ -997,8 +997,7 @@ fi:
     explanation: Sisäänkirjautumisessa tapahtui virhe. (Pahoittelut siitä, niin tapahtuu
       joskus.) Ole hyvä ja yritä uudelleen.
   survey:
-    login_message: Kiitos ajastasi. Ole hyvä ja kirjaudu Wiki Education -ohjausnäkymään
-      kyselyn täyttämiseksi.
+    login_message: Kiitos ajastasi. Ole hyvä ja kirjaudu ohjausnäkymään kyselyn täyttämiseksi.
     notification_explanation: Jos alla oleva kohta on valittuna, muokkaajat saavat
       sähköpostia muistutusaikataulun mukaisesti selaimen sisäisten ilmoitusten lisäksi.
       Jos kohtaa ei ole valittuna, muokkaajat saavat vain selaimen sisäisiä ilmoituksia.
