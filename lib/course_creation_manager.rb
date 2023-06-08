@@ -7,6 +7,7 @@ require_dependency "#{Rails.root}/lib/article_utils"
 class CourseCreationManager
   attr_reader :wiki, :invalid_reason
 
+  # rubocop:disable Metrics/ParameterLists
   def initialize(course_params, wiki_params, scoping_methods, initial_campaign_params,
                  instructor_role_description, current_user)
     @scoping_methods = scoping_methods
@@ -20,6 +21,7 @@ class CourseCreationManager
     set_slug
     set_scoping_methods
   end
+  # rubocop:enable Metrics/ParameterLists
 
   def valid?
     if invalid_wiki?
@@ -120,7 +122,7 @@ class CourseCreationManager
   end
 
   def set_scoping_methods
-    return if @scoping_methods.empty?
+    return if @scoping_methods.nil? || @scoping_methods.empty?
     @overrides[:categories] = []
 
     add_categories_to_course @scoping_methods[:categories] if @scoping_methods[:categories]
