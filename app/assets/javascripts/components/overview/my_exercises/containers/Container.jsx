@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 // Components
 import UpcomingExercise from '../components/UpcomingExercise.jsx';
@@ -11,54 +11,47 @@ import {
   fetchTrainingModuleExercisesByUser
 } from '~/app/assets/javascripts/actions/exercises_actions';
 
-export class MyExercisesContainer extends React.Component {
-  componentDidMount() {
-    return this.props.fetchTrainingModuleExercisesByUser(this.props.course.id);
-  }
+const MyExercisesContainer = ({ trainingLibrarySlug }) => {
+  const dispatch = useDispatch();
 
-  render() {
-    const { course, exercises, trainingLibrarySlug } = this.props;
-    const incomplete = exercises.incomplete.concat(exercises.unread);
-    if (!incomplete.length) return null;
-    if (exercises.loading) {
-      return (
-        <div className="module my-exercises">
-          <h3>Loading...</h3>
-        </div>
-      );
-    }
+  const exercises = useSelector(state => state.exercises);
+  const course = useSelector(state => state.course);
 
-    const [latest, ...remaining] = [...incomplete].sort((a, b) => {
-      if (a.block_id === b.block_id) { return 0; }
-      return a.block_id > b.block_id ? 1 : -1;
-    });
-    if (!latest) {
-      return (
-        <div className="module my-exercises">
-          <Header completed={true} course={course} text="Completed all exercises" />
-        </div>
-      );
-    }
+  useEffect(() => dispatch(fetchTrainingModuleExercisesByUser(course.id)), []);
 
+  const incomplete = exercises.incomplete.concat(exercises.unread);
+  if (!incomplete.length) return null;
+  if (exercises.loading) {
     return (
       <div className="module my-exercises">
-        <Header course={course} remaining={remaining} text="Upcoming Exercises" />
-        <UpcomingExercise exercise={latest} trainingLibrarySlug={trainingLibrarySlug} />
+        <h3>Loading...</h3>
       </div>
     );
   }
-}
+
+  const [latest, ...remaining] = [...incomplete].sort((a, b) => {
+    if (a.block_id === b.block_id) { return 0; }
+    return a.block_id > b.block_id ? 1 : -1;
+  });
+  if (!latest) {
+    return (
+      <div className="module my-exercises">
+        <Header completed={true} course={course} text="Completed all exercises" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="module my-exercises">
+      <Header course={course} remaining={remaining} text="Upcoming Exercises" />
+      <UpcomingExercise exercise={latest} trainingLibrarySlug={trainingLibrarySlug} />
+    </div>
+  );
+};
 
 MyExercisesContainer.propTypes = {
-  exercises: PropTypes.object.isRequired,
-  course: PropTypes.object.isRequired,
   trainingLibrarySlug: PropTypes.string.isRequired
 };
 
-const mapStateToProps = ({ course, exercises }) => ({ course, exercises });
 
-const mapDispatchToProps = {
-  fetchTrainingModuleExercisesByUser
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(MyExercisesContainer);
+export default (MyExercisesContainer);
