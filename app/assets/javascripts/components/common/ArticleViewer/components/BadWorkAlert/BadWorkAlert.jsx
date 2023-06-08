@@ -1,50 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import ArticleUtils from '../../../../../utils/article_utils';
 // Components
 import SubmitIssuePanel from '@components/common/ArticleViewer/components/BadWorkAlert/SubmitIssuePanel.jsx';
 
-export class BadWorkAlert extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { message: '', isSubmitting: false };
+const BadWorkAlert = ({ project, submitBadWorkAlert }) => {
+  const [message, setMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  const handleChange = (_key, messageText) => {
+    setMessage(messageText);
+  };
 
-  handleChange(_key, message) {
-    this.setState({ message });
-  }
-
-  handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    this.props.submitBadWorkAlert(this.state.message);
-    this.setState({ isSubmitting: true });
-  }
+    submitBadWorkAlert(message);
+    setIsSubmitting(true);
+  };
 
-  render() {
-    const { isSubmitting, message } = this.state;
+  return (
+    <section className="article-alert">
+      <article className="learn-more">
+        <p>{I18n.t(`instructor_view.bad_work.${ArticleUtils.projectSuffix(project, 'learn_more')}`)}</p>
+        <a target="_blank" className="button dark" href="/training/instructors/fixing-bad-articles/instructors-role-in-cleanup">
+          {I18n.t('instructor_view.bad_work.learn_more_button')}
+        </a>
+      </article>
+      <SubmitIssuePanel
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        isSubmitting={isSubmitting}
+        message={message}
+        project={project}
+      />
+    </section>
+  );
+};
 
-    return (
-      <section className="article-alert">
-        <article className="learn-more">
-          <p>{I18n.t(`instructor_view.bad_work.${ArticleUtils.projectSuffix(this.props.project, 'learn_more')}`)}</p>
-          <a target="_blank" className="button dark" href="/training/instructors/fixing-bad-articles/instructors-role-in-cleanup">
-            {I18n.t('instructor_view.bad_work.learn_more_button')}
-          </a>
-        </article>
-        <SubmitIssuePanel
-          handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit}
-          isSubmitting={isSubmitting}
-          message={message}
-          project={this.props.project}
-        />
-      </section>
-    );
-  }
-}
 BadWorkAlert.propTypes = {
   project: PropTypes.string.isRequired,
   submitBadWorkAlert: PropTypes.func.isRequired
