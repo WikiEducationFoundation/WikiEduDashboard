@@ -136,6 +136,7 @@ class CourseCreationManager
     add_categories_to_course @scoping_methods[:categories] if @scoping_methods[:categories]
     add_templates_to_course @scoping_methods[:templates] if @scoping_methods[:templates]
     add_page_pile_to_course @scoping_methods[:pagepile] if @scoping_methods[:pagepile]
+    add_petscan_to_course @scoping_methods[:petscan] if @scoping_methods[:petscan]
   end
 
   def add_categories_to_course(category_params)
@@ -149,5 +150,9 @@ class CourseCreationManager
 
   def add_page_pile_to_course(pagepile_params)
     create_all_category(pagepile_params[:ids], 0, 'pileid')
+  end
+
+  def add_petscan_to_course(petscan_params)
+    create_all_category(petscan_params[:psids], 0, 'psid')
   end
 end
