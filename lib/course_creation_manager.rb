@@ -121,17 +121,26 @@ class CourseCreationManager
 
   def set_scoping_methods
     return if @scoping_methods.empty?
+    @overrides[:categories] = []
+
     add_categories_to_course @scoping_methods[:categories] if @scoping_methods[:categories]
+    add_templates_to_course @scoping_methods[:templates] if @scoping_methods[:templates]
   end
 
   def add_categories_to_course(category_params)
     depth = category_params[:depth]
-    @overrides[:categories] = []
+    create_all_category(category_params[:tracked], depth, 'category')
+  end
 
-    category_params[:tracked].each do |category|
+  def create_all_category(categories, depth, source)
+    categories.each do |category|
       name = ArticleUtils.format_article_title(category[:value])
-      category = Category.find_or_create_by(name:, depth:, wiki: @wiki)
+      category = Category.find_or_create_by(name:, depth:, wiki: @wiki, source:)
       @overrides[:categories] << category
     end
+  end
+
+  def add_templates_to_course(template_params)
+    create_all_category(template_params[:include], 0, 'template')
   end
 end
