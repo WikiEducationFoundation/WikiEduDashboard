@@ -34,7 +34,6 @@ const Student = createReactClass({
     fetchTrainingStatus: PropTypes.func.isRequired,
     minimalView: PropTypes.bool,
     student: PropTypes.object.isRequired,
-    wikidataLabels: PropTypes.object
   },
 
   setUploadFilters(selectedFilters) {
@@ -59,7 +58,7 @@ const Student = createReactClass({
   render() {
     const {
       assignments, course, current_user, editable,
-      showRecent, student, wikidataLabels
+      showRecent, student
     } = this.props;
 
     let recentRevisions;
@@ -89,7 +88,6 @@ const Student = createReactClass({
           isStudentsPage
           student={student}
           role={ASSIGNED_ROLE}
-          wikidataLabels={wikidataLabels}
           unassigned={unassigned}
         />
       );
@@ -104,7 +102,6 @@ const Student = createReactClass({
           isStudentsPage
           student={student}
           role={REVIEWING_ROLE}
-          wikidataLabels={wikidataLabels}
           unassigned={reviewable}
         />
       );
