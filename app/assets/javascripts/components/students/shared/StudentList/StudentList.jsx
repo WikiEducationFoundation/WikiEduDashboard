@@ -11,6 +11,7 @@ import studentListKeys from './student_list_keys';
 
 import { addDays, isAfter } from 'date-fns';
 import { toDate } from '../../../../utils/date_utils';
+import { useSelector } from 'react-redux';
 
 // Helper Functions
 const showRecent = (course) => {
@@ -22,11 +23,8 @@ const showRecent = (course) => {
   return isAfter(addDays(toDate(lastUpdate.end_time), 7), new Date());
 };
 
-export const StudentList = (props) => {
-  const {
-    assignments, course, current_user, editAssignments, sort, students,
-    wikidataLabels, sortUsers = {}
-  } = props;
+export const StudentList = ({ assignments, course, current_user, editAssignments, students, sortUsers = {} }) => {
+  const sort = useSelector(state => state.users.sort);
 
   const rows = students.map(student => (
     <StudentRow
@@ -37,7 +35,6 @@ export const StudentList = (props) => {
       key={student.id}
       showRecent={showRecent(course)}
       student={student}
-      wikidataLabels={wikidataLabels}
     />
   ));
 
@@ -61,8 +58,6 @@ export const StudentList = (props) => {
 
 StudentList.propTypes = {
   assignments: PropTypes.array,
-  trainingStatus: PropTypes.object.isRequired,
-  userRevisions: PropTypes.object,
   course: PropTypes.shape({
     string_prefix: PropTypes.string.isRequired,
     updates: PropTypes.shape({
@@ -73,12 +68,7 @@ StudentList.propTypes = {
   }).isRequired,
   current_user: PropTypes.object.isRequired,
   editAssignments: PropTypes.bool,
-  sort: PropTypes.shape({
-    key: PropTypes.string,
-    sortKey: PropTypes.string
-  }).isRequired,
   sortUsers: PropTypes.func,
-  wikidataLabels: PropTypes.object,
 };
 
 export default StudentList;
