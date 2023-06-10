@@ -84,7 +84,7 @@ export const generatePetScanID = async ({ templates_includes, templates_excludes
 };
 
 
-export const getScopingMethods = (scopingMethods) => {
+export const getScopingMethods = async (scopingMethods) => {
   const { selected } = scopingMethods;
   const result = {};
 
@@ -93,6 +93,17 @@ export const getScopingMethods = (scopingMethods) => {
     // only add the scoping method to the final object if it is selected
     result[selectedItem.toLowerCase()] = scopingMethods[selectedItem.toLowerCase()];
   }
-
+  if (result.petscan) {
+    try {
+      const psid = await generatePetScanID(result.petscan);
+      result.petscan.psids.push({
+        label: psid,
+        value: psid,
+      });
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.log(e);
+    }
+  }
   return result;
 };

@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Loading = () => (
+const Loading = ({ text }) => (
   <div className="loading">
-    <h1>{I18n.t('courses.loading')}</h1>
+    <h1>{text || I18n.t('courses.loading')}</h1>
     <div className="loading__spinner" />
   </div>
 );

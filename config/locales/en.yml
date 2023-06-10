@@ -574,6 +574,7 @@ en:
         Update scheduled. The data will be updated along with all current
         programs during the next update cycle. This typically takes
         several hours.
+      creating_course: Creating Course
     current: Current Courses
     data_articles: Articles data
     data_articles_info: >

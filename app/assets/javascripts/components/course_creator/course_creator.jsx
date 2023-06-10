@@ -23,6 +23,7 @@ import CourseDates from './course_dates.jsx';
 import { fetchAssignments } from '../../actions/assignment_actions';
 import CourseScoping from './course_scoping_methods';
 import { getScopingMethods } from '../util/scoping_methods';
+import Loading from '../common/loading';
 
 const CourseCreator = createReactClass({
   displayName: 'CourseCreator',
@@ -127,7 +128,7 @@ const CourseCreator = createReactClass({
     }
   },
 
-  handleCourse(course, isValidProp) {
+  async handleCourse(course, isValidProp) {
     if (this.state.shouldRedirect === true) {
       window.location = `/courses/${course.slug}`;
       return this.setState({ shouldRedirect: false });
@@ -146,14 +147,16 @@ const CourseCreator = createReactClass({
         }
       } else if (!this.state.justSubmitted) {
         const cleanedCourse = CourseUtils.cleanupCourseSlugComponents(course);
-        this.setState({ course: cleanedCourse });
-        this.setState({ isSubmitting: false });
-        this.setState({ justSubmitted: true });
+        this.setState({ isLoading: true });
         // If the save callback fails, which will happen if an invalid wiki is submitted,
         // then we must reset justSubmitted so that the user can fix the problem
         // and submit again.
-        const onSaveFailure = () => this.setState({ justSubmitted: false });
-        cleanedCourse.scoping_methods = getScopingMethods(this.props.scopingMethods);
+        const onSaveFailure = () => this.setState({ justSubmitted: false, isLoading: false });
+        cleanedCourse.scoping_methods = await getScopingMethods(this.props.scopingMethods);
+        this.setState({ course: cleanedCourse });
+        this.setState({ isSubmitting: false });
+        this.setState({ justSubmitted: true });
+
         this.props.submitCourse({ course: cleanedCourse }, onSaveFailure);
       }
     } else if (!this.props.validations.exists.valid) {
@@ -300,6 +303,18 @@ const CourseCreator = createReactClass({
   render() {
     if (this.props.loadingUserCourses) {
       return <div />;
+    }
+    if (this.state.isLoading) {
+      return (
+        <Modal key="modal">
+          <Notifications />
+          <div className="container">
+            <div className="wizard__panel active">
+              <Loading text={I18n.t('courses.creator.creating_course')}/>
+            </div>
+          </div>
+        </Modal>
+      );
     }
     // There are four fundamental states: NewOrClone, CourseForm, wizardForm and CloneChooser
     let showCourseForm;
