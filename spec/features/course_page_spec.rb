@@ -430,7 +430,7 @@ describe 'the course page', type: :feature, js: true do
         user_id: 1,
         file_name: 'File:Example.jpg',
         uploaded_at: '2015-06-01',
-        thumburl: 'https://upload.wikimedia.org/wikipedia/commons/c/c3/Real_Grottolella.png'
+        thumburl: 'https://upload.wikimedia.org/wikipedia/commons/a/af/Grottolella.jpg'
       )
     end
 

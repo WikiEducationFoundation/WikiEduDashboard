@@ -29,13 +29,17 @@ class SurveyMailerPreview < ActionMailer::Preview
   private
 
   def example_notification
-    notification = SurveyNotification.new(
-      survey_assignment: SurveyAssignment.last,
-      course: Course.nonprivate.last
-    )
-    def notification.user
-      User.new(email: 'sage@example.com', username: 'Ragesoss')
-    end
+    survey = OpenStruct.new(id: 10001, name: 'Survey one')
+    survey_assignment = OpenStruct.new(survey:,
+                                       custom_email_subject: 'Survey: the best wikipedia articles')
+    survey_assignment.custom_email_headline = 'Pick your 3 favorite articles'
+    survey_assignment.custom_email_body = 'You will have to chose three articles.'
+    survey_assignment.custom_email_signature = 'The survey creator'
+    notification = OpenStruct.new(survey_assignment:,
+                                  course: Course.nonprivate.last,
+                                  survey:, user:
+                                    User.new(email: 'sage@example.com', username: 'Ragesoss'))
+
     notification
   end
 end
