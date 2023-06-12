@@ -34,8 +34,10 @@ sl:
     print: Natisni
   article_statuses:
     ready_for_mainspace: Prestavitev dela v glavni imenski prostor
+    peer_review_completed: Pregled končan
   dashboard:
     explore_course_pages: Raziščite strani tečajev
+    review_orientation: Pregled usmeritve
   home:
     explore: Raziskuj
     sign_up_help: Za uporabo nadzorne plošče se morate prijaviti v Wikipediji in ji
@@ -83,7 +85,11 @@ sl:
     confirm_deletion: Ali res želite izbrisati to dodelitev?
     label_all: Dodeli vse
     loading: Nalaganje dodelitev ...
+    peer_review_link: Vrstniški pregled
+    peer_review_link_personalized: Vrstniški pregled %{username}
     remove: Odstrani
+    review_other: Dodeli/odstrani vrstniški pregled
+    review_self: Preglej članek
     review_self_wikidata: Ponovni pregled predmeta
     sandbox_draft_link: Osnutek peskovnika
     select: Izberi
@@ -158,8 +164,8 @@ sl:
     end: Konec
     ended: Tečaj je končan.
     error:
-      invalid_wiki: Ni mogoče vzpostaviti povezave z %{domain}. Morda ni veljaven
-        wiki.
+      invalid_wiki: Povezave z/s %{domain} ni mogoče vzpostaviti. Morda to ni veljaven
+        vki.
     feedback: Povratne informacije
     namespaces: Sledeni imenski prostori
     join_prompt: Se želite pridružiti »%{title}«?
@@ -201,6 +207,9 @@ sl:
   courses_generic:
     add_campaign: Dodaj kampanjo
     archived: Arhivirani programi
+    assignment_headings:
+      available_reviews: Na voljo za pregled
+      available_reviews_wikidata: Na voljo za pregled
     cancel: Prekliči
     course: Program
     courses: Programi
