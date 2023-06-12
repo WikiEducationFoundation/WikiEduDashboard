@@ -42,7 +42,11 @@ const Overview = ({ course, current_user, prefix, sortUsers, notify, sortSelect 
           ) : null
       }
 
-      <RandomPeerAssignButton current_user={current_user} course={course} assignments={assignments} students={students} />
+      <div className="action-buttons-container">
+        <RandomPeerAssignButton current_user={current_user} course={course} assignments={assignments} students={students} />
+        { current_user.isAdvancedRole ? (<AddToWatchlistButton slug={course.slug} prefix={prefix} />) : null }
+      </div>
+
       {loadingAssignments && <Loading />}
 
       {!loadingAssignments && (
