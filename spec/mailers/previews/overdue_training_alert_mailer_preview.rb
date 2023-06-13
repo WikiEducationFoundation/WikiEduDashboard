@@ -20,7 +20,7 @@ class OverdueTrainingAlertMailerPreview < ActionMailer::Preview
 
   def example_alert
     OverdueTrainingAlert.new(user: example_profile.user,
-                             course: Course.first,
+                             course: Course.nonprivate.last,
                              details: example_alert_details)
   end
 
