@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 
+// This is a custom hook that has an abstract implementation for tracking clicks outside of a tracked ref.
 const useOutsideClick = (callback) => {
   const ref = useRef();
 
