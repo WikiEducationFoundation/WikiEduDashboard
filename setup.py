@@ -37,7 +37,7 @@ def osx_setup():
                    shell=True, check=True)
 
 if platform.platform().lower().find('ubuntu') != -1 \
-        or platform.platform().lower().find('wsl2') !=1 \
+        or platform.platform().lower().find('wsl2') != -1 \
         or platform.platform().lower().find('debian') != -1 \
         or platform.platform().lower().find('elementary') != -1 \
         or platform.uname().version.lower().find('ubuntu') != -1:
