@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import Popover from '../popover.jsx';
@@ -211,14 +211,17 @@ const FindArticles = ({ course, open, project, language }) => {
 };
 
 // Main Component
-const AssignButton = ({ ...props }) => {
+const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssignedArticles,
+  assignments, unassigned, student, allowMultipleArticles, current_user, isStudentsPage,
+  permitted, tooltip_message }) => {
+  const dispatch = useDispatch();
   const [language, setLanguage] = useState('');
   const [project, setProject] = useState('');
   const [title, setTitle] = useState('');
 
   useEffect(() => {
-    setLanguage(props.course.home_wiki.language || 'www');
-    setProject(props.course.home_wiki.project);
+    setLanguage(course.home_wiki.language || 'www');
+    setProject(course.home_wiki.project);
   }, []);
 
   const getKey = () => {
@@ -268,17 +271,16 @@ const AssignButton = ({ ...props }) => {
   };
 
   const _onConfirmHandler = ({ action, assignment, isInTrackedWiki = true, title: confirmedTitle }) => {
-    const { student } = props;
     const studentId = (student && student.id) || null;
 
     const onConfirm = (e) => {
       open(e);
       setTitle('');
 
-      action({
+      dispatch(action({
         ...assignment,
         user_id: studentId
-      });
+      }));
     };
 
     let confirmMessage;
@@ -301,12 +303,11 @@ const AssignButton = ({ ...props }) => {
       const wiki = `${assignment.language}.${assignment.project}.org`;
       warningMessage = I18n.t('assignments.warning_untracked_wiki', { wiki });
     }
-    return props.initiateConfirm({ confirmMessage, onConfirm, warningMessage });
+    return dispatch(initiateConfirm({ confirmMessage, onConfirm, warningMessage }));
   };
 
   const assign = (e) => {
     e.preventDefault();
-    const { course, role } = props;
     title.split('\n').filter(Boolean).forEach((assignment_title) => {
       const assignment = {
         title: decodeURIComponent(assignment_title).trim(),
@@ -321,20 +322,16 @@ const AssignButton = ({ ...props }) => {
         // Title shouldn't exceed 255 chars to prevent mysql errors
         return alert(I18n.t('assignments.title_too_large'));
       }
-
-      const action = props.addAssignment;
-      const { student } = props;
       const studentId = (student && student.id) || null;
-      action({
+      dispatch(addAssignment({
         ...assignment,
         user_id: studentId
-      });
+      }));
     });
   };
 
   const review = (e, assignment) => {
     e.preventDefault();
-    const { course, role } = props;
 
     const reviewing = {
       title: assignment.article_title,
@@ -343,7 +340,7 @@ const AssignButton = ({ ...props }) => {
     };
 
     return _onConfirmHandler({
-      action: props.addAssignment,
+      action: addAssignment,
       assignment: reviewing,
       title: reviewing.title
     });
@@ -353,10 +350,10 @@ const AssignButton = ({ ...props }) => {
     e.preventDefault();
 
     return _onConfirmHandler({
-      action: props.claimAssignment,
+      action: claimAssignment,
       assignment: {
         id: assignment.id,
-        role: props.role
+        role: role
       },
       title: assignment.article_title
     });
@@ -365,15 +362,10 @@ const AssignButton = ({ ...props }) => {
   const unassign = (assignment) => {
     const confirmMessage = I18n.t('assignments.confirm_deletion');
     const onConfirm = () => {
-      props.deleteAssignment({ course_slug: props.course.slug, ...assignment });
+      dispatch(deleteAssignment({ course_slug: course.slug, ...assignment }));
     };
-    props.initiateConfirm({ confirmMessage, onConfirm });
+    dispatch(initiateConfirm({ confirmMessage, onConfirm }));
   };
-
-  const {
-    assignments, allowMultipleArticles, course, current_user,
-    isStudentsPage, permitted, role, student, tooltip_message
-  } = props;
 
   let showButton;
   if (!permitted && assignments.length > 1) {
@@ -410,7 +402,7 @@ const AssignButton = ({ ...props }) => {
     );
   }
 
-  const trackedWikis = trackedWikisMaker(props.course);
+  const trackedWikis = trackedWikisMaker(course);
 
   let editRow;
   if (permitted) {
@@ -419,7 +411,10 @@ const AssignButton = ({ ...props }) => {
     if (allowMultipleArticles) {
       assignmentInput = (
         <td>
-          <AddAvailableArticles language={language} project={project} title={title} open={open} {...props} />
+          <AddAvailableArticles
+            language={language} project={project} title={title} role={role}
+            course_id={course_id} addAssignment={assignment => dispatch(addAssignment(assignment))} open={open}
+          />
           <br />
           <SelectedWikiOption
             language={language}
@@ -458,15 +453,13 @@ const AssignButton = ({ ...props }) => {
     );
   }
 
-  const wikidataLabels = props.wikidataLabels || {};
-
   const assignmentRows = [];
   // hideAssignedArticles will always be false except in the case
   // of the my_articles.jsx view
-  if (!props.hideAssignedArticles) {
+  if (!hideAssignedArticles) {
     assignmentRows.push(
       <AssignedAssignmentRows
-        assignments={props.assignments}
+        assignments={assignments}
         key="assigned"
         unassign={unassign}
         course={course}
@@ -484,7 +477,7 @@ const AssignButton = ({ ...props }) => {
     const action = role === REVIEWING_ROLE ? review : update;
     assignmentRows.push(
       <PotentialAssignmentRows
-        assignments={props.unassigned}
+        assignments={unassigned}
         assign={action}
         course={course}
         key="potential"
@@ -526,24 +519,7 @@ AssignButton.propTypes = {
   student: PropTypes.object,
   tooltip_message: PropTypes.string,
   wikidataLabels: PropTypes.object,
-
-  addAssignment: PropTypes.func,
-  initiateConfirm: PropTypes.func,
-  deleteAssignment: PropTypes.func,
   unassigned: PropTypes.array
 };
 
-const mapDispatchToProps = {
-  addAssignment,
-  deleteAssignment,
-  initiateConfirm,
-  claimAssignment,
-};
-
-const mapStateToProps = state => ({
-  openKey: state.ui.openKey
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(
-  (AssignButton)
-);
+export default (AssignButton);
