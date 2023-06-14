@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import PopoverExpandable from '../../high_order/popover_expandable.jsx';
 import Popover from '../popover.jsx';
 import { initiateConfirm } from '../../../actions/confirm_actions';
 import { addAssignment, deleteAssignment, claimAssignment } from '../../../actions/assignment_actions';
+import useExpandablePopover from '../../../hooks/useExpandablePopover';
 import CourseUtils from '../../../utils/course_utils.js';
 import AddAvailableArticles from '../../articles/add_available_articles';
 import NewAssignmentInput from '../../assignments/new_assignment_input';
@@ -14,6 +14,7 @@ import { ASSIGNED_ROLE, REVIEWING_ROLE } from '~/app/assets/javascripts/constant
 import SelectedWikiOption from '../selected_wiki_option';
 import { trackedWikisMaker } from '../../../utils/wiki_utils';
 import ArticleUtils from '../../../utils/article_utils';
+
 
 // Helper Components
 // Button to show the static list
@@ -214,19 +215,12 @@ const AssignButton = (props) => {
   const [language, setLanguage] = useState('');
   const [project, setProject] = useState('');
   const [title, setTitle] = useState('');
-
   useEffect(() => {
     setLanguage(props.course.home_wiki.language || 'www');
     setProject(props.course.home_wiki.project);
   }, []);
 
-  const getKey = () => {
-    const tag = props.role === ASSIGNED_ROLE ? 'assign_' : 'review_';
-    if (props.student) {
-      return tag + props.student.id;
-    }
-    return tag;
-  };
+  const { isOpen, ref, open } = useExpandablePopover(props.role, props.student);
 
   const stop = (e) => {
     return e.stopPropagation();
@@ -267,14 +261,8 @@ const AssignButton = (props) => {
     setProject(chosenWiki.value.project);
   };
 
-  const isAssignmentForTrackedWiki = (wikis, assignment) => {
-    return wikis.some(({ language: wikiLang, project: wikiProj }) => {
-      return wikiLang === assignment.language && wikiProj === assignment.project;
-    });
-  };
-
-  const _onConfirmHandler = ({ action, assignment, isInTrackedWiki = true, title }) => {
-    const { student, open } = props;
+  const _onConfirmHandler = ({ action, assignment, isInTrackedWiki = true, title: confirmedTitle }) => {
+    const { student } = props;
     const studentId = (student && student.id) || null;
 
     const onConfirm = (e) => {
@@ -291,13 +279,13 @@ const AssignButton = (props) => {
     // Confirm for assigning an article to a student
     if (student) {
       confirmMessage = I18n.t('assignments.confirm_addition', {
-        title,
+        title: confirmedTitle,
         username: student.username
       });
       // Confirm for adding an unassigned available article
     } else {
       confirmMessage = I18n.t('assignments.confirm_add_available', {
-        title
+        title: confirmedTitle
       });
     }
 
@@ -378,14 +366,14 @@ const AssignButton = (props) => {
 
   const {
     assignments, allowMultipleArticles, course, current_user,
-    isStudentsPage, is_open, open, permitted, role, student, tooltip_message
+    isStudentsPage, permitted, role, student, tooltip_message
   } = props;
 
   let showButton;
   if (!permitted && assignments.length > 1) {
     showButton = (
       <ShowButton
-        is_open={is_open}
+        is_open={isOpen}
         open={open}
       />
     );
@@ -395,7 +383,7 @@ const AssignButton = (props) => {
   if (!showButton && permitted) {
     let tooltip;
     let tooltipIndicator;
-    if (tooltip_message && !is_open) {
+    if (tooltip_message && !isOpen) {
       tooltipIndicator = (<span className="tooltip-indicator" />);
       tooltip = (<Tooltip message={tooltip_message} />);
     }
@@ -404,7 +392,7 @@ const AssignButton = (props) => {
       <EditButton
         allowMultipleArticles={allowMultipleArticles}
         current_user={current_user}
-        is_open={is_open}
+        is_open={isOpen}
         open={open}
         role={role}
         student={student}
@@ -439,7 +427,7 @@ const AssignButton = (props) => {
     } else {
       const onSubmit = (e, ...args) => {
         assign(e, ...args);
-        this.setState({ title: '' });
+        setTitle('');
       };
 
       assignmentInput = (
@@ -509,12 +497,12 @@ const AssignButton = (props) => {
   }
 
   return (
-    <div className="pop__container" onClick={stop}>
+    <div className="pop__container" onClick={stop} ref={ref}>
       {showButton}
       {editButton}
       <Popover
         edit_row={editRow}
-        is_open={is_open}
+        is_open={isOpen}
         rows={assignmentRows}
       />
     </div>
@@ -528,7 +516,6 @@ AssignButton.propTypes = {
   current_user: PropTypes.object,
   role: PropTypes.number.isRequired,
   is_open: PropTypes.bool,
-  open: PropTypes.func.isRequired,
   permitted: PropTypes.bool,
   student: PropTypes.object,
   tooltip_message: PropTypes.string,
@@ -544,9 +531,13 @@ const mapDispatchToProps = {
   addAssignment,
   deleteAssignment,
   initiateConfirm,
-  claimAssignment
+  claimAssignment,
 };
 
-export default connect(null, mapDispatchToProps)(
-  PopoverExpandable(AssignButton)
+const mapStateToProps = state => ({
+  openKey: state.ui.openKey
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(
+  (AssignButton)
 );
