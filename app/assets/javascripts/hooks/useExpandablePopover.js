@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useOutsideClick from './useOutsideClick';
 import { toggleUI } from '@actions/index';
-import { ASSIGNED_ROLE } from '../constants/assignments';
 
 /*
   This is a custom hook that implements functionality for an expandable popover that closes
@@ -10,18 +9,13 @@ import { ASSIGNED_ROLE } from '../constants/assignments';
   This should be used for functional components that require expandable popover functionality.
   For class components, use popover_expandable.jsx instead.
 */
-const useExpandablePopover = (role, student) => {
+const useExpandablePopover = (getKey) => {
   const openKey = useSelector(state => state.ui.openKey);
   const dispatch = useDispatch();
 
   const [key, setKey] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const isOpenRef = useRef(); // This ref is needed to avoid rerenders that can break the component state
-
-  const getKey = () => {
-    const tag = role === ASSIGNED_ROLE ? 'assign_' : 'review_';
-    return student ? tag + student.id : tag;
-  };
 
   const open = () => {
     dispatch(toggleUI(getKey()));

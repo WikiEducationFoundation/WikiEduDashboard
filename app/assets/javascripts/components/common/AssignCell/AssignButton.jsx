@@ -211,16 +211,22 @@ const FindArticles = ({ course, open, project, language }) => {
 };
 
 // Main Component
-const AssignButton = (props) => {
+const AssignButton = ({ ...props }) => {
   const [language, setLanguage] = useState('');
   const [project, setProject] = useState('');
   const [title, setTitle] = useState('');
+
   useEffect(() => {
     setLanguage(props.course.home_wiki.language || 'www');
     setProject(props.course.home_wiki.project);
   }, []);
 
-  const { isOpen, ref, open } = useExpandablePopover(props.role, props.student);
+  const getKey = () => {
+    const tag = role === ASSIGNED_ROLE ? 'assign_' : 'review_';
+    return student ? tag + student.id : tag;
+  };
+
+  const { isOpen, ref, open } = useExpandablePopover(getKey);
 
   const stop = (e) => {
     return e.stopPropagation();
@@ -413,7 +419,7 @@ const AssignButton = (props) => {
     if (allowMultipleArticles) {
       assignmentInput = (
         <td>
-          <AddAvailableArticles {...props} {...this.state} />
+          <AddAvailableArticles language={language} project={project} title={title} open={open} {...props} />
           <br />
           <SelectedWikiOption
             language={language}
@@ -479,7 +485,7 @@ const AssignButton = (props) => {
     assignmentRows.push(
       <PotentialAssignmentRows
         assignments={props.unassigned}
-        assign={action.bind(this)}
+        assign={action}
         course={course}
         key="potential"
         permitted={permitted}
