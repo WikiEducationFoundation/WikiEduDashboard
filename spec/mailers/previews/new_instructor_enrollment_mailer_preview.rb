@@ -2,7 +2,7 @@
 
 class NewInstructorEnrollmentMailerPreview < ActionMailer::Preview
   def alert_staff
-    NewInstructorEnrollmentMailer.email(course, staffer, adder, new_instructor)
+    NewInstructorEnrollmentMailer.email(course, staffer, adder, new_instructor, courses_user)
   end
 
   private
@@ -23,5 +23,9 @@ class NewInstructorEnrollmentMailerPreview < ActionMailer::Preview
 
   def new_instructor
     User.new(username: 'New Instructor')
+  end
+
+  def courses_user
+    OpenStruct.new(real_name: 'Alice Bob', role_description: 'Teaches Wikipedia basics')
   end
 end
