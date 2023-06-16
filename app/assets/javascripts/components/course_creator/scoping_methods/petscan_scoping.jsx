@@ -55,19 +55,6 @@ const PetScanScoping = ({ hideDescription }) => {
       <div>
         <SelectableBox
           heading={I18n.t(
-            'courses_generic.creator.scoping_methods.petscan_have_psid_title'
-          )}
-          description={I18n.t(
-            'courses_generic.creator.scoping_methods.petscan_have_psid_desc'
-          )}
-          onClick={() => {
-            setChoosenOption('HAVE_ID');
-            dispatchNotOnHomePage();
-            }
-          }
-        />
-        <SelectableBox
-          heading={I18n.t(
             'courses_generic.creator.scoping_methods.petscan_not_have_psid_title'
           )}
           description={I18n.t(
@@ -75,6 +62,19 @@ const PetScanScoping = ({ hideDescription }) => {
           )}
           onClick={() => {
             setChoosenOption('NO_ID');
+            dispatchNotOnHomePage();
+            }
+          }
+        />
+        <SelectableBox
+          heading={I18n.t(
+            'courses_generic.creator.scoping_methods.petscan_have_psid_title'
+          )}
+          description={I18n.t(
+            'courses_generic.creator.scoping_methods.petscan_have_psid_desc'
+          )}
+          onClick={() => {
+            setChoosenOption('HAVE_ID');
             dispatchNotOnHomePage();
             }
           }

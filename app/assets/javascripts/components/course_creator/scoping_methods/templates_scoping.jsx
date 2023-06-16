@@ -8,7 +8,17 @@ const TemplatesScoping = () => {
   return (
     <div>
       <div className="form-group">
-        <TemplatesAutoCompleteInput label="Templates to include:" actionType={UPDATE_TEMPLATES} initial={templates}/>
+        <TemplatesAutoCompleteInput
+          label={
+            <div className="tooltip-trigger">
+              <label htmlFor="templates">Templates To Include</label>
+              <span className="tooltip-indicator"/>
+              <div className="tooltip dark">
+                {I18n.t('courses_generic.creator.scoping_methods.templates_include_OR')}
+              </div>
+            </div>
+        } actionType={UPDATE_TEMPLATES} initial={templates}
+        />
       </div>
     </div>
   );

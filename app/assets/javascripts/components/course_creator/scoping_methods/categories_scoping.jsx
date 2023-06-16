@@ -15,7 +15,17 @@ const CategoriesScoping = () => {
   return (
     <div className="scoping-methods-categories">
       <div className="form-group">
-        <CategoryAutoCompleteInput label="Categories to track:" actionType={UPDATE_CATEGORIES} initial={categories}/>
+        <CategoryAutoCompleteInput
+          label={
+            <div className="tooltip-trigger">
+              <label htmlFor="categories">Categories To Include</label>
+              <span className="tooltip-indicator"/>
+              <div className="tooltip dark">
+                {I18n.t('courses_generic.creator.scoping_methods.categories_include_OR')}
+              </div>
+            </div>
+        } actionType={UPDATE_CATEGORIES} initial={categories}
+        />
       </div>
       <TextInput
         type="number"

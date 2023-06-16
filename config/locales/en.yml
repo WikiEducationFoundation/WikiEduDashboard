@@ -922,6 +922,10 @@ en:
         petscan_not_have_psid_desc: >
           Use this if you don't have a PetScan ID and wish to use a simplified builder to create it. This lacks some of the advanced features of the PetScan tool, but is easier to use and you don't have to leave the dashboard to build the query!
         petscan_create_psid: Create a PetScan ID using the official PetScan tool
+        categories_include_OR: Articles containing ANY of these categories will be tracked
+        categories_include_AND: Articles containing ALL of these categories will be tracked
+        templates_include_AND: Articles containing ALL of these templates will be tracked
+        templates_include_OR: Articles containing ANY of these templates will be tracked
 
     delete_course: Delete program
     edit_course_dates: Edit Project Dates

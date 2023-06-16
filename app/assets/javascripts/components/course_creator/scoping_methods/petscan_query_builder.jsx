@@ -13,13 +13,33 @@ const PetScanQueryBuilder = () => {
   return (
     <div className="scoping-method-petscan-builder">
       <div className="form-group">
-        <CategoryAutoCompleteInput label="Categories to include:" actionType={UPDATE_INCLUDE_CATEGORIES_PETSCAN} initial={categoriesIncluded}/>
+        <CategoryAutoCompleteInput
+          label={
+            <div className="tooltip-trigger">
+              <label htmlFor="categories">Categories To Include</label>
+              <span className="tooltip-indicator"/>
+              <div className="tooltip dark">
+                {I18n.t('courses_generic.creator.scoping_methods.categories_include_AND')}
+              </div>
+            </div>
+        } actionType={UPDATE_INCLUDE_CATEGORIES_PETSCAN} initial={categoriesIncluded}
+        />
       </div>
       <div className="form-group">
         <CategoryAutoCompleteInput label="Categories to exclude:" actionType={UPDATE_EXCLUDE_CATEGORIES_PETSCAN} initial={categoriesExcluded}/>
       </div>
       <div className="form-group">
-        <TemplatesAutoCompleteInput label="Templates to include:" actionType={UPDATE_INCLUDE_TEMPLATES_PETSCAN} initial={templatesIncluded}/>
+        <TemplatesAutoCompleteInput
+          label={
+            <div className="tooltip-trigger">
+              <label htmlFor="templates">Templates To Include</label>
+              <span className="tooltip-indicator"/>
+              <div className="tooltip dark">
+                {I18n.t('courses_generic.creator.scoping_methods.templates_include_AND')}
+              </div>
+            </div>
+        } actionType={UPDATE_INCLUDE_TEMPLATES_PETSCAN} initial={templatesIncluded}
+        />
       </div>
       <div className="form-group">
         <TemplatesAutoCompleteInput label="Templates to exclude:" actionType={UPDATE_EXCLUDE_TEMPLATES_PETSCAN} initial={templatesExcluded}/>
