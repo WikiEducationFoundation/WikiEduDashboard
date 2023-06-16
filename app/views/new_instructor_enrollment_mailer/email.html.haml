@@ -11,6 +11,6 @@
               %p.paragraph
                 = "Name: #{@courses_user&.real_name}"
               %p.paragraph
-                = "Role: #{@courses_use&.role_description}"
+                = "Role: #{@courses_user&.role_description}"
               %p.paragraph
                 %a.link{href: @course_link}= @course.slug
