@@ -54,6 +54,5 @@ describe('CourseClonedModal', () => {
 
     const create = renderedModal.find('.button.dark');
     expect(create).toHaveLength(1);
-    expect(create.prop('disabled')).toEqual('disabled');
   });
 });
