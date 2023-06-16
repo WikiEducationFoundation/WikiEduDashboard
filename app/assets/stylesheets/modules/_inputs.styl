@@ -9,7 +9,7 @@ select,
   border 1px solid $border_lt
   border-radius 0px
   font-family body-font
-  color body-color
+  color text-dark
   font-size 15px
   padding 10px
   outline none
@@ -26,6 +26,9 @@ select,
 
   &::-ms-expand
     display none
+
+  &::placeholder
+    color: text_lt
 
 // Custom dropdown arrow for selects
 select:not([multiple])
