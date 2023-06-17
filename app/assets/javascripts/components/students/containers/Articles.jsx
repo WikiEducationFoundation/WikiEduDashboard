@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { generatePath } from 'react-router';
 import { Route, Routes } from 'react-router-dom';
-import withRouter from '../../util/withRouter';
 // Components
 import StudentsSubNavigation from '@components/students/components/StudentsSubNavigation.jsx';
 import Controls from '@components/students/components/Overview/Controls/Controls.jsx';
@@ -24,123 +23,114 @@ import { getModulesAndBlocksFromWeeks } from '@components/util/helpers';
 import groupArticlesCoursesByUserId from '@components/students/utils/groupArticlesCoursesByUserId';
 import ScrollToTopOnMount from '../../util/ScrollToTopOnMount';
 
-export class Articles extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selected: {}
-    };
+const Articles = (props) => {
+  const [selected, setSelected] = useState({});
 
-    this.selectStudent = this.selectStudent.bind(this);
-    this.generateArticlesUrl = this.generateArticlesUrl.bind(this);
-  }
-  componentDidMount() {
+  useEffect(() => {
     // sets the title of this tab
-    const { prefix } = this.props;
+    const { prefix } = props;
     const header = I18n.t('instructor_view.article_assignments', { prefix });
-    document.title = `${this.props.course.title} - ${header}`;
-  }
+    document.title = `${props.course.title} - ${header}`;
+  });
 
-  selectStudent(selected) {
-    this.setState({ selected });
-  }
+  const selectStudent = (selectedStudent) => {
+    setSelected({ selected: selectedStudent });
+  };
 
-  generateArticlesUrl(course) {
+  const generateArticlesUrl = (course) => {
     const [course_school, course_title] = course.slug.split('/');
     const root = '/courses/:course_school/:course_title/students/articles';
     return generatePath(root, { course_school, course_title });
-  }
+  };
 
-  render() {
-    const {
-      articles, assignments, course, current_user, prefix, students, wikidataLabels,
-      notify, sortSelect, openKey, sort, trainingStatus, sortUsers, weeks,
-      userRevisions
-    } = this.props;
+  const {
+    articles, assignments, course, current_user, prefix, students, wikidataLabels,
+    notify, sortSelect, openKey, sort, trainingStatus, sortUsers, weeks,
+    userRevisions
+  } = props;
 
-    const { modules } = getModulesAndBlocksFromWeeks(weeks);
-    const hasExercisesOrTrainings = !!modules.length;
-    const groupedArticles = groupArticlesCoursesByUserId(articles);
-    if (!students.length) return null;
-    const studentSelection = (
-      <StudentSelection
-        articlesUrl={this.generateArticlesUrl(course)}
+  const { modules } = getModulesAndBlocksFromWeeks(weeks);
+  const hasExercisesOrTrainings = !!modules.length;
+  const groupedArticles = groupArticlesCoursesByUserId(articles);
+  if (!students.length) return null;
+  const studentSelection = (
+    <StudentSelection
+      articlesUrl={generateArticlesUrl(course)}
+      course={course}
+      selected={selected}
+      selectStudent={selectStudent}
+      students={students}
+    />
+  );
+  return (
+    <>
+      <ScrollToTopOnMount />
+      <StudentsSubNavigation
         course={course}
-        selected={this.state.selected}
-        selectStudent={this.selectStudent}
-        students={students}
+        heading={I18n.t('instructor_view.article_assignments', { prefix })}
+        prefix={prefix}
       />
-    );
-    return (
-      <>
-        <ScrollToTopOnMount />
-        <StudentsSubNavigation
-          course={course}
-          heading={I18n.t('instructor_view.article_assignments', { prefix })}
-          prefix={prefix}
-        />
-        {
-          current_user.isAdvancedRole
-            ? (
-              <Controls
-                course={course}
-                current_user={current_user}
-                students={students}
-                notify={notify}
-                showOverviewFilters={false}
-                sortSelect={sortSelect}
-              />
-            ) : null
-        }
-        <section className="users-articles">
-          <aside className="student-selection">
+      {
+        current_user.isAdvancedRole
+          ? (
+            <Controls
+              course={course}
+              current_user={current_user}
+              students={students}
+              notify={notify}
+              showOverviewFilters={false}
+              sortSelect={sortSelect}
+            />
+          ) : null
+      }
+      <section className="users-articles">
+        <aside className="student-selection">
+          <Routes>
+            <Route
+              path=":username" element={studentSelection}
+            />
+            <Route
+              path="*" element={studentSelection}
+            />
+          </Routes>
+        </aside>
+        <article className="student-details">
+          <section className="assignments">
             <Routes>
               <Route
-                path=":username" element={studentSelection}
+                path=":username"
+                element={<SelectedStudent
+                  assignments={assignments}
+                  course={course}
+                  current_user={current_user}
+                  fetchArticleDetails={fetchArticleDetails}
+                  fetchUserRevisions={fetchUserRevisions}
+                  groupedArticles={groupedArticles}
+                  hasExercisesOrTrainings={hasExercisesOrTrainings}
+                  openKey={openKey}
+                  setUploadFilters={setUploadFilters}
+                  sort={sort}
+                  sortUsers={sortUsers}
+                  students={students}
+                  toggleUI={toggleUI}
+                  trainingStatus={trainingStatus}
+                  wikidataLabels={wikidataLabels}
+                  userRevisions={userRevisions}
+                  articlesUrl={generateArticlesUrl(course)}
+                />
+                }
               />
               <Route
-                path="*" element={studentSelection}
+                path="*"
+                element={<NoSelectedStudent string_prefix={course.string_prefix} project={course.home_wiki.project} />}
               />
             </Routes>
-          </aside>
-          <article className="student-details">
-            <section className="assignments">
-              <Routes>
-                <Route
-                  path=":username"
-                  element={<SelectedStudent
-                    assignments={assignments}
-                    course={course}
-                    current_user={current_user}
-                    fetchArticleDetails={this.props.fetchArticleDetails}
-                    fetchUserRevisions={this.props.fetchUserRevisions}
-                    groupedArticles={groupedArticles}
-                    hasExercisesOrTrainings={hasExercisesOrTrainings}
-                    openKey={openKey}
-                    setUploadFilters={setUploadFilters}
-                    sort={sort}
-                    sortUsers={sortUsers}
-                    students={students}
-                    toggleUI={this.props.toggleUI}
-                    trainingStatus={trainingStatus}
-                    wikidataLabels={wikidataLabels}
-                    userRevisions={userRevisions}
-                    articlesUrl={this.generateArticlesUrl(course)}
-                  />
-                  }
-                />
-                <Route
-                  path="*"
-                  element={<NoSelectedStudent string_prefix={course.string_prefix} project={course.home_wiki.project} />}
-                />
-              </Routes>
-            </section>
-          </article>
-        </section>
-      </>
-    );
-  }
-}
+          </section>
+        </article>
+      </section>
+    </>
+  );
+};
 
 Articles.propTypes = {
   articles: PropTypes.array.isRequired,
@@ -176,4 +166,4 @@ const mapDispatchToProps = {
   toggleUI
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Articles));
+export default (connect(mapStateToProps, mapDispatchToProps)(Articles));
