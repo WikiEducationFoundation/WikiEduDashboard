@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import withRouter from '../util/withRouter.jsx';
 
 // Components
@@ -13,21 +13,25 @@ import { initiateConfirm } from '~/app/assets/javascripts/actions/confirm_action
 import { getFiltered } from '~/app/assets/javascripts/utils/model_utils';
 import { addUser, removeUser } from '~/app/assets/javascripts/actions/user_actions';
 import useExpandablePopover from '../../hooks/useExpandablePopover';
+import { useParams } from 'react-router-dom';
 
 const EnrollButton = (props) => {
   const usernameRef = useRef(null);
   const realNameRef = useRef(null);
   const roleDescriptionRef = useRef(null);
 
+  const dispatch = useDispatch();
+  const { course_school, course_title } = useParams();
+
   useEffect(() => {
     if (!usernameRef.current || !usernameRef.current.value) { return; }
     const username = usernameRef.current.value;
     if (getFiltered(props.users, { username, role: props.role }).length > 0) {
-      props.addNotification({
+      dispatch(addNotification({
         message: I18n.t('users.enrolled_success', { username }),
         closable: true,
         type: 'success'
-      });
+      }));
       usernameRef.current.value = '';
     }
   }, [props.users]);
@@ -58,45 +62,43 @@ const EnrollButton = (props) => {
       real_name: realName
     };
 
-    const addUserAction = props.addUser;
     const onConfirm = () => {
       // Post the new user enrollment to the server
-      addUserAction(courseId, { user: userObject });
+      dispatch(addUser(courseId, { user: userObject }));
     };
     const confirmMessage = I18n.t('users.enroll_confirmation', { username });
 
     // If the user is not already enrolled
     if (getFiltered(props.users, { username, role: props.role }).length === 0) {
-      return props.initiateConfirm({ confirmMessage, onConfirm });
+      return dispatch(initiateConfirm({ confirmMessage, onConfirm }));
     }
     // If the user us already enrolled
-    return props.addNotification({
+    return dispatch(addNotification({
       message: I18n.t('users.already_enrolled'),
       closable: true,
       type: 'error'
-    });
+    }));
   };
 
   const unenroll = (userId) => {
     const user = getFiltered(props.users, { id: userId, role: props.role })[0];
     const courseId = props.course.slug;
     const userObject = { user_id: userId, role: props.role };
-    const removeUserAction = props.removeUser;
 
     const onConfirm = () => {
       // Post the user deletion request to the server
-      removeUserAction(courseId, { user: userObject });
+      dispatch(removeUser(courseId, { user: userObject }));
     };
     const confirmMessage = I18n.t('users.remove_confirmation', { username: user.username });
-    return props.initiateConfirm({ confirmMessage, onConfirm });
+    return dispatch(initiateConfirm({ confirmMessage, onConfirm }));
   };
 
   const stop = (e) => {
     return e.stopPropagation();
   };
 
-  const _courseLinkParams = () => {
-    return `/courses/${props.router.params.course_school}/${props.router.params.course_title}`;
+  const courseLinkParams = () => {
+    return `/courses/${course_school}/${course_title}`;
   };
 
   // Disable the button for courses controlled by Wikimedia Event Center
@@ -117,7 +119,7 @@ const EnrollButton = (props) => {
   });
 
   const enrollParam = '?enroll=';
-  const enrollUrl = window.location.origin + _courseLinkParams() + enrollParam + props.course.passcode;
+  const enrollUrl = window.location.origin + courseLinkParams() + enrollParam + props.course.passcode;
 
   const editRows = [];
 
@@ -227,8 +229,4 @@ EnrollButton.propTypes = {
   removeUser: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = { initiateConfirm, addNotification, addUser, removeUser };
-
-export default withRouter(connect(null, mapDispatchToProps)(
-  Conditional(EnrollButton)
-));
+export default withRouter((Conditional(EnrollButton)));
