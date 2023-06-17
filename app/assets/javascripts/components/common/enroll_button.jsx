@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import withRouter from '../util/withRouter.jsx';
 
 // Components
 import Popover from '@components/common/popover.jsx';
@@ -15,7 +14,7 @@ import { addUser, removeUser } from '~/app/assets/javascripts/actions/user_actio
 import useExpandablePopover from '../../hooks/useExpandablePopover';
 import { useParams } from 'react-router-dom';
 
-const EnrollButton = (props) => {
+const EnrollButton = ({ users, role, course, current_user, allowed, inline }) => {
   const usernameRef = useRef(null);
   const realNameRef = useRef(null);
   const roleDescriptionRef = useRef(null);
@@ -26,7 +25,7 @@ const EnrollButton = (props) => {
   useEffect(() => {
     if (!usernameRef.current || !usernameRef.current.value) { return; }
     const username = usernameRef.current.value;
-    if (getFiltered(props.users, { username, role: props.role }).length > 0) {
+    if (getFiltered(users, { username, role: role }).length > 0) {
       dispatch(addNotification({
         message: I18n.t('users.enrolled_success', { username }),
         closable: true,
@@ -34,10 +33,10 @@ const EnrollButton = (props) => {
       }));
       usernameRef.current.value = '';
     }
-  }, [props.users]);
+  }, [users]);
 
   const getKey = () => {
-    return `add_user_role_${props.role}`;
+    return `add_user_role_${role}`;
   };
 
   const { isOpen, ref, open } = useExpandablePopover(getKey);
@@ -46,7 +45,7 @@ const EnrollButton = (props) => {
     e.preventDefault();
     const username = usernameRef.current.value;
     if (!username) { return; }
-    const courseId = props.course.slug;
+    const courseId = course.slug;
     // Optional fields
     let realName;
     let roleDescription;
@@ -57,7 +56,7 @@ const EnrollButton = (props) => {
 
     const userObject = {
       username,
-      role: props.role,
+      role: role,
       role_description: roleDescription,
       real_name: realName
     };
@@ -69,7 +68,7 @@ const EnrollButton = (props) => {
     const confirmMessage = I18n.t('users.enroll_confirmation', { username });
 
     // If the user is not already enrolled
-    if (getFiltered(props.users, { username, role: props.role }).length === 0) {
+    if (getFiltered(users, { username, role: role }).length === 0) {
       return dispatch(initiateConfirm({ confirmMessage, onConfirm }));
     }
     // If the user us already enrolled
@@ -81,9 +80,9 @@ const EnrollButton = (props) => {
   };
 
   const unenroll = (userId) => {
-    const user = getFiltered(props.users, { id: userId, role: props.role })[0];
-    const courseId = props.course.slug;
-    const userObject = { user_id: userId, role: props.role };
+    const user = getFiltered(users, { id: userId, role: role })[0];
+    const courseId = course.slug;
+    const userObject = { user_id: userId, role: role };
 
     const onConfirm = () => {
       // Post the user deletion request to the server
@@ -102,11 +101,11 @@ const EnrollButton = (props) => {
   };
 
   // Disable the button for courses controlled by Wikimedia Event Center
-  if (props.course.flags.event_sync) { return null; }
+  if (course.flags.event_sync) { return null; }
 
-  const users = props.users.map((user) => {
+  const usersList = users.map((user) => {
     let removeButton;
-    if (props.role !== 1 || props.users.length >= 2 || props.current_user.admin) {
+    if (role !== 1 || users.length >= 2 || current_user.admin) {
       removeButton = (
         <button className="button border plus" aria-label="Remove user" onClick={() => unenroll(user.id)}>-</button>
       );
@@ -119,27 +118,26 @@ const EnrollButton = (props) => {
   });
 
   const enrollParam = '?enroll=';
-  const enrollUrl = window.location.origin + courseLinkParams() + enrollParam + props.course.passcode;
+  const enrollUrl = window.location.origin + courseLinkParams() + enrollParam + course.passcode;
 
   const editRows = [];
 
-
-  if (props.role === 0) {
+  if (role === 0) {
     let massEnrollmentLink;
     let requestedAccountsLink;
     if (!Features.wikiEd) {
-      const massEnrollmentUrl = `/mass_enrollment/${props.course.slug}`;
+      const massEnrollmentUrl = `/mass_enrollment/${course.slug}`;
       massEnrollmentLink = <p><a href={massEnrollmentUrl}>Add multiple users at once.</a></p>;
     }
     if (!Features.wikiEd) {
-      const requestedAccountsUrl = `/requested_accounts/${props.course.slug}`;
+      const requestedAccountsUrl = `/requested_accounts/${course.slug}`;
       requestedAccountsLink = <p key="requested_accounts"><a href={requestedAccountsUrl}>{I18n.t('courses.requested_accounts')}</a></p>;
     }
 
     editRows.push(
       <tr className="edit" key="enroll_students">
         <td>
-          <p>{I18n.t('users.course_passcode')}&nbsp;<b>{props.course.passcode}</b></p>
+          <p>{I18n.t('users.course_passcode')}&nbsp;<b>{course.passcode}</b></p>
           <p>{I18n.t('users.enroll_url')}</p>
           <input type="text" readOnly={true} value={enrollUrl} style={{ width: '100%' }} />
           {massEnrollmentLink}
@@ -150,13 +148,13 @@ const EnrollButton = (props) => {
   }
 
   // This row allows permitted users to add usrs to the course by username
-  // @props.role controls its presence in the Enrollment popup on /students
-  // @props.allowed controls its presence in Edit Details mode on Overview
-  if (props.role === 0 || props.allowed) {
+  // @role controls its presence in the Enrollment popup on /students
+  // @allowed controls its presence in Edit Details mode on Overview
+  if (role === 0 || allowed) {
     // Instructor-specific extra fields
     let realNameInput;
     let roleDescriptionInput;
-    if (props.role === 1) {
+    if (role === 1) {
       realNameInput = <input type="text" ref={realNameRef} placeholder={I18n.t('users.name')} />;
       roleDescriptionInput = <input type="text" ref={roleDescriptionRef} placeholder={I18n.t('users.role.description')} />;
     }
@@ -168,7 +166,7 @@ const EnrollButton = (props) => {
             <input type="text" ref={usernameRef} placeholder={I18n.t('users.username_placeholder')} />
             {realNameInput}
             {roleDescriptionInput}
-            <button className="button border" type="submit">{CourseUtils.i18n('enroll', props.course.string_prefix)}</button>
+            <button className="button border" type="submit">{CourseUtils.i18n('enroll', course.string_prefix)}</button>
           </form>
         </td>
       </tr>
@@ -176,8 +174,8 @@ const EnrollButton = (props) => {
   }
 
   let buttonClass = 'button';
-  buttonClass += props.inline ? ' border plus' : ' dark';
-  const buttonText = props.inline ? '+' : CourseUtils.i18n('enrollment', props.course.string_prefix);
+  buttonClass += inline ? ' border plus' : ' dark';
+  const buttonText = inline ? '+' : CourseUtils.i18n('enrollment', course.string_prefix);
 
   // Remove this check when we re-enable adding users by username
   const button = (
@@ -200,7 +198,7 @@ const EnrollButton = (props) => {
       <Popover
         is_open={isOpen}
         edit_row={editRows}
-        rows={users}
+        rows={usersList}
       />
     </div>
   );
@@ -222,11 +220,6 @@ EnrollButton.propTypes = {
     username: PropTypes.string.isRequired,
     role: PropTypes.number.isRequired
   })).isRequired,
-
-  initiateConfirm: PropTypes.func.isRequired,
-  addNotification: PropTypes.func.isRequired,
-  addUser: PropTypes.func.isRequired,
-  removeUser: PropTypes.func.isRequired,
 };
 
-export default withRouter((Conditional(EnrollButton)));
+export default Conditional(EnrollButton);
