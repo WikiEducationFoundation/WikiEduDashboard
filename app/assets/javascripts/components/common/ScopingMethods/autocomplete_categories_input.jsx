@@ -30,7 +30,7 @@ const CategoryAutoCompleteInput = ({ label, actionType, initial }) => {
       <label htmlFor="categories">{label} </label>
       <AsyncSelect
         loadOptions={loadOptions}
-        placeholder="Start typing to search"
+        placeholder={I18n.t('courses_generic.creator.scoping_methods.start_typing_to_search')}
         isMulti
         id="categories"
         onChange={updateCategories}

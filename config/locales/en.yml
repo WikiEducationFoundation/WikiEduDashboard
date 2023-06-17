@@ -926,6 +926,7 @@ en:
         categories_include_AND: Articles containing ALL of these categories will be tracked
         templates_include_AND: Articles containing ALL of these templates will be tracked
         templates_include_OR: Articles containing ANY of these templates will be tracked
+        start_typing_to_search: Start typing to search
 
     delete_course: Delete program
     edit_course_dates: Edit Project Dates
