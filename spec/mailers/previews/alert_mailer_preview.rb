@@ -25,7 +25,7 @@ class AlertMailerPreview < ActionMailer::Preview
   end
 
   def need_help_alert
-    AlertMailer.alert(Alert.where(type: 'NeedHelpAlert').last, example_user)
+    AlertMailer.alert(example_alert(type: 'NeedHelpAlert'), example_user)
   end
 
   def over_enrollment_alert
