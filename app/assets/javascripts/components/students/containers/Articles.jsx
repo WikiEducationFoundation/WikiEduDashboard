@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { generatePath } from 'react-router';
 import { Route, Routes } from 'react-router-dom';
 // Components
@@ -12,10 +12,6 @@ import NoSelectedStudent from '@components/students/components/Articles/NoSelect
 
 // Actions
 import { fetchArticleDetails } from '~/app/assets/javascripts/actions/article_actions.js';
-import { fetchTrainingModuleExercisesByUser } from '~/app/assets/javascripts/actions/exercises_actions';
-import { fetchUserRevisions } from '~/app/assets/javascripts/actions/user_revisions_actions';
-import { setUploadFilters } from '~/app/assets/javascripts/actions/uploads_actions';
-import { toggleUI } from '~/app/assets/javascripts/actions';
 
 // Utils
 import { getStudentUsers, getWeeksArray } from '~/app/assets/javascripts/selectors';
@@ -23,31 +19,35 @@ import { getModulesAndBlocksFromWeeks } from '@components/util/helpers';
 import groupArticlesCoursesByUserId from '@components/students/utils/groupArticlesCoursesByUserId';
 import ScrollToTopOnMount from '../../util/ScrollToTopOnMount';
 
-const Articles = (props) => {
+const Articles = ({ articles, course, current_user, prefix, notify, sortSelect, sortUsers }) => {
+  const dispatch = useDispatch();
+
+  const assignments = useSelector(state => state.assignments.assignments);
+  const openKey = useSelector(state => state.ui.openKey);
+  const sort = useSelector(state => state.users.sort);
+  const students = useSelector(state => getStudentUsers(state));
+  const trainingStatus = useSelector(state => state.trainingStatus);
+  const weeks = useSelector(state => getWeeksArray(state));
+  const wikidataLabels = useSelector(state => state.wikidataLabels.labels);
+  const userRevisions = useSelector(state => state.userRevisions);
+
   const [selected, setSelected] = useState({});
 
   useEffect(() => {
     // sets the title of this tab
-    const { prefix } = props;
     const header = I18n.t('instructor_view.article_assignments', { prefix });
-    document.title = `${props.course.title} - ${header}`;
+    document.title = `${course.title} - ${header}`;
   });
 
   const selectStudent = (selectedStudent) => {
     setSelected({ selected: selectedStudent });
   };
 
-  const generateArticlesUrl = (course) => {
-    const [course_school, course_title] = course.slug.split('/');
+  const generateArticlesUrl = (courseData) => {
+    const [course_school, course_title] = courseData.slug.split('/');
     const root = '/courses/:course_school/:course_title/students/articles';
     return generatePath(root, { course_school, course_title });
   };
-
-  const {
-    articles, assignments, course, current_user, prefix, students, wikidataLabels,
-    notify, sortSelect, openKey, sort, trainingStatus, sortUsers, weeks,
-    userRevisions
-  } = props;
 
   const { modules } = getModulesAndBlocksFromWeeks(weeks);
   const hasExercisesOrTrainings = !!modules.length;
@@ -103,16 +103,13 @@ const Articles = (props) => {
                   assignments={assignments}
                   course={course}
                   current_user={current_user}
-                  fetchArticleDetails={fetchArticleDetails}
-                  fetchUserRevisions={fetchUserRevisions}
+                  fetchArticleDetails={(articleId, courseId) => dispatch(fetchArticleDetails(articleId, courseId))}
                   groupedArticles={groupedArticles}
                   hasExercisesOrTrainings={hasExercisesOrTrainings}
                   openKey={openKey}
-                  setUploadFilters={setUploadFilters}
                   sort={sort}
                   sortUsers={sortUsers}
                   students={students}
-                  toggleUI={toggleUI}
                   trainingStatus={trainingStatus}
                   wikidataLabels={wikidataLabels}
                   userRevisions={userRevisions}
@@ -134,36 +131,11 @@ const Articles = (props) => {
 
 Articles.propTypes = {
   articles: PropTypes.array.isRequired,
-  assignments: PropTypes.array.isRequired,
   course: PropTypes.object.isRequired,
   current_user: PropTypes.object.isRequired,
-  openKey: PropTypes.string,
   prefix: PropTypes.string.isRequired,
-  students: PropTypes.array.isRequired,
-  wikidataLabels: PropTypes.object,
-
-  sort: PropTypes.object.isRequired,
   sortSelect: PropTypes.func.isRequired,
   sortUsers: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
-  assignments: state.assignments.assignments,
-  openKey: state.ui.openKey,
-  sort: state.users.sort,
-  students: getStudentUsers(state),
-  trainingStatus: state.trainingStatus,
-  weeks: getWeeksArray(state),
-  wikidataLabels: state.wikidataLabels.labels,
-  userRevisions: state.userRevisions
-});
-
-const mapDispatchToProps = {
-  fetchArticleDetails,
-  fetchTrainingModuleExercisesByUser,
-  fetchUserRevisions,
-  setUploadFilters,
-  toggleUI
-};
-
-export default (connect(mapStateToProps, mapDispatchToProps)(Articles));
+export default (Articles);

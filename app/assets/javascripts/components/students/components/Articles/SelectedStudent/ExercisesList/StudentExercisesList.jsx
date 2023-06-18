@@ -24,7 +24,7 @@ const showRecent = (course) => {
 export const StudentExerciseList = (props) => {
   const {
     assignments, course, current_user, editAssignments, exerciseView, openKey, selected,
-    sort, toggleUI, trainingStatus, wikidataLabels, sortUsers, userRevisions = {}
+    sort, trainingStatus, wikidataLabels, sortUsers, userRevisions = {}
   } = props;
 
   const row = (
@@ -37,7 +37,6 @@ export const StudentExerciseList = (props) => {
       openKey={openKey}
       showRecent={showRecent(course)}
       student={selected}
-      toggleUI={toggleUI}
       wikidataLabels={wikidataLabels}
     />
   );
@@ -111,7 +110,6 @@ StudentExerciseList.propTypes = {
     sortKey: PropTypes.string
   }).isRequired,
   selected: PropTypes.object.isRequired,
-  toggleUI: PropTypes.func,
   sortUsers: PropTypes.func,
   wikidataLabels: PropTypes.object,
 };
