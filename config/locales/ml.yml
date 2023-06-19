@@ -49,6 +49,8 @@ ml:
     request_account_create: അംഗത്വമെടുക്കുക
     search: ചോദ്യം ചോദിക്കുക
     sign_up_extended: വിക്കിപീഡിയയിൽ പ്രവേശിക്കുക
+    sign_up_wikipedia: അല്ലെങ്കിൽ വിക്കിപീഡിയയിൽ സൈൻ അപ്പ് ചെയ്യുക
+    sign_up_log_in_extended: വിക്കിപീഡിയയോടൊപ്പം
     sign_up: അംഗത്വമെടുക്കുക
     submit: സമർപ്പിക്കുക
     training: പരിശീലനം
@@ -58,11 +60,18 @@ ml:
     opt_in: അതെ
     opt_out: അല്ല
     opt_yes: അതെ
+    opt_no: ഇല്ല
+    print: അച്ചടിയ്ക്കുക
   article_statuses:
+    not_yet_started: ആദ്യചുവടുകൾ
+    ready_for_review: പ്രഥമലേഖ്യം വികസിപ്പിക്കുന്നു
     reading_the_article: ലേഖനങ്ങൾ വായിക്കുമ്പോൾ
     providing_feedback: അഭിപ്രായം രേഖപ്പെടുത്തുക
     post_to_talk: സംവാദ താളിലേക്ക് പോസ്റ്റ് ചെയ്യുന്നു
+    peer_review_completed: അവലോകനം പൂർത്തിയായി
   dashboard:
+    create_note: നിങ്ങളുടെ ആദ്യ കോഴ്‌സ് സൃഷ്‌ടിക്കാൻ കോഴ്‌സ് സൃഷ്‌ടിക്കുക എന്നതിൽ
+      ക്ലിക്ക് ചെയ്യുക
     explore_examples: ഉദാഹരണങ്ങൾ കണ്ടെത്തുക
     no_courses_instructor: താങ്കൾക്ക് കോഴ്സുകളൊന്നുമില്ല.
     no_courses_student: താങ്കൾ ഒരു കോഴ്സിനും ഇതുവരെ ചേർന്നിട്ടില്ല.

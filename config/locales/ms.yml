@@ -4,6 +4,7 @@
 # Author: Ajeje Brazorf
 # Author: Anakmalaysia
 # Author: CyberTroopers
+# Author: EmpAhmadK
 # Author: Hakimi97
 # Author: SNN95
 # Author: Tofeiku
@@ -323,8 +324,10 @@ ms:
     next_update: Kemas kini anggaran seterusnya
     enqueued_update: Program ini telah ditambahkan ke baris gilir kemas kini.
     first_update: Anggaran mula kemas kini perangkaan
+    articles_created: Rencana Dicipta
     articles_created_wikidata: Item Tercipta
     articles_created_generic: Rencana Tercipta
+    articles_edited: Rencana Disunting
     articles_edited_wikidata: Item Tersunting
     articles_edited_generic: Laman Tersunting
     bytes_added: Bait Ditambah
