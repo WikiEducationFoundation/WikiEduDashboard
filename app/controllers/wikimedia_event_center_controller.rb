@@ -59,7 +59,7 @@ class WikimediaEventCenterController < ApplicationController
   # POST /wikimedia_event_center/update_event_participants as JSON
   # {
   #  "course_slug": string // the unique URL slug for the Course
-  #  "event_id": string or integer // a unique ID for the Event Center event. optional for a dry_run.
+  #  "event_id": string or integer // a unique ID for the Event Center event. optional for a dry_run
   #  "organizer_usernames": array of strings // the username(s) of the event's organizer(s).
   #  "secret": string // shared secret between the Event Center and the Dashboard
   #  "participant_usernames": array of strings // usernames of event's current participants
