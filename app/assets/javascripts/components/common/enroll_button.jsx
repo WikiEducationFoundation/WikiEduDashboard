@@ -177,7 +177,6 @@ const EnrollButton = ({ users, role, course, current_user, allowed, inline }) =>
   buttonClass += inline ? ' border plus' : ' dark';
   const buttonText = inline ? '+' : CourseUtils.i18n('enrollment', course.string_prefix);
 
-  // Remove this check when we re-enable adding users by username
   const button = (
     <button
       className={buttonClass}
