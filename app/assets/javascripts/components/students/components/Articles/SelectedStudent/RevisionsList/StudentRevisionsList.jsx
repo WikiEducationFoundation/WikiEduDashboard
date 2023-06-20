@@ -10,8 +10,11 @@ import StudentRevisionRow from './StudentRevisionRow';
 import CourseUtils from '~/app/assets/javascripts/utils/course_utils.js';
 import ArticleUtils from '~/app/assets/javascripts/utils/article_utils.js';
 import studentListKeys from '@components/students/shared/StudentList/student_list_keys.js';
+import { useDispatch } from 'react-redux';
+import { fetchUserRevisions } from '@actions/user_revisions_actions';
 
-export const StudentRevisionsList = ({ course, fetchUserRevisions, student, wikidataLabels, userRevisions }) => {
+export const StudentRevisionsList = ({ course, student, wikidataLabels, userRevisions }) => {
+  const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const [namespace, setNamespace] = useState('all');
 
@@ -40,7 +43,7 @@ export const StudentRevisionsList = ({ course, fetchUserRevisions, student, wiki
   };
 
 
-  if (!userRevisions[student.id]) fetchUserRevisions(course.id, student.id);
+  if (!userRevisions[student.id]) dispatch(fetchUserRevisions(course.id, student.id));
   const filteredRevisions = getfilteredRevisions();
   const uploadsLink = `/courses/${course.slug}/uploads`;
   const elements = [
@@ -109,7 +112,6 @@ StudentRevisionsList.propTypes = {
     id: PropTypes.number.isRequired,
     real_name: PropTypes.string
   }).isRequired,
-  fetchUserRevisions: PropTypes.func.isRequired,
 };
 
 export default StudentRevisionsList;
