@@ -25,6 +25,7 @@ class WikimediaEventCenterController < ApplicationController
   #   not_organizer - The organizer username doesn't match a user in the "facilitator" role
   #   already_in_use - The course already has participants, so it can't be linked to the event
   #   sync_already_enabled - The course is already linked to an event
+  #   missing_event_id - No Event Center ID ("event_id") was provided.
   def confirm_event_sync
     verify_secret { return }
     set_course { return }
@@ -70,7 +71,7 @@ class WikimediaEventCenterController < ApplicationController
   #   course_not_found - A Course with the provided slug doesn't exist
   #   not_organizer - The organizer username doesn't match a user in the "facilitator" role
   #   sync_not_enabled - This Course isn't linked to the Event Center event (based on event_id)
-  #   missing_event_id - No Event Center ID ("event_id") was provided.
+
   def update_event_participants
     verify_secret { return }
     set_course { return }
