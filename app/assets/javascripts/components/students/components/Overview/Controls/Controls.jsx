@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 // Components
 import SortButton from '@components/students/shared/SortButton.jsx';
-import EnrollButton from './EnrollButton.jsx';
+import EnrollButton from '../../../../common/enroll_button.jsx';
 import NewAccountButton from '@components/enroll/new_account_button.jsx';
 
 export const Controls = (props) => {
@@ -41,8 +41,8 @@ export const Controls = (props) => {
           />
         ) : null
       }
-      { requestAccountsButton }
-      { notifyOverdueButton }
+      {requestAccountsButton}
+      {notifyOverdueButton}
     </div>
   );
 };
