@@ -57,7 +57,14 @@ export const getLongDescription = (method) => {
   }
 };
 
-export const generatePetScanUrl = ({ templates_includes, templates_excludes, categories_includes, categories_excludes }) => {
+export const generatePetScanUrl = ({ templates_includes, templates_excludes, categories_includes, categories_excludes, namespaces }, home_wiki) => {
+  let { language, project } = home_wiki;
+  if (language === 'www' && project === 'wikidata') {
+    // special casing for wikidata
+    // this is how PetScan expects it
+    language = 'wikidata';
+    project = 'wikimedia';
+  }
   const baseUrl = 'https://petscan.wmflabs.org/?';
   const params = {
     templates_any: templates_includes.map(x => x.label).join('\n'),
@@ -65,15 +72,20 @@ export const generatePetScanUrl = ({ templates_includes, templates_excludes, cat
     categories: categories_includes.map(x => x.label).join('\n'),
     negcats: categories_excludes.map(x => x.label).join('\n'),
     doit: false,
-    'ns[0]': true,
+    language,
+    project,
+    ...includeNamespaces(namespaces),
     format: 'html',
   };
 
   return `${baseUrl}?${stringify(params)}`;
 };
 
-export const generatePetScanID = async ({ templates_includes, templates_excludes, categories_includes, categories_excludes }) => {
-  const request_url = generatePetScanUrl({ templates_includes, templates_excludes, categories_includes, categories_excludes });
+export const generatePetScanID = async ({ templates_includes, templates_excludes, categories_includes, categories_excludes, namespaces }, home_wiki) => {
+  if (!templates_includes.length && !templates_excludes.length && !categories_includes.length && !categories_excludes.length) {
+    return '';
+  }
+  const request_url = generatePetScanUrl({ templates_includes, templates_excludes, categories_includes, categories_excludes, namespaces }, home_wiki);
   const response = await fetch(request_url);
 
   const html = await response.text();
@@ -84,7 +96,7 @@ export const generatePetScanID = async ({ templates_includes, templates_excludes
 };
 
 
-export const getScopingMethods = async (scopingMethods) => {
+export const getScopingMethods = async (scopingMethods, home_wiki) => {
   const { selected } = scopingMethods;
   const result = {};
 
@@ -95,15 +107,60 @@ export const getScopingMethods = async (scopingMethods) => {
   }
   if (result.petscan) {
     try {
-      const psid = await generatePetScanID(result.petscan);
-      result.petscan.psids.push({
-        label: psid,
-        value: psid,
-      });
+      const psid = await generatePetScanID(result.petscan, home_wiki);
+      if (psid) {
+        result.petscan.psids.push({
+          label: psid,
+          value: psid,
+        });
+      }
     } catch (e) {
       // eslint-disable-next-line no-console
       console.log(e);
     }
+  }
+  return result;
+};
+
+export const getAvailableNamespaces = () => {
+  return [
+    { label: 'Mainspace', value: '0' },
+    { label: 'Talk', value: '1' },
+    { label: 'User', value: '2' },
+    { label: 'User talk', value: '3' },
+    { label: 'Wikipedia', value: '4' },
+    { label: 'Wikipedia talk', value: '5' },
+    { label: 'File', value: '6' },
+    { label: 'File talk', value: '7' },
+    { label: 'MediaWiki', value: '8' },
+    { label: 'MediaWiki talk', value: '9' },
+    { label: 'Template', value: '10' },
+    { label: 'Template talk', value: '11' },
+    { label: 'Help', value: '12' },
+    { label: 'Help talk', value: '13' },
+    { label: 'Category', value: '14' },
+    { label: 'Category talk', value: '15' },
+    { label: 'Portal', value: '100' },
+    { label: 'Portal talk', value: '101' },
+    { label: 'Draft', value: '118' },
+    { label: 'Draft talk', value: '119' },
+    { label: 'TimedText', value: '710' },
+    { label: 'TimedText talk', value: '711' },
+    { label: 'Module', value: '828' },
+    { label: 'Module talk', value: '829' },
+    { label: 'Gadget', value: '2300' },
+    { label: 'Gadget talk', value: '2301' },
+    { label: 'Gadget definition', value: '2302' },
+    { label: 'Gadget definition talk', value: '2303' },
+  ];
+};
+
+export const includeNamespaces = (namespaces) => {
+  const result = {};
+
+  // eslint-disable-next-line no-restricted-syntax
+  for (const namespace of namespaces) {
+    result[`ns[${namespace.value}]`] = true;
   }
   return result;
 };

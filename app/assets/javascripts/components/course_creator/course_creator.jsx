@@ -152,7 +152,7 @@ const CourseCreator = createReactClass({
         // then we must reset justSubmitted so that the user can fix the problem
         // and submit again.
         const onSaveFailure = () => this.setState({ justSubmitted: false, isLoading: false });
-        cleanedCourse.scoping_methods = await getScopingMethods(this.props.scopingMethods);
+        cleanedCourse.scoping_methods = await getScopingMethods(this.props.scopingMethods, cleanedCourse.home_wiki);
         this.setState({ course: cleanedCourse });
         this.setState({ isSubmitting: false });
         this.setState({ justSubmitted: true });
