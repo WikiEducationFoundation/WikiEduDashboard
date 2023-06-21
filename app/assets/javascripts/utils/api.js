@@ -558,10 +558,18 @@ const API = {
   },
 
   async searchForPages(wiki, search_term, namespace, map=(el)=>el){
+    let search_query;
+    if(search_term.split(' ').length > 1){
+      // if we have multiple words, search for the exact words
+      search_query = `intitle:${search_term}`;
+    }else{
+      // if we have a single word, search for the word anywhere in the title - as a substring
+      search_query = `intitle:/${search_term}/i`;
+    }
     const params = {
       action: 'query',
       list: 'search',
-      srsearch: `intitle:${search_term}`,
+      srsearch: search_query,
       srnamespace: namespace,
       origin: '*',
       format: 'json',
