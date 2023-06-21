@@ -116,6 +116,10 @@ class User < ApplicationRecord
     "User talk:#{username}"
   end
 
+  def user_page
+    "User:#{username}"
+  end
+
   def url_encoded_username
     url_encoded_mediawiki_title username
   end

@@ -9,7 +9,8 @@ class Courses::WatchlistController < ApplicationController
   def add_to_watchlist
     course = find_course_by_slug(params[:slug])
     wiki = course.home_wiki
-    array_of_users = CoursesUsers.new.user_page(course.students)
+    users = course.students
+    array_of_users = users.map(&:user_page)
     WatchlistEdits.new(wiki, current_user).watch_userpages(array_of_users)
   end
 end

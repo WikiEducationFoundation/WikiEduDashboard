@@ -144,10 +144,6 @@ class CoursesUsers < ApplicationRecord
     CourseCleanupManager.new(course, user).cleanup_articles
   end
 
-  def user_page(students)
-    students.map { |user| "User:#{user.username}" }
-  end
-
   #################
   # Class methods #
   #################
