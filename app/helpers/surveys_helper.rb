@@ -119,6 +119,14 @@ module SurveysHelper
 
   def question_conditional_string(question)
     return '' if question.nil?
+    unless question.conditionals.nil?
+      question_id = question.conditionals.split('|').first.to_i
+      begin
+        Rapidfire::Question.find(question_id)
+      rescue ActiveRecord::RecordNotFound
+        return ''
+      end
+    end
     return question.conditionals
   end
 
