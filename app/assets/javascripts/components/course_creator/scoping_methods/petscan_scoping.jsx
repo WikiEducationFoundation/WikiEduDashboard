@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { UPDATE_PETSCAN_IDS } from '../../../constants/scoping_methods';
 import CreatableSelect from 'react-select/creatable';
 
+const PETSCAN_URL_PATTERN = /https:\/\/petscan.wmflabs.org\/\?psid=(\d+)/;
 const PetScanScoping = () => {
   const [inputValue, setInputValue] = React.useState('');
   const petscanIDs = useSelector(state => state.scopingMethods.petscan.psids);
@@ -13,6 +14,7 @@ const PetScanScoping = () => {
     switch (event.key) {
       case 'Enter':
       case 'Tab':
+      case ',':
         if (isNaN(inputValue)) {
           return;
         }
@@ -30,27 +32,47 @@ const PetScanScoping = () => {
     }
   };
 
-    return (
-      <div className="scoping-method-petscan form-group">
-        <label htmlFor="petscan-ids">Enter PetScan IDs</label>
-        <CreatableSelect
-          inputValue={inputValue}
-          isClearable
-          isMulti
-          menuIsOpen={false}
-          onChange={psids => dispatch({ type: UPDATE_PETSCAN_IDS, psids })}
-          onInputChange={newValue => !isNaN(newValue) && setInputValue(newValue)}
-          onKeyDown={handleKeyDown}
-          placeholder="Type something and press enter..."
-          value={petscanIDs}
-          className="react-select-container"
-          id="petscan-psids"
-        />
-        <a href="https://petscan.wmflabs.org/" target="_blank">
-          {I18n.t('courses_generic.creator.scoping_methods.petscan_create_psid')}
-        </a>
-      </div>
-    );
+  const onChangeHandler = (newValue) => {
+    if (!newValue) {
+      setInputValue('');
+      return;
+    }
+    if (newValue.match(PETSCAN_URL_PATTERN)) {
+      const psid = newValue.match(PETSCAN_URL_PATTERN)[1];
+      dispatch({
+        type: UPDATE_PETSCAN_IDS,
+        psids: petscanIDs.concat({
+          label: psid,
+          value: psid,
+        }),
+      });
+      setInputValue('');
+    } else if (!isNaN(newValue)) {
+      setInputValue(newValue);
+    }
+  };
+
+  return (
+    <div className="scoping-method-petscan form-group">
+      <label htmlFor="petscan-ids">Enter PetScan IDs/URLs</label>
+      <CreatableSelect
+        inputValue={inputValue}
+        isClearable
+        isMulti
+        menuIsOpen={false}
+        onChange={psids => dispatch({ type: UPDATE_PETSCAN_IDS, psids })}
+        onInputChange={onChangeHandler}
+        onKeyDown={handleKeyDown}
+        placeholder="Type something and press enter. Or enter a comma-separated list"
+        value={petscanIDs}
+        className="react-select-container"
+        id="petscan-psids"
+      />
+      <a href="https://petscan.wmflabs.org/" target="_blank">
+        {I18n.t('courses_generic.creator.scoping_methods.petscan_create_psid')}
+      </a>
+    </div>
+  );
 };
 
 export default PetScanScoping;
