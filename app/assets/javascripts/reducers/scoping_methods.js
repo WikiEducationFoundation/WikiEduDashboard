@@ -1,4 +1,4 @@
-import { TOGGLE_SCOPING_METHOD, UPDATE_CATEGORIES, UPDATE_CATEGORY_DEPTH, UPDATE_EXCLUDE_CATEGORIES_PETSCAN, UPDATE_EXCLUDE_TEMPLATES_PETSCAN, UPDATE_INCLUDE_CATEGORIES_PETSCAN, UPDATE_INCLUDE_TEMPLATES_PETSCAN, UPDATE_NAMESPACES, UPDATE_PAGEPILE_IDS, UPDATE_PETSCAN_IDS, UPDATE_TEMPLATES } from '../constants/scoping_methods';
+import { TOGGLE_SCOPING_METHOD, UPDATE_CATEGORIES, UPDATE_CATEGORY_DEPTH, UPDATE_PAGEPILE_IDS, UPDATE_PETSCAN_IDS, UPDATE_TEMPLATES } from '../constants/scoping_methods';
 
 const initialState = {
   selected: [],
@@ -11,14 +11,6 @@ const initialState = {
   },
   petscan: {
     psids: [],
-    categories_includes: [],
-    categories_excludes: [],
-    templates_includes: [],
-    templates_excludes: [],
-    namespaces: [
-      { label: 'Mainspace', value: '0' },
-      { label: 'Talk', value: '1' },
-    ],
   },
   pagepile: {
     ids: [],
@@ -76,44 +68,6 @@ export default function course(state = initialState, action) {
         }
       };
     }
-    case UPDATE_INCLUDE_CATEGORIES_PETSCAN: {
-      return {
-        ...state,
-        petscan: {
-          ...state.petscan,
-          categories_includes: action.categories
-        }
-      };
-    }
-
-    case UPDATE_INCLUDE_TEMPLATES_PETSCAN: {
-      return {
-        ...state,
-        petscan: {
-          ...state.petscan,
-          templates_includes: action.templates
-        }
-      };
-    }
-
-    case UPDATE_EXCLUDE_CATEGORIES_PETSCAN: {
-      return {
-        ...state,
-        petscan: {
-          ...state.petscan,
-          categories_excludes: action.categories
-        }
-      };
-    }
-    case UPDATE_EXCLUDE_TEMPLATES_PETSCAN: {
-      return {
-        ...state,
-        petscan: {
-          ...state.petscan,
-          templates_excludes: action.templates
-        }
-      };
-    }
 
     case UPDATE_PAGEPILE_IDS: {
       return {
@@ -121,16 +75,6 @@ export default function course(state = initialState, action) {
         pagepile: {
           ...state.pagepile,
           ids: action.ids
-        }
-      };
-    }
-
-    case UPDATE_NAMESPACES: {
-      return {
-        ...state,
-        petscan: {
-          ...state.petscan,
-          namespaces: action.namespaces
         }
       };
     }
