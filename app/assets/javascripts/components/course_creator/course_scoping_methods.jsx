@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { ScopingMethod } from './scoping_method';
 import ScopingMethodTypes from './scoping_method_types';
 import CategoriesScoping from './scoping_methods/categories_scoping';
@@ -17,7 +17,6 @@ const CourseScoping = ({ show, wizardController, showCourseDates }) => {
   ];
 
   const [pageNumber, setPageNumber] = useState(0);
-  const [descriptionHidden, setDescriptionHidden] = useState(false);
 
   const canGoPrev = pageNumber > 0;
   const pageName = scopingMethods[pageNumber];
@@ -37,14 +36,6 @@ const CourseScoping = ({ show, wizardController, showCourseDates }) => {
     }
   };
 
-  const hideDescription = (hidden) => {
-    setDescriptionHidden(hidden);
-  };
-
-  useEffect(() => {
-    setDescriptionHidden(false);
-  }, [pageNumber]);
-
   return (
     <div className={`wizard__scoping ${show ? '' : 'hidden'}`}>
       <ScopingMethod
@@ -52,7 +43,7 @@ const CourseScoping = ({ show, wizardController, showCourseDates }) => {
         nextPage={nextPage}
         prevPage={prevPage}
         scopingMethod={scopingMethods[pageNumber]}
-        description={!descriptionHidden && getLongDescription(scopingMethods[pageNumber])}
+        description={getLongDescription(scopingMethods[pageNumber])}
         name={getScopingMethodLabel(scopingMethods[pageNumber])}
         canGoNext={canGoNext}
         canGoPrev={canGoPrev}
@@ -61,7 +52,7 @@ const CourseScoping = ({ show, wizardController, showCourseDates }) => {
         {pageName === 'index' && <ScopingMethodTypes />}
         {pageName === CATEGORIES && <CategoriesScoping />}
         {pageName === TEMPLATES && <TemplatesScoping />}
-        {pageName === PETSCAN && <PetScanScoping hideDescription={hideDescription}/>}
+        {pageName === PETSCAN && <PetScanScoping />}
         {pageName === PAGEPILE && <PagePileScoping />}
       </ScopingMethod>
     </div>
