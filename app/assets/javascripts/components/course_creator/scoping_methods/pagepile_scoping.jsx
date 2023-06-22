@@ -10,30 +10,35 @@ const PagePileScoping = () => {
 
   const dispatch = useDispatch();
 
+  const handleAddId = (value) => {
+    if (isNaN(value)) {
+      return;
+    }
+    dispatch({
+      type: UPDATE_PAGEPILE_IDS,
+      ids: pagePileIds.concat({
+        label: value,
+        value: value,
+      }),
+    });
+    setInputValue('');
+  };
+
   const handleKeyDown = async (event) => {
     if (!inputValue) return;
     switch (event.key) {
       case 'Enter':
       case 'Tab':
       case ',':
-        if (isNaN(inputValue)) {
-          return;
-        }
-        dispatch({
-          type: UPDATE_PAGEPILE_IDS,
-          ids: pagePileIds.concat({
-            label: inputValue,
-            value: inputValue,
-          }),
-        });
-        setInputValue('');
+        handleAddId(inputValue);
         event.preventDefault();
         break;
       default:
     }
   };
 
-  const onChangeHandler = (newValue) => {
+  const onChangeHandler = (newValue, data) => {
+    if (data.action !== 'input-change') return;
     if (!newValue) {
       setInputValue('');
       return;
@@ -53,6 +58,14 @@ const PagePileScoping = () => {
     }
   };
 
+  const onBlurHandler = () => {
+    if (!inputValue) {
+      setInputValue('');
+      return;
+    }
+    handleAddId(inputValue);
+  };
+
   return (
     <div className="scoping-method-petscan form-group">
       <label htmlFor="pagepile-ids">Enter PagePile IDs/URLs</label>
@@ -68,6 +81,7 @@ const PagePileScoping = () => {
         value={pagePileIds}
         className="react-select-container"
         id="pagepile-ids"
+        onBlur={onBlurHandler}
       />
     </div>
   );

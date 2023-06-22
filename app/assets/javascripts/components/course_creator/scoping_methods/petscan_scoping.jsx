@@ -9,30 +9,35 @@ const PetScanScoping = () => {
   const petscanIDs = useSelector(state => state.scopingMethods.petscan.psids);
   const dispatch = useDispatch();
 
+  const handleAddId = (value) => {
+    if (isNaN(value)) {
+      return;
+    }
+    dispatch({
+      type: UPDATE_PETSCAN_IDS,
+      psids: petscanIDs.concat({
+        label: value,
+        value: value,
+      }),
+    });
+    setInputValue('');
+  };
+
   const handleKeyDown = async (event) => {
     if (!inputValue) return;
     switch (event.key) {
       case 'Enter':
       case 'Tab':
       case ',':
-        if (isNaN(inputValue)) {
-          return;
-        }
-        dispatch({
-          type: UPDATE_PETSCAN_IDS,
-          psids: petscanIDs.concat({
-            label: inputValue,
-            value: inputValue,
-          }),
-        });
-        setInputValue('');
+        handleAddId(inputValue);
         event.preventDefault();
         break;
       default:
     }
   };
 
-  const onChangeHandler = (newValue) => {
+  const onChangeHandler = (newValue, data) => {
+    if (data.action !== 'input-change') return;
     if (!newValue) {
       setInputValue('');
       return;
@@ -52,6 +57,14 @@ const PetScanScoping = () => {
     }
   };
 
+  const onBlurHandler = () => {
+    if (!inputValue) {
+      setInputValue('');
+      return;
+    }
+    handleAddId(inputValue);
+  };
+
   return (
     <div className="scoping-method-petscan form-group">
       <label htmlFor="petscan-ids">Enter PetScan IDs/URLs</label>
@@ -67,6 +80,7 @@ const PetScanScoping = () => {
         value={petscanIDs}
         className="react-select-container"
         id="petscan-psids"
+        onBlur={onBlurHandler}
       />
       <a href="https://petscan.wmflabs.org/" target="_blank">
         {I18n.t('courses_generic.creator.scoping_methods.petscan_create_psid')}
