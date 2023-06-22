@@ -3,7 +3,7 @@ import { TOGGLE_SCOPING_METHOD, UPDATE_CATEGORIES, UPDATE_CATEGORY_DEPTH, UPDATE
 const initialState = {
   selected: [],
   categories: {
-    depth: 1,
+    depth: 0,
     tracked: [],
   },
   templates: {
