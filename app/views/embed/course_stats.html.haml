@@ -1,4 +1,42 @@
-:javascript
-  const course = (#{raw render(template: "courses/course", formats: [:json])}).course
 #root
-= hot_javascript_tag('embed_course_stats')
+  .stat-display
+    .stat-display__stat#articles-created
+      .stat-display__value= number_to_human(@course.new_article_count)
+      %small= I18n.t('metrics.articles_created')
+
+    .stat-display__stat#articles-edited
+      .stat-display__value= number_to_human(@course.article_count)
+      %small= I18n.t('metrics.articles_edited')
+
+    .stat-display__stat#total-edits
+      .stat-display__value= number_to_human(@course.revision_count)
+      %small= I18n.t('metrics.edit_count_description')
+
+    .stat-display__stat.tooltip-trigger#student-editors
+      .stat-display__value= number_to_human(@course.user_count)
+      %small= I18n.t('courses.student_editors')
+
+    - if @course.home_wiki.language == 'en'
+      .stat-display__stat#word-count
+        .stat-display__value= number_to_human(@course.word_count)
+        %small= I18n.t('metrics.word_count')
+    - else
+      .stat-display__stat#bytes-added
+        .stat-display__value= number_to_human(@course.character_sum_human)
+        %small= I18n.t('metrics.bytes_added')
+
+    - if @course.references_count != '0'
+      .stat-display__stat#references-count
+        .stat-display__value= number_to_human(@course.references_count)
+        %small= I18n.t('metrics.references_count')
+
+    .stat-display__stat#view-count
+      - if @course.view_sum == '0' && @course.article_count != '0'
+        .stat-display__data= I18n.t('metrics.view_data_unavailable')
+      - else
+        .stat-display__value= number_to_human(@course.view_sum)
+      %small= I18n.t('metrics.view_count_description')
+
+    .stat-display__stat.tooltip-trigger#upload-count
+      .stat-display__value= number_to_human(@course.upload_count)
+      %small= I18n.t('metrics.upload_count')
