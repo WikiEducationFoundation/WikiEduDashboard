@@ -891,6 +891,8 @@ en:
         configure: Configure Scoping Methods
         about: >
           For an Article Scoped Program, the Dashboard will only track edits to the articles that you have configured it for. After your page has been created, you can add individual articles to track assigning articles to individual editors or by adding them as Available Articles. For larger sets of articles, you can use any of these tools to define articles you want to track.
+
+          Select any scoping methods you want to configure now. You can also add scoping methods later from the Articles tab.
         categories: Categories
         categories_short_desc: The Category feature on a wiki is used to collect related articles. You can use the name of the Category to tell the Dashboard to track all the articles in that Category.
         categories_desc: >
@@ -915,8 +917,6 @@ en:
           PetScan saves the query parameters and provides an ID for that query. The results of that query may change over time, for example when new articles are added to category that the query includes. The Dashboard will periodically refresh the query results for a given ID, and will update its statistics based on the latest set of articles that PetScan produces.
         petscan_create_psid: Create a PetScan ID using the official PetScan tool
         categories_include_OR: Articles containing ANY of these categories will be tracked
-        categories_include_AND: Articles containing ALL of these categories will be tracked
-        templates_include_AND: Articles containing ALL of these templates will be tracked
         templates_include_OR: Articles containing ANY of these templates will be tracked
         start_typing_to_search: Start typing to search
 
