@@ -68,7 +68,7 @@ Assignment.propTypes = {
   assignment: PropTypes.shape({
     article_title: PropTypes.string.isRequired,
     assignment_all_statuses: PropTypes.arrayOf(PropTypes.string).isRequired,
-    assignment_status: PropTypes.string.isRequired
+    assignment_status: PropTypes.string
   }).isRequired,
   course: PropTypes.shape({
     type: PropTypes.string.isRequired
