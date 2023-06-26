@@ -81,8 +81,14 @@ ms:
     reading_the_article: Membaca Rencana
     providing_feedback: Memberi Maklum Balas
     post_to_talk: Mengulas di Laman Perbincangan
+    peer_review_completed: Semakan Selesai
   dashboard:
     create_note: Klik Cipta Kursus untuk mencipta kursus pertama anda.
+    create_preparation_note: Pastikan anda mempunyai kalendar akademik anda sebelum
+      anda mula; alat reka bentuk tugasan akan menggunakan tarikh mesyuarat kelas
+      anda — termasuk sebarang cuti sekolah dan hari perayaan — untuk menyesuaikan
+      garis masa anda dengan julat tarikh yang anda pilih. Ingat, anda sentiasa boleh
+      mengedit garis masa untuk memenuhi keperluan anda.
     explore_course_pages: Jelajah Laman Kursus
     explore_examples: Jelajah Contoh Kursus
     join_note: Sesudah anda menerima kod laluan dari pengajar, klik Cari Kursus Anda

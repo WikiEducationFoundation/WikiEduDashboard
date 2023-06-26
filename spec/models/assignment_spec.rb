@@ -14,6 +14,7 @@
 #  role          :integer
 #  wiki_id       :integer
 #  sandbox_url   :text(65535)
+#  flags         :text(65535)
 #
 
 require 'rails_helper'

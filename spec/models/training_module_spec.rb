@@ -15,6 +15,7 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  kind          :integer          default(0)
+#  settings      :text(65535)
 #
 
 require 'rails_helper'

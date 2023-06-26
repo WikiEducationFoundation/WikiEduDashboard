@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-json.call(assignment, :id, :user_id, :article_id, :article_title, :role, :article_url, :sandbox_url)
+json.call(assignment, :id, :user_id, :article_id, :role, :article_url, :sandbox_url,
+          :draft_sandbox_status, :bibliography_sandbox_status, :peer_review_sandbox_status)
 json.assignment_id assignment.id
 json.article_title assignment.article_title.tr('_', ' ')
 
