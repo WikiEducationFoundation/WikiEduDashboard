@@ -44,7 +44,7 @@ describe CheckAssignmentStatus do
           subject
         end
         assignment.reload
-        expect(assignment.draft_sandbox_status).to eq('does_not_exist')
+        expect(assignment.draft_sandbox_status).to eq('exists_in_userspace')
         expect(assignment.bibliography_sandbox_status).to eq('exists_in_userspace')
       end
     end
