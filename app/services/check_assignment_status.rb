@@ -22,6 +22,10 @@ class CheckAssignmentStatus
     when Assignment::Roles::ASSIGNED_ROLE
       set_assigned_sandboxes
     when Assignment::Roles::REVIEWING_ROLE
+      # For reviews, we also need to check whether the draft sandboxes to review exist.
+      # An alternative strategy would be to use the corresponding ASSIGNED_ROLE assignment
+      # to get data about it, but this way keeps the records independent.
+      set_assigned_sandboxes
       set_review_sandbox
     end
 

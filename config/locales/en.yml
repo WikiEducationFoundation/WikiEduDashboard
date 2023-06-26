@@ -321,6 +321,7 @@ en:
     review_tooltip: This is for article(s) you plan to peer review or provide feedback on.
     review_tooltip_wikidata: This is for item(s) you plan to peer review or provide feedback on.
     sandbox_draft_link: Sandbox Draft
+    sandbox_redlink_info: This link is red because the page has not been created yet. (If it was created recently, the Dashboard will update its data soon.)
     select: Select
     warning_untracked_wiki: >
       Please note that the article you’ve chosen is on a wiki not tracked
