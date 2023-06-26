@@ -34,6 +34,20 @@ describe CheckAssignmentStatus do
       expect(assignment.draft_sandbox_status).to eq('does_not_exist')
       expect(assignment.bibliography_sandbox_status).to eq('exists_in_userspace')
     end
+
+    context 'whent the sandbox include URL-encoded characters' do
+      let(:sandbox_url) { 'https://en.wikipedia.org/wiki/User:Sage (Wiki Ed)/Fender_%28company%29' }
+
+      it 'still works' do
+        expect(assignment.bibliography_sandbox_status).to eq('does_not_exist')
+        VCR.use_cassette 'assignment_status' do
+          subject
+        end
+        assignment.reload
+        expect(assignment.draft_sandbox_status).to eq('does_not_exist')
+        expect(assignment.bibliography_sandbox_status).to eq('exists_in_userspace')
+      end
+    end
   end
 
   context 'when a peer review sandbox exists' do

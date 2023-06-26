@@ -91,11 +91,11 @@ class Assignment < ApplicationRecord
   end
 
   def sandbox_pagename
-    sandbox_url.gsub("#{wiki.base_url}/wiki/", '')
+    URI.decode_www_form_component sandbox_url.gsub("#{wiki.base_url}/wiki/", '')
   end
 
   def bibliography_pagename
-    "#{sandbox_pagename}/bibliography"
+    "#{sandbox_pagename}/Bibliography"
   end
 
   def peer_review_pagename
