@@ -1,5 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`MyArticlesAssignmentLinks should not show the bibliography link if the course type is anything but ClassroomProgramCourse 1`] = `ReactWrapper {}`;
-
-exports[`MyArticlesAssignmentLinks should show the default links 1`] = `ShallowWrapper {}`;

@@ -1,5 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`SandboxLink should include a template in the link if the assignment is a new article and editMode is true 1`] = `ShallowWrapper {}`;
-
-exports[`SandboxLink should show the link 1`] = `ShallowWrapper {}`;
