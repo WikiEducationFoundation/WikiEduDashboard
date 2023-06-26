@@ -33,7 +33,6 @@ module.exports = (env) => {
     survey_results: [`${jsSource}/surveys/survey-results.jsx`],
     campaigns: [`${jsSource}/campaigns.js`],
     charts: [`${jsSource}/charts.js`],
-    embed_course_stats: [`${jsSource}/embed_course_stats.js`],
     accordian: [`${jsSource}/accordian.js`],
     editable: [`${jsSource}/utils/editable.js`],
     i18n: [`${jsSource}/i18n.js`],
