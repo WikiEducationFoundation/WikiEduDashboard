@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
@@ -126,9 +125,7 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
     if (!users && !showArticleFinder) {
       fetchArticleDetails();
     } else if (!userIdsFetched && !showArticleFinder) {
-      console.log('fetching user ids...');
       fetchUserIds();
-      console.log('done fetching user ids');
     }
     // WhoColor is only available for some languages
     if (isWhocolorLang()) {
