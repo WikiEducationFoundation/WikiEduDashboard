@@ -184,5 +184,4 @@ describe CoursesUsers, type: :model do
       expect(subject.program_manager).to eq(true)
     end
   end
-
 end
