@@ -146,6 +146,13 @@ const CourseClonedModal = createReactClass({
     return course.cloned_status === 2;
   },
 
+  saveEnabled() {
+    // You must be logged in and have permission to edit the course.
+    // This will be the case if you created it (and are therefore the instructor) or if you are an admin.
+    if (!this.props.currentUser.isAdvancedRole) { return false; }
+    return true;
+  },
+
   render() {
     const i18nPrefix = this.props.course.string_prefix;
     let buttonClass = 'button dark';
@@ -168,6 +175,7 @@ const CourseClonedModal = createReactClass({
     }
 
     const dateProps = CourseDateUtils.dateProps(this.state.course);
+    const saveDisabled = this.saveEnabled() ? '' : 'disabled';
 
     // Form components that are conditional on course type
     let expectedStudents;
@@ -388,7 +396,7 @@ const CourseClonedModal = createReactClass({
               </div>
               {rightColumn}
               <button onClick={this.cancelCloneCourse} className="button light">{CourseUtils.i18n('creator.cancel_course_clone', i18nPrefix)}</button>
-              <button onClick={this.saveCourse} className={buttonClass}>{CourseUtils.i18n('creator.save_cloned_course', i18nPrefix)}</button>
+              <button onClick={this.saveCourse} disabled={saveDisabled} className={buttonClass}>{CourseUtils.i18n('creator.save_cloned_course', i18nPrefix)}</button>
             </div>
           </div>
         </div>
