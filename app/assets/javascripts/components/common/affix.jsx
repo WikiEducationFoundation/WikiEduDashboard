@@ -1,18 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 
 const Affix = ({ className, offset = 0, children }) => {
   const [affix, setAffix] = useState(false);
+  const affixRef = useRef(affix);
+
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => affixRef.current = affix, [affix]);
+
   const handleScroll = () => {
     const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
 
-    if (!affix && scrollTop >= offset) { setAffix(true); }
-    if (affix && scrollTop < offset) { setAffix(false); }
+    if (!affixRef.current && scrollTop >= offset) {
+      setAffix(true);
+    }
+    if (affixRef.current && scrollTop < offset) {
+      setAffix(false);
+    }
   };
 
   return (
