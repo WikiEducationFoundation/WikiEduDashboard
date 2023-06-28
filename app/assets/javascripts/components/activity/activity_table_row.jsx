@@ -1,12 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import DiffViewer from '../revisions/diff_viewer.jsx';
+import { toggleUI } from '../../actions';
+import { useDispatch } from 'react-redux';
 
-const ActivityTableRow = ({ toggleDrawer, isOpen, diffUrl, revisionDateTime,
+const ActivityTableRow = ({ isOpen, diffUrl, revisionDateTime,
   revisionScore, reportUrl, revision, rowId, articleUrl, title, talkPageLink,
   author }) => {
+  const dispatch = useDispatch();
+
   const openDrawer = () => {
-    return toggleDrawer(`drawer_${rowId}`);
+    return dispatch(toggleUI(`drawer_${rowId}`));
   };
 
   let revDateElement;
@@ -74,7 +78,6 @@ ActivityTableRow.propTypes = {
   title: PropTypes.string,
   revision: PropTypes.object,
   isOpen: PropTypes.bool,
-  toggleDrawer: PropTypes.func
 };
 
 export default ActivityTableRow;
