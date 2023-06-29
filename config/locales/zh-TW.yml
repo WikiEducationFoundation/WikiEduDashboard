@@ -270,6 +270,7 @@ zh-TW:
     review_tooltip: 這是用於您打算同行評審、或是提供意見回饋的條目。
     review_tooltip_wikidata: 這是用於您打算同行評審、或是提供意見回饋的項目。
     sandbox_draft_link: 沙盒草稿
+    sandbox_redlink_info: 此連結因頁面尚未建立，以紅色呈現。（如果是最近建立的，面板不久後會更新資料。）
     select: 選擇
     warning_untracked_wiki: 請留意您所挑選的條目是位在沒被此課程追蹤的 wiki 上。要追蹤對於此條目的貢獻，導師必須添加以下 wiki
       到此課程裡：%{wiki}

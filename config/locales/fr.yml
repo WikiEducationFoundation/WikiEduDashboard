@@ -358,6 +358,9 @@ fr:
     review_tooltip_wikidata: Ceci est destiné aux éléments que vous prévoyez de faire
       relire par un pair ou sur lesquels vous prévoyez de fournir un avis.
     sandbox_draft_link: Brouillon du bac à sable
+    sandbox_redlink_info: Ce lien est rouge parce que la page n’a pas encore été créée
+      (si elle a été créée récemment, le tableau de bord mettra bientôt ses données
+      à jour).
     select: Sélectionner
     warning_untracked_wiki: 'Veuillez noter que l’article que vous avez choisi est
       sur un wiki qui n’est pas suivi par ce cours. Pour suivre les contributions
