@@ -27,7 +27,7 @@ describe('Actions', () => {
     expect(component.find('PeerReviewChecklist').length).toEqual(0);
     expect(component.find('Connect(OnClickOutside(Feedback))').length).toEqual(0);
     expect(component.find('OnClickOutside(MainspaceChecklist)').length).toEqual(0);
-    expect(component.find('OnClickOutside(FinalArticleChecklist)').length).toEqual(0);
+    expect(component.find('FinalArticleChecklist').length).toEqual(0);
   });
 
   it('should show the PageViews component if there is an article_id', () => {
@@ -72,7 +72,7 @@ describe('Actions', () => {
       );
 
       expect(component.find('Connect(OnClickOutside(Feedback))').length).toEqual(1);
-      expect(component.find('OnClickOutside(FinalArticleChecklist)').length).toEqual(1);
+      expect(component.find('FinalArticleChecklist').length).toEqual(1);
     });
   });
 });
