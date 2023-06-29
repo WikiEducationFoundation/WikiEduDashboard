@@ -24,7 +24,7 @@ describe('Actions', () => {
     expect(component.find('RemoveButton').length).toEqual(1);
     expect(component.find('PageViews').length).toEqual(0);
     expect(component.find('MarkAsIncompleteButton').length).toEqual(0);
-    expect(component.find('OnClickOutside(PeerReviewChecklist)').length).toEqual(0);
+    expect(component.find('PeerReviewChecklist').length).toEqual(0);
     expect(component.find('Connect(OnClickOutside(Feedback))').length).toEqual(0);
     expect(component.find('OnClickOutside(MainspaceChecklist)').length).toEqual(0);
     expect(component.find('OnClickOutside(FinalArticleChecklist)').length).toEqual(0);
@@ -46,7 +46,7 @@ describe('Actions', () => {
       const component = shallow(
         <Actions {...props} isEnglishWikipedia={jest.fn().mockReturnValue(true)} />
       );
-      expect(component.find('OnClickOutside(PeerReviewChecklist)').length).toEqual(1);
+      expect(component.find('PeerReviewChecklist').length).toEqual(1);
     });
 
     it('should show the Feedback and MainspaceChecklist if the role is set to 0', () => {
