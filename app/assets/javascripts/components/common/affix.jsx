@@ -1,53 +1,39 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 
-const Affix = createReactClass({
-  displayName: 'Affix',
+const Affix = ({ className, offset = 0, children }) => {
+  const [affix, setAffix] = useState(false);
+  const affixRef = useRef(affix);
 
-  propTypes: {
-    offset: PropTypes.number,
-    className: PropTypes.string,
-    children: PropTypes.node
-  },
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-  getDefaultProps() {
-    return { offset: 0 };
-  },
+  useEffect(() => affixRef.current = affix, [affix]);
 
-  getInitialState() {
-    return { affix: false };
-  },
-
-  componentDidMount() {
-    return window.addEventListener('scroll', this._handleScroll);
-  },
-
-  componentWillUnmount() {
-    return window.removeEventListener('scroll', this._handleScroll);
-  },
-
-  _handleScroll() {
-    const { affix } = this.state;
-    const { offset } = this.props;
+  const handleScroll = () => {
     const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
 
-    if (!affix && scrollTop >= offset) { this.setState({ affix: true }); }
-    if (affix && scrollTop < offset) { return this.setState({ affix: false }); }
-  },
+    if (!affixRef.current && scrollTop >= offset) {
+      setAffix(true);
+    }
+    if (affixRef.current && scrollTop < offset) {
+      setAffix(false);
+    }
+  };
 
-  render() {
-    const affix = this.state.affix === true ? 'affix' : '';
-    let { className } = this.props;
-    className += ` ${affix}`;
+  return (
+    <div className={`${className} ${affix === true ? 'affix' : ''}`}>
+      {children}
+    </div>
+  );
+};
 
-    return (
-      <div className={className}>
-        {this.props.children}
-      </div>
-    );
-  }
-}
-);
+Affix.propTypes = {
+  offset: PropTypes.number,
+  className: PropTypes.string,
+  children: PropTypes.node
+};
 
 export default Affix;
