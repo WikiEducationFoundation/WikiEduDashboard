@@ -10,7 +10,7 @@ const Affix = ({ className, offset = 0, children }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => affixRef.current = affix, [affix]);
+  useEffect(() => { affixRef.current = affix; }, [affix]);
 
   const handleScroll = () => {
     const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
