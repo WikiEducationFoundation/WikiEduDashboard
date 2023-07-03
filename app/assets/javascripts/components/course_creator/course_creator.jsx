@@ -21,6 +21,8 @@ import ReuseExistingCourse from './reuse_existing_course.jsx';
 import CourseForm from './course_form.jsx';
 import CourseDates from './course_dates.jsx';
 import { fetchAssignments } from '../../actions/assignment_actions';
+import CourseScoping from './course_scoping_methods';
+import { getScopingMethods } from '../util/scoping_methods';
 
 const CourseCreator = createReactClass({
   displayName: 'CourseCreator',
@@ -58,6 +60,8 @@ const CourseCreator = createReactClass({
       use_start_and_end_times: this.props.courseCreator.useStartAndEndTimes,
       courseCreationNotice: this.props.courseCreator.courseCreationNotice,
       copyCourseAssignments: false,
+      showingCreateCourseButton: false,
+      onLastScoping: false,
     };
   },
 
@@ -77,6 +81,22 @@ const CourseCreator = createReactClass({
     return this.setState({
       copyCourseAssignments: e.target.checked
     });
+  },
+
+  getWizardController({ hidden, backFunction }) {
+    return (
+      <div className={`wizard__panel__controls ${hidden ? 'hidden' : ''}`}>
+        <div className="left">
+          <button onClick={backFunction || this.backToCourseForm} className="dark button">Back</button>
+          <p className="tempCourseIdText">{this.state.tempCourseId}</p>
+        </div>
+        <div className="right">
+          <div><p className="red">{this.props.firstErrorMessage}</p></div>
+          <Link className="button" to="/" id="course_cancel">{I18n.t('application.cancel')}</Link>
+          <button onClick={this.saveCourse} className="dark button button__submit">{CourseUtils.i18n('creator.create_button', this.state.course_string_prefix)}</button>
+        </div>
+      </div>
+    );
   },
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -133,6 +153,7 @@ const CourseCreator = createReactClass({
         // then we must reset justSubmitted so that the user can fix the problem
         // and submit again.
         const onSaveFailure = () => this.setState({ justSubmitted: false });
+        cleanedCourse.scoping_methods = getScopingMethods(this.props.scopingMethods);
         this.props.submitCourse({ course: cleanedCourse }, onSaveFailure);
       }
     } else if (!this.props.validations.exists.valid) {
@@ -207,7 +228,8 @@ const CourseCreator = createReactClass({
 
     return this.setState({
       showCourseForm: true,
-      showWizardForm: false
+      showWizardForm: false,
+      showCourseScoping: false,
     });
   },
 
@@ -217,7 +239,20 @@ const CourseCreator = createReactClass({
       this.props.resetValidations();
       return this.setState({
         showCourseDates: true,
+        showCourseScoping: false,
         showCourseForm: false
+      });
+    }
+  },
+  showCourseScoping() {
+    this.props.activateValidations();
+    if (this.expectedStudentsIsValid() && this.titleSubjectAndDescriptionAreValid() && this.dateTimesAreValid()) {
+      this.props.resetValidations();
+      return this.setState({
+        showCourseDates: false,
+        showCourseScoping: true,
+        showCourseForm: false,
+        showNewOrClone: false
       });
     }
   },
@@ -272,13 +307,15 @@ const CourseCreator = createReactClass({
     let showNewOrClone;
     let showWizardForm;
     let showCourseDates;
-
+    let showCourseScoping;
     if (this.state.showWizardForm) {
       showWizardForm = true;
     } else if (this.state.showCourseDates) {
       showCourseDates = true;
     } else if (this.state.showCourseForm) {
       showCourseForm = true;
+    } else if (this.state.showCourseScoping) {
+      showCourseScoping = true;
     } else if (this.state.showCloneChooser) {
       showCloneChooser = true;
       // If user has no courses, just open the CourseForm immediately because there are no cloneable courses.
@@ -321,8 +358,16 @@ const CourseCreator = createReactClass({
     courseWizard += showWizardForm ? '' : ' hidden';
     courseDates += showCourseDates ? '' : ' hidden';
 
+    // the scoping modal is only enabled for ArticleScopedPrograms
+    const scopingModalEnabled = this.props.course.type === 'ArticleScopedProgram';
+
+    // we're on the last page if
+    // 1. scopingModalEnabled is enabled, and we're currently showing the course scoping modal's last page
+    // 2. scopingModalEnabled is disabled, and we're currently showing the course dates
+    // the second one is handled below. The first case is handled inside of app/assets/javascripts/components/course_creator/scoping_method.jsx
+    const showingCreateCourseButton = !scopingModalEnabled && showCourseDates;
+
     const cloneOptions = showNewOrClone ? '' : ' hidden';
-    const controlClass = `wizard__panel__controls ${courseDates}`;
     const selectClass = showCloneChooser ? '' : ' hidden';
     const options = this.props.cloneableCourses.map((course, i) => <option key={i} data-id-key={course.id} value={course.slug}>{course.title}</option>);
     const selectClassName = `select-container ${selectClass}`;
@@ -343,14 +388,15 @@ const CourseCreator = createReactClass({
       </span>
     );
 
+
     return (
       <Modal key="modal">
         <Notifications />
         <div className="container">
           <div className="wizard__panel active" style={formStyle}>
-            <h3>{CourseUtils.i18n('creator.create_new', this.state.course_string_prefix)}</h3>
+            {!showCourseScoping && <h3>{CourseUtils.i18n('creator.create_new', this.state.course_string_prefix)}</h3>}
             {specialNotice}
-            <p>{instructions}</p>
+            {instructions && <p>{instructions}</p>}
             <NewOrClone
               cloneClasss={cloneOptions}
               chooseNewCourseAction={this.chooseNewCourse}
@@ -394,18 +440,18 @@ const CourseCreator = createReactClass({
               stringPrefix={this.state.course_string_prefix}
               updateCourseProps={this.props.updateCourse}
               enableTimeline={this.props.courseCreator.useStartAndEndTimes}
+              // the following properties are only required when scopingModalEnabled is enabled
+              // that is, when the selected course type is ArticleScopedProgram
+              next={scopingModalEnabled && this.showCourseScoping}
+              back={scopingModalEnabled && this.backToCourseForm}
+              firstErrorMessage={scopingModalEnabled && this.props.firstErrorMessage}
             />
-            <div className={controlClass}>
-              <div className="left">
-                <button onClick={this.backToCourseForm} className="dark button">Back</button>
-                <p className="tempCourseIdText">{this.state.tempCourseId}</p>
-              </div>
-              <div className="right">
-                <div><p className="red">{this.props.firstErrorMessage}</p></div>
-                <Link className="button" to="/" id="course_cancel">{I18n.t('application.cancel')}</Link>
-                <button onClick={this.saveCourse} className="dark button button__submit">{CourseUtils.i18n('creator.create_button', this.state.course_string_prefix)}</button>
-              </div>
-            </div>
+            <CourseScoping
+              show={showCourseScoping}
+              wizardController={this.getWizardController}
+              showCourseDates={this.showCourseDates}
+            />
+            {!scopingModalEnabled && this.getWizardController({ hidden: !showingCreateCourseButton })}
           </div>
         </div>
       </Modal>
@@ -422,6 +468,7 @@ const mapStateToProps = state => ({
   isValid: isValid(state),
   firstErrorMessage: firstValidationErrorMessage(state),
   assignmentsWithoutUsers: getAvailableArticles(state),
+  scopingMethods: state.scopingMethods,
 });
 
 const mapDispatchToProps = ({

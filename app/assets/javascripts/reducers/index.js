@@ -43,6 +43,7 @@ import course_search_results from './course_search_results';
 import active_courses from './active_courses';
 import wiki_courses from './wiki_courses';
 import refreshing from './refreshing';
+import scopingMethods from './scoping_methods';
 
 const reducer = combineReducers({
   active_courses,
@@ -78,6 +79,7 @@ const reducer = combineReducers({
   tags,
   tickets,
   timeline,
+  scopingMethods,
   training,
   trainingStatus,
   ui,

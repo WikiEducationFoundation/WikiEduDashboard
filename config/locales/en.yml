@@ -575,6 +575,7 @@ en:
         Update scheduled. The data will be updated along with all current
         programs during the next update cycle. This typically takes
         several hours.
+      creating_course: Creating Course
     current: Current Courses
     data_articles: Articles data
     data_articles_info: >
@@ -886,6 +887,40 @@ en:
       participate_in_campaign: Participate in a Campaign
       save_cloned_course: Save
       start_date: Start of activity tracking
+      scoping_methods:
+        scoping_methods: Scoping Methods
+        configure: Configure Scoping Methods
+        about: >
+          For an Article Scoped Program, the Dashboard will only track edits to the articles that you have configured it for. After your page has been created, you can add individual articles to track assigning articles to individual editors or by adding them as Available Articles. For larger sets of articles, you can use any of these tools to define articles you want to track.
+
+          Select any scoping methods you want to configure now. You can also add scoping methods later from the Articles tab.
+        categories: Categories
+        categories_short_desc: The Category feature on a wiki is used to collect related articles. You can use the name of the Category to tell the Dashboard to track all the articles in that Category.
+        categories_desc: >
+          Tracking a Category means that the Dashboard will count edits to any articles in that Category. By default (depth 0), only the articles that are directly in that Category will be tracked. 
+          
+          You can increase the depth value (up to a maximum of 3) if you want to include articles that are in sub-categories of that Category. Be sure to browse the Category first, to make sure the sub-Categories match what you intend to track.
+        templates: Templates
+        templates_short_desc: You can track articles based on a Template that they contain, which works whether the Template is used on article itself, or on the corresponding Talk page — such as WikiProject templates.
+        petscan: PetScan
+        petscan_short_desc: PetScan is a tool that allows you to query wiki pages based on a wide range of criteria — including categories, templates, wikilinks, and much more. You can use a PetScan query ID to configure a set of articles to track on the Dashboard.
+        pagepile: PagePile
+        pagepile_short_desc: PagePile is a tool that allows you to create a list of pages which doesn't change over time and is identified by a unique ID.
+        templates_desc: >
+          Templates are used for a wide variety of purposes on wiki pages, but some are specific to a topic. Navigation templates, WikiProject templates, and topic-specific Infobox templates are particularly useful when using a Template to configure an Article Scoped Program.
+        pagepile_desc: >
+          PagePile is a tool on Wikimedia Cloud. It allows users to collect and organize a group of wiki pages into a single bundle called a "pile." These piles can then be easily shared with others, enabling collaborative work and information sharing.
+
+          In contrast to PetScan, the articles in a pile will not change over time, even when categories, templates or other data used to create that set of articles have changed.
+        petscan_desc: >
+          PetScan is a powerful but complex tool for querying a set of wiki pages based on a wide variety of criteria and data sources. You can use PetScan directly to create the query for a set of articles you want to track, which gives you access to the full set of options to target your query very precisely. Alternatively, you can create a PetScan query from some of the most common options directly from the Dashboard.
+
+          PetScan saves the query parameters and provides an ID for that query. The results of that query may change over time, for example when new articles are added to category that the query includes. The Dashboard will periodically refresh the query results for a given ID, and will update its statistics based on the latest set of articles that PetScan produces.
+        petscan_create_psid: Create a PetScan ID using the official PetScan tool
+        categories_include_OR: Articles containing ANY of these categories will be tracked
+        templates_include_OR: Articles containing ANY of these templates will be tracked
+        start_typing_to_search: Start typing to search
+
     delete_course: Delete program
     edit_course_dates: Edit Project Dates
     end: Activity tracking end

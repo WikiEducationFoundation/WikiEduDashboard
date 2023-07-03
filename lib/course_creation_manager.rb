@@ -1,13 +1,16 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/tag_manager"
+require_dependency "#{Rails.root}/lib/article_utils"
 
 #= Factory for handling the initial creation of a course
 class CourseCreationManager
   attr_reader :wiki, :invalid_reason
 
-  def initialize(course_params, wiki_params, initial_campaign_params,
+  # rubocop:disable Metrics/ParameterLists
+  def initialize(course_params, wiki_params, scoping_methods, initial_campaign_params,
                  instructor_role_description, current_user)
+    @scoping_methods = scoping_methods
     @course_params = course_params
     @wiki_params = wiki_params
     @initial_campaign_params = initial_campaign_params
@@ -16,7 +19,9 @@ class CourseCreationManager
     @overrides = {}
     set_wiki
     set_slug
+    set_scoping_methods
   end
+  # rubocop:enable Metrics/ParameterLists
 
   def valid?
     if invalid_wiki?
@@ -114,5 +119,40 @@ class CourseCreationManager
 
   def add_tags_to_course
     TagManager.new(@course).initial_tags(creator: @instructor)
+  end
+
+  def create_all_category(categories, depth, source)
+    categories.each do |category|
+      name = ArticleUtils.format_article_title(category[:value])
+      category = Category.find_or_create_by(name:, depth:, wiki: @wiki, source:)
+      @overrides[:categories] << category
+    end
+  end
+
+  def set_scoping_methods
+    return if @scoping_methods.nil? || @scoping_methods.empty?
+    @overrides[:categories] = []
+
+    add_categories_to_course @scoping_methods[:categories] if @scoping_methods[:categories]
+    add_templates_to_course @scoping_methods[:templates] if @scoping_methods[:templates]
+    add_page_pile_to_course @scoping_methods[:pagepile] if @scoping_methods[:pagepile]
+    add_petscan_to_course @scoping_methods[:petscan] if @scoping_methods[:petscan]
+  end
+
+  def add_categories_to_course(category_params)
+    depth = category_params[:depth]
+    create_all_category(category_params[:tracked], depth, 'category')
+  end
+
+  def add_templates_to_course(template_params)
+    create_all_category(template_params[:include], 0, 'template')
+  end
+
+  def add_page_pile_to_course(pagepile_params)
+    create_all_category(pagepile_params[:ids], 0, 'pileid')
+  end
+
+  def add_petscan_to_course(petscan_params)
+    create_all_category(petscan_params[:psids], 0, 'psid')
   end
 end

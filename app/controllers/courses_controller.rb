@@ -23,7 +23,9 @@ class CoursesController < ApplicationController
 
   def create
     require_signed_in
+
     course_creation_manager = CourseCreationManager.new(course_params, wiki_params,
+                                                        params[:course][:scoping_methods],
                                                         initial_campaign_params,
                                                         instructor_role_description, current_user)
     unless course_creation_manager.valid?

@@ -1,0 +1,52 @@
+.scoping-method-types
+  display grid
+  grid-template-columns: 1fr 1fr
+  gap: 1em
+  justify-items center
+
+  .program-description
+    padding 0.5em !important
+    position relative
+
+    &.selected
+      outline 2px solid #878dcd !important
+      border-color: #878dcd !important
+    
+    .checkbox-image
+      border 1px solid mischka
+      border-width 0 0 1px 1px
+      height 30px
+      position absolute
+      right 0
+      top 0
+      transition all .2s ease-in-out
+      width 30px
+      background #878dcd
+
+.scoping-methods-categories
+  display grid
+  grid-template-columns 1fr auto
+  align-items end
+  gap 1em
+
+  .form-group
+    padding 0
+    margin 0
+    
+    #category_depth
+      border-radius: 4px
+      height 38px
+
+.scoping-method-petscan
+  display flex
+  flex-direction column
+  .react-select-container
+    width 100%
+  
+  a
+    padding-top 0.5em
+
+.scoping-method-petscan-builder
+  display grid
+  grid-template-columns 1fr 1fr
+  gap 1em
