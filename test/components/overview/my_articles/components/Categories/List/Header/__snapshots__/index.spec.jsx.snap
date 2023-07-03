@@ -1,5 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Header renders just the title if there is no message for the tooltip 1`] = `ShallowWrapper {}`;
-
-exports[`Header renders the title, message, and tooltip 1`] = `ShallowWrapper {}`;
