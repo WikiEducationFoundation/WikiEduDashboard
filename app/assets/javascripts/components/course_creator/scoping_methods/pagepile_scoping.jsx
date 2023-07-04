@@ -83,6 +83,9 @@ const PagePileScoping = () => {
         id="pagepile-ids"
         onBlur={onBlurHandler}
       />
+      <a href="https://pagepile.toolforge.org/" target="_blank">
+        {I18n.t('courses_generic.creator.scoping_methods.pagepile_create_id')}
+      </a>
     </div>
   );
 };

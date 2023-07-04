@@ -917,6 +917,7 @@ en:
 
           PetScan saves the query parameters and provides an ID for that query. The results of that query may change over time, for example when new articles are added to category that the query includes. The Dashboard will periodically refresh the query results for a given ID, and will update its statistics based on the latest set of articles that PetScan produces.
         petscan_create_psid: Create a PetScan ID using the official PetScan tool
+        pagepile_create_id: Create a PagePile using the official PagePile tool
         categories_include_OR: Articles containing ANY of these categories will be tracked
         templates_include_OR: Articles containing ANY of these templates will be tracked
         start_typing_to_search: Start typing to search
