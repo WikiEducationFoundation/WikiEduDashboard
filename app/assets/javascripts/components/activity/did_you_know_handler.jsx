@@ -1,7 +1,6 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ActivityTable from './activity_table.jsx';
 import { fetchDYKArticles, sortDYKArticles } from '../../actions/did_you_know_actions.js';
 
@@ -14,55 +13,47 @@ const HEADERS = [
   { title: I18n.t('recent_activity.revision_datetime'), key: 'datetime', style: { width: 200 } }
 ];
 
-const DidYouKnowHandler = createReactClass({
-  displayName: 'DidYouKnowHandler',
+const DidYouKnowHandler = () => {
+  const myCoursesRef = useRef(null);
 
-  propTypes: {
-    fetchDYKArticles: PropTypes.func,
-    articles: PropTypes.array,
-    loading: PropTypes.bool
-  },
+  const dispatch = useDispatch();
+  const articles = useSelector(state => state.didYouKnow.articles);
+  const loading = useSelector(state => state.didYouKnow.loading);
 
-  componentDidMount() {
-    this.props.fetchDYKArticles();
-  },
+  useEffect(() => {
+    dispatch(fetchDYKArticles());
+  }, []);
 
-  setCourseScope(e) {
+  const setCourseScope = (e) => {
     const scoped = e.target.checked;
-    this.props.fetchDYKArticles({ scoped });
-  },
+    dispatch(fetchDYKArticles({ scoped }));
+  };
 
-  render() {
-    return (
-      <div>
-        <label>
-          <input
-            ref="myCourses"
-            type="checkbox"
-            onChange={this.setCourseScope}
-          />
-          {I18n.t('recent_activity.show_courses')}
-        </label>
-        <ActivityTable
-          loading={this.props.loading}
-          activity={this.props.articles}
-          headers={HEADERS}
-          noActivityMessage={NO_ACTIVITY_MESSAGE}
-          onSort={this.props.sortDYKArticles}
+  return (
+    <div>
+      <label>
+        <input
+          ref={myCoursesRef}
+          type="checkbox"
+          onChange={setCourseScope}
         />
-      </div>
-    );
-  }
-});
-
-const mapStateToProps = state => ({
-  articles: state.didYouKnow.articles,
-  loading: state.didYouKnow.loading
-});
-
-const mapDispatchToProps = {
-  fetchDYKArticles: fetchDYKArticles,
-  sortDYKArticles: sortDYKArticles
+        {I18n.t('recent_activity.show_courses')}
+      </label>
+      <ActivityTable
+        loading={loading}
+        activity={articles}
+        headers={HEADERS}
+        noActivityMessage={NO_ACTIVITY_MESSAGE}
+        onSort={dataSortKey => sortDYKArticles(dataSortKey)}
+      />
+    </div>
+  );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DidYouKnowHandler);
+DidYouKnowHandler.propTypes = {
+  fetchDYKArticles: PropTypes.func,
+  articles: PropTypes.array,
+  loading: PropTypes.bool
+};
+
+export default (DidYouKnowHandler);
