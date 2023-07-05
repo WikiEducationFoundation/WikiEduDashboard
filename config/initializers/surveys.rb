@@ -108,7 +108,7 @@ Rails.application.config.to_prepare do
     serialize :alert_conditions, Hash
 
     def self.for_conditionals(question_id)
-        where.not(id: question_id).where("conditionals IS NULL OR conditionals = ''")
+      where.not(id: question_id).where("conditionals IS NULL OR conditionals = ''")
     end
 
     def to_csv
