@@ -119,14 +119,7 @@ module SurveysHelper
 
   def question_conditional_string(question)
     return '' if question.nil?
-    unless question.conditionals.nil?
-      question_id = question.conditionals.split('|').first.to_i
-      begin
-        Rapidfire::Question.find(question_id)
-      rescue ActiveRecord::RecordNotFound
-        return ''
-      end
-    end
+    return '' unless valid_conditional_question?(question.conditionals)
     return question.conditionals
   end
 
@@ -152,6 +145,12 @@ module SurveysHelper
   def numeric_max(answer)
     rule = answer.question.rules[:less_than_or_equal_to]
     rule.empty? ? '999999999' : rule
+  end
+
+  def valid_conditional_question?(conditional_string)
+    return false if conditional_string.nil?
+    question_id = conditional_string.split('|').first.to_i
+    Rapidfire::Question.exists?(question_id)
   end
 
   private
