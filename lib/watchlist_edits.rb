@@ -12,14 +12,14 @@ class WatchlistEdits < WikiEdits
     return { status: 'no users' } if users.empty?
     return { status: 'token retrieval failed' } unless retrieve_tokens
 
-    data = build_watchlist_data(users)
+    data = watch_action_parameters(users)
     @access_token.post(@wiki.api_url.to_s, data)
   end
 
   private
 
   # Build the data hash for adding pages to the watchlist
-  def build_watchlist_data(users)
+  def watch_action_parameters(users)
     {
       action: 'watch',
       format: 'json',
