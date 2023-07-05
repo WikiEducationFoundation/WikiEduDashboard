@@ -11,6 +11,7 @@
 # Author: FiberAhmed
 # Author: Haytham morsy
 # Author: Hhaboh162002
+# Author: Karim185.3
 # Author: Maroen1990
 # Author: Meno25
 # Author: Mido
@@ -1061,7 +1062,7 @@ ar:
     merged: مندمجة
     created: تم الإنشاء
     changed: غيرت
-    removed: تمت إزالته
+    removed: أُزيل
     cleared: مسح
     added: تمت إضافته
     descriptions: الأوصاف

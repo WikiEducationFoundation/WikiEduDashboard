@@ -17,7 +17,12 @@ const MyExercisesContainer = ({ trainingLibrarySlug }) => {
   const exercises = useSelector(state => state.exercises);
   const course = useSelector(state => state.course);
 
-  useEffect(() => dispatch(fetchTrainingModuleExercisesByUser(course.id)), []);
+  useEffect(() => {
+    const fetchData = async () => {
+      await dispatch(fetchTrainingModuleExercisesByUser(course.id));
+    };
+    fetchData();
+  }, []);
 
   const incomplete = exercises.incomplete.concat(exercises.unread);
   if (!incomplete.length) return null;

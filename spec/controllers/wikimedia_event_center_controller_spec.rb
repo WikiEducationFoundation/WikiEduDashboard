@@ -9,6 +9,7 @@ describe WikimediaEventCenterController, type: :request do
   let(:non_organizer) { create(:user, username: 'RandomUser') }
   let(:secret) { 'SharedSecret' }
   let(:course_slug) { course.slug }
+  let(:event_id) { '12345' }
 
   before do
     allow(Features).to receive(:wiki_ed?).and_return(false)
@@ -21,7 +22,7 @@ describe WikimediaEventCenterController, type: :request do
       post '/wikimedia_event_center/confirm_event_sync', params: {
         course_slug:,
         organizer_usernames: [organizer.username],
-        event_id: '12345',
+        event_id:,
         secret:,
         dry_run:,
         format: :json
@@ -40,11 +41,22 @@ describe WikimediaEventCenterController, type: :request do
 
     context 'it is a dry_run' do
       let(:dry_run) { true }
+      let(:event_id) { nil }
 
       it 'does not enable event sync' do
         expect(course.flags[:event_sync]).to be_nil
         subject
         expect(course.flags[:event_sync]).to be_nil
+      end
+    end
+
+    context 'the event_id is missing (and it is not a dry_run)' do
+      let(:event_id) { nil }
+
+      it 'returns an error code' do
+        subject
+        response_json = JSON.parse(response.body)
+        expect(response_json['error_code']).to eq('missing_event_id')
       end
     end
 

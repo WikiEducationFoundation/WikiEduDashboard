@@ -42,7 +42,7 @@ class Wiki < ApplicationRecord
     aa ab ace ady af ak als alt am ami an ang ar arc ary arz as ast atj av avk ay awa az azb
     ba ban bar bat-smg bcl be be-tarask be-x-old bg bh bi bjn blk bm bn bo bpy br bs
     bug bxr ca cbk-zam cdo ce ceb ch cho chr chy ckb cmn co commons cr crh cs csb cu
-    cv cy da dag de din diq dk dsb dty dv dz ee egl el eml en eo epo es et eu ext fa
+    cv cy da dag de din diq dk dsb dty dv dz ee egl el eml en eo epo es et eu ext fa fat
     ff fi fiu-vro fj fo fr frp frr fur fy ga gag gan gcr gd gl glk gn gom gor got gsw
     gu guc gur guw gv ha hak haw he hi hif ho hr hsb ht hu hy hyw hz ia id ie ig ii ik ilo
     incubator inh io is it iu ja jam jbo jp jv ka kaa kab kcg kbd kbp kg ki kj kk kl km kn ko

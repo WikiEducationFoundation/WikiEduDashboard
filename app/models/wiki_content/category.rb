@@ -3,7 +3,7 @@
 #
 # Table name: categories
 #
-#  id             :bigint(8)        not null, primary key
+#  id             :bigint           not null, primary key
 #  wiki_id        :integer
 #  article_titles :text(16777215)
 #  name           :string(255)
@@ -27,8 +27,16 @@ class Category < ApplicationRecord
   has_many :courses, through: :categories_courses
 
   serialize :article_titles, Array
+
+  validates :name, presence: true, length: { minimum: 1 }
   validates :name, numericality: { only_integer: true }, on: :create,
                    if: -> { source == 'psid' || source == 'pileid' }
+
+  validates :depth, numericality: {
+    only_integer: true,
+    greater_than_or_equal_to: 0,
+    less_than_or_equal_to: 3
+  }
 
   def self.refresh_categories_for(course)
     # Updating categories only if they were last updated since

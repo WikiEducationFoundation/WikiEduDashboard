@@ -8,11 +8,12 @@
 #  user_id            :integer
 #  image_file_name    :string(255)
 #  image_content_type :string(255)
-#  image_file_size    :integer
+#  image_file_size    :bigint
 #  image_updated_at   :datetime
 #  location           :string(255)
 #  institution        :string(255)
 #  email_preferences  :text(65535)
+#  image_file_link    :string(255)
 #
 
 class UserProfile < ApplicationRecord

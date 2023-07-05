@@ -25,6 +25,7 @@ class WikimediaEventCenterController < ApplicationController
   #   not_organizer - The organizer username doesn't match a user in the "facilitator" role
   #   already_in_use - The course already has participants, so it can't be linked to the event
   #   sync_already_enabled - The course is already linked to an event
+  #   missing_event_id - No Event Center ID ("event_id") was provided.
   def confirm_event_sync
     verify_secret { return }
     set_course { return }
@@ -58,7 +59,7 @@ class WikimediaEventCenterController < ApplicationController
   # POST /wikimedia_event_center/update_event_participants as JSON
   # {
   #  "course_slug": string // the unique URL slug for the Course
-  #  "event_id": string or integer // a unique ID for the Event Center event
+  #  "event_id": string or integer // a unique ID for the Event Center event. optional for a dry_run
   #  "organizer_usernames": array of strings // the username(s) of the event's organizer(s).
   #  "secret": string // shared secret between the Event Center and the Dashboard
   #  "participant_usernames": array of strings // usernames of event's current participants
@@ -70,6 +71,7 @@ class WikimediaEventCenterController < ApplicationController
   #   course_not_found - A Course with the provided slug doesn't exist
   #   not_organizer - The organizer username doesn't match a user in the "facilitator" role
   #   sync_not_enabled - This Course isn't linked to the Event Center event (based on event_id)
+
   def update_event_participants
     verify_secret { return }
     set_course { return }
@@ -113,11 +115,14 @@ class WikimediaEventCenterController < ApplicationController
     # Only allow one Event to control each course
     raise SyncAlreadyEnabledError if @course.flags[:event_sync]
 
+    # Event Center may do a dry run before a new event has an ID, but the ID
+    # is requred if it's not a dry run. See https://phabricator.wikimedia.org/T317707#8950246
     return if params[:dry_run]
+    raise MissingEventIdError unless params[:event_id].present?
 
     @course.flags[:event_sync] = params[:event_id]
     @course.save
-  rescue AlreadyInUseError, SyncAlreadyEnabledError => e
+  rescue AlreadyInUseError, SyncAlreadyEnabledError, MissingEventIdError => e
     render json: { error: e.message, error_code: e.code }, status: :conflict
     yield
   end
@@ -221,6 +226,16 @@ class WikimediaEventCenterController < ApplicationController
 
     def message
       'This user is not an organizer for the course.'
+    end
+  end
+
+  class MissingEventIdError < StandardError
+    def code
+      'missing_event_id'
+    end
+
+    def message
+      'An Event Center event ID is requred.'
     end
   end
 end

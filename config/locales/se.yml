@@ -75,6 +75,7 @@ se:
   metrics:
     tags: Gilkorat
     removed: Sihkkojuvvon
+    added: Lasihuvvon
   namespace:
     article: Artihkal
     file: Fiila

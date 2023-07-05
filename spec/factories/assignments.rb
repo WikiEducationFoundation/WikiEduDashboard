@@ -13,6 +13,8 @@
 #  article_title :string(255)
 #  role          :integer
 #  wiki_id       :integer
+#  sandbox_url   :text(65535)
+#  flags         :text(65535)
 #
 
 FactoryBot.define do

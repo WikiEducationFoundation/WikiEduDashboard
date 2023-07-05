@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import StudentExercise from './StudentExercise/StudentExercise.jsx';
+import { useDispatch } from 'react-redux';
+import { toggleUI } from '@actions/index.js';
 
 // Helper Functions
 const setRealName = (student) => {
@@ -13,8 +15,9 @@ const setRealName = (student) => {
 export const StudentExerciseRow = ({
   assignments, course, current_user, editAssignments,
   openKey, showRecent, student, wikidataLabels,
-  toggleUI
 }) => {
+  const dispatch = useDispatch();
+
   if (student.real_name) setRealName(student);
   const isOpen = openKey === `drawer_${student.id}`;
   return (
@@ -27,7 +30,7 @@ export const StudentExerciseRow = ({
       fullView={false}
       showRecent={showRecent}
       student={student}
-      toggleDrawer={toggleUI}
+      toggleDrawer={key => dispatch(toggleUI(key))}
       wikidataLabels={wikidataLabels}
     />
   );

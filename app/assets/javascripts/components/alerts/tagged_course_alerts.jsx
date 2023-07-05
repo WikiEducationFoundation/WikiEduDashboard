@@ -7,9 +7,12 @@ import { useParams } from 'react-router-dom';
 const TaggedCourseAlerts = () => {
   const { tag } = useParams();
   const dispatch = useDispatch();
-
-  useEffect(() => dispatch(fetchTaggedCourseAlerts(tag)), []);
-
+  useEffect(() => {
+    const fetchData = async () => {
+      await dispatch(fetchTaggedCourseAlerts(tag));
+    };
+    fetchData();
+  }, []);
   return (
     <AlertsHandler
       alertLabel={I18n.t('campaign.alert_label')}

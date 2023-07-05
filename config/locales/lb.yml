@@ -12,10 +12,17 @@ lb:
     human:
       decimal_units:
         format: '%n %u'
+        units:
+          thousand: D
+          million: M
+          billion: Mrd
+          trillion: B
+          quadrillion: Brd
   application:
     cancel: Ofbriechen
     cookie_consent_acknowledge: Ech verstinn
     cookie_consent_see_more: Fir méi ze wëssen.
+    create_accounts: Wikipedia-Benotzerkonten uleeën
     dashboard: Iwwersiicht iwwer d'Ännerungen op der Wiki
     documentation: Dokumentatioun
     error: 'Et gouf e Feeler:'
@@ -173,11 +180,19 @@ lb:
     alert_article: Titel vum Artikel
     alert_type: Typ
     alert_user_id: Benotzer
+    all_campaigns: All Campagnen
     campaign: Campagne
     campaigns: Campagnen
+    campaign_deleted: D'Campagne „%{title}“ gouf geläscht
     campaign_not_updated: Campagne konnt net aktualiséiert ginn
     campaign_updated: Campagne aktualiséiert
     created_at: Datum
+    confirm_campaign_deletion: Sidd Dir sécher, datt Dir d'Campagne mam Numm „%{title}“
+      läsche wëllt? Falls jo, gitt den Titel vun der Campagne a fir weiderzefueren.
+    confirm_campaign_deletion_failed: „%{title}“ ass net den Titel vun dëser Campagne.
+      Se gouf net geläscht.
+    confirm_course_removal: Sidd Dir sécher, datt Dir „%{title}“ aus der Campagne
+      „%{campaign_title}“ eraushuele wëllt?
     course: Cours
     data_articles: Geännert Säiten
     data_wikidata: Wikidata-Statistiken
@@ -240,7 +255,10 @@ lb:
       course_description: Beschreiwung vum Cours
       course_subject: Sujet vum Cours
       course_title: Titel vum Cours
+      create_button: Mäi Cours uleeën!
       create_label: Neie Cours uleeën
+      create_new: Een neie Cours uleeën
+      create_short: Cours uleeën
       end_date: Schlussdatum
       end_date_placeholder: JJJJ-MM-DD
       expected_number: Erwaart Zuel vu Studenten
@@ -297,13 +315,17 @@ lb:
     new_account_username: Ugefrote Benotzernumm
     new_account_username_invalid: Dëst ass kee valabele Benotzernumm.
     new_account_username_placeholder: Wiki Editeur 123
+    new_account_username_taken: Dëse Benotzernumm ass scho verginn. Sicht Iech wgl.
+      een aneren aus.
     new_account_submit: Benotzerkont ufroen
     nocourses: Dir maacht bei kengem Cours mat.
     nocourse: huet bei kengem Cours matgemaach.
     none: Keng
+    not_permitted: Dir sidd net berechtegt fir dëse Cours ze änneren.
     no_available_actions: Keng disponibel Aktiounen
     ores_plot: ORES
     overview: Haaptsäit
+    please_log_in: Loggt Iech wgl. an.
     private: Privat
     requested_accounts: Ugefrot Benotzerkonten
     requested_accounts_alert_view: Weisen
@@ -428,8 +450,8 @@ lb:
     tags: Markéierungen
     update_statistics_link: Méi gesinn
     uploads_in_use_count:
-      one: Fichier deen an Artikele benotzt gëtt
-      other: Fichieren déi an Artikele  benotzt ginn
+      one: Fichier, deen an engem Artikel benotzt gëtt
+      other: Fichieren, déi an Artikele benotzt ginn
     word_count: Wierder derbäigesat
     word_count_average: Duerchschnëttlech Zuel vu Wierder
     general: Allgemeng
@@ -447,6 +469,22 @@ lb:
     article: Artikel
     talk: Diskussioun
     user: Benotzernummraum
+    project: Projet
+    file: Fichier
+    mediaWiki: MediaWiki
+    template: Schabloun
+    help: Hëllef
+    category: Kategorie
+    page: Säit
+    book: Buch
+    wikijunior: WikiJunior
+    translation: Iwwersetzung
+    property: Eegenschaft
+    portal: Portal
+    school: Schoul
+    author: Auteur
+    cookbook: Kachbuch
+    index: Index
   recent_activity:
     article_title: Titel
     datetime: Datum/Zäit
@@ -459,6 +497,7 @@ lb:
     show_courses: Nëmme meng Course weisen
     uploaded_by: Eropgeluede Vum
   revisions:
+    class: Klass
     date_time: Datum/Zäit
     diff: Ënnerscheed
     diff_show: Weisen
@@ -532,6 +571,7 @@ lb:
       training: Formatioun
   update_username:
     label: Neie Benotzernumm
+    button: Aktualiséieren
   uploads:
     file_name: Numm vum Fichier
     image: Bild
@@ -553,6 +593,7 @@ lb:
     contribution_statistics: Statistik vun de Kontributiounen
     course_passcode: 'Passcode:'
     editors: Auteuren
+    edits: Ännerungen
     edits_by: 'Ännerunge vum:'
     enroll_confirmation: Sidd Dir sécher, datt Dir %{username} derbäisetze wëllt?
     enrolled_success: '%{username} gouf derbäigesat!'

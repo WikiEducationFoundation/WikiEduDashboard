@@ -25,7 +25,7 @@ export const CurrentStatus = ({ current, statuses }) => (
 );
 
 CurrentStatus.propTypes = {
-  current: PropTypes.string.isRequired,
+  current: PropTypes.string,
   statuses: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 

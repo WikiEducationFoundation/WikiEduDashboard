@@ -92,6 +92,8 @@ sl:
     review_self: Preglej članek
     review_self_wikidata: Ponovni pregled predmeta
     sandbox_draft_link: Osnutek peskovnika
+    sandbox_redlink_info: Ta povezava je rdeča, ker stran še ni ustvarjena. (Če je
+      bila ustvarjena pred kratkim, bo nadzorna plošča kmalu posodobila svoje podatke.)
     select: Izberi
   campaign:
     alert_article: Naslov članka

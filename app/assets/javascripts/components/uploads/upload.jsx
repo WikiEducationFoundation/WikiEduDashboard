@@ -1,172 +1,149 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { LIST_VIEW, GALLERY_VIEW, TILE_VIEW } from '../../constants';
 import UploadViewer from './upload_viewer.jsx';
 import Modal from '../common/modal.jsx';
 import PropTypes from 'prop-types';
 import { formatDateWithTime } from '../../utils/date_utils';
 
-class Upload extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      width: null,
-      height: null,
-      isUploadViewerOpen: false,
-    };
-    this.setImageFile = this.setImageFile.bind(this);
-    this.setImageDimensions = this.setImageDimensions.bind(this);
-    this.isUploadViewerOpen = this.isUploadViewerOpen.bind(this);
-  }
+const Upload = ({ upload, view, linkUsername }) => {
+  const [width, setWidth] = useState(null);
+  const [height, setHeight] = useState(null);
+  const [isUploadViewerOpen, setIsUploadViewerOpen] = useState(false);
+  const [imageFile, setImageFile] = useState(null);
 
-  componentDidMount() {
-    this.setImageFile();
-  }
+  useEffect(() => {
+    updateImageFile();
+  }, []);
 
-  static getDerivedStateFromProps(props, state) {
-    if (!state.imageFile) {
-      return { imageFile: props.upload.thumburl };
+  const updateImageFile = () => {
+    let file = upload.thumburl;
+    if (upload.deleted) {
+      file = '/assets/images/deleted_image.svg';
     }
-    return null;
-  }
+    setImageFile(file);
+    setImageDimensions(file);
+  };
 
-  setImageFile() {
-    let imageFile = this.props.upload.thumburl;
-    if (this.props.upload.deleted) {
-      imageFile = '/assets/images/deleted_image.svg';
-    }
-    this.setState({ imageFile: imageFile }, () => {
-      this.setImageDimensions();
-    });
-  }
-
-  setImageDimensions() {
+  const setImageDimensions = (file) => {
     const img = new Image();
-    img.src = this.state.imageFile;
-    const component = this;
+    img.src = file;
     img.onload = function () {
-      component.setState({ width: this.width, height: this.height });
+      setWidth(this.width);
+      setHeight(this.height);
+    };
+  };
+
+  const toggleUploadViewer = () => {
+    setIsUploadViewerOpen(!isUploadViewerOpen);
+  };
+
+  let fileName = upload.file_name;
+  if (fileName.length > 50) {
+    fileName = `${fileName.substring(0, 50)}...`;
+  }
+  let uploader;
+  if (linkUsername) {
+    const profileLink = `/users/${encodeURIComponent(upload.uploader)}`;
+    uploader = <a href={profileLink} onClick={event => event.stopPropagation()} target="_blank">{upload.uploader}</a>;
+  } else {
+    uploader = upload.uploader;
+  }
+
+  let usage = '';
+  if (upload.usage_count) {
+    usage = `${I18n.t('uploads.usage_count_gallery_tile', { usage_count: upload.usage_count })}`;
+  }
+
+  let uploadDivStyle;
+  if (width && height) {
+    uploadDivStyle = {
+      width: (width * 250) / height,
+      flexGrow: (width * 250) / height,
     };
   }
 
-  isUploadViewerOpen() {
-    this.setState({ isUploadViewerOpen: !this.state.isUploadViewerOpen });
+  let details;
+  if (upload.usage_count > 0) {
+    details = (
+      <p className="tablet-only">
+        <span>{upload.uploader}</span>
+        <span>&nbsp;|&nbsp;</span>
+        <span>Usages: {upload.usage_count}</span>
+      </p>
+    );
+  } else {
+    details = (
+      <p className="tablet-only"><span>{upload.uploader}</span></p>
+    );
   }
 
-  render() {
-    let fileName = this.props.upload.file_name;
-    if (fileName.length > 50) {
-      fileName = `${fileName.substring(0, 50)}...`;
-    }
-    let uploader;
-    if (this.props.linkUsername) {
-      const profileLink = `/users/${encodeURIComponent(this.props.upload.uploader)}`;
-      uploader = <a href={profileLink} onClick={event => event.stopPropagation()} target="_blank">{this.props.upload.uploader}</a>;
-    } else {
-      uploader = this.props.upload.uploader;
-    }
-
-    let usage = '';
-    if (this.props.upload.usage_count) {
-        usage = `${I18n.t('uploads.usage_count_gallery_tile', { usage_count: this.props.upload.usage_count })}`;
-      }
-
-    let uploadDivStyle;
-    if (this.state.width && this.state.height) {
-      uploadDivStyle = {
-        width: (this.state.width * 250) / this.state.height,
-        flexGrow: (this.state.width * 250) / this.state.height,
-      };
-    }
-
-    let details;
-    if (this.props.upload.usage_count > 0) {
-      details = (
-        <p className="tablet-only">
-          <span>{this.props.upload.uploader}</span>
-          <span>&nbsp;|&nbsp;</span>
-          <span>Usages: {this.props.upload.usage_count}</span>
-        </p>
-      );
-    } else {
-      details = (
-        <p className="tablet-only"><span>{this.props.upload.uploader}</span></p>
-      );
-    }
-
-    let credit = '<div class="results-loading"> &nbsp; &nbsp; </div>';
-    if (this.props.upload.credit) {
-      credit = this.props.upload.credit;
-    }
-
-    if (this.state.isUploadViewerOpen) {
-      if (this.props.view === LIST_VIEW) {
-        return (
-          <tr>
-            <td>
-              <Modal>
-                <UploadViewer closeUploadViewer={this.isUploadViewerOpen} upload={this.props.upload} imageFile={this.state.imageFile} />
-              </Modal>
-            </td>
-          </tr>
-        );
-      }
+  if (isUploadViewerOpen) {
+    if (view === LIST_VIEW) {
       return (
-        <Modal>
-          <UploadViewer closeUploadViewer={this.isUploadViewerOpen} upload={this.props.upload} imageFile={this.state.imageFile} />
-        </Modal>
-      );
-    }
-
-
-    if (this.props.view === LIST_VIEW) {
-      usage = `${this.props.upload.usage_count} ${I18n.t('uploads.usage_count')}`;
-      return (
-        <tr className="upload list-view" onClick={this.isUploadViewerOpen}>
+        <tr>
           <td>
-            <img src={this.state.imageFile} alt={fileName} />
-            {details}
+            <Modal>
+              <UploadViewer closeUploadViewer={toggleUploadViewer} upload={upload} imageFile={imageFile} />
+            </Modal>
           </td>
-          <td className="desktop-only-tc">
-            <a onClick={event => event.stopPropagation()} href={this.props.upload.url} target="_blank">{fileName}</a>
-          </td>
-          <td className="desktop-only-tc">{uploader}</td>
-          <td className="desktop-only-tc">{this.props.upload.usage_count}</td>
-          <td className="desktop-only-tc">{formatDateWithTime(this.props.upload.uploaded_at)}</td>
-
-          <td className="desktop-only-tc" dangerouslySetInnerHTML={{ __html: credit }} />
         </tr>
       );
-    } else if (this.props.view === GALLERY_VIEW) {
-      return (
-        <div className="upload" style={uploadDivStyle} onClick={this.isUploadViewerOpen} >
-          <img src={this.state.imageFile} alt={fileName} />
+    }
+    return (
+      <Modal>
+        <UploadViewer closeUploadViewer={toggleUploadViewer} upload={upload} imageFile={imageFile} />
+      </Modal>
+    );
+  }
+
+
+  if (view === LIST_VIEW) {
+    usage = `${upload.usage_count} ${I18n.t('uploads.usage_count')}`;
+    return (
+      <tr className="upload list-view" onClick={toggleUploadViewer}>
+        <td>
+          <img src={imageFile} alt={fileName} />
+          {details}
+        </td>
+        <td className="desktop-only-tc">
+          <a onClick={event => event.stopPropagation()} href={upload.url} target="_blank">{fileName}</a>
+        </td>
+        <td className="desktop-only-tc">{uploader}</td>
+        <td className="desktop-only-tc">{upload.usage_count}</td>
+        <td className="desktop-only-tc">{formatDateWithTime(upload.uploaded_at)}</td>
+        <td className="desktop-only-tc">{<span dangerouslySetInnerHTML={{ __html: upload.credit }} /> || <img className="credit-loading" src={'/assets/images/loader.gif'} alt="loading credits" />}</td>
+      </tr>
+    );
+  } else if (view === GALLERY_VIEW) {
+    return (
+      <div className="upload" style={uploadDivStyle} onClick={toggleUploadViewer} >
+        <img src={imageFile} alt={fileName} />
+        <div className="info">
+          <p className="usage"><b>{usage}</b></p>
+          <p><b><a href={upload.url} target="_blank" onClick={event => event.stopPropagation()}>{fileName}</a></b></p>
+          <p className="uploader"><b>{I18n.t('uploads.uploaded_by')} {uploader}</b></p>
+          <p><b>{I18n.t('uploads.uploaded_on')}</b>&nbsp;{formatDateWithTime(upload.uploaded_at)}</p>
+        </div>
+      </div>
+    );
+  } else if (view === TILE_VIEW) {
+    return (
+      <div className="tile-container" onClick={toggleUploadViewer}>
+        <div className="tile">
+          <img src={imageFile} alt={fileName} />
           <div className="info">
             <p className="usage"><b>{usage}</b></p>
-            <p><b><a href={this.props.upload.url} target="_blank" onClick={event => event.stopPropagation()}>{fileName}</a></b></p>
+            <p><b><a href={upload.url} target="_blank" onClick={event => event.stopPropagation()}>{fileName}</a></b></p>
             <p className="uploader"><b>{I18n.t('uploads.uploaded_by')} {uploader}</b></p>
-            <p><b>{I18n.t('uploads.uploaded_on')}</b>&nbsp;{formatDateWithTime(this.props.upload.uploaded_at)}</p>
+            <p>
+              <b>{I18n.t('uploads.uploaded_on')}</b>&nbsp;{formatDateWithTime(upload.uploaded_at)}
+            </p>
           </div>
         </div>
-      );
-    } else if (this.props.view === TILE_VIEW) {
-      return (
-        <div className="tile-container" onClick={this.isUploadViewerOpen}>
-          <div className="tile">
-            <img src={this.state.imageFile} alt={fileName} />
-            <div className="info">
-              <p className="usage"><b>{usage}</b></p>
-              <p><b><a href={this.props.upload.url} target="_blank" onClick={event => event.stopPropagation()}>{fileName}</a></b></p>
-              <p className="uploader"><b>{I18n.t('uploads.uploaded_by')} {uploader}</b></p>
-              <p>
-                <b>{I18n.t('uploads.uploaded_on')}</b>&nbsp;{formatDateWithTime(this.props.upload.uploaded_at)}
-              </p>
-            </div>
-          </div>
-        </div>
-      );
-    }
+      </div>
+    );
   }
-}
+};
 
 Upload.propTypes = {
   upload: PropTypes.object,

@@ -5,14 +5,15 @@ class NewInstructorEnrollmentMailer < ApplicationMailer
     return unless Features.email?
     staffer = SpecialUsers.classroom_program_manager
     return unless staffer
-    email(course, staffer, adder, new_instructor).deliver_now
+    courses_user = CoursesUsers.find_by(course: @course, user: @new_instructor,
+                                        role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+    email(course, staffer, adder, new_instructor, courses_user).deliver_now
   end
 
-  def email(course, staffer, adder, new_instructor)
+  def email(course, staffer, adder, new_instructor, courses_user)
     @course = course
     @new_instructor = new_instructor
-    @courses_user = CoursesUsers.find_by(course: @course, user: @new_instructor,
-                                         role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+    @courses_user = courses_user
     @adder = adder
     @course_link = "https://#{ENV['dashboard_url']}/courses/#{@course.slug}"
     mail(to: staffer.email,

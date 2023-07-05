@@ -58,7 +58,22 @@ export const AvailableArticle = createReactClass({
     const article = CourseUtils.articleFromAssignment(assignment, this.props.course.home_wiki);
     const ratingClass = `rating ${assignment.article_rating}`;
     const ratingMobileClass = `${ratingClass} tablet-only`;
-    const articleLink = <a onClick={this.stop} href={article.url} target="_blank" className="inline">{article.formatted_title}</a>;
+    const articleLink = (
+      <a
+        onClick={this.stop}
+        href={article.url}
+        target="_blank"
+        className="inline"
+        style={{
+          color:
+            assignment.article_rating === 'does_not_exist'
+              ? '#dd3333'
+              : '#3366cc',
+        }}
+      >
+        {article.formatted_title}
+      </a>
+    );
     const isWikipedia = article.project === 'wikipedia';
 
     let actionSelect;

@@ -72,10 +72,14 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
   // This runs when the user accesses the articleViewer directly from a permalink
   useEffect(() => {
     if (showOnMount) {
-      fetchUserIds();
-      openArticle();
+      if (users) {
+        fetchUserIds();
+      }
+      if (!showArticle) {
+        openArticle();
+      }
     }
-  }, [showOnMount]);
+  }, [showOnMount, users]);
 
   useEffect(() => {
     if (showArticle) {

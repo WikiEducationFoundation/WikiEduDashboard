@@ -25,7 +25,7 @@ class AlertMailerPreview < ActionMailer::Preview
   end
 
   def need_help_alert
-    AlertMailer.alert(Alert.where(type: 'NeedHelpAlert').last, example_user)
+    AlertMailer.alert(example_alert(type: 'NeedHelpAlert'), example_user)
   end
 
   def over_enrollment_alert
@@ -73,7 +73,8 @@ class AlertMailerPreview < ActionMailer::Preview
 
   def example_alert(type: 'HighQualityArticleEditAlert')
     Alert.new(type:, article: example_article,
-              course: example_course, id: 9)
+              course: example_course, id: 9,
+              user: User.new(username: 'Alice Student'))
   end
 
   def example_de_userfying_alert
@@ -89,7 +90,12 @@ class AlertMailerPreview < ActionMailer::Preview
   end
 
   def example_survey_response_alert
-    answer = Rapidfire::Answer.last
+    question_group = Rapidfire::QuestionGroup.new(name: 'test')
+    answer_group = Rapidfire::AnswerGroup.new(question_group:)
+    question = Rapidfire::Question.new(id: 1, type: Rapidfire::Questions::Long,
+                                       question_group:,
+                                       question_text: 'Average speed of an unloaded swallow ?')
+    answer = OpenStruct.new(question:, answer_group:)
     question = answer.question
     details =
       {
@@ -99,10 +105,15 @@ class AlertMailerPreview < ActionMailer::Preview
         source: SurveyResponseAlertManager.new.source(answer)
       }
 
-    Alert.new(type: 'SurveyResponseAlert',
-              user: example_user,
-              subject_id: question.id,
-              details:)
+    username = example_user.username
+    alert = Alert.new(type: 'SurveyResponseAlert',
+                      user: example_user,
+                      subject_id: question.id,
+                      details:)
+
+    alert.tap do |alrt|
+      alrt.define_singleton_method(:main_subject) { "What is the speed of an ... - #{username}" }
+    end
   end
 
   def example_blocked_edits_alert

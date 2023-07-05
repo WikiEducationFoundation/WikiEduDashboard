@@ -18,8 +18,8 @@ import { useLocation, useParams, Navigate } from 'react-router-dom';
 
 export const SelectedStudent = ({
   groupedArticles, assignments, course, current_user, fetchArticleDetails,
-  fetchUserRevisions, hasExercisesOrTrainings, openKey,
-  sort, sortUsers, toggleUI, trainingStatus, wikidataLabels, userRevisions,
+  hasExercisesOrTrainings, openKey,
+  sort, sortUsers, trainingStatus, wikidataLabels, userRevisions,
   students, articlesUrl
 }) => {
   const location = useLocation();
@@ -80,7 +80,6 @@ export const SelectedStudent = ({
             sort={sort}
             sortUsers={sortUsers}
             selected={selected}
-            toggleUI={toggleUI}
             trainingStatus={trainingStatus}
             wikidataLabels={wikidataLabels}
           />
@@ -104,7 +103,6 @@ export const SelectedStudent = ({
       <StudentRevisionsList
         key={`student-revisions-${selected.id}`}
         course={course}
-        fetchUserRevisions={fetchUserRevisions}
         student={selected}
         wikidataLabels={wikidataLabels}
         userRevisions={userRevisions}
@@ -118,7 +116,6 @@ SelectedStudent.propTypes = {
   course: PropTypes.object.isRequired,
   current_user: PropTypes.object.isRequired,
   fetchArticleDetails: PropTypes.func.isRequired,
-  fetchUserRevisions: PropTypes.func.isRequired,
   groupedArticles: PropTypes.object.isRequired,
   wikidataLabels: PropTypes.object,
   userRevisions: PropTypes.object,

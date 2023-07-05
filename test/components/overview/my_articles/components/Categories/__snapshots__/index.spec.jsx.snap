@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Categories should show articles the user is creating 1`] = `ShallowWrapper {}`;
-
-exports[`Categories should show articles the user is improving 1`] = `ShallowWrapper {}`;
-
-exports[`Categories should show articles the user is reviewing 1`] = `ShallowWrapper {}`;

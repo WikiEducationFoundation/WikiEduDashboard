@@ -6,8 +6,8 @@
 #
 #  id                       :integer          not null, primary key
 #  title                    :string(255)
-#  updated_at               :datetime
 #  created_at               :datetime
+#  updated_at               :datetime
 #  views_updated_at         :date
 #  namespace                :integer
 #  rating                   :string(255)
@@ -18,6 +18,7 @@
 #  average_views_updated_at :date
 #  wiki_id                  :integer
 #  mw_page_id               :integer
+#  index_hash               :string(255)
 #
 
 require_dependency "#{Rails.root}/lib/importers/article_importer"

@@ -14,6 +14,7 @@
 #  role          :integer
 #  wiki_id       :integer
 #  sandbox_url   :text(65535)
+#  flags         :text(65535)
 #
 
 require_dependency "#{Rails.root}/lib/article_utils"
@@ -51,6 +52,10 @@ class Assignment < ApplicationRecord
   delegate :status, to: :assignment_pipeline
   delegate :update_status, to: :assignment_pipeline
   delegate :all_statuses, to: :assignment_pipeline
+  delegate :draft_sandbox_status, to: :assignment_pipeline
+  delegate :bibliography_sandbox_status, to: :assignment_pipeline
+  delegate :update_sandbox_status, to: :assignment_pipeline
+  delegate :peer_review_sandbox_status, to: :assignment_pipeline
 
   #############
   # CONSTANTS #
@@ -85,6 +90,21 @@ class Assignment < ApplicationRecord
     role == Roles::ASSIGNED_ROLE
   end
 
+  def sandbox_pagename
+    URI.decode_www_form_component sandbox_url.gsub("#{wiki.base_url}/wiki/", '')
+  end
+
+  def bibliography_pagename
+    "#{sandbox_pagename}/Bibliography"
+  end
+
+  def peer_review_pagename
+    # This same url pattern is used elsewhere; search for `_Peer_Review`.
+    # Ideally, we would remove this duplicated logic and use the Assignment
+    # as the single source for the review URL.
+    "#{sandbox_pagename}/#{user.username}_Peer_Review"
+  end
+
   private
 
   def assignment_pipeline
@@ -99,17 +119,20 @@ class Assignment < ApplicationRecord
 
   def set_sandbox_url
     return unless user
+    return if sandbox_url.present?
     # If the sandbox already exists, use that URL instead
     existing = Assignment.where(course:, article_title:, wiki:)
                          .where.not(user:).first
-    if existing
-      self.sandbox_url = existing.sandbox_url
-    else
-      language = wiki.language || 'www'
-      project = wiki.project || 'wikipedia'
-      base_url = "https://#{language}.#{project}.org/wiki"
-      encoded_title = url_encoded_mediawiki_title(article_title)
-      self.sandbox_url = "#{base_url}/User:#{user.username}/#{encoded_title}"
-    end
+
+    self.sandbox_url = existing&.sandbox_url || default_sandbox_url
+  end
+
+  def default_sandbox_url
+    language = wiki.language || 'www'
+    project = wiki.project || 'wikipedia'
+    base_url = "https://#{language}.#{project}.org/wiki"
+    encoded_title = url_encoded_mediawiki_title(article_title)
+
+    "#{base_url}/User:#{user.username}/#{encoded_title}"
   end
 end

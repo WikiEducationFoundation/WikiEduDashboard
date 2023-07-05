@@ -4,6 +4,7 @@
 # Author: Ajeje Brazorf
 # Author: Anakmalaysia
 # Author: CyberTroopers
+# Author: EmpAhmadK
 # Author: Hakimi97
 # Author: SNN95
 # Author: Tofeiku
@@ -80,8 +81,14 @@ ms:
     reading_the_article: Membaca Rencana
     providing_feedback: Memberi Maklum Balas
     post_to_talk: Mengulas di Laman Perbincangan
+    peer_review_completed: Semakan Selesai
   dashboard:
     create_note: Klik Cipta Kursus untuk mencipta kursus pertama anda.
+    create_preparation_note: Pastikan anda mempunyai kalendar akademik anda sebelum
+      anda mula; alat reka bentuk tugasan akan menggunakan tarikh mesyuarat kelas
+      anda — termasuk sebarang cuti sekolah dan hari perayaan — untuk menyesuaikan
+      garis masa anda dengan julat tarikh yang anda pilih. Ingat, anda sentiasa boleh
+      mengedit garis masa untuk memenuhi keperluan anda.
     explore_course_pages: Jelajah Laman Kursus
     explore_examples: Jelajah Contoh Kursus
     join_note: Sesudah anda menerima kod laluan dari pengajar, klik Cari Kursus Anda
@@ -323,8 +330,10 @@ ms:
     next_update: Kemas kini anggaran seterusnya
     enqueued_update: Program ini telah ditambahkan ke baris gilir kemas kini.
     first_update: Anggaran mula kemas kini perangkaan
+    articles_created: Rencana Dicipta
     articles_created_wikidata: Item Tercipta
     articles_created_generic: Rencana Tercipta
+    articles_edited: Rencana Disunting
     articles_edited_wikidata: Item Tersunting
     articles_edited_generic: Laman Tersunting
     bytes_added: Bait Ditambah

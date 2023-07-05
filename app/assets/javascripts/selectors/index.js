@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import { sortBy, difference, uniq, filter, includes, pickBy, find } from 'lodash-es';
 import { getFiltered } from '../utils/model_utils';
-import { STUDENT_ROLE, INSTRUCTOR_ROLE, ONLINE_VOLUNTEER_ROLE, CAMPUS_VOLUNTEER_ROLE, STAFF_ROLE, fetchStates, ARTICLES_PER_PAGE } from '../constants';
+import { STUDENT_ROLE, INSTRUCTOR_ROLE, ONLINE_VOLUNTEER_ROLE, CAMPUS_VOLUNTEER_ROLE, STAFF_ROLE, fetchStates, ARTICLES_PER_PAGE, REVIEWING_ROLE } from '../constants';
 import UserUtils from '../utils/user_utils.js';
 import { PageAssessmentGrades } from '../utils/article_finder_language_mappings.js';
 import CourseDateUtils from '../utils/course_date_utils.js';
@@ -132,7 +132,6 @@ export const getAvailableTags = createSelector(
   }
 );
 
-
 export const getCloneableCourses = createSelector(
   [getUserCourses], (userCourses) => {
     return getFiltered(userCourses, { cloneable: true });
@@ -143,6 +142,12 @@ export const getCloneableCourses = createSelector(
 export const getAvailableArticles = createSelector(
   [assignments], (assignment) => {
     return getFiltered(assignment, { user_id: null });
+  }
+);
+
+export const getReviewAssignments = createSelector(
+  [assignments], (assignment) => {
+    return getFiltered(assignment, { role: REVIEWING_ROLE });
   }
 );
 
