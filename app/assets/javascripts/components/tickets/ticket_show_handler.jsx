@@ -26,7 +26,7 @@ const TicketShowHandler = (props) => {
 
     if (ticket) {
       dispatch(readAllMessages(ticket));
-      return dispatch(selectTicket(ticket));
+      dispatch(selectTicket(ticket));
     }
 
     dispatch(fetchTicket(id)).then(() => {
