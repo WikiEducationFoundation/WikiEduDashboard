@@ -150,8 +150,7 @@ const CourseClonedModal = createReactClass({
     // You must be logged in and have permission to edit the course.
     // This will be the case if you created it (and are therefore the instructor) or if you are an admin.
     if (!this.props.currentUser.isAdvancedRole) { return false; }
-    if (this.state.valuesUpdated && this.state.dateValuesUpdated) { return true; }
-    return false;
+    return true;
   },
 
   render() {
