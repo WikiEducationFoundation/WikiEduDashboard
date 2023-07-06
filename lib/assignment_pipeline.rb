@@ -71,8 +71,7 @@ class AssignmentPipeline
   end
 
   def status
-    return @all_statuses.first unless @assignment.flags[@key]
-    @assignment.flags[@key][:status]
+    @assignment.flags.dig(@key, :status) || @all_statuses.first
   end
 
   def update_status(new_status)
