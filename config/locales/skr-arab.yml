@@ -199,6 +199,9 @@ skr-arab:
       create_short: پروگرام بݨاؤ
       find: پروگرام ڳولو
       save_cloned_course: بچاؤ
+      scoping_methods:
+        categories: ونکیاں
+        templates: سانچے
     delete_course: پروگرام مٹاؤ
     explore: پروگرام ڳولو
     leave_course: پروگرام چھوڑو

@@ -738,6 +738,8 @@ zh-TW:
       participate_in_campaign: 參與競賽
       save_cloned_course: 儲存
       start_date: 活動追蹤起始
+      scoping_methods:
+        templates: 模板
     delete_course: 刪除方案
     edit_course_dates: 編輯專案日期
     end: 活動追蹤結束

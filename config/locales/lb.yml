@@ -395,6 +395,11 @@ lb:
       find: E Programm sichen
       participate_in_campaign: Bei enger Campagne matmaachen
       save_cloned_course: Späicheren
+      scoping_methods:
+        categories: Kategorien
+        templates: Schablounen
+        petscan: PetScan
+        pagepile: PagePile
     delete_course: Programm läschen
     enroll: Auteur derbäisetzen
     enrollment: Auteuren derbäisetzen/ewechhuelen

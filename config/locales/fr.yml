@@ -647,6 +647,7 @@ fr:
       update_scheduled: Mise à jour programmée. La donnée sera mise à jour avec tous
         les programmes actuels lors du prochain cycle de mise à jour. Cela prend en
         général plusieurs heures.
+      creating_course: Création d’un cours
     current: Cours actuels
     data_articles: Données des articles
     data_articles_info: Les données des articles incluent le nombre de modifications
@@ -1001,6 +1002,51 @@ fr:
       participate_in_campaign: Participer à une campagne
       save_cloned_course: Enregistrer
       start_date: Début du suivi d’activité
+      scoping_methods:
+        scoping_methods: Méthodes de ciblage
+        configure: Configurer les méthodes de ciblage
+        about: |-
+          Pour un programme ciblé sur l’article, le tableau de bord tracera seulement les modifications aux articles pour lequel vous aurez configuré. Après la création de votre page, vous pouvez ajouter des articles à suivre individuellement en les assignant aux éditeurs individuels, ou en les ajoutant à Articles disponibles. Pour de plus gros ensembles d’articles, vous pouvez utiliser un de ces outils pour définir les articles que vous voulez tracer.
+          Sélectionnez une des méthodes de ciblage que vous voulez configurer maintenant. Vous pouvez aussi ajouter des méthodes de ciblage ultérieurement depuis l’onglet Articles.
+        categories: Catégories
+        categories_short_desc: La fonctionnalité Catégorie sur un wiki est utilisée
+          pour rassembler des articles connexes. Vous pouvez utiliser le nom de la
+          catégorie pour dire au tableau de bord de tracer tous les articles dans
+          cette catégorie.
+        categories_desc: |-
+          Tracer une catégorie veut dire que le tableau de bord comptera les modifications à n’importe quel article de cette catégorie. Par défaut (profondeur 0), seuls les articles qui sont directement dans la catégorie seront tracés.
+          Vous pouvez augmenter la valeur de la profondeur (jusqu’à 3 maximum) si vous voulez inclure les articles qui sont dans des sous-catégories de cette catégorie. Assurez-vous de naviguer d’abord dans la catégorie, pour vous assurer que les sous-catégories correspondent à ce que vous voulez suivre.
+        templates: Modèles
+        templates_short_desc: Vous pouvez tracer les articles d’après un modèle qu’ils
+          contiennent, ce qui fonctionne mieux si le modèle est utilisé dans l’article
+          lui-même, ou sur la page de discussion correspondante — comme les modèles
+          de WikiProject.
+        petscan: PetScan
+        petscan_short_desc: PetScan est un outil qui vous permet de requêter les pages
+          du wiki d’après un vaste choix de critères — y compris les catégories, les
+          modèles, les liens wiki, et bien plus. Vous pouvez utiliser un identifiant
+          de requête PetScan pour configurer un ensemble d’articles à suivre sur votre
+          tableau de bord.
+        pagepile: PagePile
+        pagepile_short_desc: PagePile est un outil qui vous permet de créer une liste
+          immuable de pages, identifiée par un identifiant unique.
+        templates_desc: Les modèles sont utilisés sur les pages wiki pour une grande
+          variété de buts, mais certains sont spécifiques à un sujet. Les modèles
+          de navigation, de WikiProject, et relatifs à un sujet, sont particulièrement
+          utiles à utiliser comme modèle pour configurer un programme de ciblage d’articles.
+        pagepile_desc: |-
+          PagePile est un outil de Wikimédia Cloud. Il permet aux utilisateurs de rassembler et organiser un groupe de pages wiki dans un ensemble unique appelé une « pile ». Ces piles peuvent alors facilement être partagées avec d’autres, permettant un travail collaboratif et un partage d’information.
+          En contraste avec PetScan, les articles dans une pile ne changent pas au cours du temps, même quand des catégories, des modèles ou d’autres données qui ont été utilisées pour créer cet ensemble d’articles, ont évolué.
+        petscan_desc: |-
+          PetScan est un outil puissant mais complexe pour requêter un ensemble de pages wiki d’après une large variété de critères et de sources de données. Vous pouvez utiliser directement PetScan pour créer une requête pour un ensemble d’articles que vous voulez suivre, ce qui vous donne accès à l’ensemble des options pour cibler très précisément votre requête. Sinon, vous pouvez créer une requête PetScan à partir de l’une des options les plus courantes directement depuis le tableau de bord.
+          PetScan enregistre les paramètres de la requête et lui fournit un identifiant. Les résultats de cette requête peuvent varier au cours du temps, par exemple quand de nouveaux articles sont ajoutés à une catégorie que comprend la requête. Le tableau de bord rafraîchira périodiquement les résultats de la requête pour un identifiant donné, et mettra à jour ses statistiques d’après le dernier ensemble d’articles fourni par PetScan.
+        petscan_create_psid: Créer un identifiant PetScan en utilisant l’outil officiel
+          de PetScan
+        pagepile_create_id: Créer une PagePile en utilisant l’outil officiel de PagePile
+        categories_include_OR: Les articles contenant UNE de ces catégories seront
+          suivis
+        templates_include_OR: Les articles contenant UN de ces modèles seront suivis
+        start_typing_to_search: Commencer à taper pour chercher
     delete_course: Supprimer le programme
     edit_course_dates: Modifier les dates du projet
     end: Fin du suivi d’activité

@@ -10,6 +10,7 @@
 # Author: ElBe
 # Author: FF-11
 # Author: FF11
+# Author: Herzi Pinki
 # Author: Jikrau
 # Author: Justman10000
 # Author: Killarnee
@@ -968,8 +969,8 @@ de:
     references_count: Referenzen hinzugefügt
     replag_info: Das Dashboard ruft Bearbeitungsdaten aus WMF-Cloud-Replikat-Datenbanken
       ab. Manchmal fehlen in diesen Datenbanken die neuesten Bearbeitungen aufgrund
-      von Replikationsverzögerungen (Replace). Wenn dies der Fall ist, werden die
-      fehlenden Bearbeitungen später angezeigt.
+      von Replikationsverzögerungen (Replag). Wenn dies der Fall ist, werden die fehlenden
+      Bearbeitungen später angezeigt.
     replag_link: Ersatz prüfen
     tags: Markierungen
     total_updates: Gesamtzahl der bisherigen Updates

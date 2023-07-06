@@ -613,6 +613,9 @@ fi:
       participate_in_campaign: Osallistu kampanjaan
       save_cloned_course: Tallenna
       start_date: Toiminnan seurannan aloittaminen
+      scoping_methods:
+        categories: Luokat
+        templates: Mallineet
     delete_course: Poista ohjelma
     edit_course_dates: Muokkaa ohjelman päivämääriä
     enroll: Lisää muokkaaja

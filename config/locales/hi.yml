@@ -367,6 +367,8 @@ hi:
     course: प्रोग्राम
     creator:
       assignment_end_placeholder: YYYY-MM-DD
+      scoping_methods:
+        categories: श्रेणियाँ
     school: संस्थान
     student_editors: सम्पादक
     students_short: संपादक

@@ -153,6 +153,7 @@ sl:
       create_short: Ustvari tečaj
       end_date: Končni datum
       start_date: Začetni datum
+      creating_course: Ustvaritev tečaja
     current: Trenutni tečaji
     data_articles: Podatki o člankih
     data_overview: Pregledni podatki
@@ -225,6 +226,49 @@ sl:
       create_label: Ustvari nov program
       create_short: Ustvari program
       save_cloned_course: Shrani
+      scoping_methods:
+        scoping_methods: Metode določanja obsega
+        configure: Konfigurirajte metoda določanja obsega
+        about: |-
+          Pri programu, usmerjenem na članke, bo nadzorna plošča spremljala samo urejanja člankov, za katere jo boste konfigurirali. Ko no vaša stran ustvarjena, lahko posamezne članke dodajate tako, da jih dodelite posameznim urejevalcem, ali jih dodate kot Razpoložljive članke. Za večje nabore člankov lahko uporabite katero koli od teh orodij za določitev člankov, ki jih želite spremljati.
+          Zdaj izberite vse načine določanja obsega, ki jih želite konfigurirati. Metode določanja obsega lahko dodate tudi pozneje na zavihku Članki.
+        categories: Kategorije
+        categories_short_desc: Možnost Kategorija se v vikiju uporablja za zbiranje
+          povezanih člankov. Z imenom kategorije lahko naročite nadzorni plošči, naj
+          spremlja vse članke v tej kategoriji.
+        categories_desc: |-
+          Spremljanje kategorije pomeni, da bo nadzorna plošča štela urejanja vseh člankov v tej kategoriji. Privzeto (globina&nbsp;0) boste spremljali samo članke, ki so neposredno v tej kategoriji.
+          Če želite vključiti članke, ki so v podkategorijah te kategorije, lahko vrednost globine povečate (do največ 3). Ne pozabite najprej pregledati kategorije, da se prepričate, ali se podkategorije ujemajo s tem, kar nameravate spremljati.
+        templates: Predloge
+        templates_short_desc: Članke lahko spremljate na podlagi predloge, ki jo vsebujejo,
+          kar deluje ne glede na to, ali je predloga uporabljena v samem članku ali
+          na ustrezni pogovorni strani — kot so predloge vikiprojektov.
+        petscan: PetScan
+        petscan_short_desc: PetScan je orodje, ki vam omogoča poizvedovanje po vikistraneh
+          na podlagi širokega nabora meril — vključno s kategorijami, predlogami,
+          vikipovezavami in še veliko več. ID poizvedbe PetScan lahko uporabite za
+          konfiguriranje nabora člankov za spremljanje na nadzorni plošči.
+        pagepile: PagePile
+        pagepile_short_desc: PagePile je orodje za ustvaritev seznama strani, ki se
+          s časom ne spremeni in je označen z edinstvenim ID-jem.
+        templates_desc: Predloge se na vikistraneh uporabljajo za najrazličnejše namene,
+          nekatere pa so specifične za določeno tematiko. Prei uporabi predloge za
+          konfiguriranje programa, usmerjenega na članke, so še posebej uporabne za
+          tematiko specifične predloge za krmarjenje, predloge za vikiprojekte in
+          predloge za infopolja.
+        pagepile_desc: |-
+          PagePile je orodje v oblaku Wikimedia Cloud. Uporabnikom omogoča zbiranje in organiziranje skupine vikistrani v en sam sveženj, imenovan »kup«. Te kupe je nato mogoče preprosto deliti z drugimi, kar omogoča skupno delo in izmenjavo informacij.
+          V nasprotju s PetScanom se članki v kupu sčasoma ne bodo spremenili, tudi če se bodo spremenile kategorije, predloge ali drugi podatki, uporabljeni za ustvarjanje tega nabora.
+        petscan_desc: |-
+          PetScan je zmogljivo, toda zapleteno orodje za poizvedovanje po naboru vikistrani na podlagi najrazličnejših meril in virov podatkov. PetScan lahko uporabite neposredno za ustvarjanje poizvedbe za nabor člankov, ki jih želite spremljati, kar vam omogoča dostop do celotnega nabora možnosti za zelo natančno usmeritev vaše poizvedbe. Druga možnost je, da ustvarite poizvedbo PetScan z nekaterimi najpogostejšimi možnostmi neposredno na nadzorni plošči.
+          PetScan shrani parametre poizvedbe in zagotovi ID za to poizvedbo. Zadetki te poizvedbe se lahko sčasoma spremenijo, na primer ko so v kategorijo, ki jo vključuje poizvedba, dodani novi članki. Nadzorna plošča bo občasno osvežila zadetke poizvedbe za dani ID in posodobila svojo statistiko na podlagi najnovejšega nabora člankov, ki jih bo ustvaril PetScan.
+        petscan_create_psid: Ustvarite ID PetScan z uradnim orodjem PetScan
+        pagepile_create_id: Ustvarite PagePile z uradnim orodjem PagePile
+        categories_include_OR: Spremljani bodo članki, ki vsebujejo KATERO koli od
+          teh kategorij
+        templates_include_OR: Spremljani bodo članki, ki vsebujejo KATERO koli od
+          teh kategorij
+        start_typing_to_search: Začnite tipkati za iskanje
     edit_course_dates: Uredi datume projekta
     not_permitted: Nimate dovoljenja za urejanje tega programa.
     request_accounts: Zahtevaj račune

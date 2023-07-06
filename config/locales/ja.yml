@@ -724,6 +724,9 @@ ja:
       participate_in_campaign: 告知に参加する
       save_cloned_course: 保存
       start_date: 活動追跡の開始
+      scoping_methods:
+        categories: カテゴリ
+        templates: テンプレート
     delete_course: プログラムを削除
     edit_course_dates: プロジェクトの日付を編集
     end: 活動の追跡を終了

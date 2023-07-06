@@ -703,6 +703,9 @@ it:
         Clicca su "Crea il mio programma!" Per iniziare a costruire la pagina per
         il tuo programma wiki.
       save_cloned_course: Salva
+      scoping_methods:
+        categories: Categorie
+        templates: Template
     delete_course: Cancella programma
     edit_course_dates: Modifica date del progetto
     enroll: Aggiungi editor

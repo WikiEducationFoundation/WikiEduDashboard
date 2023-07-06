@@ -712,6 +712,10 @@ sr-ec:
       participate_in_campaign: Учествујте у кампањи
       save_cloned_course: Сачувај
       start_date: Почетак праћења активности
+      scoping_methods:
+        categories: Категорије
+        templates: Шаблони
+        start_typing_to_search: Претрага
     delete_course: Обриши програм
     edit_course_dates: Измени датуме пројекта
     end: Праћење активности се завршава
