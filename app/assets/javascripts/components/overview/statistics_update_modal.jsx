@@ -47,7 +47,7 @@ const StatisticsUpdateModal = (props) => {
         <br/>
         { I18n.t('metrics.missing_data_info') }:
         <ul>
-          <li>{ I18n.t('metrics.replag_info') }<a href="https://replag.toolforge.org/" target="_blank">{I18n.t('metrics.replag_link')}</a></li>
+          <li>{ I18n.t('metrics.replag_info') } <a href="https://replag.toolforge.org/" target="_blank">{I18n.t('metrics.replag_link')}</a></li>
           { course.type === 'ArticleScopedProgram' && <li>{ I18n.t(`metrics.${ArticleUtils.projectSuffix(course.home_wiki.project, 'article_scoped_program_info')}`) }</li> }
         </ul>
         <small>{ helpMessage }</small>
