@@ -110,7 +110,7 @@
             .survey__question__option-row
               .survey__question__conditional-row{"data-conditional" => question_conditional_string(@question)}
                 Show if
-                \#{select_tag "", options_from_collection_for_select(@question_group.questions.for_conditionals, "id", "question_text"), :include_blank => "Select a question", :data => {:conditional_select => true}}
+                \#{select_tag "", options_from_collection_for_select(@question_group.questions.for_conditionals(@question&.id), "id", "question_text"), :include_blank => "Select a question", :data => {:conditional_select => true}}
                 %span{"data-conditional-operator" => ""}
                 %select.hidden{"data-conditional-operator-select" => ""}
                 %select.hidden{"data-conditional-value-select" => ""}

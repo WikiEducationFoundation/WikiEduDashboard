@@ -26,7 +26,6 @@ Rails.application.config.to_prepare do
         # if it isn't nil, then we have preloaded the user's notifications via includes in app/views/surveys/_question_group.html.haml
         notifications = curr_user.survey_notifications.completed.includes(survey_assignment: :survey)
       end
-      
       return nil if notifications.empty?
       notifications.map {|n| n if n.survey.id == survey_id }.compact.first
     end
@@ -108,8 +107,8 @@ Rails.application.config.to_prepare do
     scope :course_data_questions, ->{where("course_data_type <> ''")}
     serialize :alert_conditions, Hash
 
-    def self.for_conditionals
-      where("conditionals IS NULL OR conditionals = ''")
+    def self.for_conditionals(question_id)
+      where.not(id: question_id).where("conditionals IS NULL OR conditionals = ''")
     end
 
     def to_csv
