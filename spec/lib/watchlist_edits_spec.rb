@@ -21,7 +21,7 @@ describe WatchlistEdits do
 
     it 'calls get_tokens and sets watch and access tokens' do
       expect(watchlist_edits).to receive(:get_tokens).with(User.find(2), 'watch').and_return(tokens)
-      watchlist_edits.retrieve_tokens
+      watchlist_edits.send(:retrieve_tokens)
     end
   end
 
@@ -65,11 +65,18 @@ describe WatchlistEdits do
     context 'when users is not empty and retrieve_tokens returns true' do
       before do
         allow(watchlist_edits).to receive(:retrieve_tokens).and_return(true)
+        allow(access_token).to receive(:post)
+          .and_return(instance_double('response', body: '{"status": "success"}'))
       end
 
       it 'calls post method on access_token with the correct data' do
         expect(access_token).to receive(:post).with(api_url, data)
         watchlist_edits.watch_userpages(['user1'])
+      end
+
+      it 'returns the parsed response body' do
+        response = watchlist_edits.watch_userpages(['user1'])
+        expect(response).to eq({ 'status' => 'success' })
       end
     end
   end

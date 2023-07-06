@@ -13,7 +13,9 @@ class WatchlistEdits < WikiEdits
     return { status: 'token retrieval failed' } unless retrieve_tokens
 
     data = watch_action_parameters(users)
-    @access_token.post(@wiki.api_url.to_s, data)
+    response = @access_token.post(@wiki.api_url.to_s, data)
+    response_data = Oj.load(response.body)
+    response_data
   end
 
   private

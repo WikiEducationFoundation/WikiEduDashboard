@@ -11,6 +11,7 @@ class Courses::WatchlistController < ApplicationController
     wiki = course.home_wiki
     users = course.students
     array_of_users = users.map(&:user_page)
-    WatchlistEdits.new(wiki, current_user).watch_userpages(array_of_users)
+    watchlist_response = WatchlistEdits.new(wiki, current_user).watch_userpages(array_of_users)
+    render json: { message: watchlist_response }
   end
 end

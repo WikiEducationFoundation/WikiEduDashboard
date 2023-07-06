@@ -1430,8 +1430,10 @@ en:
       student_overview: "%{prefix}  Overview"
       watch_list:
         students_add: "Add all %{prefix} to Watchlist"
-        instructional_message: You're about to add your students' talk pages to your watchlist, to stay updated on their discussions and contributions. Clicking 'OK' will add all the students to the watchlist. Continue?
+        instructional_message: You're about to add your student's talk pages to your watchlist, to stay updated on their discussions and contributions. Clicking 'OK' will add all the students to the watchlist. Continue?
         tooltip_message:  Easily track discussions on students talk pages by adding them to your watchlist.
+        success_message:  "%{prefix} successfully added to the Watchlist."
+        error_message: "Failed to add %{prefix} to the Watchlist. Please try again later."
     total_uploads: "Total Uploads"
     training_complete:
       one: "is up-to-date with training"
