@@ -364,7 +364,7 @@ const Timeline = createReactClass({
 
       const start = toDate(this.props.course.timeline_start);
       const end = toDate(this.props.course.timeline_end);
-      const weeksDiff = differenceInWeeks(end, start);
+      const weeksDiff = differenceInWeeks(end, start, { roundingMethod: 'ceil' });
       const timelineFull = weeksDiff - weekComponents.length <= 0;
       addWeekLink = timelineFull ? (
         <li>
