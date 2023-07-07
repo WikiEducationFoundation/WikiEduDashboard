@@ -40,7 +40,7 @@ const PlagiarismHandler = () => {
         activity={revisions}
         headers={HEADERS}
         noActivityMessage={NO_ACTIVITY_MESSAGE}
-        onSort={dataSortKey => sortSuspectedPlagiarism(dataSortKey)}
+        onSort={dataSortKey => dispatch(sortSuspectedPlagiarism(dataSortKey))}
       />
     </div>
   );

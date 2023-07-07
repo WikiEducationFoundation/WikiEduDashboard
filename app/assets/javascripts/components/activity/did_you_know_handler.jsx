@@ -44,7 +44,7 @@ const DidYouKnowHandler = () => {
         activity={articles}
         headers={HEADERS}
         noActivityMessage={NO_ACTIVITY_MESSAGE}
-        onSort={dataSortKey => sortDYKArticles(dataSortKey)}
+        onSort={dataSortKey => dispatch(sortDYKArticles(dataSortKey))}
       />
     </div>
   );
