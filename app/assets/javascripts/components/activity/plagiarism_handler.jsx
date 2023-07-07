@@ -1,66 +1,55 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ActivityTable from './activity_table.jsx';
 import { fetchSuspectedPlagiarism, sortSuspectedPlagiarism } from '../../actions/suspected_plagiarism_actions.js';
 
 const HEADERS = [
-      { title: I18n.t('recent_activity.article_title'), key: 'title' },
-      { title: I18n.t('recent_activity.plagiarism_report'), key: 'report_url', style: { width: 180 } },
-      { title: I18n.t('recent_activity.revision_author'), key: 'username', style: { minWidth: 142 } },
-      { title: I18n.t('recent_activity.revision_datetime'), key: 'datetime', style: { width: 200 } },
-    ];
+  { title: I18n.t('recent_activity.article_title'), key: 'title' },
+  { title: I18n.t('recent_activity.plagiarism_report'), key: 'report_url', style: { width: 180 } },
+  { title: I18n.t('recent_activity.revision_author'), key: 'username', style: { minWidth: 142 } },
+  { title: I18n.t('recent_activity.revision_datetime'), key: 'datetime', style: { width: 200 } },
+];
 
 const NO_ACTIVITY_MESSAGE = I18n.t('recent_activity.no_plagiarism');
 
+const PlagiarismHandler = () => {
+  const myCoursesRef = useRef(null);
 
-const PlagiarismHandler = createReactClass({
-  displayName: 'PlagiarismHandler',
+  const dispatch = useDispatch();
+  const revisions = useSelector(state => state.suspectedPlagiarism.revisions);
+  const loading = useSelector(state => state.suspectedPlagiarism.loading);
 
-  propTypes: {
-    fetchSuspectedPlagiarism: PropTypes.func,
-    revisions: PropTypes.array,
-    loading: PropTypes.bool
-  },
+  useEffect(() => {
+    dispatch(fetchSuspectedPlagiarism());
+  }, []);
 
-  componentDidMount() {
-    return this.props.fetchSuspectedPlagiarism();
-  },
-
-  setCourseScope(e) {
+  const setCourseScope = (e) => {
     const scoped = e.target.checked;
-    return this.props.fetchSuspectedPlagiarism({ scoped });
-  },
+    dispatch(fetchSuspectedPlagiarism({ scoped }));
+  };
 
-  render() {
-    return (
-      <div>
-        <label>
-          <input ref="myCourses" type="checkbox" onChange={this.setCourseScope} />
-          {I18n.t('recent_activity.show_courses')}
-        </label>
-        <ActivityTable
-          loading={this.props.loading}
-          activity={this.props.revisions}
-          headers={HEADERS}
-          noActivityMessage={NO_ACTIVITY_MESSAGE}
-          onSort={this.props.sortSuspectedPlagiarism}
-        />
-      </div>
-    );
-  }
-});
-
-
-const mapStateToProps = state => ({
-  revisions: state.suspectedPlagiarism.revisions,
-  loading: state.suspectedPlagiarism.loading
-});
-
-const mapDispatchToProps = {
-  fetchSuspectedPlagiarism: fetchSuspectedPlagiarism,
-  sortSuspectedPlagiarism: sortSuspectedPlagiarism
+  return (
+    <div>
+      <label>
+        <input ref={myCoursesRef} type="checkbox" onChange={setCourseScope} />
+        {I18n.t('recent_activity.show_courses')}
+      </label>
+      <ActivityTable
+        loading={loading}
+        activity={revisions}
+        headers={HEADERS}
+        noActivityMessage={NO_ACTIVITY_MESSAGE}
+        onSort={dataSortKey => sortSuspectedPlagiarism(dataSortKey)}
+      />
+    </div>
+  );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlagiarismHandler);
+PlagiarismHandler.propTypes = {
+  fetchSuspectedPlagiarism: PropTypes.func,
+  revisions: PropTypes.array,
+  loading: PropTypes.bool
+};
+
+export default (PlagiarismHandler);
