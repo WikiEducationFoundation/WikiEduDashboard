@@ -19,7 +19,8 @@ export const PaginatedArticleControls = ({ showMore, limitReached }) => {
   const filteredArticles = useSelector(getArticlesByTrackedStatus);
   const currentPage = useSelector(state => state.articles.currentPage);
   const pageRange = getPageRange(currentPage, filteredArticles.length);
-  const totalEditedArticles = useSelector(state => state.course.edited_count);
+  const totalEditedArticles = getPageRange(currentPage, filteredArticles.length).split('-')[1];
+
 
   // this is for when a filter is applied and the number of pages changes
   // we need to reset the page to the first page
@@ -31,7 +32,7 @@ export const PaginatedArticleControls = ({ showMore, limitReached }) => {
 
   return (
     <div id="articles-view-controls" className={limitReached ? 'hidden-see-more-btn' : ''}>
-      <ReactPaginate
+      { totalPages ? (<ReactPaginate
         pageCount={totalPages}
         nextLabel={nextLabel}
         previousLabel={previousLabel}
@@ -39,7 +40,7 @@ export const PaginatedArticleControls = ({ showMore, limitReached }) => {
         containerClassName={'pagination'}
         onPageChange={handlePageChange}
         forcePage={currentPage - 1}
-      />
+      />) : null }
       {!limitReached
         && (
           <button
@@ -51,7 +52,7 @@ export const PaginatedArticleControls = ({ showMore, limitReached }) => {
         )
       }
       <p className="articles-shown-label">
-        {I18n.t('articles.articles_shown', { count: pageRange, total: totalEditedArticles })}
+        { totalPages ? I18n.t('articles.articles_shown', { count: pageRange, total: totalEditedArticles }) : null}
       </p>
     </div>
   );
