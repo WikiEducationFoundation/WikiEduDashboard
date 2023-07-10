@@ -70,11 +70,9 @@ const AlertsHandler = ({ alertLabel, noAlertsLabel, adminAlert }) => {
 
 
 AlertsHandler.propTypes = {
-  alerts: PropTypes.array,
   alertLabel: PropTypes.string,
   noAlertsLabel: PropTypes.string,
   adminAlert: PropTypes.bool,
-  alertTypes: PropTypes.array,
 };
 
 export default (AlertsHandler);
