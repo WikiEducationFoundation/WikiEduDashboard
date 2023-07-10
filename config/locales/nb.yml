@@ -591,6 +591,8 @@ nb:
       participate_in_campaign: Delta i en kampanje
       save_cloned_course: Lagre
       start_date: Aktivitetsinnsamling begynner
+      scoping_methods:
+        petscan: PetScan
     delete_course: Slett program
     edit_course_dates: Rediger prosjektdatoer
     end: Aktivitetsinnsamling avsluttes

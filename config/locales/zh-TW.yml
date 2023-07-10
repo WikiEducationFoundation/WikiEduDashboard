@@ -483,6 +483,7 @@ zh-TW:
       start_date_placeholder: YYYY-MM-DD
       subject: 領域主題
       update_scheduled: 已安排更新，資料將會連同目前所有程序在下次更新週期裡更新。這通常會花費數小時。
+      creating_course: 建立課程
     current: 目前的課程
     data_articles: 條目資料
     data_articles_info: 條目資料包含著任一頁面的編輯次數、那些為新的頁面、以及頁面瀏覽次數。對於已結束的課程來說頁面瀏覽次數可能為過期，因此包含著維基媒體基金會頁面瀏覽工具的
@@ -739,7 +740,10 @@ zh-TW:
       save_cloned_course: 儲存
       start_date: 活動追蹤起始
       scoping_methods:
+        categories: 分類
         templates: 模板
+        petscan: PetScan
+        pagepile: PagePile
     delete_course: 刪除方案
     edit_course_dates: 編輯專案日期
     end: 活動追蹤結束

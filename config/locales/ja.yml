@@ -6,6 +6,7 @@
 # Author: Ajeje Brazorf
 # Author: Bonfire12
 # Author: Kkairri
+# Author: MagicAho
 # Author: MathXplore
 # Author: MirukuPC
 # Author: Omotecho
@@ -727,6 +728,7 @@ ja:
       scoping_methods:
         categories: カテゴリ
         templates: テンプレート
+        pagepile_create_id: 公式 PagePile ツールを使用して PagePile を作成する
     delete_course: プログラムを削除
     edit_course_dates: プロジェクトの日付を編集
     end: 活動の追跡を終了

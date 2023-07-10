@@ -13,6 +13,7 @@
 # Author: Mikey641
 # Author: MojoMann
 # Author: N100a
+# Author: Neriah
 # Author: Or
 # Author: Steeve815
 # Author: Strayblues
@@ -771,7 +772,7 @@ he:
       remove:
         revoke_button: שלילת הרשאות מנהל
         already_instructor: למשתמש %{username} כבר יש הרשאות מנחה!
-        demote_success: '%{username} שוּנה למנחה.'
+        demote_success: '%{username} שונה למנחה.'
         no_super_admin: לא ניתן לשלול הרשאות מנהל ממנהל־על
     special_users:
       remove:
