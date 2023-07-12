@@ -112,6 +112,7 @@ RSpec.describe Category, type: :model do
       let(:article) { create(:article, wiki: lawiktionary, title: 'America') }
 
       it 'updates article titles and wiki for categories associated with courses' do
+        pending 'Fails when PagePile is down.'
         expect(described_class.last.article_titles).to be_empty
         expect(described_class.last.wiki.language).to eq('en')
 
@@ -122,6 +123,7 @@ RSpec.describe Category, type: :model do
           expect(described_class.last.article_ids).to include(article.id)
           expect(described_class.last.wiki).to eq(lawiktionary)
         end
+        pass_pending_spec
       end
 
       it 'fails gracefully when fetching a PagePile errors' do
