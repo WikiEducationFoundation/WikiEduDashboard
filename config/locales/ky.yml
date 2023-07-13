@@ -1,0 +1,27 @@
+# Messages for Kyrgyz (кыргызча)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Bosogo
+---
+ky:
+  application:
+    cancel: Жокко чыгаруу
+    log_in: Кирүү
+    log_out: Чыгуу
+    opt_in: Ооба
+    opt_out: Жок
+  courses:
+    dismiss_survey: Жабуу
+  courses_generic:
+    cancel: Жокко чыгаруу
+    student_editors: Түзөтүүчүлөр
+    students: Түзөтүүчүлөр
+    students_short: Түзөтүүчүлөр
+  editable:
+    edit: Түзөтүү
+    cancel: Жокко чыгаруу
+  training:
+    page: Барак
+  uploads:
+    label: Жүктөөлөр
+...
