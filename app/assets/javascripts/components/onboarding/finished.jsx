@@ -1,40 +1,29 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-// Finished slide
-const Finished = createReactClass({
-  propTypes: {
-    currentUser: PropTypes.object,
-    returnToParam: PropTypes.string
-  },
-
-  getInitialState() {
-    return {};
-  },
-
+const Finished = ({ returnToParam }) => {
   // When this route loads, wait a second then redirect
   // out to the return_to param (or root)
-  componentDidMount() {
-    return this.state.timeout = setTimeout(() => {
-      const returnTo = this.props.returnToParam;
-      return window.location = decodeURIComponent(returnTo);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      const returnTo = returnToParam;
+      window.location = decodeURIComponent(returnTo);
     }, 750);
-  },
 
-  // clear the timeout just to be safe
-  componentWillUnmount() {
-    return clearTimeout(this.state.timeout);
-  },
+    // clear the timeout just to be safe
+    return () => { clearTimeout(timeout); };
+  }, []);
 
-  render() {
-    return (
-      <div className="intro">
-        <h1>You´re all set. Thank you.</h1>
-        <h2>Loading...</h2>
-      </div>
-    );
-  }
-});
+  return (
+    <div className="intro">
+      <h1>You´re all set. Thank you.</h1>
+      <h2>Loading...</h2>
+    </div>
+  );
+};
+
+Finished.propTypes = {
+  returnToParam: PropTypes.string
+};
 
 export default Finished;
