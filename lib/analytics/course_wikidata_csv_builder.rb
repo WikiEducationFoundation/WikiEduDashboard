@@ -9,7 +9,7 @@ class CourseWikidataCsvBuilder
 
   def generate_csv
     csv_data = [CSV_HEADERS]
-    csv_data << stat_row if @course.course_stat && @course.home_wiki.project == 'wikidata'
+    csv_data << stat_row if wikidata_stats?
 
     CSV.generate { |csv| csv_data.each { |line| csv << line } }
   end
@@ -51,4 +51,10 @@ class CourseWikidataCsvBuilder
     'no data',
     'total revisions'
   ].freeze
+
+  private
+
+  def wikidata_stats?
+    @course.course_stat && @course.course_stat.stats_hash['www.wikidata.org']
+  end
 end
