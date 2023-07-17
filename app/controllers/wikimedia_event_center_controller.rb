@@ -82,6 +82,8 @@ class WikimediaEventCenterController < ApplicationController
 
   private
 
+  # A secret can be generated with `openssl rand -hex 64`, and saved in application.yml
+  # Secret should be shared with WMF engineers via private paste on Phabricator.
   def verify_secret
     raise InvalidSecretError if Features.wiki_ed?
     raise InvalidSecretError unless params[:secret] == ENV['WikimediaCampaignsPlatformSecret']
