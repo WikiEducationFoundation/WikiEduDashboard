@@ -27,6 +27,7 @@ class CourseCacheManager
 
   def update_user_count
     @course.user_count = @course.students.size
+    @course.save
   end
 
   private

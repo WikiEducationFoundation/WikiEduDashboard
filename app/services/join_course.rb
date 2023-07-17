@@ -90,6 +90,5 @@ class JoinCourse
     # The course user count is the number of students.
     return unless student_role?
     CourseCacheManager.new(@course).update_user_count
-    @course.save
   end
 end
