@@ -1,6 +1,7 @@
 # Messages for Breton (brezhoneg)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Adriendelucca
 # Author: Dishual
 # Author: Fulup
 # Author: Gwendal
@@ -343,6 +344,10 @@ br:
       create_short: Krouiñ ur programm !
       find: Kavout ur programm
       save_cloned_course: Enrollañ
+      scoping_methods:
+        categories: Rummadoù
+        templates: Patromoù
+        petscan: PetScan
     delete_course: Dilemel ar programm
     edit_course_dates: Kemmañ deiziadoù ar raktres
     enroll: Ouzhpennañ un embanner

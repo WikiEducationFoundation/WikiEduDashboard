@@ -744,6 +744,11 @@ zh-TW:
         templates: 模板
         petscan: PetScan
         pagepile: PagePile
+        petscan_create_psid: 使用官方 PetScan 工具建立 PetScan ID
+        pagepile_create_id: 使用官方 PagePile 工具建立 PagePile
+        categories_include_OR: 將追蹤包含這些任何分類的條目
+        templates_include_OR: 將追蹤包含這些任何模板的條目
+        start_typing_to_search: 開始輸入搜尋
     delete_course: 刪除方案
     edit_course_dates: 編輯專案日期
     end: 活動追蹤結束

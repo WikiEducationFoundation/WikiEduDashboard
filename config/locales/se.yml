@@ -49,6 +49,7 @@ se:
   categories:
     template_name: Málle namma
     remove: Sihko
+    timestamp: Maŋemus rievdaduvvon
   courses:
     articles: Artihkkalat
     delete_suggestion: Sihko

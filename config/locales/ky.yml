@@ -14,12 +14,18 @@ ky:
     dismiss_survey: Жабуу
   courses_generic:
     cancel: Жокко чыгаруу
+    creator:
+      save_cloned_course: Сактоо
     student_editors: Түзөтүүчүлөр
     students: Түзөтүүчүлөр
     students_short: Түзөтүүчүлөр
   editable:
     edit: Түзөтүү
     cancel: Жокко чыгаруу
+    save: Сактоо
+  revisions:
+    diff_show: Көрсөтүү
+    diff_hide: Жашыруу
   training:
     page: Барак
   uploads:
