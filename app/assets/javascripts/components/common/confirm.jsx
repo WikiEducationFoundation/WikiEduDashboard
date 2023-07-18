@@ -1,121 +1,78 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Modal from './modal.jsx';
 import TextInput from './text_input.jsx';
 import { confirmAction, cancelAction } from '../../actions';
 
-const Confirm = createReactClass({
-  displayName: 'Confirm',
+const Confirm = () => {
+  const dispatch = useDispatch();
 
-  propTypes: {
-    onConfirm: PropTypes.func,
-    onCancel: PropTypes.func,
-    showInput: PropTypes.bool,
-    explanation: PropTypes.string,
-    confirmAction: PropTypes.func.isRequired,
-    cancelAction: PropTypes.func.isRequired
-  },
+  const confirmationActive = useSelector(state => state.confirm.confirmationActive);
+  const confirmMessage = useSelector(state => state.confirm.confirmMessage);
+  const explanation = useSelector(state => state.confirm.explanation);
+  const onConfirm = useSelector(state => state.confirm.onConfirm);
+  const showInput = useSelector(state => state.confirm.showInput);
+  const warningMessage = useSelector(state => state.confirm.warningMessage);
 
-  getInitialState() {
-    return { userInput: '' };
-  },
+  const [userInput, setUserInput] = useState('');
 
-  onConfirm() {
-    this.props.onConfirm(this.state.userInput);
-    this.props.confirmAction();
-  },
+  const onConfirmClick = () => {
+    onConfirm(userInput);
+    dispatch(confirmAction());
+  };
 
-  onCancel() {
-    if (this.props.onCancel) {
-      this.props.onCancel();
-    }
-    this.props.cancelAction();
-  },
+  const onCancel = () => {
+    dispatch(cancelAction());
+  };
 
-  onChange(_valueKey, value) {
-    this.setState({ userInput: value });
-  },
+  const onChange = (_valueKey, value) => {
+    setUserInput(value);
+  };
 
-  render() {
-    if (!this.props.confirmationActive) { return <div />; }
-    let textInput;
-    let description;
-    let confirmMessage;
-    let lineBreak;
-    let warningMessage;
-    if (this.props.showInput) {
-      textInput = (
-        <div>
-          <TextInput
-            value={this.state.userInput}
-            value_key="userInput"
-            onChange={this.onChange}
-            editable
-          />
-        </div>
-      );
-      confirmMessage = (
-        <div id="confirm-message">
-          {this.props.confirmMessage}
-        </div>
-      );
-    } else {
-      confirmMessage = (
-        <p>{this.props.confirmMessage}</p>
-      );
-      lineBreak = (
-        <br />
-      );
-    }
+  if (!confirmationActive) { return <div />; }
 
-    if (this.props.explanation) {
-      description = (
-        <div className="confirm-explanation">
-          {this.props.explanation}
-          <br />
-          <br />
-        </div>
-      );
-    }
-
-    if (this.props.warningMessage) {
-      warningMessage = (
-        <div className="warning slim">
-          <p dangerouslySetInnerHTML={{ __html: this.props.warningMessage }} />
-        </div>
-      );
-    }
-
-    return (
-      <Modal modalClass="confirm-modal-overlay">
-        <div className="confirm-modal" role="alert">
-          {description}
-          {confirmMessage}
-          {textInput}
-          {warningMessage}
-          {lineBreak}
-          <div className="pop_container pull-right">
-            <button className="button ghost-button" onClick={this.onCancel}>{I18n.t('application.cancel')}</button>
-            <button autoFocus className="button dark" onClick={this.onConfirm}>{I18n.t('application.confirm')}</button>
+  return (
+    <Modal modalClass="confirm-modal-overlay">
+      <div className="confirm-modal" role="alert">
+        {explanation && (
+          <div className="confirm-explanation">
+            {explanation}
+            <br />
+            <br />
           </div>
+        )}
+        {showInput ? (
+          <>
+            <div id="confirm-message">
+              {confirmMessage}
+            </div>
+            <div>
+              <TextInput
+                value={userInput}
+                value_key="userInput"
+                onChange={onChange}
+                editable
+              />
+            </div>
+          </>
+        ) : (
+          <p>{confirmMessage}</p>
+        )}
+
+        {warningMessage && (
+          <div className="warning slim">
+            <p dangerouslySetInnerHTML={{ __html: warningMessage }} />
+          </div>
+        )}
+        {!showInput && <br />}
+        <div className="pop_container pull-right">
+          <button className="button ghost-button" onClick={onCancel}>{I18n.t('application.cancel')}</button>
+          <button autoFocus className="button dark" onClick={onConfirmClick}>{I18n.t('application.confirm')}</button>
         </div>
-      </Modal>
-    );
-  }
-});
+      </div>
+    </Modal>
+  );
+};
 
-const mapStateToProps = state => ({
-  confirmationActive: state.confirm.confirmationActive,
-  confirmMessage: state.confirm.confirmMessage,
-  explanation: state.confirm.explanation,
-  onConfirm: state.confirm.onConfirm,
-  showInput: state.confirm.showInput,
-  warningMessage: state.confirm.warningMessage
-});
-
-const mapDispatchToProps = { confirmAction, cancelAction };
-
-export default connect(mapStateToProps, mapDispatchToProps)(Confirm);
+export default (Confirm);
