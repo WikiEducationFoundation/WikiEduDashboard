@@ -19,7 +19,7 @@ export const PaginatedArticleControls = ({ showMore, limitReached }) => {
   const filteredArticles = useSelector(getArticlesByTrackedStatus);
   const currentPage = useSelector(state => state.articles.currentPage);
   const pageRange = getPageRange(currentPage, filteredArticles.length);
-  const totalEditedArticles = getPageRange(currentPage, filteredArticles.length).split('-')[1];
+  const totalFilteredArticles = Math.min(filteredArticles.length, currentPage * ARTICLES_PER_PAGE);
 
 
   // this is for when a filter is applied and the number of pages changes
@@ -52,7 +52,7 @@ export const PaginatedArticleControls = ({ showMore, limitReached }) => {
         )
       }
       <p className="articles-shown-label">
-        { totalPages ? I18n.t('articles.articles_shown', { count: pageRange, total: totalEditedArticles }) : null}
+        { totalPages ? I18n.t('articles.articles_shown', { count: pageRange, total: totalFilteredArticles }) : null}
       </p>
     </div>
   );
