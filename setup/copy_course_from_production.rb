@@ -14,11 +14,29 @@ def make_copy_of(url)
   course = Course.create!(
     copied_data
   )
+
+  # Remove the update_logs, which cause problems due to conversion of integer keys to strings.
+  course.flags.delete('update_logs')
+  course.save
+
   # Add the tracked wikis
   course_data['wikis'].each do |wiki_hash|
     wiki = Wiki.get_or_create(language: wiki_hash['language'], project: wiki_hash['project'])
     next if wiki.id == home_wiki.id # home wiki was automatically added already
     course.wikis << wiki
+  end
+
+  # Add the tracked categories
+  cat_data = JSON.parse(Net::HTTP.get URI(url + '/categories.json'))['course']['categories']
+  cat_data.each do |cat_hash|
+    wiki = Wiki.get_or_create(language: cat_hash['wiki']['language'], project: cat_hash['wiki']['project'])
+    cat = Category.find_or_create_by!(
+      depth: cat_hash['depth'],
+      source: cat_hash['source'],
+      name: cat_hash['name'],
+      wiki: wiki
+    )
+    course.categories << cat
   end
 
   # Get the user list
