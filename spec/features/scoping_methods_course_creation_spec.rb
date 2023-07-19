@@ -13,10 +13,11 @@ describe 'Course creation for Article Scoped Programs', type: :feature, js: true
                                     training_module_id: 3,
                                     completed_at: Time.zone.now)
     allow(Features).to receive(:wiki_ed?).and_return(false)
+    allow(Features).to receive(:open_course_creation?).and_return(true)
     login_as(user, scope: :user)
 
     visit root_path
-    click_link 'Create Course'
+    click_link 'Create an Independent Program'
     expect(page).to have_content 'Create an Independent Program'
     find('h4', text: 'Article Scoped Program').click
     find('#course_title').set('Course')
@@ -47,7 +48,7 @@ describe 'Course creation for Article Scoped Programs', type: :feature, js: true
 
     expect(page).to have_content 'My course'
     expect(page).to have_content 'Course'
-    expect(page).to have_content 'To make this program active and allow users to join'
+    expect(page).to have_content 'This project has been published!'
     expect(Course.all.count).to eq(1)
   end
 
@@ -66,7 +67,7 @@ describe 'Course creation for Article Scoped Programs', type: :feature, js: true
 
     expect(page).to have_content 'My course'
     expect(page).to have_content 'Course'
-    expect(page).to have_content 'To make this program active and allow users to join'
+    expect(page).to have_content 'This project has been published!'
     expect(Course.all.count).to eq(1)
 
     click_link 'Articles'
@@ -88,7 +89,7 @@ describe 'Course creation for Article Scoped Programs', type: :feature, js: true
 
     expect(page).to have_content 'My course'
     expect(page).to have_content 'Course'
-    expect(page).to have_content 'To make this program active and allow users to join'
+    expect(page).to have_content 'This project has been published!'
     expect(Course.all.count).to eq(1)
 
     click_link 'Articles'
@@ -130,7 +131,7 @@ describe 'Course creation for Article Scoped Programs', type: :feature, js: true
 
     expect(page).to have_content 'My course'
     expect(page).to have_content 'Course'
-    expect(page).to have_content 'To make this program active and allow users to join'
+    expect(page).to have_content 'This project has been published!'
     expect(Course.all.count).to eq(1)
 
     click_link 'Articles'
