@@ -68,3 +68,25 @@ export const getScopingMethods = (scopingMethods) => {
 
   return result;
 };
+
+export const getAddCategoriesPayload = ({
+  sourceType,
+  scopingMethods
+}) => {
+  if (sourceType === 'category') {
+    return {
+      categories: scopingMethods.categories
+    };
+  } else if (sourceType === 'psid') {
+    return {
+      categories: scopingMethods.petscan
+    };
+  } else if (sourceType === 'pileid') {
+    return {
+      categories: scopingMethods.pagepile
+    };
+  }
+  return {
+    categories: scopingMethods.templates
+  };
+};

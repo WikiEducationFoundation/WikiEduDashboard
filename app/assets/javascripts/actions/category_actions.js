@@ -26,18 +26,10 @@ export const fetchCategories = courseSlug => (dispatch) => {
   );
 };
 
-const addCategoryPromise = async ({ category, source, project, language, depth, course }) => {
-  const params = {
-    category_name: category,
-    depth,
-    course_id: course.id,
-    project,
-    language,
-    source
-  };
-
-  const response = await request(`/categories.json?${stringify(params)}`, {
-    method: 'POST'
+const addCategoryPromise = async (payload) => {
+  const response = await request('/categories.json', {
+    method: 'POST',
+    body: JSON.stringify(payload)
   });
 
   if (!response.ok) {

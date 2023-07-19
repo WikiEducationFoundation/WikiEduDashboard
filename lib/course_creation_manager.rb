@@ -123,8 +123,12 @@ class CourseCreationManager
 
   def create_all_category(categories, depth, source)
     categories.each do |category|
-      name = ArticleUtils.format_article_title(category[:value])
-      category = Category.find_or_create_by(name:, depth:, wiki: @wiki, source:)
+      title = category[:value][:title]
+      wiki_language = category[:value][:wiki][:language]
+      wiki_project = category[:value][:wiki][:project]
+      wiki = Wiki.get_or_create(language: wiki_language.downcase, project: wiki_project.downcase)
+      name = ArticleUtils.format_article_title(title)
+      category = Category.find_or_create_by(name:, depth:, wiki:, source:)
       @overrides[:categories] << category
     end
   end

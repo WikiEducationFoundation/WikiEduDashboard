@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { map } from 'lodash-es';
 import ArrayUtils from '../../utils/array_utils';
 import WIKI_OPTIONS from '../../utils/wiki_options';
+import { formatOption } from '../../utils/wiki_utils';
 
 /**
  *  A Wiki Selector Component that combines both language and project into a singular searchable
@@ -136,11 +137,12 @@ const WikiSelect = createReactClass({
       isMulti={this.props.multi}
       placeholder={I18n.t('multi_wiki.selector_placeholder')}
       noOptionsMessage={() => I18n.t('multi_wiki.selector_placeholder')}
-      value={wikis}
+      value={wikis.length ? wikis : undefined}
       loadOptions={loadOptions}
       onChange={preprocess}
       styles={this.props.styles}
       isClearable={false}
+      defaultValue={home_wiki && formatOption(home_wiki)}
     />;
   }
 }
