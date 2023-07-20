@@ -741,9 +741,14 @@ zh-TW:
       start_date: 活動追蹤起始
       scoping_methods:
         categories: 分類
+        categories_short_desc: wiki 上的分類功能用於收集相關條目。您可以使用分類名稱來讓控制面板追蹤該分類裡的所有條目。
         templates: 模板
         petscan: PetScan
         pagepile: PagePile
+        pagepile_short_desc: PagePile 是一個能讓您建立不隨時間變化，且由唯一 ID 標識的頁面清單的工具。
+        pagepile_desc: |-
+          PagePile 是維基多媒體雲端上的一個工具。能允許使用者收集 wiki 頁面群組，並將其組織成一個稱為「pile」的一捆資訊包。這些「pile」能輕鬆地與其他人分享，讓協作和資訊分享可行。
+          相較於 PetScan，「pile」裡的條目不會隨著時間的推動而改變，即使當分類、模板，或是其他用來建立條目集的資料發生變動也是如此。
         petscan_create_psid: 使用官方 PetScan 工具建立 PetScan ID
         pagepile_create_id: 使用官方 PagePile 工具建立 PagePile
         categories_include_OR: 將追蹤包含這些任何分類的條目
