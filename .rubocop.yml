@@ -30,6 +30,7 @@ Metrics/ClassLength:
     - 'app/models/alert.rb'
     - 'app/models/course.rb'
     - 'app/models/wiki.rb'
+    - 'app/models/user.rb'
     - 'app/controllers/surveys_controller.rb'
     - 'app/controllers/campaigns_controller.rb'
     - 'app/controllers/courses_controller.rb'
@@ -101,7 +102,7 @@ Layout/HashAlignment:
   Enabled: false # Hashes look uglier when corrected
 Rails/I18nLocaleTexts:
   Enabled: false # Generally the translations are done manually so most times many language translations will be missing while the fallback message is English
-  
+
 ########################
 # Temporary exceptions #
 ########################

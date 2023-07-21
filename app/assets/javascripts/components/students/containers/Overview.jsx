@@ -9,6 +9,7 @@ import Controls from '@components/students/components/Overview/Controls/Controls
 import StudentList from '../shared/StudentList/StudentList.jsx';
 import RandomPeerAssignButton from '@components/students/components/RandomPeerAssignButton.jsx';
 import Loading from '@components/common/loading.jsx';
+import AddToWatchlistButton from '@components/students/components/AddToWatchlistButton.jsx';
 
 const Overview = ({ course, current_user, prefix, sortUsers, notify, sortSelect }) => {
   const assignments = useSelector(state => state.assignments.assignments);
@@ -41,7 +42,11 @@ const Overview = ({ course, current_user, prefix, sortUsers, notify, sortSelect 
           ) : null
       }
 
-      <RandomPeerAssignButton current_user={current_user} course={course} assignments={assignments} students={students} />
+      <div className="action-buttons-container">
+        <RandomPeerAssignButton current_user={current_user} course={course} assignments={assignments} students={students} />
+        { Features.wikiEd && current_user.isAdvancedRole ? (<AddToWatchlistButton slug={course.slug} prefix={prefix} />) : null }
+      </div>
+
       {loadingAssignments && <Loading />}
 
       {!loadingAssignments && (
