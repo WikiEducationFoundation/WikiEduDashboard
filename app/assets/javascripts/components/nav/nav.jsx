@@ -1,252 +1,174 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
+import React, { useEffect, useState } from 'react';
 import CustomLink from './CustomLink.jsx';
 import HamburgerMenu from './hamburger_menu.jsx';
 import LanguagePicker from './language_picker.jsx';
 import NotificationsBell from './notifications_bell';
 import ConsentBanner from './consent_banner';
 
-const Nav = createReactClass({
-  displayName: 'Nav',
+const Nav = () => {
+  const {
+    rooturl: rootUrl,
+    logopath: logoPath,
+    fluid: fluidStr,
+    exploreurl: exploreUrl,
+    explorename: exploreName,
+    usersignedin: userSignedInStr,
+    ifadmin: ifAdminStr,
+    trainingurl: trainingUrl,
+    help_disabled: helpDisabledStr,
+    wiki_ed: wikiEdStr,
+    language_switcher_enabled: languageSwitcherEnabledStr,
+    username: currentUser,
+    destroyurl: destroyUrl,
+    omniauth_url: omniauthUrl
+  } = document.getElementById('nav_root').dataset;
 
-  getInitialState() {
-    const navRoot = document.getElementById('nav_root');
-    const rootUrl = navRoot.dataset.rooturl;
-    const logoPath = navRoot.dataset.logopath;
-    const fluid = navRoot.dataset.fluid === 'true'; //  converts string to boolean
-    const exploreUrl = navRoot.dataset.exploreurl;
-    const exploreName = navRoot.dataset.explorename;
-    const userSignedIn = navRoot.dataset.usersignedin === 'true';
-    const ifAdmin = navRoot.dataset.ifadmin === 'true';
-    const trainingUrl = navRoot.dataset.trainingurl;
-    const helpDisabled = navRoot.dataset.help_disabled === 'true';
-    const wikiEd = navRoot.dataset.wiki_ed === 'true';
-    const languageSwitcherEnabled = navRoot.dataset.language_switcher_enabled !== ''; // returns boolean false for empty string and true otherwise.
-    const currentUser = navRoot.dataset.username;
-    const destroyUrl = navRoot.dataset.destroyurl;
-    const omniauthUrl = navRoot.dataset.omniauth_url;
+  const fluid = fluidStr === 'true';
+  const userSignedIn = userSignedInStr === 'true';
+  const ifAdmin = ifAdminStr === 'true';
+  const helpDisabled = helpDisabledStr === 'true';
+  const wikiEd = wikiEdStr === 'true';
+  const languageSwitcherEnabled = languageSwitcherEnabledStr !== '';
 
-    return {
-      rootUrl: rootUrl,
-      logoPath: logoPath,
-      fluid: fluid,
-      exploreUrl: exploreUrl,
-      exploreName: exploreName,
-      userSignedIn: userSignedIn,
-      ifAdmin: ifAdmin,
-      trainingUrl: trainingUrl,
-      helpDisabled: helpDisabled,
-      wikiEd: wikiEd,
-      languageSwitcherEnabled: languageSwitcherEnabled,
-      currentUser: currentUser,
-      destroyUrl: destroyUrl,
-      omniauthUrl: omniauthUrl,
+  const [dimensions, setDimensions] = useState({ width: window.innerWidth, height: window.innerHeight });
+
+  const updateDimensions = () => {
+    setDimensions({
       width: window.innerWidth,
       height: window.innerHeight
+    });
+  };
+
+  useEffect(() => {
+    updateDimensions();
+    window.addEventListener('resize', updateDimensions);
+    return () => {
+      window.removeEventListener('resize', updateDimensions);
     };
-  },
+  }, []);
 
-  componentDidMount() {
-    this.updateDimensions();
-    window.addEventListener('resize', this.updateDimensions);
-  },
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.updateDimensions);
-  },
-
-  updateDimensions() {
-    this.setState({ width: window.innerWidth, height: window.innerHeight });
-  },
-
-  showSettings(event) {
-    event.preventDefault();
-  },
-
-  isCoursePage() {
+  const isCoursePage = () => {
     return !!window.location.pathname.match(/courses/);
-  },
+  };
 
-  render() {
-    let navBar;
-    let navClass;
-    let explore;
-    let myDashboard;
-    let forAdmin;
-    let training;
-    let notifications;
-    let help;
-    let wikiEd;
-    let languageSwitcherEnabled;
-    let loginLinks;
-    let helpEnabled;
-    let consentBanner;
-    if (this.state.languageSwitcherEnabled) {
-      languageSwitcherEnabled = (
-        <li>
-          <LanguagePicker />
-        </li>
-      );
-    }
-    if (this.state.userSignedIn) {
-      if (this.state.ifAdmin) {
-        notifications = (
-          <NotificationsBell />
-        );
-      }
-      loginLinks = (
-        <span>
-          <li>
-            <b><a href={`/users/${encodeURIComponent(this.state.currentUser)}`} className="current-user">{this.state.currentUser}</a></b>
-          </li>
-          { notifications }
-          <li>
-            <a href={this.state.destroyUrl} className="current-user">{I18n.t('application.log_out')}</a>
-          </li>
-        </span>
-      );
-      if (!this.state.helpDisabled) {
-        helpEnabled = (
-          <div className="top-nav__faq-search">
-            <form target="_blank" action="/faq" acceptCharset="UTF-8" method="get">
-              <input name="utf8" type="hidden" defaultValue="✓" />
-              <input type="text" name="search" id="nav_search" defaultValue="" placeholder={I18n.t('application.search')} />
-              <input name="source" type="hidden" defaultValue="nav_ask_form" />
-              <button type="submit">
-                <i className="icon icon-search" />
-              </button>
-            </form>
-          </div>
-      );
-      }
-    } else {
-      // This link relies on rails/ujs to turn the anchor link into
-      // a POST request based on data-method="post". Otherwise, this
-      // needs to become a button or form and include the authenticity token.
-      loginLinks = (
-        <li>
-          <a data-method="post" href={this.state.omniauthUrl}>
-            <i className="icon icon-wiki-logo" />
-            {I18n.t('application.log_in')}
-            <span className="expand">
-              &nbsp;{I18n.t('application.sign_up_log_in_extended')}
-            </span>
-          </a>
-        </li>
-      );
-    }
-    if (!this.isCoursePage()) {
-      explore = (
-        <li>
-          <CustomLink to={this.state.exploreUrl} name={this.state.exploreName} clickedElement="explore" />
-        </li>
-      );
-    }
-    if (!this.isCoursePage() || !Features.wikiEd) {
-      training = (
-        <li>
-          <CustomLink to={this.state.trainingUrl} name={I18n.t('application.training')} clickedElement="training" />
-        </li>
-      );
-    }
-    if (this.state.userSignedIn) {
-      myDashboard = (
-        <li>
-          <CustomLink to={this.state.rootUrl} name={I18n.t('application.my_dashboard')} clickedElement="" />
-        </li>
-      );
-    }
-    if (this.state.ifAdmin && this.state.wikiEd) {
-      forAdmin = (
-        <li>
-          <CustomLink to="/admin" name="Admin" />
-        </li>
-      );
-    }
-    if ((this.state.userSignedIn || this.state.helpDisabled) === false) {
-      help = (
-        <li>
-          <CustomLink to="/faq" name={I18n.t('application.help')} />
-        </li>
-      );
-    }
-    if (!this.state.wikiEd) {
-      wikiEd = (
-        <span id="span_wikied">
-          <li>
-            <CustomLink to="https://meta.wikimedia.org/wiki/Special:MyLanguage/Programs_%26_Events_Dashboard" name={I18n.t('application.documentation')} target="_blank" />
-          </li>
-          <li>
-            <CustomLink to="https://meta.wikimedia.org/w/index.php?title=Talk:Programs_%26_Events_Dashboard&action=edit&section=new" name={I18n.t('application.report_problem')} target="_blank" />
-          </li>
-        </span>
-      );
-    }
+  const isSmallScreen = dimensions.width < 920;
 
-    if (Features.consentBanner) {
-      consentBanner = <ConsentBanner />;
-    }
-    if (this.state.fluid) {
-      navClass = 'top-nav fluid';
-    } else {
-      navClass = 'top-nav';
-    }
-    if (this.state.width < 920) {
-      navBar = (
+  return (
+    <div>
+      {isSmallScreen ? (
         <div>
           <HamburgerMenu
-            rootUrl = {this.state.rootUrl}
-            logoPath = {this.state.logoPath}
-            exploreUrl = {this.state.exploreUrl}
-            exploreName = {this.state.exploreName}
-            userSignedIn = {this.state.userSignedIn}
-            ifAdmin = {this.state.ifAdmin}
-            trainingUrl = {this.state.trainingUrl}
-            helpDisabled = {this.state.helpDisabled}
-            wikiEd = {this.state.wikiEd}
-            languageSwitcherEnabled = {this.state.languageSwitcherEnabled}
-            currentUser = {this.state.currentUser}
-            destroyUrl = {this.state.destroyUrl}
-            omniauthUrl = {this.state.omniauthUrl}
+            rootUrl={rootUrl}
+            logoPath={logoPath}
+            exploreUrl={exploreUrl}
+            exploreName={exploreName}
+            userSignedIn={userSignedIn}
+            ifAdmin={ifAdmin}
+            trainingUrl={trainingUrl}
+            helpDisabled={helpDisabled}
+            wikiEd={wikiEd}
+            languageSwitcherEnabled={languageSwitcherEnabled}
+            currentUser={currentUser}
+            destroyUrl={destroyUrl}
+            omniauthUrl={omniauthUrl}
           />
         </div>
-      );
-    } else {
-      navBar = (
+      ) : (
         <div>
-          <nav className= {navClass}>
+          <nav className={`top-nav ${fluid ? 'fluid' : ''}`}>
             <div className="container">
               <div className="top-nav__site-logo">
-                <a className="logo__link" href= {this.state.rootUrl}>
-                  <img src ={this.state.logoPath} alt = "wiki logo" />
+                <a className="logo__link" href={rootUrl}>
+                  <img src={logoPath} alt="wiki logo" />
                 </a>
               </div>
               <ul className="top-nav__main-links">
-                {explore}
-                {myDashboard}
-                {forAdmin}
-                {training}
-                {help}
-                {wikiEd}
+                {!isCoursePage() && (
+                  <li>
+                    <CustomLink to={exploreUrl} name={exploreName} clickedElement="explore" />
+                  </li>
+                )}
+                {userSignedIn && (
+                  <li>
+                    <CustomLink to={rootUrl} name={I18n.t('application.my_dashboard')} clickedElement="" />
+                  </li>
+                )}
+                {ifAdmin && wikiEd && (
+                  <li>
+                    <CustomLink to="/admin" name="Admin" />
+                  </li>
+                )}
+                {(!isCoursePage() || !Features.wikiEd) && (
+                  <li>
+                    <CustomLink to={trainingUrl} name={I18n.t('application.training')} clickedElement="training" />
+                  </li>
+                )}
+                {((userSignedIn || helpDisabled) === false) && (
+                  <li>
+                    <CustomLink to="/faq" name={I18n.t('application.help')} />
+                  </li>
+                )}
+                {!wikiEd && (
+                  <span id="span_wikied">
+                    <li>
+                      <CustomLink to="https://meta.wikimedia.org/wiki/Special:MyLanguage/Programs_%26_Events_Dashboard" name={I18n.t('application.documentation')} target="_blank" />
+                    </li>
+                    <li>
+                      <CustomLink to="https://meta.wikimedia.org/w/index.php?title=Talk:Programs_%26_Events_Dashboard&action=edit&section=new" name={I18n.t('application.report_problem')} target="_blank" />
+                    </li>
+                  </span>
+                )}
               </ul>
-              {helpEnabled}
+              {userSignedIn && !helpDisabled && (
+                <div className="top-nav__faq-search">
+                  <form target="_blank" action="/faq" acceptCharset="UTF-8" method="get">
+                    <input name="utf8" type="hidden" defaultValue="✓" />
+                    <input type="text" name="search" id="nav_search" defaultValue="" placeholder={I18n.t('application.search')} />
+                    <input name="source" type="hidden" defaultValue="nav_ask_form" />
+                    <button type="submit">
+                      <i className="icon icon-search" />
+                    </button>
+                  </form>
+                </div>
+              )}
               <ul className="top-nav__login-links">
-                {languageSwitcherEnabled}
-                {loginLinks}
+                {languageSwitcherEnabled && (
+                  <li>
+                    <LanguagePicker />
+                  </li>
+                )}
+                {userSignedIn ? (
+                  <span>
+                    <li>
+                      <b><a href={`/users/${encodeURIComponent(currentUser)}`} className="current-user">{currentUser}</a></b>
+                    </li>
+                    {ifAdmin && <NotificationsBell />}
+                    <li>
+                      <a href={destroyUrl} className="current-user">{I18n.t('application.log_out')}</a>
+                    </li>
+                  </span>
+                ) : (
+                  // This link relies on rails/ujs to turn the anchor link into
+                  // a POST request based on data-method="post". Otherwise, this
+                  // needs to become a button or form and include the authenticity token.
+                  <li>
+                    <a data-method="post" href={omniauthUrl}>
+                      <i className="icon icon-wiki-logo" />
+                      {I18n.t('application.log_in')}
+                      <span className="expand">
+                        &nbsp;{I18n.t('application.sign_up_log_in_extended')}
+                      </span>
+                    </a>
+                  </li>
+                )}
               </ul>
             </div>
           </nav>
         </div>
-      );
-    }
-
-    return (
-      <div>
-        {navBar}
-        {consentBanner}
-      </div>
-    );
-  }
-});
+      )}
+      {Features.consentBanner && <ConsentBanner />}
+    </div>
+  );
+};
 
 export default Nav;
