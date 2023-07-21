@@ -14,6 +14,7 @@ describe 'Course creation for Article Scoped Programs', type: :feature, js: true
                                     completed_at: Time.zone.now)
     allow(Features).to receive(:wiki_ed?).and_return(false)
     allow(Features).to receive(:open_course_creation?).and_return(true)
+    allow(Features).to receive(:default_course_string_prefix).and_return('courses_generic')
     login_as(user, scope: :user)
 
     visit root_path
