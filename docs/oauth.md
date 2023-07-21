@@ -36,7 +36,8 @@ When you request a new consumer, add the tokens to the production server's `appl
 3. Update `application.yml`, commenting out the old tokens and uncommenting the new, and removing the sitenotice.
 4. In a rails console on production, remove all oauth tokens from users: `User.update_all(wiki_token: nil, wiki_secret: nil)`.
 5. Restart both the main server process (`touch tmp/restart.txt`) and the sidekiq processes (`cap production deploy:sidekiq:restart`).
-6. Once an edit has been made with the new consumer, find the CID of that consumer via `Special:Tags` on Wikipedia, and add it to the list of CIDs in `application.yml`.
+6. Find the CID of that consumer via `Special:Tags` on Wikipedia, and add it to the list of CIDs in `application.yml`.
+   1. You can also find CID by logging in to the Dashboard with the new consumer, then visiting https://meta.wikimedia.org/wiki/Special:OAuthManageMyGrants . The CID is part of the 'Your edits by this application' link.
 7. Restart the server and sidekiq processes again.
 
 ## Admin permissions
