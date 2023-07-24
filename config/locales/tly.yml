@@ -73,4 +73,6 @@ tly:
     useremail_placeholder: Enomə
     role:
       student: Tələbə
+  wizard:
+    read_more: Hánde Davom Kárde
 ...

@@ -1,13 +1,9 @@
-# Messages for Cantonese (粵語)
+# Messages for Cantonese (Traditional) (粵語（繁體）)
 # Exported from translatewiki.net
 # Export driver: phpyaml
-# Author: Hello903hello
-# Author: Moon0319
-# Author: Obonggi
-# Author: Z423x5c6
-# Author: 捍粵者
+# Author: Winston Sung
 ---
-yue:
+yue-hant:
   number:
     human:
       decimal_units:

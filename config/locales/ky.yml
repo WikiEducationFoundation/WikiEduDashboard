@@ -13,6 +13,7 @@ ky:
     opt_out: Жок
   courses:
     dismiss_survey: Жабуу
+    loading: Жүктөлүүдө...
   courses_generic:
     cancel: Жокко чыгаруу
     creator:
@@ -24,11 +25,14 @@ ky:
     edit: Түзөтүү
     cancel: Жокко чыгаруу
     save: Сактоо
+  recent_activity:
+    image: Сүрөт
   revisions:
     diff_show: Көрсөтүү
     diff_hide: Жашыруу
   training:
     page: Барак
   uploads:
+    image: Сүрөт
     label: Жүктөөлөр
 ...

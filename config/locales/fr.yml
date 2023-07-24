@@ -1618,6 +1618,17 @@ fr:
       editor_overview: Vue d’ensemble du rédacteur
       exercises_and_trainings: Exercices & formations
       student_overview: Vue d’ensemble de %{prefix}
+      watch_list:
+        students_add: Ajouter tous les %{prefix} à la liste de suivi
+        instructional_message: Vous êtes sur le point d’ajouter les pages de discussion
+          de vos étudiants à votre liste de suivi, pour rester à jour sur leurs discussions
+          et leurs contributions. Cliquer sur 'OK' ajoutera tous les étudiants à la
+          liste de suivi. Poursuivre ?
+        tooltip_message: Suivre facilement les discussions sur les pages de discussion
+          des étudiants en les ajoutant à votre liste de suivi.
+        success_message: '%{prefix} bien ajoutés à la liste de suivi.'
+        error_message: Échec de l’ajout de %{prefix} à la liste de suivi. Veuillez
+          réessayer ultérieurement.
     total_uploads: Nombre total de téléversements
     training_complete:
       one: est à jour avec la formation
