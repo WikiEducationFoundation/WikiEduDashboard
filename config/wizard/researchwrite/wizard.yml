@@ -412,6 +412,7 @@
       blurb: Ask students to write a short reflective essay on their experiences using Wikipedia. This works well for both short and long Wikipedia projects. An interesting iteration of this is to have students write a short version of the essay before they begin editing Wikipedia, outlining their expectations, and then have them reflect on whether or not they met those expectations during the assignment.
       description:
       logic: reflective_essay
+      selected: true # this is the new default for Fall 2023 onward
     -
       title: Original analytical paper
       blurb: In courses that emphasize traditional research skills and the development of original ideas through a term paper, Wikipedia's policy of "no original research" may be too restrictive. Many instructors pair Wikipedia writing with a complementary analytical paper; students’ Wikipedia articles serve as a literature review, and the students go on to develop their own ideas and arguments in the offline analytical paper.
