@@ -23,7 +23,7 @@ export const Assignment = ({ assignment, course, current_user, fetchArticleDetai
 
   const showArticleId = Number(location.search.split('showArticle=')[1]);
   let currentStatus;
-  if (course.type === 'ClassroomProgramCourse') {
+  if (course.progress_tracker_enabled) {
     currentStatus = (
       <CurrentStatus
         current={assignment.assignment_status}
@@ -44,6 +44,7 @@ export const Assignment = ({ assignment, course, current_user, fetchArticleDetai
           courseType={course.type}
           user={user}
           project={course.home_wiki.project}
+          course={course}
         />
       </td>
       <td className="current-status">

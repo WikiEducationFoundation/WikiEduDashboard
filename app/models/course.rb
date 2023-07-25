@@ -444,6 +444,11 @@ class Course < ApplicationRecord
     flags[:review_bibliography].present?
   end
 
+  # Overridden for ClassroomProgramCourse
+  def progress_tracker_enabled?
+    false
+  end
+
   # Overridden for some course types
   def cloneable?
     !tag?('no_clone')
