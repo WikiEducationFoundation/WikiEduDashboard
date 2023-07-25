@@ -5,20 +5,12 @@ import StudentExercise from './StudentExercise/StudentExercise.jsx';
 import { useDispatch } from 'react-redux';
 import { toggleUI } from '@actions/index.js';
 
-// Helper Functions
-const setRealName = (student) => {
-  const nameParts = student.real_name.trim().toLowerCase().split(' ');
-  student.first_name = nameParts[0];
-  student.last_name = nameParts.slice().pop();
-};
-
 export const StudentExerciseRow = ({
   assignments, course, current_user, editAssignments,
   openKey, showRecent, student, wikidataLabels,
 }) => {
   const dispatch = useDispatch();
 
-  if (student.real_name) setRealName(student);
   const isOpen = openKey === `drawer_${student.id}`;
   return (
     <StudentExercise
