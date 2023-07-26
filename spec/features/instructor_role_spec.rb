@@ -127,8 +127,8 @@ describe 'Instructor users', type: :feature, js: true do
       click_button 'OK'
       sleep 1
       visit "/courses/#{Course.first.slug}/students"
-      expect(page).to have_content 'Student B'
-      expect(page).not_to have_content 'Student A'
+      expect(page).to have_content 'Student A'
+      expect(page).not_to have_content 'Student B'
     end
 
     it 'is able to assign articles' do
