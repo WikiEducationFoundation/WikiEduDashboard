@@ -11,9 +11,14 @@ ky:
     sign_up: Катталуу
     opt_in: Ооба
     opt_out: Жок
+  articles:
+    title: Аталыш
+  campaign:
+    title: Аталыш
   courses:
     dismiss_survey: Жабуу
     loading: Жүктөлүүдө...
+    title: Аталыш
   courses_generic:
     cancel: Жокко чыгаруу
     creator:
@@ -26,10 +31,12 @@ ky:
     cancel: Жокко чыгаруу
     save: Сактоо
   recent_activity:
+    article_title: Аталыш
     image: Сүрөт
   revisions:
     diff_show: Көрсөтүү
     diff_hide: Жашыруу
+    title: Аталыш
   training:
     page: Барак
   uploads:
