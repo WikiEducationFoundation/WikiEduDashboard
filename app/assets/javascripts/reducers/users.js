@@ -46,7 +46,7 @@ export default function users(state = initialState, action) {
         }
 
       // Sort the 'user_list' array based on the 'sort_key' if the user list is empty in the state.
-      if (!state.users.length) user_list = sortByKey(user_list, sort_key, null, SORT_DESCENDING[sort_key]);
+      if (!state.users.length) user_list = sortByKey(user_list, sort_key);
 
     return {
       ...state,
