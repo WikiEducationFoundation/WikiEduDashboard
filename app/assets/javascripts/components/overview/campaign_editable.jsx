@@ -1,72 +1,61 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 
 import { getAvailableCampaigns } from '../../selectors';
 import selectStyles from '../../styles/select';
 
-import PopoverExpandable from '../high_order/popover_expandable.jsx';
 import Popover from '../common/popover.jsx';
 import Conditional from '../high_order/conditional.jsx';
 
 import { removeCampaign, fetchAllCampaigns, addCampaign } from '../../actions/campaign_actions';
 import { fetchUsers } from '../../actions/user_actions';
+import useExpandablePopover from '../../hooks/useExpandablePopover';
 
 
-const CampaignEditable = createReactClass({
-  displayName: 'CampaignEditable',
+const CampaignEditable = ({ course_id }) => {
+  const availableCampaigns = useSelector(state => getAvailableCampaigns(state));
+  const campaigns = useSelector(state => state.campaigns.campaigns);
+  const dispatch = useDispatch();
 
-  propTypes: {
-    campaigns: PropTypes.array,
-    availableCampaigns: PropTypes.array,
-    fetchAllCampaigns: PropTypes.func
-  },
+  const [selectedCampaigns, setSelectedCampaigns] = useState([]);
+  const campaignSelectRef = useRef(null);
 
-  getInitialState() {
-    return {
-      selectedCampaigns: []
-    };
-  },
+  useEffect(() => { dispatch(fetchAllCampaigns()); }, []);
 
-  componentDidMount() {
-    return this.props.fetchAllCampaigns();
-  },
-
-  getKey() {
+  const getKey = () => {
     return 'add_campaign';
-  },
+  };
+  const { isOpen, ref, open } = useExpandablePopover(getKey);
 
-  handleChangeCampaign(values) {
+  const handleChangeCampaign = (values) => {
     if (values.length > 0) {
-      this.setState({ selectedCampaigns: values });
+      setSelectedCampaigns(values);
     } else {
-      this.setState({ selectedCampaigns: [] });
+      setSelectedCampaigns([]);
     }
-  },
+  };
 
-  openPopover(e) {
-    if (!this.props.is_open && this.refs.campaignSelect) {
-      this.refs.campaignSelect.focus();
+  const openPopover = (e) => {
+    if (!isOpen && campaignSelectRef.current) {
+      campaignSelectRef.current.focus();
     }
-    return this.props.open(e);
-  },
+    return open(e);
+  };
 
-  removeCampaign(campaignId) {
-    this.props.removeCampaign(this.props.course_id, campaignId);
-  },
+  const removeCampaignHandler = (campaignId) => {
+    dispatch(removeCampaign(course_id, campaignId));
+  };
 
-  addCampaign() {
+  const addCampaignHandler = () => {
     // After adding the campaign, request users so that any defaults are
     // immediately propagated.
-    const { selectedCampaigns } = this.state;
-    const { course_id } = this.props;
 
     const addCampaignPromises = [];
 
     selectedCampaigns.forEach((selectedCampaign) => {
-      const promise = this.props.addCampaign(course_id, selectedCampaign.value);
+      const promise = dispatch(addCampaign(course_id, selectedCampaign.value));
       addCampaignPromises.push(promise);
     });
 
@@ -75,94 +64,81 @@ const CampaignEditable = createReactClass({
       const updatedSelectedCampaigns = selectedCampaigns.filter((selectedCampaign) => {
         let shouldRemove = false;
 
-        this.props.campaigns.forEach((campaign) => {
+        campaigns.forEach((campaign) => {
           if (campaign.title === selectedCampaign.value) shouldRemove = true;
         });
 
         return !shouldRemove;
       });
-
-      this.setState({ selectedCampaigns: updatedSelectedCampaigns });
-      this.props.fetchUsers(this.props.course_id);
+      setSelectedCampaigns(updatedSelectedCampaigns);
+      dispatch(fetchUsers(course_id));
     });
-  },
+  };
 
-  render() {
-    // In editable mode we'll show a list of campaigns and a remove button plus a selector to add new campaigns
+  // In editable mode we'll show a list of campaigns and a remove button plus a selector to add new campaigns
 
-    const campaignList = this.props.campaigns.map((campaign) => {
-      const removeButton = (
-        <button className="button border plus" aria-label="Remove campaign" onClick={this.removeCampaign.bind(this, campaign.title)}>-</button>
-      );
-      return (
-        <tr key={`${campaign.id}_campaign`}>
-          <td>{campaign.title}{removeButton}</td>
-        </tr>
-      );
-    });
-
-    let campaignSelect;
-    if (this.props.availableCampaigns.length > 0) {
-      const campaignOptions = this.props.availableCampaigns.map((campaign) => {
-        return { label: campaign, value: campaign };
-      });
-      let addCampaignButtonDisabled = true;
-      if (this.state.selectedCampaigns.length > 0) {
-        addCampaignButtonDisabled = false;
-      }
-      campaignSelect = (
-        <tr>
-          <th>
-            <div className="select-with-button">
-              <Select
-                className="fixed-width"
-                ref="campaignSelect"
-                name="campaign"
-                value={this.state.selectedCampaigns}
-                placeholder={I18n.t('courses.campaign_select')}
-                onChange={this.handleChangeCampaign}
-                onInputChange={this.handleClearSelect}
-                options={campaignOptions}
-                styles={selectStyles}
-                isClearable
-                isSearchable
-                isMulti={true}
-              />
-              <button type="submit" className="button dark" disabled={addCampaignButtonDisabled} onClick={this.addCampaign}>
-                Add
-              </button>
-            </div>
-          </th>
-        </tr>
-      );
-    }
-
+  const campaignList = campaigns.map((campaign) => {
+    const removeButton = (
+      <button className="button border plus" aria-label="Remove campaign" onClick={() => removeCampaignHandler(campaign.title)}>-</button>
+    );
     return (
-      <div key="campaigns" className="pop__container campaigns open" onClick={this.stop}>
-        <button className="button border plus open" onClick={this.openPopover}>+</button>
-        <Popover
-          is_open={this.props.is_open}
-          edit_row={campaignSelect}
-          rows={campaignList}
-        />
-      </div>
+      <tr key={`${campaign.id}_campaign`}>
+        <td>{campaign.title}{removeButton}</td>
+      </tr>
+    );
+  });
+
+  let campaignSelect;
+  if (availableCampaigns.length > 0) {
+    const campaignOptions = availableCampaigns.map((campaign) => {
+      return { label: campaign, value: campaign };
+    });
+    let addCampaignButtonDisabled = true;
+    if (selectedCampaigns.length > 0) {
+      addCampaignButtonDisabled = false;
+    }
+    campaignSelect = (
+      <tr>
+        <th>
+          <div className="select-with-button">
+            <Select
+              className="fixed-width"
+              ref={campaignSelectRef}
+              name="campaign"
+              value={selectedCampaigns}
+              placeholder={I18n.t('courses.campaign_select')}
+              onChange={handleChangeCampaign}
+              options={campaignOptions}
+              styles={selectStyles}
+              isClearable
+              isSearchable
+              isMulti={true}
+            />
+            <button type="submit" className="button dark" disabled={addCampaignButtonDisabled} onClick={addCampaignHandler}>
+              Add
+            </button>
+          </div>
+        </th>
+      </tr>
     );
   }
 
-});
-
-const mapStateToProps = state => ({
-  availableCampaigns: getAvailableCampaigns(state),
-  campaigns: state.campaigns.campaigns
-});
-
-const mapDispatchToProps = {
-  removeCampaign,
-  addCampaign,
-  fetchAllCampaigns,
-  fetchUsers
+  return (
+    <div key="campaigns" className="pop__container campaigns open" ref={ref}>
+      <button className="button border plus open" onClick={openPopover}>+</button>
+      <Popover
+        is_open={isOpen}
+        edit_row={campaignSelect}
+        rows={campaignList}
+      />
+    </div>
+  );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  Conditional(PopoverExpandable(CampaignEditable))
-);
+CampaignEditable.propTypes = {
+  campaigns: PropTypes.array,
+  availableCampaigns: PropTypes.array,
+  fetchAllCampaigns: PropTypes.func
+};
+
+export default (Conditional(CampaignEditable));
