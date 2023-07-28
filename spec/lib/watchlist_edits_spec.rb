@@ -66,17 +66,31 @@ describe WatchlistEdits do
       before do
         allow(watchlist_edits).to receive(:retrieve_tokens).and_return(true)
         allow(access_token).to receive(:post)
-          .and_return(instance_double('response', body: '{"status": "success"}'))
+          .and_return(instance_double('response', body: '{"batchcomplete": true}'))
       end
 
       it 'calls post method on access_token with the correct data' do
-        expect(access_token).to receive(:post).with(api_url, data)
+        expected_data = data.merge(titles: 'user1')
+        expect(access_token).to receive(:post).with(api_url, expected_data)
         watchlist_edits.watch_userpages(['user1'])
       end
 
-      it 'returns the parsed response body' do
+      it 'returns the success status' do
         response = watchlist_edits.watch_userpages(['user1'])
-        expect(response).to eq({ 'status' => 'success' })
+        expect(response.stringify_keys).to eq({ 'status' => 'Success' })
+      end
+    end
+
+    context 'when API request is not successful' do
+      before do
+        allow(watchlist_edits).to receive(:retrieve_tokens).and_return(true)
+        allow(access_token).to receive(:post)
+          .and_return(instance_double('response', body: '{"batchcomplete": false}'))
+      end
+
+      it 'returns the Failed status' do
+        response = watchlist_edits.watch_userpages(['user1'])
+        expect(response.stringify_keys).to eq({ 'status' => 'Failed' })
       end
     end
   end
