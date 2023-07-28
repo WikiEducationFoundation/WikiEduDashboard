@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 
@@ -133,12 +132,6 @@ const CampaignEditable = ({ course_id }) => {
       />
     </div>
   );
-};
-
-CampaignEditable.propTypes = {
-  campaigns: PropTypes.array,
-  availableCampaigns: PropTypes.array,
-  fetchAllCampaigns: PropTypes.func
 };
 
 export default (Conditional(CampaignEditable));
