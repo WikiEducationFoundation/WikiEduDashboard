@@ -12,10 +12,23 @@ class WatchlistEdits < WikiEdits
     return { status: 'no users' } if users.empty?
     return { status: 'token retrieval failed' } unless retrieve_tokens
 
-    data = watch_action_parameters(users)
-    response = @access_token.post(@wiki.api_url.to_s, data)
-    response_data = Oj.load(response.body)
-    response_data
+    # Batch size is set to 50 to add users' pages to the watchlist in each API request.
+    # A reasonable batch size avoids large requests and potential server issues.
+    batch_size = 50
+    response_data = []
+
+    # Iterate through users in batches and add their pages to the watchlist.
+    users.each_slice(batch_size) do |batch|
+      data = watch_action_parameters(batch)
+      response = @access_token.post(@wiki.api_url.to_s, data)
+      response_data << Oj.load(response.body)
+    end
+
+    # Extract batchcomplete status for each batch from the response data.
+    batchcomplete_status = response_data.pluck('batchcomplete')
+
+    # If all batchcomplete statuses are true, return success status.
+    return { status: batchcomplete_status.all?(true) ? 'Success' : 'Failed' }
   end
 
   private
