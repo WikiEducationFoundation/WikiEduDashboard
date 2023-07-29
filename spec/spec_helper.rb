@@ -8,7 +8,6 @@
 # require 'codeclimate-test-reporter'
 # CodeClimate::TestReporter.start
 require 'simplecov'
-require 'webdrivers'
 require_relative 'simplecov_uncovered_formatter'
 
 SimpleCov.formatters = SimpleCov::Formatter::MultiFormatter.new(
@@ -126,12 +125,6 @@ RSpec.configure do |config|
   # rubocop:enable Style/BlockComments
 end
 
-# Workaround for requests made by webdrivers to check for updates
-# https://github.com/titusfortner/webdrivers/wiki/Using-with-VCR-or-WebMock#vcr
-driver_hosts = (
-  ObjectSpace.each_object(Webdrivers::Common.singleton_class).to_a - [Webdrivers::Common]
-).map { |driver| URI(driver.base_url).host }
-VCR.configure { |config| config.ignore_hosts(*driver_hosts) }
 
 VCR.configure do |c|
   c.allow_http_connections_when_no_cassette = false
