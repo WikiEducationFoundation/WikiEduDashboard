@@ -125,7 +125,6 @@ RSpec.configure do |config|
   # rubocop:enable Style/BlockComments
 end
 
-
 VCR.configure do |c|
   c.allow_http_connections_when_no_cassette = false
   c.cassette_library_dir = 'fixtures/vcr_cassettes'

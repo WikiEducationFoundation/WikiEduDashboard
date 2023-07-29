@@ -19,8 +19,7 @@ Capybara.register_driver :selenium do |app|
   Capybara::Selenium::Driver.new(app,
                                  browser: :chrome,
                                  options:,
-                                 clear_local_storage: false, # Persist local storage across tests
-                                 )
+                                 clear_local_storage: false) # Persist local storage across tests
 end
 
 Rails.cache.clear
@@ -99,9 +98,7 @@ RSpec.configure do |config|
     # them.
     # Instead, we clear and print any after-success error
     # logs in the `before` block above.
-    if example.exception
-      Capybara::Screenshot.new.screenshot_and_save_page
-    end
+    Capybara::Screenshot.new.screenshot_and_save_page if example.exception
     errors = page.driver.browser.logs.get(:browser)
 
     # pass `js_error_expected: true` to skip JS error checking
