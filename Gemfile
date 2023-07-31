@@ -133,7 +133,7 @@ group :test do
   gem 'rake', '>= 11.0'
   gem 'capybara'
   gem 'capybara-screenshot'
-  gem 'webdrivers' # automatable browser drivers used by Capybara
+  gem 'selenium-webdriver'
   gem 'webmock'
   gem 'vcr' # Saves external web requests and replays them in tests
   gem 'simplecov', require: false
