@@ -5,7 +5,7 @@ require_dependency "#{Rails.root}/lib/importers/wikidata_summary_importer"
 require 'wikidata-diff-analyzer'
 
 class UpdateWikidataStats
-  STATS_CLASSIFICAYION = [
+  STATS_CLASSIFICATION = [
     'claims created', 'claims removed', 'claims changed',
     'references added', 'references removed', 'references changed',
     'qualifiers added', 'qualifiers removed', 'qualifiers changed',
@@ -112,7 +112,7 @@ class UpdateWikidataStats
   end
 
   def get_stats_from_serialized_stats(revisions_with_serialized_stats)
-    stats = strings.index_with { 0 }
+    stats = STATS_CLASSIFICATION.index_with { 0 }
 
     # create a sum of stats after deserializing the stats for each revision object
     revisions_with_serialized_stats.each do |revision|
@@ -120,7 +120,7 @@ class UpdateWikidataStats
       deserialized_stat = revision.diff_stats
       # create a stats which sums up each field of the deserialized_stat and create a stats hash
       deserialized_stat.each_with_index do |(_key, value), index|
-        stats[strings[index]] += value
+        stats[STATS_CLASSIFICATION[index]] += value
       end
     end
     stats
