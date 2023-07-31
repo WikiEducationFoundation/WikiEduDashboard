@@ -5,6 +5,26 @@ require_dependency "#{Rails.root}/lib/importers/wikidata_summary_importer"
 require 'wikidata-diff-analyzer'
 
 class UpdateWikidataStats
+  STATS_CLASSIFICAYION = [
+    'claims created', 'claims removed', 'claims changed',
+    'references added', 'references removed', 'references changed',
+    'qualifiers added', 'qualifiers removed', 'qualifiers changed',
+    'aliases added', 'aliases removed', 'aliases changed',
+    'labels added', 'labels removed', 'labels changed',
+    'descriptions added', 'descriptions removed', 'descriptions changed',
+    'interwiki links added', 'interwiki links removed', 'interwiki links updated',
+    'merged to', 'merged from', 'redirects created',
+    'reverts performed', 'restorations performed', 'items cleared',
+    'items created', 'lemmas added', 'lemmas removed', 'lemmas changed',
+    'forms added', 'forms removed', 'forms changed',
+    'senses added', 'senses removed', 'senses changed',
+    'properties created', 'lexeme items created',
+    'representations added', 'representations removed', 'representations changed',
+    'glosses added', 'glosses removed', 'glosses changed',
+    'form claims added', 'form claims removed', 'form claims changed',
+    'sense claims added', 'sense claims removed', 'sense claims changed'
+  ].freeze
+
   def initialize(course)
     @course = course
     # import_summaries
@@ -92,25 +112,6 @@ class UpdateWikidataStats
   end
 
   def get_stats_from_serialized_stats(revisions_with_serialized_stats)
-    # Initialize a hash with the same order of attributes like they exist in the serialized stats
-    strings = [
-    'claims created', 'claims removed', 'claims changed',
-    'references added', 'references removed', 'references changed',
-    'qualifiers added', 'qualifiers removed', 'qualifiers changed',
-    'aliases added', 'aliases removed', 'aliases changed',
-    'labels added', 'labels removed', 'labels changed',
-    'descriptions added', 'descriptions removed', 'descriptions changed',
-    'interwiki links added', 'interwiki links removed', 'interwiki links updated',
-    'merged to', 'merged from', 'redirects created',
-    'reverts performed', 'restorations performed', 'items cleared',
-    'items created', 'lemmas added', 'lemmas removed', 'lemmas changed',
-    'forms added', 'forms removed', 'forms changed',
-    'senses added', 'senses removed', 'senses changed',
-    'properties created', 'lexeme items created',
-    'representations added', 'representations removed', 'representations changed',
-    'glosses added', 'glosses removed', 'glosses changed',
-    'form claims added', 'form claims removed', 'form claims changed',
-    'sense claims added', 'sense claims removed', 'sense claims changed']
     stats = strings.index_with { 0 }
 
     # create a sum of stats after deserializing the stats for each revision object
@@ -137,4 +138,3 @@ class UpdateWikidataStats
     @wikidata ||= Wiki.get_or_create(language: nil, project: 'wikidata')
   end
 end
-
