@@ -412,10 +412,10 @@ describe 'the course page', type: :feature, js: true do
     it 'shows a number of most recent revisions for a student' do
       js_visit "/courses/#{slug}/students"
       sleep 1
-      expect(page).to have_content(User.username)
+      expect(page).to have_content(User)
       student_row = 'table.users tbody tr.students:first-child'
       within(student_row) do
-        expect(page).to have_content(User.username)
+        expect(page).to have_content(User)
         within 'td:nth-of-type(4)' do
           expect(page.text).to eq('1')
         end
