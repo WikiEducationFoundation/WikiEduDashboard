@@ -18,7 +18,7 @@ export const AssignmentsList = ({ assignments, course, current_user, fetchArticl
       ...options
     },
     current_stage: {
-      label: course.type === 'ClassroomProgramCourse' ? I18n.t('instructor_view.assignments_table.current_stage') : null,
+      label: course.progress_tracker_enabled ? I18n.t('instructor_view.assignments_table.current_stage') : null,
       ...options
     },
     article_viewer: {

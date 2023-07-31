@@ -433,6 +433,18 @@ sl:
       other: '%{count} članka'
     request_confirmation: Ali res želite zaprositi za ta račun?
     revisions: Redakcije
+    sub_navigation:
+      watch_list:
+        students_add: Dodaj vse %{prefix} na spisek nadzorov
+        instructional_message: Pogovorne strani svojih študentov boste dodali na svoj
+          spisek nadzorov, da boste na tekočem z njihovimi razpravami in prispevki.
+          Če kliknete »V redu«, boste na spisek nadzorov dodali vse študente. Želite
+          nadaljevati?
+        tooltip_message: Preprosto sledite razpravam na pogovornih straneh študentov,
+          tako da jih dodate na svoj spisek nadzorov.
+        success_message: '%{prefix} uspešno dodan na spisek nadzorov.'
+        error_message: '%{prefix} ni bilo mogoče dodati na spisek nadzorov. Prosimo,
+          poskusite pozneje.'
     training_module_status: Stanje
     username: Uporabniško ime
     username_placeholder: Uporabniško ime
@@ -467,7 +479,7 @@ sl:
   feedback_form_responses:
     no_responses: Povratnih informacij še ni.
   wiki_api:
-    create_account_reason: Ta uporabnik sodeluje pri ${event}.
+    create_account_reason: Ta uporabnik sodeluje pri %{event}.
   article_finder:
     article_finder_wikidata: Iskalnik predmetov
     category_search: Poišči po kategorijah

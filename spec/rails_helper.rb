@@ -13,16 +13,13 @@ require 'capybara/rspec'
 require 'capybara-screenshot/rspec'
 
 Capybara.register_driver :selenium do |app|
-  capabilities = Selenium::WebDriver::Remote::Capabilities
-                 .chrome(chromeOptions: { w3c: false })
   options = Selenium::WebDriver::Chrome::Options.new(
     args: %w[headless no-sandbox disable-gpu --window-size=1200,1200]
   )
   Capybara::Selenium::Driver.new(app,
                                  browser: :chrome,
                                  options:,
-                                 clear_local_storage: false, # Persist local storage across tests
-                                 desired_capabilities: capabilities)
+                                 clear_local_storage: false) # Persist local storage across tests
 end
 
 Rails.cache.clear
@@ -86,7 +83,8 @@ RSpec.configure do |config|
 
   config.before(:each, type: :feature, js: true) do
     # Make sure any logs from the previous test get
-    errors = page.driver.browser.manage.logs.get(:browser)
+    errors = page.driver.browser.logs.get(:browser)
+
     warn errors
   end
 
@@ -95,12 +93,14 @@ RSpec.configure do |config|
     dump_js_coverage
     # `Capybara.reset_sessions!` here would ensure that any error
     # logs from this session can be captured now, by closing any open connections.
-    # Otherwise, if they show up after the `manage.logs.get` step, they
+    # Otherwise, if they show up after the `browser.logs.get` step, they
     # will cause the next spec to fail instead of the one that generated
     # them.
     # Instead, we clear and print any after-success error
     # logs in the `before` block above.
-    errors = page.driver.browser.manage.logs.get(:browser)
+    Capybara::Screenshot.new.screenshot_and_save_page if example.exception
+    errors = page.driver.browser.logs.get(:browser)
+
     # pass `js_error_expected: true` to skip JS error checking
     next if example.metadata[:js_error_expected]
 

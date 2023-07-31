@@ -50,6 +50,7 @@ export const Header = ({
         assignment={assignment}
         courseType={course.type}
         current_user={current_user}
+        course={course}
       />
       <Actions
         article={article}

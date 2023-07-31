@@ -6,13 +6,25 @@
 ky:
   application:
     cancel: Жокко чыгаруу
+    help: Жардам
     log_in: Кирүү
     log_out: Чыгуу
     sign_up: Катталуу
+    confirm: Макул
     opt_in: Ооба
     opt_out: Жок
+  articles:
+    articles: Макалалар
+    edited_mobile: Макалалар
+    label: Макалалар
+    title: Аталыш
+  campaign:
+    title: Аталыш
   courses:
+    articles: Макалалар
     dismiss_survey: Жабуу
+    loading: Жүктөлүүдө...
+    title: Аталыш
   courses_generic:
     cancel: Жокко чыгаруу
     creator:
@@ -24,11 +36,20 @@ ky:
     edit: Түзөтүү
     cancel: Жокко чыгаруу
     save: Сактоо
+  recent_activity:
+    article_title: Аталыш
+    image: Сүрөт
   revisions:
     diff_show: Көрсөтүү
     diff_hide: Жашыруу
+    title: Аталыш
   training:
     page: Барак
   uploads:
+    image: Сүрөт
     label: Жүктөөлөр
+  users:
+    number_of_articles:
+      one: '%{count} макала'
+      other: '%{count} макала'
 ...

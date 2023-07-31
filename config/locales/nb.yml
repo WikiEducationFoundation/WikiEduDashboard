@@ -889,6 +889,18 @@ nb:
     reviewers: Anmelder(e)
     reviewing: Anmelder
     sandboxes: sandkasser
+    sub_navigation:
+      watch_list:
+        students_add: Legg til alle %{prefix} i overvåkningslista
+        instructional_message: Du er i ferd med å legge til dine studenters diskusjonssider
+          i overvåkningslista di for å holde deg oppdatert på diskusjonene og bidragene
+          deres. Ved å trykke på «OK» blir alle lagt til i overvåkningslista. Vil
+          du fortsette?
+        tooltip_message: Spor diskusjoner på studenters diskusjonssider ved å legge
+          dem til i overvåkningslista di.
+        success_message: '%{prefix} lagt til i overvåkningslista.'
+        error_message: Kunne ikke legge til %{prefix} i overvåkningslista. Prøv igjen
+          senere.
     total_uploads: Opplastinger totalt
     training_complete:
       one: er ajour med treningen

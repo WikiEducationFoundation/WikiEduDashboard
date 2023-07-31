@@ -6,6 +6,9 @@ import Step from './Step/Step.jsx';
 import NavigationElements from './NavigationElements/NavigationElements';
 
 const ProgressTracker = ({ assignment, course }) => {
+  // Don't render progress tracker for 'no_sandboxes' courses.
+  if (!course.progress_tracker_enabled) { return null; }
+
   const [showTracker, setShowTracker] = useState(false);
 
   const toggle = () => {

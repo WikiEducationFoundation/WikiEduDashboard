@@ -839,6 +839,17 @@ pl:
       dni
     reviewers: Recenzenci
     reviewing: Recenzuje
+    sub_navigation:
+      watch_list:
+        students_add: Dodaj wszystkie %{prefix} do listy obserwowanych
+        instructional_message: Zamierzasz dodać strony dyskusji swoich uczniów do
+          listy obserwowanych, aby być na bieżąco z ich dyskusjami i wkładem. Kliknięcie
+          „OK” spowoduje dodanie wszystkich uczniów do listy obserwowanych. Kontynuować?
+        tooltip_message: Łatwo śledź dyskusje na stronach dyskusji uczniów, dodając
+          je do listy obserwowanych.
+        success_message: '%{prefix} został pomyślnie dodany do listy obserwowanych.%{prefix}'
+        error_message: Nie udało się dodać %{prefix} do listy obserwowanych. Spróbuj
+          ponownie później.
     training_complete:
       one: ukończył(a) wymagane etapy szkolenia
       other: ukończyło wymagane etapy szkolenia

@@ -18,8 +18,7 @@ export const Assignment = (props) => {
     article, title
   } = CourseUtils.articleAndArticleTitle(assignment, course, wikidataLabels);
 
-  const isClassroomProgram = course.type === 'ClassroomProgramCourse';
-  const enable = isClassroomProgram && Features.wikiEd;
+  const enable = course.progress_tracker_enabled;
   const isComplete = isAssignmentComplete();
   const articlesProps = { ...props, article, articleTitle: title, isComplete };
   const progressTracker = isComplete
