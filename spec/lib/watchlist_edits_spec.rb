@@ -75,7 +75,7 @@ describe WatchlistEdits do
         watchlist_edits.watch_userpages(['user1'])
       end
 
-      it 'returns the success status' do
+      it 'returns success status' do
         response = watchlist_edits.watch_userpages(['user1'])
         expect(response.stringify_keys).to eq({ 'status' => 'Success' })
       end
