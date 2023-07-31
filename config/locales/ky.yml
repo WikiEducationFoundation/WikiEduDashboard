@@ -6,16 +6,22 @@
 ky:
   application:
     cancel: Жокко чыгаруу
+    help: Жардам
     log_in: Кирүү
     log_out: Чыгуу
     sign_up: Катталуу
+    confirm: Макул
     opt_in: Ооба
     opt_out: Жок
   articles:
+    articles: Макалалар
+    edited_mobile: Макалалар
+    label: Макалалар
     title: Аталыш
   campaign:
     title: Аталыш
   courses:
+    articles: Макалалар
     dismiss_survey: Жабуу
     loading: Жүктөлүүдө...
     title: Аталыш
@@ -42,4 +48,8 @@ ky:
   uploads:
     image: Сүрөт
     label: Жүктөөлөр
+  users:
+    number_of_articles:
+      one: '%{count} макала'
+      other: '%{count} макала'
 ...

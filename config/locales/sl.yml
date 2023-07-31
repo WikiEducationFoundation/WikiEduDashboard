@@ -479,7 +479,7 @@ sl:
   feedback_form_responses:
     no_responses: Povratnih informacij še ni.
   wiki_api:
-    create_account_reason: Ta uporabnik sodeluje pri ${event}.
+    create_account_reason: Ta uporabnik sodeluje pri %{event}.
   article_finder:
     article_finder_wikidata: Iskalnik predmetov
     category_search: Poišči po kategorijah
