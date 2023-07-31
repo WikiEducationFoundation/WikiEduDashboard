@@ -57,12 +57,11 @@ class UpdateWikidataStats
 
     # Divide revisions based on edit summaries or serialized stats
     course_revisions.each do |revision|
-      if revision.summary.present? && revision.summary.start_with?('{', '[')
-        # If JSON data is present in the summary, add it to the revisions_with_serialized_stats array
-        revisions_with_serialized_stats << revision
+      if revision.edit_summary
+        revisions_with_summary << revision
       else
         # If the summary contains an edit summary, add it to the revisions_with_summary array
-        revisions_with_summary << revision
+        revisions_with_serialized_stats << revision
       end
     end
 
@@ -72,7 +71,6 @@ class UpdateWikidataStats
     # Update the stats_hash in the CourseStat model and save it
     crs_stat.stats_hash = stats_hash
     crs_stat.save
-
   end
 
   def merge_stats(summary_stats, serialized_stats)
@@ -94,63 +92,14 @@ class UpdateWikidataStats
   
 
   def get_stats_from_serialized_stats(revisions_with_serialized_stats)
-    strings = [
-    'claims created','claims removed','claims changed','references added',
-    'references removed',
-    'references changed',
-    'qualifiers added',
-    'qualifiers removed',
-    'qualifiers changed',
-    'aliases added',
-    'aliases removed',
-    'aliases changed',
-    'labels added',
-    'labels removed',
-    'labels changed',
-    'descriptions added',
-    'descriptions removed',
-    'descriptions changed',
-    'interwiki links added',
-    'interwiki links removed',
-    'interwiki links updated',
-    'merged to',
-    'merged from',
-    'redirects created',
-    'reverts performed',
-    'restorations performed',
-    'items cleared',
-    'items created',
-    'lemmas added',
-    'lemmas removed',
-    'lemmas changed',
-    'forms added',
-    'forms removed',
-    'forms changed',
-    'senses added',
-    'senses removed',
-    'senses changed',
-    'properties created',
-    'lexeme items created',
-    'representations added',
-    'representations removed',
-    'representations changed',
-    'glosses added',
-    'glosses removed',
-    'glosses changed',
-    'form claims added',
-    'form claims removed',
-    'form claims changed',
-    'sense claims added',
-    'sense claims removed',
-    'sense claims changed'
-    ]
+    # Initialize a hash with the same order of attributes like they exist in the serialized stats
+    strings = ['claims created', 'claims removed', 'claims changed', 'references added', 'references removed', 'references changed', 'qualifiers added', 'qualifiers removed', 'qualifiers changed', 'aliases added', 'aliases removed', 'aliases changed', 'labels added', 'labels removed', 'labels changed', 'descriptions added', 'descriptions removed', 'descriptions changed', 'interwiki links added', 'interwiki links removed', 'interwiki links updated', 'merged to', 'merged from', 'redirects created', 'reverts performed', 'restorations performed', 'items cleared', 'items created', 'lemmas added', 'lemmas removed', 'lemmas changed', 'forms added', 'forms removed', 'forms changed', 'senses added', 'senses removed', 'senses changed', 'properties created', 'lexeme items created', 'representations added', 'representations removed', 'representations changed', 'glosses added', 'glosses removed', 'glosses changed', 'form claims added', 'form claims removed', 'form claims changed', 'sense claims added', 'sense claims removed', 'sense claims changed']
     stats = Hash[strings.map { |string| [string, 0] }]
 
     # create a sum of stats after deserilizing the stats for each revision object
-
     revisions_with_serialized_stats.each do |revision|
       # Deserialize the summary field to get the stats
-      deserialized_stat = JSON.parse(revision.summary)
+      deserialized_stat = revision.diff_stats
       # create a stats which sums up each field of the deserialized_stat and create a stats hash
       deserialized_stat.each_with_index do |(key, value), index|
         stats[strings[index]] += value

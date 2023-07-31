@@ -86,4 +86,15 @@ class Revision < ApplicationRecord
     return 0 unless references_count(features) && references_count(features_previous)
     references_count(features) - references_count(features_previous)
   end
+
+  def edit_summary
+    return summary unless diff_stats # If diff_stats is nil, then summary is the edit summary
+    nil # Otherwise, it's diff_stats and returns nil
+  end
+
+  def diff_stats
+    JSON.parse(summary) if summary.present? && summary.start_with?('{', '[')
+  rescue JSON::ParserError
+    nil # Return nil if parsing fails (i.e., not diff_stats)
+  end
 end
