@@ -123,6 +123,7 @@ class UpdateWikidataStats
         stats[STATS_CLASSIFICATION[index]] += value
       end
     end
+    stats['total revisions'] = stats.values.sum
     stats
   end
 
