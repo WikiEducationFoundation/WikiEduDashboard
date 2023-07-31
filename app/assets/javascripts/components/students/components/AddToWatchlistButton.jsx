@@ -20,7 +20,7 @@ const AddToWatchlistButton = ({ slug, prefix = 'Students' }) => {
     request(`/courses/${slug}/students/add_to_watchlist`, { method: 'POST' })
      .then(res => res.json())
      .then((data) => {
-        if (data.message.batchcomplete) {
+        if (data.message.status === 'Success') {
         dispatch({ type: ADD_NOTIFICATION, notification: notificationMessage('Success') });
         } else {
           return Promise.reject(data);
