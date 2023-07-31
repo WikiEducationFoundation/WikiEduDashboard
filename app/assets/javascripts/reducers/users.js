@@ -50,7 +50,7 @@ export default function users(state = initialState, action) {
 
     return {
       ...state,
-      users: user_list.newModels ? user_list.newModels : user_list,
+      users: user_list.newModels ? user_list.newModels : user_list, // Update 'users' with the sorted user list if available, or use the original 'user_list'.
       isLoaded: true,
       lastRequestTimestamp: Date.now()
     };
