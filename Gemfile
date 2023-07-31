@@ -81,7 +81,7 @@ gem 'chartkick' # Used for plots in Rails views
 gem 'rack-cors', require: 'rack/cors' # Used for allowing cross-domain requests
 ### System utilities
 gem 'pandoc-ruby' # Text converter, for markdown<->html<->wikitext conversions
-gem 'wikidata-diff-analyzer', '~> 2.0' # for analyzing wikidata-edits
+gem 'wikidata-diff-analyzer', '~> 2.0', '>= 2.0.1'
 
 ### Platform-specific fixes
 # You might need to uncomment these on Windows if you aren't using WSL.

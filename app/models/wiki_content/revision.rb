@@ -24,7 +24,7 @@
 #  features_previous :text(65535)
 #  summary           :text(65535)
 #
-
+require 'json'
 #= Revision model
 class Revision < ApplicationRecord
   belongs_to :user
