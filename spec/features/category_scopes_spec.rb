@@ -16,26 +16,30 @@ describe 'Tracked categories and template', js: true do
     visit "/courses/#{course.slug}/articles"
     expect(page).to have_content 'Tracked Categories'
     click_button 'Add category'
-    find('#category_name').set('Photography')
-    click_button 'Add this category'
+    find(:css, '#categories input').set('Earth ')
+    find(:css, '#categories div[class*="option"]', text: 'Earth sciences').click
+    click_button 'Add categories'
     click_button 'OK'
-    expect(page).to have_content 'Category:Photography'
+    expect(page).to have_content 'Category:Earth'
+
     # Re-add the same category
     click_button 'Add category'
-    find('#category_name').set('Photography')
-    click_button 'Add this category'
+    find(:css, '#categories input').set('Earth ')
+    find(:css, '#categories div[class*="option"]', text: 'Earth sciences').click
+    click_button 'Add categories'
     click_button 'OK'
 
     click_button 'Remove'
-    expect(page).not_to have_content 'Photography'
+    expect(page).not_to have_content 'Earth'
   end
 
   it 'lets a facilitator add a template' do
     visit "/courses/#{course.slug}/articles"
     click_button 'Add template'
-    find('#category_name').set('Stub')
-    click_button 'Add this template'
+    find(:css, '#templates input').set('Earth ')
+    find(:css, '#templates div[class*="option"]', text: 'Earth mass').click
+    click_button 'Add Templates'
     click_button 'OK'
-    expect(page).to have_content 'Template:Stub'
+    expect(page).to have_content 'Template:Earth_mass'
   end
 end

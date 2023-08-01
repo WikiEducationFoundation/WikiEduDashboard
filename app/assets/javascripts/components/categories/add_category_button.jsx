@@ -41,9 +41,11 @@ const AddCategoryButton = createReactClass({
       source: this.props.source,
     };
     const resetScoping = this.props.resetScopingMethod;
+    const open = this.props.open;
     const onConfirm = function () {
       addCategory(payload);
       resetScoping();
+      open(null);
     };
 
     const confirmMessage = 'Are you sure you want to track these categories?';
