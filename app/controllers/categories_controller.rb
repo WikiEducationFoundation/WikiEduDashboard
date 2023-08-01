@@ -7,8 +7,6 @@ class CategoriesController < ApplicationController
   before_action :set_course_and_validate
 
   def add_category(params)
-    pp "helo"
-    pp params
     name = ArticleUtils.format_article_title(params[:name])
     @category = Category.find_or_create_by(wiki: @wiki, depth: params[:depth],
                                            name:, source: params[:source])
