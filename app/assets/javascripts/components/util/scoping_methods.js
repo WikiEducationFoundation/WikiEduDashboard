@@ -75,18 +75,30 @@ export const getAddCategoriesPayload = ({
 }) => {
   if (sourceType === 'category') {
     return {
-      categories: scopingMethods.categories
+      categories: {
+        depth: scopingMethods.categories.depth,
+        items: scopingMethods.categories.tracked
+      }
     };
   } else if (sourceType === 'psid') {
     return {
-      categories: scopingMethods.petscan
+      categories: {
+        depth: 0,
+        items: scopingMethods.petscan.psids
+      }
     };
   } else if (sourceType === 'pileid') {
     return {
-      categories: scopingMethods.pagepile
+      categories: {
+        depth: 0,
+        items: scopingMethods.pagepile.ids
+      }
     };
   }
   return {
-    categories: scopingMethods.templates
+    categories: {
+      depth: 0,
+      items: scopingMethods.templates.include
+    }
   };
 };

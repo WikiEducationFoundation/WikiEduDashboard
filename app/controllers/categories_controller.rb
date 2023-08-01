@@ -18,28 +18,10 @@ class CategoriesController < ApplicationController
   def add_categories
     source = params[:source]
     categories_params = params[:categories]
-    depth = 0
-    if source == 'category'
-      depth = categories_params[:depth]
-      categories_params[:tracked].each do |category|
-        set_wiki category[:value][:wiki]
-        add_category(depth:, name: category[:value][:title], source:)
-      end
-    elsif source == 'psid'
-      categories_params[:psids].each do |psid|
-        set_wiki psid[:value][:wiki]
-        add_category(depth:, name: psid[:value][:title], source:)
-      end
-    elsif source == 'pileid'
-      categories_params[:ids].each do |page_pile|
-        set_wiki page_pile[:value][:wiki]
-        add_category(depth:, name: page_pile[:value][:title], source:)
-      end
-    else
-      categories_params[:include].each do |template|
-        set_wiki template[:value][:wiki]
-        add_category(depth:, name: template[:value][:title], source:)
-      end
+    depth = categories_params[:depth]
+    categories_params[:items].each do |category|
+      set_wiki category[:value][:wiki]
+      add_category(depth:, name: category[:value][:title], source:)
     end
     render 'courses/categories'
   rescue ActiveRecord::RecordNotUnique
