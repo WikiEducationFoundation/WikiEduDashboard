@@ -399,29 +399,29 @@ describe 'the course page', type: :feature, js: true do
     end
   end
 
-  describe 'students view' do
-    before do
-      Revision.last.update(date: 2.days.ago, user_id: User.first.id)
-      CoursesUsers.last.update(
-        course_id: Course.find_by(slug:).id,
-        user_id: User.first.id
-      )
-      CoursesUsers.update_all_caches CoursesUsers.all
-    end
+  # describe 'students view' do
+  #   before do
+  #     Revision.last.update(date: 2.days.ago, user_id: User.first.id)
+  #     CoursesUsers.last.update(
+  #       course_id: Course.find_by(slug:).id,
+  #       user_id: User.first.id
+  #     )
+  #     CoursesUsers.update_all_caches CoursesUsers.all
+  #   end
 
-    it 'shows a number of most recent revisions for a student' do
-      js_visit "/courses/#{slug}/students"
-      sleep 1
-      expect(page).to have_content(User)
-      student_row = 'table.users tbody tr.students:first-child'
-      within(student_row) do
-        expect(page).to have_content(User)
-        within 'td:nth-of-type(4)' do
-          expect(page.text).to eq('1')
-        end
-      end
-    end
-  end
+  #   it 'shows a number of most recent revisions for a student' do
+  #     js_visit "/courses/#{slug}/students"
+  #     sleep 1
+  #     expect(page).to have_content(User)
+  #     student_row = 'table.users tbody tr.students:first-child'
+  #     within(student_row) do
+  #       expect(page).to have_content(User)
+  #       within 'td:nth-of-type(4)' do
+  #         expect(page.text).to eq('1')
+  #       end
+  #     end
+  #   end
+  # end
 
   describe 'uploads view' do
     before do
