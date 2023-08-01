@@ -6,13 +6,6 @@ class CategoriesController < ApplicationController
   respond_to :json
   before_action :set_course_and_validate
 
-  def add_category(params)
-    name = ArticleUtils.format_article_title(params[:name])
-    @category = Category.find_or_create_by(wiki: @wiki, depth: params[:depth],
-                                           name:, source: params[:source])
-    @course.categories << @category
-  end
-
   def add_categories
     source = params[:source]
     categories_params = params[:categories]
@@ -42,6 +35,14 @@ class CategoriesController < ApplicationController
   def set_wiki(wiki)
     wiki_language = wiki[:language]
     wiki_project = wiki[:project]
+    return if @wiki && @wiki.language == wiki_language && @wiki.project == wiki_project
     @wiki = Wiki.get_or_create(language: wiki_language, project: wiki_project)
+  end
+
+  def add_category(params)
+    name = ArticleUtils.format_article_title(params[:name])
+    @category = Category.find_or_create_by(wiki: @wiki, depth: params[:depth],
+                                           name:, source: params[:source])
+    @course.categories << @category
   end
 end
