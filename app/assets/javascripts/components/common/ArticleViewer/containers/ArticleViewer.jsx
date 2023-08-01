@@ -52,6 +52,7 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
   const [userIdsFetched, setUserIdsFetched] = useState(false);
   const [whoColorHtml, setWhoColorHtml] = useState(null);
   const [parsedArticle, setParsedArticle] = useState(null);
+  const [unhighlightedContributors, setUnhighlightedContributors] = useState([]);
 
   const dispatch = useDispatch();
   const ref = useRef();
@@ -170,9 +171,29 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
       const styledAuthorSpan = `<span title="${user.name}" class="editor-token token-editor-${user.userid} ${colorClass}`;
       const authorSpanMatcher = new RegExp(`<span class="editor-token token-editor-${user.userid}`, 'g');
       html = html.replace(authorSpanMatcher, styledAuthorSpan);
-      if (prevHtml !== html) user.activeRevision = true;
+      if (prevHtml !== html) {
+          user.activeRevision = true;
+      } else {
+        // If highlighting failed, verify if the user's has contributions in the article using checkFallback.
+        checkFallback(user);
+      }
     });
     setHighlightedHtml(html);
+  };
+
+  const checkFallback = (user) => {
+    const builder = new URLBuilder({ article: article });
+    const api = new ArticleViewerAPI({ builder });
+    api.fetchWikitextMetaData()
+       .then((response) => {
+        const { tokensForRevision } = response;
+        const foundToken = tokensForRevision.find(token => token.editor = user.userid);
+        // If the user's revision is found (i.e., the user has contributions in the article),
+        // update the unhighlightedContributors state by adding the user's userid to the array.
+        if (foundToken) {
+          setUnhighlightedContributors(x => [...x, user.userid]);
+      }
+    });
   };
 
   const fetchParsedArticle = () => {
@@ -302,6 +323,7 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
           showArticleFinder={showArticleFinder}
           whoColorFailed={whoColorFailed}
           users={usersState}
+          unhighlightedContributors={unhighlightedContributors}
         />
       </div>
     </div>

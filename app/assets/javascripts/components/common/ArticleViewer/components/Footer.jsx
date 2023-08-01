@@ -7,7 +7,7 @@ import { printArticleViewer } from '../../../../utils/article_viewer';
 
 export const Footer = ({
   article, colors, failureMessage, showArticleFinder, highlightedHtml, isWhocolorLang,
-  whocolorFailed, users
+  whocolorFailed, users, unhighlightedContributors
 }) => {
   // Determine the Article Viewer Legend status based on what information
   // has returned from various API calls.
@@ -29,6 +29,7 @@ export const Footer = ({
         colors={colors}
         status={legendStatus}
         failureMessage={failureMessage}
+        unhighlightedContributors={unhighlightedContributors}
       />
     );
   }

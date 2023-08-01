@@ -897,8 +897,8 @@ en:
         categories: Categories
         categories_short_desc: The Category feature on a wiki is used to collect related articles. You can use the name of the Category to tell the Dashboard to track all the articles in that Category.
         categories_desc: >
-          Tracking a Category means that the Dashboard will count edits to any articles in that Category. By default (depth 0), only the articles that are directly in that Category will be tracked. 
-          
+          Tracking a Category means that the Dashboard will count edits to any articles in that Category. By default (depth 0), only the articles that are directly in that Category will be tracked.
+
           You can increase the depth value (up to a maximum of 3) if you want to include articles that are in sub-categories of that Category. Be sure to browse the Category first, to make sure the sub-Categories match what you intend to track.
         templates: Templates
         templates_short_desc: You can track articles based on a Template that they contain, which works whether the Template is used on article itself, or on the corresponding Talk page — such as WikiProject templates.
@@ -1124,8 +1124,8 @@ en:
     index: Index
     collection: Collection
     tracked_namespaces_info: >
-      Only the articles corresponding to Tracked Namespaces will contribute to the topline 
-      overview stats, like 'Articles Edited', 'Total Edits', 'Words Added', etc. Hence, only 
+      Only the articles corresponding to Tracked Namespaces will contribute to the topline
+      overview stats, like 'Articles Edited', 'Total Edits', 'Words Added', etc. Hence, only
       track the namespaces that your program aims to improve.
 
   recent_activity:
@@ -1401,7 +1401,8 @@ en:
     no_articles: No articles
     no_articles_wikidata: No items
     no_revisions: (no revisions)
-    no_highlighting: "No text from the current version of the article is attributed to this editor. Check the page history to see their edits."
+    no_highlighting: "No text from the current version of the article is attributed to this Editor: %{editor}. Check the page history to see their edits."
+    contributionsNotHighlighted: "Contributions from Editor: %{username} are present in the latest version of the article, but they cannot be highlighted. This may be due to the nature of the content, such as references or templates, which are not shown in the highlighting."
     number_of_articles:
       one: "%{count} article"
       other: "%{count} articles"

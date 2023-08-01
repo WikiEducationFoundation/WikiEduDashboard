@@ -16,7 +16,14 @@
 
 #icon-article-viewer-desc
   display none
-  
+
+#popup-style
+  position: fixed
+  top: 99%
+  left: 0
+  border: 0
+  background: #676eb4
+
 .article-header
   border none !important
   padding 5px 10px 5px 10px
@@ -26,6 +33,7 @@
 .tooltip
   position: relative
   color: white
+
 
 .article-alert
   align-items flex-start
@@ -187,49 +195,49 @@
     vertical-align super
     font-size smaller
 
-.wikibase-statementgroupview-property-label 
+.wikibase-statementgroupview-property-label
 	padding 30px 10px
 	width 100%
 	margin-right 70px
-.wikibase-statementgroupview-property 
+.wikibase-statementgroupview-property
 	background-color #eaecf0
 	width 15em
-.wikibase-statementgroupview 
+.wikibase-statementgroupview
 	background-color #fff
 	border 1px solid #c8ccd1
 	margin-bottom 15px
 	display flex
 .wb-normal,
-.wb-preferred 
+.wb-preferred
 	border-bottom 1px solid #eaecf0
 	width 100%
 	padding 15px 25px
-.wikibase-statementlistview 
+.wikibase-statementlistview
 	width -webkit-fill-available
 	overflow auto
-.wikibase-statementview-mainsnak-container 
+.wikibase-statementview-mainsnak-container
 	margin-right 30px
-.wikibase-snakview 
+.wikibase-snakview
 	display flex
-.wikibase-statementview-qualifiers 
-	.wikibase-snakview-value 
+.wikibase-statementview-qualifiers
+	.wikibase-snakview-value
 		margin-left 12em
-.wikibase-referenceview-listview 
+.wikibase-referenceview-listview
 	padding 20px 10px
 	background-color #f8f9fa
 	overflow-x auto
-	div 
-		&.wikibase-snakview 
+	div
+		&.wikibase-snakview
 			padding 10px 5px 5px 10px
-.wikibase-referenceview 
-	.wikibase-snaklistview-listview 
-		.wikibase-snakview-value-container 
+.wikibase-referenceview
+	.wikibase-snaklistview-listview
+		.wikibase-snakview-value-container
 			margin-left 10%
 			position relative
-		.wikibase-snakview-property 
+		.wikibase-snakview-property
 			width 12em
 			font-size 90%
-wikibase-snakview-value 
+wikibase-snakview-value
 	-ms-word-break break-all
 	word-break break-all
 	word-break break-word
@@ -237,7 +245,7 @@ wikibase-snakview-value
 	-moz-hyphens auto
 	-ms-hyphens auto
 	hyphens auto
-.wikibase-sitelinkgroupview 
+.wikibase-sitelinkgroupview
 	padding 10px
 	border 1px solid #c8ccd1
 	margin-bottom 10px
@@ -245,28 +253,28 @@ wikibase-snakview-value
 	width 20%
 	min-width 22em
 	overflow auto
-.wikibase-entityview 
+.wikibase-entityview
 	display flex
 	flex-wrap wrap
-.wikibase-entityview-main 
+.wikibase-entityview-main
 	width 75%
 	max-width 760px
 	margin-right 20px
 	width 95%
 	max-width unset
 	margin-right 20px
-.wb-sitelinks-heading 
+.wb-sitelinks-heading
 	font-size 20px
-	& > span 
+	& > span
 		font-weight 500
 		font-size 80%
 		margin-left 3px
 @media screen and (max-width: 1300px)
-  .wikibase-entityview 
+  .wikibase-entityview
     display flex
     flex-wrap wrap
     flex-direction row
-  .wikibase-listview 
-    & > .wikibase-sitelinkgroupview 
+  .wikibase-listview
+    & > .wikibase-sitelinkgroupview
       float left
 

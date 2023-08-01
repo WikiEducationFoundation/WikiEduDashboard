@@ -6,7 +6,7 @@ import UserUtils from '../../utils/user_utils.js';
 
 import ArticleScroll from '@components/common/ArticleViewer/utils/ArticleScroll';
 
-const ArticleViewerLegend = ({ article, users, colors, status, allUsers, failureMessage }) => {
+const ArticleViewerLegend = ({ article, users, colors, status, allUsers, failureMessage, unhighlightedContributors }) => {
   const [userLinks, setUserLinks] = useState('');
   const [usersStatus, setUsersStatus] = useState('');
   const Scroller = new ArticleScroll();
@@ -25,6 +25,9 @@ const ArticleViewerLegend = ({ article, users, colors, status, allUsers, failure
 
       setUserLinks(users.map((user, i) => {
         let res;
+        // The 'unhighlightedContributors' array keeps track of the userids of users whose contributions
+        // were not successfully highlighted in the article viewer.
+        const isUserHovered = unhighlightedContributors.find(x => x === user.userid);
         const userLink = UserUtils.userTalkUrl(user.name, article.language, article.project);
         const fullUserRecord = allUsers.find(_user => _user.username === user.name);
         const realName = fullUserRecord && fullUserRecord.real_name;
@@ -32,8 +35,10 @@ const ArticleViewerLegend = ({ article, users, colors, status, allUsers, failure
           res = <div key={`legend-${user.name}`} className={'user-legend'}><a href={userLink} title={realName} target="_blank">{user.name}</a></div>;
         } else if (user.activeRevision === true) {
           res = <div key={`legend-${user.name}`} className={`user-legend ${colors[i]}`}><a href={userLink} title={realName} target="_blank">{user.name}</a><img className="user-legend-hover" style={{ color: 'transparent' }} src="/assets/images/arrow.svg" alt="scroll to users revisions" width="30px" height="20px" onClick={() => Scroller.scrollTo(user.name, scrollBox)} /></div >;
+        } else if (isUserHovered) {
+          res = <div key={`legend-${user.name}`} className={'user-legend tooltip-trigger'}><p className={'tooltip large'} id={'popup-style'} >{I18n.t('users.contributionsNotHighlighted', { username: user.name })}</p><a href={userLink} title={realName} target="_blank">{user.name}</a>{<span className="tooltip-indicator" />}</div>;
         } else {
-          res = <div key={`legend-${user.name}`} className={'user-legend tooltip-trigger'}><p className={'tooltip dark large'}>{I18n.t('users.no_highlighting')}</p><a href={userLink} title={realName} target="_blank">{user.name}</a></div>;
+          res = <div key={`legend-${user.name}`} className={'user-legend tooltip-trigger'}><p className={'tooltip large'} id={'popup-style'}>{I18n.t('users.no_highlighting', { editor: user.name })}</p><a href={userLink} title={realName} target="_blank">{user.name}</a>{<span className="tooltip-indicator" />}</div>;
         }
 
         return res;
@@ -41,7 +46,7 @@ const ArticleViewerLegend = ({ article, users, colors, status, allUsers, failure
     } else {
       setUserLinks(<div className="user-legend authorship-loading"> &nbsp; &nbsp; </div>);
     }
-  }, [users, status]);
+  }, [users, status, unhighlightedContributors]);
 
   useEffect(() => {
     if (status === 'loading') {
