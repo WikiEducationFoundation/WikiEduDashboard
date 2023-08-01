@@ -143,6 +143,7 @@ const WikiSelect = createReactClass({
       styles={this.props.styles}
       isClearable={false}
       defaultValue={home_wiki && formatOption(home_wiki)}
+      className="multi-wiki-selector"
     />;
   }
 }
