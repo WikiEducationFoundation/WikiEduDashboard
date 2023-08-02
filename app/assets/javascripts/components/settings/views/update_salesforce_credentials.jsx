@@ -1,33 +1,26 @@
-import createReactClass from 'create-react-class';
-import PropTypes from 'prop-types';
 import React from 'react';
 import SalesforceCredentialsForm from '../containers/salesforce_credentials_form_container';
 import Popover from '../../common/popover.jsx';
-import PopoverExpandable from '../../high_order/popover_expandable.jsx';
+import useExpandablePopover from '../../../hooks/useExpandablePopover';
 
-const UpdateSalesforceCredentials = createReactClass({
-  propTypes: {
-    open: PropTypes.func,
-    is_open: PropTypes.bool
-  },
-
-  getKey() {
+const UpdateSalesforceCredentials = () => {
+  const getKey = () => {
     return 'update_salesforce_credentials_button';
-  },
+  };
 
-  render() {
-    const form = <SalesforceCredentialsForm handlePopoverClose={this.props.open} />;
-    return (
-      <div className="pop__container">
-        <button className="button dark" onClick={this.props.open}>Update Salesforce Credentials</button>
-        <Popover
-          is_open={this.props.is_open}
-          edit_row={form}
-          right
-        />
-      </div>
-    );
-  }
-});
+  const { isOpen, ref, open } = useExpandablePopover(getKey);
 
-export default PopoverExpandable(UpdateSalesforceCredentials);
+  const form = <SalesforceCredentialsForm handlePopoverClose={open} />;
+  return (
+    <div className="pop__container" ref={ref}>
+      <button className="button dark" onClick={open}>Update Salesforce Credentials</button>
+      <Popover
+        is_open={isOpen}
+        edit_row={form}
+        right
+      />
+    </div>
+  );
+};
+
+export default UpdateSalesforceCredentials;
