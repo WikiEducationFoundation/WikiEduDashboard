@@ -26,8 +26,7 @@ const ArticleViewerLegend = ({ article, users, colors, status, allUsers, failure
         let res;
         // The 'unhighlightedContributions' keeps track of the userids of users whose contributions
         // were not successfully highlighted in the article viewer.
-        let UnhighlightedContributions = null;
-        if (unhighlightedEditors) { UnhighlightedContributions = unhighlightedEditors?.find(x => x === user.userid); }
+        const UnhighlightedContributions = unhighlightedEditors?.find(x => x === user.userid);
         const userLink = UserUtils.userTalkUrl(user.name, article.language, article.project);
         const fullUserRecord = allUsers.find(_user => _user.username === user.name);
         const realName = fullUserRecord && fullUserRecord.real_name;
