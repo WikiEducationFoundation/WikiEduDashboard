@@ -11,7 +11,7 @@ class CategoriesController < ApplicationController
     categories_params = params[:categories]
     depth = categories_params[:depth]
     categories_params[:items].each do |category|
-      set_wiki category[:value][:wiki]
+      update_wiki category[:value][:wiki]
       add_category(depth:, name: category[:value][:title], source:)
     end
     render 'courses/categories'
@@ -32,7 +32,7 @@ class CategoriesController < ApplicationController
     raise NotPermittedError unless current_user&.can_edit?(@course)
   end
 
-  def set_wiki(wiki)
+  def update_wiki(wiki)
     wiki_language = wiki[:language]
     wiki_project = wiki[:project]
     return if @wiki && @wiki.language == wiki_language && @wiki.project == wiki_project
