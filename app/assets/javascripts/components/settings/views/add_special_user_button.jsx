@@ -1,34 +1,27 @@
-import createReactClass from 'create-react-class';
-import PropTypes from 'prop-types';
 import React from 'react';
 import AddSpecialUserForm from './add_special_user_form';
 import Popover from '../../common/popover.jsx';
-import PopoverExpandable from '../../high_order/popover_expandable.jsx';
+import useExpandablePopover from '../../../hooks/useExpandablePopover';
 
-const AddSpecialUserButton = createReactClass({
-  propTypes: {
-    open: PropTypes.func,
-    is_open: PropTypes.bool
-  },
-
-  getKey() {
+const AddSpecialUserButton = () => {
+  const getKey = () => {
     return 'add_special_user_button';
-  },
+  };
 
-  render() {
-    const form = <AddSpecialUserForm handlePopoverClose={this.props.open} />;
-    return (
-      <div className="pop__container">
-        <button className="button dark" onClick={this.props.open}>Add Special User</button>
-        <Popover
-          is_open={this.props.is_open}
-          edit_row={form}
-          right
-        />
-      </div>
-    );
-  }
-});
+  const { isOpen, ref, open } = useExpandablePopover(getKey);
 
-export default PopoverExpandable(AddSpecialUserButton);
+  const form = <AddSpecialUserForm handlePopoverClose={open} />;
+  return (
+    <div className="pop__container" ref={ref}>
+      <button className="button dark" onClick={open}>Add Special User</button>
+      <Popover
+        is_open={isOpen}
+        edit_row={form}
+        right
+      />
+    </div>
+  );
+};
+
+export default AddSpecialUserButton;
 
