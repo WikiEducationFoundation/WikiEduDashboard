@@ -52,7 +52,7 @@ describe 'Tracked categories and templates', js: true do
     find(:css, '#categories input').set('Earth ')
     find(:css, '#categories div[class*="option"]', text: 'Earth sciences').click
     find(:css, '#categories input').set('Apple ')
-    find(:css, '#categories div[class*="option"]', text: 'Apple', exact_text: true).click
+    find(:css, '#categories div[class*="option"]', text: 'en:Apple', exact_text: true).click
 
     click_button 'Add categories'
     click_button 'OK'
@@ -85,7 +85,7 @@ describe 'Tracked categories and templates', js: true do
     find(:css, '#templates input').set('Earth ')
     find(:css, '#templates div[class*="option"]', text: 'Earth mass').click
     find(:css, '#templates input').set('Apple ')
-    find(:css, '#templates div[class*="option"]', text: 'Apple Inc.', exact_text: true).click
+    find(:css, '#templates div[class*="option"]', text: 'en:Apple Inc.', exact_text: true).click
 
     click_button 'Add Templates'
     click_button 'OK'
