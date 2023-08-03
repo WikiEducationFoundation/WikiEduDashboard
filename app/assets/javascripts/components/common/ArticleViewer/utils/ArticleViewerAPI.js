@@ -131,6 +131,23 @@ export class ArticleViewerAPI {
       }
     }).then(response => this.__handleFetchResponse(response));
   }
+
+  fetchWikitextMetaData() {
+    const url = this.builder.wikiwhoColorRevisionURL();
+    return fetch(`${url}&origin=*`, {
+      headers: {
+        'Content-Type': 'application/javascript'
+      }
+    }).then(response => this.__handleFetchResponse(response))
+      .then((response) => {
+        if (response.error) throw new Error(this.__setException({ status: 404 }));
+        const revisionId = 'revisions'; // Get the first (and presumably only) revision ID
+        const revisionData = response[revisionId]?.[0];
+        if (!revisionData) throw new Error('Invalid response data');
+        const { tokens } = Object.values(revisionData)[0];
+        return { tokensForRevision: tokens };
+      });
+  }
 }
 
 export default ArticleViewerAPI;

@@ -52,6 +52,7 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
   const [userIdsFetched, setUserIdsFetched] = useState(false);
   const [whoColorHtml, setWhoColorHtml] = useState(null);
   const [parsedArticle, setParsedArticle] = useState(null);
+  const [unhighlightedEditors, setUnhighlightedEditors] = useState([]);
 
   const dispatch = useDispatch();
   const ref = useRef();
@@ -158,6 +159,8 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
   const highlightAuthors = () => {
     let html = whoColorHtml;
     if (!html) { return; }
+    // Array to store user IDs whose contributions couldn't be highlighted
+    const editorsID = [];
 
     forEach(usersState, (user, i) => {
       // Move spaces inside spans, so that background color is continuous
@@ -170,9 +173,55 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
       const styledAuthorSpan = `<span title="${user.name}" class="editor-token token-editor-${user.userid} ${colorClass}`;
       const authorSpanMatcher = new RegExp(`<span class="editor-token token-editor-${user.userid}`, 'g');
       html = html.replace(authorSpanMatcher, styledAuthorSpan);
-      if (prevHtml !== html) user.activeRevision = true;
+
+      if (prevHtml !== html) {
+        user.activeRevision = true;
+      } else {
+        // If highlighting failed , store the un-highlighted user's ID in the editorsID array
+        editorsID.push(user.userid);
+      }
     });
+
+    // Check if there are any editors whose contributions couldn't be highlighted
+    if (editorsID.length) {
+      // If there are unhighlighted editors, call the function to check their contributions in wikitext metadata
+      usersContributionExists(editorsID);
+    } else {
+      const status = 'No Highlighted Editors';
+      // Set the unhighlightedEditors state with a status message to make legendStatus ready in the
+      // Footer Component for loading the authorship data
+      setUnhighlightedEditors([status]);
+    }
     setHighlightedHtml(html);
+  };
+
+  // Function to check if contributions of unhighlighted editors exist in the wikitext metadata
+  const usersContributionExists = (usersID) => {
+   // Create a URL builder and API instance for fetching wikitext metadata
+   const builder = new URLBuilder({ article: article });
+   const api = new ArticleViewerAPI({ builder });
+
+    // Fetch wikitext metadata for the current article revision
+    api.fetchWikitextMetaData()
+       .then((response) => {
+         // Extract the tokensForRevision data from the response
+         const { tokensForRevision } = response;
+
+         // Iterate through the list of user IDs whose contributions couldn't be highlighted
+         usersID.forEach((userID) => {
+          // Find a token in the metadata with a matching editor ID
+          const foundToken = tokensForRevision.find(token => token.editor === userID.toString());
+
+          // If a token with a matching editor ID is found, it means the user has a contribution
+          // in the current revision's wikitext
+          if (foundToken) {
+            // Add the user ID to the unhighlightedEditors state to display in the UI
+            setUnhighlightedEditors(x => [...x, userID]);
+        }
+      });
+    }).catch((error) => {
+      setFailureMessage(error.message);
+    });
   };
 
   const fetchParsedArticle = () => {
@@ -302,6 +351,7 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
           showArticleFinder={showArticleFinder}
           whoColorFailed={whoColorFailed}
           users={usersState}
+          unhighlightedEditors={unhighlightedEditors}
         />
       </div>
     </div>
