@@ -43,6 +43,8 @@ ky:
     diff_show: Көрсөтүү
     diff_hide: Жашыруу
     title: Аталыш
+  timeline:
+    week_number: Апта %{number}
   training:
     page: Барак
   uploads:
