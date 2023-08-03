@@ -35,7 +35,7 @@ const ArticleViewerLegend = ({ article, users, colors, status, allUsers, failure
         } else if (user.activeRevision === true) {
           res = <div key={`legend-${user.name}`} className={`user-legend ${colors[i]}`}><a href={userLink} title={realName} target="_blank">{user.name}</a><img className="user-legend-hover" style={{ color: 'transparent' }} src="/assets/images/arrow.svg" alt="scroll to users revisions" width="30px" height="20px" onClick={() => Scroller.scrollTo(user.name, scrollBox)} /></div >;
         } else if (UnhighlightedContributions) {
-          res = <div key={`legend-${user.name}`} className={'user-legend tooltip-trigger'}><p className={'tooltip large'} id={'popup-style'} >{I18n.t('users.contributionsNotHighlighted', { username: user.name })}</p><a href={userLink} title={realName} target="_blank">{user.name}</a>{<span className="tooltip-indicator" />}</div>;
+          res = <div key={`legend-${user.name}`} className={'user-legend tooltip-trigger'}><p className={'tooltip large'} id={'popup-style'} >{I18n.t('users.contributions_not_highlighted', { username: user.name })}</p><a href={userLink} title={realName} target="_blank">{user.name}</a>{<span className="tooltip-indicator" />}</div>;
         } else {
           res = <div key={`legend-${user.name}`} className={'user-legend tooltip-trigger'}><p className={'tooltip large'} id={'popup-style'}>{I18n.t('users.no_highlighting', { editor: user.name })}</p><a href={userLink} title={realName} target="_blank">{user.name}</a>{<span className="tooltip-indicator" />}</div>;
         }
