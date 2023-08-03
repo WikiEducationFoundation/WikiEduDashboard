@@ -1,16 +1,17 @@
-import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Select from 'react-select';
-
+import React from 'react';
 import { initiateConfirm } from '../../actions/confirm_actions';
-import TextInput from '../common/text_input';
 import Popover from '../common/popover.jsx';
 import Expandable from '../high_order/expandable.jsx';
-import CourseUtils from '../../utils/course_utils.js';
 
-import selectStyles from '../../styles/select';
+import CategoriesScoping from '../course_creator/scoping_methods/categories_scoping';
+import PagePileScoping from '../course_creator/scoping_methods/pagepile_scoping';
+import PetScanScoping from '../course_creator/scoping_methods/petscan_scoping';
+import TemplatesScoping from '../course_creator/scoping_methods/templates_scoping';
+import { getAddCategoriesPayload } from '../util/scoping_methods';
+import { resetScopingMethod } from '../../actions/scoping_methods';
 
 const AddCategoryButton = createReactClass({
   displayName: 'AddCategoryButton',
@@ -24,85 +25,29 @@ const AddCategoryButton = createReactClass({
     source: PropTypes.string.isRequired
   },
 
-  getInitialState() {
-    return ({
-      category: '',
-      language: this.props.course.home_wiki.language,
-      project: this.props.course.home_wiki.project,
-      depth: '0',
-      showOptions: false
-    });
-  },
-
   getKey() {
     return `add_${this.props.source}_button`;
   },
 
-  reset() {
-    this.setState(this.getInitialState());
-    this.props.open(null);
-  },
-
-  handleChangeCategory(e) {
-    const categoryInput = e.target.value;
-    const page = CourseUtils.articleFromTitleInput(categoryInput);
-    const language = page.language ? page.language : this.state.language;
-    const project = page.project ? page.project : this.state.project;
-    return this.setState({
-      category: page.title,
-      project,
-      language
-    });
-  },
-
-  handleDepthChange(_key, value) {
-    return this.setState({ depth: value });
-  },
-
-  handleShowOptions(e) {
-    e.preventDefault();
-    return this.setState(
-      { showOptions: true });
-  },
-
-  handleChangeLanguage(val) {
-    return this.setState(
-      { language: val.value });
-  },
-
-  handleChangeProject(val) {
-    return this.setState(
-      { project: val.value });
-  },
-
   addCategory(e) {
     e.preventDefault();
-    const categoryCourse = {
-      category: decodeURIComponent(this.state.category).trim(),
-      project: this.state.project,
-      language: this.state.language,
-      depth: this.state.depth,
-      course: this.props.course,
-      source: this.props.source
-    };
-
-    if (categoryCourse.category === '' || categoryCourse.category === 'undefined') {
-      return;
-    } else if (categoryCourse.category.length > 255) {
-      // Title shouldn't exceed 255 chars to prevent mysql errors
-      alert(I18n.t('assignments.title_too_large'));
-      return;
-    }
-
     const addCategory = this.props.addCategory;
-    const reset = this.reset;
-    const onConfirm = function () {
-      // Post the new category to the server
-      addCategory(categoryCourse);
-      reset();
+    const payload = {
+      ...getAddCategoriesPayload({
+        sourceType: this.props.source,
+        scopingMethods: this.props.scopingMethods,
+      }),
+      course_id: this.props.course.id,
+      source: this.props.source,
     };
-
-    const confirmMessage = I18n.t(`categories.confirm_${this.props.source}_addition`, { name: categoryCourse.category });
+    const resetScoping = this.props.resetScopingMethod;
+    const open = this.props.open;
+    const onConfirm = function () {
+      addCategory(payload);
+      resetScoping();
+      open(null);
+    };
+    const confirmMessage = I18n.t('categories.confirm_add_n_scoping_method', { n: payload.categories.items.length });
     return this.props.initiateConfirm({ confirmMessage, onConfirm });
   },
 
@@ -122,7 +67,6 @@ const AddCategoryButton = createReactClass({
           </p>
         );
       }
-
     const permitted = true;
     let className = 'button border small assign-button';
     if (this.props.is_open) { className += ' dark'; }
@@ -132,83 +76,32 @@ const AddCategoryButton = createReactClass({
 
     let editRow;
     if (permitted) {
-      let options;
-      if (this.state.showOptions) {
-        const languageOptions = JSON.parse(WikiLanguages).map((language) => {
-          return { label: language, value: language };
-        });
-
-        const projectOptions = JSON.parse(WikiProjects).map((project) => {
-          return { label: project, value: project };
-        });
-        options = (
-          <fieldset className="mt1">
-            <Select
-              ref="languageSelect"
-              className="half-width-select-left language-select"
-              name="language"
-              placeholder="Language"
-              onChange={this.handleChangeLanguage}
-              value={{ value: this.state.language, label: this.state.language }}
-              options={languageOptions}
-              clearable={false}
-              styles={{ ...selectStyles, singleValue: null }}
-            />
-            <Select
-              name="project"
-              ref="projectSelect"
-              className="half-width-select-right project-select"
-              onChange={this.handleChangeProject}
-              placeholder="Project"
-              value={{ value: this.state.project, label: this.state.project }}
-              options={projectOptions}
-              clearable={false}
-              styles={{ ...selectStyles, singleValue: null }}
-            />
-          </fieldset>
-        );
-      } else {
-        options = (
-          <div className="small-block-link">
-            {this.state.language}.{this.state.project}.org <a href="#" onClick={this.handleShowOptions}>({I18n.t('application.change')})</a>
-          </div>
-        );
-      }
-
-      let depthSelector;
+      let inputField;
       if (this.props.source === 'category') {
-        depthSelector = (
-          <TextInput
-            id="category_depth"
-            onChange={this.handleDepthChange}
-            value={this.state.depth}
-            value_key="category_depth"
-            editable
-            required
-            type="number"
-            max="3"
-            label={I18n.t('categories.depth')}
-            placeholder={I18n.t('categories.depth')}
-          />
-      );
+        inputField = <CategoriesScoping vertical/>;
+      } else if (this.props.source === 'psid') {
+        inputField = <PetScanScoping/>;
+      } else if (this.props.source === 'pileid') {
+        inputField = <PagePileScoping />;
+      } else {
+        inputField = <TemplatesScoping />;
       }
-
       editRow = (
         <tr className="edit">
           <td>
-            <form onSubmit={this.addCategory}>
+            <form
+              onSubmit={this.addCategory} style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '1em'
+            }}
+              className="category-add-form"
+            >
               {description}
-              <input
-                id="category_name"
-                value={this.state.category}
-                onChange={this.handleChangeCategory}
-                type="text"
-                ref="category"
-                placeholder={I18n.t(`categories.${this.props.source}_name`)}
-              />
-              {depthSelector}
-              <button className="button border" type="submit">{I18n.t(`categories.add_this_${this.props.source}`)}</button>
-              {options}
+              {inputField}
+              <button className="button border" type="submit">
+                {I18n.t(`categories.add_this_${this.props.source}`)}
+              </button>
             </form>
           </td>
         </tr>
@@ -221,14 +114,19 @@ const AddCategoryButton = createReactClass({
         <Popover
           is_open={this.props.is_open}
           edit_row={editRow}
+          styles={{
+            width: '500px'
+          }}
         />
       </div>
     );
   }
 });
 
-const mapDispatchToProps = { initiateConfirm };
-
-export default connect(null, mapDispatchToProps)(
+const mapDispatchToProps = { initiateConfirm, resetScopingMethod };
+const mapStateToProps = state => ({
+  scopingMethods: state.scopingMethods,
+});
+export default connect(mapStateToProps, mapDispatchToProps)(
   Expandable(AddCategoryButton)
 );

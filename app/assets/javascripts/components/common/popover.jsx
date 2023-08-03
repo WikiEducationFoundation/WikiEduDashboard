@@ -14,7 +14,7 @@ const Popover = (props) => {
 
   return (
     <div className={divClass}>
-      <table>
+      <table style={props.styles ?? {}}>
         <tbody>
           {props.edit_row}
           {props.rows}
@@ -27,7 +27,7 @@ const Popover = (props) => {
 Popover.propTypes = {
   is_open: PropTypes.bool,
   edit_row: PropTypes.node,
-  rows: PropTypes.node
+  rows: PropTypes.node,
 };
 
 export default Popover;

@@ -181,7 +181,7 @@ Rails.application.routes.draw do
   end
 
   # Categories
-  post 'categories' => 'categories#add_category'
+  post 'categories' => 'categories#add_categories'
   delete 'categories' => 'categories#remove_category'
 
   get 'lookups/campaign(.:format)' => 'lookups#campaign'

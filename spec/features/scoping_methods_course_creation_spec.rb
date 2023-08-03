@@ -115,8 +115,8 @@ describe 'Course creation for Article Scoped Programs', type: :feature, js: true
     click_button 'Next'
 
     expect(page).to have_content 'PetScan'
-    find(:css, '.scoping-method-petscan input').set('111')
-    find(:css, '.scoping-method-petscan input').native.send_keys(:tab)
+    find(:css, '#petscan-psids input').set('111')
+    find(:css, '#petscan-psids input').native.send_keys(:tab)
 
     expect(page).to have_content '111'
     expect(page).not_to have_content 'Create my Program!'
@@ -131,6 +131,7 @@ describe 'Course creation for Article Scoped Programs', type: :feature, js: true
     click_button 'Create my Program!'
 
     expect(page).to have_content 'My course'
+
     expect(page).to have_content 'Course'
     expect(page).to have_content 'This project has been published!'
     expect(Course.all.count).to eq(1)

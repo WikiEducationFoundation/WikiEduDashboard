@@ -23,11 +23,18 @@
       width 30px
       background #878dcd
 
+
 .scoping-methods-categories
   display grid
-  grid-template-columns 1fr auto
-  align-items end
-  gap 1em
+  grid-template-columns 1fr
+  grid-template-rows: auto auto
+  gap: 1em
+
+  .scoping-methods-categories-bottom-wrapper
+    display grid
+    grid-template-columns auto 1fr
+    align-items end
+    gap 1em
 
   .form-group
     padding 0
@@ -50,3 +57,10 @@
   display grid
   grid-template-columns 1fr 1fr
   gap 1em
+
+
+.category-add-form
+  .form-group
+    margin 0
+  .small-block-link
+    margin-left auto

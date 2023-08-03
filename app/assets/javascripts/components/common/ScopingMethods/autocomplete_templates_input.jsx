@@ -1,15 +1,14 @@
 import { debounce } from 'lodash';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, } from 'react-redux';
 import AsyncSelect from 'react-select/async';
 import API from '../../../utils/api';
 
-const TemplatesAutoCompleteInput = ({ label, actionType, initial }) => {
+const TemplatesAutoCompleteInput = ({ label, actionType, initial, wiki }) => {
   const dispatch = useDispatch();
-  const home_wiki = useSelector(state => state.course.home_wiki);
 
   const search = async (query) => {
-    const data = await API.getTemplatesWithPrefix(home_wiki, query);
+    const data = await API.getTemplatesWithPrefix(wiki, query);
     return data;
   };
 
@@ -28,7 +27,11 @@ const TemplatesAutoCompleteInput = ({ label, actionType, initial }) => {
   };
 
   return (
-    <>
+    <div style={{
+      display: 'grid',
+      gap: '0.5em',
+    }}
+    >
       <label htmlFor="templates">{label}</label>
       <AsyncSelect
         loadOptions={loadOptions}
@@ -37,9 +40,9 @@ const TemplatesAutoCompleteInput = ({ label, actionType, initial }) => {
         id="templates"
         onChange={updateTemplates}
         noOptionsMessage={() => 'No Templates found'}
-        defaultValue={initial}
+        value={initial}
       />
-    </>
+    </div>
   );
 };
 

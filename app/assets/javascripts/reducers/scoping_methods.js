@@ -1,4 +1,4 @@
-import { TOGGLE_SCOPING_METHOD, UPDATE_CATEGORIES, UPDATE_CATEGORY_DEPTH, UPDATE_PAGEPILE_IDS, UPDATE_PETSCAN_IDS, UPDATE_TEMPLATES } from '../constants/scoping_methods';
+import { RESET_SCOPING_METHODS, TOGGLE_SCOPING_METHOD, UPDATE_CATEGORIES, UPDATE_CATEGORY_DEPTH, UPDATE_PAGEPILE_IDS, UPDATE_PETSCAN_IDS, UPDATE_TEMPLATES } from '../constants/scoping_methods';
 
 const initialState = {
   selected: [],
@@ -79,6 +79,9 @@ export default function course(state = initialState, action) {
       };
     }
 
+    case RESET_SCOPING_METHODS: {
+      return initialState;
+    }
     default:
       return state;
   }

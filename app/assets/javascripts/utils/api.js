@@ -4,6 +4,7 @@ import request from './request';
 import { stringify } from 'query-string';
 import Rails from '@rails/ujs';
 import { toWikiDomain } from './wiki_utils';
+import { formatCategoryName } from '../components/util/scoping_methods';
 
 const SentryLogger = {};
 
@@ -538,26 +539,28 @@ const API = {
     return response.json();
   },
 
-  async getCategoriesWithPrefix(wiki, search_term){
+  async getCategoriesWithPrefix(wiki, search_term, limit=10){
     return this.searchForPages(
       wiki, 
       search_term, 
       14, 
       // replace everything until first colon, then trim
-      (title)=>title.replace(/^[^:]+:/,'').trim()
+      (title)=>title.replace(/^[^:]+:/,'').trim(),
+      limit
     );
   },
 
-  async getTemplatesWithPrefix(wiki, search_term){
+  async getTemplatesWithPrefix(wiki, search_term, limit=10){
     return this.searchForPages(
       wiki,
       search_term, 
       10,
-      (title)=>title.replace('Template:','').trim()
+      (title)=>title.replace(/^[^:]+:/,'').trim(),
+      limit
     );
   },
 
-  async searchForPages(wiki, search_term, namespace, map=(el)=>el){
+  async searchForPages(wiki, search_term, namespace, map=(el)=>el, limit=10){
     let search_query;
     if(search_term.split(' ').length > 1){
       // if we have multiple words, search for the exact words
@@ -573,6 +576,7 @@ const API = {
       srnamespace: namespace,
       origin: '*',
       format: 'json',
+      srlimit: limit ?? 10
     };
     const response = await fetch(
       `https://${toWikiDomain(wiki)}/w/api.php?${stringify(params)}`
@@ -580,8 +584,14 @@ const API = {
     const json = await response.json();
     
     return json.query.search.map(category => ({
-      value: map(category.title),
-      label: map(category.title)
+      value: {
+        title: map(category.title),
+        wiki,
+      },
+      label: formatCategoryName({
+        category: map(category.title),
+        wiki
+      })
     }));
   }
 };
