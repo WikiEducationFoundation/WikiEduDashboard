@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import CreatableSelect from 'react-select/creatable';
 import { UPDATE_PAGEPILE_IDS } from '../../../constants/scoping_methods';
 import WikiSelect from '../../common/wiki_select';
+import { formatCategoryName } from '../../util/scoping_methods';
 
 const PAGEPILE_URL_PATTERN = /https:\/\/pagepile.toolforge.org\/api.php\?id=(\d+).+/;
 const PagePileScoping = () => {
@@ -19,7 +20,10 @@ const PagePileScoping = () => {
     dispatch({
       type: UPDATE_PAGEPILE_IDS,
       ids: pagePileIds.concat({
-        label: value,
+        label: formatCategoryName({
+          category: value,
+          wiki: currentWiki,
+        }),
         value: {
           title: value,
           wiki: currentWiki,
@@ -53,7 +57,10 @@ const PagePileScoping = () => {
       dispatch({
         type: UPDATE_PAGEPILE_IDS,
         ids: pagePileIds.concat({
-          label: pagepileID,
+          label: formatCategoryName({
+            category: pagepileID,
+            wiki: currentWiki,
+          }),
           value: {
             title: pagepileID,
             wiki: currentWiki,

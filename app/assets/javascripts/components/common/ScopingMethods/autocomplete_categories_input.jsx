@@ -4,11 +4,11 @@ import { useDispatch } from 'react-redux';
 import AsyncSelect from 'react-select/async';
 import API from '../../../utils/api';
 
-const CategoryAutoCompleteInput = ({ label, actionType, initial, wiki, home_wiki }) => {
+const CategoryAutoCompleteInput = ({ label, actionType, initial, wiki }) => {
   const dispatch = useDispatch();
 
   const search = async (query) => {
-    const data = await API.getCategoriesWithPrefix(wiki, query, home_wiki);
+    const data = await API.getCategoriesWithPrefix(wiki, query);
     return data;
   };
 

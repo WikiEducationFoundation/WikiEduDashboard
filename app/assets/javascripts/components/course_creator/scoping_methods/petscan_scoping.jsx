@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { UPDATE_PETSCAN_IDS } from '../../../constants/scoping_methods';
 import CreatableSelect from 'react-select/creatable';
 import WikiSelect from '../../common/wiki_select';
+import { formatCategoryName } from '../../util/scoping_methods';
 
 const PETSCAN_URL_PATTERN = /https:\/\/petscan.wmflabs.org\/\?psid=(\d+)/;
 const PetScanScoping = () => {
@@ -19,7 +20,10 @@ const PetScanScoping = () => {
     dispatch({
       type: UPDATE_PETSCAN_IDS,
       psids: petscanIDs.concat({
-        label: value,
+        label: formatCategoryName({
+          category: value,
+          wiki: currentWiki,
+        }),
         value: {
           title: value,
           wiki: currentWiki,
@@ -53,7 +57,10 @@ const PetScanScoping = () => {
       dispatch({
         type: UPDATE_PETSCAN_IDS,
         psids: petscanIDs.concat({
-          label: psid,
+          label: formatCategoryName({
+            category: psid,
+            wiki: currentWiki,
+          }),
           value: {
             title: psid,
             wiki: currentWiki,

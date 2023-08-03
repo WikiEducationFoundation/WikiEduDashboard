@@ -94,18 +94,12 @@ const AddCategoryButton = createReactClass({
               onSubmit={this.addCategory} style={{
               display: 'flex',
               flexDirection: 'column',
+              gap: '1em'
             }}
               className="category-add-form"
             >
               {description}
               {inputField}
-              <p style={{
-                textAlign: 'end',
-                fontSize: '12px',
-                fontWeight: 'lighter'
-              }}
-              >Note: Changing the wiki will only affect the items that are added after the change.
-              </p>
               <button className="button border" type="submit">
                 {I18n.t(`categories.add_this_${this.props.source}`)}
               </button>

@@ -30,7 +30,6 @@ const CategoriesScoping = () => {
             </div>
         } actionType={UPDATE_CATEGORIES} initial={categories}
           wiki={currentWiki}
-          home_wiki = {home_wiki}
         />
       </div>
       <div className="scoping-methods-categories-bottom-wrapper">

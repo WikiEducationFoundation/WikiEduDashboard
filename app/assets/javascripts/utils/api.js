@@ -4,7 +4,7 @@ import request from './request';
 import { stringify } from 'query-string';
 import Rails from '@rails/ujs';
 import { toWikiDomain } from './wiki_utils';
-import CourseUtils from './course_utils';
+import { formatCategoryName } from '../components/util/scoping_methods';
 
 const SentryLogger = {};
 
@@ -539,30 +539,28 @@ const API = {
     return response.json();
   },
 
-  async getCategoriesWithPrefix(wiki, search_term, homeWiki, limit=10){
+  async getCategoriesWithPrefix(wiki, search_term, limit=10){
     return this.searchForPages(
       wiki, 
       search_term, 
       14, 
       // replace everything until first colon, then trim
       (title)=>title.replace(/^[^:]+:/,'').trim(),
-      homeWiki,
       limit
     );
   },
 
-  async getTemplatesWithPrefix(wiki, search_term, homeWiki, limit=10){
+  async getTemplatesWithPrefix(wiki, search_term, limit=10){
     return this.searchForPages(
       wiki,
       search_term, 
       10,
       (title)=>title.replace(/^[^:]+:/,'').trim(),
-      homeWiki,
       limit
     );
   },
 
-  async searchForPages(wiki, search_term, namespace, map=(el)=>el, homeWiki, limit=10){
+  async searchForPages(wiki, search_term, namespace, map=(el)=>el, limit=10){
     let search_query;
     if(search_term.split(' ').length > 1){
       // if we have multiple words, search for the exact words
@@ -588,12 +586,12 @@ const API = {
     return json.query.search.map(category => ({
       value: {
         title: map(category.title),
-        wiki: wiki
+        wiki,
       },
-      label: CourseUtils.formattedCategoryName({
-        cat_name: map(category.title),
-        wiki: wiki,
-      }, homeWiki)
+      label: formatCategoryName({
+        category: map(category.title),
+        wiki
+      })
     }));
   }
 };

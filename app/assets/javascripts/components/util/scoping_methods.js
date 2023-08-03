@@ -102,3 +102,13 @@ export const getAddCategoriesPayload = ({
     }
   };
 };
+
+export const formatCategoryName = ({
+  category,
+  wiki
+}) => {
+  if (wiki.project === 'wikipedia') {
+    return `${wiki.language}:${category}`;
+  }
+  return `${wiki.language}:${wiki.project}:${category}`;
+};
