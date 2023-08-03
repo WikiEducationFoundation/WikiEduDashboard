@@ -47,8 +47,7 @@ const AddCategoryButton = createReactClass({
       resetScoping();
       open(null);
     };
-
-    const confirmMessage = 'Are you sure you want to track these categories?';
+    const confirmMessage = I18n.t('categories.confirm_add_n_scoping_method', { n: payload.categories.items.length });
     return this.props.initiateConfirm({ confirmMessage, onConfirm });
   },
 

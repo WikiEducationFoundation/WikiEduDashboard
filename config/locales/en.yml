@@ -409,10 +409,7 @@ en:
     add_this_pileid: Add PagePile ids
     add_this_template: Add Templates
     import_articles_description: List of articles in a category gets periodically updated, and it may take some time after it is added before the list gets populated.
-    confirm_category_addition: Are you sure you want to track contributions to the category "%{name}"?
-    confirm_psid_addition: Are you sure you want to track contributions for PetScan PSID "%{name}"?
-    confirm_pileid_addition: Are you sure you want to track contributions for PagePile ID "%{name}"?
-    confirm_template_addition: Are you sure you want to track contributions for the template "%{name}"?
+    confirm_add_n_scoping_method: Add %{n} scoping method(s)?
     depth: Subcategory depth
     articles_count: Articles Count
     name: Name
