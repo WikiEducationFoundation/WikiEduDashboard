@@ -61,3 +61,13 @@ export const sortByKey = (models, sortKey, previousKey = null, desc = false, abs
   }
   return { newModels, newKey };
 };
+
+// transformUsers: Transforms user objects by splitting 'real_name' into 'first_name' and 'last_name'
+export const transformUsers = (users) => {
+  return users.map((user) => {
+    // Extract 'real_name' property and split into 'first_name' and 'rest'
+    // If 'real_name' exists, it's trimmed and converted to lowercase; if not, an empty string is used
+    const [first_name, ...rest] = (user.real_name?.trim().toLowerCase() || '').split(' ');
+    return { ...user, first_name, last_name: rest.join(' ') };
+  });
+};

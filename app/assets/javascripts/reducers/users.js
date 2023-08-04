@@ -1,5 +1,5 @@
 import { RECEIVE_USERS, SORT_USERS, ADD_USER, REMOVE_USER } from '../constants';
-import { sortByKey } from '../utils/model_utils';
+import { sortByKey, transformUsers } from '../utils/model_utils';
 
 const initialState = {
   users: [],
@@ -33,12 +33,9 @@ export default function users(state = initialState, action) {
 
        // Check if the user list is empty in the state and if any user in the action data has 'real_name'
        if (!state.users.length && action.data.course.users.some(user => user.real_name)) {
-         // Perform data transformation on the user list: Split 'real_name' into 'first_name' and the rest of the name ('rest')
-         user_list = action.data.course.users.map((user) => {
-           const [first_name, ...rest] = (user.real_name?.trim().toLowerCase() || '').split(' ');
-            // Return the user object with updated 'first_name' and 'last_name' properties
-           return { ...user, first_name, last_name: rest.join(' ') };
-         });
+        // If any users have 'real_name', transform the 'real_name' into separate
+        // 'first_name' and 'last_name' properties and update the user list
+        user_list = transformUsers(action.data.course.users);
        } else if (!state?.users.length) {
          // If there are no users in the state and none of the users in the action data have 'real_name',
         // set the sorting key to 'username'
