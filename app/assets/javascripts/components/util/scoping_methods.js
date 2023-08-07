@@ -76,7 +76,6 @@ export const getAddCategoriesPayload = ({
   if (sourceType === 'category') {
     return {
       categories: {
-        depth: scopingMethods.categories.depth,
         items: scopingMethods.categories.tracked
       }
     };
@@ -105,7 +104,7 @@ export const getAddCategoriesPayload = ({
 
 export const formatCategoryName = ({
   category,
-  wiki
+  wiki,
 }) => {
   if (wiki.project === 'wikipedia') {
     return `${wiki.language}:${category}`;

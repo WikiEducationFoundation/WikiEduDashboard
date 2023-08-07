@@ -29,6 +29,7 @@ const CategoriesScoping = () => {
               </div>
             </div>
         } actionType={UPDATE_CATEGORIES} initial={categories}
+          depth={+depth}
           wiki={currentWiki}
         />
       </div>
