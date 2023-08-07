@@ -95,23 +95,6 @@ const TimelineHandler = createReactClass({
       open_weeks: openWeeks
     };
 
-    // Grading
-    // let showGrading;
-    // if (this.state.reorderable) {
-    //   showGrading = false;
-    // } else {
-    //   showGrading = true;
-    // }
-    // const grading = showGrading ? (<Grading
-    //   weeks={this.props.weeks}
-    //   editable={this.props.editable}
-    //   current_user={this.props.current_user}
-    //   persistCourse={this.saveTimeline}
-    //   updateBlock={this.props.updateBlock}
-    //   resetState={() => {}}
-    //   nameHasChanged={() => false}
-    // />) : null;
-
     return (
       <div>
         <TransitionGroup
