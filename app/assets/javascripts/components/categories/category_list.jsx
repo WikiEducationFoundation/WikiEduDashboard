@@ -96,7 +96,6 @@ const CategoryList = ({ course, editable, categories, loading, addCategory }) =>
 CategoryList.propTypes = {
   course: PropTypes.object,
   categories: PropTypes.array,
-  removeCategory: PropTypes.func,
   addCategory: PropTypes.func
 };
 
