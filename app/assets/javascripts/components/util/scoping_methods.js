@@ -82,21 +82,18 @@ export const getAddCategoriesPayload = ({
   } else if (sourceType === 'psid') {
     return {
       categories: {
-        depth: 0,
         items: scopingMethods.petscan.psids
       }
     };
   } else if (sourceType === 'pileid') {
     return {
       categories: {
-        depth: 0,
         items: scopingMethods.pagepile.ids
       }
     };
   }
   return {
     categories: {
-      depth: 0,
       items: scopingMethods.templates.include
     }
   };

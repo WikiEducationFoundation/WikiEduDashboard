@@ -111,4 +111,30 @@ describe 'Tracked categories and templates', js: true do
     expect(page).to have_content 'Template:Earth_mass'
     expect(page).to have_content 'fr:Template:Palette_Apple'
   end
+
+  it 'lets a facilitator add categories with different depths' do
+    visit "/courses/#{course.slug}/articles"
+    click_button 'Add category'
+
+    find(:css, '#categories input').set('Earth ')
+    find(:css, '#categories div[class*="option"]', text: 'Earth sciences').click
+    find(:css, '#category_depth').set('3')
+    find(:css, '#categories input').set('Apple ')
+    find(:css, '#categories div[class*="option"]', text: 'en:Apple', exact_text: true).click
+
+    expect(page).to have_content 'en:Earth sciences - 0'
+    expect(page).to have_content 'en:Apple - 3'
+
+    click_button 'Add categories'
+    click_button 'OK'
+    expect(page).to have_content 'Category:Earth'
+    expect(page).to have_content 'Category:Apple'
+
+    # check that the category depth is saved
+    depth_for_earth_sciences = Course.all.first.categories.find_by(name: 'Earth_sciences').depth
+    depth_for_apple = Course.all.first.categories.find_by(name: 'Apple').depth
+
+    expect(depth_for_apple).to eq(3)
+    expect(depth_for_earth_sciences).to eq(0)
+  end
 end

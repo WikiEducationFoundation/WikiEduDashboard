@@ -121,12 +121,15 @@ class CourseCreationManager
     TagManager.new(@course).initial_tags(creator: @instructor)
   end
 
-  def create_all_category(categories, depth, source)
+  def create_all_category(categories, source)
     categories.each do |category|
       title = category[:value][:title]
+      depth = category[:value][:depth] || 0
+
       wiki_language = category[:value][:wiki][:language]
       wiki_project = category[:value][:wiki][:project]
       wiki = Wiki.get_or_create(language: wiki_language.downcase, project: wiki_project.downcase)
+
       name = ArticleUtils.format_article_title(title)
       category = Category.find_or_create_by(name:, depth:, wiki:, source:)
       @overrides[:categories] << category
@@ -144,19 +147,18 @@ class CourseCreationManager
   end
 
   def add_categories_to_course(category_params)
-    depth = category_params[:depth]
-    create_all_category(category_params[:tracked], depth, 'category')
+    create_all_category(category_params[:tracked], 'category')
   end
 
   def add_templates_to_course(template_params)
-    create_all_category(template_params[:include], 0, 'template')
+    create_all_category(template_params[:include], 'template')
   end
 
   def add_page_pile_to_course(pagepile_params)
-    create_all_category(pagepile_params[:ids], 0, 'pileid')
+    create_all_category(pagepile_params[:ids], 'pileid')
   end
 
   def add_petscan_to_course(petscan_params)
-    create_all_category(petscan_params[:psids], 0, 'psid')
+    create_all_category(petscan_params[:psids], 'psid')
   end
 end

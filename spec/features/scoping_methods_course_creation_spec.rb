@@ -141,4 +141,39 @@ describe 'Course creation for Article Scoped Programs', type: :feature, js: true
     expect(page).to have_content 'Earth_sciences'
     expect(page).to have_content 'Psid:111'
   end
+
+  it 'lets a user configure categories with different depths' do
+    find('h4', text: 'Categories').click
+    expect(page).to have_selector('.scoping-method-types .selected', count: 1)
+    expect(page).not_to have_content 'Create my Program!'
+    click_button 'Next'
+
+    find(:css, '#categories input').set('Earth ')
+    find(:css, '#categories div[class*="option"]', text: 'Earth sciences').click
+    find(:css, '#category_depth').set('3')
+    find(:css, '#categories input').set('Apple ')
+    find(:css, '#categories div[class*="option"]', text: 'en:Apple', exact_text: true).click
+
+    expect(page).to have_content 'en:Earth sciences - 0'
+    expect(page).to have_content 'en:Apple - 3'
+
+    expect(page).to have_content 'Create my Program!'
+    click_button 'Create my Program!'
+
+    expect(page).to have_content 'My course'
+    expect(page).to have_content 'Course'
+    expect(page).to have_content 'This project has been published!'
+    expect(Course.all.count).to eq(1)
+
+    click_link 'Articles'
+    expect(page).to have_content 'Earth_sciences'
+    expect(page).to have_content 'Apple'
+
+    # check that the category depth is saved
+    depth_for_earth_sciences = Course.all.first.categories.find_by(name: 'Earth_sciences').depth
+    depth_for_apple = Course.all.first.categories.find_by(name: 'Apple').depth
+
+    expect(depth_for_apple).to eq(3)
+    expect(depth_for_earth_sciences).to eq(0)
+  end
 end

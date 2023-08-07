@@ -11,7 +11,7 @@ class CategoriesController < ApplicationController
     categories_params = params[:categories]
     categories_params[:items].each do |category|
       update_wiki category[:value][:wiki]
-      depth = category[:value][:depth]
+      depth = category[:value][:depth] || 0
       add_category(depth:, name: category[:value][:title], source:)
     end
     render 'courses/categories'
