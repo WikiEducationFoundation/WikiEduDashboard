@@ -1,48 +1,32 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import CategoryList from './category_list.jsx';
-import { fetchCategories, removeCategory, addCategory } from '../../actions/category_actions.js';
+import { fetchCategories, addCategory } from '../../actions/category_actions.js';
 
-const CategoryHandler = createReactClass({
-  displayName: 'CategoryHandler',
+const CategoryHandler = ({ course, current_user }) => {
+  const dispatch = useDispatch();
 
-  propTypes: {
-    fetchCategories: PropTypes.func,
-    removeCategory: PropTypes.func,
-    course: PropTypes.object,
-    current_user: PropTypes.object
-  },
+  const categories = useSelector(state => state.categories.categories);
+  const loading = useSelector(state => state.categories.loading);
 
-  componentDidMount() {
-    this.props.fetchCategories(this.props.course.slug);
-  },
+  useEffect(() => { dispatch(fetchCategories(course.slug)); }, []);
 
-  render() {
-    const editable = this.props.current_user.isAdvancedRole;
-    return (
-      <CategoryList
-        course={this.props.course}
-        categories={this.props.categories}
-        loading={this.props.loading}
-        removeCategory={this.props.removeCategory}
-        addCategory={this.props.addCategory}
-        editable={editable}
-      />
-    );
-  }
-});
-
-const mapStateToProps = state => ({
-  categories: state.categories.categories,
-  loading: state.categories.loading
-});
-
-const mapDispatchToProps = {
-  fetchCategories: fetchCategories,
-  removeCategory: removeCategory,
-  addCategory: addCategory
+  const editable = current_user.isAdvancedRole;
+  return (
+    <CategoryList
+      course={course}
+      categories={categories}
+      loading={loading}
+      addCategory={payload => dispatch(addCategory(payload))}
+      editable={editable}
+    />
+  );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CategoryHandler);
+CategoryHandler.propTypes = {
+  course: PropTypes.object,
+  current_user: PropTypes.object
+};
+
+export default (CategoryHandler);
