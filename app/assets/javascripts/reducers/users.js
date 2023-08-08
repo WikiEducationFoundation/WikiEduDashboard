@@ -5,7 +5,8 @@ const initialState = {
   users: [],
   sort: {
     sortKey: null,
-    key: 'last_name',
+    key: null,
+    previousKey: null,
   },
   isLoaded: false,
   lastRequestTimestamp: 0 // UNIX timestamp of last request - in milliseconds
@@ -24,30 +25,27 @@ const SORT_DESCENDING = {
 export default function users(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_USERS: {
-      // Get the sorting key from the Redux store
-      let sort_key = state.sort.key;
+      // Get the sorting key from if available from Redux store or else use last_name
+      let sort_key = state.sort.key || 'last_name';
 
-       // Initialize a variable to hold the user list. If there are existing users in the state,
-      //  use that list; otherwise, use the user list from the action data.
-      let user_list = state.users.length ? state.users : action.data.course.users;
+      // Initialize a variable to hold the user list.
+      let user_list = action.data.course.users;
 
-       // Check if the user list is empty in the state and if any user in the action data has 'real_name'
-       if (!state.users.length && action.data.course.users.some(user => user.real_name)) {
-        // If any users have 'real_name', transform the 'real_name' into separate
-        // 'first_name' and 'last_name' properties and update the user list
-        user_list = transformUsers(action.data.course.users);
-       } else if (!state?.users.length) {
-         // If there are no users in the state and none of the users in the action data have 'real_name',
-        // set the sorting key to 'username'
-         sort_key = 'username';
+       // Check if any user in the user_list has 'real_name'
+       if (user_list.some(user => user.real_name)) {
+         // If any users have 'real_name', transform the 'real_name' into separate
+         // 'first_name' and 'last_name' properties and update the user list
+         user_list = transformUsers(user_list);
+        } else if (!state.sort.key) {
+          // If there are no users with real_name and key in the store is null then set sort_key by username
+          sort_key = 'username';
         }
 
-      // Sort the 'user_list' array based on the 'sort_key' if the user list is empty in the state.
-      if (!state.users.length) user_list = sortByKey(user_list, sort_key);
-
+        // Sort the 'user_list' array based on the 'sort_key'
+        user_list = sortByKey(user_list, sort_key, state.sort.previousKey, SORT_DESCENDING[sort_key]);
     return {
       ...state,
-      users: user_list.newModels ? user_list.newModels : user_list, // Update 'users' with the sorted user list if available, or use the original 'user_list'.
+      users: user_list.newModels, // Update 'users' with the sorted user list.
       isLoaded: true,
       lastRequestTimestamp: Date.now()
     };
@@ -67,7 +65,9 @@ export default function users(state = initialState, action) {
         users: sorted.newModels,
         sort: {
           sortKey: sorted.newKey,
-          key: action.key
+          key: action.key,
+          // store the previous sortKey to use if the instructor switches between tabs and comes back to the students/editors tab
+          previousKey: state.sort.sortKey,
         }
       };
     }
