@@ -6,7 +6,7 @@ const initialState = {
   sort: {
     sortKey: null,
     key: null,
-    previousKey: null,
+    previousSortKey: null,
   },
   isLoaded: false,
   lastRequestTimestamp: 0 // UNIX timestamp of last request - in milliseconds
@@ -67,7 +67,7 @@ export default function users(state = initialState, action) {
           sortKey: sorted.newKey,
           key: action.key,
           // store the previous sortKey to use if the instructor switches between tabs and comes back to the students/editors tab
-          previousKey: state.sort.sortKey,
+          previousSortKey: state.sort.sortKey,
         }
       };
     }
