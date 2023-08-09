@@ -42,7 +42,7 @@ export default function users(state = initialState, action) {
         }
 
         // Sort the 'user_list' array based on the 'sort_key'
-        user_list = sortByKey(user_list, sort_key, state.sort.previousKey, SORT_DESCENDING[sort_key]);
+        user_list = sortByKey(user_list, sort_key, state.sort.previousSortKey, SORT_DESCENDING[sort_key]);
     return {
       ...state,
       users: user_list.newModels, // Update 'users' with the sorted user list.
