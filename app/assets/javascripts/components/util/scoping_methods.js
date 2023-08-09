@@ -76,28 +76,24 @@ export const getAddCategoriesPayload = ({
   if (sourceType === 'category') {
     return {
       categories: {
-        depth: scopingMethods.categories.depth,
         items: scopingMethods.categories.tracked
       }
     };
   } else if (sourceType === 'psid') {
     return {
       categories: {
-        depth: 0,
         items: scopingMethods.petscan.psids
       }
     };
   } else if (sourceType === 'pileid') {
     return {
       categories: {
-        depth: 0,
         items: scopingMethods.pagepile.ids
       }
     };
   }
   return {
     categories: {
-      depth: 0,
       items: scopingMethods.templates.include
     }
   };
@@ -105,7 +101,7 @@ export const getAddCategoriesPayload = ({
 
 export const formatCategoryName = ({
   category,
-  wiki
+  wiki,
 }) => {
   if (wiki.project === 'wikipedia') {
     return `${wiki.language}:${category}`;

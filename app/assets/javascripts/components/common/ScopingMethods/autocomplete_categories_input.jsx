@@ -4,11 +4,11 @@ import { useDispatch } from 'react-redux';
 import AsyncSelect from 'react-select/async';
 import API from '../../../utils/api';
 
-const CategoryAutoCompleteInput = ({ label, actionType, initial, wiki }) => {
+const CategoryAutoCompleteInput = ({ label, actionType, initial, wiki, depth }) => {
   const dispatch = useDispatch();
 
   const search = async (query) => {
-    const data = await API.getCategoriesWithPrefix(wiki, query);
+    const data = await API.getCategoriesWithPrefix(wiki, query, depth);
     return data;
   };
 
@@ -20,7 +20,10 @@ const CategoryAutoCompleteInput = ({ label, actionType, initial, wiki }) => {
   const updateCategories = (categories) => {
     dispatch({
       type: actionType,
-      categories,
+      categories: categories.map(item => ({
+        value: item.value,
+        label: item.value.label,
+      })),
     });
   };
 

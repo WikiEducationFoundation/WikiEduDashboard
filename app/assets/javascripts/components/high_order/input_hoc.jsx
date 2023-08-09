@@ -42,7 +42,8 @@ const InputHOC = (Component) => {
             && this.state.id === nextState.id
             && this.state.invalid === nextState.invalid
             && this.props.editable === nextProps.editable
-            && nextProps.rerenderHoc !== true) {
+            && nextProps.rerenderHoc !== true
+            && this.props._value === nextProps._value) {
         return false;
       }
       return true;
