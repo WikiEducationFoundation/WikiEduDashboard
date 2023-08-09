@@ -4,8 +4,11 @@ import PropTypes from 'prop-types';
 import Category from './category';
 import AddCategoryButton from './add_category_button';
 import List from '../common/list.jsx';
+import { removeCategory } from '@actions/category_actions.js';
 
-const CategoryList = ({ course, editable, categories, loading, removeCategory, addCategory }) => {
+import { useDispatch } from 'react-redux';
+
+const CategoryList = ({ course, editable, categories, loading, addCategory }) => {
   const keys = {
     category_name: {
       label: I18n.t('categories.name')
@@ -22,8 +25,10 @@ const CategoryList = ({ course, editable, categories, loading, removeCategory, a
     },
   };
 
+  const dispatch = useDispatch();
+
   const elements = categories.map((cat) => {
-    const remove = () => { removeCategory(course.id, cat.id); };
+    const remove = () => { dispatch(removeCategory(course.id, cat.id)); };
     return <Category key={cat.id} course={course} category={cat} remove={remove} editable={editable} />;
   });
 
@@ -91,7 +96,6 @@ const CategoryList = ({ course, editable, categories, loading, removeCategory, a
 CategoryList.propTypes = {
   course: PropTypes.object,
   categories: PropTypes.array,
-  removeCategory: PropTypes.func,
   addCategory: PropTypes.func
 };
 
