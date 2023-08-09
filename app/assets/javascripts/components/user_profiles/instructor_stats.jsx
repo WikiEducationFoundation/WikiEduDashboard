@@ -1,5 +1,4 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import ByStudentsStats from './by_students_stats.jsx';
 import StudentStats from './student_stats.jsx';
@@ -7,123 +6,113 @@ import CoursesTaughtGraph from './graphs/as_instructor_graphs/courses_taught_gra
 import StudentsTaughtGraph from './graphs/as_instructor_graphs/students_taught_graph.jsx';
 import Loading from '../common/loading.jsx';
 
-const InstructorStats = createReactClass({
-  propTypes: {
-    username: PropTypes.string,
-    stats: PropTypes.object,
-    isStudent: PropTypes.bool,
-    statsGraphsData: PropTypes.object,
-    graphWidth: PropTypes.number,
-    graphHeight: PropTypes.number,
-    maxProject: PropTypes.string
-  },
+const InstructorStats = ({ username, stats, maxProject, statsGraphsData, graphWidth, graphHeight, isStudent }) => {
+  const [selectedGraph, setSelectedGraph] = useState('courses_count');
+  const [coursesGraph, setCoursesGraph] = useState(true);
 
-  getInitialState() {
-    return {
-      selectedGraph: 'courses_count',
-      coursesGraph: true
-    };
-  },
+  const setCoursesCountGraph = () => {
+    setSelectedGraph('courses_count');
+    setCoursesGraph(true);
+  };
 
-  setCoursesCountGraph() {
-    this.setState({
-      selectedGraph: 'courses_count',
-      coursesGraph: true
-    });
-  },
+  const setStudentsCountGraph = () => {
+    setSelectedGraph('students_count');
+    setCoursesGraph(false);
+  };
 
-  setStudentsCountGraph() {
-    this.setState({
-      selectedGraph: 'students_count',
-      coursesGraph: false
-    });
-  },
-
-  render() {
-    let asStudent;
-    let statsVisualizations;
-    const byStudents = (
-      <ByStudentsStats
-        username = {this.props.username}
-        stats={this.props.stats.by_students}
-        maxProject={this.props.maxProject}
-      />
-    );
-    if (this.state.selectedGraph === 'courses_count') {
-      if (this.props.statsGraphsData != null) {
-        statsVisualizations = (
-          <CoursesTaughtGraph
-            statsData = {this.props.statsGraphsData.instructor_stats}
-            graphWidth = {this.props.graphWidth}
-            graphHeight = {this.props.graphHeight}
-            courseStringPrefix = {this.props.stats.as_instructor.course_string_prefix}
-          />
-         );
-      } else {
-        statsVisualizations = <Loading />;
-      }
-    } else if (this.state.selectedGraph === 'students_count') {
+  let asStudent;
+  let statsVisualizations;
+  const byStudents = (
+    <ByStudentsStats
+      username={username}
+      stats={stats.by_students}
+      maxProject={maxProject}
+    />
+  );
+  if (selectedGraph === 'courses_count') {
+    if (statsGraphsData != null) {
       statsVisualizations = (
-        <StudentsTaughtGraph
-          statsData = {this.props.statsGraphsData.student_count}
-          graphWidth = {this.props.graphWidth}
-          graphHeight = {this.props.graphHeight}
-          courseStringPrefix = {this.props.stats.as_instructor.course_string_prefix}
-        />
-       );
-    }
-    if (this.props.isStudent) {
-      asStudent = (
-        <StudentStats
-          username = {this.props.username}
-          stats={this.props.stats.as_student}
-          maxProject = {this.props.maxProject}
+        <CoursesTaughtGraph
+          statsData={statsGraphsData.instructor_stats}
+          graphWidth={graphWidth}
+          graphHeight={graphHeight}
+          courseStringPrefix={stats.as_instructor.course_string_prefix}
         />
       );
+    } else {
+      statsVisualizations = <Loading />;
     }
-    return (
-      <div className= "user_stats">
-        <div id = "instructor-profile-stats">
-          <h5>
-            {I18n.t('user_profiles.instructor_impact', { username: this.props.username })}
-          </h5>
-          <div className= "stat-display">
-            <div onClick={this.setCoursesCountGraph} className={`stat-display__stat button${this.state.coursesGraph ? ' active-button' : ''}`}>
-              <div className="stat-display__value">
-                {this.props.stats.as_instructor.courses_count}
-              </div>
-              <small>
-                {I18n.t(`${this.props.stats.as_instructor.course_string_prefix}.courses_taught`)}
-              </small>
-            </div>
-            <div onClick={this.setStudentsCountGraph} className ={`stat-display__stat tooltip-trigger button${this.state.coursesGraph ? '' : ' active-button'}`}>
-              <div className="stat-display__value">
-                {this.props.stats.as_instructor.user_count}
-                <img src ="/assets/images/info.svg" alt = "tooltip default logo" />
-              </div>
-              <small>
-                {I18n.t(`${this.props.stats.as_instructor.course_string_prefix}.students`)}
-              </small>
-              <div className="tooltip dark">
-                <h4>
-                  {this.props.stats.as_instructor.trained_percent}
-                  %
-                </h4>
-                <p>
-                  {I18n.t('users.up_to_date_with_training')}
-                </p>
-              </div>
-            </div>
-          </div>
-          <div id="visualizations">
-            {statsVisualizations}
-          </div>
-        </div>
-        {byStudents}
-        {asStudent}
-      </div>
+  } else if (selectedGraph === 'students_count') {
+    statsVisualizations = (
+      <StudentsTaughtGraph
+        statsData={statsGraphsData.student_count}
+        graphWidth={graphWidth}
+        graphHeight={graphHeight}
+        courseStringPrefix={stats.as_instructor.course_string_prefix}
+      />
     );
   }
-});
+  if (isStudent) {
+    asStudent = (
+      <StudentStats
+        username={username}
+        stats={stats.as_student}
+        maxProject={maxProject}
+      />
+    );
+  }
+  return (
+    <div className="user_stats">
+      <div id="instructor-profile-stats">
+        <h5>
+          {I18n.t('user_profiles.instructor_impact', { username: username })}
+        </h5>
+        <div className="stat-display">
+          <div onClick={setCoursesCountGraph} className={`stat-display__stat button${coursesGraph ? ' active-button' : ''}`}>
+            <div className="stat-display__value">
+              {stats.as_instructor.courses_count}
+            </div>
+            <small>
+              {I18n.t(`${stats.as_instructor.course_string_prefix}.courses_taught`)}
+            </small>
+          </div>
+          <div onClick={setStudentsCountGraph} className={`stat-display__stat tooltip-trigger button${coursesGraph ? '' : ' active-button'}`}>
+            <div className="stat-display__value">
+              {stats.as_instructor.user_count}
+              <img src="/assets/images/info.svg" alt="tooltip default logo" />
+            </div>
+            <small>
+              {I18n.t(`${stats.as_instructor.course_string_prefix}.students`)}
+            </small>
+            <div className="tooltip dark">
+              <h4>
+                {stats.as_instructor.trained_percent}
+                %
+              </h4>
+              <p>
+                {I18n.t('users.up_to_date_with_training')}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div id="visualizations">
+          {statsVisualizations}
+        </div>
+      </div>
+      {byStudents}
+      {asStudent}
+    </div>
+  );
+};
+
+InstructorStats.propTypes = {
+  username: PropTypes.string,
+  stats: PropTypes.object,
+  isStudent: PropTypes.bool,
+  statsGraphsData: PropTypes.object,
+  graphWidth: PropTypes.number,
+  graphHeight: PropTypes.number,
+  maxProject: PropTypes.string
+};
 
 export default InstructorStats;
