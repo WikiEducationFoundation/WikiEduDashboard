@@ -328,10 +328,6 @@ it:
     add_this_category: Aggiungi questa categoria
     add_this_pileid: Aggiungi questo ID PagePile
     add_this_template: Aggiungi questo template
-    confirm_category_addition: Confermi che vuoi monitorare i contributi relativi
-      alla categoria "%{name}"?
-    confirm_template_addition: Confermi che vuoi monitorare i contributi relativi
-      al template "%{name}"?
     depth: Profondità delle sottocategorie
     name: Nome
     category_name: Nome della categoria

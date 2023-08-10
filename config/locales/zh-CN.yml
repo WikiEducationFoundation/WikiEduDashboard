@@ -328,10 +328,6 @@ zh-CN:
     add_this_category: 添加此分类
     add_this_psid: 添加这个PSID
     add_this_template: 添加此模板
-    confirm_category_addition: 您确定要追踪对分类“%{name}”的贡献么？
-    confirm_psid_addition: 你确定你要跟踪对PetScan PSID%{name}的贡献吗？
-    confirm_pileid_addition: 你确定你要跟踪对PagePile ID%{name}的贡献吗？
-    confirm_template_addition: 您确定要追踪给模板“%{name}”的贡献么？
     depth: 子分类深度
     name: 名称
     category_name: 分类名称

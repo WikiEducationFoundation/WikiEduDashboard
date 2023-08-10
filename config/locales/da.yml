@@ -413,14 +413,6 @@ da:
     import_articles_description: En liste med artikler i en kategori opdateres periodisk,
       og det kan derfor tage lidt tid fra en artikel er tilføjet, til den også optræder
       på listen.
-    confirm_category_addition: Er du sikker på at du vil tracke bidrag til kategorien
-      %{name}?
-    confirm_psid_addition: Er du sikker på at du ønsker at tracke bidrag til PetScan
-      PSID "%{name}"?
-    confirm_pileid_addition: Er du sikker på at du ønsker at tracke bidrag til PagePile
-      ID %{name}?
-    confirm_template_addition: Er du sikker på at du ønsker at tracke bidrag til skabelonen
-      %{name}?
     depth: Underkategoris dybde
     articles_count: Antal artikler
     name: Navn

@@ -244,10 +244,6 @@ sv:
     add_template: Lägg till mall
     add_this_category: Lägg till denna kategori
     add_this_template: Lägg till denna mall
-    confirm_category_addition: Är du säker på att du vill spåra bidrag till kategorin
-      "%{name}"?
-    confirm_template_addition: Är du säker på att du vill spåra bidrag för mallen
-      "%{name}"?
     depth: Underkategoridjup
     articles_count: Antal artiklar
     name: Namn

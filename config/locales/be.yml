@@ -414,12 +414,6 @@ be:
     add_this_template: Дадаць гэты шаблон
     import_articles_description: Спіс артыкулаў у катэгорыі перыядычна абнаўляецца,
       можа прайсці некаторы час пасля дадавання, пакуль яны з'явяцца ў спісе.
-    confirm_category_addition: Упэўнены, што хочаце адсочваць уклады ў катэгорыю "%{name}"?
-    confirm_psid_addition: Упэўнены, што хочаце адсочваць уклады для PetScan PSID
-      "%{name}"?
-    confirm_pileid_addition: Упэўнены, што хочаце адсочваць уклады для PagePile ID
-      "%{name}"?
-    confirm_template_addition: Упэўнены, што хочаце адсочваць уклады для шаблона "%{name}"?
     depth: Глыбіня падкатэгорыі
     articles_count: Колькасць артыкулаў
     name: Назва

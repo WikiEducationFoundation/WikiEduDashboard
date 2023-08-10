@@ -293,8 +293,6 @@ fi:
     add_template: Lisää malline
     add_this_category: Lisää tämä luokka
     add_this_template: Lisää tämä malline
-    confirm_category_addition: Haluatko varmasti seurata luokan "%{name}" muutoksia?
-    confirm_template_addition: Haluatko varmasti seurata mallineen "%{name}" muutoksia?
     name: Nimi
     category_name: Luokan nimi
     template_name: Mallineen nimi

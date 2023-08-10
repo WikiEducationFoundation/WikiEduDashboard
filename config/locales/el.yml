@@ -194,8 +194,6 @@ el:
     add_template: Προσθήκη προτύπου
     add_this_category: Προσθήκη αυτής της κατηγορίας
     add_this_template: Προσθήκη αυτού του προτύπου
-    confirm_category_addition: Είστε βέβαιοι ότι θέλετε να παρακολουθείτε τις συνεισφορές
-      στην κατηγορία ''%{name}'';
     depth: Βάθος υποκατηγορίας
     name: Όνομα
     category_name: Όνομα κατηγορίας

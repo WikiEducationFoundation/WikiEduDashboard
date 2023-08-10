@@ -443,25 +443,19 @@ fr:
     use_start_end_dates: Utiliser les dates de début et de fin
     search: Rechercher
   categories:
+    searching_for_category: Recherche de catégories dans
     add_category: Ajouter une catégorie
     add_psid: Ajouter le PSID PetScan
     add_pileid: Ajouter l’ID de PagePile
     add_template: Ajouter un modèle
-    add_this_category: Ajouter cette catégorie
-    add_this_psid: Ajouter ce PSID
-    add_this_pileid: Ajouter cet identifiant de PagePile
-    add_this_template: Ajouter ce modèle
+    add_this_category: Ajouter des catégories
+    add_this_psid: Ajouter des PSID PetScan
+    add_this_pileid: Ajouter des identifiants de PagePile
+    add_this_template: Ajouter des modèles
     import_articles_description: La liste des articles dans une catégorie est mise
       à jour périodiquement et après un ajout cela peut prendre quelque temps pour
       que la liste soit renseignée.
-    confirm_category_addition: Êtes-vous sûr de vouloir suivre les contributions à
-      la catégorie « %{name} » ?
-    confirm_psid_addition: Êtes-vous sûr de vouloir suivre les contributions au PSID
-      PetScan « %{name} » ?
-    confirm_pileid_addition: Êtes-vous sûr(e) de vouloir suivre les contributions
-      pour l’ID de PagePile « %{name} » ?
-    confirm_template_addition: Êtes-vous sûr de vouloir suivre les contributions pour
-      le modèle « %{name} » ?
+    confirm_add_n_scoping_method: Ajouter %{n} méthode(s) de ciblage ?
     depth: Profondeur de sous-catégorie
     articles_count: Nombre d’articles
     name: Nom
@@ -1590,7 +1584,11 @@ fr:
     no_articles_wikidata: Aucun élément
     no_revisions: (aucune révision)
     no_highlighting: Aucun texte de la version actuelle de l’article n’est attribué
-      à cet rédacteur. Vérifiez l’historique de la page pour voir ses modifications.
+      à l’utilisateur %{editor}. Vérifiez l’historique de la page pour voir ses modifications.
+    contributions_not_highlighted: Des contributions de l’utilisateur %{username}
+      sont présentes, mais ne peuvent être surlignées. C’est typiquement le cas pour
+      l’ajout de références ou de modèles. Consulter l’historique de la page pour
+      voir ses modifications.
     number_of_articles:
       one: '%{count} article'
       other: '%{count} articles'

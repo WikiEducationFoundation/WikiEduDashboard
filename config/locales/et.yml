@@ -304,12 +304,6 @@ et:
     import_articles_description: Kategooriasse kuuluvate artiklite loendit uuendatakse
       perioodiliselt ning loendi lisamise järel võib kuluda veidi aega, enne kui see
       täitub.
-    confirm_category_addition: Kas oled kindel, et soovid jälgida kaastöid kategoorias
-      "%{name}"?
-    confirm_psid_addition: Kas oled kindel, et soovid jälgida kaastöid PetScani PSID-ga
-      "%{name}"?
-    confirm_template_addition: Kas oled kindel, et soovid jälgida kaastöid malliga
-      "%{name}"?
     depth: Alamkategooria sügavus
     articles_count: Artiklite arv
     name: Nimi

@@ -427,14 +427,6 @@ hu:
     add_this_template: Ez a sablon hozzáadása
     import_articles_description: A kategóriába tartozó szócikkek listája rendszeresen
       frissül, és a hozzáadás után bizonyos időbe telhet, mire a lista feltöltődik.
-    confirm_category_addition: Biztos, hogy a(z) "%{name}" kategóriához való közreműködéseket
-      akarod lekövetni?
-    confirm_psid_addition: Biztosan követni kívánod a PetScan PSID "%{name}" kategóriához
-      tartozó közreműködéseket?
-    confirm_pileid_addition: Biztos, hogy a(z) "%{name}" PagePile ID-hez tartozó közreműködéseket
-      szeretnéd nyomon követni?
-    confirm_template_addition: Biztos, hogy a(z) "%{name}" sablonhoz tartozó közreműködéseket
-      szeretnéd nyomon követni?
     depth: Alkategória mélysége
     articles_count: Szócikkek száma
     name: Név

@@ -444,14 +444,6 @@ pt-br:
     import_articles_description: A lista de artigos em uma categoria é atualizada
       periodicamente e pode levar algum tempo depois de ser adicionada antes que a
       lista seja preenchida.
-    confirm_category_addition: Você tem certeza de que deseja monitorar as contribuições
-      da categoria "%{name}"?
-    confirm_psid_addition: Você tem certeza que quer acompanhar as contribuições para
-      o PetScan PSID? "%{name}"?
-    confirm_pileid_addition: Tem certeza de que deseja acompanhar as contribuições
-      para o ID da pilha de páginas "%{name}"?
-    confirm_template_addition: Você tem certeza de que deseja monitorar as contribuições
-      da predefinição "%{name}"?
     depth: Profundidade de subcategorias
     articles_count: Contagem de artigos
     name: Nome

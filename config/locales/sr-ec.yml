@@ -307,9 +307,6 @@ sr-ec:
     add_this_category: Додај ову категорију
     add_this_psid: Додај овај PSID
     add_this_template: Додај овај шаблон
-    confirm_category_addition: Желите ли заиста да пратите доприносе у категорији
-      „%{name}”?
-    confirm_template_addition: Желите ли заиста да пратите доприносе шаблону „%{name}”?
     depth: Дубина подкатегорије
     articles_count: Број чланака
     name: Назив

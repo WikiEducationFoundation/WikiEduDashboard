@@ -280,9 +280,6 @@ sr-el:
     add_this_category: Dodaj ovu kategoriju
     add_this_psid: Dodaj ovaj PSID
     add_this_template: Dodaj ovaj šablon
-    confirm_category_addition: Želite li zaista da pratite doprinose u kategoriji
-      „%{name}”?
-    confirm_template_addition: Želite li zaista da pratite doprinose šablonu „%{name}”?
     depth: Dubina podkategorije
     articles_count: Broj članaka
     name: Naziv

@@ -429,14 +429,6 @@ pt:
     add_this_template: Adicionar esta predefinição
     import_articles_description: A lista de artigos numa categoria é atualizada periodicamente
       e pode demorar algum tempo após a adição de um artigo até a lista ser preenchida.
-    confirm_category_addition: Tem a certeza de que deseja monitorizar as contribuições
-      da categoria "%{name}"?
-    confirm_psid_addition: Tem a certeza de que deseja monitorizar as contribuições
-      para o PSID PetScan "%{name}"?
-    confirm_pileid_addition: Tem a certeza de que deseja monitorizar as contribuições
-      para o identificador de pilha de páginas "%{name}"?
-    confirm_template_addition: Tem a certeza de que deseja monitorizar as contribuições
-      para a predefinição "%{name}"?
     depth: Profundidade de subcategorias
     articles_count: Contagem de artigos
     name: Nome

@@ -291,10 +291,6 @@ es:
     add_template: Añadir plantilla
     add_this_category: Añadir esta categoría
     add_this_template: Añadir esta plantilla
-    confirm_category_addition: ¿Confirmas que quieres dar seguimiento a las contribuciones
-      en la categoría «%{name}»?
-    confirm_template_addition: ¿Confirmas que quieres dar seguimiento a las contribuciones
-      a la plantilla «%{name}»?
     depth: Profundidad de subcategorías
     articles_count: Recuento de artículos
     name: Nombre

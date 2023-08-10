@@ -351,10 +351,6 @@ ja:
     add_this_pileid: この PagePile ID を追加
     add_this_template: このテンプレートを追加
     import_articles_description: カテゴリごとの記事一覧は定期的に更新され、新規に追加した記事がこの一覧に反映されるまで、しばらく時間がかかります。
-    confirm_category_addition: カテゴリ%{name}の投稿をほんとうに追跡しますか？
-    confirm_psid_addition: PetScan PSID "%{name}"の投稿をほんとうに追跡しますか？
-    confirm_pileid_addition: ページパイル ID "%{name}"の投稿をほんとうに追跡しますか？
-    confirm_template_addition: ほんとうにテンプレート「%{name}」の投稿をウォッチリストに入れますか?
     depth: 下位カテゴリの深さ
     articles_count: 記事数
     name: 項目名

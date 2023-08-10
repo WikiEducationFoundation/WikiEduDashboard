@@ -414,14 +414,6 @@ uk:
     add_this_template: Додати цей шаблон
     import_articles_description: Список статей у категорії періодично оновлюється,
       і між його доданням і появою переліку статей може пройти трохи часу
-    confirm_category_addition: Ви впевнені, що хочете слідкувати за внеском до категорії
-      «%{name}»?
-    confirm_psid_addition: Ви впевнені, що хочете слідкувати за внеском для PetScan
-      PSID «%{name}»?
-    confirm_pileid_addition: Ви впевнені, що хочете слідкувати за внеском для PagePile
-      ID «%{name}»?
-    confirm_template_addition: Ви впевнені, що хочете слідкувати за внеском до шаблону
-      «%{name}»?
     depth: Глибина підкатегорій
     articles_count: Кількість статей
     name: Назва

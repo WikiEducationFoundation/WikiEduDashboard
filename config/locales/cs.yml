@@ -336,10 +336,6 @@ cs:
     add_this_template: Vložit tuto šablonu
     import_articles_description: Seznam článků v kategorii je automaticky aktualizovaný,
       může trvat nějaký čas, než se projeví změny.
-    confirm_category_addition: Opravdu chcete sledovat příspěvky v kategorii %{name}?
-    confirm_psid_addition: Jste si jistý, že chcete sledovat příspěvky k PetScan PSID
-      %{name}?
-    confirm_template_addition: Opravdu chcete sledovat příspěvky u šablony %{name}?
     depth: Úroveň podkategorie
     articles_count: Počet článků
     name: Název

@@ -351,10 +351,6 @@ zh-TW:
     add_this_pileid: 添加此頁面檔案 ID
     add_this_template: 新增此模板
     import_articles_description: 在分類裡的條目清單會定期更新，並且在清單填充之前添加可能會花費一段時間。
-    confirm_category_addition: 您確定您要追蹤分類「%{name}」的貢獻內容嗎？
-    confirm_psid_addition: 您確定您要追蹤對於 PetScan PSID「%{name}」的貢獻內容嗎？
-    confirm_pileid_addition: 您確定您要追蹤對於頁面檔案 ID「%{name}」的貢獻內容嗎？
-    confirm_template_addition: 您確定您要追蹤對於模板「%{name}」的貢獻內容嗎？
     depth: 子分類層度
     articles_count: 條目數
     name: 名稱
@@ -1219,6 +1215,10 @@ zh-TW:
       editor_overview: 編輯者概要
       exercises_and_trainings: 練習與訓練
       student_overview: '%{prefix}概要'
+      watch_list:
+        students_add: 將所有%{prefix}添加到監視清單
+        success_message: '%{prefix}已成功添加到監視清單。'
+        error_message: 無法將%{prefix}添加到監視清單。請稍後再試。
     total_uploads: 上傳總數
     training_complete:
       one: 最新培訓

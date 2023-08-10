@@ -263,10 +263,6 @@ pl:
     add_template: Dodaj szablon
     add_this_category: Dodaj tę kategorię
     add_this_template: Dodaj ten szablon
-    confirm_category_addition: Czy jesteś pewien, że chcesz śledzić wkład w tworzeniu
-      kategorii "%{name}"?
-    confirm_template_addition: Czy jesteś pewien, że chcesz śledzić wkład w tworzenie
-      szablonu "%{name}"?
     depth: Głębokość podkategorii
     articles_count: Licznik artykułów
     name: Nazwa

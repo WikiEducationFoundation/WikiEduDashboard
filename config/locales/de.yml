@@ -364,12 +364,6 @@ de:
     import_articles_description: Die Liste von Artikel in einer Kategorie wird periodisch
       aktualisiert und es kann nach dem Hinzufügen einige Zeit dauern, bevor die Liste
       erneuert wird.
-    confirm_category_addition: Bist du sicher, dass du Beiträge an der Kategorie „%{name}“
-      verfolgen möchtest?
-    confirm_psid_addition: Bist du sicher, dass du Beiträge der PetScan PSID „%{name}“
-      tracken möchtest?
-    confirm_template_addition: Bist du sicher, dass du Beiträge an der Vorlage „%{name}“
-      tracken möchtest?
     depth: Unterkategorietiefe
     articles_count: Artikelzähler
     name: Name

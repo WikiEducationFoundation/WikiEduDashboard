@@ -387,14 +387,6 @@ tr:
     add_this_template: Bu şablonu ekle
     import_articles_description: Bir kategorideki makalelerin listesi düzenli aralıklarla
       güncellenir ve listenin eklenmesinden önce eklenmesinden sonra biraz zaman alabilir.
-    confirm_category_addition: '"%{name}" kategorisine olan katkıları izlemek istediğinizden
-      emin misiniz?'
-    confirm_psid_addition: PetScan PSID "%{name}" için katkıları izlemek istediğinizden
-      emin misiniz?
-    confirm_pileid_addition: '"%{name}" PagePile kimliği için katkıları izlemek istediğinizden
-      emin misiniz?'
-    confirm_template_addition: '"%{name}" şablonunun katkılarını izlemek istediğinizden
-      emin misiniz?'
     depth: Alt kategori derinliği
     articles_count: Makale Sayısı
     name: Ad

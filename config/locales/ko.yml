@@ -294,8 +294,6 @@ ko:
     add_this_category: 이 분류 추가
     add_this_psid: 이 PSID 추가
     add_this_template: 이 틀 추가
-    confirm_category_addition: '"%{name}" 분류의 기여를 추적하시겠습니까?'
-    confirm_template_addition: '"%{name}" 틀의 기여를 추적하시겠습니까?'
     articles_count: 문서 수
     name: 이름
     category_name: 분류 이름

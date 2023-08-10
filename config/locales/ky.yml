@@ -6,6 +6,7 @@
 ky:
   application:
     cancel: Жокко чыгаруу
+    greeting2: Кош келиңиз !
     help: Жардам
     log_in: Кирүү
     log_out: Чыгуу
@@ -16,7 +17,9 @@ ky:
   articles:
     articles: Макалалар
     edited_mobile: Макалалар
+    history: (тарых)
     label: Макалалар
+    new: (жаңы)
     title: Аталыш
   campaign:
     title: Аталыш
@@ -43,15 +46,26 @@ ky:
     diff_show: Көрсөтүү
     diff_hide: Жашыруу
     title: Аталыш
+  settings:
+    admin_users:
+      new:
+        form_placeholder: Колдонуучунун ысымы
   timeline:
+    empty_week_3: же
     week_number: Апта %{number}
   training:
     page: Барак
+    done: Даяр !
   uploads:
     image: Сүрөт
     label: Жүктөөлөр
   users:
+    assign_articles_done: Даяр
     number_of_articles:
       one: '%{count} макала'
       other: '%{count} макала'
+    username: Колдонуучунун ысымы
+    username_placeholder: Колдонуучунун ысымы
+  training_status:
+    continue: Улантуу
 ...

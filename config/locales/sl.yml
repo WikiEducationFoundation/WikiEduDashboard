@@ -115,8 +115,6 @@ sl:
   categories:
     add_template: Dodaj predlogo
     add_this_template: Dodaj to predlogo
-    confirm_category_addition: Ste prepričani, da želite slediti prispevke v kategorijo
-      »%{name}«?
     name: Ime
     template_name: Ime predloge
     none: Ni sledenih kategorij.

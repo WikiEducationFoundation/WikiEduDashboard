@@ -9,6 +9,7 @@
 # Author: Macofe
 # Author: Medol
 # Author: Mguix
+# Author: Paucabot
 # Author: Toniher
 # Author: Townie
 # Author: Unapersona
@@ -296,10 +297,6 @@ ca:
     add_template: Afegeix una plantilla
     add_this_category: Afegeix aquesta categoria
     add_this_template: Afegeix aquesta plantilla
-    confirm_category_addition: Segur que voleu fer seguiment de les contribucions
-      a la categoria "%{name}"?
-    confirm_template_addition: Segur que voleu fer seguiment de les contribucions
-      per a la plantilla "%{name}"?
     depth: Profunditat de la subcategoria
     name: Nom
     category_name: Nom de la categoria
@@ -836,6 +833,7 @@ ca:
         already_is: '%{username} ja és %{username}!'
         elevate_success: S'ha elevat %{username} a {position}.
   suggestions:
+    editing: Suggeriments d'edició
     suggestion_docs:
       does_not_exist: Aquest article no existeix a la Viquipèdia.
   tasks:

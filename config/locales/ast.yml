@@ -295,10 +295,6 @@ ast:
     add_template: Añadir plantía
     add_this_category: Añadir esta categoría
     add_this_template: Amestar esta plantía
-    confirm_category_addition: ¿Confirmes que quies siguir les contribuciones a la
-      categoría «%{name}»?
-    confirm_template_addition: ¿Confirmes que quies siguir les contribuciones pa la
-      plantía «%{name}»?
     depth: Fondura de subcategoríes
     name: Nome
     category_name: Nome de la categoría

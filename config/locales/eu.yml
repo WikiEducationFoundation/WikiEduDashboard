@@ -311,10 +311,6 @@ eu:
     add_template: Txantiloia gehitu
     add_this_category: Kategoria hau gehitu
     add_this_template: Txantiloi hau gehitu
-    confirm_category_addition: Ziur zaude "%{name}" kategoriako ekarpenen jarraipena
-      egin nahi duzula?
-    confirm_template_addition: Ziur zaude "%{name}" txantiloiko ekarpenen jarraipena
-      egin nahi duzula?
     depth: Azpikategoriaren sakonera
     name: Izena
     category_name: Kategoriaren izena
