@@ -26,24 +26,35 @@ export default function users(state = initialState, action) {
     case RECEIVE_USERS: {
       // Get the sorting key if available from Redux store or else use last_name
       let sort_key = state.sort.key || 'last_name';
+      /* Use the previousKey to determine the directions of sorting.
+         Note: Direction of the sorting only matter after the user/instructor sort the students/editors
+         list using the dropdown menu or one of the student/editors header and then navigates between
+         tabs and then a data refresh occurs(usually after one minute).
+      */
       let previousKey = null;
       // Initialize a variable to hold the user list.
       let user_list = action.data.course.users;
 
-       // Check if any user in the user_list has 'real_name'
-       if (user_list.some(user => user.real_name)) {
-         // If any users have 'real_name', transform the 'real_name' into separate
-         // 'first_name' and 'last_name' properties and update the user list
-         user_list = transformUsers(user_list);
-        } else if (!state.sort.key) {
-          // If there are no users with real_name and key in the store is null then set sort_key by username
-          sort_key = 'username';
-        }
+      // Check if any user in the user_list has 'real_name'
+      if (user_list.some(user => user.real_name)) {
+        // If any users have 'real_name', transform the 'real_name' into separate
+        // 'first_name' and 'last_name' properties and update the user list
+        user_list = transformUsers(user_list);
+      } else if (!state.sort.key) {
+        // If there are no users with real_name and key in the store is null then set sort_key by username
+        sort_key = 'username';
+      }
 
-        if (state.sort.key) { previousKey = state.sort.sortKey ? null : sort_key; }
+      /* If 'key' in the store is not null which implies instructor/user had sort the student/editors list either using
+         the dropdown menu or one of the student/editor tab and if 'sortKey' state is null it means sorting was done in
+         reverse so set the previousKey to the 'sort_key' or else null.
+         Note: If 'key' in the store is null it means student/editors list is being loaded for the first time.
+      */
+      if (state.sort.key) { previousKey = state.sort.sortKey ? null : sort_key; }
 
-        // Sort the 'user_list' array based on the 'sort_key'
-        user_list = sortByKey(user_list, sort_key, previousKey, SORT_DESCENDING[sort_key]);
+      // Sort the 'user_list' array based on the 'sort_key'
+      user_list = sortByKey(user_list, sort_key, previousKey, SORT_DESCENDING[sort_key]);
+
     return {
       ...state,
       users: user_list.newModels, // Update 'users' with the sorted user list.
