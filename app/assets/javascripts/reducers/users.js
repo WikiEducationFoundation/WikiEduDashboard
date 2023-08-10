@@ -24,7 +24,7 @@ const SORT_DESCENDING = {
 export default function users(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_USERS: {
-      // Get the sorting key from if available from Redux store or else use last_name
+      // Get the sorting key if available from Redux store or else use last_name
       let sort_key = state.sort.key || 'last_name';
       let previousKey = null;
       // Initialize a variable to hold the user list.
