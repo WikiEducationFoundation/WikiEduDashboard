@@ -5,24 +5,75 @@ require_dependency "#{Rails.root}/lib/importers/wikidata_summary_importer"
 require 'wikidata-diff-analyzer'
 
 class UpdateWikidataStats
+  # This hash contains the keys of the final stats hash which maintains the order of
+  # wikidata-diff-analyzer's output so that it's easier to create the stats hash
   STATS_CLASSIFICATION = [
-    'claims created', 'claims removed', 'claims changed',
-    'references added', 'references removed', 'references changed',
-    'qualifiers added', 'qualifiers removed', 'qualifiers changed',
-    'aliases added', 'aliases removed', 'aliases changed',
-    'labels added', 'labels removed', 'labels changed',
-    'descriptions added', 'descriptions removed', 'descriptions changed',
-    'interwiki links added', 'interwiki links removed', 'interwiki links updated',
-    'merged to', 'merged from', 'redirects created',
-    'reverts performed', 'restorations performed', 'items cleared',
-    'items created', 'lemmas added', 'lemmas removed', 'lemmas changed',
-    'forms added', 'forms removed', 'forms changed',
-    'senses added', 'senses removed', 'senses changed',
-    'properties created', 'lexeme items created',
-    'representations added', 'representations removed', 'representations changed',
-    'glosses added', 'glosses removed', 'glosses changed',
-    'form claims added', 'form claims removed', 'form claims changed',
-    'sense claims added', 'sense claims removed', 'sense claims changed'
+    # UI section: claims
+    'claims created', 
+    'claims removed', 
+    'claims changed',
+    # UI section: Others
+    'references added', 
+    # UI section: not added yet
+    'references removed', 
+    'references changed',
+    # UI section: Others
+    'qualifiers added', 
+    # UI section: not added yet
+    'qualifiers removed', 
+    'qualifiers changed',
+    # UI section: Aliases
+    'aliases added', 
+    'aliases removed', 
+    'aliases changed',
+    # UI section: Labels
+    'labels added', 
+    'labels removed', 
+    'labels changed',
+    # UI section: Descriptions
+    'descriptions added', 
+    'descriptions removed', 
+    'descriptions changed',
+    # UI section: General
+    'interwiki links added', 
+    # UI section: not added yet
+    'interwiki links removed', 
+    'interwiki links updated',
+    # UI section: General
+    'merged to', 
+    # UI section: not added yet
+    'merged from', 
+    # UI section: Others
+    'redirects created',
+    'reverts performed', 
+    'restorations performed', 
+    # UI section: Items
+    'items cleared',
+    'items created', 
+    # UI section: not added yet (for lexeme and properties)
+    'lemmas added', 
+    'lemmas removed', 
+    'lemmas changed',
+    'forms added', 
+    'forms removed', 
+    'forms changed',
+    'senses added', 
+    'senses removed', 
+    'senses changed',
+    'properties created', 
+    'lexeme items created',
+    'representations added', 
+    'representations removed', 
+    'representations changed',
+    'glosses added', 
+    'glosses removed', 
+    'glosses changed',
+    'form claims added', 
+    'form claims removed', 
+    'form claims changed',
+    'sense claims added', 
+    'sense claims removed', 
+    'sense claims changed'
   ].freeze
 
   def initialize(course)
@@ -123,7 +174,7 @@ class UpdateWikidataStats
         stats[STATS_CLASSIFICATION[index]] += value
       end
     end
-    stats['total revisions'] = stats.values.sum
+    stats['total revisions'] = revisions_with_serialized_stats.count
     stats
   end
 
