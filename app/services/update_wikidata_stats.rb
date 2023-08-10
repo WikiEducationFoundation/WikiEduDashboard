@@ -85,11 +85,13 @@ class UpdateWikidataStats
 
   private
 
-  # When summary is nil, instead of fetching edit summaries for each revision, I want to use
-  # wikidata-diff-analyzer to get the stats saved in the database after serializing.
+  # When summary is nil, instead of fetching edit summaries for each revision
+  # wikidata-diff-analyzer gem is used to get the stats saved in the database after serializing.
   # That means while UpdateWikidataStats will be called for a course, all the revisions which
   # had edit summaries in the summary field be processed with WikidataSummaryParser
-  # if summary is nil, then the stats would be saved in the summary
+  # and the revisions which didn't have edit summaries will be processed 
+  # with wikidata-diff-analyzer gem.
+  # if summary is nil, then the stats would be created and saved in the summary
 
   def update_summary_with_stats
     return if wikidata_revisions_without_summaries.empty?

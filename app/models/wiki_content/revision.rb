@@ -87,11 +87,20 @@ class Revision < ApplicationRecord
     references_count(features) - references_count(features_previous)
   end
 
+  # Generally, the summary field captured edit summary comment of an edit until August 2023
+  # This code is for a switch to save diff_stats instead(stats hash created from wikidata-diff-analyzer gem)
+  # used in update_wikidata_stats.rb
+  # These two methods find out if the content in summary field is a stats hash or not
+  # Edits made before August 2023 will be handled through WikidataSummaryParser and
+  # the later edits will be handled by stats collected from wikidata-diff-analyzer
+
   def edit_summary
     return summary unless diff_stats # If diff_stats is nil, then summary is the edit summary
     nil # Otherwise, it's diff_stats and returns nil
   end
 
+  # This function parses the serialized stats saved in the summary field, in case of any errors
+  # it returns nil meaning the field contains an edit summary
   def diff_stats
     JSON.parse(summary) if summary.present? && summary.start_with?('{', '[')
   rescue JSON::ParserError
