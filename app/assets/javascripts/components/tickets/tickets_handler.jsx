@@ -31,7 +31,7 @@ const TicketsHandler = () => {
     if (searchByCourseParamInURL) {
       setSearchType('by_course');
       setSearchText(searchByCourseParamInURL);
-      dispatch(fetchTickets({ search: searchByCourseParamInURL, what: 'by_course' }));
+      dispatch(fetchTickets({ search: searchByCourseParamInURL, what: ['by_course'] }));
     } else if (!tickets.all.length) {
       dispatch(fetchTickets());
       dispatch(setInitialTicketFilters());
@@ -44,7 +44,7 @@ const TicketsHandler = () => {
   };
 
   const doSearch = () => {
-    dispatch(fetchTickets({ search: searchBarRef?.current.value, what: searchType }));
+    dispatch(fetchTickets({ search: searchBarRef?.current.value, what: [searchType] }));
     setSearchText(searchBarRef?.current.value);
   };
 

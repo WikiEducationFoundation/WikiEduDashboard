@@ -3,60 +3,50 @@
 class TicketQueryObject
   def initialize(params)
     @search = params[:search]
-    @what = params[:what]
+    @whats = params[:what]
     @offset = params[:offset] || 0
     @limit = params[:limit] || 100
   end
 
   def search
-    case @what
-    when 'by_email_or_username'
-      search_by_username_or_by_email
-    when 'in_subject'
-      search_by_subject
-    when 'in_content'
-      search_by_content
-    when 'by_course'
-      search_by_course
+    query = tickets
+
+    @whats.each do |what|
+      case what
+      when 'by_email_or_username'
+        query = query.merge(search_by_username_or_by_email)
+      when 'in_subject'
+        query = query.merge(search_by_subject)
+      when 'in_content'
+        query = query.merge(search_by_content)
+      when 'by_course'
+        query = query.merge(search_by_course)
+      end
     end
+
+    query.offset(@offset).limit(@limit)
   end
 
   def search_by_username_or_by_email
-    tickets.where(sender:
-                  { username:
-                    User.where(username: @search).or(User.where(email: @search))
-      .pluck(:username) })
-           .offset(@offset)
-           .limit(@limit)
+    sender_usernames = User.where(username: @search).or(User.where(email: @search)).pluck(:username)
+    tickets.where(sender: { username: sender_usernames })
   end
 
   def search_by_content
-    tickets.where(messages:
-                  { id:
-                    TicketDispenser::Message.where('content LIKE ?', "%#{@search}%")
-      .pluck(:id) })
-           .offset(@offset)
-           .limit(@limit)
+    message_ids = TicketDispenser::Message.where('content LIKE ?', "%#{@search}%").pluck(:id)
+    tickets.where(messages: { id: message_ids })
   end
 
   def search_by_subject
-    tickets.where(messages:
-                  { id:
-                    TicketDispenser::Message
-      .all
-      .select do |ticket|
-        ticket[:details][:subject]&.match?(/#{@search}/i)
-      end
-        .pluck(:id) })
-           .offset(@offset)
-           .limit(@limit)
+    message_ids = TicketDispenser::Message.all.select do |ticket|
+      ticket[:details][:subject]&.match?(/#{@search}/i)
+    end.pluck(:id)
+    tickets.where(messages: { id: message_ids })
   end
 
   def search_by_course
-    tickets
-      .where(project: Course.find_by(slug: @search))
-      .offset(@offset)
-      .limit(@limit)
+    course = Course.find_by(slug: @search)
+    tickets.where(project: course)
   end
 
   private
