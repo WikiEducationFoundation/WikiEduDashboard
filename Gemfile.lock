@@ -704,7 +704,7 @@ DEPENDENCIES
   validates_email_format_of
   vcr
   webmock
-  wikidata-diff-analyzer (~> 2.0, >= 2.0.1)
+  wikidata-diff-analyzer
   will_paginate
   x25519
 

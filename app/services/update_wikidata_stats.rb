@@ -5,76 +5,69 @@ require_dependency "#{Rails.root}/lib/importers/wikidata_summary_importer"
 require 'wikidata-diff-analyzer'
 
 class UpdateWikidataStats
-  # This hash contains the keys of the final stats hash which maintains the order of
-  # wikidata-diff-analyzer's output so that it's easier to create the stats hash
-  STATS_CLASSIFICATION = [
-    # UI section: claims
-    'claims created', 
-    'claims removed', 
-    'claims changed',
-    # UI section: Others
-    'references added', 
-    # UI section: not added yet
-    'references removed', 
-    'references changed',
-    # UI section: Others
-    'qualifiers added', 
-    # UI section: not added yet
-    'qualifiers removed', 
-    'qualifiers changed',
-    # UI section: Aliases
-    'aliases added', 
-    'aliases removed', 
-    'aliases changed',
-    # UI section: Labels
-    'labels added', 
-    'labels removed', 
-    'labels changed',
-    # UI section: Descriptions
-    'descriptions added', 
-    'descriptions removed', 
-    'descriptions changed',
+  # This hash contains uses the keys of the wikidata-diff-analyzer output hash 
+  # and maps them to the values used in the UI and CourseStat Hash
+  STATS_CLASSIFICATION = {
     # UI section: General
-    'interwiki links added', 
-    # UI section: not added yet
-    'interwiki links removed', 
-    'interwiki links updated',
-    # UI section: General
-    'merged to', 
-    # UI section: not added yet
-    'merged from', 
-    # UI section: Others
-    'redirects created',
-    'reverts performed', 
-    'restorations performed', 
+    "merge_to" => 'merged to',
+    "added_sitelinks" => 'interwiki links added',
+    # UI section: Claims
+    "added_claims" => 'claims created',
+    "removed_claims" => 'claims removed',
+    "changed_claims" => 'claims changed',
     # UI section: Items
-    'items cleared',
-    'items created', 
-    # UI section: not added yet (for lexeme and properties)
-    'lemmas added', 
-    'lemmas removed', 
-    'lemmas changed',
-    'forms added', 
-    'forms removed', 
-    'forms changed',
-    'senses added', 
-    'senses removed', 
-    'senses changed',
-    'properties created', 
-    'lexeme items created',
-    'representations added', 
-    'representations removed', 
-    'representations changed',
-    'glosses added', 
-    'glosses removed', 
-    'glosses changed',
-    'form claims added', 
-    'form claims removed', 
-    'form claims changed',
-    'sense claims added', 
-    'sense claims removed', 
-    'sense claims changed'
-  ].freeze
+    "clear_item" => 'items cleared',
+    "create_item" => 'items created',
+    # UI section: Labels
+    "added_labels" => 'labels added',
+    "removed_labels" => 'labels removed',
+    "changed_labels" => 'labels changed',
+    # UI section: Descriptions
+    "added_descriptions" => 'descriptions added',
+    "removed_descriptions" => 'descriptions removed',
+    "changed_descriptions" => 'descriptions changed',
+    # UI section: Aliases
+    "added_aliases" => 'aliases added',
+    "removed_aliases" => 'aliases removed',
+    "changed_aliases" => 'aliases changed',
+    # UI section: Others
+    "added_references" => 'references added',
+    "added_qualifiers" => 'qualifiers added',
+    "redirect" => 'redirects created',
+    "undo" => 'reverts performed',
+    "restore" => 'restorations performed',
+    # UI section: Not added yet
+    "removed_references" => 'references removed',
+    "changed_references" => 'references changed',
+    "removed_qualifiers" => 'qualifiers removed',
+    "changed_qualifiers" => 'qualifiers changed',
+    "removed_sitelinks" => 'interwiki links removed',
+    "changed_sitelinks" => 'interwiki links updated',
+    "merge_from" => 'merged from',
+    "added_lemmas" => 'lemmas added',
+    "removed_lemmas" => 'lemmas removed',
+    "changed_lemmas" => 'lemmas changed',
+    "added_forms" => 'forms added',
+    "removed_forms" => 'forms removed',
+    "changed_forms" => 'forms changed',
+    "added_senses" => 'senses added',
+    "removed_senses" => 'senses removed',
+    "changed_senses" => 'senses changed',
+    "create_property" => 'properties created',
+    "create_lexeme" => 'lexeme items created',
+    "added_representations" => 'representations added',
+    "removed_representations" => 'representations removed',
+    "changed_representations" => 'representations changed',
+    "added_glosses" => 'glosses added',
+    "removed_glosses" => 'glosses removed',
+    "changed_glosses" => 'glosses changed',
+    "added_formclaims" => 'form claims added',
+    "removed_formclaims" => 'form claims removed',
+    "changed_formclaims" => 'form claims changed',
+    "added_senseclaims" => 'sense claims added',
+    "removed_senseclaims" => 'sense claims removed',
+    "changed_senseclaims" => 'sense claims changed'
+  }.freeze
 
   def initialize(course)
     @course = course
@@ -95,20 +88,19 @@ class UpdateWikidataStats
 
   def update_summary_with_stats
     return if wikidata_revisions_without_summaries.empty?
-
+  
     revision_ids = wikidata_revisions_without_summaries.pluck(:mw_rev_id)
     analyzed_revisions = WikidataDiffAnalyzer.analyze(revision_ids)[:diffs]
-
-    revision_ids.each do |rev_id|
-      individual_stat = analyzed_revisions[rev_id]
-      # Serialize the individual_stat to JSON format
-      serialized_stat = individual_stat.to_json
-
-      # Find the revision object by mw_rev_id
-      revision = course_revisions.find_by(mw_rev_id: rev_id)
-
-      # Update the summary field with the serialized_stat
-      revision.update(summary: serialized_stat)
+  
+    Revision.transaction do
+      wikidata_revisions_without_summaries.each do |revision|
+        rev_id = revision.mw_rev_id
+        individual_stat = analyzed_revisions[rev_id]
+        serialized_stat = individual_stat.to_json
+  
+        revision.summary = serialized_stat
+        revision.save!
+      end
     end
   end
 
@@ -165,16 +157,20 @@ class UpdateWikidataStats
   end
 
   def get_stats_from_serialized_stats(revisions_with_serialized_stats)
-    stats = STATS_CLASSIFICATION.index_with { 0 }
+    stats = {}
+    STATS_CLASSIFICATION.each_key do |key|
+      stats[STATS_CLASSIFICATION[key]] = 0
+    end
 
     # create a sum of stats after deserializing the stats for each revision object
     revisions_with_serialized_stats.each do |revision|
       # Deserialize the summary field to get the stats
       deserialized_stat = revision.diff_stats
       # create a stats which sums up each field of the deserialized_stat and create a stats hash
-      deserialized_stat.each_with_index do |(_key, value), index|
-        stats[STATS_CLASSIFICATION[index]] += value
+      deserialized_stat.each do |key, value|
+        stats[STATS_CLASSIFICATION[key]] += value
       end
+      
     end
     stats['total revisions'] = revisions_with_serialized_stats.count
     stats

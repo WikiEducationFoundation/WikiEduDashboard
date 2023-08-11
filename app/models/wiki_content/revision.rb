@@ -88,9 +88,8 @@ class Revision < ApplicationRecord
   end
 
   # Generally, the summary field captured edit summary comment of an edit until August 2023
-  # This code is for a switch to save diff_stats instead(stats hash created from wikidata-diff-analyzer gem)
-  # used in update_wikidata_stats.rb
-  # These two methods find out if the content in summary field is a stats hash or not
+  # This code is for a switch to save diff_stats instead(output hash generated from wikidata-diff-analyzer gem)
+  # These two methods find out if the content in summary field is a stats_hash or not
   # Edits made before August 2023 will be handled through WikidataSummaryParser and
   # the later edits will be handled by stats collected from wikidata-diff-analyzer
 
