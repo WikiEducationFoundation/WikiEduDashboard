@@ -17,7 +17,6 @@ class TicketQueryObject
     query = tickets
 
     @whats.each do |key, value|
-
       case key
       when :by_email_or_username
         query = query.merge(search_by_username_or_by_email(value))
@@ -34,7 +33,9 @@ class TicketQueryObject
   end
 
   def search_by_username_or_by_email(search_text)
-    sender_usernames = User.where(username: search_text).or(User.where(email: search_text)).pluck(:username)
+    sender_usernames = User.where(username: search_text)
+                           .or(User.where(email: search_text))
+                           .pluck(:username)
     tickets.where(sender: { username: sender_usernames })
   end
 
