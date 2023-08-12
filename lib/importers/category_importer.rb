@@ -61,11 +61,11 @@ class CategoryImporter
     CategoryUtils.get_titles(subcats_pages)
   end
 
-  def category_query(category, namespace=0)
+  def category_query(category, namespace)
     { list: 'categorymembers',
       cmtitle: category,
       cmlimit: 500,
-      cmnamespace: namespace, # mainspace articles by default
+      cmnamespace: namespace || 0, # mainspace articles by default
       continue: '' }
   end
 end
