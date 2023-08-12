@@ -12,7 +12,7 @@ import { getFilteredTickets } from '../../selectors';
 
 const TicketsHandler = () => {
   const [page, setPage] = useState(0);
-  const [mode] = useState('filter');
+  const [mode, setMode] = useState('filter');
   const [searchQuery, setSearchQuery] = useState({ by_email_or_username: '', in_subject: '', in_content: '', by_course: '', });
 
   const dispatch = useDispatch();
@@ -41,6 +41,7 @@ const TicketsHandler = () => {
   };
 
   const doSearch = () => {
+    setMode('search');
     dispatch(fetchTickets(searchQuery));
   };
 
@@ -55,8 +56,6 @@ const TicketsHandler = () => {
   const goToPage = (newPage) => {
     setPage(newPage);
   };
-
-  if (tickets.loading) return <Loading />;
 
   const keys = {
     sender: {
@@ -148,19 +147,27 @@ const TicketsHandler = () => {
         </div>
       </div>
       <hr />
-      <List
-        className="table--expandable table--hoverable"
-        elements={elements}
-        keys={keys}
-        sortBy={key => dispatch(sortTickets(key))}
-        sortable={true}
-        table_key="tickets"
-      />
-      <Pagination
-        currentPage={page}
-        goToPage={goToPage}
-        length={pagesLength}
-      />
+      {tickets.loading
+        ? <Loading />
+        : (
+          <>
+            <List
+              className="table--expandable table--hoverable"
+              elements={elements}
+              keys={keys}
+              sortBy={key => dispatch(sortTickets(key))}
+              sortable={true}
+              table_key="tickets"
+            />
+            <Pagination
+              currentPage={page}
+              goToPage={goToPage}
+              length={pagesLength}
+            />
+          </>
+        )}
+
+
     </main >
   );
 };
