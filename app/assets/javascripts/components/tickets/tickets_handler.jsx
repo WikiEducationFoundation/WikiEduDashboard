@@ -1,37 +1,30 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Row from './tickets_table_row';
 import Pagination from './pagination';
 import Loading from '../common/loading';
 import List from '../common/list.jsx';
-import SearchBar from '../common/search_bar';
 import TicketOwnersFilter from './ticket_owners_filter';
 import TicketStatusesFilter from './ticket_statuses_filter';
-import SearchTypeSelector from './search_type_selector';
 import { fetchTickets, sortTickets, setInitialTicketFilters } from '../../actions/tickets_actions';
 import { getFilteredTickets } from '../../selectors';
 
 const TicketsHandler = () => {
   const [page, setPage] = useState(0);
-  const [mode, setMode] = useState('filter');
-  const [searchType, setSearchType] = useState('no_search');
-  const [searchText, setSearchText] = useState('');
+  const [mode] = useState('filter');
+  const [searchQuery, setSearchQuery] = useState({ by_email_or_username: '', in_subject: '', in_content: '', by_course: '', });
 
   const dispatch = useDispatch();
   const tickets = useSelector(state => state.tickets);
   const filteredTickets = useSelector(state => getFilteredTickets(state));
 
-  const searchBarRef = useRef();
-  const searchTypeRef = useRef();
-
   useEffect(() => {
     const searchByCourseParamInURL = getCourseSearchParamInURL();
 
     if (searchByCourseParamInURL) {
-      setSearchType('by_course');
-      setSearchText(searchByCourseParamInURL);
-      dispatch(fetchTickets({ search: searchByCourseParamInURL, what: ['by_course'] }));
+      setSearchQuery(prevState => ({ ...prevState, by_course: searchByCourseParamInURL }));
+      dispatch(fetchTickets(searchQuery));
     } else if (!tickets.all.length) {
       dispatch(fetchTickets());
       dispatch(setInitialTicketFilters());
@@ -43,21 +36,12 @@ const TicketsHandler = () => {
     return urlParams.get('search_by_course');
   };
 
-  const doSearch = () => {
-    dispatch(fetchTickets({ search: searchBarRef?.current.value, what: [searchType] }));
-    setSearchText(searchBarRef?.current.value);
+  const updateSearchQuery = (e, queryKey) => {
+    setSearchQuery(prevState => ({ ...prevState, [queryKey]: e.target.value }));
   };
 
-  const changeMode = (e) => {
-    setSearchType(e.value);
-    setSearchText('');
-
-    if (e.value === 'no_search') {
-      setMode('filter');
-      dispatch(fetchTickets());
-    } else {
-      setMode('search');
-    }
+  const doSearch = () => {
+    dispatch(fetchTickets(searchQuery));
   };
 
   const getTickets = () => {
@@ -131,18 +115,36 @@ const TicketsHandler = () => {
           <span className="pull-left w10">Owner: </span>
           <TicketOwnersFilter disabled={mode === 'search'} />
         </div>
-        <div>
-          <SearchTypeSelector
-            value={searchType}
-            ref={searchTypeRef}
-            handleChange={changeMode}
-          />
-          <SearchBar
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', marginTop: '5px' }}>
+          <input
+            type="text"
             name="tickets_search"
-            value={searchText}
-            onClickHandler={doSearch} ref={searchBarRef}
+            value={searchQuery.by_email_or_username}
+            onChange={e => updateSearchQuery(e, 'by_email_or_username')}
             placeholder={I18n.t('tickets.search_bar_placeholder')}
           />
+          <input
+            type="text"
+            name="tickets_search"
+            value={searchQuery.in_subject}
+            onChange={e => updateSearchQuery(e, 'in_subject')}
+            placeholder={I18n.t('tickets.search_bar_placeholder')}
+          />
+          <input
+            type="text"
+            name="tickets_search"
+            value={searchQuery.in_content}
+            onChange={e => updateSearchQuery(e, 'in_content')}
+            placeholder={I18n.t('tickets.search_bar_placeholder')}
+          />
+          <input
+            type="text"
+            name="tickets_search"
+            value={searchQuery.by_course}
+            onChange={e => updateSearchQuery(e, 'by_course')}
+            placeholder={I18n.t('tickets.search_bar_placeholder')}
+          />
+          <button onClick={doSearch} className="button dark">Search Tickets</button>
         </div>
       </div>
       <hr />
@@ -159,7 +161,7 @@ const TicketsHandler = () => {
         goToPage={goToPage}
         length={pagesLength}
       />
-    </main>
+    </main >
   );
 };
 
