@@ -9,12 +9,17 @@ describe CategoryImporter do
 
   describe '.page_titles_for_category' do
     context 'for depth 0' do
-      let(:category) { 'Category:AfD debates' }
+      let(:category) { 'Category:Earth sciences' }
       let(:depth) { 0 }
 
       it 'returns page page titles for a given category' do
         VCR.use_cassette 'category_importer/page_titles' do
-          expect(subject).to include('Category:AfD debates (Places and transportation)')
+          # this is a direct article in the category
+          expect(subject).to include('List of flood basalt provinces')
+
+          # this is a subcategory which should not be included
+          expect(subject).not_to include('Category: Earth scientists')
+          expect(subject).not_to include('Category:Earth sciences')
         end
       end
     end
@@ -29,6 +34,9 @@ describe CategoryImporter do
         VCR.use_cassette 'category_importer/page_titles' do
           expect(subject).to include(article_in_cat)
           expect(subject).to include(article_in_subcat)
+
+          # this is a subcategory which should not be included
+          expect(subject).not_to include('Category:Monty Python members')
         end
       end
     end
