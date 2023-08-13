@@ -4,6 +4,7 @@
 #   - docker build -t wiki-edu-dashboard .
 # Run:
 #   - docker run -v ./project-dir:/app -e ENV_VAR=VALUE wiki-edu-dashboard 
+#   - docker compose up
 # Environment Var:
 #   - MYSQL_USERNAME
 #   - MYSQL_PASSWORD
