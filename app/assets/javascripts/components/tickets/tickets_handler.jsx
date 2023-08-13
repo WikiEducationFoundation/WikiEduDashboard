@@ -114,51 +114,50 @@ const TicketsHandler = () => {
           <span className="pull-left w10">Owner: </span>
           <TicketOwnersFilter disabled={mode === 'search'} />
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', marginTop: '5px' }}>
-
-          <div style={{ display: 'flex', flexDirection: 'row', gap: '5px' }}>
-            <input
-              style={{ flex: 0.5 }}
-              type="text"
-              name="tickets_search"
-              value={searchQuery.by_email_or_username}
-              onChange={e => updateSearchQuery(e, 'by_email_or_username')}
-              placeholder="Search by email or username"
-            />
-            <input
-              style={{ flex: 0.5 }}
-              type="text"
-              name="tickets_search"
-              value={searchQuery.in_subject}
-              onChange={e => updateSearchQuery(e, 'in_subject')}
-              placeholder="Search by subject"
-            />
-          </div>
-
-          <div style={{ display: 'flex', flexDirection: 'row', gap: '5px' }}>
-            <input
-              style={{ flex: 0.5 }}
-              type="text"
-              name="tickets_search"
-              value={searchQuery.in_content}
-              onChange={e => updateSearchQuery(e, 'in_content')}
-              placeholder="Search by content"
-            />
-            <input
-              style={{ flex: 0.5 }}
-              type="text"
-              name="tickets_search"
-              value={searchQuery.by_course}
-              onChange={e => updateSearchQuery(e, 'by_course')}
-              placeholder="Search by course"
-            />
-          </div>
-
-          <div style={{ display: 'flex', justifyContent: 'flex-start', marginTop: '10px' }}>
-            <button style={{ width: '100%' }} onClick={doSearch} className="button dark">{I18n.t('tickets.search_bar_placeholder')}</button>
-          </div>
-
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: '5px',
+          marginTop: '5px'
+        }}
+        >
+          <input
+            type="text"
+            name="tickets_search"
+            value={searchQuery.by_email_or_username}
+            onChange={e => updateSearchQuery(e, 'by_email_or_username')}
+            placeholder="Search by email or username"
+          />
+          <input
+            type="text"
+            name="tickets_search"
+            value={searchQuery.in_subject}
+            onChange={e => updateSearchQuery(e, 'in_subject')}
+            placeholder="Search by subject"
+          />
+          <input
+            type="text"
+            name="tickets_search"
+            value={searchQuery.in_content}
+            onChange={e => updateSearchQuery(e, 'in_content')}
+            placeholder="Search by content"
+          />
+          <input
+            type="text"
+            name="tickets_search"
+            value={searchQuery.by_course}
+            onChange={e => updateSearchQuery(e, 'by_course')}
+            placeholder="Search by course"
+          />
+          <button
+            style={{ gridColumn: '1 / span 2' }}
+            onClick={doSearch}
+            className="button dark"
+          >
+            {I18n.t('tickets.search_bar_placeholder')}
+          </button>
         </div>
+
 
 
       </div>
