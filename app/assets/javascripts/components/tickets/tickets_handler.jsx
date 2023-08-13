@@ -45,6 +45,12 @@ const TicketsHandler = () => {
     dispatch(fetchTickets(searchQuery));
   };
 
+  const clearSearch = () => {
+    setMode('filter');
+    setSearchQuery({ by_email_or_username: '', in_subject: '', in_content: '', by_course: '', });
+    dispatch(fetchTickets());
+  };
+
   const getTickets = () => {
     if (mode === 'filter') {
       return filteredTickets;
@@ -149,40 +155,44 @@ const TicketsHandler = () => {
             onChange={e => updateSearchQuery(e, 'by_course')}
             placeholder="Search by course"
           />
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 10 }}>
           <button
-            style={{ gridColumn: '1 / span 2' }}
             onClick={doSearch}
             className="button dark"
           >
             {I18n.t('tickets.search_bar_placeholder')}
           </button>
+          <button
+            onClick={clearSearch}
+            className="button"
+          >
+            Clear search
+          </button>
         </div>
-
-
-
       </div>
       <hr />
-      {tickets.loading
-        ? <Loading />
-        : (
-          <>
-            <List
-              className="table--expandable table--hoverable"
-              elements={elements}
-              keys={keys}
-              sortBy={key => dispatch(sortTickets(key))}
-              sortable={true}
-              table_key="tickets"
-            />
-            <Pagination
-              currentPage={page}
-              goToPage={goToPage}
-              length={pagesLength}
-            />
-          </>
-        )}
-
-
+      {
+        tickets.loading
+          ? <Loading />
+          : (
+            <>
+              <List
+                className="table--expandable table--hoverable"
+                elements={elements}
+                keys={keys}
+                sortBy={key => dispatch(sortTickets(key))}
+                sortable={true}
+                table_key="tickets"
+              />
+              <Pagination
+                currentPage={page}
+                goToPage={goToPage}
+                length={pagesLength}
+              />
+            </>
+          )
+      }
     </main >
   );
 };
