@@ -130,28 +130,28 @@ const TicketsHandler = () => {
         >
           <input
             type="text"
-            name="tickets_search"
+            name="tickets_search_email_or_username"
             value={searchQuery.by_email_or_username}
             onChange={e => updateSearchQuery(e, 'by_email_or_username')}
             placeholder="Search by email or username"
           />
           <input
             type="text"
-            name="tickets_search"
+            name="tickets_search_subject"
             value={searchQuery.in_subject}
             onChange={e => updateSearchQuery(e, 'in_subject')}
             placeholder="Search by subject"
           />
           <input
             type="text"
-            name="tickets_search"
+            name="tickets_search_content"
             value={searchQuery.in_content}
             onChange={e => updateSearchQuery(e, 'in_content')}
             placeholder="Search by content"
           />
           <input
             type="text"
-            name="tickets_search"
+            name="tickets_search_course"
             value={searchQuery.by_course}
             onChange={e => updateSearchQuery(e, 'by_course')}
             placeholder="Search by course"
@@ -161,6 +161,7 @@ const TicketsHandler = () => {
           <button
             onClick={doSearch}
             className="button dark"
+            name="search_tickets"
             disabled={isEmptySearch}
           >
             {I18n.t('tickets.search_bar_placeholder')}

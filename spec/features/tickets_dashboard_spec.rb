@@ -44,33 +44,21 @@ describe 'ticket dashboard', type: :feature, js: true do
     )
   end
 
-  let(:select_from_selectbox) do
-    lambda do |txt|
-      find('#search_type_selector').click
-      within '#search_type_selector' do
-        selector = 'div[id^="react-select-search-type-option"]'
-        find(selector, text: txt).click
-      end
-    end
-  end
-
   before do
     login_as admin
     visit '/tickets/dashboard'
   end
 
-  it 'displays a select input to chose search mode' do
-    expect(page).to have_selector '#search_type_selector'
+  it 'displays all search bars' do
+    expect(page).to have_field 'tickets_search_email_or_username'
+    expect(page).to have_field 'tickets_search_subject'
+    expect(page).to have_field 'tickets_search_content'
+    expect(page).to have_field 'tickets_search_course'
   end
 
-  it 'displays a search bar' do
-    expect(page).to have_field 'tickets_search'
-  end
-
-  it 'searchs for a token' do
-    select_from_selectbox.call('Search by email or user name')
-    fill_in 'tickets_search', with: 'no one is here'
-    find('input[name="tickets_search"]').send_keys(:enter)
+  it 'searches for a token' do
+    fill_in 'tickets_search_content', with: 'no one is here'
+    click_button 'search_tickets'
 
     expect(page).to have_content 'No tickets'
   end
@@ -89,27 +77,22 @@ describe 'ticket dashboard', type: :feature, js: true do
     end
 
     it 'finds one match with email' do
-      select_from_selectbox.call('Search by email or user name')
-      fill_in 'tickets_search', with: 'aron@packers.nfl.org'
-      find('input[name="tickets_search"]').send_keys(:enter)
+      fill_in 'tickets_search_email_or_username', with: 'aron@packers.nfl.org'
+      click_button 'search_tickets'
 
       expect(page).to have_content 'arogers'
     end
 
     it 'finds one match with username' do
-      select_from_selectbox.call('Search by email or user name')
-
-      fill_in 'tickets_search', with: 'pmahomes'
-      find('input[name="tickets_search"]').send_keys(:enter)
+      fill_in 'tickets_search_email_or_username', with: 'pmahomes'
+      click_button 'search_tickets'
 
       expect(page).to have_content 'pmahomes'
     end
 
     it 'finds two matches in subject' do
-      select_from_selectbox.call('Search in subject')
-
-      fill_in 'tickets_search', with: 'subject'
-      find('input[name="tickets_search"]').send_keys(:enter)
+      fill_in 'tickets_search_subject', with: 'subject'
+      click_button 'search_tickets'
 
       nb_of_lines = within 'tbody' do
         all('tr[class^="table-row"]')
@@ -119,10 +102,8 @@ describe 'ticket dashboard', type: :feature, js: true do
     end
 
     it 'finds one match in content' do
-      select_from_selectbox.call('Search in content')
-
-      fill_in 'tickets_search', with: 'splash'
-      find('input[name="tickets_search"]').send_keys(:enter)
+      fill_in 'tickets_search_content', with: 'splash'
+      click_button 'search_tickets'
 
       nb_of_lines = within 'tbody' do
         all('tr[class^="table-row"]')
@@ -132,10 +113,8 @@ describe 'ticket dashboard', type: :feature, js: true do
     end
 
     it 'finds one match by course slug' do
-      select_from_selectbox.call('Search by course slug')
-
-      fill_in 'tickets_search', with: 'NASA_School/Fly_me_to_the_moon'
-      find('input[name="tickets_search"]').send_keys(:enter)
+      fill_in 'tickets_search_course', with: 'NASA_School/Fly_me_to_the_moon'
+      click_button 'search_tickets'
 
       nb_of_lines = within 'tbody' do
         all('tr[class^="table-row"]')
@@ -145,10 +124,8 @@ describe 'ticket dashboard', type: :feature, js: true do
     end
 
     it 'finds no match with an unknown slug' do
-      select_from_selectbox.call('Search by course slug')
-
-      fill_in 'tickets_search', with: 'Unknown_School/school_is_closed'
-      find('input[name="tickets_search"]').send_keys(:enter)
+      fill_in 'tickets_search_course', with: 'Unknown_School/school_is_closed'
+      click_button 'search_tickets'
 
       nb_of_lines = within 'tbody' do
         all('tr[class^="table-row"]')
@@ -167,7 +144,7 @@ describe 'ticket dashboard', type: :feature, js: true do
       expect(url.path).to eq '/tickets/dashboard'
       expect(param).to eq 'search_by_course'
       expect(slug).to eq course.slug
-      expect(find('input[name="tickets_search"]').value).to eq course.slug
+      expect(find('input[name="tickets_search_course"]').value).to eq course.slug
       expect(find_link(course.title).visible?).to be true
     end
 
@@ -186,7 +163,7 @@ describe 'ticket dashboard', type: :feature, js: true do
         expect(url.path).to eq '/tickets/dashboard'
         expect(param).to eq 'search_by_course'
         expect(slug).to eq course.slug
-        expect(find('input[name="tickets_search"]').value).to eq course.slug
+        expect(find('input[name="tickets_search_course"]').value).to eq course.slug
         expect(find_link(course.title).visible?).to be true
       end
     end
