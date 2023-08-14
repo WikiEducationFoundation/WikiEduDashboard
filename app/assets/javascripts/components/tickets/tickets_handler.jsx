@@ -95,8 +95,9 @@ const TicketsHandler = () => {
       sortable: false
     }
   };
-
   const TICKETS_PER_PAGE = 10;
+
+  const isEmptySearch = Object.values(searchQuery).every(val => val === '');
 
   const pagesLength = Math.floor((filteredTickets.length - 1) / TICKETS_PER_PAGE) + 1;
   const elements = getTickets()
@@ -160,6 +161,7 @@ const TicketsHandler = () => {
           <button
             onClick={doSearch}
             className="button dark"
+            disabled={isEmptySearch}
           >
             {I18n.t('tickets.search_bar_placeholder')}
           </button>
