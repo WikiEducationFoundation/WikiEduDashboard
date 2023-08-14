@@ -346,10 +346,10 @@ zh-TW:
     add_psid: 添加 PetScan PSID
     add_pileid: 添加頁面檔案 ID
     add_template: 新增模板
-    add_this_category: 新增此分類
+    add_this_category: 新增分類
     add_this_psid: 添加此 PSID
     add_this_pileid: 添加此頁面檔案 ID
-    add_this_template: 新增此模板
+    add_this_template: 新增模板
     import_articles_description: 在分類裡的條目清單會定期更新，並且在清單填充之前添加可能會花費一段時間。
     depth: 子分類層度
     articles_count: 條目數
@@ -1188,7 +1188,7 @@ zh-TW:
     no_articles: 沒有條目
     no_articles_wikidata: 沒有項目
     no_revisions: （無修訂）
-    no_highlighting: 條目的目前版本中沒有文字內容歸因於該名編輯者。檢查頁面歷史來查看他們的編輯。
+    no_highlighting: 條目的目前版本中沒有文字內容歸因於使用者「%{editor}」。檢查頁面歷史來查看他們的編輯。
     number_of_articles:
       one: '%{count} 個條目'
       other: '%{count} 個條目'

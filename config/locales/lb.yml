@@ -209,8 +209,8 @@ lb:
   categories:
     add_category: Kategorie derbäisetzen
     add_template: Schabloun derbäisetzen
-    add_this_category: Dës Kategorie derbäisetzen
-    add_this_template: Dës Schabloun derbäisetzen
+    add_this_category: Kategorien derbäisetzen
+    add_this_template: Schablounen derbäisetzen
     articles_count: Zuel vun den Artikelen
     name: Numm
     category_name: Numm vun der Kategorie

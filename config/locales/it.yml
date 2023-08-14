@@ -325,9 +325,9 @@ it:
     add_category: Aggiungi categoria
     add_pileid: Aggiungi ID PagePile
     add_template: Aggiungi template
-    add_this_category: Aggiungi questa categoria
-    add_this_pileid: Aggiungi questo ID PagePile
-    add_this_template: Aggiungi questo template
+    add_this_category: Aggiungi categorie
+    add_this_pileid: Aggiungi ID PagePile
+    add_this_template: Aggiungi template
     depth: Profondità delle sottocategorie
     name: Nome
     category_name: Nome della categoria

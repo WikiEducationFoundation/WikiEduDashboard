@@ -6,6 +6,7 @@
 # Author: JohSan65
 # Author: Jon Harald Søby
 # Author: Jon Harald Søby (WMNO)
+# Author: Kimberli Mäkäräinen (WMNO)
 # Author: Kingu
 # Author: Pmt
 # Author: Tarjeimo
@@ -102,6 +103,8 @@ nb:
     sign_up_help: For å bruke dashbordet må du logge inn med Wikipedia og gi dashbordet
       tilgang til kontoen din. Du kan logge inn med en eksisterende Wikipedia-konto,
       eller opprette en ny.
+  alerts:
+    alert_label: Varsler
   activity:
     all: Aktivitet
     edited_by: Redigert av

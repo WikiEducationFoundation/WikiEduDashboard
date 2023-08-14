@@ -113,8 +113,13 @@ sl:
     search_campaigns: Preišči kampanje
     search: Išči
   categories:
+    searching_for_category: Iskanje kategorij v
     add_template: Dodaj predlogo
-    add_this_template: Dodaj to predlogo
+    add_this_category: Dodaj kategorije
+    add_this_psid: Dodaj PSID PetScan
+    add_this_pileid: Dodaj ID-je PagePile
+    add_this_template: Dodaj predloge
+    confirm_add_n_scoping_method: Želite dodati metod(e) obsega %{n}?
     name: Ime
     template_name: Ime predloge
     none: Ni sledenih kategorij.
@@ -426,6 +431,11 @@ sl:
     none: Ni udeležencev.
     no_articles_wikidata: Ni predmetov
     no_revisions: (brez redakcij)
+    no_highlighting: Nobeno besedilo iz trenutne različice članka ni pripisano uporabniku
+      %{editor}. Preverite zgodovino strani, da vidite njihove popravke.
+    contributions_not_highlighted: Prispevki uporabnika %{username} so prisotni, vendar
+      jih ni mogoče označiti. To se običajno zgodi za dodane reference ali predloge.
+      Preverite zgodovino strani, da vidite njihove popravke.
     number_of_articles:
       one: '%{count} članek'
       other: '%{count} članka'

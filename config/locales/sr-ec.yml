@@ -304,9 +304,9 @@ sr-ec:
     add_category: Додај категорију
     add_psid: Додај PetScan PSID
     add_template: Додај шаблон
-    add_this_category: Додај ову категорију
+    add_this_category: Додај категорије
     add_this_psid: Додај овај PSID
-    add_this_template: Додај овај шаблон
+    add_this_template: Додај шаблоне
     depth: Дубина подкатегорије
     articles_count: Број чланака
     name: Назив
