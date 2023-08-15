@@ -169,6 +169,7 @@ const TicketsHandler = () => {
           <button
             onClick={clearSearch}
             className="button"
+            name="clear_search"
           >
             Clear search
           </button>

@@ -8,7 +8,7 @@ describe 'ticket dashboard', type: :feature, js: true do
            slug: 'NASA_School/Fly_me_to_the_moon',
            title: 'Fly me to the moon')
   end
-  let(:course2) { create(:course, slug: 'Pasteur_Institue/Intro_to_microbiology') }
+  let(:course2) { create(:course, slug: 'abc_school/words') }
   let(:admin) { create(:admin, email: 'spec@wikiedu.org') }
   let(:user) { create(:user, username: 'arogers', email: 'aron@packers.nfl.org') }
   let(:user2) { create(:user, username: 'pmahomes', email: 'pat@chiefs.nfl.org') }
@@ -44,6 +44,16 @@ describe 'ticket dashboard', type: :feature, js: true do
     )
   end
 
+  let(:create_a_fourth_ticket) do
+    TicketDispenser::Dispenser.call(
+      content: 'Goodbye',
+      owner_id: admin.id,
+      sender_id: user3.id,
+      project_id: course2.id,
+      details: { subject: 'I will not come back' }
+    )
+  end
+
   before do
     login_as admin
     visit '/tickets/dashboard'
@@ -68,12 +78,22 @@ describe 'ticket dashboard', type: :feature, js: true do
       create_ticket
       create_another_ticket
       create_a_third_ticket
+      create_a_fourth_ticket
       create(:courses_user, course:, user:,
              role: CoursesUsers::Roles::STUDENT_ROLE)
       create(:courses_user, course: course2, user: user2,
              role: CoursesUsers::Roles::STUDENT_ROLE)
 
       visit '/tickets/dashboard'
+    end
+
+    it 'clears search when button is pressed after a search occurs' do
+      fill_in 'tickets_search_email_or_username', with: 'aron@packers.nfl.org'
+      click_button 'search_tickets'
+      expect(page).to have_no_content 'pmahomes'
+
+      click_button 'clear_search'
+      expect(page).to have_content 'pmahomes'
     end
 
     it 'finds one match with email' do
@@ -114,6 +134,48 @@ describe 'ticket dashboard', type: :feature, js: true do
 
     it 'finds one match by course slug' do
       fill_in 'tickets_search_course', with: 'NASA_School/Fly_me_to_the_moon'
+      click_button 'search_tickets'
+
+      nb_of_lines = within 'tbody' do
+        all('tr[class^="table-row"]')
+      end.count
+
+      expect(nb_of_lines).to eq 1
+    end
+
+    it 'finds two matches by course slug and content' do
+      fill_in 'tickets_search_course', with: 'abc_school/words'
+      fill_in 'tickets_search_content', with: 'I'
+
+      click_button 'search_tickets'
+
+      nb_of_lines = within 'tbody' do
+        all('tr[class^="table-row"]')
+      end.count
+
+      expect(nb_of_lines).to eq 2
+    end
+
+    it 'finds one match by course slug and content and email' do
+      fill_in 'tickets_search_course', with: 'abc_school/words'
+      fill_in 'tickets_search_content', with: 'I'
+      fill_in 'tickets_search_email_or_username', with: 'progo@nasa.org'
+
+      click_button 'search_tickets'
+
+      nb_of_lines = within 'tbody' do
+        all('tr[class^="table-row"]')
+      end.count
+
+      expect(nb_of_lines).to eq 1
+    end
+
+    it 'finds one match by course slug and content and email and subject' do
+      fill_in 'tickets_search_course', with: 'abc_school/words'
+      fill_in 'tickets_search_content', with: 'Goodbye'
+      fill_in 'tickets_search_email_or_username', with: 'progo@nasa.org'
+      fill_in 'tickets_search_subject', with: 'I will not come back'
+
       click_button 'search_tickets'
 
       nb_of_lines = within 'tbody' do
