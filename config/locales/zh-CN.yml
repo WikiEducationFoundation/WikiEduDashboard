@@ -325,9 +325,9 @@ zh-CN:
     add_category: 添加分类
     add_psid: 添加PetScan PSID
     add_template: 添加模板
-    add_this_category: 添加此分类
-    add_this_psid: 添加这个PSID
-    add_this_template: 添加此模板
+    add_this_category: 添加分类
+    add_this_psid: 添加PetScan PSID
+    add_this_template: 添加模板
     depth: 子分类深度
     name: 名称
     category_name: 分类名称

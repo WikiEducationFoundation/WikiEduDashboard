@@ -347,8 +347,8 @@ zh-TW:
     add_pileid: 添加頁面檔案 ID
     add_template: 新增模板
     add_this_category: 新增分類
-    add_this_psid: 添加此 PSID
-    add_this_pileid: 添加此頁面檔案 ID
+    add_this_psid: 添加 PetScan PSID
+    add_this_pileid: 添加頁面檔案 ID
     add_this_template: 新增模板
     import_articles_description: 在分類裡的條目清單會定期更新，並且在清單填充之前添加可能會花費一段時間。
     depth: 子分類層度

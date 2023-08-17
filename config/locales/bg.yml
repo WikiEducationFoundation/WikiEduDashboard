@@ -135,8 +135,8 @@ bg:
   categories:
     add_category: Добавяне на категория
     add_template: Добавяне на шаблон
-    add_this_category: Добавяне на категорията
-    add_this_template: Добавяне на шаблона
+    add_this_category: Добавяне на категории
+    add_this_template: Добавяне на шаблони
     category_name: Име на категорията
     template_name: Име на шаблона
     remove: Премахване
