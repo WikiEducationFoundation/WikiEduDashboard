@@ -25,7 +25,7 @@ export const Campaign = () => {
   if (window.location.href.match(/overview/)) {
     campaignHandler = (
       <div className="high-modal">
-        <CampaignStatsDownloadModal campaign_slug />
+        <CampaignStatsDownloadModal campaign_slug={campaign_slug} />
       </div>
     );
   }
