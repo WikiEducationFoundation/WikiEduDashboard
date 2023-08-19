@@ -1,7 +1,5 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import ContributionStats from './contribution_stats.jsx';
 import CourseDetails from './course_details.jsx';
 import UserUploads from './user_uploads.jsx';
@@ -10,64 +8,46 @@ import { fetchUserTrainingStatus } from '../../actions/training_status_actions';
 import Loading from '../common/loading.jsx';
 import UserTrainingStatus from './user_training_status.jsx';
 import request from '../../utils/request';
-import withRouter from '../util/withRouter';
+import { useParams } from 'react-router-dom';
 
-const UserProfile = createReactClass({
-  propTypes: {
-    match: PropTypes.object,
-    fetchStats: PropTypes.func.isRequired,
-    stats: PropTypes.object.isRequired,
-    isLoading: PropTypes.bool.isRequired,
-    fetchUserTrainingStatus: PropTypes.func.isRequired
-  },
+const UserProfile = () => {
+  const dispatch = useDispatch();
+  const stats = useSelector(state => state.userProfile.stats);
+  const isLoading = useSelector(state => state.userProfile.isLoading);
+  const userTrainingStatus = useSelector(state => state.userTrainingStatus);
 
-  getInitialState() {
-    return {};
-  },
+  const [statsGraphsData, setStatsGraphsData] = useState();
 
-  componentDidMount() {
-    const username = encodeURIComponent(this.props.router.params.username);
-    this.props.fetchUserTrainingStatus(username);
-    this.props.fetchStats(username);
-    this.getData();
-  },
+  const params = useParams();
+  const username = encodeURIComponent(params.username);
 
-  getData() {
-    const username = encodeURIComponent(this.props.router.params.username);
+  const getData = () => {
     const statsdataUrl = `/stats_graphs.json?username=${username}`;
-
     request(statsdataUrl)
       .then(resp => resp.json())
       .then((data) => {
-        this.setState({ statsGraphsData: data });
+        setStatsGraphsData(data);
       });
-  },
+  };
 
-  render() {
-    if (this.props.isLoading) {
-      return <Loading />;
-    }
+  useEffect(() => {
+    dispatch(fetchUserTrainingStatus(username));
+    dispatch(fetchStats(username));
+    getData();
+  }, []);
 
-    return (
-      <div>
-        <ContributionStats params={this.props.router.params} stats={this.props.stats} statsGraphsData={this.state.statsGraphsData} />
-        <CourseDetails courses={this.props.stats.courses_details} />
-        <UserUploads uploads={this.props.stats.user_recent_uploads} />
-        <UserTrainingStatus trainingModules={this.props.trainingStatus} />
-      </div>
-    );
+  if (isLoading) {
+    return <Loading />;
   }
-});
 
-const mapStateToProps = state => ({
-  stats: state.userProfile.stats,
-  isLoading: state.userProfile.isLoading,
-  trainingStatus: state.userTrainingStatus
-});
+  return (
+    <div>
+      <ContributionStats params={params} stats={stats} statsGraphsData={statsGraphsData} />
+      <CourseDetails courses={stats.courses_details} />
+      <UserUploads uploads={stats.user_recent_uploads} />
+      <UserTrainingStatus trainingModules={userTrainingStatus} />
+    </div>
+  );
+};
 
-const mapDispatchToProps = ({
-  fetchStats,
-  fetchUserTrainingStatus
-});
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UserProfile));
+export default UserProfile;
