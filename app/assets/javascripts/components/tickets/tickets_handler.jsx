@@ -1,37 +1,30 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Row from './tickets_table_row';
 import Pagination from './pagination';
 import Loading from '../common/loading';
 import List from '../common/list.jsx';
-import SearchBar from '../common/search_bar';
 import TicketOwnersFilter from './ticket_owners_filter';
 import TicketStatusesFilter from './ticket_statuses_filter';
-import SearchTypeSelector from './search_type_selector';
 import { fetchTickets, sortTickets, setInitialTicketFilters } from '../../actions/tickets_actions';
 import { getFilteredTickets } from '../../selectors';
 
 const TicketsHandler = () => {
   const [page, setPage] = useState(0);
   const [mode, setMode] = useState('filter');
-  const [searchType, setSearchType] = useState('no_search');
-  const [searchText, setSearchText] = useState('');
+  const [searchQuery, setSearchQuery] = useState({ by_email_or_username: '', in_subject: '', in_content: '', by_course: '', });
 
   const dispatch = useDispatch();
   const tickets = useSelector(state => state.tickets);
   const filteredTickets = useSelector(state => getFilteredTickets(state));
 
-  const searchBarRef = useRef();
-  const searchTypeRef = useRef();
-
   useEffect(() => {
     const searchByCourseParamInURL = getCourseSearchParamInURL();
 
     if (searchByCourseParamInURL) {
-      setSearchType('by_course');
-      setSearchText(searchByCourseParamInURL);
-      dispatch(fetchTickets({ search: searchByCourseParamInURL, what: 'by_course' }));
+      setSearchQuery(prevState => ({ ...prevState, by_course: searchByCourseParamInURL }));
+      dispatch(fetchTickets(searchQuery));
     } else if (!tickets.all.length) {
       dispatch(fetchTickets());
       dispatch(setInitialTicketFilters());
@@ -43,21 +36,19 @@ const TicketsHandler = () => {
     return urlParams.get('search_by_course');
   };
 
-  const doSearch = () => {
-    dispatch(fetchTickets({ search: searchBarRef?.current.value, what: searchType }));
-    setSearchText(searchBarRef?.current.value);
+  const updateSearchQuery = (e, queryKey) => {
+    setSearchQuery(prevState => ({ ...prevState, [queryKey]: e.target.value }));
   };
 
-  const changeMode = (e) => {
-    setSearchType(e.value);
-    setSearchText('');
+  const doSearch = () => {
+    setMode('search');
+    dispatch(fetchTickets(searchQuery));
+  };
 
-    if (e.value === 'no_search') {
-      setMode('filter');
-      dispatch(fetchTickets());
-    } else {
-      setMode('search');
-    }
+  const clearSearch = () => {
+    setMode('filter');
+    setSearchQuery({ by_email_or_username: '', in_subject: '', in_content: '', by_course: '', });
+    dispatch(fetchTickets());
   };
 
   const getTickets = () => {
@@ -71,8 +62,6 @@ const TicketsHandler = () => {
   const goToPage = (newPage) => {
     setPage(newPage);
   };
-
-  if (tickets.loading) return <Loading />;
 
   const keys = {
     sender: {
@@ -106,8 +95,9 @@ const TicketsHandler = () => {
       sortable: false
     }
   };
-
   const TICKETS_PER_PAGE = 10;
+
+  const isEmptySearch = Object.values(searchQuery).every(val => val === '');
 
   const pagesLength = Math.floor((filteredTickets.length - 1) / TICKETS_PER_PAGE) + 1;
   const elements = getTickets()
@@ -131,35 +121,83 @@ const TicketsHandler = () => {
           <span className="pull-left w10">Owner: </span>
           <TicketOwnersFilter disabled={mode === 'search'} />
         </div>
-        <div>
-          <SearchTypeSelector
-            value={searchType}
-            ref={searchTypeRef}
-            handleChange={changeMode}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: '5px',
+          marginTop: '5px'
+        }}
+        >
+          <input
+            type="text"
+            name="tickets_search_email_or_username"
+            value={searchQuery.by_email_or_username}
+            onChange={e => updateSearchQuery(e, 'by_email_or_username')}
+            placeholder="Search by email or username"
           />
-          <SearchBar
-            name="tickets_search"
-            value={searchText}
-            onClickHandler={doSearch} ref={searchBarRef}
-            placeholder={I18n.t('tickets.search_bar_placeholder')}
+          <input
+            type="text"
+            name="tickets_search_subject"
+            value={searchQuery.in_subject}
+            onChange={e => updateSearchQuery(e, 'in_subject')}
+            placeholder="Search by subject"
           />
+          <input
+            type="text"
+            name="tickets_search_content"
+            value={searchQuery.in_content}
+            onChange={e => updateSearchQuery(e, 'in_content')}
+            placeholder="Search by content"
+          />
+          <input
+            type="text"
+            name="tickets_search_course"
+            value={searchQuery.by_course}
+            onChange={e => updateSearchQuery(e, 'by_course')}
+            placeholder="Search by course"
+          />
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 10 }}>
+          <button
+            onClick={doSearch}
+            className="button dark"
+            name="search_tickets"
+            disabled={isEmptySearch}
+          >
+            {I18n.t('tickets.search_bar_placeholder')}
+          </button>
+          <button
+            onClick={clearSearch}
+            className="button"
+            name="clear_search"
+          >
+            Clear search
+          </button>
         </div>
       </div>
       <hr />
-      <List
-        className="table--expandable table--hoverable"
-        elements={elements}
-        keys={keys}
-        sortBy={key => dispatch(sortTickets(key))}
-        sortable={true}
-        table_key="tickets"
-      />
-      <Pagination
-        currentPage={page}
-        goToPage={goToPage}
-        length={pagesLength}
-      />
-    </main>
+      {
+        tickets.loading
+          ? <Loading />
+          : (
+            <>
+              <List
+                className="table--expandable table--hoverable"
+                elements={elements}
+                keys={keys}
+                sortBy={key => dispatch(sortTickets(key))}
+                sortable={true}
+                table_key="tickets"
+              />
+              <Pagination
+                currentPage={page}
+                goToPage={goToPage}
+                length={pagesLength}
+              />
+            </>
+          )
+      }
+    </main >
   );
 };
 

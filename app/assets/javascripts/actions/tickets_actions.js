@@ -100,16 +100,15 @@ export const readAllMessages = ticket => async (dispatch) => {
   dispatch({ type: SET_MESSAGES_TO_READ, data: json });
 };
 
-const fetchSomeTickets = async (dispatch, page, search, batchSize = 100) => {
+const fetchSomeTickets = async (dispatch, page, searchQuery, batchSize = 100) => {
   const offset = batchSize * page;
-  const paramsObj = { limit: batchSize, offset: offset };
+  let paramsObj = { limit: batchSize, offset: offset };
   // Initial display => TicketDispenser
   let path = '/td/tickets';
-  // if search param is set => search in DB
-  if (Object.keys(search).length >= 1) {
+  // if at least one search query value is not-empty => search in DB
+  if (!Object.values(searchQuery).every(val => val === '')) {
     path = '/tickets/search';
-    paramsObj.search = search.search;
-    paramsObj.what = search.what;
+    paramsObj = { ...paramsObj, ...searchQuery };
   }
   const url_query = new URLSearchParams(paramsObj).toString();
   const response = await request(`${path}?${url_query}`);
@@ -120,14 +119,14 @@ const fetchSomeTickets = async (dispatch, page, search, batchSize = 100) => {
 };
 
 // Fetch as many tickets as possible
-export const fetchTickets = (search = {}) => async (dispatch) => {
+export const fetchTickets = (searchQuery = {}) => async (dispatch) => {
   dispatch({ type: FETCH_TICKETS });
 
   const batches = Array.from({ length: 10 }, (_el, index) => index);
   // Ensures that each promise will run sequentially
   return batches.reduce(async (previousPromise, batch) => {
     await previousPromise;
-    return fetchSomeTickets(dispatch, batch, search);
+    return fetchSomeTickets(dispatch, batch, searchQuery);
   }, Promise.resolve());
 };
 
