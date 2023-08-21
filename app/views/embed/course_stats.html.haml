@@ -22,7 +22,7 @@
         %small= t('metrics.word_count')
     - else
       .stat-display__stat#bytes-added
-        .stat-display__value= number_to_human(@course.character_sum_human)
+        .stat-display__value= number_to_human(@course.character_sum)
         %small= t('metrics.bytes_added')
 
     - if @course.references_count != '0'
