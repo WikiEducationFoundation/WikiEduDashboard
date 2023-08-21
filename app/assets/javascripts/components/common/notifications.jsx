@@ -1,18 +1,17 @@
 import React from 'react';
-import createReactClass from 'create-react-class';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { removeNotification } from '../../actions/notification_actions.js';
 
-export const Notifications = createReactClass({
-  displayName: 'Notifications',
+export const Notifications = () => {
+  const dispatch = useDispatch();
+  const notifications = useSelector(state => state.notifications);
 
+  const _handleClose = (notification) => {
+    dispatch(removeNotification(notification));
+  };
 
-  _handleClose(notification) {
-    return this.props.removeNotification(notification);
-  },
-
-  _renderNotification(notification, i) {
+  const _renderNotification = (notification, i) => {
     let message;
     let className = 'notice';
     if (notification.type === 'error') {
@@ -35,7 +34,7 @@ export const Notifications = createReactClass({
     let closeIcon;
     if (notification.closable) {
       closeIcon = (
-        <svg tabIndex="0" onClick={this._handleClose.bind(this, notification)} viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" style={{ fill: 'currentcolor', verticalAlign: 'middle', width: '32px', height: '32px' }}><g><path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z" /></g></svg>
+        <svg tabIndex="0" onClick={() => _handleClose(notification)} viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" style={{ fill: 'currentcolor', verticalAlign: 'middle', width: '32px', height: '32px' }}><g><path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z" /></g></svg>
       );
     }
 
@@ -47,23 +46,15 @@ export const Notifications = createReactClass({
         </div>
       </div>
     );
-  },
+  };
 
-  render() {
-    const notifications = this.props.notifications.map((n, i) => this._renderNotification(n, i));
+  const renderedNotifs = notifications.map((n, i) => _renderNotification(n, i));
 
-    return (
-      <div className="notifications">
-        {notifications}
-      </div>
-    );
-  }
-});
+  return (
+    <div className="notifications">
+      {renderedNotifs}
+    </div>
+  );
+};
 
-const mapStateToProps = state => ({
-  notifications: state.notifications
-});
-
-const mapDispatchToProps = { removeNotification };
-
-export default connect(mapStateToProps, mapDispatchToProps)(Notifications);
+export default (Notifications);
