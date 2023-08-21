@@ -118,7 +118,7 @@ GEM
       tzinfo (~> 2.0)
     acts_as_list (1.0.4)
       activerecord (>= 4.2)
-    addressable (2.8.4)
+    addressable (2.8.5)
       public_suffix (>= 2.0.2, < 6.0)
     airbrussh (1.4.1)
       sshkit (>= 1.6.1, != 1.7.0)
@@ -179,7 +179,7 @@ GEM
     crack (0.4.5)
       rexml
     crass (1.0.6)
-    css_parser (1.10.0)
+    css_parser (1.14.0)
       addressable
     dalli (3.2.3)
     debug_inspector (1.1.0)
@@ -380,13 +380,12 @@ GEM
     parallel (1.22.1)
     parser (3.1.2.1)
       ast (~> 2.4.1)
-    premailer (1.15.0)
+    premailer (1.21.0)
       addressable
-      css_parser (>= 1.6.0)
+      css_parser (>= 1.12.0)
       htmlentities (>= 4.0.0)
-    premailer-rails (1.12.0)
+    premailer-rails (1.11.1)
       actionmailer (>= 3)
-      net-smtp
       premailer (~> 1.7, >= 1.7.9)
     pry (0.14.1)
       coderay (~> 1.1)
