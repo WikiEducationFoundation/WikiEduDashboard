@@ -1,18 +1,15 @@
 import React, { useState } from 'react';
 
-const CampaignStatsDownloadModal = ({ router }) => {
+const CampaignStatsDownloadModal = ({ campaign_slug }) => {
   const [show, setShow] = useState(false);
 
-  const campaignSlug = router.params.campaign_slug;
-
-  const courseDataLink = `/campaigns/${campaignSlug}/courses.csv`;
-  const articlesEditedLink = `/campaigns/${campaignSlug}/articles_csv.csv`;
-  const RevisionsLink = `/campaigns/${campaignSlug}/revisions_csv.csv`;
-  const editorsLink = `/campaigns/${campaignSlug}/students.csv`;
-  const editorsByCourseLink = `/campaigns/${campaignSlug}/students.csv?course=true`;
-  const instructorsLink = `/campaigns/${campaignSlug}/instructors.csv?course=true`;
-  const wikidataLink = `/campaigns/${campaignSlug}/wikidata.csv`;
-
+  const courseDataLink = `/campaigns/${campaign_slug}/courses.csv`;
+  const articlesEditedLink = `/campaigns/${campaign_slug}/articles_csv.csv`;
+  const RevisionsLink = `/campaigns/${campaign_slug}/revisions_csv.csv`;
+  const editorsLink = `/campaigns/${campaign_slug}/students.csv`;
+  const editorsByCourseLink = `/campaigns/${campaign_slug}/students.csv?course=true`;
+  const instructorsLink = `/campaigns/${campaign_slug}/instructors.csv?course=true`;
+  const wikidataLink = `/campaigns/${campaign_slug}/wikidata.csv`;
 
   if (!show) {
     return (
