@@ -62,12 +62,35 @@ export const sortByKey = (models, sortKey, previousKey = null, desc = false, abs
   return { newModels, newKey };
 };
 
-// transformUsers: Transforms user objects by splitting 'real_name' into 'first_name' and 'last_name'
+// Transforms an array of user objects by splitting the 'real_name' property
+// into 'first_name' and 'last_name' properties.
 export const transformUsers = (users) => {
-  return users.map((user) => {
-    // Extract 'real_name' property and split into 'first_name' and 'rest'
-    // If 'real_name' exists, it's trimmed and converted to lowercase; if not, an empty string is used
-    const [first_name, ...rest] = (user.real_name?.trim().toLowerCase() || '').split(' ');
-    return { ...user, first_name, last_name: rest.join(' ') };
+  // Initialize arrays to hold users with and without real names
+  const usersWithRealName = [];
+  const usersWithoutRealName = [];
+
+  users.forEach((user) => {
+    // If the user has a 'real_name', split it into 'first_name' and 'last_name'
+    if (user.real_name) {
+      const [first_name, ...middle_last_name] = user.real_name.trim().split(' ');
+      const last_name = middle_last_name.pop(); // Get the last name from the split
+      usersWithRealName.push({
+        ...user,
+        first_name: first_name,
+        ...(last_name && { last_name: last_name }),
+      });
+    } else {
+      usersWithoutRealName.push(user);
+    }
   });
+
+  /* Concatenate the array of users with real names and the array of users without real names.
+   This order ensures that users without real names are placed after users with real names.
+
+   Note: The reason for adding users without real names after users with real names is to
+   ensure that if the data returned by transformUsers is sorted by 'last_name' or 'first_name'
+   using sortByKey, proper sorting is maintained. Otherwise, sorting might fail in case some users
+   don't have real names while others do.
+*/
+  return usersWithRealName.concat(usersWithoutRealName);
 };
