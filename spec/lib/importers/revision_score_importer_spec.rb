@@ -123,7 +123,7 @@ describe RevisionScoreImporter do
   end
 
   it 'handles network errors gracefully' do
-    stub_request(:any, %r{https://ores.wikimedia.org/.*})
+    stub_request(:any, %r{https://api.wikimedia.org/service/lw/.*})
       .to_raise(Errno::ECONNREFUSED)
     described_class.new.update_revision_scores
     expect(Revision.find_by(mw_rev_id: 662106477).wp10).to be_nil
@@ -193,7 +193,7 @@ describe RevisionScoreImporter do
 
     before do
       stub_wiki_validation
-      OresApi::AVAILABLE_WIKIPEDIAS.each do |lang|
+      LiftWingApi::AVAILABLE_WIKIPEDIAS.each do |lang|
         wiki = Wiki.get_or_create(language: lang, project: 'wikipedia')
         article = create(:article, wiki:)
         create(:revision, article:, wiki:, mw_rev_id: 12345)
@@ -206,7 +206,7 @@ describe RevisionScoreImporter do
       VCR.use_cassette 'revision_scores/multiwiki' do
         described_class.update_revision_scores_for_all_wikis
 
-        OresApi::AVAILABLE_WIKIPEDIAS.each do |lang|
+        LiftWingApi::AVAILABLE_WIKIPEDIAS.each do |lang|
           wiki = Wiki.get_or_create(language: lang, project: 'wikipedia')
           # This is fragile, because it assumes every available wiki has an existing
           # revision 12345. But it works so far.
@@ -222,7 +222,7 @@ describe RevisionScoreImporter do
     it 'raises an error' do
       stub_wiki_validation
       expect { described_class.new(language: 'zh').update_revision_scores }
-        .to raise_error(OresApi::InvalidProjectError)
+        .to raise_error(LiftWingApi::InvalidProjectError)
     end
   end
 end

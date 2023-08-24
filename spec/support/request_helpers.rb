@@ -280,7 +280,11 @@ module RequestHelpers
       'de.wikiversity.org',
       'commons.wikimedia.org',
       'de.wikipedia.org',
-      'en.wikipedia.org'
+      'en.wikipedia.org',
+      'gl.wikipedia.org',
+      'nl.wikipedia.org',
+      'sv.wikipedia.org',
+      'uk.wikipedia.org'
     ]
 
     wikis.each do |wiki|
