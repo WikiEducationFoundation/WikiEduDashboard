@@ -145,6 +145,11 @@ lt:
     title: Pavadinimas
     use_start_end_dates: Naudoti pradžios ir pabaigos datas
   categories:
+    searching_for_category: Ieškoma kategorijų
+    add_this_category: Pridėti kategorijas
+    add_this_psid: Pridėkite PetScan PSID
+    add_this_pileid: Pridėkite PagePile id
+    add_this_template: Pridėti šablonus
     import_articles_description: Straipsnių sąrašas kategorija atnaujinamas periodiškai
       ir gali užtrukti, kol sąrašas atsinaujins.
     articles_count: Straipsnių Skaičius
@@ -478,6 +483,8 @@ lt:
     name: Pavadinimas
     none: Nėra dalyvių.
     no_articles: Nėra straipsnių
+    no_highlighting: Joks tekstas iš dabartinės straipsnio versijos nepriskirtas naudotojui
+      %{editor}. Peržiūrėkite puslapio istoriją, kad pamatytumėte jų pakeitimus.
     recent_revisions: Naujausi keitimai
     request_confirmation: Ar tikrai norite prašyti šios paskyros?
     sandboxes: smėlio dėžės

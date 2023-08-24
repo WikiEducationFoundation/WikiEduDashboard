@@ -205,7 +205,7 @@ bn:
     requested_accounts: অনুরোধকৃত অ্যাকাউন্ট
   categories:
     add_template: টেমপ্লেট যোগ করুন
-    add_this_template: এই টেমপ্লেট যোগ করুন
+    add_this_template: টেমপ্লেট যোগ করুন
     name: নাম
     category_name: বিষয়শ্রেণীর নাম
     template_name: টেমপ্লেটের নাম
