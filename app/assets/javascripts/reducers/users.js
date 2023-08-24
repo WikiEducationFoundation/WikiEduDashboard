@@ -35,21 +35,18 @@ export default function users(state = initialState, action) {
       // Initialize a variable to hold the user list.
       let user_list = action.data.course.users;
 
-      // Check if any user in the user_list has 'real_name'
-      if (user_list.some(user => user.real_name)) {
-        // If any users have 'real_name', transform the 'real_name' into separate
-        // 'first_name' and 'last_name' properties and update the user list
-        user_list = transformUsers(user_list);
-      } else if (!state.sort.key) {
-        // If there are no users with real_name and key in the store is null then set sort_key by username
+      // Transform the 'real_name' in user_list into separate 'first_name' and 'last_name' properties
+      // if 'real_name' is available by using transformUsers
+      user_list = transformUsers(user_list);
+
+      // If there are no users with last_name and key in the store is null then set sort_key by username
+      if (!state.sort.key && !user_list.some(user => user.last_name)) {
         sort_key = 'username';
       }
 
       /* If 'key' in the store is not null which implies instructor/user had sort the student/editors list either using
-         the dropdown menu or one of the student/editor tab and if 'sortKey' state is null it means sorting was done in
-         reverse so set the previousKey to the 'sort_key' or else null.
-         Note: If 'key' in the store is null it means student/editors list is being loaded for the first time.
-      */
+      the dropdown menu or one of the student/editor tab and if 'sortKey' state is null it means sorting was done in
+      reverse so set the previousKey to the 'sort_key' or else null. */
       if (state.sort.key) { previousKey = state.sort.sortKey ? null : sort_key; }
 
       // Sort the 'user_list' array based on the 'sort_key'
