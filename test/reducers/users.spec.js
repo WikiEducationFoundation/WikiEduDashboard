@@ -38,7 +38,7 @@ describe('users reducer', () => {
   ];
 
   users_array = users_array.map((user) => {
-    const [first_name, ...rest] = (user.real_name?.trim().toLowerCase() || '').split(' ');
+    const [first_name, ...rest] = (user.real_name?.trim() || '').split(' ');
     return { ...user, first_name, last_name: rest.join(' ') };
   });
 
