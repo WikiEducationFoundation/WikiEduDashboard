@@ -413,7 +413,7 @@ describe 'the course page', type: :feature, js: true do
       js_visit "/courses/#{slug}/students"
       sleep 1
       expect(page).to have_content(User.last.username)
-      student_row = 'table.users tbody tr.students:first-child'
+      student_row = 'table.users tbody tr.students:nth-child(2)'
       within(student_row) do
         expect(page).to have_content User.first.username
         within 'td:nth-of-type(4)' do
