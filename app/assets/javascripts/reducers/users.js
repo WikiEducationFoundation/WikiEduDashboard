@@ -24,7 +24,7 @@ const SORT_DESCENDING = {
 export default function users(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_USERS: {
-       // Transform the 'real_name' for users in 'action' into separate 'first_name'
+      // Transform the 'real_name' for users in 'action' into separate 'first_name'
       // and 'last_name' properties if 'real_name' is available by using transformUsers.
       let user_list = transformUsers(action.data.course.users);
 
