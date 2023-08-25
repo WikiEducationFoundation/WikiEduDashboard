@@ -32,4 +32,12 @@ const wikiNamespaceLabel = (wiki_domain, namespace) => {
   if (typeof (ns_label) !== 'string') ns_label = ns_label[project];
   return `${wiki_domain} - ${I18n.t(`namespace.${ns_label}`)}`;
 };
-export { trackedWikisMaker, formatOption, toWikiDomain, wikiNamespaceLabel };
+
+const getArticleUrl = (wiki, title) => {
+  const language = wiki.language || 'www';
+  const project = wiki.project;
+  const domain = `${language}.${project}.org`;
+  return `https://${domain}/wiki/${title}`;
+};
+
+export { trackedWikisMaker, formatOption, toWikiDomain, wikiNamespaceLabel, getArticleUrl };

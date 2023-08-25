@@ -229,6 +229,9 @@ en:
     deleted_message: >
       According to the Dashboard's data, this page has been deleted. (In some cases, page moves, history merges or other actions can result in an article being incorrectly listed as deleted. Deleted articles may also be later undeleted. For articles that are not actually deleted, or have been subsequently restored, the Dashboard will usually reflect this within one or two days.)
     page_logs: (page logs)
+    tracked_articles: Tracked Articles
+    view_articles: View Articles
+    no_tracked_articles: This category has no tracked articles
 
   items:
     items: Items
@@ -997,6 +1000,7 @@ en:
   metrics:
     label: Course Activity
     last_update: Last statistics update
+    last_articles_update: Last articles update
     next_update: Next estimated update
     late_update: A new update was expected %{late_update_time}. This may mean that the update is taking longer than expected, or may indicate a problem that is blocking updates.
     no_update: The Dashboard hasn't imported any data for this program yet.
