@@ -54,7 +54,8 @@ export default function users(state = initialState, action) {
       };
 
     case SORT_USERS: {
-      const sorted = sortByKey(state.users, action.key, state.sort.sortKey, SORT_DESCENDING[action.key]);
+      const transformedUsers = transformUsers(state.users);
+      const sorted = sortByKey(transformedUsers, action.key, state.sort.sortKey, SORT_DESCENDING[action.key]);
       return {
         ...state,
         users: sorted.newModels,
