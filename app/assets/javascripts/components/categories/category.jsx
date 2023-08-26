@@ -3,6 +3,7 @@ import CourseUtils from '../../utils/course_utils';
 import { toDate } from '../../utils/date_utils';
 import { isSameDay, formatDistanceToNow } from 'date-fns';
 import ArticleTitlesModal from './article_titles_modal';
+import { createPortal } from 'react-dom';
 
 const Category = ({ course, category, remove, editable }) => {
   let removeButton;
@@ -79,14 +80,17 @@ const Category = ({ course, category, remove, editable }) => {
         <td>{removeButton}</td>
       </tr>
       {showModal && (
-        <ArticleTitlesModal
-          setShowModal={setShowModal}
-          category={category}
-          course={course}
-          lastUpdateMessage={`${I18n.t(
+        // this would work without a portal as well, but it would be rendered inside the table
+        // which causes react to complain about invalid html
+        createPortal(
+          <ArticleTitlesModal
+            setShowModal={setShowModal}
+            category={category}
+            course={course}
+            lastUpdateMessage={`${I18n.t(
             'metrics.last_articles_update'
           )}: ${formatDistanceToNow(lastUpdate, { addSuffix: true })}`}
-        />
+          />, document.body)
       )}
     </>
   );

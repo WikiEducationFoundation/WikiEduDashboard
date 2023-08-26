@@ -64,7 +64,13 @@ const ArticleTitlesModal = ({ setShowModal, category, course, lastUpdateMessage 
                   marginBottom: '0.5em',
                 }}
                 >
-                  {I18n.t('articles.tracked_articles')}
+                  {I18n.t('articles.tracked_articles')} for
+                  <span style={{
+                    textTransform: 'capitalize',
+                  }}
+                  >
+                    {` ${category.source}: ${category.name.replaceAll('_', ' ')}`}
+                  </span>
                 </h3>
                 <small>
                   {lastUpdateMessage}
