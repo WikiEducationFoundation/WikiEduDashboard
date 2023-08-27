@@ -22,7 +22,7 @@ services:
     environment:
       MYSQL_RANDOM_ROOT_PASSWORD: yes
     volumes:
-      - ./create-db.sql:/docker-entrypoint-initdb.d/create-db.sql
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
       - mysql_data:/var/lib/mysql
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]

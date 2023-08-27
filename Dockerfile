@@ -1,17 +1,3 @@
-# Dockerfile
-#
-# Build:
-#   - docker build -t wiki-edu-dashboard .
-# Run:
-#   - docker run -v ./project-dir:/app -e ENV_VAR=VALUE wiki-edu-dashboard 
-#   - docker compose up
-# Environment Var:
-#   - MYSQL_USERNAME
-#   - MYSQL_PASSWORD
-#   - MYSQL_HOST
-#   - MYSQL_PORT
-#   - REDIS_URL
-
 FROM ruby:3.1.2-slim
 
 WORKDIR /app
@@ -38,5 +24,5 @@ COPY config/database.example.yml ./config/database.yml
 
 EXPOSE 3000
 
-ENTRYPOINT ["./docker-entrypoint.sh"]
+ENTRYPOINT ["./docker/entrypoint.sh"]
 CMD ["start"]
