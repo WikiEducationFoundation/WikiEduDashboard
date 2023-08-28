@@ -25,6 +25,11 @@ class CategoriesController < ApplicationController
     render 'courses/categories'
   end
 
+  def category
+    @category = Category.find(params[:id])
+    render 'categories/category'
+  end
+
   private
 
   def set_course_and_validate
