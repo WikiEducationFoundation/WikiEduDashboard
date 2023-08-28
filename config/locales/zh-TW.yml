@@ -342,6 +342,7 @@ zh-TW:
     use_start_end_dates: 使用起始和結束時間
     search: 搜尋
   categories:
+    searching_for_category: 搜尋分類在
     add_category: 新增分類
     add_psid: 添加 PetScan PSID
     add_pileid: 添加頁面檔案 ID
@@ -351,6 +352,7 @@ zh-TW:
     add_this_pileid: 添加頁面檔案 ID
     add_this_template: 新增模板
     import_articles_description: 在分類裡的條目清單會定期更新，並且在清單填充之前添加可能會花費一段時間。
+    confirm_add_n_scoping_method: 添加 %{n} 個範圍界定方法？
     depth: 子分類層度
     articles_count: 條目數
     name: 名稱
@@ -736,15 +738,32 @@ zh-TW:
       save_cloned_course: 儲存
       start_date: 活動追蹤起始
       scoping_methods:
+        scoping_methods: 範圍界定方法
+        configure: 配置範圍界定方法
+        about: |-
+          對於條目範圍方案，控制面板僅會追蹤您為其配置的條目的編輯。在您建立頁面後，您可以添加單獨條目來追蹤分配給各編輯者的條目，或是透過將它們添加為可用條目。對於較大的條目集合，您可以使用這些任一工具來定義要追蹤的條目。
+          選擇您現在要配置的任何範圍界定方法。您還可以事後從條目分頁來添加範圍界定方法。
         categories: 分類
         categories_short_desc: wiki 上的分類功能用於收集相關條目。您可以使用分類名稱來讓控制面板追蹤該分類裡的所有條目。
+        categories_desc: |-
+          追蹤分類代表著功能面板將計算對該分類中任何條目的編輯次數。在預設情況下（深度：0），只會追踪直接隸屬該分類的條目。
+          如果您想要包含該分類下子分類裡的條目，可以增加深度值（最多至 3）。請務必先瀏覽該分類，以確保子分類與您所想要追踪的內容相符。
         templates: 模板
+        templates_short_desc: 您可以根據條目包含的模板來追蹤條目，無論該模板是在條目本身、或是在相對應的討論頁上使用（例如 WikiProject
+          模板）都有效。
         petscan: PetScan
+        petscan_short_desc: PetScan 是一個能允許您根據廣泛條件來查詢 wiki 頁面的工具 - 包括分類、模板、wiki 連結等等。您可以使用
+          PetScan 查詢 ID 配置一組要在功能面板上追蹤的條目。
         pagepile: PagePile
         pagepile_short_desc: PagePile 是一個能讓您建立不隨時間變化，且由唯一 ID 標識的頁面清單的工具。
+        templates_desc: 模板在 wiki 頁面上用於多種用途，不過有些模板特定於某個主題。在使用模板設置條目範圍方案時，導航模板、WikiProject
+          模板和特定於主題資訊框模板特別有用。
         pagepile_desc: |-
           PagePile 是維基多媒體雲端上的一個工具。能允許使用者收集 wiki 頁面群組，並將其組織成一個稱為「pile」的一捆資訊包。這些「pile」能輕鬆地與其他人分享，讓協作和資訊分享可行。
           相較於 PetScan，「pile」裡的條目不會隨著時間的推動而改變，即使當分類、模板，或是其他用來建立條目集的資料發生變動也是如此。
+        petscan_desc: |-
+          PetScan 是一個功能強大但複雜的工具，用於根據各種標準和資料來源查詢 wiki 頁面集合。您可以直接使用 PetScan 來建立您所想要追蹤的條目集合查詢，這能讓您存取完整的選項集合來精確地定位您的查詢。或者是您可以直接從控制面板中的一些最常用選項來建立 PetScan 查詢。
+          PetScan 會保存查詢參數並提供該查詢的 ID。該查詢的結果可能會隨著時間而有變化，例如在新條目添加到查詢所包含的分類時。控制面板將定期重新整理指定 ID 的查詢結果，並將根據 PetScan 生成的最新條目集合來更新其統計資訊。
         petscan_create_psid: 使用官方 PetScan 工具建立 PetScan ID
         pagepile_create_id: 使用官方 PagePile 工具建立 PagePile
         categories_include_OR: 將追蹤包含這些任何分類的條目
@@ -1189,6 +1208,7 @@ zh-TW:
     no_articles_wikidata: 沒有項目
     no_revisions: （無修訂）
     no_highlighting: 條目的目前版本中沒有文字內容歸因於使用者「%{editor}」。檢查頁面歷史來查看他們的編輯。
+    contributions_not_highlighted: 無法突顯出來自使用者%{username}的貢獻。這種情況通常發生在所添加的參考或模板上。請檢查頁面歷史記錄來查看他們的編輯。
     number_of_articles:
       one: '%{count} 個條目'
       other: '%{count} 個條目'
@@ -1217,6 +1237,8 @@ zh-TW:
       student_overview: '%{prefix}概要'
       watch_list:
         students_add: 將所有%{prefix}添加到監視清單
+        instructional_message: 您即將把學生的討論頁面添加到您的監視清單，以隨時了解他們的討論和貢獻。點擊「確定」會把所有學生添加到監視清單裡。要繼續嗎？
+        tooltip_message: 透過將學生討論頁上的討論添加到您的監視清單，您可以輕鬆追蹤學生討論頁上的內容。
         success_message: '%{prefix}已成功添加到監視清單。'
         error_message: 無法將%{prefix}添加到監視清單。請稍後再試。
     total_uploads: 上傳總數
