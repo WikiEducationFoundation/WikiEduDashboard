@@ -192,6 +192,9 @@ zh-TW:
     articles_short: 條目
     deleted_message: 根據控制面板的資料，該頁面已被刪除。（在某些情況下，頁面移動、歷史紀錄合併、或是其他操作可能導致條目被錯誤地列為已被刪除。已刪除的條目也可能事後會被取消刪除。對於實際未被刪除或是事後已恢復的條目，面板通常會在一兩天內反應出。）
     page_logs: （頁面日誌）
+    tracked_articles: 已追蹤條目
+    view_articles: 檢視條目
+    no_tracked_articles: 此分類沒有追蹤的條目
   items:
     items: 項目
     lexeme: 詞位
@@ -843,6 +846,7 @@ zh-TW:
   metrics:
     label: 課程活動
     last_update: 最後一次統計更新
+    last_articles_update: 最新條目更新
     next_update: 下一次的預計更新
     late_update: 新的更新預計時間為 %{late_update_time}。這代表更新花費的時間比預期長，或者可能是有會妨礙更新的問題。
     no_update: 功能面板尚未匯入此方案的任何資料。

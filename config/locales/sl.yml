@@ -70,6 +70,9 @@ sl:
     title: Naslov
     title_example: Naslov članka
     view_all: Pokaži vse
+    tracked_articles: Spremljani članki
+    view_articles: Ogled člankov
+    no_tracked_articles: Ta kategorija ne vsebuje spremljanih člankov
   items:
     lexeme: Leksem
     assignments_none: Ni še nobenih dodeljenih predmetov.
@@ -301,6 +304,7 @@ sl:
       title: Izberi %{prefix}
   metrics:
     last_update: Zadnja posodobitev statistike
+    last_articles_update: Zadnja posodobitev članka
     articles_created_generic: Ustvarjene strani
     articles_edited_generic: Urejene strani
     bytes_added: Zlogov dodanih

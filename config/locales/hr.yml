@@ -4,13 +4,14 @@
 # Author: Bugoslav
 # Author: Ivi104
 # Author: Neptune, the Mystic
+# Author: Ponor
 # Author: Vrhnje
 ---
 hr:
   application:
     greeting2: Dobro došli!
     greeting_extended: Dobro došli na Wikipediju
-    greeting: Bok!
+    greeting: Pozdrav!
     help: Pomoć
     home: Glavna stranica
     log_in_extended: Prijavi se preko Wikipedije

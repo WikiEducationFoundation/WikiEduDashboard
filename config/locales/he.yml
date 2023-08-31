@@ -22,6 +22,7 @@
 # Author: YaronSh
 # Author: המקיסט
 # Author: מקף
+# Author: נדב ס
 # Author: פוילישער
 # Author: תומר ט
 ---
@@ -218,6 +219,9 @@ he:
       \nשימו לב שנכון להיום הציון הזה זמין רק לערכים שנכתבו בוויקיפדיה האנגלית."
     articles_short: ערכים
     page_logs: (יומני הדף)
+    tracked_articles: ערכים במעקב
+    view_articles: צפייה בערכים
+    no_tracked_articles: בקטגוריה זו אין ערכים במעקב
   items:
     items: פריטים
     lexeme: יחידה מילונית
@@ -338,8 +342,8 @@ he:
   categories:
     add_category: הוספת קטגוריה
     add_template: הוספת תבנית
-    add_this_category: הוספת הקטגוריה הזאת
-    add_this_template: הוספת התבנית הזאת
+    add_this_category: הוספת קטגוריות
+    add_this_template: הוספת תבניות
     depth: עומק תת־קטגוריה
     articles_count: מונה ערכים
     name: שם
@@ -465,6 +469,7 @@ he:
     gradeables_none: לתוכנית \ לקורס \ למיזם הזה אין הקצאות שאפשר לתת להן ציונים.
     home_wiki: האתר הראשי
     multi_wiki: אתרי ויקי במעקב
+    namespaces: מרחבי שם במעקב
     instructor:
       one: מנחה
       other: מנחים
@@ -477,6 +482,7 @@ he:
     join_prompt: להצטרף ל-%{title}?
     join_successful: צורפת בהצלחה לפעילות %{title}. לוח הבקרה יעקוב אוטומטית אחר התרומות
       שלך עם עדכונים תקופתיים. נא לבדוק מאוחר יותר כדי לראות איזו השפעה הייתה לך!
+    join_failed: ההרשמה נכשלה.
     join_failure_details:
       cannot_join_twice: משתמשים לא יכולים להירשם לאותו קורס פעמיים.
       not_yet_approved: הקורס הזה עוד לא אושר לרישום.
@@ -488,6 +494,7 @@ he:
     loading: בטעינה...
     milestones_none: לתוכנית \ לקורס \ למיזם הזה אין כרגע אבני דרך.
     my_articles: הערכים שלי
+    my_articles_wikidata: הפריטים שלי
     new_week: הוספת שבוע חדש
     new_account_email: כתובת דוא״ל
     new_account_info: כדי לבקש חשבון, נא להזין את כתובת הדוא"ל שלך ואת שם המשתמש המבוקש.
@@ -496,6 +503,7 @@ he:
       ואת שם המשתמש המבוקש. תישלח אליו סיסמה כשהחשבון ייווצר.
     new_account_username: שם המשתמש המבוקש
     new_account_username_invalid: שם משתמש זה אינו תקני.
+    new_account_username_taken: שם המשתמש שבחרת תפוס. יש לבחור בשם אחר.
     new_account_submit: בקשת חשבון
     new_account_submitted: בקשת החשבון שלך נשלחה. העוזר עבור התוכנית הזאת יכול לסיים
       את יצירת החשבון שלך עכשיו. כשהוא ייווצר, תקבל סיסמה לחשבון שלך בדוא"ל.
@@ -528,6 +536,7 @@ he:
     start: התחלה
     start_typing: התחילו להקליד
     stay_in_sandbox: להישאר בארגז החול
+    student: משתתף
     students: משתתפים
     students_taught: תלמידים למדו
     students_count: מספר המשתתפים
@@ -640,6 +649,9 @@ he:
       participate_in_campaign: השתתפות במסע פרסום
       save_cloned_course: שמירה
       start_date: התחלת מעקב פעילות
+      scoping_methods:
+        categories: קטגוריות
+        templates: תבניות
     delete_course: מחיקת תוכנית \ קורס \ מיזם
     edit_course_dates: עריכת תאריכי התוכנית \ הקורס \ המיזם
     end: סיום מעקב פעילות
@@ -659,6 +671,7 @@ he:
     revisions_none: בתוכנית \ בקורס \ במיזם זה לא היתה פעילות עריכה לאחרונה.
     school: מוסד
     student_editors: עורכים
+    student: עורך
     students: עורכים
     students_none: לפרויקט זה אין עורכים מורשים.
     students_short: עורכים
@@ -685,6 +698,9 @@ he:
     activity: פעילות לאחרונה
     are_trained: משתתפים אשר השלימו הדרכה
     articles_created: מס' ערכים שנוצרו
+    articles_created_wikidata: פריטים שנוצרו
+    articles_created_generic: דפים שנוצרו
+    articles_created_generic_wikidata: פריטים שנוצרו
     articles_edited: מס' ערכים שנערכו
     bytes_added: כמות הבייטים שנוספו
     characters: תווים
@@ -704,6 +720,7 @@ he:
       other: קבצים הנמצאים בשימוש בערכים
     upload_usages_count: שימוש כולל בכל השפות
     view_count_description: צפיות בערכים
+    view_count_description_wikidata: צפיות בפריטים
     view: צפיות
     wiki_ed_help: ניתן להשתמש בכפתור ’קבלת עזרה’ לדיווח על בעיה.
     word_count: מילים שנוספו
@@ -726,6 +743,22 @@ he:
     main_char_added: מס' התווים שנוספו למרחב הערכים הראשי
     user: מרחב משתמש
     user_char_added: מס' תווים שנוספו למרחב המשתמש
+    file: קובץ
+    mediaWiki: מדיה־ויקי
+    template: תבנית
+    help: עזרה
+    category: קטגוריה
+    page: דף
+    book: ספר
+    translation: תרגום
+    draft: טיוטה
+    property: מאפיין
+    query: שאילתה
+    lexeme: יחידה מילונית
+    appendix: נספח
+    portal: פורטל
+    rhymes: חרוזים
+    collection: אוסף
   recent_activity:
     active_courses: 'הערך פעיל ב:'
     article_title: כותרת
@@ -748,6 +781,7 @@ he:
     usage_count: מונה שימוש
   revisions:
     chars_added: תווים שנוספו
+    references: מקורות שנוספו
     class: מפגש
     date_time: תאריך/שעה
     diff: הבדל
@@ -768,9 +802,12 @@ he:
       new:
         form_label: לתת הרשאות מנהל
         confirm_add_admin: לתת הרשאות מנהל
+        confirm_remove_admin: הסרת הרשאות מנהל עבור
         already_admin: למשתמש %{username} כבר יש הרשאות מנהל!
       remove:
         revoke_button: שלילת הרשאות מנהל
+        revoke_button_confirm: שלילת הרשאות משתמש מ־%{username}
+        revoking_button_working: מבצע שלילת הרשאות...
         already_instructor: למשתמש %{username} כבר יש הרשאות מנחה!
         demote_success: '%{username} שונה למנחה.'
         no_super_admin: לא ניתן לשלול הרשאות מנהל ממנהל־על
@@ -779,6 +816,8 @@ he:
         revoking_button_working: מסיר...
   suggestions:
     editing: עריכת הצעות
+    suggestion_docs:
+      does_not_exist: הערך לא מופיע בוויקיפדיה.
   tasks:
     conseq: המשימה %{task} כבר בעבודה!
     constant: המשימה %{task} אינה יכולה לרוץ בזמן הרצת העידכון היומי (update_daily).
@@ -833,6 +872,7 @@ he:
     no_timeline: אין לוח זמנים בתוכנית \ בקורס \ במיזם הזה.
     no_activity_this_week: אין פגישות מתוכננות השבוע
     nothing_this_week: לא מתוכנן שום דבר לשבוע הזה.
+    reset_titles: איפוס לברירת המחדל
     save_all_changes: לשמור הכול
     this_week_title_default: השבוע
     title: לוח הזמנים
@@ -850,8 +890,11 @@ he:
     previous: < הקודם
     table_of_contents: תוכן עניינים
     logged_out: יצאת מהחשבון. לא יינתן לך קרדיט על השלמת המודול הזה ללא כניסה לחשבון.
+    check_answer: בדיקת תשובה
     kind:
       discussion: דיון
+  update_username:
+    button: עדכון
   uploads:
     credit: קרדיט
     file_name: שם הקובץ
@@ -873,8 +916,10 @@ he:
   users:
     already_enrolled: המשתמש הזה כבר רשום!
     assign_articles: הקצאת ערך
+    assign_articles_wikidata: הקצאת פריטים
     assign_articles_done: בוצע
     assigned: ערכים שהוקצו
+    assigned_wikidata: פריטים שהוקצו
     assignees: אנשים מוקצים
     character_doc: סך כמות התוכן שנוספה למרחב השם הזה, מחושב לפי הוספת כל התווים של
       כל העריכות שהגדילו את גודל הדף. המספר הזה לא בהכרח משקף את כמות התוכן החדש שהמשתמש
@@ -926,10 +971,14 @@ he:
       other: '%{completed_count}/%{count} הדרכה שהושלמה'
     training_module_name: יחידת הדרכה
     training_module_status: מצב
+    training_module_time:
+      minutes: דק'
+      seconds: שנ'
     up_to_date_with_training: משתתפים שהשלימו את ההדרכה
     uploads_doc: מספר העלאות הקבצים לוויקישיתוף
     username: שם משתמש
     username_placeholder: שם משתמש
+    useremail_placeholder: דוא"ל
     userpasscode_placeholder: קוד גישה
     role:
       description: תפקיד בקורס
@@ -1060,6 +1109,7 @@ he:
     page_assessment_class: מחלקה
     relevanceIndex: מדד רלוונטיות
     remove_article: הסרת ערך
+    remove_article_wikidata: הסרת פריטים
     search: חיפוש
     searching_articles: חיפוש ערכים
     search_placeholder: יש להקליד מילת מפתח

@@ -252,6 +252,9 @@ fr:
       suite, le tableau de bord en tiendra compte habituellement au bout d’un ou deux
       jours).
     page_logs: (journaux des pages)
+    tracked_articles: Articles suivis
+    view_articles: Afficher les articles
+    no_tracked_articles: Cette catégorie n’a pas d’articles suivis
   items:
     items: Éléments
     lexeme: Lexème
@@ -1130,6 +1133,7 @@ fr:
   metrics:
     label: Activité du cours
     last_update: Dernière mise à jour des statistiques
+    last_articles_update: Mise à jour des derniers articles
     next_update: Prochaine mise à jour estimée
     late_update: Une nouvelle mise à jour était attendue avant le %{late_update_time}.
       Ceci peut signifier que la mise à jour  prend plus de temps qu’attendu ou qu’un

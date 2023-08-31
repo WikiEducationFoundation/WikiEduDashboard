@@ -18,6 +18,9 @@ ro:
     loading: Se încarcă articole...
     rating: Clasă
     title: Titlu
+    tracked_articles: Articole urmărite
+    view_articles: Vezi articole
+    no_tracked_articles: Această categorie nu are articole urmărite
   courses:
     school_system: Sistem Academic
     activity: Activitate
@@ -35,6 +38,8 @@ ro:
     creator:
       scoping_methods:
         pagepile_create_id: Creați un PagePile folosind instrumentul oficial PagePile
+  metrics:
+    last_articles_update: Actualizarea ultimelor articole
   users:
     contributions: Contribuții utilizator
     contributions_more: Vezi mai multe contribuții
