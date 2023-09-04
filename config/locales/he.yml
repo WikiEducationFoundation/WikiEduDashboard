@@ -221,7 +221,7 @@ he:
     page_logs: (יומני הדף)
     tracked_articles: ערכים במעקב
     view_articles: צפייה בערכים
-    no_tracked_articles: בקטגוריה זו אין ערכים במעקב
+    no_tracked_articles: בקטגוריה הזאת אין ערכים במעקב
   items:
     items: פריטים
     lexeme: יחידה מילונית
@@ -744,7 +744,7 @@ he:
     user: מרחב משתמש
     user_char_added: מס' תווים שנוספו למרחב המשתמש
     file: קובץ
-    mediaWiki: מדיה־ויקי
+    mediaWiki: מדיה ויקי
     template: תבנית
     help: עזרה
     category: קטגוריה
@@ -806,8 +806,8 @@ he:
         already_admin: למשתמש %{username} כבר יש הרשאות מנהל!
       remove:
         revoke_button: שלילת הרשאות מנהל
-        revoke_button_confirm: שלילת הרשאות משתמש מ־%{username}
-        revoking_button_working: מבצע שלילת הרשאות...
+        revoke_button_confirm: שלילת הרשאות מחשבון %{username}
+        revoking_button_working: מתבצעת שלילת הרשאות...
         already_instructor: למשתמש %{username} כבר יש הרשאות מנחה!
         demote_success: '%{username} שונה למנחה.'
         no_super_admin: לא ניתן לשלול הרשאות מנהל ממנהל־על

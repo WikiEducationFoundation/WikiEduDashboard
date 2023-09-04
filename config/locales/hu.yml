@@ -230,6 +230,8 @@ hu:
       visszaállított szócikkek esetében a Kezelőpult általában egy-két napon belül
       tükrözi ezt).
     page_logs: (oldalnaplók)
+    tracked_articles: Követett cikkek
+    view_articles: Cikkek megtekintése
   items:
     items: Elemek
     article_not_found: Ez az elem még nem létezik.
