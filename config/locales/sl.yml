@@ -168,6 +168,7 @@ sl:
     data_revisions: Podatki o redakcijah
     delete_suggestion: Izbriši
     dismiss_survey: Opusti
+    dismiss_survey_confirm: Ali res želite trajno opustiti to anketo?
     embed_course_stats_description: Za vdelavo statistike tega programa v drugo spletno
       mesto kopirajte in prilepite ta delček kode
     end: Konec
