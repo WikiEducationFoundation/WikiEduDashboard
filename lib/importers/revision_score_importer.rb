@@ -121,6 +121,7 @@ class RevisionScoreImporter
   def save_scores(scores)
     scores.each do |mw_rev_id, score|
       revision = Revision.find_by(mw_rev_id: mw_rev_id.to_i, wiki_id: @wiki.id)
+      next unless revision
       revision.wp10 = weighted_mean_score(score)
       revision.features = score.dig(model_key, 'features')
       revision.deleted = true if deleted?(score)

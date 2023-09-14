@@ -12,9 +12,8 @@ class LiftWingApi
   LIFT_WING_SERVER_URL = 'https://api.wikimedia.org'
 
   # All the wikis with an articlequality model as of 2023-06-28
-  # https://wikitech.wikimedia.org/wiki/Machine_Learning/LiftWing
-  # TODO as of 2023-09-13: debug nl.wikipedia and enable it
-  AVAILABLE_WIKIPEDIAS = %w[en eu fa fr gl pt ru sv tr uk].freeze
+  # https://wikitech.wikimedia.org/wiki/Machine_Learning/LiftWingq
+  AVAILABLE_WIKIPEDIAS = %w[en eu fa fr gl nl pt ru sv tr uk].freeze
 
   def self.valid_wiki?(wiki)
     return true if wiki.project == 'wikidata'

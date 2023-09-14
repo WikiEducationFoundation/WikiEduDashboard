@@ -196,7 +196,7 @@ describe RevisionScoreImporter do
       LiftWingApi::AVAILABLE_WIKIPEDIAS.each do |lang|
         wiki = Wiki.get_or_create(language: lang, project: 'wikipedia')
         article = create(:article, wiki:)
-        create(:revision, article:, wiki:, mw_rev_id: 12345)
+        create(:revision, article:, wiki:, mw_rev_id: 1234)
       end
       wikidata_item = create(:article, wiki: wikidata)
       create(:revision, article: wikidata_item, wiki: wikidata, mw_rev_id: 12345)
@@ -209,7 +209,7 @@ describe RevisionScoreImporter do
         LiftWingApi::AVAILABLE_WIKIPEDIAS.each do |lang|
           wiki = Wiki.get_or_create(language: lang, project: 'wikipedia')
           # This is fragile, because it assumes every available wiki has an existing
-          # revision 12345. But it works so far.
+          # revision 1234. But it works so far.
           expect(wiki.revisions.first.wp10).to be_between(0, 100)
         end
 
