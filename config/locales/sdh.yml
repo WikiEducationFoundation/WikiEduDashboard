@@ -1,0 +1,36 @@
+# Messages for Southern Kurdish (کوردی خوارگ)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Paraw2
+# Author: TerranBoy
+---
+sdh:
+  application:
+    greeting2: خوەش هاتی!
+    greeting: سڵام!
+    home: ماڵ
+    details: وردەکاریەگان
+    confirm: باشە
+    opt_in: ئەرێ
+    opt_out: نە
+    opt_yes: ئەرێ
+    opt_no: نە
+    print: چاپ
+  activity:
+    all: چالاکی
+    label: چالاکی
+  articles:
+    articles: وتارەگان
+    article_title: سەرناو وتار
+    edited_mobile: وتارەگان
+    filter:
+      wiki_all: گشت
+    history: (دیرووک)
+    label: وتارەگان
+    wiki: ویکی
+  metrics:
+    articles_created_wikidata: باوەتەتیل درسکریاێ
+    articles_created_generic: پەڕەیل درسکریاێ
+    articles_edited_wikidata: باوەتەیل وێراشتەکریاێ
+    articles_edited_generic: پەڕەیل وێراشتەکریاێ
+...

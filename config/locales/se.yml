@@ -6,7 +6,7 @@
 ---
 se:
   application:
-    cancel: Šluhtte
+    cancel: Gaskkalduhte
     cookie_consent_acknowledge: Mun ipmirdan
     cookie_consent_see_more: Lassedieđut
     greeting2: Bures boahtin!
@@ -57,6 +57,7 @@ se:
   courses:
     alerts: Várrehusat
     articles: Artihkkalat
+    cancel: Gaskkalduhte
     delete_suggestion: Sihko
     feedback: Máhcahat
     loading: Viežžamin…
@@ -69,11 +70,11 @@ se:
     timeline_link: Áigelinnjá
     view_wiki: Čájet Wikipedias
   courses_generic:
-    cancel: Šluhtte
+    cancel: Gaskkalduhte
     creator:
       save_cloned_course: Vurke
   editable:
-    cancel: Šluhtte
+    cancel: Gaskkalduhte
     save: Vurke
   instructor_view:
     bad_work:
