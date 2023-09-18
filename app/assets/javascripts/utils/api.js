@@ -5,6 +5,7 @@ import { stringify } from 'query-string';
 import Rails from '@rails/ujs';
 import { toWikiDomain } from './wiki_utils';
 import { formatCategoryName } from '../components/util/scoping_methods';
+import CourseUtils from './course_utils';
 
 const SentryLogger = {};
 
@@ -168,7 +169,7 @@ const API = {
 
   async cloneCourse(id, campaign, copyAssignments) {
     const campaignQueryParam = campaign ? `?campaign_slug=${campaign}` : ''
-    const copyAssignmentsQueryParam = copyAssignments ? `?copy_assignments=${copyAssignments}` : '?copy_assignments=false' 
+    const copyAssignmentsQueryParam = copyAssignments ? `?copy_assignments=${copyAssignments}` : '?copy_assignments=false'
     const response = await request(`/clone_course/${id}${campaignQueryParam}${copyAssignmentsQueryParam}`, {
       method: 'POST'
     });
@@ -269,7 +270,7 @@ const API = {
         delete object.is_new;
       }
     };
-    
+
     const weeks = []
     data.weeks.forEach(week => {
       const cleanWeek = { ...week };
@@ -489,7 +490,7 @@ const API = {
   async requestNewAccount(passcode, courseSlug, username, email, createAccountNow) {
     const response = await request('/requested_accounts', {
       method: 'PUT',
-      body: JSON.stringify(  
+      body: JSON.stringify(
         { passcode, course_slug: courseSlug, username, email, create_account_now: createAccountNow }
       )
     });
@@ -541,9 +542,9 @@ const API = {
 
   async getCategoriesWithPrefix(wiki, search_term, depth, limit=10){
     return this.searchForPages(
-      wiki, 
-      search_term, 
-      14, 
+      wiki,
+      search_term,
+      14,
       // replace everything until first colon, then trim
       (title)=>title.replace(/^[^:]+:/,'').trim(),
       depth,
@@ -554,7 +555,7 @@ const API = {
   async getTemplatesWithPrefix(wiki, search_term, depth, limit=10){
     return this.searchForPages(
       wiki,
-      search_term, 
+      search_term,
       10,
       (title)=>title.replace(/^[^:]+:/,'').trim(),
       depth,
@@ -584,7 +585,7 @@ const API = {
       `https://${toWikiDomain(wiki)}/w/api.php?${stringify(params)}`
     );
     const json = await response.json();
-   
+
     return json.query.search.map((category) => {
       const label = formatCategoryName({
         category: map(category.title),
@@ -600,6 +601,44 @@ const API = {
         label,
       };
     });
+  },
+
+  // This function can be used to retrieve category pages when only the 'category_title' parameter is provided,
+  // or it can be used to check if a wiki article is under a particular category.
+  async isCategoryMember(category_title, articles, category_limit=500) {
+    let url = "https://en.wikipedia.org/w/api.php";
+    const params = {
+        action: "query",
+        list: "categorymembers",
+        cmtitle: `Category:${category_title}`,
+        cmlimit: category_limit,
+        format: "json"
+    };
+
+    url = url + "?origin=*";
+    Object.keys(params).forEach(function(key){url += "&" + key + "=" + params[key];});
+
+    const pages = await fetch(url)
+        .then((response) =>response.json())
+        .then((response) => {
+            const pages = response.query.categorymembers;
+            return Object.values(pages).map(page => page.title);
+
+        })
+
+    if(!articles) {
+      return pages;
+    }
+
+    const wiki_articles = Array.isArray(articles) ? articles : [articles];
+    const wiki_articles_title = wiki_articles.map((assignmentString) => { return CourseUtils.articleFromTitleInput(assignmentString).title; });
+    const category_members = pages.filter(value => wiki_articles_title.includes(value));
+
+    if(category_members.length) {
+      return category_members;
+    }
+
+    return null;
   }
 };
 
