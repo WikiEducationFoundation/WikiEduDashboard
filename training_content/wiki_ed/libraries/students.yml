@@ -115,3 +115,10 @@ categories:
         name: "Discussion: What's a content gap?"
       - slug: thinking-about-wikipedia-discussion
         name: 'Discussion: Thinking about Wikipedia'
+  - title: Additional resources
+    description: |
+      Other useful resources
+    modules:
+      - slug: videos
+        name: Video tutorials
+        description: Key tutorial videos collected into one module

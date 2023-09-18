@@ -1,0 +1,8 @@
+name: Tutorial videos
+id: 80
+description: |
+  This module collects the key tutorial videos (which are also incorporated into other training modules)
+
+slides:
+  - slug: adding-content-demo-video # 8001
+  - slug: creating-a-new-article-demo-video # 8002
