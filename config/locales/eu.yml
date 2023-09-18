@@ -4,10 +4,12 @@
 # Author: Ajeje Brazorf
 # Author: Amaia
 # Author: An13sa
+# Author: Atzerritik
 # Author: BaRaN6161 TURK
 # Author: EukeneFL
 # Author: Iñaki LL
 # Author: Joseba
+# Author: Juele
 # Author: Mikel Ibaiba
 # Author: Sator
 # Author: Subi
@@ -75,10 +77,12 @@ eu:
     opt_out: Ez
     opt_yes: bai
     opt_no: ez
+    print: Inprimatu
   article_statuses:
     not_yet_started: Nola hasi
     in_progress: Proba orrian lan egin
     ready_for_review: Hedatze proiektua
+    ready_for_mainspace: Lana Espazio Nagusira eramaten
     assignment_completed: Markatutako esleipena osatua
     reading_the_article: Artikulua irakurtzen
     post_to_talk: Elkarrizketan argitaratu
@@ -130,6 +134,7 @@ eu:
     article_development: (artikuluaren garapena)
     articles_shown: '%{count}ikusgai %{total}-(e)tik'
     assigned: Esleitutako artikuluak
+    assignments_none: Oraindik ez dago esleitutako artikulurik.
     available: Artikulu erabilgarriak
     no_available: Artikulu erabilgarririk ez
     next: Hurrengoa
@@ -148,6 +153,7 @@ eu:
     edited: Editatutako artikuluak
     edited_by: 'Nork editatua:'
     edited_mobile: Artikuluak
+    edited_none: Oraindik ez dago editatutako artikulurik.
     filter:
       wiki_all: Guztiak
       new: Berria
@@ -156,12 +162,14 @@ eu:
       tracked: Jarraitua
       untracked: Ez jarraitua
       tracked_and_untracked: Jarraitua eta ez jarraitua
+    find: Bilatu artikuluak
     hide: Ezkutatu
     history: (historia)
     label: Artikuluak
     loading: Artikuluak kargatzen...
     new: (berria)
     none: Ikastaro honek ez du artikulurik editatu.
+    preview: Artikuluaren aurrebista laburra
     rating: Klasea
     rating_doc: WikiProjectsek Wikipedian artikulu bati esleitutako balorazioa. Balorazio
       horiek bertsio askoz zaharragoei buruzkoak izan daitezke eta, beraz, artikulu
@@ -182,6 +190,7 @@ eu:
       '?': Balorazio gabekoa - Wikipedia kalitate eskalaren oraindik ez da oraindik
       does_not_exist: Artikulu hau ez da existitzen Wikipedian
     see_more: Gehiago ikusi
+    search: Bilatu artikulu bat Wikipedian
     show_cumulative_changes: Erakutsi Aldaketa Metagarriak
     show_current_version: Erakutsi Oraingo Bertsioa
     show_current_version_with_authorship_highlighting: Azken bertsioa egile koloreztatuekin
@@ -212,6 +221,21 @@ eu:
       (puntuazio horiek oraingoz Ingelesezko Wikipediako artikuluetan bakarrik balia
       daitezke).'
     articles_short: Artikuluak
+    deleted_message: Arbelaren datuen arabera, orri hau ezabatu egin da. (Kasu batzuetan,
+      orrialdeak mugitzeak, historiak bateratzeak edo bestelako ekintzek, artikulu
+      bat ezabatu gisa oker zerrendatzea eragin dezakete. Ezabatutako artikuluak geroago
+      ere ezabatuko dira. Benetan ezabatu ez diren edo gero leheneratu diren artikuluetarako,
+      normalean Arbela izango da. islatu hori egun batean edo bitan.)
+  items:
+    items: Elementuak
+    article_not_found: Elementu hau oraindik ez da sortu.
+    assigned: Esleitutako elementuak
+    assignments_none: Oraindik ez dago esleitutako elementurik.
+    available: Eskuragarri dauden elementuak
+    edited: Editatutako elementuak
+    find: Bilatu elementuak
+    preview: Elementuaren aurrebista laburra
+    search: Bilatu Wikidata elementu bat
   articles_wikidata:
     articles_short: Itemak
   articles_generic:
@@ -222,7 +246,7 @@ eu:
     already_exists: Lan hau existitzen da dagoeneko!
     title_too_large: Izenburuak ez du 255 karaktere baino gehiago izan behar
     assignees: Artikulu-egilea(k)
-    assign_other: Artikulu bat esleitu
+    assign_other: Artikulu bat esleitu/kendu
     add_available: Gehitu artikulu erabilgarri bat
     add_available_placeholder: Gehitu artikulu izenburu bat edo URL linea bakoitzeko
     add_available_submit: Artikuluak gehitu
@@ -247,7 +271,7 @@ eu:
     peer_review_link_personalized: '%{username}-(r)en bikotekako berrikusketa'
     remove: Kendu
     reviewers: Berrikuslea(k)
-    review_other: Bikotekako berrikusketa esleitu
+    review_other: Bikotekako berrikusketa esleitu/kendu
     review_self: Artikulua berrikusi
     review_tooltip: Hau da gaikide berrikuspena eta iruzkin bat egitekotan zabiltzan
       artikulu baten jarraipena egiteko.
@@ -310,14 +334,14 @@ eu:
     add_category: Kategoria gehitu
     add_template: Txantiloia gehitu
     add_this_category: Kategoria hau gehitu
-    add_this_template: Txantiloi hau gehitu
+    add_this_template: Txantiloiak gehitu
     depth: Azpikategoriaren sakonera
     name: Izena
     category_name: Kategoriaren izena
     template_name: Txantiloiaren izena
     none: Ez gaude egiten ari kategoriaren jarraipenik.
     remove: Kendu
-    tracked_categories: Jarraipena egindako kategoriak eta txantiloiak
+    tracked_categories: Jarraitutako Kategoriak, PSID, PagePile ID eta Txantiloiak
   courses:
     accounts_generation_enabled: Kontuen eskaera orokorra gaituta dago
     accounts_generation_explanation: Horrek parte-hartzaileek beren helbide elektronikoa
