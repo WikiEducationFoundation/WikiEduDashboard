@@ -89,7 +89,8 @@ class LiftWingApi
 
     { @project_code =>
       { 'scores' => { rev_id.to_s => { @project_quality_model => {
-        'error' => { 'message' => error_response['error'], 'type' => type } } } } } }
+        'error' => { 'message' => error_response['error'], 'type' => type }
+        } } } } }
   end
 
   # TODO: monitor production for errors, understand them, put benign ones here

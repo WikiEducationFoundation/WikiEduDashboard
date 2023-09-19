@@ -26,4 +26,3 @@ describe LiftWingApi do
     expect(ores_output.dig(*digger)).to eq(lift_wing_output.dig(*digger))
   end
 end
-

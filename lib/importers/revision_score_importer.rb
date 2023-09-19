@@ -41,7 +41,8 @@ class RevisionScoreImporter
   def fetch_ores_data_for_revision_id(rev_id)
     articlequality_data = @lift_wing_api.get_revision_data([rev_id])
     features = articlequality_data.dig(wiki_key, 'scores', rev_id.to_s, model_key, 'features')
-    rating = articlequality_data.dig(wiki_key, 'scores', rev_id.to_s, model_key, 'score', 'prediction')
+    rating = articlequality_data.dig(wiki_key, 'scores', rev_id.to_s, model_key,
+                                     'score', 'prediction')
     return { features:, rating: }
   end
 
