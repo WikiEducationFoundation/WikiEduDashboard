@@ -25,6 +25,7 @@ class LiftWingApi
     @project_code = wiki.project == 'wikidata' ? 'wikidata' + 'wiki' : wiki.language + 'wiki'
     @project_quality_model = wiki.project == 'wikidata' ? 'itemquality' : 'articlequality'
     @update_service = update_service
+    @errors = []
   end
 
   def get_revision_data(rev_ids)
@@ -32,6 +33,8 @@ class LiftWingApi
     rev_ids.each do |rev_id|
       results.deep_merge! get_single_revision_data(rev_id)
     end
+
+    log_error_batch(rev_ids)
 
     return results
   end
@@ -45,7 +48,7 @@ class LiftWingApi
 
     parsed_response
   rescue StandardError => e
-    log_error(e)
+    @errors << e
     return {}
   end
 
@@ -91,4 +94,13 @@ class LiftWingApi
 
   # TODO: monitor production for errors, understand them, put benign ones here
   TYPICAL_ERRORS = [].freeze
+
+  def log_error_batch(rev_ids)
+    return if @errors.empty?
+
+    log_error(@errors.first, update_service: @update_service,
+      sentry_extra: { rev_ids:, project_code: @project_code,
+                      project_model: @project_quality_model,
+                      error_count: @errors.count })
+  end
 end
