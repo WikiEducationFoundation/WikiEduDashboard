@@ -5,7 +5,7 @@ This document outlines how you can setup a containerized testing/development env
 ### TL;DR
 ```sh
 $ docker build -t wiki-edu-dashboard .
-$ docker run --net=host -it -v /path/to/WikiEduDashboard:/usr/src/app wiki-edu-dashboard
+$ docker compose up -d
 ```
 
 ## Build Docker Image
@@ -14,54 +14,47 @@ Make sure the docker daemon is running. Else, `service docker status`. Then, fro
  ```sh
  $ docker build -t wiki-edu-dashboard .
  ```
- This builds the `wiki-edu-dashboard` container image using the Dockerfile. The dashboard container image is based on the official `ruby:2.5.0` [base image](https://hub.docker.com/_/ruby/). The container image contains all the necessary dependencies as well as an initialized MariaDB database as required by the Wiki Edu Dashboard.
+ This builds the `wiki-edu-dashboard` container image using the Dockerfile. The dashboard container image is based on the official `ruby:3.1.2-slim` [base image](https://hub.docker.com/_/ruby/). The container image only contains application with all the necessary dependencies.
 
 ## Run
-The current docker image can be used for testing, local deploys or development purposes. `docker run` initializes the setup and spawns a container which starts serving the dashboard on `http://localhost:3000`. Also, this requires port `3000` to be open on the host.
+MySQL and redis is required to be able running docker image. For a developer's ease of use, it's recommended to use `docker-compose.yml` which will run `wiki-edu-dashboard` with MySQL and redis.
 
-### Development Setup
-For a developer's ease of use, it is desirable to have the container auto update as the source code changes in the development directory. Therefore, we use Docker volumes to mount the local directory and have its real-time changes accessible inside the container. Run the container with the `-v` option as follows:
- ```sh
- $ docker run --net=host -it -v /path/to/WikiEduDashboard:/usr/src/app wiki-edu-dashboard
+### Docker Compose
+docker compose will mount project directory to the container for development purpose. It will expose port `3000` for rails applications and port `8080` for websocket. Run the compose with the command as follows:
+```sh
+# Run all service
+$ docker compose up
+``` 
+This command will start init container, it will wait for MySQL and redis container to start. Then init container will try to initialized db. If the init container success, app container will start and mount `./` (project directory) to the `/app` (container `WORKDIR` location). Last, the docker compose will expose the port to make sure the container can be accessible from host computer.
 ```
-This starts the container with host networking and allows `/path/to/WikiEduDashboard` (developer's working directory) to be accessible from the `WORKDIR` of container. For WikiEduDashboard Docker image, the working directory has been set as `/usr/src/app`. Once the container starts, you should start expecting the following prompts and `yarn start` to have started with its status messages waiting for live changes.
-```
-[ ok ] Starting MariaDB database server: mysqld ..
-+ redis-server --daemonize yes
-+ rails s -d -b 0.0.0.0
-=> Booting WEBrick
-=> Rails 5.1.6 application starting in development on http://localhost:3000
-=> Run `rails server -h` for more startup options
-..
+=> Booting Puma
+=> Rails 7.0.4 application starting in development
+=> Run `bin/rails server --help` for more startup options
+...
+...
+<s> [webpack.Progress] 100%
+
+60 assets
+3389 modules
+webpack 5.73.0 compiled successfully in 17961 ms
 ```
 At this point, developers can continue working in their local work directories and the changes would be reflected inside the container. Live changes are visible on `http://localhost:3000` from the host.
 
-### Testing Deployment
-The above container can also be spawned without the need of volumes, thus freezing the code in the container to be the same as latest image built using `docker build`. Developers can also tag multiple container image builds using `docker build -t name:tag .` To deploy a test build:
-
-```sh
-$ docker run --net=host -it wiki-edu-dashboard
-```
-
-Open a browser on the host at `http://localhost:3000` and start testing.
 
 ## Monitoring the Dashboard Container
 Some useful commands and tools that can be used to monitor and administer the containers are:
   * [`ctop`](https://github.com/bcicen/ctop)
   * `docker images`
   * `docker inspect <container id>`
+  * `docker logs -f <container-name>` (see the logs)
+  * `docker exec -it <container-name> /bin/bash` (Login into container)
 
 Further Reference: https://docs.docker.com/reference/
 
 ### Troubleshooting
 
-If you are using Windows OS for development and haven't configured Git for line ending settings, you may encounter error during docker image building process. This is caused by different line ending default behaviors between Windows and Linux systems. The error will read something like below:
-
-> ./db_init.sh /bin/sh^M: bad interpreter: No such file or directory
-
-To keep the line ending settings consistent between the systems, one option is to configure Git to use no line ending conversion so that it uses the line ending setting that comes from the repository.
-
+If you are using Linux you may encounter permission error when trying to change file/folder on host computer. This is caused root user used while running container. To fix this issue, you can change the owner of the file/folder with the following commands on the root project directory:
 ```sh
-git config --global core.autocrlf input
+$ sudo chown $USER:$GROUPS -R ./
 ```
-
+The command will change the owner of all file inside project directory to the `$USER:$GROUPS`

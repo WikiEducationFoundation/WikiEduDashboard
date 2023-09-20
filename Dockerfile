@@ -1,40 +1,28 @@
-# Dockerfile
-#
-# Build and Run:
-#   - docker build -t wiki-edu-dashboard .
-#   - docker run -p 3000:3000 -it wiki-edu-dashboard
+FROM ruby:3.1.2-slim
 
-FROM ruby:3.1.2
+WORKDIR /app
 
-WORKDIR /usr/src/app
-
-# Setup repos
-RUN curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - &&\
-    echo "deb https://deb.nodesource.com/node_12.x buster main" | tee /etc/apt/sources.list.d/nodesource.list
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - &&\
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-
-# Install deps
-RUN apt-get update
-RUN apt-get install -y nodejs r-base gnupg yarn pandoc redis-server mariadb-server libmariadbclient-dev
+# Install tools for development and build dependencies for gems
+RUN apt update && \
+    apt install -y curl && \
+    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt install -y nodejs git gnupg pandoc dpkg-dev libmysql++-dev && \
+    rm -rf /var/lib/{apt,dpkg,cache,log}/
 
 # Install gems
+COPY . .
 RUN bundle config --global frozen 1
-COPY Gemfile Gemfile.lock ./
 RUN bundle install
 
-# App setup and configurations
-COPY . .
-COPY config/application.example.yml ./config/application.yml
-COPY config/database.example.yml ./config/database.yml
-COPY entrypoint.sh ./entrypoint.sh
-COPY db_init.sh ./db_init.sh
+# Install yarn dependencies
+RUN npm install -g yarn
 RUN yarn
 
-# Setup and initialize DBs
-RUN ./db_init.sh
+# Setup configurations
+COPY config/application.example.yml ./config/application.yml
+COPY config/database.example.yml ./config/database.yml
 
 EXPOSE 3000
 
-# Setup and run
-CMD './entrypoint.sh'
+ENTRYPOINT ["./docker/entrypoint.sh"]
+CMD ["start"]

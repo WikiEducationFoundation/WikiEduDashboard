@@ -1,0 +1,60 @@
+x-wiki-dashboard-common:
+  &wiki-dashboard-common
+  image: wiki-edu-dashboard
+  build: .
+  environment:
+    REDIS_URL: redis://redis:6379
+    # MYSQL credential must be same as the create-db.sql
+    MYSQL_USER: wiki
+    MYSQL_PASSWORD: wikiedu
+    MYSQL_HOST: mysql
+    MYSQL_PORT: 3306
+  depends_on:
+    &wiki-dashboard-common-depends-on
+    mysql:
+      condition: service_healthy
+    redis:
+      condition: service_healthy
+services:
+  mysql:
+    image: mysql:8
+    restart: always
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: yes
+    volumes:
+      - ./docker/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 30s
+      retries: 5
+  redis:
+    image: redis:latest
+    restart: always
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 30s
+      retries: 5
+  init:
+    <<: *wiki-dashboard-common
+    command: init 
+    depends_on:
+      <<: *wiki-dashboard-common-depends-on
+  app:
+    <<: *wiki-dashboard-common
+    command: start
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    ports:
+      - 3000:3000
+      - 8080:8080
+    depends_on:
+      <<: *wiki-dashboard-common-depends-on
+      init:
+        condition: service_completed_successfully
+
+volumes:
+  mysql_data:
