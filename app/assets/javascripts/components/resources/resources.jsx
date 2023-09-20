@@ -6,6 +6,7 @@ import Block from '../timeline/block';
 import TrainingModules from '../timeline/TrainingModules/TrainingModules';
 import Handouts from './handouts';
 import Templates from './templates';
+import Videos from './videos';
 import { BLOCK_KIND_RESOURCES } from '../../constants/timeline';
 import { getModulesAndBlocksFromWeeks } from '../util/helpers';
 
@@ -121,6 +122,7 @@ const Resources = ({ weeks, current_user, course }) => {
           {instructorModulesLink}
         </div>
         {additionalResources}
+        { Features.wikiEd && <Videos /> }
         { Features.wikiEd && <Templates /> }
         { Features.wikiEd && <Handouts trainingLibrarySlug={trainingLibrarySlug} blocks={blocks} /> }
       </div>
