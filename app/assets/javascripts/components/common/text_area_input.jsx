@@ -86,6 +86,7 @@ const TextAreaInput = createReactClass({
             init={{
               setup: (editor) => { this.setState({ activeEditor: editor }); },
               inline: true,
+              promotion: false,
               convert_urls: false,
               plugins: 'lists link code',
               toolbar: [
