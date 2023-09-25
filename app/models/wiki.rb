@@ -193,7 +193,7 @@ class Wiki < ApplicationRecord
     def initialize(domain, msg = 'Invalid Language/Project')
       @msg = msg
       @domain = domain
-      super(msg)
+      super("#{msg}: #{domain}")
     end
 
     attr_reader :domain

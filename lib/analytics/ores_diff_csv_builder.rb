@@ -49,7 +49,7 @@ class OresDiffCsvBuilder
   end
 
   def supported_wiki_ids
-    @ids ||= Wiki.where(language: OresApi::AVAILABLE_WIKIPEDIAS,
+    @ids ||= Wiki.where(language: LiftWingApi::AVAILABLE_WIKIPEDIAS,
                         project: 'wikipedia').pluck(:id)
   end
 end

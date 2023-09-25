@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module ApiErrorHandling
-  def log_error(error, update_service: nil, sentry_extra:)
+  def log_error(error, update_service: nil, sentry_extra: nil)
     Rails.logger.info "Caught #{error}"
     sentry_tags = nil
     if update_service.present?

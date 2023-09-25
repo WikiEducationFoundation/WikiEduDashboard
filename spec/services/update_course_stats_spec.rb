@@ -94,12 +94,12 @@ describe UpdateCourseStats do
                                                     course: course.slug })
     end
 
-    it 'tracks update errors properly in OresApi' do
+    it 'tracks update errors properly in LiftWing' do
       allow(Sentry).to receive(:capture_exception)
 
-      # Raising errors only in OresApi
-      stub_request(:any, %r{https://ores.wikimedia.org/.*}).to_raise(Faraday::ConnectionFailed)
-      VCR.use_cassette 'course_update/ores_api' do
+      # Raising errors only in LiftWing
+      stub_request(:any, %r{https://api.wikimedia.org/service/lw.*}).to_raise(Faraday::ConnectionFailed)
+      VCR.use_cassette 'course_update/lift_wing_api' do
         subject
       end
       sentry_tag_uuid = subject.sentry_tag_uuid
