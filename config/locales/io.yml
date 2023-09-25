@@ -269,6 +269,7 @@ io:
     total_revisions: Quanto di revizuri
   recent_activity:
     article_title: Titulo
+    image: Imajo
   revisions:
     class: Klaso
     diff: difero
@@ -287,6 +288,7 @@ io:
     page: Pagino
     done: Facita!
   uploads:
+    image: Imajo
     label: Arkivi sendita
   users:
     assign_articles_done: Facita

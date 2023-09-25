@@ -6,9 +6,12 @@
 ---
 sdh:
   application:
+    cancel: هەڵوەشاننەوە
+    cookie_consent_acknowledge: فامستم
     greeting2: خوەش هاتی!
     greeting: سڵام!
     home: ماڵ
+    change: ئاڵشتکردن
     details: وردەکاریەگان
     confirm: باشە
     opt_in: ئەرێ
@@ -25,12 +28,95 @@ sdh:
     edited_mobile: وتارەگان
     filter:
       wiki_all: گشت
+      new: نوو
     history: (دیرووک)
     label: وتارەگان
+    new: (نوو)
+    see_more: فێشتر بۊن
+    title: سەرناو
     wiki: ویکی
+  assignments:
+    article_link: وتار
+    remove: لاوردن
+    select: هەڵوژانن
+  campaign:
+    alert_type: جوور
+    alert_user_id: وەکاربەر
+    created_at: ڕێکەفت
+    description: وەسف
+    title: سەرناو
+    search: مینە
+  categories:
+    name: ناو
+    template_name: ناو داڕێژە
+    remove: لاوردن
+  courses:
+    creator:
+      subject: باوەت
+    overview: ماڵ
+    subject: باوەت
+    title: سەرناو
+  courses_generic:
+    cancel: هەڵوەشاننەوە
+    creator:
+      assignment_end_placeholder: YYYY-MM-DD
+      assignment_start_placeholder: YYYY-MM-DD
+      course_term: کەی
+      course_term_placeholder: کەی
+      save_cloned_course: پاشەکەفت
+      scoping_methods:
+        templates: داڕێژەگان
+  editable:
+    edit: دەسکاری
+    cancel: هەڵوەشاننەوە
+    save: پاشەکەفت
+    edit_description: دەسکاری وەسف
+    edit_details: دەسکاری وردەکاریەگان
+    edit_template: دەسکاری داڕێژە
+  instructor_view:
+    assignments_table:
+      article_name: ناو
+    bad_work:
+      learn_more_button: فێشتر بزان
   metrics:
     articles_created_wikidata: باوەتەتیل درسکریاێ
     articles_created_generic: پەڕەیل درسکریاێ
     articles_edited_wikidata: باوەتەیل وێراشتەکریاێ
     articles_edited_generic: پەڕەیل وێراشتەکریاێ
+    close_modal: بەسان
+    date_time: ڕێکەفت/کات
+    edit_count_description: سەرجەم دەسکاریەگان
+  namespace:
+    all: گشت
+    article: وتار
+    talk: گەپدان
+    project: پرۆژە
+    file: پەڕگە
+    mediaWiki: میدیاویکی
+    template: داڕێژە
+    help: دەسمێەت
+    page: پەڕە
+    book: کتاو
+    translation: تەرجەمە
+    author: نۊسەر
+  recent_activity:
+    article_title: سەرناو
+    datetime: ڕێکەفت/کات
+    image: وێنە
+    file_name: ناو پەڕگە
+  revisions:
+    title: سەرناو
+  update_username:
+    label: ناو وەکاربەری نوو
+    button: وەڕووژکردن
+  uploads:
+    image: وێنە
+  users:
+    username: ناو وەکاربەر
+    username_placeholder: ناو وەکاربەر
+    useremail_placeholder: ئیمەیل
+    userpasscode_placeholder: کۆد وێەردن
+  wizard:
+    read_less: کەمتر بخوەن
+    read_more: فێشتر بخوەن
 ...

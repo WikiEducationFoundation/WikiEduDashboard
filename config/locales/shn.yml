@@ -2,9 +2,54 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Macofe
+# Author: Saimawnkham
 # Author: Saosukham
 ---
 shn:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: K
+          million: M
+          billion: B
+          trillion: T
+          quadrillion: Q
+  accessibility:
+    number_field: ဢၼ်ၼႆႉ ပဵၼ် လွၵ်းမၢႆၼပ်ႉ။ ၼဵၼ်မၼ်းၼႆႉ လုၵ်ႉတီႈ ပြၢဝ်ႇသႃႇ သေ တေတိူဝ်း
+      တေယွၼ်ႇပၼ် လွင်ႈပွၼ်ႈၶေႃႈမုၼ်းယူႇ။
+  application:
+    cancel: ယုၵ်ႉလိူၵ်ႈ
+    cookie_consent: ၼႃႈလိၵ်ႈၼႆႉ ၸႂ်ႉၶူၵ်ႉၶီႇ တႃႇ ႁႂ်ႈၸဝ်ႈၵဝ်ႇ သိုပ်ႇၶဝ်ႈလွၵ်ႉဢိၼ်ႇဝႆႉ
+      သေ သိမ်းပၼ် လွၼ်ႉၶၢဝ်ႇ ဢၼ်ၵဵဝ်ႇၵပ်းလူၺ်ႈ ဢၶွင်ႉ ဝီႇၶီႇၽီးတီးယႃး ၸဝ်ႈၵဝ်ႇၼၼ်ႉယဝ်ႉ။
+    cookie_consent_acknowledge: ၵဝ်ပွင်ႇၸ်ႂယူႇ
+    cookie_consent_see_more: တူၺ်းထႅင်ႈ။
+    create_accounts: သၢင်ႈဢၶွင်ႉ ဝီႇၶီႇၽီးတီးယႃး
+    dashboard: ၽၢင်ၵုမ်းၵမ် ဝီႇၶီႇ Ed
+    documentation: ၽိုၼ်ၵႅမ်မိုဝ်း
+    error: 'မီးဝႆႉ လွင်ႈၽိတ်းပိူင်ႈ:'
+    explore: ပိုတ်ႇႁႃ
+    field_required: လွၵ်းဢၼ်ၼႆႉ တိုၼ်းလူဝ်ႇသႂ်ႇပၼ်
+    field_invalid_characters: လွၵ်းဢၼ်ၼႆႉ မီးဝႆႉ တူဝ်လိၵ်ႈ ဢၼ်ဢမ်ႇၸႂ်ႉလႆႈ
+    field_invalid_date: လွၵ်းၼႆႉ လူဝ်ႇသႂ်ႇပၼ် ပိူင်ဝၼ်းထ YYYY-MM-DD
+    field_invalid_date_time: ၵမ်းလိုၼ်းသုတ်းၼႆႉ တေလႆႈပဵၼ် ဝၢႆးသေ တႄႇမႃးယဝ်ႉ။ (ယၢမ်းမူင်း
+      မႃးတီႈ 0 တေႃႇ 23။)
+    greeting2: ႁပ်ႉတွၼ်ႈယူႇ
+    greeting_extended: ဝီႇၶီႇၽီးတီးယႃး ႁပ်ႉတွၼ်ႈယူႇ
+    greeting: မႂ်ႇသုင်ၶႃႈ
+    help: ၸွႆႈထႅမ်
+    home: ႁူဝ်ႁႅၵ်ႈ
+    log_in_extended: လွၵ်ႉဢိၼ်ႇ တင်း ဝီႇၶီႇၽီးတီးယႃး
+    log_in: လွၵ်ႉဢိၼ်ႇ
+    log_out: လွၵ်ႉဢွၵ်ႉ
+    my_dashboard: ၽၢင်ၵုမ်းၵမ် ၵဝ်ၶႃႈ
+    recent_activity: လွင်ႈတူင်ႉၼိုင် လႃႈသုတ်း
+    report_problem: လဝ်ႈတၢင်ႇပၼ်ႁႃ
+    request_account: တုၵ်းယွၼ်းဢၶွင်ႉ
+    request_account_create: သၢင်ႈဢၶွင်ႉ
+    search: ထၢမ် ၶေႃႈထၢမ်
+    training: လွင်ႈၽိုၵ်းၽွၼ်ႉ
   articles:
     assigned: ၼွပ်ႇပၼ် ပွင်ႈလိၵ်ႈ
     assigned_to: ၼွပ်ႇပၼ်
@@ -69,6 +114,9 @@ shn:
   revisions:
     loading: တိုၵ်ႉလူတ်ႇ ဢၼ်မႄးၶိုၼ်း
     time_doc: ၶၢဝ်းယၢမ်း ဢၼ်ပိၼ်ႇလႅၵ်ႈ ၸွမ်းၼႃႈတီႈ ၸဝ်ႈၵဝ်ႇ
+  training:
+    kind:
+      training: လွင်ႈၽိုၵ်းၽွၼ်ႉ
   uploads:
     loading: တိုၵ်ႉလူတ်ႇၶိုၼ်ႈယူႇ
     none: တွၼ်ႈၼႆႉ ဢမ်ႇၸွႆႈပၼ် ၽၢင်ႁၢင်ႈဢၼ်လႂ် လႄႈ မီႇတီႇယႃႇၾၢႆႇတၢင်ႇဢၼ် တမ်ႈတီႈ Wikimedia
