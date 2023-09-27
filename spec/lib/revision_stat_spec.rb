@@ -10,7 +10,7 @@ describe RevisionStat do
   let!(:revision) do
     create(:revision, article_id: article.id, date: created_date, user_id: user.id)
   end
-  let!(:course)          { create(:course) }
+  let!(:course)          { create(:course, start: 2.days.ago, end: 2.days.from_now) }
   let!(:articles_course) do
     create(:articles_course, article_id: article.id, course_id: course.id)
   end

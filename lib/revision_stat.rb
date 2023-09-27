@@ -6,12 +6,9 @@ class RevisionStat
 
   def self.get_records(date: RevisionStat::REVISION_TIMEFRAME.days.ago.to_date,
                        course:)
-    Revision.where.not(article_id: course.articles_courses.not_tracked.pluck(:article_id))
-            .where(user: course.students)
-            .joins(article: { articles_courses: :course })
-            .where(courses: { id: course.id })
-            .where('date >= ?', date)
-            .count
+    course.revisions
+          .where('date >= ?', date)
+          .count
   end
 
   def self.recent_revisions_for_courses_user(courses_user)
