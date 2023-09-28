@@ -5,6 +5,7 @@
 # Author: Alesaru
 # Author: GabiBil
 # Author: Minisarm
+# Author: Strainu
 # Author: Wintereu
 ---
 ro:
@@ -39,7 +40,7 @@ ro:
       scoping_methods:
         pagepile_create_id: Creați un PagePile folosind instrumentul oficial PagePile
   metrics:
-    last_articles_update: Actualizarea ultimelor articole
+    last_articles_update: Ultimele actualizări ale articolelor
   users:
     contributions: Contribuții utilizator
     contributions_more: Vezi mai multe contribuții
