@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Patriot Kor
 # Author: Patriot Kur
+# Author: Гусейн
 ---
 tly:
   number:
@@ -19,7 +20,8 @@ tly:
     cancel: Ləğv karde
     greeting: Səlom!
     help: Koməq
-    home: Asosa sahifa
+    home: Əsosə səhifə
+    log_out: Beši
     confirm: COK
     opt_in: Ha
     opt_out: Ne
