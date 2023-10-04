@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { includes } from 'lodash-es';
 
 import ArticleViewer from '@components/common/ArticleViewer/containers/ArticleViewer.jsx';
@@ -21,16 +21,18 @@ const ArticleFinderRow = (props) => {
     assignment,
     selectedWiki,
     title,
+    course,
+    label,
   } = props;
 
   const [isLoading, setIsLoading] = useState(false);
   const prevAssingmentProps = useRef(assignment);
 
   useEffect(() => {
-    if (isLoading && assignment !== prevAssingmentProps) {
+    if (isLoading && assignment !== prevAssingmentProps.current) {
       setIsLoading(false);
     }
-  }, [isLoading, assignment]);
+  }, [isLoading, assignment, prevAssingmentProps]);
 
   const assignArticle = (userId = null) => {
     const _assignment = {
@@ -169,7 +171,7 @@ const ArticleFinderRow = (props) => {
   const isStudentAndAssignmentPresent = isStudent && isAssignment;
   const isStudentAndAssignmentAbsent = isStudent && !isAssignment;
 
-  const buttonProps = () => {
+  const buttonProps = useMemo(() => {
     if (isAdvancedRoleAndAssignmentPresent) {
       return {
         className: `button small add-available-article ${
@@ -219,32 +221,61 @@ const ArticleFinderRow = (props) => {
       };
     }
     return { onClick: null };
-  };
+  }, [isAdvanced, isStudent, isAssignment]);
 
-  const button = () => {
-    const { onClick, className, text } = buttonProps();
-    console.log({ onClick, className, text });
-    if (!buttonProps.onClick) {
-      return null;
-    }
+  const rowButton = () => {
+    const { onClick, className, text } = buttonProps;
+
     return (
       <td>
-        <button className={className} onClick={onClick || null}>
-          {text}
-        </button>
+        {buttonProps ? (
+          <button className={className} onClick={onClick}>
+            {text}
+          </button>
+        ) : null}
       </td>
     );
   };
 
+  const _article = useMemo(() => {
+    const new_article = {
+      ...article,
+      language: selectedWiki.language,
+      project: selectedWiki.project,
+      url: `https://${selectedWiki.language}.${
+        selectedWiki.project
+      }.org/wiki/${article.title.replace(/ /g, '_')}`,
+    };
+
+    if (selectedWiki.project === 'wikidata') {
+      delete new_article.language;
+      new_article.url = `https://${
+        selectedWiki.project
+      }.org/wiki/${article.title.replace(/ /g, '_')}`;
+    }
+
+    return new_article;
+  }, [selectedWiki.project, article]);
+
   return (
     <tr>
+      <td>{article.relevanceIndex}</td>
       <td>
-        <ArticleViewer article={article} />
+        <div className="horizontal-flex">
+          <ArticleViewer
+            article={_article}
+            course={course}
+            current_user={current_user}
+            title={label ? `${label} (${article.title})` : article.title}
+            showArticleFinder={true}
+            showPermalink={false}
+          />
+        </div>
       </td>
-      <td>{pageviews}</td>
       {revScore()}
       {grade()}
-      {button()}
+      <td>{pageviews()}</td>
+      {rowButton()}
     </tr>
   );
 };
