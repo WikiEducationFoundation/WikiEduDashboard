@@ -9,7 +9,7 @@ import { compose } from 'redux';
 import withRouter from '../util/withRouter';
 
 import TextInput from '../common/text_input.jsx';
-import ArticleFinderRow from './article_finder_row.jsx';
+import ArticleFinderRow from "./article_finder_row2.jsx";
 import List from '../common/list.jsx';
 import Loading from '../common/loading.jsx';
 
@@ -299,9 +299,19 @@ const ArticleFinder = createReactClass({
         let assignment;
         if (this.props.course_id) {
           if (this.props.current_user.isAdvancedRole) {
-            assignment = find(modifiedAssignmentsArray, { article_title: title, user_id: null, language: this.props.selectedWiki.language, project: this.props.selectedWiki.project });
+            assignment = find(modifiedAssignmentsArray, {
+              article_title: title,
+              user_id: null,
+              language: this.props.selectedWiki.language,
+              project: this.props.selectedWiki.project,
+            });
           } else if (this.props.current_user.role === STUDENT_ROLE) {
-            assignment = find(modifiedAssignmentsArray, { article_title: title, user_id: this.props.current_user.id, language: this.props.selectedWiki.language, project: this.props.selectedWiki.project });
+            assignment = find(modifiedAssignmentsArray, {
+              article_title: title,
+              user_id: this.props.current_user.id,
+              language: this.props.selectedWiki.language,
+              project: this.props.selectedWiki.project,
+            });
           }
         }
 
