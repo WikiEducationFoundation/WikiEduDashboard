@@ -1,170 +1,148 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
-import PropTypes from 'prop-types';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import Wp10Graph from './wp10_graph.jsx';
 import EditSizeGraph from './edit_size_graph.jsx';
 import Loading from '../common/loading.jsx';
-import request from '../../utils/request';
+import request from '../../utils/request.js';
 
+const ArticleGraphs = ({ article }) => {
+  const { id: article_id } = article;
 
-const ArticleGraphs = createReactClass({
-  displayName: 'ArticleGraphs',
+  const [showGraph, setShowGraph] = useState(false);
+  const [selectedRadio, setSelectedRadio] = useState('wp10_score');
+  const [articleData, setArticleData] = useState(null);
 
-  propTypes: {
-    article: PropTypes.object
-  },
+  const elementRef = useRef(null);
 
-  getInitialState() {
-    return {
-      showGraph: false,
-      selectedRadio: 'wp10_score',
-      articleData: null
+  useEffect(() => {
+    if (showGraph) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
     };
-  },
+  }, [showGraph]);
 
-  componentDidMount() {
-    this.ref = React.createRef();
-  },
-
-  componentDidUpdate(_, prevState) {
-    if (this.state.showGraph && !prevState.showGraph) {
-      // Add event listener when the component is visible
-      document.addEventListener('mousedown', this.handleClickOutside);
+  function getData() {
+    if (articleData) {
+      return;
     }
-    if (!this.state.showGraph && prevState.showGraph) {
-      // remove event listener when the component is hidden
-      document.removeEventListener('mousedown', this.handleClickOutside);
-    }
-  },
-
-  getData() {
-    if (this.state.articleData) { return; }
-
-    const articleId = this.props.article.id;
-    const articledataUrl = `/articles/article_data.json?article_id=${articleId}`;
+    const articledataUrl = `/articles/article_data.json?article_id=${article_id}`;
     request(articledataUrl)
       .then(resp => resp.json())
       .then((data) => {
-        this.setState({ articleData: data });
+        setArticleData(data);
       });
-  },
+  }
 
-  handleClickOutside(event) {
-    const element = this.ref.current;
+  function handleClickOutside(event) {
+    const element = elementRef.current;
     if (element && !element.contains(event.target)) {
-      this.hideGraph();
+      handleHideGraph();
     }
-  },
+  }
 
-  showGraph() {
-    this.getData();
-    this.setState({ showGraph: true });
-  },
+  function handleShowGraph() {
+    getData();
+    setShowGraph(true);
+  }
 
-  handleRadioChange(event) {
-    this.setState({
-      selectedRadio: event.currentTarget.value
-    });
-  },
+  function handleHideGraph() {
+    setArticleData(null);
+    setShowGraph(false);
+  }
 
-  hideGraph() {
-    this.state.articleData = null;
-    this.setState({ showGraph: false });
-  },
+  function handleRadioChange(event) {
+    setSelectedRadio(event.currentTarget.value);
+  }
 
-  graphId() {
-    return `vega-graph-${this.props.article.id}`;
-  },
+  function graphId() {
+    return `vega-graph-${article_id}`;
+  }
 
-  render() {
-    let style = 'hidden';
-    if (this.state.showGraph) {
-      style = '';
+  const dataIncludesWp10 = articleData && articleData[0].wp10;
+
+  const graph = useMemo(() => {
+    if (!articleData) {
+      return <Loading />;
     }
 
-    let graph;
-    let editSize;
-    let radioInput;
-    const graphWidth = 500;
-    const graphHeight = 300;
-    const className = `vega-graph ${style}`;
-
-    if (this.state.articleData != null) {
-      // Only render the wp10 graph radio button if the data includes wp10 / article completeness scores
-      if (this.state.articleData[0].wp10) {
-        radioInput = (
-          <div>
-            <div className="input-row">
-              <input
-                type="radio"
-                name="wp10_score"
-                value="wp10_score"
-                checked={this.state.selectedRadio === 'wp10_score'}
-                onChange={this.handleRadioChange}
-              />
-              <label htmlFor="wp10_score">{I18n.t('articles.wp10')}</label>
-            </div>
-            <div className="input-row">
-              <input
-                type="radio"
-                name="edit_size"
-                value="edit_size"
-                checked={this.state.selectedRadio === 'edit_size'}
-                onChange={this.handleRadioChange}
-              />
-              <label htmlFor="edit_size">{I18n.t('articles.edit_size')}</label>
-            </div>
-          </div>
-        );
-        if (this.state.selectedRadio === 'wp10_score') {
-          graph = (
-            <Wp10Graph
-              graphid = {this.graphId()}
-              graphWidth = {graphWidth}
-              graphHeight = {graphHeight}
-              articleData = {this.state.articleData}
-            />
-          );
-        } else {
-          graph = (
-            <EditSizeGraph
-              graphid ={this.graphId()}
-              graphWidth = {graphWidth}
-              graphHeight = {graphHeight}
-              articleData = {this.state.articleData}
-            />
-          );
-        }
-      } else {
-        editSize = (
-          <p>{I18n.t('articles.edit_size')}</p>
-        );
-        graph = (
-          <EditSizeGraph
-            graphid ={this.graphId()}
-            graphWidth = {graphWidth}
-            graphHeight = {graphHeight}
-            articleData = {this.state.articleData}
-          />
-        );
-      } // Display the loading element if articleData is not available
-     } else {
-      graph = <Loading />;
+    if (dataIncludesWp10 && selectedRadio === 'wp10_score') {
+      return (
+        <Wp10Graph
+          graphid={graphId()}
+          graphWidth={500}
+          graphHeight={300}
+          articleData={articleData}
+        />
+      );
     }
 
     return (
-      <a onClick={this.showGraph} className="inline">
-        {I18n.t('articles.article_development')}
-        <div className={className} ref={this.ref}>
-          <div className="radio-row">
-            {radioInput}
-            {editSize}
-          </div>
-          {graph}
-        </div>
-      </a>
+      <EditSizeGraph
+        graphid={graphId()}
+        graphWidth={500}
+        graphHeight={300}
+        articleData={articleData}
+      />
     );
-  }
-});
+  }, [articleData, dataIncludesWp10, selectedRadio]);
+
+  const radioInput = useMemo(() => {
+    if (!dataIncludesWp10 || !articleData) {
+      return null;
+    }
+
+    return (
+      <div>
+        <div className="input-row">
+          <input
+            type="radio"
+            name="wp10_score"
+            value="wp10_score"
+            checked={selectedRadio === 'wp10_score'}
+            onChange={handleRadioChange}
+          />
+          <label htmlFor="wp10_score">{I18n.t('articles.wp10')}</label>
+        </div>
+        <div className="input-row">
+          <input
+            type="radio"
+            name="edit_size"
+            value="edit_size"
+            checked={selectedRadio === 'edit_size'}
+            onChange={handleRadioChange}
+          />
+          <label htmlFor="edit_size">{I18n.t('articles.edit_size')}</label>
+        </div>
+      </div>
+    );
+  }, [articleData, dataIncludesWp10, selectedRadio]);
+
+  const editSize = useMemo(() => {
+    if (dataIncludesWp10 || !articleData) {
+      return null;
+    }
+
+    return <p>{I18n.t('articles.edit_size')}</p>;
+  }, [articleData, dataIncludesWp10]);
+
+  const className = `vega-graph ${showGraph ? '' : 'hidden'}`;
+
+  return (
+    <a onClick={handleShowGraph} className="inline">
+      {I18n.t('articles.article_development')}
+      <div className={className} ref={elementRef}>
+        <div className="radio-row">
+          {radioInput}
+          {editSize}
+        </div>
+        {graph}
+      </div>
+    </a>
+  );
+};
 
 export default ArticleGraphs;
