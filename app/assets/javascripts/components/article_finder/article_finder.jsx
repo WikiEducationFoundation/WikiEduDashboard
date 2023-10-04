@@ -9,7 +9,7 @@ import { compose } from 'redux';
 import withRouter from '../util/withRouter';
 
 import TextInput from '../common/text_input.jsx';
-import ArticleFinderRow from "./article_finder_row2.jsx";
+import ArticleFinderRow from './article_finder_row.jsx';
 import List from '../common/list.jsx';
 import Loading from '../common/loading.jsx';
 
