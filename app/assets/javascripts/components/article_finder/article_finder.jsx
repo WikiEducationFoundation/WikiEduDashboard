@@ -70,6 +70,7 @@ const ArticleFinder = (props) => {
 
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
+  const [_table_keys, setTableKeys] = useState(table_keys);
   const searchBoxRef = useRef('');
 
   useEffect(() => {
@@ -98,15 +99,26 @@ const ArticleFinder = (props) => {
 
   useEffect(() => {
     const handleSortKey = () => {
+      const newTableKeys = { ..._table_keys };
       if (sort.key) {
         const order = sort.sortKey ? 'asc' : 'desc';
-        table_keys[sort.key].order = order;
+        Object.entries(newTableKeys).forEach((item) => {
+          const [key, value] = item;
+          if (key === sort.key) {
+            value.order = order;
+          } else {
+            delete value.order;
+          }
+        });
+        console.log('newTableKeys', newTableKeys);
+        setTableKeys(newTableKeys);
       }
       if (
         !includes(ORESSupportedWiki.languages, selectedWiki.language)
         || !includes(ORESSupportedWiki.projects, selectedWiki.project)
       ) {
-        delete table_keys.revScore;
+        delete newTableKeys.revScore;
+        setTableKeys(newTableKeys);
       }
 
       if (
@@ -116,16 +128,26 @@ const ArticleFinder = (props) => {
           selectedWiki.language
         )
       ) {
-        delete table_keys.grade;
+        delete newTableKeys.grade;
+        setTableKeys(newTableKeys);
       }
 
       if (!course_id || !current_user.id || current_user.notEnrolled) {
-        delete table_keys.tools;
+        delete newTableKeys.tools;
+        setTableKeys(newTableKeys);
       }
     };
 
     handleSortKey();
-  }, [sort.key, course_id, current_user.id, current_user.notEnrolled]);
+  }, [
+    sort.key,
+    sort.sortKey,
+    course_id,
+    current_user.id,
+    current_user.notEnrolled,
+    PageAssessmentSupportedWiki[selectedWiki.project],
+    ORESSupportedWiki,
+  ]);
 
   const onKeyDown = (keyCode, ref) => {
     if (keyCode === 13) {
@@ -314,6 +336,10 @@ const ArticleFinder = (props) => {
     searchType,
   ]);
 
+  const _sortArticleFinder = (key) => {
+    dispatch(sortArticleFinder(key));
+  };
+
   const renderList = () => {
     const modifiedAssignmentsArray = map(assignments, (element) => {
       if (!element.language && !element.project) {
@@ -362,10 +388,11 @@ const ArticleFinder = (props) => {
         />
       );
     });
+
     return (
       <List
         elements={elements}
-        keys={table_keys}
+        keys={_table_keys}
         sortable={true}
         table_key="category-articles"
         className="table--expandable table--hoverable"
@@ -375,7 +402,7 @@ const ArticleFinder = (props) => {
             'no_article_found'
           )}`
         )}
-        sortBy={() => dispatch(sortArticleFinder)}
+        sortBy={_sortArticleFinder}
       />
     );
   };
