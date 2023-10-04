@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import TextAreaInput from '../common/text_area_input';
 import CourseUtils from '../../utils/course_utils.js';
 import ArticleUtils from '../../utils/article_utils';
+import { connect } from 'react-redux';
+import { initiateConfirm } from '../../actions/confirm_actions.js';
+import API from '../../utils/api';
 
 const AddAvailableArticles = createReactClass({
   displayName: 'AddAvailableArticles',
@@ -33,6 +36,18 @@ const AddAvailableArticles = createReactClass({
     this.props.open();
   },
 
+  async handleClick() {
+   const inputLines = this.state.assignments.match(/[^\r\n]+/g).map(item => item.trim()).filter(Boolean);
+   const categoryMembers = await API.isCategoryMember(inputLines);
+   if (categoryMembers.some(x => x !== null)) {
+    // need to add to en.yml
+     const confirmMessage = 'Warning: Adding a Discouraged Article. You are attempting to add an article that has been marked as discouraged. Students might choose this article for their assignments. Please confirm if you want to proceed.';
+     this.props.initiateConfirm({ confirmMessage, onConfirm: this.submit });
+   } else {
+     this.submit();
+   }
+ },
+
   chainSubmissions(assignments, promise) {
     const assignment = assignments.shift();
     if (assignment === undefined) { return promise; }
@@ -45,7 +60,7 @@ const AddAvailableArticles = createReactClass({
     return this.chainSubmissions(assignments, extendedPromise);
   },
 
-  submit() {
+   submit() {
     // turn multipline input into an array of lines
     const inputLines = this.state.assignments.match(/[^\r\n]+/g);
     const assignments = inputLines.map((assignmentString) => {
@@ -78,10 +93,14 @@ const AddAvailableArticles = createReactClass({
           editable
           placeholder={inputPlaceholder}
         />
-        <button className="button border pull-right" onClick={this.submit}>{I18n.t(`assignments.${ArticleUtils.projectSuffix(this.props.project, 'add_available_submit')}`)}</button>
+        <button className="button border pull-right" onClick={this.handleClick}>{I18n.t(`assignments.${ArticleUtils.projectSuffix(this.props.project, 'add_available_submit')}`)}</button>
       </div>
     );
   }
 });
 
-export default AddAvailableArticles;
+const mapDispatchToProps = {
+ initiateConfirm
+};
+
+export default connect(null, mapDispatchToProps)(AddAvailableArticles);

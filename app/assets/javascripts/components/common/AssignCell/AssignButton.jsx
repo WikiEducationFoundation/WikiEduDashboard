@@ -14,7 +14,8 @@ import { ASSIGNED_ROLE, REVIEWING_ROLE } from '~/app/assets/javascripts/constant
 import SelectedWikiOption from '../selected_wiki_option';
 import { trackedWikisMaker } from '../../../utils/wiki_utils';
 import ArticleUtils from '../../../utils/article_utils';
-
+import API from '../../../utils/api';
+import logErrorMessage from '../../../utils/log_error_message.js';
 
 // Helper Components
 // Button to show the static list
@@ -34,12 +35,22 @@ const ShowButton = ({ is_open, open }) => {
 
 const AddAssignmentButton = ({ assignment, assign, reviewing = false }) => {
   const text = reviewing ? 'Review' : 'Select';
+
+  const handleClick = async (e) => {
+    try {
+      const categoryMember = await API.isCategoryMember(assignment.article_title);
+      assign(e, assignment, categoryMember[0]);
+    } catch (error) {
+      logErrorMessage(error);
+    }
+  };
+
   return (
     <span>
       <button
         aria-label="Add"
         className="button border assign-selection-button"
-        onClick={e => assign(e, assignment)}
+        onClick={e => handleClick(e)}
       >
         {text}
       </button>
@@ -118,7 +129,6 @@ const PotentialAssignmentRows = ({
 }) => {
   const elements = assignments.map((assignment) => {
     const article = getArticle(assignment, course, wikidataLabels);
-
     return (
       <tr key={assignment.id} className="assignment">
         <td>
@@ -270,7 +280,7 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
     setProject(chosenWiki.value.project);
   };
 
-  const _onConfirmHandler = ({ action, assignment, isInTrackedWiki = true, title: confirmedTitle }) => {
+  const _onConfirmHandler = ({ action, assignment, isInTrackedWiki = true, title: confirmedTitle, categoryMember }) => {
     const studentId = (student && student.id) || null;
 
     const onConfirm = (e) => {
@@ -285,7 +295,10 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
 
     let confirmMessage;
     // Confirm for assigning an article to a student
-    if (student) {
+    if (categoryMember) {
+      // need to add to en.yml
+       confirmMessage = 'Warning: Assigning a Discouraged Article. You are attempting to assign an article that has been marked as discouraged. Please confirm if you want to proceed.';
+    } else if (student) {
       confirmMessage = I18n.t('assignments.confirm_addition', {
         title: confirmedTitle,
         username: student.username
@@ -306,9 +319,13 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
     return dispatch(initiateConfirm({ confirmMessage, onConfirm, warningMessage }));
   };
 
-  const assign = (e) => {
+  const assign = async (e) => {
     e.preventDefault();
-    title.split('\n').filter(Boolean).forEach((assignment_title) => {
+    const categoryMember = await API.isCategoryMember(title.split('\n').map(item => item.trim()).filter(Boolean));
+    // need to add to en.yml
+    const confirmMessage = 'Warning: Assigning a Discouraged Article. You are attempting to assign an article that has been marked as discouraged. Please confirm if you want to proceed.';
+    const assignArticle = () => {
+     title.split('\n').filter(Boolean).forEach(async (assignment_title) => {
       const assignment = {
         title: decodeURIComponent(assignment_title).trim(),
         project: project,
@@ -330,6 +347,13 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
     });
   };
 
+    if (categoryMember.some(x => x !== null)) {
+      dispatch(initiateConfirm({ confirmMessage, onConfirm: assignArticle }));
+    } else {
+      assignArticle();
+    }
+  };
+
   const review = (e, assignment) => {
     e.preventDefault();
 
@@ -346,7 +370,7 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
     });
   };
 
-  const update = (e, assignment) => {
+  const update = (e, assignment, categoryMember) => {
     e.preventDefault();
 
     return _onConfirmHandler({
@@ -355,7 +379,8 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
         id: assignment.id,
         role: role
       },
-      title: assignment.article_title
+      title: assignment.article_title,
+      categoryMember: categoryMember
     });
   };
 

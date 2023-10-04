@@ -1,14 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
+import { initiateConfirm } from '@actions/confirm_actions';
 
 import CourseUtils from '../../utils/course_utils.js';
+import API from '../../utils/api.js';
 import { deleteAssignment, claimAssignment } from '../../actions/assignment_actions.js';
 
 export const AvailableArticle = ({ assignment, current_user, course, selectable }) => {
   const dispatch = useDispatch();
 
-  const onSelectHandler = () => {
+  const onSelectHandler = async () => {
     const assignmentObj = {
       id: assignment.id,
       user_id: current_user.id,
@@ -16,13 +18,22 @@ export const AvailableArticle = ({ assignment, current_user, course, selectable 
     };
 
     const title = assignment.article_title;
+
     const successNotification = {
       message: I18n.t('assignments.article', { title }),
       closable: true,
       type: 'success'
     };
-
-    return dispatch(claimAssignment(assignmentObj, successNotification));
+    if ((await API.isCategoryMember(title))[0] !== null) {
+      // need to add to en.yml
+      const confirmMessage = 'Warning: Assigning a Discouraged Article. You are attempting to assign an article that has been marked as discouraged. Please confirm if you want to proceed.';
+      const onConfirm = () => {
+        return dispatch(claimAssignment(assignmentObj, successNotification));
+      };
+       dispatch(initiateConfirm({ confirmMessage, onConfirm }));
+    } else {
+       return dispatch(claimAssignment(assignmentObj, successNotification));
+    }
   };
 
   const onRemoveHandler = (e) => {
