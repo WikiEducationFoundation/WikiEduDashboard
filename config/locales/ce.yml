@@ -5,46 +5,343 @@
 ---
 ce:
   application:
+    cancel: Йухайаккхар
+    cookie_consent_acknowledge: Кхета со
+    cookie_consent_see_more: Кхин сов хаа.
+    create_accounts: Кхолла аккаунт Википедехь
+    dashboard: Wiki Ed панель
+    documentation: Документаци
+    error: 'ГӀалат даьлла:'
+    explore: Гайта
+    greeting2: Марша догӀийла!
+    greeting_extended: Марша догӀийла Википеди чу
     greeting: Маршалла!
     help: ГӀо
+    home: Коьрта
+    log_in_extended: Википедин гӀоьнца чугӀо
     log_in: Системин довзийтар
     log_out: Болх дӀаберзор
+    my_dashboard: Сан панель
     recent_activity: Дукха хан йоцуш дийнарг
     report_problem: Проблемех хаам бар
     request_account: Аккаунт йехар
+    request_account_create: Кхолла аккаунт
+    search: хаттар ло
+    sign_up_wikipedia: Йа Википедин чугӀо
+    sign_up_log_in_extended: Википедехула
     sign_up: ДӀайаздала
+    submit: ДӀадахьийта
+    training: Ӏамор
+    change: Хийца
+    details: Мадарра
+    confirm: OK
+    opt_in: ХӀаъ
+    opt_out: ХӀан-хӀа
+    opt_yes: хӀаъ
+    opt_no: хӀан-хӀа
+    print: Зорба
+  article_statuses:
+    not_yet_started: Болх болор
+  home:
+    explore: Талла
+    log_in: Википедин гӀоьнца чугӀо
+    sign_up: Википедин гӀоьнца дӀайазло
+  alerts:
+    alert_label: ДӀахаийтарш
+    no_alerts: ДӀахаийтарш цакарий
+  activity:
+    all: Жигаралла
+    edited_by: Хийцина
+    label: Жигаралла
   articles:
+    articles: Йаззамаш
+    article_not_found: ХӀара йаззам хӀинца а кхоьллина бац.
+    edited_mobile: Йаззамаш
+    edited_none: Хийцамаш бина йаззамаш хӀинца а бац.
+    filter:
+      wiki_all: Йерриге
+      new: Керланаш
+    hide: Къайлайаккха
+    history: (истори)
+    label: Йаззамаш
+    loading: Йаззамаш чубахар...
+    new: (керла)
+    rating: Класс
+    see_more: Кхин сов хаа
+    title: ЦӀе
+    title_example: Йаззаман цӀе
+    view: Йаззаме хьажар
+    view_all: Йерриге хьажа
+    view_on_wiki: Вики чохь хьажа
+    views_added: '%{count} йаззаме керла хьовсар %{title}'
+    edit_size: Хийца барам
     wiki: Вики
+    articles_short: Йаззамаш
+  items:
+    lexeme: Лексема
+  articles_wikidata:
+    articles_short: Элементаш
+  articles_generic:
+    articles_short: АгӀонаш
+  assignments:
+    article_link: Йаззам
+    article_link_wikidata: Элемент
+    group_members: Тобанан декъашхой
+    remove: ДӀайаккха
   campaign:
     alert_type: Тайпа
+    alert_user_id: Декъашхо
+    all_campaigns: Йерриге кампанеш
+    campaign: Кампани
+    campaigns: Кампани
+    campaign_deleted: '"%{title}" кампани дӀайаьккхина'
+    campaign_updated: Кампанеш карлайьхна
+    created_at: Терахь
+    course: Курс
+    description: Цуьнах лаьцна
+    delete_campaign: ДӀайаккха хӀара кампани
+    disable_account_requests: Аккаунтан дехарш дӀадайа
+    enable_account_requests: Аккаунтан дехарш латтаде
+    no_passcode: ТӀекхачаран код йац
+    none: ХӀан-хӀа
+    organizers: Вовшахтохархой
+    title: ЦӀе
+    slug: Slug
+    search: Лаха
   categories:
+    add_category: ТӀетоха категори
+    add_template: ТӀетоха кеп
+    add_this_category: ТӀетоха категореш
+    name: ЦӀе
+    category_name: Категорин цӀе
     template_name: Кепан цӀе
+    remove: ДӀайаккха
   courses:
+    school_system: Академин система
+    activity: ГӀуллакхдар
+    alerts: ДӀахаийтарш
+    all_courses: Йерриге курсаш
+    actions: Ардамаш
+    articles: Йаззамаш
+    calendar:
+      legend: Легенда
+    cancel: Йухайаккхар
+    campaigns: 'Кампанеш:'
+    campaign_articles: '%{title} Йаззамаш'
+    campaign_courses: '%{title} курсаш'
+    campaign_select: Харжа кампани
     campaign_users: '%{title} Редакторш'
+    course: Курс
+    course_description: Курсаш
+    courses: Курсаш
+    creation_date: Кхоьллина терахь
     creator:
+      course_title: Курсан цӀе
       end_date: Чекхйолу хан
+      role_description_options:
+      - Инструктор
       start_date: Йолайелла хан
+    delete_course: ДӀайаккха курс
+    delete_suggestion: ДӀайаккха
+    dismiss_survey: ДӀачӀагӀа
+    end: Чекхйалар
+    ended: Курс чекхйаьлла.
+    enroll: ДӀайазло
+    enrollment: ТӀетоха/дӀабаха студенташ
     feedback: Йуханехьа зӀе
+    instructor:
+      one: Инструктор
+      other: Инструкторш
+    instructors: Инструкторш
+    loading: Чуйолуш...
+    my_articles: Сан йаззамаш
+    new_account_email_placeholder: name@example.org
+    overview: Йуьхьиге
+    passcode: ТӀекхачаран код
+    passcode_none: ТӀекхачаран код йац
+    please_log_in: Дехар до, шаьш довзийта
+    private: Къайладаьккхинарг
+    requested_accounts_alert_view: Хьажа
+    school: Ишкол
+    search_courses: Курсаш лаха
+    start: Долор
+    user_role: Роль
+    tags: 'Билгалонаш:'
+    title: ЦӀе
+    view: Курсе хьажар
+    view_page: Курсан агӀонга хьажа
+    view_wiki: Хьажа Википедехь
+    volunteer:
+      one: Шенлаамча
+      other: Шенлаамчаш
   courses_generic:
+    cancel: Йухайаккхар
+    course: Программа
+    courses: Программаш
+    campaigns: 'Кампанеш:'
+    campaign_courses: '%{title} программаш'
     creator:
+      assignment_end: Хиламан чаккхе
+      assignment_end_placeholder: ШШШШ-ДД-ББ
+      assignment_start_placeholder: ШШШШ-ДД-ББ
       course_school: Институт
+      course_term: Маца
+      course_term_placeholder: Маца
+      course_title: Программин цӀе
+      create_button: Хьайн программа кхолла!
+      create_label: Керла программа кхолла
+      save_cloned_course: Ӏалашйе
+      scoping_methods:
+        categories: Категореш
+    delete_course: ДӀайаккха программа
+    enroll: ТӀетоха редактор
+    enrollment: ТӀетоха/дӀабаха редакторш
+    explore: Карайе программаш
+    search_courses: Лаха программаш
+    student_editors: Редакторш
+    student: Редактор
+    students: Редакторш
+    students_short: Редакторш
+    term: Маца
+    view_other: Кхийолу кампанеш хьажа
+    yourcourses: Хьан программаш
+  editable:
+    edit: Нисйе
+    cancel: Йухайаккхар
+    save: Ӏалашйе
+    edit_description: Нисбе хаам
+    edit_details: Хийца мадарра дерш
+    edit_template: Тайе кеп
+  instructor_view:
+    assignments_table:
+      article_name: ЦӀе
   metrics:
     last_update: Статистика тӀаьххьара карлайаккхар
     activity: Дукха хан йоцуш дийнарг
     close_modal: ДӀачӀагӀа
+    date_time: Терахь/хан
+    edit_count_description: Дерриг нисдарш
+    tags: Тегаш
+    view_count_description: Йаззамашка хьовсар
+    view: Хьовсар
+    word_count: Дешнаш тӀетоьхна
+    word_count_average: Дешнийн йукъара дукхалла
     general: Йукъара
+    total_revisions: Йерриге верси
+    aliases: Алиасаш
+    merged: Вовшахтоьхна
+    created: Кхоьллина
+    changed: Хийцайелла
+    removed: ДӀайаьккхина
+    cleared: ЦӀанйина
+    added: ТӀетоьхна
+    descriptions: Цуьнах лаьцна
+    interwiki_links_added: Интервики-хьажоргаш тӀетоьхна
+    labels: Билгалонаш
+    no_data: Хаамаш бац
+    other_updates: Кхин карлайаьхнарш
+    qualifiers_added: Спецификаторш тӀетоьхна
+  namespace:
+    main: Коьрта меттиг
+    talk: дийцар
+    user: Декъашхочун меттиг
+    project: Проект
+    file: Файл
+    mediaWiki: MediaWiki
+    template: Кеп
+    help: ГӀо
+    category: Категори
+    page: АгӀо
+    book: Жайна
+    translation: Гочдар
+    property: Билгало
+    query: Дехар
+    lexeme: Лексема
+    portal: Ков
+    school: Ишкол
+    author: Автор
+    cookbook: Кулинаран жайна
+    index: Индекс
+    collection: Коллекци
+  recent_activity:
+    article_title: Корта
+    datetime: Терахь/хан
+    image: сурт
+    file_name: Файлан цӀе
+  revisions:
+    class: Класс
+    date_time: Терахь/Хан
+    diff_show: Гайта
+    diff_hide: Къайлайаккха
+    edited_by: Хийцина
+    loading: Версеш чуйахар...
+    title: ЦӀе
+  resources:
+    label: Ресурсаш
+  settings:
+    admin_users:
+      new:
+        form_placeholder: Декъашхочун цӀе
+  timeline:
+    empty_week_3: йа
+    gradeable_value: МаьӀна
+    save_all_changes: Йерриге Ӏалашйе
   training:
+    start: Доло
+    view: Хьажа
+    next: РогӀера агӀо
+    page: АгӀо
     previous: < Хьалхара
+    done: Кийчча йу!
+    invalid: Бехк ма билла, иштта слайд йац!
+    check_answer: Талла жам
+  update_username:
+    label: Декъашхочун керла цӀе
+    button: Карлайаккха
   uploads:
+    credit: Кхоллархой
+    file_name: Файлан цӀе
+    image: Сурт
     label: Чуйаьхнарш
+    uploaded_at: Чуйаьккхина хан
+    uploader: Чуйахархо
+    uploaded_by: Чуйаьккхина
+    uploaded_on: Чуйаьккхина
+    usage_count: Лелина
+    usages: Лелор
   users:
+    already_enrolled: ХӀара декъашхо хӀинцале а курс тӀе дӀавазвела/дӀайазйела ву/йу.
+    assign_articles_done: Кийчча йу
+    editors: Редакторш
+    edits: нисйе
+    name: ЦӀе
+    none: Декъашхой бац.
     request_confirmation: Бакъалла йезий хьуна хӀара аккаунт?
     training_module_name: Дешаран модуль
     training_module_status: Статус
+    training_module_time:
+      minutes: мин.
+      seconds: сек.
+    username: Декъашхочун цӀе
+    username_placeholder: Декъашхочун цӀе
+    useremail_placeholder: Эл. пошта
+    userpasscode_placeholder: ТӀекхачаран код
+    role:
+      student: Студент
+      instructor: Инструктор
   error:
     start_date_before_end_date: Йолало хан хила йеза чекхйолу хенал хьалха
+  survey:
+    email:
+      closing: Ларамца,
+      signed: '- Wiki Education команда'
   article_finder:
     page_assessment_class: Класс
     search: Лахар
+    submit: ДӀадахьийта
     tools: ГӀирсаш
+  training_status:
+    view: Хьажа
+  multi_wiki:
+    selector_placeholder: Йазде wiki домен
 ...
