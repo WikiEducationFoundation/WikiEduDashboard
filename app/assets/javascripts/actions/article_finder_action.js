@@ -4,7 +4,9 @@ import { UPDATE_FINDER_FIELD, RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE, INIT
 import { queryUrl, categoryQueryGenerator, pageviewQueryGenerator, pageAssessmentQueryGenerator, pageRevisionQueryGenerator, pageRevisionScoreQueryGenerator, keywordQueryGenerator } from '../utils/article_finder_utils.js';
 import { ORESSupportedWiki, PageAssessmentSupportedWiki } from '../utils/article_finder_language_mappings.js';
 import { fetchWikidataLabels } from './wikidata_actions';
-
+import { stringify } from 'query-string';
+import logErrorMessage from '../utils/log_error_message';
+import request from '../utils/request';
 
 const mediawikiApiBase = (language, project) => {
   if (project === 'wikidata') {
@@ -13,14 +15,8 @@ const mediawikiApiBase = (language, project) => {
   return `https://${language}.${project}.org/w/api.php?action=query&format=json&origin=*`;
 };
 
-const oresApiBase = (language, project) => {
-  if (project === 'wikidata') {
-    return `https://ores.wikimedia.org/v3/scores/${project}wiki`;
-  }
-  return `https://ores.wikimedia.org/v3/scores/${language}wiki`;
-};
 
-const limit = promiseLimit(10);
+const limit = promiseLimit(5);
 
 export const updateFields = (key, value) => (dispatch) => {
   dispatch({
@@ -39,41 +35,58 @@ export const sortArticleFinder = (key) => {
   };
 };
 
-export const fetchCategoryResults = (category, wiki, cmcontinue = '', continueResults = false) => (dispatch, getState) => {
-  if (!continueResults) {
-    dispatch({
-      type: INITIATE_SEARCH,
-    });
-  } else {
-    dispatch({
-      type: UPDATE_FINDER_FIELD,
-      data: {
-        key: 'fetchState',
-        value: 'ARTICLES_LOADING',
-      }
-    });
-  }
-  return getDataForCategory(`Category:${category}`, wiki, cmcontinue, 0, dispatch, getState);
-};
+export const fetchCategoryResults = (category, wiki, cmcontinue = '', continueResults = false) =>
+  (dispatch, getState) => {
+    if (!continueResults) {
+      dispatch({
+        type: INITIATE_SEARCH,
+      });
+    } else {
+      dispatch({
+        type: UPDATE_FINDER_FIELD,
+        data: {
+          key: 'fetchState',
+          value: 'ARTICLES_LOADING',
+        },
+      });
+    }
+    return getDataForCategory(
+      `Category:${category}`,
+      wiki,
+      cmcontinue,
+      0,
+      dispatch,
+      getState
+    );
+  };
 
-const getDataForCategory = (category, wiki, cmcontinue, namespace = 0, dispatch, getState) => {
+const getDataForCategory = (
+  category,
+  wiki,
+  cmcontinue,
+  namespace = 0,
+  dispatch,
+  getState
+) => {
   const query = categoryQueryGenerator(category, cmcontinue, namespace);
-  return limit(() => queryUrl(mediawikiApiBase(wiki.language, wiki.project), query))
-  .then((data) => {
-    // if (depth > 0) {
-    //     depth -= 1;
-    //     getDataForSubCategories(category, depth, namespace, dispatch, getState);
-    //   }
-    dispatch({
-      type: RECEIVE_CATEGORY_RESULTS,
-      data: data,
-    });
-    return data.query.categorymembers;
-  })
-  .then((data) => {
-    fetchPageAssessment(data, wiki, dispatch, getState);
-  })
-  .catch(response => (dispatch({ type: API_FAIL, data: response })));
+  return limit(() =>
+    queryUrl(mediawikiApiBase(wiki.language, wiki.project), query)
+  )
+    .then((data) => {
+      // if (depth > 0) {
+      //     depth -= 1;
+      //     getDataForSubCategories(category, depth, namespace, dispatch, getState);
+      //   }
+      dispatch({
+        type: RECEIVE_CATEGORY_RESULTS,
+        data: data,
+      });
+      return data.query.categorymembers;
+    })
+    .then((data) => {
+      fetchPageAssessment(data, wiki, dispatch, getState);
+    })
+    .catch(response => dispatch({ type: API_FAIL, data: response }));
 };
 
 // export const findSubcategories = (category) => {
@@ -96,15 +109,17 @@ const getDataForCategory = (category, wiki, cmcontinue, namespace = 0, dispatch,
 const fetchPageViews = (articlesList, wiki, dispatch, getState) => {
   const promises = chunk(articlesList, 5).map((articles) => {
     const query = pageviewQueryGenerator(map(articles, 'pageid'));
-    return limit(() => queryUrl(mediawikiApiBase(wiki.language, wiki.project), query))
-    .then(data => data.query.pages)
-    .then((data) => {
-      dispatch({
-        type: RECEIVE_ARTICLE_PAGEVIEWS,
-        data: data
-      });
-    })
-    .catch(response => (dispatch({ type: API_FAIL, data: response })));
+    return limit(() =>
+      queryUrl(mediawikiApiBase(wiki.language, wiki.project), query)
+    )
+      .then(data => data.query.pages)
+      .then((data) => {
+        dispatch({
+          type: RECEIVE_ARTICLE_PAGEVIEWS,
+          data: data,
+        });
+      })
+      .catch(response => dispatch({ type: API_FAIL, data: response }));
   });
   const sort = getState().articleFinder.sort;
   let desc = false;
@@ -113,8 +128,7 @@ const fetchPageViews = (articlesList, wiki, dispatch, getState) => {
   } else if (!sort.sortKey) {
     desc = true;
   }
-  Promise.all(promises)
-  .then(() => {
+  Promise.all(promises).then(() => {
     dispatch({
       type: SORT_ARTICLE_FINDER,
       key: sort.key,
@@ -125,23 +139,27 @@ const fetchPageViews = (articlesList, wiki, dispatch, getState) => {
 };
 
 const fetchPageAssessment = (articlesList, wiki, dispatch, getState) => {
-  if (PageAssessmentSupportedWiki[wiki.project] && includes(PageAssessmentSupportedWiki[wiki.project], wiki.language)) {
-    const promises = chunk(articlesList, 20).map((articles) => {
+  if (
+    PageAssessmentSupportedWiki[wiki.project]
+    && includes(PageAssessmentSupportedWiki[wiki.project], wiki.language)
+  ) {
+    const promises = chunk(articlesList, 5).map((articles) => {
       const query = pageAssessmentQueryGenerator(map(articles, 'title'));
 
-      return limit(() => queryUrl(mediawikiApiBase(wiki.language, wiki.project), query))
-      .then(data => data.query.pages)
-      .then((data) => {
-        dispatch({
-          type: RECEIVE_ARTICLE_PAGEASSESSMENT,
-          data: data
-        });
-      })
-      .catch(response => (dispatch({ type: API_FAIL, data: response })));
+      return limit(() =>
+        queryUrl(mediawikiApiBase(wiki.language, wiki.project), query)
+      )
+        .then(data => data.query.pages)
+        .then((data) => {
+          dispatch({
+            type: RECEIVE_ARTICLE_PAGEASSESSMENT,
+            data: data,
+          });
+        })
+        .catch(response => dispatch({ type: API_FAIL, data: response }));
     });
 
-    Promise.all(promises)
-    .then(() => {
+    Promise.all(promises).then(() => {
       fetchPageRevision(articlesList, wiki, dispatch, getState);
     });
   } else {
@@ -150,25 +168,29 @@ const fetchPageAssessment = (articlesList, wiki, dispatch, getState) => {
 };
 
 const fetchPageRevision = (articlesList, wiki, dispatch, getState) => {
-  if (includes(ORESSupportedWiki.languages, wiki.language) && includes(ORESSupportedWiki.projects, wiki.project)) {
-    const promises = chunk(articlesList, 20).map((articles) => {
+  if (
+    includes(ORESSupportedWiki.languages, wiki.language)
+    && includes(ORESSupportedWiki.projects, wiki.project)
+  ) {
+    const promises = chunk(articlesList, 5).map((articles) => {
       const query = pageRevisionQueryGenerator(map(articles, 'title'));
-      return limit(() => queryUrl(mediawikiApiBase(wiki.language, wiki.project), query))
-      .then(data => data.query.pages)
-      .then((data) => {
-        dispatch({
-          type: RECEIVE_ARTICLE_REVISION,
-          data: data
-        });
-        return data;
-      })
-      .then((data) => {
-        return fetchPageRevisionScore(data, wiki, dispatch);
-      })
-      .catch(response => (dispatch({ type: API_FAIL, data: response })));
+      return limit(() =>
+        queryUrl(mediawikiApiBase(wiki.language, wiki.project), query)
+      )
+        .then(data => data.query.pages)
+        .then((data) => {
+          dispatch({
+            type: RECEIVE_ARTICLE_REVISION,
+            data: data,
+          });
+          return data;
+        })
+        .then((data) => {
+          return fetchPageRevisionScore(data, wiki, dispatch);
+        })
+        .catch(response => dispatch({ type: API_FAIL, data: response }));
     });
-    Promise.all(promises)
-    .then(() => {
+    Promise.all(promises).then(() => {
       fetchPageViews(articlesList, wiki, dispatch, getState);
     });
   } else {
@@ -176,55 +198,83 @@ const fetchPageRevision = (articlesList, wiki, dispatch, getState) => {
   }
 };
 
-const fetchPageRevisionScore = (revids, wiki, dispatch) => {
-    const query = pageRevisionScoreQueryGenerator(map(revids, (revid) => {
+const fetchPageRevisionScore = async (revids, wiki, dispatch) => {
+  const query = pageRevisionScoreQueryGenerator(
+    map(revids, (revid) => {
       return revid.revisions[0].revid;
-    }), wiki.project);
-    return promiseLimit(4)(() => queryUrl(oresApiBase(wiki.language, wiki.project), query))
-    .then(data => data[`${wiki.project === 'wikidata' ? 'wikidata' : wiki.language}wiki`].scores)
-    .then((data) => {
-      dispatch({
-        type: RECEIVE_ARTICLE_REVISIONSCORE,
-        data: {
-          data: data,
-          language: wiki.language,
-          project: wiki.project,
-        }
-      });
-    })
-    .catch(response => (dispatch({ type: API_FAIL, data: response })));
-};
+    }),
+    wiki.project
+  );
+  const API_URL = '/revisions/show';
+  const params = {
+    revids: JSON.stringify(query.revids),
+    wiki: JSON.stringify(wiki),
+  };
 
+  try {
+    const response = await promiseLimit(5)(() =>
+      request(`${API_URL}?${stringify(params)}`)
+    );
 
-export const fetchKeywordResults = (keyword, wiki, offset = 0, continueResults = false) => (dispatch, getState) => {
-  if (!continueResults) {
-    dispatch({
-      type: INITIATE_SEARCH
-    });
-  } else {
-    dispatch({
-      type: UPDATE_FINDER_FIELD,
+    if (!response.ok) {
+      const data = await response.text();
+      response.responseText = data;
+      logErrorMessage(response);
+      throw response;
+    }
+    const responseJson = await response.json();
+    const data = await responseJson[
+      `${wiki.project === 'wikidata' ? 'wikidata' : wiki.language}wiki`
+    ].scores;
+
+    await dispatch({
+      type: RECEIVE_ARTICLE_REVISIONSCORE,
       data: {
-        key: 'fetchState',
-        value: 'ARTICLES_LOADING',
-      }
+        data: data,
+        language: wiki.language,
+        project: wiki.project,
+      },
     });
+  } catch (error) {
+    dispatch({ type: API_FAIL, data: error.message || error });
   }
-  const query = keywordQueryGenerator(keyword, offset);
-  return limit(() => queryUrl(mediawikiApiBase(wiki.language, wiki.project), query))
-  .then((data) => {
-    dispatch({
-      type: RECEIVE_KEYWORD_RESULTS,
-      data: data,
-    });
-    return data.query.search;
-  })
-  .then((articles) => {
-    if (wiki.project === 'wikidata') fetchWikidataLabels(articles, dispatch);
-    return fetchPageAssessment(articles, wiki, dispatch, getState);
-  })
-  .catch(response => (dispatch({ type: API_FAIL, data: response })));
 };
+
+export const fetchKeywordResults = (keyword, wiki, offset = 0, continueResults = false) =>
+  (dispatch, getState) => {
+    if (!continueResults) {
+      dispatch({
+        type: INITIATE_SEARCH,
+      });
+    } else {
+      dispatch({
+        type: UPDATE_FINDER_FIELD,
+        data: {
+          key: 'fetchState',
+          value: 'ARTICLES_LOADING',
+        },
+      });
+    }
+    const query = keywordQueryGenerator(keyword, offset);
+    console.log('fetchKeywordResults', query);
+    return limit(() =>
+      queryUrl(mediawikiApiBase(wiki.language, wiki.project), query)
+    )
+      .then((data) => {
+        dispatch({
+          type: RECEIVE_KEYWORD_RESULTS,
+          data: data,
+        });
+        return data.query.search;
+      })
+      .then((articles) => {
+        if (wiki.project === 'wikidata') {
+          fetchWikidataLabels(articles, dispatch);
+        }
+        return fetchPageAssessment(articles, wiki, dispatch, getState);
+      })
+      .catch(response => dispatch({ type: API_FAIL, data: response }));
+  };
 
 export const resetArticleFinder = () => {
   return {
