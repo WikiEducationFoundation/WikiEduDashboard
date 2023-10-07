@@ -217,44 +217,45 @@ const EnWikiWeights = {
   Stub: 0
 };
 
-export const ORESWeights = {
-  en: EnWikiWeights,
-  eu: EnWikiWeights,
-  fa: EnWikiWeights,
-  fr: {
-    adq: 100,
-    ba: 80,
-    a: 60,
-    b: 40,
-    bd: 20,
-    e: 0,
-  },
-  tr: {
-    sm: 100,
-    km: 80,
-    b: 60,
-    c: 40,
-    baslagıç: 20,
-    taslak: 0,
-  },
-  simple: EnWikiWeights,
-  ru: {
-    ИС: 100,
-    ДС: 80,
-    ХС: 80,
-    I: 60,
-    II: 40,
-    III: 20,
-    IV: 0
-  },
-  wikidata: {
-    A: 100,
-    B: 80,
-    C: 60,
-    D: 40,
-    E: 20,
-  }
+const FrWikiWeights = { adq: 100, ba: 80, a: 60, b: 40, bd: 20, e: 0 };
+const TrWikiWeights = {
+  sm: 100,
+  km: 80,
+  b: 60,
+  c: 40,
+  baslagıç: 20,
+  taslak: 0,
 };
+const RuWikiWeights = {
+  ИС: 100,
+  ДС: 80,
+  ХС: 80,
+  I: 60,
+  II: 40,
+  III: 20,
+  IV: 0,
+};
+const PtWikiWeights = { 6: 100, 5: 80, 4: 60, 3: 40, 2: 20, 1: 0 };
+const UkWikiWeights = { ДС: 100, ВС: 80, I: 60, II: 40, III: 20, IV: 0 };
+const SvWikiWeights = { u: 100, b: 90, r: 80, s: 0 };
+const NlWikiWeights = { A: 100, B: 75, C: 50, D: 25, E: 0 };
+
+export const LiftwingWeights = {
+  en: EnWikiWeights,
+  simple: EnWikiWeights,
+  fa: EnWikiWeights,
+  eu: EnWikiWeights,
+  fr: FrWikiWeights,
+  tr: TrWikiWeights,
+  ru: RuWikiWeights,
+  uk: UkWikiWeights,
+  gl: EnWikiWeights,
+  sv: SvWikiWeights,
+  nl: NlWikiWeights,
+  pt: PtWikiWeights,
+};
+
+
 
 // Update the server side mapping in sync.
 export const ORESSupportedWiki = {
