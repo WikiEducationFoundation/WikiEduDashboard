@@ -107,7 +107,7 @@ const getDataForCategory = (
 // };
 
 const fetchPageViews = (articlesList, wiki, dispatch, getState) => {
-  const promises = chunk(articlesList, 5).map((articles) => {
+  const promises = chunk(articlesList, 2).map((articles) => {
     const query = pageviewQueryGenerator(map(articles, 'pageid'));
     return limit(() =>
       queryUrl(mediawikiApiBase(wiki.language, wiki.project), query)
@@ -143,7 +143,7 @@ const fetchPageAssessment = (articlesList, wiki, dispatch, getState) => {
     PageAssessmentSupportedWiki[wiki.project]
     && includes(PageAssessmentSupportedWiki[wiki.project], wiki.language)
   ) {
-    const promises = chunk(articlesList, 5).map((articles) => {
+    const promises = chunk(articlesList, 2).map((articles) => {
       const query = pageAssessmentQueryGenerator(map(articles, 'title'));
 
       return limit(() =>
@@ -172,7 +172,7 @@ const fetchPageRevision = (articlesList, wiki, dispatch, getState) => {
     includes(ORESSupportedWiki.languages, wiki.language)
     && includes(ORESSupportedWiki.projects, wiki.project)
   ) {
-    const promises = chunk(articlesList, 5).map((articles) => {
+    const promises = chunk(articlesList, 2).map((articles) => {
       const query = pageRevisionQueryGenerator(map(articles, 'title'));
       return limit(() =>
         queryUrl(mediawikiApiBase(wiki.language, wiki.project), query)
@@ -212,7 +212,7 @@ const fetchPageRevisionScore = async (revids, wiki, dispatch) => {
   };
 
   try {
-    const response = await promiseLimit(5)(() =>
+    const response = await promiseLimit(2)(() =>
       request(`${API_URL}?${stringify(params)}`)
     );
 
@@ -256,7 +256,7 @@ export const fetchKeywordResults = (keyword, wiki, offset = 0, continueResults =
       });
     }
     const query = keywordQueryGenerator(keyword, offset);
-    console.log('fetchKeywordResults', query);
+
     return limit(() =>
       queryUrl(mediawikiApiBase(wiki.language, wiki.project), query)
     )
