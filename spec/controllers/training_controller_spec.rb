@@ -140,4 +140,33 @@ describe TrainingController, type: :request do
       end
     end
   end
+
+  describe '#find' do
+    subject { get "/find_training_module/#{module_id}" }
+
+    context 'module_id is found' do
+      let(:module_id) { 12 }
+
+      it 'redirects to a training module page' do
+        subject
+        expect(response).to redirect_to("/training/students/peer-review")
+      end
+    end
+
+    context 'module_id is found but it is in no library' do
+      let(:module_id) { 2 }
+
+      it 'raises a routing error' do
+        expect { subject }.to raise_error ActionController::RoutingError
+      end
+    end
+
+    context 'module_id is not found' do
+      let(:module_id) { 128456 }
+
+      it 'raises a module not found error' do
+        expect { subject }.to raise_error ActiveRecord::RecordNotFound
+      end
+    end
+  end
 end

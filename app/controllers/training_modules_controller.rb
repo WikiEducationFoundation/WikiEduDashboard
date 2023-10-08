@@ -14,9 +14,9 @@ class TrainingModulesController < ApplicationController
 
   def find
     training_module = TrainingModule.find(params[:module_id])
-    training_module_slug = "%slug: #{training_module.slug}\n%"
+    training_module_slug = "%- slug: #{training_module.slug}\n%"
     training_library = TrainingLibrary.find_by("categories LIKE ?", training_module_slug)
-    raise ActiveRecord::RecordNotFound unless training_library
+    raise ActionController::RoutingError, 'library not found' unless training_library
     redirect_to "/training/#{training_library.slug}/#{training_module.slug}"
   end
 end
