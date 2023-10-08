@@ -59,6 +59,17 @@ class TrainingController < ApplicationController
     render plain: e.message
   end
 
+  def find_slide
+    training_slide = TrainingSlide.find(params[:slide_id])
+    training_slide_slug = "%- #{training_slide.slug}\n%"
+    training_module = TrainingModule.find_by("slide_slugs LIKE ?", training_slide_slug)
+    raise ActionController::RoutingError, 'module not found' unless training_module
+    training_module_slug = "%- slug: #{training_module.slug}\n%"
+    training_library = TrainingLibrary.find_by("categories LIKE ?", training_module_slug)
+    raise ActionController::RoutingError, 'library not found' unless training_library
+    redirect_to "/training/#{training_library.slug}/#{training_module.slug}/#{training_slide.slug}"
+  end
+
   private
 
   def add_training_root_breadcrumb
