@@ -169,4 +169,42 @@ describe TrainingController, type: :request do
       end
     end
   end
+
+  describe '#find_slide' do
+    subject { get "/find_training_slide/#{slide_id}" }
+
+    context 'slide_id is found' do
+      let(:slide_id) { 332 }
+
+      it 'redirects to a training slide page' do
+        subject
+        expect(response).to redirect_to("/training/instructors/new-instructor-orientation/new-instructor-orientation-complete")
+      end
+    end
+
+    context 'slide_id is found but it is in no module' do
+      let(:slide) { create(:training_slide) }
+      let(:slide_id) { slide.id }
+
+      it 'raises a routing error' do
+        expect { subject }.to raise_error ActionController::RoutingError, "module not found"
+      end
+    end
+
+    context 'slide_id is found but its module is in no library' do
+      let(:slide_id) { 201 }
+
+      it 'raises a routing error' do
+        expect { subject }.to raise_error ActionController::RoutingError, "library not found"
+      end
+    end
+
+    context 'slide_id is not found' do
+      let(:slide_id) { 128456 }
+
+      it 'raises a module not found error' do
+        expect { subject }.to raise_error ActiveRecord::RecordNotFound
+      end
+    end
+  end
 end
