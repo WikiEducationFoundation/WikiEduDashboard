@@ -149,7 +149,7 @@ describe TrainingController, type: :request do
 
       it 'redirects to a training module page' do
         subject
-        expect(response).to redirect_to("/training/students/peer-review")
+        expect(response).to redirect_to('/training/students/peer-review')
       end
     end
 
@@ -178,7 +178,8 @@ describe TrainingController, type: :request do
 
       it 'redirects to a training slide page' do
         subject
-        expect(response).to redirect_to("/training/instructors/new-instructor-orientation/new-instructor-orientation-complete")
+        expect(response).to redirect_to('/training/instructors/new-instructor-orientation/' \
+                                        'new-instructor-orientation-complete')
       end
     end
 
@@ -187,7 +188,7 @@ describe TrainingController, type: :request do
       let(:slide_id) { slide.id }
 
       it 'raises a routing error' do
-        expect { subject }.to raise_error ActionController::RoutingError, "module not found"
+        expect { subject }.to raise_error ActionController::RoutingError, 'module not found'
       end
     end
 
@@ -195,7 +196,7 @@ describe TrainingController, type: :request do
       let(:slide_id) { 201 }
 
       it 'raises a routing error' do
-        expect { subject }.to raise_error ActionController::RoutingError, "library not found"
+        expect { subject }.to raise_error ActionController::RoutingError, 'library not found'
       end
     end
 

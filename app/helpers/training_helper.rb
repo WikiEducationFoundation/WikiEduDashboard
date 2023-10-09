@@ -8,10 +8,9 @@ module TrainingHelper
   def find_library_from_module_slug(module_slug)
     TrainingLibrary.all.find_each do |library|
       library.categories.each do |category|
-        if category.key?('modules')
-          category['modules'].each do |mod|
-            return library if mod['slug'] == module_slug
-          end
+        next unless category.key?('modules')
+        category['modules'].each do |mod|
+          return library if mod['slug'] == module_slug
         end
       end
     end
