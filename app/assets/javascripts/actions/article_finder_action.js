@@ -4,13 +4,20 @@ import { UPDATE_FINDER_FIELD, RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE, INIT
 import { queryUrl, categoryQueryGenerator, pageviewQueryGenerator, pageAssessmentQueryGenerator, pageRevisionQueryGenerator, pageRevisionScoreQueryGenerator, keywordQueryGenerator } from '../utils/article_finder_utils.js';
 import { ORESSupportedWiki, PageAssessmentSupportedWiki } from '../utils/article_finder_language_mappings.js';
 import { fetchWikidataLabels } from './wikidata_actions';
-
+import request from '../utils/request';
 
 const mediawikiApiBase = (language, project) => {
   if (project === 'wikidata') {
     return `https://${project}.org/w/api.php?action=query&format=json&origin=*`;
   }
   return `https://${language}.${project}.org/w/api.php?action=query&format=json&origin=*`;
+};
+
+const LIFT_WING_SERVER_URL = 'https://api.wikimedia.org';
+const liftWingApiBase = (language, project) => {
+  const project_code = project === 'wikidata' ? 'wikidatawiki' : `${language}wiki`;
+  const project_quality_model = project === 'wikidata' ? 'itemquality' : 'articlequality';
+  return `${LIFT_WING_SERVER_URL}/service/lw/inference/v1/models/${project_code}-${project_quality_model}:predict`;
 };
 
 const oresApiBase = (language, project) => {
@@ -126,18 +133,20 @@ const fetchPageViews = (articlesList, wiki, dispatch, getState) => {
 
 const fetchPageAssessment = (articlesList, wiki, dispatch, getState) => {
   if (PageAssessmentSupportedWiki[wiki.project] && includes(PageAssessmentSupportedWiki[wiki.project], wiki.language)) {
-    const promises = chunk(articlesList, 20).map((articles) => {
+    const promises = chunk(articlesList, 1).map((articles) => {
       const query = pageAssessmentQueryGenerator(map(articles, 'title'));
 
-      return limit(() => queryUrl(mediawikiApiBase(wiki.language, wiki.project), query))
-      .then(data => data.query.pages)
-      .then((data) => {
-        dispatch({
-          type: RECEIVE_ARTICLE_PAGEASSESSMENT,
-          data: data
-        });
-      })
-      .catch(response => (dispatch({ type: API_FAIL, data: response })));
+      return limit(() =>
+        queryUrl(mediawikiApiBase(wiki.language, wiki.project), query)
+      )
+        .then(data => data.query.pages)
+        .then((data) => {
+          dispatch({
+            type: RECEIVE_ARTICLE_PAGEASSESSMENT,
+            data: data,
+          });
+        })
+        .catch(response => dispatch({ type: API_FAIL, data: response }));
     });
 
     Promise.all(promises)
@@ -151,21 +160,23 @@ const fetchPageAssessment = (articlesList, wiki, dispatch, getState) => {
 
 const fetchPageRevision = (articlesList, wiki, dispatch, getState) => {
   if (includes(ORESSupportedWiki.languages, wiki.language) && includes(ORESSupportedWiki.projects, wiki.project)) {
-    const promises = chunk(articlesList, 20).map((articles) => {
+    const promises = chunk(articlesList, 1).map((articles) => {
       const query = pageRevisionQueryGenerator(map(articles, 'title'));
-      return limit(() => queryUrl(mediawikiApiBase(wiki.language, wiki.project), query))
-      .then(data => data.query.pages)
-      .then((data) => {
-        dispatch({
-          type: RECEIVE_ARTICLE_REVISION,
-          data: data
-        });
-        return data;
-      })
-      .then((data) => {
-        return fetchPageRevisionScore(data, wiki, dispatch);
-      })
-      .catch(response => (dispatch({ type: API_FAIL, data: response })));
+      return limit(() =>
+        queryUrl(mediawikiApiBase(wiki.language, wiki.project), query)
+      )
+        .then(data => data.query.pages)
+        .then((data) => {
+          dispatch({
+            type: RECEIVE_ARTICLE_REVISION,
+            data: data,
+          });
+          return data;
+        })
+        .then((data) => {
+          return fetchPageRevisionScore(data, wiki, dispatch);
+        })
+        .catch(response => dispatch({ type: API_FAIL, data: response }));
     });
     Promise.all(promises)
     .then(() => {
@@ -176,24 +187,79 @@ const fetchPageRevision = (articlesList, wiki, dispatch, getState) => {
   }
 };
 
-const fetchPageRevisionScore = (revids, wiki, dispatch) => {
-    const query = pageRevisionScoreQueryGenerator(map(revids, (revid) => {
+const fetchPageRevisionScore = async (revids, wiki, dispatch) => {
+  const query = pageRevisionScoreQueryGenerator(
+    map(revids, (revid) => {
       return revid.revisions[0].revid;
-    }), wiki.project);
-    return promiseLimit(4)(() => queryUrl(oresApiBase(wiki.language, wiki.project), query))
-    .then(data => data[`${wiki.project === 'wikidata' ? 'wikidata' : wiki.language}wiki`].scores)
-    .then((data) => {
-      dispatch({
-        type: RECEIVE_ARTICLE_REVISIONSCORE,
-        data: {
-          data: data,
-          language: wiki.language,
-          project: wiki.project,
-        }
-      });
-    })
-    .catch(response => (dispatch({ type: API_FAIL, data: response })));
+    }),
+    wiki.project
+  );
+  const API_URL = liftWingApiBase(wiki.language, wiki.project);
+  const params = {
+    rev_id: Number(query.revids.split('|')[0]),
+  };
+
+
+  try {
+    const response = await promiseLimit(2)(() =>
+      request(API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(params),
+      })
+    );
+
+    if (!response.ok) {
+      const data = await response.text();
+      response.responseText = data;
+      logErrorMessage(response);
+      throw response;
+    }
+    const responseJson = await response.json();
+    const data = await responseJson[
+      `${wiki.project === 'wikidata' ? 'wikidata' : wiki.language}wiki`
+    ].scores;
+
+    await dispatch({
+      type: RECEIVE_ARTICLE_REVISIONSCORE,
+      data: {
+        data: data,
+        language: wiki.language,
+        project: wiki.project,
+      },
+    });
+  } catch (error) {
+    dispatch({ type: API_FAIL, data: error.message || error });
+  }
 };
+
+// const fetchPageRevisionScore = (revids, wiki, dispatch) => {
+//     const query = pageRevisionScoreQueryGenerator(map(revids, (revid) => {
+//       return revid.revisions[0].revid;
+//     }), wiki.project);
+//     return promiseLimit(4)(() =>
+//       queryUrl(liftWingApiBase(wiki.language, wiki.project), query)
+//     )
+//       .then(
+//         data =>
+//           data[
+//             `${wiki.project === 'wikidata' ? 'wikidata' : wiki.language}wiki`
+//           ].scores
+//       )
+//       .then((data) => {
+//         dispatch({
+//           type: RECEIVE_ARTICLE_REVISIONSCORE,
+//           data: {
+//             data: data,
+//             language: wiki.language,
+//             project: wiki.project,
+//           },
+//         });
+//       })
+//       .catch(response => dispatch({ type: API_FAIL, data: response }));
+// };
 
 
 export const fetchKeywordResults = (keyword, wiki, offset = 0, continueResults = false) => (dispatch, getState) => {
