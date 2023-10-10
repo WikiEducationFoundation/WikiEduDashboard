@@ -5,7 +5,6 @@ require_dependency "#{Rails.root}/lib/data_cycle/training_update"
 require_dependency "#{Rails.root}/lib/training/training_resource_query_object"
 
 class TrainingController < ApplicationController
-  include TrainingHelper
   layout 'training'
   before_action :init_query_object, only: :index
 
@@ -62,10 +61,10 @@ class TrainingController < ApplicationController
 
   def find_slide
     training_slide = TrainingSlide.find(params[:slide_id])
-    training_module = find_module_from_slide_slug(training_slide.slug)
+    training_module = training_slide.find_module_by_slug
     raise ActionController::RoutingError, 'module not found' unless training_module
     # Use the specific training library for the module, or a default library if it is not found
-    training_library = find_library_from_module_slug(training_module.slug) || TrainingLibrary.first
+    training_library = training_module.find_library_by_slug || TrainingLibrary.first
     redirect_to "/training/#{training_library.slug}/#{training_module.slug}/#{training_slide.slug}"
   end
 
