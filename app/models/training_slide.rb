@@ -65,4 +65,10 @@ class TrainingSlide < ApplicationRecord
     puts "There's a problem with file '#{slug}'"
     raise e
   end
+
+  # Returns the first module including the slide slug.
+  # It returns nil if no such module is found.
+  def find_module_by_slug
+    TrainingModule.all.detect { |tm| tm.slide_slugs.include? slug }
+  end
 end

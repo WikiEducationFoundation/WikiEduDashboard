@@ -328,6 +328,11 @@ Rails.application.routes.draw do
   get 'training_modules' => 'training_modules#index'
   get 'training_module' => 'training_modules#show'
 
+  # To find training modules by id
+  get 'find_training_module/:module_id' => 'training_modules#find'
+
+  # To find individual slides by id
+  get 'find_training_slide/:slide_id' => 'training#find_slide'
 
   # Misc
   # get 'courses' => 'courses#index'
