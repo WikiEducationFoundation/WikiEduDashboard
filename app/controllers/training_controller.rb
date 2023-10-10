@@ -64,8 +64,8 @@ class TrainingController < ApplicationController
     training_slide = TrainingSlide.find(params[:slide_id])
     training_module = find_module_from_slide_slug(training_slide.slug)
     raise ActionController::RoutingError, 'module not found' unless training_module
-    training_library = find_library_from_module_slug(training_module.slug)
-    raise ActionController::RoutingError, 'library not found' unless training_library
+    # Use the specific training library for the module, or a default library if it is not found
+    training_library = find_library_from_module_slug(training_module.slug) || TrainingLibrary.first
     redirect_to "/training/#{training_library.slug}/#{training_module.slug}/#{training_slide.slug}"
   end
 

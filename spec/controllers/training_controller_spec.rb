@@ -156,8 +156,9 @@ describe TrainingController, type: :request do
     context 'module_id is found but it is in no library' do
       let(:module_id) { 2 }
 
-      it 'raises a routing error' do
-        expect { subject }.to raise_error ActionController::RoutingError
+      it 'uses a default library to build the route' do
+        subject
+        expect(response).to redirect_to('/training/instructors/editing-basics')
       end
     end
 
@@ -174,12 +175,11 @@ describe TrainingController, type: :request do
     subject { get "/find_training_slide/#{slide_id}" }
 
     context 'slide_id is found' do
-      let(:slide_id) { 332 }
+      let(:slide_id) { 103 }
 
       it 'redirects to a training slide page' do
         subject
-        expect(response).to redirect_to('/training/instructors/new-instructor-orientation/' \
-                                        'new-instructor-orientation-complete')
+        expect(response).to redirect_to('/training/students/wikipedia-essentials/five-pillars')
       end
     end
 
@@ -195,8 +195,9 @@ describe TrainingController, type: :request do
     context 'slide_id is found but its module is in no library' do
       let(:slide_id) { 201 }
 
-      it 'raises a routing error' do
-        expect { subject }.to raise_error ActionController::RoutingError, 'library not found'
+      it 'uses a default library to build the route' do
+        subject
+        expect(response).to redirect_to('/training/instructors/editing-basics/welcome-students')
       end
     end
 

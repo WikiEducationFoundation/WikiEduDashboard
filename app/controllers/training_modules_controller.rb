@@ -15,8 +15,8 @@ class TrainingModulesController < ApplicationController
 
   def find
     training_module = TrainingModule.find(params[:module_id])
-    training_library = find_library_from_module_slug(training_module.slug)
-    raise ActionController::RoutingError, 'library not found' unless training_library
+    # Use the specific training library for the module, or a default library if it is not found
+    training_library = find_library_from_module_slug(training_module.slug) || TrainingLibrary.first
     redirect_to "/training/#{training_library.slug}/#{training_module.slug}"
   end
 end
