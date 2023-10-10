@@ -159,5 +159,11 @@ class TrainingModule < ApplicationRecord
     TrainingLibrary.all.detect { |tl| tl.training_module_slugs.include? slug }
   end
 
+  # Returns a specific training library for the module,
+  # or a default library if it is not found.
+  def find_or_default_library
+    find_library_by_slug || TrainingLibrary.first
+  end
+
   class ModuleNotFound < StandardError; end
 end
