@@ -14,6 +14,8 @@ class CourseDataUpdateWorker
 
   def perform(course_id)
     course = Course.find(course_id)
+    return if course.very_long_update?
+
     logger.info "Updating course: #{course.slug}"
     UpdateCourseStats.new(course)
   rescue StandardError => e
