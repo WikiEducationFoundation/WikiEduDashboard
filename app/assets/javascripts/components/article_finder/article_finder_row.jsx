@@ -66,12 +66,13 @@ const ArticleFinderRow = createReactClass({
     });
     return this.props.deleteAssignment(assignment);
   },
-
-  async isCategoryMember(userId = null) {
-    const categoryMember = await API.isCategoryMember(this.props.title);
-    if (categoryMember[0] !== null) {
-      // need to add to en.yml
-      const confirmMessage = 'Warning: Assigning a Discouraged Article. You are attempting to assign an article that has been marked as discouraged. Please confirm if you want to proceed.';
+  async addArticle(userId = null) {
+    const categoryMember = await API.checkArticleInWikiCategory(this.props.title);
+    if (categoryMember[0] === this.props.title) {
+      const confirmMessage = I18n.t('articles.discouraged_article', {
+      type: userId ? 'Assigning' : 'Adding',
+      action: userId ? 'assign' : 'add'
+    });
       const onConfirm = () => { this.assignArticle(userId); };
       this.props.initiateConfirm({ confirmMessage, onConfirm: onConfirm });
     } else {
@@ -143,7 +144,7 @@ const ArticleFinderRow = createReactClass({
         const className = `button small add-available-article ${this.state.isLoading ? 'disabled' : 'dark'}`;
         button = (
           <td>
-            <button className={className} onClick={() => this.isCategoryMember()}>{I18n.t(`article_finder.${ArticleUtils.projectSuffix(this.props.selectedWiki.project, 'add_available_article')}`)}</button>
+            <button className={className} onClick={() => this.addArticle()}>{I18n.t(`article_finder.${ArticleUtils.projectSuffix(this.props.selectedWiki.project, 'add_available_article')}`)}</button>
           </td>
         );
       }
@@ -159,7 +160,7 @@ const ArticleFinderRow = createReactClass({
         const className = `button small add-available-article ${this.state.isLoading ? 'disabled' : 'dark'}`;
         button = (
           <td>
-            <button className={className} onClick={() => this.isCategoryMember(this.props.current_user.id)}>{I18n.t('article_finder.assign_article_self')}</button>
+            <button className={className} onClick={() => this.addArticle(this.props.current_user.id)}>{I18n.t('article_finder.assign_article_self')}</button>
           </td>
         );
       }
