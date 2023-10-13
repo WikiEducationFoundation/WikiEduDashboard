@@ -599,10 +599,9 @@ const API = {
       };
     });
   },
-
-  async isCategoryMember(articles) {
+  async checkArticleInWikiCategory(articles) {
     const wiki_articles_title = Array.isArray(articles) ? articles : [articles];
-    const category_member = await Promise.all(wiki_articles_title.map(async (title) => {
+    const category_members = await Promise.all(wiki_articles_title.map(async (title) => {
       try {
         return await request(`discouraged/${title}`, {
           method: 'POST',
@@ -624,7 +623,7 @@ const API = {
           logErrorMessage(response);
         }
       }));
-    return category_member;
+    return category_members;
   }
 };
 
