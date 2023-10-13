@@ -39,6 +39,15 @@ class WikiUserpageOutput
     "{{#{dashboard_url} sandbox#{course_type_param}}}"
   end
 
+  def disenrollment_summary
+    case @course.type
+    when 'FellowsCohort'
+      "User is no longer participating in #{@course.slug}."
+    else
+      "User has disenrolled in [[#{@course.wiki_title}]]."
+    end
+  end
+
   private
 
   def course_page_param
