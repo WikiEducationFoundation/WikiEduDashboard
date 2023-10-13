@@ -119,11 +119,17 @@ class Users::EnrollmentController < ApplicationController
       return
     end
 
-    remove_assignment_templates
+    remove_assignment_and_enrollment_templates
+
     @course_user.destroy # destroying the course_user also destroys associated Assignments.
 
     render 'users', formats: :json
     update_course_page_and_assignment_talk_templates
+  end
+
+  def remove_assignment_and_enrollment_templates
+    remove_assignment_templates
+    make_disenrollment_edits
   end
 
   # If the user has Assignments, update article talk pages to remove them from
@@ -134,6 +140,15 @@ class Users::EnrollmentController < ApplicationController
       WikiCourseEdits.new(action: :remove_assignment, course: @course,
                           current_user:, assignment:)
     end
+  end
+
+  # Remove enrollment templates from user page and user talk page.
+  def make_disenrollment_edits
+    return unless student_role?
+    # for students only, remove templates from userpage and user talk page
+    DisenrollFromCourseWorker.schedule_edits(course: @course,
+                                             editing_user: current_user,
+                                             disenrolling_user: @user)
   end
 
   ##################
