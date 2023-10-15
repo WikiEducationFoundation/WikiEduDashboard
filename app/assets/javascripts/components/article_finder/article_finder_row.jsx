@@ -71,7 +71,9 @@ const ArticleFinderRow = createReactClass({
     if (categoryMember[0] === this.props.title) {
       const confirmMessage = I18n.t('articles.discouraged_article', {
       type: userId ? 'Assigning' : 'Adding',
-      action: userId ? 'assign' : 'add'
+      action: userId ? 'assign' : 'add',
+      article: 'article',
+      article_list: this.props.title,
     });
       const onConfirm = () => { this.assignArticle(userId); };
       this.props.initiateConfirm({ confirmMessage, onConfirm: onConfirm });
