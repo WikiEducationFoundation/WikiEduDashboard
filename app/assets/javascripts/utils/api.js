@@ -616,14 +616,14 @@ const API = {
              return result;
             }
             else {
-              return Promise.reject({ statusText: 'Request failed' });
+             return Promise.reject({ statusText: 'Request failed' });
             }
           });
         } catch (error) {
           logErrorMessage(response);
         }
       }));
-    return category_members;
+    return category_members.filter(result => result !== null);
   }
 };
 
