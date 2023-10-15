@@ -38,7 +38,7 @@ const AddAssignmentButton = ({ assignment, assign, reviewing = false }) => {
 
   const handleClick = async (e) => {
     try {
-      const categoryMember = await API.isCategoryMember(assignment.article_title);
+      const categoryMember = await API.checkArticleInWikiCategory(assignment.article_title);
       assign(e, assignment, categoryMember[0]);
     } catch (error) {
       logErrorMessage(error);
@@ -282,7 +282,6 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
 
   const _onConfirmHandler = ({ action, assignment, isInTrackedWiki = true, title: confirmedTitle, categoryMember }) => {
     const studentId = (student && student.id) || null;
-
     const onConfirm = (e) => {
       open(e);
       setTitle('');
@@ -296,8 +295,12 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
     let confirmMessage;
     // Confirm for assigning an article to a student
     if (categoryMember) {
-      // need to add to en.yml
-       confirmMessage = 'Warning: Assigning a Discouraged Article. You are attempting to assign an article that has been marked as discouraged. Please confirm if you want to proceed.';
+      confirmMessage = I18n.t('articles.discouraged_article', {
+        type: 'Assigning',
+        action: 'assign',
+        article: 'article',
+        article_list: categoryMember,
+      });
     } else if (student) {
       confirmMessage = I18n.t('assignments.confirm_addition', {
         title: confirmedTitle,
@@ -321,18 +324,15 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
 
   const assign = async (e) => {
     e.preventDefault();
-    const categoryMember = await API.isCategoryMember(title.split('\n').map(item => item.trim()).filter(Boolean));
-    // need to add to en.yml
-    const confirmMessage = 'Warning: Assigning a Discouraged Article. You are attempting to assign an article that has been marked as discouraged. Please confirm if you want to proceed.';
     const assignArticle = () => {
-     title.split('\n').filter(Boolean).forEach(async (assignment_title) => {
-      const assignment = {
-        title: decodeURIComponent(assignment_title).trim(),
-        project: project,
-        language: language,
-        course_slug: course.slug,
-        role: role
-      };
+      title.split('\n').filter(Boolean).forEach(async (assignment_title) => {
+        const assignment = {
+          title: decodeURIComponent(assignment_title).trim(),
+          project: project,
+          language: language,
+          course_slug: course.slug,
+          role: role
+        };
 
       if (!assignment.title || assignment.title === 'undefined') return;
       if (assignment.title.length > 255) {
@@ -346,8 +346,15 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
       }));
     });
   };
+    const categoryMember = await API.checkArticleInWikiCategory(title.split('\n').map(item => item.trim()).filter(Boolean));
 
-    if (categoryMember.some(x => x !== null)) {
+    if (categoryMember.length > 0) {
+      const confirmMessage = I18n.t('articles.discouraged_article', {
+        type: 'Assigning',
+        action: 'assign',
+        article: categoryMember.length > 1 ? 'articles' : 'article',
+        article_list: categoryMember.join(', '),
+      });
       dispatch(initiateConfirm({ confirmMessage, onConfirm: assignArticle }));
     } else {
       assignArticle();
