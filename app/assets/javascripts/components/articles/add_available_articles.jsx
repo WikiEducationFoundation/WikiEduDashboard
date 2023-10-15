@@ -36,18 +36,6 @@ const AddAvailableArticles = createReactClass({
     this.props.open();
   },
 
-  async handleClick() {
-   const inputLines = this.state.assignments.match(/[^\r\n]+/g).map(item => item.trim()).filter(Boolean);
-   const categoryMembers = await API.isCategoryMember(inputLines);
-   if (categoryMembers.some(x => x !== null)) {
-    // need to add to en.yml
-     const confirmMessage = 'Warning: Adding a Discouraged Article. You are attempting to add an article that has been marked as discouraged. Students might choose this article for their assignments. Please confirm if you want to proceed.';
-     this.props.initiateConfirm({ confirmMessage, onConfirm: this.submit });
-   } else {
-     this.submit();
-   }
- },
-
   chainSubmissions(assignments, promise) {
     const assignment = assignments.shift();
     if (assignment === undefined) { return promise; }
@@ -60,9 +48,9 @@ const AddAvailableArticles = createReactClass({
     return this.chainSubmissions(assignments, extendedPromise);
   },
 
-   submit() {
-    // turn multipline input into an array of lines
-    const inputLines = this.state.assignments.match(/[^\r\n]+/g);
+   async submit() {
+    // Split multiline input into an array of lines, trim whitespace, and filter out empty lines
+    const inputLines = this.state.assignments.match(/[^\r\n]+/g).map(item => item.trim()).filter(Boolean);
     const assignments = inputLines.map((assignmentString) => {
       const assignment = CourseUtils.articleFromTitleInput(assignmentString);
       const language = assignment.language ? assignment.language : this.props.language;
@@ -75,8 +63,29 @@ const AddAvailableArticles = createReactClass({
         role: this.props.role
       };
     });
-    return this.chainSubmissions(assignments)
-      .then(() => this.resetInput());
+
+    // Check if any article/assignment title is under a particular wikipedia category
+    const categoryMembers = await API.checkArticleInWikiCategory(assignments.map(assignment => assignment.title));
+    const isArticleInCategory = categoryMembers.length > 0;
+
+    const addAssignment = () => {
+      return this.chainSubmissions(assignments)
+        .then(() => this.resetInput());
+    };
+
+    // If article/assignment is a member of discouraged category in wikipedia
+    // display a message  to confirm if the user wants to add the assignment.
+    if (isArticleInCategory) {
+      const confirmMessage = I18n.t('articles.discouraged_article', {
+        type: 'Assigning',
+        action: 'assign',
+        article: categoryMembers.length > 1 ? 'articles' : 'article',
+        article_list: categoryMembers.join(', '),
+      });
+      this.props.initiateConfirm({ confirmMessage, onConfirm: addAssignment });
+    } else {
+      addAssignment();
+    }
   },
 
   render() {
@@ -93,7 +102,7 @@ const AddAvailableArticles = createReactClass({
           editable
           placeholder={inputPlaceholder}
         />
-        <button className="button border pull-right" onClick={this.handleClick}>{I18n.t(`assignments.${ArticleUtils.projectSuffix(this.props.project, 'add_available_submit')}`)}</button>
+        <button className="button border pull-right" onClick={this.submit}>{I18n.t(`assignments.${ArticleUtils.projectSuffix(this.props.project, 'add_available_submit')}`)}</button>
       </div>
     );
   }
