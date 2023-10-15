@@ -24,16 +24,20 @@ export const AvailableArticle = ({ assignment, current_user, course, selectable 
       closable: true,
       type: 'success'
     };
-    if ((await API.isCategoryMember(title))[0] !== null) {
-      // need to add to en.yml
-      const confirmMessage = 'Warning: Assigning a Discouraged Article. You are attempting to assign an article that has been marked as discouraged. Please confirm if you want to proceed.';
-      const onConfirm = () => {
-        return dispatch(claimAssignment(assignmentObj, successNotification));
-      };
-       dispatch(initiateConfirm({ confirmMessage, onConfirm }));
-    } else {
-       return dispatch(claimAssignment(assignmentObj, successNotification));
-    }
+    // Check if article title is under a particular wikipedia category
+    const isArticleInCategory = (await API.checkArticleInWikiCategory(title))[0] === title;
+    const actionToDispatch = isArticleInCategory ? initiateConfirm : claimAssignment;
+
+    const onConfirm = () => dispatch(claimAssignment(assignmentObj, successNotification));
+    const confirmMessage = I18n.t('articles.discouraged_article', {
+      type: 'Assigning',
+      action: 'assign',
+      article: 'article',
+      article_list: title
+    });
+
+    dispatch(actionToDispatch(isArticleInCategory
+    ? { confirmMessage: confirmMessage, onConfirm } : assignmentObj, successNotification));
   };
 
   const onRemoveHandler = (e) => {
