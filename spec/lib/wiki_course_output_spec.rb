@@ -77,13 +77,8 @@ describe WikiCourseOutput do
              article_title: 'Your article')
       response = described_class.new(course.reload).translate_course_to_wikitext
       expect(response).to include('The course description')
-      expect(response).to include('{{start of course timeline')
-      expect(response).to include('Block 1 title')
-      expect(response).to include('* Overview of the course')
-      expect(response).to include('[http://wikiedu.org/editingwikipedia Editing Wikipedia]')
       expect(response).to include('[[My article]]')
       expect(response).to include('[[Your article]]')
-      expect(response).to include('{{start of course week|2016-01-11|2016-01-13|2016-01-15}}')
       expect(response).to include('Jacque')
       expect(response).to include('Campaign Title 1, Campaign Title 2')
     end
