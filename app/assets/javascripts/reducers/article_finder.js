@@ -185,7 +185,17 @@ export default function articleFinder(state = initialState, action) {
       const newStateArticles = cloneDeep(state.articles);
       forEach(action.data.data, (scores, revid) => {
         const revScore = reduce(ORESWeights[`${action.data.project === 'wikidata' ? 'wikidata' : action.data.language}`], (result, value, key) => {
-          return result + (value * scores[`${action.data.project === 'wikidata' ? 'itemquality' : 'wp10'}`].score.probability[key]);
+          return (
+            result
+            + value
+              * scores[
+                `${
+                  action.data.project === 'wikidata'
+                    ? 'itemquality'
+                    : 'articlequality'
+                }`
+              ].score.probability[key]
+          );
         }, 0);
         const article = find(newStateArticles, { revid: parseInt(revid) });
         article.revScore = Math.round(revScore * 100) / 100;
