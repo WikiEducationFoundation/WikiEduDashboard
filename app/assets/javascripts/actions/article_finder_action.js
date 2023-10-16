@@ -257,32 +257,6 @@ const fetchPageRevisionScore = async (revids, wiki, dispatch) => {
   }
 };
 
-// const fetchPageRevisionScore = (revids, wiki, dispatch) => {
-//     const query = pageRevisionScoreQueryGenerator(map(revids, (revid) => {
-//       return revid.revisions[0].revid;
-//     }), wiki.project);
-//     return promiseLimit(4)(() =>
-//       queryUrl(liftWingApiBase(wiki.language, wiki.project), query)
-//     )
-//       .then(
-//         data =>
-//           data[
-//             `${wiki.project === 'wikidata' ? 'wikidata' : wiki.language}wiki`
-//           ].scores
-//       )
-//       .then((data) => {
-//         dispatch({
-//           type: RECEIVE_ARTICLE_REVISIONSCORE,
-//           data: {
-//             data: data,
-//             language: wiki.language,
-//             project: wiki.project,
-//           },
-//         });
-//       })
-//       .catch(response => dispatch({ type: API_FAIL, data: response }));
-// };
-
 export const fetchKeywordResults = (keyword, wiki, offset = 0, continueResults = false) =>
   (dispatch, getState) => {
     if (!continueResults) {

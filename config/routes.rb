@@ -203,7 +203,6 @@ Rails.application.routes.draw do
        constraints: { course_id: /.*/ }
 
   get 'revisions' => 'revisions#index'
-  get 'revisions/show' => 'revisions#show'
 
   get 'articles/article_data' => 'articles#article_data'
   get 'articles/details' => 'articles#details'

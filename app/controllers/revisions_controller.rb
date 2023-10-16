@@ -1,9 +1,4 @@
 # frozen_string_literal: true
-require 'ostruct'
-
-require_dependency "#{Rails.root}/lib/lift_wing_api"
-require_dependency "#{Rails.root}/lib/wiki_api"
-
 
 #=Controller for the Revisions API.
 class RevisionsController < ApplicationController
@@ -19,23 +14,5 @@ class RevisionsController < ApplicationController
                        .order('revisions.date DESC')
                        .eager_load(:article, :wiki)
                        .limit(params[:limit] || DEFAULT_REVISION_LIMIT)
-  end
-
-  def show
-    revids =JSON.parse(params[:revids]).split("|")
-    wiki = JSON.parse(params[:wiki])
-    # convert wiki to object
-    wiki = OpenStruct.new(wiki)
-
-    wiki_key = "#{wiki.language || wiki.project}wiki"
-    model_key ||= wiki.project == 'wikidata' ? 'itemquality' : 'articlequality'
-
-    # convert each revids to integer
-    revids = revids.map(&:to_i)
-
-    # get article quality data
-    articlequality_data = LiftWingApi.new(wiki, nil).get_revision_data(revids)
-
-    render json: articlequality_data, status: 200
   end
 end
