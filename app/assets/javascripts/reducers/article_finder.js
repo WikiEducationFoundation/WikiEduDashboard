@@ -2,9 +2,19 @@ import { cloneDeep, forEach, reduce, find } from 'lodash-es';
 import { extractClassGrade } from '../utils/article_finder_utils.js';
 import { sortByKey } from '../utils/model_utils';
 import { LiftwingWeights } from '../utils/article_finder_language_mappings.js';
-import { UPDATE_FINDER_FIELD, RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE,
-  RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT,
-  RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, SORT_ARTICLE_FINDER, RECEIVE_KEYWORD_RESULTS, INITIATE_SEARCH, CLEAR_RESULTS } from '../constants';
+import {
+  UPDATE_FINDER_FIELD,
+  RECEIVE_CATEGORY_RESULTS,
+  CLEAR_FINDER_STATE,
+  RECEIVE_ARTICLE_PAGEVIEWS,
+  RECEIVE_ARTICLE_PAGEASSESSMENT,
+  RECEIVE_ARTICLE_REVISION,
+  RECEIVE_ARTICLE_REVISIONSCORE,
+  SORT_ARTICLE_FINDER,
+  RECEIVE_KEYWORD_RESULTS,
+  INITIATE_SEARCH,
+  CLEAR_RESULTS,
+} from '../constants';
 
 const initialState = {
   articles: {},
@@ -23,7 +33,7 @@ const initialState = {
   cmcontinue: '',
   home_wiki: {
     language: 'en',
-    project: 'wikipedia'
+    project: 'wikipedia',
   },
   lastRelevanceIndex: 0,
 };
@@ -39,10 +49,19 @@ export default function articleFinder(state = initialState, action) {
       let newArticles;
       let newKey;
       if (action.initial) {
-        newArticles = sortByKey(Object.values(state.articles), action.key, null, action.desc);
+        newArticles = sortByKey(
+          Object.values(state.articles),
+          action.key,
+          null,
+          action.desc
+        );
         newKey = action.desc ? null : action.key;
       } else {
-        newArticles = sortByKey(Object.values(state.articles), action.key, state.sort.sortKey);
+        newArticles = sortByKey(
+          Object.values(state.articles),
+          action.key,
+          state.sort.sortKey
+        );
         newKey = newArticles.newKey;
       }
       const newArticlesObject = {};
@@ -72,7 +91,7 @@ export default function articleFinder(state = initialState, action) {
         cmcontinue: '',
         sort: {
           sortKey: null,
-          key: null
+          key: null,
         },
         fetchState: 'ARTICLES_LOADING',
         lastRelevanceIndex: 0,
@@ -143,7 +162,17 @@ export default function articleFinder(state = initialState, action) {
     case RECEIVE_ARTICLE_PAGEVIEWS: {
       const newStateArticles = cloneDeep(state.articles);
       forEach(action.data, (article) => {
-        const averagePageviews = Math.round((reduce(article.pageviews, (result, value) => { return result + value; }, 0) / Object.values(article.pageviews).length) * 100) / 100;
+        const averagePageviews = Math.round(
+            (reduce(
+              article.pageviews,
+              (result, value) => {
+                return result + value;
+              },
+              0
+            )
+              / Object.values(article.pageviews).length)
+              * 100
+          ) / 100;
         newStateArticles[article.title].pageviews = averagePageviews;
         newStateArticles[article.title].fetchState = 'PAGEVIEWS_RECEIVED';
       });
