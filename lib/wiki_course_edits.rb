@@ -70,6 +70,25 @@ class WikiCourseEdits
     add_template_to_sandbox
   end
 
+  # Removes existing template from the disenrolling student's userpage, and
+  # also from their talk page
+  def disenroll_from_course(disenrolling_user:)
+    generator = WikiUserpageOutput.new(@course)
+
+    @disenrolling_user = disenrolling_user
+    # Remove existing template from the user page
+    template = generator.enrollment_template
+    user_page = "User:#{@disenrolling_user.username}"
+    summary = generator.disenrollment_summary
+    remove_content_from_page(user_page, template, summary)
+
+    # Remove existing template from the user's talk page
+    talk_template = generator.enrollment_talk_template
+    talk_page = "User_talk:#{disenrolling_user.username}"
+    talk_summary = "removing {{#{template_name(@templates, 'user_talk')}}}"
+    remove_content_from_page(talk_page, talk_template, talk_summary)
+  end
+
   # Updates the assignment template for every Assignment for the course.
   # Usually, this is done incrementally so that a call to this method will only
   # update the assignments that were changed in the action that triggered it.
@@ -114,7 +133,7 @@ class WikiCourseEdits
       yield unless @course.wiki_course_page_enabled?
     when :update_assignments, :remove_assignment
       yield unless @course.assignment_edits_enabled?
-    when :enroll_in_course
+    when :enroll_in_course, :disenroll_from_course
       yield unless @course.enrollment_edits_enabled?
     end
   end
@@ -161,6 +180,16 @@ class WikiCourseEdits
 
     AddSandboxTemplate.new(home_wiki: @home_wiki, sandbox:,
                            sandbox_template:, current_user: @current_user)
+  end
+
+  def remove_content_from_page(page_title, content, summary)
+    initial_page_content = @wiki_api.get_page_content(page_title)
+
+    # If content to remove does not exist on initial page, then there is nothing
+    # to remove
+    return unless initial_page_content&.include?(content)
+    new_page_content = initial_page_content.gsub(/#{Regexp.quote(content)}(\n)?/, '')
+    @wiki_editor.post_whole_page(@current_user, page_title, new_page_content, summary)
   end
 
   def repost_with_sanitized_links(wiki_title, wiki_text, summary, spamlist)
