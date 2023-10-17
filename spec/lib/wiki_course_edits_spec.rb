@@ -12,10 +12,10 @@ describe WikiCourseEdits do
   let(:disenrolling_user) { create(:user, username: 'Belajane41') }
   # rubocop:disable Layout/LineLength
   let(:user_page_content) do
-    '{{dashboard.wikiedu.org student editor | course = [[Wikipedia:Wiki_Ed/Missouri_SandT/History_of_Science_(Fall_2019)]] | slug = Missouri_SandT/History_of_Science_(Fall_2019) }} Any other user page content'
+    "{{dashboard.wikiedu.org student editor | course = [[Wikipedia:Wiki_Ed/Missouri_SandT/History_of_Science_(Fall_2019)]] | slug = Missouri_SandT/History_of_Science_(Fall_2019) }}\nAny other user page content"
   end
   let(:user_page_talk_content) do
-    '{{dashboard.wikiedu.org talk course link | course = [[Wikipedia:Wiki_Ed/Missouri_SandT/History_of_Science_(Fall_2019)]] | slug = Missouri_SandT/History_of_Science_(Fall_2019) }} Any other user talk page content'
+    "{{dashboard.wikiedu.org talk course link | course = [[Wikipedia:Wiki_Ed/Missouri_SandT/History_of_Science_(Fall_2019)]] | slug = Missouri_SandT/History_of_Science_(Fall_2019) }}\nAny other user talk page content"
   end
   # rubocop:enable Layout/LineLength
   let(:user_template) { WikiUserpageOutput.new(course).enrollment_template }
@@ -252,7 +252,7 @@ describe WikiCourseEdits do
         user_talk_page_content_without_enrollment
       )
       expect_any_instance_of(WikiEdits).to receive(:post_whole_page).with(
-        user, 'User:Belajane41', ' Any other user page content',
+        user, 'User:Belajane41', 'Any other user page content',
         'User has disenrolled in [[Wikipedia:Wiki_Ed/Missouri_SandT/'\
         'History_of_Science_(Fall_2019)]].'
       )
@@ -268,7 +268,7 @@ describe WikiCourseEdits do
         user_page_talk_content
       )
       expect_any_instance_of(WikiEdits).to receive(:post_whole_page).with(
-        user, 'User_talk:Belajane41', ' Any other user talk page content',
+        user, 'User_talk:Belajane41', 'Any other user talk page content',
         'removing {{dashboard.wikiedu.org talk course link}}'
       )
       described_class.new(action: :disenroll_from_course,

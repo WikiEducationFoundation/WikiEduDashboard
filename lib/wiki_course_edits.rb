@@ -188,7 +188,7 @@ class WikiCourseEdits
     # If content to remove does not exist on initial page, then there is nothing
     # to remove
     return unless initial_page_content&.include?(content)
-    new_page_content = initial_page_content.gsub(content, '')
+    new_page_content = initial_page_content.gsub(/#{Regexp.quote(content)}(\n)?/, '')
     @wiki_editor.post_whole_page(@current_user, page_title, new_page_content, summary)
   end
 
