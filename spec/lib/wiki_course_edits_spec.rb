@@ -225,6 +225,19 @@ describe WikiCourseEdits do
   end
 
   describe '#disenroll_from_course' do
+    it 'respects the enrollment_edits_enabled edit_settings flag' do
+      course.update(flags: { 'edit_settings' => { 'enrollment_edits_enabled' => false } })
+      allow_any_instance_of(WikiApi).to receive(:get_page_content).and_return(
+        user_page_content,
+        user_page_talk_content
+      )
+      expect_any_instance_of(WikiEdits).not_to receive(:post_whole_page)
+      described_class.new(action: :disenroll_from_course,
+                          course:,
+                          current_user: user,
+                          disenrolling_user:)
+    end
+
     it 'does nothing if get_page_content returns nil' do
       allow_any_instance_of(WikiApi).to receive(:get_page_content).and_return(nil)
       expect_any_instance_of(WikiEdits).not_to receive(:post_whole_page)

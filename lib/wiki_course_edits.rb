@@ -133,7 +133,7 @@ class WikiCourseEdits
       yield unless @course.wiki_course_page_enabled?
     when :update_assignments, :remove_assignment
       yield unless @course.assignment_edits_enabled?
-    when :enroll_in_course
+    when :enroll_in_course, :disenroll_from_course
       yield unless @course.enrollment_edits_enabled?
     end
   end
