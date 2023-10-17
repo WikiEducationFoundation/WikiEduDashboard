@@ -302,7 +302,6 @@ Rails.application.routes.draw do
 
   # Revision Feedback
   get '/revision_feedback' => 'revision_feedback#index'
-  # post '/revision_feedback' => 'revision_feedback#index'
 
   # Wizard
   get 'wizards' => 'wizard#wizard_index'
