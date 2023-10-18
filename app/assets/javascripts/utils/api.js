@@ -604,7 +604,7 @@ const API = {
     const category_members = await Promise.all(wiki_articles_title.map(async (title) => {
       try {
         return await request(`discouraged/${title}`, {
-          method: 'POST',
+          method: 'GET',
           headers: {
             'Content-Type': 'application/json',
           },
