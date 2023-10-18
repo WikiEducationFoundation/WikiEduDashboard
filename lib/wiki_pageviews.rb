@@ -101,11 +101,21 @@ class WikiPageviews
     return data['items'] if data['items']
     # As of October 2017, the data type is https://www.mediawiki.org/wiki/HyperSwitch/errors/not_found
     return no_results if %r{errors/not_found}.match?(data['type'])
+    return no_results if no_data_available_response?(data)
     raise PageviewApiError, response
   end
 
   def no_results
     {}
+  end
+
+  # As of October 2023, we started to see 404 not found responses with about:blank type
+  # and a specific detail when handling requests for which no data is available
+  def no_data_available_response?(response)
+    no_data_avialable_detail = 'The date(s) you used are valid, but we either do not have data '\
+                               'for those date(s), or the project you asked for is not loaded yet.'\
+                               ' Please check documentation for more information.'
+    response['status'] == 404 && response['detail'] == no_data_avialable_detail
   end
 
   def wiki_url_param
