@@ -11,7 +11,10 @@ content: |
   of the URL to look like this:
   <code><pre>en.wikipedia.org/wiki/User:Username<b>/New sandbox</b></pre></code>
 
-  Click **Create source** in the upper right to make the new page.
+  Click **Create** in the upper right to enter edit mode for a new page.
+
+  Once you've added content, click **Publish page** to save what you've added.
+  (It will still be a sandbox; "Publish" just means save.)
 
   If you forget the URL of this new page, don't worry! You can always find
   it in your **Contributions** history, linked at the top right when

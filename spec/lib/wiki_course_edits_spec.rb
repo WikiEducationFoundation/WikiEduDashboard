@@ -9,14 +9,21 @@ describe WikiCourseEdits do
   let(:course) { create(:course, id: 1, submitted: true, home_wiki:, slug:) }
   let(:user) { create(:user) }
   let(:enrolling_user) { create(:user, username: 'Belajane41') }
+  let(:disenrolling_user) { create(:user, username: 'Belajane41') }
   # rubocop:disable Layout/LineLength
   let(:user_page_content) do
-    '{{dashboard.wikiedu.org student editor | course = [[Wikipedia:Wiki_Ed/Missouri_SandT/History_of_Science_(Fall_2019)]] | slug = Missouri_SandT/History_of_Science_(Fall_2019) }}'
+    "{{dashboard.wikiedu.org student editor | course = [[Wikipedia:Wiki_Ed/Missouri_SandT/History_of_Science_(Fall_2019)]] | slug = Missouri_SandT/History_of_Science_(Fall_2019) }}\nAny other user page content"
+  end
+  let(:user_page_talk_content) do
+    "{{dashboard.wikiedu.org talk course link | course = [[Wikipedia:Wiki_Ed/Missouri_SandT/History_of_Science_(Fall_2019)]] | slug = Missouri_SandT/History_of_Science_(Fall_2019) }}\nAny other user talk page content"
   end
   # rubocop:enable Layout/LineLength
   let(:user_template) { WikiUserpageOutput.new(course).enrollment_template }
   let(:talk_template) { WikiUserpageOutput.new(course).enrollment_talk_template }
   let(:sandbox_template) { WikiUserpageOutput.new(course).sandbox_template(ENV['dashboard_url']) }
+
+  let(:user_page_content_without_enrollment) { '{{a user page content}}' }
+  let(:user_talk_page_content_without_enrollment) { '{{a user talk page content}}' }
 
   before do
     stub_oauth_edit
@@ -214,6 +221,73 @@ describe WikiCourseEdits do
           end
         end
       end
+    end
+  end
+
+  describe '#disenroll_from_course' do
+    it 'respects the enrollment_edits_enabled edit_settings flag' do
+      course.update(flags: { 'edit_settings' => { 'enrollment_edits_enabled' => false } })
+      allow_any_instance_of(WikiApi).to receive(:get_page_content).and_return(
+        user_page_content,
+        user_page_talk_content
+      )
+      expect_any_instance_of(WikiEdits).not_to receive(:post_whole_page)
+      described_class.new(action: :disenroll_from_course,
+                          course:,
+                          current_user: user,
+                          disenrolling_user:)
+    end
+
+    it 'does nothing if get_page_content returns nil' do
+      allow_any_instance_of(WikiApi).to receive(:get_page_content).and_return(nil)
+      expect_any_instance_of(WikiEdits).not_to receive(:post_whole_page)
+      described_class.new(action: :disenroll_from_course,
+                          course:,
+                          current_user: user,
+                          disenrolling_user:)
+    end
+
+    it 'does nothing if page content does not include templates' do
+      allow_any_instance_of(WikiApi).to receive(:get_page_content).and_return(
+        user_page_content_without_enrollment,
+        user_talk_page_content_without_enrollment
+      )
+      expect_any_instance_of(WikiEdits).not_to receive(:post_whole_page)
+      described_class.new(action: :disenroll_from_course,
+                          course:,
+                          current_user: user,
+                          disenrolling_user:)
+    end
+
+    it 'removes enrollment template from user page if it exists' do
+      allow_any_instance_of(WikiApi).to receive(:get_page_content).and_return(
+        user_page_content,
+        user_talk_page_content_without_enrollment
+      )
+      expect_any_instance_of(WikiEdits).to receive(:post_whole_page).with(
+        user, 'User:Belajane41', 'Any other user page content',
+        'User has disenrolled in [[Wikipedia:Wiki_Ed/Missouri_SandT/'\
+        'History_of_Science_(Fall_2019)]].'
+      )
+      described_class.new(action: :disenroll_from_course,
+                          course:,
+                          current_user: user,
+                          disenrolling_user:)
+    end
+
+    it 'removes enrollment template from user talk page if it exists' do
+      allow_any_instance_of(WikiApi).to receive(:get_page_content).and_return(
+        user_page_content_without_enrollment,
+        user_page_talk_content
+      )
+      expect_any_instance_of(WikiEdits).to receive(:post_whole_page).with(
+        user, 'User_talk:Belajane41', 'Any other user talk page content',
+        'removing {{dashboard.wikiedu.org talk course link}}'
+      )
+      described_class.new(action: :disenroll_from_course,
+                          course:,
+                          current_user: user,
+                          disenrolling_user:)
     end
   end
 

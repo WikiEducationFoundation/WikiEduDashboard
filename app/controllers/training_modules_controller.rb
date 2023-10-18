@@ -11,4 +11,11 @@ class TrainingModulesController < ApplicationController
   def show
     @training_module = TrainingModule.find_by(slug: params[:module_id])
   end
+
+  def find
+    training_module = TrainingModule.find(params[:module_id])
+    # Use a specific training library for the module, or a default library if it is not found
+    training_library = training_module.find_or_default_library
+    redirect_to "/training/#{training_library.slug}/#{training_module.slug}"
+  end
 end

@@ -29,7 +29,7 @@ tly:
     opt_no: ne
   articles:
     filter:
-      wiki_all: Həmə
+      wiki_all: Həmmə
       new: Tojə
     hide: Niyon bıkə
     history: (torix)
@@ -39,7 +39,7 @@ tly:
     articles_short: Səhifə
   campaign:
     all_campaigns: Həmə Kampaniyə
-    created_at: Torix
+    created_at: Taryx
     description: Təsvir
   categories:
     name: Nom
@@ -50,7 +50,7 @@ tly:
       assignment_start_placeholder: SSSS-MM-RR
       end_date_placeholder: SSSS-MM-RR
       start_date_placeholder: SSSS-MM-RR
-      subject: Мıvzu
+      subject: Myžor
   courses_generic:
     all_courses: Həmə Proqramon
     cancel: Ləğv karde
