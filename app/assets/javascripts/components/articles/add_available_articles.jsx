@@ -77,8 +77,8 @@ const AddAvailableArticles = createReactClass({
     // display a message  to confirm if the user wants to add the assignment.
     if (isArticleInCategory) {
       const confirmMessage = I18n.t('articles.discouraged_article', {
-        type: 'Assigning',
-        action: 'assign',
+        type: 'Adding',
+        action: 'add',
         article: categoryMembers.length > 1 ? 'articles' : 'article',
         article_list: categoryMembers.join(', '),
       });
