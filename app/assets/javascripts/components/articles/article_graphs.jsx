@@ -14,16 +14,18 @@ const ArticleGraphs = ({ article }) => {
   const elementRef = useRef(null);
 
   useEffect(() => {
-    if (showGraph) {
-      document.addEventListener('mousedown', handleClickOutside);
-    } else {
-      document.removeEventListener('mousedown', handleClickOutside);
-    }
+    const handleClickOutside = (event) => {
+      const element = elementRef.current;
+      if (element && !element.contains(event.target)) {
+        handleHideGraph();
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [showGraph]);
+  }, []);
 
   function getData() {
     if (articleData) {
@@ -35,13 +37,6 @@ const ArticleGraphs = ({ article }) => {
       .then((data) => {
         setArticleData(data);
       });
-  }
-
-  function handleClickOutside(event) {
-    const element = elementRef.current;
-    if (element && !element.contains(event.target)) {
-      handleHideGraph();
-    }
   }
 
   function handleShowGraph() {
@@ -62,7 +57,7 @@ const ArticleGraphs = ({ article }) => {
     return `vega-graph-${article_id}`;
   }
 
-  const dataIncludesWp10 = articleData && articleData[0].wp10;
+  const dataIncludesWp10 = articleData?.[0]?.wp10;
 
   const graph = useMemo(() => {
     if (!articleData) {
@@ -90,7 +85,7 @@ const ArticleGraphs = ({ article }) => {
     );
   }, [articleData, dataIncludesWp10, selectedRadio]);
 
-  const radioInput = useMemo(() => {
+  const radioInput = () => {
     if (!dataIncludesWp10 || !articleData) {
       return null;
     }
@@ -119,15 +114,15 @@ const ArticleGraphs = ({ article }) => {
         </div>
       </div>
     );
-  }, [articleData, dataIncludesWp10, selectedRadio]);
+  };
 
-  const editSize = useMemo(() => {
+  const editSize = () => {
     if (dataIncludesWp10 || !articleData) {
       return null;
     }
 
     return <p>{I18n.t('articles.edit_size')}</p>;
-  }, [articleData, dataIncludesWp10]);
+  };
 
   const className = `vega-graph ${showGraph ? '' : 'hidden'}`;
 
