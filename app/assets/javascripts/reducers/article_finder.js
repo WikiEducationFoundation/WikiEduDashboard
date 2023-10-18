@@ -1,7 +1,7 @@
 import { cloneDeep, forEach, reduce, find } from 'lodash-es';
 import { extractClassGrade } from '../utils/article_finder_utils.js';
 import { sortByKey } from '../utils/model_utils';
-import { ORESWeights } from '../utils/article_finder_language_mappings.js';
+import { LiftwingWeights } from '../utils/article_finder_language_mappings.js';
 import { UPDATE_FINDER_FIELD, RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE,
   RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT,
   RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, SORT_ARTICLE_FINDER, RECEIVE_KEYWORD_RESULTS, INITIATE_SEARCH, CLEAR_RESULTS } from '../constants';
@@ -184,8 +184,8 @@ export default function articleFinder(state = initialState, action) {
     case RECEIVE_ARTICLE_REVISIONSCORE: {
       const newStateArticles = cloneDeep(state.articles);
       forEach(action.data.data, (scores, revid) => {
-        const revScore = reduce(ORESWeights[`${action.data.project === 'wikidata' ? 'wikidata' : action.data.language}`], (result, value, key) => {
-          return result + (value * scores[`${action.data.project === 'wikidata' ? 'itemquality' : 'wp10'}`].score.probability[key]);
+        const revScore = reduce(LiftwingWeights[`${action.data.project === 'wikidata' ? 'wikidata' : action.data.language}`], (result, value, key) => {
+          return result + (value * scores[`${action.data.project === 'wikidata' ? 'itemquality' : 'articlequality'}`].score.probability[key]);
         }, 0);
         const article = find(newStateArticles, { revid: parseInt(revid) });
         article.revScore = Math.round(revScore * 100) / 100;
