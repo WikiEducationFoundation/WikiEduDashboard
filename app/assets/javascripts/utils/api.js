@@ -599,6 +599,7 @@ const API = {
       };
     });
   },
+
   async checkArticleInWikiCategory(articles) {
     const wiki_articles_title = Array.isArray(articles) ? articles : [articles];
     const category_members = await Promise.all(wiki_articles_title.map(async (title) => {

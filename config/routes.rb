@@ -225,7 +225,7 @@ Rails.application.routes.draw do
   get 'article_finder' => 'article_finder#index'
 
   # Discouraged Articles
-  post 'discouraged/:article_title' => 'discouraged_articles#category_member?',
+  get 'discouraged/:article_title' => 'discouraged_articles#category_member?',
         constraints: { article_title: /.*/ }
 
   # Reports and analytics
