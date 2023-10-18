@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 require_dependency "#{Rails.root}/lib/wiki_api"
 
-# NEED TO CHANGE METHOD NAME TO MORE MEANINGFUL NAME
 class WikipediaCategoryMember < ApplicationRecord
-  # Method for fetching data from the Wiki API
-  def fetch_data
+  # Method for fetching categorymembers data from the Wiki API
+  def fetch_category_members
     query_params = build_query_params
 
     response = query_wiki_api(query_params)
@@ -13,7 +12,7 @@ class WikipediaCategoryMember < ApplicationRecord
       category_members = response.data['categorymembers'].pluck('title')
       save_category_members(category_members)
     else
-      puts 'Failed to fetch data'
+      Rails.logger.warn('Failed to fetch categorymembers data')
     end
   end
 
@@ -50,7 +49,7 @@ class WikipediaCategoryMember < ApplicationRecord
     # Remove members that are not in the new data
     WikipediaCategoryMember.where(category_member: members_to_remove).delete_all
 
-    # # Add new members to the database
+    # Add new members to the database
     members_to_add.each do |category_member|
       WikipediaCategoryMember.create(category_member:)
     end

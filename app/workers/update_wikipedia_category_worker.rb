@@ -6,6 +6,6 @@ class UpdateWikipediaCategoryWorker
 
   def perform
     # Logic for fetching and saving data
-    WikipediaCategoryMember.new.fetch_data
+    WikipediaCategoryMember.new.fetch_category_members
   end
 end
