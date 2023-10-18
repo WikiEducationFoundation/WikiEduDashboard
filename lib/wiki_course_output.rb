@@ -31,10 +31,6 @@ class WikiCourseOutput
     # Table of students, assigned articles, and reviews
     @output += students_table
 
-    # Timeline
-    @output += course_timeline unless @course.weeks.empty?
-
-    # TODO: grading
     @output
   end
 
@@ -81,48 +77,6 @@ class WikiCourseOutput
 
   def support_staff_username
     @first_support_staff&.username
-  end
-
-  def course_timeline
-    timeline = "{{#{template_name(@templates, 'timeline')}}}\r"
-    week_number = @course_meetings_manager.weeks_before_timeline
-    @course.weeks.each do |week|
-      week_number += 1
-      timeline += course_week(week, week_number)
-    end
-    timeline
-  end
-
-  def course_week(week, week_number)
-    week_output = week_header(week, week_number)
-
-    week.blocks.each do |block|
-      week_output += content_block(block)
-    end
-
-    week_output += "{{#{template_name(@templates, 'end_of_week')}}}\r"
-    week_output
-  end
-
-  def week_header(week, week_number)
-    header_output = "=== Week #{week_number} ===\r"
-
-    header_output += "{{#{template_name(@templates, 'start_of_week')}"
-    meeting_dates = @course_meetings_manager.meeting_dates_of(week).map(&:to_s)
-    header_output += '|' + meeting_dates.join('|') if meeting_dates.present?
-    header_output += "}}\r"
-    header_output
-  end
-
-  def content_block(block)
-    block_types = ['in class|In class - ',
-                   'assignment|Assignment - ',
-                   'assignment milestones|',
-                   'assignment|'] # TODO: get the custom value
-    block_type = block_types[block.kind] || 'assignment|' # fallback
-    block_output = "{{#{block_type}#{block.title}}}\r"
-    block_output += Wikitext.html_to_mediawiki(block.content)
-    block_output
   end
 
   def students_table

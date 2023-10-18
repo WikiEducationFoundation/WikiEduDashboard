@@ -97,4 +97,10 @@ class TrainingLibrary < ApplicationRecord
   def translated(key)
     translations.dig(I18n.locale.to_s, key)
   end
+
+  def training_module_slugs
+    categories.map do |cat|
+      cat['modules'].map { |mod| mod['slug'] }
+    end.flatten
+  end
 end

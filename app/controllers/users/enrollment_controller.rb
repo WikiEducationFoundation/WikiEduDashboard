@@ -104,26 +104,34 @@ class Users::EnrollmentController < ApplicationController
   def remove
     set_course_and_user
     return if @user.nil?
-    # For events controlled by Event Center, only non-student roles
-    # can be changed on the Dashboard. Student role is handled
-    # via WikimediaEventCenterController.
-    if @course.controlled_by_event_center? && student_role?
-      render json: { message: I18n.t('courses.controlled_by_event_center') }, status: :unauthorized
-      return
-    end
 
-    @course_user = CoursesUsers.find_by(user: @user, course: @course,
-                                        role: enroll_params[:role])
-    if @course_user.nil? # This will happen if the user was already removed.
-      render 'users', formats: :json
-      return
-    end
+    ensure_role_is_authorized { return }
+    ensure_course_user_exists { return }
 
     remove_assignment_templates
+    make_disenrollment_edits
+
     @course_user.destroy # destroying the course_user also destroys associated Assignments.
 
     render 'users', formats: :json
     update_course_page_and_assignment_talk_templates
+  end
+
+  # For events controlled by Event Center, only non-student roles
+  # can be changed on the Dashboard. Student role is handled
+  # via WikimediaEventCenterController.
+  def ensure_role_is_authorized
+    return unless @course.controlled_by_event_center? && student_role?
+    render json: { message: I18n.t('courses.controlled_by_event_center') }, status: :unauthorized
+    yield
+  end
+
+  def ensure_course_user_exists
+    @course_user = CoursesUsers.find_by(user: @user, course: @course,
+                                        role: enroll_params[:role])
+    return unless  @course_user.nil? # This will happen if the user was already removed.
+    render 'users', formats: :json
+    yield
   end
 
   # If the user has Assignments, update article talk pages to remove them from
@@ -134,6 +142,15 @@ class Users::EnrollmentController < ApplicationController
       WikiCourseEdits.new(action: :remove_assignment, course: @course,
                           current_user:, assignment:)
     end
+  end
+
+  # Remove enrollment templates from user page and user talk page.
+  def make_disenrollment_edits
+    return unless student_role?
+    # for students only, remove templates from userpage and user talk page
+    DisenrollFromCourseWorker.schedule_edits(course: @course,
+                                             editing_user: current_user,
+                                             disenrolling_user: @user)
   end
 
   ##################

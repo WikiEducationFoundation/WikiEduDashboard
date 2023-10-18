@@ -153,5 +153,17 @@ class TrainingModule < ApplicationRecord
     settings['sandbox_location']
   end
 
+  # Returns the first library that has a category including the module slug.
+  # It returns nil if no such library is found.
+  def find_library_by_slug
+    TrainingLibrary.all.detect { |tl| tl.training_module_slugs.include? slug }
+  end
+
+  # Returns a specific training library for the module,
+  # or a default library if it is not found.
+  def find_or_default_library
+    find_library_by_slug || TrainingLibrary.first
+  end
+
   class ModuleNotFound < StandardError; end
 end

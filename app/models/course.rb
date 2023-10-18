@@ -444,6 +444,10 @@ class Course < ApplicationRecord
     flags[:review_bibliography].present?
   end
 
+  def very_long_update?
+    flags[:very_long_update].present?
+  end
+
   # Overridden for ClassroomProgramCourse
   def progress_tracker_enabled?
     false
