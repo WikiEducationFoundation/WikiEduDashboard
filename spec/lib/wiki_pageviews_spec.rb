@@ -161,6 +161,8 @@ describe WikiPageviews do
       let(:title) { 'Voyages,_aventures_et_combats/Chapitre_18' }
       let(:subject) { described_class.new(article).average_views }
 
+      before { travel_to Date.new(2023, 10, 18) }
+
       it 'returns 0' do
         VCR.use_cassette 'wiki_pageviews/404_handling' do
           expect(subject).to eq(0)
