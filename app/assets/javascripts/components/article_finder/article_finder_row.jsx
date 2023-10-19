@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { includes } from 'lodash-es';
 
 import ArticleViewer from '@components/common/ArticleViewer/containers/ArticleViewer.jsx';
@@ -62,106 +62,104 @@ const ArticleFinderRow = (props) => {
     return deleteAssignment(_assignment);
   };
 
-  const pageviews = () => {
-    if (article.fetchState === 'REVISIONSCORE_RECEIVED') {
-      return <div className="results-loading"> &nbsp; &nbsp; </div>;
-    }
-    if (article.pageviews) {
-      return Math.round(article.pageviews);
-    } else if (article.fetchState === 'PAGEVIEWS_RECEIVED') {
-      return <div>Page Views not found!</div>;
-    }
-  };
+  let pageviews;
+  if (article?.fetchState === 'REVISIONSCORE_RECEIVED') {
+    pageviews = <div className="results-loading"> &nbsp; &nbsp; </div>;
+  } else if (article?.pageviews) {
+    pageviews = Math.round(article.pageviews);
+  } else if (article.fetchState === 'PAGEVIEWS_RECEIVED') {
+    pageviews = <div>Page Views not found!</div>;
+  }
 
-  const revScore = () => {
+  let revScore;
+  if (
+    includes(ORESSupportedWiki.languages, selectedWiki.language)
+    && includes(ORESSupportedWiki.projects, selectedWiki.project)
+  ) {
     if (
-      includes(ORESSupportedWiki.languages, selectedWiki.language)
-      && includes(ORESSupportedWiki.projects, selectedWiki.project)
+      article.fetchState === 'PAGEASSESSMENT_RECEIVED'
+      || article.fetchState === 'REVISION_RECEIVED'
     ) {
-      if (
-        article.fetchState === 'PAGEASSESSMENT_RECEIVED'
-        || article.fetchState === 'REVISION_RECEIVED'
-      ) {
-        return (
-          <td>
-            <div className="results-loading"> &nbsp; &nbsp; </div>
-          </td>
-        );
-      } else if (article.revScore) {
-        return <td className="revScore">{Math.round(article.revScore)}</td>;
-      } else if (
-        fetchStates[article.fetchState] >= fetchStates.REVISIONSCORE_RECEIVED
-      ) {
-        return (
-          <td>
-            <div>Estimation Score not found!</div>
-          </td>
-        );
-      }
-      return <td />;
+      revScore = (
+        <td>
+          <div className="results-loading"> &nbsp; &nbsp; </div>
+        </td>
+      );
+    } else if (article.revScore) {
+      revScore = <td className="revScore">{Math.round(article.revScore)}</td>;
+    } else if (
+      fetchStates[article.fetchState] >= fetchStates.REVISIONSCORE_RECEIVED
+    ) {
+      revScore = (
+        <td>
+          <div>Estimation Score not found!</div>
+        </td>
+      );
+    } else {
+      revScore = <td />;
     }
-  };
+  }
 
-  const grade = () => {
-    if (
-      PageAssessmentSupportedWiki[selectedWiki.project]
-      && includes(
-        PageAssessmentSupportedWiki[selectedWiki.project],
-        selectedWiki.language
-      )
+  let grade;
+  if (
+    PageAssessmentSupportedWiki[selectedWiki.project]
+    && includes(
+      PageAssessmentSupportedWiki[selectedWiki.project],
+      selectedWiki.language
+    )
+  ) {
+    if (article.fetchState === 'TITLE_RECEIVED') {
+      grade = (
+        <td>
+          <div className="results-loading"> &nbsp; &nbsp; </div>
+        </td>
+      );
+    } else if (article.grade) {
+      const gradeClass = `rating ${
+        PageAssessmentGrades[selectedWiki.project][selectedWiki.language][
+          article.grade
+        ].class
+      }`;
+      grade = (
+        <td className="tooltip-trigger">
+          <div className={gradeClass}>
+            <p>
+              {PageAssessmentGrades[selectedWiki.project][
+                selectedWiki.language
+              ][article.grade].pretty || '-'}
+            </p>
+          </div>
+          <div className="tooltip dark">
+            <p>
+              {I18n.t(
+                `articles.rating_docs.${
+                  PageAssessmentGrades[selectedWiki.project][
+                    selectedWiki.language
+                  ][article.grade].class || '?'
+                }`,
+                { class: article.grade || '' }
+              )}
+            </p>
+          </div>
+        </td>
+      );
+    } else if (
+      fetchStates[article.fetchState] >= fetchStates.PAGEASSESSMENT_RECEIVED
     ) {
-      if (article.fetchState === 'TITLE_RECEIVED') {
-        return (
-          <td>
-            <div className="results-loading"> &nbsp; &nbsp; </div>
-          </td>
-        );
-      } else if (article.grade) {
-        const gradeClass = `rating ${
-          PageAssessmentGrades[selectedWiki.project][selectedWiki.language][
-            article.grade
-          ].class
-        }`;
-        return (
-          <td className="tooltip-trigger">
-            <div className={gradeClass}>
-              <p>
-                {PageAssessmentGrades[selectedWiki.project][
-                  selectedWiki.language
-                ][article.grade].pretty || '-'}
-              </p>
-            </div>
-            <div className="tooltip dark">
-              <p>
-                {I18n.t(
-                  `articles.rating_docs.${
-                    PageAssessmentGrades[selectedWiki.project][
-                      selectedWiki.language
-                    ][article.grade].class || '?'
-                  }`,
-                  { class: article.grade || '' }
-                )}
-              </p>
-            </div>
-          </td>
-        );
-      } else if (
-        fetchStates[article.fetchState] >= fetchStates.PAGEASSESSMENT_RECEIVED
-      ) {
-        return (
-          <td className="tooltip-trigger">
-            <div className="rating null">
-              <p>-</p>
-            </div>
-            <div className="tooltip dark">
-              <p>{I18n.t('articles.rating_docs.?')}</p>
-            </div>
-          </td>
-        );
-      }
-      return <td />;
+      grade = (
+        <td className="tooltip-trigger">
+          <div className="rating null">
+            <p>-</p>
+          </div>
+          <div className="tooltip dark">
+            <p>{I18n.t('articles.rating_docs.?')}</p>
+          </div>
+        </td>
+      );
+    } else {
+      grade = <td />;
     }
-  };
+  }
 
   const isAdvanced = courseSlug && current_user.isAdvancedRole;
   const isStudent = courseSlug && current_user.role === STUDENT_ROLE;
@@ -171,91 +169,71 @@ const ArticleFinderRow = (props) => {
   const isStudentAndAssignmentPresent = isStudent && isAssignment;
   const isStudentAndAssignmentAbsent = isStudent && !isAssignment;
 
-  const buttonProps = useMemo(() => {
-    if (isAdvancedRoleAndAssignmentPresent) {
-      return {
-        className: `button small add-available-article ${
-          isLoading ? 'disabled' : ''
-        }`,
-        onClick: unassignArticle,
-        text: I18n.t(
-          `article_finder.${ArticleUtils.projectSuffix(
-            selectedWiki.project,
-            'remove_article'
-          )}`
-        ),
-      };
-    } else if (isAdvancedRoleAndAssignmentAbsent) {
-      return {
-        className: `button small add-available-article ${
-          isLoading ? 'disabled' : 'dark'
-        }`,
-        onClick: assignArticle,
-        text: I18n.t(
-          `article_finder.${ArticleUtils.projectSuffix(
-            selectedWiki.project,
-            'add_available_article'
-          )}`
-        ),
-      };
-    } else if (isStudentAndAssignmentPresent) {
-      return {
-        className: `button small add-available-article ${
-          isLoading ? 'disabled' : ''
-        }`,
-        onClick: () => unassignArticle(this.current_user.id),
-        text: I18n.t(
-          `article_finder.${ArticleUtils.projectSuffix(
-            selectedWiki.project,
-            'unassign_article_self'
-          )}`
-        ),
-      };
-    } else if (isStudentAndAssignmentAbsent) {
-      return {
-        className: `button small add-available-article ${
-          isLoading ? 'disabled' : 'dark'
-        }`,
-        onClick: () => assignArticle(this.current_user.id),
-        text: I18n.t('article_finder.assign_article_self'),
-      };
-    }
-    return { onClick: null };
-  }, [isAdvanced, isStudent, isAssignment]);
+  let buttonProps;
+  if (isAdvancedRoleAndAssignmentPresent) {
+    buttonProps = {
+      className: `button small add-available-article ${
+        isLoading ? 'disabled' : ''
+      }`,
+      onClick: unassignArticle,
+      text: I18n.t(
+        `article_finder.${ArticleUtils.projectSuffix(
+          selectedWiki.project,
+          'remove_article'
+        )}`
+      ),
+    };
+  } else if (isAdvancedRoleAndAssignmentAbsent) {
+    buttonProps = {
+      className: `button small add-available-article ${
+        isLoading ? 'disabled' : 'dark'
+      }`,
+      onClick: assignArticle,
+      text: I18n.t(
+        `article_finder.${ArticleUtils.projectSuffix(
+          selectedWiki.project,
+          'add_available_article'
+        )}`
+      ),
+    };
+  } else if (isStudentAndAssignmentPresent) {
+    buttonProps = {
+      className: `button small add-available-article ${
+        isLoading ? 'disabled' : ''
+      }`,
+      onClick: () => unassignArticle(this.current_user.id),
+      text: I18n.t(
+        `article_finder.${ArticleUtils.projectSuffix(
+          selectedWiki.project,
+          'unassign_article_self'
+        )}`
+      ),
+    };
+  } else if (isStudentAndAssignmentAbsent) {
+    buttonProps = {
+      className: `button small add-available-article ${
+        isLoading ? 'disabled' : 'dark'
+      }`,
+      onClick: () => assignArticle(this.current_user.id),
+      text: I18n.t('article_finder.assign_article_self'),
+    };
+  }
 
-  const rowButton = () => {
-    const { onClick, className, text } = buttonProps;
-
-    return (
-      <td>
-        {buttonProps ? (
-          <button className={className} onClick={onClick}>
-            {text}
-          </button>
-        ) : null}
-      </td>
-    );
+  const _article = {
+    ...article,
+    language: selectedWiki.language,
+    project: selectedWiki.project,
+    url: `https://${selectedWiki.language}.${
+      selectedWiki.project
+    }.org/wiki/${article.title.replace(/ /g, '_')}`,
   };
 
-  const _article = useMemo(() => {
-    const new_article = {
-      ...article,
-      language: selectedWiki.language,
-      project: selectedWiki.project,
-      url: `https://${selectedWiki.language}.${
-        selectedWiki.project
-      }.org/wiki/${article.title.replace(/ /g, '_')}`,
-    };
-
-    if (selectedWiki.project === 'wikidata') {
-      delete new_article.language;
-      new_article.url = `https://${
-        selectedWiki.project
-      }.org/wiki/${article.title.replace(/ /g, '_')}`;
-    }
-
-    return new_article;
-  }, [selectedWiki.project, article]);
+  if (selectedWiki.project === 'wikidata') {
+    delete _article.language;
+    _article.url = `https://${
+      selectedWiki.project
+    }.org/wiki/${article.title.replace(/ /g, '_')}`;
+  }
 
   return (
     <tr>
@@ -272,10 +250,12 @@ const ArticleFinderRow = (props) => {
           />
         </div>
       </td>
-      {revScore()}
-      {grade()}
-      <td>{pageviews()}</td>
-      {rowButton()}
+      {revScore}
+      {grade}
+      <td>{pageviews}</td>
+      <button className={buttonProps?.className} onClick={buttonProps?.onClick}>
+        {buttonProps?.text}
+      </button>
     </tr>
   );
 };
