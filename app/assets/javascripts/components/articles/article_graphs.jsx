@@ -65,23 +65,20 @@ const ArticleGraphs = ({ article }) => {
 
   const dataIncludesWp10 = articleData?.[0]?.wp10;
 
-  const graph = () => {
-    if (!articleData) {
-      return <Loading />;
-    }
-
-    if (dataIncludesWp10 && selectedRadio === 'wp10_score') {
-      return (
-        <Wp10Graph
-          graphid={graphId}
-          graphWidth={500}
-          graphHeight={300}
-          articleData={articleData}
-        />
-      );
-    }
-
-    return (
+  let graph;
+  if (!articleData) {
+    graph = <Loading />;
+  } else if (dataIncludesWp10 && selectedRadio === 'wp10_score') {
+    graph = (
+      <Wp10Graph
+        graphid={graphId}
+        graphWidth={500}
+        graphHeight={300}
+        articleData={articleData}
+      />
+    );
+  } else {
+    graph = (
       <EditSizeGraph
         graphid={graphId}
         graphWidth={500}
@@ -89,14 +86,14 @@ const ArticleGraphs = ({ article }) => {
         articleData={articleData}
       />
     );
-  };
+  }
 
-  const radioInput = () => {
-    if (!dataIncludesWp10 || !articleData) {
-      return null;
-    }
+  let radioInput;
 
-    return (
+  if (!dataIncludesWp10 || !articleData) {
+    radioInput = null;
+  } else {
+    radioInput = (
       <div>
         <div className="input-row">
           <input
@@ -122,15 +119,15 @@ const ArticleGraphs = ({ article }) => {
         </div>
       </div>
     );
-  };
+  }
 
-  const editSize = () => {
-    if (dataIncludesWp10 || !articleData) {
-      return null;
-    }
+  let editSize;
+  if (dataIncludesWp10 || !articleData) {
+    editSize = null;
+  } else {
+    editSize = <p>{I18n.t('articles.edit_size')}</p>;
+  }
 
-    return <p>{I18n.t('articles.edit_size')}</p>;
-  };
 
   const className = `vega-graph ${showGraph ? '' : 'hidden'}`;
 
@@ -139,10 +136,10 @@ const ArticleGraphs = ({ article }) => {
       {I18n.t('articles.article_development')}
       <div className={className} ref={elementRef}>
         <div className="radio-row">
-          {radioInput()}
-          {editSize()}
+          {radioInput}
+          {editSize}
         </div>
-        {graph()}
+        {graph}
       </div>
     </a>
   );
