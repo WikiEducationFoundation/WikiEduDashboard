@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Wp10Graph from './wp10_graph.jsx';
 import EditSizeGraph from './edit_size_graph.jsx';
 import Loading from '../common/loading.jsx';
@@ -20,10 +20,18 @@ const ArticleGraphs = ({ article }) => {
         handleHideGraph();
       }
     };
+
+    const handlePressEscapeKey = (event) => {
+      if (event.key === 'Escape') {
+        handleHideGraph();
+      }
+    };
     document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handlePressEscapeKey);
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handlePressEscapeKey);
     };
   }, []);
 
@@ -59,7 +67,7 @@ const ArticleGraphs = ({ article }) => {
 
   const dataIncludesWp10 = articleData?.[0]?.wp10;
 
-  const graph = useMemo(() => {
+  const graph = () => {
     if (!articleData) {
       return <Loading />;
     }
@@ -83,7 +91,7 @@ const ArticleGraphs = ({ article }) => {
         articleData={articleData}
       />
     );
-  }, [articleData, dataIncludesWp10, selectedRadio]);
+  };
 
   const radioInput = () => {
     if (!dataIncludesWp10 || !articleData) {
@@ -96,6 +104,7 @@ const ArticleGraphs = ({ article }) => {
           <input
             type="radio"
             name="wp10_score"
+            id="wp10_score"
             value="wp10_score"
             checked={selectedRadio === 'wp10_score'}
             onChange={handleRadioChange}
@@ -106,6 +115,7 @@ const ArticleGraphs = ({ article }) => {
           <input
             type="radio"
             name="edit_size"
+            id="edit_size"
             value="edit_size"
             checked={selectedRadio === 'edit_size'}
             onChange={handleRadioChange}
@@ -131,10 +141,10 @@ const ArticleGraphs = ({ article }) => {
       {I18n.t('articles.article_development')}
       <div className={className} ref={elementRef}>
         <div className="radio-row">
-          {radioInput}
-          {editSize}
+          {radioInput()}
+          {editSize()}
         </div>
-        {graph}
+        {graph()}
       </div>
     </a>
   );
