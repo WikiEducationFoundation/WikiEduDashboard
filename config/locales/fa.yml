@@ -24,11 +24,23 @@
 # Author: درفش کاویانی
 ---
 fa:
+  number:
+    human:
+      decimal_units:
+        units:
+          thousand: هزار
+          million: میلیون
+          billion: میلیارد
+          trillion: بیلیون
+          quadrillion: بیلیارد
   accessibility:
     number_field: این کادر، عددی است. با دکمه‌های کناری در اکثر مرورگرها می‌توانید
       مقدار را کاهش یا افزایش دهید.
   application:
     cancel: انصراف
+    cookie_consent_acknowledge: متوجه هستم
+    cookie_consent_see_more: مشاهدهٔ بیشتر
+    create_accounts: ایجاد حساب‌های ویکی‌پدیا
     dashboard: پیش‌خوان برنامۀ آموزشی ویکی
     documentation: مستندات
     error: این اقدام با خطا مواجه شد
@@ -47,8 +59,12 @@ fa:
     my_dashboard: پیش‌خوان من
     recent_activity: فعالیت‌های اخیر
     report_problem: گزارش مشکل
+    request_account: درخواست حساب
+    request_account_create: ایجاد حساب
     search: پرسشی بپرسید
+    no_results: هیچ نتیجه‌ای برای '%{query}' یافت نشد
     sign_up_extended: نام‌نویسی با ویکی‌پدیا
+    sign_up_wikipedia: یا در ویکی‌پدیا ثبت‌نام کنید
     sign_up_log_in_extended: با ویکی‌پدیا
     sign_up: نام‌نویسی
     submit: ثبت
@@ -60,9 +76,16 @@ fa:
     opt_out: خیر
     opt_yes: بله
     opt_no: خیر
+    print: چاپ
   article_statuses:
+    not_yet_started: شروع
+    in_progress: کار در صفحه تمرین
+    ready_for_review: گسترش پیش‌نویس
+    ready_for_mainspace: انتقال کار به فضای اصلی
     reading_the_article: مطالعهٔ مقاله
     providing_feedback: ارائه بازخورد
+    post_to_talk: ارسال به صفحه بحث
+    peer_review_completed: بررسی تکمیل شد
   dashboard:
     create_note: برای ایجاد نخستین دورهٔ خود، بر روی ایجاد دوره کلیک کنید.
     explore_course_pages: در صفحه‌های دوره کاوش کنید
@@ -83,14 +106,22 @@ fa:
     sign_up: نام‌نویسی با ویکی‌پدیا
     sign_up_help: برای استفاده از پیش‌خوان، نیاز خواهید داشت تا از طریق ویکی‌پدیا
       وارد شوید و اجازهٔ دسترسی به حسابتان را بدهید. می‌توانید از حساب ویکی‌پدیا که
-      از قبل داشتید استفاده کنید یا یک حساب تازه ایجاد نمایید.
+      از قبل داشتید استفاده کنید یا یک حساب تازه ایجاد نمایید. اگر قادر به ایجاد حساب
+      نیستید، با dashboard@wikiedu.org تماس بگیرید.
+  alerts:
+    alert_label: هشدارها
+    no_alerts: هشداری یافت نشد.
   activity:
     all: فعالیت
     edited_by: ویراستهٔ
     label: فعالیت
   articles:
     articles: مقاله‌ها
+    article_not_found: این مقاله هنوز ایجاد نشده است.
+    article_development: (توسعه مقاله)
+    articles_shown: نمایش %{count} از %{total}
     assigned: مقالات اختصاص‌داده
+    assignments_none: هنوز هیچ مقاله‌ای اختصاص داده نشده‌است.
     available: مقالات موجود
     no_available: مقاله‌ای در دسترس نیست
     next: بعدی
@@ -152,6 +183,7 @@ fa:
     search: جستجو در ویکی‌داده برای یک آیتم
     title_example: عنوان آیتم
   assignments:
+    article_link: مقاله
     article_link_wikidata: آیتم
     already_exists: این تکلیف از پیش وجود دارد!
     title_too_large: عنوان نباید دارای بیش از ۲۵۵ نویسه باشد
