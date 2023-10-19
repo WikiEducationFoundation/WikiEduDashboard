@@ -13,22 +13,22 @@ const CampaignNavbar = ({ campaign }) => {
           </a>
           <nav>
             <div className="nav__item" id="overview-link">
-              <p><a href={`/campaigns/${campaign.slug}/overview`} >{I18n.t('courses.overview')}</a>
+              <p><NavLink to={`/campaigns/${campaign.slug}/overview`} >{I18n.t('courses.overview')}</NavLink>
               </p>
             </div>
             <div className="nav__item">
               <p>
-                <a href={`/campaigns/${campaign.slug}/programs`}>{CourseUtils.i18n('courses', campaign.course_string_prefix)}</a>
+                <NavLink to={`/campaigns/${campaign.slug}/programs`}>{CourseUtils.i18n('courses', campaign.course_string_prefix)}</NavLink>
               </p>
             </div>
             <div className="nav__item" id="articles-link">
               <p>
-                <a href={`/campaigns/${campaign.slug}/articles`}>{I18n.t('courses.articles')}</a>
+                <NavLink to={`/campaigns/${campaign.slug}/articles`}>{I18n.t('courses.articles')}</NavLink>
               </p>
             </div>
             <div className="nav__item">
               <p>
-                <a href={`/campaigns/${campaign.slug}/users`}>{CourseUtils.i18n('students', campaign.course_string_prefix)}</a>
+                <NavLink to={`/campaigns/${campaign.slug}/users`}>{CourseUtils.i18n('students', campaign.course_string_prefix)}</NavLink>
               </p>
             </div>
             <div className="nav__item">
