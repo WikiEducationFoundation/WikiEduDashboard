@@ -61,9 +61,7 @@ const ArticleGraphs = ({ article }) => {
     setSelectedRadio(event.currentTarget.value);
   }
 
-  function graphId() {
-    return `vega-graph-${article_id}`;
-  }
+   const graphId = `vega-graph-${article_id}`;
 
   const dataIncludesWp10 = articleData?.[0]?.wp10;
 
@@ -75,7 +73,7 @@ const ArticleGraphs = ({ article }) => {
     if (dataIncludesWp10 && selectedRadio === 'wp10_score') {
       return (
         <Wp10Graph
-          graphid={graphId()}
+          graphid={graphId}
           graphWidth={500}
           graphHeight={300}
           articleData={articleData}
@@ -85,7 +83,7 @@ const ArticleGraphs = ({ article }) => {
 
     return (
       <EditSizeGraph
-        graphid={graphId()}
+        graphid={graphId}
         graphWidth={500}
         graphHeight={300}
         articleData={articleData}
