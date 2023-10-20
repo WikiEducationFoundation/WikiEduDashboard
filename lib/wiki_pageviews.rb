@@ -99,8 +99,10 @@ class WikiPageviews
     return unless response
     data = Utils.parse_json(response)
     return data['items'] if data['items']
-    # As of October 2017, the data type is https://www.mediawiki.org/wiki/HyperSwitch/errors/not_found
-    return no_results if %r{errors/not_found}.match?(data['type'])
+
+    # Since the API experienced some changes in the response when handling requests for which no
+    # data is available, we decided to rely only on the data status being 404 to return no results
+    return no_results if data['status'] == 404
     raise PageviewApiError, response
   end
 

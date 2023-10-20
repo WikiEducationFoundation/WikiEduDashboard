@@ -47,14 +47,12 @@ describe WikiPageviews do
 
       context 'beyond the allowed date range' do
         let(:start_date) { '2015-01-01'.to_date }
+        let(:end_date) { '2015-01-02'.to_date }
 
         it 'does not raise an error' do
-          stub_request(:any, /.*wikimedia.org.*/)
-            .to_return(
-              status: 404,
-              body: '{"type":"https://mediawiki.org/wiki/HyperSwitch/errors/not_found"}'
-            )
-          expect { subject }.not_to raise_error
+          VCR.use_cassette 'wiki_pageviews/views_for_article' do
+            expect { subject }.not_to raise_error
+          end
         end
       end
     end
@@ -160,6 +158,8 @@ describe WikiPageviews do
       let(:wiki) { create(:wiki, project: 'wikisource', language: 'fr') }
       let(:title) { 'Voyages,_aventures_et_combats/Chapitre_18' }
       let(:subject) { described_class.new(article).average_views }
+
+      before { travel_to Date.new(2023, 10, 18) }
 
       it 'returns 0' do
         VCR.use_cassette 'wiki_pageviews/404_handling' do
