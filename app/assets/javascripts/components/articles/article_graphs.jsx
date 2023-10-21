@@ -88,12 +88,7 @@ const ArticleGraphs = ({ article }) => {
     );
   }
 
-  let radioInput;
-
-  if (!dataIncludesWp10 || !articleData) {
-    radioInput = null;
-  } else {
-    radioInput = (
+  let radioInput = (
       <div>
         <div className="input-row">
           <input
@@ -119,14 +114,8 @@ const ArticleGraphs = ({ article }) => {
         </div>
       </div>
     );
-  }
 
-  let editSize;
-  if (dataIncludesWp10 || !articleData) {
-    editSize = null;
-  } else {
-    editSize = <p>{I18n.t('articles.edit_size')}</p>;
-  }
+  let editSize = <p>{I18n.t('articles.edit_size')}</p>;
 
 
   const className = `vega-graph ${showGraph ? '' : 'hidden'}`;
