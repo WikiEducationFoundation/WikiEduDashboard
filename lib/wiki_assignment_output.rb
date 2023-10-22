@@ -39,11 +39,15 @@ class WikiAssignmentOutput
     # Do not post templates to disambugation pages
     return nil if includes_disambiguation_template?(initial_page_content)
 
-    # We only want to add assignment tags to non-existant talk pages if the
+    # We only want to add assignment tags to non-existent talk pages if the
     # article page actually exists, and is not a disambiguation page.
     article_content = WikiApi.new(@wiki).get_page_content(@title)
     return nil if article_content.blank?
     return nil if includes_disambiguation_template?(article_content)
+
+    # Empty initial page content implies non-existent page.
+    talk_page_does_not_exist = initial_page_content.empty?
+    prevent_removal_of_assignments_from_non_existent_talk_pages(talk_page_does_not_exist) { return }
 
     page_content = build_assignment_page_content(assignments_tag, initial_page_content)
     page_content
@@ -52,6 +56,13 @@ class WikiAssignmentOutput
   ###################
   # Helper methods #
   ###################
+  # This is to avoid creating a new empty talk page.
+  def prevent_removal_of_assignments_from_non_existent_talk_pages(talk_page_does_not_exist)
+    # If assignments are empty, that means to remove assignments
+    return unless @assignments.empty? && talk_page_does_not_exist
+    yield
+  end
+
   def assignments_tag
     return '' if @assignments.empty?
 
@@ -84,7 +95,7 @@ class WikiAssignmentOutput
   def build_assignment_page_content(new_tag, page_content)
     page_content = page_content.dup.force_encoding('utf-8')
     # Return if tag already exists on page.
-    # However, if the tag is empty, that means to blank the prior tag (if any).z
+    # However, if the tag is empty, that means to blank the prior tag (if any).
     if new_tag.present?
       return nil if page_content.include? new_tag
     end

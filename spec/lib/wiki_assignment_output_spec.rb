@@ -264,13 +264,26 @@ describe WikiAssignmentOutput do
     let(:title) { 'Selfie' }
     let(:talk_title) { 'Talk:Selfie' }
 
-    context 'when the article exists but talk page does not' do
+    context 'when the article exists but talk page does not,' do
       let(:talk_title) { 'Talk:THIS PAGE DOES NOT EXIST' }
 
-      it 'returns content' do
-        VCR.use_cassette 'wiki_edits/talk_page_update' do
-          page_content = wiki_assignment_output.build_talk_page_update
-          expect(page_content).to include('{{dashboard.wikiedu.org assignment | course = ')
+      context 'adding or updating assignments' do
+        it 'returns content' do
+          VCR.use_cassette 'wiki_edits/talk_page_update' do
+            page_content = wiki_assignment_output.build_talk_page_update
+            expect(page_content).to include('{{dashboard.wikiedu.org assignment | course = ')
+          end
+        end
+      end
+
+      context 'trying to remove assignments' do
+        let(:assignments) { '' }
+
+        it 'returns nil' do
+          VCR.use_cassette 'wiki_edits/talk_page_update' do
+            page_content = wiki_assignment_output.build_talk_page_update
+            expect(page_content).to be_nil
+          end
         end
       end
     end
