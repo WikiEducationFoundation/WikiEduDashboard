@@ -277,7 +277,7 @@ describe WikiAssignmentOutput do
       end
 
       context 'trying to remove assignments' do
-        let(:assignments) { '' }
+        let(:assignments) { [] }
 
         it 'returns nil' do
           VCR.use_cassette 'wiki_edits/talk_page_update' do
