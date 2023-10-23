@@ -1,2 +1,14 @@
 %ul.training-libraries.no-bullets.no-margin.action-card-text
-#react_root
+  - unless @slides.empty?
+    - @slides.each do |slide|
+      %li
+        %a{href: "/training/#{slide[:path]}", target: "_blank"}
+          = sanitize(slide[:title], tags: ['mark'])
+        (
+        %a{href: "/training/#{slide[:module]}", target: "_blank"}      
+          = slide[:module_name]
+        )
+        %br
+        = sanitize(slide[:excerpt], tags: ['mark'])
+  - else
+    = t('training.no_training_resource_match_your_search')

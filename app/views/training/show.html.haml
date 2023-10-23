@@ -1,3 +1,36 @@
 - content_for :before_title, "#{@library.translated_name} - "
 .training__show.container
-#react_root{library_id: @library_id}
+  %ol.breadcrumbs= render_breadcrumbs tag: :li, separator: ' > '
+.training__section-overview.container
+  %section.training__header
+    %h1
+      #{@library.translated_name}
+    %p
+      = @library.translated_introduction
+  %ul.training__categories
+    - @library.translated_categories.each do |lib_category|
+      - lib_category = lib_category.to_hashugar
+      %li
+        .training__category__header
+          %h1.h3= lib_category.title
+          %p= lib_category.description
+          - if @library.wiki_page
+            .training__category__source
+              %a{href: "https://meta.wikimedia.org/wiki/#{@library.wiki_page}"}= t('training.view_library_source')
+        %ul.training__categories__modules
+          - lib_category.modules.each do |lib_module|
+            - mod = TrainingModule.find_by(slug: lib_module.slug)
+            - next unless mod # On P&E Dashboard, training content is unpredictable
+            - pm = ::TrainingProgressManager.new(current_user, mod)
+            %li
+              = link_to training_module_path(@library.slug, lib_module.slug), class: 'action-card' do
+                %header.action-card-header
+                  %h3.action-card-title
+                    = lib_module.name
+                    %span.pull-right.action-card-title__completion= pm.module_progress
+                  %span.icon-container
+                    %i.action-card-icon.icon.icon-rt_arrow
+                %p.action-card-text
+                  %small.block-element.capitalize{ class: pm.assignment_status_css_class }
+                    = pm.assignment_status
+                  %span= lib_module.description

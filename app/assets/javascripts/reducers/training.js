@@ -2,7 +2,7 @@ import { findIndex } from 'lodash-es';
 import {
   RECEIVE_TRAINING_MODULE, MENU_TOGGLE, REVIEW_ANSWER,
   SET_CURRENT_SLIDE, RECEIVE_ALL_TRAINING_MODULES,
-  SLIDE_COMPLETED, RECEIVE_TRAINING_LIBRARIES, RECEIVE_TRAINING_LIBRARY, SEARCH_LIBRARY
+  SLIDE_COMPLETED
 } from '../constants';
 
 const reviewAnswer = function (state, answer) {
@@ -92,12 +92,6 @@ export default function training(state = initialState, action) {
       return reviewAnswer(state, data.answer);
     case SET_CURRENT_SLIDE:
       return update(setCurrentSlide(state, data.slide));
-      case RECEIVE_TRAINING_LIBRARIES:
-        return { ...state, libraries: data.libraries };
-      case RECEIVE_TRAINING_LIBRARY:
-        return { ...state, library: data };
-      case SEARCH_LIBRARY:
-        return { ...state, slides: data };
     case RECEIVE_ALL_TRAINING_MODULES:
       return { ...state, modules: data.training_modules, libraries: data.training_libraries };
     case SLIDE_COMPLETED:
