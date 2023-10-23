@@ -41,13 +41,11 @@ class WikiAssignmentOutput
 
     # We only want to add assignment tags to non-existent talk pages if the
     # article page actually exists, and is not a disambiguation page.
-    article_content = WikiApi.new(@wiki).get_page_content(@title)
-    return nil if article_content.blank?
-    return nil if includes_disambiguation_template?(article_content)
+    return nil unless normal_article?
 
-    # Empty initial page content implies non-existent page.
-    talk_page_does_not_exist = initial_page_content.empty?
-    prevent_removal_of_assignments_from_non_existent_talk_pages(talk_page_does_not_exist) { return }
+    # We only want to remove assignments if talk page already exists.
+    # This is to avoid creating a new empty talk page.
+    return nil if @assignments.empty? && initial_page_content.empty?
 
     page_content = build_assignment_page_content(assignments_tag, initial_page_content)
     page_content
@@ -56,11 +54,10 @@ class WikiAssignmentOutput
   ###################
   # Helper methods #
   ###################
-  # This is to avoid creating a new empty talk page.
-  def prevent_removal_of_assignments_from_non_existent_talk_pages(talk_page_does_not_exist)
-    # If assignments are empty, that means to remove assignments
-    return unless @assignments.empty? && talk_page_does_not_exist
-    yield
+  # Normal article means the article page actually exists, and is not a disambiguation page.
+  def normal_article?
+    article_content = WikiApi.new(@wiki).get_page_content(@title)
+    article_content.present? && !includes_disambiguation_template?(article_content)
   end
 
   def assignments_tag
