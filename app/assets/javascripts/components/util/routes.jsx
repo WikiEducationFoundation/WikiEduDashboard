@@ -20,6 +20,7 @@ const CampaignsHandler = lazy(() => import('../campaign/campaigns_handler.jsx'))
 const DetailedCampaignList = lazy(() => import('../campaign/detailed_campaign_list'));
 const Explore = lazy(() => import('../explore/explore.jsx'));
 const TrainingApp = lazy(() => import('../../training/components/training_app.jsx'));
+const TrainingLibrariesList = lazy(() => import('../../training/components/training_libraries_list.jsx'));
 const ActiveCoursesHandler = lazy(() => import('../active_courses/active_courses_handler.jsx'));
 const CoursesByWikiHandler = lazy(() => import('../courses_by_wiki/courses_by_wiki_handler.jsx'));
 
@@ -32,9 +33,9 @@ const routes = () => {
     courseSlug: useSelector(state => state.course.slug),
     articlesLimit: useSelector(state => state.articles.limit),
     lastRequestArticleTimestamp: useSelector(state => state.articles.lastRequestTimestamp),
-    lastRequestAssignmentTimestamp: useSelector(state => state.assignments.lastRequestTimestamp)
+    lastRequestAssignmentTimestamp: useSelector(state => state.assignments.lastRequestTimestamp),
+    userState: useSelector(state => state),
   };
-
   // this is called whenever the route changes
   // it ensures that the user isn't displayed stale/outdated data for a route
   // they previously visited(and thus had already loaded the data for in the Redux store)
@@ -60,6 +61,7 @@ const routes = () => {
         <Route path="/alerts_list" element={<AdminAlerts />} />
         <Route path="/settings" element={<SettingsHandler />} />
         <Route path="/article_finder" element={<ArticleFinder />} />
+        <Route path="/training" element={<TrainingLibrariesList />} />
         <Route path="/training/*" element={<TrainingApp />} />
         <Route path="/tickets/dashboard" element={<TicketsHandler />} />
         <Route path="/tickets/dashboard/:id" element={<TicketShowHandler />} />
