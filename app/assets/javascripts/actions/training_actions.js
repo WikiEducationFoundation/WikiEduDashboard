@@ -13,15 +13,10 @@ export const fetchTrainingLibraries = () => async (dispatch) => {
   try {
     const response = await request('/training.json');
     if (!response.ok) {
-      const errorMessage = `Failed to fetch training libraries. Status: ${response.status}`;
-      throw new Error(errorMessage);
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
     }
-
-    const contentType = response.headers.get('content-type');
-    if (!contentType || !contentType.includes('application/json')) {
-      throw new Error('Response is not valid JSON');
-    }
-
     const data = await response.json();
     return dispatch({ type: RECEIVE_TRAINING_LIBRARIES, data });
   } catch (error) {
@@ -33,21 +28,14 @@ export const fetchTrainingLibraries = () => async (dispatch) => {
 export const searchTrainingLibraries = searchTerm => async (dispatch) => {
   try {
     const url = `/training.json?search_training=${encodeURIComponent(searchTerm)}`;
-
     const response = await request(url);
     if (!response.ok) {
-      const errorMessage = `Failed to fetch training libraries. Status: ${response.status}`;
-      throw new Error(errorMessage);
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
     }
-
-    const contentType = response.headers.get('content-type');
-    if (!contentType || !contentType.includes('application/json')) {
-      throw new Error('Response is not valid JSON');
-    }
-
     const data = await response.json();
     const slides = data.slides;
-
     return dispatch({ type: SEARCH_LIBRARY, data: slides });
   } catch (error) {
     return dispatch({ type: API_FAIL, data: error });
@@ -59,26 +47,14 @@ export const searchTrainingLibraries = searchTerm => async (dispatch) => {
 
 export const fetchTrainingLibrary = opts => async (dispatch) => {
   try {
-    const response = await request(`/training.json?library_slug=${opts}`);
+    const response = await request(`/training/${opts}.json`);
     if (!response.ok) {
-      const errorMessage = `Failed to fetch training libraries. Status: ${response.status}`;
-      throw new Error(errorMessage);
-    }
-
-    const contentType = response.headers.get('content-type');
-    if (!contentType || !contentType.includes('application/json')) {
-      throw new Error('Response is not valid JSON');
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
     }
     const data = await response.json();
-
-    if (!data.libraries || !Array.isArray(data.libraries) || data.libraries.length === 0) {
-      throw new Error('No libraries found for the given slug');
-    }
-    const libraries = data.libraries;
-    const library = libraries.find(lib => lib.slug === opts);
-    if (!library) {
-      throw new Error('No library found for the given slug');
-    }
+    const library = data.library;
     return dispatch({ type: RECEIVE_TRAINING_LIBRARY, data: library });
   } catch (error) {
     return dispatch({ type: API_FAIL, data: error });
