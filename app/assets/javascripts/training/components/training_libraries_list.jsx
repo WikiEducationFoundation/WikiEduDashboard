@@ -13,7 +13,7 @@ const TrainingLibraries = () => {
 
   useEffect(() => {
     dispatch(fetchTrainingLibraries());
-  }, [dispatch]);
+}, [dispatch]);
 
   useEffect(() => {
     setShowSearchResults(showSearchResults);
@@ -28,6 +28,26 @@ const TrainingLibraries = () => {
     dispatch(searchTrainingLibraries(search));
     setShowSearchResults(true);
   };
+    if (libraries.length === 0) {
+      if (Features.wikiEd) {
+        return (
+          <div>
+            <p
+              dangerouslySetInnerHTML={{
+              __html: I18n.t('training.no_training_library_records_wiki_ed_mode', {
+                url: '/reload_trainings?module=all',
+              }),
+            }}
+            />
+          </div>
+        );
+      }
+       return (
+         <div>
+           {I18n.t('training.no_training_library_records_non_wiki_ed_mode')}
+         </div>
+        );
+    }
 
   return (
     <div>
