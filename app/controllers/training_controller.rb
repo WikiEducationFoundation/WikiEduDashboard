@@ -9,21 +9,46 @@ class TrainingController < ApplicationController
   before_action :init_query_object, only: :index
 
   def index
-    if @search
-      @slides = @query_object.selected_slides_and_excerpt
-    else
-      @focused_library_slug, @libraries = @query_object.all_libraries
-
-      render 'no_training_module' if @libraries.empty?
+    respond_to do |format|
+      format.html do
+        render 'index'
+      end
+  
+      format.json do
+        if @search
+          @slides = @query_object.selected_slides_and_excerpt
+          render json: { slides: @slides }
+        else
+          @focused_library_slug, @libraries = @query_object.all_libraries
+          if @libraries.empty?
+            render json: { error: 'No libraries found' }, status: :not_found
+          else
+            render json: { focused_library_slug: @focused_library_slug, libraries: @libraries }
+          end
+        end
+      end
     end
   end
+  
+  
 
   def show
-    add_training_root_breadcrumb
-    add_library_breadcrumb
-    fail_if_entity_not_found(TrainingLibrary, params[:library_id])
     @library = TrainingLibrary.find_by(slug: params[:library_id])
-  end
+    fail_if_entity_not_found(TrainingLibrary, params[:library_id])
+  
+    respond_to do |format|
+      format.html do
+        add_training_root_breadcrumb
+        add_library_breadcrumb
+        render 'show'
+      end
+  
+      format.json do
+        render json: { library: @library }
+      end
+    end
+  end  
+  
 
   def training_module
     fail_if_entity_not_found(TrainingModule, params[:module_id])
@@ -57,6 +82,15 @@ class TrainingController < ApplicationController
          TrainingModule::ModuleNotFound, WikiTrainingLoader::NoMatchingWikiPagesFound,
          YamlTrainingLoader::InvalidYamlError => e
     render plain: e.message
+  end
+
+  def find_slide
+    training_slide = TrainingSlide.find(params[:slide_id])
+    training_module = training_slide.find_module_by_slug
+    raise ActionController::RoutingError, 'module not found' unless training_module
+    # Use a specific training library for the module, or a default library if it is not found
+    training_library = training_module.find_or_default_library
+    redirect_to "/training/#{training_library.slug}/#{training_module.slug}/#{training_slide.slug}"
   end
 
   private
