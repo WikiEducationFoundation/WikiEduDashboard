@@ -57,8 +57,10 @@ const TrainingLibraries = () => {
           <input
             type="text"
             value={search}
+            id="search_training"
+            name={I18n.t('search_training')}
             onChange={e => handleSearch(e)}
-            placeholder="Search for training resources"
+            placeholder= {I18n.t('training.search_training_resources')}
             style={{ width: '100%', height: '3rem', fontSize: '15px' }}
           />
           <button type="submit" id="training_search_button" style={{ position: 'absolute', right: '20px', top: '10px' }}>
