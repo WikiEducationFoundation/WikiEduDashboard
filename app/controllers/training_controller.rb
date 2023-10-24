@@ -28,8 +28,7 @@ class TrainingController < ApplicationController
         render json: { library: @library }
       end
     end
-  end  
-  
+  end
 
   def training_module
     fail_if_entity_not_found(TrainingModule, params[:module_id])
@@ -89,6 +88,7 @@ class TrainingController < ApplicationController
       end
     end
   end
+
   def add_training_root_breadcrumb
     add_breadcrumb I18n.t('training.training_library'), :training_path
   end
