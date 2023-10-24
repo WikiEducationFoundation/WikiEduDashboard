@@ -13,54 +13,57 @@ const TrainingLibrary = () => {
   }, [dispatch, library_id]);
 
   return (
-    <div className="training__section-overview container">
-      <section className="training__header">
-        <h1>{library.name}</h1>
-        <p>{library.introduction}</p>
-      </section>
+    <>
+      <ol />
+      <div className="training__section-overview container">
+        <section className="training__header">
+          <h1>{library.name}</h1>
+          <p>{library.introduction}</p>
+        </section>
 
-      {library.categories && library.categories.length > 0 ? (
-        <ul className="training__categories">
-          {library.categories.map((libCategory, index) => (
-            <li key={index}>
-              <div className="training__category__header">
-                <h1 className="h3">{libCategory.title}</h1>
-                <p>{libCategory.description}</p>
-                {library.wiki_page && (
+        {library.categories && library.categories.length > 0 ? (
+          <ul className="training__categories">
+            {library.categories.map((libCategory, index) => (
+              <li key={index}>
+                <div className="training__category__header">
+                  <h1 className="h3">{libCategory.title}</h1>
+                  <p>{libCategory.description}</p>
+                  {library.wiki_page && (
                   <div className="training__category__source">
                     <a href={`https://meta.wikimedia.org/wiki/${library.wiki_page}`}>
                       View Library Source
                     </a>
                   </div>
-                )}
-              </div>
-              <ul className="training__categories__modules">
-                {libCategory.modules.map((libModule, moduleIndex) => (
-                  <li key={moduleIndex}>
-                    <a href={`/training/${library.slug}/${libModule.slug}`} className="action-card">
-                      <header className="action-card-header">
-                        <h3 className="action-card-title">{libModule.name}</h3>
-                        <span className="pull-right action-card-title__completion">
-                          {libModule.percent_complete}
-                        </span>
-                        <span className="icon-container">
-                          <i className="action-card-icon icon icon-rt_arrow" />
-                        </span>
-                      </header>
-                      <p className="action-card-text">
-                        <span>{libModule.description}</span>
-                      </p>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        null
-      )}
-    </div>
+                  )}
+                </div>
+                <ul className="training__categories__modules">
+                  {libCategory.modules.map((libModule, moduleIndex) => (
+                    <li key={moduleIndex}>
+                      <a href={`/training/${library.slug}/${libModule.slug}`} className="action-card">
+                        <header className="action-card-header">
+                          <h3 className="action-card-title">{libModule.name}</h3>
+                          <span className="pull-right action-card-title__completion">
+                            {libModule.percent_complete}
+                          </span>
+                          <span className="icon-container">
+                            <i className="action-card-icon icon icon-rt_arrow" />
+                          </span>
+                        </header>
+                        <p className="action-card-text">
+                          <span>{libModule.description}</span>
+                        </p>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          null
+        )}
+      </div>
+    </>
   );
 };
 
