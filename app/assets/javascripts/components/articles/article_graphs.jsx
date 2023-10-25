@@ -88,7 +88,9 @@ const ArticleGraphs = ({ article }) => {
     );
   }
 
-  let radioInput = (
+  let radioInput;
+  if (articleData?.[0].wp10) {
+    radioInput = (
       <div>
         <div className="input-row">
           <input
@@ -114,8 +116,11 @@ const ArticleGraphs = ({ article }) => {
         </div>
       </div>
     );
+  } else {
+    radioInput = null;
+  }
 
-  let editSize = <p>{I18n.t('articles.edit_size')}</p>;
+  const editSize = <p>{I18n.t('articles.edit_size')}</p>;
 
 
   const className = `vega-graph ${showGraph ? '' : 'hidden'}`;
