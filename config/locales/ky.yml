@@ -52,7 +52,7 @@ ky:
   settings:
     admin_users:
       new:
-        form_placeholder: Колдонуучунун ысымы
+        form_placeholder: Колдонуучунун аты
   timeline:
     empty_week_3: же
     week_number: Апта %{number}
@@ -67,8 +67,8 @@ ky:
     number_of_articles:
       one: '%{count} макала'
       other: '%{count} макала'
-    username: Колдонуучунун ысымы
-    username_placeholder: Колдонуучунун ысымы
+    username: Колдонуучунун аты
+    username_placeholder: Колдонуучунун аты
   training_status:
     continue: Улантуу
 ...

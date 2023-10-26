@@ -5,6 +5,7 @@
 # Author: Macofe
 # Author: Tokvo
 # Author: Xuacu
+# Author: YoaR
 ---
 ast:
   number:
@@ -21,7 +22,7 @@ ast:
     number_field: Esti ye un campu numbéricu. Los botones representaos pola mayoría
       de los navegadores van amontar y decrementar la entrada.
   application:
-    cancel: Encaboxar
+    cancel: Zarrar
     cookie_consent: Esti sitiu usa cookies pa caltener la sesión aniciada, y guarda
       información relativa a la to cuenta de Wikipedia.
     cookie_consent_acknowledge: Entiendo
@@ -321,7 +322,7 @@ ast:
       legend_class_meeting: Xunta de la Clase
       legend_class_not_meeting: Nenguna xunta programada
       select_meeting_days: Escueye los díes de la selmana en qu'aconceya la to clase.
-    cancel: Encaboxar
+    cancel: Zarrar
     character_doc: La suma de caráuteres amestaos a los artículos del espaciu principal
       polos estudiantes nel periodu del cursu
     campaigns: 'Campaignes:'
@@ -541,7 +542,7 @@ ast:
     assignment_end: Fin del socesu
     assignments_none: Esti proyeutu nun tien artículos asinaos.
     assignment_start: Principiu del socesu
-    cancel: Encaboxar
+    cancel: Zarrar
     course: Programa
     courses: Programes
     courses_taught: Programes enseñaos
@@ -601,7 +602,7 @@ ast:
     yourcourses: Los tos programes
   editable:
     edit: Editar
-    cancel: Encaboxar
+    cancel: Zarrar
     save: Guardar
     edit_description: Editar la descripción
     edit_details: Editar los detalles
