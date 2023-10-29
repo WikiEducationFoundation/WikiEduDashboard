@@ -28,26 +28,29 @@ const TrainingLibraries = () => {
     dispatch(searchTrainingLibraries(search));
     setShowSearchResults(true);
   };
-    if (!libraries) {
-      if (Features.wikiEd) {
-        return (
-          <div>
-            <p
-              dangerouslySetInnerHTML={{
+  if (libraries.lenghth === 0) {
+    if (libraries === null) {
+      return null;
+    }
+    if (Features.wikiEd) {
+      return (
+        <div>
+          <p
+            dangerouslySetInnerHTML={{
               __html: I18n.t('training.no_training_library_records_wiki_ed_mode', {
                 url: '/reload_trainings?module=all',
               }),
             }}
-            />
-          </div>
-        );
-      }
-       return (
-         <div>
-           {I18n.t('training.no_training_library_records_non_wiki_ed_mode')}
-         </div>
-        );
+          />
+        </div>
+      );
     }
+    return (
+      <div>
+        {I18n.t('training.no_training_library_records_non_wiki_ed_mode')}
+      </div>
+    );
+  }
 
   return (
     <div>
