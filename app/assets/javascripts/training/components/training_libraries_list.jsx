@@ -6,7 +6,7 @@ import { fetchTrainingLibraries, searchTrainingLibraries } from '../../actions/t
 const TrainingLibraries = () => {
   const libraries = useSelector(state => state.training.libraries);
   const focusedLibrarySlug = useSelector(state => state.training.focusedLibrarySlug);
-  const slides = useSelector(state => state.training.slides).slides;
+  const slides = useSelector(state => state.training.slides);
   const [search, setSearch] = useState('');
   const [showSearchResults, setShowSearchResults] = useState(false);
   const dispatch = useDispatch();
