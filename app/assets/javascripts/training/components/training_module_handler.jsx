@@ -39,12 +39,24 @@ const TrainingModuleHandler = createReactClass({
       );
     }
     );
+    let moduleSource;
+    if (this.props.training.module.wiki_page) {
+      moduleSource = (
+        <div className="training-module-source">
+          <a href={`https://meta.wikimedia.org/wiki/${this.props.training.module.wiki_page}`} target="_blank">{I18n.t('training.view_module_source')}</a>
+          <br />
+          <a href={`/reload_trainings?module=${this.props.training.module.slug}`}>{I18n.t('training.reload_from_source')}</a>
+        </div>
+      );
+    }
+
     return (
       <div className="training__toc-container">
         <h1 className="h4 capitalize"> {I18n.t('training.table_of_contents')} <span className="pull-right total-slides">({slidesAry.length})</span></h1>
         <ol>
           {slides}
         </ol>
+        {moduleSource}
       </div>
 
     );
