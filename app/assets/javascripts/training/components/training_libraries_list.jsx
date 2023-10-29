@@ -6,7 +6,7 @@ import { fetchTrainingLibraries, searchTrainingLibraries } from '../../actions/t
 const TrainingLibraries = () => {
   const libraries = useSelector(state => state.training.libraries);
   const focusedLibrarySlug = useSelector(state => state.training.focusedLibrarySlug);
-  const slides = useSelector(state => state.training.slides);
+  const slides = useSelector(state => state.training.slides).slides;
   const [search, setSearch] = useState('');
   const [showSearchResults, setShowSearchResults] = useState(false);
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ const TrainingLibraries = () => {
     dispatch(searchTrainingLibraries(search));
     setShowSearchResults(true);
   };
-    if (libraries.length === 0) {
+    if (!libraries) {
       if (Features.wikiEd) {
         return (
           <div>
@@ -69,7 +69,7 @@ const TrainingLibraries = () => {
         </form>
       </div>
       {showSearchResults ? (
-        <SearchResults slides={slides} message="No training resources match your search." />
+        <SearchResults slides={slides} message={I18n.t('training.no_training_resource_match_your_search')} />
       ) : (
         <ul className="training-libraries no-bullets no-margin">
           {libraries

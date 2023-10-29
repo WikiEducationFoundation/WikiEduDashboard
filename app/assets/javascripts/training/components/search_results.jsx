@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SearchResults = ({ slides }) => {
+const SearchResults = ({ slides, message }) => {
   if (slides && slides.length > 0) {
     return (
       <ul className="training-libraries no-bullets no-margin action-card-text">
@@ -16,7 +16,7 @@ const SearchResults = ({ slides }) => {
       </ul>
     );
   }
-  return null;
+  return message;
 };
 
 export default SearchResults;
