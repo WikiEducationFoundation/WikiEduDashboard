@@ -9,12 +9,13 @@ const TrainingLibraries = () => {
   const slides = useSelector(state => state.training.slides);
   const [search, setSearch] = useState('');
   const [showSearchResults, setShowSearchResults] = useState(false);
-  const [librariesLoaded, setLibrariesLoaded] = useState(false);
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchTrainingLibraries())
-     .then(() => setLibrariesLoaded(true));
+    .then(() => setLoading(false))
+    .catch(() => setLoading(false));
 }, [dispatch]);
 
   useEffect(() => {
@@ -31,10 +32,15 @@ const TrainingLibraries = () => {
     setShowSearchResults(true);
   };
 
-  if (!librariesLoaded) {
-    return null;
+  if (loading) {
+    return (
+      <div className="training-loader">
+        <h1 className="h2">Loading…</h1>
+        <div className="training-loader__spinner" />
+      </div>
+    );
   }
-  if (!libraries || libraries.length === 0) {
+  if (libraries.length === 0) {
     if (Features.wikiEd) {
       return (
         <div>

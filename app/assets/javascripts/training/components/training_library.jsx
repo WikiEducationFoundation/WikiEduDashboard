@@ -14,7 +14,6 @@ const TrainingLibrary = () => {
 
   return (
     <>
-      <ol />
       <div className="training__section-overview container">
         <section className="training__header">
           <h1>{library.name}</h1>

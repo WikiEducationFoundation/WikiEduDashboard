@@ -1,4 +1,5 @@
 - content_for :before_title, "#{@library.translated_name} - "
 .training__show.container
   %ol.breadcrumbs= render_breadcrumbs tag: :li, separator: ' > '
-#react_root{library_id: @library_id}
+  %div(style="margin-top: 20px")
+  #react_root{library_id: @library_id}
