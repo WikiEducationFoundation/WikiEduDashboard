@@ -7,6 +7,9 @@ const TrainingLibrary = () => {
   const { library_id } = useParams();
   const library = useSelector(state => state.training.library);
   const dispatch = useDispatch();
+  const breadcrumbs = JSON.parse(document.getElementById('react_root').getAttribute('breadcrumbs'));
+  const trainingLibrary = breadcrumbs[0];
+  const libraryName = breadcrumbs[1];
 
   useEffect(() => {
     dispatch(fetchTrainingLibrary(library_id));
@@ -14,6 +17,13 @@ const TrainingLibrary = () => {
 
   return (
     <>
+      <div className="container">
+        <ol className="breadcrumbs">
+          <li>
+            <a href="/training"><span>{trainingLibrary.name}</span></a> &gt; <span>{libraryName.name}</span>
+          </li>
+        </ol>
+      </div>
       <div className="training__section-overview container">
         <section className="training__header">
           <h1>{library.name}</h1>
@@ -30,7 +40,7 @@ const TrainingLibrary = () => {
                   {library.wiki_page && (
                   <div className="training__category__source">
                     <a href={`https://meta.wikimedia.org/wiki/${library.wiki_page}`}>
-                      View Library Source
+                      {I18n.t('training.view_library_source')}
                     </a>
                   </div>
                   )}
