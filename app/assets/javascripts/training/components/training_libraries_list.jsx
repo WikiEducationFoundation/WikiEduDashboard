@@ -9,13 +9,10 @@ const TrainingLibraries = () => {
   const slides = useSelector(state => state.training.slides);
   const [search, setSearch] = useState('');
   const [showSearchResults, setShowSearchResults] = useState(false);
-  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchTrainingLibraries())
-    .then(() => setLoading(false))
-    .catch(() => setLoading(false));
+    dispatch(fetchTrainingLibraries());
 }, [dispatch]);
 
   useEffect(() => {
@@ -31,35 +28,6 @@ const TrainingLibraries = () => {
     dispatch(searchTrainingLibraries(search));
     setShowSearchResults(true);
   };
-
-  if (loading) {
-    return (
-      <div className="training-loader">
-        <h1 className="h2">Loading…</h1>
-        <div className="training-loader__spinner" />
-      </div>
-    );
-  } else if (libraries.length === 0) {
-    if (Features.wikiEd) {
-      return (
-        <div>
-          <p
-            dangerouslySetInnerHTML={{
-              __html: I18n.t('training.no_training_library_records_wiki_ed_mode', {
-                url: '/reload_trainings?module=all',
-              }),
-            }}
-          />
-        </div>
-      );
-    }
-      return (
-        <div>
-          {I18n.t('training.no_training_library_records_non_wiki_ed_mode')}
-        </div>
-      );
-  }
-
   return (
     <div>
       <h1>Training Libraries</h1>

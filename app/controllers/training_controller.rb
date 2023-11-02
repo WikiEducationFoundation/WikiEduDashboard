@@ -9,10 +9,12 @@ class TrainingController < ApplicationController
   before_action :init_query_object, only: :index
 
   def index
+    @libraries = @query_object.all_libraries
     respond_to do |format|
       format.html { render 'index' }
       format.json { handle_json_request }
     end
+    render 'no_training_module' if @libraries.empty?
   end
 
   def show
@@ -77,14 +79,14 @@ class TrainingController < ApplicationController
 
   def handle_json_request
     if @search
-      @slides = @query_object.selected_slides_and_excerpt
-      render json: { slides: @slides }
+      slides = @query_object.selected_slides_and_excerpt
+      render json: { slides: slides }
     else
-      @focused_library_slug, @libraries = @query_object.all_libraries
-      if @libraries.empty?
+      focused_library_slug, libraries = @query_object.all_libraries
+      if libraries.empty?
         render json: { error: 'No libraries found' }, status: :not_found
       else
-        render json: { focused_library_slug: @focused_library_slug, libraries: @libraries }
+        render json: { focused_library_slug: focused_library_slug, libraries: libraries }
       end
     end
   end
