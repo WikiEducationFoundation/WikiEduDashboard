@@ -10,21 +10,24 @@ class TrainingController < ApplicationController
 
   def index
     @libraries = @query_object.all_libraries
+    render 'no_training_module' if @libraries.empty?
     respond_to do |format|
       format.html { render 'index' }
       format.json { handle_json_request }
     end
-    render 'no_training_module' if @libraries.empty?
   end
 
   def show
     @library = TrainingLibrary.find_by(slug: params[:library_id])
     fail_if_entity_not_found(TrainingLibrary, params[:library_id])
+
+    fetch_training_module
+
     respond_to do |format|
       format.html do
         add_training_root_breadcrumb
         add_library_breadcrumb
-        render 'show'
+        render 'show', locals: { progress_data: @progress_data }
       end
       format.json do
         render json: { library: @library }
@@ -80,13 +83,26 @@ class TrainingController < ApplicationController
   def handle_json_request
     if @search
       slides = @query_object.selected_slides_and_excerpt
-      render json: { slides: slides }
+      render json: { slides: }
     else
       focused_library_slug, libraries = @query_object.all_libraries
       if libraries.empty?
         render json: { error: 'No libraries found' }, status: :not_found
       else
-        render json: { focused_library_slug: focused_library_slug, libraries: libraries }
+        render json: { focused_library_slug:, libraries: }
+      end
+    end
+  end
+
+  def fetch_training_module
+    @progress_data = {}
+    @library.translated_categories.each do |category|
+      category = category.to_hashugar
+      category.modules.map do |mod|
+        trainingmod = TrainingModule.find_by(slug: mod.slug)
+        pm = TrainingProgressManager.new(current_user, trainingmod)
+        progress = pm.module_progress
+        @progress_data[mod.slug] = progress
       end
     end
   end

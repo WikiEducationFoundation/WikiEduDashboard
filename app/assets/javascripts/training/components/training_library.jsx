@@ -10,6 +10,7 @@ const TrainingLibrary = () => {
   const breadcrumbs = JSON.parse(document.getElementById('react_root').getAttribute('breadcrumbs'));
   const trainingLibrary = breadcrumbs[0];
   const libraryName = breadcrumbs[1];
+  const progress = JSON.parse(document.getElementById('react_root').getAttribute('prog'));
 
   useEffect(() => {
     dispatch(fetchTrainingLibrary(library_id));
@@ -51,8 +52,8 @@ const TrainingLibrary = () => {
                       <a href={`/training/${library.slug}/${libModule.slug}`} className="action-card">
                         <header className="action-card-header">
                           <h3 className="action-card-title">{libModule.name}</h3>
-                          <span className="pull-right action-card-title__completion">
-                            {libModule.percent_complete}
+                          <span className="pull-right action-card-title__completion1">
+                            {progress[libModule.slug]}
                           </span>
                           <span className="icon-container">
                             <i className="action-card-icon icon icon-rt_arrow" />
