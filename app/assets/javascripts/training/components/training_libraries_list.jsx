@@ -39,8 +39,7 @@ const TrainingLibraries = () => {
         <div className="training-loader__spinner" />
       </div>
     );
-  }
-  if (libraries.length === 0) {
+  } else if (libraries.length === 0) {
     if (Features.wikiEd) {
       return (
         <div>
