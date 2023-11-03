@@ -10,7 +10,6 @@ class TrainingController < ApplicationController
 
   def index
     @libraries = @query_object.all_libraries
-    render 'no_training_module' if @libraries.empty?
     respond_to do |format|
       format.html { render 'index' }
       format.json { handle_json_request }
