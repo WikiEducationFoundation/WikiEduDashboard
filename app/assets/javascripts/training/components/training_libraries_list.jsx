@@ -4,27 +4,26 @@ import SearchResults from './search_results.jsx';
 import { fetchTrainingLibraries, searchTrainingLibraries } from '../../actions/training_actions';
 
 const TrainingLibraries = () => {
+  // const [libraries, setLibraries] = useState([]);
   const libraries = useSelector(state => state.training.libraries);
   const focusedLibrarySlug = useSelector(state => state.training.focusedLibrarySlug);
   const slides = useSelector(state => state.training.slides);
   const [search, setSearch] = useState('');
   const [showSearchResults, setShowSearchResults] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchTrainingLibraries());
+      // .then((data) => {
+      //   setLibraries(data.libraries);
+      //   setIsLoading(false);
+      // });
   }, [dispatch]);
 
   useEffect(() => {
     setShowSearchResults(showSearchResults);
   }, [slides]);
-
-  useEffect(() => {
-    if (libraries.length > 0) {
-      setIsLoading(false);
-    }
-  }, [libraries]);
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
@@ -36,13 +35,13 @@ const TrainingLibraries = () => {
     setShowSearchResults(true);
   };
 
-  if (isLoading) {
-    return (
-      <div className="container">
-        <div className="loading__spinner" />
-      </div>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <div className="container">
+  //       <div className="loading__spinner" />
+  //     </div>
+  //   );
+  // }
   if (libraries.length === 0) {
     if (Features.wikiEd) {
       return (
