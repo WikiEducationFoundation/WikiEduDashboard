@@ -16,9 +16,11 @@ const SearchResults = ({ slides, message }) => {
       </ul>
     );
   }
-  if (slides.length === 0) {
-    return message;
-  }
+  return (
+    <ul className="training-libraries no-bullets no-margin action-card-text">
+      <li>{message}</li>
+    </ul>
+  );
 };
 
 export default SearchResults;

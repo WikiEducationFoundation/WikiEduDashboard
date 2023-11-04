@@ -78,7 +78,7 @@ const TrainingLibraries = () => {
             placeholder= {I18n.t('training.search_training_resources')}
             style={{ width: '100%', height: '3rem', fontSize: '15px' }}
           />
-          <button type="submit" id="training_search_button" style={{ position: 'absolute', right: '20px', top: '10px' }}>
+          <button type="submit" id="training_search_button" onClick={handleSubmit} style={{ position: 'absolute', right: '20px', top: '10px' }}>
             <i className="icon icon-search" />
           </button>
         </form>
