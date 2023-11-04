@@ -16,7 +16,9 @@ const SearchResults = ({ slides, message }) => {
       </ul>
     );
   }
-  return message;
+  if (slides.length === 0) {
+    return message;
+  }
 };
 
 export default SearchResults;

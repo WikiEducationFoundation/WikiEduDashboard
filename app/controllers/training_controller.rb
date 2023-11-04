@@ -85,11 +85,7 @@ class TrainingController < ApplicationController
       render json: { slides: }
     else
       focused_library_slug, libraries = @query_object.all_libraries
-      if libraries.empty?
-        render json: { error: 'No libraries found' }, status: :not_found
-      else
-        render json: { focused_library_slug:, libraries: }
-      end
+      render json: { focused_library_slug:, libraries: }
     end
   end
 

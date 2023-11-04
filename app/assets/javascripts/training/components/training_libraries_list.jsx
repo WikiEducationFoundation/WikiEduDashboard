@@ -4,26 +4,21 @@ import SearchResults from './search_results.jsx';
 import { fetchTrainingLibraries, searchTrainingLibraries } from '../../actions/training_actions';
 
 const TrainingLibraries = () => {
-  // const [libraries, setLibraries] = useState([]);
-  const libraries = useSelector(state => state.training.libraries);
+  const [libraries, setLibraries] = useState([]);
   const focusedLibrarySlug = useSelector(state => state.training.focusedLibrarySlug);
-  const slides = useSelector(state => state.training.slides);
   const [search, setSearch] = useState('');
   const [showSearchResults, setShowSearchResults] = useState(false);
-  // const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const [slides, setSlides] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchTrainingLibraries());
-      // .then((data) => {
-      //   setLibraries(data.libraries);
-      //   setIsLoading(false);
-      // });
+    dispatch(fetchTrainingLibraries())
+      .then((data) => {
+        setLibraries(data.data.libraries);
+        setIsLoading(false);
+      });
   }, [dispatch]);
-
-  useEffect(() => {
-    setShowSearchResults(showSearchResults);
-  }, [slides]);
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
@@ -31,17 +26,22 @@ const TrainingLibraries = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(searchTrainingLibraries(search));
-    setShowSearchResults(true);
+    if (search) {
+      dispatch(searchTrainingLibraries(search))
+        .then((data) => {
+          setSlides(data.data);
+          setShowSearchResults(true);
+        });
+    }
   };
 
-  // if (isLoading) {
-  //   return (
-  //     <div className="container">
-  //       <div className="loading__spinner" />
-  //     </div>
-  //   );
-  // }
+  if (isLoading) {
+    return (
+      <div className="container">
+        <div className="loading__spinner" />
+      </div>
+    );
+  }
   if (libraries.length === 0) {
     if (Features.wikiEd) {
       return (
@@ -67,12 +67,13 @@ const TrainingLibraries = () => {
     <div>
       <h1>Training Libraries</h1>
       <div className="search-bar" style={{ position: 'relative' }}>
-        <form onSubmit={handleSubmit}>
+        <form onClick={handleSubmit} acceptCharset="UTF-8" method="get">
+          <input name="utf8" type="hidden" defaultValue="✓" />
           <input
             type="text"
             value={search}
             id="search_training"
-            name={I18n.t('search_training')}
+            name="search_training"
             onChange={e => handleSearch(e)}
             placeholder= {I18n.t('training.search_training_resources')}
             style={{ width: '100%', height: '3rem', fontSize: '15px' }}
