@@ -10,13 +10,14 @@ def make_copy_of(url)
   home_wiki = Wiki.get_or_create(language: course_data['home_wiki']['language'], project: course_data['home_wiki']['project'])
   copied_data['home_wiki_id'] = home_wiki.id
   copied_data['passcode'] = 'passcode' # set an arbitrary passcode
+  # Fix the update_logs in flags
+  if copied_data['flags'].key?('update_logs')
+    copied_data['flags']['update_logs'] = fix_update_logs_parsing(copied_data['flags']['update_logs'])
+  end
   # Create the course
   course = Course.create!(
     copied_data
   )
-
-  # Remove the update_logs, which cause problems due to conversion of integer keys to strings.
-  course.flags.delete('update_logs')
   course.save
 
   # Add the tracked wikis
@@ -50,3 +51,13 @@ def make_copy_of(url)
   pp "http://localhost:3000/courses/#{course.slug}"
 end
 
+# When parsing update_logs from flags, keys are set as strings instead of integers
+# This causes problems, so we need to force the keys to be integers.
+def fix_update_logs_parsing(update_logs)
+  fixed_update_logs = {}
+  update_logs.each do |key, value|
+    # Add the new log with same value but integer key
+    fixed_update_logs[key.to_i] = value
+  end
+  fixed_update_logs
+end
