@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#= Copy course from another server dashboard
+#= Copy course from another server
 class CopyCourse
   def initialize(url:)
     @url = url

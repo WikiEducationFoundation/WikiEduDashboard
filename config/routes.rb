@@ -101,7 +101,7 @@ Rails.application.routes.draw do
   get '/update_username' => 'update_username#index'
   post '/update_username' => 'update_username#update'
 
-  # Copy course from another dashboard server
+  # Copy course from another server
   get 'copy_course' => 'copy_course#index'
   post 'copy_course' => 'copy_course#copy'
 
