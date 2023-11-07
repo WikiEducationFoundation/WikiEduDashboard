@@ -15,10 +15,8 @@ class CopyCourse
     @users_data = retrieve_users_data
     copy_users_data
     return { course: @course, error: nil }
-  rescue StandardError => e
+  rescue ActiveRecord::RecordInvalid, StandardError => e
     return { course: nil, error: e.message }
-  rescue ActiveRecord::RecordInvalid => e
-    return { course: nil, error: "Error copying data to db: #{e.message}" }
   end
 
   private
