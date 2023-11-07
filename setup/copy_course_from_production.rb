@@ -54,10 +54,5 @@ end
 # When parsing update_logs from flags, keys are set as strings instead of integers
 # This causes problems, so we need to force the keys to be integers.
 def fix_update_logs_parsing(update_logs)
-  fixed_update_logs = {}
-  update_logs.each do |key, value|
-    # Add the new log with same value but integer key
-    fixed_update_logs[key.to_i] = value
-  end
-  fixed_update_logs
+  update_logs.transform_keys(&:to_i)
 end
