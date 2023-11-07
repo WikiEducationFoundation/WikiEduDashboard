@@ -30,7 +30,7 @@ class CopyCourse
     @home_wiki = Wiki.get_or_create(language: @course_data['home_wiki']['language'],
                                     project: @course_data['home_wiki']['project'])
     copied_data['home_wiki_id'] = @home_wiki.id
-    copied_data['passcode'] = 'passcode' # set an arbitrary passcode
+    copied_data['passcode'] = GeneratePasscode.call # set a random passcode
     if copied_data['flags'].key?('update_logs')
       copied_data['flags']['update_logs'] =
         fix_update_logs_parsing(copied_data['flags']['update_logs'])
