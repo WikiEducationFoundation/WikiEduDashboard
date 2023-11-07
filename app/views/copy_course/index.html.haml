@@ -1,0 +1,16 @@
+- content_for :before_title, 'Admin - '
+
+.container.dashboard
+  %header
+    %h1
+      = 'Copy course from another Dashboard server'
+
+%section
+  .container
+    %hr
+
+.container
+  = form_tag copy_course_path, class: 'explore-courses', method: :post do
+    = text_field_tag(:url, '', placeholder: 'Copy course URL here...')
+    %button{type: 'submit'}
+      %i.icon.icon-check
