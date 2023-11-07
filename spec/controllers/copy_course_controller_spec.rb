@@ -13,7 +13,7 @@ describe CopyCourseController, type: :request do
       end
 
       it 'shows the feature to copy the course' do
-        get '/copy_course'
+        get copy_course_path
         expect(response.status).to eq(200)
       end
     end
@@ -24,7 +24,7 @@ describe CopyCourseController, type: :request do
       end
 
       it 'returns a 401 error' do
-        get '/copy_course'
+        get copy_course_path
         expect(response.status).to eq(401)
       end
     end
@@ -32,13 +32,14 @@ describe CopyCourseController, type: :request do
 
   describe '#copy' do
     let(:admin) { create(:admin) }
-    let(:subject) { post '/copy_course', params: { url: 'someurl.com' } }
+    let(:subject) { post copy_course_path, params: { url: 'someurl.com' } }
 
     context 'when the copy fails for some reason' do
       before do
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
-        response = { course: nil, error: 'An interesting error happened' }
-        allow_any_instance_of(CopyCourse).to receive(:make_copy).and_return(response)
+        allow_any_instance_of(CopyCourse).to receive(:make_copy).and_return(
+          { course: nil, error: 'An interesting error happened' }
+        )
       end
 
       it 'renders the error' do
@@ -51,8 +52,9 @@ describe CopyCourseController, type: :request do
     context 'when the copy is successful' do
       before do
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
-        response = { course: create(:basic_course), error: nil }
-        allow_any_instance_of(CopyCourse).to receive(:make_copy).and_return(response)
+        allow_any_instance_of(CopyCourse).to receive(:make_copy).and_return(
+          { course: create(:basic_course), error: nil }
+        )
       end
 
       it 'renders the success message' do
