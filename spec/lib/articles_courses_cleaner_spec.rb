@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/articles_courses_cleaner"
+require Rails.root.join('lib/articles_courses_cleaner')
 
 describe ArticlesCoursesCleaner do
   describe '.remove_bad_articles_courses' do

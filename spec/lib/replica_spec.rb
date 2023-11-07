@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/replica"
+require Rails.root.join('lib/replica')
 
 describe Replica do
   let(:en_wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }

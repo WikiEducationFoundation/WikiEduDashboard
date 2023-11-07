@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/watchlist_edits"
+require_dependency Rails.root.join('lib/watchlist_edits')
 
 class Courses::WatchlistController < ApplicationController
   include CourseHelper

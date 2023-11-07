@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/importers/upload_importer"
+require_dependency Rails.root.join('lib/importers/upload_importer')
 
 #= Imports uploads by students during a course
 class CourseUploadImporter

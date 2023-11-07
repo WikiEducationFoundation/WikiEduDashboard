@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/wiki_api"
-require_dependency "#{Rails.root}/lib/content_evaluation/unreliable_source_detector"
+require_dependency Rails.root.join('lib/wiki_api')
+require_dependency Rails.root.join('lib/content_evaluation/unreliable_source_detector')
 
 # Examines the contents of userspace sandbox pages to check for problems
 class CheckSandboxes

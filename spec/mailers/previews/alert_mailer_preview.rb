@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/alerts/survey_response_alert_manager"
+require Rails.root.join('/lib/alerts/survey_response_alert_manager')
 
 #= Preview all emails at http://localhost:3000/rails/mailers/alert_mailer
 class AlertMailerPreview < ActionMailer::Preview

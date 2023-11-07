@@ -12,7 +12,7 @@
 #  updated_at           :datetime
 #  flags                :text(65535)
 #
-require_dependency "#{Rails.root}/lib/training_progress_manager"
+require_dependency Rails.root.join('lib/training_progress_manager')
 
 class TrainingModulesUsers < ApplicationRecord
   belongs_to :user

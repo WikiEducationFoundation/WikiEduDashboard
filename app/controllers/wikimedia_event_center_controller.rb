@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/importers/user_importer"
+require_dependency Rails.root.join('lib/importers/user_importer')
 
 # API for communicating with the Wikimedia Event Center
 class WikimediaEventCenterController < ApplicationController

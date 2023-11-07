@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require_dependency "#{Rails.root}/lib/analytics/course_statistics.rb"
+require_dependency Rails.root.join('lib/analytics/course_statistics.rb')
 
 describe 'Course#tracked_revisions' do
   let(:course) { create(:course, start: '10-07-2019'.to_date, end: '10-08-2019'.to_date) }

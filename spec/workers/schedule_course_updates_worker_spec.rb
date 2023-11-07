@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/app/workers/schedule_course_updates_worker"
+require Rails.root.join('app/workers/schedule_course_updates_worker')
 
 describe ScheduleCourseUpdatesWorker do
   let(:course) { create(:course) }

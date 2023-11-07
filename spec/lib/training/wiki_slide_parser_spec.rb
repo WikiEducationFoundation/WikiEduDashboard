@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/training/wiki_slide_parser"
+require Rails.root.join('lib/training/wiki_slide_parser')
 
 describe WikiSlideParser do
   let(:source_wikitext) do

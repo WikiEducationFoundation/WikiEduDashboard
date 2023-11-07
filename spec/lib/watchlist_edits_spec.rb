@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/watchlist_edits"
+require Rails.root.join('lib/watchlist_edits')
 
 describe WatchlistEdits do
   before do

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/wikidata_summary_parser"
+require Rails.root.join('lib/wikidata_summary_parser')
 
 describe WikidataSummaryParser do
   let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }

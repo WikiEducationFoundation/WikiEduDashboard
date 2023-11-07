@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/revision_data_parser"
-require_dependency "#{Rails.root}/lib/errors/api_error_handling"
+require_dependency Rails.root.join('lib/revision_data_parser')
+require_dependency Rails.root.join('lib/errors/api_error_handling')
 
 #= Fetches wiki revision data from an endpoint that provides SQL query
 #= results from a replica wiki database on wmflabs:

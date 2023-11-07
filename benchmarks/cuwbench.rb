@@ -8,7 +8,7 @@ exit(1) unless input == 'WIPE'
 WikiEduDashboard::Application.load_tasks
 Rake::Task['db:reset'].invoke
 
-require "#{Rails.root}/setup/populate_dashboard"
+require Rails.root.join('setup/populate_dashboard')
 puts 'Copying benchmark course...'
 make_copy_of 'https://outreachdashboard.wmflabs.org/courses/CodeTheCity/WODD-Wikidata_Taster_(Saturday_6th_March_2021)'
 @course = Course.first

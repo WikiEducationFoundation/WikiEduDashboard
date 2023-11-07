@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require_dependency "#{Rails.root}/lib/tag_manager"
+require_dependency Rails.root.join('lib/tag_manager')
 
 #= Procedures for creating a duplicate of an existing course for reuse
 class CourseCloneManager

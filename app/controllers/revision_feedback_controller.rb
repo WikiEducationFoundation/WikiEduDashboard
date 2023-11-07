@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/revision_feedback_service"
-require_dependency "#{Rails.root}/lib/importers/revision_score_importer"
+require_dependency Rails.root.join('lib/revision_feedback_service')
+require_dependency Rails.root.join('lib/importers/revision_score_importer')
 
 class RevisionFeedbackController < ApplicationController
   def index

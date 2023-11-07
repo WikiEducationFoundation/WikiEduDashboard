@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/modified_revisions_manager"
+require_dependency Rails.root('lib/modified_revisions_manager')
 
 #= Deletes duplicate Article records that differ by ID but match by title and namespace
 class DuplicateArticleDeleter

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/importers/rating_importer"
+require_dependency Rails.root.join('lib/importers/rating_importer')
 
 class ImportRatingsWorker
   include Sidekiq::Worker

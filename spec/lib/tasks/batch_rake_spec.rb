@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/data_cycle/constant_update"
-require "#{Rails.root}/lib/data_cycle/schedule_course_updates"
-require "#{Rails.root}/lib/data_cycle/daily_update"
-require "#{Rails.root}/lib/data_cycle/survey_update"
-require "#{Rails.root}/lib/tickets/ticket_notification_emails"
+require Rails.root.join('lib/data_cycle/constant_update')
+require Rails.root.join('lib/data_cycle/schedule_course_updates')
+require Rails.root.join('lib/data_cycle/daily_update')
+require Rails.root.join('lib/data_cycle/survey_update')
+require Rails.root.join('lib/tickets/ticket_notification_emails')
 
 # https://robots.thoughtbot.com/test-rake-tasks-like-a-boss
 

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/analytics/ores_diff_csv_builder"
+require_dependency Rails.root.join('lib/analytics/ores_diff_csv_builder')
 
 class HistogramPlotter
   def self.csv(course: nil, campaign: nil)

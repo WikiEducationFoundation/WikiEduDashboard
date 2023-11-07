@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require_dependency "#{Rails.root}/lib/importers/user_importer"
+require_dependency Rails.root.join('lib/importers/user_importer')
 
 class AddUsers
   def initialize(course:, usernames_list:)

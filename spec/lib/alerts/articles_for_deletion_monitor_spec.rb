@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/alerts/articles_for_deletion_monitor"
+require Rails.root.join('lib/alerts/articles_for_deletion_monitor')
 
 def mock_mailer
   OpenStruct.new(deliver_now: true)

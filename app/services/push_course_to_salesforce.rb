@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/word_count"
+require_dependency Rails.root.join('lib/word_count')
 
 #= Pushes course data to Salesforce, either by creating a new record or updating an existing one
 class PushCourseToSalesforce

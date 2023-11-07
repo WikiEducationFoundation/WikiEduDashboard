@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/course_clone_manager"
+require Rails.root.join('lib/course_clone_manager')
 
 describe CourseCloneManager do
   before do

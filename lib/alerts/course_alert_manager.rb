@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/alerts/productive_course_alert_manager"
-require_dependency "#{Rails.root}/lib/alerts/active_course_alert_manager"
-require_dependency "#{Rails.root}/lib/alerts/no_students_alert_manager"
-require_dependency "#{Rails.root}/lib/alerts/first_student_alert_manager"
-require_dependency "#{Rails.root}/lib/alerts/over_enrollment_alert_manager"
-require_dependency "#{Rails.root}/lib/alerts/untrained_students_alert_manager"
-require_dependency "#{Rails.root}/lib/alerts/continued_course_activity_alert_manager"
-require_dependency "#{Rails.root}/lib/alerts/deleted_uploads_alert_manager"
-require_dependency "#{Rails.root}/lib/alerts/unsubmitted_course_alert_manager"
-require_dependency "#{Rails.root}/lib/alerts/sandboxed_course_mainspace_monitor"
+require_dependency Rails.root.join('lib/alerts/productive_course_alert_manager')
+require_dependency Rails.root.join('lib/alerts/active_course_alert_manager')
+require_dependency Rails.root.join('lib/alerts/no_students_alert_manager')
+require_dependency Rails.root.join('lib/alerts/first_student_alert_manager')
+require_dependency Rails.root.join('lib/alerts/over_enrollment_alert_manager')
+require_dependency Rails.root.join('lib/alerts/untrained_students_alert_manager')
+require_dependency Rails.root.join('lib/alerts/continued_course_activity_alert_manager')
+require_dependency Rails.root.join('lib/alerts/deleted_uploads_alert_manager')
+require_dependency Rails.root.join('lib/alerts/unsubmitted_course_alert_manager')
+require_dependency Rails.root.join('lib/alerts/sandboxed_course_mainspace_monitor')
 
 class CourseAlertManager
   def self.generate_course_alerts

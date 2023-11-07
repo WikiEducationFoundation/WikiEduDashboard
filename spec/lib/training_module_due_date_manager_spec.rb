@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/training_module_due_date_manager"
+require Rails.root.join('lib/training_module_due_date_manager')
 
 describe TrainingModuleDueDateManager do
   before { TrainingModule.load_all }

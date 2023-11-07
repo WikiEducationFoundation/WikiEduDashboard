@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/importers/user_importer"
+require Rails.root.join('lib/importers/user_importer')
 
 describe UserImporter do
   describe 'OAuth model association' do

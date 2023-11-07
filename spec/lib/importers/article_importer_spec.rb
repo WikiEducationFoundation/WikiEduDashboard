@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/importers/article_importer"
+require Rails.root.join('lib/importers/article_importer')
 
 describe ArticleImporter do
   before { stub_wiki_validation }

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/wiki_userpage_output"
+require Rails.root.join('lib/wiki_userpage_output')
 
 describe WikiUserpageOutput do
   let(:enrollment_template) { described_class.new(course).enrollment_template }

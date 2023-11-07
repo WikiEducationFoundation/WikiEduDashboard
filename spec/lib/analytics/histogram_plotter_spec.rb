@@ -13,11 +13,11 @@ describe HistogramPlotter do
   end
 
   before do
-    FileUtils.rm_rf "#{Rails.root}/public/assets/system"
+    FileUtils.rm_rf Rails.public_path.join('assets/system')
   end
 
   after do
-    FileUtils.rm_rf "#{Rails.root}/public/assets/system"
+    FileUtils.rm_rf Rails.public_path.join('assets/system')
   end
 
   context 'when there is no article data' do

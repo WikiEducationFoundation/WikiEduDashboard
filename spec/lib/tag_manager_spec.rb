@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/tag_manager"
+require Rails.root.join('lib/tag_manager')
 
 describe TagManager do
   describe '#initial_tags' do

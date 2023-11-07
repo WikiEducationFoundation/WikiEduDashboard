@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/course_cache_manager"
+require_dependency Rails.root.join('lib/course_cache_manager')
 
 #= Adds a user to a course
 class JoinCourse

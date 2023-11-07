@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/alerts/continued_course_activity_alert_manager"
+require Rails.root.join('lib/alerts/continued_course_activity_alert_manager')
 
 def mock_mailer
   OpenStruct.new(deliver_now: true)

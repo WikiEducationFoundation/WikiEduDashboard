@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/duplicate_article_deleter"
+require Rails.root.join('lib/duplicate_article_deleter')
 
 describe DuplicateArticleDeleter do
   describe '.resolve_duplicates' do

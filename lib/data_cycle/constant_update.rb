@@ -2,19 +2,19 @@
 
 # Adding these model dependencies explicitly is intended to avoid intermittent
 # NameError and ciruclar dependency errors
-require_dependency "#{Rails.root}/app/models/wiki_content/article"
-require_dependency "#{Rails.root}/app/models/wiki_content/revision"
-require_dependency "#{Rails.root}/app/models/course"
-require_dependency "#{Rails.root}/app/models/course_data/week"
-require_dependency "#{Rails.root}/app/models/course_data/block"
+require_dependency Rails.root.join('app/models/wiki_content/article')
+require_dependency Rails.root.join('app/models/wiki_content/revision')
+require_dependency Rails.root.join('app/models/course')
+require_dependency Rails.root.join('app/models/course_data/week')
+require_dependency Rails.root.join('app/models/course_data/block')
 
-require_dependency "#{Rails.root}/lib/data_cycle/batch_update_logging"
-require_dependency "#{Rails.root}/lib/assignment_updater"
-require_dependency "#{Rails.root}/lib/importers/plagiabot_importer"
-require_dependency "#{Rails.root}/app/services/check_assignment_status"
-require_dependency "#{Rails.root}/lib/importers/rating_importer"
-require_dependency "#{Rails.root}/lib/data_cycle/update_cycle_alert_generator"
-require_dependency "#{Rails.root}/lib/student_greeting_checker"
+require_dependency Rails.root.join('lib/data_cycle/batch_update_logging')
+require_dependency Rails.root.join('lib/assignment_updater')
+require_dependency Rails.root.join('lib/importers/plagiabot_importer')
+require_dependency Rails.root.join('app/services/check_assignment_status')
+require_dependency Rails.root.join('lib/importers/rating_importer')
+require_dependency Rails.root.join('lib/data_cycle/update_cycle_alert_generator')
+require_dependency Rails.root.join('lib/student_greeting_checker')
 
 # Executes all the steps of 'update_constantly' data import task
 class ConstantUpdate

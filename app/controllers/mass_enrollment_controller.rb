@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/importers/user_importer"
-require_dependency "#{Rails.root}/lib/errors/mass_enrollment_errors"
-require_dependency "#{Rails.root}/lib/errors/rescue_errors"
+require_dependency Rails.root.join('lib/importers/user_importer')
+require_dependency Rails.root.join('lib/errors/mass_enrollment_errors')
+require_dependency Rails.root.join('lib/errors/rescue_errors')
 
 #= Controller for adding multiple users to a course at once
 class MassEnrollmentController < ApplicationController

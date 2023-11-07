@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/importers/average_views_importer"
+require Rails.root.join('lib/importers/average_views_importer')
 
 describe AverageViewsImporter do
   let!(:article) do

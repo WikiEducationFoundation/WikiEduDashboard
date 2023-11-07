@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/article_status_manager"
+require Rails.root.join('lib/article_status_manager')
 
 describe ArticleStatusManager do
   before { stub_wiki_validation }

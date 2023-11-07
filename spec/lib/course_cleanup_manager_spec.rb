@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/course_cleanup_manager"
+require Rails.root.join('lib/course_cleanup_manager')
 
 describe CourseCleanupManager do
   let!(:user) { create(:user) }

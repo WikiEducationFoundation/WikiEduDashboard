@@ -49,11 +49,11 @@
 #  references_count      :integer          default(0)
 #
 
-require_dependency "#{Rails.root}/lib/course_cache_manager"
-require_dependency "#{Rails.root}/lib/course_training_progress_manager"
-require_dependency "#{Rails.root}/lib/trained_students_manager"
-require_dependency "#{Rails.root}/lib/word_count"
-require_dependency "#{Rails.root}/lib/course_meetings_manager"
+require_dependency Rails.root.join('lib/course_cache_manager')
+require_dependency Rails.root.join('lib/course_training_progress_manager')
+require_dependency Rails.root.join('lib/trained_students_manager')
+require_dependency Rails.root.join('lib/word_count')
+require_dependency Rails.root.join('lib/course_meetings_manager')
 
 #= Course model
 class Course < ApplicationRecord

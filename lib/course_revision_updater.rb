@@ -1,6 +1,6 @@
 # frozen_string_literal: true
-require_dependency "#{Rails.root}/lib/replica"
-require_dependency "#{Rails.root}/lib/importers/revision_importer"
+require_dependency Rails.root.join('lib/replica')
+require_dependency Rails.root.join('lib/importers/revision_importer')
 
 #= Fetches and imports new revisions for courses and creates ArticlesCourses records
 class CourseRevisionUpdater

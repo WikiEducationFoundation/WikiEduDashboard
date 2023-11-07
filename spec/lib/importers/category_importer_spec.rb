@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/importers/category_importer"
+require Rails.root.join('lib/importers/category_importer')
 
 describe CategoryImporter do
   let(:wiki) { Wiki.default_wiki }

@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require_dependency "#{Rails.root}/lib/wiki_output_templates"
+require_dependency Rails.root.join('lib/wiki_output_templates')
 
 #= Class for generating wikitext for updating a userpage
 class WikiUserpageOutput

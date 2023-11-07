@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/lift_wing_api"
+require Rails.root.join('lib/lift_wing_api')
 
 describe LiftWingApi do
   let(:rev_ids) { [641962088, 675892696] }

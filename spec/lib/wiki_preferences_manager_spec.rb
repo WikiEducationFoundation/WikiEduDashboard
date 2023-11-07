@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/wiki_preferences_manager"
+require Rails.root.join('lib/wiki_preferences_manager')
 
 describe WikiPreferencesManager do
   before do

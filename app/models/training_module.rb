@@ -17,7 +17,7 @@
 #  settings      :text(65535)
 #
 
-require_dependency "#{Rails.root}/lib/training/training_base"
+require_dependency Rails.root.join('lib/training/training_base')
 
 #= Class representing an individual training module
 class TrainingModule < ApplicationRecord

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/wiki_api"
+require Rails.root.join('lib/wiki_api')
 
 class UnexpectedError < StandardError; end
 
