@@ -98,7 +98,7 @@ const Week = createReactClass({
         onChange={event => this.props.updateTitle(weekId, event.target.value)}
       />
     ) : (
-      <p className="week-index">{weekTitleContent}<span className="week-range"> ({weekDatesContent})</span></p>
+      <h2 className="week-index">{weekTitleContent}<span className="week-range"> ({weekDatesContent})</span></h2>
     );
 
     const blocks = this.props.blocks.map((block, i) => {
