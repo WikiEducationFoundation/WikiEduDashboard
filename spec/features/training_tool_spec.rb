@@ -16,6 +16,28 @@ describe 'Training', type: :feature, js: true do
     login_as(user, scope: :user)
   end
 
+  describe 'root library' do
+    library_names = TrainingLibrary.all.reject(&:exclude_from_index?).map(&:name)
+    after do
+      login_as(user, scope: :user)
+    end
+
+    it 'loads for a logged-in user' do
+      visit '/training'
+      library_names.each do |library_name|
+        expect(page).to have_content library_name
+      end
+    end
+
+    it 'loads for a logged-out user' do
+      logout(:user)
+      visit '/training'
+      library_names.each do |library_name|
+        expect(page).to have_content library_name
+      end
+    end
+  end
+
   describe 'libraries' do
     TrainingLibrary.all.each do |library|
       describe "'#{library.name}' library" do
@@ -116,6 +138,58 @@ describe 'Training', type: :feature, js: true do
       expect(page).to have_content 'TABLE OF CONTENTS'
       expect(page).to have_content module_2.slides[0].title
       expect(page).to have_content module_2.slides[-1].title
+    end
+  end
+
+  describe 'display message if none available' do
+    context 'when wiki_education mode' do
+      let(:url) { '/reload_trainings?module=all' }
+
+      before do
+        allow(Features).to receive(:wiki_ed?).and_return(true)
+        TrainingLibrary.delete_all
+        visit '/training'
+      end
+
+      it 'displays proper message in wiki_ed mode' do
+        expect(page.html)
+          .to include(I18n.t('training.no_training_library_records_wiki_ed_mode',
+                             url:))
+      end
+
+      it 'includes a link' do
+        expect(page).to have_link(href: url)
+      end
+    end
+
+    context 'when in non wiki_education mode' do
+      before do
+        allow(Features).to receive(:wiki_ed?).and_return(false)
+        TrainingLibrary.delete_all
+        visit '/training'
+      end
+
+      it 'displays proper message in non wiki_ed mode' do
+        expect(page.html)
+          .to include(I18n.t('training.no_training_library_records_non_wiki_ed_mode'))
+      end
+    end
+  end
+
+  describe 'display of a search form' do
+    before do
+      TrainingSlide.load
+      visit '/training'
+    end
+
+    it 'displays a simple search input' do
+      expect(page).to have_field('search_training')
+    end
+
+    it 'displays search results' do
+      fill_in('search_training', with: 'cnn')
+      click_button('training_search_button')
+      expect(page).to have_content('Policies and guidelines: basic overview')
     end
   end
 
