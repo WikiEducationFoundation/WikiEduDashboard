@@ -5,7 +5,7 @@
   = hot_javascript_tag("main")
 
 !!!
-%html{ dir: rtl? ? "rtl" : nil }
+%html{ dir: rtl? ? "rtl" : nil, lang: I18n.locale }
   = render "shared/head"
   %body.home
     %div

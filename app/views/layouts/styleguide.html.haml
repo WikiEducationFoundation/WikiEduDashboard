@@ -6,7 +6,7 @@
   = hot_javascript_tag("styleguide")
 
 !!!
-%html{ dir: rtl? ? "rtl" : nil }
+%html{ dir: rtl? ? "rtl" : nil, lang: I18n.locale }
   = render "shared/head"
   %body.styleguide
     = yield

@@ -6,7 +6,7 @@
   = hot_javascript_tag("main")
 
 !!!
-%html{ dir: rtl? ? "rtl" : nil, class: body_class(request)}
+%html{ dir: rtl? ? "rtl" : nil, class: body_class(request), lang: I18n.locale }
   = render "shared/head"
   %body{class: body_class(request)}
     = render "shared/flash"

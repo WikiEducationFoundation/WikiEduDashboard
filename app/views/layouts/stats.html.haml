@@ -1,5 +1,5 @@
 !!!
-%html{ dir: rtl? ? "rtl" : nil }
+%html{ dir: rtl? ? "rtl" : nil, lang: I18n.locale }
   %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}
   - before = content_for?(:before_title) ? yield(:before_title) : ''
   - after = content_for?(:after_title) ? yield(:after_title) : ''

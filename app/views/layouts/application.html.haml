@@ -6,7 +6,7 @@
   = render "shared/vega"
 
 !!!
-%html{ dir: rtl? ? "rtl" : nil}
+%html{ dir: rtl? ? "rtl" : nil, lang: I18n.locale }
   = render "shared/head"
   %body{class: body_class(request)}
     = render "shared/flash"
