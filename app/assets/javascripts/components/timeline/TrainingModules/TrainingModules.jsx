@@ -92,6 +92,8 @@ const TrainingModules = createReactClass({
       />
     ));
 
+    if (!modules.length) { return null; }
+
     const header = this.props.header || 'Training';
     const headerId = header.toLowerCase().split(/[^a-z]/).join('-');
     return (

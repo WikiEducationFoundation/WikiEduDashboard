@@ -21,6 +21,9 @@ const TrainingModulesViewMode = createReactClass({
     const block = this.props.block;
     const modules = [];
     const length = block.training_modules.length;
+
+    if (!length) { return null; }
+
     const partitioned = block.training_modules.reduce((acc, mod) => {
       let key = 'modules';
         if (mod.kind === EXERCISE_KIND) key = 'exercises';
