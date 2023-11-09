@@ -15,8 +15,7 @@ const SearchResults = ({ slides, message }) => {
         ))}
       </ul>
     );
-  }
-  return (
+  } return (
     <ul className="training-libraries no-bullets no-margin action-card-text">
       <li>{message}</li>
     </ul>

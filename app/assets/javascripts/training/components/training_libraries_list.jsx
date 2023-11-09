@@ -8,7 +8,6 @@ const TrainingLibraries = () => {
   const focusedLibrarySlug = useSelector(state => state.training.focusedLibrarySlug);
   const [search, setSearch] = useState('');
   const [showSearchResults, setShowSearchResults] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
   const [slides, setSlides] = useState([]);
   const dispatch = useDispatch();
 
@@ -16,7 +15,26 @@ const TrainingLibraries = () => {
     dispatch(fetchTrainingLibraries())
       .then((data) => {
         setLibraries(data.data.libraries);
-        setIsLoading(false);
+        if (libraries.length === 0) {
+          if (Features.wikiEd) {
+            return (
+              <div>
+                <p
+                  dangerouslySetInnerHTML={{
+                    __html: I18n.t('training.no_training_library_records_wiki_ed_mode', {
+                      url: '/reload_trainings?module=all',
+                    }),
+                  }}
+                />
+              </div>
+            );
+          }
+     return (
+       <div>
+         {I18n.t('training.no_training_library_records_non_wiki_ed_mode')}
+       </div>
+          );
+        }
       });
   }, [dispatch]);
 
@@ -34,35 +52,6 @@ const TrainingLibraries = () => {
         });
     }
   };
-
-  if (isLoading) {
-    return (
-      <div className="container">
-        <div className="loading__spinner" />
-      </div>
-    );
-  }
-  if (libraries.length === 0) {
-    if (Features.wikiEd) {
-      return (
-        <div>
-          <p
-            dangerouslySetInnerHTML={{
-              __html: I18n.t('training.no_training_library_records_wiki_ed_mode', {
-                url: '/reload_trainings?module=all',
-              }),
-            }}
-          />
-        </div>
-      );
-    }
-
-    return (
-      <div>
-        {I18n.t('training.no_training_library_records_non_wiki_ed_mode')}
-      </div>
-    );
-  }
   return (
     <div>
       <h1>Training Libraries</h1>
