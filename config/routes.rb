@@ -72,6 +72,8 @@ Rails.application.routes.draw do
   end
   put '/assignments/:assignment_id/claim' => 'assignments#claim'
   post '/assignments/assign_reviewers_randomly' => 'assignments#assign_reviewers_randomly'
+  get '/assignments/discouraged/:article_title' => 'assignments#check_wiki_edu_discouraged_article',
+        constraints: { article_title: /.*/ }
   get 'mass_enrollment/:course_id'  => 'mass_enrollment#index',
       constraints: { course_id: /.*/ }
   post 'mass_enrollment/:course_id'  => 'mass_enrollment#add_users',
@@ -223,10 +225,6 @@ Rails.application.routes.draw do
 
   # Article Finder
   get 'article_finder' => 'article_finder#index'
-
-  # Discouraged Articles
-  get 'discouraged/:article_title' => 'discouraged_articles#category_member?',
-        constraints: { article_title: /.*/ }
 
   # Reports and analytics
   get 'analytics(/*any)' => 'analytics#index'
