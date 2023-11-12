@@ -25,7 +25,7 @@ export const AvailableArticle = ({ assignment, current_user, course, selectable 
       type: 'success'
     };
     // Check if article title is under a particular wikipedia category
-    const isArticleInCategory = (await API.checkArticleInWikiCategory(title))[0] === title;
+    const isArticleInCategory = (await API.checkArticleInWikiCategory([title]))[0] === title;
     const actionToDispatch = isArticleInCategory ? initiateConfirm : claimAssignment;
 
     const onConfirm = () => dispatch(claimAssignment(assignmentObj, successNotification));

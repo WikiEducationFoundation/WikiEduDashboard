@@ -67,7 +67,7 @@ const ArticleFinderRow = createReactClass({
     return this.props.deleteAssignment(assignment);
   },
   async addArticle(userId = null) {
-    const categoryMember = await API.checkArticleInWikiCategory(this.props.title);
+    const categoryMember = await API.checkArticleInWikiCategory([this.props.title]);
     if (categoryMember[0] === this.props.title) {
       const confirmMessage = I18n.t('articles.discouraged_article', {
       type: userId ? 'Assigning' : 'Adding',
