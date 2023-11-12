@@ -600,31 +600,26 @@ const API = {
     });
   },
 
-  async checkArticleInWikiCategory(articles) {
-    const wiki_articles_title = Array.isArray(articles) ? articles : [articles];
-    const category_members = await Promise.all(wiki_articles_title.map(async (title) => {
+  async checkArticleInWikiCategory(wiki_articles_title) {
+    const category_members = [];
+    for (const title of wiki_articles_title) {
       try {
-        return await request(`discouraged/${title}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
-          .then(async (res) => {
-            if (res.ok) {
-             const { is_category_member } =  await res.json();
-             const result = is_category_member ? title : null;
-             return result;
-            }
-            else {
-             return Promise.reject({ statusText: 'Request failed' });
-            }
-          });
-        } catch (error) {
-          logErrorMessage(response);
+        const response = await request(`/assignments/discouraged/${title}`);
+
+        if (response.ok) {
+          const { is_category_member } = await response.json();
+          if (is_category_member) {
+            category_members.push(title);
+          }
+        } else {
+          throw new Error('Request failed');
         }
-      }));
-    return category_members.filter(result => result !== null);
+      } catch (error) {
+        logErrorMessage(error);
+      }
+    }
+
+    return category_members;
   }
 };
 
