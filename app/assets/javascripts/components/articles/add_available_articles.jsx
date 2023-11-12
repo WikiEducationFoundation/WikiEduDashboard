@@ -68,9 +68,9 @@ const AddAvailableArticles = createReactClass({
     const categoryMembers = await API.checkArticleInWikiCategory(assignments.map(assignment => assignment.title));
     const isArticleInCategory = categoryMembers.length > 0;
 
-    const addAssignment = () => {
-      return this.chainSubmissions(assignments)
-        .then(() => this.resetInput());
+    const addAssignment = async () => {
+      await this.chainSubmissions(assignments);
+      await this.resetInput();
     };
 
     // If article/assignment is a member of discouraged category in wikipedia
