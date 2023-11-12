@@ -38,7 +38,7 @@ const AddAssignmentButton = ({ assignment, assign, reviewing = false }) => {
 
   const handleClick = async (e) => {
     try {
-      const categoryMember = await API.checkArticleInWikiCategory(assignment.article_title);
+      const categoryMember = await API.checkArticleInWikiCategory([assignment.article_title]);
       assign(e, assignment, categoryMember[0]);
     } catch (error) {
       logErrorMessage(error);
@@ -324,8 +324,9 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
 
   const assign = async (e) => {
     e.preventDefault();
+
     const assignArticle = () => {
-      title.split('\n').filter(Boolean).forEach(async (assignment_title) => {
+      title.split('\n').filter(Boolean).forEach((assignment_title) => {
         const assignment = {
           title: decodeURIComponent(assignment_title).trim(),
           project: project,
@@ -334,19 +335,22 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
           role: role
         };
 
-      if (!assignment.title || assignment.title === 'undefined') return;
-      if (assignment.title.length > 255) {
-        // Title shouldn't exceed 255 chars to prevent mysql errors
-        return alert(I18n.t('assignments.title_too_large'));
-      }
-      const studentId = (student && student.id) || null;
-      dispatch(addAssignment({
-        ...assignment,
-        user_id: studentId
-      }));
-    });
-  };
-    const categoryMember = await API.checkArticleInWikiCategory(title.split('\n').map(item => item.trim()).filter(Boolean));
+        if (!assignment.title || assignment.title === 'undefined') return;
+        if (assignment.title.length > 255) {
+          // Title shouldn't exceed 255 chars to prevent mysql errors
+          return alert(I18n.t('assignments.title_too_large'));
+        }
+
+        const studentId = (student && student.id) || null;
+        dispatch(addAssignment({
+          ...assignment,
+          user_id: studentId
+        }));
+      });
+    };
+
+    const articleTitles = title.split('\n').map(item => item.trim()).filter(Boolean);
+    const categoryMember = await API.checkArticleInWikiCategory(articleTitles);
 
     if (categoryMember.length > 0) {
       const confirmMessage = I18n.t('articles.discouraged_article', {
@@ -355,6 +359,7 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
         article: categoryMember.length > 1 ? 'articles' : 'article',
         article_list: categoryMember.join(', '),
       });
+
       dispatch(initiateConfirm({ confirmMessage, onConfirm: assignArticle }));
     } else {
       assignArticle();
