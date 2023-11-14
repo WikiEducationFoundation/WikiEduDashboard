@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_28_091838) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_15_143028) do
   create_table "alerts", id: :integer, charset: "utf8mb4", force: :cascade do |t|
     t.integer "course_id"
     t.integer "user_id"
@@ -593,12 +593,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_28_091838) do
     t.datetime "updated_at"
     t.integer "order", default: 1, null: false
     t.index ["course_id"], name: "index_weeks_on_course_id"
-  end
-
-  create_table "wikipedia_category_members", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
-    t.text "category_member"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "wikis", id: :integer, charset: "utf8mb4", force: :cascade do |t|
