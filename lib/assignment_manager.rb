@@ -59,6 +59,16 @@ class AssignmentManager
     end
   end
 
+  def self.check_wiki_edu_discouraged_article(title:)
+    category = Category.find_by('article_titles LIKE ? AND name = ?', "%#{title}%",
+                                'Wiki_Edu_Discouraged_Articles')
+
+    if category&.source == ENV['blocked_assignment_category']
+      raise DiscouragedArticleError, "#{title} is a Wiki Education Discouraged Article."
+    end
+    return true if category&.source == ENV['warning_assignment_category']
+  end
+
   private
 
   def assigned_titles
@@ -123,4 +133,5 @@ class AssignmentManager
   end
 
   class DuplicateAssignmentError < StandardError; end
+  class DiscouragedArticleError < StandardError; end
 end
