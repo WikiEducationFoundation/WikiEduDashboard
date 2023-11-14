@@ -11,11 +11,6 @@ schedule_course_updates:
   class: "ScheduleCourseUpdatesWorker"
   queue: constant_update
 
-update_wikipedia_category:
-  cron: "*/5 * * * *" # execute at every 5 minutes
-  class: "UpdateWikipediaCategoryWorker"
-  queue: constant_update
-
 # Constant updates are independent of the main course stats, pulling in revision
 # metadata, generating alerts, and doing other data and network-intensive tasks,
 # for all current courses.
