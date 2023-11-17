@@ -4,7 +4,7 @@ import withRouter from '../util/withRouter';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import OnboardAPI from '../../utils/onboarding_utils.js';
-import { addNotification as notify } from '../../actions/notification_actions.js';
+import { addNotification } from '../../actions/notification_actions.js';
 
 const isEnrollUrl = (returnToParam) => {
   if (returnToParam.includes('/enroll')) {
@@ -16,15 +16,15 @@ const isEnrollUrl = (returnToParam) => {
   return false;
 };
 
-const Form = ({ currentUser, returnToParam, addNotification }) => {
+const Form = (props) => {
   const [state, setState] = useState({
     started: false,
-    user: currentUser,
-    name: currentUser.real_name,
-    email: currentUser.email,
+    user: props.currentUser,
+    name: props.currentUser.real_name,
+    email: props.currentUser.email,
     instructor:
-      currentUser.permissions !== null
-        ? String(currentUser.permission === 2)
+      props.currentUser.permissions !== null
+        ? String(props.currentUser.permission === 2)
         : null,
     sending: false,
   });
@@ -61,11 +61,11 @@ const Form = ({ currentUser, returnToParam, addNotification }) => {
 
       navigate(
         `/onboarding/${destination}?return_to=${decodeURIComponent(
-          returnToParam
+          props.returnToParam
         )}`
       );
     } catch (err) {
-      addNotification({
+      props.addNotification({
         message: I18n.t('error_500.explanation'),
         closable: true,
         type: 'error',
@@ -83,9 +83,9 @@ const Form = ({ currentUser, returnToParam, addNotification }) => {
     // Hide the 'are you an instructor' question if user is returning to an enrollment URL.
     // That means they are trying to join a course as a student, so assume that they are one.
     setInstructorFormClass(
-      isEnrollUrl(returnToParam) ? 'form-group hidden' : 'form-group'
+      isEnrollUrl(props.returnToParam) ? 'form-group hidden' : 'form-group'
     );
-  }, [returnToParam]);
+  }, [props.returnToParam]);
 
   return (
     <div className="form">
@@ -181,6 +181,6 @@ Form.propTypes = {
   addNotification: PropTypes.func,
 };
 
-const mapDispatchToProps = { notify };
+const mapDispatchToProps = { addNotification };
 
 export default withRouter(connect(null, mapDispatchToProps)(Form));
