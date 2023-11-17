@@ -1,119 +1,186 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import withRouter from '../util/withRouter';
 import { connect } from 'react-redux';
-
+import { useNavigate } from 'react-router-dom';
 import OnboardAPI from '../../utils/onboarding_utils.js';
-import { addNotification } from '../../actions/notification_actions.js';
+import { addNotification as notify } from '../../actions/notification_actions.js';
 
 const isEnrollUrl = (returnToParam) => {
-  if (returnToParam.includes('/enroll')) { return true; }
-  if (returnToParam.includes('%2Fenroll')) { return true; }
+  if (returnToParam.includes('/enroll')) {
+    return true;
+  }
+  if (returnToParam.includes('%2Fenroll')) {
+    return true;
+  }
   return false;
 };
 
-const Form = createReactClass({
-  propTypes: {
-    currentUser: PropTypes.object,
-    returnToParam: PropTypes.string,
-    addNotification: PropTypes.func
-  },
+const Form = ({ currentUser, returnToParam, addNotification }) => {
+  const [state, setState] = useState({
+    started: false,
+    user: currentUser,
+    name: currentUser.real_name,
+    email: currentUser.email,
+    instructor:
+      currentUser.permissions !== null
+        ? String(currentUser.permission === 2)
+        : null,
+    sending: false,
+  });
 
-  getInitialState() {
-    const user = this.props.currentUser;
-    return {
-      started: false,
-      user,
-      name: user.real_name,
-      email: user.email,
-      instructor: (user.permissions !== null) ? String(user.permission === 2) : null
-    };
-  },
+  const [instructorFormClass, setInstructorFormClass] = useState('');
+
+  const [submitText, setSubmitText] = useState('Submit');
+  const [disabled, setDisabled] = useState(false);
+
+  const navigate = useNavigate();
 
   // Update state when input fields change
-  _handleFieldChange(field, e) {
-    const obj = {};
-    obj[field] = e.target.value;
-    return this.setState(obj);
-  },
+  const handleFieldChange = (field, e) => {
+    setState(prevState => ({
+      ...prevState,
+      [field]: e.target.value,
+    }));
+  };
 
-  _handleSubmit(e) {
+  const formRef = useRef();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    this.setState({ sending: true });
-    this.state.user.instructor = this.state.instructor === 'true';
-    return OnboardAPI.onboard({
-      real_name: this.state.name,
-      email: this.state.email,
-      instructor: this.state.instructor === 'true'
-    })
-    .then(() => {
-      const destination = this.state.instructor === 'true' ? 'supplementary' : 'permissions';
-      return this.props.router.navigate(`/onboarding/${destination}?return_to=${decodeURIComponent(this.props.returnToParam)}`);
-    }
-    )
-    .catch(() => {
-      this.props.addNotification({
+    setState(prevState => ({ ...prevState, sending: true }));
+    state.user.instructor = state.instructor === 'true';
+    try {
+      await OnboardAPI.onboard({
+        real_name: state.name,
+        email: state.email,
+        instructor: state.instructor === 'true',
+      });
+
+      const destination = state.instructor === 'true' ? 'supplementary' : 'permissions';
+
+      navigate(
+        `/onboarding/${destination}?return_to=${decodeURIComponent(
+          returnToParam
+        )}`
+      );
+    } catch (err) {
+      addNotification({
         message: I18n.t('error_500.explanation'),
         closable: true,
-        type: 'error'
+        type: 'error',
       });
-      this.setState({ sending: false });
-    });
-  },
+      setState(prevState => ({ ...prevState, sending: false }));
+    }
+  };
 
-  render() {
-    const submitText = this.state.sending ? 'Sending' : 'Submit';
-    const disabled = this.state.sending;
+  useEffect(() => {
+    setSubmitText(state.sending ? 'Sending' : 'Submit');
+    setDisabled(state.sending);
+  }, [state]);
 
+  useEffect(() => {
     // Hide the 'are you an instructor' question if user is returning to an enrollment URL.
     // That means they are trying to join a course as a student, so assume that they are one.
-    const instructorFormClass = isEnrollUrl(this.props.returnToParam) ? 'form-group hidden' : 'form-group';
+    setInstructorFormClass(
+      isEnrollUrl(returnToParam) ? 'form-group hidden' : 'form-group'
+    );
+  }, [returnToParam]);
 
-    return (
-      <div className="form">
-        <h1>Let’s get some business out of the way.</h1>
-        <form className="panel" onSubmit={this._handleSubmit} ref="form">
-          <div className="form-group">
-            <label>First and last name <span className="form-required-indicator">*</span></label>
-            <input required className="form-control" type="text" name="name" defaultValue={this.state.name} onChange={this._handleFieldChange.bind(this, 'name')} />
-            <p className="form-help-text">
-              Your real name is not public. It is only seen by you, your instructor, and Wiki Education admins.
-            </p>
-          </div>
-          <div className="form-group">
-            <label>Email <span className="form-required-indicator">*</span></label>
-            <input required className="form-control" type="email" name="email" defaultValue={this.state.email} onChange={this._handleFieldChange.bind(this, 'email')} />
-            <p className="form-help-text">
-              Your email is only used for notifications and will not be shared.
-            </p>
-          </div>
-          <div className={instructorFormClass}>
-            <label>Are you an instructor? <span className="form-required-indicator">*</span></label>
-            <div className="radio-group">
-              <div className={`radio-wrapped ${this.state.instructor === 'true' ? 'checked' : ''}`}>
-                <label>
-                  <input required type="radio" name="instructor" value="true" defaultChecked={this.state.instructor === 'true'} onChange={this._handleFieldChange.bind(this, 'instructor')} />
-                  Yes
-                </label>
-              </div>
-              <div className={`radio-wrapped ${this.state.instructor === 'false' ? 'checked' : ''}`}>
-                <label>
-                  <input required type="radio" name="instructor" value="false" defaultChecked={this.state.instructor === 'false'} onChange={this._handleFieldChange.bind(this, 'instructor')} />
-                  No
-                </label>
-              </div>
+  return (
+    <div className="form">
+      <h1>Let&apos;s get some business out of the way.</h1>
+      <form className="panel" onSubmit={e => handleSubmit(e)} ref={formRef}>
+        <div className="form-group">
+          <label>
+            First and last name
+            <span className="form-required-indicator">*</span>
+          </label>
+          <input
+            required
+            className="form-control"
+            type="text"
+            name="name"
+            defaultValue={state.name}
+            onChange={e => handleFieldChange('name', e)}
+          />
+          <p className="form-help-text">
+            Your real name is not public. It is only seen by you, your
+            instructor, and Wiki Education admins.
+          </p>
+        </div>
+        <div className="form-group">
+          <label>
+            Email <span className="form-required-indicator">*</span>
+          </label>
+          <input
+            required
+            className="form-control"
+            type="email"
+            name="email"
+            defaultValue={state.email}
+            onChange={e => handleFieldChange('email', e)}
+          />
+          <p className="form-help-text">
+            Your email is only used for notifications and will not be shared.
+          </p>
+        </div>
+        <div className={instructorFormClass}>
+          <label>
+            Are you an instructor?
+            <span className="form-required-indicator">*</span>
+          </label>
+          <div className="radio-group">
+            <div
+              className={`radio-wrapped ${
+                state.instructor === 'true' ? 'checked' : ''
+              }`}
+            >
+              <label>
+                <input
+                  required
+                  type="radio"
+                  name="instructor"
+                  value="true"
+                  defaultChecked={state.instructor === 'true'}
+                  onChange={e => handleFieldChange('instructor', e)}
+                />
+                Yes
+              </label>
+            </div>
+            <div
+              className={`radio-wrapped ${
+                state.instructor === 'false' ? 'checked' : ''
+              }`}
+            >
+              <label>
+                <input
+                  required
+                  type="radio"
+                  name="instructor"
+                  value="false"
+                  defaultChecked={state.instructor === 'false'}
+                  onChange={e => handleFieldChange('instructor', e)}
+                />
+                No
+              </label>
             </div>
           </div>
-          <button disabled={disabled} type="submit" className="button dark right">
-            {submitText} <i className="icon icon-rt_arrow" />
-          </button>
-        </form>
-      </div>
-    );
-  }
-});
+        </div>
+        <button disabled={disabled} type="submit" className="button dark right">
+          {submitText} <i className="icon icon-rt_arrow" />
+        </button>
+      </form>
+    </div>
+  );
+};
 
-const mapDispatchToProps = { addNotification };
+Form.propTypes = {
+  currentUser: PropTypes.object,
+  returnToParam: PropTypes.string,
+  addNotification: PropTypes.func,
+};
+
+const mapDispatchToProps = { notify };
 
 export default withRouter(connect(null, mapDispatchToProps)(Form));
