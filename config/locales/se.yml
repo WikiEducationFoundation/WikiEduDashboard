@@ -73,6 +73,9 @@ se:
     cancel: Gaskkalduhte
     creator:
       save_cloned_course: Vurke
+    student_editors: Geavaheaddjit
+    students: Geavaheaddjit
+    students_short: Geavaheaddjit
   editable:
     cancel: Gaskkalduhte
     save: Vurke
@@ -106,6 +109,7 @@ se:
   uploads:
     file_name: Fiilanamma
   users:
+    editors: Geavaheddjiid mearri
     first_name: Ovdanamma
     last_name: Goargu
     loading: Viežžamin geavaheddjiid...
