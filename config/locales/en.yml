@@ -163,7 +163,6 @@ en:
       with any other wikis for which there is an Assignment or an Available Article.
     deleted: (deleted)
     does_not_exist: The Article doesn't exist. Create a Sandbox page and assign yourself to that to receive suggestions.
-    discouraged_article: "Warning: %{type} a Discouraged Article. You are attempting to %{action} the following %{article}: %{article_list} that has been marked as discouraged. Please confirm if you want to proceed."
     edited: Articles Edited
     edited_by: "Edited by:"
     edited_mobile: Articles

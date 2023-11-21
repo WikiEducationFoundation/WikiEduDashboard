@@ -1,16 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { initiateConfirm } from '@actions/confirm_actions';
 
 import CourseUtils from '../../utils/course_utils.js';
-import API from '../../utils/api.js';
 import { deleteAssignment, claimAssignment } from '../../actions/assignment_actions.js';
 
 export const AvailableArticle = ({ assignment, current_user, course, selectable }) => {
   const dispatch = useDispatch();
 
-  const onSelectHandler = async () => {
+  const onSelectHandler = () => {
     const assignmentObj = {
       id: assignment.id,
       user_id: current_user.id,
@@ -18,26 +16,13 @@ export const AvailableArticle = ({ assignment, current_user, course, selectable 
     };
 
     const title = assignment.article_title;
-
     const successNotification = {
       message: I18n.t('assignments.article', { title }),
       closable: true,
       type: 'success'
     };
-    // Check if article title is under a particular wikipedia category
-    const isArticleInCategory = (await API.checkArticleInWikiCategory([title]))[0] === title;
-    const actionToDispatch = isArticleInCategory ? initiateConfirm : claimAssignment;
 
-    const onConfirm = () => dispatch(claimAssignment(assignmentObj, successNotification));
-    const confirmMessage = I18n.t('articles.discouraged_article', {
-      type: 'Assigning',
-      action: 'assign',
-      article: 'article',
-      article_list: title
-    });
-
-    dispatch(actionToDispatch(isArticleInCategory
-    ? { confirmMessage: confirmMessage, onConfirm } : assignmentObj, successNotification));
+    return dispatch(claimAssignment(assignmentObj, successNotification));
   };
 
   const onRemoveHandler = (e) => {

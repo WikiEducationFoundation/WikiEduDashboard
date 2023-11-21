@@ -7,9 +7,6 @@ import ArticleViewer from '@components/common/ArticleViewer/containers/ArticleVi
 import { fetchStates, ASSIGNED_ROLE, STUDENT_ROLE } from '../../constants';
 import { PageAssessmentGrades, ORESSupportedWiki, PageAssessmentSupportedWiki } from '../../utils/article_finder_language_mappings.js';
 import ArticleUtils from '../../utils/article_utils.js';
-import API from '../../utils/api';
-import { connect } from 'react-redux';
-import { initiateConfirm } from '../../actions/confirm_actions.js';
 
 const ArticleFinderRow = createReactClass({
   getInitialState() {
@@ -65,21 +62,6 @@ const ArticleFinderRow = createReactClass({
       isLoading: true,
     });
     return this.props.deleteAssignment(assignment);
-  },
-  async addArticle(userId = null) {
-    const categoryMember = await API.checkArticleInWikiCategory([this.props.title]);
-    if (categoryMember[0] === this.props.title) {
-      const confirmMessage = I18n.t('articles.discouraged_article', {
-      type: userId ? 'Assigning' : 'Adding',
-      action: userId ? 'assign' : 'add',
-      article: 'article',
-      article_list: this.props.title,
-    });
-      const onConfirm = () => { this.assignArticle(userId); };
-      this.props.initiateConfirm({ confirmMessage, onConfirm: onConfirm });
-    } else {
-      this.assignArticle(userId);
-    }
   },
 
   render() {
@@ -146,7 +128,7 @@ const ArticleFinderRow = createReactClass({
         const className = `button small add-available-article ${this.state.isLoading ? 'disabled' : 'dark'}`;
         button = (
           <td>
-            <button className={className} onClick={() => this.addArticle()}>{I18n.t(`article_finder.${ArticleUtils.projectSuffix(this.props.selectedWiki.project, 'add_available_article')}`)}</button>
+            <button className={className} onClick={() => this.assignArticle()}>{I18n.t(`article_finder.${ArticleUtils.projectSuffix(this.props.selectedWiki.project, 'add_available_article')}`)}</button>
           </td>
         );
       }
@@ -162,7 +144,7 @@ const ArticleFinderRow = createReactClass({
         const className = `button small add-available-article ${this.state.isLoading ? 'disabled' : 'dark'}`;
         button = (
           <td>
-            <button className={className} onClick={() => this.addArticle(this.props.current_user.id)}>{I18n.t('article_finder.assign_article_self')}</button>
+            <button className={className} onClick={() => this.assignArticle(this.props.current_user.id)}>{I18n.t('article_finder.assign_article_self')}</button>
           </td>
         );
       }
@@ -212,8 +194,5 @@ const ArticleFinderRow = createReactClass({
   }
 });
 
-const mapDispatchToProps = {
- initiateConfirm,
-};
 
-export default connect(null, mapDispatchToProps)(ArticleFinderRow);
+export default ArticleFinderRow;

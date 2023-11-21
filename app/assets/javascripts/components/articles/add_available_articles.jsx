@@ -4,9 +4,6 @@ import PropTypes from 'prop-types';
 import TextAreaInput from '../common/text_area_input';
 import CourseUtils from '../../utils/course_utils.js';
 import ArticleUtils from '../../utils/article_utils';
-import { connect } from 'react-redux';
-import { initiateConfirm } from '../../actions/confirm_actions.js';
-import API from '../../utils/api';
 
 const AddAvailableArticles = createReactClass({
   displayName: 'AddAvailableArticles',
@@ -48,9 +45,9 @@ const AddAvailableArticles = createReactClass({
     return this.chainSubmissions(assignments, extendedPromise);
   },
 
-   async submit() {
-    // Split multiline input into an array of lines, trim whitespace, and filter out empty lines
-    const inputLines = this.state.assignments.match(/[^\r\n]+/g).map(item => item.trim()).filter(Boolean);
+  submit() {
+    // turn multipline input into an array of lines
+    const inputLines = this.state.assignments.match(/[^\r\n]+/g);
     const assignments = inputLines.map((assignmentString) => {
       const assignment = CourseUtils.articleFromTitleInput(assignmentString);
       const language = assignment.language ? assignment.language : this.props.language;
@@ -63,29 +60,8 @@ const AddAvailableArticles = createReactClass({
         role: this.props.role
       };
     });
-
-    // Check if any article/assignment title is under a particular wikipedia category
-    const categoryMembers = await API.checkArticleInWikiCategory(assignments.map(assignment => assignment.title));
-    const isArticleInCategory = categoryMembers.length > 0;
-
-    const addAssignment = async () => {
-      await this.chainSubmissions(assignments);
-      await this.resetInput();
-    };
-
-    // If article/assignment is a member of discouraged category in wikipedia
-    // display a message  to confirm if the user wants to add the assignment.
-    if (isArticleInCategory) {
-      const confirmMessage = I18n.t('articles.discouraged_article', {
-        type: 'Adding',
-        action: 'add',
-        article: categoryMembers.length > 1 ? 'articles' : 'article',
-        article_list: categoryMembers.join(', '),
-      });
-      this.props.initiateConfirm({ confirmMessage, onConfirm: addAssignment });
-    } else {
-      addAssignment();
-    }
+    return this.chainSubmissions(assignments)
+      .then(() => this.resetInput());
   },
 
   render() {
@@ -108,8 +84,4 @@ const AddAvailableArticles = createReactClass({
   }
 });
 
-const mapDispatchToProps = {
- initiateConfirm
-};
-
-export default connect(null, mapDispatchToProps)(AddAvailableArticles);
+export default AddAvailableArticles;

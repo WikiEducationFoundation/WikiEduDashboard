@@ -14,8 +14,7 @@ import { ASSIGNED_ROLE, REVIEWING_ROLE } from '~/app/assets/javascripts/constant
 import SelectedWikiOption from '../selected_wiki_option';
 import { trackedWikisMaker } from '../../../utils/wiki_utils';
 import ArticleUtils from '../../../utils/article_utils';
-import API from '../../../utils/api';
-import logErrorMessage from '../../../utils/log_error_message.js';
+
 
 // Helper Components
 // Button to show the static list
@@ -35,22 +34,12 @@ const ShowButton = ({ is_open, open }) => {
 
 const AddAssignmentButton = ({ assignment, assign, reviewing = false }) => {
   const text = reviewing ? 'Review' : 'Select';
-
-  const handleClick = async (e) => {
-    try {
-      const categoryMember = await API.checkArticleInWikiCategory([assignment.article_title]);
-      assign(e, assignment, categoryMember[0]);
-    } catch (error) {
-      logErrorMessage(error);
-    }
-  };
-
   return (
     <span>
       <button
         aria-label="Add"
         className="button border assign-selection-button"
-        onClick={e => handleClick(e)}
+        onClick={e => assign(e, assignment)}
       >
         {text}
       </button>
@@ -129,6 +118,7 @@ const PotentialAssignmentRows = ({
 }) => {
   const elements = assignments.map((assignment) => {
     const article = getArticle(assignment, course, wikidataLabels);
+
     return (
       <tr key={assignment.id} className="assignment">
         <td>
@@ -280,8 +270,9 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
     setProject(chosenWiki.value.project);
   };
 
-  const _onConfirmHandler = ({ action, assignment, isInTrackedWiki = true, title: confirmedTitle, categoryMember }) => {
+  const _onConfirmHandler = ({ action, assignment, isInTrackedWiki = true, title: confirmedTitle }) => {
     const studentId = (student && student.id) || null;
+
     const onConfirm = (e) => {
       open(e);
       setTitle('');
@@ -294,14 +285,7 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
 
     let confirmMessage;
     // Confirm for assigning an article to a student
-    if (categoryMember) {
-      confirmMessage = I18n.t('articles.discouraged_article', {
-        type: 'Assigning',
-        action: 'assign',
-        article: 'article',
-        article_list: categoryMember,
-      });
-    } else if (student) {
+    if (student) {
       confirmMessage = I18n.t('assignments.confirm_addition', {
         title: confirmedTitle,
         username: student.username
@@ -322,48 +306,28 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
     return dispatch(initiateConfirm({ confirmMessage, onConfirm, warningMessage }));
   };
 
-  const assign = async (e) => {
+  const assign = (e) => {
     e.preventDefault();
+    title.split('\n').filter(Boolean).forEach((assignment_title) => {
+      const assignment = {
+        title: decodeURIComponent(assignment_title).trim(),
+        project: project,
+        language: language,
+        course_slug: course.slug,
+        role: role
+      };
 
-    const assignArticle = () => {
-      title.split('\n').filter(Boolean).forEach((assignment_title) => {
-        const assignment = {
-          title: decodeURIComponent(assignment_title).trim(),
-          project: project,
-          language: language,
-          course_slug: course.slug,
-          role: role
-        };
-
-        if (!assignment.title || assignment.title === 'undefined') return;
-        if (assignment.title.length > 255) {
-          // Title shouldn't exceed 255 chars to prevent mysql errors
-          return alert(I18n.t('assignments.title_too_large'));
-        }
-
-        const studentId = (student && student.id) || null;
-        dispatch(addAssignment({
-          ...assignment,
-          user_id: studentId
-        }));
-      });
-    };
-
-    const articleTitles = title.split('\n').map(item => item.trim()).filter(Boolean);
-    const categoryMember = await API.checkArticleInWikiCategory(articleTitles);
-
-    if (categoryMember.length > 0) {
-      const confirmMessage = I18n.t('articles.discouraged_article', {
-        type: 'Assigning',
-        action: 'assign',
-        article: categoryMember.length > 1 ? 'articles' : 'article',
-        article_list: categoryMember.join(', '),
-      });
-
-      dispatch(initiateConfirm({ confirmMessage, onConfirm: assignArticle }));
-    } else {
-      assignArticle();
-    }
+      if (!assignment.title || assignment.title === 'undefined') return;
+      if (assignment.title.length > 255) {
+        // Title shouldn't exceed 255 chars to prevent mysql errors
+        return alert(I18n.t('assignments.title_too_large'));
+      }
+      const studentId = (student && student.id) || null;
+      dispatch(addAssignment({
+        ...assignment,
+        user_id: studentId
+      }));
+    });
   };
 
   const review = (e, assignment) => {
@@ -382,7 +346,7 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
     });
   };
 
-  const update = (e, assignment, categoryMember) => {
+  const update = (e, assignment) => {
     e.preventDefault();
 
     return _onConfirmHandler({
@@ -391,8 +355,7 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
         id: assignment.id,
         role: role
       },
-      title: assignment.article_title,
-      categoryMember: categoryMember
+      title: assignment.article_title
     });
   };
 
