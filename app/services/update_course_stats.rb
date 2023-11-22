@@ -29,7 +29,7 @@ class UpdateCourseStats
     update_article_status if should_update_article_status?
     update_average_pageviews
     update_caches
-    import_summaries_and_update_wikidata_stats if wikidata
+    update_wikidata_stats if wikidata
     # This needs to happen after `update_caches` because it relies on ArticlesCourses#new_article
     # to calculate new article stats for each namespace.
     update_wiki_namespace_stats
@@ -80,7 +80,7 @@ class UpdateCourseStats
     log_update_progress :course_cache_updated
   end
 
-  def import_summaries_and_update_wikidata_stats
+  def update_wikidata_stats
     UpdateWikidataStatsWorker.new.perform(@course)
     log_update_progress :wikidata_stats_updated
   end

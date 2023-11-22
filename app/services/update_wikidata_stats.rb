@@ -71,7 +71,6 @@ class UpdateWikidataStats
 
   def initialize(course)
     @course = course
-    # import_summaries
     update_summary_with_stats
     update_wikidata_statistics
   end
@@ -100,14 +99,6 @@ class UpdateWikidataStats
       end
     end
   end
-
-  def import_summaries
-    return if wikidata_revisions_without_summaries.empty?
-
-    WikidataSummaryImporter.new.import_missing_summaries(wikidata_revisions_without_summaries)
-  end
-
-  # Get Wikidata stats based on revision's summaries
 
   def update_wikidata_statistics
     return if course_revisions.empty?
