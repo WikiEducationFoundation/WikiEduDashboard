@@ -80,15 +80,6 @@ class AssignmentsController < ApplicationController
     end
   end
 
-  def check_wiki_edu_discouraged_article
-    title = params[:article_title] || assignment_params[:title].strip
-    response = AssignmentManager.check_wiki_edu_discouraged_article(title:)
-
-    if response.present? && params[:article_title].present?
-      render json: { is_category_member: true }
-    end
-  end
-
   private
 
   def update_onwiki_course_and_assignments
@@ -178,5 +169,10 @@ class AssignmentsController < ApplicationController
 
   def assignment_params
     params.permit(:id, :user_id, :course_id, :title, :role, :language, :project, :status)
+  end
+
+  def check_wiki_edu_discouraged_article
+    article_title = assignment_params[:title].strip
+    AssignmentManager.check_wiki_edu_discouraged_article(article_title:)
   end
 end
