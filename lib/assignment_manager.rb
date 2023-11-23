@@ -60,8 +60,8 @@ class AssignmentManager
   end
 
   def self.check_wiki_edu_discouraged_article(article_title:)
-    category = Category.find_by('article_titles LIKE ? AND name = ?', "%#{article_title}%",
-                                ENV['blocked_assignment_category'])
+    category = Category.where('name = ? AND article_titles LIKE ?',
+                              ENV['blocked_assignment_category'], "%#{article_title}%")
 
     if category.present?
       raise DiscouragedArticleError, "#{article_title} is a Wiki Education Discouraged Article."

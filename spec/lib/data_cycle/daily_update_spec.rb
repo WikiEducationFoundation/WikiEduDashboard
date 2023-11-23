@@ -16,6 +16,7 @@ describe DailyUpdate do
 
   describe 'on initialization' do
     it 'calls lots of update routines' do
+      worker_double = class_double(WikiDiscouragedArticleWorker)
       expect(UserImporter).to receive(:update_users)
       expect(AssignedArticleImporter).to receive(:import_articles_for_assignments)
       expect(ArticlesCoursesCleaner).to receive(:rebuild_articles_courses)
@@ -25,6 +26,9 @@ describe DailyUpdate do
       expect(PushCourseToSalesforce).to receive(:new)
       expect(UpdateCourseFromSalesforce).to receive(:new)
       expect(Sentry).to receive(:capture_message).and_call_original
+      expect(WikiDiscouragedArticleWorker).to receive(:set).with(queue: described_class::QUEUE)
+                                          .and_return(worker_double)
+      expect(worker_double).to receive(:perform_async)
       update = described_class.new
       sentry_logs = update.instance_variable_get(:@sentry_logs)
       expect(sentry_logs.grep(/Pushing course data to Salesforce/).any?).to eq(true)
