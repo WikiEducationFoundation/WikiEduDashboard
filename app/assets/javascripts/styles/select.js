@@ -2,7 +2,7 @@ const selectStyles = {
   option: (styles, { isFocused }) => {
     return {
       ...styles,
-      color: isFocused ? 'white' : null,
+      color: isFocused ? 'white' : '#666',
       backgroundColor: isFocused ? '#676EB4' : null,
     };
   },
