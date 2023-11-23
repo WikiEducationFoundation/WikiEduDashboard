@@ -75,6 +75,7 @@ da:
     opt_out: Nej
     opt_yes: ja
     opt_no: nej
+    print: Print
   article_statuses:
     not_yet_started: Kom godt i gang
     in_progress: Arbejder i sandkassen
