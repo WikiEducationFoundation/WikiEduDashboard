@@ -45,9 +45,7 @@ const CampaignNavbar = ({ campaign }) => {
                   id="coureses_query"
                   placeholder={`${I18n.t('campaign.search')} ${campaign.title}`}
                 />
-                <button type="submit">
-                  <i className="icon icon-search" />
-                </button>
+                <button type="submit icon icon-search" />
               </form>
             </div>
           </nav>
