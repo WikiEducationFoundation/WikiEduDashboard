@@ -24,7 +24,7 @@
 
       .course-list
         - @pres.submitted.each do |course|
-          = render "course_row", course: course, assignment_start: true
+          = render "course_row", course: course, assignment_start: true, new_or_returning: true
 
   - # Orientation block
   - if @pres.show_orientation_block?
@@ -69,7 +69,7 @@
       = render "admin_courses"
     - else
       - @pres.current.each do |course|
-        = render "course_row", course: course, assignment_start: false
+        = render "course_row", course: course, assignment_start: false, new_or_returning: false
 
     - # Archived/past courses
     - if !@pres.admin? && @pres.past.any?
