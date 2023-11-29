@@ -9,7 +9,7 @@ const SearchBar = ({ onClickHandler, placeholder, value, name }, ref) => {
   return (
     <div className="search-bar" style={{ position: 'relative' }}>
       <input type="text" name={name} placeholder={placeholder} ref={ref} style={{ width: '100%', position: 'relative' }} defaultValue={value} onKeyUp={onEnter}/>
-      <button onClick={onClickHandler} style={{ position: 'absolute', top: '50%', right: '20px', transform: 'translate(0%, -50%)' }}><i className="icon icon-search"/></button>
+      <button className="icon-search" onClick={onClickHandler} style={{ position: 'absolute', top: '50%', right: '15px', transform: 'translate(0%, -50%)' }} />
     </div>
   );
 };

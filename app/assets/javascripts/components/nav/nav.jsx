@@ -125,9 +125,7 @@ const Nav = () => {
                     <input name="utf8" type="hidden" defaultValue="✓" />
                     <input type="text" name="search" id="nav_search" defaultValue="" placeholder={I18n.t('application.search')} />
                     <input name="source" type="hidden" defaultValue="nav_ask_form" />
-                    <button type="submit">
-                      <i className="icon icon-search" />
-                    </button>
+                    <button type="submit" className="icon icon-search" />
                   </form>
                 </div>
               )}
