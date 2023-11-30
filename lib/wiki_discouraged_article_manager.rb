@@ -3,30 +3,18 @@ require_dependency "#{Rails.root}/lib/importers/category_importer"
 
 class WikiDiscouragedArticleManager
   def retrieve_wiki_edu_discouraged_articles
-    category_title = ENV['blocked_assignment_category']
-    discouraged_articles = CategoryImporter.new(Wiki.default_wiki)
-                                           .page_titles_for_category("Category:#{category_title}")
-    update_or_save_discouraged_articles(discouraged_articles, category_title)
+    update_or_create_discouraged_articles
   end
 
   private
 
-  def update_or_save_discouraged_articles(discouraged_articles, category_title)
-    existing_article = Category.find_by(name: category_title)
-
-    if existing_article.present?
-      # Update the existing article
-      existing_article.update(article_titles: discouraged_articles)
-    else
-      # Create a new entry in the database
-      article_details = {
-        article_titles: discouraged_articles,
-        name: category_title,
-        source: 'category',
-        wiki_id: en_wiki.id
-      }
-      Category.create(article_details)
-    end
+  def update_or_create_discouraged_articles
+    Category.find_or_create_by(
+      name: ENV['blocked_assignment_category'],
+      wiki_id: en_wiki.id,
+      source: 'category',
+      depth: 0
+    ).refresh_titles
   end
 
   def en_wiki
