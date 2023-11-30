@@ -32,6 +32,7 @@ class AssignmentManager
   def create_assignment
     set_clean_title
     set_article_from_database
+    check_wiki_edu_discouraged_article
     import_article_from_wiki unless @article
     # TODO: update rating via Sidekiq worker
     update_article_rating if @article
@@ -56,15 +57,6 @@ class AssignmentManager
     else
       claimed_assignment.update(user_id: @user_id)
       claimed_assignment
-    end
-  end
-
-  def self.check_wiki_edu_discouraged_article(article_title:)
-    category = Category.where('name = ? AND article_titles LIKE ?',
-                              ENV['blocked_assignment_category'], "%#{article_title}%")
-
-    if category.present?
-      raise DiscouragedArticleError, "#{article_title} is a Wiki Education Discouraged Article."
     end
   end
 
@@ -111,6 +103,14 @@ class AssignmentManager
                              namespace: Article::Namespaces::MAINSPACE)
     exact_title_matches = articles.select { |article| article.title == @clean_title }
     @article = exact_title_matches.first
+  end
+
+  def check_wiki_edu_discouraged_article
+    category = Category.where('name = ? AND article_titles LIKE ?',
+                              ENV['blocked_assignment_category'], "%#{@clean_title}%")
+    if category.present?
+      raise DiscouragedArticleError, "#{@clean_title} is a Wiki Education Discouraged Article."
+    end
   end
 
   def import_article_from_wiki
