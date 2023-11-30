@@ -346,31 +346,6 @@ describe AssignmentsController, type: :request do
         expect(Assignment.last.article_title).to eq('MY_ARTICLE')
       end
     end
-
-    context 'when the article title is discouraged by WikiEdu' do
-      let(:assignment_params) do
-        {
-          user_id: user.id,
-          course_slug: course.slug,
-          title: 'discouraged_article_title',
-          role: 0,
-          format: :json
-        }
-      end
-
-      it 'renders a json response with errors and a message' do
-        allow(AssignmentManager).to receive(:check_wiki_edu_discouraged_article).and_raise(
-          AssignmentManager::DiscouragedArticleError, 'Discouraged article'
-        )
-
-        post '/assignments', params: assignment_params
-
-        expect(response.status).to eq(422)
-        json_response = JSON.parse(response.body)
-        expect(json_response['errors']).to eq('Discouraged article')
-        expect(json_response['message']).to eq('Discouraged article')
-      end
-    end
   end
 
   describe 'PUT #claim' do

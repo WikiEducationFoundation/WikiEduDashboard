@@ -25,7 +25,6 @@ class AssignmentsController < ApplicationController
   def create
     check_permissions(assignment_params[:user_id].to_i)
     set_wiki { return }
-    check_wiki_edu_discouraged_article
     set_new_assignment
     update_onwiki_course_and_assignments
     render partial: 'assignment', locals: { assignment: @assignment, course: @assignment.course }
@@ -169,10 +168,5 @@ class AssignmentsController < ApplicationController
 
   def assignment_params
     params.permit(:id, :user_id, :course_id, :title, :role, :language, :project, :status)
-  end
-
-  def check_wiki_edu_discouraged_article
-    article_title = assignment_params[:title].strip
-    AssignmentManager.check_wiki_edu_discouraged_article(article_title:)
   end
 end
