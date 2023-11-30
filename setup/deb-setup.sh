@@ -20,13 +20,13 @@ output_line()
   if [ -z ${2+x} ];then
     while read -r line
     do
-      printf "${CLEAR_LINE}$line"
+      printf "${CLEAR_LINE}%s" "$line"
       echo $line &>> setup/log.txt
     done < <(eval $1)
   else
     while read -r line
     do
-      printf "${CLEAR_LINE}$line"
+      printf "${CLEAR_LINE}%s" "$line"
     done < <(eval $1 | $2)
   fi
 }
@@ -107,7 +107,7 @@ else
 fi
 
 printf '[*] Installing mariadbclient dependencies... \n'
-output_line "sudo apt-get install -y libmariadbclient-dev" && print_success "${CLEAR_LINE}[+] Dependencies installed\n"
+output_line "sudo apt-get install -y libmariadbclient-dev || sudo apt-get install -y libmariadb-dev" && print_success "${CLEAR_LINE}[+] Dependencies installed\n"
 
 printf '[*] Installing bundler... \n'
 if which bundler > /dev/null; then
