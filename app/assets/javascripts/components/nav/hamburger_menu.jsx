@@ -89,7 +89,7 @@ const HamburgerMenu = ({ rootUrl, logoPath, exploreUrl, exploreName, userSignedI
                   // needs to become a button or form and include the authenticity token.
                   <li>
                     <a data-method="post" href={omniauthUrl}>
-                      <i className="icon icon-wiki-logo" />
+                      <i className="icon icon-wiki-white" />
                       {I18n.t('application.log_in')}
                       <span className="expand">
                         &nbsp;{I18n.t('application.sign_up_log_in_extended')}
