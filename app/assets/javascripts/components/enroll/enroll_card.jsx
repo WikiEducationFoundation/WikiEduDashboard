@@ -60,7 +60,7 @@ const EnrollCard = ({
         <p>{I18n.t('courses.invitation_username_advice')}</p>
         <div>
           <a data-method="post" href={`/users/auth/mediawiki?origin=${window.location}`} className="button auth dark">
-            <i className="icon icon-wiki-logo" /> {I18n.t('application.log_in_extended')}
+            <i className="icon icon-wiki-white" /> {I18n.t('application.log_in_extended')}
           </a>
           <NewAccountButton course={course} passcode={passcode} currentUser={user} />
         </div>
