@@ -20,13 +20,13 @@ output_line()
   if [ -z ${2+x} ];then
     while read -r line
     do
-      printf "${CLEAR_LINE}$line"
+      printf "${CLEAR_LINE}%s" "$line"
       echo $line &>> setup/log.txt
     done < <(eval $1)
   else
     while read -r line
     do
-      printf "${CLEAR_LINE}$line"
+      printf "${CLEAR_LINE}%s" "$line"
     done < <(eval $1 | $2)
   fi
 }
@@ -107,7 +107,7 @@ else
 fi
 
 printf '[*] Installing mariadbclient dependencies... \n'
-output_line "sudo apt-get install -y libmariadbclient-dev" && print_success "${CLEAR_LINE}[+] Dependencies installed\n"
+output_line "sudo apt-get install -y libmariadbclient-dev || sudo apt-get install -y libmariadb-dev" && print_success "${CLEAR_LINE}[+] Dependencies installed\n"
 
 printf '[*] Installing bundler... \n'
 if which bundler > /dev/null; then
@@ -131,7 +131,7 @@ fi
 printf "[*] Creating Databases... \n"
 echo "CREATE DATABASE IF NOT EXISTS dashboard DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
       CREATE DATABASE IF NOT EXISTS dashboard_testing DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
-      exit" | sudo mysql -p && print_success "${CLEAR_LINE}[+] Databases created\n"
+      exit" | sudo mysql && print_success "${CLEAR_LINE}[+] Databases created\n"
 
 printf '[*] Checking for Database configurations... \n'
 if [ -f config/database.yml ]; then
@@ -150,7 +150,7 @@ else
   echo "CREATE USER 'wiki'@'localhost' IDENTIFIED BY 'wikiedu';
       GRANT ALL PRIVILEGES ON dashboard . * TO 'wiki'@'localhost';
       GRANT ALL PRIVILEGES ON dashboard_testing . * TO 'wiki'@'localhost';
-      exit" | sudo mysql -p > /dev/null && print_success "${CLEAR_LINE}[+] User created\n"
+      exit" | sudo mysql > /dev/null && print_success "${CLEAR_LINE}[+] User created\n"
 fi
 
 printf '[*] Migrating databases... \n'
