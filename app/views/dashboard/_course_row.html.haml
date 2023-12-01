@@ -3,6 +3,9 @@
     = course_i18n('view_page', course)
   .course-title
     = course.title
+    - if new_or_returning
+      %span.new_or_returning
+        = course.tag?('returning_instructor') ? '(returning)' : '(first time)'
   .course-details
     .col
       .course-details_title

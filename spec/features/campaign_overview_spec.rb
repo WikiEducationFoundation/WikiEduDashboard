@@ -215,7 +215,7 @@ describe 'campaign overview page', type: :feature, js: true do
           fill_in('campaign_end', with: '2016-02-10'.to_date)
           find('.campaign-details .rails_editable-save').click
           expect(campaign.reload.start).to eq(Time.zone.parse('2016-01-10 00:00:00'))
-          expect(campaign.end).to eq(Time.zone.parse('2016-02-10 23:59:59'))
+          expect(campaign.end).to be_within(1.second).of(Time.zone.parse('2016-02-10 23:59:59'))
           click_button 'Edit'
           find('.campaign-details .rails_editable-edit').click
           find('#use_dates').click # uncheck

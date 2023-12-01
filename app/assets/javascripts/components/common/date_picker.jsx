@@ -148,12 +148,18 @@ const DatePicker = createReactClass({
   },
 
   handleHourFieldChange(e) {
+    if (this.state.value === '') {
+      this.handleDatePickerChange(new Date());
+    }
     this.setState({
       hour: e.target.value
     }, this.onChangeHandler);
   },
 
   handleMinuteFieldChange(e) {
+    if (this.state.value === '') {
+      this.handleDatePickerChange(new Date());
+    }
     this.setState({
       minute: e.target.value
     }, this.onChangeHandler);
