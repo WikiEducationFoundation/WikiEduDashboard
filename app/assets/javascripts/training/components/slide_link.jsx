@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 const SlideLink = ({ button, params, slideId, onClick, disabled, buttonText }) => {
-  const linkClass = `slide-nav ${button ? 'btn btn-primary icon icon-rt_arrow' : ''}`;
+  const linkClass = `slide-nav ${button ? 'btn btn-primary' : ''}`;
   const href = `/training/${params.library_id}/${params.module_id}/${slideId}`;
   return (
     <Link data-href={href} onClick={onClick} disabled={disabled} className={linkClass} to={href}>
-      {buttonText}
+      {buttonText} {button ? <i className="icon icon-rt_arrow_white_training" /> : ''}
     </Link>
   );
 };
