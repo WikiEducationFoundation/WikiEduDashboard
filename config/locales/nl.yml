@@ -95,7 +95,7 @@ nl:
     print: Afdrukken
   article_statuses:
     not_yet_started: Aan de slag
-    in_progress: Werken in zandbak
+    in_progress: Op het kladblok werken
     ready_for_review: Het concept uitbreiden
     ready_for_mainspace: Het werk verplaatsen naar de hoofdruimte
     assignment_completed: Opdracht gemarkeerd als voltooid

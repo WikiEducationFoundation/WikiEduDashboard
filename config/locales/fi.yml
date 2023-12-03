@@ -524,7 +524,7 @@ fi:
     tags: 'Tägit:'
     term: Lukukausi
     timeline: Tehtävän tiedot
-    timeline_enabled: AIkajana päällä
+    timeline_enabled: Aikajana päällä
     timeline_link: Aikajana
     timeline_nav: Siirry aikajanalle
     time_zone_message: Aloitus- ja lopetusajat näkyvät paikallisessa ajassa.

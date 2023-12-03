@@ -6,7 +6,7 @@ class FaqController < ApplicationController
   DEFAULT_TOPIC = 'top'
 
   def index
-    @query = params[:search]
+    @query = params[:search] if params[:search].present?
     @topic_slug = params[:topic] || DEFAULT_TOPIC unless @query || params[:all]
     @faqs = if @query
               log_to_sentry

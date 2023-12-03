@@ -30,6 +30,7 @@ const Nav = () => {
   const wikiEd = wikiEdStr === 'true';
   const languageSwitcherEnabled = languageSwitcherEnabledStr !== '';
 
+  const [isHovered, setIsHovered] = useState(false);
   const [dimensions, setDimensions] = useState({ width: window.innerWidth, height: window.innerHeight });
 
   const updateDimensions = () => {
@@ -150,8 +151,8 @@ const Nav = () => {
                   // a POST request based on data-method="post". Otherwise, this
                   // needs to become a button or form and include the authenticity token.
                   <li>
-                    <a data-method="post" href={omniauthUrl}>
-                      <i className="icon icon-wiki-logo" />
+                    <a data-method="post" href={omniauthUrl} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+                      <i className={`icon ${isHovered ? ' icon-wiki-purple' : ' icon-wiki'}`} />
                       {I18n.t('application.log_in')}
                       <span className="expand">
                         &nbsp;{I18n.t('application.sign_up_log_in_extended')}
