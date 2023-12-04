@@ -4,6 +4,7 @@
 # Author: Eleassar
 # Author: Janezdrilc
 # Author: Pickle12
+# Author: Upwinxp
 ---
 sl:
   accessibility:
@@ -427,7 +428,7 @@ sl:
     assign_articles_done: Končano
     loading_authorship_data: nalaganje podatkov o avtorstvu
     contribution_statistics: Statistika prispevkov
-    enrolled_success: '%{username} je bil_a uspešno dodan_a!'
+    enrolled_success: '%{username} je bil/a uspešno dodan/a!'
     first_name: Ime
     last_name: Priimek
     loading: Nalaganje uporabnikov ...
