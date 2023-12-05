@@ -1,0 +1,25 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %tr
+            %td.main-content
+              %h1.headline
+                = "New Notification from Admin"
+              %p.paragraph
+                = "Hi #{@greeted_users},"
+              %p.paragraph
+                = "You have received a new notification from the admin/staff:"
+              %p.paragraph
+                = "#{@message}"
+
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+                Best regards,
+                %br
+                %em
+                  The Wiki Education team

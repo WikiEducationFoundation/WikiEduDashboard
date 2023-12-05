@@ -61,6 +61,7 @@ class Alert < ApplicationRecord
     SurveyResponseAlert
     UnsubmittedCourseAlert
     UntrainedStudentsAlert
+    InstructorNotificationAlert
   ].freeze
   validates_inclusion_of :type, in: ALERT_TYPES
 
@@ -97,7 +98,10 @@ class Alert < ApplicationRecord
     UnsubmittedCourseAlert
     UntrainedStudentsAlert
     SandboxedCourseMainspaceAlert
+    InstructorNotificationAlert
   ].freeze
+
+  # InstructorNotificationAlert public or private?
 
   scope :nonprivate, -> { where(type: PUBLIC_ALERT_TYPES) }
 
