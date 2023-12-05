@@ -18,7 +18,7 @@ const Intro = ({ currentUser, returnToParam }) => {
         }}
         className="button border inverse-border"
       >
-        Start <i className={`icon3 ${isHovered ? 'icon-rt_arrow_purple' : ' icon-rt_arrow_white'}`} />
+        Start <i className={`icon3 ${isHovered ? 'icon-rt_arrow_purple' : ' icon-rt_arrow'}`} />
       </Link>
     </div>
   );

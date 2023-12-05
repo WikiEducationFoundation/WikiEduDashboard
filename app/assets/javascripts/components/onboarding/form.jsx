@@ -168,7 +168,7 @@ const Form = (props) => {
           </div>
         </div>
         <button disabled={disabled} type="submit" className="button dark right">
-          {submitText} <i className="icon icon-rt_arrow_white" />
+          {submitText} <i className="icon icon-rt_arrow" />
         </button>
       </form>
     </div>

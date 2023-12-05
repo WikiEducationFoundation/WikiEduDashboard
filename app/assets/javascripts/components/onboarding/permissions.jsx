@@ -23,7 +23,7 @@ const Permissions = ({ currentUser, returnToParam }) => {
         </ul>
         <p>All course content you contribute to this website will be freely available under the <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank">Creative Commons Attribution-ShareAlike license</a> (the same one used by Wikipedia).</p>
         <Link onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} to={{ pathname: '/onboarding/finish', search: `?return_to=${returnToParam}` }} className="button border inverse-border">
-          Finish <i className={`icon3 ${isHovered ? 'icon-rt_arrow_purple' : ' icon-rt_arrow_white'}`} />
+          Finish <i className={`icon3 ${isHovered ? 'icon-rt_arrow_purple' : ' icon-rt_arrow'}`} />
         </Link>
       </div>
     );
@@ -43,7 +43,7 @@ const Permissions = ({ currentUser, returnToParam }) => {
         </ul>
         <p>All course content you contribute to this website will be freely available under the <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank">Creative Commons Attribution-ShareAlike license</a> (the same one used by Wikipedia).</p>
         <Link onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} to={{ pathname: '/onboarding/finish', search: `?return_to=${returnToParam}` }} className="button border inverse-border">
-          Finish <i className={`icon3 ${isHovered ? 'icon-rt_arrow_purple' : ' icon-rt_arrow_white'}`} />
+          Finish <i className={`icon3 ${isHovered ? 'icon-rt_arrow_purple' : ' icon-rt_arrow'}`} />
         </Link>
       </div>
     );

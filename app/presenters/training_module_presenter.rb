@@ -32,7 +32,7 @@ class TrainingModulePresenter
   end
 
   def cta_button_classes
-    'btn btn-primary py2 icon icon-rt_arrow mx2 pull-left'
+    'btn btn-primary py2 icon icon-rt_arrow_presenter mx2 pull-left'
   end
 
   def should_show_ttc?
