@@ -402,7 +402,7 @@ en:
     search: Search
 
   categories:
-    searching_for_category: Searching for categories in 
+    searching_for_category: Searching for categories in
     add_category: Add category
     add_psid: Add PetScan PSID
     add_pileid: Add PagePile id
@@ -821,6 +821,9 @@ en:
     survey:
       notification_message: Take our survey for this course.
       link: Take Survey
+    notify_instructors: Notify Instructors
+    notify_instructors_feature_description: You can send notification alerts to Instructors through emails
+    send_notification_button_text: Send Notification
 
   # These are strings that are not specific to education/classroom contexts
   courses_generic:
