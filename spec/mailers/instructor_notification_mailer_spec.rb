@@ -17,7 +17,8 @@ describe InstructorNotificationMailer do
   #                         role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE)
   # end
   let(:alert) do
-    create(:alert, type: 'InstructorNotificationAlert', course_id: course.id, message: 'Test Email Content')
+    create(:alert, type: 'InstructorNotificationAlert', course_id: course.id,
+message: 'Test Email Content')
     Alert.last
   end
 
@@ -26,7 +27,7 @@ describe InstructorNotificationMailer do
 
     it 'delivers an email to the instructor and CCs Wiki Ed staff' do
       allow(Features).to receive(:email?).and_return(true)
-      expect(mail.subject).to include("New Notification from Admin") # subject defined in Alert Type
+      expect(mail.subject).to include('New Notification from Admin') # subject defined in Alert Type
       expect(mail.to).to include(instructor.email)
       expect(mail.body).to include('Test Email Content')
       # expect(mail.cc).to include(content_expert.email)

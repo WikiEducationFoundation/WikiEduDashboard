@@ -23,15 +23,11 @@
 # Alert for when the first student enrolls in a classroom program course.
 class InstructorNotificationAlert < Alert
   def main_subject
-    "New Notification from Admin"
+    'New Notification from Admin'
   end
 
   def url
     course_url
-  end
-
-  def setMessage(msg)
-    @message = msg
   end
 
   def send_email
@@ -41,7 +37,7 @@ class InstructorNotificationAlert < Alert
   end
 
   def from_user
-    @from_user ||= SpecialUsers.classroom_program_manager # Todo:PV
+    @from_user ||= SpecialUsers.classroom_program_manager # TODO: PV
   end
 
   def reply_to

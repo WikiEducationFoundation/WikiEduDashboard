@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class InstructorNotificationMailer < ApplicationMailer
   def self.send_email(alert)
     return unless Features.email?
@@ -8,7 +10,7 @@ class InstructorNotificationMailer < ApplicationMailer
     @alert = alert
     set_email_parameters
     params = { to: @instructors.pluck(:email),
-               bcc: @alert.bcc_to_salesforce_email, # Todo:Pv
+               bcc: @alert.bcc_to_salesforce_email, # TODO: Pv
                subject: @alert.main_subject }
     params[:reply_to] = @alert.reply_to unless @alert.reply_to.nil?
     mail(params)
