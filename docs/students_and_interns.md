@@ -41,7 +41,7 @@ Here are some examples of strong applications that we accepted:
 * https://phabricator.wikimedia.org/T147727
 
 ### What to expect during and after the internship
-During the internship period, we try to establish a cadence of frequent communication and steady, small contributions. We usually have a short video check-in meeting each day Monday through Thursday — including all active interns and at least one mentor — for you to share what you've done since the last check-in, what you're working on now, and anything you're stuck on. Ideally, you'll be pushing up new code at least daily, and your contributions will be merged and deployed as often as possible once they are ready.
+During the internship period, we try to establish a cadence of frequent communication and steady, small contributions. We usually have a short video check-in meeting once or twice per week — including all active interns and at least one mentor — for you to share what you've done since the last check-in, what you're working on now, and anything you're stuck on. Ideally, you'll be pushing up new code at least daily, and your contributions will be merged and deployed as often as possible once they are ready.
 
 Your project plan will guide you through the main goals of the project, but it's often just a rough guess and may evolve considerably. We'll do our best to provide a good learning experience, give you the chance to make a meaningful contribution, and ensure a supportive environment. You'll do your best to accomplish the project goals (and hopefully surpass them) and build your skills.
 

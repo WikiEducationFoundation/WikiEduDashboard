@@ -1,57 +1,46 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import NewAccountModal from './new_account_modal.jsx';
 import { canUserCreateAccount } from '@components/util/helpers';
 
-const NewAccountButton = createReactClass({
-  displayName: 'NewAccountButton',
+const NewAccountButton = ({ course, passcode, currentUser }) => {
+  const [showModal, setShowModal] = useState(false);
+  const [disabled, setDisabled] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
-  propTypes: {
-    course: PropTypes.object.isRequired,
-    passcode: PropTypes.string,
-    currentUser: PropTypes.object.isRequired,
-  },
-
-  getInitialState() {
-    return {
-      showModal: false,
-      disabled: false,
+  useEffect(() => {
+    const fetchData = async () => {
+      const canCreate = await canUserCreateAccount();
+      setDisabled(!canCreate);
     };
-  },
 
-  componentDidMount() {
-    canUserCreateAccount().then((canCreate) => {
-      this.setState({ disabled: !canCreate });
-    });
-  },
-  openModal() {
-    this.setState({ showModal: true });
-  },
+    fetchData();
+  }, []);
 
-  closeModal() {
-    this.setState({ showModal: false });
-  },
+  const openModal = () => {
+    setShowModal(true);
+  };
 
-  render() {
-    const { course } = this.props;
-    // If account registration is not enabled for the course, just link to the signup
-    // endpoint for the user to register an account on their own.
-    if (!course.account_requests_enabled) {
-      return (
-        <>
-          <a
-            data-method="post"
-            href={`/users/auth/mediawiki_signup?origin=${window.location}`}
-            className={`button auth signup border margin ${this.state.disabled ? 'disabled' : ''}`}
-            style={{
-              marginRight: '0'
-            }}
-          >
-            <i className="icon icon-wiki-logo" />
-            {I18n.t('application.sign_up_extended')}
-          </a>
-          {this.state.disabled && (
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
+  if (!course.account_requests_enabled) {
+    return (
+      <>
+        <a
+          data-method="post"
+          href={`/users/auth/mediawiki_signup?origin=${window.location}`}
+          className={`button auth signup border margin ${disabled ? 'disabled' : ''}`}
+          onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}
+          style={{
+            marginRight: '0'
+          }}
+        >
+          <i className={`icon ${isHovered ? 'icon-wiki-white' : ' icon-wiki-purple'}`} />
+          {I18n.t('application.sign_up_extended')}
+        </a>
+        {disabled && (
           <div className="tooltip-trigger tooltip-small">
             <img className="info-img" src="/assets/images/info.svg" alt="tooltip default logo" />
             <div className="tooltip dark large">
@@ -61,24 +50,28 @@ const NewAccountButton = createReactClass({
             </div>
           </div>
         )}
-        </>
-      );
-    }
-
-    // If register_accounts flag is set for the course, use the NewAccountButton.
-    let buttonOrModal;
-    if (this.state.showModal) {
-      buttonOrModal = <NewAccountModal course={course} passcode={this.props.passcode} closeModal={this.closeModal} currentUser={this.props.currentUser} />;
-    } else {
-      buttonOrModal = (
-        <button onClick={this.openModal} key="request_account" className="button auth signup border margin request_accounts">
-          <i className="icon icon-wiki-logo" /> {this.props.currentUser.isInstructor ? I18n.t('application.request_account_create') : I18n.t('application.request_account')}
-        </button>
-      );
-    }
-
-    return buttonOrModal;
+      </>
+    );
   }
-});
+
+  let buttonOrModal;
+  if (showModal) {
+    buttonOrModal = <NewAccountModal course={course} passcode={passcode} closeModal={closeModal} currentUser={currentUser} />;
+  } else {
+    buttonOrModal = (
+      <button onClick={openModal} key="request_account" className="button auth signup border margin request_accounts">
+        <i className="icon-wiki-purple icon" /> {currentUser.isInstructor ? I18n.t('application.request_account_create') : I18n.t('application.request_account')}
+      </button>
+    );
+  }
+
+  return buttonOrModal;
+};
+
+NewAccountButton.propTypes = {
+  course: PropTypes.object.isRequired,
+  passcode: PropTypes.string,
+  currentUser: PropTypes.object.isRequired,
+};
 
 export default NewAccountButton;
