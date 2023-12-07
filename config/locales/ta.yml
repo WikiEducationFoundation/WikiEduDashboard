@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Balajijagadesh
 # Author: ElangoRamanujam
+# Author: Fahimrazick
 # Author: Info-farmer
 # Author: Nisha
 # Author: Rakeshonwiki
@@ -155,7 +156,7 @@ ta:
     leave_course: நிகழ்ச்சியிலிருந்து விலகுக
     request_accounts: கணக்குக்களைக் கோருக
     school: நிறுவனம்
-    search_courses: நிகழ்ச்சிகளில் தேடுக
+    search_courses: நிகழ்ச்சிகளில் தேடு
     student_editors: தொகுப்பாளர்கள்
     students: தொகுப்பாளர்கள்
     students_taught: மொத்தத் தொகுப்பாளர்கள்

@@ -223,8 +223,12 @@ da:
       som efterfølgende er blevet gendannet, vil Dashboard normalt afspejle dette
       inden for en eller to dage.)
     page_logs: (sidelogfiler)
+    tracked_articles: Sporede artikler
+    view_articles: Vis artikler
+    no_tracked_articles: Denne kategori har ingen sporede artikler
   items:
     items: Elementer
+    lexeme: Lexeme
     article_not_found: Dette element er ikke oprettet endnu.
     assigned: Tildelte elementer
     assignments_none: Der er ingen tildelte elementer endnu.
@@ -281,6 +285,7 @@ da:
     editors: Tildelt til
     group_members: Gruppemedlemmer
     label: Tildel
+    label_all: Tildel alle
     loading: Indlæser tildelinger ...
     none_short: Ingen artikler tildelt
     none_short_wikidata: Ingen elementer tildelt
@@ -323,6 +328,9 @@ da:
     review_tooltip_wikidata: Dette er til element(er) som du planlægger at gennemse
       eller give feedback på.
     sandbox_draft_link: Sandkassekladde
+    sandbox_redlink_info: Dette link er rødt, fordi siden endnu ikke er oprettet.
+      (Hvis den blev oprettet for nylig, vil Dashboard også snart få opdateret sine
+      data.)
     select: Vælg
     warning_untracked_wiki: 'Vær opmærksom på at den artikel som du netop har valgt,
       er på en wiki, der ikke spores af dette kursus. For at spore bidrag til denne
@@ -403,17 +411,19 @@ da:
     use_start_end_dates: Brug start- og slutningdatoer
     search: Søg
   categories:
+    searching_for_category: Søger i kategorier efter
     add_category: Tilføj kategori
     add_psid: Tilføj PetScan PSID
     add_pileid: Tilføj PagePile id
     add_template: Tilføj skabelon
-    add_this_category: Tilføj denne kategori
-    add_this_psid: Tilføj dette PSID
-    add_this_pileid: Tilføj denne PagePile id
-    add_this_template: Tilføj denne skabelon
+    add_this_category: Tilføj kategorier
+    add_this_psid: Tilføj PetScan PSIDer
+    add_this_pileid: Tilføj PagePile ids
+    add_this_template: Tilføj skabelon
     import_articles_description: En liste med artikler i en kategori opdateres periodisk,
       og det kan derfor tage lidt tid fra en artikel er tilføjet, til den også optræder
       på listen.
+    confirm_add_n_scoping_method: Tilføj %{n} scoping-metode?
     depth: Underkategoris dybde
     articles_count: Antal artikler
     name: Navn
@@ -553,6 +563,7 @@ da:
       create_button: Opret mit kursus!
       create_label: Opret nyt kursus
       create_new: Opret et nyt kursus
+      copy_courses_with_assignments: Klon liste med tilgængelige artikler
       create_short: Opret kursus
       end_date: Slutdato
       end_date_placeholder: ÅÅÅÅ-MM-DD
@@ -588,6 +599,7 @@ da:
       update_scheduled: Planlagt opdatering. Data vil blive opdateret sammen alle
         igangværende programmer under den næste opdatering. Dette tager typisk nogle
         timer.
+      creating_course: Opret kursus
     current: Nuværende kurser
     data_articles: Artikeldata
     data_articles_info: Artikeldata omfatter antallet af redigeringer af hver side,
@@ -649,6 +661,8 @@ da:
       user_exists_on_wiki: Beklager, %{username} er ikke en eksisterende bruger på
         %{domain}.
       invalid_language_or_project: Ugyldigt sprog/projekt
+      invalid_wiki: Kan ikke oprette forbindelse til %{domain}. Det er muligvis ikke
+        en gyldig wiki.
       invalid_slug: Tom skole/titel for kurset.
       duplicate_slug: Der findes allerede et program med navnet %{slug}.
     expected_students: Forventede studenter
@@ -1418,8 +1432,8 @@ da:
     no_articles: Ingen artikler
     no_articles_wikidata: Ingen elementer
     no_revisions: (ingen revisioner)
-    no_highlighting: Ingen tekst fra den nuværende version af artiklen er krediteret
-      til denne bruger. Tjek siden historik for at se deres redigeringer.
+    no_highlighting: Ingen tekst fra den aktuelle version af artiklen er tilskrevet
+      brugeren %{editor}. Tjek sidehistorikken for at se deres redigeringer.
     number_of_articles:
       one: '%{count} artikel'
       other: '%{count} artikler'
