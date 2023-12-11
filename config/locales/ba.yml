@@ -5,6 +5,7 @@
 # Author: MR973
 # Author: Азат Хәлилов
 # Author: Вильданова Гюзель
+# Author: З. ӘЙЛЕ
 # Author: Ләйсән
 # Author: Янмурза Баки
 ---
@@ -105,6 +106,6 @@ ba:
     last_name: Фамилия
     my_assigned: 'Тәғәйенләнеше:'
     my_reviewing: 'Күҙәтеү:'
-    username: Ҡулланыусы исеме
+    username: Ҡатнашыусы исеме
     username_placeholder: Ҡатнашыусы исеме
 ...
