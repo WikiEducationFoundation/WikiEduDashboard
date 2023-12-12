@@ -29,7 +29,7 @@ class AssignmentsController < ApplicationController
     update_onwiki_course_and_assignments
     render partial: 'assignment', locals: { assignment: @assignment, course: @assignment.course }
   rescue AssignmentManager::DiscouragedArticleError => e
-    render json: { errors: e, message: e.message || I18n.t('assignments.discouraged_article') },
+    render json: { errors: e, message: e.message },
            status: :unprocessable_entity
   rescue AssignmentManager::DuplicateAssignmentError => e
     render json: { errors: e, message: e.message || I18n.t('assignments.already_exists') },

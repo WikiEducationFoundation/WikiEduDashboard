@@ -265,7 +265,7 @@ en:
     article: The article %{title} is now assigned to you.
     article_link: Article
     article_link_wikidata: Item
-    discouraged_article: The article is discouraged by Wiki Education.
+    blocked_assignment: "%{title} could not be assigned because it is on the Wikipedia community's Wiki Education assignment blocklist."
     already_exists: This assignment already exists!
     title_too_large: The title shouldn't exceed 255 characters
     assignees: Assignee(s)
