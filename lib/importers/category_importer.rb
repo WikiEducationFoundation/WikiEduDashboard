@@ -65,7 +65,7 @@ class CategoryImporter
     { list: 'categorymembers',
       cmtitle: category,
       cmlimit: 500,
-      cmnamespace: namespace || 0, # mainspace articles by default
+      cmnamespace: namespace || '0|1', # mainspace articles and talk pages by default
       continue: '' }
   end
 end
