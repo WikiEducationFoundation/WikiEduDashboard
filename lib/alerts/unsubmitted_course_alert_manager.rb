@@ -15,8 +15,8 @@ class UnsubmittedCourseAlertManager
 
   private
 
-  # If a course goes 2 weeks after creation without being submitted, we send an email.
-  TIME_AFTER_CREATION = 2.weeks
+  # If a course goes a week after creation without being submitted, we send an email.
+  TIME_AFTER_CREATION = 1.week
   # When we start sending out pings, we don't want to send them for older ones that
   # were for previous terms.
   MAX_TIME_AFTER_CREATION = 3.months
