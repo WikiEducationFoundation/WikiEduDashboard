@@ -93,6 +93,6 @@ window.onload = () => {
   });
 
   if (createModalWrapper?.classList.contains('show-create-modal')) {
-    createCampaignButton.click();
+    createCampaignButton?.click();
   }
 };
