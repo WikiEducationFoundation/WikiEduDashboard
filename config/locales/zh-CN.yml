@@ -47,9 +47,7 @@ zh-CN:
   number:
     human:
       decimal_units:
-        format: |2-
-
-          %n%u
+        format: '%n%u'
         units:
           thousand: K
           million: M
@@ -103,6 +101,7 @@ zh-CN:
     opt_out: 否
     opt_yes: 是
     opt_no: 否
+    print: 打印
   article_statuses:
     not_yet_started: 入门
     in_progress: 在沙盒中工作
@@ -213,8 +212,12 @@ zh-CN:
     articles_short: 条目
     deleted_message: 根据仪表板的数据，这个页面已经被删除。(在某些情况下，页面移动、历史合并或其他行动可能会导致文章被错误地列为删除。被删除的文章后来也可能被撤销。对于那些实际上没有被删除的文章，或者后来被恢复的文章，仪表板通常会在一两天内反映出来）。
     page_logs: （页面日志）
+    tracked_articles: 已追踪条目
+    view_articles: 查看条目
+    no_tracked_articles: 此分类没有追踪的条目
   items:
     items: 项目
+    lexeme: 词位
     article_not_found: 此表格尚未创建。
     assigned: 已分配用户
     assignments_none: 还没有任何已编辑的条目。
@@ -225,6 +228,9 @@ zh-CN:
     edited: 已编辑的项目
     edited_none: 还没有任何已编辑的条目。
     find: 查找项目
+    preview: 项目简要预览
+    search: 在维基数据中搜索项目
+    title_example: 项目标题
   articles_wikidata:
     articles_short: 项目
   articles_generic:

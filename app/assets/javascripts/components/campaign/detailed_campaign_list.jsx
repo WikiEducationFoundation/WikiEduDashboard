@@ -23,7 +23,7 @@ const DetailedCampaignList = ({ newest, headerText, userOnly }) => {
     word_count: {
       label: I18n.t('metrics.word_count'),
       desktop_only: false,
-      info_key: 'courses.view_doc'
+      info_key: 'courses.word_count_doc'
     },
     references_count: {
       label: I18n.t('metrics.references_count'),
