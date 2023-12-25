@@ -11,27 +11,27 @@
 ---
 ta:
   application:
-    cancel: நீக்குக
+    cancel: கைவிடு
     create_accounts: விக்கிப்பீடியா கணக்குகளை உருவாக்கு
-    documentation: ஆவணமுறைமை
-    error: 'அங்கே பிழை ஏற்பட்டுள்ளது:'
+    documentation: ஆவணமாக்கல்
+    error: 'ஒரு பிழை காணப்பட்டது:'
     explore: கண்டறிக
-    field_required: இப்புலம் கட்டாயமானது
+    field_required: இப்புலம் தேவை
     greeting2: வருக!
     greeting_extended: விக்கிப்பீடியாவிற்கு வருக
     greeting: வணக்கம்!
     help: உதவி
     home: முகப்பு
-    log_in_extended: விக்கிப்பீடியாவில் புகுபதிகைச் செய்
-    log_in: புகுபதிகை
-    log_out: விடுபதிகை
-    recent_activity: அண்மையச் செயல்கள்
-    request_account_create: புதுகணக்கை உருவாக்குக
-    search: கேள்வியைக் கேள்
-    sign_up: கணக்குத் தொடங்கு
-    submit: பணிந்தனுப்புக
+    log_in_extended: விக்கிப்பீடியாவில் புகுபதிக
+    log_in: புகுபதிக
+    log_out: விடுபதிக
+    recent_activity: அண்மைய செயல்கள்
+    request_account_create: ஒரு கணக்கை உருவாக்கு
+    search: ஒரு கேள்வி கேள்
+    sign_up: பதிவு செய்
+    submit: சமர்ப்பி
     training: பயிற்சி
-    change: மாற்றுக
+    change: மாற்று
     details: விவரங்கள்
     confirm: சரி
     opt_in: ஆம்
@@ -40,37 +40,37 @@ ta:
     opt_no: இல்லை
   home:
     explore: கண்டறிக
-    log_in: விக்கிப்பீடியா வழி புகுபதிகை செய்யவும்
+    log_in: விக்கிப்பீடியாவில் புகுபதிக
   activity:
     all: செயற்பாடு
     label: செயற்பாடு
   articles:
-    next: அடுத்து
-    previous: முந்தைய
+    next: அடுத்தது
+    previous: முந்திய
     article_title: கட்டுரைத் தலைப்பு
     edited_mobile: கட்டுரைகள்
     filter:
-      wiki_all: அனைத்தும்
-      new: புதிது
-    hide: மறைக்கவும்
+      wiki_all: யாவும்
+      new: புதிய
+    hide: மறை
     history: (வரலாறு)
     label: கட்டுரைகள்
     new: (புதிது)
-    see_more: மேலும் காண்க
+    see_more: மேலும் பார்
     title: தலைப்பு
     title_example: கட்டுரைத் தலைப்பு
-    view: கட்டுரையைக் காண்க
-    view_all: அனைத்தையும் பார்
-    view_on_wiki: விக்கியில் பார்க்கவும்
+    view: கட்டுரையைப் பார்
+    view_all: யாவையும் பார்
+    view_on_wiki: விக்கியிற் பார்
     edit_size: தொகுப்பளவு
     wiki: விக்கி
   assignments:
     add_available_submit: கட்டுரைகளைச் சேர்
-    remove: நீக்குக
-    select: தேர்ந்தெடு
+    remove: நீக்கு
+    select: தெரிவு செய்
   blocks:
     milestones:
-      title: தொலைக்கல்
+      title: மைல் கல்
   campaign:
     add_organizer: ஒழுங்கமைப்பாளரைச் சேர்க்கவும்
     alert_article: கட்டுரைத் தலைப்பு
@@ -79,32 +79,32 @@ ta:
     campaign: பரப்புரை
     campaigns: பரப்புரைகள்
     created_at: தேதி
-    course: பாடத்திட்டம்
-    create_campaign: புதிய பரப்புரையை உருவாக்குக
-    create_my_campaign: எனது பரப்புரையை உருவாக்குக!
-    description: விவரம்
+    course: பாடநெறி
+    create_campaign: ஒரு புதிய பரப்புரையை உருவாக்கு
+    create_my_campaign: எனது பரப்புரையை உருவாக்கு!
+    description: விளக்கம்
     delete_campaign: இப்பரப்புரையை நீக்கு
     none: எதுவுமில்லை
     organizers: ஒழுங்கமைப்பாளர்கள்
     title: தலைப்பு
   categories:
-    add_category: ' பகுப்பைச் சேர்'
+    add_category: பகுப்பைச் சேர்
     add_template: வார்ப்புருவைச் சேர்
     add_this_category: இப்பகுப்பைச் சேர்
     name: பெயர்
     category_name: பகுப்புப் பெயர்
     template_name: வார்ப்புருப் பெயர்
-    remove: நீக்குக
+    remove: நீக்கு
   courses:
     activity: செயற்பாடு
-    all_courses: அனைத்துப் பாடங்கள்
+    all_courses: எல்லாப் பாடநெறிகளும்
     actions: செயல்கள்
     articles: கட்டுரைகள்
-    cancel: கைவிடுக
-    course: பாடத்திட்டம்
-    course_description: பாடத்திட்டங்கள்
-    courses: பாடத்திட்டங்கள்
-    creation_date: தோற்றத் தேதி
+    cancel: கைவிடு
+    course: பாடநெறி
+    course_description: பாடநெறிகள்
+    courses: பாடநெறிகள்
+    creation_date: ஆக்கத் தேதி
     creator:
       clone_successful_details: காலவரிசையின்  கூற்றுக்களுடன் (வாரங்கள் மற்றும் தொகுதிகள்)
         உங்களின் சேவை நகலாக்கப்பட்டது. இதுவரை கையாடாத தேதிகளை சேர்க்க வேண்டும். உங்களின்
@@ -150,7 +150,7 @@ ta:
       create_button: எனது நிகழ்ச்சியை உருவாக்குக!
       create_label: புதிய நிகழ்ச்சியை உருவாக்குக
       create_short: நிகழ்ச்சியை உருவாக்குக
-      save_cloned_course: சேமிக்கவும்
+      save_cloned_course: சேமி
     instructors: வழிநடத்துபவர்
     join_course: நிகழ்ச்சியில் இணைக
     leave_course: நிகழ்ச்சியிலிருந்து விலகுக
