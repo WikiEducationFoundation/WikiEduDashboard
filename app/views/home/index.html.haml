@@ -4,15 +4,48 @@
 
     .button-container
       = link_to user_mediawiki_omniauth_authorize_path, {class: 'button auth', method: :post} do
-        %i.icon.icon-wiki-logo
+        %i.icon.icon-wiki-purple
         = t('home.log_in')
 
-      = link_to user_mediawiki_signup_omniauth_authorize_path, {class: 'button button-inverse auth signup', method: :post} do
-        %i.icon.icon-wiki-logo
+      = link_to("javascript:void(0);", { class: 'button button-inverse auth signup', method: :post, onclick: 'openModal()' }) do
+        %i.icon.icon-wiki-purple
         = t('home.sign_up')
 
       %span.help{data: { title: t('home.sign_up_help') } }
         ?
+
+%div{class: 'wizard active undefined', id: 'signupModal', style: 'display: none'}
+  %div{class: 'container'}
+    %div{class: 'wizard__panel active'}
+      %div{class: 'wizard_pop_header'}
+        %h3= t('home.sign_up')
+        %i.icon.icon-close{ onclick: 'closeModal()' }
+      %div{class: 'pop_body'}
+        %p= t('home.sign_up_advice')
+        = link_to user_mediawiki_signup_omniauth_authorize_path, { class: 'signup-advice-modal', method: :post, onclick: 'openModal()' } do
+          %i.icon.icon-wiki-purple
+          = t('home.sign_up')
+
+:javascript
+  function openModal() {
+    var modal = document.getElementById('signupModal');
+    modal.style.display = 'block';
+  }
+
+  function closeModal() {
+    var modal = document.getElementById('signupModal');
+    modal.style.display = 'none';
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var modal = document.getElementById('signupModal');
+
+    window.onclick = function (event) {
+      if (event.target === modal) {
+        closeModal();
+      }
+    };
+  });
 
 #call_to_action
   - if Features.wiki_ed?
