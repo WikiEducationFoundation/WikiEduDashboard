@@ -20,8 +20,11 @@ class ReferenceCounterApi
     @update_service = update_service
   end
 
-  # Return the number of references got from the references counter API.
-  # Return -1 if the response is different from 200 OK, or an error happens.
+  # This is the main entry point.
+  # Given a revision ID, it retrieves the reference count from the
+  # reference-counter Toolforge API.
+  # If the API response is not 200 or an error occurs, it returns -1.
+  # Any encountered errors are logged in Sentry.
   def get_number_of_references_from_revision_id(rev_id)
     response = toolforge_server.get(references_query_url(rev_id))
     parsed_response = Oj.load(response.body)
@@ -59,7 +62,6 @@ class ReferenceCounterApi
         'Content-Type': 'application/json'
       }
     )
-    # connection.headers['User-Agent'] = ENV['visualizer_url'] + ' ' + Rails.env
     connection
   end
 

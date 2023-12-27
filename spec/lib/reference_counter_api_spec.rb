@@ -4,19 +4,15 @@ require 'rails_helper'
 require "#{Rails.root}/lib/reference_counter_api"
 
 describe ReferenceCounterApi do
-  let(:en_language) { 'en' }
-  let(:es_language) { 'es' }
-  let(:wikipedia_project) { 'wikipedia' }
-  let(:wiktionary_project) { 'wiktionary' }
-  let(:wikidata_project) { 'wikidata' }
-  let(:en_wikipedia) { Wiki.get_or_create(language: en_language, project: wikipedia_project) }
-  let(:es_wiktionary) { Wiki.get_or_create(language: es_language, project: wiktionary_project) }
-  #let(:wikidata) { Wiki.get_or_create(language: nil, project: wikidata_project) }
+  before { stub_wiki_validation }
+
+  let(:en_wikipedia) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
+  let(:es_wiktionary) { Wiki.get_or_create(language: 'es', project: 'wiktionary') }
+  let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }
   let(:deleted_rev_id) { 708326238 }
   let(:rev_id) { 5006942 }
 
   it 'raises InvalidProjectError if using wikidata project' do
-    wikidata = Wiki.new(language: nil, project: 'wikidata')
     expect do
       described_class.new(wikidata)
     end.to raise_error(described_class::InvalidProjectError)
