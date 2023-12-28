@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_15_143028) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_28_210500) do
   create_table "alerts", id: :integer, charset: "utf8mb4", force: :cascade do |t|
     t.integer "course_id"
     t.integer "user_id"
@@ -375,6 +375,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_15_143028) do
     t.text "features"
     t.text "features_previous"
     t.text "summary"
+    t.integer "references"
+    t.integer "references_previous"
     t.index ["article_id", "date"], name: "index_revisions_on_article_id_and_date"
     t.index ["article_id"], name: "index_revisions_on_article_id"
     t.index ["user_id"], name: "index_revisions_on_user_id"
