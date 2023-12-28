@@ -128,7 +128,7 @@ ta:
     none: எதுவுமில்லை
     overview: முகப்பு
     private: தனிப்பட்ட
-    requested_accounts_alert_view: காண்க
+    requested_accounts_alert_view: பார்
     school: பள்ளி
     start: தொடங்கு
     students: மாணவர்கள்
@@ -198,7 +198,7 @@ ta:
     diff_show: காட்டுக
     diff_hide: மறை
     title: தலைப்பு
-    see_more: மேலும் காண்க
+    see_more: மேலும் பார்
   settings:
     admin_users:
       new:
