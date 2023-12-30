@@ -47,7 +47,7 @@ nl:
       waarmee u de invoer kunt verhogen en verlagen.
   application:
     cancel: Annuleren
-    cookie_consent: Deze site gebruikt cookies om u ingelogd te houden en slaat informatie
+    cookie_consent: Deze site gebruikt cookies om u aangemeld te houden en slaat informatie
       op met betrekking tot uw Wikipedia-account.
     cookie_consent_acknowledge: Ik begrijp het
     cookie_consent_see_more: Meer zien.
@@ -347,7 +347,7 @@ nl:
       other: Instructeurs
     instructors: Instructeurs
     invitation: U bent uitgenodigd om deel te nemen aan %{title}. Om deel te nemen
-      moet u inloggen met een Wikipedia-account.
+      moet u zich aanmelden met een Wikipedia-account.
     join: Deelnemen
     join_course: Neem deel aan cursus
     join_prompt: Wil je deelnemen aan "%{title}"?
@@ -746,8 +746,8 @@ nl:
     explanation: Er lijkt een probleem te zijn geweest met het aanmeldproces. (Excuses
       daarvoor! Het gebeurt af en toe.) Probeer het aanmelden of inschrijven opnieuw.
   survey:
-    login_message: Bedankt voor uw tijd. Log in op het Dashboard om de enquête in
-      te vullen.
+    login_message: Bedankt voor uw tijd. Meld u aan op het Dashboard om de enquête
+      in te vullen.
     notification_explanation: Als hieronder is aangevinkt, zullen de gebruikers e-mails
       ontvangen op basis van het notificatieschema, in aanvulling op het zien van
       meldingen in het browser. Zo niet worden alleen meldingen in het browser weergegeven.
