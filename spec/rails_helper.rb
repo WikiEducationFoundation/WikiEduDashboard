@@ -14,7 +14,7 @@ require 'capybara-screenshot/rspec'
 
 Capybara.register_driver :selenium do |app|
   options = Selenium::WebDriver::Chrome::Options.new(
-    args: %w[--headless=new no-sandbox disable-gpu --window-size=1200,1200]
+    args: %w[headless no-sandbox disable-gpu --window-size=1200,1200]
   )
   Capybara::Selenium::Driver.new(app,
                                  browser: :chrome,

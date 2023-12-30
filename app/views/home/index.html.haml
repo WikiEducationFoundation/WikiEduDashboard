@@ -18,12 +18,12 @@
   %div{class: 'container'}
     %div{class: 'wizard__panel active'}
       %div{class: 'wizard_pop_header'}
-        %h3= t('home.sign_up')
-        %i.icon.icon-close{ onclick: 'closeModal()' }
+        %h3{class: 'heading-advice'}= t('home.sign_up')
+        %i.icon.icon-close{ onclick: 'closeModal()', class: 'close-icon-advice' }
       %div{class: 'pop_body'}
         %p= t('home.sign_up_advice')
-        = link_to user_mediawiki_signup_omniauth_authorize_path, { class: 'signup-advice-modal', method: :post, onclick: 'openModal()' } do
-          %i.icon.icon-wiki-purple
+        = link_to user_mediawiki_signup_omniauth_authorize_path, { class: 'button-advice-model button-inverse auth signup', method: :post, onclick: 'openModal()' } do
+          %i.icon-advice-model
           = t('home.sign_up')
 
 :javascript

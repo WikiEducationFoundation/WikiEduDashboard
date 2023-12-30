@@ -48,11 +48,26 @@ body.home
       border 1px solid white
       border-radius 3px
 
-  .signup-advice-modal
+  .heading-advice
+    display: inline-block
+
+  .close-icon-advice
+    display: inline-block
+    float: right
+
+  .icon-advice-model
+    background-image url("../images/wiki-logo_icon_purple.svg")
+    transition: all 0.15s ease-out, color 0.15s ease-out;
+    background-size: 41px;
+    padding: 19px 25px 19px 19px;
+    background-position: -1px 12px;
+    background-repeat: no-repeat;
+
+  .button-advice-model
     background-color: transparent;
     border: 1px solid #676eb4;
     color: #676eb4;
-    padding: 8px 20px 8px;
+    padding: 8px 20px 8px 7px;
     border-radius: 3px;
     cursor: pointer;
     display: inline-block;
@@ -67,6 +82,9 @@ body.home
     &:hover
       background-color: #676eb4;
       color: #fff;
+
+      .icon-advice-model
+        background-image: url("../images/wiki-logo_icon_white.svg");
 
   /* Base button */
   .button

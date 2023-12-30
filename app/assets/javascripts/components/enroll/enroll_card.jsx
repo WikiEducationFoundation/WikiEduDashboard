@@ -85,8 +85,8 @@ const EnrollCard = ({
             <div className="container">
               <div className="wizard__panel active ">
                 <div className="wizard_pop_header">
-                  <h3>{I18n.t('application.sign_up_extended')}</h3>
-                  <a onClick={() => setModalShown(false)} className="icon-close" />
+                  <h3 className="heading-advice" style={{ display: 'inline-block' }}>{I18n.t('application.sign_up_extended')}</h3>
+                  <a className="close-icon-advice icon-close" style={{ display: 'inline-block', float: 'right' }} onClick={() => setModalShown(false)} />
                 </div>
                 <div className="pop_body">
                   <p>{I18n.t('home.sign_up_advice')}</p>
