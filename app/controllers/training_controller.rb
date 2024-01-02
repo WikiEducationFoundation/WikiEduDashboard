@@ -9,20 +9,29 @@ class TrainingController < ApplicationController
   before_action :init_query_object, only: :index
 
   def index
-    if @search
-      @slides = @query_object.selected_slides_and_excerpt
-    else
-      @focused_library_slug, @libraries = @query_object.all_libraries
-
-      render 'no_training_module' if @libraries.empty?
+    @libraries = @query_object.all_libraries
+    respond_to do |format|
+      format.html { render 'index' }
+      format.json { handle_json_request }
     end
   end
 
   def show
-    add_training_root_breadcrumb
-    add_library_breadcrumb
-    fail_if_entity_not_found(TrainingLibrary, params[:library_id])
     @library = TrainingLibrary.find_by(slug: params[:library_id])
+    fail_if_entity_not_found(TrainingLibrary, params[:library_id])
+
+    fetch_training_module
+
+    respond_to do |format|
+      format.html do
+        add_training_root_breadcrumb
+        add_library_breadcrumb
+        render 'show', locals: { progress_data: @progress_data }
+      end
+      format.json do
+        render json: { library: @library }
+      end
+    end
   end
 
   def training_module
@@ -69,6 +78,29 @@ class TrainingController < ApplicationController
   end
 
   private
+
+  def handle_json_request
+    if @search
+      slides = @query_object.selected_slides_and_excerpt
+      render json: { slides: }
+    else
+      focused_library_slug, libraries = @query_object.all_libraries
+      render json: { focused_library_slug:, libraries: }
+    end
+  end
+
+  def fetch_training_module
+    @progress_data = {}
+    @library.translated_categories.each do |category|
+      category = category.to_hashugar
+      category.modules.map do |mod|
+        trainingmod = TrainingModule.find_by(slug: mod.slug)
+        pm = TrainingProgressManager.new(current_user, trainingmod)
+        progress = pm.module_progress
+        @progress_data[mod.slug] = progress
+      end
+    end
+  end
 
   def add_training_root_breadcrumb
     add_breadcrumb I18n.t('training.training_library'), :training_path

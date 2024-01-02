@@ -2,8 +2,9 @@ import { findIndex } from 'lodash-es';
 import {
   RECEIVE_TRAINING_MODULE, MENU_TOGGLE, REVIEW_ANSWER,
   SET_CURRENT_SLIDE, RECEIVE_ALL_TRAINING_MODULES,
-  SLIDE_COMPLETED
+  SLIDE_COMPLETED, RECEIVE_TRAINING_LIBRARIES, RECEIVE_TRAINING_LIBRARY
 } from '../constants';
+import { SEARCH_LIBRARY } from '../constants/training';
 
 const reviewAnswer = function (state, answer) {
   const answerId = parseInt(answer);
@@ -55,6 +56,7 @@ const update = (state) => {
 
 const initialState = {
   libraries: [],
+  library: {},
   modules: [],
   module: {},
   slides: [],
@@ -86,6 +88,12 @@ export default function training(state = initialState, action) {
       }
       return { ...newState, loading: false };
     }
+    case RECEIVE_TRAINING_LIBRARIES:
+      return { ...state, libraries: data.libraries };
+    case RECEIVE_TRAINING_LIBRARY:
+      return { ...state, library: data };
+    case SEARCH_LIBRARY:
+      return { ...state, slides: data };
     case MENU_TOGGLE:
       return { ...state, menuIsOpen: !data.currently };
     case REVIEW_ANSWER:

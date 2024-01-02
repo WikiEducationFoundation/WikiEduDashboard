@@ -2,11 +2,66 @@ import { extend } from 'lodash-es';
 import {
   RECEIVE_TRAINING_MODULE, MENU_TOGGLE, REVIEW_ANSWER,
   SET_CURRENT_SLIDE, RECEIVE_ALL_TRAINING_MODULES,
-  EXERCISE_COMPLETION_UPDATE, SLIDE_COMPLETED, API_FAIL
+  EXERCISE_COMPLETION_UPDATE, SLIDE_COMPLETED, API_FAIL,
+  RECEIVE_TRAINING_LIBRARIES, RECEIVE_TRAINING_LIBRARY, SEARCH_LIBRARY
 } from '../constants';
 import request from '../utils/request';
 import logErrorMessage from '../utils/log_error_message';
 import { stringify } from 'query-string';
+
+export const fetchTrainingLibraries = () => async (dispatch) => {
+  try {
+    const response = await request('/training.json');
+    if (!response.ok) {
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
+    }
+    const data = await response.json();
+    return dispatch({ type: RECEIVE_TRAINING_LIBRARIES, data });
+  } catch (error) {
+    return dispatch({ type: API_FAIL, data: error });
+  }
+};
+
+
+export const searchTrainingLibraries = searchTerm => async (dispatch) => {
+  try {
+    const url = `/training.json?search_training=${encodeURIComponent(searchTerm)}`;
+    const response = await request(url);
+    if (!response.ok) {
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
+    }
+    const data = await response.json();
+    const slides = data.slides;
+    return dispatch({ type: SEARCH_LIBRARY, data: slides });
+  } catch (error) {
+    return dispatch({ type: API_FAIL, data: error });
+  }
+};
+
+
+
+
+export const fetchTrainingLibrary = opts => async (dispatch) => {
+  try {
+    const response = await request(`/training/${opts}.json`);
+    if (!response.ok) {
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
+    }
+    const data = await response.json();
+    const library = data.library;
+    return dispatch({ type: RECEIVE_TRAINING_LIBRARY, data: library });
+  } catch (error) {
+    return dispatch({ type: API_FAIL, data: error });
+  }
+};
+
+
 
 const fetchAllTrainingModulesPromise = async () => {
   const response = await request('/training_modules.json');
