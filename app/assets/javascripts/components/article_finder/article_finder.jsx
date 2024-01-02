@@ -299,9 +299,19 @@ const ArticleFinder = createReactClass({
         let assignment;
         if (this.props.course_id) {
           if (this.props.current_user.isAdvancedRole) {
-            assignment = find(modifiedAssignmentsArray, { article_title: title, user_id: null, language: this.props.selectedWiki.language, project: this.props.selectedWiki.project });
+            assignment = find(modifiedAssignmentsArray, {
+              article_title: title,
+              user_id: null,
+              language: this.props.selectedWiki.language,
+              project: this.props.selectedWiki.project,
+            });
           } else if (this.props.current_user.role === STUDENT_ROLE) {
-            assignment = find(modifiedAssignmentsArray, { article_title: title, user_id: this.props.current_user.id, language: this.props.selectedWiki.language, project: this.props.selectedWiki.project });
+            assignment = find(modifiedAssignmentsArray, {
+              article_title: title,
+              user_id: this.props.current_user.id,
+              language: this.props.selectedWiki.language,
+              project: this.props.selectedWiki.project,
+            });
           }
         }
 
