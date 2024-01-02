@@ -20,7 +20,7 @@
 #  details        :text(65535)
 #
 
-# Alert for a course that has no enrolled students after it is underway
+# Receive an alert when a course has no enrolled students even after it has started.
 class UntrainedStudentsAlert < Alert
   def main_subject
     "Student training for #{course.slug}"
