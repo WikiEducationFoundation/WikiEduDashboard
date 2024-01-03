@@ -129,14 +129,14 @@ en:
     explore: Explore
     log_in: Log in with Wikipedia
     sign_up: Sign up with Wikipedia
-    registration_guidance:
-      username_selection_advice:
-        heading: Selecting a Username
-        avoid_offensive_usernames: Avoid usernames that could be considered offensive, misleading, disruptive, or promotional.
-        represent_individual: Ensure that the selected username represents an individual and avoids incorporating organizational names.
-      additional_guidance: 
-        heading: Note
-        anonymous_username_recommendation: It is advisable to choose an anonymous username, excluding any real names or identifiable information.
+    registration_advice:
+      username_rules:
+        heading: Username rules
+        avoid_offensive_usernames: Do not choose a username that is offensive, misleading, disruptive, or promotional.
+        represent_individual: Usernames must represent an individual editor. Do not use the name of a school or organization.
+      additional_advice: 
+        heading: Advice
+        anonymous_username_recommendation: Wiki Education recommends choosing an anonymous username, not one that includes your real name or other identifying information.
     sign_up_help: >
       To use the dashboard, you'll need to sign in through Wikipedia and give
       it permission to access your account. You can log in with an existing

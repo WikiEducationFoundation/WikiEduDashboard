@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import AdviceModal from './advice_modal';
 import NewAccountButton from './new_account_button';
 
 const EnrollCard = ({
@@ -9,6 +10,7 @@ const EnrollCard = ({
   const [isHovered, setIsHovered] = useState(false);
 
   let messageBody;
+  let adviceModalButton;
   if (course.ended) {
     messageBody = (
       <div>
@@ -56,6 +58,11 @@ const EnrollCard = ({
     // Login link relies on rails/ujs to turn the anchor link into
     // a POST request based on data-method="post". Otherwise, this
     // needs to become a button or form and include the authenticity token.
+    adviceModalButton = (
+      <a onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} onClick={() => setModalShown(true)} className="button auth signup border margin">
+        <i className={`icon ${isHovered ? 'icon-wiki-white' : ' icon-wiki-purple'}`} /> {I18n.t('application.sign_up_extended')}
+      </a>
+    );
     messageBody = (
       <div>
         <h1>{I18n.t('application.greeting')}</h1>
@@ -65,9 +72,10 @@ const EnrollCard = ({
           <a data-method="post" href={`/users/auth/mediawiki?origin=${window.location}`} className="button auth dark">
             <i className="icon icon-wiki-white" /> {I18n.t('application.log_in_extended')}
           </a>
-          <a onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} onClick={() => setModalShown(true)} className="button auth signup border margin">
-            <i className={`icon ${isHovered ? 'icon-wiki-white' : ' icon-wiki-purple'}`} /> {I18n.t('application.sign_up_extended')}
-          </a>
+          {
+            Features.wikiEd
+            ? (adviceModalButton) : (<NewAccountButton course={course} passcode={passcode} currentUser={user} />)
+          }
         </div>
       </div>
     );
@@ -79,31 +87,8 @@ const EnrollCard = ({
         course.passcode !== '' && <a href={courseLink} className="icon-close-small" />
       }
       {messageBody}
-      {modalShown
-        && (
-          <div className="wizard active undefined">
-            <div className="container">
-              <div className="wizard__panel active ">
-                <div className="wizard_pop_header">
-                  <h3 className="heading-advice" style={{ display: 'inline-block' }}>{I18n.t('application.sign_up_extended')}</h3>
-                  <a className="close-icon-advice icon-close" style={{ display: 'inline-block', float: 'right' }} onClick={() => setModalShown(false)} />
-                </div>
-                <div className="pop_body">
-                  <h4 style={{ margin: '0 0 0 10px' }}>{I18n.t('home.registration_guidance.username_selection_advice.heading')}</h4>
-                  <ul style={{ margin: '0 0 5px 10px' }}>
-                    <li>{I18n.t('home.registration_guidance.username_selection_advice.avoid_offensive_usernames')}</li>
-                    <li>{I18n.t('home.registration_guidance.username_selection_advice.represent_individual')}</li>
-                  </ul>
-                  <h4 style={{ margin: '0 0 0 10px' }}>{I18n.t('home.registration_guidance.additional_guidance.heading')}</h4>
-                  <p style={{ margin: '0 0 16px 10px' }}>{I18n.t('home.registration_guidance.additional_guidance.anonymous_username_recommendation')}</p>
-                  <div>
-                    <NewAccountButton course={course} passcode={passcode} currentUser={user} />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )
+      {Features.wikiEd && modalShown
+        && <AdviceModal setModalShown={setModalShown} course={course} passcode={passcode} user={user} />
       }
     </div>
   );
