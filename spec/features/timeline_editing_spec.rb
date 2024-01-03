@@ -133,8 +133,11 @@ describe 'timeline editing', type: :feature, js: true do
     end
 
     # Open edit mode for the third block
-    find(".week-1 .block-kind-#{Block::KINDS['milestone']}").hover
+    milestone_block = find(".week-1 .block-kind-#{Block::KINDS['milestone']}")
+    scroll_to milestone_block
     sleep 0.5
+    milestone_block.hover
+
     within ".week-1 .block-kind-#{Block::KINDS['milestone']}" do
       find('.block__edit-block', match: :first).click
     end
@@ -195,7 +198,9 @@ describe 'timeline editing', type: :feature, js: true do
     visit "/courses/#{course_with_timeline.slug}/timeline"
 
     # Change the first block
-    find(".week-1 .block-kind-#{Block::KINDS['assignment']}").hover
+    assignment_block = find(".week-1 .block-kind-#{Block::KINDS['assignment']}")
+    scroll_to assignment_block
+    assignment_block.hover
     sleep 0.5
     within ".week-1 .block-kind-#{Block::KINDS['assignment']}" do
       find('.block__edit-block', match: :first).click
@@ -204,7 +209,9 @@ describe 'timeline editing', type: :feature, js: true do
     end
 
     # Change the third block
-    find(".week-1 .block-kind-#{Block::KINDS['milestone']}").hover
+    milestone_block = find(".week-1 .block-kind-#{Block::KINDS['milestone']}")
+    scroll_to milestone_block
+    milestone_block.hover
     sleep 0.5
     within ".week-1 .block-kind-#{Block::KINDS['milestone']}" do
       find('.block__edit-block', match: :first).click

@@ -58,7 +58,7 @@ describe UnsubmittedCourseAlertManager do
              submitted: false,
              slug: 'last_minute_course',
              start: 3.days.from_now,
-             created_at: 1.week.ago)
+             created_at: 4.days.ago)
       subject.create_alerts
       expect(Alert.count).to eq(2)
     end
