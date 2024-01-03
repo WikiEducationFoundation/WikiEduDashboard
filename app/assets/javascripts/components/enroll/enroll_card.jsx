@@ -89,7 +89,13 @@ const EnrollCard = ({
                   <a className="close-icon-advice icon-close" style={{ display: 'inline-block', float: 'right' }} onClick={() => setModalShown(false)} />
                 </div>
                 <div className="pop_body">
-                  <p>{I18n.t('home.sign_up_advice')}</p>
+                  <h4 style={{ margin: '0 0 0 10px' }}>{I18n.t('home.registration_guidance.username_selection_advice.heading')}</h4>
+                  <ul style={{ margin: '0 0 5px 10px' }}>
+                    <li>{I18n.t('home.registration_guidance.username_selection_advice.avoid_offensive_usernames')}</li>
+                    <li>{I18n.t('home.registration_guidance.username_selection_advice.represent_individual')}</li>
+                  </ul>
+                  <h4 style={{ margin: '0 0 0 10px' }}>{I18n.t('home.registration_guidance.additional_guidance.heading')}</h4>
+                  <p style={{ margin: '0 0 16px 10px' }}>{I18n.t('home.registration_guidance.additional_guidance.anonymous_username_recommendation')}</p>
                   <div>
                     <NewAccountButton course={course} passcode={passcode} currentUser={user} />
                   </div>

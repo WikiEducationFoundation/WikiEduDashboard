@@ -129,7 +129,14 @@ en:
     explore: Explore
     log_in: Log in with Wikipedia
     sign_up: Sign up with Wikipedia
-    sign_up_advice: Tips for selecting a usersname & email so you can spend your precious time on things that matter.
+    registration_guidance:
+      username_selection_advice:
+        heading: Selecting a Username
+        avoid_offensive_usernames: Avoid usernames that could be considered offensive, misleading, disruptive, or promotional.
+        represent_individual: Ensure that the selected username represents an individual and avoids incorporating organizational names.
+      additional_guidance: 
+        heading: Note
+        anonymous_username_recommendation: It is advisable to choose an anonymous username, excluding any real names or identifiable information.
     sign_up_help: >
       To use the dashboard, you'll need to sign in through Wikipedia and give
       it permission to access your account. You can log in with an existing
