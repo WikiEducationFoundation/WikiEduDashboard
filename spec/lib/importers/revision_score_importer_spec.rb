@@ -203,6 +203,8 @@ describe RevisionScoreImporter do
     end
 
     it 'imports data and calcuates an article completeness score for available wikis' do
+      pending 'This sometimes fails, likely because of rate limiting. We should look into it.'
+
       VCR.use_cassette 'revision_scores/multiwiki' do
         described_class.update_revision_scores_for_all_wikis
 
@@ -215,6 +217,8 @@ describe RevisionScoreImporter do
 
         expect(wikidata.revisions.first.features).not_to be_empty
       end
+
+      pass_pending_spec
     end
   end
 
