@@ -33,9 +33,6 @@ module.exports = {
   // Name of SVG directory
   svgDirectory: 'svg',
 
-  // Name of Fonts directory
-  fontsDirectory: 'fonts',
-
   // Name of main JS file
   jsMainFile: 'main',
 
