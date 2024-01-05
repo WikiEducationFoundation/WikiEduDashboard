@@ -4,11 +4,11 @@
 
     .button-container
       = link_to user_mediawiki_omniauth_authorize_path, {class: 'button auth', method: :post} do
-        %i.icon.icon-wiki-logo
+        %i.icon.icon-wiki-purple
         = t('home.log_in')
 
       = link_to user_mediawiki_signup_omniauth_authorize_path, {class: 'button button-inverse auth signup', method: :post} do
-        %i.icon.icon-wiki-logo
+        %i.icon.icon-wiki-purple
         = t('home.sign_up')
 
       %span.help{data: { title: t('home.sign_up_help') } }
