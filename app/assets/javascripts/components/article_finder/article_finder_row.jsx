@@ -1,5 +1,4 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
+import React, { useState, useEffect } from 'react';
 import { includes } from 'lodash-es';
 
 import ArticleViewer from '@components/common/ArticleViewer/containers/ArticleViewer.jsx';
@@ -8,101 +7,97 @@ import { fetchStates, ASSIGNED_ROLE, STUDENT_ROLE } from '../../constants';
 import { PageAssessmentGrades, ORESSupportedWiki, PageAssessmentSupportedWiki } from '../../utils/article_finder_language_mappings.js';
 import ArticleUtils from '../../utils/article_utils.js';
 
-const ArticleFinderRow = createReactClass({
-  getInitialState() {
-    return {
-      isLoading: false,
+const ArticleFinderRow = (props) => {
+    const [isLoading, setIsLoading] = useState(false);
+
+    // Note: This comment is applicable for the article finder row of a course
+    // There are two scenarios in which we use isLoading:
+    // In the first one, when this.props.assignment is not null, it means the article
+    // is assigned. In the second one, when this.props.assignment is undefined, it means
+    // that the article is unassigned. When the request to either assign or unassign an
+    // article is made, for that time isLoading is set to true and the corresponding
+    // button is disabled. On completion of request, this.props.assignment changes and
+    // button is enabled again after isLoading is set to false
+
+    useEffect((prevProps) => {
+      if (isLoading && prevProps.assignment !== props.assignment) {
+        setIsLoading(false);
+      }
+    }, [isLoading, props.assignment]);
+
+    const assignArticle = (userId = null) => {
+        const assignment = {
+          title: decodeURIComponent(props.title).trim(),
+          project: props.selectedWiki.project,
+          language: props.selectedWiki.language,
+          course_slug: props.courseSlug,
+          user_id: userId,
+          role: ASSIGNED_ROLE,
+        };
+        setIsLoading(true);
+        return props.addAssignment(assignment);
     };
-  },
 
-  // Note: This comment is applicable for the article finder row of a course
-  // There are two scenarios in which we use isLoading:
-  // In the first one, when this.props.assignment is not null, it means the article
-  // is assigned. In the second one, when this.props.assignment is undefined, it means
-  // that the article is unassigned. When the request to either assign or unassign an
-  // article is made, for that time isLoading is set to true and the corresponding
-  // button is disabled. On completion of request, this.props.assignment changes and
-  // button is enabled again after isLoading is set to false
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.isLoading && (prevProps.assignment !== this.props.assignment)) {
-      // eslint-disable-next-line react/no-did-update-set-state
-      this.setState({
-        isLoading: false,
-      });
-    }
-  },
-
-  assignArticle(userId = null) {
-    const assignment = {
-      title: decodeURIComponent(this.props.title).trim(),
-      project: this.props.selectedWiki.project,
-      language: this.props.selectedWiki.language,
-      course_slug: this.props.courseSlug,
-      user_id: userId,
-      role: ASSIGNED_ROLE,
+    const unassignArticle = (userId = null) => {
+        const assignment = {
+          article_title: decodeURIComponent(props.title).trim(),
+          project: props.assignment.project,
+          language: props.assignment.language,
+          course_slug: props.courseSlug,
+          role: ASSIGNED_ROLE,
+          id: props.assignment.id,
+          assignment_id: props.assignment.assignment_id,
+          user_id: userId,
+        };
+        setIsLoading(true);
+        return props.deleteAssignment(assignment);
     };
-    this.setState({
-      isLoading: true,
-    });
-    return this.props.addAssignment(assignment);
-  },
 
-  unassignArticle(userId = null) {
-    const assignment = {
-      article_title: decodeURIComponent(this.props.title).trim(),
-      project: this.props.assignment.project,
-      language: this.props.assignment.language,
-      course_slug: this.props.courseSlug,
-      role: ASSIGNED_ROLE,
-      id: this.props.assignment.id,
-      assignment_id: this.props.assignment.assignment_id,
-      user_id: userId,
-    };
-    this.setState({
-      isLoading: true,
-    });
-    return this.props.deleteAssignment(assignment);
-  },
-
-  render() {
     let pageviews;
-    if (this.props.article.fetchState === 'REVISIONSCORE_RECEIVED') {
-      pageviews = (<div className="results-loading"> &nbsp; &nbsp; </div>);
+    if (props.article.fetchState === 'REVISIONSCORE_RECEIVED') {
+      pageviews = <div className="results-loading"> &nbsp; &nbsp; </div>;
     }
-    if (this.props.article.pageviews) {
-      pageviews = Math.round(this.props.article.pageviews);
-    } else if (this.props.article.fetchState === 'PAGEVIEWS_RECEIVED') {
-      pageviews = (<div>Page Views not found!</div>);
+    if (props.article.pageviews) {
+      pageviews = Math.round(props.article.pageviews);
+    } else if (props.article.fetchState === 'PAGEVIEWS_RECEIVED') {
+      pageviews = <div>Page Views not found!</div>;
     }
-
     let revScore;
-    if (includes(ORESSupportedWiki.languages, this.props.selectedWiki.language) && includes(ORESSupportedWiki.projects, this.props.selectedWiki.project)) {
-      if (this.props.article.fetchState === 'PAGEASSESSMENT_RECEIVED' || this.props.article.fetchState === 'REVISION_RECEIVED') {
-        revScore = (<td><div className="results-loading"> &nbsp; &nbsp; </div></td>);
-      } else if (this.props.article.revScore) {
-        revScore = (<td className="revScore">{Math.round(this.props.article.revScore)}</td>);
-      } else if (fetchStates[this.props.article.fetchState] >= fetchStates.REVISIONSCORE_RECEIVED) {
-        revScore = (<td><div>Estimation Score not found!</div></td>);
+    if (
+      includes(ORESSupportedWiki.languages, props.selectedWiki.language)
+      && includes(ORESSupportedWiki.projects, props.selectedWiki.project)
+    ) {
+      if (
+        props.article.fetchState === 'PAGEASSESSMENT_RECEIVED'
+        || props.article.fetchState === 'REVISION_RECEIVED'
+      ) {
+        revScore = <td><div className="results-loading"> &nbsp; &nbsp; </div></td>;
+      } else if (props.article.revScore) {
+        revScore = <td className="revScore">{Math.round(props.article.revScore)}</td>;
+      } else if (fetchStates[props.article.fetchState] >= fetchStates.REVISIONSCORE_RECEIVED) {
+        revScore = <td><div>Estimation Score not found!</div></td>;
       } else {
-        revScore = (<td />);
+        revScore = <td />;
       }
     }
-
     let grade;
-    if (PageAssessmentSupportedWiki[this.props.selectedWiki.project] && includes(PageAssessmentSupportedWiki[this.props.selectedWiki.project], this.props.selectedWiki.language)) {
-      if (this.props.article.fetchState === 'TITLE_RECEIVED') {
-        grade = (<td><div className="results-loading"> &nbsp; &nbsp; </div></td>);
-      } else if (this.props.article.grade) {
-        const gradeClass = `rating ${PageAssessmentGrades[this.props.selectedWiki.project][this.props.selectedWiki.language][this.props.article.grade].class}`;
+    if (
+      PageAssessmentSupportedWiki[props.selectedWiki.project]
+      && includes(PageAssessmentSupportedWiki[props.selectedWiki.project], props.selectedWiki.language)
+    ) {
+      if (props.article.fetchState === 'TITLE_RECEIVED') {
+        grade = <td><div className="results-loading"> &nbsp; &nbsp; </div></td>;
+      } else if (props.article.grade) {
+        const gradeClass = `rating ${PageAssessmentGrades[props.selectedWiki.project][props.selectedWiki.language][props.article.grade].class}`;
         grade = (
           <td className="tooltip-trigger">
-            <div className={gradeClass}><p>{PageAssessmentGrades[this.props.selectedWiki.project][this.props.selectedWiki.language][this.props.article.grade].pretty || '-'}</p></div>
+            <div className={gradeClass}><p>{PageAssessmentGrades[props.selectedWiki.project][props.selectedWiki.language][props.article.grade].pretty || '-'}</p></div>
             <div className="tooltip dark">
-              <p>{I18n.t(`articles.rating_docs.${PageAssessmentGrades[this.props.selectedWiki.project][this.props.selectedWiki.language][this.props.article.grade].class || '?'}`, { class: this.props.article.grade || '' })}</p>
+              <p>{I18n.t(`articles.rating_docs.${PageAssessmentGrades[props.selectedWiki.project][props.selectedWiki.language][props.article.grade].class || '?'}`, { class: props.article.grade || '' })}</p>
             </div>
           </td>
         );
-      } else if (fetchStates[this.props.article.fetchState] >= fetchStates.PAGEASSESSMENT_RECEIVED) {
+      } else if (fetchStates[props.article.fetchState] >= fetchStates.PAGEASSESSMENT_RECEIVED) {
         grade = (
           <td className="tooltip-trigger">
             <div className="rating null"><p>-</p></div>
@@ -112,71 +107,67 @@ const ArticleFinderRow = createReactClass({
           </td>
         );
       } else {
-        grade = (<td />);
+        grade = <td />;
       }
     }
     let button;
-    if (this.props.courseSlug && this.props.current_user.isAdvancedRole) {
-      if (this.props.assignment) {
-        const className = `button small add-available-article ${this.state.isLoading ? 'disabled' : ''}`;
+    if (props.courseSlug && props.current_user.isAdvancedRole) {
+      if (props.assignment) {
+        const className = `button small add-available-article ${isLoading ? 'disabled' : ''}`;
         button = (
           <td>
-            <button className={className} onClick={() => this.unassignArticle()}>{I18n.t(`article_finder.${ArticleUtils.projectSuffix(this.props.selectedWiki.project, 'remove_article')}`)}</button>
+            <button className={className} onClick={() => unassignArticle()}>{I18n.t(`article_finder.${ArticleUtils.projectSuffix(props.selectedWiki.project, 'remove_article')}`)}</button>
           </td>
         );
       } else {
-        const className = `button small add-available-article ${this.state.isLoading ? 'disabled' : 'dark'}`;
+        const className = `button small add-available-article ${isLoading ? 'disabled' : 'dark'}`;
         button = (
           <td>
-            <button className={className} onClick={() => this.assignArticle()}>{I18n.t(`article_finder.${ArticleUtils.projectSuffix(this.props.selectedWiki.project, 'add_available_article')}`)}</button>
+            <button className={className} onClick={() => assignArticle()}>{I18n.t(`article_finder.${ArticleUtils.projectSuffix(props.selectedWiki.project, 'add_available_article')}`)}</button>
           </td>
         );
       }
-    } else if (this.props.courseSlug && this.props.current_user.role === STUDENT_ROLE) {
-      if (this.props.assignment) {
-        const className = `button small add-available-article ${this.state.isLoading ? 'disabled' : ''}`;
+    } else if (props.courseSlug && props.current_user.role === STUDENT_ROLE) {
+      if (props.assignment) {
+        const className = `button small add-available-article ${isLoading ? 'disabled' : ''}`;
         button = (
           <td>
-            <button className={className} onClick={() => this.unassignArticle(this.props.current_user.id)}>{I18n.t(`article_finder.${ArticleUtils.projectSuffix(this.props.selectedWiki.project, 'unassign_article_self')}`)}</button>
+            <button className={className} onClick={() => unassignArticle(props.current_user.id)}>{I18n.t(`article_finder.${ArticleUtils.projectSuffix(props.selectedWiki.project, 'unassign_article_self')}`)}</button>
           </td>
         );
       } else {
-        const className = `button small add-available-article ${this.state.isLoading ? 'disabled' : 'dark'}`;
-        button = (
-          <td>
-            <button className={className} onClick={() => this.assignArticle(this.props.current_user.id)}>{I18n.t('article_finder.assign_article_self')}</button>
-          </td>
-        );
+      const className = `button small add-available-article ${isLoading ? 'disabled' : 'dark'}`;
+      button = (
+        <td>
+          <button className={className} onClick={() => assignArticle(props.current_user.id)}>{I18n.t('article_finder.assign_article_self')}</button>
+        </td>
+      );
       }
     }
-
-
     const article = {
-      ...this.props.article,
-      language: this.props.selectedWiki.language,
-      project: this.props.selectedWiki.project,
-      url: `https://${this.props.selectedWiki.language}.${this.props.selectedWiki.project}.org/wiki/${this.props.article.title.replace(/ /g, '_')}`,
+      ...props.article,
+      language: props.selectedWiki.language,
+      project: props.selectedWiki.project,
+      url: `https://${props.selectedWiki.language}.${props.selectedWiki.project}.org/wiki/${props.article.title.replace(/ /g, '_')}`,
     };
-    if (this.props.selectedWiki.project === 'wikidata') {
+    if (props.selectedWiki.project === 'wikidata') {
       delete article.language;
-      article.url = `https://${this.props.selectedWiki.project}.org/wiki/${this.props.article.title.replace(/ /g, '_')}`;
+      article.url = `https://${props.selectedWiki.project}.org/wiki/${props.article.title.replace(/ /g, '_')}`;
     }
-
     const articleViewer = (
       <ArticleViewer
         article={article}
-        course={this.props.course}
-        current_user={this.props.current_user}
-        title={this.props.label ? `${this.props.label} (${this.props.article.title})` : this.props.article.title}
+        course={props.course}
+        current_user={props.current_user}
+        title={props.label ? `${props.label} (${props.article.title})` : props.article.title}
         showArticleFinder={true}
         showPermalink={false}
       />
     );
-
     return (
       <tr>
         <td>
-          {this.props.article.relevanceIndex}
+          {props.article.relevanceIndex}
         </td>
         <td>
           <div className="horizontal-flex">
@@ -191,8 +182,5 @@ const ArticleFinderRow = createReactClass({
         {button}
       </tr>
     );
-  }
-});
-
-
+};
 export default ArticleFinderRow;
