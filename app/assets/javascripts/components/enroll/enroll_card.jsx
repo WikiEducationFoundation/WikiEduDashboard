@@ -27,7 +27,7 @@ const EnrollCard = ({
           <p>{I18n.t('courses.join_successful', { title: course.title || '' })}</p>
         </div>
       );
-    // Enrollment failed (not approved?)
+      // Enrollment failed (not approved?)
     } else if (enrolledParam === 'false') {
       messageBody = (
         <div>
@@ -36,7 +36,7 @@ const EnrollCard = ({
         </div>
       );
     }
-  // User is logged in and ready to enroll
+    // User is logged in and ready to enroll
   } else if (user.id && userRoles.notEnrolled) {
     messageBody = (
       <div>
@@ -45,10 +45,10 @@ const EnrollCard = ({
         <a className="button border" href={courseLink}>{I18n.t('application.cancel')}</a>
       </div>
     );
-  // User is already enrolled
+    // User is already enrolled
   } else if (userRoles.isEnrolled) {
     messageBody = <h1>{I18n.t('courses.already_enrolled', { title: course.title })}</h1>;
-  // User is not logged in
+    // User is not logged in
   } else if (!user.id) {
     // Login link relies on rails/ujs to turn the anchor link into
     // a POST request based on data-method="post". Otherwise, this
@@ -71,7 +71,7 @@ const EnrollCard = ({
   return (
     <div className="module enroll">
       {
-        course.passcode !== '' && <a href={courseLink} className="icon-close-small" />
+        course.passcode !== '' && <a href={courseLink} className="icon-close-small pull-right" />
       }
       {messageBody}
     </div>
