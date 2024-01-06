@@ -27,7 +27,7 @@ class ReferenceCounterApi
   # This is the main entry point.
   # Given a revision ID, it retrieves the reference count from the
   # reference-counter Toolforge API.
-  # If the API response is not 200 or an error occurs, it returns -1.
+  # If the API response is not 200 or an error occurs, it returns nil.
   # Any encountered errors are logged in Sentry.
   def get_number_of_references_from_revision_id(rev_id)
     response = toolforge_server.get(references_query_url(rev_id))
@@ -40,14 +40,14 @@ class ReferenceCounterApi
                              level: 'warning', extra: { project_code: @project_code,
                              language_code: @language_code, rev_id:,
                              status_code: response.status, content: parsed_response }
-      return -1
+      return nil
     end
   rescue StandardError => e
     # Log any error
     log_error(e, update_service: @update_service,
               sentry_extra: { project_code: @project_code,
               language_code: @language_code, rev_id: })
-    return -1
+    return nil
   end
 
   class InvalidProjectError < StandardError

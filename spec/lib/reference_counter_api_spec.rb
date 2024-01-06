@@ -24,7 +24,7 @@ describe ReferenceCounterApi do
     expect(number_of_references).to eq(4)
   end
 
-  it 'returns -1 and logs the message if revision id is not 200 OK', vcr: true do
+  it 'returns nil and logs the message if revision id is not 200 OK', vcr: true do
     ref_counter_api = described_class.new(en_wikipedia)
     expect(Sentry).to receive(:capture_message).with(
       'Non-200 response hitting references counter API',
@@ -41,10 +41,10 @@ describe ReferenceCounterApi do
       }
     )
     number_of_references = ref_counter_api.get_number_of_references_from_revision_id deleted_rev_id
-    expect(number_of_references).to eq(-1)
+    expect(number_of_references).to eq(nil)
   end
 
-  it 'returns -1 and logs the error if an unexpected error raises', vcr: true do
+  it 'returns nil and logs the error if an unexpected error raises', vcr: true do
     reference_counter_api = described_class.new(es_wiktionary)
 
     allow_any_instance_of(Faraday::Connection).to receive(:get)
@@ -60,6 +60,6 @@ describe ReferenceCounterApi do
      }
     )
     number_of_references = reference_counter_api.get_number_of_references_from_revision_id rev_id
-    expect(number_of_references).to eq(-1)
+    expect(number_of_references).to eq(nil)
   end
 end
