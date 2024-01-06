@@ -9,6 +9,10 @@ class ReferenceCounterApi
 
   TOOLFORGE_SERVER_URL = 'https://reference-counter.toolforge.org'
 
+  # This class is not designed for use with wikidata, as that wiki works pretty
+  # different from other wikis and it has its own method of calculating references.
+  # The reference-counter Toolforge API doesn't work for wikidata either for the
+  # same reason.
   def self.valid_wiki?(wiki)
     return wiki.project != 'wikidata'
   end
