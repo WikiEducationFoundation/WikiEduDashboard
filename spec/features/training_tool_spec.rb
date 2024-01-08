@@ -271,7 +271,7 @@ def proceed_to_next_slide
   end
   button = page.first('button.ghost-button', minimum: 0)
   find_correct_answer_by_trial_and_error unless button.nil?
-  page.first('a.slide-nav.btn.btn-primary.icon-rt_arrow').click
+  page.first('a.slide-nav.btn.btn-primary.next-button').click
 end
 
 def find_correct_answer_by_trial_and_error

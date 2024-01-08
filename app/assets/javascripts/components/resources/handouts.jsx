@@ -24,7 +24,7 @@ const Handouts = ({ blocks, trainingLibrarySlug }) => {
 
   const links = handouts.map((handout) => {
     return (
-      <a key={handout.link} className="handout-link ml1" href={handout.link}>{handout.name}</a>
+      <a key={handout.link} className="handout-link ml1" href={handout.link}>{handout.name}<span className="icon-z-external-link" /></a>
     );
   });
 

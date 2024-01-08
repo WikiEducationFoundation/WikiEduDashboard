@@ -21,19 +21,18 @@ const Explore = ({ dashboardTitle }) => {
         <div className="campaigns-actions" >
           {showCreateButton && <a className="button dark" href="campaigns/new?create=true">{I18n.t('campaign.create_campaign')}</a>}
           <a href="/campaigns" className="button">
-            {I18n.t('campaign.all_campaigns')} <span className="icon icon-rt_arrow" />
+            {I18n.t('campaign.all_campaigns')} <span className="icon2 icon-rt_arrow_dark" />
           </a>
         </div>
       </div>
       {Features.wikiEd
       && (
         <div id="active_courses">
-
           <ActiveCourseList campaignOnly={true}/>
           <div className="campaigns-actions">
             {showCreateButton && <a className="button dark" href="/course_creator">{I18n.t(`${Features.course_string_prefix}.creator.create_new`)}</a>}
             <a href={`/campaigns/${Features.default_campaign_slug}/programs`} className="button">
-              {I18n.t(`${Features.course_string_prefix}.all_courses`)} <span className="icon icon-rt_arrow" />
+              {I18n.t(`${Features.course_string_prefix}.all_courses`)} <span className="icon2 icon-rt_arrow_dark" />
             </a>
           </div>
         </div>

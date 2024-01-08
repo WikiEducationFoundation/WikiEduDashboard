@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 // Permissions slide
 const Permissions = ({ currentUser, returnToParam }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
   let slide;
 
   if (currentUser.instructor) {
@@ -20,8 +22,8 @@ const Permissions = ({ currentUser, returnToParam }) => {
           <li>you send public messages to students</li>
         </ul>
         <p>All course content you contribute to this website will be freely available under the <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank">Creative Commons Attribution-ShareAlike license</a> (the same one used by Wikipedia).</p>
-        <Link to={{ pathname: '/onboarding/finish', search: `?return_to=${returnToParam}` }} className="button border inverse-border">
-          Finish <i className="icon icon-rt_arrow" />
+        <Link onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} to={{ pathname: '/onboarding/finish', search: `?return_to=${returnToParam}` }} className="button border inverse-border">
+          Finish <i className={`icon3 ${isHovered ? 'icon-rt_arrow_purple' : ' icon-rt_arrow'}`} />
         </Link>
       </div>
     );
@@ -40,8 +42,8 @@ const Permissions = ({ currentUser, returnToParam }) => {
           <li>update your course´s wiki page when you join the course or choose an assignment topic</li>
         </ul>
         <p>All course content you contribute to this website will be freely available under the <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank">Creative Commons Attribution-ShareAlike license</a> (the same one used by Wikipedia).</p>
-        <Link to={{ pathname: '/onboarding/finish', search: `?return_to=${returnToParam}` }} className="button border inverse-border">
-          Finish <i className="icon icon-rt_arrow" />
+        <Link onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} to={{ pathname: '/onboarding/finish', search: `?return_to=${returnToParam}` }} className="button border inverse-border">
+          Finish <i className={`icon3 ${isHovered ? 'icon-rt_arrow_purple' : ' icon-rt_arrow'}`} />
         </Link>
       </div>
     );

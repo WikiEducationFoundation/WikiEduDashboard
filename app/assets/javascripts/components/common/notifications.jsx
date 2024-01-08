@@ -36,7 +36,7 @@ export const Notifications = () => {
         <div className="container">
           {message}
           {
-            notification.closable && <button onClick={() => _handleClose(notification)} className="icon-close-small" />
+            notification.closable && <button onClick={() => _handleClose(notification)} className="pull-right icon-close-small" />
           }
         </div>
       </div>

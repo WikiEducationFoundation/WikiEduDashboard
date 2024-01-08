@@ -36,7 +36,7 @@ const PossiblePlagiarismHandler = createReactClass({
       <div id="possible-plagiarism">
         <div className="section-header">
           <h3 className="article tooltip-trigger">{I18n.t('recent_activity.possible_plagiarism')}
-            <span className="tooltip-indicator"/>
+            <span className="tooltip-indicator-heading"/>
             <div className="tooltip dark">
               <p>{I18n.t('recent_activity.plagiarism_explanation')}</p>
             </div>

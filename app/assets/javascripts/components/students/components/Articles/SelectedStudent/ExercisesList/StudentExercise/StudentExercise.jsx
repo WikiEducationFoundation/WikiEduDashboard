@@ -66,7 +66,7 @@ const Student = createReactClass({
         <td className="desktop-only-tc">
           <TrainingProgressDescription student={student} />
         </td>
-        <td className="table-action-cell"><button className="icon icon-arrow table-expandable-indicator" /></td>
+        <td className="table-action-cell"><button className="icon icon-arrow-toggle table-expandable-indicator" /></td>
       </tr>
     );
   }

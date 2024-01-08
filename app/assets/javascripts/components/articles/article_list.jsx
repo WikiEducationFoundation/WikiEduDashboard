@@ -191,7 +191,7 @@ const ArticleList = createReactClass({
     } else {
       header = (
         <h3 className="article tooltip-trigger">{ArticleUtils.I18n('edited', project)}
-          <span className="tooltip-indicator" />
+          <span className="tooltip-indicator-heading" />
           <div className="tooltip dark">
             <p>{ArticleUtils.I18n('cross_wiki_tracking', project)}</p>
           </div>
