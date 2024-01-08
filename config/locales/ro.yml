@@ -5,6 +5,7 @@
 # Author: Alesaru
 # Author: GabiBil
 # Author: Minisarm
+# Author: NGC 54
 # Author: Strainu
 # Author: Wintereu
 ---
@@ -46,4 +47,6 @@ ro:
     contributions_more: Vezi mai multe contribuții
     name: Nume
     none: Acest curs nu are studenți.
+  training_status:
+    continue: Continuă
 ...

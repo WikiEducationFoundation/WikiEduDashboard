@@ -16,6 +16,7 @@
 # Author: Fitoschido
 # Author: Gomoko
 # Author: Hk5184
+# Author: Iketsi
 # Author: JenyxGym
 # Author: LudaOtaku
 # Author: Mabroukb
@@ -136,6 +137,18 @@ fr:
     explore: Explorer
     log_in: Se connecter à Wikipédia
     sign_up: S’inscrire à Wikipédia
+    registration_advice:
+      username_rules:
+        heading: Règles de nom d'utilisateur
+        avoid_offensive_usernames: Ne choisissez pas un nom d'utilisateur choquant,
+          trompeur, perturbateur ou promotionnel.
+        represent_individual: Les noms d'utilisateur doivent représenter un éditeur
+          individuel. N'utilisez pas le nom d'une école ou d'une organisation.
+      additional_advice:
+        heading: Conseil
+        anonymous_username_recommendation: L’équipe de Wiki Éducation recommande de
+          choisir un nom d'utilisateur anonyme, qui ne comporte pas votre nom réel
+          ou d'autres informations qui permettraient de vous identifier.
     sign_up_help: Pour utiliser le tableau de bord, vous devez vous connecter via
       Wikipédia et lui donner le droit d’accéder à votre compte. Vous pouvez vous
       connecter avec un compte Wikipédia existant ou en créer un nouveau. Si vous
