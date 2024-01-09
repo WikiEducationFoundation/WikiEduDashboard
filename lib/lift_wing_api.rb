@@ -4,7 +4,7 @@ require_dependency "#{Rails.root}/lib/errors/api_error_handling"
 
 # Gets data from Lift Wing
 # https://wikitech.wikimedia.org/wiki/Machine_Learning/LiftWing
-class LiftWingApi
+class LiftWingApi # rubocop:disable Metrics/ClassLength
   include ApiErrorHandling
 
   DELETED_REVISION_ERRORS = %w[TextDeleted RevisionNotFound].freeze
@@ -22,33 +22,32 @@ class LiftWingApi
 
   def initialize(wiki, update_service = nil)
     raise InvalidProjectError unless LiftWingApi.valid_wiki?(wiki)
-    @project_code = wiki.project == 'wikidata' ? 'wikidata' + 'wiki' : wiki.language + 'wiki'
-    @project_quality_model = wiki.project == 'wikidata' ? 'itemquality' : 'articlequality'
+    @wiki = wiki
     @update_service = update_service
     @errors = []
   end
 
-  def get_revision_data(rev_ids)
-    results = {}
-    rev_ids.each do |rev_id|
-      results.deep_merge! get_single_revision_data(rev_id)
-    end
-
-    log_error_batch(rev_ids)
-
-    return results
-  end
-
-  def get_single_revision_data(rev_id)
+  # Returns wp10, features, and deleted
+  def get_single_revision_parsed_data(rev_id)
     body = { rev_id:, extended_output: true }.to_json
     response = lift_wing_server.post(quality_query_url, body)
     parsed_response = Oj.load(response.body)
 
-    return equivalent_ores_error_response(rev_id, parsed_response) if parsed_response.key? 'error'
+    # If the responses contains an error, do not try to calculate wp10 or features.
+    if parsed_response.key? 'error'
+      return { 'wp10' => nil, 'features' => nil, 'deleted' => deleted?(parsed_response) }
+    end
 
-    parsed_response
+    score = parsed_response.dig(wiki_key, 'scores', rev_id.to_s, model_key)
+
+    { 'wp10' => weighted_mean_score(score),
+      'features' => score.dig('features'),
+      'deleted' => false,
+      'prediction' => score.dig('score', 'prediction') } # only for revision feedback
   rescue StandardError => e
-    @errors << e
+    log_error(e, update_service: @update_service,
+      sentry_extra: { rev_id:, project_code: wiki_key,
+                      project_model: model_key })
     return {}
   end
 
@@ -57,8 +56,19 @@ class LiftWingApi
 
   private
 
+  # The top-level key representing the wiki in LiftWing data
+  def wiki_key
+    # This assumes the project is Wikipedia, which is true for all wikis with the articlequality
+    # or the language is nil, which is the case for Wikidata.
+    @wiki_key ||= "#{@wiki.language || @wiki.project}wiki"
+  end
+
+  def model_key
+    @model_key ||= @wiki.project == 'wikidata' ? 'itemquality' : 'articlequality'
+  end
+
   def quality_query_url
-    "/service/lw/inference/v1/models/#{@project_code}-#{@project_quality_model}:predict"
+    "/service/lw/inference/v1/models/#{wiki_key}-#{model_key}:predict"
   end
 
   def lift_wing_server
@@ -72,36 +82,94 @@ class LiftWingApi
     connection
   end
 
-  # To make migration from ORES to LiftWing easier, we want responses to be in the same format,
-  # including error responses.
-  # For a deleted revision, ORES returns something like this:
-  # {"enwiki"=>{"scores"=>{"708326238"=>{"articlequality"=>{"error"=>
-  #   {"message"=>"TextDeleted: Text deleted (datasource.revision.text)",
-  #    "type"=>"TextDeleted"}}}}}}
-  # Lift Wing just returns something like:
-  # {"error"=>
-  #  "Missing resource for rev-id 708326238: TextDeleted: Text deleted (datasource.revision.text)"}
-  ERROR_TYPE_MATCHER = Regexp.union DELETED_REVISION_ERRORS
-
-  def equivalent_ores_error_response(rev_id, error_response)
-    message = error_response['error']
-    type = message[ERROR_TYPE_MATCHER]
-
-    { @project_code =>
-      { 'scores' => { rev_id.to_s => { @project_quality_model => {
-        'error' => { 'message' => error_response['error'], 'type' => type }
-        } } } } }
-  end
-
   # TODO: monitor production for errors, understand them, put benign ones here
   TYPICAL_ERRORS = [].freeze
 
-  def log_error_batch(rev_ids)
-    return if @errors.empty?
+  def deleted?(response)
+    LiftWingApi::DELETED_REVISION_ERRORS.any? do |revision_error|
+      response.dig('error').include?(revision_error)
+    end
+  end
 
-    log_error(@errors.first, update_service: @update_service,
-      sentry_extra: { rev_ids:, project_code: @project_code,
-                      project_model: @project_quality_model,
-                      error_count: @errors.count })
+  # ORES articlequality ratings are often derived from the en.wiki system,
+  # so this is the fallback scheme.
+  ENWIKI_WEIGHTING = { 'FA'    => 100,
+                       'GA'    => 80,
+                       'B'     => 60,
+                       'C'     => 40,
+                       'Start' => 20,
+                       'Stub'  => 0 }.freeze
+  FRWIKI_WEIGHTING = { 'adq' => 100,
+                       'ba' => 80,
+                       'a' => 60,
+                       'b' => 40,
+                       'bd' => 20,
+                       'e' => 0 }.freeze
+  TRWIKI_WEIGHTING = { 'sm' => 100,
+                       'km' => 80,
+                       'b' => 60,
+                       'c' => 40,
+                       'baslagıç' => 20,
+                       'taslak' => 0 }.freeze
+  RUWIKI_WEIGHTING = { 'ИС' => 100,
+                       'ДС' => 80,
+                       'ХС' => 80,
+                       'I' => 60,
+                       'II' => 40,
+                       'III' => 20,
+                       'IV' => 0 }.freeze
+  PTWIKI_WEIGHTING = { '6' => 100,
+                       '5' => 80,
+                       '4' => 60,
+                       '3' => 40,
+                       '2' => 20,
+                       '1' => 0 }.freeze
+  UKWIKI_WEIGHTING = { 'ДС' => 100,
+                       'ВС' => 80,
+                       'I' => 60,
+                       'II' => 40,
+                       'III' => 20,
+                       'IV' => 0 }.freeze
+  # SV wiki has three high ratings, all of which are rare:
+  # This is just a guess at appropriate weighting for the case where almost
+  # all articles are the lowest tier.
+  SVWIKI_WEIGHTING = { 'u' => 100,
+                       'b' => 90,
+                       'r' => 80,
+                       's' => 0 }.freeze
+  NLWIKI_WEIGHTING = { 'A' => 100,
+                       'B' => 75,
+                       'C' => 50,
+                       'D' => 25,
+                       'E' => 0 }.freeze
+  WEIGHTING_BY_LANGUAGE = {
+    'en' => ENWIKI_WEIGHTING,
+    'simple' => ENWIKI_WEIGHTING,
+    'fa' => ENWIKI_WEIGHTING,
+    'eu' => ENWIKI_WEIGHTING,
+    'fr' => FRWIKI_WEIGHTING,
+    'tr' => TRWIKI_WEIGHTING,
+    'ru' => RUWIKI_WEIGHTING,
+    'uk' => UKWIKI_WEIGHTING,
+    'gl' => ENWIKI_WEIGHTING,
+    'sv' => SVWIKI_WEIGHTING,
+    'nl' => NLWIKI_WEIGHTING,
+    'pt' => PTWIKI_WEIGHTING
+  }.freeze
+
+  def weighting
+    @weighting ||= WEIGHTING_BY_LANGUAGE[@wiki.language]
+  end
+
+  def weighted_mean_score(score)
+    # This metric only makes sense to Wikipedia
+    return unless @wiki.project == 'wikipedia'
+    probability = score&.dig('score', 'probability')
+    return unless probability
+    mean = 0
+    weighting.each do |rating, weight|
+      mean += probability[rating] * weight
+    end
+    mean
   end
 end

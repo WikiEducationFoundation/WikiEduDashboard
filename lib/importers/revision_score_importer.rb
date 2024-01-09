@@ -39,10 +39,9 @@ class RevisionScoreImporter
 
   # assumes a mediawiki rev_id from the correct Wikipedia
   def fetch_ores_data_for_revision_id(rev_id)
-    articlequality_data = @lift_wing_api.get_revision_data([rev_id])
-    features = articlequality_data.dig(wiki_key, 'scores', rev_id.to_s, model_key, 'features')
-    rating = articlequality_data.dig(wiki_key, 'scores', rev_id.to_s, model_key,
-                                     'score', 'prediction')
+    result = @lift_wing_api.get_single_revision_parsed_data(rev_id)
+    features = result.dig('features')
+    rating = result.dig('prediction')
     return { features:, rating: }
   end
 
@@ -69,39 +68,31 @@ class RevisionScoreImporter
   ##################
   private
 
-  # The top-level key representing the wiki in LiftWing data
-  def wiki_key
-    # This assumes the project is Wikipedia, which is true for all wikis with the articlequality
-    # or the language is nil, which is the case for Wikidata.
-    @wiki_key ||= "#{@wiki.language || @wiki.project}wiki"
-  end
-
   def model_key
     @model_key ||= @wiki.project == 'wikidata' ? 'itemquality' : 'articlequality'
   end
 
   def get_and_save_scores(rev_batch)
-    scores_data = @lift_wing_api.get_revision_data rev_batch.map(&:mw_rev_id)
-    scores = scores_data.dig(wiki_key, 'scores') || {}
-    save_scores(scores)
+    rev_batch.each do |rev|
+      result = @lift_wing_api.get_single_revision_parsed_data(rev.mw_rev_id)
+      save_score(rev.mw_rev_id, result)
+    end
   end
 
   def get_and_save_previous_scores(rev_batch)
     parent_revisions = get_parent_revisions(rev_batch)
     return unless parent_revisions&.any?
-    parent_quality_data = @lift_wing_api.get_revision_data parent_revisions.values.map(&:to_i)
-    scores = parent_quality_data.dig(wiki_key, 'scores') || {}
-    save_parent_scores(parent_revisions, scores)
+    parent_revisions.each do |rev_id, parent_id|
+      parent_score = @lift_wing_api.get_single_revision_parsed_data(parent_id)
+      save_parent_score(rev_id, parent_score)
+    end
   end
 
-  def save_parent_scores(parent_revisions, scores)
-    parent_revisions.each do |mw_rev_id, parent_id|
-      next unless scores.key? parent_id
-      article_completeness = weighted_mean_score(scores[parent_id])
-      features_previous = scores[parent_id]&.dig(model_key, 'features')
-      Revision.find_by(mw_rev_id: mw_rev_id.to_i, wiki: @wiki)
-              .update(wp10_previous: article_completeness, features_previous:)
-    end
+  def save_parent_score(rev_id, parent_score)
+    return unless parent_score
+    Revision.find_by(mw_rev_id: rev_id.to_i, wiki: @wiki)
+            .update(wp10_previous: parent_score.dig('wp10'),
+                    features_previous: parent_score.dig('features'))
   end
 
   def mainspace_userspace_and_draft_revisions
@@ -119,15 +110,13 @@ class RevisionScoreImporter
     mainspace_userspace_and_draft_revisions.where(features_previous: nil, new_article: false)
   end
 
-  def save_scores(scores)
-    scores.each do |mw_rev_id, score|
-      revision = Revision.find_by(mw_rev_id: mw_rev_id.to_i, wiki_id: @wiki.id)
-      next unless revision
-      revision.wp10 = weighted_mean_score(score)
-      revision.features = score.dig(model_key, 'features')
-      revision.deleted = true if deleted?(score)
-      revision.save
-    end
+  def save_score(rev_id, score)
+    revision = Revision.find_by(mw_rev_id: rev_id.to_i, wiki_id: @wiki.id)
+    return unless revision
+    revision.wp10 = score.dig('wp10')
+    revision.features = score.dig('features')
+    revision.deleted = score.dig('deleted')
+    revision.save
   end
 
   def get_parent_revisions(rev_batch)
@@ -157,90 +146,6 @@ class RevisionScoreImporter
     { prop: 'revisions',
       revids: rev_ids,
       rvprop: 'ids' }
-  end
-
-  # ORES articlequality ratings are often derived from the en.wiki system,
-  # so this is the fallback scheme.
-  ENWIKI_WEIGHTING = { 'FA'    => 100,
-                       'GA'    => 80,
-                       'B'     => 60,
-                       'C'     => 40,
-                       'Start' => 20,
-                       'Stub'  => 0 }.freeze
-  FRWIKI_WEIGHTING = { 'adq' => 100,
-                       'ba' => 80,
-                       'a' => 60,
-                       'b' => 40,
-                       'bd' => 20,
-                       'e' => 0 }.freeze
-  TRWIKI_WEIGHTING = { 'sm' => 100,
-                       'km' => 80,
-                       'b' => 60,
-                       'c' => 40,
-                       'baslagıç' => 20,
-                       'taslak' => 0 }.freeze
-  RUWIKI_WEIGHTING = { 'ИС' => 100,
-                       'ДС' => 80,
-                       'ХС' => 80,
-                       'I' => 60,
-                       'II' => 40,
-                       'III' => 20,
-                       'IV' => 0 }.freeze
-  PTWIKI_WEIGHTING = { '6' => 100,
-                       '5' => 80,
-                       '4' => 60,
-                       '3' => 40,
-                       '2' => 20,
-                       '1' => 0 }.freeze
-  UKWIKI_WEIGHTING = { 'ДС' => 100,
-                       'ВС' => 80,
-                       'I' => 60,
-                       'II' => 40,
-                       'III' => 20,
-                       'IV' => 0 }.freeze
-  # SV wiki has three high ratings, all of which are rare:
-  # This is just a guess at appropriate weighting for the case where almost
-  # all articles are the lowest tier.
-  SVWIKI_WEIGHTING = { 'u' => 100,
-                       'b' => 90,
-                       'r' => 80,
-                       's' => 0 }.freeze
-  NLWIKI_WEIGHTING = { 'A' => 100,
-                       'B' => 75,
-                       'C' => 50,
-                       'D' => 25,
-                       'E' => 0 }.freeze
-  WEIGHTING_BY_LANGUAGE = {
-    'en' => ENWIKI_WEIGHTING,
-    'simple' => ENWIKI_WEIGHTING,
-    'fa' => ENWIKI_WEIGHTING,
-    'eu' => ENWIKI_WEIGHTING,
-    'fr' => FRWIKI_WEIGHTING,
-    'tr' => TRWIKI_WEIGHTING,
-    'ru' => RUWIKI_WEIGHTING,
-    'uk' => UKWIKI_WEIGHTING,
-    'gl' => ENWIKI_WEIGHTING,
-    'sv' => SVWIKI_WEIGHTING,
-    'nl' => NLWIKI_WEIGHTING,
-    'pt' => PTWIKI_WEIGHTING
-  }.freeze
-
-  def weighting
-    @weighting ||= WEIGHTING_BY_LANGUAGE[@wiki.language]
-  end
-
-  def weighted_mean_score(score)
-    probability = score&.dig('articlequality', 'score', 'probability')
-    return unless probability
-    mean = 0
-    weighting.each do |rating, weight|
-      mean += probability[rating] * weight
-    end
-    mean
-  end
-
-  def deleted?(score)
-    LiftWingApi::DELETED_REVISION_ERRORS.include? score.dig(model_key, 'error', 'type')
   end
 
   class InvalidWikiError < StandardError; end
