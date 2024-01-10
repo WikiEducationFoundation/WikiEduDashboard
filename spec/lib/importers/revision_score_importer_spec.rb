@@ -57,22 +57,6 @@ describe RevisionScoreImporter do
     end
   end
 
-  it 'saves wp10 scores by article' do
-    VCR.use_cassette 'revision_scores/by_article' do
-      described_class.update_revision_scores_for_all_wikis
-    end
-
-    all_score = Revision.all.map(&:wp10)
-    expect(all_score.count).to be_positive
-    all_previous_score = Revision.all.map(&:wp10_previous)
-    all_score.each do |sc|
-      expect(sc || 0).to be_between(0, 100)
-    end
-    all_previous_score.each do |sc|
-      expect(sc || 0).to be_between(0, 100)
-    end
-  end
-
   it 'marks TextDeleted revisions as deleted' do
     VCR.use_cassette 'revision_scores/deleted_revision' do
       # See https://ores.wikimedia.org/v2/scores/enwiki/wp10/708326238?features
@@ -185,40 +169,6 @@ describe RevisionScoreImporter do
           expect(subject[:rating]).to eq('D')
         end
       end
-    end
-  end
-
-  describe '.update_revision_scores_for_all_wikis' do
-    let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }
-
-    before do
-      stub_wiki_validation
-      LiftWingApi::AVAILABLE_WIKIPEDIAS.each do |lang|
-        wiki = Wiki.get_or_create(language: lang, project: 'wikipedia')
-        article = create(:article, wiki:)
-        create(:revision, article:, wiki:, mw_rev_id: 1234)
-      end
-      wikidata_item = create(:article, wiki: wikidata)
-      create(:revision, article: wikidata_item, wiki: wikidata, mw_rev_id: 12345)
-    end
-
-    it 'imports data and calcuates an article completeness score for available wikis' do
-      pending 'This sometimes fails, likely because of rate limiting. We should look into it.'
-
-      VCR.use_cassette 'revision_scores/multiwiki' do
-        described_class.update_revision_scores_for_all_wikis
-
-        LiftWingApi::AVAILABLE_WIKIPEDIAS.each do |lang|
-          wiki = Wiki.get_or_create(language: lang, project: 'wikipedia')
-          # This is fragile, because it assumes every available wiki has an existing
-          # revision 1234. But it works so far.
-          expect(wiki.revisions.first.wp10).to be_between(0, 100)
-        end
-
-        expect(wikidata.revisions.first.features).not_to be_empty
-      end
-
-      pass_pending_spec
     end
   end
 

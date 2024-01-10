@@ -10,16 +10,6 @@ class RevisionScoreImporter
   ################
   # Entry points #
   ################
-  def self.update_revision_scores_for_all_wikis
-    LiftWingApi::AVAILABLE_WIKIPEDIAS.each do |language|
-      new(language:).update_revision_scores
-      new(language:).update_previous_revision_scores
-    end
-
-    new(language: nil, project: 'wikidata').update_revision_scores
-    new(language: nil, project: 'wikidata').update_previous_revision_scores
-  end
-
   def self.update_revision_scores_for_course(course, update_service: nil)
     course.wikis.each do |wiki|
       next unless LiftWingApi.valid_wiki?(wiki)
