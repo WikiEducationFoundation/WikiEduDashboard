@@ -15,7 +15,7 @@ import { enableAccountRequests } from '../../actions/new_account_actions.js';
 import { needsUpdate, linkToSalesforce, updateSalesforceRecord, deleteCourse } from '../../actions/course_actions';
 import { STUDENT_ROLE, ONLINE_VOLUNTEER_ROLE } from '../../constants/user_roles';
 import { removeUser } from '../../actions/user_actions';
-import { NotifyInstructorsButton } from './notify_instructors_button.jsx';
+import NotifyInstructorsButton from './notify_instructors_button.jsx';
 
 const AvailableActions = createReactClass({
   displayName: 'AvailableActions',
@@ -194,7 +194,7 @@ const AvailableActions = createReactClass({
 
     if (user.admin) {
       controls.push((
-        <div key="notify_instructors" className="available-action"><NotifyInstructorsButton courseId={course.id} /></div>
+        <div key="notify_instructors" className="available-action"><NotifyInstructorsButton courseId={course.id} courseTitle={course.title} /></div>
       ));
     }
 
