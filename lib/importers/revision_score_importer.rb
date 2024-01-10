@@ -115,7 +115,7 @@ class RevisionScoreImporter
     return unless revision
     revision.wp10 = score.dig('wp10')
     revision.features = score.dig('features')
-    revision.deleted = score.dig('deleted')
+    revision.deleted = true if score.dig('deleted') # only modify the value if revision was deleted
     revision.save
   end
 
