@@ -27,6 +27,19 @@ class LiftWingApi # rubocop:disable Metrics/ClassLength
     @errors = []
   end
 
+  def get_revision_data(rev_ids)
+    results = {}
+    rev_ids.each do |rev_id|
+      results.deep_merge!({ rev_id.to_s => get_single_revision_parsed_data(rev_id) })
+    end
+
+    log_error_batch(rev_ids)
+
+    return results
+  end
+
+  private
+
   # Returns wp10, features, and deleted
   def get_single_revision_parsed_data(rev_id)
     body = { rev_id:, extended_output: true }.to_json
@@ -45,16 +58,12 @@ class LiftWingApi # rubocop:disable Metrics/ClassLength
       'deleted' => false,
       'prediction' => score.dig('score', 'prediction') } # only for revision feedback
   rescue StandardError => e
-    log_error(e, update_service: @update_service,
-      sentry_extra: { rev_id:, project_code: wiki_key,
-                      project_model: model_key })
+    @errors << e
     return {}
   end
 
   class InvalidProjectError < StandardError
   end
-
-  private
 
   # The top-level key representing the wiki in LiftWing data
   def wiki_key
@@ -84,6 +93,15 @@ class LiftWingApi # rubocop:disable Metrics/ClassLength
 
   # TODO: monitor production for errors, understand them, put benign ones here
   TYPICAL_ERRORS = [].freeze
+
+  def log_error_batch(rev_ids)
+    return if @errors.empty?
+
+    log_error(@errors.first, update_service: @update_service,
+      sentry_extra: { rev_ids:, project_code: wiki_key,
+                      project_model: model_key,
+                      error_count: @errors.count })
+  end
 
   def deleted?(response)
     LiftWingApi::DELETED_REVISION_ERRORS.any? do |revision_error|
