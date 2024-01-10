@@ -4,6 +4,7 @@ require 'rails_helper'
 
 describe InstructorNotificationMailer do
   let(:course) { create(:course) }
+  let(:admin) { create(:admin, email: 'admin@wikiedu.org') }
   let(:instructor) { create(:user, email: 'instructor@wikiedu.org') }
   let!(:courses_user) do
     create(:courses_user, course_id: course.id, user_id: instructor.id,
@@ -18,7 +19,7 @@ describe InstructorNotificationMailer do
   # end
   let(:alert) do
     create(:alert, type: 'InstructorNotificationAlert', course_id: course.id,
-message: 'Test Email Content')
+message: 'Test Email Content', user: admin)
     Alert.last
   end
 
@@ -30,7 +31,7 @@ message: 'Test Email Content')
       expect(mail.subject).to include('New Notification from Admin') # subject defined in Alert Type
       expect(mail.to).to include(instructor.email)
       expect(mail.body).to include('Test Email Content')
-      # expect(mail.cc).to include(content_expert.email)
+      expect(mail.reply_to).to include(admin.email)
     end
   end
 end

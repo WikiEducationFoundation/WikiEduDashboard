@@ -9,9 +9,10 @@
               %h1.headline
                 = "New Notification from Admin"
               %p.paragraph
-                = "Hi #{@greeted_users},"
+                = "Dear Instructors,"
               %p.paragraph
-                = "You have received a new notification from the admin/staff:"
+                = "Course: "
+                %a{href: @course_link}= @course.title
               %p.paragraph
                 = "#{@message}"
 

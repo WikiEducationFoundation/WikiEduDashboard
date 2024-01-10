@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
 class AlertsController < ApplicationController
-  before_action :require_signed_in, only: [:create]
-  before_action :require_admin_permissions, only: [:resolve]
+  before_action :require_signed_in, only: [:create, :notify_instructors]
+  before_action :require_admin_permissions, only: [:resolve, :notify_instructors]
   before_action :set_alert, only: [:resolve]
-
   ALERT_TYPES = {
     'NeedHelpAlert' => NeedHelpAlert,
     'BadWorkAlert' => BadWorkAlert,
-    'ReviewRequestAlert' => ReviewRequestAlert
+    'ReviewRequestAlert' => ReviewRequestAlert,
   }.freeze
   # Creates alerts based on parameters. Doesn't require admin permission.
   # Other type of alerts are created via the update cycle, not directly by users.
@@ -39,6 +38,30 @@ class AlertsController < ApplicationController
     @alert.update resolved: true
 
     render json: { alert: @alert }
+  end
+
+  # Create alert and send notification to all the instructors of a course.
+  def notify_instructors
+    # Ensure that course_id and message are present in the request parameters
+    unless params[:course_id].present? && params[:message].present?
+      render json: { error: 'course_id and message are required fields' }, status: :bad_request
+      return
+    end
+
+    # Create a new InstructorNotificationAlert with the provided parameters
+    @alert = InstructorNotificationAlert.new(
+      course_id: params[:course_id],
+      message: params[:message],
+      user: current_user
+    )
+
+    if @alert.save
+      @alert.send_email # send email to all instructors of the course_id
+      render json: { alert: @alert }, status: :created
+    else
+      render json: { errors: @alert.errors, message: 'Unable to send notification to instructors' },
+             status: :unprocessable_entity
+    end
   end
 
   private

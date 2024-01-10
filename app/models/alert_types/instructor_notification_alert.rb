@@ -36,11 +36,7 @@ class InstructorNotificationAlert < Alert
     update(email_sent_at: Time.zone.now)
   end
 
-  def from_user
-    @from_user ||= SpecialUsers.classroom_program_manager # TODO: PV
-  end
-
   def reply_to
-    from_user&.email
+    User.find_by_id(user_id)&.email
   end
 end
