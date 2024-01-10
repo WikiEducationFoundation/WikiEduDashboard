@@ -37,6 +37,6 @@ class InstructorNotificationAlert < Alert
   end
 
   def reply_to
-    User.find_by_id(user_id)&.email
+    User.find_by(id: user_id)&.email
   end
 end
