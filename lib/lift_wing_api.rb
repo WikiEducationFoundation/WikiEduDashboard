@@ -2,7 +2,7 @@
 
 require_dependency "#{Rails.root}/lib/errors/api_error_handling"
 
-# Gets data from Lift Wing
+# Gets and processes data from Lift Wing
 # https://wikitech.wikimedia.org/wiki/Machine_Learning/LiftWing
 class LiftWingApi # rubocop:disable Metrics/ClassLength
   include ApiErrorHandling
