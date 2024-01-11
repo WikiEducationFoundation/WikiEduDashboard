@@ -22,8 +22,13 @@
 
 # Alert for when the first student enrolls in a classroom program course.
 class InstructorNotificationAlert < Alert
-  def main_subject
-    'New Notification from Admin'
+  def subject=(subject_text)
+    self.details ||= {}
+    self.details[:subject] = subject_text
+  end
+
+  def subject
+    details.present? ? details[:subject] : nil
   end
 
   def url

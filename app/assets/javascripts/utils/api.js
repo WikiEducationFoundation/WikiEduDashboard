@@ -602,10 +602,10 @@ const API = {
     });
   },
 
-  async createInstructorNotificationAlert(courseId, message) {
+  async createInstructorNotificationAlert(courseId, subject, message) {
     const response = await request(`alerts/notify_instructors`, {
       method: 'POST',
-      body: JSON.stringify({ course_id: courseId, message })
+      body: JSON.stringify({ course_id: courseId, message, subject })
     });
 
     if (!response.ok) {

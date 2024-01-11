@@ -10,7 +10,7 @@ class InstructorNotificationMailer < ApplicationMailer
     @alert = alert
     set_email_parameters
     params = { to: @instructors.pluck(:email),
-               subject: @alert.main_subject }
+               subject: @alert.subject }
     params[:reply_to] = @alert.reply_to unless @alert.reply_to.nil?
     mail(params)
   end
@@ -19,6 +19,7 @@ class InstructorNotificationMailer < ApplicationMailer
 
   def set_email_parameters
     @course = @alert.course
+    @subject = @alert.subject
     @instructors = @course.instructors
     @course_link = "https://#{ENV['dashboard_url']}/courses/#{@course.slug}"
     @message = @alert.message

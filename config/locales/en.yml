@@ -821,10 +821,20 @@ en:
     survey:
       notification_message: Take our survey for this course.
       link: Take Survey
-    notify_instructors: Notify Instructors
-    notify_instructors_feature_description: You can send notification alerts to Instructors through emails
-    send_notification_button_text: Send Notification
 
+  course_instructor_notification:
+    notify_instructors: Notify Instructors
+    notify_instructors_feature_description: Send notification alerts to Instructors through emails
+    send_notification_button_text: Send Notification
+    notification_sent_success: "Notification sent to all Instructors of Course %{courseTitle}"
+    notification_send_error_no_internet: "Unable to send request. Check if you are connected to the Internet."
+    notification_send_error_server: "Server Error: Unable to send notification (%{status} %{statusText})"
+    notification_empty_message: "Message cannot be empty"
+    confirm_send_notification: "Are you sure you want to send the notification to all the Instructors?"
+    write_subject: "Write Subject"
+    write_message_placeholder: "Write Message Here (Header and footer will be automatically included)"
+    sending_notification: "Sending Notification to Instructors"
+    
   # These are strings that are not specific to education/classroom contexts
   courses_generic:
     school_system: Academic System

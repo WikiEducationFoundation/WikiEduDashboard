@@ -9,7 +9,11 @@ class InstructorNotificationPreview < ActionMailer::Preview
   private
 
   def example_alert
-    Alert.new(type: 'InstructorNotificationAlert', course: Course.nonprivate.last,
-              message: 'Hello from Admin, This is a test notification!')
+    InstructorNotificationAlert.new(type: 'InstructorNotificationAlert',
+                                    course: Course.nonprivate.last,
+                                    message: 'Hello from Admin, This
+                                    is a test notification!',
+                                    user_id: 1,
+                                    subject: 'Test Subject')
   end
 end

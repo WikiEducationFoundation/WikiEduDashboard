@@ -42,21 +42,15 @@ class AlertsController < ApplicationController
 
   # Create alert and send notification to all the instructors of a course.
   def notify_instructors
-    # Ensure that course_id and message are present in the request parameters
-    unless params[:course_id].present? && params[:message].present?
-      render json: { error: 'course_id and message are required fields' }, status: :bad_request
+    unless params[:course_id].present? && params[:subject].present? && params[:message].present?
+      render json: { error: 'course_id, subject, and message are required fields' },
+             status: :bad_request
       return
     end
 
-    # Create a new InstructorNotificationAlert with the provided parameters
-    @alert = InstructorNotificationAlert.new(
-      course_id: params[:course_id],
-      message: params[:message],
-      user: current_user
-    )
+    @alert = build_instructor_notification_alert
 
-    if @alert.save
-      @alert.send_email # send email to all instructors of the course_id
+    if save_and_notify_instructors
       render json: { alert: @alert }, status: :created
     else
       render json: { errors: @alert.errors, message: 'Unable to send notification to instructors' },
@@ -65,6 +59,24 @@ class AlertsController < ApplicationController
   end
 
   private
+
+  def build_instructor_notification_alert
+    InstructorNotificationAlert.new(
+      course_id: params[:course_id],
+      message: params[:message],
+      user: current_user,
+      subject: params[:subject]
+    )
+  end
+
+  def save_and_notify_instructors
+    if @alert.save
+      @alert.send_email # send email to all instructors of the course_id
+      true
+    else
+      false
+    end
+  end
 
   def generate_ticket
     TicketDispenser::Dispenser.call(
