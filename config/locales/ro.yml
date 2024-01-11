@@ -4,6 +4,7 @@
 # Author: Alaskian
 # Author: Alesaru
 # Author: GabiBil
+# Author: Iketsi
 # Author: Minisarm
 # Author: NGC 54
 # Author: Strainu
@@ -11,6 +12,7 @@
 ---
 ro:
   application:
+    greeting: Bună ziua!
     sign_up_extended: Înregistrare prin Wikipedia
     submit: Trimite
   articles:

@@ -109,6 +109,14 @@ zh-TW:
     explore: 探索
     log_in: 登入至維基百科
     sign_up: 註冊維基百科
+    registration_advice:
+      username_rules:
+        heading: 使用者名稱規則
+        avoid_offensive_usernames: 請勿選擇具有冒犯、誤導、搗亂或宣傳性質的使用者名稱。
+        represent_individual: 使用者名稱必須代表個人編輯者。請不要使用學校或組織的名稱。
+      additional_advice:
+        heading: 建議
+        anonymous_username_recommendation: 維基教育建議選擇匿名使用者名稱，而不是含有您的真實姓名，或是其他身份資訊的名稱。
     sign_up_help: 要使用功能面板，您需要使用維基百科帳號登入，並允許功能面板存取維基百科帳號權限。您可以用已經存在的維基帳號登入或是建立一個新的。如果無法建立帳號的話，請聯絡
       dashboard@wikiedu.org。
   alerts:
