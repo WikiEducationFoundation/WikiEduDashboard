@@ -80,7 +80,8 @@ class RevisionScoreImporter
       next unless revision
       revision.wp10 = score.dig('wp10')
       revision.features = score.dig('features')
-      revision.deleted = true if score.dig('deleted') # only modify the value if revision was deleted
+      # only modify the existing deleted value if revision was deleted
+      revision.deleted = true if score.dig('deleted')
       revision.save
     end
   end
