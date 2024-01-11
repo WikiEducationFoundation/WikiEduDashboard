@@ -107,10 +107,20 @@ describe RevisionScoreImporter do
   end
 
   it 'handles network errors gracefully' do
+    revision = Revision.find_by(mw_rev_id: 662106477)
+    expect(revision.wp10).to be_nil
+    expect(revision.features).to eq({})
+    expect(revision.deleted).to eq(false)
+
     stub_request(:any, %r{https://api.wikimedia.org/service/lw/.*})
       .to_raise(Errno::ECONNREFUSED)
     described_class.new.update_revision_scores
-    expect(Revision.find_by(mw_rev_id: 662106477).wp10).to be_nil
+
+    # no value changed for the revision
+    revision = Revision.find_by(mw_rev_id: 662106477)
+    expect(revision.wp10).to be_nil
+    expect(revision.features).to eq({})
+    expect(revision.deleted).to eq(false)
   end
 
   # This probably represents buggy behavior from ores.
