@@ -27,6 +27,15 @@ class LiftWingApi # rubocop:disable Metrics/ClassLength
     @errors = []
   end
 
+  # Given an array of revision ids, it returns an array with useful metrics for those
+  # revision ids.
+  # Format result example:
+  # { 'rev_id0' => { 'wp10' => 0.2915228958136511656e2, 'features' => features_value,
+  #                 'deleted' => false, 'prediction' => 'Stub' }
+  #   ...
+  #   'rev_idn' => { 'wp10' => 0.285936675221734978e2, 'features' => features_value,
+  #                 'deleted' => false, 'prediction' => 'D' }
+  # }
   def get_revision_data(rev_ids)
     results = {}
     rev_ids.each do |rev_id|
@@ -40,7 +49,8 @@ class LiftWingApi # rubocop:disable Metrics/ClassLength
 
   private
 
-  # Returns wp10, features, and deleted
+  # Returns a has with wp10, features, deleted, and prediction, or empty hash if
+  # there is an error.
   def get_single_revision_parsed_data(rev_id)
     body = { rev_id:, extended_output: true }.to_json
     response = lift_wing_server.post(quality_query_url, body)
