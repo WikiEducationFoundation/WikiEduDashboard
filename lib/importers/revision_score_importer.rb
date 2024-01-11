@@ -28,7 +28,7 @@ class RevisionScoreImporter
   end
 
   # assumes a mediawiki rev_id from the correct Wikipedia
-  def fetch_ores_data_for_revision_id(rev_id)
+  def fetch_liftwing_data_for_revision_id(rev_id)
     result = @lift_wing_api.get_revision_data([rev_id])
     features = result.dig(rev_id.to_s, 'features')
     rating = result.dig(rev_id.to_s, 'prediction')

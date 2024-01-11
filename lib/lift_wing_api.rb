@@ -119,7 +119,7 @@ class LiftWingApi # rubocop:disable Metrics/ClassLength
     end
   end
 
-  # ORES articlequality ratings are often derived from the en.wiki system,
+  # LiftWing articlequality ratings are often derived from the en.wiki system,
   # so this is the fallback scheme.
   ENWIKI_WEIGHTING = { 'FA'    => 100,
                        'GA'    => 80,

@@ -141,7 +141,7 @@ describe RevisionScoreImporter do
     end
   end
 
-  describe '#fetch_ores_data_for_revision_id' do
+  describe '#fetch_liftwing_data_for_revision_id' do
     let(:rev_id) { 860858080 }
     # https://en.wikipedia.org/w/index.php?title=Hamlin_Park&oldid=860858080
     # https://www.wikidata.org/w/index.php?title=Q61734980&oldid=860858080
@@ -149,7 +149,7 @@ describe RevisionScoreImporter do
     let(:project) { 'wikipedia' }
     let(:subject) do
       described_class.new(language:, project:)
-                     .fetch_ores_data_for_revision_id(rev_id)
+                     .fetch_liftwing_data_for_revision_id(rev_id)
     end
 
     it 'returns a hash with a predicted rating and features' do
