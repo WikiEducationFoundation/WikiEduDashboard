@@ -127,6 +127,14 @@ const CourseDateUtils = {
     const timelineStart = startOfWeek(toDate(course.timeline_start));
     return differenceInWeeks(timelineStart, courseStart);
   },
+  getWeekStartDate(week, timelineStart) {
+    const weekStart = addWeeks(startOfWeek(toDate(timelineStart)), week.weekNumber - 1);
+    return this.formattedDateTime(weekStart);
+  },
+  getWeekEndDate(week, timelineStart) {
+    const weekEnd = endOfWeek(addWeeks(startOfWeek(toDate(timelineStart)), week.weekNumber - 1));
+    return this.formattedDateTime(weekEnd);
+  },
 
   // Returns array describing weekday meetings for each week
   // Ex: [["Sunday (01/09)"], ["Sunday (01/16)", "Wednesday (01/19)", "Thursday (01/20)"], []]

@@ -37,10 +37,12 @@ const Milestones = createReactClass({
         if (this.weekIsCompleted(week, currentWeek)) { classNames += ' completed'; }
         const rawHtml = md.render(block.content || '');
         const completionNote = this.weekIsCompleted(week, currentWeek) ? '- Complete' : undefined;
+        const weekStartDate = CourseDateUtils.getWeekStartDate(week, this.props.timelineStart);
+        const weekEndDate = CourseDateUtils.getWeekEndDate(week, this.props.timelineStart);
         return blocks.push(
           <div key={block.id} className="section-header">
             <div className={classNames}>
-              <p>Week {week.weekNumber + weekNumberOffset} {completionNote}</p>
+              <p>Week {week.weekNumber + weekNumberOffset} ({weekStartDate} to {weekEndDate}) {completionNote}</p>
               <div className="markdown" dangerouslySetInnerHTML={{ __html: rawHtml }} />
               <hr />
             </div>
