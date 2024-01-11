@@ -58,10 +58,6 @@ class RevisionScoreImporter
   ##################
   private
 
-  def model_key
-    @model_key ||= @wiki.project == 'wikidata' ? 'itemquality' : 'articlequality'
-  end
-
   def get_and_save_scores(rev_batch)
     scores = @lift_wing_api.get_revision_data rev_batch.map(&:mw_rev_id)
     save_scores(scores)
@@ -89,10 +85,10 @@ class RevisionScoreImporter
   def save_parent_scores(parent_revisions, scores)
     parent_revisions.each do |mw_rev_id, parent_id|
       next unless scores.key? parent_id
-      article_completeness = scores.dig(parent_id, 'wp10')
+      wp10_previous = scores.dig(parent_id, 'wp10')
       features_previous = scores.dig(parent_id, 'features')
       Revision.find_by(mw_rev_id: mw_rev_id.to_i, wiki: @wiki)
-              .update(wp10_previous: article_completeness, features_previous:)
+              .update(wp10_previous:, features_previous:)
     end
   end
 
