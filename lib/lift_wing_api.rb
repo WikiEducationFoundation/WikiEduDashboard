@@ -37,6 +37,8 @@ class LiftWingApi # rubocop:disable Metrics/ClassLength
   #                 'deleted' => false, 'prediction' => 'D' }
   # }
   def get_revision_data(rev_ids)
+    # Restart errors array
+    @errors = []
     results = {}
     rev_ids.each do |rev_id|
       results.deep_merge!({ rev_id.to_s => get_single_revision_parsed_data(rev_id) })
