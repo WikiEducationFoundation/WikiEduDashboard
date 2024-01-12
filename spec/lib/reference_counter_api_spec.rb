@@ -9,8 +9,8 @@ describe ReferenceCounterApi do
   let(:en_wikipedia) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
   let(:es_wiktionary) { Wiki.get_or_create(language: 'es', project: 'wiktionary') }
   let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }
-  let(:deleted_rev_id) { 708326238 }
-  let(:rev_id) { 5006942 }
+  let(:deleted_rev_ids) { [708326238] }
+  let(:rev_ids) { [5006940, 5006942, 5006946] }
 
   it 'raises InvalidProjectError if using wikidata project' do
     expect do
@@ -20,11 +20,13 @@ describe ReferenceCounterApi do
 
   it 'returns the number of references if response is 200 OK', vcr: true do
     ref_counter_api = described_class.new(es_wiktionary)
-    number_of_references = ref_counter_api.get_number_of_references_from_revision_id rev_id
-    expect(number_of_references).to eq(4)
+    response = ref_counter_api.get_number_of_references_from_revision_ids rev_ids
+    expect(response.dig('5006940', 'num_ref')).to eq(10)
+    expect(response.dig('5006942', 'num_ref')).to eq(4)
+    expect(response.dig('5006946', 'num_ref')).to eq(2)
   end
 
-  it 'returns nil and logs the message if revision id is not 200 OK', vcr: true do
+  it 'returns empty hash and logs the message if response is not 200 OK', vcr: true do
     ref_counter_api = described_class.new(en_wikipedia)
     expect(Sentry).to receive(:capture_message).with(
       'Non-200 response hitting references counter API',
@@ -40,11 +42,11 @@ describe ReferenceCounterApi do
         }
       }
     )
-    number_of_references = ref_counter_api.get_number_of_references_from_revision_id deleted_rev_id
-    expect(number_of_references).to eq(nil)
+    response = ref_counter_api.get_number_of_references_from_revision_ids deleted_rev_ids
+    expect(response.dig('708326238')).to eq({})
   end
 
-  it 'returns nil and logs the error if an unexpected error raises', vcr: true do
+  it 'returns empty hash and logs the error if an unexpected error raises', vcr: true do
     reference_counter_api = described_class.new(es_wiktionary)
 
     allow_any_instance_of(Faraday::Connection).to receive(:get)
@@ -56,10 +58,13 @@ describe ReferenceCounterApi do
       sentry_extra: {
          project_code: 'wiktionary',
          language_code: 'es',
-         rev_id: 5006942
+         rev_ids: [5006940, 5006942, 5006946],
+         error_count: 3
      }
     )
-    number_of_references = reference_counter_api.get_number_of_references_from_revision_id rev_id
-    expect(number_of_references).to eq(nil)
+    response = reference_counter_api.get_number_of_references_from_revision_ids rev_ids
+    expect(response.dig('5006940')).to eq({})
+    expect(response.dig('5006942')).to eq({})
+    expect(response.dig('5006946')).to eq({})
   end
 end
