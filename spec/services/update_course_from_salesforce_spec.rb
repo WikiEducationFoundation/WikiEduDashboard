@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/app/services/update_course_from_salesforce"
+require Rails.root.join('/app/services/update_course_from_salesforce')
 
 describe UpdateCourseFromSalesforce do
   let(:course) { create(:course, flags:) }

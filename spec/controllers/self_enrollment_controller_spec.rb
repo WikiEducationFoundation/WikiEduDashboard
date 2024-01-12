@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/wiki_course_edits"
-require "#{Rails.root}/lib/wiki_preferences_manager"
+require Rails.root.join('lib/wiki_course_edits')
+require Rails.root.join('lib/wiki_preferences_manager')
 
 describe SelfEnrollmentController, type: :request do
   let(:slug_params) { 'Wikipedia_Fellows/Basket-weaving_fellows_(summer_2018)' }

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/data_cycle/survey_update"
+require Rails.root.join('lib/data_cycle/survey_update')
 
 describe SurveyUpdate do
   describe '#initialize' do

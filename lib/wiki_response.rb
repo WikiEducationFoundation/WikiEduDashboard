@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/app/workers/blocked_edits_worker"
+require_dependency Rails.root.join('app/workers/blocked_edits_worker')
 #= Reports message to Sentry about the success or failure of wiki edits
 class WikiResponse
   ###############

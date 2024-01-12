@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/student_greeting_checker"
+require Rails.root.join('lib/student_greeting_checker')
 
 describe StudentGreetingChecker do
   describe '.check_all_ungreeted_students' do

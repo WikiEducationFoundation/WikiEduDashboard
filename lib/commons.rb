@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'json'
-require_dependency "#{Rails.root}/lib/wiki_api"
+require_dependency Rails.root.join('lib/wiki_api')
 
 #= This class is for getting data directly from the Wikimedia Commons API.
 class Commons

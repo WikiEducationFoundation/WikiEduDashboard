@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/training_progress_manager"
+require Rails.root.join('lib/training_progress_manager')
 
 describe TrainingProgressManager do
   subject { described_class.new(user, t_module) }

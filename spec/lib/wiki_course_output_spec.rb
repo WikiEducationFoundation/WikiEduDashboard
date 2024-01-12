@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/wiki_course_output"
+require Rails.root.join('lib/wiki_course_output')
 
 describe WikiCourseOutput do
   describe '.translate_course_to_wikitext' do

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/importers/revision_score_importer"
+require Rails.root.join('lib/importers/revision_score_importer')
 
 describe RevisionScoreImporter do
   before do

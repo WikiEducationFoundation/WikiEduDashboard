@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/app/workers/update_wikidata_stats_worker"
+require Rails.root.join('app/workers/update_wikidata_stats_worker')
 
 describe UpdateWikidataStatsWorker do
   let(:course) { create(:course) }

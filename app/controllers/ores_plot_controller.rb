@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 require 'csv'
-require_dependency "#{Rails.root}/lib/analytics/histogram_plotter"
+require_dependency Rails.root.join('lib/analytics/histogram_plotter')
 
 class OresPlotController < ApplicationController
   def course_plot

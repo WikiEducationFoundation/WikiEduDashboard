@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/importers/assigned_article_importer"
+require_dependency Rails.root.join('lib/importers/assigned_article_importer')
 
 class FindAssignmentsWorker
   include Sidekiq::Worker

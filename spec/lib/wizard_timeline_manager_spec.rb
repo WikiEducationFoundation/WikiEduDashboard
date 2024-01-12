@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/wizard_timeline_manager"
+require Rails.root.join('lib/wizard_timeline_manager')
 
 describe WizardTimelineManager do
   describe 'researchwrite wizard' do

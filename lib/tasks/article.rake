@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/articles_courses_cleaner"
-require "#{Rails.root}/lib/importers/assigned_article_importer"
+require Rails.root.join('lib/articles_courses_cleaner')
+require Rails.root.join('lib/importers/assigned_article_importer')
 
 namespace :article do
   # These tasks are intended for ad-hoc use to resolve problems

@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/alerts/articles_for_deletion_monitor"
-require_dependency "#{Rails.root}/lib/alerts/dyk_nomination_monitor"
-require_dependency "#{Rails.root}/lib/alerts/ga_nomination_monitor"
-require_dependency "#{Rails.root}/lib/alerts/course_alert_manager"
-require_dependency "#{Rails.root}/lib/alerts/survey_response_alert_manager"
-require_dependency "#{Rails.root}/lib/alerts/discretionary_sanctions_monitor"
-require_dependency "#{Rails.root}/lib/alerts/high_quality_article_monitor"
-require_dependency "#{Rails.root}/lib/alerts/protected_article_monitor"
-require_dependency "#{Rails.root}/lib/alerts/blocked_user_monitor"
-require "#{Rails.root}/lib/alerts/de_userfying_edit_alert_monitor"
-require "#{Rails.root}/lib/alerts/medicine_article_monitor"
+require_dependency Rails.root.join('lib/alerts/articles_for_deletion_monitor')
+require_dependency Rails.root.join('lib/alerts/dyk_nomination_monitor')
+require_dependency Rails.root.join('lib/alerts/ga_nomination_monitor')
+require_dependency Rails.root.join('lib/alerts/course_alert_manager')
+require_dependency Rails.root.join('lib/alerts/survey_response_alert_manager')
+require_dependency Rails.root.join('lib/alerts/discretionary_sanctions_monitor')
+require_dependency Rails.root.join('lib/alerts/high_quality_article_monitor')
+require_dependency Rails.root.join('lib/alerts/protected_article_monitor')
+require_dependency Rails.root.join('lib/alerts/blocked_user_monitor')
+require Rails.root.join('lib/alerts/de_userfying_edit_alert_monitor')
+require Rails.root.join('lib/alerts/medicine_article_monitor')
 
 module UpdateCycleAlertGenerator
   # rubocop:disable Metrics/MethodLength

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require 'csv'
-require_dependency "#{Rails.root}/lib/importers/revision_score_importer"
-require_dependency "#{Rails.root}/app/helpers/article_helper"
+require_dependency Rails.root.join('lib/importers/revision_score_importer')
+require_dependency Rails.root.join('app/helpers/article_helper')
 
 class OresDiffCsvBuilder
   include ArticleHelper

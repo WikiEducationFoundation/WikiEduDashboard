@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/alerts/overdue_training_alert_manager"
+require_dependency Rails.root.join('lib/alerts/overdue_training_alert_manager')
 
 class OverdueTrainingAlertWorker
   include Sidekiq::Worker

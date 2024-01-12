@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/training_progress_manager"
-require_dependency "#{Rails.root}/lib/data_cycle/training_update"
-require_dependency "#{Rails.root}/lib/training/training_resource_query_object"
+require_dependency Rails.root.join('lib/training_progress_manager')
+require_dependency Rails.root.join('lib/data_cycle/training_update')
+require_dependency Rails.root.join('lib/training/training_resource_query_object')
 
 class TrainingController < ApplicationController
   layout 'training'

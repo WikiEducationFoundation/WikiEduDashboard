@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/training/training_base"
+require Rails.root.join('lib/training/training_base')
 
 describe TrainingBase do
   before do
@@ -14,7 +14,7 @@ describe TrainingBase do
     context 'when a module file is misformatted' do
       before do
         allow(described_class).to receive(:base_path)
-          .and_return("#{Rails.root}/spec/support/bad_yaml")
+          .and_return(Rails.root.join('spec/support/bad_yaml'))
       end
 
       it 'raises an error' do
@@ -27,7 +27,7 @@ describe TrainingBase do
 
       before do
         allow(described_class).to receive(:base_path)
-          .and_return("#{Rails.root}/spec/support/bad_yaml_slide")
+          .and_return(Rails.root.join('spec/support/bad_yaml_slide'))
       end
 
       it 'raises an error that includes the filename of the bad file' do
@@ -39,7 +39,7 @@ describe TrainingBase do
     context 'when libraries have slug collisions' do
       before do
         allow(described_class).to receive(:base_path)
-          .and_return("#{Rails.root}/spec/support/duplicate_yaml_slugs")
+          .and_return(Rails.root.join('spec/support/duplicate_yaml_slugs'))
         allow(TrainingLibrary).to receive(:trim_id_from_filename).and_return(true)
       end
 
@@ -56,7 +56,7 @@ describe TrainingBase do
 
       before do
         allow(described_class).to receive(:base_path)
-          .and_return("#{Rails.root}/spec/support/bad_yaml")
+          .and_return(Rails.root.join('spec/support/bad_yaml'))
       end
 
       it 'raises an error' do

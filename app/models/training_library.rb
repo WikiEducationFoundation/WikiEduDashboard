@@ -15,7 +15,7 @@
 #  updated_at         :datetime         not null
 #
 
-require_dependency "#{Rails.root}/lib/training/training_base"
+require_dependency Rails.root.join('lib/training/training_base')
 
 #= Class representing an individual training module
 class TrainingLibrary < ApplicationRecord

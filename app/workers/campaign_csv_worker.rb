@@ -1,6 +1,6 @@
 # frozen_string_literal: true
-require_dependency "#{Rails.root}/lib/analytics/campaign_csv_builder"
-require_dependency "#{Rails.root}/app/workers/csv_cleanup_worker"
+require_dependency Rails.root.join('lib/analytics/campaign_csv_builder')
+require_dependency Rails.root.join('app/workers/csv_cleanup_worker')
 
 class CampaignCsvWorker
   include Sidekiq::Worker

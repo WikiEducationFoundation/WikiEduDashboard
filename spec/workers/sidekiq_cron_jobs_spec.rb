@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 require 'rails_helper'
-require "#{Rails.root}/app/workers/daily_update_worker"
-require "#{Rails.root}/app/workers/survey_update_worker"
-require "#{Rails.root}/app/workers/ticket_notifications_worker"
+require Rails.root.join('app/workers/daily_update_worker')
+require Rails.root.join('app/workers/survey_update_worker')
+require Rails.root.join('app/workers/ticket_notifications_worker')
 
 describe 'workers scheduled via sidekiq-cron' do
   it 'run daily updates' do

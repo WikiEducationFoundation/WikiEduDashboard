@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/course_meetings_manager"
+require_dependency Rails.root.join('lib/course_meetings_manager')
 
 class BlockDateManager
   def initialize(block, meetings_manager = nil)

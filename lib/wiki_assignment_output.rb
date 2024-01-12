@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/wiki_api"
-require_dependency "#{Rails.root}/lib/wiki_output_templates"
+require_dependency Rails.root.join('lib/wiki_api')
+require_dependency Rails.root.join('lib/wiki_output_templates')
 #= Class for generating wikitext for updating assignment details on talk pages
 class WikiAssignmentOutput
   include WikiOutputTemplates

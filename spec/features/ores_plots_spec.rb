@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/analytics/histogram_plotter"
+require Rails.root.join('lib/analytics/histogram_plotter')
 
 describe 'ORES plots', type: :feature do
   describe 'for a single course' do

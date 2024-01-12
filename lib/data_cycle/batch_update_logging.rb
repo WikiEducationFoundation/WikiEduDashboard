@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'action_view'
-require_dependency "#{Rails.root}/lib/data_cycle/update_logger"
+require_dependency Rails.root.join('lib/data_cycle/update_logger')
 
 module BatchUpdateLogging
   include ActionView::Helpers::DateHelper

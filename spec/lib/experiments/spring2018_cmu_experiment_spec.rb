@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/experiments/spring2018_cmu_experiment"
+require Rails.root.join('lib/experiments/spring2018_cmu_experiment')
 
 describe Spring2018CmuExperiment do
   let(:spring_2018) { create(:campaign, slug: 'spring_2018') }

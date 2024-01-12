@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/revision_analytics_service"
+require Rails.root.join('lib/revision_analytics_service')
 
 describe 'activity page', type: :feature, js: true do
   before do

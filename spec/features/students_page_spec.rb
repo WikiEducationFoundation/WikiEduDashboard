@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/wiki_edits"
+require Rails.root.join('lib/wiki_edits')
 
 # Wait one second after loading a path
 # Allows React to properly load the page

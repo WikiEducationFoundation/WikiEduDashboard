@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/wiki_api"
-require_dependency "#{Rails.root}/lib/wiki_edits"
+require_dependency Rails.root.join('lib/wiki_api')
+require_dependency Rails.root.join('lib/wiki_edits')
 
 class AddSandboxTemplate
   DEFAULT_TEMPLATE = '{{user sandbox}}'

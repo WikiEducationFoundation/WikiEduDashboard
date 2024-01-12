@@ -8,8 +8,8 @@
 #  language :string(16)
 #  project  :string(16)
 #
-require_dependency "#{Rails.root}/lib/wiki_api"
-require_dependency "#{Rails.root}/lib/word_count"
+require_dependency Rails.root.join('lib/wiki_api')
+require_dependency Rails.root.join('lib/word_count')
 
 class Wiki < ApplicationRecord
   has_many :articles

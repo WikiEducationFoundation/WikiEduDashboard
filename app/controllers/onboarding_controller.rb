@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/alerts/onboarding_alert_manager"
+require_dependency Rails.root.join('lib/alerts/onboarding_alert_manager')
 
 #= Controller for onboarding
 class OnboardingController < ApplicationController

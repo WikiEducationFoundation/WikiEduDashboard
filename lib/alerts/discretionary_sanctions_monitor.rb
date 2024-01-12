@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/importers/category_importer"
+require_dependency Rails.root.join('lib/importers/category_importer')
 
 # This class identifies articles that are tagged with discretionary sanctions
 # templates, and generates alerts for the articles that have been edited by

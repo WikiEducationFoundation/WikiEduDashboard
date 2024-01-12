@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/alerts/check_timeline_alert_manager"
+require Rails.root.join('lib/alerts/check_timeline_alert_manager')
 
 describe CheckTimelineAlertManager do
   let(:course) { create(:course) }

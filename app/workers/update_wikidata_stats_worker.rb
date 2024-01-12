@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/app/services/update_wikidata_stats"
+require_dependency Rails.root.join('app/services/update_wikidata_stats')
 
 class UpdateWikidataStatsWorker
   include Sidekiq::Worker

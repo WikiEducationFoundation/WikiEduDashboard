@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/wiki_course_edits"
+require Rails.root.join('lib/wiki_course_edits')
 
 describe WikiCourseEdits do
   let(:home_wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }

@@ -28,7 +28,7 @@ describe TrainingModule do
       before do
         allow(described_class).to receive(:trim_id_from_filename).and_return(true)
         allow(described_class).to receive(:base_path)
-          .and_return("#{Rails.root}/spec/support/duplicate_yaml_slugs")
+          .and_return(Rails.root.join('/spec/support/duplicate_yaml_slugs'))
       end
 
       it 'raises an error noting the duplicate slug name' do

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/trained_students_manager"
+require Rails.root.join('lib/trained_students_manager')
 
 describe TrainedStudentsManager do
   before { TrainingModule.load_all }

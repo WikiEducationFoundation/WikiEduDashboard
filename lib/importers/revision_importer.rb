@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/replica"
-require_dependency "#{Rails.root}/lib/duplicate_article_deleter"
-require_dependency "#{Rails.root}/lib/importers/article_importer"
-require_dependency "#{Rails.root}/app/helpers/encoding_helper"
+require_dependency Rails.root.join('lib/replica')
+require_dependency Rails.root.join('lib/duplicate_article_deleter')
+require_dependency Rails.root.join('lib/importers/article_importer')
+require_dependency Rails.root.join('app/helpers/encoding_helper')
 
 #= Imports and updates revisions from Wikipedia into the dashboard database
 class RevisionImporter

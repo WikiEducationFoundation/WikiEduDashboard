@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/importers/plagiabot_importer"
+require Rails.root.join('lib/importers/plagiabot_importer')
 
 describe RecentActivityController, type: :request do
   let(:user) { create(:user) }

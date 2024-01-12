@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/utils/string_utils"
+require_dependency Rails.root.join('lib/utils/string_utils')
 
 class TrainingResourceQueryObject
   EXCERPT_LENGTH = 60

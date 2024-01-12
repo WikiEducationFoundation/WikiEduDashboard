@@ -17,8 +17,8 @@
 #  flags         :text(65535)
 #
 
-require_dependency "#{Rails.root}/lib/article_utils"
-require_dependency "#{Rails.root}/lib/assignment_pipeline"
+require_dependency Rails.root.join('lib/article_utils')
+require_dependency Rails.root.join('lib/assignment_pipeline')
 
 #= Assignment model
 class Assignment < ApplicationRecord

@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/wiki_edits"
-require_dependency "#{Rails.root}/lib/wiki_course_output"
-require_dependency "#{Rails.root}/lib/wiki_assignment_output"
-require_dependency "#{Rails.root}/lib/wiki_userpage_output"
-require_dependency "#{Rails.root}/lib/wikitext"
-require_dependency "#{Rails.root}/lib/wiki_output_templates"
-require_dependency "#{Rails.root}/lib/wiki_api"
-require_dependency "#{Rails.root}/app/services/add_sandbox_template"
+require_dependency Rails.root.join('lib/wiki_edits')
+require_dependency Rails.root.join('lib/wiki_course_output')
+require_dependency Rails.root.join('lib/wiki_assignment_output')
+require_dependency Rails.root.join('lib/wiki_userpage_output')
+require_dependency Rails.root.join('lib/wikitext')
+require_dependency Rails.root.join('lib/wiki_output_templates')
+require_dependency Rails.root.join('lib/wiki_api')
+require_dependency Rails.root.join('app/services/add_sandbox_template')
 
 #= Class for making wiki edits for a particular course
 class WikiCourseEdits

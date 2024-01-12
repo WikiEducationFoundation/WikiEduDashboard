@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/revision_stat"
+require Rails.root.join('lib/revision_stat')
 
 describe RevisionStat do
   let(:created_date)     { 1.day.ago }

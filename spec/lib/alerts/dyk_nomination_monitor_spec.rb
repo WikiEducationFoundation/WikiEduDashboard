@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/alerts/dyk_nomination_monitor"
+require Rails.root.join('lib/alerts/dyk_nomination_monitor')
 
 describe DYKNominationMonitor do
   describe '.create_alerts_for_course_articles' do

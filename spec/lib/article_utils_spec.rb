@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/article_utils"
+require Rails.root.join('lib/article_utils')
 
 class MockWiktionary
   def self.project

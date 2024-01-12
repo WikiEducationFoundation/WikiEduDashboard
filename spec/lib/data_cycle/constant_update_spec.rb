@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/data_cycle/constant_update"
+require Rails.root.join('lib/data_cycle/constant_update')
 
 describe ConstantUpdate do
   describe 'on initialization' do

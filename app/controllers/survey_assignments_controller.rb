@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require 'rake'
-require_dependency "#{Rails.root}/lib/surveys/survey_notifications_manager"
-require_dependency "#{Rails.root}/lib/surveys/survey_test_email_manager"
+require_dependency Rails.root.join('lib/surveys/survey_notifications_manager')
+require_dependency Rails.root.join('lib/surveys/survey_test_email_manager')
 
 WikiEduDashboard::Application.load_tasks
 

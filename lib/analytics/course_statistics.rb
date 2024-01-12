@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/word_count"
+require_dependency Rails.root.join('lib/word_count')
 
 #= Utilities for calcuating statistics for course activity
 class CourseStatistics

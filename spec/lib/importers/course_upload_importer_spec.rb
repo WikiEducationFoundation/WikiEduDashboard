@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/importers/course_upload_importer"
+require Rails.root.join('lib/importers/course_upload_importer')
 
 describe CourseUploadImporter do
   let(:course) do

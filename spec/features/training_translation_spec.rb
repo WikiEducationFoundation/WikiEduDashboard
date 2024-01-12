@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/data_cycle/training_update"
+require Rails.root.join('lib/data_cycle/training_update')
 
 describe 'Training Translations', type: :feature, js: true do
   let(:basque_user) { create(:user, id: 2, username: 'ibarra', locale: 'eu') }

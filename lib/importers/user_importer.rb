@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/replica"
-require_dependency "#{Rails.root}/lib/wiki_api"
+require_dependency Rails.root.join('lib/replica')
+require_dependency Rails.root.join('lib/wiki_api')
 
 #= Imports and updates users from Wikipedia into the dashboard database
 class UserImporter

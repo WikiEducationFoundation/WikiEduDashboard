@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/modified_revisions_manager"
-require_dependency "#{Rails.root}/lib/assignment_updater"
+require_dependency Rails.root.join('lib/modified_revisions_manager')
+require_dependency Rails.root.join('lib/assignment_updater')
 
 #= Updates articles to reflect deletion and page moves on Wikipedia
 class ArticleStatusManager

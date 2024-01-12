@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/experiments/fall2017_cmu_experiment"
-require "#{Rails.root}/lib/experiments/spring2018_cmu_experiment"
+require Rails.root.join('lib/experiments/fall2017_cmu_experiment')
+require Rails.root.join('lib/experiments/spring2018_cmu_experiment')
 
 namespace :experiments do
   desc 'Process Fall 2017 courses for CMU experiment'

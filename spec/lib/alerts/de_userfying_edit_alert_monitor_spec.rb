@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/alerts/de_userfying_edit_alert_monitor"
-require "#{Rails.root}/lib/importers/article_importer"
+require Rails.root.join('lib/alerts/de_userfying_edit_alert_monitor')
+require Rails.root.join('lib/importers/article_importer')
 
 def mock_mailer
   OpenStruct.new(deliver_now: true)

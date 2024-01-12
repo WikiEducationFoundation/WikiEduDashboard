@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/category_utils"
-require_dependency "#{Rails.root}/lib/wiki_api"
+require_dependency Rails.root.join('lib/category_utils')
+require_dependency Rails.root.join('lib/wiki_api')
 
 # Fetches data about which wiki pages transclude a given page
 class TransclusionImporter

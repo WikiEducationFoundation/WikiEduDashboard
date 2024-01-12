@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/importers/category_importer"
+require_dependency Rails.root.join('lib/importers/category_importer')
 
 # This class identifies articles that have been nominated
 # for the Did You Know process on English Wikipedia

@@ -3,9 +3,9 @@
 # The application controller is the parent for all other controllers.
 # It includes methods are relevant across the application, such as permissions
 # and login.
-require_dependency "#{Rails.root}/lib/errors/authentication_errors"
-require_dependency "#{Rails.root}/lib/errors/rescue_development_errors"
-require_dependency "#{Rails.root}/lib/errors/rescue_errors"
+require_dependency Rails.root.join('lib/errors/authentication_errors')
+require_dependency Rails.root.join('lib/errors/rescue_development_errors')
+require_dependency Rails.root.join('lib/errors/rescue_errors')
 
 class ApplicationController < ActionController::Base
   include Errors::RescueDevelopmentErrors if Rails.env.development? || Rails.env.test?

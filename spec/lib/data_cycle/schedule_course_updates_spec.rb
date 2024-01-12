@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/data_cycle/schedule_course_updates"
+require Rails.root.join('lib/data_cycle/schedule_course_updates')
 
 describe ScheduleCourseUpdates do
   let(:fast_update_logs) do

@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/app/workers/daily_update/update_users_worker"
-require_dependency "#{Rails.root}/app/workers/daily_update/update_commons_uploads_worker"
-require_dependency "#{Rails.root}/app/workers/daily_update/find_assignments_worker"
-require_dependency "#{Rails.root}/app/workers/daily_update/clean_articles_courses_worker"
-require_dependency "#{Rails.root}/app/workers/daily_update/import_ratings_worker"
-require_dependency "#{Rails.root}/app/workers/daily_update/import_wikidata_summaries_worker"
-require_dependency "#{Rails.root}/app/workers/daily_update/overdue_training_alert_worker"
-require_dependency "#{Rails.root}/app/workers/daily_update/salesforce_sync_worker"
+require_dependency Rails.root.join('app/workers/daily_update/update_users_worker')
+require_dependency Rails.root.join('app/workers/daily_update/update_commons_uploads_worker')
+require_dependency Rails.root.join('app/workers/daily_update/find_assignments_worker')
+require_dependency Rails.root.join('app/workers/daily_update/clean_articles_courses_worker')
+require_dependency Rails.root.join('app/workers/daily_update/import_ratings_worker')
+require_dependency Rails.root.join('app/workers/daily_update/import_wikidata_summaries_worker')
+require_dependency Rails.root.join('app/workers/daily_update/overdue_training_alert_worker')
+require_dependency Rails.root.join('app/workers/daily_update/salesforce_sync_worker')
 
-require_dependency "#{Rails.root}/lib/data_cycle/batch_update_logging"
-require_dependency "#{Rails.root}/lib/automated_emails/term_recap_email_scheduler"
+require_dependency Rails.root.join('lib/data_cycle/batch_update_logging')
+require_dependency Rails.root.join('lib/automated_emails/term_recap_email_scheduler')
 
 # Executes all the steps of 'update_constantly' data import task
 class DailyUpdate

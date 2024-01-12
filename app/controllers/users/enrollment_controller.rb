@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/wiki_course_edits"
-require_dependency "#{Rails.root}/app/workers/update_course_worker"
-require_dependency "#{Rails.root}/lib/importers/user_importer"
+require_dependency Rails.root.join('lib/wiki_course_edits')
+require_dependency Rails.root.join('app/workers/update_course_worker')
+require_dependency Rails.root.join('lib/importers/user_importer')
 
 class Users::EnrollmentController < ApplicationController
   respond_to :html, :json

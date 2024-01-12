@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/assignment_updater"
+require Rails.root.join('lib/assignment_updater')
 
 describe AssignmentUpdater do
   describe '.update_assignment_article_ids' do

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/alerts/blocked_user_monitor"
+require Rails.root.join('lib/alerts/blocked_user_monitor')
 
 describe BlockedUserMonitor do
   describe '.create_alerts_for_recently_blocked_users' do

@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/analytics/monthly_report"
-require_dependency "#{Rails.root}/lib/analytics/course_statistics"
-require_dependency "#{Rails.root}/lib/analytics/course_csv_builder"
-require_dependency "#{Rails.root}/lib/analytics/course_edits_csv_builder"
-require_dependency "#{Rails.root}/lib/analytics/course_uploads_csv_builder"
-require_dependency "#{Rails.root}/lib/analytics/course_students_csv_builder"
-require_dependency "#{Rails.root}/lib/analytics/course_articles_csv_builder"
-require_dependency "#{Rails.root}/lib/analytics/course_revisions_csv_builder"
-require_dependency "#{Rails.root}/lib/analytics/course_wikidata_csv_builder"
-require_dependency "#{Rails.root}/lib/analytics/campaign_csv_builder"
-require_dependency "#{Rails.root}/lib/analytics/ungreeted_list"
+require_dependency Rails.root.join('lib/analytics/monthly_report')
+require_dependency Rails.root.join('lib/analytics/course_statistics')
+require_dependency Rails.root.join('lib/analytics/course_csv_builder')
+require_dependency Rails.root.join('lib/analytics/course_edits_csv_builder')
+require_dependency Rails.root.join('lib/analytics/course_uploads_csv_builder')
+require_dependency Rails.root.join('lib/analytics/course_students_csv_builder')
+require_dependency Rails.root.join('lib/analytics/course_articles_csv_builder')
+require_dependency Rails.root.join('lib/analytics/course_revisions_csv_builder')
+require_dependency Rails.root.join('lib/analytics/course_wikidata_csv_builder')
+require_dependency Rails.root.join('lib/analytics/campaign_csv_builder')
+require_dependency Rails.root.join('lib/analytics/ungreeted_list')
 
 #= Controller for analytics tools
 class AnalyticsController < ApplicationController

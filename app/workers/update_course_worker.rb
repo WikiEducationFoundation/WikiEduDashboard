@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/wiki_course_edits"
+require_dependency Rails.root.join('lib/wiki_course_edits')
 
 class UpdateCourseWorker
   include Sidekiq::Worker

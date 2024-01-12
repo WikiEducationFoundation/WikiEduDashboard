@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/importers/wikidata_summary_importer"
+require Rails.root.join('lib/importers/wikidata_summary_importer')
 
 describe WikidataSummaryImporter do
   let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }

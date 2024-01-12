@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/training/training_resource_query_object"
+require Rails.root.join('lib/training/training_resource_query_object')
 
 describe TrainingResourceQueryObject do
   before(:all) do

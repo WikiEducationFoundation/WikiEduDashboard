@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/wiki_pageviews"
+require_dependency Rails.root.join('lib/wiki_pageviews')
 
 class AverageViewsImporter
   DAYS_UNTIL_OUTDATED = 14

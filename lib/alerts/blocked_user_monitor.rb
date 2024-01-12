@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require_dependency "#{Rails.root}/app/helpers/encoding_helper"
+require_dependency Rails.root.join('app/helpers/encoding_helper')
 
 # This class checks recent block logs and creates alerts
 # for any active Dashboard users who were blocked.

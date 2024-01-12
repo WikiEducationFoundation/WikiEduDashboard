@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/app/controllers/experiments/spring2018_cmu_experiment_controller"
+require Rails.root.join('app/controllers/experiments/spring2018_cmu_experiment_controller')
 
 describe 'email links for Spring 2018 CMU experiment', type: :feature do
   let(:admin) { create(:admin) }

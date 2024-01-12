@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/setup/populate_dashboard"
-require "#{Rails.root}/setup/populate_surveys"
+require Rails.root.join('setup/populate_dashboard')
+require Rails.root.join('setup/populate_surveys')
 
 namespace :dev do
   desc 'Set up some example data'

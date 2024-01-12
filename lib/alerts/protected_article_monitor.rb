@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/importers/category_importer"
-require_dependency "#{Rails.root}/app/helpers/encoding_helper"
+require_dependency Rails.root.join('lib/importers/category_importer')
+require_dependency Rails.root.join('app/helpers/encoding_helper')
 
 # This class identifies articles that have a high protection level
 # that are assigned to students.

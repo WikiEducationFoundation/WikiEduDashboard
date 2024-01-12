@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/lift_wing_api"
-require_dependency "#{Rails.root}/lib/wiki_api"
+require_dependency Rails.root.join('lib/lift_wing_api')
+require_dependency Rails.root.join('lib/wiki_api')
 
 #= Imports revision scoring data from Lift Wing
 class RevisionScoreImporter

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/alerts/blocked_edits_reporter"
+require_dependency Rails.root.join('lib/alerts/blocked_edits_reporter')
 
 class BlockedEditsWorker
   include Sidekiq::Worker

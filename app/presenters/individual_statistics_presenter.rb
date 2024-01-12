@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/word_count"
+require_dependency Rails.root.join('lib/word_count')
 
 # Presenter to provide statistics about a user's individual contributions during
 # courses in which the user was a student.

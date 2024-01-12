@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/importers/upload_importer"
+require Rails.root.join('lib/importers/upload_importer')
 
 describe UploadImporter do
   describe '.import_all_uploads' do

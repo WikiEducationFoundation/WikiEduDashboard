@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/course_clone_manager"
+require_dependency Rails.root.join('lib/course_clone_manager')
 
 class CourseCloneController < ApplicationController
   before_action :require_signed_in

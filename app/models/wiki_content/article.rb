@@ -21,7 +21,7 @@
 #  index_hash               :string(255)
 #
 
-require_dependency "#{Rails.root}/lib/importers/article_importer"
+require_dependency Rails.root.join('lib/importers/article_importer')
 
 #= Article model
 class Article < ApplicationRecord

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/app/workers/greet_students_worker"
+require_dependency Rails.root.join('app/workers/greet_students_worker')
 
 class GreetingController < ApplicationController
   respond_to :json

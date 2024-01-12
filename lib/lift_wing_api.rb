@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/errors/api_error_handling"
+require_dependency Rails.root.join('lib/errors/api_error_handling')
 
 # Gets data from Lift Wing
 # https://wikitech.wikimedia.org/wiki/Machine_Learning/LiftWing
