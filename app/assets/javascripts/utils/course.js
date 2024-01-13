@@ -91,6 +91,24 @@ document.onreadystatechange = () => {
     });
   }
 
+  const y = document.getElementsByClassName('delete-course-prerequisite')[0];
+  if (y) {
+    y.addEventListener('click', () => alert(I18n.t('campaign.delete_course_instructions_campaign')));
+  }
+
+  const z = document.getElementsByClassName('delete-course-from-campaign')[0];
+  if (z) {
+    z.addEventListener('click', (e) => {
+      const enteredTitle = window.prompt(I18n.t('courses.confirm_course_deletion', { title: e.target.dataset.title }));
+      if (!enteredTitle) {
+        e.preventDefault();
+      } else if (enteredTitle.trim() !== e.target.dataset.title.trim()) {
+        e.preventDefault();
+        alert(I18n.t('courses.confirm_course_deletion_failed', { title: enteredTitle }));
+      }
+   });
+}
+
   return document.querySelectorAll('select.sorts').forEach(item => item?.addEventListener('change', function () {
     const list = (() => {
       switch (this.getAttribute('rel')) {

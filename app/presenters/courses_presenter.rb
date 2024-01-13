@@ -59,6 +59,10 @@ class CoursesPresenter
     @can_remove ||= current_user&.admin? || campaign_organizer?
   end
 
+  def can_delete_course?
+    @can_remove ||= current_user&.admin? || campaign_organizer?
+  end
+
   def campaign_organizer?
     return false unless campaign
     return @campaign_organizer if @campaign_organizer_set

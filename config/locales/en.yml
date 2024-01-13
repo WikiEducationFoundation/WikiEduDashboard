@@ -388,6 +388,7 @@ en:
     default_passcode_explanation: "By default, new programs in this campaign should have:"
     description: Description
     delete_campaign: Delete this campaign
+    delete_course_instructions_campaign: You may delete this course if all other campaigns are removed first.
     disable_account_requests: Disable account requests
     enable_account_requests: Enable account requests
     newest_campaigns: Newest Campaigns
@@ -488,7 +489,7 @@ en:
     campaign_courses: "%{title} Courses"
     campaign_select: "Select a campaign"
     campaign_users: "%{title} Editors"
-    confirm_course_deletion: Are you sure you want to delete the course titled %{title}? If so, type the title of the course to proceed.
+    confirm_course_deletion: 'Are you sure you want to delete the course titled %{title}? If so, type the title of the course to proceed.'
     confirm_course_deletion_failed: '"%{title}" is not the title of this course. The course has not been deleted.'
     confirm_manual_update: Are you sure you want to run a manual update? The most recent revisions will be imported and then the page will reload. This process may take some time.
     controlled_by_event_center: Enrollment in this event is controlled by Wikimedia Event Center. It cannot be joined from the Dashboard.
