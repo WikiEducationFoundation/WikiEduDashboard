@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { initiateConfirm } from '@actions/confirm_actions';
 import { ADD_NOTIFICATION } from '~/app/assets/javascripts/constants/index';
@@ -6,6 +6,7 @@ import request from '~/app/assets/javascripts/utils/request';
 import logErrorMessage from '~/app/assets/javascripts/utils/log_error_message';
 
 const AddToWatchlistButton = ({ slug, prefix = 'Students' }) => {
+  const [hover, setHover] = useState(false);
   const notificationMessage = (type) => {
     return {
       message: I18n.t(`users.sub_navigation.watch_list.${type === 'Success' ? 'success_message' : 'error_message'}`,
@@ -44,9 +45,9 @@ const AddToWatchlistButton = ({ slug, prefix = 'Students' }) => {
   };
 
   return (
-    <div className="tooltip-trigger">
+    <div className="tooltip-trigger" onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
       <button className="button border small watchlist-button" onClick={addToWatchlistHandler}>
-        {I18n.t('users.sub_navigation.watch_list.students_add', { prefix })} {<span className="tooltip-indicator" />}
+        {I18n.t('users.sub_navigation.watch_list.students_add', { prefix })} {<span className={`${hover ? 'tooltip-indicator-hover' : 'tooltip-indicator'}`} />}
       </button>
       <div className="tooltip">
         <p>

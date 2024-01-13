@@ -6,7 +6,7 @@ const Row = ({ link, title }) => (
     <td className="block__training-modules-table__module-link">
       <a href={link} target="_blank">
         Visit
-        <i className="icon icon-rt_arrow" />
+        <i className="icon icon-rt_arrow_purple_training" />
       </a>
     </td>
   </tr>

@@ -41,6 +41,18 @@ sl:
     review_orientation: Pregled usmeritve
   home:
     explore: Raziskuj
+    registration_advice:
+      username_rules:
+        heading: Pravila uporabniških imen
+        avoid_offensive_usernames: Ne izberite uporabniškega imena, ki je žaljivo,
+          zavajajoče, moteče ali promocijsko.
+        represent_individual: Uporabniška imena morajo predstavljati posameznega urejevalca.
+          Ne uporabljajte imena šole ali organizacije.
+      additional_advice:
+        heading: Nasvet
+        anonymous_username_recommendation: Wiki Education priporoča izbiro anonimnega
+          uporabniškega imena, ne tistega, ki vključuje vaše pravo ime ali druge identifikacijske
+          podatke.
     sign_up_help: Za uporabo nadzorne plošče se morate prijaviti v Wikipediji in ji
       podeliti dovoljenje za dostop do vašega računa. Lahko se prijavite z obstoječim
       računom Wikipedije ali ustvarite novega. Če ne morete ustvariti računa, se obrnite

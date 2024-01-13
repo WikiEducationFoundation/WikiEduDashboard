@@ -161,7 +161,7 @@ const Tooltip = ({ message }) => {
 
 // Button to add new assignments
 const EditButton = ({
-  allowMultipleArticles, current_user, is_open, open, role, student,
+  allowMultipleArticles, current_user, is_open, setHover, open, role, student,
   tooltip, tooltipIndicator, assignmentLength, project
 }) => {
   let assignText;
@@ -183,7 +183,7 @@ const EditButton = ({
   if (is_open) finalText = I18n.t('users.assign_articles_done');
 
   return (
-    <div className="tooltip-trigger">
+    <div className="tooltip-trigger" onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
       <button
         className={`button border small assign-button ${is_open ? 'dark' : ''}`}
         onClick={open}
@@ -377,12 +377,13 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
     );
   }
 
+  const [hover, setHover] = useState();
   let editButton;
   if (!showButton && permitted) {
     let tooltip;
     let tooltipIndicator;
     if (tooltip_message && !isOpen) {
-      tooltipIndicator = (<span className="tooltip-indicator" />);
+      tooltipIndicator = (<span className={`${hover ? 'tooltip-indicator-hover' : 'tooltip-indicator'}`}/>);
       tooltip = (<Tooltip message={tooltip_message} />);
     }
 
@@ -392,6 +393,7 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
         current_user={current_user}
         is_open={isOpen}
         open={open}
+        setHover={setHover}
         role={role}
         student={student}
         tooltip={tooltip}

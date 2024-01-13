@@ -106,7 +106,7 @@ export const OnboardingSupplementary = createReactClass({
             <textarea className="form-control" type="text" name="otherReason" defaultValue={this.state.otherReason} onChange={this._handleFieldChange.bind(this, 'otherReason')} />
           </div>
           <button disabled={disabled} type="submit" className="button dark right">
-            {submitText} <i className="icon icon-rt_arrow" />
+            {submitText} <i className="icon3 icon-rt_arrow" />
           </button>
         </form>
       </div>

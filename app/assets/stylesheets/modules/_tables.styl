@@ -156,7 +156,7 @@
   .table-expandable-indicator
     position relative
     top 2px
-    transform-origin 50% 45%
+    transform-origin 50% 15%
     transition transform 250ms ease
     transform rotateZ(0)
 
@@ -188,17 +188,13 @@
       font-weight 800
       vertical-align middle
       margin-top -3px
-      @extends .icon:before
+
     &.asc
       color #222
-      .sortable-indicator:before
-        @extends .icon-arrow-down:before
+      // .sortable-indicator-asc
     &.desc
       color #24px
-      .sortable-indicator:before
-        @extends .icon-arrow-up:before
-
-
+      // .sortable-indicator-desc
 
 // Contextual background colors for rows
 .table > tbody > .table-row--info
