@@ -394,7 +394,7 @@ ru:
       чуть позже.
     join_failure_details:
       not_yet_approved: Этот курс ещё не был одобрен для регистрации.
-    loading: Загрузка…
+    loading: Загружается…
     my_articles: Мои статьи
     new_week: Добавить новую неделю
     new_account_check_username: Проверить доступность имени пользователя
