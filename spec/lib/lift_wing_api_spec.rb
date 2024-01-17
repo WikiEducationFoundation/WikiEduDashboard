@@ -20,11 +20,16 @@ describe LiftWingApi do
     let(:deleted_rev_id) { 708326238 }
     let(:wiki) { create(:wiki, project: 'wikidata', language: nil) }
 
-    let(:subject0) { described_class.new(Wiki.find(1)).get_revision_data(rev_ids) }
+    let(:lift_wing_api_class_en_wiki) { described_class.new(Wiki.find(1)) }
+
+    # Get revision data for valid rev ids for English Wikipedia
+    let(:subject0) { lift_wing_api_class_en_wiki.get_revision_data(rev_ids) }
+
+    # Get revision data for valid rev ids for Wikidata
     let(:subject1) { described_class.new(wiki).get_revision_data(rev_ids) }
-    let(:subject2) do
-      described_class.new(Wiki.find(1)).get_revision_data([deleted_rev_id])
-    end
+
+    # Get revision data for deleted rev ids for English Wikipedia
+    let(:subject2) { lift_wing_api_class_en_wiki.get_revision_data([deleted_rev_id]) }
 
     it 'fetches json from api.wikimedia.org for wikipedia' do
       VCR.use_cassette 'liftwing_api/wikipedia' do
@@ -70,7 +75,7 @@ describe LiftWingApi do
     it 'handles timeout errors' do
       stub_request(:any, 'https://api.wikimedia.org')
         .to_raise(Errno::ETIMEDOUT)
-      expect_any_instance_of(described_class).to receive(:log_error).once
+      expect(lift_wing_api_class_en_wiki).to receive(:log_error).once
       expect(subject0.dig('829840085')).to be_a(Hash)
       expect(subject0.dig('829840085')).to be_empty
     end
@@ -78,7 +83,16 @@ describe LiftWingApi do
     it 'handles connection refused errors' do
       stub_request(:any, 'https://api.wikimedia.org')
         .to_raise(Faraday::ConnectionFailed)
-      expect_any_instance_of(described_class).to receive(:log_error).once
+      expect(lift_wing_api_class_en_wiki).to receive(:log_error).once
+      expect(subject0.dig('829840085')).to be_a(Hash)
+      expect(subject0.dig('829840085')).to be_empty
+    end
+
+    it 'logs the error if something unexpected happens when building the successful response' do
+      allow(lift_wing_api_class_en_wiki)
+        .to receive(:build_successful_response)
+        .and_raise(StandardError)
+      expect(lift_wing_api_class_en_wiki).to receive(:log_error).once
       expect(subject0.dig('829840085')).to be_a(Hash)
       expect(subject0.dig('829840085')).to be_empty
     end

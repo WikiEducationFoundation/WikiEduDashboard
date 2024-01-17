@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/errors/api_error_handling"
+require_dependency "#{Rails.root}/lib/weighted_score_calculator"
 
 # Gets and processes data from Lift Wing
 # https://wikitech.wikimedia.org/wiki/Machine_Learning/LiftWing
-class LiftWingApi # rubocop:disable Metrics/ClassLength
+class LiftWingApi
   include ApiErrorHandling
+  include WeightedScoreCalculator
 
   DELETED_REVISION_ERRORS = %w[TextDeleted RevisionNotFound].freeze
 
@@ -27,7 +29,7 @@ class LiftWingApi # rubocop:disable Metrics/ClassLength
     @errors = []
   end
 
-  # Given an array of revision ids, it returns an array with useful metrics for those
+  # Given an array of revision ids, it returns a hash with useful metrics for those
   # revision ids.
   # Format result example:
   # { 'rev_id0' => { 'wp10' => 0.2915228958136511656e2, 'features' => features_value,
@@ -51,24 +53,18 @@ class LiftWingApi # rubocop:disable Metrics/ClassLength
 
   private
 
-  # Returns a has with wp10, features, deleted, and prediction, or empty hash if
+  # Returns a hash with wp10, features, deleted, and prediction, or empty hash if
   # there is an error.
   def get_single_revision_parsed_data(rev_id)
     body = { rev_id:, extended_output: true }.to_json
     response = lift_wing_server.post(quality_query_url, body)
     parsed_response = Oj.load(response.body)
-
-    # If the responses contains an error, do not try to calculate wp10 or features.
+    # If the responses contain an error, do not try to calculate wp10 or features.
     if parsed_response.key? 'error'
       return { 'wp10' => nil, 'features' => nil, 'deleted' => deleted?(parsed_response) }
     end
 
-    score = parsed_response.dig(wiki_key, 'scores', rev_id.to_s, model_key)
-
-    { 'wp10' => weighted_mean_score(score),
-      'features' => score.dig('features'),
-      'deleted' => false,
-      'prediction' => score.dig('score', 'prediction') } # only for revision feedback
+    build_successful_response(rev_id, parsed_response)
   rescue StandardError => e
     @errors << e
     return {}
@@ -103,6 +99,20 @@ class LiftWingApi # rubocop:disable Metrics/ClassLength
     connection
   end
 
+  def build_successful_response(rev_id, response)
+    score = response.dig(wiki_key, 'scores', rev_id.to_s, model_key)
+    {
+      # wp10 metric only makes sense to Wikipedia
+      'wp10' => (if @wiki.project == 'wikipedia'
+                   weighted_mean_score(score&.dig('score', 'probability'),
+                                       @wiki.language)
+                 end),
+      'features' => score.dig('features'),
+      'deleted' => false,
+      'prediction' => score.dig('score', 'prediction') # only for revision feedback
+    }
+  end
+
   # TODO: monitor production for errors, understand them, put benign ones here
   TYPICAL_ERRORS = [].freeze
 
@@ -119,87 +129,5 @@ class LiftWingApi # rubocop:disable Metrics/ClassLength
     LiftWingApi::DELETED_REVISION_ERRORS.any? do |revision_error|
       response.dig('error').include?(revision_error)
     end
-  end
-
-  # LiftWing articlequality ratings are often derived from the en.wiki system,
-  # so this is the fallback scheme.
-  ENWIKI_WEIGHTING = { 'FA'    => 100,
-                       'GA'    => 80,
-                       'B'     => 60,
-                       'C'     => 40,
-                       'Start' => 20,
-                       'Stub'  => 0 }.freeze
-  FRWIKI_WEIGHTING = { 'adq' => 100,
-                       'ba' => 80,
-                       'a' => 60,
-                       'b' => 40,
-                       'bd' => 20,
-                       'e' => 0 }.freeze
-  TRWIKI_WEIGHTING = { 'sm' => 100,
-                       'km' => 80,
-                       'b' => 60,
-                       'c' => 40,
-                       'baslagıç' => 20,
-                       'taslak' => 0 }.freeze
-  RUWIKI_WEIGHTING = { 'ИС' => 100,
-                       'ДС' => 80,
-                       'ХС' => 80,
-                       'I' => 60,
-                       'II' => 40,
-                       'III' => 20,
-                       'IV' => 0 }.freeze
-  PTWIKI_WEIGHTING = { '6' => 100,
-                       '5' => 80,
-                       '4' => 60,
-                       '3' => 40,
-                       '2' => 20,
-                       '1' => 0 }.freeze
-  UKWIKI_WEIGHTING = { 'ДС' => 100,
-                       'ВС' => 80,
-                       'I' => 60,
-                       'II' => 40,
-                       'III' => 20,
-                       'IV' => 0 }.freeze
-  # SV wiki has three high ratings, all of which are rare:
-  # This is just a guess at appropriate weighting for the case where almost
-  # all articles are the lowest tier.
-  SVWIKI_WEIGHTING = { 'u' => 100,
-                       'b' => 90,
-                       'r' => 80,
-                       's' => 0 }.freeze
-  NLWIKI_WEIGHTING = { 'A' => 100,
-                       'B' => 75,
-                       'C' => 50,
-                       'D' => 25,
-                       'E' => 0 }.freeze
-  WEIGHTING_BY_LANGUAGE = {
-    'en' => ENWIKI_WEIGHTING,
-    'simple' => ENWIKI_WEIGHTING,
-    'fa' => ENWIKI_WEIGHTING,
-    'eu' => ENWIKI_WEIGHTING,
-    'fr' => FRWIKI_WEIGHTING,
-    'tr' => TRWIKI_WEIGHTING,
-    'ru' => RUWIKI_WEIGHTING,
-    'uk' => UKWIKI_WEIGHTING,
-    'gl' => ENWIKI_WEIGHTING,
-    'sv' => SVWIKI_WEIGHTING,
-    'nl' => NLWIKI_WEIGHTING,
-    'pt' => PTWIKI_WEIGHTING
-  }.freeze
-
-  def weighting
-    @weighting ||= WEIGHTING_BY_LANGUAGE[@wiki.language]
-  end
-
-  def weighted_mean_score(score)
-    # This metric only makes sense to Wikipedia
-    return unless @wiki.project == 'wikipedia'
-    probability = score&.dig('score', 'probability')
-    return unless probability
-    mean = 0
-    weighting.each do |rating, weight|
-      mean += probability[rating] * weight
-    end
-    mean
   end
 end
