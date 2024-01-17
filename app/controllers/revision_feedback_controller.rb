@@ -7,10 +7,10 @@ class RevisionFeedbackController < ApplicationController
   def index
     set_latest_revision_id
     return if @rev_id.nil?
-    ores_data = RevisionScoreImporter.new.fetch_ores_data_for_revision_id(@rev_id)
-    @feedback = RevisionFeedbackService.new(ores_data[:features]).feedback
+    liftwing_data = RevisionScoreImporter.new.fetch_liftwing_data_for_revision_id(@rev_id)
+    @feedback = RevisionFeedbackService.new(liftwing_data[:features]).feedback
     @user_feedback = Assignment.find(params['assignment_id']).assignment_suggestions
-    @rating = ores_data[:rating]
+    @rating = liftwing_data[:rating]
   end
 
   private

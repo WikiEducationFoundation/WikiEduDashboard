@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/errors/api_error_handling"
+require_dependency "#{Rails.root}/lib/weighted_score_calculator"
 
-# Gets data from Lift Wing
+# Gets and processes data from Lift Wing
 # https://wikitech.wikimedia.org/wiki/Machine_Learning/LiftWing
 class LiftWingApi
   include ApiErrorHandling
+  include WeightedScoreCalculator
 
   DELETED_REVISION_ERRORS = %w[TextDeleted RevisionNotFound].freeze
 
@@ -22,16 +24,26 @@ class LiftWingApi
 
   def initialize(wiki, update_service = nil)
     raise InvalidProjectError unless LiftWingApi.valid_wiki?(wiki)
-    @project_code = wiki.project == 'wikidata' ? 'wikidata' + 'wiki' : wiki.language + 'wiki'
-    @project_quality_model = wiki.project == 'wikidata' ? 'itemquality' : 'articlequality'
+    @wiki = wiki
     @update_service = update_service
     @errors = []
   end
 
+  # Given an array of revision ids, it returns a hash with useful metrics for those
+  # revision ids.
+  # Format result example:
+  # { 'rev_id0' => { 'wp10' => 0.2915228958136511656e2, 'features' => features_value,
+  #                 'deleted' => false, 'prediction' => 'Stub' }
+  #   ...
+  #   'rev_idn' => { 'wp10' => 0.285936675221734978e2, 'features' => features_value,
+  #                 'deleted' => false, 'prediction' => 'D' }
+  # }
   def get_revision_data(rev_ids)
+    # Restart errors array
+    @errors = []
     results = {}
     rev_ids.each do |rev_id|
-      results.deep_merge! get_single_revision_data(rev_id)
+      results.deep_merge!({ rev_id.to_s => get_single_revision_parsed_data(rev_id) })
     end
 
     log_error_batch(rev_ids)
@@ -39,14 +51,20 @@ class LiftWingApi
     return results
   end
 
-  def get_single_revision_data(rev_id)
+  private
+
+  # Returns a hash with wp10, features, deleted, and prediction, or empty hash if
+  # there is an error.
+  def get_single_revision_parsed_data(rev_id)
     body = { rev_id:, extended_output: true }.to_json
     response = lift_wing_server.post(quality_query_url, body)
     parsed_response = Oj.load(response.body)
+    # If the responses contain an error, do not try to calculate wp10 or features.
+    if parsed_response.key? 'error'
+      return { 'wp10' => nil, 'features' => nil, 'deleted' => deleted?(parsed_response) }
+    end
 
-    return equivalent_ores_error_response(rev_id, parsed_response) if parsed_response.key? 'error'
-
-    parsed_response
+    build_successful_response(rev_id, parsed_response)
   rescue StandardError => e
     @errors << e
     return {}
@@ -55,10 +73,19 @@ class LiftWingApi
   class InvalidProjectError < StandardError
   end
 
-  private
+  # The top-level key representing the wiki in LiftWing data
+  def wiki_key
+    # This assumes the project is Wikipedia, which is true for all wikis with the articlequality
+    # or the language is nil, which is the case for Wikidata.
+    @wiki_key ||= "#{@wiki.language || @wiki.project}wiki"
+  end
+
+  def model_key
+    @model_key ||= @wiki.project == 'wikidata' ? 'itemquality' : 'articlequality'
+  end
 
   def quality_query_url
-    "/service/lw/inference/v1/models/#{@project_code}-#{@project_quality_model}:predict"
+    "/service/lw/inference/v1/models/#{wiki_key}-#{model_key}:predict"
   end
 
   def lift_wing_server
@@ -72,25 +99,18 @@ class LiftWingApi
     connection
   end
 
-  # To make migration from ORES to LiftWing easier, we want responses to be in the same format,
-  # including error responses.
-  # For a deleted revision, ORES returns something like this:
-  # {"enwiki"=>{"scores"=>{"708326238"=>{"articlequality"=>{"error"=>
-  #   {"message"=>"TextDeleted: Text deleted (datasource.revision.text)",
-  #    "type"=>"TextDeleted"}}}}}}
-  # Lift Wing just returns something like:
-  # {"error"=>
-  #  "Missing resource for rev-id 708326238: TextDeleted: Text deleted (datasource.revision.text)"}
-  ERROR_TYPE_MATCHER = Regexp.union DELETED_REVISION_ERRORS
-
-  def equivalent_ores_error_response(rev_id, error_response)
-    message = error_response['error']
-    type = message[ERROR_TYPE_MATCHER]
-
-    { @project_code =>
-      { 'scores' => { rev_id.to_s => { @project_quality_model => {
-        'error' => { 'message' => error_response['error'], 'type' => type }
-        } } } } }
+  def build_successful_response(rev_id, response)
+    score = response.dig(wiki_key, 'scores', rev_id.to_s, model_key)
+    {
+      # wp10 metric only makes sense to Wikipedia
+      'wp10' => (if @wiki.project == 'wikipedia'
+                   weighted_mean_score(score&.dig('score', 'probability'),
+                                       @wiki.language)
+                 end),
+      'features' => score.dig('features'),
+      'deleted' => false,
+      'prediction' => score.dig('score', 'prediction') # only for revision feedback
+    }
   end
 
   # TODO: monitor production for errors, understand them, put benign ones here
@@ -100,8 +120,14 @@ class LiftWingApi
     return if @errors.empty?
 
     log_error(@errors.first, update_service: @update_service,
-      sentry_extra: { rev_ids:, project_code: @project_code,
-                      project_model: @project_quality_model,
+      sentry_extra: { rev_ids:, project_code: wiki_key,
+                      project_model: model_key,
                       error_count: @errors.count })
+  end
+
+  def deleted?(response)
+    LiftWingApi::DELETED_REVISION_ERRORS.any? do |revision_error|
+      response.dig('error').include?(revision_error)
+    end
   end
 end
