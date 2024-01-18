@@ -31,6 +31,7 @@
 # Author: Lemondoge
 # Author: Macofe
 # Author: MarcoAurelio
+# Author: Samthony
 # Author: Silverie04
 # Author: Themasterriot
 # Author: Tiberius1701
@@ -44,6 +45,10 @@ es:
     human:
       decimal_units:
         format: '%n%u'
+        units:
+          thousand: ' mil'
+          million: ' millones'
+          billion: ' millones de millones'
   accessibility:
     number_field: Este es un campo numérico. Los botones representados por la mayoría
       de los navegadores incrementará y decrementará la entrada.
@@ -95,6 +100,10 @@ es:
     opt_yes: sí
     opt_no: "no"
     print: Imprimir
+  article_statuses:
+    not_yet_started: Primeros pasos
+    in_progress: Trabajar en la zona de pruebas
+    ready_for_review: Borrador ampliado
   dashboard:
     create_note: Haz clic en Crear curso para crear tu primer curso.
     create_preparation_note: Asegúrate de tener tu calendario académico a mano antes
