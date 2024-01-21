@@ -19,6 +19,7 @@ import needHelpAlert from './need_help_alert';
 import newAccount from './new_account';
 import notifications from './notifications';
 import persistedCourse from './persisted_course';
+import persistedCourseNote from './persisted_course_note';
 import recentEdits from './recent_edits.js';
 import recentUploads from './recent_uploads';
 import revisions from './revisions';
@@ -44,6 +45,7 @@ import active_courses from './active_courses';
 import wiki_courses from './wiki_courses';
 import refreshing from './refreshing';
 import scopingMethods from './scoping_methods';
+import courseNotes from './course_notes';
 
 const reducer = combineReducers({
   active_courses,
@@ -70,6 +72,7 @@ const reducer = combineReducers({
   newAccount,
   notifications,
   persistedCourse,
+  persistedCourseNote,
   recentEdits,
   recentUploads,
   refreshing,
@@ -93,6 +96,7 @@ const reducer = combineReducers({
   wikidataLabels,
   wiki_courses,
   wizard,
+  courseNotes
 });
 
 export default reducer;
