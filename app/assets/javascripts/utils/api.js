@@ -168,7 +168,7 @@ const API = {
 
   async cloneCourse(id, campaign, copyAssignments) {
     const campaignQueryParam = campaign ? `?campaign_slug=${campaign}` : ''
-    const copyAssignmentsQueryParam = copyAssignments ? `?copy_assignments=${copyAssignments}` : '?copy_assignments=false' 
+    const copyAssignmentsQueryParam = copyAssignments ? `?copy_assignments=${copyAssignments}` : '?copy_assignments=false'
     const response = await request(`/clone_course/${id}${campaignQueryParam}${copyAssignmentsQueryParam}`, {
       method: 'POST'
     });
@@ -257,7 +257,32 @@ const API = {
       });
   },
 
+  async fetchAllCourseNotes(courseId) {
+    try {
+      const response = await request(`/course_notes/${courseId}`);
+      const data = await response.json();
+      return data.courseNotes;
+    } catch (error) {
+      logErrorMessage('Error fetching course notes:', error);
+      throw error;
+    }
+  },
 
+  async fetchCourseNotesById(courseNoteId = null) {
+    try {
+        if (courseNoteId === null) {
+            throw new Error('courseNoteId must be provided');
+        }
+
+        const url = `/course_notes/${courseNoteId}/find_course_note`;
+        const response = await request(url);
+        const data = await response.json();
+        return data.courseNote;
+    } catch (error) {
+        logErrorMessage('Error fetching course note by ID:', error);
+        throw error;
+    }
+  },
 
   // /////////
   // Setters #
@@ -269,7 +294,7 @@ const API = {
         delete object.is_new;
       }
     };
-    
+
     const weeks = []
     data.weeks.forEach(week => {
       const cleanWeek = { ...week };
@@ -336,12 +361,57 @@ const API = {
       throw response;
     }
     return response.json();
+  },
 
-    // return promise;
+  async saveCourseNote(currentUser, courseNoteDetails) {
+    if(currentUser !== courseNoteDetails.edited_by){
+       courseNoteDetails.edited_by = currentUser;
+    }
+    try {
+        const response = await request(`/course_notes/${courseNoteDetails.id}`, {
+            method: 'PUT',
+            body: JSON.stringify(courseNoteDetails)
+        });
+
+        const status = await response.json();
+        return status;
+    } catch (error) {
+        logErrorMessage('Error fetching course notes:', error);
+        throw error;
+    }
+  },
+
+  async createCourseNote(courseId, courseNoteDetails) {
+     const modifiedDetails = { ...courseNoteDetails, courses_id: courseId };
+     try {
+         const response = await request('/course_notes', {
+             method: 'POST',
+             body: JSON.stringify(modifiedDetails)
+         });
+
+         const { createdNote } = await response.json();
+         return createdNote;
+     } catch (error) {
+         logErrorMessage('Error saving course notes:', error)
+         throw error;
+     }
+  },
+
+  async deleteCourseNote(noteId) {
+     try {
+         const response = await request(`/course_notes/${noteId}`, {
+             method: 'DELETE',
+         });
+
+         const status = await response.json();
+         return status;
+     } catch (error) {
+         logErrorMessage('Error Deleting course notes:', error)
+         throw error;
+     }
   },
 
   async deleteCourse(courseId) {
-    console.log("deleting")
     const response = await request(`/courses/${courseId}.json`, {
       method: 'DELETE'
     });
@@ -489,7 +559,7 @@ const API = {
   async requestNewAccount(passcode, courseSlug, username, email, createAccountNow) {
     const response = await request('/requested_accounts', {
       method: 'PUT',
-      body: JSON.stringify(  
+      body: JSON.stringify(
         { passcode, course_slug: courseSlug, username, email, create_account_now: createAccountNow }
       )
     });
@@ -541,9 +611,9 @@ const API = {
 
   async getCategoriesWithPrefix(wiki, search_term, depth, limit=10){
     return this.searchForPages(
-      wiki, 
-      search_term, 
-      14, 
+      wiki,
+      search_term,
+      14,
       // replace everything until first colon, then trim
       (title)=>title.replace(/^[^:]+:/,'').trim(),
       depth,
@@ -554,7 +624,7 @@ const API = {
   async getTemplatesWithPrefix(wiki, search_term, depth, limit=10){
     return this.searchForPages(
       wiki,
-      search_term, 
+      search_term,
       10,
       (title)=>title.replace(/^[^:]+:/,'').trim(),
       depth,
@@ -584,7 +654,7 @@ const API = {
       `https://${toWikiDomain(wiki)}/w/api.php?${stringify(params)}`
     );
     const json = await response.json();
-   
+
     return json.query.search.map((category) => {
       const label = formatCategoryName({
         category: map(category.title),
