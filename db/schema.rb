@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_15_143028) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_05_094818) do
   create_table "alerts", id: :integer, charset: "utf8mb4", force: :cascade do |t|
     t.integer "course_id"
     t.integer "user_id"
@@ -180,6 +180,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_15_143028) do
     t.string "thumbheight"
     t.boolean "deleted", default: false
     t.index ["user_id"], name: "index_commons_uploads_on_user_id"
+  end
+
+  create_table "course_notes", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.integer "courses_id"
+    t.string "title"
+    t.text "text"
+    t.string "edited_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["courses_id"], name: "index_course_notes_on_courses_id"
   end
 
   create_table "course_stats", charset: "utf8mb4", force: :cascade do |t|
@@ -601,6 +611,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_15_143028) do
     t.index ["language", "project"], name: "index_wikis_on_language_and_project", unique: true
   end
 
+  add_foreign_key "course_notes", "courses", column: "courses_id"
   add_foreign_key "course_stats", "courses"
   add_foreign_key "course_wiki_namespaces", "courses_wikis", column: "courses_wikis_id", on_delete: :cascade
 end
