@@ -48,6 +48,14 @@
         %span.creation-date
           = I18n.localize course.created_at.to_date
   %td{:class => "table-link-cell"}
+    %a.course-link{:href => "#{course_slug_path(course.slug)}"}
+      - if course.start.present?
+        %span.start-date
+          = I18n.localize course.start.to_date
+      - else
+        %span.no-start-date
+          N/A
+  %td{:class => "table-link-cell"}
     - if @presenter&.campaign_organizer?
       %a.course-link{:href => "#{course_slug_path(course.slug)}", style: "padding-bottom: 0;"}
         = form_for(@campaign, url: course_clone_path(course.id), method: :post, id: "clone_course-#{course.id}", html: { class: 'remove-program-form' }) do
