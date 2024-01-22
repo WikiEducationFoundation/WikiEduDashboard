@@ -61,13 +61,14 @@ class LiftWingApi
     parsed_response = Oj.load(response.body)
     # If the responses contain an error, do not try to calculate wp10 or features.
     if parsed_response.key? 'error'
-      return { 'wp10' => nil, 'features' => nil, 'deleted' => deleted?(parsed_response) }
+      return { 'wp10' => nil, 'features' => nil, 'deleted' => deleted?(parsed_response),
+      'prediction' => nil }
     end
 
     build_successful_response(rev_id, parsed_response)
   rescue StandardError => e
     @errors << e
-    return {}
+    return { 'wp10' => nil, 'features' => nil, 'deleted' => false, 'prediction' => nil }
   end
 
   class InvalidProjectError < StandardError
