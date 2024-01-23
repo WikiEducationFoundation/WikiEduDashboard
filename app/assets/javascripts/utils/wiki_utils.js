@@ -1,7 +1,12 @@
 import ArticleUtils from './article_utils';
 
 const toWikiDomain = (wiki) => {
-  return `${wiki.project}.org`;
+  const subdomain = wiki.language;
+  let url = `${wiki.project}.org`;
+  if (subdomain) {
+    url = `${subdomain}.${wiki.project}.org`;
+  }
+  return `${url}`;
 };
 
 const formatOption = (wiki) => {
