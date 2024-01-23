@@ -1,0 +1,77 @@
+# frozen_string_literal: true
+
+require_dependency "#{Rails.root}/lib/lift_wing_api"
+require_dependency "#{Rails.root}/lib/reference_counter_api"
+
+class RevisionScoreApiHandler
+  def initialize(language: 'en', project: 'wikipedia', wiki: nil, update_service: nil)
+    @update_service = update_service
+    @wiki = wiki || Wiki.get_or_create(language:, project:)
+    # Initialize LiftWingApi if the wiki is valid for it
+    @lift_wing_api = LiftWingApi.new(@wiki, @update_service) if LiftWingApi.valid_wiki?(@wiki)
+    # Initialize ReferenceCounterApi if the wiki is valid for it
+    if ReferenceCounterApi.valid_wiki?(@wiki)
+      @reference_counter_api = ReferenceCounterApi.new(@wiki, @update_service)
+    end
+  end
+
+  # Returns data from LiftWing API and/or reference-counter API.
+  # The response has the following format:
+  # { "rev_0"=>
+  #     { "wp10"=>0.296976285416441736e2,
+  #       "features"=> { "feature.wikitext.revision.chars"=>5781.0,...,"num_ref"=>0 },
+  #       "deleted"=>false,
+  #       "prediction"=>"Start" },
+  #   ...,
+  #   "rev_n"=>
+  #     { "wp10"=>0.2929458626376752846e2,
+  #       "features"=> { "feature.wikitext.revision.chars"=>4672.0,...,"num_ref"=>0 },
+  #       "deleted"=>false,
+  #       "prediction"=>"Start" }
+  # }
+  def get_revision_data(rev_batch)
+    scores = maybe_get_lift_wing_data rev_batch
+    scores.deep_merge!(maybe_get_reference_data(rev_batch))
+    ensure_complete_scores scores
+  end
+
+  ##################
+  # Helper methods #
+  ##################
+  private
+
+  def maybe_get_lift_wing_data(rev_batch)
+    return @lift_wing_api.get_revision_data rev_batch if LiftWingApi.valid_wiki?(@wiki)
+    {}
+  end
+
+  def maybe_get_reference_data(rev_batch)
+    if ReferenceCounterApi.valid_wiki?(@wiki)
+      return @reference_counter_api.get_number_of_references_from_revision_ids(rev_batch)
+    end
+    {}
+  end
+
+  def complete_score(score)
+    completed_score = {}
+
+    # Fetch the value for 'wp10' and 'prediction', or default to nil if not present.
+    completed_score['wp10'] = score.fetch('wp10', nil)
+    completed_score['prediction'] = score.fetch('prediction', nil)
+    # Fetch the value for 'deleted, or default to 'false if not present.
+    completed_score['deleted'] = score.fetch('deleted', false)
+
+    # Ensure 'features' is a hash.
+    features = score.fetch('features', {}) || {}
+    completed_score['features'] = features.deep_merge({ 'num_ref' => score.fetch('num_ref', nil) })
+    completed_score
+  end
+
+  def ensure_complete_scores(scores)
+    completed_scores = {}
+    scores.each do |rev_id, score|
+      completed_scores[rev_id] = complete_score(score)
+    end
+    completed_scores
+  end
+end
