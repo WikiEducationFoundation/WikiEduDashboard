@@ -63,11 +63,11 @@ class ReferenceCounterApi
                              level: 'warning', extra: { project_code: @project_code,
                              language_code: @language_code, rev_id:,
                              status_code: response.status, content: parsed_response }
-      return {}
+      return { 'num_ref' => nil }
     end
   rescue StandardError => e
     @errors << e
-    return {}
+    return { 'num_ref' => nil }
   end
 
   class InvalidProjectError < StandardError

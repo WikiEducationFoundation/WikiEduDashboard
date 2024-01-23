@@ -26,7 +26,7 @@ describe ReferenceCounterApi do
     expect(response.dig('5006946', 'num_ref')).to eq(2)
   end
 
-  it 'returns empty hash and logs the message if response is not 200 OK', vcr: true do
+  it 'logs the message if response is not 200 OK', vcr: true do
     ref_counter_api = described_class.new(en_wikipedia)
     expect(Sentry).to receive(:capture_message).with(
       'Non-200 response hitting references counter API',
@@ -43,10 +43,10 @@ describe ReferenceCounterApi do
       }
     )
     response = ref_counter_api.get_number_of_references_from_revision_ids deleted_rev_ids
-    expect(response.dig('708326238')).to eq({})
+    expect(response.dig('708326238')).to eq({ 'num_ref' => nil })
   end
 
-  it 'returns empty hash and logs the error if an unexpected error raises', vcr: true do
+  it 'logs the error if an unexpected error raises', vcr: true do
     reference_counter_api = described_class.new(es_wiktionary)
 
     allow_any_instance_of(Faraday::Connection).to receive(:get)
@@ -63,8 +63,8 @@ describe ReferenceCounterApi do
      }
     )
     response = reference_counter_api.get_number_of_references_from_revision_ids rev_ids
-    expect(response.dig('5006940')).to eq({})
-    expect(response.dig('5006942')).to eq({})
-    expect(response.dig('5006946')).to eq({})
+    expect(response.dig('5006940')).to eq({ 'num_ref' => nil })
+    expect(response.dig('5006942')).to eq({ 'num_ref' => nil })
+    expect(response.dig('5006946')).to eq({ 'num_ref' => nil })
   end
 end
