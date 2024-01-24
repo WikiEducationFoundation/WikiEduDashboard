@@ -60,8 +60,12 @@ class CoursesController < ApplicationController
   def destroy
     validate
     DeleteCourseWorker.schedule_deletion(course: @course, current_user:)
-    render json: { success: true }
-  end
+    if params[:campaign].nil?
+      render json: { success: true }
+    else
+      redirect_to programs_campaign_path(params[:slug])
+    end
+  end  
 
   # /courses/school/title_(term)
   # /courses/school/title_(term)/subpage

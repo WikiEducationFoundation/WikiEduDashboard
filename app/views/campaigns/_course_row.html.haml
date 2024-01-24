@@ -65,7 +65,7 @@
           = t('assignments.delete')
       - else
         %a.course-link{:href => "#{course_slug_path(course.slug)}", style: "padding-top: 0;"}
-          = form_for(@campaign, url: "/courses/#{course.slug}.json", method: :delete, id: "delete_course-#{course.id}", html: { class: 'delete-program-form' }) do
+          = form_for(@campaign, url: "/courses/#{course.slug}.json?campaign=true&slug=#{@campaign.slug}", method: :delete, id: "delete_course-#{course.id}", html: { class: 'delete-program-form' }) do
             = hidden_field_tag('course_title', course.title, id: "course_title-#{course.id}")
             %button.button.danger.delete-course-from-campaign{'data-title' => course.title}
               = t('assignments.delete')
