@@ -36,7 +36,7 @@ describe('url', () => {
         project: 'wikipedia'
       };
       const result = toWikiDomain(wikiData);
-      expect(result).toStrictEqual('wikipedia.org');
+      expect(result).toStrictEqual('www.wikipedia.org');
     }
   );
 });
