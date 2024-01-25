@@ -18,7 +18,7 @@ describe('formatOption', () => {
 
 describe('url', () => {
   test(
-    'returns url format',
+    'if language is specified, return language as subdomain',
     () => {
       const wikiData = {
         language: 'en',
@@ -29,7 +29,7 @@ describe('url', () => {
     }
   );
   test(
-    'if no language specified, returns www subdomain',
+    'if no language specified and project is wikipedia, returns www as subdomain',
     () => {
       const wikiData = {
         language: null,
@@ -37,6 +37,17 @@ describe('url', () => {
       };
       const result = toWikiDomain(wikiData);
       expect(result).toStrictEqual('www.wikipedia.org');
+    }
+  );
+  test(
+    'if no language specified and project is wikisource, returns url without subdomain',
+    () => {
+      const wikiData = {
+        language: null,
+        project: 'wikisource'
+      };
+      const result = toWikiDomain(wikiData);
+      expect(result).toStrictEqual('wikisource.org');
     }
   );
 });
