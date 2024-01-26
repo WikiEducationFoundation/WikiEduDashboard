@@ -43,12 +43,12 @@ class WikiTrainingLoader
   def add_trainings_to_collection(wiki_page)
     content = new_from_wiki_page(wiki_page)
     unless content&.valid?
-      Sentry.capture_message 'Invalid wiki training content',
-                             level: 'warning', extra: { content:, wiki_page: }
-      return
+        Sentry.capture_message 'Invalid wiki training content',
+                            level: 'warning', extra: { content: content, wiki_page: wiki_page }
+        return
     end
     @collection << content
-  end
+end
 
   def new_from_wiki_page(wiki_page)
     wikitext = WikiApi.new(MetaWiki.new).get_page_content(wiki_page)
@@ -70,9 +70,11 @@ class WikiTrainingLoader
     content = Oj.load(json_wikitext)
     base_page = content['wiki_page']
     return content unless base_page
+
     wikitext = WikiApi.new(MetaWiki.new).get_page_content(base_page)
-    training_content_and_translations(content:, base_page:, wikitext:)
-  end
+    training_content_and_translations(content: content, base_page: base_page, wikitext: wikitext)
+end
+
 
   # wikitext pages have the slide id and slug embedded in the page title
   def new_from_wikitext_page(wiki_page, wikitext)
