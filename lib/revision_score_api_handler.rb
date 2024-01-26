@@ -3,6 +3,10 @@
 require_dependency "#{Rails.root}/lib/lift_wing_api"
 require_dependency "#{Rails.root}/lib/reference_counter_api"
 
+#= Handles the logic to decide how to retrieve revision data for a given wiki.
+# This involves to determine if the given wiki is supported for both Lift Wing API and
+# reference-counter API (e.g en.wikipedia), only for Lift Wing API (wikidata),
+# or only for reference-counter API (e.g es.wikipedia).
 class RevisionScoreApiHandler
   def initialize(language: 'en', project: 'wikipedia', wiki: nil, update_service: nil)
     @update_service = update_service
