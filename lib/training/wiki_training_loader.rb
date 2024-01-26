@@ -91,21 +91,23 @@ class WikiTrainingLoader
     full_content
   end
 
-  # Gets a list of page titles linked from the base page
+  # Fetches a list of page titles linked from the base page using the MediaWiki API.
+  # Handles more than 500 linked pages by utilizing the 'continue' mechanism.
+
   def wiki_source_pages
-    # To handle more than 500 pages linked from the source page,
-    # we'll need to update this to use 'continue'.
+    # Define initial query parameters for the API call
     query_params = { prop: 'links', titles: @wiki_base_page, pllimit: 500 }
     finalLinks = []
     begin
       response = WikiApi.new(MetaWiki.new).query(query_params)
+      # Loop to handle 'continue' and retrieve all linked pages
       loop do
         current_links = response.dig('pages', @wiki_base_page, 'links') || []
         finalLinks.concat(current_links.map { |page| page['title'] })
-
+        # Check if there are more pages to retrieve ('continue' value)
         @continue = response['continue']&.fetch('plcontinue', 'done')
         break if @continue == 'done'
-
+        # Make a subsequent API call with 'plcontinue' parameter for pagination
         response = WikiApi.new(MetaWiki.new).query(query_params.merge(plcontinue: @continue))
       end
     rescue StandardError => e
@@ -113,6 +115,7 @@ class WikiTrainingLoader
     end
     finalLinks
   end
+
 
   def listed_wiki_source_pages
     wiki_source_pages.select { |page| @slug_list.include? slug_from(page) }
