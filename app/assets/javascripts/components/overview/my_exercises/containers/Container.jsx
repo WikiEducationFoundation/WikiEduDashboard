@@ -28,7 +28,7 @@ const MyExercisesContainer = ({ trainingLibrarySlug }) => {
   if (!incomplete.length) return null;
   if (exercises.loading) {
     return (
-      <div className="module my-exercises">
+      <div className="module my-exercises" style={{ marginTop: '55px' }}>
         <h3>Loading...</h3>
       </div>
     );
@@ -40,14 +40,14 @@ const MyExercisesContainer = ({ trainingLibrarySlug }) => {
   });
   if (!latest) {
     return (
-      <div className="module my-exercises">
+      <div className="module my-exercises" style={{ marginTop: '55px' }}>
         <Header completed={true} course={course} text="Completed all exercises" />
       </div>
     );
   }
 
   return (
-    <div className="module my-exercises">
+    <div className="module my-exercises" style={{ marginTop: '55px' }}>
       <Header course={course} remaining={remaining} text="Upcoming Exercises" />
       <UpcomingExercise exercise={latest} trainingLibrarySlug={trainingLibrarySlug} />
     </div>

@@ -35,6 +35,18 @@ const StatisticsUpdateInfo = ({ course }) => {
       <small>
         {updateTimesMessage} {(course.flags.first_update || course.flags.update_logs) && <a onClick={toggleModal} href="#">{I18n.t('metrics.update_statistics_link')}</a>}
       </small>
+      <div className="tooltip-trigger" style={{ cursor: 'default' }}>
+        <small className="statistics-delayed-info">
+          {(course.flags.first_update || course.flags.update_logs) && 'Delayed real-time counts'}
+        </small>
+        <div className="tooltip dark tooltip-right large">
+          <p>
+            While the counts are still 0 or not reflective of the activity level
+            on this event, within 24 hours the activity level and reflected
+            counts will sync.
+          </p>
+        </div>
+      </div>
     </div>
   );
 };
