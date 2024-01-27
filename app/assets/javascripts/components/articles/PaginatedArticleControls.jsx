@@ -42,12 +42,17 @@ export const PaginatedArticleControls = ({ showMore, limitReached }) => {
       />) : null }
       {!limitReached
         && (
-          <button
-            style={{ width: 'max-content', height: 'max-content' }}
-            className="button ghost articles-see-more-btn" onClick={showMore}
-          >
-            {I18n.t('articles.see_more')}
-          </button>
+          <div className={'tooltip-trigger'}>
+            <button
+              style={{ width: 'max-content', height: 'max-content' }}
+              className="button ghost articles-see-more-btn" onClick={showMore}
+            >
+              {I18n.t('articles.see_more')}
+            </button>
+            <div className="tooltip tooltip-center tooltip-see-more dark large">
+              <p style={{ padding: '0px', textWrap: 'balance' }}>Click &apos;See more&apos; to load the next subset of 500 articles and continue the seamless navigation through the articles with the pagination on the left.</p>
+            </div>
+          </div>
         )
       }
       <p className="articles-shown-label">
