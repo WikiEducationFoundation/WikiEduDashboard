@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import StatisticsUpdateModal from './statistics_update_modal';
 import { getUpdateMessage } from '../../utils/statistic_update_info_utils';
+import { isAfter, toDate } from 'date-fns';
 
 const StatisticsUpdateInfo = ({ course }) => {
   const [showModal, setShowModal] = useState(false);
@@ -26,8 +27,9 @@ const StatisticsUpdateInfo = ({ course }) => {
       />
     );
   }
-
-  const updateTimesMessage = isNextUpdateAfter ? `${lastUpdateMessage} ${nextUpdateMessage} ` : `${lastUpdateMessage} `;
+  const updatesEndMoment = toDate(course.update_until);
+  const futureUpdatesRemaining = isAfter(updatesEndMoment, new Date());
+  const updateTimesMessage = (isNextUpdateAfter && futureUpdatesRemaining) ? `${lastUpdateMessage} ${nextUpdateMessage} ` : `${lastUpdateMessage} `;
 
   // Render update time information and if some updates were made a 'See More' link to open modal
   return (
