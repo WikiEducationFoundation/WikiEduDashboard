@@ -57,15 +57,15 @@
       %a.course-link{:href => "#{course_slug_path(course.slug)}"}
         = form_for(@campaign, url: remove_course_campaign_path(@campaign.slug, course_id: course.id), method: :put, id: "remove_course-#{course.id}", html: { class: 'remove-program-form' }) do
           = hidden_field_tag('course_title', course.title, id: "course_title-#{course.id}")
-          %button.button.danger.remove-course{'data-id' => course.id, 'data-title' => course.title, 'data-campaign-title' => @campaign.title}
+          %button.button.danger.remove-course{ 'data-id' => course.id, 'data-title' => course.title, 'data-campaign-title' => @campaign.title, title: t('campaign.remove_course_tooltip') }
             = t('assignments.remove')
     - if @presenter&.can_delete_course?
       - if course.campaigns.size > 1
-        %button.button.danger.delete-course-prerequisite
+        %button.button.danger.delete-course-prerequisite{ 'data-id' => course.id, 'data-title' => course.title, 'data-campaign-title' => @campaign.title, title: t('campaign.delete_course_tooltip') }
           = t('assignments.delete')
       - else
         %a.course-link{:href => "#{course_slug_path(course.slug)}", style: "padding-top: 0;"}
-          = form_for(@campaign, url: "/courses/#{course.slug}.json?campaign=true&slug=#{@campaign.slug}", method: :delete, id: "delete_course-#{course.id}", html: { class: 'delete-program-form' }) do
+          = form_for(@campaign, url: "/courses/#{course.slug}.json?campaign=true&campaign_title=#{@campaign.title}&campaign_id=#{@campaign.id}&slug=#{@campaign.slug}", method: :delete, id: "delete_course-#{course.id}", html: { class: 'delete-program-form' }) do
             = hidden_field_tag('course_title', course.title, id: "course_title-#{course.id}")
-            %button.button.danger.delete-course-from-campaign{'data-title' => course.title}
+            %button.button.danger.delete-course-from-campaign{'data-id' => course.id, 'data-title' => course.title, 'data-campaign-title' => @campaign.title, title: t('campaign.delete_course_tooltip') }
               = t('assignments.delete')

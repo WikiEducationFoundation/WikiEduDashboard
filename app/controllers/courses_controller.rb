@@ -59,11 +59,19 @@ class CoursesController < ApplicationController
 
   def destroy
     validate
-    DeleteCourseWorker.schedule_deletion(course: @course, current_user:)
-    if params[:campaign].nil?
-      render json: { success: true }
-    else
+    if params.key?(:campaign)
+      campaigns_course = CampaignsCourses.find_by(course_id: @course.id,
+                                                  campaign_id: params[:campaign_id])
+      result = campaigns_course&.destroy
+      message = result ? 'campaign.course_removed' : 'campaign.course_already_removed'
+      flash[:notice] = t(message, title: @course.title,
+                                  campaign_title: params[:campaign_title])
+    end
+    DeleteCourseWorker.schedule_deletion(course: @course, current_user: current_user)
+    if params.key?(:campaign)
       redirect_to programs_campaign_path(params[:slug])
+    else
+      render json: { success: true }
     end
   end  
 

@@ -388,6 +388,7 @@ en:
     default_passcode_explanation: "By default, new programs in this campaign should have:"
     description: Description
     delete_campaign: Delete this campaign
+    delete_course_tooltip: Delete and remove from the campaign.
     delete_course_instructions_campaign: You may delete this course if all other campaigns are removed first.
     disable_account_requests: Disable account requests
     enable_account_requests: Enable account requests
@@ -403,6 +404,7 @@ en:
       When an organizer creates a program in this campaign,
       the text in this area will be copied over as a description on the program page
     random_passcode: a random passcode
+    remove_course_tooltip: Remove from campaign.
     requested_accounts: Requested accounts
     title: Title
     too_many_articles: The edited article list for this campaign is too long to be displayed. Please view individual courses/programs/events to see the articles edited.
