@@ -188,6 +188,7 @@ en:
     history: (history)
     label: Articles
     loading: Loading articles...
+    mark_as_complete: Mark as Complete
     new: (new)
     none: This course has not edited any articles.
     preview: Brief preview of Article
