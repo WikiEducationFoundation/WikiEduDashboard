@@ -61,8 +61,8 @@ const ArticleFinder = (props) => {
   const updateFieldsHandler = (key, value) => {
     const update_field = props.updateFields(key, value);
     Promise.resolve(update_field).then(() => {
-      if (props.search_term.length !== 0) {
-        buildURL();
+      if (props.search_term.length !== 0 || key === 'search_term') {
+        buildURL(key, value);
       }
     });
   };
@@ -70,24 +70,26 @@ const ArticleFinder = (props) => {
   const toggleFilter = () => {
     setShowFilters(!showFilters);
   };
-  const buildURL = () => {
+
+  const buildURL = (key, value) => {
     let queryStringUrl = window.location.href.split('?')[0];
     const params_array = ['search_type', 'article_quality', 'min_views'];
-    queryStringUrl += `?search_term=${props.search_term}`;
+    const latestSearch = (key === 'search_term') ? value : props.search_term;
+    queryStringUrl += `?search_term=${latestSearch}`;
     params_array.forEach((param) => {
-      return queryStringUrl += `&${param}=${props[param]}`;
+      return queryStringUrl += (param === key) ? `&${param}=${value}` : `&${param}=${props[param]}`;
     });
     history.replaceState(window.location.href, 'query_string', queryStringUrl);
   };
-  const searchArticles = () => {
-    setIsSubmitted(!isSubmitted);
-    if (props.search_term === '') {
-      setIsSubmitted(false);
+  const searchArticles = async () => {
+    setIsSubmitted(true);
+    const searchTerm = window.location.href.match(/search_term=([^&]*)/)[1];
+    if (searchTerm === '') {
+      return setIsSubmitted(false);
     } else if (props.search_type === 'keyword') {
-      buildURL();
-      return props.fetchKeywordResults(props.search_term, props.selectedWiki);
+      return props.fetchKeywordResults(searchTerm, props.selectedWiki);
     }
-    return props.fetchCategoryResults(props.search_term, props.selectedWiki);
+    return props.fetchCategoryResults(searchTerm, props.selectedWiki);
   };
   const fetchMoreResults = () => {
     if (props.search_type === 'keyword') {
@@ -105,9 +107,9 @@ const ArticleFinder = (props) => {
     props.clearResults();
     return updateFieldsHandler('wiki', { language: wiki.language, project: wiki.project });
   };
-  const sortSelect = (e) => {
-    props.sortArticleFinder(e.target.value);
-  };
+  // const sortSelect = (e) => {
+  //   props.sortArticleFinder(e.target.value);
+  // };
     const searchButton = <button className="button dark" onClick={searchArticles}>{I18n.t('article_finder.submit')}</button>;
     const searchTerm = (
       <TextInput
@@ -119,9 +121,7 @@ const ArticleFinder = (props) => {
         editable
         label={I18n.t('article_finder.search')}
         placeholder={I18n.t('article_finder.search_placeholder')}
-        // onKeyDown={onKeyDown}
-        // onKeyDown={(e) => onKeyDown(e.keyCode, searchboxRef.current)}
-        onKeyDown={e => onKeyDown(e.keyCode, searchboxRef.current)}
+        onKeyDown={onKeyDown}
         ref={searchboxRef}
       >{searchButton}
       </TextInput>);
@@ -303,7 +303,7 @@ const ArticleFinder = (props) => {
           table_key="category-articles"
           className="table--expandable table--hoverable"
           none_message={I18n.t(`article_finder.${ArticleUtils.projectSuffix(props.selectedWiki.project, 'no_article_found')}`)}
-          sortBy={sortSelect}
+          sortBy={props.sortArticleFinder}
         />
       );
     }
