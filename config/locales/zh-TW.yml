@@ -128,7 +128,7 @@ zh-TW:
     label: 活動
   articles:
     articles: 條目
-    article_not_found: 此條目尚未創建。
+    article_not_found: 尚未建立此條目。
     article_development: （條目發展）
     articles_shown: 顯示 %{total} 個條目裡的 %{count} 個
     assigned: 已分配條目
@@ -918,7 +918,7 @@ zh-TW:
     view_count_description_wikidata: 項目查看
     view_data_unavailable: 沒有可用的檢視資料
     view: 檢視數
-    wiki_ed_help: 使用「取得幫助」按鈕來回報問題。
+    wiki_ed_help: 使用「取得協助」按鈕來回報問題。
     word_count: 加入的文字
     word_count_average: 平均字數
     general: 一般
