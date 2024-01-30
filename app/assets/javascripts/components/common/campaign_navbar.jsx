@@ -5,24 +5,25 @@ import CourseUtils from '../../utils/course_utils';
 
 const CampaignNavbar = ({ campaign }) => {
   const [activeTab, setActiveTab] = useState(localStorage.getItem('activeTab') || 'overview');
-    const handleTabClick = (tabName) => {
-        setActiveTab(tabName);
-        localStorage.setItem('activeTab', tabName);
+  const handleTabClick = (tabName) => {
+    setActiveTab(tabName);
+    localStorage.setItem('activeTab', tabName);
+  };
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const storedTab = localStorage.getItem('activeTab');
+      if (storedTab && storedTab !== activeTab) {
+        setActiveTab(storedTab);
+      }
     };
+    window.addEventListener('storage', handleStorageChange);
 
-    useEffect(() => {
-        const handleStorageChange = () => {
-            const storedTab = localStorage.getItem('activeTab');
-            if (storedTab && storedTab !== activeTab) {
-                setActiveTab(storedTab);
-            }
-        };
-        window.addEventListener('storage', handleStorageChange);
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, [activeTab]);
 
-        return () => {
-            window.removeEventListener('storage', handleStorageChange);
-        };
-    }, [activeTab]);
   return (
     <div className="campaign-nav__wrapper">
       <div className="campaign_navigation">
@@ -31,7 +32,7 @@ const CampaignNavbar = ({ campaign }) => {
             <h2 className="title">{I18n.t('campaign.campaign')}: {campaign.title}</h2>
           </a>
           <nav>
-          <div className={`nav__item ${activeTab === 'overview' ? 'active' : ''}`} id="overview-link">
+            <div className={`nav__item ${activeTab === 'overview' ? 'active' : ''}`} id="overview-link">
               <p><a href={`/campaigns/${campaign.slug}/overview`} onClick={() => handleTabClick('overview')}>{I18n.t('courses.overview')}</a></p>
             </div>
             <div className={`nav__item ${activeTab === 'programs' ? 'active' : ''}`}>
@@ -49,7 +50,7 @@ const CampaignNavbar = ({ campaign }) => {
             <div className={`nav__item ${activeTab === 'alerts' ? 'active' : ''}`}>
               <p><NavLink to={`/campaigns/${campaign.slug}/alerts`} onClick={() => handleTabClick('alerts')}>{I18n.t('courses.alerts')}</NavLink></p>
             </div>
-            <div className="campaign-nav__search" >
+            <div className="campaign-nav__search">
               <form action={`/campaigns/${campaign.slug}/programs`} acceptCharset="UTF-8" method="get">
                 <input
                   type="text"
