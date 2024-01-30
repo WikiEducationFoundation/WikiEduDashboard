@@ -19,8 +19,8 @@ const ArticleFinderRow = (props) => {
     // button is disabled. On completion of request, this.props.assignment changes and
     // button is enabled again after isLoading is set to false
 
-    useEffect((prevProps) => {
-      if (isLoading && prevProps.assignment !== props.assignment) {
+    useEffect(() => {
+      if (isLoading && (props.assignment)) {
         setIsLoading(false);
       }
     }, [isLoading, props.assignment]);
