@@ -46,13 +46,13 @@ describe ReferenceCounterApi do
     expect(response.dig('708326238')).to eq({ 'num_ref' => nil })
   end
 
-  it 'logs the error if an unexpected error raises', vcr: true do
+  it 'logs the error once if an unexpected error raises several times', vcr: true do
     reference_counter_api = described_class.new(es_wiktionary)
 
-    allow_any_instance_of(Faraday::Connection).to receive(:get)
-      .and_raise(Faraday::TimeoutError)
+    stub_request(:any, /.*reference-counter.toolforge.org*/)
+      .to_raise(Errno::ETIMEDOUT)
 
-    expect_any_instance_of(described_class).to receive(:log_error).with(
+    expect(reference_counter_api).to receive(:log_error).once.with(
       Faraday::TimeoutError,
       update_service: nil,
       sentry_extra: {

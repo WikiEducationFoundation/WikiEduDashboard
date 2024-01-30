@@ -72,30 +72,32 @@ describe LiftWingApi do
       end
     end
 
-    it 'handles timeout errors' do
-      stub_request(:any, /.*api.wikimedia.org.*/)
-        .to_raise(Errno::ETIMEDOUT)
-      expect(lift_wing_api_class_en_wiki).to receive(:log_error).once
-      expect(subject0.dig('829840085')).to eq({ 'wp10' => nil,
-      'features' => nil, 'deleted' => false, 'prediction' => nil })
-    end
-
-    it 'handles connection refused errors' do
-      stub_request(:any, /.*api.wikimedia.org.*/)
-        .to_raise(Faraday::ConnectionFailed)
-      expect(lift_wing_api_class_en_wiki).to receive(:log_error).once
-      expect(subject0.dig('829840085')).to eq({ 'wp10' => nil,
-      'features' => nil, 'deleted' => false, 'prediction' => nil })
-    end
-
-    it 'logs the error if something unexpected happens when building the successful response' do
-      VCR.use_cassette 'liftwing_api/logs_unexpected_error' do
-        allow(lift_wing_api_class_en_wiki)
-          .to receive(:build_successful_response)
-          .and_raise(StandardError)
+    context 'if the same error happens several times' do
+      it 'logs timeout error once' do
+        stub_request(:any, /.*api.wikimedia.org.*/)
+          .to_raise(Errno::ETIMEDOUT)
         expect(lift_wing_api_class_en_wiki).to receive(:log_error).once
         expect(subject0.dig('829840085')).to eq({ 'wp10' => nil,
         'features' => nil, 'deleted' => false, 'prediction' => nil })
+      end
+
+      it 'logs connection refused once' do
+        stub_request(:any, /.*api.wikimedia.org.*/)
+          .to_raise(Faraday::ConnectionFailed)
+        expect(lift_wing_api_class_en_wiki).to receive(:log_error).once
+        expect(subject0.dig('829840085')).to eq({ 'wp10' => nil,
+        'features' => nil, 'deleted' => false, 'prediction' => nil })
+      end
+
+      it 'logs unexpected error once' do
+        VCR.use_cassette 'liftwing_api/logs_unexpected_error' do
+          allow(lift_wing_api_class_en_wiki)
+            .to receive(:build_successful_response)
+            .and_raise(StandardError)
+          expect(lift_wing_api_class_en_wiki).to receive(:log_error).once
+          expect(subject0.dig('829840085')).to eq({ 'wp10' => nil,
+          'features' => nil, 'deleted' => false, 'prediction' => nil })
+        end
       end
     end
   end

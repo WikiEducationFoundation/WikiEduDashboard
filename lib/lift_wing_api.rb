@@ -56,6 +56,7 @@ class LiftWingApi
   # Returns a hash with wp10, features, deleted, and prediction, or empty hash if
   # there is an error.
   def get_single_revision_parsed_data(rev_id)
+    tries ||= 5
     body = { rev_id:, extended_output: true }.to_json
     response = lift_wing_server.post(quality_query_url, body)
     parsed_response = Oj.load(response.body)
@@ -67,6 +68,8 @@ class LiftWingApi
 
     build_successful_response(rev_id, parsed_response)
   rescue StandardError => e
+    tries -= 1
+    retry unless tries.zero?
     @errors << e
     return { 'wp10' => nil, 'features' => nil, 'deleted' => false, 'prediction' => nil }
   end
