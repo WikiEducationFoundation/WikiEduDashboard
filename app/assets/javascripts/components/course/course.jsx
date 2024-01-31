@@ -34,7 +34,7 @@ const Course = withRouter((props) => {
     props.fetchCourse(courseSlug);
     props.fetchUsers(courseSlug);
     props.fetchTimeline(courseSlug);
-    return props.fetchCampaigns(courseSlug);
+    props.fetchCampaigns(courseSlug);
   }, []);
 
   const getCourseSlug = () => {
