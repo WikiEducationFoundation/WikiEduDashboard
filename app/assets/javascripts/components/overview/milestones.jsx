@@ -5,7 +5,7 @@ import CourseDateUtils from '../../utils/course_date_utils';
 
 const md = require('../../utils/markdown_it.js').default();
 
-const Milestones = ({ timelineStart, weeks, allWeeks, course }) => {
+const Milestones = ({ timelineStart, allWeeks, course }) => {
   const currentWeek = CourseDateUtils.currentWeekOrder(timelineStart);
   const weekNumberOffset = CourseDateUtils.weeksBeforeTimeline(course);
 
@@ -49,7 +49,6 @@ const Milestones = ({ timelineStart, weeks, allWeeks, course }) => {
 
 Milestones.propTypes = {
   timelineStart: PropTypes.string.isRequired,
-  weeks: PropTypes.array.isRequired,
   allWeeks: PropTypes.array.isRequired,
   course: PropTypes.object.isRequired
 };
