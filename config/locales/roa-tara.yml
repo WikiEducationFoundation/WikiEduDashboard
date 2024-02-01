@@ -61,18 +61,28 @@ roa-tara:
     opt_out: None
     opt_yes: sìne
     opt_no: none
+    print: Stambe
   dashboard:
     explore_examples: Esplore le esembie
     review_orientation: Oriendamende d'a reviste
   home:
     explore: Esplore
+  alerts:
+    alert_label: Avvise
+    no_alerts: Nisciune avvise acchiate.
   activity:
     all: Attività
     edited_by: Cangiate da
     label: Attività
   articles:
+    articles: Vôsce
+    article_not_found: Sta vôsce non g'a state angore ccrejate.
+    article_development: (svellupe d'a vôsce)
     articles_shown: Stoche a fazze 'ndrucà %{count} de %{total}
     assigned: Vôsce assegnate
+    assignments_none: Non ge stonne angore vôsce assegnate.
+    available: Vôsce disponibbele
+    no_available: Non ge stonne vôsce disponibbele
     next: Prossime
     previous: Precedende
     article_title: Titole d'a vôsce
@@ -123,7 +133,7 @@ roa-tara:
     title: Titole
     search_campaigns: Cirche le cambagne
   categories:
-    add_this_psid: Aggiunge stu PSID
+    add_this_psid: Aggiunge PetScan PSIDs
     psid_name: PSID
   courses:
     assignment_headings:
