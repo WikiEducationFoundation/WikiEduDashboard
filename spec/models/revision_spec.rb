@@ -29,6 +29,7 @@ require 'rails_helper'
 
 describe Revision, type: :model do
   describe '#references_added' do
+    let(:reference_count_key) { 'num_ref' }
     let(:refs_tags_key) { 'feature.wikitext.revision.ref_tags' }
     let(:wikidata_refs_tags_key) { 'feature.len(<datasource.wikidatawiki.revision.references>)' }
     let(:shortened_refs_tags_key) { 'feature.enwiki.revision.shortened_footnote_templates' }
@@ -217,6 +218,58 @@ describe Revision, type: :model do
       it 'includes the shortened footnote template references' do
         val = described_class.find_by(mw_rev_id: 902872698).references_added
         expect(val).to eq(134)
+      end
+    end
+
+    context 'has reference count key set as nil' do
+      let(:mw_rev_id) { 902872698 }
+
+      before do
+        stub_wiki_validation
+        create(:revision,
+                mw_rev_id:,
+                article_id: 55012289,
+                mw_page_id: 55012289,
+                features: {
+                  reference_count_key => nil,
+                  refs_tags_key => 56
+                },
+                features_previous: {
+                  reference_count_key => nil,
+                  refs_tags_key => 7
+                })
+      end
+
+      it 'uses the ref tag from Lift Wing API' do
+        val = described_class.find_by(mw_rev_id: 902872698).references_added
+        expect(val).to eq(49)
+      end
+    end
+
+    context 'has complete features' do
+      let(:mw_rev_id) { 902872698 }
+
+      before do
+        stub_wiki_validation
+        create(:revision,
+                mw_rev_id:,
+                article_id: 55012289,
+                mw_page_id: 55012289,
+                features: {
+                  reference_count_key => 57,
+                  refs_tags_key => 56,
+                  shortened_refs_tags_key => 14
+                },
+                features_previous: {
+                  reference_count_key => 6,
+                  refs_tags_key => 7,
+                  shortened_refs_tags_key => 1
+                })
+      end
+
+      it 'uses the reference count key from reference-counter API' do
+        val = described_class.find_by(mw_rev_id: 902872698).references_added
+        expect(val).to eq(51)
       end
     end
   end
