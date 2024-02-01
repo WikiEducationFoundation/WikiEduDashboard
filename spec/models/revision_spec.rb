@@ -227,17 +227,17 @@ describe Revision, type: :model do
       before do
         stub_wiki_validation
         create(:revision,
-                mw_rev_id:,
-                article_id: 55012289,
-                mw_page_id: 55012289,
-                features: {
-                  reference_count_key => nil,
-                  refs_tags_key => 56
-                },
-                features_previous: {
-                  reference_count_key => nil,
-                  refs_tags_key => 7
-                })
+               mw_rev_id:,
+               article_id: 55012289,
+               mw_page_id: 55012289,
+               features: {
+                 reference_count_key => nil,
+                 refs_tags_key => 56
+               },
+               features_previous: {
+                 reference_count_key => nil,
+                 refs_tags_key => 7
+               })
       end
 
       it 'uses the ref tag from Lift Wing API' do
@@ -252,19 +252,19 @@ describe Revision, type: :model do
       before do
         stub_wiki_validation
         create(:revision,
-                mw_rev_id:,
-                article_id: 55012289,
-                mw_page_id: 55012289,
-                features: {
-                  reference_count_key => 57,
-                  refs_tags_key => 56,
-                  shortened_refs_tags_key => 14
-                },
-                features_previous: {
-                  reference_count_key => 6,
-                  refs_tags_key => 7,
-                  shortened_refs_tags_key => 1
-                })
+               mw_rev_id:,
+               article_id: 55012289,
+               mw_page_id: 55012289,
+               features: {
+                 reference_count_key => 57,
+                 refs_tags_key => 56,
+                 shortened_refs_tags_key => 14
+               },
+               features_previous: {
+                 reference_count_key => 6,
+                 refs_tags_key => 7,
+                 shortened_refs_tags_key => 1
+               })
       end
 
       it 'uses the reference count key from reference-counter API' do
