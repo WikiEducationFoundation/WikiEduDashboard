@@ -192,7 +192,7 @@ const AvailableActions = createReactClass({
       ));
     }
 
-    if (user.admin) {
+    if (user.admin && Features.wikiEd) {
       controls.push((
         <div key="notify_instructors" className="available-action"><NotifyInstructorsButton courseId={course.id} courseTitle={course.title} /></div>
       ));
