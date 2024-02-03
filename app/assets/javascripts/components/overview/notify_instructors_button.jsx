@@ -8,10 +8,6 @@ import API from '../../utils/api.js';
 import { ADD_NOTIFICATION } from '../../constants/notifications.js';
 import TextInput from '@components/common/text_input.jsx';
 
-NotifyInstructorsButton.propTypes = {
-  courseId: PropTypes.number.isRequired,
-  courseTitle: PropTypes.string.isRequired,
-};
 
 const initialState = {
   subject: '',
@@ -20,7 +16,7 @@ const initialState = {
   error: null,
 };
 
-export default function NotifyInstructorsButton(props) {
+const NotifyInstructorsButton = (props) => {
   const dispatch = useDispatch();
 
   const [modalVisibility, setModalVisibility] = useState(false);
@@ -117,4 +113,11 @@ export default function NotifyInstructorsButton(props) {
       )}
     </>
   );
-}
+};
+
+NotifyInstructorsButton.propTypes = {
+  courseId: PropTypes.number.isRequired,
+  courseTitle: PropTypes.string.isRequired,
+};
+
+export default NotifyInstructorsButton;
