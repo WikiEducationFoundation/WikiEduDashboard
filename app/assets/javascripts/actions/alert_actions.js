@@ -1,4 +1,5 @@
 import * as types from '../constants';
+import { createInstructorNotificationAlert } from '../utils/alert_utils';
 import API from '../utils/api.js';
 import logErrorMessage from '../utils/log_error_message';
 import request from '../utils/request';
@@ -146,7 +147,7 @@ export const createInstructorAlert = ({ courseTitle, courseId, subject, message 
     }
 
     dispatch({ type: types.ALERT_INSTRUCTOR_CREATE });
-    API.createInstructorNotificationAlert(courseId, subject.trim(), message.trim())
+    createInstructorNotificationAlert(courseId, subject.trim(), message.trim())
       .then(() => {
         dispatch({ type: types.ALERT_INSTRUCTOR_MODAL_HIDDEN });
         dispatch({
