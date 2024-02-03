@@ -98,10 +98,7 @@ class Alert < ApplicationRecord
     UnsubmittedCourseAlert
     UntrainedStudentsAlert
     SandboxedCourseMainspaceAlert
-    InstructorNotificationAlert
   ].freeze
-
-  # InstructorNotificationAlert public or private?
 
   scope :nonprivate, -> { where(type: PUBLIC_ALERT_TYPES) }
 
