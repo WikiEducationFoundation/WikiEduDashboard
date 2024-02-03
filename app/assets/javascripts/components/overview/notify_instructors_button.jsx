@@ -1,77 +1,40 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { initiateConfirm } from '../../actions/confirm_actions.js';
 import TextAreaInput from '@components/common/text_area_input.jsx';
-import { useDispatch } from 'react-redux';
+import { useDispatch, connect } from 'react-redux';
 import Loading from '@components/common/loading.jsx';
-import API from '../../utils/api.js';
-import { ADD_NOTIFICATION } from '../../constants/notifications.js';
 import TextInput from '@components/common/text_input.jsx';
-
-
-const initialState = {
-  subject: '',
-  message: '',
-  status: 'DEFAULT', // DEFAULT, PENDING, FAILED
-  error: null,
-};
+import { createInstructorAlert } from '../../actions/alert_actions';
+import { ALERT_INSTRUCTOR_UPDATE_MESSAGE, ALERT_INSTRUCTOR_UPDATE_SUBJECT, ALERT_INSTRUCTOR_MODAL_HIDDEN, ALERT_INSTRUCTOR_MODAL_VISIBLE } from '../../constants/alert.js';
 
 const NotifyInstructorsButton = (props) => {
+  const { notification, visible } = props;
   const dispatch = useDispatch();
 
-  const [modalVisibility, setModalVisibility] = useState(false);
-  const [notification, setNotification] = useState(initialState);
-
-  const createNotificationApi = () => {
-    setNotification({ ...notification, status: 'PENDING' });
-    API.createInstructorNotificationAlert(props.courseId, notification.subject.trim(), notification.message.trim())
-      .then(() => {
-        setNotification({ ...initialState });
-        setModalVisibility(false);
-        dispatch({
-          type: ADD_NOTIFICATION,
-          notification: {
-            message: I18n.t('course_instructor_notification.notification_sent_success', { courseTitle: props.courseTitle }),
-            closable: true,
-            type: 'success',
-          },
-        });
-      })
-      .catch((resp) => {
-        // failed
-        const msg = resp.readyState === 0
-            ? I18n.t('course_instructor_notification.notification_send_error_no_internet')
-            : I18n.t('course_instructor_notification.notification_send_error_server', {
-                status: resp.status,
-                statusText: resp.statusText,
-              });
-        setNotification({ ...notification, status: 'FAILED', error: msg });
-      });
-  };
-
   const sendNotificationHandler = () => {
-    if (!notification.message) {
-      setNotification({ ...notification, status: 'FAILED', error: I18n.t('course_instructor_notification.notification_empty_message') });
-      return;
-    }
-
     dispatch(
       initiateConfirm({
         confirmMessage: I18n.t('course_instructor_notification.confirm_send_notification'),
-        onConfirm: createNotificationApi,
+        onConfirm: () => props.createInstructorAlert({
+          courseTitle: props.courseTitle,
+          courseId: props.courseId,
+          subject: notification.subject,
+          message: notification.message
+        }),
       })
     );
   };
 
   return (
     <>
-      <button onClick={() => setModalVisibility(!modalVisibility)} className="button">
+      <button onClick={() => dispatch({ type: ALERT_INSTRUCTOR_MODAL_VISIBLE })} className="button">
         {I18n.t('course_instructor_notification.notify_instructors')}
       </button>
 
-      {modalVisibility && (
+      {visible && (
         <div className="basic-modal course-stats-download-modal">
-          <button onClick={() => setModalVisibility(false)} className="pull-right article-viewer-button icon-close" />
+          <button onClick={() => dispatch({ type: ALERT_INSTRUCTOR_MODAL_HIDDEN })} className="pull-right article-viewer-button icon-close" />
           <h2>{I18n.t('course_instructor_notification.notify_instructors')}</h2>
           <p>{I18n.t('course_instructor_notification.notify_instructors_feature_description')}</p>
           <hr />
@@ -83,20 +46,16 @@ const NotifyInstructorsButton = (props) => {
             editable
             value={notification.subject}
             onChange={(_, value) => {
-              setNotification((prevNotification) => {
-                return { ...prevNotification, subject: value };
-              });
+              dispatch({ type: ALERT_INSTRUCTOR_UPDATE_SUBJECT, payload: value });
             }}
           />
 
           <TextAreaInput
             id={'notification-message'}
-            onChange={(_key, value) => {
-              setNotification((prevNotification) => {
-                return { ...prevNotification, message: value };
-              });
-            }}
             value={notification.message}
+            onChange={(_, value) => {
+              dispatch({ type: ALERT_INSTRUCTOR_UPDATE_MESSAGE, payload: value });
+            }}
             value_key="notification_message"
             editable
             placeholder={I18n.t('course_instructor_notification.write_message_placeholder')}
@@ -120,4 +79,11 @@ NotifyInstructorsButton.propTypes = {
   courseTitle: PropTypes.string.isRequired,
 };
 
-export default NotifyInstructorsButton;
+const mapStateToProps = (state) => {
+  return {
+    notification: state.instructorAlert,
+    visible: state.instructorAlert.modal,
+  };
+};
+
+export default connect(mapStateToProps, { createInstructorAlert })(NotifyInstructorsButton);

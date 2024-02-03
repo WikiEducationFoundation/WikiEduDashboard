@@ -137,3 +137,36 @@ export const fetchCourseAlerts = courseSlug => (dispatch) => {
 export const sortAlerts = key => ({ type: types.SORT_ALERTS, key: key });
 
 export const filterAlerts = selectedFilters => ({ type: types.FILTER_ALERTS, selectedFilters: selectedFilters });
+
+export const createInstructorAlert = ({ courseTitle, courseId, subject, message }) => {
+  return (dispatch) => {
+    if (!subject || !message) {
+      dispatch({ type: types.ALERT_INSTRUCTOR_FAILED, payload: I18n.t('course_instructor_notification.notification_empty_message') });
+      return;
+    }
+
+    dispatch({ type: types.ALERT_INSTRUCTOR_CREATE });
+    API.createInstructorNotificationAlert(courseId, subject.trim(), message.trim())
+      .then(() => {
+        dispatch({ type: types.ALERT_INSTRUCTOR_MODAL_HIDDEN });
+        dispatch({
+          type: types.ADD_NOTIFICATION,
+          notification: {
+            message: I18n.t('course_instructor_notification.notification_sent_success', { courseTitle: courseTitle }),
+            closable: true,
+            type: 'success',
+          },
+        });
+      })
+      .catch((resp) => {
+        // failed
+        const msg = resp.readyState === 0
+            ? I18n.t('course_instructor_notification.notification_send_error_no_internet')
+            : I18n.t('course_instructor_notification.notification_send_error_server', {
+                status: resp.status,
+                statusText: resp.statusText,
+              });
+        dispatch({ type: types.ALERT_INSTRUCTOR_FAILED, payload: msg });
+      });
+  };
+};
