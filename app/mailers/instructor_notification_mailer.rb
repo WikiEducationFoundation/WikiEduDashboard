@@ -12,7 +12,9 @@ class InstructorNotificationMailer < ApplicationMailer
     params = { to: @instructors.pluck(:email),
                subject: @alert.subject }
     params[:reply_to] = @alert.sender_email unless @alert.sender_email.nil?
-    params[:bcc] = @alert.sender_email unless @alert.sender_email.nil? # sender_email gives user email of the sender
+    unless @alert.sender_email.nil?
+      params[:bcc] = @alert.sender_email # sender_email gives user email of the sender
+    end
     mail(params)
   end
 
