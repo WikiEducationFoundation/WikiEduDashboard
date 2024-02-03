@@ -71,6 +71,7 @@ Rails.application.routes.draw do
     resources :assignment_suggestions
   end
   put '/assignments/:assignment_id/claim' => 'assignments#claim'
+  put '/assignments/:assignment_id/unclaim' => 'assignments#unclaim'
   post '/assignments/assign_reviewers_randomly' => 'assignments#assign_reviewers_randomly'
 
   get 'mass_enrollment/:course_id'  => 'mass_enrollment#index',

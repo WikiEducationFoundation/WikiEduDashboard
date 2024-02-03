@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Actions from './Actions/Actions.jsx';
 import MyArticlesAssignmentLinks from './MyArticlesAssignmentLinks.jsx';
 import { initiateConfirm } from '@actions/confirm_actions';
-import { deleteAssignment } from '@actions/assignment_actions';
+import { unclaimAssignment } from '@actions/assignment_actions';
 
 import { useDispatch } from 'react-redux';
 
@@ -33,7 +33,7 @@ const isClassroomProgram = course => (course.type === 'ClassroomProgramCourse');
 const unassign = ({ assignment, course, dispatch }) => {
   const body = { course_slug: course.slug, ...assignment };
   const confirmMessage = I18n.t('assignments.confirm_deletion');
-  const onConfirm = () => dispatch(deleteAssignment(body));
+  const onConfirm = () => dispatch(unclaimAssignment(body));
 
   return () => dispatch(initiateConfirm({ confirmMessage, onConfirm }));
 };
@@ -60,7 +60,7 @@ export const Header = ({
         isEnglishWikipedia={isEnglishWikipedia({ assignment, course })}
         isClassroomProgram={isClassroomProgram(course)}
         isComplete={isComplete}
-        unassign={unassign({ assignment, course, deleteAssignment, dispatch })}
+        unassign={unassign({ assignment, course, unclaimAssignment, dispatch })}
         username={username}
       />
     </header>

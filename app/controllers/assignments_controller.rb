@@ -7,6 +7,7 @@ require_dependency "#{Rails.root}/app/workers/update_assignments_worker"
 require_dependency "#{Rails.root}/app/workers/update_course_worker"
 
 # Controller for Assignments
+# rubocop:disable Metrics/ClassLength
 class AssignmentsController < ApplicationController
   respond_to :json
   before_action :set_course, except: [:claim, :update_status]
@@ -62,6 +63,13 @@ class AssignmentsController < ApplicationController
   rescue AssignmentManager::DuplicateAssignmentError => e
     render json: { errors: e, message: I18n.t('assignments.already_exists') },
            status: :conflict
+  end
+
+  def unclaim
+    set_assignment { return }
+    check_permissions(@assignment.user_id)
+    @assignment.update(user_id: nil)
+    render partial: 'updated_assignment', locals: { assignment: @assignment }
   end
 
   def update_status
@@ -167,8 +175,9 @@ class AssignmentsController < ApplicationController
   def assignment_params
     params.permit(
       :id, :user_id, :course_id, :title, :role, :language, :project, :status,
-      :course_slug, :format,
+      :course_slug, :format, :assignment_id,
       assignment: {}
     )
   end
 end
+# rubocop:enable Metrics/ClassLength
