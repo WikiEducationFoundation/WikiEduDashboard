@@ -35,13 +35,15 @@ class InstructorNotificationAlert < Alert
     course_url
   end
 
+  # deliver the actual email immediately
   def send_email
     return if emails_disabled?
     InstructorNotificationMailer.send_email(self)
     update(email_sent_at: Time.zone.now)
   end
 
-  def reply_to
+  # returns the email of the sender
+  def sender_email
     User.find_by(id: user_id)&.email
   end
 end
