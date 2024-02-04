@@ -169,7 +169,10 @@
 .feedback
   font-size 120%
   padding 20px 40px
-  overflow-y auto
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
 
   div
     float none
@@ -177,12 +180,24 @@
   h2
     text-align left
     display inline
+    width: fit-content;
+    padding-left: 20px
 
-  .okay
-    float right
+  .feedback-close
+    float left
+    width: fit-content;
+
+  .feedback-close-container
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding-top: 10px;
+  
 
 .feedback-body
   padding 20px
+  display: flex;
+  flex-direction: column;
 
   .rating-description
     font-size 75%
