@@ -79,7 +79,28 @@ class AssignmentsController < ApplicationController
     end
   end
 
+  # Updates the (/User:<username>/) part of the sandbox url of an assignment.
+  def update_sandbox_url
+    check_permissions(params[:user_id].to_i)
+    @new_url_username = params[:new_url]
+    @assignment = Assignment.find(params[:id])
+    validate_new_sandbox_url_username(@new_url_username, @assignment)
+  end
+
   private
+
+  # This method validates the existance of the new username
+  # which will be used to update the sandbox url of an existing assignment.
+  def validate_new_sandbox_url_username(username = nil, assignment = nil)
+    user = User.find_by(username: username)
+    if !user
+      render json: { errors: assignment.errors, message: t('assignments.no_user_exists', username: username) },
+             status: :not_found
+    else
+      assignment.update_sandbox_url(username)
+      render partial: 'updated_assignment', locals: { assignment: assignment }
+    end
+  end
 
   def update_onwiki_course_and_assignments
     UpdateAssignmentsWorker.schedule_edits(course: @course, editing_user: current_user)
