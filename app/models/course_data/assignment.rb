@@ -134,7 +134,7 @@ class Assignment < ApplicationRecord
   end
 
   def set_sandbox_url
-    return unless !edit_sandbox_url
+    return if edit_sandbox_url
     return unless user
     return if sandbox_url.present?
     # If the sandbox already exists, use that URL instead

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# rubocop:disable Metrics/ClassLength
 
 require 'uri'
 require_dependency "#{Rails.root}/lib/assignment_manager"
@@ -91,16 +92,20 @@ class AssignmentsController < ApplicationController
 
   # This method validates the existance of the new username
   # which will be used to update the sandbox url of an existing assignment.
+  # rubocop:disable Style/HashSyntax
   def validate_new_sandbox_url_username(username = nil, assignment = nil)
     user = User.find_by(username: username)
-    if !user
-      render json: { errors: assignment.errors, message: t('assignments.no_user_exists', username: username) },
-             status: :not_found
-    else
+    if user
       assignment.update_sandbox_url(username)
+
       render partial: 'updated_assignment', locals: { assignment: assignment }
+    else
+      render json: { errors: assignment.errors,
+             message: t('assignments.no_user_exists', username: username) },
+             status: :not_found
     end
   end
+  # rubocop:enable Style/HashSyntax
 
   def update_onwiki_course_and_assignments
     UpdateAssignmentsWorker.schedule_edits(course: @course, editing_user: current_user)
@@ -195,3 +200,4 @@ class AssignmentsController < ApplicationController
     )
   end
 end
+# rubocop:enable Metrics/ClassLength
