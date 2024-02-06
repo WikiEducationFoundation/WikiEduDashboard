@@ -75,7 +75,7 @@ const ArticleFinder = createReactClass({
   },
 
   updateFields(key, value) {
-    const update_field = this.props.updateFields(key, value);
+        const update_field = this.props.updateFields(key, value);
     Promise.resolve(update_field).then(() => {
       if (this.props.search_term.length !== 0) {
         this.buildURL();
@@ -136,22 +136,6 @@ const ArticleFinder = createReactClass({
   },
 
   render() {
-    const searchButton = <button className="button dark" onClick={this.searchArticles}>{I18n.t('article_finder.submit')}</button>;
-    const searchTerm = (
-      <TextInput
-        id="category"
-        onChange={this.updateFields}
-        value={this.props.search_term}
-        value_key="search_term"
-        required
-        editable
-        label={I18n.t('article_finder.search')}
-        placeholder={I18n.t('article_finder.search_placeholder')}
-        onKeyDown={this.onKeyDown}
-        ref="searchbox"
-      >{searchButton}
-      </TextInput>);
-
     const searchType = (
       <div>
         <div className="search-type">
@@ -404,8 +388,20 @@ const ArticleFinder = createReactClass({
           </div>
         </header>
         <div className="article-finder-form">
-          <div className="search-bar">
-            {searchTerm}
+          <div className="search-bar" style={{ display: 'flex', flexDirection: 'row', alignItems: 'end' }}>
+            <TextInput
+              id="category"
+              onChange={this.updateFields}
+              value={this.props.search_term}
+              value_key="search_term"
+              required
+              editable
+              label={I18n.t('article_finder.search')}
+              placeholder={I18n.t('article_finder.search_placeholder')}
+              onKeyDown={this.onKeyDown}
+              ref="searchbox"
+            />
+            <button style={{ marginBottom: '8px' }} className={`button dark ${(this.props.fetchState !== 'PAGEVIEWS_RECEIVED' && !this.props.loading) ? 'disabled' : ''}`} onClick={this.searchArticles}>{I18n.t('article_finder.submit')}</button>
           </div>
         </div>
         {options}
