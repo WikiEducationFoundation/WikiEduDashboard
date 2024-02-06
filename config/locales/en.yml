@@ -298,6 +298,8 @@ en:
     confirm_deletion: Are you sure you want to delete this assignment?
     delete: Remove and Delete
     editors: Assigned to
+    change_sandbox_url: Change
+    edit_sandbox_url_placeholder: Edit URL
     group_members: Group members
     label: Assign
     label_all: Assign all
@@ -338,6 +340,8 @@ en:
     sandbox_draft_link: Sandbox Draft
     sandbox_redlink_info: This link is red because the page has not been created yet. (If it was created recently, the Dashboard will update its data soon.)
     select: Select
+    submit: Submit
+    no_user_exists: Cannot update sandbox url. No user with the username %{username} exists.
     warning_untracked_wiki: >
       Please note that the article you’ve chosen is on a wiki not tracked
       by this course. To track contributions to this article, an instructor

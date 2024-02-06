@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import EditSandboxUrl from './EditSandboxUrl';
 
-export const SandboxLink = ({ assignment, editMode }) => {
+export const SandboxLink = ({ assignment, editMode, user }) => {
   const sandboxExists = assignment.draft_sandbox_status !== 'does_not_exist';
   let url = assignment.sandboxUrl || assignment.sandbox_url;
   let linkClass = '';
@@ -14,9 +15,13 @@ export const SandboxLink = ({ assignment, editMode }) => {
   }
 
   return (
-    <a href={url} className={linkClass} target="_blank" title={mouseoverText} >
-      {I18n.t('assignments.sandbox_draft_link')}
-    </a>
+    <div>
+      <a href={url} className={linkClass} target="_blank" title={mouseoverText} >
+        {I18n.t('assignments.sandbox_draft_link')}
+      </a>
+      <EditSandboxUrl user={user} assignment={assignment} />
+    </div>
+
   );
 };
 

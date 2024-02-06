@@ -97,3 +97,42 @@ export const updateAssignmentStatus = (assignment, status) => () => {
       return error;
     });
 };
+
+const updateSandboxUrlPromise = (assignment, newUrl) => {
+  const body = {
+    id: assignment.id,
+    status,
+    user_id: assignment.user_id,
+  };
+  return request(`/assignments/${assignment.id}/${newUrl}/update_sandbox_url`, {
+    body: JSON.stringify(body),
+    method: 'PATCH'
+  }).then((res) => {
+    if (res.ok && res.status === 200) {
+      return res.json();
+    }
+    return Promise.reject(res);
+  }).catch((error) => {
+    logErrorMessage(error);
+    return error;
+  });
+};
+
+export const updateSandboxUrl = (assignment, newUrl) => (dispatch) => {
+  return (
+    updateSandboxUrlPromise(assignment, newUrl)
+      .then((resp) => {
+        if (resp.assignment) {
+          dispatch({
+            type: types.UPDATE_ASSIGNMENT,
+            data: resp
+          });
+        } else {
+          dispatch({ type: types.API_FAIL, data: resp });
+        }
+      })
+      .catch((error) => {
+        dispatch({ type: types.API_FAIL, data: error });
+    })
+  );
+};

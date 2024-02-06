@@ -223,6 +223,8 @@ qqq:
     confirm_addition: Confirmation dialog for adding a new assignment. %{title} is
       the Wikipedia page title. %{username} is the username of the assignee.
     confirm_deletion: Confirmation dialog for an assignment should be deleted
+    change_sandbox_url: Link to change the sandbox URL
+    edit_sandbox_url_placeholder: Placeholder for the edit sandbox url input
     label: |-
       Button to assign an article
       {{Identical|Assign}}
@@ -241,6 +243,8 @@ qqq:
     select: |-
       Button to choose an available article to work on. It appears next to the title of the article.
       {{Identical|Select}}
+    submit: Button to submit sandbox URL change.
+    no_user_exists: Message displayed when trying to update the sandbox url of an assignment with a username 
   blocks:
     milestones:
       title: Label for the Milestone section of a course page (Wiki Ed only)
