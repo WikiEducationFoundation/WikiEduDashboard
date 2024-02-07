@@ -33,6 +33,7 @@ class Alert < ApplicationRecord
 
   ALERT_TYPES = %w[
     ActiveCourseAlert
+    ArticleNamespaceChangeAlert
     ArticlesForDeletionAlert
     BadWorkAlert
     BlockedEditsAlert
@@ -81,6 +82,7 @@ class Alert < ApplicationRecord
   PUBLIC_ALERT_TYPES = %w[
     ActiveCourseAlert
     ArticlesForDeletionAlert
+    ArticleNamespaceChangeAlert
     BlockedEditsAlert
     BlockedUserAlert
     ContinuedCourseActivityAlert

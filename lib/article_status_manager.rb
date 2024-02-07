@@ -2,6 +2,7 @@
 
 require_dependency "#{Rails.root}/lib/modified_revisions_manager"
 require_dependency "#{Rails.root}/lib/assignment_updater"
+require_dependency "#{Rails.root}/lib/alerts/article_namespace_change_alert_manager"
 
 #= Updates articles to reflect deletion and page moves on Wikipedia
 class ArticleStatusManager
@@ -90,6 +91,7 @@ class ArticleStatusManager
     synced_articles
   end
 
+  # rubocop:disable Metrics/MethodLength
   def update_title_and_namespace(synced_articles)
     # Update titles and namespaces based on mw_page_ids
     synced_articles.each do |article_data|
@@ -103,11 +105,16 @@ class ArticleStatusManager
       next if article.title[0] == '%'
 
       begin
+        old_namespace = article.namespace
         article.update!(title: article_data['page_title'],
                         namespace: article_data['page_namespace'],
                         deleted: false)
         # Find corresponding Assignment records and update the titles
         AssignmentUpdater.update_assignments_for_article(article)
+
+        if old_namespace != article.namespace
+          ArticleChangeNamespaceAlertManager.create_alerts_for_article_namespace_change(article)
+        end
       rescue ActiveRecord::RecordNotUnique => e
         # if this is a duplicate article record, moving the revisions to the non-deleted
         # copy should prevent it from being part of a future update.
@@ -120,6 +127,7 @@ class ArticleStatusManager
       end
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   def update_deleted_articles(articles)
     return unless @failed_request_count.zero?
