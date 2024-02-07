@@ -4,7 +4,6 @@ import '../testHelper';
 describe('AlertActions', () => {
   const initialState = { submitting: false, created: false };
   const expectedState = { submitting: false, created: true };
-  let err = null;
   test('submits and creates an alert, then resets it', () => {
     expect(reduxStore.getState().needHelpAlert).toEqual(initialState);
     sinon.stub($, 'ajax').yieldsTo('success', { success: true });
@@ -15,12 +14,6 @@ describe('AlertActions', () => {
       .then(() => {
         reduxStore.dispatch(actions.resetNeedHelpAlert());
         expect(reduxStore.getState().needHelpAlert).toEqual(initialState);
-      })
-      .catch((e) => {
-        err = e;
       });
   });
-  if (err != null) {
-    console.log(err);
-  }
 });
