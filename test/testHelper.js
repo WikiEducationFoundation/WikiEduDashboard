@@ -8,13 +8,13 @@ const jsdom = require('jsdom');
 
 const { JSDOM } = jsdom;
 
-global.document ??= new JSDOM('<!doctype html><html><body><div data-current_user=\'{ "admin": false, "id": null }\' id=\'react_root\'></div></body></html>', {
+global.document = new JSDOM('<!doctype html><html><body><div data-current_user=\'{ "admin": false, "id": null }\' id=\'react_root\'></div></body></html>', {
   url: 'http://localhost',
   skipWindowCheck: true
 });
-global.window ??= document.defaultView;
+global.window = document.defaultView;
 global.window.scrollTo = mock.fn(); // scrollTo is not implemented by JSDOM, so we mock it.
-global.navigator ??= global.window.navigator;
+global.navigator = global.window.navigator;
 
 const sinon = require('sinon');
 const $ = require('jquery');
