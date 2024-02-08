@@ -9,13 +9,13 @@ describe DefaultCampaignUpdate do
                    value: { :slug => 'default_campaign' })
   end
 
-  describe 'when fall starts' do
+  context 'when fall starts' do
     before do
       travel_to Date.new(2024, 9, 21)
     end
 
     context 'when current term exists as campaign' do
-      it 'sets it as default campaign' do
+      it 'sets current term as default campaign' do
         create(:campaign, id: 1, slug: 'fall_2024')
         expect(CampaignsPresenter.default_campaign_setting.value).to eq({:slug=>"default_campaign"})
         described_class.new
@@ -23,7 +23,7 @@ describe DefaultCampaignUpdate do
       end
     end
 
-    context 'when current term does not as campaign' do
+    context 'when current term does not exist as campaign' do
       it 'default campaign keeps being the same' do
         expect(CampaignsPresenter.default_campaign_setting.value).to eq({:slug=>"default_campaign"})
         described_class.new
@@ -32,13 +32,13 @@ describe DefaultCampaignUpdate do
     end
   end
 
-  describe 'when spring starts' do
+  context 'when spring starts' do
     before do
       travel_to Date.new(2024, 3, 21)
     end
 
     context 'when current term exists as campaign' do
-      it 'sets it as default campaign' do
+      it 'sets current term as default campaign' do
         create(:campaign, id: 1, slug: 'spring_2024')
         expect(CampaignsPresenter.default_campaign_setting.value).to eq({:slug=>"default_campaign"})
         described_class.new
