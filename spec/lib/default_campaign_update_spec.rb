@@ -3,10 +3,10 @@
 require 'rails_helper'
 require "#{Rails.root}/lib/deafult_campaign_update.rb"
 
-describe DefaultCampaignUpdate do 
+describe DefaultCampaignUpdate do
   before do
     Setting.create(key: 'default_campaign',
-                   value: { :slug => 'default_campaign' })
+                   value: { slug: 'default_campaign' })
   end
 
   context 'when fall starts' do
@@ -17,17 +17,21 @@ describe DefaultCampaignUpdate do
     context 'when current term exists as campaign' do
       it 'sets current term as default campaign' do
         create(:campaign, id: 1, slug: 'fall_2024')
-        expect(CampaignsPresenter.default_campaign_setting.value).to eq({:slug=>"default_campaign"})
+        expect(CampaignsPresenter.default_campaign_setting.value)
+          .to eq({ slug: 'default_campaign' })
         described_class.new
-        expect(CampaignsPresenter.default_campaign_setting.value).to eq({:slug=>"fall_2024"})
+        expect(CampaignsPresenter.default_campaign_setting.value)
+          .to eq({ slug: 'fall_2024' })
       end
     end
 
     context 'when current term does not exist as campaign' do
       it 'default campaign keeps being the same' do
-        expect(CampaignsPresenter.default_campaign_setting.value).to eq({:slug=>"default_campaign"})
+        expect(CampaignsPresenter.default_campaign_setting.value)
+          .to eq({ slug: 'default_campaign' })
         described_class.new
-        expect(CampaignsPresenter.default_campaign_setting.value).to eq({:slug=>"default_campaign"})
+        expect(CampaignsPresenter.default_campaign_setting.value)
+          .to eq({ slug: 'default_campaign' })
       end
     end
   end
@@ -40,17 +44,21 @@ describe DefaultCampaignUpdate do
     context 'when current term exists as campaign' do
       it 'sets current term as default campaign' do
         create(:campaign, id: 1, slug: 'spring_2024')
-        expect(CampaignsPresenter.default_campaign_setting.value).to eq({:slug=>"default_campaign"})
+        expect(CampaignsPresenter.default_campaign_setting.value)
+          .to eq({ slug: 'default_campaign' })
         described_class.new
-        expect(CampaignsPresenter.default_campaign_setting.value).to eq({:slug=>"spring_2024"})
+        expect(CampaignsPresenter.default_campaign_setting.value)
+          .to eq({ slug: 'spring_2024' })
       end
     end
 
     context 'when current term does not as campaign' do
       it 'default campaign keeps being the same' do
-        expect(CampaignsPresenter.default_campaign_setting.value).to eq({:slug=>"default_campaign"})
+        expect(CampaignsPresenter.default_campaign_setting.value)
+          .to eq({ slug: 'default_campaign' })
         described_class.new
-        expect(CampaignsPresenter.default_campaign_setting.value).to eq({:slug=>"default_campaign"})
+        expect(CampaignsPresenter.default_campaign_setting.value)
+          .to eq({ slug: 'default_campaign' })
       end
     end
   end
