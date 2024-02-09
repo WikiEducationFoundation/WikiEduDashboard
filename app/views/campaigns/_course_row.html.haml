@@ -47,6 +47,10 @@
       %a.course-link{:href => "#{course_slug_path(course.slug)}"}
         %span.creation-date
           = I18n.localize course.created_at.to_date
+    %td{:class => "table-link-cell"}
+      %a.course-link{:href => "#{course_slug_path(course.slug)}"}
+        %span.timeline_start
+          = I18n.localize course.timeline_start.to_date
   %td{:class => "table-link-cell"}
     - if @presenter&.campaign_organizer?
       %a.course-link{:href => "#{course_slug_path(course.slug)}", style: "padding-bottom: 0;"}

@@ -30,6 +30,8 @@
           - unless Features.wiki_ed?
             %option{rel: 'desc', value: 'creation-date'}
               = t("courses.creation_date")
+            %option{rel: 'asc', value: 'timeline_start'}
+              = t("courses.timeline_start")
 
     %table.table.table--hoverable.table--sortable
       %thead
@@ -76,6 +78,9 @@
           - unless Features.wiki_ed?
             %th.sort.sortable{'data-default-order' => 'desc', 'data-sort' => 'creation-date', style: 'width: 160px'}
               = t('courses.creation_date')
+              %span.sortable-indicator
+            %th.sort.sortable{'data-default-order' => 'asc', 'data-sort' => 'timeline_start', style: 'width: 160px'}
+              = t('courses.timeline_start')
               %span.sortable-indicator
 
           - if @presenter.can_remove_course?

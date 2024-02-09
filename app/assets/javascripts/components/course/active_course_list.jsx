@@ -46,6 +46,10 @@ const keys = {
     creation_date: {
       label: I18n.t('courses.creation_date'),
       desktop_only: false
+    },
+    timeline_start: {
+      label: I18n.t('courses.timeline_start'),
+      desktop_only: false
     }
   } : {}),
 };

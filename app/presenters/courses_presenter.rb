@@ -160,4 +160,9 @@ class CoursesPresenter
   def creation_date
     I18n.l campaign.created_at.to_date
   end
+
+  def timeline_start
+    I18n.l campaign.timeline_start.to_date
+  end
+
 end

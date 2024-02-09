@@ -785,6 +785,7 @@ en:
     timeline: Assignment Details
     timeline_enabled: Timeline enabled
     timeline_link: Timeline
+    timeline_start: Start date
     timeline_tooltip: Enabling the Timeline will let you specify week-by-week activities and assign training modules. It is useful for Education Program courses and other long, highly structured programs.
     timeline_nav: Go to Timeline
     time_zone_message: Start and end times are displayed in your local time zone.

@@ -41,6 +41,13 @@ const ActiveCourseRow = ({ course }) => {
           <a href={`/courses/${course.slug}/`}>{course.creation_date}</a>
         </td>
         )
+      },
+      {
+      !Features.wikiEd && (
+        <td className="table-link-cell timeline_start">
+          <a href={`/courses/${course.slug}/`}>{course.timeline_start}</a>
+        </td>
+        )
       }
     </tr>
   );

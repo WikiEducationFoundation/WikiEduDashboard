@@ -501,6 +501,7 @@ qqq:
     tags: '{{Identical|Tag}}'
     term: '{{Identical|Term}}'
     timeline_link: '{{Identical|Timeline}}'
+    timeline_start: Message showing the time at which a given program starts
     timeline_tooltip: Message that explains what timeline is good for
     time_zone_message: Message explaining that times are shown to the user in their
       local time zone
