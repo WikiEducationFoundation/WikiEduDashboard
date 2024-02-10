@@ -17,7 +17,11 @@ const CourseForm = (props) => {
     props.updateCourseProps({ private: isPrivate });
     props.updateCourseAction('private', isPrivate);
   };
-
+  const updateTaSupport = (e) => {
+    const ta_support = e.target.checked;
+    props.updateCourseProps({ ta_support: ta_support });
+    props.updateCourseAction('ta_support', ta_support);
+  };
   const handleWikiChange = (wiki) => {
     const home_wiki = wiki.value;
     const prev_wiki = { ...props.course.home_wiki };
@@ -43,6 +47,7 @@ const CourseForm = (props) => {
   let courseFormat;
   let roleDescription;
   let academic_system;
+  let taSupportCheckboxEdu;
 
   let descriptionRequired = false;
   if (props.defaultCourse === 'ClassroomProgramCourse') {
@@ -113,7 +118,20 @@ const CourseForm = (props) => {
         </span>
       </div>
     );
-
+    taSupportCheckboxEdu = (
+      <div className="form-group">
+        <label htmlFor="course_ta_support">
+          <input
+            id="course_ta_support"
+            type="checkbox"
+            value={true}
+            onChange={updateTaSupport}
+            checked={!!props.course.ta_support}
+          />
+          {I18n.t('courses.creator.course_ta_support')}
+        </label>
+      </div>
+    );
     roleDescription = (
       <CreatableInput
         id="role_description"
@@ -129,6 +147,7 @@ const CourseForm = (props) => {
 
 
   let privacyCheckbox;
+  let taSupportCheckbox;
   let campaign;
   let backButton;
   let home_wiki;
@@ -170,15 +189,29 @@ const CourseForm = (props) => {
     privacyCheckbox = (
       <div className="form-group">
         <label htmlFor="course_private">
-          {I18n.t('courses.creator.course_private')}:
+          <input
+            id="course_private"
+            type="checkbox"
+            value={true}
+            onChange={updateCoursePrivacy}
+            checked={!!props.course.private}
+          />
+          {I18n.t('courses.creator.course_private')}
         </label>
-        <input
-          id="course_private"
-          type="checkbox"
-          value={true}
-          onChange={updateCoursePrivacy}
-          checked={!!props.course.private}
-        />
+      </div>
+    );
+    taSupportCheckbox = (
+      <div className="form-group">
+        <label htmlFor="course_ta_support">
+          <input
+            id="course_ta_support"
+            type="checkbox"
+            value={true}
+            onChange={updateTaSupport}
+            checked={!!props.course.ta_support}
+          />
+          {I18n.t('courses.creator.course_ta_support')}
+        </label>
       </div>
     );
     backButton = (
@@ -228,6 +261,7 @@ const CourseForm = (props) => {
           )}
         />
         {academic_system}
+        {taSupportCheckboxEdu}
         {term}
         {courseSubject}
         {expectedStudents}
@@ -264,6 +298,7 @@ const CourseForm = (props) => {
         />
         {roleDescription}
         {privacyCheckbox}
+        {taSupportCheckbox}
         <button
           onClick={props.next}
           id="next"
