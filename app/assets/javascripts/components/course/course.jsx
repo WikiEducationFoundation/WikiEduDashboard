@@ -1,11 +1,8 @@
 // /* eslint no-undef: 2 */
-import React from 'react';
-import createReactClass from 'create-react-class';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { parse } from 'query-string';
-import { Route, Routes } from 'react-router-dom';
-import withRouter from '../util/withRouter';
+import { Route, Routes, useLocation, useParams } from 'react-router-dom';
 import OverviewHandler from '../overview/overview_handler.jsx';
 import TimelineHandler from '../timeline/timeline_handler.jsx';
 import StudentsTabHandler from '../students/containers/StudentsTabHandler';
@@ -29,161 +26,133 @@ import { getStudentCount, getCurrentUser, getWeeksArray } from '../../selectors'
 import ActivityHandler from '../activity/activity_handler';
 import CourseApproval from './course_approval';
 
-export const Course = withRouter(createReactClass({
-  displayName: 'Course',
+export const Course = () => {
+  const location = useLocation();
+  const { course_school, course_title } = useParams();
+  const dispatch = useDispatch();
+  const { course, courseAlerts, users, weeks, usersLoaded, studentCount, currentUser } = useSelector(state => ({
+    course: state.course,
+    courseAlerts: state.courseAlerts,
+    users: state.users.users,
+    weeks: getWeeksArray(state),
+    usersLoaded: state.users.isLoaded,
+    studentCount: getStudentCount(state),
+    currentUser: getCurrentUser(state)
+  }));
 
-  propTypes: {
-    course: PropTypes.object.isRequired,
-    match: PropTypes.object,
-    location: PropTypes.object,
-    children: PropTypes.node,
-    currentUser: PropTypes.object,
-    updateCourse: PropTypes.func.isRequired,
-    persistCourse: PropTypes.func.isRequired,
-    fetchTimeline: PropTypes.func.isRequired
-  },
+  useEffect(() => {
+    const courseSlug = getCourseSlug();
+    dispatch(fetchCourse(courseSlug));
+    dispatch(fetchUsers(courseSlug));
+    dispatch(fetchTimeline(courseSlug));
+    dispatch(fetchCampaigns(courseSlug));
+  }, []);
 
-  // Fetch all the data needed to render a course page
-  componentDidMount() {
-    const courseSlug = this.getCourseSlug();
-    this.props.fetchCourse(courseSlug);
-    this.props.fetchUsers(courseSlug);
-    this.props.fetchTimeline(courseSlug);
-    return this.props.fetchCampaigns(courseSlug);
-  },
-
-  getCourseSlug() {
-    const { course_school, course_title } = this.props.router.params;
+  const getCourseSlug = () => {
     return `${course_school}/${course_title}`;
-  },
+  };
 
-  showCourseApprovalForm() {
+  const showCourseApprovalForm = () => {
     // Render the form only to admins
-    if (!this.props.currentUser.isAdmin) { return false; }
+    if (!currentUser.isAdmin) return false;
     // Render the form only on home tab
-    if (!CourseUtils.onHomeTab(this.props.router.location)) { return false; }
+    if (!CourseUtils.onHomeTab(location)) return false;
 
-    const isSubmitted = this.props.course.submitted;
-    const isPublished = this.props.course.published;
+    const isSubmitted = course.submitted;
+    const isPublished = course.published;
     // Render the form only if course is submitted for approval and not yet published
-    if (isSubmitted && !isPublished) { return true; }
+    if (isSubmitted && !isPublished) return true;
     return false;
-  },
+  };
 
-  showEnrollCard(course) {
-    const location = this.props.router.location;
+  const showEnrollCard = () => {
     const query = parse(location.search);
     // Only show it on the main url
-    if (!CourseUtils.onHomeTab(location)) { return false; }
+    if (!CourseUtils.onHomeTab(location)) return false;
     // Show the enroll card if either the `enroll` or `enrolled` param is present.
     // The enroll param may be blank if the course has no passcode.
-    if (query.enroll !== undefined || query.enrolled) { return true; }
+    if (query.enroll !== undefined || query.enrolled) return true;
     // If the course has no passcode, then show the enroll card to unenrolled users
-    if (this.props.currentUser.notEnrolled && course.passcode === '' && !course.ended) { return true; }
+    if (currentUser.notEnrolled && course.passcode === '' && !course.ended) return true;
     return false;
-  },
+  };
 
-  _courseLinkParams() {
-    return `/courses/${this.props.router.params.course_school}/${this.props.router.params.course_title}`;
-  },
+  const courseLinkParams = () => `/courses/${course_school}/${course_title}`;
 
-  render() {
-    const courseSlug = this.getCourseSlug();
-    const course = this.props.course;
-    if (!courseSlug || !course || !course.home_wiki || course.title === '') { return <div />; }
+  const courseSlug = getCourseSlug();
+  if (!courseSlug || !course || !course.home_wiki || course.title === '') { return <div />; }
 
-    const userRoles = this.props.currentUser;
-    const courseProps = { course_id: courseSlug, current_user: userRoles, course };
+  const courseProps = { course_id: courseSlug, current_user: currentUser, course };
 
-    let courseApprovalForm;
-    if (this.showCourseApprovalForm()) {
-      courseApprovalForm = <CourseApproval />;
-    }
-    // //////////////////
-    // Enrollment modal /
-    // //////////////////
-    let enrollCard;
-    if (this.showEnrollCard(course)) {
-      const query = parse(this.props.router.location.search);
-      enrollCard = (
-        <EnrollCard
-          user={this.props.currentUser}
-          userRoles={userRoles}
-          course={course}
-          courseLink={this._courseLinkParams()}
-          passcode={query.enroll}
-          enrolledParam={query.enrolled}
-          enrollFailureReason={query.failure_reason}
-        />
-      );
-    }
-
-    return (
-      <div>
-        <div className="course-nav__wrapper">
-          <Affix className="course_navigation" offset={57}>
-            <CourseNavbar
-              course={course}
-              location={this.props.router.location}
-              currentUser={this.props.currentUser}
-              courseLink={this._courseLinkParams()}
-            />
-            <Notifications />
-          </Affix>
-        </div>
-        <CourseAlerts
-          courseAlerts={this.props.courseAlerts}
-          course={course}
-          userRoles={userRoles}
-          weeks={this.props.weeks}
-          courseLinkParams={this._courseLinkParams()}
-          usersLoaded={this.props.usersLoaded}
-          studentCount={this.props.studentCount}
-          updateCourse={this.props.updateCourse}
-          persistCourse={this.props.persistCourse}
-          dismissNotification={this.props.dismissNotification}
-        />
-        <div className="course_main container">
-          <Confirm />
-          {courseApprovalForm}
-          {enrollCard}
-          <Routes>
-            <Route path="/" element={<OverviewHandler {...courseProps} />} />
-            <Route path="home" element={<OverviewHandler {...courseProps} />} />
-            {/* The overview route path should not be removed in order to preserve the default url */}
-            <Route path="overview" element={<OverviewHandler {...courseProps} />} />
-            <Route path="activity/*" element={<ActivityHandler {...courseProps} users={this.props.users} usersLoaded={this.props.usersLoaded}/>} />
-            <Route path="students/*" element={<StudentsTabHandler {...courseProps} />} />
-            <Route path="articles/*" element={<ArticlesHandler {...courseProps} />} />
-            <Route path="uploads" element={<UploadsHandler {...courseProps} />} />
-            <Route path="article_finder" element={<ArticleFinder {...courseProps} />} />
-            <Route path="timeline/*" element={<TimelineHandler {...courseProps} />} />
-            <Route path="resources" element={<Resources {...courseProps} />} />
-          </Routes>
-        </div>
-      </div>
+  let courseApprovalForm;
+  if (showCourseApprovalForm()) {
+    courseApprovalForm = <CourseApproval />;
+  }
+  // //////////////////
+  // Enrollment modal /
+  // //////////////////
+  let enrollCard;
+  if (showEnrollCard()) {
+    const query = parse(location.search);
+    enrollCard = (
+      <EnrollCard
+        user={currentUser}
+        userRoles={currentUser}
+        course={course}
+        courseLink={courseLinkParams()}
+        passcode={query.enroll}
+        enrolledParam={query.enrolled}
+        enrollFailureReason={query.failure_reason}
+      />
     );
   }
-}));
 
-const mapStateToProps = state => ({
-  courseAlerts: state.courseAlerts,
-  course: state.course,
-  users: state.users.users,
-  weeks: getWeeksArray(state),
-  usersLoaded: state.users.isLoaded,
-  studentCount: getStudentCount(state),
-  currentUser: getCurrentUser(state)
-});
-
-const mapDispatchToProps = {
-  fetchUsers,
-  fetchCampaigns,
-  fetchCourse,
-  fetchTimeline,
-  updateCourse,
-  persistCourse,
-  dismissNotification
+  return (
+    <div>
+      <div className="course-nav__wrapper">
+        <Affix className="course_navigation" offset={57}>
+          <CourseNavbar
+            course={course}
+            location={location}
+            currentUser={currentUser}
+            courseLink={courseLinkParams()}
+          />
+          <Notifications />
+        </Affix>
+      </div>
+      <CourseAlerts
+        courseAlerts={courseAlerts}
+        course={course}
+        userRoles={currentUser}
+        weeks={weeks}
+        courseLinkParams={courseLinkParams()}
+        usersLoaded={usersLoaded}
+        studentCount={studentCount}
+        updateCourse={updateCourse}
+        persistCourse={persistCourse}
+        dismissNotification={dismissNotification}
+      />
+      <div className="course_main container">
+        <Confirm />
+        {courseApprovalForm}
+        {enrollCard}
+        <Routes>
+          <Route path="/" element={<OverviewHandler {...courseProps} />} />
+          <Route path="home" element={<OverviewHandler {...courseProps} />} />
+          {/* The overview route path should not be removed in order to preserve the default url */}
+          <Route path="overview" element={<OverviewHandler {...courseProps} />} />
+          <Route path="activity/*" element={<ActivityHandler {...courseProps} users={users} usersLoaded={usersLoaded}/>} />
+          <Route path="students/*" element={<StudentsTabHandler {...courseProps} />} />
+          <Route path="articles/*" element={<ArticlesHandler {...courseProps} />} />
+          <Route path="uploads" element={<UploadsHandler {...courseProps} />} />
+          <Route path="article_finder" element={<ArticleFinder {...courseProps} />} />
+          <Route path="timeline/*" element={<TimelineHandler {...courseProps} />} />
+          <Route path="resources" element={<Resources {...courseProps} />} />
+        </Routes>
+      </div>
+    </div>
+  );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Course);
+export default Course;
+
