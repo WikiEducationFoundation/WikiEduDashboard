@@ -33,7 +33,7 @@ describe 'workers scheduled via sidekiq-cron' do
   context 'when WikiEd Feature disabled' do
     before { allow(Features).to receive(:wiki_ed?).and_return(false) }
 
-    it 'run default campaign update' do
+    it 'do not run default campaign update' do
       expect(DefaultCampaignUpdate).not_to receive(:new)
       DefaultCampaignUpdateWorker.perform_async
     end
