@@ -28,7 +28,7 @@ const SalesforceCredentialsForm = (props) => {
             value={password}
             value_key="salesforce_password"
             type="password"
-            label="Password Gab"
+            label="Password"
           />
           <TextInput
             id="salesforce_token"
@@ -37,7 +37,7 @@ const SalesforceCredentialsForm = (props) => {
             value={token}
             value_key="salesforce_token"
             type="password"
-            label="Security Token Gab"
+            label="Security Token"
           />
           <button className="button border" type="submit" value="Submit">{I18n.t('application.submit')}</button>
         </form>
