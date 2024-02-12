@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import TextInput from '../../common/text_input';
 
-const SalesforceCredentialsForm = (props) => {
+const SalesforceCredentialsForm = ({ updateSalesforceCredentials, handlePopoverClose }) => {
   const [password, setPassword] = useState('');
   const [token, setToken] = useState('');
   const handlePasswordChange = (_key, value) => {
@@ -13,8 +13,8 @@ const SalesforceCredentialsForm = (props) => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.updateSalesforceCredentials(password, token);
-    props.handlePopoverClose(e);
+    updateSalesforceCredentials(password, token);
+    handlePopoverClose(e);
   };
 
   return (
