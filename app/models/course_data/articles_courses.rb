@@ -66,12 +66,15 @@ class ArticlesCourses < ApplicationRecord
     article.revisions.where('date >= ?', course.start).where('date <= ?', course.end)
   end
 
+  # rubocop:disable Metrics/AbcSize
   def update_cache
     revisions = live_manual_revisions.load
 
     self.character_sum = revisions.sum { |r| r.characters.to_i.positive? ? r.characters : 0 }
     self.references_count = revisions.sum(&:references_added)
-    self.view_count = views_since_earliest_revision(revisions)
+    self.earliest_edit = earliest_revision(revisions)
+    self.average_pageviews = average_views_since_earliest_revision
+    self.view_count = views_since_earliest_revision
     self.user_ids = associated_user_ids(revisions)
 
     # We use the 'all_revisions' scope so that the dashboard system edits that
@@ -83,17 +86,64 @@ class ArticlesCourses < ApplicationRecord
                        article_revisions.exists?(new_article: true, system: true)
     save
   end
+  # rubocop: enable Metrics/AbcSize
 
-  def views_since_earliest_revision(revisions)
+  def earliest_revision(revisions)
+    return earliest_edit if earliest_edit?
     return if revisions.blank?
-    return if article.average_views.nil?
-    days = (Time.now.utc.to_date - revisions.min_by(&:date).date.to_date).to_i
-    days * article.average_views
+    revisions.min_by(&:date).date
+  end
+
+  def average_views_since_earliest_revision
+    return unless earliest_edit
+    last_updated = views_updated_at ? views_updated_at.to_date : nil
+    current_date = Time.now.utc.to_date
+    # Update the average if it hasn't been updated yet
+    # If yes, then update only if it has been over 7 days
+    return average_pageviews if last_updated && (current_date - last_updated) < 7
+
+    # In order to optimize the computation of average, we do a small trick.
+    # We don't fetch the pageviews data since earliest_edit. As we already have the average
+    # value till last_updated date, we get the total count by multiplying it with the number
+    # of days. Hence, we fetch the pageviews data only for last 7 days and then calculate
+    # the new average value by dividing total count by total number of days since earliest edit.
+
+    last_week_average = WikiPageviews.new(article).average_views(last_updated, current_date)
+    # Total sum of pageviews from earliest edit till last updated
+    views_count_1 = average_pageviews * (last_updated - earliest_edit.to_date)
+    # Total sum of pageviews from last_updated till current_date
+    views_count_2 = last_week_average * (current_date - last_updated)
+    new_average = (views_count_1 + views_count_2) / (current_date - earliest_edit.to_date)
+
+    # Check if newly calculated average satisfies the criteria for spike in pageviews
+    check_pageviews_spike(new_average, average_pageviews, last_updated, current_date)
+    self.views_updated_at = Time.now.utc
+    new_average
+  end
+
+  def views_since_earliest_revision
+    return unless earliest_edit
+    days = (Time.now.utc.to_date - earliest_edit.to_date).to_i
+    days * average_pageviews
   end
 
   def associated_user_ids(revisions)
     return [] if revisions.blank?
     revisions.filter_map(&:user_id).uniq
+  end
+
+  def check_pageviews_spike(new_average, old_average, start_date, end_date)
+    return unless old_average
+    return unless new_average >= old_average * 5 # 5-fold spike
+    daily_view_data = WikiPageviews.new(article).views_for_article({ start_date:, end_date: })
+
+    # Alert if there have been atleast 100 views since checked last time.
+    daily_view_data.each do |_key, value|
+      if (value - old_average) > 100
+        PageviewSpikeMailer.send_spike_alert_email(article_course)
+        break
+      end
+    end
   end
 
   #################
