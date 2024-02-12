@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export const TitleOpener = ({ showArticle, showButtonClass, showButtonLabel, title }) => (
   <div className={`tooltip-trigger ${showButtonClass || ''}`}>
-    <button onClick={showArticle} aria-describedby="icon-article-viewer-desc">{title}</button>
+    <button style={{ textAlign: 'left' }} onClick={showArticle} aria-describedby="icon-article-viewer-desc">{title}</button>
     <p id="icon-article-viewer-desc">Open Article Viewer</p>
     <div className="tooltip tooltip-title dark large">
       <p>{showButtonLabel()}</p>
