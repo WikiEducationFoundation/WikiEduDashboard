@@ -15,11 +15,13 @@ const NotesPanel = ({ setState, modalType, currentUser, courseId, buttonText, he
 
     fetchData();
 
+    // Set up a polling interval to fetch data periodically (every 60 seconds)
     const pollInterval = setInterval(fetchData, 60000);
 
     return () => clearInterval(pollInterval);
   }, []);
 
+  // Conditionally render a button if the modalType is not 'DefaultPanel' and modalType is null
   if (modalType !== 'DefaultPanel' && modalType === null) {
     return <button onClick={() => setState(null)} className="button">{I18n.t(buttonText)}</button>;
   }

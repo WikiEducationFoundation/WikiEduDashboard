@@ -3,7 +3,7 @@ import {
   RECEIVE_NOTE_DETAILS,
   RESET_TO_ORIGINAL_NOTE,
   PERSISTED_COURSE_NOTE,
-  RESET_TO_DEFAULT,
+  RESET_NOTE_TO_DEFAULT,
   RECEIVE_NOTES_LIST,
   ADD_NEW_NOTE_TO_LIST,
   DELETE_NOTE_FROM_LIST
@@ -34,7 +34,7 @@ export default function courseNotes(state = initialState, action) {
          return { ...state, note: { ...state.note, ...action.note } };
       case RESET_TO_ORIGINAL_NOTE:
          return { ...state, note: { ...state.note, ...action.note } };
-      case RESET_TO_DEFAULT:
+      case RESET_NOTE_TO_DEFAULT:
          return { ...initialState, notes_list: state.notes_list };
       default:
          return state;

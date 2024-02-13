@@ -9,9 +9,12 @@ const NotesEditor = ({ controls, editable, toggleEditable, setState, note_id, cu
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // If note_id is provided, display the note of the given id, otherwise, the admin wants to create a new note
     if (note_id) {
       dispatch(fetchSingleNoteDetails(note_id));
     } else {
+    // Clear the current state to prepare for the creation of a new note,
+    // and update the name of the admin for the new note. Finally, toggle to editable mode.
       dispatch(resetStateToDefault());
       dispatch(updateCurrentCourseNote({ edited_by: current_user.username }));
       toggleEditable();
@@ -45,7 +48,7 @@ const NotesEditor = ({ controls, editable, toggleEditable, setState, note_id, cu
       <div className="course_main container">
         <div className="module course-description">
           <div className="section-header admin-header">
-            <h3 className="note-title">{textAreaInputComponent(updateNoteTitle, notes.title, I18n.t('notes.note_title'), 'note_title', false)}</h3>
+            <h2 className="note-title">{textAreaInputComponent(updateNoteTitle, notes.title, I18n.t('notes.note_title'), 'note_title', false)}</h2>
             {controls()}
           </div>
           <div className="module__data note-text">
