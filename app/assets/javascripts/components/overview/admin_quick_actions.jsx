@@ -29,28 +29,29 @@ const NoDetailsText = () => (
 export const AdminQuickActions = ({ course, current_user, persistCourse, greetStudents }) => (
   <div className="module" style={{ textAlign: 'center' }}>
     {current_user.isStaff && (
-    <>
-      {course.flags && course.flags.last_reviewed && course.flags.last_reviewed.username
-            ? <DetailsText flags={course.flags} />
-            : <NoDetailsText />
-          }
-      <button
-        className="button"
-        onClick={() => {
-              course.last_reviewed = {
-                username: current_user.username,
-                timestamp: getUTCDateString(),
-              };
-              persistCourse(course.slug);
-            }}
-      >
-        Mark as Reviewed
-      </button>
-      <br />
-      <br />
-      <GreetStudentsButton course={course} current_user={current_user} greetStudents={greetStudents} />
-      <br/>
-    </>
+      <>
+        {course.flags && course.flags.last_reviewed && course.flags.last_reviewed.username ? (
+          <DetailsText flags={course.flags} />
+        ) : (
+          <NoDetailsText />
+        )}
+        <button
+          className="button"
+          onClick={() => {
+            course.last_reviewed = {
+              username: current_user.username,
+              timestamp: getUTCDateString(),
+            };
+            persistCourse(course.slug);
+          }}
+        >
+          Mark as Reviewed
+        </button>
+        <br />
+        <br />
+        <GreetStudentsButton course={course} current_user={current_user} greetStudents={greetStudents} />
+        <br />
+      </>
     )}
     {current_user.admin && <div><NotesHandler /></div>}
   </div>
