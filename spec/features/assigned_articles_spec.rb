@@ -27,6 +27,6 @@ describe 'Assigned Articles view', type: :feature, js: true do
       click_button 'Add Suggestion'
       find('a', text: 'Delete').click
       expect(page).not_to have_content('This is a great article!')
-    end    
+    end
   end
 end
