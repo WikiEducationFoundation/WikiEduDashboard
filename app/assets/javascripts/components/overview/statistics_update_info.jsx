@@ -41,9 +41,7 @@ const StatisticsUpdateInfo = ({ course }) => {
         </small>
         <div className="tooltip dark tooltip-right large">
           <p>
-            While the counts are still 0 or not reflective of the activity level
-            on this event, within 24 hours the activity level and reflected
-            counts will sync.
+            {I18n.t('metrics.update_statistics_tooltip')}
           </p>
         </div>
       </div>
