@@ -50,7 +50,7 @@ export const PaginatedArticleControls = ({ showMore, limitReached }) => {
               {I18n.t('articles.see_more')}
             </button>
             <div className="tooltip tooltip-center tooltip-see-more dark large">
-              <p style={{ padding: '0px', textWrap: 'balance' }}>Click &apos;See more&apos; to load the next subset of 500 articles and continue the seamless navigation through the articles with the pagination on the left.</p>
+              <p style={{ padding: '0px', textWrap: 'balance' }}>{I18n.t('articles.see_more_tooltip')}</p>
             </div>
           </div>
         )
