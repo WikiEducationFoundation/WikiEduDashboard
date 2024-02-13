@@ -7,15 +7,15 @@ import {
   RECEIVE_NOTE_DETAILS,
   RESET_TO_ORIGINAL_NOTE,
   PERSISTED_COURSE_NOTE,
-  RESET_TO_DEFAULT,
+  RESET_NOTE_TO_DEFAULT,
   RECEIVE_NOTES_LIST,
   ADD_NEW_NOTE_TO_LIST,
   DELETE_NOTE_FROM_LIST
 } from '../constants';
 
-
+// Helper function to dispatch notifications
 const sendNotification = (dispatch, type, messageKey, dynamicValue) => {
-   const notificationConfig = {
+  const notificationConfig = {
     message: I18n.t(messageKey, dynamicValue),
     closable: true,
     type: type === 'Success' ? 'success' : 'error',
@@ -27,6 +27,7 @@ const sendNotification = (dispatch, type, messageKey, dynamicValue) => {
   });
 };
 
+// Action creator to fetch all course notes for a given courseId
 export const fetchAllCourseNotes = courseId => async (dispatch) => {
   try {
     const notesList = await API.fetchAllCourseNotes(courseId);
@@ -36,24 +37,28 @@ export const fetchAllCourseNotes = courseId => async (dispatch) => {
   }
 };
 
+// Action creator to fetch details of a single course note by its ID
 export const fetchSingleNoteDetails = courseNoteId => async (dispatch) => {
   try {
     const note = await API.fetchCourseNotesById(courseNoteId);
     dispatch({ type: RECEIVE_NOTE_DETAILS, note });
   } catch (error) {
-     logErrorMessage('Error fetching single course note details:', error);
+    logErrorMessage('Error fetching single course note details:', error);
   }
 };
 
+// Action creator to update the current course note with new data
 export const updateCurrentCourseNote = data => (dispatch) => {
   dispatch({ type: UPDATE_CURRENT_NOTE, note: { ...data } });
 };
 
+// Action creator to reset the current course note to its original state
 export const resetCourseNote = () => (dispatch, getState) => {
   const CourseNote = getState().persistedCourseNote;
   dispatch({ type: RESET_TO_ORIGINAL_NOTE, note: { ...CourseNote } });
 };
 
+// Action creator to save/update the current course note
 export const saveCourseNote = async (currentUser, courseNoteDetails, dispatch) => {
   const status = await API.saveCourseNote(currentUser, courseNoteDetails);
 
@@ -67,6 +72,7 @@ export const saveCourseNote = async (currentUser, courseNoteDetails, dispatch) =
   }
 };
 
+// Action creator to create a new course note for a given courseId
 export const createCourseNote = async (courseId, courseNoteDetails, dispatch) => {
   const noteDetails = await API.createCourseNote(courseId, courseNoteDetails);
 
@@ -81,6 +87,7 @@ export const createCourseNote = async (courseId, courseNoteDetails, dispatch) =>
   }
 };
 
+// Action creator to persist the current course note, handling validation and deciding whether to save/update or create
 export const persistCourseNote = (courseId = null, currentUser) => (dispatch, getState) => {
   const courseNoteDetails = getState().courseNotes.note;
 
@@ -93,6 +100,7 @@ export const persistCourseNote = (courseId = null, currentUser) => (dispatch, ge
   createCourseNote(courseId, courseNoteDetails, dispatch);
 };
 
+// Action creator to delete a course note from the list based on its ID
 export const deleteNoteFromList = noteId => async (dispatch) => {
   const status = await API.deleteCourseNote(noteId);
 
@@ -104,6 +112,7 @@ export const deleteNoteFromList = noteId => async (dispatch) => {
   }
 };
 
+// Action creator to reset the state of the course note to its default values
 export const resetStateToDefault = () => (dispatch) => {
-  dispatch({ type: RESET_TO_DEFAULT });
+  dispatch({ type: RESET_NOTE_TO_DEFAULT });
 };
