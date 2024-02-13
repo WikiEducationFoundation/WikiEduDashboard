@@ -21,12 +21,12 @@ describe 'Assigned Articles view', type: :feature, js: true do
     # we need to use VCR to avoid getting stopped by WebMock
     VCR.use_cassette('assigned_articles_view') do
       visit "/courses/#{course.slug}/articles/assigned"
-      expect(page).to have_content('Nancy Tuana')
+      page.has_content?('Nancy Tuana')
       find('a', text: 'Feedback').click
-      find('textarea.feedback-form').fill_in with: 'This is a great article!'
+      find('textarea.feedback-form').fill_in(with: 'This is a great article!')
       click_button 'Add Suggestion'
       find('a', text: 'Delete').click
       expect(page).not_to have_content('This is a great article!')
-    end
+    end    
   end
 end
