@@ -25,7 +25,7 @@ class CourseNotesController < ApplicationController
     if note_details
       render json: { createdNote: note_details }, status: :created
     else
-      render json: { error: new_course_note.errors.full_messages }, status: :unprocessable_entity
+      render json: { error: 'Failed to create course note' }, status: :unprocessable_entity
     end
   end
 
