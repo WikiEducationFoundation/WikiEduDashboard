@@ -1049,7 +1049,7 @@ en:
     recent_updates_summary: Out of the last %{total} updates, %{failure_count} failed and %{error_count} encountered errors.
     revisions: Recent Edits
     references_count: References Added
-    references_doc: This is the number of reference tags added to articles, and can include multiple references to the same source. The data comes from the ORES article quality model, and is only available for some languages.
+    references_doc: This is the number of reference tags and shortened footnote templates added to articles, and can include multiple references to the same source. The data comes from the reference-counter Toolforge API.
     references_doc_wikidata: This is the number of reference tags added to items, and can include multiple references to the same source. The data comes from the ORES item quality model, and is only available for some languages.
     replag_info: >
       The Dashboard retrieves edit data from WMF Cloud replica databases. Sometimes these databases are missing the most recent edits

@@ -86,6 +86,13 @@ describe Replica do
     end
 
     it 'returns a list of existing articles' do
+      # TODO: Break this into individual tests for the different articles so we can easily
+      # know which to tweak when the results change because of new pages or deleted pages.
+      # The namespace 0, 1, and 2 entries are likely to be stable, and the main point of this
+      # spec is to ensure that article titles are being handled correctly with special characters
+      # and such.
+      pending 'Wiki data has changed and this needs to be updated.'
+
       VCR.use_cassette 'replica/articles' do
         article_titles = [
           { 'title' => 'Autism' }, # exists in namespace 0, 1, 118
@@ -99,9 +106,10 @@ describe Replica do
           { 'title' => 'THIS_ARTICLE_DOES_NOT_EXIST' }
         ]
         response = described_class.new(en_wiki).post_existing_articles_by_title(article_titles)
-        pp response
         expect(response.size).to eq(16)
       end
+
+      pass_pending_spec
     end
 
     it 'functions identically on non-English wikis' do

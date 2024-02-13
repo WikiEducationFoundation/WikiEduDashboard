@@ -11,7 +11,7 @@ Sage Ross (`ragesoss`). Our main venue for collaboration is Slack; ask Sage (sag
 * Explore the issues, choose one to work on, and leave a comment. Work on only one issue at a time. We do not assign issues, but if it looks like someone else is working on one you are interested, give them a ping to ask if they are still active on it.
 * Open a Pull Request. Mark it as a draft if you know it is not ready to merge. Small change sets are preferred; the fewer lines changed per PR, the easier it is to think about, provide feedback on, and review. Make sure only changes related to the main issure are included; unrelated changes can be made in a separate PR. Include before/after screenshots or videos, if applicable. If you have many commits, consider squashing them into one or a few commits with well-written commit messages.
 * If you are stuck, ask on Slack.
-* If you are here because you want to apply for Google Summer of Code or Outreachy, read the [this too](docs/students_and_interns.md).
+* If you are here because you want to apply for Google Summer of Code or Outreachy, read the [students and interns doc](docs/students_and_interns.md) too.
 
 ## The repo and the code
 
