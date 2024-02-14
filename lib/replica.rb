@@ -144,8 +144,7 @@ class Replica
     return if response.body.empty?
     parsed = Oj.load(response.body)
     raise unless parsed['success']
-    filtered_data = parsed['data'].select { |article| data.include?(article['page_title']) }
-    return filtered_data
+    parsed['data']
   rescue StandardError => e
     tries -= 1
     sleep 2 && retry unless tries.zero?

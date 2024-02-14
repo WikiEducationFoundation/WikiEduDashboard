@@ -88,14 +88,14 @@ describe Replica do
     describe 'Article retrieval' do
       context 'when fetching existing articles' do
         it 'returns article "Autism"' do
-          VCR.use_cassette 'replica/articles' do
+          VCR.use_cassette 'replica/articles/1' do
             response = described_class.new(en_wiki).post_existing_articles_by_title([{ 'title' => 'Autism' }])
-            expect(response.size).to eq(3) # exists in namespace 0, 1, 118
+            expect(response.size).to eq(2) # exists in namespace 0, 1
           end
         end        
     
         it 'returns article "Allegiance"' do
-          VCR.use_cassette 'replica/articles' do
+          VCR.use_cassette 'replica/articles/2' do
             response = described_class.new(en_wiki).post_existing_articles_by_title([{ 'title' => 'Allegiance' }])
             expect(response.size).to eq(2) # exists in namespace 0, 1
           end
@@ -103,14 +103,14 @@ describe Replica do
         
         # Test with URI reserved characters
         it 'returns article "Broussard\'s"' do
-          VCR.use_cassette 'replica/articles' do
+          VCR.use_cassette 'replica/articles/3' do
             response = described_class.new(en_wiki).post_existing_articles_by_title([{ 'title' => "Broussard's" }])
             expect(response.size).to eq(2) # exists in namespace 0, 1
           end
         end
         
         it 'returns article "Procter_&_Gamble"' do
-          VCR.use_cassette 'replica/articles' do
+          VCR.use_cassette 'replica/articles/4' do
             response = described_class.new(en_wiki).post_existing_articles_by_title([{ 'title' => 'Procter_&_Gamble' }])
             expect(response.size).to eq(4) # exists in namespace 0, 1, 10, 11
           end
@@ -118,21 +118,21 @@ describe Replica do
         
         # Test with special characters
         it 'returns article "Paul_Cézanne"' do
-          VCR.use_cassette 'replica/articles' do
+          VCR.use_cassette 'replica/articles/5' do
             response = described_class.new(en_wiki).post_existing_articles_by_title([{ 'title' => 'Paul_Cézanne' }])
             expect(response.size).to eq(4) # exists in namespace 0, 1, 10, 11
           end
         end
         
         it 'returns article "Mmilldev/sandbox"' do
-          VCR.use_cassette 'replica/articles' do
+          VCR.use_cassette 'replica/articles/6' do
             response = described_class.new(en_wiki).post_existing_articles_by_title([{ 'title' => 'Mmilldev/sandbox' }])
             expect(response.size).to eq(1) # exists in namespace 2
           end
         end
         
         it 'does not return article "THIS_ARTICLE_DOES_NOT_EXIST"' do
-          VCR.use_cassette 'replica/articles' do
+          VCR.use_cassette 'replica/articles/7' do
             response = described_class.new(en_wiki).post_existing_articles_by_title([{ 'title' => 'THIS_ARTICLE_DOES_NOT_EXIST' }])
             expect(response.size).to eq(0) # does not exist 
           end
