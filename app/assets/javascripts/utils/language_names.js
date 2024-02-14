@@ -897,10 +897,6 @@ const LanguageNames = {
       name: 'Chinese',
       nativeName: '中文',
     },
-    'zh-CN': {
-      name: 'Simplified Chinese (Continental)',
-      nativeName: '中文（大陆简体）',
-    },
     'zh-hans': {
       name: 'Simplified Chinese',
       nativeName: '中文（简体）',
@@ -908,10 +904,6 @@ const LanguageNames = {
     'zh-hant': {
       name: 'Traditional Chinese',
       nativeName: '中文（繁體）',
-    },
-    'zh-TW': {
-      name: 'Traditional Chinese (Taiwanese)',
-      nativeName: '中文（台灣正體）',
     },
     zu: {
       name: 'Zulu',
