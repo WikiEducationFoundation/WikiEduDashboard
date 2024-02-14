@@ -37,7 +37,7 @@ const StatisticsUpdateInfo = ({ course }) => {
       </small>
       <div className="tooltip-trigger" style={{ cursor: 'default' }}>
         <small className="statistics-delayed-info">
-          {(course.flags.first_update || course.flags.update_logs) && 'Delayed real-time counts'}
+          {(course.flags.first_update || course.flags.update_logs) && I18n.t('metrics.delayed_info')}
         </small>
         <div className="tooltip dark tooltip-right large">
           <p>

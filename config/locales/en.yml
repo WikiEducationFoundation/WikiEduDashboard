@@ -1059,6 +1059,7 @@ en:
     total_updates: Total number of updates till now
     update_status_heading: Update status
     update_statistics_link: See more
+    delayed_info: Delayed real-time counts
     update_statistics_tooltip: While the counts are still 0 or not reflective of the activity level on this event, within 24 hours the activity level and reflected counts will sync.
     upload_count: Commons Uploads
     uploads_in_use_count:

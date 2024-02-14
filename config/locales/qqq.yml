@@ -626,6 +626,7 @@ qqq:
     view_count_description: Long label for the number of views for the article or
       articles involved.
     update_statistics_tooltip: Message displaying that the counts will synchronize.
+    delayed_info: Label showing users that the real time counts are delayed.
     view: Label for the number of article views.
     descriptions: '{{identical|Description}}'
     labels: '{{identical|Label}}'
