@@ -501,6 +501,7 @@ en:
     courses: Courses
     courses_taught: Courses Taught
     creation_date: Creation Date
+    start_date: Start Date
     creator:
       already_exists: This course already exists. Consider changing the name, school, or term to make it unique.
       assignment_end: Assignment end
