@@ -78,9 +78,9 @@ document.onreadystatechange = () => {
   }
 
   // for use on campaign/programs page
-  const x = document.querySelectorAll('.remove-course');
-  for (let i = 0; i < x.length; i += 1) {
-    x[i]?.addEventListener('click', (e) => {
+  const removeCourseBtn = document.querySelectorAll('.remove-course');
+  for (let i = 0; i < removeCourseBtn.length; i += 1) {
+    removeCourseBtn[i]?.addEventListener('click', (e) => {
         const confirmed = window.confirm(I18n.t('campaign.confirm_course_removal', {
           title: e.target.dataset.title,
           campaign_title: e.target.dataset.campaignTitle
@@ -91,14 +91,14 @@ document.onreadystatechange = () => {
     });
   }
 
-  const y = document.getElementsByClassName('delete-course-prerequisite')[0];
-  if (y) {
-    y.addEventListener('click', () => alert(I18n.t('campaign.delete_course_instructions_campaign')));
+  const deleteCoursePrerequisiteBtn = document.getElementsByClassName('delete-course-prerequisite')[0];
+  if (deleteCoursePrerequisiteBtn) {
+    deleteCoursePrerequisiteBtn.addEventListener('click', () => alert(I18n.t('campaign.delete_course_instructions_campaign')));
   }
 
-  const z = document.getElementsByClassName('delete-course-from-campaign')[0];
-  if (z) {
-    z.addEventListener('click', (e) => {
+  const deleteCourseBtn = document.getElementsByClassName('delete-course-from-campaign')[0];
+  if (deleteCourseBtn) {
+    deleteCourseBtn.addEventListener('click', (e) => {
       const enteredTitle = window.prompt(I18n.t('courses.confirm_course_deletion', { title: e.target.dataset.title }));
       if (!enteredTitle) {
         e.preventDefault();

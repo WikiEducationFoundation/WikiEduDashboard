@@ -60,7 +60,7 @@ class CoursesPresenter
   end
 
   def can_delete_course?
-    @can_remove ||= current_user&.admin? || campaign_organizer?
+    @can_delete ||= current_user&.admin? || campaign_organizer?
   end
 
   def campaign_organizer?
