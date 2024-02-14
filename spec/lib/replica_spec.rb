@@ -85,32 +85,60 @@ describe Replica do
       end
     end
 
-    it 'returns a list of existing articles' do
-      # TODO: Break this into individual tests for the different articles so we can easily
-      # know which to tweak when the results change because of new pages or deleted pages.
-      # The namespace 0, 1, and 2 entries are likely to be stable, and the main point of this
-      # spec is to ensure that article titles are being handled correctly with special characters
-      # and such.
-      pending 'Wiki data has changed and this needs to be updated.'
-
-      VCR.use_cassette 'replica/articles' do
-        article_titles = [
-          { 'title' => 'Autism' }, # exists in namespace 0, 1, 118
-          { 'title' => 'Allegiance' }, # exists in namespace 0, 1
-          # Test with URI reserved characters
-          { 'title' => "Broussard's" }, # exists in namespace 0, 1
-          { 'title' => 'Procter_&_Gamble' }, # exists in namespace 0, 1, 10, 11
-          # Test with special characters
-          { 'title' => 'Paul_Cézanne' }, # exists in namespace 0, 1, 10, 11
-          { 'title' => 'Mmilldev/sandbox' }, # exists in namespace 2
-          { 'title' => 'THIS_ARTICLE_DOES_NOT_EXIST' }
-        ]
-        response = described_class.new(en_wiki).post_existing_articles_by_title(article_titles)
-        expect(response.size).to eq(16)
+    describe 'Article retrieval' do
+      context 'when fetching existing articles' do
+        it 'returns article "Autism"' do
+          VCR.use_cassette 'replica/articles/1' do
+            response = described_class.new(en_wiki).post_existing_articles_by_title([{ 'title' => 'Autism' }])
+            expect(response.size).to eq(2) # exists in namespace 0, 1
+          end
+        end        
+    
+        it 'returns article "Allegiance"' do
+          VCR.use_cassette 'replica/articles/2' do
+            response = described_class.new(en_wiki).post_existing_articles_by_title([{ 'title' => 'Allegiance' }])
+            expect(response.size).to eq(2) # exists in namespace 0, 1
+          end
+        end
+        
+        # Test with URI reserved characters
+        it 'returns article "Broussard\'s"' do
+          VCR.use_cassette 'replica/articles/3' do
+            response = described_class.new(en_wiki).post_existing_articles_by_title([{ 'title' => "Broussard's" }])
+            expect(response.size).to eq(2) # exists in namespace 0, 1
+          end
+        end
+        
+        it 'returns article "Procter_&_Gamble"' do
+          VCR.use_cassette 'replica/articles/4' do
+            response = described_class.new(en_wiki).post_existing_articles_by_title([{ 'title' => 'Procter_&_Gamble' }])
+            expect(response.size).to eq(4) # exists in namespace 0, 1, 10, 11
+          end
+        end
+        
+        # Test with special characters
+        it 'returns article "Paul_Cézanne"' do
+          VCR.use_cassette 'replica/articles/5' do
+            response = described_class.new(en_wiki).post_existing_articles_by_title([{ 'title' => 'Paul_Cézanne' }])
+            expect(response.size).to eq(4) # exists in namespace 0, 1, 10, 11
+          end
+        end
+        
+        it 'returns article "Mmilldev/sandbox"' do
+          VCR.use_cassette 'replica/articles/6' do
+            response = described_class.new(en_wiki).post_existing_articles_by_title([{ 'title' => 'Mmilldev/sandbox' }])
+            expect(response.size).to eq(1) # exists in namespace 2
+          end
+        end
+        
+        it 'does not return article "THIS_ARTICLE_DOES_NOT_EXIST"' do
+          VCR.use_cassette 'replica/articles/7' do
+            response = described_class.new(en_wiki).post_existing_articles_by_title([{ 'title' => 'THIS_ARTICLE_DOES_NOT_EXIST' }])
+            expect(response.size).to eq(0) # does not exist 
+          end
+        end        
       end
-
-      pass_pending_spec
-    end
+    end    
 
     it 'functions identically on non-English wikis' do
       VCR.use_cassette 'replica/es_revisions' do
