@@ -26,7 +26,6 @@ const StatisticsUpdateInfo = ({ course }) => {
       />
     );
   }
-
   const updateTimesMessage = isNextUpdateAfter ? `${lastUpdateMessage} ${nextUpdateMessage} ` : `${lastUpdateMessage} `;
 
   // Render update time information and if some updates were made a 'See More' link to open modal
