@@ -39,7 +39,7 @@ const NotesHandler = () => {
     />
   );
 
-  const AdminNotesEditPanel = (
+  const adminNotesEditPanel = (
     <NotesEditor
       title={course.title}
       course_id={course.slug}
@@ -54,7 +54,7 @@ const NotesHandler = () => {
 
   switch (modalType) {
     case 'NoteEditor':
-      return AdminNotesEditPanel;
+      return adminNotesEditPanel;
     default:
       return defaultAdminNotesPanel;
   }
