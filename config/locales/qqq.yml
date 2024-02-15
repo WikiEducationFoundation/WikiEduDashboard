@@ -186,6 +186,7 @@ qqq:
       does_not_exist: Explanation of the Ø  symbol, which indicates than the article
         does not exist on Wikipedia
     see_more: Message indicating that there are more articles to load
+    see_more_tooltip: Tooltip message shown when hovering on "See More" button for loading additional articles
     title: |-
       Label for an article title.
       {{Identical|Title}}

@@ -206,6 +206,7 @@ en:
       ?: Unrated — an article that hasn't yet been rated on Wikipedia's quality scale
       does_not_exist: This article does not exist on Wikipedia
     see_more: See more
+    see_more_tooltip: Only the first 500 edited articles are loaded initially. Click to load additional articles.
     search: Search Wikipedia for an Article
     show_cumulative_changes: Show Cumulative Changes
     show_current_version: Show Current Version
