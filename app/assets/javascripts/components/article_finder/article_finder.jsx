@@ -373,7 +373,7 @@ const ArticleFinder = (props) => {
               editable
               label={I18n.t('article_finder.search')}
               placeholder={I18n.t('article_finder.search_placeholder')}
-              onKeyDown={this.onKeyDown}
+              onKeyDown={onKeyDown}
               ref={searchboxRef}
             />
             <button style={{ marginBottom: '8px' }} className={`button dark ${(props.fetchState !== 'PAGEVIEWS_RECEIVED' && !props.loading) ? 'disabled' : ''}`} onClick={searchArticles}>{I18n.t('article_finder.submit')}</button>
