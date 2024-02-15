@@ -11,16 +11,14 @@ class WikiDiscouragedArticleManager
   def update_or_create_discouraged_articles
     blocked_assignment_category = ENV['blocked_assignment_category']
 
-    if blocked_assignment_category
-      Category.find_or_create_by(
-        name: blocked_assignment_category,
-        wiki_id: en_wiki.id,
-        source: 'category',
-        depth: 0
-      ).refresh_titles
-    else
-      Rails.logger.info 'blocked_assignment_category not set'
-    end
+    return unless blocked_assignment_category
+
+    Category.find_or_create_by(
+      name: blocked_assignment_category,
+      wiki_id: en_wiki.id,
+      source: 'category',
+      depth: 0
+    ).refresh_titles
   end
 
   def en_wiki
