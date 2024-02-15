@@ -17,6 +17,7 @@
 # Author: DiegoAmbrocio
 # Author: Fitoschido
 # Author: Fortega
+# Author: Gabina
 # Author: Ice bulldog
 # Author: Ihojose
 # Author: Irus
@@ -104,6 +105,10 @@ es:
     not_yet_started: Primeros pasos
     in_progress: Trabajar en la zona de pruebas
     ready_for_review: Borrador ampliado
+    ready_for_mainspace: Mover el trabajo al espacio principal
+    assignment_completed: Tarea marcada como completa
+    reading_the_article: Leyendo artículo
+    peer_review_completed: Revisión completada
   dashboard:
     create_note: Haz clic en Crear curso para crear tu primer curso.
     create_preparation_note: Asegúrate de tener tu calendario académico a mano antes
@@ -131,9 +136,22 @@ es:
     explore: Explorar
     log_in: Acceder con Wikipedia
     sign_up: Regístrate con Wikipedia
+    registration_advice:
+      username_rules:
+        heading: Reglas de nombre de usuario
+        avoid_offensive_usernames: No elijas un nombre de usuario que sea ofensivo,
+          engañoso, perturbador o promocional.
+        represent_individual: Los nombres de usuario deben representar a un editor
+          individual. No utilice el nombre de una escuela u organización.
+      additional_advice:
+        heading: Consejo
+        anonymous_username_recommendation: Wiki Education recomienda elegir un nombre
+          de usuario anónimo, no uno que incluya su nombre real u otra información
+          de identificación.
     sign_up_help: Para utilizar el panel de control, tendrás que iniciar sesión a
       través de Wikipedia y darle permiso para acceder a tu cuenta. Puedes iniciar
-      sesión con una cuenta de Wikipedia existente o crear una nueva.
+      sesión con una cuenta de Wikipedia existente o crear una nueva. Si no puedes
+      crear una cuenta, contacta a dashboard@wikiedu.org.
   alerts:
     alert_label: Alertas
     no_alerts: No se encontró ninguna alerta.
@@ -142,10 +160,14 @@ es:
     edited_by: Editado por
     label: Actividad
   articles:
+    articles: Artículos
+    article_not_found: Este artículo todavía no ha sido creado.
     article_development: (desarrollo de artículo)
     articles_shown: Se muestran %{count} de %{total}
     assigned: Artículos asignados
+    assignments_none: No hay artículos asignados todavía.
     available: Artículos disponibles
+    no_available: No hay artículos disponibles
     next: Siguiente
     previous: Anterior
     article_title: Título del artículo

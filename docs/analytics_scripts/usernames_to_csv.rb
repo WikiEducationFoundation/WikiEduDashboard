@@ -42,3 +42,20 @@ CSV.open('/root/course_instructors.csv', 'wb') do |csv|
     end
   end
 end
+
+# usernames from student program, S&S program
+usernames = []
+ClassroomProgramCourse.all.each do |course|
+  usernames += course.students.pluck(:username)
+end
+FellowsCohort.all.each do |course|
+  usernames += course.students.pluck(:username)
+end
+
+usernames.uniq!
+
+CSV.open("/home/sage/current_programs_editors.csv", "wb") do |csv|
+  usernames.each do |username|
+    csv << [username]
+  end
+end

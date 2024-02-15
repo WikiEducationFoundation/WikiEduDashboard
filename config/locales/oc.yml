@@ -4,6 +4,7 @@
 # Author: Cedric31
 # Author: Guilhelma
 # Author: Jfblanc
+# Author: Lhanars
 # Author: Quentí
 ---
 oc:
@@ -246,6 +247,7 @@ oc:
     per_user: '%{number}/utilizaire'
     revisions: Darrièrs cambiaments
     tags: Balisas
+    update_statistics_link: Mòstra'n mai
     view_count_description: Articles vistes
     view: Vistas
     word_count: Mots aponduts

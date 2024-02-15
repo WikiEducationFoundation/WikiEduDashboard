@@ -85,22 +85,66 @@ describe Replica do
       end
     end
 
-    it 'returns a list of existing articles' do
-      VCR.use_cassette 'replica/articles' do
-        article_titles = [
-          { 'title' => 'Autism' }, # exists in namespace 0, 1, 118
-          { 'title' => 'Allegiance' }, # exists in namespace 0, 1
-          # Test with URI reserved characters
-          { 'title' => "Broussard's" }, # exists in namespace 0, 1
-          { 'title' => 'Procter_&_Gamble' }, # exists in namespace 0, 1, 10, 11
-          # Test with special characters
-          { 'title' => 'Paul_Cézanne' }, # exists in namespace 0, 1, 10, 11
-          { 'title' => 'Mmilldev/sandbox' }, # exists in namespace 2
-          { 'title' => 'THIS_ARTICLE_DOES_NOT_EXIST' }
-        ]
-        response = described_class.new(en_wiki).post_existing_articles_by_title(article_titles)
-        pp response
-        expect(response.size).to eq(16)
+    describe 'Article retrieval' do
+      context 'when fetching existing articles' do
+        def title_arg(title)
+          [{ 'title' => title }]
+        end
+
+        def articles_response(title)
+          described_class.new(en_wiki).post_existing_articles_by_title(title_arg(title))
+        end
+
+        it 'returns article "Autism"' do
+          VCR.use_cassette 'replica/articles/1' do
+            response = articles_response('Autism')
+            expect(response.size).to eq(2) # exists in namespace 0, 1
+          end
+        end
+
+        it 'returns article "Allegiance"' do
+          VCR.use_cassette 'replica/articles/2' do
+            response = articles_response('Allegiance')
+            expect(response.size).to eq(2) # exists in namespace 0, 1
+          end
+        end
+
+        # Test with URI reserved characters
+        it 'returns article "Broussard\'s"' do
+          VCR.use_cassette 'replica/articles/3' do
+            response = articles_response("Broussard's")
+            expect(response.size).to eq(2) # exists in namespace 0, 1
+          end
+        end
+
+        it 'returns article "Procter_&_Gamble"' do
+          VCR.use_cassette 'replica/articles/4' do
+            response = articles_response('Procter_&_Gamble')
+            expect(response.size).to eq(4) # exists in namespace 0, 1, 10, 11
+          end
+        end
+
+        # Test with special characters
+        it 'returns article "Paul_Cézanne"' do
+          VCR.use_cassette 'replica/articles/5' do
+            response = articles_response('Paul_Cézanne')
+            expect(response.size).to eq(4) # exists in namespace 0, 1, 10, 11
+          end
+        end
+
+        it 'returns article "Mmilldev/sandbox"' do
+          VCR.use_cassette 'replica/articles/6' do
+            response = articles_response('Mmilldev/sandbox')
+            expect(response.size).to eq(1) # exists in namespace 2
+          end
+        end
+
+        it 'does not return article "THIS_ARTICLE_DOES_NOT_EXIST"' do
+          VCR.use_cassette 'replica/articles/7' do
+            response = articles_response('THIS_ARTICLE_DOES_NOT_EXIST')
+            expect(response.size).to eq(0) # does not exist
+          end
+        end
       end
     end
 
