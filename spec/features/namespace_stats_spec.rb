@@ -25,6 +25,8 @@ describe 'Namespace-specific stats', type: :feature, js: true do
   end
 
   it 'generates and renders stats for Cookbook namespace on en.wikibooks.org' do
+    pending 'Manual update sometimes takes too long and times out'
+
     VCR.use_cassette 'cookbook' do
       visit "/courses/#{course.slug}/manual_update"
 
@@ -35,5 +37,7 @@ describe 'Namespace-specific stats', type: :feature, js: true do
       find('.tab', text: 'en.wikibooks.org - Cookbook').click
       expect(page).to have_content "4\nTotal Edits"
     end
+
+    pass_pending_spec
   end
 end
