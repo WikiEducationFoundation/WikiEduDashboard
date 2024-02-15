@@ -354,6 +354,9 @@ const ArticleFinder = (props) => {
       />
     );
 
+    const isButtonDisabled = props.fetchState !== 'PAGEVIEWS_RECEIVED' && !props.loading;
+    const buttonClasses = `button dark ${isButtonDisabled ? 'disabled' : ''}`;
+
     return (
       <div className="container">
         <header>
@@ -363,7 +366,7 @@ const ArticleFinder = (props) => {
           </div>
         </header>
         <div className="article-finder-form">
-          <div className="search-bar" style={{ display: 'flex', flexDirection: 'row', alignItems: 'end' }}>
+          <div className="search-bar">
             <TextInput
               id="category"
               onChange={updateFieldsHandler}
@@ -376,7 +379,13 @@ const ArticleFinder = (props) => {
               onKeyDown={onKeyDown}
               ref={searchboxRef}
             />
-            <button style={{ marginBottom: '8px' }} className={`button dark ${(props.fetchState !== 'PAGEVIEWS_RECEIVED' && !props.loading) ? 'disabled' : ''}`} onClick={searchArticles}>{I18n.t('article_finder.submit')}</button>
+            <button
+              className={buttonClasses}
+              disabled={isButtonDisabled}
+              onClick={searchArticles}
+            >
+              {I18n.t('article_finder.submit')}
+            </button>
           </div>
         </div>
         {options}
