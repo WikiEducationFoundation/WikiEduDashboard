@@ -1,9 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import CourseUtils from '../../utils/course_utils';
 
 const CampaignNavbar = ({ campaign }) => {
+  const location = useLocation();
+  const pathSegments = location.pathname.split('/');
+  const currentTab = pathSegments[pathSegments.length - 1];
   return (
     <div className="campaign-nav__wrapper">
       <div className="campaign_navigation">
@@ -12,21 +15,22 @@ const CampaignNavbar = ({ campaign }) => {
             <h2 className="title">{I18n.t('campaign.campaign')}: {campaign.title}</h2>
           </a>
           <nav>
-            <div className="nav__item" id="overview-link">
-              <p><a href={`/campaigns/${campaign.slug}/overview`} >{I18n.t('courses.overview')}</a>
+            <div className={`nav__item ${currentTab === 'overview' ? 'active' : ''}`} id="overview-link">
+              <p>
+                <a href={`/campaigns/${campaign.slug}/overview`}>{I18n.t('courses.overview')}</a>
               </p>
             </div>
-            <div className="nav__item">
+            <div className={`nav__item ${currentTab === 'programs' ? 'active' : ''}`}>
               <p>
                 <a href={`/campaigns/${campaign.slug}/programs`}>{CourseUtils.i18n('courses', campaign.course_string_prefix)}</a>
               </p>
             </div>
-            <div className="nav__item" id="articles-link">
+            <div className={`nav__item ${currentTab === 'articles' ? 'active' : ''}`} id="articles-link">
               <p>
                 <a href={`/campaigns/${campaign.slug}/articles`}>{I18n.t('courses.articles')}</a>
               </p>
             </div>
-            <div className="nav__item">
+            <div className={`nav__item ${currentTab === 'users' ? 'active' : ''}`}>
               <p>
                 <a href={`/campaigns/${campaign.slug}/users`}>{CourseUtils.i18n('students', campaign.course_string_prefix)}</a>
               </p>
