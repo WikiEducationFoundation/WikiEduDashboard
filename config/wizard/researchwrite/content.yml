@@ -166,7 +166,14 @@ essentials:
         if: explore_to_find_articles
         title: Finalize your topic and find sources
         kind: 1
-        training_module_ids: [38] # Exercise: Finalizing your topic and finding sources
+        training_module_ids: [38] # Exercise: Finalizing your topic / create bibliography
+        content: |
+
+      -
+        if: choose_articles_from_list
+        title: Find sources and create a bibliography
+        kind: 1
+        training_module_ids: [38] # Exercise: Finalizing your topic / create bibliography
         content: |
 
   - # Week five
