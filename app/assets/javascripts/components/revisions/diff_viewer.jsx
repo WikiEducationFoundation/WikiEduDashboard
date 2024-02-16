@@ -237,15 +237,6 @@ const DiffViewer = createReactClass({
     );
   },
 
-  authorsHTML() {
-    return (
-      <div className="user-legend-wrap">
-        <div className="user-legend">{I18n.t('users.edits_by')}&nbsp;</div>
-        <div className="user-legend">{this.props.editors.join(', ')}</div>
-      </div>
-    );
-  },
-
   render() {
     if (!this.shouldShowDiff(this.props) || !this.props.revision) {
       return (
@@ -278,36 +269,38 @@ const DiffViewer = createReactClass({
     const wikiDiffUrl = this.webDiffUrl();
 
     let diffComment;
-    let revisionDateTime;
     let firstRevTime;
     let lastRevTime;
     let timeSpan;
     let editDate;
+    let formatedDate;
+    let charactersCount;
+    let finalDate;
+
+    if (!this.props.first_revision) {
+      formatedDate = formatDateWithTime(this.props.revision.date);
+      editDate = I18n.t('revisions.edited_on', { edit_date: formatedDate });
+      finalDate = <div className="user-legend" style={{ justifyContent: 'center' }}>{editDate}</div>;
+      charactersCount = <div className="user-legend" style={{ justifyContent: 'flex-end' }}>{this.props.revision.characters} {I18n.t('revisions.chars_added')}</div>;
+    } else {
+      firstRevTime = formatDateWithTime(this.state.firstRevDateTime);
+      lastRevTime = formatDateWithTime(this.state.lastRevDateTime);
+      timeSpan = I18n.t('revisions.edit_time_span', { first_time: firstRevTime, last_time: lastRevTime });
+      editDate = <p className="diff-comment">{timeSpan}</p>;
+      finalDate = <div className="user-legend" style={{ justifyContent: 'flex-end', width: '66%' }}>{editDate}</div>;
+    }
+    const final = (
+      <div className="user-legend-wrap">
+        <div className="user-legend" style={{ justifyContent: 'flex-start' }}>{I18n.t('users.edits_by')}&nbsp;{this.props.editors.join(', ')}</div>
+        {finalDate}
+        {charactersCount}
+      </div>
+    );
 
     // Edit summary for a single revision:
     //  > Edit date and number of characters added
     // Edit summary for range of revisions:
     //  > First and last times for edits to article (from first applicable rev to last)
-    if (!this.props.first_revision) {
-      revisionDateTime = formatDateWithTime(this.props.revision.date);
-
-      diffComment = <p className="diff-comment">{this.state.comment}</p>;
-
-      editDate = (
-        <p className="diff-comment">
-          ({I18n.t('revisions.edited_on', { edit_date: revisionDateTime })};&nbsp;
-          {this.props.revision.characters}&nbsp;
-          {I18n.t('revisions.chars_added')})
-        </p>);
-    } else {
-      firstRevTime = formatDateWithTime(this.state.firstRevDateTime);
-      lastRevTime = formatDateWithTime(this.state.lastRevDateTime);
-
-      timeSpan = I18n.t('revisions.edit_time_span',
-        { first_time: firstRevTime, last_time: lastRevTime });
-
-      editDate = <p className="diff-comment">({timeSpan})</p>;
-    }
 
     let salesforceButtons;
     if (this.props.showSalesforceButton) {
@@ -342,16 +335,13 @@ const DiffViewer = createReactClass({
                   <tr>
                     <th colSpan="4" className="diff-header">{diffComment}</th>
                   </tr>
-                  <tr>
-                    <th colSpan="4" className="diff-header">{editDate}</th>
-                  </tr>
                 </thead>
                 {diff}
               </table>
             </div>
           </div>
           <div className="diff-viewer-footer">
-            {this.authorsHTML()}
+            {final}
           </div>
         </div>
       </div>
