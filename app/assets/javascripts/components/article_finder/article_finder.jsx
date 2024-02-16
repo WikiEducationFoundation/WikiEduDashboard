@@ -110,21 +110,6 @@ const ArticleFinder = (props) => {
   // const sortSelect = (e) => {
   //   props.sortArticleFinder(e.target.value);
   // };
-    const searchButton = <button className="button dark" onClick={searchArticles}>{I18n.t('article_finder.submit')}</button>;
-    const searchTerm = (
-      <TextInput
-        id="category"
-        onChange={updateFieldsHandler}
-        value={props.search_term}
-        value_key="search_term"
-        required
-        editable
-        label={I18n.t('article_finder.search')}
-        placeholder={I18n.t('article_finder.search_placeholder')}
-        onKeyDown={onKeyDown}
-        ref={searchboxRef}
-      >{searchButton}
-      </TextInput>);
 
     const searchType = (
       <div>
@@ -369,6 +354,9 @@ const ArticleFinder = (props) => {
       />
     );
 
+    const isButtonDisabled = props.fetchState !== 'PAGEVIEWS_RECEIVED' && !props.loading;
+    const buttonClasses = `button dark ${isButtonDisabled ? 'disabled' : ''}`;
+
     return (
       <div className="container">
         <header>
@@ -379,7 +367,25 @@ const ArticleFinder = (props) => {
         </header>
         <div className="article-finder-form">
           <div className="search-bar">
-            {searchTerm}
+            <TextInput
+              id="category"
+              onChange={updateFieldsHandler}
+              value={props.search_term}
+              value_key="search_term"
+              required
+              editable
+              label={I18n.t('article_finder.search')}
+              placeholder={I18n.t('article_finder.search_placeholder')}
+              onKeyDown={onKeyDown}
+              ref={searchboxRef}
+            />
+            <button
+              className={buttonClasses}
+              disabled={isButtonDisabled}
+              onClick={searchArticles}
+            >
+              {I18n.t('article_finder.submit')}
+            </button>
           </div>
         </div>
         {options}
