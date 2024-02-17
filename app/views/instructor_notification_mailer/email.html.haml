@@ -3,24 +3,15 @@
   %tbody
     %tr
       %th
-        %table
+        %table.main-content
           %tr
-            %td.main-content
-              %h1.headline
-                = "#{@subject}"
-              %p.paragraph
-                = "Course: "
-                %a{href: @course_link}= @course.title
-              %p.paragraph
-                = "Dear Instructors,"
+            %td
               %p.paragraph
                 = "#{@message}"
 
         %table
           %tr
-            %td.main-content
-              %p.paragraph
-                Best regards,
-                %br
-                %em
-                  The Wiki Education team
+            %td
+              %p.footer
+                = "This is a message from Wiki Education staff for your course"
+                %a{href: @course_link}=@course.title+"."
