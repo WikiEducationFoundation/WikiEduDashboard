@@ -119,10 +119,8 @@ class AssignmentsController < ApplicationController
 
   def find_assignment_by_params
     clean_title = params[:article_title].tr(' ', '_')
-    @assignment ||= Assignment.find_by(user_id: params[:user_id],
-                                       role: params[:role],
-                                       wiki_id: @wiki.id,
-                                       article_title: clean_title,
+    @assignment ||= Assignment.find_by(user_id: params[:user_id], role: params[:role],
+                                       wiki_id: @wiki.id, article_title: clean_title,
                                        course_id: @course.id)
   end
 
@@ -142,8 +140,7 @@ class AssignmentsController < ApplicationController
 
   def set_new_assignment
     @assignment = AssignmentManager.new(user_id: assignment_params[:user_id],
-                                        course: @course,
-                                        wiki: @wiki,
+                                        course: @course, wiki: @wiki,
                                         title: assignment_params[:title].strip,
                                         role: assignment_params[:role]).create_assignment
   end
@@ -175,8 +172,7 @@ class AssignmentsController < ApplicationController
   def assignment_params
     params.permit(
       :id, :user_id, :course_id, :title, :role, :language, :project, :status,
-      :course_slug, :format,
-      assignment: {}
+      :course_slug, :format, assignment: {}
     )
   end
 end
