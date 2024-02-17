@@ -46,4 +46,9 @@ class InstructorNotificationAlert < Alert
   def sender_email
     User.find_by(id: user_id)&.email
   end
+
+  # not used but required to be implemented (Subject is Dynamic)
+  def main_subject
+    "Admin sent you a message"
+  end
 end
