@@ -244,7 +244,8 @@ qqq:
       Button to choose an available article to work on. It appears next to the title of the article.
       {{Identical|Select}}
     submit: Button to submit sandbox URL change.
-    no_user_exists: Message displayed when trying to update the sandbox url of an assignment with a username 
+    invalid_url: Cannot update sandbox url. The URL %{url} is not a valid Wikipedia URL.
+    mismatched_wiki: Cannot update sandbox url. The URL %{url} is not on the same wiki. 
   blocks:
     milestones:
       title: Label for the Milestone section of a course page (Wiki Ed only)

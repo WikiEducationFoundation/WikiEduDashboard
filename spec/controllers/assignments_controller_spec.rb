@@ -435,38 +435,4 @@ describe AssignmentsController, type: :request do
       end
     end
   end
-
-  describe 'PATCH #update_sanbox_url' do
-    # rubocop:disable Style/HashSyntax
-    let!(:assignment) { create(:assignment, course: course, user_id: user.id, role: 0) }
-    # rubocop:enable Style/HashSyntax
-    let!(:base_url) { "https://#{assignment.wiki.language}.#{assignment.wiki.project}.org/wiki" }
-    let!(:request_params) do
-      { id: assignment.id, user_id: user.id, format: :json }
-    end
-
-    context 'updating sandbox url of an assignment with a username that exists' do
-      let!(:test_user) { create(:user, username: 'testUser') }
-      let(:new_username) { 'testUser' }
-
-      it 'updates the sandbox url' do
-        expected = "#{base_url}/User:#{new_username}/#{assignment.article_title}"
-        patch "/assignments/#{assignment.id}/#{new_username}/update_sandbox_url",
-              params: request_params
-
-        expect(assignment.reload.sandbox_url).to eq(expected)
-      end
-    end
-
-    context 'updating sandbox url of an assignment with a username that does not exist' do
-      let(:new_username) { 'update_username' }
-
-      it 'renders a 404' do
-        patch "/assignments/#{assignment.id}/#{new_username}/update_sandbox_url",
-              params: request_params
-
-        expect(response.status).to eq(404)
-      end
-    end
-  end
 end

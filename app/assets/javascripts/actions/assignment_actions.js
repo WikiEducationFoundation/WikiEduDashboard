@@ -101,10 +101,10 @@ export const updateAssignmentStatus = (assignment, status) => () => {
 const updateSandboxUrlPromise = (assignment, newUrl) => {
   const body = {
     id: assignment.id,
-    status,
     user_id: assignment.user_id,
+    newUrl: newUrl
   };
-  return request(`/assignments/${assignment.id}/${newUrl}/update_sandbox_url`, {
+  return request(`/assignments/${assignment.id}/update_sandbox_url`, {
     body: JSON.stringify(body),
     method: 'PATCH'
   }).then((res) => {

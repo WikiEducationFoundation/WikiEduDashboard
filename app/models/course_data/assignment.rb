@@ -57,9 +57,6 @@ class Assignment < ApplicationRecord
   delegate :update_sandbox_status, to: :assignment_pipeline
   delegate :peer_review_sandbox_status, to: :assignment_pipeline
 
-  # instance variable used to bypass the set_sandbox_url method
-  attr_accessor :edit_sandbox_url
-
   #############
   # CONSTANTS #
   #############
@@ -111,14 +108,7 @@ class Assignment < ApplicationRecord
   def update_sandbox_url(new_url)
     return unless new_url
     return unless user
-    # creates and initializes instance variable (edit_sandbox_url)
-    # used to bypass the before_save (set_sandbox_url) method.
-    @edit_sandbox_url = true
-    language = wiki.language || 'www'
-    project = wiki.project || 'wikipedia'
-    base_url = "https://#{language}.#{project}.org/wiki"
-    new_sandbox_url = "#{base_url}/User:#{new_url}/#{article_title}"
-    update(sandbox_url: new_sandbox_url)
+    update(sandbox_url: new_url)
   end
 
   private
@@ -134,7 +124,6 @@ class Assignment < ApplicationRecord
   end
 
   def set_sandbox_url
-    return if edit_sandbox_url
     return unless user
     return if sandbox_url.present?
     # If the sandbox already exists, use that URL instead

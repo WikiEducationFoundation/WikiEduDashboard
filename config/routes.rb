@@ -72,7 +72,7 @@ Rails.application.routes.draw do
     patch '/status' => 'assignments#update_status'
     resources :assignment_suggestions
   end
-  patch '/assignments/:id/:new_url/update_sandbox_url' => 'assignments#update_sandbox_url'
+  patch '/assignments/:id/update_sandbox_url' => 'assignments#update_sandbox_url'
   put '/assignments/:assignment_id/claim' => 'assignments#claim'
   post '/assignments/assign_reviewers_randomly' => 'assignments#assign_reviewers_randomly'
 
