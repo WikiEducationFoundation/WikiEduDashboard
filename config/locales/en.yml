@@ -366,6 +366,8 @@ en:
     course_already_removed: '"%{title}" was already removed from the "%{campaign_title}" campaign'
     course: Course
     course_removed: '"%{title}" has been removed from the "%{campaign_title}" campaign'
+    course_removed_and_deleted: '"%{title}" has been deleted and removed from the "%{campaign_title}" campaign'
+    course_removed_but_not_deleted: '"%{title}" has been removed from the "%{campaign_title}" but has not been deleted as it is present in other campaigns as well'
     create_campaign: Create a New Campaign
     create_my_campaign: Create my Campaign!
     customize_passcode: a default passcode
