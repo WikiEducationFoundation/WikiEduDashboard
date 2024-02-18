@@ -7,7 +7,7 @@ class Courses::DeleteFromCampaignController < CoursesController
     validate
     if params.key?(:campaign)
       remove_course_from_campaign_but_not_deleted
-    else 
+    else
       remove_and_delete_course_from_campaign
     end
   end
@@ -17,13 +17,13 @@ class Courses::DeleteFromCampaignController < CoursesController
     @course = find_course_by_slug(slug)
     raise NotPermittedError unless current_user&.can_edit?(@course)
   end
-  
+
   def remove_and_delete_course_from_campaign
     campaigns_course = find_campaigns_course
     result = campaigns_course.destroy
     message = result ? 'campaign.course_removed_and_deleted' : 'campaign.course_already_removed'
     flash[:notice] = t(message, title: @course.title, campaign_title: params[:campaign_title])
-    DeleteCourseWorker.schedule_deletion(course: @course, current_user: current_user)
+    DeleteCourseWorker.schedule_deletion(course: @course, current_user:)
     redirect_to_campaign_path
   end
 
@@ -42,5 +42,4 @@ class Courses::DeleteFromCampaignController < CoursesController
   def redirect_to_campaign_path
     redirect_to programs_campaign_path(params[:campaign_slug])
   end
-
 end
