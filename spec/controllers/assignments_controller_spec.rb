@@ -435,4 +435,55 @@ describe AssignmentsController, type: :request do
       end
     end
   end
+
+  describe 'PATCH #update_sanbox_url' do
+    let!(:assignment) { create(:assignment, course:, user_id: user.id, role: 0) }
+    let!(:base_url) { "https://#{assignment.wiki.language}.#{assignment.wiki.project}.org/wiki" }
+
+    context 'updating sandbox url with url that belongs to same wiki' do
+      let(:preferred_sandbox_url) { "#{base_url}/testing/testingArticle" }
+      let!(:request_params) do
+        { id: assignment.id, user_id: user.id, newUrl: preferred_sandbox_url, format: :json }
+      end
+
+      it 'update sandbox url successfully' do
+        patch "/assignments/#{assignment.id}/update_sandbox_url",
+              params: request_params
+
+        expect(assignment.reload.sandbox_url).to eq(preferred_sandbox_url)
+      end
+    end
+
+    context 'updating sandbox url with url that belongs to different wiki' do
+      let(:existing_sandbox_url) { assignment.sandbox_url }
+      let(:preferred_sandbox_url) { 'https://www.wikipedia.org/wiki/testing/testingArticle' }
+      let!(:request_params) do
+        { id: assignment.id, user_id: user.id, newUrl: preferred_sandbox_url, format: :json }
+      end
+
+      it 'does not update url and send response with status: unprocessable entity' do
+        patch "/assignments/#{assignment.id}/update_sandbox_url",
+              params: request_params
+
+        expect(assignment.reload.sandbox_url).to eq(existing_sandbox_url)
+        expect(response.status).to eq(422)
+      end
+    end
+
+    context 'updating sandbox url with invalid url format' do
+      let(:existing_sandbox_url) { assignment.sandbox_url }
+      let(:preferred_sandbox_url) { 'anyJebberishURL' }
+      let!(:request_params) do
+        { id: assignment.id, user_id: user.id, newUrl: preferred_sandbox_url, format: :json }
+      end
+
+      it 'does not update url and send response with status: bad request' do
+        patch "/assignments/#{assignment.id}/update_sandbox_url",
+              params: request_params
+
+        expect(assignment.reload.sandbox_url).to eq(existing_sandbox_url)
+        expect(response.status).to eq(400)
+      end
+    end
+  end
 end

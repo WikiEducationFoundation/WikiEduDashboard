@@ -82,7 +82,7 @@ class AssignmentsController < ApplicationController
   # Updates the sandbox url of an assignment.
   def update_sandbox_url
     check_permissions(params[:user_id].to_i).then { set_assignment }
-    render SandboxUrlUpdator.new(JSON.parse(request.body.read)['newUrl'], @assignment).update
+    render SandboxUrlUpdator.new(params[:newUrl], @assignment).update
   end
 
   private
