@@ -9,6 +9,7 @@ import NotesPanel from './notes_panel';
 const NotesHandler = () => {
   const [modalType, setModalType] = useState(null);
   const [noteId, setNoteId] = useState(null);
+
   const course = useSelector(state => state.course);
   const currentUser = useSelector(getCurrentUser);
   const dispatch = useDispatch();
@@ -16,18 +17,25 @@ const NotesHandler = () => {
   const dispatchNameHasChanged = () => {
     dispatch(nameHasChanged());
   };
+
   const dispatchPersistCourseNote = () => {
     dispatch(persistCourseNote(course.id, currentUser.username));
   };
+
   const dispatchResetCourseNote = () => {
     dispatch(resetCourseNote());
   };
 
+  // Function to set the modal type and note ID based on the parameters:
+  // a) If id is null and type is 'DefaultPanel', display 'NotesPanel'.
+  // b) If id is null and type is 'NoteEditor', display 'CreateNewNote'.
+  // c) If id is notesId and type is 'NoteEditor', display 'NoteDetails' of the current NoteId.
   const setState = (id = null, type = 'DefaultPanel') => {
     setNoteId(id);
     setModalType(type);
   };
 
+  // If modalType is null, this will simply return a button which, on click, displays admin 'NotesPanel'
   const defaultAdminNotesPanel = (
     <NotesPanel
       setState={setState}
@@ -39,6 +47,7 @@ const NotesHandler = () => {
     />
   );
 
+  // Admin notes edit panel for reading, editing/updating and creating admin notes
   const adminNotesEditPanel = (
     <NotesEditor
       title={course.title}
@@ -52,6 +61,7 @@ const NotesHandler = () => {
     />
   );
 
+  // Switch statement to determine which panel to display based on the modalType
   switch (modalType) {
     case 'NoteEditor':
       return adminNotesEditPanel;
@@ -60,4 +70,4 @@ const NotesHandler = () => {
   }
 };
 
-export default (NotesHandler);
+export default NotesHandler;
