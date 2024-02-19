@@ -21,6 +21,7 @@
 # Author: LudaOtaku
 # Author: Mabroukb
 # Author: Macofe
+# Author: Melimeli
 # Author: PifyZ
 # Author: The RedBurn
 # Author: Thibaut120094
@@ -225,6 +226,8 @@ fr:
         de Wikipédia
       does_not_exist: Cet article n’existe pas sur Wikipédia
     see_more: Voir plus
+    see_more_tooltip: Seuls les 500 premiers articles édités sont chargés initialement.
+      Cliquez pour charger des articles supplémentaires.
     search: Rechercher un article dans Wikipédia
     show_cumulative_changes: Afficher les modifications cumulatives
     show_current_version: Afficher la version courante
@@ -560,6 +563,7 @@ fr:
     courses: Cours
     courses_taught: Cours enseignés
     creation_date: Date de création
+    start_date: Date de début
     creator:
       already_exists: Ce cours existe déjà. Changez plutôt le nom, l’école ou l’échéance
         pour le rendre unique.
