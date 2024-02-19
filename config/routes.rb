@@ -40,6 +40,8 @@ Rails.application.routes.draw do
   get '/settings/default_campaign' => 'settings#default_campaign'
   post '/settings/update_default_campaign' => 'settings#update_default_campaign'
 
+  post '/settings/update_impact_stats' => 'settings#update_impact_stats'
+
   # Griddler allows us to receive incoming emails. By default,
   # the path for incoming emails is /email_processor
   mount_griddler

@@ -27,36 +27,42 @@
     %h2.h1 Impact since 2010:
 
     %h3 Wiki Education Courses
-    %h4 6,250
+    %h4= @stats['wiki_edu_courses']
 
     %div
       .col
         %h3 Students
-        %h4 126,000
+        %h4= @stats['students']
 
       .col
         %h3 Articles worked on
-        %h4 141,000
+        %h4= @stats['worked_articles']
 
     %div
       .col
         %h3 Words added
-        %h4 106 Million
+        %h4= @stats['added_words']
         %p
-          The number of words students have donated to the world. That’s 361,000 pages – the equivalent of 77 volumes of a printed encyclopedia, shared with everyone, for free.
+          The number of words students have donated to the world. That’s 
+          = @stats['total_pages']
+          pages – the equivalent of 
+          = @stats['volumes']
+          volumes of a printed encyclopedia, shared with everyone, for free.
 
       .col
         %h3 Article views, in a single term
-        %h4 438 Million
+        %h4= @stats['article_views']
         %p
-          How many people have read the Wikipedia articles these students have edited? In a single term, 438 million. That's six times larger than the population of France.
+          How many people have read the Wikipedia articles these students have edited? In a single term,
+          = @stats['article_views']
+          million. That's six times larger than the population of France.
 
 %section.universities
   .container
     %h2
       Wiki Education staff have supported instructors and students in more than
-      %b 800 universities
-      across the United States and Canada
+      %b= @stats['universities']
+      universities across the United States and Canada
 
     .logos
       = image_tag "/assets/images/university-logo-1.png"

@@ -12,6 +12,7 @@ import SpecialUserList from './special_users_list';
 import UpdateSalesforceCredentials from './views/update_salesforce_credentials';
 import CourseCreationSettings from './course_creation_settings';
 import DefaultCampaignSetting from './default_campaign_setting';
+import UpdateImpactStats from './views/update_impact_stats';
 
 export const SettingsHandler = createReactClass({
   propTypes: {
@@ -39,21 +40,21 @@ export const SettingsHandler = createReactClass({
   },
 
   render() {
-    let otherSettings;
-    if (Features.wikiEd) {
-      otherSettings = (
-        <React.Fragment>
-          <h1 className="mx2">Other settings</h1>
-          <hr />
-          <h2 className="mx2">Salesforce</h2>
-          <UpdateSalesforceCredentials />
-          <br />
-          <CourseCreationSettings settings={this.props.courseCreation}/>
-          <br />
-          <DefaultCampaignSetting defaultCampaign={this.props.defaultCampaign}/>
-        </React.Fragment>
-      );
-    }
+    const otherSettings = (
+      <React.Fragment>
+        <h1 className="mx2 mt4">Other settings</h1>
+        <hr />
+        <h2 className="mx2">Update</h2>
+        <UpdateImpactStats />
+        <br /> <br />
+        <h2 className="mx2">Salesforce</h2>
+        <UpdateSalesforceCredentials />
+        <br /> <br />
+        <CourseCreationSettings settings={this.props.courseCreation}/>
+        <br />
+        <DefaultCampaignSetting defaultCampaign={this.props.defaultCampaign}/>
+      </React.Fragment>
+    );
     return (
       <div id="settings" className="mt4 container">
         <Notifications />
