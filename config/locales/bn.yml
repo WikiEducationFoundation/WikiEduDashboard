@@ -222,6 +222,7 @@ bn:
     campaign_users: '%{title} সম্পাদকবৃন্দ'
     course: পথ
     courses_taught: কোর্সের ধারণা
+    start_date: শুরুর তারিখ
     creator:
       assignment_end_placeholder: বববব-মম-দদ
       assignment_start_placeholder: বববব-মম-দদ
