@@ -21,8 +21,8 @@ const NotesPanel = ({ setState, modalType, currentUser, courseId, buttonText, he
     return () => clearInterval(pollInterval);
   }, []);
 
-  // Conditionally render a button if the modalType is not 'DefaultPanel' and modalType is null
-  if (modalType !== 'DefaultPanel' && modalType === null) {
+  // Conditionally render a button if modalType is null
+  if (modalType === null) {
     return <button onClick={() => setState(null)} className="button">{I18n.t(buttonText)}</button>;
   }
 
