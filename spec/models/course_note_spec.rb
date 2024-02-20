@@ -18,7 +18,8 @@ RSpec.describe CourseNote, type: :model do
 
   describe '#create_new_note' do
     it 'creates a new course note with valid attributes' do
-      attributes = { courses_id: course.id, title: 'Note Title', text: 'Note Text', edited_by: 'User' }
+      attributes = { courses_id: course.id, title: 'Note Title', text: 'Note Text',
+                     edited_by: 'User' }
       course_note = described_class.new
       expect(course_note.create_new_note(attributes)).to be_truthy
       expect(course_note).to be_persisted
