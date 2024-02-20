@@ -12,8 +12,10 @@ class HomeController < ApplicationController
   end
 
   def fetch_statistics
-    impact_stats = Setting.find_by(key: 'impact_stats').value
-    raise 'Impact stats not found' if impact_stats.nil?
-    impact_stats
+    Rails.cache.fetch('impact_stats', expires_in: 12.hours) do
+      impact_stats = Setting.find_by(key: 'impact_stats')&.value
+      raise ActiveRecord::RecordNotFound, 'Impact stats not found' if impact_stats.nil?
+      impact_stats
+    end
   end
 end
