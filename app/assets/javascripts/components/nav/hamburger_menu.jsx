@@ -77,7 +77,7 @@ const HamburgerMenu = ({ rootUrl, logoPath, exploreUrl, exploreName, userSignedI
                 {userSignedIn ? (
                   <span>
                     <li>
-                      <b><a href={rootUrl} className="current-user">{currentUser}</a></b>
+                      <b><a href={`/users/${encodeURIComponent(currentUser)}`} className="current-user">{currentUser}</a></b>
                     </li>
                     <li>
                       <a href={destroyUrl} className="current-user">{I18n.t('application.log_out')}</a>
