@@ -18,7 +18,7 @@ const CourseForm = (props) => {
     props.updateCourseAction('private', isPrivate);
   };
   const updateTaSupport = (e) => {
-    const ta_support = e.target.checked;
+    const ta_support = e.target.checked ? 1 : 0;
     props.updateCourseProps({ ta_support: ta_support });
     props.updateCourseAction('ta_support', ta_support);
   };
