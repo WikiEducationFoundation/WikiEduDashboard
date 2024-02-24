@@ -21,7 +21,7 @@ export const OnboardingSupplementary = createReactClass({
 
   // Update state when input fields change
   _handleFieldChange(e) {
-    const { name, value } = e.target;
+        const { name, value } = e.target;
         return this.setState({ [name]: value });
   },
 
@@ -103,7 +103,7 @@ export const OnboardingSupplementary = createReactClass({
             <input type="radio" name="whyHere" value="teach next term" onChange={this._handleFieldChange} /> I want to teach with Wikipedia <strong>next term</strong><br />
             <input type="radio" name="whyHere" value="learn about teaching" onChange={this._handleFieldChange} /> I want to learn more about teaching with Wikipedia<br />
             <input type="radio" name="whyHere" value="other" onChange={this._handleFieldChange} /> Other:<br />
-            <textarea className="form-control" type="text" name="otherReason" defaultValue={this.state.otherReason} onChange={e => this._handleFieldChange(e)} />
+            <textarea className="form-control" type="text" name="otherReason" defaultValue={this.state.otherReason} onChange={this._handleFieldChange} />
           </div>
           <button disabled={disabled} type="submit" className="button dark right">
             {submitText} <i className="icon3 icon-rt_arrow" />
