@@ -22,7 +22,7 @@ export const OnboardingSupplementary = createReactClass({
   // Update state when input fields change
   _handleFieldChange(e) {
     const { name, value } = e.target;
-    return this.setState({ [name]: value });
+        return this.setState({ [name]: value });
   },
 
   _handleSubmit(e) {
@@ -71,7 +71,7 @@ export const OnboardingSupplementary = createReactClass({
   render() {
     const submitText = this.state.sending ? 'Sending' : 'Submit';
     const disabled = this.state.sending;
-    const referralDetailsLabel = this._getReferralDetailsLabel();
+        const referralDetailsLabel = this._getReferralDetailsLabel();
     const referralDetails = (
       <div>
         <br />
@@ -103,7 +103,7 @@ export const OnboardingSupplementary = createReactClass({
             <input type="radio" name="whyHere" value="teach next term" onChange={this._handleFieldChange} /> I want to teach with Wikipedia <strong>next term</strong><br />
             <input type="radio" name="whyHere" value="learn about teaching" onChange={this._handleFieldChange} /> I want to learn more about teaching with Wikipedia<br />
             <input type="radio" name="whyHere" value="other" onChange={this._handleFieldChange} /> Other:<br />
-            <textarea className="form-control" type="text" name="otherReason" defaultValue={this.state.otherReason} onChange={this._handleFieldChange.bind(this, 'otherReason')} />
+            <textarea className="form-control" type="text" name="otherReason" defaultValue={this.state.otherReason} onChange={e => this._handleFieldChange(e)} />
           </div>
           <button disabled={disabled} type="submit" className="button dark right">
             {submitText} <i className="icon3 icon-rt_arrow" />
