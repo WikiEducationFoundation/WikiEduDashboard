@@ -9,10 +9,22 @@ module UpdateServiceErrorHelper
     @error_count ||= 0
   end
 
-  def update_error_stats
-    @error_count = error_count + 1
-  end
+    # Returns the number of new errors
+    def new_errors
+      @new_errors_count ||= 0
+    end
+    
+    # Set the number of new errors
+    def new_errors_count=(value)
+      @new_errors_count = value
+    end
+  
 
+  def update_error_stats
+   
+    @error_count = error_count + new_errors
+  end
+  
   def sentry_tags
     { update_service_id: sentry_tag_uuid, course: @course.slug }
   end

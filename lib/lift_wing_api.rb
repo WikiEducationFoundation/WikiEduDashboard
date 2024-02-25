@@ -122,11 +122,12 @@ class LiftWingApi
 
   def log_error_batch(rev_ids)
     return if @errors.empty?
-
-    log_error(@errors.first, update_service: @update_service,
+     
+    log_error(@errors.first, update_service: @update_service, new_errors: @errors.count,                    
       sentry_extra: { rev_ids:, project_code: wiki_key,
-                      project_model: model_key,
+                      project_model: model_key, 
                       error_count: @errors.count })
+                
   end
 
   def deleted?(response)
