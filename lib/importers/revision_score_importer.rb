@@ -3,7 +3,9 @@
 require_dependency "#{Rails.root}/lib/revision_score_api_handler"
 require_dependency "#{Rails.root}/lib/wiki_api"
 
-#= Imports revision scoring data from Lift Wing
+#= Imports revision scoring data from Lift Wing and reference-counter APIs.
+#= This class populates wp10, wp10_previous, features, features_previous and
+#= deleted fields.
 class RevisionScoreImporter
   BATCH_SIZE = 50
 
