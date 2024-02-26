@@ -49,6 +49,6 @@ class InstructorNotificationAlert < Alert
 
   # not used but required to be implemented (Subject is Dynamic)
   def main_subject
-    "Admin sent you a message"
+    subject
   end
 end
