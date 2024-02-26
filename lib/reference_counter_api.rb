@@ -76,7 +76,7 @@ class ReferenceCounterApi
   end
 
   def references_query_url(rev_id)
-    "/api/v1/references/#{@project_code}/#{@language_code}/#{rev_id}"
+    "/api/v1/references/html/#{@project_code}/#{@language_code}/#{rev_id}"
   end
 
   def toolforge_server
