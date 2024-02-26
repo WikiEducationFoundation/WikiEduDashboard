@@ -31,6 +31,7 @@ ENV['test_user_password'] = 'testpassword'
 ENV['wikipedia_token'] = 'b56122b2abe01f163349c9d0a6bcded5'
 ENV['wikipedia_secret'] = '507c74d4c4cb6015c9087b2decb80d82b96b905e'
 ENV['WikimediaCampaignsPlatformSecret'] = 'SharedSecret'
+ENV['blocked_assignment_category'] = 'testcategory'
 
 FileUtils.mkdir_p(".nyc_output")
 Dir.glob("./.nyc_output/*").each{ |f| FileUtils.rm(f) }
@@ -44,7 +45,7 @@ def dump_js_coverage
   File.open(Rails.root.join(".nyc_output", "temp.json"), "w") do |report|
     report.puts page_coverage
   end
-  
+
   system("npx nyc merge .nyc_output .nyc_output/out.json >> /dev/null && rm .nyc_output/temp.json")
 end
 

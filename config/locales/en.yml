@@ -274,6 +274,7 @@ en:
     article: The article %{title} is now assigned to you.
     article_link: Article
     article_link_wikidata: Item
+    blocked_assignment: "%{title} could not be assigned because it is on the Wikipedia community's Wiki Education assignment blocklist."
     already_exists: This assignment already exists!
     title_too_large: The title shouldn't exceed 255 characters
     assignees: Assignee(s)
@@ -411,7 +412,7 @@ en:
     search: Search
 
   categories:
-    searching_for_category: Searching for categories in 
+    searching_for_category: Searching for categories in
     add_category: Add category
     add_psid: Add PetScan PSID
     add_pileid: Add PagePile id
