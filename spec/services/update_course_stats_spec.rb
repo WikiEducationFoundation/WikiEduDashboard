@@ -108,7 +108,7 @@ describe UpdateCourseStats do
       end
       sentry_tag_uuid = subject.sentry_tag_uuid
       error_count = subject.error_count
-      #puts subject.inspect
+      
 
       expect(course.flags['update_logs'][1]['error_count']).to eq error_count
       expect(course.flags['update_logs'][1]['sentry_tag_uuid']).to eq sentry_tag_uuid
