@@ -179,7 +179,6 @@ describe RevisionScoreImporter do
 
       it 'returns a hash with features' do
         VCR.use_cassette 'revision_scores/single_revision' do
-          puts subject[:features]
           expect(subject[:features]).to have_key(Revision::WIKIDATA_REFERENCES)
           expect(subject[:rating]).to eq('D')
         end
