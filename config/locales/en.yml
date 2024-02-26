@@ -833,6 +833,19 @@ en:
       notification_message: Take our survey for this course.
       link: Take Survey
 
+  course_instructor_notification:
+    notify_instructors: Email Instructors
+    notify_instructors_feature_description: Send a message to Instructors via email
+    send_notification_button_text: Send
+    notification_sent_success: "Message sent to all Instructors of %{courseTitle}"
+    notification_send_error_no_internet: "Unable to send request. Check if you are connected to the Internet."
+    notification_send_error_server: "Server Error: Unable to send notification (%{status} %{statusText})"
+    notification_empty_message: "Subject or Message cannot be empty"
+    confirm_send_notification: "Send to all instructors for this course?"
+    write_subject: "Subject"
+    write_message_placeholder: "Message"
+    sending_notification: "Sending"
+
   # These are strings that are not specific to education/classroom contexts
   courses_generic:
     school_system: Academic System
