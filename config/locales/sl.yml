@@ -452,8 +452,8 @@ sl:
     no_highlighting: Nobeno besedilo iz trenutne različice članka ni pripisano uporabniku
       %{editor}. Preverite zgodovino strani, da vidite njihove popravke.
     contributions_not_highlighted: Prispevki uporabnika %{username} so prisotni, vendar
-      jih ni mogoče označiti. To se običajno zgodi za dodane reference ali predloge.
-      Preverite zgodovino strani, da vidite njihove popravke.
+      jih ni mogoče označiti. To se običajno zgodi pri dodanih sklicih ali predlogah.
+      Preverite zgodovino strani, da si ogledate njihova urejanja.
     number_of_articles:
       one: '%{count} članek'
       other: '%{count} članka'

@@ -19,6 +19,7 @@
 # Author: Iketsi
 # Author: JenyxGym
 # Author: LudaOtaku
+# Author: M0tty
 # Author: Mabroukb
 # Author: Macofe
 # Author: Melimeli
@@ -376,7 +377,7 @@ fr:
       de commenter.
     review_tooltip_wikidata: Ceci est destiné aux éléments que vous prévoyez de faire
       relire par un pair ou sur lesquels vous prévoyez de fournir un avis.
-    sandbox_draft_link: Brouillon du bac à sable
+    sandbox_draft_link: Brouillon
     sandbox_redlink_info: Ce lien est rouge parce que la page n’a pas encore été créée
       (si elle a été créée récemment, le tableau de bord mettra bientôt ses données
       à jour).
