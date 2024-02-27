@@ -27,7 +27,8 @@ class CoursesController < ApplicationController
     course_creation_manager = CourseCreationManager.new(course_params, wiki_params,
                                                         params[:course][:scoping_methods],
                                                         initial_campaign_params,
-                                                        instructor_role_description, current_user)
+                                                        instructor_role_description, current_user,
+                                                        params[:course][:ta_support])
     unless course_creation_manager.valid?
       render json: { message: course_creation_manager.invalid_reason },
              status: :not_found
@@ -36,7 +37,6 @@ class CoursesController < ApplicationController
     @course = course_creation_manager.create
     update_courses_wikis
     update_course_wiki_namespaces
-    update_ta_support
     update_academic_system
     update_course_format
   end
@@ -319,7 +319,6 @@ class CoursesController < ApplicationController
     update_boolean_flag :stay_in_sandbox
     update_boolean_flag :retain_available_articles
     update_edit_settings
-    update_ta_support
     update_academic_system
     update_course_format
     update_last_reviewed
@@ -345,11 +344,6 @@ class CoursesController < ApplicationController
       update_flags[key] = params.dig(:course, key)
     end
     @course.flags['edit_settings'] = update_flags
-    @course.save
-  end
-
-  def update_ta_support
-    @course.flags['ta_support'] = params.dig(:course, 'ta_support')
     @course.save
   end
 
