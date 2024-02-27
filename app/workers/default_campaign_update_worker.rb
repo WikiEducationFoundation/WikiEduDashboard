@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require "#{Rails.root}/lib/deafult_campaign_update.rb"
+require "#{Rails.root}/lib/default_campaign_update.rb"
 
 class DefaultCampaignUpdateWorker
   include Sidekiq::Worker

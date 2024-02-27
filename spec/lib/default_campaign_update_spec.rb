@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/deafult_campaign_update.rb"
+require "#{Rails.root}/lib/default_campaign_update.rb"
 
 describe DefaultCampaignUpdate do
   before do
