@@ -28,9 +28,6 @@ const copyPaths = [{
   from: `${config.sourcePath}/${config.imagesDirectory}`,
   to: `${config.outputPath}/${config.imagesDirectory}`,
 }, {
-  from: `${config.sourcePath}/${config.fontsDirectory}`,
-  to: `${config.outputPath}/${config.fontsDirectory}`,
-}, {
   from: './node_modules/tinymce/skins',
   to: `${config.outputPath}/${config.jsDirectory}/skins`,
 }];
@@ -38,16 +35,14 @@ copyPaths.forEach((entry, idx) => {
   switch (idx) {
     case 0: console.log('Started copying jQuery'); break;
     case 1: console.log('Started copying images'); break;
-    case 2: console.log('Started copying fonts'); break;
-    case 3: console.log('Started copying tinymce skins'); break;
+    case 2: console.log('Started copying tinymce skins'); break;
     default: console.log('Started copying static assets'); break;
   }
   execSync(`cp -r ${entry.from} ${entry.to}`);
   switch (idx) {
     case 0: console.log('\x1b[33m%s\x1b[0m', `Finished copying jQuery after ${elapsed(process.hrtime(start))} seconds`); break;
     case 1: console.log('\x1b[33m%s\x1b[0m', `Finished copying images after ${elapsed(process.hrtime(start))} seconds`); break;
-    case 2: console.log('\x1b[33m%s\x1b[0m', `Finished copying fonts after ${elapsed(process.hrtime(start))} seconds`); break;
-    case 3: console.log('\x1b[33m%s\x1b[0m', `Finished copying tinymce skins after ${elapsed(process.hrtime(start))} seconds`); break;
+    case 2: console.log('\x1b[33m%s\x1b[0m', `Finished copying tinymce skins after ${elapsed(process.hrtime(start))} seconds`); break;
     default: console.log('\x1b[33m%s\x1b[0m', `Finished copying static assets after ${elapsed(process.hrtime(start))} seconds`); break;
   }
 });

@@ -1,6 +1,7 @@
 import React from 'react';
 import { map } from 'lodash-es';
 import SelectableBox from '../common/selectable_box';
+import { Link } from 'react-router-dom';
 
 const CourseType = ({ wizardClass, wizardAction }) => {
   const courseTypes = [
@@ -23,11 +24,14 @@ const CourseType = ({ wizardClass, wizardAction }) => {
 
   return (
     <div className={wizardClass}>
-      {map(courseTypes, (program) => {
-        return (
-          <SelectableBox key={program.name} onClick={wizardAction.bind(null, program.type)} heading={program.name} description={program.description} />
-        );
-      })}
+      <div className={wizardClass} style={{ paddingBottom: '20px' }}>
+        {map(courseTypes, (program) => {
+          return (
+            <SelectableBox key={program.name} onClick={wizardAction.bind(null, program.type)} heading={program.name} description={program.description} />
+          );
+        })}
+      </div>
+      <Link className="button right" to="/" id="course_cancel">{I18n.t('application.cancel')}</Link>
     </div>
   );
 };

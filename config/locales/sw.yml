@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Edwingudfriend
+# Author: Killy95
 # Author: Magotech
 # Author: Rance
 # Author: Yasen igra
@@ -100,6 +101,10 @@ sw:
     about_programs: Tovuti hii hufuatilia shughuli za wiki kupitia Programu - matukio
       ya mtu binafsi kama vile warsha au kozi ya shule. Kila Mpango ni sehemu ya Kampeni
       moja au zaidi, ambazo hutoa takwimu za jumla katika Programu
+  home:
+    registration_advice:
+      additional_advice:
+        heading: Ushauri
   assignments:
     random_peer_review:
       confirm_addition: Je! Una uhakika unataka kugawa jumla ya makala {%} kwa darasa

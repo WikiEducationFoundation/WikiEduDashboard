@@ -46,6 +46,7 @@ import wiki_courses from './wiki_courses';
 import refreshing from './refreshing';
 import scopingMethods from './scoping_methods';
 import courseNotes from './course_notes';
+import instructorAlert from './instructor_alert';
 
 const reducer = combineReducers({
   active_courses,
@@ -63,11 +64,13 @@ const reducer = combineReducers({
   course,
   courseAlerts,
   courseCreator,
+  courseNotes,
   course_search_results,
   currentUserFromHtml: (state = {}) => state, // only set from preloaded state
   didYouKnow,
   exercises,
   feedback,
+  instructorAlert,
   needHelpAlert,
   newAccount,
   notifications,
@@ -95,8 +98,7 @@ const reducer = combineReducers({
   validations,
   wikidataLabels,
   wiki_courses,
-  wizard,
-  courseNotes
+  wizard
 });
 
 export default reducer;

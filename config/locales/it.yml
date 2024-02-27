@@ -400,6 +400,7 @@ it:
     courses: Corsi
     courses_taught: Corsi impartiti
     creation_date: Data di creazione
+    start_date: Data inizio
     creator:
       already_exists: Questo corso già esiste. Prova a cambiare il nome, la scuola
         o il termine per renderlo unico.
@@ -762,9 +763,9 @@ it:
     per_user: '%{number}/utente'
     revisions: Modifiche recenti
     references_count: Riferimenti aggiunti
-    references_doc: Questo è il numero di tag di note aggiunti alle voci e possono
-      includere più riferimenti alla stessa fonte. I dati provengono dal modello di
-      qualità ORES della voce ed è disponibile solo per alcune lingue.
+    references_doc: Questo è il numero di tag di riferimento e modelli di note a piè
+      di pagina abbreviati aggiunti alle voci e può includere più riferimenti alla
+      stessa fonte. I dati provengono dall'API Toolforge del contatore di riferimenti.
     tags: Etichette
     update_status_heading: Aggiorna stato
     update_statistics_link: Vedi altro

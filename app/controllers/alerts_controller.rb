@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
 class AlertsController < ApplicationController
-  before_action :require_signed_in, only: [:create]
-  before_action :require_admin_permissions, only: [:resolve]
+  before_action :require_signed_in, only: [:create, :notify_instructors]
+  before_action :require_admin_permissions, only: [:resolve, :notify_instructors]
   before_action :set_alert, only: [:resolve]
-
   ALERT_TYPES = {
     'NeedHelpAlert' => NeedHelpAlert,
     'BadWorkAlert' => BadWorkAlert,
@@ -41,7 +40,43 @@ class AlertsController < ApplicationController
     render json: { alert: @alert }
   end
 
+  # Create alert and send notification to all the instructors of a course.
+  def notify_instructors
+    unless params[:course_id].present? && params[:subject].present? && params[:message].present?
+      render json: { error: 'course_id, subject, and message are required fields' },
+             status: :bad_request
+      return
+    end
+
+    @alert = build_instructor_notification_alert
+
+    if save_and_notify_instructors
+      render json: { alert: @alert }, status: :created
+    else
+      render json: { errors: @alert.errors, message: 'Unable to send notification to instructors' },
+             status: :unprocessable_entity
+    end
+  end
+
   private
+
+  def build_instructor_notification_alert
+    InstructorNotificationAlert.new(
+      course_id: params[:course_id],
+      message: params[:message],
+      user: current_user,
+      subject: params[:subject]
+    )
+  end
+
+  def save_and_notify_instructors
+    if @alert.save
+      @alert.send_email # send email to all instructors of the course_id
+      true
+    else
+      false
+    end
+  end
 
   def generate_ticket
     TicketDispenser::Dispenser.call(

@@ -129,6 +129,14 @@ en:
     explore: Explore
     log_in: Log in with Wikipedia
     sign_up: Sign up with Wikipedia
+    registration_advice:
+      username_rules:
+        heading: Username rules
+        avoid_offensive_usernames: Do not choose a username that is offensive, misleading, disruptive, or promotional.
+        represent_individual: Usernames must represent an individual editor. Do not use the name of a school or organization.
+      additional_advice: 
+        heading: Advice
+        anonymous_username_recommendation: Wiki Education recommends choosing an anonymous username, not one that includes your real name or other identifying information.
     sign_up_help: >
       To use the dashboard, you'll need to sign in through Wikipedia and give
       it permission to access your account. You can log in with an existing
@@ -198,6 +206,7 @@ en:
       ?: Unrated — an article that hasn't yet been rated on Wikipedia's quality scale
       does_not_exist: This article does not exist on Wikipedia
     see_more: See more
+    see_more_tooltip: Only the first 500 edited articles are loaded initially. Click to load additional articles.
     search: Search Wikipedia for an Article
     show_cumulative_changes: Show Cumulative Changes
     show_current_version: Show Current Version
@@ -265,6 +274,7 @@ en:
     article: The article %{title} is now assigned to you.
     article_link: Article
     article_link_wikidata: Item
+    blocked_assignment: "%{title} could not be assigned because it is on the Wikipedia community's Wiki Education assignment blocklist."
     already_exists: This assignment already exists!
     title_too_large: The title shouldn't exceed 255 characters
     assignees: Assignee(s)
@@ -493,6 +503,7 @@ en:
     courses: Courses
     courses_taught: Courses Taught
     creation_date: Creation Date
+    start_date: Start Date
     creator:
       already_exists: This course already exists. Consider changing the name, school, or term to make it unique.
       assignment_end: Assignment end
@@ -822,6 +833,19 @@ en:
       notification_message: Take our survey for this course.
       link: Take Survey
 
+  course_instructor_notification:
+    notify_instructors: Email Instructors
+    notify_instructors_feature_description: Send a message to Instructors via email
+    send_notification_button_text: Send
+    notification_sent_success: "Message sent to all Instructors of %{courseTitle}"
+    notification_send_error_no_internet: "Unable to send request. Check if you are connected to the Internet."
+    notification_send_error_server: "Server Error: Unable to send notification (%{status} %{statusText})"
+    notification_empty_message: "Subject or Message cannot be empty"
+    confirm_send_notification: "Send to all instructors for this course?"
+    write_subject: "Subject"
+    write_message_placeholder: "Message"
+    sending_notification: "Sending"
+
   # These are strings that are not specific to education/classroom contexts
   courses_generic:
     school_system: Academic System
@@ -1041,7 +1065,7 @@ en:
     recent_updates_summary: Out of the last %{total} updates, %{failure_count} failed and %{error_count} encountered errors.
     revisions: Recent Edits
     references_count: References Added
-    references_doc: This is the number of reference tags added to articles, and can include multiple references to the same source. The data comes from the ORES article quality model, and is only available for some languages.
+    references_doc: This is the number of reference tags and shortened footnote templates added to articles, and can include multiple references to the same source. The data comes from the reference-counter Toolforge API.
     references_doc_wikidata: This is the number of reference tags added to items, and can include multiple references to the same source. The data comes from the ORES item quality model, and is only available for some languages.
     replag_info: >
       The Dashboard retrieves edit data from WMF Cloud replica databases. Sometimes these databases are missing the most recent edits

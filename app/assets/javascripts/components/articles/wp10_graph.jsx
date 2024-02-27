@@ -1,26 +1,16 @@
 /* global vegaEmbed */
-import React from 'react';
-import createReactClass from 'create-react-class';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-const Wp10Graph = createReactClass({
-  displayName: 'Wp10Graph',
+const Wp10Graph = (props) => {
+  useEffect(() => {
+    renderGraph();
+  }, []);
 
-  propTypes: {
-    graphid: PropTypes.string,
-    graphWidth: PropTypes.number,
-    graphHeight: PropTypes.number,
-    articleData: PropTypes.array
-  },
-
-  componentDidMount() {
-    this.renderGraph();
-  },
-
-  renderGraph() {
+  const renderGraph = () => {
     const vegaSpec = {
-      width: this.props.graphWidth,
-      height: this.props.graphHeight,
+      width: props.graphWidth,
+      height: props.graphHeight,
       padding: 5,
       // //////////////////
       // Scales and Axes //
@@ -70,7 +60,7 @@ const Wp10Graph = createReactClass({
       data: [
         {
           name: 'wp10_scores',
-          values: this.props.articleData,
+          values: props.articleData,
           format: { type: 'json', parse: { date: 'date', wp10: 'number' } },
           transform: [{
             type: 'filter',
@@ -128,16 +118,21 @@ const Wp10Graph = createReactClass({
 
     };
 
-    vegaEmbed(`#${this.props.graphid}`, vegaSpec, { defaultStyle: true, actions: { source: false } });
-  },
+    vegaEmbed(`#${props.graphid}`, vegaSpec, { defaultStyle: true, actions: { source: false } });
+  };
 
-  render() {
     return (
       <div>
-        <div id={this.props.graphid} />
+        <div id={props.graphid} />
       </div>
     );
-  }
-});
+};
+Wp10Graph.displayName = 'Wp10Graph';
+Wp10Graph.propTypes = {
+  graphid: PropTypes.string,
+  graphWidth: PropTypes.number,
+  graphHeight: PropTypes.number,
+  articleData: PropTypes.array
+};
 
 export default Wp10Graph;

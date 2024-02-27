@@ -41,6 +41,18 @@ sl:
     review_orientation: Pregled usmeritve
   home:
     explore: Raziskuj
+    registration_advice:
+      username_rules:
+        heading: Pravila uporabniških imen
+        avoid_offensive_usernames: Ne izberite uporabniškega imena, ki je žaljivo,
+          zavajajoče, moteče ali promocijsko.
+        represent_individual: Uporabniška imena morajo predstavljati posameznega urejevalca.
+          Ne uporabljajte imena šole ali organizacije.
+      additional_advice:
+        heading: Nasvet
+        anonymous_username_recommendation: Wiki Education priporoča izbiro anonimnega
+          uporabniškega imena, ne tistega, ki vključuje vaše pravo ime ali druge identifikacijske
+          podatke.
     sign_up_help: Za uporabo nadzorne plošče se morate prijaviti v Wikipediji in ji
       podeliti dovoljenje za dostop do vašega računa. Lahko se prijavite z obstoječim
       računom Wikipedije ali ustvarite novega. Če ne morete ustvariti računa, se obrnite
@@ -428,7 +440,7 @@ sl:
     assign_articles_done: Končano
     loading_authorship_data: nalaganje podatkov o avtorstvu
     contribution_statistics: Statistika prispevkov
-    enrolled_success: '%{username} je bil/a uspešno dodan/a!'
+    enrolled_success: '%{username} je bil_a uspešno dodan_a!'
     first_name: Ime
     last_name: Priimek
     loading: Nalaganje uporabnikov ...
@@ -440,8 +452,8 @@ sl:
     no_highlighting: Nobeno besedilo iz trenutne različice članka ni pripisano uporabniku
       %{editor}. Preverite zgodovino strani, da vidite njihove popravke.
     contributions_not_highlighted: Prispevki uporabnika %{username} so prisotni, vendar
-      jih ni mogoče označiti. To se običajno zgodi za dodane reference ali predloge.
-      Preverite zgodovino strani, da vidite njihove popravke.
+      jih ni mogoče označiti. To se običajno zgodi pri dodanih sklicih ali predlogah.
+      Preverite zgodovino strani, da si ogledate njihova urejanja.
     number_of_articles:
       one: '%{count} članek'
       other: '%{count} članka'

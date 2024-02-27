@@ -1,43 +1,154 @@
-@font-face {
-  font-family: "icons";
-  src: url('../fonts/icons.eot');
-  src: url('../fonts/icons.eot?#iefix') format('eot'),
-    url('../fonts/icons.woff') format('woff'),
-    url('../fonts/icons.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
 .icon:before {
   display: inline-block;
-  font-family: "icons";
-  font-style: normal;
-  font-weight: normal;
-  line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-arrow-down:before { content: "\EA01" }
-.icon-arrow-up:before { content: "\EA02" }
-.icon-arrow:before { content: "\EA03" }
-.icon-arrow-reverse:before {
-  content: "\EA03";
-  position: relative;
-  top: 2px;
-  transform: rotate(180deg);
-}
-.icon-check:before { content: "\EA04" }
-.icon-circle_q_mark:before { content: "\EA05" }
-.icon-left_arrow:before { content: "\EA06" }
-.icon-message:before { content: "\EA07" }
-.icon-plus:before { content: "\EA08" }
-.icon-restart:before { content: "\EA09" }
-.icon-rt_arrow:before { content: "\EA0A" }
-.icon-sort:before { content: "\EA0C" }
-.icon-trash_can:before { content: "\EA0D" }
-.icon-up_arrow:before { content: "\EA0E" }
-.icon-z-external-link:before { content: "\EA10" }
+.icon-check
+  background url('../images/check.svg') center no-repeat
+  padding: 10px;
+  background-position: calc(100% - 4px) calc(100% - 14px);
+  
+.icon-plus-blue
+  background url('../images/plus_icons.svg') center no-repeat
+  padding: 8.5px;
+  background-position: calc(100% - 0px) calc(100% - 12px);
+
+.icon-plus
+  background url('../images/plus_icons_white.svg') center no-repeat
+  padding: 8.5px;
+  background-size: 19px;
+  background-position: calc(100% - -2px) calc(100% - 11px);
+
+.icon-trash_can
+  background url('../images/trash.svg') center no-repeat
+  padding: 10px;
+  background-size: 10.5px;
+  background-position: calc(100% - 5px) calc(100% - 11px);
+
+.icon-trash_can-hover
+  background url('../images/trash-red.svg') center no-repeat
+  padding: 10px;
+  background-size: 10.5px;
+  background-position: calc(100% - 5px) calc(100% - 11px);
+
+.icon-z-external-link
+  background url('../images/z-external-link_icons.svg') center no-repeat
+  padding: 10.5px;
+  background-position: calc(100% - -1px) calc(100% - 15px);
+
+.icon-z-external-link_white
+  background url('../images/z-external-link_white.svg') center no-repeat
+  padding: 12.5px;
+  background-position: calc(100% - 2px) calc(100% - 17px);
+
+.tooltip-indicator-heading
+  background: url('../images/circle_q_mark_icons.svg') center no-repeat
+  padding: 17px;
+  background-position: calc(100% - 0px) calc(100% - 20px);
+
+.tooltip-indicator-list
+  background: url('../images/circle_q_mark_icons.svg') center no-repeat
+  padding: 9px;
+  background-position: calc(100% - -1px) calc(100% - 10px);
+
+.tooltip-indicator
+  background: url('../images/circle_q_mark_icons.svg') center no-repeat
+  padding: 8.5px;
+  background-position: calc(100% - -2px) calc(100% - 10px);
+
+.tooltip-indicator-hover
+  background: url('../images/circle_q_mark_icon_hover.svg') center no-repeat
+  padding: 8.5px;
+  background-position: calc(100% - -2px) calc(100% - 10px);
+
+.icon-rt_arrow_presenter
+  background url("../images/rt_arrow_icon_white.svg") no-repeat
+  background-size: 25px;
+  background-position: calc(100% - 9px);
+
+.icon-rt_arrow
+  background url("../images/rt_arrow_icon_white.svg") center no-repeat
+  padding 9.5px
+  background-position: calc(100% - -2px) calc(100% - 12px)
+
+.icon-rt_arrow_dark
+  background url("../images/rt_arrow_icons.svg") center no-repeat
+  padding 9.5px
+  background-position: 0px 8px
+
+.icon-rt_arrow_white_training_all
+  background url("../images/rt_arrow_icon_white.svg") center no-repeat
+  padding: 14px;
+  background-position: calc(100% - 4px) calc(100% - 18px);
+
+.icon-rt_arrow_white_training
+  background url("../images/rt_arrow_icon_white.svg") center no-repeat
+  padding: 12px;
+  background-position: 4px 13px;
+
+.icon-rt_arrow_purple
+  background url("../images/rt_arrow_icon_purple.svg") center no-repeat
+  padding 9.5px
+  background-position: calc(100% - -2px) calc(100% - 12px)
+
+.icon-rt_arrow_purple_training
+  background url("../images/rt_arrow_icon_purple.svg") center no-repeat
+  padding 8.5px
+  background-position: calc(100% - 2px) calc(100% - 12px)
+
+.icon-arrow-down
+  background url("../images/arrow-down_icons.svg") center no-repeat
+  padding: 15px;
+  background-position: calc(100% - 5px) calc(100% - 21px);
+
+.sortable-indicator-asc
+  background url("../images/sortable-indicator-asc.svg") center no-repeat
+  padding: 10px;
+  background-position: calc(100% - 5px) calc(100% - 7px);
+  background-size: 10px;
+
+.sortable-indicator-desc
+  background url("../images/sortable-indicator-desc.svg") center no-repeat
+  padding: 10px;
+  background-position: calc(100% - 5px) calc(100% - 7px);
+  background-size: 10px;
+
+.icon-arrow-down_white
+  background url("../images/arrow-down_icons_white.svg") center no-repeat
+  padding: 15px;
+  background-position: calc(100% - 5px) calc(100% - 21px);
+
+.icon-arrow-up
+  background url("../images/arrow-up_icons.svg") center no-repeat
+  padding: 15px;
+  background-position: calc(100% - 5px) calc(100% - 21px);
+  
+.icon-arrow-up_white
+  background url("../images/arrow-up-icon_white.svg") center no-repeat
+  padding: 15px;
+  background-position: calc(100% - 5px) calc(100% - 21px);
+  
+.icon-arrow
+  background url("../images/arrow_icons.svg") center no-repeat
+  background-position: 0px -4px;
+  padding: 9px;
+
+.icon-arrow-toggle
+  background url("../images/arrow_icons.svg") center no-repeat
+  background-position: calc(100% - 0px) calc(100% - 8px);
+  padding: 9px;
+
+.icon-arrow-toggle-small
+  background url("../images/arrow_icons_small.svg") center no-repeat
+  background-position: 10px 3px;
+  background-size: 16px;
+
+.icon-arrow-reverse-small
+  background url("../images/arrow_icons_small.svg") center no-repeat
+  background-position: 10px 3px;
+  transform: scaleY(-1)
+  background-size: 16px;
   
 .icon-wiki-purple-hover
   background url("../images/wiki-logo_icon_purple.svg") center no-repeat
@@ -68,13 +179,13 @@
   background url('../images/close.svg') center no-repeat
   padding 16px
   &:hover
-    outline 3px solid mischka
+    outline 3px solid #ced1dd
 
 .icon-close-small
   background url('../images/close-small.svg') center no-repeat
   padding 16px
   &:hover
-    outline 2px solid
+    outline 3px solid #ced1dd
 
 .icon-link
   background url('../images/link-light.svg') center no-repeat

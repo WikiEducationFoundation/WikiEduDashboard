@@ -1,0 +1,17 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+%table.row
+  %tbody
+    %tr
+      %th
+        %table.main-content
+          %tr
+            %td
+              %p.paragraph
+                = "#{@message}"
+
+        %table
+          %tr
+            %td
+              %p.footer
+                = "This is a message from Wiki Education staff for your course"
+                %a{href: @course_link}=@course.title+"."

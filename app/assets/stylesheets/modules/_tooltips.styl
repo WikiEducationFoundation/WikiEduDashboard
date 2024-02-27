@@ -7,7 +7,6 @@
       top 110%
   .tooltip-indicator
     &:after
-      content "\EA05"
       font-family 'icons'
       width 18px
       height 18px
@@ -36,6 +35,11 @@
       left: +5px
     &.tooltip-center
       left -145%
+      min-width 200px !important
+      &:before
+        margin-left 36% !important
+    &.tooltip-see-more
+      left -40%
       min-width 200px !important
       &:before
         margin-left 36% !important

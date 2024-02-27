@@ -45,6 +45,10 @@ scn:
     opt_no: "no"
   article_statuses:
     not_yet_started: Guida ntruduttiva
+  home:
+    registration_advice:
+      username_rules:
+        heading: Règuli di nomu utenti
   activity:
     all: Attivitati
     label: Attivitati

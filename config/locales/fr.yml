@@ -16,10 +16,13 @@
 # Author: Fitoschido
 # Author: Gomoko
 # Author: Hk5184
+# Author: Iketsi
 # Author: JenyxGym
 # Author: LudaOtaku
+# Author: M0tty
 # Author: Mabroukb
 # Author: Macofe
+# Author: Melimeli
 # Author: PifyZ
 # Author: The RedBurn
 # Author: Thibaut120094
@@ -136,6 +139,18 @@ fr:
     explore: Explorer
     log_in: Se connecter à Wikipédia
     sign_up: S’inscrire à Wikipédia
+    registration_advice:
+      username_rules:
+        heading: Règles de nom d'utilisateur
+        avoid_offensive_usernames: Ne choisissez pas un nom d'utilisateur choquant,
+          trompeur, perturbateur ou promotionnel.
+        represent_individual: Les noms d'utilisateur doivent représenter un éditeur
+          individuel. N'utilisez pas le nom d'une école ou d'une organisation.
+      additional_advice:
+        heading: Conseil
+        anonymous_username_recommendation: L’équipe de Wiki Éducation recommande de
+          choisir un nom d'utilisateur anonyme, qui ne comporte pas votre nom réel
+          ou d'autres informations qui permettraient de vous identifier.
     sign_up_help: Pour utiliser le tableau de bord, vous devez vous connecter via
       Wikipédia et lui donner le droit d’accéder à votre compte. Vous pouvez vous
       connecter avec un compte Wikipédia existant ou en créer un nouveau. Si vous
@@ -212,6 +227,8 @@ fr:
         de Wikipédia
       does_not_exist: Cet article n’existe pas sur Wikipédia
     see_more: Voir plus
+    see_more_tooltip: Seuls les 500 premiers articles édités sont chargés initialement.
+      Cliquez pour charger des articles supplémentaires.
     search: Rechercher un article dans Wikipédia
     show_cumulative_changes: Afficher les modifications cumulatives
     show_current_version: Afficher la version courante
@@ -360,7 +377,7 @@ fr:
       de commenter.
     review_tooltip_wikidata: Ceci est destiné aux éléments que vous prévoyez de faire
       relire par un pair ou sur lesquels vous prévoyez de fournir un avis.
-    sandbox_draft_link: Brouillon du bac à sable
+    sandbox_draft_link: Brouillon
     sandbox_redlink_info: Ce lien est rouge parce que la page n’a pas encore été créée
       (si elle a été créée récemment, le tableau de bord mettra bientôt ses données
       à jour).
@@ -547,6 +564,7 @@ fr:
     courses: Cours
     courses_taught: Cours enseignés
     creation_date: Date de création
+    start_date: Date de début
     creator:
       already_exists: Ce cours existe déjà. Changez plutôt le nom, l’école ou l’échéance
         pour le rendre unique.

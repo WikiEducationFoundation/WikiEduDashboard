@@ -161,3 +161,12 @@ a.training {
   display: block;
   text-align: left;
 }
+
+.footer {
+  color: #666666;
+  font-size: 14px;
+}
+
+.main-content{
+  margin: 20px 0;
+}

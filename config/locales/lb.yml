@@ -82,6 +82,9 @@ lb:
     explore: Entdecken
     log_in: Mat Wikipedia aloggen
     sign_up: Mat Wikipedia umellen
+    registration_advice:
+      username_rules:
+        heading: Benotzernumm-Reegelen
   alerts:
     alert_label: Meldungen
     no_alerts: Keng Warnunge fonnt.

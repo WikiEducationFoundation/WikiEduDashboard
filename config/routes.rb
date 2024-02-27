@@ -223,6 +223,9 @@ Rails.application.routes.draw do
       get 'resolve'
       put 'resolve'
     end
+    collection do
+      post 'notify_instructors'
+    end
   end
 
   put 'greeting' => 'greeting#greet_course_students'

@@ -14,16 +14,21 @@ const lastSuccessfulUpdateMoment = (update_logs) => {
   return new Date(lastSuccessfulUpdateTime);
 };
 
+const isNextUpdateAfterUpdatesEnd = (nextUpdateExpectedTime, updatesEndMoment) => {
+  return isAfter(nextUpdateExpectedTime, new Date()) && isAfter(updatesEndMoment, new Date());
+};
+
 const getLastUpdateMessage = (course) => {
   let lastUpdateMessage = '';
   let nextUpdateMessage = '';
   let isNextUpdateAfter = false;
   const lastUpdateMoment = lastSuccessfulUpdateMoment(course.flags.update_logs);
+  const updatesEndMoment = toDate(course.update_until);
   if (lastUpdateMoment) {
     const averageDelay = course.updates.average_delay ?? 0;
     lastUpdateMessage = `${I18n.t('metrics.last_update')}: ${formatDistanceToNow(lastUpdateMoment, { addSuffix: true })}.`;
     const nextUpdateExpectedTime = addSeconds(lastUpdateMoment, averageDelay);
-    isNextUpdateAfter = isAfter(nextUpdateExpectedTime, new Date());
+    isNextUpdateAfter = isNextUpdateAfterUpdatesEnd(nextUpdateExpectedTime, updatesEndMoment);
     nextUpdateMessage = `${I18n.t('metrics.next_update')}: ${formatDistanceToNow(nextUpdateExpectedTime, { addSuffix: true })}.`;
   }
   return [lastUpdateMessage, nextUpdateMessage, isNextUpdateAfter];
@@ -59,9 +64,10 @@ const getFirstUpdateMessage = (course) => {
   let lastUpdateMessage = '';
   let nextUpdateMessage = '';
   let isNextUpdateAfter = false;
+  const updatesEndMoment = toDate(course.update_until);
   if (course.flags.first_update) {
     const nextUpdateExpectedTime = firstUpdateTime(course.flags.first_update);
-    isNextUpdateAfter = isAfter(nextUpdateExpectedTime, new Date());
+    isNextUpdateAfter = isNextUpdateAfterUpdatesEnd(nextUpdateExpectedTime, updatesEndMoment);
     nextUpdateMessage = `${I18n.t('metrics.first_update')}: ${formatDistanceToNow(nextUpdateExpectedTime, { addSuffix: true })}.`;
     lastUpdateMessage = `${I18n.t('metrics.enqueued_update')}`;
   } else {

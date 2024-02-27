@@ -23,7 +23,7 @@ document.onreadystatechange = () => {
       page: 500,
       valueNames: [
         'title', 'school', 'revisions', 'characters', 'references', 'average-words', 'views',
-        'reviewed', 'students', 'creation-date', 'ungreeted', 'untrained'
+        'reviewed', 'students', 'creation-date', 'ungreeted', 'untrained', 'start-date'
       ]
     });
   }
@@ -36,7 +36,7 @@ document.onreadystatechange = () => {
       page: 500,
       valueNames: [
         'title', 'school', 'revisions', 'characters', 'references', 'average-words', 'views',
-        'reviewed', 'students', 'creation-date', 'ungreeted', 'untrained'
+        'reviewed', 'students', 'creation-date', 'ungreeted', 'untrained', 'start-date'
       ]
     });
   }

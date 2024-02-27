@@ -4,12 +4,15 @@
 # Author: Alaskian
 # Author: Alesaru
 # Author: GabiBil
+# Author: Iketsi
 # Author: Minisarm
+# Author: NGC 54
 # Author: Strainu
 # Author: Wintereu
 ---
 ro:
   application:
+    greeting: Bună ziua!
     sign_up_extended: Înregistrare prin Wikipedia
     submit: Trimite
   articles:
@@ -46,4 +49,6 @@ ro:
     contributions_more: Vezi mai multe contribuții
     name: Nume
     none: Acest curs nu are studenți.
+  training_status:
+    continue: Continuă
 ...
