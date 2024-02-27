@@ -9,7 +9,7 @@ class CourseCreationManager
 
   # rubocop:disable Metrics/ParameterLists
   def initialize(course_params, wiki_params, scoping_methods, initial_campaign_params,
-                 instructor_role_description, current_user, ta_support = false)
+                 instructor_role_description, current_user, ta_support: nil)
     @scoping_methods = scoping_methods
     @ta_support = ta_support
     @course_params = course_params
