@@ -65,9 +65,16 @@ class RevisionScoreApiHandler
     # Fetch the value for 'deleted, or default to 'false if not present.
     completed_score['deleted'] = score.fetch('deleted', false)
 
-    # Ensure 'features' is a hash.
-    features = score.fetch('features', {}) || {}
-    completed_score['features'] = features.deep_merge({ 'num_ref' => score.fetch('num_ref', nil) })
+    # Ensure 'features' is a hash or nil.
+    # For Wikidata, use the 'features' key in the score. Otherwise, use 'num_ref' key.
+    completed_score['features'] =
+      if @wiki.project == 'wikidata'
+        score.fetch('features', nil)
+      else
+        # If there was an error hitting the API, set features to nil. Otherwise, use the 'num_ref'.
+        score.fetch('num_ref').nil? ? nil : { 'num_ref' => score['num_ref'] }
+      end
+
     completed_score
   end
 
