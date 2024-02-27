@@ -8,15 +8,6 @@ class CourseNote < ApplicationRecord
   validates :text, presence: true
   validates :edited_by, presence: true
 
-  def create_new_note(attributes)
-    self.attributes = attributes
-    if save
-      self
-    else
-      false
-    end
-  end
-
   def update_note(attributes)
     update(attributes.slice(:title, :text, :edited_by))
   end

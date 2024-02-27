@@ -21,7 +21,7 @@ class CourseNotesController < ApplicationController
   end
 
   def create
-    note_details = CourseNote.new.create_new_note(course_note_params)
+    note_details = CourseNote.create(course_note_params)
     if note_details
       render json: { createdNote: note_details }, status: :created
     else
