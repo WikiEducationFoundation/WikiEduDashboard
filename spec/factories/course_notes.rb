@@ -5,6 +5,6 @@ FactoryBot.define do
     title { 'Sample Note Title' }
     text { 'Sample Note Text' }
     edited_by { 'Sample User' }
-    courses_id { association(:course).id }
+    association :course
   end
 end

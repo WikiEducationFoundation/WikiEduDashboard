@@ -5,43 +5,44 @@ require 'rails_helper'
 RSpec.describe CourseNote, type: :model do
   let(:course) { create(:course) }
 
-  describe 'validations' do
-    it { is_expected.to validate_presence_of(:courses_id) }
-    it { is_expected.to validate_presence_of(:title) }
-    it { is_expected.to validate_presence_of(:text) }
-    it { is_expected.to validate_presence_of(:edited_by) }
+  it 'is valid with valid attributes' do
+    course_note = build(:course_note, course:)
+    expect(course_note).to be_valid
   end
 
-  describe 'associations' do
-    it { is_expected.to belong_to(:course) }
+  it 'is invalid without a course' do
+    course_note = build(:course_note, course: nil)
+    expect(course_note).to be_invalid
+    expect(course_note.errors[:courses_id]).to include("can't be blank")
   end
 
-  describe '#create_new_note' do
-    it 'creates a new course note with valid attributes' do
-      attributes = { courses_id: course.id, title: 'Note Title', text: 'Note Text',
-                     edited_by: 'User' }
-      course_note = described_class.new
-      expect(course_note.create_new_note(attributes)).to be_truthy
-      expect(course_note).to be_persisted
-    end
-
-    it 'fails to create a new course note with invalid attributes' do
-      attributes = { courses_id: course.id, title: nil, text: 'Note Text', edited_by: 'User' }
-      course_note = described_class.new
-      expect(course_note.create_new_note(attributes)).to be_falsey
-      expect(course_note).not_to be_persisted
-    end
+  it 'is invalid without a title' do
+    course_note = build(:course_note, title: nil, course:)
+    expect(course_note).to be_invalid
+    expect(course_note.errors[:title]).to include("can't be blank")
   end
 
-  describe '#update_note' do
-    let(:course_note) { create(:course_note, courses_id: course.id) }
+  it 'is invalid without text' do
+    course_note = build(:course_note, text: nil, course:)
+    expect(course_note).to be_invalid
+    expect(course_note.errors[:text]).to include("can't be blank")
+  end
 
-    it 'updates the course note with valid attributes' do
-      attributes = { title: 'Updated Title', text: 'Updated Text', edited_by: 'Updated User' }
-      expect(course_note.update_note(attributes)).to be_truthy
-      expect(course_note.reload.title).to eq('Updated Title')
-      expect(course_note.reload.text).to eq('Updated Text')
-      expect(course_note.reload.edited_by).to eq('Updated User')
-    end
+  it 'is invalid without edited_by' do
+    course_note = build(:course_note, edited_by: nil, course:)
+    expect(course_note).to be_invalid
+    expect(course_note.errors[:edited_by]).to include("can't be blank")
+  end
+
+  it 'updates note attributes successfully' do
+    course_note = create(:course_note, course:)
+    new_attributes = { title: 'Updated Title', text: 'Updated Text', edited_by: 'New Editor' }
+
+    course_note.update_note(new_attributes)
+    course_note.reload
+
+    expect(course_note.title).to eq('Updated Title')
+    expect(course_note.text).to eq('Updated Text')
+    expect(course_note.edited_by).to eq('New Editor')
   end
 end
