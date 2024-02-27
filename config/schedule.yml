@@ -39,8 +39,8 @@ open_ticket_emails:
   class: "TicketNotificationsWorker"
   queue: constant_update
 
-# Update default campaign at the beginning of spring and fall (northern hemisphere)
+# Update default campaign at the beginning of spring and fall semesters (based on academic calendar - northern hemisphere)
 update_default_campaign:
-  cron: "1 0 21 3,9 *" # every March, 21st and September, 21st at 00:01 (UTC -7)
+  cron: "1 0 1 1,7 *" # every January, 1st and July, 1st at 00:01 (UTC -7)
   class: "DefaultCampaignUpdateWorker"
   queue: default

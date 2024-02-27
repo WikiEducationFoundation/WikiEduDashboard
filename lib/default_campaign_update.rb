@@ -12,8 +12,8 @@ class DefaultCampaignUpdate
   def current_term
     year = Time.zone.today.year
     month = Time.zone.today.month
-    # Determine if it's spring or fall in northern hemisphere
-    season = month.between?(3, 8) ? 'spring' : 'fall'
-    season + '_' + year.to_s
+    # Determine if it's spring or fall semester based on academic calendar
+    semester = month.between?(1, 6) ? 'spring' : 'fall'
+    semester + '_' + year.to_s
   end
 end

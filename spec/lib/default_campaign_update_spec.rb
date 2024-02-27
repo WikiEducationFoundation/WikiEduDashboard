@@ -9,9 +9,9 @@ describe DefaultCampaignUpdate do
                    value: { slug: 'default_campaign' })
   end
 
-  context 'when fall starts' do
+  context 'when fall semester starts' do
     before do
-      travel_to Date.new(2024, 9, 21)
+      travel_to Date.new(2024, 7, 1)
     end
 
     context 'when current term exists as campaign' do
@@ -36,9 +36,9 @@ describe DefaultCampaignUpdate do
     end
   end
 
-  context 'when spring starts' do
+  context 'when spring semester starts' do
     before do
-      travel_to Date.new(2024, 3, 21)
+      travel_to Date.new(2024, 1, 1)
     end
 
     context 'when current term exists as campaign' do
