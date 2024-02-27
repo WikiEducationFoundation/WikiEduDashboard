@@ -175,7 +175,7 @@ const Feedback = createReactClass({
 
       // Input box to input custom feedback
       customSuggestionsForm = (
-        <form onSubmit={this.handleFeedbackSubmit}>
+        <form onSubmit={this.handleFeedbackSubmit} className="feedback-form-container">
           <textarea className="feedback-form" rows="1" cols="150" onChange={this.handleFeedbackInputChange} value={this.state.feedbackInput} placeholder={I18n.t('courses.user_suggestions_prompt')} />
           <input className="button dark small" type="submit" value="Add Suggestion" />
         </form>
