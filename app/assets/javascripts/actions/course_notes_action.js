@@ -62,7 +62,7 @@ export const resetCourseNote = () => (dispatch, getState) => {
 export const saveCourseNote = async (currentUser, courseNoteDetails, dispatch) => {
   const status = await API.saveCourseNote(currentUser, courseNoteDetails);
 
-  if (status.success) {
+  if (status?.success) {
     sendNotification(dispatch, 'Success', 'notes.updated');
     dispatch({ type: PERSISTED_COURSE_NOTE, note: courseNoteDetails });
   } else {
@@ -76,7 +76,7 @@ export const saveCourseNote = async (currentUser, courseNoteDetails, dispatch) =
 export const createCourseNote = async (courseId, courseNoteDetails, dispatch) => {
   const noteDetails = await API.createCourseNote(courseId, courseNoteDetails);
 
-  if (noteDetails.id) {
+  if (noteDetails?.id) {
     sendNotification(dispatch, 'Success', 'notes.created');
     dispatch({ type: ADD_NEW_NOTE_TO_LIST, newNote: noteDetails });
     dispatch({ type: PERSISTED_COURSE_NOTE, note: noteDetails });
@@ -104,7 +104,7 @@ export const persistCourseNote = (courseId = null, currentUser) => (dispatch, ge
 export const deleteNoteFromList = noteId => async (dispatch) => {
   const status = await API.deleteCourseNote(noteId);
 
-  if (status.success) {
+  if (status?.success) {
     sendNotification(dispatch, 'Success', 'notes.deleted');
     dispatch({ type: DELETE_NOTE_FROM_LIST, deletedNoteId: noteId });
   } else {
