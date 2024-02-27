@@ -119,8 +119,7 @@ class CourseCreationManager
   end
 
   def add_tags_to_course
-    TagManager.new(@course).initial_tags(creator: @instructor)
-    TagManager.new(@course).add(tag: 'ta_support') if @ta_support
+    TagManager.new(@course).initial_tags(creator: @instructor, ta_support: @ta_support)
   end
 
   def create_all_category(categories, source)
