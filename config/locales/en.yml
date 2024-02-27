@@ -392,7 +392,6 @@ en:
     description: Description
     delete_campaign: Delete this campaign
     delete_course_tooltip: Delete and remove from the campaign.
-    delete_course_instructions_campaign: You may delete this course if all other campaigns are removed first.
     disable_account_requests: Disable account requests
     enable_account_requests: Enable account requests
     newest_campaigns: Newest Campaigns

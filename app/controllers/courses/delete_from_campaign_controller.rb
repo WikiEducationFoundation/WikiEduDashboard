@@ -5,7 +5,7 @@ class Courses::DeleteFromCampaignController < CoursesController
 
   def delete_course_from_campaign
     validate
-    if params.key?(:campaign)
+    if @course.campaigns.size > 1
       remove_course_from_campaign_but_not_deleted
     else
       remove_and_delete_course_from_campaign

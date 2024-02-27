@@ -91,11 +91,6 @@ document.onreadystatechange = () => {
     });
   }
 
-  const deleteCoursePrerequisiteBtn = document.getElementsByClassName('delete-course-prerequisite')[0];
-  if (deleteCoursePrerequisiteBtn) {
-    deleteCoursePrerequisiteBtn.addEventListener('click', () => alert(I18n.t('campaign.delete_course_instructions_campaign')));
-  }
-
   const deleteCourseBtn = document.getElementsByClassName('delete-course-from-campaign')[0];
   if (deleteCourseBtn) {
     deleteCourseBtn.addEventListener('click', (e) => {

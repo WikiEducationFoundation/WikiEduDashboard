@@ -59,9 +59,7 @@ class CoursesPresenter
     @can_remove ||= current_user&.admin? || campaign_organizer?
   end
 
-  def can_delete_course?
-    @can_delete ||= current_user&.admin? || campaign_organizer?
-  end
+  alias_method :can_delete_course?, :can_remove_course?
 
   def campaign_organizer?
     return false unless campaign
