@@ -2,17 +2,22 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { nameHasChanged } from '../../actions/course_actions';
 import { resetCourseNote, persistCourseNote } from '../../actions/course_notes_action';
-import { getCurrentUser } from '../../selectors/index';
 import NotesEditor from './notes_editor';
 import NotesPanel from './notes_panel';
 
-const NotesHandler = () => {
+const NotesHandler = ({ currentUser }) => {
   const [modalType, setModalType] = useState(null);
   const [noteId, setNoteId] = useState(null);
 
   const course = useSelector(state => state.course);
-  const currentUser = useSelector(getCurrentUser);
   const dispatch = useDispatch();
+
+  // If user is Admin and not Wiki Ed Staff, fetch Admin username from 'nav_root'.
+  // If user is Admin and Wiki Ed Staff, username is already in CurrentUser.
+  if (!currentUser.username) {
+    const { username } = document.getElementById('nav_root').dataset;
+    currentUser = { ...currentUser, username };
+  }
 
   const dispatchNameHasChanged = () => {
     dispatch(nameHasChanged());
