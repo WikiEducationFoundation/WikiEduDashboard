@@ -5,26 +5,19 @@ import { resetCourseNote, persistCourseNote } from '../../actions/course_notes_a
 import NotesEditor from './notes_editor';
 import NotesPanel from './notes_panel';
 
-const NotesHandler = ({ currentUser }) => {
+const NotesHandler = () => {
   const [modalType, setModalType] = useState(null);
   const [noteId, setNoteId] = useState(null);
 
   const course = useSelector(state => state.course);
   const dispatch = useDispatch();
 
-  // If user is Admin and not Wiki Ed Staff, fetch Admin username from 'nav_root'.
-  // If user is Admin and Wiki Ed Staff, username is already in CurrentUser.
-  if (!currentUser.username) {
-    const { username } = document.getElementById('nav_root').dataset;
-    currentUser = { ...currentUser, username };
-  }
-
   const dispatchNameHasChanged = () => {
     dispatch(nameHasChanged());
   };
 
   const dispatchPersistCourseNote = () => {
-    dispatch(persistCourseNote(course.id, currentUser.username));
+    dispatch(persistCourseNote(course.id));
   };
 
   const dispatchResetCourseNote = () => {
@@ -45,7 +38,6 @@ const NotesHandler = ({ currentUser }) => {
     <NotesPanel
       setState={setState}
       modalType={modalType}
-      currentUser={currentUser}
       courseId={course.id}
       buttonText={'notes.admin.button_text'}
       headerText={'notes.admin.header_text'}
@@ -57,7 +49,6 @@ const NotesHandler = ({ currentUser }) => {
     <NotesEditor
       title={course.title}
       course_id={course.slug}
-      current_user={currentUser}
       note_id={noteId}
       resetState={dispatchResetCourseNote}
       persistCourse={dispatchPersistCourseNote}

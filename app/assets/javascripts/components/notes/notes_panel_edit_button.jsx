@@ -5,7 +5,7 @@ import { initiateConfirm } from '../../actions/confirm_actions';
 import useExpandablePopover from '../../hooks/useExpandablePopover';
 import Popover from '../common/popover.jsx';
 
-export const NotesPanelEditButton = ({ setState, currentUser, notesList }) => {
+export const NotesPanelEditButton = ({ setState, notesList }) => {
   const getKey = () => {
    return 'Create Notes';
   };
@@ -27,12 +27,9 @@ export const NotesPanelEditButton = ({ setState, currentUser, notesList }) => {
   const editRows = [];
 
   const notesRow = notesList.map((note) => {
-    let removeButton;
-    if (currentUser.admin) {
-      removeButton = (
-        <button className="button border plus" aria-label="Remove user" onClick={() => deleteNote(note.id)}>-</button>
-      );
-    }
+    const removeButton = (
+      <button className="button border plus" aria-label="Remove user" onClick={() => deleteNote(note.id)}>-</button>
+    );
     return (
       <tr key={`${note.id}`} >
         <td>{note.title}{removeButton}</td>

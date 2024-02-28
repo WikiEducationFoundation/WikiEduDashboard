@@ -4,7 +4,7 @@ import { fetchAllCourseNotes } from '../../actions/course_notes_action';
 import NotesPanelEditButton from './notes_panel_edit_button';
 import NotesList from './notes_list';
 
-const NotesPanel = ({ setState, modalType, currentUser, courseId, buttonText, headerText }) => {
+const NotesPanel = ({ setState, modalType, courseId, buttonText, headerText }) => {
   const notesList = useSelector(state => state.courseNotes.notes_list);
   const dispatch = useDispatch();
 
@@ -34,7 +34,7 @@ const NotesPanel = ({ setState, modalType, currentUser, courseId, buttonText, he
           <h3>{I18n.t(headerText)}</h3>
         </div>
         <div className="users-control" style={{ marginBottom: '30px' }}>
-          <NotesPanelEditButton setState={setState} currentUser={currentUser} notesList={notesList} />
+          <NotesPanelEditButton setState={setState} notesList={notesList} />
         </div>
         <NotesList setState={setState} courseId={courseId} notesList={notesList}/>
       </div>

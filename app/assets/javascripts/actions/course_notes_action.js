@@ -59,8 +59,8 @@ export const resetCourseNote = () => (dispatch, getState) => {
 };
 
 // Action creator to save/update the current course note
-export const saveCourseNote = async (currentUser, courseNoteDetails, dispatch) => {
-  const status = await API.saveCourseNote(currentUser, courseNoteDetails);
+export const saveCourseNote = async (courseNoteDetails, dispatch) => {
+  const status = await API.saveCourseNote(courseNoteDetails);
 
   if (status?.success) {
     sendNotification(dispatch, 'Success', 'notes.updated');
@@ -88,13 +88,13 @@ export const createCourseNote = async (courseId, courseNoteDetails, dispatch) =>
 };
 
 // Action creator to persist the current course note, handling validation and deciding whether to save/update or create
-export const persistCourseNote = (courseId = null, currentUser) => (dispatch, getState) => {
+export const persistCourseNote = (courseId = null) => (dispatch, getState) => {
   const courseNoteDetails = getState().courseNotes.note;
 
   if ((courseNoteDetails.title.trim().length === 0) || (courseNoteDetails.text.trim().length === 0)) {
     return sendNotification(dispatch, 'Error', 'notes.empty_fields');
   } else if (courseNoteDetails.id) {
-    return saveCourseNote(currentUser, courseNoteDetails, dispatch);
+    return saveCourseNote(courseNoteDetails, dispatch);
   }
 
   createCourseNote(courseId, courseNoteDetails, dispatch);

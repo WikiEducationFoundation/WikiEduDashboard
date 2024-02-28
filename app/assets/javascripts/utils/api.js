@@ -363,10 +363,7 @@ const API = {
     return response.json();
   },
 
-  async saveCourseNote(currentUser, courseNoteDetails) {
-    if(currentUser !== courseNoteDetails.edited_by){
-       courseNoteDetails.edited_by = currentUser;
-    }
+  async saveCourseNote(courseNoteDetails) {
     try {
         const response = await request(`/course_notes/${courseNoteDetails.id}`, {
             method: 'PUT',

@@ -4,7 +4,7 @@ import { fetchSingleNoteDetails, updateCurrentCourseNote, resetStateToDefault } 
 import EditableRedux from '../high_order/editable_redux';
 import TextAreaInput from '../common/text_area_input.jsx';
 
-const NotesEditor = ({ controls, editable, toggleEditable, setState, note_id, current_user }) => {
+const NotesEditor = ({ controls, editable, toggleEditable, setState, note_id }) => {
   const notes = useSelector(state => state.courseNotes.note);
   const dispatch = useDispatch();
 
@@ -14,9 +14,7 @@ const NotesEditor = ({ controls, editable, toggleEditable, setState, note_id, cu
       dispatch(fetchSingleNoteDetails(note_id));
     } else {
     // Clear the current state to prepare for the creation of a new note,
-    // and update the name of the admin for the new note. Finally, toggle to editable mode.
       dispatch(resetStateToDefault());
-      dispatch(updateCurrentCourseNote({ edited_by: current_user.username }));
       toggleEditable();
     }
   }, []);

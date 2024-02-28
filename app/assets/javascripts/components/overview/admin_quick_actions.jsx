@@ -53,7 +53,7 @@ export const AdminQuickActions = ({ course, current_user, persistCourse, greetSt
         <br />
       </>
     )}
-    {current_user.admin && <div><NotesHandler currentUser={current_user}/></div>}
+    {current_user.admin && <div><NotesHandler/></div>}
   </div>
 );
 
