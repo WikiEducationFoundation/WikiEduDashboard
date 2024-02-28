@@ -21,7 +21,7 @@ describe 'Article Viewer', type: :feature, js: true do
     visit "/courses/#{course.slug}/articles"
     find('button.icon-article-viewer').click
     expect(page).to have_content("Edits by: \nRagesoss")
-    within(:css, '.user-legend.user-highlight-1', wait: 20) do # once authorship date loads
+    within(:css, '.article-viewer-legend.user-legend-name.user-highlight-1', wait: 20) do # once authorship date loads
       find('img.user-legend-hover').click # click to scroll to next highlight
     end
   end
