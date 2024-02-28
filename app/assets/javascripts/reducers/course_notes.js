@@ -14,7 +14,6 @@ const initialState = {
    note: {
       title: '',
       text: '',
-      edited_by: '',
    },
 };
 
