@@ -103,8 +103,7 @@ class CourseCreationManager
                                  id: @initial_campaign_params[:initial_campaign_id]
                                )]
                              else
-                               default_campaign = Campaign.default_campaign
-                               default_campaign ? [default_campaign] : []
+                              [Campaign.default_campaign].compact
                              end
   end
 
