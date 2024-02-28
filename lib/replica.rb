@@ -148,7 +148,7 @@ class Replica
   rescue StandardError => e
     tries -= 1
     sleep 2 && retry unless tries.zero?
-    log_error(e, update_service: @update_service, 
+    log_error(e, update_service: @update_service,
               sentry_extra: { query: data,
                               response_body: response&.body,
                               language: @wiki.language,
