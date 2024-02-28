@@ -46,6 +46,7 @@ class CourseNotesController < ApplicationController
   end
 
   def course_note_params
-    params.require(:course_note).permit(:courses_id, :title, :text, :edited_by)
+    params.require(:course_note).permit(:courses_id, :title,
+                                        :text).merge(edited_by: current_user.username)
   end
 end
