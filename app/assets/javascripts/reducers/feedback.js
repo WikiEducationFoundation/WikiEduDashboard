@@ -15,12 +15,22 @@ export default function feedback(state = initialState, action) {
     }
     case POST_USER_FEEDBACK: {
       const newState = { ...state };
-      newState[action.assignmentId].custom.push({ message: action.feedback, messageId: action.messageId, userId: action.userId });
+      const assignmentId = action.assignmentId;
+      newState[assignmentId] = { ...newState[assignmentId],
+      custom: [
+      ...(newState[assignmentId]?.custom || []),
+      { message: action.feedback, messageId: action.messageId, userId: action.userId }
+    ]
+  };
       return newState;
     }
     case DELETE_USER_FEEDBACK: {
       const newState = { ...state };
-      newState[action.assignmentId].custom.splice(action.arrayId, 1);
+      const assignmentId = action.assignmentId;
+      newState[assignmentId] = {
+        ...newState[assignmentId],
+        custom: newState[assignmentId]?.custom.filter((item, index) => index !== action.arrayId)
+      };
       return newState;
     }
     default:
