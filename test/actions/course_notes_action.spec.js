@@ -96,7 +96,6 @@ describe('Course Notes Actions', () => {
   });
 
   it('should dispatch success actions when saving course note is successful', async () => {
-    const currentUser = 'CurrentUser';
     const courseNoteDetails = {
       title: 'Note #1',
       text: 'Soon to be updated ...',
@@ -109,7 +108,7 @@ describe('Course Notes Actions', () => {
 
     api.saveCourseNote.mockResolvedValue({ success: true });
 
-    await actions.saveCourseNote(currentUser, courseNoteDetails, store.dispatch);
+    await actions.saveCourseNote(courseNoteDetails, store.dispatch);
 
     expect(store.getActions()).toEqual([
       { type: ADD_NOTIFICATION, notification: expect.any(Object) },

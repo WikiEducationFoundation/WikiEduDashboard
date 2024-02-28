@@ -7,7 +7,6 @@ describe('courseNotes reducer', () => {
     note: {
       title: '',
       text: '',
-      edited_by: '',
     },
   };
 

@@ -2,6 +2,11 @@
 require 'rails_helper'
 
 RSpec.describe CourseNotesController, type: :controller do
+  before do
+    allow(controller).to receive(:current_user).and_return(create(:user,
+                                                                  username: 'example_username'))
+  end
+
   describe 'GET #show' do
     it 'returns a success response with course notes' do
       course = create(:course)
