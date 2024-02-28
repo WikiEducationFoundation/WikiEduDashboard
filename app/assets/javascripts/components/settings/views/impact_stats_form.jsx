@@ -27,7 +27,7 @@ const ImpactStatsForm = (props) => {
               value={stats.wiki_edu_courses}
               value_key="wiki_edu_courses"
               type="text"
-              label="Wiki Education Courses"
+              label="Wiki education courses"
             />
             <TextInput
               id="students"
@@ -45,7 +45,7 @@ const ImpactStatsForm = (props) => {
               value={stats.worked_articles}
               value_key="worked_articles"
               type="text"
-              label="Articles Worked On"
+              label="Articles worked on"
             />
             <TextInput
               id="added_words"
@@ -54,7 +54,7 @@ const ImpactStatsForm = (props) => {
               value={stats.added_words}
               value_key="added_words"
               type="text"
-              label="Added words"
+              label="Added words (in millions)"
             />
             <TextInput
               id="total_pages"
@@ -63,7 +63,7 @@ const ImpactStatsForm = (props) => {
               value={stats.total_pages}
               value_key="total_pages"
               type="text"
-              label="Total Pages"
+              label="Total pages"
             />
             <TextInput
               id="volumes"
@@ -81,7 +81,7 @@ const ImpactStatsForm = (props) => {
               value={stats.article_views}
               value_key="article_views"
               type="text"
-              label="Article Views in a single term"
+              label="Article views (in millions)"
             />
             <TextInput
               id="universities"

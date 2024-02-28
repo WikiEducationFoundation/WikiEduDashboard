@@ -41,7 +41,7 @@
     %div
       .col
         %h3 Words added
-        %h4= @stats['added_words']
+        %h4= "#{@stats['added_words']} Million"
         %p
           The number of words students have donated to the world. That’s 
           = @stats['total_pages']
@@ -51,7 +51,7 @@
 
       .col
         %h3 Article views, in a single term
-        %h4= @stats['article_views']
+        %h4= "#{@stats['article_views']} Million"
         %p
           How many people have read the Wikipedia articles these students have edited? In a single term,
           = @stats['article_views']
@@ -61,8 +61,8 @@
   .container
     %h2
       Wiki Education staff have supported instructors and students in more than
-      %b= @stats['universities']
-      universities across the United States and Canada
+      %b= "#{@stats['universities']} universities"
+      across the United States and Canada
 
     .logos
       = image_tag "/assets/images/university-logo-1.png"

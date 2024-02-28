@@ -46,7 +46,7 @@ export const SettingsHandler = createReactClass({
         <React.Fragment>
           <h1 className="mx2 mt4">Other settings</h1>
           <hr />
-          <h2 className="mx2">Update</h2>
+          <h2 className="mx2">Impact Stats</h2>
           <UpdateImpactStats />
           <br /> <br />
           <h2 className="mx2">Salesforce</h2>
