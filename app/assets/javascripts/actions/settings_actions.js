@@ -431,3 +431,26 @@ export const updateDefaultCampaign = campaignSlug => (dispatch) => {
     })
     .catch(data => dispatch({ type: API_FAIL, data }));
 };
+
+const updateImpactStatsPromise = async (impactStats) => {
+  const body = {
+    impactStats: impactStats,
+  };
+  const response = await request('/settings/update_impact_stats', {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
+  }
+  return response.json();
+};
+
+export const updateImpactStats = impactStats => (dispatch) => {
+  return updateImpactStatsPromise(impactStats)
+    .then(data => dispatch({ type: ADD_NOTIFICATION, notification: { ...data, type: 'success', closable: true } }))
+    .catch(data => dispatch({ type: API_FAIL, data }));
+};

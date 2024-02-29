@@ -7,7 +7,7 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
   before_action :require_super_admin_permissions,
                 only: [:upgrade_admin, :downgrade_admin,
                        :upgrade_special_user, :downgrade_special_user,
-                       :update_salesforce_credentials]
+                       :update_salesforce_credentials, :update_impact_stats]
 
   layout 'application'
 
@@ -109,6 +109,15 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
   def update_default_campaign
     CampaignsPresenter.update_default_campaign(params[:default_campaign])
     render json: { message: 'Default campaign updated.' }, status: :ok
+  end
+
+  def update_impact_stats
+    updated_stats = params[:impactStats]
+    updated_stats.each do |key, value|
+      Setting.set_hash('impact_stats', key, value)
+    end
+    Rails.cache.delete('impact_stats')
+    render json: { message: 'Impact Stats Updated Successfully.' }, status: :ok
   end
 
   private

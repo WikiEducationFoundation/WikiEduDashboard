@@ -12,6 +12,7 @@ import SpecialUserList from './special_users_list';
 import UpdateSalesforceCredentials from './views/update_salesforce_credentials';
 import CourseCreationSettings from './course_creation_settings';
 import DefaultCampaignSetting from './default_campaign_setting';
+import UpdateImpactStats from './views/update_impact_stats';
 
 export const SettingsHandler = createReactClass({
   propTypes: {
@@ -43,11 +44,14 @@ export const SettingsHandler = createReactClass({
     if (Features.wikiEd) {
       otherSettings = (
         <React.Fragment>
-          <h1 className="mx2">Other settings</h1>
+          <h1 className="mx2 mt4">Other settings</h1>
           <hr />
+          <h2 className="mx2">Impact Stats</h2>
+          <UpdateImpactStats />
+          <br /> <br />
           <h2 className="mx2">Salesforce</h2>
           <UpdateSalesforceCredentials />
-          <br />
+          <br /> <br />
           <CourseCreationSettings settings={this.props.courseCreation}/>
           <br />
           <DefaultCampaignSetting defaultCampaign={this.props.defaultCampaign}/>
