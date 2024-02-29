@@ -70,67 +70,67 @@
 
 %h5 Calendar
 #calendar
-.DayPicker
-  .DayPicker-wrapper
-    .DayPicker-NavBar
-      %span.DayPicker-NavButton.DayPicker-NavButton--prev
-      %span.DayPicker-NavButton.DayPicker-NavButton--next
-    .DayPicker-Months
-      .DayPicker-Month{:role => "grid"}
-        .DayPicker-Caption{:role => "heading"}
-          %div February 2022
-        .DayPicker-Weekdays{:role => "rowgroup"}
-          .DayPicker-WeekdaysRow{:role => "row"}
-            .DayPicker-Weekday{:role => "columnheader"}
-              %abbr{:title => "Sunday"} Su
-            .DayPicker-Weekday{:role => "columnheader"}
-              %abbr{:title => "Monday"} Mo
-            .DayPicker-Weekday{:role => "columnheader"}
-              %abbr{:title => "Tuesday"} Tu
-            .DayPicker-Weekday{:role => "columnheader"}
-              %abbr{:title => "Wednesday"} We
-            .DayPicker-Weekday{:role => "columnheader"}
-              %abbr{:title => "Thursday"} Th
-            .DayPicker-Weekday{:role => "columnheader"}
-              %abbr{:title => "Friday"} Fr
-            .DayPicker-Weekday{:role => "columnheader"}
-              %abbr{:title => "Saturday"} Sa
+  .DayPicker
+    .DayPicker-wrapper
+      .DayPicker-NavBar
+        %span.DayPicker-NavButton.DayPicker-NavButton--prev
+        %span.DayPicker-NavButton.DayPicker-NavButton--next
+      .DayPicker-Months
+        .DayPicker-Month{:role => "grid"}
+          .DayPicker-Caption{:role => "heading"}
+            %div February 2022
+          .DayPicker-Weekdays{:role => "rowgroup"}
+            .DayPicker-WeekdaysRow{:role => "row"}
+              .DayPicker-Weekday{:role => "columnheader"}
+                %abbr{:title => "Sunday"} Su
+              .DayPicker-Weekday{:role => "columnheader"}
+                %abbr{:title => "Monday"} Mo
+              .DayPicker-Weekday{:role => "columnheader"}
+                %abbr{:title => "Tuesday"} Tu
+              .DayPicker-Weekday{:role => "columnheader"}
+                %abbr{:title => "Wednesday"} We
+              .DayPicker-Weekday{:role => "columnheader"}
+                %abbr{:title => "Thursday"} Th
+              .DayPicker-Weekday{:role => "columnheader"}
+                %abbr{:title => "Friday"} Fr
+              .DayPicker-Weekday{:role => "columnheader"}
+                %abbr{:title => "Saturday"} Sa
         .DayPicker-Body{:role => "rowgroup"}
           .DayPicker-Week{:role => "row"}
             .DayPicker-Day.DayPicker-Day--outside
             .DayPicker-Day.DayPicker-Day--outside
-            .DayPicker-Day{:role => "gridcell"} 1
-            .DayPicker-Day{:role => "gridcell"} 2
-            .DayPicker-Day{:role => "gridcell"} 3
-            .DayPicker-Day{:role => "gridcell"} 4
-            .DayPicker-Day{:role => "gridcell"} 5
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 1
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 2
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 3
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 4
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 5
           .DayPicker-Week{:role => "row"}
-            .DayPicker-Day{:role => "gridcell"} 6
-            .DayPicker-Day{:role => "gridcell"} 7
-            .DayPicker-Day{:role => "gridcell"} 8
-            .DayPicker-Day{:role => "gridcell"} 9
-            .DayPicker-Day{:role => "gridcell"} 10
-            .DayPicker-Day{:role => "gridcell"} 11
-            .DayPicker-Day.DayPicker-Day--selected{:role => "gridcell"} 12
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 6
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 7
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 8
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 9
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 10
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 11
+            .DayPicker-Day.DayPicker-Day--selected{:role => "gridcell", "aria-state" => "true", "role" => "button"} 12
           .DayPicker-Week{:role => "row"}
-            .DayPicker-Day.DayPicker-Day--today{:role => "gridcell"} 13
-            .DayPicker-Day{:role => "gridcell"} 14
-            .DayPicker-Day{:role => "gridcell"} 15
-            .DayPicker-Day{:role => "gridcell"} 16
-            .DayPicker-Day{:role => "gridcell"} 17
-            .DayPicker-Day{:role => "gridcell"} 18
-            .DayPicker-Day{:role => "gridcell"} 19
+            .DayPicker-Day.DayPicker-Day--today{:role => "gridcell", "aria-state" => "mixed", "role" => "button"} 13
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 14
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 15
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 16
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 17
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 18
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 19
           .DayPicker-Week{:role => "row"}
-            .DayPicker-Day{:role => "gridcell"} 20
-            .DayPicker-Day{:role => "gridcell"} 21
-            .DayPicker-Day{:role => "gridcell"} 22
-            .DayPicker-Day{:role => "gridcell"} 23
-            .DayPicker-Day{:role => "gridcell"} 24
-            .DayPicker-Day{:role => "gridcell"} 25
-            .DayPicker-Day{:role => "gridcell"} 26
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 20
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 21
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 22
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 23
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 24
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 25
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 26
           .DayPicker-Week{:role => "row"}
-            .DayPicker-Day{:role => "gridcell"} 27
-            .DayPicker-Day{:role => "gridcell"} 28
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 27
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 28
             .DayPicker-Day.DayPicker-Day--outside
             .DayPicker-Day.DayPicker-Day--outside
             .DayPicker-Day.DayPicker-Day--outside
