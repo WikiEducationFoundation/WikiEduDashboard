@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+
+
 show_email_and_real_name = user_signed_in? && current_user.can_see_real_names?(course)
 
 json.users course.courses_users.eager_load(:user, :course) do |cu|
@@ -9,7 +11,10 @@ json.users course.courses_users.eager_load(:user, :course) do |cu|
   json.call(cu.user, :id, :username)
   json.enrolled_at cu.created_at
   json.admin cu.user.admin?
-
+  json.registered_at cu.user.registered_at
+  new_user = cu.user.registered_at >= course.start && cu.user.registered_at <= course.end
+  json.new_user new_user
+  
   exercise_progress = cu.course.training_progress_manager.course_exercise_progress(cu.user)
   if exercise_progress.is_a?(Hash)
     json.course_exercise_progress_description exercise_progress[:description]
