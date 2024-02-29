@@ -37,7 +37,7 @@ module WikiEduDashboard
     config.i18n.default_locale = :en
 
     ## NOTE - LOCALES with hyphens creates and error when exporting translation files
-    ## currently can't add :ku-latn, :roa-tara, or :zh-hans
+    ## currently can't add :ku-latn, :roa-tara, or :zh-hans (:zh-CN)
     # config.i18n.available_locales = [:en, :de, :bcl, :de, :es, :ja, :ksh, :lb, :nl, :pl, :pt, :qqq, :ru, :ur]
 
 

@@ -521,13 +521,17 @@ const LanguageNames = {
       name: 'Burmese',
       nativeName: 'ဗမာစာ',
     },
+    na: {
+      name: 'Nauru',
+      nativeName: 'Ekakairũ Naoero',
+    },
     nah: {
       name: 'Nāhuatl',
       nativeName: 'Nahuatlahtolli',
     },
-    na: {
-      name: 'Nauru',
-      nativeName: 'Ekakairũ Naoero',
+    nan: {
+      name: 'Minnan',
+      nativeName: 'Bân-lâm-gú',
     },
     nb: {
       name: 'Norwegian Bokmål',
@@ -879,7 +883,15 @@ const LanguageNames = {
     },
     yue: {
       name: 'Cantonese',
-      nativeName: '廣州話',
+      nativeName: '粵語',
+    },
+    'yue-hans': {
+      name: 'Cantonese (Simplified Han)',
+      nativeName: '粤语（简体）',
+    },
+    'yue-hant': {
+      name: 'Cantonese (Traditional Han)',
+      nativeName: '粵語（繁體）',
     },
     yo: {
       name: 'Yoruba',
@@ -897,13 +909,13 @@ const LanguageNames = {
       name: 'Chinese',
       nativeName: '中文',
     },
-    'zh-hans': {
-      name: 'Simplified Chinese',
-      nativeName: '中文（简体）',
+    'zh-CN': {
+      name: 'Simplified Chinese (Mainland China)',
+      nativeName: '简体中文（中国大陆）',
     },
-    'zh-hant': {
-      name: 'Traditional Chinese',
-      nativeName: '中文（繁體）',
+    'zh-TW': {
+      name: 'Traditional Chinese (Taiwan)',
+      nativeName: '繁體中文（臺灣）',
     },
     zu: {
       name: 'Zulu',

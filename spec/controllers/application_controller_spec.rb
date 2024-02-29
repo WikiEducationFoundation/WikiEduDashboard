@@ -214,7 +214,7 @@ describe ApplicationController do
   end
 
   describe '#set_locale' do
-    let(:user) { create(:user, locale: 'zh-hans') }
+    let(:user) { create(:user, locale: 'zh-CN') }
 
     def index
       render nothing: true
@@ -223,12 +223,12 @@ describe ApplicationController do
     it 'sets the locale from user preference' do
       allow(controller).to receive(:current_user).and_return(user)
       get :index
-      expect(I18n.locale).to eq(:'zh-hans')
+      expect(I18n.locale).to eq(:'zh-CN')
     end
 
     it 'sets the locale from a param' do
-      get :index, params: { locale: 'zh-hant' }
-      expect(I18n.locale).to eq(:'zh-hant')
+      get :index, params: { locale: 'zh-TW' }
+      expect(I18n.locale).to eq(:'zh-TW')
     end
 
     it 'falls back to a default if locale is not available' do
