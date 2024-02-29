@@ -24,6 +24,7 @@
 # Author: Macofe
 # Author: Melimeli
 # Author: PifyZ
+# Author: SleaY
 # Author: The RedBurn
 # Author: Thibaut120094
 # Author: Trial
@@ -951,6 +952,11 @@ fr:
     survey:
       notification_message: Répondez au sondage pour ce cours.
       link: Participer au sondage
+  course_instructor_notification:
+    send_notification_button_text: Envoyer
+    notification_empty_message: Le sujet ou le message ne peut pas être vide
+    write_subject: Sujet
+    sending_notification: Envoi en cours
   courses_generic:
     school_system: Système académique
     add_campaign: Ajouter une campagne

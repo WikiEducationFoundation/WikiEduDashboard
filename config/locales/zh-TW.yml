@@ -228,6 +228,7 @@ zh-TW:
     article: 條目%{title}現在已被分配給您。
     article_link: 條目
     article_link_wikidata: 項目
+    blocked_assignment: 無法分配%{title}，因為這在維基百科社群的 Wiki 教育分配黑名單中。
     already_exists: 此分配作業已存在！
     title_too_large: 標題不可超出 255 個字元
     assignees: 被分配者
@@ -696,6 +697,18 @@ zh-TW:
     survey:
       notification_message: 採用我們替於此課程作的調查
       link: 參加調查
+  course_instructor_notification:
+    notify_instructors: 發送電子郵件給導師
+    notify_instructors_feature_description: 透過電子郵件向導師寄送訊息
+    send_notification_button_text: 寄送
+    notification_sent_success: 訊息已寄送給%{courseTitle}的所有講師
+    notification_send_error_no_internet: 無法寄送請求。請檢查您是否已連接至網際網路。
+    notification_send_error_server: 伺服器錯誤：無法寄送通知（%{status} %{statusText}）
+    notification_empty_message: 主旨或訊息不能為空
+    confirm_send_notification: 寄送給此課程的所有講師？
+    write_subject: 主旨
+    write_message_placeholder: 訊息
+    sending_notification: 寄送中
   courses_generic:
     school_system: 學院系統
     add_campaign: 新增競賽
