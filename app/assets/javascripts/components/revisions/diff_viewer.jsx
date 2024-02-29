@@ -280,18 +280,18 @@ const DiffViewer = createReactClass({
     if (!this.props.first_revision) {
       formatedDate = formatDateWithTime(this.props.revision.date);
       editDate = I18n.t('revisions.edited_on', { edit_date: formatedDate });
-      finalDate = <div className="user-legend" style={{ justifyContent: 'center' }}>{editDate}</div>;
-      charactersCount = <div className="user-legend" style={{ justifyContent: 'flex-end' }}>{this.props.revision.characters} {I18n.t('revisions.chars_added')}</div>;
+      finalDate = <div className="diff-viewer-legend" style={{ justifyContent: 'center' }}>{editDate}</div>;
+      charactersCount = <div className="diff-viewer-legend" style={{ justifyContent: 'flex-end' }}>{this.props.revision.characters} {I18n.t('revisions.chars_added')}</div>;
     } else {
       firstRevTime = formatDateWithTime(this.state.firstRevDateTime);
       lastRevTime = formatDateWithTime(this.state.lastRevDateTime);
       timeSpan = I18n.t('revisions.edit_time_span', { first_time: firstRevTime, last_time: lastRevTime });
       editDate = <p className="diff-comment">{timeSpan}</p>;
-      finalDate = <div className="user-legend" style={{ justifyContent: 'flex-end', width: '66%' }}>{editDate}</div>;
+      finalDate = <div className="diff-viewer-legend" style={{ justifyContent: 'flex-end', width: '66%' }}>{editDate}</div>;
     }
     const final = (
       <div className="user-legend-wrap">
-        <div className="user-legend" style={{ justifyContent: 'flex-start' }}>{I18n.t('users.edits_by')}&nbsp;{this.props.editors.join(', ')}</div>
+        <div className="diff-viewer-legend" style={{ justifyContent: 'flex-start' }}>{I18n.t('users.edits_by')}&nbsp;{this.props.editors.join(', ')}</div>
         {finalDate}
         {charactersCount}
       </div>
