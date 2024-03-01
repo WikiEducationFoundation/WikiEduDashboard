@@ -380,6 +380,7 @@ const Details = createReactClass({
           course={this.props.course}
           editable={this.props.editable}
           updateCourse={this.props.updateCourse}
+          label={I18n.t('courses.type')}
         />
       );
     }
@@ -391,6 +392,7 @@ const Details = createReactClass({
           course={this.props.course}
           editable={this.props.editable}
           updateCourse={this.props.updateCourse}
+          label={I18n.t('courses.privacy')}
         />
       );
     }
@@ -401,12 +403,14 @@ const Details = createReactClass({
         <CourseLevelSelector
           level={this.props.course.level}
           updateCourse={this.updateDetails}
+          label={I18n.t('courses.level')}
         />
       );
       courseFormatSelector = (
         <CourseFormatSelector
           format={this.props.course.format}
           updateCourse={this.updateDetails}
+          label={I18n.t('courses.format')}
         />
       );
     }
@@ -418,6 +422,7 @@ const Details = createReactClass({
           course={this.props.course}
           editable={this.props.editable}
           updateCourse={this.props.updateCourse}
+          label={I18n.t('courses.timeline_toggle')}
         />
       );
     }
@@ -430,6 +435,7 @@ const Details = createReactClass({
           course={this.props.course}
           editable={this.props.editable}
           updateCourse={this.props.updateCourse}
+          label={I18n.t('courses.disable_student_emails_toggle')}
         />
       );
     }
@@ -441,6 +447,7 @@ const Details = createReactClass({
           course={this.props.course}
           editable={this.props.editable}
           updateCourse={this.props.updateCourse}
+          label={I18n.t('courses.online_volunteers_toggle')}
         />
       );
     }
@@ -453,6 +460,7 @@ const Details = createReactClass({
           course={this.props.course}
           editable={this.props.editable}
           updateCourse={this.props.updateCourse}
+          label={I18n.t('courses.wiki_edits_toggle')}
         />
       );
 
@@ -462,6 +470,7 @@ const Details = createReactClass({
             course={this.props.course}
             editable={this.props.editable}
             updateCourse={this.props.updateCourse}
+            label={I18n.t('courses.edit_settings_toggle')}
           />
         );
       }
@@ -531,6 +540,7 @@ const Details = createReactClass({
             onChange={this.handleNamespaceChange}
             readOnly={!this.props.editable}
             styles={{ ...selectStyles, singleValue: null }}
+            label={I18n.t('courses.namespace_select')}
           />
         </div>
       );
