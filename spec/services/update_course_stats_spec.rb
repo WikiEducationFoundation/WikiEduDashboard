@@ -83,10 +83,9 @@ describe UpdateCourseStats do
         subject
       end
       sentry_tag_uuid = subject.sentry_tag_uuid
-
       expect(course.flags['update_logs'][1]['error_count']).to eq 0
       expect(course.flags['update_logs'][1]['sentry_tag_uuid']).to eq sentry_tag_uuid
-      # Checking whether Sentry receives correct error and tags as arguments
+
       expect(Sentry).to have_received(:capture_exception).once.with(Errno::ECONNREFUSED, anything)
       expect(Sentry).to have_received(:capture_exception)
         .once.with anything, hash_including(tags: { update_service_id: sentry_tag_uuid,
@@ -102,7 +101,6 @@ describe UpdateCourseStats do
       end
       sentry_tag_uuid = subject.sentry_tag_uuid
       error_count = subject.error_count
-
       expect(course.flags['update_logs'][1]['error_count']).to eq error_count
       expect(course.flags['update_logs'][1]['sentry_tag_uuid']).to eq sentry_tag_uuid
 
@@ -126,6 +124,7 @@ describe UpdateCourseStats do
       sentry_tag_uuid = subject.sentry_tag_uuid
       expect(course.flags['update_logs'][1]['error_count']).to be >= 0
       expect(course.flags['update_logs'][1]['sentry_tag_uuid']).to eq sentry_tag_uuid
+
       # Checking whether Sentry receives correct error and tags as arguments
       expect(Sentry).to have_received(:capture_exception)
         .at_least(5).times.with(MediawikiApi::ApiError, anything)
