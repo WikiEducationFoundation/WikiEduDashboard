@@ -188,6 +188,7 @@ en:
     history: (history)
     label: Articles
     loading: Loading articles...
+    mark_as_complete: Mark as Complete
     new: (new)
     none: This course has not edited any articles.
     preview: Brief preview of Article
@@ -295,6 +296,7 @@ en:
     confirm_add_available: Are you sure you want to add %{title}?
     confirm_addition: Are you sure you want to assign %{title} to %{username}?
     confirm_deletion: Are you sure you want to delete this assignment?
+    delete: Remove and Delete
     editors: Assigned to
     group_members: Group members
     label: Assign
@@ -366,6 +368,8 @@ en:
     course_already_removed: '"%{title}" was already removed from the "%{campaign_title}" campaign'
     course: Course
     course_removed: '"%{title}" has been removed from the "%{campaign_title}" campaign'
+    course_removed_and_deleted: '"%{title}" has been deleted and removed from the "%{campaign_title}" campaign'
+    course_removed_but_not_deleted: '"%{title}" has been removed from the "%{campaign_title}" but has not been deleted as it is present in other campaigns as well'
     create_campaign: Create a New Campaign
     create_my_campaign: Create my Campaign!
     customize_passcode: a default passcode
@@ -389,6 +393,7 @@ en:
     default_passcode_explanation: "By default, new programs in this campaign should have:"
     description: Description
     delete_campaign: Delete this campaign
+    delete_course_tooltip: Delete and remove from the campaign.
     disable_account_requests: Disable account requests
     enable_account_requests: Enable account requests
     newest_campaigns: Newest Campaigns
@@ -403,6 +408,7 @@ en:
       When an organizer creates a program in this campaign,
       the text in this area will be copied over as a description on the program page
     random_passcode: a random passcode
+    remove_course_tooltip: Remove from campaign.
     requested_accounts: Requested accounts
     title: Title
     too_many_articles: The edited article list for this campaign is too long to be displayed. Please view individual courses/programs/events to see the articles edited.
@@ -489,7 +495,7 @@ en:
     campaign_courses: "%{title} Courses"
     campaign_select: "Select a campaign"
     campaign_users: "%{title} Editors"
-    confirm_course_deletion: Are you sure you want to delete the course titled %{title}? If so, type the title of the course to proceed.
+    confirm_course_deletion: 'Are you sure you want to delete the course titled %{title}? If so, type the title of the course to proceed.'
     confirm_course_deletion_failed: '"%{title}" is not the title of this course. The course has not been deleted.'
     confirm_manual_update: Are you sure you want to run a manual update? The most recent revisions will be imported and then the page will reload. This process may take some time.
     controlled_by_event_center: Enrollment in this event is controlled by Wikimedia Event Center. It cannot be joined from the Dashboard.
