@@ -1,38 +1,29 @@
 /* global vegaEmbed */
-import React from 'react';
-import createReactClass from 'create-react-class';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-const CourseQualityProgressGraph = createReactClass({
-  displayName: 'CourseQualityProgressGraph',
 
-  propTypes: {
-    graphid: PropTypes.string,
-    graphWidth: PropTypes.number,
-    graphHeight: PropTypes.number,
-    articleData: PropTypes.array
-  },
+const CourseQualityProgressGraph = ({ graphid, graphWidth, graphHeight, articleData }) => {
+  useEffect(() => {
+    renderGraph();
+  }, [articleData]);
 
-  componentDidMount() {
-    this.renderGraph();
-  },
-
-  renderGraph() {
-    if (this.props.articleData.length === 0) {
+  const renderGraph = () => {
+    if (articleData.length === 0) {
       return;
     }
 
     const max_bytes_added = Math.max(
-      ...this.props.articleData.map(o => o.bytes_added),
+      ...articleData.map(o => o.bytes_added),
       0
     );
     const max_score = Math.max(
-      ...this.props.articleData.map(o => o.ores_after - o.ores_before),
+      ...articleData.map(o => o.ores_after - o.ores_before),
       0
     );
     const vegaSpec = {
-      width: this.props.graphWidth,
-      height: this.props.graphHeight,
+      width: graphWidth,
+      height: graphHeight,
       padding: 5,
       signals: [
         { name: 'bandwidth', value: 1 },
@@ -44,8 +35,8 @@ const CourseQualityProgressGraph = createReactClass({
           bind: {
             input: 'radio',
             options: ['new', 'existing', 'both'],
-            name: 'Articles:'
-          }
+            name: 'Articles:',
+          },
         },
         {
           name: 'bytes_added',
@@ -54,8 +45,8 @@ const CourseQualityProgressGraph = createReactClass({
             input: 'range',
             min: 0,
             max: max_bytes_added,
-            name: 'Minimum bytes added:'
-          }
+            name: 'Minimum bytes added:',
+          },
         },
         {
           name: 'score',
@@ -64,13 +55,13 @@ const CourseQualityProgressGraph = createReactClass({
             input: 'range',
             min: 0,
             max: max_score,
-            name: 'Minimum change in score:'
-          }
+            name: 'Minimum change in score:',
+          },
         },
         {
           name: 'articleCount',
           value: 0,
-          update: "'Article count: ' + data('points').length"
+          update: "'Article count: ' + data('points').length",
         },
         {
           name: 'mean_ores_before',
@@ -83,13 +74,13 @@ const CourseQualityProgressGraph = createReactClass({
           value: 0,
           update:
             "'Mean score after: ' + format(data('mean_after')[0].mean_ores_after, '.1f')"
-        }
+        },
       ],
 
       data: [
         {
           name: 'points',
-          values: this.props.articleData,
+          values: articleData,
           transform: [
             { // Filter based on the [new / existing / both] selection
               type: 'filter',
@@ -113,7 +104,7 @@ const CourseQualityProgressGraph = createReactClass({
             {
               type: 'aggregate',
               fields: ['ores_before'],
-              ops: ['mean']
+              ops: ['mean'],
             }
           ]
         },
@@ -124,7 +115,7 @@ const CourseQualityProgressGraph = createReactClass({
             {
               type: 'aggregate',
               fields: ['ores_after'],
-              ops: ['mean']
+              ops: ['mean'],
             }
           ]
         },
@@ -205,7 +196,6 @@ const CourseQualityProgressGraph = createReactClass({
           ]
         }
       ],
-
       scales: [
         {
           name: 'xscale',
@@ -256,7 +246,6 @@ const CourseQualityProgressGraph = createReactClass({
           ]
         }
       ],
-
       marks: [
         {
           type: 'area',
@@ -320,19 +309,24 @@ const CourseQualityProgressGraph = createReactClass({
         }
       ]
     };
-    vegaEmbed(`#${this.props.graphid}`, vegaSpec, {
+    vegaEmbed(`#${graphid}`, vegaSpec, {
       defaultStyle: true,
-      actions: { source: false }
+      actions: { source: false },
     });
-  },
+  };
 
-  render() {
-    return (
-      <div>
-        <div id={this.props.graphid} />
-      </div>
-    );
-  }
-});
+  return (
+    <div>
+      <div id={graphid} />
+    </div>
+  );
+};
+
+CourseQualityProgressGraph.propTypes = {
+  graphid: PropTypes.string,
+  graphWidth: PropTypes.number,
+  graphHeight: PropTypes.number,
+  articleData: PropTypes.array,
+};
 
 export default CourseQualityProgressGraph;

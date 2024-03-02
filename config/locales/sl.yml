@@ -98,6 +98,8 @@ sl:
     articles_short: Strani
   assignments:
     article_link_wikidata: Predmet
+    blocked_assignment: '%{title} ni bilo mogoče dodeliti, ker je na seznamu blokiranih
+      dodelitev Wiki Education skupnosti Wikipedije.'
     confirm_deletion: Ali res želite izbrisati to dodelitev?
     label_all: Dodeli vse
     loading: Nalaganje dodelitev ...
@@ -227,6 +229,20 @@ sl:
       tečaja dodali predmetom v glavnem imenskem prostoru
     survey:
       notification_message: Izpolnite našo anketo za ta tečaj.
+  course_instructor_notification:
+    notify_instructors: Pošlji inštruktorjem po e-pošti
+    notify_instructors_feature_description: Pošljite sporočilo inštruktorjem po e-pošti
+    send_notification_button_text: Pošlji
+    notification_sent_success: Sporočilo poslano vsem inštruktorjem %{courseTitle}
+    notification_send_error_no_internet: Zahtevka ni mogoče poslati. Preverite, ali
+      ste povezani v internet.
+    notification_send_error_server: 'Napaka strežnika: Ni mogoče poslati obvestila
+      (%{status} %{statusText})'
+    notification_empty_message: Zadeva ali sporočilo ne sme biti prazno
+    confirm_send_notification: Želite poslati vsem inštruktorjem za ta tečaj?
+    write_subject: Zadeva
+    write_message_placeholder: Sporočilo
+    sending_notification: Pošiljanje
   courses_generic:
     add_campaign: Dodaj kampanjo
     archived: Arhivirani programi
@@ -452,8 +468,8 @@ sl:
     no_highlighting: Nobeno besedilo iz trenutne različice članka ni pripisano uporabniku
       %{editor}. Preverite zgodovino strani, da vidite njihove popravke.
     contributions_not_highlighted: Prispevki uporabnika %{username} so prisotni, vendar
-      jih ni mogoče označiti. To se običajno zgodi za dodane reference ali predloge.
-      Preverite zgodovino strani, da vidite njihove popravke.
+      jih ni mogoče označiti. To se običajno zgodi pri dodanih sklicih ali predlogah.
+      Preverite zgodovino strani, da si ogledate njihova urejanja.
     number_of_articles:
       one: '%{count} članek'
       other: '%{count} članka'

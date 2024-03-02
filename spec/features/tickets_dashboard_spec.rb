@@ -219,6 +219,13 @@ describe 'ticket dashboard', type: :feature, js: true do
       ticket_window = window_opened_by do
         find_link("Search all tickets for: #{ticket.project.title}").click
       end
+
+      # Trying to work around intermittent failures on CI.
+      # Maybe the "no such execution context" error is
+      # because the new tab hasn't fully initialized
+      # by the time the block below tries to get the URL.
+      sleep 1
+
       within_window ticket_window do
         url = URI(current_url)
         param, slug = url.query.split('=')

@@ -32,6 +32,7 @@ class AssignmentManager
   def create_assignment
     set_clean_title
     set_article_from_database
+    check_wiki_edu_discouraged_article
     import_article_from_wiki unless @article
     # TODO: update rating via Sidekiq worker
     update_article_rating if @article
@@ -104,6 +105,14 @@ class AssignmentManager
     @article = exact_title_matches.first
   end
 
+  def check_wiki_edu_discouraged_article
+    category = Category.find_by(name: ENV['blocked_assignment_category'])
+
+    if category.present? && category.article_titles.include?(@clean_title)
+      raise DiscouragedArticleError, I18n.t('assignments.blocked_assignment', title: @clean_title)
+    end
+  end
+
   def import_article_from_wiki
     ArticleImporter.new(@wiki).import_articles_by_title([@clean_title])
     set_article_from_database
@@ -123,4 +132,5 @@ class AssignmentManager
   end
 
   class DuplicateAssignmentError < StandardError; end
+  class DiscouragedArticleError < StandardError; end
 end

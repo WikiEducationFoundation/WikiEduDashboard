@@ -261,6 +261,7 @@ const SurveyAdmin = {
     this.conditional.operator = '=';
     this.$clear_conditional_button.removeClass('hidden');
     const answers = question.answer_options.split('\n');
+    this.$conditional_value_select.empty();
     this.$conditional_value_select.append("<option value='nil' slelected>Select an Answer</option>");
     answers.map((answer) => {
       const answerValue = answer.trim();

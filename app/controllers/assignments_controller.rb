@@ -25,10 +25,12 @@ class AssignmentsController < ApplicationController
   def create
     check_permissions(assignment_params[:user_id].to_i)
     set_wiki { return }
-
     set_new_assignment
     update_onwiki_course_and_assignments
     render partial: 'assignment', locals: { assignment: @assignment, course: @assignment.course }
+  rescue AssignmentManager::DiscouragedArticleError => e
+    render json: { errors: e, message: e.message },
+           status: :unprocessable_entity
   rescue AssignmentManager::DuplicateAssignmentError => e
     render json: { errors: e, message: e.message || I18n.t('assignments.already_exists') },
            status: :internal_server_error
@@ -165,6 +167,10 @@ class AssignmentsController < ApplicationController
   end
 
   def assignment_params
-    params.permit(:id, :user_id, :course_id, :title, :role, :language, :project, :status)
+    params.permit(
+      :id, :user_id, :course_id, :title, :role, :language, :project, :status,
+      :course_slug, :format,
+      assignment: {}
+    )
   end
 end

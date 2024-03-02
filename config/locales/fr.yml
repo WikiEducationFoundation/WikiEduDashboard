@@ -19,9 +19,12 @@
 # Author: Iketsi
 # Author: JenyxGym
 # Author: LudaOtaku
+# Author: M0tty
 # Author: Mabroukb
 # Author: Macofe
+# Author: Melimeli
 # Author: PifyZ
+# Author: SleaY
 # Author: The RedBurn
 # Author: Thibaut120094
 # Author: Trial
@@ -225,6 +228,8 @@ fr:
         de Wikipédia
       does_not_exist: Cet article n’existe pas sur Wikipédia
     see_more: Voir plus
+    see_more_tooltip: Seuls les 500 premiers articles édités sont chargés initialement.
+      Cliquez pour charger des articles supplémentaires.
     search: Rechercher un article dans Wikipédia
     show_cumulative_changes: Afficher les modifications cumulatives
     show_current_version: Afficher la version courante
@@ -373,7 +378,7 @@ fr:
       de commenter.
     review_tooltip_wikidata: Ceci est destiné aux éléments que vous prévoyez de faire
       relire par un pair ou sur lesquels vous prévoyez de fournir un avis.
-    sandbox_draft_link: Brouillon du bac à sable
+    sandbox_draft_link: Brouillon
     sandbox_redlink_info: Ce lien est rouge parce que la page n’a pas encore été créée
       (si elle a été créée récemment, le tableau de bord mettra bientôt ses données
       à jour).
@@ -560,6 +565,7 @@ fr:
     courses: Cours
     courses_taught: Cours enseignés
     creation_date: Date de création
+    start_date: Date de début
     creator:
       already_exists: Ce cours existe déjà. Changez plutôt le nom, l’école ou l’échéance
         pour le rendre unique.
@@ -946,6 +952,11 @@ fr:
     survey:
       notification_message: Répondez au sondage pour ce cours.
       link: Participer au sondage
+  course_instructor_notification:
+    send_notification_button_text: Envoyer
+    notification_empty_message: Le sujet ou le message ne peut pas être vide
+    write_subject: Sujet
+    sending_notification: Envoi en cours
   courses_generic:
     school_system: Système académique
     add_campaign: Ajouter une campagne
