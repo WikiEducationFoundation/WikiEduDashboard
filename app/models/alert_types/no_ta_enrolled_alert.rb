@@ -20,20 +20,27 @@
 #  details        :text(65535)
 #
 
-# Alert for a course that was supposed to have more than one instuctor but no new instructor was added.
+# Alert for a course lacking expected additional instructors.
 class NoTaEnrolledAlert < Alert
-    def main_subject
-      "SUBJECT FOR EMAIL"
-    end
-  
-    def url
-      course_url
-    end
-  
-    def send_email
-      return if emails_disabled?
-      NoTaEnrolledAlertMailer.send_email(self)
-      update(email_sent_at: Time.zone.now)
-    end
+  def main_subject
+    "Add an additional instructor for #{course.slug}"
   end
-  
+
+  def url
+    course_url
+  end
+
+  def from_user
+    @from_user ||= SpecialUsers.classroom_program_manager
+  end
+
+  def reply_to
+    from_user&.email
+  end
+
+  def send_email
+    return if emails_disabled?
+    NoTaEnrolledAlertMailer.send_email(self)
+    update(email_sent_at: Time.zone.now)
+  end
+end

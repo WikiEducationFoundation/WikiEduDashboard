@@ -23,6 +23,8 @@
 FactoryBot.define do
   factory :alert, class: 'ArticlesForDeletionAlert'
 
+  factory :add_ta_alert, class: 'NoTaEnrolledAlert'
+
   factory :active_course_alert, class: 'ActiveCourseAlert'
 
   factory :bad_work_alert, class: 'BadWorkAlert'

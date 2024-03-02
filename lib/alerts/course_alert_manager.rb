@@ -30,7 +30,7 @@ class CourseAlertManager
 
   def initialize
     @courses_to_check = Course.strictly_current.where(withdrawn: false)
-    @tagged_courses_to_check = Tag.courses_tagged_with("ta_support")
+    @tagged_courses_to_check = Tag.courses_tagged_with('ta_support')
   end
 
   def create_no_students_alerts

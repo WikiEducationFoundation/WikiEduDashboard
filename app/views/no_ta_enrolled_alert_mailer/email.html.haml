@@ -1,0 +1,34 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+                = "Hello #{@greeted_users},"
+              %section.message
+                %p.paragraph
+                  I trust this message finds you well. I noticed that no
+                  additional Instructor has been added on your&nbsp;
+                  %a.link{href: @alert.url}> course page
+                %p.paragraph
+                  Please follow these steps to add facilitators to the course:
+                  %ul
+                    %li.numbered-item Navigate to the course page.</li>
+                    %li.numbered-item Click on "Edit Details."</li>
+                    %li.numbered-item Add facilitators to the course.</li>
+                %p.paragraph
+                  I wanted to follow up and offer assistance or address
+                  any queries you might have regarding this.
+            %td.expander
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+                Best regards,
+                %br
+                %em
+                  = @alert.from_user&.real_name || 'Wiki Ed'
