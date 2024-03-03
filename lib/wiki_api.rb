@@ -108,7 +108,7 @@ class WikiApi
     sleep 1 if too_many_requests?(e)
     retry unless tries.zero?
     log_error(e, update_service: @update_service,
-                 sentry_extra: { action:, query:, api_url: @api_url })
+              sentry_extra: { action:, query:, api_url: @api_url })
     return nil
   end
 

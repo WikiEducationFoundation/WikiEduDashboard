@@ -22,6 +22,7 @@ class UpdateCourseStats
     # In that case, do a full update rather than just fetching the most
     # recent revisions.
     @full_update = full || @course.needs_update
+
     @start_time = Time.zone.now
     fetch_data
     update_categories

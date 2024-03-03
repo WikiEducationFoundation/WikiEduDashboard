@@ -5,9 +5,9 @@ module ApiErrorHandling
     Rails.logger.info "Caught #{error}"
     sentry_tags = nil
     if update_service.present?
-      sentry_tags = update_service.sentry_tags
-      update_service.new_errors_count = new_errors
       update_service.update_error_stats
+      update_service.new_errors_count = new_errors
+      sentry_tags = update_service.sentry_tags
     end
     Sentry.capture_exception(error,
                              level: error_level(error),

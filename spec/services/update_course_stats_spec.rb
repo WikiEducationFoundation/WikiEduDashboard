@@ -1,5 +1,7 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
+
 describe UpdateCourseStats do
   let(:course) { create(:course, flags:) }
   let(:subject) { described_class.new(course) }
@@ -63,6 +65,7 @@ describe UpdateCourseStats do
         expect(revision.features).to have_key('feature.wikitext.revision.ref_tags')
         expect(revision.features_previous).to have_key('feature.wikitext.revision.ref_tags')
       end
+
       pass_pending_spec
     end
   end
@@ -77,6 +80,7 @@ describe UpdateCourseStats do
 
     it 'tracks update errors properly in Replica' do
       allow(Sentry).to receive(:capture_exception)
+
       # Raising errors only in Replica
       stub_request(:any, %r{https://dashboard-replica-endpoint.wmcloud.org/.*}).to_raise(Errno::ECONNREFUSED)
       VCR.use_cassette 'course_update/replica' do
@@ -86,6 +90,7 @@ describe UpdateCourseStats do
       expect(course.flags['update_logs'][1]['error_count']).to eq 0
       expect(course.flags['update_logs'][1]['sentry_tag_uuid']).to eq sentry_tag_uuid
 
+      # Checking whether Sentry receives correct error and tags as arguments
       expect(Sentry).to have_received(:capture_exception).once.with(Errno::ECONNREFUSED, anything)
       expect(Sentry).to have_received(:capture_exception)
         .once.with anything, hash_including(tags: { update_service_id: sentry_tag_uuid,
@@ -94,6 +99,7 @@ describe UpdateCourseStats do
 
     it 'tracks update errors properly in LiftWing' do
       allow(Sentry).to receive(:capture_exception)
+
       # Raising errors only in LiftWing
       stub_request(:any, %r{https://api.wikimedia.org/service/lw.*}).to_raise(Faraday::ConnectionFailed)
       VCR.use_cassette 'course_update/lift_wing_api' do
@@ -115,6 +121,7 @@ describe UpdateCourseStats do
     it 'tracks update errors properly in WikiApi' do
       allow(Sentry).to receive(:capture_exception)
       allow_any_instance_of(described_class).to receive(:update_article_status).and_return(nil)
+
       # Raising errors only in WikiApi
       allow_any_instance_of(MediawikiApi::Client).to receive(:send)
         .and_raise(MediawikiApi::ApiError)
