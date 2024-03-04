@@ -168,6 +168,7 @@ lb:
     add_available_submit: Artikelen derbäisetzen
     bibliography: Bibliographie
     clone: Eng Kopie maachen
+    delete: Entfernen a Läschen
     editors: Net gespäichert
     group_members: Membere vum Grupp
     no_available: Dëse Cours huet keng disponibel Artikelen.
@@ -198,15 +199,21 @@ lb:
     confirm_course_removal: Sidd Dir sécher, datt Dir „%{title}“ aus der Campagne
       „%{campaign_title}“ eraushuele wëllt?
     course: Cours
+    course_removed_and_deleted: „%{title}“ gouf geläscht an aus der „%{campaign_title}“-Campagne
+      entfernt.
+    course_removed_but_not_deleted: „%{title}“ gouf aus „%{campaign_title}“ entfernt,
+      mee nach net geläscht, well et nach Deel vun anere Kampagnen ass
     data_articles: Geännert Säiten
     data_wikidata: Wikidata-Statistiken
     default_passcode: Standard-Passcode
     description: Beschreiwung
     delete_campaign: Dës Campagne läschen
+    delete_course_tooltip: Läschen an aus der Campagne entfernen.
     no_passcode: kee Passcode
     none: Keng
     organizers: Organisateuren
     random_passcode: en zoufällege Passcode
+    remove_course_tooltip: Aus der Kampagne entfernen.
     title: Titel
     use_start_end_dates: Ufanks- a Schlussdatumer benotzen
     search: Sichen

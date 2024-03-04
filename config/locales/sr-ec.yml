@@ -225,6 +225,7 @@ sr-ec:
     confirm_add_available: Да ли сте сигурни да желите да додате %{title}?
     confirm_addition: Да ли сте сигурни да желите доделити %{title} кориснику %{username}?
     confirm_deletion: Желите ли заиста да избришете овај задатак?
+    delete: Уклони и обриши
     editors: Додељено
     group_members: Чланови групе
     label: Додели
@@ -657,6 +658,10 @@ sr-ec:
     survey:
       notification_message: Уради анкету за овај курс.
       link: Уради анкету
+  course_instructor_notification:
+    send_notification_button_text: Пошаљи
+    write_subject: Тема
+    write_message_placeholder: Порука
   courses_generic:
     school_system: Академски систем
     add_campaign: Додај кампању

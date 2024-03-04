@@ -126,6 +126,7 @@ br:
     confirm_addition: Ha sur eo ho peus c'hoant da zeverkañ %{title} da %{username}
     confirm_deletion: Ha sur oc'h hoc'h e fell deoc'h dilemel deverkadenn ar pennad-mañ
       ?
+    delete: Lemel ha diverkañ
     editors: Deverket da
     group_members: Izili ar strollad
     label: Deverkañ

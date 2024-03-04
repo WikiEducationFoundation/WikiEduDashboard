@@ -158,6 +158,7 @@ zh-TW:
     history: （歷史）
     label: 條目
     loading: 讀取條目中...
+    mark_as_complete: 標記為完成
     new: ' (新)'
     none: 此課程沒有編輯任何條目。
     preview: 條目簡要預覽
@@ -249,6 +250,7 @@ zh-TW:
     confirm_add_available: 確定要加入 %{title} 嗎？
     confirm_addition: 確定要將 %{title}分配給 %{username}？
     confirm_deletion: 確定要刪除分配作業嗎？
+    delete: 移除和刪除
     editors: 分配給
     group_members: 群組成員
     label: 分配
@@ -309,6 +311,8 @@ zh-TW:
     course_already_removed: '%{title}已從競賽「%{campaign_title}」移除'
     course: 課程
     course_removed: '%{title}已從競賽「%{campaign_title}」移除'
+    course_removed_and_deleted: '%{title}已從競賽「%{campaign_title}」移除與刪除'
+    course_removed_but_not_deleted: 「%{title}」已從「%{campaign_title}」中移除，但因存於其他競賽裡而無法刪除
     create_campaign: 建立新競賽
     create_my_campaign: 創建我的競賽！
     customize_passcode: 預設選課代碼
@@ -332,6 +336,7 @@ zh-TW:
     default_passcode_explanation: 預設情況下，此活動的新方案應有：
     description: 描述
     delete_campaign: 刪除此競賽
+    delete_course_tooltip: 刪除並從競賽裡移除。
     disable_account_requests: 停用帳號申請
     enable_account_requests: 啟用帳號申請
     newest_campaigns: 最新競賽
@@ -344,6 +349,7 @@ zh-TW:
     program_template: 方案模板
     program_template_tooltip: 當組織者建立在此競賽的一個方案時，區域裡的文字會複製作為方案頁面上的描述
     random_passcode: 隨機選課代碼
+    remove_course_tooltip: 從競賽裡移除。
     requested_accounts: 申請的帳號
     title: 標題
     too_many_articles: 為該競賽編輯的條目清單太長而無法顯示。請檢視各課程/方案/事項來查看編輯的條目。
