@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import DatePicker from '../common/date_picker.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 
 const CourseDates = (props) => {
+  const [day, setDay] = useState('none');
+
+  const updateDay = (e) => {
+    setDay(e.target.value);
+    const day_value = e.target.value;
+    props.updateCourseProps({ calender_view_day: day_value });
+    props.updateCourseAction('calender_view_day', day_value);
+  };
+
   const updateCourseDates = (key, value) => {
     const updatedCourse = CourseDateUtils.updateCourseDates(props.course, key, value);
     props.updateCourseProps(updatedCourse);
@@ -13,6 +22,19 @@ const CourseDates = (props) => {
     <p className="form-help-text">
       {I18n.t('courses.time_zone_message')}
     </p>
+  );
+
+  const calendarDropdown = (
+    <div>
+      <label>
+        <div>Select Day for Calender:</div>
+        <select value={day} onChange={updateDay}>
+          <option value="none" disabled>-- Select Option --</option>
+          <option value="0">Sunday</option>
+          <option value="1">Monday</option>
+        </select>
+      </label>
+    </div>
   );
 
   let timelineStart;
@@ -28,6 +50,7 @@ const CourseDates = (props) => {
     );
     timelineStart = (
       <DatePicker
+        course = {props.course}
         id="course_timeline_start"
         onChange={updateCourseDates}
         value={props.course.timeline_start}
@@ -42,6 +65,7 @@ const CourseDates = (props) => {
     );
     timelineEnd = (
       <DatePicker
+        course = {props.course}
         id="course_timeline_end"
         onChange={updateCourseDates}
         value={props.course.timeline_end}
@@ -59,8 +83,10 @@ const CourseDates = (props) => {
   }
   return (
     <div className={props.courseDateClass}>
+      <div>{calendarDropdown}</div>
       <p>{CourseUtils.i18n('creator.course_dates_info', props.stringPrefix)}</p>
       <DatePicker
+        course = {props.course}
         id="course_start"
         onChange={updateCourseDates}
         value={props.course.start}
@@ -74,6 +100,7 @@ const CourseDates = (props) => {
         showTime={props.showTimeValues}
       />
       <DatePicker
+        course = {props.course}
         id="course_end"
         onChange={updateCourseDates}
         value={props.course.end}
