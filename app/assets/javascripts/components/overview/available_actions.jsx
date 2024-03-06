@@ -145,8 +145,9 @@ const AvailableActions = createReactClass({
       }
     // If user has no role and is logged in, and if he is not on enrollment page, show 'Join course' button.
     // On enrollment page, 'Join course' button is not shown in Actions component to avoid confusion.
-    // The 'Join course' button is not shown for courses controlled by Wikimedia Event Center
-    } else if (!course.ended && !isEnrollmentURL && !course.flags.event_sync && user.id) {
+    // The 'Join course' button is not shown for courses controlled by Wikimedia Event Center.
+    // The 'Join course' button is not shown on Wiki Education Dashboard.
+    } else if (!course.ended && !isEnrollmentURL && !course.flags.event_sync && user.id && !Features.wikiEd) {
       controls.push(
         <div key="join" className="available-action"><button onClick={() => this.join()} className="button">{CourseUtils.i18n('join_course', course.string_prefix)}</button></div>
       );
