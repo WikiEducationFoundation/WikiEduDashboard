@@ -38,6 +38,7 @@ class CoursesController < ApplicationController
     update_course_wiki_namespaces
     update_academic_system
     update_course_format
+    update_course_calender_view
   end
 
   def update
@@ -321,6 +322,7 @@ class CoursesController < ApplicationController
     update_academic_system
     update_course_format
     update_last_reviewed
+    update_course_calender_view
   end
 
   def update_boolean_flag(flag)
@@ -343,6 +345,11 @@ class CoursesController < ApplicationController
       update_flags[key] = params.dig(:course, key)
     end
     @course.flags['edit_settings'] = update_flags
+    @course.save
+  end
+
+  def update_course_calender_view
+    @course.flags['calender_view_day'] = params.dig(:course, 'calender_view_day')
     @course.save
   end
 
