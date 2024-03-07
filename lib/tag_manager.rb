@@ -21,7 +21,7 @@ class TagManager
     Tag.create(create_attrs)
   end
 
-  def initial_tags(creator:, ta_support: nil)
+  def initial_tags(creator:, ta_support:)
     tag = if Features.open_course_creation?
             # When course creation is open, the new course is already published, so the
             # user is already counted as 'returning' at this point, even if it is their

@@ -5,6 +5,7 @@ import TextInput from '../common/text_input.jsx';
 import CourseLevelSelector from './course_level_selector.jsx';
 import CourseFormatSelector from './course_format_selector.jsx';
 import CourseSubjectSelector from './course_subject_selector.jsx';
+import CourseCheckbox from '../common/course_checkbox.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import selectStyles from '../../styles/select';
 import WikiSelect from '../common/wiki_select.jsx';
@@ -119,18 +120,14 @@ const CourseForm = (props) => {
       </div>
     );
     taSupportCheckboxEdu = (
-      <div className="form-group">
-        <label htmlFor="course_ta_support">
-          <input
-            id="course_ta_support"
-            type="checkbox"
-            value={true}
-            onChange={updateTaSupport}
-            checked={!!props.course.ta_support}
-          />
-          {I18n.t('courses.creator.course_ta_support')}
-        </label>
-      </div>
+      <CourseCheckbox
+        id="course_ta_support"
+        label="course_ta_support"
+        value={true}
+        onChange={updateTaSupport}
+        checked={!!props.course.ta_support}
+        text={I18n.t('courses.creator.course_ta_support')}
+      />
     );
     roleDescription = (
       <CreatableInput
@@ -187,32 +184,24 @@ const CourseForm = (props) => {
       </div>
     );
     privacyCheckbox = (
-      <div className="form-group">
-        <label htmlFor="course_private">
-          <input
-            id="course_private"
-            type="checkbox"
-            value={true}
-            onChange={updateCoursePrivacy}
-            checked={!!props.course.private}
-          />
-          {I18n.t('courses.creator.course_private')}
-        </label>
-      </div>
+      <CourseCheckbox
+        checkbox_id="course_private"
+        label="course_private"
+        value={true}
+        onChange={updateCoursePrivacy}
+        checked={!!props.course.private}
+        text={I18n.t('courses.creator.course_private')}
+      />
     );
     taSupportCheckbox = (
-      <div className="form-group">
-        <label htmlFor="course_ta_support">
-          <input
-            id="course_ta_support"
-            type="checkbox"
-            value={true}
-            onChange={updateTaSupport}
-            checked={!!props.course.ta_support}
-          />
-          {I18n.t('courses.creator.course_ta_support')}
-        </label>
-      </div>
+      <CourseCheckbox
+        id="course_ta_support"
+        label="course_ta_support"
+        value={true}
+        onChange={updateTaSupport}
+        checked={!!props.course.ta_support}
+        text={I18n.t('courses.creator.course_ta_support')}
+      />
     );
     backButton = (
       <button onClick={props.previous} className={backClass}>

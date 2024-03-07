@@ -11,18 +11,18 @@
                 = "Hello #{@greeted_users},"
               %section.message
                 %p.paragraph
-                  I trust this message finds you well. I noticed that no
-                  additional Instructor has been added on your&nbsp;
-                  %a.link{href: @alert.url}> course page
+                  You indicated that your course has an additional instructor or TA support. It looks like you haven't added anyone else in the instructor role for your dashboard.wikiedu.org course page yet.
                 %p.paragraph
-                  Please follow these steps to add facilitators to the course:
+                  Please follow these steps to add an additional instructor:
                   %ul
-                    %li.numbered-item Navigate to the course page.</li>
-                    %li.numbered-item Click on "Edit Details."</li>
-                    %li.numbered-item Add facilitators to the course.</li>
+                    %li.numbered-item 
+                    Navigate to the
+                    %a.link{href: @alert.url} course page.
+                    %li.numbered-item Click 'Edit Details'.
+                    %li.numbered-item Click the '+' icon next to your name in the 'Instructors'.
+                    %li.numbered-item Enter the name, username and role (eg, "TA") and click 'Enroll'.
                 %p.paragraph
-                  I wanted to follow up and offer assistance or address
-                  any queries you might have regarding this.
+                  Feel free to get in touch with us if you have any questions.
             %td.expander
         %table
           %tr
