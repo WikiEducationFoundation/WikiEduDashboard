@@ -8,7 +8,11 @@ class DateCalculator {
     this.loopIndex = loopIndex;
     this.opts = opts;
   }
-
+  static calculateDates(timeline_start, timeline_end, index, options = { zeroIndexed: true }) {
+    const dateCalc = new DateCalculator(timeline_start, timeline_end, index, options);
+    const datesStr = `${dateCalc.start()} - ${dateCalc.end()}`;
+    return datesStr;
+  }
   startDate() {
     const index = this.opts.zeroIndexed === true ? this.loopIndex : this.loopIndex - 1;
     return addDays(startOfWeek(toDate(this.beginning)), 7 * (index || 0));
