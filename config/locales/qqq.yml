@@ -245,7 +245,8 @@ qqq:
       {{Identical|Select}}
     submit: Button to submit sandbox URL change.
     invalid_url: Cannot update sandbox url. The URL %{url} is not a valid Wikipedia URL.
-    mismatched_wiki: Cannot update sandbox url. The URL %{url} is not on the same wiki. 
+    mismatched_wiki: Cannot update sandbox url. The URL %{url} is not on the same wiki.
+    no_user_exists: Cannot update sandbox url. No user with the username %{username} exists.
   blocks:
     milestones:
       title: Label for the Milestone section of a course page (Wiki Ed only)

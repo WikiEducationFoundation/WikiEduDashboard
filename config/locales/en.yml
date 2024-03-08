@@ -343,6 +343,7 @@ en:
     submit: Submit
     invalid_url: Cannot update sandbox url. The URL %{url} is not a valid Wikipedia URL.
     mismatched_wiki: Cannot update sandbox url. The URL %{url} is not on the same wiki.
+    no_user_exists: Cannot update sandbox url. No user with the username %{username} exists.
     warning_untracked_wiki: >
       Please note that the article you’ve chosen is on a wiki not tracked
       by this course. To track contributions to this article, an instructor

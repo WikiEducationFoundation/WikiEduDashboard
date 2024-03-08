@@ -111,7 +111,9 @@ const updateSandboxUrlPromise = (assignment, newUrl) => {
     if (res.ok && res.status === 200) {
       return res.json();
     }
-    return Promise.reject(res);
+    return res.json().then((errorData) => {
+      throw errorData;
+    });
   }).catch((error) => {
     logErrorMessage(error);
     return error;
