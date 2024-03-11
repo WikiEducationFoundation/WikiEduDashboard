@@ -251,6 +251,9 @@ hy:
     volunteer:
       one: Կամավոր
       other: Կամավորներ
+  course_instructor_notification:
+    send_notification_button_text: Ուղարկել
+    write_message_placeholder: Հաղորդագրություն
   courses_generic:
     assignments_none: Այս նախագծում չկան հանձնարարված հոդվածներ։
     assignment_start: Միջոցառման սկիզբ

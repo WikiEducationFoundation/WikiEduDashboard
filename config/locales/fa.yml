@@ -195,6 +195,7 @@ fa:
     confirm_add_available: آیا از افزودن %{title} اطمینان دارید؟
     confirm_addition: آیا از اختصاص دادن %{title} به %{username} اطمینان دارید؟
     confirm_deletion: آیا از حذف این تکلیف مقاله‌ای اطمینان دارید؟
+    delete: پاک کردن و حذف
     label: اختصاص‌دادن
     loading: در حال بارگذاری تکالیف ...
     none_short: هیچ موردی اختصاص‌داده نشده
