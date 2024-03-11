@@ -23,16 +23,19 @@ class RevisionScoreApiHandler
   # The response has the following format:
   # { "rev_0"=>
   #     { "wp10"=>0.296976285416441736e2,
-  #       "features"=> { "feature.wikitext.revision.chars"=>5781.0,...,"num_ref"=>0 },
+  #       "features"=> { "num_ref"=>0 },
   #       "deleted"=>false,
   #       "prediction"=>"Start" },
   #   ...,
   #   "rev_n"=>
   #     { "wp10"=>0.2929458626376752846e2,
-  #       "features"=> { "feature.wikitext.revision.chars"=>4672.0,...,"num_ref"=>0 },
+  #       "features"=> nil,
   #       "deleted"=>false,
   #       "prediction"=>"Start" }
   # }
+  #
+  # For wikidata, "features" key contains Liftwing features. For other wikis, "features"
+  # key contains reference-counter response (or nil).
   def get_revision_data(rev_batch)
     scores = maybe_get_lift_wing_data rev_batch
     scores.deep_merge!(maybe_get_reference_data(rev_batch))
@@ -65,9 +68,17 @@ class RevisionScoreApiHandler
     # Fetch the value for 'deleted, or default to 'false if not present.
     completed_score['deleted'] = score.fetch('deleted', false)
 
-    # Ensure 'features' is a hash.
-    features = score.fetch('features', {}) || {}
-    completed_score['features'] = features.deep_merge({ 'num_ref' => score.fetch('num_ref', nil) })
+    # Ensure 'features' has the correct value (hash or nil).
+    # For Wikidata, 'features' has to contain the LiftWing features.
+    completed_score['features'] =
+      if @wiki.project == 'wikidata'
+        score.fetch('features', nil)
+      else
+        # For other wikis, 'features' has to contain the reference-counter scores if
+        # different from nil. Otherwise, it should be nil.
+        score.fetch('num_ref').nil? ? nil : { 'num_ref' => score['num_ref'] }
+      end
+
     completed_score
   end
 
