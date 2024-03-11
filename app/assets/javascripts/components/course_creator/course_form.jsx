@@ -13,16 +13,6 @@ import AcademicSystem from '../common/academic_system.jsx';
 import WIKI_OPTIONS from '../../utils/wiki_options';
 
 const CourseForm = (props) => {
-  const updateCoursePrivacy = (e) => {
-    const isPrivate = e.target.checked;
-    props.updateCourseProps({ private: isPrivate });
-    props.updateCourseAction('private', isPrivate);
-  };
-  const updateTaSupport = (e) => {
-    const ta_support = e.target.checked;
-    props.updateCourseProps({ ta_support: ta_support });
-    props.updateCourseAction('ta_support', ta_support);
-  };
   const handleWikiChange = (wiki) => {
     const home_wiki = wiki.value;
     const prev_wiki = { ...props.course.home_wiki };
@@ -121,10 +111,9 @@ const CourseForm = (props) => {
     );
     taSupportCheckboxEdu = (
       <CourseCheckbox
-        id="course_ta_support"
-        label="course_ta_support"
+        checkboxFor="ta_support"
         value={true}
-        onChange={updateTaSupport}
+        updateCourseProps={props.updateCourseProps}
         checked={!!props.course.ta_support}
         text={I18n.t('courses.creator.course_ta_support')}
       />
@@ -185,20 +174,18 @@ const CourseForm = (props) => {
     );
     privacyCheckbox = (
       <CourseCheckbox
-        checkbox_id="course_private"
-        label="course_private"
+        checkboxFor="private"
         value={true}
-        onChange={updateCoursePrivacy}
+        updateCourseProps={props.updateCourseProps}
         checked={!!props.course.private}
         text={I18n.t('courses.creator.course_private')}
       />
     );
     taSupportCheckbox = (
       <CourseCheckbox
-        id="course_ta_support"
-        label="course_ta_support"
+        checkboxFor="ta_support"
         value={true}
-        onChange={updateTaSupport}
+        updateCourseProps={props.updateCourseProps}
         checked={!!props.course.ta_support}
         text={I18n.t('courses.creator.course_ta_support')}
       />
