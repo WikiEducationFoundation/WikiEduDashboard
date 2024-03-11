@@ -272,6 +272,7 @@ const Details = createReactClass({
     if (timelineDatesDiffer || this.props.editable) {
       timelineStart = (
         <DatePicker
+          day = {this.props.course.flags.calender_view_day}
           onChange={this.updateCourseDates}
           value={this.props.course.timeline_start}
           value_key="timeline_start"
@@ -285,6 +286,7 @@ const Details = createReactClass({
       );
       timelineEnd = (
         <DatePicker
+          day = {this.props.course.flags.calender_view_day}
           onChange={this.updateCourseDates}
           value={this.props.course.timeline_end}
           value_key="timeline_end"
@@ -561,6 +563,7 @@ const Details = createReactClass({
                 {passcode}
                 {expectedStudents}
                 <DatePicker
+                  day = {this.props.course.flags.calender_view_day}
                   onChange={this.updateCourseDates}
                   value={this.props.course.start}
                   value_key="start"
@@ -571,6 +574,7 @@ const Details = createReactClass({
                   required={true}
                 />
                 <DatePicker
+                  day = {this.props.course.flags.calender_view_day}
                   onChange={this.updateCourseDates}
                   value={this.props.course.end}
                   value_key="end"

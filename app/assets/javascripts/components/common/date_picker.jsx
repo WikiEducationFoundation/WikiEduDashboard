@@ -1,7 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import DayPicker from 'react-day-picker';
+import { DayPicker } from 'react-day-picker';
 import OnClickOutside from 'react-onclickoutside';
 import { range, includes } from 'lodash-es';
 import { startOfDay, endOfDay, isValid, isAfter, parseISO, getHours, getMinutes, setHours, setMinutes, formatISO } from 'date-fns';
@@ -50,15 +50,23 @@ const DatePicker = createReactClass({
         value: formatDateWithoutTime(dateObj),
         hour: getHours(dateObj),
         minute: getMinutes(dateObj),
-        datePickerVisible: false
+        datePickerVisible: false,
+        day: this.props.day,
       };
     }
     return {
       value: '',
       hour: 0,
       minute: 0,
-      datePickerVisible: false
+      datePickerVisible: false,
+      day: 0,
     };
+  },
+  componentDidUpdate(prevProps) {
+    if (prevProps !== this.props) {
+      // eslint-disable-next-line react/no-did-update-set-state
+      return this.setState({ day: this.props.day });
+    }
   },
 
   /**
@@ -68,7 +76,7 @@ const DatePicker = createReactClass({
    * @return {null}
    */
   onChangeHandler() {
-    const e = { target: { value: formatISO(this.getDate()) } };
+        const e = { target: { value: formatISO(this.getDate()) } };
     this.props.onChange(e);
   },
 
@@ -124,7 +132,7 @@ const DatePicker = createReactClass({
    * @return {null}
    */
   handleDateFieldChange(e) {
-    const { value } = e.target;
+        const { value } = e.target;
     if (value !== this.state.value) {
       this.setState({ value });
     }
@@ -214,7 +222,7 @@ const DatePicker = createReactClass({
    * @return {Boolean} valid or not
    */
   isValidDate(value) {
-    const validationRegex = /^20\d\d-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])/;
+        const validationRegex = /^20\d\d-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])/;
     return validationRegex.test(value) && isValid(toDate(value));
   },
 
@@ -293,13 +301,16 @@ const DatePicker = createReactClass({
           />
 
           <DayPicker
-            className={this.state.datePickerVisible ? 'DayPicker--visible ignore-react-onclickoutside' : null}
+            className={this.state.datePickerVisible ? 'rdp' : 'rdp--hidden ignore-react-onclickoutside'}
             ref="daypicker"
+            onChange={this.props.day}
             tabIndex={-1}
             modifiers={modifiers}
-            disabledDays={this.isDayDisabled}
+            disabled={this.isDayDisabled}
             onDayClick={this.handleDatePickerChange}
-            month={currentMonth}
+            defaultMonth={currentMonth}
+            weekStartsOn={this.props.day}
+            required={true}
           />
         </div>
       );

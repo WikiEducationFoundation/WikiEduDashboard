@@ -4,7 +4,7 @@ import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 
 const CourseDates = (props) => {
-  const [day, setDay] = useState('none');
+  const [day, setDay] = useState('0');
 
   const updateDay = (e) => {
     setDay(e.target.value);
@@ -14,7 +14,7 @@ const CourseDates = (props) => {
   };
 
   const updateCourseDates = (key, value) => {
-    const updatedCourse = CourseDateUtils.updateCourseDates(props.course, key, value);
+        const updatedCourse = CourseDateUtils.updateCourseDates(props.course, key, value);
     props.updateCourseProps(updatedCourse);
   };
   const dateProps = CourseDateUtils.dateProps(props.course);
@@ -25,15 +25,13 @@ const CourseDates = (props) => {
   );
 
   const calendarDropdown = (
-    <div>
-      <label>
-        <div>Select Day for Calender:</div>
-        <select value={day} onChange={updateDay}>
-          <option value="none" disabled>-- Select Option --</option>
-          <option value="0">Sunday</option>
-          <option value="1">Monday</option>
-        </select>
-      </label>
+    <div className="day-selector">
+      <div><strong>Select Day for Calender:</strong></div>
+      <select value={day} onChange={updateDay}>
+        <option value="none" disabled>-- Select Option --</option>
+        <option value="0">Sunday</option>
+        <option value="1">Monday</option>
+      </select>
     </div>
   );
 
@@ -50,6 +48,7 @@ const CourseDates = (props) => {
     );
     timelineStart = (
       <DatePicker
+        day = {day}
         course = {props.course}
         id="course_timeline_start"
         onChange={updateCourseDates}
@@ -65,6 +64,7 @@ const CourseDates = (props) => {
     );
     timelineEnd = (
       <DatePicker
+        day = {day}
         course = {props.course}
         id="course_timeline_end"
         onChange={updateCourseDates}
@@ -86,6 +86,7 @@ const CourseDates = (props) => {
       <div>{calendarDropdown}</div>
       <p>{CourseUtils.i18n('creator.course_dates_info', props.stringPrefix)}</p>
       <DatePicker
+        day = {day}
         course = {props.course}
         id="course_start"
         onChange={updateCourseDates}
@@ -100,6 +101,7 @@ const CourseDates = (props) => {
         showTime={props.showTimeValues}
       />
       <DatePicker
+        day = {day}
         course = {props.course}
         id="course_end"
         onChange={updateCourseDates}

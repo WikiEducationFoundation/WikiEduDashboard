@@ -168,7 +168,7 @@ const Calendar = createReactClass({
             <DayPicker
               modifiers={modifiers}
               onDayClick={onDayClick}
-              initialMonth={this.state.initialMonth}
+              defaultMonth={this.state.initialMonth}
             />
             <div className="course-dates__calendar-key">
               <h3>{I18n.t('courses.calendar.legend')}</h3>
