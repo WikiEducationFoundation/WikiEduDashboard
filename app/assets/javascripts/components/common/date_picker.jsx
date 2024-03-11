@@ -227,7 +227,7 @@ const DatePicker = createReactClass({
   },
 
   showCurrentDate() {
-    return this.refs.daypicker.showMonth(this.state.month);
+    return this.refs.rdp.showMonth(this.state.month);
   },
 
   render() {
@@ -302,7 +302,7 @@ const DatePicker = createReactClass({
 
           <DayPicker
             className={this.state.datePickerVisible ? 'rdp' : 'rdp--hidden ignore-react-onclickoutside'}
-            ref="daypicker"
+            ref="rdp"
             onChange={this.props.day}
             tabIndex={-1}
             modifiers={modifiers}
