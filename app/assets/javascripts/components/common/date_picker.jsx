@@ -226,10 +226,6 @@ const DatePicker = createReactClass({
     return validationRegex.test(value) && isValid(toDate(value));
   },
 
-  showCurrentDate() {
-    return this.refs.rdp.showMonth(this.state.month);
-  },
-
   render() {
     const spacer = this.props.spacer || ': ';
     let label;
@@ -302,7 +298,6 @@ const DatePicker = createReactClass({
 
           <DayPicker
             className={this.state.datePickerVisible ? 'rdp' : 'rdp--hidden ignore-react-onclickoutside'}
-            ref="rdp"
             onChange={this.props.day}
             tabIndex={-1}
             modifiers={modifiers}

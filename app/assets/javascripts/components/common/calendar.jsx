@@ -1,7 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import DayPicker from 'react-day-picker';
+import { DayPicker } from 'react-day-picker';
 import { compact } from 'lodash-es';
 import WeekdayPicker from './weekday_picker.jsx';
 import CourseDateUtils from '../../utils/course_date_utils.js';
