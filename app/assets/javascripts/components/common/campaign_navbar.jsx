@@ -7,6 +7,16 @@ const CampaignNavbar = ({ campaign }) => {
   const location = useLocation();
   const pathSegments = location.pathname.split('/');
   const currentTab = pathSegments[pathSegments.length - 1];
+  useEffect(() => {
+    const links = document.querySelectorAll('.nav__item a');
+    links.forEach((link) => {
+      if (window.location.pathname === link.getAttribute('href')) {
+      link.classList.add('active');
+      } else {
+      link.classList.remove('active');
+      }
+    });
+  }, [window.location.pathname]);
   return (
     <div className="campaign-nav__wrapper">
       <div className="campaign_navigation">
