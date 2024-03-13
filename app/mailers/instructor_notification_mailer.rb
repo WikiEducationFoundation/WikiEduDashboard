@@ -15,6 +15,10 @@ class InstructorNotificationMailer < ApplicationMailer
     unless @alert.sender_email.nil?
       params[:bcc] = @alert.sender_email # sender_email gives user email of the sender
     end
+    if bcc_to_salesforce && !@alert.sender_email.nil?
+      params[:bcc] ||= []
+      params[:bcc] << ENV['SALESFORCE_BCC_EMAIL']
+    end
     mail(params)
   end
 
