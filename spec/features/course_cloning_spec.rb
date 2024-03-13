@@ -74,13 +74,13 @@ describe 'cloning a course', js: true do
 
     within '#details_column' do
       find('input#course_start').click
-      find('div.DayPicker-Day', text: course_start).click
+      find('div.rdp-Day', text: course_start).click
       find('input#course_end').click
-      find('div.DayPicker-Day', text: course_end).click
+      find('div.rdp-Day', text: course_end).click
       find('input#timeline_start').click
-      find('div.DayPicker-Day', text: timeline_start).click
+      find('div.rdp-Day', text: timeline_start).click
       find('input#timeline_end').click
-      find('div.DayPicker-Day', text: timeline_end).click
+      find('div.rdp-Day', text: timeline_end).click
     end
 
     find('h3#clone_modal_header').click # This is just too close the datepicker
@@ -127,7 +127,7 @@ describe 'cloning a course', js: true do
     find('input#copy_cloned_articles').click
     click_button 'Clone This Course'
 
-    expect(page).to have_content 'Update Details for Cloned Course'
+expect(page).to have_content 'Update Details for Cloned Course'
 
     # interact_with_clone_form
     find('input#course_term').click
@@ -136,13 +136,13 @@ describe 'cloning a course', js: true do
 
     within '#details_column' do
       find('input#course_start').click
-      find('div.DayPicker-Day', text: course_start).click
+      find('div.rdp-Day', text: course_start).click
       find('input#course_end').click
-      find('div.DayPicker-Day', text: course_end).click
+      find('div.rdp-Day', text: course_end).click
       find('input#timeline_start').click
-      find('div.DayPicker-Day', text: timeline_start).click
+      find('div.rdp-Day', text: timeline_start).click
       find('input#timeline_end').click
-      find('div.DayPicker-Day', text: timeline_end).click
+      find('div.rdp-Day', text: timeline_end).click
     end
 
     find('h3#clone_modal_header').click # This is just too close the datepicker
