@@ -662,6 +662,7 @@ sr-ec:
     send_notification_button_text: Пошаљи
     write_subject: Тема
     write_message_placeholder: Порука
+    sending_notification: Шаљем
   courses_generic:
     school_system: Академски систем
     add_campaign: Додај кампању
