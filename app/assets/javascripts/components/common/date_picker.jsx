@@ -270,8 +270,6 @@ const DatePicker = createReactClass({
         currentMonth = date;
       } else if (minDate) {
         currentMonth = minDate;
-      } else {
-        currentMonth = new Date();
       }
 
       const modifiers = {
@@ -303,7 +301,7 @@ const DatePicker = createReactClass({
             modifiers={modifiers}
             disabled={this.isDayDisabled}
             onDayClick={this.handleDatePickerChange}
-            defaultMonth={currentMonth}
+            month={currentMonth}
             weekStartsOn={this.props.day}
             required={true}
           />
