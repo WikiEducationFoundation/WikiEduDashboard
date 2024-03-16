@@ -7,7 +7,8 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
   before_action :require_super_admin_permissions,
                 only: [:upgrade_admin, :downgrade_admin,
                        :upgrade_special_user, :downgrade_special_user,
-                       :update_salesforce_credentials, :update_impact_stats]
+                       :update_salesforce_credentials, :update_impact_stats,
+                       :update_site_notice, :toggle_site_notice]
 
   layout 'application'
 
@@ -120,7 +121,39 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
     render json: { message: 'Impact Stats Updated Successfully.' }, status: :ok
   end
 
+  def fetch_site_notice
+    render json: { site_notice: ENV['sitenotice'] }, status: :ok
+  end
+
+  def update_site_notice
+    updated_site_notice = params[:siteNotice]
+    Setting.set_hash('site_notice', 'message', updated_site_notice)
+    Rails.cache.delete('site_notice')
+    set_site_notice
+    render json: { message: 'Site Notice Updated Successfully.' }, status: :ok
+  end
+
+  def toggle_site_notice
+    if ENV['sitenotice'].blank?
+      set_site_notice
+    else
+      ENV['sitenotice'] = ''
+    end
+    render json: { message: 'Site Notice Toggled Successfully.' }, status: :ok
+  end
+
   private
+
+  def set_site_notice
+    ENV['sitenotice'] = current_site_notice['message']
+  end
+
+  def current_site_notice
+    Rails.cache.fetch('site_notice') do
+      site_notice = Setting.find_by(key: 'site_notice')&.value.presence
+      site_notice
+    end
+  end
 
   def username_param
     params.require(:user).permit(:username)
