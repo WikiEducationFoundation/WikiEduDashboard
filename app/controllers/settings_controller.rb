@@ -122,24 +122,27 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
   end
 
   def fetch_site_notice
-    render json: { site_notice: ENV['sitenotice'] }, status: :ok
+    render json: { site_notice_env: ENV['sitenotice'],
+                   current_site_notice: current_site_notice['message'] }, status: :ok
   end
 
   def update_site_notice
     updated_site_notice = params[:siteNotice]
     Setting.set_hash('site_notice', 'message', updated_site_notice)
     Rails.cache.delete('site_notice')
-    set_site_notice
+    set_site_notice unless ENV['sitenotice'].blank?
     render json: { message: 'Site Notice Updated Successfully.' }, status: :ok
   end
 
   def toggle_site_notice
     if ENV['sitenotice'].blank?
       set_site_notice
+      message = 'Site Notice Enabled Successfully.'
     else
       ENV['sitenotice'] = ''
+      message = 'Site Notice Disabled Successfully.'
     end
-    render json: { message: 'Site Notice Toggled Successfully.' }, status: :ok
+    render json: { message: }, status: :ok
   end
 
   private

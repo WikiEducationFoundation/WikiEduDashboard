@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import SiteNoticeForm from './site_notice_form.jsx';
 import Popover from '../../common/popover.jsx';
 import useExpandablePopover from '../../../hooks/useExpandablePopover';
-import { toggleSiteNotice, getSiteNotice } from '../../../actions/settings_actions';
+import { toggleSiteNotice } from '../../../actions/settings_actions';
 import { connect } from 'react-redux';
 
 const ConfigureSiteNotice = (props) => {
@@ -19,14 +19,8 @@ const ConfigureSiteNotice = (props) => {
     setIsSiteNotice(!isSiteNotice);
   };
 
-  const fetchSiteNotice = () => {
-    props.getSiteNotice();
-  };
-
-  fetchSiteNotice();
-
   useEffect(() => {
-    if (props.siteNotice === '') {
+    if (props.siteNotice === '' || props.siteNotice === null) {
       setIsSiteNotice(false);
     } else {
       setIsSiteNotice(true);
@@ -43,18 +37,12 @@ const ConfigureSiteNotice = (props) => {
         edit_row={form}
         right
       />
-
     </div>
   );
 };
 
-const mapStateToProps = state => ({
-  siteNotice: state.settings.siteNotice
-});
-
 const mapDispatchToProps = {
     toggleSiteNotice,
-    getSiteNotice,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ConfigureSiteNotice);
+export default connect(null, mapDispatchToProps)(ConfigureSiteNotice);

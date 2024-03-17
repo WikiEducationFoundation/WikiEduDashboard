@@ -19,7 +19,8 @@ describe('Settings reducer', () => {
         status: false,
         username: null,
       },
-      siteNotice: null
+      siteNoticeENV: null,
+      currentSiteNotice: null,
     };
     expect(reducer(undefined, {})).toEqual(initialState);
   });

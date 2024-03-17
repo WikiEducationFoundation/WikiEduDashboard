@@ -28,6 +28,7 @@ const SiteNoticeForm = (props) => {
               value_key="site_notice"
               type="text"
               label="Site Notice"
+              maxLength="255"
             />
             <button className="button border" type="submit" value="Submit">{I18n.t('application.submit')}</button>
           </form>

@@ -20,7 +20,8 @@ const initialState = {
     status: false,
     username: null,
   },
-  siteNotice: null
+  siteNoticeENV: null,
+  currentSiteNotice: null,
 };
 
 const settings = (state = initialState, action) => {
@@ -42,7 +43,8 @@ const settings = (state = initialState, action) => {
     case REVOKING_SPECIAL_USER:
       return Object.assign({}, state, { revokingSpecialUser: action.data.revoking });
     case SET_SITE_NOTICE:
-      return Object.assign({}, state, { siteNotice: action.data.site_notice });
+      return Object.assign({}, state, { siteNoticeENV: action.data.site_notice_env,
+                                        currentSiteNotice: action.data.current_site_notice });
     default:
       return state;
   }

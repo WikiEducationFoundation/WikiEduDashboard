@@ -13,7 +13,7 @@ import UpdateSalesforceCredentials from './views/update_salesforce_credentials';
 import CourseCreationSettings from './course_creation_settings';
 import DefaultCampaignSetting from './default_campaign_setting';
 import UpdateImpactStats from './views/update_impact_stats';
-import ConfigureSiteNotice from './views/configure_site_notice';
+import SiteNoticeSetting from './site_notice_setting';
 
 export const SettingsHandler = createReactClass({
   propTypes: {
@@ -47,9 +47,6 @@ export const SettingsHandler = createReactClass({
         <React.Fragment>
           <h1 className="mx2 mt4">Other settings</h1>
           <hr />
-          <h2 className="mx2">Site Notice</h2>
-          <ConfigureSiteNotice />
-          <br /> <br />
           <h2 className="mx2">Impact Stats</h2>
           <UpdateImpactStats />
           <br /> <br />
@@ -59,6 +56,8 @@ export const SettingsHandler = createReactClass({
           <CourseCreationSettings settings={this.props.courseCreation}/>
           <br />
           <DefaultCampaignSetting defaultCampaign={this.props.defaultCampaign}/>
+          <br />
+          <SiteNoticeSetting />
         </React.Fragment>
       );
     }
