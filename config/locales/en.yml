@@ -1227,6 +1227,10 @@ en:
         already_instructor: "%{username} is already an instructor!"
         demote_success: "%{username} changed to instructor."
         no_super_admin: "Can't revoke admin status from a super admin"
+    featured_campaigns:
+      update_featured_campaigns_button: Update Featured Campaigns
+      add_button: Add Campaign
+      remove_button: Remove Campaign
     special_users:
       new:
         form_label: Grant Special User privileges
