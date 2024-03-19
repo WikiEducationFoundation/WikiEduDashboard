@@ -71,11 +71,12 @@ Also, ensure that the corresponding schema.rb changes only reflect the new migra
 - Check that only the relevant files are being changed. There should be no unintended changes to the schema or dependency files, or other "git noise".
 - If you have a messy git history, squash your commits to clean it up.
 - If you have added any external libraries via a package manager, ensure that you have updated the proper dependency list (`package.json`, or `Gemfile`) and corresponding lock file.
+- Check with Sage via Slack before opening more than one PR; in most cases, we prefer new contributors to work on 1 at a time.
 
 ### PR format
 - Title your pull request to indicate its purpose. (This will likely be similar to the title of the issue it addresses.)
 - Include a reference to the issue(s).
-- If it is a work-in-progress, include `[WIP]` in the title. Remove this once the PR is complete and ready for review.
+- If it is a work-in-progress, include `[WIP]` in the title. Remove this and leave a message once the PR is complete and ready for review.
 - Include before-and-after screenshots (or animations) for user interface changes.
 
 ### After opening a PR
@@ -84,3 +85,5 @@ Also, ensure that the corresponding schema.rb changes only reflect the new migra
   - Fix whatever caused it to fail if you can.
   - Ask for help if you cannot fix it. If a pull request build is failing but you have not asked for help, we will assume that you have seen the errors and are still working on them.
 - If you don't get reviewer feedback within a day or two, or you're waiting for followup, ping someone.
+- If you receive feedback have not yet revised the PR yet, it should become a 'draft' until it's ready for review.
+- Update the description and screenshots if they become outdated.

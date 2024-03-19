@@ -35,10 +35,11 @@ describe ReferenceCounterApi do
         project_code: 'wikipedia',
         language_code: 'en',
         rev_id: 708326238,
-        status_code: 404,
+        status_code: 403,
         content: {
             'description' =>
-            "You don't have permission to view deleted text or changes between deleted revisions."
+            "mwapi error: permissiondenied - You don't have permission to view deleted " \
+            'text or changes between deleted revisions.'
         }
       }
     )

@@ -21,6 +21,7 @@
 # Author: LudaOtaku
 # Author: M0tty
 # Author: Mabroukb
+# Author: MacOS Weed
 # Author: Macofe
 # Author: Melimeli
 # Author: PifyZ
@@ -953,9 +954,13 @@ fr:
       notification_message: Répondez au sondage pour ce cours.
       link: Participer au sondage
   course_instructor_notification:
+    notify_instructors_feature_description: Envoyer un message aux instructeurs par
+      courriel
     send_notification_button_text: Envoyer
+    notification_sent_success: Message envoyé à tous les instructeurs de %{courseTitle}
     notification_empty_message: Le sujet ou le message ne peut pas être vide
     write_subject: Sujet
+    write_message_placeholder: Message
     sending_notification: Envoi en cours
   courses_generic:
     school_system: Système académique

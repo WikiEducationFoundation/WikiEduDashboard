@@ -14,17 +14,15 @@ describe RevisionScoreApiHandler do
           expect(subject).to be_a(Hash)
           expect(subject.dig('829840090', 'wp10').to_f).to eq(62.805729915108664)
           expect(subject.dig('829840090', 'features')).to be_a(Hash)
-          expect(subject.dig('829840090', 'features',
-                             'feature.wikitext.revision.ref_tags')).to eq(132)
-          expect(subject.dig('829840090', 'features', 'num_ref')).to eq(132)
+          # Only num_ref feature is stored. LiftWing features are discarded.
+          expect(subject.dig('829840090', 'features')).to eq({ 'num_ref' => 132 })
           expect(subject.dig('829840090', 'deleted')).to eq(false)
           expect(subject.dig('829840090', 'prediction')).to eq('B')
 
           expect(subject.dig('829840091', 'wp10').to_f).to eq(39.507631367268004)
           expect(subject.dig('829840091', 'features')).to be_a(Hash)
-          expect(subject.dig('829840091', 'features',
-                             'feature.wikitext.revision.ref_tags')).to eq(1)
-          expect(subject.dig('829840091', 'features', 'num_ref')).to eq(1)
+          # Only num_ref feature is stored. LiftWing features are discarded.
+          expect(subject.dig('829840091', 'features')).to eq({ 'num_ref' => 1 })
           expect(subject.dig('829840091', 'deleted')).to eq(false)
           expect(subject.dig('829840091', 'prediction')).to eq('C')
         end
@@ -48,21 +46,16 @@ describe RevisionScoreApiHandler do
             .to_raise(Errno::ETIMEDOUT)
 
           expect(subject).to be_a(Hash)
+
           expect(subject.dig('829840090', 'wp10').to_f).to eq(62.805729915108664)
-          expect(subject.dig('829840090', 'features')).to be_a(Hash)
-          expect(subject.dig('829840090', 'features',
-                             'feature.wikitext.revision.ref_tags')).to eq(132)
-          expect(subject.dig('829840090', 'features').key?('num_ref')).to eq(true)
-          expect(subject.dig('829840090', 'features', 'num_ref')).to eq(nil)
+          expect(subject.dig('829840090')).to have_key('features')
+          expect(subject.dig('829840090', 'features')).to be_nil
           expect(subject.dig('829840090', 'deleted')).to eq(false)
           expect(subject.dig('829840090', 'prediction')).to eq('B')
 
           expect(subject.dig('829840091', 'wp10').to_f).to eq(39.507631367268004)
-          expect(subject.dig('829840091', 'features')).to be_a(Hash)
-          expect(subject.dig('829840091', 'features',
-                             'feature.wikitext.revision.ref_tags')).to eq(1)
-          expect(subject.dig('829840091', 'features').key?('num_ref')).to eq(true)
-          expect(subject.dig('829840091', 'features', 'num_ref')).to eq(nil)
+          expect(subject.dig('829840091')).to have_key('features')
+          expect(subject.dig('829840091', 'features')).to be_nil
           expect(subject.dig('829840091', 'deleted')).to eq(false)
           expect(subject.dig('829840091', 'prediction')).to eq('C')
         end
@@ -76,9 +69,9 @@ describe RevisionScoreApiHandler do
         .to_raise(Errno::ETIMEDOUT)
       expect(subject).to be_a(Hash)
       expect(subject.dig('829840090')).to eq({ 'wp10' => nil,
-      'features' => { 'num_ref' => nil }, 'deleted' => false, 'prediction' => nil })
+      'features' => nil, 'deleted' => false, 'prediction' => nil })
       expect(subject.dig('829840091')).to eq({ 'wp10' => nil,
-      'features' => { 'num_ref' => nil }, 'deleted' => false, 'prediction' => nil })
+      'features' => nil, 'deleted' => false, 'prediction' => nil })
     end
   end
 
@@ -97,8 +90,8 @@ describe RevisionScoreApiHandler do
           expect(subject.dig('144495297', 'features')).to be_a(Hash)
           expect(subject.dig('144495297', 'features',
                              'feature.len(<datasource.wikidatawiki.revision.references>)')).to eq(2)
-          expect(subject.dig('144495297', 'features').key?('num_ref')).to eq(true)
-          expect(subject.dig('144495297', 'features', 'num_ref')).to eq(nil)
+          # 'num_ref' key doesn't exist for wikidata features
+          expect(subject.dig('144495297', 'features').key?('num_ref')).to eq(false)
           expect(subject.dig('144495297', 'deleted')).to eq(false)
           expect(subject.dig('144495297', 'prediction')).to eq('D')
 
@@ -106,8 +99,8 @@ describe RevisionScoreApiHandler do
           expect(subject.dig('144495298', 'features')).to be_a(Hash)
           expect(subject.dig('144495298', 'features',
                              'feature.len(<datasource.wikidatawiki.revision.references>)')).to eq(0)
-          expect(subject.dig('144495298', 'features').key?('num_ref')).to eq(true)
-          expect(subject.dig('144495298', 'features', 'num_ref')).to eq(nil)
+          # 'num_ref' key doesn't exist for wikidata features
+          expect(subject.dig('144495298', 'features').key?('num_ref')).to eq(false)
           expect(subject.dig('144495298', 'deleted')).to eq(false)
           expect(subject.dig('144495298', 'prediction')).to eq('E')
         end
@@ -118,9 +111,9 @@ describe RevisionScoreApiHandler do
           .to_raise(Errno::ETIMEDOUT)
         expect(subject).to be_a(Hash)
         expect(subject.dig('144495297')).to eq({ 'wp10' => nil,
-        'features' => { 'num_ref' => nil }, 'deleted' => false, 'prediction' => nil })
+        'features' => nil, 'deleted' => false, 'prediction' => nil })
         expect(subject.dig('144495298')).to eq({ 'wp10' => nil,
-        'features' => { 'num_ref' => nil }, 'deleted' => false, 'prediction' => nil })
+        'features' => nil, 'deleted' => false, 'prediction' => nil })
       end
     end
   end
@@ -148,9 +141,9 @@ describe RevisionScoreApiHandler do
           .to_raise(Errno::ETIMEDOUT)
         expect(subject).to be_a(Hash)
         expect(subject.dig('157412237')).to eq({ 'wp10' => nil,
-        'features' => { 'num_ref' => nil }, 'deleted' => false, 'prediction' => nil })
+        'features' => nil, 'deleted' => false, 'prediction' => nil })
         expect(subject.dig('157417768')).to eq({ 'wp10' => nil,
-        'features' => { 'num_ref' => nil }, 'deleted' => false, 'prediction' => nil })
+        'features' => nil, 'deleted' => false, 'prediction' => nil })
       end
     end
   end

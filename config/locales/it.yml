@@ -160,6 +160,7 @@ it:
     history: (cronologia)
     label: Voci
     loading: Caricamento articoli...
+    mark_as_complete: Contrassegna come completato
     new: (nuovo)
     none: Questo corso non ha modificato alcuna voce.
     rating: Classe
@@ -248,6 +249,7 @@ it:
     confirm_add_available: Sei sicuro di voler aggiungere %{title}?
     confirm_addition: Sei sicuro di voler assegnare %{title} a %{username}?
     confirm_deletion: Sei sicuro di voler cancellare questa assegnazione?
+    delete: Rimuovi e cancella
     editors: Assegnato  a
     group_members: Membri del gruppo
     label: Assegna
@@ -291,6 +293,10 @@ it:
     course_already_removed: '"%{title}" è già stato rimosso della campagna "%{campaign_title}"'
     course: Corso
     course_removed: '"%{title}" è stato rimosso dalla campagna "%{campaign_title}"'
+    course_removed_and_deleted: '"%{title}" è stato cancellato e rimosso dalla campagna
+      "%{campaign_title}"'
+    course_removed_but_not_deleted: '"%{title}" è stato rimosso da "%{campaign_title}"
+      ma non è stato cancellato poiché è presente anche in altre campagne'
     create_campaign: Crea una nuova campagna
     create_my_campaign: Crea la mia campagna!
     customize_passcode: un codice di accesso di default
@@ -302,6 +308,7 @@ it:
       devono avere:'
     description: Descrizione
     delete_campaign: Cancella questa campagna
+    delete_course_tooltip: Cancella e rimuovi dalla campagna.
     disable_account_requests: Disattiva richieste di account
     enable_account_requests: Attiva richieste utenza
     no_alerts: Questa campagna non ha avvisi
@@ -316,6 +323,7 @@ it:
       campagna, il testo di quest'area verrà copiato come descrizione nella pagina
       del programma
     random_passcode: un codice di accesso a caso
+    remove_course_tooltip: Rimuovi dalla campagna.
     requested_accounts: Utenze richieste
     title: Titolo
     search_campaigns: Cerca campagne
