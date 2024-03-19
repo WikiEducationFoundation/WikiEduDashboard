@@ -195,13 +195,16 @@ class CampaignsController < ApplicationController
     campaign_slugs = setting.value['campaign_slugs']
 
     if params[:only_slug]
-      render json: { campaign_slugs: campaign_slugs }
+      render json: { campaign_slugs: }
       return
     end
 
-    featured_campaigns = Campaign.where(slug: campaign_slugs).pluck(:slug, :title).map { |slug, title| { slug: slug, title: title } }
-    render json: { featured_campaigns: featured_campaigns }
-  end  
+    featured_campaigns = Campaign.where(slug: campaign_slugs).pluck(:slug,
+                                                                    :title).map do |slug, title|
+      { slug:, title: }
+    end
+    render json: { featured_campaigns: }
+  end
 
   def current_term
     redirect_to "/campaigns/#{Campaign.default_campaign.slug}/#{params[:subpage]}"
