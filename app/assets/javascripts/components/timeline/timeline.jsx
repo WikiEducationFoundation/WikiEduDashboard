@@ -181,6 +181,21 @@ const Timeline = createReactClass({
   },
 
   render() {
+    const blocks = document.querySelectorAll('.block__block-content');
+
+    // Loop through each block
+    blocks.forEach((block) => {
+      // Check if the block contains any paragraphs with links
+      const hasLinks = block.querySelector('p a');
+
+      // Apply flex row if the block contains paragraphs with links
+      if (hasLinks) {
+        block.style.flexDirection = 'row';
+        block.style.flexWrap = 'wrap';
+        block.style.marginTop = '10px';
+      }
+    });
+
     if (this.props.loading) {
       return <Loading />;
     }
