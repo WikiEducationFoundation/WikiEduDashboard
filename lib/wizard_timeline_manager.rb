@@ -147,8 +147,9 @@ class WizardTimelineManager
       next unless @logic.include?(logic_key)
       content += link_to_handout(logic_key)
     end
+    content = "<div class='handout-link-container'>#{content}</div>"
     # Remove the block if it's empty; otherwise, update with content
-    content.blank? ? block.destroy : block.update(content:)
+        content.blank? ? block.destroy : block.update(content:)
   end
 
   def link_to_handout(logic_key)
