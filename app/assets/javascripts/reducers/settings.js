@@ -2,7 +2,8 @@ import {
   SET_ADMIN_USERS, SET_SPECIAL_USERS,
   SUBMITTING_NEW_ADMIN, REVOKING_ADMIN,
   SUBMITTING_NEW_SPECIAL_USER, REVOKING_SPECIAL_USER,
-  SET_COURSE_CREATION_SETTINGS, SET_DEFAULT_CAMPAIGN
+  SET_COURSE_CREATION_SETTINGS, SET_FEATURED_CAMPAIGNS,
+  SET_DEFAULT_CAMPAIGN, REMOVE_FEATURED_CAMPAIGN, ADD_FEATURED_CAMPAIGN
 } from '../constants/settings';
 
 const initialState = {
@@ -11,6 +12,7 @@ const initialState = {
   fetchingUsers: false,
   submittingNewAdmin: false,
   submittingNewSpecialUser: false,
+  featuredCampaigns: [],
   revokingAdmin: {
     status: false,
     username: null,
@@ -29,6 +31,12 @@ const settings = (state = initialState, action) => {
       return Object.assign({}, state, { specialUsers: action.data.special_users });
     case SET_COURSE_CREATION_SETTINGS:
       return Object.assign({}, state, { courseCreation: action.data });
+    case ADD_FEATURED_CAMPAIGN:
+      return Object.assign({}, state, { featuredCampaigns: state.featuredCampaigns.concat(action.data.campaign_added) });
+    case SET_FEATURED_CAMPAIGNS:
+      return Object.assign({}, state, { featuredCampaigns: action.data.featured_campaigns });
+    case REMOVE_FEATURED_CAMPAIGN:
+      return Object.assign({}, state, { featuredCampaigns: state.featuredCampaigns.filter(Currcampaign => !action.data.campaign_removed.includes(Currcampaign.slug)) });
     case SET_DEFAULT_CAMPAIGN:
       return Object.assign({}, state, { defaultCampaign: action.data.default_campaign });
     case SUBMITTING_NEW_ADMIN:

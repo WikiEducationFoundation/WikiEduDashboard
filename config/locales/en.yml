@@ -1212,6 +1212,14 @@ en:
     header: Resources and Training
 
   settings:
+    categories:
+      other_settings: Other settings
+      impact_stats: Impact Stats
+      salesforce: Salesforce
+      featured_campaigns: Featured Campaigns
+      special_users: Special Users
+      admin_users: Admin Users
+      users: Users
     admin_users:
       new:
         form_label: Grant admin privileges

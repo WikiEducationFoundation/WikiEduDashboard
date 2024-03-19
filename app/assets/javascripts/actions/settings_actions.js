@@ -3,7 +3,8 @@ import {
   SET_ADMIN_USERS, SET_SPECIAL_USERS,
   SUBMITTING_NEW_SPECIAL_USER, REVOKING_SPECIAL_USER,
   SUBMITTING_NEW_ADMIN, REVOKING_ADMIN, SET_COURSE_CREATION_SETTINGS,
-  SET_DEFAULT_CAMPAIGN
+  SET_DEFAULT_CAMPAIGN, SET_FEATURED_CAMPAIGNS, REMOVE_FEATURED_CAMPAIGN,
+  ADD_FEATURED_CAMPAIGN
 } from '../constants/settings.js';
 import { API_FAIL } from '../constants/api';
 import { ADD_NOTIFICATION } from '../constants/notifications';
@@ -453,4 +454,68 @@ export const updateImpactStats = impactStats => (dispatch) => {
   return updateImpactStatsPromise(impactStats)
     .then(data => dispatch({ type: ADD_NOTIFICATION, notification: { ...data, type: 'success', closable: true } }))
     .catch(data => dispatch({ type: API_FAIL, data }));
+};
+
+const fetchFeaturedCampaignsPromise = async () => {
+  const response = await request('/campaigns/featured_campaigns');
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
+  }
+  return response.json();
+};
+
+export function fetchFeaturedCampaigns() {
+  return (dispatch) => {
+    return fetchFeaturedCampaignsPromise()
+      .then((resp) => {
+        dispatch({
+          type: SET_FEATURED_CAMPAIGNS,
+          data: resp,
+        });
+      })
+      .catch((response) => {
+        dispatch({ type: API_FAIL, data: response });
+      });
+  };
+}
+
+const removeFeaturedCampaignPromise = async (campaign_slug) => {
+  const response = await request(`/settings/remove_featured_campaign?featured_campaign_slug=${campaign_slug}`, {
+    method: 'POST'
+  });
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
+  }
+  return response.json();
+};
+
+export const removeFeaturedCampaign = campaign_slug => (dispatch) => {
+  return removeFeaturedCampaignPromise(campaign_slug)
+      .then(data => dispatch({ type: REMOVE_FEATURED_CAMPAIGN, data }))
+      .catch(data => dispatch({ type: API_FAIL, data }));
+};
+
+const addFeaturedCampaignPromise = async (campaign_slug) => {
+  const response = await request(`/settings/add_featured_campaign?featured_campaign_slug=${campaign_slug}`, {
+    method: 'POST'
+  });
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
+  }
+  return response.json();
+};
+
+export const addFeaturedCampaign = campaign_slug => (dispatch) => {
+    return addFeaturedCampaignPromise(campaign_slug)
+      .then(data => dispatch({ type: ADD_FEATURED_CAMPAIGN, data }))
+      .catch(data => dispatch({ type: API_FAIL, data }));
 };

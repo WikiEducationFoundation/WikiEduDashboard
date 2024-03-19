@@ -105,6 +105,26 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
   def default_campaign
     render json: { default_campaign: CampaignsPresenter.default_campaign_slug }
   end
+  
+  def add_featured_campaign
+    campaign_slug = params[:featured_campaign_slug]
+    campaign = Campaign.find_by(slug: campaign_slug)
+    setting = Setting.find_or_create_by(key: 'featured_campaigns')
+    setting.value['campaign_slugs'] ||= []
+    # Add the new campaign_slug to the array if it's not already present
+    setting.value['campaign_slugs'] << campaign_slug unless setting.value['campaign_slugs'].include?(campaign_slug)
+    setting.save
+    render json: { campaign_added: { slug: campaign_slug, title: campaign.title} }
+  end  
+  
+  def remove_featured_campaign
+    campaign_slug = params[:featured_campaign_slug]
+    setting = Setting.find_or_create_by(key: 'featured_campaigns')
+    setting.value['campaign_slugs'] ||= []
+    setting.value['campaign_slugs'].delete(campaign_slug)
+    setting.save
+    render json: { campaign_removed: campaign_slug }
+  end
 
   def update_default_campaign
     CampaignsPresenter.update_default_campaign(params[:default_campaign])

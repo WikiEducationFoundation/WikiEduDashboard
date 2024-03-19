@@ -107,8 +107,8 @@ export const fetchAllCampaigns = () => (dispatch) => {
   );
 };
 
-const fetchCampaignStatisticsPromise = async (userOnly, newest) => {
-  const response = await request(`/campaigns/statistics.json?user_only=${userOnly}&newest=${newest}`);
+const fetchFeaturedCampaigns = async () => {
+  const response = await request('/campaigns/featured_campaigns?only_slug=true');
   if (!response.ok) {
     logErrorMessage(response);
     const data = await response.text();
@@ -116,6 +116,26 @@ const fetchCampaignStatisticsPromise = async (userOnly, newest) => {
     throw response;
   }
   return response.json();
+};
+
+const fetchCampaignStatisticsPromise = async (userOnly, newest) => {
+  const featured_campaigns = await fetchFeaturedCampaigns();
+  const response = await request(`/campaigns/statistics.json?user_only=${userOnly}&newest=${newest}`);
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
+  }
+
+  const responseData = await response.json();
+  let campaigns = responseData.campaigns;
+  const featured_campaigns_slugs = featured_campaigns.campaign_slugs;
+  if (featured_campaigns_slugs.length > 0) {
+    campaigns = campaigns.filter(campaign => featured_campaigns_slugs.includes(campaign.slug));
+  }
+
+  return { campaigns };
 };
 
 
