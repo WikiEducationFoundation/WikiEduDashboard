@@ -90,7 +90,7 @@ const TextAreaInput = createReactClass({
               plugins: 'lists link code',
               toolbar: [
                 'undo redo | styleselect | bold italic',
-                'alignleft aligncenter alignright alignleft',
+                'alignleft alignright',
                 'bullist numlist outdent indent',
                 'link'
               ],
