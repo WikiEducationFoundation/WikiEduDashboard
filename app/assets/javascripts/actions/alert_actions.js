@@ -139,7 +139,7 @@ export const sortAlerts = key => ({ type: types.SORT_ALERTS, key: key });
 
 export const filterAlerts = selectedFilters => ({ type: types.FILTER_ALERTS, selectedFilters: selectedFilters });
 
-export const createInstructorAlert = ({ courseTitle, courseId, subject, message }) => {
+export const createInstructorAlert = ({ courseTitle, courseId, subject, message, bccToSalesforce }) => {
   return (dispatch) => {
     if (!subject || !message) {
       dispatch({ type: types.ALERT_INSTRUCTOR_FAILED, payload: I18n.t('course_instructor_notification.notification_empty_message') });
@@ -147,7 +147,7 @@ export const createInstructorAlert = ({ courseTitle, courseId, subject, message 
     }
 
     dispatch({ type: types.ALERT_INSTRUCTOR_CREATE });
-    createInstructorNotificationAlert(courseId, subject.trim(), message.trim())
+    createInstructorNotificationAlert(courseId, subject.trim(), message.trim(), bccToSalesforce)
       .then(() => {
         dispatch({ type: types.ALERT_INSTRUCTOR_MODAL_HIDDEN });
         dispatch({
@@ -162,11 +162,11 @@ export const createInstructorAlert = ({ courseTitle, courseId, subject, message 
       .catch((resp) => {
         // failed
         const msg = resp.readyState === 0
-            ? I18n.t('course_instructor_notification.notification_send_error_no_internet')
-            : I18n.t('course_instructor_notification.notification_send_error_server', {
-                status: resp.status,
-                statusText: resp.statusText,
-              });
+          ? I18n.t('course_instructor_notification.notification_send_error_no_internet')
+          : I18n.t('course_instructor_notification.notification_send_error_server', {
+            status: resp.status,
+            statusText: resp.statusText,
+          });
         dispatch({ type: types.ALERT_INSTRUCTOR_FAILED, payload: msg });
       });
   };
