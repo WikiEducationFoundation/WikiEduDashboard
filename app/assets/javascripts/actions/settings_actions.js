@@ -457,7 +457,7 @@ export const updateImpactStats = impactStats => (dispatch) => {
 
 const updateSiteNoticePromise = async (siteNotice) => {
   const body = {
-    siteNotice: siteNotice,
+    site_notice: siteNotice,
   };
   const response = await request('/settings/update_site_notice', {
     method: 'POST',
@@ -474,26 +474,13 @@ const updateSiteNoticePromise = async (siteNotice) => {
 
 export const updateSiteNotice = siteNotice => (dispatch) => {
   return updateSiteNoticePromise(siteNotice)
-  .then(data => dispatch({ type: ADD_NOTIFICATION, notification: { ...data, type: 'success', closable: true } }))
-  .catch(data => dispatch({ type: API_FAIL, data }));
-};
-
-const toggleSiteNoticePromise = async () => {
-  const response = await request('/settings/toggle_site_notice', {
-    method: 'GET'
-  });
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
-  return response.json();
-};
-
-export const toggleSiteNotice = () => (dispatch) => {
-  return toggleSiteNoticePromise()
-  .then(data => dispatch({ type: ADD_NOTIFICATION, notification: { ...data, type: 'success', closable: true } }))
+  .then((data) => {
+          dispatch({
+            type: ADD_NOTIFICATION,
+            notification: { ...data, type: 'success', closable: true }
+          });
+          dispatch(getSiteNotice());
+  })
   .catch(data => dispatch({ type: API_FAIL, data }));
 };
 
@@ -513,10 +500,12 @@ const getSiteNoticePromise = async () => {
 export const getSiteNotice = () => (dispatch) => {
   return getSiteNoticePromise()
   .then((resp) => {
-    dispatch({
-      type: SET_SITE_NOTICE,
-      data: resp,
-    });
+    if (Object.keys(resp.site_notice).length !== 0) {
+      dispatch({
+        type: SET_SITE_NOTICE,
+        data: resp,
+      });
+    }
   })
   .catch(data => dispatch({ type: API_FAIL, data }));
 };

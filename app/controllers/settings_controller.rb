@@ -8,7 +8,7 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
                 only: [:upgrade_admin, :downgrade_admin,
                        :upgrade_special_user, :downgrade_special_user,
                        :update_salesforce_credentials, :update_impact_stats,
-                       :update_site_notice, :toggle_site_notice]
+                       :update_site_notice]
 
   layout 'application'
 
@@ -122,38 +122,23 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
   end
 
   def fetch_site_notice
-    render json: { site_notice_env: ENV['sitenotice'],
-                   current_site_notice: current_site_notice['message'] }, status: :ok
+    render json: { site_notice: current_site_notice }, status: :ok
   end
 
   def update_site_notice
-    updated_site_notice = params[:siteNotice]
-    Setting.set_hash('site_notice', 'message', updated_site_notice)
-    Rails.cache.delete('site_notice')
-    set_site_notice unless ENV['sitenotice'].blank?
-    render json: { message: 'Site Notice Updated Successfully.' }, status: :ok
-  end
-
-  def toggle_site_notice
-    if ENV['sitenotice'].blank?
-      set_site_notice
-      message = 'Site Notice Enabled Successfully.'
-    else
-      ENV['sitenotice'] = ''
-      message = 'Site Notice Disabled Successfully.'
+    updated_site_notice = params[:site_notice]
+    updated_site_notice.each do |key, value|
+      Setting.set_hash('site_notice', key, value)
     end
-    render json: { message: }, status: :ok
+    Rails.cache.delete('site_notice')
+    render json: { message: 'Site Notice Configured Successfully.' }, status: :ok
   end
 
   private
 
-  def set_site_notice
-    ENV['sitenotice'] = current_site_notice['message']
-  end
-
   def current_site_notice
     Rails.cache.fetch('site_notice') do
-      site_notice = Setting.find_by(key: 'site_notice')&.value.presence
+      site_notice = Setting.find_by(key: 'site_notice')&.value.presence || {}
       site_notice
     end
   end
