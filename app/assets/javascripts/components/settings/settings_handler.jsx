@@ -13,6 +13,7 @@ import UpdateSalesforceCredentials from './views/update_salesforce_credentials';
 import CourseCreationSettings from './course_creation_settings';
 import DefaultCampaignSetting from './default_campaign_setting';
 import UpdateImpactStats from './views/update_impact_stats';
+import SiteNoticeSetting from './site_notice_setting';
 
 export const SettingsHandler = createReactClass({
   propTypes: {
@@ -55,6 +56,8 @@ export const SettingsHandler = createReactClass({
           <CourseCreationSettings settings={this.props.courseCreation}/>
           <br />
           <DefaultCampaignSetting defaultCampaign={this.props.defaultCampaign}/>
+          <br />
+          <SiteNoticeSetting />
         </React.Fragment>
       );
     }
