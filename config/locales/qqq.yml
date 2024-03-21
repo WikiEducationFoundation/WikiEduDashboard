@@ -604,6 +604,8 @@ qqq:
   instructor_view:
     assignments_table:
       article_name: '{{Identical|Name}}'
+    no_assignments: Message displayed when no assignment is assigned to students
+    can_assign_assignments: Message displayed when the user can assign the assignment
   metrics:
     activity: Label for activity feed.
     are_trained: Label that follows the number of users who are do not have assigned

@@ -1017,7 +1017,8 @@ en:
       submit_issue_placeholder: "The more expert perspective and detail you can provide, the better."
       thank_you: "Thank you! Contact your Wiki Expert if you have additional questions."
     exercises_and_trainings: "%{prefix} Exercises & Trainings"
-    no_assignments: "This student currently has no assigned articles. You can assign an article by using the buttons above."
+    no_assignments: "This student currently has no assigned articles."
+    can_assign_assignments: "You can assign an article by using the buttons above."
     no_assignments_wikidata: "This student currently has no assigned items. You can assign an item by using the buttons above."
     overview: "%{prefix} Overview"
     reviewing_articles: Reviewing Articles
