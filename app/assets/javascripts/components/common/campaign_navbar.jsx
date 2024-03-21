@@ -1,4 +1,4 @@
-import React, { useEffect }   from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink, useLocation } from 'react-router-dom';
 import CourseUtils from '../../utils/course_utils';
@@ -7,7 +7,7 @@ const CampaignNavbar = ({ campaign }) => {
   const location = useLocation();
   const pathSegments = location.pathname.split('/');
   const currentTab = pathSegments[pathSegments.length - 1];
-  //useEffect needed only for links not using Navlink and can be removed once the server-rendered pages are turned into React pages that use NavLink.
+  //  useEffect needed only for links not using Navlink and can be removed once the server-rendered pages are turned into React pages that use NavLink.
   useEffect(() => {
     const links = document.querySelectorAll('.nav__item a');
     links.forEach((link) => {
