@@ -134,7 +134,7 @@ en:
         heading: Username rules
         avoid_offensive_usernames: Do not choose a username that is offensive, misleading, disruptive, or promotional.
         represent_individual: Usernames must represent an individual editor. Do not use the name of a school or organization.
-      additional_advice: 
+      additional_advice:
         heading: Advice
         anonymous_username_recommendation: Wiki Education recommends choosing an anonymous username, not one that includes your real name or other identifying information.
     sign_up_help: >
@@ -1349,6 +1349,14 @@ en:
     view_library_source: view library source
     view_module_source: view module source
     reload_from_source: reload from source
+    wiki_edit_assignment_status_pending: Pending
+    wiki_edit_assignment_status_loading: Checking...
+    wiki_edit_assignment_status_error: Error, Try Refreshing
+    wiki_edit_assignment_status_success: Completed
+    wiki_edit_assignment_pending_message: Please complete your practice wiki edits to continue to the next slide
+    wiki_edit_assignment_success_message: Awesome! You have made a successful edit
+    wiki_edit_assignment_status: Status
+    wiki_edit_assignment_refresh_button: REFRESH
     kind:
       exercise: Exercise
       discussion: Discussion
