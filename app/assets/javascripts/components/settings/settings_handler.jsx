@@ -56,14 +56,14 @@ export const SettingsHandler = createReactClass({
           <CourseCreationSettings settings={this.props.courseCreation}/>
           <br />
           <DefaultCampaignSetting defaultCampaign={this.props.defaultCampaign}/>
-          <br />
-          <SiteNoticeSetting />
         </React.Fragment>
       );
     }
     return (
       <div id="settings" className="mt4 container">
         <Notifications />
+        <SiteNoticeSetting />
+        <br />
         <h1 className="mx2">Users</h1>
         <hr />
         <h2 className="mx2">Admin Users</h2>
