@@ -18,6 +18,10 @@ describe('Settings reducer', () => {
       revokingSpecialUser: {
         status: false,
         username: null,
+      },
+      siteNotice: {
+        status: false,
+        message: null,
       }
     };
     expect(reducer(undefined, {})).toEqual(initialState);

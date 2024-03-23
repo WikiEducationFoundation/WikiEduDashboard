@@ -3,6 +3,7 @@
 require_dependency "#{Rails.root}/lib/alerts/productive_course_alert_manager"
 require_dependency "#{Rails.root}/lib/alerts/active_course_alert_manager"
 require_dependency "#{Rails.root}/lib/alerts/no_students_alert_manager"
+require_dependency "#{Rails.root}/lib/alerts/ta_support_alert_manager"
 require_dependency "#{Rails.root}/lib/alerts/first_student_alert_manager"
 require_dependency "#{Rails.root}/lib/alerts/over_enrollment_alert_manager"
 require_dependency "#{Rails.root}/lib/alerts/untrained_students_alert_manager"
@@ -15,6 +16,7 @@ class CourseAlertManager
   def self.generate_course_alerts
     course_alert_manager = new
     course_alert_manager.create_no_students_alerts
+    course_alert_manager.create_no_ta_support_alerts
     course_alert_manager.create_first_student_alerts
     course_alert_manager.create_over_enrollment_alerts
     course_alert_manager.create_untrained_students_alerts
@@ -32,6 +34,11 @@ class CourseAlertManager
 
   def create_no_students_alerts
     NoStudentsAlertManager.new(@courses_to_check).create_alerts
+  end
+
+  def create_no_ta_support_alerts
+    tagged_courses_to_check = Tag.courses_tagged_with('ta_support').current_and_future
+    NoTaSupportAlertManager.new(tagged_courses_to_check).create_alerts
   end
 
   def create_first_student_alerts

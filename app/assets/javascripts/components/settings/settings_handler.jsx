@@ -13,6 +13,7 @@ import UpdateSalesforceCredentials from './views/update_salesforce_credentials';
 import CourseCreationSettings from './course_creation_settings';
 import DefaultCampaignSetting from './default_campaign_setting';
 import UpdateImpactStats from './views/update_impact_stats';
+import SiteNoticeSetting from './site_notice_setting';
 
 export const SettingsHandler = createReactClass({
   propTypes: {
@@ -61,6 +62,8 @@ export const SettingsHandler = createReactClass({
     return (
       <div id="settings" className="mt4 container">
         <Notifications />
+        <SiteNoticeSetting />
+        <br />
         <h1 className="mx2">Users</h1>
         <hr />
         <h2 className="mx2">Admin Users</h2>

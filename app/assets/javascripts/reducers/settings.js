@@ -2,7 +2,8 @@ import {
   SET_ADMIN_USERS, SET_SPECIAL_USERS,
   SUBMITTING_NEW_ADMIN, REVOKING_ADMIN,
   SUBMITTING_NEW_SPECIAL_USER, REVOKING_SPECIAL_USER,
-  SET_COURSE_CREATION_SETTINGS, SET_DEFAULT_CAMPAIGN
+  SET_COURSE_CREATION_SETTINGS, SET_DEFAULT_CAMPAIGN,
+  SET_SITE_NOTICE
 } from '../constants/settings';
 
 const initialState = {
@@ -18,6 +19,10 @@ const initialState = {
   revokingSpecialUser: {
     status: false,
     username: null,
+  },
+  siteNotice: {
+    status: false,
+    message: null,
   }
 };
 
@@ -39,6 +44,8 @@ const settings = (state = initialState, action) => {
       return Object.assign({}, state, { submittingNewSpecialUser: action.data.submitting });
     case REVOKING_SPECIAL_USER:
       return Object.assign({}, state, { revokingSpecialUser: action.data.revoking });
+    case SET_SITE_NOTICE:
+      return Object.assign({}, state, { siteNotice: action.data.site_notice });
     default:
       return state;
   }
