@@ -6,38 +6,45 @@ on: ['push', 'pull_request', 'workflow_dispatch']
 jobs:
   build:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest 
+    runs-on: ubuntu-latest
 
     steps:
       # checks-out your repository under $GITHUB_WORKSPACE , so that workflow can access it.
       - name: checkout
         uses: actions/checkout@v2
-      
+
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+              backend:
+                  - '!(app/assets|app/views|public|training_content)/**'
+
       - name: install Pandoc
         uses: r-lib/actions/setup-pandoc@v2
         with:
           pandoc-version: '2.9.2.1'
-      
+
       - name: setup Redis
         uses: supercharge/redis-github-action@1.4.0
-      
+
       # Setting up MariaDB based upon 'config/database.example.yml'
       - name: setup MariaDB server
-        uses: getong/mariadb-action@v1.1  
+        uses: getong/mariadb-action@v1.1
         with:
-          host port: 3306 
-          mariadb version: '10.5' 
-          mysql database: 'dashboard_testing' 
+          host port: 3306
+          mariadb version: '10.5'
+          mysql database: 'dashboard_testing'
           mysql user: 'wiki'
           mysql password: 'wikiedu'
-          
-      # Starting ruby 
+
+      # Starting ruby
       - name: setup Ruby
-        uses: ruby/setup-ruby@v1    
+        uses: ruby/setup-ruby@v1
         with:
            ruby-version: 3.1.2
            bundler-cache: true
-     
+
       - name: setup Node
         uses: actions/setup-node@v3
         with:
@@ -53,26 +60,27 @@ jobs:
             cp config/application.example.yml config/application.yml
             cp config/database.example.yml config/database.yml
             bin/rails db:migrate RAILS_ENV=test
-        
+
       - name: Cache Webpack cache
         id: cache-webpack
         uses: actions/cache@v3
         with:
           path: node_modules/.cache/
           key: ${{ runner.os }}-webpack
-          
+
       #Testing the pushed code onwards
-      
-      - name: JavaScript test suite 
+
+      - name: JavaScript test suite
         run: |
             yarn install --immutable
             yarn coverage
-            yarn run test 
-      
+            yarn run test
+
       - name: JavaScript linting
         run: yarn lint-non-build
 
       - name: Ruby rspec test suite
+        if: ${{ steps.filter.outputs.backend == 'true' }}
         uses: paambaati/codeclimate-action@v3.0.0
         env:
           COVERAGE: true
@@ -81,6 +89,7 @@ jobs:
           coverageCommand: bundle exec rspec spec/ --color --profile --format documentation
           coverageLocations: |
             ${{github.workspace}}/public/js_coverage/lcov.info:lcov
-            
+
       - name: Ruby linting
+        if: ${{ steps.filter.outputs.backend == 'true' }}
         run: bundle exec rubocop
