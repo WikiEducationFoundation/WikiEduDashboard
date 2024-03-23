@@ -1,0 +1,6 @@
+backend:
+      - '!app/assets/**'
+      - '!app/views/**'
+      - '!public/**'
+      - '!training_content/**'
+      - '!.github/**'

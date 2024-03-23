@@ -16,9 +16,9 @@ jobs:
       - uses: dorny/paths-filter@v3
         id: filter
         with:
-          filters: |
-              backend:
-                  - '!(app/assets|app/views|public|training_content)/**'
+          base: ${{ github.ref }}
+          filters: .github/file-filters.yml
+          predicate-quantifier: 'every'
 
       - name: install Pandoc
         uses: r-lib/actions/setup-pandoc@v2
