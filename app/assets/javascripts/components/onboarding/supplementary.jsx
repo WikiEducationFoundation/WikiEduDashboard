@@ -137,8 +137,7 @@ export const OnboardingSupplementary = (props) => {
         </form>
       </div>
     );
-  }
-});
+  };
 
 OnboardingSupplementary.propTypes = {
   returnToParam: PropTypes.string,
