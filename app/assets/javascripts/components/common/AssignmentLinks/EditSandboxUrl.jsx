@@ -12,7 +12,7 @@ constructor(props) {
   this.handleNewUrlChange = this.handleNewUrlChange.bind(this);
   this.submit = this.submit.bind(this);
   this.state = {
-    newUrl: '',
+    newUrl: props.assignment.sandbox_url,
   };
 }
 
@@ -35,7 +35,7 @@ toggle(e) {
   e.preventDefault();
   this.props.open();
   this.setState({
-    newUrl: ''
+    newUrl: this.props.assignment.sandbox_url
   });
 }
 
@@ -64,10 +64,11 @@ render() {
   );
   if (is_open) {
     return (
-      <div className="pop__container edit_sandBox" onClick={this.stop}>
+      <div className="pop__container" onClick={this.stop}>
         <Popover
           is_open={is_open}
           edit_row={editRow}
+          right={true}
         />
       </div>
     );

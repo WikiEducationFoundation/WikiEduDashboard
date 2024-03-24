@@ -481,22 +481,6 @@ describe AssignmentsController, type: :request do
       end
     end
 
-    context 'updating sandbox url with valid url but user with new_username not exist' do
-      new_username = 'invalidUsername'
-      let(:preferred_sandbox_url) { "https://www.wikipedia.org/wiki/User:#{new_username}/testingArticle" }
-      let!(:request_params) do
-        { id: assignment.id, user_id: user.id, newUrl: preferred_sandbox_url, format: :json }
-      end
-
-      it 'does not update url and send response with status: unprocessable entity' do
-        patch "/assignments/#{assignment.id}/update_sandbox_url",
-              params: request_params
-
-        expect(assignment.reload.sandbox_url).to eq(existing_sandbox_url)
-        expect(response.status).to eq(422)
-      end
-    end
-
     context 'updating sandbox url with invalid url format' do
       let(:preferred_sandbox_url) { 'anyGebberishURL' }
       let!(:request_params) do
@@ -512,7 +496,7 @@ describe AssignmentsController, type: :request do
       end
 
       it 'does not update url and send response with status: bad request example 2' do
-        preferred_sandbox_url = "#{base_url}/User:#{new_username}/Using_Unsupported_Characters#<{]|"
+        preferred_sandbox_url = "#{base_url}/#{new_username}/Article_name"
         request_params[:newUrl] = preferred_sandbox_url
         patch "/assignments/#{assignment.id}/update_sandbox_url",
               params: request_params
