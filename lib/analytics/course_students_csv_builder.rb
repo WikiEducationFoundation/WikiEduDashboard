@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/course_training_progress_manager"
 require 'csv'
 
 class CourseStudentsCsvBuilder
@@ -7,6 +8,8 @@ class CourseStudentsCsvBuilder
     @course = course
     @created_articles = Hash.new(0)
     @edited_articles = Hash.new(0)
+    @training_data = Hash.new(0)
+    @training_progress_manager ||= CourseTrainingProgressManager.new(course)
   end
 
   def generate_csv
@@ -14,6 +17,7 @@ class CourseStudentsCsvBuilder
                                     .pluck(:article_id, :user_id).to_h
     populate_created_articles
     populate_edited_articles
+    populate_training_data
     csv_data = [CSV_HEADERS]
     courses_users.each do |courses_user|
       csv_data << row(courses_user)
@@ -22,6 +26,15 @@ class CourseStudentsCsvBuilder
   end
 
   private
+
+  def populate_training_data
+    courses_users.each do |courses_user|
+      @training_data[courses_user.user_id] =
+        @training_progress_manager.course_training_progress(courses_user.user)
+      @training_data[courses_user.user_id][:modules] =
+        @training_progress_manager.completed_training_modules_names(courses_user.user).join(', ')
+    end
+  end
 
   def populate_created_articles
     # A user has created an article during the course if
@@ -62,6 +75,9 @@ class CourseStudentsCsvBuilder
     registered_during_project
     total_articles_created
     total_articles_edited
+    completed_training_modules_count
+    assigned_training_modules_count
+    completed_training_modules
   ].freeze
   # rubocop:disable Metrics/AbcSize
   def row(courses_user)
@@ -77,6 +93,9 @@ class CourseStudentsCsvBuilder
     row << newbie?(courses_user.user)
     row << @created_articles[courses_user.user_id]
     row << @edited_articles[courses_user.user_id]
+    row << @training_data[courses_user.user_id][:completed_count]
+    row << @training_data[courses_user.user_id][:assigned_count]
+    row << @training_data[courses_user.user_id][:modules]
   end
   # rubocop:enable Metrics/AbcSize
 
