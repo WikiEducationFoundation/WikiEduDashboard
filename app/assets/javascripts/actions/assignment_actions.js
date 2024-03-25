@@ -64,11 +64,31 @@ const claimAssignmentPromise = (assignment) => {
   .then(res => res.json());
 };
 
+const unclaimAssignmentPromise = (assignment) => {
+  return request(`/assignments/${assignment.id}/unclaim`, {
+    method: 'PUT',
+    body: JSON.stringify(assignment)
+  })
+  .then(res => res.json());
+};
+
 export const claimAssignment = (assignment, successNotification) => (dispatch) => {
   return claimAssignmentPromise(assignment)
     .then((resp) => {
       if (resp.assignment) {
         if (successNotification) { dispatch(addNotification(successNotification)); }
+        dispatch({ type: types.UPDATE_ASSIGNMENT, data: resp });
+      } else {
+        dispatch({ type: types.API_FAIL, data: resp });
+      }
+    })
+    .catch(response => dispatch({ type: types.API_FAIL, data: response }));
+};
+
+export const unclaimAssignment = assignment => (dispatch) => {
+  return unclaimAssignmentPromise(assignment)
+    .then((resp) => {
+      if (resp.assignment) {
         dispatch({ type: types.UPDATE_ASSIGNMENT, data: resp });
       } else {
         dispatch({ type: types.API_FAIL, data: resp });
