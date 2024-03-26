@@ -15,6 +15,7 @@ import DefaultCampaignSetting from './default_campaign_setting';
 import UpdateImpactStats from './views/update_impact_stats';
 import AddFeaturedCampaign from './views/add_featured_campaign';
 import FeaturedCampaignsList from './featured_campaigns_list';
+import SiteNoticeSetting from './site_notice_setting';
 
 export const SettingsHandler = createReactClass({
   propTypes: {
@@ -69,9 +70,11 @@ export const SettingsHandler = createReactClass({
     return (
       <div id="settings" className="mt4 container">
         <Notifications />
+        <SiteNoticeSetting />
+        <br />
         <h1 className="mx2">{I18n.t('settings.categories.users')}</h1>
         <hr />
-        <h2 className="mx2">{I18n.t('settings.categories.admin_users')}</h2>
+        <h2 className="mx2">{I18n.t('settings.categories.admin_users')}</h2>        
         <AddAdminButton />
         <AdminUserList adminUsers={this.props.adminUsers} />
         <h2 className="mx2">{I18n.t('settings.categories.special_users')}</h2>

@@ -5,6 +5,7 @@ import {
   SUBMITTING_NEW_ADMIN, REVOKING_ADMIN, SET_COURSE_CREATION_SETTINGS,
   SET_DEFAULT_CAMPAIGN, SET_FEATURED_CAMPAIGNS, REMOVE_FEATURED_CAMPAIGN,
   ADD_FEATURED_CAMPAIGN
+  SET_DEFAULT_CAMPAIGN, SET_SITE_NOTICE
 } from '../constants/settings.js';
 import { API_FAIL } from '../constants/api';
 import { ADD_NOTIFICATION } from '../constants/notifications';
@@ -495,6 +496,23 @@ const removeFeaturedCampaignPromise = async (campaign_slug) => {
   return response.json();
 };
 
+const updateSiteNoticePromise = async (siteNotice) => {
+  const body = {
+    site_notice: siteNotice,
+  };
+  const response = await request('/settings/update_site_notice', {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
+  }
+  return response.json();
+};
+
 export const removeFeaturedCampaign = campaign_slug => (dispatch) => {
   return removeFeaturedCampaignPromise(campaign_slug)
       .then(data => dispatch({ type: REMOVE_FEATURED_CAMPAIGN, data }))
@@ -514,8 +532,46 @@ const addFeaturedCampaignPromise = async (campaign_slug) => {
   return response.json();
 };
 
+export const updateSiteNotice = siteNotice => (dispatch) => {
+  return updateSiteNoticePromise(siteNotice)
+  .then((data) => {
+          dispatch({
+            type: ADD_NOTIFICATION,
+            notification: { ...data, type: 'success', closable: true }
+          });
+          dispatch(getSiteNotice());
+  })
+  .catch(data => dispatch({ type: API_FAIL, data }));
+};
+
+const getSiteNoticePromise = async () => {
+  const response = await request('/settings/fetch_site_notice', {
+    method: 'GET'
+  });
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
+  }
+  return response.json();
+};
+
 export const addFeaturedCampaign = campaign_slug => (dispatch) => {
     return addFeaturedCampaignPromise(campaign_slug)
       .then(data => dispatch({ type: ADD_FEATURED_CAMPAIGN, data }))
       .catch(data => dispatch({ type: API_FAIL, data }));
+};
+
+export const getSiteNotice = () => (dispatch) => {
+  return getSiteNoticePromise()
+  .then((resp) => {
+    if (Object.keys(resp.site_notice).length !== 0) {
+      dispatch({
+        type: SET_SITE_NOTICE,
+        data: resp,
+      });
+    }
+  })
+  .catch(data => dispatch({ type: API_FAIL, data }));
 };

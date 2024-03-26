@@ -44,6 +44,10 @@ Rails.application.routes.draw do
 
   post '/settings/update_impact_stats' => 'settings#update_impact_stats'
 
+  get '/settings/fetch_site_notice' => 'settings#fetch_site_notice'
+  post '/settings/update_site_notice' => 'settings#update_site_notice'
+  
+
   # Griddler allows us to receive incoming emails. By default,
   # the path for incoming emails is /email_processor
   mount_griddler
@@ -74,6 +78,7 @@ Rails.application.routes.draw do
     patch '/status' => 'assignments#update_status'
     resources :assignment_suggestions
   end
+  patch '/assignments/:id/update_sandbox_url' => 'assignments#update_sandbox_url'
   put '/assignments/:assignment_id/claim' => 'assignments#claim'
   post '/assignments/assign_reviewers_randomly' => 'assignments#assign_reviewers_randomly'
 

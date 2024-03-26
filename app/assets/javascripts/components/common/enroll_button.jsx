@@ -13,6 +13,7 @@ import { getFiltered } from '~/app/assets/javascripts/utils/model_utils';
 import { addUser, removeUser } from '~/app/assets/javascripts/actions/user_actions';
 import useExpandablePopover from '../../hooks/useExpandablePopover';
 import { useParams } from 'react-router-dom';
+import { INSTRUCTOR_ROLE, STUDENT_ROLE } from '../../constants/user_roles';
 
 const EnrollButton = ({ users, role, course, current_user, allowed, inline }) => {
   const usernameRef = useRef(null);
@@ -101,11 +102,12 @@ const EnrollButton = ({ users, role, course, current_user, allowed, inline }) =>
   };
 
   // Disable the button for courses controlled by Wikimedia Event Center
-  if (course.flags.event_sync) { return null; }
+  // except for the Facilitator role
+  if (course.flags.event_sync && role !== INSTRUCTOR_ROLE) { return null; }
 
   const usersList = users.map((user) => {
     let removeButton;
-    if (role !== 1 || users.length >= 2 || current_user.admin) {
+    if (role !== INSTRUCTOR_ROLE || users.length >= 2 || current_user.admin) {
       removeButton = (
         <button className="button border plus" aria-label="Remove user" onClick={() => unenroll(user.id)}>-</button>
       );
@@ -122,7 +124,7 @@ const EnrollButton = ({ users, role, course, current_user, allowed, inline }) =>
 
   const editRows = [];
 
-  if (role === 0) {
+  if (role === STUDENT_ROLE) {
     let massEnrollmentLink;
     let requestedAccountsLink;
     if (!Features.wikiEd) {
@@ -150,11 +152,11 @@ const EnrollButton = ({ users, role, course, current_user, allowed, inline }) =>
   // This row allows permitted users to add usrs to the course by username
   // @role controls its presence in the Enrollment popup on /students
   // @allowed controls its presence in Edit Details mode on Overview
-  if (role === 0 || allowed) {
+  if (role === STUDENT_ROLE || allowed) {
     // Instructor-specific extra fields
     let realNameInput;
     let roleDescriptionInput;
-    if (role === 1) {
+    if (role === INSTRUCTOR_ROLE) {
       realNameInput = <input type="text" ref={realNameRef} placeholder={I18n.t('users.name')} />;
       roleDescriptionInput = <input type="text" ref={roleDescriptionRef} placeholder={I18n.t('users.role.description')} />;
     }
