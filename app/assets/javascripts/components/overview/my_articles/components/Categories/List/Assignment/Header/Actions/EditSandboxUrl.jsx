@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Popover from '../../common/popover';
-import EditSandboxUrlInput from '../../assignments/edit_sandbox_url_input';
-import PopoverExpandable from '../../high_order/popover_expandable';
-import { updateSandboxUrl } from '../../../actions/assignment_actions';
+import Popover from '../../../../../../../../common/popover';
+import EditSandboxUrlInput from '../../../../../../../../assignments/edit_sandbox_url_input';
+import PopoverExpandable from '../../../../../../../../high_order/popover_expandable';
+import { updateSandboxUrl } from '../../../../../../../../../actions/assignment_actions';
 
 export class EditSandboxUrl extends React.Component {
 constructor(props) {
@@ -68,17 +68,14 @@ render() {
         <Popover
           is_open={is_open}
           edit_row={editRow}
-          right={true}
         />
       </div>
     );
   }
     return (
-      <>
-        <a href="" target="_blank" onClick={this.toggle} className="change-sandbox-url">
-          ({I18n.t('assignments.change_sandbox_url')})
-        </a>
-      </>
+      <button onClick={this.toggle} className="button dark small">
+        {I18n.t('assignments.change_sandbox_url')}
+      </button>
     );
   }
 }

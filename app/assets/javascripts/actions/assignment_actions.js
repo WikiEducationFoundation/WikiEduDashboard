@@ -4,6 +4,7 @@ import logErrorMessage from '../utils/log_error_message';
 import request from '../utils/request';
 import { addNotification } from './notification_actions.js';
 import { DONE_REFRESHING_DATA } from '../constants';
+import { ADD_NOTIFICATION } from '../constants/notifications.js';
 
 
 
@@ -125,6 +126,10 @@ export const updateSandboxUrl = (assignment, newUrl) => (dispatch) => {
     updateSandboxUrlPromise(assignment, newUrl)
       .then((resp) => {
         if (resp.assignment) {
+          dispatch({
+            type: ADD_NOTIFICATION,
+            notification: { message: 'Sandbox url updated successfully.', type: 'success', closable: true }
+          });
           dispatch({
             type: types.UPDATE_ASSIGNMENT,
             data: resp
