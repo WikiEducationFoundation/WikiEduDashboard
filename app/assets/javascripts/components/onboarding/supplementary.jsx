@@ -5,12 +5,6 @@ import { connect } from 'react-redux';
 import OnboardAPI from '../../utils/onboarding_utils.js';
 import { addNotification } from '../../actions/notification_actions.js';
 
-const NoLabelStyle = {
-  display: 'inline',
-  fontWeight: 'normal',
-  color: '#6a6a6a'
-};
-
 export const OnboardingSupplementary = (props) => {
   const formRef = useRef(null);
   const navigate = useNavigate();
@@ -86,28 +80,28 @@ export const OnboardingSupplementary = (props) => {
             <label htmlFor="heardFrom">{I18n.t('onboarding.supplementary.where_did_you_hear')}</label>
 
             <input type="radio" name="heardFrom" id="colleague" value="colleague" onChange={_handleFieldChange} />
-            <label style={NoLabelStyle} htmlFor="colleague">A colleague referred me</label><br/>
+            <label className="no-label" htmlFor="colleague">A colleague referred me</label><br/>
 
             <input type="radio" name="heardFrom" id="association" value="association" onChange={_handleFieldChange} />
-            <label style={NoLabelStyle} htmlFor="association">Academic association</label><br/>
+            <label className="no-label" htmlFor="association">Academic association</label><br/>
 
             <input type="radio" name="heardFrom" id="conference" value="conference" onChange={_handleFieldChange} />
-            <label style={NoLabelStyle} htmlFor="conference">Conference</label><br/>
+            <label className="no-label" htmlFor="conference">Conference</label><br/>
 
             <input type="radio" name="heardFrom" id="workshop" value="workshop" onChange={_handleFieldChange} />
-            <label style={NoLabelStyle} htmlFor="workshop">University workshop</label><br/>
+            <label className="no-label" htmlFor="workshop">University workshop</label><br/>
 
             <input type="radio" name="heardFrom" id="web" value="web" onChange={_handleFieldChange} />
-            <label style={NoLabelStyle} htmlFor="web">Web Search</label><br/>
+            <label className="no-label" htmlFor="web">Web Search</label><br/>
 
             <input type="radio" name="heardFrom" id="twitter" value="twitter" onChange={_handleFieldChange} />
-            <label style={NoLabelStyle} htmlFor="twitter">Twitter</label><br/>
+            <label className="no-label" htmlFor="twitter">Twitter</label><br/>
 
             <input type="radio" name="heardFrom" id="facebook" value="facebook" onChange={_handleFieldChange} />
-            <label style={NoLabelStyle} htmlFor="facebook">Facebook</label><br/>
+            <label className="no-label" htmlFor="facebook">Facebook</label><br/>
 
             <input type="radio" name="heardFrom" id="heardFrom-other" value="other" onChange={_handleFieldChange} />
-            <label style={NoLabelStyle} htmlFor="heardFrom-other">Other</label><br/>
+            <label className="no-label" htmlFor="heardFrom-other">Other</label><br/>
 
 
             {
@@ -117,16 +111,16 @@ export const OnboardingSupplementary = (props) => {
             <br /><br />
             <label>{I18n.t('onboarding.supplementary.why_are_you_here')}</label>
             <input type="radio" name="whyHere" id="teachThisTerm" value="teach this term" onChange={_handleFieldChange} />
-            <label style={NoLabelStyle} htmlFor="teachThisTerm">I want to teach with Wikipedia <strong>this term</strong></label><br />
+            <label className="no-label" htmlFor="teachThisTerm">I want to teach with Wikipedia <strong>this term</strong></label><br />
 
             <input type="radio" name="whyHere" id="teachNextTerm" value="teach next term" onChange={_handleFieldChange} />
-            <label style={NoLabelStyle} htmlFor="teachNextTerm">I want to teach with Wikipedia <strong>next term</strong></label><br />
+            <label className="no-label" htmlFor="teachNextTerm">I want to teach with Wikipedia <strong>next term</strong></label><br />
 
             <input type="radio" name="whyHere" id="learnAboutTeaching" value="learn about teaching" onChange={_handleFieldChange} />
-            <label style={NoLabelStyle} htmlFor="learnAboutTeaching">I want to learn more about teaching with Wikipedia</label><br />
+            <label className="no-label" htmlFor="learnAboutTeaching">I want to learn more about teaching with Wikipedia</label><br />
 
             <input type="radio" name="whyHere" id="whyHere-other" value="other" onChange={_handleFieldChange} />
-            <label style={NoLabelStyle} htmlFor="whyHere-other">Other:</label><br />
+            <label className="no-label" htmlFor="whyHere-other">Other:</label><br />
 
             <textarea className="form-control" type="text" name="otherReason" defaultValue={state.otherReason} onChange={_handleFieldChange} />
           </div>
