@@ -3,7 +3,7 @@ const logErrorMessage = (obj, prefix) => {
   // requests resolved.
   if (obj.readyState === 0) { return; }
   let message = prefix || 'Error: ';
-  message += (obj.responseJSON && obj.responseJSON.message) || obj.statusText;
+  message += (obj.responseJSON && obj.responseJSON.message) || obj.statusText || obj.message;
   return console.log(message); // eslint-disable-line no-console
 };
 

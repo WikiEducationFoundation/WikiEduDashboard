@@ -435,4 +435,75 @@ describe AssignmentsController, type: :request do
       end
     end
   end
+
+  describe 'PATCH #update_sanbox_url' do
+    let!(:assignment) { create(:assignment, course:, user_id: user.id, role: 0) }
+    let!(:base_url) { "https://#{assignment.wiki.language}.#{assignment.wiki.project}.org/wiki" }
+    let(:test_user) { create(:user, username: 'testUser') }
+    let(:existing_sandbox_url) { assignment.sandbox_url }
+    let(:new_username) { test_user.username }
+
+    context 'updating sandbox url with valid urls' do
+      let(:preferred_sandbox_url) { "#{base_url}/User:#{new_username}/testingArticle" }
+      let!(:request_params) do
+        { id: assignment.id, user_id: user.id, newUrl: preferred_sandbox_url, format: :json }
+      end
+
+      it 'update sandbox url successfully with example 1' do
+        patch "/assignments/#{assignment.id}/update_sandbox_url",
+              params: request_params
+
+        expect(assignment.reload.sandbox_url).to eq(preferred_sandbox_url)
+      end
+
+      it 'update sandbox url successfully with example 2' do
+        preferred_sandbox_url = "#{base_url}/User:#{new_username}/Any_Article!@$%^&*()_+\`~"
+        request_params[:newUrl] = preferred_sandbox_url
+        patch "/assignments/#{assignment.id}/update_sandbox_url",
+              params: request_params
+
+        expect(assignment.reload.sandbox_url).to eq(preferred_sandbox_url)
+      end
+    end
+
+    context 'updating sandbox url with valid format but belongs to different wiki' do
+      let(:preferred_sandbox_url) { "https://www.wikipedia.org/wiki/User:#{new_username}/testingArticle" }
+      let!(:request_params) do
+        { id: assignment.id, user_id: user.id, newUrl: preferred_sandbox_url, format: :json }
+      end
+
+      it 'does not update url and send response with status: unprocessable entity' do
+        patch "/assignments/#{assignment.id}/update_sandbox_url",
+              params: request_params
+
+        expect(assignment.reload.sandbox_url).to eq(existing_sandbox_url)
+        expect(response.status).to eq(422)
+      end
+    end
+
+    context 'updating sandbox url with invalid url format' do
+      let(:preferred_sandbox_url) { 'anyGebberishURL' }
+      let!(:request_params) do
+        { id: assignment.id, user_id: user.id, newUrl: preferred_sandbox_url, format: :json }
+      end
+
+      it 'does not update url and send response with status: bad request example 1' do
+        patch "/assignments/#{assignment.id}/update_sandbox_url",
+              params: request_params
+
+        expect(assignment.reload.sandbox_url).to eq(existing_sandbox_url)
+        expect(response.status).to eq(400)
+      end
+
+      it 'does not update url and send response with status: bad request example 2' do
+        preferred_sandbox_url = "#{base_url}/#{new_username}/Article_name"
+        request_params[:newUrl] = preferred_sandbox_url
+        patch "/assignments/#{assignment.id}/update_sandbox_url",
+              params: request_params
+
+        expect(assignment.reload.sandbox_url).to eq(existing_sandbox_url)
+        expect(response.status).to eq(400)
+      end
+    end
+  end
 end

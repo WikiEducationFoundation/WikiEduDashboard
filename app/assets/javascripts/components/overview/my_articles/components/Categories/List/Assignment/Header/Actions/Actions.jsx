@@ -10,6 +10,7 @@ import MainspaceChecklist from '~/app/assets/javascripts/components/common/mains
 import FinalArticleChecklist from '~/app/assets/javascripts/components/common/final_article_checklist.jsx';
 import PeerReviewChecklist from '~/app/assets/javascripts/components/common/peer_review_checklist.jsx';
 import Feedback from '~/app/assets/javascripts/components/common/feedback.jsx';
+import EditSandboxUrl from './EditSandboxUrl';
 
 export const Actions = ({
   article, assignment, courseSlug, current_user, isComplete, username,
@@ -56,6 +57,7 @@ export const Actions = ({
 
   return (
     <section className="actions">
+      <EditSandboxUrl user={current_user} assignment={assignment} />
       {actions}
       <RemoveButton key="remove-button" assignment={assignment} unassign={unassign} />
     </section>

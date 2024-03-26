@@ -4,6 +4,7 @@ import logErrorMessage from '../utils/log_error_message';
 import request from '../utils/request';
 import { addNotification } from './notification_actions.js';
 import { DONE_REFRESHING_DATA } from '../constants';
+import { ADD_NOTIFICATION } from '../constants/notifications.js';
 
 
 
@@ -96,4 +97,49 @@ export const updateAssignmentStatus = (assignment, status) => () => {
       logErrorMessage(error);
       return error;
     });
+};
+
+const updateSandboxUrlPromise = (assignment, newUrl) => {
+  const body = {
+    id: assignment.id,
+    user_id: assignment.user_id,
+    newUrl: newUrl
+  };
+  return request(`/assignments/${assignment.id}/update_sandbox_url`, {
+    body: JSON.stringify(body),
+    method: 'PATCH'
+  }).then((res) => {
+    if (res.ok && res.status === 200) {
+      return res.json();
+    }
+    return res.json().then((errorData) => {
+      throw errorData;
+    });
+  }).catch((error) => {
+    logErrorMessage(error);
+    return error;
+  });
+};
+
+export const updateSandboxUrl = (assignment, newUrl) => (dispatch) => {
+  return (
+    updateSandboxUrlPromise(assignment, newUrl)
+      .then((resp) => {
+        if (resp.assignment) {
+          dispatch({
+            type: ADD_NOTIFICATION,
+            notification: { message: 'Sandbox url updated successfully.', type: 'success', closable: true }
+          });
+          dispatch({
+            type: types.UPDATE_ASSIGNMENT,
+            data: resp
+          });
+        } else {
+          dispatch({ type: types.API_FAIL, data: resp });
+        }
+      })
+      .catch((error) => {
+        dispatch({ type: types.API_FAIL, data: error });
+    })
+  );
 };

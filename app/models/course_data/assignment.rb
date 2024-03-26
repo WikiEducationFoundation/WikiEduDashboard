@@ -105,6 +105,12 @@ class Assignment < ApplicationRecord
     "#{sandbox_pagename}/#{user.username}_Peer_Review"
   end
 
+  def update_sandbox_url(new_url)
+    return unless new_url
+    return unless user
+    update(sandbox_url: new_url)
+  end
+
   private
 
   def assignment_pipeline
