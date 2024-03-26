@@ -6,19 +6,19 @@ class InstructorNotificationMailer < ApplicationMailer
     email(alert).deliver_now
   end
 
+  def bcc
+    @bcc_to_salesforce ? ENV['SALESFORCE_BCC_EMAIL'] : nil
+  end
+
   def email(alert)
     @alert = alert
     set_email_parameters
     params = { to: @instructors.pluck(:email),
                subject: @alert.subject }
     params[:reply_to] = @alert.sender_email unless @alert.sender_email.nil?
-    unless @alert.sender_email.nil?
-      params[:bcc] = @alert.sender_email # sender_email gives user email of the sender
-    end
+    params[:bcc] = bcc if @bcc_to_salesforce
     mail(params)
   end
-
-  private
 
   def set_email_parameters
     @course = @alert.course
@@ -26,5 +26,6 @@ class InstructorNotificationMailer < ApplicationMailer
     @instructors = @course.instructors
     @course_link = "https://#{ENV['dashboard_url']}/courses/#{@course.slug}"
     @message = @alert.message
+    @bcc_to_salesforce = bcc_to_salesforce
   end
 end
