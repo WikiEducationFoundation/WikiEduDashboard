@@ -74,7 +74,7 @@ export const SettingsHandler = createReactClass({
         <br />
         <h1 className="mx2">{I18n.t('settings.categories.users')}</h1>
         <hr />
-        <h2 className="mx2">{I18n.t('settings.categories.admin_users')}</h2>        
+        <h2 className="mx2">{I18n.t('settings.categories.admin_users')}</h2>
         <AddAdminButton />
         <AdminUserList adminUsers={this.props.adminUsers} />
         <h2 className="mx2">{I18n.t('settings.categories.special_users')}</h2>
