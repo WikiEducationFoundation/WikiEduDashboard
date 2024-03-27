@@ -1241,6 +1241,7 @@ en:
         demote_success: "%{username} changed to instructor."
         no_super_admin: "Can't revoke admin status from a super admin"
     featured_campaigns:
+      campaign_not_found: "Campaign with slug '%{campaign_slug}' not found"
       update_featured_campaigns_button: Update Featured Campaigns
       add_button: Add Campaign
       remove_button: Remove Campaign

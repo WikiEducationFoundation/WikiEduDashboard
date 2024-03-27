@@ -110,6 +110,11 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
   def add_featured_campaign
     campaign_slug = params[:featured_campaign_slug]
     campaign = Campaign.find_by(slug: campaign_slug)
+    if campaign.nil?
+      message = I18n.t('settings.featured_campaigns.campaign_not_found', campaign_slug: campaign_slug)
+      render json: { message: }, status: :not_found
+      return
+    end
     setting = Setting.find_or_create_by(key: 'featured_campaigns')
     setting.value['campaign_slugs'] ||= []
     # Add the new campaign_slug to the array if it's not already present
