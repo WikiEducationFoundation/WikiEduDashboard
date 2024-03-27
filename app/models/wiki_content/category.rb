@@ -38,17 +38,19 @@ class Category < ApplicationRecord
     less_than_or_equal_to: 3
   }
 
-  def self.refresh_categories_for(course)
+  def self.refresh_categories_for(course, update_service: nil)
     # Updating categories only if they were last updated since
     # more than a day, or those which are newly created
     course.categories
           .where('categories.updated_at < ? OR categories.created_at = categories.updated_at',
                  1.day.ago)
-          .find_each(&:refresh_titles)
+          .find_each do |category|
+            category.refresh_titles(update_service:)
+          end
   end
 
-  def refresh_titles
-    self.article_titles = title_list_from_wiki.map do |title|
+  def refresh_titles(update_service: nil)
+    self.article_titles = title_list_from_wiki(update_service:).map do |title|
       sanitize_4_byte_string ArticleUtils.format_article_title(title)
     end
     save
@@ -69,16 +71,17 @@ class Category < ApplicationRecord
 
   private
 
-  def title_list_from_wiki
+  def title_list_from_wiki(update_service: nil)
     case source
     when 'category'
-      CategoryImporter.new(wiki).mainspace_page_titles_for_category(name_with_prefix, depth)
+      CategoryImporter.new(wiki, update_service:)
+                      .mainspace_page_titles_for_category(name_with_prefix, depth)
     when 'psid'
-      PetScanApi.new.page_titles_for_psid(name)
+      PetScanApi.new.page_titles_for_psid(name, update_service:)
     when 'pileid'
-      PagePileApi.new(self).page_titles_for_pileid
+      PagePileApi.new(self).page_titles_for_pileid(update_service:)
     when 'template'
-      TransclusionImporter.new(self).transcluded_titles
+      TransclusionImporter.new(self, update_service:).transcluded_titles
     end
   end
 end

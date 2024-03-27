@@ -1,17 +1,25 @@
 # frozen_string_literal: true
+
+require_dependency "#{Rails.root}/lib/errors/api_error_handling"
+
 class PetScanApi
-  def get_data(psid)
+  include ApiErrorHandling
+
+  def get_data(psid, update_service: nil)
     response = petscan.get query_url(psid)
     title_data = Oj.load(response.body)
+    url = query_url(psid)
     title_data
   rescue StandardError => e
-    raise e unless typical_errors.include?(e.class)
+    log_error(e, update_service:,
+              sentry_extra: { psid:, api_url: url })
+    raise e unless TYPICAL_ERRORS.include?(e.class)
     return {}
   end
 
-  def page_titles_for_psid(psid)
+  def page_titles_for_psid(psid, update_service: nil)
     titles = []
-    titles_response = get_data(psid)
+    titles_response = get_data(psid, update_service:)
     return titles if titles_response.empty?
     # Using an invalid PSID, such as a non-integer or nonexistent ID,
     # returns something like {"error":"ParseIntError { kind: InvalidDigit }"}
@@ -39,7 +47,6 @@ class PetScanApi
     conn
   end
 
-  def typical_errors
-    [Errno::EHOSTUNREACH, Faraday::TimeoutError]
-  end
+  TYPICAL_ERRORS = [Faraday::TimeoutError,
+                    Errno::EHOSTUNREACH].freeze
 end

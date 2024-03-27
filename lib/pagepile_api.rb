@@ -1,13 +1,18 @@
 # frozen_string_literal: true
+
+require_dependency "#{Rails.root}/lib/errors/api_error_handling"
+
 class PagePileApi
+  include ApiErrorHandling
+
   def initialize(category)
     raise 'Wrong category type' unless category.source == 'pileid'
     @category = category
     @wiki = @category.wiki
   end
 
-  def page_titles_for_pileid
-    fetch_pile_data
+  def page_titles_for_pileid(update_service: nil)
+    fetch_pile_data(update_service:)
     return [] if @pile_data.empty?
 
     update_language_and_project
@@ -25,11 +30,13 @@ class PagePileApi
     @category.name
   end
 
-  def fetch_pile_data
+  def fetch_pile_data(update_service: nil)
     response = pagepile.get query_url
     @pile_data = Oj.load(response.body)
+    url = query_url
   rescue StandardError => e
-    Sentry.capture_exception e
+    log_error(e, update_service:,
+              sentry_extra: { api_url: url })
     @pile_data = {}
   end
 
@@ -52,4 +59,7 @@ class PagePileApi
     conn.headers['User-Agent'] = ENV['dashboard_url'] + ' ' + Rails.env
     conn
   end
+
+  TYPICAL_ERRORS = [Faraday::TimeoutError,
+                    Faraday::ConnectionFailed].freeze
 end
