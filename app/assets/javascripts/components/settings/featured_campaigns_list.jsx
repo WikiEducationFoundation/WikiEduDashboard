@@ -27,7 +27,7 @@ const FeaturedCampaignsList = ({ featuredCampaigns }) => {
         elements={elements}
         keys={keys}
         table_key="featured-campaigns-list"
-        none_message={'No Featured Campaigns Defined'}
+        none_message={I18n.t('settings.featured_campaigns.no_featured_campaigns')}
       />
     </div>
   );

@@ -1,4 +1,5 @@
 import { RECEIVE_COURSE_CAMPAIGNS, SORT_CAMPAIGNS_WITH_STATS, DELETE_CAMPAIGN, API_FAIL, RECEIVE_ALL_CAMPAIGNS, ADD_CAMPAIGN, RECEIVE_CAMPAIGNS_WITH_STATS } from '../constants';
+import filterFeaturedCampaigns from '../utils/filter_featured_campaigns';
 import logErrorMessage from '../utils/log_error_message';
 import request from '../utils/request';
 
@@ -127,14 +128,8 @@ const fetchCampaignStatisticsPromise = async (userOnly, newest) => {
     response.responseText = data;
     throw response;
   }
-
-  const responseData = await response.json();
-  let campaigns = responseData.campaigns;
-  const featured_campaigns_slugs = featured_campaigns.campaign_slugs;
-  if (featured_campaigns_slugs.length > 0) {
-    campaigns = campaigns.filter(campaign => featured_campaigns_slugs.includes(campaign.slug));
-  }
-
+  const response_json = await response.json();
+  const campaigns = filterFeaturedCampaigns(response_json, featured_campaigns);
   return { campaigns };
 };
 
