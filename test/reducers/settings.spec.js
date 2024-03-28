@@ -11,6 +11,7 @@ describe('Settings reducer', () => {
       fetchingUsers: false,
       submittingNewAdmin: false,
       submittingNewSpecialUser: false,
+      featuredCampaigns: [],
       revokingAdmin: {
         status: false,
         username: null,

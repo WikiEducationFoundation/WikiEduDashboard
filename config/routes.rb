@@ -38,6 +38,8 @@ Rails.application.routes.draw do
   post '/settings/update_course_creation' => 'settings#update_course_creation'
 
   get '/settings/default_campaign' => 'settings#default_campaign'
+  post '/settings/add_featured_campaign' => 'settings#add_featured_campaign'
+  post '/settings/remove_featured_campaign' => 'settings#remove_featured_campaign'
   post '/settings/update_default_campaign' => 'settings#update_default_campaign'
 
   post '/settings/update_impact_stats' => 'settings#update_impact_stats'
@@ -278,6 +280,7 @@ Rails.application.routes.draw do
   end
 
   get 'campaigns/statistics.json' => 'campaigns#statistics'
+  get 'campaigns/featured_campaigns' => 'campaigns#featured_campaigns'
   get 'campaigns/:slug.json',
       controller: :campaigns,
       action: :show
