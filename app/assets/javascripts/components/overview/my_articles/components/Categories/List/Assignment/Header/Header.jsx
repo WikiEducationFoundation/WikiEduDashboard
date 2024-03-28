@@ -55,6 +55,7 @@ export const Header = ({
       <Actions
         article={article}
         assignment={assignment}
+        course={course}
         courseSlug={course.slug}
         current_user={current_user}
         isEnglishWikipedia={isEnglishWikipedia({ assignment, course })}

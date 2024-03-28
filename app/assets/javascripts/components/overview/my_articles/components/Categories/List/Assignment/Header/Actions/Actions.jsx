@@ -14,7 +14,7 @@ import EditSandboxUrl from './EditSandboxUrl';
 
 export const Actions = ({
   article, assignment, courseSlug, current_user, isComplete, username,
-  isEnglishWikipedia, isClassroomProgram, unassign
+  isEnglishWikipedia, isClassroomProgram, unassign, course
 }) => {
   if (isComplete) {
     // If complete, only return the following
@@ -31,6 +31,10 @@ export const Actions = ({
   }
 
   const actions = [];
+
+  if (!course.no_sandboxes) {
+    actions.push(<EditSandboxUrl key="edit-sandbox-url-button" user={current_user} assignment={assignment} />);
+  }
 
   if (assignment.article_id) {
     actions.push(<PageViews key="pageviews-button" article={article} />);
@@ -57,7 +61,6 @@ export const Actions = ({
 
   return (
     <section className="actions">
-      <EditSandboxUrl user={current_user} assignment={assignment} />
       {actions}
       <RemoveButton key="remove-button" assignment={assignment} unassign={unassign} />
     </section>

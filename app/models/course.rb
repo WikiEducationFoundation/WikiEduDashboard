@@ -484,6 +484,10 @@ class Course < ApplicationRecord
     campaigns_courses.first&.created_at
   end
 
+  def no_sandboxes?
+    flags[:no_sandboxes].present?
+  end
+
   #################
   # Cache methods #
   #################
