@@ -305,15 +305,15 @@
   minimum: 1
   options:
     -
+      title: 0 (not recommended)
+      logic: 0_peer_reviewers
+    -
       title: 1
       logic: 1_peer_reviewers
+      selected: true # this is the default
     -
       title: 2
       logic: 2_peer_reviewers
-      selected: true # this is the default
-    -
-      title: 3
-      logic: 3_peer_reviewers
 
 -
   key: in_class_discussions
