@@ -189,16 +189,12 @@ class CampaignsController < ApplicationController
   end
 
   def featured_campaigns
-    setting = Setting.find_by(key: 'featured_campaigns')
-    # Return nil if setting doesn't exist or if campaign_slugs attribute is nil
-    return nil unless setting && setting.value['campaign_slugs']
-    campaign_slugs = setting.value['campaign_slugs']
-
+    setting = Setting.find_or_create_by(key: 'featured_campaigns')
+    campaign_slugs = setting.value['campaign_slugs'] ||= []
     if params[:only_slug]
       render json: { campaign_slugs: }
       return
     end
-
     featured_campaigns = Campaign.where(slug: campaign_slugs).pluck(:slug,
                                                                     :title).map do |slug, title|
       { slug:, title: }

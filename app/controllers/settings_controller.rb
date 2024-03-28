@@ -111,7 +111,8 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
     campaign_slug = params[:featured_campaign_slug]
     campaign = Campaign.find_by(slug: campaign_slug)
     if campaign.nil?
-      message = I18n.t('settings.featured_campaigns.campaign_not_found', campaign_slug: campaign_slug)
+      message = I18n.t('settings.featured_campaigns.campaign_not_found',
+                       campaign_slug:)
       render json: { message: }, status: :not_found
       return
     end
