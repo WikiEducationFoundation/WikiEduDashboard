@@ -85,7 +85,7 @@ const EditableRedux = (Component, Label) => {
     },
 
     render() {
-      return <Component {...this.props} {...this.state} disableSave={this.disableSave} controls={this.controls} />;
+      return <Component {...this.props} {...this.state} toggleEditable={this.toggleEditable} disableSave={this.disableSave} controls={this.controls} />;
     }
   });
   return connect(mapStateToProps, mapDispatchToProps)(editableComponent);

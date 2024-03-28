@@ -141,7 +141,7 @@ const Overview = createReactClass({
     const sidebar = course.id ? (
       <div className="sidebar">
         {
-          Features.wikiEd && current_user.isStaff && (
+          Features.wikiEd && current_user.admin && (
             <AdminQuickActions
               course={course}
               current_user={current_user}

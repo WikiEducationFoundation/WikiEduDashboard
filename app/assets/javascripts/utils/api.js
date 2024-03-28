@@ -257,7 +257,32 @@ const API = {
       });
   },
 
+  async fetchAllCourseNotes(courseId) {
+    try {
+      const response = await request(`/course_notes/${courseId}`);
+      const data = await response.json();
+      return data.courseNotes;
+    } catch (error) {
+      logErrorMessage('Error fetching course notes:', error);
+      throw error;
+    }
+  },
 
+  async fetchCourseNotesById(courseNoteId = null) {
+    try {
+        if (courseNoteId === null) {
+            throw new Error('courseNoteId must be provided');
+        }
+
+        const url = `/course_notes/${courseNoteId}/find_course_note`;
+        const response = await request(url);
+        const data = await response.json();
+        return data.courseNote;
+    } catch (error) {
+        logErrorMessage('Error fetching course note by ID:', error);
+        throw error;
+    }
+  },
 
   // /////////
   // Setters #
@@ -336,12 +361,54 @@ const API = {
       throw response;
     }
     return response.json();
+  },
 
-    // return promise;
+  async saveCourseNote(courseNoteDetails) {
+    try {
+        const response = await request(`/course_notes/${courseNoteDetails.id}`, {
+            method: 'PUT',
+            body: JSON.stringify(courseNoteDetails)
+        });
+
+        const status = await response.json();
+        return status;
+    } catch (error) {
+        logErrorMessage('Error fetching course notes:', error);
+        throw error;
+    }
+  },
+
+  async createCourseNote(courseId, courseNoteDetails) {
+     const modifiedDetails = { ...courseNoteDetails, courses_id: courseId };
+     try {
+         const response = await request('/course_notes', {
+             method: 'POST',
+             body: JSON.stringify(modifiedDetails)
+         });
+
+         const { createdNote } = await response.json();
+         return createdNote;
+     } catch (error) {
+         logErrorMessage('Error saving course notes:', error)
+         throw error;
+     }
+  },
+
+  async deleteCourseNote(noteId) {
+     try {
+         const response = await request(`/course_notes/${noteId}`, {
+             method: 'DELETE',
+         });
+
+         const status = await response.json();
+         return status;
+     } catch (error) {
+         logErrorMessage('Error Deleting course notes:', error)
+         throw error;
+     }
   },
 
   async deleteCourse(courseId) {
-    console.log("deleting")
     const response = await request(`/courses/${courseId}.json`, {
       method: 'DELETE'
     });
