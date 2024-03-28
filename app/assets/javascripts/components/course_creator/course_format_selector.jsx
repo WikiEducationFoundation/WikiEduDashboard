@@ -13,7 +13,8 @@ const CourseFormatSelector = ({ format, updateCourse }) => {
   const options = [
     { value: '', label: '— select one —' },
     { value: 'In-person', label: 'In-person' },
-    { value: 'Online', label: 'Online' },
+    { value: 'Online synchronous', label: 'Online synchronous' },
+    { value: 'Online asynchronous', label: 'Online asynchronous' },
     { value: 'Mixed', label: 'Mixed' },
   ];
   return (
