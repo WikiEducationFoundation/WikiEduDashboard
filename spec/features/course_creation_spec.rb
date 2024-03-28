@@ -162,9 +162,9 @@ describe 'New course creation and editing', type: :feature do
       start_date = '2015-01-01'
       end_date = '2015-12-15'
       find('.course_start-datetime-control input').set(start_date)
-      find('div.DayPicker-Day--selected', text: '1').click
+      find('.rdp-button_reset.rdp-button.rdp-day.rdp-day_selected', text: '1').click
       find('.course_end-datetime-control input').set('2015-12-01')
-      find('div.DayPicker-Day', text: '15').click
+      find('.rdp-button_reset.rdp-button.rdp-day', text: '15').click
 
       sleep 1
 

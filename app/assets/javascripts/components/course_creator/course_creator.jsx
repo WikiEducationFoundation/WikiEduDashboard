@@ -433,6 +433,7 @@ const CourseCreator = createReactClass({
             />
             <CourseDates
               courseDateClass={courseDates}
+              updateCourseAction={this.updateCourse}
               course={this.props.course}
               showTimeValues={this.state.use_start_and_end_times}
               showEventDates={this.showEventDates}

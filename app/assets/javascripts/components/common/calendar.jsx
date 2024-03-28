@@ -1,7 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import DayPicker from 'react-day-picker';
+import { DayPicker } from 'react-day-picker';
 import { compact } from 'lodash-es';
 import WeekdayPicker from './weekday_picker.jsx';
 import CourseDateUtils from '../../utils/course_date_utils.js';
@@ -168,7 +168,7 @@ const Calendar = createReactClass({
             <DayPicker
               modifiers={modifiers}
               onDayClick={onDayClick}
-              initialMonth={this.state.initialMonth}
+              defaultMonth={this.state.initialMonth}
             />
             <div className="course-dates__calendar-key">
               <h3>{I18n.t('courses.calendar.legend')}</h3>
