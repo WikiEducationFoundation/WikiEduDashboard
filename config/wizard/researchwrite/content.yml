@@ -368,8 +368,8 @@ essentials:
         content: |
 
       -
-        if: original_analytical_paper
-        title: Original analytical paper
+        if: original_research_paper
+        title: Original research paper
         kind: 1
         graded: true
         points: 20
