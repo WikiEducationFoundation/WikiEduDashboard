@@ -265,6 +265,7 @@ it:
     review_tooltip: Serve per la voce/i che pianifichi di far revisionare tra pari
       o fornire riscontri.
     select: Seleziona
+    submit: Invia
   blocks:
     milestones:
       title: Traguardi
@@ -964,6 +965,7 @@ it:
     profile: profilo
     recent_revisions: Modifiche recenti
     references_count: Riferimenti aggiunti
+    training_modules: Moduli di formazione
     remove_confirmation: Sei sicuro di voler rimuovere %{username}?
     revision_characters_and_views: 'Caratteri aggiunti: %{characters}, Visualizzazioni:
       %{views}'

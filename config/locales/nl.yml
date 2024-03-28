@@ -16,6 +16,7 @@
 # Author: Mbch331
 # Author: McDutchie
 # Author: Milenej
+# Author: Mitsjol
 # Author: MrLeopold
 # Author: Ndecouck
 # Author: Nieuwsgierige Gebruiker
@@ -133,6 +134,18 @@ nl:
     explore: Verkennen
     log_in: Aanmelden met Wikipedia
     sign_up: Registreren via Wikipedia
+    registration_advice:
+      username_rules:
+        heading: Gebruikersnaamregels
+        avoid_offensive_usernames: Kies geen gebruikersnaam die aanstootgevend, misleidend,
+          storend of promotioneel is.
+        represent_individual: Gebruikersnamen moeten een individuele redacteur vertegenwoordigen.
+          Gebruik niet de naam van een school of organisatie.
+      additional_advice:
+        heading: Advies
+        anonymous_username_recommendation: Wiki Education raadt aan een anonieme gebruikersnaam
+          te kiezen, en niet een gebruikersnaam die uw echte naam of andere identificerende
+          informatie bevat.
     sign_up_help: Om het dashboard te gebruiken moet u zich aanmelden via Wikipedia
       en daar toestemming geven voor toegang tot uw account. U kunt zich aanmelden
       met een bestaand Wikipedia-account of een nieuw aanmaken. Als het niet lukt
@@ -183,6 +196,7 @@ nl:
     history: (geschiedenis)
     label: Pagina's
     loading: Bezig met pagina's laden...
+    mark_as_complete: Markeer als voltooid
     new: (nieuw)
     none: Deze cursus heeft geen bewerkte pagina's.
     preview: Korte samenvatting van het artikel
@@ -209,19 +223,29 @@ nl:
         van Wikipedia
       does_not_exist: Dit artikel bestaat niet op Wikipedia
     see_more: Bekijk meer
+    see_more_tooltip: Alleen de eerste 500 bewerkte artikelen worden in eerste instantie
+      geladen. Klik om extra artikelen te laden.
     search: Op Wikipedia naar een artikel zoeken
     show_cumulative_changes: Cumulatieve wijzigingen weergeven
     show_current_version: Huidige versie bekijken
     show_current_version_with_authorship_highlighting: Huidige versie met markering
       van auteurschap
     title: Naam
+    tracked: Gevolgd
+    tracked_doc: Alleen gevolgde artikelen dragen bij aan de statistieken voor dit
+      programma. Wanneer artikelen als niet-getrackt zijn gemarkeerd, worden ze bij
+      de volgende gegevensupdate uit de statistieken verwijderd.
     title_example: Paginanaam
+    tools: Beoordelingstools
     view: Pagina bekijken
     view_all: Alle bekijken
     view_doc: Bij benadering het aantal maal dat ieder artikel bekeken werd sinds
       het voor het eerst bewerkt werd, volgens de meest recente gegevens update. U
       kunt met pageviews.toolforge.org  het exacte aantal zien.
+    view_on_wiki: Bekijk op wiki
     views_added: '%{count} nieuwe weergaven toegevoegd voor %{title}'
+    wiki: Wiki
+    wp10: Structurele volledigheid
   assignments:
     article_link: Artikel
     already_exists: Deze opdracht bestaat al!
@@ -244,19 +268,42 @@ nl:
       title: Mijlpalen
   campaign:
     add_organizer: Voeg organisator toe
+    alert_article: Paginanaam
+    campaign: Campagne
+    campaigns: Campagnes
+    campaign_deleted: Campagne "%{title}" is verwijderd
+    campaign_not_updated: Campagne kan niet worden bijgewerkt
+    campaign_updated: Campagne bijgewerkt
+    created_at: Datum
+    create_campaign: Maak een nieuwe campagne aan
+    create_my_campaign: Creëer mijn campagne!
+    customize_passcode: een standaard toegangscode
+    data_download_info: Download campagnegegevens als CSV's
+    data_courses: Cursusoverzichtgegevens
+    data_courses_info: Basisstatistieken voor elke cursus/programma
+    data_articles: Pagina's bewerkt
+    data_wikidata: Wikidata-statistieken
     description: Beschrijving
+    no_alerts: Deze campagne bevat geen waarschuwingen
+    no_passcode: geen toegangscode
     none: Geen
     organizers: Organisatoren
     title: Titel
     search: Zoeken
   categories:
+    add_this_category: Categorieën toevoegen
+    add_this_psid: Voeg PetScan PSID's toe
+    add_this_pileid: Voeg PagePile-ID's toe
+    add_this_template: Sjablonen toevoegen
     depth: subcategorie diepte
     articles_count: Aantal pagina's
     name: Naam
     category_name: Categorienaam
+    remove: Verwijderen
     timestamp: Laatst gewijzigd op
   courses:
     activity: Activiteit
+    all_courses: Alle cursussen
     already_enrolled: Je bent onderdeel van "%{title}"!
     already_exists: Dat bestaat al in voor deze cursus!
     archived: Gearchiveerde cursussen
@@ -285,6 +332,8 @@ nl:
       deadlines.
     course_description: Cursussen
     courses: Cursussen
+    creation_date: Aanmaakdatum
+    start_date: Startdatum
     creator:
       assignment_end: Einde opdracht
       assignment_end_placeholder: JJJJ-MM-DD
@@ -308,6 +357,8 @@ nl:
       course_term: Periode van cursus
       course_term_placeholder: Periode
       course_title: Cursustitel
+      course_types:
+        basic_course_name: Basisprogramma
       create_button: Maak mijn cursus aan!
       create_label: Maak nieuwe cursus aan
       create_new: Maak een nieuwe cursus aan
@@ -322,16 +373,23 @@ nl:
       no_class_holidays: Ik heb geen vakantie met de klas
       role_description_options:
       - Instructeur
+      - Onderwijsassistent
+      role_description_placeholder: Instructeur, onderwijsassistent, etc
       save_cloned_course: Nieuwe cursus opslaan
       start_date: Startdatum
       start_date_placeholder: JJJJ-MM-DD
       subject: Onderwerp
     current: Huidige cursussen
+    data_wikidata: Wikidata-statistieken
+    data_wikidata_info: Gedetailleerd overzicht van Wikidata-activiteiten, gebaseerd
+      op bewerkingssamenvattingen
+    dates_too_long: De maximale duur is één jaar.
     delete_course: Cursus verwijderen
     delete_suggestion: Verwijderen
     duration: Duur van de cursus
     edit_course_dates: Cursusdatums bewerken
     end: Einde
+    ended: De cursus is afgelopen.
     enroll: Inschrijven
     enrollment: Studenten toevoegen / verwijderen
     error:
@@ -406,15 +464,19 @@ nl:
       u de volledige lijst van bronnen voor docenten en studenten bekijken.
     suggestions_feedback: Enige suggesties om deze functie te verbeteren? Laat het
       ons weten!
+    user_role: Rol
+    course_details: Cursusdetails
     course_submitted: Voorgelegde status wordt gebruikt voor opleidingsprogramma's
       waar een cursusplan moet worden goedgekeurd voordat het project begint. Het
       is alleen relevant voor het cursus type klaslokaalProgramma.
+    subject: Onderwerp
     submitted: Verzonden
     submitted_at: Ingediend bij
     tag_select: Een label selecteren of aanmaken
     tags: 'Labels:'
     term: Periode
     timeline: Opdrachtdetails
+    timeline_enabled: Tijdlijn ingeschakeld
     timeline_link: Tijdlijn
     timeline_tooltip: Als u de tijdlijn inschakelt, kunt u activiteiten van week tot
       week opgeven en trainingsmodules toewijzen. Het is nuttig voor cursussen in
@@ -435,6 +497,7 @@ nl:
     user_uploads_none: Deze gebruiker heeft geen afbeeldingen of andere mediabestanden
       bijgedragen aan Wikimedia Commons.
     user_recent_uploads: Recente uploads
+    user_suggestions: 'Gebruikerssuggesties:'
     view: Cursus weergeven
     view_doc: Het geschatte aantal weergaven van artikelen die zijn bewerkt door ingeschreven
       redacteuren sinds die aan ieder artikel hun eerste wijziging hebben aangebracht
@@ -448,13 +511,20 @@ nl:
       op Wikipedia geplaatst. Nadien worden nieuwe bewerkingen aan de tijdlijn synchroon
       gehouden op Wikipedia. Weet u zeker dat u dit wilt doen?
     wiki_staff: Medewerkers van Wiki Education
+    withdrawn: Opdracht niet gedaan
     word_count_doc: Een schatting van het aantal woorden toegevoegd aan artikelen
       van de cursus in de artikelnaamruimte door de studenten tijdens de cursusperiode
     yourcourses: Je cursussen
     survey:
       notification_message: Vul onze enquête in voor deze cursus.
       link: Neem deel aan enquête
+  course_instructor_notification:
+    write_message_placeholder: Bericht
+    sending_notification: Bezig met verzenden
   courses_generic:
+    school_system: Academisch systeem
+    add_campaign: Campagne toevoegen
+    all_courses: Alle programma's
     assignment_end: Einde gebeurtenis
     assignments_none: Aan dit project zijn geen artikelen toegewezen.
     assignment_start: Begin gebeurtenis
@@ -477,6 +547,11 @@ nl:
         dan worden de bijdragen ook bijgehouden voor elke wiki die is toegevoegd aan
         de lijst "Bijgehouden wiki's". Klik op "Maak mijn programma aan!" om te beginnen
         met het ontwerp van de pagina voor uw wikiprogramma.
+      scoping_methods:
+        categories: Categorieën
+        templates: Sjablonen
+        start_typing_to_search: Begin met typen om te zoeken
+    delete_course: Programma verwijderen
     edit_course_dates: Bewerk projectdatums
     expected_students: Verwachte bewerkers
     instructors: Facilitators
@@ -496,6 +571,7 @@ nl:
     term: Wanneer
     uploads_none: Dit project heeft geen enkele afbeelding of andere media bijgedragen
       aan Wikimedia Commons.
+    view_other: Bekijk andere campagnes
   editable:
     edit: Bewerken
     cancel: Annuleren
@@ -505,10 +581,18 @@ nl:
     assignments_table:
       article_name: Naam
       relevant_links: Relevante koppelingen
+    bad_work:
+      learn_more_button: Meer lezen
+      submit_issue: Wat zijn de significante problemen met dit artikel?
   metrics:
     activity: Recente activiteit
     articles_created: Pagina's aangemaakt
+    articles_created_generic: Pagina’s aangemaakt
+    articles_created_generic_wikidata: Artikelen gemaakt
     articles_edited: Pagina's bewerkt
+    articles_edited_wikidata: Artikelen bewerkt
+    articles_edited_generic: Pagina's bewerkt
+    articles_edited_generic_wikidata: Artikelen bewerkt
     characters: Tekens
     char_added: Tekens toegevoegd
     char_changed: Tekens gewijzigd
@@ -518,6 +602,7 @@ nl:
     edit_count_description: Totaal bewerkingen
     missing_data_heading: Gemiste of onverwachte resultaten
     revisions: Recente bewerkingen
+    references_count: Referenties toegevoegd
     total_updates: Totaal aantal bewerkingen tot nu
     update_status_heading: Status bijwerken
     upload_count: Uploads op Commons
@@ -528,11 +613,46 @@ nl:
     view_count_description: Paginaweergaven
     view: Weergaven
     word_count: Aantal woorden toegevoegd
+    aliases: Aliassen
+    merged: Samengevoegd
+    created: Aangemaakt
+    changed: Gewijzigd
+    removed: Verwijderd
+    cleared: Gewist
+    added: Toegevoegd
+    descriptions: Beschrijvingen
+    interwiki_links_added: Interwiki-links toegevoegd
+    labels: Labels
+    no_data: Geen gegevens
+    other_updates: Andere updates
+    references_added: Referenties toegevoegd
   namespace:
     main: Hoofdnaamruimte
     main_char_added: Tekens toegevoegd aan de hoofdnaamruimte
     user: Gebruikersruimte
     user_char_added: Tekens toegevoegd aan de gebruikersruimte
+    project: Project
+    file: Bestand
+    mediaWiki: MediaWiki
+    template: Sjabloon
+    help: Hulp
+    category: Categorie
+    page: Pagina
+    book: Boek
+    wikijunior: WikiJunior
+    translation: Vertaling
+    draft: Concept
+    property: Eigenschap
+    query: Zoekopdracht
+    lexeme: Lexeem
+    appendix: Bijlage
+    portal: Portaal
+    school: School
+    author: Auteur
+    cookbook: Kookboek
+    rhymes: Rijmen
+    index: Index
+    collection: Verzameling
   recent_activity:
     active_courses: Artikel is actief in
     article_title: Titel
@@ -564,8 +684,16 @@ nl:
     none: Aan deze cursus zijn recent geen wijzigingen aangebracht.
     time_doc: De tijd van iedere versie in je lokale tijd
     title: Naam
+    see_more: Bekijk meer
     show_all: Alles weergeven
   settings:
+    admin_users:
+      new:
+        form_label: Verleen beheerdersrechten
+        form_placeholder: Gebruikersnaam
+      remove:
+        revoking_button_working: Intrekken...
+        already_instructor: '%{username} is al een instructeur!'
     special_users:
       new:
         form_label: Bevoegdheden voor bijzondere gebruiker toekennen
@@ -601,10 +729,14 @@ nl:
   timeline:
     blackout_week_created: Er zijn blokken gepland voor deze week. Verplaats deze
       naar een andere week, voordat je de laatste klasbijeenkomst van deze week verwijderd.
+    block_milestone: Mijlpaal
     block_type: Het type blok wordt gebruikt om te communiceren met je studenten over
       dit item op hun tijdlijn en om handige hulpmiddelen voor je te bouwen (zoals
       het mijlpaaloverzicht op de pagina Overzicht)
     due_default: Volgende week af te ronden
+    no_timeline: Deze cursus heeft geen tijdlijn.
+    no_activity_this_week: Geen geplande vergaderingen deze week.
+    nothing_this_week: Er staat niets op de planning voor deze week.
     title: Tijdlijn
     unable_to_add_week: Je kunt geen nieuwe weken toevoegen als de tijdlijn vol is.
       Verwijder minstens één week of wijzig de opdrachtdatums om ruimte te maken voor
@@ -613,8 +745,15 @@ nl:
     continue: Doorgaan (%{progress})
     start: Start
     view: Bekijken
+    next: Volgende pagina
+    page: Pagina
     logged_out: Je bent afgemeld. Je ontvangt geen krediet voor het voltooien van
       deze module, tenzij je je aanmeldt.
+    done: Klaar!
+    check_answer: Antwoord nakijken
+    kind:
+      exercise: Oefening
+      discussion: Overleg
   update_username:
     header: Een wijziging van gebruikersnaam doorvoeren
     not_found: Gebruiker niet gevonden voor ingevoerde gebruikersnaam.
@@ -632,12 +771,16 @@ nl:
     time_doc: De tijd van iedere upload in je lokale tijd
     uploaded_at: Uploadtijd
     uploader: Uploader
+    uploaded_by: Geüpload door
     uploaded_on: Geüpload op
+    usage_count: Aantal keer gebruikt
     usage_doc: Aantal Wikipedia-artikelen waarin deze afbeelding voorkomt.
     usage_count_gallery_tile: Gebruikt op %{usage_count} artikelen.
     usages: Gebruik
   users:
     already_enrolled: Deze gebruiker is al ingeschreven!
+    assign_articles: Artikelen toewijzen
+    assign_articles_done: Afgerond
     assigned: Toegewezen pagina's
     assignees: Toegewezen aan
     character_doc: De totale hoeveelheid inhoud die een gebruiker heeft toegevoegd
@@ -649,11 +792,15 @@ nl:
     contributions: Gebruikersbijdragen
     contributions_more: Meer bijdragen bekijken
     editors: Studentbewerkers
+    edits: bewerkingen
     exercises_and_trainings: Oefeningen & Opleidingen
+    first_name: Voornaam
+    last_name: Achternaam
     loading: Bezig met het laden van gebruikers...
     my_assigned: 'Toegewezen:'
     name: Naam
     none: Er zijn geen deelnemers.
+    no_articles: Geen artikelen
     profile: profiel
     recent_revisions: Recente bewerkingen
     revisions_doc: Het aantal bewerkingen dat is gemaakt door deze redacteur in de
@@ -676,7 +823,10 @@ nl:
     training_modules_completed:
       one: '%{completed_count} trainingsmodule voltooid van %{count}'
       other: '%{completed_count} trainingsmodules voltooid van %{count}'
+    training_module_status: Status
     up_to_date_with_training: up-to-date met de training
+    useremail_placeholder: E-mail
+    userpasscode_placeholder: Toegangscode
   wiki_edits:
     notify_overdue:
       confirm: Dit plaatst een herinnering op de overlegpagina's van alle studenten
@@ -712,7 +862,12 @@ nl:
     select_assignment: Selecteer het soort opdracht dat je wilt toevoegen aan je tijdlijn.
     summary: Samenvatting
   error:
+    invalid_assignment: Ongeldige opdracht
+    invalid_date: '%{key} datum is ongeldig'
+    invalid_file_format: Het bestand kon niet worden opgeslagen. Upload een PDF- of
+      Word-document.
     oauth_invalid: Je toegang tot Wikipedia is verlopen. Meld je opnieuw aan.
+    start_date_before_end_date: De begindatum moet voor de einddatum liggen
     unsupported_browser:
       header: De browser wordt niet ondersteund
       explanation: U gebruikt een browser die niet door het dashboard wordt ondersteund.
@@ -771,6 +926,15 @@ nl:
       message: Dit is een herinnering over de enquête over je cursus %{course_title}.
         De feedback van deze enquête helpt ons bij het verbeteren van onze steun aan
         Wikipedia-opdrachten zoals de jouwe.
+  onboarding:
+    supplementary:
+      where_did_you_hear: Waar of van wie hoorde je voor het eerst over Wiki Education?
+      why_are_you_here: Wat zou je willen doen?
+  article_finder:
+    search: Zoeken
+    searching_articles: Artikelen zoeken
+    searching_articles_wikidata: Items zoeken
+    search_placeholder: Voer uw sleutelwoord in
   training_status:
     completed: Voltooid
     continue: Doorgaan

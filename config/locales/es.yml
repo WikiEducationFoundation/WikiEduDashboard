@@ -15,6 +15,7 @@
 # Author: Danniel07
 # Author: Dgstranz
 # Author: DiegoAmbrocio
+# Author: Eulalio
 # Author: Fitoschido
 # Author: Fortega
 # Author: Gabina
@@ -252,6 +253,7 @@ es:
     confirm_add_available: ¿Confirmas que quieres añadir %{title}?
     confirm_addition: ¿Confirmas que quieres asignar %{title} a %{username}?
     confirm_deletion: ¿Estás seguro de que quieres eliminar esta tarea?
+    change_sandbox_url: Cambiar zona de pruebas
     label: Asignar
     loading: Cargando tareas...
     none_short: No hay artículos asignados
@@ -925,6 +927,7 @@ es:
     profile: perfil
     recent_revisions: Ediciones recientes
     references_count: Referencias añadidas
+    training_modules: Módulo de capacitación
     remove_confirmation: ¿Confirmas que quieres quitar a %{username}?
     request_confirmation: ¿Confirmas que quieres solicitar esta cuenta?
     requested_account_status:

@@ -252,6 +252,7 @@ zh-TW:
     confirm_deletion: 確定要刪除分配作業嗎？
     delete: 移除和刪除
     editors: 分配給
+    change_sandbox_url: 更改沙盒
     group_members: 群組成員
     label: 分配
     label_all: 分配全部
@@ -284,6 +285,9 @@ zh-TW:
     sandbox_draft_link: 沙盒草稿
     sandbox_redlink_info: 此連結因頁面尚未建立，以紅色呈現。（如果是最近建立的，面板不久後會更新資料。）
     select: 選擇
+    submit: 提交
+    invalid_url: 無法更新沙盒的 URL。%{url} 不是有效的維基百科 URL。
+    mismatched_wiki: 無法更新沙盒的 URL。%{url} 不在相同的 wiki 上。
     warning_untracked_wiki: 請留意您所挑選的條目是位在沒被此課程追蹤的 wiki 上。要追蹤對於此條目的貢獻，導師必須添加以下 wiki
       到此課程裡：%{wiki}
   blocks:
@@ -459,6 +463,7 @@ zh-TW:
       course_description: 課程說明
       course_description_placeholder: 您的課程會涵蓋什麼？必且會讓學生們在維基百科上做出那些事情？請包含足夠的詳細內容，讓其他維基百科編者能有充分理解的感覺，來方便您的學生做出貢獻。
       course_private: 非公開方案（僅可被管理員和主持者檢視）
+      course_ta_support: 此課程有額外的導師或助教嗎？
       course_school: 課程學校
       course_subject: 課程科目
       course_term: 課程學期
@@ -860,7 +865,8 @@ zh-TW:
       submit_issue_placeholder: 您能提供越多專業的觀點與細節，就能夠更好。
       thank_you: 謝謝您！若您有額外的問題，請聯絡您的 Wiki 專家。
     exercises_and_trainings: '%{prefix}練習與培訓'
-    no_assignments: 此學生目前沒有分配到條目，您可以透過使用以上按鈕來分配條目給對方。
+    no_assignments: 此學生目前沒有分配到條目。
+    can_assign_assignments: 您可以使用上面的按鈕來分配條目。
     no_assignments_wikidata: 此學生目前沒有分配到項目，您可以透過使用以上按鈕來分配項目給對方。
     overview: '%{prefix}概要'
     reviewing_articles: 審核條目中
@@ -1249,6 +1255,7 @@ zh-TW:
     profile: 個人檔案
     recent_revisions: 近期編輯
     references_count: 參考來源已添加
+    training_modules: 培訓模組
     remove_confirmation: 您確定要移除 %{username}嗎？
     request_confirmation: 你確定要申請此帳號嗎？
     requested_account_status:
@@ -1313,9 +1320,9 @@ zh-TW:
     instructor_impact: 由%{username}以導師身份做出的所有影響
     instructors_student_impact: 由%{username}的學生做出的所有影響
     disclaimer: 您提供的訊息將會公開可用。
-    bio_placeholder: 添加您的個人自傳（可選）
-    location_placeholder: 添加您的位置（可選）
-    institution_placeholder: 機構名稱（可選）
+    bio_placeholder: 新增個人簡介（非必填）
+    location_placeholder: 新增所在位置（非必填）
+    institution_placeholder: 機構名稱（非必填）
     image_link_placeholder: 添加連結到圖片（可選）
   wiki_edits:
     notify_overdue:

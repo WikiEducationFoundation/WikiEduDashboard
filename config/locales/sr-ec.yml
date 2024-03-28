@@ -243,6 +243,7 @@ sr-ec:
       да пружите повратне информације.
     sandbox_draft_link: Нацрт песка
     select: Изабери
+    submit: Пошаљи
   blocks:
     milestones:
       title: Миљоказ
