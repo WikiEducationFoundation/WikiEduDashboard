@@ -28,7 +28,7 @@ const AssignmentLinks = ({ assignment, courseType, user, course, project, editMo
 
   if ((editors && editors.length) || assignment.role === ASSIGNED_ROLE) {
     // Exclude sandbox link for 'no_sandboxes' courses
-    if (!course?.flags?.no_sandboxes) {
+    if (!course?.no_sandboxes) {
       actions.push(
         <SandboxLink key={`sandbox-${id}`} assignment={assignment} editMode={editMode} user={user} />
       );
