@@ -2789,6 +2789,7 @@ __metadata:
     eslint: ^8.10.0
     eslint-config-airbnb: ^17.1.1
     eslint-import-resolver-babel-plugin-root-import: ^1.1.1
+    eslint-plugin-i18next: ^6.0.3
     eslint-plugin-import: ^2.22.0
     eslint-plugin-jsx-a11y: ^6.2.3
     eslint-plugin-react: ^7.20.5
@@ -5359,6 +5360,16 @@ __metadata:
     debug: ^3.2.7
     find-up: ^2.1.0
   checksum: 77048263f309167a1e6a1e1b896bfb5ddd1d3859b2e2abbd9c32c432aee13d610d46e6820b1ca81b37fba437cf423a404bc6649be64ace9148a3062d1886a678
+  languageName: node
+  linkType: hard
+
+"eslint-plugin-i18next@npm:^6.0.3":
+  version: 6.0.3
+  resolution: "eslint-plugin-i18next@npm:6.0.3"
+  dependencies:
+    lodash: ^4.17.21
+    requireindex: ~1.1.0
+  checksum: 4138568b68fcbeccf843357d8843be7202751a30b51c3db13184799b62176704c542682c8bde1b426b5e11c0867c320b2cfa27d436ab80b623a321300d7c2828
   languageName: node
   linkType: hard
 
@@ -10818,6 +10829,13 @@ __metadata:
   version: 2.0.0
   resolution: "require-main-filename@npm:2.0.0"
   checksum: e9e294695fea08b076457e9ddff854e81bffbe248ed34c1eec348b7abbd22a0d02e8d75506559e2265e96978f3c4720bd77a6dad84755de8162b357eb6c778c7
+  languageName: node
+  linkType: hard
+
+"requireindex@npm:~1.1.0":
+  version: 1.1.0
+  resolution: "requireindex@npm:1.1.0"
+  checksum: 397057d97d7f753a3851abf0d6db94c295bd8254536f71f622b896ba08ea8c0d3e3771c8b009a557e6ce602f4245c0588836cdf59c4ce588fff721a7b855d323
   languageName: node
   linkType: hard
 
