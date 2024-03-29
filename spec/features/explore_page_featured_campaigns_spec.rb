@@ -36,7 +36,10 @@ describe 'explore page', type: :feature, js: true do
     # only 10 campaigns must be present
     it 'visit explore page' do
       expect(page).to have_content('Newest Campaigns')
-      expect(page).to have_selector('#campaigns_list > div.container > div:nth-child(2) > table > tbody > tr', count: 10)
+      within '#campaigns_list tbody' do
+        tr_count = all('tr').count
+        expect(tr_count).to eq(10)
+      end
       # latest 10 campaigns created are from campaign3 to campaign22
       expect(page).not_to have_content(campaign1.title)
       expect(page).not_to have_content(campaign2.title)
@@ -53,7 +56,10 @@ describe 'explore page', type: :feature, js: true do
     it 'visit explore page' do 
       visit '/explore'
       expect(page).to have_content('Featured Campaigns')
-      expect(page).to have_selector('#campaigns_list > div.container > div:nth-child(2) > table > tbody > tr', count: 2)
+      within '#campaigns_list tbody' do
+        tr_count = all('tr').count
+        expect(tr_count).to eq(2)
+      end
       expect(page).to have_content(campaign1.title)
       expect(page).to have_content(campaign2.title)
     end
