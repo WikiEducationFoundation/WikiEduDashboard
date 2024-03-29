@@ -124,7 +124,11 @@ const CampaignEditable = ({ course_id }) => {
 
   return (
     <div key="campaigns" className="pop__container campaigns open" ref={ref}>
-      <button className="button border plus open" onClick={openPopover}>+</button>
+      <button
+        className="button border plus open" onClick={openPopover}
+        aria-label={I18n.t('courses.add_campaign_aria_label')}
+      >+
+      </button>
       <Popover
         is_open={isOpen}
         edit_row={campaignSelect}

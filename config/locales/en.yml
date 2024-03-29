@@ -134,7 +134,7 @@ en:
         heading: Username rules
         avoid_offensive_usernames: Do not choose a username that is offensive, misleading, disruptive, or promotional.
         represent_individual: Usernames must represent an individual editor. Do not use the name of a school or organization.
-      additional_advice: 
+      additional_advice:
         heading: Advice
         anonymous_username_recommendation: Wiki Education recommends choosing an anonymous username, not one that includes your real name or other identifying information.
     sign_up_help: >
@@ -472,6 +472,9 @@ en:
     articles_i_will_create_wikidata: Items I will create
     articles_i_am_updating: Articles I'm updating
     articles_i_am_updating_wikidata: Items I'm updating
+    add_campaign_aria_label: Add Campaign Button
+    new_tag_button_aria_label: Create or Update Tag Button
+    enroll_button_aria_label: Enroll Button
     assignment_headings:
       assigned_articles: Assigned Articles
       assigned_articles_wikidata: Assigned Items

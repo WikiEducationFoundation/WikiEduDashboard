@@ -105,7 +105,11 @@ const TagEditable = ({ course_id }) => {
 
   return (
     <div key="tags" className="pop__container tags open" ref={ref}>
-      <button className="button border plus open" onClick={openPopover}>+</button>
+      <button
+        className="button border plus open" onClick={openPopover}
+        aria-label={I18n.t('courses.new_tag_button_aria_label')}
+      >+
+      </button>
       <Popover
         is_open={isOpen}
         edit_row={tagSelect}
