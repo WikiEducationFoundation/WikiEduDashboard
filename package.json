@@ -100,6 +100,7 @@
   },
   "scripts": {
     "test": "jest",
+    "lint": "eslint '**/*.{jsx,js}' '*.js'",
     "lint-non-build": "eslint 'test/**/*.{jsx,js}' '*.js'",
     "start": "node prepare.js && webpack serve --env development --client-overlay --client-progress --progress",
     "start:no-lint": "node prepare.js && webpack serve --env development --env DISABLE_ESLINT --client-overlay --client-progress --progress",
@@ -117,6 +118,7 @@
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",
     "babel-plugin-root-import": "^6.5.0",
     "eslint-import-resolver-babel-plugin-root-import": "^1.1.1",
+    "eslint-plugin-i18next": "^6.0.3",
     "eslint-webpack-plugin": "^3.1.1",
     "lodash": "^4.17.21",
     "react-refresh": "^0.14.0",
