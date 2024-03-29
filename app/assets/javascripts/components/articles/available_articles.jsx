@@ -38,7 +38,7 @@ const AvailableArticles = (props) => {
   if (Features.wikiEd && current_user.isAdvancedRole) {
     findingArticlesTraining = (
       <a href="/training/instructors/finding-articles" target="_blank" className="button ghost-button small">
-        {ArticleUtils.I18n('find', project)}
+        {ArticleUtils.I18n('how_to_find', project)}
       </a>
     );
   }
