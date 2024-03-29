@@ -403,6 +403,7 @@ en:
     disable_account_requests: Disable account requests
     enable_account_requests: Enable account requests
     newest_campaigns: Newest Campaigns
+    featured_campaigns: Featured Campaigns
     no_alerts: This campaign has no alerts
     no_passcode: no passcode
     none: None
@@ -1222,6 +1223,14 @@ en:
     header: Resources and Training
 
   settings:
+    categories:
+      other_settings: Other settings
+      impact_stats: Impact Stats
+      salesforce: Salesforce
+      featured_campaigns: Featured Campaigns
+      special_users: Special Users
+      admin_users: Admin Users
+      users: Users
     admin_users:
       new:
         form_label: Grant admin privileges
@@ -1237,6 +1246,12 @@ en:
         already_instructor: "%{username} is already an instructor!"
         demote_success: "%{username} changed to instructor."
         no_super_admin: "Can't revoke admin status from a super admin"
+    featured_campaigns:
+      campaign_not_found: "Campaign with slug '%{campaign_slug}' not found"
+      no_featured_campaigns: No Featured Campaigns Defined
+      update_featured_campaigns_button: Update Featured Campaigns
+      add_button: Add Campaign
+      remove_button: Remove Campaign
     special_users:
       new:
         form_label: Grant Special User privileges
