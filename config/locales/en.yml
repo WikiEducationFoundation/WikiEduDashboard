@@ -184,6 +184,7 @@ en:
       untracked: Untracked
       tracked_and_untracked: Tracked and Untracked
     find: Find Articles
+    how_to_find: How to find articles
     hide: Hide
     history: (history)
     label: Articles
@@ -259,6 +260,7 @@ en:
     edited: Items Edited
     edited_none: There are no edited items yet.
     find: Find Items
+    how_to_find: How to find items
     preview: Brief preview of Item
     search: Search Wikidata for an Item
     tracked_doc: Only tracked items contribute to the the statistics for this program. When items are marked as untracked, they will be removed from the statistics during the next data update.

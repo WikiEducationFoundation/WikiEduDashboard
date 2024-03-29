@@ -143,6 +143,7 @@ hi:
       existing: मौजूदा
       new_and_existing: नया और मौजूदा
     find: लेख खोजें
+    how_to_find: लेख कैसे खोजें
     hide: छिपाएँ
     history: (इतिहास)
     label: लेख
@@ -196,6 +197,8 @@ hi:
   items:
     available: उपलब्ध आइटम
     search: किसी आइटम के लिए विकिडेटा खोजें
+    how_to_find: आइटम कैसे खोजें
+    find: आइटम ढूंढें
   articles_generic:
     articles_short: पृष्ठ
   assignments:
