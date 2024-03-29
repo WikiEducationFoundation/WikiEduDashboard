@@ -7,7 +7,7 @@ import Loading from '../common/loading';
 import DropdownSortSelect from '../common/dropdown_sort_select';
 import SearchBar from '../common/search_bar';
 
-const CampaignList = ({ keys, showSearch, RowElement, headerText, userOnly, newest, showStatistics = false }) => {
+const CampaignList = ({ keys, showSearch, RowElement, headerText, userOnly, showStatistics = false }) => {
   const { all_campaigns, all_campaigns_loaded, sort } = useSelector(state => state.campaigns);
   const [searchParams, setSearchParams] = useSearchParams();
   const search = searchParams.get('search');
@@ -38,7 +38,7 @@ const CampaignList = ({ keys, showSearch, RowElement, headerText, userOnly, newe
 
   useEffect(() => {
     if (showStatistics) {
-      dispatch(fetchCampaignStatistics(userOnly, newest));
+      dispatch(fetchCampaignStatistics(userOnly));
     } else {
       dispatch(fetchAllCampaigns());
     }

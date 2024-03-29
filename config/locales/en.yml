@@ -401,6 +401,7 @@ en:
     disable_account_requests: Disable account requests
     enable_account_requests: Enable account requests
     newest_campaigns: Newest Campaigns
+    featured_campaigns: Featured Campaigns
     no_alerts: This campaign has no alerts
     no_passcode: no passcode
     none: None

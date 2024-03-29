@@ -1,11 +1,10 @@
-const filterFeaturedCampaigns = (response_json, featured_campaigns) => {
-    let campaigns = response_json.campaigns;
-    const featured_campaigns_slugs = featured_campaigns.campaign_slugs;
-    if (featured_campaigns_slugs.length > 0) {
-        campaigns = campaigns.filter(campaign => featured_campaigns_slugs.includes(campaign.slug));
-        return campaigns;
+const filterFeaturedCampaigns = (response_data, featured_campaigns) => {
+    const featuredCampaignSlugs = featured_campaigns.map(campaign => campaign.slug);
+
+    if (featuredCampaignSlugs.length > 0) {
+        return response_data.campaigns.filter(campaign => featuredCampaignSlugs.includes(campaign.slug));
     }
-    return campaigns;
+    return response_data.campaigns;
 };
 
 export default filterFeaturedCampaigns;

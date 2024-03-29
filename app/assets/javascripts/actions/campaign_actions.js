@@ -1,4 +1,4 @@
-import { RECEIVE_COURSE_CAMPAIGNS, SORT_CAMPAIGNS_WITH_STATS, DELETE_CAMPAIGN, API_FAIL, RECEIVE_ALL_CAMPAIGNS, ADD_CAMPAIGN, RECEIVE_CAMPAIGNS_WITH_STATS } from '../constants';
+import { RECEIVE_COURSE_CAMPAIGNS, SORT_CAMPAIGNS_WITH_STATS, DELETE_CAMPAIGN, API_FAIL, RECEIVE_ALL_CAMPAIGNS, ADD_CAMPAIGN, RECEIVE_CAMPAIGNS_WITH_STATS, SET_FEATURED_CAMPAIGNS } from '../constants';
 import filterFeaturedCampaigns from '../utils/filter_featured_campaigns';
 import logErrorMessage from '../utils/log_error_message';
 import request from '../utils/request';
@@ -8,8 +8,8 @@ const fetchCampaignsPromise = async (courseId) => {
   if (!response.ok) {
     logErrorMessage(response);
     const data = await response.text();
-      response.responseText = data;
-      throw response;
+    response.responseText = data;
+    throw response;
   }
   return response.json();
 };
@@ -79,7 +79,7 @@ export const addCampaign = (courseId, campaignId) => (dispatch) => {
           data
         });
       })
-      .catch(response => (dispatch({ type: API_FAIL, data: response })))
+      .catch(response => (dispatch({ type: SET_FEATURED_CAMPAIGNS, data: response })))
   );
 };
 
@@ -108,19 +108,26 @@ export const fetchAllCampaigns = () => (dispatch) => {
   );
 };
 
-const fetchFeaturedCampaigns = async () => {
-  const response = await request('/campaigns/featured_campaigns?only_slug=true');
+const fetchFeaturedCampaigns = async (dispatch) => {
+  const response = await request('/campaigns/featured_campaigns');
   if (!response.ok) {
     logErrorMessage(response);
     const data = await response.text();
     response.responseText = data;
     throw response;
   }
-  return response.json();
+  const response_data = await response.json();
+  const featured_campaigns = response_data.featured_campaigns;
+  dispatch({ type: SET_FEATURED_CAMPAIGNS, data: response_data });
+  return featured_campaigns;
 };
 
-const fetchCampaignStatisticsPromise = async (userOnly, newest) => {
-  const featured_campaigns = await fetchFeaturedCampaigns();
+
+const fetchCampaignStatisticsPromise = async (userOnly, dispatch) => {
+  const featured_campaigns = await fetchFeaturedCampaigns(dispatch);
+  // newest limits the fetched campaigns to the 10 most recent ones
+  // it is set to false if there are featured campaigns listed
+  const newest = !(featured_campaigns.length > 0);
   const response = await request(`/campaigns/statistics.json?user_only=${userOnly}&newest=${newest}`);
   if (!response.ok) {
     logErrorMessage(response);
@@ -128,18 +135,17 @@ const fetchCampaignStatisticsPromise = async (userOnly, newest) => {
     response.responseText = data;
     throw response;
   }
-  const response_json = await response.json();
-  const campaigns = filterFeaturedCampaigns(response_json, featured_campaigns);
+  const response_data = await response.json();
+  const campaigns = filterFeaturedCampaigns(response_data, featured_campaigns);
   return { campaigns };
 };
 
 
 // this function returns the campaigns along with their statistics data
 // if userOnly is set to true, only campaigns the user has created will be returned
-// newest limits the campaigns to the 10 most recent ones
-export const fetchCampaignStatistics = (userOnly = false, newest = false) => (dispatch) => {
+export const fetchCampaignStatistics = (userOnly = false) => (dispatch) => {
   return (
-    fetchCampaignStatisticsPromise(userOnly, newest)
+    fetchCampaignStatisticsPromise(userOnly, dispatch)
       .then((data) => {
         dispatch({
           type: RECEIVE_CAMPAIGNS_WITH_STATS,
