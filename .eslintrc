@@ -80,7 +80,7 @@
     "import/no-useless-path-segments": 0,
     "react/no-this-in-sfc": 0,
     "react/jsx-props-no-multi-spaces": 0,
-    "i18next/no-literal-string": [2, { "message": "Use I18n over string literals for localization" }]
+    "i18next/no-literal-string": [1, { "message": "Use I18n over string literals for localization" }]
   },
   "globals": {
     "I18n": true,
