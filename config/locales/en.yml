@@ -476,6 +476,9 @@ en:
     articles_i_will_create_wikidata: Items I will create
     articles_i_am_updating: Articles I'm updating
     articles_i_am_updating_wikidata: Items I'm updating
+    add_campaign_aria_label: Add Campaign Button
+    new_tag_button_aria_label: Create or Update Tag Button
+    enroll_button_aria_label: Enroll Button
     assignment_headings:
       assigned_articles: Assigned Articles
       assigned_articles_wikidata: Assigned Items

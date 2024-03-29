@@ -181,6 +181,7 @@ const EnrollButton = ({ users, role, course, current_user, allowed, inline }) =>
 
   const button = (
     <button
+      aria-label={I18n.t('courses.enroll_button_aria_label')}
       className={buttonClass}
       onClick={() => {
         open();

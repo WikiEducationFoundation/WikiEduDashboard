@@ -58,9 +58,13 @@ const YesNoSelector = createReactClass({
       ];
       selector = (
         <div className="form-group">
-          <span htmlFor={`${this.props.courseProperty}Toggle`}>
+          <label
+            id={`${this.props.courseProperty}-label`}
+            className="inline-label"
+            htmlFor={`${this.props.courseProperty}Toggle`}
+          >
             <strong>{this.props.label}:</strong>
-          </span>
+          </label>
           {tooltip}
           <Select
             id={`${this.props.courseProperty}Toggle`}
@@ -69,6 +73,7 @@ const YesNoSelector = createReactClass({
             onChange={this._handleChange}
             options={options}
             styles={selectStyles}
+            aria-labelledby={`${this.props.courseProperty}-label`}
           />
         </div>
       );
