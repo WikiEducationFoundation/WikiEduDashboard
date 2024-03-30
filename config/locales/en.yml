@@ -550,6 +550,8 @@ en:
         Please include enough detail to give other Wikipedia editors a sense of
         context for the contributions your students will be making.
       course_private: Private program (viewable only by admins and facilitators)
+      course_back_btn: Back
+      course_next_btn: Next
       course_ta_support: Will this course have additional instructors or TAs?
       course_school: Course school
       course_subject: Course subject

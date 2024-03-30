@@ -184,7 +184,7 @@ const CourseForm = (props) => {
     );
     backButton = (
       <button onClick={props.previous} className={backClass}>
-        Back
+        {I18n.t('courses.creator.course_back_btn')}
       </button>
     );
   }
@@ -273,7 +273,7 @@ const CourseForm = (props) => {
           id="next"
           className="dark button button__submit next"
         >
-          Next
+          {I18n.t('courses.creator.course_next_btn')}
         </button>
       </div>
     </div>
