@@ -1,42 +1,39 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import InputHOC from '../high_order/input_hoc.jsx';
 
-const Checkbox = createReactClass({
-  displayName: 'Checkbox',
+const Checkbox = ({ container_class, label, value, editable, onChange }) => {
+  const [checked, setChecked] = useState(value);
 
-  propTypes: {
-    container_class: PropTypes.string,
-    label: PropTypes.string,
-    value: PropTypes.bool,
-    editable: PropTypes.bool
-  },
+  useEffect(() => {
+    setChecked(value);
+  }, [value]);
 
-  onCheckboxChange(e) {
-    e.target.value = e.target.checked;
-    return this.props.onChange(e);
-  },
+  const onCheckboxChange = (e) => {
+    const newValue = e.target.checked;
+    setChecked(newValue);
+    onChange({ ...e, target: { ...e.target, value: newValue } });
+  };
 
-  render() {
-    let label;
-    if (this.props.label) {
-      label = (
-        <span>{`${this.props.label}: `}</span>
-      );
-    }
-    return (
-      <p className={this.props.container_class}>
-        {label}
-        <input
-          type="checkbox"
-          checked={this.props.value}
-          onChange={this.onCheckboxChange}
-          disabled={!this.props.editable}
-        />
-      </p>
-    );
-  }
-});
+  return (
+    <p className={container_class}>
+      {label && <span>{`${label}: `}</span>}
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={onCheckboxChange}
+        disabled={!editable}
+      />
+    </p>
+  );
+};
+
+Checkbox.propTypes = {
+  container_class: PropTypes.string,
+  label: PropTypes.string,
+  value: PropTypes.bool,
+  editable: PropTypes.bool,
+  onChange: PropTypes.func.isRequired,
+};
 
 export default InputHOC(Checkbox);
