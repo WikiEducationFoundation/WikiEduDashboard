@@ -390,6 +390,7 @@ const CourseCreator = createReactClass({
         <Select
           id="reuse-existing-course-select"
           styles={selectStyles}
+          placeholder={'Select a course'}
           onChange={this.onDropdownChange}
           options={options}
           ref={(dropdown) => { this.courseSelect = dropdown; }}
