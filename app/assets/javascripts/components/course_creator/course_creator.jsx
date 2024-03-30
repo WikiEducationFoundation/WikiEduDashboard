@@ -386,7 +386,7 @@ const CourseCreator = createReactClass({
     const eventFormClass = this.state.showEventDates ? '' : 'hidden';
     const eventClass = `${eventFormClass}`;
     const reuseCourseSelect = (
-      <div style={{ width: '70%', marginBottom: '20px' }}>
+      <div style={{ display: 'inline-block', width: '60%', marginRight: '10px' }}>
         <Select
           id="reuse-existing-course-select"
           styles={selectStyles}
