@@ -83,6 +83,7 @@ const AddSpecialUserForm = createReactClass({
             />
 
             <div className="selectPosition"><CreatableInput
+              id="specialUserPosition"
               placeholder={'Select the position'}
               onChange={this.handlePositionChange}
               options={options}
