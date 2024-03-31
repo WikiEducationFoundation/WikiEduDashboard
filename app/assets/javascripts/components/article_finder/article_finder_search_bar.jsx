@@ -40,7 +40,7 @@ function ArticleFinderSearchBar({ value, onChange, onSearch, disabled, wiki }) {
 
   const onKeyDownHandler = (e) => {
     // Search on Enter
-    if (e.keyCode === 13) {
+    if (e.key === 'Enter') {
       searchHandler();
     }
   };
@@ -72,8 +72,8 @@ function ArticleFinderSearchBar({ value, onChange, onSearch, disabled, wiki }) {
       </button>
       <div className="autocomplete">
         {
-          suggestions.map((sug, index) => {
-            return <div key={`suggestion-${index}`} className="autocomplete-item" onClick={() => autoCompleteClickHandler(sug)}> {sug} </div>;
+          suggestions.map((sug) => {
+            return <div key={sug} className="autocomplete-item" onClick={() => autoCompleteClickHandler(sug)}> {sug} </div>;
           })
         }
       </div>
