@@ -90,3 +90,30 @@ export const extractClassGrade = (pageAssessments) => {
   });
   return classGrade;
 };
+
+
+export const keywordAutocompleteGenerator = (keyword) => {
+  return {
+    list: 'search',
+    srsearch: keyword,
+    srlimit: 5,
+    srinfo: 'totalhits',
+    srprop: '',
+  };
+};
+
+
+const mediawikiApiBase = (language, project) => {
+  if (project === 'wikidata') {
+    return `https://${project}.org/w/api.php?action=query&format=json&origin=*`;
+  }
+  return `https://${language}.${project}.org/w/api.php?action=query&format=json&origin=*`;
+};
+
+export const fetchArticleAutocompleteResults = async (keyword, wiki) => {
+  const query = keywordAutocompleteGenerator(keyword);
+
+  return queryUrl(mediawikiApiBase(wiki.language, wiki.project), query).then((data) => {
+    return data.query.search.map(item => item.title);
+  });
+};
