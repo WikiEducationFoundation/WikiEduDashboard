@@ -56,6 +56,7 @@ function ArticleFinderSearchBar({ value, onChange, onSearch, disabled, wiki }) {
     <div className={searchClass}>
       <input
         type="text"
+        id="article-searchbar"
         placeholder={I18n.t('article_finder.search_placeholder')}
         onChange={inputChangeHandler}
         value={value}
