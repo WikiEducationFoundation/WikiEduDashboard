@@ -62,7 +62,10 @@ describe 'cloning a course', js: true do
     visit root_path
     click_link 'Create Course'
     click_button 'Clone Previous Course'
-    select course.title, from: 'reuse-existing-course-select'
+    find('#reuse-existing-course-select').click
+    within '#reuse-existing-course-select' do
+      all('div', text: course.title)[2].click
+    end
     click_button 'Clone This Course'
 
     expect(page).to have_content 'Update Details for Cloned Course'
@@ -123,7 +126,10 @@ describe 'cloning a course', js: true do
     visit root_path
     click_link 'Create Course'
     click_button 'Clone Previous Course'
-    select course.title, from: 'reuse-existing-course-select'
+    find('#reuse-existing-course-select').click
+    within '#reuse-existing-course-select' do
+      all('div', text: course.title)[2].click
+    end
     find('input#copy_cloned_articles').click
     click_button 'Clone This Course'
 
