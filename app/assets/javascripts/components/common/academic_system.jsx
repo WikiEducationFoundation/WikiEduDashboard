@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const AcademicSystem = (props) => {
   const [selectedOption, setSelectedOption] = useState(props.value || 'semester');
+
+  useEffect(() => {
+    props.updateCourseProps({ academic_system: selectedOption });
+  }, []);
 
   const handleOptionChange = (changeEvent) => {
     setSelectedOption(changeEvent.target.value);
