@@ -859,6 +859,9 @@ sr-ec:
     label: Ресурси
     header: Ресурси и тренинг
   settings:
+    categories:
+      other_settings: Остала подешавања
+      users: Корисници
     admin_users:
       new:
         form_label: Додели администраторске привилегије

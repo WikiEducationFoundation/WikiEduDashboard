@@ -533,6 +533,9 @@ lb:
     see_more: Méi gesinn
     show_all: All weisen
   settings:
+    categories:
+      other_settings: Aner Astellungen
+      users: Benotzer
     admin_users:
       new:
         form_placeholder: Benotzernumm

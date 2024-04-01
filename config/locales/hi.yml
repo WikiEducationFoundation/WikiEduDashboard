@@ -196,9 +196,9 @@ hi:
     articles_short: लेख
   items:
     available: उपलब्ध आइटम
-    search: किसी आइटम के लिए विकिडेटा खोजें
-    how_to_find: आइटम कैसे खोजें
     find: आइटम ढूंढें
+    how_to_find: आइटम कैसे खोजें
+    search: किसी आइटम के लिए विकिडेटा खोजें
   articles_generic:
     articles_short: पृष्ठ
   assignments:

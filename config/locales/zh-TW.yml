@@ -154,6 +154,7 @@ zh-TW:
       untracked: 已取消追蹤
       tracked_and_untracked: 已追蹤與取消追蹤
     find: 尋找條目
+    how_to_find: 如何查找條目
     hide: 隱藏
     history: （歷史）
     label: 條目
@@ -216,6 +217,7 @@ zh-TW:
     edited: 已編輯項目
     edited_none: 還沒有編輯過的項目。
     find: 尋找項目
+    how_to_find: 如何查找項目
     preview: 項目簡要預覽
     search: 在維基數據中搜尋項目
     tracked_doc: 僅已追蹤項目會加在用於此方案的統計。當項目被標記為取消追蹤時，在下一次資料更新後會從統計裡移除。
@@ -344,6 +346,7 @@ zh-TW:
     disable_account_requests: 停用帳號申請
     enable_account_requests: 啟用帳號申請
     newest_campaigns: 最新競賽
+    featured_campaigns: 特色競賽
     no_alerts: 此競賽沒有提醒
     no_passcode: 沒有選課代碼
     none: 無
@@ -409,6 +412,9 @@ zh-TW:
     articles_i_will_create_wikidata: 我將會建立的項目
     articles_i_am_updating: 我在更新的條目
     articles_i_am_updating_wikidata: 我正在更新的項目
+    add_campaign_aria_label: 新增競賽按鈕
+    new_tag_button_aria_label: 建立或更新標籤按鈕
+    enroll_button_aria_label: 登記按鈕
     assignment_headings:
       assigned_articles: 已分配條目
       assigned_articles_wikidata: 已分配項目
@@ -1043,6 +1049,14 @@ zh-TW:
     label: 資源
     header: 資源與培訓
   settings:
+    categories:
+      other_settings: 其他設定
+      impact_stats: 影響統計
+      salesforce: Salesforce
+      featured_campaigns: 特色競賽
+      special_users: 特殊使用者
+      admin_users: 管理員使用者
+      users: 使用者
     admin_users:
       new:
         form_label: 授予管理權限
@@ -1058,6 +1072,12 @@ zh-TW:
         already_instructor: '%{username} 已是導師！'
         demote_success: '%{username} 被變動為導師。'
         no_super_admin: 不可對最高管理員撤回管理狀態
+    featured_campaigns:
+      campaign_not_found: 未找到代稱「%{campaign_slug}」的競賽
+      no_featured_campaigns: 未定義特色競賽
+      update_featured_campaigns_button: 更新特色競賽
+      add_button: 新增競賽
+      remove_button: 移除競賽
     special_users:
       new:
         form_label: 授予特別使用者權限
