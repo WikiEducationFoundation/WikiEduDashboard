@@ -79,13 +79,14 @@ const TextAreaInput = createReactClass({
       if (this.props.wysiwyg && this.state.tinymceLoaded) {
         inputElement = (
           <Editor
+            onInit={(_, editor) => this.setState({ activeEditor: editor })}
             value={this.props.value}
             onEditorChange={this.handleRichTextEditorChange}
             onSubmit={this.handleSubmit}
             className={inputClass}
             init={{
-              setup: (editor) => { this.setState({ activeEditor: editor }); },
               inline: true,
+              promotion: false,
               convert_urls: false,
               plugins: 'lists link code',
               toolbar: [
