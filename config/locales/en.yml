@@ -1409,6 +1409,9 @@ en:
     usage_doc: Number of Wikipedia articles that this image appears in.
     usage_count_gallery_tile: Used in %{usage_count} articles
     usages: Usages
+    gallery_view: Gallery View
+    list_view: List View
+    tile_view: Tile View
 
   users:
     already_enrolled: That user is already enrolled!
