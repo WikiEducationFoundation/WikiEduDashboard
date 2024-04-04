@@ -34,6 +34,14 @@ A competitive applicant will also put together a project plan that demonstrates 
 
 We also welcome applicants to come up with their own project ideas — which is an especially good way to show your understanding of the big picture of the Dashboard and its role in the Wikimedia ecosystem.
 
+Some things that make an applicant look good:
+* Clean code and clear Git histories
+* Well-isolated individual Git commits with detailed comments that explain the context and the thought process behind the code
+* Working on one issue at a time
+* PRs that have already been tested locally, and include screenshots or videos to compare before/after
+* Helping other contributors
+* Noticing bugs and/or code quality problems and opening good issues for them
+
 Here are some examples of strong applications that we accepted:
 * https://phabricator.wikimedia.org/T177507
 * https://phabricator.wikimedia.org/T189873

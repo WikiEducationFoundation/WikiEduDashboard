@@ -10,10 +10,11 @@ import MainspaceChecklist from '~/app/assets/javascripts/components/common/mains
 import FinalArticleChecklist from '~/app/assets/javascripts/components/common/final_article_checklist.jsx';
 import PeerReviewChecklist from '~/app/assets/javascripts/components/common/peer_review_checklist.jsx';
 import Feedback from '~/app/assets/javascripts/components/common/feedback.jsx';
+import EditSandboxUrl from './EditSandboxUrl';
 
 export const Actions = ({
   article, assignment, courseSlug, current_user, isComplete, username,
-  isEnglishWikipedia, isClassroomProgram, unassign
+  isEnglishWikipedia, isClassroomProgram, unassign, course
 }) => {
   if (isComplete) {
     // If complete, only return the following
@@ -30,6 +31,10 @@ export const Actions = ({
   }
 
   const actions = [];
+
+  if (!course.no_sandboxes) {
+    actions.push(<EditSandboxUrl key="edit-sandbox-url-button" user={current_user} assignment={assignment} />);
+  }
 
   if (assignment.article_id) {
     actions.push(<PageViews key="pageviews-button" article={article} />);

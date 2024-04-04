@@ -49,6 +49,7 @@ class Alert < ApplicationRecord
     HighQualityArticleAssignmentAlert
     HighQualityArticleEditAlert
     NeedHelpAlert
+    NoTaEnrolledAlert
     NoEnrolledStudentsAlert
     NoMedTrainingForCourseAlert
     OnboardingAlert
@@ -61,6 +62,7 @@ class Alert < ApplicationRecord
     SurveyResponseAlert
     UnsubmittedCourseAlert
     UntrainedStudentsAlert
+    InstructorNotificationAlert
   ].freeze
   validates_inclusion_of :type, in: ALERT_TYPES
 

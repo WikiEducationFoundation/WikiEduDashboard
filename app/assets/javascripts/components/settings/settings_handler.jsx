@@ -7,11 +7,15 @@ import AddAdminButton from './views/add_admin_button';
 import AddSpecialUserButton from './views/add_special_user_button';
 import AdminUserList from './admin_users_list';
 import Notifications from '../common/notifications';
-import { fetchAdminUsers, fetchSpecialUsers, fetchCourseCreationSettings, fetchDefaultCampaign } from '../../actions/settings_actions';
+import { fetchAdminUsers, fetchSpecialUsers, fetchCourseCreationSettings, fetchDefaultCampaign, fetchFeaturedCampaigns } from '../../actions/settings_actions';
 import SpecialUserList from './special_users_list';
 import UpdateSalesforceCredentials from './views/update_salesforce_credentials';
 import CourseCreationSettings from './course_creation_settings';
 import DefaultCampaignSetting from './default_campaign_setting';
+import UpdateImpactStats from './views/update_impact_stats';
+import AddFeaturedCampaign from './views/add_featured_campaign';
+import FeaturedCampaignsList from './featured_campaigns_list';
+import SiteNoticeSetting from './site_notice_setting';
 
 export const SettingsHandler = createReactClass({
   propTypes: {
@@ -28,7 +32,8 @@ export const SettingsHandler = createReactClass({
     ),
     specialUsers: PropTypes.object,
     courseCreation: PropTypes.object,
-    defaultCampaign: PropTypes.string
+    defaultCampaign: PropTypes.string,
+    featuredCampaigns: PropTypes.array
   },
 
   componentDidMount() {
@@ -36,6 +41,7 @@ export const SettingsHandler = createReactClass({
     this.props.fetchSpecialUsers();
     this.props.fetchCourseCreationSettings();
     this.props.fetchDefaultCampaign();
+    this.props.fetchFeaturedCampaigns();
   },
 
   render() {
@@ -43,13 +49,20 @@ export const SettingsHandler = createReactClass({
     if (Features.wikiEd) {
       otherSettings = (
         <React.Fragment>
-          <h1 className="mx2">Other settings</h1>
+          <h1 className="mx2 mt4">{I18n.t('settings.categories.other_settings')}</h1>
           <hr />
-          <h2 className="mx2">Salesforce</h2>
+          <h2 className="mx2">{I18n.t('settings.categories.impact_stats')}</h2>
+          <UpdateImpactStats />
+          <br /> <br />
+          <h2 className="mx2">{I18n.t('settings.categories.salesforce')}</h2>
           <UpdateSalesforceCredentials />
-          <br />
+          <br /> <br />
           <CourseCreationSettings settings={this.props.courseCreation}/>
-          <br />
+          <br /> <br />
+          <h2 className="mx2">{I18n.t('settings.categories.featured_campaigns')}</h2>
+          <AddFeaturedCampaign />
+          <FeaturedCampaignsList featuredCampaigns={this.props.featuredCampaigns} />
+          <br /> <br />
           <DefaultCampaignSetting defaultCampaign={this.props.defaultCampaign}/>
         </React.Fragment>
       );
@@ -57,12 +70,14 @@ export const SettingsHandler = createReactClass({
     return (
       <div id="settings" className="mt4 container">
         <Notifications />
-        <h1 className="mx2">Users</h1>
+        <SiteNoticeSetting />
+        <br />
+        <h1 className="mx2">{I18n.t('settings.categories.users')}</h1>
         <hr />
-        <h2 className="mx2">Admin Users</h2>
+        <h2 className="mx2">{I18n.t('settings.categories.admin_users')}</h2>
         <AddAdminButton />
         <AdminUserList adminUsers={this.props.adminUsers} />
-        <h2 className="mx2">Special Users</h2>
+        <h2 className="mx2">{I18n.t('settings.categories.special_users')}</h2>
         <AddSpecialUserButton />
         <SpecialUserList specialUsers={this.props.specialUsers} />
         {otherSettings}
@@ -76,14 +91,16 @@ const mapStateToProps = state => ({
   adminUsers: state.settings.adminUsers,
   specialUsers: state.settings.specialUsers,
   courseCreation: state.settings.courseCreation,
-  defaultCampaign: state.settings.defaultCampaign
+  defaultCampaign: state.settings.defaultCampaign,
+  featuredCampaigns: state.settings.featuredCampaigns
 });
 
 const mapDispatchToProps = {
   fetchAdminUsers,
   fetchSpecialUsers,
   fetchCourseCreationSettings,
-  fetchDefaultCampaign
+  fetchDefaultCampaign,
+  fetchFeaturedCampaigns
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SettingsHandler);

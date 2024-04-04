@@ -90,7 +90,7 @@ const Feedback = createReactClass({
     // Title set based on if the article exists in mainspace
     let button;
     if (this.state.show) {
-      button = <button onClick={this.hide} className="okay icon-close" />;
+      button = <div className="feedback-close-container"><button onClick={this.hide} className="feedback-close icon-close" /></div>;
     } else {
       button = <a onClick={this.show} className="button dark small">{I18n.t('courses.feedback')}</a>;
     }
@@ -168,14 +168,14 @@ const Feedback = createReactClass({
       for (let i = 0; i < customMessages.length; i += 1) {
         let deleteButton;
         if (customMessages[i].userId === this.props.current_user.id) {
-          deleteButton = <a className="button dark small" onClick={() => this.handleRemove(customMessages[i].messageId, i)}>{I18n.t('courses.delete_suggestion')}</a>;
+          deleteButton = <a style={{ marginLeft: '20px' }} className="button dark small" onClick={() => this.handleRemove(customMessages[i].messageId, i)}>{I18n.t('courses.delete_suggestion')}</a>;
         }
         userSuggestionList.push(<li key={customMessages[i].messageId}> {customMessages[i].message} {deleteButton} </li>);
       }
 
       // Input box to input custom feedback
       customSuggestionsForm = (
-        <form onSubmit={this.handleFeedbackSubmit}>
+        <form onSubmit={this.handleFeedbackSubmit} className="feedback-form-container">
           <textarea className="feedback-form" rows="1" cols="150" onChange={this.handleFeedbackInputChange} value={this.state.feedbackInput} placeholder={I18n.t('courses.user_suggestions_prompt')} />
           <input className="button dark small" type="submit" value="Add Suggestion" />
         </form>

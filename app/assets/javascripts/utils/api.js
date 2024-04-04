@@ -168,7 +168,7 @@ const API = {
 
   async cloneCourse(id, campaign, copyAssignments) {
     const campaignQueryParam = campaign ? `?campaign_slug=${campaign}` : ''
-    const copyAssignmentsQueryParam = copyAssignments ? `?copy_assignments=${copyAssignments}` : '?copy_assignments=false' 
+    const copyAssignmentsQueryParam = copyAssignments ? `?copy_assignments=${copyAssignments}` : '?copy_assignments=false'
     const response = await request(`/clone_course/${id}${campaignQueryParam}${copyAssignmentsQueryParam}`, {
       method: 'POST'
     });
@@ -269,7 +269,7 @@ const API = {
         delete object.is_new;
       }
     };
-    
+
     const weeks = []
     data.weeks.forEach(week => {
       const cleanWeek = { ...week };
@@ -489,7 +489,7 @@ const API = {
   async requestNewAccount(passcode, courseSlug, username, email, createAccountNow) {
     const response = await request('/requested_accounts', {
       method: 'PUT',
-      body: JSON.stringify(  
+      body: JSON.stringify(
         { passcode, course_slug: courseSlug, username, email, create_account_now: createAccountNow }
       )
     });
@@ -541,9 +541,9 @@ const API = {
 
   async getCategoriesWithPrefix(wiki, search_term, depth, limit=10){
     return this.searchForPages(
-      wiki, 
-      search_term, 
-      14, 
+      wiki,
+      search_term,
+      14,
       // replace everything until first colon, then trim
       (title)=>title.replace(/^[^:]+:/,'').trim(),
       depth,
@@ -554,7 +554,7 @@ const API = {
   async getTemplatesWithPrefix(wiki, search_term, depth, limit=10){
     return this.searchForPages(
       wiki,
-      search_term, 
+      search_term,
       10,
       (title)=>title.replace(/^[^:]+:/,'').trim(),
       depth,
@@ -584,7 +584,7 @@ const API = {
       `https://${toWikiDomain(wiki)}/w/api.php?${stringify(params)}`
     );
     const json = await response.json();
-   
+
     return json.query.search.map((category) => {
       const label = formatCategoryName({
         category: map(category.title),

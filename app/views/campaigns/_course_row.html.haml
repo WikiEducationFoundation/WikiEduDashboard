@@ -7,7 +7,7 @@
     %a.course-link{:href => "#{course_slug_path(course.slug)}"}
       = course.school + "/" + course.term
   - if Features.wiki_ed?
-    %td{:class => "table-link-cell"}
+    %td{:class => "table-link-cell"}   
       %a.course-link{:href => "#{course_slug_path(course.slug)}"}
         %span.first_instructor
           = course.courses_users.where(role: 1).first&.real_name
@@ -48,6 +48,14 @@
         %span.creation-date
           = I18n.localize course.created_at.to_date
   %td{:class => "table-link-cell"}
+    %a.course-link{:href => "#{course_slug_path(course.slug)}"}
+      - if course.start.present?
+        %span.start-date
+          = I18n.localize course.start.to_date
+      - else
+        %span.no-start-date
+          N/A
+  %td{:class => "table-link-cell"}
     - if @presenter&.campaign_organizer?
       %a.course-link{:href => "#{course_slug_path(course.slug)}", style: "padding-bottom: 0;"}
         = form_for(@campaign, url: course_clone_path(course.id), method: :post, id: "clone_course-#{course.id}", html: { class: 'remove-program-form' }) do
@@ -57,5 +65,11 @@
       %a.course-link{:href => "#{course_slug_path(course.slug)}"}
         = form_for(@campaign, url: remove_course_campaign_path(@campaign.slug, course_id: course.id), method: :put, id: "remove_course-#{course.id}", html: { class: 'remove-program-form' }) do
           = hidden_field_tag('course_title', course.title, id: "course_title-#{course.id}")
-          %button.button.danger.remove-course{'data-id' => course.id, 'data-title' => course.title, 'data-campaign-title' => @campaign.title}
+          %button.button.danger.remove-course{ 'data-id' => course.id, 'data-title' => course.title, 'data-campaign-title' => @campaign.title, title: t('campaign.remove_course_tooltip') }
             = t('assignments.remove')
+    - if @presenter&.can_delete_course?
+      %a.course-link{:href => "#{course_slug_path(course.slug)}", style: "padding-top: 0;"}
+        = form_for(@campaign, url: "/courses/#{course.slug}.json/delete_from_campaign?campaign_title=#{@campaign.title}&campaign_id=#{@campaign.id}&campaign_slug=#{@campaign.slug}", method: :delete, id: "delete_course-#{course.id}", html: { class: 'delete-program-form' }) do
+          = hidden_field_tag('course_title', course.title, id: "course_title-#{course.id}")
+          %button.button.danger.delete-course-from-campaign{'data-id' => course.id, 'data-title' => course.title, 'data-campaign-title' => @campaign.title, title: t('campaign.delete_course_tooltip') }
+            = t('assignments.delete')

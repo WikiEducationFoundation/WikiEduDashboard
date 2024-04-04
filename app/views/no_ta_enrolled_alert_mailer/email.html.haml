@@ -1,0 +1,34 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+                = "Hello #{@greeted_users},"
+              %section.message
+                %p.paragraph
+                  You indicated that your course has an additional instructor or TA support. It looks like you haven't added anyone else in the instructor role for your dashboard.wikiedu.org course page yet.
+                %p.paragraph
+                  Please follow these steps to add an additional instructor:
+                  %ul
+                    %li.numbered-item 
+                    Navigate to the
+                    %a.link{href: @alert.url} course page.
+                    %li.numbered-item Click 'Edit Details'.
+                    %li.numbered-item Click the '+' icon next to your name in the 'Instructors'.
+                    %li.numbered-item Enter the name, username and role (eg, "TA") and click 'Enroll'.
+                %p.paragraph
+                  Feel free to get in touch with us if you have any questions.
+            %td.expander
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+                Best regards,
+                %br
+                %em
+                  = @alert.from_user&.real_name || 'Wiki Education'

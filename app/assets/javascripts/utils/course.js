@@ -23,7 +23,7 @@ document.onreadystatechange = () => {
       page: 500,
       valueNames: [
         'title', 'school', 'revisions', 'characters', 'references', 'average-words', 'views',
-        'reviewed', 'students', 'creation-date', 'ungreeted', 'untrained'
+        'reviewed', 'students', 'creation-date', 'ungreeted', 'untrained', 'start-date'
       ]
     });
   }
@@ -36,7 +36,7 @@ document.onreadystatechange = () => {
       page: 500,
       valueNames: [
         'title', 'school', 'revisions', 'characters', 'references', 'average-words', 'views',
-        'reviewed', 'students', 'creation-date', 'ungreeted', 'untrained'
+        'reviewed', 'students', 'creation-date', 'ungreeted', 'untrained', 'start-date'
       ]
     });
   }
@@ -78,9 +78,9 @@ document.onreadystatechange = () => {
   }
 
   // for use on campaign/programs page
-  const x = document.querySelectorAll('.remove-course');
-  for (let i = 0; i < x.length; i += 1) {
-    x[i]?.addEventListener('click', (e) => {
+  const removeCourseBtn = document.querySelectorAll('.remove-course');
+  for (let i = 0; i < removeCourseBtn.length; i += 1) {
+    removeCourseBtn[i]?.addEventListener('click', (e) => {
         const confirmed = window.confirm(I18n.t('campaign.confirm_course_removal', {
           title: e.target.dataset.title,
           campaign_title: e.target.dataset.campaignTitle
@@ -90,6 +90,19 @@ document.onreadystatechange = () => {
         }
     });
   }
+
+  const deleteCourseBtn = document.getElementsByClassName('delete-course-from-campaign')[0];
+  if (deleteCourseBtn) {
+    deleteCourseBtn.addEventListener('click', (e) => {
+      const enteredTitle = window.prompt(I18n.t('courses.confirm_course_deletion', { title: e.target.dataset.title }));
+      if (!enteredTitle) {
+        e.preventDefault();
+      } else if (enteredTitle.trim() !== e.target.dataset.title.trim()) {
+        e.preventDefault();
+        alert(I18n.t('courses.confirm_course_deletion_failed', { title: enteredTitle }));
+      }
+   });
+}
 
   return document.querySelectorAll('select.sorts').forEach(item => item?.addEventListener('change', function () {
     const list = (() => {

@@ -52,4 +52,11 @@ class Features
   def self.email?
     !ENV['mailgun_key'].nil?
   end
+
+  def self.site_notice
+    Rails.cache.fetch('site_notice') do
+      site_notice = Setting.find_by(key: 'site_notice')&.value.presence || {}
+      site_notice
+    end
+  end
 end

@@ -37,6 +37,17 @@ const WikiSelect = createReactClass({
      *  Should the Wikis be read-only
      */
     readOnly: PropTypes.bool,
+
+    /**
+     *  Label for the select input
+     */
+    label: PropTypes.string,
+
+    /**
+     *  Label for the select input
+     */
+    id: PropTypes.string,
+
     /**
      * Wikis for options, in article finder (through selected_wiki_options)
      * and assign button (through new assigment input and selected wiki options)  tracked Wikis,
@@ -133,18 +144,32 @@ const WikiSelect = createReactClass({
       callback(filterOptionsLong(inputValue));
     };
 
-    return <AsyncSelect
-      isMulti={this.props.multi}
-      placeholder={I18n.t('multi_wiki.selector_placeholder')}
-      noOptionsMessage={() => I18n.t('multi_wiki.selector_placeholder')}
-      value={wikis.length ? wikis : undefined}
-      loadOptions={loadOptions}
-      onChange={preprocess}
-      styles={this.props.styles}
-      isClearable={false}
-      defaultValue={home_wiki && formatOption(home_wiki)}
-      className="multi-wiki-selector"
-    />;
+   return (
+     <>
+       <label
+         id={`${this.props.id}-label`}
+         htmlFor={this.props.id} className="text-input-component__label"
+       >
+         <strong>
+           {this.props.label}:&nbsp;
+         </strong>
+       </label>
+       <AsyncSelect
+         id={this.props.id}
+         isMulti={this.props.multi}
+         placeholder={I18n.t('multi_wiki.selector_placeholder')}
+         noOptionsMessage={() => I18n.t('multi_wiki.selector_placeholder')}
+         value={wikis.length ? wikis : undefined}
+         loadOptions={loadOptions}
+         onChange={preprocess}
+         styles={this.props.styles}
+         isClearable={false}
+         defaultValue={home_wiki && formatOption(home_wiki)}
+         className="multi-wiki-selector"
+         aria-labelledby={`${this.props.id}-label`}
+       />
+     </>
+   );
   }
 }
 );

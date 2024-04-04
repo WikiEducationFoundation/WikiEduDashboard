@@ -7,6 +7,8 @@ import SearchableCourseList from '../course/searchable_course_list';
 
 const Explore = ({ dashboardTitle }) => {
   const user = getCurrentUser(useSelector(state => state));
+  const { featuredCampaigns } = useSelector(state => state.settings);
+  const isFeaturedCampaigns = featuredCampaigns.length > 0;
   const showCreateButton = user.admin || Features.open_course_creation;
   return (
     <>
@@ -15,9 +17,11 @@ const Explore = ({ dashboardTitle }) => {
           <h1 >{dashboardTitle}</h1>
         </div>
       </header>
-      <SearchableCourseList/>
+      <SearchableCourseList />
       <div id="campaigns_list">
-        <DetailedCampaignList headerText={I18n.t('campaign.newest_campaigns')} newest/>
+        <DetailedCampaignList
+          headerText={isFeaturedCampaigns ? I18n.t('campaign.featured_campaigns') : I18n.t('campaign.newest_campaigns')}
+        />
         <div className="campaigns-actions" >
           {showCreateButton && <a className="button dark" href="campaigns/new?create=true">{I18n.t('campaign.create_campaign')}</a>}
           <a href="/campaigns" className="button">
@@ -26,17 +30,17 @@ const Explore = ({ dashboardTitle }) => {
         </div>
       </div>
       {Features.wikiEd
-      && (
-        <div id="active_courses">
-          <ActiveCourseList campaignOnly={true}/>
-          <div className="campaigns-actions">
-            {showCreateButton && <a className="button dark" href="/course_creator">{I18n.t(`${Features.course_string_prefix}.creator.create_new`)}</a>}
-            <a href={`/campaigns/${Features.default_campaign_slug}/programs`} className="button">
-              {I18n.t(`${Features.course_string_prefix}.all_courses`)} <span className="icon2 icon-rt_arrow_dark" />
-            </a>
+        && (
+          <div id="active_courses">
+            <ActiveCourseList campaignOnly={true} />
+            <div className="campaigns-actions">
+              {showCreateButton && <a className="button dark" href="/course_creator">{I18n.t(`${Features.course_string_prefix}.creator.create_new`)}</a>}
+              <a href={`/campaigns/${Features.default_campaign_slug}/programs`} className="button">
+                {I18n.t(`${Features.course_string_prefix}.all_courses`)} <span className="icon2 icon-rt_arrow_dark" />
+              </a>
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
     </>
   );

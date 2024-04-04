@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-
+import { initiateConfirm } from '~/app/assets/javascripts/actions/confirm_actions';
 import CourseUtils from '../../utils/course_utils.js';
 import { deleteAssignment, claimAssignment } from '../../actions/assignment_actions.js';
 
@@ -37,8 +37,13 @@ export const AvailableArticle = ({ assignment, current_user, course, selectable 
       role: 0
     };
 
-    if (!confirm(I18n.t('assignments.confirm_deletion'))) { return; }
-    return dispatch(deleteAssignment(assignmentObj));
+    const confirmMessage = I18n.t('assignments.confirm_deletion');
+
+    const onConfirm = () => {
+      dispatch(deleteAssignment(assignmentObj));
+    };
+
+    dispatch(initiateConfirm({ confirmMessage, onConfirm }));
   };
 
   const className = 'assignment';

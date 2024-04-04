@@ -5,6 +5,7 @@ import TextInput from '../common/text_input.jsx';
 import CourseLevelSelector from './course_level_selector.jsx';
 import CourseFormatSelector from './course_format_selector.jsx';
 import CourseSubjectSelector from './course_subject_selector.jsx';
+import CourseCheckbox from '../common/course_checkbox.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import selectStyles from '../../styles/select';
 import WikiSelect from '../common/wiki_select.jsx';
@@ -12,12 +13,6 @@ import AcademicSystem from '../common/academic_system.jsx';
 import WIKI_OPTIONS from '../../utils/wiki_options';
 
 const CourseForm = (props) => {
-  const updateCoursePrivacy = (e) => {
-    const isPrivate = e.target.checked;
-    props.updateCourseProps({ private: isPrivate });
-    props.updateCourseAction('private', isPrivate);
-  };
-
   const handleWikiChange = (wiki) => {
     const home_wiki = wiki.value;
     const prev_wiki = { ...props.course.home_wiki };
@@ -43,6 +38,7 @@ const CourseForm = (props) => {
   let courseFormat;
   let roleDescription;
   let academic_system;
+  let taSupportCheckbox;
 
   let descriptionRequired = false;
   if (props.defaultCourse === 'ClassroomProgramCourse') {
@@ -113,17 +109,27 @@ const CourseForm = (props) => {
         </span>
       </div>
     );
-
-    roleDescription = (
-      <CreatableInput
-        id="role_description"
-        onChange={({ value }) =>
-          props.updateCourseAction('role_description', value)
-        }
-        label={I18n.t('courses.creator.role_description')}
-        placeholder={I18n.t('courses.creator.role_description_placeholder')}
-        options={options}
+    taSupportCheckbox = (
+      <CourseCheckbox
+        checkboxFor="ta_support"
+        value={true}
+        updateCourseProps={props.updateCourseProps}
+        checked={!!props.course.ta_support}
+        text={I18n.t('courses.creator.course_ta_support')}
       />
+    );
+    roleDescription = (
+      <div className="form-group">
+        <CreatableInput
+          id="role_description"
+          onChange={({ value }) =>
+        props.updateCourseAction('role_description', value)
+      }
+          label={I18n.t('courses.creator.role_description')}
+          placeholder={I18n.t('courses.creator.role_description_placeholder')}
+          options={options}
+        />
+      </div>
     );
   }
 
@@ -168,18 +174,13 @@ const CourseForm = (props) => {
       </div>
     );
     privacyCheckbox = (
-      <div className="form-group">
-        <label htmlFor="course_private">
-          {I18n.t('courses.creator.course_private')}:
-        </label>
-        <input
-          id="course_private"
-          type="checkbox"
-          value={true}
-          onChange={updateCoursePrivacy}
-          checked={!!props.course.private}
-        />
-      </div>
+      <CourseCheckbox
+        checkboxFor="private"
+        value={true}
+        updateCourseProps={props.updateCourseProps}
+        checked={!!props.course.private}
+        text={I18n.t('courses.creator.course_private')}
+      />
     );
     backButton = (
       <button onClick={props.previous} className={backClass}>
@@ -233,12 +234,14 @@ const CourseForm = (props) => {
         {expectedStudents}
         {home_wiki}
         {multi_wiki}
-        {backButton}
-        <p className="tempCourseIdText">
-          {props.tempCourseId || '\xa0'}
+        <div className="backButtonContainer">
+          {backButton}
+          <p className="tempEduCourseIdText">
+            {props.tempCourseId || '\xa0'}
           &nbsp;
-          <span className="red">{props.firstErrorMessage || '\xa0'}</span>
-        </p>
+            <span className="red">{props.firstErrorMessage || '\xa0'}</span>
+          </p>
+        </div>
 
       </div>
       <div className="column">
@@ -260,9 +263,10 @@ const CourseForm = (props) => {
           placeholder={CourseUtils.i18n(
             'creator.course_description_placeholder',
             props.stringPrefix
-          )}
+            )}
         />
         {roleDescription}
+        {taSupportCheckbox}
         {privacyCheckbox}
         <button
           onClick={props.next}

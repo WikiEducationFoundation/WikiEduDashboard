@@ -1,48 +1,42 @@
-import createReactClass from 'create-react-class';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import React from 'react';
 import TextInput from '../../common/text_input';
 
-const DefaultCampaignForm = createReactClass({
-  propTypes: {
-    updateDefaultCampaign: PropTypes.func,
-    handlePopoverClose: PropTypes.func,
-  },
+const DefaultCampaignForm = (props) => {
+  const [default_campaign_slug, setDefault_campaign_slug] = useState(null);
 
-  getInitialState() {
-    return {};
-  },
+  const handleChange = (key, value) => {
+    setDefault_campaign_slug(value);
+  };
 
-  handleChange(key, value) {
-    return this.setState({ [key]: value });
-  },
-
-  handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    this.props.updateDefaultCampaign(this.state.default_campaign_slug);
-    this.props.handlePopoverClose(e);
-  },
+    props.updateDefaultCampaign(default_campaign_slug);
+    props.handlePopoverClose(e);
+  };
+  return (
+    <tr>
+      <td>
+        <form onSubmit={handleSubmit}>
+          <TextInput
+            id="default_campaign_slug"
+            editable
+            onChange={handleChange}
+            value={default_campaign_slug}
+            value_key="default_campaign_slug"
+            type="text"
+            label="Default Campaign Slug"
+          />
+          <button className="button border" type="submit" value="Submit">{I18n.t('application.submit')}</button>
+        </form>
+      </td>
+    </tr>
+  );
+};
 
-  render() {
-    return (
-      <tr>
-        <td>
-          <form onSubmit={this.handleSubmit}>
-            <TextInput
-              id="default_campaign_slug"
-              editable
-              onChange={this.handleChange}
-              value={this.state.default_campaign_slug}
-              value_key="default_campaign_slug"
-              type="text"
-              label="Default Campaign Slug"
-            />
-            <button className="button border" type="submit" value="Submit">{I18n.t('application.submit')}</button>
-          </form>
-        </td>
-      </tr>
-    );
-  }
-});
+DefaultCampaignForm.propTypes = {
+  updateDefaultCampaign: PropTypes.func,
+  handlePopoverClose: PropTypes.func,
+};
 
 export default DefaultCampaignForm;

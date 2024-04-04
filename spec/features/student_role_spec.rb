@@ -78,6 +78,10 @@ describe 'Student users', type: :feature, js: true do
   end
 
   describe 'enrolling and unenrolling by button' do
+    before do
+      allow(Features).to receive(:wiki_ed?).and_return(false)
+    end
+
     it 'joins and leaves a course' do
       login_as(user, scope: :user)
       stub_oauth_edit

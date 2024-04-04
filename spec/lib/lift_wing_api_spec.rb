@@ -50,11 +50,13 @@ describe LiftWingApi do
     it 'fetches json from api.wikimedia.org for wikidata' do
       VCR.use_cassette 'liftwing_api/wikidata' do
         expect(subject1).to be_a(Hash)
+        expect(subject1.dig('829840084')).to have_key('wp10')
         expect(subject1.dig('829840084', 'wp10')).to eq(nil)
         expect(subject1.dig('829840084', 'features')).to be_a(Hash)
         expect(subject1.dig('829840084', 'deleted')).to eq(false)
         expect(subject1.dig('829840084', 'prediction')).to eq('D')
 
+        expect(subject1.dig('829840084')).to have_key('wp10')
         expect(subject1.dig('829840085', 'wp10')).to eq(nil)
         expect(subject1.dig('829840085', 'features')).to be_a(Hash)
         expect(subject1.dig('829840085', 'deleted')).to eq(false)
@@ -65,36 +67,38 @@ describe LiftWingApi do
     it 'returns deleted equal to true if the revision was deleted' do
       VCR.use_cassette 'liftwing_api/deleted_revision' do
         expect(subject2).to be_a(Hash)
-        expect(subject2.dig('708326238', 'wp10')).to eq(nil)
-        expect(subject2.dig('708326238', 'features')).to eq(nil)
-        expect(subject2.dig('708326238', 'deleted')).to eq(true)
-        expect(subject2.dig('708326238', 'prediction')).to eq(nil)
+        expect(subject2.dig('708326238')).to eq({ 'wp10' => nil,
+        'features' => nil, 'deleted' => true, 'prediction' => nil })
       end
     end
 
-    it 'handles timeout errors' do
-      stub_request(:any, 'https://api.wikimedia.org')
-        .to_raise(Errno::ETIMEDOUT)
-      expect(lift_wing_api_class_en_wiki).to receive(:log_error).once
-      expect(subject0.dig('829840085')).to be_a(Hash)
-      expect(subject0.dig('829840085')).to be_empty
-    end
+    context 'if the same error happens several times' do
+      it 'logs timeout error once' do
+        stub_request(:any, /.*api.wikimedia.org.*/)
+          .to_raise(Errno::ETIMEDOUT)
+        expect(lift_wing_api_class_en_wiki).to receive(:log_error).once
+        expect(subject0.dig('829840085')).to eq({ 'wp10' => nil,
+        'features' => nil, 'deleted' => false, 'prediction' => nil })
+      end
 
-    it 'handles connection refused errors' do
-      stub_request(:any, 'https://api.wikimedia.org')
-        .to_raise(Faraday::ConnectionFailed)
-      expect(lift_wing_api_class_en_wiki).to receive(:log_error).once
-      expect(subject0.dig('829840085')).to be_a(Hash)
-      expect(subject0.dig('829840085')).to be_empty
-    end
+      it 'logs connection refused once' do
+        stub_request(:any, /.*api.wikimedia.org.*/)
+          .to_raise(Faraday::ConnectionFailed)
+        expect(lift_wing_api_class_en_wiki).to receive(:log_error).once
+        expect(subject0.dig('829840085')).to eq({ 'wp10' => nil,
+        'features' => nil, 'deleted' => false, 'prediction' => nil })
+      end
 
-    it 'logs the error if something unexpected happens when building the successful response' do
-      allow(lift_wing_api_class_en_wiki)
-        .to receive(:build_successful_response)
-        .and_raise(StandardError)
-      expect(lift_wing_api_class_en_wiki).to receive(:log_error).once
-      expect(subject0.dig('829840085')).to be_a(Hash)
-      expect(subject0.dig('829840085')).to be_empty
+      it 'logs unexpected error once' do
+        VCR.use_cassette 'liftwing_api/logs_unexpected_error' do
+          allow(lift_wing_api_class_en_wiki)
+            .to receive(:build_successful_response)
+            .and_raise(StandardError)
+          expect(lift_wing_api_class_en_wiki).to receive(:log_error).once
+          expect(subject0.dig('829840085')).to eq({ 'wp10' => nil,
+          'features' => nil, 'deleted' => false, 'prediction' => nil })
+        end
+      end
     end
   end
 end
