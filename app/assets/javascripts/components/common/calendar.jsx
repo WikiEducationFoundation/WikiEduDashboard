@@ -167,6 +167,11 @@ const Calendar = createReactClass({
             {editingCalendar}
             <DayPicker
               modifiers={modifiers}
+              modifiersClassNames={{
+                selected: 'rdp-Day_selected rdp-Day_highlighted',
+                highlighted: 'rdp-Day_highlighted',
+                bordered: 'rdp-Day_bordered rdp-Day_highlighted'
+              }}
               onDayClick={onDayClick}
               defaultMonth={this.state.initialMonth}
             />
@@ -174,15 +179,15 @@ const Calendar = createReactClass({
               <h3>{I18n.t('courses.calendar.legend')}</h3>
               <ul>
                 <li>
-                  <div className="DayPicker-Day DayPicker-Day--highlighted DayPicker-Day--selected">6</div>
+                  <div className="rdp-Day rdp-Day_highlighted rdp-Day_selected">6</div>
                   <span>{I18n.t('courses.calendar.legend_class_meeting')}</span>
                 </li>
                 <li>
-                  <div className="DayPicker-Day DayPicker-Day--highlighted">6</div>
+                  <div className="rdp-Day rdp-Day_highlighted">6</div>
                   <span>{I18n.t('courses.calendar.legend_class_not_meeting')}</span>
                 </li>
                 <li>
-                  <div className="DayPicker-Day DayPicker-Day--highlighted DayPicker-Day--bordered">6</div>
+                  <div className="rdp-Day rdp-Day_highlighted rdp-Day_bordered">6</div>
                   <span>{I18n.t('courses.calendar.legend_class_canceled')}</span>
                 </li>
               </ul>
