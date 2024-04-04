@@ -293,7 +293,7 @@ p.red
 
 .wizard__form.course-dates
   clear both
-  .DayPicker
+  .rdp
     float none
 
 .course-dates__step
@@ -301,9 +301,9 @@ p.red
   width 100%
   .vertical-form.full-width
     padding 0 0 0 35px
-  .WeekdayPicker.DayPicker
+  .WeekdayPicker.rdp
     margin-left 20px
-  h2
+  h2:not(.rdp-caption_label)
     margin-bottom 15px
     display inline-block
     width 100%
@@ -323,10 +323,11 @@ p.red
 .course-dates__calendar-container
   display inline-block
   width 100%
-  .DayPicker
+  .rdp
     margin-left 15px
     float left !important
     clear none
+    box-shadow none!important
   .course-dates__calendar-key
     float left
     width 45%
@@ -342,7 +343,7 @@ p.red
       display inline-block
       width 100%
       margin 15px 0
-      .DayPicker-Day
+      .rdp-Day
         position relative
         float left
         margin-right 8px
@@ -367,11 +368,11 @@ p.red
   .column:last-of-type
     margin-right 0
 
-  .WeekdayPicker.DayPicker
+  .WeekdayPicker.rdp
     margin-left 0
 
   .course-dates__calendar-container
-    .DayPicker.DayPicker--en
+    .rdp.rdp_en
       margin-left 0
       width 100%
 
