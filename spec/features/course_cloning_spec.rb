@@ -84,8 +84,8 @@ describe 'cloning a course', js: true do
     end
 
     find('h3#clone_modal_header').click # This is just too close the datepicker
-    omniclick find('span', text: 'MO')
-    omniclick find('span', text: 'WE')
+    omniclick find('span', text: 'MO', match: :first)
+    omniclick find('span', text: 'WE', match: :first)
     click_button 'Save New Course'
     expect(page).to have_content 'Mark the holidays' # Error message upon click.
     find('input#no_holidays').click
@@ -146,8 +146,8 @@ expect(page).to have_content 'Update Details for Cloned Course'
     end
 
     find('h3#clone_modal_header').click # This is just too close the datepicker
-    omniclick find('span', text: 'MO')
-    omniclick find('span', text: 'WE')
+    omniclick find('span', text: 'MO', match: :first)
+    omniclick find('span', text: 'WE', match: :first)
     click_button 'Save New Course'
     expect(page).to have_content 'Mark the holidays' # Error message upon click.
     find('input#no_holidays').click
