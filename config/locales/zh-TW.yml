@@ -1221,6 +1221,9 @@ zh-TW:
     usage_doc: 有出現此圖片的維基百科條目數量。
     usage_count_gallery_tile: 使用在 %{usage_count} 個條目
     usages: 使用狀況
+    gallery_view: 圖庫檢視
+    list_view: 清單檢視
+    tile_view: 圖塊檢視
   users:
     already_enrolled: 這位使用者已經登記！
     assign_articles: 分配條目

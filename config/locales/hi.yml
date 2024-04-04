@@ -409,6 +409,9 @@ hi:
   revisions:
     class: कक्षा
     title: शीर्षक
+  settings:
+    categories:
+      users: सदस्य
   timeline:
     empty_week_3: या
   training:
