@@ -147,10 +147,9 @@ const CourseForm = (props) => {
   if (props.defaultCourse !== 'ClassroomProgramCourse') {
     home_wiki = (
       <div className="form-group home-wiki">
-        <span className="text-input-component__label">
-          <strong>{I18n.t('courses.home_wiki')}:</strong>
-        </span>
         <WikiSelect
+          id="home-wiki-select"
+          label={I18n.t('courses.home_wiki')}
           wikis={[{ ...props.course.home_wiki }]}
           onChange={handleWikiChange}
           options={WIKI_OPTIONS}
@@ -161,10 +160,9 @@ const CourseForm = (props) => {
     );
     multi_wiki = (
       <div className="form-group multi-wiki">
-        <span className="text-input-component__label">
-          <strong>{I18n.t('courses.multi_wiki')}:</strong>
-        </span>
         <WikiSelect
+          id="tracked-wikis-select"
+          label={I18n.t('courses.multi_wiki')}
           wikis={props.course.wikis}
           onChange={handleMultiWikiChange}
           multi={true}
