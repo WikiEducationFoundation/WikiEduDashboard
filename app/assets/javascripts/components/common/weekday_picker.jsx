@@ -56,7 +56,7 @@ const WeekdayPicker = createReactClass({
 
   focusPreviousDay(dayNode) {
     const body = dayNode.parentNode.parentNode.parentNode.parentNode;
-    const dayNodes = body.querySelectorAll('.DayPicker-Weekday:not(.DayPicker-Weekday--outside)');
+    const dayNodes = body.querySelectorAll('.rdp-Weekday:not(.rdp-Weekday_outside)');
     let nodeIndex;
     for (let i = 0; i < dayNodes.length; i += 1) {
       if (dayNodes[i] === dayNode) {
@@ -71,7 +71,7 @@ const WeekdayPicker = createReactClass({
 
   focusNextDay(dayNode) {
     const body = dayNode.parentNode.parentNode.parentNode.parentNode;
-    const dayNodes = body.querySelectorAll('.DayPicker-Weekday:not(.DayPicker-Weekday--outside)');
+    const dayNodes = body.querySelectorAll('.rdp-Weekday:not(.rdp-Weekday_outside)');
     let nodeIndex;
     for (let i = 0; i < dayNodes.length; i += 1) {
       if (dayNodes[i] === dayNode) {
@@ -133,8 +133,8 @@ const WeekdayPicker = createReactClass({
       weekdays.push(this.renderWeekday(i));
     }
     return (
-      <div className="DayPicker-Month">
-        <div className="DayPicker-Weekdays">
+      <div className="rdp-Month">
+        <div className="rdp-Weekdays">
           <div>
             {weekdays}
           </div>
@@ -146,7 +146,7 @@ const WeekdayPicker = createReactClass({
   renderWeekday(weekday) {
     const { locale, modifiers: modifierFunctions } = this.props;
 
-    let className = 'DayPicker-Weekday';
+    let className = 'rdp-Weekday';
     let modifiers = [];
 
     if (modifierFunctions) {
@@ -154,7 +154,7 @@ const WeekdayPicker = createReactClass({
       modifiers = [...modifiers, ...customModifiers];
     }
 
-    className += modifiers.map(modifier => ` ${className}--${modifier}`).join('');
+    className += modifiers.map(modifier => ` ${className}_${modifier}`).join('');
 
     const ariaSelected = modifiers.indexOf(this.props.ariaModifier) > -1;
 
@@ -204,10 +204,10 @@ const WeekdayPicker = createReactClass({
 
   render() {
     const { locale, style, tabIndex } = this.props;
-    let className = `WeekdayPicker DayPicker DayPicker--${locale}`;
+    let className = `WeekdayPicker DayPicker rdp_${locale}`;
 
     if (!this.props.onWeekdayClick) {
-      className = `${className} WeekdayPicker--InteractionDisabled`;
+      className = `${className} WeekdayPicker_InteractionDisabled`;
     }
     if (this.props.className) {
       className = `${className} ${this.props.className}`;
