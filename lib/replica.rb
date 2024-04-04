@@ -192,12 +192,14 @@ class Replica
   # with underscores.
   #
   # See https://quarry.wmflabs.org/query/4031 to look up database name for a wiki
+  # Or check the table here: https://db-names.toolforge.org/
   #
   # Here are some of the naming exceptions that we must special-case:
   SPECIAL_DB_NAMES = { 'www.wikidata.org' => 'wikidatawiki',
                        'wikisource.org' => 'sourceswiki',
                        'incubator.wikimedia.org' => 'incubatorwiki',
-                       'commons.wikimedia.org' => 'commonswiki' }.freeze
+                       'commons.wikimedia.org' => 'commonswiki',
+                       'meta.wikimedia.org' => 'metawiki' }.freeze
   def project_database_params
     # Use special-case db param if available.
     return "db=#{SPECIAL_DB_NAMES[@wiki.domain]}" if SPECIAL_DB_NAMES[@wiki.domain]
