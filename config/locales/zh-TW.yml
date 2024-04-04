@@ -1,9 +1,7 @@
 # Messages for Traditional Chinese (中文（繁體）)
 # Exported from translatewiki.net
 # Export driver: phpyaml
-# Author: A2093064
 # Author: Aa10240tw
-# Author: Assoc
 # Author: Cwlin0416
 # Author: Ffaarr
 # Author: Kly
@@ -11,7 +9,6 @@
 # Author: Liuxinyu970226
 # Author: Reke
 # Author: S8321414
-# Author: Sanmosa
 # Author: Shangkuanlc
 # Author: Wehwei
 # Author: Winston Sung
@@ -128,7 +125,7 @@ zh-TW:
     label: 活動
   articles:
     articles: 條目
-    article_not_found: 此條目尚未創建。
+    article_not_found: 尚未建立此條目。
     article_development: （條目發展）
     articles_shown: 顯示 %{total} 個條目裡的 %{count} 個
     assigned: 已分配條目
@@ -157,10 +154,12 @@ zh-TW:
       untracked: 已取消追蹤
       tracked_and_untracked: 已追蹤與取消追蹤
     find: 尋找條目
+    how_to_find: 如何查找條目
     hide: 隱藏
     history: （歷史）
     label: 條目
     loading: 讀取條目中...
+    mark_as_complete: 標記為完成
     new: ' (新)'
     none: 此課程沒有編輯任何條目。
     preview: 條目簡要預覽
@@ -179,6 +178,7 @@ zh-TW:
       '?': 未評級 — 未在維基百科的品質等級評量的條目。
       does_not_exist: 維基百科無此條目
     see_more: 查看更多
+    see_more_tooltip: 起初僅載入前 500 篇已編輯的條目。點擊可載入其他條目。
     search: 在維基百科中搜尋條目
     show_cumulative_changes: 顯示累積更改次數
     show_current_version: 顯示目前版本
@@ -194,7 +194,7 @@ zh-TW:
     view_on_wiki: 在wiki上查看
     views_added: 為 %{title} 增加 %{count} 個新的檢視數
     edit_size: 編輯大小
-    wiki: Wiki
+    wiki: wiki
     wp10: 結構完整性
     wp10_doc: 「結構完整性」評分，是以採用機器學習架構的客觀性修訂版本評估服務（https://ores.wikimedia.org/）作為依據，來反應出一篇條目內容在符合完整維基條目方面的程度。評分計算的基準項目有條目長度大小、參考來源的數量、內部連結、和其它基本的文字樣式表現。在不考量內容描述的情況下，一篇高分的條目通常代表著它有遵循維基百科上對於良好條目架構的共識。（這些評分僅適用於英語維基百科）
     articles_short: 條目
@@ -217,6 +217,7 @@ zh-TW:
     edited: 已編輯項目
     edited_none: 還沒有編輯過的項目。
     find: 尋找項目
+    how_to_find: 如何查找項目
     preview: 項目簡要預覽
     search: 在維基數據中搜尋項目
     tracked_doc: 僅已追蹤項目會加在用於此方案的統計。當項目被標記為取消追蹤時，在下一次資料更新後會從統計裡移除。
@@ -230,6 +231,7 @@ zh-TW:
     article: 條目%{title}現在已被分配給您。
     article_link: 條目
     article_link_wikidata: 項目
+    blocked_assignment: 無法分配%{title}，因為這在維基百科社群的 Wiki 教育分配黑名單中。
     already_exists: 此分配作業已存在！
     title_too_large: 標題不可超出 255 個字元
     assignees: 被分配者
@@ -250,7 +252,9 @@ zh-TW:
     confirm_add_available: 確定要加入 %{title} 嗎？
     confirm_addition: 確定要將 %{title}分配給 %{username}？
     confirm_deletion: 確定要刪除分配作業嗎？
+    delete: 移除和刪除
     editors: 分配給
+    change_sandbox_url: 更改沙盒
     group_members: 群組成員
     label: 分配
     label_all: 分配全部
@@ -283,6 +287,9 @@ zh-TW:
     sandbox_draft_link: 沙盒草稿
     sandbox_redlink_info: 此連結因頁面尚未建立，以紅色呈現。（如果是最近建立的，面板不久後會更新資料。）
     select: 選擇
+    submit: 提交
+    invalid_url: 無法更新沙盒的 URL。%{url} 不是有效的維基百科 URL。
+    mismatched_wiki: 無法更新沙盒的 URL。%{url} 不在相同的 wiki 上。
     warning_untracked_wiki: 請留意您所挑選的條目是位在沒被此課程追蹤的 wiki 上。要追蹤對於此條目的貢獻，導師必須添加以下 wiki
       到此課程裡：%{wiki}
   blocks:
@@ -310,6 +317,8 @@ zh-TW:
     course_already_removed: '%{title}已從競賽「%{campaign_title}」移除'
     course: 課程
     course_removed: '%{title}已從競賽「%{campaign_title}」移除'
+    course_removed_and_deleted: '%{title}已從競賽「%{campaign_title}」移除與刪除'
+    course_removed_but_not_deleted: 「%{title}」已從「%{campaign_title}」中移除，但因存於其他競賽裡而無法刪除
     create_campaign: 建立新競賽
     create_my_campaign: 創建我的競賽！
     customize_passcode: 預設選課代碼
@@ -333,9 +342,11 @@ zh-TW:
     default_passcode_explanation: 預設情況下，此活動的新方案應有：
     description: 描述
     delete_campaign: 刪除此競賽
+    delete_course_tooltip: 刪除並從競賽裡移除。
     disable_account_requests: 停用帳號申請
     enable_account_requests: 啟用帳號申請
     newest_campaigns: 最新競賽
+    featured_campaigns: 特色競賽
     no_alerts: 此競賽沒有提醒
     no_passcode: 沒有選課代碼
     none: 無
@@ -345,6 +356,7 @@ zh-TW:
     program_template: 方案模板
     program_template_tooltip: 當組織者建立在此競賽的一個方案時，區域裡的文字會複製作為方案頁面上的描述
     random_passcode: 隨機選課代碼
+    remove_course_tooltip: 從競賽裡移除。
     requested_accounts: 申請的帳號
     title: 標題
     too_many_articles: 為該競賽編輯的條目清單太長而無法顯示。請檢視各課程/方案/事項來查看編輯的條目。
@@ -400,6 +412,9 @@ zh-TW:
     articles_i_will_create_wikidata: 我將會建立的項目
     articles_i_am_updating: 我在更新的條目
     articles_i_am_updating_wikidata: 我正在更新的項目
+    add_campaign_aria_label: 新增競賽按鈕
+    new_tag_button_aria_label: 建立或更新標籤按鈕
+    enroll_button_aria_label: 登記按鈕
     assignment_headings:
       assigned_articles: 已分配條目
       assigned_articles_wikidata: 已分配項目
@@ -433,6 +448,7 @@ zh-TW:
     courses: 課程
     courses_taught: 教授的課程
     creation_date: 建立日期
+    start_date: 起始日期
     creator:
       already_exists: 課程已經存在。請嘗試變更課程名稱、開課學校、或是開課學期，讓課程不會重複。
       assignment_end: 分配作業截止
@@ -453,6 +469,7 @@ zh-TW:
       course_description: 課程說明
       course_description_placeholder: 您的課程會涵蓋什麼？必且會讓學生們在維基百科上做出那些事情？請包含足夠的詳細內容，讓其他維基百科編者能有充分理解的感覺，來方便您的學生做出貢獻。
       course_private: 非公開方案（僅可被管理員和主持者檢視）
+      course_ta_support: 此課程有額外的導師或助教嗎？
       course_school: 課程學校
       course_subject: 課程科目
       course_term: 課程學期
@@ -586,7 +603,7 @@ zh-TW:
     new_account_info_admin: 要建立一個給新編輯者用的帳號，請輸入其電子郵寄地址以及想要的用戶名。一旦帳戶被創建，密碼將通過電子郵件發送給他。
     new_account_username: 申請的使用者名稱
     new_account_username_invalid: 這不是有效的使用者名稱。
-    new_account_username_placeholder: Wiki 編輯者 123
+    new_account_username_placeholder: wiki 編輯者 123
     new_account_username_taken: 該使用者已被註冊。請選擇另一個。
     new_account_submit: 申請帳號
     new_account_submitted: 您的帳號申請已提交。此方案的主持者現在完成您的帳戶創建。一旦創建後，您將會透過電子郵件收到新帳號的密碼。
@@ -684,7 +701,7 @@ zh-TW:
       other: 志工
     weeks_none: 此課程尚未建立時間軸。
     warn_mirrored: 在呈交後，此課程會使用您的使用者名稱自動地發佈到維基百科。在發布之後，在設定的時間軸上的所有新編輯將會複製一份到維基百科上。您確定想要執行嗎？
-    wiki_course_page_enabled: Wiki 課程頁面已啟用
+    wiki_course_page_enabled: 已啟用 wiki 課程頁面
     wiki_course_page_enabled_tooltip: 若有啟用，無論方案或使用者及分配是否有更改，頁面 wiki 鏡像將會更新。
     wiki_edits_enabled: 已啟用 wiki 編輯
     wiki_edits_enabled_tooltip: 若 wiki 編輯被啟用，此方案會自動進行 wiki 編輯。若您不想要模板新增到使用者頁面、已分配條目的討論頁等等，請停用
@@ -697,6 +714,18 @@ zh-TW:
     survey:
       notification_message: 採用我們替於此課程作的調查
       link: 參加調查
+  course_instructor_notification:
+    notify_instructors: 發送電子郵件給導師
+    notify_instructors_feature_description: 透過電子郵件向導師寄送訊息
+    send_notification_button_text: 寄送
+    notification_sent_success: 訊息已寄送給%{courseTitle}的所有講師
+    notification_send_error_no_internet: 無法寄送請求。請檢查您是否已連接至網際網路。
+    notification_send_error_server: 伺服器錯誤：無法寄送通知（%{status} %{statusText}）
+    notification_empty_message: 主旨或訊息不能為空
+    confirm_send_notification: 寄送給此課程的所有講師？
+    write_subject: 主旨
+    write_message_placeholder: 訊息
+    sending_notification: 寄送中
   courses_generic:
     school_system: 學院系統
     add_campaign: 新增競賽
@@ -842,7 +871,8 @@ zh-TW:
       submit_issue_placeholder: 您能提供越多專業的觀點與細節，就能夠更好。
       thank_you: 謝謝您！若您有額外的問題，請聯絡您的 Wiki 專家。
     exercises_and_trainings: '%{prefix}練習與培訓'
-    no_assignments: 此學生目前沒有分配到條目，您可以透過使用以上按鈕來分配條目給對方。
+    no_assignments: 此學生目前沒有分配到條目。
+    can_assign_assignments: 您可以使用上面的按鈕來分配條目。
     no_assignments_wikidata: 此學生目前沒有分配到項目，您可以透過使用以上按鈕來分配項目給對方。
     overview: '%{prefix}概要'
     reviewing_articles: 審核條目中
@@ -896,7 +926,8 @@ zh-TW:
       個遇到錯誤。
     revisions: 近期編輯
     references_count: 參考來源已添加
-    references_doc: 此為添加到條目的參考來源標籤號碼，且可讓多個參考對應到同一個來源。資料來自於 ORES 條目品質模組，並僅對於某些語言可用。
+    references_doc: 此為添加到條目的參考來源標籤與縮短腳註模板的數量，且可讓多個參考對應到同一個來源。資料來自於參考來源計數 Toolforge
+      API。
     references_doc_wikidata: 此為添加到項目的參考來源標籤號碼，且可讓多個參考對應到同一個來源。資料來自於 ORES 項目品質模組，並僅對於某些語言可用。
     replag_info: 功能面板是從維基媒體基金會雲端副本資料庫檢索編輯資料。有時候這些資料會因為複寫延遲的關係，缺少最近編輯數。當發生這種情況時，缺少的編輯數會延後一段時間才會顯示出。
     replag_link: 檢查複寫延遲
@@ -918,7 +949,7 @@ zh-TW:
     view_count_description_wikidata: 項目查看
     view_data_unavailable: 沒有可用的檢視資料
     view: 檢視數
-    wiki_ed_help: 使用「取得幫助」按鈕來回報問題。
+    wiki_ed_help: 使用「取得協助」按鈕來回報問題。
     word_count: 加入的文字
     word_count_average: 平均字數
     general: 一般
@@ -1018,6 +1049,14 @@ zh-TW:
     label: 資源
     header: 資源與培訓
   settings:
+    categories:
+      other_settings: 其他設定
+      impact_stats: 影響統計
+      salesforce: Salesforce
+      featured_campaigns: 特色競賽
+      special_users: 特殊使用者
+      admin_users: 管理員使用者
+      users: 使用者
     admin_users:
       new:
         form_label: 授予管理權限
@@ -1033,6 +1072,12 @@ zh-TW:
         already_instructor: '%{username} 已是導師！'
         demote_success: '%{username} 被變動為導師。'
         no_super_admin: 不可對最高管理員撤回管理狀態
+    featured_campaigns:
+      campaign_not_found: 未找到代稱「%{campaign_slug}」的競賽
+      no_featured_campaigns: 未定義特色競賽
+      update_featured_campaigns_button: 更新特色競賽
+      add_button: 新增競賽
+      remove_button: 移除競賽
     special_users:
       new:
         form_label: 授予特別使用者權限
@@ -1176,6 +1221,9 @@ zh-TW:
     usage_doc: 有出現此圖片的維基百科條目數量。
     usage_count_gallery_tile: 使用在 %{usage_count} 個條目
     usages: 使用狀況
+    gallery_view: 圖庫檢視
+    list_view: 清單檢視
+    tile_view: 圖塊檢視
   users:
     already_enrolled: 這位使用者已經登記！
     assign_articles: 分配條目
@@ -1230,6 +1278,7 @@ zh-TW:
     profile: 個人檔案
     recent_revisions: 近期編輯
     references_count: 參考來源已添加
+    training_modules: 培訓模組
     remove_confirmation: 您確定要移除 %{username}嗎？
     request_confirmation: 你確定要申請此帳號嗎？
     requested_account_status:
@@ -1294,9 +1343,9 @@ zh-TW:
     instructor_impact: 由%{username}以導師身份做出的所有影響
     instructors_student_impact: 由%{username}的學生做出的所有影響
     disclaimer: 您提供的訊息將會公開可用。
-    bio_placeholder: 添加您的個人自傳（可選）
-    location_placeholder: 添加您的位置（可選）
-    institution_placeholder: 機構名稱（可選）
+    bio_placeholder: 新增個人簡介（非必填）
+    location_placeholder: 新增所在位置（非必填）
+    institution_placeholder: 機構名稱（非必填）
     image_link_placeholder: 添加連結到圖片（可選）
   wiki_edits:
     notify_overdue:

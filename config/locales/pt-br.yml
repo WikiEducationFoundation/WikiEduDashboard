@@ -19,6 +19,7 @@
 # Author: Ixocactus
 # Author: Joalpe
 # Author: Jurema Oliveira
+# Author: Lc97
 # Author: LucyDiniz
 # Author: Luk3
 # Author: Macofe
@@ -183,6 +184,7 @@ pt-br:
       untracked: Não rastreado
       tracked_and_untracked: Rastreado e não rastreado
     find: Encontrar artigos
+    how_to_find: Como encontrar artigos
     hide: Ocultar
     history: (histórico)
     label: Artigos
@@ -354,6 +356,7 @@ pt-br:
       ou fornecer comentários.
     sandbox_draft_link: Rascunho de teste
     select: Selecionar
+    submit: Enviar
     warning_untracked_wiki: 'Observe que o artigo que você escolheu está em uma wiki
       não rastreado por este curso. Para acompanhar as contribuições para este artigo,
       um instrutor deve adicionar a seguinte wiki a este curso: %{wiki}'
@@ -1236,6 +1239,8 @@ pt-br:
     label: Recursos
     header: Recursos e Treinamento
   settings:
+    categories:
+      users: Usuários
     admin_users:
       new:
         form_label: Conceder privilégios de administrador
@@ -1498,6 +1503,7 @@ pt-br:
     profile: perfil
     recent_revisions: Edições recentes
     references_count: Referências adicionadas
+    training_modules: Módulo de treinamento
     remove_confirmation: Você tem certeza de que deseja remover %{username}?
     request_confirmation: Tem certeza de que deseja solicitar essa conta?
     requested_account_status:

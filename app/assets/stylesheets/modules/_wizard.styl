@@ -46,7 +46,7 @@ wizard-width = 860px
     visibility hidden
     &.active
       /*@noflip*/ left 50%
-      top 90px
+      top 50px
       opacity 1
       transition left panel_speed ease-in-out, opacity .01s
       visibility visible
@@ -111,10 +111,13 @@ wizard-width = 860px
             height 20px
             width 20px
 
-    .tempCourseIdText
+    .tempCourseIdText, tempEduCourseIdText
       margin-top 16px
       display inline-block
       margin-left 10px
+    
+    .tempEduCourseIdText
+      margin-top: 60px
 
     .wizard__panel__options
       padding 20px 0
@@ -160,6 +163,8 @@ wizard-width = 860px
         margin-bottom 0
         padding 20px
         width 100%
+        > p:not(:last-child)
+          width 90%
         &:first-child
           border-top-width 1px
       .edit
@@ -177,7 +182,7 @@ wizard-width = 860px
         transition all .2s ease-in-out
         width 100%
       .wizard__option__checkbox
-        background url("../images/check.svg")
+        background url("../images/wizard-check.svg")
         background-position 45%
         background-repeat no-repeat
         background-size 60%
@@ -278,6 +283,13 @@ wizard-width = 860px
           margin-right 10px
   .section-header
     margin-bottom 10px
+
+.backButtonContainer
+  display flex
+  align-items flex-end
+  height 70px
+  gap 10px
+  flex-direction row
 
 p.red
   color warning !important

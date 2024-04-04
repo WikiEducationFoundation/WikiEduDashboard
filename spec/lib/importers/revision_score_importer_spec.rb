@@ -53,7 +53,7 @@ describe RevisionScoreImporter do
       later_score = later_revision.wp10.to_f
       expect(early_score).to be_between(0, 100)
       expect(later_score).to be_between(early_score, 100)
-      expect(later_revision.features['feature.wikitext.revision.external_links']).to eq(12)
+      expect(later_revision.features['num_ref']).to eq(13)
     end
   end
 
@@ -73,7 +73,7 @@ describe RevisionScoreImporter do
       revision = article.revisions.first
       expect(revision.deleted).to eq(true)
       expect(revision.wp10).to be_nil
-      expect(revision.features).to be_empty
+      expect(revision.features).to eq({})
     end
   end
 
@@ -92,7 +92,7 @@ describe RevisionScoreImporter do
       revision = article.revisions.first
       expect(revision.deleted).to eq(true)
       expect(revision.wp10).to be_nil
-      expect(revision.features).to be_empty
+      expect(revision.features).to eq({})
     end
   end
 
@@ -114,6 +114,10 @@ describe RevisionScoreImporter do
 
     stub_request(:any, %r{https://api.wikimedia.org/service/lw/.*})
       .to_raise(Errno::ECONNREFUSED)
+
+    stub_request(:any, /.*reference-counter.toolforge.org*/)
+      .to_raise(Errno::ECONNREFUSED)
+
     described_class.new.update_revision_scores
 
     # no value changed for the revision
@@ -151,7 +155,7 @@ describe RevisionScoreImporter do
     end
   end
 
-  describe '#fetch_liftwing_data_for_revision_id' do
+  describe '#fetch_data_for_revision_id' do
     let(:rev_id) { 860858080 }
     # https://en.wikipedia.org/w/index.php?title=Hamlin_Park&oldid=860858080
     # https://www.wikidata.org/w/index.php?title=Q61734980&oldid=860858080
@@ -159,12 +163,12 @@ describe RevisionScoreImporter do
     let(:project) { 'wikipedia' }
     let(:subject) do
       described_class.new(language:, project:)
-                     .fetch_liftwing_data_for_revision_id(rev_id)
+                     .fetch_data_for_revision_id(rev_id)
     end
 
     it 'returns a hash with a predicted rating and features' do
       VCR.use_cassette 'revision_scores/single_revision' do
-        expect(subject[:features]).to have_key('feature.wikitext.revision.wikilinks')
+        expect(subject[:features]).to have_key(Revision::REFERENCE_COUNT)
         expect(subject[:rating]).to eq('Stub')
       end
     end
@@ -175,18 +179,11 @@ describe RevisionScoreImporter do
 
       it 'returns a hash with features' do
         VCR.use_cassette 'revision_scores/single_revision' do
+          puts subject[:features]
           expect(subject[:features]).to have_key(Revision::WIKIDATA_REFERENCES)
           expect(subject[:rating]).to eq('D')
         end
       end
-    end
-  end
-
-  context 'for a wiki without the articlequality model' do
-    it 'raises an error' do
-      stub_wiki_validation
-      expect { described_class.new(language: 'zh').update_revision_scores }
-        .to raise_error(LiftWingApi::InvalidProjectError)
     end
   end
 end

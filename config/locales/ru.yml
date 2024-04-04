@@ -8,6 +8,7 @@
 # Author: Av6
 # Author: DDPAT
 # Author: Diralik
+# Author: Dirruw'o
 # Author: Edible Melon
 # Author: Evs
 # Author: Facenapalm
@@ -185,6 +186,7 @@ ru:
       untracked: Неотслеживаемые
       tracked_and_untracked: Отслеживаемые и неотслеживаемые
     find: Найти статьи
+    how_to_find: Как найти статьи
     hide: Скрыть
     history: (история)
     label: Статьи
@@ -227,6 +229,7 @@ ru:
     articles_short: Статьи
   items:
     lexeme: Лексема
+    how_to_find: Как найти предметы
   articles_wikidata:
     articles_short: Элементы
   articles_generic:
@@ -245,12 +248,18 @@ ru:
     confirm_add_available: Вы уверены, что хотите добавить %{title}?
     confirm_addition: Вы уверены, что хотите назначить %{username} для работы с %{title}?
     confirm_deletion: Вы уверены, что хотите удалить это задание?
+    change_sandbox_url: Изменить песочницу
     group_members: Участники группы
     loading: Загрузка заданий...
     none: Этот курс не имеет назначенных статей.
     remove: Удалить
     reviewers: Проверяющий(е)
     select: Выбрать
+    submit: Отправить
+    invalid_url: Невозможно обновить URL-адрес песочницы. URL %{url} не является допустимым
+      URL-адресом Википедии.
+    mismatched_wiki: Невозможно обновить URL-адрес песочницы. URL %{url} не находится
+      в той же вики.
     warning_untracked_wiki: 'Обратите внимание, что выбранная вами статья из вики,
       не отслеживается этим курсом. Чтобы отслеживать вклады в эту статью, инструктор
       должен добавить к этому курсу следующую вики: %{wiki}'
@@ -281,6 +290,7 @@ ru:
     delete_campaign: Удалить эту кампанию
     disable_account_requests: Отключить запросы учётной записи
     enable_account_requests: Включить запросы учётной записи
+    featured_campaigns: Избранные компании
     no_passcode: Нет кода доступа
     none: Нет
     organizers: Организаторы
@@ -313,6 +323,9 @@ ru:
     all_courses: Все курсы
     actions: Действия
     articles: Статьи
+    add_campaign_aria_label: Добавить кнопку капмании
+    new_tag_button_aria_label: Кнопка «Создать или обновить тег»
+    enroll_button_aria_label: Кнопка регистрации
     assignment_end: Конец задания
     assignment_start: Начало задания
     calendar:
@@ -584,6 +597,21 @@ ru:
     none: В последнее время в этом курсе не совершалось правок.
     time_doc: Время каждой ревизии по вашему местному времени
     title: Название
+  settings:
+    categories:
+      other_settings: Другие настройки
+      impact_stats: Статистика воздействия
+      salesforce: Продажи
+      featured_campaigns: Избранные компании
+      special_users: 'Служебная: Участники'
+      admin_users: Администраторы
+      users: Участники
+    featured_campaigns:
+      campaign_not_found: Кампания со слагом «%{campaign_slug}» не найдена
+      no_featured_campaigns: Рекомендуемые кампании не определены
+      update_featured_campaigns_button: Обновить избранные кампании
+      add_button: Добавить уведомление
+      remove_button: Новое переименование компании
   tasks:
     conseq: Задача %{task} уже выполняется!
     constant: Задача %{task} не может быть выполнена, когда происходит ежедневное
@@ -653,6 +681,7 @@ ru:
     name: Имя
     none: Нет участников.
     recent_revisions: Последние правки
+    training_modules: Учебный модуль
     request_confirmation: Вы уверены, что хотите запросить эту учётную запись?
     requested_account_status:
       success_message: 'Успешно: %{result_description}'

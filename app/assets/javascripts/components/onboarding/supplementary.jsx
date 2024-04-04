@@ -1,62 +1,55 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
+import React, { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import withRouter from '../util/withRouter';
 import { connect } from 'react-redux';
-
 import OnboardAPI from '../../utils/onboarding_utils.js';
 import { addNotification } from '../../actions/notification_actions.js';
 
-export const OnboardingSupplementary = createReactClass({
-  propTypes: {
-    returnToParam: PropTypes.string,
-    addNotification: PropTypes.func
-  },
+export const OnboardingSupplementary = (props) => {
+  const formRef = useRef(null);
+  const navigate = useNavigate();
+  const [state, setState] = useState({
+    heardFrom: '',
+    sending: false,
+    referralDetailsLabel: '',
+  });
 
-  getInitialState() {
-    return {
-      heardFrom: ''
-    };
-  },
-
-  // Update state when input fields change
-  _handleFieldChange(e) {
+  const _handleFieldChange = (e) => {
     const { name, value } = e.target;
-    return this.setState({ [name]: value });
-  },
+    setState(prevState => ({ ...prevState, [name]: value }));
+  };
 
-  _handleSubmit(e) {
+  const _handleSubmit = (e) => {
     e.preventDefault();
-    this.setState({ sending: true });
+    setState(prevState => ({ ...prevState, sending: true }));
 
-    const user = this.props.user;
-    const { heardFrom, referralDetails, whyHere, otherReason } = this.state;
+    const { heardFrom, referralDetails, whyHere, otherReason } = state;
     const body = {
       heardFrom,
       referralDetails,
       whyHere,
       otherReason,
-      user_name: user.username
+      user_name: props.user.username
     };
 
     return OnboardAPI.supplement(body)
-    .then(() => {
-      const returnTo = decodeURIComponent(this.props.returnToParam);
-      const nextUrl = `/onboarding/permissions?return_to=${returnTo}`;
-      return this.props.router.navigate(nextUrl);
-    })
-    .catch(() => {
-      this.props.addNotification({
-        message: I18n.t('error_500.explanation'),
-        closable: true,
-        type: 'error'
+      .then(() => {
+        const returnTo = decodeURIComponent(props.returnToParam);
+        const nextUrl = `/onboarding/permissions?return_to=${returnTo}`;
+        return navigate(nextUrl);
+      })
+      .catch(() => {
+        props.addNotification({
+          message: I18n.t('error_500.explanation'),
+          closable: true,
+          type: 'error'
+        });
+        setState(prevState => ({ ...prevState, sending: false }));
       });
-      this.setState({ sending: false });
-    });
-  },
+  };
 
-  _getReferralDetailsLabel() {
-    const selected = this.state.heardFrom;
+  const _getReferralDetailsLabel = () => {
+    const selected = state.heardFrom;
     const options = {
       colleague: 'Colleague\'s name:',
       association: 'Academic association\'s name:',
@@ -66,57 +59,89 @@ export const OnboardingSupplementary = createReactClass({
     };
 
     return options[selected];
-  },
+  };
 
-  render() {
-    const submitText = this.state.sending ? 'Sending' : 'Submit';
-    const disabled = this.state.sending;
-    const referralDetailsLabel = this._getReferralDetailsLabel();
-    const referralDetails = (
-      <div>
-        <br />
-        <label htmlFor="referralDetails">{referralDetailsLabel}</label>
-        <textarea id="referralDetails" className="form-control" name="referralDetails" onChange={this._handleFieldChange} />
-      </div>
-    );
+  const submitText = state.sending ? 'Sending' : 'Submit';
+  const disabled = state.sending;
+  const referralDetailsLabel = _getReferralDetailsLabel();
+  const referralDetails = (
+    <div>
+      <br />
+      <label htmlFor="referralDetails">{referralDetailsLabel}</label>
+      <textarea id="referralDetails" className="form-control" name="referralDetails" onChange={_handleFieldChange} />
+    </div>
+  );
 
     return (
       <div className="form">
         <h1>{I18n.t('onboarding.supplementary.header')}</h1>
-        <form id="supplementary" className="panel" onSubmit={this._handleSubmit} ref="form">
+        <form id="supplementary" className="panel" onSubmit={_handleSubmit} ref={formRef}>
           <div className="form-group">
             <label htmlFor="heardFrom">{I18n.t('onboarding.supplementary.where_did_you_hear')}</label>
-            <input type="radio" name="heardFrom" value="colleague" onChange={this._handleFieldChange} />A colleague referred me<br/>
-            <input type="radio" name="heardFrom" value="association" onChange={this._handleFieldChange} />Academic association<br/>
-            <input type="radio" name="heardFrom" value="conference" onChange={this._handleFieldChange} />Conference<br/>
-            <input type="radio" name="heardFrom" value="workshop" onChange={this._handleFieldChange} />University workshop<br/>
-            <input type="radio" name="heardFrom" value="web" onChange={this._handleFieldChange} />Web Search<br/>
-            <input type="radio" name="heardFrom" value="twitter" onChange={this._handleFieldChange} />Twitter<br/>
-            <input type="radio" name="heardFrom" value="facebook" onChange={this._handleFieldChange} />Facebook<br/>
-            <input type="radio" name="heardFrom" value="other" onChange={this._handleFieldChange} />Other<br/>
+
+            <input type="radio" name="heardFrom" id="colleague" value="colleague" onChange={_handleFieldChange} />
+            <label className="no-label" htmlFor="colleague">A colleague referred me</label><br/>
+
+            <input type="radio" name="heardFrom" id="association" value="association" onChange={_handleFieldChange} />
+            <label className="no-label" htmlFor="association">Academic association</label><br/>
+
+            <input type="radio" name="heardFrom" id="conference" value="conference" onChange={_handleFieldChange} />
+            <label className="no-label" htmlFor="conference">Conference</label><br/>
+
+            <input type="radio" name="heardFrom" id="workshop" value="workshop" onChange={_handleFieldChange} />
+            <label className="no-label" htmlFor="workshop">University workshop</label><br/>
+
+            <input type="radio" name="heardFrom" id="web" value="web" onChange={_handleFieldChange} />
+            <label className="no-label" htmlFor="web">Web Search</label><br/>
+
+            <input type="radio" name="heardFrom" id="twitter" value="twitter" onChange={_handleFieldChange} />
+            <label className="no-label" htmlFor="twitter">Twitter</label><br/>
+
+            <input type="radio" name="heardFrom" id="facebook" value="facebook" onChange={_handleFieldChange} />
+            <label className="no-label" htmlFor="facebook">Facebook</label><br/>
+
+            <input type="radio" name="heardFrom" id="heardFrom-other" value="other" onChange={_handleFieldChange} />
+            <label className="no-label" htmlFor="heardFrom-other">Other</label><br/>
+
+
             {
               referralDetailsLabel && referralDetails
             }
+
             <br /><br />
             <label>{I18n.t('onboarding.supplementary.why_are_you_here')}</label>
-            <input type="radio" name="whyHere" value="teach this term" onChange={this._handleFieldChange} /> I want to teach with Wikipedia <strong>this term</strong><br />
-            <input type="radio" name="whyHere" value="teach next term" onChange={this._handleFieldChange} /> I want to teach with Wikipedia <strong>next term</strong><br />
-            <input type="radio" name="whyHere" value="learn about teaching" onChange={this._handleFieldChange} /> I want to learn more about teaching with Wikipedia<br />
-            <input type="radio" name="whyHere" value="other" onChange={this._handleFieldChange} /> Other:<br />
-            <textarea className="form-control" type="text" name="otherReason" defaultValue={this.state.otherReason} onChange={this._handleFieldChange.bind(this, 'otherReason')} />
+            <input type="radio" name="whyHere" id="teachThisTerm" value="teach this term" onChange={_handleFieldChange} />
+            <label className="no-label" htmlFor="teachThisTerm">I want to teach with Wikipedia <strong>this term</strong></label><br />
+
+            <input type="radio" name="whyHere" id="teachNextTerm" value="teach next term" onChange={_handleFieldChange} />
+            <label className="no-label" htmlFor="teachNextTerm">I want to teach with Wikipedia <strong>next term</strong></label><br />
+
+            <input type="radio" name="whyHere" id="learnAboutTeaching" value="learn about teaching" onChange={_handleFieldChange} />
+            <label className="no-label" htmlFor="learnAboutTeaching">I want to learn more about teaching with Wikipedia</label><br />
+
+            <input type="radio" name="whyHere" id="whyHere-other" value="other" onChange={_handleFieldChange} />
+            <label className="no-label" htmlFor="whyHere-other">Other:</label><br />
+
+            <textarea className="form-control" type="text" name="otherReason" defaultValue={state.otherReason} onChange={_handleFieldChange} />
           </div>
+
           <button disabled={disabled} type="submit" className="button dark right">
             {submitText} <i className="icon3 icon-rt_arrow" />
           </button>
         </form>
       </div>
     );
-  }
-});
+  };
+
+OnboardingSupplementary.propTypes = {
+  returnToParam: PropTypes.string,
+  addNotification: PropTypes.func,
+  user: PropTypes.object,
+};
 
 const mapDispatchToProps = { addNotification };
 const mapStateToProps = state => ({
   user: state.currentUserFromHtml
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(OnboardingSupplementary));
+export default connect(mapStateToProps, mapDispatchToProps)(OnboardingSupplementary);

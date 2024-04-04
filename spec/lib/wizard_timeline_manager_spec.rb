@@ -30,7 +30,7 @@ describe WizardTimelineManager do
                           blog_or_discussion_assignment
                           presentation
                           reflective_essay
-                          original_analytical_paper
+                          original_research_paper
                           did_you_know
                           good_article_nominations],
             'tags' => [{ key: 'tricky_topic_areas', tag: 'maybe_medical_topics' },

@@ -143,6 +143,7 @@ hi:
       existing: मौजूदा
       new_and_existing: नया और मौजूदा
     find: लेख खोजें
+    how_to_find: लेख कैसे खोजें
     hide: छिपाएँ
     history: (इतिहास)
     label: लेख
@@ -195,6 +196,8 @@ hi:
     articles_short: लेख
   items:
     available: उपलब्ध आइटम
+    find: आइटम ढूंढें
+    how_to_find: आइटम कैसे खोजें
     search: किसी आइटम के लिए विकिडेटा खोजें
   articles_generic:
     articles_short: पृष्ठ
@@ -225,6 +228,7 @@ hi:
     review_tooltip: यह उस लेख पर नजर रखने के लिए है, जिस पर आप समीक्षा करने या प्रतिक्रिया
       देने की योजना बनाते हैं।
     select: चयन करें
+    submit: जमा करें
   blocks:
     milestones:
       title: मील के पत्थर
@@ -405,6 +409,9 @@ hi:
   revisions:
     class: कक्षा
     title: शीर्षक
+  settings:
+    categories:
+      users: सदस्य
   timeline:
     empty_week_3: या
   training:

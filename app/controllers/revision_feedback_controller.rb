@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/revision_feedback_service"
-require_dependency "#{Rails.root}/lib/importers/revision_score_importer"
+require_dependency "#{Rails.root}/lib/lift_wing_api"
 
 class RevisionFeedbackController < ApplicationController
   def index
     set_latest_revision_id
     return if @rev_id.nil?
-    liftwing_data = RevisionScoreImporter.new.fetch_liftwing_data_for_revision_id(@rev_id)
-    @feedback = RevisionFeedbackService.new(liftwing_data[:features]).feedback
+    revision_data = LiftWingApi.new(@wiki).get_revision_data([@rev_id])[@rev_id.to_s]
+    @feedback = RevisionFeedbackService.new(revision_data['features']).feedback
     @user_feedback = Assignment.find(params['assignment_id']).assignment_suggestions
-    @rating = liftwing_data[:rating]
+    @rating = revision_data['prediction']
   end
 
   private

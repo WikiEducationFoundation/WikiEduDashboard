@@ -188,6 +188,16 @@ class CampaignsController < ApplicationController
     render user_only == 'true' ? 'user_statistics' : 'statistics'
   end
 
+  def featured_campaigns
+    setting = Setting.find_or_create_by(key: 'featured_campaigns')
+    campaign_slugs = setting.value['campaign_slugs'] ||= []
+    featured_campaigns = Campaign.where(slug: campaign_slugs).pluck(:slug,
+                                                                    :title).map do |slug, title|
+      { slug:, title: }
+    end
+    render json: { featured_campaigns: }
+  end
+
   def current_term
     redirect_to "/campaigns/#{Campaign.default_campaign.slug}/#{params[:subpage]}"
   end

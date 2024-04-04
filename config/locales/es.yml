@@ -15,8 +15,10 @@
 # Author: Danniel07
 # Author: Dgstranz
 # Author: DiegoAmbrocio
+# Author: Eulalio
 # Author: Fitoschido
 # Author: Fortega
+# Author: Gabina
 # Author: Ice bulldog
 # Author: Ihojose
 # Author: Irus
@@ -104,6 +106,10 @@ es:
     not_yet_started: Primeros pasos
     in_progress: Trabajar en la zona de pruebas
     ready_for_review: Borrador ampliado
+    ready_for_mainspace: Mover el trabajo al espacio principal
+    assignment_completed: Tarea marcada como completa
+    reading_the_article: Leyendo artículo
+    peer_review_completed: Revisión completada
   dashboard:
     create_note: Haz clic en Crear curso para crear tu primer curso.
     create_preparation_note: Asegúrate de tener tu calendario académico a mano antes
@@ -131,9 +137,22 @@ es:
     explore: Explorar
     log_in: Acceder con Wikipedia
     sign_up: Regístrate con Wikipedia
+    registration_advice:
+      username_rules:
+        heading: Reglas de nombre de usuario
+        avoid_offensive_usernames: No elijas un nombre de usuario que sea ofensivo,
+          engañoso, perturbador o promocional.
+        represent_individual: Los nombres de usuario deben representar a un editor
+          individual. No utilice el nombre de una escuela u organización.
+      additional_advice:
+        heading: Consejo
+        anonymous_username_recommendation: Wiki Education recomienda elegir un nombre
+          de usuario anónimo, no uno que incluya su nombre real u otra información
+          de identificación.
     sign_up_help: Para utilizar el panel de control, tendrás que iniciar sesión a
       través de Wikipedia y darle permiso para acceder a tu cuenta. Puedes iniciar
-      sesión con una cuenta de Wikipedia existente o crear una nueva.
+      sesión con una cuenta de Wikipedia existente o crear una nueva. Si no puedes
+      crear una cuenta, contacta a dashboard@wikiedu.org.
   alerts:
     alert_label: Alertas
     no_alerts: No se encontró ninguna alerta.
@@ -142,10 +161,14 @@ es:
     edited_by: Editado por
     label: Actividad
   articles:
+    articles: Artículos
+    article_not_found: Este artículo todavía no ha sido creado.
     article_development: (desarrollo de artículo)
     articles_shown: Se muestran %{count} de %{total}
     assigned: Artículos asignados
+    assignments_none: No hay artículos asignados todavía.
     available: Artículos disponibles
+    no_available: No hay artículos disponibles
     next: Siguiente
     previous: Anterior
     article_title: Título del artículo
@@ -157,6 +180,7 @@ es:
     edited_by: 'Editado por:'
     edited_mobile: Artículos
     edited_none: '%{title} no ha editado ningún artículo.'
+    how_to_find: Cómo encontrar artículos
     hide: Ocultar
     history: (historial)
     label: Artículos
@@ -210,6 +234,8 @@ es:
       artículo, pero no toma en cuenta el contenido en sí mismo. (Estos resultados
       solo están disponibles para los artículos de la Wikipedia en inglés.)
     articles_short: Artículos
+  items:
+    how_to_find: Cómo encontrar artículos
   articles_wikidata:
     articles_short: Elementos
   articles_generic:
@@ -230,6 +256,7 @@ es:
     confirm_add_available: ¿Confirmas que quieres añadir %{title}?
     confirm_addition: ¿Confirmas que quieres asignar %{title} a %{username}?
     confirm_deletion: ¿Estás seguro de que quieres eliminar esta tarea?
+    change_sandbox_url: Cambiar zona de pruebas
     label: Asignar
     loading: Cargando tareas...
     none_short: No hay artículos asignados
@@ -241,6 +268,11 @@ es:
     review_other: Asignar una revisión
     review_self: Revisar un artículo
     select: Seleccionar
+    submit: Enviar
+    invalid_url: No se puede actualizar la URL de la zona de pruebas. No es una URL
+      %{url} válida de Wikipedia.
+    mismatched_wiki: No se puede actualizar la URL de la zona de pruebas. La URL %{url}
+      no está en la misma wiki.
   blocks:
     milestones:
       title: Hitos
@@ -281,6 +313,7 @@ es:
     delete_campaign: Eliminar esta campaña
     disable_account_requests: Desactivar solicitudes de cuentas
     enable_account_requests: Activar solicitudes de cuentas
+    featured_campaigns: Campañas destacadas
     no_passcode: ningún código de acceso
     none: Ninguno
     organizers: Organizadores
@@ -322,6 +355,9 @@ es:
     archived: Cursos archivados
     actions: Acciones
     articles: Artículos
+    add_campaign_aria_label: Agregar botón de campaña
+    new_tag_button_aria_label: Botón Crear o actualizar etiqueta
+    enroll_button_aria_label: Botón de inscripción
     assignment_headings:
       available_articles: Artículos disponibles
       available_reviews: Artículos de compañeros
@@ -381,6 +417,7 @@ es:
         se trasladadas. ¿Ha cambiado algo más acerca de tu curso? Siéntete libre de
         actualizarlo ahora.
       course_description: Descripción del curso
+      course_ta_support: ¿Este curso tendrá instructores o asistentes técnicos adicionales?
       course_school: Escuela del curso
       course_subject: Tema del curso
       course_term: Curso de plazo
@@ -660,6 +697,8 @@ es:
   instructor_view:
     bad_work:
       learn_more_button: Más información
+    no_assignments: Este estudiante actualmente no tiene artículos asignados.
+    can_assign_assignments: Puede asignar un artículo utilizando los botones de arriba.
   metrics:
     label: Actividad del curso
     last_update: Última actualización de estadísticas
@@ -746,6 +785,14 @@ es:
     see_more: Ver más
     show_all: Mostrar todo
   settings:
+    categories:
+      other_settings: Otras configuraciones
+      impact_stats: Estadísticas de impacto
+      salesforce: Equipo de ventas
+      featured_campaigns: Campañas destacadas
+      special_users: Usuarios especiales
+      admin_users: Usuarios administradores
+      users: Usuarios
     admin_users:
       new:
         form_label: Otorgar permisos de administrador
@@ -760,6 +807,12 @@ es:
         revoking_button_working: Revocando...
         already_instructor: '%{username} ya es un instructor'
         demote_success: '%{username} pasó a ser instructor.'
+    featured_campaigns:
+      campaign_not_found: Campaña con slug '%{campaign_slug}' no encontrada
+      no_featured_campaigns: No se han definido campañas destacadas
+      update_featured_campaigns_button: Actualizar campañas destacadas
+      add_button: Añadir campaña
+      remove_button: Eliminar campaña
   suggestions:
     editing: Editar sugerencias
     suggestion_docs:
@@ -903,6 +956,7 @@ es:
     profile: perfil
     recent_revisions: Ediciones recientes
     references_count: Referencias añadidas
+    training_modules: Módulo de capacitación
     remove_confirmation: ¿Confirmas que quieres quitar a %{username}?
     request_confirmation: ¿Confirmas que quieres solicitar esta cuenta?
     requested_account_status:

@@ -186,6 +186,8 @@ qqq:
       does_not_exist: Explanation of the Ø  symbol, which indicates than the article
         does not exist on Wikipedia
     see_more: Message indicating that there are more articles to load
+    see_more_tooltip: Tooltip message shown when hovering on "See More" button for
+      loading additional articles
     title: |-
       Label for an article title.
       {{Identical|Title}}
@@ -221,6 +223,7 @@ qqq:
     confirm_addition: Confirmation dialog for adding a new assignment. %{title} is
       the Wikipedia page title. %{username} is the username of the assignee.
     confirm_deletion: Confirmation dialog for an assignment should be deleted
+    change_sandbox_url: Link to change the sandbox URL
     label: |-
       Button to assign an article
       {{Identical|Assign}}
@@ -239,6 +242,11 @@ qqq:
     select: |-
       Button to choose an available article to work on. It appears next to the title of the article.
       {{Identical|Select}}
+    submit: Button to submit sandbox URL change.
+    invalid_url: Cannot update sandbox url. The URL %{url} is not a valid Wikipedia
+      URL.
+    mismatched_wiki: Cannot update sandbox url. The URL %{url} is not on the same
+      wiki.
   blocks:
     milestones:
       title: Label for the Milestone section of a course page (Wiki Ed only)
@@ -602,6 +610,8 @@ qqq:
   instructor_view:
     assignments_table:
       article_name: '{{Identical|Name}}'
+    no_assignments: Message displayed when no assignment is assigned to students
+    can_assign_assignments: Message displayed when the user can assign the assignment
   metrics:
     activity: Label for activity feed.
     are_trained: Label that follows the number of users who are do not have assigned

@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   # intercepting the click and issuing a post request. Omniauth login is post-only.
   get 'users/auth/mediawiki', to: redirect('/')
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
-  
+
   devise_scope :user do
     # OmniAuth may fall back to :new_user_session when the OAuth flow fails.
     # So, we treat it as a login error.
@@ -38,7 +38,15 @@ Rails.application.routes.draw do
   post '/settings/update_course_creation' => 'settings#update_course_creation'
 
   get '/settings/default_campaign' => 'settings#default_campaign'
+  post '/settings/add_featured_campaign' => 'settings#add_featured_campaign'
+  post '/settings/remove_featured_campaign' => 'settings#remove_featured_campaign'
   post '/settings/update_default_campaign' => 'settings#update_default_campaign'
+
+  post '/settings/update_impact_stats' => 'settings#update_impact_stats'
+
+  get '/settings/fetch_site_notice' => 'settings#fetch_site_notice'
+  post '/settings/update_site_notice' => 'settings#update_site_notice'
+  
 
   # Griddler allows us to receive incoming emails. By default,
   # the path for incoming emails is /email_processor
@@ -70,6 +78,7 @@ Rails.application.routes.draw do
     patch '/status' => 'assignments#update_status'
     resources :assignment_suggestions
   end
+  patch '/assignments/:id/update_sandbox_url' => 'assignments#update_sandbox_url'
   put '/assignments/:assignment_id/claim' => 'assignments#claim'
   post '/assignments/assign_reviewers_randomly' => 'assignments#assign_reviewers_randomly'
 
@@ -168,7 +177,10 @@ Rails.application.routes.draw do
 
     post '/courses/:slug/students/add_to_watchlist', to: 'courses/watchlist#add_to_watchlist', as: 'add_to_watchlist',
         constraints: { slug: /.*/ }
-
+    delete 'courses/:slug/delete_from_campaign' => 'courses/delete_from_campaign#delete_course_from_campaign', as: 'delete_from_campaign', 
+      constraints: { 
+        slug: /.*/ 
+      }
     get 'embed/course_stats/:school/:titleterm(/:_subpage(/:_subsubpage))' => 'embed#course_stats',
     constraints: {
         school: /[^\/]*/,
@@ -218,6 +230,9 @@ Rails.application.routes.draw do
       get 'resolve'
       put 'resolve'
     end
+    collection do
+      post 'notify_instructors'
+    end
   end
 
   put 'greeting' => 'greeting#greet_course_students'
@@ -265,6 +280,7 @@ Rails.application.routes.draw do
   end
 
   get 'campaigns/statistics.json' => 'campaigns#statistics'
+  get 'campaigns/featured_campaigns' => 'campaigns#featured_campaigns'
   get 'campaigns/:slug.json',
       controller: :campaigns,
       action: :show

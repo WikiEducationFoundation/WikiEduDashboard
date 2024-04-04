@@ -17,7 +17,10 @@ describe 'settings', type: :feature, js: true do
     it 'adds a special user' do
       click_button 'Add Special User'
       fill_in('new_special_user', with: user.username)
-      select 'communications_manager'
+      find('#specialUserPosition').click
+      within '#specialUserPosition' do
+        all('div', text: 'communications_manager')[2].click
+      end
       click_button 'Submit'
       find('[value=confirm]').click
       expect(page).to have_content('was upgraded')
@@ -37,7 +40,10 @@ describe 'settings', type: :feature, js: true do
     it 'shows an error for invalid user' do
       click_button 'Add Special User'
       fill_in('new_special_user', with: 'loliamnouser')
-      select 'communications_manager'
+      find('#specialUserPosition').click
+      within '#specialUserPosition' do
+        all('div', text: 'communications_manager')[2].click
+      end
       click_button 'Submit'
       find('[value=confirm]').click
       expect(page).to have_content('not an existing user.')

@@ -5,6 +5,7 @@
 # Author: Eduardo Martinez
 # Author: Fitoschido
 # Author: Kippelboy
+# Author: Lluis Cat
 # Author: Lluis tgn
 # Author: Macofe
 # Author: Medol
@@ -645,6 +646,8 @@ ca:
     survey:
       notification_message: Responeu a una enquesta per aquest curs.
       link: Comença l'enquesta
+  course_instructor_notification:
+    send_notification_button_text: Envia
   courses_generic:
     school_system: Sistema acadèmic
     add_campaign: Afegiu un curs

@@ -31,6 +31,9 @@ az:
     label: Məqalələr
     title: Başlıq
     view_all: Hamısını görüntülə
+  assignments:
+    change_sandbox_url: Qaralamanı dəyişdirin
+    submit: Təsdiq et
   blocks:
     milestones:
       title: Mərhələ

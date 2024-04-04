@@ -71,14 +71,22 @@ class Revision < ApplicationRecord
     "/recent-activity/plagiarism/report?ithenticate_id=#{ithenticate_id}"
   end
 
+  # reference-counter API value
+  REFERENCE_COUNT = 'num_ref'
+  # LiftWing API values
   WIKITEXT_REF_TAGS = 'feature.wikitext.revision.ref_tags'
   WIKIDATA_REFERENCES = 'feature.len(<datasource.wikidatawiki.revision.references>)'
   WIKI_SHORTENED_REF_TAGS = 'feature.enwiki.revision.shortened_footnote_templates'
 
-  def references_count(ores_features)
-    return nil if ores_features.empty?
-    (ores_features[WIKITEXT_REF_TAGS] || ores_features[WIKIDATA_REFERENCES] || 0) +
-      (ores_features[WIKI_SHORTENED_REF_TAGS] || 0)
+  # Returns the number of references for a given revision id, based on its features.
+  # If REFERENCE_COUNT field is present, then use it. This number of references comes from
+  # the reference-counter API.
+  # Otherwise, it uses values from the LiftWing API.
+  def references_count(rev_features)
+    return nil if rev_features.empty?
+    rev_features[REFERENCE_COUNT] ||
+      ((rev_features[WIKITEXT_REF_TAGS] || rev_features[WIKIDATA_REFERENCES] || 0) +
+        (rev_features[WIKI_SHORTENED_REF_TAGS] || 0))
   end
 
   def references_added
