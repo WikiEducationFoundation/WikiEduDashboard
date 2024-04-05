@@ -518,6 +518,7 @@ en:
     confirm_manual_update: Are you sure you want to run a manual update? The most recent revisions will be imported and then the page will reload. This process may take some time.
     controlled_by_event_center: Enrollment in this event is controlled by Wikimedia Event Center. It cannot be joined from the Dashboard.
     course: Course
+    course_type_label: "Type:"
     course_dates_calendar_instructions: >
       Select dates to add or remove them from the schedule (e.g., holidays, no
       school). Click the date to change between unselected, selected, and
