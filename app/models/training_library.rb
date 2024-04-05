@@ -13,7 +13,6 @@
 #  exclude_from_index :boolean          default(FALSE)
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
-#
 
 require_dependency "#{Rails.root}/lib/training/training_base"
 

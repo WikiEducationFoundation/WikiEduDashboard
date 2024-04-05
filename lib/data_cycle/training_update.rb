@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/data_cycle/batch_update_logging"
-
+require_dependency "#{Rails.root}/app/workers/training_base_worker"
 # Executes all the steps of 'update_views' data import task
 class TrainingUpdate
   attr_reader :result
@@ -24,8 +24,8 @@ class TrainingUpdate
   def run_update
     log_start_of_update "Training update task is beginning. Module: #{@module_slug}"
     update_training_content
-    @result = 'Success!'
-    log_end_of_update 'Training update finished.'
+    # @result = 'Success!'
+    log_end_of_update 'Training update queued.'
   # rubocop:disable Lint/RescueException
   rescue Exception => e
     log_end_of_update 'Training update failed.'
@@ -35,9 +35,9 @@ class TrainingUpdate
 
   def update_training_content
     if @module_slug == 'all'
-      TrainingModule.load_all
+      TrainingBaseWorker.perform_async()
     else
-      TrainingModule.reload_module slug: @module_slug
+      TrainingBaseWorker.perform_async(slug: @module_slug)
     end
   end
 end

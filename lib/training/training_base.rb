@@ -15,19 +15,10 @@ class TrainingBase
 
   # called for each child class in initializers/training_content.rb
   def self.load(slug_list: nil, content_class: self)
-    loader = training_loader_class.new(content_class:, slug_list:)
-    loader.load_content
-  end
-
-  # Called during manual :training_reload action.
-  # This should regenerate all training content from yml files and/or wiki.
-  def self.load_all
-    TrainingLibrary.load
-    TrainingModule.load
     if Features.wiki_trainings?
-      TrainingModule.all.each { |tm| TrainingSlide.load(slug_list: tm.slide_slugs) }
+      WikiTrainingLoaderWorker.perform_async(content_class, slug_list)
     else
-      TrainingSlide.load
+      YamlTrainingLoader.load(content_class, slug_list)
     end
   end
 
@@ -37,10 +28,6 @@ class TrainingBase
     else
       "#{Rails.root}/training_content/wiki_ed"
     end
-  end
-
-  def self.training_loader_class
-    Features.wiki_trainings? ? WikiTrainingLoader : YamlTrainingLoader
   end
 
   class DuplicateSlugError < StandardError
