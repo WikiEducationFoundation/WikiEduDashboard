@@ -28,7 +28,7 @@ const UploadViewer = ({ closeUploadViewer, upload, imageFile }) => {
     }
   }, [uploadMetadata, upload.id, loadingViews]);
 
-  const handleGetFileViews = files => {
+  const handleGetFileViews = (files) => {
     dispatch(setUploadPageViews(files));
     setLoadingViews(false);
   };
@@ -72,13 +72,13 @@ const UploadViewer = ({ closeUploadViewer, upload, imageFile }) => {
     fileUsageTable = (
       <div>
         <h1>{'\n'}</h1>
-        <h4>File usage on other wikis</h4>
+        <h4>{I18n.t('uploads.file_usage')}</h4>
         <table border="1">
           <thead>
             <tr>
-              <th>Wiki</th>
-              <th>Article Name</th>
-              <th>Views per day</th>
+              <th>{I18n.t('uploads.wiki_big')}</th>
+              <th>{I18n.t('uploads.article_name')}</th>
+              <th>{I18n.t('uploads.views_per_day')}</th>
             </tr>
           </thead>
           <tbody>
@@ -99,7 +99,7 @@ const UploadViewer = ({ closeUploadViewer, upload, imageFile }) => {
     categories = (
       <div>
         <h1>{'\n'}</h1>
-        <h4>Categories</h4>
+        <h4>{I18n.t('uploads.categories')}</h4>
         {categoriesList}
       </div>
     );
@@ -114,27 +114,27 @@ const UploadViewer = ({ closeUploadViewer, upload, imageFile }) => {
       <div className="modal-body">
         <div className="left">
           <a href={upload.url} target="_blank"><img alt={upload.file_name} src={imageFile} /></a>
-          <p><a href={imageUrl} target="_blank">Original File</a>{` (${width} X ${height} pixels, file size: ${size})`}</p>
-          <h4>Description</h4>
+          <p><a href={imageUrl} target="_blank">{I18n.t('uploads.original_file')}</a>{` (${width} X ${height} pixels, file size: ${size})`}</p>
+          <h4>{I18n.t('uploads.description')}</h4>
           <p dangerouslySetInnerHTML={{ __html: imageDescription }} />
         </div>
         <div className="right">
           <table className="view-file-details">
             <tbody>
               <tr>
-                <td className="row-details bg-grey">Date:&nbsp;</td>
+                <td className="row-details bg-grey">{I18n.t('uploads.date')}&nbsp;</td>
                 <td className="row-details">{formatDateWithoutTime(upload.uploaded_at)}</td>
               </tr>
               <tr>
-                <td className="row-details bg-grey">Author:&nbsp;</td>
+                <td className="row-details bg-grey">{I18n.t('uploads.author')}&nbsp;</td>
                 <td className="row-details">{author}</td>
               </tr>
               <tr>
-                <td className="row-details bg-grey">Source:&nbsp;</td>
+                <td className="row-details bg-grey">{I18n.t('uploads.source')}&nbsp;</td>
                 <td className="row-details" dangerouslySetInnerHTML={{ __html: source }} />
               </tr>
               <tr>
-                <td className="row-details bg-grey">License:&nbsp;</td>
+                <td className="row-details bg-grey">{I18n.t('uploads.license')}&nbsp;</td>
                 <td className="row-details">{license}</td>
                 <td>{'\n'}</td>
               </tr>
@@ -145,7 +145,7 @@ const UploadViewer = ({ closeUploadViewer, upload, imageFile }) => {
         </div>
       </div>
       <div className="modal-footer">
-        <a className="button dark small pull-right upload-viewer-button" href={upload.url} target="_blank">View on Commons</a>
+        <a className="button dark small pull-right upload-viewer-button" href={upload.url} target="_blank">{I18n.t('uploads.view_commons')}</a>
       </div>
     </div>
   );
