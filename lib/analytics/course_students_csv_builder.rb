@@ -29,26 +29,38 @@ class CourseStudentsCsvBuilder
 
   def populate_training_data
     courses_users.each do |courses_user|
-      training_progress = @training_progress_manager.course_training_progress(courses_user.user)
-
-      unless training_progress.is_a?(Hash)
-        # Set default values if no training assigned or course is before Spring 2016
-        @training_data[courses_user.user_id] = {
-          completed_count: "0",
-          assigned_count: "0",
-          modules: ""
-        }
-        next
-      end
-
-      completed_modules = @training_progress_manager.completed_training_modules_names(courses_user.user).join(', ')
-
-      @training_data[courses_user.user_id] = {
-        completed_count: training_progress[:completed_count],
-        assigned_count: training_progress[:assigned_count],
-        modules: completed_modules
-      }
+      populate_user_training_data(courses_user)
     end
+  end
+
+  def populate_user_training_data(courses_user)
+    training_progress = @training_progress_manager.course_training_progress(courses_user.user)
+
+    if training_progress.is_a?(Hash)
+      completed_modules = @training_progress_manager
+                          .completed_training_modules_names(courses_user.user)
+                          .join(', ')
+      set_training_data(courses_user.user_id, training_progress[:completed_count],
+                        training_progress[:assigned_count], completed_modules)
+    else
+      default_training_data(courses_user.user_id)
+    end
+  end
+
+  def set_training_data(user_id, completed_count, assigned_count, completed_modules)
+    @training_data[user_id] = {
+      completed_count:,
+      assigned_count:,
+      modules: completed_modules
+    }
+  end
+
+  def default_training_data(user_id)
+    @training_data[user_id] = {
+      completed_count: '0',
+      assigned_count: '0',
+      modules: ''
+    }
   end
 
   def populate_created_articles
