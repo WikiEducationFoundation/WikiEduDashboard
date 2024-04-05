@@ -4,19 +4,19 @@ const CampaignRow = ({ campaign }) => {
   return (
     <tr>
       <td className="title"><a href={`/campaigns/${campaign.slug}/overview`} >{campaign.title}</a></td>
-      <td><a href={`/campaigns/${campaign.slug}/students.csv`}>students</a></td>
-      <td><a href={`/campaigns/${campaign.slug}/students.csv?course=true`}>students by course</a></td>
+      <td><a href={`/campaigns/${campaign.slug}/students.csv`}>{I18n.t('campaign.students_small')}</a></td>
+      <td><a href={`/campaigns/${campaign.slug}/students.csv?course=true`}>{I18n.t('campaign.student_course')}</a></td>
       <td>
-        <a href={`/campaigns/${campaign.slug}/instructors.csv?course=true`}>instructors by course</a>
+        <a href={`/campaigns/${campaign.slug}/instructors.csv?course=true`}>{I18n.t('campaign.instructors_course')}</a>
       </td>
       <td>
-        <a href={`/campaigns/${campaign.slug}/courses.csv`}>course data</a>
+        <a href={`/campaigns/${campaign.slug}/courses.csv`}>{I18n.t('campaign.course_data')}</a>
       </td>
       <td>
-        <a href={`/campaigns/${campaign.slug}/articles_csv.csv`}>pages edited</a>
+        <a href={`/campaigns/${campaign.slug}/articles_csv.csv`}>{I18n.t('campaign.pages_edited_small')}</a>
       </td>
       <td>
-        <a href={`/campaigns/${campaign.slug}/revisions_csv.csv`}>revision data</a>
+        <a href={`/campaigns/${campaign.slug}/revisions_csv.csv`}>{I18n.t('campaign.revision_data')}</a>
       </td>
     </tr>
   );
