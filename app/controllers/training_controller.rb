@@ -53,10 +53,6 @@ class TrainingController < ApplicationController
 
   def reload
     TrainingUpdate.new(module_slug: params[:module]).result
-    # rescue TrainingBase::DuplicateSlugError,
-    #       TrainingModule::ModuleNotFound, WikiTrainingLoader::NoMatchingWikiPagesFound,
-    #       YamlTrainingLoader::InvalidYamlError => e
-    # render plain: e.message
   end
 
   def find_slide

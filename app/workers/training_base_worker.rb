@@ -2,18 +2,22 @@
 
 class TrainingBaseWorker
   include Sidekiq::Worker
-  # sidekiq_options lock: :until_executed
+  sidekiq_options lock: :until_executed
+
+  def self.update_training_content(slug: 'all')
+    perform_async(slug)
+  end
 
   # Called during manual :training_reload action.
   # This should regenerate all training content from yml files and/or wiki.
   def perform_load_all
     TrainingLibrary.load
-    # TrainingModule.load
-    # if Features.wiki_trainings?
-    #   TrainingModule.all.each { |tm| TrainingSlide.load(slug_list: tm.slide_slugs) }
-    # else
-    #   TrainingSlide.load
-    # end
+    TrainingModule.load
+    if Features.wiki_trainings?
+      TrainingModule.all.each { |tm| TrainingSlide.load(slug_list: tm.slide_slugs) }
+    else
+      TrainingSlide.load
+    end
   end
 
   # This reloads all the library and module content, but only updates the slides
@@ -22,18 +26,22 @@ class TrainingBaseWorker
     # First reload the libraries and modules so we have the new list of slugs
     # and can load slides for brand-new modules.
     TrainingLibrary.load
-    # TrainingModule.load
+    TrainingModule.load
     # Reload the requested module's slides
-    # training_module = TrainingModule.find_by(slug:)
-    # raise ModuleNotFound, "No module #{slug} found!" unless training_module
-    # TrainingSlide.load(slug_list: training_module.slide_slugs)
+    training_module = TrainingModule.find_by(slug:)
+    raise ModuleNotFound, "No module #{slug} found!" unless training_module
+    TrainingSlide.load(slug_list: training_module.slide_slugs)
   end
 
-  def perform(slug: 'all')
+  def perform(slug)
     if slug == 'all'
       perform_load_all
     else
       perform_reload_module(slug)
     end
+
+    rescue TrainingBase::DuplicateSlugError,
+      TrainingModule::ModuleNotFound, WikiTrainingLoader::NoMatchingWikiPagesFound,
+      YamlTrainingLoader::InvalidYamlError => e
   end
 end

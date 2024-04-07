@@ -3,9 +3,13 @@ require_dependency "#{Rails.root}/lib/training/wiki_training_loader"
 
 class WikiTrainingLoaderWorker
   include Sidekiq::Worker
-  # sidekiq_options lock: :until_executed
+  sidekiq_options lock: :until_executed
 
   def perform(content_class, slug_list)
     WikiTrainingLoader.load_content(content_class, slug_list)
+
+    rescue TrainingBase::DuplicateSlugError,
+      TrainingModule::ModuleNotFound, WikiTrainingLoader::NoMatchingWikiPagesFound,
+      YamlTrainingLoader::InvalidYamlError => e
   end   
 end

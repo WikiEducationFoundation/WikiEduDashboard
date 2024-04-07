@@ -16,7 +16,7 @@ class TrainingBase
   # called for each child class in initializers/training_content.rb
   def self.load(slug_list: nil, content_class: self)
     if Features.wiki_trainings?
-      WikiTrainingLoaderWorker.perform_async(content_class, slug_list)
+      WikiTrainingLoaderWorker.new.perform(content_class, slug_list)
     else
       YamlTrainingLoader.load(content_class, slug_list)
     end

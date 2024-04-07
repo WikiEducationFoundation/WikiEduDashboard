@@ -8,13 +8,12 @@ require_dependency "#{Rails.root}/lib/wiki_api"
 # Source of content is training_content yaml files and/or wiki pages.
 class WikiTrainingLoader
   def self.load_content(content_class, slug_list)
-    content_class_object = content_class.constantize
-    @content_class = content_class_object # TrainingLibrary, TrainingModule, or TrainingSlide
+    # content_class_object = content_class.constantize
+    @content_class = content_class # TrainingLibrary, TrainingModule, or TrainingSlide
     @slug_list = slug_list # limited list of slugs to process (optional)
     # Index page that links to all the libraries, modules or slides to be loaded
-    @wiki_base_page = content_class_object.wiki_base_page
-    
-    puts "Starting #{@content_class}s from wiki"
+    @wiki_base_page = content_class.wiki_base_page
+
     load_from_wiki
   end
 
@@ -56,7 +55,6 @@ class WikiTrainingLoader
               else
                 new_from_wikitext_page(wiki_page, wikitext)
               end
-    puts "Loaded #{content['slug']} from wiki"
     @content_class.inflate(content, content['slug'], wiki_page)
   end
 

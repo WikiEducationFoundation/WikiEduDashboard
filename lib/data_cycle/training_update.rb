@@ -35,9 +35,9 @@ class TrainingUpdate
 
   def update_training_content
     if @module_slug == 'all'
-      TrainingBaseWorker.perform_async()
+      TrainingBaseWorker.update_training_content()
     else
-      TrainingBaseWorker.perform_async(slug: @module_slug)
+      TrainingBaseWorker.update_training_content(slug: @module_slug)
     end
   end
 end
