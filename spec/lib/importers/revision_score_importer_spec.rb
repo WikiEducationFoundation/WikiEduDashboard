@@ -154,35 +154,4 @@ describe RevisionScoreImporter do
       end
     end
   end
-
-  describe '#fetch_data_for_revision_id' do
-    let(:rev_id) { 860858080 }
-    # https://en.wikipedia.org/w/index.php?title=Hamlin_Park&oldid=860858080
-    # https://www.wikidata.org/w/index.php?title=Q61734980&oldid=860858080
-    let(:language) { 'en' }
-    let(:project) { 'wikipedia' }
-    let(:subject) do
-      described_class.new(language:, project:)
-                     .fetch_data_for_revision_id(rev_id)
-    end
-
-    it 'returns a hash with a predicted rating and features' do
-      VCR.use_cassette 'revision_scores/single_revision' do
-        expect(subject[:features]).to have_key(Revision::REFERENCE_COUNT)
-        expect(subject[:rating]).to eq('Stub')
-      end
-    end
-
-    context 'for Wikidata revisions' do
-      let(:language) { nil }
-      let(:project) { 'wikidata' }
-
-      it 'returns a hash with features' do
-        VCR.use_cassette 'revision_scores/single_revision' do
-          expect(subject[:features]).to have_key(Revision::WIKIDATA_REFERENCES)
-          expect(subject[:rating]).to eq('D')
-        end
-      end
-    end
-  end
 end

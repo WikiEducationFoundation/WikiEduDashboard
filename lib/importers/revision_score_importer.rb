@@ -27,14 +27,6 @@ class RevisionScoreImporter
     @api_handler = RevisionScoreApiHandler.new(wiki: @wiki, update_service:)
   end
 
-  # assumes a mediawiki rev_id from the correct Wikipedia
-  def fetch_data_for_revision_id(rev_id)
-    result = @api_handler.get_revision_data([rev_id])
-    features = result.dig(rev_id.to_s, 'features')
-    rating = result.dig(rev_id.to_s, 'prediction')
-    return { features:, rating: }
-  end
-
   def update_revision_scores
     batches = (unscored_revisions.count / BATCH_SIZE) + 1
     unscored_revisions.in_batches(of: BATCH_SIZE).each.with_index do |rev_batch, i|
