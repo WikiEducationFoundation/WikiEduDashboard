@@ -38,8 +38,8 @@ describe ReferenceCounterApi do
         status_code: 403,
         content: {
             'description' =>
-            "mwapi error: permissiondenied - You don't have permission to view deleted " \
-            'text or changes between deleted revisions.'
+            "rest-permission-denied-revision - User doesn't have access to the requested " \
+            'revision (708326238).'
         }
       }
     )
