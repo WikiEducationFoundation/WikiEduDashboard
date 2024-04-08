@@ -86,6 +86,7 @@ br:
     edited_by: 'Kemmet gant :'
     edited_mobile: Pennadoù
     edited_none: '%{title} n''en deus kemmet pennad ebet.'
+    filter_text: 'Siloù:'
     hide: Kuzhat
     label: Pennadoù
     loading: Kargañ pennadoù...
@@ -179,6 +180,8 @@ br:
     organizer_added: '%{user}zo un aozer eus ar c''houlzad %{title} bremañ'
     organizer_removed: N'eo ket mui %{user}un aozer eus ar c'houlzad %{title}
     program_template: Patrom koulzad
+    resolve: Diskoulmañ
+    students_small: studierien
     title: Titl
     use_start_end_dates: Implijout an deiziadoù deroù ha dibenn
   categories:
@@ -213,6 +216,7 @@ br:
     campaigns: Koulzadoù
     campaign_courses: '%{title}Kentelioù'
     course: Kentel
+    course_type_label: 'Seurt:'
     course_description: Kentelioù
     courses: Kentelioù
     courses_taught: Kentelioù kelennet
@@ -442,6 +446,7 @@ br:
     label: Mammennoù
   settings:
     categories:
+      other_settings: Arventennoù all
       users: Implijerien
     admin_users:
       new:

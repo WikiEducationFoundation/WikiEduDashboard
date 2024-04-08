@@ -180,6 +180,7 @@ es:
     edited_by: 'Editado por:'
     edited_mobile: Artículos
     edited_none: '%{title} no ha editado ningún artículo.'
+    filter_text: 'Filtros:'
     how_to_find: Cómo encontrar artículos
     hide: Ocultar
     history: (historial)
@@ -297,6 +298,7 @@ es:
       «%{campaign_title}»?
     course_already_removed: «%{title}» ya se había quitado de la campaña «%{campaign_title}»
     course: Curso
+    course_data: datos del curso
     course_removed: «%{title}» se ha quitado de la campaña «%{campaign_title}»
     create_campaign: Crear una campaña nueva
     create_my_campaign: ¡Crear mi campaña!
@@ -314,16 +316,22 @@ es:
     disable_account_requests: Desactivar solicitudes de cuentas
     enable_account_requests: Activar solicitudes de cuentas
     featured_campaigns: Campañas destacadas
+    instructors_course: instructores por curso
     no_passcode: ningún código de acceso
     none: Ninguno
     organizers: Organizadores
     organizer_added: '%{user} ahora es un organizador de la campaña "%{title}"'
     organizer_removed: '%{user} ya no es organizador de la campaña "%{title}"'
+    pages_edited_small: Páginas editadas
     program_template: Plantilla de programa
     program_template_tooltip: Cuando un organizador crea un programa en esta campaña,
       el texto de esta área se copiará como una descripción en la página del programa
     random_passcode: un código de acceso al azar
     requested_accounts: Cuentas solicitadas
+    resolve: Resolver
+    revision_data: datos de revisión
+    students_small: Estudiantes
+    student_course: estudiantes por curso
     title: Título
     slug: URL semántico
     search_campaigns: Buscar campañas
@@ -385,6 +393,7 @@ es:
       las revisiones más recientes y se cargará de nuevo la página. El proceso podría
       tomar algo de tiempo.
     course: Curso
+    course_type_label: 'Tipo:'
     course_dates_calendar_instructions: Selecciona fechas para añadirlas o quitarlas
       del calendario (por ejemplo, vacaciones, cuando no hay clases). Haz clic en
       la fecha para cambiar entre los estados «no seleccionado», «seleccionado» y
@@ -760,6 +769,7 @@ es:
     possible_plagiarism: Posible plagio
     recent_edits: Ediciones recientes
     recent_uploads: Subidas recientes
+    report: Informe
     revision_author: Autor de la revisión
     revision_datetime: Fecha/hora de la revisión
     revision_score: Puntaje de revisión
@@ -912,6 +922,9 @@ es:
     usage_count: Total de usos
     usage_count_gallery_tile: Se utiliza en %{usage_count} artículos
     usages: Usos
+    gallery_view: Vista de la galería
+    list_view: Ver como lista
+    tile_view: Vista en mosaico
   users:
     already_enrolled: Ese usuario ya está inscrito.
     assign_articles: Asignar artículos
@@ -1123,11 +1136,13 @@ es:
   article_finder:
     article_quality: Calidad de artículo (0-100)
     category_search: Búsqueda por categorías
+    estimation_score_not_found: ¡No se ha encontrado la puntuación estimada!
     fetched_articles: Artículos recuperados
     filtered_articles: Artículos filtrados
     keyword_search: Búsqueda por palabras clave
     more_results: Más resultados
     no_article_found: No se encontró ningún artículo en esta categoría
+    page_views_not_found: ¡Vistas de página no encontradas!
     search: Buscar
     searching_articles: Buscando artículos
     search_placeholder: Escribe una palabra clave

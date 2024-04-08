@@ -111,6 +111,7 @@ lb:
     filter:
       wiki_all: All
       new: Nei
+    filter_text: 'Filteren:'
     find: Artikele sichen
     hide: Verstoppen
     history: (Versiounen)
@@ -254,6 +255,7 @@ lb:
     campaign_courses: '%{title} Coursen'
     campaign_users: '%{title} Auteuren'
     course: Cours
+    course_type_label: 'Typ:'
     course_description: Coursen
     courses: Coursen
     creation_date: Datum vun der Kreatioun
