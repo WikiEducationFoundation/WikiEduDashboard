@@ -284,7 +284,7 @@ const ArticleList = createReactClass({
           {filterTracked}
           {filterArticlesSelect}
           {filterWikis}
-          <div>{articleSort}</div>
+          {articleSort}
         </div>
       </div>
     );
