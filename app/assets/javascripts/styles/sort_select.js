@@ -24,12 +24,12 @@ const sortSelectStyles = {
         backgroundColor,
         color,
         cursor: isDisabled ? 'not-allowed' : 'default',
-        fontSize: '14px!important',
+        fontSize: '14px',
         minHeight: '1.2em',
-        paddingLeft: '20px !important',
-        paddingTop: '4px !important',
-        paddingRight: '5px !important',
-        paddingBottom: '4px !important',
+        paddingLeft: '20px',
+        paddingTop: '4px',
+        paddingRight: '5px',
+        paddingBottom: '4px',
       };
     },
     control: base => ({
