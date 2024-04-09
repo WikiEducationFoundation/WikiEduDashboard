@@ -7,6 +7,8 @@ import { receiveUploads, sortUploads, setView, setUploadFilters, setUploadMetada
 import { LIST_VIEW, GALLERY_VIEW, TILE_VIEW } from '../../constants';
 import MultiSelectField from '../common/multi_select_field.jsx';
 import { getStudentUsers, getFilteredUploads } from '../../selectors';
+import Select from 'react-select';
+import sortSelectStyles from '../../styles/sort_select.js';
 
 const UPLOADS_PER_PAGE = 100;
 
@@ -55,7 +57,7 @@ const UploadsHandler = ({ course_id, course }) => {
   };
 
   const sortSelect = (e) => {
-    dispatch(sortUploads(e.target.value));
+    dispatch(sortUploads(e.value));
   };
 
   const setUploadFiltersHandler = (newSelectedFilters) => {
@@ -106,6 +108,12 @@ const UploadsHandler = ({ course_id, course }) => {
     );
   }
 
+  const sortOptions = [
+    { value: 'uploaded_at', label: I18n.t('uploads.uploaded_at') },
+    { value: 'uploader', label: I18n.t('uploads.uploader') },
+    { value: 'usage_count', label: I18n.t('uploads.usage_count') },
+  ];
+
   return (
     <div id="uploads">
       <div className="section-header">
@@ -121,12 +129,13 @@ const UploadsHandler = ({ course_id, course }) => {
             <p className="tooltip dark">{I18n.t('uploads.tile_view')}</p>
           </button>
         </div>
-        <div className="sort-select">
-          <select className="sorts" name="sorts" onChange={sortSelect}>
-            <option value="uploaded_at">{I18n.t('uploads.uploaded_at')}</option>
-            <option value="uploader">{I18n.t('uploads.uploader')}</option>
-            <option value="usage_count">{I18n.t('uploads.usage_count')}</option>
-          </select>
+        <div className="sort-container">
+          <Select
+            name="sorts"
+            onChange={sortSelect}
+            options={sortOptions}
+            styles={sortSelectStyles}
+          />
         </div>
       </div>
       <MultiSelectField options={options} label={I18n.t('uploads.select_label')} selected={stateValues.selectedFilters} setSelectedFilters={setUploadFiltersHandler} />
