@@ -1,10 +1,11 @@
 const projects = JSON.parse(WikiProjects);
-
 // Remove wikidata and wikimedia as they require special implementation.
 projects.splice(projects.indexOf('wikidata'), 1);
 projects.splice(projects.indexOf('wikimedia'), 1);
 
 const languages = JSON.parse(WikiLanguages);
+// Remove 'meta' language, it requires speciali implementation below.
+languages.splice(languages.indexOf('meta'), 1);
 
 const WIKI_OPTIONS = languages.map(language =>
   projects.map((project) => {
@@ -14,7 +15,9 @@ const WIKI_OPTIONS = languages.map(language =>
   })
 ).reduce((a, b) => a.concat(b));
 
-// Wikimedia has only two trackable wikis
+// Wikimedia has only three trackable wikis
+WIKI_OPTIONS.unshift({ value: JSON.stringify({ language: 'meta', project: 'wikimedia' }), label: 'meta.wikimedia.org' });
+
 WIKI_OPTIONS.unshift({ value: JSON.stringify({ language: 'commons', project: 'wikimedia' }), label: 'commons.wikimedia.org' });
 
 WIKI_OPTIONS.unshift({ value: JSON.stringify({ language: 'incubator', project: 'wikimedia' }), label: 'incubator.wikimedia.org' });

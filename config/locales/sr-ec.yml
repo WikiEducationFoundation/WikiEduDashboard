@@ -152,6 +152,7 @@ sr-ec:
       tracked: Праћено
       untracked: Отпраћено
       tracked_and_untracked: Праћено и отпраћено
+    filter_text: 'Филтери:'
     hide: Сакриј
     history: (историја)
     label: Чланци
@@ -225,6 +226,7 @@ sr-ec:
     confirm_add_available: Да ли сте сигурни да желите да додате %{title}?
     confirm_addition: Да ли сте сигурни да желите доделити %{title} кориснику %{username}?
     confirm_deletion: Желите ли заиста да избришете овај задатак?
+    delete: Уклони и обриши
     editors: Додељено
     group_members: Чланови групе
     label: Додели
@@ -242,6 +244,7 @@ sr-ec:
       да пружите повратне информације.
     sandbox_draft_link: Нацрт песка
     select: Изабери
+    submit: Пошаљи
   blocks:
     milestones:
       title: Миљоказ
@@ -298,6 +301,7 @@ sr-ec:
       из ове површи ће бити искоришћен као опис на страници програма
     random_passcode: случајна лозинка
     requested_accounts: Захтевани налози
+    students_small: студенти
     title: Наслов
     slug: Жетон
     search_campaigns: Претражи кампање
@@ -657,6 +661,11 @@ sr-ec:
     survey:
       notification_message: Уради анкету за овај курс.
       link: Уради анкету
+  course_instructor_notification:
+    send_notification_button_text: Пошаљи
+    write_subject: Тема
+    write_message_placeholder: Порука
+    sending_notification: Шаљем
   courses_generic:
     school_system: Академски систем
     add_campaign: Додај кампању
@@ -852,6 +861,9 @@ sr-ec:
     label: Ресурси
     header: Ресурси и тренинг
   settings:
+    categories:
+      other_settings: Остала подешавања
+      users: Корисници
     admin_users:
       new:
         form_label: Додели администраторске привилегије

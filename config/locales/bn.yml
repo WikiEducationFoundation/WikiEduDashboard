@@ -294,6 +294,8 @@ bn:
     volunteer:
       one: স্বেচ্ছাসেবক
       other: স্বেচ্ছাসেবক
+  course_instructor_notification:
+    write_message_placeholder: বার্তা
   courses_generic:
     all_courses: সকল কার্যক্রম
     cancel: বাতিল

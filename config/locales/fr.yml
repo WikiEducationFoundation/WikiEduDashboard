@@ -15,15 +15,18 @@
 # Author: Eric.LEWIN
 # Author: Fitoschido
 # Author: Gomoko
+# Author: Hecatonchire
 # Author: Hk5184
 # Author: Iketsi
 # Author: JenyxGym
 # Author: LudaOtaku
 # Author: M0tty
 # Author: Mabroukb
+# Author: MacOS Weed
 # Author: Macofe
 # Author: Melimeli
 # Author: PifyZ
+# Author: SleaY
 # Author: The RedBurn
 # Author: Thibaut120094
 # Author: Trial
@@ -201,6 +204,7 @@ fr:
     history: (historique)
     label: Articles
     loading: Chargement des articles...
+    mark_as_complete: Marquer comme terminé
     new: (nouveau)
     none: Ce cours n’a modifié aucun article.
     preview: Bref aperçu de l’article
@@ -307,6 +311,8 @@ fr:
     article: L’article %{title} vous est maintenant affecté.
     article_link: Article
     article_link_wikidata: Élément
+    blocked_assignment: '%{title} n''a pas pu être attribué car il figure sur la liste
+      noire des affectations Wiki Education de la communauté Wikipédia.'
     already_exists: Cette affectation existe déjà !
     title_too_large: Le titre ne doit pas dépasser 255 caractères
     assignees: Affectation(s)
@@ -329,6 +335,7 @@ fr:
     confirm_add_available: Êtes-vous sûr(e) de vouloir ajouter %{title} ?
     confirm_addition: Êtes-vous sûr(e) de vouloir affecter %{title} à %{username} ?
     confirm_deletion: Êtes-vous sûr(e) de vouloir supprimer cette affectation ?
+    delete: Retirer et supprimer
     editors: Affecté à
     group_members: Membres du groupe
     label: Affecter
@@ -414,6 +421,9 @@ fr:
     course_already_removed: « %{title} » a déjà été supprimé de la campagne « %{campaign_title} »
     course: Cours
     course_removed: « %{title} » a été supprimé de la campagne « %{campaign_title} »
+    course_removed_and_deleted: « %{title} » a été supprimé de la campagne « %{campaign_title} »
+    course_removed_but_not_deleted: '"%{title}" a été retiré de "%{campaign_title}",
+      mais n''a pas été supprimé car il est également présent dans d''autres campagnes.'
     create_campaign: Créer une nouvelle campagne
     create_my_campaign: Créer ma campagne !
     customize_passcode: un mot de passe par défaut
@@ -440,6 +450,7 @@ fr:
       campagne doivent avoir :'
     description: Description
     delete_campaign: Supprimer cette campagne
+    delete_course_tooltip: Supprimer et retirer de la campagne.
     disable_account_requests: Désactiver les demandes de compte
     enable_account_requests: Activer les demandes de compte
     newest_campaigns: Nouvelles campagnes
@@ -453,6 +464,7 @@ fr:
     program_template_tooltip: Quand un organisateur crée un programme dans cette campagne,
       le texte dans cette zone sera copié comme une description sur la page du programme
     random_passcode: un code d’accès aléatoire
+    remove_course_tooltip: Retirer de la campagne.
     requested_accounts: Comptes demandés
     title: Titre
     too_many_articles: La liste des articles modifiés pour cette campagne est trop
@@ -951,6 +963,21 @@ fr:
     survey:
       notification_message: Répondez au sondage pour ce cours.
       link: Participer au sondage
+  course_instructor_notification:
+    notify_instructors: Envoyez des courriels aux instructeurs
+    notify_instructors_feature_description: Envoyer un message aux instructeurs par
+      courriel
+    send_notification_button_text: Envoyer
+    notification_sent_success: Message envoyé à tous les instructeurs de %{courseTitle}
+    notification_send_error_no_internet: Impossible d'envoyer la requête. Vérifiez
+      si vous êtes connecté à Internet.
+    notification_send_error_server: 'Erreur du serveur : impossible d''envoyer de
+      notification (%{status} %{statusText})'
+    notification_empty_message: Le sujet ou le message ne peut pas être vide
+    confirm_send_notification: Envoyer à tous les instructeurs de ce cours ?
+    write_subject: Sujet
+    write_message_placeholder: Message
+    sending_notification: Envoi en cours
   courses_generic:
     school_system: Système académique
     add_campaign: Ajouter une campagne
@@ -1137,8 +1164,7 @@ fr:
         d’expert, mieux ce sera.
       thank_you: Merci ! Contactez votre Expert Wiki si vous avez des questions supplémentaires.
     exercises_and_trainings: '%{prefix} Exercices et formations'
-    no_assignments: Aucun article n’est affecté à cet étudiant(e) pour le moment.
-      Vous pouvez lui affecter un article en utilisant les boutons ci-dessus.
+    no_assignments: Aucun article n’est affecté à cet(te) étudiant(e) pour le moment.
     no_assignments_wikidata: Cet étudiant n’a actuellement aucun élément affecté.
       Vous pouvez affecter un élément en utilisant les boutons ci-dessus.
     overview: '%{prefix} Vue d’ensemble'

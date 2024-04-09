@@ -52,7 +52,12 @@ const CategoriesScoping = () => {
         }}
           max="3"
         />
-        <WikiSelect homeWiki={home_wiki} onChange={wiki => setCurrentWiki(wiki.value)}/>
+        <WikiSelect
+          id="category-wiki-select-input"
+          label={I18n.t('articles.wiki')}
+          homeWiki={home_wiki}
+          onChange={wiki => setCurrentWiki(wiki.value)}
+        />
       </div>
     </div>
   );

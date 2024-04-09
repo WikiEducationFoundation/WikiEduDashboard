@@ -82,3 +82,20 @@ CSV.open('/home/ragesoss/wmde_training_data_2022-02.csv', 'wb') do |csv|
     csv << line
   end
 end
+
+# CSV of all training activity on P&E Dashboard
+
+csv_data = [['username', 'training_module', 'last_slide_completed', 'module_completion_date', 'started_at', 'last_slide_completed_at']]
+
+TrainingModule.all.each do |tm|
+  tmus = TrainingModulesUsers.where(training_module_id: tm.id).includes(:user)
+  tmus.each do |tmu|
+    csv_data << [tmu.user&.username, tm.slug, tmu.last_slide_completed, tmu.completed_at, tmu.created_at, tmu.updated_at]
+  end
+end
+
+CSV.open('/home/ragesoss/training_completion_data_2024-03-11.csv', 'wb') do |csv|
+  csv_data.each do |line|
+    csv << line
+  end
+end

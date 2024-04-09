@@ -88,12 +88,13 @@ const TextInput = createReactClass({
           title={title}
           min={0}
           ref="inputbox"
+          aria-labelledby={`${this.props.id}-label`}
         />
       );
 
       return (
         <div className="form-group">
-          <label htmlFor={this.props.id} className={labelClass}>{label}</label>
+          <label id={`${this.props.id}-label`} htmlFor={this.props.id} className={labelClass}>{label}</label>
           {input}
           {this.props.children}
         </div>

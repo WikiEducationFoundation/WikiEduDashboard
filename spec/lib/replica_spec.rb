@@ -225,6 +225,21 @@ describe Replica do
       end
     end
 
+    it 'functions identically on meta.wikimedia.org' do
+      VCR.use_cassette 'replica/meta_revisions' do
+        all_users = [
+          build(:user, username: 'EPIC')
+        ]
+
+        rev_start = 2024_04_02_000000
+        rev_end = 2024_04_03_000000
+
+        meta = Wiki.new(language: 'meta', project: 'wikimedia')
+        response = described_class.new(meta).get_revisions(all_users, rev_start, rev_end)
+        expect(response.count).to eq(6)
+      end
+    end
+
     it 'includes "File" namespace edits on Wikimedia Commons' do
       VCR.use_cassette 'replica/wikimedia_commons_revisions' do
         all_users = [

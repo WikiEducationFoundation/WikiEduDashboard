@@ -108,7 +108,8 @@ class AlertsController < ApplicationController
   end
 
   def set_default_target_user
-    @alert.target_user_id = SpecialUsers.technical_help_staff&.id
+    @alert.target_user_id = @alert.default_target_user&.id if @alert.is_a? ReviewRequestAlert
+    @alert.target_user_id ||= SpecialUsers.technical_help_staff&.id
   end
 
   def set_alert

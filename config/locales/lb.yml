@@ -111,6 +111,7 @@ lb:
     filter:
       wiki_all: All
       new: Nei
+    filter_text: 'Filteren:'
     find: Artikele sichen
     hide: Verstoppen
     history: (Versiounen)
@@ -168,6 +169,7 @@ lb:
     add_available_submit: Artikelen derbäisetzen
     bibliography: Bibliographie
     clone: Eng Kopie maachen
+    delete: Entfernen a Läschen
     editors: Net gespäichert
     group_members: Membere vum Grupp
     no_available: Dëse Cours huet keng disponibel Artikelen.
@@ -198,15 +200,21 @@ lb:
     confirm_course_removal: Sidd Dir sécher, datt Dir „%{title}“ aus der Campagne
       „%{campaign_title}“ eraushuele wëllt?
     course: Cours
+    course_removed_and_deleted: „%{title}“ gouf geläscht an aus der „%{campaign_title}“-Campagne
+      entfernt.
+    course_removed_but_not_deleted: „%{title}“ gouf aus „%{campaign_title}“ entfernt,
+      mee nach net geläscht, well et nach Deel vun anere Kampagnen ass
     data_articles: Geännert Säiten
     data_wikidata: Wikidata-Statistiken
     default_passcode: Standard-Passcode
     description: Beschreiwung
     delete_campaign: Dës Campagne läschen
+    delete_course_tooltip: Läschen an aus der Campagne entfernen.
     no_passcode: kee Passcode
     none: Keng
     organizers: Organisateuren
     random_passcode: en zoufällege Passcode
+    remove_course_tooltip: Aus der Kampagne entfernen.
     title: Titel
     use_start_end_dates: Ufanks- a Schlussdatumer benotzen
     search: Sichen
@@ -247,6 +255,7 @@ lb:
     campaign_courses: '%{title} Coursen'
     campaign_users: '%{title} Auteuren'
     course: Cours
+    course_type_label: 'Typ:'
     course_description: Coursen
     courses: Coursen
     creation_date: Datum vun der Kreatioun
@@ -372,6 +381,11 @@ lb:
     survey:
       notification_message: Bedeelegt Iech un eiser Ëmfro zu dësem Cours.
       link: Bei der Ëmfro matmaachen
+  course_instructor_notification:
+    send_notification_button_text: Schécken
+    notification_empty_message: De Sujet an de Message kënnen net eidel sinn
+    write_subject: Sujet
+    write_message_placeholder: Message
   courses_generic:
     school_system: Akademesche System
     all_courses: All Progtrammer
@@ -521,6 +535,9 @@ lb:
     see_more: Méi gesinn
     show_all: All weisen
   settings:
+    categories:
+      other_settings: Aner Astellungen
+      users: Benotzer
     admin_users:
       new:
         form_placeholder: Benotzernumm

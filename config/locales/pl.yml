@@ -690,6 +690,8 @@ pl:
     label: Zasoby
     header: Zasoby i ćwiczenia
   settings:
+    categories:
+      users: Użytkownicy
     admin_users:
       new:
         form_label: Nadaj uprawnienia administratora

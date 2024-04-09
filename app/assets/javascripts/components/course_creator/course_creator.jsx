@@ -24,6 +24,9 @@ import { fetchAssignments } from '../../actions/assignment_actions';
 import CourseScoping from './course_scoping_methods';
 import { getScopingMethods } from '../util/scoping_methods';
 
+import Select from 'react-select';
+import selectStyles from '../../styles/single_select.js';
+
 const CourseCreator = createReactClass({
   displayName: 'CourseCreator',
 
@@ -62,6 +65,7 @@ const CourseCreator = createReactClass({
       copyCourseAssignments: false,
       showingCreateCourseButton: false,
       onLastScoping: false,
+      courseCloneId: null,
     };
   },
 
@@ -75,7 +79,10 @@ const CourseCreator = createReactClass({
     },
 
   onDropdownChange(event) {
-    this.props.fetchAssignments(event.target.value);
+    this.setState({
+      courseCloneId: event.id,
+    });
+    this.props.fetchAssignments(event.value);
   },
   setCopyCourseAssignments(e) {
     return this.setState({
@@ -289,8 +296,7 @@ const CourseCreator = createReactClass({
   },
 
   useThisClass() {
-    const select = this.courseSelect;
-    const courseId = select.options[select.selectedIndex].getAttribute('data-id-key');
+    const courseId = this.state.courseCloneId;
     this.props.cloneCourse(courseId, this.campaignParam(), this.state.copyCourseAssignments);
     return this.setState({ isSubmitting: true, shouldRedirect: true });
   },
@@ -369,11 +375,28 @@ const CourseCreator = createReactClass({
 
     const cloneOptions = showNewOrClone ? '' : ' hidden';
     const selectClass = showCloneChooser ? '' : ' hidden';
-    const options = this.props.cloneableCourses.map((course, i) => <option key={i} data-id-key={course.id} value={course.slug}>{course.title}</option>);
+    const options = [
+      ...this.props.cloneableCourses.map(course => ({
+        value: course.slug,
+        label: course.title,
+        id: course.id
+      }))
+    ];
     const selectClassName = `select-container ${selectClass}`;
     const eventFormClass = this.state.showEventDates ? '' : 'hidden';
     const eventClass = `${eventFormClass}`;
-    const reuseCourseSelect = <select id="reuse-existing-course-select" ref={(dropdown) => { this.courseSelect = dropdown; }} onChange={this.onDropdownChange}>{options}</select>;
+    const reuseCourseSelect = (
+      <div style={{ display: 'inline-block', width: '60%', marginRight: '10px' }}>
+        <Select
+          id="reuse-existing-course-select"
+          styles={selectStyles}
+          placeholder={'Select a course'}
+          onChange={this.onDropdownChange}
+          options={options}
+          ref={(dropdown) => { this.courseSelect = dropdown; }}
+        />
+      </div>
+    );
 
     let showCheckbox;
     if (this.props.assignmentsWithoutUsers.length > 0) {

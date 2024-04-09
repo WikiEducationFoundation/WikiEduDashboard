@@ -74,6 +74,7 @@ sl:
     history: (zgodovina)
     label: Članki
     loading: Nalaganje člankov ...
+    mark_as_complete: Označi kot končano
     new: (novo)
     preview: Kratek predogled članka
     rating: Razred
@@ -98,7 +99,10 @@ sl:
     articles_short: Strani
   assignments:
     article_link_wikidata: Predmet
+    blocked_assignment: '%{title} ni bilo mogoče dodeliti, ker je na seznamu blokiranih
+      dodelitev Wiki Education skupnosti Wikipedije.'
     confirm_deletion: Ali res želite izbrisati to dodelitev?
+    delete: Odstrani in izbriši
     label_all: Dodeli vse
     loading: Nalaganje dodelitev ...
     peer_review_link: Vrstniški pregled
@@ -118,12 +122,18 @@ sl:
     campaign: Kampanja
     campaigns: Kampanje
     created_at: Datum
+    course_removed_and_deleted: »%{title}« je bil izbrisan in odstranjen iz kampanje
+      »%{campaign_title}«.
+    course_removed_but_not_deleted: »%{title}« je bil odstranjen iz »%{campaign_title}«,
+      vendar ni bil izbrisan, saj je prisoten tudi v drugih kampanjah
     data_articles: Urejene strani
     data_revisions: Podatki o redakcijah
     description: Opis
+    delete_course_tooltip: Izbriši in odstrani iz kampanje.
     no_alerts: Ta kampanja nima opomnikov
     none: Noben
     program_template: Predloga programa
+    remove_course_tooltip: Odstrani iz kampanje.
     requested_accounts: Zahtevani računi
     title: Naslov
     search_campaigns: Preišči kampanje
@@ -227,6 +237,20 @@ sl:
       tečaja dodali predmetom v glavnem imenskem prostoru
     survey:
       notification_message: Izpolnite našo anketo za ta tečaj.
+  course_instructor_notification:
+    notify_instructors: Pošlji inštruktorjem po e-pošti
+    notify_instructors_feature_description: Pošljite sporočilo inštruktorjem po e-pošti
+    send_notification_button_text: Pošlji
+    notification_sent_success: Sporočilo poslano vsem inštruktorjem %{courseTitle}
+    notification_send_error_no_internet: Zahtevka ni mogoče poslati. Preverite, ali
+      ste povezani v internet.
+    notification_send_error_server: 'Napaka strežnika: Ni mogoče poslati obvestila
+      (%{status} %{statusText})'
+    notification_empty_message: Zadeva ali sporočilo ne sme biti prazno
+    confirm_send_notification: Želite poslati vsem inštruktorjem za ta tečaj?
+    write_subject: Zadeva
+    write_message_placeholder: Sporočilo
+    sending_notification: Pošiljanje
   courses_generic:
     add_campaign: Dodaj kampanjo
     archived: Arhivirani programi

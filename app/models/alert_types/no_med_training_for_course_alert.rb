@@ -20,8 +20,8 @@
 #  details        :text(65535)
 #
 
-# Alert for when a new user move a sandbox into mainspace on Wikipedia,
-# the edits are automatically tagged de-userfying.
+# Alert for when students in a course edit WikiProject Medicne articles
+# but the medical content training is not assigned for the course.
 class NoMedTrainingForCourseAlert < Alert
   def main_subject
     "Course #{course.title} was not assigned the medical training module \

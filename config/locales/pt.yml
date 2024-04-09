@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Ajeje Brazorf
 # Author: Athena in Wonderland
+# Author: B3rnas
 # Author: Chicocvenancio
 # Author: Fitoschido
 # Author: Fúlvio
@@ -167,6 +168,7 @@ pt:
       tracked: Monitorizados
       untracked: Não monitorizados
       tracked_and_untracked: Monitorizados e não monitorizados
+    filter_text: 'Filtros:'
     find: Encontrar artigos
     hide: Ocultar
     history: (histórico)
@@ -410,6 +412,9 @@ pt:
       o texto desta área será copiado como descrição na página do programa
     random_passcode: um código de acesso aleatório
     requested_accounts: Contas solicitadas
+    resolve: Resolver
+    revision_data: dados de revisão
+    students_small: estudantes
     title: Título
     too_many_articles: A lista dos artigos editados nesta campanha é demasiado longa
       para ser apresentada. Consulte os cursos, programas ou eventos individuais para
@@ -1024,8 +1029,7 @@ pt:
       thank_you: Obrigado! Entre em contacto com o especialista da sua Wiki se tiver
         mais perguntas.
     exercises_and_trainings: '%{prefix} Exercícios e formações'
-    no_assignments: Este aluno não tem artigos atribuídos neste momento. Pode atribuir-lhe
-      um artigo usando os botões acima.
+    no_assignments: Este estudante atualmente não possui artigos atribuídos.
     no_assignments_wikidata: Este aluno não tem elementos atribuídos neste momento.
       Pode atribuir-lhe um elemento usando os botões acima.
     overview: '%{prefix} Visão geral'
@@ -1685,6 +1689,7 @@ pt:
     average_views: Média de visitas por dia
     category_search: Pesquisa por categoria
     completeness_estimate: Classificação de integridade
+    estimation_score_not_found: Pontuação de estimativa não encontrada!
     fetching_assessments: A obter classificações de páginas
     fetching_scores: A obter classificações de integridade
     fetching_pageviews: A obter visitas de páginas
@@ -1700,6 +1705,7 @@ pt:
     no_article_found: Não foi encontrado nenhum artigo nesta categoria
     no_article_found_wikidata: Não foi encontrado nenhum elemento nesta categoria
     page_assessment_class: Classe
+    page_views_not_found: Visualizações de página não encontradas!
     relevanceIndex: Índice de relevância
     remove_article: Remover artigo
     remove_article_wikidata: Remover elementos

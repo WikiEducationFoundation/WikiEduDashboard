@@ -27,9 +27,7 @@ class DeUserfyingEditAlertMonitor
   end
 
   # Query:
-  # https://en.wikipedia.org/w/api.php
-  # ?action=query&list=recentchanges&rcprop=title|ids|flags|user|tags|loginfo|timestamp
-  # &rctag=de-userfyng&rclimit=100&rcshow=!bot
+  # https://en.wikipedia.org/w/api.php?action=query&list=recentchanges&rcprop=title|ids|flags|user|tags|loginfo|timestamp&rctag=de-userfying&rclimit=100&rcshow=!bot
   # Will fetch last 100 edits (parameter rclimit)
   # Cf. https://www.mediawiki.org/wiki/API:RecentChanges
   def edits

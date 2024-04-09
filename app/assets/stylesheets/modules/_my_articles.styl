@@ -195,16 +195,43 @@
   
 
 .feedback-body
+  text-align left
   padding 20px
   display: flex;
+  align-items flex-start
   flex-direction: column;
+
+  h5
+    padding-top 5px
+
+  p
+    text-align left
+  
+  ul
+    text-align left
+    padding-left 16px
 
   .rating-description
     font-size 75%
     color bayoux
 
+.feedback-form-container
+  display flex
+  flex-direction column
+  align-items flex-start
+ 
 .feedback-form
+  width 100%
   margin-top 10px
+  margin-bottom 20px
 
 hr.assignment-divider
   margin-bottom 4px
+
+@media screen and (max-width: 486px)
+ .controls
+  display flex
+  flex-direction column
+
+ .controls > *
+  margin 5px

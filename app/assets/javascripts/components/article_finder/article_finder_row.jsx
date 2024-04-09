@@ -62,7 +62,7 @@ const ArticleFinderRow = (props) => {
     if (props.article.pageviews) {
       pageviews = Math.round(props.article.pageviews);
     } else if (props.article.fetchState === 'PAGEVIEWS_RECEIVED') {
-      pageviews = <div>Page Views not found!</div>;
+      pageviews = <div>{I18n.t('article_finder.page_views_not_found')}</div>;
     }
     let revScore;
     if (
@@ -77,7 +77,7 @@ const ArticleFinderRow = (props) => {
       } else if (props.article.revScore) {
         revScore = <td className="revScore">{Math.round(props.article.revScore)}</td>;
       } else if (fetchStates[props.article.fetchState] >= fetchStates.REVISIONSCORE_RECEIVED) {
-        revScore = <td><div>Estimation Score not found!</div></td>;
+        revScore = <td><div>{I18n.t('article_finder.estimation_score_not_found')}</div></td>;
       } else {
         revScore = <td />;
       }

@@ -87,7 +87,20 @@ const NamespaceSelect = (props) => {
   }
 
   return (
-    <div>
+    <>
+      <label id="namespace-label" htmlFor="namespace_select" className="text-input-component__label inline-label">
+        <strong>
+          {I18n.t('courses.namespaces')}:&nbsp;
+        </strong>
+      </label>
+      <div className="tooltip-trigger">
+        <img src ="/assets/images/info.svg" alt = "tooltip default logo" />
+        <div className="tooltip large dark">
+          <p>
+            {I18n.t('namespace.tracked_namespaces_info')}
+          </p>
+        </div>
+      </div>
       <Select
         id = "namespace_select"
         value = {selectedNamespaces}
@@ -96,8 +109,9 @@ const NamespaceSelect = (props) => {
         styles={props.styles}
         isMulti = {true}
         isClearable={false}
+        aria-labelledby="namespace-label"
       />
-    </div>
+    </>
   );
 };
 

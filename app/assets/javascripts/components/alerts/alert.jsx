@@ -17,7 +17,7 @@ const Alert = ({ alert, adminAlert, resolveAlert }) => {
     }
     if (alert.resolvable && !alert.resolved) {
       resolveButton = (
-        <button className="button small danger dark" onClick={() => resolveAlert(alert.id)}>Resolve</button>
+        <button className="button small danger dark" onClick={() => resolveAlert(alert.id)}>{I18n.t('campaign.resolve')}</button>
       );
     }
     resolveCell = (
