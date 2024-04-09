@@ -58,8 +58,8 @@ describe 'the explore page', type: :feature, js: true do
 
       it 'dropdown' do
         visit '/explore'
-        find('#campaigns_list .sort-select select.sorts').click
-        find('#campaigns_list option', text: 'Campaigns').click
+        find('#campaigns_list .sort-container').click
+        all('#campaigns_list div').select { |div| div.text == 'Campaigns' }[0].click
 
         expect(page).to have_selector(:css, '#campaigns_list th.title.sortable.asc')
         titles = page.all('#campaigns_list tr .table-link-cell.title')
@@ -154,8 +154,8 @@ describe 'the explore page', type: :feature, js: true do
 
       it 'dropdown' do
         visit '/explore'
-        find('#active_courses .sort-select select.sorts').click
-        find('#active_courses option', text: 'Courses').click
+        find('#active_courses .sort-container').click
+        all('#active_courses div').select { |div| div.text == 'Courses' }[0].click
 
         titles = page.all('#active_courses tr .table-link-cell.title')
 
