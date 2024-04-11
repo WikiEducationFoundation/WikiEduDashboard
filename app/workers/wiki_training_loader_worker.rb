@@ -7,9 +7,13 @@ class WikiTrainingLoaderWorker
 
   def perform(content_class, slug_list)
     WikiTrainingLoader.load_content(content_class, slug_list)
+  
+  rescue TrainingBase::DuplicateSlugError => e
+    TrainingBase.update_error(e.message, e.content_class, e.slug)
+  end
 
-    rescue TrainingBase::DuplicateSlugError,
-      TrainingModule::ModuleNotFound, WikiTrainingLoader::NoMatchingWikiPagesFound,
-      YamlTrainingLoader::InvalidYamlError => e
-  end   
+  rescue WikiTrainingLoader::NoMatchingWikiPagesFound,
+         WikiTrainingLoader::NoMatchingWikiPagesFound => e
+    TrainingBase.update_error_content_class(e.message, e.content_class)
+  end
 end

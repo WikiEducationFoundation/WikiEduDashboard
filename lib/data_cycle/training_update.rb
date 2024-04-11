@@ -12,7 +12,8 @@ class TrainingUpdate
     @module_slug = module_slug
 
     setup_logger
-    if update_running?(:training)
+
+    if CheckTrainingUpdateStatus.job_running?
       @result = 'Another training update process is already in progress. Try again later.'
       return
     end
@@ -24,8 +25,9 @@ class TrainingUpdate
   def run_update
     log_start_of_update "Training update task is beginning. Module: #{@module_slug}"
     update_training_content
-    # @result = 'Success!'
-    log_end_of_update 'Training update queued.'
+    @result = CheckTrainingUpdateStatus.schedule_check
+    log_end_of_update 'Training update finished.'
+
   # rubocop:disable Lint/RescueException
   rescue Exception => e
     log_end_of_update 'Training update failed.'
@@ -35,8 +37,10 @@ class TrainingUpdate
 
   def update_training_content
     if @module_slug == 'all'
-      TrainingBaseWorker.update_training_content()
+      TrainingBase.update_status_to_scheduled
+      TrainingBaseWorker.update_training_content
     else
+      TrainingBase.update_status_to_scheduled(slug: @module_slug)
       TrainingBaseWorker.update_training_content(slug: @module_slug)
     end
   end

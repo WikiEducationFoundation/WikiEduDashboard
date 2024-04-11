@@ -30,11 +30,10 @@ class WikiTrainingLoader
                            level: 'info', extra: { wiki_pages: source_pages }
 
     source_pages.each do |wiki_page|
+      TrainingBase.update_status_to_started(wiki_page)
       add_trainings_to_collection(wiki_page)
+      TrainingBase.update_status_to_complete(wiki_page)
     end
-  rescue InvalidWikiContentError => e
-    Sentry.capture_exception e
-  end
 
   def self.add_trainings_to_collection(wiki_page)
     content = new_from_wiki_page(wiki_page)
@@ -94,7 +93,7 @@ class WikiTrainingLoader
     begin
       response.data['pages'].values[0]['links'].map { |page| page['title'] }
     rescue StandardError
-      raise InvalidWikiContentError, "could not get links from '#{@wiki_base_page}'"
+      raise_invalid_wiki_content_error
     end
   end
 
@@ -153,7 +152,13 @@ class WikiTrainingLoader
 
       Link them from '#{@wiki_base_page}'.
     ERROR
-    raise NoMatchingWikiPagesFound, message
+    raise NoMatchingWikiPagesFound.new(message, content_class)
+  end
+
+  def self.raise_invalid_wiki_content_error
+    Sentry.capture_exception e
+    message = "could not get links from '#{@wiki_base_page}'"
+    raise InvalidWikiContentError.new(message, content_class)
   end
 
   class InvalidWikiContentError < StandardError; end

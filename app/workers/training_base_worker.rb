@@ -39,9 +39,6 @@ class TrainingBaseWorker
     else
       perform_reload_module(slug)
     end
-
-    rescue TrainingBase::DuplicateSlugError,
-      TrainingModule::ModuleNotFound, WikiTrainingLoader::NoMatchingWikiPagesFound,
-      YamlTrainingLoader::InvalidYamlError => e
-  end
+  # rescue TrainingModule::ModuleNotFound => e
+  # end
 end

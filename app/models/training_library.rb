@@ -48,8 +48,8 @@ class TrainingLibrary < ApplicationRecord
   def self.save_if_valid(training_library, slug)
     valid = training_library.valid?
     if training_library.errors[:slug].any? && slug
-      raise TrainingBase::DuplicateSlugError,
-            "Duplicate TrainingLibrary slug detected: #{slug}"
+      message = "Duplicate TrainingLibrary slug detected: #{slug}",
+      raise TrainingBase::DuplicateSlugError.new(message, content_class: self, slug)
     end
     training_library.save if valid
     training_library

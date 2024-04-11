@@ -52,7 +52,9 @@ class TrainingController < ApplicationController
   end
 
   def reload
-    TrainingUpdate.new(module_slug: params[:module]).result
+    render plain: TrainingUpdate.new(module_slug: params[:module]).result
+  rescue StandardError => e
+    render plain: e.message
   end
 
   def find_slide
