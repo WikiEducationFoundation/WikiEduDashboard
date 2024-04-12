@@ -47,8 +47,12 @@ class TrainingModule < ApplicationRecord
     false
   end
 
-  def self.load
-    TrainingBase.load(content_class: self)
+  def self.load_from_wiki
+    TrainingBase.load_from_wiki(content_class: self)
+  end
+
+  def self.load_from_yaml
+    TrainingBase.load_from_yaml(content_class: self)
   end
 
   def self.base_path
@@ -71,8 +75,11 @@ class TrainingModule < ApplicationRecord
   def self.validate_and_save(training_module, slug)
     valid = training_module.valid?
     if training_module.errors[:slug].any?
-      raise TrainingBase::DuplicateSlugError,
-            "Duplicate TrainingModule slug detected: #{slug}"
+      error = {}
+      error['message'] = "Duplicate TrainingModule slug detected: #{slug}"
+      error['content_class'] = self
+      error['slug'] = slug
+      raise TrainingBase::DuplicateSlugError, error
     end
     training_module.save if valid
   end

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/training/wiki_slide_parser"
+require_dependency "#{Rails.root}/lib/training/training_base"
 require_dependency "#{Rails.root}/lib/wiki_api"
 
 # Loads any of the three types of training content:
@@ -8,6 +9,7 @@ require_dependency "#{Rails.root}/lib/wiki_api"
 # Source of content is training_content yaml files and/or wiki pages.
 class WikiTrainingLoader
   def self.load_content(content_class, slug_list)
+    puts "STEP - Loading #{content_class} from wiki"
     # content_class_object = content_class.constantize
     @content_class = content_class # TrainingLibrary, TrainingModule, or TrainingSlide
     @slug_list = slug_list # limited list of slugs to process (optional)
@@ -30,10 +32,11 @@ class WikiTrainingLoader
                            level: 'info', extra: { wiki_pages: source_pages }
 
     source_pages.each do |wiki_page|
-      TrainingBase.update_status_to_started(wiki_page)
+      TrainingBase.update_status_to_started(@content_class, wiki_page)
       add_trainings_to_collection(wiki_page)
-      TrainingBase.update_status_to_complete(wiki_page)
+      TrainingBase.update_status_to_complete(@content_class, wiki_page)
     end
+  end
 
   def self.add_trainings_to_collection(wiki_page)
     content = new_from_wiki_page(wiki_page)
@@ -54,6 +57,7 @@ class WikiTrainingLoader
               else
                 new_from_wikitext_page(wiki_page, wikitext)
               end
+    puts "STEP - Adding #{@content_class} #{content['slug']} from #{wiki_page}"
     @content_class.inflate(content, content['slug'], wiki_page)
   end
 
@@ -147,18 +151,22 @@ class WikiTrainingLoader
   end
 
   def self.raise_no_matching_wiki_pages_error
-    message = <<~ERROR
+    error = {}
+    error['message'] = <<~ERROR
       Error: no wiki pages found from among #{@slug_list}.
 
       Link them from '#{@wiki_base_page}'.
     ERROR
-    raise NoMatchingWikiPagesFound.new(message, content_class)
+    error['content_class'] = @content_class
+    raise NoMatchingWikiPagesFound, error
   end
 
   def self.raise_invalid_wiki_content_error
     Sentry.capture_exception e
-    message = "could not get links from '#{@wiki_base_page}'"
-    raise InvalidWikiContentError.new(message, content_class)
+    error = {}
+    error['message'] = "could not get links from '#{@wiki_base_page}'"
+    error['content_class'] = @content_class
+    raise InvalidWikiContentError, error
   end
 
   class InvalidWikiContentError < StandardError; end
