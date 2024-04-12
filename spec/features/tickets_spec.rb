@@ -29,16 +29,20 @@ describe 'ticket system', type: :feature, js: true do
 
     # Reply to the ticket
     within('form.tickets-reply') do
-      find('.mce-content-body').click
-      find('.mce-content-body').send_keys('Please review this training module.')
+      within_frame(find('.tox-edit-area__iframe')) do
+        find('.mce-content-body').click
+        find('.mce-content-body').send_keys('Please review this training module.')
+      end
     end
     click_button 'Send Reply'
     expect(page).to have_content 'Ticket is currently Awaiting Response'
 
     # Add and delete a Note
     within('form.tickets-reply') do
-      find('.mce-content-body').click
-      find('.mce-content-body').send_keys('Note for staff')
+      within_frame(find('.tox-edit-area__iframe')) do
+        find('.mce-content-body').click
+        find('.mce-content-body').send_keys('Note for staff')
+      end
     end
     click_button 'Create Note'
     find('img[alt="delete icon"]').click
