@@ -53,8 +53,8 @@ export class ArticleViewerAPI {
 
   // This function sets up a timer for the request to the highlighting
   // API endpoint so that we can make requests on a delay.
-  __wikiwhoColorURLTimedRequestPromise(timeout) {
-    const url = this.builder.wikiwhoColorURL();
+  __wikiwhoColorURLTimedRequestPromise(timeout, lastRevisionId) {
+    const url = this.builder.wikiwhoColorURL(lastRevisionId);
     return new Promise((resolve, reject) => {
       const headers = { 'Content-Type': 'application/javascript' };
       setTimeout(() => {
@@ -64,8 +64,8 @@ export class ArticleViewerAPI {
     });
   }
 
-  fetchParsedArticle() {
-    const url = this.builder.parsedArticleURL();
+  fetchParsedArticle(lastRevisionId) {
+    const url = this.builder.parsedArticleURL(lastRevisionId);
     // Adding `origin=*` allows for requests to go to en.wikipedia.org
     // as referenced by this URL:
     // https://www.mediawiki.org/wiki/API:Cross-site_requests#CORS_usage
@@ -93,14 +93,14 @@ export class ArticleViewerAPI {
     }).then(response => this.__handleFetchResponse(response));
   }
 
-  fetchWhocolorHtml() {
+  fetchWhocolorHtml(lastRevisionId) {
     let attempts = 0;
     const MAX_RETRY_ATTEMPTS = 5;
 
     // This function is defined in this way so that the variable name
     // will be hoisted, allowing it to call itself.
     function colorURLRequest(timeout = 0) {
-      return this.__wikiwhoColorURLTimedRequestPromise(timeout)
+      return this.__wikiwhoColorURLTimedRequestPromise(timeout, lastRevisionId)
         .then(response => response.json())
         .then((response) => {
           if (response.success) return Promise.resolve(response);
