@@ -85,16 +85,14 @@ const TextAreaInput = createReactClass({
             onSubmit={this.handleSubmit}
             className={inputClass}
             init={{
-              inline: true,
+              menubar: false,
+              statusbar: false,
               promotion: false,
               convert_urls: false,
               plugins: 'lists link code',
-              toolbar: [
-                'undo redo | styleselect | bold italic',
-                'alignleft alignright',
-                'bullist numlist outdent indent',
-                'link'
-              ],
+              toolbar: 'undo redo | blocks | '
+            + 'bold italic link | alignleft aligncenter '
+            + 'alignright alignjustify | code | bullist numlist outdent indent'
             }}
           />
         );
