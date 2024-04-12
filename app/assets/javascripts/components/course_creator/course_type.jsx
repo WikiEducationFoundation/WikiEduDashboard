@@ -3,7 +3,7 @@ import { map } from 'lodash-es';
 import SelectableBox from '../common/selectable_box';
 import { Link } from 'react-router-dom';
 
-const CourseType = ({ wizardClass, wizardAction }) => {
+const CourseType = ({ back, wizardClass, wizardAction }) => {
   const courseTypes = [
     {
       name: I18n.t('courses.creator.course_types.basic_course_name'),
@@ -31,6 +31,7 @@ const CourseType = ({ wizardClass, wizardAction }) => {
           );
         })}
       </div>
+      <button className="button dark" onClick={back}>Back</button>
       <Link className="button right" to="/" id="course_cancel">{I18n.t('application.cancel')}</Link>
     </div>
   );
