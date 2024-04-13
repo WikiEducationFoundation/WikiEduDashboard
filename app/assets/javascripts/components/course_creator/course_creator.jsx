@@ -301,6 +301,9 @@ const CourseCreator = createReactClass({
     return this.setState({ isSubmitting: true, shouldRedirect: true });
   },
 
+  hideCourseForm() {
+    return this.setState({ showCourseForm: false });
+  },
 
 
   render() {
@@ -450,7 +453,7 @@ const CourseCreator = createReactClass({
               updateCourseProps={this.props.updateCourse}
               next={this.showCourseDates}
               previous={this.showCourseTypes}
-              backCondition={this.campaignParam()}
+              previousWikiEd={this.hideCourseForm}
               tempCourseId={this.state.tempCourseId}
               firstErrorMessage={this.props.firstErrorMessage}
             />
