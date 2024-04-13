@@ -73,6 +73,7 @@ const TextInput = ({
     const usedMaxLength = maxLength || '75';
     const inputElement = (
       <input
+        id={id}
         className={className}
         value={_value !== undefined ? _value : value || ''}
         onChange={onChange}
