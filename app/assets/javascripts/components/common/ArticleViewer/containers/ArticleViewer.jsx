@@ -54,6 +54,7 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
   const [parsedArticle, setParsedArticle] = useState(null);
   const [unhighlightedEditors, setUnhighlightedEditors] = useState([]);
   const [revisionId, setRevisionId] = useState(null);
+  const [pendingRequest, setPendingRequest] = useState(false);
   const lastRevisionId = useSelector(state => state.articleDetails[article.id]?.last_revision?.mw_rev_id);
 
   const dispatch = useDispatch();
@@ -189,13 +190,9 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
     if (editorsID.length) {
       // If there are unhighlighted editors, call the function to check their contributions in wikitext metadata
       usersContributionExists(editorsID);
-    } else {
-      const status = 'No Highlighted Editors';
-      // Set the unhighlightedEditors state with a status message to make legendStatus ready in the
-      // Footer Component for loading the authorship data
-      setUnhighlightedEditors([status]);
     }
     setHighlightedHtml(html);
+    setPendingRequest(false);
   };
 
   // Function to check if contributions of unhighlighted editors exist in the wikitext metadata
@@ -220,9 +217,9 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
           if (foundToken) {
             // Add the user ID to the unhighlightedEditors state to display in the UI
             setUnhighlightedEditors(x => [...x, userID]);
-        }
-      });
-    }).catch((error) => {
+          }
+        });
+      }).catch((error) => {
       setFailureMessage(error.message);
     });
   };
@@ -230,6 +227,7 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
   const fetchParsedArticle = () => {
     const builder = new URLBuilder({ article: article });
     const api = new ArticleViewerAPI({ builder });
+    setPendingRequest(true);
     api.fetchParsedArticle(revisionId)
       .then((response) => {
         setParsedArticle(response.parsedArticle.html);
@@ -369,6 +367,7 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
           }
         </div>
         <Footer
+          pendingRequest={pendingRequest}
           article={article}
           colors={colors}
           failureMessage={failureMessage}
