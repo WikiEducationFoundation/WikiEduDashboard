@@ -97,6 +97,7 @@ hy:
       new: Նոր
       existing: Գոյություն ունեցող
       new_and_existing: Նոր և գոյություն ունեցող
+    filter_text: Զտիչներ՝
     find: Գտնել հոդվածներ
     hide: Թաքցնել
     history: (պատմություն)
@@ -351,6 +352,9 @@ hy:
     time_doc: Յուրաքանչյուր վերանայման ժամանակը տեղական ժամանակով
     title: Վերնագիր
     see_more: Տեսնել ավելին
+  settings:
+    categories:
+      users: Մասնակիցներ
   suggestions:
     suggestion_docs:
       does_not_exist: 'Այս հոդվածը Վիքիպեդիայում գոյություն չունի:'

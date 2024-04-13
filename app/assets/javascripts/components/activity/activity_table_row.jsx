@@ -34,7 +34,7 @@ const ActivityTableRow = ({ isOpen, diffUrl, revisionDateTime,
   if (reportUrl) {
     col2 = (
       <td>
-        <a href={reportUrl} target="_blank">Report</a>
+        <a href={reportUrl} target="_blank">{I18n.t('recent_activity.report')}</a>
       </td>
     );
   }

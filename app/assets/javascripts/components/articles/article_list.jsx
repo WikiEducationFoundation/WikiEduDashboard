@@ -251,7 +251,7 @@ const ArticleList = createReactClass({
 
     let filterLabel;
     if (!!filterWikis || !!filterArticlesSelect || !!filterTracked) {
-      filterLabel = <b>Filters:</b>;
+      filterLabel = <b>{I18n.t('articles.filter_text')}</b>;
     }
 
     const articleSort = (

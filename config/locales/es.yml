@@ -180,6 +180,8 @@ es:
     edited_by: 'Editado por:'
     edited_mobile: Artículos
     edited_none: '%{title} no ha editado ningún artículo.'
+    filter_text: 'Filtros:'
+    how_to_find: Cómo encontrar artículos
     hide: Ocultar
     history: (historial)
     label: Artículos
@@ -233,6 +235,8 @@ es:
       artículo, pero no toma en cuenta el contenido en sí mismo. (Estos resultados
       solo están disponibles para los artículos de la Wikipedia en inglés.)
     articles_short: Artículos
+  items:
+    how_to_find: Cómo encontrar artículos
   articles_wikidata:
     articles_short: Elementos
   articles_generic:
@@ -265,6 +269,11 @@ es:
     review_other: Asignar una revisión
     review_self: Revisar un artículo
     select: Seleccionar
+    submit: Enviar
+    invalid_url: No se puede actualizar la URL de la zona de pruebas. No es una URL
+      %{url} válida de Wikipedia.
+    mismatched_wiki: No se puede actualizar la URL de la zona de pruebas. La URL %{url}
+      no está en la misma wiki.
   blocks:
     milestones:
       title: Hitos
@@ -289,6 +298,7 @@ es:
       «%{campaign_title}»?
     course_already_removed: «%{title}» ya se había quitado de la campaña «%{campaign_title}»
     course: Curso
+    course_data: datos del curso
     course_removed: «%{title}» se ha quitado de la campaña «%{campaign_title}»
     create_campaign: Crear una campaña nueva
     create_my_campaign: ¡Crear mi campaña!
@@ -305,16 +315,23 @@ es:
     delete_campaign: Eliminar esta campaña
     disable_account_requests: Desactivar solicitudes de cuentas
     enable_account_requests: Activar solicitudes de cuentas
+    featured_campaigns: Campañas destacadas
+    instructors_course: instructores por curso
     no_passcode: ningún código de acceso
     none: Ninguno
     organizers: Organizadores
     organizer_added: '%{user} ahora es un organizador de la campaña "%{title}"'
     organizer_removed: '%{user} ya no es organizador de la campaña "%{title}"'
+    pages_edited_small: Páginas editadas
     program_template: Plantilla de programa
     program_template_tooltip: Cuando un organizador crea un programa en esta campaña,
       el texto de esta área se copiará como una descripción en la página del programa
     random_passcode: un código de acceso al azar
     requested_accounts: Cuentas solicitadas
+    resolve: Resolver
+    revision_data: datos de revisión
+    students_small: Estudiantes
+    student_course: estudiantes por curso
     title: Título
     slug: URL semántico
     search_campaigns: Buscar campañas
@@ -346,6 +363,9 @@ es:
     archived: Cursos archivados
     actions: Acciones
     articles: Artículos
+    add_campaign_aria_label: Agregar botón de campaña
+    new_tag_button_aria_label: Botón Crear o actualizar etiqueta
+    enroll_button_aria_label: Botón de inscripción
     assignment_headings:
       available_articles: Artículos disponibles
       available_reviews: Artículos de compañeros
@@ -373,6 +393,7 @@ es:
       las revisiones más recientes y se cargará de nuevo la página. El proceso podría
       tomar algo de tiempo.
     course: Curso
+    course_type_label: 'Tipo:'
     course_dates_calendar_instructions: Selecciona fechas para añadirlas o quitarlas
       del calendario (por ejemplo, vacaciones, cuando no hay clases). Haz clic en
       la fecha para cambiar entre los estados «no seleccionado», «seleccionado» y
@@ -405,6 +426,7 @@ es:
         se trasladadas. ¿Ha cambiado algo más acerca de tu curso? Siéntete libre de
         actualizarlo ahora.
       course_description: Descripción del curso
+      course_ta_support: ¿Este curso tendrá instructores o asistentes técnicos adicionales?
       course_school: Escuela del curso
       course_subject: Tema del curso
       course_term: Curso de plazo
@@ -684,6 +706,8 @@ es:
   instructor_view:
     bad_work:
       learn_more_button: Más información
+    no_assignments: Este estudiante actualmente no tiene artículos asignados.
+    can_assign_assignments: Puede asignar un artículo utilizando los botones de arriba.
   metrics:
     label: Actividad del curso
     last_update: Última actualización de estadísticas
@@ -745,6 +769,7 @@ es:
     possible_plagiarism: Posible plagio
     recent_edits: Ediciones recientes
     recent_uploads: Subidas recientes
+    report: Informe
     revision_author: Autor de la revisión
     revision_datetime: Fecha/hora de la revisión
     revision_score: Puntaje de revisión
@@ -770,6 +795,14 @@ es:
     see_more: Ver más
     show_all: Mostrar todo
   settings:
+    categories:
+      other_settings: Otras configuraciones
+      impact_stats: Estadísticas de impacto
+      salesforce: Equipo de ventas
+      featured_campaigns: Campañas destacadas
+      special_users: Usuarios especiales
+      admin_users: Usuarios administradores
+      users: Usuarios
     admin_users:
       new:
         form_label: Otorgar permisos de administrador
@@ -784,6 +817,12 @@ es:
         revoking_button_working: Revocando...
         already_instructor: '%{username} ya es un instructor'
         demote_success: '%{username} pasó a ser instructor.'
+    featured_campaigns:
+      campaign_not_found: Campaña con slug '%{campaign_slug}' no encontrada
+      no_featured_campaigns: No se han definido campañas destacadas
+      update_featured_campaigns_button: Actualizar campañas destacadas
+      add_button: Añadir campaña
+      remove_button: Eliminar campaña
   suggestions:
     editing: Editar sugerencias
     suggestion_docs:
@@ -883,6 +922,9 @@ es:
     usage_count: Total de usos
     usage_count_gallery_tile: Se utiliza en %{usage_count} artículos
     usages: Usos
+    gallery_view: Vista de la galería
+    list_view: Ver como lista
+    tile_view: Vista en mosaico
   users:
     already_enrolled: Ese usuario ya está inscrito.
     assign_articles: Asignar artículos
@@ -1094,11 +1136,13 @@ es:
   article_finder:
     article_quality: Calidad de artículo (0-100)
     category_search: Búsqueda por categorías
+    estimation_score_not_found: ¡No se ha encontrado la puntuación estimada!
     fetched_articles: Artículos recuperados
     filtered_articles: Artículos filtrados
     keyword_search: Búsqueda por palabras clave
     more_results: Más resultados
     no_article_found: No se encontró ningún artículo en esta categoría
+    page_views_not_found: ¡Vistas de página no encontradas!
     search: Buscar
     searching_articles: Buscando artículos
     search_placeholder: Escribe una palabra clave

@@ -21,6 +21,7 @@
 # Author: Xnet1234
 # Author: YaronSh
 # Author: המקיסט
+# Author: יוסף בן מלמד
 # Author: מקף
 # Author: נדב ס
 # Author: פוילישער
@@ -164,6 +165,7 @@ he:
       untracked: לא במעקב
       tracked_and_untracked: במעקב ולא במעקב
     find: מציאת ערכים
+    how_to_find: איך למצוא ערכים
     hide: הסתרה
     history: (היסטוריה)
     label: ערכים
@@ -237,6 +239,7 @@ he:
     edited: פריטים שנערכו
     edited_none: עדיין אין פריטים שנערכו.
     find: מציאת פריטים
+    how_to_find: איך למצוא פריטים
     preview: תצוגה מקדימה קצרה של פריט
     search: חיפוש בוויקינתונים עבור פריט
     title_example: כותרת פריט
@@ -270,6 +273,7 @@ he:
     confirm_addition: האם ברצונך באמת להקצות את %{title} למשתמש %{username}?
     confirm_deletion: באמת למחוק את ההקצאה הזאת?
     editors: מוקצה ל־
+    change_sandbox_url: שינוי ארגז חול
     group_members: חברי קבוצה
     label: שיוך
     loading: טעינת משימות...
@@ -290,6 +294,11 @@ he:
     review_self_wikidata: סקירת פריט
     sandbox_draft_link: טיוטת ארגז חול
     select: בחירה
+    submit: שליחה
+    invalid_url: לא ניתן לעדכן את כתובת ה־URL של ארגז החול. הכתובת %{url} אינה כתובת
+      תקינה של ויקיפדיה.
+    mismatched_wiki: לא ניתן לעדכן את כתובת ה־URL של ארגז החול. הכתובת %{url} אינה
+      נמצאת באותו ויקי.
     warning_untracked_wiki: 'נא לשים לב לכך שהערך שבחרת נמצא בוויקי שאינו במעקב בקורס
       הזה. כדי לעקוב אחרי תרומות לערך הזה, המנחה צריך להוסיף ויקי לקורס: %{wiki}'
   blocks:
@@ -333,6 +342,7 @@ he:
     default_passcode: קד גישה התחלתי
     description: תיאור
     delete_campaign: מחיקת מסע הפרסום הזה
+    featured_campaigns: קמפיינים מומלצים
     no_passcode: אין קוד גישה
     none: אין
     organizers: מארגנים
@@ -364,6 +374,9 @@ he:
     archived: קורסים \ תוכניות \ מיזמים מאורכבים
     actions: פעולות
     articles: ערכים
+    add_campaign_aria_label: כפתור הוספת מסע פרסום
+    new_tag_button_aria_label: כפתור יצירת תג או עדכון תג
+    enroll_button_aria_label: כפתור הרשמה
     assignment_end: סיום המשימה
     assignment_start: תחילת המשימה
     calendar:
@@ -414,6 +427,7 @@ he:
         לבחור מתי להתחיל את משימות הוויקיפדיה בתוך זמן הזה.
       course_description: תיאור התוכנית \ הקורס \ המיזם
       course_private: תוכנית פרטית (מוצגת רק למנהלים ועוזרים)
+      course_ta_support: האם לקורס הזה יהיו מדריכים נוספים או עוזרי הוראה?
       course_school: מוסד
       course_subject: נושא התוכנית \ הקורס \ המיזם
       course_term: מועד התוכנית \ הקורס \ המיזם
@@ -693,6 +707,9 @@ he:
     edit_description: עריכת תיאור
     edit_details: ערוך פרטים
     edit_template: עריכת תבנית
+  instructor_view:
+    no_assignments: אין כרגע ערכים שמוקצים לתלמיד הזה.
+    can_assign_assignments: באפשרותך להקצות ערך באמצעות הכפתורים למעלה.
   metrics:
     label: פעילות קורס
     activity: פעילות לאחרונה
@@ -798,6 +815,14 @@ he:
   resources:
     label: משאבים
   settings:
+    categories:
+      other_settings: העדפות נוספות
+      impact_stats: סטטיסטיקות השפעה
+      salesforce: כוח מכירות
+      featured_campaigns: קמפיינים מומלצים
+      special_users: משתמשים מיוחדים
+      admin_users: משתמשים מנהלים
+      users: משתמשים
     admin_users:
       new:
         form_label: לתת הרשאות מנהל
@@ -811,6 +836,12 @@ he:
         already_instructor: למשתמש %{username} כבר יש הרשאות מנחה!
         demote_success: '%{username} שונה למנחה.'
         no_super_admin: לא ניתן לשלול הרשאות מנהל ממנהל־על
+    featured_campaigns:
+      campaign_not_found: קמפיין עם הכתובת '%{campaign_slug}' לא נמצא
+      no_featured_campaigns: לא הוגדרו מסעות פרסום מומלצים
+      update_featured_campaigns_button: עדכון מסעות פרסום נבחרים
+      add_button: הוספת מסע פרסום
+      remove_button: הסרת מסע פרסום
     special_users:
       remove:
         revoking_button_working: מסיר...
@@ -913,6 +944,9 @@ he:
     usage_doc: מספר הערכים בוויקיפדיה שהתמונה הזאת מופיעה בהם.
     usage_count_gallery_tile: בשימוש ב־%{usage_count} ערכים
     usages: שימושים
+    gallery_view: תצוגת גלריה
+    list_view: תצוגת רשימה
+    tile_view: תצוגת אריחים
   users:
     already_enrolled: המשתמש הזה כבר רשום!
     assign_articles: הקצאת ערך
@@ -952,6 +986,7 @@ he:
       one: ערך אחד
       other: '%{count} ערכים'
     recent_revisions: עריכות אחרונות
+    training_modules: מודולי הדרכה
     remove_confirmation: האם ברצונך להסיר את %{username}?
     revision_characters_and_views: 'תווים שנוספו: %{characters}, צפיות: %{views}'
     revisions_doc: מספר העריכות שעשה העורך הזה בשבע הימים האחרונים

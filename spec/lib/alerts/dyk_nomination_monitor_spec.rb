@@ -32,7 +32,7 @@ describe DYKNominationMonitor do
 
     before do
       allow_any_instance_of(CategoryImporter).to receive(:page_titles_for_category)
-        .with('Category:Pending DYK nominations', 0)
+        .with('Category:Pending DYK nominations', 0, Article::Namespaces::TEMPLATE)
         .and_return(['Template:Did you know nominations/Venus and Adonis (Titian)',
                      'Template:Did you know nominations/2017–18 London & South East Premier',
                      'Template:Did you know nominations/17776'])

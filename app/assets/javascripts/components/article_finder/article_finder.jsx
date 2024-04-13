@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import InputRange from 'react-input-range';
 import { includes, map, find } from 'lodash-es';
@@ -20,11 +20,11 @@ import { getFilteredArticleFinder } from '../../selectors';
 
 import { trackedWikisMaker } from '../../utils/wiki_utils';
 import ArticleUtils from '../../utils/article_utils';
+import ArticleFinderSearchBar from './article_finder_search_bar';
 
 const ArticleFinder = (props) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
-  const searchboxRef = useRef(null);
 
   useEffect(() => {
     if (window.location.search.substring(1)) {
@@ -42,12 +42,6 @@ const ArticleFinder = (props) => {
       props.resetArticleFinder();
     };
   }, []);
-  const onKeyDown = (keyCode, ref) => {
-    if (keyCode === 13) {
-      ref.blur();
-      searchArticles();
-    }
-  };
 
   const getParamsURL = () => {
     const query = qs.parse(window.location.search);
@@ -81,9 +75,10 @@ const ArticleFinder = (props) => {
     });
     history.replaceState(window.location.href, 'query_string', queryStringUrl);
   };
-  const searchArticles = async () => {
+
+  const searchArticles = async (searchTerm) => {
     setIsSubmitted(true);
-    const searchTerm = window.location.href.match(/search_term=([^&]*)/)[1];
+    buildURL('search_term', searchTerm);
     if (searchTerm === '') {
       return setIsSubmitted(false);
     } else if (props.search_type === 'keyword') {
@@ -91,25 +86,20 @@ const ArticleFinder = (props) => {
     }
     return props.fetchCategoryResults(searchTerm, props.selectedWiki);
   };
+
   const fetchMoreResults = () => {
     if (props.search_type === 'keyword') {
       return props.fetchKeywordResults(props.search_term, props.selectedWiki, props.offset, true);
     }
     return props.fetchCategoryResults(props.search_term, props.selectedWiki, props.cmcontinue, true);
   };
-  // const handleChange = (e) => {
-  //   const grade = e.target.value;
-  //   return props.updateFields('grade', grade);
-  // };
+
   const handleWikiChange = (wiki) => {
     wiki = wiki.value;
     setIsSubmitted(false);
     props.clearResults();
     return updateFieldsHandler('wiki', { language: wiki.language, project: wiki.project });
   };
-  // const sortSelect = (e) => {
-  //   props.sortArticleFinder(e.target.value);
-  // };
 
     const searchType = (
       <div>
@@ -346,16 +336,17 @@ const ArticleFinder = (props) => {
     const trackedWikis = trackedWikisMaker(props.course);
 
     const options = (
-      <SelectedWikiOption
-        language={props.selectedWiki.language || 'www'}
-        project={props.selectedWiki.project}
-        handleWikiChange={handleWikiChange}
-        trackedWikis={trackedWikis}
-      />
+      <div className="article-finder-options">
+        <SelectedWikiOption
+          language={props.selectedWiki.language || 'www'}
+          project={props.selectedWiki.project}
+          handleWikiChange={handleWikiChange}
+          trackedWikis={trackedWikis}
+        />
+      </div>
     );
 
     const isButtonDisabled = props.fetchState !== 'PAGEVIEWS_RECEIVED' && !props.loading;
-    const buttonClasses = `button dark ${isButtonDisabled ? 'disabled' : ''}`;
 
     return (
       <div className="container">
@@ -366,27 +357,17 @@ const ArticleFinder = (props) => {
           </div>
         </header>
         <div className="article-finder-form">
-          <div className="search-bar">
-            <TextInput
-              id="category"
-              onChange={updateFieldsHandler}
-              value={props.search_term}
-              value_key="search_term"
-              required
-              editable
-              label={I18n.t('article_finder.search')}
-              placeholder={I18n.t('article_finder.search_placeholder')}
-              onKeyDown={onKeyDown}
-              ref={searchboxRef}
-            />
-            <button
-              className={buttonClasses}
-              disabled={isButtonDisabled}
-              onClick={searchArticles}
-            >
-              {I18n.t('article_finder.submit')}
-            </button>
-          </div>
+
+          <ArticleFinderSearchBar
+            value={props.search_term}
+            wiki={props.selectedWiki}
+            onChange={(searchTerm) => {
+              return props.updateFields('search_term', searchTerm);
+            }}
+            onSearch={searchArticles}
+            disabled={isButtonDisabled}
+          />
+
         </div>
         {options}
         {filterBlock}

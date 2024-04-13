@@ -15,6 +15,7 @@
 # Author: Eric.LEWIN
 # Author: Fitoschido
 # Author: Gomoko
+# Author: Hecatonchire
 # Author: Hk5184
 # Author: Iketsi
 # Author: JenyxGym
@@ -1163,8 +1164,7 @@ fr:
         d’expert, mieux ce sera.
       thank_you: Merci ! Contactez votre Expert Wiki si vous avez des questions supplémentaires.
     exercises_and_trainings: '%{prefix} Exercices et formations'
-    no_assignments: Aucun article n’est affecté à cet étudiant(e) pour le moment.
-      Vous pouvez lui affecter un article en utilisant les boutons ci-dessus.
+    no_assignments: Aucun article n’est affecté à cet(te) étudiant(e) pour le moment.
     no_assignments_wikidata: Cet étudiant n’a actuellement aucun élément affecté.
       Vous pouvez affecter un élément en utilisant les boutons ci-dessus.
     overview: '%{prefix} Vue d’ensemble'

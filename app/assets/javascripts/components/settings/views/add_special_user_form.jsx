@@ -1,9 +1,11 @@
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import React from 'react';
+import CreatableInput from '../../common/creatable_input.jsx';
 import { connect } from 'react-redux';
 import { upgradeSpecialUser } from '../../../actions/settings_actions';
 import TextInput from '../../common/text_input';
+import selectStyles from '../../../styles/single_select';
 
 const AddSpecialUserForm = createReactClass({
   propTypes: {
@@ -13,7 +15,7 @@ const AddSpecialUserForm = createReactClass({
   },
 
   getInitialState() {
-    return { confirming: false, enabled: false };
+    return { confirming: false, enabled: false, selectedOption: null };
   },
 
   componentDidUpdate(prevProps) {
@@ -29,8 +31,9 @@ const AddSpecialUserForm = createReactClass({
   },
 
   handlePositionChange(e) {
-    const enabled = !!e.target.value;
-    return this.setState({ position: e.target.value, enabled });
+    const enabled = !!e.value;
+    this.setState({ selectedOption: e.value });
+    return this.setState({ position: e.value, enabled });
   },
 
   reset() {
@@ -54,6 +57,15 @@ const AddSpecialUserForm = createReactClass({
 
   renderForm() {
     const buttonClass = this.state.enabled ? 'button border' : 'button border disabled';
+    const options = [
+      { value: 'communications_manager', label: 'communications_manager' },
+      { value: 'classroom_program_manager', label: 'classroom_program_manager' },
+      { value: 'outreach_manager', label: 'outreach_manager' },
+      { value: 'wikipedia_experts', label: 'wikipedia_experts' },
+      { value: 'technical_help_staff', label: 'technical_help_staff' },
+      { value: 'survey_alerts_recipient', label: 'survey_alerts_recipient' },
+      { value: 'backup_account_creator', label: 'backup_account_creator' },
+    ];
     return (
       <tr>
         <td>
@@ -69,16 +81,15 @@ const AddSpecialUserForm = createReactClass({
               label={I18n.t('settings.special_users.new.form_label')}
               placeholder={I18n.t('settings.special_users.new.form_placeholder')}
             />
-            <select onChange={this.handlePositionChange}>
-              <option value="">Select the position</option>
-              <option>communications_manager</option>
-              <option>classroom_program_manager</option>
-              <option>outreach_manager</option>
-              <option>wikipedia_experts</option>
-              <option>technical_help_staff</option>
-              <option>survey_alerts_recipient</option>
-              <option>backup_account_creator</option>
-            </select>
+
+            <div className="selectPosition"><CreatableInput
+              id="specialUserPosition"
+              placeholder={'Select the position'}
+              onChange={this.handlePositionChange}
+              options={options}
+              styles={selectStyles}
+            />
+            </div>
             <button className={buttonClass} type="submit" value="Submit">{I18n.t('application.submit')}</button>
           </form>
         </td>

@@ -196,9 +196,9 @@ hi:
     articles_short: लेख
   items:
     available: उपलब्ध आइटम
-    search: किसी आइटम के लिए विकिडेटा खोजें
-    how_to_find: आइटम कैसे खोजें
     find: आइटम ढूंढें
+    how_to_find: आइटम कैसे खोजें
+    search: किसी आइटम के लिए विकिडेटा खोजें
   articles_generic:
     articles_short: पृष्ठ
   assignments:
@@ -270,6 +270,7 @@ hi:
     program_template: कार्यक्रम नमूना
     program_template_tooltip: जब एक आयोजक इस अभियान में एक कार्यक्रम तैयार करता है,
       तो इस क्षेत्र के पाठ को प्रोग्राम पेज पर वर्णन के रूप में कॉपी किया जाएगा
+    resolve: समाधान करें
     title: शीर्षक
     use_start_end_dates: प्रारंभ और समाप्ति तिथियों का उपयोग करें
     search: खोजें
@@ -314,6 +315,7 @@ hi:
       संशोधन लिए जाएंगे और फिर पृष्ठ पुनः लोड होगा। इस प्रक्रिया में कुछ समय लग सकता
       है|
     course: पाठ्यक्रम
+    course_type_label: 'प्रकार:'
     course_dates_calendar_instructions: अनुसूची से उन्हें जोड़ने या निकालने की तिथियों
       का चयन करें (उदाहरण, छुट्टियां, कोई विद्यालय नहीं)। अचयनित, चयनित और अवकाश राज्य
       के बीच बदलने के लिए तिथि को क्लिक करें। पाठ्यक्रम की तारीखों की तिथियां उन हफ्तों
@@ -409,6 +411,9 @@ hi:
   revisions:
     class: कक्षा
     title: शीर्षक
+  settings:
+    categories:
+      users: सदस्य
   timeline:
     empty_week_3: या
   training:

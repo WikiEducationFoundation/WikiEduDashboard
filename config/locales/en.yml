@@ -67,6 +67,8 @@ en:
       one: "%{count} Result for: '%{search_terms}'"
       other: "%{count} Results for: '%{search_terms}'"
     no_results: "No results found for '%{query}'"
+    show_current_revision: Show current version
+    show_last_revision: Show last revision
     sign_up_extended: Sign up with Wikipedia
     sign_up_wikipedia: Or sign up on Wikipedia
 
@@ -183,6 +185,7 @@ en:
       tracked: Tracked
       untracked: Untracked
       tracked_and_untracked: Tracked and Untracked
+    filter_text: "Filters:"
     find: Find Articles
     how_to_find: How to find articles
     hide: Hide
@@ -373,6 +376,7 @@ en:
     confirm_course_removal: Are you sure you want to remove "%{title}" from the "%{campaign_title}" campaign?
     course_already_removed: '"%{title}" was already removed from the "%{campaign_title}" campaign'
     course: Course
+    course_data: course data
     course_removed: '"%{title}" has been removed from the "%{campaign_title}" campaign'
     course_removed_and_deleted: '"%{title}" has been deleted and removed from the "%{campaign_title}" campaign'
     course_removed_but_not_deleted: '"%{title}" has been removed from the "%{campaign_title}" but has not been deleted as it is present in other campaigns as well'
@@ -404,12 +408,14 @@ en:
     enable_account_requests: Enable account requests
     newest_campaigns: Newest Campaigns
     featured_campaigns: Featured Campaigns
+    instructors_course: instructors by course
     no_alerts: This campaign has no alerts
     no_passcode: no passcode
     none: None
     organizers: Organizers
     organizer_added: '%{user} is now an organizer of the "%{title}" campaign'
     organizer_removed: '%{user} has been removed as an organizer of the "%{title}" campaign'
+    pages_edited_small: pages edited
     program_template: Program Template
     program_template_tooltip: >
       When an organizer creates a program in this campaign,
@@ -417,6 +423,10 @@ en:
     random_passcode: a random passcode
     remove_course_tooltip: Remove from campaign.
     requested_accounts: Requested accounts
+    resolve: Resolve
+    revision_data: revision data
+    students_small: students
+    student_course: students by course
     title: Title
     too_many_articles: The edited article list for this campaign is too long to be displayed. Please view individual courses/programs/events to see the articles edited.
     slug: Slug
@@ -510,6 +520,7 @@ en:
     confirm_manual_update: Are you sure you want to run a manual update? The most recent revisions will be imported and then the page will reload. This process may take some time.
     controlled_by_event_center: Enrollment in this event is controlled by Wikimedia Event Center. It cannot be joined from the Dashboard.
     course: Course
+    course_type_label: "Type:"
     course_dates_calendar_instructions: >
       Select dates to add or remove them from the schedule (e.g., holidays, no
       school). Click the date to change between unselected, selected, and
@@ -1193,6 +1204,7 @@ en:
       the entire article — is not accessible, the content may have been deleted for copyright reasons.)
     recent_edits: Recent Edits
     recent_uploads: Recent Uploads
+    report: Report
     revision_author: Revision Author
     revision_datetime: Revision Date/Time
     revision_score: Revision Score
@@ -1411,6 +1423,9 @@ en:
     usage_doc: Number of Wikipedia articles that this image appears in.
     usage_count_gallery_tile: Used in %{usage_count} articles
     usages: Usages
+    gallery_view: Gallery View
+    list_view: List View
+    tile_view: Tile View
 
   users:
     already_enrolled: That user is already enrolled!
@@ -1687,6 +1702,7 @@ en:
     average_views: "Average views per day"
     category_search: "Category Search"
     completeness_estimate: "Completeness Score"
+    estimation_score_not_found: "Estimation Score not found!"
     fetching_assessments: "Fetching Page Assessments"
     fetching_scores: "Fetching Completeness Score"
     fetching_pageviews: "Fetching Page Views"
@@ -1702,6 +1718,7 @@ en:
     no_article_found: "No articles found in this category"
     no_article_found_wikidata: "No items found in this category"
     page_assessment_class: "Class"
+    page_views_not_found: "Page Views not found!"
     relevanceIndex: "Relevance Index"
     remove_article: "Remove article"
     remove_article_wikidata: "Remove items"

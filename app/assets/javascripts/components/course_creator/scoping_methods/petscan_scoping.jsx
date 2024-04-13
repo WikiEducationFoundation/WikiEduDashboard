@@ -105,6 +105,8 @@ const PetScanScoping = () => {
           onBlur={onBlurHandler}
         />
         <WikiSelect
+          id="petscan-wiki-select-input"
+          label={I18n.t('articles.wiki')}
           homeWiki={home_wiki}
           onChange={wiki => setCurrentWiki(wiki.value)}
         />

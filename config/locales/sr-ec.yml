@@ -152,6 +152,7 @@ sr-ec:
       tracked: Праћено
       untracked: Отпраћено
       tracked_and_untracked: Праћено и отпраћено
+    filter_text: 'Филтери:'
     hide: Сакриј
     history: (историја)
     label: Чланци
@@ -300,6 +301,7 @@ sr-ec:
       из ове површи ће бити искоришћен као опис на страници програма
     random_passcode: случајна лозинка
     requested_accounts: Захтевани налози
+    students_small: студенти
     title: Наслов
     slug: Жетон
     search_campaigns: Претражи кампање
@@ -859,6 +861,9 @@ sr-ec:
     label: Ресурси
     header: Ресурси и тренинг
   settings:
+    categories:
+      other_settings: Остала подешавања
+      users: Корисници
     admin_users:
       new:
         form_label: Додели администраторске привилегије
