@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import InputHOC from '../high_order/input_hoc.jsx';
 
 const Checkbox = ({ container_class, label, value, editable, onChange }) => {
-
   const onCheckboxChange = (e) => {
     e.target.value = e.target.checked;
     onChange(e);
