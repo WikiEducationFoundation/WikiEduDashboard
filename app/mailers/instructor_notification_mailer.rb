@@ -10,11 +10,12 @@ class InstructorNotificationMailer < ApplicationMailer
     @alert = alert
     set_email_parameters
     params = { to: @instructors.pluck(:email),
-               subject: @alert.subject }
+               subject: @alert.subject,
+               bcc: [
+                 @alert.sender_email,
+                 @alert.bcc_to_salesforce_email
+               ] }
     params[:reply_to] = @alert.sender_email unless @alert.sender_email.nil?
-    unless @alert.sender_email.nil?
-      params[:bcc] = @alert.sender_email # sender_email gives user email of the sender
-    end
     mail(params)
   end
 
