@@ -226,7 +226,10 @@ const GetHelpButton = createReactClass({
           </p>
 
           <p>
-            <a className="button dark" href="/training" target="blank">Interactive Training</a><br />
+            <a className="button dark" href={`/training/course/${this.props.course.id}`} target="_blank">
+              Interactive Training
+            </a>
+            <br />
             {faqLink}
           </p>
 

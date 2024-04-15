@@ -1,6 +1,5 @@
 - content_for :before_title, "#{@library.translated_name} - "
-.training__show.container
-  %ol.breadcrumbs= render_breadcrumbs tag: :li, separator: ' > '
+#react_root{ "data-breadcrumbs" => render_breadcrumbs(tag: :li, separator: ' > ').html_safe }
 .training__section-overview.container
   %section.training__header
     %h1

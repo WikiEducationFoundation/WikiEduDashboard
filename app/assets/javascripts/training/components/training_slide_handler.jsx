@@ -8,7 +8,8 @@ import SlideMenu from './slide_menu.jsx';
 import Quiz from './quiz.jsx';
 import Notifications from '../../components/common/notifications.jsx';
 import { FastTrainingAlert, fastTrainingAlertHandler } from './fast_training_alert';
-
+// import GetHelpButton from '../../components/common/get_help_button.jsx';
+import TrainingNavbar from './navbar_training.jsx';
 
 
 const md = require('../../utils/markdown_it.js').default({ openLinksExternally: true });
@@ -61,13 +62,14 @@ const getSlideInfo = (training, locale) => {
 };
 
 const keys = { rightKey: 39, leftKey: 37 };
-
+// Receive { courseId } as prop
 const TrainingSlideHandler = () => {
   const training = useSelector(state => state.training);
   const routeParams = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [baseTitle, setBaseTitle] = useState('');
+  const [navBreadcrumb, setNavBreadcrumb] = useState(null);
 
   // useState for fastTrainingAlertHandler function
   const [isShown, setIsShown] = useState(false);
@@ -97,6 +99,7 @@ const TrainingSlideHandler = () => {
   // fetches the initial data and sets the base title
   useEffect(() => {
     setBaseTitle(document.title);
+    setNavBreadcrumb(document.getElementById('react_root').getAttribute('data-breadcrumbs'));
     const slideId = __guard__(routeParams, x => x.slide_id);
     const userId = __guard__(document.getElementById('main'), x => x.getAttribute('data-user-id'));
     dispatch(fetchTrainingModule({ module_id: moduleId(routeParams), slide_id: slideId, user_id: userId }));
@@ -255,44 +258,64 @@ const TrainingSlideHandler = () => {
     }
   };
 
+  let getHelp;
+  if (userLoggedIn() && Features.enableGetHelpButton) {
+    getHelp = (
+      <div className="nav__button" id="get-help-button">
+        {/* give course and current user as prop */}
+        {/* <GetHelpButton courseId={courseId} key="get_help" onTrainingPage={true}/> */}
+        Help
+      </div>
+    );
+  }
+
   return (
     <div>
-      <Notifications />
-      <header>
-        <div className="pull-right training__slide__nav" onClick={toggleMenuOpen_FC}>
-          <div className="pull-right hamburger">
-            <span className="hamburger__bar" />
-            <span className="hamburger__bar" />
-            <span className="hamburger__bar" />
+      <div className="training__slide-header">
+        <TrainingNavbar navBreadcrumb={navBreadcrumb}/>
+      </div>
+      <div className="container training">
+        <Notifications />
+        <header>
+          <div className="pull-right training__slide__nav" onClick={toggleMenuOpen_FC}>
+            {getHelp}
+            <div>
+              <div className="pull-right hamburger">
+                <span className="hamburger__bar" />
+                <span className="hamburger__bar" />
+                <span className="hamburger__bar" />
+              </div>
+              <h3 className="pull-right">
+                <a href="" onFocus={toggleMenuOpen_FC}>{I18n.t('training.page_number', { number: training.currentSlide.index, total: training.slides.length })}</a>
+              </h3>
+            </div>
           </div>
-          <h3 className="pull-right">
-            <a href="" onFocus={toggleMenuOpen_FC}>{I18n.t('training.page_number', { number: training.currentSlide.index, total: training.slides.length })}</a>
-          </h3>
-        </div>
-        <SlideMenu
-          closeMenu={closeMenu_FC}
-          onClick={toggleMenuOpen_FC}
-          menuClass={menuClass}
-          currentSlide={training.currentSlide}
-          params={routeParams}
-          enabledSlides={training.enabledSlides}
-          slides={training.slides}
-        />
-      </header>
-      {loginWarning}
-      {pendingWarning}
-      <article className="training__slide">
-        {titlePrefix}
-        <h1>{slideTitle}</h1>
-        <div className="markdown training__slide__content" dangerouslySetInnerHTML={{ __html: rawHtml }} />
-        {quiz}
-        <footer className="training__slide__footer">
-          <span className="pull-left">{previousLink}</span>
-          {sourceLink}
-          <span className="pull-right">{nextLink}</span>
-        </footer>
-      </article>
+          <SlideMenu
+            closeMenu={closeMenu_FC}
+            onClick={toggleMenuOpen_FC}
+            menuClass={menuClass}
+            currentSlide={training.currentSlide}
+            params={routeParams}
+            enabledSlides={training.enabledSlides}
+            slides={training.slides}
+          />
+        </header>
+        {loginWarning}
+        {pendingWarning}
+        <article className="training__slide">
+          {titlePrefix}
+          <h1>{slideTitle}</h1>
+          <div className="markdown training__slide__content" dangerouslySetInnerHTML={{ __html: rawHtml }} />
+          {quiz}
+          <footer className="training__slide__footer">
+            <span className="pull-left">{previousLink}</span>
+            {sourceLink}
+            <span className="pull-right">{nextLink}</span>
+          </footer>
+        </article>
+      </div>
     </div>
+
   );
 };
 

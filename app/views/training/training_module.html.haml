@@ -1,6 +1,5 @@
 - content_for :before_title, "#{@pres.training_module.translated_name} - "
-.training__show.container
-  %ol.breadcrumbs= render_breadcrumbs tag: :li, separator: ' > '
+#react_root{ "data-module-id" => params[:module_id], "data-breadcrumbs" => render_breadcrumbs(tag: :li, separator: ' > ').html_safe }
 .container.training
   .training__intro
     .training-intro__header
@@ -19,4 +18,3 @@
             Estimated time to complete:
             %br/
             = @pres.training_module.estimated_ttc
-  #react_root{ "data-module-id" => params[:module_id] }
