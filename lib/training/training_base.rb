@@ -15,12 +15,10 @@ class TrainingBase
 
   # called for each child class in initializers/training_content.rb
   def self.load_from_wiki(slug_list: nil, content_class: self)
-    puts "STEP - Loading wiki training content for #{content_class}"
     WikiTrainingLoaderWorker.new.perform(content_class, slug_list)
   end
 
   def self.load_from_yaml(slug_list: nil, content_class: self)
-    puts "STEP - Loading yaml training content for #{content_class}"
     YamlTrainingLoader.new(content_class:, slug_list:).load_content
   end
 
@@ -32,46 +30,37 @@ class TrainingBase
     end
   end
 
-  def self.update_status_to_scheduled(slug: nil)
+  def self.update_status_to_scheduled(slug)
     TrainingLibrary.update_all(update_status: 1)
     TrainingModule.update_all(update_status: 1)
 
-    if slug
-      module_to_update = TrainingModule.where(slug:)
+    if slug == 'all'
+      TrainingSlide.update_all(update_status: 1)
+    else
+      module_to_update = TrainingModule.where(slug)
       slide_slugs = module_to_update.pluck(:slide_slugs)
       TrainingSlide.where(slug: slide_slugs).update_all(update_status: 1)
-    else
-      TrainingSlide.update_all(update_status: 1)
     end
   end
 
-  def self.update_status_to_started(content_class, _wiki_page)
-    puts "STEP - #{content_class}"
-    # record = content_class.find_by(wiki_page: wiki_page)
-    # if record
-    #   record.update(update_status: 2)
-    # end
+  def self.error_message
+    library_record_with_error = TrainingLibrary.find_by(update_status: 1)
+    module_record_with_error = TrainingModule.find_by(update_status: 1)
+    slide_record_with_error = TrainingSlide.find_by(update_status: 1)
+
+    library_record_with_error&.update_error
+
+    module_record_with_error&.update_error
+
+    slide_record_with_error&.update_error
   end
 
-  def self.update_status_to_complete(content_class, _wiki_page)
-    puts "STEP - #{content_class}"
-    # record = content_class.find_by(wiki_page: wiki_page)
-    # if record
-    #   record.update(update_status: 2)
-    # end
-  end
-
-  def self.find_not_complete
+  def self.check_errors
     exists(update_status: 2)
   end
 
-  def self.update_error(_message, content_class, _slug)
-    puts "STEP - #{content_class}"
-    # content_class.find_by(slug:).update(update_error: message)
-  end
-
-  def self.update_error_content_class(message, content_class)
-    content_class.update_all(update_error: message)
+  def self.update_error(message, content_class)
+    content_class.update_all(update_status: 2, update_error: message)
   end
 
   class DuplicateSlugError < StandardError

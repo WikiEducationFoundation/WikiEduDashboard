@@ -53,7 +53,7 @@ class TrainingController < ApplicationController
 
   def reload
     render plain: TrainingUpdate.new(module_slug: params[:module]).result
-  rescue StandardError, YamlTrainingLoader::InvalidYamlError => e
+  rescue StandardError, YamlTrainingLoader::InvalidYamlError, TrainingModule::ModuleNotFound => e
     render plain: e.message
   end
 
