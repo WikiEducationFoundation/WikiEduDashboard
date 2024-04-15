@@ -31,7 +31,7 @@ const CourseType = ({ back, wizardClass, wizardAction }) => {
           );
         })}
       </div>
-      <button className="button dark" onClick={back}>Back</button>
+      <button className="button dark" onClick={back}>{I18n.t('application.back')}</button>
       <Link className="button right" to="/" id="course_cancel">{I18n.t('application.cancel')}</Link>
     </div>
   );
