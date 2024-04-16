@@ -17,13 +17,13 @@
 .revScore
   text-align center
 
-.search-bar.autocomplete-on
+.article-finder-search-bar.autocomplete-on
   input[type=text]
     border-radius 5px 5px 5px 0
   .autocomplete
     display block
 
-.search-bar
+.article-finder-search-bar
   display flex
   flex-direction row
   align-items end
@@ -33,7 +33,7 @@
     font-size 15px
     width 100%
     border-radius 5px 5px 5px 5px
-    padding 1rem 8rem 1rem 2rem
+    padding 1rem 11rem 1rem 2rem
     transition border-radius linear 0.1s
   button:disabled
     opacity 50%
@@ -76,6 +76,21 @@
 
 .article-finder-options
   text-align: center
+
+.search-bar
+  display flex
+  flex-direction row
+  align-items end
+  .search-type
+    display flex
+    justify-content space-around
+  input[type=text]
+    width 50rem
+    padding 10px 50px 10px 15px
+  button
+    margin-bottom 8px
+    height 2.8rem
+    margin-left 2rem
 
 .article-wiki-selector-block
   max-width 250px
