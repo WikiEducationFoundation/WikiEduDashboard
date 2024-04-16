@@ -36,6 +36,7 @@ en:
     number_field: This is a number field. The buttons rendered by most browsers will increment and decrement the input.
 
   application:
+    back: Back
     cancel: Cancel
     cookie_consent: This site uses cookies to keep you logged in, and stores information related to your Wikipedia account.
     cookie_consent_acknowledge: I understand

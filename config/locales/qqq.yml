@@ -40,6 +40,7 @@ qqq:
     number_field: Descriptive text for screen readers to explain how the number field
       works
   application:
+    back: Button to go back
     cancel: |-
       Button to cancel an action
       {{Identical|Cancel}}
