@@ -232,7 +232,7 @@ const CourseForm = (props) => {
         {home_wiki}
         {multi_wiki}
         <div className="backButtonContainer">
-          <button onClick={backCondition} className="button dark">Back</button>
+          <button onClick={backCondition} className="button dark">{I18n.t('application.back')}</button>
           <p className="tempEduCourseIdText">
             {props.tempCourseId || '\xa0'}
           &nbsp;
