@@ -167,7 +167,7 @@ const Overview = createReactClass({
 
     let overviewStatsTabs;
     if (course.course_stats && course.course_stats.stats_hash) {
-      overviewStatsTabs = <OverviewStatsTabs statistics={course.course_stats.stats_hash} />;
+      overviewStatsTabs = <OverviewStatsTabs course={course} statistics={course.course_stats.stats_hash} />;
     }
 
     return (
