@@ -7,6 +7,8 @@ import { fetchRevisions, sortRevisions, fetchCourseScopedRevisions } from '../..
 import Loading from '../common/loading.jsx';
 import ProgressIndicator from '../common/progress_indicator.jsx';
 import { ARTICLE_FETCH_LIMIT } from '../../constants/revisions.js';
+import Select from 'react-select';
+import sortSelectStyles from '../../styles/sort_select';
 
 const RevisionHandler = createReactClass({
   displayName: 'RevisionHandler',
@@ -87,7 +89,7 @@ const RevisionHandler = createReactClass({
   },
 
   sortSelect(e) {
-    return this.props.sortRevisions(e.target.value);
+    return this.props.sortRevisions(e.value);
   },
 
   // We disable show more button if there is a request which is still resolving
@@ -118,20 +120,26 @@ const RevisionHandler = createReactClass({
     // we only fetch articles data for a max of 500 articles(for course specific revisions).
     // If there are more than 500 articles, the toggle button is not shown
     const revisionFilterButton = <div><button className="button ghost stacked right" onClick={this.toggleCourseSpecific}>{this.revisionFilterButtonText()}</button></div>;
+    const options = [
+      { value: 'rating_num', label: I18n.t('revisions.class') },
+      { value: 'title', label: I18n.t('revisions.title') },
+      { value: 'revisor', label: I18n.t('revisions.edited_by') },
+      { value: 'characters', label: I18n.t('revisions.chars_added') },
+      { value: 'references_added', label: I18n.t('revisions.references') },
+      { value: 'date', label: I18n.t('revisions.date_time') },
+    ];
     return (
       <div id="revisions">
         <div className="section-header">
           <h3>{I18n.t('application.recent_activity')}</h3>
           {this.props.course.article_count <= ARTICLE_FETCH_LIMIT && revisionFilterButton}
-          <div className="sort-select">
-            <select className="sorts" name="sorts" onChange={this.sortSelect}>
-              <option value="rating_num">{I18n.t('revisions.class')}</option>
-              <option value="title">{I18n.t('revisions.title')}</option>
-              <option value="revisor">{I18n.t('revisions.edited_by')}</option>
-              <option value="characters">{I18n.t('revisions.chars_added')}</option>
-              <option value="references_added">{I18n.t('revisions.references')}</option>
-              <option value="date">{I18n.t('revisions.date_time')}</option>
-            </select>
+          <div className="sort-container">
+            <Select
+              name="sorts"
+              onChange={this.sortSelect}
+              options={options}
+              styles={sortSelectStyles}
+            />
           </div>
         </div>
         <RevisionList

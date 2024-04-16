@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import OverviewStat from './overview_stat';
+import CourseUtils from '../../../utils/course_utils';
 
-const NamespaceOverviewStats = ({ statistics }) => {
+const NamespaceOverviewStats = ({ course, statistics }) => {
+  const student_editors_stat_msg = CourseUtils.i18n('student_editors', course.string_prefix);
   return (
     <div className="stat-display">
       <OverviewStat
@@ -30,7 +32,7 @@ const NamespaceOverviewStats = ({ statistics }) => {
         id="student-editors"
         className="stat-display__value"
         stat={statistics.user_count}
-        statMsg={I18n.t('courses.student_editors')}
+        statMsg={student_editors_stat_msg}
         renderZero={false}
       />
       <OverviewStat

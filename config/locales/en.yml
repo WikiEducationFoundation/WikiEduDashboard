@@ -36,6 +36,7 @@ en:
     number_field: This is a number field. The buttons rendered by most browsers will increment and decrement the input.
 
   application:
+    back: Back
     cancel: Cancel
     cookie_consent: This site uses cookies to keep you logged in, and stores information related to your Wikipedia account.
     cookie_consent_acknowledge: I understand
@@ -67,6 +68,8 @@ en:
       one: "%{count} Result for: '%{search_terms}'"
       other: "%{count} Results for: '%{search_terms}'"
     no_results: "No results found for '%{query}'"
+    show_current_revision: Show current version
+    show_last_revision: Show last revision
     sign_up_extended: Sign up with Wikipedia
     sign_up_wikipedia: Or sign up on Wikipedia
 

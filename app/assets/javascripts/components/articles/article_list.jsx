@@ -12,6 +12,8 @@ import articleListKeys from './article_list_keys';
 import ArticleUtils from '../../utils/article_utils.js';
 import { parse, stringify } from 'query-string';
 import { PaginatedArticleControls } from './PaginatedArticleControls';
+import Select from 'react-select';
+import sortSelectStyles from '../../styles/sort_select';
 
 const defaults_params = { wiki: 'all', tracked: 'tracked', newness: 'both' };
 
@@ -124,7 +126,7 @@ const ArticleList = createReactClass({
   },
 
   sortSelect(e) {
-    return this.props.sortArticles(e.target.value);
+    return this.props.sortArticles(e.value);
   },
 
   wikiObjectToString(wikiFilter) {
@@ -254,15 +256,22 @@ const ArticleList = createReactClass({
       filterLabel = <b>{I18n.t('articles.filter_text')}</b>;
     }
 
+    const options = [
+      { value: 'rating_num', label: I18n.t('articles.rating') },
+      { value: 'title', label: I18n.t('articles.title') },
+      { value: 'character_sum', label: I18n.t('metrics.char_added') },
+      { value: 'references_count', label: I18n.t('metrics.references_count') },
+      { value: 'view_count', label: I18n.t('metrics.view') },
+    ];
+
     const articleSort = (
-      <div className="article-sort">
-        <select className="sorts" name="sorts" onChange={this.sortSelect}>
-          <option value="rating_num">{I18n.t('articles.rating')}</option>
-          <option value="title">{I18n.t('articles.title')}</option>
-          <option value="character_sum">{I18n.t('metrics.char_added')}</option>
-          <option value="references_count">{I18n.t('metrics.references_count')}</option>
-          <option value="view_count">{I18n.t('metrics.view')}</option>
-        </select>
+      <div className="sort-container">
+        <Select
+          onChange={this.sortSelect}
+          name="sorts"
+          options={options}
+          styles={sortSelectStyles}
+        />
       </div>
     );
 

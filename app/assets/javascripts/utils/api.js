@@ -36,7 +36,7 @@ const API = {
     })
       .then(res => {
         if (res.ok) {
-          return res.json();
+          return Promise.resolve({ statusText: res.statusText });
         }
         else {
           return Promise.reject({ statusText: res.statusText });
