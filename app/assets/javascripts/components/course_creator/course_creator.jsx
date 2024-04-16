@@ -305,6 +305,11 @@ const CourseCreator = createReactClass({
     return this.setState({ showCourseForm: false });
   },
 
+  hideWizardForm() {
+    return this.setState({
+      showWizardForm: false,
+    });
+  },
 
   render() {
     if (this.props.loadingUserCourses) {
@@ -430,6 +435,7 @@ const CourseCreator = createReactClass({
               stringPrefix={this.state.course_string_prefix}
             />
             <CourseType
+              back = {this.hideWizardForm}
               wizardClass={courseWizard}
               wizardAction={this.showCourseForm}
             />

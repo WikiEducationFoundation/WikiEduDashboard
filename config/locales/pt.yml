@@ -20,6 +20,7 @@
 # Author: MokaAkashiyaPT
 # Author: RogueScholar
 # Author: Ruila
+# Author: Vinickw
 # Author: Vitorvicentevalente
 ---
 pt:
@@ -428,8 +429,8 @@ pt:
     add_psid: Adicionar PSID PetScan
     add_pileid: Adicionar identificador da pilha de páginas
     add_template: Adicionar predefinição
-    add_this_category: Adicionar esta categoria
-    add_this_psid: Adicionar este PSID
+    add_this_category: Adicionar categorias
+    add_this_psid: Adicionar PSIDs do PetScan
     add_this_pileid: Adicionar este identificador de pilha de páginas
     add_this_template: Adicionar esta predefinição
     import_articles_description: A lista de artigos numa categoria é atualizada periodicamente

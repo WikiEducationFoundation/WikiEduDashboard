@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 // Utilities
 import { forEach, union } from 'lodash-es';
@@ -53,9 +53,12 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
   const [whoColorHtml, setWhoColorHtml] = useState(null);
   const [parsedArticle, setParsedArticle] = useState(null);
   const [unhighlightedEditors, setUnhighlightedEditors] = useState([]);
+  const [revisionId, setRevisionId] = useState(null);
+  const lastRevisionId = useSelector(state => state.articleDetails[article.id]?.last_revision?.mw_rev_id);
 
   const dispatch = useDispatch();
   const ref = useRef();
+  const isFirstRender = useRef(true);
 
   useEffect(() => {
     if (showArticle && users) {
@@ -227,7 +230,7 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
   const fetchParsedArticle = () => {
     const builder = new URLBuilder({ article: article });
     const api = new ArticleViewerAPI({ builder });
-    api.fetchParsedArticle()
+    api.fetchParsedArticle(revisionId)
       .then((response) => {
         setParsedArticle(response.parsedArticle.html);
         setFetched(response.fetched);
@@ -241,7 +244,7 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
   const fetchWhocolorHtml = () => {
     const builder = new URLBuilder({ article: article });
     const api = new ArticleViewerAPI({ builder });
-    api.fetchWhocolorHtml()
+    api.fetchWhocolorHtml(revisionId)
       .then((response) => {
         setWhoColorHtml(response.html);
       }).catch((error) => {
@@ -282,6 +285,29 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
     const element = ref.current;
     if (element && !element.contains(event.target)) {
       hideArticle(event);
+    }
+  };
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    setParsedArticle(null);
+    setFetched(false);
+    setHighlightedHtml(null);
+    setWhoColorHtml(null);
+    fetchParsedArticle();
+    if (isWhocolorLang()) {
+      fetchWhocolorHtml();
+    }
+  }, [revisionId]);
+
+  const toggleRevisionHandler = () => {
+    if (revisionId) {
+      setRevisionId(null);
+    } else {
+      setRevisionId(lastRevisionId);
     }
   };
 
@@ -352,6 +378,8 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
           whoColorFailed={whoColorFailed}
           users={usersState}
           unhighlightedEditors={unhighlightedEditors}
+          revisionId={revisionId}
+          toggleRevisionHandler={toggleRevisionHandler}
         />
       </div>
     </div>

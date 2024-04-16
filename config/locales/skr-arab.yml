@@ -124,6 +124,7 @@ skr-arab:
     campaign_courses: '%{title} کورس'
     campaign_users: ایڈیٹر %{title}
     course: کورس
+    course_type_label: 'قسم:'
     course_description: کورسز
     courses: کورسز
     courses_taught: پڑھائے ڳئے کورس

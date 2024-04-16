@@ -50,6 +50,7 @@ lb:
       one: '%{count} Resultat fir: ''%{search_terms}'''
       other: '%{count} Resultater fir : ''%{search_terms}'''
     no_results: Näischt fonnt fir %{query}
+    show_current_revision: Aktuell Versioun weisen
     sign_up_extended: Mat Wikipedia umellen
     sign_up_wikipedia: Oder op Wikipedia registréieren
     sign_up_log_in_extended: mat Wikipedia

@@ -88,6 +88,8 @@ es:
       one: '%{count} resultado para «%{search_terms}»'
       other: '%{count} resultados para «%{search_terms}»'
     no_results: No se encontraron resultados para '%{query}'
+    show_current_revision: Mostrar la versión actual
+    show_last_revision: Mostrar última revisión
     sign_up_extended: Regístrate con Wikipedia
     sign_up_wikipedia: O regístrate en Wikipedia
     sign_up_log_in_extended: con Wikipedia
@@ -798,7 +800,6 @@ es:
     categories:
       other_settings: Otras configuraciones
       impact_stats: Estadísticas de impacto
-      salesforce: Equipo de ventas
       featured_campaigns: Campañas destacadas
       special_users: Usuarios especiales
       admin_users: Usuarios administradores

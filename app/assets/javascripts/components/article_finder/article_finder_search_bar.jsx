@@ -7,7 +7,7 @@ import { fetchArticleAutocompleteResults } from '../../utils/article_finder_util
 function ArticleFinderSearchBar({ value, onChange, onSearch, disabled, wiki }) {
   const [suggestions, setSuggestions] = useState([]);
   const [isAutocompleteLoading, setAutocompleteLoading] = useState(false);
-  let searchClass = 'search-bar';
+  let searchClass = 'article-finder-search-bar';
 
   if (suggestions.length > 0) {
     searchClass += ' autocomplete-on';

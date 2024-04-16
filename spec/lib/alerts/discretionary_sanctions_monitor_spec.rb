@@ -42,7 +42,7 @@ describe DiscretionarySanctionsMonitor do
 
     before do
       allow_any_instance_of(CategoryImporter).to receive(:page_titles_for_category)
-        .with('Category:Wikipedia pages under discretionary sanctions', 1)
+        .with('Category:Wikipedia pages about contentious topics', 1)
         .and_return(['Talk:1948 war',
                      'Talk:Ahmed Mohamed clock incident',
                      'Talk:Armenian Genocide denial'])

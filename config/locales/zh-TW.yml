@@ -62,6 +62,8 @@ zh-TW:
       one: '''%{search_terms}'' %{count} 個結果：'
       other: '''%{search_terms}'' %{count} 個結果：'
     no_results: 查無「%{query}」的結果
+    show_current_revision: 顯示目前版本
+    show_last_revision: 檢視最新修訂
     sign_up_extended: 註冊維基百科
     sign_up_wikipedia: 或在維基百科註冊
     sign_up_log_in_extended: 參與維基百科
@@ -1062,7 +1064,6 @@ zh-TW:
     categories:
       other_settings: 其他設定
       impact_stats: 影響統計
-      salesforce: Salesforce
       featured_campaigns: 特色競賽
       special_users: 特殊使用者
       admin_users: 管理員使用者
