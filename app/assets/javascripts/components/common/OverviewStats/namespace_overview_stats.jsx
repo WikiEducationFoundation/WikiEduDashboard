@@ -1,14 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import OverviewStat from './overview_stat';
+import CourseUtils from '../../../utils/course_utils';
 
 const NamespaceOverviewStats = ({ course, statistics }) => {
-  let student_editors_stat_msg;
-  if (course.type === 'ClassroomProgramCourse') {
-    student_editors_stat_msg = I18n.t('courses.student_editors');
-  } else {
-    student_editors_stat_msg = I18n.t('courses_generic.student_editors');
-  }
+  const student_editors_stat_msg = CourseUtils.i18n('student_editors', course.string_prefix);
   return (
     <div className="stat-display">
       <OverviewStat
