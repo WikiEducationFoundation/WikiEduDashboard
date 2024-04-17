@@ -1,2 +1,2 @@
 - content_for :before_title, "#{@training_module_name} - "
-#react_root{ "data-module-id" => params[:module_id], "data-return-to" => session[:training_return_to], "data-breadcrumbs" => render_breadcrumbs(tag: :li, separator: ' > ').html_safe }
+#react_root{ "data-module-id" => params[:module_id], "data-return-to" => session[:training_return_to], "data-breadcrumbs" => render_breadcrumbs(tag: :li, separator: ' > ').html_safe, "data-current_user" => current_user ? { admin: current_user.admin?, id: current_user.id }.to_json : '{ "admin": false, "id": null }' }

@@ -8,8 +8,12 @@ import SlideMenu from './slide_menu.jsx';
 import Quiz from './quiz.jsx';
 import Notifications from '../../components/common/notifications.jsx';
 import { FastTrainingAlert, fastTrainingAlertHandler } from './fast_training_alert';
-// import GetHelpButton from '../../components/common/get_help_button.jsx';
+import GetHelpButton from '../../components/common/get_help_button.jsx';
 import TrainingNavbar from './navbar_training.jsx';
+import { fetchCourse } from '../../actions/course_actions.js';
+import { fetchUsers } from '../../actions/user_actions.js';
+import { getCurrentUser } from '../../selectors/index.js';
+
 
 
 const md = require('../../utils/markdown_it.js').default({ openLinksExternally: true });
@@ -62,14 +66,21 @@ const getSlideInfo = (training, locale) => {
 };
 
 const keys = { rightKey: 39, leftKey: 37 };
-// Receive { courseId } as prop
+
 const TrainingSlideHandler = () => {
   const training = useSelector(state => state.training);
+  const course = useSelector(state => state.course);
+  const currentUser = useSelector(state => getCurrentUser(state));
   const routeParams = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [baseTitle, setBaseTitle] = useState('');
   const [navBreadcrumb, setNavBreadcrumb] = useState(null);
+  const courseSlug = (() => {
+    // Retrieve the courseSlug from sessionStorage
+    const storedSlug = sessionStorage.getItem('courseSlug');
+    return storedSlug ? JSON.parse(storedSlug) : undefined;
+  })();
 
   // useState for fastTrainingAlertHandler function
   const [isShown, setIsShown] = useState(false);
@@ -100,10 +111,14 @@ const TrainingSlideHandler = () => {
   useEffect(() => {
     setBaseTitle(document.title);
     setNavBreadcrumb(document.getElementById('react_root').getAttribute('data-breadcrumbs'));
+    if (courseSlug) {
+      dispatch(fetchCourse(courseSlug));
+      dispatch(fetchUsers(courseSlug));
+    }
     const slideId = __guard__(routeParams, x => x.slide_id);
     const userId = __guard__(document.getElementById('main'), x => x.getAttribute('data-user-id'));
     dispatch(fetchTrainingModule({ module_id: moduleId(routeParams), slide_id: slideId, user_id: userId }));
-  }, []);
+  }, [courseSlug]);
 
   // runs whenever the training from the redux store changes
   // which means its run essentially when the user goes from one slide to another
@@ -261,10 +276,8 @@ const TrainingSlideHandler = () => {
   let getHelp;
   if (userLoggedIn() && Features.enableGetHelpButton) {
     getHelp = (
-      <div className="nav__button" id="get-help-button">
-        {/* give course and current user as prop */}
-        {/* <GetHelpButton courseId={courseId} key="get_help" onTrainingPage={true}/> */}
-        Help
+      <div className="nav_getHelp_button" id="get-help-training">
+        <GetHelpButton course={course} currentUser={currentUser} key="get_help" onTrainingPage={true} />
       </div>
     );
   }
@@ -278,17 +291,14 @@ const TrainingSlideHandler = () => {
         <Notifications />
         <header>
           <div className="pull-right training__slide__nav" onClick={toggleMenuOpen_FC}>
-            {getHelp}
-            <div>
-              <div className="pull-right hamburger">
-                <span className="hamburger__bar" />
-                <span className="hamburger__bar" />
-                <span className="hamburger__bar" />
-              </div>
-              <h3 className="pull-right">
-                <a href="" onFocus={toggleMenuOpen_FC}>{I18n.t('training.page_number', { number: training.currentSlide.index, total: training.slides.length })}</a>
-              </h3>
+            <div className="pull-right hamburger">
+              <span className="hamburger__bar" />
+              <span className="hamburger__bar" />
+              <span className="hamburger__bar" />
             </div>
+            <h3 className="pull-right">
+              <a href="" onFocus={toggleMenuOpen_FC}>{I18n.t('training.page_number', { number: training.currentSlide.index, total: training.slides.length })}</a>
+            </h3>
           </div>
           <SlideMenu
             closeMenu={closeMenu_FC}
@@ -299,6 +309,7 @@ const TrainingSlideHandler = () => {
             enabledSlides={training.enabledSlides}
             slides={training.slides}
           />
+          {getHelp}
         </header>
         {loginWarning}
         {pendingWarning}

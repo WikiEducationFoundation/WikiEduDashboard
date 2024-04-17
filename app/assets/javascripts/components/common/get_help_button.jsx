@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
@@ -14,11 +14,13 @@ const GetHelpButton = createReactClass({
   propTypes: {
     currentUser: PropTypes.object,
     course: PropTypes.object,
+    courseSlug: PropTypes.string,
     open: PropTypes.func,
     is_open: PropTypes.bool,
     alertSubmitting: PropTypes.bool,
     alertCreated: PropTypes.bool,
-    actions: PropTypes.object
+    actions: PropTypes.object,
+    onTrainingPage: PropTypes.bool,
   },
 
   getInitialState() {
@@ -97,6 +99,10 @@ const GetHelpButton = createReactClass({
     return { username: 'Technical help staff' };
   },
 
+  trainingRedirectHandler() {
+    sessionStorage.setItem('courseSlug', JSON.stringify(this.props.courseSlug));
+  },
+
   render() {
     let content;
     let faqLink;
@@ -138,16 +144,21 @@ const GetHelpButton = createReactClass({
     }
 
     let contactStaff;
-    if (wikipediaHelpButton || programHelpButton || dashboardHelpButton) {
+    const showHelpButton = this.props.onTrainingPage ? wikipediaHelpButton : wikipediaHelpButton || programHelpButton || dashboardHelpButton;
+    if (showHelpButton) {
       contactStaff = (
         <div>
           <hr />
           <p className="target-users">
-            Still need help? Get in touch with Wiki Education staff if you have a:
+            Still need help? Get in touch with {this.props.onTrainingPage ? 'Wiki Expert' : 'Wiki Education staff'} of your course:
             <br />
             {wikipediaHelpButton}
-            {programHelpButton}
-            {dashboardHelpButton}
+            {!this.props.onTrainingPage && (
+              <Fragment>
+                {programHelpButton}
+                {dashboardHelpButton}
+              </Fragment>
+            )}
           </p>
         </div>
       );
@@ -188,11 +199,11 @@ const GetHelpButton = createReactClass({
     } else {
       if (this.props.currentUser.isAdvancedRole) {
         faqLink = (
-          <a className="button dark stacked" href="https://dashboard.wikiedu.org/faq?topic=instructor_faq" target="blank">Instructor FAQ</a>
+          <a className="button dark stacked no-margin" href="https://dashboard.wikiedu.org/faq?topic=instructor_faq" target="blank">Instructor FAQ</a>
         );
       } else if (this.props.course.type === 'ClassroomProgramCourse') {
         faqLink = (
-          <a className="button dark stacked" href="https://dashboard.wikiedu.org/faq?topic=student_faq" target="blank">Student FAQ</a>
+          <a className="button dark stacked no-margin" href="https://dashboard.wikiedu.org/faq?topic=student_faq" target="blank">Student FAQ</a>
         );
       }
 
@@ -210,32 +221,40 @@ const GetHelpButton = createReactClass({
         );
       }
 
-
-      content = (
-        <div className="get-help-info">
-          <p>
-            <strong>
-              Hi! if you need help with your Wikipedia project, you&apos;ve come
-              to the right place!
-            </strong>
-          </p>
-          {searchHelpForum}
-          <p>
-            Refer to our interactive training modules and
-            external resources for help with your project.
-          </p>
-
-          <p>
-            <a className="button dark" href={`/training/course/${this.props.course.id}`} target="_blank">
-              Interactive Training
-            </a>
-            <br />
+      if (this.props.onTrainingPage) {
+        content = (
+          <div className="get-help-info">
+            {searchHelpForum}
             {faqLink}
-          </p>
+            {contactStaff}
+          </div>
+        );
+      } else {
+        content = (
+          <div className="get-help-info">
+            <p>
+              <strong>
+                Hi! if you need help with your Wikipedia project, you&apos;ve come
+                to the right place!
+              </strong>
+            </p>
+            {searchHelpForum}
+            <p>
+              Refer to our interactive training modules and
+              external resources for help with your project.
+            </p>
 
-          {contactStaff}
-        </div>
-      );
+            <p>
+              <a className="button dark" href={'/training'} onClick={() => this.trainingRedirectHandler()}>
+                Interactive Training
+              </a>
+              <br />
+              {faqLink}
+            </p>
+            {contactStaff}
+          </div>
+        );
+      }
     }
 
     return (
