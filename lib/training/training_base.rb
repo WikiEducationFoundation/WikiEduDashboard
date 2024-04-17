@@ -1,25 +1,44 @@
 # frozen_string_literal: true
-
 require_dependency "#{Rails.root}/lib/training/yaml_training_loader"
 require_dependency "#{Rails.root}/lib/training/wiki_training_loader"
 
 class TrainingBase
-  # cattr_accessor would be cause children's implementations to conflict w/each other
   class << self
     attr_accessor :path_to_yaml
   end
+
+  SETTING_KEYS = %w[training_libraries_update training_modules_update training_slides_update].freeze
 
   #################
   # Class methods #
   #################
 
-  # called for each child class in initializers/training_content.rb
-  def self.load_from_wiki(slug_list: nil, content_class: self)
-    WikiTrainingLoaderWorker.new.perform(content_class, slug_list)
+  def self.load_async(slug_list: nil, content_class: self)
+    if Features.wiki_trainings?
+      WikiTrainingLoaderWorker.new.start_content_class_update_process(content_class, slug_list)
+    else
+      YamlTrainingLoader.new(content_class:, slug_list:).load_content
+    end
   end
 
-  def self.load_from_yaml(slug_list: nil, content_class: self)
-    YamlTrainingLoader.new(content_class:, slug_list:).load_content
+  def self.load(slug_list: nil, content_class: self)
+    if Features.wiki_trainings?
+      WikiTrainingLoader.new(content_class:, slug_list:).load_content
+    else
+      YamlTrainingLoader.new(content_class:, slug_list:).load_content
+    end
+  end
+
+  # Called during manual :training_reload action.
+  # This should regenerate all training content from yml files and/or wiki.
+  def self.load_all
+    TrainingLibrary.load
+    TrainingModule.load
+    if Features.wiki_trainings?
+      TrainingModule.all.each { |tm| TrainingSlide.load(slug_list: tm.slide_slugs) }
+    else
+      TrainingSlide.load
+    end
   end
 
   def self.base_path
@@ -30,39 +49,74 @@ class TrainingBase
     end
   end
 
-  def self.update_status_to_scheduled(slug)
-    TrainingLibrary.update_all(update_status: 1)
-    TrainingModule.update_all(update_status: 1)
+  def update_setting(key)
+    setting = Setting.find_or_create_by(key:)
+    setting.value['update_status'] = 1
+    setting.value['update_error'] = nil
+    setting.save
+  end
 
-    if slug == 'all'
-      TrainingSlide.update_all(update_status: 1)
-    else
-      module_to_update = TrainingModule.where(slug)
-      slide_slugs = module_to_update.pluck(:slide_slugs)
-      TrainingSlide.where(slug: slide_slugs).update_all(update_status: 1)
+  def self.check_setting(key)
+    setting = Setting.find_or_create_by(key:)
+    setting.value['update_status'] != 2
+  end
+
+  def update_settings
+    SETTING_KEYS.each { |key| update_setting(key) }
+  end
+
+  def self.update_process_error_message
+    update_errors = []
+
+    SETTING_KEYS.each do |key|
+      unless check_setting(key)
+        update_errors << Setting.find_or_create_by(key:).value['update_error']
+      end
+    end
+
+    update_errors.compact.join(', ')
+  end
+
+  def self.error_in_update_process
+    SETTING_KEYS.all? do |key|
+      check_setting(key)
     end
   end
 
-  def self.error_message
-    library_record_with_error = TrainingLibrary.find_by(update_status: 1)
-    module_record_with_error = TrainingModule.find_by(update_status: 1)
-    slide_record_with_error = TrainingSlide.find_by(update_status: 1)
-
-    library_record_with_error&.update_error
-
-    module_record_with_error&.update_error
-
-    slide_record_with_error&.update_error
-  end
-
-  def self.check_errors
-    exists(update_status: 2)
-  end
-
   def self.update_error(message, content_class)
-    content_class.update_all(update_status: 2, update_error: message)
+    setting_key = class_to_setting_key(content_class)
+
+    if setting_key
+      setting = Setting.find_or_create_by(key: setting_key)
+      setting.value['update_error'] = message
+      setting.save
+    end
   end
 
-  class DuplicateSlugError < StandardError
+  def self.finish_content_class_update_process(content_class)
+    puts "finished loading #{content_class}"
+
+    setting_key = class_to_setting_key(content_class)
+
+    if setting_key
+      setting = Setting.find_or_create_by(key: setting_key)
+      setting.value['update_status'] = 0
+      setting.save
+    end
   end
+
+  def self.class_to_setting_key(content_class)
+    {
+      TrainingLibrary => 'training_libraries_update',
+      TrainingModule => 'training_modules_update',
+      TrainingSlide => 'training_slides_update'
+    }[content_class]
+  end
+
+  def scheduled_update_process
+    puts 'updating status to scheduled'
+    update_settings
+  end
+
+  class DuplicateSlugError < StandardError; end
 end

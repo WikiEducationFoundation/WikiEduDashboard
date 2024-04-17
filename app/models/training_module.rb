@@ -47,12 +47,16 @@ class TrainingModule < ApplicationRecord
     false
   end
 
-  def self.load_from_wiki
-    TrainingBase.load_from_wiki(content_class: self)
+  def self.load
+    TrainingBase.load(content_class: self)
   end
 
-  def self.load_from_yaml
-    TrainingBase.load_from_yaml(content_class: self)
+  def self.load_async
+    TrainingBase.load_async(content_class: self)
+  end
+
+  def self.load_all
+    TrainingBase.load_all
   end
 
   def self.base_path

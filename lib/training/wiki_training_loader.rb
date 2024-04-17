@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
+
 require_dependency "#{Rails.root}/lib/training/wiki_slide_parser"
 require_dependency "#{Rails.root}/lib/training/training_base"
 require_dependency "#{Rails.root}/lib/wiki_api"
@@ -8,43 +10,62 @@ require_dependency "#{Rails.root}/lib/wiki_api"
 # TrainingLibrary, TrainingModule, TrainingSlide
 # Source of content is training_content yaml files and/or wiki pages.
 class WikiTrainingLoader
-  def self.load_content(content_class, slug_list)
-    # content_class_object = content_class.constantize
+  def initialize(content_class:, slug_list: nil, sidekiq_job: false)
+    @sidekiq_job = sidekiq_job
     @content_class = content_class # TrainingLibrary, TrainingModule, or TrainingSlide
     @slug_list = slug_list # limited list of slugs to process (optional)
     # Index page that links to all the libraries, modules or slides to be loaded
     @wiki_base_page = content_class.wiki_base_page
 
+    @collection = []
+  end
+
+  def load_content_async(_content_class, _slug_list)
+    result = load_from_wiki
+    TrainingBase.finish_content_class_update_process(@content_class)
+    return result
+  end
+
+  def load_content
     load_from_wiki
+    return @collection
   end
 
   #####################
   # On-wiki trainings #
   #####################
 
-  def self.load_from_wiki
+  def load_from_wiki
     source_pages = @slug_list ? listed_wiki_source_pages : wiki_source_pages
+    puts "loading #{@content_class}s from wiki"
+    puts "source_pages: #{source_pages}"
     raise_no_matching_wiki_pages_error if source_pages.empty?
     Sentry.capture_message "Loading #{@content_class}s from wiki",
                            level: 'info', extra: { wiki_pages: source_pages }
 
     source_pages.each do |wiki_page|
-      TrainingBase.update_status_to_started(@content_class, wiki_page)
+      puts "loading wiki page: #{wiki_page}"
       add_trainings_to_collection(wiki_page)
-      TrainingBase.update_status_to_complete(@content_class, wiki_page)
+    end
+  rescue InvalidWikiContentError => e
+    if @sidekiq_job
+      TrainingBase.update_error(e['message'], e['content_class'])
+    else
+      Sentry.capture_exception(e)
     end
   end
 
-  def self.add_trainings_to_collection(wiki_page)
+  def add_trainings_to_collection(wiki_page)
     content = new_from_wiki_page(wiki_page)
     unless content&.valid?
       Sentry.capture_message 'Invalid wiki training content',
                              level: 'warning', extra: { content:, wiki_page: }
       return
     end
+    @collection << content
   end
 
-  def self.new_from_wiki_page(wiki_page)
+  def new_from_wiki_page(wiki_page)
     wikitext = WikiApi.new(MetaWiki.new).get_page_content(wiki_page)
     return if wikitext.blank? # Handle wiki pages that don't exist.
 
@@ -59,7 +80,7 @@ class WikiTrainingLoader
 
   # json pages have all the required data within the json content, but optionally
   # point to a wiki page for the content
-  def self.new_from_json_wiki_page(json_wikitext)
+  def new_from_json_wiki_page(json_wikitext)
     content = Oj.load(json_wikitext)
     base_page = content['wiki_page']
     return content unless base_page
@@ -68,13 +89,13 @@ class WikiTrainingLoader
   end
 
   # wikitext pages have the slide id and slug embedded in the page title
-  def self.new_from_wikitext_page(wiki_page, wikitext)
+  def new_from_wikitext_page(wiki_page, wikitext)
     content = slug_and_id_from(wiki_page)
     training_content_and_translations(content:, base_page: wiki_page, wikitext:)
   end
 
   # Gets the training hashes for the page itself and any translations that exist.
-  def self.training_content_and_translations(content:, base_page:, wikitext:)
+  def training_content_and_translations(content:, base_page:, wikitext:)
     full_content = content.merge training_hash_from(wiki_page: base_page, wikitext:)
     full_content['translations'] = {}
     translated_pages(base_page:, base_page_wikitext: wikitext).each do |translated_page|
@@ -85,23 +106,23 @@ class WikiTrainingLoader
   end
 
   # Gets a list of page titles linked from the base page
-  def self.wiki_source_pages
+  def wiki_source_pages
     # To handle more than 500 pages linked from the source page,
     # we'll need to update this to use 'continue'.
     query_params = { prop: 'links', titles: @wiki_base_page, pllimit: 500 }
     response = WikiApi.new(MetaWiki.new).query(query_params)
     begin
       response.data['pages'].values[0]['links'].map { |page| page['title'] }
-    rescue StandardError
-      raise_invalid_wiki_content_error
+    rescue StandardError => e
+      raise_invalid_wiki_content_error(e)
     end
   end
 
-  def self.listed_wiki_source_pages
+  def listed_wiki_source_pages
     wiki_source_pages.select { |page| @slug_list.include? slug_from(page) }
   end
 
-  def self.translated_pages(base_page:, base_page_wikitext:)
+  def translated_pages(base_page:, base_page_wikitext:)
     return [] unless base_page_wikitext&.include? '<translate>'
     translations_query = { meta: 'messagegroupstats',
                            mgsgroup: "page-#{base_page}" }
@@ -114,13 +135,13 @@ class WikiTrainingLoader
     return translations
   end
 
-  def self.any_translations?(language)
+  def any_translations?(language)
     language['total'].positive? && language['translated'].positive?
   end
 
   # Given either a wiki page title or some wikitext, parses the content
   # into training data.
-  def self.training_hash_from(wiki_page:, wikitext: nil)
+  def training_hash_from(wiki_page:, wikitext: nil)
     wikitext ||= WikiApi.new(MetaWiki.new).get_page_content(wiki_page)
     parser = WikiSlideParser.new(wikitext)
     case @content_class.to_s
@@ -133,7 +154,7 @@ class WikiTrainingLoader
     end
   end
 
-  def self.slug_and_id_from(wiki_page)
+  def slug_and_id_from(wiki_page)
     # Extract the slug and slide id from the last segment of the wiki page title
     # The expected form is something like "Training modules/dashboard/slides/20201-about-campaigns"
     id_and_slug = wiki_page.split('/').last
@@ -142,11 +163,11 @@ class WikiTrainingLoader
     { 'id' => id, 'slug' => slug }
   end
 
-  def self.slug_from(wiki_page)
+  def slug_from(wiki_page)
     wiki_page.split('/').last.gsub(/^[0-9]+-/, '').gsub('.json', '')
   end
 
-  def self.raise_no_matching_wiki_pages_error
+  def raise_no_matching_wiki_pages_error
     error = {}
     error['message'] = <<~ERROR
       Error: no wiki pages found from among #{@slug_list}.
@@ -157,8 +178,8 @@ class WikiTrainingLoader
     raise NoMatchingWikiPagesFound, error
   end
 
-  def self.raise_invalid_wiki_content_error
-    Sentry.capture_exception e
+  def raise_invalid_wiki_content_error(e)
+    Sentry.capture_exception(e)
     error = {}
     error['message'] = "could not get links from '#{@wiki_base_page}'"
     error['content_class'] = @content_class
@@ -169,3 +190,4 @@ class WikiTrainingLoader
 
   class NoMatchingWikiPagesFound < StandardError; end
 end
+# rubocop:enable Metrics/ClassLength

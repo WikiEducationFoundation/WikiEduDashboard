@@ -40,12 +40,12 @@ class TrainingSlide < ApplicationRecord
     true
   end
 
-  def self.load_from_wiki(slug_list: nil)
-    TrainingBase.load_from_wiki(content_class: self, slug_list:)
+  def self.load_async(slug_list: nil)
+    TrainingBase.load_async(content_class: self, slug_list:)
   end
 
-  def self.load_from_yaml(slug_list: nil)
-    TrainingBase.load_from_yaml(content_class: self, slug_list:)
+  def self.load(slug_list: nil)
+    TrainingBase.load(content_class: self, slug_list:)
   end
 
   def self.base_path
