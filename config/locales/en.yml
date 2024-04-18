@@ -1405,13 +1405,21 @@ en:
     button: Update
 
   uploads:
+    article_name: Article Name
+    author: "Author:"
+    categories: Categories
     credit: Credit
+    date: "Date:"
+    description: Description
     file_name: File Name
+    file_usage: File usage on other wikis
     header: Files Uploaded to Wikimedia Commons
     image: Image
     label: Uploads
+    license: "License:"
     loading: Loading uploads...
     none: This class has not contributed any images or other media files to Wikimedia Commons.
+    original_file: Original File
     select_label: Filter by uploader
     time_doc: The time of each upload in your local time
     uploaded_at: Upload Time
@@ -1424,7 +1432,11 @@ en:
     usages: Usages
     gallery_view: Gallery View
     list_view: List View
+    source: "Source:"
     tile_view: Tile View
+    views_per_day: Views per day
+    view_commons: View on Commons
+    wiki_big: Wiki
 
   users:
     already_enrolled: That user is already enrolled!
