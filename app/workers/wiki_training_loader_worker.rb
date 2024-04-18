@@ -10,7 +10,7 @@ class WikiTrainingLoaderWorker
 
   def perform(content_class, slug_list)
     WikiTrainingLoader.new.call(content_class, slug_list, sidekiq_job: true).load_content_async
-  rescue WikiTrainingLoader::DuplicateSlugError, WikiTrainingLoader::NoMatchingWikiPagesFound => e
+  rescue TrainingBase::DuplicateSlugError, WikiTrainingLoader::NoMatchingWikiPagesFound => e
     TrainingBase.update_error(e['message'], e['content_class'])
   end
 end

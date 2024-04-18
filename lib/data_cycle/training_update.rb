@@ -46,7 +46,7 @@ class TrainingUpdate
 
   def update_wiki_training_content
     puts 'Updating training content from wiki...'
-    TrainingBase.scheduled_update_process
+    TrainingBase.new.scheduled_update_process
     TrainingBaseWorker.queue_update_process(slug: @module_slug)
 
     sleep 60 while TrainingBase.update_running?
