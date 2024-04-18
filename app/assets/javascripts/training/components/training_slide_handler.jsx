@@ -67,7 +67,7 @@ const getSlideInfo = (training, locale) => {
 
 const keys = { rightKey: 39, leftKey: 37 };
 
-const TrainingSlideHandler = () => {
+const TrainingSlideHandler = ({ navBreadcrumbHandler }) => {
   const training = useSelector(state => state.training);
   const course = useSelector(state => state.course);
   const currentUser = useSelector(state => getCurrentUser(state));
@@ -110,7 +110,7 @@ const TrainingSlideHandler = () => {
   // fetches the initial data and sets the base title
   useEffect(() => {
     setBaseTitle(document.title);
-    setNavBreadcrumb(document.getElementById('react_root').getAttribute('data-breadcrumbs'));
+    navBreadcrumbHandler(setNavBreadcrumb);
     if (courseSlug) {
       dispatch(fetchCourse(courseSlug));
       dispatch(fetchUsers(courseSlug));
@@ -154,7 +154,7 @@ const TrainingSlideHandler = () => {
   if (training.loading === true) {
     return (
       <div className="training-loader">
-        <h1 className="h2">Loading…</h1>
+        <h1 className="h2">{I18n.t('courses.loading')}</h1>
         <div className="training-loader__spinner" />
       </div>
     );
@@ -257,7 +257,7 @@ const TrainingSlideHandler = () => {
 
  let sourceLink;
  if (training.currentSlide.wiki_page) {
-   sourceLink = <span><a href={`https://meta.wikimedia.org/wiki/${training.currentSlide.wiki_page}`} target="_blank">wiki source</a></span>;
+   sourceLink = <span><a href={`https://meta.wikimedia.org/wiki/${training.currentSlide.wiki_page}`} target="_blank">{I18n.t('training.wiki_source')}</a></span>;
  }
 
 

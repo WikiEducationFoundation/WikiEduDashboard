@@ -66,7 +66,7 @@ const CourseNavbar = ({ course, courseSlug, location, currentUser, courseLink })
   if (Features.enableGetHelpButton) {
     getHelp = (
       <div className="nav__button" id="get-help-button">
-        <GetHelpButton course={course} currentUser={currentUser} key="get_help" courseSlug={courseSlug} onTrainingPage={false}/>
+        <GetHelpButton key="get_help" onTrainingPage={false} {...{ course, currentUser, courseSlug }} />
       </div>
     );
   }

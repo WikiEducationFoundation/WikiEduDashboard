@@ -8,7 +8,7 @@ import TrainingNavbar from './navbar_training.jsx';
 const TrainingModuleHandler = (props) => {
   useEffect(() => {
     const moduleId = document.getElementById('react_root').getAttribute('data-module-id');
-    setNavBreadcrumb(document.getElementById('react_root').getAttribute('data-breadcrumbs'));
+    props.navBreadcrumbHandler(setNavBreadcrumb);
     props.fetchTrainingModule({ module_id: moduleId });
   }, []);
 

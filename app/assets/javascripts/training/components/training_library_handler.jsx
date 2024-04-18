@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import TrainingNavbar from './navbar_training.jsx';
 
-const TrainingLibraryHandler = () => {
+const TrainingLibraryHandler = ({ navBreadcrumbHandler }) => {
   const [navBreadcrumb, setNavBreadcrumb] = useState(null);
   useEffect(() => {
-    setNavBreadcrumb(document.getElementById('react_root').getAttribute('data-breadcrumbs'));
+    navBreadcrumbHandler(setNavBreadcrumb);
   }, []);
 
   return (
