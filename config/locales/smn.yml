@@ -85,6 +85,8 @@ smn:
     search_courses: Uusâ kuursâid
     tags: 'Kilgoleh:'
     view_wiki: Čääiti Wikipediast
+  course_instructor_notification:
+    send_notification_button_text: Vuolgât
   courses_generic:
     cancel: Jooskâ
     creator:
@@ -109,6 +111,10 @@ smn:
     diff_hide: Čievâ
     see_more: Lasetiäđuh
     show_all: Čääiti puoh
+  settings:
+    categories:
+      other_settings: Eres asâttâsah
+      users: Kevtteeh
   timeline:
     save_all_changes: Vuorkkii puoh
   training:

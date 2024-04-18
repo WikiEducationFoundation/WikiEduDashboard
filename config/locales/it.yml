@@ -38,6 +38,7 @@ it:
     number_field: Questo è un campo numerico. I bottoni visualizzati dalla maggior
       parte dei browser aumentano e diminuiscono il numero inserito.
   application:
+    back: Indietro
     cancel: Annulla
     cookie_consent_acknowledge: Ho capito
     cookie_consent_see_more: Vedi altro.

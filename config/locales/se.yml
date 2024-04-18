@@ -94,6 +94,8 @@ se:
     timeline_enabled: Áigelinnjá lea váldojuvvon atnui
     timeline_link: Áigelinnjá
     view_wiki: Čájet Wikipedias
+  course_instructor_notification:
+    send_notification_button_text: Sádde
   courses_generic:
     cancel: Gaskkalduhte
     creator:
@@ -122,6 +124,9 @@ se:
     loading: Viežžamin veršuvnnaid
     see_more: Lassedieđut
   settings:
+    categories:
+      other_settings: Eará ásahusat
+      users: Geavaheaddjit
     admin_users:
       new:
         form_placeholder: Geavaheaddjinamma
@@ -144,6 +149,7 @@ se:
     first_name: Ovdanamma
     last_name: Goargu
     loading: Viežžamin geavaheddjiid...
+    name: Namma
     username: Geavaheaddjinamma
     username_placeholder: Geavaheaddjinamma
     useremail_placeholder: E-poastačujuhus

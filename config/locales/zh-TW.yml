@@ -31,6 +31,7 @@ zh-TW:
   accessibility:
     number_field: 這是數字欄位。在大多數瀏覽器，這個按鈕會讓使用者可以按按鈕來加一或減一。
   application:
+    back: 返回
     cancel: 取消
     cookie_consent: 此網站使用 cookies 來保持您的登入狀態，並儲存您的維基百科帳號相關資訊。
     cookie_consent_acknowledge: 我了解

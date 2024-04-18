@@ -55,6 +55,7 @@ es:
     number_field: Este es un campo numérico. Los botones representados por la mayoría
       de los navegadores incrementará y decrementará la entrada.
   application:
+    back: Volver
     cancel: Cancelar
     cookie_consent: Este sitio utiliza cookies para mantener tu sesión activa y almacena
       información relacionada con tu cuenta de Wikipedia.

@@ -21,6 +21,7 @@
 # Author: Mirzali
 # Author: MuratTheTurkish
 # Author: Rapsar
+# Author: RuzDD
 # Author: SaldırganSincap
 # Author: Sayginer
 # Author: Suvarioglu
@@ -372,6 +373,7 @@ tr:
       bu alandaki metin, program sayfasında bir açıklama olarak kopyalanacaktır.
     random_passcode: rastgele bir şifre
     requested_accounts: İstenen hesaplar
+    students_small: öğrenciler
     title: Başlık
     slug: Slug
     search_campaigns: Kampanyaları ara

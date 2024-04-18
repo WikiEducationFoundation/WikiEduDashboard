@@ -64,6 +64,8 @@ eu:
       one: '%{count} ''%{search_terms}'' bilaketarako'
       other: '%{count} emaitza ''%{search_terms}'' bilaketarako'
     no_results: Emaitzarik ez '%{query}' bilaketarako
+    show_current_revision: Erakutsi oraingo bertsioa
+    show_last_revision: Erakutsi azken berrikuspena
     sign_up_extended: Wikipediarekin kontua sortu
     sign_up_wikipedia: Edo Wikipediako kontuan sartu
     sign_up_log_in_extended: Wikipedian
@@ -118,6 +120,11 @@ eu:
     explore: Esploratu
     log_in: Saioa Wikipediarekin hasi
     sign_up: Wikipediarekin kontua sortu
+    registration_advice:
+      username_rules:
+        heading: Erabiltzaile-izenen arauak
+      additional_advice:
+        heading: Aholkua
     sign_up_help: Arbela erabiltzeko, Wikipediaren bitartez saioa hasi eta konturako
       sarbidea ematea baimendu beharko duzu. Wikipedian existitzen den kontu batekin
       erregistratu zaitezke, ala kontu berri bat sortu.
@@ -162,6 +169,7 @@ eu:
       tracked: Jarraitua
       untracked: Ez jarraitua
       tracked_and_untracked: Jarraitua eta ez jarraitua
+    filter_text: 'Iragazkiak:'
     find: Bilatu artikuluak
     hide: Ezkutatu
     history: (historia)

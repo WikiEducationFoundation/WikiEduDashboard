@@ -35,6 +35,7 @@ ko:
   accessibility:
     number_field: 이것은 번호 필드입니다. 대부분의 브라우저에서 렌더링되는 버튼들은 입력값을 증가·감소시킵니다.
   application:
+    back: 뒤로
     cancel: 취소
     cookie_consent: 이 사이트는 로그인 유지를 위해 쿠키를 사용하며 위키백과 계정에 관한 정보를 저장합니다.
     cookie_consent_acknowledge: 이해합니다
@@ -244,6 +245,7 @@ ko:
     review_tooltip_wikidata: 항목에 동료 평가를 하거나 피드백을 주기 위한 기능입니다.
     sandbox_draft_link: 연습장 초안
     select: 선택
+    submit: 제출
   blocks:
     milestones:
       title: 이정표
@@ -342,6 +344,7 @@ ko:
     confirm_course_deletion_failed: '"%{title}"은(는) 이 과정의 제목이 아닙니다. 이 과정은 삭제되지 않았습니다.'
     confirm_manual_update: 수동 업데이트를 수행하시겠습니까? 최근의 판을 가져온 다음 페이지를 다시 불러올 것입니다. 이 과정에는
       어느 정도 시간이 소요될 수 있습니다.
+    course_type_label: '유형:'
     course_description: 코스
     courses: 과정
     creation_date: 만든 날짜
@@ -693,6 +696,7 @@ ko:
       접근할 수 없는 경우, 저작권침해로 이미 삭제되었을 수 있다)
     recent_edits: 최근 편집
     recent_uploads: 최근 업로드
+    report: 보고
     revision_author: 판 저자
     revision_datetime: 판본 시간/날짜
     revision_score: 판 점수
@@ -717,6 +721,8 @@ ko:
     show_all: 모두 보기
     show_course_specific: 이 프로그램 관련 기여
   settings:
+    categories:
+      users: 사용자
     admin_users:
       new:
         form_label: 관리자 권한 부여
