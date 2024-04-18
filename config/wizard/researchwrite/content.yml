@@ -39,31 +39,16 @@ essentials:
           </ul>
 
       -
-        if: graded_training
         title: Get started on Wikipedia
         kind: 1
-        graded: true
         training_module_ids: [1,29] # Wikipedia policies, Sandboxes talk pages and watchlists
-        points: 5
         content: |
           <p>
             Create an account and join this course page, using the  enrollment
-            link your instructor sent you. (Because of Wikipedia's technical
-            restraints, you may receive a message that you cannot create an account.
-            To resolve this, please try again off campus or the next day.)
+            link your instructor sent you.
           </p>
-
-      -
-        if: ungraded_training
-        title: Get started on Wikipedia
-        kind: 1
-        training_module_ids: [1,29] # Wikipedia policies, Sandboxes talk pages and watchlists
-        content: |
           <p>
-            Create an account and join this course page, using the  enrollment
-            link your instructor sent you. (Because of Wikipedia's technical
-            restraints, you may receive a message that you cannot create an account.
-            To resolve this, please try again off campus or the next day.)
+            If you have trouble creating a Wikipedia account, <a href="https://dashboard.wikiedu.org/faq/12" target="_blank">consult this FAQ</a>.
           </p>
 
       -
@@ -82,7 +67,6 @@ essentials:
         title: Everyone has a Wikipedia account
         kind: 2
         content: |
-          This week, everyone should have a Wikipedia account.
 
   - # Week two
     weight: 6
