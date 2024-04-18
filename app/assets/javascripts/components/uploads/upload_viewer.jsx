@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUploadViewerMetadata, setUploadPageViews, resetUploadsViews } from '../../actions/uploads_actions.js';
 import { formatDateWithoutTime } from '../../utils/date_utils.js';
-import { forEach, get } from 'lodash-es';
-import OnClickOutside from 'react-onclickoutside';
+import { get } from 'lodash-es';
+import useOutsideClick from '../../hooks/useOutsideClick.js';
 
 const UploadViewer = ({ closeUploadViewer, upload, imageFile }) => {
   const dispatch = useDispatch();
@@ -36,6 +36,7 @@ const UploadViewer = ({ closeUploadViewer, upload, imageFile }) => {
   const handleClickOutside = () => {
     closeUploadViewer();
   };
+  const ref = useOutsideClick(handleClickOutside);
 
   const metadata = get(uploadMetadata, `query.pages[${upload.id}]`);
   const imageDescription = get(metadata, 'imageinfo[0].extmetadata.ImageDescription.value');
@@ -90,7 +91,7 @@ const UploadViewer = ({ closeUploadViewer, upload, imageFile }) => {
   }
   let categoriesList = [];
   let categories;
-  forEach(get(metadata, 'categories', []), (category) => {
+  (metadata?.categories ?? []).forEach((category) => {
     categoriesList.push(<span key={`span-${category.title}`}> | </span>);
     categoriesList.push(<a href={`https://commons.wikimedia.org/wiki/${category.title}`} target="_blank" key={`link-${category.title}`}>{category.title.slice('Category:'.length)}</a>);
   });
@@ -106,7 +107,7 @@ const UploadViewer = ({ closeUploadViewer, upload, imageFile }) => {
   }
 
   return (
-    <div className="module upload-viewer">
+    <div className="module upload-viewer" ref={ref}>
       <div className="modal-header">
         <button className="pull-right icon-close" onClick={handleClickOutside} />
         <h3>{upload.file_name}</h3>
@@ -157,4 +158,4 @@ UploadViewer.propTypes = {
   imageFile: PropTypes.string
 };
 
-export default OnClickOutside(UploadViewer);
+export default UploadViewer;
