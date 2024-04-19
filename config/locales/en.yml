@@ -1486,7 +1486,7 @@ en:
     no_articles: No articles
     no_articles_wikidata: No items
     no_revisions: (no revisions)
-    no_highlighting: "No text from the current version of the article is attributed to user %{editor}. Check the page history to see their edits."
+    no_highlighting: "No text from this version of the article is attributed to user %{editor}. Check the page history to see their edits."
     contributions_not_highlighted: "Contributions from user %{username} are present, but cannot be highlighted. This typically occurs for added references or templates. Check the page history to see their edits."
     number_of_articles:
       one: "%{count} article"
