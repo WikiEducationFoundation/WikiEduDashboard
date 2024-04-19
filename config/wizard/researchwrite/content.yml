@@ -195,7 +195,6 @@ essentials:
         title: Everyone has started writing
         kind: 2
         content: |
-          <p>Everyone has begun writing their article drafts.</p>
 
   - # Week six
     weight: 3
