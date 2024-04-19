@@ -33,6 +33,8 @@ class TrainingUpdate
   rescue Exception => e
     log_end_of_update 'Training update failed.'
     raise e
+  ensure
+    delete_pid_file(:training)
   end
   # rubocop:enable Lint/RescueException
 
@@ -45,11 +47,10 @@ class TrainingUpdate
   end
 
   def update_wiki_training_content
-    puts 'Updating training content from wiki...'
     TrainingBase.new.scheduled_update_process
     TrainingBaseWorker.queue_update_process(slug: @module_slug)
 
-    sleep 60 while TrainingBase.update_running?
+    sleep 60 while update_running?(:training)
 
     if TrainingBase.error_in_update_process
       error_message = TrainingBase.update_process_error_message
@@ -58,7 +59,6 @@ class TrainingUpdate
   end
 
   def update_yaml_training_content
-    puts 'Updating training content from yaml...'
     TrainingLibrary.load
     TrainingModule.load
     if @module_slug == 'all'

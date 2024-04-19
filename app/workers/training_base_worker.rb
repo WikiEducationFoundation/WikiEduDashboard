@@ -12,10 +12,8 @@ class TrainingBaseWorker
   # This should regenerate all training content from yml files and/or wiki.
   def perform_load_all
     if Features.wiki_trainings?
-      puts 'Updating training slides from wiki...wikitrainings'
       TrainingModule.all.each { |tm| TrainingSlide.load_async(slug_list: tm.slide_slugs) }
     else
-      puts 'Updating training slides from wiki...NOT wikitrainings'
       TrainingSlide.load_async
     end
   end
@@ -25,7 +23,7 @@ class TrainingBaseWorker
   def perform_reload_module(slug)
     # Reload the requested module's slides
     training_module = TrainingModule.find_by(slug:)
-    raise ModuleNotFound, "No module #{slug} found!" unless training_module
+    raise TrainingModule::ModuleNotFound, "No module #{slug} found!" unless training_module
     TrainingSlide.load_async(slug_list: training_module.slide_slugs)
   end
 

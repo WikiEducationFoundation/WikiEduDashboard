@@ -17,6 +17,8 @@ class WikiTrainingLoader
     # Index page that links to all the libraries, modules or slides to be loaded
     @wiki_base_page = content_class.wiki_base_page
 
+    load_content_async(content_class, slug_list) if @sidekiq_job
+
     @collection = []
   end
 
@@ -34,24 +36,34 @@ class WikiTrainingLoader
   #####################
   # On-wiki trainings #
   #####################
-
   def load_from_wiki
     source_pages = @slug_list ? listed_wiki_source_pages : wiki_source_pages
-    puts "loading #{@content_class}s from wiki"
-    puts "source_pages: #{source_pages}"
     raise_no_matching_wiki_pages_error if source_pages.empty?
     Sentry.capture_message "Loading #{@content_class}s from wiki",
                            level: 'info', extra: { wiki_pages: source_pages }
 
     source_pages.each do |wiki_page|
-      puts "loading wiki page: #{wiki_page}"
       add_trainings_to_collection(wiki_page)
     end
+  rescue NoMatchingWikiPagesFound => e
+    handle_wiki_pages_error(e)
   rescue InvalidWikiContentError => e
+    handle_invalid_content_error(e)
+  end
+
+  def handle_wiki_pages_error(error)
     if @sidekiq_job
-      TrainingBase.update_error(e['message'], e['content_class'])
+      TrainingBase.update_error(error.message, @content_class)
     else
-      Sentry.capture_exception(e)
+      raise error
+    end
+  end
+
+  def handle_invalid_content_error(error)
+    if @sidekiq_job
+      TrainingBase.update_error(error.message, @content_class)
+    else
+      Sentry.capture_exception(error)
     end
   end
 
@@ -62,7 +74,7 @@ class WikiTrainingLoader
                              level: 'warning', extra: { content:, wiki_page: }
       return
     end
-    @collection << content
+    @collection << content unless @sidekiq_job
   end
 
   def new_from_wiki_page(wiki_page)
@@ -76,6 +88,8 @@ class WikiTrainingLoader
                 new_from_wikitext_page(wiki_page, wikitext)
               end
     @content_class.inflate(content, content['slug'], wiki_page)
+  rescue TrainingBase::DuplicateSlugError => e
+    TrainingBase.update_error(e.message, @content_class) unless @sidekiq_job
   end
 
   # json pages have all the required data within the json content, but optionally
@@ -113,8 +127,8 @@ class WikiTrainingLoader
     response = WikiApi.new(MetaWiki.new).query(query_params)
     begin
       response.data['pages'].values[0]['links'].map { |page| page['title'] }
-    rescue StandardError => e
-      raise_invalid_wiki_content_error(e)
+    rescue StandardError
+      raise InvalidWikiContentError, "could not get links from '#{@wiki_base_page}'"
     end
   end
 
@@ -176,14 +190,6 @@ class WikiTrainingLoader
     ERROR
     error['content_class'] = @content_class
     raise NoMatchingWikiPagesFound, error
-  end
-
-  def raise_invalid_wiki_content_error(e)
-    Sentry.capture_exception(e)
-    error = {}
-    error['message'] = "could not get links from '#{@wiki_base_page}'"
-    error['content_class'] = @content_class
-    raise InvalidWikiContentError, error
   end
 
   class InvalidWikiContentError < StandardError; end

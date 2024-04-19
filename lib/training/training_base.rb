@@ -88,19 +88,21 @@ class TrainingBase
 
     if setting_key
       setting = Setting.find_or_create_by(key: setting_key)
-      setting.value['update_error'] = message
+      setting_value = setting.value || {} # Initialize setting_value as an empty hash if it's nil
+      setting_value['update_error'] = message
+      setting.value = setting_value
       setting.save
     end
   end
 
   def self.finish_content_class_update_process(content_class)
-    puts "finished loading #{content_class}"
-
     setting_key = class_to_setting_key(content_class)
 
     if setting_key
       setting = Setting.find_or_create_by(key: setting_key)
-      setting.value['update_status'] = 0
+      setting_value = setting.value || {}
+      setting_value['update_status'] = 0
+      setting.value = setting_value
       setting.save
     end
   end
@@ -114,7 +116,6 @@ class TrainingBase
   end
 
   def scheduled_update_process
-    puts 'updating status to scheduled'
     update_settings
   end
 

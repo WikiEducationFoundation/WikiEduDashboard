@@ -5,7 +5,6 @@
 # Source of content is training_content yaml files.
 class YamlTrainingLoader
   def initialize(content_class:, **_)
-    puts "STEP - Loading #{content_class} from yaml"
     @content_class = content_class # TrainingLibrary, TrainingModule, or TrainingSlide
     @path_to_yaml = content_class.path_to_yaml # a sub-directory of training_content
     @collection = []
