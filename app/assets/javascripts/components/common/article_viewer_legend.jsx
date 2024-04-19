@@ -5,7 +5,7 @@ import UserUtils from '../../utils/user_utils.js';
 
 import ArticleScroll from '@components/common/ArticleViewer/utils/ArticleScroll';
 
-const ArticleViewerLegend = ({ article, users, colors, status, allUsers, failureMessage, unhighlightedEditors }) => {
+const ArticleViewerLegend = ({ article, users, colors, status, allUsers, failureMessage, unhighlightedContributors }) => {
   const [userLinks, setUserLinks] = useState('');
   const [usersStatus, setUsersStatus] = useState('');
   const Scroller = new ArticleScroll();
@@ -26,7 +26,7 @@ const ArticleViewerLegend = ({ article, users, colors, status, allUsers, failure
         let res;
         // The 'unhighlightedContributions' keeps track of the userids of users whose contributions
         // were not successfully highlighted in the article viewer.
-        const UnhighlightedContributions = unhighlightedEditors?.find(x => x === user.userid);
+        const UnhighlightedContributions = unhighlightedContributors?.find(x => x === user.userid);
         const userLink = UserUtils.userTalkUrl(user.name, article.language, article.project);
         const fullUserRecord = allUsers.find(_user => _user.username === user.name);
         const realName = fullUserRecord && fullUserRecord.real_name;
@@ -45,7 +45,7 @@ const ArticleViewerLegend = ({ article, users, colors, status, allUsers, failure
     } else {
       setUserLinks(<div className="article-viewer-legend authorship-loading"> &nbsp; &nbsp; </div>);
     }
-  }, [users, status, unhighlightedEditors]);
+  }, [users, status, unhighlightedContributors]);
 
   useEffect(() => {
     if (status === 'loading') {
