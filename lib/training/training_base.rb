@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 require_dependency "#{Rails.root}/lib/training/yaml_training_loader"
 require_dependency "#{Rails.root}/lib/training/wiki_training_loader"
+require_dependency "#{Rails.root}/app/models/application_record"
+require_dependency "#{Rails.root}/app/models/setting"
 
 class TrainingBase
   class << self
@@ -49,9 +51,9 @@ class TrainingBase
     end
   end
 
-  def update_setting(key)
+  def update_setting(key, status)
     setting = Setting.find_or_create_by(key:)
-    setting.value['update_status'] = 1
+    setting.value['update_status'] = status
     setting.value['update_error'] = nil
     setting.save
   end
@@ -61,8 +63,8 @@ class TrainingBase
     setting.value['update_status'] != 2
   end
 
-  def update_settings
-    SETTING_KEYS.each { |key| update_setting(key) }
+  def update_settings(status)
+    SETTING_KEYS.each { |key| update_setting(key, status) }
   end
 
   def self.update_process_error_message
@@ -115,8 +117,8 @@ class TrainingBase
     }[content_class]
   end
 
-  def scheduled_update_process
-    update_settings
+  def update_process_state(status)
+    update_settings(status)
   end
 
   class DuplicateSlugError < StandardError; end

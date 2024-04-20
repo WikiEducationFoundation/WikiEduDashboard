@@ -47,7 +47,7 @@ class TrainingUpdate
   end
 
   def update_wiki_training_content
-    TrainingBase.new.scheduled_update_process
+    TrainingBase.new.update_process_state(1)
     TrainingBaseWorker.queue_update_process(slug: @module_slug)
 
     sleep 60 while update_running?(:training)
