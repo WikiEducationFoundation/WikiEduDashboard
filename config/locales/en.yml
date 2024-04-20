@@ -874,6 +874,7 @@ en:
     write_subject: "Subject"
     write_message_placeholder: "Message"
     sending_notification: "Sending"
+    bcc_to_salesforce: "BCC to Salesforce"
 
   # These are strings that are not specific to education/classroom contexts
   courses_generic:
