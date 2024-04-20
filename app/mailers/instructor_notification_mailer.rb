@@ -1,20 +1,21 @@
 # frozen_string_literal: true
 
 class InstructorNotificationMailer < ApplicationMailer
-  def self.send_email(alert)
+  def self.send_email(alert, bcc_to_salesforce)
     return unless Features.email?
-    email(alert).deliver_now
+    email(alert, bcc_to_salesforce).deliver
   end
 
-  def email(alert)
+  def email(alert, bcc_to_salesforce = true)
     @alert = alert
     set_email_parameters
     params = { to: @instructors.pluck(:email),
-               subject: @alert.subject }
+               subject: @alert.subject,
+               bcc: [
+                 @alert.sender_email,
+                 bcc_to_salesforce ? @alert.bcc_to_salesforce_email : nil # improve
+               ].compact }
     params[:reply_to] = @alert.sender_email unless @alert.sender_email.nil?
-    unless @alert.sender_email.nil?
-      params[:bcc] = @alert.sender_email # sender_email gives user email of the sender
-    end
     mail(params)
   end
 

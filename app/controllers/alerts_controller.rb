@@ -71,7 +71,8 @@ class AlertsController < ApplicationController
 
   def save_and_notify_instructors
     if @alert.save
-      @alert.send_email # send email to all instructors of the course_id
+      p params[:bcc_to_salesforce]
+      @alert.send_email(params[:bcc_to_salesforce]) # send email to all instructors of the course_id
       true
     else
       false
