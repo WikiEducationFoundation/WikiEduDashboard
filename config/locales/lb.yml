@@ -19,6 +19,7 @@ lb:
           trillion: B
           quadrillion: Brd
   application:
+    back: Zréck
     cancel: Ofbriechen
     cookie_consent_acknowledge: Ech verstinn
     cookie_consent_see_more: Fir méi ze wëssen.
@@ -126,8 +127,8 @@ lb:
       e graffen Indikator fir d'Maturitéit vun engem Artikel.
     rating_docs:
       fl: '%{class} (Exzellent Lëscht) - Déi bescht Bewäertung op Wikipedia fir Lëschten'
-      ga: Gudden Artikel - e gutt-developpéierten Artikel dee fir engem neien Editeur
-        säin Haaptprojet eventuell ze räif ass.
+      ga: '%{class} (Gudden Artikel) - e gutt-developpéierten Artikel dee fir engem
+        neien Editeur säin Haaptprojet eventuell ze räif ass.'
       b: '%{class}-Klass - e moderat entwéckelten Artikel'
       c: '%{class}-Klass - en duerchschnëttlechen Artikel mat Méiglechkeete fir en
         ze verbesseren'
@@ -600,16 +601,26 @@ lb:
     label: Neie Benotzernumm
     button: Aktualiséieren
   uploads:
+    article_name: Artikelnumm
+    author: 'Auteur:'
+    categories: Kategorien
+    date: 'Datum:'
+    description: Beschreiwung
     file_name: Numm vum Fichier
     image: Bild
     label: Eropgeluede Fichieren
+    license: 'Lizenz:'
     none: Dës Klass huet keng Biller oder aner Mediefichiere zu Wikimedia Commons
       bäigedroe.
+    original_file: Original-Fichier
     time_doc: D'Zäit vun all Eroplueden an Ärer lokaler Zäit
     uploaded_by: Eropgeluede vum
     uploaded_on: Eropgelueden de(n)
     usage_doc: Zuel vu Wikipedia-Artikelen an deenen dës Bild ze gesinn ass.
     usage_count_gallery_tile: A(n) %{usage_count} Artikele benotzt
+    source: 'Quell:'
+    view_commons: Op Commons weisen
+    wiki_big: Wiki
   users:
     already_enrolled: Dee Benotzer ass schonn ageschriwwen!
     assign_articles_done: Fäerdeg

@@ -1216,13 +1216,21 @@ zh-TW:
     label: 新使用者名稱
     button: 更新
   uploads:
+    article_name: 條目名稱
+    author: 作者：
+    categories: 分類
     credit: 製作者
+    date: 日期：
+    description: 描述
     file_name: 檔案名稱
+    file_usage: 在其他 wiki 的檔案使用情況
     header: 上傳到維基共享資源的檔案
     image: 圖片
     label: 上傳
+    license: 授權條款：
     loading: 上傳載入中⋯⋯
     none: 此班級未上傳任何圖片或媒體檔案至維基共享資源。
+    original_file: 原始檔案
     select_label: 依上傳者篩選
     time_doc: 每個上傳檔案的時間 (顯示為您使用的本地時間)
     uploaded_at: 上傳時間
@@ -1235,7 +1243,11 @@ zh-TW:
     usages: 使用狀況
     gallery_view: 圖庫檢視
     list_view: 清單檢視
+    source: 來源：
     tile_view: 圖塊檢視
+    views_per_day: 每日查看次數
+    view_commons: 在維基共享資源檢視
+    wiki_big: Wiki
   users:
     already_enrolled: 這位使用者已經登記！
     assign_articles: 分配條目

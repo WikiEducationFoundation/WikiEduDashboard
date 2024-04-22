@@ -1017,13 +1017,20 @@ sr-ec:
   update_username:
     label: Ново корисничко име
   uploads:
+    article_name: Назив чланка
+    author: 'Аутор:'
+    categories: Категорије
     credit: Заслуга
+    date: 'Датум:'
+    description: Опис
     file_name: Назив датотеке
     header: Датотеке отпремљене на Оставу
     image: Слика
     label: Отпремања
+    license: 'Лиценца:'
     loading: Учитавање отпремања…
     none: Овај разред није додао никакве слике или друге медијске датотеке на Оставу.
+    original_file: Оригинална датотека
     select_label: Филтрирај према отпремаоцу
     time_doc: Време сваког отпремања у вашем локалном времену
     uploaded_at: Време отпремања
@@ -1034,6 +1041,10 @@ sr-ec:
     usage_doc: Број чланака на Википедији на којима се појављује ова слика.
     usage_count_gallery_tile: Користи се у чланцима (%{usage_count})
     usages: Коришћења
+    source: 'Извор:'
+    views_per_day: Прегледи по дану
+    view_commons: Види на Остави
+    wiki_big: Вики
   users:
     already_enrolled: Овај корисник се већ уписао!
     assign_articles: Додели чланке

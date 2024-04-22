@@ -190,7 +190,7 @@ ms:
     data_editor_usernames: Nama pengguna penyunting
     description: Keterangan
     delete_campaign: Hapuskan kempen ini
-    enable_account_requests: Bolehkan permohonan akaun
+    enable_account_requests: Dayakan permohonan akaun
     newest_campaigns: Kempen Terbaru
     no_passcode: tiada kod laluan
     none: Tiada
@@ -258,7 +258,7 @@ ms:
     edit_count: Kiraan Suntingan
     edit_course_dates: Sunting Tarikh Kursus
     embed_course_stats: Benamkan Perangkaan Kursus
-    enable_account_requests: Bolehkan permohonan akaun
+    enable_account_requests: Dayakan permohonan akaun
     end: Tamat
     error:
       invalid_language_or_project: Bahasa/Projek tidak sah

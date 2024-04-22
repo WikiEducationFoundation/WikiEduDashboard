@@ -13,6 +13,7 @@
 # Author: Copper12
 # Author: DDPAT
 # Author: Danniel07
+# Author: DarkGames26
 # Author: Dgstranz
 # Author: DiegoAmbrocio
 # Author: Eulalio
@@ -910,14 +911,22 @@ es:
     label: Nombre de usuario nuevo
     button: Actualizar
   uploads:
+    article_name: Nombre del artículo
+    author: Autor
+    categories: Categorías
     credit: Crédito
+    date: 'Fecha:'
+    description: Descripción
     file_name: Nombre del archivo
+    file_usage: Uso del archivo en otros wikis
     header: Archivos subidos a Wikimedia Commons
     image: Imagen
     label: Subidas
+    license: 'Licencia:'
     loading: Cargando subidas...
     none: Esta clase no ha contribuido con ninguna imagen o archivo multimedia a Wikimedia
       Commons.
+    original_file: Archivo original
     time_doc: El tiempo de cada subida en tu hora local
     uploaded_at: Subir archivo
     uploaded_by: Subido por
@@ -926,7 +935,11 @@ es:
     usages: Usos
     gallery_view: Vista de la galería
     list_view: Ver como lista
+    source: 'Fuente:'
     tile_view: Vista en mosaico
+    views_per_day: Vistas por día
+    view_commons: Ver en Commons
+    wiki_big: Wiki
   users:
     already_enrolled: Ese usuario ya está inscrito.
     assign_articles: Asignar artículos
