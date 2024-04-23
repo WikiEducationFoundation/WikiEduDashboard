@@ -35,25 +35,13 @@ const TextInput = ({
     onKeyDown(e.keyCode, inputRef.current);
   };
 
-  let labelContent;
-  const usedSpacer = spacer || ': ';
+  const labelContent = label ? `${label}${spacer || ': '}` : undefined;
 
-  if (label) {
-    labelContent = label + usedSpacer;
-  }
-
-  let usedValueClass = 'text-input-component__value ';
-  if (valueClass) {
-    usedValueClass += valueClass;
-  }
+  const usedValueClass = `text-input-component__value ${valueClass ?? ''}`;
 
   if (editable) {
-    let labelClass = '';
-    let inputClass = inline ? 'inline' : '';
-    if (invalid) {
-      labelClass += 'red';
-      inputClass += ' invalid';
-    }
+    const labelClass = invalid ? 'red' : '';
+    const inputClass = `${inline ? 'inline' : ''} ${invalid ? 'invalid' : ''}`;
 
     let title;
     if (type === 'number') {
@@ -70,7 +58,7 @@ const TextInput = ({
       <input
         id={id}
         className={className}
-        value={_value !== undefined ? _value : value || ''}
+        value={_value ?? (value || '')}
         onChange={onChange}
         autoFocus={focus}
         onFocus={onFocus}
