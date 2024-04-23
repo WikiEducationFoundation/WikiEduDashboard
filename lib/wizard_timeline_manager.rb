@@ -98,6 +98,8 @@ class WizardTimelineManager
       week[:blocks].each_with_index do |block, block_index|
         # Skip blocks with unmet 'if' dependencies
         next unless if_dependencies_met?(block)
+        # Skip blocks with unmet 'if' dependencies
+        next if unless_dependencies_met?(block)
         block['week_id'] = week_record.id
         block['order'] = block_index + 1
         save_block(block)
@@ -113,13 +115,22 @@ class WizardTimelineManager
     if_met
   end
 
+  def unless_dependencies_met?(block)
+    return false unless block.key?('unless')
+
+    Array.wrap(block['unless']).reduce(false) do |met, dep|
+      met || @logic.include?(dep)
+    end
+  end
+
   def save_block(block)
-    attr_keys_to_skip = %w[if graded]
+    attr_keys_to_skip = %w[if unless graded]
     block_params = block.except(*attr_keys_to_skip)
     block_params['points'] ||= Block::DEFAULT_POINTS if block['graded']
     block_record = Block.create(block_params)
     add_handouts(block_record) if block_record.kind == Block::KINDS['handouts']
   end
+
   HANDOUTS = {
     'art_history_handout' => ['Art History', 'https://wikiedu.org/art_history'],
     'biographies_handout' => ['Biographies', 'https://wikiedu.org/biographies'],
