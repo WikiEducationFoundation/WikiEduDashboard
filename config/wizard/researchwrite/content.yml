@@ -264,23 +264,46 @@ essentials:
         kind: 1 # Assignment
         training_module_ids: [32] # Moving work out of the sandbox
         content: |
-          <p>
-            Now that you've improved your draft based on others' feedback, it's
-            time to move your work live - to the "mainspace."
-          </p>
-          <p>Resource: <a href="https://wikiedu.org/editingwikipedia#page=13">Editing Wikipedia</a>, page 13</p>
-
+          <div style="display: block;">
+            <p>
+              Now that you've improved your draft based on others' feedback, it's
+              time to move your work live - to the "mainspace."
+            </p>
+            <p>Resource: <a href="https://wikiedu.org/editingwikipedia#page=13">Editing Wikipedia</a>, page 13</p>
+            <br />
+            <p>
+              <h4>Demo: moving work from a sandbox</h4>
+              <iframe width="100%" height="400px" src="https://www.youtube-nocookie.com/embed/SNUEiF20-R8" frameborder="0" allowfullscreen></iframe>
+            </p>
+            <br />
+            <p>
+              <h4>Demo: publishing a new article</h4>
+              <iframe width="100%" height="400px" src="https://www.youtube-nocookie.com/embed/gL3jWfMwawE" frameborder="0" allowfullscreen></iframe>
+            </p>
+          </div>
       -
         if: working_in_groups
         title: Begin moving your work to Wikipedia
         kind: 1 # Assignment
         training_module_ids: [33] # Moving work out of the sandbox
         content: |
-          <p>
-            Now that you've improved your draft based on others' feedback, it's
-            time to move your work live - to the "mainspace."
-          </p>
-          <p>Resource: <a href="https://wikiedu.org/editingwikipedia#page=13">Editing Wikipedia</a>, page 13</p>
+          <div style="display: block;">
+            <p>
+              Now that you've improved your draft based on others' feedback, it's
+              time to move your work live - to the "mainspace."
+            </p>
+            <p>Resource: <a href="https://wikiedu.org/editingwikipedia#page=13">Editing Wikipedia</a>, page 13</p>
+            <br />
+            <p>
+              <h4>Demo: moving work from a sandbox</h4>
+              <iframe width="100%" height="400px" src="https://www.youtube-nocookie.com/embed/SNUEiF20-R8" frameborder="0" allowfullscreen></iframe>
+            </p>
+            <br />
+            <p>
+              <h4>Demo: publishing a new article</h4>
+              <iframe width="100%" height="400px" src="https://www.youtube-nocookie.com/embed/gL3jWfMwawE" frameborder="0" allowfullscreen></iframe>
+            </p>
+          </div>
 
       -
         if: did_you_know
