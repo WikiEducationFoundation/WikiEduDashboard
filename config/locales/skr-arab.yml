@@ -6,6 +6,7 @@
 ---
 skr-arab:
   application:
+    back: پچھوں
     cancel: منسوخ
     create_accounts: وکی پیڈیا دے کھاتے بݨاؤ
     dashboard: وکی ای ڈی ڈیش بورڈ
@@ -243,6 +244,8 @@ skr-arab:
     view_on_wiki: وکی تے فرق ݙیکھو
     see_more: ٻئے ݙیکھو
   settings:
+    categories:
+      users: ورتݨ آلے
     admin_users:
       new:
         form_placeholder: ورتݨ ناں
@@ -277,8 +280,12 @@ skr-arab:
     file_name: فائل دا ناں
     image: تصویر
     label: اپلوڈ کردہ
+    original_file: اصل فائل
     uploaded_at: اپ لوڈ ویلا
     uploader: اپلوڈ کرݨ آلا
+    gallery_view: گیلری منظر
+    list_view: تندیر منظر
+    source: 'ماخذ:'
     wiki_big: وکی
   users:
     assign_articles_done: مکمل

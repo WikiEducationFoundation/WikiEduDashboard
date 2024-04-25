@@ -52,6 +52,7 @@ zh-CN:
   accessibility:
     number_field: 这是一个数字字段。大多数浏览器渲染的按钮将递增和递减输入。
   application:
+    back: 返回
     cancel: 取消
     cookie_consent: 这个网站使用cookies来保持您的登录，并存储与您的维基百科帐户相关的信息。
     cookie_consent_acknowledge: 我懂了
@@ -83,6 +84,7 @@ zh-CN:
       one: '%{count} Result for: ''%{search_terms}'''
       other: '%{count} Results for: ''%{search_terms}'''
     no_results: 找不到“%{query}”的结果
+    show_current_revision: 显示当前版本
     sign_up_extended: 注册维基百科
     sign_up_wikipedia: 或在维基百科注册
     sign_up_log_in_extended: 通过维基百科

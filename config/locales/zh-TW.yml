@@ -1208,6 +1208,7 @@ zh-TW:
     no_training_library_records_non_wiki_ed_mode: 資料庫裡沒有 TrainingLibrary 紀錄。
     search_training_resources: 培訓資源搜尋
     no_training_resource_match_your_search: 沒有符合您要搜尋的培訓資源
+    exercise_sandbox: 練習沙盒
   update_username:
     header: 更新已更改的使用者名稱
     not_found: 找不到所輸入名稱的使用者。
@@ -1291,7 +1292,7 @@ zh-TW:
     no_articles: 沒有條目
     no_articles_wikidata: 沒有項目
     no_revisions: （無修訂）
-    no_highlighting: 條目的目前版本中沒有文字內容歸因於使用者「%{editor}」。檢查頁面歷史來查看他們的編輯。
+    no_highlighting: 此條目版本中沒有歸因於使用者「%{editor}」的文字內容。請檢查頁面歷史來查看他們的編輯。
     contributions_not_highlighted: 無法突顯出來自使用者%{username}的貢獻。這種情況通常發生在所添加的參考或模板上。請檢查頁面歷史記錄來查看他們的編輯。
     number_of_articles:
       one: '%{count} 個條目'

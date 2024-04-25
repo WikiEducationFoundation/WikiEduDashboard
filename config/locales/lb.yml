@@ -597,6 +597,7 @@ lb:
       exercise: Exercice
       discussion: Diskussioun
       training: Formatioun
+    exercise_sandbox: Übungssandbox
   update_username:
     label: Neie Benotzernumm
     button: Aktualiséieren

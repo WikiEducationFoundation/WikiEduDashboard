@@ -26,6 +26,7 @@
 # Author: Macofe
 # Author: Melimeli
 # Author: PifyZ
+# Author: Pols12
 # Author: SleaY
 # Author: The RedBurn
 # Author: Thibaut120094
@@ -147,8 +148,9 @@ fr:
         heading: Règles de nom d'utilisateur
         avoid_offensive_usernames: Ne choisissez pas un nom d'utilisateur choquant,
           trompeur, perturbateur ou promotionnel.
-        represent_individual: Les noms d'utilisateur doivent représenter un éditeur
-          individuel. N'utilisez pas le nom d'une école ou d'une organisation.
+        represent_individual: Les noms utilisateur doivent représenter un contributeur
+          ou une contributrice personnellement. N’utilisez pas le nom d’une école
+          ou d’une organisation.
       additional_advice:
         heading: Conseil
         anonymous_username_recommendation: L’équipe de Wiki Éducation recommande de
@@ -214,13 +216,15 @@ fr:
       simplement un indicateur approximatif de la maturité de l’article.
     rating_docs:
       fa: '%{class} (article vedette) — la plus haute notation de Wikipédia, probablement
-        un article trop mature pour être le projet principal d’un nouvel éditeur'
+        un article trop mature pour être le projet principal d’un nouveau contributeur
+        ou nouvelle contributrice'
       fl: '%{class} (liste vedette) — la plus haute notation de Wikipédia pour les
         listes'
       a: classe %{class} — article très développé qui pourrait être trop mature pour
-        être le projet principal d’un nouveau rédacteur
+        être le projet principal d’un nouveau contributeur ou nouvelle contributrice
       ga: '%{class} (bon article) — un article bien développé qui pourrait être trop
-        mature pour être le projet principal d’un nouveau rédacteur'
+        mature pour être le projet principal d’un nouveau contributeur ou nouvelle
+        contributrice'
       b: classe %{class} — un article modérément développé
       c: classe %{class} — un article intermédiaire, avec des possibilités d’amélioration
       start: classe %{class} — un article préliminaire avec beaucoup de possibilités
@@ -283,8 +287,8 @@ fr:
     assigned: Éléments affectés
     assignments_none: Il n’y a encore aucun élément affecté.
     available: Éléments disponibles
-    character_doc: La somme des caractères ajouté aux éléments par les éditeurs inscrits
-      entre les dates de début et de fin
+    character_doc: Le total du nombre de caractères ajoutés aux articles par les contributeurs
+      inscrits entre les dates de début et de fin
     cross_wiki_tracking: Les pages de l’espace principal modifiées entre les dates
       de début et de fin sont listées ci-dessous. Le tableau de bord réunit les contributions
       du wiki d’accueil de ce programme, parmi d’autres wikis pour lesquels il y a
@@ -437,10 +441,11 @@ fr:
     data_instructors: Formateurs
     data_instructors_info: Liste des formateurs/facilitateurs avec leur cours/programmes
     data_editors_by_course: Rédacteurs par cours
-    data_editors_by_course_info: Liste des rédacteurs inscrits avec leurs cours/programmes
+    data_editors_by_course_info: Liste des rédacteurs et rédactrices inscrits avec
+      leurs cours/programmes
     data_editor_usernames: Noms d’utilisateur des rédacteurs
-    data_editor_usernames_info: Liste des noms d’utilisateur des rédacteurs, un par
-      ligne
+    data_editor_usernames_info: Liste des noms utilisateur des rédacteurs et rédactrices,
+      un par ligne
     data_wikidata: Statistiques de Wikidata
     data_wikidata_info: Répartition détaillée de l’activité de Wikidata, d’après les
       résumés des modifications
@@ -555,7 +560,7 @@ fr:
     campaign_articles: Articles pour « %{title} »
     campaign_courses: Cours pour « %{title} »
     campaign_select: Sélectionner une campagne
-    campaign_users: Rédacteurs de « %{title} »
+    campaign_users: Contributorat pour « %{title} »
     confirm_course_deletion: Êtes-vous sûr de vouloir supprimer le cours intitulé
       « %{title} » ? Si oui, taper le titre du cours pour continuer.
     confirm_course_deletion_failed: « %{title} » n’est pas le titre de ce cours. Le
@@ -607,9 +612,9 @@ fr:
         dans cet intervalle de temps.
       course_description: Description du cours
       course_description_placeholder: Qu’est-ce qui est couvert par votre cours, et
-        que feront les étudiants sur Wikipédia ? Veuillez inclure suffisamment de
-        détails pour donner aux autres éditeurs de Wikipédia une idée du contexte
-        des contributions que feront vos étudiants.
+        que feront les étudiants sur Wikipédia ? Indiquez suffisamment de détails
+        pour donner aux autres contributeurs de Wikipédia une idée du contexte des
+        contributions que feront vos étudiants.
       course_private: Programme privé (visible uniquement par les administrateurs
         et les facilitateurs)
       course_school: École du cours
@@ -728,8 +733,8 @@ fr:
     enrollment: Ajouter / supprimer des étudiants
     enrollment_edits_enabled: Modifications des inscriptions activées
     enrollment_edits_enabled_tooltip: Si activé, le tableau de bord publiera un modèle
-      sur la page de l’utilisateur et la page de discussion de chaque contributeur
-      qui a rejoint le programme.
+      sur la page utilisateur et la page de discussion de chaque personne qui a rejoint
+      le programme.
     courses_enrolled: Cours inscrits
     error:
       exists: Ce cours existe déjà ! Veuillez réessayer avec un autre titre, une autre
@@ -803,9 +808,9 @@ fr:
     new_account_info: Pour demander un compte, saisissez votre adresse de courriel
       et le nom d’utilisateur souhaité. Un mot de passe vous sera envoyé une fois
       que le compte aura été créé par un des facilitateurs.
-    new_account_info_admin: Pour créer un compte pour un nouveau contributeur, saisissez
-      son adresse de courriel et le nom d’utilisateur souhaité. Un mot de passe lui
-      sera envoyé une fois le compte créé.
+    new_account_info_admin: Pour créer un nouveau compte, saisissez l’adresse de courriel
+      de la personne et le nom utilisateur souhaité. Un mot de passe lui sera envoyé
+      une fois le compte créé.
     new_account_username: Nom d’utilisateur demandé
     new_account_username_invalid: Ce n’est pas un nom d’utilisateur valide.
     new_account_username_placeholder: Rédacteur du Wiki 123
@@ -831,9 +836,8 @@ fr:
       affectés. Êtes-vous sûr de vouloir faire cela ?
     no_available_actions: Aucune action disponible
     online_volunteers_enabled: Bénévoles en ligne activés
-    online_volunteers_tooltip: Activer les bénévoles en ligne permet aux utilisateurs
-      rédacteurs de vous rejoindre en tant que bénévoles. Leurs modifications ne seront
-      pas tracées.
+    online_volunteers_tooltip: Activer les bénévoles en ligne permet à des contributeurs
+      de participer en tant que bénévoles. Leurs modifications ne seront pas tracées.
     ores_plot: ORES
     overview: Accueil
     passcode: Code d’accès
@@ -1019,8 +1023,8 @@ fr:
         qui auront lieu peu après l’événement.
       course_description: Description du programme
       course_description_placeholder: Qu’est-ce que ce programme et que feront les
-        participant(e)s sur le(s) wiki(s) ? Veuillez inclure suffisamment de détails
-        pour donner aux autres rédacteurs une idée du contexte des contributions que
+        participant(e)s sur le(s) wiki(s) ? Indiquez suffisamment de détails pour
+        donner aux autres contributeurs une idée du contexte des contributions que
         feront les participants.
       course_school: Institution
       course_term: Quand
@@ -1048,8 +1052,8 @@ fr:
         scoping_methods: Méthodes de ciblage
         configure: Configurer les méthodes de ciblage
         about: |-
-          Pour un programme ciblé sur l’article, le tableau de bord tracera seulement les modifications aux articles pour lequel vous aurez configuré. Après la création de votre page, vous pouvez ajouter des articles à suivre individuellement en les assignant aux éditeurs individuels, ou en les ajoutant à Articles disponibles. Pour de plus gros ensembles d’articles, vous pouvez utiliser un de ces outils pour définir les articles que vous voulez tracer.
-          Sélectionnez une des méthodes de ciblage que vous voulez configurer maintenant. Vous pouvez aussi ajouter des méthodes de ciblage ultérieurement depuis l’onglet Articles.
+          Pour le Programme ciblé sur des articles, le tableau de bord tracera seulement les modifications aux articles configurés. Après la création de votre page, vous pourrez ajouter des articles à suivre individuellement en les assignant à des contributeurs en particulier, ou en les ajoutant aux « Articles disponibles ». Pour de plus gros ensembles d’articles, vous pourrez utiliser un de ces outils pour définir les articles que vous voulez tracer.
+          Choisissez une des méthodes de ciblage que vous voulez configurer maintenant. Vous pourrez aussi ajouter des méthodes de ciblage ultérieurement depuis l’onglet « Articles ».
         categories: Catégories
         categories_short_desc: La fonctionnalité Catégorie sur un wiki est utilisée
           pour rassembler des articles connexes. Vous pouvez utiliser le nom de la
@@ -1092,8 +1096,8 @@ fr:
     delete_course: Supprimer le programme
     edit_course_dates: Modifier les dates du projet
     end: Fin du suivi d’activité
-    enroll: Ajouter un rédacteur
-    enrollment: Ajouter / supprimer des rédacteurs
+    enroll: Ajouter un contributeur ou contributrice
+    enrollment: Ajouter / supprimer des contributeurs
     explore: Trouver des programmes
     courses_enrolled: Participations aux programmes
     expected_students: Rédacteurs attendus
@@ -1112,12 +1116,12 @@ fr:
     school_and_term: Institution / Quand
     search_courses: Chercher des programmes
     start: Début du suivi d’activité
-    student_editors: Rédacteurs
-    student: Rédacteur
-    students: Rédacteurs
+    student_editors: Contributeurs·trices
+    student: Contributeur·trice
+    students: Contributeurs·trices
     students_taught: Total des rédacteurs
-    students_none: Ce projet n’a aucun rédacteur inscrit.
-    students_short: Rédacteurs
+    students_none: Ce projet n’a aucun contributeur ni contributrice inscrite.
+    students_short: Contributeurs·trices
     students_count: Nombre de participants
     term: Quand
     unsubmitted: Programmes non soumis
@@ -1129,8 +1133,9 @@ fr:
     view_page: Afficher la page du programme
     word_count_doc: Une estimation du nombre de mots ajoutés aux articles de l’espace
       principal par les rédacteurs du programme durant son déroulement
-    word_count_doc_wikidata: Une estimation du nombre de mots ajoutés aux éléments
-      de l’espace principal par les éditeurs du programme pendant sa durée
+    word_count_doc_wikidata: Une estimation du nombre de mots ajoutés aux articles
+      de l’espace principal par les contributeurs et contributrices du programme durant
+      son déroulement
     yourcourses: Vos programmes
   editable:
     edit: Modifier
@@ -1606,7 +1611,7 @@ fr:
     contributions_more: Afficher plus de contributions
     contribution_statistics: Statistiques des contributions
     course_passcode: 'Code d''accès :'
-    editors: Rédacteurs
+    editors: Contributeurs·trices
     edits: modifications
     edits_by: 'Modifié par :'
     enroll_confirmation: Êtes-vous certain(e) de vouloir ajouter %{username} ?
@@ -1631,8 +1636,8 @@ fr:
     no_articles: Aucun article
     no_articles_wikidata: Aucun élément
     no_revisions: (aucune révision)
-    no_highlighting: Aucun texte de la version actuelle de l’article n’est attribué
-      à l’utilisateur %{editor}. Vérifiez l’historique de la page pour voir ses modifications.
+    no_highlighting: Aucun texte de cette version de l’article n’est attribué à %{editor}.
+      Vérifiez l’historique de la page pour voir ses modifications.
     contributions_not_highlighted: Des contributions de l’utilisateur %{username}
       sont présentes, mais ne peuvent être surlignées. C’est typiquement le cas pour
       l’ajout de références ou de modèles. Consulter l’historique de la page pour
@@ -1652,9 +1657,9 @@ fr:
       success_message: 'Succès : %{result_description}'
       failure_message: 'Échec : %{result_description}'
     revision_characters_and_views: 'Caractères ajoutés : %{characters} ; vues : %{views}'
-    revisions_doc: Le nombre de modifications faites par ce rédacteur durant les 7
-      derniers jours
-    references_doc: Le nombre de références ajoutées ou retirées par ce rédacteur
+    revisions_doc: Le nombre de modifications faites par cette personne durant les
+      7 derniers jours
+    references_doc: Le nombre de références ajoutées ou retirées par cette personne
     reviewers: Relecteur(s)
     reviewing: Relecture en cours
     revisions: Révisions

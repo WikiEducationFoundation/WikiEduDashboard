@@ -142,6 +142,8 @@ sms:
       create_short: Raaj prograamm
       find: Ooʒʒ prograamm
       save_cloned_course: Ruõkk
+      scoping_methods:
+        templates: Maall
     delete_course: Jaukkâd prograamm
     explore: Ooʒʒ prograammi
   editable:
