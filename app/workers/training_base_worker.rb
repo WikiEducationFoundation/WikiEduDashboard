@@ -24,8 +24,12 @@ class TrainingBaseWorker
   def perform_reload_module(slug)
     # Reload the requested module's slides
     training_module = TrainingModule.find_by(slug:)
-    raise TrainingModule::ModuleNotFound, "No module #{slug} found!" unless training_module
-    TrainingSlide.load_async(slug_list: training_module.slide_slugs)
+    if training_module
+      TrainingSlide.load_async(slug_list: training_module.slide_slugs)
+    else
+      TrainingBase.finish_content_class_update_process(TrainingSlide)
+      raise TrainingModule::ModuleNotFound, "No module #{slug} found!"
+    end
   end
 
   def perform(slug)
