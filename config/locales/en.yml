@@ -452,7 +452,12 @@ en:
     name: Name
     category_name: Category name
     psid_name: PSID
+    psid_description: >
+      PetScan queries only work with the Dashboard one wiki at a time.
+      Ensure that your PetScan query includes only articles from a single wiki, and that it matches the wiki set below.
     pileid_name: PagePile id
+    pileid_description: >
+      Make sure the PagePile's wiki is one of the tracked wikis for this program.
     template_name: Template name
     none: There are no categories being tracked.
     remove: Remove
