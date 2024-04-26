@@ -13,7 +13,7 @@ class TrainingUpdate
   def initialize(module_slug:)
     @module_slug = module_slug
     setup_logger
-
+    puts "TrainingUpdate: #{@module_slug}"
     if update_running?(:training)
       @result = 'Another training update process is already in progress. Try again later.'
       return
@@ -26,7 +26,7 @@ class TrainingUpdate
   def run_update
     log_start_of_update "Training update task is beginning. Module: #{@module_slug}"
     start_update_process
-    @result = 'Success!'
+    wait_for_update_to_finish
     log_end_of_update 'Training update finished.'
 
   # rubocop:disable Lint/RescueException
@@ -46,16 +46,30 @@ class TrainingUpdate
     end
   end
 
-  def update_wiki_training_content
-    TrainingBase.new.update_process_state(1)
-    TrainingBaseWorker.queue_update_process(slug: @module_slug)
-
-    sleep 60 while update_running?(:training)
+  def wait_for_update_to_finish
+    puts 'Waiting for update process to finish...'
+    loop do
+      puts 'Checking for updates...'
+      break unless TrainingBase.update_running?
+      sleep 60
+    end
 
     if TrainingBase.error_in_update_process
       error_message = TrainingBase.update_process_error_message
-      raise e, error_message
+      puts 'caught error messages'
+      puts error_message
+      TrainingBase.new.clear_error_messages
+      TrainingBase.new.update_process_state(0)
+      raise error_message
     end
+    @result = 'Success!'
+  end
+
+  def update_wiki_training_content
+    puts 'Updating wiki training content...'
+    TrainingBase.new.update_process_state(1)
+    puts 'Queuing update process...'
+    TrainingBaseWorker.queue_update_process(slug: @module_slug)
   end
 
   def update_yaml_training_content

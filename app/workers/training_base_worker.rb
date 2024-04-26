@@ -3,6 +3,7 @@
 class TrainingBaseWorker
   include Sidekiq::Worker
   sidekiq_options lock: :until_executed
+  sidekiq_options retry: false
 
   def self.queue_update_process(slug)
     perform_async(slug)
@@ -31,12 +32,15 @@ class TrainingBaseWorker
     # First reload the libraries and modules so we have the new list of slugs
     # and can load slides for brand-new modules.
     TrainingLibrary.load_async
+    TrainingBase.finish_content_class_update_process(TrainingLibrary)
     TrainingModule.load_async
+    TrainingBase.finish_content_class_update_process(TrainingModule)
     if slug['slug'] == 'all'
       perform_load_all
     else
       perform_reload_module(slug)
     end
+    TrainingBase.finish_content_class_update_process(TrainingSlide)
   rescue TrainingModule::ModuleNotFound => e
     TrainingBase.update_error(e.message, TrainingModule)
   end

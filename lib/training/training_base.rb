@@ -53,6 +53,7 @@ class TrainingBase
 
   def update_setting(key, status)
     setting = Setting.find_or_create_by(key:)
+    setting.reload
     setting.value['update_status'] = status
     setting.value['update_error'] = nil
     setting.save
@@ -60,6 +61,7 @@ class TrainingBase
 
   def self.check_setting(key)
     setting = Setting.find_or_create_by(key:)
+    setting.reload
     setting.value['update_status'] != 2
   end
 
@@ -67,30 +69,44 @@ class TrainingBase
     SETTING_KEYS.each { |key| update_setting(key, status) }
   end
 
+  def self.update_running?
+    SETTING_KEYS.each do |key|
+      setting = Setting.find_or_initialize_by(key:)
+      setting.reload
+      return true if setting.value['update_status'] == 1
+    end
+    false
+  end
+
   def self.update_process_error_message
     update_errors = []
 
     SETTING_KEYS.each do |key|
-      unless check_setting(key)
-        update_errors << Setting.find_or_create_by(key:).value['update_error']
-      end
+      next if check_setting(key)
+      setting = Setting.find_or_create_by(key:)
+      error_message = setting.value['update_error']
+      update_errors << error_message unless error_message.nil?
     end
 
-    update_errors.compact.join(', ')
+    "Errors in the update process:\n#{update_errors.compact.join("\n")}"
   end
 
   def self.error_in_update_process
-    SETTING_KEYS.all? do |key|
-      check_setting(key)
+    puts 'Checking for errors in update process...'
+    SETTING_KEYS.any? do |key|
+      !check_setting(key)
     end
   end
 
   def self.update_error(message, content_class)
+    puts message, content_class
     setting_key = class_to_setting_key(content_class)
 
     if setting_key
       setting = Setting.find_or_create_by(key: setting_key)
+      setting.reload
       setting_value = setting.value || {} # Initialize setting_value as an empty hash if it's nil
+      setting_value['update_status'] = 2
       setting_value['update_error'] = message
       setting.value = setting_value
       setting.save
@@ -102,8 +118,9 @@ class TrainingBase
 
     if setting_key
       setting = Setting.find_or_create_by(key: setting_key)
+      setting.reload
       setting_value = setting.value || {}
-      setting_value['update_status'] = 0
+      setting_value['update_status'] = 0 unless setting_value['update_status'] == 2
       setting.value = setting_value
       setting.save
     end
@@ -115,6 +132,14 @@ class TrainingBase
       TrainingModule => 'training_modules_update',
       TrainingSlide => 'training_slides_update'
     }[content_class]
+  end
+
+  def clear_error_messages
+    SETTING_KEYS.all? do |key|
+      setting = Setting.find_or_initialize_by(key:)
+      setting.value['update_error'] = nil
+      setting.save
+    end
   end
 
   def update_process_state(status)

@@ -5,3 +5,4 @@ include BatchUpdateLogging
 
 delete_pid_file(:training)
 TrainingBase.new.update_process_state(0)
+TrainingBase.new.clear_error_messages

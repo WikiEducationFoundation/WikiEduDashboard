@@ -11,6 +11,7 @@ require_dependency "#{Rails.root}/lib/wiki_api"
 # Source of content is training_content yaml files and/or wiki pages.
 class WikiTrainingLoader
   def initialize(content_class:, slug_list: nil, sidekiq_job: false)
+    puts "Loading #{content_class} with #{slug_list} and #{sidekiq_job} from wiki"
     @sidekiq_job = sidekiq_job
     @content_class = content_class # TrainingLibrary, TrainingModule, or TrainingSlide
     @slug_list = slug_list # limited list of slugs to process (optional)
@@ -24,7 +25,6 @@ class WikiTrainingLoader
 
   def load_content_async(_content_class, _slug_list)
     result = load_from_wiki
-    TrainingBase.finish_content_class_update_process(@content_class)
     return result
   end
 
@@ -68,6 +68,7 @@ class WikiTrainingLoader
   end
 
   def add_trainings_to_collection(wiki_page)
+    puts "Loading #{wiki_page} from wiki"
     content = new_from_wiki_page(wiki_page)
     unless content&.valid?
       Sentry.capture_message 'Invalid wiki training content',
@@ -87,9 +88,14 @@ class WikiTrainingLoader
               else
                 new_from_wikitext_page(wiki_page, wikitext)
               end
-    @content_class.inflate(content, content['slug'], wiki_page)
+    result = @content_class.inflate(content, content['slug'], wiki_page)
   rescue TrainingBase::DuplicateSlugError => e
-    TrainingBase.update_error(e.message, @content_class) unless @sidekiq_job
+    if @sidekiq_job
+      TrainingBase.update_error(e.message, @content_class)
+    else
+      raise e
+    end
+    result
   end
 
   # json pages have all the required data within the json content, but optionally
@@ -182,14 +188,12 @@ class WikiTrainingLoader
   end
 
   def raise_no_matching_wiki_pages_error
-    error = {}
-    error['message'] = <<~ERROR
+    message = <<~ERROR
       Error: no wiki pages found from among #{@slug_list}.
 
       Link them from '#{@wiki_base_page}'.
     ERROR
-    error['content_class'] = @content_class
-    raise NoMatchingWikiPagesFound, error
+    raise NoMatchingWikiPagesFound, message
   end
 
   class InvalidWikiContentError < StandardError; end
