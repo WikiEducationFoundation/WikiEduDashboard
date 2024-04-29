@@ -17,6 +17,8 @@ se:
     log_in_extended: Čálit sisa Wikipedia bokte
     log_in: Čálit sisa
     log_out: Čálit olggos
+    show_current_revision: Čájet dálá veršuvnna
+    show_last_revision: Čájet maŋemus veršuvnna
     print: Prente
   home:
     explore: Suokkar
@@ -112,12 +114,14 @@ se:
     bad_work:
       learn_more_button: Lassedieđut
   metrics:
+    close_modal: Gidde
     tags: Gilkorat
     removed: Sihkkojuvvon
     added: Lasihuvvon
   namespace:
     article: Artihkal
     file: Fiila
+    page: Siidu
   recent_activity:
     file_name: Fiilanamma
   revisions:
@@ -125,6 +129,7 @@ se:
     diff_hide: Čiega
     loading: Viežžamin veršuvnnaid
     see_more: Lassedieđut
+    show_all: Čájet buot
   settings:
     categories:
       other_settings: Eará ásahusat
@@ -157,8 +162,11 @@ se:
     useremail_placeholder: E-poastačujuhus
   wizard:
     read_more: Čájet eambbo
+  error_404:
+    header: Siidu ii gávdnon. :-(
   article_finder:
     remove_article: Sihko artihkkala
+    show_options: Čájet ásahusaid
   training_status:
     continue: Joatkke
     view: Čájet

@@ -850,6 +850,7 @@ zh-CN:
     wait: 请不要离开页面，因为阁下的培训进度正在更新。
     check_answer: 检查答案
     included_modules: 包含的模块
+    exercise_sandbox: 练习沙盒
   uploads:
     credit: 制作人员
     file_name: 文件名
