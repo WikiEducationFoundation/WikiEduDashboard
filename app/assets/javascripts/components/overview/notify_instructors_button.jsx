@@ -53,7 +53,7 @@ const NotifyInstructorsButton = (props) => {
 
           <div className="form-group">
             <TextAreaInput
-              id={'notification-message'}
+              id="notification-message"
               value={notification.message}
               onChange={(_, value) => {
                 dispatch({ type: ALERT_INSTRUCTOR_UPDATE_MESSAGE, payload: value });

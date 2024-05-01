@@ -15,7 +15,6 @@ class InstructorNotificationMailer < ApplicationMailer
                  @alert.sender_email,
                  bcc_to_salesforce ? @alert.bcc_to_salesforce_email : nil
                ].compact }
-    p params
     return if params[:to].empty?
     params[:reply_to] = @alert.sender_email unless @alert.sender_email.nil?
     mail(params)
