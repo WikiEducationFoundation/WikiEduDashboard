@@ -1763,6 +1763,10 @@ en:
     create_note: "Create Note"
     cancel_note_creation: "Cancel"
     post_note: "Post"
+    edit_note: "Edit Note"
+    cancel_edit_note: "Cancel"
+    save_note: "Save"
+    delete_note: "Delete Note"
     admin:
       button_text: "Admin Notes"
       header_text: "Admin Notes Panel"

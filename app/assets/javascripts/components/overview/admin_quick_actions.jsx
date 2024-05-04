@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import GreetStudentsButton from './greet_students_button.jsx';
 import { format, toDate, parseISO } from 'date-fns';
 import { getUTCDateString } from '../../utils/date_utils.js';
-import NotesHandler from '../../components/notes/notes_handler.jsx';
+import NotesPanel from '../../components/admin_notes/notes_panel.jsx';
 
 // Helper Functions
 const DetailsText = ({ flags }) => (
@@ -53,7 +53,7 @@ export const AdminQuickActions = ({ course, current_user, persistCourse, greetSt
         <br />
       </>
     )}
-    {current_user.admin && <div><NotesHandler/></div>}
+    {current_user.admin && <div><NotesPanel/></div>}
   </div>
 );
 
