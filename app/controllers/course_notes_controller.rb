@@ -14,7 +14,7 @@ class CourseNotesController < ApplicationController
 
   def update
     if @course_note.update_note(course_note_params)
-      render json: { success: true }
+      render json: { success: true, course_note: @course_note }
     else
       render json: { error: 'Failed to update course note' }, status: :unprocessable_entity
     end
