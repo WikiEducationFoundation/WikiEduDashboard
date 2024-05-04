@@ -1760,6 +1760,9 @@ en:
     delete_note_confirmation: "Delete Note: This action will permanently delete the note. Are you sure you want to proceed?"
     delete_note_error: "Unable to delete the note. Please try again."
     no_notes: "This course currently has no associated notes."
+    create_note: "Create Note"
+    cancel_note_creation: "Cancel"
+    post_note: "Post"
     admin:
       button_text: "Admin Notes"
       header_text: "Admin Notes Panel"
