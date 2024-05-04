@@ -5,12 +5,11 @@ import { ADD_NOTIFICATION } from '../constants/notifications';
 import {
   UPDATE_CURRENT_NOTE,
   RECEIVE_NOTE_DETAILS,
-  RESET_TO_ORIGINAL_NOTE,
-  PERSISTED_COURSE_NOTE,
   RESET_NOTE_TO_DEFAULT,
   RECEIVE_NOTES_LIST,
   ADD_NEW_NOTE_TO_LIST,
-  DELETE_NOTE_FROM_LIST
+  DELETE_NOTE_FROM_LIST,
+  UPDATE_NOTES_LIST
 } from '../constants';
 
 // Helper function to dispatch notifications
@@ -37,34 +36,48 @@ export const fetchAllCourseNotes = courseId => async (dispatch) => {
   }
 };
 
-// Action creator to fetch details of a single course note by its ID
-export const fetchSingleNoteDetails = courseNoteId => async (dispatch) => {
+// Action creator to fetch details of a note currently being edited
+export const currentNoteEdit = courseNoteId => async (dispatch, getState) => {
+  const note = getState().courseNotes.notes_list.find(courseNote => courseNote.id === courseNoteId);
   try {
-    const note = await API.fetchCourseNotesById(courseNoteId);
     dispatch({ type: RECEIVE_NOTE_DETAILS, note });
   } catch (error) {
     logErrorMessage('Error fetching single course note details:', error);
   }
 };
 
-// Action creator to update the current course note with new data
-export const updateCurrentCourseNote = data => (dispatch) => {
+// Action creator to update the current course note title or text with new data
+export const updateCurrentEditedCourseNote = data => (dispatch) => {
   dispatch({ type: UPDATE_CURRENT_NOTE, note: { ...data } });
 };
 
-// Action creator to reset the current course note to its original state
-export const resetCourseNote = () => (dispatch, getState) => {
-  const CourseNote = getState().persistedCourseNote;
-  dispatch({ type: RESET_TO_ORIGINAL_NOTE, note: { ...CourseNote } });
-};
+// Action creator to save the updated current course note to Database
+export const saveUpdatedCourseNote = noteId => async (dispatch, getState) => {
+   const courseNoteDetails = { ...getState().courseNotes.note, id: noteId };
 
-// Action creator to save/update the current course note
-export const saveCourseNote = async (courseNoteDetails, dispatch) => {
-  const status = await API.saveCourseNote(courseNoteDetails);
+  if ((courseNoteDetails.title.trim().length === 0) || (courseNoteDetails.text.trim().length === 0)) {
+    return sendNotification(dispatch, 'Error', 'notes.empty_fields');
+  }
+
+  const status = await API.updateCourseNote(courseNoteDetails);
 
   if (status?.success) {
     sendNotification(dispatch, 'Success', 'notes.updated');
-    dispatch({ type: PERSISTED_COURSE_NOTE, note: courseNoteDetails });
+
+    const updatedNotesList = getState().courseNotes.notes_list.map((note) => {
+        if (note.id === noteId) {
+          return {
+            ...note,
+            title: getState().courseNotes.note.title,
+            text: getState().courseNotes.note.text,
+            edited_by: status.course_note.edited_by,
+            updated_at: status.course_note.updated_at
+          };
+        }
+        return note;
+    });
+
+    dispatch({ type: UPDATE_NOTES_LIST, updatedNotesList: updatedNotesList });
   } else {
     const messageKey = 'notes.failure';
     const dynamicValue = { operation: 'update' };
@@ -73,13 +86,18 @@ export const saveCourseNote = async (courseNoteDetails, dispatch) => {
 };
 
 // Action creator to create a new course note for a given courseId
-export const createCourseNote = async (courseId, courseNoteDetails, dispatch) => {
+export const createCourseNote = courseId => async (dispatch, getState) => {
+  const courseNoteDetails = { ...getState().courseNotes.note };
+
+  if ((courseNoteDetails.title.trim().length === 0) || (courseNoteDetails.text.trim().length === 0)) {
+    return sendNotification(dispatch, 'Error', 'notes.empty_fields');
+  }
+
   const noteDetails = await API.createCourseNote(courseId, courseNoteDetails);
 
   if (noteDetails?.id) {
     sendNotification(dispatch, 'Success', 'notes.created');
     dispatch({ type: ADD_NEW_NOTE_TO_LIST, newNote: noteDetails });
-    dispatch({ type: PERSISTED_COURSE_NOTE, note: noteDetails });
   } else {
     const messageKey = 'notes.failure';
     const dynamicValue = { operation: 'create' };
@@ -87,18 +105,6 @@ export const createCourseNote = async (courseId, courseNoteDetails, dispatch) =>
   }
 };
 
-// Action creator to persist the current course note, handling validation and deciding whether to save/update or create
-export const persistCourseNote = (courseId = null) => (dispatch, getState) => {
-  const courseNoteDetails = getState().courseNotes.note;
-
-  if ((courseNoteDetails.title.trim().length === 0) || (courseNoteDetails.text.trim().length === 0)) {
-    return sendNotification(dispatch, 'Error', 'notes.empty_fields');
-  } else if (courseNoteDetails.id) {
-    return saveCourseNote(courseNoteDetails, dispatch);
-  }
-
-  createCourseNote(courseId, courseNoteDetails, dispatch);
-};
 
 // Action creator to delete a course note from the list based on its ID
 export const deleteNoteFromList = noteId => async (dispatch) => {
