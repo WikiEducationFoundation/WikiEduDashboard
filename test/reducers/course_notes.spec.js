@@ -81,36 +81,6 @@ describe('courseNotes reducer', () => {
     });
   });
 
-  it('should handle PERSISTED_COURSE_NOTE', () => {
-    const currentState = {
-      notes_list: [],
-      note: initialState.note,
-    };
-
-    const persistedNote = { id: 1, title: 'Persisted Title', text: 'Persisted Text' };
-    const action = { type: types.PERSISTED_COURSE_NOTE, note: persistedNote };
-
-    expect(courseNotesReducer(currentState, action)).toEqual({
-      ...currentState,
-      note: { ...currentState.note, ...persistedNote },
-    });
-  });
-
-  it('should handle RESET_TO_ORIGINAL_NOTE', () => {
-    const currentState = {
-      notes_list: [],
-      note: { title: 'Current Title', text: 'Current Text' },
-    };
-
-    const originalNote = { title: 'Original Title', text: 'Original Text' };
-    const action = { type: types.RESET_TO_ORIGINAL_NOTE, note: originalNote };
-
-    expect(courseNotesReducer(currentState, action)).toEqual({
-      ...currentState,
-      note: { ...originalNote },
-    });
-  });
-
   it('should handle RESET_NOTE_TO_DEFAULT', () => {
     const currentState = {
       notes_list: [{ id: 1, title: 'Note 1' }],

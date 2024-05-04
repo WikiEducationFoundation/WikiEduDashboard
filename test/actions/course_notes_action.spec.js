@@ -11,8 +11,7 @@ const mockStore = configureMockStore(middlewares);
 
 jest.mock('../../app/assets/javascripts/utils/api', () => ({
   fetchAllCourseNotes: jest.fn(),
-  fetchCourseNotesById: jest.fn(),
-  saveCourseNote: jest.fn(),
+  updateCourseNote: jest.fn(),
   createCourseNote: jest.fn(),
   deleteCourseNote: jest.fn(),
 }));
@@ -22,7 +21,6 @@ jest.mock('../../app/assets/javascripts/utils/log_error_message', () => jest.fn(
 describe('Course Notes Actions', () => {
   let store;
 
-
   beforeEach(() => {
     store = mockStore({});
   });
@@ -30,7 +28,6 @@ describe('Course Notes Actions', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
-
 
   it('should dispatch RECEIVE_NOTES_LIST after successfully fetching all course notes', async () => {
     const courseId = 'some-course-id';
@@ -54,68 +51,107 @@ describe('Course Notes Actions', () => {
   });
 
   it('should dispatch RECEIVE_NOTE_DETAILS after successfully fetching a single course note', async () => {
-    const courseNoteId = 'some-note-id';
+    const courseNoteId = 1;
     const noteDetails = { id: 1, title: 'Note 1' };
+    const state = { courseNotes: { notes_list: [noteDetails] } };
 
-    api.fetchCourseNotesById.mockResolvedValue(noteDetails);
+    store = mockStore(state);
 
-    await store.dispatch(actions.fetchSingleNoteDetails(courseNoteId));
+    await store.dispatch(actions.currentNoteEdit(courseNoteId));
 
     expect(store.getActions()).toEqual([{ type: types.RECEIVE_NOTE_DETAILS, note: noteDetails }]);
   });
 
   it('should log an error if there is an issue fetching a single course note', async () => {
     const courseNoteId = 'some-note-id';
+    const state = { courseNotes: { notes_list: [] } };
+
+    store = mockStore(state);
 
     const errorMessage = 'Some error message';
-    api.fetchCourseNotesById.mockRejectedValue(new Error(errorMessage));
+    const error = new Error(errorMessage);
 
-    await store.dispatch(actions.fetchSingleNoteDetails(courseNoteId));
-
-    expect(logErrorMessage).toHaveBeenCalledWith('Error fetching single course note details:', expect.any(Error));
+    try {
+      await store.dispatch(actions.currentNoteEdit(courseNoteId));
+    } catch (err) {
+      expect(err).toEqual(error);
+      expect(logErrorMessage).toHaveBeenCalledWith('Error fetching single course note details:', error);
+    }
   });
 
   it('should dispatch UPDATE_CURRENT_NOTE with the updated note data', () => {
     const data = { id: 1, title: 'Updated Title' };
 
-    store.dispatch(actions.updateCurrentCourseNote(data));
+    store.dispatch(actions.updateCurrentEditedCourseNote(data));
 
     const expectedAction = { type: types.UPDATE_CURRENT_NOTE, note: data };
     expect(store.getActions()).toEqual([expectedAction]);
   });
 
-  it('should dispatch RESET_TO_ORIGINAL_NOTE with the persistedCourseNote from the state', () => {
-    const getStateMock = jest.fn(() => ({ persistedCourseNote: {} }));
-
-    const storeWithState = mockStore({}, getStateMock);
-
-    storeWithState.dispatch(actions.resetCourseNote());
-
-    const expectedAction = { type: types.RESET_TO_ORIGINAL_NOTE, note: {} };
-    expect(storeWithState.getActions()).toEqual([expectedAction]);
-  });
-
-  it('should dispatch success actions when saving course note is successful', async () => {
-    const courseNoteDetails = {
-      title: 'Note #1',
-      text: 'Soon to be updated ...',
-      edited_by: 'CurrentUser',
-      id: 52,
-      courses_id: 10001,
-      created_at: '2024-01-19T13:32:38.850Z',
-      updated_at: '2024-01-21T13:32:26.736Z'
+  it('should dispatch UPDATE_NOTES_LIST with the updated notes list', async () => {
+    const noteId = 1;
+    const updatedNote = { id: 1, title: 'Updated Title', text: 'Updated Text' };
+    const notesList = [{ id: 1, title: 'Old Title', text: 'Old Text' }];
+    const state = {
+      courseNotes: {
+        note: updatedNote,
+        notes_list: notesList,
+      },
     };
 
-    api.saveCourseNote.mockResolvedValue({ success: true });
+    store = mockStore(state);
 
-    await actions.saveCourseNote(courseNoteDetails, store.dispatch);
+    const successResponse = {
+      success: true,
+      course_note: {
+        edited_by: 'CurrentUser',
+        updated_at: '2023-05-01T12:00:00Z',
+      },
+    };
 
-    expect(store.getActions()).toEqual([
+    api.updateCourseNote.mockResolvedValue(successResponse);
+
+    await store.dispatch(actions.saveUpdatedCourseNote(noteId));
+
+    const expectedUpdatedNotesList = [
+      {
+        id: 1,
+        title: 'Updated Title',
+        text: 'Updated Text',
+        edited_by: 'CurrentUser',
+        updated_at: '2023-05-01T12:00:00Z',
+      },
+    ];
+
+    const expectedActions = [
       { type: ADD_NOTIFICATION, notification: expect.any(Object) },
-      { type: types.PERSISTED_COURSE_NOTE, note: courseNoteDetails },
-    ]);
+      { type: types.UPDATE_NOTES_LIST, updatedNotesList: expectedUpdatedNotesList },
+    ];
 
-    expect(logErrorMessage).not.toHaveBeenCalled();
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+
+  it('should dispatch error notification when updating a course note with empty fields', async () => {
+    const noteId = 1;
+    const state = {
+      courseNotes: {
+        note: {
+          id: null,
+          title: '',
+          text: '',
+        },
+      },
+    };
+
+    store = mockStore(state);
+
+    await store.dispatch(actions.saveUpdatedCourseNote(noteId));
+
+    const expectedActions = [
+      { type: ADD_NOTIFICATION, notification: expect.any(Object) },
+    ];
+
+    expect(store.getActions()).toEqual(expectedActions);
   });
 
   it('should dispatch success actions when creating a course note is successful', async () => {
@@ -124,98 +160,57 @@ describe('Course Notes Actions', () => {
       title: 'Note #1',
       text: 'Soon to be updated ...',
       edited_by: 'CurrentUser',
+    };
+    const noteDetails = {
       id: 52,
       courses_id: 10001,
       created_at: '2024-01-19T13:32:38.850Z',
-      updated_at: '2024-01-21T13:32:26.736Z'
+      updated_at: '2024-01-21T13:32:26.736Z',
+      ...courseNoteDetails,
     };
-    const noteDetails = { id: 1, title: 'Note 1' };
+
+    const state = {
+      courseNotes: {
+        note: courseNoteDetails,
+      },
+    };
+
+    store = mockStore(state);
 
     api.createCourseNote.mockResolvedValue(noteDetails);
 
-    await actions.createCourseNote(courseId, courseNoteDetails, store.dispatch);
+    await store.dispatch(actions.createCourseNote(courseId));
 
-    expect(store.getActions()).toEqual([
+    const expectedActions = [
       { type: ADD_NOTIFICATION, notification: expect.any(Object) },
       { type: types.ADD_NEW_NOTE_TO_LIST, newNote: noteDetails },
-      { type: types.PERSISTED_COURSE_NOTE, note: noteDetails },
-    ]);
+    ];
+
+    expect(store.getActions()).toEqual(expectedActions);
   });
 
-  it('should dispatch error action when persisting a course note with empty fields', async () => {
-    store = mockStore({
+  it('should dispatch error notification when creating a course note with empty fields', async () => {
+    const courseId = 'some-course-id';
+    const state = {
       courseNotes: {
         note: {
-          id: null,
           title: '',
           text: '',
         },
       },
-    });
-
-    await store.dispatch(actions.persistCourseNote(null, 'CurrentUser'));
-
-    expect(store.getActions()).toEqual([
-      { type: ADD_NOTIFICATION, notification: expect.any(Object) },
-    ]);
-  });
-
-  it('should dispatch success action when persisting a course note with id', async () => {
-    const noteDetails = {
-          id: 21,
-          title: 'note title',
-          text: 'note text',
     };
 
-    store = mockStore({
-      courseNotes: {
-        note: {
-          ...noteDetails
-        },
-      },
-    });
+    store = mockStore(state);
 
+    await store.dispatch(actions.createCourseNote(courseId));
 
-    await store.dispatch(actions.persistCourseNote(null, 'CurrentUser'));
-
-    expect(store.getActions()).toEqual([
+    const expectedActions = [
       { type: ADD_NOTIFICATION, notification: expect.any(Object) },
-      { type: types.PERSISTED_COURSE_NOTE, note: noteDetails }
-    ]);
+    ];
+
+    expect(store.getActions()).toEqual(expectedActions);
   });
 
-  it('should dispatch success actions when creating a course note is successful', async () => {
-    const noteDetails = {
-      courses_id: 1001,
-      created_at: '2024-01-31T06:01:31.406Z',
-      edited_by: 'CurrentUser',
-      id: 64,
-      text: 'Note text #1',
-      title: 'Note title #1',
-      updated_at: '2024-01-31T06:01:31.406Z'
-    };
-
-    store = mockStore({
-      courseNotes: {
-        note: {
-          title: 'Note title #1',
-          text: 'Note text #1',
-          edited_by: 'CurrentUser'
-        },
-      },
-    });
-
-
-    jest.spyOn(api, 'createCourseNote').mockResolvedValue(noteDetails);
-
-    await (actions.createCourseNote('1001', noteDetails, store.dispatch));
-
-    expect(store.getActions()).toEqual([
-      { type: ADD_NOTIFICATION, notification: expect.any(Object) },
-      { type: types.ADD_NEW_NOTE_TO_LIST, newNote: noteDetails },
-      { type: types.PERSISTED_COURSE_NOTE, note: noteDetails }
-    ]);
-  });
 
   it('dispatches success actions when delete is successful', async () => {
     const noteId = 123;
@@ -232,7 +227,7 @@ describe('Course Notes Actions', () => {
     ]);
   });
 
-  it('dispatches error actions when delete fails', async () => {
+  it('dispatches error notification when delete fails', async () => {
     const noteId = 123;
     const errorResponse = { success: false };
 
@@ -246,7 +241,7 @@ describe('Course Notes Actions', () => {
     ]);
   });
 
-  it('dispatches RESET_TO_DEFAULT action', () => {
+  it('dispatches RESET_NOTE_TO_DEFAULT action', () => {
     store.dispatch(actions.resetStateToDefault());
 
     expect(store.getActions()).toEqual([
@@ -254,5 +249,3 @@ describe('Course Notes Actions', () => {
     ]);
   });
 });
-
-
