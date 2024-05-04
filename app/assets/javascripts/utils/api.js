@@ -268,22 +268,6 @@ const API = {
     }
   },
 
-  async fetchCourseNotesById(courseNoteId = null) {
-    try {
-        if (courseNoteId === null) {
-            throw new Error('courseNoteId must be provided');
-        }
-
-        const url = `/course_notes/${courseNoteId}/find_course_note`;
-        const response = await request(url);
-        const data = await response.json();
-        return data.courseNote;
-    } catch (error) {
-        logErrorMessage('Error fetching course note by ID:', error);
-        throw error;
-    }
-  },
-
   // /////////
   // Setters #
   // /////////
@@ -363,7 +347,7 @@ const API = {
     return response.json();
   },
 
-  async saveCourseNote(courseNoteDetails) {
+  async updateCourseNote(courseNoteDetails) {
     try {
         const response = await request(`/course_notes/${courseNoteDetails.id}`, {
             method: 'PUT',
