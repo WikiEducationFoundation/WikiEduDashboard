@@ -102,7 +102,7 @@ const NotesRow = ({ notesList }) => {
             <TextAreaInput
               onChange={updateNoteTitle}
               value={note.title}
-              placeholder={'placeHolder'}
+              placeholder={'Note Title'}
               valueKey={'key'}
               editable={isEditing}
               markdown
@@ -135,7 +135,7 @@ const NotesRow = ({ notesList }) => {
               <TextAreaInput
                 onChange={updateNoteText}
                 value={note.text}
-                placeholder={'placeHolder'}
+                placeholder={'Note Text'}
                 valueKey={'key'}
                 editable={isEditing}
                 markdown
