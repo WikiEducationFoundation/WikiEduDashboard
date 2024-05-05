@@ -197,7 +197,7 @@ Rails.application.routes.draw do
   end
 
   # Course Notes
-  resources :course_notes, constraints: { id: /\d+/ } do
+  resources :admin_course_notes, constraints: { id: /\d+/ } do
     get 'find_course_note', on: :member
   end
 

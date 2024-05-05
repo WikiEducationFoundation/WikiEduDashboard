@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteNoteFromList, updateCurrentEditedCourseNote, currentNoteEdit, resetStateToDefault, saveUpdatedCourseNote } from '../../actions/course_notes_action';
+import { deleteAdminNoteFromList, updateCurrentEditedAdminCourseNote, currentAdminNoteEdit, resetStateToDefault, saveUpdatedAdminCourseNote } from '../../actions/admin_course_notes_action';
 import { initiateConfirm } from '../../actions/confirm_actions';
 import { format, toDate, parseISO } from 'date-fns';
 import TextAreaInput from '../common/text_area_input';
@@ -15,7 +15,7 @@ const NotesRow = ({ notesList }) => {
   // Function to handle note deletion
   const deleteNote = (noteId) => {
     const onConfirmDelete = () => {
-      dispatch(deleteNoteFromList(noteId));
+      dispatch(deleteAdminNoteFromList(noteId));
     };
     const confirmMessage = I18n.t('notes.delete_note_confirmation');
     dispatch(initiateConfirm({ confirmMessage, onConfirm: onConfirmDelete }));
@@ -23,12 +23,12 @@ const NotesRow = ({ notesList }) => {
 
   // Function to update the note text
   const updateNoteText = (_, value) => {
-    dispatch(updateCurrentEditedCourseNote({ text: value }));
+    dispatch(updateCurrentEditedAdminCourseNote({ text: value }));
   };
 
   // Function to update the note title
   const updateNoteTitle = (_, value) => {
-    dispatch(updateCurrentEditedCourseNote({ title: value }));
+    dispatch(updateCurrentEditedAdminCourseNote({ title: value }));
   };
 
   // Function to handle clicking on a table row
@@ -47,12 +47,12 @@ const NotesRow = ({ notesList }) => {
     setEditNoteId(noteId);
     setShowNoteTextId(noteId);
     dispatch(resetStateToDefault());
-    dispatch(currentNoteEdit(noteId));
+    dispatch(currentAdminNoteEdit(noteId));
   };
 
   // Function to handle clicking on the save button
   const onNotesEditSaveButtonClickHandler = (noteId) => {
-    dispatch(saveUpdatedCourseNote(noteId));
+    dispatch(saveUpdatedAdminCourseNote(noteId));
     setEditNoteId(null);
   };
 

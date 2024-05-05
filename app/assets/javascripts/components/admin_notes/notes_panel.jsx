@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchAllCourseNotes, createCourseNote, resetStateToDefault } from '../../actions/course_notes_action';
+import { fetchAllAdminCourseNotes, createAdminCourseNote, resetStateToDefault } from '../../actions/admin_course_notes_action';
 import NotesList from './notes_list';
 import NotesCreator from './notes_creator';
 
@@ -10,7 +10,7 @@ const NotesPanel = () => {
   const [isNoteCreationActive, setIsNoteCreationActive] = useState(false);
 
   // Get the list of course notes and the current course from the Redux store
-  const notesList = useSelector(state => state.courseNotes.notes_list);
+  const notesList = useSelector(state => state.adminCourseNotes.notes_list);
   const course = useSelector(state => state.course);
 
   // Get the dispatch function from the Redux store
@@ -20,7 +20,7 @@ const NotesPanel = () => {
   useEffect(() => {
     // Define a function to fetch the course notes
     const fetchData = () => {
-      dispatch(fetchAllCourseNotes(course.id));
+      dispatch(fetchAllAdminCourseNotes(course.id));
     };
 
     // Fetch the data and set up a polling interval to fetch data periodically (every 60 seconds)
@@ -33,7 +33,7 @@ const NotesPanel = () => {
 
   const onClickCreateNotesHandler = (courseId) => {
     setIsNoteCreationActive(false);
-    dispatch(createCourseNote(courseId));
+    dispatch(createAdminCourseNote(courseId));
     dispatch(resetStateToDefault());
   };
 

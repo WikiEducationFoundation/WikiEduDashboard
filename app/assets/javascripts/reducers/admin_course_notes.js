@@ -16,7 +16,7 @@ const initialState = {
    },
 };
 
-export default function courseNotes(state = initialState, action) {
+export default function adminCourseNotes(state = initialState, action) {
    switch (action.type) {
       case RECEIVE_NOTES_LIST:
          return { ...state, notes_list: action.notes_list };

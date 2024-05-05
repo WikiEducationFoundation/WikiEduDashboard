@@ -1,17 +1,17 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { updateCurrentEditedCourseNote } from '../../actions/course_notes_action';
+import { updateCurrentEditedAdminCourseNote } from '../../actions/admin_course_notes_action';
 import TextAreaInput from '../common/text_area_input.jsx';
 
 const NotesCreator = () => {
   const dispatch = useDispatch();
 
   const updateNoteText = (_valueKey, value) => {
-    dispatch(updateCurrentEditedCourseNote({ text: value }));
+    dispatch(updateCurrentEditedAdminCourseNote({ text: value }));
   };
 
   const updateNoteTitle = (_valueKey, value) => {
-    dispatch(updateCurrentEditedCourseNote({ title: value }));
+    dispatch(updateCurrentEditedAdminCourseNote({ title: value }));
   };
 
   const textAreaInputComponent = (onChange, placeHolder, key) => (

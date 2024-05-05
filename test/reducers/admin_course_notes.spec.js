@@ -1,4 +1,4 @@
-import courseNotesReducer from '../../app/assets/javascripts/reducers/course_notes';
+import courseNotesReducer from '../../app/assets/javascripts/reducers/admin_course_notes';
 import * as types from '../../app/assets/javascripts/constants';
 
 describe('courseNotes reducer', () => {

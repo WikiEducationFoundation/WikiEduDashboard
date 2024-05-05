@@ -26,19 +26,19 @@ const sendNotification = (dispatch, type, messageKey, dynamicValue) => {
   });
 };
 
-// Action creator to fetch all course notes for a given courseId
-export const fetchAllCourseNotes = courseId => async (dispatch) => {
+// Action creator to fetch all admin course notes for a given courseId
+export const fetchAllAdminCourseNotes = courseId => async (dispatch) => {
   try {
-    const notesList = await API.fetchAllCourseNotes(courseId);
+    const notesList = await API.fetchAllAdminCourseNotes(courseId);
     dispatch({ type: RECEIVE_NOTES_LIST, notes_list: notesList });
   } catch (error) {
     logErrorMessage('Error fetching course notes:', error);
   }
 };
 
-// Action creator to fetch details of a note currently being edited
-export const currentNoteEdit = courseNoteId => async (dispatch, getState) => {
-  const note = getState().courseNotes.notes_list.find(courseNote => courseNote.id === courseNoteId);
+// Action creator to fetch details of a admin course note currently being edited
+export const currentAdminNoteEdit = adminCourseNoteId => async (dispatch, getState) => {
+  const note = getState().adminCourseNotes.notes_list.find(adminCourseNote => adminCourseNote.id === adminCourseNoteId);
   try {
     dispatch({ type: RECEIVE_NOTE_DETAILS, note });
   } catch (error) {
@@ -46,32 +46,32 @@ export const currentNoteEdit = courseNoteId => async (dispatch, getState) => {
   }
 };
 
-// Action creator to update the current course note title or text with new data
-export const updateCurrentEditedCourseNote = data => (dispatch) => {
+// Action creator to update the current admin course note title or text with new data
+export const updateCurrentEditedAdminCourseNote = data => (dispatch) => {
   dispatch({ type: UPDATE_CURRENT_NOTE, note: { ...data } });
 };
 
 // Action creator to save the updated current course note to Database
-export const saveUpdatedCourseNote = noteId => async (dispatch, getState) => {
-   const courseNoteDetails = { ...getState().courseNotes.note, id: noteId };
+export const saveUpdatedAdminCourseNote = noteId => async (dispatch, getState) => {
+   const adminCourseNoteDetails = { ...getState().adminCourseNotes.note, id: noteId };
 
-  if ((courseNoteDetails.title.trim().length === 0) || (courseNoteDetails.text.trim().length === 0)) {
+  if ((adminCourseNoteDetails.title.trim().length === 0) || (adminCourseNoteDetails.text.trim().length === 0)) {
     return sendNotification(dispatch, 'Error', 'notes.empty_fields');
   }
 
-  const status = await API.updateCourseNote(courseNoteDetails);
+  const status = await API.saveUpdatedAdminCourseNote(adminCourseNoteDetails);
 
   if (status?.success) {
     sendNotification(dispatch, 'Success', 'notes.updated');
 
-    const updatedNotesList = getState().courseNotes.notes_list.map((note) => {
+    const updatedNotesList = getState().adminCourseNotes.notes_list.map((note) => {
         if (note.id === noteId) {
           return {
             ...note,
-            title: getState().courseNotes.note.title,
-            text: getState().courseNotes.note.text,
-            edited_by: status.course_note.edited_by,
-            updated_at: status.course_note.updated_at
+            title: getState().adminCourseNotes.note.title,
+            text: getState().adminCourseNotes.note.text,
+            edited_by: status.admin_course_note.edited_by,
+            updated_at: status.admin_course_note.updated_at
           };
         }
         return note;
@@ -85,15 +85,15 @@ export const saveUpdatedCourseNote = noteId => async (dispatch, getState) => {
   }
 };
 
-// Action creator to create a new course note for a given courseId
-export const createCourseNote = courseId => async (dispatch, getState) => {
-  const courseNoteDetails = { ...getState().courseNotes.note };
+// Action creator to create a new admin course note for a given courseId
+export const createAdminCourseNote = courseId => async (dispatch, getState) => {
+  const adminCourseNoteDetails = { ...getState().adminCourseNotes.note };
 
-  if ((courseNoteDetails.title.trim().length === 0) || (courseNoteDetails.text.trim().length === 0)) {
+  if ((adminCourseNoteDetails.title.trim().length === 0) || (adminCourseNoteDetails.text.trim().length === 0)) {
     return sendNotification(dispatch, 'Error', 'notes.empty_fields');
   }
 
-  const noteDetails = await API.createCourseNote(courseId, courseNoteDetails);
+  const noteDetails = await API.createAdminCourseNote(courseId, adminCourseNoteDetails);
 
   if (noteDetails?.id) {
     sendNotification(dispatch, 'Success', 'notes.created');
@@ -107,8 +107,8 @@ export const createCourseNote = courseId => async (dispatch, getState) => {
 
 
 // Action creator to delete a course note from the list based on its ID
-export const deleteNoteFromList = noteId => async (dispatch) => {
-  const status = await API.deleteCourseNote(noteId);
+export const deleteAdminNoteFromList = noteId => async (dispatch) => {
+  const status = await API.deleteAdminCourseNote(noteId);
 
   if (status?.success) {
     sendNotification(dispatch, 'Success', 'notes.deleted');
@@ -118,7 +118,7 @@ export const deleteNoteFromList = noteId => async (dispatch) => {
   }
 };
 
-// Action creator to reset the state of the course note to its default values
+// Action creator to reset the state of the admin course note to its default values
 export const resetStateToDefault = () => (dispatch) => {
   dispatch({ type: RESET_NOTE_TO_DEFAULT });
 };
