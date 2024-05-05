@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CourseNote < ApplicationRecord
+class AdminCourseNote < ApplicationRecord
   belongs_to :course, foreign_key: 'courses_id'
 
   validates :courses_id, presence: true
