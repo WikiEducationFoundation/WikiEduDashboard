@@ -7,10 +7,6 @@ import {
 
 const initialState = {
    notes_list: [],
-   note: {
-      title: '',
-      text: '',
-   },
 };
 
 export default function adminCourseNotes(state = initialState, action) {

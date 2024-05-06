@@ -4,10 +4,6 @@ import * as types from '../../app/assets/javascripts/constants';
 describe('courseNotes reducer', () => {
   const initialState = {
     notes_list: [],
-    note: {
-      title: '',
-      text: '',
-    },
   };
 
   it('should return the initial state', () => {
