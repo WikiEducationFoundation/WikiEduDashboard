@@ -9,7 +9,7 @@ const NotesPanel = () => {
   const [isModalOpen, setIsModalOpen] = useState(null);
   const [isNoteCreationActive, setIsNoteCreationActive] = useState(false);
 
-  // State Variables to store current value note during creation or update/Edit
+  // State Variables to store current value note during creation
   const [noteTitle, setTitle] = useState('');
   const [noteText, setText] = useState('');
 

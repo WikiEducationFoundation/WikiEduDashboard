@@ -33,7 +33,7 @@ export const fetchAllAdminCourseNotes = courseId => async (dispatch) => {
   }
 };
 
-// Action creator to save the updated/Edited current course note to Database
+// Action creator to save the updated/Edited admin course note to Database
 export const saveUpdatedAdminCourseNote = adminCourseNoteDetails => async (dispatch, getState) => {
   if ((adminCourseNoteDetails.title.trim().length === 0) || (adminCourseNoteDetails.text.trim().length === 0)) {
     return sendNotification(dispatch, 'Error', 'notes.empty_fields');
