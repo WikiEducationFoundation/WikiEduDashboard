@@ -26,7 +26,7 @@ RSpec.describe AdminCourseNotesController, type: :controller do
     let(:admin_course_note) { create(:admin_course_note) }
 
     it 'updates the admin course note and returns success' do
-      patch :update, 
+      patch :update,
             params: { id: admin_course_note.id, admin_course_note: { title: 'Updated Title' } }
 
       expect(response).to be_successful
@@ -37,7 +37,7 @@ RSpec.describe AdminCourseNotesController, type: :controller do
 
     it 'returns unprocessable entity on update failure' do
       allow_any_instance_of(AdminCourseNote).to receive(:update_note).and_return(false)
-      patch :update, 
+      patch :update,
             params: { id: admin_course_note.id, admin_course_note: { title: 'Updated Title' } }
 
       expect(response).to have_http_status(:unprocessable_entity)
