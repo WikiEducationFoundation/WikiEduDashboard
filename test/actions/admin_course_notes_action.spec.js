@@ -2,7 +2,7 @@ import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 import logErrorMessage from '../../app/assets/javascripts/utils/log_error_message';
 import * as actions from '../../app/assets/javascripts/actions/admin_course_notes_action';
-import * as types from '../../app/assets/javascripts/constants/notes';
+import * as types from '../../app/assets/javascripts/constants/admin_course_notes';
 import * as api from '../../app/assets/javascripts/utils/api';
 import { ADD_NOTIFICATION } from '../../app/assets/javascripts/constants';
 
@@ -50,76 +50,26 @@ describe('Course Notes Actions', () => {
     expect(logErrorMessage).toHaveBeenCalledWith('Error fetching course notes:', expect.any(Error));
   });
 
-  it('should dispatch RECEIVE_NOTE_DETAILS with the correct note after successfully fetching a single course note', async () => {
-      const adminCourseNoteId = 1;
-      const noteDetails = { id: 1, title: 'Note 1' };
-      const initialState = {
-        adminCourseNotes: {
-          notes_list: [noteDetails]
-        }
-      };
-      store = mockStore(initialState);
-
-      await store.dispatch(actions.currentAdminNoteEdit(adminCourseNoteId));
-
-      const expectedActions = [
-        { type: types.RECEIVE_NOTE_DETAILS, note: noteDetails }
-      ];
-      expect(store.getActions()).toEqual(expectedActions);
-  });
-
-  it('should log an error if there is an issue fetching a single course note', async () => {
-    const courseNoteId = 'some-note-id';
-    const initialState = {
-      adminCourseNotes: {
-        notes_list: []
-      }
-    };
-    store = mockStore(initialState);
-    const errorMessage = 'Some error message';
-    const error = new Error(errorMessage);
-
-    const mockLogErrorMessage = jest.fn(); // Create a mock function
-
-    try {
-      await store.dispatch(actions.currentAdminNoteEdit(courseNoteId, mockLogErrorMessage));
-    } catch (err) {
-      expect(err).toEqual(error);
-      expect(mockLogErrorMessage).toHaveBeenCalledWith('Error fetching single course note details:', error);
-    }
-  });
-
-  it('should dispatch UPDATE_CURRENT_NOTE with the updated note data', () => {
-    const data = { id: 1, title: 'Updated Title' };
-
-    store.dispatch(actions.updateCurrentEditedAdminCourseNote(data));
-
-    const expectedAction = { type: types.UPDATE_CURRENT_NOTE, note: data };
-    expect(store.getActions()).toEqual([expectedAction]);
-  });
-
   it('should dispatch UPDATE_NOTES_LIST with the updated notes list', async () => {
-    const noteId = 1;
-    const updatedNote = { id: 1, title: 'Updated Title', text: 'Updated Text' };
+    const adminCourseNoteDetails = { id: 1, title: 'Updated Title', text: 'Updated Text' };
     const notesList = [{ id: 1, title: 'Old Title', text: 'Old Text' }];
     const initialState = {
       adminCourseNotes: {
-        note: updatedNote,
         notes_list: notesList,
       },
     };
     store = mockStore(initialState);
 
-    const successResponse = {
+    const status = {
       success: true,
       admin_course_note: {
         edited_by: 'CurrentUser',
         updated_at: '2023-05-01T12:00:00Z',
       },
     };
-    jest.spyOn(api, 'saveUpdatedAdminCourseNote').mockResolvedValue(successResponse);
+    jest.spyOn(api, 'saveUpdatedAdminCourseNote').mockResolvedValue(status);
 
-    await store.dispatch(actions.saveUpdatedAdminCourseNote(noteId));
+    await store.dispatch(actions.saveUpdatedAdminCourseNote(adminCourseNoteDetails));
 
     const expectedUpdatedNotesList = [
       {
@@ -138,20 +88,15 @@ describe('Course Notes Actions', () => {
   });
 
   it('should dispatch error notification when updating a course note with empty fields', async () => {
-    const noteId = 1;
-    const state = {
+    const adminCourseNoteDetails = { id: 1, title: '', text: '' };
+    const initialState = {
       adminCourseNotes: {
-        note: {
-          id: null,
-          title: '',
-          text: '',
-        },
         notes_list: [],
       },
     };
-    store = mockStore(state);
+    store = mockStore(initialState);
 
-    await store.dispatch(actions.saveUpdatedAdminCourseNote(noteId));
+    await store.dispatch(actions.saveUpdatedAdminCourseNote(adminCourseNoteDetails));
 
     const expectedActions = [
       { type: ADD_NOTIFICATION, notification: expect.any(Object) },
@@ -159,31 +104,29 @@ describe('Course Notes Actions', () => {
     expect(store.getActions()).toEqual(expectedActions);
   });
 
-
   it('should dispatch success actions when creating a course note is successful', async () => {
     const courseId = 'some-course-id';
-    const courseNoteDetails = {
+    const adminCourseNoteDetails = {
       title: 'Note #1',
       text: 'Soon to be updated ...',
-      edited_by: 'CurrentUser',
     };
     const noteDetails = {
       id: 52,
       courses_id: 10001,
       created_at: '2024-01-19T13:32:38.850Z',
       updated_at: '2024-01-21T13:32:26.736Z',
-      ...courseNoteDetails,
+      ...adminCourseNoteDetails,
     };
     const initialState = {
       adminCourseNotes: {
-        note: courseNoteDetails,
+        note: adminCourseNoteDetails,
       },
     };
     store = mockStore(initialState);
 
     api.createAdminCourseNote.mockResolvedValue(noteDetails);
 
-    await store.dispatch(actions.createAdminCourseNote(courseId));
+    await store.dispatch(actions.createAdminCourseNote(courseId, adminCourseNoteDetails));
 
     const expectedActions = [
       { type: ADD_NOTIFICATION, notification: expect.any(Object) },
@@ -194,17 +137,15 @@ describe('Course Notes Actions', () => {
 
   it('should dispatch error notification when creating a course note with empty fields', async () => {
     const courseId = 'some-course-id';
+    const adminCourseNoteDetails = { title: '', text: '' };
     const initialState = {
       adminCourseNotes: {
-        note: {
-          title: '',
-          text: '',
-        },
+        note: adminCourseNoteDetails,
       },
     };
     store = mockStore(initialState);
 
-    await store.dispatch(actions.createAdminCourseNote(courseId));
+    await store.dispatch(actions.createAdminCourseNote(courseId, adminCourseNoteDetails));
 
     const expectedActions = [
       { type: ADD_NOTIFICATION, notification: expect.any(Object) },
@@ -214,9 +155,9 @@ describe('Course Notes Actions', () => {
 
   it('dispatches success actions when delete is successful', async () => {
     const noteId = 123;
-    const successResponse = { success: true };
+    const status = { success: true };
 
-    api.deleteAdminCourseNote.mockResolvedValue(successResponse);
+    api.deleteAdminCourseNote.mockResolvedValue(status);
 
     await store.dispatch(actions.deleteAdminNoteFromList(noteId));
 
@@ -229,23 +170,15 @@ describe('Course Notes Actions', () => {
 
   it('dispatches error notification when delete fails', async () => {
     const noteId = 123;
-    const errorResponse = { success: false };
+    const status = { success: false };
 
-    api.deleteAdminCourseNote.mockResolvedValue(errorResponse);
+    api.deleteAdminCourseNote.mockResolvedValue(status);
 
     await store.dispatch(actions.deleteAdminNoteFromList(noteId));
 
     expect(api.deleteAdminCourseNote).toHaveBeenCalledWith(noteId);
     expect(store.getActions()).toEqual([
       { type: ADD_NOTIFICATION, notification: expect.any(Object) },
-    ]);
-  });
-
-  it('dispatches RESET_NOTE_TO_DEFAULT action', () => {
-    store.dispatch(actions.resetStateToDefault());
-
-    expect(store.getActions()).toEqual([
-      { type: types.RESET_NOTE_TO_DEFAULT },
     ]);
   });
 });

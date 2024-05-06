@@ -51,51 +51,12 @@ describe('courseNotes reducer', () => {
     });
   });
 
-  it('should handle RECEIVE_NOTE_DETAILS', () => {
-    const currentState = {
-      notes_list: [],
-      note: initialState.note,
-    };
-
-    const noteDetails = { id: 1, title: 'Note 1', text: 'Note Text', edited_by: 'User' };
-    const action = { type: types.RECEIVE_NOTE_DETAILS, note: noteDetails };
-
-    expect(courseNotesReducer(currentState, action)).toEqual({
-      ...currentState,
-      note: { ...currentState.note, ...noteDetails },
-    });
-  });
-
-  it('should handle UPDATE_CURRENT_NOTE', () => {
-    const currentState = {
-      notes_list: [],
-      note: { title: 'Old Title', text: 'Old Text', edited_by: 'User' },
-    };
-
-    const updatedNote = { title: 'New Title', text: 'New Text' };
-    const action = { type: types.UPDATE_CURRENT_NOTE, note: updatedNote };
-
-    expect(courseNotesReducer(currentState, action)).toEqual({
-      ...currentState,
-      note: { ...currentState.note, ...updatedNote },
-    });
-  });
-
-  it('should handle RESET_NOTE_TO_DEFAULT', () => {
-    const currentState = {
-      notes_list: [{ id: 1, title: 'Note 1' }],
-      note: {
-        title: 'Note Title',
-        text: 'Note Text',
-        edited_by: 'User',
-      },
-    };
-
-    const action = { type: types.RESET_NOTE_TO_DEFAULT };
-
-    expect(courseNotesReducer(currentState, action)).toEqual({
-      ...currentState,
-      note: initialState.note,
+  it('should handle UPDATE_NOTES_LIST', () => {
+    const updatedNotesList = [{ id: 1, title: 'Updated Note 1' }];
+    const action = { type: types.UPDATE_NOTES_LIST, updatedNotesList };
+    expect(courseNotesReducer(initialState, action)).toEqual({
+      ...initialState,
+      notes_list: updatedNotesList,
     });
   });
 });

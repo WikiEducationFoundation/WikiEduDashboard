@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteAdminNoteFromList, updateCurrentEditedAdminCourseNote, currentAdminNoteEdit, resetStateToDefault, saveUpdatedAdminCourseNote } from '../../actions/admin_course_notes_action';
+import { deleteAdminNoteFromList, saveUpdatedAdminCourseNote } from '../../actions/admin_course_notes_action';
 import { initiateConfirm } from '../../actions/confirm_actions';
 import { format, toDate, parseISO } from 'date-fns';
 import TextAreaInput from '../common/text_area_input';
@@ -9,6 +9,8 @@ const NotesRow = ({ notesList }) => {
   // State variables to keep track of the currently edited note and the note with expanded text
   const [editNoteId, setEditNoteId] = useState(null);
   const [showNoteTextId, setShowNoteTextId] = useState(null);
+  const [noteText, setNoteText] = useState('');
+  const [noteTitle, setNoteTitle] = useState('');
 
   const dispatch = useDispatch();
 
@@ -23,12 +25,12 @@ const NotesRow = ({ notesList }) => {
 
   // Function to update the note text
   const updateNoteText = (_, value) => {
-    dispatch(updateCurrentEditedAdminCourseNote({ text: value }));
+    setNoteText(value);
   };
 
   // Function to update the note title
   const updateNoteTitle = (_, value) => {
-    dispatch(updateCurrentEditedAdminCourseNote({ title: value }));
+    setNoteTitle(value);
   };
 
   // Function to handle clicking on a table row
@@ -42,24 +44,23 @@ const NotesRow = ({ notesList }) => {
     }
   };
 
-  // Function to handle clicking on the edit button
-  const onNotesEditButtonClickHandler = (noteId) => {
+  // Function to handle clicking on the edit note button
+  const onNotesEditButtonClickHandler = (noteId, title, text) => {
     setEditNoteId(noteId);
     setShowNoteTextId(noteId);
-    dispatch(resetStateToDefault());
-    dispatch(currentAdminNoteEdit(noteId));
+    setNoteTitle(title);
+    setNoteText(text);
   };
 
-  // Function to handle clicking on the save button
+  // Function to handle clicking on the save note button
   const onNotesEditSaveButtonClickHandler = (noteId) => {
-    dispatch(saveUpdatedAdminCourseNote(noteId));
+    dispatch(saveUpdatedAdminCourseNote({ id: noteId, title: noteTitle, text: noteText }));
     setEditNoteId(null);
   };
 
-  // Function to handle clicking on the cancel button
+  // Function to handle clicking on the cancel note button
   const onNotesEditCancelButtonClickHandler = () => {
      setEditNoteId(null);
-     dispatch(resetStateToDefault());
   };
 
   // Render a table row for each note
@@ -71,7 +72,7 @@ const NotesRow = ({ notesList }) => {
     // Render the edit button or cancel button based on the editing state
     const notesEditButton = !isEditing ? (
       <span className="tooltip-trigger">
-        <span className="icon admin-note-edit-icon" onClick={() => onNotesEditButtonClickHandler(note.id)}/>
+        <span className="icon admin-note-edit-icon" onClick={() => onNotesEditButtonClickHandler(note.id, note.title, note.text)}/>
         <span className="tooltip new">
           <p>{I18n.t('notes.edit_note')}</p>
         </span>
@@ -101,7 +102,7 @@ const NotesRow = ({ notesList }) => {
           <td className={rowClassName} onClick={e => (isEditing ? e.stopPropagation() : null)}>
             <TextAreaInput
               onChange={updateNoteTitle}
-              value={note.title}
+              value={isEditing ? noteTitle : note.title}
               placeholder={'Note Title'}
               valueKey={'key'}
               editable={isEditing}
@@ -134,7 +135,7 @@ const NotesRow = ({ notesList }) => {
             <th colSpan="5">
               <TextAreaInput
                 onChange={updateNoteText}
-                value={note.text}
+                value={isEditing ? noteText : note.text}
                 placeholder={'Note Text'}
                 valueKey={'key'}
                 editable={isEditing}

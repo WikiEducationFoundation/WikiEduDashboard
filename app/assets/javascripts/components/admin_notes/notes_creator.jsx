@@ -1,23 +1,19 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { updateCurrentEditedAdminCourseNote } from '../../actions/admin_course_notes_action';
 import TextAreaInput from '../common/text_area_input.jsx';
 
-const NotesCreator = () => {
-  const dispatch = useDispatch();
-
+const NotesCreator = ({ noteTitle, setTitle, noteText, setText }) => {
   const updateNoteText = (_valueKey, value) => {
-    dispatch(updateCurrentEditedAdminCourseNote({ text: value }));
+    setText(value);
   };
 
   const updateNoteTitle = (_valueKey, value) => {
-    dispatch(updateCurrentEditedAdminCourseNote({ title: value }));
+    setTitle(value);
   };
 
   const textAreaInputComponent = (onChange, placeHolder, key) => (
     <TextAreaInput
       onChange = {onChange}
-      value = {''}
+      value = {key === 'note_text' ? noteText : noteTitle}
       placeholder = {placeHolder}
       value_key = {key}
       editable={true}
