@@ -88,7 +88,7 @@ const OverviewStats = ({ course }) => {
 
   let uploadCount;
   if (course.upload_count) {
-    const infoStats = [[course.upload_usages_count, I18n.t('metrics.uploads_in_use_count', { count: course.uploads_in_use_count })],
+    const infoStats = [[course.uploads_in_use_count, I18n.t('metrics.uploads_in_use_count', { count: course.uploads_in_use_count })],
       [course.upload_usages_count, I18n.t('metrics.upload_usages_count', { count: course.upload_usages_count })]];
     uploadCount = (
       <OverviewStat
