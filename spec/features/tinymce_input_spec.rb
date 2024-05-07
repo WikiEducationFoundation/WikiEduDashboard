@@ -15,9 +15,11 @@ describe 'Text area input that uses TinyMCE', type: :feature, js: true do
     visit "/courses/#{course.slug}/timeline"
     click_button 'Add Week'
     click_button 'Add Block'
-    find('.mce-content-body').click
-    find('.mce-content-body').send_keys('Hello, my name is Sage')
-    expect(page).to have_content('Hello, my name is Sage')
+    within_frame(find('.tox-edit-area__iframe')) do
+      find('.mce-content-body').click
+      find('.mce-content-body').send_keys('Hello, my name is Sage')
+      expect(page).to have_content('Hello, my name is Sage')
+    end
     click_button 'Save'
     expect(page).to have_content('Hello, my name is Sage')
   end

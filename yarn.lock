@@ -2122,16 +2122,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tinymce/tinymce-react@npm:^3.12.6":
-  version: 3.14.0
-  resolution: "@tinymce/tinymce-react@npm:3.14.0"
+"@tinymce/tinymce-react@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "@tinymce/tinymce-react@npm:5.0.0"
   dependencies:
     prop-types: ^15.6.2
-    tinymce: ^5.5.1
+    tinymce: ^7.0.0 || ^6.0.0 || ^5.5.1
   peerDependencies:
     react: ^18.0.0 || ^17.0.1 || ^16.7.0
     react-dom: ^18.0.0 || ^17.0.1 || ^16.7.0
-  checksum: e8b1b83c71f297a318cc66b0546961e975e60f64c91d38395e3c46d62f9663cba49b2b78165ce5c648f7b651d5f6dc9cef66a00380fbc33d788078f9194ec638
+  checksum: f22d7ab785c39d43174b98d978ce1e665c525b0504c0904922aa11527b7517466dde36af0ca3123a2b7ff24418a5ce403b50ec18b9228c7cf83670d2c8566db4
   languageName: node
   linkType: hard
 
@@ -2766,7 +2766,7 @@ __metadata:
     "@pmmmwh/react-refresh-webpack-plugin": ^0.5.7
     "@rails/ujs": ^7.0.3-1
     "@sentry/browser": ^6.18.1
-    "@tinymce/tinymce-react": ^3.12.6
+    "@tinymce/tinymce-react": ^5.0.0
     "@wojtekmaj/enzyme-adapter-react-17": ^0.6.6
     autosize: ^6.0.1
     babel-core: ^7.0.0-bridge.0
@@ -2851,7 +2851,7 @@ __metadata:
     stylelint-config-standard: ^32.0.0
     stylus: ^0.54.8
     stylus-native-loader: ^1.1.2
-    tinymce: ^5.2.2
+    tinymce: ^7.0.0
     uuid: ^3.4.0
     velocity-animate: ^1.5.1
     webpack: ^5.72.1
@@ -12178,10 +12178,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tinymce@npm:^5.2.2, tinymce@npm:^5.5.1":
-  version: 5.10.5
-  resolution: "tinymce@npm:5.10.5"
-  checksum: a3251922019dd82a87dcb80a41f46d289781a88efd8644d0227618ca9983159008c8ebb61ab8d99fcf94da8a69946b78c9e1e73eaa53b5c7eeb2e6fa8b58c1bb
+"tinymce@npm:^7.0.0, tinymce@npm:^7.0.0 || ^6.0.0 || ^5.5.1":
+  version: 7.0.0
+  resolution: "tinymce@npm:7.0.0"
+  checksum: 1f2dc383c1c6f4efb8d3f4223577a8f2b450f6cc62b2861c80467495d68c2453cbd8b646416a0376282fb0b6341c194c698503149037347133b7b936fb7c717b
   languageName: node
   linkType: hard
 
