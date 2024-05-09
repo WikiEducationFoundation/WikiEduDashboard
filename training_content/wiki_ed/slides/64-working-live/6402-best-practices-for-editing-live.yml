@@ -1,11 +1,11 @@
 id: 6402
 title: "Best practices for editing live articles"
 content: |
-  * **Make small changes and click on publish frequently.** It's preferable to make small edits rather than one large edit all at once. (Remember, nothing is saved until you hit the Publish changes button!)
+  * **Make small changes and publish frequently.** It's better to make small edits rather than one large edit all at once. (Remember, nothing is saved until you hit the "Publish changes" button!)
     * *Why?* Small changes are easier for other Wikipedians to understand, and if they notice a problem with something you've changed, that change can easily be undone ("reverted") without affecting your other changes.
   * **Fill out the edit summary before you publish.**
-    * *Why?* This is standard Wikipedia etiquette, and helps other editors understand the intent of your changes.
+    * *Why?* This is standard Wikipedia etiquette. It helps other editors understand the intent of your changes.
   * **Include a citation for each fact you add.** Refer back to the ["Adding citations" module](/training/students/sources) for a refresher on adding citations.
-    * *Why?* So others can verify the accuracy of what you've written, and learn more.
+    * *Why?* Citations help others verify the accuracy of what you've written, and learn more.
   * **After making significant changes to the body of the article, update the lead section to reflect any changes you've made.**
-    * *Why?* The lead section of a Wikipedia should serve as a summary of the entire article. Many readers are looking for a quick overview and will only read the lead section.
+    * *Why?* The lead section of a Wikipedia article should serve as a summary of the entire article. Many readers are looking for a quick overview and will only read the lead section.

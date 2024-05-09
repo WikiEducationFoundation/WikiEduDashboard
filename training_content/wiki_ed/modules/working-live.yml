@@ -1,7 +1,7 @@
 name: 'Working live on Wikipedia'
 id: 64
 description: |
-  This module covers how to work incrementally to improve a live article, on small edit and one citation at a time.
+  This module covers how to work incrementally to improve a live article, one small edit and one citation at a time.
 estimated_ttc: 5 minutes
 slides:
   - slug: incremental-changes # 6401
