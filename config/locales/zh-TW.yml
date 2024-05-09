@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Aa10240tw
+# Author: Cookai1205
 # Author: Cwlin0416
 # Author: Ffaarr
 # Author: Kly
@@ -301,7 +302,7 @@ zh-TW:
       title: 里程碑
   campaign:
     active_campaigns: 活躍競賽
-    add_organizer: 添加組織者
+    add_organizer: 新增籌辦人員
     alert_article: 條目標題
     alert_label: 競賽提醒
     alert_select_label: 依警告類型篩選
@@ -356,12 +357,12 @@ zh-TW:
     no_alerts: 此競賽沒有提醒
     no_passcode: 沒有選課代碼
     none: 無
-    organizers: 組織者
-    organizer_added: '%{user}現在是競賽「%{title}」的組織者'
-    organizer_removed: '%{user}已被移除競賽「%{title}」的組織者身份'
+    organizers: 籌辦人員
+    organizer_added: '%{user}現在是競賽「%{title}」的籌辦人員'
+    organizer_removed: '%{user}已被移除競賽「%{title}」的籌辦人員身份'
     pages_edited_small: 已編輯頁面
     program_template: 方案模板
-    program_template_tooltip: 當組織者建立在此競賽的一個方案時，區域裡的文字會複製作為方案頁面上的描述
+    program_template_tooltip: 當籌辦人員建立在此競賽的一個方案時，區域裡的文字會複製作為方案頁面上的描述
     random_passcode: 隨機選課代碼
     remove_course_tooltip: 從競賽裡移除。
     requested_accounts: 申請的帳號
