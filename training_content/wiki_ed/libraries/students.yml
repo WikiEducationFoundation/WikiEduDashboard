@@ -47,6 +47,9 @@ categories:
       - slug: keeping-track-of-your-work
         name: Keeping track of your work on the Dashboard
         description: How to use My Articles and other assignment-tracking features
+      - slug: keeping-track-of-work-without-sandboxes
+        name: Keeping track of your work on the Dashboard (without sandboxes)
+        description: How to use My Articles and other assignment-tracking features (for courses that don't draft in sandboxes)
       - slug: sources
         name: Adding citations
         description: What makes a good source, and how to create citations
