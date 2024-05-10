@@ -63,7 +63,9 @@ class CampaignCsvBuilder
 
   def sum_wiki_columns(csv_data)
     # Skip 1st header row + 1st column course name
-    csv_data[1..].transpose[1..].map(&:sum).unshift('Total')
+    data_rows = csv_data[1..].transpose[1..]
+    return [] if data_rows.nil?
+    data_rows.map(&:sum).unshift('Total')
   end
 
   class AllCourses
