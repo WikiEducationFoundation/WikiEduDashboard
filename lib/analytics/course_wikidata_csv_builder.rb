@@ -14,14 +14,15 @@ class CourseWikidataCsvBuilder
     CSV.generate { |csv| csv_data.each { |line| csv << line } }
   end
 
+  def wikidata_stats?
+    @course.course_stat && @course.course_stat.stats_hash['www.wikidata.org']
+  end
+
   def stat_row
     hash_stats = @course
                  .course_stat.stats_hash['www.wikidata.org']
                  &.merge({ 'course name' => @course.title })
 
-    # this method gets called directly from CampaignCsvBuilder, so we need
-    # to guard for courses that don't have any Wikidata stats.
-    return [] unless hash_stats
     CSV_HEADERS.map { |elmnt| hash_stats.fetch elmnt, 0 }
   end
 
@@ -55,10 +56,4 @@ class CourseWikidataCsvBuilder
     'no data',
     'total revisions'
   ].freeze
-
-  private
-
-  def wikidata_stats?
-    @course.course_stat && @course.course_stat.stats_hash['www.wikidata.org']
-  end
 end
