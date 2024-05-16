@@ -257,6 +257,7 @@ Rails.application.routes.draw do
   get 'all_campaigns' => 'analytics#all_campaigns'
 
   # Campaigns
+  get 'campaigns/current/alerts' => 'campaigns#current_alerts', defaults: { format: 'html' }
   resources :campaigns, param: :slug, except: :show do
     member do
       get 'overview'

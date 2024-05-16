@@ -24,11 +24,13 @@ class CampaignsController < ApplicationController
   end
 
   def show
+    @campaign = if params[:slug] == 'current'
+                  Campaign.default_campaign
+                elsif params[:slug]
+                  Campaign.find_by(slug: params[:slug])
+                end
     respond_to do |format|
-      format.json do
-        @campaign = Campaign.find_by(slug: params[:slug]) if params[:slug]
-        set_presenter
-      end
+      format.json { set_presenter }
     end
   end
 
@@ -87,6 +89,15 @@ class CampaignsController < ApplicationController
   def assignments
     set_campaign
     render json: { campaign: @campaign.slug, assignments: @campaign.assignments_to_json }
+  end
+
+  def current_alerts
+    @campaign = Campaign.default_campaign
+
+    respond_to do |format|
+      format.html { render :alerts }
+      format.json { render :alerts }
+    end
   end
 
   def alerts
