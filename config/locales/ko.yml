@@ -14,6 +14,7 @@
 # Author: Priviet
 # Author: Revi
 # Author: SeoJeongHo
+# Author: Suleiman the Magnificent Television
 # Author: Yearning
 # Author: Ykhwong
 # Author: Yunbj
@@ -26,6 +27,7 @@ ko:
   number:
     human:
       decimal_units:
+        format: '%n%u'
         units:
           thousand: 천
           million: 백만
