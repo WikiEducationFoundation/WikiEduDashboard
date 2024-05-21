@@ -84,6 +84,15 @@ const initialState = {
   panels: panels()
 };
 
+
+// Remove panels based on course properties
+const filterPanels = function (receivedPanels, course) {
+  return receivedPanels.filter((panel) => {
+    if (!panel.only_if) { return true; }
+    return course[panel.only_if];
+  });
+};
+
 export default function wizard(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_WIZARD_ASSIGNMENT_OPTIONS: {
@@ -91,8 +100,7 @@ export default function wizard(state = initialState, action) {
       return { ...state, assignmentOptions, panels: panels(assignmentOptions) };
     }
     case RECEIVE_WIZARD_PANELS: {
-      const extraPanels = action.extraPanels;
-
+      const extraPanels = filterPanels(action.extraPanels, action.course);
       return { ...state, panels: panels(state.assignmentOptions, extraPanels) };
     }
     case SELECT_WIZARD_OPTION: {

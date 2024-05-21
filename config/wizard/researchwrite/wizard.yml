@@ -59,6 +59,23 @@
       # description:
       logic: copyedit
 
+- key: sandboxes
+  title: Sandboxes
+  only_if: returning_instructor # filter out unless the course's return_instructor property is true
+  description: |
+    sandboxes?
+  type: 1 # single choice
+  minimum: 1
+  options:
+    -
+      title: sandboxes
+      tag: yes_sandboxes
+      logic: yes_sandboxes
+    -
+      title: no sandboxes
+      tag: no_sandboxes
+      logic: no_sandboxes
+
 -
   key: working_in_groups
   title: Working in groups
