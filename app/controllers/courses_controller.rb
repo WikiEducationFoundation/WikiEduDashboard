@@ -9,7 +9,6 @@ require_dependency "#{Rails.root}/app/workers/update_course_worker"
 require_dependency "#{Rails.root}/app/workers/notify_untrained_users_worker"
 require_dependency "#{Rails.root}/app/workers/announce_course_worker"
 require_dependency "#{Rails.root}/lib/alerts/check_timeline_alert_manager"
-require_dependency "#{Rails.root}/lib/experiments/no_sandboxes_fall_2024_experiment"
 
 #= Controller for course functionality
 class CoursesController < ApplicationController
@@ -40,7 +39,6 @@ class CoursesController < ApplicationController
     update_course_wiki_namespaces
     update_academic_system
     update_course_format
-    NoSandboxesFall2024Experiment.new(@course, current_user)
   end
 
   def update
