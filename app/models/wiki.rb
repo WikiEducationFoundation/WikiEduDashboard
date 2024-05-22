@@ -17,6 +17,7 @@ class Wiki < ApplicationRecord
   has_many :revisions
   has_many :courses_wikis, class_name: 'CoursesWikis'
   has_many :courses, through: :courses_wikis
+  has_many :course_wiki_timeslices
 
   before_validation :ensure_valid_project
   after_validation :ensure_wiki_exists

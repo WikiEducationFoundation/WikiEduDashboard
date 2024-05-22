@@ -130,6 +130,8 @@ class Course < ApplicationRecord
 
   has_many :course_wiki_namespaces, class_name: 'CourseWikiNamespaces', through: :courses_wikis
 
+  has_many :course_wiki_timeslices
+
   serialize :flags, Hash
 
   module ClonedStatus
