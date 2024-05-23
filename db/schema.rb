@@ -32,6 +32,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_15_143028) do
     t.index ["user_id"], name: "index_alerts_on_user_id"
   end
 
+  create_table "article_course_timeslices", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.integer "article_course_id", null: false
+    t.datetime "start"
+    t.datetime "end"
+    t.integer "last_mw_rev_id"
+    t.integer "character_sum", default: 0
+    t.integer "references_count", default: 0
+    t.text "user_ids", default: ""
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "articles", id: :integer, charset: "utf8mb4", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at"

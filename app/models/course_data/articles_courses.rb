@@ -23,6 +23,8 @@ class ArticlesCourses < ApplicationRecord
   belongs_to :article
   belongs_to :course
 
+  has_many :article_course_timeslices
+
   scope :live, -> { joins(:article).where(articles: { deleted: false }).distinct }
   scope :new_article, -> { where(new_article: true) }
   scope :current, -> { joins(:course).merge(Course.current).distinct }
