@@ -202,6 +202,21 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_15_143028) do
     t.index ["course_id"], name: "index_course_stats_on_course_id"
   end
 
+  create_table "course_user_timeslices", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.integer "course_user_id", null: false
+    t.datetime "start"
+    t.datetime "end"
+    t.integer "last_mw_rev_id"
+    t.integer "total_uploads", default: 0
+    t.integer "character_sum_ms", default: 0
+    t.integer "character_sum_us", default: 0
+    t.integer "character_sum_draft", default: 0
+    t.integer "references_count", default: 0
+    t.integer "revision_count", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "course_wiki_namespaces", charset: "utf8mb4", force: :cascade do |t|
     t.integer "namespace"
     t.bigint "courses_wikis_id"
