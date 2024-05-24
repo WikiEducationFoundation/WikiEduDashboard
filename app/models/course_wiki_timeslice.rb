@@ -1,11 +1,11 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: course_wiki_timeslices
 #
 #  id                   :bigint           not null, primary key
-#  course_id            :integer          not null
-#  wiki_id              :integer          not null
+#  course_wiki_id       :integer          not null
 #  start                :datetime
 #  end                  :datetime
 #  last_mw_rev_id       :integer
@@ -19,6 +19,5 @@
 #  updated_at           :datetime         not null
 #
 class CourseWikiTimeslice < ApplicationRecord
-  belongs_to :course
-  belongs_to :wiki
+  belongs_to :courses_wikis
 end

@@ -225,9 +225,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_15_143028) do
     t.index ["courses_wikis_id"], name: "index_course_wiki_namespaces_on_courses_wikis_id"
   end
 
-  create_table "course_wiki_timeslices", charset: "utf8mb4", force: :cascade do |t|
-    t.integer "course_id", null: false
-    t.integer "wiki_id", null: false
+  create_table "course_wiki_timeslices", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.integer "course_wiki_id", null: false
     t.datetime "start"
     t.datetime "end"
     t.integer "last_mw_rev_id"

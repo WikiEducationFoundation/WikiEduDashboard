@@ -1,8 +1,7 @@
 class CreateCourseWikiTimeslices < ActiveRecord::Migration[7.0]
   def change
     create_table :course_wiki_timeslices do |t|
-      t.integer :course_id, null: false
-      t.integer :wiki_id, null: false
+      t.integer :course_wiki_id, null: false
       t.datetime :start
       t.datetime :end
       t.integer :last_mw_rev_id
