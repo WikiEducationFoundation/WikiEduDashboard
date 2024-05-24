@@ -59,7 +59,8 @@
       # description:
       logic: copyedit
 
-- key: sandboxes
+-
+  key: sandboxes
   title: Sandboxes
   only_if: returning_instructor # filter out unless the course's return_instructor property is true
   description: |

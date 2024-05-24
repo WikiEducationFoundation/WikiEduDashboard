@@ -165,6 +165,7 @@ essentials:
     blocks:
       -
         if: working_individually
+        unless: no_sandboxes
         title: Start drafting your contributions
         kind: 1
         graded: true
@@ -179,6 +180,7 @@ essentials:
 
       -
         if: working_in_groups
+        unless: no_sandboxes
         title: Start drafting your contributions
         kind: 1
         graded: true
@@ -186,10 +188,19 @@ essentials:
         training_module_ids: [31,15] # Drafting in groups, Plagiarism
         content: |
           <p>Resource: <a href="https://wikiedu.org/editingwikipedia#page=7">Editing Wikipedia</a>, pages 7–9</p>
+
       -
         if: explore_to_find_articles
         title: Guide(s) for writing articles in your topic area
         kind: 4 # Special subject-specific guides block
+
+      -
+        if: no_sandboxes
+        title: Start editing your article
+        kind: 1
+        training_module_ids: [64, 15] # Working live, plagiarism
+        content: |
+          <p>Resource: <a href="https://wikiedu.org/editingwikipedia#page=7">Editing Wikipedia</a>, pages 7–9</p>
 
       -
         title: Everyone has started writing
