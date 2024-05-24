@@ -5,6 +5,10 @@ class Features
     ENV['wiki_education'] == 'true'
   end
 
+  def self.staging?
+    ENV['dashboard_url'] == 'dashboard-testing.wikiedu.org'
+  end
+
   def self.enable_get_help_button?
     ENV['wiki_education'] == 'true'
   end
