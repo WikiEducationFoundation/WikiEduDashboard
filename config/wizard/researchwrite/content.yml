@@ -271,6 +271,7 @@ essentials:
     blocks:
       -
         if: working_individually
+        unless: no_sandboxes
         title: Begin moving your work to Wikipedia
         kind: 1 # Assignment
         training_module_ids: [32] # Moving work out of the sandbox
@@ -294,6 +295,7 @@ essentials:
           </div>
       -
         if: working_in_groups
+        unless: no_sandboxes
         title: Begin moving your work to Wikipedia
         kind: 1 # Assignment
         training_module_ids: [33] # Moving work out of the sandbox
