@@ -463,6 +463,10 @@ class Course < ApplicationRecord
     !tag?('no_clone')
   end
 
+  def returning_instructor?
+    tag?('returning_instructor')
+  end
+
   # Overridden for some course types
   def training_library_slug
     'students'
