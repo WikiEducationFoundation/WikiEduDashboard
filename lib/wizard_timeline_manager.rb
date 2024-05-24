@@ -7,7 +7,9 @@ class WizardTimelineManager
   ###############
 
   def self.update_timeline_and_tags(course, wizard_id, wizard_params)
-    new(course, wizard_id, wizard_params).update_timeline_and_tags
+    manager = new(course, wizard_id, wizard_params)
+    manager.handle_extra_settings
+    manager.update_timeline_and_tags
   end
 
   #############
@@ -25,6 +27,15 @@ class WizardTimelineManager
     @all_content = YAML.load_file(content_path)
 
     @timeline = []
+  end
+
+  def handle_extra_settings
+    # For courses that have 'no_sandboxes' set
+    # and haven't selected 'yes_sandboxes' via the wizard,
+    # ensure that they get the no_sandoxes handling.
+    return unless @course.no_sandboxes?
+    return if @logic.include? 'yes_sandboxes'
+    @logic << 'no_sandboxes'
   end
 
   def update_timeline_and_tags
@@ -98,7 +109,7 @@ class WizardTimelineManager
       week[:blocks].each_with_index do |block, block_index|
         # Skip blocks with unmet 'if' dependencies
         next unless if_dependencies_met?(block)
-        # Skip blocks with unmet 'if' dependencies
+        # Skip blocks with 'unless' dependencies that are met
         next if unless_dependencies_met?(block)
         block['week_id'] = week_record.id
         block['order'] = block_index + 1
@@ -179,7 +190,7 @@ class WizardTimelineManager
       # one with the same key already exists, so that if a given choice is made
       # a second time, the tag gets updated to reflect the new choice.
 
-      # NONEXCLUSIVE_KEYS are allowed to have multiple tags for one wziard key.
+      # NONEXCLUSIVE_KEYS are allowed to have multiple tags for one wizard key.
       # We make this work by using the wizard key and value together as the record key.
       wizard_key = tag[:key]
       tag_value = tag[:tag]
@@ -197,7 +208,9 @@ class WizardTimelineManager
     '1_peer_reviewers' => { peer_review_count: 1 },
     '2_peer_reviewers' => { peer_review_count: 2 },
     '3_peer_reviewers' => { peer_review_count: 3 },
-    'working_in_groups' => { retain_available_articles: true }
+    'working_in_groups' => { retain_available_articles: true },
+    'no_sandboxes' => { no_sandboxes: true },
+    'yes_sandboxes' => { no_sandboxes: false }
   }.freeze
   def add_flags
     FLAG_LOGIC.each_key do |logic_key|
