@@ -57,47 +57,45 @@ const AddCategoryButton = ({
     );
   }
 
-  const permitted = true;
   let className = 'button border small assign-button';
   if (isOpen) { className += ' dark'; }
 
   const buttonText = I18n.t(`categories.add_${source}`);
-  const showButton = <button className={`${className}`} onClick={open}>{buttonText}</button>;
+  const showButton = <button className={className} onClick={open}>{buttonText}</button>;
 
   let editRow = null;
-  if (permitted) {
-    let inputField;
-    if (source === 'category') {
-      inputField = <CategoriesScoping vertical />;
-    } else if (source === 'psid') {
-      inputField = <PetScanScoping />;
-    } else if (source === 'pileid') {
-      inputField = <PagePileScoping />;
-    } else {
-      inputField = <TemplatesScoping />;
-    }
-    editRow = (
-      <tr className="edit">
-        <td>
-          <form
-            onSubmit={addCategoryHandler}
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '1em',
-            }}
-            className="category-add-form"
-          >
-            {description}
-            {inputField}
-            <button className="button border" type="submit">
-              {I18n.t(`categories.add_this_${source}`)}
-            </button>
-          </form>
-        </td>
-      </tr>
-    );
+
+  let inputField;
+  if (source === 'category') {
+    inputField = <CategoriesScoping vertical />;
+  } else if (source === 'psid') {
+    inputField = <PetScanScoping />;
+  } else if (source === 'pileid') {
+    inputField = <PagePileScoping />;
+  } else {
+    inputField = <TemplatesScoping />;
   }
+  editRow = (
+    <tr className="edit">
+      <td>
+        <form
+          onSubmit={addCategoryHandler}
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '1em',
+          }}
+          className="category-add-form"
+        >
+          {description}
+          {inputField}
+          <button className="button border" type="submit">
+            {I18n.t(`categories.add_this_${source}`)}
+          </button>
+        </form>
+      </td>
+    </tr>
+  );
 
   return (
     <div className="pop__container" ref={ref}>
