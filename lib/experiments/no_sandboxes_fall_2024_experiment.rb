@@ -74,10 +74,10 @@ class NoSandboxesFall2024Experiment
   # If another course from the same new instructor is already in the experiment
   # we put this course into the same condition.
   def handle_multiple_courses
-    if (@creator.courses & experiment_courses).any?
+    if (@creator.courses & NoSandboxesFall2024Experiment.experiment_courses).any?
       mark_course_for_experiment
       yield
-    elsif (@creator.courses & control_courses).any?
+    elsif (@creator.courses & NoSandboxesFall2024Experiment.control_courses).any?
       mark_course_for_control
       yield
     end
