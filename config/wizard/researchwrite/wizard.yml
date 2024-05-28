@@ -61,19 +61,27 @@
 
 -
   key: sandboxes
-  title: Sandboxes
+  title: Starting in sandboxes
   only_if: returning_instructor # filter out unless the course's return_instructor property is true
   description: |
-    sandboxes?
+    As of Fall 2024, Wiki Education is experimenting with having students improve the live versions of their assigned articles incrementally,
+    rather than preparing complete drafts of their changes in sandboxes before moving live. This simplifies the project somewhat, encourages incremental
+    changes and community interaction, and eliminates the error-prone step of copying student work from a sandbox into a live article. (Students creating new articles,
+    rather than improving existing ones, will still prepare their initial drafts in a sandbox.)
+
+    Choose 'Prepare drafts in sandboxes' if you would like to use sandbox drafts as you have in previous Wiki Education assignments. If you would like to
+    try having students work incrementally on the live articles instead, choose 'Work live without sandbox drafts'.
+  
   type: 1 # single choice
   minimum: 1
   options:
     -
-      title: sandboxes
+      title: Prepare drafts in sandboxes
       tag: yes_sandboxes
       logic: yes_sandboxes
+      selected: true # selected by default
     -
-      title: no sandboxes
+      title: Work live without sandbox drafts
       tag: no_sandboxes
       logic: no_sandboxes
 
