@@ -12,6 +12,8 @@ class Courses::DeleteFromCampaignController < CoursesController
     end
   end
 
+  private
+
   def validate
     slug = params[:slug].gsub(/\.json$/, '')
     @course = find_course_by_slug(slug)
