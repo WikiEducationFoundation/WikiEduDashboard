@@ -35,7 +35,6 @@ const AddCategoryButton = ({
     const onConfirm = () => {
       addCategory(payload);
       dispatch(resetScopingMethod());
-      open(null);
     };
     const confirmMessage = I18n.t('categories.confirm_add_n_scoping_method', { n: payload.categories.items.length });
     dispatch(initiateConfirm({ confirmMessage, onConfirm }));
