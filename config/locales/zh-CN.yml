@@ -13,6 +13,7 @@
 # Author: Interestinghe
 # Author: Josephine W.
 # Author: Lakejason0
+# Author: LittlePaw365
 # Author: Liuxinyu970226
 # Author: Looong
 # Author: Macofe
@@ -401,7 +402,7 @@ zh-CN:
       course_title: 课程标题
       create_button: 创建我的课程！
       create_label: 创建新的课程
-      create_new: 创建一个新课程
+      create_new: 创建新课程
       create_short: 创建课程
       end_date: 结束日期
       end_date_placeholder: 结束日期（YYYY-MM-DD）
@@ -609,7 +610,7 @@ zh-CN:
       course_title: 计划标题
       create_button: 创建我的计划！
       create_label: 创建新计划
-      create_new: 创建一个独立计划
+      create_new: 创建独立程序
       create_short: 创建计划
       end_date: 活跃追踪结束
       find: 寻找一个计划
