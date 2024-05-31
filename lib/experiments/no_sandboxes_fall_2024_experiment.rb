@@ -63,7 +63,7 @@ class NoSandboxesFall2024Experiment
     # screen out courses that weren't persisted
     return false unless @course.persisted?
     # Only courses happening in Fall 2024
-    return false unless @course.start > '2024-06-01'.to_date
+    return false unless @course.start > '2024-08-01'.to_date
     return false unless @course.start < '2024-11-01'.to_date
     # Only first-time instructors
     return false if @creator.returning_instructor?
