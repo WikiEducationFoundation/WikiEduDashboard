@@ -35,7 +35,8 @@ describe NoSandboxesFall2024Experiment do
       course, user = *fresh_course
       create(:tag, course:, tag: described_class::CONTROL_TAG)
       second_course = create(:course, slug: 'experiment/second_course', start: '2024-08-02'.to_date)
-      create(:courses_user, course: second_course, user:, role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+      create(:courses_user, course: second_course, user:,
+             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
       expect(described_class.control_courses.count).to eq(1)
       described_class.new(second_course, user)
       expect(second_course.tag?(described_class::CONTROL_TAG)).to eq(true)
@@ -45,7 +46,8 @@ describe NoSandboxesFall2024Experiment do
       course, user = *fresh_course
       create(:tag, course:, tag: described_class::EXPERIMENT_TAG)
       second_course = create(:course, slug: 'experiment/second_course', start: '2024-08-02'.to_date)
-      create(:courses_user, course: second_course, user:, role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+      create(:courses_user, course: second_course, user:,
+             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
       expect(described_class.experiment_courses.count).to eq(1)
       described_class.new(second_course, user)
       expect(second_course.tag?(described_class::EXPERIMENT_TAG)).to eq(true)
