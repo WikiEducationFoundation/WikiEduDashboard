@@ -75,6 +75,8 @@ old-ie ?= false
 @import "modules/_language_picker"
 @import "modules/_tables"
 @import "training_modules/*"
+@import "modules/_wizard"
+@import "modules/_forms"
 
 @import "_base"
 @import "_fonts"
@@ -100,4 +102,25 @@ old-ie ?= false
       border-left 1px solid #ddd
     &:last-child
       border-right 1px solid #ddd
+
+.notice
+  position absolute !important
+  padding 3px 10px
+  height 38px
+
+.notification
+  position absolute !important
+  padding 3px 10px
+  height 38px
+  width 100%
+
+.validation-error
+  font-size 1rem
+  color #d95757
+
+.red
+  color #d95757
+
+.invalid
+  border 1px solid #d95757 !important
 

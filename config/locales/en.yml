@@ -1872,3 +1872,1777 @@ en:
 
   tagged_courses:
     download_csv: 'Download CSV'
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+en:
+  number:
+    human:
+      decimal_units:
+        format: "%n%u"
+        units:
+          unit: ""
+          thousand: K
+          million: M
+          billion: B
+          trillion: T
+          quadrillion: Q
+
+  accessibility:
+    number_field: This is a number field. The buttons rendered by most browsers will increment and decrement the input.
+
+  application:
+    back: Back
+    cancel: Cancel
+    cookie_consent: This site uses cookies to keep you logged in, and stores information related to your Wikipedia account.
+    cookie_consent_acknowledge: I understand
+    cookie_consent_see_more: See more.
+    create_accounts: Create Wikipedia accounts
+    dashboard: Wiki Ed Dashboard
+    documentation: Documentation
+    error: "There was an error:"
+    explore: Explore
+    field_required: This field is required
+    field_invalid_characters: This field has invalid characters
+    field_invalid_date: This field requires a date in YYYY-MM-DD format
+    field_invalid_date_time: The end must be after the start. (Hours go from 0 to 23.)
+    greeting2: Welcome!
+    greeting_extended: Welcome to Wikipedia
+    greeting: Hello!
+    help: Help
+    home: Home
+    log_in_extended: Log in with Wikipedia
+    log_in: Log in
+    log_out: Log out
+    my_dashboard: My Dashboard
+    recent_activity: Recent Activity
+    report_problem: Report a problem
+    request_account: Request an account
+    request_account_create: Create an account
+    search: ask a question
+    search_results:
+      one: "%{count} Result for: '%{search_terms}'"
+      other: "%{count} Results for: '%{search_terms}'"
+    no_results: "No results found for '%{query}'"
+    show_current_revision: Show current version
+    show_last_revision: Show last revision
+    sign_up_extended: Sign up with Wikipedia
+    sign_up_wikipedia: Or sign up on Wikipedia
+
+    # FIXME: deprecate lego message
+    sign_up_log_in_extended: with Wikipedia
+    sign_up: Sign up
+    submit: Submit
+    training: Training
+    change: Change
+    details: Details
+    confirm: OK
+    opt_in: "Yes"
+    opt_out: "No"
+    opt_yes: "yes"
+    opt_no: "no"
+    print: Print
+
+  article_statuses:
+    not_yet_started: Getting Started
+    in_progress: Working in Sandbox
+    ready_for_review: Expanding Draft
+    ready_for_mainspace: Moving Work to Mainspace
+    assignment_completed: Assignment Marked Complete
+    reading_the_article: Reading Article
+    providing_feedback: Providing Feedback
+    post_to_talk: Posting to Talk Page
+    peer_review_completed: Review Completed
+
+  dashboard:
+    create_note: Click on Create Course to create your first course.
+    create_preparation_note: >
+      Be sure to have your academic calendar on hand before you begin; the
+      assignment design tool will use the meeting dates of your class —
+      including any school breaks and holidays — to fit your timeline into
+      the date range you choose. Remember, you can always edit the timeline to
+      fit your needs.
+    explore_course_pages: Explore the Course Pages
+    explore_examples: Explore Examples
+    join_note:
+      Once you receive a passcode from your instructor, click on Find Your
+      Course to find and join it.
+    no_courses_instructor: Looks like you don't have any courses.
+    no_courses_student: Looks like you haven't joined a course yet.
+    opt_out: Request to opt out of orientation
+    orientation_notice: >
+      Before you create a course, let's go through orientation to help you get
+      started. (It takes about 30 minutes to complete.)
+    review_orientation: Review Orientation
+    start_orientation: Start Orientation
+    blog_headline: Recent News from Wiki Education
+    about_programs: >
+      This site tracks wiki activities through Programs — individual events
+      like an edit-a-thon or school course. Each Program is part of one
+      or more Campaigns, which provide aggregate statistics across Programs.
+    about_creating_programs: >
+      If you are running a single, independent event, you can create a
+      Program now. If your event is part of something bigger, find or create the
+      Campaign for it. Then you can create a new Program from the Campaign page.
+  home:
+    explore: Explore
+    log_in: Log in with Wikipedia
+    sign_up: Sign up with Wikipedia
+    registration_advice:
+      username_rules:
+        heading: Username rules
+        avoid_offensive_usernames: Do not choose a username that is offensive, misleading, disruptive, or promotional.
+        represent_individual: Usernames must represent an individual editor. Do not use the name of a school or organization.
+      additional_advice:
+        heading: Advice
+        anonymous_username_recommendation: Wiki Education recommends choosing an anonymous username, not one that includes your real name or other identifying information.
+    sign_up_help: >
+      To use the dashboard, you'll need to sign in through Wikipedia and give
+      it permission to access your account. You can log in with an existing
+      Wikipedia account, or create a new one. If you're unable to create an account,
+      contact dashboard@wikiedu.org.
+  alerts:
+    alert_label: Alerts
+    no_alerts: No alerts found.
+
+  activity:
+    all: Activity
+    edited_by: Edited By
+    label: Activity
+
+  articles:
+    articles: Articles
+    article_not_found: "This article has not been created yet."
+    article_development: (article development)
+    articles_shown: "Showing %{count} of %{total}"
+    assigned: Assigned Articles
+    assignments_none: There are no assigned articles yet.
+    available: Available Articles
+    no_available: No Available Articles
+    next: Next
+    previous: Previous
+    article_title: Article Title
+    assigned_to: Assigned To
+    character_doc: The sum of characters added to articles by enrolled editors between the start and end dates
+    cross_wiki_tracking: >
+      Mainspace pages edited between the start and end dates are listed below.
+      The dashboard pulls in contributions from the home wiki of this program, along
+      with any other wikis for which there is an Assignment or an Available Article.
+    deleted: (deleted)
+    does_not_exist: The Article doesn't exist. Create a Sandbox page and assign yourself to that to receive suggestions.
+    edited: Articles Edited
+    edited_by: "Edited by:"
+    edited_mobile: Articles
+    edited_none: There are no edited articles yet.
+    filter:
+      wiki_all: All
+      new: New
+      existing: Existing
+      new_and_existing: New and Existing
+      tracked: Tracked
+      untracked: Untracked
+      tracked_and_untracked: Tracked and Untracked
+    filter_text: "Filters:"
+    find: Find Articles
+    how_to_find: How to find articles
+    hide: Hide
+    history: (history)
+    label: Articles
+    loading: Loading articles...
+    mark_as_complete: Mark as Complete
+    new: (new)
+    none: This course has not edited any articles.
+    preview: Brief preview of Article
+    rating: Class
+    rating_doc: The rating an article has been assigned by WikiProjects on Wikipedia. These ratings may correspond to much older versions, so they are just a rough indicator of article maturity.
+    rating_docs:
+      fa: "%{class} (Featured article) — Wikipedia's highest rating, probably too mature an article for a new editor's main project"
+      fl: "%{class} (Featured list) — Wikipedia's highest rating for lists"
+      a: "%{class}-class — very developed article that may be too mature an article for a new editor's main project"
+      ga: "%{class} (Good article) — a well-developed article that may be too mature an article for a new editor's main project"
+      b: "%{class}-class — a moderately developed article"
+      c: "%{class}-class — an intermediate article with room for improvement"
+      start: "%{class}-class — a preliminary article with plenty of room for improvement"
+      stub: "%{class}-class — a short beginning of an article that needs more content"
+      list: "%{class}-class — a list rather than a conventional article"
+      ?: Unrated — an article that hasn't yet been rated on Wikipedia's quality scale
+      does_not_exist: This article does not exist on Wikipedia
+    see_more: See more
+    see_more_tooltip: Only the first 500 edited articles are loaded initially. Click to load additional articles.
+    search: Search Wikipedia for an Article
+    show_cumulative_changes: Show Cumulative Changes
+    show_current_version: Show Current Version
+    show_current_version_with_authorship_highlighting: "Current Version w/ Authorship Highlighting"
+    title: Title
+    tracked: Tracked
+    tracked_doc: Only tracked articles contribute to the the statistics for this program. When articles are marked as untracked, they will be removed from the statistics during the next data update.
+    title_example: Article title
+    tools: Assessment tools
+    view: View Article
+    view_all: View All
+    view_doc: The estimated views to each article since it was first edited, through the most recent stats update. You can use pageviews.toolforge.org to see the exact numbers.
+    view_on_wiki: View on wiki
+    # This is a maintence script message
+    views_added: "Added %{count} new views for %{title}"
+    edit_size: Edit Size
+    wiki: Wiki
+    wp10: Structural Completeness
+    wp10_doc: >
+      The 'Structural Completeness' score represents how closely an article fits
+      the mold of a mature Wikipedia article, based on the machine learning-based
+      Objective Revision Evaluation Service (https://ores.wikimedia.org/). These
+      scores are calculated based on the size of an article, the number of
+      references and wikilinks, and other basic text features. A high score
+      usually indicates that an article follow Wikipedia's conventions for the
+      structure of a good article, but it does not take into account the content
+      itself. (These scores are only available for English Wikipedia articles.)
+    articles_short: Articles
+    deleted_message: >
+      According to the Dashboard's data, this page has been deleted. (In some cases, page moves, history merges or other actions can result in an article being incorrectly listed as deleted. Deleted articles may also be later undeleted. For articles that are not actually deleted, or have been subsequently restored, the Dashboard will usually reflect this within one or two days.)
+    page_logs: (page logs)
+    tracked_articles: Tracked Articles
+    view_articles: View Articles
+    no_tracked_articles: This category has no tracked articles
+
+  items:
+    items: Items
+    lexeme: Lexeme
+    article_not_found: "This item has not been created yet."
+    assigned: Assigned Items
+    assignments_none: There are no assigned items yet.
+    available: Available Items
+    character_doc: The sum of characters added to items by enrolled editors between the start and end dates
+    cross_wiki_tracking: >
+      Mainspace pages edited between the start and end dates are listed below.
+      The dashboard pulls in contributions from the home wiki of this program, along
+      with any other wikis for which there is an Assignment or an Available Item.
+    does_not_exist: The Item doesn't exist. Create a Sandbox page and assign yourself to that to receive suggestions.
+    edited: Items Edited
+    edited_none: There are no edited items yet.
+    find: Find Items
+    how_to_find: How to find items
+    preview: Brief preview of Item
+    search: Search Wikidata for an Item
+    tracked_doc: Only tracked items contribute to the the statistics for this program. When items are marked as untracked, they will be removed from the statistics during the next data update.
+    view_doc: The estimated views to each item since it was first edited, through the most recent stats update. You can use pageviews.toolforge.org to see the exact numbers.
+    title_example: Item title
+
+  articles_wikidata:
+    articles_short: Items
+
+  articles_generic:
+    articles_short: Pages
+
+  assignments:
+    article: The article %{title} is now assigned to you.
+    article_link: Article
+    article_link_wikidata: Item
+    blocked_assignment: "%{title} could not be assigned because it is on the Wikipedia community's Wiki Education assignment blocklist."
+    already_exists: This assignment already exists!
+    title_too_large: The title shouldn't exceed 255 characters
+    assignees: Assignee(s)
+    assign_other: Assign/remove an article
+    assign_other_wikidata: Assign/remove an item
+    add_available: Add available articles
+    add_available_wikidata: Add available items
+    add_available_placeholder: Add one article title or URL per line
+    add_available_placeholder_wikidata: Add one item title or URL per line
+    add_available_submit: Add articles
+    add_available_submit_wikidata: Add items
+    assign_self: Assign myself an article
+    assign_self_wikidata: Assign myself an item
+    assign_tooltip: An assigned article is one that you plan to create or improve.
+    assign_tooltip_wikidata: An assigned item is one that you plan to create or improve.
+    bibliography: Bibliography
+    clone: Clone
+    confirm_add_available: Are you sure you want to add %{title}?
+    confirm_addition: Are you sure you want to assign %{title} to %{username}?
+    confirm_deletion: Are you sure you want to delete this assignment?
+    delete: Remove and Delete
+    editors: Assigned to
+    change_sandbox_url: Change sandbox
+    group_members: Group members
+    label: Assign
+    label_all: Assign all
+    loading: Loading assignments...
+    none_short: No articles assigned
+    none_short_wikidata: No items assigned
+    none: This course has no assigned articles.
+    no_available: This course has no available articles.
+    peer_review_count: "%{currentCount}/%{total} selected"
+    peer_review_count_tooltip: You should select %{total} articles to peer review.
+    peer_review_link: Peer Review
+    peer_review_link_personalized: "%{username}'s Peer Review"
+    random_peer_review:
+      confirm_addition: >
+        In most cases, you should only use this after all students have been assigned their main articles.
+        Alternatively, you can ask your students to choose their own peer reviews or
+        you can manually assign peer reviews by clicking a student's row and then using "Assign/remove a peer review" button.
+        Clicking "OK" will assign a total of %{count} additional peer review(s), with a maximum of %{maximum} for each student,
+        chosen from among their classmates' articles.
+      confirm_addition_wikidata: >
+        In most cases, you should only use this after all students have been assigned their main items.
+        Alternatively, you can ask your students to choose their own peer reviews or
+        you can manually assign peer reviews by clicking a student's row and then using "Assign/remove a peer review" button.
+        Clicking "OK" will assign a total of %{count} additional peer review(s), with a maximum of %{maximum} for each student,
+        chosen from among their classmates' items.
+      heading: Assign random peer reviews
+      tooltip_message: Assigns random articles (with peer review count as the maximum number) to each student.
+      tooltip_message_wikidata: Assigns random items (with peer review count as the maximum number) to each student.
+      limit_exceeded: Each student is already reviewing at least %{maximum} articles(s).
+      limit_exceeded_wikidata: Each student is already reviewing at least %{maximum} item(s).
+    remove: Remove
+    reviewers: Reviewer(s)
+    review_other: Assign/remove a peer review
+    review_self: Review an article
+    review_self_wikidata: Review an item
+    review_tooltip: This is for article(s) you plan to peer review or provide feedback on.
+    review_tooltip_wikidata: This is for item(s) you plan to peer review or provide feedback on.
+    sandbox_draft_link: Sandbox Draft
+    sandbox_redlink_info: This link is red because the page has not been created yet. (If it was created recently, the Dashboard will update its data soon.)
+    select: Select
+    submit: Submit
+    invalid_url: Cannot update sandbox url. The URL %{url} is not a valid Wikipedia URL.
+    mismatched_wiki: Cannot update sandbox url. The URL %{url} is not on the same wiki.
+    warning_untracked_wiki: >
+      Please note that the article you’ve chosen is on a wiki not tracked
+      by this course. To track contributions to this article, an instructor
+      must add the following wiki to this course: %{wiki}
+  blocks:
+    milestones:
+      title: Milestones
+
+  campaign:
+    active_campaigns: Active Campaigns
+    add_organizer: Add organizer
+    alert_article: Article title
+    alert_label: Campaign Alerts
+    alert_select_label: Filter by alert type
+    alert_type: Type
+    alert_user_id: User
+    all_campaigns: All Campaigns
+    already_exists: That campaign already exists! Please try again with a different title or slug.
+    campaign: Campaign
+    campaigns: Campaigns
+    campaign_deleted: Campaign "%{title}" has been deleted
+    campaign_not_updated: Campaign could not be updated
+    campaign_updated: Campaign updated
+    created_at: Date
+    confirm_campaign_deletion: Are you sure you want to delete the campaign titled "%{title}"? If so, type the title of the campaign to proceed.
+    confirm_campaign_deletion_failed: '"%{title}" is not the title of this campaign. The campaign has not been deleted.'
+    confirm_course_removal: Are you sure you want to remove "%{title}" from the "%{campaign_title}" campaign?
+    course_already_removed: '"%{title}" was already removed from the "%{campaign_title}" campaign'
+    course: Course
+    course_data: course data
+    course_removed: '"%{title}" has been removed from the "%{campaign_title}" campaign'
+    course_removed_and_deleted: '"%{title}" has been deleted and removed from the "%{campaign_title}" campaign'
+    course_removed_but_not_deleted: '"%{title}" has been removed from the "%{campaign_title}" but has not been deleted as it is present in other campaigns as well'
+    create_campaign: Create a New Campaign
+    create_my_campaign: Create my Campaign!
+    customize_passcode: a default passcode
+    data_download_info: Download campaign data as CSVs
+    data_courses: Course overview data
+    data_courses_info: Basic metrics for each course/program
+    data_articles: Pages edited
+    data_revisions: Revisions data
+    data_articles_info: Details about each tracked page edited by the campaign
+    data_revisions_info: Details about each tracked revisions of the campaign
+    data_instructors: Instructors
+    data_instructors_info: List of instructors/facilitators and their courses/programs
+    data_editors_by_course: Editors by course
+    data_editors_by_course_info: List of enrolled editors and their courses/programs
+    data_editor_usernames: Editor usernames
+    data_editor_usernames_info: List of editor usernames, one per line
+    data_wikidata: Wikidata stats
+    data_wikidata_info: Detailed breakdown of Wikidata activity, based on edit summaries
+    default_course_type: Default Course Type
+    default_passcode: Default Passcode
+    default_passcode_explanation: "By default, new programs in this campaign should have:"
+    description: Description
+    delete_campaign: Delete this campaign
+    delete_course_tooltip: Delete and remove from the campaign.
+    disable_account_requests: Disable account requests
+    enable_account_requests: Enable account requests
+    newest_campaigns: Newest Campaigns
+    featured_campaigns: Featured Campaigns
+    instructors_course: instructors by course
+    no_alerts: This campaign has no alerts
+    no_passcode: no passcode
+    none: None
+    organizers: Organizers
+    organizer_added: '%{user} is now an organizer of the "%{title}" campaign'
+    organizer_removed: '%{user} has been removed as an organizer of the "%{title}" campaign'
+    pages_edited_small: pages edited
+    program_template: Program Template
+    program_template_tooltip: >
+      When an organizer creates a program in this campaign,
+      the text in this area will be copied over as a description on the program page
+    random_passcode: a random passcode
+    remove_course_tooltip: Remove from campaign.
+    requested_accounts: Requested accounts
+    resolve: Resolve
+    revision_data: revision data
+    students_small: students
+    student_course: students by course
+    title: Title
+    too_many_articles: The edited article list for this campaign is too long to be displayed. Please view individual courses/programs/events to see the articles edited.
+    slug: Slug
+    search_campaigns: Search campaigns
+    use_start_end_dates: Use start and end dates
+    search: Search
+
+  categories:
+    searching_for_category: Searching for categories in
+    add_category: Add category
+    add_psid: Add PetScan PSID
+    add_pileid: Add PagePile id
+    add_template: Add template
+    add_this_category: Add categories
+    add_this_psid: Add PetScan PSIDs
+    add_this_pileid: Add PagePile ids
+    add_this_template: Add Templates
+    import_articles_description: List of articles in a category gets periodically updated, and it may take some time after it is added before the list gets populated.
+    confirm_add_n_scoping_method: Add %{n} scoping method(s)?
+    depth: Subcategory depth
+    articles_count: Articles Count
+    name: Name
+    category_name: Category name
+    psid_name: PSID
+    pileid_name: PagePile id
+    template_name: Template name
+    none: There are no categories being tracked.
+    remove: Remove
+    tracked_categories: Tracked Categories, PSID, PagePile id & Templates
+    timestamp: Last Updated On
+
+  courses:
+    school_system: Academic System
+    assignment_edits_enabled: Assignment edits enabled
+    assignment_edits_enabled_tooltip: >
+      If enabled, the dashboard will post a template to the talk page
+      for each assigned article.
+    accounts_generation_enabled: Account request generation enabled
+    accounts_generation_explanation: >
+      This will allow participants to enter their email address and desired
+      username, instead of creating new accounts themselves. You will then be
+      able to create the accounts from this Dashboard, and add them as
+      program participants at the same time.
+    accounts_generation_confirm_message: Are you sure you want to enable account requests?
+    activity: Activity
+    active_courses: Active Courses
+    add_trainings: Please add student trainings to your assignment timeline. Assigning training modules is an essential part of Wiki Ed's best practices.
+    alerts: Alerts
+    all_courses: All Courses
+    already_enrolled: You are already a part of '%{title}'!
+    already_exists: That already exists for this course!
+    archived: Archived Courses
+    actions: Actions
+    articles: Articles
+    article_viewer: Article Viewer
+    article_viewer_wikidata: Item Viewer
+    articles_i_am_reviewing_wikidata: Items I'm peer reviewing
+    articles_i_am_reviewing: Articles I'm peer reviewing
+    articles_i_will_create: Articles I will create
+    articles_i_will_create_wikidata: Items I will create
+    articles_i_am_updating: Articles I'm updating
+    articles_i_am_updating_wikidata: Items I'm updating
+    add_campaign_aria_label: Add Campaign Button
+    new_tag_button_aria_label: Create or Update Tag Button
+    enroll_button_aria_label: Enroll Button
+    assignment_headings:
+      assigned_articles: Assigned Articles
+      assigned_articles_wikidata: Assigned Items
+      assigned_reviews: Assigned Reviews
+      available_articles: Available Articles
+      available_articles_wikidata: Available Items
+      available_reviews: Classmates' Articles
+      available_reviews_wikidata: Classmates' Items
+    assignment_end: Assignment End
+    assignment_start: Assignment Start
+    calendar:
+      legend: Legend
+      legend_class_canceled: Holiday/Canceled
+      legend_class_meeting: Class Meeting
+      legend_class_not_meeting: No Scheduled Meeting
+      select_meeting_days: Select the days of the week on which your class meets.
+    cancel: "Cancel"
+    character_doc: The sum of characters added to mainspace articles by the course's students during the course term
+    campaigns: "Campaigns:"
+    campaign_articles: "%{title} Articles"
+    campaign_courses: "%{title} Courses"
+    campaign_select: "Select a campaign"
+    campaign_users: "%{title} Editors"
+    confirm_course_deletion: 'Are you sure you want to delete the course titled %{title}? If so, type the title of the course to proceed.'
+    confirm_course_deletion_failed: '"%{title}" is not the title of this course. The course has not been deleted.'
+    confirm_manual_update: Are you sure you want to run a manual update? The most recent revisions will be imported and then the page will reload. This process may take some time.
+    controlled_by_event_center: Enrollment in this event is controlled by Wikimedia Event Center. It cannot be joined from the Dashboard.
+    course: Course
+    course_type_label: "Type:"
+    course_dates_calendar_instructions: >
+      Select dates to add or remove them from the schedule (e.g., holidays, no
+      school). Click the date to change between unselected, selected, and
+      holiday state. The dates of course activities will change to account for
+      weeks that have no scheduled meetings.
+    course_description: Courses
+    courses: Courses
+    courses_taught: Courses Taught
+    creation_date: Creation Date
+    start_date: Start Date
+    creator:
+      already_exists: This course already exists. Consider changing the name, school, or term to make it unique.
+      assignment_end: Assignment end
+      assignment_end_placeholder: YYYY-MM-DD
+      assignment_start: Assignment start
+      assignment_start_placeholder: YYYY-MM-DD
+      cancel_course_clone: Cancel course clone
+      cancel_course_clone_confirm: Are you sure you want to stop cloning this course?
+      checking_for_uniqueness: This course is being checked for uniqueness.
+      choose_clone: Choose a course to clone.
+      clone_previous: Clone Previous Course
+      clone_this: Clone This Course
+      cloned_course_calendar_instructions: >
+        Select dates to add or remove them from the schedule (e.g., holidays, no
+        school). Click the date to change between unselected, selected, and
+        holiday state. If you have no holidays, check "I have no class holidays".
+        The cloned timeline will automatically adjust the dates to account for
+        weeks that have no scheduled meetings.
+      clone_successful: Update Details for Cloned Course
+      clone_successful_details: >
+        Your course has been cloned, including the elements of the timeline
+        (weeks and blocks). Be sure to add the dates, which are not carried over.
+        Has anything else about your course changed? Feel free to update it now.
+      course_dates_info: Enter the starting and ending dates for your course. In the next step, you can choose when to begin the Wikipedia assignment within that timeframe.
+      course_description: Course description
+      course_description_placeholder: >
+        What is covered in your course, and what will students be doing on Wikipedia?
+        Please include enough detail to give other Wikipedia editors a sense of
+        context for the contributions your students will be making.
+      course_private: Private program (viewable only by admins and facilitators)
+      course_ta_support: Will this course have additional instructors or TAs?
+      course_school: Course school
+      course_subject: Course subject
+      course_term: Course term
+      course_term_placeholder: Term
+      course_title: Course title
+      course_types:
+        basic_course_name: Basic Program
+        basic_course_description: This program type will track edits to any articles or mainspace pages by any participants. If automated wiki edits are enabled on the program's home wiki, then an on-wiki version of this program will be automatically created and updated.
+        edit_a_thon_name: Edit-A-Thon
+        edit_a_thon_description: An Edit-A-Thon program will track edits to any articles or mainspace pages. By default, no automated edits will be made for this program.
+        article_scoped_program_name: Article Scoped Program
+        article_scoped_program_description: This program type only tracks edits for assigned articles or categories. Use this type if you want to limit the statistics to a known collection of articles or topic areas. By default, automated wiki edits are turned on.
+      create_button: Create my Course!
+      create_label: Create New Course
+      create_new: Create a New Course
+      copy_courses_with_assignments: Clone Available Articles list
+      create_short: Create Course
+      end_date: End date
+      end_date_placeholder: YYYY-MM-DD
+      expected_number: Expected number of students
+      find: Find Your Course
+      intro: >
+        The title, school, and term create your course page’s URL, and can't be
+        changed. Everything else, you can edit later. Click “Create my Course!” to
+        start building the timeline for your Wikipedia assignment.
+      new_or_clone: >
+        You can create a new course now using the assignment design wizard.
+        If you have a highly customized timeline from a previous course that you
+        want to re-use, you can clone a copy of it with new dates. (If you did
+        not significantly customize your timeline previously, we recommend
+        starting a new course so that you'll have the most up-to-date
+        versions of the assignment options.) You can also use the clone option
+        to create additional sections for a course you already set up.
+      no_class_holidays: I have no class holidays
+      role_description: Your role in the course
+      role_description_options:
+        - Instructor
+        - Teaching Assistant
+      role_description_placeholder: Instructor, teaching assistant, etc
+      separate_event_dates: Specify separate event start/end times (optional)
+      separate_event_dates_info: >
+        Activity statistics for this program will be tracked based on the dates
+        and times above, but you can specify separate times for when the event
+        or program itself starts and ends (for example, so that participants know
+        when to show up or when the venue closes).
+      save_cloned_course: Save New Course
+      start_date: Start date
+      start_date_placeholder: YYYY-MM-DD
+      subject: Subject
+      update_scheduled: >
+        Update scheduled. The data will be updated along with all current
+        programs during the next update cycle. This typically takes
+        several hours.
+      creating_course: Creating Course
+    current: Current Courses
+    data_articles: Articles data
+    data_articles_info: >
+      Articles data includes the number of edits to each page, which pages are new,
+      and pageview totals. These pageview values may be out of date for courses
+      that have already ended, so a url to the WMF Tool Labs pageview tool is
+      included.
+    data_revisions_info: Revision data includes revision count of the course, revision id, article id, which pages are new and pageviews totals.
+    data_download_info: Download data in CSV format.
+    data_overview: Overview data
+    data_overview_info: Overview data provides cumulative statistics for the whole project.
+    data_edits: Edits data
+    data_edits_info: Edits data shows details for each edit made during the project.
+    data_students: Editors data
+    data_students_info: >
+      Editors data lists all the enrolled editors, how much they edited, and
+      whether they registered their accounts during the project.
+    data_uploads: Commons uploads data
+    data_revisions: Revisions data
+    data_uploads_info: Commons uploads data shows the name and usage count of each media upload.
+    data_wikidata: Wikidata stats
+    data_wikidata_info: Detailed breakdown of Wikidata activity, based on edit summaries
+    dates_too_long: The maximum length is one year.
+    delete_course: Delete course
+    delete_suggestion: Delete
+    delete_course_instructions: You may delete this page if all campaigns are removed first.
+    disable_student_emails: Disable Student Emails
+    disable_student_emails_tooltip: Disabling student email will stop some notification emails from being sent to students for this course.
+    dismiss_survey: Dismiss
+    dismiss_survey_confirm: Are you sure you want to permanently dismiss this survey?
+    download_stats_data: Download stats
+    duration: Course Duration
+    edit_count: Edit Count
+    edit_course_dates: Edit Course Dates
+    embed_course_stats: Embed Course Stats
+    embed_course_stats_description: To embed the stats for this program in another website, copy and paste this code snippet into
+    enable_account_requests: Enable account requests
+    end: End
+    ended: The course has ended.
+    enroll: Enroll
+    enrollment: Add/Remove Students
+    enrollment_edits_enabled: Enrollment edits enabled
+    enrollment_edits_enabled_tooltip: >
+      If enabled, the dashboard will post a template to the userpage and talk page of
+      each editor who joins the program.
+    courses_enrolled: Courses enrolled
+    error:
+      exists: That course already exists! Please try again with a different title, school, or term.
+      user_exists: "Sorry, %{username} is not an existing user."
+      user_exists_on_wiki: "Sorry, %{username} is not an existing user on %{domain}."
+      invalid_language_or_project: Invalid language/project
+      invalid_wiki: "Cannot connect to %{domain}. It may not be a valid wiki."
+      invalid_slug: Blank school/title for course.
+      duplicate_slug: "Another program called %{slug} already exists."
+    expected_students: Expected Students
+    features_feedback: "Automated Suggestions:"
+    feedback: Feedback
+    feedback_loading: Please wait while suggestions are Loading...
+    gradeables_none: This course has no gradeable assignments.
+    home_wiki: Home Wiki
+    multi_wiki: Tracked Wikis
+    namespaces: Tracked Namespaces
+    instructor:
+      one: Instructor
+      other: Instructors
+    instructors: Instructors
+    instructor_message: This is the same My Articles interface that students have. You can use it to walk through the same steps students will go through. However, only student contributions will be tracked.
+    instructor_message_wikidata: This is the same My Items interface that students have. You can use it to walk through the same steps students will go through. However, only student contributions will be tracked.
+    invitation: >
+      You’ve been invited to join %{title}. To join, you need to log in with a Wikipedia account.
+    invitation_username_advice: >
+      If you don’t have a Wikipedia account yet, sign up for one now.
+      Your username can be as anonymous — or as personally identifying — as you wish.
+      (Shared accounts are not allowed.)
+    join: Join
+    join_course: Join course
+    join_course_as_volunteer: Volunteer to help
+    join_prompt: Join '%{title}'?
+    join_successful: >
+      You’ve successfully joined %{title}.
+      The dashboard will automatically keep track of your contributions with periodic updates. Check back later to see what impact you've made!
+    join_failed: Enrollment failed.
+    join_failure_details:
+      cannot_join_twice: Users may not join the same course twice.
+      not_yet_approved: This course has not yet been approved for enrollment.
+      withdrawn: This course has been marked as withdrawn — possibly by mistake. Contact Wiki Education staff to re-enable it.
+      invalid_sync: Enrollment in this event is controlled by Wikimedia Event Center. It cannot be joined from the Dashboard.
+    join_details: To join this course, you need to get the passcode — or an enrollment link that includes the passcode — from the instructor. If you haven't received this, contact your instructor.
+    join_no_passcode: Are you sure you want to join this course?
+    launch_wizard: Launch the Wizard
+    leave_confirmation: Are you sure you want to leave this course?
+    leave_course: Leave course
+    loading: Loading…
+    milestones_none: This course does not currently have any milestones.
+    my_articles: My Articles
+    my_articles_wikidata: My Items
+    needs_update: Schedule Data Update
+    new_week: Add New Week
+    new_account_check_username: Check username availability
+    new_account_email: Email address
+    new_account_email_placeholder: name@example.org
+    new_account_info: >
+      To request an account, enter your email address and your desired username.
+      A password will be emailed to you once the account has been created by one
+      of the facilitators.
+    new_account_info_admin: >
+      To create an account for a new editor, enter their email address and
+      desired username. A password will be emailed to them once the account has
+      been created.
+    new_account_username: Requested username
+    new_account_username_invalid: This is not a valid username.
+    new_account_username_placeholder: Wiki Editor 123
+    new_account_username_taken: That username is already taken. Please choose another.
+    new_account_submit: Request account
+    new_account_submitted: >
+      Your request for an account has been submitted. The Facilitator for this program
+      can finalize your account creation now. Once it is created, you'll get a password
+      for the new account by email.
+    new_account_submitted_admin: >
+      Your request for an account has been created. Please inform your students to check
+      their email inbox to get their new password
+    no_campaign: To make this program active and allow users to join, it must be added to a campaign. If you're unsure of which campaign to add, use 'Miscellanea'.
+    nocourses: You are not participating in any courses.
+    nocourse: has not participated in any courses.
+    none: None
+    not_permitted: You are not permitted to edit this course.
+    notify_untrained_confirmation: >
+      This will post a reminder on the talk pages for all students who overdue
+      for completing assigned training modules. Are you sure you want to do this?
+    no_available_actions: No available actions
+    online_volunteers_enabled: Online Volunteers enabled
+    online_volunteers_tooltip: Enabling Online Volunteers allows user editors to join as a volunteer. Their edits will not be tracked.
+    ores_plot: ORES
+    overview: Home
+    passcode: Passcode
+    passcode_none: No passcode
+    passcode_prompt: "Enter the passcode to join:"
+    please_log_in: "Please log in."
+    private: Private
+    published: "Your course has been published! Students may enroll in the course by visiting the following URL:"
+    rating_feedback: "Predicted rating for the article is:"
+    requested_accounts: Requested accounts
+    requested_accounts_alert:
+      one: "%{count} requested account pending."
+      other: "%{count} requested accounts pending."
+    requested_accounts_alert_view: "View"
+    retain_available_articles: Retain Available Articles
+    retain_available_articles_wikidata: Retain Available Items
+    retain_available_articles_info: >
+      When enabled, selecting an Available Article does not remove it from
+      the list, allowing a group of students to select the same article.
+    retain_available_articles_info_wikidata: >
+      When enabled, selecting an Available Item does not remove it from
+      the list, allowing a group of students to select the same item.
+    review_timeline: >
+      Now, review your assignment timeline, customizing it to fit your needs.
+      Once you're satisfied, you can submit it for approval by Wiki Education staff.
+      Once approved, you'll receive an enrollment URL that students can use to
+      join the course and access the trainings. (Note: You'll still be able to make edits later.)
+    revisions_doc: The number of edits in the past %{timeframe} days
+    revisions_none: This course has no recent Wikipedia editing activity.
+    school: School
+    school_and_term: Institution/Term
+    search_all_tickets_for_this_course: Search all tickets for this course
+    search_courses: Search courses
+    start: Start
+    start_typing: Start typing
+    stay_in_sandbox: Stay in sandbox
+    student: Student
+    students: Students
+    students_taught: Students Taught
+    students_count: "# Students"
+    student_editors: Student Editors
+    students_none: This course has no students.
+    students_short: Students
+    submitted_admin: >
+      This course has been submitted for approval by its creator. To approve it,
+      add it to a campaign on the Overview page.
+    submitted_and_pending_heading: Submitted & Pending Approval
+    submitted_heading: Submitted Courses
+    submitted_note: >
+      Your course has been successfully submitted. Wiki Education staff will review it and get in
+      touch with any questions. In the meantime, if you'd like to review Wiki Education's training
+      materials, you can view the full list of resources for instructors and students.
+    suggestions_feedback: Have any suggestions to improve this feature? Let us know!
+    suggestions_sending: Sending Feedback...
+    suggestions_sent: Feedback Sent. Thanks for your input.
+    suggestions_failed: Couldn't send feedback. Try again later.
+    user_role: Role
+    course_details: Course Details
+    course_submitted: Submitted status is used for education program courses where a course plan must be approved before the project begins. It is only relevant for the ClassroomProgram course type.
+    subject: Subject
+    submitted: Submitted
+    submitted_at: Submitted at
+    tag_select: "Select or create a tag"
+    tags: "Tags:"
+    term: Term
+    timeline: Assignment Details
+    timeline_enabled: Timeline enabled
+    timeline_link: Timeline
+    timeline_tooltip: Enabling the Timeline will let you specify week-by-week activities and assign training modules. It is useful for Education Program courses and other long, highly structured programs.
+    timeline_nav: Go to Timeline
+    time_zone_message: Start and end times are displayed in your local time zone.
+    title: Title
+    training_due: The training module "%{title}" is assigned for this course, and is due on %{date}.
+    training_nav: Go to training
+    training_overdue: The training module "%{title}" is assigned for this course, and was due on %{date}.
+    unsubmitted: Unsubmitted Courses
+    untrained: Untrained
+    update_stats: Update statistics
+    uploads_none: This class has not contributed any images or other media files to Wikimedia Commons.
+    user_uploads_none: This user has not contributed any images or other media files to Wikimedia Commons.
+    user_recent_uploads: Recent Uploads
+    user_suggestions: "User Suggestions:"
+    user_suggestions_prompt: "Your suggestions for the editors of the article"
+    view_other: View other campaigns
+    view: View Course
+    view_doc: The estimated number of views to articles edited by enrolled editors since the editor made their first edit to each article
+    view_page: View Course Page
+    view_wiki: View on Wikipedia
+    volunteer:
+      one: Volunteer
+      other: Volunteers
+    weeks_none: This course does not have a timeline yet.
+    warn_mirrored: >
+      Upon submission, this course will be automatically posted to Wikipedia with your user account.
+      After that, new edits to the timeline will be mirrored to Wikipedia.
+      Are you sure you want to do this?
+    wiki_course_page_enabled: Wiki course page enabled
+    wiki_course_page_enabled_tooltip: >
+      If enabled, an on-wiki mirror of the page will be updated whenever the
+      program or its users and assignments are changed.
+    wiki_edits_enabled: Wiki edits enabled
+    wiki_edits_enabled_tooltip: >
+      If wiki edits are enabled, then automated on-wiki edits will be made for this program. Disable wiki edits
+      if you don't want templates added to user pages, the talk pages of assigned articles, etc.
+    wiki_staff: Wiki Education Staff
+    withdrawn: Did not do assignment
+    word_count_doc: An estimate of the number of words added to mainspace articles by the course's students during the course term
+    word_count_doc_wikidata: An estimate of the number of words added to mainspace items by the course's students during the course term
+    yourcourses: Your Courses
+    survey:
+      notification_message: Take our survey for this course.
+      link: Take Survey
+
+  course_instructor_notification:
+    notify_instructors: Email Instructors
+    notify_instructors_feature_description: Send a message to Instructors via email
+    send_notification_button_text: Send
+    notification_sent_success: "Message sent to all Instructors of %{courseTitle}"
+    notification_send_error_no_internet: "Unable to send request. Check if you are connected to the Internet."
+    notification_send_error_server: "Server Error: Unable to send notification (%{status} %{statusText})"
+    notification_empty_message: "Subject or Message cannot be empty"
+    confirm_send_notification: "Send to all instructors for this course?"
+    write_subject: "Subject"
+    write_message_placeholder: "Message"
+    sending_notification: "Sending"
+
+  # These are strings that are not specific to education/classroom contexts
+  courses_generic:
+    school_system: Academic System
+    add_campaign: Add campaign
+    all_courses: All Programs
+    archived: Archived Programs
+    articles_i_am_reviewing: Articles I'm reviewing
+    assignment_headings:
+      available_reviews: Available to Review
+      available_reviews_wikidata: Available to Review
+    assignment_end: Event End
+    assignments_none: This project has no assigned articles.
+    assignment_start: Event Start
+    cancel: Cancel
+    course: Program
+    courses: Programs
+    courses_taught: Programs Taught
+    campaigns: "Campaigns:"
+    campaign_courses: "%{title} Programs"
+    creator:
+      assignment_end: Event end
+      assignment_end_placeholder: YYYY-MM-DD
+      assignment_start: Event start
+      assignment_start_placeholder: YYYY-MM-DD
+      cancel_course_clone: Cancel program clone
+      cancel_course_clone_confirm: Are you sure you want to stop cloning this program?
+      checking_for_uniqueness: This program is being checked for uniqueness.
+      choose_clone: Choose a program to clone.
+      clone_previous: Clone Previous Program
+      clone_this: Clone This Program
+      clone_successful: Program Successfully Cloned
+      clone_successful_details: >
+        Your program has been cloned.
+        Click 'Save' below to finalize it.
+      course_when: Add something in the 'When' field (for example, the month and year) to differentiate it from the original.
+      course_dates_info: >
+        Enter the starting and ending dates for your program. You may wish to extend the end to several hours or days beyond
+        the end of the main activities, to include related editing that happens soon after the event.
+      course_description: Program description
+      course_description_placeholder: >
+        What is this program, and what will participants be doing on the wiki(s)?
+        Please include enough detail to give other editors a sense of
+        context for the contributions that participants will be making.
+      course_school: Institution
+      course_term: When
+      course_term_placeholder: When
+      course_title: Program title
+      create_button: Create my Program!
+      create_label: Create New Program
+      create_new: Create an Independent Program
+      create_short: Create Program
+      end_date: End of activity tracking
+      find: Find a Program
+      intro: >
+        The program title and institution form the URL of the program. The home wiki
+        is the main wiki where participants will be working, and edits on this wiki
+        will tracked by default. If your program spans multiple languages or projects,
+        contributions will also be tracked for any wiki that has been explicitly added
+        to the "Tracked Wikis".
+        Click "Create my Program!" to start building the page for your wiki program.
+      new_or_clone: >
+        Create a new program now, or use the 'clone' option to copy another program
+        that you participated in.
+      participate_in_campaign: Participate in a Campaign
+      save_cloned_course: Save
+      start_date: Start of activity tracking
+      scoping_methods:
+        scoping_methods: Scoping Methods
+        configure: Configure Scoping Methods
+        about: >
+          For an Article Scoped Program, the Dashboard will only track edits to the articles that you have configured it for. After your page has been created, you can add individual articles to track assigning articles to individual editors or by adding them as Available Articles. For larger sets of articles, you can use any of these tools to define articles you want to track.
+
+          Select any scoping methods you want to configure now. You can also add scoping methods later from the Articles tab.
+        categories: Categories
+        categories_short_desc: The Category feature on a wiki is used to collect related articles. You can use the name of the Category to tell the Dashboard to track all the articles in that Category.
+        categories_desc: >
+          Tracking a Category means that the Dashboard will count edits to any articles in that Category. By default (depth 0), only the articles that are directly in that Category will be tracked.
+
+          You can increase the depth value (up to a maximum of 3) if you want to include articles that are in sub-categories of that Category. Be sure to browse the Category first, to make sure the sub-Categories match what you intend to track.
+        templates: Templates
+        templates_short_desc: You can track articles based on a Template that they contain, which works whether the Template is used on article itself, or on the corresponding Talk page — such as WikiProject templates.
+        petscan: PetScan
+        petscan_short_desc: PetScan is a tool that allows you to query wiki pages based on a wide range of criteria — including categories, templates, wikilinks, and much more. You can use a PetScan query ID to configure a set of articles to track on the Dashboard.
+        pagepile: PagePile
+        pagepile_short_desc: PagePile is a tool that allows you to create a list of pages which doesn't change over time and is identified by a unique ID.
+        templates_desc: >
+          Templates are used for a wide variety of purposes on wiki pages, but some are specific to a topic. Navigation templates, WikiProject templates, and topic-specific Infobox templates are particularly useful when using a Template to configure an Article Scoped Program.
+        pagepile_desc: >
+          PagePile is a tool on Wikimedia Cloud. It allows users to collect and organize a group of wiki pages into a single bundle called a "pile." These piles can then be easily shared with others, enabling collaborative work and information sharing.
+
+          In contrast to PetScan, the articles in a pile will not change over time, even when categories, templates or other data used to create that set of articles have changed.
+        petscan_desc: >
+          PetScan is a powerful but complex tool for querying a set of wiki pages based on a wide variety of criteria and data sources. You can use PetScan directly to create the query for a set of articles you want to track, which gives you access to the full set of options to target your query very precisely. Alternatively, you can create a PetScan query from some of the most common options directly from the Dashboard.
+
+          PetScan saves the query parameters and provides an ID for that query. The results of that query may change over time, for example when new articles are added to category that the query includes. The Dashboard will periodically refresh the query results for a given ID, and will update its statistics based on the latest set of articles that PetScan produces.
+        petscan_create_psid: Create a PetScan ID using the official PetScan tool
+        pagepile_create_id: Create a PagePile using the official PagePile tool
+        categories_include_OR: Articles containing ANY of these categories will be tracked
+        templates_include_OR: Articles containing ANY of these templates will be tracked
+        start_typing_to_search: Start typing to search
+
+    delete_course: Delete program
+    edit_course_dates: Edit Project Dates
+    end: Activity tracking end
+    enroll: Add Editor
+    enrollment: Add/Remove Editors
+    explore: Find Programs
+    courses_enrolled: Programs participated
+    expected_students: Expected Editors
+    instructors: Facilitators
+    join_course: Join program
+    join_details: To join this program, you need to get the passcode — or link that includes the passcode — from the facilitator.
+    leave_course: Leave program
+    milestones_none: This project does not currently have any milestones.
+    not_permitted: You are not permitted to edit this program.
+    published: "This project has been published! Editors may enroll by visiting the following URL:"
+    request_accounts: Request accounts
+    revisions_none: This project has no recent editing activity.
+    school: Institution
+    school_and_term: Institution/When
+    search_courses: Search programs
+    start: Activity tracking start
+    student_editors: Editors
+    student: Editor
+    students: Editors
+    students_taught: Total Editors
+    students_none: This project has no editors enrolled.
+    students_short: Editors
+    students_count: Number of participants
+    term: When
+    unsubmitted: Unsubmitted Programs
+    uploads_none: This project has not contributed any images or other media files to Wikimedia Commons.
+    user_uploads_none: Selected users have not contributed any images or other media files to this project.
+    view_other: View other campaigns
+    view_page: View Program Page
+    word_count_doc: An estimate of the number of words added to mainspace articles by the program's editors during the program term
+    word_count_doc_wikidata: An estimate of the number of words added to mainspace items by the program's editors during the program term
+    yourcourses: Your Programs
+
+  editable:
+    edit: Edit
+    cancel: Cancel
+    save: Save
+    edit_description: Edit Description
+    edit_details: Edit Details
+    edit_template: Edit Template
+    rename_confirmation: The course fields that form the URL have changed. This will change the URL and break any incoming links. Are you sure you want to do this?
+
+  instructor_view:
+    article_assignments: "%{prefix} Assignments"
+    assignments_table:
+      article_name: Name
+      current_stage: Current Stage
+      relevant_links: Relevant Links
+    assigned_articles: Assigned Articles
+    assigned_articles_wikidata: Assigned Items
+    bad_work:
+      learn_more: "If student work made the article worse, we encourage you to edit it yourself. Otherwise, let us know about the problems so that we can fix them later on."
+      learn_more_wikidata: "If student work made the item worse, we encourage you to edit it yourself. Otherwise, let us know about the problems so that we can fix them later on."
+      learn_more_button: "Learn More"
+      submit_issue: "What are the significant problems with this article?"
+      submit_issue_wikidata: "What are the significant problems with this item?"
+      submit_issue_placeholder: "The more expert perspective and detail you can provide, the better."
+      thank_you: "Thank you! Contact your Wiki Expert if you have additional questions."
+    exercises_and_trainings: "%{prefix} Exercises & Trainings"
+    no_assignments: "This student currently has no assigned articles."
+    can_assign_assignments: "You can assign an article by using the buttons above."
+    no_assignments_wikidata: "This student currently has no assigned items. You can assign an item by using the buttons above."
+    overview: "%{prefix} Overview"
+    reviewing_articles: Reviewing Articles
+    reviewing_articles_wikidata: Reviewing Items
+    select_student:
+      title: "Select %{prefix}"
+      content: to assign and view article assignments
+      content_wikidata: to assign and view item assignments
+
+  metrics:
+    label: Course Activity
+    last_update: Last statistics update
+    last_articles_update: Last articles update
+    next_update: Next estimated update
+    late_update: A new update was expected %{late_update_time}. This may mean that the update is taking longer than expected, or may indicate a problem that is blocking updates.
+    no_update: The Dashboard hasn't imported any data for this program yet.
+    enqueued_update: This program has been added to the update queue.
+    first_update: Estimated start of statistics update
+    activity: Recent Activity
+    are_trained: are up-to-date with training
+    articles_created: Articles Created
+    articles_created_wikidata: Items Created
+    articles_created_generic: Pages Created
+    articles_created_generic_wikidata: Items Created
+    articles_edited: Articles Edited
+    articles_edited_wikidata: Items Edited
+    articles_edited_generic: Pages Edited
+    articles_edited_generic_wikidata: Items Edited
+    article_scoped_program_info: This is an 'Article Scoped Program', which only counts edits to assigned articles and categories.
+    article_scoped_program_info_wikidata: This is an 'Article Scoped Program', which only counts edits to assigned items and categories.
+    bytes_added: Bytes Added
+    characters: Characters
+    char_added: Chars Added
+    char_changed: Characters Changed
+    char: Chars Added
+    close_modal: Close
+    date_time: Date/Time
+    edit_count_description: Total Edits
+    error_count_message: The dashboard encountered %{error_count} error(s) during the most recent update.
+    future_updates_remaining:
+      true: The stats will continue to be updated until %{date}.
+      false: The stats for this program are no longer being updated regularly.
+    last_reviewed: Last Reviewed
+    missing_data_heading: Missing or unexpected results?
+    missing_data_info: Common issues include
+    non_updating_course_update: It has been scheduled for a one-time update, which should take place soon.
+    last_update_failed: The last update to this course failed.
+    last_update_success: The last update ran successfully, so the statistics should be up to date.
+    outreach_help: Need Help? Refer to 'Report a problem' in the navigation bar.
+    per_user: "%{number}/user"
+    recent_updates_summary: Out of the last %{total} updates, %{failure_count} failed and %{error_count} encountered errors.
+    revisions: Recent Edits
+    references_count: References Added
+    references_doc: This is the number of reference tags and shortened footnote templates added to articles, and can include multiple references to the same source. The data comes from the reference-counter Toolforge API.
+    references_doc_wikidata: This is the number of reference tags added to items, and can include multiple references to the same source. The data comes from the ORES item quality model, and is only available for some languages.
+    replag_info: >
+      The Dashboard retrieves edit data from WMF Cloud replica databases. Sometimes these databases are missing the most recent edits
+      because of replication lag (replag). When this is the case, the missing edits will show up later on.
+    replag_link: Check replag
+    tags: Tags
+    total_updates: Total number of updates till now
+    update_status_heading: Update status
+    update_statistics_link: See more
+    upload_count: Commons Uploads
+    uploads_in_use_count:
+      one: file used in an article
+      other: files used in articles
+    uploads_in_use_count_wikidata:
+      one: file used in an item
+      other: files used in items
+    upload_usages_count:
+      one: total usage across languages
+      other: total usages across languages
+    view_count_description: Article Views
+    view_count_description_wikidata: Item Views
+    view_data_unavailable: No view data available
+    view: Views
+    wiki_ed_help: Use the 'Get Help' button to report a problem.
+    word_count: Words Added
+    word_count_average: Average Word Count
+    general: General
+    total_revisions: Total revisions
+    claims: Claims
+    aliases: Aliases
+    merged: Merged
+    created: Created
+    changed: Changed
+    removed: Removed
+    cleared: Cleared
+    added: Added
+    descriptions: Descriptions
+    interwiki_links_added: Interwiki links added
+    labels: Labels
+    no_data: No data
+    other_updates: Other updates
+    qualifiers_added: Qualifiers added
+    redirects_created: Redirects created
+    references_added: References added
+    references_added_info: >
+      This may only be a partial count of references added.
+      It is based on Wikidata edit summaries, and some edits
+      that add references are classified as a "Changed claim"
+      or "Created claim" instead.
+    restorations_performed: Restorations performed
+    reverts_performed: Reverts performed
+
+  namespace:
+    all: All
+    main: Mainspace
+    main_char_added: Mainspace chars added
+    article: Article
+    talk: Talk
+    user: Userspace
+    user_char_added: Userspace chars added
+    project: Project
+    file: File
+    mediaWiki: MediaWiki
+    template: Template
+    help: Help
+    category: Category
+    page: Page
+    book: Book
+    wikijunior: WikiJunior
+    translation: Translation
+    draft: Draft
+    property: Property
+    query: Query
+    lexeme: Lexeme
+    appendix: Appendix
+    portal: Portal
+    school: School
+    author: Author
+    cookbook: Cookbook
+    rhymes: Rhymes
+    index: Index
+    collection: Collection
+    tracked_namespaces_info: >
+      Only the articles corresponding to Tracked Namespaces will contribute to the topline
+      overview stats, like 'Articles Edited', 'Total Edits', 'Words Added', etc. Hence, only
+      track the namespaces that your program aims to improve.
+
+  recent_activity:
+    active_courses: Article is active in
+    article_title: Title
+    datetime: Date/Time
+    did_you_know_eligible: Did You Know Eligible
+    image: Image
+    file_name: File Name
+    no_dyk_eligible: There are not currently any DYK-eligible articles.
+    no_plagiarism: There are not currently any recent revisions suspected of plagiarism.
+    no_edits: There are no recent edits.
+    plagiarism_report: Plagiarism Report
+    possible_plagiarism: Possible Plagiarism
+    plagiarism_explanation: >
+      Wikipedia's plagiarism detection system uses Turnitin/iThenticate to compare new edits with published text.
+      These reports are not 100% accurate. For example, a direct quote with proper attribution
+      may trigger a false positive plagiarism report. Please review the student's contributions
+      and the details of the report before taking any action. (If you find that the change — or
+      the entire article — is not accessible, the content may have been deleted for copyright reasons.)
+    recent_edits: Recent Edits
+    recent_uploads: Recent Uploads
+    report: Report
+    revision_author: Revision Author
+    revision_datetime: Revision Date/Time
+    revision_score: Revision Score
+    show_courses: Show My Courses Only
+    uploaded_by: Uploaded By
+    usage_count: Usage Count
+
+  revisions:
+    chars_added: Chars Added
+    references: References Added
+    class: Class
+    date_time: Date/Time
+    diff: diff
+    diff_show: Show
+    diff_hide: Hide
+    edit_time_span: Edits occurred from %{first_time} to %{last_time}
+    edited_by: Edited By
+    edited_on: Edited on %{edit_date}
+    loading: Loading revisions...
+    none: This course has no recent editing activity.
+    time_doc: The time of each revision in your local time
+    title: Title
+    view_on_wiki: View diff on wiki
+    see_more: See more
+    show_all: Show All
+    show_course_specific: Show Course Specific
+
+  resources:
+    label: Resources
+    header: Resources and Training
+
+  settings:
+    categories:
+      other_settings: Other settings
+      impact_stats: Impact Stats
+      salesforce: Salesforce
+      featured_campaigns: Featured Campaigns
+      special_users: Special Users
+      admin_users: Admin Users
+      users: Users
+    admin_users:
+      new:
+        form_label: Grant admin privileges
+        form_placeholder: User Name
+        confirm_add_admin: "Grant admin"
+        confirm_remove_admin: "Remove admin privileges for"
+        already_admin: "%{username} is already an admin!"
+        elevate_success: "%{username} elevated to admin."
+      remove:
+        revoke_button: "Revoke admin"
+        revoke_button_confirm: "Revoke admin rights from %{username}"
+        revoking_button_working: "Revoking..."
+        already_instructor: "%{username} is already an instructor!"
+        demote_success: "%{username} changed to instructor."
+        no_super_admin: "Can't revoke admin status from a super admin"
+    featured_campaigns:
+      campaign_not_found: "Campaign with slug '%{campaign_slug}' not found"
+      no_featured_campaigns: No Featured Campaigns Defined
+      update_featured_campaigns_button: Update Featured Campaigns
+      add_button: Add Campaign
+      remove_button: Remove Campaign
+    special_users:
+      new:
+        form_label: Grant Special User privileges
+        form_placeholder: User Name
+        confirm_add_special_user: "Add Special User"
+        confirm_remove_special_user: "Remove Special User privileges for"
+        already_is: "%{username} is already an {position}!"
+        elevate_success: "%{username} elevated to {position}."
+      remove:
+        revoke_button: "Revoke Special User"
+        revoke_button_confirm: "Revoke Special User rights from %{username}"
+        revoking_button_working: "Revoking..."
+        already_is_not: "%{username} is not a Special User!"
+        demote_success: "%{username} is now just a user."
+
+  # Suggestions source: https://en.wikipedia.org/wiki/Template:Grading_scheme
+  suggestions:
+    editing: Editing Suggestions
+    suggestion_docs:
+      fa: No further content additions should be necessary unless new information becomes available; further improvements to the prose quality are often possible.
+      a: Expert knowledge may be needed to tweak the article, and style problems may need solving. Peer review may help.
+      ga: Some editing by subject and style experts is helpful; comparison with an existing featured article on a similar topic may highlight areas where content is weak or missing.
+      bplus: May be improved by input from experts to assess where coverage is still missing, and also by illustrations, historical background, and further references. Consider peer review or nominating for good article status. If the article is not already fully wikified, now is the time.
+      b: A few aspects of content and style need to be addressed. Expert knowledge may be needed. The inclusion of supporting materials should be considered if practical, and the article checked for general compliance with the Manual of Style and related style guidelines.
+      c: Considerable editing is needed to close gaps in content and solve cleanup problems.
+      start: Providing references to reliable sources should come first; the article also needs substantial improvement in content and organisation. Also improve the grammar, spelling, writing style and improve the jargon use.
+      stub: Any editing or additional material can be helpful. The provision of meaningful content should be a priority. The best solution for a Stub-class Article to step up to a Start-class Article is to add in referenced reasons of why the topic is significant.
+      fl: No further content additions should be necessary unless new information becomes available.
+      list: Lists should be lists of live links to Wikipedia articles, appropriately named and organized.
+      future: Material added might be speculation and should be carefully sourced.
+      disambig: Additions should be made as new articles of that name are created. Pay close attention to the proper naming of such pages, as they often do not need "(disambiguation)" appended to the title.
+      ?: Suggestions not available - The article is either not rated or suggestions not available for the rating.
+      does_not_exist: This article does not exist on Wikipedia.
+
+  # These are maintenance script messages.
+  tasks:
+    conseq: "Task %{task} is already running!"
+    constant: "Task %{task} can not run while task update_daily is running."
+    paused: "Task %{task} cannot run because scheduled updates have been paused. Run 'rake batch:resume' to resume updates."
+
+  tickets:
+    none: "No tickets"
+    search_bar_placeholder: Search tickets
+    chose_search_type: Chose a search type
+
+  timeline:
+    add_week: Add Week
+    arrange_timeline: Arrange Timeline
+    arrange_timeline_instructions: >
+      Arrange timeline by ‘dragging & dropping’ blocks into the desired
+      location/week, or reposition the blocks using the arrows on the card.
+    assignment_dates_instructions: >
+      Select the start and end dates for the Wikipedia assignment timeline.
+      Changing the start date will shift the dates of the entire timeline.
+    blackout_week_created: >
+      There are blocks scheduled for this week. Please move them to another
+      week before you remove the last class meeting from this week.
+    block_assignment: Assignment
+    block_custom: Custom
+    block_in_class: In Class
+    block_milestone: Milestone
+    block_type: >
+      The block type is used to communicate to your students about this item on
+      their timeline and to build useful tools for you (such as the milestone
+      outline on the Overview page)
+    course_dates: Course Dates
+    course_dates_instructions: Select the start and end dates of the entire course (not just the Wikipedia assignment).
+    course_end: Course End
+    course_start: Course Start
+    delete_week_confirmation: "Are you sure you want to delete this week? This will delete the week and all its associated blocks.\n\nThis cannot be undone."
+    delete_weeks_confirmation: "Are you sure you want to delete this entire timeline and start over? \n\nThis cannot be undone."
+    discard_all_changes: Discard All Changes
+    delete_timeline_and_start_over: Delete Timeline
+    due_default: Due next week
+    edit_titles: Edit Week Titles
+    edit_titles_info: Edit week titles in timeline. Only weeks with scheduled meetings can be given custom titles. If any custom titles are used, weeks with no meetings will be dated instead of numbered.
+    # FIXME: lego message. This one is hard to work around because it has inline components.
+    empty_week_1: "To get started,"
+    empty_week_2: start editing this week
+    empty_week_3: "or"
+    empty_week_4: use the assignment wizard to create a timeline.
+    empty_week_drag_items: Empty week. You can move a block from another week here.
+    first_week_title: First Active Week
+    gradeable_value: Value
+    gradeables_none: This timeline has no assignments marked as graded.
+    grading_header: "Grading (Total: %{total})"
+    move_block_down: Move block down
+    move_block_up: Move block up
+    no_class_holidays: I have no class holidays
+    no_timeline: This course has no timeline.
+    no_activity_this_week: No scheduled meetings this week
+    nothing_this_week: There is nothing on the schedule for this week.
+    reset_titles: Reset to Default
+    reset_titles_confirmation: Are you sure you want to reset all week titles? This cannot be undone.
+    save_all_changes: Save All
+    this_week_title_default: This Week
+    title: Timeline
+    unable_to_add_week: >
+      You cannot add new weeks when your timeline is full. Delete at least one
+      week or change your assignment dates to make room for a new one.
+    view_full_timeline: View Full Timeline
+    week_number: "Week %{number}"
+
+  training:
+    cancel: Cancel
+    create: Create
+    create_library: Create New Library
+    create_library_msg: >
+      This is where you can create a new library.
+      Once this library is created, user can add modules and slides to it and
+      can segregate them into categories.
+    check_answer: Check Answer
+    continue: Continue (%{progress})
+    done: Done!
+    enter: Enter
+    exercise_sandbox: Exercise Sandbox
+    included_modules: Included Modules
+    invalid: Sorry that slide does not exist!
+    kind:
+      discussion: Discussion
+      exercise: Exercise
+      training: Training
+    library_name: Library Name
+    library_slug: Library Slug
+    library_introduction: Library Introduction
+    logged_out: "You are logged out. You will not receive credit for completing this module unless you log in."
+    next: Next Page
+    no_training_library_records_non_wiki_ed_mode: There are no TrainingLibrary records in the database.
+    no_training_library_records_wiki_ed_mode: There are no TrainingLibrary records in the database. Click <a href="%{url}"> here</a> to load training data from the training_content/ yaml files.
+    no_training_resource_match_your_search: No training resource matches your search
+    page: Page
+    page_number: Page %{number} of %{total}
+    previous: < Previous
+    reload_from_source: reload from source
+    search_training_resources: Search for training resources
+    start: Start
+    table_of_contents: Table of Contents
+    training_library: Training Library
+    validation_message: This field is required
+    view: View
+    view_library_source: view library source
+    view_module_source: view module source
+    wait: Please do not leave the page as your training progress is being updated.
+
+  update_username:
+    header: Update a changed username
+    not_found: User not found for entered username.
+    username_updated: Username Updated Successfully!
+    info: If a user has changed the username for their Wikimedia account, enter the new username here to update it on the Dashboard.
+    label: New username
+    button: Update
+
+  uploads:
+    article_name: Article Name
+    author: "Author:"
+    categories: Categories
+    credit: Credit
+    date: "Date:"
+    description: Description
+    file_name: File Name
+    file_usage: File usage on other wikis
+    header: Files Uploaded to Wikimedia Commons
+    image: Image
+    label: Uploads
+    license: "License:"
+    loading: Loading uploads...
+    none: This class has not contributed any images or other media files to Wikimedia Commons.
+    original_file: Original File
+    select_label: Filter by uploader
+    time_doc: The time of each upload in your local time
+    uploaded_at: Upload Time
+    uploader: Uploader
+    uploaded_by: Uploaded By
+    uploaded_on: Uploaded On
+    usage_count: Usage Count
+    usage_doc: Number of Wikipedia articles that this image appears in.
+    usage_count_gallery_tile: Used in %{usage_count} articles
+    usages: Usages
+    gallery_view: Gallery View
+    list_view: List View
+    source: "Source:"
+    tile_view: Tile View
+    views_per_day: Views per day
+    view_commons: View on Commons
+    wiki_big: Wiki
+
+  users:
+    already_enrolled: That user is already enrolled!
+    assign_articles: Assign Articles
+    assign_articles_wikidata: Assign Items
+    assign_articles_done: Done
+    assigned: Assigned Articles
+    assigned_wikidata: Assigned Items
+    assignees: Assignee(s)
+    loading_authorship_data: loading authorship data
+    authorship_data_not_fetched: could not fetch authorship data
+    character_doc: >
+      The total amount of content a user has added to this namespace,
+      calculated by adding up the added characters for all edits that
+      increased page size. This number doesn't necessarily reflect the
+      amount of new content the user added. Restoring removed content
+      will also increase this total.
+    chars_added: Characters Added<br>(article | user | draft)
+    chars_added_wikidata: Characters Added<br>(item | user | draft)
+    contributions: User Contributions
+    contributions_history_full: View full contribution history
+    contributions_more: View More Contributions
+    contribution_statistics: Contribution Statistics
+    course_passcode: "Passcode:"
+    editors: Editors
+    edits: edits
+    edits_by: "Edits by:"
+    enroll_confirmation: Are you sure you want to add %{username}?
+    enroll_url: "Users may join by visiting this URL:"
+    enrolled_success: "%{username} was added successfully!"
+    exercise_modules_completed:
+      one: "%{completed_count}/%{count} exercise completed"
+      other: "%{completed_count}/%{count} exercises completed"
+    exercises_and_trainings: Exercises & Trainings
+    first_name: First name
+    last_name: Last name
+    loading: Loading users...
+    characters_added_mainspace: Characters Added (article)
+    characters_added_mainspace_wikidata: Characters Added (item)
+    characters_added_short: "MS: %{mainspace}, US: %{userspace}"
+    characters_added_userspace: Characters Added (user)
+    characters_added_draftspace: Characters Added (draft)
+    my_assigned: "Assigned:"
+    my_reviewing: "Reviewing:"
+    name: Name
+    none: There are no participants.
+    no_articles: No articles
+    no_articles_wikidata: No items
+    no_revisions: (no revisions)
+    no_highlighting: "No text from this version of the article is attributed to user %{editor}. Check the page history to see their edits."
+    contributions_not_highlighted: "Contributions from user %{username} are present, but cannot be highlighted. This typically occurs for added references or templates. Check the page history to see their edits."
+    number_of_articles:
+      one: "%{count} article"
+      other: "%{count} articles"
+    number_of_articles_wikidata:
+      one: "%{count} items"
+      other: "%{count} items"
+    profile: profile
+    recent_revisions: Recent Edits
+    references_count: References Added
+    training_modules: Training Modules
+    remove_confirmation: Are you sure you want to remove %{username}?
+    request_confirmation: Are you sure you want to request this account?
+    requested_account_status:
+      success_message: "Success: %{result_description}"
+      failure_message: "Failure: %{result_description}"
+    revision_characters_and_views: "Chars Added: %{characters}, Views: %{views}"
+    revisions_doc: The number of edits made by this editor in the past 7 days
+    references_doc: The number of references added or removed by this editor
+    reviewers: Reviewer(s)
+    reviewing: Reviewing
+    revisions: Revisions
+    sandboxes: sandboxes
+    sub_navigation:
+      assignments_and_exercises: Assignments & Exercises
+      editor_overview: Editor Overview
+      exercises_and_trainings: Exercises & Trainings
+      student_overview: "%{prefix}  Overview"
+      watch_list:
+        students_add: "Add all %{prefix} to Watchlist"
+        instructional_message: You're about to add your student's talk pages to your watchlist, to stay updated on their discussions and contributions. Clicking 'OK' will add all the students to the watchlist. Continue?
+        tooltip_message:  Easily track discussions on students talk pages by adding them to your watchlist.
+        success_message:  "%{prefix} successfully added to the Watchlist."
+        error_message: "Failed to add %{prefix} to the Watchlist. Please try again later."
+    total_uploads: "Total Uploads"
+    training_complete:
+      one: "is up-to-date with training"
+      other: "are up-to-date with training"
+    training_complete_count:
+      one: "%{count} training up-to-date"
+      other: "%{count} training up-to-date"
+    training_doc: >
+      Editors who have completed the all assigned training modules that
+      have come due are counted as up-to-date with their training.
+    training_incomplete: Training Incomplete
+    training_modules_completed:
+      one: "%{completed_count}/%{count} training module completed"
+      other: "%{completed_count}/%{count} training modules completed"
+    training_module_name: Training module
+    training_module_status: Status
+    training_module_time:
+      minutes: Min
+      seconds: Sec
+    user_training_status: Training Status
+    user_no_training_status: This user has not completed any training modules.
+    up_to_date_with_training: "up-to-date with training"
+    uploads_doc: "Number of file uploads to Wikimedia Commons"
+    ungreeted: Ungreeted
+    username: Username
+    username_placeholder: Username
+    useremail_placeholder: Email
+    userpasscode_placeholder: Passcode
+    words_added: Words Added<br>(article | user | draft)
+    word_count_doc: >
+      An estimate of total amount of content a user has added to live articles,
+      userspace pages (sandboxes), and the Draft namespace.
+      Word count estimates are calculated from the sum of changes in page size
+      across all edits that added more than they removed. This number doesn't
+      necessarily reflect the amount of new content the user added. Restoring
+      removed content will also increase this total.
+    role:
+      description: Role in course
+      visitor: Visitor
+      student: Student
+      instructor: Instructor
+      campus_volunteer: Campus Volunteer
+      online_volunteer: Online Volunteer
+      wiki_ed_staff: Wiki Education Staff
+
+  user_profiles:
+    student_impact: Total impact made by %{username} as a student
+    instructor_impact: Total impact made by %{username} as an instructor
+    instructors_student_impact: Total impact made by %{username}'s students
+    disclaimer: The information you provide will be made available publicly.
+    bio_placeholder: Add your Bio (optional)
+    location_placeholder: Add your location (optional)
+    institution_placeholder: Institution name (optional)
+    image_link_placeholder: Add link to image (optional)
+
+  wiki_edits:
+    notify_overdue:
+      button_label: Remind students about overdue training
+      confirm: >
+        This will post a reminder on the talk pages of all students who have
+        overdue training. Are you sure you want to do this?
+      # header, message and summary are wikitext output that gets posted on user talk pages.
+      header: You have an overdue training assignment.
+      message: Please complete the assigned [%{link} training modules].
+      summary: student training overdue
+
+  wizard:
+    assignment_dates: Assignment Dates
+    assignment_description: >
+      Choose the start and end dates for your assignment timeline. For example,
+      if you want to start your Wikipedia project the second week of class, set
+      the assignment start date to one week after the course's start date. This
+      assignment design tool will create a draft timeline that fits within the
+      timeline dates you choose.
+    assignment_type: What will students complete for their Wikipedia assignment?
+    calendar_instructions: >
+      Select dates to add or remove them from the schedule (e.g., holidays, no
+      school). This helps the course creation tool accurately space out your
+      assignments. Click the date to change between unselected, selected, and
+      holiday state. If you have no holidays, check "I have no class holidays"
+      below.
+    confirm_dates: Choose the course dates, weekly meetings, and holidays for your course.
+    course_dates: Course Dates
+    min_weeks: >
+      This assignment requires at least %{min_weeks} available
+      weeks. Please adjust your assignment start and end dates if you want to
+      use this type of assignment.
+    select_one_option: Please select 1 option.
+    minimum_options:
+      one: Please select %{count} or more options.
+      other: Please select %{count} or more options.
+    read_less: Read Less
+    read_more: Read More
+    review_selections: >
+      Please review your selections below. Click to edit a selection. When
+      finished, click 'Submit' to finish the wizard and build your timeline.
+    select_assignment: Select the kind of assignment you want to add to your timeline.
+    summary: Summary
+
+  error:
+    form_errors: Please check the form for errors.
+    invalid_assignment: Invalid assignment
+    invalid_date: "%{key} date is invalid"
+    invalid_file_format: The file could not be saved. Please upload a PDF or Word document.
+    oauth_invalid: Your Wikipedia authorization has expired. Please log in again.
+    start_date_before_end_date: Start date must be before the end date
+    unsupported_browser:
+      header: "Unsupported browser.  :-("
+      explanation: >
+        You are using a browser that isn't compatible with the dashboard. This
+        site works well on recent versions of Chrome, Firefox, Edge, and other modern browsers.
+    ip_blocked: >
+      You cannot currently create an account from this device. This my happen if your IP address is blocked by Wikipedia or has already reached the daily limit for new accounts. Try connecting from a different network.
+
+  error_401:
+    header: "Unauthorized. >:-("
+    explanation: >
+      You are not authorized to execute this request. If you believe you have
+      reached this notice in error, please contact the maintainers of this
+      dashboard to let them know about the problem.
+    json_explanation: >
+      It looks like you've gotten logged out. Please refresh, log in, and try again.
+  error_incorrect_passcode:
+    header: "Incorrect passcode.  :-("
+    explanation: >
+      The passcode for enrolling in this course in incorrect. Please ask the
+      instructor for the current passcode to enroll in this course. You can
+      retry by entering the correct passcode below.
+  error_no_course:
+    explanation: "No such course %{slug} exists."
+
+  error_404:
+    header: "Page not found. :-("
+    explanation: >
+      This page doesn't exist. If you were trying to reach the dashboard
+      for a course, that course may not be registered for this dashboard.
+  error_422:
+    header: "422 — unprocessable entity.  :-("
+    explanation: >
+      Something went wrong. Please contact the maintainers of this dashboard
+      to let them know about the problem.
+  error_500:
+    header: "500 — internal server error.  :-("
+    explanation: >
+      Something went wrong. Please contact the maintainers of this dashboard
+      to let them know about the problem.
+  login_error:
+    header: "Login Error"
+    explanation: >
+      It looks like there was a problem with the sign in process. (Sorry about that! It happens occasionally.) Please try logging in or enrolling again.
+  # This is a maintenance script message.
+  timeout: "A request to the %{api} API has timed out and will be retried %{tries} times."
+
+  survey:
+    login_message: "Thank you for your time. Please log in to the Dashboard to take the survey."
+    notification_explanation: If below is checked, users will receive emails according to the notification schedule, in addition to seeing in-browser notifications. If not, only in-browser notifications will be shown.
+    notification_schedule_explanation: Notifications include in-brower notifications and emails, if enabled above.
+    follow_up_explanation: Leave blank if no follow-up notification emails are desired.
+    email:
+      headline: "Hello, %{username}"
+      message_line1: "We hope you had a great term! Wiki Education is seeking your feedback to improve our resources and support for your Wikipedia assignments. Your response is crucial to improving our current offerings."
+      message_line2: "Are you willing to take 15 minutes to fill out our instructor survey? Click the button below to help us make teaching with Wikipedia an even more rewarding and valuable experience."
+      course: "Course: %{course_info}"
+      closing: "Sincerely,"
+      signed: "- the Wiki Education team"
+      link: "Take Survey"
+    follow_up:
+      message: "This is a reminder about the survey for your course, %{course_title}. Feedback from this survey helps us to improve our support for Wikipedia assignments like yours."
+
+  feedback_form_responses:
+    no_responses: "There are no feedback responses yet."
+
+  wiki_api:
+    create_account_reason: "This user is participating in %{event}."
+
+  onboarding:
+    supplementary:
+      header: "How did you hear about us?"
+      where_did_you_hear: "Where, or from whom, did you first hear about Wiki Education?"
+      why_are_you_here: "What would you like to do?"
+
+  article_finder:
+    add_available_article: "Add as available article"
+    add_available_article_wikidata: "Add as available item"
+    article_finder: "Article Finder"
+    article_finder_wikidata: "Item Finder"
+    article_quality: "Article Quality(0-100)"
+    article_quality_wikidata: "Item Quality(0-100)"
+    assign_article_self: "Assign yourself"
+    average_views: "Average views per day"
+    category_search: "Category Search"
+    completeness_estimate: "Completeness Score"
+    estimation_score_not_found: "Estimation Score not found!"
+    fetching_assessments: "Fetching Page Assessments"
+    fetching_scores: "Fetching Completeness Score"
+    fetching_pageviews: "Fetching Page Views"
+    fetching_revisions: "Fetching Page Revisions"
+    fetched_articles: "Fetched Articles"
+    fetched_articles_wikidata: "Fetched Items"
+    filtered_articles: "Filtered Articles"
+    filtered_articles_wikidata: "Filtered Items"
+    hide_options: "Hide Options"
+    keyword_search: "Keyword Search"
+    minimum_views_label: "Minimum Views"
+    more_results: "More Results"
+    no_article_found: "No articles found in this category"
+    no_article_found_wikidata: "No items found in this category"
+    page_assessment_class: "Class"
+    page_views_not_found: "Page Views not found!"
+    relevanceIndex: "Relevance Index"
+    remove_article: "Remove article"
+    remove_article_wikidata: "Remove items"
+    search: "Search"
+    searching_articles: "Searching Articles"
+    searching_articles_wikidata: "Searching Items"
+    search_placeholder: "Enter your keyword"
+    show_options: "Show Options"
+    subheading_message: "Let's find a Wikipedia article to work on."
+    subheading_message_wikidata: "Let's find a Wikidata item to work on."
+    submit: "Submit"
+    tools: "Tools"
+    unassign_article_self: "Unassign Article"
+    unassign_article_self_wikidata: "Unassign Item"
+
+  training_status:
+    completed: "Completed"
+    continue: "Continue"
+    completed_at: "Completed at"
+    completion_time: "Completion time"
+    late: Late
+    view: "View"
+    started: "Started"
+    not_started: "Not started"
+    due: "due %{due_date}"
+    assignment_status: "Training Assignment (%{status})"
+
+  multi_wiki:
+    selector_placeholder: "Begin typing a wiki domain"
