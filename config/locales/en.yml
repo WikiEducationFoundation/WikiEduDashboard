@@ -1681,3 +1681,51 @@ en:
 
   multi_wiki:
     selector_placeholder: "Begin typing a wiki domain"
+
+  news:
+    nav_tooltip: "News & Recent Changes"
+    add_news: "Add News"
+    post_confirmation:
+      title: "Proceed to post the news update?"
+      confirmation: "Please confirm."
+    delete_confirmation:
+      title: "Proceed with deleting the news content?"
+      confirmation: "Please confirm."
+    no_updates:
+      message: "Currently, there are no news updates available"
+      check_later: "Please check back later."
+    header:
+      P&E_dashboard_title: "News & Recent Changes"
+      wiki_education_dashboard_title: "News From Wiki Education"
+    footer:
+      P&E_dashboard:
+        link_text: "Wikimedia"
+        footer_text: "Read News & Recent Changes From Wikimedia"
+      wiki_education_dashboard:
+        link_text: "wikiedu.org/blog"
+        footer_text: "Read Blogs & News From Wiki Education"
+    options:
+      news_content:
+        delete_news: "Delete News"
+        confirm_delete: "Confirm"
+        cancel_delete: "Cancel"
+        cancel_edit: "Cancel Edit"
+        edit_news: "Edit News"
+        update_news: "Update News"
+      create_news:
+        cancel_post: "Cancel Post"
+        confirm_post: "Confirm Post"
+        discard_post: "Discard News"
+        post_news: "Post News"
+    notification:
+      delete: "News Content Deleted Successfully"
+      update: "News Content Updated Successfully"
+      create_news: "News Content Published Successfully"
+      create_news_error: "Error creating news content. Please try again."
+      update_error: "Error Updating news content. Please try again."
+      empty_create_news_content_error: "Please enter news content before posting."
+      empty_update_news_content_error: "Please enter news content before Updating."
+    text_area_input:
+      placeholder: "Add News & Recent Changes"
+
+

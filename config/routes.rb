@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   # intercepting the click and issuing a post request. Omniauth login is post-only.
   get 'users/auth/mediawiki', to: redirect('/')
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
-  
+
   devise_scope :user do
     # OmniAuth may fall back to :new_user_session when the OAuth flow fails.
     # So, we treat it as a login error.
@@ -347,7 +347,11 @@ Rails.application.routes.draw do
   get '/courses_by_wiki/:language.:project(.org)' => 'courses_by_wiki#show'
 
   # frequenty asked questions
-  resources :faq
+  resources :faq do
+    member do
+      get 'handle_special_faq_query'  # Defines a route for a specific FAQ instance
+    end
+  end
   get '/faq_topics' => 'faq_topics#index'
   get '/faq_topics/new' => 'faq_topics#new'
   post '/faq_topics' => 'faq_topics#create'

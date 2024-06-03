@@ -4,6 +4,9 @@ import HamburgerMenu from './hamburger_menu.jsx';
 import LanguagePicker from './language_picker.jsx';
 import NotificationsBell from './notifications_bell';
 import ConsentBanner from './consent_banner';
+import NewsHandler from './news/news_handler.jsx';
+import { Provider } from 'react-redux';
+import store from '../util/create_store.js';
 
 const Nav = () => {
   const {
@@ -141,6 +144,7 @@ const Nav = () => {
                     <li>
                       <b><a href={`/users/${encodeURIComponent(currentUser)}`} className="current-user">{currentUser}</a></b>
                     </li>
+                    <Provider store={store} ><NewsHandler/></Provider>
                     {ifAdmin && <NotificationsBell />}
                     <li>
                       <a href={destroyUrl} className="current-user">{I18n.t('application.log_out')}</a>

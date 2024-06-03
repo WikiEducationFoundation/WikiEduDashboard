@@ -4,25 +4,33 @@ import thunk from 'redux-thunk';
 
 export const getStore = () => {
   const reactRoot = document.getElementById('react_root');
-  if (!reactRoot) {
+  const navRoot = document.getElementById('nav_root');
+
+  if (!reactRoot && !navRoot) {
     return null;
   }
-  const currentUserFromHtml = JSON.parse(reactRoot.getAttribute('data-current_user'));
-  const admins = JSON.parse(reactRoot.getAttribute('data-admins'));
 
-  // This is basic, minimal state info extracted from the HTML,
-  // used for initial rendering before React fetches all the specific
-  // data it needs via API calls.
-  const preloadedState = {
-    courseCreator: {
-      defaultCourseType: reactRoot.getAttribute('data-default-course-type'),
-      courseStringPrefix: reactRoot.getAttribute('data-course-string-prefix'),
-      courseCreationNotice: reactRoot.getAttribute('data-course-creation-notice'),
-      useStartAndEndTimes: reactRoot.getAttribute('data-use-start-and-end-times') === 'true'
-    },
-    currentUserFromHtml,
-    admins
-  };
+  let preloadedState;
+
+  if (reactRoot) {
+    const currentUserFromHtml = JSON.parse(reactRoot.getAttribute('data-current_user'));
+    const admins = JSON.parse(reactRoot.getAttribute('data-admins'));
+    // This is basic, minimal state info extracted from the HTML,
+    // used for initial rendering before React fetches all the specific
+    // data it needs via API calls.
+    // eslint-disable-next-line no-unused-vars
+    preloadedState = {
+      courseCreator: {
+        defaultCourseType: reactRoot.getAttribute('data-default-course-type'),
+        courseStringPrefix: reactRoot.getAttribute('data-course-string-prefix'),
+        courseCreationNotice: reactRoot.getAttribute('data-course-creation-notice'),
+        useStartAndEndTimes: reactRoot.getAttribute('data-use-start-and-end-times') === 'true'
+      },
+      currentUserFromHtml,
+      admins
+    };
+  }
+
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   const store = createStore(
     reducer,

@@ -257,6 +257,19 @@ const API = {
       });
   },
 
+  async fetchNews() {
+    // Determine the type of newsTitle content to fetch based on the `Features.wikiEd` flag
+    const newsTitle = Features.wikiEd ? 'Wiki Education News' : 'Programs & Events Dashboard News';
+     try {
+         const response = await request(`/faq/${newsTitle}/handle_special_faq_query`);
+         const { newsDetails } = await response.json();
+         return newsDetails;
+     } catch (error) {
+         logErrorMessage('Error creating news:', error)
+         throw error;
+     }
+  },
+
 
 
   // /////////
@@ -470,6 +483,49 @@ const API = {
       throw response;
     }
     return response.json();
+  },
+
+  async createNews(NewsDetails) {
+    NewsDetails = { ...NewsDetails, title: Features.wikiEd ? 'Wiki Education News' : 'Programs & Events Dashboard News'}
+    try {
+      const response = await request('/faq', {
+        method: 'POST',
+        body: JSON.stringify(NewsDetails)
+      });
+
+      const status = response.json();
+      return status
+    } catch (error) {
+      logErrorMessage('Error creating news:', error)
+         throw error;
+    }
+  },
+
+  async updateNews(NewsDetails) {
+    try {
+       const response = await request(`/faq/${NewsDetails.id}`, {
+           method: 'PUT',
+           body: JSON.stringify(NewsDetails)
+       });
+       const status = await response?.json();
+       return status;
+    } catch (error) {
+       logErrorMessage('Error Deleting course notes:', error)
+       throw error;
+    }
+  },
+
+  async deleteNews(news_id) {
+    try {
+       const response = await request(`/faq/${news_id}`, {
+           method: 'DELETE',
+       });
+       const status = await response.json();
+       return status
+    } catch (error) {
+       logErrorMessage('Error Deleting course notes:', error)
+       throw error;
+    }
   },
 
   async createAlert(opts, alert_type) {
