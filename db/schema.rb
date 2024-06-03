@@ -202,8 +202,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_15_143028) do
     t.index ["course_id"], name: "index_course_stats_on_course_id"
   end
 
-  create_table "course_user_timeslices", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "course_user_wiki_timeslices", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.integer "course_user_id", null: false
+    t.integer "wiki_id", null: false
     t.datetime "start"
     t.datetime "end"
     t.integer "last_mw_rev_id"

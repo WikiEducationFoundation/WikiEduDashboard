@@ -2,10 +2,11 @@
 
 # == Schema Information
 #
-# Table name: course_user_timeslices
+# Table name: course_user_wiki_timeslices
 #
 #  id                  :bigint           not null, primary key
 #  course_user_id      :integer          not null
+#  wiki_id             :integer          not null
 #  start               :datetime
 #  end                 :datetime
 #  last_mw_rev_id      :integer
@@ -18,6 +19,7 @@
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #
-class CourseUserTimeslice < ApplicationRecord
+class CourseUserWikiTimeslice < ApplicationRecord
   belongs_to :courses_users
+  belongs_to :wiki
 end
