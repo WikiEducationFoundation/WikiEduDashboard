@@ -354,6 +354,10 @@ Rails.application.routes.draw do
   # To find individual slides by id
   get 'find_training_slide/:slide_id' => 'training#find_slide'
 
+  ## For Training Libraries
+  # Create
+  post 'training_library' => 'training_library#create'
+
   # Misc
   # get 'courses' => 'courses#index'
   get 'explore' => 'explore#index'

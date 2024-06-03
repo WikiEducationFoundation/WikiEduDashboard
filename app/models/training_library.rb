@@ -24,7 +24,7 @@ class TrainingLibrary < ApplicationRecord
 
   validates_uniqueness_of :slug, case_sensitive: false
 
-  validates_presence_of [:id, :name, :slug, :introduction, :categories]
+  validates_presence_of [:name, :slug, :introduction]
 
   def self.path_to_yaml
     "#{base_path}/libraries/*.yml"
