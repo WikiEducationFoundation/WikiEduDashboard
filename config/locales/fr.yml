@@ -91,6 +91,7 @@ fr:
       other: '%count résultats pour : « %{search_terms} »'
     no_results: Aucun résultat trouvé pour « %{query} »
     show_current_revision: Affiche la version actuelle.
+    show_last_revision: Afficher la dernière révision
     sign_up_extended: S’inscrire sur Wikipédia
     sign_up_wikipedia: Ou inscrivez-vous sur Wikipédia
     sign_up_log_in_extended: avec Wikipédia
@@ -204,6 +205,7 @@ fr:
       tracked: Suivi
       untracked: Non suivi
       tracked_and_untracked: Suivi et non suivi
+    filter_text: 'Filtres :'
     find: Trouver des articles
     how_to_find: Comment trouver des articles
     hide: Masquer
@@ -302,6 +304,7 @@ fr:
     edited: Éléments modifiés
     edited_none: Il n’y a encore aucun élément modifié.
     find: Trouver des éléments
+    how_to_find: Comment trouver des objets
     preview: Bref aperçu de l’élément
     search: Rechercher un élément dans Wikidata
     tracked_doc: Seuls les éléments suivis contribuent aux statistiques pour ce programme.
@@ -398,6 +401,9 @@ fr:
       (si elle a été créée récemment, le tableau de bord mettra bientôt ses données
       à jour).
     select: Sélectionner
+    submit: Soumettre
+    invalid_url: Impossible de mettre à jour l'URL du bac à sable. L'URL %{url} n'est
+      pas une URL Wikipédia valide.
     mismatched_wiki: Impossible de mettre à jour l'URL du bac à sable. L'URL %{url}
       n'est pas sur le même wiki.
     warning_untracked_wiki: 'Veuillez noter que l’article que vous avez choisi est
@@ -475,13 +481,17 @@ fr:
     organizers: Organisateurs
     organizer_added: '%{user} est désormais un organisateur de la campagne « %{title} »'
     organizer_removed: '%{user} n’est plus un organisateur de la campagne « %{title} »'
+    pages_edited_small: pages modifiées
     program_template: Modèle de programme
     program_template_tooltip: Quand un organisateur crée un programme dans cette campagne,
       le texte dans cette zone sera copié comme une description sur la page du programme
     random_passcode: un code d’accès aléatoire
     remove_course_tooltip: Retirer de la campagne.
     requested_accounts: Comptes demandés
+    resolve: Résoudre
     revision_data: données de révision
+    students_small: étudiants
+    student_course: étudiants par cours
     title: Titre
     too_many_articles: La liste des articles modifiés pour cette campagne est trop
       longue pour être affichée. Veuillez consulter les cours / programmes / événements
@@ -547,6 +557,7 @@ fr:
     articles_i_will_create_wikidata: Éléments que je créerai
     articles_i_am_updating: Articles que je mets à jour
     articles_i_am_updating_wikidata: Éléments que je mets à jour
+    add_campaign_aria_label: Ajouter un bouton de campagne
     new_tag_button_aria_label: Bouton Créer ou mettre à jour une étiquette
     enroll_button_aria_label: Bouton d'inscription
     assignment_headings:
@@ -631,6 +642,8 @@ fr:
         contributions que feront vos étudiants.
       course_private: Programme privé (visible uniquement par les administrateurs
         et les facilitateurs)
+      course_ta_support: Ce cours aura-t-il des instructeurs ou des assistants de
+        professeurs supplémentaires ?
       course_school: École du cours
       course_subject: Sujet du cours
       course_term: Période du cours
@@ -1362,6 +1375,7 @@ fr:
       des raisons de droit d’auteur).
     recent_edits: Modifications récentes
     recent_uploads: Téléversements récents
+    report: Signalement
     revision_author: Auteur de la révision
     revision_datetime: Horodatage de la révision
     revision_score: Pointage de la version
@@ -1392,8 +1406,12 @@ fr:
     header: Ressources et formation
   settings:
     categories:
+      other_settings: Autres paramètres
+      impact_stats: Statistiques d'impact
       featured_campaigns: Campagnes mises en avant
+      special_users: Utilisateurs spéciaux
       admin_users: Utilisateurs administrateurs
+      users: Utilisateurs
     admin_users:
       new:
         form_label: Accorder les droits d’administrateur
@@ -1411,7 +1429,9 @@ fr:
         no_super_admin: Impossible de révoquer les droit d’administration pour un(e)
           super-administrateur/trice.
     featured_campaigns:
+      campaign_not_found: Campagne avec le slug '%{campaign_slug}' introuvable
       no_featured_campaigns: Aucune campagne définie comme mise en avant
+      update_featured_campaigns_button: Mettre à jour les campagnes mises en avant
       add_button: Ajouter une campagne
       remove_button: Supprimer la campagne
     special_users:
@@ -1595,12 +1615,18 @@ fr:
     label: Nouveau nom d’utilisateur
     button: Mettre à jour
   uploads:
+    article_name: Nom de l'article
+    author: 'Auteur :'
+    categories: Catégories
     credit: Crédit
+    date: 'Date :'
+    description: Description
     file_name: Nom de fichier
     file_usage: Utilisation du fichier sur d'autres wikis
     header: Fichiers téléversés sur Wikimedia Commons
     image: Image
     label: Téléversements
+    license: 'Licence :'
     loading: Chargement en cours des téléversements...
     none: Cette classe n’a contribué avec aucune image ni aucun autre fichier média
       à Wikimedia Commons.
@@ -1617,6 +1643,11 @@ fr:
     usages: Utilisations
     gallery_view: Vue en galerie
     list_view: Vue en liste
+    source: 'Source :'
+    tile_view: Vue en mosaïque
+    views_per_day: Vues par jour
+    view_commons: Afficher sur Commons
+    wiki_big: Wiki
   users:
     already_enrolled: Cet utilisateur est déjà inscrit !
     assign_articles: Affecter des articles
@@ -1899,6 +1930,7 @@ fr:
     average_views: Nombre moyen de vues par jour
     category_search: Recherche par catégorie
     completeness_estimate: Note de complétude
+    estimation_score_not_found: Score d'estimation introuvable !
     fetching_assessments: Récupération en cours des déclarations de page
     fetching_scores: Récupération de la note de complétude
     fetching_pageviews: Récupération en cours des compteurs de vues de page
