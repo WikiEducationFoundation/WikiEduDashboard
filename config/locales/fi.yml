@@ -566,6 +566,8 @@ fi:
     survey:
       notification_message: Vastaa kurssiin liittyvään kyselyyn.
       link: Vastaa kyselyyn
+  course_instructor_notification:
+    write_message_placeholder: Viesti
   courses_generic:
     add_campaign: Lisää kampanja
     all_courses: Kaikki ohjelmat

@@ -1,61 +1,58 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 import selectStyles from '../../styles/select';
 
-const MultiSelectField = createReactClass({
-  displayName: 'MultiSelectField',
-  propTypes: {
-    label: PropTypes.string,
-    options: PropTypes.array,
-    disabled: PropTypes.bool
-  },
+const MultiSelectField = ({ label, options, disabled, selected, setSelectedFilters }) => {
+  const [state, setState] = useState({
+    removeSelected: true,
+    stayOpen: false,
+    value: selected,
+    rtl: false,
+  });
 
-  getInitialState() {
-    return {
-      removeSelected: true,
-      stayOpen: false,
-      value: this.props.selected,
-      rtl: false,
-    };
-  },
-
-  componentDidUpdate(prevProps) {
-    if (this.props.selected.length !== prevProps.selected.length) {
-      // eslint-disable-next-line react/no-did-update-set-state
-      this.setState({
-        value: this.props.selected
-      });
+  useEffect(() => {
+    if (selected.length !== state.value.length) {
+      setState(prevState => ({
+        ...prevState,
+        value: selected
+      }));
     }
-  },
+  }, [selected]);
 
-  handleSelectChange(value) {
-    this.setState({ value });
-    this.props.setSelectedFilters(value || []);
-  },
+  const handleSelectChange = (newValue) => {
+    setState(prevState => ({
+      ...prevState,
+      value: newValue
+    }));
+    setSelectedFilters(newValue || []);
+  };
 
-  render() {
-    const { stayOpen, value } = this.state;
-    const options = this.props.options;
-    return (
-      <div className="section">
-        <Select
-          closeOnSelect={!stayOpen}
-          isDisabled={this.props.disabled || false}
-          isMulti
-          onChange={this.handleSelectChange}
-          options={options}
-          placeholder={this.props.label}
-          removeSelected={this.state.removeSelected}
-          rtl={this.state.rtl}
-          simpleValue
-          value={value}
-          styles={selectStyles}
-        />
-      </div>
-    );
-  }
-});
+  return (
+    <div className="section">
+      <Select
+        closeOnSelect={!state.stayOpen}
+        isDisabled={disabled || false}
+        isMulti
+        onChange={handleSelectChange}
+        options={options}
+        placeholder={label}
+        removeSelected={state.removeSelected}
+        rtl={state.rtl}
+        simpleValue
+        value={state.value}
+        styles={selectStyles}
+      />
+    </div>
+  );
+};
+
+MultiSelectField.propTypes = {
+  label: PropTypes.string,
+  options: PropTypes.array,
+  disabled: PropTypes.bool,
+  selected: PropTypes.array,
+  setSelectedFilters: PropTypes.func.isRequired,
+};
 
 export default MultiSelectField;

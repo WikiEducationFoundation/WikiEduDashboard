@@ -1,85 +1,83 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 import selectStyles from '../../styles/single_select';
 
-const YesNoSelector = createReactClass({
-  propTypes: {
-    courseProperty: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
-    tooltip: PropTypes.string,
-    course: PropTypes.object.isRequired,
-    editable: PropTypes.bool,
-    updateCourse: PropTypes.func.isRequired
-  },
+const YesNoSelector = (props) => {
+    const initialState = props.course[props.courseProperty] ? I18n.t('application.opt_yes') : I18n.t('application.opt_no');
+    const [selectedOption, setSelectedOption] = useState({ value: initialState, label: initialState });
 
-  getInitialState() {
-    const initialState = this.props.course[this.props.courseProperty] ? I18n.t('application.opt_yes') : I18n.t('application.opt_no');
-    return { selectedOption: { value: initialState, label: initialState } };
-  },
-
-  _handleChange(selectedOption) {
-    const course = this.props.course;
-    const value = selectedOption.value;
-    this.setState({ selectedOption });
+  const _handleChange = (e) => {
+    const course = props.course;
+    const value = e.value;
+    setSelectedOption(e);
     if (value === I18n.t('application.opt_yes')) {
-      course[this.props.courseProperty] = true;
+      course[props.courseProperty] = true;
     } else if (value === I18n.t('application.opt_no')) {
-      course[this.props.courseProperty] = false;
+      course[props.courseProperty] = false;
     }
-    return this.props.updateCourse(course);
-  },
+    return props.updateCourse(course);
+  };
 
-  render() {
-    const currentValue = this.props.course[this.props.courseProperty];
-    let selector = (
-      <span>
-        <strong>{this.props.label}:</strong> {currentValue ? I18n.t('application.opt_yes') : I18n.t('application.opt_no')}
-      </span>
-    );
-    if (this.props.editable) {
-      let tooltip;
-      if (this.props.tooltip) {
-        tooltip = (
-          <div className="tooltip-trigger">
-            <img src ="/assets/images/info.svg" alt = "tooltip default logo" />
-            <div className="tooltip large dark">
-              <p>
-                {this.props.tooltip}
-              </p>
-            </div>
+  const currentValue = props.course[props.courseProperty];
+  let selector = (
+    <span>
+      <strong>{props.label}:</strong> {currentValue ? I18n.t('application.opt_yes') : I18n.t('application.opt_no')}
+    </span>
+  );
+  if (props.editable) {
+    let tooltip;
+    if (props.tooltip) {
+      tooltip = (
+        <div className="tooltip-trigger">
+          <img src ="/assets/images/info.svg" alt = "tooltip default logo" />
+          <div className="tooltip large dark">
+            <p>
+              {props.tooltip}
+            </p>
           </div>
-        );
-      }
-      const options = [
-        { value: I18n.t('application.opt_yes'), label: I18n.t('application.opt_yes') },
-        { value: I18n.t('application.opt_no'), label: I18n.t('application.opt_no') }
-      ];
-      selector = (
-        <div className="form-group">
-          <span htmlFor={`${this.props.courseProperty}Toggle`}>
-            <strong>{this.props.label}:</strong>
-          </span>
-          {tooltip}
-          <Select
-            id={`${this.props.courseProperty}Toggle`}
-            name={this.props.courseProperty}
-            value={options.find(option => option.value === this.state.selectedOption.value)}
-            onChange={this._handleChange}
-            options={options}
-            styles={selectStyles}
-          />
         </div>
       );
     }
-    return (
-      <div className={`${this.props.courseProperty}_selector`}>
-        {selector}
+    const options = [
+      { value: I18n.t('application.opt_yes'), label: I18n.t('application.opt_yes') },
+      { value: I18n.t('application.opt_no'), label: I18n.t('application.opt_no') }
+    ];
+    selector = (
+      <div className="form-group">
+        <label
+          id={`${props.courseProperty}-label`}
+          className="inline-label"
+          htmlFor={`${props.courseProperty}Toggle`}
+        >
+          <strong>{props.label}:</strong>
+        </label>
+        {tooltip}
+        <Select
+          id={`${props.courseProperty}Toggle`}
+          name={props.courseProperty}
+          value={options.find(option => option.value === selectedOption.value)}
+          onChange={_handleChange}
+          options={options}
+          styles={selectStyles}
+          aria-labelledby={`${props.courseProperty}-label`}
+        />
       </div>
     );
   }
+  return (
+    <div className={`${props.courseProperty}_selector`}>
+      {selector}
+    </div>
+  );
+};
 
-});
-
+YesNoSelector.propTypes = {
+  courseProperty: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  tooltip: PropTypes.string,
+  course: PropTypes.object.isRequired,
+  editable: PropTypes.bool,
+  updateCourse: PropTypes.func.isRequired
+};
 export default YesNoSelector;

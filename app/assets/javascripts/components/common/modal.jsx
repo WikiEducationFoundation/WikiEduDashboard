@@ -1,27 +1,25 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-const Modal = createReactClass({
-  propTypes: {
-    modalClass: PropTypes.string,
-    children: PropTypes.node
-  },
-  componentDidMount() {
-    return document.querySelector('body')?.classList.add('modal-open');
-  },
-  componentWillUnmount() {
-    return document.querySelector('body')?.classList.remove('modal-open');
-  },
-  render() {
-    const className = `wizard active ${this.props.modalClass}`;
-    return (
-      <div className={className}>
-        {this.props.children}
-      </div>
-    );
-  }
-}
-);
+const Modal = (props) => {
+  useEffect(() => {
+    document.querySelector('body')?.classList.add('modal-open');
+    return () => {
+      document.querySelector('body')?.classList.remove('modal-open');
+    };
+  }, []);
+
+  const className = `wizard active ${props.modalClass}`;
+  return (
+    <div className={className}>
+      {props.children}
+    </div>
+  );
+};
+
+Modal.propTypes = {
+  modalClass: PropTypes.string,
+  children: PropTypes.node
+};
 
 export default Modal;

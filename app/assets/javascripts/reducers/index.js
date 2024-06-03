@@ -47,6 +47,7 @@ import scopingMethods from './scoping_methods';
 import news from './news';
 import persistedNews from './persisted_news';
 import newsNotifications from './news_notification';
+import instructorAlert from './instructor_alert';
 
 const reducer = combineReducers({
   active_courses,
@@ -99,6 +100,7 @@ const reducer = combineReducers({
   wikidataLabels,
   wiki_courses,
   wizard,
+  instructorAlert
 });
 
 export default reducer;

@@ -8,7 +8,7 @@ require_dependency "#{Rails.root}/lib/course_creation_manager"
 require_dependency "#{Rails.root}/app/workers/update_course_worker"
 require_dependency "#{Rails.root}/app/workers/notify_untrained_users_worker"
 require_dependency "#{Rails.root}/app/workers/announce_course_worker"
-require "#{Rails.root}/lib/alerts/check_timeline_alert_manager"
+require_dependency "#{Rails.root}/lib/alerts/check_timeline_alert_manager"
 
 #= Controller for course functionality
 class CoursesController < ApplicationController
@@ -27,7 +27,8 @@ class CoursesController < ApplicationController
     course_creation_manager = CourseCreationManager.new(course_params, wiki_params,
                                                         params[:course][:scoping_methods],
                                                         initial_campaign_params,
-                                                        instructor_role_description, current_user)
+                                                        instructor_role_description, current_user,
+                                                        params[:course][:ta_support])
     unless course_creation_manager.valid?
       render json: { message: course_creation_manager.invalid_reason },
              status: :not_found

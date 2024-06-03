@@ -29,7 +29,12 @@ const TemplatesScoping = () => {
             </div>
         } actionType={UPDATE_TEMPLATES} initial={templates} wiki={currentWiki}
         />
-        <WikiSelect homeWiki={home_wiki} onChange={wiki => setCurrentWiki(wiki.value)}/>
+        <WikiSelect
+          id="template-wiki-select-input"
+          label={I18n.t('articles.wiki')}
+          homeWiki={home_wiki}
+          onChange={wiki => setCurrentWiki(wiki.value)}
+        />
       </div>
     </div>
   );

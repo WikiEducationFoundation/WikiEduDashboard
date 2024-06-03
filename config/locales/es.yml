@@ -13,10 +13,13 @@
 # Author: Copper12
 # Author: DDPAT
 # Author: Danniel07
+# Author: DarkGames26
 # Author: Dgstranz
 # Author: DiegoAmbrocio
+# Author: Eulalio
 # Author: Fitoschido
 # Author: Fortega
+# Author: Gabina
 # Author: Ice bulldog
 # Author: Ihojose
 # Author: Irus
@@ -47,16 +50,19 @@ es:
         format: '%n%u'
         units:
           thousand: ' mil'
-          million: ' millones'
-          billion: ' millones de millones'
+          million: ' mill.'
+          billion: ' mil mill.'
+          trillion: bill.
+          quadrillion: mil bill.
   accessibility:
     number_field: Este es un campo numérico. Los botones representados por la mayoría
       de los navegadores incrementará y decrementará la entrada.
   application:
+    back: Volver
     cancel: Cancelar
     cookie_consent: Este sitio utiliza cookies para mantener tu sesión activa y almacena
       información relacionada con tu cuenta de Wikipedia.
-    cookie_consent_acknowledge: Comprendo
+    cookie_consent_acknowledge: Entiendo
     cookie_consent_see_more: Ver más.
     create_accounts: Crear cuentas de Wikipedia
     dashboard: Panel de Wiki Ed
@@ -86,6 +92,8 @@ es:
       one: '%{count} resultado para «%{search_terms}»'
       other: '%{count} resultados para «%{search_terms}»'
     no_results: No se encontraron resultados para '%{query}'
+    show_current_revision: Mostrar la versión actual
+    show_last_revision: Mostrar última revisión
     sign_up_extended: Regístrate con Wikipedia
     sign_up_wikipedia: O regístrate en Wikipedia
     sign_up_log_in_extended: con Wikipedia
@@ -104,6 +112,11 @@ es:
     not_yet_started: Primeros pasos
     in_progress: Trabajar en la zona de pruebas
     ready_for_review: Borrador ampliado
+    ready_for_mainspace: Mover el trabajo al espacio principal
+    assignment_completed: Tarea marcada como completa
+    reading_the_article: Leer artículo
+    providing_feedback: Proporcionar comentarios
+    peer_review_completed: Revisión completada
   dashboard:
     create_note: Haz clic en Crear curso para crear tu primer curso.
     create_preparation_note: Asegúrate de tener tu calendario académico a mano antes
@@ -123,6 +136,10 @@ es:
     review_orientation: Revisar la orientación
     start_orientation: Comenzar la orientación
     blog_headline: Noticias recientes de Wiki Education
+    about_programs: 'Este sitio rastrea actividades wiki a través de Programas: eventos
+      individuales tales como editatones o cursos educativos. Cada Programa forma
+      parte de una o más Campañas, que proporcionan estadísticas agregadas entre los
+      Programas.'
     about_creating_programs: Si estás ejecutando un único evento independiente,  puedes
       crear un Programa ahora. Si tu evento es parte  de algo más grande, encuentra
       o crea la Campaña para él. Entonces puedes crear un Programa nuevo desde la
@@ -131,9 +148,22 @@ es:
     explore: Explorar
     log_in: Acceder con Wikipedia
     sign_up: Regístrate con Wikipedia
+    registration_advice:
+      username_rules:
+        heading: Reglas de nombre de usuario
+        avoid_offensive_usernames: No elijas un nombre de usuario que sea ofensivo,
+          engañoso, perturbador o promocional.
+        represent_individual: Los nombres de usuario deben representar a un editor
+          individual. No utilice el nombre de una escuela u organización.
+      additional_advice:
+        heading: Consejo
+        anonymous_username_recommendation: Wiki Education recomienda elegir un nombre
+          de usuario anónimo, no uno que incluya su nombre real u otra información
+          de identificación.
     sign_up_help: Para utilizar el panel de control, tendrás que iniciar sesión a
       través de Wikipedia y darle permiso para acceder a tu cuenta. Puedes iniciar
-      sesión con una cuenta de Wikipedia existente o crear una nueva.
+      sesión con una cuenta de Wikipedia existente o crear una nueva. Si no puedes
+      crear una cuenta, contacta a dashboard@wikiedu.org.
   alerts:
     alert_label: Alertas
     no_alerts: No se encontró ninguna alerta.
@@ -142,10 +172,14 @@ es:
     edited_by: Editado por
     label: Actividad
   articles:
+    articles: Artículos
+    article_not_found: Este artículo todavía no ha sido creado.
     article_development: (desarrollo de artículo)
     articles_shown: Se muestran %{count} de %{total}
     assigned: Artículos asignados
+    assignments_none: No hay artículos asignados todavía.
     available: Artículos disponibles
+    no_available: No hay artículos disponibles
     next: Siguiente
     previous: Anterior
     article_title: Título del artículo
@@ -156,7 +190,9 @@ es:
     edited: Artículos editados
     edited_by: 'Editado por:'
     edited_mobile: Artículos
-    edited_none: '%{title} no ha editado ningún artículo.'
+    edited_none: Aún no hay artículos editados.
+    filter_text: 'Filtros:'
+    how_to_find: Cómo encontrar artículos
     hide: Ocultar
     history: (historial)
     label: Artículos
@@ -168,19 +204,20 @@ es:
       Wikipedia. Estas calificaciones pueden corresponder a versiones mucho más antiguas,
       por lo que son solo un indicador aproximado de la madurez del artículo.
     rating_docs:
-      fa: 'Artículo destacado: la calificación más alta de Wikipedia; probablemente
+      fa: '%{class} (Artículo destacado): la calificación más alta de Wikipedia; probablemente
         sea un artículo demasiado maduro como para ser el proyecto principal de un
         editor nuevo'
-      fl: 'Lista destacada: la calificación más alta de Wikipedia para las listas'
-      a: 'Clase A: un artículo bastante desarrollado que puede ser demasiado maduro
-        para ser el proyecto principal de un editor nuevo'
-      ga: 'Artículo bueno: un artículo bien desarrollado que puede ser demasiado maduro
-        para ser el proyecto principal de un editor nuevo'
-      b: 'Clase B: un artículo moderadamente desarrollado'
-      c: 'Clase C: un artículo intermedio con posibilidades de mejoras'
-      start: 'Clase inicial: un artículo preliminar con muchas posibilidades de mejoras'
-      stub: 'Clase esbozo: un artículo en sus comienzos que requiere más contenido'
-      list: 'Clase lista: una lista en lugar de un artículo convencional'
+      fl: '%{class} (Lista destacada): la calificación más alta de Wikipedia para
+        las listas'
+      a: 'Clase %{class}: un artículo bastante desarrollado que puede ser demasiado
+        maduro para ser el proyecto principal de un editor nuevo'
+      ga: '%{class} (Artículo bueno): un artículo bien desarrollado que puede ser
+        demasiado maduro para ser el proyecto principal de un editor nuevo'
+      b: 'Clase %{class}: un artículo moderadamente desarrollado'
+      c: 'Clase %{class}: un artículo intermedio con posibilidades de mejoras'
+      start: 'Clase %{class}: un artículo preliminar con muchas posibilidades de mejoras'
+      stub: 'Clase %{class}: un artículo en sus comienzos que requiere más contenido'
+      list: 'Clase %{class}: una lista en lugar de un artículo convencional'
       '?': 'Sin clasificación: un artículo que aún no ha sido clasificado en la escala
         de calidad de Wikipedia'
       does_not_exist: Este artículo no existe en Wikipedia
@@ -194,7 +231,9 @@ es:
     tools: Herramientas de evaluación
     view: Ver artículo
     view_all: Ver todos
-    view_doc: La suma de todas las visitas a cada artículo durante el proyecto
+    view_doc: La suma estimada de las visitas a cada artículo desde que se editó por
+      primera vez hasta la última actualización de las estadísticas. Puedes usar pageviews.toolforge.org
+      para ver los números exactos.
     view_on_wiki: Ver en la wiki
     views_added: Se añadieron %{count} visitas nuevas para %{title}
     edit_size: Tamaño de edición
@@ -210,6 +249,14 @@ es:
       artículo, pero no toma en cuenta el contenido en sí mismo. (Estos resultados
       solo están disponibles para los artículos de la Wikipedia en inglés.)
     articles_short: Artículos
+  items:
+    items: Elementos
+    lexeme: Lexema
+    article_not_found: Aún no se ha creado este elemento.
+    assigned: Elementos asignados
+    assignments_none: Aún no hay elementos asignados.
+    available: Elementos disponibles
+    how_to_find: Cómo encontrar artículos
   articles_wikidata:
     articles_short: Elementos
   articles_generic:
@@ -220,16 +267,21 @@ es:
     already_exists: ¡Esta tarea ya existe!
     title_too_large: El título no debería exceder los 255 caracteres
     assignees: Asignado(s)
-    assign_other: Asignar un artículo
+    assign_other: Asignar/desasignar un artículo
+    assign_other_wikidata: Asignar/desasignar un elemento
     add_available: Añadir artículos disponibles
     add_available_placeholder: Añade un título de artículo o un URL por renglón
     add_available_submit: Añadir artículos
     assign_self: Asignarme un artículo
+    assign_self_wikidata: Asignarme un elemento
     assign_tooltip: Un artículo asignado es aquel que planeas crear o mejorar.
+    assign_tooltip_wikidata: Un elemento asignado es un elemento que piensas crear
+      o mejorar.
     bibliography: Bibliografía
     confirm_add_available: ¿Confirmas que quieres añadir %{title}?
     confirm_addition: ¿Confirmas que quieres asignar %{title} a %{username}?
     confirm_deletion: ¿Estás seguro de que quieres eliminar esta tarea?
+    change_sandbox_url: Cambiar zona de pruebas
     label: Asignar
     loading: Cargando tareas...
     none_short: No hay artículos asignados
@@ -238,9 +290,20 @@ es:
     peer_review_link: Revisión por pares
     remove: Eliminar
     reviewers: Revisor(es)
-    review_other: Asignar una revisión
+    review_other: Asignar/desasignar una revisión
     review_self: Revisar un artículo
+    review_self_wikidata: Revisar un elemento
+    review_tooltip: Esto es para artículo(s) sobre los que piensas hacer revisión
+      por pares o comentar.
+    review_tooltip_wikidata: Esto es para elemento(s) sobre los que piensas hacer
+      revisión por pares o comentar.
+    sandbox_draft_link: Zona de pruebas
     select: Seleccionar
+    submit: Enviar
+    invalid_url: No se puede actualizar la URL de la zona de pruebas. No es una URL
+      %{url} válida de Wikipedia.
+    mismatched_wiki: No se puede actualizar la URL de la zona de pruebas. La URL %{url}
+      no está en la misma wiki.
   blocks:
     milestones:
       title: Hitos
@@ -248,6 +311,7 @@ es:
     active_campaigns: Campañas activas
     add_organizer: Añadir organizador
     alert_article: Título del artículo
+    alert_select_label: Filtrar por tipo de alerta
     alert_type: Tipo
     alert_user_id: Usuario
     all_campaigns: Todas las campañas
@@ -265,41 +329,62 @@ es:
       «%{campaign_title}»?
     course_already_removed: «%{title}» ya se había quitado de la campaña «%{campaign_title}»
     course: Curso
+    course_data: datos del curso
     course_removed: «%{title}» se ha quitado de la campaña «%{campaign_title}»
     create_campaign: Crear una campaña nueva
     create_my_campaign: ¡Crear mi campaña!
     customize_passcode: un código de acceso predeterminado
+    data_articles: Páginas editadas
     data_revisions: Datos de revisiones
     data_revisions_info: Detalles sobre cada una de las revisiones monitorizadas de
       la campaña
+    data_instructors: Instructores
+    data_editors_by_course: Editores por curso
+    data_editors_by_course_info: Lista de editores inscritos y sus cursos/programas
+    data_editor_usernames: Nombres de usuario de editores
+    data_editor_usernames_info: Lista de nombres de usuario de editores, uno por línea
     data_wikidata: Estadísticas de Wikidata
+    data_wikidata_info: Desglose detallado de la actividad en Wikidata, basado en
+      los resúmenes de edición
     default_course_type: Tipo de curso predeterminado
     default_passcode: Código de acceso predeterminado
     default_passcode_explanation: 'De manera predeterminada, los programas nuevos
       de esta campaña deben tener:'
     description: Descripción
     delete_campaign: Eliminar esta campaña
+    delete_course_tooltip: Eliminar y retirar de la campaña.
     disable_account_requests: Desactivar solicitudes de cuentas
     enable_account_requests: Activar solicitudes de cuentas
+    newest_campaigns: Campañas más recientes
+    featured_campaigns: Campañas destacadas
+    instructors_course: instructores por curso
+    no_alerts: Esta campaña no tiene alertas
     no_passcode: ningún código de acceso
     none: Ninguno
     organizers: Organizadores
     organizer_added: '%{user} ahora es un organizador de la campaña "%{title}"'
     organizer_removed: '%{user} ya no es organizador de la campaña "%{title}"'
+    pages_edited_small: Páginas editadas
     program_template: Plantilla de programa
     program_template_tooltip: Cuando un organizador crea un programa en esta campaña,
       el texto de esta área se copiará como una descripción en la página del programa
     random_passcode: un código de acceso al azar
+    remove_course_tooltip: Eliminar de la campaña.
     requested_accounts: Cuentas solicitadas
+    resolve: Resolver
+    revision_data: datos de revisión
+    students_small: Estudiantes
+    student_course: estudiantes por curso
     title: Título
     slug: URL semántico
     search_campaigns: Buscar campañas
     use_start_end_dates: Usar fechas de inicio y fin
+    search: Buscar
   categories:
     add_category: Añadir categoría
     add_template: Añadir plantilla
-    add_this_category: Añadir esta categoría
-    add_this_template: Añadir esta plantilla
+    add_this_category: Añadir categorías
+    add_this_template: Añadir plantillas
     depth: Profundidad de subcategorías
     articles_count: Recuento de artículos
     name: Nombre
@@ -322,6 +407,9 @@ es:
     archived: Cursos archivados
     actions: Acciones
     articles: Artículos
+    add_campaign_aria_label: Agregar botón de campaña
+    new_tag_button_aria_label: Botón Crear o actualizar etiqueta
+    enroll_button_aria_label: Botón de inscripción
     assignment_headings:
       available_articles: Artículos disponibles
       available_reviews: Artículos de compañeros
@@ -349,6 +437,7 @@ es:
       las revisiones más recientes y se cargará de nuevo la página. El proceso podría
       tomar algo de tiempo.
     course: Curso
+    course_type_label: 'Tipo:'
     course_dates_calendar_instructions: Selecciona fechas para añadirlas o quitarlas
       del calendario (por ejemplo, vacaciones, cuando no hay clases). Haz clic en
       la fecha para cambiar entre los estados «no seleccionado», «seleccionado» y
@@ -381,6 +470,7 @@ es:
         se trasladadas. ¿Ha cambiado algo más acerca de tu curso? Siéntete libre de
         actualizarlo ahora.
       course_description: Descripción del curso
+      course_ta_support: ¿Este curso tendrá instructores o asistentes técnicos adicionales?
       course_school: Escuela del curso
       course_subject: Tema del curso
       course_term: Curso de plazo
@@ -435,7 +525,7 @@ es:
     end: Fin
     ended: El curso ha terminado.
     enroll: Inscribirse
-    enrollment: Matriculación
+    enrollment: Añadir o retirar estudiantes
     courses_enrolled: Cursos matriculados
     error:
       exists: Ese curso ya existe. Intenta de nuevo con un título, escuela o período
@@ -509,6 +599,7 @@ es:
     revisions_none: Este curso no tiene ediciones recientes en Wikipedia.
     school: Escuela
     school_and_term: Institución/Período
+    search_courses: Buscar cursos
     start: Inicio
     start_typing: Empieza a escribir
     stay_in_sandbox: Permanecer en entorno seguro
@@ -552,7 +643,7 @@ es:
     user_suggestions_prompt: Tus sugerencias para los editores del artículo
     view_other: Ver otras campañas
     view: Ver curso
-    view_doc: La suma de todas las visitas a artículos editados por editores inscriptos
+    view_doc: El número estimado de visitas a artículos editados por editores inscriptos
       desde que el editor hizo su primera edición en cada artículo
     view_page: Ver la página del curso
     view_wiki: Ver en Wikipedia
@@ -615,11 +706,14 @@ es:
         de tu programa wiki.
       participate_in_campaign: Participa en una campaña
       save_cloned_course: Guardar
+      scoping_methods:
+        categories: Categorías
+        templates: Plantillas
     delete_course: Eliminar programa
     edit_course_dates: Editar las fechas del proyecto
     end: Final del seguimiento de actividades
     enroll: Añadir editor
-    enrollment: Participación
+    enrollment: Añadir o retirar editores
     explore: Encuentra programas
     courses_enrolled: Programas en que se participó
     expected_students: Editores esperados
@@ -633,8 +727,10 @@ es:
     revisions_none: Este proyecto no tiene ediciones recientes.
     school: Institución
     school_and_term: Institución/Cuando
+    search_courses: Buscar programas
     start: Comienzo del seguimiento de actividades
     student_editors: Editores
+    student: Editor
     students: Editores
     students_none: Este proyecto no tiene editores inscriptos.
     students_short: Editores
@@ -658,8 +754,16 @@ es:
     edit_details: Editar detalles
     edit_template: Editar plantilla
   instructor_view:
+    assignments_table:
+      article_name: Nombre
+      current_stage: Estado actual
+      relevant_links: Enlaces relevantes
+    assigned_articles: Artículos asignados
+    assigned_articles_wikidata: Elementos asignados
     bad_work:
       learn_more_button: Más información
+    no_assignments: Este estudiante actualmente no tiene artículos asignados.
+    can_assign_assignments: Puede asignar un artículo utilizando los botones de arriba.
   metrics:
     label: Actividad del curso
     last_update: Última actualización de estadísticas
@@ -670,7 +774,7 @@ es:
     articles_created_wikidata: Elementos creados
     articles_created_generic: Páginas creadas
     articles_edited: Artículos editados
-    articles_edited_wikidata: Elementos Editaron
+    articles_edited_wikidata: Elementos editados
     articles_edited_generic: Páginas editadas
     bytes_added: Bytes añadidos
     characters: Caracteres
@@ -701,26 +805,68 @@ es:
     word_count: Palabras añadidas
     word_count_average: Promedio de recuento de palabras
     general: General
+    total_revisions: Revisiones totales
+    claims: Afirmaciones
+    aliases: Alias
+    merged: Fusiones
+    created: Creaciones
+    changed: Cambios
+    removed: Eliminaciones
+    cleared: Borrados
+    added: Adiciones
+    descriptions: Descripciones
+    interwiki_links_added: Adición de enlaces interwiki
+    labels: Etiquetas
+    no_data: Sin datos
+    other_updates: Otras actualizaciones
+    qualifiers_added: Adición de calificadores
+    redirects_created: Creación de redirecciones
     references_added: Referencias añadidas
+    references_added_info: Esto puede ser solo un recuento parcial de las referencias
+      añadidas. Se basa en los resúmenes de edición de Wikidata, y algunas ediciones
+      en que también se añaden referencias se clasifican como «afirmación modificada»
+      o «afirmación creada».
+    restorations_performed: Restauraciones realizadas
+    reverts_performed: Reversiones realizadas
   namespace:
+    all: Todos
     main: Espacio principal
     main_char_added: Caracteres añadidos en el espacio principal
+    article: Artículo
+    talk: Discusión
     user: Espacio de usuarios
     user_char_added: Caracteres añadidos en el espacio de usuarios
+    project: Proyecto
+    file: Archivo
+    mediaWiki: MediaWiki
+    template: Plantilla
+    help: Ayuda
+    category: Categoría
+    page: Página
+    book: Libro
+    wikijunior: WikiJunior
+    translation: Traducción
+    draft: Borrador
+    property: Propiedad
+    query: Consulta
+    lexeme: Lexema
+    appendix: Apéndice
+    portal: Portal
   recent_activity:
     active_courses: El artículo está activo en
     article_title: Título
     datetime: Fecha/hora
-    did_you_know_eligible: ¿Sabía Usted Elegible
+    did_you_know_eligible: Apto para «¿Sabía usted?»
     image: Imagen
     file_name: Nombre del archivo
-    no_dyk_eligible: No hay actualmente ningún DYK-artículos elegibles.
-    no_plagiarism: Actualmente no hay ninguna revisión reciente sospechada de plagio.
+    no_dyk_eligible: No hay actualmente ningún artículo apto para «¿Sabía usted?».
+    no_plagiarism: Actualmente no hay ninguna revisión reciente sospechosa de plagio.
     no_edits: No hay ninguna edición reciente.
     plagiarism_report: Informe de plagio
     possible_plagiarism: Posible plagio
     recent_edits: Ediciones recientes
     recent_uploads: Subidas recientes
+    report: Informe
     revision_author: Autor de la revisión
     revision_datetime: Fecha/hora de la revisión
     revision_score: Puntaje de revisión
@@ -745,7 +891,17 @@ es:
     view_on_wiki: Ver diferencias en wiki
     see_more: Ver más
     show_all: Mostrar todo
+  resources:
+    label: Recursos
+    header: Recursos y capacitación
   settings:
+    categories:
+      other_settings: Otras configuraciones
+      impact_stats: Estadísticas de impacto
+      featured_campaigns: Campañas destacadas
+      special_users: Usuarios especiales
+      admin_users: Usuarios administradores
+      users: Usuarios
     admin_users:
       new:
         form_label: Otorgar permisos de administrador
@@ -760,6 +916,12 @@ es:
         revoking_button_working: Revocando...
         already_instructor: '%{username} ya es un instructor'
         demote_success: '%{username} pasó a ser instructor.'
+    featured_campaigns:
+      campaign_not_found: Campaña con slug '%{campaign_slug}' no encontrada
+      no_featured_campaigns: No se han definido campañas destacadas
+      update_featured_campaigns_button: Actualizar campañas destacadas
+      add_button: Añadir campaña
+      remove_button: Eliminar campaña
   suggestions:
     editing: Editar sugerencias
     suggestion_docs:
@@ -839,26 +1001,42 @@ es:
       exercise: Ejercicio
       discussion: Discusión
       training: Entrenamiento
+    exercise_sandbox: Caja de arena para ejercicios
   update_username:
     not_found: No se encontró la cuenta correspondiente al nombre introducido.
     username_updated: El nombre de usuario se actualizó correctamente.
     label: Nombre de usuario nuevo
     button: Actualizar
   uploads:
+    article_name: Nombre del artículo
+    author: Autor
+    categories: Categorías
     credit: Crédito
+    date: 'Fecha:'
+    description: Descripción
     file_name: Nombre del archivo
+    file_usage: Uso del archivo en otros wikis
     header: Archivos subidos a Wikimedia Commons
     image: Imagen
     label: Subidas
+    license: 'Licencia:'
     loading: Cargando subidas...
     none: Esta clase no ha contribuido con ninguna imagen o archivo multimedia a Wikimedia
       Commons.
+    original_file: Archivo original
     time_doc: El tiempo de cada subida en tu hora local
     uploaded_at: Subir archivo
     uploaded_by: Subido por
     usage_count: Total de usos
     usage_count_gallery_tile: Se utiliza en %{usage_count} artículos
     usages: Usos
+    gallery_view: Vista de la galería
+    list_view: Ver como lista
+    source: 'Fuente:'
+    tile_view: Vista en mosaico
+    views_per_day: Vistas por día
+    view_commons: Ver en Commons
+    wiki_big: Wiki
   users:
     already_enrolled: Ese usuario ya está inscrito.
     assign_articles: Asignar artículos
@@ -878,7 +1056,7 @@ es:
     contributions_more: Ver más contribuciones
     contribution_statistics: Estadísticas de contribuciones
     course_passcode: 'Código de acceso:'
-    editors: Editores estudiantiles
+    editors: Editores
     edits_by: 'Ediciones por:'
     enroll_confirmation: ¿Confirmas que quieres añadir a %{username}?
     enroll_url: 'Los usuarios pueden unirse visitando este URL:'
@@ -896,13 +1074,17 @@ es:
     name: Nombre
     none: No hay ningún participante.
     no_articles: Ningún artículo
+    no_articles_wikidata: Ningún elemento
     no_revisions: Este editor no ha hecho ninguna revisión.
+    no_highlighting: Ningún texto de esta versión del artículo se atribuye al usuario
+      %{editor}. Revisa el historial de las páginas para ver sus ediciones.
     number_of_articles:
       one: '%{count} artículo'
       other: '%{count} artículos'
     profile: perfil
     recent_revisions: Ediciones recientes
     references_count: Referencias añadidas
+    training_modules: Módulo de capacitación
     remove_confirmation: ¿Confirmas que quieres quitar a %{username}?
     request_confirmation: ¿Confirmas que quieres solicitar esta cuenta?
     requested_account_status:
@@ -1067,13 +1249,18 @@ es:
         Wiki Education?
       why_are_you_here: ¿Qué quieres hacer?
   article_finder:
+    article_finder: Buscador de artículos
+    article_finder_wikidata: Buscador de elementos
     article_quality: Calidad de artículo (0-100)
+    article_quality_wikidata: Calidad de elemento(0-100)
     category_search: Búsqueda por categorías
+    estimation_score_not_found: ¡No se ha encontrado la puntuación estimada!
     fetched_articles: Artículos recuperados
     filtered_articles: Artículos filtrados
     keyword_search: Búsqueda por palabras clave
     more_results: Más resultados
     no_article_found: No se encontró ningún artículo en esta categoría
+    page_views_not_found: ¡Vistas de página no encontradas!
     search: Buscar
     searching_articles: Buscando artículos
     search_placeholder: Escribe una palabra clave
@@ -1084,5 +1271,5 @@ es:
     completion_time: Tiempo de compleción
     view: Ver
   multi_wiki:
-    selector_placeholder: Seleccionar wiki
+    selector_placeholder: Empieza a escribir un dominio wiki
 ...

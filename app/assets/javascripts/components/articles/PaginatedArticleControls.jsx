@@ -42,12 +42,17 @@ export const PaginatedArticleControls = ({ showMore, limitReached }) => {
       />) : null }
       {!limitReached
         && (
-          <button
-            style={{ width: 'max-content', height: 'max-content' }}
-            className="button ghost articles-see-more-btn" onClick={showMore}
-          >
-            {I18n.t('articles.see_more')}
-          </button>
+          <div className={'tooltip-trigger'}>
+            <button
+              style={{ width: 'max-content', height: 'max-content' }}
+              className="button ghost articles-see-more-btn" onClick={showMore}
+            >
+              {I18n.t('articles.see_more')}
+            </button>
+            <div className="tooltip tooltip-center tooltip-see-more dark large">
+              <p style={{ padding: '0px', textWrap: 'balance' }}>{I18n.t('articles.see_more_tooltip')}</p>
+            </div>
+          </div>
         )
       }
       <p className="articles-shown-label">

@@ -1,6 +1,7 @@
 # Messages for Punjabi (ਪੰਜਾਬੀ)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Cabal
 # Author: Jimidar
 # Author: ਪ੍ਰਚਾਰਕ
 ---
@@ -38,4 +39,6 @@ pa:
     training_incomplete: ਅਧੂਰਾ ਅਭਿਆਸ
     username: ਵਰਤੋਂਕਾਰ ਨਾਂ
     username_placeholder: ਵਰਤੋਂਕਾਰ ਨਾਂ
+  login_error:
+    header: ਦਾਖ਼ਲ ਹੋਣ ਦੀ ਗ਼ਲਤੀ
 ...

@@ -40,4 +40,8 @@ class ReviewRequestAlert < Alert
   def message
     "Ready for review: <a href=\"#{url}\">#{url}</a>"
   end
+
+  def default_target_user
+    content_experts.first
+  end
 end

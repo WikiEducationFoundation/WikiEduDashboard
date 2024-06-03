@@ -9,6 +9,7 @@ import {
 import ModuleStatus from './ModuleStatus/ModuleStatus';
 import ModuleLink from './ModuleLink';
 import ModuleName from './ModuleName';
+import ExerciseButton from './ExerciseButton';
 
 const calcProgressClass = (progress) => {
   const linkStart = 'timeline-module__';
@@ -52,6 +53,7 @@ export const ModuleRow = ({ isStudent, module, trainingLibrarySlug }) => {
   return (
     <tr className="training-module">
       <ModuleName {...module} isExercise={isExercise} />
+      { isExercise ? <ExerciseButton module={module} /> : null }
       { isStudent ? <ModuleStatus {...module} progressClass={progressClass} /> : null }
       <ModuleLink
         iconClassName={iconClassName}

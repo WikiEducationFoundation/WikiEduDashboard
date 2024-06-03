@@ -1,26 +1,16 @@
 /* global vegaEmbed */
-import React from 'react';
-import createReactClass from 'create-react-class';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-const EditSizeGraph = createReactClass({
-  displayName: 'EditSizeGraph',
+const EditSizeGraph = (props) => {
+  useEffect(() => {
+    renderGraph();
+  }, []);
 
-  propTypes: {
-    graphid: PropTypes.string,
-    graphWidth: PropTypes.number,
-    graphHeight: PropTypes.number,
-    articleData: PropTypes.array
-  },
-
-  componentDidMount() {
-    this.renderGraph();
-  },
-
-  renderGraph() {
+  const renderGraph = () => {
     const vegaSpec = {
-      width: this.props.graphWidth,
-      height: this.props.graphHeight,
+      width: props.graphWidth,
+      height: props.graphHeight,
       padding: 5,
       // //////////////////
       // Scales and Axes //
@@ -34,7 +24,7 @@ const EditSizeGraph = createReactClass({
             field: 'date',
             sort: { field: 'date', op: 'min' }
           },
-          range: [0, this.props.graphWidth],
+          range: [0, props.graphWidth],
           round: true
         },
         {
@@ -44,7 +34,7 @@ const EditSizeGraph = createReactClass({
             data: 'characters_edited',
             field: 'characters'
           },
-          range: [this.props.graphHeight, 0],
+          range: [props.graphHeight, 0],
           round: true,
           nice: true,
           zero: true
@@ -73,7 +63,7 @@ const EditSizeGraph = createReactClass({
       data: [
         {
           name: 'characters_edited',
-          values: this.props.articleData,
+          values: props.articleData,
           format: { type: 'json', parse: { date: 'date', characters: 'number' } },
           transform: [{
             type: 'filter',
@@ -91,7 +81,7 @@ const EditSizeGraph = createReactClass({
           encode: {
             update: {
               x: { value: 0 },
-              x2: { value: this.props.graphWidth },
+              x2: { value: props.graphWidth },
               y: { scale: 'y', value: 0 },
               stroke: { value: '#000000' },
               strokeWidth: { value: 1 },
@@ -154,17 +144,20 @@ const EditSizeGraph = createReactClass({
     };
 
     // emded the visualization in the container with id vega-graph-article_id
-    vegaEmbed(`#${this.props.graphid}`, vegaSpec, { defaultStyle: true, actions: { source: false } });
-  },
+    vegaEmbed(`#${props.graphid}`, vegaSpec, { defaultStyle: true, actions: { source: false } });
+  };
 
-
-  render() {
     return (
       <div>
-        <div id={this.props.graphid} />
+        <div id={props.graphid} />
       </div>
     );
-  }
-});
+  };
 
+EditSizeGraph.propTypes = {
+  graphid: PropTypes.string,
+  graphWidth: PropTypes.number,
+  graphHeight: PropTypes.number,
+  articleData: PropTypes.array
+};
 export default EditSizeGraph;

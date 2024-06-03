@@ -17,8 +17,8 @@ describe 'article finder', type: :feature, js: true do
   it 'performs searches and returns results' do
     visit "/courses/#{course.slug}/article_finder"
     within '.article-finder-form' do
-      fill_in 'category', with: 'Selfie'
-      click_button 'Submit'
+      fill_in 'article-searchbar', with: 'Selfie'
+      click_button 'Search'
     end
     expect(page).to have_content 'Monkey selfie copyright dispute'
     expect(page).to have_content 'Add as available article'
@@ -32,8 +32,8 @@ describe 'article finder', type: :feature, js: true do
       find('input').send_keys('www.wikidata', :enter)
     end
     within '.article-finder-form' do
-      fill_in 'category', with: 'Selfie'
-      click_button 'Submit'
+      fill_in 'article-searchbar', with: 'Selfie'
+      click_button 'Search'
     end
     expect(page).to have_content 'Q12068677'
   end

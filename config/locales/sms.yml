@@ -20,6 +20,7 @@ sms:
     log_out: Ǩeeʹrjtõõđ åålǥas
     report_problem: Iʹlmmet čuõlmâst
     request_account_create: Raaj tobdldõõǥǥ
+    no_results: Ooccmõʹšše '%{query}' ij käunnʼjam ni mii
     sign_up: Raaj tobdldõõǥǥ
     submit: Vuõlttâd
     change: Muuʹtt
@@ -34,6 +35,7 @@ sms:
     filter:
       wiki_all: Puk
       new: Ođđ
+    filter_text: 'Siʹllʼjeei:'
     find: Ooʒʒ artikkeeʹlid
     hide: Čiõǥǥ
     history: (historia)
@@ -128,6 +130,8 @@ sms:
     view: Čuäʹjet kuurs
     view_page: Čuäʹjet kuurs seeid
     view_wiki: Čuäʹjet Wikipediast
+  course_instructor_notification:
+    send_notification_button_text: Vuõlttâd
   courses_generic:
     add_campaign: Lââʹzzet kampaanj
     all_courses: Puk prograamm
@@ -138,6 +142,8 @@ sms:
       create_short: Raaj prograamm
       find: Ooʒʒ prograamm
       save_cloned_course: Ruõkk
+      scoping_methods:
+        templates: Maall
     delete_course: Jaukkâd prograamm
     explore: Ooʒʒ prograammi
   editable:
@@ -171,8 +177,11 @@ sms:
     diff_hide: Čiõǥǥ
     title: Nõmm
     see_more: Lââʹssteâđ
-    show_all: Čuäʹjet pukid
+    show_all: Čuäʹjet puk
   settings:
+    categories:
+      other_settings: Jeeʹres asetõõzz
+      users: Õõʹnni
     admin_users:
       new:
         form_placeholder: Õõʹnninõmm

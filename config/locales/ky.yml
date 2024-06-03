@@ -25,12 +25,16 @@ ky:
     description: Сыпаттама
     title: Аталыш
   courses:
+    actions: Аракеттер
     articles: Макалалар
     dismiss_survey: Жабуу
     loading: Жүктөлүүдө...
     title: Аталыш
   courses_generic:
     cancel: Жокко чыгаруу
+    course: Программа
+    courses: Программалар
+    campaign_courses: '%{title} программалары'
     creator:
       save_cloned_course: Сактоо
     student_editors: Түзөтүүчүлөр

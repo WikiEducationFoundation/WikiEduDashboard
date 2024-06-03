@@ -8,6 +8,7 @@ require_dependency "#{Rails.root}/app/workers/daily_update/import_ratings_worker
 require_dependency "#{Rails.root}/app/workers/daily_update/import_wikidata_summaries_worker"
 require_dependency "#{Rails.root}/app/workers/daily_update/overdue_training_alert_worker"
 require_dependency "#{Rails.root}/app/workers/daily_update/salesforce_sync_worker"
+require_dependency "#{Rails.root}/app/workers/daily_update/wiki_discouraged_article_worker"
 
 require_dependency "#{Rails.root}/lib/data_cycle/batch_update_logging"
 require_dependency "#{Rails.root}/lib/automated_emails/term_recap_email_scheduler"
@@ -33,6 +34,7 @@ class DailyUpdate
     update_users
     update_commons_uploads
     update_article_data
+    update_wiki_discouraged_article if Features.wiki_ed?
     import_wikidata_summaries if Features.wiki_ed?
     send_term_recap_emails if Features.wiki_ed?
     generate_overdue_training_alerts if Features.wiki_ed?
@@ -73,6 +75,11 @@ class DailyUpdate
   def import_wikidata_summaries
     log_message 'Importing Wikidata revision summaries'
     ImportWikidataSummariesWorker.set(queue: QUEUE).perform_async
+  end
+
+  def update_wiki_discouraged_article
+    log_message 'Updating Wiki Education discouraged articles'
+    WikiDiscouragedArticleWorker.set(queue: QUEUE).perform_async
   end
 
   ##########

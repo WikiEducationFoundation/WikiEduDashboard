@@ -21,6 +21,7 @@ export const SortButton = ({ current_user, sortSelect, showOverviewFilters = tru
               <option value="character_sum_us">{I18n.t('users.characters_added_userspace')}</option>
               <option value="character_sum_draft">{I18n.t('users.characters_added_draftspace')}</option>
               <option value="references_count">{I18n.t('users.references_count')}</option>
+              <option value="course_training_progress_completed_count">{I18n.t('users.training_modules')}</option>
             </>
           )
         }

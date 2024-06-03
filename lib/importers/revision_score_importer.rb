@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/lift_wing_api"
+require_dependency "#{Rails.root}/lib/revision_score_api_handler"
 require_dependency "#{Rails.root}/lib/wiki_api"
 
-#= Imports revision scoring data from Lift Wing
+#= Imports revision scoring data from Lift Wing and reference-counter APIs.
+#= This class populates wp10, wp10_previous, features, features_previous and
+#= deleted fields.
 class RevisionScoreImporter
   BATCH_SIZE = 50
 
@@ -12,11 +14,9 @@ class RevisionScoreImporter
   ################
   def self.update_revision_scores_for_course(course, update_service: nil)
     course.wikis.each do |wiki|
-      next unless LiftWingApi.valid_wiki?(wiki)
-      new(wiki:, course:, update_service:)
-        .update_revision_scores
-      new(wiki:, course:, update_service:)
-        .update_previous_revision_scores
+      importer = new(wiki:, course:, update_service:)
+      importer.update_revision_scores
+      importer.update_previous_revision_scores
     end
   end
 
@@ -24,15 +24,7 @@ class RevisionScoreImporter
     @course = course
     @update_service = update_service
     @wiki = wiki || Wiki.get_or_create(language:, project:)
-    @lift_wing_api = LiftWingApi.new(@wiki, @update_service)
-  end
-
-  # assumes a mediawiki rev_id from the correct Wikipedia
-  def fetch_liftwing_data_for_revision_id(rev_id)
-    result = @lift_wing_api.get_revision_data([rev_id])
-    features = result.dig(rev_id.to_s, 'features')
-    rating = result.dig(rev_id.to_s, 'prediction')
-    return { features:, rating: }
+    @api_handler = RevisionScoreApiHandler.new(wiki: @wiki, update_service:)
   end
 
   def update_revision_scores
@@ -59,14 +51,15 @@ class RevisionScoreImporter
   private
 
   def get_and_save_scores(rev_batch)
-    scores = @lift_wing_api.get_revision_data rev_batch.map(&:mw_rev_id)
+    scores = @api_handler.get_revision_data rev_batch.map(&:mw_rev_id)
     save_scores(scores)
   end
 
   def get_and_save_previous_scores(rev_batch)
     parent_revisions = get_parent_revisions(rev_batch)
     return unless parent_revisions&.any?
-    scores = @lift_wing_api.get_revision_data parent_revisions.values.map(&:to_i)
+
+    scores = @api_handler.get_revision_data parent_revisions.values.map(&:to_i)
     save_parent_scores(parent_revisions, scores)
   end
 

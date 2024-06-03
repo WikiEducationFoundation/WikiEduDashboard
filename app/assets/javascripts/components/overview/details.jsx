@@ -474,12 +474,9 @@ const Details = createReactClass({
     if (this.props.current_user.admin || !Features.wikiEd || (this.props.editable && Features.wikiEd && !isClassroomProgramType)) {
       wikiSelector = (
         <div className="form-group home-wiki">
-          <span className="text-input-component__label">
-            <strong>
-              {I18n.t('courses.home_wiki')}:&nbsp;
-            </strong>
-          </span>
           <WikiSelect
+            id="home_wiki"
+            label={I18n.t('courses.home_wiki')}
             wikis={
               [home_wiki]
             }
@@ -493,12 +490,9 @@ const Details = createReactClass({
       );
       multiWikiSelector = (
         <div className="form-group multi-wiki">
-          <span className="text-input-component__label">
-            <strong>
-              {I18n.t('courses.multi_wiki')}:&nbsp;
-            </strong>
-          </span>
           <WikiSelect
+            id="multi_wiki"
+            label={I18n.t('courses.multi_wiki')}
             wikis={this.props.course.wikis}
             homeWiki={home_wiki}
             readOnly={!this.props.editable}
@@ -512,19 +506,6 @@ const Details = createReactClass({
 
       namespaceSelector = (
         <div className="form-group namespace-select">
-          <span className="text-input-component__label">
-            <strong>
-              {I18n.t('courses.namespaces')}:&nbsp;
-            </strong>
-          </span>
-          <div className="tooltip-trigger">
-            <img src ="/assets/images/info.svg" alt = "tooltip default logo" />
-            <div className="tooltip large dark">
-              <p>
-                {I18n.t('namespace.tracked_namespaces_info')}
-              </p>
-            </div>
-          </div>
           <NamespaceSelect
             wikis={this.props.course.wikis}
             namespaces={this.props.course.namespaces}

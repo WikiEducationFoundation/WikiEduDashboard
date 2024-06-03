@@ -60,6 +60,33 @@
       logic: copyedit
 
 -
+  key: sandboxes
+  title: Starting in sandboxes
+  only_if: returning_instructor # filter out unless the course's return_instructor property is true
+  description: |
+    In Fall 2024, Wiki Education is experimenting with having students directly improve the live versions of their assigned articles,
+    rather than preparing complete drafts of their changes in sandboxes before moving live. This may simplify the project,
+    encourage incremental changes and community interaction, and eliminate the error-prone step of copying student work from a
+    sandbox into a live article. (Students creating new articles, rather than improving existing ones, will still prepare
+    their initial drafts in a sandbox.)
+
+    Choose 'Prepare drafts in sandboxes' if you would like to use sandbox drafts as you have in previous Wiki Education assignments. If you would like to
+    try having students work incrementally on the live articles instead, choose 'Work live without sandbox drafts'.
+  
+  type: 1 # single choice
+  minimum: 1
+  options:
+    -
+      title: Prepare drafts in sandboxes
+      tag: yes_sandboxes
+      logic: yes_sandboxes
+      selected: true # selected by default
+    -
+      title: Work live without sandbox drafts
+      tag: no_sandboxes
+      logic: no_sandboxes
+
+-
   key: working_in_groups
   title: Working in groups
   description: |
@@ -305,15 +332,15 @@
   minimum: 1
   options:
     -
+      title: 0 (not recommended)
+      logic: 0_peer_reviewers
+    -
       title: 1
       logic: 1_peer_reviewers
+      selected: true # this is the default
     -
       title: 2
       logic: 2_peer_reviewers
-      selected: true # this is the default
-    -
-      title: 3
-      logic: 3_peer_reviewers
 
 -
   key: in_class_discussions
@@ -414,10 +441,10 @@
       logic: reflective_essay
       selected: true # this is the new default for Fall 2023 onward
     -
-      title: Original analytical paper
-      blurb: In courses that emphasize traditional research skills and the development of original ideas through a term paper, Wikipedia's policy of "no original research" may be too restrictive. Many instructors pair Wikipedia writing with a complementary analytical paper; students’ Wikipedia articles serve as a literature review, and the students go on to develop their own ideas and arguments in the offline analytical paper.
+      title: Original research paper
+      blurb: In courses that emphasize traditional research skills and the development of original ideas through a term paper, Wikipedia's policy of "no original research" may be too restrictive. Many instructors pair Wikipedia writing with a complementary research paper; students’ Wikipedia articles serve as a literature review, and the students go on to develop their own ideas and arguments in the offline research paper.
       description:
-      logic: original_analytical_paper
+      logic: original_research_paper
 # -
 #   key: dyk_and_ga
 #   title: Wikipedia quality review processes

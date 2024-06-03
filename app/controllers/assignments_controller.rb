@@ -25,10 +25,12 @@ class AssignmentsController < ApplicationController
   def create
     check_permissions(assignment_params[:user_id].to_i)
     set_wiki { return }
-
     set_new_assignment
     update_onwiki_course_and_assignments
     render partial: 'assignment', locals: { assignment: @assignment, course: @assignment.course }
+  rescue AssignmentManager::DiscouragedArticleError => e
+    render json: { errors: e, message: e.message },
+           status: :unprocessable_entity
   rescue AssignmentManager::DuplicateAssignmentError => e
     render json: { errors: e, message: e.message || I18n.t('assignments.already_exists') },
            status: :internal_server_error
@@ -77,6 +79,12 @@ class AssignmentsController < ApplicationController
     end
   end
 
+  # Updates the sandbox url of an assignment.
+  def update_sandbox_url
+    check_permissions(params[:user_id].to_i).then { set_assignment }
+    render SandboxUrlUpdator.new(params[:newUrl], @assignment).update
+  end
+
   private
 
   def update_onwiki_course_and_assignments
@@ -111,10 +119,8 @@ class AssignmentsController < ApplicationController
 
   def find_assignment_by_params
     clean_title = params[:article_title].tr(' ', '_')
-    @assignment ||= Assignment.find_by(user_id: params[:user_id],
-                                       role: params[:role],
-                                       wiki_id: @wiki.id,
-                                       article_title: clean_title,
+    @assignment ||= Assignment.find_by(user_id: params[:user_id], role: params[:role],
+                                       wiki_id: @wiki.id, article_title: clean_title,
                                        course_id: @course.id)
   end
 
@@ -134,8 +140,7 @@ class AssignmentsController < ApplicationController
 
   def set_new_assignment
     @assignment = AssignmentManager.new(user_id: assignment_params[:user_id],
-                                        course: @course,
-                                        wiki: @wiki,
+                                        course: @course, wiki: @wiki,
                                         title: assignment_params[:title].strip,
                                         role: assignment_params[:role]).create_assignment
   end
@@ -165,6 +170,9 @@ class AssignmentsController < ApplicationController
   end
 
   def assignment_params
-    params.permit(:id, :user_id, :course_id, :title, :role, :language, :project, :status)
+    params.permit(
+      :id, :user_id, :course_id, :title, :role, :language, :project, :status,
+      :course_slug, :format, assignment: {}
+    )
   end
 end

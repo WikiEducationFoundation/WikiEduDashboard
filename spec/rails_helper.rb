@@ -98,7 +98,7 @@ RSpec.configure do |config|
     # them.
     # Instead, we clear and print any after-success error
     # logs in the `before` block above.
-    Capybara::Screenshot.new.screenshot_and_save_page if example.exception
+    Capybara::Screenshot.screenshot_and_save_page if example.exception
     errors = page.driver.browser.logs.get(:browser)
 
     # pass `js_error_expected: true` to skip JS error checking

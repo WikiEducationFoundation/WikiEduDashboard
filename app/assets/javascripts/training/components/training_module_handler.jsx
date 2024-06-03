@@ -1,24 +1,20 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
+import React, { useEffect } from 'react';
 import { compact } from 'lodash-es';
 import { connect } from 'react-redux';
 import { fetchTrainingModule } from '../../actions/training_actions.js';
 
 
-const TrainingModuleHandler = createReactClass({
-  displayName: 'TrainingModuleHandler',
-
-  componentDidMount() {
+const TrainingModuleHandler = (props) => {
+  useEffect(() => {
     const moduleId = document.getElementById('react_root').getAttribute('data-module-id');
-    return this.props.fetchTrainingModule({ module_id: moduleId });
-  },
+    props.fetchTrainingModule({ module_id: moduleId });
+  }, []);
 
-  render() {
     const locale = I18n.locale;
-    const slidesAry = compact(this.props.training.module.slides);
+    const slidesAry = compact(props.training.module.slides);
     const slides = slidesAry.map((slide, i) => {
       const disabled = !slide.enabled;
-      const slideLink = `${this.props.training.module.slug}/${slide.slug}`;
+      const slideLink = `${props.training.module.slug}/${slide.slug}`;
       let liClassName;
       if (disabled) { liClassName = 'disabled'; }
       let summary;
@@ -40,12 +36,12 @@ const TrainingModuleHandler = createReactClass({
     }
     );
     let moduleSource;
-    if (this.props.training.module.wiki_page) {
+    if (props.training.module.wiki_page) {
       moduleSource = (
         <div className="training-module-source">
-          <a href={`https://meta.wikimedia.org/wiki/${this.props.training.module.wiki_page}`} target="_blank">{I18n.t('training.view_module_source')}</a>
+          <a href={`https://meta.wikimedia.org/wiki/${props.training.module.wiki_page}`} target="_blank">{I18n.t('training.view_module_source')}</a>
           <br />
-          <a href={`/reload_trainings?module=${this.props.training.module.slug}`}>{I18n.t('training.reload_from_source')}</a>
+          <a href={`/reload_trainings?module=${props.training.module.slug}`}>{I18n.t('training.reload_from_source')}</a>
         </div>
       );
     }
@@ -60,9 +56,8 @@ const TrainingModuleHandler = createReactClass({
       </div>
 
     );
-  }
-});
-
+  };
+TrainingModuleHandler.displayName = 'TrainingModuleHandler';
 const mapStateToProps = state => ({
   training: state.training
 });

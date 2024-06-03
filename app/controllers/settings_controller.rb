@@ -7,7 +7,8 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
   before_action :require_super_admin_permissions,
                 only: [:upgrade_admin, :downgrade_admin,
                        :upgrade_special_user, :downgrade_special_user,
-                       :update_salesforce_credentials]
+                       :update_salesforce_credentials, :update_impact_stats,
+                       :update_site_notice]
 
   layout 'application'
 
@@ -106,12 +107,69 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
     render json: { default_campaign: CampaignsPresenter.default_campaign_slug }
   end
 
+  def add_featured_campaign
+    campaign_slug = params[:featured_campaign_slug]
+    campaign = Campaign.find_by(slug: campaign_slug)
+    if campaign.nil?
+      message = I18n.t('settings.featured_campaigns.campaign_not_found',
+                       campaign_slug:)
+      render json: { message: }, status: :not_found
+      return
+    end
+    setting = Setting.find_or_create_by(key: 'featured_campaigns')
+    setting.value['campaign_slugs'] ||= []
+    # Add the new campaign_slug to the array if it's not already present
+    unless setting.value['campaign_slugs'].include?(campaign_slug)
+      setting.value['campaign_slugs'] << campaign_slug
+    end
+    setting.save
+    render json: { campaign_added: { slug: campaign_slug, title: campaign.title } }
+  end
+
+  def remove_featured_campaign
+    campaign_slug = params[:featured_campaign_slug]
+    setting = Setting.find_or_create_by(key: 'featured_campaigns')
+    setting.value['campaign_slugs'] ||= []
+    setting.value['campaign_slugs'].delete(campaign_slug)
+    setting.save
+    render json: { campaign_removed: campaign_slug }
+  end
+
   def update_default_campaign
     CampaignsPresenter.update_default_campaign(params[:default_campaign])
     render json: { message: 'Default campaign updated.' }, status: :ok
   end
 
+  def update_impact_stats
+    updated_stats = params[:impactStats]
+    updated_stats.each do |key, value|
+      Setting.set_hash('impact_stats', key, value)
+    end
+    Rails.cache.delete('impact_stats')
+    render json: { message: 'Impact Stats Updated Successfully.' }, status: :ok
+  end
+
+  def fetch_site_notice
+    render json: { site_notice: current_site_notice }, status: :ok
+  end
+
+  def update_site_notice
+    updated_site_notice = params[:site_notice]
+    updated_site_notice.each do |key, value|
+      Setting.set_hash('site_notice', key, value)
+    end
+    Rails.cache.delete('site_notice')
+    render json: { message: 'Site Notice Configured Successfully.' }, status: :ok
+  end
+
   private
+
+  def current_site_notice
+    Rails.cache.fetch('site_notice') do
+      site_notice = Setting.find_by(key: 'site_notice')&.value.presence || {}
+      site_notice
+    end
+  end
 
   def username_param
     params.require(:user).permit(:username)

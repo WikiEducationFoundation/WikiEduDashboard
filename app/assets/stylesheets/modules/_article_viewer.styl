@@ -13,13 +13,14 @@
   border-radius 3px
   box-shadow 0 0 20px 0 rgba(0, 0, 0, .6)
   transform translateX(-50%)
+  overflow auto
 
 #icon-article-viewer-desc
   display none
 
 #popup-style
   position: fixed
-  top: 99%
+  top: calc(100% - 80px)
   left: 0
   border: 0
   background: #676eb4
@@ -34,6 +35,10 @@
 .tooltip
   position: relative
   color: white
+
+.tooltip-indicator-article-viewer
+  background: url('../images/circle_q_mark_icons.svg') center no-repeat
+  padding: 8.5px;
 
 
 .article-alert
@@ -75,13 +80,15 @@
 .user-legend-wrap
   width 90%
   background white
-
-.user-legend
+  
+.article-viewer-legend
   margin 10px
   border-radius 15px
-  padding 2px 0px 2px 0px
   display flex
   align-items center
+
+.user-legend-name
+  padding 0px 0px 0px 10px
 
 .user-legend-hover:hover
   background-color rgba(0, 0, 0, 0.2)

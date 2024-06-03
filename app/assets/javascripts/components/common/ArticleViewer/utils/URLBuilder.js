@@ -6,14 +6,19 @@ export class URLBuilder {
     this.users = users;
   }
 
-  parsedArticleURL() {
+  parsedArticleURL(lastRevisionId) {
     const { title } = this.article;
     if (!title) throw new TypeError('Article title is missing!');
 
     const base = this.wikiURL();
-    const query = `${base}/w/api.php?action=parse&disableeditsection=true&format=json`;
-    const url = `${query}&page=${encodeURIComponent(title)}`;
-
+    let url;
+    if (lastRevisionId) {
+      const query = `${base}/w/api.php?action=parse&oldid=${lastRevisionId}&disableeditsection=true&format=json`;
+      url = `${query}`;
+    } else {
+      const query = `${base}/w/api.php?action=parse&disableeditsection=true&format=json`;
+      url = `${query}&page=${encodeURIComponent(title)}`;
+    }
     return url;
   }
 
@@ -27,7 +32,7 @@ export class URLBuilder {
     return encodeURI(url);
   }
 
-  wikiwhoColorURL() {
+  wikiwhoColorURL(lastRevisionId) {
     const { language, title } = this.article;
 
     if (!language) throw new TypeError('Article language is missing!');
@@ -35,7 +40,8 @@ export class URLBuilder {
 
     // Add `/0` to the end of the URL to work around wikiwho API bug with article titles that include slashes.
     // See https://github.com/wikimedia/wikiwho_api/pull/4/commits/8f421a20c62288a1a29bcef75fffa0a21d2c92a6
-    const url = `${WIKIWHO_DOMAIN}/${language}/whocolor/v1.0.0-beta/${encodeURIComponent(title)}/0/`;
+    const revisionId = lastRevisionId || 0;
+    const url = `${WIKIWHO_DOMAIN}/${language}/whocolor/v1.0.0-beta/${encodeURIComponent(title)}/${revisionId}/`;
     return url;
   }
 

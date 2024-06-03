@@ -9,3 +9,6 @@ slides:
   - slug: writing-new-article #3702
   - slug: begin-critique #3703
   - slug: present-articles #3704
+settings:
+  sandbox_location: 'Choose_an_Article'
+  preload: 'Template:Dashboard.wikiedu.org_choose_article'

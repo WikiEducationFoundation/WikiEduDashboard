@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { includes } from 'lodash-es';
 
 import ArticleViewer from '@components/common/ArticleViewer/containers/ArticleViewer.jsx';
@@ -9,6 +9,7 @@ import ArticleUtils from '../../utils/article_utils.js';
 
 const ArticleFinderRow = (props) => {
     const [isLoading, setIsLoading] = useState(false);
+    const prevPropsRef = useRef();
 
     // Note: This comment is applicable for the article finder row of a course
     // There are two scenarios in which we use isLoading:
@@ -19,10 +20,11 @@ const ArticleFinderRow = (props) => {
     // button is disabled. On completion of request, this.props.assignment changes and
     // button is enabled again after isLoading is set to false
 
-    useEffect((prevProps) => {
-      if (isLoading && prevProps.assignment !== props.assignment) {
+    useEffect(() => {
+      if (isLoading && prevPropsRef.current.assignment !== props.assignment) {
         setIsLoading(false);
       }
+      prevPropsRef.current = props;
     }, [isLoading, props.assignment]);
 
     const assignArticle = (userId = null) => {
@@ -60,7 +62,7 @@ const ArticleFinderRow = (props) => {
     if (props.article.pageviews) {
       pageviews = Math.round(props.article.pageviews);
     } else if (props.article.fetchState === 'PAGEVIEWS_RECEIVED') {
-      pageviews = <div>Page Views not found!</div>;
+      pageviews = <div>{I18n.t('article_finder.page_views_not_found')}</div>;
     }
     let revScore;
     if (
@@ -75,7 +77,7 @@ const ArticleFinderRow = (props) => {
       } else if (props.article.revScore) {
         revScore = <td className="revScore">{Math.round(props.article.revScore)}</td>;
       } else if (fetchStates[props.article.fetchState] >= fetchStates.REVISIONSCORE_RECEIVED) {
-        revScore = <td><div>Estimation Score not found!</div></td>;
+        revScore = <td><div>{I18n.t('article_finder.estimation_score_not_found')}</div></td>;
       } else {
         revScore = <td />;
       }

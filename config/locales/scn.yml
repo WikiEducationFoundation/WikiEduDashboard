@@ -55,7 +55,7 @@ scn:
   articles:
     articles: Vuci
     available: Vuci dispunìbbili
-    no_available: Nudda vuci dispunìbbili
+    no_available: Nuḍḍa vuci dispunìbbili
     article_title: Tìtulu dâ vuci
     deleted: (cancillatu)
     edited: Vuci canciati
@@ -95,7 +95,7 @@ scn:
     alert_user_id: Utenti
     created_at: Data
     description: Discrizzioni
-    none: Nuddu
+    none: Nuḍḍu
     title: Tìtulu
   categories:
     add_category: Agghiunci catigurìa
@@ -132,7 +132,7 @@ scn:
     new_week: Agghiunci simana nova
     new_account_email: Nnirizzu email
     new_account_email_placeholder: nomu@example.org
-    none: Nuddu
+    none: Nuḍḍu
     ores_plot: ORES
     overview: Pàggina principali
     please_log_in: Pi favuri trasi.

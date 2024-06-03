@@ -1,8 +1,9 @@
 - if flash[:notice]
   .notification= flash[:notice].html_safe
 
-- unless ENV['sitenotice'].blank?
-  .notification.sitenotice= raw ENV['sitenotice'].dup.force_encoding("UTF-8")
+- site_notice = Features.site_notice
+- if !site_notice.empty? && site_notice["status"] == true
+  .notification.sitenotice= raw site_notice["message"].dup.force_encoding("UTF-8")
 
 - if flash[:error]
   .notice.notice--error= flash[:error]

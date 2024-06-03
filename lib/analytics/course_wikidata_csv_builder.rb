@@ -14,10 +14,15 @@ class CourseWikidataCsvBuilder
     CSV.generate { |csv| csv_data.each { |line| csv << line } }
   end
 
+  def wikidata_stats?
+    @course.course_stat && @course.course_stat.stats_hash['www.wikidata.org']
+  end
+
   def stat_row
     hash_stats = @course
                  .course_stat.stats_hash['www.wikidata.org']
-                 .merge({ 'course name' => @course.title })
+                 &.merge({ 'course name' => @course.title })
+
     CSV_HEADERS.map { |elmnt| hash_stats.fetch elmnt, 0 }
   end
 
@@ -51,10 +56,4 @@ class CourseWikidataCsvBuilder
     'no data',
     'total revisions'
   ].freeze
-
-  private
-
-  def wikidata_stats?
-    @course.course_stat && @course.course_stat.stats_hash['www.wikidata.org']
-  end
 end

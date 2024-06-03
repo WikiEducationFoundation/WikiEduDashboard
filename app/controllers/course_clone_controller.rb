@@ -23,7 +23,8 @@ class CourseCloneController < ApplicationController
   private
 
   def check_permission
-    return if current_user.can_edit?(@course)
+    return unless Features.wiki_ed? # On P&E Dashboard, anyone may clone a course
+    return if current_user.can_edit?(@course) # Otherwise, only instructors or admins can clone
     exception = ActionController::InvalidAuthenticityToken.new('Unauthorized')
     raise exception
   end
