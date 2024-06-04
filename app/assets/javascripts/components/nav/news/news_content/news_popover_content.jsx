@@ -26,11 +26,19 @@ const NewsPopoverContent = ({ createNews }) => {
 
   // Fetch all news content from the server when the component mounts
   useEffect(() => {
-    const fetch = async () => {
+    // Define a function to fetch the course notes
+    const fetchNewsContent = async () => {
       const status = await dispatch(fetchAllNewsContent());
       setLoading(!status);
     };
-    fetch();
+
+    fetchNewsContent();
+
+    // Fetch the data and set up a polling interval to fetch data periodically (every 60 seconds)
+    const pollInterval = setInterval(fetchNewsContent, 60000);
+
+    // Clean up the polling interval when the component unmounts
+    return () => clearInterval(pollInterval);
   }, []);
 
   // Update the newsCreatedTime array whenever the newsContentList changes

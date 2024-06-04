@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import API from '../../../utils/api';
 import { Cookies } from 'react-cookie-consent';
+import logErrorMessage from '~/app/assets/javascripts/utils/log_error_message';
 
 const NewsNavIcon = ({ setIsOpen }) => {
   const [notificationCount, setNotificationCount] = useState(0);
@@ -20,29 +21,32 @@ const NewsNavIcon = ({ setIsOpen }) => {
   };
 
   useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const newsContentList = await API.fetchNews(newsType);
+    const fetchData = async () => {
+      try {
+        const newsContentList = await API.fetchNews(newsType);
 
-      // Retrieve the last fetch timestamp from the cookie
-      const userLastFetchTimestamp = Cookies.get(`lastFetchTimestamp_${newsType}`);
+        // Retrieve the last fetch timestamp from the cookie
+        const userLastFetchTimestamp = Cookies.get(`lastFetchTimestamp_${newsType}`);
 
-      // Check if the cookie value is a valid number
-      const parsedTimestamp = isFinite(userLastFetchTimestamp) ? parseInt(userLastFetchTimestamp) : 0;
+        // Check if the cookie value is a valid number
+        const parsedTimestamp = isFinite(userLastFetchTimestamp) ? parseInt(userLastFetchTimestamp) : 0;
 
-      // Calculate the count of new news items
-      const newNewsCount = newsContentList.filter(newsItem => new Date(newsItem.updated_at) > new Date(parsedTimestamp)).length;
+        // Calculate the count of new news items
+        const newNewsCount = newsContentList.filter(newsItem => new Date(newsItem.updated_at) > new Date(parsedTimestamp)).length;
 
-      // Update the notification count state
-      setNotificationCount(newNewsCount);
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error('Error fetching news:', error);
-    }
-  };
+        // Update the notification count state
+        setNotificationCount(newNewsCount);
+      } catch (error) {
+        logErrorMessage('Error fetching news:', error);
+      }
+    };
 
-  // Call the asynchronous function
-  fetchData();
+    // Fetch the data and set up a polling interval to fetch data periodically (every 60 seconds)
+    fetchData();
+    const pollInterval = setInterval(fetchData, 60000);
+
+    // Clean up the polling interval when the component unmounts
+    return () => clearInterval(pollInterval);
   }, []);
 
   return (
