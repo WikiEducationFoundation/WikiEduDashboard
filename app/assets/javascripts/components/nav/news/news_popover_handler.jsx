@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { resetCreateNewsState } from '@actions/news_action';
 import Notifications from './news_notification/notification';
@@ -19,9 +19,11 @@ const NewsPopoverHandler = () => {
   const newsFooter = <NewsPopoverFooter />;
 
   // Reset the create news state in redux store if the create news popover is not shown
-  if (!createNews) {
-    dispatch(resetCreateNewsState());
-  }
+  useEffect(() => {
+    if (!createNews) {
+      dispatch(resetCreateNewsState());
+    }
+  }, [createNews, dispatch]);
 
   return (
     <>
