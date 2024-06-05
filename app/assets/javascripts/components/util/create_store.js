@@ -18,7 +18,6 @@ export const getStore = () => {
     // This is basic, minimal state info extracted from the HTML,
     // used for initial rendering before React fetches all the specific
     // data it needs via API calls.
-    // eslint-disable-next-line no-unused-vars
     preloadedState = {
       courseCreator: {
         defaultCourseType: reactRoot.getAttribute('data-default-course-type'),

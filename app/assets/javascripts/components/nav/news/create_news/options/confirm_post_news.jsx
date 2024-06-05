@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import { createNewsContent } from '@actions/news_action';
 import { dispatchNotification } from '../../news_notification/notificationUtils';
 
-// eslint-disable-next-line no-unused-vars
 const ConfirmPostNews = ({ setConfirmPost, setDisableDropdown, setCreateNews }) => {
   const [confirmPostIcon, setConfirmPostIcon] = useState(false);
   const dispatch = useDispatch();
