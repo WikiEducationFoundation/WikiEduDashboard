@@ -1,11 +1,13 @@
 // align date and time controls side by side
 .datetime-control
   display flex
+  width fit-content
 
   .date-picker--form-group
     width auto
 
   .form-group
+    width fit-content
     display inline-block
 
     .date-input
@@ -25,7 +27,7 @@
 .date-input input
   width 100%;
 
-.date-input .DayPicker
+.date-input .rdp--hidden
   display none
   width 350px
   background white
@@ -36,8 +38,13 @@
   z-index 10
   box-shadow 0 0 10px rgba(0,0,0,0.2)
 
-.date-input .DayPicker--visible
+.day-selector{
+  margin-bottom 20px
+}
+
+.date-input .rdp
   display block
+  left: 100%;
 
 .time-picker--form-group
   display inline-block

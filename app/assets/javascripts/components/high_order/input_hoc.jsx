@@ -42,6 +42,7 @@ const InputHOC = (Component) => {
             && this.state.id === nextState.id
             && this.state.invalid === nextState.invalid
             && this.props.editable === nextProps.editable
+            && this.props.day === nextProps.day
             && nextProps.rerenderHoc !== true
             && this.props._value === nextProps._value) {
         return false;
@@ -73,6 +74,7 @@ const InputHOC = (Component) => {
         {
           value: props.value,
           invalid: !valid,
+          day: props.day,
           id: props.id || this.state.id || uuid.v4() // create a UUID if no id prop
         }, function () {
           if (valid && this.props.required && (!props.value || props.value === null || props.value.length === 0)) {
@@ -114,8 +116,8 @@ const InputHOC = (Component) => {
 
     render() {
       // Don't allow uneccessary props to pass through
-      const { value, validation, onChange, invalidMessage, required, ...passThroughProps } = this.props;
-      return (<Component {...passThroughProps} {...this.state} onChange={this.onChange} onFocus={this.focus} onBlur={this.blur} />);
+      const { value, validation, day, onChange, invalidMessage, required, ...passThroughProps } = this.props;
+      return (<Component {...passThroughProps} {...this.day} {...this.state} onChange={this.onChange} onFocus={this.focus} onBlur={this.blur} />);
     }
   });
   return connect(mapStateToProps, mapDispatchToProps)(validatingComponent);
