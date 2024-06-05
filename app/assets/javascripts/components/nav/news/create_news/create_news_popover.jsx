@@ -21,7 +21,7 @@ const CreateNewsPopover = ({ setCreateNews }) => {
   const disableTextAreaInput = confirmPost || disableDropdown ? 'disable-text-area-input' : '';
 
   // Function to handle news posting process
-  const postNews = async () => {
+  const postNews = () => {
     setConfirmPost(true);
   };
 
