@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { ADD_NEWS_NOTIFICATION } from '~/app/assets/javascripts/constants/news_notification';
+import { dispatchNotification } from '../../news_notification/notificationUtils';
 
 // Component to handle the posting of news
 const PostNews = ({ postNews }) => {
@@ -12,19 +12,9 @@ const PostNews = ({ postNews }) => {
 
   const dispatch = useDispatch();
 
-  // Function to create a notification message
-  const notificationMessage = (type, message) => ({
-    message,
-    closable: true,
-    type: type === 'Success' ? 'success' : 'error'
-  });
-
   function handlePostNews() {
     if (!newsContent.trim().length) {
-      dispatch({
-        type: ADD_NEWS_NOTIFICATION,
-        notification: notificationMessage('Error', I18n.t('news.notification.empty_create_news_content_error'))
-      });
+      dispatchNotification(dispatch, 'Error', I18n.t('news.notification.empty_create_news_content_error'));
     } else {
       postNews();
     }
