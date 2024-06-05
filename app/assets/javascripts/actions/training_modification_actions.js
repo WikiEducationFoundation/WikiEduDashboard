@@ -12,7 +12,7 @@ const createLibraryPromise = async (library, setSubmitting, modalHandler) => {
       body: JSON.stringify(library),
     });
     setSubmitting(false);
-    modalHandler(false);
+    modalHandler();
     if (!response.ok) {
       logErrorMessage(response);
       const data = await response.text();

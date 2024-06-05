@@ -31,21 +31,21 @@ const CreateLibrary = (props) => {
   const validateFields = () => {
     let valid = true;
     const message = I18n.t('training.validation_message');
-    if (library.name.trim() === '') {
+    if (!library.name.trim()) {
       dispatch(setInvalid('name', message));
       valid = false;
     } else {
       dispatch(setValid('name'));
     }
 
-    if (library.slug.trim() === '') {
+    if (!library.slug.trim()) {
       dispatch(setInvalid('slug', message));
       valid = false;
     } else {
       dispatch(setValid('slug'));
     }
 
-    if (library.introduction.trim() === '') {
+    if (!library.introduction.trim()) {
       dispatch(setInvalid('introduction', message));
       valid = false;
     } else {
