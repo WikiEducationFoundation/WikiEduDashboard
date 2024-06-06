@@ -58,8 +58,7 @@ class StudentGreetingChecker
       # If there are no non-anonymous contributors, the page exists but will
       # return no 'contributors' data.
       return [] if contributors.nil?
-      contributor_usernames = contributors.map { |user| user['name'].tr(' ', '_') }
-      contributor_usernames
+      contributors.map { |user| user['name'].tr(' ', '_') }
     end
 
     def contributors_query(page_title)

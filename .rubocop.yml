@@ -173,8 +173,6 @@ Style/OptionalBooleanParameter:
   Enabled: false
 Style/ExplicitBlockArgument:
   Enabled: false
-Style/RedundantAssignment:
-  Enabled: false
 Style/KeywordParametersOrder:
   Enabled: false
 RSpec/StubbedMock:

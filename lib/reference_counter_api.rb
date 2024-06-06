@@ -80,13 +80,12 @@ class ReferenceCounterApi
   end
 
   def toolforge_server
-    connection = Faraday.new(
+    Faraday.new(
       url: TOOLFORGE_SERVER_URL,
       headers: {
         'Content-Type': 'application/json'
       }
     )
-    connection
   end
 
   TYPICAL_ERRORS = [Faraday::TimeoutError,

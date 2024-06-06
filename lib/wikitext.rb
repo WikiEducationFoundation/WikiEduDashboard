@@ -33,21 +33,18 @@ class Wikitext
     wikitext = replace_code_with_nowiki(wikitext)
     wikitext = reformat_image_links(wikitext)
     wikitext = replace_at_sign_with_template(wikitext)
-    wikitext = reformat_links(wikitext)
-    wikitext
+    reformat_links(wikitext)
   end
 
   def self.html_to_mediawiki(item)
     wikitext = PandocRuby.convert(item, from: :html, to: :mediawiki)
     wikitext = replace_code_with_nowiki(wikitext)
     wikitext = replace_at_sign_with_template(wikitext)
-    wikitext = reformat_links(wikitext)
-    wikitext
+    reformat_links(wikitext)
   end
 
   def self.mediawiki_to_markdown(item)
-    markdown = PandocRuby.convert(item, from: :mediawiki, to: :markdown_github)
-    markdown
+    PandocRuby.convert(item, from: :mediawiki, to: :markdown_github)
   end
 
   # Replace instances of <code></code> with <nowiki></nowiki>
@@ -64,8 +61,7 @@ class Wikitext
   # Replace instances of @ with an image-based template equivalent.
   # This prevents email addresses from triggering a spam warning.
   def self.replace_at_sign_with_template(text)
-    text = text.gsub('@', '{{@}}')
-    text
+    text.gsub('@', '{{@}}')
   end
 
   def self.assignments_to_wikilinks(assignments, home_wiki)
@@ -73,8 +69,7 @@ class Wikitext
     formatted_titles = assignments.map do |assignment|
       format_assignment_title(assignment, home_wiki)
     end
-    wikitext = '[[' + formatted_titles.join(']], [[') + ']]'
-    wikitext
+    '[[' + formatted_titles.join(']], [[') + ']]'
   end
 
   def self.format_assignment_title(assignment, home_wiki)
@@ -105,8 +100,7 @@ class Wikitext
   # Fix full urls, with or without quote marks, that have been formatted like wikilinks.
   # [["https://foo.com"|Foo]] -> [https://foo.com Foo]
   def self.reformat_links(text)
-    text = text.gsub(/\[\["?(http.*?)"?\|(.*?)\]\]/, '[\1 \2]')
-    text
+    text.gsub(/\[\["?(http.*?)"?\|(.*?)\]\]/, '[\1 \2]')
   end
 
   # Take file links that come out of Pandoc and attempt to create valid wiki

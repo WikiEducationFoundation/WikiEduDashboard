@@ -47,8 +47,7 @@ class WikiAssignmentOutput
     # This is to avoid creating a new empty talk page.
     return nil if @assignments.empty? && initial_page_content.empty?
 
-    page_content = build_assignment_page_content(assignments_tag, initial_page_content)
-    page_content
+    build_assignment_page_content(assignments_tag, initial_page_content)
   end
 
   ###################
@@ -130,8 +129,7 @@ class WikiAssignmentOutput
     return page_content if page_content.include?(new_tag_with_signature)
 
     # Otherwise, we need to add the tag to the right place.
-    page_content = insert_tag_into_talk_page(page_content, new_tag_with_signature)
-    page_content
+    insert_tag_into_talk_page(page_content, new_tag_with_signature)
   end
 
   def remove_assignment_tag(page_content, existing_tag, header)

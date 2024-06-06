@@ -16,15 +16,13 @@ class Commons
   # Get user contribution data that corresponds to new file uploads.
   def self.get_uploads(users, start_date: nil, end_date: nil, update_service: nil)
     upload_query = build_upload_query(users, start_date, end_date)
-    uploads = new(upload_query, update_service).fetch_all_uploads
-    uploads
+    new(upload_query, update_service).fetch_all_uploads
   end
 
   # Get data about how files are being used across Wikimedia sites.
   def self.get_usages(commons_uploads, update_service: nil)
     usage_query = build_usage_query commons_uploads
-    usages = new(usage_query, update_service).get_image_data('globalusage', 'gucontinue')
-    usages
+    new(usage_query, update_service).get_image_data('globalusage', 'gucontinue')
   end
 
   def self.find_missing_files(commons_uploads)
@@ -37,8 +35,7 @@ class Commons
 
   def self.get_urls(commons_uploads, update_service: nil)
     url_query = build_url_query commons_uploads
-    file_urls = new(url_query, update_service).get_image_data('imageinfo', 'iicontinue')
-    file_urls
+    new(url_query, update_service).get_image_data('imageinfo', 'iicontinue')
   end
 
   ##################
@@ -62,31 +59,28 @@ class Commons
 
   def self.build_usage_query(commons_uploads)
     file_ids = commons_uploads.map(&:id)
-    usage_query = { prop: 'globalusage',
+    { prop: 'globalusage',
                     pageids: file_ids,
                     gulimit: 500, # 500 is max for non-bots
                     gufilterlocal: 'true', # Don't return local Commons usage
                     guprop: 'namespace', # Fetch NS for each usage
                     continue: '' }
-    usage_query
   end
 
   def self.build_info_query(commons_uploads)
     file_ids = commons_uploads.map(&:id)
-    info_query = { pageids: file_ids,
+    { pageids: file_ids,
                    continue: '' }
-    info_query
   end
 
   def self.build_url_query(commons_uploads)
     file_ids = commons_uploads.map(&:id)
-    url_query = { prop: 'imageinfo',
+    { prop: 'imageinfo',
                   iiprop: 'url',
                   iiurlheight: 480,
                   pageids: file_ids,
                   iilimit: 50, # 50 is max when iiurlheight is used.
                   continue: '' }
-    url_query
   end
 
   ##########################

@@ -73,11 +73,10 @@ class MonthlyReport
 
   def revisions_during_month(courses, month, year)
     all_course_revision_ids = revision_ids_for(courses)
-    revisions = Revision
-                .where(id: all_course_revision_ids)
-                .where('extract(month from date) = ?', month)
-                .where('extract(year from date) = ?', year)
-    revisions
+    Revision
+      .where(id: all_course_revision_ids)
+      .where('extract(month from date) = ?', month)
+      .where('extract(year from date) = ?', year)
   end
 
   def article_count(revisions)
