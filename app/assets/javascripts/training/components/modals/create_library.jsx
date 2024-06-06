@@ -60,7 +60,7 @@ const CreateLibrary = (props) => {
 
     if (validateFields()) {
       setSubmitting(true);
-      dispatch(createLibrary(library, setSubmitting, props.modalHandler));
+      dispatch(createLibrary(library, setSubmitting, props.toggleModal));
     }
   };
 
@@ -97,7 +97,7 @@ const CreateLibrary = (props) => {
                 label={I18n.t('training.library_slug')}
                 placeholder={`${I18n.t('training.enter')} ${I18n.t('training.library_slug')}`}
               />
-              <button className="button light" onClick={props.modalHandler}>{I18n.t('training.cancel')}</button>
+              <button className="button light" onClick={props.toggleModal}>{I18n.t('training.cancel')}</button>
               <span className="validation-error"> &nbsp; {firstErrorMessage || '\xa0'}</span>
             </div>
             <div className="column form-group">

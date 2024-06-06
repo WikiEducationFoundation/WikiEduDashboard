@@ -8,16 +8,16 @@ const TrainingLibraryHandler = () => {
   const [showModal, setShowModal] = useState(false);
   const currentUser = useSelector(state => getCurrentUser(state));
 
-  const modalHandler = () => {
+  const toggleModal = () => {
     setShowModal(!showModal);
   };
 
   return (
     <div className="container lib-container">
       <Notifications className="lib-notifications" />
-      {showModal && <CreateLibrary modalHandler={modalHandler} />}
+      {showModal && <CreateLibrary toggleModal={toggleModal} />}
       {currentUser.isAdmin && (
-        <button className="button dark lib-create" onClick={modalHandler}>
+        <button className="button dark lib-create" onClick={toggleModal}>
           {I18n.t('training.create_library')}
           <i className="icon icon-plus" />
         </button>
