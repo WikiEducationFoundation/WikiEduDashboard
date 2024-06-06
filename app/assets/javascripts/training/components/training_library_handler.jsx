@@ -13,7 +13,7 @@ const TrainingLibraryHandler = () => {
   };
 
   return (
-    <div className="container lib-container">
+    <div className="container lib-container training-modification">
       <Notifications className="lib-notifications" />
       {showModal && <CreateLibrary toggleModal={toggleModal} />}
       {currentUser.isAdmin && (
