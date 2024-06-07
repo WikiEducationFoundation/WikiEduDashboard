@@ -12,7 +12,8 @@ class PagePileApi
 
     update_language_and_project
 
-    @pile_data['pages']
+    titles = @pile_data['pages']
+    titles
   end
 
   ###################

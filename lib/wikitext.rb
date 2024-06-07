@@ -33,14 +33,16 @@ class Wikitext
     wikitext = replace_code_with_nowiki(wikitext)
     wikitext = reformat_image_links(wikitext)
     wikitext = replace_at_sign_with_template(wikitext)
-    reformat_links(wikitext)
+    wikitext = reformat_links(wikitext)
+    wikitext
   end
 
   def self.html_to_mediawiki(item)
     wikitext = PandocRuby.convert(item, from: :html, to: :mediawiki)
     wikitext = replace_code_with_nowiki(wikitext)
     wikitext = replace_at_sign_with_template(wikitext)
-    reformat_links(wikitext)
+    wikitext = reformat_links(wikitext)
+    wikitext
   end
 
   def self.mediawiki_to_markdown(item)
@@ -69,7 +71,8 @@ class Wikitext
     formatted_titles = assignments.map do |assignment|
       format_assignment_title(assignment, home_wiki)
     end
-    '[[' + formatted_titles.join(']], [[') + ']]'
+    wikitext = '[[' + formatted_titles.join(']], [[') + ']]'
+    wikitext
   end
 
   def self.format_assignment_title(assignment, home_wiki)

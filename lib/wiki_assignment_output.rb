@@ -129,7 +129,8 @@ class WikiAssignmentOutput
     return page_content if page_content.include?(new_tag_with_signature)
 
     # Otherwise, we need to add the tag to the right place.
-    insert_tag_into_talk_page(page_content, new_tag_with_signature)
+    page_content = insert_tag_into_talk_page(page_content, new_tag_with_signature)
+    page_content
   end
 
   def remove_assignment_tag(page_content, existing_tag, header)

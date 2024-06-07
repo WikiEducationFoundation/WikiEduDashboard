@@ -82,11 +82,12 @@ class ArticleStatusManager
 
   def article_data_from_replica(articles)
     @failed_request_count = 0
-    Utils.chunk_requests(articles, 100) do |block|
+    synced_articles = Utils.chunk_requests(articles, 100) do |block|
       request_results = Replica.new(@wiki).get_existing_articles_by_id block
       @failed_request_count += 1 if request_results.nil?
       request_results
     end
+    synced_articles
   end
 
   def update_title_and_namespace(synced_articles)
