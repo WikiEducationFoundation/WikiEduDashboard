@@ -9,3 +9,4 @@ set :user, 'gabina'
 set :address, 'data-rearchitecture-project-test.globaleducation.eqiad1.wikimedia.cloud'
 
 set :deploy_to, '/var/www/dashboard'
+set :default_env, { 'PASSENGER_INSTANCE_REGISTRY_DIR' => '/var/www/dashboard/shared/tmp/pids' }
