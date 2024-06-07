@@ -86,6 +86,8 @@ Style/AsciiComments:
   Enabled: false # We need non-ascii characters to document Wikipedia stuff.
 Style/ParallelAssignment:
   Enabled: false # We generally use this only to initialize empty variables.
+Style/RedundantAssignment: # Same as Style/RedundantReturn, sometimes enhances clarity
+  Enabled: false
 Style/RedundantReturn:
   Enabled: false # Sometimes a redundant return enhances clarity.
 Style/SymbolArray:
@@ -172,8 +174,6 @@ Style/StringConcatenation:
 Style/OptionalBooleanParameter:
   Enabled: false
 Style/ExplicitBlockArgument:
-  Enabled: false
-Style/RedundantAssignment:
   Enabled: false
 Style/KeywordParametersOrder:
   Enabled: false

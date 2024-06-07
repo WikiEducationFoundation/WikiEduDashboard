@@ -15,13 +15,12 @@ class UserImporter
   end
 
   def self.new_from_omniauth(auth)
-    user = User.create(
+    User.create(
       username: auth.info.name,
       global_id: auth.uid,
       wiki_token: auth.credentials.token,
       wiki_secret: auth.credentials.secret
     )
-    user
   end
 
   LTR_MARK = 8206.chr # left-to-right mark, Ruby character 8206
