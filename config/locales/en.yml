@@ -1219,7 +1219,7 @@ en:
     diff: diff
     diff_show: Show
     diff_hide: Hide
-    edit_time_span: Edits occurred from %{first_time} to %{last_time}
+    edit_time_span: 'Edits occurred from: %{first_time} to %{last_time}'
     edited_by: Edited By
     edited_on: Edited on %{edit_date}
     loading: Loading revisions...
