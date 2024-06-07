@@ -16,7 +16,7 @@
               - successful_replies_in_reverse(@ticket, @recipient)[1..-1].each do |message|
                 %div.blockquote
                   %p.sender= sender_for_message(message)
-                  %p.date= message.created_at.in_time_zone('US/Pacific').strftime('%b %e, %l:%M %p %Z')
+                  %p.date= message.created_at.in_time_zone('America/Los_Angeles').strftime('%b %e, %l:%M %p %Z')
                   %p= raw(message.content)
 
               %table

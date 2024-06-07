@@ -33,7 +33,7 @@ class DiscretionarySanctionsMonitor
 
   private
 
-  DS_CATEGORY = 'Category:Wikipedia pages under discretionary sanctions'
+  DS_CATEGORY = 'Category:Wikipedia pages about contentious topics'
   DS_CATEGORY_DEPTH = 1
   def find_pages_tagged_for_discretionary_sanctions
     @ds_talk_titles = CategoryImporter.new(@wiki)

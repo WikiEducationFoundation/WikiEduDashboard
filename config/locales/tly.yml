@@ -19,7 +19,7 @@ tly:
   application:
     cancel: Ləğv karde
     greeting: Səlom!
-    help: Koməq
+    help: Dastək
     home: Vəsə
     log_out: Beši
     confirm: COK
@@ -79,5 +79,5 @@ tly:
     role:
       student: Tələbə
   wizard:
-    read_more: Hánde Davom Kárde
+    read_more: Hande Dəvom karde
 ...

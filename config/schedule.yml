@@ -9,7 +9,7 @@
 schedule_course_updates:
   cron: "*/5 * * * *" # execute at every 5 minutes
   class: "ScheduleCourseUpdatesWorker"
-  queue: constant_update
+  queue: default # Schedule course updates is a quick process, and default queue is usually empty.
 
 # Constant updates are independent of the main course stats, pulling in revision
 # metadata, generating alerts, and doing other data and network-intensive tasks,

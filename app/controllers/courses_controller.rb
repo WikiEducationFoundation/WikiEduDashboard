@@ -8,7 +8,7 @@ require_dependency "#{Rails.root}/lib/course_creation_manager"
 require_dependency "#{Rails.root}/app/workers/update_course_worker"
 require_dependency "#{Rails.root}/app/workers/notify_untrained_users_worker"
 require_dependency "#{Rails.root}/app/workers/announce_course_worker"
-require "#{Rails.root}/lib/alerts/check_timeline_alert_manager"
+require_dependency "#{Rails.root}/lib/alerts/check_timeline_alert_manager"
 
 #= Controller for course functionality
 class CoursesController < ApplicationController

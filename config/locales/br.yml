@@ -21,6 +21,7 @@ br:
           trillion: trilion
           quadrillion: kwadrilion
   application:
+    back: Distreiñ
     cancel: Nullañ
     cookie_consent_acknowledge: Kompren a ran
     cookie_consent_see_more: Gwelet muioc'h.
@@ -505,14 +506,24 @@ br:
     done: Graet!
     check_answer: Gwiriañ ar respont
   uploads:
+    article_name: Anv ar pennad
+    author: 'Aozer:'
+    categories: Rummadoù
+    date: 'Deiziad:'
+    description: Deskrivadur
     file_name: Anv ar restr
     header: Restroù pellgarget e Wikimedia Commons
     image: Skeudenn
+    license: 'Aotre-implijout:'
     none: Ar rummmad-mañ n'en deus ket degaset e lod gant skeudenn ebet pe gant restr
       vedia ebet e Wikipedia Commons
+    original_file: Restr orin
     time_doc: Eur pep pellgargadennoù en hoc'h eur lec'hel
     usage_count: Niver a implijoù
     usages: Implijoù
+    source: 'Mammenn:'
+    view_commons: Gwelet war gCommons
+    wiki_big: Wiki
   users:
     already_enrolled: Enskrivet eo an implijer-mañ dija !
     assign_articles: Dezverkañ pennadoù

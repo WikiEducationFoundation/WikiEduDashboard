@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
+import Select from 'react-select';
+import sortSelectStyles from '../../styles/sort_select.js';
 
 import AlertsList from './alerts_list.jsx';
 import { sortAlerts, filterAlerts } from '../../actions/alert_actions';
@@ -35,8 +37,15 @@ const AlertsHandler = ({ alertLabel, noAlertsLabel, adminAlert }) => {
   const alertTypes = useSelector(state => transformAlertsIntoOptions(state.alerts.alerts));
 
   const sortSelect = (e) => {
-    return dispatch(sortAlerts(e.target.value));
+    return dispatch(sortAlerts(e.value));
   };
+
+  const options = [
+    { value: 'type', label: I18n.t('campaign.alert_type') },
+    { value: 'course', label: I18n.t('campaign.course') },
+    { value: 'user', label: I18n.t('campaign.alert_user_id') },
+    { value: 'created_at', label: I18n.t('campaign.created_at') },
+  ];
 
   let alertList;
   if (alerts) {
@@ -45,13 +54,13 @@ const AlertsHandler = ({ alertLabel, noAlertsLabel, adminAlert }) => {
         <div className="section-header">
           <h3>{alertLabel}</h3>
           <MultiSelectField options={alertTypes} label={I18n.t('campaign.alert_select_label')} selected={selectedFilters} setSelectedFilters={value => dispatch(filterAlerts(value))} />
-          <div className="sort-select">
-            <select className="sorts" name="sorts" onChange={sortSelect}>
-              <option value="type">{I18n.t('campaign.alert_type')}</option>
-              <option value="course">{I18n.t('campaign.course')}</option>
-              <option value="user">{I18n.t('campaign.alert_user_id')}</option>
-              <option value="created_at">{I18n.t('campaign.created_at')}</option>
-            </select>
+          <div className="sort-container">
+            <Select
+              name="sorts"
+              onChange={sortSelect}
+              options={options}
+              styles={sortSelectStyles}
+            />
           </div>
         </div>
         <AlertsList

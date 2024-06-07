@@ -366,6 +366,11 @@ class Course < ApplicationRecord
     word_count / user_count
   end
 
+  def add_flag(key:, value: true)
+    flags[key] = value
+    save
+  end
+
   # Overridden for some course types
   def wiki_edits_enabled?
     return true unless flags.key?(:wiki_edits_enabled)
@@ -456,6 +461,10 @@ class Course < ApplicationRecord
   # Overridden for some course types
   def cloneable?
     !tag?('no_clone')
+  end
+
+  def returning_instructor?
+    tag?('returning_instructor')
   end
 
   # Overridden for some course types

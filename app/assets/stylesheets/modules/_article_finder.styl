@@ -17,6 +17,66 @@
 .revScore
   text-align center
 
+.article-finder-search-bar.autocomplete-on
+  input[type=text]
+    border-radius 5px 5px 5px 0
+  .autocomplete
+    display block
+
+.article-finder-search-bar
+  display flex
+  flex-direction row
+  align-items end
+  position relative
+
+  input[type=text]
+    font-size 15px
+    width 100%
+    border-radius 5px 5px 5px 5px
+    padding 1rem 11rem 1rem 2rem
+    transition border-radius linear 0.1s
+  button:disabled
+    opacity 50%
+  button
+    position absolute
+    right 0
+    height 100%
+    background #676eb4
+    color white
+    width 8rem
+    border-radius 0 5px 5px 0
+    font-weight bold
+  .loader
+    position absolute
+    right 8rem
+    top 0
+    height 100%
+    padding 5px 10px
+    display flex
+  .loader > div
+    width 20px
+    height 20px
+    margin auto
+  .autocomplete
+    display none
+    font-size 15px
+    border 1px solid #d9d9d9
+    border-top 0
+    position absolute
+    top 100%
+    background white
+    width calc(100% - 8rem)
+    box-shadow 0px 2px 4px rgba(0, 0, 0, 0.1)
+    z-index 5
+    .autocomplete-item
+      padding 0.5rem 2rem
+      cursor pointer
+    .autocomplete-item:hover
+      background  #ecf0f1
+
+.article-finder-options
+  text-align: center
+
 .search-bar
   display flex
   flex-direction row
@@ -26,6 +86,7 @@
     justify-content space-around
   input[type=text]
     width 50rem
+    padding 10px 50px 10px 15px
   button
     margin-bottom 8px
     height 2.8rem

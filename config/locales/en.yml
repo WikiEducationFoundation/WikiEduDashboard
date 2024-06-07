@@ -36,6 +36,7 @@ en:
     number_field: This is a number field. The buttons rendered by most browsers will increment and decrement the input.
 
   application:
+    back: Back
     cancel: Cancel
     cookie_consent: This site uses cookies to keep you logged in, and stores information related to your Wikipedia account.
     cookie_consent_acknowledge: I understand
@@ -67,6 +68,8 @@ en:
       one: "%{count} Result for: '%{search_terms}'"
       other: "%{count} Results for: '%{search_terms}'"
     no_results: "No results found for '%{query}'"
+    show_current_revision: Show current version
+    show_last_revision: Show last revision
     sign_up_extended: Sign up with Wikipedia
     sign_up_wikipedia: Or sign up on Wikipedia
 
@@ -1216,7 +1219,7 @@ en:
     diff: diff
     diff_show: Show
     diff_hide: Hide
-    edit_time_span: Edits occurred from %{first_time} to %{last_time}
+    edit_time_span: 'Edits occurred from: %{first_time} to %{last_time}'
     edited_by: Edited By
     edited_on: Edited on %{edit_date}
     loading: Loading revisions...
@@ -1392,6 +1395,7 @@ en:
     no_training_library_records_non_wiki_ed_mode: There are no TrainingLibrary records in the database.
     search_training_resources: Search for training resources
     no_training_resource_match_your_search: No training resource matches your search
+    exercise_sandbox: Exercise Sandbox
 
   update_username:
     header: Update a changed username
@@ -1402,13 +1406,21 @@ en:
     button: Update
 
   uploads:
+    article_name: Article Name
+    author: "Author:"
+    categories: Categories
     credit: Credit
+    date: "Date:"
+    description: Description
     file_name: File Name
+    file_usage: File usage on other wikis
     header: Files Uploaded to Wikimedia Commons
     image: Image
     label: Uploads
+    license: "License:"
     loading: Loading uploads...
     none: This class has not contributed any images or other media files to Wikimedia Commons.
+    original_file: Original File
     select_label: Filter by uploader
     time_doc: The time of each upload in your local time
     uploaded_at: Upload Time
@@ -1421,7 +1433,11 @@ en:
     usages: Usages
     gallery_view: Gallery View
     list_view: List View
+    source: "Source:"
     tile_view: Tile View
+    views_per_day: Views per day
+    view_commons: View on Commons
+    wiki_big: Wiki
 
   users:
     already_enrolled: That user is already enrolled!
@@ -1471,7 +1487,7 @@ en:
     no_articles: No articles
     no_articles_wikidata: No items
     no_revisions: (no revisions)
-    no_highlighting: "No text from the current version of the article is attributed to user %{editor}. Check the page history to see their edits."
+    no_highlighting: "No text from this version of the article is attributed to user %{editor}. Check the page history to see their edits."
     contributions_not_highlighted: "Contributions from user %{username} are present, but cannot be highlighted. This typically occurs for added references or templates. Check the page history to see their edits."
     number_of_articles:
       one: "%{count} article"

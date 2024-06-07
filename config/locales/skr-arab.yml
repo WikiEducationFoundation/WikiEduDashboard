@@ -6,6 +6,7 @@
 ---
 skr-arab:
   application:
+    back: پچھوں
     cancel: منسوخ
     create_accounts: وکی پیڈیا دے کھاتے بݨاؤ
     dashboard: وکی ای ڈی ڈیش بورڈ
@@ -102,6 +103,7 @@ skr-arab:
     delete_campaign: ایݨ مہم کوں مٹاؤ
     no_passcode: پاس کوڈ کائنی
     none: کوئی وی کائنی
+    resolve: حل کرو
     title: عنوان
     slug: سلڳ
   categories:
@@ -124,6 +126,7 @@ skr-arab:
     campaign_courses: '%{title} کورس'
     campaign_users: ایڈیٹر %{title}
     course: کورس
+    course_type_label: 'قسم:'
     course_description: کورسز
     courses: کورسز
     courses_taught: پڑھائے ڳئے کورس
@@ -242,6 +245,8 @@ skr-arab:
     view_on_wiki: وکی تے فرق ݙیکھو
     see_more: ٻئے ݙیکھو
   settings:
+    categories:
+      users: ورتݨ آلے
     admin_users:
       new:
         form_placeholder: ورتݨ ناں
@@ -271,11 +276,18 @@ skr-arab:
     label: نواں ورتݨ ناں
     button: اپ ݙیٹ
   uploads:
+    author: 'مصنف:'
+    date: 'تریخ:'
     file_name: فائل دا ناں
     image: تصویر
     label: اپلوڈ کردہ
+    original_file: اصل فائل
     uploaded_at: اپ لوڈ ویلا
     uploader: اپلوڈ کرݨ آلا
+    gallery_view: گیلری منظر
+    list_view: تندیر منظر
+    source: 'ماخذ:'
+    wiki_big: وکی
   users:
     assign_articles_done: مکمل
     loading_authorship_data: مصنفیت ڈیٹا لوڈ کرݨ

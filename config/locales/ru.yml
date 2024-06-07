@@ -51,10 +51,17 @@ ru:
     human:
       decimal_units:
         format: '%n%u'
+        units:
+          thousand: К
+          million: М
+          billion: Б
+          trillion: Т
+          quadrillion: Квдрлн
   accessibility:
     number_field: Это числовое поле. С помощью кнопок, отображаемых большинством браузеров,
       можно увеличивать и уменьшать значение.
   application:
+    back: Назад
     cancel: Отмена
     cookie_consent: Этот сайт использует куки-файлы для вашего входа в систему и хранит
       информацию, относящуюся к вашей учетной записи в Википедии.
@@ -87,6 +94,8 @@ ru:
       one: '%{count} Результат для: ''%{search_terms}'''
       other: '%{count} Результаты для: ''%{search_terms}'''
     no_results: Ничего не нашлось по запросу '%{query}'
+    show_current_revision: Показать текущую версию
+    show_last_revision: Просмотр последней правки
     sign_up_extended: Зарегистрируйтесь в Википедии
     sign_up_wikipedia: Или войдите в Википедию
     sign_up_log_in_extended: через Википедию
@@ -143,6 +152,12 @@ ru:
     log_in: Войти с помощью Википедии
     sign_up: Зарегистрируйтесь с помощью Википедии
     registration_advice:
+      username_rules:
+        heading: Правила для имён пользователя
+        avoid_offensive_usernames: Не выбирайте имя пользователя, которое является
+          оскорбительным, вводящим в заблуждение, деструктивным или рекламным.
+        represent_individual: Имена пользователей должны обозначать отдельного редактора.
+          Не используйте название школы или организации.
       additional_advice:
         heading: Совет
     sign_up_help: Чтобы использовать панель мониторинга, необходимо войти через Википедию
@@ -185,6 +200,7 @@ ru:
       tracked: Отслеживаемые
       untracked: Неотслеживаемые
       tracked_and_untracked: Отслеживаемые и неотслеживаемые
+    filter_text: Фильтры
     find: Найти статьи
     how_to_find: Как найти статьи
     hide: Скрыть
@@ -305,8 +321,8 @@ ru:
   categories:
     add_category: Добавить категорию
     add_template: Добавить шаблон
-    add_this_category: Добавить эту категорию
-    add_this_template: Добавить данный шаблон
+    add_this_category: Добавить категории
+    add_this_template: Добавить шаблон
     depth: Глубина подкатегорий
     name: Имя
     category_name: Название категории
@@ -601,7 +617,6 @@ ru:
     categories:
       other_settings: Другие настройки
       impact_stats: Статистика воздействия
-      salesforce: Продажи
       featured_campaigns: Избранные компании
       special_users: 'Служебная: Участники'
       admin_users: Администраторы
@@ -648,13 +663,21 @@ ru:
     label: Новое имя участника
     button: Обновить
   uploads:
+    article_name: Название статьи
+    author: 'Автор:'
+    categories: Категории
     credit: Создатели
+    date: 'Дата:'
+    description: Описание
     file_name: Имя файла
+    file_usage: Страница обсуждения в другом вики-проекте
     header: Файлы, загруженные на Викисклад
     image: Изображение
     label: Загрузки
+    license: 'Лицензия:'
     loading: Загрузка приложений...
     none: Этот класс не добавлял никакие изображения или иные медиафайлы на Викисклад.
+    original_file: Файл-оригинал
     time_doc: Время загрузки каждого дополнения по вашему местному времени.
     uploaded_at: Время загрузки
     uploader: Загружающий
@@ -664,6 +687,10 @@ ru:
     usage_doc: Число статей Википедии, в которых используется это изображение.
     usage_count_gallery_tile: Используется в %{usage_count} статьях
     usages: Использование
+    source: 'Источник:'
+    views_per_day: Просмотров на правку
+    view_commons: Просмотреть на Коммонс
+    wiki_big: Вики-проект
   users:
     already_enrolled: Этот участник уже подписан на курс.
     assign_articles_done: Готово

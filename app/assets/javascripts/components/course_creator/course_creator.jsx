@@ -301,7 +301,15 @@ const CourseCreator = createReactClass({
     return this.setState({ isSubmitting: true, shouldRedirect: true });
   },
 
+  hideCourseForm() {
+    return this.setState({ showCourseForm: false });
+  },
 
+  hideWizardForm() {
+    return this.setState({
+      showWizardForm: false,
+    });
+  },
 
   render() {
     if (this.props.loadingUserCourses) {
@@ -427,6 +435,7 @@ const CourseCreator = createReactClass({
               stringPrefix={this.state.course_string_prefix}
             />
             <CourseType
+              back = {this.hideWizardForm}
               wizardClass={courseWizard}
               wizardAction={this.showCourseForm}
             />
@@ -450,7 +459,7 @@ const CourseCreator = createReactClass({
               updateCourseProps={this.props.updateCourse}
               next={this.showCourseDates}
               previous={this.showCourseTypes}
-              backCondition={this.campaignParam()}
+              previousWikiEd={this.hideCourseForm}
               tempCourseId={this.state.tempCourseId}
               firstErrorMessage={this.props.firstErrorMessage}
             />

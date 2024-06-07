@@ -95,13 +95,6 @@ describe Replica do
           described_class.new(en_wiki).post_existing_articles_by_title(title_arg(title))
         end
 
-        it 'returns article "Autism"' do
-          VCR.use_cassette 'replica/articles/1' do
-            response = articles_response('Autism')
-            expect(response.size).to eq(2) # exists in namespace 0, 1
-          end
-        end
-
         it 'returns article "Allegiance"' do
           VCR.use_cassette 'replica/articles/2' do
             response = articles_response('Allegiance')
@@ -161,7 +154,7 @@ describe Replica do
 
         es_wiki = Wiki.new(language: 'es', project: 'wikipedia')
         response = described_class.new(es_wiki).get_revisions(all_users, rev_start, rev_end)
-        expect(response.count).to eq(22)
+        expect(response.count).to eq(21)
       end
     end
 

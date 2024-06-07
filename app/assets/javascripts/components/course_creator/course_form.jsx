@@ -30,7 +30,6 @@ const CourseForm = (props) => {
     props.updateCourseProps({ wikis });
   };
 
-  const backClass = `dark button ${props.backCondition ? 'hidden' : ''}`;
   let term;
   let courseSubject;
   let expectedStudents;
@@ -136,7 +135,6 @@ const CourseForm = (props) => {
 
   let privacyCheckbox;
   let campaign;
-  let backButton;
   let home_wiki;
   let multi_wiki;
 
@@ -180,11 +178,6 @@ const CourseForm = (props) => {
         text={I18n.t('courses.creator.course_private')}
       />
     );
-    backButton = (
-      <button onClick={props.previous} className={backClass}>
-        Back
-      </button>
-    );
   }
   if (props.course.initial_campaign_title) {
     campaign = (
@@ -193,6 +186,12 @@ const CourseForm = (props) => {
         label={I18n.t('campaign.campaign')}
       />
     );
+  }
+  let backCondition;
+  if (Features.wikiEd) {
+    backCondition = props.previousWikiEd;
+  } else {
+    backCondition = props.previous;
   }
   return (
     <div className={props.courseFormClass}>
@@ -233,7 +232,7 @@ const CourseForm = (props) => {
         {home_wiki}
         {multi_wiki}
         <div className="backButtonContainer">
-          {backButton}
+          <button onClick={backCondition} className="button dark">{I18n.t('application.back')}</button>
           <p className="tempEduCourseIdText">
             {props.tempCourseId || '\xa0'}
           &nbsp;

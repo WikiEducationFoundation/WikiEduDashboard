@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_04_190449) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_15_163420) do
   create_table "alerts", id: :integer, charset: "utf8mb4", force: :cascade do |t|
     t.integer "course_id"
     t.integer "user_id"
@@ -381,7 +381,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_04_190449) do
     t.boolean "system", default: false
     t.integer "ithenticate_id"
     t.integer "wiki_id"
-    t.integer "mw_rev_id"
+    t.bigint "mw_rev_id"
     t.integer "mw_page_id"
     t.text "features"
     t.text "features_previous"

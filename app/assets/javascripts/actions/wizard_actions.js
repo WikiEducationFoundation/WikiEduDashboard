@@ -49,10 +49,13 @@ const fetchWizardPanelsPromise = async (wizardId) => {
   return response.json();
 };
 
-export const fetchWizardPanels = wizardId => (dispatch) => {
+export const fetchWizardPanels = wizardId => (dispatch, getState) => {
+  const state = getState();
+  const course = state.course;
+
   return fetchWizardPanelsPromise(wizardId)
     .then((data) => {
-      dispatch({ type: RECEIVE_WIZARD_PANELS, extraPanels: data });
+      dispatch({ type: RECEIVE_WIZARD_PANELS, extraPanels: data, course: course });
       // Using a 0 timeout here gives the browser a chance
       // to re-render the new off-screen panels before the
       // advance to the next slide and helps ensure a smooth
@@ -69,7 +72,7 @@ export const advanceWizard = () => (dispatch, getState) => {
   // assignment option.
   if (state.wizard.activeIndex === ASSIGNMENTS_PANEL_INDEX) {
     const wizardKey = getWizardKey(state.wizard);
-    fetchWizardPanels(wizardKey)(dispatch);
+    fetchWizardPanels(wizardKey)(dispatch, getState);
   // If we're advancing from the second-to-last panel to the final summary panel,
   // enable summary mode.
   } else if (state.wizard.activeIndex === state.wizard.panels.length - 2) {

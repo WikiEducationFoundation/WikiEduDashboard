@@ -391,7 +391,7 @@ fa:
       %{date} تنظیم شده است.
     training_nav: رفتن به آموزش
     training_overdue: پودمان آموزشی «%{title}» برای این دوره اختصاص داده شده است و
-      در %{date} تنظیم شده‌بود.
+      در %{date} تنظیم شده بود.
     unsubmitted: دوره‌های ثبت‌نشده
     untrained: آموزش‌ندیده
     update_stats: روزآمدسازی آمارها
@@ -607,7 +607,7 @@ fa:
     course_passcode: 'کد دسترسی:'
     editors: ویرایشگران
     edits: ویرایش‌ها
-    edits_by: 'ویرایش‌‌‌ها توسط:'
+    edits_by: 'ویرایش‌ها توسط:'
     enroll_confirmation: آیا از افزودن %{username} اطمینان دارید؟
     enroll_url: 'کاربران با استفاده از پیوند زیر می‌تواند بپیوندند:'
     enrolled_success: '%{username} با موفقیت افزوده‌شد!'
