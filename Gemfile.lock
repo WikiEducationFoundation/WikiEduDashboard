@@ -127,6 +127,7 @@ GEM
       activerecord (>= 3.2, < 8.0)
       rake (>= 10.4, < 14.0)
     ast (2.4.2)
+    base64 (0.2.0)
     bcrypt (3.1.20)
     better_errors (2.10.1)
       erubi (>= 1.0.0)
@@ -285,6 +286,7 @@ GEM
       activesupport (>= 5.0.0)
     json (2.7.2)
     jwt (2.8.1)
+      base64
     kt-paperclip (7.2.2)
       activemodel (>= 4.2.0)
       activesupport (>= 4.2.0)
@@ -399,6 +401,7 @@ GEM
     rack-mini-profiler (3.3.1)
       rack (>= 1.2.0)
     rack-protection (3.2.0)
+      base64 (>= 0.1.0)
       rack (~> 2.2, >= 2.2.4)
     rack-proxy (0.7.7)
       rack
@@ -470,6 +473,7 @@ GEM
       hashie (>= 1.2.0, < 6.0)
       jwt (>= 1.5.6)
     rexml (3.2.8)
+      strscan (>= 3.0.9)
     rouge (4.2.1)
     rspec (3.13.0)
       rspec-core (~> 3.13.0)
@@ -532,6 +536,7 @@ GEM
     ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
     selenium-webdriver (4.21.1)
+      base64 (~> 0.2)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
@@ -575,11 +580,13 @@ GEM
       hashie
       version_gem (~> 1.1, >= 1.1.1)
     sshkit (1.22.2)
+      base64
       mutex_m
       net-scp (>= 1.1.2)
       net-sftp (>= 2.1.2)
       net-ssh (>= 2.8.0)
     stackprof (0.2.26)
+    strscan (3.1.0)
     temple (0.10.3)
     terrapin (1.0.1)
       climate_control
