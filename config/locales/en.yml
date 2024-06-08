@@ -3244,8 +3244,13 @@ en:
 
   training:
     cancel: Cancel
+    category_title: Category Title
+    category_description: Category Description
     create: Create
+    create_category: Create New Category
     create_library: Create New Library
+    create_category_msg: >
+      Once this category is created, users are able to add modules and slides under this category
     create_library_msg: >
       This is where you can create a new library.
       Once this library is created, user can add modules and slides to it and
@@ -3278,6 +3283,9 @@ en:
     table_of_contents: Table of Contents
     training_library: Training Library
     validation_message: This field is required
+    validation:
+      category: Category with this title already exists
+      lib_notFound: Library not found
     view: View
     view_library_source: view library source
     view_module_source: view module source

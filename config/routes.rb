@@ -362,7 +362,8 @@ Rails.application.routes.draw do
 
   ## For Training Libraries
   # Create
-  post 'training_library' => 'training_library#create'
+  post 'training/create_library' => 'training_library#create_library'
+  post 'training/:library_id/create_category' => 'training_library#create_category'
 
   # Misc
   # get 'courses' => 'courses#index'
