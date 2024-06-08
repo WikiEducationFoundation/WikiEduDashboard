@@ -104,4 +104,21 @@ class TrainingLibrary < ApplicationRecord
       cat['modules'].map { |mod| mod['slug'] }
     end.flatten
   end
+
+  ########################
+  # Modification methods #
+  ########################
+  def add_category(category_params)
+    category_hash = {
+      'title' => category_params[:title],
+      'description' => category_params[:description],
+      'modules' => []
+    }
+    if categories.nil?
+      self.categories = [category_hash]
+    else
+      categories << category_hash
+    end
+    save
+  end
 end

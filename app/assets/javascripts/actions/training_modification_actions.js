@@ -4,51 +4,98 @@ import logErrorMessage from '../utils/log_error_message';
 import request from '../utils/request';
 import { setInvalid } from './validation_actions';
 
-const performValidation = (error, dispatch) => {
-  const messages = error.responseText.message;
-  messages.forEach((message) => {
+const libraryValidationRules = [
+  { keyword: 'name', field: 'name' },
+  { keyword: 'slug', field: 'slug' },
+  { keyword: 'introduction', field: 'introduction' }
+];
+
+const categoryValidationRules = [
+  { keyword: 'title', field: 'title' },
+  { keyword: 'description', field: 'description' }
+];
+
+const performValidation = (error, dispatch, validationRules) => {
+  const errorMessages = error.responseText.errorMessages;
+  let apiFailDispatched = false;
+
+  for (let i = 0; i < errorMessages.length; i += 1) {
+    const message = errorMessages[i];
     const lowercaseMessage = message.toLowerCase();
-    if (lowercaseMessage.includes('name')) {
-      dispatch(setInvalid('name', message));
-    } else if (lowercaseMessage.includes('slug')) {
-      dispatch(setInvalid('slug', message));
-    } else if (lowercaseMessage.includes('introduction')) {
-      dispatch(setInvalid('introduction', message));
+    const matchedRule = validationRules.find(rule => lowercaseMessage.includes(rule.keyword));
+
+    if (matchedRule) {
+      dispatch(setInvalid(matchedRule.field, message));
     } else {
-      dispatch({ type: API_FAIL, data: error });
+      if (!apiFailDispatched) {
+        dispatch({ type: API_FAIL, data: error });
+        apiFailDispatched = true;
+      }
+      return; 
     }
+  }
+};
+
+
+const createLibraryPromise = async (library, setSubmitting) => {
+  const response = await request('/training/create_library', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(library),
+  });
+  setSubmitting(false);
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.json();
+    response.responseText = data;
+    throw response;
+  }
+  return response.json();
+};
+
+export const createLibrary = (library, setSubmitting, toggleModal) => (dispatch) => {
+  return createLibraryPromise(library, setSubmitting)
+  .then(() => {
+    toggleModal();
+    dispatch(addNotification({
+        type: 'success',
+        message: 'Library Created Successfully.',
+        closable: true
+    }));
+  })
+  .catch((error) => {
+    performValidation(error, dispatch, libraryValidationRules);
   });
 };
 
-const createLibraryPromise = async (library, setSubmitting) => {
-    const response = await request('/training_library', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(library),
-    });
-    setSubmitting(false);
-    if (!response.ok) {
-      logErrorMessage(response);
-      const data = await response.json();
-      response.responseText = data;
-      throw response;
-    }
-    return response.json();
-  };
+const createCategoryPromise = async (library_id, category, setSubmitting) => {
+  const response = await request(`/training/${library_id}/create_category`, {
+    method: 'POST',
+    body: JSON.stringify({ category }),
+  });
+  setSubmitting(false);
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.json();
+    response.responseText = data;
+    throw response;
+  }
+  return response.json();
+};
 
-export const createLibrary = (library, setSubmitting, toggleModal) => (dispatch) => {
-    return createLibraryPromise(library, setSubmitting)
-    .then(() => {
-        toggleModal();
-        dispatch(addNotification({
-            type: 'success',
-            message: 'Library Created Successfully.',
-            closable: true
-        }));
-    })
-    .catch((error) => {
-      performValidation(error, dispatch);
-    });
+export const createCategory = (library_id, category, setSubmitting, toggleModal) => (dispatch) => {
+  return createCategoryPromise(library_id, category, setSubmitting)
+  .then(() => {
+      toggleModal();
+      dispatch(addNotification({
+          type: 'success',
+          message: 'Category Created Successfully.',
+          closable: true
+      }));
+  })
+  .catch((error) => {
+    performValidation(error, dispatch, categoryValidationRules);
+  });
 };

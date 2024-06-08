@@ -6,6 +6,10 @@ describe 'TrainingLibrary', type: :feature, js: true do
   let(:admin) { create(:admin) }
   let(:user) { create(:user) }
 
+  before(:all) do
+    TrainingModule.load_all
+  end
+
   context 'when logged in as an admin' do
     before do
       login_as(admin, scope: :user)
