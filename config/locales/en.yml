@@ -1082,8 +1082,8 @@ en:
     edit_count_description: Total Edits
     error_count_message: The dashboard encountered %{error_count} error(s) during the most recent update.
     future_updates_remaining:
-      true: The stats will continue to be updated until %{date}.
-      false: The stats for this program are no longer being updated regularly.
+      updates_active: The stats will continue to be updated until %{date}.
+      updates_inactive: The stats for this program are no longer being updated regularly.
     last_reviewed: Last Reviewed
     missing_data_heading: Missing or unexpected results?
     missing_data_info: Common issues include
