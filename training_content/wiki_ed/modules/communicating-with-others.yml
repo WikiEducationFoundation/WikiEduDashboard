@@ -1,0 +1,21 @@
+name: Communicating with others on Wikipedia
+id: 66
+description: In this module, you'll learn how to communicate with other Wikipedians using Talk pages, edit summaries, and more.
+estimated_ttc: 15 minutes
+slides:
+  - slug: a-community-of-wikipedians # 6601
+  - slug: respect-and-good-will # 6602
+  - slug: where-to-communicate # 6603
+  - slug: finding-article-talk-pages # 6604
+  - slug: article-talk-pages-engaging # 6605
+  - slug: article-talk-pages-replying # 6606
+  - slug: communicating-via-edit-summaries # 6607
+  - slug: edit-summary-example # 6608
+  - slug: finding-user-talk-pages # 6609
+  - slug: user-talk-pages-replying # 6610
+  - slug: receiving-alerts # 6611
+  - slug: receiving-thanks # 6612
+  - slug: sending-thanks # 6613
+  - slug: wikilove # 6614
+  - slug: communicating-quiz # 6615
+  - slug: communicating-thats-it # 6616

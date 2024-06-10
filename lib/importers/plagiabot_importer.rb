@@ -14,7 +14,7 @@ class PlagiabotImporter
     suspected_diffs.each do |rev|
       wiki = Wiki.find_by(language: rev['lang'], project: rev['project'])
       next unless wiki
-      revision = Revision.find_by(mw_rev_id: rev['diff'], wiki_id: wiki.id)
+      revision = Revision.find_by(mw_rev_id: rev['rev_id'], wiki_id: wiki.id)
       next unless revision
       file_new_plagiarism_report(revision, rev['ithenticate_id'])
     end

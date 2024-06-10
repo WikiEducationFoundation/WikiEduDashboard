@@ -1219,7 +1219,7 @@ en:
     diff: diff
     diff_show: Show
     diff_hide: Hide
-    edit_time_span: Edits occurred from %{first_time} to %{last_time}
+    edit_time_span: 'Edits occurred from: %{first_time} to %{last_time}'
     edited_by: Edited By
     edited_on: Edited on %{edit_date}
     loading: Loading revisions...
@@ -1807,4 +1807,28 @@ en:
     text_area_input:
       placeholder: "Add News & Recent Changes"
 
-
+  notes:
+    title: "Title"
+    note_title: "Note Title"
+    note_text: "Note Text"
+    created: "The note has been created successfully."
+    updated: "The note has been updated successfully."
+    failure: "Unable to %{operation} the note. Please try again later."
+    empty_fields: "Please ensure all input fields are filled and try again."
+    edit: "The time of each edit is shown in your local time."
+    edited_by: "Edited By"
+    last_edited_by: "Displays the name of the admin who last edited the note."
+    deleted: "The note has been successfully deleted. It is no longer available in your notes."
+    delete_note_confirmation: "Delete Note: This action will permanently delete the note. Are you sure you want to proceed?"
+    delete_note_error: "Unable to delete the note. Please try again."
+    no_notes: "This course currently has no associated notes."
+    create_note: "Create Note"
+    cancel_note_creation: "Cancel"
+    post_note: "Post"
+    edit_note: "Edit Note"
+    cancel_edit_note: "Cancel"
+    save_note: "Save"
+    delete_note: "Delete Note"
+    admin:
+      button_text: "Admin Notes"
+      header_text: "Admin Notes Panel"

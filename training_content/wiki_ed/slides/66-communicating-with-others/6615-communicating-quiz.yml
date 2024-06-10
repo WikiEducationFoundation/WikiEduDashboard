@@ -1,0 +1,33 @@
+id: 6615
+title: Quiz
+content:
+assessment:
+  correct_answer_id: 3
+  question: "When someone leaves you a message on your user Talk page, you should:"
+  answers:
+    - id: 1
+      text: |
+        Ignore it, it’s probably just spam.
+      explanation: |
+        Incorrect! It’s a bad idea to ignore Talk page messages on Wikipedia.
+        Messages are left by real people and are usually relevant to what you’re
+        currently doing.
+    - id: 2
+      text: |
+        Assume you’ve done something wrong and stop editing Wikipedia.
+      explanation: |
+        Incorrect! Wikipedians who take the time to message you are trying to be
+        helpful. Don’t assume you’ve done something wrong, just talk to them if
+        you’ve made a mistake or message your Wikipedia Expert to ask for help.
+    - id: 3
+      text: |
+        Read the message and respond to any concerns they might raise.
+      explanation: |
+        Correct!
+    - id: 4
+      text: |
+        Tell them to leave you alone because you’re just here to do a class assignment.
+      explanation: |
+        Incorrect! Don’t do this. You’re supposed to follow the same guidelines as
+        other Wikipedians, so you could make the other person feel frustrated or
+        helpless.

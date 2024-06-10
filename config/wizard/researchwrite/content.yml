@@ -41,7 +41,7 @@ essentials:
       -
         title: Get started on Wikipedia
         kind: 1
-        training_module_ids: [1,29] # Wikipedia policies, Sandboxes talk pages and watchlists
+        training_module_ids: [1,29,66] # Wikipedia policies, Sandboxes talk pages and watchlists, Communicating with others
         content: |
           <p>
             Create an account and join this course page, using the  enrollment
