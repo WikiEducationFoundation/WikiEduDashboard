@@ -1760,7 +1760,6 @@ en:
 
   multi_wiki:
     selector_placeholder: "Begin typing a wiki domain"
-<<<<<<< HEAD
 
   notes:
     title: "Title"
@@ -1788,5 +1787,3 @@ en:
       button_text: "Admin Notes"
       header_text: "Admin Notes Panel"
 
-=======
->>>>>>> b2d0952a4d46c07b189df106f68c9398d7444242
