@@ -196,6 +196,11 @@ Rails.application.routes.draw do
     get 'find_course/:course_id' => 'courses#find'
   end
 
+  # Course Notes
+  resources :admin_course_notes, constraints: { id: /\d+/ } do
+    get 'find_course_note', on: :member
+  end
+
   # Categories
   post 'categories' => 'categories#add_categories'
   delete 'categories' => 'categories#remove_category'
