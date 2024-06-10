@@ -228,7 +228,7 @@ const CourseApproval = (props) => {
   const programManagerSelector = (
     <div className="course-approval-field form-group">
       <div className="group-left form-group">
-        <label htmlFor="program_manager">Add Program Manager:</label>
+        <label id="program_manager-label" htmlFor="program_manager">Add Program Manager:</label>
       </div>
       <div className="group-right">
         <Select
@@ -238,6 +238,7 @@ const CourseApproval = (props) => {
           options={[]}
           simpleValue
           styles={selectStyles}
+          aria-labelledby="program_manager-label"
         />
       </div>
     </div>
@@ -246,7 +247,7 @@ const CourseApproval = (props) => {
   const wikiExpertSelector = (
     <div className="course-approval-field form-group">
       <div className="group-left form-group">
-        <label htmlFor="wiki_expert">Add Wikipedia Expert:</label>
+        <label id="wiki_expert-label" htmlFor="wiki_expert">Add Wikipedia Expert:</label>
       </div>
       <div className="group-right">
         <Select
@@ -256,6 +257,7 @@ const CourseApproval = (props) => {
           options={wikiExpertOptions}
           simpleValue
           styles={selectStyles}
+          aria-labelledby="wiki_expert-label"
         />
       </div>
     </div>
@@ -264,7 +266,7 @@ const CourseApproval = (props) => {
   const tagsSelector = (
     <div className="course-approval-field form-group">
       <div className="group-left form-group">
-        <label htmlFor="campaign">Add Tags:</label>
+        <label id="tag-select-label" htmlFor="tags">Add Tags:</label>
       </div>
       <div className="group-right">
         <CreatableSelect
@@ -276,6 +278,7 @@ const CourseApproval = (props) => {
           styles={selectStyles}
           isMulti={true}
           isClearable={false}
+          aria-labelledby="tag-select-label"
         />
       </div>
     </div>
@@ -284,7 +287,7 @@ const CourseApproval = (props) => {
   const campaignsSelector = (
     <div className="course-approval-field form-group">
       <div className="group-left form-group">
-        <label htmlFor="campaign">Add Campaigns: <span className="form-required-indicator">*</span></label>
+        <label id="campaign-select-label" htmlFor="campaign">Add Campaigns: <span className="form-required-indicator">*</span></label>
       </div>
       <div className="group-right">
         <Select
@@ -297,6 +300,7 @@ const CourseApproval = (props) => {
           styles={selectStyles}
           isMulti={true}
           isClearable={false}
+          aria-labelledby="campaign-select-label"
         />
       </div>
     </div>
@@ -310,15 +314,17 @@ const CourseApproval = (props) => {
   const salesforceIdField = (
     <div className="course-approval-field form-group">
       <div className="group-left form-group">
-        <label htmlFor="campaign">Add Salesforce Id: </label>
+        <label id="salesforce-id-label" htmlFor="salesforce-id">Add Salesforce Id: </label>
       </div>
       <div className="group-right">
         <TextInput
+          id="salesforce-id"
           onChange={handleSalesforceIdChange}
           value={salesforceId}
           value_key="salesforceId"
           editable={true}
           type="text"
+          aria-labelledby="salesforce-id-label"
         />
         {invalidIdMessage}
       </div>

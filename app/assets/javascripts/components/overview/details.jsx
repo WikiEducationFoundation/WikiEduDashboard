@@ -224,6 +224,7 @@ const Details = createReactClass({
       if (this.props.editable) {
         passcode = (
           <TextInput
+            id="passcode-input-editable"
             onChange={this.updateDetails}
             value={this.props.course.passcode}
             value_key="passcode"
@@ -239,6 +240,7 @@ const Details = createReactClass({
         const enrollToken = `?enroll=${this.props.course.passcode}`;
         passcode = (
           <TextInput
+            id="passcode-input"
             onChange={this.updateDetails}
             value={<a href={`${studentLink}${enrollToken}`}>{this.props.course.passcode}</a>}
             value_key="passcode"
@@ -256,6 +258,7 @@ const Details = createReactClass({
     if ((this.props.course.expected_students || this.props.course.expected_students === 0 || this.props.editable) && isClassroomProgramType) {
       expectedStudents = (
         <TextInput
+          id="expected-students"
           onChange={this.updateDetails}
           value={String(this.props.course.expected_students)}
           value_key="expected_students"
