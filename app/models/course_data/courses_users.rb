@@ -34,6 +34,8 @@ class CoursesUsers < ApplicationRecord
 
   has_many :survey_notifications
 
+  has_many :course_user_wiki_timeslices
+
   validates :course_id, uniqueness: { scope: %i[user_id role] }
 
   scope :current, -> { joins(:course).merge(Course.current).distinct }

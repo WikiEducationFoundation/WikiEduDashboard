@@ -32,6 +32,18 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_15_163420) do
     t.index ["user_id"], name: "index_alerts_on_user_id"
   end
 
+  create_table "article_course_timeslices", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.integer "article_course_id", null: false
+    t.datetime "start"
+    t.datetime "end"
+    t.integer "last_mw_rev_id"
+    t.integer "character_sum", default: 0
+    t.integer "references_count", default: 0
+    t.text "user_ids", default: ""
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "articles", id: :integer, charset: "utf8mb4", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at"
@@ -190,12 +202,43 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_15_163420) do
     t.index ["course_id"], name: "index_course_stats_on_course_id"
   end
 
+  create_table "course_user_wiki_timeslices", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.integer "course_user_id", null: false
+    t.integer "wiki_id", null: false
+    t.datetime "start"
+    t.datetime "end"
+    t.integer "last_mw_rev_id"
+    t.integer "total_uploads", default: 0
+    t.integer "character_sum_ms", default: 0
+    t.integer "character_sum_us", default: 0
+    t.integer "character_sum_draft", default: 0
+    t.integer "references_count", default: 0
+    t.integer "revision_count", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "course_wiki_namespaces", charset: "utf8mb4", force: :cascade do |t|
     t.integer "namespace"
     t.bigint "courses_wikis_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["courses_wikis_id"], name: "index_course_wiki_namespaces_on_courses_wikis_id"
+  end
+
+  create_table "course_wiki_timeslices", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.integer "course_wiki_id", null: false
+    t.datetime "start"
+    t.datetime "end"
+    t.integer "last_mw_rev_id"
+    t.integer "character_sum", default: 0
+    t.integer "references_count", default: 0
+    t.integer "revision_count", default: 0
+    t.integer "upload_count", default: 0
+    t.integer "uploads_in_use_count", default: 0
+    t.integer "upload_usages_count", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "courses", id: :integer, charset: "utf8mb4", force: :cascade do |t|
