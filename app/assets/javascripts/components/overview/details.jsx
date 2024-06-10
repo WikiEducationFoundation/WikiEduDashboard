@@ -159,6 +159,7 @@ const Details = createReactClass({
     if (this.props.course.school || canRename) {
       school = (
         <TextInput
+          id="school-input"
           onChange={this.updateSlugPart}
           value={this.props.course.school}
           value_key="school"
@@ -191,6 +192,7 @@ const Details = createReactClass({
     if (canRename) {
       title = (
         <TextInput
+          id="title-input"
           onChange={this.updateSlugPart}
           value={this.props.course.title}
           value_key="title"
@@ -207,6 +209,7 @@ const Details = createReactClass({
     if (this.props.course.term || canRename) {
       term = (
         <TextInput
+          id="term-input"
           onChange={this.updateSlugPart}
           value={this.props.course.term}
           value_key="term"
@@ -332,6 +335,7 @@ const Details = createReactClass({
     if (this.props.current_user.admin) {
       subject = (
         <TextInput
+          id="course-subject-selector"
           onChange={this.updateDetails}
           value={this.props.course.subject}
           value_key="subject"
