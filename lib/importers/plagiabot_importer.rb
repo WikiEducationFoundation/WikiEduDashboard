@@ -31,11 +31,11 @@ class PlagiabotImporter
   ##################
   # Helper methods #
   ##################
-  def self.file_new_plagiarism_report(revision, ithenticate_id)
-    return unless revision.ithenticate_id.nil?
-    revision.ithenticate_id = ithenticate_id
-    revision.save
-    SuspectedPlagiarismMailer.alert_content_expert(revision)
+  def self.file_new_plagiarism_report(revision, submission_id)
+    # This is just to log the fact that a revision got flagged
+    revision.ithenticate_id = revision.mw_rev_id
+    alert = PossiblePlagiarismAlert.new_from_revision(revision, submission_id)
+    alert&.email_content_expert
   end
 
   def self.query_url(type, opts = {})
