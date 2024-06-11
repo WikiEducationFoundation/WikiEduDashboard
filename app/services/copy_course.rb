@@ -94,20 +94,17 @@ class CopyCourse
   end
 
   def copy_timeline_data
-    @timeline_data["weeks"].each do |week_data|  
+    @timeline_data['weeks'].each do |week_data|
       week = Week.new(
         course_id: @course.id,
-        title: week_data["title"],
-        order: week_data["order"],
+        title: week_data['title'],
+        order: week_data['order']
       )
       week.save!
-      week_data["blocks"].each do |block_data|
+      week_data['blocks'].each do |block_data|
         block_attributes = {
-          week_id: week.id,
-          title: block_data["title"],
-          content: block_data["content"],
-          order: block_data["order"],
-          kind: block_data["kind"],
+          week_id: week.id, title: block_data['title'], content: block_data['content'],
+          order: block_data['order'], kind: block_data['kind']
         }
         block = Block.new(block_attributes)
         block.save!
