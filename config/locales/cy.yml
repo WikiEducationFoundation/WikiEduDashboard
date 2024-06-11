@@ -19,7 +19,7 @@ cy:
           trillion: T
           quadrillion: Cwadriliwn
   application:
-    cancel: Diddymu
+    cancel: Canslo
     cookie_consent: Mae'r wefan yma'n defnyddio cwcis, er mwyn i'ch mewngofnodi barhau
       ar waith; mae hefyd yn cadw gwybodaeth parthed eich cyfri.
     cookie_consent_acknowledge: Rwy'n deall
@@ -266,7 +266,7 @@ cy:
       legend_class_meeting: Cyfarfod Dosbarth
       legend_class_not_meeting: Dim Cyfarfod wedi'i Drefnu
       select_meeting_days: Dewisiwch ddyddiau'r wythnos mae eich dosbarth yn cyfarfod.
-    cancel: Diddymu
+    cancel: Canslo
     campaigns: 'Ymgyrchoedd:'
     campaign_articles: Erthyglau %{title}
     campaign_courses: Cyrsiau %{title}
@@ -463,7 +463,7 @@ cy:
     assignment_end: Diwedd y Digwyddiad
     assignments_none: Nid oes gan y prosiect yma erthyglau a aseiniwyd, hyd yma.
     assignment_start: Dechrau'r Digwyddiad
-    cancel: Diddymu
+    cancel: Canslo
     course: Rhaglen
     courses: Rhaglenni
     courses_taught: Rhaglenni a Addysgwyd
@@ -599,7 +599,7 @@ cy:
     diff: gwahaniaeth
     diff_show: Dangos
     diff_hide: Cuddio
-    edit_time_span: Gwnaed y golygiadau rhwng %{first_time} a %{last_time}
+    edit_time_span: 'Digwyddodd golygiadau o: %{first_time} i %{last_time}'
     edited_by: Golygwyd Gan
     edited_on: Golygwyd ar %{edit_date}
     loading: Wrthi'n llwytho'r adolygiadau...

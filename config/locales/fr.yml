@@ -1244,8 +1244,9 @@ fr:
     error_count_message: Le tableau de bord a rencontré %{error_count} erreur(s) lors
       de la mise à jour la plus récente.
     future_updates_remaining:
-      1: Les statistiques continueront d’être mises à jour jusqu’au %{date}.
-      "": Les statistiques pour ce programme ne sont plus mises à jour régulièrement.
+      updates_active: Les statistiques continueront d’être mises à jour jusqu’au %{date}.
+      updates_inactive: Les statistiques pour ce programme ne sont plus mises à jour
+        régulièrement.
     last_reviewed: Dernière relecture
     missing_data_heading: Résultats manquants ou inattendus ?
     missing_data_info: Les problèmes courants incluent

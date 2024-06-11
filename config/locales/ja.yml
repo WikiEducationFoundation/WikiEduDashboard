@@ -815,7 +815,7 @@ ja:
     date_time: 日付/時刻
     edit_count_description: 総編集回数
     future_updates_remaining:
-      "": このプログラムの統計は、既に定期的な更新を終了しています。
+      updates_inactive: このプログラムの統計は、既に定期的な更新を終了しています。
     last_update_success: 直近の更新は成功しており、統計は最新版のはずです。
     per_user: '%{number}ワード/利用者'
     revisions: 最近の編集

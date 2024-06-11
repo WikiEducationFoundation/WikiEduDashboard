@@ -1004,8 +1004,8 @@ ar:
     edit_count_description: إجمالي التعديلات
     error_count_message: واجهت لوحة التحكم %{error_count} خطأ أثناء التحديث الأخير.
     future_updates_remaining:
-      1: سيستمر تحديث الإحصائيات حتى %{date}.
-      "": لم يعد يتم تحديث إحصائيات هذا البرنامج بانتظام.
+      updates_active: سيستمر تحديث الإحصائيات حتى %{date}.
+      updates_inactive: لم يعد يتم تحديث إحصائيات هذا البرنامج بانتظام.
     last_reviewed: المراجعات الأخيرة
     missing_data_heading: نتائج مفقودة أو غير متوقعة؟
     missing_data_info: تشمل القضايا الشائعة
