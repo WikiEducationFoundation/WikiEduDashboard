@@ -1775,14 +1775,14 @@ en:
       check_later: "Please check back later."
     header:
       P&E_dashboard_title: "News & Recent Changes"
-      wiki_education_dashboard_title: "News From Wiki Education"
+      wiki_education_dashboard_title: "Wiki Education Dashboard News"
     footer:
       P&E_dashboard:
         link_text: "Wikimedia"
-        footer_text: "Read News & Recent Changes From Wikimedia"
+        footer_text: "Read News & Recent Changes"
       wiki_education_dashboard:
         link_text: "wikiedu.org/blog"
-        footer_text: "Read Blogs & News From Wiki Education"
+        footer_text: "Other news from Wiki Education"
     options:
       news_content:
         delete_news: "Delete News"
