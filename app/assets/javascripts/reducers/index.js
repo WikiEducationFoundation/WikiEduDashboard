@@ -44,6 +44,9 @@ import active_courses from './active_courses';
 import wiki_courses from './wiki_courses';
 import refreshing from './refreshing';
 import scopingMethods from './scoping_methods';
+import news from './news';
+import persistedNews from './persisted_news';
+import newsNotifications from './news_notification';
 import adminCourseNotes from './admin_course_notes';
 import instructorAlert from './instructor_alert';
 
@@ -73,7 +76,10 @@ const reducer = combineReducers({
   needHelpAlert,
   newAccount,
   notifications,
+  news,
+  newsNotifications,
   persistedCourse,
+  persistedNews,
   recentEdits,
   recentUploads,
   refreshing,

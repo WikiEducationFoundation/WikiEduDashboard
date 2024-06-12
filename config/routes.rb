@@ -368,7 +368,12 @@ Rails.application.routes.draw do
   get '/courses_by_wiki/:language.:project(.org)' => 'courses_by_wiki#show'
 
   # frequenty asked questions
-  resources :faq
+  resources :faq do
+    member do
+      get 'handle_special_faq_query'  # Defines a route for a specific FAQ instance
+    end
+  end
+  get '/faq/test' => 'faq#test'
   get '/faq_topics' => 'faq_topics#index'
   get '/faq_topics/new' => 'faq_topics#new'
   post '/faq_topics' => 'faq_topics#create'
