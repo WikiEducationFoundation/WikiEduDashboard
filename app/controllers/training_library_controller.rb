@@ -27,12 +27,27 @@ class TrainingLibraryController < ApplicationController
     end
   end
 
+  def delete_category
+    find_library_by_slug
+    category_title = params[:category_id]
+
+    if @library.delete_category_by_title(category_title)
+      message = "#{I18n.t('training.category')} #{I18n.t('training.notice.deleted')}"
+      redirect_to training_library_path(@library.slug), notice: message
+    else
+      render json: { status: 'error',
+             errorMessages: [I18n.t('training.validation.category_not_found')] },
+             status: :not_found
+    end
+  end
+
   private
 
   def find_library_by_slug
     @library = TrainingLibrary.find_by(slug: params[:library_id])
     if @library.nil?
-      render json: { status: 'error', errorMessages: [I18n.t('training.validation.lib_notFound')] },
+      render json: { status: 'error',
+             errorMessages: [I18n.t('training.validation.lib_not_found')] },
              status: :not_found
     end
   end

@@ -31,7 +31,7 @@ const performValidation = (error, dispatch, validationRules) => {
         dispatch({ type: API_FAIL, data: error });
         apiFailDispatched = true;
       }
-      return; 
+      return;
     }
   }
 };

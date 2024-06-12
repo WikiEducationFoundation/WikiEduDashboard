@@ -1370,8 +1370,11 @@ en:
 
   training:
     cancel: Cancel
+    category: Category
     category_title: Category Title
     category_description: Category Description
+    confirmation: 
+      delete_category: Are you sure you want to delete this category?
     create: Create
     create_category: Create New Category
     create_library: Create New Library
@@ -1383,6 +1386,7 @@ en:
       can segregate them into categories.
     check_answer: Check Answer
     continue: Continue (%{progress})
+    delete_category: Delete Category
     done: Done!
     enter: Enter
     exercise_sandbox: Exercise Sandbox
@@ -1397,6 +1401,8 @@ en:
     library_introduction: Library Introduction
     logged_out: "You are logged out. You will not receive credit for completing this module unless you log in."
     next: Next Page
+    notice:
+      deleted: Deleted Successfully
     no_training_library_records_non_wiki_ed_mode: There are no TrainingLibrary records in the database.
     no_training_library_records_wiki_ed_mode: There are no TrainingLibrary records in the database. Click <a href="%{url}"> here</a> to load training data from the training_content/ yaml files.
     no_training_resource_match_your_search: No training resource matches your search
@@ -1411,7 +1417,8 @@ en:
     validation_message: This field is required
     validation:
       category: Category with this title already exists
-      lib_notFound: Library not found
+      category_not_found: Category not found
+      lib_not_found: Library not found
     view: View
     view_library_source: view library source
     view_module_source: view module source

@@ -121,4 +121,12 @@ class TrainingLibrary < ApplicationRecord
     end
     save
   end
+
+  def delete_category_by_title(category_title)
+    category_index = categories.index { |category| category['title'] == category_title }
+    return false if category_index.nil?
+
+    categories.delete_at(category_index)
+    save
+  end
 end
