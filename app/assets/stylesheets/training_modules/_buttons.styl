@@ -77,6 +77,17 @@ a[disabled]
     border: 1px solid #e2e2e2;
     color: #6a6a6a;
     padding: 8px 20px 8px;
+    &:hover
+      background-color: #e2e2e2;
+      border: 1px solid #dcdcdc;
+      color: #6a6a6a;
+  .button.danger
+    background-color: #d95757;
+    border-color: #d95757;
+    color: #fff;
+    &:hover
+      background-color: #c54f4f;
+      border-color: #c54f4f;
 
 .lib-container
   position relative
@@ -88,3 +99,8 @@ a[disabled]
     position absolute
     top 2rem
     right 0
+
+.training_modification_buttons
+  display: flex
+  flex-direction: row-reverse
+  justify-content: space-between
