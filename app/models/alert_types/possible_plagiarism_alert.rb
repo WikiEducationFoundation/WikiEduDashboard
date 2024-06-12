@@ -33,7 +33,7 @@ class PossiblePlagiarismAlert < Alert
   end
 
   def main_subject
-    "Possible plagiarism from #{@course.title}"
+    "Possible plagiarism from #{course.title}"
   end
 
   def url
