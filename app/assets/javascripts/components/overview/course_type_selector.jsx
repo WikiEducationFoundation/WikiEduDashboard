@@ -60,7 +60,7 @@ const CourseTypeSelector = (props) => {
       }
       selector = (
         <div className="form-group">
-          <label htmlFor={id}>{I18n.t('courses.course_type_label')}</label>
+          <label id={`${id}-label`} htmlFor={id}>{I18n.t('courses.course_type_label')}</label>
           <Select
             id={id}
             value={options.find(option => option.value === selectedOption.value)}
@@ -68,6 +68,7 @@ const CourseTypeSelector = (props) => {
             options={options}
             simpleValue
             styles={selectStyles}
+            aria-labelledby={`${id}-label`}
           />
         </div>
       );

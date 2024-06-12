@@ -16,7 +16,7 @@ class PlagiabotImporter
       next unless wiki
       revision = Revision.find_by(mw_rev_id: rev['rev_id'], wiki_id: wiki.id)
       next unless revision
-      file_new_plagiarism_report(revision, rev['ithenticate_id'])
+      file_new_plagiarism_report(revision, rev['submission_id'])
     end
   end
 

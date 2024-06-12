@@ -925,8 +925,8 @@ zh-TW:
     edit_count_description: 總編輯數
     error_count_message: 功能面板在最近更新期間遇到 %{error_count} 個錯誤。
     future_updates_remaining:
-      1: 統計內容會持續更新直到 %{date}。
-      "": 此方案的統計內容不再定期更新。
+      updates_active: 統計內容會持續更新直到 %{date}。
+      updates_inactive: 此方案的統計內容不再定期更新。
     last_reviewed: 最新審核
     missing_data_heading: 缺少或非預期的結果？
     missing_data_info: 常見問題包括

@@ -438,4 +438,8 @@ hi:
   training_status:
     completed: पूर्ण
     not_started: प्रारम्भ नहीं हुआ
+  notes:
+    title: शीर्षक
+    cancel_note_creation: रद्द करें
+    save_note: सहेजें
 ...

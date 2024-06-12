@@ -18,7 +18,7 @@ const CourseLevelSelector = ({ level, updateCourse }) => {
   ];
   return (
     <div className="form-group">
-      <label htmlFor="course_level">Course level:</label>
+      <label id="course_level-label" htmlFor="course_level">Course level:</label>
       <Select
         id="course_level"
         value={options.find(option => option.value === selectedOption.value)}
@@ -26,6 +26,7 @@ const CourseLevelSelector = ({ level, updateCourse }) => {
         options={options}
         simpleValue
         styles={selectStyles}
+        aria-labelledby="course_level-label"
       />
     </div>
   );
