@@ -29,7 +29,7 @@ class PossiblePlagiarismAlert < Alert
     course = user.courses_users.last.course
     article = revision.article
     details = { submission_id: }
-    create(user:, course:, article:, details:)
+    create!(revision:, user:, course:, article:, details:)
   end
 
   def main_subject

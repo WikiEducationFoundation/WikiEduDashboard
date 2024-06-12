@@ -14,8 +14,8 @@ class RecentActivityController < ApplicationController
       return
     end
 
-    ithenticate_id = params[:ithenticate_id]
-    report_url = PlagiabotImporter.api_get_url(ithenticate_id:)
+    alert = PossiblePlagiarismAlert.find_by(revision_id: params[:ithenticate_id])
+    report_url = alert.url
     redirect_to report_url
   end
 end
