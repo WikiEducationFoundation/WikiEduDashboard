@@ -168,7 +168,7 @@ const NewsPopoverContent = ({ createNews }) => {
             <span />
           )}
           {/* Show the creation time of the news item if it's not being edited */}
-          {!isCurrentlyEditedNews ? <p className={opaqueNewsCreationTime}>{newsCreatedTime[index]}</p> : <span />}
+          {!isCurrentlyEditedNews ? <p className={`news__creation-time ${opaqueNewsCreationTime}`}>{newsCreatedTime[index]}</p> : <span />}
         </div>
         {/* Show a confirmation message if the user wants to delete the news item */}
         {confirmDelete && (<h1>{I18n.t('news.delete_confirmation.title')}<br /> {I18n.t('news.delete_confirmation.confirmation')}</h1>)}
