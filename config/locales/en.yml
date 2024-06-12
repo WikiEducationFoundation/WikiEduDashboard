@@ -69,7 +69,7 @@ en:
       other: "%{count} Results for: '%{search_terms}'"
     no_results: "No results found for '%{query}'"
     show_current_revision: Show current version
-    show_last_revision: Show last revision
+    show_last_revision: Show last edited version
     sign_up_extended: Sign up with Wikipedia
     sign_up_wikipedia: Or sign up on Wikipedia
 
