@@ -27,8 +27,12 @@ describe SuspectedPlagiarismMailer do
                       ithenticate_id: 10)
   end
 
+  let(:alert) {
+    create(:alert, type: 'PossiblePlagiarismAlert', user:, course:, revision:, article:)
+  }
+
   describe '.alert_content_expert' do
-    let(:mail) { described_class.alert_content_expert(revision) }
+    let(:mail) { described_class.alert_content_expert(alert) }
 
     it 'delivers an email with course info to the content expert' do
       allow(Features).to receive(:email?).and_return(true)
