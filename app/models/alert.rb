@@ -95,6 +95,7 @@ class Alert < ApplicationRecord
     HighQualityArticleAssignmentAlert
     HighQualityArticleEditAlert
     NoEnrolledStudentsAlert
+    PossiblePlagiarismAlert
     ProductiveCourseAlert
     ProtectedArticleAssignmentAlert
     UnsubmittedCourseAlert
