@@ -27,9 +27,9 @@ describe SuspectedPlagiarismMailer do
                       ithenticate_id: 10)
   end
 
-  let(:alert) {
+  let(:alert) do
     create(:alert, type: 'PossiblePlagiarismAlert', user:, course:, revision:, article:)
-  }
+  end
 
   describe '.alert_content_expert' do
     let(:mail) { described_class.alert_content_expert(alert) }
