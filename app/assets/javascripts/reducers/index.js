@@ -22,7 +22,6 @@ import persistedCourse from './persisted_course';
 import recentEdits from './recent_edits.js';
 import recentUploads from './recent_uploads';
 import revisions from './revisions';
-import suspectedPlagiarism from './suspected_plagiarism';
 import settings from './settings';
 import tags from './tags';
 import tickets from './tickets';
@@ -78,7 +77,6 @@ const reducer = combineReducers({
   recentUploads,
   refreshing,
   revisions,
-  suspectedPlagiarism,
   settings,
   tags,
   tickets,

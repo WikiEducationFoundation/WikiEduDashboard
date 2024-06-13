@@ -86,32 +86,6 @@ describe 'activity page', type: :feature, js: true do
       end
     end
 
-    context 'suspected plagiarism' do
-      context 'no plagiarism revisions' do
-        before do
-          allow(RevisionAnalyticsService).to receive(:suspected_plagiarism)
-            .and_return([])
-        end
-
-        it 'displays a list of revisions suspected of plagiarism' do
-          visit '/recent-activity/plagiarism'
-          assert_page_content 'There are not currently any recent revisions suspected of plagiarism'
-        end
-      end
-
-      context 'plagiarism revisions' do
-        before do
-          allow(RevisionAnalyticsService).to receive(:suspected_plagiarism)
-            .and_return([revision])
-        end
-
-        it 'displays a list of revisions suspected of plagiarism' do
-          visit '/recent-activity/plagiarism'
-          assert_page_content article.title.tr('_', ' ')
-        end
-      end
-    end
-
     context 'recent edits' do
       before do
         allow(RevisionAnalyticsService).to receive(:recent_edits)
