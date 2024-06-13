@@ -130,30 +130,6 @@ const API = {
     return response.json();
   },
 
-  async fetchSuspectedPlagiarism(opts = {}) {
-    const response = await request(`/revision_analytics/suspected_plagiarism.json?scoped=${opts.scoped || false}`);
-
-    if (!response.ok) {
-      logErrorMessage(response);
-      const data = await response.text();
-      response.responseText = data;
-      throw response;
-    }
-    return response.json();
-  },
-
-  async fetchSuspectedCoursePlagiarism(course_id) {
-    const response = await request(`/courses/${course_id}/suspected_plagiarism.json`);
-
-    if (!response.ok) {
-      logErrorMessage(response);
-      const data = await response.text();
-      response.responseText = data;
-      throw response;
-    }
-    return response.json();
-  },
-
   async fetchRecentUploads(opts = {}) {
     const response = await request(`/revision_analytics/recent_uploads.json?scoped=${opts.scoped || false}`);
 
