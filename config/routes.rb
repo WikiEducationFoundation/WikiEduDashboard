@@ -165,8 +165,6 @@ Rails.application.routes.draw do
         constraints: { slug: /.*/ }
     get 'courses/:slug/alerts.json' => 'courses#alerts',
         constraints: { slug: /.*/ }
-    get 'courses/:slug/suspected_plagiarism.json' => 'courses#suspected_plagiarism',
-        constraints: { slug: /.*/ }
     get 'courses/:school/:titleterm(/:_subpage(/:_subsubpage(/:_subsubsubpage)))' => 'courses#show',
         :as => 'show',
         constraints: {
@@ -308,16 +306,12 @@ Rails.application.routes.draw do
   end
 
   # Recent Activity
-  get 'recent-activity/plagiarism/report' => 'recent_activity#plagiarism_report'
   get 'recent-activity(/*any)' => 'recent_activity#index', as: :recent_activity
 
   # Revision analytics JSON API for React
   get 'revision_analytics/dyk_eligible',
       controller: 'revision_analytics',
       action: 'dyk_eligible'
-  get 'revision_analytics/suspected_plagiarism',
-      controller: 'revision_analytics',
-      action: 'suspected_plagiarism'
   get 'revision_analytics/recent_edits',
       controller: 'revision_analytics',
       action: 'recent_edits'

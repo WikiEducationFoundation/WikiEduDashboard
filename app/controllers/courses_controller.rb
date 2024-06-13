@@ -140,12 +140,6 @@ class CoursesController < ApplicationController
     @alerts = current_user&.admin? ? @course.alerts : @course.public_alerts
   end
 
-  def suspected_plagiarism
-    set_course
-    @revisions = @course.suspected_plagiarism
-    @show_report = current_user&.can_edit?(@course)
-  end
-
   ##########################
   # User-initiated actions #
   ##########################

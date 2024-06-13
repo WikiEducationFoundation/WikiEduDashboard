@@ -25,7 +25,6 @@ export * from './recent_edits';
 export * from './recent_uploads';
 export * from './refreshing';
 export * from './revisions';
-export * from './suspected_plagiarism';
 export * from './uploads';
 export * from './user_courses';
 export * from './user_profile';

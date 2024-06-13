@@ -4,28 +4,11 @@ require 'rails_helper'
 require "#{Rails.root}/lib/importers/plagiabot_importer"
 
 describe PlagiabotImporter do
-  describe '.api_get_url' do
-    it 'returns an ithenticate report url for an ithenticate_id' do
-      stub_request(:get, /ruby-suspected-plagiarism.toolforge.org.*/)
-        .to_return(body: '[https://api.ithenticate.com/view_report/'\
-                         '85261B20-0B70-11E7-992A-907D4A89A445]')
-      report_url = described_class.api_get_url(ithenticate_id: 19201081)
-      url_match = report_url.include?('https://api.ithenticate.com/')
-      # plagiabot may have an authentication error with ithenticate, in
-      # which case it returns ';-(' as an error message in place of a url.
-      # See also: https://github.com/valhallasw/plagiabot/issues/7
-      if report_url.include?(';-(')
-        puts 'WARNING: plagiabot returned an ithenticate-related error code'
-      else
-        expect(url_match).to eq(true)
-      end
-    end
+  let(:user) { create(:user) }
+  let(:course) { create(:course) }
 
-    it 'redirects to a 404 page if no url is available' do
-      stub_request(:get, /ruby-suspected-plagiarism.toolforge.org.*/).to_return(body: '[;(]')
-      report_url = described_class.api_get_url(ithenticate_id: 19201081999)
-      expect(report_url).to eq('/not_found')
-    end
+  before do
+    create(:courses_user, course:, user:)
   end
 
   describe '.find_recent_plagiarism' do
@@ -91,12 +74,16 @@ describe PlagiabotImporter do
       create(:revision,
              mw_rev_id: suspected_diff,
              article_id: 1123322,
-             date: 1.day.ago)
+             date: 1.day.ago,
+             user:)
       create(:article,
              id: 123332,
              namespace: 0)
+
+      expect(PossiblePlagiarismAlert.count).to eq(0)
       described_class.find_recent_plagiarism
       expect(Revision.find_by(mw_rev_id: suspected_diff).ithenticate_id).not_to be_nil
+      expect(PossiblePlagiarismAlert.count).to eq(1)
     end
 
     it 'handles API failures gracefully' do

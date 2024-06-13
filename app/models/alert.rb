@@ -55,6 +55,7 @@ class Alert < ApplicationRecord
     OnboardingAlert
     OverdueTrainingAlert
     OverEnrollmentAlert
+    PossiblePlagiarismAlert
     ProductiveCourseAlert
     ProtectedArticleAssignmentAlert
     ReviewRequestAlert
