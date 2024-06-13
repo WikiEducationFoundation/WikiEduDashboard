@@ -1291,4 +1291,7 @@ sr-ec:
     started: Започето
     not_started: Није започето
     due: до %{due_date}
+  notes:
+    cancel_note_creation: Откажи
+    save_note: Сачувај
 ...

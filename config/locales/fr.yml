@@ -1975,4 +1975,9 @@ fr:
     assignment_status: Affectation de formation (%{status})
   multi_wiki:
     selector_placeholder: Commencez par entrer un domaine wiki
+  notes:
+    title: Titre
+    note_title: Titre de la note
+    cancel_note_creation: Annuler
+    cancel_edit_note: Annuler
 ...

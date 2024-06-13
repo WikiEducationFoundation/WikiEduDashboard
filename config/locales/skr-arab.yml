@@ -315,4 +315,6 @@ skr-arab:
     tools: اوزار
   training_status:
     started: شروع تھیا
+  notes:
+    cancel_note_creation: منسوخ
 ...

@@ -23,6 +23,7 @@
 # Author: המקיסט
 # Author: יוסף בן מלמד
 # Author: מקף
+# Author: מקף־עברי
 # Author: נדב ס
 # Author: פוילישער
 # Author: תומר ט
@@ -41,6 +42,7 @@ he:
   accessibility:
     number_field: זה שדה מספר. הכפתורים שעובדים ברוב הדפדפנים יגדילו ויקטינו את הקלט.
   application:
+    back: חזרה
     cancel: ביטול
     cookie_consent: האתר הזה משתמש בעוגיות כדי להשאיר אותך במערכת ומאחסן פרטים שקשורים
       לחשבון שלך בוויקיפדיה.
@@ -74,6 +76,8 @@ he:
       one: 'תוצאה אחת עבור: ''%{search_terms}'''
       other: '%{count} תוצאות עבור: ''%{search_terms}'''
     no_results: לא נמצאו תוצאות עבור '%{query}'
+    show_current_revision: הצג גרסה נוכחית
+    show_last_revision: הצג את הגרסה האחרונה שנערכה
     sign_up_extended: הרשמה לוויקיפדיה
     sign_up_wikipedia: או הרשמה לוויקיפדיה
     sign_up_log_in_extended: עם ויקיפדיה
@@ -126,6 +130,15 @@ he:
     explore: תוכניות קיימות
     log_in: כניסה עם חשבון ויקיפדיה
     sign_up: הרשמה עם חשבון ויקיפדיה
+    registration_advice:
+      username_rules:
+        heading: כללי שם משתמש
+        represent_individual: שמות משתמש חייבים לייצג עורך בודד. אל תשתמש בשם של בית
+          ספר או ארגון.
+      additional_advice:
+        heading: עצה
+        anonymous_username_recommendation: ויקיהשכלה ממליץ לבחור שם משתמש אנונימי,
+          לא אחד המכיל את השם האמיתי שלך או מידע מזהה אחר.
     sign_up_help: כדי להשתמש בלוח הבקרה, יש להיכנס לחשבון באמצעות ויקיפדיה ולתת הרשאה
       לגשת לחשבון שלך. באפשרותך להיכנס לחשבון ויקיפדיה קיים, או ליצור חשבון חדש. אם
       ישנה בעיה ביצירת החשבון החדש, יש ליצור קשר עם dashboard@wikiedu.org.
@@ -151,7 +164,11 @@ he:
     assigned_to: 'מוקצה ל:'
     character_doc: 'סך התווים שנוספו לערכים על־ידי עורכים הרשומים לתוכנית בין תאריכי
       ההתחלה והסיום:'
+    cross_wiki_tracking: דפי המרחב הראשי שנערכו בין תאריכי ההתחלה והסיום מפורטים להלן.
+      לוח המחוונים שואב תרומות מהוויקי הביתי של התוכנית הזאת, לצד כל אתרי הוויקי הנוספים
+      שיש עבורם מטלה או פריט זמין.
     deleted: (נמחק)
+    does_not_exist: הערך לא קיים. צור דף ארגז חול והקצה את עצמך אליו כדי לקבל הצעות.
     edited: ערכים שנערכו
     edited_by: 'נערך על־ידי:'
     edited_mobile: ערכים
@@ -164,12 +181,14 @@ he:
       tracked: במעקב
       untracked: לא במעקב
       tracked_and_untracked: במעקב ולא במעקב
+    filter_text: 'מסננים:'
     find: מציאת ערכים
     how_to_find: איך למצוא ערכים
     hide: הסתרה
     history: (היסטוריה)
     label: ערכים
     loading: טעינת ערכים...
+    mark_as_complete: סמן כמושלם
     new: (חדש)
     none: בקורס הזה לא נערכו שום ערכים.
     preview: תצוגה מקדימה קצרה של ערך
@@ -195,11 +214,16 @@ he:
       '?': לא מדורג – ערך שעדיין לא דורג בסולם האיכות של ויקיפדיה
       does_not_exist: הערך אינו קיים בוויקיפדיה
     see_more: לטעון עוד
+    see_more_tooltip: רק 500 הערכים הערוכים הראשונים נטענים בתחילה. לחץ כדי לטעון
+      ערכים נוספים.
     search: חיפוש בוויקיפדיה עבור ערך
     show_cumulative_changes: הצגת שינויים מצטברים
     show_current_version: הצג גרסה נוכחית
+    show_current_version_with_authorship_highlighting: גרסה נוכחית עם הדגשת מחבר
     title: כותרת \ שם
     tracked: במעקב
+    tracked_doc: רק ערכים במעקב תורמים לסטטיסטיקה של תוכנית זו. כאשר ערכים מסומנים
+      כלא-נעקבים, הם יוסרו מהסטטיסטיקה במהלך עדכון הנתונים הבא.
     title_example: שם הערך
     tools: כלי הערכה
     view: הצגת הערך
@@ -220,6 +244,10 @@ he:
       את הסטנדרט הוויקיפדי למבנה של ערך הכתוב טוב, אך הוא אינו מתייחס לתוכן עצמו.
       \nשימו לב שנכון להיום הציון הזה זמין רק לערכים שנכתבו בוויקיפדיה האנגלית."
     articles_short: ערכים
+    deleted_message: על פי הנתונים של לוח המחוונים, דף זה נמחק. (במקרים מסוימים, הזזות
+      דפים, מיזוג היסטוריה או פעולות אחרות עלולות לגרום לכך שערך יופיע כנמחק בטעות.
+      ייתכן שגם ערכים שנמחקו יבוטלו מאוחר יותר. עבור ערכים שלא נמחקו בפועל, או ששוחזרו
+      לאחר מכן, לוח המחוונים בדרך כלל ישקף זאת תוך יום או יומיים.)
     page_logs: (יומני הדף)
     tracked_articles: ערכים במעקב
     view_articles: צפייה בערכים
@@ -236,12 +264,17 @@ he:
     cross_wiki_tracking: דפי המרחב הראשי שנערכו בין תאריכי ההתחלה והסיום מפורטים להלן.
       לוח המחוונים שואב תרומות מהוויקי הביתי של התוכנית הזאת, לצד כל אתרי הוויקי הנוספים
       שיש עבורם מטלה או פריט זמין.
+    does_not_exist: הפריט לא קיים. צור דף ארגז חול והקצה את עצמך אליו כדי לקבל הצעות.
     edited: פריטים שנערכו
     edited_none: עדיין אין פריטים שנערכו.
     find: מציאת פריטים
     how_to_find: איך למצוא פריטים
     preview: תצוגה מקדימה קצרה של פריט
     search: חיפוש בוויקינתונים עבור פריט
+    tracked_doc: רק ערכים במעקב תורמים לסטטיסטיקה של תוכנית זו. כאשר ערכים מסומנים
+      כלא-נעקבים, הם יוסרו מהסטטיסטיקה במהלך עדכון הנתונים הבא.
+    view_doc: הערכה של מספר הצפיות בכל ערך מאז שהוא נערך לראשונה, באמצעות עדכון הסטטיסטיקה
+      האחרון. באפשרותך להשתמש באתר pageviews.toolforge.org כדי לראות את המספרים המדויקים.
     title_example: כותרת פריט
   articles_wikidata:
     articles_short: פריטים
@@ -251,6 +284,8 @@ he:
     article: הערך %{title} כעת מוקצה אליך.
     article_link: ערך
     article_link_wikidata: פריט
+    blocked_assignment: לא ניתן היה להקצות את %{title} מכיוון שהוא נמצא ברשימת החסימות
+      של קהילת ויקיפדיה למשימות ויקיהשכלה.
     already_exists: הקצאה זו כבר קיימת!
     title_too_large: הכותרת לא אמורה לחרוג מ־255 תווים
     assignees: משתתפים שהוקצה להם ערך
@@ -272,10 +307,12 @@ he:
     confirm_add_available: האם ברצונך באמת להוסיף את %{title}?
     confirm_addition: האם ברצונך באמת להקצות את %{title} למשתמש %{username}?
     confirm_deletion: באמת למחוק את ההקצאה הזאת?
+    delete: הסרה ומחיקה
     editors: מוקצה ל־
     change_sandbox_url: שינוי ארגז חול
     group_members: חברי קבוצה
     label: שיוך
+    label_all: הקצה הכל
     loading: טעינת משימות...
     none_short: אין ערכים משוייכים
     none_short_wikidata: לא הוקצו פריטים
@@ -286,13 +323,36 @@ he:
     peer_review_link: סקירת עמיתים
     peer_review_link_personalized: סקירת העמיתים של %{username}
     random_peer_review:
+      confirm_addition: ברוב המקרים, עליך להשתמש בזה רק לאחר שהוקצו לכל התלמידים הערכים
+        הראשיים שלהם. לחלופין, אתה יכול לבקש מהתלמידים שלך לבחור ביקורות עמיתים משלהם
+        או שאתה יכול להקצות ביקורות עמיתים באופן ידני על ידי לחיצה על שורה של תלמיד
+        ולאחר מכן שימוש בלחצן "הקצה/הסר ביקורת עמיתים". לחיצה על "אישור" תקצה סך של
+        %{count} ביקורות עמיתים נוספות, עם מקסימום של %{maximum} לכל תלמיד, שנבחרו
+        מבין הערכים של חבריהם לכיתה.
+      confirm_addition_wikidata: ברוב המקרים, עליך להשתמש בזה רק לאחר שהוקצו לכל התלמידים
+        את הפריטים העיקריים שלהם. לחלופין, אתה יכול לבקש מהתלמידים שלך לבחור ביקורות
+        עמיתים משלהם או שאתה יכול להקצות ביקורות עמיתים באופן ידני על ידי לחיצה על
+        שורה של תלמיד ולאחר מכן שימוש בלחצן "הקצה/הסר ביקורת עמיתים". לחיצה על "אישור"
+        תקצה סך של %{count} ביקורות עמיתים נוספות, עם מקסימום של %{maximum} לכל תלמיד,
+        שנבחרו מבין הפריטים של חבריהם לכיתה.
       heading: הקצאת ביקורות עמיתים אקראיות
+      tooltip_message: מקצה ערכים אקראיים (עם מספר ביקורות העמיתים כמספר המרבי) לכל
+        תלמיד.
+      tooltip_message_wikidata: מקצה פריטים אקראיים (עם מספר ביקורת העמיתים כמספר
+        המרבי) לכל תלמיד.
+      limit_exceeded: כל תלמיד כבר סוקר לפחות %{maximum} ערכים.
     remove: הסרה
     reviewers: בודקים\בודקות
     review_other: שיוך סוקר/ביטול שיוך
     review_self: בדיקת ערך
     review_self_wikidata: סקירת פריט
+    review_tooltip: זה מיועד לערכי שאתה מתכנן לערוך עליהם ביקורת עמיתים או לספק עליהם
+      משוב.
+    review_tooltip_wikidata: זה מיועד לפריטים שאתה מתכנן לערוך ביקורת עמיתים או לספק
+      משוב עליהם.
     sandbox_draft_link: טיוטת ארגז חול
+    sandbox_redlink_info: קישור זה אדום מכיוון שהדף עדיין לא נוצר. (אם הוא נוצר לאחרונה,
+      לוח המחוונים יעדכן את הנתונים שלו בקרוב.)
     select: בחירה
     submit: שליחה
     invalid_url: לא ניתן לעדכן את כתובת ה־URL של ארגז החול. הכתובת %{url} אינה כתובת
@@ -326,7 +386,11 @@ he:
     confirm_course_removal: האם באמת ברצונך להסיר את "%{title}" ממסע הפרסום "%{campaign_title}"?
     course_already_removed: '"%{title}" כבר הוסר ממסע הפרסום "%{campaign_title}"'
     course: קורס
+    course_data: נתוני הקורס
     course_removed: '"%{title}" הוסר ממסע הפרסום "%{campaign_title}"'
+    course_removed_and_deleted: '"%{title}" הוסר מהתוכנית "%{campaign_title}"'
+    course_removed_but_not_deleted: '"%{title}" הוסר מ"%{campaign_title}" אך לא נמחק
+      מכיוון שהוא קיים גם בתוכניות אחרות'
     create_campaign: יצירת מסע פרסום חדש
     create_my_campaign: יצירת מסע הפרסום שלי!
     customize_passcode: קד גישה התחלתי
@@ -334,19 +398,36 @@ he:
     data_courses: נתונים כללים על הקורס
     data_courses_info: מדדים בסיסיים לכל קורס / תוכנית
     data_articles: דפים שנערכו
+    data_revisions: היסטוריית גרסאות
+    data_articles_info: פרטים על כל דף במעקב שנערך על ידי התוכנית
+    data_revisions_info: פרטים על כל התיקונים במעקב שנערכו במסגרת התוכנית
     data_instructors: מנחים
     data_instructors_info: רשימת מנחים / עוזרים והקורסים / התוכניות שלהם
     data_editors_by_course: עורכים לפי קורס
     data_editors_by_course_info: רשימת עורכים רשומים והקורסים והתוכניות שלהם
+    data_editor_usernames: שמות משתמשים של עורכים
+    data_editor_usernames_info: רשימת שמות משתמש של עורכים, אחד בכל שורה
+    data_wikidata: סטטיסטיקות ויקינתונים
     default_course_type: סוג הקורס כבררת מחדל
     default_passcode: קד גישה התחלתי
+    default_passcode_explanation: 'כברירת מחדל, תוכניות חדשות בתוכנית זו צריכות לכלול:'
     description: תיאור
     delete_campaign: מחיקת מסע הפרסום הזה
+    delete_course_tooltip: מחק והסר מהתוכנית.
+    disable_account_requests: השבת בקשות לחשבון
+    enable_account_requests: אפשר בקשות חשבון
     featured_campaigns: קמפיינים מומלצים
+    no_alerts: לתוכניות זו אין התראות
     no_passcode: אין קוד גישה
     none: אין
     organizers: מארגנים
+    organizer_added: '%{user} הוא כעת מארגן הקמפיין "%{title}".'
+    organizer_removed: '%{user} כעת הוסר כמארגן התוכנית "%{title}".'
+    program_template_tooltip: כאשר מארגן יוצר תוכנית בקמפיין הנוכחי, הטקסט באזור זה
+      יועתק כתיאור בדף התוכנית
     random_passcode: קוד גישה אקראי
+    remove_course_tooltip: הסר מהקמפיין.
+    revision_data: נתוני גרסאות
     title: כותרת
     use_start_end_dates: הגדרת מועדי התחלה וסיום
   categories:
