@@ -16,6 +16,9 @@ class RevisionDataManager
     @importer = RevisionScoreImporter.new(wiki:, course:, update_service:)
   end
 
+  # This method gets revisions and scores for them from different APIs.
+  # Returns an array of Revision records.
+  # As a side effect, it imports Article records.
   def fetch_revision_data_for_course(timeslice_start, timeslice_end)
     sub_data = get_revisions(@course.students, timeslice_start, timeslice_end)
     @revisions = []
@@ -44,7 +47,7 @@ class RevisionDataManager
   ###########
   # Helpers #
   ###########
-  # private
+  private
 
   # Get revisions made by a set of users between two dates.
   # We limit the number of usernames per query in order to avoid
