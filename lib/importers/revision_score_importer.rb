@@ -45,6 +45,25 @@ class RevisionScoreImporter
     end
   end
 
+  def get_revision_scores(new_revisions)
+    scores = {}
+    parent_scores = {}
+    parent_revisions = {}
+
+    n_batches = (new_revisions.count / BATCH_SIZE) + 1
+    revision_batches = new_revisions.each_slice(BATCH_SIZE).to_a
+    revision_batches.each.with_index do |rev_batch, i|
+      Rails.logger.debug { "Pulling revisions: batch #{i + 1} of #{n_batches}" }
+      scores.merge!(@api_handler.get_revision_data(rev_batch.map(&:mw_rev_id)))
+
+      my_parent_revisions = get_parent_revisions(rev_batch)
+      parent_revisions.merge!(my_parent_revisions)
+      parent_scores.merge!(@api_handler.get_revision_data(my_parent_revisions.values.map(&:to_i)))
+    end
+
+    add_scores_to_revisions(revision_batches.flatten, parent_revisions, scores, parent_scores)
+  end
+
   ##################
   # Helper methods #
   ##################
@@ -127,6 +146,33 @@ class RevisionScoreImporter
     { prop: 'revisions',
       revids: rev_ids,
       rvprop: 'ids' }
+  end
+
+  def add_scores_to_revisions(revisions, parent_revisions, scores, parent_scores)
+    revisions.each do |rev|
+      # add scores
+      mw_rev_id_scores = scores[rev.mw_rev_id.to_s]
+      update_scores(rev, mw_rev_id_scores)
+
+      # add previous scores
+      next unless parent_revisions.key? rev.mw_rev_id.to_i # parent revisions hash has ids as keys
+      parent_id = parent_revisions[rev.mw_rev_id.to_i]
+      mw_rev_id_parent_scores = parent_scores[parent_id]
+      update_previous_scores(rev, mw_rev_id_parent_scores)
+    end
+
+    revisions
+  end
+
+  def update_scores(rev, rev_scores)
+    rev.features = rev_scores['features']
+    rev.wp10 = rev_scores['wp10']
+    rev.deleted = rev_scores['deleted'] # double check if this is a boolean
+  end
+
+  def update_previous_scores(rev, parent_rev_scores)
+    rev.wp10_previous = parent_rev_scores['wp10']
+    rev.features_previous = parent_rev_scores['features']
   end
 
   class InvalidWikiError < StandardError; end

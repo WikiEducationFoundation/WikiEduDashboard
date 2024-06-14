@@ -35,6 +35,11 @@ class ArticleImporter
     end
   end
 
+  def import_articles_from_revision_data(data)
+    # We rely on the unique index here, mw_page_id and wiki_id
+    Article.import data, on_duplicate_key_update: [:title, :namespace]
+  end
+
   private
 
   def import_articles_from_replica_data(articles_data)
