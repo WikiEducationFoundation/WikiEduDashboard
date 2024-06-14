@@ -35,6 +35,11 @@ class ArticleImporter
     end
   end
 
+  # Takes an array like the following:
+  # [{"mw_page_id"=>"69830902", "wiki_id"=>5, "title"=>"Ar00", "namespace"=>"2"},
+  # ...
+  # {"mw_page_id"=>"69834562", "wiki_id"=>1, "title"=>"Some article", "namespace"=>"1"}]
+  # Creates article records with that data.
   def import_articles_from_revision_data(data)
     # We rely on the unique index here, mw_page_id and wiki_id
     Article.import data, on_duplicate_key_update: [:title, :namespace]
