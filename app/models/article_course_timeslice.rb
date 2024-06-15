@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: article_course_timeslices
@@ -17,4 +16,25 @@
 #
 class ArticleCourseTimeslice < ApplicationRecord
   belongs_to :articles_courses
+
+  serialize :user_ids, Array # This text field only stores user ids as text
+
+  ####################
+  # Instance methods #
+  ####################
+
+  # Takes an array of revisions for the article_course_timeslice
+  def update_cache_from_revisions(revisions)
+    self.character_sum += revisions.sum { |r| r.characters.to_i.positive? ? r.characters : 0 }
+    self.references_count += revisions.sum(&:references_added)
+    self.user_ids += associated_user_ids(revisions)
+    save
+  end
+
+  private
+
+  def associated_user_ids(revisions)
+    return [] if revisions.blank?
+    revisions.filter_map(&:user_id).uniq
+  end
 end
