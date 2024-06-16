@@ -1,115 +1,133 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
-import PropTypes from 'prop-types';
-import Select, { components } from 'react-select';
-import { filter, compact } from 'lodash-es';
-import selectStyles from '../../../styles/select';
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import Select, { components } from "react-select";
+import { filter, compact } from "lodash-es";
+import selectStyles from "../../../styles/select";
+import ModuleRow from "./ModuleRow/ModuleRow";
+import { EXERCISE_KIND, DISCUSSION_KIND } from "../../../constants";
 
-// Components
-import ModuleRow from './ModuleRow/ModuleRow';
-import { EXERCISE_KIND, DISCUSSION_KIND } from '../../../constants';
+const TrainingModules = ({
+  allModules, // Array of all training modules (required)
+  blockModules, // Array of training modules for this block (required)
+  editable, // Boolean indicating editability (required)
+  header, // String for the header title (optional)
+  isStudent, // Boolean indicating student view (required)
+  onChange, // Function to handle changes (required)
+  trainingLibrarySlug, // String for training library slug (required)
+}) => {
+  // State for selected training modules
+  const [value, setValue] = useState([]);
 
-const TrainingModules = createReactClass({
-  displayName: 'TrainingModules',
-
-  propTypes: {
-    all_modules: PropTypes.array,
-    block_modules: PropTypes.array,
-    editable: PropTypes.bool,
-    header: PropTypes.any,
-    isStudent: PropTypes.bool,
-    onChange: PropTypes.func,
-    trainingLibrarySlug: PropTypes.string.isRequired,
-  },
-
-  getInitialState() {
-    let selections;
-    if (this.props.block_modules) {
-      selections = this.props.block_modules.map(module => ({ value: module.id, label: module.name + this.moduleLabel(module.kind) }));
+  // Update selected modules on blockModules change
+  useEffect(() => {
+    if (blockModules) {
+      const selections = blockModules.map((module) => ({
+        value: module.id,
+        label: module.name + moduleLabel(module.kind),
+      }));
+      setValue(selections);
     }
-    return { value: selections };
-  },
+  }, [blockModules]); // Dependency array for useEffect
 
-  onChange(selections) {
-    let trainingModuleIds = [];
-    if (selections) {
-      trainingModuleIds = selections.map(trainingModule => trainingModule.value);
-    }
-    this.setState({ value: selections });
-    return this.props.onChange(trainingModuleIds);
-  },
+  const handleChange = (selections) => {
+    const trainingModuleIds =
+      selections?.map((trainingModule) => trainingModule.value) || [];
+    setValue(selections);
+    onChange(trainingModuleIds);
+  };
 
-  moduleLabel(kind) {
+  const moduleLabel = (kind) => {
     if (kind === EXERCISE_KIND) {
-      return ` (${I18n.t('training.kind.exercise')})`;
+      return ` (${I18n.t("training.kind.exercise")})`;
     }
     if (kind === DISCUSSION_KIND) {
-      return ` (${I18n.t('training.kind.discussion')})`;
+      return ` (${I18n.t("training.kind.discussion")})`;
     }
-    return ` (${I18n.t('training.kind.training')})`;
-  },
+    return ` (${I18n.t("training.kind.training")})`;
+  };
 
-  trainingSelector() {
-    const MultiValueRemove = (props) => {
-      return (
-        <components.MultiValueRemove {...props}>
-          <components.CrossIcon aria-hidden={false} aria-label={'Remove Module'} />
-        </components.MultiValueRemove>
-      );
-    };
-    const options = filter(compact(this.props.all_modules), module => module.status !== 'deprecated')
-      .map(module => ({ value: module.id, label: module.name + this.moduleLabel(module.kind) }));
+  const trainingSelector = () => {
+    const MultiValueRemove = (props) => (
+      <components.MultiValueRemove {...props}>
+        <components.CrossIcon aria-hidden={false} aria-label="Remove Module" />
+      </components.MultiValueRemove>
+    );
+
+    const options = filter(
+      compact(allModules),
+      (module) => module.status !== "deprecated"
+    ).map((module) => ({
+      value: module.id,
+      label: module.name + moduleLabel(module.kind),
+    }));
+
     return (
       <div className="block__training-modules">
         <div>
           <h4>Training modules</h4>
           <Select
             components={{ MultiValueRemove }}
-            isMulti={true}
+            isMulti
             name="block-training-modules"
-            value={this.state.value}
+            value={value}
             options={options}
-            onChange={this.onChange}
-            placeholder="Add training module(s)…"
+            onChange={handleChange}
+            placeholder="Add training module(s)..."
             styles={selectStyles}
             aria-label="Training modules"
           />
         </div>
       </div>
     );
-  },
+  };
 
-  render() {
-    if (this.props.editable) {
-      return this.trainingSelector();
-    }
+  return (
+    <>
+      {/* Render training selector if editable */}
+      {editable && trainingSelector()}
 
-    const modules = this.props.block_modules.map(module => (
-      <ModuleRow
-        key={module.id}
-        isStudent={this.props.isStudent}
-        module={module}
-        trainingLibrarySlug={this.props.trainingLibrarySlug}
-      />
-    ));
+      {/* Render training modules list if not editable */}
+      {!editable &&
+        blockModules?.length > 0 && ( // Check for blockModules length
+          <div className="block__training-modules">
+            <div>
+              {header ? (
+                <h4
+                  id={header
+                    .toLowerCase()
+                    .split(/[^a-z]/)
+                    .join("-")}
+                >
+                  {header}
+                </h4>
+              ) : null}
+              <table className="table table--small">
+                <tbody>
+                  {blockModules.map((module) => (
+                    <ModuleRow
+                      key={module.id}
+                      isStudent={isStudent}
+                      module={module}
+                      trainingLibrarySlug={trainingLibrarySlug}
+                    />
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+    </>
+  );
+};
 
-    if (!modules.length) { return null; }
-
-    const header = this.props.header || 'Training';
-    const headerId = header.toLowerCase().split(/[^a-z]/).join('-');
-    return (
-      <div className="block__training-modules">
-        <div>
-          {this.props.header ? <h4 id={headerId}>{header}</h4> : null}
-          <table className="table table--small">
-            <tbody>
-              {modules}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    );
-  }
-});
+TrainingModules.propTypes = {
+  allModules: PropTypes.array.isRequired,
+  blockModules: PropTypes.array.isRequired,
+  editable: PropTypes.bool.isRequired,
+  header: PropTypes.any,
+  isStudent: PropTypes.bool.isRequired,
+  onChange: PropTypes.func.isRequired,
+  trainingLibrarySlug: PropTypes.string.isRequired,
+};
 
 export default TrainingModules;
