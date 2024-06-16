@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Select, { components } from "react-select";
@@ -7,13 +8,13 @@ import ModuleRow from "./ModuleRow/ModuleRow";
 import { EXERCISE_KIND, DISCUSSION_KIND } from "../../../constants";
 
 const TrainingModules = ({
-  allModules, // Array of all training modules (required)
-  blockModules, // Array of training modules for this block (required)
-  editable, // Boolean indicating editability (required)
-  header, // String for the header title (optional)
-  isStudent, // Boolean indicating student view (required)
-  onChange, // Function to handle changes (required)
-  trainingLibrarySlug, // String for training library slug (required)
+  allModules, 
+  blockModules, 
+  editable, 
+  header,
+  isStudent, 
+  onChange, 
+  trainingLibrarySlug,
 }) => {
   // State for selected training modules
   const [value, setValue] = useState([]);
@@ -27,7 +28,7 @@ const TrainingModules = ({
       }));
       setValue(selections);
     }
-  }, [blockModules]); // Dependency array for useEffect
+  }, [blockModules]); 
 
   const handleChange = (selections) => {
     const trainingModuleIds =
@@ -83,12 +84,10 @@ const TrainingModules = ({
 
   return (
     <>
-      {/* Render training selector if editable */}
       {editable && trainingSelector()}
 
-      {/* Render training modules list if not editable */}
       {!editable &&
-        blockModules?.length > 0 && ( // Check for blockModules length
+        blockModules?.length > 0 && ( 
           <div className="block__training-modules">
             <div>
               {header ? (
