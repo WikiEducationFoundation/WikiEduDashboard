@@ -155,5 +155,4 @@ const Meetings = ({ weeks, course }) => {
     </Modal>
   );
 };
-
 export default Meetings;
