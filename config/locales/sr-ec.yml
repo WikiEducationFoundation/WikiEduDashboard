@@ -67,7 +67,7 @@ sr-ec:
     search_results: 'Резултати за: „%{search_terms}”'
     no_results: Нема пронађених резултата за термин „%{query}”
     show_current_revision: Прикажи тренутну верзију
-    show_last_revision: Прикажи последњу измену
+    show_last_revision: Прикажи последњу измењену верзију
     sign_up_extended: Отвори налог са Википедијом
     sign_up_wikipedia: Или се пријавите на Википедију
     sign_up_log_in_extended: са Википедијом

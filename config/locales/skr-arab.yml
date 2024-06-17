@@ -315,6 +315,19 @@ skr-arab:
     tools: اوزار
   training_status:
     started: شروع تھیا
+  news:
+    add_news: خبراں شامل کرو
+    footer:
+      P&E_dashboard:
+        link_text: وکیمیڈیا
+    options:
+      news_content:
+        confirm_delete: تصدیق
+        cancel_delete: منسوخ
   notes:
+    title: عنوان
     cancel_note_creation: منسوخ
+    post_note: پوسٹ
+    cancel_edit_note: منسوخ
+    delete_note: نوٹ مٹاؤ
 ...

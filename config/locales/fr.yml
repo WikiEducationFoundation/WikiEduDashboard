@@ -91,7 +91,7 @@ fr:
       other: '%count résultats pour : « %{search_terms} »'
     no_results: Aucun résultat trouvé pour « %{query} »
     show_current_revision: Affiche la version actuelle.
-    show_last_revision: Afficher la dernière révision
+    show_last_revision: Afficher la dernière version modifiée
     sign_up_extended: S’inscrire sur Wikipédia
     sign_up_wikipedia: Ou inscrivez-vous sur Wikipédia
     sign_up_log_in_extended: avec Wikipédia
@@ -1975,6 +1975,15 @@ fr:
     assignment_status: Affectation de formation (%{status})
   multi_wiki:
     selector_placeholder: Commencez par entrer un domaine wiki
+  news:
+    footer:
+      P&E_dashboard:
+        link_text: Wikimédia
+    options:
+      news_content:
+        cancel_delete: Annuler
+    text_area_input:
+      placeholder: Ajouter des actualités et des modifications récentes
   notes:
     title: Titre
     note_title: Titre de la note

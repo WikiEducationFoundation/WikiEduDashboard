@@ -50,6 +50,7 @@ cy:
     search: gofynwch gwestiwn
     search_results: 'Chwilio am: ''%{search_terms}'''
     no_results: Dim canlyniad ar gyfer '%{query}'
+    show_last_revision: Dangos y fersiwn a olygwyd ddiwethaf
     sign_up_extended: Cofrestrwch gyda Wicipedia
     sign_up_wikipedia: Neu ewch i Wicipedia i fewngofnodi
     sign_up_log_in_extended: gyda Wicipedia
@@ -845,4 +846,10 @@ cy:
     not_started: Heb ddechrau
     due: dyledus erbyn %{due_date}
     assignment_status: Aseiniad hyfforddi (%{status})
+  news:
+    footer:
+      wiki_education_dashboard:
+        link_text: wikiedu.org/blog
+  notes:
+    cancel_note_creation: Canslo
 ...
