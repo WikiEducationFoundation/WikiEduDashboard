@@ -354,6 +354,14 @@ Rails.application.routes.draw do
   # To find individual slides by id
   get 'find_training_slide/:slide_id' => 'training#find_slide'
 
+  ## For Modifying Training Content through the Dashboard
+  # Create
+  post 'training/create_library' => 'training_library#create_library'
+  post 'training/:library_id/create_category' => 'training_library#create_category'
+
+  # Delete
+  delete 'training/:library_id/categories/:category_id', to: 'training_library#delete_category', as: :delete_category
+
   # Misc
   # get 'courses' => 'courses#index'
   get 'explore' => 'explore#index'

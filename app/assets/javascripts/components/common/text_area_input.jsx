@@ -24,10 +24,13 @@ const TextAreaInput = ({
   markdown,
   className,
   clearOnSubmit,
-  invalid
+  invalid,
+  label,
+  spacer
 }) => {
   const [tinymceLoaded, setTinymceLoaded] = useState(false);
   const [activeEditor, setActiveEditor] = useState(null);
+  const labelContent = label ? `${label}${spacer || ': '}` : undefined;
 
   useEffect(() => {
     if (wysiwyg) {
@@ -113,7 +116,14 @@ const TextAreaInput = ({
         </div>
       );
     }
-    return <div>{inputElement}</div>;
+    return (
+      <div className="form-group">
+        <label id={`${id}-label`} htmlFor={id} className={invalid ? 'red' : ''}>
+          {labelContent}
+        </label>
+        {inputElement}
+      </div>
+    );
   }
 
   // ////////////
@@ -143,7 +153,9 @@ TextAreaInput.propTypes = {
   wysiwyg: PropTypes.bool, // use rich text editor instead of plain text
   markdown: PropTypes.bool, // render value as Markdown when in read mode
   className: PropTypes.string,
-  clearOnSubmit: PropTypes.bool
+  clearOnSubmit: PropTypes.bool,
+  label: PropTypes.string,
+  spacer: PropTypes.string,
 };
 
 export default InputHOC(TextAreaInput);
