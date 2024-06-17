@@ -10,7 +10,7 @@
 #  last_mw_rev_id    :integer
 #  character_sum     :integer          default(0)
 #  references_count  :integer          default(0)
-#  user_ids          :text(65535)      default("")
+#  user_ids          :text(65535)
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #
