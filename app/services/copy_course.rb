@@ -26,7 +26,7 @@ class CopyCourse
   def copy_main_course_data
     # Extract the attributes we want to copy
     params_to_copy = %w[school title term description start end subject slug timeline_start
-                        timeline_end type flags created_at weekdays]
+                        timeline_end type flags weekdays]
     copied_data = {}
     params_to_copy.each { |p| copied_data[p] = @course_data[p] }
     @home_wiki = Wiki.get_or_create(language: @course_data['home_wiki']['language'],
