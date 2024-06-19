@@ -1,3 +1,4 @@
+//Import necessary hooks (useState, useEffect) and useNavigate from react-router-dom
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -17,15 +18,20 @@ import {
 } from '../../actions/timeline_actions';
 import { getWeeksArray, getAllWeeksArray, getAvailableTrainingModules, editPermissions } from '../../selectors';
 
+// Define TimelineHandler as a functional component using an arrow function
+// Move propTypes outside the component definition
+// Replace state variables with useState hooks
 const TimelineHandler = (props) => {
   const [reorderable, setReorderable] = useState(false);
   const [editableTitles, setEditableTitles] = useState(false);
 
+// Replace componentDidMount with useEffect hook
   useEffect(() => {
     document.title = `${props.course.title} - ${I18n.t('courses.timeline_link')}`;
     props.fetchAllTrainingModules();
   }, [props.course.title, props.fetchAllTrainingModules]);
 
+// Convert class methods to regular functions within the component
   const _cancelBlockEditable = (blockId) => {
     // TODO: Restore to persisted state for this block only
     props.cancelBlockEditable(blockId);
@@ -59,6 +65,7 @@ const TimelineHandler = (props) => {
     props.persistTimeline(toSave, props.course_id);
   };
 
+// Replace render method with a separate renderTimelineHandler function
   const renderTimelineHandler = () => {
     if (props.course.loading) {
       return <div />;
@@ -122,6 +129,7 @@ const TimelineHandler = (props) => {
       </div>
     );
   };
+    // Update component rendering to return the result of renderTimelineHandler
   return renderTimelineHandler();
 };
 
@@ -165,4 +173,5 @@ const mapDispatchToProps = {
   fetchAllTrainingModules
 };
 
+// Maintain Redux connection using connect higher-order component
 export default connect(mapStateToProps, mapDispatchToProps)(TimelineHandler);
