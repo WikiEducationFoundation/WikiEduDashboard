@@ -45,6 +45,8 @@ class RevisionScoreImporter
     end
   end
 
+  # Takes an array of Revision records, and returns an array of Revisions records
+  # with scores completed.
   def get_revision_scores(new_revisions)
     scores = {}
     parent_scores = {}
@@ -57,6 +59,7 @@ class RevisionScoreImporter
       scores.merge!(@api_handler.get_revision_data(rev_batch.map(&:mw_rev_id)))
 
       my_parent_revisions = get_parent_revisions(rev_batch)
+      next if my_parent_revisions.nil?
       parent_revisions.merge!(my_parent_revisions)
       parent_scores.merge!(@api_handler.get_revision_data(my_parent_revisions.values.map(&:to_i)))
     end
@@ -120,7 +123,9 @@ class RevisionScoreImporter
   end
 
   def get_parent_revisions(rev_batch)
-    rev_query = parent_revisions_query rev_batch.map(&:mw_rev_id)
+    rev_query = parent_revisions_query rev_batch.reject { |rev| rev.new_article == true }
+                                                .map(&:mw_rev_id)
+
     response = WikiApi.new(@wiki, @update_service).query rev_query
     return unless response.present? && response.data['pages']
     extract_revisions(response.data['pages'])

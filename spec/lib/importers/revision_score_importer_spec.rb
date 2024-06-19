@@ -4,6 +4,8 @@ require 'rails_helper'
 require "#{Rails.root}/lib/importers/revision_score_importer"
 
 describe RevisionScoreImporter do
+  let(:array_revisions) { [] }
+
   before do
     create(:article,
            id: 45010238,
@@ -14,11 +16,11 @@ describe RevisionScoreImporter do
            mw_rev_id: 675892696, # latest revision as of 2015-08-19
            article_id: 45010238,
            mw_page_id: 45010238)
-    create(:revision,
-           mw_rev_id: 641962088, # first revision, barely a stub
-           article_id: 45010238,
-           mw_page_id: 45010238,
-           new_article: true)
+    array_revisions << create(:revision,
+                              mw_rev_id: 641962088, # first revision, barely a stub
+                              article_id: 45010238,
+                              mw_page_id: 45010238,
+                              new_article: true)
     create(:revision,
            mw_rev_id: 1, # arbitrary deleted revision
            deleted: true,
@@ -30,10 +32,10 @@ describe RevisionScoreImporter do
            mw_page_id: 1538038,
            title: 'Performativity',
            namespace: 0)
-    create(:revision,
-           mw_rev_id: 662106477, # revision from 2015-05-13
-           article_id: 1538038,
-           mw_page_id: 1538038)
+    array_revisions << create(:revision,
+                              mw_rev_id: 662106477, # revision from 2015-05-13
+                              article_id: 1538038,
+                              mw_page_id: 1538038)
     create(:revision,
            mw_rev_id: 46745264, # revision from 2006-04-03
            article_id: 1538038,
@@ -151,6 +153,49 @@ describe RevisionScoreImporter do
         described_class.new.update_previous_revision_scores
         expect(Revision.find_by(mw_rev_id: 662106477).wp10_previous).to be_between(0, 100)
         expect(Revision.find_by(mw_rev_id: 46745264).wp10_previous).to be_between(0, 100)
+      end
+    end
+  end
+
+  describe '#get_revision_scores' do
+    it 'updates wp10 scores and features for revisions' do
+      VCR.use_cassette 'revision_scores/get_revision_scores' do
+        revisions = described_class.new.get_revision_scores(array_revisions)
+        expect(revisions.size).to eq(2)
+
+        # updates wp10
+        expect(revisions[0].features['num_ref']).to eq(0)
+        expect(revisions[1].features['num_ref']).to eq(9)
+
+        # updates features
+        expect(revisions[0].wp10.to_f).to be >= 11
+        expect(revisions[1].wp10.to_f).to be >= 36
+      end
+    end
+
+    it 'updates wp10 previous scores and features previous for non-first revisions' do
+      VCR.use_cassette 'revision_scores/get_revision_scores' do
+        revisions = described_class.new.get_revision_scores(array_revisions)
+        expect(revisions.size).to eq(2)
+
+        # updates wp10 previous
+        expect(revisions[1].wp10_previous).to be >= 46
+
+        # updates features previous
+        expect(revisions[1].features_previous['num_ref']).to eq(9)
+      end
+    end
+
+    it 'wp10 previous scores and features previous is nil for first revisions' do
+      VCR.use_cassette 'revision_scores/get_revision_scores' do
+        revisions = described_class.new.get_revision_scores(array_revisions)
+        expect(revisions.size).to eq(2)
+
+        # wp10 previous keeps being nil
+        expect(revisions[0].wp10_previous).to be_nil
+
+        # features previous keep being nil
+        expect(revisions[0].features_previous).to eq({})
       end
     end
   end
