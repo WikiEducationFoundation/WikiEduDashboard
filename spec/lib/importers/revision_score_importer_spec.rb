@@ -44,6 +44,25 @@ describe RevisionScoreImporter do
            mw_rev_id: 777777777, # does not exist
            article_id: 1538038,
            mw_page_id: 1538038)
+    create(:article,
+           id: 456,
+           mw_page_id: 49505160,
+           title: 'Philip_James_Rutledge',
+           namespace: 0)
+    array_revisions << create(:revision, # deleted revision
+                              mw_rev_id: 708326238,
+                              article_id: 456,
+                              mw_page_id: 49505160)
+    create(:article,
+           id: 678,
+           mw_page_id: 123456,
+           title: 'Premi_O_Premi',
+           namespace: 0)
+
+    array_revisions << create(:revision, # deleted revision
+                              mw_rev_id: 753277075,
+                              article_id: 678,
+                              mw_page_id: 123456)
   end
 
   it 'saves wp10 scores and features for revisions' do
@@ -63,14 +82,7 @@ describe RevisionScoreImporter do
     VCR.use_cassette 'revision_scores/deleted_revision' do
       # See https://ores.wikimedia.org/v2/scores/enwiki/wp10/708326238?features
       # https://en.wikipedia.org/wiki/Philip_James_Rutledge?diff=708326238
-      article = create(:article,
-                       mw_page_id: 49505160,
-                       title: 'Philip_James_Rutledge',
-                       namespace: 0)
-      create(:revision,
-             mw_rev_id: 708326238,
-             article_id: article.id,
-             mw_page_id: 49505160)
+      article = Article.find(456)
       described_class.new.update_revision_scores
       revision = article.revisions.first
       expect(revision.deleted).to eq(true)
@@ -81,15 +93,7 @@ describe RevisionScoreImporter do
 
   it 'marks RevisionNotFound revisions as deleted' do
     VCR.use_cassette 'revision_scores/deleted_revision' do
-      # Article and its revisions are deleted
-      article = create(:article,
-                       mw_page_id: 123456,
-                       title: 'Premi_O_Premi',
-                       namespace: 0)
-      create(:revision,
-             mw_rev_id: 753277075,
-             article_id: article.id,
-             mw_page_id: 123456)
+      article = Article.find(678)
       described_class.new.update_revision_scores
       revision = article.revisions.first
       expect(revision.deleted).to eq(true)
@@ -158,10 +162,14 @@ describe RevisionScoreImporter do
   end
 
   describe '#get_revision_scores' do
+    it 'returns empty array if no revisions' do
+      revisions = described_class.new.get_revision_scores([])
+      expect(revisions).to eq([])
+    end
+
     it 'updates wp10 scores and features for revisions' do
       VCR.use_cassette 'revision_scores/get_revision_scores' do
         revisions = described_class.new.get_revision_scores(array_revisions)
-        expect(revisions.size).to eq(2)
 
         # updates wp10
         expect(revisions[0].features['num_ref']).to eq(0)
@@ -176,7 +184,6 @@ describe RevisionScoreImporter do
     it 'updates wp10 previous scores and features previous for non-first revisions' do
       VCR.use_cassette 'revision_scores/get_revision_scores' do
         revisions = described_class.new.get_revision_scores(array_revisions)
-        expect(revisions.size).to eq(2)
 
         # updates wp10 previous
         expect(revisions[1].wp10_previous).to be >= 46
@@ -186,10 +193,17 @@ describe RevisionScoreImporter do
       end
     end
 
+    it 'does not try to query previous revisions for first revision' do
+      # This spec makes sense because get_parent_revisions calls non_new_revisions
+      # to filter the revision before querying parent revisions for them
+      revisions = described_class.new.send(:non_new_revisions, array_revisions)
+      # non-first revision 641962088 is discarded
+      expect(revisions).to eq([662106477, 708326238, 753277075])
+    end
+
     it 'wp10 previous scores and features previous is nil for first revisions' do
       VCR.use_cassette 'revision_scores/get_revision_scores' do
         revisions = described_class.new.get_revision_scores(array_revisions)
-        expect(revisions.size).to eq(2)
 
         # wp10 previous keeps being nil
         expect(revisions[0].wp10_previous).to be_nil
@@ -197,6 +211,39 @@ describe RevisionScoreImporter do
         # features previous keep being nil
         expect(revisions[0].features_previous).to eq({})
       end
+    end
+
+    it 'marks TextDeleted revisions as deleted' do
+      VCR.use_cassette 'revision_scores/deleted_revision' do
+        # See https://ores.wikimedia.org/v2/scores/enwiki/wp10/708326238?features
+        # https://en.wikipedia.org/wiki/Philip_James_Rutledge?diff=708326238
+        revisions = described_class.new.get_revision_scores(array_revisions)
+        expect(revisions[2].deleted).to eq(true)
+        expect(revisions[2].wp10).to be_nil
+        expect(revisions[2].features).to eq({})
+      end
+    end
+
+    it 'marks RevisionNotFound revisions as deleted' do
+      VCR.use_cassette 'revision_scores/deleted_revision' do
+        revisions = described_class.new.get_revision_scores(array_revisions)
+        expect(revisions[3].deleted).to eq(true)
+        expect(revisions[3].wp10).to be_nil
+        expect(revisions[3].features).to eq({})
+      end
+    end
+
+    it 'handles network errors gracefully' do
+      stub_request(:any, %r{https://api.wikimedia.org/service/lw/.*})
+        .to_raise(Errno::ECONNREFUSED)
+
+      stub_request(:any, /.*reference-counter.toolforge.org*/)
+        .to_raise(Errno::ECONNREFUSED)
+
+      revisions = described_class.new.get_revision_scores(array_revisions)
+
+      # no value changed for the revisions
+      expect(revisions).to eq(array_revisions)
     end
   end
 end

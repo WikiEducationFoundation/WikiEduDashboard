@@ -47,21 +47,25 @@ class RevisionScoreImporter
 
   # Takes an array of Revision records, and returns an array of Revisions records
   # with scores completed.
-  def get_revision_scores(new_revisions) # rubocop:disable Metrics/AbcSize
-    return [] unless new_revisions
+  def get_revision_scores(new_revisions)
     scores = {}
     parent_scores = {}
     parent_revisions = {}
 
-    n_batches = (new_revisions.count / BATCH_SIZE) + 1
-    revision_batches = new_revisions.each_slice(BATCH_SIZE).to_a
+    n_batches = calculate_number_of_batches(new_revisions.count)
+    revision_batches = batch_revisions(new_revisions)
     revision_batches.each.with_index do |rev_batch, i|
       Rails.logger.debug { "Pulling revisions: batch #{i + 1} of #{n_batches}" }
+
+      # Get scores for the given revision batch
       scores.merge!(@api_handler.get_revision_data(rev_batch.map(&:mw_rev_id)))
 
+      # Get parent revisions
       my_parent_revisions = get_parent_revisions(rev_batch)
       next if my_parent_revisions.nil?
       parent_revisions.merge!(my_parent_revisions)
+
+      # Get scores for the parent revision batch
       parent_scores.merge!(@api_handler.get_revision_data(my_parent_revisions.values.map(&:to_i)))
     end
 
@@ -72,6 +76,14 @@ class RevisionScoreImporter
   # Helper methods #
   ##################
   private
+
+  def calculate_number_of_batches(count)
+    (count / BATCH_SIZE) + 1
+  end
+
+  def batch_revisions(revisions)
+    revisions.each_slice(BATCH_SIZE).to_a
+  end
 
   def get_and_save_scores(rev_batch)
     scores = @api_handler.get_revision_data rev_batch.map(&:mw_rev_id)
@@ -124,12 +136,16 @@ class RevisionScoreImporter
   end
 
   def get_parent_revisions(rev_batch)
-    rev_query = parent_revisions_query rev_batch.reject { |rev| rev.new_article == true }
-                                                .map(&:mw_rev_id)
+    rev_query = parent_revisions_query non_new_revisions(rev_batch)
 
     response = WikiApi.new(@wiki, @update_service).query rev_query
     return unless response.present? && response.data['pages']
     extract_revisions(response.data['pages'])
+  end
+
+  def non_new_revisions(revisions)
+    revisions.reject { |rev| rev.new_article == true }
+             .map(&:mw_rev_id)
   end
 
   def extract_revisions(pages_data)
