@@ -16,6 +16,7 @@ class RevisionDataManager
     @importer = RevisionScoreImporter.new(wiki:, course:, update_service:)
   end
 
+  INCLUDED_NAMESPACES = [0, 2, 118].freeze
   # This method gets revisions and scores for them from different APIs.
   # Returns an array of Revision records.
   # As a side effect, it imports Article records.
@@ -36,12 +37,16 @@ class RevisionDataManager
     # Now get all the revisions
     # We need a slightly different article dictionary format here
     article_dict = @articles.each_with_object({}) { |a, memo| memo[a.mw_page_id] = a.id }
-    revisions = sub_data_to_revision_attributes(sub_data, users, article_dict)
+    @revisions = sub_data_to_revision_attributes(sub_data, users, article_dict)
 
     # TODO: resolve duplicates
     # DuplicateArticleDeleter.new(@wiki).resolve_duplicates(@articles)
 
-    @importer.get_revision_scores(revisions)
+    # We need to partition revisions because we don't want to calculate scores for revisions
+    # out of important spaces
+    (revisions_in_spaces, revisions_out_spaces) = partition_revisions
+
+    revisions_out_spaces.concat @importer.get_revision_scores(revisions_in_spaces)
   end
 
   ###########
@@ -107,5 +112,18 @@ class RevisionDataManager
         })
       end
     end.uniq(&:mw_rev_id)
+  end
+
+  # Partition revisions between those belonging to articles in/out of mainspace/userspace/draftspace
+  # We need this to avoid calculating scores for articles out of pertinent spaces
+  # Returns [revisions_in_spaces, revisions_out_spaces]
+  def partition_revisions
+    # Calculate articles out of mainspace/userspace/draftspace
+    excluded_articles = @articles
+                        .reject { |article| INCLUDED_NAMESPACES.include?(article.namespace) }
+                        .map(&:mw_page_id).freeze
+
+    [@revisions.select { |rev| excluded_articles.exclude?(rev.mw_page_id) },
+     @revisions.select { |rev| excluded_articles.include?(rev.mw_page_id) }]
   end
 end

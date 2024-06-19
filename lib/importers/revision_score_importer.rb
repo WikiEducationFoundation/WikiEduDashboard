@@ -47,7 +47,8 @@ class RevisionScoreImporter
 
   # Takes an array of Revision records, and returns an array of Revisions records
   # with scores completed.
-  def get_revision_scores(new_revisions)
+  def get_revision_scores(new_revisions) # rubocop:disable Metrics/AbcSize
+    return [] unless new_revisions
     scores = {}
     parent_scores = {}
     parent_revisions = {}
