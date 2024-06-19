@@ -1,9 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import TransitionGroup from '../common/css_transition_group';
-import withRouter from '../util/withRouter';
 import { Route, Routes } from 'react-router-dom';
 import Timeline from './timeline.jsx';
 // import Grading from './grading.jsx';
@@ -19,79 +17,59 @@ import {
 } from '../../actions/timeline_actions';
 import { getWeeksArray, getAllWeeksArray, getAvailableTrainingModules, editPermissions } from '../../selectors';
 
-const TimelineHandler = createReactClass({
-  displayName: 'TimelineHandler',
+const TimelineHandler = (props) => {
+  const [reorderable, setReorderable] = useState(false);
+  const [editableTitles, setEditableTitles] = useState(false);
 
-  propTypes: {
-    course_id: PropTypes.string,
-    course: PropTypes.object.isRequired,
-    current_user: PropTypes.object,
-    children: PropTypes.node,
-    controls: PropTypes.func,
-    weeks: PropTypes.array.isRequired,
-    loading: PropTypes.bool,
-    editableBlockIds: PropTypes.array,
-    all_training_modules: PropTypes.array,
-    fetchAllTrainingModules: PropTypes.func.isRequired,
-    editPermissions: PropTypes.bool.isRequired
-  },
+  useEffect(() => {
+    document.title = `${props.course.title} - ${I18n.t('courses.timeline_link')}`;
+    props.fetchAllTrainingModules();
+  }, [props.course.title, props.fetchAllTrainingModules]);
 
-  getInitialState() {
-    return {
-      reorderable: false,
-      editableTitles: false
-    };
-  },
-
-  componentDidMount() {
-    document.title = `${this.props.course.title} - ${I18n.t('courses.timeline_link')}`;
-    return this.props.fetchAllTrainingModules();
-  },
-
-  _cancelBlockEditable(blockId) {
+  const _cancelBlockEditable = (blockId) => {
     // TODO: Restore to persisted state for this block only
-    return this.props.cancelBlockEditable(blockId);
-  },
+    props.cancelBlockEditable(blockId);
+  };
 
-  _cancelGlobalChanges() {
-    this.setState({ reorderable: false });
-    this.setState({ editableTitles: false });
-    this.props.restoreTimeline();
-  },
+  const _cancelGlobalChanges = () => {
+    setReorderable(false);
+    setEditableTitles(false);
+    props.restoreTimeline();
+  };
 
-  _enableReorderable() {
-    return this.setState({ reorderable: true });
-  },
+  const _enableReorderable = () => {
+    setReorderable(true);
+  };
 
-  _enableEditTitles() {
-    return this.setState({ editableTitles: true });
-  },
+  const _enableEditTitles = () => {
+    setEditableTitles(true);
+  };
 
-  _resetTitles() {
+  const _resetTitles = () => {
     if (confirm(I18n.t('timeline.reset_titles_confirmation'))) {
-      this.props.resetTitles();
-      this.saveTimeline();
+      props.resetTitles();
+      saveTimeline();
     }
-  },
+  };
 
-  saveTimeline() {
-    this.setState({ reorderable: false });
-    this.setState({ editableTitles: false });
-    const toSave = { weeks: this.props.weeks };
-    this.props.persistTimeline(toSave, this.props.course_id);
-  },
+  const saveTimeline = () => {
+    setReorderable(false);
+    setEditableTitles(false);
+    const toSave = { weeks: props.weeks };
+    props.persistTimeline(toSave, props.course_id);
+  };
 
-  render() {
-    if (this.props.course.loading) {
+  const renderTimelineHandler = () => {
+    if (props.course.loading) {
       return <div />;
     }
-    const weekMeetings = CourseDateUtils.weekMeetings(this.props.course, this.props.course.day_exceptions);
+    const weekMeetings = CourseDateUtils.weekMeetings(props.course, props.course.day_exceptions);
     const openWeeks = CourseDateUtils.openWeeks(weekMeetings);
 
     const courseProps = {
       key: 'wizard_handler',
-      course: this.props.course,
-      weeks: this.props.weeks,
+      course: props.course,
+      weeks: props.weeks,
       open_weeks: openWeeks
     };
 
@@ -109,42 +87,57 @@ const TimelineHandler = createReactClass({
         </TransitionGroup>
 
         <Timeline
-          loading={this.props.loading}
-          course={this.props.course}
-          weeks={this.props.weeks}
-          allWeeks={this.props.allWeeks}
+          loading={props.loading}
+          course={props.course}
+          weeks={props.weeks}
+          allWeeks={props.allWeeks}
           week_meetings={weekMeetings}
-          editableBlockIds={this.props.editableBlockIds}
-          reorderable={this.state.reorderable}
-          editableTitles={this.state.editableTitles}
-          controls={this.props.controls}
-          persistCourse={this.props.persistTimeline}
-          saveGlobalChanges={this.saveTimeline}
-          saveBlockChanges={this.saveTimeline}
-          cancelBlockEditable={this._cancelBlockEditable}
-          cancelGlobalChanges={this._cancelGlobalChanges}
-          updateTitle={this.props.updateTitle}
-          resetTitles={this._resetTitles}
-          updateBlock={this.props.updateBlock}
-          enableReorderable={this._enableReorderable}
-          enableEditTitles={this._enableEditTitles}
-          all_training_modules={this.props.availableTrainingModules}
-          addWeek={this.props.addWeek}
-          addBlock={this.props.addBlock}
-          deleteBlock={this.props.deleteBlock}
-          insertBlock={this.props.insertBlock}
-          deleteWeek={this.props.deleteWeek}
-          deleteAllWeeks={this.props.deleteAllWeeks}
-          setBlockEditable={this.props.setBlockEditable}
+          editableBlockIds={props.editableBlockIds}
+          reorderable={reorderable}
+          editableTitles={editableTitles}
+          controls={props.controls}
+          persistCourse={props.persistTimeline}
+          saveGlobalChanges={saveTimeline}
+          saveBlockChanges={saveTimeline}
+          cancelBlockEditable={_cancelBlockEditable}
+          cancelGlobalChanges={_cancelGlobalChanges}
+          updateTitle={props.updateTitle}
+          resetTitles={_resetTitles}
+          updateBlock={props.updateBlock}
+          enableReorderable={_enableReorderable}
+          enableEditTitles={_enableEditTitles}
+          all_training_modules={props.availableTrainingModules}
+          addWeek={props.addWeek}
+          addBlock={props.addBlock}
+          deleteBlock={props.deleteBlock}
+          insertBlock={props.insertBlock}
+          deleteWeek={props.deleteWeek}
+          deleteAllWeeks={props.deleteAllWeeks}
+          setBlockEditable={props.setBlockEditable}
           nameHasChanged={() => false}
-          edit_permissions={this.props.editPermissions}
-          current_user={this.props.current_user}
+          edit_permissions={props.editPermissions}
+          current_user={props.current_user}
         />
         {/* {grading} */}
       </div>
     );
-  }
-});
+  };
+  return renderTimelineHandler();
+};
+
+TimelineHandler.propTypes = {
+  course_id: PropTypes.string,
+  course: PropTypes.object.isRequired,
+  current_user: PropTypes.object,
+  children: PropTypes.node,
+  controls: PropTypes.func,
+  weeks: PropTypes.array.isRequired,
+  loading: PropTypes.bool,
+  editableBlockIds: PropTypes.array,
+  all_training_modules: PropTypes.array,
+  fetchAllTrainingModules: PropTypes.func.isRequired,
+  editPermissions: PropTypes.bool.isRequired
+};
 
 const mapStateToProps = state => ({
   weeks: getWeeksArray(state),
@@ -172,4 +165,4 @@ const mapDispatchToProps = {
   fetchAllTrainingModules
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TimelineHandler));
+export default connect(mapStateToProps, mapDispatchToProps)(TimelineHandler);
