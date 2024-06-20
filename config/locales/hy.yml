@@ -432,4 +432,15 @@ hy:
     tools: Գործիքներ
   training_status:
     continue: Շարունակել
+  news:
+    footer:
+      P&E_dashboard:
+        link_text: Վիքիմեդիա
+    options:
+      news_content:
+        confirm_delete: Հաստատել
+  notes:
+    cancel_note_creation: Չեղարկել
+    cancel_edit_note: Չեղարկել
+    save_note: Հիշել
 ...

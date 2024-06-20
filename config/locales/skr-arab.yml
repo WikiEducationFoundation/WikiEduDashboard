@@ -324,10 +324,13 @@ skr-arab:
       news_content:
         confirm_delete: تصدیق
         cancel_delete: منسوخ
+      create_news:
+        cancel_post: پوسٹ منسوخ کرو
   notes:
     title: عنوان
     cancel_note_creation: منسوخ
     post_note: پوسٹ
     cancel_edit_note: منسوخ
+    save_note: بچاؤ
     delete_note: نوٹ مٹاؤ
 ...
