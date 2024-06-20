@@ -21,16 +21,11 @@ describe 'TrainingContent', type: :feature, js: true do
       before do
         login_as(admin, scope: :user)
         visit '/training'
-      end
-
-      it 'shows the "Create Training Library" button' do
-        expect(page).to have_selector('button.lib-create')
+        click_button 'Switch to Edit Mode'
       end
 
       it 'creates a new training library and verifies its creation' do
-        expect(page).to have_selector('button.lib-create')
-
-        find('button.lib-create').click
+        click_button 'Create New Library'
 
         fill_in 'Library Name', with: 'Testing Library'
         fill_in 'Library Slug', with: 'testing-library'
@@ -42,10 +37,8 @@ describe 'TrainingContent', type: :feature, js: true do
       end
 
       it 'prevents the creation of two libraries with the same slug' do
-        expect(page).to have_selector('button.lib-create')
-
         # Create the first library
-        find('button.lib-create').click
+        click_button 'Create New Library'
         fill_in 'Library Name', with: 'First Testing Library'
         fill_in 'Library Slug', with: 'duplicate-slug'
         fill_in 'Library Introduction', with: 'First instance of library creation.'
@@ -53,7 +46,7 @@ describe 'TrainingContent', type: :feature, js: true do
 
         # Try to create a second library with the same slug
         visit '/training'
-        find('button.lib-create').click
+        click_button 'Create New Library'
         fill_in 'Library Name', with: 'Second Testing Library'
         fill_in 'Library Slug', with: 'duplicate-slug'
         fill_in 'Library Introduction', with: 'Second instance of library creation.'
@@ -78,7 +71,7 @@ describe 'TrainingContent', type: :feature, js: true do
       end
 
       it 'does not show the "Create Training Library" button' do
-        expect(page).not_to have_selector('button.lib-create')
+        expect(page).not_to have_content('Create New Library')
       end
     end
   end
@@ -86,6 +79,8 @@ describe 'TrainingContent', type: :feature, js: true do
   describe 'TrainingCategory' do
     before do
       login_as(user, scope: :user)
+      visit '/training'
+      click_button 'Switch to Edit Mode'
       visit "/training/#{training_library.slug}"
     end
 

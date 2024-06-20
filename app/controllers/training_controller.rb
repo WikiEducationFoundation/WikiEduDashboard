@@ -23,6 +23,7 @@ class TrainingController < ApplicationController
     add_library_breadcrumb
     fail_if_entity_not_found(TrainingLibrary, params[:library_id])
     @library = TrainingLibrary.find_by(slug: params[:library_id])
+    @current_training_mode = current_training_mode
   end
 
   def training_module
@@ -68,7 +69,25 @@ class TrainingController < ApplicationController
     redirect_to "/training/#{training_library.slug}/#{training_module.slug}/#{training_slide.slug}"
   end
 
+  def fetch_training_mode
+    render json: { training_mode: current_training_mode }, status: :ok
+  end
+
+  def update_training_mode
+    edit_mode_value = params[:edit_mode]
+    store_training_mode_in_session(edit_mode_value)
+    render json: { message: 'Training Mode Updated Successfully.' }, status: :ok
+  end
+
   private
+
+  def current_training_mode
+    session[:training_mode] || { 'editMode' => false }
+  end
+
+  def store_training_mode_in_session(edit_mode_value)
+    session[:training_mode] = { 'editMode' => ActiveModel::Type::Boolean.new.cast(edit_mode_value) }
+  end
 
   def add_training_root_breadcrumb
     add_breadcrumb I18n.t('training.training_library'), :training_path
