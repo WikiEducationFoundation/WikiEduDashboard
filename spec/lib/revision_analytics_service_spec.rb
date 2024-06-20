@@ -91,43 +91,6 @@ describe RevisionAnalyticsService do
     end
   end
 
-  describe '.suspected_plagiarism' do
-    context 'not scoped to current user' do
-      subject { described_class.suspected_plagiarism }
-
-      context 'revision with no ithenticate_id' do
-        let(:r1_id) { nil }
-
-        it 'are not included' do
-          expect(subject).not_to include(revision)
-        end
-      end
-
-      context 'revision with ithenticate_id' do
-        let(:r1_id) { 5 }
-
-        it 'are included' do
-          expect(subject).to include(revision)
-          expect(subject).to include(revision3)
-        end
-      end
-    end
-
-    context 'scoped to courses of current user' do
-      subject { described_class.suspected_plagiarism(scoped: 'true', current_user: user) }
-
-      let(:r1_id) { 5 }
-
-      it 'includes a revision from their course' do
-        expect(subject).to include(revision)
-      end
-
-      it 'exludes a revision from outside their course' do
-        expect(subject).not_to include(revision3)
-      end
-    end
-  end
-
   describe '.recent_edits' do
     context 'not scoped to current user' do
       subject { described_class.recent_edits }

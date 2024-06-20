@@ -917,13 +917,21 @@ it:
     label: Nuovo nome utente
     button: Aggiorna
   uploads:
+    article_name: Nome dell'articolo
+    author: 'Autore:'
+    categories: Categorie
+    date: 'Data:'
+    description: Descrizione
     file_name: Nome del file
+    file_usage: Utilizzo del file su altri wiki
     header: File caricati su Wikimedia Commons
     image: Immagine
     label: Caricamenti
+    license: 'Licenza:'
     loading: Caricando gli upload...
     none: Questa classe non ha contribuito con alcuna immagine o altri file multimediali
       su Wikimedia Commons.
+    original_file: File originale
     uploaded_at: Ora caricamento
     uploader: Caricato da
     uploaded_by: Caricato da
@@ -932,6 +940,10 @@ it:
     usage_doc: Numero di voci di Wikipedia in cui appare questa immagine.
     usage_count_gallery_tile: Usata in %{usage_count} voci
     usages: Usi
+    source: 'Fonte:'
+    views_per_day: Visualizzazioni al giorno
+    view_commons: Vedi su Commons
+    wiki_big: Wiki
   users:
     already_enrolled: Quell'utente è già iscritto!
     assign_articles_done: Fatto

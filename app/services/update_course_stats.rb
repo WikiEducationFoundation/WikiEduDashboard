@@ -56,7 +56,7 @@ class UpdateCourseStats
   end
 
   def update_categories
-    Category.refresh_categories_for(@course)
+    Category.refresh_categories_for(@course, update_service: self)
     log_update_progress :categories_updated
   end
 

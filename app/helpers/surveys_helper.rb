@@ -133,8 +133,7 @@ module SurveysHelper
 
   def conditional_attribute(answer)
     return unless answer.question.conditionals?
-    string = strip_tags(answer.question.conditionals).tr(' ', '_').tr("'", "\\'")
-    string
+    strip_tags(answer.question.conditionals).tr(' ', '_').tr("'", "\\'")
   end
 
   def numeric_min(answer)

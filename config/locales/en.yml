@@ -69,7 +69,7 @@ en:
       other: "%{count} Results for: '%{search_terms}'"
     no_results: "No results found for '%{query}'"
     show_current_revision: Show current version
-    show_last_revision: Show last revision
+    show_last_revision: Show last edited version
     sign_up_extended: Sign up with Wikipedia
     sign_up_wikipedia: Or sign up on Wikipedia
 
@@ -1083,8 +1083,8 @@ en:
     edit_count_description: Total Edits
     error_count_message: The dashboard encountered %{error_count} error(s) during the most recent update.
     future_updates_remaining:
-      true: The stats will continue to be updated until %{date}.
-      false: The stats for this program are no longer being updated regularly.
+      updates_active: The stats will continue to be updated until %{date}.
+      updates_inactive: The stats for this program are no longer being updated regularly.
     last_reviewed: Last Reviewed
     missing_data_heading: Missing or unexpected results?
     missing_data_info: Common issues include
@@ -1220,7 +1220,7 @@ en:
     diff: diff
     diff_show: Show
     diff_hide: Hide
-    edit_time_span: Edits occurred from %{first_time} to %{last_time}
+    edit_time_span: 'Edits occurred from: %{first_time} to %{last_time}'
     edited_by: Edited By
     edited_on: Edited on %{edit_date}
     loading: Loading revisions...
@@ -1396,6 +1396,7 @@ en:
     no_training_library_records_non_wiki_ed_mode: There are no TrainingLibrary records in the database.
     search_training_resources: Search for training resources
     no_training_resource_match_your_search: No training resource matches your search
+    exercise_sandbox: Exercise Sandbox
 
   update_username:
     header: Update a changed username
@@ -1406,13 +1407,21 @@ en:
     button: Update
 
   uploads:
+    article_name: Article Name
+    author: "Author:"
+    categories: Categories
     credit: Credit
+    date: "Date:"
+    description: Description
     file_name: File Name
+    file_usage: File usage on other wikis
     header: Files Uploaded to Wikimedia Commons
     image: Image
     label: Uploads
+    license: "License:"
     loading: Loading uploads...
     none: This class has not contributed any images or other media files to Wikimedia Commons.
+    original_file: Original File
     select_label: Filter by uploader
     time_doc: The time of each upload in your local time
     uploaded_at: Upload Time
@@ -1425,7 +1434,11 @@ en:
     usages: Usages
     gallery_view: Gallery View
     list_view: List View
+    source: "Source:"
     tile_view: Tile View
+    views_per_day: Views per day
+    view_commons: View on Commons
+    wiki_big: Wiki
 
   users:
     already_enrolled: That user is already enrolled!
@@ -1475,7 +1488,7 @@ en:
     no_articles: No articles
     no_articles_wikidata: No items
     no_revisions: (no revisions)
-    no_highlighting: "No text from the current version of the article is attributed to user %{editor}. Check the page history to see their edits."
+    no_highlighting: "No text from this version of the article is attributed to user %{editor}. Check the page history to see their edits."
     contributions_not_highlighted: "Contributions from user %{username} are present, but cannot be highlighted. This typically occurs for added references or templates. Check the page history to see their edits."
     number_of_articles:
       one: "%{count} article"
@@ -1748,3 +1761,75 @@ en:
 
   multi_wiki:
     selector_placeholder: "Begin typing a wiki domain"
+
+  news:
+    nav_tooltip: "News & Recent Changes"
+    add_news: "Add News"
+    post_confirmation:
+      title: "Proceed to post the news update?"
+      confirmation: "Please confirm."
+    delete_confirmation:
+      title: "Proceed with deleting the news content?"
+      confirmation: "Please confirm."
+    no_updates:
+      message: "Currently, there are no news updates available"
+      check_later: "Please check back later."
+    header:
+      P&E_dashboard_title: "News & Recent Changes"
+      wiki_education_dashboard_title: "Wiki Education Dashboard News"
+    footer:
+      P&E_dashboard:
+        link_text: "Wikimedia"
+        footer_text: "Read News & Recent Changes"
+      wiki_education_dashboard:
+        link_text: "wikiedu.org/blog"
+        footer_text: "Other news from Wiki Education"
+    options:
+      news_content:
+        delete_news: "Delete News"
+        confirm_delete: "Confirm"
+        cancel_delete: "Cancel"
+        cancel_edit: "Cancel Edit"
+        edit_news: "Edit News"
+        update_news: "Update News"
+      create_news:
+        cancel_post: "Cancel Post"
+        confirm_post: "Confirm Post"
+        discard_post: "Discard News"
+        post_news: "Post News"
+    notification:
+      delete: "News Content Deleted Successfully"
+      update: "News Content Updated Successfully"
+      create_news: "News Content Published Successfully"
+      create_news_error: "Error creating news content. Please try again."
+      update_error: "Error Updating news content. Please try again."
+      empty_create_news_content_error: "Please enter news content before posting."
+      empty_update_news_content_error: "Please enter news content before Updating."
+    text_area_input:
+      placeholder: "Add News & Recent Changes"
+
+  notes:
+    title: "Title"
+    note_title: "Note Title"
+    note_text: "Note Text"
+    created: "The note has been created successfully."
+    updated: "The note has been updated successfully."
+    failure: "Unable to %{operation} the note. Please try again later."
+    empty_fields: "Please ensure all input fields are filled and try again."
+    edit: "The time of each edit is shown in your local time."
+    edited_by: "Edited By"
+    last_edited_by: "Displays the name of the admin who last edited the note."
+    deleted: "The note has been successfully deleted. It is no longer available in your notes."
+    delete_note_confirmation: "Delete Note: This action will permanently delete the note. Are you sure you want to proceed?"
+    delete_note_error: "Unable to delete the note. Please try again."
+    no_notes: "This course currently has no associated notes."
+    create_note: "Create Note"
+    cancel_note_creation: "Cancel"
+    post_note: "Post"
+    edit_note: "Edit Note"
+    cancel_edit_note: "Cancel"
+    save_note: "Save"
+    delete_note: "Delete Note"
+    admin:
+      button_text: "Admin Notes"
+      header_text: "Admin Notes Panel"

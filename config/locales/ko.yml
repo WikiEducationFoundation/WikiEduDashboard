@@ -14,6 +14,7 @@
 # Author: Priviet
 # Author: Revi
 # Author: SeoJeongHo
+# Author: Suleiman the Magnificent Television
 # Author: Yearning
 # Author: Ykhwong
 # Author: Yunbj
@@ -26,6 +27,7 @@ ko:
   number:
     human:
       decimal_units:
+        format: '%n%u'
         units:
           thousand: 천
           million: 백만
@@ -65,6 +67,8 @@ ko:
     search: 질문하기
     search_results: '다음 결과: ''%{search_terms}'''
     no_results: '''%{query}''의 결과를 찾을 수 없습니다'
+    show_current_revision: 현재 판 표시
+    show_last_revision: 마지막 판 표시
     sign_up_extended: 위키백과에 가입하기
     sign_up_wikipedia: 아니면 위키백과에 가입하세요
     sign_up_log_in_extended: 위키백과와 함께합니다
@@ -801,12 +805,20 @@ ko:
     kind:
       discussion: 토론
   uploads:
+    article_name: 문서 이름
+    author: '만든이:'
+    categories: 분류
+    date: '날짜:'
+    description: 설명
     file_name: 파일 이름
+    file_usage: 다른 위키에서 사용 중인 파일
     header: 위키미디어 공용에 올린 파일
     image: 그림
     label: 파일 올리기
+    license: '라이선스:'
     loading: 업로드 불러오는 중
     none: 이 수업은 위키미디어 공용에 어떠한 그림이나 미디어 파일도 기여하지 않았습니다.
+    original_file: 원본 파일
     select_label: 올린이별 필터
     time_doc: 현지시각으로 각 업로드의 시간이 표시됨
     uploaded_at: 올린 시간
@@ -817,6 +829,9 @@ ko:
     usage_doc: 이 그림이 표시되는 위키백과 문서의 수입니다.
     usage_count_gallery_tile: '%{usage_count}개 문서에 사용됨'
     usages: 사용
+    views_per_day: 일일 조회수
+    view_commons: 공용에서 보기
+    wiki_big: 위키
   users:
     assign_articles: 문서 할당
     assign_articles_wikidata: 할당된 항목

@@ -14,8 +14,9 @@ const CourseSubjectSelector = ({ updateCourse }) => {
       .then(resp => resp.json())
       .then((data) => {
         const jsonObj = data;
-        // Exctracting the 5th index of researchwrite.json that contains all the subjects
-        const subjectOptions = jsonObj[5].options;
+        // Extract the entry from researchwrite.json that contains all the subjects
+        const topicsEntry = jsonObj.find(entry => entry.key === 'topics');
+        const subjectOptions = topicsEntry.options;
         Object.keys(subjectOptions).forEach((key) => {
           if (subjectOptions.hasOwnProperty(key)) {
             opts.push({

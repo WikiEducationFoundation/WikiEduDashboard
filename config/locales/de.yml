@@ -1202,6 +1202,7 @@ de:
     search_training_resources: Suche nach Schulungsressourcen
     no_training_resource_match_your_search: Keine Trainingsressource entspricht deiner
       Suche
+    exercise_sandbox: Übungs-Sandbox
   uploads:
     credit: Danksagung
     file_name: Dateiname

@@ -142,6 +142,8 @@ sms:
       create_short: Raaj prograamm
       find: Ooʒʒ prograamm
       save_cloned_course: Ruõkk
+      scoping_methods:
+        templates: Maall
     delete_course: Jaukkâd prograamm
     explore: Ooʒʒ prograammi
   editable:
@@ -175,7 +177,7 @@ sms:
     diff_hide: Čiõǥǥ
     title: Nõmm
     see_more: Lââʹssteâđ
-    show_all: Čuäʹjet pukid
+    show_all: Čuäʹjet puk
   settings:
     categories:
       other_settings: Jeeʹres asetõõzz

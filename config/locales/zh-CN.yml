@@ -13,6 +13,7 @@
 # Author: Interestinghe
 # Author: Josephine W.
 # Author: Lakejason0
+# Author: LittlePaw365
 # Author: Liuxinyu970226
 # Author: Looong
 # Author: Macofe
@@ -52,6 +53,7 @@ zh-CN:
   accessibility:
     number_field: 这是一个数字字段。大多数浏览器渲染的按钮将递增和递减输入。
   application:
+    back: 返回
     cancel: 取消
     cookie_consent: 这个网站使用cookies来保持您的登录，并存储与您的维基百科帐户相关的信息。
     cookie_consent_acknowledge: 我懂了
@@ -83,6 +85,7 @@ zh-CN:
       one: '%{count} Result for: ''%{search_terms}'''
       other: '%{count} Results for: ''%{search_terms}'''
     no_results: 找不到“%{query}”的结果
+    show_current_revision: 显示当前版本
     sign_up_extended: 注册维基百科
     sign_up_wikipedia: 或在维基百科注册
     sign_up_log_in_extended: 通过维基百科
@@ -399,7 +402,7 @@ zh-CN:
       course_title: 课程标题
       create_button: 创建我的课程！
       create_label: 创建新的课程
-      create_new: 创建一个新课程
+      create_new: 创建新课程
       create_short: 创建课程
       end_date: 结束日期
       end_date_placeholder: 结束日期（YYYY-MM-DD）
@@ -607,7 +610,7 @@ zh-CN:
       course_title: 计划标题
       create_button: 创建我的计划！
       create_label: 创建新计划
-      create_new: 创建一个独立计划
+      create_new: 创建独立程序
       create_short: 创建计划
       end_date: 活跃追踪结束
       find: 寻找一个计划
@@ -848,6 +851,7 @@ zh-CN:
     wait: 请不要离开页面，因为阁下的培训进度正在更新。
     check_answer: 检查答案
     included_modules: 包含的模块
+    exercise_sandbox: 练习沙盒
   uploads:
     credit: 制作人员
     file_name: 文件名

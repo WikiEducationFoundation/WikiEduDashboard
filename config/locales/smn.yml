@@ -91,6 +91,8 @@ smn:
     cancel: Jooskâ
     creator:
       save_cloned_course: Vuorkkii
+      scoping_methods:
+        templates: Myenstereh
   editable:
     cancel: Jooskâ
     save: Vuorkkii

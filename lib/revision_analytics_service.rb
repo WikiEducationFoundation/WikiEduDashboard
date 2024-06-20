@@ -11,11 +11,6 @@ class RevisionAnalyticsService
     new(opts).dyk_eligible
   end
 
-  DEFAULT_PLAGIARISM_LIMIT = 20
-  def self.suspected_plagiarism(opts={})
-    new(opts).suspected_plagiarism
-  end
-
   DEFAULT_RECENT_EDITS_LIMIT = 30
   def self.recent_edits(opts={})
     new(opts).recent_edits
@@ -44,29 +39,15 @@ class RevisionAnalyticsService
     good_article_ids = good_student_revisions.pluck(:article_id)
 
     good_draft_ids = userspace_draft_ids(good_article_ids) + draft_space_ids(good_article_ids)
-    good_drafts = articles_sorted_by_latest_revision(good_draft_ids)
-    good_drafts
-  end
-
-  def suspected_plagiarism
-    if @course_ids
-      suspected_revisions = Revision.suspected_plagiarism
-                                    .where(user_id: student_ids)
-                                    .order(date: :desc).first(DEFAULT_PLAGIARISM_LIMIT)
-    else
-      suspected_revisions = Revision.suspected_plagiarism
-                                    .order(date: :desc).first(DEFAULT_PLAGIARISM_LIMIT)
-    end
-    suspected_revisions
+    articles_sorted_by_latest_revision(good_draft_ids)
   end
 
   def recent_edits
-    recent_revisions = if @course_ids
-                         Revision.user.where(user_id: student_ids).last(DEFAULT_RECENT_EDITS_LIMIT)
-                       else
-                         Revision.user.last(DEFAULT_RECENT_EDITS_LIMIT)
-                       end
-    recent_revisions
+    if @course_ids
+      Revision.user.where(user_id: student_ids).last(DEFAULT_RECENT_EDITS_LIMIT)
+    else
+      Revision.user.last(DEFAULT_RECENT_EDITS_LIMIT)
+    end
   end
 
   ##################
@@ -95,8 +76,7 @@ class RevisionAnalyticsService
     instructor_ids = CoursesUsers
                      .where(course_id: @course_ids, role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
                      .pluck(:user_id)
-    pure_student_ids = student_ids - instructor_ids
-    pure_student_ids
+    student_ids - instructor_ids
   end
 
   def userspace_draft_ids(article_ids)

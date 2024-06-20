@@ -9,7 +9,7 @@
 schedule_course_updates:
   cron: "*/5 * * * *" # execute at every 5 minutes
   class: "ScheduleCourseUpdatesWorker"
-  queue: constant_update
+  queue: default # Schedule course updates is a quick process, and default queue is usually empty.
 
 # Constant updates are independent of the main course stats, pulling in revision
 # metadata, generating alerts, and doing other data and network-intensive tasks,
@@ -38,3 +38,9 @@ open_ticket_emails:
   cron: "0 13,20 * * 1,2,3,4,5" # every weekday at 6am and 1pm PT (UTC -7)
   class: "TicketNotificationsWorker"
   queue: constant_update
+
+# Update default campaign at the beginning of spring and fall semesters (based on academic calendar - northern hemisphere)
+update_default_campaign:
+  cron: "1 0 1 1,7 *" # every January, 1st and July, 1st at 00:01 (UTC -7)
+  class: "DefaultCampaignUpdateWorker"
+  queue: default

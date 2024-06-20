@@ -498,7 +498,7 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
   }
 
   return (
-    <div className="pop__container" onClick={stop} ref={ref}>
+    <div className="pop__container assignment-popover" onClick={stop} ref={ref}>
       {showButton}
       {editButton}
       <Popover

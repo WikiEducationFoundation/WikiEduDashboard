@@ -1,6 +1,7 @@
 # Messages for British English (British English)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Ahecht
 # Author: Amjad Khan
 # Author: Baloch Khan
 # Author: Bjh21
@@ -139,6 +140,7 @@ en-gb:
     archived: Archived Courses
     actions: Actions
     articles: Articles
+    enroll_button_aria_label: Enrol Button
     assignment_end: Assignment End
     assignment_start: Assignment Start
     calendar:
@@ -154,6 +156,8 @@ en-gb:
       If so, type the title of the course to proceed.
     confirm_course_deletion_failed: '"%{title}" is not the title of this course. The
       course has not been deleted.'
+    controlled_by_event_center: Enrolment in this event is controlled by Wikimedia
+      Event Center. It cannot be joined from the Dashboard.
     course_dates_calendar_instructions: Select dates to add or remove them from the
       schedule (e.g., holidays, no school). Click the date to change between unselected,
       selected, and holiday state. The dates of course activities will change to account
@@ -205,8 +209,11 @@ en-gb:
     duration: Course Duration
     edit_course_dates: Edit Course Dates
     end: End
-    enroll: Enroll
+    enroll: Enrol
     enrollment: Add/Remove Students
+    enrollment_edits_enabled: Enrolment edits enabled
+    enrollment_edits_enabled_tooltip: If enabled, the dashboard will post a template
+      to the userpage and talk page of each editor who joins the program.
     error:
       exists: That course already exists! Please try again with a different title,
         school, or term.
@@ -224,6 +231,14 @@ en-gb:
     join_successful: You’ve successfully joined %{title}. The dashboard will automatically
       keep track of your contributions with periodic updates. Check back later to
       see what impact you've made!
+    join_failed: Enrolment failed.
+    join_failure_details:
+      not_yet_approved: This course has not yet been approved for enrolment.
+      invalid_sync: Enrolment in this event is controlled by Wikimedia Event Center.
+        It cannot be joined from the Dashboard.
+    join_details: To join this course, you need to get the passcode — or an enrolment
+      link that includes the passcode — from the instructor. If you haven't received
+      this, contact your instructor.
     leave_confirmation: Are you sure you want to leave this course?
     leave_course: Leave course
     loading: Cargando...
@@ -260,6 +275,9 @@ en-gb:
     students_count: '# Students'
     student_editors: Student Editors
     timeline_enabled: Timeline enabled
+  courses_generic:
+    published: 'This project has been published! Editors may enrol by visiting the
+      following URL:'
   recent_activity:
     active_courses: Article is active in
     datetime: Date/Time
