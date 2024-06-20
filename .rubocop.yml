@@ -42,6 +42,7 @@ Metrics/ClassLength:
     - 'lib/wiki_course_edits.rb'
     - 'lib/training/wiki_slide_parser.rb'
     - 'lib/wiki_assignment_output.rb'
+    - 'lib/course_training_progress_manager.rb'
 
 Metrics/AbcSize:
   Max: 23 # We should bring this down, ideally to the default of 15
