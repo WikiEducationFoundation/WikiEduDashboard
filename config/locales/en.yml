@@ -1402,6 +1402,7 @@ en:
     logged_out: "You are logged out. You will not receive credit for completing this module unless you log in."
     next: Next Page
     notice:
+      created: Created Successfully
       deleted: Deleted Successfully
     no_training_library_records_non_wiki_ed_mode: There are no TrainingLibrary records in the database.
     no_training_library_records_wiki_ed_mode: There are no TrainingLibrary records in the database. Click <a href="%{url}"> here</a> to load training data from the training_content/ yaml files.

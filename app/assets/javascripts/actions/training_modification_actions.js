@@ -64,6 +64,7 @@ export const createLibrary = (library, setSubmitting, toggleModal) => (dispatch)
         message: 'Library Created Successfully.',
         closable: true
     }));
+    window.location.reload();
   })
   .catch((error) => {
     performValidation(error, dispatch, libraryValidationRules);
@@ -94,6 +95,7 @@ export const createCategory = (library_id, category, setSubmitting, toggleModal)
           message: 'Category Created Successfully.',
           closable: true
       }));
+      window.location.reload();
   })
   .catch((error) => {
     performValidation(error, dispatch, categoryValidationRules);
