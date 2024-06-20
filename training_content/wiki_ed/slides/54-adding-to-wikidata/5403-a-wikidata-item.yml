@@ -3,7 +3,7 @@ title: "A Wikidata item"
 summary:
 content: |
   <figure class="alt-layout-80">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/a/ae/Datamodel_in_Wikidata.svg" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Sample_wikidata_screen_annotated.svg" />
     <figcaption class="image-credit">
       This image shows different elements for Wikidata items.
     </figcaption>
@@ -14,18 +14,19 @@ content: |
   At the top are the **label** and the item **identifier** (the Q number). Each item has
   a unique item identifier that distinguished it from all other items on Wikidata.
   The label is the name of the item in English (or whatever language you have set
-  up). Because Wikidata is multilingual, it's possible that the label will be 
+  as your default). Because Wikidata is multilingual, it's possible that the label will be
   different depending on the language you have set on your computer.
 
   Labels may not always be enough to help human readers distinguish one item
-  from another. In addition to the well-known author Douglas Adams, there's a
-  British painter (<code>Q21454969</code>), an American engineer (<code>Q28421831</code>), and even an
-  American cricket player (<code>Q10268476</code>). So how do we tell them apart? That's
-  where the **description** comes in. This Douglas Adams is described as an "English
-  writer and humorist". Another description that might help identify him could
-  be "author of the *Hitchhiker's Guide to the Galaxy*".
+  from another. In addition Benjamin Frey, the Cherokee language expert, there is another
+  Benjamin Frey (<code>Q38326649</code>), who specializes in medical research.
+  With the exact same name, how do we tell them apart? That's
+  where the **description** comes in. This Benjamin Frey is described as a
+  "a sociolinguistic professor and researcher". Another description that might help identify him could
+  be "advocate for the preservation of the Cherokee language".
 
-  Next to descriptions are **aliases** – in this case, we have "Douglas Nöel Adams"
-  and "Douglas Noel Adams". While each item can only have one label (per language
-  version) it can have multiple aliases. Like the description field, aliases help
-  us to narrow down which specific Douglas Adams we're looking for.
+  Next to descriptions are **aliases** – in this case, we have "Ben Frey,"
+  which demonstrates how this is an idea location for nicknames, formal names,
+  and other kinds of aliases for people. While each item can only have one label
+  (per language version) it can have multiple aliases. Like the description field,
+  aliases help us to narrow down which specific Benjamin Frey we're looking for.
