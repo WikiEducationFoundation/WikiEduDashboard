@@ -12,6 +12,10 @@ class AlertMailerPreview < ActionMailer::Preview
     AlertMailer.alert(example_blocked_edits_alert, example_user)
   end
 
+  def blocked_student_alert
+    BlockedUserAlertMailer.email(example_user_blocked_alert)
+  end
+
   def check_timeline_alert
     AlertMailer.alert(example_alert(type: 'CheckTimelineAlert'), example_user)
   end
@@ -135,5 +139,18 @@ class AlertMailerPreview < ActionMailer::Preview
     Alert.new(type: 'BlockedEditsAlert',
               user: example_user,
               details:)
+  end
+
+  def example_user_blocked_alert
+    user = example_user
+    message = "Student #{user.username} have been blocked on Wikipedia.
+This mail to inform staff, student as well as instructors."
+    alert = Alert.new(type: 'BlockedUserAlert', user:,
+                      course: example_course, message:)
+    alert.tap do |alrt|
+      alrt.define_singleton_method(:main_subject) do
+        "User #{user.username} have been blocked on Wikipedia"
+      end
+    end
   end
 end
