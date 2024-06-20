@@ -26,6 +26,7 @@
 # Author: Mariagarbin
 # Author: Maxan
 # Author: Mello25
+# Author: Mellogabi03
 # Author: Pedrofariasm
 # Author: Peter Fernando
 # Author: Raphaelras
@@ -105,8 +106,8 @@ pt-br:
     ready_for_review: Expandir rascunho
     ready_for_mainspace: Mover o trabalho para o domínio principal
     assignment_completed: Tarefa marcada como concluída
-    reading_the_article: Ler o artigo
-    providing_feedback: Fornecer comentários
+    reading_the_article: Lendo o artigo
+    providing_feedback: Providenciando comentários
     post_to_talk: Postar na página de discussão
     peer_review_completed: Revisão concluída
   dashboard:
@@ -181,7 +182,7 @@ pt-br:
       e término são listadas abaixo. O painel analisa as contribuições da wiki principal
       desse programa, assim como outras wiki para as quais houver um Artigo Atribuído
       ou Disponível.
-    deleted: (excluído)
+    deleted: (deletado)
     does_not_exist: O artigo não existe. Crie uma página de testes e atribua a você
       próprio para receber sugestões.
     edited: Artigos editados
@@ -193,9 +194,9 @@ pt-br:
       new: Novo
       existing: Existentes
       new_and_existing: Novos e existentes
-      tracked: Vigiados
-      untracked: Não vigiados
-      tracked_and_untracked: Vigiados e não vigiados
+      tracked: Rastreado
+      untracked: Não rastreado
+      tracked_and_untracked: Rastreados e não rastreados
     filter_text: 'Filtros:'
     find: Encontrar artigos
     how_to_find: Como encontrar artigos
@@ -214,14 +215,15 @@ pt-br:
     rating_docs:
       fa: '%{class} (Artigo destacado) — a qualidade mais alta da Wikipédia, provavelmente
         um artigo muito desenvolvido para ser o projeto principal de um novo editor'
-      fl: '%{class} (Lista destacada) — a qualidade mais alta da Wikipédia para listas'
+      fl: '%{class} (Lista em destaque) — a qualidade mais alta da Wikipédia para
+        listas'
       a: Qualidade %{class} — um artigo muito desenvolvido que pode ser muito desenvolvido
         para ser o projeto principal de um editor novo
       ga: '%{class} (Artigo bom) — um artigo bem desenvolvido que pode ser demais
         para ser o projeto principal de um editor novo'
-      b: Qualidade %{class} — um artigo moderadamente desenvolvido
-      c: Qualidade %{class} — um artigo mediano com possibilidades de melhoramento
-      start: Qualidade %{class} — um artigo preliminar com muito espaço para melhora
+      b: Classe %{class} — um artigo moderadamente desenvolvido
+      c: Classe %{class} — um artigo intermédio com possibilidades de melhora
+      start: Classe %{class} — um artigo preliminar com muito espaço para melhora
       stub: Qualidade %{class} — um artigo em estágio inicial, que precisa de mais
         conteúdo
       list: Qualidade %{class} — uma lista em vez de um artigo convencional
@@ -237,9 +239,9 @@ pt-br:
     show_current_version_with_authorship_highlighting: Versão atual com destaque de
       autoria
     title: Título
-    tracked: Vigiados
-    tracked_doc: Apenas artigos vigiados contribuem para as estatísticas deste programa.
-      Quando os artigos são marcados como não vigiados, eles serão removidos das estatísticas
+    tracked: Rastreado
+    tracked_doc: Apenas itens rastreados contribuem para as estatísticas deste programa.
+      Quando os itens são marcados como não rastreados, eles serão removidos das estatísticas
       durante a próxima atualização de dados.
     title_example: Título do artigo
     tools: Ferramentas de avaliação
@@ -254,12 +256,13 @@ pt-br:
     wiki: Wiki
     wp10: Integridade Estrutural
     wp10_doc: A nota de 'Integridade Estrutural' indica o quanto um artigo se encaixa
-      no molde de um artigo maduro da Wikipédia, baseado no serviço de aprendizado
-      por máquina ORES (https://ores.wikimedia.org/). Essas notas são calculadas baseadas
-      no tamanho de um artigo, o número de referências e ligações internas, e outras
-      características básicas. Uma nota alta geralmente indica que um artigo segue
-      as convenções da Wikipédia para a estrutura de um bom artigo, mas não considera
-      o conteúdo em si. (Essas notas só estão disponíveis para a Wikipédia anglófona.)
+      no molde de um artigo maduro da Wikipédia, com base no Serviço Objetivo de Avaliação
+      de Revisões (https://ores.wikimedia.org/). Estas notas são calculadas com base
+      no tamanho de um artigo, número de referências, hiperligações das wikis e outras
+      funcionalidades básicas do texto wiki. Uma nota alta geralmente indica que um
+      artigo segue as convenções da Wikipédia sobre a estrutura de um artigo bom,
+      mas não leva em conta o conteúdo em si. (Estas notas só estão disponíveis para
+      os artigos da Wikipédia em inglês.)
     articles_short: Artigos
     deleted_message: De acordo com os dados do Dashboard, esta página foi excluída.
       (Em alguns casos, movimentos de página, mesclagem de histórico ou outras ações
@@ -329,7 +332,7 @@ pt-br:
     confirm_deletion: Tem certeza de que deseja excluir esta tarefa?
     delete: Remover e Deletar
     editors: Atribuído a
-    change_sandbox_url: Alterar página de testes
+    change_sandbox_url: Alterar sandbox (página de teste)
     group_members: Membros do grupo
     label: Atribuir
     label_all: Atribuir tudo
@@ -378,14 +381,14 @@ pt-br:
     review_tooltip_wikidata: Isso é para itens que você planeja revisar por pares
       ou fornecer comentários.
     sandbox_draft_link: Rascunho de teste
-    sandbox_redlink_info: Esta ligação está vermelha pois a página não foi criada
-      ainda. (Se foi criada recentemente, o painel atualizará em breve.)
+    sandbox_redlink_info: Esse link é vermelho pois a página não foi criado ainda.
+      (Se foi criada recentemente, o painel atualizará em breve.)
     select: Selecionar
     submit: Enviar
-    invalid_url: Não foi possível atualizar a URL da página de teste. A URL %{url}
-      não é uma URL válida da Wikipédia.
-    mismatched_wiki: Não foi possível atualizar a URL da página de teste. A URL %{url}
-      não é da mesma wiki.
+    invalid_url: Não foi possível atualizar a URL da sandbox (página de teste). A
+      URL %{url} não é uma URL válida da Wikipédia.
+    mismatched_wiki: Não foi possível atualizar a URL da sandbox (página de teste).
+      A URL %{url} não é da mesma wiki.
     warning_untracked_wiki: 'Observe que o artigo que você escolheu está em uma wiki
       não rastreado por este curso. Para acompanhar as contribuições para este artigo,
       um instrutor deve adicionar a seguinte wiki a este curso: %{wiki}'
@@ -446,7 +449,7 @@ pt-br:
     disable_account_requests: Desativar solicitações de conta
     enable_account_requests: Ativar as solicitações de contas
     newest_campaigns: Campanhas mais recentes
-    featured_campaigns: Campanhas Destacadas
+    featured_campaigns: Campanhas em destaque
     instructors_course: instrutores por curso
     no_alerts: Esta campanha não tem alertas
     no_passcode: sem código de acesso
@@ -1120,8 +1123,8 @@ pt-br:
     error_count_message: O painel de controle encontrou %{error_count} erro(s) durante
       a atualização mais recente.
     future_updates_remaining:
-      1: As estatísticas continuarão sendo atualizadas até %{date}.
-      "": As estatísticas deste programa não são mais atualizadas regularmente.
+      updates_active: As estatísticas continuarão sendo atualizadas até %{date}.
+      updates_inactive: As estatísticas deste programa não são mais atualizadas regularmente.
     last_reviewed: Última revisão
     missing_data_heading: Resultados ausentes ou inesperados?
     missing_data_info: Problemas comuns incluem
@@ -1488,9 +1491,9 @@ pt-br:
     usage_doc: Número de artigos da Wikipédia em que esta imagem aparece.
     usage_count_gallery_tile: Usada em %{usage_count} artigos
     usages: Usos
-    gallery_view: Visualização de Galeria
-    list_view: Visualização de Lista
-    tile_view: Visualização de Miniatura
+    gallery_view: Visualização em Galeria
+    list_view: Visualização em lista
+    tile_view: Visualização em bloco
   users:
     already_enrolled: Aquele usuário já está inscrito!
     assign_articles: Indicar artigos

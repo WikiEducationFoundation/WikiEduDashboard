@@ -1055,8 +1055,8 @@ da:
     error_count_message: Der opstod %{error_count} fejl på dit kontrolpanel under
       den seneste opdatering.
     future_updates_remaining:
-      1: Statistikken vil fortsætte med at blive opdateret indtil %{date}
-      "": Statistikkerne for dette program opdateres ikke længere regelmæssigt.
+      updates_active: Statistikken vil fortsætte med at blive opdateret indtil %{date}
+      updates_inactive: Statistikkerne for dette program opdateres ikke længere regelmæssigt.
     last_reviewed: Seneste gennemsyn
     missing_data_heading: Manglende eller uventede resultater?
     missing_data_info: Typiske sager indeholder

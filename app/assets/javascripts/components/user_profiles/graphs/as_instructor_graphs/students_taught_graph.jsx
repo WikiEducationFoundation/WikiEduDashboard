@@ -1,5 +1,4 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 const renderGraph = (statsData, graphWidth, graphHeight, courseStringPrefix) => {
@@ -100,23 +99,18 @@ const renderGraph = (statsData, graphWidth, graphHeight, courseStringPrefix) => 
   vegaEmbed('#StudentsTaughGraph', vegaSpec, { defaultStyle: true, actions: { source: false } });
 };
 
-const StudentsTaughtGraph = createReactClass({
-  displayName: 'StudentsTaughtGraph',
-
-  componentDidMount() {
-    renderGraph(this.props.statsData, this.props.graphWidth, this.props.graphHeight, this.props.courseStringPrefix);
-  },
-
-  render() {
+const StudentsTaughtGraph = (props) => {
+  useEffect(() => {
+    renderGraph(props.statsData, props.graphWidth, props.graphHeight, props.courseStringPrefix);
+  }, []);
     return (
       <div id ="stats_graph">
-        <h5> {I18n.t(`${this.props.courseStringPrefix}.students_taught`)} </h5>
+        <h5> {I18n.t(`${props.courseStringPrefix}.students_taught`)} </h5>
         <div id= "StudentsTaughGraph" />
       </div>
     );
-  }
-});
-
+  };
+StudentsTaughtGraph.displayName = 'StudentsTaughtGraph';
 StudentsTaughtGraph.propTypes = {
   statsData: PropTypes.array,
   graphWidth: PropTypes.number,

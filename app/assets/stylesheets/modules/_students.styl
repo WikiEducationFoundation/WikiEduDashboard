@@ -17,6 +17,7 @@
 .users-articles
   align-items flex-start
   display flex
+  width 100%
   aside.student-selection
     border-bottom 1px solid #DDDDDD
     border-top 1px solid #DDDDDD
@@ -47,7 +48,7 @@
           font-weight bold
   article.student-details
     flex 4
-    padding 5px 30px
+    padding 5px 0px 5px 30px
     section.assignments
       h4
         color #6A6A6A
@@ -87,6 +88,7 @@
     tr.article-row
       .article-title
         max-width 200px
+        overflow-wrap anywhere
       &:hover
         cursor default
 .sort-select.users

@@ -1,0 +1,27 @@
+# Messages for Dagaare (Dagaare)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Domo John
+# Author: Linus Konkor
+---
+dga:
+  update_username:
+    header: De detoŋ yoleɛraa yelpaaba eŋ
+    not_found: Ba nyɛ detona ko a detoŋ yuori fo naŋ eŋ.
+    username_updated: Detoŋ yuori yelpaaba eŋɛɛ la ne laafeɛ
+    info: Ka detonaŋ wa leɛre a o saseɛ yeltarre akaote detoŋ yuori, eŋ a detoŋ yopaalaa
+      kyɛ a eŋ yelpaaba a niŋeŋ
+    label: Detoŋ yopaalaa
+    button: Eŋ yelpaaba
+  uploads:
+    article_name: Atekele yuori
+    author: Sɛgerɛ
+    categories: Gbulo
+    date: Bebiri
+    description: Bigruu
+    original_file: Pɛl meŋɛ
+    source: Yiibu zie
+    views_per_day: Bebiri zaa neŋkaare
+    view_commons: Bɛlle commone eŋɛ
+    wiki_big: Wiki
+...

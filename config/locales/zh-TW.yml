@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Aa10240tw
+# Author: Cookai1205
 # Author: Cwlin0416
 # Author: Ffaarr
 # Author: Kly
@@ -31,6 +32,7 @@ zh-TW:
   accessibility:
     number_field: 這是數字欄位。在大多數瀏覽器，這個按鈕會讓使用者可以按按鈕來加一或減一。
   application:
+    back: 返回
     cancel: 取消
     cookie_consent: 此網站使用 cookies 來保持您的登入狀態，並儲存您的維基百科帳號相關資訊。
     cookie_consent_acknowledge: 我了解
@@ -300,7 +302,7 @@ zh-TW:
       title: 里程碑
   campaign:
     active_campaigns: 活躍競賽
-    add_organizer: 添加組織者
+    add_organizer: 新增籌辦人員
     alert_article: 條目標題
     alert_label: 競賽提醒
     alert_select_label: 依警告類型篩選
@@ -355,12 +357,12 @@ zh-TW:
     no_alerts: 此競賽沒有提醒
     no_passcode: 沒有選課代碼
     none: 無
-    organizers: 組織者
-    organizer_added: '%{user}現在是競賽「%{title}」的組織者'
-    organizer_removed: '%{user}已被移除競賽「%{title}」的組織者身份'
+    organizers: 籌辦人員
+    organizer_added: '%{user}現在是競賽「%{title}」的籌辦人員'
+    organizer_removed: '%{user}已被移除競賽「%{title}」的籌辦人員身份'
     pages_edited_small: 已編輯頁面
     program_template: 方案模板
-    program_template_tooltip: 當組織者建立在此競賽的一個方案時，區域裡的文字會複製作為方案頁面上的描述
+    program_template_tooltip: 當籌辦人員建立在此競賽的一個方案時，區域裡的文字會複製作為方案頁面上的描述
     random_passcode: 隨機選課代碼
     remove_course_tooltip: 從競賽裡移除。
     requested_accounts: 申請的帳號
@@ -923,8 +925,8 @@ zh-TW:
     edit_count_description: 總編輯數
     error_count_message: 功能面板在最近更新期間遇到 %{error_count} 個錯誤。
     future_updates_remaining:
-      1: 統計內容會持續更新直到 %{date}。
-      "": 此方案的統計內容不再定期更新。
+      updates_active: 統計內容會持續更新直到 %{date}。
+      updates_inactive: 此方案的統計內容不再定期更新。
     last_reviewed: 最新審核
     missing_data_heading: 缺少或非預期的結果？
     missing_data_info: 常見問題包括
@@ -1207,6 +1209,7 @@ zh-TW:
     no_training_library_records_non_wiki_ed_mode: 資料庫裡沒有 TrainingLibrary 紀錄。
     search_training_resources: 培訓資源搜尋
     no_training_resource_match_your_search: 沒有符合您要搜尋的培訓資源
+    exercise_sandbox: 練習沙盒
   update_username:
     header: 更新已更改的使用者名稱
     not_found: 找不到所輸入名稱的使用者。
@@ -1215,13 +1218,21 @@ zh-TW:
     label: 新使用者名稱
     button: 更新
   uploads:
+    article_name: 條目名稱
+    author: 作者：
+    categories: 分類
     credit: 製作者
+    date: 日期：
+    description: 描述
     file_name: 檔案名稱
+    file_usage: 在其他 wiki 的檔案使用情況
     header: 上傳到維基共享資源的檔案
     image: 圖片
     label: 上傳
+    license: 授權條款：
     loading: 上傳載入中⋯⋯
     none: 此班級未上傳任何圖片或媒體檔案至維基共享資源。
+    original_file: 原始檔案
     select_label: 依上傳者篩選
     time_doc: 每個上傳檔案的時間 (顯示為您使用的本地時間)
     uploaded_at: 上傳時間
@@ -1234,7 +1245,11 @@ zh-TW:
     usages: 使用狀況
     gallery_view: 圖庫檢視
     list_view: 清單檢視
+    source: 來源：
     tile_view: 圖塊檢視
+    views_per_day: 每日查看次數
+    view_commons: 在維基共享資源檢視
+    wiki_big: Wiki
   users:
     already_enrolled: 這位使用者已經登記！
     assign_articles: 分配條目
@@ -1278,7 +1293,7 @@ zh-TW:
     no_articles: 沒有條目
     no_articles_wikidata: 沒有項目
     no_revisions: （無修訂）
-    no_highlighting: 條目的目前版本中沒有文字內容歸因於使用者「%{editor}」。檢查頁面歷史來查看他們的編輯。
+    no_highlighting: 此條目版本中沒有歸因於使用者「%{editor}」的文字內容。請檢查頁面歷史來查看他們的編輯。
     contributions_not_highlighted: 無法突顯出來自使用者%{username}的貢獻。這種情況通常發生在所添加的參考或模板上。請檢查頁面歷史記錄來查看他們的編輯。
     number_of_articles:
       one: '%{count} 個條目'

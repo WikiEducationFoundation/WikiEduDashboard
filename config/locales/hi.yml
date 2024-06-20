@@ -26,6 +26,7 @@ hi:
     number_field: यह एक नंबर वाली जगह है। कई ब्राउज़र में निहित बटन से निवेश में बढ़ोतरी
       या कमी आएगी।
   application:
+    back: पीछे जाएँ
     cancel: रद्द करें
     cookie_consent: यह साइट आपको लॉग इन रखने के लिए कुकीज़ का उपयोग करती है और आपके
       विकिपीडिया खाते से संबंधित जानकारी संग्रहीत करती है।
@@ -437,4 +438,14 @@ hi:
   training_status:
     completed: पूर्ण
     not_started: प्रारम्भ नहीं हुआ
+  news:
+    post_confirmation:
+      confirmation: कृपया पुष्टि करें।
+    options:
+      news_content:
+        cancel_delete: रद्द करें
+  notes:
+    title: शीर्षक
+    cancel_note_creation: रद्द करें
+    save_note: सहेजें
 ...

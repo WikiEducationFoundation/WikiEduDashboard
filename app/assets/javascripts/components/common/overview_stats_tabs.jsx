@@ -7,7 +7,7 @@ import OverviewStatsContent from './OverviewStats/overview_stats_content';
 import { wikiNamespaceLabel } from '../../utils/wiki_utils';
 
 
-const OverviewStatsTabs = ({ statistics }) => {
+const OverviewStatsTabs = ({ course, statistics }) => {
   if (Object.keys(statistics).length === 0) { return null; }
 
   const [currentTabId, setCurrentTabId] = useState(0);
@@ -44,7 +44,7 @@ const OverviewStatsTabs = ({ statistics }) => {
     index += 1;
   });
 
-  const content = <OverviewStatsContent content={statsList[currentTabId]} />;
+  const content = <OverviewStatsContent course={course} content={statsList[currentTabId]} />;
   // Hide tabs container if there is only one tab
   const tabsClass = `tabs-container${(tabsList.length === 1) ? ' hide' : ''}`;
 

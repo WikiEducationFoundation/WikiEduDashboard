@@ -40,6 +40,7 @@ qqq:
     number_field: Descriptive text for screen readers to explain how the number field
       works
   application:
+    back: Button to go back
     cancel: |-
       Button to cancel an action
       {{Identical|Cancel}}
@@ -233,6 +234,11 @@ qqq:
     no_available: |-
       Message indicating that there are no articles in the list of "available
       articles" for participants to select from.
+    random_peer_review:
+      confirm_addition: '"Assign/remove a peer review" is {{msg-wm|Wikiedudashboard-assignments.review
+        other}}.'
+      confirm_addition_wikidata: '"Assign/remove a peer review" is {{msg-wm|Wikiedudashboard-assignments.review
+        other}}.'
     remove: |-
       Button to remove an article from the list of available articles
       {{Identical|Remove}}

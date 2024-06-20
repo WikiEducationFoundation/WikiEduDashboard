@@ -1,0 +1,30 @@
+# Messages for Kongo (Kongo)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Bergerdias
+# Author: Cgmbo
+---
+kg:
+  application:
+    back: Nima
+    show_current_revision: Sibga version ya mpa
+    show_last_revision: Songa version ya nsuka
+  campaign:
+    students_small: balongoki
+  courses:
+    course_type_label: 'Mutindu:'
+  recent_activity:
+    report: Funda
+  training:
+    exercise_sandbox: Fulu ya kusala bangalasisi
+  uploads:
+    article_name: Zina ya Disolo
+    author: 'Munkwa:'
+    date: 'Dati:'
+    description: Ntendula
+    file_usage: Mutindu bo ke sadila fishie na ba wikis ya nkaka
+    license: 'Nswa:'
+    original_file: Fishie ya Kisina
+    source: 'Kisina:'
+    wiki_big: Wiki
+...

@@ -14,6 +14,8 @@ class CopyCourse
     copy_tracked_categories_data
     @users_data = retrieve_users_data
     copy_users_data
+    @timeline_data = retrieve_timeline_data
+    copy_timeline_data
     return { course: @course, error: nil }
   rescue ActiveRecord::RecordInvalid, StandardError => e
     return { course: nil, error: e.message }
@@ -24,7 +26,7 @@ class CopyCourse
   def copy_main_course_data
     # Extract the attributes we want to copy
     params_to_copy = %w[school title term description start end subject slug timeline_start
-                        timeline_end type flags]
+                        timeline_end type flags weekdays]
     copied_data = {}
     params_to_copy.each { |p| copied_data[p] = @course_data[p] }
     @home_wiki = Wiki.get_or_create(language: @course_data['home_wiki']['language'],
@@ -84,6 +86,30 @@ class CopyCourse
   def retrieve_course_data
     response = get_request('/course.json')
     JSON.parse(response.body)['course']
+  end
+
+  def retrieve_timeline_data
+    response = get_request('/timeline.json')
+    JSON.parse(response.body)['course']
+  end
+
+  def copy_timeline_data
+    @timeline_data['weeks'].each do |week_data|
+      week = Week.new(
+        course_id: @course.id,
+        title: week_data['title'],
+        order: week_data['order']
+      )
+      week.save!
+      week_data['blocks'].each do |block_data|
+        block_attributes = {
+          week_id: week.id, title: block_data['title'], content: block_data['content'],
+          order: block_data['order'], kind: block_data['kind']
+        }
+        block = Block.new(block_attributes)
+        block.save!
+      end
+    end
   end
 
   def retrieve_categories_data

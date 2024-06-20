@@ -1,70 +1,56 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { reviewAnswer } from '../../actions/training_actions.js';
 
 const md = require('../../utils/markdown_it.js').default();
 
-const Quiz = createReactClass({
-  displayName: 'Quiz',
+const Quiz = (props) => {
+  const [selectedAnswerId, setSelectedAnswerId] = useState(null);
 
-  propTypes: {
-    selectedAnswerId: PropTypes.number,
-    correctAnswer: PropTypes.number,
-    selectedAnswer: PropTypes.number,
-    answers: PropTypes.array,
-    question: PropTypes.string
-  },
+ const setAnswer = (e) => {
+    return setSelectedAnswerId(e.currentTarget.getAttribute('data-answer-id'));
+  };
 
-  getInitialState() {
-    return { selectedAnswerId: null };
-  },
+  const reviewAnswers = (id) => {
+    return props.reviewAnswer(id);
+  };
 
-  setAnswer(e) {
-    return this.setState({ selectedAnswerId: e.currentTarget.getAttribute('data-answer-id') });
-  },
-
-  reviewAnswer(id) {
-    return this.props.reviewAnswer(id);
-  },
-
-  verifyAnswer(e) {
+  const verifyAnswer = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    return this.reviewAnswer(this.state.selectedAnswerId);
-  },
+    return reviewAnswers(selectedAnswerId);
+  };
 
-  correctStatus(answer) {
-    if (this.props.correctAnswer === answer) {
+  const correctStatus = (answer) => {
+    if (props.correctAnswer === answer) {
       return ' correct';
     }
     return ' incorrect';
-  },
+  };
 
-  visibilityStatus(answer) {
-    if (this.props.selectedAnswer === answer) {
+  const visibilityStatus = (answer) => {
+    if (props.selectedAnswer === answer) {
       return ' shown';
     }
     return ' hidden';
-  },
+  };
 
-  render() {
-    const answers = this.props.answers.map((answer, i) => {
+    const answers = props.answers.map((answer, i) => {
       let explanationClass = 'assessment__answer-explanation';
-      explanationClass += this.correctStatus(answer.id);
-      explanationClass += this.visibilityStatus(answer.id);
-      const defaultChecked = parseInt(this.props.selectedAnswer) === answer.id;
-      const checked = this.state.selectedAnswerId ? parseInt(this.state.selectedAnswerId) === answer.id : defaultChecked;
-      let liClass = this.visibilityStatus(answer.id) === ' shown' ? ' revealed' : undefined;
-      liClass += this.correctStatus(answer.id);
+      explanationClass += correctStatus(answer.id);
+      explanationClass += visibilityStatus(answer.id);
+      const defaultChecked = parseInt(props.selectedAnswer) === answer.id;
+      const checked = selectedAnswerId ? parseInt(selectedAnswerId) === answer.id : defaultChecked;
+      let liClass = visibilityStatus(answer.id) === ' shown' ? ' revealed' : undefined;
+      liClass += correctStatus(answer.id);
       const rawExplanationHtml = md.render(answer.explanation);
       return (
         <li key={i} className={liClass}>
           <label>
             <div>
               <input
-                onChange={this.setAnswer}
+                onChange={setAnswer}
                 data-answer-id={answer.id}
                 checked={checked}
                 type="radio"
@@ -80,17 +66,25 @@ const Quiz = createReactClass({
 
     return (
       <form className="training__slide__quiz">
-        <h3>{this.props.question}</h3>
+        <h3>{props.question}</h3>
         <fieldset>
           <ul>
             {answers}
           </ul>
         </fieldset>
-        <button className="btn btn-primary ghost-button capitalize btn-med" onClick={this.verifyAnswer}> {I18n.t('training.check_answer')} </button>
+        <button className="btn btn-primary ghost-button capitalize btn-med" onClick={verifyAnswer}> {I18n.t('training.check_answer')} </button>
       </form>
     );
-  }
-});
+  };
+Quiz.displayName = 'Quiz';
+
+Quiz.propTypes = {
+    selectedAnswerId: PropTypes.number,
+    correctAnswer: PropTypes.number,
+    selectedAnswer: PropTypes.number,
+    answers: PropTypes.array,
+    question: PropTypes.string
+  };
 
 const mapDispatchToProps = {
   reviewAnswer

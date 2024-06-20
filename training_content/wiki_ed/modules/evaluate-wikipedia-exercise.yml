@@ -13,3 +13,4 @@ slides:
   - slug: option-activity #3407
 settings:
   sandbox_location: 'Evaluate_an_Article'
+  preload: 'Template:Dashboard.wikiedu.org_evaluate_article'

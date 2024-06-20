@@ -299,10 +299,6 @@ class Course < ApplicationRecord
     end.flatten
   end
 
-  def suspected_plagiarism
-    revisions.suspected_plagiarism
-  end
-
   def scoped_article_ids
     assigned_article_ids + category_article_ids
   end
@@ -364,6 +360,11 @@ class Course < ApplicationRecord
   def average_word_count
     return 0 if user_count.zero?
     word_count / user_count
+  end
+
+  def add_flag(key:, value: true)
+    flags[key] = value
+    save
   end
 
   # Overridden for some course types
@@ -456,6 +457,10 @@ class Course < ApplicationRecord
   # Overridden for some course types
   def cloneable?
     !tag?('no_clone')
+  end
+
+  def returning_instructor?
+    tag?('returning_instructor')
   end
 
   # Overridden for some course types

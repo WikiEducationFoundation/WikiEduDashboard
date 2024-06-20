@@ -153,6 +153,10 @@ class TrainingModule < ApplicationRecord
     settings['sandbox_location']
   end
 
+  def sandbox_preload
+    settings['preload']
+  end
+
   # Returns the first library that has a category including the module slug.
   # It returns nil if no such library is found.
   def find_library_by_slug
