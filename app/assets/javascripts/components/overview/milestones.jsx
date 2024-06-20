@@ -4,6 +4,7 @@ import createReactClass from 'create-react-class';
 import { filter } from 'lodash-es';
 
 import CourseDateUtils from '../../utils/course_date_utils';
+import DateCalculator from '../../utils/date_calculator'; // Import DateCalculator
 
 const md = require('../../utils/markdown_it.js').default();
 
@@ -12,6 +13,7 @@ const Milestones = createReactClass({
 
   propTypes: {
     timelineStart: PropTypes.string.isRequired,
+    timelineEnd: PropTypes.string.isRequired, // Add timelineEnd prop
     weeks: PropTypes.array.isRequired,
     allWeeks: PropTypes.array.isRequired,
     course: PropTypes.object.isRequired
@@ -31,6 +33,12 @@ const Milestones = createReactClass({
     this.props.allWeeks.map((week) => {
       if (week.empty) return null;
 
+      const datesStr = DateCalculator.calculateDates(
+        this.props.timelineStart, this.props.timelineEnd, this.props.index, { zeroIndexed: false }
+      );
+
+      const [milestoneStartDate, milestoneEndDate] = datesStr.split(' - ');
+
       const milestoneBlocks = filter(week.blocks, block => block.kind === this.milestoneBlockType);
       return milestoneBlocks.map((block) => {
         let classNames = 'module__data';
@@ -40,7 +48,7 @@ const Milestones = createReactClass({
         return blocks.push(
           <div key={block.id} className="section-header">
             <div className={classNames}>
-              <p>Week {week.weekNumber + weekNumberOffset} {completionNote}</p>
+              <p>Week {week.weekNumber + weekNumberOffset} ({milestoneStartDate} - {milestoneEndDate}){completionNote}</p>
               <div className="markdown" dangerouslySetInnerHTML={{ __html: rawHtml }} />
               <hr />
             </div>
