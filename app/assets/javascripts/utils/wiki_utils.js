@@ -41,4 +41,30 @@ const getArticleUrl = (wiki, title) => {
   return `https://${domain}/wiki/${title}`;
 };
 
-export { trackedWikisMaker, formatOption, toWikiDomain, wikiNamespaceLabel, getArticleUrl };
+const getLastWikiEdit = async (articleUrl, username) => {
+  // username is used to replace Special:MyPage in wiki with username
+  try {
+      const parsedUrl = new URL(articleUrl);
+      const articleTitle = decodeURIComponent(parsedUrl.pathname.split('/wiki/')[1].replace(/\+/g, ' ')).replace(/_/g, ' ').replace('Special:MyPage', `User:${username}`);
+      const wikiApiUrl = `https://${parsedUrl.hostname}/w/api.php`;
+      const response = await fetch(`${wikiApiUrl}?action=query&prop=revisions&titles=${encodeURIComponent(articleTitle)}&format=json&rvprop=timestamp|user&rvlimit=1&origin=*`);
+      const data = await response.json();
+
+      const pages = data.query.pages;
+      const pageId = Object.keys(pages)[0];
+      if (pageId === -1) {
+        // page not found
+        return null;
+      }
+      const lastEdit = pages[pageId].revisions[0];
+
+      return {
+          user: lastEdit.user,
+          timestamp: lastEdit.timestamp
+      };
+  } catch (error) {
+      return null;
+  }
+};
+
+export { trackedWikisMaker, formatOption, toWikiDomain, wikiNamespaceLabel, getArticleUrl, getLastWikiEdit };

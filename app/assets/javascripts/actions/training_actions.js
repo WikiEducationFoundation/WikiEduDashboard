@@ -2,11 +2,13 @@ import { extend } from 'lodash-es';
 import {
   RECEIVE_TRAINING_MODULE, MENU_TOGGLE, REVIEW_ANSWER,
   SET_CURRENT_SLIDE, RECEIVE_ALL_TRAINING_MODULES,
-  EXERCISE_COMPLETION_UPDATE, SLIDE_COMPLETED, API_FAIL
+  EXERCISE_COMPLETION_UPDATE, SLIDE_COMPLETED, API_FAIL,
+  UPDATE_WIKI_EDIT_ASSIGNMENT_STATUS
 } from '../constants';
 import request from '../utils/request';
 import logErrorMessage from '../utils/log_error_message';
 import { stringify } from 'query-string';
+import { getLastWikiEdit } from '../utils/wiki_utils';
 
 const fetchAllTrainingModulesPromise = async () => {
   const response = await request('/training_modules.json');
@@ -111,5 +113,35 @@ export const setCurrentSlide = slideId => (dispatch) => {
     data: {
       slide: slideId
     }
+  });
+};
+
+export const refreshEditAssignmentStatus = opts => (dispatch) => {
+  const { wikiEditAssignment, username } = opts;
+  if (!wikiEditAssignment || !username) return;
+  dispatch({
+    type: UPDATE_WIKI_EDIT_ASSIGNMENT_STATUS,
+    data: 1 // loading status
+  });
+  getLastWikiEdit(wikiEditAssignment, username).then((data) => {
+    if (!data) {
+      dispatch({
+        type: UPDATE_WIKI_EDIT_ASSIGNMENT_STATUS,
+        data: 0 // page not found, so PENDING status
+      });
+      return;
+    }
+
+    if (data.user && data.user === username) {
+      dispatch({
+        type: UPDATE_WIKI_EDIT_ASSIGNMENT_STATUS,
+        data: 3 // COMPLETED
+      });
+    }
+  }).catch(() => {
+    dispatch({
+      type: UPDATE_WIKI_EDIT_ASSIGNMENT_STATUS,
+      data: 2 // ERROR
+    });
   });
 };
