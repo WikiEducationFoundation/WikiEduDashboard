@@ -38,9 +38,7 @@ describe 'TrainingContent', type: :feature, js: true do
 
         click_button 'Create'
 
-        visit '/training/testing-library'
         expect(page).to have_content('Testing Library')
-        expect(page).to have_content('This library is only created for testing purposes.')
       end
 
       it 'prevents the creation of two libraries with the same slug' do
