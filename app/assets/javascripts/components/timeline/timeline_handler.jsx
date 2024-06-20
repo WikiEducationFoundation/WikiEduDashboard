@@ -1,4 +1,4 @@
-//Import necessary hooks (useState, useEffect) and useNavigate from react-router-dom
+// Import necessary hooks (useState, useEffect) and useNavigate from react-router-dom
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
