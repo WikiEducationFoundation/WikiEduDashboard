@@ -27,10 +27,11 @@ const AssignmentLinks = ({ assignment, courseType, user, course, project, editMo
   const actions = [];
 
   if ((editors && editors.length) || assignment.role === ASSIGNED_ROLE) {
-    // Exclude sandbox link for 'no_sandboxes' courses
-    if (!course?.flags?.no_sandboxes) {
+    // Exclude sandbox link for 'no_sandboxes' courses for existing articles.
+    // New articles will still use sandboxes for drafting in 'no_sandboxes' courses.
+    if (!assignment.article_id || !course?.no_sandboxes) {
       actions.push(
-        <SandboxLink key={`sandbox-${id}`} assignment={assignment} editMode={editMode} />
+        <SandboxLink key={`sandbox-${id}`} assignment={assignment} editMode={editMode} user={user} />
       );
     }
   }
@@ -74,7 +75,7 @@ const AssignmentLinks = ({ assignment, courseType, user, course, project, editMo
 
   return (
     <section className="editors">
-      <p className="assignment-links mb0">{ links }</p>
+      <div className="assignment-links mb0">{ links }</div>
       {
         groupMembers && <p className="assignment-links mb0 editors">{groupMembers}</p>
       }

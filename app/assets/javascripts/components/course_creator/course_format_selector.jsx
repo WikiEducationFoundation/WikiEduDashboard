@@ -13,12 +13,13 @@ const CourseFormatSelector = ({ format, updateCourse }) => {
   const options = [
     { value: '', label: '— select one —' },
     { value: 'In-person', label: 'In-person' },
-    { value: 'Online', label: 'Online' },
+    { value: 'Online synchronous', label: 'Online synchronous' },
+    { value: 'Online asynchronous', label: 'Online asynchronous' },
     { value: 'Mixed', label: 'Mixed' },
   ];
   return (
     <div className="form-group">
-      <label htmlFor="course_format">Course format:</label>
+      <label id="course_format-label" htmlFor="course_format">Course format:</label>
       <Select
         id="course_format"
         value={options.find(option => option.value === selectedOption.value)}
@@ -26,6 +27,7 @@ const CourseFormatSelector = ({ format, updateCourse }) => {
         options={options}
         simpleValue
         styles={selectStyles}
+        aria-labelledby="course_format-label"
       />
     </div>
   );

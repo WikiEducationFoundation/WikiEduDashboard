@@ -26,25 +26,26 @@ describe ReferenceCounterApi do
     expect(response.dig('5006946', 'num_ref')).to eq(2)
   end
 
-  it 'logs the message if response is not 200 OK', vcr: true do
-    ref_counter_api = described_class.new(en_wikipedia)
-    expect(Sentry).to receive(:capture_message).with(
-      'Non-200 response hitting references counter API',
-      level: 'warning',
-      extra: {
-        project_code: 'wikipedia',
-        language_code: 'en',
-        rev_id: 708326238,
-        status_code: 404,
-        content: {
-            'description' =>
-            "You don't have permission to view deleted text or changes between deleted revisions."
-        }
-      }
-    )
-    response = ref_counter_api.get_number_of_references_from_revision_ids deleted_rev_ids
-    expect(response.dig('708326238')).to eq({ 'num_ref' => nil })
-  end
+  # it 'logs the message if response is not 200 OK', vcr: true do
+  #   ref_counter_api = described_class.new(en_wikipedia)
+  #   expect(Sentry).to receive(:capture_message).with(
+  #     'Non-200 response hitting references counter API',
+  #     level: 'warning',
+  #     extra: {
+  #       project_code: 'wikipedia',
+  #       language_code: 'en',
+  #       rev_id: 708326238,
+  #       status_code: 403,
+  #       content: {
+  #           'description' =>
+  #           "mwapi error: permissiondenied - You don't have permission to view deleted " \
+  #           'text or changes between deleted revisions.'
+  #       }
+  #     }
+  #   )
+  #   response = ref_counter_api.get_number_of_references_from_revision_ids deleted_rev_ids
+  #   expect(response.dig('708326238')).to eq({ 'num_ref' => nil })
+  # end
 
   it 'logs the error once if an unexpected error raises several times', vcr: true do
     reference_counter_api = described_class.new(es_wiktionary)

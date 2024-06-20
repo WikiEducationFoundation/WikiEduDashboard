@@ -106,6 +106,8 @@ const PagePileScoping = () => {
           onBlur={onBlurHandler}
         />
         <WikiSelect
+          id="pagepile-wiki-select-input"
+          label={I18n.t('articles.wiki')}
           homeWiki={home_wiki}
           onChange={wiki => setCurrentWiki(wiki.value)}
         />

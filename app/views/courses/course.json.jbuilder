@@ -27,6 +27,7 @@ json.course do
   json.online_volunteers_enabled @course.online_volunteers_enabled?
   json.progress_tracker_enabled @course.progress_tracker_enabled?
   json.stay_in_sandbox @course.stay_in_sandbox?
+  json.no_sandboxes @course.no_sandboxes?
   json.retain_available_articles @course.retain_available_articles?
   json.review_bibliography @course.review_bibliography?
   json.term @course.cloned_status == 1 ? '' : @course.term
@@ -36,6 +37,7 @@ json.course do
   json.closed @course.closed?
   json.enroll_url "#{request.base_url}#{course_slug_path(@course.slug)}/enroll/"
   json.wiki_string_prefix @course.home_wiki.string_prefix
+  json.returning_instructor @course.returning_instructor?
 
   if @course&.course_stat&.stats_hash.present?
     @course.course_stat.stats_hash = format_course_stats(@course.course_stat.stats_hash)

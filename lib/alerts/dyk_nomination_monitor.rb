@@ -29,9 +29,12 @@ class DYKNominationMonitor
 
   DYK_CATEGORY = 'Category:Pending DYK nominations'
   DYK_CATEGORY_DEPTH = 0
+  DYK_NAMESPACE = Article::Namespaces::TEMPLATE
   def find_pending_dyk_nominations
     @dyk_titles = CategoryImporter.new(@wiki)
-                                  .page_titles_for_category(DYK_CATEGORY, DYK_CATEGORY_DEPTH)
+                                  .page_titles_for_category(DYK_CATEGORY,
+                                                            DYK_CATEGORY_DEPTH,
+                                                            DYK_NAMESPACE)
   end
 
   def extract_page_titles_from_nominations

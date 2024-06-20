@@ -16,6 +16,8 @@ const SelectedWikiOption = (props) => {
     return (
       <div className="wiki-select">
         <WikiSelect
+          id="wiki-select-input"
+          label={I18n.t('articles.wiki')}
           wikis={[{ language, project }]}
           onChange={props.handleWikiChange}
           options={trackedWikis}

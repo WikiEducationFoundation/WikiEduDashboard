@@ -265,6 +265,7 @@ sd:
     my_articles: منهنجا مضمونَ
     new_week: نئون هفتو وجهو
     new_account_email: ايميل پتو
+    new_account_username: گهريل واپرائيندڙنانءُ
     new_account_username_placeholder: وڪي سنواريندڙ 123
     nocourses: توهان ڪنھن بہ ڪورس ۾ حصو نہ وٺي رهيا آهيو.
     none: ڪوبہ نہ
@@ -299,6 +300,8 @@ sd:
       create_button: منھنجو پروگرام سرجيو!
       create_label: نئون پروگرام ٺاهيو
       save_cloned_course: سانڍيو
+      scoping_methods:
+        categories: زمرا
     delete_course: پروگرام ڊاهيو
     edit_course_dates: رٿا جون تاريخون سنواريو
     enroll: سنواريندڙ شامل ڪريو
@@ -337,6 +340,7 @@ sd:
     main: مک پولار
     article: مضمون
     user: يُوزرپولار
+    category: زمرو
   recent_activity:
     article_title: مضمون جو عنوان
     datetime: تاريخ/وقت

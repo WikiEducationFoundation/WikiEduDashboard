@@ -2,6 +2,7 @@ import { forEach } from 'lodash-es';
 import logErrorMessage from './log_error_message';
 import fetchJsonp from 'fetch-jsonp';
 import { stringify } from 'query-string';
+import { toWikiDomain } from './wiki_utils';
 
 export const queryUrl = async (url, query = {}) => {
   const hasParams = url.includes('?'); // the url might already have params
@@ -89,4 +90,23 @@ export const extractClassGrade = (pageAssessments) => {
     }
   });
   return classGrade;
+};
+
+
+export const keywordAutocompleteGenerator = (keyword) => {
+  return {
+    list: 'search',
+    srsearch: keyword,
+    srlimit: 5,
+    srinfo: 'totalhits',
+    srprop: '',
+  };
+};
+
+export const fetchArticleAutocompleteResults = async (keyword, wiki) => {
+  const query = keywordAutocompleteGenerator(keyword);
+
+  return queryUrl(`https://${toWikiDomain(wiki)}/w/api.php?action=query&format=json&origin=*`, query).then((data) => {
+    return data.query.search.map(item => item.title);
+  });
 };

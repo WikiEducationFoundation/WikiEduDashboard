@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { extractSalesforceId } from '../../utils/salesforce_utils.js';
+import { useDispatch } from 'react-redux';
 
 const SalesforceLink = ({
   course,
@@ -8,6 +9,7 @@ const SalesforceLink = ({
   linkToSalesforce,
   updateSalesforceRecord
 }) => {
+  const dispatch = useDispatch();
   const linkToSalesforceHandler = () => {
     const rawSalesforceId = prompt('Enter the Salesforce record ID or url for this course.');
     if (!rawSalesforceId) { return; }
@@ -16,11 +18,11 @@ const SalesforceLink = ({
       alert('That input did not include a valid Salesforce record ID or url.');
       return;
     }
-    return linkToSalesforce(course.id, salesforceId);
+    return dispatch(linkToSalesforce(course.id, salesforceId));
   };
 
   const updateSalesforceRecordHandler = () => {
-    updateSalesforceRecord(course.id)
+    dispatch(updateSalesforceRecord(course.id))
       .then(() => alert('updating!'));
   };
 

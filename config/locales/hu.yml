@@ -1047,8 +1047,8 @@ hu:
     error_count_message: Az irányítópult %{error_count} hibát észlelt a legutóbbi
       frissítés során.
     future_updates_remaining:
-      1: A statisztikák folyamatosan frissülnek %{date} dátumig.
-      "": A program statisztikái már nem frissülnek rendszeresen.
+      updates_active: A statisztikák folyamatosan frissülnek %{date} dátumig.
+      updates_inactive: A program statisztikái már nem frissülnek rendszeresen.
     last_reviewed: Utolsó ellenőrzés
     missing_data_heading: Hiányzó vagy váratlan eredmények?
     missing_data_info: A gyakori problémák közé tartozik

@@ -26,7 +26,6 @@ const AvailableArticles = (props) => {
   const { assigned } = processAssignments(props);
 
   const project = course.home_wiki.project;
-  const articlesOrItems = ArticleUtils.articlesOrItems(project);
   const isWikidataCourse = course.home_wiki && course.home_wiki.project === 'wikidata';
   const showMyArticlesSection = assigned.length && current_user.isStudent && !isWikidataCourse;
   let myArticles;
@@ -39,7 +38,7 @@ const AvailableArticles = (props) => {
   if (Features.wikiEd && current_user.isAdvancedRole) {
     findingArticlesTraining = (
       <a href="/training/instructors/finding-articles" target="_blank" className="button ghost-button small">
-        How to find {articlesOrItems}
+        {ArticleUtils.I18n('how_to_find', project)}
       </a>
     );
   }
@@ -86,7 +85,7 @@ const AvailableArticles = (props) => {
           <div className="section-header__actions">
             {findingArticlesTraining}
             {assignCell}
-            <Link to={`/courses/${course_id}/article_finder`}><button className="button border small ml2">Find {articlesOrItems}</button></Link>
+            <Link to={`/courses/${course_id}/article_finder`}><button className="button border small ml2">{ArticleUtils.I18n('find', project)}</button></Link>
           </div>
         </div>
         <AvailableArticlesList {...props} elements={elements} />

@@ -2,6 +2,7 @@
 
 require_dependency "#{Rails.root}/lib/tag_manager"
 require_dependency "#{Rails.root}/lib/article_utils"
+require_dependency "#{Rails.root}/lib/experiments/no_sandboxes_fall_2024_experiment"
 
 #= Factory for handling the initial creation of a course
 class CourseCreationManager
@@ -9,8 +10,9 @@ class CourseCreationManager
 
   # rubocop:disable Metrics/ParameterLists
   def initialize(course_params, wiki_params, scoping_methods, initial_campaign_params,
-                 instructor_role_description, current_user)
+                 instructor_role_description, current_user, ta_support)
     @scoping_methods = scoping_methods
+    @ta_support = ta_support
     @course_params = course_params
     @wiki_params = wiki_params
     @initial_campaign_params = initial_campaign_params
@@ -44,6 +46,7 @@ class CourseCreationManager
     @course = Course.create(@course_params.merge(@overrides))
     add_instructor_to_course
     add_tags_to_course
+    process_experiments
     @course
   end
 
@@ -118,7 +121,11 @@ class CourseCreationManager
   end
 
   def add_tags_to_course
-    TagManager.new(@course).initial_tags(creator: @instructor)
+    TagManager.new(@course).initial_tags(creator: @instructor, ta_support: @ta_support)
+  end
+
+  def process_experiments
+    NoSandboxesFall2024Experiment.new(@course, @instructor)
   end
 
   def create_all_category(categories, source)

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 // Utilities
 import { forEach, union } from 'lodash-es';
@@ -52,10 +52,14 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
   const [userIdsFetched, setUserIdsFetched] = useState(false);
   const [whoColorHtml, setWhoColorHtml] = useState(null);
   const [parsedArticle, setParsedArticle] = useState(null);
-  const [unhighlightedEditors, setUnhighlightedEditors] = useState([]);
+  const [unhighlightedContributors, setUnhighlightedContributors] = useState([]);
+  const [revisionId, setRevisionId] = useState(null);
+  const [pendingRequest, setPendingRequest] = useState(false);
+  const lastRevisionId = useSelector(state => state.articleDetails[article.id]?.last_revision?.mw_rev_id);
 
   const dispatch = useDispatch();
   const ref = useRef();
+  const isFirstRender = useRef(true);
 
   useEffect(() => {
     if (showArticle && users) {
@@ -160,7 +164,7 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
     let html = whoColorHtml;
     if (!html) { return; }
     // Array to store user IDs whose contributions couldn't be highlighted
-    const editorsID = [];
+    const unHighlightedUsers = [];
 
     forEach(usersState, (user, i) => {
       // Move spaces inside spans, so that background color is continuous
@@ -178,28 +182,28 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
         user.activeRevision = true;
       } else {
         // If highlighting failed , store the un-highlighted user's ID in the editorsID array
-        editorsID.push(user.userid);
+        unHighlightedUsers.push(user.userid);
       }
     });
 
     // Check if there are any editors whose contributions couldn't be highlighted
-    if (editorsID.length) {
+    if (unHighlightedUsers.length) {
       // If there are unhighlighted editors, call the function to check their contributions in wikitext metadata
-      usersContributionExists(editorsID);
+      usersContributionExists(unHighlightedUsers);
     } else {
-      const status = 'No Highlighted Editors';
-      // Set the unhighlightedEditors state with a status message to make legendStatus ready in the
-      // Footer Component for loading the authorship data
-      setUnhighlightedEditors([status]);
+      const status = 'No Unhighlighted Contributors';
+      // Set the status of the unhighlightedContributors state to display in the UI
+      setUnhighlightedContributors([status]);
     }
     setHighlightedHtml(html);
+    setPendingRequest(false);
   };
 
   // Function to check if contributions of unhighlighted editors exist in the wikitext metadata
   const usersContributionExists = (usersID) => {
-   // Create a URL builder and API instance for fetching wikitext metadata
-   const builder = new URLBuilder({ article: article });
-   const api = new ArticleViewerAPI({ builder });
+    // Create a URL builder and API instance for fetching wikitext metadata
+    const builder = new URLBuilder({ article: article });
+    const api = new ArticleViewerAPI({ builder });
 
     // Fetch wikitext metadata for the current article revision
     api.fetchWikitextMetaData()
@@ -215,11 +219,16 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
           // If a token with a matching editor ID is found, it means the user has a contribution
           // in the current revision's wikitext
           if (foundToken) {
-            // Add the user ID to the unhighlightedEditors state to display in the UI
-            setUnhighlightedEditors(x => [...x, userID]);
-        }
-      });
-    }).catch((error) => {
+            // Add the user ID to the unhighlightedContributors state to display in the UI
+            setUnhighlightedContributors(x => [...x, userID]);
+          } else {
+            const status = `No Contributions Found in this current version for User ID', ${userID}`;
+            // If the user ID doesn't have a contribution in the current revision's wikitext,
+            // add a message to the unhighlightedContributors state to display in the UI
+            setUnhighlightedContributors(x => [...x, status]);
+          }
+        });
+      }).catch((error) => {
       setFailureMessage(error.message);
     });
   };
@@ -227,7 +236,8 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
   const fetchParsedArticle = () => {
     const builder = new URLBuilder({ article: article });
     const api = new ArticleViewerAPI({ builder });
-    api.fetchParsedArticle()
+    setPendingRequest(true);
+    api.fetchParsedArticle(revisionId)
       .then((response) => {
         setParsedArticle(response.parsedArticle.html);
         setFetched(response.fetched);
@@ -241,7 +251,7 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
   const fetchWhocolorHtml = () => {
     const builder = new URLBuilder({ article: article });
     const api = new ArticleViewerAPI({ builder });
-    api.fetchWhocolorHtml()
+    api.fetchWhocolorHtml(revisionId)
       .then((response) => {
         setWhoColorHtml(response.html);
       }).catch((error) => {
@@ -282,6 +292,30 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
     const element = ref.current;
     if (element && !element.contains(event.target)) {
       hideArticle(event);
+    }
+  };
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    setParsedArticle(null);
+    setFetched(false);
+    setHighlightedHtml(null);
+    setWhoColorHtml(null);
+    fetchParsedArticle();
+    setUnhighlightedContributors([]);
+    if (isWhocolorLang()) {
+      fetchWhocolorHtml();
+    }
+  }, [revisionId]);
+
+  const toggleRevisionHandler = () => {
+    if (revisionId) {
+      setRevisionId(null);
+    } else {
+      setRevisionId(lastRevisionId);
     }
   };
 
@@ -343,6 +377,7 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
           }
         </div>
         <Footer
+          pendingRequest={pendingRequest}
           article={article}
           colors={colors}
           failureMessage={failureMessage}
@@ -351,7 +386,9 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
           showArticleFinder={showArticleFinder}
           whoColorFailed={whoColorFailed}
           users={usersState}
-          unhighlightedEditors={unhighlightedEditors}
+          unhighlightedContributors={unhighlightedContributors}
+          revisionId={revisionId}
+          toggleRevisionHandler={toggleRevisionHandler}
         />
       </div>
     </div>

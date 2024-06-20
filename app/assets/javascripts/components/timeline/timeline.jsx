@@ -190,11 +190,11 @@ const Timeline = createReactClass({
     const usingCustomTitles = this.usingCustomTitles();
     const weekNavInfo = [];
 
+    // FIXME: This mutates redux state.
+    // Sorting of weeks by order should be done either in
+    // redux actions or via a selector before the data
+    // reaches a component.
     this.props.weeks.sort((a, b) => a.order - b.order);
-
-    this.props.weeks.forEach(w =>
-      w.blocks.sort((a, b) => a.order - b.order)
-    );
 
     let tooManyWeeksWarning;
     if (this.tooManyWeeks()) {

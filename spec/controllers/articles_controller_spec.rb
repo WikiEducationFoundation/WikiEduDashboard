@@ -19,7 +19,8 @@ describe ArticlesController, type: :request do
   before do
     create(:courses_user, user_id: user.id, course_id: course.id)
     create(:courses_user, user_id: second_user.id, course_id: course.id)
-    create(:articles_course, course_id: course.id, article_id: article.id)
+    create(:articles_course, course_id: course.id, article_id: article.id,
+                             user_ids: [user.id, second_user.id])
   end
 
   describe '#article_data' do

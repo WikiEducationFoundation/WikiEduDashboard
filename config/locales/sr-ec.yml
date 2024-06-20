@@ -34,6 +34,7 @@ sr-ec:
     number_field: Ово је нумеричко поље. Дугмићи ће, како их приказује већина прегледача,
       инкрементирати и декрементирати унос.
   application:
+    back: Назад
     cancel: Откажи
     cookie_consent: Овај сајт користи колачиће како би вас држао пријављеним, и чувао
       информације везаних за ваш налог на Википедији.
@@ -65,6 +66,8 @@ sr-ec:
     search: постави питање
     search_results: 'Резултати за: „%{search_terms}”'
     no_results: Нема пронађених резултата за термин „%{query}”
+    show_current_revision: Прикажи тренутну верзију
+    show_last_revision: Прикажи последњу измењену верзију
     sign_up_extended: Отвори налог са Википедијом
     sign_up_wikipedia: Или се пријавите на Википедију
     sign_up_log_in_extended: са Википедијом
@@ -152,6 +155,7 @@ sr-ec:
       tracked: Праћено
       untracked: Отпраћено
       tracked_and_untracked: Праћено и отпраћено
+    filter_text: 'Филтери:'
     hide: Сакриј
     history: (историја)
     label: Чланци
@@ -225,6 +229,7 @@ sr-ec:
     confirm_add_available: Да ли сте сигурни да желите да додате %{title}?
     confirm_addition: Да ли сте сигурни да желите доделити %{title} кориснику %{username}?
     confirm_deletion: Желите ли заиста да избришете овај задатак?
+    delete: Уклони и обриши
     editors: Додељено
     group_members: Чланови групе
     label: Додели
@@ -242,6 +247,7 @@ sr-ec:
       да пружите повратне информације.
     sandbox_draft_link: Нацрт песка
     select: Изабери
+    submit: Пошаљи
   blocks:
     milestones:
       title: Миљоказ
@@ -298,6 +304,7 @@ sr-ec:
       из ове површи ће бити искоришћен као опис на страници програма
     random_passcode: случајна лозинка
     requested_accounts: Захтевани налози
+    students_small: студенти
     title: Наслов
     slug: Жетон
     search_campaigns: Претражи кампање
@@ -657,6 +664,11 @@ sr-ec:
     survey:
       notification_message: Уради анкету за овај курс.
       link: Уради анкету
+  course_instructor_notification:
+    send_notification_button_text: Пошаљи
+    write_subject: Тема
+    write_message_placeholder: Порука
+    sending_notification: Шаљем
   courses_generic:
     school_system: Академски систем
     add_campaign: Додај кампању
@@ -852,6 +864,9 @@ sr-ec:
     label: Ресурси
     header: Ресурси и тренинг
   settings:
+    categories:
+      other_settings: Остала подешавања
+      users: Корисници
     admin_users:
       new:
         form_label: Додели администраторске привилегије
@@ -1002,13 +1017,20 @@ sr-ec:
   update_username:
     label: Ново корисничко име
   uploads:
+    article_name: Назив чланка
+    author: 'Аутор:'
+    categories: Категорије
     credit: Заслуга
+    date: 'Датум:'
+    description: Опис
     file_name: Назив датотеке
     header: Датотеке отпремљене на Оставу
     image: Слика
     label: Отпремања
+    license: 'Лиценца:'
     loading: Учитавање отпремања…
     none: Овај разред није додао никакве слике или друге медијске датотеке на Оставу.
+    original_file: Оригинална датотека
     select_label: Филтрирај према отпремаоцу
     time_doc: Време сваког отпремања у вашем локалном времену
     uploaded_at: Време отпремања
@@ -1019,6 +1041,10 @@ sr-ec:
     usage_doc: Број чланака на Википедији на којима се појављује ова слика.
     usage_count_gallery_tile: Користи се у чланцима (%{usage_count})
     usages: Коришћења
+    source: 'Извор:'
+    views_per_day: Прегледи по дану
+    view_commons: Види на Остави
+    wiki_big: Вики
   users:
     already_enrolled: Овај корисник се већ уписао!
     assign_articles: Додели чланке
@@ -1265,4 +1291,7 @@ sr-ec:
     started: Започето
     not_started: Није започето
     due: до %{due_date}
+  notes:
+    cancel_note_creation: Откажи
+    save_note: Сачувај
 ...

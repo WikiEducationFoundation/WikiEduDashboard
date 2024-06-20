@@ -4,7 +4,9 @@
 # Author: 90-NS-FZ
 # Author: Aefgh39622
 # Author: Ajeje Brazorf
+# Author: Apple TD
 # Author: Bonfire12
+# Author: Chqaz
 # Author: Kkairri
 # Author: MagicAho
 # Author: MathXplore
@@ -37,6 +39,7 @@ ja:
   accessibility:
     number_field: これは数字フィールドです。ほとんどのブラウザは数字を増減できるボタンを表示します。
   application:
+    back: 戻る
     cancel: 中止
     cookie_consent: このサイトでは Cookie を使用してログイン状態を維持し、利用者のウィキペディア アカウントに関連する情報を保存します。
     cookie_consent_acknowledge: 分かりました
@@ -67,6 +70,8 @@ ja:
     search_results:
       other: '''%{search_terms}''に対して：検索結果は%{count}件'
     no_results: 「%{query}」で検索しましたがヒットしませんでした
+    show_current_revision: 現在の版を表示
+    show_last_revision: 最新の版を表示
     sign_up_extended: ウィキペディアに利用者登録
     sign_up_wikipedia: またはWikipediaにサインアップする
     sign_up_log_in_extended: ウィキペディアに
@@ -110,6 +115,11 @@ ja:
     explore: 探検してみよう
     log_in: ウィキペディアにログイン
     sign_up: ウィキペディアに登録
+    registration_advice:
+      username_rules:
+        heading: 利用者名の規則
+      additional_advice:
+        heading: アドバイス
     sign_up_help: ダッシュボードの利用にはウィキペディアにログイン後、ダッシュボードが利用者のアカウントにアクセスできるように設定します。ログインは既存のアカウントから、あるいは新しくアカウントを作ります。アカウント作成がうまくいかない場合は、dashboard@wikiedu.org
       までメールで連絡してください。
   alerts:
@@ -148,11 +158,14 @@ ja:
       tracked: 追跡
       untracked: 未追跡
       tracked_and_untracked: 追跡と未追跡
+    filter_text: 'フィルター:'
     find: 記事を探す
+    how_to_find: 記事の探し方
     hide: 非表示にする
     history: (履歴)
     label: 記事
     loading: 記事を読み込んでいます...
+    mark_as_complete: 完了としてマーク
     new: (新)
     none: このコースではまだ記事を編集していません。
     preview: 記事の簡単なプレビュー
@@ -193,6 +206,7 @@ ja:
     articles_short: 記事
     deleted_message: ダッシュボードのデータによると、このページは削除済みです（記事が誤って削除済みと表示される原因に、ページの移動・改名、履歴の統合その他の操作の結果である可能性があります。あるいはいったんは削除されても、後で復活する場合もあります。実際に削除されていない、または復元された場合、そのきじは通常、１日か２日でダッシュボードに反映されます。）
     page_logs: （ページの記録）
+    view_articles: 記事を閲覧
   items:
     items: 項目名
     article_not_found: このアイテムはまだ作成されていません。
@@ -205,6 +219,7 @@ ja:
     edited: 編集した項目
     edited_none: 編集した記事はまだありません。
     find: アイテムを探す
+    how_to_find: アイテムの探し方
     preview: 項目の簡単なプレビュー
     search: ウィキデータで項目を検索する
     tracked_doc: 「追跡」している項目のみ、このプログラムの統計に反映されます。項目を「未追跡」に指定すると、次のデータ更新時に統計対象から除去されます。
@@ -272,6 +287,7 @@ ja:
     review_tooltip_wikidata: これは項目をこれから査読したりフィードバックを書いたりするための機能です。
     sandbox_draft_link: サンドボックスの草稿
     select: 選択してください
+    submit: 送信
     warning_untracked_wiki: '皆さんが選択した記事を置いたウィキは、このコースで追跡していない点に注意してください。この記事そのものへの貢献を追跡するには、インストラクターに頼んで、このコースに次のウィキ
       を追加してもらってください: %{wiki}'
   blocks:
@@ -674,6 +690,8 @@ ja:
     survey:
       notification_message: このコースに関する調査にご協力ください。
       link: 調査の実施
+  course_instructor_notification:
+    send_notification_button_text: 送信
   courses_generic:
     add_campaign: 告知の追加
     all_courses: すべてのプログラム
@@ -797,7 +815,7 @@ ja:
     date_time: 日付/時刻
     edit_count_description: 総編集回数
     future_updates_remaining:
-      "": このプログラムの統計は、既に定期的な更新を終了しています。
+      updates_inactive: このプログラムの統計は、既に定期的な更新を終了しています。
     last_update_success: 直近の更新は成功しており、統計は最新版のはずです。
     per_user: '%{number}ワード/利用者'
     revisions: 最近の編集
@@ -926,6 +944,7 @@ ja:
     blackout_week_created: 今週は既に日程が入っています。先にそれらを別の週へ移してから、今週に設定したクラスの最終の開講日を削除します。
     block_assignment: 課題
     block_custom: カスタム
+    block_milestone: マイルストーン
     course_dates: コースの日程
     course_dates_instructions: コース全日程 (ウィキペディアの課題以外を含む) の開始日と終了日を選択します。
     course_end: コース終了
@@ -948,6 +967,7 @@ ja:
     page: ページ
     previous: < 前へ
     table_of_contents: 目次
+    done: 完了！
     view_module_source: モジュールのソースを表示
   update_username:
     header: 変更された利用者名の更新
@@ -964,6 +984,7 @@ ja:
     usage_doc: この画像を使用するウィキペディアの記事の件数
     usage_count_gallery_tile: '%{usage_count}件の記事で使用'
     usages: 使用法
+    wiki_big: ウィキ
   users:
     already_enrolled: その利用者名は既に登録されています。
     assign_articles: 記事を課題に指定
@@ -1009,6 +1030,7 @@ ja:
     revision_characters_and_views: '追加された文字: %{characters}文字、ビュー: %{views}件'
     revisions_doc: 過去7日間にわたるこの編集者の編集実績
     references_doc: この編集者が追加もしくは削除した参照項目の件数
+    revisions: 版
     sandboxes: サンドボックス
     training_doc: 指定されたトレーニングモジュールをすべて期限までに完了した編集者は、トレーニングのコース継続中として認められます。
     training_module_status: 状態

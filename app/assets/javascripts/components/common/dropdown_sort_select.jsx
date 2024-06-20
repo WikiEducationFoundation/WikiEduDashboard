@@ -1,4 +1,6 @@
 import React from 'react';
+import Select from 'react-select';
+import sortSelectStyles from '../../styles/sort_select';
 
 // This is a component which creates a dropdown to sort a list
 // "keys" is expected to be in the same format as "app/assets/javascripts/components/common/list.jsx"
@@ -6,17 +8,19 @@ import React from 'react';
 //  with the name of the selected property
 const DropdownSortSelect = ({ keys, sortSelect }) => {
   const onChangeHandler = (event) => {
-    sortSelect(event.target.value);
+    sortSelect(event.value);
   };
+  const options = Object.entries(keys).map(([key, value]) => {
+    return { value: key, label: value.label };
+  });
   return (
-    <div className="sort-select">
-      <select className="sorts" name="sorts" onChange={onChangeHandler}>
-        {/* this ensures that clicking on the first item fires the change listener */}
-        <option defaultChecked style={{ display: 'none' }}/>
-        {Object.entries(keys).map(([key, value]) =>
-          <option key={key} value={key}>{value.label}</option>
-      )}
-      </select>
+    <div className="sort-container">
+      <Select
+        name="sorts"
+        onChange={onChangeHandler}
+        options={options}
+        styles={sortSelectStyles}
+      />
     </div>
   );
 };

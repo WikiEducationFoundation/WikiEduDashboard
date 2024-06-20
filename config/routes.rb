@@ -38,9 +38,15 @@ Rails.application.routes.draw do
   post '/settings/update_course_creation' => 'settings#update_course_creation'
 
   get '/settings/default_campaign' => 'settings#default_campaign'
+  post '/settings/add_featured_campaign' => 'settings#add_featured_campaign'
+  post '/settings/remove_featured_campaign' => 'settings#remove_featured_campaign'
   post '/settings/update_default_campaign' => 'settings#update_default_campaign'
 
   post '/settings/update_impact_stats' => 'settings#update_impact_stats'
+
+  get '/settings/fetch_site_notice' => 'settings#fetch_site_notice'
+  post '/settings/update_site_notice' => 'settings#update_site_notice'
+  
 
   # Griddler allows us to receive incoming emails. By default,
   # the path for incoming emails is /email_processor
@@ -72,6 +78,7 @@ Rails.application.routes.draw do
     patch '/status' => 'assignments#update_status'
     resources :assignment_suggestions
   end
+  patch '/assignments/:id/update_sandbox_url' => 'assignments#update_sandbox_url'
   put '/assignments/:assignment_id/claim' => 'assignments#claim'
   post '/assignments/assign_reviewers_randomly' => 'assignments#assign_reviewers_randomly'
 
@@ -158,8 +165,6 @@ Rails.application.routes.draw do
         constraints: { slug: /.*/ }
     get 'courses/:slug/alerts.json' => 'courses#alerts',
         constraints: { slug: /.*/ }
-    get 'courses/:slug/suspected_plagiarism.json' => 'courses#suspected_plagiarism',
-        constraints: { slug: /.*/ }
     get 'courses/:school/:titleterm(/:_subpage(/:_subsubpage(/:_subsubsubpage)))' => 'courses#show',
         :as => 'show',
         constraints: {
@@ -170,7 +175,10 @@ Rails.application.routes.draw do
 
     post '/courses/:slug/students/add_to_watchlist', to: 'courses/watchlist#add_to_watchlist', as: 'add_to_watchlist',
         constraints: { slug: /.*/ }
-
+    delete 'courses/:slug/delete_from_campaign' => 'courses/delete_from_campaign#delete_course_from_campaign', as: 'delete_from_campaign', 
+      constraints: { 
+        slug: /.*/ 
+      }
     get 'embed/course_stats/:school/:titleterm(/:_subpage(/:_subsubpage))' => 'embed#course_stats',
     constraints: {
         school: /[^\/]*/,
@@ -184,6 +192,11 @@ Rails.application.routes.draw do
         id: /.*/
       }
     get 'find_course/:course_id' => 'courses#find'
+  end
+
+  # Course Notes
+  resources :admin_course_notes, constraints: { id: /\d+/ } do
+    get 'find_course_note', on: :member
   end
 
   # Categories
@@ -247,6 +260,7 @@ Rails.application.routes.draw do
   get 'all_campaigns' => 'analytics#all_campaigns'
 
   # Campaigns
+  get 'campaigns/current/alerts' => 'campaigns#current_alerts', defaults: { format: 'html' }
   resources :campaigns, param: :slug, except: :show do
     member do
       get 'overview'
@@ -270,6 +284,7 @@ Rails.application.routes.draw do
   end
 
   get 'campaigns/statistics.json' => 'campaigns#statistics'
+  get 'campaigns/featured_campaigns' => 'campaigns#featured_campaigns'
   get 'campaigns/:slug.json',
       controller: :campaigns,
       action: :show
@@ -291,16 +306,12 @@ Rails.application.routes.draw do
   end
 
   # Recent Activity
-  get 'recent-activity/plagiarism/report' => 'recent_activity#plagiarism_report'
   get 'recent-activity(/*any)' => 'recent_activity#index', as: :recent_activity
 
   # Revision analytics JSON API for React
   get 'revision_analytics/dyk_eligible',
       controller: 'revision_analytics',
       action: 'dyk_eligible'
-  get 'revision_analytics/suspected_plagiarism',
-      controller: 'revision_analytics',
-      action: 'suspected_plagiarism'
   get 'revision_analytics/recent_edits',
       controller: 'revision_analytics',
       action: 'recent_edits'
@@ -352,7 +363,12 @@ Rails.application.routes.draw do
   get '/courses_by_wiki/:language.:project(.org)' => 'courses_by_wiki#show'
 
   # frequenty asked questions
-  resources :faq
+  resources :faq do
+    member do
+      get 'handle_special_faq_query'  # Defines a route for a specific FAQ instance
+    end
+  end
+  get '/faq/test' => 'faq#test'
   get '/faq_topics' => 'faq_topics#index'
   get '/faq_topics/new' => 'faq_topics#new'
   post '/faq_topics' => 'faq_topics#create'

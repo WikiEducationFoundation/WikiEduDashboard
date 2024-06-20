@@ -5,6 +5,10 @@ class Features
     ENV['wiki_education'] == 'true'
   end
 
+  def self.staging?
+    ENV['dashboard_url'] == 'dashboard-testing.wikiedu.org'
+  end
+
   def self.enable_get_help_button?
     ENV['wiki_education'] == 'true'
   end
@@ -51,5 +55,12 @@ class Features
 
   def self.email?
     !ENV['mailgun_key'].nil?
+  end
+
+  def self.site_notice
+    Rails.cache.fetch('site_notice') do
+      site_notice = Setting.find_by(key: 'site_notice')&.value.presence || {}
+      site_notice
+    end
   end
 end

@@ -49,11 +49,13 @@ class Alert < ApplicationRecord
     HighQualityArticleAssignmentAlert
     HighQualityArticleEditAlert
     NeedHelpAlert
+    NoTaEnrolledAlert
     NoEnrolledStudentsAlert
     NoMedTrainingForCourseAlert
     OnboardingAlert
     OverdueTrainingAlert
     OverEnrollmentAlert
+    PossiblePlagiarismAlert
     ProductiveCourseAlert
     ProtectedArticleAssignmentAlert
     ReviewRequestAlert
@@ -93,6 +95,7 @@ class Alert < ApplicationRecord
     HighQualityArticleAssignmentAlert
     HighQualityArticleEditAlert
     NoEnrolledStudentsAlert
+    PossiblePlagiarismAlert
     ProductiveCourseAlert
     ProtectedArticleAssignmentAlert
     UnsubmittedCourseAlert

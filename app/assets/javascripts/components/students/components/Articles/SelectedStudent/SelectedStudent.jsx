@@ -68,7 +68,7 @@ export const SelectedStudent = ({
       }
 
       {
-        !assigned.length && !reviewing.length && <NoAssignments project={course.home_wiki.project} />
+        !assigned.length && !reviewing.length && <NoAssignments student={selected} current_user={current_user} project={course.home_wiki.project} />
       }
 
       {

@@ -107,6 +107,12 @@ const Week = createReactClass({
       <h2 className="week-index">{weekTitleContent}<span className="week-range"> ({weekDatesContent})</span></h2>
     );
 
+    // FIXME: This mutates redux state.
+    // Instead of sorting during render, the blocks should
+    // be sorted by order in redux actions or via a selector at the point
+    // the data gets pulled into a parent component from the store.
+    this.props.blocks.sort((a, b) => a.order - b.order);
+
     const blocks = this.props.blocks.map((block, i) => {
       // If in reorderable mode
       if (this.props.reorderable) {

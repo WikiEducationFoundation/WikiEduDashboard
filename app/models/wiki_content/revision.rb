@@ -32,7 +32,6 @@ class Revision < ApplicationRecord
   belongs_to :wiki
   scope :live, -> { where(deleted: false) }
   scope :user, -> { where(system: false) }
-  scope :suspected_plagiarism, -> { where.not(ithenticate_id: nil) }
   scope :namespace, ->(ns) { joins(:article).where(articles: { namespace: ns }) }
 
   # Helps with importing data
@@ -63,12 +62,6 @@ class Revision < ApplicationRecord
   def infer_courses_from_user
     return [] if user.blank?
     user.courses.where('start <= ?', date).where('end >= ?', date)
-  end
-
-  # Returns a link to the plagiarism report for a revision, if there is one.
-  def plagiarism_report_link
-    return unless ithenticate_id
-    "/recent-activity/plagiarism/report?ithenticate_id=#{ithenticate_id}"
   end
 
   # reference-counter API value

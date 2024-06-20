@@ -8,6 +8,7 @@
 # Author: Av6
 # Author: DDPAT
 # Author: Diralik
+# Author: Dirruw'o
 # Author: Edible Melon
 # Author: Evs
 # Author: Facenapalm
@@ -50,10 +51,17 @@ ru:
     human:
       decimal_units:
         format: '%n%u'
+        units:
+          thousand: К
+          million: М
+          billion: Б
+          trillion: Т
+          quadrillion: Квдрлн
   accessibility:
     number_field: Это числовое поле. С помощью кнопок, отображаемых большинством браузеров,
       можно увеличивать и уменьшать значение.
   application:
+    back: Назад
     cancel: Отмена
     cookie_consent: Этот сайт использует куки-файлы для вашего входа в систему и хранит
       информацию, относящуюся к вашей учетной записи в Википедии.
@@ -86,6 +94,8 @@ ru:
       one: '%{count} Результат для: ''%{search_terms}'''
       other: '%{count} Результаты для: ''%{search_terms}'''
     no_results: Ничего не нашлось по запросу '%{query}'
+    show_current_revision: Показать текущую версию
+    show_last_revision: Просмотр последней правки
     sign_up_extended: Зарегистрируйтесь в Википедии
     sign_up_wikipedia: Или войдите в Википедию
     sign_up_log_in_extended: через Википедию
@@ -142,6 +152,12 @@ ru:
     log_in: Войти с помощью Википедии
     sign_up: Зарегистрируйтесь с помощью Википедии
     registration_advice:
+      username_rules:
+        heading: Правила для имён пользователя
+        avoid_offensive_usernames: Не выбирайте имя пользователя, которое является
+          оскорбительным, вводящим в заблуждение, деструктивным или рекламным.
+        represent_individual: Имена пользователей должны обозначать отдельного редактора.
+          Не используйте название школы или организации.
       additional_advice:
         heading: Совет
     sign_up_help: Чтобы использовать панель мониторинга, необходимо войти через Википедию
@@ -184,7 +200,9 @@ ru:
       tracked: Отслеживаемые
       untracked: Неотслеживаемые
       tracked_and_untracked: Отслеживаемые и неотслеживаемые
+    filter_text: Фильтры
     find: Найти статьи
+    how_to_find: Как найти статьи
     hide: Скрыть
     history: (история)
     label: Статьи
@@ -227,6 +245,7 @@ ru:
     articles_short: Статьи
   items:
     lexeme: Лексема
+    how_to_find: Как найти предметы
   articles_wikidata:
     articles_short: Элементы
   articles_generic:
@@ -245,12 +264,18 @@ ru:
     confirm_add_available: Вы уверены, что хотите добавить %{title}?
     confirm_addition: Вы уверены, что хотите назначить %{username} для работы с %{title}?
     confirm_deletion: Вы уверены, что хотите удалить это задание?
+    change_sandbox_url: Изменить песочницу
     group_members: Участники группы
     loading: Загрузка заданий...
     none: Этот курс не имеет назначенных статей.
     remove: Удалить
     reviewers: Проверяющий(е)
     select: Выбрать
+    submit: Отправить
+    invalid_url: Невозможно обновить URL-адрес песочницы. URL %{url} не является допустимым
+      URL-адресом Википедии.
+    mismatched_wiki: Невозможно обновить URL-адрес песочницы. URL %{url} не находится
+      в той же вики.
     warning_untracked_wiki: 'Обратите внимание, что выбранная вами статья из вики,
       не отслеживается этим курсом. Чтобы отслеживать вклады в эту статью, инструктор
       должен добавить к этому курсу следующую вики: %{wiki}'
@@ -281,6 +306,7 @@ ru:
     delete_campaign: Удалить эту кампанию
     disable_account_requests: Отключить запросы учётной записи
     enable_account_requests: Включить запросы учётной записи
+    featured_campaigns: Избранные компании
     no_passcode: Нет кода доступа
     none: Нет
     organizers: Организаторы
@@ -295,8 +321,8 @@ ru:
   categories:
     add_category: Добавить категорию
     add_template: Добавить шаблон
-    add_this_category: Добавить эту категорию
-    add_this_template: Добавить данный шаблон
+    add_this_category: Добавить категории
+    add_this_template: Добавить шаблон
     depth: Глубина подкатегорий
     name: Имя
     category_name: Название категории
@@ -313,6 +339,9 @@ ru:
     all_courses: Все курсы
     actions: Действия
     articles: Статьи
+    add_campaign_aria_label: Добавить кнопку капмании
+    new_tag_button_aria_label: Кнопка «Создать или обновить тег»
+    enroll_button_aria_label: Кнопка регистрации
     assignment_end: Конец задания
     assignment_start: Начало задания
     calendar:
@@ -584,6 +613,20 @@ ru:
     none: В последнее время в этом курсе не совершалось правок.
     time_doc: Время каждой ревизии по вашему местному времени
     title: Название
+  settings:
+    categories:
+      other_settings: Другие настройки
+      impact_stats: Статистика воздействия
+      featured_campaigns: Избранные компании
+      special_users: 'Служебная: Участники'
+      admin_users: Администраторы
+      users: Участники
+    featured_campaigns:
+      campaign_not_found: Кампания со слагом «%{campaign_slug}» не найдена
+      no_featured_campaigns: Рекомендуемые кампании не определены
+      update_featured_campaigns_button: Обновить избранные кампании
+      add_button: Добавить уведомление
+      remove_button: Новое переименование компании
   tasks:
     conseq: Задача %{task} уже выполняется!
     constant: Задача %{task} не может быть выполнена, когда происходит ежедневное
@@ -620,13 +663,21 @@ ru:
     label: Новое имя участника
     button: Обновить
   uploads:
+    article_name: Название статьи
+    author: 'Автор:'
+    categories: Категории
     credit: Создатели
+    date: 'Дата:'
+    description: Описание
     file_name: Имя файла
+    file_usage: Страница обсуждения в другом вики-проекте
     header: Файлы, загруженные на Викисклад
     image: Изображение
     label: Загрузки
+    license: 'Лицензия:'
     loading: Загрузка приложений...
     none: Этот класс не добавлял никакие изображения или иные медиафайлы на Викисклад.
+    original_file: Файл-оригинал
     time_doc: Время загрузки каждого дополнения по вашему местному времени.
     uploaded_at: Время загрузки
     uploader: Загружающий
@@ -636,6 +687,10 @@ ru:
     usage_doc: Число статей Википедии, в которых используется это изображение.
     usage_count_gallery_tile: Используется в %{usage_count} статьях
     usages: Использование
+    source: 'Источник:'
+    views_per_day: Просмотров на правку
+    view_commons: Просмотреть на Коммонс
+    wiki_big: Вики-проект
   users:
     already_enrolled: Этот участник уже подписан на курс.
     assign_articles_done: Готово
@@ -653,6 +708,7 @@ ru:
     name: Имя
     none: Нет участников.
     recent_revisions: Последние правки
+    training_modules: Учебный модуль
     request_confirmation: Вы уверены, что хотите запросить эту учётную запись?
     requested_account_status:
       success_message: 'Успешно: %{result_description}'
@@ -752,4 +808,31 @@ ru:
     unassign_article_self: Отменить назначение статьи
   multi_wiki:
     selector_placeholder: Начните вводить домен wiki
+  news:
+    post_confirmation:
+      confirmation: Пожалуйста, подтвердите
+    delete_confirmation:
+      confirmation: Пожалуйста, подтвердите.
+    footer:
+      P&E_dashboard:
+        link_text: Викимедиа
+    options:
+      news_content:
+        delete_news: Удалить новость
+        confirm_delete: Подтвердить
+        cancel_delete: Отменить
+        cancel_edit: Отменить правку
+        edit_news: Править новость
+      create_news:
+        confirm_post: Подтвердить публикацию
+        discard_post: Отменить новость
+    notification:
+      empty_create_news_content_error: Пожалуйста, введите содержание новости перед
+        публикацией.
+  notes:
+    title: Заголовок
+    note_text: Текст примечания
+    cancel_note_creation: Отмена
+    cancel_edit_note: Отменить
+    save_note: Сохранить
 ...

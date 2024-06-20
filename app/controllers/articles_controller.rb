@@ -15,8 +15,8 @@ class ArticlesController < ApplicationController
     revisions = @course.tracked_revisions.where(article_id: @article.id).order(:date)
     @first_revision = revisions.first
     @last_revision = revisions.last
-    editor_ids = revisions.pluck(:user_id).uniq
-    @editors = User.where(id: editor_ids)
+    article_course = ArticlesCourses.find_by(course: @course, article: @article, tracked: true)
+    @editors = User.where(id: article_course&.user_ids)
   end
 
   # updates the tracked status of an article

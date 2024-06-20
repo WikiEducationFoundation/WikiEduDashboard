@@ -204,6 +204,7 @@ nb:
     confirm_add_available: Er du sikker på at du vil legge til %{title}?
     confirm_addition: Er du sikker på at du vil tildele %{username} %{title}?
     confirm_deletion: Er du sikker på at du vil slette denne artikkeltildelingen?
+    change_sandbox_url: Endre sandkasse
     label: Tildel
     loading: Laster tildelinger ...
     none_short: Ingen artikler tildelt
@@ -214,6 +215,7 @@ nb:
     review_other: Tildel en anmeldelse
     review_self: Anmeld en artikkel
     select: Velg
+    submit: Send
   blocks:
     milestones:
       title: Milepæler
@@ -482,7 +484,7 @@ nb:
     students: Studenter
     students_taught: Studenter undervist
     students_count: Ant. studenter
-    student_editors: Studentbidragsytere
+    student_editors: Student&shy;bidragsytere
     students_none: Dette kurset har ingen studenter.
     students_short: Studenter
     submitted_admin: Dette kurset har blitt sendt inn for godkjenning av den som opprettet

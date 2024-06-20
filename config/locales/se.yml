@@ -9,12 +9,21 @@ se:
     cancel: Gaskkalduhte
     cookie_consent_acknowledge: Mun ipmirdan
     cookie_consent_see_more: Lassedieđut
+    create_accounts: Ráhkat Wikipedia-dovddaldagaid
+    error: 'Meattáhus iđii:'
+    explore: Suokkar
+    field_required: Dát gieddi dárbbašuvvo
     greeting2: Bures boahtin!
     log_in_extended: Čálit sisa Wikipedia bokte
     log_in: Čálit sisa
     log_out: Čálit olggos
+    show_current_revision: Čájet dálá veršuvnna
+    show_last_revision: Čájet maŋemus veršuvnna
+    print: Prente
   home:
+    explore: Suokkar
     log_in: Čálit sisa Wikipedia bokte
+    sign_up: Ráhkat geavaheaddjidovddaldaga Wikipedia bokte
   alerts:
     alert_label: Várrehusat
   articles:
@@ -31,11 +40,18 @@ se:
     label: Artihkkalat
     loading: Viežžamin artihkkaliid...
     new: (ođđa artihkal)
+    rating_docs:
+      does_not_exist: Dát artihkal ii gávdno Wikipedias
     see_more: Lassedieđut
+    search: Oza artihkkala Wikipedias
+    show_current_version: Čájet ođđaseamos veršuvnna
     view: Čájet artihkkala
     view_all: Čájet buot
     view_on_wiki: Čájet wikis
+    wiki: Wiki
     articles_short: Artihkkalat
+    page_logs: (siiddu loggat)
+    view_articles: Čájet artihkkaliid
   items:
     lexeme: Leksema
   articles_generic:
@@ -48,9 +64,19 @@ se:
     select: Vállje
   campaign:
     alert_label: Kampánjja várrehusat
+    alert_user_id: Geavaheaddji
+    created_at: Beaivemearri
     description: Govvádus
     no_alerts: Dan kampánjjas eai leat várrehusat
+    search: Oza
   categories:
+    add_category: Lasit kategoriija
+    add_template: Lasit málle
+    add_this_category: Lasit kategoriijaid
+    add_this_template: Lasit málliid
+    name: Namma
+    category_name: Kategoriija namma
+    psid_name: PSID
     template_name: Málle namma
     remove: Sihko
     timestamp: Maŋemus rievdaduvvon
@@ -70,10 +96,14 @@ se:
     timeline_enabled: Áigelinnjá lea váldojuvvon atnui
     timeline_link: Áigelinnjá
     view_wiki: Čájet Wikipedias
+  course_instructor_notification:
+    send_notification_button_text: Sádde
   courses_generic:
     cancel: Gaskkalduhte
     creator:
       save_cloned_course: Vurke
+      scoping_methods:
+        templates: Mállet
     student_editors: Geavaheaddjit
     students: Geavaheaddjit
     students_short: Geavaheaddjit
@@ -84,12 +114,14 @@ se:
     bad_work:
       learn_more_button: Lassedieđut
   metrics:
+    close_modal: Gidde
     tags: Gilkorat
     removed: Sihkkojuvvon
     added: Lasihuvvon
   namespace:
     article: Artihkal
     file: Fiila
+    page: Siidu
   recent_activity:
     file_name: Fiilanamma
   revisions:
@@ -97,11 +129,21 @@ se:
     diff_hide: Čiega
     loading: Viežžamin veršuvnnaid
     see_more: Lassedieđut
+    show_all: Čájet buot
   settings:
+    categories:
+      other_settings: Eará ásahusat
+      users: Geavaheaddjit
     admin_users:
       new:
         form_placeholder: Geavaheaddjinamma
   timeline:
+    add_week: Lasit vahkku
+    arrange_timeline: Ordne áigelinnjá
+    discard_all_changes: Healbat buot rievdadusaid
+    delete_timeline_and_start_over: Sihko áigelinnjá
+    empty_week_3: dahje
+    save_all_changes: Vurke buot
     title: Áigelinnjá
   training:
     view: Čájet
@@ -114,13 +156,17 @@ se:
     first_name: Ovdanamma
     last_name: Goargu
     loading: Viežžamin geavaheddjiid...
+    name: Namma
     username: Geavaheaddjinamma
     username_placeholder: Geavaheaddjinamma
     useremail_placeholder: E-poastačujuhus
   wizard:
     read_more: Čájet eambbo
+  error_404:
+    header: Siidu ii gávdnon. :-(
   article_finder:
     remove_article: Sihko artihkkala
+    show_options: Čájet ásahusaid
   training_status:
     continue: Joatkke
     view: Čájet

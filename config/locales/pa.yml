@@ -1,10 +1,15 @@
 # Messages for Punjabi (ਪੰਜਾਬੀ)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Cabal
 # Author: Jimidar
 # Author: ਪ੍ਰਚਾਰਕ
 ---
 pa:
+  article_statuses:
+    ready_for_review: ਖਰੜਾ ਦਾ ਵਿਸਤਾਰ
+  assignments:
+    sandbox_draft_link: ਕੱਚੇ ਖ਼ਾਕੇ ਦਾ ਖਰੜਾ
   courses:
     actions: ਕਾਰਵਾਈਆਂ
     creator:
@@ -17,6 +22,8 @@ pa:
     edit: ਸੋਧੋ
     cancel: ਰੱਦ ਕਰੋ
     save: ਸੰਭਾਲੋ
+  namespace:
+    draft: ਖਰੜਾ
   recent_activity:
     datetime: ਮਿਤੀ/ਵੇਲਾ
     image: ਤਸਵੀਰ
@@ -33,9 +40,13 @@ pa:
     image: ਤਸਵੀਰ
   users:
     assign_articles_done: ਪੂਰਾ ਹੋਇਆ
+    chars_added: ਅੱਖਰ ਜੋੜੇ ਗਏ<br/>(ਲੇਖ। ਵਰਤੋਂਕਾਰ। ਖਰੜਾ)
     first_name: ਮੂਹਰਲਾ ਨਾਂ
     last_name: ਪਿਛਲਾ ਨਾਂ
+    characters_added_draftspace: ਅੱਖਰ ਜੋੜੇ ਗਏ (ਖਰੜਾ)
     training_incomplete: ਅਧੂਰਾ ਅਭਿਆਸ
     username: ਵਰਤੋਂਕਾਰ ਨਾਂ
     username_placeholder: ਵਰਤੋਂਕਾਰ ਨਾਂ
+  login_error:
+    header: ਦਾਖ਼ਲ ਹੋਣ ਦੀ ਗ਼ਲਤੀ
 ...

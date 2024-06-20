@@ -38,6 +38,7 @@ it:
     number_field: Questo è un campo numerico. I bottoni visualizzati dalla maggior
       parte dei browser aumentano e diminuiscono il numero inserito.
   application:
+    back: Indietro
     cancel: Annulla
     cookie_consent_acknowledge: Ho capito
     cookie_consent_see_more: Vedi altro.
@@ -160,6 +161,7 @@ it:
     history: (cronologia)
     label: Voci
     loading: Caricamento articoli...
+    mark_as_complete: Contrassegna come completato
     new: (nuovo)
     none: Questo corso non ha modificato alcuna voce.
     rating: Classe
@@ -248,6 +250,7 @@ it:
     confirm_add_available: Sei sicuro di voler aggiungere %{title}?
     confirm_addition: Sei sicuro di voler assegnare %{title} a %{username}?
     confirm_deletion: Sei sicuro di voler cancellare questa assegnazione?
+    delete: Rimuovi e cancella
     editors: Assegnato  a
     group_members: Membri del gruppo
     label: Assegna
@@ -263,6 +266,7 @@ it:
     review_tooltip: Serve per la voce/i che pianifichi di far revisionare tra pari
       o fornire riscontri.
     select: Seleziona
+    submit: Invia
   blocks:
     milestones:
       title: Traguardi
@@ -291,6 +295,10 @@ it:
     course_already_removed: '"%{title}" è già stato rimosso della campagna "%{campaign_title}"'
     course: Corso
     course_removed: '"%{title}" è stato rimosso dalla campagna "%{campaign_title}"'
+    course_removed_and_deleted: '"%{title}" è stato cancellato e rimosso dalla campagna
+      "%{campaign_title}"'
+    course_removed_but_not_deleted: '"%{title}" è stato rimosso da "%{campaign_title}"
+      ma non è stato cancellato poiché è presente anche in altre campagne'
     create_campaign: Crea una nuova campagna
     create_my_campaign: Crea la mia campagna!
     customize_passcode: un codice di accesso di default
@@ -302,6 +310,7 @@ it:
       devono avere:'
     description: Descrizione
     delete_campaign: Cancella questa campagna
+    delete_course_tooltip: Cancella e rimuovi dalla campagna.
     disable_account_requests: Disattiva richieste di account
     enable_account_requests: Attiva richieste utenza
     no_alerts: Questa campagna non ha avvisi
@@ -316,6 +325,7 @@ it:
       campagna, il testo di quest'area verrà copiato come descrizione nella pagina
       del programma
     random_passcode: un codice di accesso a caso
+    remove_course_tooltip: Rimuovi dalla campagna.
     requested_accounts: Utenze richieste
     title: Titolo
     search_campaigns: Cerca campagne
@@ -907,13 +917,21 @@ it:
     label: Nuovo nome utente
     button: Aggiorna
   uploads:
+    article_name: Nome dell'articolo
+    author: 'Autore:'
+    categories: Categorie
+    date: 'Data:'
+    description: Descrizione
     file_name: Nome del file
+    file_usage: Utilizzo del file su altri wiki
     header: File caricati su Wikimedia Commons
     image: Immagine
     label: Caricamenti
+    license: 'Licenza:'
     loading: Caricando gli upload...
     none: Questa classe non ha contribuito con alcuna immagine o altri file multimediali
       su Wikimedia Commons.
+    original_file: File originale
     uploaded_at: Ora caricamento
     uploader: Caricato da
     uploaded_by: Caricato da
@@ -922,6 +940,10 @@ it:
     usage_doc: Numero di voci di Wikipedia in cui appare questa immagine.
     usage_count_gallery_tile: Usata in %{usage_count} voci
     usages: Usi
+    source: 'Fonte:'
+    views_per_day: Visualizzazioni al giorno
+    view_commons: Vedi su Commons
+    wiki_big: Wiki
   users:
     already_enrolled: Quell'utente è già iscritto!
     assign_articles_done: Fatto
@@ -956,6 +978,7 @@ it:
     profile: profilo
     recent_revisions: Modifiche recenti
     references_count: Riferimenti aggiunti
+    training_modules: Moduli di formazione
     remove_confirmation: Sei sicuro di voler rimuovere %{username}?
     revision_characters_and_views: 'Caratteri aggiunti: %{characters}, Visualizzazioni:
       %{views}'

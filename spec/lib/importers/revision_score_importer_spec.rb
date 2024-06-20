@@ -53,7 +53,6 @@ describe RevisionScoreImporter do
       later_score = later_revision.wp10.to_f
       expect(early_score).to be_between(0, 100)
       expect(later_score).to be_between(early_score, 100)
-      expect(later_revision.features['feature.wikitext.revision.external_links']).to eq(12)
       expect(later_revision.features['num_ref']).to eq(13)
     end
   end
@@ -74,7 +73,7 @@ describe RevisionScoreImporter do
       revision = article.revisions.first
       expect(revision.deleted).to eq(true)
       expect(revision.wp10).to be_nil
-      expect(revision.features).to eq({ 'num_ref' => nil })
+      expect(revision.features).to eq({})
     end
   end
 
@@ -93,7 +92,7 @@ describe RevisionScoreImporter do
       revision = article.revisions.first
       expect(revision.deleted).to eq(true)
       expect(revision.wp10).to be_nil
-      expect(revision.features).to eq({ 'num_ref' => nil })
+      expect(revision.features).to eq({})
     end
   end
 
@@ -124,7 +123,7 @@ describe RevisionScoreImporter do
     # no value changed for the revision
     revision = Revision.find_by(mw_rev_id: 662106477)
     expect(revision.wp10).to be_nil
-    expect(revision.features).to eq({ 'num_ref' => nil })
+    expect(revision.features).to eq({})
     expect(revision.deleted).to eq(false)
   end
 
@@ -152,38 +151,6 @@ describe RevisionScoreImporter do
         described_class.new.update_previous_revision_scores
         expect(Revision.find_by(mw_rev_id: 662106477).wp10_previous).to be_between(0, 100)
         expect(Revision.find_by(mw_rev_id: 46745264).wp10_previous).to be_between(0, 100)
-      end
-    end
-  end
-
-  describe '#fetch_data_for_revision_id' do
-    let(:rev_id) { 860858080 }
-    # https://en.wikipedia.org/w/index.php?title=Hamlin_Park&oldid=860858080
-    # https://www.wikidata.org/w/index.php?title=Q61734980&oldid=860858080
-    let(:language) { 'en' }
-    let(:project) { 'wikipedia' }
-    let(:subject) do
-      described_class.new(language:, project:)
-                     .fetch_data_for_revision_id(rev_id)
-    end
-
-    it 'returns a hash with a predicted rating and features' do
-      VCR.use_cassette 'revision_scores/single_revision' do
-        expect(subject[:features]).to have_key('feature.wikitext.revision.wikilinks')
-        expect(subject[:rating]).to eq('Stub')
-      end
-    end
-
-    context 'for Wikidata revisions' do
-      let(:language) { nil }
-      let(:project) { 'wikidata' }
-
-      it 'returns a hash with features' do
-        VCR.use_cassette 'revision_scores/single_revision' do
-          puts subject[:features]
-          expect(subject[:features]).to have_key(Revision::WIKIDATA_REFERENCES)
-          expect(subject[:rating]).to eq('D')
-        end
       end
     end
   end

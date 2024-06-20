@@ -7,9 +7,7 @@ class PetScanApi
 
   def get_data(psid, update_service: nil)
     response = petscan.get query_url(psid)
-    title_data = Oj.load(response.body)
-    url = query_url(psid)
-    title_data
+    Oj.load(response.body)
   rescue StandardError => e
     log_error(e, update_service:,
               sentry_extra: { psid:, api_url: url })

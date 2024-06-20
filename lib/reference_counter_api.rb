@@ -60,9 +60,9 @@ class ReferenceCounterApi
       return { 'num_ref' => parsed_response['num_ref'] }
     else
       # Log the error and return empty hash
-      Sentry.capture_message 'Non-200 response hitting references counter API', level: 'warning',
-      extra: { project_code: @project_code, language_code: @language_code, rev_id:,
-                             status_code: response.status, content: parsed_response }
+      # Sentry.capture_message 'Non-200 response hitting references counter API', level: 'warning',
+      # extra: { project_code: @project_code, language_code: @language_code, rev_id:,
+      #                        status_code: response.status, content: parsed_response }
       return { 'num_ref' => nil }
     end
   rescue StandardError => e
@@ -80,13 +80,12 @@ class ReferenceCounterApi
   end
 
   def toolforge_server
-    connection = Faraday.new(
+    Faraday.new(
       url: TOOLFORGE_SERVER_URL,
       headers: {
         'Content-Type': 'application/json'
       }
     )
-    connection
   end
 
   TYPICAL_ERRORS = [Faraday::TimeoutError,

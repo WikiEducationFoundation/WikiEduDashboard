@@ -40,6 +40,7 @@ qqq:
     number_field: Descriptive text for screen readers to explain how the number field
       works
   application:
+    back: Button to go back
     cancel: |-
       Button to cancel an action
       {{Identical|Cancel}}
@@ -223,6 +224,7 @@ qqq:
     confirm_addition: Confirmation dialog for adding a new assignment. %{title} is
       the Wikipedia page title. %{username} is the username of the assignee.
     confirm_deletion: Confirmation dialog for an assignment should be deleted
+    change_sandbox_url: Link to change the sandbox URL
     label: |-
       Button to assign an article
       {{Identical|Assign}}
@@ -232,6 +234,11 @@ qqq:
     no_available: |-
       Message indicating that there are no articles in the list of "available
       articles" for participants to select from.
+    random_peer_review:
+      confirm_addition: '"Assign/remove a peer review" is {{msg-wm|Wikiedudashboard-assignments.review
+        other}}.'
+      confirm_addition_wikidata: '"Assign/remove a peer review" is {{msg-wm|Wikiedudashboard-assignments.review
+        other}}.'
     remove: |-
       Button to remove an article from the list of available articles
       {{Identical|Remove}}
@@ -241,6 +248,11 @@ qqq:
     select: |-
       Button to choose an available article to work on. It appears next to the title of the article.
       {{Identical|Select}}
+    submit: Button to submit sandbox URL change.
+    invalid_url: Cannot update sandbox url. The URL %{url} is not a valid Wikipedia
+      URL.
+    mismatched_wiki: Cannot update sandbox url. The URL %{url} is not on the same
+      wiki.
   blocks:
     milestones:
       title: Label for the Milestone section of a course page (Wiki Ed only)
@@ -604,6 +616,8 @@ qqq:
   instructor_view:
     assignments_table:
       article_name: '{{Identical|Name}}'
+    no_assignments: Message displayed when no assignment is assigned to students
+    can_assign_assignments: Message displayed when the user can assign the assignment
   metrics:
     activity: Label for activity feed.
     are_trained: Label that follows the number of users who are do not have assigned
@@ -690,6 +704,11 @@ qqq:
       Label for title of the article
       {{Identical|Title}}
   settings:
+    categories:
+      salesforce: |-
+        {{Optional}}
+
+        The name of a CRM service. See [[:w:en:Salesforce]].
     admin_users:
       new:
         form_placeholder: '{{Identical|User name}}'

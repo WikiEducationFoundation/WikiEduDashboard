@@ -22,12 +22,20 @@ course_id: course.id, message: 'Test Email Content', user: admin, subject: SUBJE
   describe '.email' do
     let(:mail) { described_class.email(instructor_notification_alert) }
 
-    it 'delivers an email to the instructor and CCs Wiki Ed staff' do
+    it 'generates an email to the instructor and CCs Wiki Ed staff' do
       allow(Features).to receive(:email?).and_return(true)
       expect(mail.subject).to include(SUBJECT)
       expect(mail.to).to include(instructor.email)
       expect(mail.body).to include('Test Email Content')
       expect(mail.reply_to).to include(admin.email)
+    end
+  end
+
+  describe '.send_email' do
+    it 'triggers email delivery' do
+      allow(Features).to receive(:email?).and_return(true)
+      expect_any_instance_of(ActionMailer::MessageDelivery).to receive(:deliver_now)
+      described_class.send_email(instructor_notification_alert)
     end
   end
 end

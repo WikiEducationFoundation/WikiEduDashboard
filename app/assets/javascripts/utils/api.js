@@ -36,7 +36,7 @@ const API = {
     })
       .then(res => {
         if (res.ok) {
-          return res.json();
+          return Promise.resolve({ statusText: res.statusText });
         }
         else {
           return Promise.reject({ statusText: res.statusText });
@@ -120,30 +120,6 @@ const API = {
 
   async fetchDykArticles(opts = {}) {
     const response = await request(`/revision_analytics/dyk_eligible.json?scoped=${opts.scoped || false}`);
-
-    if (!response.ok) {
-      logErrorMessage(response);
-      const data = await response.text();
-      response.responseText = data;
-      throw response;
-    }
-    return response.json();
-  },
-
-  async fetchSuspectedPlagiarism(opts = {}) {
-    const response = await request(`/revision_analytics/suspected_plagiarism.json?scoped=${opts.scoped || false}`);
-
-    if (!response.ok) {
-      logErrorMessage(response);
-      const data = await response.text();
-      response.responseText = data;
-      throw response;
-    }
-    return response.json();
-  },
-
-  async fetchSuspectedCoursePlagiarism(course_id) {
-    const response = await request(`/courses/${course_id}/suspected_plagiarism.json`);
 
     if (!response.ok) {
       logErrorMessage(response);
@@ -257,7 +233,29 @@ const API = {
       });
   },
 
+  async fetchNews() {
+    // Determine the type of newsTitle content to fetch based on the `Features.wikiEd` flag
+    const newsTitle = Features.wikiEd ? 'Wiki Education News' : 'Programs & Events Dashboard News';
+     try {
+         const response = await request(`/faq/${newsTitle}/handle_special_faq_query`);
+         const { newsDetails } = await response.json();
+         return newsDetails;
+     } catch (error) {
+         logErrorMessage('Error creating news:', error)
+         throw error;
+     }
+  },
 
+  async fetchAllAdminCourseNotes(courseId) {
+    try {
+      const response = await request(`/admin_course_notes/${courseId}`);
+      const data = await response.json();
+      return data.AdminCourseNotes;
+    } catch (error) {
+      logErrorMessage('Error fetching course notes:', error);
+      throw error;
+    }
+  },
 
   // /////////
   // Setters #
@@ -336,12 +334,54 @@ const API = {
       throw response;
     }
     return response.json();
+  },
 
-    // return promise;
+  async saveUpdatedAdminCourseNote(adminCourseNoteDetails) {
+    try {
+        const response = await request(`/admin_course_notes/${adminCourseNoteDetails.id}`, {
+            method: 'PUT',
+            body: JSON.stringify(adminCourseNoteDetails)
+        });
+
+        const status = await response.json();
+        return status;
+    } catch (error) {
+        logErrorMessage('Error fetching course notes:', error);
+        throw error;
+    }
+  },
+
+  async createAdminCourseNote(courseId, adminCourseNoteDetails) {
+     const modifiedDetails = { ...adminCourseNoteDetails, courses_id: courseId };
+     try {
+         const response = await request('/admin_course_notes', {
+             method: 'POST',
+             body: JSON.stringify(modifiedDetails)
+         });
+
+         const { created_admin_course_note } = await response.json();
+         return created_admin_course_note;
+     } catch (error) {
+         logErrorMessage('Error saving course notes:', error)
+         throw error;
+     }
+  },
+
+  async deleteAdminCourseNote(adminCourseNoteId) {
+     try {
+         const response = await request(`/admin_course_notes/${adminCourseNoteId}`, {
+             method: 'DELETE',
+         });
+
+         const status = await response.json();
+         return status;
+     } catch (error) {
+         logErrorMessage('Error Deleting course notes:', error)
+         throw error;
+     }
   },
 
   async deleteCourse(courseId) {
-    console.log("deleting")
     const response = await request(`/courses/${courseId}.json`, {
       method: 'DELETE'
     });
@@ -470,6 +510,49 @@ const API = {
       throw response;
     }
     return response.json();
+  },
+
+  async createNews(NewsDetails) {
+    NewsDetails = { ...NewsDetails, title: Features.wikiEd ? 'Wiki Education News' : 'Programs & Events Dashboard News'}
+    try {
+      const response = await request('/faq', {
+        method: 'POST',
+        body: JSON.stringify(NewsDetails)
+      });
+
+      const status = response.json();
+      return status
+    } catch (error) {
+      logErrorMessage('Error creating news:', error)
+         throw error;
+    }
+  },
+
+  async updateNews(NewsDetails) {
+    try {
+       const response = await request(`/faq/${NewsDetails.id}`, {
+           method: 'PUT',
+           body: JSON.stringify(NewsDetails)
+       });
+       const status = await response?.json();
+       return status;
+    } catch (error) {
+       logErrorMessage('Error Deleting course notes:', error)
+       throw error;
+    }
+  },
+
+  async deleteNews(news_id) {
+    try {
+       const response = await request(`/faq/${news_id}`, {
+           method: 'DELETE',
+       });
+       const status = await response.json();
+       return status
+    } catch (error) {
+       logErrorMessage('Error Deleting course notes:', error)
+       throw error;
+    }
   },
 
   async createAlert(opts, alert_type) {

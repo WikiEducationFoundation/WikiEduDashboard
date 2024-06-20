@@ -19,12 +19,14 @@
 # Author: Ixocactus
 # Author: Joalpe
 # Author: Jurema Oliveira
+# Author: Lc97
 # Author: LucyDiniz
 # Author: Luk3
 # Author: Macofe
 # Author: Mariagarbin
 # Author: Maxan
 # Author: Mello25
+# Author: Mellogabi03
 # Author: Pedrofariasm
 # Author: Peter Fernando
 # Author: Raphaelras
@@ -34,6 +36,7 @@
 # Author: Rukasuoribera
 # Author: Svjatysberega
 # Author: Trigonometria87
+# Author: Vinickw
 # Author: YuriNikolai
 ---
 pt-br:
@@ -49,14 +52,14 @@ pt-br:
           quadrillion: Q
   accessibility:
     number_field: Isso é um campo numérico. Os botões mostrados pela maioria dos navegadores
-      vão aumentar ou reduzir o resultado.
+      vão aumentar ou reduzir a entrada.
   application:
     cancel: Cancelar
     cookie_consent: Este site usa cookies para mantê-lo conectado e armazena informações
       relacionadas à sua conta da Wikipédia.
     cookie_consent_acknowledge: Compreendo
-    cookie_consent_see_more: Veja mais.
-    create_accounts: Crie contas da Wikipédia
+    cookie_consent_see_more: Ver mais.
+    create_accounts: Criar contas da Wikipédia
     dashboard: Painel do Wiki Ed
     documentation: Documentação
     error: 'Ocorreu um erro:'
@@ -100,12 +103,12 @@ pt-br:
   article_statuses:
     not_yet_started: Primeiros passos
     in_progress: Trabalhando na área de testes
-    ready_for_review: Expandindo rascunho
-    ready_for_mainspace: Movendo o trabalho para o espaço principal
+    ready_for_review: Expandir rascunho
+    ready_for_mainspace: Mover o trabalho para o domínio principal
     assignment_completed: Tarefa marcada como concluída
     reading_the_article: Lendo o artigo
-    providing_feedback: Fornecendo comentários
-    post_to_talk: Postando na página de discussão
+    providing_feedback: Providenciando comentários
+    post_to_talk: Postar na página de discussão
     peer_review_completed: Revisão concluída
   dashboard:
     create_note: Clique em Criar Curso para criar seu primeiro curso.
@@ -116,11 +119,11 @@ pt-br:
       cronograma de acordo com as suas necessidades.
     explore_course_pages: Explorar Páginas de Cursos
     explore_examples: Explorar exemplos
-    join_note: Depois de receber um código de acesso de seu instrutor, clique em "Encontre
+    join_note: Depois de receber um código de acesso de seu instrutor, clique em "Encontrar
       seu curso" para participar dele.
     no_courses_instructor: Parece que você não tem nenhum curso.
-    no_courses_student: Parece que você ainda não se inscreveu em um curso ainda.
-    opt_out: Requisitar sair da orientação
+    no_courses_student: Parece que você ainda não se inscreveu em nenhum curso ainda.
+    opt_out: Requisitar para sair da orientação
     orientation_notice: Antes de criar um curso, vamos passar pela orientação para
       ajudá-lo a começar (Leva aproximadamente 30 minutos para completar.)
     review_orientation: Revisar a orientação
@@ -137,6 +140,18 @@ pt-br:
     explore: Explorar
     log_in: Entrar via Wikipédia
     sign_up: Criar conta pela Wikipédia
+    registration_advice:
+      username_rules:
+        heading: Regras de nome de usuário
+        avoid_offensive_usernames: Não escolha um nome de usuário que seja ofensivo,
+          enganoso, perturbador ou promocional.
+        represent_individual: Os nomes de usuário devem representar um editor individual.
+          Não utilize o nome de uma escola ou organização.
+      additional_advice:
+        heading: Conselho
+        anonymous_username_recommendation: A Wiki Education recomenda escolher um
+          nome de usuário anônimo, não um que inclua seu nome real ou outras informações
+          de identificação.
     sign_up_help: Para usar o painel, você precisará fazer login na Wikipédia e conceder
       permissão para acessar sua conta. Você pode fazer login com uma conta da Wikipédia
       existente ou criar uma nova. Se você não conseguir criar uma conta, entre em
@@ -162,12 +177,12 @@ pt-br:
     article_title: Título do artigo
     assigned_to: Atribuído a
     character_doc: A soma de caracteres adicionados a artigos por editores inscritos
-      durante as datas de começo e fim
+      durante as datas de começo e término
     cross_wiki_tracking: Páginas do domínio principal editadas entre as datas de início
-      e fim são listadas abaixo. O painel analisa as contribuições da wiki principal
-      desse programa, assim como outras wiki para as quais houver um Artigo Designado
+      e término são listadas abaixo. O painel analisa as contribuições da wiki principal
+      desse programa, assim como outras wiki para as quais houver um Artigo Atribuído
       ou Disponível.
-    deleted: (apagado)
+    deleted: (deletado)
     does_not_exist: O artigo não existe. Crie uma página de testes e atribua a você
       próprio para receber sugestões.
     edited: Artigos editados
@@ -181,12 +196,15 @@ pt-br:
       new_and_existing: Novos e existentes
       tracked: Rastreado
       untracked: Não rastreado
-      tracked_and_untracked: Rastreado e não rastreado
+      tracked_and_untracked: Rastreados e não rastreados
+    filter_text: 'Filtros:'
     find: Encontrar artigos
+    how_to_find: Como encontrar artigos
     hide: Ocultar
     history: (histórico)
     label: Artigos
     loading: Carregando artigos...
+    mark_as_complete: Marcar como Completado
     new: (novo)
     none: Este curso não editou nenhum artigo.
     preview: Antevisão breve do artigo
@@ -195,33 +213,36 @@ pt-br:
       Essas avaliações podem corresponder a versões muito antigas, então elas são
       apenas um indicador raso da maturidade de um artigo.
     rating_docs:
-      fa: '%{class} (Artigo destacado) — a classificação mais alta da Wikipédia, provavelmente
-        um artigo demasiado desenvolvido para ser o projeto principal de um novo editor'
-      fl: '%{class} (Lista destacada) — a classificação mais alta da Wikipédia para
+      fa: '%{class} (Artigo destacado) — a qualidade mais alta da Wikipédia, provavelmente
+        um artigo muito desenvolvido para ser o projeto principal de um novo editor'
+      fl: '%{class} (Lista em destaque) — a qualidade mais alta da Wikipédia para
         listas'
-      a: Classe %{class} — um artigo muito desenvolvido que pode ser demasiado maduro
+      a: Qualidade %{class} — um artigo muito desenvolvido que pode ser muito desenvolvido
         para ser o projeto principal de um editor novo
-      ga: '%{class} (Artigo bom) — um artigo bem desenvolvido que pode ser demasiado
-        maduro para ser o projeto principal de um editor novo'
+      ga: '%{class} (Artigo bom) — um artigo bem desenvolvido que pode ser demais
+        para ser o projeto principal de um editor novo'
       b: Classe %{class} — um artigo moderadamente desenvolvido
-      c: Classe %{class} — um artigo mediano com possibilidades de melhoramento
+      c: Classe %{class} — um artigo intermédio com possibilidades de melhora
       start: Classe %{class} — um artigo preliminar com muito espaço para melhora
-      stub: '%{class} — um artigo em estágio inicial, que precisa de mais conteúdo'
-      list: '%{class} — uma lista em vez de um artigo convencional'
+      stub: Qualidade %{class} — um artigo em estágio inicial, que precisa de mais
+        conteúdo
+      list: Qualidade %{class} — uma lista em vez de um artigo convencional
       '?': Sem classificação — um artigo que ainda não foi classificado na escala
         de qualidade da Wikipédia
       does_not_exist: Este artigo não existe na Wikipédia
-    see_more: Veja mais
+    see_more: Ver mais
+    see_more_tooltip: Apenas os primeiros 500 artigos editados são carregados inicialmente.
+      Clique para carregar mais artigos.
     search: Pesquisar um artigo na Wikipédia
-    show_cumulative_changes: Mostrar Mudanças acumuladas
+    show_cumulative_changes: Mostrar mudanças acumuladas
     show_current_version: Ver versão atual
     show_current_version_with_authorship_highlighting: Versão atual com destaque de
       autoria
     title: Título
     tracked: Rastreado
-    tracked_doc: Apenas artigos rastreados contribuem para as estatísticas deste programa.
-      Quando os artigos são marcados como não acompanhados, eles serão removidos das
-      estatísticas durante a próxima atualização de dados.
+    tracked_doc: Apenas itens rastreados contribuem para as estatísticas deste programa.
+      Quando os itens são marcados como não rastreados, eles serão removidos das estatísticas
+      durante a próxima atualização de dados.
     title_example: Título do artigo
     tools: Ferramentas de avaliação
     view: Ver artigo
@@ -230,18 +251,18 @@ pt-br:
       pela primeira vez, por meio da atualização de estatísticas mais recente. Você
       pode usar o pageviews.toolforge.org para ver os números exatos.
     view_on_wiki: Ver na wiki
-    views_added: '%{count} novas visualizações para %{title}'
+    views_added: Adicionado %{count} novas visualizações para %{title}
     edit_size: Tamanho da edição
     wiki: Wiki
     wp10: Integridade Estrutural
     wp10_doc: A nota de 'Integridade Estrutural' indica o quanto um artigo se encaixa
-      no molde de um artigo maduro da Wikipédia, baseado no serviço de aprendizado
-      por máquina ORES (Serviço de Avaliação de Revisões Objetivo https://ores.wikimedia.org/
-      ). Essas notas são calculadas baseadas no tamanho de um artigo, o número de
-      referências e wikilinks e outras características básicas. Uma nota alta geralmente
-      indica que um artigo segue as convenções da Wikipédia para a estrutura de um
-      bom artigo mas não leva em conta o conteúdo em si. (Essas notas só estão disponíveis
-      para a Wikipédia em inglês.)
+      no molde de um artigo maduro da Wikipédia, com base no Serviço Objetivo de Avaliação
+      de Revisões (https://ores.wikimedia.org/). Estas notas são calculadas com base
+      no tamanho de um artigo, número de referências, hiperligações das wikis e outras
+      funcionalidades básicas do texto wiki. Uma nota alta geralmente indica que um
+      artigo segue as convenções da Wikipédia sobre a estrutura de um artigo bom,
+      mas não leva em conta o conteúdo em si. (Estas notas só estão disponíveis para
+      os artigos da Wikipédia em inglês.)
     articles_short: Artigos
     deleted_message: De acordo com os dados do Dashboard, esta página foi excluída.
       (Em alguns casos, movimentos de página, mesclagem de histórico ou outras ações
@@ -250,8 +271,12 @@ pt-br:
       foram realmente excluídos ou que foram restaurados posteriormente, o Painel
       geralmente refletir isso dentro de um ou dois dias.)
     page_logs: (registros da página)
+    tracked_articles: Artigos Rastreados
+    view_articles: Ver Artigos
+    no_tracked_articles: Esta categoria não possui nenhum artigo rastreado
   items:
     items: Itens
+    lexeme: Lexema
     article_not_found: Este item ainda não foi criado.
     assigned: Itens Atribuídos
     assignments_none: Ainda não há itens atribuídos.
@@ -305,9 +330,12 @@ pt-br:
     confirm_add_available: Tem certeza de que deseja adicionar %{title}?
     confirm_addition: Tem certeza que quer atribuir %{title} a %{username}?
     confirm_deletion: Tem certeza de que deseja excluir esta tarefa?
+    delete: Remover e Deletar
     editors: Atribuído a
+    change_sandbox_url: Alterar sandbox (página de teste)
     group_members: Membros do grupo
     label: Atribuir
+    label_all: Atribuir tudo
     loading: Carregando atribuições...
     none_short: Nenhum artigo atribuído
     none_short_wikidata: Nenhum item atribuído
@@ -353,7 +381,14 @@ pt-br:
     review_tooltip_wikidata: Isso é para itens que você planeja revisar por pares
       ou fornecer comentários.
     sandbox_draft_link: Rascunho de teste
+    sandbox_redlink_info: Esse link é vermelho pois a página não foi criado ainda.
+      (Se foi criada recentemente, o painel atualizará em breve.)
     select: Selecionar
+    submit: Enviar
+    invalid_url: Não foi possível atualizar a URL da sandbox (página de teste). A
+      URL %{url} não é uma URL válida da Wikipédia.
+    mismatched_wiki: Não foi possível atualizar a URL da sandbox (página de teste).
+      A URL %{url} não é da mesma wiki.
     warning_untracked_wiki: 'Observe que o artigo que você escolheu está em uma wiki
       não rastreado por este curso. Para acompanhar as contribuições para este artigo,
       um instrutor deve adicionar a seguinte wiki a este curso: %{wiki}'
@@ -384,6 +419,7 @@ pt-br:
     confirm_course_removal: Tens certeza que quer remover "%{title}" da campanha "%{campaign_title}"?
     course_already_removed: '"%{title}" já foi removida da campanha "%{campaign_title}"'
     course: Curso
+    course_data: dados do curso
     course_removed: '"%{title}" foi removido da campanha "%{campaign_title}"'
     create_campaign: Criar uma nova campanha
     create_my_campaign: Criar a minha campanha!
@@ -413,34 +449,42 @@ pt-br:
     disable_account_requests: Desativar solicitações de conta
     enable_account_requests: Ativar as solicitações de contas
     newest_campaigns: Campanhas mais recentes
+    featured_campaigns: Campanhas em destaque
+    instructors_course: instrutores por curso
     no_alerts: Esta campanha não tem alertas
     no_passcode: sem código de acesso
     none: Nenhum
     organizers: Organizadores
     organizer_added: '%{user} é agora um(a) organizador(a) da campanha "%{title}"'
     organizer_removed: '%{user} foi removido(a) como organizador(a) da campanha "%{title}"'
+    pages_edited_small: páginas editadas
     program_template: Modelo de Programa
     program_template_tooltip: Quando um organizador criar um programa nessa campanha,
       o texto nessa área será copiado como descrição na página do programa
     random_passcode: um código de acesso aleatório
+    remove_course_tooltip: Remover da campanha.
     requested_accounts: Contas solicitadas
+    resolve: Resolver
+    revision_data: dados da revisão
+    students_small: estudantes
+    student_course: estudantes por curso
     title: Título
     too_many_articles: A lista de artigos editados para esta campanha é muito longa
       para ser exibida. Por favor, veja cursos/programas/eventos individuais para
       ver os artigos editados.
     slug: URL semântico
     search_campaigns: Pesquisar campanhas
-    use_start_end_dates: Use datas de início e fim
+    use_start_end_dates: Use datas de início e término
     search: Pesquisar
   categories:
     add_category: Adicionar categoria
     add_psid: Adicionar PetScan PSID
     add_pileid: Adicionar ID da pilha de páginas
     add_template: Adicionar predefinição
-    add_this_category: Adicionar esta categoria
-    add_this_psid: Adicionar esse PSID
-    add_this_pileid: Adicionar esta página ID da pilha
-    add_this_template: Adicionar esta predefinição
+    add_this_category: Adicionar categorias
+    add_this_psid: Adicionar PSIDs do PetScan
+    add_this_pileid: Adicionar IDs da PagePile
+    add_this_template: Adicionar predefinições
     import_articles_description: A lista de artigos em uma categoria é atualizada
       periodicamente e pode levar algum tempo depois de ser adicionada antes que a
       lista seja preenchida.
@@ -586,7 +630,7 @@ pt-br:
       create_label: Criar novo curso
       create_new: Criar um novo curso
       create_short: Criar Curso
-      end_date: Data Final
+      end_date: Data de término
       end_date_placeholder: AAAA-MM-DD
       expected_number: Número experado de estudantes
       find: Encontre seu curso
@@ -956,6 +1000,8 @@ pt-br:
       participate_in_campaign: Participar numa campanha
       save_cloned_course: Salvar
       start_date: Início da atividade de monitorização
+      scoping_methods:
+        templates: Predefinições
     delete_course: Eliminar programa
     edit_course_dates: Editar datas do projeto
     end: Fim da atividade de monitorização
@@ -1032,8 +1078,7 @@ pt-br:
       thank_you: Obrigado! Entre em contato com o seu especialista da Wiki se tiver
         mais perguntas.
     exercises_and_trainings: '%{prefix} Exercícios e Treinamentos'
-    no_assignments: Atualmente, este aluno não possui artigos atribuídos. Você pode
-      atribuir um artigo usando os botões acima.
+    no_assignments: Atualmente, este aluno não possui artigos atribuídos.
     no_assignments_wikidata: Este aluno atualmente não tem itens atribuídos. Você
       pode atribuir um item usando os botões acima.
     overview: '%{prefix} Visão geral'
@@ -1078,8 +1123,8 @@ pt-br:
     error_count_message: O painel de controle encontrou %{error_count} erro(s) durante
       a atualização mais recente.
     future_updates_remaining:
-      1: As estatísticas continuarão sendo atualizadas até %{date}.
-      "": As estatísticas deste programa não são mais atualizadas regularmente.
+      updates_active: As estatísticas continuarão sendo atualizadas até %{date}.
+      updates_inactive: As estatísticas deste programa não são mais atualizadas regularmente.
     last_reviewed: Última revisão
     missing_data_heading: Resultados ausentes ou inesperados?
     missing_data_info: Problemas comuns incluem
@@ -1094,9 +1139,9 @@ pt-br:
       e %{error_count} encontraram erros.
     revisions: Edições recentes
     references_count: Referências adicionadas
-    references_doc: Este é o número de etiquetas de referência adicionadas aos artigos
-      e pode incluir várias referências à mesma fonte. Os dados provêm do modelo de
-      qualidade de artigos ORES e só estão disponíveis para alguns idiomas.
+    references_doc: Este é o número de tags de referências e predefinições de citação
+      curta adicionadas aos artigos e pode incluir várias referências à mesma fonte.
+      Os dados provêm da API reference-counter do Toolforge.
     references_doc_wikidata: Este é o número de etiquetas de referência adicionadas
       aos elementos e pode incluir várias referências à mesma fonte. Os dados provêm
       do modelo de qualidade de elementos ORES e só estão disponíveis para algumas
@@ -1183,8 +1228,8 @@ pt-br:
     collection: Coleção
     tracked_namespaces_info: Somente os artigos correspondentes aos espaços nominais
       rastreados contribuirão para as estatísticas gerais da linha principal, como
-      'Artigos editados', 'Edições totais', 'Palavras adicionadas', etc. Portanto,
-      rastreie apenas os espaços nominais que seu programa pretende melhorar.
+      "Artigos editados", "Edições totais", "Palavras adicionadas", etc. Portanto,
+      rastreie apenas os espaços nominais que seu programa planeja melhorar.
   recent_activity:
     active_courses: O artigo está ativo em
     article_title: Título
@@ -1236,6 +1281,8 @@ pt-br:
     label: Recursos
     header: Recursos e Treinamento
   settings:
+    categories:
+      users: Usuários
     admin_users:
       new:
         form_label: Conceder privilégios de administrador
@@ -1252,6 +1299,9 @@ pt-br:
         demote_success: '%{username} mudou para instrutor.'
         no_super_admin: Não consigo revogar o status do administrador de um super
           admin
+    featured_campaigns:
+      add_button: Adicionar Campanha
+      remove_button: Eliminar Campanha
     special_users:
       new:
         form_label: Conceder privilégios de usuário especial
@@ -1325,7 +1375,7 @@ pt-br:
     arrange_timeline: Organizar cronograma
     arrange_timeline_instructions: Organizar cronograma "arrastando e soltando" blocos
       nos locais/semanas desejados ou recolocar os blocos usando as setas no cartão.
-    assignment_dates_instructions: Selecionar as datas de início e fim para o cronograma
+    assignment_dates_instructions: Selecione as datas de início e término para o cronograma
       da tarefa na Wikipédia. Mudar a data de início desloca as datas de todo o cronograma.
     blackout_week_created: Há blocos agendados para esta semana. Por favor, mova-os
       para outra semana antes de apagar o último encontro de sala desta semana.
@@ -1337,7 +1387,7 @@ pt-br:
       item em seus cronogramas e para desenvolver ferramentas úteis para você (como
       a descrição de marcos na página de Visão Geral)
     course_dates: Datas do curso
-    course_dates_instructions: Selecionar as datas de início e fim do curso inteiro
+    course_dates_instructions: Selecionar as datas de início e término do curso inteiro
       (não só da tarefa na Wikipédia)
     course_end: Fim do curso
     course_start: Início do curso
@@ -1441,6 +1491,9 @@ pt-br:
     usage_doc: Número de artigos da Wikipédia em que esta imagem aparece.
     usage_count_gallery_tile: Usada em %{usage_count} artigos
     usages: Usos
+    gallery_view: Visualização em Galeria
+    list_view: Visualização em lista
+    tile_view: Visualização em bloco
   users:
     already_enrolled: Aquele usuário já está inscrito!
     assign_articles: Indicar artigos
@@ -1488,8 +1541,8 @@ pt-br:
     no_articles: Sem artigo
     no_articles_wikidata: Nenhum item
     no_revisions: (nenhuma revisão)
-    no_highlighting: Nenhum texto da versão atual do artigo é atribuído a este editor.
-      Verifique o histórico da página para ver suas edições.
+    no_highlighting: Nenhum texto da versão atual do artigo é atribuído ao usuário
+      %{editor}. Verifique o histórico da página para ver seus detalhes.
     number_of_articles:
       one: '%{count} artigo'
       other: '%{count} artigos'
@@ -1498,6 +1551,7 @@ pt-br:
     profile: perfil
     recent_revisions: Edições recentes
     references_count: Referências adicionadas
+    training_modules: Módulo de treinamento
     remove_confirmation: Você tem certeza de que deseja remover %{username}?
     request_confirmation: Tem certeza de que deseja solicitar essa conta?
     requested_account_status:
@@ -1579,11 +1633,11 @@ pt-br:
       summary: treinamento do estudante atrasado
   wizard:
     assignment_dates: Datas da atribuição
-    assignment_description: Selecione as datas de início e fim de seu cronograma de
-      tarefas. Por exemplo, se você quiser começar seu projeto Wikipédia na segunda
-      semana de classe, marque a data de início da tarefa para uma semana após a data
+    assignment_description: Selecione as datas de início e término de seu cronograma
+      de tarefas. Por exemplo, se você quiser começar seu projeto Wikipédia na segunda
+      semana de aula, marque a data de início da tarefa para uma semana após a data
       de início do curso. A ferramenta de projeto de tarefas criará um esboço de cronograma
-      que corresponde à datas do cronograma que você escolher.
+      que corresponde às datas do cronograma que você escolher.
     assignment_type: O que conduziu os alunos para a sua tarefa da Wikipédia?
     calendar_instructions: Selecionar datas para adicioná-las ou removê-las no cronograma
       (por exemplo, férias, sem classe). Isso ajuda a ferramenta de criação do curso
@@ -1593,8 +1647,8 @@ pt-br:
     confirm_dates: Selecione as datas, encontros semanais e férias para seu curso.
     course_dates: Datas do curso
     min_weeks: Esta tarefa requer pelo menos %{min_weeks} semanas disponíveis. Por
-      favor ajuste as datas de início e fim da tarefa se quiser usar esse tipo de
-      tarefa.
+      favor, ajuste as datas de início e término da tarefa se quiser usar esse tipo
+      de tarefa.
     select_one_option: Por favor, selecione uma opção.
     minimum_options:
       one: Por favor selecione %{count} ou mais opções.
@@ -1613,7 +1667,7 @@ pt-br:
     invalid_file_format: O arquivo não pôde ser salvo. Por favor, envie um documento
       PDF ou Word.
     oauth_invalid: Sua sessão na Wikipedia se expirou. Por favor, entre novamente.
-    start_date_before_end_date: Data de início deve ser anterior a data de fim
+    start_date_before_end_date: Data de início deve ser anterior a data de término
     unsupported_browser:
       header: Navegador sem suporte. :-(
       explanation: Você está usando um navegador que não é compatível com o painel.
@@ -1712,6 +1766,7 @@ pt-br:
     no_article_found: Nenhum artigo encontrado nesta categoria
     no_article_found_wikidata: Nenhum item encontrado nesta categoria
     page_assessment_class: Classe
+    page_views_not_found: Visualizações de página não encontradas!
     relevanceIndex: Índice de Relevância
     remove_article: Remover artigo
     remove_article_wikidata: Remover itens

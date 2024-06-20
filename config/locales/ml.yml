@@ -48,6 +48,8 @@ ml:
     request_account: അംഗത്വത്തിനായി അഭ്യർത്ഥിക്കുക
     request_account_create: അംഗത്വമെടുക്കുക
     search: ചോദ്യം ചോദിക്കുക
+    show_current_revision: നിലവിലെ പതിപ്പ് കാണിക്കുക
+    show_last_revision: അവസാനത്തെ നാൾപതിപ്പ് പ്രദർശിപ്പിക്കുക
     sign_up_extended: വിക്കിപീഡിയയിൽ പ്രവേശിക്കുക
     sign_up_wikipedia: അല്ലെങ്കിൽ വിക്കിപീഡിയയിൽ സൈൻ അപ്പ് ചെയ്യുക
     sign_up_log_in_extended: വിക്കിപീഡിയയോടൊപ്പം
