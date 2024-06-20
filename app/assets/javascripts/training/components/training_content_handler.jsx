@@ -1,28 +1,51 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import CreateLibrary from './modals/create_library.jsx';
 import Notifications from '../../components/common/notifications.jsx';
-import { getCurrentUser } from '../../selectors/index.js';
+import { updateTrainingMode } from '../../actions/training_modification_actions.js';
 
-const TrainingContentHandler = () => {
+const TrainingContentHandler = (props) => {
   const [showModal, setShowModal] = useState(false);
-  const currentUser = useSelector(state => getCurrentUser(state));
+  const [updatingEditMode, setUpdatingEditMode] = useState(false);
+  const dispatch = useDispatch();
 
   const toggleModal = () => {
     setShowModal(!showModal);
   };
+
+  const toggleEditMode = () => {
+    setUpdatingEditMode(true);
+    dispatch(updateTrainingMode(!props.editMode, setUpdatingEditMode));
+  };
+
+  let trainingMode;
+  if (props.editMode) {
+    trainingMode = I18n.t('training.switch_view');
+  } else {
+    trainingMode = I18n.t('training.switch_edit');
+  }
+
+  let buttonStyle;
+  if (updatingEditMode) {
+    buttonStyle = { pointerEvents: 'none', opacity: '0.5' };
+  }
 
   return (
     <div className="training-modification">
       <Notifications />
       <div className="container lib-container ">
         {showModal && <CreateLibrary toggleModal={toggleModal} />}
-        {currentUser.isAdmin && (
-          <button className="button dark lib-create" onClick={toggleModal}>
-            {I18n.t('training.create_library')}
-            <i className="icon icon-plus" />
+        <div className="training_content_page_btn_container">
+          {props.editMode && props.currentUser.isAdmin && (
+            <button className="button dark" onClick={toggleModal}>
+              {I18n.t('training.create_library')}
+              <i className="icon icon-plus" />
+            </button>
+          )}
+          <button className="button dark" onClick={toggleEditMode} style={buttonStyle}>
+            {trainingMode}
           </button>
-        )}
+        </div>
       </div>
     </div>
 

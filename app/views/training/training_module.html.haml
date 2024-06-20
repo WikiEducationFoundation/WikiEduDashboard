@@ -19,4 +19,6 @@
             Estimated time to complete:
             %br/
             = @pres.training_module.estimated_ttc
-  #react_root{ "data-module-id" => params[:module_id] }
+  #react_root{ "data-module-id" => params[:module_id], 
+               "data-current_user" => current_user ? { admin: current_user.admin?, id: current_user.id }.to_json : '{ "admin": false, "id": null }' 
+  }

@@ -2,12 +2,16 @@ import React, { useState } from 'react';
 import Notifications from '../../components/common/notifications.jsx';
 import CreateCategory from './modals/create_category.jsx';
 
-const TrainingLibraryHandler = () => {
+const TrainingLibraryHandler = (props) => {
   const [showModal, setShowModal] = useState(false);
 
   const toggleModal = () => {
     setShowModal(!showModal);
   };
+
+  if (!props.editMode) {
+    return null;
+  }
 
   return (
     <div className="training-modification">

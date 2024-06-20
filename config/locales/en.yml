@@ -3243,6 +3243,7 @@ en:
     week_number: "Week %{number}"
 
   training:
+    add_module: Add Module
     cancel: Cancel
     category: Category
     category_title: Category Title
@@ -3287,6 +3288,8 @@ en:
     reload_from_source: reload from source
     search_training_resources: Search for training resources
     start: Start
+    switch_edit: Switch to Edit Mode
+    switch_view: Switch to View Mode
     table_of_contents: Table of Contents
     training_library: Training Library
     validation_message: This field is required
