@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import withRouter from '../util/withRouter';
+import { useLocation } from 'react-router-dom';
 import * as ArticleActions from '../../actions/article_actions';
 import List from '../common/list.jsx';
 import Article from './article.jsx';
@@ -17,91 +16,111 @@ import sortSelectStyles from '../../styles/sort_select';
 
 const defaults_params = { wiki: 'all', tracked: 'tracked', newness: 'both' };
 
-const ArticleList = createReactClass({
-  displayName: 'ArticleList',
+const ArticleList = ({
+  // Props are now destructured parameters instead of accessed via this.props
+  articles,
+  course,
+  current_user,
+  actions,
+  articleDetails,
+  sortArticles,
+  wikidataLabels,
+  sort,
+  wikiFilter,
+  newnessFilter,
+  trackedStatusFilter,
+  wikis,
+  newnessFilterEnabled,
+  trackedStatusFilterEnabled,
+  course_id,
+  limit,
+  limitReached,
+  filterArticles,
+  filterNewness,
+  filterTrackedStatus,
+  fetchArticles,
+}) => {
+   // Now using useLocation hook instead of withRouter HOC for easier access to location
+  const location = useLocation();
+  // Using useState hook to manage selectedIndex instead of this.state
+  const [selectedIndex, setSelectedIndex] = useState(-1);
 
-  propTypes: {
-    articles: PropTypes.array,
-    course: PropTypes.object,
-    current_user: PropTypes.object,
-    actions: PropTypes.object,
-    articleDetails: PropTypes.object,
-    sortArticles: PropTypes.func,
-    wikidataLabels: PropTypes.object,
-    sort: PropTypes.object
-  },
-
-  getInitialState() {
+  useEffect(() => {
     // getting filters from the URL
-    const { wiki, newness, tracked } = parse(this.props.router.location.search);
+    const { wiki, newness, tracked } = parse(location.search);
 
     // filter by "wiki"
     if (wiki !== undefined) {
       // wiki is passed as a search param
       const value = wiki.split('.');
       if (value.length > 1) {
-        this.props.filterArticles({ language: value[0], project: value[1] });
+        filterArticles({ language: value[0], project: value[1] });
       } else {
-        this.props.filterArticles({ language: null, project: value[0] });
+        filterArticles({ language: null, project: value[0] });
       }
     } else {
       // since the wiki search param is absent, set the URL using the previous
       // filter in the redux store
-      const wikiFilterValue = this.wikiObjectToString(this.props.wikiFilter);
-      this.updateParams('wiki', wikiFilterValue);
+      const wikiFilterValue = wikiObjectToString(wikiFilter);
+      updateParams('wiki', wikiFilterValue);
     }
 
     // filter by "newness"
     if (newness !== undefined) {
       // newness is passed as a search param
-      this.props.filterNewness(newness);
+      filterNewness(newness);
     } else {
       // absent, so setting newness from the redux store
-      this.updateParams('newness', this.props.newnessFilter);
+      updateParams('newness', newnessFilter);
     }
 
     // filter by "tracked"
     if (tracked !== undefined) {
       // tracked is passed as a search param
-      this.props.filterTrackedStatus(tracked);
+      filterTrackedStatus(tracked);
     } else {
       // absent, so setting tracked from the redux store
-      this.updateParams('tracked', this.props.trackedStatusFilter);
+      updateParams('tracked', trackedStatusFilter);
     }
-    return {
-      selectedIndex: -1,
-    };
-  },
+  }, [
+    location.search,
+    wikiFilter,
+    newnessFilter,
+    trackedStatusFilter,
+    filterArticles,
+    filterNewness,
+    filterTrackedStatus,
+  ]);
+   // Effect runs when these values change, similar to old componentDidUpdate lifecycle method
 
-  componentDidMount() {
+  useEffect(() => {
     // sets the title for this tab
-    const project = this.props.course.home_wiki.project;
-    document.title = `${this.props.course.title} - ${ArticleUtils.I18n('edited', project)}`;
-  },
+    const project = course.home_wiki.project;
+    document.title = `${course.title} - ${ArticleUtils.I18n('edited', project)}`;
+  }, [course]);
 
-  onChangeFilter(e) {
-    this.updateParams('wiki', e.target.value);
+  const onChangeFilter = (e) => {
+    updateParams('wiki', e.target.value);
     const value = e.target.value.split('.');
     if (value.length > 1) {
-      return this.props.filterArticles({ language: value[0], project: value[1] });
+      filterArticles({ language: value[0], project: value[1] });
+    } else {
+      filterArticles({ language: null, project: value[0] });
     }
-    return this.props.filterArticles({ language: null, project: value[0] });
-  },
+  };
+  const onNewnessChange = (e) => {
+    updateParams('newness', e.target.value);
+    filterNewness(e.target.value);
+  };
 
-  onNewnessChange(e) {
-    this.updateParams('newness', e.target.value);
-    return this.props.filterNewness(e.target.value);
-  },
+  const onTrackedFilterChange = (e) => {
+    updateParams('tracked', e.target.value);
+    filterTrackedStatus(e.target.value);
+  };
 
-  onTrackedFilterChange(e) {
-    this.updateParams('tracked', e.target.value);
-    return this.props.filterTrackedStatus(e.target.value);
-  },
-
-  updateParams(filter, value) {
+  const updateParams = (filter, value) => {
     // instead of using React Router's location, we must use window.location
     // this is because v6 of React Router doesn't have a mutable history object
-    // to fix, probably convert this to a functional component with the params as state
     const search = window.location.search;
     const params = parse(search);
 
@@ -113,39 +132,36 @@ const ArticleList = createReactClass({
       params[filter] = value;
     }
     window.history.replaceState(null, null, `?${stringify(params)}`);
-  },
+  };
 
-  showDiff(index) {
-    this.setState({
-      selectedIndex: index
-    });
-  },
+  const showDiff = (index) => {
+    setSelectedIndex(index);
+  };
 
-  showMore() {
-    return this.props.fetchArticles(this.props.course_id, this.props.limit + 500);
-  },
+  const showMore = () => {
+    fetchArticles(course_id, limit + 500);
+  };
 
-  sortSelect(e) {
-    return this.props.sortArticles(e.value);
-  },
+  const sortSelect = (e) => {
+    sortArticles(e.value);
+  };
 
-  wikiObjectToString(wikiFilter) {
+  const wikiObjectToString = (wikiFilterObj) => {
     let wikiFilterValue;
 
-    if (wikiFilter.language) {
-      wikiFilterValue = `${wikiFilter.language}.${wikiFilter.project}`;
+    if (wikiFilterObj.language) {
+      wikiFilterValue = `${wikiFilterObj.language}.${wikiFilterObj.project}`;
     } else {
-      wikiFilterValue = `${wikiFilter.project}`;
+      wikiFilterValue = `${wikiFilterObj.project}`;
     }
     return wikiFilterValue;
-  },
+  };
 
-  render() {
-    const keys = articleListKeys(this.props.course);
-    const project = this.props.course.home_wiki.project;
-    const trackedEditable = this.props.current_user && this.props.current_user.isAdvancedRole;
+    const keys = articleListKeys(course);
+    const project = course.home_wiki.project;
+    const trackedEditable = current_user && current_user.isAdvancedRole;
 
-    if (this.props.course.type !== 'ClassroomProgramCourse' && trackedEditable) {
+    if (course.type !== 'ClassroomProgramCourse' && trackedEditable) {
       keys.tracked = {
         label: I18n.t('articles.tracked'),
         desktop_only: true,
@@ -154,7 +170,6 @@ const ArticleList = createReactClass({
       };
     }
 
-    const sort = this.props.sort;
     if (sort.key) {
       const order = (sort.sortKey) ? 'asc' : 'desc';
       keys[sort.key].order = order;
@@ -166,22 +181,22 @@ const ArticleList = createReactClass({
     const showArticleId = Number(location.search.split('showArticle=')[1]);
     const deletedMessage = I18n.t('articles.deleted_message');
     const pageLogsMessage = I18n.t('articles.page_logs');
-    const articleElements = this.props.articles.map((article, index) => (
+    const articleElements = articles.map((article, index) => (
       <Article
         article={article}
         index={index}
         showOnMount={showArticleId === article.id}
-        course={this.props.course}
+        course={course}
         key={article.id}
-        wikidataLabel={this.props.wikidataLabels[article.title]}
+        wikidataLabel={wikidataLabels[article.title]}
         // eslint-disable-next-line
-        current_user={this.props.current_user}
-        fetchArticleDetails={this.props.actions.fetchArticleDetails}
-        updateArticleTrackedStatus={this.props.actions.updateArticleTrackedStatus}
-        articleDetails={this.props.articleDetails[article.id] || null}
-        setSelectedIndex={this.showDiff}
-        lastIndex={this.props.articles.length}
-        selectedIndex={this.state.selectedIndex}
+        current_user={current_user}
+        fetchArticleDetails={actions.fetchArticleDetails}
+        updateArticleTrackedStatus={actions.updateArticleTrackedStatus}
+        articleDetails={articleDetails[article.id] || null}
+        setSelectedIndex={showDiff}
+        lastIndex={articles.length}
+        selectedIndex={selectedIndex}
         deletedMessage={deletedMessage}
         pageLogsMessage={pageLogsMessage}
       />
@@ -202,17 +217,17 @@ const ArticleList = createReactClass({
     }
 
     let filterWikis;
-    const wikiFilterValue = this.wikiObjectToString(this.props.wikiFilter);
+    const wikiFilterValue = wikiObjectToString(wikiFilter);
 
-    if (this.props.wikis.length > 1) {
-      const wikiOptions = this.props.wikis.map((wiki) => {
+    if (wikis.length > 1) {
+      const wikiOptions = wikis.map((wiki) => {
         const wikiString = `${wiki.language ? `${wiki.language}.` : ''}${wiki.project}`;
         return (<option value={wikiString} key={wikiString}>{wikiString}</option>);
       });
 
       filterWikis = (
         <select
-          onChange={this.onChangeFilter}
+          onChange={onChangeFilter}
           value={wikiFilterValue}
         >
           <option value="all">{I18n.t('articles.filter.wiki_all')}</option>
@@ -222,12 +237,12 @@ const ArticleList = createReactClass({
     }
 
     let filterArticlesSelect;
-    if (this.props.newnessFilterEnabled) {
+    if (newnessFilterEnabled) {
       filterArticlesSelect = (
         <select
           className="filter-articles"
-          value={this.props.newnessFilter}
-          onChange={this.onNewnessChange}
+          value={newnessFilter}
+          onChange={onNewnessChange}
         >
           <option value="new">{I18n.t('articles.filter.new')}</option>
           <option value="existing">{I18n.t('articles.filter.existing')}</option>
@@ -237,12 +252,12 @@ const ArticleList = createReactClass({
     }
 
     let filterTracked;
-    if (this.props.trackedStatusFilterEnabled) {
+    if (trackedStatusFilterEnabled) {
       filterTracked = (
         <select
           className="filter-articles"
-          value={this.props.trackedStatusFilter}
-          onChange={this.onTrackedFilterChange}
+          value={trackedStatusFilter}
+          onChange={onTrackedFilterChange}
         >
           <option value="tracked">{I18n.t('articles.filter.tracked')}</option>
           <option value="untracked">{I18n.t('articles.filter.untracked')}</option>
@@ -267,7 +282,7 @@ const ArticleList = createReactClass({
     const articleSort = (
       <div className="sort-container">
         <Select
-          onChange={this.sortSelect}
+          onChange={sortSelect}
           name="sorts"
           options={options}
           styles={sortSelectStyles}
@@ -278,7 +293,7 @@ const ArticleList = createReactClass({
     const sectionHeader = (
       <div className="section-header">
         {header}
-        <CourseOresPlot course={this.props.course} />
+        <CourseOresPlot course={course} />
         <div className="wrap-filters">
           {filterLabel}
           {filterTracked}
@@ -288,10 +303,10 @@ const ArticleList = createReactClass({
         </div>
       </div>
     );
-    const limitReached = this.props.limitReached;
+
     const showMoreSection = (
       <div className="see-more">
-        <PaginatedArticleControls showMore={this.showMore} limitReached={limitReached} />
+        <PaginatedArticleControls showMore={showMore} limitReached={limitReached} />
       </div>
     );
 
@@ -306,12 +321,34 @@ const ArticleList = createReactClass({
           table_key="articles"
           className="table--expandable table--hoverable"
           none_message={ArticleUtils.I18n('edited_none', project)}
-          sortBy={this.props.sortArticles}
+          sortBy={sortArticles}
         />
       </div>
     );
-  }
-});
+  };
+ArticleList.propTypes = {
+  articles: PropTypes.array,
+  course: PropTypes.object,
+  current_user: PropTypes.object,
+  actions: PropTypes.object,
+  articleDetails: PropTypes.object,
+  sortArticles: PropTypes.func,
+  wikidataLabels: PropTypes.object,
+  sort: PropTypes.object,
+  wikiFilter: PropTypes.object,
+  newnessFilter: PropTypes.string,
+  trackedStatusFilter: PropTypes.string,
+  wikis: PropTypes.array,
+  newnessFilterEnabled: PropTypes.bool,
+  trackedStatusFilterEnabled: PropTypes.bool,
+  course_id: PropTypes.number,
+  limit: PropTypes.number,
+  limitReached: PropTypes.bool,
+  filterArticles: PropTypes.func,
+  filterNewness: PropTypes.func,
+  filterTrackedStatus: PropTypes.func,
+  fetchArticles: PropTypes.func,
+};
 
 const mapStateToProps = (state) => {
   return ({
@@ -324,5 +361,4 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({ ...ArticleActions }, dispatch)
 });
 
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ArticleList));
+export default connect(mapStateToProps, mapDispatchToProps)(ArticleList);
