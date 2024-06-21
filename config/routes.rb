@@ -354,6 +354,10 @@ Rails.application.routes.draw do
   # To find individual slides by id
   get 'find_training_slide/:slide_id' => 'training#find_slide'
 
+  ## For Training Mode
+  get 'training_mode/fetch' => 'training#fetch_training_mode'
+  post 'training_mode/update' => 'training#update_training_mode'
+
   ## For Modifying Training Content through the Dashboard
   # Create
   post 'training/create_library' => 'training_library#create_library'
