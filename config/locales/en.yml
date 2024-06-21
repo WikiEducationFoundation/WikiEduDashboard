@@ -1247,7 +1247,7 @@ en:
     admin_users:
       new:
         form_label: Grant admin privileges
-        form_placeholder: User Name
+        form_placeholder: Username
         confirm_add_admin: "Grant admin"
         confirm_remove_admin: "Remove admin privileges for"
         already_admin: "%{username} is already an admin!"
@@ -1268,7 +1268,7 @@ en:
     special_users:
       new:
         form_label: Grant Special User privileges
-        form_placeholder: User Name
+        form_placeholder: Username
         confirm_add_special_user: "Add Special User"
         confirm_remove_special_user: "Remove Special User privileges for"
         already_is: "%{username} is already an {position}!"
