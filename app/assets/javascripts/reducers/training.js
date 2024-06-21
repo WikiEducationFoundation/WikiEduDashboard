@@ -5,6 +5,8 @@ import {
   SLIDE_COMPLETED, SET_TRAINING_MODE
 } from '../constants';
 
+const mainDiv = document.getElementById('main');
+
 const reviewAnswer = function (state, answer) {
   const answerId = parseInt(answer);
   const temp = { ...state, currentSlide: { ...state.currentSlide, selectedAnswer: answerId } };
@@ -104,7 +106,7 @@ export default function training(state = initialState, action) {
     case SET_TRAINING_MODE:
       return {
         ...state,
-        editMode: data.training_mode.editMode
+        editMode: JSON.parse(mainDiv.getAttribute('data-training_mode')).editMode
       };
     default:
       return state;

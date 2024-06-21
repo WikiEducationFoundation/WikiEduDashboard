@@ -6,28 +6,10 @@ import { setInvalid } from './validation_actions';
 import { SET_TRAINING_MODE } from '../constants/training';
 
 // For switching between edit and view mode
-const getTrainingModePromise = async () => {
-  const response = await request('training_mode/fetch', {
-    method: 'GET'
-  });
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
-  return response.json();
-};
-
 export const getTrainingMode = () => (dispatch) => {
-  return getTrainingModePromise()
-  .then((resp) => {
-    dispatch({
-      type: SET_TRAINING_MODE,
-      data: resp,
-    });
-  })
-  .catch(data => dispatch({ type: API_FAIL, data }));
+  dispatch({
+    type: SET_TRAINING_MODE,
+  });
 };
 
 const updateTrainingModePromise = async (editMode, setUpdatingEditMode) => {
@@ -50,7 +32,7 @@ const updateTrainingModePromise = async (editMode, setUpdatingEditMode) => {
 
 export const updateTrainingMode = (editMode, setUpdatingEditMode) => (dispatch) => {
   return updateTrainingModePromise(editMode, setUpdatingEditMode)
-  .then(() => dispatch(getTrainingMode()))
+  .then(() => window.location.reload())
   .catch(data => dispatch({ type: API_FAIL, data }));
 };
 
