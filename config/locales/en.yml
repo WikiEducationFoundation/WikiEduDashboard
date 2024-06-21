@@ -1308,7 +1308,7 @@ en:
   tickets:
     none: "No tickets"
     search_bar_placeholder: Search tickets
-    chose_search_type: Chose a search type
+    chose_search_type: Choose a search type
 
   timeline:
     add_week: Add Week
