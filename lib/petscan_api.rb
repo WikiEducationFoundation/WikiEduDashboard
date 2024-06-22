@@ -6,7 +6,8 @@ class PetScanApi
   include ApiErrorHandling
 
   def get_data(psid, update_service: nil)
-    response = petscan.get query_url(psid)
+    url = query_url(psid)
+    response = petscan.get url
     Oj.load(response.body)
   rescue StandardError => e
     log_error(e, update_service:,

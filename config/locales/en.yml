@@ -333,7 +333,7 @@ en:
       heading: Assign random peer reviews
       tooltip_message: Assigns random articles (with peer review count as the maximum number) to each student.
       tooltip_message_wikidata: Assigns random items (with peer review count as the maximum number) to each student.
-      limit_exceeded: Each student is already reviewing at least %{maximum} articles(s).
+      limit_exceeded: Each student is already reviewing at least %{maximum} article(s).
       limit_exceeded_wikidata: Each student is already reviewing at least %{maximum} item(s).
     remove: Remove
     reviewers: Reviewer(s)
@@ -1247,7 +1247,7 @@ en:
     admin_users:
       new:
         form_label: Grant admin privileges
-        form_placeholder: User Name
+        form_placeholder: Username
         confirm_add_admin: "Grant admin"
         confirm_remove_admin: "Remove admin privileges for"
         already_admin: "%{username} is already an admin!"
@@ -1268,7 +1268,7 @@ en:
     special_users:
       new:
         form_label: Grant Special User privileges
-        form_placeholder: User Name
+        form_placeholder: Username
         confirm_add_special_user: "Add Special User"
         confirm_remove_special_user: "Remove Special User privileges for"
         already_is: "%{username} is already an {position}!"
@@ -1308,7 +1308,7 @@ en:
   tickets:
     none: "No tickets"
     search_bar_placeholder: Search tickets
-    chose_search_type: Chose a search type
+    chose_search_type: Choose a search type
 
   timeline:
     add_week: Add Week
@@ -1708,8 +1708,8 @@ en:
     add_available_article_wikidata: "Add as available item"
     article_finder: "Article Finder"
     article_finder_wikidata: "Item Finder"
-    article_quality: "Article Quality(0-100)"
-    article_quality_wikidata: "Item Quality(0-100)"
+    article_quality: "Article Quality (0-100)"
+    article_quality_wikidata: "Item Quality (0-100)"
     assign_article_self: "Assign yourself"
     average_views: "Average views per day"
     category_search: "Category Search"
