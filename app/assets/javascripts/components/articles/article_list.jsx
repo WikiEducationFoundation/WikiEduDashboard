@@ -331,7 +331,7 @@ ArticleList.propTypes = {
   wikis: PropTypes.array,
   newnessFilterEnabled: PropTypes.bool,
   trackedStatusFilterEnabled: PropTypes.bool,
-  course_id: PropTypes.number,
+  course_id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   limit: PropTypes.number,
   limitReached: PropTypes.bool,
   filterArticles: PropTypes.func,
