@@ -99,4 +99,41 @@ describe AlertsController, type: :request do
       expect(response.status).to eq(422)
     end
   end
+
+  describe '#notify_instructors' do
+    let(:admin) { create(:admin) }
+    let(:course) { create(:course) }
+    let(:route) { '/alerts/notify_instructors' }
+
+    let(:body_params) do
+      {
+        course_id: course.id,
+        subject: 'Test Title',
+        message: 'Dear Test, Its working?',
+        bcc_to_salesforce: true
+      }
+    end
+
+    let(:headers) do
+      {
+        CONTENT_TYPE: 'application/json',
+        ACCEPT: 'application/json'
+      }
+    end
+
+    before do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+    end
+
+    it 'create and send email alert to instructors' do
+      post '/alerts/notify_instructors', params: body_params.to_json, headers: headers
+
+      expect(response.status).to eq(201)
+      expect(InstructorNotificationAlert.count).to eq(1)
+
+      alert = InstructorNotificationAlert.first
+      expect(alert.subject).to eq(body_params[:subject])
+      expect(alert.message).to eq(body_params[:message])
+    end
+  end
 end
