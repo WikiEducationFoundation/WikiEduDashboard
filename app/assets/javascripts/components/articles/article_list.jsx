@@ -129,7 +129,7 @@ const ArticleList = ({
   };
 
   const showMore = () => {
-    fetchArticles(course_id, limit + 500);
+    fetchArticles(Number(course_id), limit + 500);
   };
 
   const sortSelect = (e) => {
