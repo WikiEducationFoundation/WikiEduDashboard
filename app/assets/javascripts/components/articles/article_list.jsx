@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -42,55 +42,45 @@ const ArticleList = ({
 }) => {
    // Now using useLocation hook instead of withRouter HOC for easier access to location
   const location = useLocation();
+  const initializedRef = useRef(false);
   // Using useState hook to manage selectedIndex instead of this.state
   const [selectedIndex, setSelectedIndex] = useState(-1);
 
   useEffect(() => {
-    // getting filters from the URL
-    const { wiki, newness, tracked } = parse(location.search);
+    if (!initializedRef.current) {
+      initializedRef.current = true;
+      const { wiki, newness, tracked } = parse(location.search);
 
-    // filter by "wiki"
-    if (wiki !== undefined) {
-      // wiki is passed as a search param
-      const value = wiki.split('.');
-      if (value.length > 1) {
-        filterArticles({ language: value[0], project: value[1] });
-      } else {
-        filterArticles({ language: null, project: value[0] });
+      if (wiki !== undefined) {
+        const value = wiki.split('.');
+        filterArticles({
+          language: value.length > 1 ? value[0] : null,
+          project: value.length > 1 ? value[1] : value[0]
+        });
       }
-    } else {
-      // since the wiki search param is absent, set the URL using the previous
-      // filter in the redux store
-      const wikiFilterValue = wikiObjectToString(wikiFilter);
-      updateParams('wiki', wikiFilterValue);
-    }
 
-    // filter by "newness"
-    if (newness !== undefined) {
-      // newness is passed as a search param
-      filterNewness(newness);
-    } else {
-      // absent, so setting newness from the redux store
-      updateParams('newness', newnessFilter);
-    }
+      if (newness !== undefined) {
+        filterNewness(newness);
+      }
 
-    // filter by "tracked"
-    if (tracked !== undefined) {
-      // tracked is passed as a search param
-      filterTrackedStatus(tracked);
-    } else {
-      // absent, so setting tracked from the redux store
-      updateParams('tracked', trackedStatusFilter);
+      if (tracked !== undefined) {
+        filterTrackedStatus(tracked);
+      }
     }
-  }, [
-    location.search,
-    wikiFilter,
-    newnessFilter,
-    trackedStatusFilter,
-    filterArticles,
-    filterNewness,
-    filterTrackedStatus,
-  ]);
+  }, [location.search, filterArticles, filterNewness, filterTrackedStatus]);
+
+  useEffect(() => {
+    const wikiFilterValue = wikiObjectToString(wikiFilter);
+    updateParams('wiki', wikiFilterValue);
+  }, [wikiFilter]);
+
+  useEffect(() => {
+    updateParams('newness', newnessFilter);
+  }, [newnessFilter]);
+
+  useEffect(() => {
+    updateParams('tracked', trackedStatusFilter);
+  }, [trackedStatusFilter]);
    // Effect runs when these values change, similar to old componentDidUpdate lifecycle method
 
   useEffect(() => {
