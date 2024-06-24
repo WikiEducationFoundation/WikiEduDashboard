@@ -227,7 +227,8 @@ class CoursesController < ApplicationController
   def validate
     slug = params[:id].gsub(/\.json$/, '')
     @course = find_course_by_slug(slug)
-    raise NotPermittedError unless current_user&.can_edit?(@course)
+    course_cloned_status = @course.cloned_status === 3
+    raise NotPermittedError unless current_user&.can_edit?(@course) || course_cloned_status
   end
 
   def handle_course_announcement(instructor)
