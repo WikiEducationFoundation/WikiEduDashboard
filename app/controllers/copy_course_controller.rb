@@ -3,7 +3,7 @@
 #= Controller for Copy Course tool
 class CopyCourseController < ApplicationController
   respond_to :html
-  before_action :require_admin_permissions
+  before_action :require_admin_permissions if Features.wiki_ed?
   def index; end
 
   def copy
