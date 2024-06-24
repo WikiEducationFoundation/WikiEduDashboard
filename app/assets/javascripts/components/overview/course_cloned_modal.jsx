@@ -149,7 +149,7 @@ const CourseClonedModal = createReactClass({
   saveEnabled() {
     // You must be logged in and have permission to edit the course.
     // This will be the case if you created it (and are therefore the instructor) or if you are an admin.
-    if (!this.props.currentUser.isAdvancedRole) { return false; }
+    if (!this.props.currentUser.isAdvancedRole && this.props.course.cloned_status !== 3) { return false; }
     return true;
   },
 
@@ -163,7 +163,7 @@ const CourseClonedModal = createReactClass({
       errorMessage = <div className="warning">{this.props.firstErrorMessage}</div>;
     } else if (!this.props.currentUser.id) {
       errorMessage = <div className="warning">{I18n.t('courses.please_log_in')}</div>;
-    } else if (!this.props.currentUser.isAdvancedRole) {
+    } else if (!this.props.currentUser.isAdvancedRole && this.props.course.cloned_status !== 3) {
       errorMessage = <div className="warning">{CourseUtils.i18n('not_permitted', i18nPrefix)}</div>;
     }
 
