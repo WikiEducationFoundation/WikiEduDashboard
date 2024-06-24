@@ -912,12 +912,8 @@ en:
       clone_this: Clone This Program
       clone_successful: Program Successfully Cloned
       clone_successful_details: >
-        Your program has been cjhbjhbjloned.
+        Your program has been cloned.
         Click 'Save' below to finalize it.
-      copy_successful_details: >
-        Your coujhbjhbrse5 mnbjhbjhbjhb has been cloned, including the elements of the timeline
-        (weeks and blocks). Be sure to add the dates, which are not carried over.
-        Has anything else about your course changed? Feel free to update it now.
       course_when: Add something in the 'When' field (for example, the month and year) to differentiate it from the original.
       course_dates_info: >
         Enter the starting and ending dates for your program. You may wish to extend the end to several hours or days beyond
