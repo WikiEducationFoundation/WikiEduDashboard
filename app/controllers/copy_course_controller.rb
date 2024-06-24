@@ -7,16 +7,20 @@ class CopyCourseController < ApplicationController
   def index; end
 
   def copy
-    service = CopyCourse.new(url: params[:url])
+    service = CopyCourse.new(url: params[:url], user_data: params[:user_data])
     response = service.make_copy
     if response[:error].present?
       redirect_to(copy_course_path,
                   flash: { error: "Course not created: #{response[:error]}" })
     else
       course = response[:course]
-      redirect_to copy_course_path,
-                  notice: "Course #{course.title} was created."\
-                          "&nbsp;<a href=\"/courses/#{course.slug}\">Go to course</a>"
+      course.update(
+        flags: { timeline_enabled: true },
+        cloned_status: 3,
+        expected_students: course.expected_students || 0,
+        term: ""
+      )
+      redirect_to "/courses/#{course.slug}"
     end
   end
 end
