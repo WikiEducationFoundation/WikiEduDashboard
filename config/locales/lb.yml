@@ -731,6 +731,7 @@ lb:
       why_are_you_here: Wat wëllt Dir maachen?
   article_finder:
     add_available_article: Als disponibelen Artikel derbäisetzen
+    article_quality: Artikelqualitéit (0-100)
     article_quality_wikidata: Qualitéit vum Element (0-100)
     average_views: Duerchschnëttlech gekuckt pro Dag
     category_search: Kategorie Sichen

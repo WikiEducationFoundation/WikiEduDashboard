@@ -938,4 +938,8 @@ qqq:
     unassign_article_self: Button label to unassign an article to self
   training_status:
     continue: '{{Identical/Continue}}'
+  news:
+    footer:
+      wiki_education_dashboard:
+        link_text: '{{optional}}'
 ...
