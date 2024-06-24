@@ -45,7 +45,15 @@ describe ArticleCourseTimeslice, type: :model do
            features_previous: { 'num_ref' => 3 },
            user_id: 25)
   end
-  let(:revisions) { [revision1, revision2, revision3] }
+  let(:revision4) do
+    create(:revision, article:,
+            characters: 34,
+            deleted: true, # deleted revision
+            features: { 'num_ref' => 2 },
+            features_previous: { 'num_ref' => 0 },
+            user_id: 6)
+  end
+  let(:revisions) { [revision1, revision2, revision3, revision4] }
   let(:article_course_timeslice) do
     create(:article_course_timeslice,
            article_course_id: article_course.id,
