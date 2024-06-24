@@ -92,7 +92,7 @@ describe RevisionScoreImporter do
   end
 
   it 'marks RevisionNotFound revisions as deleted' do
-    VCR.use_cassette 'revision_scores/deleted_revision' do
+    VCR.use_cassette 'revision_scores/notfound_revision' do
       article = Article.find(678)
       described_class.new.update_revision_scores
       revision = article.revisions.first
@@ -225,7 +225,7 @@ describe RevisionScoreImporter do
     end
 
     it 'marks RevisionNotFound revisions as deleted' do
-      VCR.use_cassette 'revision_scores/deleted_revision' do
+      VCR.use_cassette 'revision_scores/notfound_revision' do
         revisions = described_class.new.get_revision_scores(array_revisions)
         expect(revisions[3].deleted).to eq(true)
         expect(revisions[3].wp10).to be_nil
