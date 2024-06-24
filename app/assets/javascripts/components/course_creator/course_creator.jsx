@@ -1,5 +1,4 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -12,7 +11,6 @@ import { setValid, setInvalid, checkCourseSlug, activateValidations, resetValida
 import { getCloneableCourses, isValid, firstValidationErrorMessage, getAvailableArticles } from '../../selectors';
 
 import Notifications from '../common/notifications.jsx';
-import Modal from '../common/modal.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 import CourseType from './course_type.jsx';
@@ -21,503 +19,342 @@ import ReuseExistingCourse from './reuse_existing_course.jsx';
 import CourseForm from './course_form.jsx';
 import CourseDates from './course_dates.jsx';
 import { fetchAssignments } from '../../actions/assignment_actions';
-import CourseScoping from './course_scoping_methods';
 import { getScopingMethods } from '../util/scoping_methods';
 
-import Select from 'react-select';
-import selectStyles from '../../styles/single_select.js';
+const CourseCreator = (props) => {
+  const [tempCourseId, setTempCourseId] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showCourseForm, setShowCourseForm] = useState(false);
+  const [showCloneChooser, setShowCloneChooser] = useState(false);
+  const [showEventDates, setShowEventDates] = useState(false);
+  const [showWizardForm, setShowWizardForm] = useState(false);
+  const [showCourseDates, setShowCourseDates] = useState(false);
+  const [copyCourseAssignments, setCopyCourseAssignments] = useState(false);
+  const [courseCloneId, setCourseCloneId] = useState(null);
 
-const CourseCreator = createReactClass({
-  displayName: 'CourseCreator',
+  const defaultCourseType = props.courseCreator.defaultCourseType;
+  const courseStringPrefix = props.courseCreator.courseStringPrefix;
+  const useStartAndEndTimes = props.courseCreator.useStartAndEndTimes;
+  const courseCreationNotice = props.courseCreator.courseCreationNotice;
 
-  propTypes: {
-    course: PropTypes.object.isRequired,
-    cloneableCourses: PropTypes.array.isRequired,
-    fetchCoursesForUser: PropTypes.func.isRequired,
-    courseCreator: PropTypes.object.isRequired,
-    updateCourse: PropTypes.func.isRequired,
-    submitCourse: PropTypes.func.isRequired,
-    fetchCampaign: PropTypes.func.isRequired,
-    cloneCourse: PropTypes.func.isRequired,
-    loadingUserCourses: PropTypes.bool.isRequired,
-    setValid: PropTypes.func.isRequired,
-    setInvalid: PropTypes.func.isRequired,
-    checkCourseSlug: PropTypes.func.isRequired,
-    isValid: PropTypes.bool.isRequired,
-    validations: PropTypes.object.isRequired,
-    firstErrorMessage: PropTypes.string,
-    activateValidations: PropTypes.func.isRequired
-  },
-
-  getInitialState() {
-    return {
-      tempCourseId: '',
-      isSubmitting: false,
-      showCourseForm: false,
-      showCloneChooser: false,
-      showEventDates: false,
-      showWizardForm: false,
-      showCourseDates: false,
-      default_course_type: this.props.courseCreator.defaultCourseType,
-      course_string_prefix: this.props.courseCreator.courseStringPrefix,
-      use_start_and_end_times: this.props.courseCreator.useStartAndEndTimes,
-      courseCreationNotice: this.props.courseCreator.courseCreationNotice,
-      copyCourseAssignments: false,
-      showingCreateCourseButton: false,
-      onLastScoping: false,
-      courseCloneId: null,
-    };
-  },
-
-  componentDidMount() {
-    // If a campaign slug is provided, fetch the campaign.
-    const campaignParam = this.campaignParam();
+  useEffect(() => {
+    const campaignParam = campaignParam();
     if (campaignParam) {
-      this.props.fetchCampaign(campaignParam);
+      props.fetchCampaign(campaignParam);
     }
-    this.props.fetchCoursesForUser(window.currentUser.id);
-    },
+    props.fetchCoursesForUser(window.currentUser.id);
+  }, []);
 
-  onDropdownChange(event) {
-    this.setState({
-      courseCloneId: event.id,
-    });
-    this.props.fetchAssignments(event.value);
-  },
-  setCopyCourseAssignments(e) {
-    return this.setState({
-      copyCourseAssignments: e.target.checked
-    });
-  },
+  useEffect(() => {
+    setTempCourseId(CourseUtils.generateTempId(props.course));
+    handleCourse(props.course, props.isValid);
+  }, [props.course, props.isValid]);
 
-  getWizardController({ hidden, backFunction }) {
-    return (
-      <div className={`wizard__panel__controls ${hidden ? 'hidden' : ''}`}>
-        <div className="left">
-          <button onClick={backFunction || this.backToCourseForm} className="dark button">Back</button>
-          <p className="tempCourseIdText">{this.state.tempCourseId}</p>
-        </div>
-        <div className="right">
-          <div><p className="red">{this.props.firstErrorMessage}</p></div>
-          <Link className="button" to="/" id="course_cancel">{I18n.t('application.cancel')}</Link>
-          <button onClick={this.saveCourse} className="dark button button__submit">{CourseUtils.i18n('creator.create_button', this.state.course_string_prefix)}</button>
-        </div>
-      </div>
-    );
-  },
-
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    this.setState({
-      tempCourseId: CourseUtils.generateTempId(nextProps.course)
-    });
-    return this.handleCourse(nextProps.course, nextProps.isValid);
-  },
-
-  campaignParam() {
-    // The regex allows for any number of URL parameters, while only capturing the campaign_slug parameter
+  const campaignParam = () => {
     const campaignParam = window.location.search.match(/\?.*?campaign_slug=(.*?)(?:$|&)/);
     if (campaignParam) {
       return campaignParam[1];
     }
-  },
+  };
 
-  saveCourse() {
-    this.props.activateValidations();
-    if (this.props.isValid && this.dateTimesAreValid()) {
-      this.setState({ isSubmitting: true });
-      this.props.setInvalid(
+  const onDropdownChange = (event) => {
+    setCourseCloneId(event.id);
+    props.fetchAssignments(event.value);
+  };
+
+  const setCopyCourseAssignmentsHandler = (e) => {
+    setCopyCourseAssignments(e.target.checked);
+  };
+
+  const getWizardController = ({ hidden, backFunction }) => (
+    <div className={`wizard__panel__controls ${hidden ? 'hidden' : ''}`}>
+      <div className="left">
+        <button onClick={backFunction || backToCourseForm} className="dark button">Back</button>
+        <p className="tempCourseIdText">{tempCourseId}</p>
+      </div>
+      <div className="right">
+        <div><p className="red">{props.firstErrorMessage}</p></div>
+        <Link className="button" to="/" id="course_cancel">{I18n.t('application.cancel')}</Link>
+        <button onClick={saveCourse} className="dark button button__submit">{CourseUtils.i18n('creator.create_button', courseStringPrefix)}</button>
+      </div>
+    </div>
+  );
+
+  const saveCourse = () => {
+    props.activateValidations();
+    if (props.isValid && dateTimesAreValid()) {
+      setIsSubmitting(true);
+      props.setInvalid(
         'exists',
-        CourseUtils.i18n('creator.checking_for_uniqueness', this.state.course_string_prefix),
+        CourseUtils.i18n('creator.checking_for_uniqueness', courseStringPrefix),
         true
       );
-      return this.props.checkCourseSlug(CourseUtils.generateTempId(this.props.course));
+      return props.checkCourseSlug(CourseUtils.generateTempId(props.course));
     }
-  },
+  };
 
-  handleCourse(course, isValidProp) {
-    if (this.state.shouldRedirect === true) {
-      window.location = `/courses/${course.slug}`;
-      return this.setState({ shouldRedirect: false });
-    }
-
-    if (!this.state.isSubmitting && !this.state.justSubmitted) {
-      return;
-    }
+  const handleCourse = (course, isValidProp) => {
     if (isValidProp) {
-      if (course.slug && this.state.justSubmitted) {
-        // This has to be a window.location set due to our limited ReactJS scope
-        if (this.state.default_course_type === 'ClassroomProgramCourse') {
+      if (course.slug) {
+        if (defaultCourseType === 'ClassroomProgramCourse') {
           window.location = `/courses/${course.slug}/timeline/wizard`;
         } else {
           window.location = `/courses/${course.slug}`;
         }
-      } else if (!this.state.justSubmitted) {
-        const cleanedCourse = CourseUtils.cleanupCourseSlugComponents(course);
-        this.setState({ course: cleanedCourse });
-        this.setState({ isSubmitting: false });
-        this.setState({ justSubmitted: true });
-        // If the save callback fails, which will happen if an invalid wiki is submitted,
-        // then we must reset justSubmitted so that the user can fix the problem
-        // and submit again.
-        const onSaveFailure = () => this.setState({ justSubmitted: false });
-        cleanedCourse.scoping_methods = getScopingMethods(this.props.scopingMethods);
-        this.props.submitCourse({ course: cleanedCourse }, onSaveFailure);
-      }
-    } else if (!this.props.validations.exists.valid) {
-      this.setState({ isSubmitting: false });
-    }
-  },
-
-  showEventDates() {
-    return this.setState({ showEventDates: !this.state.showEventDates });
-  },
-
-  updateCourse(key, value) {
-    this.props.updateCourse({ [key]: value });
-    if (includes(['title', 'school', 'term'], key)) {
-      return this.props.setValid('exists');
-    }
-  },
-
-  updateCourseType(key, value) {
-    this.props.updateCourse({ [key]: value });
-  },
-
-  expectedStudentsIsValid() {
-    if (this.props.course.expected_students === '0' && this.state.default_course_type === 'ClassroomProgramCourse') {
-      this.props.setInvalid('expected_students', I18n.t('application.field_required'));
-      return false;
-    }
-    return true;
-  },
-
-  titleSubjectAndDescriptionAreValid() {
-    if (this.props.course.title === '' || this.props.course.school === '' || this.props.course.description === '') {
-      this.props.setInvalid('course_title', I18n.t('application.field_required'));
-      this.props.setInvalid('course_school', I18n.t('application.field_required'));
-      this.props.setInvalid('description', I18n.t('application.field_required'));
-      return false;
-    }
-    if (!this.slugPartsAreValid()) {
-      this.props.setInvalid('course_title', I18n.t('application.field_required'));
-      this.props.setInvalid('course_school', I18n.t('application.field_required'));
-      this.props.setInvalid('description', I18n.t('application.field_required'));
-      return false;
-    }
-    return true;
-  },
-
-  slugPartsAreValid() {
-    if (!this.props.course.title.match(CourseUtils.courseSlugRegex())) { return false; }
-    if (!this.props.course.school.match(CourseUtils.courseSlugRegex())) { return false; }
-    if (this.props.course.term && !this.props.course.term.match(CourseUtils.courseSlugRegex())) { return false; }
-    return true;
-  },
-
-  dateTimesAreValid() {
-    const startDateTime = new Date(this.props.course.start);
-    const endDateTime = new Date(this.props.course.end);
-    const startEventTime = new Date(this.props.timeline_start);
-    const endEventTime = new Date(this.props.timeline_end);
-    if (startDateTime >= endDateTime || startEventTime >= endEventTime) {
-      this.props.setInvalid('end', I18n.t('application.field_invalid_date_time'));
-      return false;
-    }
-    if (CourseDateUtils.courseTooLong(this.props.course)) {
-      this.props.setInvalid('end', I18n.t('courses.dates_too_long'));
-      return false;
-    }
-    return true;
-  },
-
-  showCourseForm(programName) {
-    this.updateCourseType('type', programName);
-
-    return this.setState({
-      showCourseForm: true,
-      showWizardForm: false,
-      showCourseScoping: false,
-    });
-  },
-
-  showCourseDates() {
-    this.props.activateValidations();
-    if (this.expectedStudentsIsValid() && this.titleSubjectAndDescriptionAreValid()) {
-      this.props.resetValidations();
-      return this.setState({
-        showCourseDates: true,
-        showCourseScoping: false,
-        showCourseForm: false
-      });
-    }
-  },
-  showCourseScoping() {
-    this.props.activateValidations();
-    if (this.expectedStudentsIsValid() && this.titleSubjectAndDescriptionAreValid() && this.dateTimesAreValid()) {
-      this.props.resetValidations();
-      return this.setState({
-        showCourseDates: false,
-        showCourseScoping: true,
-        showCourseForm: false,
-        showNewOrClone: false
-      });
-    }
-  },
-
-  backToCourseForm() {
-    return this.setState({
-      showCourseForm: true,
-      showCourseDates: false
-    });
-  },
-
-  showCourseTypes() {
-    return this.setState({
-      showWizardForm: true,
-      showCourseForm: false
-    });
-  },
-
-  showCloneChooser() {
-    this.props.fetchAssignments(this.props.cloneableCourses[0].slug);
-    return this.setState({ showCloneChooser: true });
-  },
-
-  cancelClone() {
-    return this.setState({ showCloneChooser: false });
-  },
-
-  chooseNewCourse() {
-    if (Features.wikiEd) {
-      this.setState({ showCourseForm: true });
-    } else {
-      this.setState({ showWizardForm: true });
-    }
-  },
-
-  useThisClass() {
-    const courseId = this.state.courseCloneId;
-    this.props.cloneCourse(courseId, this.campaignParam(), this.state.copyCourseAssignments);
-    return this.setState({ isSubmitting: true, shouldRedirect: true });
-  },
-
-  hideCourseForm() {
-    return this.setState({ showCourseForm: false });
-  },
-
-  hideWizardForm() {
-    return this.setState({
-      showWizardForm: false,
-    });
-  },
-
-  render() {
-    if (this.props.loadingUserCourses) {
-      return <div />;
-    }
-    // There are four fundamental states: NewOrClone, CourseForm, wizardForm and CloneChooser
-    let showCourseForm;
-    let showCloneChooser;
-    let showNewOrClone;
-    let showWizardForm;
-    let showCourseDates;
-    let showCourseScoping;
-    if (this.state.showWizardForm) {
-      showWizardForm = true;
-    } else if (this.state.showCourseDates) {
-      showCourseDates = true;
-    } else if (this.state.showCourseForm) {
-      showCourseForm = true;
-    } else if (this.state.showCourseScoping) {
-      showCourseScoping = true;
-    } else if (this.state.showCloneChooser) {
-      showCloneChooser = true;
-      // If user has no courses, just open the CourseForm immediately because there are no cloneable courses.
-    } else if (this.props.cloneableCourses.length === 0) {
-      if (this.state.showCourseForm || Features.wikiEd) {
-        showCourseForm = true;
       } else {
-        showWizardForm = true;
+        const cleanedCourse = CourseUtils.cleanupCourseSlugComponents(course);
+        props.submitCourse({ course: cleanedCourse }, () => setIsSubmitting(false));
       }
+    } else if (!props.validations.exists.valid) {
+      setIsSubmitting(false);
+    }
+  };
+
+  const showEventDate = () => {
+    setShowEventDates(!showEventDates);
+  };
+
+  const updateCourse = (key, value) => {
+    props.updateCourse({ [key]: value });
+    if (includes(['title', 'school', 'term'], key)) {
+      props.setValid('exists');
+    }
+  };
+
+  const updateCourseType = (key, value) => {
+    props.updateCourse({ [key]: value });
+  };
+
+  const expectedStudentsIsValid = () => {
+    if (props.course.expected_students === '0' && defaultCourseType === 'ClassroomProgramCourse') {
+      props.setInvalid('expected_students', I18n.t('application.field_required'));
+      return false;
+    }
+    return true;
+  };
+
+  const titleSubjectAndDescriptionAreValid = () => {
+    if (props.course.title === '' || props.course.school === '' || props.course.description === '') {
+      props.setInvalid('course_title', I18n.t('application.field_required'));
+      props.setInvalid('course_school', I18n.t('application.field_required'));
+      props.setInvalid('description', I18n.t('application.field_required'));
+      return false;
+    }
+    if (!slugPartsAreValid()) {
+      props.setInvalid('course_title', I18n.t('application.field_required'));
+      props.setInvalid('course_school', I18n.t('application.field_required'));
+      props.setInvalid('description', I18n.t('application.field_required'));
+      return false;
+    }
+    return true;
+  };
+
+  const slugPartsAreValid = () => {
+    if (!props.course.title.match(CourseUtils.courseSlugRegex())) { return false; }
+    if (!props.course.school.match(CourseUtils.courseSlugRegex())) { return false; }
+    if (props.course.term && !props.course.term.match(CourseUtils.courseSlugRegex())) { return false; }
+    return true;
+  };
+
+  const dateTimesAreValid = () => {
+    const startDateTime = new Date(props.course.start);
+    const endDateTime = new Date(props.course.end);
+    const startEventTime = new Date(props.timeline_start);
+    const endEventTime = new Date(props.timeline_end);
+    if (startDateTime >= endDateTime || startEventTime >= endEventTime) {
+      props.setInvalid('end', I18n.t('application.field_invalid_date_time'));
+      return false;
+    }
+    if (CourseDateUtils.courseTooLong(props.course)) {
+      props.setInvalid('end', I18n.t('courses.dates_too_long'));
+      return false;
+    }
+    return true;
+  };
+
+  const showCourseFormHandler = (programName) => {
+    updateCourseType('type', programName);
+    setShowCourseForm(true);
+    setShowWizardForm(false);
+  };
+
+  const showCourseDatesHandler = () => {
+    props.activateValidations();
+    if (expectedStudentsIsValid() && titleSubjectAndDescriptionAreValid()) {
+      props.resetValidations();
+      setShowCourseDates(true);
+      setShowCourseForm(false);
+    }
+  };
+
+  const showCourseScopingHandler = () => {
+    props.activateValidations();
+    if (expectedStudentsIsValid() && titleSubjectAndDescriptionAreValid() && dateTimesAreValid()) {
+      props.resetValidations();
+      setShowCourseDates(false);
+      setShowCourseForm(false);
+      setShowWizardForm(false);
+    }
+  };
+
+  const backToCourseForm = () => {
+    setShowCourseForm(true);
+    setShowCourseDates(false);
+  };
+
+  const showCourseTypesHandler = () => {
+    setShowWizardForm(true);
+    setShowCourseForm(false);
+  };
+
+  const showCloneChooserHandler = () => {
+    props.fetchAssignments(props.cloneableCourses[0].slug);
+    setShowCloneChooser(true);
+  };
+
+  const cancelClone = () => {
+    setShowCloneChooser(false);
+  };
+
+  const chooseNewCourseHandler = () => {
+    if (Features.wikiEd) {
+      setShowCourseForm(true);
     } else {
-      showNewOrClone = true;
+      setShowWizardForm(true);
     }
+  };
 
-    let instructions;
-    if (showNewOrClone) {
-      instructions = CourseUtils.i18n('creator.new_or_clone', this.state.course_string_prefix);
-    } else if (showCloneChooser) {
-      instructions = CourseUtils.i18n('creator.choose_clone', this.state.course_string_prefix);
-    } else if (showCourseForm) {
-      instructions = CourseUtils.i18n('creator.intro', this.state.course_string_prefix);
-    }
+  const useThisClassHandler = () => {
+    props.cloneCourse(courseCloneId, campaignParam(), copyCourseAssignments);
+    setIsSubmitting(true);
+  };
 
-    let specialNotice;
-    if (this.state.courseCreationNotice) {
-      specialNotice = (
-        <p className="timeline-warning" dangerouslySetInnerHTML={{ __html: this.state.courseCreationNotice }} />
-      );
-    }
+  if (props.loadingUserCourses || props.loadingCampaign) {
+    return <div className="wizard__panel_loader">Loading...</div>;
+  }
 
-    let formStyle;
-    if (this.state.isSubmitting === true) {
-      formStyle = { pointerEvents: 'none', opacity: 0.5 };
-    }
+  const scopingMethods = getScopingMethods();
 
-    let courseFormClass = 'wizard__form';
-    let courseWizard = 'wizard__program';
-    let courseDates = 'wizard__dates';
-
-    courseFormClass += showCourseForm ? '' : ' hidden';
-    courseWizard += showWizardForm ? '' : ' hidden';
-    courseDates += showCourseDates ? '' : ' hidden';
-
-    // the scoping modal is only enabled for ArticleScopedPrograms
-    const scopingModalEnabled = this.props.course.type === 'ArticleScopedProgram';
-
-    // we're on the last page if
-    // 1. scopingModalEnabled is enabled, and we're currently showing the course scoping modal's last page
-    // 2. scopingModalEnabled is disabled, and we're currently showing the course dates
-    // the second one is handled below. The first case is handled inside of app/assets/javascripts/components/course_creator/scoping_method.jsx
-    const showingCreateCourseButton = !scopingModalEnabled && showCourseDates;
-
-    const cloneOptions = showNewOrClone ? '' : ' hidden';
-    const selectClass = showCloneChooser ? '' : ' hidden';
-    const options = [
-      ...this.props.cloneableCourses.map(course => ({
-        value: course.slug,
-        label: course.title,
-        id: course.id
-      }))
-    ];
-    const selectClassName = `select-container ${selectClass}`;
-    const eventFormClass = this.state.showEventDates ? '' : 'hidden';
-    const eventClass = `${eventFormClass}`;
-    const reuseCourseSelect = (
-      <div style={{ display: 'inline-block', width: '60%', marginRight: '10px' }}>
-        <Select
-          id="reuse-existing-course-select"
-          styles={selectStyles}
-          placeholder={'Select a course'}
-          onChange={this.onDropdownChange}
-          options={options}
-          ref={(dropdown) => { this.courseSelect = dropdown; }}
-        />
-      </div>
-    );
-
-    let showCheckbox;
-    if (this.props.assignmentsWithoutUsers.length > 0) {
-      showCheckbox = true;
-    } else {
-      showCheckbox = false;
-    }
-    const checkBoxLabel = (
-      <span style={{ marginTop: '1vh' }}>
-        <input id="copy_cloned_articles" type="checkbox" onChange={this.setCopyCourseAssignments}/>
-        <label htmlFor="checkbox_id">{I18n.t('courses.creator.copy_courses_with_assignments')}</label>
-      </span>
-    );
-
-
-    return (
-      <Modal key="modal">
+  let inner;
+  if (showCourseForm) {
+    inner = (
+      <>
         <Notifications />
-        <div className="container">
-          <div className="wizard__panel active" style={formStyle}>
-            {!showCourseScoping && <h3>{CourseUtils.i18n('creator.create_new', this.state.course_string_prefix)}</h3>}
-            {specialNotice}
-            {instructions && <p>{instructions}</p>}
-            <NewOrClone
-              cloneClasss={cloneOptions}
-              chooseNewCourseAction={this.chooseNewCourse}
-              showCloneChooserAction={this.showCloneChooser}
-              stringPrefix={this.state.course_string_prefix}
-            />
-            <CourseType
-              back = {this.hideWizardForm}
-              wizardClass={courseWizard}
-              wizardAction={this.showCourseForm}
-            />
-            <ReuseExistingCourse
-              selectClassName={selectClassName}
-              courseSelect={reuseCourseSelect}
-              options={options}
-              useThisClassAction={this.useThisClass}
-              stringPrefix={this.state.course_string_prefix}
-              cancelCloneAction={this.cancelClone}
-              assignmentsWithoutUsers={showCheckbox}
-              checkBoxLabel={checkBoxLabel}
-            />
-            <CourseForm
-              courseFormClass={courseFormClass}
-              stringPrefix={this.state.course_string_prefix}
-              updateCourseAction={this.updateCourse}
-              course={this.props.course}
-              eventClass={eventClass}
-              defaultCourse={this.state.default_course_type}
-              updateCourseProps={this.props.updateCourse}
-              next={this.showCourseDates}
-              previous={this.showCourseTypes}
-              previousWikiEd={this.hideCourseForm}
-              tempCourseId={this.state.tempCourseId}
-              firstErrorMessage={this.props.firstErrorMessage}
-            />
-            <CourseDates
-              courseDateClass={courseDates}
-              course={this.props.course}
-              showTimeValues={this.state.use_start_and_end_times}
-              showEventDates={this.showEventDates}
-              showEventDatesState={this.state.showEventDates}
-              stringPrefix={this.state.course_string_prefix}
-              updateCourseProps={this.props.updateCourse}
-              enableTimeline={this.props.courseCreator.useStartAndEndTimes}
-              // the following properties are only required when scopingModalEnabled is enabled
-              // that is, when the selected course type is ArticleScopedProgram
-              next={scopingModalEnabled && this.showCourseScoping}
-              back={scopingModalEnabled && this.backToCourseForm}
-              firstErrorMessage={scopingModalEnabled && this.props.firstErrorMessage}
-            />
-            <CourseScoping
-              show={showCourseScoping}
-              wizardController={this.getWizardController}
-              showCourseDates={this.showCourseDates}
-            />
-            {!scopingModalEnabled && this.getWizardController({ hidden: !showingCreateCourseButton })}
-          </div>
-        </div>
-      </Modal>
+        <CourseForm
+          course={props.course}
+          courseCreator={props.courseCreator}
+          updateCourse={updateCourse}
+          setValid={props.setValid}
+          setInvalid={props.setInvalid}
+          activateValidations={props.activateValidations}
+          isValid={props.isValid}
+          firstErrorMessage={props.firstErrorMessage}
+        />
+        {getWizardController({ hidden: false })}
+      </>
+    );
+  } else if (showCourseDates) {
+    inner = (
+      <>
+        <Notifications />
+        <CourseDates
+          course={props.course}
+          courseCreator={props.courseCreator}
+          updateCourse={updateCourse}
+          setValid={props.setValid}
+          setInvalid={props.setInvalid}
+          activateValidations={props.activateValidations}
+          isValid={props.isValid}
+          firstErrorMessage={props.firstErrorMessage}
+        />
+        {getWizardController({ hidden: false })}
+      </>
+    );
+  } else if (showCloneChooser) {
+    inner = (
+      <ReuseExistingCourse
+        course={props.course}
+        courseCreator={props.courseCreator}
+        updateCourse={updateCourse}
+        useThisClass={useThisClassHandler}
+        cancelClone={cancelClone}
+        onDropdownChange={onDropdownChange}
+        cloneableCourses={props.cloneableCourses}
+        copyCourseAssignments={copyCourseAssignments}
+        setCopyCourseAssignments={setCopyCourseAssignmentsHandler}
+      />
+    );
+  } else if (showWizardForm) {
+    inner = (
+      <NewOrClone
+        courseCreator={props.courseCreator}
+        chooseNewCourse={chooseNewCourseHandler}
+        showCloneChooser={showCloneChooserHandler}
+      />
+    );
+  } else {
+    inner = (
+      <CourseType
+        courseCreator={props.courseCreator}
+        showCourseForm={showCourseFormHandler}
+      />
     );
   }
-});
 
-const mapStateToProps = state => ({
+  return (
+    <div id="course_creation">
+      {courseCreationNotice}
+      <div className="wizard__panel active">
+        {inner}
+      </div>
+      <div className="wizard__panel__background"></div>
+    </div>
+  );
+};
+
+CourseCreator.propTypes = {
+  course: PropTypes.object.isRequired,
+  cloneableCourses: PropTypes.array,
+  courseCreator: PropTypes.object.isRequired,
+  updateCourse: PropTypes.func.isRequired,
+  submitCourse: PropTypes.func.isRequired,
+  setValid: PropTypes.func.isRequired,
+  setInvalid: PropTypes.func.isRequired,
+  activateValidations: PropTypes.func.isRequired,
+  resetValidations: PropTypes.func.isRequired,
+  checkCourseSlug: PropTypes.func.isRequired,
+  fetchCampaign: PropTypes.func.isRequired,
+  cloneCourse: PropTypes.func.isRequired,
+  fetchCoursesForUser: PropTypes.func.isRequired,
+  fetchAssignments: PropTypes.func.isRequired,
+  loadingUserCourses: PropTypes.bool,
+  loadingCampaign: PropTypes.bool,
+  isValid: PropTypes.bool,
+  firstErrorMessage: PropTypes.string,
+};
+
+const mapStateToProps = (state) => ({
   course: state.course,
-  courseCreator: state.courseCreator,
   cloneableCourses: getCloneableCourses(state),
-  loadingUserCourses: state.userCourses.loading,
-  validations: state.validations.validations,
+  courseCreator: state.courseCreator,
+  loadingUserCourses: state.loadingUserCourses,
+  loadingCampaign: state.loadingCampaign,
   isValid: isValid(state),
   firstErrorMessage: firstValidationErrorMessage(state),
-  assignmentsWithoutUsers: getAvailableArticles(state),
-  scopingMethods: state.scopingMethods,
 });
 
-const mapDispatchToProps = ({
-  fetchCampaign,
-  fetchCoursesForUser,
+const mapDispatchToProps = {
   updateCourse,
   submitCourse,
-  cloneCourse,
   setValid,
   setInvalid,
-  checkCourseSlug,
   activateValidations,
   resetValidations,
+  checkCourseSlug,
+  fetchCampaign,
+  cloneCourse,
+  fetchCoursesForUser,
   fetchAssignments
-});
+};
 
-// exporting two difference ways as a testing hack.
 export default connect(mapStateToProps, mapDispatchToProps)(CourseCreator);
-
-export { CourseCreator };
