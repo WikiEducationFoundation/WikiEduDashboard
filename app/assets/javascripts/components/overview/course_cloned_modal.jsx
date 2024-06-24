@@ -348,14 +348,23 @@ const CourseClonedModal = createReactClass({
         {infoIcon}
       </div>
     );
+    let heading;
+    let para;
+    if (this.state.course.cloned_status === 3) {
+      heading = <h3 id="clone_modal_header">{CourseUtils.i18n('creator.copy_successful', i18nPrefix)}</h3>;
+      para = <p>{CourseUtils.i18n('creator.copy_successful_details', i18nPrefix)}</p>;
+    } else {
+      heading = <h3 id="clone_modal_header">{CourseUtils.i18n('creator.clone_successful', i18nPrefix)}</h3>;
+      para = <p>{CourseUtils.i18n('creator.clone_successful_details', i18nPrefix)}</p>;
+    }
 
     return (
       <Modal>
         <div className="container">
           <div className="wizard__panel active cloned-course">
             {specialNotice}
-            <h3 id="clone_modal_header">{CourseUtils.i18n('creator.clone_successful', i18nPrefix)}</h3>
-            <p>{CourseUtils.i18n('creator.clone_successful_details', i18nPrefix)}</p>
+            {heading}
+            {para}
             {errorMessage}
             <div className="wizard__form">
               <div className="column" id="details_column">
