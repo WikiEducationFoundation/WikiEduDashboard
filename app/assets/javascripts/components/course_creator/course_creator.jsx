@@ -11,6 +11,7 @@ import { setValid, setInvalid, checkCourseSlug, activateValidations, resetValida
 import { getCloneableCourses, isValid, firstValidationErrorMessage, getAvailableArticles } from '../../selectors';
 
 import Notifications from '../common/notifications.jsx';
+import Modal from '../common/modal.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 import CourseType from './course_type.jsx';
@@ -19,7 +20,11 @@ import ReuseExistingCourse from './reuse_existing_course.jsx';
 import CourseForm from './course_form.jsx';
 import CourseDates from './course_dates.jsx';
 import { fetchAssignments } from '../../actions/assignment_actions';
+import CourseScoping from './course_scoping_methods';
 import { getScopingMethods } from '../util/scoping_methods';
+
+import Select from 'react-select';
+import selectStyles from '../../styles/single_select.js';
 
 const CourseCreator = (props) => {
   const [tempCourseId, setTempCourseId] = useState('');
