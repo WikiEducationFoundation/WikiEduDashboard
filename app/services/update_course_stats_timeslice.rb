@@ -92,11 +92,14 @@ class UpdateCourseStatsTimeslice
       @revisions[wiki].group_by(&:article_id).each do |article_id, article_revisions|
         article_course = ArticlesCourses.find_or_create_by(course: @course, article_id:)
         # TODO: determine how to get the right timeslice given the start and end
-        ArticleCourseTimeslice.find_or_create_by(article_course_id: article_course.id).update_cache_from_revisions article_revisions
+        # Update cache for ArticleCorseTimeslice
+        ArticleCourseTimeslice.find_or_create_by(
+          article_course_id: article_course.id
+        ).update_cache_from_revisions article_revisions
       end
     end
 
-    # ArticlesCourses.update_all_caches(@course.articles_courses)
+    ArticlesCourses.update_all_caches_from_timeslices(@course.articles_courses)
     # log_update_progress :articles_courses_updated
     # CoursesUsers.update_all_caches(@course.courses_users)
     # log_update_progress :courses_users_updated

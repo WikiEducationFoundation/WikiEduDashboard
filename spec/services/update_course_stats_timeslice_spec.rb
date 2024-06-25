@@ -49,6 +49,24 @@ describe UpdateCourseStatsTimeslice do
       # were not created for the time AverageViewsImporter.update_outdated_average_views runs
       # expect(course.articles.where(wiki: enwiki).last.average_views).to be > 0
     end
+
+    it 'updates article course and article course timeslices caches' do
+      # Check caches for mw_page_id 6901525
+      article = Article.find_by(mw_page_id: 6901525)
+      # The article course exists
+      article_course = ArticlesCourses.find_by(article_id: article.id)
+      # The article course caches were updated
+      expect(article_course.character_sum).to eq(427)
+      expect(article_course.references_count).to eq(-2)
+      expect(article_course.user_ids).to eq([user.id])
+
+      # Article course timeslice record was created for mw_page_id 6901525
+      expect(article_course.article_course_timeslices.count).to eq(1)
+      # Article course timeslices caches were updated
+      expect(article_course.article_course_timeslices.first.character_sum).to eq(427)
+      expect(article_course.article_course_timeslices.first.references_count).to eq(-2)
+      expect(article_course.article_course_timeslices.first.user_ids).to eq([user.id])
+    end
   end
 
   context 'sentry course update error tracking' do
