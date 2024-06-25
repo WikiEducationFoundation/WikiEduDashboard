@@ -234,6 +234,11 @@ qqq:
     no_available: |-
       Message indicating that there are no articles in the list of "available
       articles" for participants to select from.
+    random_peer_review:
+      confirm_addition: '"Assign/remove a peer review" is {{msg-wm|Wikiedudashboard-assignments.review
+        other}}.'
+      confirm_addition_wikidata: '"Assign/remove a peer review" is {{msg-wm|Wikiedudashboard-assignments.review
+        other}}.'
     remove: |-
       Button to remove an article from the list of available articles
       {{Identical|Remove}}
@@ -933,4 +938,8 @@ qqq:
     unassign_article_self: Button label to unassign an article to self
   training_status:
     continue: '{{Identical/Continue}}'
+  news:
+    footer:
+      wiki_education_dashboard:
+        link_text: '{{optional}}'
 ...

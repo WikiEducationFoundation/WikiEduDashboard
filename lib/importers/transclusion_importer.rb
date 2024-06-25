@@ -5,10 +5,11 @@ require_dependency "#{Rails.root}/lib/wiki_api"
 
 # Fetches data about which wiki pages transclude a given page
 class TransclusionImporter
-  def initialize(template)
+  def initialize(template, update_service: nil)
     @template = template
     @wiki = template.wiki
     @name = template.name
+    @update_service = update_service
   end
 
   def transcluded_titles
@@ -18,7 +19,7 @@ class TransclusionImporter
   private
 
   def all_transcluded_pages
-    wiki_api = WikiApi.new(@wiki)
+    wiki_api = WikiApi.new(@wiki, update_service: @update_service)
     @query = transclusion_query
     @transcluded_in = []
     until @continue == 'done'

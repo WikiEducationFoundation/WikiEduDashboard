@@ -9,7 +9,7 @@ const StatisticsUpdateModal = (props) => {
   const helpMessage = Features.wikiEd ? I18n.t('metrics.wiki_ed_help') : I18n.t('metrics.outreach_help');
   const updatesEndMoment = toDate(course.update_until);
   const futureUpdatesRemaining = isAfter(updatesEndMoment, new Date());
-  const futureUpdatesMessage = futureUpdatesRemaining ? I18n.t('metrics.future_updates_remaining.true', { date: format(getUTCDate(updatesEndMoment), 'MMMM do yyyy') }) : I18n.t('metrics.future_updates_remaining.false');
+  const futureUpdatesMessage = futureUpdatesRemaining ? I18n.t('metrics.future_updates_remaining.updates_active', { date: format(getUTCDate(updatesEndMoment), 'MMMM do yyyy') }) : I18n.t('metrics.future_updates_remaining.updates_inactive');
   const additionalUpdateMessage = course.needs_update ? I18n.t('metrics.non_updating_course_update') : '';
 
   const lastUpdateSummary = getLastUpdateSummary(course);

@@ -44,6 +44,17 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_15_163420) do
     t.datetime "updated_at", null: false
   end
 
+  
+  create_table "admin_course_notes", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.integer "courses_id"
+    t.string "title"
+    t.text "text"
+    t.string "edited_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["courses_id"], name: "index_admin_course_notes_on_courses_id"
+  end
+  
   create_table "articles", id: :integer, charset: "utf8mb4", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at"
@@ -193,6 +204,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_15_163420) do
     t.boolean "deleted", default: false
     t.index ["user_id"], name: "index_commons_uploads_on_user_id"
   end
+
 
   create_table "course_stats", charset: "utf8mb4", force: :cascade do |t|
     t.text "stats_hash"
@@ -644,6 +656,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_15_163420) do
     t.index ["language", "project"], name: "index_wikis_on_language_and_project", unique: true
   end
 
+  add_foreign_key "admin_course_notes", "courses", column: "courses_id"
   add_foreign_key "course_stats", "courses"
   add_foreign_key "course_wiki_namespaces", "courses_wikis", column: "courses_wikis_id", on_delete: :cascade
 end

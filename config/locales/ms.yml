@@ -346,6 +346,9 @@ ms:
     upload_count: Muat Naik Commons
     view_count_description: Paparan Rencana
     view: Paparan
+  namespace:
+    author: Pengarang
+    index: Indeks
   recent_activity:
     no_edits: Tiada suntingan terkini.
     possible_plagiarism: Kemungkinan Plagiarisme
@@ -362,6 +365,7 @@ ms:
     label: Nama pengguna baru
     button: Kemas kini
   uploads:
+    author: 'Pengarang:'
     header: Fail Dimuat Naik ke Wikimedia Commons
     label: Muat Naik
     loading: Memuatkan muat naik...

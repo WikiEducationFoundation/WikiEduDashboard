@@ -867,6 +867,8 @@ it:
   suggestions:
     suggestion_docs:
       does_not_exist: Questa voce non esiste su Wikipedia.
+  tickets:
+    chose_search_type: Scegli un tipo di ricerca
   timeline:
     add_week: Aggiungi settimana
     block_custom: Personalizzato
@@ -1090,6 +1092,8 @@ it:
     supplementary:
       why_are_you_here: Cosa ti piacerebbe fare?
   article_finder:
+    article_quality: Qualità voce (0-100)
+    article_quality_wikidata: Qualità elemento (0-100)
     category_search: Ricerca per categoria
     fetched_articles_wikidata: Recupera elementi
     hide_options: Nascondi opzioni

@@ -1,0 +1,149 @@
+// Styles for the Admin Note feature 
+// Following the BEM (Block Element Modifier) naming convention
+// https://cssguidelin.es/#bem-like-naming
+
+// Admin Note Creator Styles
+.admin-note-creator
+
+  &__title
+    text-align left
+    min-width 190px
+
+// Table with Admin Note Styles
+.table__admin-note 
+
+  text-align left
+
+  &__th 
+    textarea 
+      width 100%
+    th
+      max-width 100px 
+
+  &__row 
+    .admin-note__edit 
+      width 0% 
+    
+    .admin-note__delete 
+      width 3% 
+    
+    td
+      max-width 100px
+      
+    td.row--border 
+      border-bottom none
+      max-width 100px
+    
+    span.tooltip 
+      left -15px
+      min-width 94px
+      margin-left -21px  
+
+.tooltip-trigger 
+
+  .tooltip.create--admin--note 
+    top -27%
+    min-width 95px
+
+    &:before 
+      content none
+    
+  &:hover 
+    .tooltip.create--admin--note 
+      top -27%
+      min-width 95px
+
+    .tooltip.cancel--note,
+    .tooltip.post--note 
+      top 80%
+      left -96%
+      min-width 48px
+
+      &:before 
+        content none
+
+  .tooltip.new 
+    top 131%
+
+    &:before 
+      content none
+    
+  &.cancel--note,
+  &.post--note,
+  &.admin--note--creator 
+    top 10px
+
+  .tooltip.cancel--note,
+  .tooltip.post--note 
+    top 80%
+    left -96%
+    min-width 48px
+
+    &:before 
+      content none
+
+//Admin note Icon Styles
+.admin-note-edit-icon 
+  background url('../images/pencil.svg') center no-repeat
+  padding 11px
+
+  &:hover 
+    background url('../images/pencil-blue.svg') center no-repeat
+    padding 11px
+
+.admin-note-delete-icon 
+  background url('../images/trash.svg') center no-repeat
+  background-size 70%
+  padding 11px
+
+  &:hover 
+    background: url('../images/trash-red.svg') center no-repeat
+    background-size 70%
+    padding 11px
+  
+.admin-note-create-icon 
+  background url('../svg/plus.svg') center no-repeat
+  background-size 70%
+  padding 15px
+  position relative
+  top -6px
+  left -16px
+
+  &:hover 
+    background url('../svg/plus-blue.svg') center no-repeat
+    background-size 70%
+    cursor pointer
+
+.admin-note-cancel-icon 
+  background url('../images/clear.svg') center no-repeat
+  background-size 60%
+  position relative
+  top -7px
+  left -13px
+  padding 15px
+
+  &:hover 
+    background url('../images/clear-red.svg') center no-repeat
+    background-size 60%
+    position relative
+    top -7px
+    left -13px
+    padding 15px
+    cursor pointer
+
+.admin-note-post-icon 
+  background url('../images/check-grey.svg') center no-repeat
+  background-size 75%
+  position relative
+  top -7px
+  left -13px
+  padding 15px
+  cursor pointer
+
+  &:hover 
+    background url('../images/check.svg') center no-repeat
+    background-size 75%
+    position relative
+    top -7px
+    left -13px
+    padding 15px

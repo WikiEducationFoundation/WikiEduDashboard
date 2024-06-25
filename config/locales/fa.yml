@@ -9,6 +9,7 @@
 # Author: AzorAhai
 # Author: Beginneruser
 # Author: Darafsh
+# Author: Ebrahim
 # Author: Ebraminio
 # Author: FarsiNevis
 # Author: GMozafarian
@@ -607,7 +608,7 @@ fa:
     course_passcode: 'کد دسترسی:'
     editors: ویرایشگران
     edits: ویرایش‌ها
-    edits_by: 'ویرایش‌‌‌ها توسط:'
+    edits_by: 'ویرایش‌ها توسط:'
     enroll_confirmation: آیا از افزودن %{username} اطمینان دارید؟
     enroll_url: 'کاربران با استفاده از پیوند زیر می‌تواند بپیوندند:'
     enrolled_success: '%{username} با موفقیت افزوده‌شد!'

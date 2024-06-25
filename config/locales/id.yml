@@ -163,8 +163,8 @@ id:
     char: Karakter Ditambahkan
     date_time: Tanggal/Waktu
     future_updates_remaining:
-      1: Statistik akan terus diperbarui hingga %{date}.
-      "": Statistik untuk program ini tidak lagi diperbarui secara berkala.
+      updates_active: Statistik akan terus diperbarui hingga %{date}.
+      updates_inactive: Statistik untuk program ini tidak lagi diperbarui secara berkala.
     references_count: Referensi Ditambahkan
     references_doc: Ini adalah jumlah dari tag referensi yang ditambahkan ke artikel,
       dan bisa memasukkan beberapa referensi ke sumber yang sama. Data diambil dari

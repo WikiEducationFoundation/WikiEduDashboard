@@ -154,6 +154,7 @@ lb:
     view_articles: Artikele weisen
   items:
     items: Elementer
+    lexeme: Lexeem
     available: Disponibel Elementer
     edited: Geännert Elementer
     edited_none: Et gëtt nach keng geännert Elementer.
@@ -467,8 +468,9 @@ lb:
     date_time: Datum/Zäit
     edit_count_description: Total vun den Ännerungen
     future_updates_remaining:
-      1: D'Statistike gi bis de(n) %{date} aktualiséiert.
-      "": D'Statistike fir dëse Programm ginn net méi reegelméisseg aktualiséiert.
+      updates_active: D'Statistike gi bis de(n) %{date} aktualiséiert.
+      updates_inactive: D'Statistike fir dëse Programm ginn net méi reegelméisseg
+        aktualiséiert.
     last_reviewed: Fir d'lescht nogekuckt
     per_user: '%{number}/Benotzer'
     revisions: Rezent Ännerungen
@@ -505,6 +507,7 @@ lb:
     wikijunior: WikiJunior
     translation: Iwwersetzung
     property: Eegenschaft
+    lexeme: Lexeem
     portal: Portal
     school: Schoul
     author: Auteur
@@ -728,6 +731,7 @@ lb:
       why_are_you_here: Wat wëllt Dir maachen?
   article_finder:
     add_available_article: Als disponibelen Artikel derbäisetzen
+    article_quality: Artikelqualitéit (0-100)
     article_quality_wikidata: Qualitéit vum Element (0-100)
     average_views: Duerchschnëttlech gekuckt pro Dag
     category_search: Kategorie Sichen
@@ -753,4 +757,18 @@ lb:
     not_started: Net ugefaangen
   multi_wiki:
     selector_placeholder: Wiki eraussichen
+  news:
+    footer:
+      P&E_dashboard:
+        link_text: Wikimedia
+    options:
+      news_content:
+        confirm_delete: Confirméieren
+        cancel_delete: Ofbriechen
+  notes:
+    title: Titel
+    edited_by: Geännert vum
+    cancel_note_creation: Ofbriechen
+    cancel_edit_note: Ofbriechen
+    save_note: Späicheren
 ...

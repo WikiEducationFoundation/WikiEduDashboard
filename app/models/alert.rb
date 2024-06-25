@@ -55,6 +55,7 @@ class Alert < ApplicationRecord
     OnboardingAlert
     OverdueTrainingAlert
     OverEnrollmentAlert
+    PossiblePlagiarismAlert
     ProductiveCourseAlert
     ProtectedArticleAssignmentAlert
     ReviewRequestAlert
@@ -94,6 +95,7 @@ class Alert < ApplicationRecord
     HighQualityArticleAssignmentAlert
     HighQualityArticleEditAlert
     NoEnrolledStudentsAlert
+    PossiblePlagiarismAlert
     ProductiveCourseAlert
     ProtectedArticleAssignmentAlert
     UnsubmittedCourseAlert

@@ -9,6 +9,7 @@ describe CopyCourse do
   let(:course_url) { url_base + existent_prod_course_slug + '/course.json' }
   let(:categories_url) { url_base + existent_prod_course_slug + '/categories.json' }
   let(:users_url) { url_base + existent_prod_course_slug + '/users.json' }
+  let(:timeline_url) { url_base + existent_prod_course_slug + '/timeline.json' }
   let(:course_response_body) do
     '{
       "course": {
@@ -90,6 +91,41 @@ describe CopyCourse do
       }
     }'
   end
+  let(:timeline_response_body) do
+    '{
+      "course": {
+        "weeks": [
+          {
+            "id": 57366,
+            "order": 1,
+            "start_date_raw": "2022-01-09T00:00:00.000Z",
+            "end_date_raw": "2022-01-15T23:59:59.999Z",
+            "start_date": "01/09",
+            "end_date": "01/15",
+            "title": null,
+            "blocks": [
+              {
+                "id": 127799,
+                "kind": 0,
+                "content": "Welcome to your Wikipedia assignment course timeline.
+                            This page guides you through the steps you will need to
+                            complete for your Wikipedia assignment, with links to training
+                            modules and your classmates work spaces. Your course has
+                            been assigned a Wikipedia Expert. You can reach them
+                            through the Get Help button at the top of this page.",
+                "week_id": 57366,
+                "title": "Introduction to the Wikipedia assignment",
+                "order": 1,
+                "due_date": null,
+                "points": null
+              }
+            ]
+          }
+        ]
+      }
+    }'
+  end
+
   let(:subject) do
     service = described_class.new(url: url_base + existent_prod_course_slug)
     service.make_copy
@@ -136,6 +172,28 @@ describe CopyCourse do
       expect(result[:course]).to be_nil
     end
 
+    it 'returns an error if /timeline.json request fails' do
+      # Stub the response to the course request
+      stub_request(:get, course_url)
+        .to_return(status: 200, body: course_response_body, headers: {})
+
+      # Stub the response to the categories request
+      stub_request(:get, categories_url)
+        .to_return(status: 200, body: categories_response_body, headers: {})
+
+      # Stub the response to the timeline request
+      stub_request(:get, timeline_url)
+        .to_return(status: 404, body: timeline_response_body, headers: {})
+
+      # Stub the response to the users request
+      stub_request(:get, users_url)
+        .to_return(status: 200, body: users_response_body, headers: {})
+
+      result = subject
+      expect(result[:error]).to eq("Error getting data from #{timeline_url}")
+      expect(result[:course]).to be_nil
+    end
+
     it 'course, categories, and users are created if no error' do
       # Stub the response to the course request
       stub_request(:get, course_url)
@@ -144,6 +202,10 @@ describe CopyCourse do
       # Stub the response to the categories request
       stub_request(:get, categories_url)
         .to_return(status: 200, body: categories_response_body, headers: {})
+
+      # Stub the response to the timeline request
+      stub_request(:get, timeline_url)
+        .to_return(status: 200, body: timeline_response_body, headers: {})
 
       # Stub the response to the users request
       stub_request(:get, users_url)

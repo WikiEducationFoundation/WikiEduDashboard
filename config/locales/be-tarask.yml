@@ -48,7 +48,7 @@ be-tarask:
     recent_activity: Нядаўняя актыўнасьць
     report_problem: Паведаміць пра праблему
     request_account: Запыт на стварэньне рахунку
-    request_account_create: Стварыць рахунак
+    request_account_create: Стварыць уліковы запіс
     search: задаць пытаньне
     search_results:
       one: '%{count} вынік для: ''%{search_terms}'''

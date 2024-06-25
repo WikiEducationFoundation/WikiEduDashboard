@@ -56,6 +56,18 @@ class CourseTrainingProgressManager
     modules.sort_by(&:due_date)
   end
 
+  def completed_training_modules_names(user)
+    @user = user
+    completed_modules = TrainingModulesUsers
+                        .joins(:training_module)
+                        .select('training_modules.name')
+                        .where(training_modules_users: { user_id: @user.id })
+                        .where(training_module_id: training_modules_for_course)
+                        .where.not(completed_at: nil)
+                        .pluck('training_modules.name')
+    completed_modules
+  end
+
   private
 
   def off_dashboard_training?

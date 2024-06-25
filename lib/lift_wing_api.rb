@@ -93,14 +93,13 @@ class LiftWingApi
   end
 
   def lift_wing_server
-    connection = Faraday.new(
+    Faraday.new(
       url: LIFT_WING_SERVER_URL,
       headers: {
         'Content-Type': 'application/json'
       }
     )
     # connection.headers['User-Agent'] = ENV['visualizer_url'] + ' ' + Rails.env
-    connection
   end
 
   def build_successful_response(rev_id, response)
