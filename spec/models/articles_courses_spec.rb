@@ -22,7 +22,7 @@ require "#{Rails.root}/lib/articles_courses_cleaner"
 
 describe ArticlesCourses, type: :model do
   let(:article) { create(:article, average_views: 1234) }
-  let(:user) { create(:user) }
+  let(:user) { create(:user, id: 1) }
   let(:course) { create(:course, start: 1.month.ago, end: 1.month.from_now) }
   let(:refs_tags_key) { 'feature.wikitext.revision.ref_tags' }
 
@@ -88,6 +88,59 @@ describe ArticlesCourses, type: :model do
       article_course = described_class.first
 
       expect(article_course.new_article).to be true
+    end
+  end
+
+  describe '.update_all_caches_from_timeslices' do
+    let(:instructor) { create(:instructor) }
+
+    before do
+      # Make an ArticlesCourses record
+      create(:articles_course, id: 456, article:, course:)
+      # Add user to course
+      create(:courses_user, course:, user:)
+    end
+
+    it 'updates data for article-course relationships' do
+      # Run a cache update without any timeslices.
+      described_class.update_all_caches_from_timeslices(described_class.all)
+
+      # Add two timeslices.
+      create(:article_course_timeslice,
+             article_course_id: 456,
+             start: 10.days.ago,
+             end: 9.days.ago,
+             character_sum: 9000,
+             references_count: 4,
+             user_ids: [2, 3])
+
+      create(:article_course_timeslice,
+             article_course_id: 456,
+             start: 9.days.ago,
+             end: 8.days.ago,
+             character_sum: 12,
+             references_count: 5,
+             user_ids: [user.id])
+
+      # Empty timeslice, which should not count towards stats.
+      create(:article_course_timeslice,
+             article_course_id: 456,
+             start: 20.days.ago,
+             end: 19.days.ago,
+             character_sum: 0,
+             references_count: 0,
+             user_ids: nil)
+
+      # Run the cache update again with an existing revision.
+      described_class.update_all_caches_from_timeslices(described_class.all)
+
+      # Fetch the updated ArticlesCourses entry
+      article_course = described_class.first
+
+      expect(article_course.character_sum).to eq(9012)
+      expect(article_course.references_count).to eq(9)
+      expect(article_course.user_ids).to eq([2, 3, user.id])
+      expect(article_course.view_count).to eq(12340)
     end
   end
 
