@@ -23,7 +23,7 @@ class ArticlesCourses < ApplicationRecord
   belongs_to :article
   belongs_to :course
 
-  has_many :article_course_timeslices
+  has_many :article_course_timeslices, foreign_key: 'article_course_id'
 
   scope :live, -> { joins(:article).where(articles: { deleted: false }).distinct }
   scope :new_article, -> { where(new_article: true) }
@@ -86,10 +86,33 @@ class ArticlesCourses < ApplicationRecord
     save
   end
 
+  def update_cache_from_timeslices
+    self.character_sum = article_course_timeslices.sum(&:character_sum)
+    self.references_count = article_course_timeslices.sum(&:references_count)
+    self.user_ids = article_course_timeslices.sum([], &:user_ids)
+
+    # View count is calculated based on the first non-empty article course timeslice
+    # record start date. We estimate the first non-empty record checking user_ids
+    # field is not null.
+    non_empty_timeslices = article_course_timeslices.non_empty
+    self.view_count = views_since_earliest_timeslices(non_empty_timeslices)
+
+    # TODO: update new_article. This should be done when ArticleCourse is created
+    # (update_from_course class method) because it's an invariant.
+    save
+  end
+
   def views_since_earliest_revision(revisions)
     return if revisions.blank?
     return if article.average_views.nil?
     days = (Time.now.utc.to_date - revisions.min_by(&:date).date.to_date).to_i
+    days * article.average_views
+  end
+
+  def views_since_earliest_timeslices(timeslices)
+    return if timeslices.blank?
+    return if article.average_views.nil?
+    days = (Time.now.utc.to_date - timeslices.min_by(&:start).start.to_date).to_i
     days * article.average_views
   end
 
@@ -103,6 +126,10 @@ class ArticlesCourses < ApplicationRecord
   #################
   def self.update_all_caches(articles_courses)
     articles_courses.find_each(&:update_cache)
+  end
+
+  def self.update_all_caches_from_timeslices(articles_courses)
+    articles_courses.find_each(&:update_cache_from_timeslices)
   end
 
   def self.update_from_course(course)
