@@ -48,6 +48,12 @@ const categoryValidationRules = [
   { keyword: 'description', field: 'description' }
 ];
 
+const moduleValidationRules = [
+  { keyword: 'name', field: 'name' },
+  { keyword: 'slug', field: 'slug' },
+  { keyword: 'description', field: 'description' }
+];
+
 const performValidation = (error, dispatch, validationRules) => {
   const errorMessages = error.responseText.errorMessages;
   let apiFailDispatched = false;
@@ -132,5 +138,33 @@ export const createCategory = (library_id, category, setSubmitting, toggleModal)
   })
   .catch((error) => {
     performValidation(error, dispatch, categoryValidationRules);
+  });
+};
+
+const addModulePromise = async (library_id, category_id, module, setSubmitting) => {
+  const response = await request(`/training/${library_id}/${category_id}/add_module`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ module }),
+  });
+  setSubmitting(false);
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.json();
+    response.responseText = data;
+    throw response;
+  }
+  return response.json();
+};
+
+export const addModule = (library_id, category_id, module, setSubmitting) => (dispatch) => {
+  return addModulePromise(library_id, category_id, module, setSubmitting)
+  .then(() => {
+    window.location.href = `/training/${library_id}`;
+  })
+  .catch((error) => {
+    performValidation(error, dispatch, moduleValidationRules);
   });
 };

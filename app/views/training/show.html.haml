@@ -37,6 +37,7 @@
                   %span= lib_module.description
           - if @current_training_mode['editMode']
             .training-modification.training-modification-buttons
+              = link_to t("training.add_module"), add_module_training_path(@library.slug, category_id: lib_category['title']), class: 'button dark'
               - if lib_category.modules.empty?
                 = link_to delete_category_path(library_id: @library.slug, category_id: lib_category['title']), method: :delete, data: { confirm: t('training.confirmation.delete_category') }, class: 'button danger' do
                   = t("training.delete_category")
