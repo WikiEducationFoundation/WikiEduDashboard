@@ -47,7 +47,7 @@ class Wiki < ApplicationRecord
     bug bxr ca cbk-zam cdo ce ceb ch cho chr chy ckb cmn co commons cr crh cs csb cu
     cv cy da dag de dga din diq dk dsb dty dv dz ee egl el eml en eo epo es et eu ext fa fat
     ff fi fiu-vro fj fo fon fr frp frr fur fy ga gag gan gcr gd gl glk gn gom gor got gpe gsw
-    gu guc gur guw gv ha hak haw he hi hif ho hr hsb ht hu hy hyw hz ia id ie ig ii ik ilo
+    gu guc gur guw gv ha hak haw he hi hif ho hr hsb ht hu hy hyw hz ia id ie ig igl ii ik ilo
     incubator inh io is it iu ja jam jbo jp jv ka kaa kab kcg kbd kbp kg ki kj kk kl km kn ko
     koi kr krc ks ksh ku kv kw ky la lad lb lbe lez lfn lg li lij lld lmo ln lo lrc lt
     ltg lv lzh mad mai map-bms mdf meta mg mh mhr mi min minnan mk ml mn mni mnw mo mr mrj ms mt

@@ -13,13 +13,6 @@ class RevisionAnalyticsController < ApplicationController
     )
   end
 
-  def suspected_plagiarism
-    @revisions = RevisionAnalyticsService.suspected_plagiarism(
-      scoped: params[:scoped],
-      current_user:
-    )
-  end
-
   def recent_edits
     @revisions = RevisionAnalyticsService.recent_edits(
       scoped: params[:scoped],

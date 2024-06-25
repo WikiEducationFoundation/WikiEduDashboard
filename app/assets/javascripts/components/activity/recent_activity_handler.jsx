@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Navigate, NavLink, Route, Routes } from 'react-router-dom';
 
 import DidYouKnowHandler from './did_you_know_handler.jsx';
-import PlagiarismHandler from './plagiarism_handler.jsx';
 import RecentEditsHandler from './recent_edits_handler.jsx';
 import RecentUploadsHandler from './recent_uploads_handler.jsx';
 
@@ -17,14 +16,6 @@ const RecentActivityHandler = () => (
               to="/recent-activity/dyk" className={({ isActive }) => (isActive ? 'active' : '')}
             >
               {I18n.t('recent_activity.did_you_know_eligible')}
-            </NavLink>
-          </p>
-        </div>
-
-        <div className="nav__item" id="plagiarism-link">
-          <p>
-            <NavLink to="/recent-activity/plagiarism" className={({ isActive }) => (isActive ? 'active' : '')}>
-              {I18n.t('recent_activity.possible_plagiarism')}
             </NavLink>
           </p>
         </div>
@@ -50,7 +41,6 @@ const RecentActivityHandler = () => (
     <div className="container">
       <Routes>
         <Route path="dyk" element={<DidYouKnowHandler />} />
-        <Route path="plagiarism" element={<PlagiarismHandler />} />
         <Route path="recent-edits" element={<RecentEditsHandler />} />
         <Route path="recent-uploads" element={<RecentUploadsHandler />} />
         <Route path="*" element={<Navigate replace to="dyk"/>}/>

@@ -165,8 +165,6 @@ Rails.application.routes.draw do
         constraints: { slug: /.*/ }
     get 'courses/:slug/alerts.json' => 'courses#alerts',
         constraints: { slug: /.*/ }
-    get 'courses/:slug/suspected_plagiarism.json' => 'courses#suspected_plagiarism',
-        constraints: { slug: /.*/ }
     get 'courses/:school/:titleterm(/:_subpage(/:_subsubpage(/:_subsubsubpage)))' => 'courses#show',
         :as => 'show',
         constraints: {
@@ -194,6 +192,11 @@ Rails.application.routes.draw do
         id: /.*/
       }
     get 'find_course/:course_id' => 'courses#find'
+  end
+
+  # Course Notes
+  resources :admin_course_notes, constraints: { id: /\d+/ } do
+    get 'find_course_note', on: :member
   end
 
   # Categories
@@ -257,6 +260,7 @@ Rails.application.routes.draw do
   get 'all_campaigns' => 'analytics#all_campaigns'
 
   # Campaigns
+  get 'campaigns/current/alerts' => 'campaigns#current_alerts', defaults: { format: 'html' }
   resources :campaigns, param: :slug, except: :show do
     member do
       get 'overview'
@@ -302,16 +306,12 @@ Rails.application.routes.draw do
   end
 
   # Recent Activity
-  get 'recent-activity/plagiarism/report' => 'recent_activity#plagiarism_report'
   get 'recent-activity(/*any)' => 'recent_activity#index', as: :recent_activity
 
   # Revision analytics JSON API for React
   get 'revision_analytics/dyk_eligible',
       controller: 'revision_analytics',
       action: 'dyk_eligible'
-  get 'revision_analytics/suspected_plagiarism',
-      controller: 'revision_analytics',
-      action: 'suspected_plagiarism'
   get 'revision_analytics/recent_edits',
       controller: 'revision_analytics',
       action: 'recent_edits'
@@ -363,7 +363,12 @@ Rails.application.routes.draw do
   get '/courses_by_wiki/:language.:project(.org)' => 'courses_by_wiki#show'
 
   # frequenty asked questions
-  resources :faq
+  resources :faq do
+    member do
+      get 'handle_special_faq_query'  # Defines a route for a specific FAQ instance
+    end
+  end
+  get '/faq/test' => 'faq#test'
   get '/faq_topics' => 'faq_topics#index'
   get '/faq_topics/new' => 'faq_topics#new'
   post '/faq_topics' => 'faq_topics#create'

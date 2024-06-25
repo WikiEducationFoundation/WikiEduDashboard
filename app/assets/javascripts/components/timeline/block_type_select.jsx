@@ -29,7 +29,7 @@ const BlockTypeSelect = ({ onChange, editable, id, value }) => {
     return (
       <div className="react-select_dropdown">
         <div className="form-group">
-          <label htmlFor={id} className={labelClass}>
+          <label id={`${id}-label`} htmlFor={id} className={labelClass}>
             {label}
             {tooltip}
           </label>
@@ -39,6 +39,7 @@ const BlockTypeSelect = ({ onChange, editable, id, value }) => {
             onChange={handleClick}
             options={options}
             styles={selectStyles}
+            aria-labelledby={`${id}-label`}
           />
         </div>
       </div>

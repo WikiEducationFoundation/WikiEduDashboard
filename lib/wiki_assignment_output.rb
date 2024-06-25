@@ -47,8 +47,7 @@ class WikiAssignmentOutput
     # This is to avoid creating a new empty talk page.
     return nil if @assignments.empty? && initial_page_content.empty?
 
-    page_content = build_assignment_page_content(assignments_tag, initial_page_content)
-    page_content
+    build_assignment_page_content(assignments_tag, initial_page_content)
   end
 
   ###################

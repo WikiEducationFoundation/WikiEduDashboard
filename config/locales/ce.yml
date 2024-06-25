@@ -1,6 +1,7 @@
 # Messages for Chechen (нохчийн)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Исмаил Садуев
 # Author: Умар
 ---
 ce:
@@ -206,7 +207,7 @@ ce:
     view_other: Кхийолу кампанеш хьажа
     yourcourses: Хьан программаш
   editable:
-    edit: Нисйе
+    edit: Нисйан
     cancel: Йухайаккхар
     save: Ӏалашйе
     edit_description: Нисбе хаам
@@ -313,7 +314,7 @@ ce:
     already_enrolled: ХӀара декъашхо хӀинцале а курс тӀе дӀавазвела/дӀайазйела ву/йу.
     assign_articles_done: Кийчча йу
     editors: Редакторш
-    edits: нисйе
+    edits: нисйан
     name: ЦӀе
     none: Декъашхой бац.
     request_confirmation: Бакъалла йезий хьуна хӀара аккаунт?
