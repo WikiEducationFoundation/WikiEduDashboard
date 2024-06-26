@@ -44,7 +44,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_15_163420) do
     t.datetime "updated_at", null: false
   end
 
-  
   create_table "admin_course_notes", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.integer "courses_id"
     t.string "title"
