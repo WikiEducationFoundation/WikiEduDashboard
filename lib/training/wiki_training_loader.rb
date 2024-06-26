@@ -1,19 +1,31 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
+
 require_dependency "#{Rails.root}/lib/training/wiki_slide_parser"
+require_dependency "#{Rails.root}/lib/training/training_base"
 require_dependency "#{Rails.root}/lib/wiki_api"
 
 # Loads any of the three types of training content:
 # TrainingLibrary, TrainingModule, TrainingSlide
 # Source of content is training_content yaml files and/or wiki pages.
 class WikiTrainingLoader
-  def initialize(content_class:, slug_list: nil)
+  def initialize(content_class:, slug_list: nil, sidekiq_job: false)
+    puts "Loading #{content_class} with #{slug_list} and #{sidekiq_job} from wiki"
+    @sidekiq_job = sidekiq_job
     @content_class = content_class # TrainingLibrary, TrainingModule, or TrainingSlide
     @slug_list = slug_list # limited list of slugs to process (optional)
     # Index page that links to all the libraries, modules or slides to be loaded
     @wiki_base_page = content_class.wiki_base_page
 
+    load_content_async(content_class, slug_list) if @sidekiq_job
+
     @collection = []
+  end
+
+  def load_content_async(_content_class, _slug_list)
+    result = load_from_wiki
+    return result
   end
 
   def load_content
@@ -21,12 +33,9 @@ class WikiTrainingLoader
     return @collection
   end
 
-  private
-
   #####################
   # On-wiki trainings #
   #####################
-
   def load_from_wiki
     source_pages = @slug_list ? listed_wiki_source_pages : wiki_source_pages
     raise_no_matching_wiki_pages_error if source_pages.empty?
@@ -36,18 +45,37 @@ class WikiTrainingLoader
     source_pages.each do |wiki_page|
       add_trainings_to_collection(wiki_page)
     end
+  rescue NoMatchingWikiPagesFound => e
+    handle_wiki_pages_error(e)
   rescue InvalidWikiContentError => e
-    Sentry.capture_exception e
+    handle_invalid_content_error(e)
+  end
+
+  def handle_wiki_pages_error(error)
+    if @sidekiq_job
+      TrainingBase.update_error(error.message, @content_class)
+    else
+      raise error
+    end
+  end
+
+  def handle_invalid_content_error(error)
+    if @sidekiq_job
+      TrainingBase.update_error(error.message, @content_class)
+    else
+      Sentry.capture_exception(error)
+    end
   end
 
   def add_trainings_to_collection(wiki_page)
+    puts "Loading #{wiki_page} from wiki"
     content = new_from_wiki_page(wiki_page)
     unless content&.valid?
       Sentry.capture_message 'Invalid wiki training content',
                              level: 'warning', extra: { content:, wiki_page: }
       return
     end
-    @collection << content
+    @collection << content unless @sidekiq_job
   end
 
   def new_from_wiki_page(wiki_page)
@@ -60,8 +88,14 @@ class WikiTrainingLoader
               else
                 new_from_wikitext_page(wiki_page, wikitext)
               end
-
-    @content_class.inflate(content, content['slug'], wiki_page)
+    result = @content_class.inflate(content, content['slug'], wiki_page)
+  rescue TrainingBase::DuplicateSlugError => e
+    if @sidekiq_job
+      TrainingBase.update_error(e.message, @content_class)
+    else
+      raise e
+    end
+    result
   end
 
   # json pages have all the required data within the json content, but optionally
@@ -166,3 +200,4 @@ class WikiTrainingLoader
 
   class NoMatchingWikiPagesFound < StandardError; end
 end
+# rubocop:enable Metrics/ClassLength

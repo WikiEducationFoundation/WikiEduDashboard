@@ -40,6 +40,10 @@ class TrainingSlide < ApplicationRecord
     true
   end
 
+  def self.load_async(slug_list: nil)
+    TrainingBase.load_async(content_class: self, slug_list:)
+  end
+
   def self.load(slug_list: nil)
     TrainingBase.load(content_class: self, slug_list:)
   end
