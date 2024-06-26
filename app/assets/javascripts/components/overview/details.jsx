@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import Instructors from './instructors';
@@ -6,8 +6,7 @@ import OnlineVolunteers from './online_volunteers';
 import CampusVolunteers from './campus_volunteers';
 import WikiEdStaff from './wiki_ed_staff';
 
-import CampaignEditable from './campaign_editable.jsx';
-import CampaignList from './campaign_list.jsx';
+import TagList from './tag_list.jsx';
 import TagEditable from './tag_editable';
 import CourseTypeSelector from './course_type_selector.jsx';
 import SubmittedSelector from './submitted_selector.jsx';
@@ -28,11 +27,13 @@ import WikiSelect from '../common/wiki_select.jsx';
 import Modal from '../common/modal.jsx';
 import NamespaceSelect from '../common/namespace_select.jsx';
 
+import EditableRedux from '../high_order/editable_redux.jsx';
 import TextInput from '../common/text_input.jsx';
 import Notifications from '../common/notifications.jsx';
 
 import DatePicker from '../common/date_picker.jsx';
 
+import WIKI_OPTIONS from '../../utils/wiki_options';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 import AcademicSystem from '../common/academic_system.jsx';
@@ -40,49 +41,80 @@ import AcademicSystem from '../common/academic_system.jsx';
 const POLL_INTERVAL = 60000; // 1 minute
 const MAX_UPDATE_COUNT = 60 * 12; // 12 hours of updates
 
-const Details = (props) => {
+const Details = ({
+  course,
+  current_user,
+  campaigns,
+  controls,
+  editable,
+  updateCourse,
+  refetchCourse,
+  firstErrorMessage
+}) => {
   const [updateCount, setUpdateCount] = useState(0);
-  const [timeoutId, setTimeoutId] = useState(null);
-
-  const { course, current_user, campaigns, editable, updateCourse, refetchCourse } = props;
 
   useEffect(() => {
-    const poll = () => setInterval(() => {
-      if (updateCount > MAX_UPDATE_COUNT) return;
-      if (!editable) {
-        refetchCourse(course.slug);
-        setUpdateCount(updateCount + 1);
-      }
-    }, POLL_INTERVAL);
+    const timeout = poll();
 
-    setTimeoutId(poll());
+    return () => {
+      clearInterval(timeout); // Cleanup on unmount
+    };
+  }, [updateCount]);
 
-    return () => clearInterval(timeoutId);
-  }, [updateCount, editable, refetchCourse, course.slug, timeoutId]);
-
-  const updateDetails = useCallback((valueKey, value) => {
+  const updateDetails = (valueKey, value) => {
     const updatedCourse = { ...course, [valueKey]: value };
     updateCourse(updatedCourse);
-  }, [course, updateCourse]);
+  };
 
-  const updateSlugPart = useCallback((valueKey, value) => {
-    const updatedCourse = { ...course, [valueKey]: value, slug: CourseUtils.generateTempId(course) };
+  const updateSlugPart = (valueKey, value) => {
+    const updatedCourse = { ...course, [valueKey]: value };
+    updatedCourse.slug = CourseUtils.generateTempId(updatedCourse);
     updateCourse(updatedCourse);
-  }, [course, updateCourse]);
+  };
 
-  const updateCourseDates = useCallback((valueKey, value) => {
+  const updateCourseDates = (valueKey, value) => {
     const updatedCourse = CourseDateUtils.updateCourseDates(course, valueKey, value);
     updateCourse(updatedCourse);
-  }, [course, updateCourse]);
+  };
 
-  const canRename = useCallback(() => {
+  const canRename = () => {
     if (!editable) return false;
     if (current_user.admin) return true;
     if (Features.wikiEd) return false;
     return true;
-  }, [editable, current_user]);
+  };
 
-  const canRenameValue = canRename();
+  const handleWikiChange = (wiki) => {
+    const home_wiki = wiki.value;
+    const { id, ...prev_wiki } = course.home_wiki;
+    const wikis = CourseUtils.normalizeWikis([...course.wikis], home_wiki, prev_wiki);
+    updateCourse({ ...course, wikis, home_wiki });
+  };
+
+  const handleMultiWikiChange = (wikis) => {
+    wikis = wikis.map(wiki => wiki.value);
+    const home_wiki = {
+      language: course.home_wiki.language || 'www',
+      project: course.home_wiki.project
+    };
+    wikis = CourseUtils.normalizeWikis(wikis, home_wiki);
+    updateCourse({ ...course, wikis });
+  };
+
+  const handleNamespaceChange = (namespaces) => {
+    updateCourse({ ...course, namespaces });
+  };
+
+  const poll = () => {
+    return setInterval(() => {
+      if (updateCount > MAX_UPDATE_COUNT) return;
+      if (!editable) {
+        refetchCourse(course.slug);
+        setUpdateCount(prevCount => prevCount + 1);
+      }
+    }, POLL_INTERVAL);
+  };
+
   const isClassroomProgramType = course.type === 'ClassroomProgramCourse';
   const timelineDatesDiffer = course.start !== course.timeline_start || course.end !== course.timeline_end;
 
@@ -92,16 +124,16 @@ const Details = (props) => {
   let academic_system;
 
   if (Features.wikiEd) {
-    staff = <WikiEdStaff {...props} />;
-    campus = <CampusVolunteers {...props} />;
+    staff = <WikiEdStaff {...{ course, current_user, campaigns, controls, editable, updateCourse, refetchCourse, firstErrorMessage }} />;
+    campus = <CampusVolunteers {...{ course, current_user, campaigns, controls, editable, updateCourse, refetchCourse, firstErrorMessage }} />;
   }
 
   let online;
   if (Features.wikiEd || course.online_volunteers_enabled) {
-    online = <OnlineVolunteers {...props} />;
+    online = <OnlineVolunteers {...{ course, current_user, campaigns, controls, editable, updateCourse, refetchCourse, firstErrorMessage }} />;
   }
 
-  if (course.school || canRenameValue) {
+  if (course.school || canRename()) {
     school = (
       <TextInput
         id="school-input"
@@ -109,7 +141,7 @@ const Details = (props) => {
         value={course.school}
         value_key="school"
         validation={CourseUtils.courseSlugRegex()}
-        editable={canRenameValue}
+        editable={canRename()}
         type="text"
         label={CourseUtils.i18n('school', course.string_prefix)}
         required={true}
@@ -117,13 +149,11 @@ const Details = (props) => {
     );
   }
 
-  if (canRenameValue && isClassroomProgramType) {
+  if (canRename() && isClassroomProgramType) {
     academic_system = (
       <div className="form-group academic_system">
         <span className="text-input-component__label">
-          <strong>
-            {I18n.t('courses.school_system')}:
-          </strong>
+          <strong>{I18n.t('courses.school_system')}:</strong>
           <AcademicSystem
             value={course.academic_system}
             updateCourseProps={updateCourse}
@@ -134,7 +164,7 @@ const Details = (props) => {
   }
 
   let title;
-  if (canRenameValue) {
+  if (canRename()) {
     title = (
       <TextInput
         id="title-input"
@@ -142,7 +172,7 @@ const Details = (props) => {
         value={course.title}
         value_key="title"
         validation={CourseUtils.courseSlugRegex()}
-        editable={canRenameValue}
+        editable={canRename()}
         type="text"
         label={CourseUtils.i18n('title', course.string_prefix)}
         required={true}
@@ -151,7 +181,7 @@ const Details = (props) => {
   }
 
   let term;
-  if (course.term || canRenameValue) {
+  if (course.term || canRename()) {
     term = (
       <TextInput
         id="term-input"
@@ -159,7 +189,7 @@ const Details = (props) => {
         value={course.term}
         value_key="term"
         validation={CourseUtils.courseSlugRegex()}
-        editable={canRenameValue}
+        editable={canRename()}
         type="text"
         label={CourseUtils.i18n('term', course.string_prefix)}
         required={false}
@@ -203,16 +233,16 @@ const Details = (props) => {
   }
 
   let expectedStudents;
-  if ((course.expectedStudents || course.expectedStudents === 0 || editable) && isClassroomProgramType) {
+  if ((course.expected_students || course.expected_students === 0 || editable) && isClassroomProgramType) {
     expectedStudents = (
       <TextInput
         id="expected-students"
         onChange={updateDetails}
-        value={String(course.expectedStudents)}
-        value_key="expectedStudents"
+        value={String(course.expected_students)}
+        value_key="expected_students"
         editable={editable}
         type="number"
-        label={CourseUtils.i18n('expectedStudents', course.string_prefix)}
+        label={CourseUtils.i18n('expected_students', course.string_prefix)}
       />
     );
   }
@@ -234,7 +264,6 @@ const Details = (props) => {
         required={true}
       />
     );
-
     timelineEnd = (
       <DatePicker
         onChange={updateCourseDates}
@@ -249,202 +278,288 @@ const Details = (props) => {
       />
     );
   }
-
-  let project;
-  if (course.project || canRenameValue) {
-    project = (
-      <TextInput
-        id="project-input"
-        onChange={updateSlugPart}
-        value={course.project}
-        value_key="project"
-        validation={CourseUtils.courseSlugRegex()}
-        editable={canRenameValue}
-        type="text"
-        label={CourseUtils.i18n('course_title', course.string_prefix)}
-        required={false}
-      />
-    );
-  }
-
   let subject;
-  if (course.subject || canRenameValue) {
+  let tags;
+  let courseTypeSelector;
+  let submittedSelector;
+  let privacySelector;
+  let courseLevelSelector;
+  let courseFormatSelector;
+  let timelineToggle;
+  let onlineVolunteersToggle;
+  let disableStudentEmailsToggle;
+  let wikiEditsToggle;
+  let editSettingsToggle;
+  let withdrawnSelector;
+  let stayInSandboxToggle;
+  let retainAvailableArticlesToggle;
+  let wikiSelector;
+  let multiWikiSelector;
+  let namespaceSelector;
+
+  if (current_user.admin) {
     subject = (
       <TextInput
-        id="subject-input"
-        onChange={updateSlugPart}
+        id="course-subject-selector"
+        onChange={updateDetails}
         value={course.subject}
         value_key="subject"
-        validation={CourseUtils.courseSlugRegex()}
-        editable={canRenameValue}
-        type="text"
-        label={CourseUtils.i18n('subject', course.string_prefix)}
-        required={false}
-      />
-    );
-  }
-
-  let expectedStudentsField;
-  if (editable && isClassroomProgramType) {
-    expectedStudentsField = (
-      <TextInput
-        id="expected-students"
-        onChange={updateDetails}
-        value={course.expectedStudents}
-        value_key="expected_students"
         editable={editable}
-        type="number"
-        label={CourseUtils.i18n('expected_students', course.string_prefix)}
+        type="text"
+        label={I18n.t('courses.subject')}
+      />
+    );
+    tags = (
+      <div className="tags">
+        <TagList course={course} />
+        <TagEditable {...props} show={editable} />
+      </div>
+    );
+    submittedSelector = (
+      <SubmittedSelector
+        course={course}
+        editable={editable}
+        updateCourse={updateCourse}
+      />
+    );
+    withdrawnSelector = (
+      <WithdrawnSelector
+        course={course}
+        editable={editable}
+        updateCourse={updateCourse}
+      />
+    );
+    stayInSandboxToggle = (
+      <StayInSandboxToggle
+        course={course}
+        editable={editable}
+        updateCourse={updateCourse}
+      />
+    );
+    retainAvailableArticlesToggle = (
+      <RetainAvailableArticlesToggle
+        course={course}
+        editable={editable}
+        updateCourse={updateCourse}
       />
     );
   }
 
-  let instructors;
-  if (Features.wikiEd) {
-    instructors = (
-      <Instructors {...props} />
+  if (canRename) {
+    courseTypeSelector = (
+      <CourseTypeSelector
+        course={course}
+        editable={editable}
+        updateCourse={updateCourse}
+      />
+    );
+    privacySelector = (
+      <PrivacySelector
+        course={course}
+        editable={editable}
+        updateCourse={updateCourse}
+      />
     );
   }
 
-  const removeCampaigns = campaigns.map(campaign => campaign.slug);
+  if (editable && isClassroomProgramType) {
+    courseLevelSelector = (
+      <CourseLevelSelector
+        level={course.level}
+        updateCourse={updateDetails}
+      />
+    );
+    courseFormatSelector = (
+      <CourseFormatSelector
+        format={course.format}
+        updateCourse={updateDetails}
+      />
+    );
+  }
 
-  return (
-    <div className="module course-details">
-      <Notifications {...props} />
+  if (canRename && !isClassroomProgramType) {
+    timelineToggle = (
+      <TimelineToggle
+        course={course}
+        editable={editable}
+        updateCourse={updateCourse}
+      />
+    );
+  }
 
-      <h3 className="course-details__header">{CourseUtils.i18n('details', course.string_prefix)}</h3>
-      <div className="form-group">
-        {title}
-        {term}
-      </div>
-      <div className="form-group">
-        {school}
-        {project}
-      </div>
-      <div className="form-group">
-        {academic_system}
-        {subject}
-      </div>
-      <div className="form-group">
-        <CourseTypeSelector
+  if (canRename && Features.wikiEd) {
+    disableStudentEmailsToggle = (
+      <DisableStudentEmailsToggle
+        course={course}
+        editable={editable}
+        updateCourse={updateCourse}
+      />
+    );
+  }
+
+  if (canRename && !Features.wikiEd) {
+    onlineVolunteersToggle = (
+      <OnlineVolunteersToggle
+        course={course}
+        editable={editable}
+        updateCourse={updateCourse}
+      />
+    );
+  }
+
+  if (canRename && !isClassroomProgramType && course.home_wiki_edits_enabled) {
+    wikiEditsToggle = (
+      <WikiEditsToggle
+        course={course}
+        editable={editable}
+        updateCourse={updateCourse}
+      />
+    );
+
+    if (course.wiki_edits_enabled) {
+      editSettingsToggle = (
+        <EditSettingsToggle
           course={course}
           editable={editable}
           updateCourse={updateCourse}
-          string_prefix={course.string_prefix}
         />
-      </div>
-      <div className="form-group">
-        {expectedStudentsField}
-      </div>
-      <div className="form-group">
-        <CourseLevelSelector
-          level={course.level}
-          editable={editable}
-          updateCourse={updateCourse}
-          string_prefix={course.string_prefix}
-        />
-        <CourseFormatSelector
-          format={course.format}
-          editable={editable}
-          updateCourse={updateCourse}
-          string_prefix={course.string_prefix}
-        />
-      </div>
-      <div className="form-group">
-        {timelineStart}
-        {timelineEnd}
-      </div>
-      <div className="form-group">
+      );
+    }
+  }
+
+  const home_wiki = { language: course.home_wiki.language, project: course.home_wiki.project };
+
+  if (current_user.admin || !Features.wikiEd || (editable && Features.wikiEd && !isClassroomProgramType)) {
+    wikiSelector = (
+      <div className="form-group home-wiki">
         <WikiSelect
-          home_wiki={course.home_wiki}
-          updateCourse={updateCourse}
-          selectedWikis={course.wikis}
-          multiSelect={false}
-          styles={selectStyles}
+          id="home_wiki"
+          label={I18n.t('courses.home_wiki')}
+          wikis={[home_wiki]}
+          readOnly={!editable}
+          onChange={handleWikiChange}
+          options={WIKI_OPTIONS}
+          multi={false}
+          styles={{ ...selectStyles, singleValue: null }}
         />
+      </div>
+    );
+    multiWikiSelector = (
+      <div className="form-group multi-wiki">
+        <WikiSelect
+          id="multi_wiki"
+          label={I18n.t('courses.multi_wiki')}
+          wikis={course.wikis}
+          homeWiki={home_wiki}
+          readOnly={!editable}
+          options={WIKI_OPTIONS}
+          onChange={handleMultiWikiChange}
+          multi={true}
+          styles={{ ...selectStyles, singleValue: null }}
+        />
+      </div>
+    );
+
+    namespaceSelector = (
+      <div className="form-group namespace-select">
         <NamespaceSelect
           wikis={course.wikis}
-          updateCourse={updateCourse}
-          selectedNamespaces={course.namespaces}
-        />
-        {Features.multiCourseWiki && <WikiSelect
-          home_wiki={course.home_wiki}
-          updateCourse={updateCourse}
-          selectedWikis={course.wikis}
-          multiSelect
-          styles={selectStyles}
-        />}
-      </div>
-      <div className="form-group">
-        {passcode}
-      </div>
-      <div className="form-group">
-        <TagEditable {...props} />
-      </div>
-      <div className="form-group">
-        <CampaignEditable
-          campaigns={removeCampaigns}
-          {...props}
-        />
-        <CampaignList {...props} />
-      </div>
-      <div className="form-group">
-        <SubmittedSelector
-          editable={editable}
-          submitted={course.submitted}
-          updateCourse={updateCourse}
-        />
-        <WithdrawnSelector
-          editable={editable}
-          withdrawn={course.withdrawn}
-          updateCourse={updateCourse}
-        />
-        <PrivacySelector
-          editable={editable}
-          course={course}
-          updateCourse={updateCourse}
-        />
-        <TimelineToggle
-          editable={editable}
-          timeline_enabled={course.timeline_enabled}
-          updateCourse={updateCourse}
-        />
-        <OnlineVolunteersToggle
-          editable={editable}
-          online_volunteers_enabled={course.online_volunteers_enabled}
-          updateCourse={updateCourse}
-        />
-        <DisableStudentEmailsToggle
-          editable={editable}
-          disable_student_emails={course.disable_student_emails}
-          updateCourse={updateCourse}
-        />
-        <StayInSandboxToggle
-          editable={editable}
-          stay_in_sandbox={course.stay_in_sandbox}
-          updateCourse={updateCourse}
-        />
-        <RetainAvailableArticlesToggle
-          editable={editable}
-          retain_available_articles={course.retain_available_articles}
-          updateCourse={updateCourse}
-        />
-        <WikiEditsToggle
-          editable={editable}
-          wiki_edits_enabled={course.wiki_edits_enabled}
-          updateCourse={updateCourse}
-        />
-        <EditSettingsToggle
-          editable={editable}
-          edit_settings={course.edit_settings}
-          updateCourse={updateCourse}
+          namespaces={course.namespaces}
+          onChange={handleNamespaceChange}
+          readOnly={!editable}
+          styles={{ ...selectStyles, singleValue: null }}
         />
       </div>
-      {staff}
-      {campus}
-      {online}
-      {instructors}
-      <Modal />
+    );
+  }
+
+  const shared = (
+    <div className="module course-details">
+      <div className="section-header">
+        <h3>{I18n.t('application.details')}</h3>
+        {controls()}
+      </div>
+      <div className="module__data extra-line-height">
+        <Instructors {...props} />
+        <div className="details-form">
+          <div className="group-left">
+            {online}
+            {campus}
+            {staff}
+            <div><p className="red">{firstErrorMessage}</p></div>
+            {school}
+            {title}
+            {term}
+            {academic_system}
+            {wikiSelector}
+            {multiWikiSelector}
+            {namespaceSelector}
+            <form>
+              {passcode}
+              {expectedStudents}
+              <DatePicker
+                onChange={updateCourseDates}
+                value={course.start}
+                value_key="start"
+                validation={CourseDateUtils.isDateValid}
+                editable={editable}
+                label={CourseUtils.i18n('start', course.string_prefix)}
+                showTime={course.use_start_and_end_times}
+                required={true}
+              />
+              <DatePicker
+                onChange={updateCourseDates}
+                value={course.end}
+                value_key="end"
+                editable={editable}
+                validation={CourseDateUtils.isDateValid}
+                label={CourseUtils.i18n('end', course.string_prefix)}
+                date_props={dateProps.end}
+                enabled={Boolean(course.start)}
+                showTime={course.use_start_and_end_times}
+                required={true}
+              />
+            </form>
+          </div>
+          <div className="group-right">
+            {timelineStart}
+            {timelineEnd}
+            {subject}
+            {courseLevelSelector}
+            {courseFormatSelector}
+            {tags}
+            {courseTypeSelector}
+            {submittedSelector}
+            {stayInSandboxToggle}
+            {retainAvailableArticlesToggle}
+            {privacySelector}
+            {timelineToggle}
+            {onlineVolunteersToggle}
+            {disableStudentEmailsToggle}
+            {wikiEditsToggle}
+            {editSettingsToggle}
+            {withdrawnSelector}
+          </div>
+        </div>
+        {campaigns}
+      </div>
+    </div>
+  );
+
+  if (!editable) {
+    return (
+      <div>
+        {shared}
+      </div>
+    );
+  }
+
+  return (
+    <div className="modal-course-details">
+      <Modal>
+        <Notifications />
+        {shared}
+      </Modal>
     </div>
   );
 };
@@ -453,9 +568,11 @@ Details.propTypes = {
   course: PropTypes.object.isRequired,
   current_user: PropTypes.object.isRequired,
   campaigns: PropTypes.array.isRequired,
+  controls: PropTypes.func.isRequired,
   editable: PropTypes.bool.isRequired,
   updateCourse: PropTypes.func.isRequired,
   refetchCourse: PropTypes.func.isRequired,
+  firstErrorMessage: PropTypes.string
 };
 
-export default Details;
+export default EditableRedux(Details, I18n.t('editable.edit_details'));
