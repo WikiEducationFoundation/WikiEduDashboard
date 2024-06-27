@@ -2,7 +2,6 @@ import React from 'react';
 import Nav from './nav/nav.jsx';
 import { render } from './Main';
 import { createRoot } from 'react-dom/client';
-import course_creator from './course_creator/course_creator.jsx';
 // The navbar is its own React element, independent of the
 // main React Router-based component tree.
 // `nav_root` is present throughout the app, via the Rails view layouts.
@@ -18,3 +17,4 @@ const reactRoot = document.getElementById('react_root');
 if (reactRoot) {
   render(reactRoot);
 }
+
