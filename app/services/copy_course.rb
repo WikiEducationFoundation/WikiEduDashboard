@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-# this file needed to be edited.
 #= Copy course from another server
 class CopyCourse
   def initialize(url:, user_data:)
