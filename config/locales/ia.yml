@@ -19,6 +19,7 @@ ia:
     number_field: Isto es un campo de numero. Le buttones generate sur le major parte
       de navigatores incrementa e decrementa le entrata.
   application:
+    back: Retornar
     cancel: Cancellar
     cookie_consent: Iste sito usa cookies pro mantener tu session aperte, e immagazina
       informationes associate a tu conto de Wikipedia.

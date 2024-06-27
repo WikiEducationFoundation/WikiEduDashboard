@@ -40,7 +40,9 @@ hyw:
     options:
       news_content:
         confirm_delete: Հաստատել
+        cancel_delete: Չեղարկել
   notes:
     cancel_note_creation: Չեղարկել
     cancel_edit_note: Չեղարկել
+    save_note: Յիշել
 ...
