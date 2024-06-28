@@ -7,11 +7,9 @@ import WeekdayPicker from './weekday_picker.jsx';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 import { toDate } from '../../utils/date_utils.js';
 import { format, getDay, isValid } from 'date-fns';
-
 function __in__(needle, haystack) {
   return haystack.indexOf(needle) >= 0;
 }
-
 const Calendar = createReactClass({
   displayName: 'Calendar',
   propTypes: {
@@ -22,7 +20,6 @@ const Calendar = createReactClass({
     shouldShowSteps: PropTypes.bool,
     updateCourse: PropTypes.func.isRequired
   },
-
   statics: {
     getDerivedStateFromProps(props) {
       return {
@@ -30,7 +27,6 @@ const Calendar = createReactClass({
       };
     }
   },
-
   getInitialState() {
     return ({ initialMonth: toDate(this.props.course.start) });
   },
@@ -63,7 +59,6 @@ const Calendar = createReactClass({
         return false;
       }
     }
-
     course.day_exceptions = exceptions.join(',');
     course.no_day_exceptions = (compact(exceptions).length === 0);
     return this.props.updateCourse(course);
@@ -128,10 +123,8 @@ const Calendar = createReactClass({
         return inrange && exception && weekday;
       }
     };
-
     const editDaysText = I18n.t('courses.calendar.select_meeting_days');
     const editCalendarText = this.props.calendarInstructions;
-
     let editingDays;
     let editingCalendar;
     if (this.props.editable) {
@@ -147,11 +140,8 @@ const Calendar = createReactClass({
         );
       }
     }
-
-
     const onWeekdayClick = this.props.editable ? this.selectWeekday : null;
     const onDayClick = this.props.editable ? this.selectDay : null;
-
     return (
       <div>
         <div className="course-dates__step">
@@ -194,5 +184,4 @@ const Calendar = createReactClass({
   }
 }
 );
-
 export default Calendar;
