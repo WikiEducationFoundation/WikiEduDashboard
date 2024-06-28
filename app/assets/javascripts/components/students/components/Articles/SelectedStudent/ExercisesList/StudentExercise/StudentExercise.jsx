@@ -1,82 +1,79 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
+import React, { useCallback } from 'react';
+
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { setUploadFilters } from '~/app/assets/javascripts/actions/uploads_actions';
-import { fetchUserRevisions } from '~/app/assets/javascripts/actions/user_revisions_actions';
-import { fetchTrainingStatus } from '~/app/assets/javascripts/actions/training_status_actions';
+
+import { setUploadFilters as setUploadFiltersAction } from '~/app/assets/javascripts/actions/uploads_actions';
+import { fetchUserRevisions as fetchUserRevisionsAction } from '~/app/assets/javascripts/actions/user_revisions_actions';
+import { fetchTrainingStatus as fetchTrainingStatusAction } from '~/app/assets/javascripts/actions/training_status_actions';
 
 // Components
 import ExerciseProgressDescription from './ExerciseProgressDescription.jsx';
 import TrainingProgressDescription from './TrainingProgressDescription.jsx';
 
 // Actions
-import {
-  fetchTrainingModuleExercisesByUser
-} from '~/app/assets/javascripts/actions/exercises_actions';
+import { fetchTrainingModuleExercisesByUser } from '~/app/assets/javascripts/actions/exercises_actions';
 
-const Student = createReactClass({
-  displayName: 'Student',
+const Student = ({
+  course,
+  student,
+  isOpen,
+  toggleDrawer,
+}) => {
+  const handleSetUploadFilters = useCallback((selectedFilters) => {
+    setUploadFiltersAction(selectedFilters);
+  }, [setUploadFiltersAction]);
 
-  propTypes: {
-    assignments: PropTypes.array,
-    course: PropTypes.object.isRequired,
-    current_user: PropTypes.object,
-    editable: PropTypes.bool,
-    fetchUserRevisions: PropTypes.func.isRequired,
-    fetchTrainingStatus: PropTypes.func.isRequired,
-    isOpen: PropTypes.bool,
-    minimalView: PropTypes.bool,
-    student: PropTypes.object.isRequired,
-    toggleDrawer: PropTypes.func,
-    wikidataLabels: PropTypes.object
-  },
+  const handleStop = (e) => {
+    e.stopPropagation();
+  };
 
-  setUploadFilters(selectedFilters) {
-    this.props.setUploadFilters(selectedFilters);
-  },
-
-  stop(e) {
-    return e.stopPropagation();
-  },
-
-  openDrawer() {
-    if (!this.props.isOpen) {
-      const { course, student } = this.props;
-      this.props.fetchUserRevisions(course.id, student.id);
-      this.props.fetchTrainingStatus(student.id, course.id);
-      this.props.fetchExercises(course.id, student.id);
+  const openDrawer = useCallback(() => {
+    if (!isOpen) {
+      fetchUserRevisionsAction(course.id, student.id);
+      fetchTrainingStatusAction(student.id, course.id);
+      fetchTrainingModuleExercisesByUser(course.id, student.id);
     }
-    return this.props.toggleDrawer(`drawer_${this.props.student.id}`);
-  },
+    toggleDrawer(`drawer_${student.id}`);
+  }, [isOpen, course.id, student.id, fetchUserRevisionsAction, fetchTrainingStatusAction, toggleDrawer]);
 
-  render() {
-    const {
-      isOpen, student
-    } = this.props;
+  const className = `students-exercise students${isOpen ? ' open' : ''}`;
 
-    let className = 'students-exercise students';
-    className += isOpen ? ' open' : '';
+  // Example filters object
+  const exampleFilters = { filterType: 'example' };
 
-    return (
-      <tr onClick={this.openDrawer} className={className}>
-        <td className="desktop-only-tc">
-          <ExerciseProgressDescription student={student} />
-        </td>
-        <td className="desktop-only-tc">
-          <TrainingProgressDescription student={student} />
-        </td>
-        <td className="table-action-cell"><button className="icon icon-arrow-toggle table-expandable-indicator" /></td>
-      </tr>
-    );
-  }
-}
-);
+  return (
+    <tr onClick={openDrawer} className={className}>
+      <td className="desktop-only-tc">
+        <ExerciseProgressDescription student={student} />
+      </td>
+      <td className="desktop-only-tc">
+        <TrainingProgressDescription student={student} />
+      </td>
+      <td className="table-action-cell">
+        <button className="icon icon-arrow-toggle table-expandable-indicator" onClick={handleStop} />
+      </td>
+      <td className="table-action-cell">
+        <button onClick={() => handleSetUploadFilters(exampleFilters)}/>
+      </td>
+    </tr>
+  );
+};
+
+Student.propTypes = {
+  course: PropTypes.object.isRequired,
+  student: PropTypes.object.isRequired,
+  isOpen: PropTypes.bool,
+  toggleDrawer: PropTypes.func,
+  fetchUserRevisionsAction: PropTypes.func.isRequired,
+  fetchTrainingStatusAction: PropTypes.func.isRequired,
+  setUploadFiltersAction: PropTypes.func.isRequired
+};
 
 const mapDispatchToProps = {
-  setUploadFilters,
-  fetchUserRevisions,
-  fetchTrainingStatus,
+  setUploadFiltersAction,
+  fetchUserRevisionsAction,
+  fetchTrainingStatusAction,
   fetchExercises: fetchTrainingModuleExercisesByUser
 };
 
