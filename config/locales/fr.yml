@@ -91,7 +91,7 @@ fr:
       other: '%count résultats pour : « %{search_terms} »'
     no_results: Aucun résultat trouvé pour « %{query} »
     show_current_revision: Affiche la version actuelle.
-    show_last_revision: Afficher la dernière révision
+    show_last_revision: Afficher la dernière version modifiée
     sign_up_extended: S’inscrire sur Wikipédia
     sign_up_wikipedia: Ou inscrivez-vous sur Wikipédia
     sign_up_log_in_extended: avec Wikipédia
@@ -1244,8 +1244,9 @@ fr:
     error_count_message: Le tableau de bord a rencontré %{error_count} erreur(s) lors
       de la mise à jour la plus récente.
     future_updates_remaining:
-      1: Les statistiques continueront d’être mises à jour jusqu’au %{date}.
-      "": Les statistiques pour ce programme ne sont plus mises à jour régulièrement.
+      updates_active: Les statistiques continueront d’être mises à jour jusqu’au %{date}.
+      updates_inactive: Les statistiques pour ce programme ne sont plus mises à jour
+        régulièrement.
     last_reviewed: Dernière relecture
     missing_data_heading: Résultats manquants ou inattendus ?
     missing_data_info: Les problèmes courants incluent
@@ -1974,4 +1975,18 @@ fr:
     assignment_status: Affectation de formation (%{status})
   multi_wiki:
     selector_placeholder: Commencez par entrer un domaine wiki
+  news:
+    footer:
+      P&E_dashboard:
+        link_text: Wikimédia
+    options:
+      news_content:
+        cancel_delete: Annuler
+    text_area_input:
+      placeholder: Ajouter des actualités et des modifications récentes
+  notes:
+    title: Titre
+    note_title: Titre de la note
+    cancel_note_creation: Annuler
+    cancel_edit_note: Annuler
 ...

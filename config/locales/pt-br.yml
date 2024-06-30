@@ -1123,8 +1123,8 @@ pt-br:
     error_count_message: O painel de controle encontrou %{error_count} erro(s) durante
       a atualização mais recente.
     future_updates_remaining:
-      1: As estatísticas continuarão sendo atualizadas até %{date}.
-      "": As estatísticas deste programa não são mais atualizadas regularmente.
+      updates_active: As estatísticas continuarão sendo atualizadas até %{date}.
+      updates_inactive: As estatísticas deste programa não são mais atualizadas regularmente.
     last_reviewed: Última revisão
     missing_data_heading: Resultados ausentes ou inesperados?
     missing_data_info: Problemas comuns incluem

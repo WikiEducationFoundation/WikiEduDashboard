@@ -16,40 +16,33 @@ class PlagiabotImporter
       next unless wiki
       revision = Revision.find_by(mw_rev_id: rev['rev_id'], wiki_id: wiki.id)
       next unless revision
-      file_new_plagiarism_report(revision, rev['ithenticate_id'])
+      file_new_plagiarism_report(revision, rev['submission_id'])
     end
-  end
-
-  # Fetches an ithenticate report URL
-  def self.api_get_url(opts = {})
-    url = query_url('ithenticate_report_url', opts)
-    response = Net::HTTP.get(URI.parse(url))
-    return response if response.include?('https://api.ithenticate.com/')
-    return '/not_found'
   end
 
   ##################
   # Helper methods #
   ##################
-  def self.file_new_plagiarism_report(revision, ithenticate_id)
-    return unless revision.ithenticate_id.nil?
-    revision.ithenticate_id = ithenticate_id
+  def self.file_new_plagiarism_report(revision, submission_id)
+    # This is just to log the fact that a revision got flagged
+    revision.ithenticate_id = revision.mw_rev_id
     revision.save
-    SuspectedPlagiarismMailer.alert_content_expert(revision)
+    alert = PossiblePlagiarismAlert.new_from_revision(revision, submission_id)
+    return unless alert
+    SuspectedPlagiarismMailer.alert_content_expert(alert)
   end
 
-  def self.query_url(type, opts = {})
+  def self.query_url(type)
     base_url = 'https://ruby-suspected-plagiarism.toolforge.org/'
     url = base_url + type
-    url += "/#{opts[:ithenticate_id]}" if opts[:ithenticate_id]
     url
   end
 
   ###############
   # API methods #
   ###############
-  def self.api_get(type, opts = {})
-    url = query_url(type, opts)
+  def self.api_get(type)
+    url = query_url(type)
     response = Net::HTTP.get(URI.parse(url))
     Oj.load(response)
   rescue StandardError => e

@@ -159,6 +159,7 @@ const Details = createReactClass({
     if (this.props.course.school || canRename) {
       school = (
         <TextInput
+          id="school-input"
           onChange={this.updateSlugPart}
           value={this.props.course.school}
           value_key="school"
@@ -191,6 +192,7 @@ const Details = createReactClass({
     if (canRename) {
       title = (
         <TextInput
+          id="title-input"
           onChange={this.updateSlugPart}
           value={this.props.course.title}
           value_key="title"
@@ -207,6 +209,7 @@ const Details = createReactClass({
     if (this.props.course.term || canRename) {
       term = (
         <TextInput
+          id="term-input"
           onChange={this.updateSlugPart}
           value={this.props.course.term}
           value_key="term"
@@ -224,6 +227,7 @@ const Details = createReactClass({
       if (this.props.editable) {
         passcode = (
           <TextInput
+            id="passcode-input-editable"
             onChange={this.updateDetails}
             value={this.props.course.passcode}
             value_key="passcode"
@@ -239,6 +243,7 @@ const Details = createReactClass({
         const enrollToken = `?enroll=${this.props.course.passcode}`;
         passcode = (
           <TextInput
+            id="passcode-input"
             onChange={this.updateDetails}
             value={<a href={`${studentLink}${enrollToken}`}>{this.props.course.passcode}</a>}
             value_key="passcode"
@@ -256,6 +261,7 @@ const Details = createReactClass({
     if ((this.props.course.expected_students || this.props.course.expected_students === 0 || this.props.editable) && isClassroomProgramType) {
       expectedStudents = (
         <TextInput
+          id="expected-students"
           onChange={this.updateDetails}
           value={String(this.props.course.expected_students)}
           value_key="expected_students"
@@ -329,6 +335,7 @@ const Details = createReactClass({
     if (this.props.current_user.admin) {
       subject = (
         <TextInput
+          id="course-subject-selector"
           onChange={this.updateDetails}
           value={this.props.course.subject}
           value_key="subject"

@@ -415,6 +415,12 @@ hi:
   settings:
     categories:
       users: सदस्य
+    admin_users:
+      new:
+        form_placeholder: सदस्यनाम
+    special_users:
+      new:
+        form_placeholder: सदस्यनाम
   timeline:
     empty_week_3: या
   training:
@@ -438,4 +444,14 @@ hi:
   training_status:
     completed: पूर्ण
     not_started: प्रारम्भ नहीं हुआ
+  news:
+    post_confirmation:
+      confirmation: कृपया पुष्टि करें।
+    options:
+      news_content:
+        cancel_delete: रद्द करें
+  notes:
+    title: शीर्षक
+    cancel_note_creation: रद्द करें
+    save_note: सहेजें
 ...

@@ -67,7 +67,7 @@ sr-ec:
     search_results: 'Резултати за: „%{search_terms}”'
     no_results: Нема пронађених резултата за термин „%{query}”
     show_current_revision: Прикажи тренутну верзију
-    show_last_revision: Прикажи последњу измену
+    show_last_revision: Прикажи последњу измењену верзију
     sign_up_extended: Отвори налог са Википедијом
     sign_up_wikipedia: Или се пријавите на Википедију
     sign_up_log_in_extended: са Википедијом
@@ -1291,4 +1291,25 @@ sr-ec:
     started: Започето
     not_started: Није започето
     due: до %{due_date}
+  news:
+    post_confirmation:
+      confirmation: Потврдите.
+    footer:
+      P&E_dashboard:
+        link_text: Викимедија
+    options:
+      news_content:
+        delete_news: Обришите вести
+        edit_news: Уреди новости
+      create_news:
+        confirm_post: Потврди објаву
+        post_news: Објави новости
+    notification:
+      delete: Садржај вести је успешно обрисан
+      create_news_error: Дошло је до грешке приликом креирања садржаја вести. Покушајте
+        поново.
+      empty_create_news_content_error: Унесите садржај вести пре објављивања.
+  notes:
+    cancel_note_creation: Откажи
+    save_note: Сачувај
 ...

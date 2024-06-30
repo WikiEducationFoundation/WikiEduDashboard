@@ -19,7 +19,7 @@ const CourseFormatSelector = ({ format, updateCourse }) => {
   ];
   return (
     <div className="form-group">
-      <label htmlFor="course_format">Course format:</label>
+      <label id="course_format-label" htmlFor="course_format">Course format:</label>
       <Select
         id="course_format"
         value={options.find(option => option.value === selectedOption.value)}
@@ -27,6 +27,7 @@ const CourseFormatSelector = ({ format, updateCourse }) => {
         options={options}
         simpleValue
         styles={selectStyles}
+        aria-labelledby="course_format-label"
       />
     </div>
   );

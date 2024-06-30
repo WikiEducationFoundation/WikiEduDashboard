@@ -44,6 +44,7 @@ class Campaign < ApplicationRecord
 
   validates :title, presence: true
   validates :slug, presence: true
+  validates :slug, exclusion: { in: %w[current], message: 'cannot have "%<value>s" value.' }
   validates_uniqueness_of :title, message: I18n.t('campaign.already_exists'), case_sensitive: false
   validates_uniqueness_of :slug, message: I18n.t('campaign.already_exists'), case_sensitive: false
 

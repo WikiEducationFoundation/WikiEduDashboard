@@ -808,4 +808,31 @@ ru:
     unassign_article_self: Отменить назначение статьи
   multi_wiki:
     selector_placeholder: Начните вводить домен wiki
+  news:
+    post_confirmation:
+      confirmation: Пожалуйста, подтвердите
+    delete_confirmation:
+      confirmation: Пожалуйста, подтвердите.
+    footer:
+      P&E_dashboard:
+        link_text: Викимедиа
+    options:
+      news_content:
+        delete_news: Удалить новость
+        confirm_delete: Подтвердить
+        cancel_delete: Отменить
+        cancel_edit: Отменить правку
+        edit_news: Править новость
+      create_news:
+        confirm_post: Подтвердить публикацию
+        discard_post: Отменить новость
+    notification:
+      empty_create_news_content_error: Пожалуйста, введите содержание новости перед
+        публикацией.
+  notes:
+    title: Заголовок
+    note_text: Текст примечания
+    cancel_note_creation: Отмена
+    cancel_edit_note: Отменить
+    save_note: Сохранить
 ...

@@ -250,6 +250,9 @@ skr-arab:
     admin_users:
       new:
         form_placeholder: ورتݨ ناں
+    special_users:
+      new:
+        form_placeholder: ورتݨ ناں
   timeline:
     add_week: ہفتہ شامل کرو
     block_milestone: سنگ میل
@@ -315,4 +318,22 @@ skr-arab:
     tools: اوزار
   training_status:
     started: شروع تھیا
+  news:
+    add_news: خبراں شامل کرو
+    footer:
+      P&E_dashboard:
+        link_text: وکیمیڈیا
+    options:
+      news_content:
+        confirm_delete: تصدیق
+        cancel_delete: منسوخ
+      create_news:
+        cancel_post: پوسٹ منسوخ کرو
+  notes:
+    title: عنوان
+    cancel_note_creation: منسوخ
+    post_note: پوسٹ
+    cancel_edit_note: منسوخ
+    save_note: بچاؤ
+    delete_note: نوٹ مٹاؤ
 ...

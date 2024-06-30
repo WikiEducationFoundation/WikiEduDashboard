@@ -1,22 +1,20 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Routes from './util/routes.jsx';
-import { Provider } from 'react-redux';
-import store from './util/create_store';
 import { createRoot } from 'react-dom/client';
+import { Provider } from 'react-redux';
 
-const Main = () => {
+const Main = ({ store }) => {
   return (
-    <Provider store={store} >
+    <Provider store={store}>
       <BrowserRouter>
         <Routes />
       </BrowserRouter>
     </Provider>
   );
 };
-export const render = (reactRoot) => {
-  const root = createRoot(reactRoot);
-  root.render(
-    <Main />,
-  );
+
+export const render = (container, store) => {
+  const root = createRoot(container);
+  root.render(<Main store={store} />);
 };

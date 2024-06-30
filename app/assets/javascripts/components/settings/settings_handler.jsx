@@ -51,6 +51,7 @@ const SettingsHandler = () => {
       <h2 className="mx2">{I18n.t('settings.categories.special_users')}</h2>
       <AddSpecialUserButton />
       <SpecialUserList specialUsers={specialUsers} />
+
       {Features.wikiEd && (
         <>
           <h1 className="mx2 mt4">{I18n.t('settings.categories.other_settings')}</h1>
@@ -82,11 +83,11 @@ SettingsHandler.propTypes = {
       real_name: PropTypes.string,
       permissions: PropTypes.number.isRequired,
     })
-  ).isRequired,
+  ),
   specialUsers: PropTypes.object,
   courseCreation: PropTypes.object,
   defaultCampaign: PropTypes.string,
-  featuredCampaigns: PropTypes.array,
+  featuredCampaigns: PropTypes.array
 };
 
 export default SettingsHandler;
