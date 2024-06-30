@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import AddAdminButton from './views/add_admin_button';
 import AddSpecialUserButton from './views/add_special_user_button';
@@ -21,26 +21,22 @@ import AddFeaturedCampaign from './views/add_featured_campaign';
 import FeaturedCampaignsList from './featured_campaigns_list';
 import SiteNoticeSetting from './site_notice_setting';
 
-const SettingsHandler = ({
-  adminUsers,
-  specialUsers,
-  courseCreation,
-  defaultCampaign,
-  featuredCampaigns,
-}) => {
+const SettingsHandler = () => {
+  const dispatch = useDispatch();
+
+  const adminUsers = useSelector(state => state.settings.adminUsers);
+  const specialUsers = useSelector(state => state.settings.specialUsers);
+  const courseCreation = useSelector(state => state.settings.courseCreation);
+  const defaultCampaign = useSelector(state => state.settings.defaultCampaign);
+  const featuredCampaigns = useSelector(state => state.settings.featuredCampaigns);
+
   useEffect(() => {
-    fetchAdminUsers();
-    fetchSpecialUsers();
-    fetchCourseCreationSettings();
-    fetchDefaultCampaign();
-    fetchFeaturedCampaigns();
-  }, [
-    fetchAdminUsers,
-    fetchSpecialUsers,
-    fetchCourseCreationSettings,
-    fetchDefaultCampaign,
-    fetchFeaturedCampaigns,
-  ]);
+    dispatch(fetchAdminUsers());
+    dispatch(fetchSpecialUsers());
+    dispatch(fetchCourseCreationSettings());
+    dispatch(fetchDefaultCampaign());
+    dispatch(fetchFeaturedCampaigns());
+  }, [dispatch]);
 
   return (
     <div id="settings" className="mt4 container">
@@ -79,11 +75,6 @@ const SettingsHandler = ({
 };
 
 SettingsHandler.propTypes = {
-  fetchAdminUsers: PropTypes.func.isRequired,
-  fetchSpecialUsers: PropTypes.func.isRequired,
-  fetchCourseCreationSettings: PropTypes.func.isRequired,
-  fetchDefaultCampaign: PropTypes.func.isRequired,
-  fetchFeaturedCampaigns: PropTypes.func.isRequired,
   adminUsers: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
@@ -98,20 +89,4 @@ SettingsHandler.propTypes = {
   featuredCampaigns: PropTypes.array,
 };
 
-const mapStateToProps = state => ({
-  adminUsers: state.settings.adminUsers,
-  specialUsers: state.settings.specialUsers,
-  courseCreation: state.settings.courseCreation,
-  defaultCampaign: state.settings.defaultCampaign,
-  featuredCampaigns: state.settings.featuredCampaigns,
-});
-
-const mapDispatchToProps = {
-  fetchAdminUsers,
-  fetchSpecialUsers,
-  fetchCourseCreationSettings,
-  fetchDefaultCampaign,
-  fetchFeaturedCampaigns,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SettingsHandler);
+export default SettingsHandler;
