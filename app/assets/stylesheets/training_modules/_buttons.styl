@@ -45,3 +45,63 @@ a[disabled]
 
 .btn.btn-med
   font-size $btn_font_size_med
+
+.training-modification
+  .button
+    border-radius 3px
+    cursor pointer
+    display inline-block
+    line-height 1.5
+    font-weight 600
+    text-decoration none
+    font-size 14px
+    padding 8px 20px
+    transition all 0.15s ease-out, color 0.15s ease-out
+    &:focus
+      outline none
+  .button.dark
+    background-color #676eb4
+    border-color #676eb4
+    color #fff
+    &:hover
+      background-color #595f9b
+      border-color #595f9b
+  .button.right
+    float right
+    margin-left 10px
+  .button.down
+    float down
+    margin-top 10px
+  .button.light
+    background-color: #e7e7e7;
+    border: 1px solid #e2e2e2;
+    color: #6a6a6a;
+    padding: 8px 20px 8px;
+    &:hover
+      background-color: #e2e2e2;
+      border: 1px solid #dcdcdc;
+      color: #6a6a6a;
+  .button.danger
+    background-color: #d95757;
+    border-color: #d95757;
+    color: #fff;
+    &:hover
+      background-color: #c54f4f;
+      border-color: #c54f4f;
+
+.lib-container
+  position relative
+  .lib-create
+    position absolute
+    top 3rem
+    right 0
+  .cat-create
+    position absolute
+    top 2rem
+    right 0
+
+.training_modification_buttons
+  display: flex
+  flex-direction: row-reverse
+  justify-content: flex-start
+  gap: 2rem

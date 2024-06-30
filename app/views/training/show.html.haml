@@ -1,4 +1,5 @@
 - content_for :before_title, "#{@library.translated_name} - "
+#react_root
 .training__show.container
   %ol.breadcrumbs= render_breadcrumbs tag: :li, separator: ' > '
 .training__section-overview.container
@@ -34,3 +35,7 @@
                   %small.block-element.capitalize{ class: pm.assignment_status_css_class }
                     = pm.assignment_status
                   %span= lib_module.description
+          .training_modification_buttons.training-modification
+            - if lib_category.modules.empty? # Check if the category has no modules
+              = link_to delete_category_path(library_id: @library.slug, category_id: lib_category['title']), method: :delete, data: { confirm: t('training.confirmation.delete_category') }, class: 'button danger' do
+                = t("training.delete_category")
