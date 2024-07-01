@@ -65,72 +65,67 @@ const TimelineHandler = (props) => {
     props.persistTimeline(toSave, props.course_id);
   };
 
-// Replace render method with a separate renderTimelineHandler function
-  const renderTimelineHandler = () => {
-    if (props.course.loading) {
-      return <div />;
-    }
-    const weekMeetings = CourseDateUtils.weekMeetings(props.course, props.course.day_exceptions);
-    const openWeeks = CourseDateUtils.openWeeks(weekMeetings);
+  if (props.course.loading) {
+    return <div />;
+  }
+  const weekMeetings = CourseDateUtils.weekMeetings(props.course, props.course.day_exceptions);
+  const openWeeks = CourseDateUtils.openWeeks(weekMeetings);
 
-    const courseProps = {
-      key: 'wizard_handler',
-      course: props.course,
-      weeks: props.weeks,
-      open_weeks: openWeeks
-    };
-
-    return (
-      <div>
-        <TransitionGroup
-          classNames="wizard"
-          component="div"
-          timeout={500}
-        >
-          <Routes>
-            <Route path="wizard" element={<Wizard {...courseProps} />} />
-            <Route path="dates" element={<Meetings {...courseProps} />} />
-          </Routes>
-        </TransitionGroup>
-
-        <Timeline
-          loading={props.loading}
-          course={props.course}
-          weeks={props.weeks}
-          allWeeks={props.allWeeks}
-          week_meetings={weekMeetings}
-          editableBlockIds={props.editableBlockIds}
-          reorderable={reorderable}
-          editableTitles={editableTitles}
-          controls={props.controls}
-          persistCourse={props.persistTimeline}
-          saveGlobalChanges={saveTimeline}
-          saveBlockChanges={saveTimeline}
-          cancelBlockEditable={_cancelBlockEditable}
-          cancelGlobalChanges={_cancelGlobalChanges}
-          updateTitle={props.updateTitle}
-          resetTitles={_resetTitles}
-          updateBlock={props.updateBlock}
-          enableReorderable={_enableReorderable}
-          enableEditTitles={_enableEditTitles}
-          all_training_modules={props.availableTrainingModules}
-          addWeek={props.addWeek}
-          addBlock={props.addBlock}
-          deleteBlock={props.deleteBlock}
-          insertBlock={props.insertBlock}
-          deleteWeek={props.deleteWeek}
-          deleteAllWeeks={props.deleteAllWeeks}
-          setBlockEditable={props.setBlockEditable}
-          nameHasChanged={() => false}
-          edit_permissions={props.editPermissions}
-          current_user={props.current_user}
-        />
-        {/* {grading} */}
-      </div>
-    );
+  const courseProps = {
+    key: 'wizard_handler',
+    course: props.course,
+    weeks: props.weeks,
+    open_weeks: openWeeks
   };
-    // Update component rendering to return the result of renderTimelineHandler
-  return renderTimelineHandler();
+
+  return (
+    <div>
+      <TransitionGroup
+        classNames="wizard"
+        component="div"
+        timeout={500}
+      >
+        <Routes>
+          <Route path="wizard" element={<Wizard {...courseProps} />} />
+          <Route path="dates" element={<Meetings {...courseProps} />} />
+        </Routes>
+      </TransitionGroup>
+
+      <Timeline
+        loading={props.loading}
+        course={props.course}
+        weeks={props.weeks}
+        allWeeks={props.allWeeks}
+        week_meetings={weekMeetings}
+        editableBlockIds={props.editableBlockIds}
+        reorderable={reorderable}
+        editableTitles={editableTitles}
+        controls={props.controls}
+        persistCourse={props.persistTimeline}
+        saveGlobalChanges={saveTimeline}
+        saveBlockChanges={saveTimeline}
+        cancelBlockEditable={_cancelBlockEditable}
+        cancelGlobalChanges={_cancelGlobalChanges}
+        updateTitle={props.updateTitle}
+        resetTitles={_resetTitles}
+        updateBlock={props.updateBlock}
+        enableReorderable={_enableReorderable}
+        enableEditTitles={_enableEditTitles}
+        all_training_modules={props.availableTrainingModules}
+        addWeek={props.addWeek}
+        addBlock={props.addBlock}
+        deleteBlock={props.deleteBlock}
+        insertBlock={props.insertBlock}
+        deleteWeek={props.deleteWeek}
+        deleteAllWeeks={props.deleteAllWeeks}
+        setBlockEditable={props.setBlockEditable}
+        nameHasChanged={() => false}
+        edit_permissions={props.editPermissions}
+        current_user={props.current_user}
+      />
+      {/* {grading} */}
+    </div>
+  );
 };
 
 TimelineHandler.propTypes = {
