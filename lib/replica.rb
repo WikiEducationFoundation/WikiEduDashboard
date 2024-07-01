@@ -97,7 +97,7 @@ class Replica
   # query appropriate to that endpoint, return the parsed json response.
   #
   # Example revisions.php query:
-  #   ttps://replica-revision-tools.wmcloud.org/revisions.php?lang=en&project=wikipedia&usernames[]=Ragesoss&start=20140101003430&end=20171231003430
+  # https://replica-revision-tools.wmcloud.org/revisions.php?lang=en&project=wikipedia&usernames[]=Ragesoss&start=20140101003430&end=20171231003430
   #
   # Example revisions.php parsed response:
   # [{"page_id"=>"44962463",
