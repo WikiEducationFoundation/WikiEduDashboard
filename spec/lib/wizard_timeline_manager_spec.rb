@@ -27,7 +27,7 @@ describe WizardTimelineManager do
                           explore_to_find_articles
                           medical_topics
                           2_peer_reviewers
-                          blog_or_discussion_assignment
+                          weekly_journal_assignment
                           presentation
                           reflective_essay
                           original_research_paper
