@@ -32,7 +32,7 @@ class CourseUserWikiTimeslice < ApplicationRecord
     @revisions = revisions
     @liverevisions = live_revisions
     tracked_namespace_revisions = live_revisions_in_tracked_namespaces
-    self.total_uploads += courses_users.course.uploads.where(user_id: courses_users.user_id).count
+    self.total_uploads = courses_users.course.uploads.where(user_id: courses_users.user_id).count
     update_character_sum(@liverevisions, tracked_namespace_revisions)
     self.references_count += references_sum(tracked_namespace_revisions)
 

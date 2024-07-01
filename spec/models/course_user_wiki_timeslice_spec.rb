@@ -42,7 +42,7 @@ describe CourseUserWikiTimeslice, type: :model do
       create(:course_user_wiki_timeslice,
              course_user_id: courses_user.id,
              wiki_id: enwiki.id,
-             total_uploads: 100,
+             total_uploads: 0,
              character_sum_ms: 3,
              character_sum_us: 4,
              character_sum_draft: 2,
@@ -116,7 +116,7 @@ describe CourseUserWikiTimeslice, type: :model do
       # Fetch the created CourseUserWikiTimeslice entry
       course_user_wiki_timeslice = described_class.all.first
 
-      expect(course_user_wiki_timeslice.total_uploads).to eq(101)
+      expect(course_user_wiki_timeslice.total_uploads).to eq(1)
       # Don't consider deleted revisions or revisions for articles that don't exist
       expect(course_user_wiki_timeslice.revision_count).to eq(27)
       # Only consider revision0 (mainspace)
