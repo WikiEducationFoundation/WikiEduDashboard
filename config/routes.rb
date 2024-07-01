@@ -342,7 +342,7 @@ Rails.application.routes.draw do
   get 'user_training_status' => 'training_status#user'
 
   # for React
-  get 'training/:library_id/:module_id(/*any)' => 'training#slide_view'
+  get 'training/:library_id/:module_id/:slide_id' => 'training#slide_view'
 
   # API for slides for a module
   get 'training_modules' => 'training_modules#index'
@@ -362,6 +362,10 @@ Rails.application.routes.draw do
   # Create
   post 'training/create_library' => 'training_library#create_library'
   post 'training/:library_id/create_category' => 'training_library#create_category'
+  post 'training/:library_id/:category_id/add_module' => 'training_modules#add_module'
+
+  # Read
+  get 'training/:library_id/edit/:category_id/add_module', to: 'training#show', as: :add_module_training
 
   # Delete
   delete 'training/:library_id/categories/:category_id', to: 'training_library#delete_category', as: :delete_category

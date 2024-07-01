@@ -8,8 +8,8 @@ describe 'TrainingContent', type: :feature, js: true do
   let(:training_library) do
     create(:training_library,
            name: 'Example-Library',
-             slug: 'example-library',
-             introduction: 'For Testing')
+           slug: 'example-library',
+           introduction: 'For Testing')
   end
 
   before(:all) do
@@ -148,6 +148,33 @@ describe 'TrainingContent', type: :feature, js: true do
 
       expect(page).not_to have_content('Testing Category')
       expect(page).not_to have_content('This category is only created for testing purposes.')
+    end
+  end
+
+  describe 'TrainingModule' do
+    before do
+      login_as(user, scope: :user)
+      visit '/training'
+      click_button 'Switch to Edit Mode'
+      visit "/training/#{training_library.slug}"
+    end
+
+    it 'add module after creating a category' do
+      visit "/training/#{training_library.slug}"
+      click_button 'Create New Category'
+
+      fill_in 'title', with: 'Testing Category'
+      fill_in 'description', with: 'This category is only created for testing purposes.'
+      click_button 'Create'
+      expect(page).to have_content('Testing Category')
+
+      click_link 'Add Module'
+      fill_in 'Module Name', with: 'Testing Module'
+      fill_in 'Module Slug', with: 'testing-module'
+      fill_in 'Module Description', with: 'This module is only created for testing purposes.'
+      click_button 'Add'
+      expect(page).to have_content('Testing Module')
+      expect(page).to have_content('This module is only created for testing purposes.')
     end
   end
 end

@@ -9,6 +9,7 @@ import TrainingModuleHandler from './training_module_handler.jsx';
 import TrainingSlideHandler from './training_slide_handler.jsx';
 import { getCurrentUser } from '../../selectors/index.js';
 import { getTrainingMode } from '../../actions/training_modification_actions.js';
+import AddModule from './modals/add_module.jsx';
 
 const TrainingApp = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ const TrainingApp = () => {
         <Route path=":library_id" element={<TrainingLibraryHandler editMode={editMode}/>}/>
         <Route path=":library_id/:module_id" element={<TrainingModuleHandler />} />
         <Route path=":library_id/:module_id/:slide_id" element={<TrainingSlideHandler />} />
+        <Route path=":library_id/edit/:category_id/add_module" element={<AddModule editMode={editMode} />} />
       </Routes>
     </div>
   );
