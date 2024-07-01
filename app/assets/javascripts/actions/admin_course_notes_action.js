@@ -59,9 +59,7 @@ export const saveUpdatedAdminCourseNote = adminCourseNoteDetails => async (dispa
 
     dispatch({ type: UPDATE_NOTES_LIST, updatedNotesList: updatedNotesList });
   } else {
-    const messageKey = 'notes.failure';
-    const dynamicValue = { operation: 'update' };
-    sendNotification(dispatch, 'Error', messageKey, dynamicValue);
+    sendNotification(dispatch, 'Error', 'notes.failure');
   }
 };
 
@@ -77,9 +75,7 @@ export const createAdminCourseNote = (courseId, adminCourseNoteDetails) => async
     sendNotification(dispatch, 'Success', 'notes.created');
     dispatch({ type: ADD_NEW_NOTE_TO_LIST, newNote: noteDetails });
   } else {
-    const messageKey = 'notes.failure';
-    const dynamicValue = { operation: 'create' };
-    sendNotification(dispatch, 'Error', messageKey, dynamicValue);
+    sendNotification(dispatch, 'Error', 'notes.failure');
   }
 };
 

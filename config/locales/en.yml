@@ -1813,7 +1813,7 @@ en:
     note_text: "Note Text"
     created: "The note has been created successfully."
     updated: "The note has been updated successfully."
-    failure: "Unable to %{operation} the note. Please try again later."
+    failure: "Error! Please try again later."
     empty_fields: "Please ensure all input fields are filled and try again."
     edit: "The time of each edit is shown in your local time."
     edited_by: "Edited By"
