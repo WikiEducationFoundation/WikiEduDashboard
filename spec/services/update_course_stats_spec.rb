@@ -82,7 +82,7 @@ describe UpdateCourseStats do
       allow(Sentry).to receive(:capture_exception)
 
       # Raising errors only in Replica
-      stub_request(:any, %r{https://dashboard-replica-endpoint.wmcloud.org/.*}).to_raise(Errno::ECONNREFUSED)
+      stub_request(:any, %r{https://replica-revision-tools.wmcloud.org/.*}).to_raise(Errno::ECONNREFUSED)
       VCR.use_cassette 'course_update/replica' do
         subject
       end
