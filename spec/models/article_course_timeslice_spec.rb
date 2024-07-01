@@ -63,7 +63,7 @@ describe ArticleCourseTimeslice, type: :model do
   end
   let(:subject) { article_course_timeslice.update_cache_from_revisions revisions }
 
-  describe '.update_cache_from_revisions' do
+  describe '#update_cache_from_revisions' do
     it 'updates cache correctly' do
       expect(article_course_timeslice.character_sum).to eq(100)
       expect(article_course_timeslice.references_count).to eq(3)
