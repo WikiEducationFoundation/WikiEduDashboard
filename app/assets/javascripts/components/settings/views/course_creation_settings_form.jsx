@@ -1,39 +1,33 @@
-import createReactClass from 'create-react-class';
+import { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import React from 'react';
 import TextInput from '../../common/text_input';
 
-const CourseCreationSettingsForm = createReactClass({
-  propTypes: {
-    updateCourseCreationSettings: PropTypes.func,
-    handlePopoverClose: PropTypes.func,
-    settings: PropTypes.object
-  },
+const CourseCreationSettingsForm = ({updateCourseCreationSettings,handlePopoverClose,settings}) => {
+  const [formState,setFormState] = useState({})
 
-  getInitialState() {
-    return {};
-  },
+  const handleChange = useCallback((key,value) => {
+    setFormState((prevState) => ({
+      ...prevState,
+      [key]:value
+    }))
+  },[]);
 
-  handleChange(key, value) {
-    return this.setState({ [key]: value });
-  },
-
-  handleSubmit(e) {
+  const handleSubmit = useCallback((e) => {
     e.preventDefault();
-    this.props.updateCourseCreationSettings(this.state);
-    this.props.handlePopoverClose(e);
-  },
+    updateCourseCreationSettings(formState);
+    handlePopoverClose(e);
+  }, [formState, updateCourseCreationSettings, handlePopoverClose]);
 
-  render() {
     return (
       <tr>
         <td>
-          <form onSubmit={this.handleSubmit}>
+          <form onSubmit={handleSubmit}>
             <TextInput
               id="recruiting_term"
               editable
-              onChange={this.handleChange}
-              value={this.state.recruiting_term}
+              onChange={handleChange}
+              value={formState.recruiting_term}
               value_key="recruiting_term"
               type="text"
               label="Recruiting term"
@@ -50,8 +44,8 @@ const CourseCreationSettingsForm = createReactClass({
             <TextInput
               id="before_deadline_message"
               editable
-              onChange={this.handleChange}
-              value={this.state.before_deadline_message}
+              onChange={handleChange}
+              value={formState.before_deadline_message}
               value_key="before_deadline_message"
               maxLength="1000"
               type="text"
@@ -60,8 +54,8 @@ const CourseCreationSettingsForm = createReactClass({
             <TextInput
               id="after_deadline_message"
               editable
-              onChange={this.handleChange}
-              value={this.state.after_deadline_message}
+              onChange={handleChange}
+              value={formState.after_deadline_message}
               value_key="after_deadline_message"
               maxLength="1000"
               type="text"
@@ -73,6 +67,11 @@ const CourseCreationSettingsForm = createReactClass({
       </tr>
     );
   }
-});
+
+  CourseCreationSettingsForm.propTypes = {
+    updateCourseCreationSettings: PropTypes.func.isRequired,
+    handlePopoverClose: PropTypes.func.isRequired,
+    settings: PropTypes.object.isRequired
+  };
 
 export default CourseCreationSettingsForm;
