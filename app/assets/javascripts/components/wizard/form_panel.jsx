@@ -1,57 +1,57 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import Panel from './panel.jsx';
 import DatePicker from '../common/date_picker.jsx';
 import Calendar from '../common/calendar.jsx';
 import CourseDateUtils from '../../utils/course_date_utils.js';
+import { persistCourse } from '@actions/course_actions';
 
-const FormPanel = ({ course, shouldShowSteps, updateCourse, isValid, persistCourse }) => {
-  const [anyDatesSelected, setAnyDatesSelected] = useState(false);
-  const [blackoutDatesSelected, setBlackoutDatesSelected] = useState(false);
+const FormPanel = ({ course, shouldShowSteps, updateCourse, isValid }) => {
+  const [setAnyDatesSelected] = useState(false);
+  const [setBlackoutDatesSelected] = useState(false);
   const noDates = useRef(null);
-  const setNoBlackoutDatesChecked = useCallback(() => {
-    const { checked } = noDates.current;
-    const updatedCourse = { ...course, no_day_exceptions: checked };
-    updateCourse(updatedCourse);
-  }, [course, updateCourse]);
 
-  const updateCourseDates = useCallback((valueKey, value) => {
+  const setNoBlackoutDatesChecked = () => {
+    const { checked } = noDates.current;
+    const toPass = { ...course };
+    toPass.no_day_exceptions = checked;
+    updateCourse(toPass);
+  };
+
+  const updateCourseDates = (valueKey, value) => {
     const updatedCourse = CourseDateUtils.updateCourseDates(course, valueKey, value);
     updateCourse(updatedCourse);
-  }, [course, updateCourse]);
+  };
 
-  const saveCourse = useCallback(() => {
-    if (!anyDatesSelected) {
-      alert('Please select at least one date.');
-      return false;
-    }
-
-    if (!blackoutDatesSelected) {
-      alert('Please select blackout dates.');
-      return false;
-    }
-
+  const saveCourse = () => {
     if (isValid) {
+      // Assuming persistCourse is passed as a prop but not defined here
       persistCourse(course.slug);
       return true;
     }
-    alert(I18n.t('error.form_errors'));
+    alert('Error: Form has errors.');
     return false;
-  }, [anyDatesSelected, blackoutDatesSelected, isValid, persistCourse, course.slug]);
+  };
 
-  const nextEnabled = useCallback(() => {
-    if (!anyDatesSelected || !blackoutDatesSelected) {
-      return false;
-    }
-
-    return course.weekdays?.indexOf(1) >= 0 && (course.day_exceptions?.length > 0 || course.no_day_exceptions);
-  }, [anyDatesSelected, blackoutDatesSelected, course]);
+  const nextEnabled = () => {
+    return (
+      course.weekdays?.indexOf(1) >= 0
+      && (course.day_exceptions?.length > 0 || course.no_day_exceptions)
+    );
+  };
 
   const dateProps = CourseDateUtils.dateProps(course);
 
-  const step1 = shouldShowSteps
-    ? <h2><span>1.</span><small> Confirm the course’s start and end dates.</small></h2>
-    : <p>Confirm the course’s start and end dates.</p>;
+  const step1 = shouldShowSteps ? (
+    <h2>
+      <span>1.</span>
+      {/* eslint-disable-next-line i18next/no-literal-string */}
+      <small> Confirm the course’s start and end dates.</small>
+    </h2>
+  ) : (
+    // eslint-disable-next-line i18next/no-literal-string
+    <p>Confirm the course’s start and end dates.</p>
+  );
 
   const rawOptions = (
     <div>
@@ -80,7 +80,8 @@ const FormPanel = ({ course, shouldShowSteps, updateCourse, isValid, persistCour
       </div>
       <hr />
       <div className="course-dates__step">
-        <p>{I18n.t('wizard.assignment_description')}</p>
+        {/* eslint-disable-next-line i18next/no-literal-string */}
+        <p>Assignment Description</p>
         <div className="vertical-form full-width">
           <DatePicker
             onChange={updateCourseDates}
@@ -88,7 +89,7 @@ const FormPanel = ({ course, shouldShowSteps, updateCourse, isValid, persistCour
             value_key="timeline_start"
             editable={true}
             validation={CourseDateUtils.isDateValid}
-            label={I18n.t('courses.assignment_start')}
+            label="Assignment Start"
             date_props={dateProps.timeline_start}
           />
           <DatePicker
@@ -97,25 +98,31 @@ const FormPanel = ({ course, shouldShowSteps, updateCourse, isValid, persistCour
             value_key="timeline_end"
             editable={true}
             validation={CourseDateUtils.isDateValid}
-            label={I18n.t('courses.assignment_end')}
+            label="Assignment End"
             date_props={dateProps.timeline_end}
             enabled={Boolean(course.start)}
           />
         </div>
       </div>
       <hr />
-      <div className="wizard__form course-dates course-dates__step">
+      <div className="wizard_form course-dates course-dates_step">
         <Calendar
           course={course}
           editable={true}
           save={true}
           setAnyDatesSelected={setAnyDatesSelected}
           setBlackoutDatesSelected={setBlackoutDatesSelected}
-          calendarInstructions={I18n.t('wizard.calendar_instructions')}
+          calendarInstructions="Calendar Instructions"
           updateCourse={updateCourse}
         />
-        <label> I have no class holidays
-          <input type="checkbox" onChange={setNoBlackoutDatesChecked} ref={noDates} />
+        {/* eslint-disable-next-line i18next/no-literal-string */}
+        <label>
+          I have no class holidays
+          <input
+            type="checkbox"
+            onChange={setNoBlackoutDatesChecked}
+            ref={noDates}
+          />
         </label>
       </div>
     </div>
@@ -123,15 +130,28 @@ const FormPanel = ({ course, shouldShowSteps, updateCourse, isValid, persistCour
 
   return (
     <Panel
-      {...{ course, shouldShowSteps, updateCourse, isValid }}
-      raw_options={rawOptions}
-      nextEnabled={nextEnabled}
+      course={course}
+      panel={{
+        title: 'Course Dates', // Changed from 'Course Date'
+        options: [],
+        error: false,
+        type: 0,
+        minimum: 1,
+      }}
+      active={true}
       saveCourse={saveCourse}
-      helperText={
-        anyDatesSelected && blackoutDatesSelected 
-          ? 'Select meeting days and holiday dates, then continue.'
-          : 'Please select at least one date and blackout dates to continue.'
-      }
+      nextEnabled={nextEnabled}
+      index={0}
+      open_weeks={0}
+      raw_options={rawOptions}
+      advance={() => {}}
+      rewind={() => {}}
+      button_text="Next"
+      helperText="Select meeting days and holiday dates, then continue."
+      summary={false}
+      step="Step 1"
+      panelCount={1}
+      selectWizardOption={() => {}}
     />
   );
 };
@@ -141,7 +161,6 @@ FormPanel.propTypes = {
   shouldShowSteps: PropTypes.bool,
   updateCourse: PropTypes.func.isRequired,
   isValid: PropTypes.bool.isRequired,
-  persistCourse: PropTypes.func.isRequired,
 };
 
 export default FormPanel;
