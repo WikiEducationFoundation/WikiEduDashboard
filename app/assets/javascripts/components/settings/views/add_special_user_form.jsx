@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useCallback, useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import CreatableInput from '../../common/creatable_input.jsx';
 import { connect } from 'react-redux';
@@ -22,25 +22,25 @@ const AddSpecialUserForm = ({ submittingNewSpecialUser, upgradeSpecialUser: upgr
     }
   }, [submittingNewSpecialUser]);
 
-  const reset = () => {
+  const reset = useCallback(() => {
     setState(prevState => ({ ...prevState, username: '', confirming: false }));
-  };
+  }, []);
 
-  const handleUsernameChange = (_key, value) => {
+  const handleUsernameChange = useCallback((_key, value) => {
     setState(prevState => ({ ...prevState, username: value }));
-  };
+  }, []);
 
-  const handlePositionChange = (e) => {
+  const handlePositionChange = useCallback((e) => {
     const enabled = !!e.value;
     setState(prevState => ({ ...prevState, position: e.value, enabled, selectedOption: e.value }));
-  };
+  }, []);
 
-  const handleConfirm = (e) => {
+  const handleConfirm = useCallback((e) => {
     upgradeUser(state.username, state.position);
     handlePopoverClose(e);
-  };
+  }, [upgradeUser, state.username, state.position, handlePopoverClose]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = useCallback((e) => {
     e.preventDefault();
     const { username } = state;
     setState(prevState => ({
@@ -48,22 +48,44 @@ const AddSpecialUserForm = ({ submittingNewSpecialUser, upgradeSpecialUser: upgr
       confirming: true,
       confirmMessage: `${I18n.t('settings.special_users.new.confirm_add_special_user')} ${username}?`
     }));
-  };
+  }, [state.username]);
 
-  const renderForm = () => {
-    const buttonClass = state.enabled ? 'button border' : 'button border disabled';
-    const options = [
-      { value: 'communications_manager', label: 'communications_manager' },
-      { value: 'classroom_program_manager', label: 'classroom_program_manager' },
-      { value: 'outreach_manager', label: 'outreach_manager' },
-      { value: 'wikipedia_experts', label: 'wikipedia_experts' },
-      { value: 'technical_help_staff', label: 'technical_help_staff' },
-      { value: 'survey_alerts_recipient', label: 'survey_alerts_recipient' },
-      { value: 'backup_account_creator', label: 'backup_account_creator' },
-    ];
-    return (
-      <tr>
-        <td>
+  const options = useMemo(() => [
+    { value: 'communications_manager', label: 'communications_manager' },
+    { value: 'classroom_program_manager', label: 'classroom_program_manager' },
+    { value: 'outreach_manager', label: 'outreach_manager' },
+    { value: 'wikipedia_experts', label: 'wikipedia_experts' },
+    { value: 'technical_help_staff', label: 'technical_help_staff' },
+    { value: 'survey_alerts_recipient', label: 'survey_alerts_recipient' },
+    { value: 'backup_account_creator', label: 'backup_account_creator' },
+  ], []);
+  return (
+    <tr>
+      <td>
+        {state.confirming ? (
+          <>
+            <TextInput
+              id="confirm_special_user"
+              onChange={handleUsernameChange}
+              value={state.username}
+              value_key="confirm_special_user"
+              type="text"
+              label={I18n.t('settings.special_users.new.form_label')}
+              placeholder={I18n.t('application.submit')}
+            />
+            {submittingNewSpecialUser ? (
+              <div className="loading__spinner" />
+            ) : (
+              <button
+                onClick={handleConfirm}
+                className="button border"
+                value="confirm"
+              >
+                {I18n.t('settings.special_users.new.confirm_add_special_user')}
+              </button>
+            )}
+          </>
+        ) : (
           <form onSubmit={handleSubmit}>
             <TextInput
               id="new_special_user"
@@ -85,47 +107,18 @@ const AddSpecialUserForm = ({ submittingNewSpecialUser, upgradeSpecialUser: upgr
                 styles={selectStyles}
               />
             </div>
-            <button className={buttonClass} type="submit" value="Submit">{I18n.t('application.submit')}</button>
+            <button
+              className={state.enabled ? 'button border' : 'button border disabled'}
+              type="submit"
+              value="Submit"
+            >
+              {I18n.t('application.submit')}
+            </button>
           </form>
-        </td>
-      </tr>
-    );
-  };
-
-  const renderConfirm = () => {
-    let buttonContent;
-    if (submittingNewSpecialUser) {
-      buttonContent = (<div className="loading__spinner" />);
-    } else {
-      buttonContent = (
-        <button
-          onClick={handleConfirm}
-          className="button border"
-          value="confirm"
-        >
-          {I18n.t('settings.special_users.new.confirm_add_special_user')}
-        </button>
-      );
-    }
-    return (
-      <tr>
-        <td>
-          <TextInput
-            id="confirm_special_user"
-            onChange={handleUsernameChange}
-            value={state.username}
-            value_key="confirm_special_user"
-            type="text"
-            label={I18n.t('settings.special_users.new.form_label')}
-            placeholder={I18n.t('application.submit')}
-          />
-          {buttonContent}
-        </td>
-      </tr>
-    );
-  };
-
-  return state.confirming ? renderConfirm() : renderForm();
+        )}
+      </td>
+    </tr>
+  );
 };
 
 AddSpecialUserForm.propTypes = {
