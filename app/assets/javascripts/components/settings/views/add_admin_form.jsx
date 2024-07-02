@@ -1,80 +1,65 @@
-import createReactClass from 'create-react-class';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import React from 'react';
 import TextInput from '../../common/text_input';
 
-const AddAdminForm = createReactClass({
-  propTypes: {
-    submittingNewAdmin: PropTypes.bool,
-    upgradeAdmin: PropTypes.func,
-    handlePopoverClose: PropTypes.func,
-  },
-  getInitialState() {
-    return { confirming: false };
-  },
+const AddAdminForm = ({ submittingNewAdmin, upgradeAdmin, handlePopoverClose }) => {
+  const [confirming, setConfirming] = useState(false);
+  const [username, setUsername] = useState('');
 
-  componentDidUpdate(prevProps) {
-    // if `this.props.submittingNewAdmin` goes from `true->false` that means the component should reset
-
-    if (prevProps.submittingNewAdmin && !this.props.submittingNewAdmin) {
-      this.reset();
+  useEffect(() => {
+    if (!submittingNewAdmin) {
+      reset();
     }
-  },
+  }, [submittingNewAdmin]);
 
-  handleUsernameChange(_key, value) {
-    return this.setState({ username: value });
-  },
+  const handleUsernameChange = (_key, value) => {
+    setUsername(value);
+  };
 
-  reset() {
-    // reset the form: clear the text box, and set confirming to false
-    this.setState({ username: '', confirming: false });
-  },
+  const reset = () => {
+    setUsername('');
+    setConfirming(false);
+  };
 
-  handleConfirm(e) {
-    this.props.upgradeAdmin(this.state.username);
-    this.props.handlePopoverClose(e);
-  },
+  const handleConfirm = (e) => {
+    upgradeAdmin(username);
+    handlePopoverClose(e);
+  };
 
-  handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const { username } = this.state;
-    this.setState({
-      confirming: true,
-      confirmMessage: `${I18n.t('settings.admin_users.new.confirm_add_admin')} ${username}?`
-    });
-   },
+    setConfirming(true);
+  };
 
-  renderForm() {
-    return (
-      <tr>
-        <td>
-          <form onSubmit={this.handleSubmit}>
-            <TextInput
-              id="new_admin_name"
-              onChange={this.handleUsernameChange}
-              value={this.state.username}
-              value_key="new_admin_name"
-              editable
-              required
-              type="text"
-              label={I18n.t('settings.admin_users.new.form_label')}
-              placeholder={I18n.t('settings.admin_users.new.form_placeholder')}
-            />
-            <button className="button border" type="submit" value="Submit">{I18n.t('application.submit')}</button>
-          </form>
-        </td>
-      </tr>
-    );
-  },
+  const renderForm = () => (
+    <tr>
+      <td>
+        <form onSubmit={handleSubmit}>
+          <TextInput
+            id="new_admin_name"
+            onChange={handleUsernameChange}
+            value={username}
+            value_key="new_admin_name"
+            editable
+            required
+            type="text"
+            label={I18n.t('settings.admin_users.new.form_label')}
+            placeholder={I18n.t('settings.admin_users.new.form_placeholder')}
+          />
+          <button className="button border" type="submit" value="Submit">{I18n.t('application.submit')}</button>
+        </form>
+      </td>
+    </tr>
+  );
 
-  renderConfirm() {
+  const renderConfirm = () => {
     let buttonContent;
-    if (this.props.submittingNewAdmin) {
+    if (submittingNewAdmin) {
       buttonContent = (<div className="loading__spinner" />);
     } else {
       buttonContent = (
         <button
-          onClick={this.handleConfirm}
+          onClick={handleConfirm}
           className="button border"
           value="confirm"
         >
@@ -87,8 +72,8 @@ const AddAdminForm = createReactClass({
         <td>
           <TextInput
             id="new_admin_name"
-            onChange={this.handleUsernameChange}
-            value={this.state.username}
+            onChange={handleUsernameChange}
+            value={username}
             value_key="new_admin_name"
             type="text"
             label={I18n.t('settings.admin_users.new.form_label')}
@@ -98,11 +83,15 @@ const AddAdminForm = createReactClass({
         </td>
       </tr>
     );
-  },
+  };
 
-  render() {
-    return this.state.confirming ? this.renderConfirm() : this.renderForm();
-  },
-});
+  return confirming ? renderConfirm() : renderForm();
+};
+
+AddAdminForm.propTypes = {
+  submittingNewAdmin: PropTypes.bool,
+  upgradeAdmin: PropTypes.func.isRequired,
+  handlePopoverClose: PropTypes.func.isRequired,
+};
 
 export default AddAdminForm;
