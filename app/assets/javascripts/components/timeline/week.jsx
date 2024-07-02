@@ -1,216 +1,190 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Block from './block.jsx';
 import DateCalculator from '../../utils/date_calculator.js';
 import SpringBlock from './SpringBlock';
 import BlockList from './BlockList';
 
-const Week = ({
-  week,
-  index,
-  timeline_start,
-  timeline_end,
-  meetings,
-  blocks,
-  edit_permissions,
-  editableBlockIds,
-  reorderable,
-  editableTitles,
-  updateTitle,
-  saveBlockChanges,
-  cancelBlockEditable,
-  addBlock,
-  deleteWeek,
-  all_training_modules,
-  weeksBeforeTimeline,
-  trainingLibrarySlug,
-  current_user,
-  deleteBlock,
-  setBlockEditable,
-  updateBlock,
-  moveBlock
-}) => {
-  // State for the focused block ID and hover state for delete button
-  const [focusedBlockId, setFocusedBlockId] = useState(null);
-  const [isHover, setIsHover] = useState(false);
-
-  // Effect to scroll to the current week if the hash in the URL matches
-  useEffect(() => {
-    const hash = window.location.hash.substring(1);
-    const weekNo = weekNumber();
+const Week = createReactClass({
+  displayName: 'Week',
+  propTypes: {
+    week: PropTypes.object,
+    index: PropTypes.number,
+    timeline_start: PropTypes.string,
+    timeline_end: PropTypes.string,
+    meetings: PropTypes.array,
+    blocks: PropTypes.array,
+    edit_permissions: PropTypes.bool,
+    editableBlockIds: PropTypes.array,
+    reorderable: PropTypes.bool,
+    editableTitles: PropTypes.bool,
+    onBlockDrag: PropTypes.func,
+    onMoveBlockUp: PropTypes.func,
+    onMoveBlockDown: PropTypes.func,
+    usingCustomTitles: PropTypes.bool,
+    updateTitle: PropTypes.func,
+    canBlockMoveUp: PropTypes.func,
+    canBlockMoveDown: PropTypes.func,
+    saveBlockChanges: PropTypes.func,
+    cancelBlockEditable: PropTypes.func,
+    addBlock: PropTypes.func,
+    deleteWeek: PropTypes.func,
+    all_training_modules: PropTypes.array,
+    weeksBeforeTimeline: PropTypes.number,
+    trainingLibrarySlug: PropTypes.string.isRequired,
+    current_user: PropTypes.object
+  },
+  getInitialState() {
+    return { focusedBlockId: null, isHover: false };
+  },
+  componentDidMount() {
+    const hash = location.hash.substring(1);
+    const weekNo = this.weekNumber();
     if (hash === `week-${weekNo}`) {
-      const weekElement = document.getElementsByName(hash)[0];
-      if (weekElement) weekElement.scrollIntoView();
+      const week = document.getElementsByName(hash)[0];
+      week.scrollIntoView();
     }
-  }, []);
-
-  // Handlers for mouse enter and leave events
-  const handleMouseEnter = () => setIsHover(true);
-  const handleMouseLeave = () => setIsHover(false);
-
-  // Handler to add a new block and scroll to it
-  const handleAddBlock = () => {
-    scrollToAddedBlock();
-    addBlock(week.id);
-  };
-
-  // Toggle the focused state for a block
-  const toggleFocused = (blockId) => {
-    setFocusedBlockId(focusedBlockId === blockId ? null : blockId);
-  };
-
-  // Scroll smoothly to the newly added block
-  const scrollToAddedBlock = () => {
-    const weekElement = document.getElementsByClassName(`week-${index}`)[0];
-    if (weekElement) {
-      const scrollTop = window.scrollY || document.body.scrollTop;
-      const bottom = weekElement.getBoundingClientRect().bottom;
-      const elBottom = (bottom + scrollTop) - 50;
-      window.scrollTo({ top: elBottom, behavior: 'smooth' });
+  },
+  handleMouseEnter() {
+    this.setState({ isHover: true });
+  },
+  handleMouseLeave() {
+    this.setState({ isHover: false });
+  },
+  addBlock() {
+    this._scrollToAddedBlock();
+    return this.props.addBlock(this.props.week.id);
+  },
+  toggleFocused(blockId) {
+    if (this.state.focusedBlockId === blockId) {
+      return this.setState({ focusedBlockId: null });
     }
-  };
-
-  // Calculate the week number based on index and weeksBeforeTimeline
-  const weekNumber = () => index + weeksBeforeTimeline;
-
-  // Create a DateCalculator instance to handle date calculations
-  const dateCalc = new DateCalculator(timeline_start, timeline_end, index, { zeroIndexed: false });
-
-  // Generate content for week dates and meeting dates
-  const weekDatesContent = meetings
-    ? `${dateCalc.start()} - ${dateCalc.end()}`
-    : `Week of ${dateCalc.start()} — AFTER TIMELINE END DATE!`;
-
-  const meetDatesDiv = meetings && meetings.length > 0 && (
-    <div className="margin-bottom">
-      Meetings: {meetings.join(', ')}
-    </div>
-  );
-
-  // Set week title, defaulting to week number if no title is provided
-  const weekTitleContent = week.title || `Week ${weekNumber()}`;
-
-  // Conditionally render the week title as an input field if editable
-  const weekId = week.id;
-  const weekTitle = editableTitles ? (
-    <input
-      className="week-index week-title-input"
-      defaultValue={weekTitleContent}
-      maxLength={20}
-      onChange={(event) => updateTitle(weekId, event.target.value)}
-    />
-  ) : (
-    <h2 className="week-index">
-      {weekTitleContent}
-      <span className="week-range"> ({weekDatesContent})</span>
-    </h2>
-  );
-
-  // Sort blocks by their order property
-  blocks.sort((a, b) => a.order - b.order);
-
-  // Map blocks to their respective components, using SpringBlock if reorderable
-  const blockComponents = blocks.map((block, i) => (
-    reorderable ? (
-      <SpringBlock block={block} i={i} key={block.id} {...{ toggleFocused, ...props }} />
-    ) : (
-      <Block
-        toggleFocused={() => toggleFocused(block.id)}
-        block={block}
-        key={block.id}
-        editPermissions={edit_permissions}
-        deleteBlock={deleteBlock}
-        week_index={index}
-        weekStart={dateCalc.startDate()}
-        all_training_modules={all_training_modules}
-        editableBlockIds={editableBlockIds}
-        saveBlockChanges={saveBlockChanges}
-        setBlockEditable={setBlockEditable}
-        cancelBlockEditable={cancelBlockEditable}
-        updateBlock={updateBlock}
-        trainingLibrarySlug={trainingLibrarySlug}
-        current_user={current_user}
-      />
-    )
-  ));
-
-  // Conditionally render the add block button
-  const addBlockButton = !reorderable && (
-    <button className="pull-right week__add-block" onClick={handleAddBlock}>
-      Add Block <span className="icon-plus-blue" />
-    </button>
-  );
-
-  // Conditionally render the delete week button
-  const deleteWeekButton = !reorderable && !week.is_new && (
-    <button
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      className="pull-right week__delete-week"
-      onClick={deleteWeek}
-    >
-      Delete Week <span className={isHover ? 'icon-trash_can-hover' : 'icon-trash_can'} />
-    </button>
-  );
-
-  // Conditionally render the week add/delete controls
-  const weekAddDelete = edit_permissions && (
-    <div className="week__week-add-delete pull-right">
-      {addBlockButton}
-      {deleteWeekButton}
-    </div>
-  );
-
-  // Conditionally render the week content as a BlockList or an unordered list of blocks
-  const weekContent = reorderable ? (
-    <BlockList blocks={blocks} week_id={week.id} moveBlock={moveBlock} {...props} />
-  ) : (
-    <ul className="week__block-list list-unstyled">
-      {blockComponents}
-    </ul>
-  );
-
-  // Generate the CSS class name for the week, adding a warning class if no meetings
-  const weekClassName = `week week-${index}` + (!meetings ? ' timeline-warning' : '');
-
-  // Render the week component
-  return (
-    <li className={weekClassName}>
-      <div className="week__week-header">
-        {weekAddDelete}
-        {weekTitle}
-        {meetDatesDiv}
+    return this.setState({ focusedBlockId: blockId });
+  },
+  _scrollToAddedBlock() {
+    const wk = document.getElementsByClassName(`week-${this.props.index}`)[0];
+    const scrollTop = window.scrollY || document.body.scrollTop;
+    const bottom = Math.abs(__guard__(wk, x => x.getBoundingClientRect().bottom));
+    const elBottom = (bottom + scrollTop) - 50;
+    return window.scrollTo({ top: elBottom, behavior: 'smooth' });
+  },
+  weekNumber() {
+    return this.props.index + this.props.weeksBeforeTimeline;
+  },
+  render() {
+    const dateCalc = new DateCalculator(this.props.timeline_start, this.props.timeline_end, this.props.index, { zeroIndexed: false });
+    let weekDatesContent;
+    let meetDates;
+    if (this.props.meetings && this.props.meetings.length > 0) {
+      meetDates = `Meetings: ${this.props.meetings.join(', ')}`;
+    }
+    if (this.props.meetings) {
+      weekDatesContent = `${dateCalc.start()} - ${dateCalc.end()}`;
+    } else {
+      weekDatesContent = `Week of ${dateCalc.start()} — AFTER TIMELINE END DATE!`;
+    }
+    const meetDatesDiv = (
+      <div className="margin-bottom">
+        {meetDates}
       </div>
-      {weekContent}
-    </li>
-  );
-}
+    );
+    let weekTitleContent;
+    if (this.props.week.title) {
+      weekTitleContent = this.props.week.title;
+    } else {
+      weekTitleContent = I18n.t('timeline.week_number', { number: this.weekNumber() });
+    }
+    const weekId = this.props.week.id;
+    const weekTitle = this.props.editableTitles ? (
+      <input
+        className="week-index week-title-input"
+        defaultValue={weekTitleContent}
+        maxLength={20}
+        onChange={event => this.props.updateTitle(weekId, event.target.value)}
+      />
+    ) : (
+      <h2 className="week-index">{weekTitleContent}<span className="week-range"> ({weekDatesContent})</span></h2>
+    );
 
-// Define PropTypes for the Week component
-Week.propTypes = {
-  week: PropTypes.object,
-  index: PropTypes.number,
-  timeline_start: PropTypes.string,
-  timeline_end: PropTypes.string,
-  meetings: PropTypes.array,
-  blocks: PropTypes.array,
-  edit_permissions: PropTypes.bool,
-  editableBlockIds: PropTypes.array,
-  reorderable: PropTypes.bool,
-  editableTitles: PropTypes.bool,
-  updateTitle: PropTypes.func,
-  saveBlockChanges: PropTypes.func,
-  cancelBlockEditable: PropTypes.func,
-  addBlock: PropTypes.func,
-  deleteWeek: PropTypes.func,
-  all_training_modules: PropTypes.array,
-  weeksBeforeTimeline: PropTypes.number,
-  trainingLibrarySlug: PropTypes.string.isRequired,
-  current_user: PropTypes.object,
-  deleteBlock: PropTypes.func,
-  setBlockEditable: PropTypes.func,
-  updateBlock: PropTypes.func,
-  moveBlock: PropTypes.func
-};
+    // FIXME: This mutates redux state.
+    // Instead of sorting during render, the blocks should
+    // be sorted by order in redux actions or via a selector at the point
+    // the data gets pulled into a parent component from the store.
+    this.props.blocks.sort((a, b) => a.order - b.order);
+
+    const blocks = this.props.blocks.map((block, i) => {
+      // If in reorderable mode
+      if (this.props.reorderable) {
+        return <SpringBlock block={block} i={i} key={block.id} {...this.props}/>;
+      }
+      // If not in reorderable mode
+      return (
+        <Block
+          toggleFocused={this.toggleFocused.bind(this, block.id)}
+          block={block}
+          key={block.id}
+          editPermissions={this.props.edit_permissions}
+          deleteBlock={this.props.deleteBlock}
+          week_index={this.props.index}
+          weekStart={dateCalc.startDate()}
+          all_training_modules={this.props.all_training_modules}
+          editableBlockIds={this.props.editableBlockIds}
+          saveBlockChanges={this.props.saveBlockChanges}
+          setBlockEditable={this.props.setBlockEditable}
+          cancelBlockEditable={this.props.cancelBlockEditable}
+          updateBlock={this.props.updateBlock}
+          trainingLibrarySlug={this.props.trainingLibrarySlug}
+          current_user={this.props.current_user}
+        />
+      );
+    });
+
+    const addBlock = !this.props.reorderable ? (
+      <button className="pull-right week__add-block" href="" onClick={this.addBlock}>Add Block <span className="icon-plus-blue" /></button>
+    ) : undefined;
+
+    const deleteWeek = !this.props.reorderable && !this.props.week.is_new ? (
+      <button onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} className="pull-right week__delete-week" href="" onClick={this.props.deleteWeek}>Delete Week <span className={`${this.state.isHover ? 'icon-trash_can-hover' : 'icon-trash_can'}`}/></button>
+    ) : undefined;
+
+    const weekAddDelete = this.props.edit_permissions ? (
+      <div className="week__week-add-delete pull-right">
+        {addBlock}
+        {deleteWeek}
+      </div>
+    ) : undefined;
+
+    const weekContent = (
+      this.props.reorderable
+          ? <BlockList blocks={this.props.blocks} week_id={this.props.week.id} moveBlock={this.props.moveBlock} {...this.props}/>
+        : (
+          <ul className="week__block-list list-unstyled">
+            {blocks}
+          </ul>
+        )
+    );
+
+    let weekClassName = `week week-${this.props.index}`;
+    if (!this.props.meetings) {
+      weekClassName += ' timeline-warning';
+    }
+
+    return (
+      <li className={weekClassName}>
+        <div className="week__week-header">
+          {weekAddDelete}
+          {weekTitle}
+          {meetDatesDiv}
+        </div>
+        {weekContent}
+      </li>
+    );
+  }
+});
 
 export default Week;
+
+function __guard__(value, transform) {
+  return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;
+}
