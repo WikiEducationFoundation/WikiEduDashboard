@@ -9,11 +9,10 @@ describe 'course copying', type: :feature, js: true do
   end
 
   before do
-    login_as(user, scope: :user)
-    stub_oauth_edit
-    stub_course
     allow(Features).to receive(:wiki_ed?).and_return(false)
     allow(Features).to receive(:open_course_creation?).and_return(true)
+    stub_course
+    login_as(user, scope: :user)
   end
 
   let(:new_term) { 'Spring2016' }
@@ -52,6 +51,8 @@ describe 'course copying', type: :feature, js: true do
     find('input#no_holidays').click
     expect(page).not_to have_content 'Mark the holidays'
     click_button 'Save New Course'
+
+    sleep 0.5
 
     new_course = Course.last
     expect(page).to have_current_path('/courses/New_School/New_Course_Title_(Spring2016)')

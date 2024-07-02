@@ -3,7 +3,7 @@
 #= Controller for Copy Course tool
 class CopyCourseController < ApplicationController
   respond_to :html
-  before_action :require_admin_permissions if Features.wiki_ed?
+  before_action :require_admin_if_wiki_ed
   def index; end
 
   def copy
@@ -22,5 +22,9 @@ class CopyCourseController < ApplicationController
       )
       redirect_to "/courses/#{course.slug}"
     end
+  end
+
+  def require_admin_if_wiki_ed
+    require_admin_permissions if Features.wiki_ed?
   end
 end
