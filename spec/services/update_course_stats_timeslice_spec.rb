@@ -6,7 +6,7 @@ describe UpdateCourseStatsTimeslice do
   let(:course) { create(:course, flags:) }
   let(:enwiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
   let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }
-  let(:subject) { described_class.new(course, enwiki, '20181124000000', '20181129190000') }
+  let(:subject) { described_class.new(course, '20181124000000', '20181129190000') }
 
   context 'when debugging is not enabled' do
     let(:flags) { nil }
@@ -66,6 +66,39 @@ describe UpdateCourseStatsTimeslice do
       expect(article_course.article_course_timeslices.first.character_sum).to eq(427)
       expect(article_course.article_course_timeslices.first.references_count).to eq(-2)
       expect(article_course.article_course_timeslices.first.user_ids).to eq([user.id])
+    end
+
+    it 'updates course user and course user timeslices caches' do
+      # Check caches for course user
+      course_user = CoursesUsers.find_by(course:, user:)
+      # The course user caches were updated
+      # All the revisions were done in mainspace = 0,
+      # except for one revision in mainspace = 120, which is ommited
+      expect(course_user.character_sum_ms).to eq(7991)
+      expect(course_user.character_sum_us).to eq(0)
+      expect(course_user.character_sum_draft).to eq(0)
+      expect(course_user.references_count).to eq(-2)
+      expect(course_user.revision_count).to eq(29)
+      expect(course_user.recent_revisions).to eq(0)
+      expect(course_user.total_uploads).to eq(0)
+
+      # Two course user timeslice records were created: one for enwiki and other for wikidata
+      expect(course_user.course_user_wiki_timeslices.count).to eq(2)
+
+      # Course user timeslices caches were updated
+      # For enwiki
+      expect(course_user.course_user_wiki_timeslices.first.character_sum_ms).to eq(124)
+      expect(course_user.course_user_wiki_timeslices.first.character_sum_us).to eq(0)
+      expect(course_user.course_user_wiki_timeslices.first.character_sum_draft).to eq(0)
+      expect(course_user.course_user_wiki_timeslices.first.revision_count).to eq(2)
+      expect(course_user.course_user_wiki_timeslices.first.references_count).to eq(0)
+
+      # For wikidata
+      expect(course_user.course_user_wiki_timeslices.second.character_sum_ms).to eq(7867)
+      expect(course_user.course_user_wiki_timeslices.second.character_sum_us).to eq(0)
+      expect(course_user.course_user_wiki_timeslices.second.character_sum_draft).to eq(0)
+      expect(course_user.course_user_wiki_timeslices.second.revision_count).to eq(27)
+      expect(course_user.course_user_wiki_timeslices.second.references_count).to eq(-2)
     end
   end
 
