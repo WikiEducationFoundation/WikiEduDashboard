@@ -59,7 +59,7 @@ describe CopyCourseController, type: :request do
 
       it 'renders the success message' do
         subject
-        expect(response).to redirect_to(/courses\/none\/Black_life_matters_\(none\)/)
+        expect(response).to redirect_to(%r{courses/none/Black_life_matters_\(none\)})
       end
     end
   end
