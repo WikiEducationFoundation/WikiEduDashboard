@@ -59,10 +59,7 @@ describe CopyCourseController, type: :request do
 
       it 'renders the success message' do
         subject
-        expect(response).to redirect_to(copy_course_path)
-        expect(flash[:notice]).to eq('Course Black life matters was created.'\
-                                     '&nbsp;<a href="/courses/none/Black_life_'\
-                                     'matters_(none)">Go to course</a>')
+        expect(response).to redirect_to(%r{courses/none/Black_life_matters_\(none\)})
       end
     end
   end

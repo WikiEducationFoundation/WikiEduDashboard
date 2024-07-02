@@ -63,7 +63,7 @@ const Overview = createReactClass({
   render() {
     const { course, current_user } = this.props;
 
-    if (course.cloned_status === 1) {
+    if (course.cloned_status === 1 || course.cloned_status === 3) {
       return (
         <CourseClonedModal
           course={course}

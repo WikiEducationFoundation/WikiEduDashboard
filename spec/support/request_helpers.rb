@@ -315,4 +315,243 @@ module RequestHelpers
     stub_request(:get, /.*wikipedia.*/)
       .to_return(status: 200, body: response, headers: {})
   end
+
+  def stub_course_response_body
+    response =
+      '{
+      "course": {
+        "id": 17794,
+        "title": "4A Wikipedia Assignment",
+        "description": "Students will edit science articles-primarily physics.
+        They will add content, images and references",
+        "start": "2024-02-12T00: 00: 00.000Z",
+        "end": "2024-06-14T23: 59: 59.000Z",
+        "school": "Riverside City College",
+        "subject": "Science Communication",
+        "slug": "Riverside_City_College/4A_Wikipedia_Assignment_(Spring_2024)",
+        "url": "https: //en.wikipedia.org/wiki/Wikipedia:Wiki_Ed/Riverside_City_College
+        4A_Wikipedia_Assignment_(Spring_2024)",
+        "submitted": true,
+        "expected_students": 36,
+        "timeline_start": "2024-02-12T00:00:00.000Z",
+        "timeline_end": "2024-06-14T23:59:59.000Z",
+        "day_exceptions": ",20240219",
+        "weekdays": "0101000",
+        "no_day_exceptions": false,
+        "updated_at": "2024-06-18T21:20:34.000Z",
+        "string_prefix": "courses",
+        "use_start_and_end_times": false,
+        "type": "ClassroomProgramCourse",
+        "home_wiki": { "id": 1, "language": "en", "project": "wikipedia" },
+        "character_sum": 8225,
+        "upload_count": 0,
+        "uploads_in_use_count": 0,
+        "upload_usages_count": 0,
+        "cloned_status": null,
+        "flags": {
+          "academic_system": null,
+          "format": "In-person",
+          "timeline_enabled": true,
+          "wiki_edits_enabled": true,
+          "online_volunteers_enabled": false,
+          "disable_student_emails": false,
+          "stay_in_sandbox": false,
+          "retain_available_articles": true,
+          "edit_settings": {
+            "wiki_course_page_enabled": true,
+            "assignment_edits_enabled": true,
+            "enrollment_edits_enabled": true
+          },
+          "peer_review_count": 1,
+          "longest_update": 301,
+          "first_update": {
+            "enqueued_at": "2023-12-03T15:44:56.633Z",
+            "queue_name": "medium_update",
+            "queue_latency": 0.007666349411010742
+          },
+          "update_logs": {
+            "14960": {
+              "start_time": "2024-06-18T20:35:26.690+00:00",
+              "end_time": "2024-06-18T20:35:29.216+00:00",
+              "sentry_tag_uuid": "69e140e9-11de-4651-8d19-1d5fcd3b663b",
+              "error_count": 0
+            }
+          },
+          "average_update_delay": 300,
+          "salesforce_id": "a0fVR000000CwBV",
+          "recap_sent_at": "2024-06-15T11:30:04.078Z"
+        },
+        "level": "Introductory",
+        "format": "In-person",
+        "private": false,
+        "closed?": false,
+        "training_library_slug": "students",
+        "peer_review_count": 1,
+        "needs_update": false,
+        "update_until": "2024-07-14T23:59:59.000Z",
+        "withdrawn": false,
+        "created_at": "2023-12-03T15:22:55.000Z",
+        "wikis": [{ "language": "en", "project": "wikipedia" }],
+        "namespaces": [],
+        "timeline_enabled": true,
+        "disable_student_emails": false,
+        "academic_system": null,
+        "home_wiki_bytes_per_word": 5.175,
+        "home_wiki_edits_enabled": true,
+        "wiki_edits_enabled": true,
+        "assignment_edits_enabled": true,
+        "wiki_course_page_enabled": true,
+        "enrollment_edits_enabled": true,
+        "account_requests_enabled": false,
+        "online_volunteers_enabled": false,
+        "progress_tracker_enabled": true,
+        "stay_in_sandbox": false,
+        "no_sandboxes": false,
+        "retain_available_articles": true,
+        "review_bibliography": false,
+        "term": "Spring 2024",
+        "legacy": false,
+        "ended": true,
+        "published": true,
+        "closed": false,
+        "enroll_url": "https: //dashboard.wikiedu.org/courses/Riverside_City_College
+        /4A_Wikipedia_Assignment_(Spring_2024)/enroll/",
+        "wiki_string_prefix": "articles",
+        "returning_instructor": true,
+        "created_count": "0",
+        "edited_count": "10",
+        "article_count": 10,
+        "edit_count": "177",
+        "student_count": 36,
+        "trained_count": 9,
+        "word_count": "1.59K",
+        "references_count": "13",
+        "view_count": "275K",
+        "character_sum_human": "8.23K",
+        "updates": {
+          "average_delay": 300,
+          "last_update": {
+            "start_time": "2024-06-18T21:20:31.489+00:00",
+            "end_time": "2024-06-18T21:20:34.301+00:00",
+            "sentry_tag_uuid": "64ae491f-2e54-4059-880d-b479cc81adac",
+            "error_count": 0
+          }
+        },
+        "passcode": "****",
+        "canUploadSyllabus": false
+      }
+    }'
+
+    url = 'https://dashboard.wikiedu.org/courses/Riverside_City_College' \
+          '/4A_Wikipedia_Assignment_(Spring_2024)/course.json'
+    stub_request(:get, url)
+      .to_return(status: 200, body: response, headers: {})
+  end
+
+  def stub_categories
+    categories_response_body =
+      '{
+      "course": {
+        "categories": [
+          {
+            "name": "Category 0",
+            "depth": 0,
+            "source": "Source 0",
+            "wiki": {
+              "id": 1,
+              "language": "en",
+              "project": "wikipedia"
+            }
+          }
+        ]
+      }
+    }'
+
+    url = 'https://dashboard.wikiedu.org/courses/Riverside_City_College' \
+          '/4A_Wikipedia_Assignment_(Spring_2024)/categories.json'
+    stub_request(:get, url)
+      .to_return(status: 200, body: categories_response_body, headers: {})
+  end
+
+  def stub_timeline
+    timeline_response_body =
+      '{
+      "course": {
+        "weeks": [
+          {
+            "id": 57366,
+            "order": 1,
+            "start_date_raw": "2022-01-09T00:00:00.000Z",
+            "end_date_raw": "2022-01-15T23:59:59.999Z",
+            "start_date": "01/09",
+            "end_date": "01/15",
+            "title": null,
+            "blocks": [
+              {
+                "id": 127799,
+                "kind": 0,
+                "content": "Welcome to your Wikipedia assignment course timeline.
+                            This page guides you through the steps you will need to
+                            complete for your Wikipedia assignment, with links to training
+                            modules and your classmates work spaces. Your course has
+                            been assigned a Wikipedia Expert. You can reach them
+                            through the Get Help button at the top of this page.",
+                "week_id": 57366,
+                "title": "Introduction to the Wikipedia assignment",
+                "order": 1,
+                "due_date": null,
+                "points": null
+              }
+            ]
+          }
+        ]
+      }
+    }'
+    url = 'https://dashboard.wikiedu.org/courses/Riverside_City_College' \
+          '/4A_Wikipedia_Assignment_(Spring_2024)/timeline.json'
+    stub_request(:get, url)
+      .to_return(status: 200, body: timeline_response_body, headers: {})
+  end
+
+  def stub_users
+    users_response_body =
+      '{
+      "course": {
+        "users": [
+          {
+            "role": 1,
+            "id": 28451264,
+            "username": "Joshua Stone"
+          },
+          {
+            "role": 4,
+            "id": 22694295,
+            "username": "Helaine (Wiki Ed)"
+          },
+          {
+            "role": 0,
+            "id": 28515697,
+            "username": "CharlieJ385"
+          },
+          {
+            "role": 0,
+            "id": 28515751,
+            "username": "Diqi Yan"
+          }
+        ]
+      }
+    }'
+
+    url = 'https://dashboard.wikiedu.org/courses/Riverside_City_College' \
+          '/4A_Wikipedia_Assignment_(Spring_2024)/users.json'
+    stub_request(:get, url)
+      .to_return(status: 200, body: users_response_body, headers: {})
+  end
+
+  def stub_course
+    stub_course_response_body
+    stub_categories
+    stub_timeline
+    stub_users
+  end
 end

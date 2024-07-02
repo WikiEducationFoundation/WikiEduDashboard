@@ -127,7 +127,7 @@ describe CopyCourse do
   end
 
   let(:subject) do
-    service = described_class.new(url: url_base + existent_prod_course_slug)
+    service = described_class.new(url: url_base + existent_prod_course_slug, user_data: true)
     service.make_copy
   end
 
