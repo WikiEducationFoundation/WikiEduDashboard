@@ -1,9 +1,9 @@
 # frozen_string_literal: true
-
 #= Copy course from another server
 class CopyCourse
-  def initialize(url:)
+  def initialize(url:, user_data:)
     @url = url
+    @user_data = user_data
   end
 
   def make_copy
@@ -12,8 +12,10 @@ class CopyCourse
     add_tracked_wikis
     @cat_data = retrieve_categories_data
     copy_tracked_categories_data
-    @users_data = retrieve_users_data
-    copy_users_data
+    if @user_data.present? && @user_data != '0'
+      @users_data = retrieve_users_data
+      copy_users_data
+    end
     @timeline_data = retrieve_timeline_data
     copy_timeline_data
     return { course: @course, error: nil }

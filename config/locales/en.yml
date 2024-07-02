@@ -551,8 +551,13 @@ en:
         The cloned timeline will automatically adjust the dates to account for
         weeks that have no scheduled meetings.
       clone_successful: Update Details for Cloned Course
+      copy_successful: Update Details for Copied Course
       clone_successful_details: >
         Your course has been cloned, including the elements of the timeline
+        (weeks and blocks). Be sure to add the dates, which are not carried over.
+        Has anything else about your course changed? Feel free to update it now.
+      copy_successful_details: >
+        Your course has been copied, including the elements of the timeline
         (weeks and blocks). Be sure to add the dates, which are not carried over.
         Has anything else about your course changed? Feel free to update it now.
       course_dates_info: Enter the starting and ending dates for your course. In the next step, you can choose when to begin the Wikipedia assignment within that timeframe.
