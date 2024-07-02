@@ -18,7 +18,7 @@ class CopyCourseController < ApplicationController
         flags: { timeline_enabled: true },
         cloned_status: 3,
         expected_students: course.expected_students || 0,
-        term: ""
+        term: ''
       )
       redirect_to "/courses/#{course.slug}"
     end
