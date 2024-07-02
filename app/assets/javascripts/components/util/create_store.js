@@ -1,6 +1,5 @@
-import { createStore, applyMiddleware, compose } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
 import reducer from '../../reducers';
-import thunk from 'redux-thunk';
 
 export const getStore = () => {
   const reactRoot = document.getElementById('react_root');
@@ -30,12 +29,24 @@ export const getStore = () => {
     };
   }
 
-  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-  const store = createStore(
+  // Determine if mutation checks should be enabled
+  const enableMutationChecks = false;
+
+  const store = configureStore({
     reducer,
     preloadedState,
-    composeEnhancers(applyMiddleware(thunk))
-  );
+    middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      // Temporarily disable mutation checks feature to facilitate Redux Toolkit migration.
+      // TODO: Gradually resolve state mutations and re-enable these checks in the future.
+      // Enable mutation checks when resolving or detecting these issues by setting enableMutationChecks to true.
+      immutableCheck: enableMutationChecks,
+      serializableCheck: enableMutationChecks,
+    }),
+    // Enable Redux DevTools only in development mode
+    devTools: process.env.NODE_ENV !== 'production'
+  });
+
   return store;
 };
 
