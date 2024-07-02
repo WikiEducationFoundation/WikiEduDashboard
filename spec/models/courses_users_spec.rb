@@ -105,16 +105,22 @@ describe CoursesUsers, type: :model do
       expect(course_user.real_name).to eq('John Smith')
     end
 
-    it 'updates only updates cache from tracked revisions' do
-      ArticlesCourses.first.update(tracked: false)
-      described_class.update_all_caches(described_class.where(id: 1))
+    it 'updates cache only from tracked revisions' do
+      # Untrack article in mainspace
+      ArticlesCourses.find_by(article:, course:).update(tracked: false)
+      described_class.update_all_caches(described_class.all)
+
       # Fetch the created CoursesUsers entry
-      course_user = courses_user
-      # Check if the stats are empty
-      # Check to see if the expected data got cached
-      expect(course_user.revision_count).to eq(0)
+      course_user = described_class.all.first
+
+      # Check the stats don't consider the revision for the untracked article in mainspace
+      # Only consider three revisions - for talk_page, draft and sandbox
+      expect(course_user.revision_count).to eq(3)
+      # characters in tracked namespaces are now 0
       expect(course_user.character_sum_ms).to eq(0)
-      expect(course_user.character_sum_us).to eq(0)
+      expect(course_user.character_sum_us).to eq(600)
+      expect(course_user.character_sum_draft).to eq(700)
+      # references count is 0 because there are no revisions in tracked namespaces now
       expect(course_user.references_count).to eq(0)
     end
   end
