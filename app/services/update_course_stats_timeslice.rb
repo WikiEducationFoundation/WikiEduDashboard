@@ -16,9 +16,8 @@ class UpdateCourseStatsTimeslice
   include UpdateServiceErrorHelper
   include CourseQueueSorting
 
-  def initialize(course, wiki, timeslice_start, timeslice_end)
+  def initialize(course, timeslice_start, timeslice_end)
     @course = course
-    @wiki = wiki
     @timeslice_start = timeslice_start
     @timeslice_end = timeslice_end
     # If the upate was explicitly requested by a user,
@@ -86,23 +85,41 @@ class UpdateCourseStatsTimeslice
     log_update_progress :average_pageviews_updated
   end
 
+  def update_article_course_timeslices_for_wiki(wiki)
+    @revisions[wiki].group_by(&:article_id).each do |article_id, article_revisions|
+      article_course = ArticlesCourses.find_or_create_by(course: @course, article_id:)
+      # TODO: determine how to get the right timeslice given the start and end
+      # Update cache for ArticleCorseTimeslice
+      ArticleCourseTimeslice.find_or_create_by(
+        article_course_id: article_course.id
+      ).update_cache_from_revisions article_revisions
+    end
+  end
+
+  def update_course_user_wiki_timeslices_for_wiki(wiki)
+    @revisions[wiki].group_by(&:user_id).each do |user_id, user_revisions|
+      course_user = CoursesUsers.find_or_create_by(course: @course, user_id:)
+      # TODO: determine how to get the right timeslice given the start and end
+      # Update cache for CourseUserWikiTimeslice
+      CourseUserWikiTimeslice.find_or_create_by(
+        course_user_id: course_user.id,
+        wiki:
+      ).update_cache_from_revisions user_revisions
+    end
+  end
+
   def update_caches
     @course.wikis.each do |wiki|
       next if @revisions[wiki].length.zero?
-      @revisions[wiki].group_by(&:article_id).each do |article_id, article_revisions|
-        article_course = ArticlesCourses.find_or_create_by(course: @course, article_id:)
-        # TODO: determine how to get the right timeslice given the start and end
-        # Update cache for ArticleCorseTimeslice
-        ArticleCourseTimeslice.find_or_create_by(
-          article_course_id: article_course.id
-        ).update_cache_from_revisions article_revisions
-      end
+      update_article_course_timeslices_for_wiki wiki
+
+      update_course_user_wiki_timeslices_for_wiki wiki
     end
 
     ArticlesCourses.update_all_caches_from_timeslices(@course.articles_courses)
-    # log_update_progress :articles_courses_updated
-    # CoursesUsers.update_all_caches(@course.courses_users)
-    # log_update_progress :courses_users_updated
+    log_update_progress :articles_courses_updated
+    CoursesUsers.update_all_caches_from_timeslices(@course.courses_users)
+    log_update_progress :courses_users_updated
     # @course.update_cache
     HistogramPlotter.delete_csv(course: @course) # clear cached structural completeness data
     log_update_progress :course_cache_updated

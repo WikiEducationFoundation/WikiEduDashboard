@@ -119,6 +119,77 @@ describe CoursesUsers, type: :model do
     end
   end
 
+  describe '.update_all_caches_from_timeslices' do
+    let(:enwiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
+    let(:user) { create(:user, id: 1) }
+    let(:course) { create(:course, start: 1.month.ago, end: 1.month.from_now) }
+
+    before do
+      # Make a CoursesUser record
+      create(:courses_user, id: 456, course:, user:)
+    end
+
+    it 'updates data for course-user relationships' do
+      # Run a cache update without any timeslices.
+      described_class.update_all_caches_from_timeslices(described_class.all)
+
+      # Add two timeslices.
+      create(:course_user_wiki_timeslice,
+             course_user_id: 456,
+             wiki: enwiki,
+             start: 10.days.ago,
+             end: 9.days.ago,
+             character_sum_ms: 9000,
+             character_sum_us: 500,
+             character_sum_draft: 400,
+             total_uploads: 200,
+             references_count: 4,
+             revision_count: 5)
+
+      create(:course_user_wiki_timeslice,
+             course_user_id: 456,
+             wiki: enwiki,
+             start: 9.days.ago,
+             end: 8.days.ago,
+             character_sum_ms: 10,
+             character_sum_us: 20,
+             character_sum_draft: 30,
+             total_uploads: 200,
+             references_count: 3,
+             revision_count: 1)
+
+      # Empty timeslice, which should not count towards stats.
+      create(:course_user_wiki_timeslice,
+             course_user_id: 456,
+             wiki: enwiki,
+             start: 20.days.ago,
+             end: 19.days.ago,
+             character_sum_ms: 0,
+             character_sum_us: 0,
+             character_sum_draft: 0,
+             total_uploads: 0,
+             references_count: 0,
+             revision_count: 0)
+
+      # Create a common upload for the user
+      create(:commons_upload, user:, uploaded_at: 1.week.ago)
+
+      # Run the cache update again with an existing revision.
+      described_class.update_all_caches_from_timeslices(described_class.all)
+
+      # Fetch the updated CoursesUsers entry
+      course_user = described_class.first
+
+      expect(course_user.character_sum_ms).to eq(9010)
+      expect(course_user.character_sum_us).to eq(520)
+      expect(course_user.character_sum_draft).to eq(430)
+      # count real number of uploads for user
+      expect(course_user.total_uploads).to eq(1)
+      expect(course_user.references_count).to eq(7)
+      expect(course_user.revision_count).to eq(6)
+    end
+  end
+
   describe '#contribution_url' do
     let(:en_wiki_course) { create(:course) }
     let(:es_wiktionary) { create(:wiki, language: 'es', project: 'wiktionary') }

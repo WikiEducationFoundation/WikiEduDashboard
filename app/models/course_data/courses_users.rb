@@ -34,7 +34,7 @@ class CoursesUsers < ApplicationRecord
 
   has_many :survey_notifications
 
-  has_many :course_user_wiki_timeslices
+  has_many :course_user_wiki_timeslices, foreign_key: 'course_user_id'
 
   validates :course_id, uniqueness: { scope: %i[user_id role] }
 
@@ -110,6 +110,14 @@ class CoursesUsers < ApplicationRecord
     self.character_sum_draft = character_sum(revisions, Article::Namespaces::DRAFT)
   end
 
+  def update_values_from_timeslices
+    self.character_sum_ms = course_user_wiki_timeslices.sum(&:character_sum_ms)
+    self.character_sum_us = course_user_wiki_timeslices.sum(&:character_sum_us)
+    self.character_sum_draft = course_user_wiki_timeslices.sum(&:character_sum_draft)
+    self.references_count = course_user_wiki_timeslices.sum(&:references_count)
+    self.revision_count = course_user_wiki_timeslices.sum(&:revision_count)
+  end
+
   # rubocop:disable Metrics/AbcSize
   def update_cache
     revisions = live_revisions
@@ -124,6 +132,20 @@ class CoursesUsers < ApplicationRecord
     save
   end
   # rubocop: enable Metrics/AbcSize
+
+  def update_cache_from_timeslices
+    # total_uploads is not implemented yet as a timeslice attribute
+    self.total_uploads = course.uploads.where(user_id:).count
+
+    update_values_from_timeslices
+
+    # recent_revisions field doesn't belong to timeslices
+    self.recent_revisions = RevisionStat.recent_revisions_for_courses_user(self).count
+    # assigned_article_title field doesn't belong to timeslices
+    assignments = user.assignments.where(course_id:)
+    self.assigned_article_title = assignments.empty? ? '' : assignments.first.article_title
+    save
+  end
 
   ##################
   # Helper methods #
@@ -152,5 +174,9 @@ class CoursesUsers < ApplicationRecord
   #################
   def self.update_all_caches(courses_users)
     courses_users.includes(:user).find_each(&:update_cache)
+  end
+
+  def self.update_all_caches_from_timeslices(courses_users)
+    courses_users.includes(:user).find_each(&:update_cache_from_timeslices)
   end
 end
