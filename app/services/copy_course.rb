@@ -47,7 +47,7 @@ class CopyCourse
   end
 
   def modify_course_slug
-    @course_data['term'] = 'CLONED FROM ' + @course_data['term']
+    @course_data['term'] = 'COPIED FROM ' + @course_data['term']
     school = @course_data['school']
     title = @course_data['title']
     term = @course_data['term']
