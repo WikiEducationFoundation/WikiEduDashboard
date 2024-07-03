@@ -43,7 +43,6 @@ const ArticleList = ({
   const navigate = useNavigate();
   const [selectedIndex, setSelectedIndex] = useState(-1);
 
-  // Memoize complex computations
   const keys = useMemo(() => articleListKeys(course), [course]);
   const project = useMemo(() => course.home_wiki.project, [course]);
 
@@ -63,7 +62,6 @@ const ArticleList = ({
       : wikiFilterObj.project;
   }, []);
 
-  // Effect for initialization
   useEffect(() => {
     const { wiki, newness, tracked } = parse(location.search);
 
@@ -89,11 +87,9 @@ const ArticleList = ({
       updateParams('tracked', trackedStatusFilter);
     }
 
-    // Set document title
     document.title = `${course.title} - ${ArticleUtils.I18n('edited', project)}`;
   }, []);
 
-  // Effects for filter changes
   useEffect(() => {
     updateParams('wiki', wikiObjectToString(wikiFilter));
   }, [wikiFilter, updateParams, wikiObjectToString]);
@@ -106,7 +102,6 @@ const ArticleList = ({
     updateParams('tracked', trackedStatusFilter);
   }, [trackedStatusFilter, updateParams]);
 
-  // Event handlers
   const onChangeFilter = useCallback((e) => {
     const value = e.target.value.split('.');
     filterArticles({
@@ -135,7 +130,6 @@ const ArticleList = ({
     sortArticles(e.value);
   }, [sortArticles]);
 
-  // Prepare UI elements
   const trackedEditable = current_user && current_user.isAdvancedRole;
 
   if (course.type !== 'ClassroomProgramCourse' && trackedEditable) {
