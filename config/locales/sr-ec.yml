@@ -1294,6 +1294,9 @@ sr-ec:
   news:
     post_confirmation:
       confirmation: Потврдите.
+    footer:
+      P&E_dashboard:
+        link_text: Викимедија
     options:
       news_content:
         delete_news: Обришите вести
