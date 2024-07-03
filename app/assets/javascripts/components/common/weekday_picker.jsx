@@ -1,5 +1,4 @@
 import React from 'react';
-import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 
 const WEEKDAYS_LONG = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -21,40 +20,33 @@ const keys = {
   SPACE: 32
 };
 
-const WeekdayPicker = createReactClass({
-  propTypes: {
-    className: PropTypes.string,
-    style: PropTypes.object,
-    tabIndex: PropTypes.number,
+const WeekdayPicker = ({
+  className: componentClassName,
+  style,
+  tabIndex,
 
-    ariaModifier: PropTypes.string,
-    modifiers: PropTypes.object,
+  ariaModifier,
+  modifiers,
 
-    locale: PropTypes.string,
-    localeUtils: PropTypes.shape({
-      formatWeekdayShort: PropTypes.func.isRequired,
-      formatWeekdayLong: PropTypes.func.isRequired
-    }),
-
-    onWeekdayClick: PropTypes.func,
-    onWeekdayMouseEnter: PropTypes.func,
-    onWeekdayMouseLeave: PropTypes.func,
-  },
-
-  getModifiersForDay(weekday, modifierFunctions) {
-    const modifiers = [];
+  locale,
+  onWeekdayClick,
+  onWeekdayMouseEnter,
+  onWeekdayMouseLeave,
+}) => {
+  const getModifiersForDay = (weekday, modifierFunctions) => {
+    const resultModifiers = [];
     if (modifierFunctions) {
       Object.keys(modifierFunctions).forEach((modifier) => {
         const func = modifierFunctions[modifier];
         if (func(weekday)) {
-          modifiers.push(modifier);
+          resultModifiers.push(modifier);
         }
       });
     }
-    return modifiers;
-  },
+    return resultModifiers;
+  };
 
-  focusPreviousDay(dayNode) {
+  const focusPreviousDay = (dayNode) => {
     const body = dayNode.parentNode.parentNode.parentNode.parentNode;
     const dayNodes = body.querySelectorAll('.DayPicker-Weekday:not(.DayPicker-Weekday--outside)');
     let nodeIndex;
@@ -67,9 +59,9 @@ const WeekdayPicker = createReactClass({
     if (nodeIndex !== 0) {
       dayNodes[nodeIndex - 1].focus();
     }
-  },
+  };
 
-  focusNextDay(dayNode) {
+  const focusNextDay = (dayNode) => {
     const body = dayNode.parentNode.parentNode.parentNode.parentNode;
     const dayNodes = body.querySelectorAll('.DayPicker-Weekday:not(.DayPicker-Weekday--outside)');
     let nodeIndex;
@@ -83,54 +75,53 @@ const WeekdayPicker = createReactClass({
     if (nodeIndex !== dayNodes.length - 1) {
       dayNodes[nodeIndex + 1].focus();
     }
-  },
+  };
 
-  // Event handlers
-  handleDayKeyDown(e, day, modifiers) {
+  const handleDayKeyDown = (e, weekday, modifiersProp) => {
     e.persist();
     switch (e.keyCode) {
       case keys.LEFT:
         e.preventDefault();
         e.stopPropagation();
-        this.focusPreviousDay(e.target);
+        focusPreviousDay(e.target);
         break;
       case keys.RIGHT:
         e.preventDefault();
         e.stopPropagation();
-        this.focusNextDay(e.target);
+        focusNextDay(e.target);
         break;
       case keys.ENTER:
       case keys.SPACE:
         e.preventDefault();
         e.stopPropagation();
-        if (this.props.onWeekdayClick) {
-          this.handleWeekdayClick(e, day, modifiers);
+        if (onWeekdayClick) {
+          handleWeekdayClick(e, weekday, modifiersProp);
         }
         break;
       default:
         // no default
     }
-  },
+  };
 
-  handleWeekdayClick(e, weekday, modifiers) {
+  const handleWeekdayClick = (e, weekday, modifiersProp) => {
     e.persist();
-    this.props.onWeekdayClick(e, weekday, modifiers);
-  },
+    onWeekdayClick(e, weekday, modifiersProp);
+  };
 
-  handleWeekdayMouseEnter(e, weekday, modifiers) {
+  const handleWeekdayMouseEnter = (e, weekday, modifiersProp) => {
     e.persist();
-    this.props.onWeekdayMouseEnter(e, weekday, modifiers);
-  },
+    onWeekdayMouseEnter(e, weekday, modifiersProp);
+  };
 
-  handleWeekdayMouseLeave(e, weekday, modifiers) {
+  const handleWeekdayMouseLeave = (e, weekday, modifiersProp) => {
     e.persist();
-    this.props.onWeekdayMouseLeave(e, weekday, modifiers);
-  },
+    onWeekdayMouseLeave(e, weekday, modifiersProp);
+  };
 
-  renderWeekDays() {
+  const renderWeekDays = () => {
     const weekdays = [];
     for (let i = 0; i < 7; i += 1) {
-      weekdays.push(this.renderWeekday(i));
+      weekdays.push(renderWeekday(i));
     }
     return (
       <div className="DayPicker-Month">
@@ -141,89 +132,82 @@ const WeekdayPicker = createReactClass({
         </div>
       </div>
     );
-  },
+  };
 
-  renderWeekday(weekday) {
-    const { locale, modifiers: modifierFunctions } = this.props;
+  const renderWeekday = (weekday) => {
+    let dayClassName = 'DayPicker-Weekday';
+    let customModifiers = [];
 
-    let className = 'DayPicker-Weekday';
-    let modifiers = [];
-
-    if (modifierFunctions) {
-      const customModifiers = this.getModifiersForDay(weekday, modifierFunctions);
-      modifiers = [...modifiers, ...customModifiers];
+    if (modifiers) {
+      const propModifiers = getModifiersForDay(weekday, modifiers);
+      customModifiers = [...customModifiers, ...propModifiers];
     }
 
-    className += modifiers.map(modifier => ` ${className}--${modifier}`).join('');
+    dayClassName += customModifiers.map(modifier => ` ${dayClassName}--${modifier}`).join('');
 
-    const ariaSelected = modifiers.indexOf(this.props.ariaModifier) > -1;
+    const ariaSelected = customModifiers.indexOf(ariaModifier) > -1;
 
-    const {
-      onWeekdayClick,
-      onWeekdayMouseEnter,
-      onWeekdayMouseLeave,
-    } = this.props;
-
-    let tabIndex = null;
+    let tabIndexValue = null;
     if (onWeekdayClick) {
-      tabIndex = -1;
-      // Focus on the first day of the week
+      tabIndexValue = -1;
       if (weekday === 0) {
-        tabIndex = this.props.tabIndex;
+        tabIndexValue = tabIndex;
       }
     }
 
-    let onClick = null;
-    if (onWeekdayClick) {
-      onClick = e => this.handleWeekdayClick(e, weekday, modifiers);
-    }
-    let onMouseEnter = null;
-    if (onWeekdayMouseEnter) {
-      onMouseEnter = e => this.handleWeekdayMouseEnter(e, weekday, modifiers);
-    }
-    let onMouseLeave = null;
-    if (onWeekdayMouseLeave) {
-      onMouseLeave = e => this.handleWeekdayMouseLeave(e, weekday, modifiers);
-    }
+    const onClickHandler = onWeekdayClick ? e => handleWeekdayClick(e, weekday, customModifiers) : null;
+    const onMouseEnterHandler = onWeekdayMouseEnter ? e => handleWeekdayMouseEnter(e, weekday, customModifiers) : null;
+    const onMouseLeaveHandler = onWeekdayMouseLeave ? e => handleWeekdayMouseLeave(e, weekday, customModifiers) : null;
 
     return (
       <button
-        key={weekday} className={className} tabIndex={tabIndex}
+        key={weekday} className={dayClassName} tabIndex={tabIndexValue}
         aria-pressed={ariaSelected}
-        onClick= {onClick}
-        onKeyDown={e => this.handleDayKeyDown(e, weekday, modifiers)}
-        onMouseEnter={onMouseEnter}
-        onMouseLeave= {onMouseLeave}
+        onClick={onClickHandler}
+        onKeyDown={e => handleDayKeyDown(e, weekday, customModifiers)}
+        onMouseEnter={onMouseEnterHandler}
+        onMouseLeave={onMouseLeaveHandler}
       >
-        <span title={localeUtils.formatWeekdayLong(weekday, locale)}>
-          {localeUtils.formatWeekdayShort(weekday, locale)}
+        <span title={localeUtils.formatWeekdayLong(weekday)}>
+          {localeUtils.formatWeekdayShort(weekday)}
         </span>
       </button>
     );
-  },
+  };
 
-  render() {
-    const { locale, style, tabIndex } = this.props;
-    let className = `WeekdayPicker DayPicker DayPicker--${locale}`;
+  let finalClassName = `WeekdayPicker DayPicker DayPicker--${locale}`;
 
-    if (!this.props.onWeekdayClick) {
-      className = `${className} WeekdayPicker--InteractionDisabled`;
-    }
-    if (this.props.className) {
-      className = `${className} ${this.props.className}`;
-    }
-
-    return (
-      <div
-        className={className}
-        role="widget"
-        style={style}
-        tabIndex={tabIndex}
-      >
-        {this.renderWeekDays()}
-      </div>
-    );
+  if (!onWeekdayClick) {
+    finalClassName = `${finalClassName} WeekdayPicker--InteractionDisabled`;
   }
-});
+  if (componentClassName) {
+    finalClassName = `${finalClassName} ${componentClassName}`;
+  }
+
+  return (
+    <div
+      className={finalClassName}
+      role="widget"
+      style={style}
+      tabIndex={tabIndex}
+    >
+      {renderWeekDays()}
+    </div>
+  );
+};
+
+WeekdayPicker.propTypes = {
+  className: PropTypes.string,
+  style: PropTypes.object,
+  tabIndex: PropTypes.number,
+
+  ariaModifier: PropTypes.string,
+  modifiers: PropTypes.object,
+
+  locale: PropTypes.string,
+  onWeekdayClick: PropTypes.func,
+  onWeekdayMouseEnter: PropTypes.func,
+  onWeekdayMouseLeave: PropTypes.func,
+};
 
 export default WeekdayPicker;
