@@ -4,7 +4,7 @@ require 'rails_helper'
 describe CopyCourse do
   let(:url_base) { 'https://dashboard.wikiedu.org/courses/' }
   let(:existent_prod_course_slug) do
-    'University_of_South_Carolina/Invertebrate_Zoology_(CLONED_FROM_Spring_2022)'
+    'University_of_South_Carolina/Invertebrate_Zoology_(COPIED_FROM_Spring_2022)'
   end
   let(:course_url) { url_base + existent_prod_course_slug + '/course.json' }
   let(:categories_url) { url_base + existent_prod_course_slug + '/categories.json' }
