@@ -16,10 +16,9 @@ WorkingDirectory=/var/www/dashboard/current
 # NOTE: We keep concurrency at 1 for this process because it is the one that handles wiki edits, and we
 # don't ever want to attempt two edits from the same account concurrently, as this can result in failed
 # edits because mediawiki will only issue a user one valid edit token at a time.
-# ExecStart=/usr/local/rvm/bin/rvm default do bundle exec sidekiq -e production --queue default --concurrency 1
-ExecStart=/home/sage/.rvm/bin/rvm default do bundle exec sidekiq -e production --queue default --concurrency 1
-User=root
-Group=root
+ExecStart=/home/ragesoss/.rvm/bin/rvm default do bundle exec sidekiq -e production --queue default --concurrency 1
+User=ragesoss
+Group=project-globaleducation
 UMask=0002
 
 # Greatly reduce Ruby memory fragmentation and heap usage
@@ -39,3 +38,4 @@ SyslogIdentifier=sidekiq-default
 
 [Install]
 WantedBy=multi-user.target
+

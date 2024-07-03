@@ -621,12 +621,18 @@ ru:
       special_users: 'Служебная: Участники'
       admin_users: Администраторы
       users: Участники
+    admin_users:
+      new:
+        form_placeholder: Имя участника
     featured_campaigns:
       campaign_not_found: Кампания со слагом «%{campaign_slug}» не найдена
       no_featured_campaigns: Рекомендуемые кампании не определены
       update_featured_campaigns_button: Обновить избранные кампании
       add_button: Добавить уведомление
       remove_button: Новое переименование компании
+    special_users:
+      new:
+        form_placeholder: Имя участника
   tasks:
     conseq: Задача %{task} уже выполняется!
     constant: Задача %{task} не может быть выполнена, когда происходит ежедневное

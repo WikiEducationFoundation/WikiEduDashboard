@@ -51,7 +51,7 @@ ON THE SERVER
   - $ `sudo chown <username> /var/www`
 
 - Install RVM (Ruby Version Manager) and configure the Dashboard's current Ruby version, as the deploying user
-  - $ `gpg2 --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB`
+  - $ `gpg2 --keyserver keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB`
   - $ `\curl -sSL https://get.rvm.io | bash -s stable`
   - $ `source /home/ragesoss/.rvm/scripts/rvm`
   - logout and back in again so that these settings take effect

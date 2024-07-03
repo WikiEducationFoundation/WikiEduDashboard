@@ -1,0 +1,7 @@
+name: 'Keep an assignment journal'
+id: 67
+description: |
+  Guidance for keeping a weekly journal to reflect on the Wikipedia assignment
+slides:
+  - slug: keep-a-journal #6701
+  - slug: possible-journal-topics #6702

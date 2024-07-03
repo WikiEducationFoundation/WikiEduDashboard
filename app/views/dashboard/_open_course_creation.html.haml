@@ -15,6 +15,10 @@
       = t("courses_generic.creator.create_new")
       %i.icon.icon-plus
   %div
+    = link_to copy_course_path, class: 'button stacked dark dashboard-cta' do
+      = "Copy Course from another Server"
+      %i.icon.icon-plus
+  %div
     = link_to explore_path, class: 'button stacked dark dashboard-cta' do
       = t("courses_generic.creator.find")
       %span.icon.icon-rt_arrow

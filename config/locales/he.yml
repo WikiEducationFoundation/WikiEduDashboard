@@ -447,7 +447,7 @@ he:
     slug: כינוי
     search_campaigns: חיפוש קמפיינים
     use_start_end_dates: הגדרת מועדי התחלה וסיום
-    search: יפוש
+    search: חיפוש
   categories:
     searching_for_category: חיפוש קטגוריות ב־
     add_category: הוספת קטגוריה
@@ -495,7 +495,7 @@ he:
     article_viewer_wikidata: מציג פריטים
     articles_i_am_reviewing_wikidata: פריטים שאני עורך עליהם ביקורת עמיתים
     articles_i_am_reviewing: ערכים שאני עורך עליהם ביקורת עמיתים
-    articles_i_will_create: ערכים שאני איצור
+    articles_i_will_create: ערכים שאצור
     articles_i_will_create_wikidata: פריטים שאצור
     articles_i_am_updating: ערכים שאני מעדכן
     articles_i_am_updating_wikidata: פריטים שאני מעדכן
@@ -1394,8 +1394,8 @@ he:
     explanation: משהו השתבש. נא ליצור קשר עם המתחזקים של לוח הבקרה ועדכן אותם על הבעיה.
   login_error:
     header: שגיאת התחברות
-    explanation: "נראה כי יש בעיה בתהליך ההתחברות \nמצטערים! זה קורה לפעמים. \nאנא
-      נסו להתחבר או להירשם שנית."
+    explanation: נראה שיש בעיה בתהליך ההתחברות. (מצטערים! זה קורה לפעמים.) נא לנסות
+      להתחבר או להירשם שנית.
   survey:
     login_message: אנו מודים לך על השקעת הזמן. עליך להתחבר לחשבון בלוח הבקרה שלך כדי
       למלא את השאלון.
@@ -1531,7 +1531,7 @@ he:
     created: ההערה נוצרה בהצלחה.
     updated: ההערה עודכנה בהצלחה.
     failure: לא ניתן %{operation} את ההערה. יש לנסות שוב מאוחר יותר.
-    empty_fields: אנא ודא שכל שדות הקלט מולאו ונסה שוב.
+    empty_fields: נא לוודא שכל שדות הקלט מולאו ולנסות שוב.
     edit: הזמן של כל עריכה מוצגת באיזור הזמן הנוכחי שלך.
     edited_by: נערך על־ידי
     last_edited_by: מציג את שם המנהל שערך את ההערה האחרונה.

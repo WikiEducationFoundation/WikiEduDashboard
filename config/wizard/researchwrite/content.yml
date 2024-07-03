@@ -52,14 +52,14 @@ essentials:
           </p>
 
       -
-        if: blog_or_discussion_assignment
-        title: Wikipedia assignment blog
+        if: weekly_journal_assignment
+        title: Wikipedia assignment journal
         kind: 1
         content: |
           <p>
-            <a href="/training/students/assignment-blog/keep-a-blog">Begin a blog about your experiences</a>. You can use
+            <a href="/training/students/assignment-journal/keep-a-journal">Write a weekly journal about your experiences</a>. You can use
             discussion questions to frame your entries, or reflect on the
-            research and writing process. Create at least one blog entry
+            research and writing process. Create at least one journal entry
             each week during the Wikipedia assignment.
           </p>
 

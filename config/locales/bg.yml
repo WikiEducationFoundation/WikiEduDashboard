@@ -291,6 +291,13 @@ bg:
     title: Заглавие
   resources:
     label: Ресурси
+  settings:
+    admin_users:
+      new:
+        form_placeholder: Потребителско име
+    special_users:
+      new:
+        form_placeholder: Потребителско име
   timeline:
     add_week: Добавяне на седмица
     gradeable_value: Стойност
@@ -333,4 +340,11 @@ bg:
     search: Търсене
     submit: Изпращане
     tools: Инструменти
+  news:
+    footer:
+      P&E_dashboard:
+        link_text: Уикимедия
+    options:
+      news_content:
+        confirm_delete: Потвърждаване
 ...
