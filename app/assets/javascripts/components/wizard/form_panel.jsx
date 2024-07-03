@@ -4,53 +4,51 @@ import Panel from './panel.jsx';
 import DatePicker from '../common/date_picker.jsx';
 import Calendar from '../common/calendar.jsx';
 import CourseDateUtils from '../../utils/course_date_utils.js';
-import { persistCourse } from '@actions/course_actions';
 
-const FormPanel = ({ course, shouldShowSteps, updateCourse, isValid }) => {
+const FormPanel = (props) => {
   const [setAnyDatesSelected] = useState(false);
   const [setBlackoutDatesSelected] = useState(false);
   const noDates = useRef(null);
 
   const setNoBlackoutDatesChecked = () => {
-    const { checked } = noDates.current;
-    const toPass = { ...course };
+    const { checked } = noDates;
+    const toPass = props.course;
     toPass.no_day_exceptions = checked;
-    updateCourse(toPass);
+    props.updateCourse(toPass);
   };
 
   const updateCourseDates = (valueKey, value) => {
-    const updatedCourse = CourseDateUtils.updateCourseDates(course, valueKey, value);
-    updateCourse(updatedCourse);
+    const updatedCourse = CourseDateUtils.updateCourseDates(props.course, valueKey, value);
+    props.updateCourse(updatedCourse);
   };
 
   const saveCourse = () => {
-    if (isValid) {
-      // Assuming persistCourse is passed as a prop but not defined here
-      persistCourse(course.slug);
+    if (props.isValid) {
+      props.persistCourse(props.course.slug);
       return true;
     }
-    alert('Error: Form has errors.');
+    alert(I18n.t('error.form_errors'));
     return false;
   };
 
   const nextEnabled = () => {
-    return (
-      course.weekdays?.indexOf(1) >= 0
-      && (course.day_exceptions?.length > 0 || course.no_day_exceptions)
-    );
+    if (__guard__(props.course.weekdays, x => x.indexOf(1)) >= 0 && (__guard__(props.course.day_exceptions, x1 => x1.length) > 0 || props.course.no_day_exceptions)) {
+      return true;
+    }
+    return false;
   };
 
-  const dateProps = CourseDateUtils.dateProps(course);
+  const dateProps = CourseDateUtils.dateProps(props.course);
 
-  const step1 = shouldShowSteps ? (
+  const step1 = props.shouldShowSteps ? (
     <h2>
       <span>1.</span>
       {/* eslint-disable-next-line i18next/no-literal-string */}
-      <small> Confirm the course’s start and end dates.</small>
+      <small> Confirm the course`&apos;`s start and end dates.</small>
     </h2>
   ) : (
     // eslint-disable-next-line i18next/no-literal-string
-    <p>Confirm the course’s start and end dates.</p>
+    <p>Confirm the course`&apos;`s start and end dates.</p>
   );
 
   const rawOptions = (
@@ -60,7 +58,7 @@ const FormPanel = ({ course, shouldShowSteps, updateCourse, isValid }) => {
         <div className="vertical-form full-width">
           <DatePicker
             onChange={updateCourseDates}
-            value={course.start}
+            value={props.course.start}
             value_key="start"
             editable={true}
             validation={CourseDateUtils.isDateValid}
@@ -68,24 +66,23 @@ const FormPanel = ({ course, shouldShowSteps, updateCourse, isValid }) => {
           />
           <DatePicker
             onChange={updateCourseDates}
-            value={course.end}
+            value={props.course.end}
             value_key="end"
             editable={true}
             validation={CourseDateUtils.isDateValid}
             label="Course End"
             date_props={dateProps.end}
-            enabled={Boolean(course.start)}
+            enabled={Boolean(props.course.start)}
           />
         </div>
       </div>
       <hr />
       <div className="course-dates__step">
-        {/* eslint-disable-next-line i18next/no-literal-string */}
-        <p>Assignment Description</p>
+        <p>{I18n.t('wizard.assignment_description')}</p>
         <div className="vertical-form full-width">
           <DatePicker
             onChange={updateCourseDates}
-            value={course.timeline_start}
+            value={props.course.timeline_start}
             value_key="timeline_start"
             editable={true}
             validation={CourseDateUtils.isDateValid}
@@ -94,34 +91,33 @@ const FormPanel = ({ course, shouldShowSteps, updateCourse, isValid }) => {
           />
           <DatePicker
             onChange={updateCourseDates}
-            value={course.timeline_end}
+            value={props.course.timeline_end}
             value_key="timeline_end"
             editable={true}
             validation={CourseDateUtils.isDateValid}
             label="Assignment End"
             date_props={dateProps.timeline_end}
-            enabled={Boolean(course.start)}
+            enabled={Boolean(props.course.start)}
           />
         </div>
       </div>
       <hr />
       <div className="wizard_form course-dates course-dates_step">
         <Calendar
-          course={course}
+          course={props.course}
           editable={true}
           save={true}
           setAnyDatesSelected={setAnyDatesSelected}
           setBlackoutDatesSelected={setBlackoutDatesSelected}
-          calendarInstructions="Calendar Instructions"
-          updateCourse={updateCourse}
+          calendarInstructions={I18n.t('wizard.calendar_instructions')}
+          updateCourse={props.updateCourse}
         />
-        {/* eslint-disable-next-line i18next/no-literal-string */}
         <label>
-          I have no class holidays
+          { I18n.t('I have no class holidays') }
           <input
             type="checkbox"
             onChange={setNoBlackoutDatesChecked}
-            ref={noDates}
+            ref={(checkbox) => { props.noDates = checkbox; }}
           />
         </label>
       </div>
@@ -130,28 +126,11 @@ const FormPanel = ({ course, shouldShowSteps, updateCourse, isValid }) => {
 
   return (
     <Panel
-      course={course}
-      panel={{
-        title: 'Course Dates', // Changed from 'Course Date'
-        options: [],
-        error: false,
-        type: 0,
-        minimum: 1,
-      }}
-      active={true}
+      {...props}
       saveCourse={saveCourse}
       nextEnabled={nextEnabled}
-      index={0}
-      open_weeks={0}
       raw_options={rawOptions}
-      advance={() => {}}
-      rewind={() => {}}
-      button_text="Next"
       helperText="Select meeting days and holiday dates, then continue."
-      summary={false}
-      step="Step 1"
-      panelCount={1}
-      selectWizardOption={() => {}}
     />
   );
 };
@@ -164,3 +143,7 @@ FormPanel.propTypes = {
 };
 
 export default FormPanel;
+
+function __guard__(value, transform) {
+  return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;
+}
