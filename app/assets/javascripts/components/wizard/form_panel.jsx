@@ -1,141 +1,146 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import Panel from './panel.jsx';
 import DatePicker from '../common/date_picker.jsx';
 import Calendar from '../common/calendar.jsx';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 
-const FormPanel = createReactClass({
-  displayName: 'FormPanel',
+const FormPanel = (props) => {
+  const [setAnyDatesSelected] = useState(false);
+  const [setBlackoutDatesSelected] = useState(false);
+  const noDates = useRef(null);
 
-  propTypes: {
-    course: PropTypes.object.isRequired,
-    shouldShowSteps: PropTypes.bool,
-    updateCourse: PropTypes.func.isRequired,
-    isValid: PropTypes.bool.isRequired
-  },
-
-  setAnyDatesSelected(bool) {
-    return this.setState({ anyDatesSelected: bool });
-  },
-
-  setBlackoutDatesSelected(bool) {
-    return this.setState({ blackoutDatesSelected: bool });
-  },
-  setNoBlackoutDatesChecked() {
-    const { checked } = this.noDates;
-    const toPass = this.props.course;
+  const setNoBlackoutDatesChecked = () => {
+    const { checked } = noDates;
+    const toPass = props.course;
     toPass.no_day_exceptions = checked;
-    return this.props.updateCourse(toPass);
-  },
+    props.updateCourse(toPass);
+  };
 
-  updateCourseDates(valueKey, value) {
-    const updatedCourse = CourseDateUtils.updateCourseDates(this.props.course, valueKey, value);
-    return this.props.updateCourse(updatedCourse);
-  },
+  const updateCourseDates = (valueKey, value) => {
+    const updatedCourse = CourseDateUtils.updateCourseDates(props.course, valueKey, value);
+    props.updateCourse(updatedCourse);
+  };
 
-  saveCourse() {
-    if (this.props.isValid) {
-      this.props.persistCourse(this.props.course.slug);
+  const saveCourse = () => {
+    if (props.isValid) {
+      props.persistCourse(props.course.slug);
       return true;
     }
     alert(I18n.t('error.form_errors'));
     return false;
-  },
-  nextEnabled() {
-    if (__guard__(this.props.course.weekdays, x => x.indexOf(1)) >= 0 && (__guard__(this.props.course.day_exceptions, x1 => x1.length) > 0 || this.props.course.no_day_exceptions)) {
+  };
+
+  const nextEnabled = () => {
+    if (__guard__(props.course.weekdays, x => x.indexOf(1)) >= 0 && (__guard__(props.course.day_exceptions, x1 => x1.length) > 0 || props.course.no_day_exceptions)) {
       return true;
     }
     return false;
-  },
+  };
 
-  render() {
-    const dateProps = CourseDateUtils.dateProps(this.props.course);
+  const dateProps = CourseDateUtils.dateProps(props.course);
 
-    const step1 = this.props.shouldShowSteps
-      ? <h2><span>1.</span><small> Confirm the course’s start and end dates.</small></h2>
-      : <p>Confirm the course’s start and end dates.</p>;
+  const step1 = props.shouldShowSteps ? (
+    <h2>
+      <span>1.</span>
+      {/* eslint-disable-next-line i18next/no-literal-string */}
+      <small> Confirm the course`&apos;`s start and end dates.</small>
+    </h2>
+  ) : (
+    // eslint-disable-next-line i18next/no-literal-string
+    <p>Confirm the course`&apos;`s start and end dates.</p>
+  );
 
-    const rawOptions = (
-      <div>
-        <div className="course-dates__step">
-          {step1}
-          <div className="vertical-form full-width">
-            <DatePicker
-              onChange={this.updateCourseDates}
-              value={this.props.course.start}
-              value_key="start"
-              editable={true}
-              validation={CourseDateUtils.isDateValid}
-              label="Course Start"
-            />
-            <DatePicker
-              onChange={this.updateCourseDates}
-              value={this.props.course.end}
-              value_key="end"
-              editable={true}
-              validation={CourseDateUtils.isDateValid}
-              label="Course End"
-              date_props={dateProps.end}
-              enabled={Boolean(this.props.course.start)}
-            />
-          </div>
-        </div>
-        <hr />
-        <div className="course-dates__step">
-          <p>{I18n.t('wizard.assignment_description')}</p>
-          <div className="vertical-form full-width">
-            <DatePicker
-              onChange={this.updateCourseDates}
-              value={this.props.course.timeline_start}
-              value_key="timeline_start"
-              editable={true}
-              validation={CourseDateUtils.isDateValid}
-              label={I18n.t('courses.assignment_start')}
-              date_props={dateProps.timeline_start}
-            />
-            <DatePicker
-              onChange={this.updateCourseDates}
-              value={this.props.course.timeline_end}
-              value_key="timeline_end"
-              editable={true}
-              validation={CourseDateUtils.isDateValid}
-              label={I18n.t('courses.assignment_end')}
-              date_props={dateProps.timeline_end}
-              enabled={Boolean(this.props.course.start)}
-            />
-          </div>
-        </div>
-        <hr />
-        <div className="wizard__form course-dates course-dates__step">
-          <Calendar
-            course={this.props.course}
+  const rawOptions = (
+    <div>
+      <div className="course-dates__step">
+        {step1}
+        <div className="vertical-form full-width">
+          <DatePicker
+            onChange={updateCourseDates}
+            value={props.course.start}
+            value_key="start"
             editable={true}
-            save={true}
-            setAnyDatesSelected={this.setAnyDatesSelected}
-            setBlackoutDatesSelected={this.setBlackoutDatesSelected}
-            calendarInstructions={I18n.t('wizard.calendar_instructions')}
-            updateCourse={this.props.updateCourse}
+            validation={CourseDateUtils.isDateValid}
+            label="Course Start"
           />
-          <label> I have no class holidays
-            <input type="checkbox" onChange={this.setNoBlackoutDatesChecked} ref={(checkbox) => { this.noDates = checkbox; }} />
-          </label>
+          <DatePicker
+            onChange={updateCourseDates}
+            value={props.course.end}
+            value_key="end"
+            editable={true}
+            validation={CourseDateUtils.isDateValid}
+            label="Course End"
+            date_props={dateProps.end}
+            enabled={Boolean(props.course.start)}
+          />
         </div>
       </div>
-    );
+      <hr />
+      <div className="course-dates__step">
+        <p>{I18n.t('wizard.assignment_description')}</p>
+        <div className="vertical-form full-width">
+          <DatePicker
+            onChange={updateCourseDates}
+            value={props.course.timeline_start}
+            value_key="timeline_start"
+            editable={true}
+            validation={CourseDateUtils.isDateValid}
+            label="Assignment Start"
+            date_props={dateProps.timeline_start}
+          />
+          <DatePicker
+            onChange={updateCourseDates}
+            value={props.course.timeline_end}
+            value_key="timeline_end"
+            editable={true}
+            validation={CourseDateUtils.isDateValid}
+            label="Assignment End"
+            date_props={dateProps.timeline_end}
+            enabled={Boolean(props.course.start)}
+          />
+        </div>
+      </div>
+      <hr />
+      <div className="wizard_form course-dates course-dates_step">
+        <Calendar
+          course={props.course}
+          editable={true}
+          save={true}
+          setAnyDatesSelected={setAnyDatesSelected}
+          setBlackoutDatesSelected={setBlackoutDatesSelected}
+          calendarInstructions={I18n.t('wizard.calendar_instructions')}
+          updateCourse={props.updateCourse}
+        />
+        <label>
+          { I18n.t('I have no class holidays') }
+          <input
+            type="checkbox"
+            onChange={setNoBlackoutDatesChecked}
+            ref={(checkbox) => { props.noDates = checkbox; }}
+          />
+        </label>
+      </div>
+    </div>
+  );
 
-    return (
-      <Panel
-        {...this.props}
-        raw_options={rawOptions}
-        nextEnabled={this.nextEnabled}
-        saveCourse={this.saveCourse}
-        helperText = "Select meeting days and holiday dates, then continue."
-      />
-    );
-  }
-});
+  return (
+    <Panel
+      {...props}
+      saveCourse={saveCourse}
+      nextEnabled={nextEnabled}
+      raw_options={rawOptions}
+      helperText="Select meeting days and holiday dates, then continue."
+    />
+  );
+};
+
+FormPanel.propTypes = {
+  course: PropTypes.object.isRequired,
+  shouldShowSteps: PropTypes.bool,
+  updateCourse: PropTypes.func.isRequired,
+  isValid: PropTypes.bool.isRequired,
+};
 
 export default FormPanel;
 
