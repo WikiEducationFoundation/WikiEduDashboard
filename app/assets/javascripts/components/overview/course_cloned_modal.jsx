@@ -149,7 +149,7 @@ const CourseClonedModal = createReactClass({
   saveEnabled() {
     // You must be logged in and have permission to edit the course.
     // This will be the case if you created it (and are therefore the instructor) or if you are an admin.
-    if (!this.props.currentUser.isAdvancedRole) { return false; }
+    if (!this.props.currentUser.isAdvancedRole && this.props.course.cloned_status !== 3) { return false; }
     return true;
   },
 
@@ -163,7 +163,7 @@ const CourseClonedModal = createReactClass({
       errorMessage = <div className="warning">{this.props.firstErrorMessage}</div>;
     } else if (!this.props.currentUser.id) {
       errorMessage = <div className="warning">{I18n.t('courses.please_log_in')}</div>;
-    } else if (!this.props.currentUser.isAdvancedRole) {
+    } else if (!this.props.currentUser.isAdvancedRole && this.props.course.cloned_status !== 3) {
       errorMessage = <div className="warning">{CourseUtils.i18n('not_permitted', i18nPrefix)}</div>;
     }
 
@@ -348,14 +348,23 @@ const CourseClonedModal = createReactClass({
         {infoIcon}
       </div>
     );
+    let heading;
+    let para;
+    if (this.state.course.cloned_status === 3) {
+      heading = <h3 id="clone_modal_header">{CourseUtils.i18n('creator.copy_successful', i18nPrefix)}</h3>;
+      para = <p>{CourseUtils.i18n('creator.copy_successful_details', i18nPrefix)}</p>;
+    } else {
+      heading = <h3 id="clone_modal_header">{CourseUtils.i18n('creator.clone_successful', i18nPrefix)}</h3>;
+      para = <p>{CourseUtils.i18n('creator.clone_successful_details', i18nPrefix)}</p>;
+    }
 
     return (
       <Modal>
         <div className="container">
           <div className="wizard__panel active cloned-course">
             {specialNotice}
-            <h3 id="clone_modal_header">{CourseUtils.i18n('creator.clone_successful', i18nPrefix)}</h3>
-            <p>{CourseUtils.i18n('creator.clone_successful_details', i18nPrefix)}</p>
+            {heading}
+            {para}
             {errorMessage}
             <div className="wizard__form">
               <div className="column" id="details_column">

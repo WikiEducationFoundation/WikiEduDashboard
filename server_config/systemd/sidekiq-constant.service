@@ -7,11 +7,9 @@ After=syslog.target network.target
 [Service]
 Type=simple
 WorkingDirectory=/var/www/dashboard/current
-
-# ExecStart=/usr/local/rvm/bin/rvm default do bundle exec sidekiq -e production --queue constant_update --concurrency 1
-ExecStart=/home/sage/.rvm/bin/rvm default do bundle exec sidekiq -e production --queue constant_update --concurrency 1
-User=root
-Group=root
+ExecStart=/home/ragesoss/.rvm/bin/rvm default do bundle exec sidekiq -e production --queue constant_update --concurrency 1
+User=ragesoss
+Group=project-globaleducation
 UMask=0002
 Environment=MALLOC_ARENA_MAX=2
 RestartSec=1
