@@ -26,6 +26,7 @@
 # Author: MacOS Weed
 # Author: Macofe
 # Author: Melimeli
+# Author: Oujon
 # Author: PifyZ
 # Author: Pols12
 # Author: SleaY
@@ -1976,6 +1977,9 @@ fr:
   multi_wiki:
     selector_placeholder: Commencez par entrer un domaine wiki
   news:
+    add_news: Ajouter des nouvelles
+    post_confirmation:
+      title: Voulez-vous publier la mise à jour de l'actualité ?
     footer:
       P&E_dashboard:
         link_text: Wikimédia

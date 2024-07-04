@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Ajeje Brazorf
+# Author: Andrekowacs
 # Author: AndroidOSUser
 # Author: Athena in Wonderland
 # Author: Caçador de Palavras
@@ -593,6 +594,7 @@ pt-br:
         "Não há férias". O cronograma clonado ajustará automaticamente as datas para
         dar conta das semanas em que não há encontros agendados.
       clone_successful: Atualizar detalhes do curso clonado
+      copy_successful: Atualize Detalhes para o Curso Copiado
       clone_successful_details: Seu curso foi clonado, incluindo os elementos do cronograma
         (semanas e blocos). Alguma coisa sobre seu curso mudou? Fique à vontade para
         atualizá-lo agora.

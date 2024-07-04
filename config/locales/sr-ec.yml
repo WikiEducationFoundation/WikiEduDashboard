@@ -1310,6 +1310,7 @@ sr-ec:
         поново.
       empty_create_news_content_error: Унесите садржај вести пре објављивања.
   notes:
+    failure: Грешка! Покушајте поново касније.
     cancel_note_creation: Откажи
     save_note: Сачувај
 ...
