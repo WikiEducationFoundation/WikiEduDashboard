@@ -6,14 +6,13 @@ import Calendar from '../common/calendar.jsx';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 
 const FormPanel = (props) => {
-  const [setAnyDatesSelected] = useState(false);
-  const [setBlackoutDatesSelected] = useState(false);
-  const noDates = useRef(null);
+  const [anyDatesSelected, setAnyDatesSelected] = useState(false);
+  const [blackoutDatesSelected, setBlackoutDatesSelected] = useState(false);
+  const noDates = useRef(null); // Use useRef for noDates
 
   const setNoBlackoutDatesChecked = () => {
-    const { checked } = noDates;
-    const toPass = props.course;
-    toPass.no_day_exceptions = checked;
+    const { checked } = noDates.current; // Access current property of the ref
+    const toPass = { ...props.course, no_day_exceptions: checked }; // Avoid mutating props
     props.updateCourse(toPass);
   };
 
@@ -107,8 +106,8 @@ const FormPanel = (props) => {
           course={props.course}
           editable={true}
           save={true}
-          setAnyDatesSelected={setAnyDatesSelected}
-          setBlackoutDatesSelected={setBlackoutDatesSelected}
+          setAnyDatesSelected={() => setAnyDatesSelected(!anyDatesSelected)}
+          setBlackoutDatesSelected={() => setBlackoutDatesSelected(blackoutDatesSelected)}
           calendarInstructions={I18n.t('wizard.calendar_instructions')}
           updateCourse={props.updateCourse}
         />
@@ -117,7 +116,7 @@ const FormPanel = (props) => {
           <input
             type="checkbox"
             onChange={setNoBlackoutDatesChecked}
-            ref={(checkbox) => { props.noDates = checkbox; }}
+            ref={noDates} // Use ref attribute correctly
           />
         </label>
       </div>
