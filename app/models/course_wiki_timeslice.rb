@@ -49,7 +49,7 @@ class CourseWikiTimeslice < ApplicationRecord
     @students.each do |student|
       character_sum += student.course_user_wiki_timeslices.where(wiki: @wiki).sum(:character_sum_ms)
     end
-    self.character_sum = character_sum
+    self.character_sum += character_sum
   end
 
   def update_references_count
@@ -61,7 +61,7 @@ class CourseWikiTimeslice < ApplicationRecord
                           .where(wiki: @wiki)
                           .sum(:references_count)
     end
-    self.references_count = references_count
+    self.references_count += references_count
   end
 
   def update_revision_count
@@ -70,7 +70,7 @@ class CourseWikiTimeslice < ApplicationRecord
       excluded_article_ids.include?(revision.article_id)
     end
 
-    self.revision_count = tracked_revisions.count { |rev| !rev.deleted }
+    self.revision_count += tracked_revisions.count { |rev| !rev.deleted }
   end
 
   def update_upload_count

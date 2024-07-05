@@ -90,14 +90,20 @@ role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
       # Make a course wiki timeslice
       create(:course_wiki_timeslice,
              id: 1,
-             course_wiki_id: course_wiki.id)
+             course_wiki_id: course_wiki.id,
+             character_sum: 1,
+             references_count: 1,
+             revision_count: 1,
+             upload_count: 100,
+             uploads_in_use_count: 100,
+             upload_usages_count: 100)
 
       course_wiki_timeslice = described_class.find(1)
       course_wiki_timeslice.update_cache_from_revisions array_revisions
 
-      expect(course_wiki_timeslice.character_sum).to eq(9010)
-      expect(course_wiki_timeslice.references_count).to eq(7)
-      expect(course_wiki_timeslice.revision_count).to eq(3)
+      expect(course_wiki_timeslice.character_sum).to eq(9011)
+      expect(course_wiki_timeslice.references_count).to eq(8)
+      expect(course_wiki_timeslice.revision_count).to eq(4)
       expect(course_wiki_timeslice.upload_count).to eq(2)
       expect(course_wiki_timeslice.uploads_in_use_count).to eq(2)
       expect(course_wiki_timeslice.upload_usages_count).to eq(7)
@@ -111,14 +117,21 @@ role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
       # Make a course wiki timeslice
       create(:course_wiki_timeslice,
              id: 1,
-             course_wiki_id: course_wiki.id)
+             course_wiki_id: course_wiki.id,
+             character_sum: 1,
+             references_count: 1,
+             revision_count: 1,
+             upload_count: 100,
+             uploads_in_use_count: 100,
+             upload_usages_count: 100)
 
       course_wiki_timeslice = described_class.find(1)
       course_wiki_timeslice.update_cache_from_revisions array_revisions
 
-      expect(course_wiki_timeslice.character_sum).to eq(9010)
-      expect(course_wiki_timeslice.references_count).to eq(7)
-      expect(course_wiki_timeslice.revision_count).to eq(0)
+      expect(course_wiki_timeslice.character_sum).to eq(9011)
+      expect(course_wiki_timeslice.references_count).to eq(8)
+      # Don't add any new revision count
+      expect(course_wiki_timeslice.revision_count).to eq(1)
       expect(course_wiki_timeslice.upload_count).to eq(2)
       expect(course_wiki_timeslice.uploads_in_use_count).to eq(2)
       expect(course_wiki_timeslice.upload_usages_count).to eq(7)
