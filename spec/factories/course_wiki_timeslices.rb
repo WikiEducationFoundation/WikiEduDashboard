@@ -20,7 +20,7 @@
 #
 
 FactoryBot.define do
-    factory :course_wiki_timeslice, class: 'CourseWikiTimeslice' do
-      nil
-    end
+  factory :course_wiki_timeslice, class: 'CourseWikiTimeslice' do
+    nil
   end
+end
