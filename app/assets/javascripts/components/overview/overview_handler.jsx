@@ -43,7 +43,7 @@ const Overview = ({ course, current_user, course_id }) => {
     }
   }, [course, current_user, course_id, dispatch]);
 
-  if (course.cloned_status === 1) {
+  if (course.cloned_status === 1 || course.cloned_status === 3) {
     return (
       <CourseClonedModal
         course={course}
