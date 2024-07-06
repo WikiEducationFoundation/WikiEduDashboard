@@ -1155,4 +1155,6 @@ ja:
     assignment_status: トレーニングの割り当て (%{status})
   multi_wiki:
     selector_placeholder: ウィキのドメイン名の入力を開始する
+  notes:
+    failure: エラーが発生しました。後ほどもう一度お試しください。
 ...

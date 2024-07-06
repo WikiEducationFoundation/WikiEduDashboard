@@ -477,7 +477,9 @@ zh-TW:
       cloned_course_calendar_instructions: 選擇日期，以便從行事曆中增加或移除這些時間 (例如假日或不上課的時候) 。點選一個日期可以從不上課時段、上課時段、以及休假時段三種設定之間轉換。若您開課期間沒有遇到假日，點選
         "我的課程沒有休假時段" 。複製完成的時間軸將會隨著不上課時段的星期自動坐相對應的調整。
       clone_successful: 替複製課程更新詳情
+      copy_successful: 替複製的課程更新詳細資訊
       clone_successful_details: 您的課程已經被複製，包含時間軸的各種內容 (所有的星期以及障礙) 。請確認所增加的日期沒有延續。您的課程還有哪些更動嗎？歡迎您現在更新。
+      copy_successful_details: 已複製您的課程，包含時間軸的各元素（星期與區塊）。請確認所添加的日期沒有延期。您還有哪些課程有更動到嗎？歡迎您現在更新。
       course_dates_info: 輸入您課程的起始和結束日期。在下個步驟裡，您可以從時間範圍來挑選何時開始作維基百科分配。
       course_description: 課程說明
       course_description_placeholder: 您的課程會涵蓋什麼？必且會讓學生們在維基百科上做出那些事情？請包含足夠的詳細內容，讓其他維基百科編者能有充分理解的感覺，來方便您的學生做出貢獻。
@@ -1559,7 +1561,7 @@ zh-TW:
     note_text: 註釋文字
     created: 建立註釋成功。
     updated: 更新註釋成功
-    failure: 無法%{operation}該註釋。請稍後再試。
+    failure: 錯誤！請稍後再試。
     empty_fields: 請確認已填寫所有欄位，然後再試一次。
     edit: 各編輯的時間均以您的當地時間顯示。
     edited_by: 編輯自
