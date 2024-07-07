@@ -1,9 +1,9 @@
 # frozen_string_literal: true
-
 #= Copy course from another server
 class CopyCourse
-  def initialize(url:)
+  def initialize(url:, user_data:)
     @url = url
+    @user_data = user_data
   end
 
   def make_copy
@@ -12,11 +12,15 @@ class CopyCourse
     add_tracked_wikis
     @cat_data = retrieve_categories_data
     copy_tracked_categories_data
-    @users_data = retrieve_users_data
-    copy_users_data
+    if @user_data.present? && @user_data != '0'
+      @users_data = retrieve_users_data
+      copy_users_data
+    end
     @timeline_data = retrieve_timeline_data
     copy_timeline_data
     return { course: @course, error: nil }
+  rescue ActiveRecord::RecordNotUnique
+    return { course: Course.find_by(slug: @course_data['slug']), error: nil }
   rescue ActiveRecord::RecordInvalid, StandardError => e
     return { course: nil, error: e.message }
   end
@@ -27,6 +31,7 @@ class CopyCourse
     # Extract the attributes we want to copy
     params_to_copy = %w[school title term description start end subject slug timeline_start
                         timeline_end type flags weekdays]
+    modify_course_slug
     copied_data = {}
     params_to_copy.each { |p| copied_data[p] = @course_data[p] }
     @home_wiki = Wiki.get_or_create(language: @course_data['home_wiki']['language'],
@@ -39,6 +44,14 @@ class CopyCourse
     end
     # Create the course
     @course = Course.create!(copied_data)
+  end
+
+  def modify_course_slug
+    @course_data['term'] = 'COPIED FROM ' + @course_data['term']
+    school = @course_data['school']
+    title = @course_data['title']
+    term = @course_data['term']
+    @course_data['slug'] = "#{school}/#{title}_(#{term})".tr(' ', '_')
   end
 
   # When parsing update_logs from flags, keys are set as strings instead of integers

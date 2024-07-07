@@ -1291,7 +1291,26 @@ sr-ec:
     started: Започето
     not_started: Није започето
     due: до %{due_date}
+  news:
+    post_confirmation:
+      confirmation: Потврдите.
+    footer:
+      P&E_dashboard:
+        link_text: Викимедија
+    options:
+      news_content:
+        delete_news: Обришите вести
+        edit_news: Уреди новости
+      create_news:
+        confirm_post: Потврди објаву
+        post_news: Објави новости
+    notification:
+      delete: Садржај вести је успешно обрисан
+      create_news_error: Дошло је до грешке приликом креирања садржаја вести. Покушајте
+        поново.
+      empty_create_news_content_error: Унесите садржај вести пре објављивања.
   notes:
+    failure: Грешка! Покушајте поново касније.
     cancel_note_creation: Откажи
     save_note: Сачувај
 ...

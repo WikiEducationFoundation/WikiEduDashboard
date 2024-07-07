@@ -260,35 +260,35 @@ describe Replica do
     let(:subject) { described_class.new(en_wiki).get_revisions(all_users, rev_start, rev_end) }
 
     it 'handles timeout errors' do
-      stub_request(:any, %r{https://dashboard-replica-endpoint.wmcloud.org/.*})
+      stub_request(:any, %r{https://replica-revision-tools.wmcloud.org/.*})
         .to_raise(Errno::ETIMEDOUT)
       expect_any_instance_of(described_class).to receive(:log_error).once
       expect(subject).to be_empty
     end
 
     it 'handles connection refused errors' do
-      stub_request(:any, %r{https://dashboard-replica-endpoint.wmcloud.org/.*})
+      stub_request(:any, %r{https://replica-revision-tools.wmcloud.org/.*})
         .to_raise(Errno::ECONNREFUSED)
       expect_any_instance_of(described_class).to receive(:log_error).once
       expect(subject).to be_empty
     end
 
     it 'handles failed queries' do
-      stub_request(:any, %r{https://dashboard-replica-endpoint.wmcloud.org/.*})
+      stub_request(:any, %r{https://replica-revision-tools.wmcloud.org/.*})
         .to_return(status: 200, body: '{ "success": false, "data": [] }', headers: {})
       expect_any_instance_of(described_class).to receive(:log_error).once
       expect(subject).to be_empty
     end
 
     it 'handles server errors' do
-      stub_request(:any, %r{https://dashboard-replica-endpoint.wmcloud.org/.*})
+      stub_request(:any, %r{https://replica-revision-tools.wmcloud.org/.*})
         .to_return(status: 500, body: '', headers: {})
       expect_any_instance_of(described_class).to receive(:log_error).once
       expect(subject).to be_empty
     end
 
     it 'handles successful empty responses' do
-      stub_request(:any, %r{https://dashboard-replica-endpoint.wmcloud.org/.*})
+      stub_request(:any, %r{https://replica-revision-tools.wmcloud.org/.*})
         .to_return(status: 200, body: '{ "success": true, "data": [] }', headers: {})
       expect_any_instance_of(described_class).not_to receive(:log_error)
       expect(subject).to be_empty
@@ -300,35 +300,35 @@ describe Replica do
     let(:result) { described_class.new(en_wiki).post_existing_articles_by_title(article_titles) }
 
     it 'handles timeout errors' do
-      stub_request(:any, %r{https://dashboard-replica-endpoint.wmcloud.org/.*})
+      stub_request(:any, %r{https://replica-revision-tools.wmcloud.org/.*})
         .to_raise(Errno::ETIMEDOUT)
       expect_any_instance_of(described_class).to receive(:log_error).once
       expect(result).to be_nil
     end
 
     it 'handles connection refused errors' do
-      stub_request(:any, %r{https://dashboard-replica-endpoint.wmcloud.org/.*})
+      stub_request(:any, %r{https://replica-revision-tools.wmcloud.org/.*})
         .to_raise(Errno::ECONNREFUSED)
       expect_any_instance_of(described_class).to receive(:log_error).once
       expect(result).to be_nil
     end
 
     it 'handles failed queries' do
-      stub_request(:any, %r{https://dashboard-replica-endpoint.wmcloud.org/.*})
+      stub_request(:any, %r{https://replica-revision-tools.wmcloud.org/.*})
         .to_return(status: 200, body: '{ "success": false, "data": [] }', headers: {})
       expect_any_instance_of(described_class).to receive(:log_error).once
       expect(result).to be_nil
     end
 
     it 'handles server errors' do
-      stub_request(:any, %r{https://dashboard-replica-endpoint.wmcloud.org/.*})
+      stub_request(:any, %r{https://replica-revision-tools.wmcloud.org/.*})
         .to_return(status: 500, body: '', headers: {})
       expect_any_instance_of(described_class).to receive(:log_error).once
       expect(result).to be_nil
     end
 
     it 'handles successful empty responses' do
-      stub_request(:any, %r{https://dashboard-replica-endpoint.wmcloud.org/.*})
+      stub_request(:any, %r{https://replica-revision-tools.wmcloud.org/.*})
         .to_return(status: 200, body: '{ "success": true, "data": [] }', headers: {})
       expect(result).to be_empty
     end

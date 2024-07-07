@@ -248,4 +248,17 @@ sms:
     submit: Ruõkk
   training_status:
     view: Čuäʹjet
+  news:
+    footer:
+      P&E_dashboard:
+        link_text: Wikimedia
+    options:
+      news_content:
+        confirm_delete: Priim
+        cancel_delete: Jõõsk
+  notes:
+    title: Nõmm
+    cancel_note_creation: Jõõsk
+    cancel_edit_note: Jõõsk
+    save_note: Ruõkk
 ...

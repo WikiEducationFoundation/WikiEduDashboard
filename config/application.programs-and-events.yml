@@ -61,3 +61,5 @@
   favicon_dev_file: favicon_dev.png
 
   update_debug_DailyUpdate: 'true'
+
+  REDIS_URL: 'redis://p-and-e-dashboard-redis'

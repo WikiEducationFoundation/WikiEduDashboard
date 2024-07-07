@@ -731,6 +731,7 @@ lb:
       why_are_you_here: Wat wëllt Dir maachen?
   article_finder:
     add_available_article: Als disponibelen Artikel derbäisetzen
+    article_quality: Artikelqualitéit (0-100)
     article_quality_wikidata: Qualitéit vum Element (0-100)
     average_views: Duerchschnëttlech gekuckt pro Dag
     category_search: Kategorie Sichen
@@ -766,6 +767,7 @@ lb:
         cancel_delete: Ofbriechen
   notes:
     title: Titel
+    failure: Feeler! Probéiert wgl. méi spéit nach eng Kéier.
     edited_by: Geännert vum
     cancel_note_creation: Ofbriechen
     cancel_edit_note: Ofbriechen
