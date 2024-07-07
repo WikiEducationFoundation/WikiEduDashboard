@@ -4,18 +4,13 @@ import PropTypes from 'prop-types';
 import { map } from 'lodash-es';
 import ArrayUtils from '../../utils/array_utils';
 import WIKI_OPTIONS from '../../utils/wiki_options';
+import { formatOption } from '../../utils/wiki_utils';
+
 /**
  *  A Wiki Selector Component that combines both language and project into a singular searchable
  *  component that works for both single-wiki and multi-wiki.
  */
 const WikiSelect = ({ multi, onChange, styles, wikis, homeWiki, readOnly, label, id, options }) => {
-  // Function to format wiki option
-  const formatOption = useCallback((wiki) => {
-    return {
-      value: JSON.stringify(wiki),
-      label: url(wiki)
-    };
-  }, []);
   // Function to generate URL for a wiki
   const url = useCallback((wiki) => {
     const subdomain = wiki.language || 'www';
@@ -70,13 +65,15 @@ const WikiSelect = ({ multi, onChange, styles, wikis, homeWiki, readOnly, label,
 
   const wikiOptions = (options && options.length) ? options : WIKI_OPTIONS;
 
-  const filterOptionsLong = (val) => {
+  // If the input is less than three characters, it will be matched from the beginning of the string.
+  const filterOptionsShort = (val) => {
     return wikiOptions.filter(wiki =>
       wiki.label.toLowerCase().includes(val.toLowerCase())
     ).slice(0, 10); // limit the options for better performance
   };
 
-  const filterOptionsShort = (val) => {
+  // If the input is at least three characters, it will be matched anywhere in the string
+  const filterOptionsLong = (val) => {
     return wikiOptions.filter(wiki =>
       wiki.label.toLowerCase().includes(val.toLowerCase())
     ).slice(0, 10);
@@ -118,14 +115,43 @@ const WikiSelect = ({ multi, onChange, styles, wikis, homeWiki, readOnly, label,
 };
 
 WikiSelect.propTypes = {
+  /**
+   *  If true multiple wiki can be selected.
+   */
   multi: PropTypes.bool,
+  /**
+   *  callback(wiki); where wiki is { language, project } if multi = false else Array of { language, project }
+   */
   onChange: PropTypes.func,
+  /**
+   *  Custom styles for the Select Widget.
+   */
   styles: PropTypes.object,
+  /**
+   *  An array of { language, project }
+   */
   wikis: PropTypes.array,
+  /**
+   *  Home Wiki, a object { language, project }. Required if multi=true
+   */
   homeWiki: PropTypes.object,
+  /**
+   *  Should the Wikis be read-only
+   */
   readOnly: PropTypes.bool,
+  /**
+   *  Label for the select input
+   */
   label: PropTypes.string,
+  /**
+   *  Label for the select input
+   */
   id: PropTypes.string,
+  /**
+   * Wikis for options, in article finder (through selected_wiki_options)
+   * and assign button (through new assigment input and selected wiki options) tracked Wikis,
+   * in details and couse_form all Wikis
+  */
   options: PropTypes.array
 };
 
