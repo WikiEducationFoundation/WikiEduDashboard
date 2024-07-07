@@ -1453,7 +1453,7 @@ en:
     assigned_wikidata: Assigned Items
     assignees: Assignee(s)
     loading_authorship_data: loading authorship data
-    authorship_data_not_fetched: could not fetch authorship data
+    authorship_data_not_fetched: Could not fetch authorship data
     character_doc: >
       The total amount of content a user has added to this namespace,
       calculated by adding up the added characters for all edits that
