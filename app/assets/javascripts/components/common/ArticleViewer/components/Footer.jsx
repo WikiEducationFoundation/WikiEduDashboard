@@ -7,7 +7,7 @@ import { printArticleViewer } from '../../../../utils/article_viewer';
 
 export const Footer = ({
   article, colors, failureMessage, showArticleFinder, highlightedHtml, isWhocolorLang,
-  whocolorFailed, users, unhighlightedContributors, revisionId, toggleRevisionHandler, pendingRequest
+  whoColorFailed, users, unhighlightedContributors, revisionId, toggleRevisionHandler, pendingRequest
 }) => {
   // Determine the Article Viewer Legend status based on what information
   // has returned from various API calls.
@@ -16,7 +16,7 @@ export const Footer = ({
     let legendStatus;
     if (highlightedHtml && unhighlightedContributors.length) {
       legendStatus = 'ready';
-    } else if (whocolorFailed) {
+    } else if (whoColorFailed) {
       legendStatus = 'failed';
     } else if (isWhocolorLang()) {
       legendStatus = 'loading';
