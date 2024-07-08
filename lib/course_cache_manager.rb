@@ -25,6 +25,25 @@ class CourseCacheManager
     @course.save
   end
 
+  # Expects a CourseWikiTimeslice::ActiveRecord_Associations_CollectionProxy to
+  # calculate course caches
+  def update_cache_from_timeslices(course_wiki_timeslices)
+    @course.character_sum = course_wiki_timeslices.sum(&:character_sum)
+    @course.references_count = course_wiki_timeslices.sum(&:references_count)
+    @course.revision_count = course_wiki_timeslices.sum(&:revision_count)
+    update_view_sum
+    update_user_count
+    update_trained_count
+    # TODO: count recent revisions based on revision_count field from last timeslices
+    # update_recent_revision_count
+    update_article_count
+    update_new_article_count
+    update_upload_count
+    update_uploads_in_use_count
+    update_upload_usages_count
+    @course.save
+  end
+
   def update_user_count
     @course.user_count = @course.students.size
     @course.save
