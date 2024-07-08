@@ -1,80 +1,66 @@
-import React, { useCallback } from 'react';
-
-import { connect } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-
-import { setUploadFilters as setUploadFiltersAction } from '~/app/assets/javascripts/actions/uploads_actions';
-import { fetchUserRevisions as fetchUserRevisionsAction } from '~/app/assets/javascripts/actions/user_revisions_actions';
-import { fetchTrainingStatus as fetchTrainingStatusAction } from '~/app/assets/javascripts/actions/training_status_actions';
-
-// Components
+import { useDispatch, connect } from 'react-redux';
+import { setUploadFilters } from '~/app/assets/javascripts/actions/uploads_actions';
+import { fetchUserRevisions } from '~/app/assets/javascripts/actions/user_revisions_actions';
+import { fetchTrainingStatus } from '~/app/assets/javascripts/actions/training_status_actions';
+import { fetchTrainingModuleExercisesByUser } from '~/app/assets/javascripts/actions/exercises_actions';
 import ExerciseProgressDescription from './ExerciseProgressDescription.jsx';
 import TrainingProgressDescription from './TrainingProgressDescription.jsx';
 
-// Actions
-import { fetchTrainingModuleExercisesByUser } from '~/app/assets/javascripts/actions/exercises_actions';
+const Student = (props) => {
+  const [isOpenState, setIsOpenState] = useState(props.isOpen);
+  const dispatch = useDispatch();
 
-const Student = ({
-  course,
-  student,
-  isOpen,
-  toggleDrawer,
-}) => {
-  const handleSetUploadFilters = useCallback((selectedFilters) => {
-    setUploadFiltersAction(selectedFilters);
-  }, [setUploadFiltersAction]);
+  useEffect(() => {
+    setIsOpenState(props.isOpen);
+  }, [props.isOpen]);
 
-  const handleStop = (e) => {
+  const openDrawer = () => {
+    if (!isOpenState) {
+      dispatch(fetchUserRevisions(props.course.id, props.student.id));
+      dispatch(fetchTrainingStatus(props.student.id, props.course.id));
+      dispatch(fetchTrainingModuleExercisesByUser(props.course.id, props.student.id));
+      props.toggleDrawer(`drawer_${props.student.id}`);
+    }
+  };
+  setUploadFilters = (selectedFilters) => {
+    props.setUploadFilters(selectedFilters);
+  };
+  const stop = (e) => {
     e.stopPropagation();
   };
 
-  const openDrawer = useCallback(() => {
-    if (!isOpen) {
-      fetchUserRevisionsAction(course.id, student.id);
-      fetchTrainingStatusAction(student.id, course.id);
-      fetchTrainingModuleExercisesByUser(course.id, student.id);
-    }
-    toggleDrawer(`drawer_${student.id}`);
-  }, [isOpen, course.id, student.id, fetchUserRevisionsAction, fetchTrainingStatusAction, toggleDrawer]);
-
-  const className = `students-exercise students${isOpen ? ' open' : ''}`;
-
-  // Example filters object
-  const exampleFilters = { filterType: 'example' };
+  let className = 'students-exercise students';
+  className += isOpenState ? ' open' : '';
 
   return (
     <tr onClick={openDrawer} className={className}>
       <td className="desktop-only-tc">
-        <ExerciseProgressDescription student={student} />
+        <ExerciseProgressDescription student={props.student} />
       </td>
       <td className="desktop-only-tc">
-        <TrainingProgressDescription student={student} />
+        <TrainingProgressDescription student={props.student} />
       </td>
       <td className="table-action-cell">
-        <button className="icon icon-arrow-toggle table-expandable-indicator" onClick={handleStop} />
-      </td>
-      <td className="table-action-cell">
-        <button onClick={() => handleSetUploadFilters(exampleFilters)}/>
+        <button className="icon icon-arrow-toggle table-expandable-indicator" onClick={stop} />
       </td>
     </tr>
   );
 };
 
 Student.propTypes = {
+  assignments: PropTypes.array,
   course: PropTypes.object.isRequired,
-  student: PropTypes.object.isRequired,
+  current_user: PropTypes.object,
+  editable: PropTypes.bool,
   isOpen: PropTypes.bool,
+  minimalView: PropTypes.bool,
+  student: PropTypes.object.isRequired,
   toggleDrawer: PropTypes.func,
-  fetchUserRevisionsAction: PropTypes.func.isRequired,
-  fetchTrainingStatusAction: PropTypes.func.isRequired,
-  setUploadFiltersAction: PropTypes.func.isRequired
+  wikidataLabels: PropTypes.object,
 };
-
 const mapDispatchToProps = {
-  setUploadFiltersAction,
-  fetchUserRevisionsAction,
-  fetchTrainingStatusAction,
-  fetchExercises: fetchTrainingModuleExercisesByUser
+  setUploadFilters,
 };
-
 export default connect(null, mapDispatchToProps)(Student);
