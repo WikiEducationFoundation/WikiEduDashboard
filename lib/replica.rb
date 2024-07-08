@@ -5,7 +5,7 @@ require_dependency "#{Rails.root}/lib/errors/api_error_handling"
 
 #= Fetches wiki revision data from an endpoint that provides SQL query
 #= results from a replica wiki database on wmflabs:
-#=   https://dashboard-replica-endpoint.wmcloud.org/
+#=   https://replica-revision-tools.wmcloud.org/
 #= For what's going on at the other end, see:
 #=   https://github.com/WikiEducationFoundation/WikiEduDashboardTools
 class Replica
@@ -97,7 +97,7 @@ class Replica
   # query appropriate to that endpoint, return the parsed json response.
   #
   # Example revisions.php query:
-  #   https://dashboard-replica-endpoint.wmcloud.org//revisions.php?lang=en&project=wikipedia&usernames[]=Ragesoss&start=20140101003430&end=20171231003430
+  # https://replica-revision-tools.wmcloud.org/revisions.php?lang=en&project=wikipedia&usernames[]=Ragesoss&start=20140101003430&end=20171231003430
   #
   # Example revisions.php parsed response:
   # [{"page_id"=>"44962463",
@@ -162,7 +162,7 @@ class Replica
     Net::HTTP::get_response(URI.parse(url))
   end
 
-  REPLICA_TOOL_URL = 'https://dashboard-replica-endpoint.wmcloud.org/'
+  REPLICA_TOOL_URL = 'https://replica-revision-tools.wmcloud.org/'
 
   def do_post(endpoint, key, data)
     url = "#{REPLICA_TOOL_URL}#{endpoint}"

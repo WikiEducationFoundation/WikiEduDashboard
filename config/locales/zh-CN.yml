@@ -1031,7 +1031,7 @@ zh-CN:
   article_finder:
     add_available_article: 添加为可用条目
     article_finder: 条目查找器
-    article_quality: 条目质量（0~100）
+    article_quality: 条目质量（0-100）
     assign_article_self: 分配您自己
     average_views: 每天平均访问
     category_search: 分类搜索

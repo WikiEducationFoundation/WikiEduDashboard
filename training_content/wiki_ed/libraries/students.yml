@@ -115,6 +115,9 @@ categories:
       - slug: assignment-blog
         name: 'Exercise: Keep an assignment blog'
         description: Keep a weekly blog to reflect on the Wikipedia assignment.
+      - slug: assignment-journal
+        name: 'Exercise: Keep weekly journal'
+        description: Keep a weekly journal to reflect on the Wikipedia assignment.
   - title: Discussions
     description: |
       Prompts for in-class discussions
