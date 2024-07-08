@@ -11,6 +11,16 @@ const GetHelpButton = (props) => {
   const [selectedTargetUser, setSelectedTargetUser] = useState(null);
   const [message, setMessage] = useState('');
 
+  // This component expects to be created with key='get_help'.
+  // The getKey function is used by Expandable.
+  const getKey = () => {
+    return 'get_help';
+  };
+
+  const stop = (e) => {
+    return e.stopPropagation();
+  };
+
   const reset = (e) => {
     e.preventDefault();
     setMessage('');
