@@ -3249,10 +3249,14 @@ en:
       This is where you can add a new module to the library.
       Once this module is created, you can add slides to it.
     add_new_module: Add New Module
+    back: Back
     cancel: Cancel
     category: Category
     category_title: Category Title
     category_description: Category Description
+    choose_modules_msg: >
+      Choose the modules you want to transfer from this category.
+      You can also select multiple modules.
     confirmation: 
       delete_category: Are you sure you want to delete this category?
     create: Create
@@ -3266,6 +3270,8 @@ en:
       can segregate them into categories.
     check_answer: Check Answer
     continue: Continue (%{progress})
+    destination_category_msg: >
+      Choose a category to which you want to transfer the selected modules.
     delete_category: Delete Category
     done: Done!
     enter: Enter
@@ -3284,6 +3290,7 @@ en:
     module_slug: Module Slug
     module_description: Module Description
     next: Next Page
+    next_button: Next
     notice:
       created: Created Successfully
       deleted: Deleted Successfully
@@ -3295,10 +3302,14 @@ en:
     previous: < Previous
     reload_from_source: reload from source
     search_training_resources: Search for training resources
+    source_category_msg: >
+      Choose a category from which you want to transfer the modules.
     start: Start
     success_message:
       library_created: Library created successfully
       category_created: Category created successfully
+    transfer: Transfer
+    transfer_module: Transfer Module
     switch_edit: Switch to Edit Mode
     switch_view: Switch to View Mode
     table_of_contents: Table of Contents

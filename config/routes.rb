@@ -373,6 +373,9 @@ Rails.application.routes.draw do
   # Read
   get 'training/:library_id/edit/:category_id/add_module', to: 'training#show', as: :add_module_training
 
+  # Update
+  post '/training/:library_id/transfer_modules' => 'training_modules#transfer_modules'
+  
   # Delete
   delete 'training/:library_id/categories/:category_id', to: 'training_library#delete_category', as: :delete_category
 
