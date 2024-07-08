@@ -90,10 +90,19 @@ class CopyCourse
   end
 
   def get_request(path)
-    uri = URI(@url + path)
+    sanitized_url = sanitize_url(@url)
+    uri = URI(sanitized_url + path)
     response = Net::HTTP.get_response(uri)
     raise "Error getting data from #{uri}" unless response.is_a?(Net::HTTPSuccess)
     response
+  end
+
+  def sanitize_url(input_url)
+    uri = URI.parse(input_url)
+    path_segments = uri.path.split('/')
+    desired_path = path_segments[0..3].join('/')
+    sanitized_url = "https://#{uri.host}#{desired_path}"
+    return sanitized_url
   end
 
   def retrieve_course_data
