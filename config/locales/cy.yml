@@ -636,6 +636,7 @@ cy:
     conseq: Mae %{task} yn rhedeg yn barod!
   tickets:
     none: Dim ticed
+    chose_search_type: Dewiswch fath o chwiliad
   timeline:
     add_week: Ychwanegwch Wythnos
     arrange_timeline: Trefnwch y linell amser
@@ -820,7 +821,7 @@ cy:
       why_are_you_here: Beth hoffech ei wneud?
   article_finder:
     article_finder: Canfod Erthygl
-    article_quality: Safon yr Erthygl/au (0-100)
+    article_quality: Ansawdd Erthygl (0-100)
     average_views: Cyfartaledd y fiws bob yn ddiwrnod
     category_search: Chwilio o fewn Categoriau
     completeness_estimate: Sgor Cyflawnrwydd (Completeness)

@@ -173,6 +173,10 @@ sl:
       assignment_start: Začetek dodelitve
       cancel_course_clone: Prekliči klon tečaja
       cancel_course_clone_confirm: Ali res želite ustaviti kloniranje tega predmeta?
+      copy_successful: Podrobnosti posodobitve kopiranega tečaja
+      copy_successful_details: Vaš tečaj, vključno z elementi časovnice (tedni in
+        bloki), je skopiran. Ne pozabite dodati datumov, ki se ne prenesejo. Se je
+        pri vašem tečaju spremenilo še kaj? Zdaj ga lahko  posodobite.
       course_description: Opis tečaja
       course_term: Termin tečaja
       course_term_placeholder: Termin
