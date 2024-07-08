@@ -59,6 +59,9 @@ a[disabled]
     transition all 0.15s ease-out, color 0.15s ease-out
     &:focus
       outline none
+    &:disabled
+      opacity: 0.5;
+      pointer-events: none;
   .button.dark
     background-color #676eb4
     border-color #676eb4
@@ -97,10 +100,12 @@ a[disabled]
     right 0
     display flex
     gap 1rem
-  .cat-create
+  .library-page-btn-container
     position absolute
     top 2rem
     right 0
+    display flex
+    gap 1rem
 
 .training-modification-buttons
   display: flex

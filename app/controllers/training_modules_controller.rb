@@ -28,65 +28,93 @@ class TrainingModulesController < ApplicationController
     @module = create_module
     return unless @module.persisted?
 
-    associate_module_with_category(category)
-    save_library_with_module
+    associate_module_with_category(category, @module)
+    save_library_with_response
+  end
+
+  def transfer_modules
+    @library = find_library
+    return unless @library
+
+    source_category = find_category(@library, transfer_info_params[:sourceCategory])
+    return unless source_category
+
+    destination_category = find_category(@library, transfer_info_params[:destinationCategory])
+    return unless destination_category
+
+    modules_to_move = find_modules_to_move(source_category, transfer_info_params[:modules])
+    move_modules(modules_to_move, source_category, destination_category)
+    save_library_with_response
   end
 
   private
 
+  # Find the training library by slug
   def find_library
-    library_slug = params[:library_id]
-    library = TrainingLibrary.find_by(slug: library_slug)
+    library = TrainingLibrary.find_by(slug: params[:library_id])
     unless library
-      render json: { status: 'error',
-                     errorMessages: ["Training library with slug '#{library_slug}' not found."] },
-             status: :not_found
+      render json: { status: 'error', errorMessages: ["Training library with slug '#{params[:library_id]}' not found."] }, status: :not_found
     end
     library
   end
 
-  def find_category(library)
-    category_title = params[:category_id]
+  # Find the category within the library by title
+  def find_category(library, category_title = params[:category_id])
     category = library.categories.find { |cat| cat['title'] == category_title }
     unless category
-      render json: { status: 'error',
-                     errorMessages: [
-                       "Category '#{category_title}' not exist in library '#{library.slug}'."
-                     ] },
-             status: :not_found
+      render json: { status: 'error', errorMessages: ["Category '#{category_title}' not exist in library '#{library.slug}'."] }, status: :not_found
     end
     category
   end
 
+  # Create a new training module
   def create_module
     training_module = TrainingModule.new(training_module_params)
     unless training_module.save
-      render json: { status: 'error', errorMessages: training_module.errors.full_messages },
-             status: :unprocessable_entity
+      render json: { status: 'error', errorMessages: training_module.errors.full_messages }, status: :unprocessable_entity
     end
     training_module
   end
 
-  def associate_module_with_category(category)
+  # Associate a module with a category
+  def associate_module_with_category(category, training_module)
     category['modules'] ||= []
     category['modules'] << {
-      'name' => @module.name,
-      'slug' => @module.slug,
-      'description' => @module.description
+      'name' => training_module.name,
+      'slug' => training_module.slug,
+      'description' => training_module.description
     }
   end
 
-  def save_library_with_module
+  # Save the library and render response
+  def save_library_with_response
     if @library.save
       render json: { status: 'success', data: @module }, status: :created
     else
-      render json: { status: 'error', errorMessages: @library.errors.full_messages },
-             status: :unprocessable_entity
+      render json: { status: 'error', errorMessages: @library.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
-  # Strong parameters method to permit necessary fields for module creation
+  # Find modules to be moved by names
+  def find_modules_to_move(category, module_names)
+    category['modules'].select { |mod| module_names.include?(mod['name']) }
+  end
+
+  # Move modules from source to destination category
+  def move_modules(modules, source_category, destination_category)
+    modules.each do |module_to_move|
+      destination_category['modules'] << module_to_move
+    end
+    source_category['modules'].reject! { |mod| modules.map { |m| m['name'] }.include?(mod['name']) }
+  end
+
+  # Strong parameters for training module creation
   def training_module_params
     params.require(:module).permit(:name, :slug, :description)
+  end
+
+  # Strong parameters for transfer info
+  def transfer_info_params
+    params.require(:transferInfo).permit(:sourceCategory, :destinationCategory, modules: [])
   end
 end
