@@ -130,6 +130,8 @@ class Course < ApplicationRecord
 
   has_many :course_wiki_namespaces, class_name: 'CourseWikiNamespaces', through: :courses_wikis
 
+  has_many :course_wiki_timeslices, through: :courses_wikis
+
   serialize :flags, Hash
 
   module ClonedStatus
@@ -499,6 +501,10 @@ class Course < ApplicationRecord
 
   def update_cache
     CourseCacheManager.new(self).update_cache
+  end
+
+  def update_cache_from_timeslices
+    CourseCacheManager.new(self).update_cache_from_timeslices course_wiki_timeslices
   end
 
   #################

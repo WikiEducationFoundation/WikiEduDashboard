@@ -108,19 +108,30 @@ class UpdateCourseStatsTimeslice
     end
   end
 
+  def update_course_wiki_timeslices_for_wiki(wiki)
+    course_wiki = CoursesWikis.find_or_create_by(course: @course, wiki:)
+    # TODO: determine how to get the right timeslice given the start and end
+    # Update cache for CourseWikiTimeslice
+    CourseWikiTimeslice.find_or_create_by(
+      course_wiki_id: course_wiki.id
+    ).update_cache_from_revisions @revisions[wiki]
+  end
+
   def update_caches
     @course.wikis.each do |wiki|
       next if @revisions[wiki].length.zero?
       update_article_course_timeslices_for_wiki wiki
 
       update_course_user_wiki_timeslices_for_wiki wiki
+
+      update_course_wiki_timeslices_for_wiki wiki
     end
 
     ArticlesCourses.update_all_caches_from_timeslices(@course.articles_courses)
     log_update_progress :articles_courses_updated
     CoursesUsers.update_all_caches_from_timeslices(@course.courses_users)
     log_update_progress :courses_users_updated
-    # @course.update_cache
+    @course.update_cache_from_timeslices
     HistogramPlotter.delete_csv(course: @course) # clear cached structural completeness data
     log_update_progress :course_cache_updated
   end
