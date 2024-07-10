@@ -58,7 +58,11 @@ class UpdateCourseStatsTimeslice
     log_update_progress :revision_scores_fetched
 
     ArticlesCourses.update_from_course_revisions(@course, @revisions.values.flatten)
-    # TODO: replace the logic on ArticlesCourses.update_from_course
+    # TODO: replace the logic on ArticlesCourses.update_from_course to remove all
+    # the ArticlesCourses that do not correspond to course revisions.
+    # That may happen if the course dates changed, so some revisions are no
+    # longer part of the course.
+    # Also remove records for articles that aren't on a tracked wiki.
 
     # TODO: note this is not wiki scoped.
     CourseUploadImporter.new(@course, update_service: self).run

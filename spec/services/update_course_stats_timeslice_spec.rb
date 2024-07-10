@@ -58,6 +58,7 @@ describe UpdateCourseStatsTimeslice do
       expect(article_course.character_sum).to eq(427)
       expect(article_course.references_count).to eq(-2)
       expect(article_course.user_ids).to eq([user.id])
+      # TODO: this value should change when implement the real timeslice start date
       expect(article_course.view_count).to eq(2)
 
       # Article course timeslice record was created for mw_page_id 6901525
@@ -108,6 +109,7 @@ describe UpdateCourseStatsTimeslice do
       expect(course.character_sum).to eq(7991)
       expect(course.references_count).to eq(-2)
       expect(course.revision_count).to eq(29)
+      # TODO: this value should change when implement the real timeslice start date
       expect(course.view_sum).to eq(814)
       expect(course.user_count).to eq(1)
       expect(course.trained_count).to eq(1)
