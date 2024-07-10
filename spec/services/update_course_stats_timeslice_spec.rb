@@ -32,6 +32,7 @@ describe UpdateCourseStatsTimeslice do
 
     before do
       stub_wiki_validation
+      travel_to Date.new(2018, 11, 26)
       course.campaigns << Campaign.first
       course.wikis << Wiki.get_or_create(language: nil, project: 'wikidata')
       JoinCourse.new(course:, user:, role: 0)
@@ -43,11 +44,9 @@ describe UpdateCourseStatsTimeslice do
     it 'imports average views of edited articles' do
       # 2 en.wiki articles
       expect(course.articles.where(wiki: enwiki).count).to eq(2)
-      # 13 wikidata articles
-      expect(course.articles.where(wiki: wikidata).count).to eq(13)
-      # TODO: fix this. Right now doesn't work because ArticleCourses records
-      # were not created for the time AverageViewsImporter.update_outdated_average_views runs
-      # expect(course.articles.where(wiki: enwiki).last.average_views).to be > 0
+      # 13 wikidata articles, but one is for Property namespace (120)
+      expect(course.articles.where(wiki: wikidata).count).to eq(12)
+      expect(course.articles.where(wiki: enwiki).last.average_views).to be > 200
     end
 
     it 'updates article course and article course timeslices caches' do
@@ -59,9 +58,7 @@ describe UpdateCourseStatsTimeslice do
       expect(article_course.character_sum).to eq(427)
       expect(article_course.references_count).to eq(-2)
       expect(article_course.user_ids).to eq([user.id])
-      # TODO: fix this.Right now doesn't work because ArticleCourses records
-      # were not created for the time AverageViewsImporter.update_outdated_average_views runs
-      # expect(article_course.view_count).to be > 0
+      expect(article_course.view_count).to eq(2)
 
       # Article course timeslice record was created for mw_page_id 6901525
       expect(article_course.article_course_timeslices.count).to eq(1)
@@ -111,12 +108,12 @@ describe UpdateCourseStatsTimeslice do
       expect(course.character_sum).to eq(7991)
       expect(course.references_count).to eq(-2)
       expect(course.revision_count).to eq(29)
-      expect(course.view_sum).to eq(0)
+      expect(course.view_sum).to eq(814)
       expect(course.user_count).to eq(1)
       expect(course.trained_count).to eq(1)
       # TODO: update recent_revision_count
       expect(course.recent_revision_count).to eq(0)
-      expect(course.article_count).to eq(15)
+      expect(course.article_count).to eq(14)
       expect(course.new_article_count).to eq(0)
       expect(course.upload_count).to eq(0)
       expect(course.uploads_in_use_count).to eq(0)
