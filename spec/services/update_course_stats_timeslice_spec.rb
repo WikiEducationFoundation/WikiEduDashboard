@@ -59,6 +59,9 @@ describe UpdateCourseStatsTimeslice do
       expect(article_course.character_sum).to eq(427)
       expect(article_course.references_count).to eq(-2)
       expect(article_course.user_ids).to eq([user.id])
+      # TODO: fix this.Right now doesn't work because ArticleCourses records
+      # were not created for the time AverageViewsImporter.update_outdated_average_views runs
+      # expect(article_course.view_count).to be > 0
 
       # Article course timeslice record was created for mw_page_id 6901525
       expect(article_course.article_course_timeslices.count).to eq(1)
