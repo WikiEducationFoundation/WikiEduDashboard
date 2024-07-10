@@ -19,7 +19,7 @@
 #= ArticlesCourses is a join model between Article and Course.
 #= It represents a mainspace Wikipedia article that has been worked on by a
 #= student in a course.
-class ArticlesCourses < ApplicationRecord
+class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
   belongs_to :article
   belongs_to :course
 
@@ -162,6 +162,38 @@ class ArticlesCourses < ApplicationRecord
     end
   end
 
+  def self.update_from_course_revisions(course, revisions)
+    course_article_ids = course.articles.where(wiki: course.wikis).pluck(:id)
+    revision_article_ids = article_ids_by_namespaces_from_revisions(course, revisions)
+
+    # Remove all the ArticlesCourses that do not correspond to course revisions.
+    # That may happen if the course dates changed, so some revisions are no
+    # longer part of the course.
+    # Also remove records for articles that aren't on a tracked wiki.
+    # valid_article_ids = revision_article_ids & course_article_ids
+    # destroy_invalid_records(course, valid_article_ids)
+    # TODO: changes on course dates or tracked wikis should trigger recalculations
+    # or calculations of new timeslices.
+
+    # Add new ArticlesCourses
+    # Using `insert_all` is massively more efficient than inserting them one at a time.
+    article_ids_without_ac = revision_article_ids - course_article_ids
+    tracked_wiki_ids = course.wikis.pluck(:id)
+    new_article_ids = Article.where(id: article_ids_without_ac, wiki_id: tracked_wiki_ids)
+                             .pluck(:id)
+    new_records = new_article_ids.map do |id|
+      { article_id: id, course_id: course.id }
+    end
+
+    return if new_records.empty?
+    # Do this is batches to avoid running the MySQL server out of memory
+    new_records.each_slice(5000) do |new_record_slice|
+      # rubocop:disable Rails/SkipsModelValidations
+      insert_all new_record_slice
+      # rubocop:enable Rails/SkipsModelValidations
+    end
+  end
+
   def self.destroy_invalid_records(course, valid_article_ids)
     course_ac_records = course.articles_courses.pluck(:id, :article_id)
     course_ac_records.each do |(id, article_id)|
@@ -178,6 +210,20 @@ class ArticlesCourses < ApplicationRecord
       namespace = wiki_ns[:namespace]
       article_ids << course.revisions.joins(:article).where(articles: { wiki:, namespace: })
                            .distinct.pluck(:article_id)
+    end
+    return article_ids.flatten
+  end
+
+  def self.article_ids_by_namespaces_from_revisions(course, revisions)
+    article_ids_from_revisions = revisions.map(&:article_id)
+    articles_from_revisions = Article.where(id: article_ids_from_revisions)
+    # Return article ids from revisions corresponding to tracked wikis and namespaces
+    article_ids = []
+    course.tracked_namespaces.map do |wiki_ns|
+      wiki = wiki_ns[:wiki]
+      namespace = wiki_ns[:namespace]
+      article_ids << articles_from_revisions.where(wiki:, namespace:)
+                                            .distinct.pluck(:id)
     end
     return article_ids.flatten
   end
