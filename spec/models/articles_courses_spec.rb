@@ -183,4 +183,27 @@ describe ArticlesCourses, type: :model do
       expect(described_class.exists?(501)).to eq(false)
     end
   end
+
+  describe '.update_from_course_revisions' do
+    let(:article2) { create(:article, title: 'Second Article', namespace: 0, wiki_id: 2) }
+    let(:talk_page) { create(:article, title: 'Talk page', namespace: 1) }
+    let(:array_revisions) { [] }
+
+    before do
+      create(:courses_user, user:, course:,
+                            role: CoursesUsers::Roles::STUDENT_ROLE)
+      array_revisions << build(:revision, article:, user:, date: 1.week.ago,
+                        system: true, new_article: true)
+      # revision for a non-tracked wiki
+      array_revisions << build(:revision, article: article2, user:, date: 6.days.ago)
+      # revision for a non-tracked namespace
+      array_revisions << build(:revision, article: talk_page, user:, date: 1.week.ago)
+    end
+
+    it 'creates new ArticlesCourses records from course revisions' do
+      expect(described_class.count).to eq(0)
+      described_class.update_from_course_revisions(Course.last, array_revisions)
+      expect(described_class.count).to eq(1)
+    end
+  end
 end

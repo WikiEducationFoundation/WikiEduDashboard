@@ -77,10 +77,10 @@ role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
            references_count: 4,
            revision_count: 4)
 
-    array_revisions << create(:revision, article:, user_id: 1)
-    array_revisions << create(:revision, article:, user_id: 1)
-    array_revisions << create(:revision, article:, user_id: 2)
-    array_revisions << create(:revision, article:, deleted: true, user_id: 1)
+    array_revisions << build(:revision, article:, user_id: 1)
+    array_revisions << build(:revision, article:, user_id: 1)
+    array_revisions << build(:revision, article:, user_id: 2)
+    array_revisions << build(:revision, article:, deleted: true, user_id: 1)
   end
 
   describe '#update_cache_from_revisions' do

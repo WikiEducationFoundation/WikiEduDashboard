@@ -25,28 +25,28 @@ describe ArticleCourseTimeslice, type: :model do
   let(:course) { create(:course, start: 1.month.ago, end: 1.month.from_now) }
   let(:article_course) { create(:articles_course, article:, course:) }
   let(:revision1) do
-    create(:revision, article:,
+    build(:revision, article:,
            characters: 123,
            features: { 'num_ref' => 4 },
            features_previous: { 'num_ref' => 0 },
            user_id: 25)
   end
   let(:revision2) do
-    create(:revision, article:,
+    build(:revision, article:,
            characters: -65,
            features: { 'num_ref' => 1 },
            features_previous: { 'num_ref' => 2 },
            user_id: 1)
   end
   let(:revision3) do
-    create(:revision, article:,
+    build(:revision, article:,
            characters: 225,
            features: { 'num_ref' => 3 },
            features_previous: { 'num_ref' => 3 },
            user_id: 25)
   end
   let(:revision4) do
-    create(:revision, article:,
+    build(:revision, article:,
             characters: 34,
             deleted: true, # deleted revision
             features: { 'num_ref' => 2 },

@@ -50,35 +50,35 @@ describe CourseUserWikiTimeslice, type: :model do
              revision_count: 23)
     end
     let(:revision0) do
-      create(:revision, article:,
+      build(:revision, article:,
              characters: 123,
              features: { 'num_ref' => 8 },
              features_previous: { 'num_ref' => 1 },
              user_id: course.id)
     end
     let(:revision1) do
-      create(:revision, article: talk_page,
+      build(:revision, article: talk_page,
              characters: 200,
              features: { 'num_ref' => 12 },
              features_previous: { 'num_ref' => 10 },
              user_id: course.id)
     end
     let(:revision2) do
-      create(:revision, article: sandbox,
+      build(:revision, article: sandbox,
              characters: -65,
              features: { 'num_ref' => 1 },
              features_previous: { 'num_ref' => 2 },
              user_id: course.id)
     end
     let(:revision3) do
-      create(:revision, article: draft,
+      build(:revision, article: draft,
              characters: 225,
              features: { 'num_ref' => 3 },
              features_previous: { 'num_ref' => 3 },
              user_id: course.id)
     end
     let(:revision4) do
-      create(:revision, article:,
+      build(:revision, article:,
               characters: 34,
               deleted: true, # deleted revision
               features: { 'num_ref' => 2 },
@@ -86,7 +86,7 @@ describe CourseUserWikiTimeslice, type: :model do
               user_id: course.id)
     end
     let(:revision5) do
-      create(:revision, article_id: -1, # revision for a non-existing article
+      build(:revision, article_id: -1, # revision for a non-existing article
               characters: 34,
               deleted: false,
               features: { 'num_ref' => 2 },

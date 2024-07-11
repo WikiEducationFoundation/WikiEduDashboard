@@ -57,7 +57,12 @@ class UpdateCourseStatsTimeslice
     end
     log_update_progress :revision_scores_fetched
 
-    # TODO: replace the logic on ArticlesCourses.update_from_course
+    ArticlesCourses.update_from_course_revisions(@course, @revisions.values.flatten)
+    # TODO: replace the logic on ArticlesCourses.update_from_course to remove all
+    # the ArticlesCourses that do not correspond to course revisions.
+    # That may happen if the course dates changed, so some revisions are no
+    # longer part of the course.
+    # Also remove records for articles that aren't on a tracked wiki.
 
     # TODO: note this is not wiki scoped.
     CourseUploadImporter.new(@course, update_service: self).run
@@ -87,11 +92,14 @@ class UpdateCourseStatsTimeslice
 
   def update_article_course_timeslices_for_wiki(wiki)
     @revisions[wiki].group_by(&:article_id).each do |article_id, article_revisions|
-      article_course = ArticlesCourses.find_or_create_by(course: @course, article_id:)
+      article_course = ArticlesCourses.find_by(course: @course, article_id:)
+      next unless article_course
       # TODO: determine how to get the right timeslice given the start and end
       # Update cache for ArticleCorseTimeslice
       ArticleCourseTimeslice.find_or_create_by(
-        article_course_id: article_course.id
+        article_course_id: article_course.id,
+        start: @timeslice_start.to_datetime,
+        end: @timeslice_end.to_datetime
       ).update_cache_from_revisions article_revisions
     end
   end
@@ -103,7 +111,9 @@ class UpdateCourseStatsTimeslice
       # Update cache for CourseUserWikiTimeslice
       CourseUserWikiTimeslice.find_or_create_by(
         course_user_id: course_user.id,
-        wiki:
+        wiki:,
+        start: @timeslice_start.to_datetime,
+        end: @timeslice_end.to_datetime
       ).update_cache_from_revisions user_revisions
     end
   end
@@ -113,7 +123,9 @@ class UpdateCourseStatsTimeslice
     # TODO: determine how to get the right timeslice given the start and end
     # Update cache for CourseWikiTimeslice
     CourseWikiTimeslice.find_or_create_by(
-      course_wiki_id: course_wiki.id
+      course_wiki_id: course_wiki.id,
+      start: @timeslice_start.to_datetime,
+      end: @timeslice_end.to_datetime
     ).update_cache_from_revisions @revisions[wiki]
   end
 
