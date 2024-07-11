@@ -20,23 +20,27 @@ const TransferStep3 = ({ transferInfo, setTransferInfo, step, setStep, setSubmit
     dispatch(transferModules(library_id, transferInfo, setSubmitting));
   };
 
+  // useEffect(() => {
+  //   const setCategoriesFromHtml = () => {
+  //     const extractedCategories = extractCategoriesFromHtml();
+  //     setCategories(extractedCategories.filter(category => category.name !== transferInfo?.sourceCategory));
+  //     const event = new CustomEvent('categoriesReady', { detail: { categories: extractedCategories } });
+  //     document.dispatchEvent(event);
+  //   };
+
+  //   if (document.readyState === 'complete' || document.readyState === 'interactive') {
+  //     setCategoriesFromHtml();
+  //   } else {
+  //     document.addEventListener('DOMContentLoaded', setCategoriesFromHtml);
+  //   }
+
+  //   return () => {
+  //     document.removeEventListener('DOMContentLoaded', setCategoriesFromHtml);
+  //   };
+  // }, [transferInfo.sourceCategory]);
   useEffect(() => {
-    const setCategoriesFromHtml = () => {
-      const extractedCategories = extractCategoriesFromHtml();
-      setCategories(extractedCategories.filter(category => category.name !== transferInfo?.sourceCategory));
-      const event = new CustomEvent('categoriesReady', { detail: { categories: extractedCategories } });
-      document.dispatchEvent(event);
-    };
-
-    if (document.readyState === 'complete' || document.readyState === 'interactive') {
-      setCategoriesFromHtml();
-    } else {
-      document.addEventListener('DOMContentLoaded', setCategoriesFromHtml);
-    }
-
-    return () => {
-      document.removeEventListener('DOMContentLoaded', setCategoriesFromHtml);
-    };
+    const extractedCategories = extractCategoriesFromHtml();
+    setCategories(extractedCategories.filter(category => category.name !== transferInfo?.sourceCategory));
   }, [transferInfo.sourceCategory]);
 
   return (

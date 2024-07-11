@@ -11,22 +11,8 @@ const TransferStep1 = ({ transferInfo, setTransferInfo, step, setStep, toggleMod
   };
 
   useEffect(() => {
-    const setCategoriesFromHtml = () => {
-      const extractedCategories = extractCategoriesFromHtml();
-      setCategories(extractedCategories);
-      const event = new CustomEvent('categoriesReady', { detail: { categories: extractedCategories } });
-      document.dispatchEvent(event);
-    };
-
-    if (document.readyState === 'complete' || document.readyState === 'interactive') {
-      setCategoriesFromHtml();
-    } else {
-      document.addEventListener('DOMContentLoaded', setCategoriesFromHtml);
-    }
-
-    return () => {
-      document.removeEventListener('DOMContentLoaded', setCategoriesFromHtml);
-    };
+    const extractedCategories = extractCategoriesFromHtml();
+    setCategories(extractedCategories);
   }, []);
 
   return (
