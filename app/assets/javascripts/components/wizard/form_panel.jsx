@@ -85,7 +85,7 @@ const FormPanel = (props) => {
             value_key="timeline_start"
             editable={true}
             validation={CourseDateUtils.isDateValid}
-            label="Assignment Start"
+            label={I18n.t('courses.assignment_start')}
             date_props={dateProps.timeline_start}
           />
           <DatePicker
@@ -94,7 +94,7 @@ const FormPanel = (props) => {
             value_key="timeline_end"
             editable={true}
             validation={CourseDateUtils.isDateValid}
-            label="Assignment End"
+            label={I18n.t('courses.assignment_end')}
             date_props={dateProps.timeline_end}
             enabled={Boolean(props.course.start)}
           />
