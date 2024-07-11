@@ -176,9 +176,6 @@ export const addModule = (library_id, category_id, module, setSubmitting) => (di
 const transferModulesPromise = async (library_id, transferInfo, setSubmitting) => {
   const response = await request(`/training/${library_id}/transfer_modules`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     body: JSON.stringify({ transferInfo }),
   });
   setSubmitting(false);
