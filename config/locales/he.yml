@@ -551,7 +551,7 @@ he:
       assignment_end: סיום מטלה
       assignment_end_placeholder: YYYY-MM-DD
       assignment_start: תחילת מטלה
-      assignment_start_placeholder: יי-חח-שששש
+      assignment_start_placeholder: YYYY-MM-DD
       cancel_course_clone: ביטול שכפול קורס
       cancel_course_clone_confirm: האם ברצונך באמת להפסיק לשכפל את את הקורס הזה?
       checking_for_uniqueness: הקורס נבדק כדי לוודא שהוא ייחודי.
@@ -582,19 +582,19 @@ he:
       course_title: כותרת התוכנית \ הקורס \ המיזם
       course_types:
         basic_course_name: תוכנית בסיסית
-        basic_course_description: סוג תוכנית זה יעקוב אחר עריכות בכל הערכים או בדפים
-          במרחב הראשי על ידי כל המשתתפים. אם עריכות ויקי אוטומטיות מופעלות בוויקי
-          הביתי של התוכנית – אז גירסה בוויקי של תוכנית זו תיווצר ותעודכן באופן אוטומטי.
-        edit_a_thon_name: עריכתון
-        edit_a_thon_description: תוכנית "עריכתון" תעקוב אחר עריכות בכל הערכים או דפים
-          במרחב הראשי. כברירת מחדל, לא יבוצעו עריכות אוטומטיות עבור תוכנית זו.
-        article_scoped_program_description: סוג תוכנית זה עוקב רק אחר עריכות עבור
-          ערכים או קטגוריות שהוקצו. השתמש בו אם ברצונך להגביל את הנתונים הסטטיסטיים
-          לאוסף ידוע של מאמרים או נושאים. כברירת מחדל, עריכות ויקי אוטומטיות מופעלות.
+        basic_course_description: סוג התוכנית הזה יעקוב אחר עריכות בכל הערכים או בדפים
+          במרחב הראשי על־ידי כל המשתתפים. אם עריכות ויקי אוטומטיות מופעלות בוויקי
+          הביתי של התוכנית, הגרסה בוויקי של התוכנית הזאת תיווצר ותעודכן באופן אוטומטי.
+        edit_a_thon_name: מרתון עריכה
+        edit_a_thon_description: תוכנית מרתון עריכה תעקוב אחר עריכות בכל הערכים או
+          דפים במרחב הראשי. כברירת מחדל, לא יבוצעו עריכות אוטומטיות עבור התוכנית הזאת.
+        article_scoped_program_description: סוג התוכנית הזה עוקב רק אחר עריכות הערכים
+          או קטגוריות שהוקצו. יש להשתמש בו אם ברצונך להגביל את הנתונים הסטטיסטיים
+          לאוסף ידוע של ערכים או נושאים. כברירת מחדל, עריכות ויקי אוטומטיות מופעלות.
       create_button: צור את התוכנית \ הקורס \ המיזם שלי!
       create_label: יצירת התוכנית \ הקורס \ המיזם חדש
       create_new: יצירת תוכנית \ קורס \ מיזם חדש
-      copy_courses_with_assignments: רשימת מאמרים זמינים לשכפול
+      copy_courses_with_assignments: שכפול רשימת ערכים זמינים
       create_short: יצירת קורס
       end_date: תאריך סיום
       end_date_placeholder: YYYY-MM-DD
@@ -641,8 +641,7 @@ he:
     enrollment: הוספה/הסרה של תלמידים
     courses_enrolled: קורסים שנרשם אליהם
     error:
-      exists: התוכנית \ הקורס \ המיזם הזה כבר קיים! נא לנסות שוב עם שם אחר, מוסד אחר
-        או מועד אחר.
+      exists: הקורס הזה כבר קיים! נא לנסות שוב עם שם אחר, מוסד אחר או מועד אחר.
       user_exists: סליחה, %{username} אינו משתמש קיים במערכת.
       invalid_language_or_project: שפה או מיזם לא חוקי
       invalid_slug: שם בית הספר או הקורס לא מולאו.
@@ -701,10 +700,10 @@ he:
     new_account_submit: בקשת חשבון
     new_account_submitted: בקשת החשבון שלך נשלחה. העוזר עבור התוכנית הזאת יכול לסיים
       את יצירת החשבון שלך עכשיו. כשהוא ייווצר, תקבל סיסמה לחשבון שלך בדוא"ל.
-    new_account_submitted_admin: בקשתך לחשבון נוצרה. אנא הודע לתלמידים שלך לבדוק את
-      תיבת הדואר הנכנס שלהם כדי לקבל את הסיסמה החדשה שלהם
-    no_campaign: כדי להפוך את התוכנית הזו לפעילה ולאפשר למשתמשים להצטרף, יש להוסיף
-      אותה לקמפיין כלשהו. אם אינך בטוח איזה קמפיין להוסיף, בחר ב-'שונות'.
+    new_account_submitted_admin: בקשת החשבון שלך נוצרה. נא להודיע לתלמידים שלך שיבדקו
+      את תיבת הדואר הנכנס שלהם כדי לקבל את הסיסמה החדשה שלהם
+    no_campaign: כדי להפוך את התוכנית הזאת לפעילה ולאפשר למשתמשים להצטרף, יש להוסיף
+      אותה לקמפיין כלשהו. אם אין לך ודאות בקשור לאיזה קמפיין להוסיף, ישר לבחור ב"Miscellanea".
     nocourses: אינך משתתף בשום תוכנית \ קורס \ מיזם.
     nocourse: לא השתתף בשום קורס.
     none: אין
@@ -729,7 +728,7 @@ he:
       one: חשבון מבוקש אחד בהמתנה.
       other: '%{count} חשבונות מבוקשים בהמתנה.'
     requested_accounts_alert_view: הצגה
-    retain_available_articles: שמירת מאמרים זמינים
+    retain_available_articles: שמירת ערכים זמינים
     retain_available_articles_wikidata: שמירת פריטים זמינים
     retain_available_articles_info: כשזה מופעל, בחירה של ערך זמין לא מסירה אותו מהרשימה,
       כך שכמה תלמידים יכולים לבחור את אותו הערך.
@@ -743,7 +742,7 @@ he:
     revisions_none: בתוכנית \ בקורס \ במיזם הזה לא היתה פעילות ויקיפדיה לאחרונה.
     school: מוסד
     school_and_term: מוסד/סמסטר
-    search_all_tickets_for_this_course: חיפוש בכל הכרטיסים לקורס זה
+    search_all_tickets_for_this_course: חיפוש בכל הכרטיסים לקורס הזה
     search_courses: חיפוש קורסים
     start: התחלה
     start_typing: התחילו להקליד
@@ -762,13 +761,13 @@ he:
     submitted_note: הקורס שלך הוגש בהצלחה. צוות Wiki Education יבדוק אותו וייצור קשר
       בכל שאלה. בינתיים, אם מעניין אותך לעיין בחומרי ההדרכה של Wiki Education, אפשר
       לצפות ברשימת המשאבים המלאה עבור מדריכים ותלמידים.
-    suggestions_feedback: יש לך הצעות לשיפור התכונה הזו? ספרו לנו!
+    suggestions_feedback: יש לך הצעות לשיפור התכונה הזאת? אנחנו רוצים לדעת!
     suggestions_sending: שליחת המשוב מתבצעת...
     suggestions_sent: משוב נשלח. תודה על ההשקעה שלך.
     suggestions_failed: לא ניתן לשלוח משוב. יש לנסות שוב מאוחר יותר.
     user_role: תפקיד
     course_details: פרטי הקורס
-    course_submitted: הסטטוס שהוגש משמש לקורסים של תוכנית החינוך, שבהם יש לאשר תוכנית
+    course_submitted: המצב שהוגש משמש לקורסים של תוכנית החינוך, שיש לאשר בהם תוכנית
       קורס לפני תחילת הפרויקט. זה רלוונטי רק לסוג הקורס "תוכנית כיתה" (ClassroomProgram).
     subject: נושא
     submitted: נשלח
@@ -999,7 +998,7 @@ he:
     other_updates: עדכונים אחרים
     restorations_performed: בוצע שחזור
   namespace:
-    all: הכל
+    all: הכול
     main: המרחב הראשי
     main_char_added: מס' התווים שנוספו למרחב הערכים הראשי
     article: ערך
@@ -1014,7 +1013,7 @@ he:
     category: קטגוריה
     page: דף
     book: ספר
-    wikijunior: ויקיצעיר
+    wikijunior: WikiJunior
     translation: תרגום
     draft: טיוטה
     property: מאפיין
@@ -1094,7 +1093,7 @@ he:
         no_super_admin: לא ניתן לשלול הרשאות מנהל ממנהל־על
     featured_campaigns:
       campaign_not_found: קמפיין עם הכתובת '%{campaign_slug}' לא נמצא
-      no_featured_campaigns: לא הוגדרו מסעות פרסום מומלצים
+      no_featured_campaigns: לא קמפיינים מומלצים
       update_featured_campaigns_button: עדכון מסעות פרסום נבחרים
       add_button: הוספת קמפיין
       remove_button: הסרת קמפיין
@@ -1122,7 +1121,7 @@ he:
   tickets:
     none: אין כרטיסים
     search_bar_placeholder: חיפוש כרטיסים
-    chose_search_type: בחר סוג חיפוש
+    chose_search_type: נא לבחור סוג חיפוש
   timeline:
     add_week: הוספת שבוע
     arrange_timeline: ארגון לוח הזמנים
@@ -1291,6 +1290,9 @@ he:
     reviewers: סוקרים
     reviewing: מתבצעת סקירה
     sandboxes: ארגזי חול
+    sub_navigation:
+      watch_list:
+        error_message: הוספת %{prefix} לרשימת המעקב לא עבדה. נא לנסות שוב מאוחר יותר.
     total_uploads: סך כל ההעלאות
     training_complete:
       one: מעודכן עם ההכשרה
@@ -1530,9 +1532,9 @@ he:
     note_text: טקסט הערה
     created: ההערה נוצרה בהצלחה.
     updated: ההערה עודכנה בהצלחה.
-    failure: לא ניתן %{operation} את ההערה. יש לנסות שוב מאוחר יותר.
+    failure: שגיאה! נא לנסות שוב מאוחר יותר.
     empty_fields: נא לוודא שכל שדות הקלט מולאו ולנסות שוב.
-    edit: הזמן של כל עריכה מוצגת באיזור הזמן הנוכחי שלך.
+    edit: הזמן של כל עריכה מוצג באזור הזמן הנוכחי שלך.
     edited_by: נערך על־ידי
     last_edited_by: מציג את שם המנהל שערך את ההערה האחרונה.
     deleted: ההערה נמחקה בהצלחה. היא כבר לא תהיה זמינה ברשימת ההערות שלך.
