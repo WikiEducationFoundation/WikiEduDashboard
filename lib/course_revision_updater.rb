@@ -13,6 +13,15 @@ class CourseRevisionUpdater
     ArticlesCourses.update_from_course(course)
   end
 
+  # Returns a hash with revisions by wiki or an empty hash if no point in importing revisions
+  def self.fetch_revisions_and_scores(course, timeslice_start, timeslice_end, update_service: nil)
+    return {} if no_point_in_importing_revisions?(course)
+    revisions = new(course, update_service:)
+                .fetch_revisions_and_scores_for_relevant_wikis(timeslice_start, timeslice_end)
+    ArticlesCourses.update_from_course_revisions(course, revisions.values.flatten)
+    revisions
+  end
+
   def self.no_point_in_importing_revisions?(course)
     return true if course.students.empty?
     # If there are no assignments or categories being tracked,
@@ -34,5 +43,16 @@ class CourseRevisionUpdater
       RevisionImporter.new(wiki, @course, update_service: @update_service)
                       .import_revisions_for_course(all_time:)
     end
+  end
+
+  def fetch_revisions_and_scores_for_relevant_wikis(timeslice_start, timeslice_end)
+    # Fetchs revision for each wiki
+    revisions = {}
+    @course.wikis.each do |wiki|
+      revisions[wiki] = RevisionDataManager
+                        .new(wiki, @course, update_service: @update_service)
+                        .fetch_revision_data_for_course(timeslice_start, timeslice_end)
+    end
+    revisions
   end
 end

@@ -48,16 +48,12 @@ class UpdateCourseStatsTimeslice
 
   def fetch_data
     log_update_progress :start
-    # Fetchs revision for each wiki
-    @revisions = {}
-    @course.wikis.each do |wiki|
-      @revisions[wiki] = RevisionDataManager
-                         .new(wiki, @course, update_service: self)
-                         .fetch_revision_data_for_course(@timeslice_start, @timeslice_end)
-    end
+    @revisions = CourseRevisionUpdater.fetch_revisions_and_scores(@course,
+                                                                  @timeslice_start,
+                                                                  @timeslice_end,
+                                                                  update_service: self)
     log_update_progress :revision_scores_fetched
 
-    ArticlesCourses.update_from_course_revisions(@course, @revisions.values.flatten)
     # TODO: replace the logic on ArticlesCourses.update_from_course to remove all
     # the ArticlesCourses that do not correspond to course revisions.
     # That may happen if the course dates changed, so some revisions are no
@@ -130,6 +126,7 @@ class UpdateCourseStatsTimeslice
   end
 
   def update_caches
+    return unless @revisions.present?
     @course.wikis.each do |wiki|
       next if @revisions[wiki].length.zero?
       update_article_course_timeslices_for_wiki wiki
