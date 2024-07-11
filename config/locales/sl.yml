@@ -467,6 +467,7 @@ sl:
   users:
     assign_articles_done: Končano
     loading_authorship_data: nalaganje podatkov o avtorstvu
+    authorship_data_not_fetched: Podatkov o avtorstvu ni bilo mogoče pridobiti
     contribution_statistics: Statistika prispevkov
     enrolled_success: '%{username} je bil_a uspešno dodan_a!'
     first_name: Ime
