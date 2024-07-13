@@ -30,7 +30,7 @@ describe TimesliceManager do
     new_article_courses << create(:articles_course, id: 3, course:)
   end
 
-  describe '.create_timeslices_for_new_article_course_records' do
+  describe '#create_timeslices_for_new_article_course_records' do
     context 'when there are new articles courses' do
       it 'creates article course timeslices for the entire course' do
         expect(course.article_course_timeslices.size).to eq(0)
@@ -47,7 +47,7 @@ describe TimesliceManager do
     end
   end
 
-  describe '.create_timeslices_for_new_course_user_records' do
+  describe '#create_timeslices_for_new_course_user_records' do
     context 'when there are new courses users' do
       it 'creates course user wiki timeslices for every wiki for the entire course' do
         expect(course.course_user_wiki_timeslices.size).to eq(0)
@@ -64,7 +64,7 @@ describe TimesliceManager do
     end
   end
 
-  describe '.create_course_wiki_timeslices_for_new_records' do
+  describe '#create_course_wiki_timeslices_for_new_records' do
     before do
       new_course_wikis << create(:courses_wikis, wiki: wikibooks, course:)
     end
