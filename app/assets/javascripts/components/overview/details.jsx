@@ -167,7 +167,7 @@ const Details = createReactClass({
           <img src="/assets/images/info.svg" alt="tooltip default logo" />
           <div className="tooltip large dark">
             <p>
-              {'Editing disabled: This field cannot be changed because the course is already linked to an event. Changing it would disrupt the event\'s integration.'}
+              {I18n.t('courses.event_sync')}
             </p>
           </div>
         </div>

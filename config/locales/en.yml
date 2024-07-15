@@ -667,6 +667,7 @@ en:
     enrollment_edits_enabled_tooltip: >
       If enabled, the dashboard will post a template to the userpage and talk page of
       each editor who joins the program.
+    event_sync: "Editing disabled: This field cannot be changed because the course is already linked to an event. Changing it would disrupt the event's integration."
     courses_enrolled: Courses enrolled
     error:
       exists: That course already exists! Please try again with a different title, school, or term.
