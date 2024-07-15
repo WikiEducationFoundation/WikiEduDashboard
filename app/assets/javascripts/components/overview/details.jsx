@@ -143,32 +143,53 @@ const Details = createReactClass({
     const canRename = this.canRename();
     const isClassroomProgramType = this.props.course.type === 'ClassroomProgramCourse';
     const timelineDatesDiffer = this.props.course.start !== this.props.course.timeline_start || this.props.course.end !== this.props.course.timeline_end;
+    const eventSync = this.props.course.flags.event_sync;
+
     let campus;
     let staff;
     let school;
     let academic_system;
+    let online;
+    let eventSyncTooltip;
+
     if (Features.wikiEd) {
       staff = <WikiEdStaff {...this.props} />;
       campus = <CampusVolunteers {...this.props} />;
     }
-    let online;
+
     if (Features.wikiEd || this.props.course.online_volunteers_enabled) {
       online = <OnlineVolunteers {...this.props} />;
     }
 
+    if (eventSync && canRename) {
+      eventSyncTooltip = (
+        <div className="tooltip-trigger">
+          <img src="/assets/images/info.svg" alt="tooltip default logo" />
+          <div className="tooltip large dark">
+            <p>
+              {'Editing disabled: This field cannot be changed because the course is already linked to an event. Changing it would disrupt the event\'s integration.'}
+            </p>
+          </div>
+        </div>
+      );
+    }
+
     if (this.props.course.school || canRename) {
       school = (
-        <TextInput
-          id="school-input"
-          onChange={this.updateSlugPart}
-          value={this.props.course.school}
-          value_key="school"
-          validation={CourseUtils.courseSlugRegex()}
-          editable={canRename}
-          type="text"
-          label={CourseUtils.i18n('school', this.props.course.string_prefix)}
-          required={true}
-        />
+        <div className={eventSync ? 'event-sync' : ''}>
+          <TextInput
+            id="school-input"
+            onChange={this.updateSlugPart}
+            value={this.props.course.school}
+            value_key="school"
+            validation={CourseUtils.courseSlugRegex()}
+            editable={eventSync ? false : canRename}
+            type="text"
+            label={CourseUtils.i18n('school', this.props.course.string_prefix)}
+            required={true}
+          />
+          {eventSyncTooltip}
+        </div>
       );
     }
 
@@ -191,34 +212,41 @@ const Details = createReactClass({
     let title;
     if (canRename) {
       title = (
-        <TextInput
-          id="title-input"
-          onChange={this.updateSlugPart}
-          value={this.props.course.title}
-          value_key="title"
-          validation={CourseUtils.courseSlugRegex()}
-          editable={canRename}
-          type="text"
-          label={CourseUtils.i18n('title', this.props.course.string_prefix)}
-          required={true}
-        />
+        <div className={eventSync ? 'event-sync' : ''}>
+          <TextInput
+            id="title-input"
+            onChange={this.updateSlugPart}
+            value={this.props.course.title}
+            value_key="title"
+            validation={CourseUtils.courseSlugRegex()}
+            editable={eventSync ? false : canRename}
+            type="text"
+            label={CourseUtils.i18n('title', this.props.course.string_prefix)}
+            required={true}
+          />
+          {eventSyncTooltip}
+        </div>
       );
     }
 
     let term;
+
     if (this.props.course.term || canRename) {
       term = (
-        <TextInput
-          id="term-input"
-          onChange={this.updateSlugPart}
-          value={this.props.course.term}
-          value_key="term"
-          validation={CourseUtils.courseSlugRegex()}
-          editable={canRename}
-          type="text"
-          label={CourseUtils.i18n('term', this.props.course.string_prefix)}
-          required={false}
-        />
+        <div className={eventSync ? 'event-sync' : ''}>
+          <TextInput
+            id="term-input"
+            onChange={this.updateSlugPart}
+            value={this.props.course.term}
+            value_key="term"
+            validation={CourseUtils.courseSlugRegex()}
+            editable= {eventSync ? false : canRename}
+            type="text"
+            label={CourseUtils.i18n('term', this.props.course.string_prefix)}
+            required={false}
+          />
+          {eventSyncTooltip}
+        </div>
       );
     }
 
