@@ -43,7 +43,8 @@ role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
     create(:commons_upload, user_id: 2, uploaded_at: 10.days.ago, usage_count: 4)
 
     create(:course_user_wiki_timeslice,
-           course_user_id: 1,
+           course:,
+           user_id: 1,
            wiki:,
            start: 10.days.ago,
            end: 9.days.ago,
@@ -54,7 +55,8 @@ role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
            references_count: 4,
            revision_count: 5)
     create(:course_user_wiki_timeslice,
-           course_user_id: 2,
+           course:,
+           user_id: 2,
            wiki:,
            start: 10.days.ago,
            end: 9.days.ago,
@@ -66,7 +68,8 @@ role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
            revision_count: 1)
     # Course user wiki timeslice for non-student
     create(:course_user_wiki_timeslice,
-           course_user_id: 3,
+           course:,
+           user_id: 3,
            wiki:,
            start: 10.days.ago,
            end: 9.days.ago,

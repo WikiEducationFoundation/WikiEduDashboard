@@ -34,7 +34,9 @@ class CoursesUsers < ApplicationRecord
 
   has_many :survey_notifications
 
-  has_many :course_user_wiki_timeslices, foreign_key: 'course_user_id'
+  has_many :course_user_wiki_timeslices, lambda { |courses_users|
+                                           where user: courses_users.user
+                                         }, through: :course
 
   validates :course_id, uniqueness: { scope: %i[user_id role] }
 
