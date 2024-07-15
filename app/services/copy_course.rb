@@ -154,9 +154,9 @@ class CopyCourse
           data, kind = copy_training_modules(id)
           content_additions[kind] += data
         end
-        final_content = block.content
+        final_content = block.content || ""
         content_additions.reverse_each do |kind, addition|
-          final_content = headings[kind] + addition + final_content if addition != ''
+          final_content = headings[kind] + addition + final_content unless addition.empty?
         end
         block.update!(content: final_content)
       end
@@ -173,6 +173,8 @@ class CopyCourse
       module_kind = matching_module['kind']
       html_block = "<a href=\"#{module_url}\" class=\"timeline-exercise\">#{module_name}</a>"
       return html_block, module_kind
+    else
+      return "", nil
     end
   end
 
