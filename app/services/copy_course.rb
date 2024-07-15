@@ -16,6 +16,7 @@ class CopyCourse
       @users_data = retrieve_users_data
       copy_users_data
     end
+    @training_modules = get_all_training_modules
     @timeline_data = retrieve_timeline_data
     copy_timeline_data
     return { course: @course, error: nil }
@@ -26,6 +27,19 @@ class CopyCourse
   end
 
   private
+
+  def get_all_training_modules
+    wiki_dashboard = 'https://dashboard.wikiedu.org'
+    outreach_dashboard = 'https://outreachdashboard.wmflabs.org'
+    @selected_dashboard = Features.wiki_ed? ? outreach_dashboard : wiki_dashboard
+    dashboard_uri = URI.parse(@selected_dashboard + '/training_modules.json')
+    response = Net::HTTP.get_response(dashboard_uri)
+    if response.is_a?(Net::HTTPSuccess)
+      data = JSON.parse(response.body)
+      training_modules = data['training_modules']
+      training_modules || []
+    end
+  end
 
   def copy_main_course_data
     # Extract the attributes we want to copy
@@ -130,7 +144,35 @@ class CopyCourse
         }
         block = Block.new(block_attributes)
         block.save!
+        headings = [
+          "<h4 class=\"timeline-exercise\">Training</h4>\n",
+          "<h4 class=\"timeline-exercise\">Exercise</h4>\n",
+          "<h4 class=\"timeline-exercise\">Discussion</h4>\n"
+        ]
+        content_additions = { 0 => '', 1 => '', 2 => '' }
+        block_data['training_module_ids']&.each do |id|
+          data, kind = copy_training_modules(id)
+          content_additions[kind] += data
+        end
+        final_content = block.content
+        content_additions.reverse_each do |kind, addition|
+          final_content = headings[kind] + addition + final_content if addition != ''
+        end
+        block.update!(content: final_content)
       end
+    end
+  end
+
+  def copy_training_modules(module_id)
+    matching_module = @training_modules.find { |mod| mod['id'] == module_id }
+    if matching_module
+      module_name = matching_module['name']
+      module_slug = matching_module['slug']
+      training_library = @course_data['training_library_slug']
+      module_url = @selected_dashboard + "/training/#{training_library}/#{module_slug}"
+      module_kind = matching_module['kind']
+      html_block = "<a href=\"#{module_url}\" class=\"timeline-exercise\">#{module_name}</a>"
+      return html_block, module_kind
     end
   end
 
