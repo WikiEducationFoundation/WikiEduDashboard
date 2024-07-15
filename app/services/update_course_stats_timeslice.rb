@@ -92,12 +92,14 @@ class UpdateCourseStatsTimeslice
 
   def update_article_course_timeslices_for_wiki(wiki)
     @revisions[wiki].group_by(&:article_id).each do |article_id, article_revisions|
+      # TODO: does this check make sense?
       article_course = ArticlesCourses.find_by(course: @course, article_id:)
       next unless article_course
       # TODO: determine how to get the right timeslice given the start and end
       # Update cache for ArticleCorseTimeslice
       ArticleCourseTimeslice.find_or_create_by(
-        article_course_id: article_course.id,
+        article_id:,
+        course: @course,
         start: @timeslice_start.to_datetime,
         end: @timeslice_end.to_datetime
       ).update_cache_from_revisions article_revisions

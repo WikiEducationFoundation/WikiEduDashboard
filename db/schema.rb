@@ -33,15 +33,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_15_163420) do
   end
 
   create_table "article_course_timeslices", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
-    t.integer "article_course_id", null: false
     t.datetime "start"
     t.datetime "end"
     t.integer "last_mw_rev_id"
     t.integer "character_sum", default: 0
     t.integer "references_count", default: 0
-    t.text "user_ids", default: ""
+    t.text "user_ids"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "article_id", null: false
+    t.integer "course_id", null: false
   end
 
   create_table "admin_course_notes", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|

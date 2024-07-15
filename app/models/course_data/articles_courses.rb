@@ -23,7 +23,9 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
   belongs_to :article
   belongs_to :course
 
-  has_many :article_course_timeslices, foreign_key: 'article_course_id'
+  has_many :article_course_timeslices, lambda { |articles_courses|
+                                         where article: articles_courses.article
+                                       }, through: :course
 
   scope :live, -> { joins(:article).where(articles: { deleted: false }).distinct }
   scope :new_article, -> { where(new_article: true) }

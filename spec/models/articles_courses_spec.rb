@@ -107,7 +107,9 @@ describe ArticlesCourses, type: :model do
 
       # Add two timeslices.
       create(:article_course_timeslice,
-             article_course_id: 456,
+             article:,
+             course:,
+             # article_course_id: 456,
              start: 10.days.ago,
              end: 9.days.ago,
              character_sum: 9000,
@@ -115,7 +117,9 @@ describe ArticlesCourses, type: :model do
              user_ids: [2, 3])
 
       create(:article_course_timeslice,
-             article_course_id: 456,
+             article:,
+             course:,
+             # article_course_id: 456,
              start: 9.days.ago,
              end: 8.days.ago,
              character_sum: 12,
@@ -124,7 +128,9 @@ describe ArticlesCourses, type: :model do
 
       # Empty timeslice, which should not count towards stats.
       create(:article_course_timeslice,
-             article_course_id: 456,
+             article:,
+             course:,
+             # article_course_id: 456,
              start: 20.days.ago,
              end: 19.days.ago,
              character_sum: 0,
