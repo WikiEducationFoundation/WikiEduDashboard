@@ -240,7 +240,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_15_163420) do
   end
 
   create_table "course_wiki_timeslices", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
-    t.integer "course_wiki_id", null: false
     t.datetime "start"
     t.datetime "end"
     t.integer "last_mw_rev_id"
@@ -252,6 +251,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_15_163420) do
     t.integer "upload_usages_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "course_id", null: false
+    t.integer "wiki_id", null: false
   end
 
   create_table "courses", id: :integer, charset: "utf8mb4", force: :cascade do |t|

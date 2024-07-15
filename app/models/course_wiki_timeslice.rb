@@ -5,7 +5,8 @@
 # Table name: course_wiki_timeslices
 #
 #  id                   :bigint           not null, primary key
-#  course_wiki_id       :integer          not null
+#  course_id            :integer          not null
+#  wiki_id              :integer          not null
 #  start                :datetime
 #  end                  :datetime
 #  last_mw_rev_id       :integer
@@ -19,14 +20,13 @@
 #  updated_at           :datetime         not null
 #
 class CourseWikiTimeslice < ApplicationRecord
-  belongs_to :courses_wikis, foreign_key: 'course_wiki_id'
+  belongs_to :course
+  belongs_to :wiki
 
   # Assumes that the revisions are for their own course wiki
   def update_cache_from_revisions(revisions)
     @revisions = revisions
-    @course = courses_wikis.course
-    @wiki = courses_wikis.wiki
-    @students = @course.courses_users.where(role: CoursesUsers::Roles::STUDENT_ROLE)
+    @students = course.courses_users.where(role: CoursesUsers::Roles::STUDENT_ROLE)
 
     update_character_sum
     update_references_count
@@ -47,7 +47,7 @@ class CourseWikiTimeslice < ApplicationRecord
     # Count character sum in tracked spaces from course user wiki timeslices
     character_sum = 0
     @students.each do |student|
-      character_sum += student.course_user_wiki_timeslices.where(wiki: @wiki).sum(:character_sum_ms)
+      character_sum += student.course_user_wiki_timeslices.where(wiki:).sum(:character_sum_ms)
     end
     self.character_sum += character_sum
   end
@@ -58,14 +58,14 @@ class CourseWikiTimeslice < ApplicationRecord
     @students.each do |student|
       references_count += student
                           .course_user_wiki_timeslices
-                          .where(wiki: @wiki)
+                          .where(wiki:)
                           .sum(:references_count)
     end
     self.references_count += references_count
   end
 
   def update_revision_count
-    excluded_article_ids = @course.articles_courses.not_tracked.pluck(:article_id)
+    excluded_article_ids = course.articles_courses.not_tracked.pluck(:article_id)
     tracked_revisions = @revisions.reject do |revision|
       excluded_article_ids.include?(revision.article_id)
     end
@@ -75,16 +75,16 @@ class CourseWikiTimeslice < ApplicationRecord
 
   def update_upload_count
     # TODO: count only uploads updated at during the timeslice range
-    self.upload_count = @course.uploads.count
+    self.upload_count = course.uploads.count
   end
 
   def update_uploads_in_use_count
     # TODO: count only uploads updated at during the timeslice range
-    self.uploads_in_use_count = @course.uploads_in_use.count
+    self.uploads_in_use_count = course.uploads_in_use.count
   end
 
   def update_upload_usages_count
     # TODO: count only uploads updated at during the timeslice range
-    self.upload_usages_count = @course.uploads_in_use.sum(:usage_count)
+    self.upload_usages_count = course.uploads_in_use.sum(:usage_count)
   end
 end

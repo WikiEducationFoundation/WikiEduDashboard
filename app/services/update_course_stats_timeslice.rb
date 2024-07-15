@@ -121,11 +121,11 @@ class UpdateCourseStatsTimeslice
   end
 
   def update_course_wiki_timeslices_for_wiki(wiki)
-    course_wiki = CoursesWikis.find_or_create_by(course: @course, wiki:)
     # TODO: determine how to get the right timeslice given the start and end
     # Update cache for CourseWikiTimeslice
     CourseWikiTimeslice.find_or_create_by(
-      course_wiki_id: course_wiki.id,
+      course: @course,
+      wiki:,
       start: @timeslice_start.to_datetime,
       end: @timeslice_end.to_datetime
     ).update_cache_from_revisions @revisions[wiki]

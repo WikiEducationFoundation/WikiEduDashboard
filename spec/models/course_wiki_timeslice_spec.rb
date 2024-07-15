@@ -5,7 +5,8 @@
 # Table name: course_wiki_timeslices
 #
 #  id                   :bigint           not null, primary key
-#  course_wiki_id       :integer          not null
+#  course_id            :integer          not null
+#  wiki_id              :integer          not null
 #  start                :datetime
 #  end                  :datetime
 #  last_mw_rev_id       :integer
@@ -88,12 +89,11 @@ role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
 
   describe '#update_cache_from_revisions' do
     it 'caches revision data for students' do
-      # Get the CoursesWikis record automatically created
-      course_wiki = CoursesWikis.find_by(course:, wiki:)
       # Make a course wiki timeslice
       create(:course_wiki_timeslice,
              id: 1,
-             course_wiki_id: course_wiki.id,
+             course:,
+             wiki:,
              character_sum: 1,
              references_count: 1,
              revision_count: 1,
@@ -115,12 +115,12 @@ role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
     it 'revision count cache only considers tracked articles courses' do
       # Untrack articles courses record
       ArticlesCourses.find(1).update(tracked: 0)
-      # Get the CoursesWikis record automatically created
-      course_wiki = CoursesWikis.find_by(course:, wiki:)
+
       # Make a course wiki timeslice
       create(:course_wiki_timeslice,
              id: 1,
-             course_wiki_id: course_wiki.id,
+             course:,
+             wiki:,
              character_sum: 1,
              references_count: 1,
              revision_count: 1,

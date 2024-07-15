@@ -132,7 +132,7 @@ class Course < ApplicationRecord
 
   has_many :article_course_timeslices
   has_many :course_user_wiki_timeslice
-  has_many :course_wiki_timeslices, through: :courses_wikis
+  has_many :course_wiki_timeslices
 
   serialize :flags, Hash
 
