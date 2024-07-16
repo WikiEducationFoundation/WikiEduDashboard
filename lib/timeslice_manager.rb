@@ -31,7 +31,8 @@ class TimesliceManager
   def create_empty_article_course_timeslices(articles_courses)
     new_records = start_dates.map do |start|
       articles_courses.map do |a_c|
-        { article_course_id: a_c.id, start:, end: start + TIMESLICE_DURATION }
+        { article_id: a_c.article_id, course_id: a_c.course_id, start:,
+          end: start + TIMESLICE_DURATION }
       end
     end.flatten
 
@@ -49,7 +50,8 @@ class TimesliceManager
     new_records = start_dates.map do |start|
       courses_users.map do |c_u|
         courses_wikis.map do |c_w|
-          { course_user_id: c_u.id, wiki_id: c_w.wiki_id, start:, end: start + TIMESLICE_DURATION }
+          { course_id: c_u.course_id, user_id: c_u.user_id, wiki_id: c_w.wiki_id, start:,
+            end: start + TIMESLICE_DURATION }
         end
       end
     end.flatten
@@ -69,7 +71,7 @@ class TimesliceManager
   def create_empty_course_wiki_timeslices(courses_wikis)
     new_records = start_dates.map do |start|
       courses_wikis.map do |c_w|
-        { course_wiki_id: c_w.id, start:, end: start + TIMESLICE_DURATION }
+        { course_id: c_w.course_id, wiki_id: c_w.wiki_id, start:, end: start + TIMESLICE_DURATION }
       end
     end.flatten
 

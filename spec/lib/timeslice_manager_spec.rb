@@ -25,9 +25,9 @@ describe TimesliceManager do
     new_course_users << create(:courses_user, id: 2, user_id: 2, course:)
     new_course_users << create(:courses_user, id: 3, user_id: 3, course:)
 
-    new_article_courses << create(:articles_course, id: 1, course:)
-    new_article_courses << create(:articles_course, id: 2, course:)
-    new_article_courses << create(:articles_course, id: 3, course:)
+    new_article_courses << create(:articles_course, article_id: 1, course:)
+    new_article_courses << create(:articles_course, article_id: 2, course:)
+    new_article_courses << create(:articles_course, article_id: 3, course:)
   end
 
   describe '#create_timeslices_for_new_article_course_records' do

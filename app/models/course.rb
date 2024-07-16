@@ -79,7 +79,6 @@ class Course < ApplicationRecord
            foreign_key: 'project_id',
            dependent: :destroy
   has_one :course_stat, class_name: 'CourseStat', dependent: :destroy
-  has_many :course_user_wiki_timeslices, through: :courses_users
 
   #########################
   # Activity by the users #
@@ -105,7 +104,6 @@ class Course < ApplicationRecord
 
   has_many :articles_courses, class_name: 'ArticlesCourses', dependent: :destroy
   has_many :articles, -> { distinct }, through: :articles_courses
-  has_many :article_course_timeslices, through: :articles_courses
   has_many :pages_edited, -> { distinct }, source: :article, through: :revisions
   has_many :sandboxes, -> { distinct.sandbox }, source: :article, through: :revisions
 
@@ -133,7 +131,7 @@ class Course < ApplicationRecord
   has_many :course_wiki_namespaces, class_name: 'CourseWikiNamespaces', through: :courses_wikis
 
   has_many :article_course_timeslices
-  has_many :course_user_wiki_timeslice
+  has_many :course_user_wiki_timeslices
   has_many :course_wiki_timeslices
 
   serialize :flags, Hash
