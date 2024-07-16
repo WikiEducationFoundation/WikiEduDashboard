@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 #= Copy course from another server
+# rubocop:disable Metrics/ClassLength
 class CopyCourse
   def initialize(url:, user_data:)
     @url = url
@@ -24,16 +25,6 @@ class CopyCourse
   end
 
   private
-
-  def retrieve_all_training_modules
-    @selected_dashboard = Features.wiki_ed? ? 'https://outreachdashboard.wmflabs.org' : 'https://dashboard.wikiedu.org'
-    dashboard_uri = URI.parse(@selected_dashboard + '/training_modules.json')
-    response = Net::HTTP.get_response(dashboard_uri)
-    return [] unless response.is_a?(Net::HTTPSuccess)
-
-    data = JSON.parse(response.body)
-    data['training_modules'] || []
-  end
 
   def copy_main_course_data
     # Extract the attributes we want to copy
@@ -118,6 +109,27 @@ class CopyCourse
     JSON.parse(response.body)['course']
   end
 
+  def retrieve_categories_data
+    response = get_request('/categories.json')
+    JSON.parse(response.body)['course']['categories']
+  end
+
+  def retrieve_users_data
+    response = get_request('/users.json')
+    @users_data = JSON.parse(response.body)['course']['users']
+  end
+
+  def retrieve_all_training_modules
+    @selected_dashboard = Features.wiki_ed? ? 'https://outreachdashboard.wmflabs.org' : 'https://dashboard.wikiedu.org'
+    dashboard_uri = URI.parse(@selected_dashboard + '/training_modules.json')
+    response = Net::HTTP.get_response(dashboard_uri)
+    return [] unless response.is_a?(Net::HTTPSuccess)
+
+    data = JSON.parse(response.body)
+    data['training_modules'] || []
+  end
+
+  # Copy the timeline
   def copy_timeline_data
     @timeline_data['weeks'].each do |week_data|
       week = Week.create!(course_id: @course.id,
@@ -165,14 +177,5 @@ class CopyCourse
 
     return html_block, matching_module['kind']
   end
-
-  def retrieve_categories_data
-    response = get_request('/categories.json')
-    JSON.parse(response.body)['course']['categories']
-  end
-
-  def retrieve_users_data
-    response = get_request('/users.json')
-    @users_data = JSON.parse(response.body)['course']['users']
-  end
 end
+# rubocop:enable Metrics/ClassLength
