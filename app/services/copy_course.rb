@@ -56,8 +56,8 @@ class CopyCourse
 
   def modify_course_slug
     @course_data['term'] = "COPIED FROM #{@course_data['term']}"
-    @course_data['slug'] = "#{@course_data['school']}/#{@course_data['title']}_(" +
-                           @course_data['term'].tr(' ', '_') + ')'
+    @course_data['slug'] =
+      "#{@course_data['school']}/#{@course_data['title']}_(#{@course_data['term']})".tr(' ', '_')
   end
 
   # When parsing update_logs from flags, keys are set as strings instead of integers
