@@ -4,7 +4,8 @@
 # Table name: course_user_wiki_timeslices
 #
 #  id                  :bigint           not null, primary key
-#  course_user_id      :integer          not null
+#  course_id           :integer          not null
+#  user_id             :integer          not null
 #  wiki_id             :integer          not null
 #  start               :datetime
 #  end                 :datetime

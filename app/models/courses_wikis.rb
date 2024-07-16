@@ -16,7 +16,9 @@ class CoursesWikis < ApplicationRecord
   belongs_to :course
   belongs_to :wiki
   has_many :course_wiki_namespaces, class_name: 'CourseWikiNamespaces', dependent: :destroy
-  has_many :course_wiki_timeslices, foreign_key: 'course_wiki_id'
+  has_many :course_wiki_timeslices, lambda { |courses_wikis|
+                                      where wiki: courses_wikis.wiki
+                                    }, through: :course
 
   def update_namespaces(namespaces)
     update(course_wiki_namespaces: namespaces)

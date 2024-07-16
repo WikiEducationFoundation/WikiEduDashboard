@@ -4,7 +4,8 @@
 # Table name: article_course_timeslices
 #
 #  id                :bigint           not null, primary key
-#  article_course_id :integer          not null
+#  article_id        :integer          not null
+#  course_id         :integer          not null
 #  start             :datetime
 #  end               :datetime
 #  last_mw_rev_id    :integer
@@ -15,7 +16,8 @@
 #  updated_at        :datetime         not null
 #
 class ArticleCourseTimeslice < ApplicationRecord
-  belongs_to :articles_courses, foreign_key: 'article_course_id'
+  belongs_to :article
+  belongs_to :course
 
   scope :non_empty, -> { where.not(user_ids: nil) }
   serialize :user_ids, Array # This text field only stores user ids as text

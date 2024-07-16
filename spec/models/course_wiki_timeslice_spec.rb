@@ -5,7 +5,8 @@
 # Table name: course_wiki_timeslices
 #
 #  id                   :bigint           not null, primary key
-#  course_wiki_id       :integer          not null
+#  course_id            :integer          not null
+#  wiki_id              :integer          not null
 #  start                :datetime
 #  end                  :datetime
 #  last_mw_rev_id       :integer
@@ -43,7 +44,8 @@ role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
     create(:commons_upload, user_id: 2, uploaded_at: 10.days.ago, usage_count: 4)
 
     create(:course_user_wiki_timeslice,
-           course_user_id: 1,
+           course:,
+           user_id: 1,
            wiki:,
            start: 10.days.ago,
            end: 9.days.ago,
@@ -54,7 +56,8 @@ role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
            references_count: 4,
            revision_count: 5)
     create(:course_user_wiki_timeslice,
-           course_user_id: 2,
+           course:,
+           user_id: 2,
            wiki:,
            start: 10.days.ago,
            end: 9.days.ago,
@@ -66,7 +69,8 @@ role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
            revision_count: 1)
     # Course user wiki timeslice for non-student
     create(:course_user_wiki_timeslice,
-           course_user_id: 3,
+           course:,
+           user_id: 3,
            wiki:,
            start: 10.days.ago,
            end: 9.days.ago,
@@ -85,12 +89,11 @@ role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
 
   describe '#update_cache_from_revisions' do
     it 'caches revision data for students' do
-      # Get the CoursesWikis record automatically created
-      course_wiki = CoursesWikis.find_by(course:, wiki:)
       # Make a course wiki timeslice
       create(:course_wiki_timeslice,
              id: 1,
-             course_wiki_id: course_wiki.id,
+             course:,
+             wiki:,
              character_sum: 1,
              references_count: 1,
              revision_count: 1,
@@ -112,12 +115,12 @@ role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
     it 'revision count cache only considers tracked articles courses' do
       # Untrack articles courses record
       ArticlesCourses.find(1).update(tracked: 0)
-      # Get the CoursesWikis record automatically created
-      course_wiki = CoursesWikis.find_by(course:, wiki:)
+
       # Make a course wiki timeslice
       create(:course_wiki_timeslice,
              id: 1,
-             course_wiki_id: course_wiki.id,
+             course:,
+             wiki:,
              character_sum: 1,
              references_count: 1,
              revision_count: 1,

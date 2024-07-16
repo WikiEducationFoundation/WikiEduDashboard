@@ -5,7 +5,8 @@
 # Table name: course_user_wiki_timeslices
 #
 #  id                  :bigint           not null, primary key
-#  course_user_id      :integer          not null
+#  course_id           :integer          not null
+#  user_id             :integer          not null
 #  wiki_id             :integer          not null
 #  start               :datetime
 #  end                 :datetime
@@ -20,7 +21,8 @@
 #  updated_at          :datetime         not null
 #
 class CourseUserWikiTimeslice < ApplicationRecord
-  belongs_to :courses_users, foreign_key: 'course_user_id'
+  belongs_to :course
+  belongs_to :user
   belongs_to :wiki
 
   ####################
@@ -32,7 +34,7 @@ class CourseUserWikiTimeslice < ApplicationRecord
     @revisions = revisions
     @liverevisions = live_revisions
     tracked_namespace_revisions = live_revisions_in_tracked_namespaces
-    self.total_uploads = courses_users.course.uploads.where(user_id: courses_users.user_id).count
+    self.total_uploads = course.uploads.where(user:).count
     update_character_sum(@liverevisions, tracked_namespace_revisions)
     self.references_count += references_sum(tracked_namespace_revisions)
 
@@ -46,7 +48,7 @@ class CourseUserWikiTimeslice < ApplicationRecord
   # for which already exists an article record
   # made for user_id. Notice that revisions are already made for a given user_id
   def live_revisions
-    excluded_article_ids = courses_users.course.articles_courses.not_tracked.pluck(:article_id)
+    excluded_article_ids = course.articles_courses.not_tracked.pluck(:article_id)
     tracked_revisions = @revisions.reject do |revision|
       excluded_article_ids.include?(revision.article_id)
     end
@@ -60,7 +62,7 @@ class CourseUserWikiTimeslice < ApplicationRecord
   end
 
   def live_revisions_in_tracked_namespaces
-    course_article_ids = courses_users.course.articles.pluck(:id)
+    course_article_ids = course.articles.pluck(:id)
     live_revisions.select do |revision|
       course_article_ids.include?(revision.article_id)
     end
