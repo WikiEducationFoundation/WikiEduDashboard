@@ -23,15 +23,26 @@ class TimesliceManager
     create_empty_course_user_wiki_timeslices(courses_wikis:)
   end
 
+  def update_course_article_timeslice
+    ArticleCourseTimeslice.find_or_create_by(
+      article_id:,
+      course: @course,
+      start: @timeslice_start.to_datetime,
+      end: @timeslice_end.to_datetime
+    ).update_cache_from_revisions article_revisions
+  end
+
   private
 
   TIMESLICE_DURATION = 1.day
 
   # Creates empty article course timeslices
+  # Takes an array like the following:
+  # [{:article_id=>115, :course_id=>72},..., {:article_id=>116, :course_id=>72}]
   def create_empty_article_course_timeslices(articles_courses)
     new_records = start_dates.map do |start|
       articles_courses.map do |a_c|
-        { article_id: a_c.article_id, course_id: a_c.course_id, start:,
+        { article_id: a_c[:article_id], course_id: a_c[:course_id], start:,
           end: start + TIMESLICE_DURATION }
       end
     end.flatten

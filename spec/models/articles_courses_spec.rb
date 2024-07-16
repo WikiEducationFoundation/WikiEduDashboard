@@ -23,7 +23,7 @@ require "#{Rails.root}/lib/articles_courses_cleaner"
 describe ArticlesCourses, type: :model do
   let(:article) { create(:article, average_views: 1234) }
   let(:user) { create(:user, id: 1) }
-  let(:course) { create(:course, start: 1.month.ago, end: 1.month.from_now) }
+  let(:course) { create(:course, start: '2024-06-16', end: '2024-08-16') }
   let(:refs_tags_key) { 'feature.wikitext.revision.ref_tags' }
 
   describe '.update_all_caches' do
@@ -44,7 +44,7 @@ describe ArticlesCourses, type: :model do
       create(:revision,
              user:,
              article:,
-             date: 1.day.ago,
+             date: '2024-07-15',
              characters: 9000,
              features: {
                refs_tags_key => 22
@@ -55,7 +55,7 @@ describe ArticlesCourses, type: :model do
       create(:revision,
              user:,
              article:,
-             date: Time.zone.today,
+             date: '2024-07-16',
              characters: 9001,
              deleted: true)
 
@@ -72,7 +72,7 @@ describe ArticlesCourses, type: :model do
     end
 
     it 'updates new_article for a new_article revision by student' do
-      create(:revision, article:, user:, date: 1.week.ago, new_article: true)
+      create(:revision, article:, user:, date: '2024-07-07', new_article: true)
 
       described_class.update_all_caches(described_class.all)
       article_course = described_class.first
@@ -81,7 +81,7 @@ describe ArticlesCourses, type: :model do
     end
 
     it 'updates new_article for a system and new_article revision by another editor' do
-      create(:revision, article:, user: instructor, date: 1.week.ago,
+      create(:revision, article:, user: instructor, date: '2024-07-07',
                         system: true, new_article: true)
 
       described_class.update_all_caches(described_class.all)
@@ -109,8 +109,8 @@ describe ArticlesCourses, type: :model do
       create(:article_course_timeslice,
              article:,
              course:,
-             start: 10.days.ago,
-             end: 9.days.ago,
+             start: '2024-07-06',
+             end: '2024-07-07',
              character_sum: 9000,
              references_count: 4,
              user_ids: [2, 3])
@@ -118,8 +118,8 @@ describe ArticlesCourses, type: :model do
       create(:article_course_timeslice,
              article:,
              course:,
-             start: 9.days.ago,
-             end: 8.days.ago,
+             start: '2024-07-07',
+             end: '2024-07-08',
              character_sum: 12,
              references_count: 5,
              user_ids: [user.id])
@@ -128,8 +128,8 @@ describe ArticlesCourses, type: :model do
       create(:article_course_timeslice,
              article:,
              course:,
-             start: 20.days.ago,
-             end: 19.days.ago,
+             start: '2024-06-25',
+             end: '2024-06-26',
              character_sum: 0,
              references_count: 0,
              user_ids: nil)
@@ -189,24 +189,30 @@ describe ArticlesCourses, type: :model do
 
   describe '.update_from_course_revisions' do
     let(:article2) { create(:article, title: 'Second Article', namespace: 0, wiki_id: 2) }
+    let(:article3) { create(:article, title: 'Third Article', namespace: 0) }
     let(:talk_page) { create(:article, title: 'Talk page', namespace: 1) }
     let(:array_revisions) { [] }
 
     before do
       create(:courses_user, user:, course:,
                             role: CoursesUsers::Roles::STUDENT_ROLE)
-      array_revisions << build(:revision, article:, user:, date: 1.week.ago,
+      array_revisions << build(:revision, article:, user:, date: '2024-07-07',
+                        system: true, new_article: true)
+      array_revisions << build(:revision, article: article3, user:, date: '2024-07-07',
                         system: true, new_article: true)
       # revision for a non-tracked wiki
-      array_revisions << build(:revision, article: article2, user:, date: 6.days.ago)
+      array_revisions << build(:revision, article: article2, user:, date: '2024-07-06')
       # revision for a non-tracked namespace
-      array_revisions << build(:revision, article: talk_page, user:, date: 1.week.ago)
+      array_revisions << build(:revision, article: talk_page, user:, date: '2024-07-07')
     end
 
     it 'creates new ArticlesCourses records from course revisions' do
       expect(described_class.count).to eq(0)
-      described_class.update_from_course_revisions(Course.last, array_revisions)
-      expect(described_class.count).to eq(1)
+      described_class.update_from_course_revisions(course, array_revisions)
+      expect(described_class.count).to eq(2)
+      # 62 days from course start up to course end x 2 articles courses
+      expect(described_class.first.article_course_timeslices.count).to eq(62)
+      expect(described_class.second.article_course_timeslices.count).to eq(62)
     end
   end
 end
