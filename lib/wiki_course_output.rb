@@ -12,10 +12,12 @@ class WikiCourseOutput
     @course = course
     @course_meetings_manager = @course.meetings_manager
     @dashboard_url = ENV['dashboard_url']
-    @first_instructor_course_user = @course
-                                    .courses_users
-                                    .where(role: CoursesUsers::Roles::INSTRUCTOR_ROLE).first
+    @all_instructor_course_users = @course
+                                   .courses_users
+                                   .where(role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+    @first_instructor_course_user = @all_instructor_course_users.first
     @first_instructor = @first_instructor_course_user&.user
+    @all_instructors = @all_instructor_course_users.map(&:user)
     @first_support_staff = @course.nonstudents.where(greeter: true).first
     @output = ''
     @templates = @course.home_wiki.edit_templates
@@ -62,6 +64,8 @@ class WikiCourseOutput
        | assignment_page = #{@course.wiki_title}
        | slug = #{@course.slug}
        | campaigns = #{@course.campaigns.pluck(:title).join(', ')}
+       | all_instructor_usernames = #{all_instructors_username}
+       | all_instructor_realnames = #{all_instructors_realname}
        | #{@dashboard_url} = yes
       }}
     COURSE_DETAILS
@@ -73,6 +77,14 @@ class WikiCourseOutput
 
   def instructor_realname
     @first_instructor_course_user&.real_name
+  end
+
+  def all_instructors_username
+    @all_instructors.map(&:username).join("\n")
+  end
+
+  def all_instructors_realname
+    @all_instructors.map(&:real_name).reject(&:blank?).join("\n")
   end
 
   def support_staff_username

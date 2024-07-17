@@ -11,6 +11,7 @@ describe WikiCourseOutput do
 
     let(:student) { create(:user, username: 'StudentUser') }
     let(:instructor) { create(:user, username: 'InstructorUser') }
+    let(:instructor2) { create(:user, username: 'InstructorUser2') }
     let(:course) do
       create(:course,
              title: '# Title #',
@@ -63,6 +64,7 @@ describe WikiCourseOutput do
              course:,
              role: 0)
       create(:courses_user, user: instructor, course:, role: 1, real_name: 'Jacque')
+      create(:courses_user, user: instructor2, course:, role: 1, real_name: 'Marie')
       create(:assignment,
              id: 1,
              user: student,
@@ -81,6 +83,7 @@ describe WikiCourseOutput do
       expect(response).to include('[[Your article]]')
       expect(response).to include('Jacque')
       expect(response).to include('Campaign Title 1, Campaign Title 2')
+      expect(response).to include('InstructorUser', 'InstructorUser2')
     end
 
     context 'when the course has no weeks or users or anything' do
