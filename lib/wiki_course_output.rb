@@ -48,7 +48,7 @@ class WikiCourseOutput
   end
 
   def course_details
-    # TODO: add support for multiple instructors, multiple content experts.
+    # TODO: add support for multiple content experts.
     # TODO: switch this to a new template specifically for dashboard courses.
     <<~COURSE_DETAILS
       {{#{template_name(@templates, 'course')}
