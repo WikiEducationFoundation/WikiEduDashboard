@@ -23,13 +23,13 @@ class TimesliceManager
     create_empty_course_user_wiki_timeslices(courses_wikis:)
   end
 
-  def update_course_article_timeslice
-    ArticleCourseTimeslice.find_or_create_by(
-      article_id:,
-      course: @course,
-      start: @timeslice_start.to_datetime,
-      end: @timeslice_end.to_datetime
-    ).update_cache_from_revisions article_revisions
+  # Returns a string with the date to start getting revisions.
+  # For example: '20181124'
+  def get_last_mw_rev_datetime_for_wiki(wiki)
+    return @course.start.strftime('%Y%m%d') unless @course.course_wiki_timeslices.present?
+    @course.course_wiki_timeslices.where(wiki:)
+           .max_by(&:last_mw_rev_datetime)
+           .last_mw_rev_datetime.strftime('%Y%m%d')
   end
 
   private
