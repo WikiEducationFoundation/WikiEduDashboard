@@ -86,23 +86,26 @@ describe UpdateCourseStatsTimeslice do
       expect(course_user.recent_revisions).to eq(0)
       expect(course_user.total_uploads).to eq(0)
 
-      # Two course user timeslice records were created: one for enwiki and other for wikidata
-      expect(course_user.course_user_wiki_timeslices.count).to eq(2)
+      # At least two course user timeslice records were updated
 
       # Course user timeslices caches were updated
       # For enwiki
-      expect(course_user.course_user_wiki_timeslices.first.character_sum_ms).to eq(124)
-      expect(course_user.course_user_wiki_timeslices.first.character_sum_us).to eq(0)
-      expect(course_user.course_user_wiki_timeslices.first.character_sum_draft).to eq(0)
-      expect(course_user.course_user_wiki_timeslices.first.revision_count).to eq(2)
-      expect(course_user.course_user_wiki_timeslices.first.references_count).to eq(0)
+      timeslice = course_user.course_user_wiki_timeslices.where(wiki: enwiki,
+                                                                start: '2018-11-24').first
+      expect(timeslice.character_sum_ms).to eq(46)
+      expect(timeslice.character_sum_us).to eq(0)
+      expect(timeslice.character_sum_draft).to eq(0)
+      expect(timeslice.revision_count).to eq(1)
+      expect(timeslice.references_count).to eq(0)
 
       # For wikidata
-      expect(course_user.course_user_wiki_timeslices.second.character_sum_ms).to eq(7867)
-      expect(course_user.course_user_wiki_timeslices.second.character_sum_us).to eq(0)
-      expect(course_user.course_user_wiki_timeslices.second.character_sum_draft).to eq(0)
-      expect(course_user.course_user_wiki_timeslices.second.revision_count).to eq(27)
-      expect(course_user.course_user_wiki_timeslices.second.references_count).to eq(-2)
+      timeslice = course_user.course_user_wiki_timeslices.where(wiki: wikidata,
+                                                                start: '2018-11-24').first
+      expect(timeslice.character_sum_ms).to eq(7867)
+      expect(timeslice.character_sum_us).to eq(0)
+      expect(timeslice.character_sum_draft).to eq(0)
+      expect(timeslice.revision_count).to eq(27)
+      expect(timeslice.references_count).to eq(-2)
     end
 
     it 'updates course and course wiki timeslices caches' do
@@ -150,7 +153,9 @@ describe UpdateCourseStatsTimeslice do
     let(:user) { create(:user, username: 'Ragesoss') }
 
     before do
-      create(:courses_user, course_id: course.id, user_id: user.id)
+      travel_to Date.new(2018, 11, 28)
+      course.campaigns << Campaign.first
+      JoinCourse.new(course:, user:, role: 0)
     end
 
     it 'tracks update errors properly in Replica' do

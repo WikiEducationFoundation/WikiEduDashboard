@@ -109,16 +109,15 @@ class UpdateCourseStatsTimeslice
     end
   end
 
-  def update_course_user_wiki_timeslices_for_wiki(wiki)
-    @revisions[wiki].group_by(&:user_id).each do |user_id, user_revisions|
+  def update_course_user_wiki_timeslices_for_wiki(revisions, timeslice_start, wiki)
+    revisions.group_by(&:user_id).each do |user_id, user_revisions|
       # TODO: determine how to get the right timeslice given the start and end
       # Update cache for CourseUserWikiTimeslice
-      CourseUserWikiTimeslice.find_or_create_by(
+      CourseUserWikiTimeslice.find_by(
         course: @course,
         user_id:,
         wiki:,
-        start: @timeslice_start.to_datetime,
-        end: @timeslice_end.to_datetime
+        start: timeslice_start
       ).update_cache_from_revisions user_revisions
     end
   end
@@ -144,9 +143,9 @@ class UpdateCourseStatsTimeslice
       @revisions[wiki].group_by { |revision| revision.date.to_date }
                       .each do |timeslice_start, revisions|
         update_article_course_timeslices_for_wiki(revisions, timeslice_start)
-      end
 
-      update_course_user_wiki_timeslices_for_wiki wiki
+        update_course_user_wiki_timeslices_for_wiki(revisions, timeslice_start, wiki)
+      end
 
       update_course_wiki_timeslices_for_wiki wiki
     end
