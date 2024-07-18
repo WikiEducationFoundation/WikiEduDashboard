@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/course_cache_manager"
+require_dependency "#{Rails.root}/lib/timeslice_manager"
 
 #= Adds a user to a course
 class JoinCourse
@@ -22,7 +23,7 @@ class JoinCourse
 
   def process_join_request
     validate_request { return }
-    create_courses_user
+    create_courses_user_and_timeslices
     update_course_user_count
     # This needs to use string keys because it is used in Sidekiq arguments.
     @result = { 'success' => 'User added to course.' }
@@ -76,14 +77,20 @@ class JoinCourse
     @role == CoursesUsers::Roles::STUDENT_ROLE
   end
 
-  def create_courses_user
-    CoursesUsers.create(
+  def create_courses_user_and_timeslices
+    course_user = CoursesUsers.create(
       user_id: @user.id,
       course_id: @course.id,
       role: @role,
       real_name: @real_name,
       role_description: @role_description
     )
+    create_course_user_wiki_timeslices course_user
+  end
+
+  def create_course_user_wiki_timeslices(course_user)
+    TimesliceManager.new(@course)
+                    .create_timeslices_for_new_course_user_records [course_user]
   end
 
   def update_course_user_count
