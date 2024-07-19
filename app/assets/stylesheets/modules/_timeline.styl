@@ -258,7 +258,8 @@ button.week__add-block
   table-layout fixed
 
 .block__training-modules h4,
-h4.timeline-exercise
+h4.timeline-exercise,
+h4.training-module
   margin-bottom 8px
   font-weight 400
 
@@ -534,6 +535,23 @@ a.timeline-exercise
     color $brand_primary
     content " \EA0A"
     float right
+
+a.training-module
+  padding 6px 12px
+  margin-bottom 12px
+  width 100%
+  color #6a6a6a
+  display table
+  border 1px solid #ddd
+  text-decoration none
+  display flex
+  justify-content space-between
+  &:hover
+    border solid 1px $brand_primary
+
+.icon-rt_arrow_purple_training_module
+  background url("../images/rt_arrow_icon_purple.svg") center no-repeat
+  padding 8.5px
 
 a.handout-link
   margin-right 8px
