@@ -66,13 +66,13 @@ describe TimesliceManager do
 
   describe '#create_course_wiki_timeslices_for_new_records' do
     before do
-      new_course_wikis << create(:courses_wikis, wiki: wikibooks, course:)
+      create(:courses_wikis, wiki: wikibooks, course:)
     end
 
     context 'when there are new courses wikis' do
       it 'creates course wiki and course user wiki timeslices for the entire course' do
         expect(course.course_wiki_timeslices.size).to eq(0)
-        timeslice_manager.create_timeslices_for_new_course_wiki_records(new_course_wikis)
+        timeslice_manager.create_timeslices_for_new_course_wiki_records([wikibooks])
         course.reload
         # Create course wiki timeslices for the entire course
         expect(course.course_wiki_timeslices.size).to eq(111)
