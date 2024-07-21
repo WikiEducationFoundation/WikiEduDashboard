@@ -31,7 +31,9 @@ class TimesliceManager
   # Returns a string with the date to start getting revisions.
   # For example: '20181124'
   def get_last_mw_rev_datetime_for_wiki(wiki)
-    return @course.start.strftime('%Y%m%d') unless @course.course_wiki_timeslices.present?
+    unless @course.course_wiki_timeslices.where(wiki:).present?
+      return @course.start.strftime('%Y%m%d')
+    end
     @course.course_wiki_timeslices.where(wiki:)
            .max_by(&:last_mw_rev_datetime)
            .last_mw_rev_datetime.strftime('%Y%m%d')
@@ -87,7 +89,8 @@ class TimesliceManager
   def create_empty_course_wiki_timeslices(courses_wikis)
     new_records = start_dates.map do |start|
       courses_wikis.map do |c_w|
-        { course_id: @course.id, wiki_id: c_w.wiki_id, start:, end: start + TIMESLICE_DURATION }
+        { course_id: @course.id, wiki_id: c_w.wiki_id, start:, end: start + TIMESLICE_DURATION,
+        last_mw_rev_datetime: @course.start }
       end
     end.flatten
 

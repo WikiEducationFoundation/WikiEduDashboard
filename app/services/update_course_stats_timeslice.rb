@@ -122,18 +122,17 @@ class UpdateCourseStatsTimeslice
     end
   end
 
-  def update_course_wiki_timeslices_for_wiki(wiki)
+  def update_course_wiki_timeslices_for_wiki(revisions, timeslice_start, wiki)
     # TODO: determine how to get the right timeslice given the start and end
     # Update cache for CourseWikiTimeslice
-    CourseWikiTimeslice.find_or_create_by(
+    CourseWikiTimeslice.find_by(
       course: @course,
       wiki:,
-      start: @timeslice_start.to_datetime,
-      end: @timeslice_end.to_datetime
-    ).update_cache_from_revisions @revisions[wiki]
+      start: timeslice_start
+    ).update_cache_from_revisions revisions
   end
 
-  def update_caches
+  def update_timeslices
     @course.wikis.each do |wiki|
       next if @revisions[wiki].length.zero?
 
@@ -145,11 +144,14 @@ class UpdateCourseStatsTimeslice
         update_article_course_timeslices_for_wiki(revisions, timeslice_start)
 
         update_course_user_wiki_timeslices_for_wiki(revisions, timeslice_start, wiki)
+
+        update_course_wiki_timeslices_for_wiki(revisions, timeslice_start, wiki)
       end
-
-      update_course_wiki_timeslices_for_wiki wiki
     end
+  end
 
+  def update_caches
+    update_timeslices
     ArticlesCourses.update_all_caches_from_timeslices(@course.articles_courses)
     log_update_progress :articles_courses_updated
     CoursesUsers.update_all_caches_from_timeslices(@course.courses_users)
