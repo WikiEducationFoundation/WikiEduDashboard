@@ -106,8 +106,8 @@ describe CoursesController, type: :request do
     let(:course_params) do
       { title: 'New title',
         description: 'New description',
-        start: 2.months.ago.beginning_of_day,
-        end: 2.months.from_now.end_of_day,
+        start: Time.zone.parse('2015-01-05'),
+        end: Time.zone.parse('2015-12-20').end_of_day,
         term: 'pizza',
         slug: 'food',
         subject: 'cooking',
@@ -154,6 +154,14 @@ describe CoursesController, type: :request do
       course_params[:wikis].push(language: 'fr', project: 'wikipedia')
       put "/courses/#{course.slug}", params: params, as: :json
       expect(course.wikis.count).to eq(3)
+      # 350 timeslices for de.wikipedia (from 2015-01-05 to 2015-12-20)
+      expect(course.course_wiki_timeslices.where(wiki_id: 4).count).to eq(350)
+      # 350 timeslices for fr.wikipedia (from 2015-01-05 to 2015-12-20)
+      expect(course.course_wiki_timeslices.where(wiki_id: 3).count).to eq(350)
+      # TODO: fix this when deleting timeslices is implemented
+      # 354 timeslices for en.wikipedia (from 2015-01-01 to 2015-12-20)
+      expect(course.course_wiki_timeslices.where(wiki_id: 1).count).to eq(354)
+      expect(course.course_wiki_timeslices.count).to eq(1054)
     end
 
     it 'removes a wiki' do
@@ -354,6 +362,11 @@ describe CoursesController, type: :request do
         it 'sets passcode correctly' do
           post '/courses', params: { course: course_params }, as: :json
           expect(Course.last.passcode).to eq('passcode')
+        end
+
+        it 'creates all the course wiki timeslices' do
+          post '/courses', params: { course: course_params }, as: :json
+          expect(Course.last.course_wiki_timeslices.count).to eq(350)
         end
       end
 

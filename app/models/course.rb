@@ -54,6 +54,7 @@ require_dependency "#{Rails.root}/lib/course_training_progress_manager"
 require_dependency "#{Rails.root}/lib/trained_students_manager"
 require_dependency "#{Rails.root}/lib/word_count"
 require_dependency "#{Rails.root}/lib/course_meetings_manager"
+require_dependency "#{Rails.root}/lib/timeslice_manager"
 
 #= Course model
 class Course < ApplicationRecord
@@ -330,8 +331,12 @@ class Course < ApplicationRecord
   end
 
   def update_wikis(updated_wikis)
+    existing_wiki_ids = courses_wikis.map(&:wiki_id)
+    new_wikis = updated_wikis.reject { |wiki| existing_wiki_ids.include?(wiki.id) }
     update(wikis: updated_wikis)
     ensure_home_wiki_in_courses_wikis
+    # Onnly creates course wiki timeslice records for new wikis
+    TimesliceManager.new(self).create_timeslices_for_new_course_wiki_records new_wikis
   end
 
   # The url for the on-wiki version of the course.
@@ -530,7 +535,9 @@ class Course < ApplicationRecord
   # Makes sure that the home wiki
   # is always a part of courses wikis.
   def ensure_home_wiki_in_courses_wikis
-    wikis.push(home_wiki) unless wikis.include? home_wiki
+    return if wikis.include? home_wiki
+    wikis.push(home_wiki)
+    TimesliceManager.new(self).create_timeslices_for_new_course_wiki_records [home_wiki]
   end
 
   private
