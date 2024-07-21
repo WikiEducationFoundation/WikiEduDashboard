@@ -63,6 +63,8 @@ const WikiSelect = ({ multi, onChange, styles, wikis, homeWiki, readOnly, label,
     }
   };
 
+// If the component was passed a set of wikis as options, limit the options to those wikis.
+// Otherwise, allow any wiki to be selected.
   const wikiOptions = (options && options.length) ? options : WIKI_OPTIONS;
 
   // If the input is less than three characters, it will be matched from the beginning of the string.
