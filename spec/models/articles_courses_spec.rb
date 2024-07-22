@@ -26,6 +26,10 @@ describe ArticlesCourses, type: :model do
   let(:course) { create(:course, start: '2024-06-16', end: '2024-08-16') }
   let(:refs_tags_key) { 'feature.wikitext.revision.ref_tags' }
 
+  before do
+    travel_to Date.new(2024, 7, 16)
+  end
+
   describe '.update_all_caches' do
     let(:instructor) { create(:instructor) }
 
