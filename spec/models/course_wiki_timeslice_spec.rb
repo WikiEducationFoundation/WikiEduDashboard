@@ -29,6 +29,8 @@ describe CourseWikiTimeslice, type: :model do
   let(:course) do
     create(:course, start: Time.zone.today - 1.month, end: Time.zone.today + 1.month)
   end
+  let(:start) { 10.days.ago.beginning_of_day }
+  let(:end) { 9.days.ago.beginning_of_day }
 
   before do
     create(:user, id: 1, username: 'Ragesoss')
@@ -48,8 +50,8 @@ role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
            course:,
            user_id: 1,
            wiki:,
-           start: 10.days.ago,
-           end: 9.days.ago,
+           start:,
+           end:,
            character_sum_ms: 9000,
            character_sum_us: 500,
            character_sum_draft: 400,
@@ -60,8 +62,8 @@ role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
            course:,
            user_id: 2,
            wiki:,
-           start: 10.days.ago,
-           end: 9.days.ago,
+           start:,
+           end:,
            character_sum_ms: 10,
            character_sum_us: 20,
            character_sum_draft: 30,
@@ -73,8 +75,8 @@ role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
            course:,
            user_id: 3,
            wiki:,
-           start: 10.days.ago,
-           end: 9.days.ago,
+           start:,
+           end:,
            character_sum_ms: 100,
            character_sum_us: 200,
            character_sum_draft: 330,
@@ -90,24 +92,13 @@ role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
 
   describe '#update_cache_from_revisions' do
     it 'caches revision data for students' do
-      # Make a course wiki timeslice
-      create(:course_wiki_timeslice,
-             id: 1,
-             course:,
-             wiki:,
-             character_sum: 1,
-             references_count: 1,
-             revision_count: 1,
-             upload_count: 100,
-             uploads_in_use_count: 100,
-             upload_usages_count: 100)
-
-      course_wiki_timeslice = described_class.find(1)
+      course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
       course_wiki_timeslice.update_cache_from_revisions array_revisions
+      course_wiki_timeslice.reload
 
-      expect(course_wiki_timeslice.character_sum).to eq(9011)
-      expect(course_wiki_timeslice.references_count).to eq(8)
-      expect(course_wiki_timeslice.revision_count).to eq(4)
+      expect(course_wiki_timeslice.character_sum).to eq(9010)
+      expect(course_wiki_timeslice.references_count).to eq(7)
+      expect(course_wiki_timeslice.revision_count).to eq(3)
       expect(course_wiki_timeslice.upload_count).to eq(2)
       expect(course_wiki_timeslice.uploads_in_use_count).to eq(2)
       expect(course_wiki_timeslice.upload_usages_count).to eq(7)
@@ -117,25 +108,13 @@ role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
       # Untrack articles courses record
       ArticlesCourses.find(1).update(tracked: 0)
 
-      # Make a course wiki timeslice
-      create(:course_wiki_timeslice,
-             id: 1,
-             course:,
-             wiki:,
-             character_sum: 1,
-             references_count: 1,
-             revision_count: 1,
-             upload_count: 100,
-             uploads_in_use_count: 100,
-             upload_usages_count: 100)
-
-      course_wiki_timeslice = described_class.find(1)
+      course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
       course_wiki_timeslice.update_cache_from_revisions array_revisions
 
-      expect(course_wiki_timeslice.character_sum).to eq(9011)
-      expect(course_wiki_timeslice.references_count).to eq(8)
+      expect(course_wiki_timeslice.character_sum).to eq(9010)
+      expect(course_wiki_timeslice.references_count).to eq(7)
       # Don't add any new revision count
-      expect(course_wiki_timeslice.revision_count).to eq(1)
+      expect(course_wiki_timeslice.revision_count).to eq(0)
       expect(course_wiki_timeslice.upload_count).to eq(2)
       expect(course_wiki_timeslice.uploads_in_use_count).to eq(2)
       expect(course_wiki_timeslice.upload_usages_count).to eq(7)
