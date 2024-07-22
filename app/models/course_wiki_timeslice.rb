@@ -48,7 +48,8 @@ class CourseWikiTimeslice < ApplicationRecord
     # Count character sum in tracked spaces from course user wiki timeslices
     character_sum = 0
     @students.each do |student|
-      character_sum += student.course_user_wiki_timeslices.where(wiki:).sum(:character_sum_ms)
+      character_sum += student.course_user_wiki_timeslices.where(wiki:,
+                                                                 start:).sum(:character_sum_ms)
     end
     self.character_sum += character_sum
   end
@@ -59,7 +60,7 @@ class CourseWikiTimeslice < ApplicationRecord
     @students.each do |student|
       references_count += student
                           .course_user_wiki_timeslices
-                          .where(wiki:)
+                          .where(wiki:, start:)
                           .sum(:references_count)
     end
     self.references_count += references_count

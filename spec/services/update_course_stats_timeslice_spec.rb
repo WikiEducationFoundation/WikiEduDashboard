@@ -113,8 +113,7 @@ describe UpdateCourseStatsTimeslice do
     it 'updates course and course wiki timeslices caches' do
       # Check caches for course
       # Course caches were updated
-      # TODO: check why this number
-      # expect(course.character_sum).to eq(7991)
+      expect(course.character_sum).to eq(7991)
       expect(course.references_count).to eq(-2)
       expect(course.revision_count).to eq(29)
       # TODO: this value should change when implement the real timeslice start date
@@ -136,7 +135,7 @@ describe UpdateCourseStatsTimeslice do
       # For enwiki
       timeslice = course.course_wiki_timeslices.where(wiki: enwiki,
                                                       start: '2018-11-29').first
-      expect(timeslice.character_sum).to eq(124)
+      expect(timeslice.character_sum).to eq(78)
       expect(timeslice.references_count).to eq(0)
       expect(timeslice.revision_count).to eq(1)
       expect(timeslice.upload_count).to eq(0)
