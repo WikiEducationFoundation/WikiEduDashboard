@@ -4,14 +4,13 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { includes } from 'lodash-es';
 
-import { updateCourse } from '../../actions/course_actions';
+import { updateCourse as updateCourseAction } from '../../actions/course_actions';
 import { fetchCampaign, submitCourse, cloneCourse } from '../../actions/course_creation_actions.js';
 import { fetchCoursesForUser } from '../../actions/user_courses_actions.js';
 import { setValid, setInvalid, checkCourseSlug, activateValidations, resetValidations } from '../../actions/validation_actions';
-import { getCloneableCourses, isValid, firstValidationErrorMessage, getAvailableArticles } from '../../selectors';
+import { getCloneableCourses, isValid, firstValidationErrorMessage, } from '../../selectors';
 
 import Notifications from '../common/notifications.jsx';
-import Modal from '../common/modal.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 import CourseType from './course_type.jsx';
@@ -20,18 +19,12 @@ import ReuseExistingCourse from './reuse_existing_course.jsx';
 import CourseForm from './course_form.jsx';
 import CourseDates from './course_dates.jsx';
 import { fetchAssignments } from '../../actions/assignment_actions';
-import CourseScoping from './course_scoping_methods';
-import { getScopingMethods } from '../util/scoping_methods';
-
-import Select from 'react-select';
-import selectStyles from '../../styles/single_select.js';
 
 const CourseCreator = (props) => {
   const [tempCourseId, setTempCourseId] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [showCourseForm, setShowCourseForm] = useState(false);
   const [showCloneChooser, setShowCloneChooser] = useState(false);
-  const [showEventDates, setShowEventDates] = useState(false);
+
   const [showWizardForm, setShowWizardForm] = useState(false);
   const [showCourseDates, setShowCourseDates] = useState(false);
   const [copyCourseAssignments, setCopyCourseAssignments] = useState(false);
@@ -39,11 +32,10 @@ const CourseCreator = (props) => {
 
   const defaultCourseType = props.courseCreator.defaultCourseType;
   const courseStringPrefix = props.courseCreator.courseStringPrefix;
-  const useStartAndEndTimes = props.courseCreator.useStartAndEndTimes;
   const courseCreationNotice = props.courseCreator.courseCreationNotice;
 
   useEffect(() => {
-    const campaignParam = campaignParam();
+    const campaignParam = CampaignParam();
     if (campaignParam) {
       props.fetchCampaign(campaignParam);
     }
@@ -55,7 +47,7 @@ const CourseCreator = (props) => {
     handleCourse(props.course, props.isValid);
   }, [props.course, props.isValid]);
 
-  const campaignParam = () => {
+  const CampaignParam = () => {
     const campaignParam = window.location.search.match(/\?.*?campaign_slug=(.*?)(?:$|&)/);
     if (campaignParam) {
       return campaignParam[1];
@@ -74,7 +66,7 @@ const CourseCreator = (props) => {
   const getWizardController = ({ hidden, backFunction }) => (
     <div className={`wizard__panel__controls ${hidden ? 'hidden' : ''}`}>
       <div className="left">
-        <button onClick={backFunction || backToCourseForm} className="dark button">Back</button>
+        <button onClick={backFunction || backToCourseForm} className="dark button">{I18n.t('buttons.back')}</button>
         <p className="tempCourseIdText">{tempCourseId}</p>
       </div>
       <div className="right">
@@ -88,7 +80,6 @@ const CourseCreator = (props) => {
   const saveCourse = () => {
     props.activateValidations();
     if (props.isValid && dateTimesAreValid()) {
-      setIsSubmitting(true);
       props.setInvalid(
         'exists',
         CourseUtils.i18n('creator.checking_for_uniqueness', courseStringPrefix),
@@ -108,58 +99,25 @@ const CourseCreator = (props) => {
         }
       } else {
         const cleanedCourse = CourseUtils.cleanupCourseSlugComponents(course);
-        props.submitCourse({ course: cleanedCourse }, () => setIsSubmitting(false));
+        props.submitCourse({ course: cleanedCourse });
       }
     } else if (!props.validations.exists.valid) {
-      setIsSubmitting(false);
+      // handle invalid state if needed
     }
   };
 
-  const showEventDate = () => {
-    setShowEventDates(!showEventDates);
-  };
-
   const updateCourse = (key, value) => {
-    props.updateCourse({ [key]: value });
+    props.updateCourseAction({ [key]: value });
     if (includes(['title', 'school', 'term'], key)) {
       props.setValid('exists');
     }
   };
 
   const updateCourseType = (key, value) => {
-    props.updateCourse({ [key]: value });
+    props.updateCourseAction({ [key]: value });
   };
 
-  const expectedStudentsIsValid = () => {
-    if (props.course.expected_students === '0' && defaultCourseType === 'ClassroomProgramCourse') {
-      props.setInvalid('expected_students', I18n.t('application.field_required'));
-      return false;
-    }
-    return true;
-  };
 
-  const titleSubjectAndDescriptionAreValid = () => {
-    if (props.course.title === '' || props.course.school === '' || props.course.description === '') {
-      props.setInvalid('course_title', I18n.t('application.field_required'));
-      props.setInvalid('course_school', I18n.t('application.field_required'));
-      props.setInvalid('description', I18n.t('application.field_required'));
-      return false;
-    }
-    if (!slugPartsAreValid()) {
-      props.setInvalid('course_title', I18n.t('application.field_required'));
-      props.setInvalid('course_school', I18n.t('application.field_required'));
-      props.setInvalid('description', I18n.t('application.field_required'));
-      return false;
-    }
-    return true;
-  };
-
-  const slugPartsAreValid = () => {
-    if (!props.course.title.match(CourseUtils.courseSlugRegex())) { return false; }
-    if (!props.course.school.match(CourseUtils.courseSlugRegex())) { return false; }
-    if (props.course.term && !props.course.term.match(CourseUtils.courseSlugRegex())) { return false; }
-    return true;
-  };
 
   const dateTimesAreValid = () => {
     const startDateTime = new Date(props.course.start);
@@ -183,34 +141,12 @@ const CourseCreator = (props) => {
     setShowWizardForm(false);
   };
 
-  const showCourseDatesHandler = () => {
-    props.activateValidations();
-    if (expectedStudentsIsValid() && titleSubjectAndDescriptionAreValid()) {
-      props.resetValidations();
-      setShowCourseDates(true);
-      setShowCourseForm(false);
-    }
-  };
-
-  const showCourseScopingHandler = () => {
-    props.activateValidations();
-    if (expectedStudentsIsValid() && titleSubjectAndDescriptionAreValid() && dateTimesAreValid()) {
-      props.resetValidations();
-      setShowCourseDates(false);
-      setShowCourseForm(false);
-      setShowWizardForm(false);
-    }
-  };
 
   const backToCourseForm = () => {
     setShowCourseForm(true);
     setShowCourseDates(false);
   };
 
-  const showCourseTypesHandler = () => {
-    setShowWizardForm(true);
-    setShowCourseForm(false);
-  };
 
   const showCloneChooserHandler = () => {
     props.fetchAssignments(props.cloneableCourses[0].slug);
@@ -230,15 +166,12 @@ const CourseCreator = (props) => {
   };
 
   const useThisClassHandler = () => {
-    props.cloneCourse(courseCloneId, campaignParam(), copyCourseAssignments);
-    setIsSubmitting(true);
+    props.cloneCourse(courseCloneId, CampaignParam(), copyCourseAssignments);
   };
 
   if (props.loadingUserCourses || props.loadingCampaign) {
-    return <div className="wizard__panel_loader">Loading...</div>;
+    return <div className="wizard__panel_loader">{I18n.t('application.loading')}</div>; // Replaced string literal
   }
-
-  const scopingMethods = getScopingMethods();
 
   let inner;
   if (showCourseForm) {
@@ -312,7 +245,7 @@ const CourseCreator = (props) => {
       <div className="wizard__panel active">
         {inner}
       </div>
-      <div className="wizard__panel__background"></div>
+      <div className="wizard__panel__background" />
     </div>
   );
 };
@@ -338,7 +271,7 @@ CourseCreator.propTypes = {
   firstErrorMessage: PropTypes.string,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   course: state.course,
   cloneableCourses: getCloneableCourses(state),
   courseCreator: state.courseCreator,
@@ -349,7 +282,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  updateCourse,
+  updateCourse: updateCourseAction,
   submitCourse,
   setValid,
   setInvalid,
@@ -363,3 +296,4 @@ const mapDispatchToProps = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CourseCreator);
+
