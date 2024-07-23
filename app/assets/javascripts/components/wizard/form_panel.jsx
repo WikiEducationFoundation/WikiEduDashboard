@@ -43,11 +43,11 @@ const FormPanel = (props) => {
     <h2>
       <span>1.</span>
       {/* eslint-disable-next-line i18next/no-literal-string */}
-      <small> Confirm the course`&apos;`s start and end dates.</small>
+      <small> Confirm the course’s start and end dates.</small>
     </h2>
   ) : (
     // eslint-disable-next-line i18next/no-literal-string
-    <p>Confirm the course`&apos;`s start and end dates.</p>
+    <p>Confirm the ccourse’s start and end dates.</p>
   );
 
   const rawOptions = (
@@ -126,9 +126,9 @@ const FormPanel = (props) => {
   return (
     <Panel
       {...props}
+      raw_options={rawOptions}
       saveCourse={saveCourse}
       nextEnabled={nextEnabled}
-      raw_options={rawOptions}
       helperText="Select meeting days and holiday dates, then continue."
     />
   );
