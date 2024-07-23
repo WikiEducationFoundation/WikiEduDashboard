@@ -8,21 +8,19 @@ import FormPanel from './form_panel.jsx';
 import SummaryPanel from './summary_panel.jsx';
 import Modal from '../common/modal.jsx';
 
-import { 
-  updateCourse, 
-  persistCourse 
-} from '../../actions/course_actions';
-import { 
-  fetchWizardIndex, 
-  advanceWizard, 
-  goToWizard, 
-  selectWizardOption, 
-  submitWizard 
+import { updateCourse, persistCourse } from '../../actions/course_actions';
+import {
+  fetchWizardIndex,
+  advanceWizard,
+  goToWizard,
+  selectWizardOption,
+  submitWizard,
 } from '../../actions/wizard_actions';
 
 const persist = (goToWizardFunc) => {
   window.onbeforeunloadcache = window.onbeforeunload;
-  window.onbeforeunload = () => 'Data will be lost if you leave/refresh the page, are you sure?';
+  window.onbeforeunload = () =>
+    'Data will be lost if you leave/refresh the page, are you sure?';
   window.history.replaceState({ index: 0 }, 'wizard', '#step1');
   document.title += ' — Step 1';
   window.onpopstate = (event) => {
@@ -52,7 +50,7 @@ const Wizard = ({
   updateCourse: updateCourseAction,
   persistCourse: persistCourseAction,
   selectWizardOption: selectWizardOptionAction,
-  submitWizard: submitWizardAction
+  submitWizard: submitWizardAction,
 }) => {
   const location = useLocation();
 
@@ -64,7 +62,9 @@ const Wizard = ({
 
   useEffect(() => {
     try {
-      document.querySelector('.wizard').scrollTo({ top: 0, behavior: 'smooth' });
+      document
+        .querySelector('.wizard')
+        .scrollTo({ top: 0, behavior: 'smooth' });
     } catch (_err) {
       // eslint-disable-next-line no-console
       console.log('scrollTo not supported');
@@ -144,11 +144,7 @@ const Wizard = ({
 
   return (
     <Modal>
-      <TransitionGroup
-        classNames="wizard__panel"
-        component="div"
-        timeout={500}
-      >
+      <TransitionGroup classNames="wizard__panel" component="div" timeout={500}>
         {renderedPanels}
       </TransitionGroup>
     </Modal>
@@ -159,7 +155,7 @@ const mapStateToProps = state => ({
   summary: state.wizard.summary,
   panels: state.wizard.panels,
   activePanelIndex: state.wizard.activeIndex,
-  isValid: state.wizard.isValid
+  isValid: state.wizard.isValid,
 });
 
 const mapDispatchToProps = {
@@ -169,7 +165,7 @@ const mapDispatchToProps = {
   advanceWizard,
   goToWizard,
   selectWizardOption,
-  submitWizard
+  submitWizard,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wizard);
