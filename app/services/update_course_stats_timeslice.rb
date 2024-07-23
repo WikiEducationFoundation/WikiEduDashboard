@@ -54,7 +54,9 @@ class UpdateCourseStatsTimeslice
     @revisions = {}
     @course.wikis.each do |wiki|
       start = @timeslice_manager.get_last_mw_rev_datetime_for_wiki(wiki)
-      end_of_update_period = 2.days.from_now.strftime('%Y%m%d')
+      # TODO: We should fetch data even after the course end to calculate retention.
+      # However, right now this causes problems due to lack of timeslices for those days.
+      end_of_update_period = (@course.end + 1.day).strftime('%Y%m%d')
       @revisions[wiki] = RevisionDataManager
                          .new(wiki, @course, update_service: self)
                          .fetch_revision_data_for_course(start, end_of_update_period)
