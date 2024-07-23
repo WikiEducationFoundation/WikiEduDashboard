@@ -91,7 +91,7 @@ const Week = (props) => {
       className="week-index week-title-input"
       defaultValue={weekTitleContent}
       maxLength={20}
-      onChange={(event) => updateTitle(weekId, event.target.value)}
+      onChange={event => updateTitle(weekId, event.target.value)}
     />
   ) : (
     <h2 className="week-index">
