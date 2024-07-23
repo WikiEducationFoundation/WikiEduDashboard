@@ -80,8 +80,7 @@ class UpdateCourseStatsTimeslice
   end
 
   def update_average_pageviews
-    # TODO: note this is not wiki scoped. ArticlesCourses records were not created
-    # by the time this runs.
+    # TODO: note this is not wiki scoped.
     AverageViewsImporter.update_outdated_average_views(@course.articles)
     log_update_progress :average_pageviews_updated
   end
@@ -91,7 +90,6 @@ class UpdateCourseStatsTimeslice
       # We don't create articles courses for every article
       article_course = ArticlesCourses.find_by(course: @course, article_id:)
       next unless article_course
-      # TODO: determine how to get the right timeslice given the start and end
       # Update cache for ArticleCorseTimeslice
       ArticleCourseTimeslice.find_by(
         article_id:,
@@ -103,7 +101,6 @@ class UpdateCourseStatsTimeslice
 
   def update_course_user_wiki_timeslices_for_wiki(revisions, timeslice_start, wiki)
     revisions.group_by(&:user_id).each do |user_id, user_revisions|
-      # TODO: determine how to get the right timeslice given the start and end
       # Update cache for CourseUserWikiTimeslice
       CourseUserWikiTimeslice.find_by(
         course: @course,
@@ -115,7 +112,6 @@ class UpdateCourseStatsTimeslice
   end
 
   def update_course_wiki_timeslices_for_wiki(revisions, timeslice_start, wiki)
-    # TODO: determine how to get the right timeslice given the start and end
     # Update cache for CourseWikiTimeslice
     CourseWikiTimeslice.find_by(
       course: @course,
@@ -127,8 +123,6 @@ class UpdateCourseStatsTimeslice
   def update_timeslices
     return if @revisions.length.zero?
     @course.wikis.each do |wiki|
-      # next if @revisions[wiki].length.zero?
-
       # Group revisions by timeslice
       # TODO: make this work independtly on the timeslice duration
       # Right now only works for daily timeslices
