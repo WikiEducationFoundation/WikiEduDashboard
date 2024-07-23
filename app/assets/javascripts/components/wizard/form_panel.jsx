@@ -47,7 +47,7 @@ const FormPanel = (props) => {
     </h2>
   ) : (
     // eslint-disable-next-line i18next/no-literal-string
-    <p>Confirm the ccourse’s start and end dates.</p>
+    <p>Confirm the course’s start and end dates.</p>
   );
 
   const rawOptions = (
