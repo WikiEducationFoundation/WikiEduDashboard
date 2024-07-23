@@ -4,7 +4,8 @@
 # Table name: article_course_timeslices
 #
 #  id                :bigint           not null, primary key
-#  article_course_id :integer          not null
+#  article_id        :integer          not null
+#  course_id         :integer          not null
 #  start             :datetime
 #  end               :datetime
 #  last_mw_rev_id    :integer

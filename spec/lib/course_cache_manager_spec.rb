@@ -24,10 +24,9 @@ describe CourseCacheManager do
     create(:commons_upload, user_id: 1, uploaded_at: 10.days.ago, usage_count: 3)
     create(:commons_upload, user_id: 2, uploaded_at: 10.days.ago, usage_count: 4)
 
-    course_wiki = CoursesWikis.find_by(course:, wiki:)
-
     create(:course_wiki_timeslice,
-           course_wiki_id: course_wiki.id,
+           course:,
+           wiki:,
            start: 10.days.ago,
            end: 9.days.ago,
            character_sum: 9000,
@@ -37,7 +36,8 @@ describe CourseCacheManager do
            uploads_in_use_count: 200,
            upload_usages_count: 200)
     create(:course_wiki_timeslice,
-           course_wiki_id: course_wiki.id,
+           course:,
+           wiki:,
            start: 9.days.ago,
            end: 8.days.ago,
            character_sum: 10,
@@ -47,7 +47,8 @@ describe CourseCacheManager do
            uploads_in_use_count: 200,
            upload_usages_count: 200)
     create(:course_wiki_timeslice,
-           course_wiki_id: course_wiki.id,
+           course:,
+           wiki:,
            start: 8.days.ago,
            end: 7.days.ago,
            character_sum: 100,

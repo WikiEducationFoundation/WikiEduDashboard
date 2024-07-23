@@ -4,7 +4,8 @@
 # Table name: article_course_timeslices
 #
 #  id                :bigint           not null, primary key
-#  article_course_id :integer          not null
+#  article_id        :integer          not null
+#  course_id         :integer          not null
 #  start             :datetime
 #  end               :datetime
 #  last_mw_rev_id    :integer
@@ -56,7 +57,8 @@ describe ArticleCourseTimeslice, type: :model do
   let(:revisions) { [revision1, revision2, revision3, revision4] }
   let(:article_course_timeslice) do
     create(:article_course_timeslice,
-           article_course_id: article_course.id,
+           article:,
+           course:,
            character_sum: 100,
            references_count: 3,
            user_ids: [2, 4])

@@ -2,6 +2,7 @@
 require 'net/http'
 require_dependency "#{Rails.root}/lib/importers/user_importer"
 require_dependency "#{Rails.root}/app/services/update_course_stats"
+require_dependency "#{Rails.root}/lib/timeslice_manager"
 
 def make_copy_of(url)
   # Get the main course data
@@ -39,6 +40,10 @@ def make_copy_of(url)
     user = User.find_or_create_by!(username: user_hash['username'])
     CoursesUsers.create!(user_id: user.id, role: user_hash['role'], course_id: course.id)
   end
+
+  course.reload
+  # Create course user wiki and course user timeslices
+  TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records(course.wikis)
 
   # Get assignments
   assignments_data = JSON.parse(Net::HTTP.get URI(url + '/assignments.json'))['course']['assignments']

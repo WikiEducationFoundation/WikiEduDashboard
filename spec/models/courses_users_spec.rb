@@ -141,7 +141,8 @@ describe CoursesUsers, type: :model do
 
       # Add two timeslices.
       create(:course_user_wiki_timeslice,
-             course_user_id: 456,
+             course:,
+             user:,
              wiki: enwiki,
              start: 10.days.ago,
              end: 9.days.ago,
@@ -153,7 +154,8 @@ describe CoursesUsers, type: :model do
              revision_count: 5)
 
       create(:course_user_wiki_timeslice,
-             course_user_id: 456,
+             course:,
+             user:,
              wiki: enwiki,
              start: 9.days.ago,
              end: 8.days.ago,
@@ -166,7 +168,8 @@ describe CoursesUsers, type: :model do
 
       # Empty timeslice, which should not count towards stats.
       create(:course_user_wiki_timeslice,
-             course_user_id: 456,
+             course:,
+             user:,
              wiki: enwiki,
              start: 20.days.ago,
              end: 19.days.ago,
