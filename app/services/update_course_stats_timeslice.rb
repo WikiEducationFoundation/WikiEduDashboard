@@ -17,10 +17,8 @@ class UpdateCourseStatsTimeslice
   include UpdateServiceErrorHelper
   include CourseQueueSorting
 
-  def initialize(course, timeslice_start, timeslice_end)
+  def initialize(course)
     @course = course
-    @timeslice_start = timeslice_start
-    @timeslice_end = timeslice_end
     @timeslice_manager = TimesliceManager.new(@course)
     # If the upate was explicitly requested by a user,
     # it could be because the dates or other paramters were just changed.

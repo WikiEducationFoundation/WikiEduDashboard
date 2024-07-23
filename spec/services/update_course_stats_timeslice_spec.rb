@@ -6,7 +6,7 @@ describe UpdateCourseStatsTimeslice do
   let(:course) { create(:course, start: '2018-11-24', end: '2018-11-30', flags:) }
   let(:enwiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
   let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }
-  let(:subject) { described_class.new(course, '20181124000000', '20181129190000') }
+  let(:subject) { described_class.new(course) }
 
   context 'when debugging is not enabled' do
     let(:flags) { nil }
