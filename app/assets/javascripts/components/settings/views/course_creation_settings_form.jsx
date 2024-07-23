@@ -1,17 +1,17 @@
-import { useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import React from 'react';
 import TextInput from '../../common/text_input';
 
-const CourseCreationSettingsForm = ({updateCourseCreationSettings,handlePopoverClose,settings}) => {
-  const [formState,setFormState] = useState({})
+const CourseCreationSettingsForm = ({ updateCourseCreationSettings, handlePopoverClose
+ }) => {
+  const [formState, setFormState] = useState({});
 
-  const handleChange = useCallback((key,value) => {
-    setFormState((prevState) => ({
+  const handleChange = useCallback((key, value) => {
+    setFormState(prevState => ({
       ...prevState,
-      [key]:value
-    }))
-  },[]);
+      [key]: value
+    }));
+  }, []);
 
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
@@ -66,7 +66,7 @@ const CourseCreationSettingsForm = ({updateCourseCreationSettings,handlePopoverC
         </td>
       </tr>
     );
-  }
+  };
 
   CourseCreationSettingsForm.propTypes = {
     updateCourseCreationSettings: PropTypes.func.isRequired,
