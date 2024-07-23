@@ -16,6 +16,8 @@
 #  user_ids         :text(65535)
 #
 
+require_dependency "#{Rails.root}/lib/timeslice_manager"
+
 #= ArticlesCourses is a join model between Article and Course.
 #= It represents a mainspace Wikipedia article that has been worked on by a
 #= student in a course.
@@ -188,12 +190,14 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
     end
 
     return if new_records.empty?
-    # Do this is batches to avoid running the MySQL server out of memory
+    # Do this in batches to avoid running the MySQL server out of memory
     new_records.each_slice(5000) do |new_record_slice|
       # rubocop:disable Rails/SkipsModelValidations
       insert_all new_record_slice
       # rubocop:enable Rails/SkipsModelValidations
     end
+
+    TimesliceManager.new(course).create_timeslices_for_new_article_course_records(new_records)
   end
 
   def self.destroy_invalid_records(course, valid_article_ids)

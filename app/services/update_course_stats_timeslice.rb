@@ -10,6 +10,7 @@ require_dependency "#{Rails.root}/lib/importers/average_views_importer"
 require_dependency "#{Rails.root}/lib/errors/update_service_error_helper"
 require_dependency "#{Rails.root}/lib/data_cycle/course_queue_sorting"
 require_dependency "#{Rails.root}/lib/revision_data_manager"
+require_dependency "#{Rails.root}/lib/timeslice_manager"
 
 #= Pulls in new revisions for a single course wiki timeslice and updates the corresponding records
 class UpdateCourseStatsTimeslice
@@ -20,6 +21,7 @@ class UpdateCourseStatsTimeslice
     @course = course
     @timeslice_start = timeslice_start
     @timeslice_end = timeslice_end
+    @timeslice_manager = TimesliceManager.new(@course)
     # If the upate was explicitly requested by a user,
     # it could be because the dates or other paramters were just changed.
     # In that case, do a full update rather than just fetching the most
@@ -51,9 +53,13 @@ class UpdateCourseStatsTimeslice
     # Fetchs revision for each wiki
     @revisions = {}
     @course.wikis.each do |wiki|
+      start = @timeslice_manager.get_last_mw_rev_datetime_for_wiki(wiki)
+      # TODO: We should fetch data even after the course end to calculate retention.
+      # However, right now this causes problems due to lack of timeslices for those days.
+      end_of_update_period = (@course.end + 1.day).strftime('%Y%m%d')
       @revisions[wiki] = RevisionDataManager
                          .new(wiki, @course, update_service: self)
-                         .fetch_revision_data_for_course(@timeslice_start, @timeslice_end)
+                         .fetch_revision_data_for_course(start, end_of_update_period)
     end
     log_update_progress :revision_scores_fetched
 
@@ -90,61 +96,69 @@ class UpdateCourseStatsTimeslice
     log_update_progress :average_pageviews_updated
   end
 
-  def update_article_course_timeslices_for_wiki(wiki)
-    @revisions[wiki].group_by(&:article_id).each do |article_id, article_revisions|
-      # TODO: does this check make sense?
+  def update_article_course_timeslices_for_wiki(revisions, timeslice_start)
+    revisions.group_by(&:article_id).each do |article_id, article_revisions|
+      # We don't create articles courses for every article
       article_course = ArticlesCourses.find_by(course: @course, article_id:)
       next unless article_course
       # TODO: determine how to get the right timeslice given the start and end
       # Update cache for ArticleCorseTimeslice
-      ArticleCourseTimeslice.find_or_create_by(
+      ArticleCourseTimeslice.find_by(
         article_id:,
-        course: @course,
-        start: @timeslice_start.to_datetime,
-        end: @timeslice_end.to_datetime
+        course_id: @course.id,
+        start: timeslice_start
       ).update_cache_from_revisions article_revisions
     end
   end
 
-  def update_course_user_wiki_timeslices_for_wiki(wiki)
-    @revisions[wiki].group_by(&:user_id).each do |user_id, user_revisions|
+  def update_course_user_wiki_timeslices_for_wiki(revisions, timeslice_start, wiki)
+    revisions.group_by(&:user_id).each do |user_id, user_revisions|
       # TODO: determine how to get the right timeslice given the start and end
       # Update cache for CourseUserWikiTimeslice
-      CourseUserWikiTimeslice.find_or_create_by(
+      CourseUserWikiTimeslice.find_by(
         course: @course,
         user_id:,
         wiki:,
-        start: @timeslice_start.to_datetime,
-        end: @timeslice_end.to_datetime
+        start: timeslice_start
       ).update_cache_from_revisions user_revisions
     end
   end
 
-  def update_course_wiki_timeslices_for_wiki(wiki)
+  def update_course_wiki_timeslices_for_wiki(revisions, timeslice_start, wiki)
     # TODO: determine how to get the right timeslice given the start and end
     # Update cache for CourseWikiTimeslice
-    CourseWikiTimeslice.find_or_create_by(
+    CourseWikiTimeslice.find_by(
       course: @course,
       wiki:,
-      start: @timeslice_start.to_datetime,
-      end: @timeslice_end.to_datetime
-    ).update_cache_from_revisions @revisions[wiki]
+      start: timeslice_start
+    ).update_cache_from_revisions revisions
+  end
+
+  def update_timeslices
+    @course.wikis.each do |wiki|
+      next if @revisions[wiki].length.zero?
+
+      # Group revisions by timeslice
+      # TODO: make this work independtly on the timeslice duration
+      # Right now only works for daily timeslices
+      @revisions[wiki].group_by { |revision| revision.date.to_date }
+                      .each do |timeslice_start, revisions|
+        update_article_course_timeslices_for_wiki(revisions, timeslice_start)
+
+        update_course_user_wiki_timeslices_for_wiki(revisions, timeslice_start, wiki)
+
+        update_course_wiki_timeslices_for_wiki(revisions, timeslice_start, wiki)
+      end
+    end
   end
 
   def update_caches
-    @course.wikis.each do |wiki|
-      next if @revisions[wiki].length.zero?
-      update_article_course_timeslices_for_wiki wiki
-
-      update_course_user_wiki_timeslices_for_wiki wiki
-
-      update_course_wiki_timeslices_for_wiki wiki
-    end
-
+    update_timeslices
     ArticlesCourses.update_all_caches_from_timeslices(@course.articles_courses)
     log_update_progress :articles_courses_updated
     CoursesUsers.update_all_caches_from_timeslices(@course.courses_users)
     log_update_progress :courses_users_updated
+    @course.reload
     @course.update_cache_from_timeslices
     HistogramPlotter.delete_csv(course: @course) # clear cached structural completeness data
     log_update_progress :course_cache_updated

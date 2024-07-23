@@ -28,6 +28,7 @@ describe TimesliceManager do
     new_article_courses << create(:articles_course, article_id: 1, course:)
     new_article_courses << create(:articles_course, article_id: 2, course:)
     new_article_courses << create(:articles_course, article_id: 3, course:)
+    course.reload
   end
 
   describe '#create_timeslices_for_new_article_course_records' do
@@ -66,18 +67,20 @@ describe TimesliceManager do
 
   describe '#create_course_wiki_timeslices_for_new_records' do
     before do
-      new_course_wikis << create(:courses_wikis, wiki: wikibooks, course:)
+      create(:courses_wikis, wiki: wikibooks, course:)
     end
 
     context 'when there are new courses wikis' do
       it 'creates course wiki and course user wiki timeslices for the entire course' do
-        expect(course.course_wiki_timeslices.size).to eq(0)
-        timeslice_manager.create_timeslices_for_new_course_wiki_records(new_course_wikis)
-        course.reload
-        # Create course wiki timeslices for the entire course
+        # Course wiki timeslices already exist for home wiki
         expect(course.course_wiki_timeslices.size).to eq(111)
+        expect(course.course_wiki_timeslices.first.wiki).to eq(enwiki)
+        timeslice_manager.create_timeslices_for_new_course_wiki_records([wikibooks])
+        # Create wikibooks course wiki timeslices for the entire course
+        expect(course.course_wiki_timeslices.last.wiki).to eq(wikibooks)
+        expect(course.course_wiki_timeslices.size).to eq(222)
         # Create all the course user wiki timeslices for the existing course users for the new wiki
-        expect(course.course_user_wiki_timeslices.first.wiki_id).to eq(wikibooks.id)
+        expect(course.course_user_wiki_timeslices.first.wiki).to eq(wikibooks)
         expect(course.course_user_wiki_timeslices.size).to eq(333)
       end
     end

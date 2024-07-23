@@ -5,8 +5,6 @@
 # Table name: course_wiki_timeslices
 #
 #  id                   :bigint           not null, primary key
-#  course_id            :integer          not null
-#  wiki_id              :integer          not null
 #  start                :datetime
 #  end                  :datetime
 #  last_mw_rev_id       :integer
@@ -18,6 +16,9 @@
 #  upload_usages_count  :integer          default(0)
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  course_id            :integer          not null
+#  wiki_id              :integer          not null
+#  last_mw_rev_datetime :datetime
 #
 class CourseWikiTimeslice < ApplicationRecord
   belongs_to :course
@@ -47,9 +48,10 @@ class CourseWikiTimeslice < ApplicationRecord
     # Count character sum in tracked spaces from course user wiki timeslices
     character_sum = 0
     @students.each do |student|
-      character_sum += student.course_user_wiki_timeslices.where(wiki:).sum(:character_sum_ms)
+      character_sum += student.course_user_wiki_timeslices.where(wiki:,
+                                                                 start:).sum(:character_sum_ms)
     end
-    self.character_sum += character_sum
+    self.character_sum = character_sum
   end
 
   def update_references_count
@@ -58,10 +60,10 @@ class CourseWikiTimeslice < ApplicationRecord
     @students.each do |student|
       references_count += student
                           .course_user_wiki_timeslices
-                          .where(wiki:)
+                          .where(wiki:, start:)
                           .sum(:references_count)
     end
-    self.references_count += references_count
+    self.references_count = references_count
   end
 
   def update_revision_count
