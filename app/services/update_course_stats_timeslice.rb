@@ -17,10 +17,8 @@ class UpdateCourseStatsTimeslice
   include UpdateServiceErrorHelper
   include CourseQueueSorting
 
-  def initialize(course, timeslice_start, timeslice_end)
+  def initialize(course)
     @course = course
-    @timeslice_start = timeslice_start
-    @timeslice_end = timeslice_end
     @timeslice_manager = TimesliceManager.new(@course)
     # If the upate was explicitly requested by a user,
     # it could be because the dates or other paramters were just changed.
@@ -51,19 +49,11 @@ class UpdateCourseStatsTimeslice
   def fetch_data
     log_update_progress :start
     # Fetchs revision for each wiki
-    @revisions = {}
-    @course.wikis.each do |wiki|
-      start = @timeslice_manager.get_last_mw_rev_datetime_for_wiki(wiki)
-      # TODO: We should fetch data even after the course end to calculate retention.
-      # However, right now this causes problems due to lack of timeslices for those days.
-      end_of_update_period = (@course.end + 1.day).strftime('%Y%m%d')
-      @revisions[wiki] = RevisionDataManager
-                         .new(wiki, @course, update_service: self)
-                         .fetch_revision_data_for_course(start, end_of_update_period)
-    end
+    @revisions = CourseRevisionUpdater.fetch_revisions_and_scores(@course,
+                                                                  update_service: self)
+
     log_update_progress :revision_scores_fetched
 
-    ArticlesCourses.update_from_course_revisions(@course, @revisions.values.flatten)
     # TODO: replace the logic on ArticlesCourses.update_from_course to remove all
     # the ArticlesCourses that do not correspond to course revisions.
     # That may happen if the course dates changed, so some revisions are no
@@ -90,8 +80,7 @@ class UpdateCourseStatsTimeslice
   end
 
   def update_average_pageviews
-    # TODO: note this is not wiki scoped. ArticlesCourses records were not created
-    # by the time this runs.
+    # TODO: note this is not wiki scoped.
     AverageViewsImporter.update_outdated_average_views(@course.articles)
     log_update_progress :average_pageviews_updated
   end
@@ -101,7 +90,6 @@ class UpdateCourseStatsTimeslice
       # We don't create articles courses for every article
       article_course = ArticlesCourses.find_by(course: @course, article_id:)
       next unless article_course
-      # TODO: determine how to get the right timeslice given the start and end
       # Update cache for ArticleCorseTimeslice
       ArticleCourseTimeslice.find_by(
         article_id:,
@@ -113,7 +101,6 @@ class UpdateCourseStatsTimeslice
 
   def update_course_user_wiki_timeslices_for_wiki(revisions, timeslice_start, wiki)
     revisions.group_by(&:user_id).each do |user_id, user_revisions|
-      # TODO: determine how to get the right timeslice given the start and end
       # Update cache for CourseUserWikiTimeslice
       CourseUserWikiTimeslice.find_by(
         course: @course,
@@ -125,7 +112,6 @@ class UpdateCourseStatsTimeslice
   end
 
   def update_course_wiki_timeslices_for_wiki(revisions, timeslice_start, wiki)
-    # TODO: determine how to get the right timeslice given the start and end
     # Update cache for CourseWikiTimeslice
     CourseWikiTimeslice.find_by(
       course: @course,
@@ -135,9 +121,8 @@ class UpdateCourseStatsTimeslice
   end
 
   def update_timeslices
+    return if @revisions.length.zero?
     @course.wikis.each do |wiki|
-      next if @revisions[wiki].length.zero?
-
       # Group revisions by timeslice
       # TODO: make this work independtly on the timeslice duration
       # Right now only works for daily timeslices

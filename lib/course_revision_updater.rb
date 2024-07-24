@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require_dependency "#{Rails.root}/lib/replica"
 require_dependency "#{Rails.root}/lib/importers/revision_importer"
+require_dependency "#{Rails.root}/lib/timeslice_manager"
 
 #= Fetches and imports new revisions for courses and creates ArticlesCourses records
 class CourseRevisionUpdater
@@ -11,6 +12,15 @@ class CourseRevisionUpdater
     return if no_point_in_importing_revisions?(course)
     new(course, update_service:).update_revisions_for_relevant_wikis(all_time)
     ArticlesCourses.update_from_course(course)
+  end
+
+  # Returns a hash with revisions by wiki or an empty hash if no point in importing revisions
+  def self.fetch_revisions_and_scores(course, update_service: nil)
+    return {} if no_point_in_importing_revisions?(course)
+    revisions = new(course, update_service:)
+                .fetch_revisions_and_scores_for_relevant_wikis
+    ArticlesCourses.update_from_course_revisions(course, revisions.values.flatten)
+    revisions
   end
 
   def self.no_point_in_importing_revisions?(course)
@@ -26,6 +36,7 @@ class CourseRevisionUpdater
 
   def initialize(course, update_service: nil)
     @course = course
+    @timeslice_manager = TimesliceManager.new(course)
     @update_service = update_service
   end
 
@@ -34,5 +45,20 @@ class CourseRevisionUpdater
       RevisionImporter.new(wiki, @course, update_service: @update_service)
                       .import_revisions_for_course(all_time:)
     end
+  end
+
+  def fetch_revisions_and_scores_for_relevant_wikis
+    # Fetchs revision for each wiki
+    revisions = {}
+    @course.wikis.each do |wiki|
+      start = @timeslice_manager.get_last_mw_rev_datetime_for_wiki(wiki)
+      # TODO: We should fetch data even after the course end to calculate retention.
+      # However, right now this causes problems due to lack of timeslices for those days.
+      end_of_update_period = (@course.end + 1.day).strftime('%Y%m%d')
+      revisions[wiki] = RevisionDataManager
+                        .new(wiki, @course, update_service: @update_service)
+                        .fetch_revision_data_for_course(start, end_of_update_period)
+    end
+    revisions
   end
 end
