@@ -548,9 +548,16 @@ module RequestHelpers
       .to_return(status: 200, body: users_response_body, headers: {})
   end
 
+  def stub_training_modules
+    url = 'https://dashboard.wikiedu.org/training_modules.json'
+    stub_request(:get, url)
+      .to_return(status: 200, body: '{}', headers: {})
+  end
+
   def stub_course
     stub_course_response_body
     stub_categories
+    stub_training_modules
     stub_timeline
     stub_users
   end

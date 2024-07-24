@@ -173,6 +173,10 @@ sl:
       assignment_start: Začetek dodelitve
       cancel_course_clone: Prekliči klon tečaja
       cancel_course_clone_confirm: Ali res želite ustaviti kloniranje tega predmeta?
+      copy_successful: Podrobnosti posodobitve kopiranega tečaja
+      copy_successful_details: Vaš tečaj, vključno z elementi časovnice (tedni in
+        bloki), je skopiran. Ne pozabite dodati datumov, ki se ne prenesejo. Se je
+        pri vašem tečaju spremenilo še kaj? Zdaj ga lahko  posodobite.
       course_description: Opis tečaja
       course_term: Termin tečaja
       course_term_placeholder: Termin
@@ -463,6 +467,7 @@ sl:
   users:
     assign_articles_done: Končano
     loading_authorship_data: nalaganje podatkov o avtorstvu
+    authorship_data_not_fetched: Podatkov o avtorstvu ni bilo mogoče pridobiti
     contribution_statistics: Statistika prispevkov
     enrolled_success: '%{username} je bil_a uspešno dodan_a!'
     first_name: Ime
