@@ -170,4 +170,4 @@ const mapDispatchToProps = {
   fetchExercises: fetchTrainingModuleExercisesByUser,
 };
 
-export default connect(null, mapDispatchToProps)(Student);
+export default connect(null, mapDispatchToProps)(Student); 
