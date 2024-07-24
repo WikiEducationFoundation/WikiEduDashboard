@@ -198,3 +198,4 @@ CourseClonedModal.propTypes = {
 };
 
 export default CourseClonedModal;
+ 
