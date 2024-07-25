@@ -126,7 +126,7 @@ describe ArticlesCourses, type: :model do
              end: '2024-07-08',
              character_sum: 12,
              references_count: 5,
-             user_ids: [user.id])
+             user_ids: [2, user.id])
 
       # Empty timeslice, which should not count towards stats.
       create(:article_course_timeslice,
