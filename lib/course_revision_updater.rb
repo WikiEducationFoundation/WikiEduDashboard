@@ -2,6 +2,7 @@
 require_dependency "#{Rails.root}/lib/replica"
 require_dependency "#{Rails.root}/lib/importers/revision_importer"
 require_dependency "#{Rails.root}/lib/timeslice_manager"
+require_dependency "#{Rails.root}/lib/revision_data_manager"
 
 #= Fetches and imports new revisions for courses and creates ArticlesCourses records
 class CourseRevisionUpdater
@@ -54,7 +55,9 @@ class CourseRevisionUpdater
       start = @timeslice_manager.get_last_mw_rev_datetime_for_wiki(wiki)
       # TODO: We should fetch data even after the course end to calculate retention.
       # However, right now this causes problems due to lack of timeslices for those days.
-      end_of_update_period = (@course.end + 1.day).strftime('%Y%m%d')
+      end_of_course = (@course.end + 1.day).strftime('%Y%m%d')
+      today = Time.zone.now.strftime('%Y%m%d')
+      end_of_update_period = [end_of_course, today].min
       revisions[wiki] = RevisionDataManager
                         .new(wiki, @course, update_service: @update_service)
                         .fetch_revision_data_for_course(start, end_of_update_period)
