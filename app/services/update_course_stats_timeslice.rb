@@ -137,15 +137,19 @@ class UpdateCourseStatsTimeslice
   end
 
   def update_caches
-    update_timeslices
-    ArticlesCourses.update_all_caches_from_timeslices(@course.articles_courses)
-    log_update_progress :articles_courses_updated
-    CoursesUsers.update_all_caches_from_timeslices(@course.courses_users)
-    log_update_progress :courses_users_updated
-    @course.reload
-    @course.update_cache_from_timeslices
-    HistogramPlotter.delete_csv(course: @course) # clear cached structural completeness data
-    log_update_progress :course_cache_updated
+    ActiveRecord::Base.transaction do
+      update_timeslices
+      ArticlesCourses.update_all_caches_from_timeslices(@course.articles_courses)
+      log_update_progress :articles_courses_updated
+      CoursesUsers.update_all_caches_from_timeslices(@course.courses_users)
+      log_update_progress :courses_users_updated
+      @course.reload
+      @course.update_cache_from_timeslices
+      HistogramPlotter.delete_csv(course: @course) # clear cached structural completeness data
+      log_update_progress :course_cache_updated
+
+      @timeslice_manager.update_last_mw_rev_datetime(@revisions)
+    end
   end
 
   def update_wikidata_stats
