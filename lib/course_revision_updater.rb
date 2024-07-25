@@ -15,13 +15,20 @@ class CourseRevisionUpdater
     ArticlesCourses.update_from_course(course)
   end
 
-  # Returns a hash with revisions by wiki or an empty hash if no point in importing revisions
+  # Returns a hash with start, end and revisions fetched by wiki or an empty
+  # hash if no point in importing revisions.
+  # Example:
+  # {wiki0 => {:start=>"20160320", :end=>"20160401", :revisions=>[...]},
+  # ...,
+  # wikiN => {:start=>"20160328", :end=>"20160401", :revisions=>[...]}}
   def self.fetch_revisions_and_scores(course, update_service: nil)
     return {} if no_point_in_importing_revisions?(course)
-    revisions = new(course, update_service:)
-                .fetch_revisions_and_scores_for_relevant_wikis
-    ArticlesCourses.update_from_course_revisions(course, revisions.values.flatten)
-    revisions
+    revision_data = new(course, update_service:)
+                    .fetch_revisions_and_scores_for_relevant_wikis
+    # Get an array with all revisions
+    revisions = revision_data.values.flat_map { |data| data[:revisions] }.flatten
+    ArticlesCourses.update_from_course_revisions(course, revisions)
+    revision_data
   end
 
   def self.no_point_in_importing_revisions?(course)
@@ -50,18 +57,22 @@ class CourseRevisionUpdater
 
   def fetch_revisions_and_scores_for_relevant_wikis
     # Fetchs revision for each wiki
-    revisions = {}
+    results = {}
     @course.wikis.each do |wiki|
       start = @timeslice_manager.get_last_mw_rev_datetime_for_wiki(wiki)
       # TODO: We should fetch data even after the course end to calculate retention.
       # However, right now this causes problems due to lack of timeslices for those days.
-      end_of_course = (@course.end + 1.day).strftime('%Y%m%d')
-      today = Time.zone.now.strftime('%Y%m%d')
+      end_of_course = @course.end.end_of_day.strftime('%Y%m%d%H%M%S')
+      today = Time.zone.now.strftime('%Y%m%d%H%M%S')
       end_of_update_period = [end_of_course, today].min
-      revisions[wiki] = RevisionDataManager
-                        .new(wiki, @course, update_service: @update_service)
-                        .fetch_revision_data_for_course(start, end_of_update_period)
+      revisions = {}
+      revisions[:start] = start
+      revisions[:end] = end_of_update_period
+      revisions[:revisions] = RevisionDataManager
+                              .new(wiki, @course, update_service: @update_service)
+                              .fetch_revision_data_for_course(start, end_of_update_period)
+      results[wiki] = revisions
     end
-    revisions
+    results
   end
 end

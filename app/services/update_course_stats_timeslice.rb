@@ -9,7 +9,6 @@ require_dependency "#{Rails.root}/lib/importers/revision_score_importer"
 require_dependency "#{Rails.root}/lib/importers/average_views_importer"
 require_dependency "#{Rails.root}/lib/errors/update_service_error_helper"
 require_dependency "#{Rails.root}/lib/data_cycle/course_queue_sorting"
-require_dependency "#{Rails.root}/lib/revision_data_manager"
 require_dependency "#{Rails.root}/lib/timeslice_manager"
 
 #= Pulls in new revisions for a single course wiki timeslice and updates the corresponding records
@@ -126,8 +125,8 @@ class UpdateCourseStatsTimeslice
       # Group revisions by timeslice
       # TODO: make this work independtly on the timeslice duration
       # Right now only works for daily timeslices
-      @revisions[wiki].group_by { |revision| revision.date.to_date }
-                      .each do |timeslice_start, revisions|
+      @revisions[wiki][:revisions].group_by { |revision| revision.date.to_date }
+                                  .each do |timeslice_start, revisions|
         update_article_course_timeslices_for_wiki(revisions, timeslice_start)
 
         update_course_user_wiki_timeslices_for_wiki(revisions, timeslice_start, wiki)

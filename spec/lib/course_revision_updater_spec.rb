@@ -131,7 +131,8 @@ describe CourseRevisionUpdater do
 
     it 'includes revisions on the final day of a course up to the end time' do
       VCR.use_cassette 'course_revision_updater' do
-        revisions = described_class.fetch_revisions_and_scores(course).values.flatten
+        revision_data = described_class.fetch_revisions_and_scores(course)
+        revisions = revision_data.values.flat_map { |data| data[:revisions] }.flatten
         expect(revisions.count).to eq(3)
 
         expected_article = Article.find_by(wiki_id: 1,
@@ -151,7 +152,8 @@ describe CourseRevisionUpdater do
     it 'includes revisions up to today if course didnt finish yet' do
       VCR.use_cassette 'course_revision_updater' do
         travel_to Date.new(2016, 3, 28)
-        revisions = described_class.fetch_revisions_and_scores(course).values.flatten
+        revision_data = described_class.fetch_revisions_and_scores(course)
+        revisions = revision_data.values.flat_map { |data| data[:revisions] }.flatten
         # no revision during that period
         expect(revisions.count).to eq(0)
       end
