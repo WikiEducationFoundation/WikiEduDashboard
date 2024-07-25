@@ -20,6 +20,7 @@
 # Author: Fitoschido
 # Author: Fortega
 # Author: Gabina
+# Author: I DOWNGRADED YT APP (1)
 # Author: Ice bulldog
 # Author: Ihojose
 # Author: Irus
@@ -852,6 +853,7 @@ es:
     lexeme: Lexema
     appendix: Apéndice
     portal: Portal
+    school: Escuela
   recent_activity:
     active_courses: El artículo está activo en
     article_title: Título
