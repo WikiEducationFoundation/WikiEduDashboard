@@ -32,7 +32,7 @@ describe UpdateCourseStatsTimeslice do
 
     before do
       stub_wiki_validation
-      travel_to Date.new(2018, 11, 28)
+      travel_to Date.new(2018, 12, 1)
       course.campaigns << Campaign.first
       course.wikis << Wiki.get_or_create(language: nil, project: 'wikidata')
       JoinCourse.new(course:, user:, role: 0)
@@ -60,8 +60,7 @@ describe UpdateCourseStatsTimeslice do
       expect(article_course.character_sum).to eq(427)
       expect(article_course.references_count).to eq(-2)
       expect(article_course.user_ids).to eq([user.id])
-      # TODO: this value should change when implement the real timeslice start date
-      expect(article_course.view_count).to eq(4)
+      expect(article_course.view_count).to eq(3)
 
       # Article course timeslice record was created for mw_page_id 6901525
       # timeslices from 2018-11-24 to 2018-11-30 were created
@@ -116,8 +115,8 @@ describe UpdateCourseStatsTimeslice do
       expect(course.character_sum).to eq(7991)
       expect(course.references_count).to eq(-2)
       expect(course.revision_count).to eq(29)
-      # TODO: this value should change when implement the real timeslice start date
-      # expect(course.view_sum).to eq(814)
+      # TODO: view_sum should be 918. See issue #5911
+      expect(course.view_sum).to eq(912)
       expect(course.user_count).to eq(1)
       expect(course.trained_count).to eq(1)
       # TODO: update recent_revision_count

@@ -69,6 +69,7 @@ class CourseCacheManager
   end
 
   def update_view_sum
+    # TODO: fix issue #5911
     @course.view_sum = @course.articles_courses.tracked.live.sum(:view_count)
   end
 
