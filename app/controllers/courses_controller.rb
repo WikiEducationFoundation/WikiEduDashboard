@@ -35,10 +35,9 @@ class CoursesController < ApplicationController
       return
     end
     @course = course_creation_manager.create
-    update_courses_wikis
-    update_course_wiki_namespaces
-    update_academic_system
-    update_course_format
+    # return early if the course was not persisted to the db
+    return if @course.id.nil?
+    handle_post_course_creation_updates
   end
 
   def update
@@ -362,6 +361,13 @@ class CoursesController < ApplicationController
       }
       @course.save
     end
+  end
+
+  def handle_post_course_creation_updates
+    update_courses_wikis
+    update_course_wiki_namespaces
+    update_academic_system
+    update_course_format
   end
 
   def course_params
