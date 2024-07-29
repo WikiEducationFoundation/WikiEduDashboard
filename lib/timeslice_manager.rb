@@ -31,8 +31,10 @@ class TimesliceManager
   # Returns a string with the date to start getting revisions.
   # For example: '20181124000000'
   def get_last_mw_rev_datetime_for_wiki(wiki)
-    timeslices = @course.course_wiki_timeslices.where(wiki:)
-    last_datetime = timeslices.max_by(&:last_mw_rev_datetime)&.last_mw_rev_datetime
+    non_empty_timeslices = @course.course_wiki_timeslices.where(wiki:).reject do |ts|
+      ts.last_mw_rev_datetime.nil?
+    end
+    last_datetime = non_empty_timeslices.max_by(&:last_mw_rev_datetime)&.last_mw_rev_datetime
 
     last_datetime ||= @course.start
     last_datetime.strftime('%Y%m%d%H%M%S')
