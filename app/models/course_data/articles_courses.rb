@@ -93,7 +93,7 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
   def update_cache_from_timeslices
     self.character_sum = article_course_timeslices.sum(&:character_sum)
     self.references_count = article_course_timeslices.sum(&:references_count)
-    self.user_ids = article_course_timeslices.sum([], &:user_ids)
+    self.user_ids = article_course_timeslices.sum([], &:user_ids).uniq
 
     # View count is calculated based on the first non-empty article course timeslice
     # record start date. We estimate the first non-empty record checking user_ids

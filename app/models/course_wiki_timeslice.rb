@@ -24,6 +24,14 @@ class CourseWikiTimeslice < ApplicationRecord
   belongs_to :course
   belongs_to :wiki
 
+  scope :for_course_and_wiki, ->(course, wiki) { where(course:, wiki:) }
+  # Returns the timeslice to which a datetime belongs (it should be a single timeslice)
+  scope :for_datetime, ->(datetime) { where('start <= ? AND end > ?', datetime, datetime) }
+  # Returns all the timeslices in a given period
+  scope :in_period, lambda { |period_start, period_end|
+                      where('start >= ? AND end <= ?', period_start, period_end)
+                    }
+
   # Assumes that the revisions are for their own course wiki
   def update_cache_from_revisions(revisions)
     @revisions = revisions

@@ -29,14 +29,36 @@ class TimesliceManager
   end
 
   # Returns a string with the date to start getting revisions.
-  # For example: '20181124'
+  # For example: '20181124000000'
   def get_last_mw_rev_datetime_for_wiki(wiki)
-    unless @course.course_wiki_timeslices.where(wiki:).present?
-      return @course.start.strftime('%Y%m%d')
+    non_empty_timeslices = @course.course_wiki_timeslices.where(wiki:).reject do |ts|
+      ts.last_mw_rev_datetime.nil?
     end
-    @course.course_wiki_timeslices.where(wiki:)
-           .max_by(&:last_mw_rev_datetime)
-           .last_mw_rev_datetime.strftime('%Y%m%d')
+    last_datetime = non_empty_timeslices.max_by(&:last_mw_rev_datetime)&.last_mw_rev_datetime
+
+    last_datetime ||= @course.start
+    last_datetime.strftime('%Y%m%d%H%M%S')
+  end
+
+  # Given an array of revision data per wiki, it updates the last_mw_rev_datetime field
+  # for every course wiki timeslice involved.
+  # { wiki0=>{:start=>'20181130230005', :end=>'20181140000000', :revisions=>[]},
+  #   ...,
+  #   wikiN=> {:start=>'20181130210015', :end=>'20181140000000', :revisions=>[revision0,...]} }
+  def update_last_mw_rev_datetime(new_fetched_data)
+    new_fetched_data.each do |wiki, revision_data|
+      timeslices = get_course_wiki_timeslices(wiki, revision_data[:start], revision_data[:end])
+      # Mark the timeslices as complete
+      timeslices.each do |timeslice|
+        timeslice.last_mw_rev_datetime = timeslice.end
+        timeslice.save
+      end
+
+      # Update the last timeslice as partially complete
+      last_updated_timeslice = get_course_wiki_timeslice(wiki, revision_data[:end])
+      last_updated_timeslice.last_mw_rev_datetime = revision_data[:end]
+      last_updated_timeslice.save
+    end
   end
 
   private
@@ -89,8 +111,7 @@ class TimesliceManager
   def create_empty_course_wiki_timeslices(courses_wikis)
     new_records = start_dates.map do |start|
       courses_wikis.map do |c_w|
-        { course_id: @course.id, wiki_id: c_w.wiki_id, start:, end: start + TIMESLICE_DURATION,
-        last_mw_rev_datetime: @course.start }
+        { course_id: @course.id, wiki_id: c_w.wiki_id, start:, end: start + TIMESLICE_DURATION }
       end
     end.flatten
 
@@ -110,5 +131,13 @@ class TimesliceManager
     end
 
     start_dates
+  end
+
+  def get_course_wiki_timeslice(wiki, datetime)
+    CourseWikiTimeslice.for_course_and_wiki(@course, wiki).for_datetime(datetime).first
+  end
+
+  def get_course_wiki_timeslices(wiki, period_start, period_end)
+    CourseWikiTimeslice.for_course_and_wiki(@course, wiki).in_period(period_start, period_end)
   end
 end

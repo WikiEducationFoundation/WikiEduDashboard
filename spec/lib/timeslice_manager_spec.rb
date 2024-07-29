@@ -85,4 +85,60 @@ describe TimesliceManager do
       end
     end
   end
+
+  describe '#get_last_mw_rev_datetime_for_wiki' do
+    context 'when no course wiki timeslices' do
+      it 'returns course start date' do
+        # no course wiki timeslices for wikibooks
+        expect(course.course_wiki_timeslices.where(wiki_id: wikibooks.id).size).to eq(0)
+        expect(timeslice_manager.get_last_mw_rev_datetime_for_wiki(wikibooks))
+          .to eq('20240101000000')
+      end
+    end
+
+    context 'when empty course wiki timeslices' do
+      it 'returns course start date' do
+        # only empty course wiki timeslices for enwiki
+        expect(course.course_wiki_timeslices.where(wiki_id: enwiki.id).size).to eq(111)
+        expect(timeslice_manager.get_last_mw_rev_datetime_for_wiki(enwiki)).to eq('20240101000000')
+      end
+    end
+
+    context 'when non-empty course wiki timeslices' do
+      it 'returns max last_mw_rev_datetime' do
+        # update last_mw_rev_datetime
+        # Update last_mw_rev_datetime for the first course_wiki_timeslice
+        first_timeslice = course.course_wiki_timeslices.first
+        first_timeslice.last_mw_rev_datetime = '20240102000000'.to_datetime
+        first_timeslice.save
+
+        # Update last_mw_rev_datetime for the second course_wiki_timeslice
+        second_timeslice = course.course_wiki_timeslices.second
+        second_timeslice.last_mw_rev_datetime = '20240103000000'.to_datetime
+        second_timeslice.save
+
+        expect(timeslice_manager.get_last_mw_rev_datetime_for_wiki(enwiki)).to eq('20240103000000')
+      end
+    end
+  end
+
+  describe '#update_last_mw_rev_datetime' do
+    let(:new_fetched_data) do
+      { enwiki => { start: '20240101000000', end: '20240104101340', revisions: nil } }
+    end
+
+    context 'when there were updates' do
+      it 'updates last_mw_rev_datetime for every course wiki' do
+        course_wiki_timeslices = course.course_wiki_timeslices.where(wiki_id: enwiki.id)
+        expect(course_wiki_timeslices.where(last_mw_rev_datetime: nil).size).to eq(111)
+        timeslice_manager.update_last_mw_rev_datetime(new_fetched_data)
+        # four course wiki timeslices were updated
+        expect(course_wiki_timeslices.where(last_mw_rev_datetime: nil).size).to eq(107)
+        expect(course_wiki_timeslices.first.last_mw_rev_datetime).to eq('20240102000000')
+        expect(course_wiki_timeslices.second.last_mw_rev_datetime).to eq('20240103000000')
+        expect(course_wiki_timeslices.third.last_mw_rev_datetime).to eq('20240104000000')
+        expect(course_wiki_timeslices.fourth.last_mw_rev_datetime).to eq('20240104101340')
+      end
+    end
+  end
 end
