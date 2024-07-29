@@ -149,6 +149,10 @@ class UpdateCourseStatsTimeslice
       log_update_progress :course_cache_updated
 
       @timeslice_manager.update_last_mw_rev_datetime(@revisions)
+
+    rescue StandardError => e
+      log_error(e)
+      raise ActiveRecord::Rollback
     end
   end
 
@@ -180,6 +184,11 @@ class UpdateCourseStatsTimeslice
     Sentry.capture_message "#{@course.title} update: #{step}",
                            level: 'warning',
                            extra: { logs: @sentry_logs }
+  end
+
+  def log_error(error)
+    Sentry.capture_message "#{@course.title} update caches erro: #{error}",
+                           level: 'error'
   end
 
   TEN_MINUTES = 600

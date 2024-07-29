@@ -7,10 +7,10 @@ describe UpdateCourseStatsTimeslice do
   let(:enwiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
   let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }
   let(:subject) { described_class.new(course) }
+  let(:flags) { nil }
+  let(:user) { create(:user, username: 'Ragesoss') }
 
   context 'when debugging is not enabled' do
-    let(:flags) { nil }
-
     it 'posts no Sentry logs' do
       expect(Sentry).not_to receive(:capture_message)
       subject
@@ -27,9 +27,6 @@ describe UpdateCourseStatsTimeslice do
   end
 
   context 'when there are revisions' do
-    let(:flags) { nil }
-    let(:user) { create(:user, username: 'Ragesoss') }
-
     before do
       stub_wiki_validation
       travel_to Date.new(2018, 12, 1)
@@ -38,12 +35,13 @@ describe UpdateCourseStatsTimeslice do
       JoinCourse.new(course:, user:, role: 0)
       # Create course wiki timeslices manually for wikidata
       TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records([wikidata])
-      VCR.use_cassette 'course_update' do
-        subject
-      end
     end
 
     it 'imports average views of edited articles' do
+      VCR.use_cassette 'course_update' do
+        subject
+      end
+
       # 2 en.wiki articles
       expect(course.articles.where(wiki: enwiki).count).to eq(2)
       # 13 wikidata articles, but one is for Property namespace (120)
@@ -52,6 +50,10 @@ describe UpdateCourseStatsTimeslice do
     end
 
     it 'updates article course and article course timeslices caches' do
+      VCR.use_cassette 'course_update' do
+        subject
+      end
+
       # Check caches for mw_page_id 6901525
       article = Article.find_by(mw_page_id: 6901525)
       # The article course exists
@@ -74,6 +76,10 @@ describe UpdateCourseStatsTimeslice do
     end
 
     it 'updates course user and course user wiki timeslices caches' do
+      VCR.use_cassette 'course_update' do
+        subject
+      end
+
       # Check caches for course user
       course_user = CoursesUsers.find_by(course:, user:)
       # The course user caches were updated
@@ -110,6 +116,10 @@ describe UpdateCourseStatsTimeslice do
     end
 
     it 'updates course and course wiki timeslices caches' do
+      VCR.use_cassette 'course_update' do
+        subject
+      end
+
       # Check caches for course
       # Course caches were updated
       expect(course.character_sum).to eq(7991)
@@ -140,6 +150,7 @@ describe UpdateCourseStatsTimeslice do
       expect(timeslice.upload_count).to eq(0)
       expect(timeslice.uploads_in_use_count).to eq(0)
       expect(timeslice.upload_usages_count).to eq(0)
+      expect(timeslice.last_mw_rev_datetime).to eq('20181130'.to_datetime)
 
       # For wikidata
       timeslice = course.course_wiki_timeslices.where(wiki: wikidata,
@@ -150,6 +161,32 @@ describe UpdateCourseStatsTimeslice do
       expect(timeslice.upload_count).to eq(0)
       expect(timeslice.uploads_in_use_count).to eq(0)
       expect(timeslice.upload_usages_count).to eq(0)
+      expect(timeslice.last_mw_rev_datetime).to eq('20181125'.to_datetime)
+    end
+
+    it 'rolls back the updates if something goes wrong' do
+      allow(Sentry).to receive(:capture_message)
+      # Stub out update_all_caches_from_timeslices to raise an error
+      allow(CoursesUsers).to receive(:update_all_caches_from_timeslices)
+        .and_raise(StandardError, 'Simulated failure')
+
+      VCR.use_cassette 'course_update' do
+        subject
+      end
+
+      expect(Sentry).to have_received(:capture_message)
+
+      # Check caches for mw_page_id 6901525
+      article = Article.find_by(mw_page_id: 6901525)
+      # The article course exists
+      article_course = ArticlesCourses.find_by(article_id: article.id)
+      # The article course caches weren't updated
+      expect(article_course.character_sum).to eq(0)
+      # last_mw_rev_datetime wasn't updated
+      timeslice = course.course_wiki_timeslices.where(wiki: enwiki,
+                                                      start: '2018-11-29').first
+
+      expect(timeslice.last_mw_rev_datetime).to be_nil
     end
   end
 
