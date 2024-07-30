@@ -5,6 +5,30 @@ import request from '../utils/request';
 import { setInvalid } from './validation_actions';
 import { SET_TRAINING_MODE } from '../constants/training';
 
+// For Modifying Training Content
+const libraryValidationRules = [
+  { keyword: 'name', field: 'name' },
+  { keyword: 'slug', field: 'slug' },
+  { keyword: 'introduction', field: 'introduction' }
+];
+
+const categoryValidationRules = [
+  { keyword: 'title', field: 'title' },
+  { keyword: 'description', field: 'description' }
+];
+
+const moduleValidationRules = [
+  { keyword: 'name', field: 'name' },
+  { keyword: 'slug', field: 'slug' },
+  { keyword: 'description', field: 'description' }
+];
+
+const slideValidationRules = [
+  { keyword: 'title', field: 'title' },
+  { keyword: 'slug', field: 'slug' },
+  { keyword: 'wikipage', field: 'wiki_page' }
+];
+
 // For switching between edit and view mode
 export const getTrainingMode = () => (dispatch) => {
   dispatch({
@@ -35,24 +59,6 @@ export const updateTrainingMode = (editMode, setUpdatingEditMode) => (dispatch) 
   .then(() => window.location.reload())
   .catch(data => dispatch({ type: API_FAIL, data }));
 };
-
-// For Modifying Training Content
-const libraryValidationRules = [
-  { keyword: 'name', field: 'name' },
-  { keyword: 'slug', field: 'slug' },
-  { keyword: 'introduction', field: 'introduction' }
-];
-
-const categoryValidationRules = [
-  { keyword: 'title', field: 'title' },
-  { keyword: 'description', field: 'description' }
-];
-
-const moduleValidationRules = [
-  { keyword: 'name', field: 'name' },
-  { keyword: 'slug', field: 'slug' },
-  { keyword: 'description', field: 'description' }
-];
 
 const performValidation = (error, dispatch, validationRules) => {
   const errorMessages = error.responseText.errorMessages;
@@ -194,4 +200,28 @@ export const transferModules = (library_id, transferInfo, setSubmitting) => (dis
     window.location.reload();
   })
   .catch(data => dispatch({ type: API_FAIL, data }));
+};
+
+// For Adding New Slide to Training Module
+const addSlidePromise = async (library_id, module_id, slide, setSubmitting) => {
+  const response = await request(`/training/${library_id}/${module_id}/add_slide`, {
+    method: 'POST',
+    body: JSON.stringify({ slide }),
+  });
+  setSubmitting(false);
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.json();
+    response.responseText = data;
+    throw response;
+  }
+  return response.json();
+};
+
+export const addSlide = (library_id, module_id, slide, setSubmitting) => (dispatch) => {
+  return addSlidePromise(library_id, module_id, slide, setSubmitting)
+  .then(() => window.location.reload())
+  .catch((error) => {
+    performValidation(error, dispatch, slideValidationRules);
+  });
 };
