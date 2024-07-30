@@ -203,7 +203,7 @@ describe 'TrainingContent', type: :feature, js: true do
       expect(page).to have_content('Destination Category')
 
       click_button 'Transfer Module'
-      expect(page).to have_selector('.program-description', count: 2)
+      expect(page).to have_selector('.program-description', count: 1)
 
       # Select source category
       first('.program-description').click
@@ -214,6 +214,7 @@ describe 'TrainingContent', type: :feature, js: true do
       click_button 'Next'
 
       # Select destination category
+      expect(page).to have_selector('.program-description', count: 1)
       first('.program-description').click
       click_button 'Transfer'
 

@@ -1,30 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import SelectableBox from '../../../components/common/selectable_box.jsx';
-import { extractCategoriesFromHtml } from '../../../utils/training_utils.js';
 
 // Choose category from which modules were transferred
-const TransferStep1 = ({ transferInfo, setTransferInfo, step, setStep, toggleModal }) => {
-  const [categories, setCategories] = useState([]);
-
+const TransferStep1 = ({ categories, transferInfo, setTransferInfo, step, setStep, toggleModal }) => {
   const handleCategorySelection = (selectedCategory) => {
     setTransferInfo(prev => ({ ...prev, sourceCategory: selectedCategory }));
   };
-
-  useEffect(() => {
-    const extractedCategories = extractCategoriesFromHtml();
-    setCategories(extractedCategories);
-  }, []);
+  const nonEmptyCategories = categories.filter(cat => cat.modules.length > 0);
 
   return (
     <div style={{ display: step === 1 ? 'block' : 'none' }}>
       <div style={{ paddingBottom: '20px' }}>
-        {categories.map(category => (
+        {nonEmptyCategories.map(category => (
           <SelectableBox
-            key={category.name}
-            onClick={() => handleCategorySelection(category.name)}
-            heading={category.name}
+            key={category.title}
+            onClick={() => handleCategorySelection(category.title)}
+            heading={category.title}
             description={category.description}
-            selected={transferInfo?.sourceCategory === category.name}
+            selected={transferInfo?.sourceCategory === category.title}
           />
         ))}
       </div>

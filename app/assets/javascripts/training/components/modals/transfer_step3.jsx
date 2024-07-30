@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import SelectableBox from '../../../components/common/selectable_box.jsx';
 import { transferModules } from '../../../actions/training_modification_actions.js';
-import { extractCategoriesFromHtml } from '../../../utils/training_utils.js';
 
 // Choose category to which user wants to transfer module
-const TransferStep3 = ({ transferInfo, setTransferInfo, step, setStep, setSubmitting }) => {
+const TransferStep3 = ({ categories, transferInfo, setTransferInfo, step, setStep, setSubmitting }) => {
   const { library_id } = useParams();
-  const [categories, setCategories] = useState([]);
+  const remainingCategories = categories.filter(cat => cat.title !== transferInfo.sourceCategory);
   const dispatch = useDispatch();
 
   const handleCategorySelection = (selectedCategory) => {
@@ -20,39 +19,16 @@ const TransferStep3 = ({ transferInfo, setTransferInfo, step, setStep, setSubmit
     dispatch(transferModules(library_id, transferInfo, setSubmitting));
   };
 
-  // useEffect(() => {
-  //   const setCategoriesFromHtml = () => {
-  //     const extractedCategories = extractCategoriesFromHtml();
-  //     setCategories(extractedCategories.filter(category => category.name !== transferInfo?.sourceCategory));
-  //     const event = new CustomEvent('categoriesReady', { detail: { categories: extractedCategories } });
-  //     document.dispatchEvent(event);
-  //   };
-
-  //   if (document.readyState === 'complete' || document.readyState === 'interactive') {
-  //     setCategoriesFromHtml();
-  //   } else {
-  //     document.addEventListener('DOMContentLoaded', setCategoriesFromHtml);
-  //   }
-
-  //   return () => {
-  //     document.removeEventListener('DOMContentLoaded', setCategoriesFromHtml);
-  //   };
-  // }, [transferInfo.sourceCategory]);
-  useEffect(() => {
-    const extractedCategories = extractCategoriesFromHtml();
-    setCategories(extractedCategories.filter(category => category.name !== transferInfo?.sourceCategory));
-  }, [transferInfo.sourceCategory]);
-
   return (
     <div style={{ display: step === 3 ? 'block' : 'none' }}>
       <div style={{ paddingBottom: '20px' }}>
-        {categories.map(category => (
+        {remainingCategories.map(category => (
           <SelectableBox
-            key={category.name}
-            onClick={() => handleCategorySelection(category.name)}
-            heading={category.name}
+            key={category.title}
+            onClick={() => handleCategorySelection(category.title)}
+            heading={category.title}
             description={category.description}
-            selected={transferInfo?.destinationCategory === category.name}
+            selected={transferInfo?.destinationCategory === category.title}
           />
         ))}
       </div>
