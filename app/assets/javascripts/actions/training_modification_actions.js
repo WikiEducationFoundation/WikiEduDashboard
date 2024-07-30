@@ -76,6 +76,7 @@ const performValidation = (error, dispatch, validationRules) => {
 };
 
 
+// For Creating New Library
 const createLibraryPromise = async (library, setSubmitting) => {
   const response = await request('/training/create_library', {
     method: 'POST',
@@ -110,6 +111,7 @@ export const createLibrary = (library, setSubmitting, toggleModal) => (dispatch)
   });
 };
 
+// For Creating New Category
 const createCategoryPromise = async (library_id, category, setSubmitting) => {
   const response = await request(`/training/${library_id}/create_category`, {
     method: 'POST',
@@ -141,6 +143,7 @@ export const createCategory = (library_id, category, setSubmitting, toggleModal)
   });
 };
 
+// For Adding New Module
 const addModulePromise = async (library_id, category_id, module, setSubmitting) => {
   const response = await request(`/training/${library_id}/${category_id}/add_module`, {
     method: 'POST',
@@ -167,4 +170,28 @@ export const addModule = (library_id, category_id, module, setSubmitting) => (di
   .catch((error) => {
     performValidation(error, dispatch, moduleValidationRules);
   });
+};
+
+// For Transferring Modules
+const transferModulesPromise = async (library_id, transferInfo, setSubmitting) => {
+  const response = await request(`/training/${library_id}/transfer_modules`, {
+    method: 'POST',
+    body: JSON.stringify({ transferInfo }),
+  });
+  setSubmitting(false);
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.json();
+    response.responseText = data;
+    throw response;
+  }
+  return response.json();
+};
+
+export const transferModules = (library_id, transferInfo, setSubmitting) => (dispatch) => {
+  return transferModulesPromise(library_id, transferInfo, setSubmitting)
+  .then(() => {
+    window.location.reload();
+  })
+  .catch(data => dispatch({ type: API_FAIL, data }));
 };
