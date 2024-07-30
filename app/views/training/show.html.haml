@@ -1,5 +1,6 @@
 - content_for :before_title, "#{@library.translated_name} - "
-#react_root{ "data-current_user" => current_user ? { admin: current_user.admin?, id: current_user.id }.to_json : '{ "admin": false, "id": null }' }
+#react_root{ "data-translated_categories" => @library.translated_categories.to_json, 
+             "data-current_user" => current_user ? { admin: current_user.admin?, id: current_user.id }.to_json : '{ "admin": false, "id": null }' }
 .training__show.container
   %ol.breadcrumbs= render_breadcrumbs tag: :li, separator: ' > '
 .training__section-overview.container

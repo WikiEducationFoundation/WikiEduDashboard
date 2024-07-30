@@ -1,9 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import SelectableBox from '../../../components/common/selectable_box.jsx';
 
 // Choose modules to transfer
-const TransferStep2 = ({ transferInfo, setTransferInfo, step, setStep }) => {
-  const [allModules, setAllModules] = useState([]);
+const TransferStep2 = ({ categories, transferInfo, setTransferInfo, step, setStep }) => {
+  const setModules = () => {
+    const category = categories.find(cat => cat.title === transferInfo.sourceCategory);
+    if (category) {
+      return category.modules;
+    }
+    return [];
+  };
+  const allModules = setModules();
 
   const handleModuleSelection = (moduleName) => {
     setTransferInfo((prev) => {
@@ -15,30 +22,6 @@ const TransferStep2 = ({ transferInfo, setTransferInfo, step, setStep }) => {
   };
 
   useEffect(() => {
-    const extractModulesFromHtml = () => {
-      const categoryElements = document.querySelectorAll('.training__categories > li');
-      let modulesFromHtml = [];
-
-      categoryElements.forEach((li) => {
-        const categoryName = li.querySelector('.training__category__header h1')?.innerText.trim();
-        if (categoryName === transferInfo.sourceCategory) {
-          modulesFromHtml = Array.from(li.querySelectorAll('.training__categories__modules > li')).map((moduleLi) => {
-            const name = moduleLi.querySelector('.action-card-title')?.innerText.trim();
-            const description = moduleLi.querySelector('.action-card-text')?.innerText.trim();
-            return { name, description };
-          });
-        }
-      });
-
-      return modulesFromHtml;
-    };
-
-    const setModulesFromHtml = () => {
-      const extractedModules = extractModulesFromHtml();
-      setAllModules(extractedModules);
-    };
-
-    setModulesFromHtml();
     setTransferInfo(prev => ({ ...prev, modules: [], destinationCategory: '' }));
   }, [transferInfo.sourceCategory]);
 

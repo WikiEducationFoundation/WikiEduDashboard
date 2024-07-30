@@ -28,6 +28,8 @@ const TransferModules = ({ toggleModal }) => {
   const [submitting, setSubmitting] = useState(false);
   const [transferInfo, setTransferInfo] = useState({});
   const [step, setStep] = useState(STEPS.SOURCE_CATEGORY);
+  const reactRoot = document.getElementById('react_root');
+  const categories = JSON.parse(reactRoot.getAttribute('data-translated_categories'));
 
   const formClassName = submitting ? 'form-submitting' : '';
 
@@ -38,6 +40,7 @@ const TransferModules = ({ toggleModal }) => {
           <h3>{I18n.t('training.transfer_module')}</h3>
           <p>{getInstruction(step)}</p>
           <TransferStep1
+            categories={categories}
             transferInfo={transferInfo}
             setTransferInfo={setTransferInfo}
             step={step}
@@ -45,12 +48,14 @@ const TransferModules = ({ toggleModal }) => {
             toggleModal={toggleModal}
           />
           <TransferStep2
+            categories={categories}
             transferInfo={transferInfo}
             setTransferInfo={setTransferInfo}
             step={step}
             setStep={setStep}
           />
           <TransferStep3
+            categories={categories}
             transferInfo={transferInfo}
             setTransferInfo={setTransferInfo}
             step={step}
