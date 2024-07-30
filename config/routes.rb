@@ -369,6 +369,7 @@ Rails.application.routes.draw do
   post 'training/create_library' => 'training_library#create_library'
   post 'training/:library_id/create_category' => 'training_library#create_category'
   post 'training/:library_id/:category_id/add_module' => 'training_modules#add_module'
+  post 'training/:library_id/:module_id/add_slide' => 'training_slides#add_slide'
 
   # Read
   get 'training/:library_id/edit/:category_id/add_module', to: 'training#show', as: :add_module_training
