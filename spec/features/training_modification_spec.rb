@@ -232,41 +232,39 @@ describe 'TrainingContent', type: :feature, js: true do
   end
 
   describe 'TrainingSlide', type: :feature, js: true do
-    let(:existing_slide) { create(:training_slide, slug: 'existing-slide', wiki_page: 'Training modules/dashboard/slides/10306-be-polite') }
+    let(:existing_slide) { create(:training_slide, title: 'created-for-testing', slug: 'existing-slide', wiki_page: 'Training modules/dashboard/slides/10306-be-polite') }
 
     before do
       login_as(user, scope: :user)
       visit '/training'
       click_button 'Switch to Edit Mode'
+      sleep 1
+
+      # Creating a category and adding module to it
       visit "/training/#{training_library.slug}"
+      click_button 'Create New Category'
+
+      fill_in 'title', with: 'Testing Category'
+      fill_in 'description', with: 'This category is only created for testing purposes.'
+      click_button 'Create'
+      expect(page).to have_content('Testing Category')
+
+      click_link 'Add Module'
+      fill_in 'Module Name', with: 'Testing Module'
+      fill_in 'Module Slug', with: 'testing-module'
+      fill_in 'Module Description', with: 'This module is only created for testing purposes.'
+      click_button 'Add'
+      expect(page).to have_content('Testing Module')
+      expect(page).to have_content('This module is only created for testing purposes.')
+      visit "/training/example-library/testing-module"
+      existing_slide
     end
 
-    context 'when adding a slide' do
-      before do
-        # Creating a category and adding module to it
-        visit "/training/#{training_library.slug}"
-        click_button 'Create New Category'
-
-        fill_in 'title', with: 'Testing Category'
-        fill_in 'description', with: 'This category is only created for testing purposes.'
-        click_button 'Create'
-        expect(page).to have_content('Testing Category')
-
-        click_link 'Add Module'
-        fill_in 'Module Name', with: 'Testing Module'
-        fill_in 'Module Slug', with: 'testing-module'
-        fill_in 'Module Description', with: 'This module is only created for testing purposes.'
-        click_button 'Add'
-        expect(page).to have_content('Testing Module')
-        expect(page).to have_content('This module is only created for testing purposes.')
-        visit "/training/example-library/testing-module"
-        click_button 'Add Slide'
-      end
-
+    context 'when adding and removing a training slide' do
       let(:training_module) { TrainingModule.find_by(slug: 'testing-module') }
   
       it 'throws an error if slide with same slug but different wiki_page exists' do
-        existing_slide
+        click_button 'Add Slide'
   
         fill_in 'Title', with: 'New Slide Title'
         fill_in 'Slug', with: 'existing-slide'
@@ -277,7 +275,7 @@ describe 'TrainingContent', type: :feature, js: true do
       end
   
       it 'throws an error if slide with same slug and same wiki_page exists but is already in the training module' do
-        existing_slide
+        click_button 'Add Slide'
         training_module.slide_slugs << existing_slide.slug
         training_module.save
   
@@ -290,7 +288,7 @@ describe 'TrainingContent', type: :feature, js: true do
       end
   
       it 'adds the slide if slide with same slug and same wiki_page exists but is not in the training module' do
-        existing_slide
+        click_button 'Add Slide'
   
         fill_in 'Title', with: 'New Slide Title'
         fill_in 'Slug', with: 'existing-slide'
@@ -302,6 +300,7 @@ describe 'TrainingContent', type: :feature, js: true do
       end
   
       it 'creates a new slide if slide with same slug does not exist in database' do
+        click_button 'Add Slide'
         fill_in 'Title', with: 'New Slide Title'
         fill_in 'Slug', with: 'new-slide-slug'
         fill_in 'wiki_page', with: 'Training modules/dashboard/slides/10801-welcome-new-editor'
@@ -309,6 +308,22 @@ describe 'TrainingContent', type: :feature, js: true do
 
         expect(page).to have_content('New Slide Title')
         expect(training_module.reload.slide_slugs).to include('new-slide-slug')
+      end
+
+      it 'removes the slide from the training module' do
+        # Adding the slide to the module
+        training_module.slide_slugs << existing_slide.slug
+        training_module.save
+        expect(training_module.reload.slide_slugs).to include('existing-slide')
+
+        # Removing the slide
+        visit "/training/example-library/testing-module"
+        click_button 'Remove Slide'
+        expect(page).to have_selector('.program-description', count: 1)
+        first('.program-description').click
+        click_button 'Remove'
+
+        expect(training_module.reload.slide_slugs).not_to include('existing-slide')
       end
     end
   end
