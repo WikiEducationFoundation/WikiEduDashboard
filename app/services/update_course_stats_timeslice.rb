@@ -35,7 +35,7 @@ class UpdateCourseStatsTimeslice
     # This needs to happen after `update_caches` because it relies on ArticlesCourses#new_article
     # to calculate new article stats for each namespace.
     # update_wiki_namespace_stats
-    # @course.update(needs_update: false)
+    @course.update(needs_update: false)
     @end_time = Time.zone.now
     UpdateLogger.update_course(@course, 'start_time' => @start_time.to_datetime,
                                          'end_time' => @end_time.to_datetime,
@@ -187,7 +187,7 @@ class UpdateCourseStatsTimeslice
   end
 
   def log_error(error)
-    Sentry.capture_message "#{@course.title} update caches erro: #{error}",
+    Sentry.capture_message "#{@course.title} update caches error: #{error}",
                            level: 'error'
   end
 
