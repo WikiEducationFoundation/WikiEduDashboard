@@ -1384,7 +1384,7 @@ en:
     category_title: Category Title
     category_description: Category Description
     choose_modules_msg: >
-      Choose the modules you want to transfer from this category.
+      Choose the modules you want to transfer.
       You can also select multiple modules.
     confirmation: 
       delete_category: Are you sure you want to delete this category?
@@ -1430,6 +1430,9 @@ en:
     page_number: Page %{number} of %{total}
     previous: < Previous
     reload_from_source: reload from source
+    remove: Remove
+    remove_slide: Remove Slide
+    remove_slide_msg: This will permanently remove the seleceted slides from this training module.
     slide_slug: Slide Slug
     slide_title: Slide Title
     slide_wiki_page: Slide Wikipage

@@ -3,6 +3,7 @@ import { compact } from 'lodash-es';
 import { connect } from 'react-redux';
 import { fetchTrainingModule } from '../../actions/training_actions.js';
 import AddSlide from './modals/add_slide.jsx';
+import RemoveSlides from './modals/remove_slide.jsx';
 
 const TrainingModuleHandler = (props) => {
   useEffect(() => {
@@ -14,6 +15,11 @@ const TrainingModuleHandler = (props) => {
     setShowAddSlideModal(!showAddSlideModal);
   };
 
+  const toggleRemoveSlideModal = () => {
+    setShowRemoveSlideModal(!showRemoveSlideModal);
+  };
+
+  const [showRemoveSlideModal, setShowRemoveSlideModal] = useState(false);
   const [showAddSlideModal, setShowAddSlideModal] = useState(false);
   const locale = I18n.locale;
   const slidesAry = compact(props.training.module.slides);
@@ -54,6 +60,7 @@ const TrainingModuleHandler = (props) => {
   return (
     <div>
       {showAddSlideModal && <AddSlide toggleModal={toggleAddSlideModal} />}
+      {showRemoveSlideModal && <RemoveSlides slidesAry={slidesAry} toggleModal={toggleRemoveSlideModal} />}
       <div className="training__toc-container">
         <h1 className="h4 capitalize"> {I18n.t('training.table_of_contents')} <span className="pull-right total-slides">({slidesAry.length})</span></h1>
         <ol>
@@ -62,6 +69,7 @@ const TrainingModuleHandler = (props) => {
         {moduleSource}
         <div className="training-modification training_slide_modification_buttons">
           <button className="button dark" onClick={toggleAddSlideModal}>{I18n.t('training.add_slide')}</button>
+          <button className="button danger" onClick={toggleRemoveSlideModal}>{I18n.t('training.remove_slide')}</button>
         </div>
       </div>
     </div>

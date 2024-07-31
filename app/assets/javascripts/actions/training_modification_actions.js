@@ -225,3 +225,24 @@ export const addSlide = (library_id, module_id, slide, setSubmitting) => (dispat
     performValidation(error, dispatch, slideValidationRules);
   });
 };
+
+// For Removing Slide from Training Module
+const removeSlidesPromise = async (module_id, slideSlugList) => {
+  const response = await request(`/training/${module_id}/remove_slide`, {
+    method: 'DELETE',
+    body: JSON.stringify({ slideSlugList }),
+  });
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.json();
+    response.responseText = data;
+    throw response;
+  }
+  return response.json();
+};
+
+export const removeSlides = (module_id, slideSlugList) => (dispatch) => {
+  return removeSlidesPromise(module_id, slideSlugList)
+  .then(() => window.location.reload())
+  .catch(data => dispatch({ type: API_FAIL, data }));
+};

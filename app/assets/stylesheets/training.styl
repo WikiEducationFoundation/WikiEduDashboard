@@ -116,23 +116,34 @@ old-ie ?= false
     pointer-events: none;
     opacity: 0.5;
 
+  .wizard__panel
+    margin-bottom 100px
+    max-height calc(100vh - 200px)
+  
+  .remove-slide-container
+    max-height calc(100vh - 500px)
+    overflow-y auto
+    margin-bottom 20px
+
   .program-description
     position relative
-    padding 1.4rem 0rem 0rem 1rem !important
-    margin-top 25px
+    padding 0.5rem 0rem 0rem 0.7rem !important
+    margin-top 15px !important
     cursor pointer
+    p
+      margin 0 0 0.5rem 0
     h4 
       font-size 0.9em !important
       letter-spacing 0.02em
-      margin 0 0 16px 0
-      line-height 0.2em
+      margin 0 0 4px 0
       font-weight 00
       color rgb(114, 143, 186)
       padding 0
+
     &.selected
       outline 2px solid #878dcd !important
       border-color: #878dcd !important
-    
+
     .checkbox-image
       border 1px solid mischka
       border-width 0 0 1px 1px
@@ -144,3 +155,6 @@ old-ie ?= false
       width 30px
       background #878dcd
 
+  .remove-slide
+    h4
+      font-size 1.2rem !important
