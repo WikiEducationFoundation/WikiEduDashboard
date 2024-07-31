@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 #= Copy course from another server
-class CopyCourse
+class CopyCourse # rubocop:disable Metrics/ClassLength
   def initialize(url:, user_data:)
     @url = url
     @user_data = user_data
@@ -12,10 +12,8 @@ class CopyCourse
     add_tracked_wikis
     @cat_data = retrieve_categories_data
     copy_tracked_categories_data
-    if @user_data.present? && @user_data != '0'
-      @users_data = retrieve_users_data
-      copy_users_data
-    end
+    maybe_copy_user_data
+    create_timeslices
     @timeline_data = retrieve_timeline_data
     copy_timeline_data
     return { course: @course, error: nil }
@@ -82,6 +80,13 @@ class CopyCourse
     end
   end
 
+  def maybe_copy_user_data
+    if @user_data.present? && @user_data != '0'
+      @users_data = retrieve_users_data
+      copy_users_data
+    end
+  end
+
   def copy_users_data
     @users_data.each do |user_hash|
       user = User.find_or_create_by!(username: user_hash['username'])
@@ -142,5 +147,11 @@ class CopyCourse
   def retrieve_users_data
     response = get_request('/users.json')
     JSON.parse(response.body)['course']['users']
+  end
+
+  def create_timeslices
+    @course.reload
+    # Create course user wiki and course user timeslices
+    TimesliceManager.new(@course).create_timeslices_for_new_course_wiki_records(@course.wikis)
   end
 end
