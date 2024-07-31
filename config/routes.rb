@@ -379,6 +379,7 @@ Rails.application.routes.draw do
   
   # Delete
   delete 'training/:library_id/categories/:category_id', to: 'training_library#delete_category', as: :delete_category
+  delete '/training/:module_id/remove_slide' => 'training_slides#remove_slide'
 
   # Misc
   # get 'courses' => 'courses#index'
