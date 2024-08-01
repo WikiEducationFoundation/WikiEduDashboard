@@ -5,6 +5,30 @@ import request from '../utils/request';
 import { setInvalid } from './validation_actions';
 import { SET_TRAINING_MODE } from '../constants/training';
 
+// For Modifying Training Content
+const libraryValidationRules = [
+  { keyword: 'name', field: 'name' },
+  { keyword: 'slug', field: 'slug' },
+  { keyword: 'introduction', field: 'introduction' }
+];
+
+const categoryValidationRules = [
+  { keyword: 'title', field: 'title' },
+  { keyword: 'description', field: 'description' }
+];
+
+const moduleValidationRules = [
+  { keyword: 'name', field: 'name' },
+  { keyword: 'slug', field: 'slug' },
+  { keyword: 'description', field: 'description' }
+];
+
+const slideValidationRules = [
+  { keyword: 'title', field: 'title' },
+  { keyword: 'slug', field: 'slug' },
+  { keyword: 'wikipage', field: 'wiki_page' }
+];
+
 // For switching between edit and view mode
 export const getTrainingMode = () => (dispatch) => {
   dispatch({
@@ -36,24 +60,6 @@ export const updateTrainingMode = (editMode, setUpdatingEditMode) => (dispatch) 
   .catch(data => dispatch({ type: API_FAIL, data }));
 };
 
-// For Modifying Training Content
-const libraryValidationRules = [
-  { keyword: 'name', field: 'name' },
-  { keyword: 'slug', field: 'slug' },
-  { keyword: 'introduction', field: 'introduction' }
-];
-
-const categoryValidationRules = [
-  { keyword: 'title', field: 'title' },
-  { keyword: 'description', field: 'description' }
-];
-
-const moduleValidationRules = [
-  { keyword: 'name', field: 'name' },
-  { keyword: 'slug', field: 'slug' },
-  { keyword: 'description', field: 'description' }
-];
-
 const performValidation = (error, dispatch, validationRules) => {
   const errorMessages = error.responseText.errorMessages;
   let apiFailDispatched = false;
@@ -76,6 +82,7 @@ const performValidation = (error, dispatch, validationRules) => {
 };
 
 
+// For Creating New Library
 const createLibraryPromise = async (library, setSubmitting) => {
   const response = await request('/training/create_library', {
     method: 'POST',
@@ -110,6 +117,7 @@ export const createLibrary = (library, setSubmitting, toggleModal) => (dispatch)
   });
 };
 
+// For Creating New Category
 const createCategoryPromise = async (library_id, category, setSubmitting) => {
   const response = await request(`/training/${library_id}/create_category`, {
     method: 'POST',
@@ -141,6 +149,7 @@ export const createCategory = (library_id, category, setSubmitting, toggleModal)
   });
 };
 
+// For Adding New Module
 const addModulePromise = async (library_id, category_id, module, setSubmitting) => {
   const response = await request(`/training/${library_id}/${category_id}/add_module`, {
     method: 'POST',
@@ -167,4 +176,73 @@ export const addModule = (library_id, category_id, module, setSubmitting) => (di
   .catch((error) => {
     performValidation(error, dispatch, moduleValidationRules);
   });
+};
+
+// For Transferring Modules
+const transferModulesPromise = async (library_id, transferInfo, setSubmitting) => {
+  const response = await request(`/training/${library_id}/transfer_modules`, {
+    method: 'POST',
+    body: JSON.stringify({ transferInfo }),
+  });
+  setSubmitting(false);
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.json();
+    response.responseText = data;
+    throw response;
+  }
+  return response.json();
+};
+
+export const transferModules = (library_id, transferInfo, setSubmitting) => (dispatch) => {
+  return transferModulesPromise(library_id, transferInfo, setSubmitting)
+  .then(() => {
+    window.location.reload();
+  })
+  .catch(data => dispatch({ type: API_FAIL, data }));
+};
+
+// For Adding New Slide to Training Module
+const addSlidePromise = async (library_id, module_id, slide, setSubmitting) => {
+  const response = await request(`/training/${library_id}/${module_id}/add_slide`, {
+    method: 'POST',
+    body: JSON.stringify({ slide }),
+  });
+  setSubmitting(false);
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.json();
+    response.responseText = data;
+    throw response;
+  }
+  return response.json();
+};
+
+export const addSlide = (library_id, module_id, slide, setSubmitting) => (dispatch) => {
+  return addSlidePromise(library_id, module_id, slide, setSubmitting)
+  .then(() => window.location.reload())
+  .catch((error) => {
+    performValidation(error, dispatch, slideValidationRules);
+  });
+};
+
+// For Removing Slide from Training Module
+const removeSlidesPromise = async (module_id, slideSlugList) => {
+  const response = await request(`/training/${module_id}/remove_slide`, {
+    method: 'DELETE',
+    body: JSON.stringify({ slideSlugList }),
+  });
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.json();
+    response.responseText = data;
+    throw response;
+  }
+  return response.json();
+};
+
+export const removeSlides = (module_id, slideSlugList) => (dispatch) => {
+  return removeSlidesPromise(module_id, slideSlugList)
+  .then(() => window.location.reload())
+  .catch(data => dispatch({ type: API_FAIL, data }));
 };
