@@ -432,28 +432,26 @@ const Timeline = createReactClass({
 
     const sidebar = this.props.course.id ? (
       <div className="timeline__week-nav">
-        <Affix offset={100}>
-          <section className="timeline-ctas float-container">
-            <span>{wizardLink}</span>
-            {reorderableControls}
-            {reorderActionButtons}
-          </section>
-          <section className="timeline-ctas float-container">
-            {editWeekTitles}
-            {titlesActionButtons}
-          </section>
-          <section className="timeline-ctas float-container">
-            {restartTimeline}
-          </section>
-          <div className="panel">
-            <ol>
-              {weekNav}
-              {addWeekLink}
-            </ol>
-            {editCourseDates}
-            {/* <a className="week-nav__action week-nav__link" href="#grading">Grading</a> */}
-          </div>
-        </Affix>
+        <section className="timeline-ctas float-container">
+          <span>{wizardLink}</span>
+          {reorderableControls}
+          {reorderActionButtons}
+        </section>
+        <section className="timeline-ctas float-container">
+          {editWeekTitles}
+          {titlesActionButtons}
+        </section>
+        <section className="timeline-ctas float-container">
+          {restartTimeline}
+        </section>
+        <div className="panel">
+          <ol>
+            {weekNav}
+            {addWeekLink}
+          </ol>
+          {editCourseDates}
+          {/* <a className="week-nav__action week-nav__link" href="#grading">Grading</a> */}
+        </div>
       </div>
     ) : (
       <div className="timeline__week-nav" />

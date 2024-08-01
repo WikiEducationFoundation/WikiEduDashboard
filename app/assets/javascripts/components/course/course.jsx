@@ -17,7 +17,6 @@ import { fetchUsers } from '../../actions/user_actions.js';
 import { fetchCampaigns } from '../../actions/campaign_actions.js';
 import { fetchCourse, updateCourse, persistCourse, dismissNotification } from '../../actions/course_actions';
 import { fetchTimeline } from '../../actions/timeline_actions';
-import Affix from '../common/affix.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import EnrollCard from '../enroll/enroll_card.jsx';
 import CourseNavbar from '../common/course_navbar.jsx';
@@ -108,7 +107,7 @@ const Course = withRouter((props) => {
   return (
     <div>
       <div className="course-nav__wrapper">
-        <Affix className="course_navigation" offset={57}>
+        <div className="course_navigation">
           <CourseNavbar
             course={course}
             location={props.router.location}
@@ -116,7 +115,7 @@ const Course = withRouter((props) => {
             courseLink={_courseLinkParams()}
           />
           <Notifications />
-        </Affix>
+        </div>
       </div>
       <CourseAlerts
         courseAlerts={props.courseAlerts}
