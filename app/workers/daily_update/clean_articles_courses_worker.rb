@@ -7,6 +7,7 @@ class CleanArticlesCoursesWorker
   sidekiq_options lock: :until_executed
 
   def perform
-    ArticlesCoursesCleaner.rebuild_articles_courses
+    # TODO: think how to clean articles courses without persisted revisions
+    # ArticlesCoursesCleaner.rebuild_articles_courses
   end
 end
