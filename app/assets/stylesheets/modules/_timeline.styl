@@ -324,6 +324,9 @@ h4.training-module
 .timeline__week-nav
   margin-top 16px
   column(3/12, offset: 1/12)
+  +below(tablet)
+    margin-top 0px
+    width: fit-content;
 
 .timeline__weeks, .timeline__grading-container
   column(8/12)
@@ -505,6 +508,8 @@ p.graded
 
 .timeline-ctas
   margin 1em 0
+  +below(tablet)
+    margin 0px 0px 15px 0px
 
   .button
     margin-bottom 6px
