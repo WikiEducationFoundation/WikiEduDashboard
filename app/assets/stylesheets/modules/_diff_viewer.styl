@@ -18,10 +18,15 @@
   padding 5px 0
   margin 10px
 
+.diff-viewer-scrollbox-container
+  overflow-y scroll
+
 .diff-viewer-scrollbox
   max-height: calc(95vh - 350px)
   overflow-y: scroll
   overflow-x: hidden
+  +below(tablet)
+    width fit-content
 
 .diff-viewer-scrollbox > table
   width 100%
