@@ -11,6 +11,9 @@ describe TimesliceManager do
   let(:enwiki_course) { CoursesWikis.find_or_create_by(course:, wiki: enwiki) }
   let(:wikidata_course) { CoursesWikis.find_or_create_by(course:, wiki: wikidata) }
   let(:timeslice_manager) { described_class.new(course) }
+  let(:article1) { create(:article, wiki_id: enwiki.id) }
+  let(:article2) { create(:article, wiki_id: wikidata.id) }
+  let(:article3) { create(:article, wiki_id: wikidata.id) }
   let(:new_article_courses) { [] }
   let(:new_course_users) { [] }
   let(:new_course_wikis) { [] }
@@ -25,9 +28,9 @@ describe TimesliceManager do
     new_course_users << create(:courses_user, id: 2, user_id: 2, course:)
     new_course_users << create(:courses_user, id: 3, user_id: 3, course:)
 
-    new_article_courses << create(:articles_course, article_id: 1, course:)
-    new_article_courses << create(:articles_course, article_id: 2, course:)
-    new_article_courses << create(:articles_course, article_id: 3, course:)
+    new_article_courses << create(:articles_course, article_id: article1.id, course:)
+    new_article_courses << create(:articles_course, article_id: article2.id, course:)
+    new_article_courses << create(:articles_course, article_id: article3.id, course:)
     course.reload
   end
 
@@ -83,6 +86,33 @@ describe TimesliceManager do
         expect(course.course_user_wiki_timeslices.first.wiki).to eq(wikibooks)
         expect(course.course_user_wiki_timeslices.size).to eq(333)
       end
+    end
+  end
+
+  describe '#delete_timeslices_for_deleted_course_wikis' do
+    before do
+      create(:courses_wikis, wiki: wikibooks, course:)
+      timeslice_manager.create_timeslices_for_new_course_wiki_records([wikibooks,
+                                                                       wikidata,
+                                                                       enwiki])
+      timeslice_manager.create_timeslices_for_new_article_course_records(
+        new_article_courses
+      )
+    end
+
+    it 'deletes wiki timeslices for the entire course' do
+      expect(course.course_wiki_timeslices.size).to eq(333)
+      expect(course.course_user_wiki_timeslices.size).to eq(999)
+      expect(course.article_course_timeslices.size).to eq(333)
+
+      timeslice_manager.delete_timeslices_for_deleted_course_wikis([wikibooks.id, wikidata.id])
+      course.reload
+      # Course wiki timeslices for wikibooks and wikidata were deleted
+      expect(course.course_wiki_timeslices.size).to eq(111)
+      # Course user wiki timeslices for wikibooks and wikidata were deleted
+      expect(course.course_user_wiki_timeslices.size).to eq(333)
+      # article course timeslices for wikibooks and wikidata were deleted
+      expect(course.article_course_timeslices.size).to eq(111)
     end
   end
 
