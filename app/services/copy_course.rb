@@ -33,6 +33,7 @@ class CopyCourse
     modify_course_slug
     copied_data = {}
     params_to_copy.each { |p| copied_data[p] = @course_data[p] }
+    change_type(copied_data) # Changes the course type of certain courses
     @home_wiki = Wiki.get_or_create(language: @course_data['home_wiki']['language'],
                                     project: @course_data['home_wiki']['project'])
     copied_data['home_wiki_id'] = @home_wiki.id
@@ -43,6 +44,14 @@ class CopyCourse
     end
     # Create the course
     @course = Course.create!(copied_data)
+  end
+
+  def change_type(copied_data)
+    if @course_data['type'] == "ClassroomProgramCourse" ||
+       @course_data['type'] == "FellowsCohort" ||
+       @course_data['type'] == "VisitingScholarship"
+      copied_data['type'] = "BasicCourse"
+    end
   end
 
   def modify_course_slug
