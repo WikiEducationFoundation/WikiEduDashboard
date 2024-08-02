@@ -126,14 +126,16 @@ const RevisionHandler = ({ course, courseScopedLimit }) => {
           />
         </div>
       </div>
-      <RevisionList
-        revisions={isCourseScoped ? revisionsDisplayedCourseSpecific : revisionsDisplayed}
-        loaded={loaded}
-        course={course}
-        sortBy={sortRevisions}
-        wikidataLabels={wikidataLabels}
-        sort={sort}
-      />
+      <div className= "revision-list-container">
+        <RevisionList
+          revisions={isCourseScoped ? revisionsDisplayedCourseSpecific : revisionsDisplayed}
+          loaded={loaded}
+          course={course}
+          sortBy={sortRevisions}
+          wikidataLabels={wikidataLabels}
+          sort={sort}
+        />
+      </div>
       {!loaded && <Loading/>}
       {loaded && showMoreButton}
       {loaded && metaDataLoading && <ProgressIndicator message={getLoadingMessage()}/>}
