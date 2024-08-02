@@ -421,10 +421,15 @@ h4.training-module
 
 .affix
   position fixed
+  +below(tablet)
+    position relative
 
 .timeline__week-nav .affix
   top $nav_height
   width 250px
+  +below(tablet)
+    top 0px
+    width 100%
 
 .block__default-due-date
   color $brand_primary
