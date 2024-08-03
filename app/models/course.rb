@@ -333,10 +333,12 @@ class Course < ApplicationRecord
   def update_wikis(updated_wikis)
     existing_wiki_ids = courses_wikis.map(&:wiki_id)
     new_wikis = updated_wikis.reject { |wiki| existing_wiki_ids.include?(wiki.id) }
+    deleted_wiki_ids = existing_wiki_ids.reject do |wiki_id|
+      updated_wikis.map(&:id).include?(wiki_id)
+    end
     update(wikis: updated_wikis)
     ensure_home_wiki_in_courses_wikis
-    # Onnly creates course wiki timeslice records for new wikis
-    TimesliceManager.new(self).create_timeslices_for_new_course_wiki_records new_wikis
+    TimesliceManager.new(self).update_wikis(new_wikis, deleted_wiki_ids)
   end
 
   # The url for the on-wiki version of the course.

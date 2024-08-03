@@ -6,6 +6,13 @@ class TimesliceManager
     @course = course
   end
 
+  def update_wikis(new_wikis, deleted_wikis)
+    # Only creates course wiki timeslice records for new wikis
+    create_timeslices_for_new_course_wiki_records new_wikis
+    # Removes timeslices records for deleted wikis
+    delete_timeslices_for_deleted_course_wikis deleted_wikis
+  end
+
   # Creates article course timeslices records for new articles courses
   # Takes an array like the following:
   # [{:article_id=>115, :course_id=>72},..., {:article_id=>116, :course_id=>72}]
