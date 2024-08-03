@@ -47,10 +47,31 @@ class WikiCourseOutput
     course_details + "\r" + description
   end
 
-  def course_details
+  def course_details # rubocop:disable Metrics/MethodLength
     # TODO: add support for multiple content experts.
     # TODO: switch this to a new template specifically for dashboard courses.
-    <<~COURSE_DETAILS
+
+    # Example output with multiple instructors
+    # {{program details
+    #  | course_name = Advanced Legal Research Winter 2020
+    #  | instructor_username = Tlmarks
+    #  | instructor_realname =
+    #  | instructor_username_2 = Shelbaum
+    #  | instructor_username_3 = Abishekdascs
+    #  | instructor_username_4 = Abishek CS Das
+    #  | support_staff =
+    #  | subject = Legal Research
+    #  | start_date = 2024-02-01 00:00:00 UTC
+    #  | end_date = 2024-09-13 23:59:59 UTC
+    #  | institution = Stanford Law School
+    #  | expected_students =
+    #  | assignment_page =
+    #  | slug = Stanford_Law_School/Advanced_Legal_Research_Winter_2020_(Winter)
+    #  | campaigns = Default Campaign
+    #  | outreachdashboard.wmflabs.org = yes
+    # }}
+
+    details = <<~COURSE_DETAILS
       {{#{template_name(@templates, 'course')}
        | course_name = #{@course.title}
        | instructor_username = #{instructor_username}
@@ -64,11 +85,13 @@ class WikiCourseOutput
        | assignment_page = #{@course.wiki_title}
        | slug = #{@course.slug}
        | campaigns = #{@course.campaigns.pluck(:title).join(', ')}
-       | all_instructor_usernames = #{all_instructors_username}
-       | all_instructor_realnames = #{all_instructors_realname}
        | #{@dashboard_url} = yes
       }}
     COURSE_DETAILS
+
+    insert_additional_instructors(details) if @all_instructors.size > 1
+
+    details
   end
 
   def instructor_username
@@ -79,12 +102,17 @@ class WikiCourseOutput
     @first_instructor_course_user&.real_name
   end
 
-  def all_instructors_username
-    @all_instructors.map(&:username).join("\n")
-  end
+  def insert_additional_instructors(details)
+    # Collect additional instructor usernames and insert them after the first instructor
+    additional_instructors = @all_instructors[1..].map.with_index(2) do |instructor, index|
+      " | instructor_username_#{index} = #{instructor.username}\n"
+    end.join
 
-  def all_instructors_realname
-    @all_instructors.map(&:real_name).reject(&:blank?).join("\n")
+    # Insert additional instructors immediately after the first instructor's real name
+    insertion_point = details.index("| instructor_realname = #{instructor_realname}") +
+                      "| instructor_realname = #{instructor_realname}".length
+
+    details.insert(insertion_point, additional_instructors)
   end
 
   def support_staff_username
