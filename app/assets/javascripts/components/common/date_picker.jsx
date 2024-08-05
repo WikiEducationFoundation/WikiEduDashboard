@@ -1,105 +1,127 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import DayPicker from 'react-day-picker';
+import { useOnClickOutside } from 'react-onclickoutside';
 import { range, includes } from 'lodash-es';
-import {
-  startOfDay,
-  endOfDay,
-  isValid,
-  isAfter,
-  parseISO,
-  setHours,
-  setMinutes,
-  formatISO,
-} from 'date-fns';
+import { startOfDay, endOfDay, isValid, isAfter, parseISO, getHours, getMinutes, setHours, setMinutes, formatISO } from 'date-fns';
 import InputHOC from '../high_order/input_hoc.jsx';
 import Conditional from '../high_order/conditional.jsx';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 import { formatDateWithoutTime, toDate } from '../../utils/date_utils.js';
-import onClickOutside from 'react-onclickoutside';
 
-const DatePicker = ({
-  id,
-  value: propValue,
-  spacer,
-  label,
-  timeLabel,
-  valueClass,
-  editable,
-  enabled,
-  focus,
-  inline,
-  placeholder,
-  p_tag_classname,
-  onBlur,
-  onChange,
-  onClick,
-  append,
-  date_props,
-  showTime,
-  value_key,
-}) => {
-  const [selectedValue, setSelectedValue] = useState(
-    propValue ? formatDateWithoutTime(toDate(propValue)) : ''
-  );
-  const [hour, setHour] = useState(0);
-  const [minute, setMinute] = useState(0);
-  const [datePickerVisible, setDatePickerVisible] = useState(false);
-  const datePickerRef = useRef(null);
+const DatePicker = (props) => {
+  const {
+    id,
+    value,
+    value_key,
+    spacer = ': ',
+    label,
+    timeLabel,
+    valueClass,
+    editable,
+    enabled,
+    focus,
+    inline,
+    isClearable,
+    placeholder,
+    p_tag_classname,
+    onBlur,
+    onFocus,
+    onChange,
+    onClick,
+    append,
+    date_props,
+    showTime,
+    invalidMessage = I18n.t('application.field_invalid_date')
+  } = props;
 
-  DatePicker.handleClickOutside = () => setDatePickerVisible(false);
-
-  useEffect(() => {
-    if (editable && datePickerRef.current) {
-      if (datePickerVisible) {
-        datePickerRef.current.focus();
-      } else if (datePickerRef.current.blur) {
-        datePickerRef.current.blur();
-      }
+  const getInitialState = () => {
+    if (value) {
+      const dateObj = toDate(value);
+      return {
+        value: formatDateWithoutTime(dateObj),
+        hour: getHours(dateObj),
+        minute: getMinutes(dateObj),
+      };
     }
-  }, [datePickerVisible, editable]);
+    return {
+      value: '',
+      hour: 0,
+      minute: 0,
+    };
+  };
+
+  const [state, setState] = useState(getInitialState());
+  const [datePickerVisible, setDatePickerVisible] = useState(false);
+
+  const dateFieldRef = useRef(null);
+  const dayPickerRef = useRef(null);
+
+  useOnClickOutside(dateFieldRef, () => {
+    if (datePickerVisible) {
+      setDatePickerVisible(false);
+    }
+  });
+
+  const getDate = () => {
+    let dateObj = toDate(state.value);
+    dateObj = setHours(dateObj, state.hour);
+    return setMinutes(dateObj, state.minute);
+  };
+
+  const getFormattedDate = () => formatDateWithoutTime(getDate());
+
+  const getFormattedDateTime = () => CourseDateUtils.formattedDateTime(getDate(), showTime);
+
+  const onChangeHandler = () => {
+    const e = { target: { value: formatISO(getDate()) } };
+    onChange(e);
+  };
 
   const handleDatePickerChange = (selectedDate) => {
     const date = toDate(selectedDate);
     if (isDayDisabled(date)) {
       return;
     }
-    datePickerRef.current.focus();
-    setSelectedValue(formatDateWithoutTime(date));
+    dateFieldRef.current.focus();
+    setState(prevState => ({
+      ...prevState,
+      value: formatDateWithoutTime(date),
+    }));
     setDatePickerVisible(false);
     onChangeHandler();
   };
 
   const handleDateFieldChange = (e) => {
-    const { value: newValue } = e.target;
-    if (newValue !== selectedValue) {
-      setSelectedValue(newValue);
+    const { value } = e.target;
+    if (value !== state.value) {
+      setState(prevState => ({ ...prevState, value }));
     }
   };
 
   const handleDateFieldBlur = (e) => {
-    const { value: newValue } = e.target;
-    if (isValidDate(newValue) && !isDayDisabled(parseISO(newValue))) {
-      setSelectedValue(newValue);
+    const { value } = e.target;
+    if (isValidDate(value) && !isDayDisabled(parseISO(value))) {
+      setState(prevState => ({ ...prevState, value }));
       onChangeHandler();
     } else {
-      setSelectedValue(formatDateWithoutTime(toDate(propValue)));
+      setState(getInitialState());
     }
   };
 
   const handleHourFieldChange = (e) => {
-    if (selectedValue === '') {
+    if (state.value === '') {
       handleDatePickerChange(new Date());
     }
-    setHour(e.target.value);
+    setState(prevState => ({ ...prevState, hour: e.target.value }));
     onChangeHandler();
   };
 
   const handleMinuteFieldChange = (e) => {
-    if (selectedValue === '') {
+    if (state.value === '') {
       handleDatePickerChange(new Date());
     }
-    setMinute(e.target.value);
+    setState(prevState => ({ ...prevState, minute: e.target.value }));
     onChangeHandler();
   };
 
@@ -121,7 +143,7 @@ const DatePicker = ({
 
   const isDaySelected = (date) => {
     const currentDate = formatDateWithoutTime(date);
-    return currentDate === selectedValue;
+    return currentDate === state.value;
   };
 
   const isDayDisabled = (currentDate) => {
@@ -136,6 +158,7 @@ const DatePicker = ({
         return true;
       }
     }
+    return false;
   };
 
   const isValidDate = (value) => {
@@ -143,45 +166,27 @@ const DatePicker = ({
     return validationRegex.test(value) && isValid(toDate(value));
   };
 
-  const onChangeHandler = () => {
-    const e = { target: { value: formatISO(getDate()) } };
-    onChange(e);
-  };
-
-  const getDate = () => {
-    let dateObj = toDate(selectedValue);
-    dateObj = setHours(dateObj, hour);
-    return setMinutes(dateObj, minute);
-  };
-
-  const getFormattedDateTime = () => {
-    return CourseDateUtils.formattedDateTime(getDate(), showTime);
+  const showCurrentDate = () => {
+    return dayPickerRef.current.showMonth(state.month);
   };
 
   const getTimeDropdownOptions = (type) => {
-    return range(0, type === 'hour' ? 24 : 60).map((value) => {
-      return (
-        <option value={value} key={`timedropdown-${type}-${value}`}>
-          {`00${value}`.slice(-2)}
-        </option>
-      );
-    });
+    return range(0, type === 'hour' ? 24 : 60).map((value) => (
+      <option value={value} key={`timedropdown-${type}-${value}`}>
+        {(`00${value}`).slice(-2)}
+      </option>
+    ));
   };
 
-  const spacerText = spacer || ': ';
-  let labelText = label || '';
-  labelText += spacerText;
-  let timeLabelText = timeLabel || '';
-  timeLabelText += spacerText;
-
-  const labelClass = '';
-  let inputClass = inline !== null && inline ? ' inline' : '';
-
-  if (valueClass) {
-    inputClass += ` ${valueClass}`;
-  }
-
   if (editable) {
+    let labelClass = '';
+    let inputClass = (inline !== null) && inline ? ' inline' : '';
+
+    if (props.invalid) {
+      labelClass += 'red';
+      inputClass += 'invalid';
+    }
+
     let minDate;
     if (date_props && date_props.minDate) {
       if (isValid(date_props.minDate)) {
@@ -189,19 +194,20 @@ const DatePicker = ({
       }
     }
 
-    const date = parseISO(selectedValue);
-    const currentMonth = isValid(date) ? date : minDate || new Date();
+    const date = parseISO(state.value);
+    const currentMonth = isValid(date) ? date : (minDate || new Date());
 
     const modifiers = {
       selected: isDaySelected,
-      disabled: isDayDisabled,
+      disabled: isDayDisabled
     };
 
     const dateInput = (
-      <div className="date-input" ref={datePickerRef}>
+      <div className="date-input">
         <input
           id={id}
-          value={selectedValue || ''}
+          ref={dateFieldRef}
+          value={state.value || ''}
           className={`${inputClass} ${value_key}`}
           onChange={handleDateFieldChange}
           onClick={handleDateFieldClick}
@@ -213,28 +219,28 @@ const DatePicker = ({
           placeholder={placeholder}
         />
 
-        {datePickerVisible && (
-          <DayPicker
-            className="DayPicker--visible ignore-react-onclickoutside"
-            modifiers={modifiers}
-            disabledDays={isDayDisabled}
-            onDayClick={handleDatePickerChange}
-            month={currentMonth}
-          />
-        )}
+        <DayPicker
+          className={datePickerVisible ? 'DayPicker--visible ignore-react-onclickoutside' : null}
+          ref={dayPickerRef}
+          tabIndex={-1}
+          modifiers={modifiers}
+          disabledDays={isDayDisabled}
+          onDayClick={handleDatePickerChange}
+          month={currentMonth}
+        />
       </div>
     );
 
-    const timeControlNode = (
+    const timeControlNode = showTime && (
       <span className={`form-group time-picker--form-group ${inputClass}`}>
         <label htmlFor={`${id}-hour`} className={labelClass}>
-          {timeLabelText}
+          {timeLabel || '\u00A0'}
         </label>
         <div className="time-input">
           <select
             className={`time-input__hour ${inputClass}`}
             onChange={handleHourFieldChange}
-            value={hour}
+            value={state.hour}
           >
             {getTimeDropdownOptions('hour')}
           </select>
@@ -242,7 +248,7 @@ const DatePicker = ({
           <select
             className={`time-input__minute ${inputClass}`}
             onChange={handleMinuteFieldChange}
-            value={minute}
+            value={state.minute}
           >
             {getTimeDropdownOptions('minute')}
           </select>
@@ -251,28 +257,20 @@ const DatePicker = ({
     );
 
     return (
-      <div
-        className={`form-group datetime-control ${id}-datetime-control ${inputClass}`}
-      >
+      <div className={`form-group datetime-control ${id}-datetime-control ${inputClass}`}>
         <span className={`form-group date-picker--form-group ${inputClass}`}>
-          <label htmlFor={id} className={labelClass}>
-            {labelText}
-          </label>
+          <label htmlFor={id} className={labelClass}>{label}{spacer}</label>
           {dateInput}
         </span>
-        {showTime ? timeControlNode : null}
+        {timeControlNode}
       </div>
     );
   } else if (label !== null) {
     return (
       <p className={p_tag_classname}>
-        <span className="text-input-component__label">
-          <strong>{labelText}</strong>
-        </span>
-        <span>
-          {(propValue !== null || editable) && !label ? spacerText : null}
-        </span>
-        <span onBlur={onBlur} onClick={onClick} className={valueClass}>
+        <span className="text-input-component__label"><strong>{label}</strong></span>
+        <span>{(value !== null || editable) && !label ? spacer : null}</span>
+        <span onBlur={onBlur} onClick={onClick} className={`text-input-component__value ${valueClass}`}>
           {getFormattedDateTime()}
         </span>
         {append}
@@ -280,7 +278,9 @@ const DatePicker = ({
     );
   }
 
-  return <span>{getFormattedDateTime()}</span>;
+  return (
+    <span>{getFormattedDateTime()}</span>
+  );
 };
 
 DatePicker.propTypes = {
@@ -295,21 +295,16 @@ DatePicker.propTypes = {
   enabled: PropTypes.bool,
   focus: PropTypes.bool,
   inline: PropTypes.bool,
+  isClearable: PropTypes.bool,
   placeholder: PropTypes.string,
   p_tag_classname: PropTypes.string,
   onBlur: PropTypes.func,
-  onChange: PropTypes.func.isRequired,
+  onFocus: PropTypes.func,
+  onChange: PropTypes.func,
   onClick: PropTypes.func,
   append: PropTypes.string,
   date_props: PropTypes.object,
-  showTime: PropTypes.bool,
+  showTime: PropTypes.bool
 };
 
-const clickOutsideConfig = {
-  handleClickOutside: () => DatePicker.handleClickOutside,
-};
-
-export default onClickOutside(
-  Conditional(InputHOC(DatePicker)),
-  clickOutsideConfig
-);
+export default Conditional(InputHOC(DatePicker));
