@@ -26,6 +26,7 @@
 # Author: MacOS Weed
 # Author: Macofe
 # Author: Melimeli
+# Author: Méthodes Bulebe Hangi
 # Author: Oujon
 # Author: PifyZ
 # Author: Pols12
@@ -763,6 +764,9 @@ fr:
     enrollment_edits_enabled_tooltip: Si activé, le tableau de bord publiera un modèle
       sur la page utilisateur et la page de discussion de chaque personne qui a rejoint
       le programme.
+    event_sync: 'Edition désactivée : Ce champ ne peut pas être modifié car le cours
+      est déjà lié à un événement. Sa modification perturberait l''intégration de
+      l''événement'
     courses_enrolled: Cours inscrits
     error:
       exists: Ce cours existe déjà ! Veuillez réessayer avec un autre titre, une autre
