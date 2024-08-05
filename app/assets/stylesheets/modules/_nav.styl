@@ -227,7 +227,7 @@ nav
   .nav__item
     overflow hidden
     padding 0
-    width 30%
+    width 25%
     display inline-block
     +above(tablet)
       width auto
@@ -249,6 +249,9 @@ nav
       padding-top 15px
       padding-bottom 14px
       border-bottom 3px solid transparent
+      +below(tablet)
+        padding-top 10px
+        padding-bottom 10px
     a.active,
     a:hover
       border-bottom 3px solid $brand_primary

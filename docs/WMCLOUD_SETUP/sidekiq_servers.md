@@ -19,6 +19,8 @@ My strategy this time is to put every worker on a separate VM, so try to make th
   - Make sure the path is correct for RVM in `ExecStart`
   - Update the `WorkingDirectory` to something like `/home/ragesoss/WikiEduDashboard`
 
-- Enable and start the service
+- Enable and start the service, eg:
+  - `sudo systemctl enable sidekiq-medium.service`
+  - `sudo systemctl start sidekiq-medium.service`
 
 To update for new deployments, you'll need to quiet these sidekiq processes, stop them, do a `git pull` and `bundle install`, then restart the sidekiq processes.

@@ -671,6 +671,7 @@ ne:
       success_message: सम्पन्न %{result_description}
     reviewers: समीक्षक(हरू)
     reviewing: समीक्षा गर्दै
+    revisions: संशोधनहरू
     sub_navigation:
       editor_overview: सम्पादक अवलाेकन
       exercises_and_trainings: अभ्यास र प्रशिक्षणहरू
