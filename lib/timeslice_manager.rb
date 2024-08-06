@@ -1,16 +1,21 @@
 # frozen_string_literal: true
 
-#= Adds new ArticleCourseTimeslice, CourseUserWikiTimeslice and CourseWikiTimeslice records.
+#= Creates/Removes/Updates ArticleCourseTimeslice, CourseUserWikiTimeslice
+# and CourseWikiTimeslice records.
 class TimesliceManager
   def initialize(course)
     @course = course
   end
 
-  def update_wikis(new_wikis, deleted_wikis)
-    # Only creates course wiki timeslice records for new wikis
-    create_timeslices_for_new_course_wiki_records new_wikis
-    # Removes timeslices records for deleted wikis
-    delete_timeslices_for_deleted_course_wikis deleted_wikis
+  # Deletes course wiki timeslices records for removed course wikis
+  # Deletes course user timeslices records for removed course wiki
+  # Deletes article course timeslices records for removed course wiki
+  # Takes a collection of wiki ids
+  def delete_timeslices_for_deleted_course_wikis(wiki_ids)
+    return if wiki_ids.empty?
+    delete_existing_course_wiki_timeslices(wiki_ids)
+    delete_existing_course_user_wiki_timeslices(wiki_ids)
+    delete_existing_article_course_timeslices(wiki_ids)
   end
 
   # Creates article course timeslices records for new articles courses
@@ -33,17 +38,6 @@ class TimesliceManager
     courses_wikis = @course.courses_wikis.where(wiki: wikis)
     create_empty_course_wiki_timeslices(courses_wikis)
     create_empty_course_user_wiki_timeslices(courses_wikis:)
-  end
-
-  # Deletes course wiki timeslices records for removed course wikis
-  # Deletes course user timeslices records for removed course wiki
-  # Deletes article course timeslices records for removed course wiki
-  # Takes a collection of wiki ids
-  def delete_timeslices_for_deleted_course_wikis(wiki_ids)
-    return if wiki_ids.empty?
-    delete_existing_course_wiki_timeslices(wiki_ids)
-    delete_existing_course_user_wiki_timeslices(wiki_ids)
-    delete_existing_article_course_timeslices(wiki_ids)
   end
 
   # Returns a string with the date to start getting revisions.
