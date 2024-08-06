@@ -16,9 +16,11 @@ class CourseWikiUpdaterWorker
     # Be sure the courses wikis were deleted
     current_course_wiki_ids = course.courses_wikis(&:wiki_id)
     deleted_wiki_ids = wiki_ids - current_course_wiki_ids
-    # Deletes timeslices for the deleted wikis
+    # Delete timeslices for the deleted wikis
     TimesliceManager.new(course).delete_timeslices_for_deleted_course_wikis deleted_wiki_ids
-    # Deletes articles courses
+    # Delete articles courses
     ArticlesCoursesCleanerTimeslice.remove_bad_articles_courses(course, deleted_wiki_ids)
+    # Update course cache
+    course.update_cache
   end
 end
