@@ -100,7 +100,7 @@ describe TimesliceManager do
       )
     end
 
-    it 'deletes wiki timeslices for the entire course' do
+    it 'deletes wiki timeslices for the entire course properly' do
       expect(course.course_wiki_timeslices.size).to eq(333)
       expect(course.course_user_wiki_timeslices.size).to eq(999)
       expect(course.article_course_timeslices.size).to eq(333)
@@ -108,10 +108,12 @@ describe TimesliceManager do
       timeslice_manager.delete_timeslices_for_deleted_course_wikis([wikibooks.id, wikidata.id])
       course.reload
       # Course wiki timeslices for wikibooks and wikidata were deleted
-      expect(course.course_wiki_timeslices.size).to eq(111)
+      expect(course.course_wiki_timeslices.where(wiki_id: wikibooks.id).size).to eq(0)
+      expect(course.course_wiki_timeslices.where(wiki_id: wikidata.id).size).to eq(0)
       # Course user wiki timeslices for wikibooks and wikidata were deleted
-      expect(course.course_user_wiki_timeslices.size).to eq(333)
-      # article course timeslices for wikibooks and wikidata were deleted
+      expect(course.course_user_wiki_timeslices.where(wiki_id: wikibooks.id).size).to eq(0)
+      expect(course.course_user_wiki_timeslices.where(wiki_id: wikidata.id).size).to eq(0)
+      # Article course timeslices for wikibooks and wikidata were deleted
       expect(course.article_course_timeslices.size).to eq(111)
     end
   end
