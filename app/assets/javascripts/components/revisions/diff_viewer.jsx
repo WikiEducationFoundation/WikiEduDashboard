@@ -327,7 +327,7 @@ const DiffViewer = createReactClass({
             {this.previousArticle()}
           </div>
           <h4>{this.articleDetails()}</h4>
-          <div>
+          <div className="diff-viewer-scrollbox-container">
             <div className="diff-viewer-scrollbox">
               <strong>{salesforceButtons}</strong>
               <table>

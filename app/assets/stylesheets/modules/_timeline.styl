@@ -258,7 +258,8 @@ button.week__add-block
   table-layout fixed
 
 .block__training-modules h4,
-h4.timeline-exercise
+h4.timeline-exercise,
+h4.training-module
   margin-bottom 8px
   font-weight 400
 
@@ -279,6 +280,8 @@ h4.timeline-exercise
       text-decoration underline
   i
     font-size 13px
+  +below(tablet)
+    width 28%
 
 .block__training-modules-table__module-name-header
   width 42.5%
@@ -314,13 +317,21 @@ h4.timeline-exercise
 
 .timeline__content
   column(12/12)
+  +below(tablet)
+    display flex
+    flex-direction: column-reverse
 
 .timeline__week-nav
   margin-top 16px
   column(3/12, offset: 1/12)
+  +below(tablet)
+    margin-top 0px
+    width: fit-content;
 
 .timeline__weeks, .timeline__grading-container
   column(8/12)
+  +below(tablet)
+    column(12/12)
 
 .grading__grading-container
   clear both
@@ -410,10 +421,15 @@ h4.timeline-exercise
 
 .affix
   position fixed
+  +below(tablet)
+    position relative
 
 .timeline__week-nav .affix
   top $nav_height
   width 250px
+  +below(tablet)
+    top 0px
+    width 100%
 
 .block__default-due-date
   color $brand_primary
@@ -497,6 +513,8 @@ p.graded
 
 .timeline-ctas
   margin 1em 0
+  +below(tablet)
+    margin 0px 0px 15px 0px
 
   .button
     margin-bottom 6px
@@ -534,6 +552,23 @@ a.timeline-exercise
     color $brand_primary
     content " \EA0A"
     float right
+
+a.training-module
+  padding 6px 12px
+  margin-bottom 12px
+  width 100%
+  color #6a6a6a
+  display table
+  border 1px solid #ddd
+  text-decoration none
+  display flex
+  justify-content space-between
+  &:hover
+    border solid 1px $brand_primary
+
+.icon-rt_arrow_purple_training_module
+  background url("../images/rt_arrow_icon_purple.svg") center no-repeat
+  padding 8.5px
 
 a.handout-link
   margin-right 8px

@@ -563,6 +563,7 @@ zh-TW:
     enrollment: 添加/移除學生
     enrollment_edits_enabled: 登記編輯已啟用
     enrollment_edits_enabled_tooltip: 若有啟用，面板會對加入方案的各編者發布使用者頁面與討論頁模板。
+    event_sync: 已停用編輯：因為課程已連結到別的事項，無法更改此欄位。更改會造成擾亂到事項的整合。
     courses_enrolled: 課程已登記
     error:
       exists: 此項課程已經存在！請嘗試使用其他不同的標題、學校名稱或學期。
