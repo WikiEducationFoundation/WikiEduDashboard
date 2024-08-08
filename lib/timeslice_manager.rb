@@ -1,9 +1,21 @@
 # frozen_string_literal: true
 
-#= Adds new ArticleCourseTimeslice, CourseUserWikiTimeslice and CourseWikiTimeslice records.
+#= Creates/Removes/Updates ArticleCourseTimeslice, CourseUserWikiTimeslice
+# and CourseWikiTimeslice records.
 class TimesliceManager
   def initialize(course)
     @course = course
+  end
+
+  # Deletes course wiki timeslices records for removed course wikis
+  # Deletes course user timeslices records for removed course wiki
+  # Deletes article course timeslices records for removed course wiki
+  # Takes a collection of wiki ids
+  def delete_timeslices_for_deleted_course_wikis(wiki_ids)
+    return if wiki_ids.empty?
+    delete_existing_course_wiki_timeslices(wiki_ids)
+    delete_existing_course_user_wiki_timeslices(wiki_ids)
+    delete_existing_article_course_timeslices(wiki_ids)
   end
 
   # Creates article course timeslices records for new articles courses
@@ -119,6 +131,50 @@ class TimesliceManager
     # Do this in batches to avoid running the MySQL server out of memory
     new_records.each_slice(5000) do |new_record_slice|
       CourseWikiTimeslice.import new_record_slice, on_duplicate_key_ignore: true
+    end
+  end
+
+  # Deletes existing course wiki timeslices for a collection of wiki ids
+  def delete_existing_course_wiki_timeslices(wiki_ids)
+    # Collect the ids of timeslices to be deleted
+    timeslice_ids = CourseWikiTimeslice.where(course_id: @course.id, wiki_id: wiki_ids).pluck(:id)
+
+    return if timeslice_ids.empty?
+
+    # Do this in batches to avoid running the MySQL server out of memory
+    timeslice_ids.each_slice(5000) do |timeslice_id_slice|
+      CourseWikiTimeslice.where(id: timeslice_id_slice).delete_all
+    end
+  end
+
+  # Deletes existing course user wiki timeslices for a collection of wiki ids
+  def delete_existing_course_user_wiki_timeslices(wiki_ids)
+    # Collect the ids of timeslices to be deleted
+    timeslice_ids = CourseUserWikiTimeslice.where(course_id: @course.id,
+                                                  wiki_id: wiki_ids).pluck(:id)
+
+    return if timeslice_ids.empty?
+
+    # Do this in batches to avoid running the MySQL server out of memory
+    timeslice_ids.each_slice(5000) do |timeslice_id_slice|
+      CourseUserWikiTimeslice.where(id: timeslice_id_slice).delete_all
+    end
+  end
+
+  # Deletes existing article course timeslices for a collection of wiki ids
+  def delete_existing_article_course_timeslices(wiki_ids)
+    # Collect the ids of articles to be deleted
+    article_ids = @course.articles.where(wiki_id: wiki_ids).pluck(:id)
+
+    # Collect the ids of timeslices to be deleted
+    timeslice_ids = ArticleCourseTimeslice.where(course_id: @course.id,
+                                                 article_id: article_ids).pluck(:id)
+
+    return if timeslice_ids.empty?
+
+    # Do this in batches to avoid running the MySQL server out of memory
+    timeslice_ids.each_slice(5000) do |timeslice_id_slice|
+      ArticleCourseTimeslice.where(id: timeslice_id_slice).delete_all
     end
   end
 

@@ -170,6 +170,7 @@ describe CoursesController, type: :request do
       put "/courses/#{course.slug}", params: params, as: :json
       expect(course.wikis.count).to eq(2)
       course.reload
+      expect(CourseWikiUpdaterWorker).to receive(:schedule_deletion)
       course_params[:wikis].pop
       put "/courses/#{course.slug}", params: params, as: :json
       expect(course.wikis.count).to eq(1)
@@ -181,6 +182,7 @@ describe CoursesController, type: :request do
       put "/courses/#{course.slug}", params: params, as: :json
       expect(course.wikis.count).to eq(2)
       course.reload
+      expect(CourseWikiUpdaterWorker).to receive(:schedule_deletion)
       course_params[:wikis][0][:language] = 'fr'
       put "/courses/#{course.slug}", params: params, as: :json
       expect(course.wikis.last.language).to eq('fr')
@@ -206,6 +208,7 @@ describe CoursesController, type: :request do
       course_params[:namespaces] =
         ['en.wikipedia.org-namespace-0', 'en.wikibooks.org-namespace-102']
       params = { id: course.slug, course: course_params }
+      expect(CourseWikiUpdaterWorker).to receive(:schedule_deletion)
       put "/courses/#{course.slug}", params: params, as: :json
       expect(course.course_wiki_namespaces.count).to eq(2)
       course.reload
