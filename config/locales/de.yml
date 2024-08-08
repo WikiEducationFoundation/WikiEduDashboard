@@ -21,6 +21,7 @@
 # Author: Taresi
 # Author: ThisCarthing
 # Author: ToBeFree
+# Author: TomatoCake
 # Author: Umherirrender
 # Author: WikiBayer
 ---
@@ -39,6 +40,7 @@ de:
     number_field: Dies ist ein Zahlenfeld. Die von den meisten Browsern dargestellten
       Schaltflächen erhöhen und vermindern die Eingabe.
   application:
+    back: Zurück
     cancel: Abbrechen
     cookie_consent: Diese Website verwendet Cookies, um Sie angemeldet zu halten,
       und speichert Informationen die mit Ihrem Wikipedia-Konto im Zusammenhang stehen.
@@ -85,6 +87,7 @@ de:
     opt_out: Nein
     opt_yes: ja
     opt_no: nein
+    print: Drucken
   article_statuses:
     not_yet_started: Erste Schritte
     in_progress: Arbeiten auf der Spielwiese
@@ -126,6 +129,11 @@ de:
     explore: Entdecken
     log_in: Mit Wikipedia anmelden
     sign_up: Mit Wikipedia registrieren
+    registration_advice:
+      username_rules:
+        heading: Regeln für Benutzernamen
+      additional_advice:
+        heading: Empfehlung
     sign_up_help: Um das Dashboard zu verwenden, musst du dich bei Wikipedia anmelden
       und dem Dashboard die Erlaubnis geben, auf dein Konto zuzugreifen. Du kannst
       dich mit einem bestehenden Wikipedia-Konto anmelden oder ein neues erstellen.
@@ -171,6 +179,7 @@ de:
       tracked: Getrackt
       untracked: Ungetrackt
       tracked_and_untracked: Getrackt und ungetrackt
+    filter_text: 'Filter:'
     find: Artikel finden
     hide: Ausblenden
     history: (Versionsgeschichte)
@@ -261,9 +270,11 @@ de:
     confirm_add_available: Bist du sicher, dass du %{title} hinzufügen möchtest?
     confirm_addition: Möchtest du %{title} wirklich zu %{username} zuordnen?
     confirm_deletion: Möchtest du diese Zuweisung wirklich löschen?
+    delete: Entfernen und löschen
     editors: Zugewiesen an
     group_members: Gruppenmitglieder
     label: Zuweisen
+    label_all: Alle zuweisen
     loading: Lade Zuordnungen…
     none_short: Keine zugewiesenen Artikel
     none: Dieser Kurs hat keine zugewiesenen Artikel.
@@ -332,6 +343,7 @@ de:
     data_editors_by_course_info: Liste der eingeschriebenen Autoren und ihrer Kurse/Programme
     data_editor_usernames: Benutzernamen der Autoren
     data_editor_usernames_info: Liste der Benutzernamen der Autoren, einen pro Zeile
+    data_wikidata: Wikidata-Statistiken
     default_course_type: Standard-Kurstyp
     default_passcode: Standard-Passcode
     default_passcode_explanation: 'Standardmäßig haben neue Programme in dieser Kampagne:'
@@ -361,7 +373,7 @@ de:
     add_template: Vorlage hinzufügen
     add_this_category: Diese Kategorie hinzufügen
     add_this_psid: Diese PSID hinzufügen
-    add_this_template: Diese Vorlage hinzufügen
+    add_this_template: Vorlagen hinzufügen
     import_articles_description: Die Liste von Artikel in einer Kategorie wird periodisch
       aktualisiert und es kann nach dem Hinzufügen einige Zeit dauern, bevor die Liste
       erneuert wird.
@@ -389,7 +401,7 @@ de:
     accounts_generation_confirm_message: Bist du sicher, dass du die Benutzerkontoanfragen
       aktivieren möchtest?
     activity: Aktivität
-    active_courses: Aktive %{course_type}
+    active_courses: Aktive Kurse
     add_trainings: Füge bitte Studentenausbildungen deiner Zuweisungs-Zeitleiste hinzu.
       Die Zuweisung von Ausbildungsmodulen ist ein wesentlicher Bestandteil der besten
       Praktiken von Wiki Ed.
@@ -435,6 +447,7 @@ de:
       Wikimedia Event Center geregelt. Ihr kann nicht über das Dashboard beigetreten
       werden.
     course: Kurs
+    course_type_label: 'Typ:'
     course_dates_calendar_instructions: Wähle Daten aus, um sie in dem Plan hinzuzufügen
       oder zu entfernen (z.&nbsp;B. Feiertage oder schulfreie Tage). Klicke das Datum
       an, um zwischen unausgewählt, ausgewählt und Feiertagsstatus zu wechseln. Die
@@ -444,6 +457,7 @@ de:
     courses: Kurse
     courses_taught: Unterrichtete Kurse
     creation_date: Erstelldatum
+    start_date: Startdatum
     creator:
       already_exists: Dieser Kurs ist bereits vorhanden. Ziehe in Erwägung, den Namen,
         die Schule oder Dauer zu ändern, um ihn eindeutig zu machen.
@@ -465,10 +479,15 @@ de:
         Zeitleiste passt sich automatisch den Daten im Benutzerkonto für Wochen, die
         keine geplanten Treffen haben, an.
       clone_successful: Einzelheiten für den geklonten Kurs aktualisieren
+      copy_successful: Einzelheiten für den geklonten Kurs aktualisieren
       clone_successful_details: Dein Kurs wurde geklont, inklusive der Zeitleistenelemente
         (Wochen und Blöcke). Stelle sicher, dass die Daten hinzugefügt werden, die
         nicht übertragen sind. Hat sich noch etwas an deinem Kurs geändert? Tu dir
         keinen Zwang an, ihn jetzt zu aktualisieren.
+      copy_successful_details: Dein Kurs wurde geklont, inklusive der Zeitleistenelemente
+        (Wochen und Blöcke). Stelle sicher, dass die Daten hinzugefügt werden, da
+        sie nicht übertragen werden. Hat sich noch etwas an deinem Kurs geändert?
+        Wenn du möchtest, kannst du ihn jetzt aktualisieren.
       course_dates_info: Gib die Beginn- und Enddaten für deinen Kurs ein. Im nächsten
         Schritt kannst du auswählen, wann die Wikipedia-Zuweisung innerhalb dieses
         Zeitfensters beginnen soll.
@@ -537,6 +556,7 @@ de:
       update_scheduled: Aktualisierung geplant. Die Daten werden zusammen mit allen
         aktuellen Programmen während des nächsten Aktualisierungszyklusses aktualisiert.
         Dies kann typischerweise mehrere Stunden dauern.
+      creating_course: Kurs wird erstellt
     current: Aktuelle Kurse
     data_articles: Artikeldaten
     data_articles_info: Artikeldaten enthalten die Anzahl der Bearbeitungen an jeder
@@ -560,6 +580,7 @@ de:
     data_revisions: Versionsdaten
     data_uploads_info: Daten zu hochgeladenen Commons-Dateien zeigen den Namen und
       Verwendungszähler eines jeden Medienuploads.
+    data_wikidata: Wikidata-Statistiken
     dates_too_long: Die Höchstdauer beträgt ein Jahr.
     delete_course: Kurs löschen
     delete_suggestion: Löschen
@@ -601,12 +622,13 @@ de:
     gradeables_none: Dieser Kurs hat keine steigerbaren Zuweisungen.
     home_wiki: Heimatwiki
     multi_wiki: Getrackte Wikis
+    namespaces: Verfolgte Namensräume
     instructor:
       one: Leiter
       other: Leiter
     instructors: Leiter
-    invitation: Du wurdest eingeladen, %{title} beizutreten. Um dem Kurs beizutreten,
-      musst du dich mit einem Wikipedia-Benutzerkonto anmelden.
+    invitation: Du wurdest eingeladen, %{title} beizutreten. Um beizutreten, musst
+      du dich mit einem Wikipedia-Benutzerkonto anmelden.
     invitation_username_advice: Falls du noch kein Wikipedia-Benutzerkonto hast, registriere
       dich jetzt. Dein Benutzername kann anonym sein – oder persönlich identifizierend
       – wenn du möchtest. Gemeinsame Benutzerkonten sind nicht erlaubt.
@@ -787,6 +809,10 @@ de:
     survey:
       notification_message: Nimm an unserer Umfrage für diesen Kurs teil
       link: An der Umfrage teilnehmen
+  course_instructor_notification:
+    send_notification_button_text: Senden
+    write_subject: Betreff
+    write_message_placeholder: Nachricht
   courses_generic:
     school_system: Wissenschaftssystem
     add_campaign: Kampagne hinzufügen
@@ -853,6 +879,9 @@ de:
       participate_in_campaign: An einer Kampagne teilnehmen
       save_cloned_course: Speichern
       start_date: Beginn der Aktivitätsverfolgung
+      scoping_methods:
+        templates: Vorlagen
+        petscan: PetScan
     delete_course: Programm löschen
     edit_course_dates: Projektdaten bearbeiten
     end: Ende der Aktivitätsverfolgung
@@ -922,8 +951,7 @@ de:
         kannst, umso besser.
       thank_you: Dankeschön! Kontaktiere Wiki-Experten, wenn Du weitere Fragen hast.
     exercises_and_trainings: '%{prefix} Übungen & Trainings'
-    no_assignments: Dieser Student hat derzeit keine zugeordneten Artikel. Du kannst
-      einen Artikel mit den Knöpfen oben zuordnen.
+    no_assignments: Dieser Student hat derzeit keine zugeordneten Artikel.
     overview: '%{prefix} Überblick'
     reviewing_articles: Artikel sichten
     select_student:
@@ -984,15 +1012,46 @@ de:
     wiki_ed_help: Benutzen Sie die Schaltfläche 'Get Help', um ein Problem zu melden.
     word_count: Hinzugefügte Wörter
     word_count_average: Durchschnittliche Wortanzahl
+    general: Allgemein
+    total_revisions: Gesamtzahl der Versionen
+    created: Erstellt
+    changed: Geändert
+    removed: Entfernt
+    cleared: Gelöscht
+    added: Hinzugefügt
+    descriptions: Beschreibungen
+    interwiki_links_added: Interwiki-Links hinzugefügt
+    labels: Bezeichnungen
+    no_data: Keine Daten verfügbar
+    other_updates: Sonstige Aktualisierungen
   namespace:
+    all: Alle
     main: Hauptnamensraum
     main_char_added: Hauptnamensraum-Zeichen hinzugefügt
     article: Artikel
+    talk: Diskussion
     user: Benutzernamensraum
     user_char_added: Benutzernamensraum-Zeichen hinzugefügt
+    project: Projekt
+    file: Datei
+    mediaWiki: MediaWiki
+    template: Vorlage
+    help: Hilfe
+    category: Kategorie
+    page: Seite
+    book: Buch
+    wikijunior: WikiJunior
+    translation: Übersetzung
+    draft: Entwurf
+    property: Eigenschaft
+    query: Abfrage
+    lexeme: Lexem
+    portal: Portal
+    school: Schule
+    author: Autor
   recent_activity:
     active_courses: Artikel ist aktiv in
-    article_title: Artikeltitel
+    article_title: Titel
     datetime: Datum/Zeit
     did_you_know_eligible: „Schon gewusst?“-berechtigt
     image: Bild
@@ -1032,6 +1091,8 @@ de:
     label: Quellen
     header: Quellen und Ausbildung
   settings:
+    categories:
+      other_settings: Andere Einstellungen
     admin_users:
       new:
         form_label: Administratorrechte gewähren
@@ -1048,6 +1109,9 @@ de:
         demote_success: '%{username} zum Kursleiter ernannt.'
         no_super_admin: Einem Super-Administrator kann nicht der Administratorstatus
           entzogen werden.
+    featured_campaigns:
+      add_button: Kampagne hinzufügen
+      remove_button: Kampagne entfernen
     special_users:
       new:
         form_label: Spezialbenutzerrechte gewähren
@@ -1112,6 +1176,7 @@ de:
       angehalten wurden. Führe „rake batch:resume“ aus, um die Aktualisierungen fortzusetzen.
   tickets:
     none: Keine Tickets
+    chose_search_type: Wähle einen Suchtyp
   timeline:
     add_week: Woche hinzufügen
     arrange_timeline: Zeitleiste erstellen
@@ -1204,15 +1269,25 @@ de:
     no_training_resource_match_your_search: Keine Trainingsressource entspricht deiner
       Suche
     exercise_sandbox: Übungs-Sandbox
+  update_username:
+    button: Aktualisierung
   uploads:
+    article_name: Artikelname
+    author: 'Autor:'
+    categories: Kategorien
     credit: Danksagung
+    date: 'Datum:'
+    description: Beschreibung
     file_name: Dateiname
+    file_usage: Dateiverwendung auf einem anderen Wiki
     header: Auf Wikimedia Commons hochgeladene Dateien
     image: Bild
     label: Hochgeladene Dateien
+    license: 'Lizenz:'
     loading: Lade Uploads …
     none: Diese Klasse hat keine Bilder oder andere Mediendateien für Wikimedia Commons
       beigetragen.
+    original_file: Originaldatei
     select_label: Nach Uploader filtern
     time_doc: Die Zeit jedes Uploads in deiner Ortszeit
     uploaded_at: Hochgeladen um
@@ -1223,11 +1298,17 @@ de:
     usage_doc: Anzahl der Wikipedia-Artikel, in denen dieses Bild erscheint.
     usage_count_gallery_tile: In %{usage_count} Artikeln verwendet
     usages: Verwendungen
+    source: 'Quelle:'
+    views_per_day: Aufrufe pro Tag
+    view_commons: Auf Commons ansehen
+    wiki_big: Wiki
   users:
     already_enrolled: Dieser Benutzer ist bereits eingeschrieben!
     assign_articles: Artikel zuweisen
+    assign_articles_wikidata: Elemente zuweisen
     assign_articles_done: Fertig
     assigned: Zugewiesene Artikel
+    assigned_wikidata: Zugewiesene Elemente
     assignees: Zugewiesene(r)
     loading_authorship_data: Lade Daten zur Autorenschaft
     authorship_data_not_fetched: Die Daten zur Autorenschaft konnten nicht abgerufen
@@ -1274,6 +1355,9 @@ de:
     remove_confirmation: Bist du sicher, dass du %{username} entfernen möchtest?
     request_confirmation: Bist du sicher, dass du dieses Benutzerkonto beantragen
       möchtest?
+    requested_account_status:
+      success_message: 'Erfolgreich: %{result_description}'
+      failure_message: 'Fehlgeschlagen: %{result_description}'
     revision_characters_and_views: 'Hinzugefügte Zeichen: %{characters}, Aufrufe:
       %{views}'
     revisions_doc: Die Anzahl der Bearbeitungen, die von diesem Autor in den letzten
@@ -1412,8 +1496,8 @@ de:
       Entschuldigung! Dies tritt gelegentlich auf. Bitte versuche die Anmeldung oder
       Einschreibung erneut.
   survey:
-    login_message: Vielen Dank für deine Zeit. Bitte melde dich beim Wiki Education
-      Dashboard an, um an der Umfrage teilzunehmen.
+    login_message: Vielen Dank für deine Zeit. Bitte melde dich im Dashboard an, um
+      an der Umfrage teilzunehmen.
     notification_explanation: Falls unten ausgewählt, erhalten Benutzer übereinstimmend
       mit dem Benachrichtigungszeitplan E-Mails, außerdem sehen sie Benachrichtigungen
       im Browser. Falls nicht, werden nur Benachrichtigungen im Browser angezeigt.
@@ -1491,8 +1575,28 @@ de:
     continue: Weiter
     completed_at: Abgeschlossen um $1
     completion_time: Abgeschlossen am
+    late: Verspätet
+    view: Ansehen
     started: Gestartet
     not_started: Nicht gestartet
     due: fällig %{due_date}
     assignment_status: Ausbildungszuweisung (%{status})
+  news:
+    post_confirmation:
+      confirmation: Bitte bestätigen.
+    delete_confirmation:
+      confirmation: Bitte bestätigen.
+    no_updates:
+      check_later: Bitte versuche es später erneut.
+    footer:
+      P&E_dashboard:
+        link_text: Wikimedia
+    options:
+      news_content:
+        cancel_delete: Abbrechen
+        cancel_edit: Bearbeitung abbrechen
+  notes:
+    title: Titel
+    cancel_note_creation: Abbrechen
+    save_note: Speichern
 ...

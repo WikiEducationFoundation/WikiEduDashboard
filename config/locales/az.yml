@@ -9,21 +9,81 @@
 # Author: Şeyx Şamil
 ---
 az:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: min
+          million: mln
+          billion: mlrd
+          trillion: T
+          quadrillion: Q
+  accessibility:
+    number_field: Bu bir rəqəm sahəsidir. Əksər brauzerlər tərəfindən göstərilən düymələr
+      daxil edilmiş dəyəri artırıb azaldacaq.
   application:
+    back: Geri
     cancel: İmtina
+    cookie_consent: Bu sayt sizi giriş etmiş vəziyyətdə saxlamaq üçün kukilərdən istifadə
+      edir və Vikipediya hesabınızla əlaqəli məlumatları saxlayır.
+    cookie_consent_acknowledge: Başa düşdüm
+    cookie_consent_see_more: Daha ətraflı.
+    create_accounts: Vikipediya hesabları yarat
+    dashboard: Viki Təlim Paneli
+    documentation: Sənədləşdirmə
+    error: 'Xəta baş verdi:'
+    explore: Araşdır
+    field_required: Bu sahə tələb olunur
+    field_invalid_characters: Bu sahədə etibarsız simvollar var
+    field_invalid_date: Bu sahə YYYY-MM-DD formatında bir tarix tələb edir
+    field_invalid_date_time: Bitmə tarixi başlanğıcdan sonra olmalıdır. (Saatlar 0-dan
+      23-ə qədər qəbul edilir.)
     greeting2: Xoş gəldiniz!
     greeting_extended: Vikipediyaya xoş gəldiniz
     greeting: Salam!
     help: Kömək
     home: Ana səhifə
+    log_in_extended: Vikipediya ilə daxil olun
     log_in: Daxil ol
     log_out: Sistemdən çıx
+    my_dashboard: Panelim
+    recent_activity: Son fəaliyyətlər
+    report_problem: Problem bildir
+    request_account: Hesab tələb et
+    request_account_create: Hesab yarat
+    search: sual veer
+    search_results:
+      other: '%{count} ''%{search_terms}'' üçün nəticələr'
+    no_results: '''%{query}'' üçün nəticə yoxdur.'
+    show_current_revision: Mövcud versiyanı göstər
+    show_last_revision: Son redaktə edilmiş versiyanı göstər
+    sign_up_extended: Vikipediya ilə qeydiyyatdan keçin
+    sign_up_wikipedia: Və ya Vikipediyada qeydiyyatdan keçin
+    sign_up_log_in_extended: Vikipediya
     sign_up: Qeydiyyatdan keç
+    submit: Təsdiq et
+    training: Təlim
     change: Dəyişdir
+    details: Detallar
+    confirm: Oldu
     opt_in: Bəli
     opt_out: Xeyr
     opt_yes: bəli
     opt_no: xeyr
+    print: Çap
+  article_statuses:
+    not_yet_started: Başlamaq
+    in_progress: Qaralamada işləmək
+    ready_for_review: Genişləndirilən layihə
+    ready_for_mainspace: İşin əsas fəzaya köçürülməsi
+    assignment_completed: Tapşırıq tamamlanmış olaraq işarələndi
+    reading_the_article: Məqalə oxumaq
+    providing_feedback: Rəy vermək
+    post_to_talk: Müzakirə səhifəsində yazmaq
+    peer_review_completed: Yoxlanış tamamlandı
+  dashboard:
+    create_note: İlk dərsi yaratmaq üçün Yarata klikləyin
   activity:
     edited_by: tərəfindən dəyişdirildi
   articles:

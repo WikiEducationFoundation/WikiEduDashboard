@@ -44,8 +44,8 @@ nl:
           trillion: bln
           quadrillion: bld
   accessibility:
-    number_field: Dit is een numeriek veld. De meeste browsers tonen hier knoppen
-      waarmee u de invoer kunt verhogen en verlagen.
+    number_field: Dit is een numeriek veld. De meeste browsers geven hier knoppen
+      weer waarmee u de invoer kunt verhogen en verlagen.
   application:
     cancel: Annuleren
     cookie_consent: Deze site gebruikt cookies om u aangemeld te houden en slaat informatie
