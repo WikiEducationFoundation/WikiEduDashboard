@@ -174,12 +174,10 @@ describe TimesliceManager do
         course_wiki_timeslices = course.course_wiki_timeslices.where(wiki_id: enwiki.id)
         expect(course_wiki_timeslices.where(last_mw_rev_datetime: nil).size).to eq(111)
         timeslice_manager.update_last_mw_rev_datetime(new_fetched_data)
-        # four course wiki timeslices were updated
+        # two course wiki timeslices were updated
         expect(course_wiki_timeslices.where(last_mw_rev_datetime: nil).size).to eq(109)
         expect(course_wiki_timeslices.first.last_mw_rev_datetime).to eq('20240101194045')
-        # expect(course_wiki_timeslices.second.last_mw_rev_datetime).to eq('20240103000000')
         expect(course_wiki_timeslices.third.last_mw_rev_datetime).to eq('20240103030910')
-        # expect(course_wiki_timeslices.fourth.last_mw_rev_datetime).to eq('20240104101340')
       end
     end
   end

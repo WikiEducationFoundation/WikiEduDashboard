@@ -192,7 +192,7 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
       # Get the timeslice that we want to update
       timeslice = timeslices.find { |ts| ts.start <= revision.date && ts.end > revision.date }
 
-      # Next if the last_mw_rev_datetime field is
+      # Next if the last_mw_rev_datetime field is after the revision date
       if !timeslice.last_mw_rev_datetime.nil? && timeslice.last_mw_rev_datetime >= revision.date
         next
       end
