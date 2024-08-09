@@ -150,7 +150,7 @@ describe UpdateCourseStatsTimeslice do
       expect(timeslice.upload_count).to eq(0)
       expect(timeslice.uploads_in_use_count).to eq(0)
       expect(timeslice.upload_usages_count).to eq(0)
-      expect(timeslice.last_mw_rev_datetime).to eq('20181130'.to_datetime)
+      expect(timeslice.last_mw_rev_datetime).to eq('20181129180841'.to_datetime)
 
       # For wikidata
       timeslice = course.course_wiki_timeslices.where(wiki: wikidata,
@@ -161,7 +161,7 @@ describe UpdateCourseStatsTimeslice do
       expect(timeslice.upload_count).to eq(0)
       expect(timeslice.uploads_in_use_count).to eq(0)
       expect(timeslice.upload_usages_count).to eq(0)
-      expect(timeslice.last_mw_rev_datetime).to eq('20181125'.to_datetime)
+      expect(timeslice.last_mw_rev_datetime).to eq('20181124045740'.to_datetime)
     end
 
     it 'rolls back the updates if something goes wrong' do

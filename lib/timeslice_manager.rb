@@ -2,7 +2,7 @@
 
 #= Creates/Removes/Updates ArticleCourseTimeslice, CourseUserWikiTimeslice
 # and CourseWikiTimeslice records.
-class TimesliceManager
+class TimesliceManager # rubocop:disable Metrics/ClassLength
   def initialize(course)
     @course = course
   end
@@ -59,17 +59,12 @@ class TimesliceManager
   #   wikiN=> {:start=>'20181130210015', :end=>'20181140000000', :revisions=>[revision0,...]} }
   def update_last_mw_rev_datetime(new_fetched_data)
     new_fetched_data.each do |wiki, revision_data|
+      # Fetch the timeslices from the db
       timeslices = get_course_wiki_timeslices(wiki, revision_data[:start], revision_data[:end])
-      # Mark the timeslices as complete
-      timeslices.each do |timeslice|
-        timeslice.last_mw_rev_datetime = timeslice.end
-        timeslice.save
-      end
 
-      # Update the last timeslice as partially complete
-      last_updated_timeslice = get_course_wiki_timeslice(wiki, revision_data[:end])
-      last_updated_timeslice.last_mw_rev_datetime = revision_data[:end]
-      last_updated_timeslice.save
+      update_timeslices(timeslices, revision_data[:revisions])
+
+      persist_timeslices(timeslices)
     end
   end
 
@@ -187,6 +182,32 @@ class TimesliceManager
     end
 
     start_dates
+  end
+
+  # Takes an ActiveRecord::Relation of CourseWikiTimeslices and an array of revisions.
+  # Updates the last_mw_rev_datetime field based on those revisions.
+  def update_timeslices(timeslices, revisions)
+    # Iterate over the fetched revisions and update the last_mw_rev_datetime
+    revisions.each do |revision|
+      # Get the timeslice that we want to update
+      timeslice = timeslices.find { |ts| ts.start <= revision.date && ts.end > revision.date }
+
+      # Next if the last_mw_rev_datetime field is
+      if !timeslice.last_mw_rev_datetime.nil? && timeslice.last_mw_rev_datetime >= revision.date
+        next
+      end
+      # Update last_mw_rev_datetime
+      timeslice.last_mw_rev_datetime = revision.date
+    end
+  end
+
+  def persist_timeslices(timeslices)
+    # We need to convert the ActiveRecord::Relation to an array of attribute hashes to use import
+    timeslice_attributes = timeslices.map(&:attributes)
+
+    # Perform the import at once updating only last_mw_rev_datetime
+    CourseWikiTimeslice.import timeslice_attributes,
+                               on_duplicate_key_update: ['last_mw_rev_datetime']
   end
 
   def get_course_wiki_timeslice(wiki, datetime)
