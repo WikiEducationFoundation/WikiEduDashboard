@@ -141,22 +141,32 @@ describe TimesliceManager do
         # update last_mw_rev_datetime
         # Update last_mw_rev_datetime for the first course_wiki_timeslice
         first_timeslice = course.course_wiki_timeslices.first
-        first_timeslice.last_mw_rev_datetime = '20240102000000'.to_datetime
+        first_timeslice.last_mw_rev_datetime = '20240101103407'.to_datetime
         first_timeslice.save
 
         # Update last_mw_rev_datetime for the second course_wiki_timeslice
         second_timeslice = course.course_wiki_timeslices.second
-        second_timeslice.last_mw_rev_datetime = '20240103000000'.to_datetime
+        second_timeslice.last_mw_rev_datetime = '20240102002146'.to_datetime
         second_timeslice.save
 
-        expect(timeslice_manager.get_last_mw_rev_datetime_for_wiki(enwiki)).to eq('20240103000000')
+        # Update last_mw_rev_datetime for the fourth course_wiki_timeslice
+        fourth_timeslice = course.course_wiki_timeslices.second
+        fourth_timeslice.last_mw_rev_datetime = '20240104131500'.to_datetime
+        fourth_timeslice.save
+
+        expect(timeslice_manager.get_last_mw_rev_datetime_for_wiki(enwiki)).to eq('20240104131500')
       end
     end
   end
 
   describe '#update_last_mw_rev_datetime' do
+    let(:revision1) { create(:revision, date: '2024-01-01 15:45:53') }
+    let(:revision2) { create(:revision, date: '2024-01-01 19:40:45') }
+    let(:revision3) { create(:revision, date: '2024-01-01 13:40:45') }
+    let(:revision4) { create(:revision, date: '2024-01-03 03:09:10') }
+    let(:revisions) { [revision1, revision2, revision3, revision4] }
     let(:new_fetched_data) do
-      { enwiki => { start: '20240101000000', end: '20240104101340', revisions: nil } }
+      { enwiki => { start: '20240101000000', end: '20240104101340', revisions: } }
     end
 
     context 'when there were updates' do
@@ -164,12 +174,10 @@ describe TimesliceManager do
         course_wiki_timeslices = course.course_wiki_timeslices.where(wiki_id: enwiki.id)
         expect(course_wiki_timeslices.where(last_mw_rev_datetime: nil).size).to eq(111)
         timeslice_manager.update_last_mw_rev_datetime(new_fetched_data)
-        # four course wiki timeslices were updated
-        expect(course_wiki_timeslices.where(last_mw_rev_datetime: nil).size).to eq(107)
-        expect(course_wiki_timeslices.first.last_mw_rev_datetime).to eq('20240102000000')
-        expect(course_wiki_timeslices.second.last_mw_rev_datetime).to eq('20240103000000')
-        expect(course_wiki_timeslices.third.last_mw_rev_datetime).to eq('20240104000000')
-        expect(course_wiki_timeslices.fourth.last_mw_rev_datetime).to eq('20240104101340')
+        # two course wiki timeslices were updated
+        expect(course_wiki_timeslices.where(last_mw_rev_datetime: nil).size).to eq(109)
+        expect(course_wiki_timeslices.first.last_mw_rev_datetime).to eq('20240101194045')
+        expect(course_wiki_timeslices.third.last_mw_rev_datetime).to eq('20240103030910')
       end
     end
   end
