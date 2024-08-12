@@ -53,7 +53,9 @@ class TrainingModulesController < ApplicationController
   def find_library
     library = TrainingLibrary.find_by(slug: params[:library_id])
     unless library
-      render json: { status: 'error', errorMessages: ["Training library with slug '#{params[:library_id]}' not found."] }, status: :not_found
+      render json: { status: 'error',
+             errorMessages: ["Training library with slug '#{params[:library_id]}' not found."] },
+             status: :not_found
     end
     library
   end
@@ -61,8 +63,11 @@ class TrainingModulesController < ApplicationController
   # Find the category within the library by title
   def find_category(library, category_title = params[:category_id])
     category = library.categories.find { |cat| cat['title'] == category_title }
+    error_message = "Category '#{category_title}' not exist in library '#{library.slug}'."
     unless category
-      render json: { status: 'error', errorMessages: ["Category '#{category_title}' not exist in library '#{library.slug}'."] }, status: :not_found
+      render json: { status: 'error',
+             errorMessages: [error_message] },
+             status: :not_found
     end
     category
   end
@@ -71,7 +76,8 @@ class TrainingModulesController < ApplicationController
   def create_module
     training_module = TrainingModule.new(training_module_params)
     unless training_module.save
-      render json: { status: 'error', errorMessages: training_module.errors.full_messages }, status: :unprocessable_entity
+      render json: { status: 'error', errorMessages: training_module.errors.full_messages },
+             status: :unprocessable_entity
     end
     training_module
   end
@@ -91,7 +97,8 @@ class TrainingModulesController < ApplicationController
     if @library.save
       render json: { status: 'success', data: @module }, status: :created
     else
-      render json: { status: 'error', errorMessages: @library.errors.full_messages }, status: :unprocessable_entity
+      render json: { status: 'error', errorMessages: @library.errors.full_messages },
+             status: :unprocessable_entity
     end
   end
 
