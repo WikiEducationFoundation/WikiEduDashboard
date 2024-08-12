@@ -175,7 +175,8 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
 
   def start_dates
     start_dates = []
-    current_start = @course.start
+    # Create timeslices for 3 days before the course start day.
+    current_start = @course.start - 3.days
     while current_start <= @course.end
       start_dates << current_start
       current_start += TIMESLICE_DURATION
@@ -192,6 +193,15 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
       # Get the timeslice that we want to update
       timeslice = timeslices.find { |ts| ts.start <= revision.date && ts.end > revision.date }
 
+      if timeslice.nil?
+        # This scenario is unexpected, so we log the message to understand why this happens.
+        Sentry.capture_message 'No timeslice found for revision date',
+                               level: 'warning',
+                               extra: { course_name: @course.slug,
+                                        wiki: revision.wiki.id,
+                                        date: revision.date }
+        next
+      end
       # Next if the last_mw_rev_datetime field is after the revision date
       if !timeslice.last_mw_rev_datetime.nil? && timeslice.last_mw_rev_datetime >= revision.date
         next
