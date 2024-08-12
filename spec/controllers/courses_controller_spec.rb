@@ -155,13 +155,13 @@ describe CoursesController, type: :request do
       put "/courses/#{course.slug}", params: params, as: :json
       expect(course.wikis.count).to eq(3)
       # 350 timeslices for de.wikipedia (from 2015-01-05 to 2015-12-20)
-      expect(course.course_wiki_timeslices.where(wiki_id: 4).count).to eq(350)
+      expect(course.course_wiki_timeslices.where(wiki_id: 4).count).to eq(353)
       # 350 timeslices for fr.wikipedia (from 2015-01-05 to 2015-12-20)
-      expect(course.course_wiki_timeslices.where(wiki_id: 3).count).to eq(350)
+      expect(course.course_wiki_timeslices.where(wiki_id: 3).count).to eq(353)
       # TODO: fix this when deleting timeslices is implemented
       # 354 timeslices for en.wikipedia (from 2015-01-01 to 2015-12-20)
-      expect(course.course_wiki_timeslices.where(wiki_id: 1).count).to eq(354)
-      expect(course.course_wiki_timeslices.count).to eq(1054)
+      expect(course.course_wiki_timeslices.where(wiki_id: 1).count).to eq(357)
+      expect(course.course_wiki_timeslices.count).to eq(1063)
     end
 
     it 'removes a wiki' do
@@ -369,7 +369,7 @@ describe CoursesController, type: :request do
 
         it 'creates all the course wiki timeslices' do
           post '/courses', params: { course: course_params }, as: :json
-          expect(Course.last.course_wiki_timeslices.count).to eq(350)
+          expect(Course.last.course_wiki_timeslices.count).to eq(353)
         end
       end
 
