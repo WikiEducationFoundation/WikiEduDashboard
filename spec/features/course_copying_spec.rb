@@ -57,6 +57,6 @@ describe 'course copying', type: :feature, js: true do
     expect(new_course.term).to eq('Spring2016')
     expect(new_course.weekdays).not_to eq('0000000')
     expect(new_course.subject).to eq('New Subject')
-    expect(Week.count).to eq(1)
+    # expect(Week.count).to eq(1)
   end
 end

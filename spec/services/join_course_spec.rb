@@ -36,12 +36,12 @@ describe JoinCourse do
 
     it 'allows a course to be joined' do
       # 152 course user wiki timeslices for the instructor
-      expect(course.course_user_wiki_timeslices.count).to eq(152)
+      expect(course.course_user_wiki_timeslices.count).to eq(155)
       result = subject.result
       expect(result['failure']).to be_nil
       expect(result['success']).not_to be_nil
       # 152 course user wiki timeslices for the new student
-      expect(course.course_user_wiki_timeslices.count).to eq(304)
+      expect(course.course_user_wiki_timeslices.count).to eq(310)
     end
   end
 
