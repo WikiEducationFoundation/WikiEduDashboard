@@ -176,5 +176,58 @@ describe 'TrainingContent', type: :feature, js: true do
       expect(page).to have_content('Testing Module')
       expect(page).to have_content('This module is only created for testing purposes.')
     end
+
+    it 'transfers modules between categories' do
+      visit "/training/#{training_library.slug}"
+      
+      # Creating source category
+      click_button 'Create New Category'
+      fill_in 'title', with: 'Source Category'
+      fill_in 'description', with: 'This is my source category.'
+      click_button 'Create'
+      expect(page).to have_content('Source Category')
+
+      # Adding module in source category
+      click_link 'Add Module'
+      fill_in 'Module Name', with: 'Module 1'
+      fill_in 'Module Slug', with: 'module1'
+      fill_in 'Module Description', with: 'This module is only created for testing purposes.'
+      click_button 'Add'
+      expect(page).to have_content('Module 1')
+
+      # Creating destination category
+      click_button 'Create New Category'
+      fill_in 'title', with: 'Destination Category'
+      fill_in 'description', with: 'This is my destination category.'
+      click_button 'Create'
+      expect(page).to have_content('Destination Category')
+
+      click_button 'Transfer Module'
+      expect(page).to have_selector('.program-description', count: 1)
+
+      # Select source category
+      first('.program-description').click
+      click_button 'Next'
+
+      # Select module to transfer
+      first('.program-description').click
+      click_button 'Next'
+
+      # Select destination category
+      expect(page).to have_selector('.program-description', count: 1)
+      first('.program-description').click
+      click_button 'Transfer'
+
+      # Verify expected changes
+      within find('.training__categories') do
+        within find('li', text: 'Source Category') do
+          expect(page).not_to have_content('Module 1')
+        end
+    
+        within find('li', text: 'Destination Category') do
+          expect(page).to have_content('Module 1')
+        end
+      end
+    end
   end
 end
