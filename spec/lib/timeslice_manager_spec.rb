@@ -166,7 +166,7 @@ describe TimesliceManager do
     let(:revision4) { create(:revision, date: '2024-01-03 03:09:10') }
     let(:revisions) { [revision1, revision2, revision3, revision4] }
     let(:new_fetched_data) do
-      { enwiki => { start: '20240101000000', end: '20240104101340', revisions: } }
+      { enwiki => { start: '20240101090035', end: '20240104101340', revisions: } }
     end
 
     context 'when there were updates' do

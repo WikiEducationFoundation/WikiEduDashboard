@@ -221,10 +221,15 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
   end
 
   def get_course_wiki_timeslice(wiki, datetime)
-    CourseWikiTimeslice.for_course_and_wiki(@course, wiki).for_datetime(datetime).first
+    CourseWikiTimeslice.for_course_and_wiki(@course, wiki).for_datetime(datetime)
   end
 
   def get_course_wiki_timeslices(wiki, period_start, period_end)
-    CourseWikiTimeslice.for_course_and_wiki(@course, wiki).in_period(period_start, period_end)
+    in_period = CourseWikiTimeslice.for_course_and_wiki(@course, wiki).in_period(period_start,
+                                                                                 period_end)
+    for_period_start = get_course_wiki_timeslice(wiki, period_start)
+    for_period_end = get_course_wiki_timeslice(wiki, period_end)
+
+    (for_period_start + in_period + for_period_end).uniq(&:id)
   end
 end
