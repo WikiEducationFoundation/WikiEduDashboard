@@ -88,6 +88,60 @@ describe WikiCourseOutput do
       expect(response).to include('InstructorUser', 'InstructorUser2', 'InstructorUser3')
     end
 
+    it 'generates correct wikitext for a course with multiple instructors' do
+      course = create(:course,
+                      title: 'Advanced Legal Research Winter 2020',
+                      description: 'Course description',
+                      school: 'Stanford Law School',
+                      term: 'Winter',
+                      slug: 'Stanford_Law_School/Advanced_Legal_Research_Winter_2020_(Winter)',
+                      subject: 'Legal Research',
+                      start: '2024-02-01',
+                      end: '2024-09-13',
+                      expected_students: 25)
+
+      instructor1 = create(:user, username: 'Tlmarks')
+      instructor2 = create(:user, username: 'Shelbaum')
+      instructor3 = create(:user, username: 'Abishekdascs')
+
+      create(:courses_user, user: instructor1, course:,
+      role: CoursesUsers::Roles::INSTRUCTOR_ROLE, real_name: 'Terry Marks')
+      create(:courses_user, user: instructor2, course:,
+      role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+      create(:courses_user, user: instructor3, course:,
+      role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+
+      create(:campaign, id: 1, title: 'Default Campaign')
+      create(:campaigns_course, course:, campaign_id: 1)
+
+      allow(ENV).to receive(:[]).with('dashboard_url').and_return('outreachdashboard.wmflabs.org')
+
+      output = described_class.new(course.reload).translate_course_to_wikitext
+
+      expected_output = <<~WIKITEXT
+        {{program details
+         | course_name = Advanced Legal Research Winter 2020
+         | instructor_username = Tlmarks
+         | instructor_realname = Terry Marks
+         | instructor_username_2 = Shelbaum
+         | instructor_username_3 = Abishekdascs
+         | support_staff =#{' '}
+         | subject = Legal Research
+         | start_date = 2024-02-01 00:00:00 UTC
+         | end_date = 2024-09-13 23:59:59 UTC
+         | institution = Stanford Law School
+         | expected_students = 25
+         | assignment_page =#{' '}
+         | slug = Stanford_Law_School/Advanced_Legal_Research_Winter_2020_(Winter)
+         | campaigns = Default Campaign
+         | outreachdashboard.wmflabs.org = yes
+        }}
+      WIKITEXT
+
+      expect(output).to include(expected_output.strip)
+      expect(output).to include('Course description')
+    end
+
     context 'when the course has no weeks or users or anything' do
       let(:course) { create(:course) }
       let(:subject) { described_class.new(course).translate_course_to_wikitext }
