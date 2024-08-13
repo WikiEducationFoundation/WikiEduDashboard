@@ -105,7 +105,7 @@ class WikiCourseOutput
   def insert_additional_instructors(details)
     # Collect additional instructor usernames and insert them after the first instructor
     additional_instructors = @all_instructors[1..].map.with_index(2) do |instructor, index|
-      " | instructor_username_#{index} = #{instructor.username}\n"
+      "\n | instructor_username_#{index} = #{instructor.username}"
     end.join
 
     # Insert additional instructors immediately after the first instructor's real name
