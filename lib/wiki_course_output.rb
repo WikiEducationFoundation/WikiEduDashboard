@@ -12,10 +12,12 @@ class WikiCourseOutput
     @course = course
     @course_meetings_manager = @course.meetings_manager
     @dashboard_url = ENV['dashboard_url']
-    @first_instructor_course_user = @course
-                                    .courses_users
-                                    .where(role: CoursesUsers::Roles::INSTRUCTOR_ROLE).first
+    @all_instructor_course_users = @course
+                                   .courses_users
+                                   .where(role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+    @first_instructor_course_user = @all_instructor_course_users.first
     @first_instructor = @first_instructor_course_user&.user
+    @all_instructors = @all_instructor_course_users.map(&:user)
     @first_support_staff = @course.nonstudents.where(greeter: true).first
     @output = ''
     @templates = @course.home_wiki.edit_templates
@@ -45,10 +47,31 @@ class WikiCourseOutput
     course_details + "\r" + description
   end
 
-  def course_details
-    # TODO: add support for multiple instructors, multiple content experts.
+  def course_details # rubocop:disable Metrics/MethodLength
+    # TODO: add support for multiple content experts.
     # TODO: switch this to a new template specifically for dashboard courses.
-    <<~COURSE_DETAILS
+
+    # Example output with multiple instructors
+    # {{program details
+    #  | course_name = Advanced Legal Research Winter 2020
+    #  | instructor_username = Tlmarks
+    #  | instructor_realname =
+    #  | instructor_username_2 = Shelbaum
+    #  | instructor_username_3 = Abishekdascs
+    #  | instructor_username_4 = Abishek CS Das
+    #  | support_staff =
+    #  | subject = Legal Research
+    #  | start_date = 2024-02-01 00:00:00 UTC
+    #  | end_date = 2024-09-13 23:59:59 UTC
+    #  | institution = Stanford Law School
+    #  | expected_students =
+    #  | assignment_page =
+    #  | slug = Stanford_Law_School/Advanced_Legal_Research_Winter_2020_(Winter)
+    #  | campaigns = Default Campaign
+    #  | outreachdashboard.wmflabs.org = yes
+    # }}
+
+    details = <<~COURSE_DETAILS
       {{#{template_name(@templates, 'course')}
        | course_name = #{@course.title}
        | instructor_username = #{instructor_username}
@@ -65,6 +88,10 @@ class WikiCourseOutput
        | #{@dashboard_url} = yes
       }}
     COURSE_DETAILS
+
+    insert_additional_instructors(details) if @all_instructors.size > 1
+
+    details
   end
 
   def instructor_username
@@ -73,6 +100,19 @@ class WikiCourseOutput
 
   def instructor_realname
     @first_instructor_course_user&.real_name
+  end
+
+  def insert_additional_instructors(details)
+    # Collect additional instructor usernames and insert them after the first instructor
+    additional_instructors = @all_instructors[1..].map.with_index(2) do |instructor, index|
+      "\n | instructor_username_#{index} = #{instructor.username}"
+    end.join
+
+    # Insert additional instructors immediately after the first instructor's real name
+    insertion_point = details.index("| instructor_realname = #{instructor_realname}") +
+                      "| instructor_realname = #{instructor_realname}".length
+
+    details.insert(insertion_point, additional_instructors)
   end
 
   def support_staff_username
