@@ -12,7 +12,7 @@ const fetchWikidataLabelsPromise = async (qNumbers) => {
   const query = {
     ids: idsParam,
     props: 'labels',
-    languages: `${I18n.locale}|en`
+    languages: `${I18n.locale}|mul|en`
   };
   const response = await request(`${wikidataApiBase}&${stringify(query)}`);
   if (!response.ok) {
