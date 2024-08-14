@@ -27,13 +27,15 @@ describe 'language_switcher', type: :feature, js: true do
     end
 
     it 'fallbacks to en for locales with incomplete translations' do
-      visit root_path(locale: 'az')
-      expect(page).to have_current_path(root_path(locale: 'az'))
+      # NOTE: If this spec starts failing, it's probably because a new
+      # translation was added. Find a different language to test against.
+      visit root_path(locale: 'sah')
+      expect(page).to have_current_path(root_path(locale: 'sah'))
       expect(page).to have_text('Daxil ol')
       expect(page).to have_text('Kömək')
 
-      # az.application.training is missing so it should fallback to en
-      expect(page).to have_no_content('[missing "az.')
+      # sah.application.training is missing so it should fallback to en
+      expect(page).to have_no_content('[missing "sah.')
       expect(page).to have_content('Training')
     end
   end
