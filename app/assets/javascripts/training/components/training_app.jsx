@@ -25,7 +25,7 @@ const TrainingApp = () => {
       <Routes>
         <Route path="/" element={<TrainingContentHandler editMode={editMode} currentUser={currentUser}/>}/>
         <Route path=":library_id" element={<TrainingLibraryHandler editMode={editMode}/>}/>
-        <Route path=":library_id/:module_id" element={<TrainingModuleHandler />} />
+        <Route path=":library_id/:module_id" element={<TrainingModuleHandler editMode={editMode}/>} />
         <Route path=":library_id/:module_id/:slide_id" element={<TrainingSlideHandler />} />
         <Route path=":library_id/edit/:category_id/add_module" element={<AddModule editMode={editMode} />} />
       </Routes>
