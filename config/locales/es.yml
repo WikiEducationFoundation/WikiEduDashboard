@@ -369,6 +369,14 @@ es:
         revisión por pares". Al hacer clic en "Aceptar", se asignarán un total de
         %{count} revisiones por pares adicionales, con un máximo de %{maximum} para
         cada estudiante, elegidas entre los artículos de sus compañeros de clase.
+      confirm_addition_wikidata: En la mayoría de los casos, solo debes utilizar esta
+        función después de que a todos los estudiantes se les hayan asignado sus artículos
+        principales. Como alternativa, puedes pedirles a los estudiantes que elijan
+        sus propias revisiones por pares o puede asignarlas manualmente haciendo clic
+        en la fila de un estudiante y luego usando el botón "Asignar/eliminar una
+        revisión por pares". Al hacer clic en "Aceptar", se asignarán un total de
+        %{count} revisiones por pares adicionales, con un máximo de %{maximum} para
+        cada estudiante, elegidas entre los artículos de sus compañeros de clase.
       heading: Asignar revisiones por pares aleatoriamente
       tooltip_message: Asigna artículos aleatorios (con la cuenta de revisiones por
         pares como número máximo) a cada estudiante.
@@ -395,6 +403,9 @@ es:
       %{url} válida de Wikipedia.
     mismatched_wiki: No se puede actualizar la URL de la zona de pruebas. La URL %{url}
       no está en la misma wiki.
+    warning_untracked_wiki: 'Por favor, ten en cuenta que el artículo que has elegido
+      está en una wiki que no está rastreada por este curso. Para rastrear las contribuciones
+      a este artículo, un instructor debe añadir el siguiente wiki a este curso: %{wiki}'
   blocks:
     milestones:
       title: Hitos
@@ -402,10 +413,13 @@ es:
     active_campaigns: Campañas activas
     add_organizer: Añadir organizador
     alert_article: Título del artículo
+    alert_label: Alertas de campaña
     alert_select_label: Filtrar por tipo de alerta
     alert_type: Tipo
     alert_user_id: Usuario
     all_campaigns: Todas las campañas
+    already_exists: ¡Esa campaña ya existe! Por favor, vuelve a intentarlo con otro
+      título o una ficha diferente.
     campaign: Campaña
     campaigns: Campañas
     campaign_deleted: Se eliminó la campaña «%{title}»
@@ -422,14 +436,23 @@ es:
     course: Curso
     course_data: datos del curso
     course_removed: «%{title}» se ha quitado de la campaña «%{campaign_title}»
+    course_removed_and_deleted: '"%{title}" ha sido eliminado y quitado de la campaña
+      "%{campaign_title}"'
+    course_removed_but_not_deleted: '"%{title}" ha sido quitada de la campaña %{campaign_title}",
+      pero no ha sido eliminada ya que también está presente en otras campañas'
     create_campaign: Crear una campaña nueva
     create_my_campaign: ¡Crear mi campaña!
     customize_passcode: un código de acceso predeterminado
+    data_download_info: Descargar datos de campaña como CSV
+    data_courses: Datos generales del curso
+    data_courses_info: Metricas básicas para cada curso/programa
     data_articles: Páginas editadas
     data_revisions: Datos de revisiones
+    data_articles_info: Detalles sobre cada página rastreada editada por la campaña
     data_revisions_info: Detalles sobre cada una de las revisiones monitorizadas de
       la campaña
     data_instructors: Instructores
+    data_instructors_info: Lista de instructores/facilitadores y sus cursos/programas
     data_editors_by_course: Editores por curso
     data_editors_by_course_info: Lista de editores inscritos y sus cursos/programas
     data_editor_usernames: Nombres de usuario de editores
@@ -467,15 +490,25 @@ es:
     students_small: Estudiantes
     student_course: estudiantes por curso
     title: Título
+    too_many_articles: La lista de artículos editados para esta campaña es demasiado
+      larga para ser exhibida. Consulte los cursos/programas/eventos individuales
+      para ver los artículos editados.
     slug: URL semántico
     search_campaigns: Buscar campañas
     use_start_end_dates: Usar fechas de inicio y fin
     search: Buscar
   categories:
+    searching_for_category: Buscando categorías en
     add_category: Añadir categoría
+    add_psid: Añadir el PSID de PetScan
     add_template: Añadir plantilla
     add_this_category: Añadir categorías
+    add_this_psid: Añadir los PSID de PetScan
     add_this_template: Añadir plantillas
+    import_articles_description: La lista de artículos de una categoría se actualiza
+      periódicamente, y puede tardar algún tiempo después de que se añade antes de
+      que la lista se complete.
+    confirm_add_n_scoping_method: ¿Añadir %{n} método(s) de alcance?
     depth: Profundidad de subcategorías
     articles_count: Recuento de artículos
     name: Nombre
@@ -484,13 +517,24 @@ es:
     none: No hay ninguna categoría en seguimiento.
     remove: Quitar
     tracked_categories: Categorías, PSID y plantillas en seguimiento
+    timestamp: Última actualización
   courses:
     school_system: Sistema académico
+    assignment_edits_enabled: Modificación de asignaciones habilitada
+    assignment_edits_enabled_tooltip: Si está habilitado, el panel de control publicará
+      una plantilla en la página de discusión para cada artículo asignado.
     accounts_generation_enabled: Generación de cuentas activada
+    accounts_generation_explanation: Esto permitirá a los participantes ingresar su
+      dirección de correo electrónico y nombre de usuario deseado, en lugar de crear
+      nuevas cuentas ellos mismos. Luego podrás crear las cuentas de este panel de
+      control y agregarlas como participantes del programa al mismo tiempo.
     accounts_generation_confirm_message: ¿Confirmas que quieres activar las solicitudes
       de cuentas?
     activity: Actividad
     active_courses: Cursos activos
+    add_trainings: Por favor, añade a la línea de tiempo de sus tareas las formaciones
+      para los estudiantes. La asignación de módulos de formación es una parte esencial
+      de las mejores prácticas de Wiki Ed.
     alerts: Alertas
     all_courses: Todos los cursos
     already_enrolled: Ya eres parte de «%{title}».
@@ -498,12 +542,25 @@ es:
     archived: Cursos archivados
     actions: Acciones
     articles: Artículos
+    article_viewer: Visualizador de artículos
+    article_viewer_wikidata: Visualizador de elementos
+    articles_i_am_reviewing_wikidata: Elementos que estoy revisando por pares
+    articles_i_am_reviewing: Artículos que estoy revisando por pares
+    articles_i_will_create: Artículos que voy a crear
+    articles_i_will_create_wikidata: Elementos que voy a crear
+    articles_i_am_updating: Artículos que estoy actualizando
+    articles_i_am_updating_wikidata: Elementos que estoy actualizando
     add_campaign_aria_label: Agregar botón de campaña
     new_tag_button_aria_label: Botón Crear o actualizar etiqueta
     enroll_button_aria_label: Botón de inscripción
     assignment_headings:
+      assigned_articles: Artículos asignados
+      assigned_articles_wikidata: Elementos asignados
+      assigned_reviews: Revisiones asignadas
       available_articles: Artículos disponibles
+      available_articles_wikidata: Elementos disponibles
       available_reviews: Artículos de compañeros
+      available_reviews_wikidata: Los artículos de tus compañeros de clase
     assignment_end: Fin de la tarea
     assignment_start: Inicio de la tarea
     calendar:
@@ -527,6 +584,8 @@ es:
     confirm_manual_update: ¿Confirmas que quieres actualizar manualmante? Se importarán
       las revisiones más recientes y se cargará de nuevo la página. El proceso podría
       tomar algo de tiempo.
+    controlled_by_event_center: La inscripción en este evento es controlada por el
+      Centro de Eventos de Wikimedia. No se puede unir desde el panel de control.
     course: Curso
     course_type_label: 'Tipo:'
     course_dates_calendar_instructions: Selecciona fechas para añadirlas o quitarlas
@@ -538,6 +597,7 @@ es:
     courses: Cursos
     courses_taught: Cursos impartidos
     creation_date: Fecha de creación
+    start_date: Fecha de inicio
     creator:
       already_exists: Este curso ya existe. Considera cambiar el nombre, la escuela
         o el plazo para hacerlo único.
@@ -545,6 +605,9 @@ es:
       assignment_end_placeholder: Fin de la tarea (AAAA-MM-DD)
       assignment_start: Inicio de la tarea
       assignment_start_placeholder: Inicio de la tarea (AAAA-MM-DD)
+      cancel_course_clone: Cancelar el clon del curso
+      cancel_course_clone_confirm: ¿Estás seguro de que quieres dejar de clonar este
+        curso?
       checking_for_uniqueness: Se está comprobando que este curso sea único.
       choose_clone: Elige un curso para clonarlo.
       clone_previous: Clonar el curso previo
@@ -556,6 +619,7 @@ es:
         El cronograma copiado ajustará automáticamente las fechas para dar cuenta
         de las semanas que no tienen reuniones programadas.
       clone_successful: Actualizar detalles del curso clonado
+      copy_successful: Actualizar detalles del curso copiado
       clone_successful_details: Tu curso se ha clonado, incluyendo los elementos del
         cronograma (semanas y bloques). Asegúrate de añadir las fechas, ya que no
         se trasladadas. ¿Ha cambiado algo más acerca de tu curso? Siéntete libre de
