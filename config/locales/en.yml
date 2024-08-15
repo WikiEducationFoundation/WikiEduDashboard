@@ -1383,6 +1383,9 @@ en:
     category: Category
     category_title: Category Title
     category_description: Category Description
+    change_order: Change Order
+    change_order_msg: >
+      This is where you can drag and customise the order of the slides of this training module.
     choose_modules_msg: >
       Choose the modules you want to transfer.
       You can also select multiple modules.
@@ -1433,6 +1436,7 @@ en:
     remove: Remove
     remove_slide: Remove Slide
     remove_slide_msg: This will permanently remove the seleceted slides from this training module.
+    save: Save
     slide_slug: Slide Slug
     slide_title: Slide Title
     slide_wiki_page: Slide Wikipage

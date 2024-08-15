@@ -62,6 +62,23 @@ a[disabled]
     &:disabled
       opacity: 0.5;
       pointer-events: none;
+  .button.border
+    background-color: transparent;
+    border-color: rgb(56, 61, 114);
+    color: rgb(114, 143, 186);
+    border: 1px solid #676eb4;
+    &:hover
+      background-color: rgb(62, 68, 125);
+      color: rgb(232, 230, 227);
+  .button.reordering_icons
+    padding-left: 2px;
+    margin-left: 10px;
+    line-height: 0.6;
+    border-radius: 2px;
+    overflow: hidden;
+    width: 30px;
+    height: 30px;
+    font-size: 25px;
   .button.dark
     background-color #676eb4
     border-color #676eb4
@@ -92,6 +109,13 @@ a[disabled]
       background-color: #c54f4f;
       border-color: #c54f4f;
 
+  .reorder-slide-buttons
+    display: flex
+    gap: 0.25rem
+    justify-content: space-between
+    align-items: center
+    margin-right: 10px
+
 .lib-container
   position relative
   .training_content_page_btn_container
@@ -115,7 +139,11 @@ a[disabled]
 
 .training_slide_modification_buttons
   display: flex
+  flex-wrap: wrap; 
   justify-content: space-between
-  margin-top: 80px
+  margin-top: 60px
   margin-bottom: 20px
   color red
+  .button
+    flex: 1 1 auto;
+    margin: 5px; 

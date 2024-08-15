@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import Modal from '../../../components/common/modal.jsx';
 import TextInput from '../../../components/common/text_input.jsx';
 import { addSlide } from '../../../actions/training_modification_actions.js';
@@ -15,7 +14,6 @@ const AddSlide = (props) => {
     wiki_page: '',
   });
   const firstErrorMessage = useSelector(state => firstValidationErrorMessage(state));
-  const { library_id, module_id } = useParams();
   const dispatch = useDispatch();
 
   const handleInputChange = (key, value) => {
@@ -61,7 +59,7 @@ const AddSlide = (props) => {
 
     if (validateFields()) {
       setSubmitting(true);
-      dispatch(addSlide(library_id, module_id, slide, setSubmitting));
+      dispatch(addSlide(props.library_id, props.module_id, slide, setSubmitting));
     }
   };
 
@@ -74,7 +72,7 @@ const AddSlide = (props) => {
     <>
       <Modal >
         <div className="container training-modification">
-          <div className="wizard__panel active training_modal single_column" style={formStyle}>
+          <div className="wizard__panel active training_modal single_column small-container" style={formStyle}>
             <h3>{I18n.t('training.add_slide')}</h3>
             <p>{I18n.t('training.add_slide_msg')}</p>
             <div>

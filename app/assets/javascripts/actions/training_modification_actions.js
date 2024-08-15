@@ -181,7 +181,7 @@ export const addModule = (library_id, category_id, module, setSubmitting) => (di
 // For Transferring Modules
 const transferModulesPromise = async (library_id, transferInfo, setSubmitting) => {
   const response = await request(`/training/${library_id}/transfer_modules`, {
-    method: 'POST',
+    method: 'PUT',
     body: JSON.stringify({ transferInfo }),
   });
   setSubmitting(false);
@@ -243,6 +243,30 @@ const removeSlidesPromise = async (module_id, slideSlugList) => {
 
 export const removeSlides = (module_id, slideSlugList) => (dispatch) => {
   return removeSlidesPromise(module_id, slideSlugList)
+  .then(() => window.location.reload())
+  .catch(data => dispatch({ type: API_FAIL, data }));
+};
+
+// For Reordering Slides
+const reorderSlidesPromise = async (module_id, slides, setSubmitting) => {
+  // Only sending necessary data to server
+  const reorderedSlides = slides.map(slide => slide.slug);
+  const response = await request(`/training/${module_id}/reorder_slides`, {
+    method: 'PUT',
+    body: JSON.stringify({ reorderedSlides }),
+  });
+  setSubmitting(false);
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.json();
+    response.responseText = data;
+    throw response;
+  }
+  return response.json();
+};
+
+export const reorderSlides = (module_id, slides, setSubmitting) => (dispatch) => {
+  return reorderSlidesPromise(module_id, slides, setSubmitting)
   .then(() => window.location.reload())
   .catch(data => dispatch({ type: API_FAIL, data }));
 };
