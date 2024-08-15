@@ -47,6 +47,19 @@ class TrainingModulesController < ApplicationController
     save_library_with_response
   end
 
+  def reorder_slides
+    @training_module = find_training_module
+    return unless @training_module
+
+    reordered_slides = reordered_slides_params
+    if @training_module.update(slide_slugs: reordered_slides)
+      render json: { status: 'success' }, status: :ok
+    else
+      render json: { status: 'error', errorMessages: @training_module.errors.full_messages },
+             status: :unprocessable_entity
+    end
+  end
+
   private
 
   # Find the training library by slug
@@ -58,6 +71,15 @@ class TrainingModulesController < ApplicationController
              status: :not_found
     end
     library
+  end
+
+  def find_training_module
+    training_module = TrainingModule.find_by(slug: params[:module_id])
+    unless training_module
+      render json: { status: 'error', errorMessages: ["Training module not found."] },
+             status: :not_found
+    end
+    training_module
   end
 
   # Find the category within the library by title
@@ -123,5 +145,10 @@ class TrainingModulesController < ApplicationController
   # Strong parameters for transfer info
   def transfer_info_params
     params.require(:transferInfo).permit(:sourceCategory, :destinationCategory, modules: [])
+  end
+
+  # Strong parameter for reorder slides
+  def reordered_slides_params
+    params.require(:reorderedSlides)
   end
 end

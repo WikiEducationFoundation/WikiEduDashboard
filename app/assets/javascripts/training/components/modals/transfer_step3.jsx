@@ -21,7 +21,7 @@ const TransferStep3 = ({ categories, transferInfo, setTransferInfo, step, setSte
 
   return (
     <div style={{ display: step === 3 ? 'block' : 'none' }}>
-      <div style={{ paddingBottom: '20px' }}>
+      <div style={{ paddingBottom: '20px' }} className="training_scrollable_container">
         {remainingCategories.map(category => (
           <SelectableBox
             key={category.title}

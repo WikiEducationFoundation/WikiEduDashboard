@@ -67,7 +67,7 @@ const CreateCategory = (props) => {
     <>
       <Modal>
         <div className="container">
-          <div className="wizard__panel active training_modal single_column" style={formStyle}>
+          <div className="wizard__panel active training_modal single_column small-container" style={formStyle}>
             <h3>{I18n.t('training.create_category')}</h3>
             <p>{I18n.t('training.create_category_msg')}</p>
             <div>

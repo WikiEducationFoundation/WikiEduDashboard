@@ -127,15 +127,22 @@ old-ie ?= false
   .wizard__panel
     margin-bottom 100px
     max-height calc(100vh - 200px)
-  
+    .training_scrollable_container
+      max-height calc(100vh - 470px)
+      overflow-y auto
+      margin-bottom 20px
+
+  .wizared__panel .wide-container
+    width: 100% !important
+
   .remove-slide-container
-    max-height calc(100vh - 500px)
+    max-height calc(100vh - 470px)
     overflow-y auto
     margin-bottom 20px
 
   .program-description
     position relative
-    padding 0.5rem 0rem 0rem 0.7rem !important
+    padding 0.5rem 0.5rem 0rem 0.7rem !important
     margin-top 15px !important
     cursor pointer
     p
@@ -162,7 +169,25 @@ old-ie ?= false
       transition all .2s ease-in-out
       width 30px
       background #878dcd
+    
+  .reorder-slides
+    li
+      margin 0px !important
+    .program-description
+      width: calc(100% - 21px) !important
+      margin-right: 21px !important
+      margin-top: 5px !important
 
-  .remove-slide
-    h4
-      font-size 1.2rem !important
+      .program-description__header
+        width: calc(100% - 140px)
+  
+  .draggable-slide-container
+    width: 100%
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    align-items: center
+
+.scrollable_slides_container
+  max-height calc(100vh - 555px) !important
+  overflow-y auto

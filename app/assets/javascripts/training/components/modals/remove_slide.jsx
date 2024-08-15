@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import SelectableBox from '../../../components/common/selectable_box.jsx';
 import { removeSlides } from '../../../actions/training_modification_actions.js';
 import Modal from '../../../components/common/modal.jsx';
@@ -8,7 +7,6 @@ import Modal from '../../../components/common/modal.jsx';
 // Choose slides to remove from training module
 const RemoveSlides = (props) => {
   const [submitting, setSubmitting] = useState(false);
-  const { module_id } = useParams();
   const [slideSlugList, setSlideSlugList] = useState([]);
   const dispatch = useDispatch();
 
@@ -24,7 +22,7 @@ const RemoveSlides = (props) => {
 
   const submitHandler = () => {
     setSubmitting(true);
-    dispatch(removeSlides(module_id, slideSlugList, setSubmitting));
+    dispatch(removeSlides(props.module_id, slideSlugList, setSubmitting));
   };
 
   const formClassName = submitting ? 'form-submitting' : '';
@@ -32,7 +30,7 @@ const RemoveSlides = (props) => {
   return (
     <Modal>
       <div className="container training-modification">
-        <div className={`wizard__panel active training_modal single_column remove-slide ${formClassName}`}>
+        <div className={`wizard__panel active training_modal single_column medium-container ${formClassName}`}>
           <h3>{I18n.t('training.remove_slide')}</h3>
           <p>{I18n.t('training.remove_slide_msg')}</p>
           <div className="remove-slide-container" style={{ paddingBottom: '20px' }}>
