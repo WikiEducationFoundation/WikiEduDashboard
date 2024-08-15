@@ -132,6 +132,8 @@ describe CourseRevisionUpdater do
     it 'includes revisions on the final day of a course up to the end time' do
       VCR.use_cassette 'course_revision_updater' do
         revision_data = described_class.fetch_revisions_and_scores(course)
+        wiki = Wiki.find_by(language: 'en', project: 'Wikipedia')
+        expect(revision_data[wiki][:end]).to eq('20160331195054')
         revisions = revision_data.values.flat_map { |data| data[:revisions] }.flatten
         expect(revisions.count).to eq(3)
 
@@ -153,9 +155,12 @@ describe CourseRevisionUpdater do
       VCR.use_cassette 'course_revision_updater' do
         travel_to Date.new(2016, 3, 28)
         revision_data = described_class.fetch_revisions_and_scores(course)
+        wiki = Wiki.find_by(language: 'en', project: 'Wikipedia')
         revisions = revision_data.values.flat_map { |data| data[:revisions] }.flatten
         # no revision during that period
         expect(revisions.count).to eq(0)
+        # end is the same date as start
+        expect(revision_data[wiki][:end]).to eq('20160320000000')
       end
     end
 

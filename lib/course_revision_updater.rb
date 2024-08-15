@@ -17,10 +17,13 @@ class CourseRevisionUpdater
 
   # Returns a hash with start, end and revisions fetched by wiki or an empty
   # hash if no point in importing revisions.
+  # :start is the date from which revisions were retrieved.
+  # :end is the date of the last revision retrieved.
+  # We only have guarantees that we have the revisions up to that date.
   # Example:
-  # {wiki0 => {:start=>"20160320", :end=>"20160401", :revisions=>[...]},
+  # {wiki0 => {:start=>"20160320034055", :end=>"20160401194010", :revisions=>[...]},
   # ...,
-  # wikiN => {:start=>"20160328", :end=>"20160401", :revisions=>[...]}}
+  # wikiN => {:start=>"20160328000500", :end=>"20160401220541", :revisions=>[...]}}
   def self.fetch_revisions_and_scores(course, update_service: nil)
     return {} if no_point_in_importing_revisions?(course)
     revision_data = new(course, update_service:)
@@ -65,14 +68,23 @@ class CourseRevisionUpdater
       end_of_course = @course.end.end_of_day.strftime('%Y%m%d%H%M%S')
       today = Time.zone.now.strftime('%Y%m%d%H%M%S')
       end_of_update_period = [end_of_course, today].min
-      revisions = {}
-      revisions[:start] = start
-      revisions[:end] = end_of_update_period
-      revisions[:revisions] = RevisionDataManager
-                              .new(wiki, @course, update_service: @update_service)
-                              .fetch_revision_data_for_course(start, end_of_update_period)
-      results[wiki] = revisions
+
+      results[wiki] = prepare_revisions_per_wiki(wiki, start, end_of_update_period)
     end
     results
+  end
+
+  def prepare_revisions_per_wiki(wiki, start_period, end_period)
+    result = {}
+    revisions = RevisionDataManager
+                .new(wiki, @course, update_service: @update_service)
+                .fetch_revision_data_for_course(start_period, end_period)
+
+    result[:start] = start_period
+    # We only have guarantees that we have revisions up to the max revision date.
+    result[:end] =
+      revisions.empty? ? start_period : revisions.map(&:date).max.strftime('%Y%m%d%H%M%S')
+    result[:revisions] = revisions
+    result
   end
 end
