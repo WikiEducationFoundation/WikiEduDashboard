@@ -85,11 +85,11 @@ describe UpdateCourseStatsTimeslice do
       # The course user caches were updated
       # All the revisions were done in mainspace = 0,
       # except for one revision in mainspace = 120, which is ommited
-      expect(course_user.character_sum_ms).to eq(7991)
+      expect(course_user.character_sum_ms).to eq(7497)
       expect(course_user.character_sum_us).to eq(0)
       expect(course_user.character_sum_draft).to eq(0)
-      # expect(course_user.references_count).to eq(-2)
-      expect(course_user.revision_count).to eq(29)
+      expect(course_user.references_count).to eq(-2)
+      expect(course_user.revision_count).to eq(27)
       expect(course_user.recent_revisions).to eq(0)
       expect(course_user.total_uploads).to eq(0)
 
@@ -108,10 +108,10 @@ describe UpdateCourseStatsTimeslice do
       # For wikidata
       timeslice = course_user.course_user_wiki_timeslices.where(wiki: wikidata,
                                                                 start: '2018-11-24').first
-      expect(timeslice.character_sum_ms).to eq(7867)
+      expect(timeslice.character_sum_ms).to eq(7451)
       expect(timeslice.character_sum_us).to eq(0)
       expect(timeslice.character_sum_draft).to eq(0)
-      expect(timeslice.revision_count).to eq(27)
+      expect(timeslice.revision_count).to eq(26)
       expect(timeslice.references_count).to eq(-2)
     end
 
@@ -122,11 +122,11 @@ describe UpdateCourseStatsTimeslice do
 
       # Check caches for course
       # Course caches were updated
-      expect(course.character_sum).to eq(7991)
+      expect(course.character_sum).to eq(7497)
       expect(course.references_count).to eq(-2)
-      expect(course.revision_count).to eq(29)
-      # TODO: view_sum should be 918. See issue #5911
-      expect(course.view_sum).to eq(912)
+      expect(course.revision_count).to eq(27)
+      # TODO: view_sum may be wrong. See issue #5911
+      expect(course.view_sum).to eq(122)
       expect(course.user_count).to eq(1)
       expect(course.trained_count).to eq(1)
       # TODO: update recent_revision_count
@@ -143,21 +143,21 @@ describe UpdateCourseStatsTimeslice do
       # Course user timeslices caches were updated
       # For enwiki
       timeslice = course.course_wiki_timeslices.where(wiki: enwiki,
-                                                      start: '2018-11-29').first
-      expect(timeslice.character_sum).to eq(78)
+                                                      start: '2018-11-24').first
+      expect(timeslice.character_sum).to eq(46)
       expect(timeslice.references_count).to eq(0)
       expect(timeslice.revision_count).to eq(1)
       expect(timeslice.upload_count).to eq(0)
       expect(timeslice.uploads_in_use_count).to eq(0)
       expect(timeslice.upload_usages_count).to eq(0)
-      expect(timeslice.last_mw_rev_datetime).to eq('20181129180841'.to_datetime)
+      expect(timeslice.last_mw_rev_datetime).to eq('20181124050431'.to_datetime)
 
       # For wikidata
       timeslice = course.course_wiki_timeslices.where(wiki: wikidata,
                                                       start: '2018-11-24').first
-      expect(timeslice.character_sum).to eq(7867)
+      expect(timeslice.character_sum).to eq(7451)
       expect(timeslice.references_count).to eq(-2)
-      expect(timeslice.revision_count).to eq(27)
+      expect(timeslice.revision_count).to eq(26)
       expect(timeslice.upload_count).to eq(0)
       expect(timeslice.uploads_in_use_count).to eq(0)
       expect(timeslice.upload_usages_count).to eq(0)

@@ -12,7 +12,7 @@ require_dependency "#{Rails.root}/lib/data_cycle/course_queue_sorting"
 require_dependency "#{Rails.root}/lib/timeslice_manager"
 
 #= Pulls in new revisions for a single course wiki timeslice and updates the corresponding records
-class UpdateCourseStatsTimeslice
+class UpdateCourseStatsTimeslice # rubocop:disable Metrics/ClassLength
   include UpdateServiceErrorHelper
   include CourseQueueSorting
 
@@ -122,11 +122,16 @@ class UpdateCourseStatsTimeslice
   def update_timeslices
     return if @revisions.length.zero?
     @course.wikis.each do |wiki|
+      # Exclude revisions with date = max date. These excluded revisions will be fetched
+      # and processed during the next update.
+      revisions_to_process = @revisions[wiki][:revisions].reject do |revision|
+        revision.date == @revisions[wiki][:end]
+      end
       # Group revisions by timeslice
       # TODO: make this work independtly on the timeslice duration
       # Right now only works for daily timeslices
-      @revisions[wiki][:revisions].group_by { |revision| revision.date.to_date }
-                                  .each do |timeslice_start, revisions|
+      revisions_to_process.group_by { |revision| revision.date.to_date }
+                          .each do |timeslice_start, revisions|
         update_article_course_timeslices_for_wiki(revisions, timeslice_start)
 
         update_course_user_wiki_timeslices_for_wiki(revisions, timeslice_start, wiki)
