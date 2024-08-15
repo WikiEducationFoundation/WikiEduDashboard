@@ -16,6 +16,7 @@ describe 'TrainingContent', type: :feature, js: true do
     TrainingModule.load_all
   end
 
+  # For Training Library
   describe 'TrainingLibrary' do
     context 'when logged in as an admin' do
       before do
@@ -151,6 +152,7 @@ describe 'TrainingContent', type: :feature, js: true do
     end
   end
 
+  # For Training Module
   describe 'TrainingModule' do
     before do
       login_as(user, scope: :user)
@@ -231,8 +233,24 @@ describe 'TrainingContent', type: :feature, js: true do
     end
   end
 
+  # For Training Slides
   describe 'TrainingSlide', type: :feature, js: true do
-    let(:existing_slide) { create(:training_slide, title: 'created-for-testing', slug: 'existing-slide', wiki_page: 'Training modules/dashboard/slides/10306-be-polite') }
+    let(:existing_slide1) do
+      create(:training_slide, title: 'created-for-testing', slug: 'existing-slide1',
+     wiki_page: 'Training modules/dashboard/slides/10306-be-polite')
+    end
+    let(:existing_slide2) do
+      create(:training_slide, title: 'how-to-help', slug: 'existing-slide2',
+     wiki_page: 'Training modules/dashboard/slides/12606-how-to-help')
+    end
+    let(:existing_slide3) do
+      create(:training_slide, title: 'five-pillars', slug: 'existing-slide3',
+     wiki_page: 'Training modules/dashboard/slides/10302-five-pillars')
+    end
+    let(:existing_slide4) do
+      create(:training_slide, title: 'notability', slug: 'existing-slide4',
+     wiki_page: 'Training modules/dashboard/slides/10313-notability')
+    end
 
     before do
       login_as(user, scope: :user)
@@ -256,49 +274,51 @@ describe 'TrainingContent', type: :feature, js: true do
       click_button 'Add'
       expect(page).to have_content('Testing Module')
       expect(page).to have_content('This module is only created for testing purposes.')
-      visit "/training/example-library/testing-module"
-      existing_slide
+      visit '/training/example-library/testing-module'
+      existing_slide1
     end
 
     context 'when adding and removing a training slide' do
       let(:training_module) { TrainingModule.find_by(slug: 'testing-module') }
-  
+
       it 'throws an error if slide with same slug but different wiki_page exists' do
         click_button 'Add Slide'
-  
+
         fill_in 'Title', with: 'New Slide Title'
-        fill_in 'Slug', with: 'existing-slide'
+        fill_in 'Slug', with: 'existing-slide1'
         fill_in 'wiki_page', with: 'Training modules/dashboard/slides/10801-welcome-new-editor'
         click_button 'Add'
-  
+
         expect(page).to have_content(I18n.t('training.validation.slide_slug_already_exist'))
       end
-  
-      it 'throws an error if slide with same slug and same wiki_page exists but is already in the training module' do
+
+      it 'throws an error if slide with same slug
+          and same wiki_page exists but is already in the training module' do
         click_button 'Add Slide'
-        training_module.slide_slugs << existing_slide.slug
+        training_module.slide_slugs << existing_slide1.slug
         training_module.save
-  
+
         fill_in 'Title', with: 'New Slide Title'
-        fill_in 'Slug', with: 'existing-slide'
+        fill_in 'Slug', with: 'existing-slide1'
         fill_in 'wiki_page', with: 'Training modules/dashboard/slides/10306-be-polite'
         click_button 'Add'
-  
+
         expect(page).to have_content(I18n.t('training.validation.slide_already_exist'))
       end
-  
-      it 'adds the slide if slide with same slug and same wiki_page exists but is not in the training module' do
+
+      it 'adds the slide if slide with same slug and
+          same wiki_page exists but is not in the training module' do
         click_button 'Add Slide'
-  
+
         fill_in 'Title', with: 'New Slide Title'
-        fill_in 'Slug', with: 'existing-slide'
+        fill_in 'Slug', with: 'existing-slide1'
         fill_in 'wiki_page', with: 'Training modules/dashboard/slides/10306-be-polite'
         click_button 'Add'
-  
-        expect(training_module.reload.slide_slugs).to include('existing-slide')
-        expect(page).to have_content(existing_slide.title)
+
+        expect(training_module.reload.slide_slugs).to include('existing-slide1')
+        expect(page).to have_content(existing_slide1.title)
       end
-  
+
       it 'creates a new slide if slide with same slug does not exist in database' do
         click_button 'Add Slide'
         fill_in 'Title', with: 'New Slide Title'
@@ -312,18 +332,62 @@ describe 'TrainingContent', type: :feature, js: true do
 
       it 'removes the slide from the training module' do
         # Adding the slide to the module
-        training_module.slide_slugs << existing_slide.slug
+        training_module.slide_slugs << existing_slide1.slug
         training_module.save
-        expect(training_module.reload.slide_slugs).to include('existing-slide')
+        expect(training_module.reload.slide_slugs).to include('existing-slide1')
 
         # Removing the slide
-        visit "/training/example-library/testing-module"
+        visit '/training/example-library/testing-module'
         click_button 'Remove Slide'
         expect(page).to have_selector('.program-description', count: 1)
         first('.program-description').click
         click_button 'Remove'
 
-        expect(training_module.reload.slide_slugs).not_to include('existing-slide')
+        expect(training_module.reload.slide_slugs).not_to include('existing-slide1')
+      end
+    end
+
+    context 'when reordering slides' do
+      let(:training_module) { TrainingModule.find_by(slug: 'testing-module') }
+
+      before do
+        # Make sure the slides are in the database
+        existing_slide1
+        existing_slide2
+        existing_slide3
+        existing_slide4
+        # Adding the slides to the module
+        training_module.slide_slugs = [
+          existing_slide1.slug,
+          existing_slide2.slug,
+          existing_slide3.slug,
+          existing_slide4.slug
+        ]
+        training_module.save
+        visit '/training/example-library/testing-module'
+      end
+
+      it 'allows reordering of slides' do
+        click_button I18n.t('training.change_order')
+        expect(page).to have_content('Change Order')
+
+        # Find the slide elements
+        slides = all('.program-description')
+
+        # Move the second slide to the bottom
+        target = slides.last
+        source = slides[1]
+        source.drag_to(target)
+
+        click_button 'Save'
+        visit '/training/example-library/testing-module'
+
+        # Verify the new order of slides
+        training_module.reload
+        expect(training_module.slide_slugs).to eq([existing_slide1.slug,
+                                                   existing_slide3.slug,
+                                                   existing_slide4.slug,
+                                                   existing_slide2.slug])
       end
     end
   end

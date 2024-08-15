@@ -76,7 +76,7 @@ class TrainingModulesController < ApplicationController
   def find_training_module
     training_module = TrainingModule.find_by(slug: params[:module_id])
     unless training_module
-      render json: { status: 'error', errorMessages: ["Training module not found."] },
+      render json: { status: 'error', errorMessages: ['Training module not found.'] },
              status: :not_found
     end
     training_module

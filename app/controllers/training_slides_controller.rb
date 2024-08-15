@@ -18,7 +18,7 @@ class TrainingSlidesController < ApplicationController
 
   def remove_slide
     slide_slugs = params.require(:slideSlugList)
-    
+
     slide_slugs.each do |slug|
       @training_module.slide_slugs.delete(slug)
     end
