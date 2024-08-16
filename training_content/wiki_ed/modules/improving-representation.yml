@@ -1,0 +1,26 @@
+name: 'Improving representation on Wikipedia'
+id: 68
+description: |
+  In this module, you'll learn how to improve the coverage of
+  historically underrepresented people and subjects on Wikipedia,
+  and why this kind of editing work is so important.
+slides:
+  - slug: improving-representation-on-wikipedia # 6801
+  - slug: equity-and-wikipedia # 6802
+  - slug: harmful-content-gaps # 6803
+  - slug: harmful-content-gap-example # 6804
+  - slug: misinformation # 6805
+  - slug: misinformation-example # 6806
+  - slug: small-edits-big-impact # 6807
+  - slug: small-edits-big-impact-example # 6808
+  - slug: look-beyond-the-surface # 6809
+  - slug: link-to-other-articles # 6810
+  - slug: do-not-forget-images # 6811
+  - slug: finding-content-gaps # 6812
+  - slug: it-is-not-about-word-count # 6813
+  - slug: notability-and-representation # 6814
+  - slug: dig-deeper # 6815
+  - slug: ask-for-help # 6816
+  - slug: neutral-writing # 6817
+  - slug: neutral-writing-example # 6818
+  - slug: a-lasting-impact # 6819
