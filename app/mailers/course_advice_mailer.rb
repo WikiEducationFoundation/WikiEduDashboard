@@ -12,6 +12,7 @@ class CourseAdviceMailer < ApplicationMailer
   # rubocop:disable Layout/LineLength
   SUBJECT_LINES = {
     'biographies' => '[Wiki Education] Tips for working on Wikipedia biography articles',
+    'hype_video' => '[Wiki Education] Video for students: The Wikipedia assignment',
     'preliminary_work' => '[Wiki Education] Tips for navigating the early weeks of your Wikipedia assignment',
     'choosing_an_article' => '[Wiki Education] Student success on Wikipedia starts with article choice!',
     'bibliographies' => '[Wiki Education] Compiling a good bibliography is the key to success!',
