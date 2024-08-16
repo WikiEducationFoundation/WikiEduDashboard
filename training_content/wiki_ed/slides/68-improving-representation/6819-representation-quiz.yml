@@ -1,14 +1,6 @@
 id: 6819
-title: A lasting impact
-content: |
-  Just like the world’s understanding of people and subjects evolve
-  and improve, so must Wikipedia.
-
-  While your precise wording may not stick (someone else may rewrite
-  your sentences entirely), an important part of the process is
-  getting these ideas and perspectives into the article.
-  Ever-evolving, ever improving – with your help.
-
+title: Check your understanding
+content:
 assessment:
   correct_answer_id: 4
   question: |
