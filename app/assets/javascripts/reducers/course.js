@@ -52,7 +52,15 @@ export default function course(state = initialState, action) {
       const courseData = action.data.course;
       const newStats = CourseUtils.newCourseStats(state, courseData);
       const newKeys = CourseUtils.courseStatsToUpdate(courseData, newStats);
-      return { ...state, ...newKeys, newStats };
+
+      return {
+        ...state,
+        ...newKeys,
+        newStats,
+        flags: {
+          ...courseData.flags,
+        },
+      };
     }
     case PERSISTED_COURSE:
       return { ...state, ...action.data.course };
