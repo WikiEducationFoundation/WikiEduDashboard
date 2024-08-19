@@ -1,0 +1,17 @@
+id: 6804
+title: "Example: the harm in content gaps"
+content: |
+  For example, when place-based articles about specific towns or parks in the
+  U.S. do not include information on pre-colonial Indigenous populations and
+  their persistence over time, they erase them from history.
+
+  Photo captions on Wikipedia that reference Indigenous peoples without
+  naming the specific tribes fail to accurately represent diverse Indigenous
+  nations.
+
+  <figure style="width: 100%;">
+    <img alt="Screenshot of a captioned photo on Wikipedia" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Screenshot_of_Kaqchikel_family_image_and_caption_in_Wikipedia_article.png/1277px-Screenshot_of_Kaqchikel_family_image_and_caption_in_Wikipedia_article.png" />
+    <figcaption>
+      A <a href="https://commons.wikimedia.org/wiki/File:Cakchiquel_family.JPG">photo used in a Wikipedia article</a>, appropriately captioned
+    </figcaption>
+  </figure>

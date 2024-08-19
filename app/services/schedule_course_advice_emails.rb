@@ -11,6 +11,7 @@ class ScheduleCourseAdviceEmails
     return unless @course.tag?('research_write_assignment')
 
     schedule_biographies_email
+    # schedule_hype_video_email
     schedule_preliminary_work_email
     schedule_choosing_an_article_email
     schedule_bibliographies_email
@@ -28,6 +29,18 @@ class ScheduleCourseAdviceEmails
       course: @course,
       subject: 'biographies',
       send_at: Time.zone.now
+    )
+  end
+
+  def schedule_hype_video_email
+    # 3 days before the assignment starts
+    send_date = @course.timeline_start - 3.days
+    return if send_date.past?
+
+    CourseAdviceEmailWorker.schedule_email(
+      course: @course,
+      subject: 'hype_video',
+      send_at: send_date
     )
   end
 

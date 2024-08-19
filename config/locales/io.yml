@@ -270,6 +270,7 @@ io:
   recent_activity:
     article_title: Titulo
     image: Imajo
+    file_name: Nomo dil arkivo
   revisions:
     class: Klaso
     diff: difero
@@ -288,6 +289,7 @@ io:
     page: Pagino
     done: Facita!
   uploads:
+    file_name: Nomo dil arkivo
     image: Imajo
     label: Arkivi sendita
   users:

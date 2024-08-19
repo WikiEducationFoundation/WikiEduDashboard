@@ -27,6 +27,9 @@ categories:
       - slug: finding-your-article
         name: Finding your article
         description: How to find a good article to work on
+      - slug: improving-representation
+        name: Improving representation on Wikipedia
+        description: How to improve the coverage of historically underrepresented people and subjects
       - slug: working-live
         name: Working live on Wikipedia
         description: How to work incrementally to improve a live article

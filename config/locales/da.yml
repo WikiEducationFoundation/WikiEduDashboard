@@ -1009,8 +1009,7 @@ da:
         bedre.
       thank_you: Tak! Kontakt din wiki-ekspert hvis du har yderligere spørgsmål.
     exercises_and_trainings: '%{prefix} Øvelser & Træninger'
-    no_assignments: Denne deltager har endnu ikke nogle tildelte artikler. Du kan
-      tildele en artikel ved at benytte knapperne herover.
+    no_assignments: Denne deltager har endnu ikke nogle tildelte artikler.
     no_assignments_wikidata: Denne elev har i øjeblikket ingen tildelte elementer.
       Du kan tildele et element ved at bruge knapperne ovenfor.
     overview: '%{prefix} oversigt'
