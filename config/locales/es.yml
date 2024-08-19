@@ -624,6 +624,12 @@ es:
         cronograma (semanas y bloques). Asegúrate de añadir las fechas, ya que no
         se trasladadas. ¿Ha cambiado algo más acerca de tu curso? Siéntete libre de
         actualizarlo ahora.
+      copy_successful_details: Tu curso se ha copiado, incluyendo las partes del cronograma
+        (semanas y bloques). Asegúrate de añadir las fechas, ya que no se trasladan.
+        ¿Ha cambiado algo más acerca de tu curso? Siéntete libre de actualizarlo ahora.
+      course_dates_info: Ingrese las fechas de inicio y finalización de tu curso.
+        En el siguiente paso, puede elegir cuándo comenzar la asignación de Wikipedia
+        dentro de ese plazo.
       course_description: Descripción del curso
       course_ta_support: ¿Este curso tendrá instructores o asistentes técnicos adicionales?
       course_school: Escuela del curso

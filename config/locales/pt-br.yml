@@ -35,6 +35,7 @@
 # Author: Robertpontes
 # Author: Rodrigo codignoli
 # Author: Rukasuoribera
+# Author: Stephanyb76
 # Author: Svjatysberega
 # Author: Trigonometria87
 # Author: Vinickw
@@ -938,6 +939,9 @@ pt-br:
     survey:
       notification_message: Responda nossa pesquisa sobre este curso
       link: Responder o questionário
+  course_instructor_notification:
+    send_notification_button_text: Enviar
+    write_message_placeholder: Mensagem
   courses_generic:
     school_system: Sistema acadêmico
     add_campaign: Adicionar campanha
