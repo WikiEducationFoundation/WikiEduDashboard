@@ -59,7 +59,7 @@ class CourseRevisionUpdater
     # Fetchs revision for each wiki
     results = {}
     @course.wikis.each do |wiki|
-      start = @timeslice_manager.get_last_mw_rev_datetime_for_wiki(wiki)
+      start = @timeslice_manager.get_ingestion_start_time_for_wiki(wiki)
       # TODO: We should fetch data even after the course end to calculate retention.
       # However, right now this causes problems due to lack of timeslices for those days.
       end_of_course = @course.end.end_of_day.strftime('%Y%m%d%H%M%S')

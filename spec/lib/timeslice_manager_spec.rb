@@ -118,12 +118,12 @@ describe TimesliceManager do
     end
   end
 
-  describe '#get_last_mw_rev_datetime_for_wiki' do
+  describe '#get_ingestion_start_time_for_wiki' do
     context 'when no course wiki timeslices' do
       it 'returns course start date' do
         # no course wiki timeslices for wikibooks
         expect(course.course_wiki_timeslices.where(wiki_id: wikibooks.id).size).to eq(0)
-        expect(timeslice_manager.get_last_mw_rev_datetime_for_wiki(wikibooks))
+        expect(timeslice_manager.get_ingestion_start_time_for_wiki(wikibooks))
           .to eq('20240101000000')
       end
     end
@@ -132,29 +132,29 @@ describe TimesliceManager do
       it 'returns course start date' do
         # only empty course wiki timeslices for enwiki
         expect(course.course_wiki_timeslices.where(wiki_id: enwiki.id).size).to eq(114)
-        expect(timeslice_manager.get_last_mw_rev_datetime_for_wiki(enwiki)).to eq('20240101000000')
+        expect(timeslice_manager.get_ingestion_start_time_for_wiki(enwiki)).to eq('20240101000000')
       end
     end
 
     context 'when non-empty course wiki timeslices' do
-      it 'returns max last_mw_rev_datetime' do
+      it 'returns start datetime for the max last_mw_rev_datetime' do
         # update last_mw_rev_datetime
         # Update last_mw_rev_datetime for the first course_wiki_timeslice
-        first_timeslice = course.course_wiki_timeslices.first
+        first_timeslice = course.course_wiki_timeslices[3]
         first_timeslice.last_mw_rev_datetime = '20240101103407'.to_datetime
         first_timeslice.save
 
         # Update last_mw_rev_datetime for the second course_wiki_timeslice
-        second_timeslice = course.course_wiki_timeslices.second
+        second_timeslice = course.course_wiki_timeslices[4]
         second_timeslice.last_mw_rev_datetime = '20240102002146'.to_datetime
         second_timeslice.save
 
         # Update last_mw_rev_datetime for the fourth course_wiki_timeslice
-        fourth_timeslice = course.course_wiki_timeslices.second
+        fourth_timeslice = course.course_wiki_timeslices[6]
         fourth_timeslice.last_mw_rev_datetime = '20240104131500'.to_datetime
         fourth_timeslice.save
 
-        expect(timeslice_manager.get_last_mw_rev_datetime_for_wiki(enwiki)).to eq('20240104131500')
+        expect(timeslice_manager.get_ingestion_start_time_for_wiki(enwiki)).to eq('20240104000000')
       end
     end
   end
