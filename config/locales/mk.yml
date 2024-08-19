@@ -350,7 +350,7 @@ mk:
     cancel: Откажи
     save: Зачувај
     edit_description: Уреди опис
-    edit_details: Уреди подробности
+    edit_details: Уреди поединости
     edit_template: Уреди предлошка
   metrics:
     activity: Скорешни активности

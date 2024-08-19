@@ -120,15 +120,15 @@ describe CourseUserWikiTimeslice, type: :model do
 
       expect(course_user_wiki_timeslice.total_uploads).to eq(1)
       # Don't consider deleted revisions or revisions for articles that don't exist
-      expect(course_user_wiki_timeslice.revision_count).to eq(27)
+      expect(course_user_wiki_timeslice.revision_count).to eq(4)
       # Only consider revision0 (mainspace)
-      expect(course_user_wiki_timeslice.character_sum_ms).to eq(126)
+      expect(course_user_wiki_timeslice.character_sum_ms).to eq(123)
       # Only consider revision2 (sandbox)
-      expect(course_user_wiki_timeslice.character_sum_us).to eq(4)
+      expect(course_user_wiki_timeslice.character_sum_us).to eq(0)
       # Only consider revision3 (draft)
-      expect(course_user_wiki_timeslice.character_sum_draft).to eq(227)
+      expect(course_user_wiki_timeslice.character_sum_draft).to eq(225)
       # Only consider revision0 (mainspace)
-      expect(course_user_wiki_timeslice.references_count).to eq(20)
+      expect(course_user_wiki_timeslice.references_count).to eq(7)
     end
 
     it 'only updates cache from tracked revisions' do
@@ -139,15 +139,15 @@ describe CourseUserWikiTimeslice, type: :model do
       course_user_wiki_timeslice = described_class.all.first
 
       # Only considers revisions for sandbox, talk_page and draft articles
-      expect(course_user_wiki_timeslice.revision_count).to eq(26)
+      expect(course_user_wiki_timeslice.revision_count).to eq(3)
       # No revision is taken into account for character_sum_ms
-      expect(course_user_wiki_timeslice.character_sum_ms).to eq(3)
+      expect(course_user_wiki_timeslice.character_sum_ms).to eq(0)
       # Negative characters for sanbox revision don't change the sum
-      expect(course_user_wiki_timeslice.character_sum_us).to eq(4)
+      expect(course_user_wiki_timeslice.character_sum_us).to eq(0)
       # Characters from raft revision is considered
-      expect(course_user_wiki_timeslice.character_sum_draft).to eq(227)
+      expect(course_user_wiki_timeslice.character_sum_draft).to eq(225)
       # No revision is taken into account for references_count
-      expect(course_user_wiki_timeslice.references_count).to eq(13)
+      expect(course_user_wiki_timeslice.references_count).to eq(0)
     end
   end
 end

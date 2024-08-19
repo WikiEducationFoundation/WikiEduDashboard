@@ -42,11 +42,14 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
 
   # Returns a string with the date to start getting revisions.
   # For example: '20181124000000'
-  def get_last_mw_rev_datetime_for_wiki(wiki)
+  def get_ingestion_start_time_for_wiki(wiki)
     non_empty_timeslices = @course.course_wiki_timeslices.where(wiki:).reject do |ts|
       ts.last_mw_rev_datetime.nil?
     end
-    last_datetime = non_empty_timeslices.max_by(&:last_mw_rev_datetime)&.last_mw_rev_datetime
+
+    # Always return timeslice start date, as we need to re-ingest all the data
+    # for partially-completed timeslices.
+    last_datetime = non_empty_timeslices.max_by(&:last_mw_rev_datetime)&.start
 
     last_datetime ||= @course.start
     last_datetime.strftime('%Y%m%d%H%M%S')

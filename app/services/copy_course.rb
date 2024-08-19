@@ -37,9 +37,8 @@ class CopyCourse # rubocop:disable Metrics/ClassLength
     modify_course_slug
     copied_data = {}
     params_to_copy.each { |p| copied_data[p] = @course_data[p] }
-    @home_wiki = Wiki.get_or_create(language: @course_data['home_wiki']['language'],
-                                    project: @course_data['home_wiki']['project'])
-    copied_data['home_wiki_id'] = @home_wiki.id
+    change_type(copied_data) # Changes the course type of certain courses
+    assign_home_wiki(copied_data)
     copied_data['passcode'] = GeneratePasscode.call # set a random passcode
     if copied_data['flags'].key?('update_logs')
       copied_data['flags']['update_logs'] =
@@ -47,6 +46,20 @@ class CopyCourse # rubocop:disable Metrics/ClassLength
     end
     # Create the course
     @course = Course.create!(copied_data)
+  end
+
+  def change_type(copied_data)
+    if @course_data['type'] == 'ClassroomProgramCourse' ||
+       @course_data['type'] == 'FellowsCohort' ||
+       @course_data['type'] == 'VisitingScholarship'
+      copied_data['type'] = 'BasicCourse'
+    end
+  end
+
+  def assign_home_wiki(copied_data)
+    @home_wiki = Wiki.get_or_create(language: @course_data['home_wiki']['language'],
+                                    project: @course_data['home_wiki']['project'])
+    copied_data['home_wiki_id'] = @home_wiki.id
   end
 
   def modify_course_slug

@@ -12,6 +12,7 @@ describe 'course copying', type: :feature, js: true do
     allow(Features).to receive(:wiki_ed?).and_return(false)
     allow(Features).to receive(:open_course_creation?).and_return(true)
     stub_course
+    stub_oauth_edit
     login_as(user, scope: :user)
   end
 
@@ -27,36 +28,23 @@ describe 'course copying', type: :feature, js: true do
     within('.wizard__panel.active.cloned-course') do
       fill_in 'course_title', with: 'New Course Title'
       fill_in 'course_school', with: 'New School'
-      fill_in 'course_subject', with: 'New Subject'
       fill_in 'course_description', with: 'New Course Description'
     end
     find('input#course_term').click
     fill_in 'course_term', with: new_term
 
-    within '#details_column' do
-      find('input#course_start').click
-      find('div.DayPicker-Day', text: 13).click
-      find('input#course_end').click
-      find('div.DayPicker-Day', text: 28).click
-      find('input#timeline_start').click
-      find('div.DayPicker-Day', text: 14).click
-      find('input#timeline_end').click
-      find('div.DayPicker-Day', text: 27).click
-    end
+    find('input#course_start').click
+    find('div.DayPicker-Day', text: 13).click
+    find('input#course_end').click
+    find('div.DayPicker-Day', text: 28).click
 
     find('h3#clone_modal_header').click # This is just too close the datepicker
-    omniclick find('span', text: 'MO')
-    click_button 'Save New Course'
-    expect(page).to have_content 'Mark the holidays' # Error message upon click.
-    find('input#no_holidays').click
-    expect(page).not_to have_content 'Mark the holidays'
-    click_button 'Save New Course'
+    click_button 'Save'
     expect(page).to have_current_path('/courses/New_School/New_Course_Title_(Spring2016)')
 
     new_course = Course.last
     expect(new_course.term).to eq('Spring2016')
     expect(new_course.weekdays).not_to eq('0000000')
-    expect(new_course.subject).to eq('New Subject')
     # expect(Week.count).to eq(1)
   end
 end

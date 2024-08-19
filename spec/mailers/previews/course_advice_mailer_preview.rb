@@ -5,6 +5,10 @@ class CourseAdviceMailerPreview < ActionMailer::Preview
     CourseAdviceMailer.email(example_course, 'biographies', example_staffer)
   end
 
+  def hype_video
+    CourseAdviceMailer.email(example_course, 'hype_video', example_staffer)
+  end
+
   def preliminary_work
     CourseAdviceMailer.email(example_course, 'preliminary_work', example_staffer)
   end

@@ -80,7 +80,7 @@ class CourseWikiTimeslice < ApplicationRecord
       excluded_article_ids.include?(revision.article_id)
     end
 
-    self.revision_count += tracked_revisions.count { |rev| !rev.deleted }
+    self.revision_count = tracked_revisions.count { |rev| !rev.deleted }
   end
 
   def update_upload_count

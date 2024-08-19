@@ -71,9 +71,9 @@ describe ArticleCourseTimeslice, type: :model do
       expect(article_course_timeslice.references_count).to eq(3)
       expect(article_course_timeslice.user_ids).to eq([2, 4])
       subject
-      expect(article_course_timeslice.character_sum).to eq(448)
-      expect(article_course_timeslice.references_count).to eq(6)
-      expect(article_course_timeslice.user_ids).to eq([2, 4, 25, 1])
+      expect(article_course_timeslice.character_sum).to eq(348)
+      expect(article_course_timeslice.references_count).to eq(3)
+      expect(article_course_timeslice.user_ids).to eq([25, 1])
     end
   end
 end

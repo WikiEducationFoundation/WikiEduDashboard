@@ -36,9 +36,9 @@ class CourseUserWikiTimeslice < ApplicationRecord
     tracked_namespace_revisions = live_revisions_in_tracked_namespaces
     self.total_uploads = course.uploads.where(user:).count
     update_character_sum(@liverevisions, tracked_namespace_revisions)
-    self.references_count += references_sum(tracked_namespace_revisions)
+    self.references_count = references_sum(tracked_namespace_revisions)
 
-    self.revision_count += filtered_live_revisions.size || 0
+    self.revision_count = filtered_live_revisions.size || 0
     save
   end
 
@@ -80,10 +80,10 @@ class CourseUserWikiTimeslice < ApplicationRecord
   end
 
   def update_character_sum(revisions, tracked_namespace_revisions)
-    self.character_sum_ms += character_sum(tracked_namespace_revisions,
-                                           Article::Namespaces::MAINSPACE)
-    self.character_sum_us += character_sum(revisions, Article::Namespaces::USER)
-    self.character_sum_draft += character_sum(revisions, Article::Namespaces::DRAFT)
+    self.character_sum_ms = character_sum(tracked_namespace_revisions,
+                                          Article::Namespaces::MAINSPACE)
+    self.character_sum_us = character_sum(revisions, Article::Namespaces::USER)
+    self.character_sum_draft = character_sum(revisions, Article::Namespaces::DRAFT)
   end
 
   ##################
