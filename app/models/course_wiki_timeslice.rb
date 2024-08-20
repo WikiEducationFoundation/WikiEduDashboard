@@ -31,6 +31,37 @@ class CourseWikiTimeslice < ApplicationRecord
   scope :in_period, lambda { |period_start, period_end|
                       where('start >= ? AND end <= ?', period_start, period_end)
                     }
+  scope :for_revisions_between, lambda { |period_start, period_end|
+    in_period(period_start, period_end).or(for_datetime(period_start)).or(for_datetime(period_end))
+  }
+
+  #################
+  # Class methods #
+  #################
+
+  # Given a course, a wiki, and a hash of revisions like the following:
+  # {:start=>"20160320", :end=>"20160401", :revisions=>[...]},
+  # updates the course wiki timeslices based on the revisions.
+  def self.update_course_wiki_timeslices(course, wiki, revisions)
+    rev_start = revisions[:start]
+    rev_end = revisions[:end]
+    # Course wiki timeslices to update
+    course_wiki_timeslices = CourseWikiTimeslice.for_course_and_wiki(course,
+                                                                     wiki)
+                                                .for_revisions_between(rev_start, rev_end)
+    course_wiki_timeslices.each do |timeslice|
+      # Group revisions that belong to the timeslice
+      revisions_in_timeslice = revisions[:revisions].select do |revision|
+        timeslice.start <= revision.date && revision.date < timeslice.end
+      end
+      # Update cache for CourseWikiTimeslice
+      timeslice.update_cache_from_revisions revisions_in_timeslice
+    end
+  end
+
+  ####################
+  # Instance methods #
+  ####################
 
   # Assumes that the revisions are for their own course wiki
   def update_cache_from_revisions(revisions)
