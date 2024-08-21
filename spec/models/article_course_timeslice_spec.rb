@@ -94,8 +94,8 @@ describe ArticleCourseTimeslice, type: :model do
 
       start_period = start.strftime('%Y%m%d%H%M%S')
       end_period = (start + 55.hours).strftime('%Y%m%d%H%M%S')
-      revisions2 = { start: start_period, end: end_period, revisions: }
-      described_class.update_article_course_timeslices(course, article.id, revisions2)
+      revision_data = { start: start_period, end: end_period, revisions: }
+      described_class.update_article_course_timeslices(course, article.id, revision_data)
 
       article_course_timeslice_0 = described_class.find_by(course:, article:, start:)
       article_course_timeslice_1 = described_class.find_by(course:, article:, start: start + 1.day)
