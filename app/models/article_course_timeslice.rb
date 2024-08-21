@@ -20,7 +20,42 @@ class ArticleCourseTimeslice < ApplicationRecord
   belongs_to :course
 
   scope :non_empty, -> { where.not(user_ids: nil) }
+  scope :for_course_and_article, ->(course, article) { where(course:, article:) }
+  # Returns the timeslice to which a datetime belongs (it should be a single timeslice)
+  scope :for_datetime, ->(datetime) { where('start <= ? AND end > ?', datetime, datetime) }
+  # Returns all the timeslices in a given period
+  scope :in_period, lambda { |period_start, period_end|
+                      where('start >= ? AND end <= ?', period_start, period_end)
+                    }
+  scope :for_revisions_between, lambda { |period_start, period_end|
+    in_period(period_start, period_end).or(for_datetime(period_start)).or(for_datetime(period_end))
+  }
+
   serialize :user_ids, Array # This text field only stores user ids as text
+
+  #################
+  # Class methods #
+  #################
+
+  # Given a course, an article, and a hash of revisions like the following:
+  # {:start=>"20160320", :end=>"20160401", :revisions=>[...]},
+  # updates the article course timeslices based on the revisions.
+  def self.update_article_course_timeslices(course, article_id, revisions)
+    rev_start = revisions[:start]
+    rev_end = revisions[:end]
+    # Course wiki timeslices to update
+    article_course_timeslices = ArticleCourseTimeslice.for_course_and_article(course,
+                                                                              article_id)
+                                                      .for_revisions_between(rev_start, rev_end)
+    article_course_timeslices.each do |timeslice|
+      # Group revisions that belong to the timeslice
+      revisions_in_timeslice = revisions[:revisions].select do |revision|
+        timeslice.start <= revision.date && revision.date < timeslice.end
+      end
+      # Update cache for CourseWikiTimeslice
+      timeslice.update_cache_from_revisions revisions_in_timeslice
+    end
+  end
 
   ####################
   # Instance methods #
