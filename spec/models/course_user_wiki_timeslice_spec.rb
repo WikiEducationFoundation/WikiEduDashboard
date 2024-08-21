@@ -23,81 +23,122 @@
 require 'rails_helper'
 
 describe CourseUserWikiTimeslice, type: :model do
-  # before { stub_wiki_validation }
+  let(:wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
+  let(:refs_tags_key) { 'feature.wikitext.revision.ref_tags' }
+  let(:user) { create(:user, username: 'User') }
+  let(:start) { '2015-01-01'.to_date }
+  let(:course) { create(:course, start:, end: '2015-07-01'.to_date) }
+  let(:article) { create(:article, title: 'Selfie') }
+  let(:talk_page) { create(:article, title: 'Selfie', namespace: Article::Namespaces::TALK) }
+  let(:sandbox) { create(:article, title: 'User/Selfie', namespace: Article::Namespaces::USER) }
+  let(:draft) { create(:article, title: 'Selfie', namespace: Article::Namespaces::DRAFT) }
+  let(:courses_user) do
+    create(:courses_user,
+           course:,
+           user:)
+  end
+  let(:course_user_wiki_timeslice) do
+    create(:course_user_wiki_timeslice,
+           course:,
+           user:,
+           wiki_id: wiki.id,
+           total_uploads: 0,
+           character_sum_ms: 3,
+           character_sum_us: 4,
+           character_sum_draft: 2,
+           references_count: 13,
+           revision_count: 23)
+  end
+  let(:revision0) do
+    build(:revision, article:, date: start,
+           characters: 123,
+           features: { 'num_ref' => 8 },
+           features_previous: { 'num_ref' => 1 },
+           user_id: user.id)
+  end
+  let(:revision1) do
+    build(:revision, article: talk_page, date: start,
+           characters: 200,
+           features: { 'num_ref' => 12 },
+           features_previous: { 'num_ref' => 10 },
+           user_id: user.id)
+  end
+  let(:revision2) do
+    build(:revision, article: sandbox, date: start,
+           characters: -65,
+           features: { 'num_ref' => 1 },
+           features_previous: { 'num_ref' => 2 },
+           user_id: user.id)
+  end
+  let(:revision3) do
+    build(:revision, article: draft, date: start,
+           characters: 225,
+           features: { 'num_ref' => 3 },
+           features_previous: { 'num_ref' => 3 },
+           user_id: user.id)
+  end
+  let(:revision4) do
+    build(:revision, article:, date: start,
+            characters: 34,
+            deleted: true, # deleted revision
+            features: { 'num_ref' => 2 },
+            features_previous: { 'num_ref' => 0 },
+            user_id: user.id)
+  end
+  let(:revision5) do
+    build(:revision, article_id: -1, # revision for a non-existing article
+            date: start,
+            characters: 34,
+            deleted: false,
+            features: { 'num_ref' => 2 },
+            features_previous: { 'num_ref' => 0 },
+            user_id: user.id)
+  end
+  let(:revisions) { [revision0, revision1, revision2, revision3, revision4, revision5] }
+  let(:subject) { course_user_wiki_timeslice.update_cache_from_revisions revisions }
+
+  describe '.update_course_user_wiki_timeslices' do
+    before do
+      revisions << build(:revision, article:, user_id: user.id, date: start + 26.hours)
+      revisions << build(:revision, article:, user_id: user.id, date: start + 50.hours)
+      revisions << build(:revision, article:, user_id: user.id, date: start + 51.hours)
+
+      create(:course_user_wiki_timeslice, course:, wiki:, user:, start:, end: start + 1.day)
+      create(:course_user_wiki_timeslice, course:, wiki:, user:, start: start + 1.day,
+             end: start + 2.days)
+      create(:course_user_wiki_timeslice, course:, wiki:, user:, start: start + 2.days,
+            end: start + 3.days)
+    end
+
+    it 'updates the right article timeslices based on the revisions' do
+      course_user_wiki_timeslice_0 = described_class.find_by(course:, wiki:, user:, start:)
+      course_user_wiki_timeslice_1 = described_class.find_by(course:, wiki:, user:,
+                                                             start: start + 1.day)
+      course_user_wiki_timeslice_2 = described_class.find_by(course:, wiki:, user:,
+                                                             start: start + 2.days)
+
+      expect(course_user_wiki_timeslice_0.revision_count).to eq(0)
+      expect(course_user_wiki_timeslice_1.revision_count).to eq(0)
+      expect(course_user_wiki_timeslice_2.revision_count).to eq(0)
+
+      start_period = start.strftime('%Y%m%d%H%M%S')
+      end_period = (start + 55.hours).strftime('%Y%m%d%H%M%S')
+      revision_data = { start: start_period, end: end_period, revisions: }
+      described_class.update_course_user_wiki_timeslices(course, user, wiki, revision_data)
+
+      course_user_wiki_timeslice_0 = described_class.find_by(course:, wiki:, user:, start:)
+      course_user_wiki_timeslice_1 = described_class.find_by(course:, wiki:, user:,
+                                                             start: start + 1.day)
+      course_user_wiki_timeslice_2 = described_class.find_by(course:, wiki:, user:,
+                                                             start: start + 2.days)
+
+      expect(course_user_wiki_timeslice_0.revision_count).to eq(4)
+      expect(course_user_wiki_timeslice_1.revision_count).to eq(1)
+      expect(course_user_wiki_timeslice_2.revision_count).to eq(2)
+    end
+  end
 
   describe '#update_cache_from_revisions' do
-    let(:enwiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
-    let(:refs_tags_key) { 'feature.wikitext.revision.ref_tags' }
-    let(:user) { create(:user, username: 'User') }
-    let(:course) { create(:course, start: '2015-01-01'.to_date, end: '2015-07-01'.to_date) }
-    let(:article) { create(:article, title: 'Selfie') }
-    let(:talk_page) { create(:article, title: 'Selfie', namespace: Article::Namespaces::TALK) }
-    let(:sandbox) { create(:article, title: 'User/Selfie', namespace: Article::Namespaces::USER) }
-    let(:draft) { create(:article, title: 'Selfie', namespace: Article::Namespaces::DRAFT) }
-    let(:courses_user) do
-      create(:courses_user,
-             course:,
-             user:)
-    end
-    let(:course_user_wiki_timeslice) do
-      create(:course_user_wiki_timeslice,
-             course:,
-             user:,
-             wiki_id: enwiki.id,
-             total_uploads: 0,
-             character_sum_ms: 3,
-             character_sum_us: 4,
-             character_sum_draft: 2,
-             references_count: 13,
-             revision_count: 23)
-    end
-    let(:revision0) do
-      build(:revision, article:,
-             characters: 123,
-             features: { 'num_ref' => 8 },
-             features_previous: { 'num_ref' => 1 },
-             user_id: course.id)
-    end
-    let(:revision1) do
-      build(:revision, article: talk_page,
-             characters: 200,
-             features: { 'num_ref' => 12 },
-             features_previous: { 'num_ref' => 10 },
-             user_id: course.id)
-    end
-    let(:revision2) do
-      build(:revision, article: sandbox,
-             characters: -65,
-             features: { 'num_ref' => 1 },
-             features_previous: { 'num_ref' => 2 },
-             user_id: course.id)
-    end
-    let(:revision3) do
-      build(:revision, article: draft,
-             characters: 225,
-             features: { 'num_ref' => 3 },
-             features_previous: { 'num_ref' => 3 },
-             user_id: course.id)
-    end
-    let(:revision4) do
-      build(:revision, article:,
-              characters: 34,
-              deleted: true, # deleted revision
-              features: { 'num_ref' => 2 },
-              features_previous: { 'num_ref' => 0 },
-              user_id: course.id)
-    end
-    let(:revision5) do
-      build(:revision, article_id: -1, # revision for a non-existing article
-              characters: 34,
-              deleted: false,
-              features: { 'num_ref' => 2 },
-              features_previous: { 'num_ref' => 0 },
-              user_id: course.id)
-    end
-    let(:revisions) { [revision0, revision1, revision2, revision3, revision4, revision5] }
-    let(:subject) { course_user_wiki_timeslice.update_cache_from_revisions revisions }
-
     before do
       # Make an article-course.
       create(:articles_course,
@@ -144,7 +185,7 @@ describe CourseUserWikiTimeslice, type: :model do
       expect(course_user_wiki_timeslice.character_sum_ms).to eq(0)
       # Negative characters for sanbox revision don't change the sum
       expect(course_user_wiki_timeslice.character_sum_us).to eq(0)
-      # Characters from raft revision is considered
+      # Characters from draft revision is considered
       expect(course_user_wiki_timeslice.character_sum_draft).to eq(225)
       # No revision is taken into account for references_count
       expect(course_user_wiki_timeslice.references_count).to eq(0)
