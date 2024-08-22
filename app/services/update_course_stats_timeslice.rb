@@ -50,7 +50,6 @@ class UpdateCourseStatsTimeslice
     # Fetchs revision for each wiki
     @revisions = CourseRevisionUpdater.fetch_revisions_and_scores(@course,
                                                                   update_service: self)
-
     log_update_progress :revision_scores_fetched
 
     # TODO: replace the logic on ArticlesCourses.update_from_course to remove all
@@ -84,55 +83,42 @@ class UpdateCourseStatsTimeslice
     log_update_progress :average_pageviews_updated
   end
 
-  def update_article_course_timeslices_for_wiki(revisions, timeslice_start)
-    revisions.group_by(&:article_id).each do |article_id, article_revisions|
+  def update_article_course_timeslices_for_wiki(revisions)
+    start_period = revisions[:start]
+    end_period = revisions[:end]
+    revs = revisions[:revisions]
+    revs.group_by(&:article_id).each do |article_id, article_revisions|
       # We don't create articles courses for every article
       article_course = ArticlesCourses.find_by(course: @course, article_id:)
       next unless article_course
+
       # Update cache for ArticleCorseTimeslice
-      ArticleCourseTimeslice.find_by(
-        article_id:,
-        course_id: @course.id,
-        start: timeslice_start
-      ).update_cache_from_revisions article_revisions
+      article_revisions_data = { start: start_period, end: end_period,
+                                 revisions: article_revisions }
+      ArticleCourseTimeslice.update_article_course_timeslices(@course, article_id,
+                                                              article_revisions_data)
     end
   end
 
-  def update_course_user_wiki_timeslices_for_wiki(revisions, timeslice_start, wiki)
-    revisions.group_by(&:user_id).each do |user_id, user_revisions|
+  def update_course_user_wiki_timeslices_for_wiki(wiki, revisions)
+    start_period = revisions[:start]
+    end_period = revisions[:end]
+    revs = revisions[:revisions]
+    revs.group_by(&:user_id).each do |user_id, user_revisions|
       # Update cache for CourseUserWikiTimeslice
-      CourseUserWikiTimeslice.find_by(
-        course: @course,
-        user_id:,
-        wiki:,
-        start: timeslice_start
-      ).update_cache_from_revisions user_revisions
+      course_user_wiki_data = { start: start_period, end: end_period,
+                                revisions: user_revisions }
+      CourseUserWikiTimeslice.update_course_user_wiki_timeslices(@course, user_id, wiki,
+                                                                 course_user_wiki_data)
     end
-  end
-
-  def update_course_wiki_timeslices_for_wiki(revisions, timeslice_start, wiki)
-    # Update cache for CourseWikiTimeslice
-    CourseWikiTimeslice.find_by(
-      course: @course,
-      wiki:,
-      start: timeslice_start
-    ).update_cache_from_revisions revisions
   end
 
   def update_timeslices
     return if @revisions.length.zero?
     @course.wikis.each do |wiki|
-      # Group revisions by timeslice
-      # TODO: make this work independtly on the timeslice duration
-      # Right now only works for daily timeslices
-      @revisions[wiki][:revisions].group_by { |revision| revision.date.to_date }
-                                  .each do |timeslice_start, revisions|
-        update_article_course_timeslices_for_wiki(revisions, timeslice_start)
-
-        update_course_user_wiki_timeslices_for_wiki(revisions, timeslice_start, wiki)
-
-        update_course_wiki_timeslices_for_wiki(revisions, timeslice_start, wiki)
-      end
+      update_course_user_wiki_timeslices_for_wiki(wiki, @revisions[wiki])
+      update_article_course_timeslices_for_wiki(@revisions[wiki])
+      CourseWikiTimeslice.update_course_wiki_timeslices(@course, wiki, @revisions[wiki])
     end
   end
 

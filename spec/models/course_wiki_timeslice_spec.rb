@@ -84,10 +84,41 @@ role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
            references_count: 4,
            revision_count: 4)
 
-    array_revisions << build(:revision, article:, user_id: 1)
-    array_revisions << build(:revision, article:, user_id: 1)
-    array_revisions << build(:revision, article:, user_id: 2)
-    array_revisions << build(:revision, article:, deleted: true, user_id: 1)
+    array_revisions << build(:revision, article:, user_id: 1, date: start)
+    array_revisions << build(:revision, article:, user_id: 1, date: start + 2.hours)
+    array_revisions << build(:revision, article:, user_id: 2, date: start + 3.hours)
+    array_revisions << build(:revision, article:, deleted: true, user_id: 1, date: start + 8.hours)
+  end
+
+  describe '.update_course_wiki_timeslices' do
+    before do
+      array_revisions << build(:revision, article:, user_id: 1, date: start + 26.hours)
+      array_revisions << build(:revision, article:, user_id: 1, date: start + 50.hours)
+      array_revisions << build(:revision, article:, user_id: 1, date: start + 51.hours)
+    end
+
+    it 'updates the right course wiki timeslices based on the revisions' do
+      course_wiki_timeslice_0 = described_class.find_by(course:, wiki:, start:)
+      course_wiki_timeslice_1 = described_class.find_by(course:, wiki:, start: start + 1.day)
+      course_wiki_timeslice_2 = described_class.find_by(course:, wiki:, start: start + 2.days)
+
+      expect(course_wiki_timeslice_0.revision_count).to eq(0)
+      expect(course_wiki_timeslice_1.revision_count).to eq(0)
+      expect(course_wiki_timeslice_2.revision_count).to eq(0)
+
+      start_period = start.strftime('%Y%m%d%H%M%S')
+      end_period = (start + 55.hours).strftime('%Y%m%d%H%M%S')
+      revisions = { start: start_period, end: end_period, revisions: array_revisions }
+      described_class.update_course_wiki_timeslices(course, wiki, revisions)
+
+      course_wiki_timeslice_0 = described_class.find_by(course:, wiki:, start:)
+      course_wiki_timeslice_1 = described_class.find_by(course:, wiki:, start: start + 1.day)
+      course_wiki_timeslice_2 = described_class.find_by(course:, wiki:, start: start + 2.days)
+
+      expect(course_wiki_timeslice_0.revision_count).to eq(3)
+      expect(course_wiki_timeslice_1.revision_count).to eq(1)
+      expect(course_wiki_timeslice_2.revision_count).to eq(2)
+    end
   end
 
   describe '#update_cache_from_revisions' do
