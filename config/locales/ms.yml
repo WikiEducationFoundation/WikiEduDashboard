@@ -25,6 +25,7 @@ ms:
     number_field: Ini merupakan medan nombor. Butang yang diterap dari kebanyakan
       pelayar akan menambah dan mengurangkan input.
   application:
+    back: Kembali
     cancel: Batal
     cookie_consent: Tapak ini menggunakan kuki untuk memastikan anda tetap log masuk,
       dan menyimpan maklumat yang berkaitan dengan akaun Wikipedia anda.
@@ -126,6 +127,7 @@ ms:
       new: Baru
       tracked: Dijejak
       untracked: Tidak dijejak
+    filter_text: 'Penapis:'
     find: Cari Rencana
     hide: Sorokkan
     history: (sejarah)
@@ -148,12 +150,14 @@ ms:
     page_logs: (log laman)
   items:
     items: Butir
+    lexeme: Leksem
   articles_wikidata:
     articles_short: Butir
   articles_generic:
     articles_short: Laman
   assignments:
     article_link: Rencana
+    article_link_wikidata: Butir
     title_too_large: Panjangnya tajuk tidak melebihi 255 aksara
     assign_other: Tugaskan rencana
     add_available_submit: Tambah rencana
