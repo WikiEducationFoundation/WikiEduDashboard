@@ -109,6 +109,7 @@ class CopyCourse
     path_segments = uri.path.split('/')
     desired_path = path_segments[0..3].join('/')
     sanitized_url = "https://#{uri.host}#{desired_path}"
+    @host = "https://#{uri.host}"
     return sanitized_url
   end
 
@@ -133,8 +134,7 @@ class CopyCourse
   end
 
   def retrieve_all_training_modules
-    @selected_dashboard = Features.wiki_ed? ? 'https://outreachdashboard.wmflabs.org' : 'https://dashboard.wikiedu.org'
-    dashboard_uri = URI.parse(@selected_dashboard + '/training_modules.json')
+    dashboard_uri = URI.parse(@host + '/training_modules.json')
     response = Net::HTTP.get_response(dashboard_uri)
     return [] unless response.is_a?(Net::HTTPSuccess)
 
@@ -183,7 +183,7 @@ class CopyCourse
     return ['', nil] unless matching_module
 
     training_library = @course_data['training_library_slug']
-    module_url = "#{@selected_dashboard}/training/#{training_library}/#{matching_module['slug']}"
+    module_url = "#{@host}/training/#{training_library}/#{matching_module['slug']}"
 
     html_block = "<a href=\"#{module_url}\" class=\"training-module\">#{matching_module['name']}
       <i class=\"icon icon-rt_arrow_purple_training_module\"></i></a>"
