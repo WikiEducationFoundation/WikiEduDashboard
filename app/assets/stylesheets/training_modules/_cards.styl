@@ -39,13 +39,15 @@
   color $btn_text_color
   font-weight 400
   float left
-  padding 15px
+  padding 15px 15px 0px 15px
   width 89%
   font-size 18px
   @extends .truncated-text
 .action-card-title__completion
   position absolute
   right 69px
+  +below(tablet)
+    display none
 .action-card-text
   font-size 16px
   font-weight 400
