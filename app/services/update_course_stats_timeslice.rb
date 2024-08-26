@@ -75,7 +75,6 @@ class UpdateCourseStatsTimeslice
 
   def update_caches
     ActiveRecord::Base.transaction do
-      # update_timeslices
       ArticlesCourses.update_all_caches_from_timeslices(@course.articles_courses)
       log_update_progress :articles_courses_updated
       CoursesUsers.update_all_caches_from_timeslices(@course.courses_users)

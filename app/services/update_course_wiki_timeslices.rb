@@ -79,7 +79,6 @@ class UpdateCourseWikiTimeslices
       @timeslice_manager.update_last_mw_rev_datetime(@revisions)
 
     rescue StandardError => e
-      # @errors << e
       log_error(e)
       raise ActiveRecord::Rollback
     end
