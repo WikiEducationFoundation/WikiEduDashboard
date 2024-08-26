@@ -2,6 +2,7 @@
 
 require_dependency "#{Rails.root}/lib/course_revision_updater"
 require_dependency "#{Rails.root}/lib/analytics/histogram_plotter"
+require_dependency "#{Rails.root}/lib/data_cycle/update_logger"
 require_dependency "#{Rails.root}/lib/errors/update_service_error_helper"
 require_dependency "#{Rails.root}/lib/timeslice_manager"
 
@@ -14,7 +15,6 @@ class UpdateCourseWikiTimeslices
   def initialize(course)
     @course = course
     @timeslice_manager = TimesliceManager.new(@course)
-    # @errors = []
   end
 
   def run
@@ -32,14 +32,8 @@ class UpdateCourseWikiTimeslices
       latest_start = get_latest_start_time_for_wiki(wiki)
 
       fetch_data_and_process_timeslices(wiki, first_start, latest_start)
-
-      #  log_error_batch(wiki, first_start, latest_start)
     end
     log_update_progress :course_timeslices_updated
-
-    # Once all the timeslices were updated, we can update the general caches.
-    # update_caches
-    # log_update_progress :course_cache_updated
   end
 
   def get_latest_start_time_for_wiki(wiki)
@@ -53,7 +47,6 @@ class UpdateCourseWikiTimeslices
   end
 
   def fetch_data_and_process_timeslices(wiki, first_start, latest_start)
-    #  @errors = []
     current_start = first_start.to_datetime
     while current_start <= latest_start
       fetch_data(wiki, current_start, current_start + TimesliceManager::TIMESLICE_DURATION)
@@ -142,14 +135,6 @@ class UpdateCourseWikiTimeslices
     Sentry.capture_message "#{@course.title} update timeslices error: #{error}",
                            level: 'error'
   end
-
-  # def log_error_batch(wiki, first_start, latest_start)
-  #   return if @errors.empty?
-
-  #   log_error(@errors.first, update_service: self,
-  #     sentry_extra: { course: @course, wiki:, first_start:,
-  #                     latest_start:, error_count: @errors.count })
-  # end
 
   def debug?
     @course.flags[:debug_updates]

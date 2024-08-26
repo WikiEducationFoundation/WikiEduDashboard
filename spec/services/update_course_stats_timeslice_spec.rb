@@ -49,7 +49,7 @@ describe UpdateCourseStatsTimeslice do
       expect(course.articles.where(wiki: enwiki).last.average_views).to be > 200
     end
 
-    it 'updates article course and article course timeslices caches' do
+    it 'updates article course caches' do
       VCR.use_cassette 'course_update' do
         subject
       end
@@ -63,19 +63,9 @@ describe UpdateCourseStatsTimeslice do
       expect(article_course.references_count).to eq(-2)
       expect(article_course.user_ids).to eq([user.id])
       expect(article_course.view_count).to eq(3)
-
-      # Article course timeslice record was created for mw_page_id 6901525
-      # timeslices from 2018-11-24 to 2018-11-30 were created
-      expect(article_course.article_course_timeslices.count).to eq(10)
-      expect(article_course.article_course_timeslices.fourth.start).to eq('2018-11-24')
-      expect(article_course.article_course_timeslices.last.start).to eq('2018-11-30')
-      # Article course timeslices caches were updated
-      expect(article_course.article_course_timeslices.fourth.character_sum).to eq(427)
-      expect(article_course.article_course_timeslices.fourth.references_count).to eq(-2)
-      expect(article_course.article_course_timeslices.fourth.user_ids).to eq([user.id])
     end
 
-    it 'updates course user and course user wiki timeslices caches' do
+    it 'updates course user caches' do
       VCR.use_cassette 'course_update' do
         subject
       end
@@ -92,30 +82,9 @@ describe UpdateCourseStatsTimeslice do
       expect(course_user.revision_count).to eq(29)
       expect(course_user.recent_revisions).to eq(0)
       expect(course_user.total_uploads).to eq(0)
-
-      # At least two course user timeslice records were updated
-
-      # Course user timeslices caches were updated
-      # For enwiki
-      timeslice = course_user.course_user_wiki_timeslices.where(wiki: enwiki,
-                                                                start: '2018-11-24').first
-      expect(timeslice.character_sum_ms).to eq(46)
-      expect(timeslice.character_sum_us).to eq(0)
-      expect(timeslice.character_sum_draft).to eq(0)
-      expect(timeslice.revision_count).to eq(1)
-      expect(timeslice.references_count).to eq(0)
-
-      # For wikidata
-      timeslice = course_user.course_user_wiki_timeslices.where(wiki: wikidata,
-                                                                start: '2018-11-24').first
-      expect(timeslice.character_sum_ms).to eq(7867)
-      expect(timeslice.character_sum_us).to eq(0)
-      expect(timeslice.character_sum_draft).to eq(0)
-      expect(timeslice.revision_count).to eq(27)
-      expect(timeslice.references_count).to eq(-2)
     end
 
-    it 'updates course and course wiki timeslices caches' do
+    it 'updates course caches' do
       VCR.use_cassette 'course_update' do
         subject
       end
@@ -136,32 +105,6 @@ describe UpdateCourseStatsTimeslice do
       expect(course.upload_count).to eq(0)
       expect(course.uploads_in_use_count).to eq(0)
       expect(course.upload_usages_count).to eq(0)
-
-      # 14 course wiki timeslices records were created: 7 for enwiki and 7 for wikidata
-      expect(course.course_wiki_timeslices.count).to eq(20)
-
-      # Course user timeslices caches were updated
-      # For enwiki
-      timeslice = course.course_wiki_timeslices.where(wiki: enwiki,
-                                                      start: '2018-11-29').first
-      expect(timeslice.character_sum).to eq(78)
-      expect(timeslice.references_count).to eq(0)
-      expect(timeslice.revision_count).to eq(1)
-      expect(timeslice.upload_count).to eq(0)
-      expect(timeslice.uploads_in_use_count).to eq(0)
-      expect(timeslice.upload_usages_count).to eq(0)
-      expect(timeslice.last_mw_rev_datetime).to eq('20181129180841'.to_datetime)
-
-      # For wikidata
-      timeslice = course.course_wiki_timeslices.where(wiki: wikidata,
-                                                      start: '2018-11-24').first
-      expect(timeslice.character_sum).to eq(7867)
-      expect(timeslice.references_count).to eq(-2)
-      expect(timeslice.revision_count).to eq(27)
-      expect(timeslice.upload_count).to eq(0)
-      expect(timeslice.uploads_in_use_count).to eq(0)
-      expect(timeslice.upload_usages_count).to eq(0)
-      expect(timeslice.last_mw_rev_datetime).to eq('20181124045740'.to_datetime)
     end
 
     it 'rolls back the updates if something goes wrong' do
@@ -182,11 +125,6 @@ describe UpdateCourseStatsTimeslice do
       article_course = ArticlesCourses.find_by(article_id: article.id)
       # The article course caches weren't updated
       expect(article_course.character_sum).to eq(0)
-      # last_mw_rev_datetime wasn't updated
-      # timeslice = course.course_wiki_timeslices.where(wiki: enwiki,
-      # start: '2018-11-29').first
-
-      # expect(timeslice.last_mw_rev_datetime).to be_nil
     end
   end
 
@@ -212,12 +150,6 @@ describe UpdateCourseStatsTimeslice do
       # one error for each timeslice that tried to update
       expect(course.flags['update_logs'][1]['error_count']).to eq 5
       expect(course.flags['update_logs'][1]['sentry_tag_uuid']).to eq sentry_tag_uuid
-
-      # Checking whether Sentry receives correct error and tags as arguments
-      # expect(Sentry).to have_received(:capture_exception).once.with(Errno::ECONNREFUSED, anything)
-      # expect(Sentry).to have_received(:capture_exception)
-      #   .once.with anything, hash_including(tags: { update_service_id: sentry_tag_uuid,
-      #                                               course: course.slug })
     end
 
     it 'tracks update errors properly in LiftWing' do
@@ -231,13 +163,6 @@ describe UpdateCourseStatsTimeslice do
       sentry_tag_uuid = subject.sentry_tag_uuid
       expect(course.flags['update_logs'][1]['error_count']).to eq 2
       expect(course.flags['update_logs'][1]['sentry_tag_uuid']).to eq sentry_tag_uuid
-
-      # Checking whether Sentry receives correct error and tags as arguments
-      # expect(Sentry).to have_received(:capture_exception)
-      #   .exactly(2).times.with(Faraday::ConnectionFailed, anything)
-      # expect(Sentry).to have_received(:capture_exception)
-      #   .exactly(2).times.with anything, hash_including(tags: { update_service_id: sentry_tag_uuid,
-      #                                                           course: course.slug })
     end
 
     it 'tracks update errors properly in WikiApi' do
@@ -255,11 +180,11 @@ describe UpdateCourseStatsTimeslice do
       expect(course.flags['update_logs'][1]['sentry_tag_uuid']).to eq sentry_tag_uuid
 
       # Checking whether Sentry receives correct error and tags as arguments
-      # expect(Sentry).to have_received(:capture_exception)
-      #   .at_least(2).times.with(MediawikiApi::ApiError, anything)
-      # expect(Sentry).to have_received(:capture_exception)
-      #   .at_least(2).times.with anything, hash_including(tags: { update_service_id: sentry_tag_uuid,
-      #                                                           course: course.slug })
+      expect(Sentry).to have_received(:capture_exception)
+        .at_least(2).times.with(MediawikiApi::ApiError, anything)
+      expect(Sentry).to have_received(:capture_exception)
+        .at_least(1).times.with anything, hash_including(tags: { update_service_id: sentry_tag_uuid,
+                                                                course: course.slug })
     end
 
     context 'when a Programs & Events Dashboard course has a potentially long update time' do
