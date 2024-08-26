@@ -29,6 +29,7 @@ da:
     number_field: Dette er et numerisk felt. Knapperne som vises i de fleste browsere
       vil øge eller mindske tallet.
   application:
+    back: Tilbage
     cancel: Annullér
     cookie_consent: Denne side benytter cookies til at holde dig logget ind og til
       at gemme informationer relateret til din Wikipedia-konto.
@@ -62,6 +63,8 @@ da:
       one: '%{count} Resultat for: ''%{search_terms}'''
       other: '%{count} Resultater for: ''%{search_terms}'''
     no_results: Ingen resultater kunne findes for '%{query}'
+    show_current_revision: Vis nuværende version
+    show_last_revision: Vis den seneste redigerede version
     sign_up_extended: Registrer dig med Wikipedia
     sign_up_wikipedia: Eller tilmeld dig på Wikipedia
     sign_up_log_in_extended: med Wikipedia
@@ -115,6 +118,9 @@ da:
     explore: Udforsk
     log_in: Log på med Wikipedia
     sign_up: Registrer dig hos Wikipedia
+    registration_advice:
+      username_rules:
+        heading: Regler for brugernavne
     sign_up_help: For at bruge dashboardet skal du logge ind via Wikipedia og give
       det tilladelse til at få adgang til din konto. Du kan logge ind med en eksisterende
       Wikipedia-konto eller oprette en ny.

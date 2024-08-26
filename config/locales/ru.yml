@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Alexander Yukal
 # Author: Alexandr Efremov
+# Author: Amire80
 # Author: Aram1985
 # Author: Athena Atterdag
 # Author: Av6
@@ -555,7 +556,7 @@ ru:
     word_count_average: Среднее количество слов
     total_revisions: Всего версий
     claims: Претензии
-    aliases: Алиасы
+    aliases: Синонимы
     merged: Объединено
     created: Создано
     changed: Изменилось
