@@ -41,9 +41,27 @@ const handleErrorNotification = function (data) {
 export default function notifications(state = initialState, action) {
   switch (action.type) {
     case ADD_NOTIFICATION: {
-      const newState = [...state];
-      newState.push(action.notification);
-      return newState;
+      const newState = [...state, action.notification];
+
+      // Set the maximum number of notifications allowed for each type
+      const maxNotifications = 3;
+
+      // Process the state for each notification type (error and success)
+      return ['error', 'success'].reduce((acc, type) => {
+        // Filter notifications of the current type
+        const typeNotifications = acc.filter(x => x.type === type);
+
+        // If we have more than the maximum allowed notifications of this type
+        if (typeNotifications.length > maxNotifications) {
+          // Find the index of the oldest notification of this type
+          const indexToRemove = acc.findIndex(x => x.type === type);
+          // Remove the oldest notification by creating a new array without it
+          return [...acc.slice(0, indexToRemove), ...acc.slice(indexToRemove + 1)];
+        }
+
+        // If we don't need to remove any, return the accumulator unchanged
+        return acc;
+      }, newState);
     }
     case REMOVE_NOTIFICATION: {
       const newState = [...state];
