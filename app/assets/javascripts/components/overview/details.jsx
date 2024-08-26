@@ -128,9 +128,9 @@ const Details = createReactClass({
 
   poll() {
     return setInterval(() => {
-      const documentVisible = document.hidden;
+      const documentHidden = document.hidden;
 
-      if (documentVisible || (this.state.updateCount > MAX_UPDATE_COUNT)) { return; }
+      if (documentHidden || (this.state.updateCount > MAX_UPDATE_COUNT)) { return; }
       if (!this.props.editable) {
         this.props.refetchCourse(this.props.course.slug);
         this.setState({
