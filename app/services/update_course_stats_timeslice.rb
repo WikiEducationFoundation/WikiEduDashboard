@@ -9,7 +9,6 @@ require_dependency "#{Rails.root}/lib/importers/revision_score_importer"
 require_dependency "#{Rails.root}/lib/importers/average_views_importer"
 require_dependency "#{Rails.root}/lib/errors/update_service_error_helper"
 require_dependency "#{Rails.root}/lib/data_cycle/course_queue_sorting"
-require_dependency "#{Rails.root}/lib/timeslice_manager"
 
 #= Pulls in new revisions for a single course wiki timeslice and updates the corresponding records
 class UpdateCourseStatsTimeslice
@@ -18,7 +17,7 @@ class UpdateCourseStatsTimeslice
 
   def initialize(course)
     @course = course
-    @timeslice_manager = TimesliceManager.new(@course)
+    # @timeslice_manager = TimesliceManager.new(@course)
     # If the upate was explicitly requested by a user,
     # it could be because the dates or other paramters were just changed.
     # In that case, do a full update rather than just fetching the most
@@ -26,7 +25,8 @@ class UpdateCourseStatsTimeslice
     # @full_update = full || @course.needs_update
 
     @start_time = Time.zone.now
-    fetch_data
+    import_uploads
+    errors = UpdateCourseWikiTimeslices.new(@course).run
     update_categories
     update_article_status if should_update_article_status?
     update_average_pageviews
@@ -40,23 +40,17 @@ class UpdateCourseStatsTimeslice
     UpdateLogger.update_course(@course, 'start_time' => @start_time.to_datetime,
                                          'end_time' => @end_time.to_datetime,
                                          'sentry_tag_uuid' => sentry_tag_uuid,
-                                         'error_count' => error_count)
+                                         'error_count' => error_count + errors)
   end
 
   private
 
-  def fetch_data
+  def import_uploads
     log_update_progress :start
     # Fetchs revision for each wiki
-    @revisions = CourseRevisionUpdater.fetch_revisions_and_scores(@course,
-                                                                  update_service: self)
-    log_update_progress :revision_scores_fetched
-
-    # TODO: replace the logic on ArticlesCourses.update_from_course to remove all
-    # the ArticlesCourses that do not correspond to course revisions.
-    # That may happen if the course dates changed, so some revisions are no
-    # longer part of the course.
-    # Also remove records for articles that aren't on a tracked wiki.
+    # @revisions = CourseRevisionUpdater.fetch_revisions_and_scores(@course,
+    #                                                               update_service: self)
+    # log_update_progress :revision_scores_fetched
 
     # TODO: note this is not wiki scoped.
     CourseUploadImporter.new(@course, update_service: self).run
@@ -83,48 +77,48 @@ class UpdateCourseStatsTimeslice
     log_update_progress :average_pageviews_updated
   end
 
-  def update_article_course_timeslices_for_wiki(revisions)
-    start_period = revisions[:start]
-    end_period = revisions[:end]
-    revs = revisions[:revisions]
-    revs.group_by(&:article_id).each do |article_id, article_revisions|
-      # We don't create articles courses for every article
-      article_course = ArticlesCourses.find_by(course: @course, article_id:)
-      next unless article_course
+  # def update_article_course_timeslices_for_wiki(revisions)
+  #   start_period = revisions[:start]
+  #   end_period = revisions[:end]
+  #   revs = revisions[:revisions]
+  #   revs.group_by(&:article_id).each do |article_id, article_revisions|
+  #     # We don't create articles courses for every article
+  #     article_course = ArticlesCourses.find_by(course: @course, article_id:)
+  #     next unless article_course
 
-      # Update cache for ArticleCorseTimeslice
-      article_revisions_data = { start: start_period, end: end_period,
-                                 revisions: article_revisions }
-      ArticleCourseTimeslice.update_article_course_timeslices(@course, article_id,
-                                                              article_revisions_data)
-    end
-  end
+  #     # Update cache for ArticleCorseTimeslice
+  #     article_revisions_data = { start: start_period, end: end_period,
+  #                                revisions: article_revisions }
+  #     ArticleCourseTimeslice.update_article_course_timeslices(@course, article_id,
+  #                                                             article_revisions_data)
+  #   end
+  # end
 
-  def update_course_user_wiki_timeslices_for_wiki(wiki, revisions)
-    start_period = revisions[:start]
-    end_period = revisions[:end]
-    revs = revisions[:revisions]
-    revs.group_by(&:user_id).each do |user_id, user_revisions|
-      # Update cache for CourseUserWikiTimeslice
-      course_user_wiki_data = { start: start_period, end: end_period,
-                                revisions: user_revisions }
-      CourseUserWikiTimeslice.update_course_user_wiki_timeslices(@course, user_id, wiki,
-                                                                 course_user_wiki_data)
-    end
-  end
+  # def update_course_user_wiki_timeslices_for_wiki(wiki, revisions)
+  #   start_period = revisions[:start]
+  #   end_period = revisions[:end]
+  #   revs = revisions[:revisions]
+  #   revs.group_by(&:user_id).each do |user_id, user_revisions|
+  #     # Update cache for CourseUserWikiTimeslice
+  #     course_user_wiki_data = { start: start_period, end: end_period,
+  #                               revisions: user_revisions }
+  #     CourseUserWikiTimeslice.update_course_user_wiki_timeslices(@course, user_id, wiki,
+  #                                                                course_user_wiki_data)
+  #   end
+  # end
 
-  def update_timeslices
-    return if @revisions.length.zero?
-    @course.wikis.each do |wiki|
-      update_course_user_wiki_timeslices_for_wiki(wiki, @revisions[wiki])
-      update_article_course_timeslices_for_wiki(@revisions[wiki])
-      CourseWikiTimeslice.update_course_wiki_timeslices(@course, wiki, @revisions[wiki])
-    end
-  end
+  # def update_timeslices
+  #   return if @revisions.length.zero?
+  #   @course.wikis.each do |wiki|
+  #     update_course_user_wiki_timeslices_for_wiki(wiki, @revisions[wiki])
+  #     update_article_course_timeslices_for_wiki(@revisions[wiki])
+  #     CourseWikiTimeslice.update_course_wiki_timeslices(@course, wiki, @revisions[wiki])
+  #   end
+  # end
 
   def update_caches
     ActiveRecord::Base.transaction do
-      update_timeslices
+      # update_timeslices
       ArticlesCourses.update_all_caches_from_timeslices(@course.articles_courses)
       log_update_progress :articles_courses_updated
       CoursesUsers.update_all_caches_from_timeslices(@course.courses_users)
@@ -134,7 +128,7 @@ class UpdateCourseStatsTimeslice
       HistogramPlotter.delete_csv(course: @course) # clear cached structural completeness data
       log_update_progress :course_cache_updated
 
-      @timeslice_manager.update_last_mw_rev_datetime(@revisions)
+      # @timeslice_manager.update_last_mw_rev_datetime(@revisions)
 
     rescue StandardError => e
       log_error(e)
