@@ -66,7 +66,7 @@ class CourseRevisionUpdater
   end
 
   def fetch_revisions_and_scores_for_relevant_wikis
-    # Fetchs revision for each wiki
+    # Fetches revision for each wiki
     results = {}
     @course.wikis.each do |wiki|
       start = @timeslice_manager.get_ingestion_start_time_for_wiki(wiki)
@@ -87,7 +87,7 @@ class CourseRevisionUpdater
   end
 
   def fetch_revisions_and_scores_for_wiki_timeslice(wiki, timeslice_start, timeslice_end)
-    # Fetchs revision for wiki
+    # Fetches revision for wiki
     results = {}
     revisions = {}
     revisions[:start] = timeslice_start
