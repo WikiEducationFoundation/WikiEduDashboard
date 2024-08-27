@@ -24,7 +24,8 @@ describe TimesliceManager do
     enwiki_course
     wikidata_course
 
-    new_course_users << create(:courses_user, id: 1, user_id: 1, course:)
+    new_course_users << create(:courses_user, id: 1, user_id: 1, course:,
+                               role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
     new_course_users << create(:courses_user, id: 2, user_id: 2, course:)
     new_course_users << create(:courses_user, id: 3, user_id: 3, course:)
 
@@ -82,9 +83,10 @@ describe TimesliceManager do
         # Create wikibooks course wiki timeslices for the entire course
         expect(course.course_wiki_timeslices.last.wiki).to eq(wikibooks)
         expect(course.course_wiki_timeslices.size).to eq(228)
-        # Create all the course user wiki timeslices for the existing course users for the new wiki
+        # Create all the course user wiki timeslices for the existing course users with student role
+        # for the new wiki
         expect(course.course_user_wiki_timeslices.first.wiki).to eq(wikibooks)
-        expect(course.course_user_wiki_timeslices.size).to eq(342)
+        expect(course.course_user_wiki_timeslices.size).to eq(228)
       end
     end
   end
@@ -102,7 +104,7 @@ describe TimesliceManager do
 
     it 'deletes wiki timeslices for the entire course properly' do
       expect(course.course_wiki_timeslices.size).to eq(342)
-      expect(course.course_user_wiki_timeslices.size).to eq(1026)
+      expect(course.course_user_wiki_timeslices.size).to eq(684)
       expect(course.article_course_timeslices.size).to eq(342)
 
       timeslice_manager.delete_timeslices_for_deleted_course_wikis([wikibooks.id, wikidata.id])
