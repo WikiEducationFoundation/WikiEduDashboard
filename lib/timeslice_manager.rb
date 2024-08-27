@@ -71,9 +71,9 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
     end
   end
 
-  private
-
   TIMESLICE_DURATION = 1.day
+
+  private
 
   # Creates empty article course timeslices
   # Takes an array like the following:
