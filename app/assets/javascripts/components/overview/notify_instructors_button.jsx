@@ -6,7 +6,7 @@ import { useDispatch, connect } from 'react-redux';
 import Loading from '@components/common/loading.jsx';
 import TextInput from '@components/common/text_input.jsx';
 import { createInstructorAlert } from '../../actions/alert_actions';
-import { ALERT_INSTRUCTOR_UPDATE_MESSAGE, ALERT_INSTRUCTOR_UPDATE_SUBJECT, ALERT_INSTRUCTOR_MODAL_HIDDEN, ALERT_INSTRUCTOR_MODAL_VISIBLE } from '../../constants/alert.js';
+import { ALERT_INSTRUCTOR_UPDATE_MESSAGE, ALERT_INSTRUCTOR_UPDATE_SUBJECT, ALERT_INSTRUCTOR_MODAL_HIDDEN, ALERT_INSTRUCTOR_MODAL_VISIBLE, ALERT_INSTRUCTOR_UPDATE_BCC } from '../../constants/alert.js';
 
 const NotifyInstructorsButton = (props) => {
   const { notification, visible } = props;
@@ -20,7 +20,8 @@ const NotifyInstructorsButton = (props) => {
           courseTitle: props.courseTitle,
           courseId: props.courseId,
           subject: notification.subject,
-          message: notification.message
+          message: notification.message,
+          bccToSalesforce: notification.bccToSalesforce
         }),
       })
     );
@@ -33,7 +34,7 @@ const NotifyInstructorsButton = (props) => {
       </button>
 
       {visible && (
-        <div className="basic-modal course-stats-download-modal">
+        <div className="basic-modal">
           <button onClick={() => dispatch({ type: ALERT_INSTRUCTOR_MODAL_HIDDEN })} className="pull-right article-viewer-button icon-close" />
           <h2>{I18n.t('course_instructor_notification.notify_instructors')}</h2>
           <p>{I18n.t('course_instructor_notification.notify_instructors_feature_description')}</p>
@@ -50,16 +51,30 @@ const NotifyInstructorsButton = (props) => {
             }}
           />
 
-          <TextAreaInput
-            id={'notification-message'}
-            value={notification.message}
-            onChange={(_, value) => {
-              dispatch({ type: ALERT_INSTRUCTOR_UPDATE_MESSAGE, payload: value });
-            }}
-            value_key="notification_message"
-            editable
-            placeholder={I18n.t('course_instructor_notification.write_message_placeholder')}
-          />
+          <div className="form-group">
+            <TextAreaInput
+              id="notification-message"
+              value={notification.message}
+              onChange={(_, value) => {
+                dispatch({ type: ALERT_INSTRUCTOR_UPDATE_MESSAGE, payload: value });
+              }}
+              value_key="notification_message"
+              editable
+              placeholder={I18n.t('course_instructor_notification.write_message_placeholder')}
+            />
+          </div>
+
+          <label className="inline-radio">
+            { I18n.t('course_instructor_notification.bcc_to_salesforce')}
+            <input
+              checked={notification.bccToSalesforce}
+              className="ml1"
+              id="bcc"
+              name="bcc"
+              onChange={() => dispatch({ type: ALERT_INSTRUCTOR_UPDATE_BCC })}
+              type="checkbox"
+            />
+          </label>
 
           {notification.status === 'PENDING' ? (
             <Loading text={I18n.t('course_instructor_notification.sending_notification')} />
