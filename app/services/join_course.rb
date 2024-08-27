@@ -89,7 +89,10 @@ class JoinCourse
     # Do not try to create course user wiki timeslices if there is no course id
     # This should never happen in production but we need this check because otherwise
     # there are specs that fail.
-    create_course_user_wiki_timeslices course_user unless course_user.course_id.nil?
+    # Only create course user wiki timeslices for students.
+    if student_role? && course_user.course_id.present?
+      create_course_user_wiki_timeslices course_user
+    end
   end
 
   def create_course_user_wiki_timeslices(course_user)
