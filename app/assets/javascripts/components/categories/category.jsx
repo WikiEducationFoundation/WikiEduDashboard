@@ -23,7 +23,7 @@ const Category = ({ course, category, remove, editable }) => {
     depth = category.depth;
   }
   if (category.source === 'psid') {
-    link = `https://petscan.wmflabs.org/?psid=${category.name}`;
+    link = `https://petscan.wmcloud.org/?psid=${category.name}`;
   } else if (category.source === 'pileid') {
     link = `https://pagepile.toolforge.org/api.php?id=${category.name}&action=get_data`;
   } else {
