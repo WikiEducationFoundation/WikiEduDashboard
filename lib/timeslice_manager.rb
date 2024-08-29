@@ -95,7 +95,8 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
 
   # Creates empty course user wiki timeslices
   def create_empty_course_user_wiki_timeslices(courses_users: nil, courses_wikis: nil)
-    courses_users ||= @course.courses_users
+    # Only create course user wiki timeslices for students
+    courses_users ||= @course.courses_users.where(role: CoursesUsers::Roles::STUDENT_ROLE)
     courses_wikis ||= @course.courses_wikis
     new_records = start_dates.map do |start|
       courses_users.map do |c_u|
