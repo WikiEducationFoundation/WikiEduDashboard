@@ -16,8 +16,10 @@ const saveTimelineFailedNotification = {
 
 const handleErrorNotification = function (data) {
   const notification = {};
+
   notification.closable = true;
   notification.type = 'error';
+
   if (data.responseText) {
     try {
       notification.message = JSON.parse(data.responseText).message;
@@ -30,11 +32,19 @@ const handleErrorNotification = function (data) {
     if (!notification.message) { notification.message = data.responseJSON.error; }
   }
 
-  if (!notification.message) { notification.message = data.errors || data.message || data.statusText; }
+  if (!notification.message) {
+    notification.message = data.errors || data.message || data.statusText || data;
+
+    if (typeof notification.message === 'string' && notification.type === 'error' && notification.message.includes('JSONP request')) {
+      notification.message = I18n.t('customize_error_message.JSONP_request_failed');
+    }
+  }
+
   if (isEmpty(data)) {
     console.error('Error: ', data); // eslint-disable-line no-console
     console.log(data); // eslint-disable-line no-console
   }
+
   return notification;
 };
 
@@ -79,7 +89,16 @@ export default function notifications(state = initialState, action) {
       if (action.silent) { return state; }
 
       const newState = [...state];
-      newState.push(errorNotification);
+
+      // Assuming errorNotification is an object, and newState is an array of objects
+      const errorNotificationExists = newState.some(
+        notification => JSON.stringify(notification) === JSON.stringify(errorNotification)
+      );
+
+      if (!errorNotificationExists) {
+        newState.push(errorNotification);
+      }
+
       return newState;
     }
     case SAVE_TIMELINE_FAIL: {
