@@ -7,6 +7,7 @@
 # Author: Anto
 # Author: Beta16
 # Author: Camillo Pellizzari
+# Author: Dream Indigo
 # Author: Einreiher
 # Author: Fierodelveneto
 # Author: Gianfranco
@@ -986,7 +987,7 @@ it:
       %{views}'
     revisions_doc: Il numero di modifiche effettuate da questo contributore negli
       ultimi 7 giorni
-    references_doc: Il numero di riferimenti aggiunti o rimossi da questo utente
+    references_doc: Il numero di riferimenti aggiunti o rimossi da quest'utente
     reviewers: Revisori
     revisions: Versioni
     total_uploads: Totale caricamenti
@@ -1087,7 +1088,7 @@ it:
       signed: '- il team Wiki Education'
       link: Rispondi sondaggio
   wiki_api:
-    create_account_reason: Questo utente sta partecipando a %{event}.
+    create_account_reason: Quest'utente sta partecipando a %{event}.
   onboarding:
     supplementary:
       why_are_you_here: Cosa ti piacerebbe fare?
