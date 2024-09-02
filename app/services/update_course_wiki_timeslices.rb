@@ -17,17 +17,21 @@ class UpdateCourseWikiTimeslices
     @timeslice_manager = TimesliceManager.new(@course)
   end
 
-  def run
-    fetch_data_and_process_timeslices_for_every_wiki
+  def run(all_time:)
+    fetch_data_and_process_timeslices_for_every_wiki(all_time)
     error_count
   end
 
   private
 
-  def fetch_data_and_process_timeslices_for_every_wiki
+  def fetch_data_and_process_timeslices_for_every_wiki(all_time)
     @course.wikis.each do |wiki|
       # Get start time from first timeslice to update
-      first_start = @timeslice_manager.get_ingestion_start_time_for_wiki(wiki)
+      first_start = if all_time
+                      @course.start.strftime('%Y%m%d%H%M%S')
+                    else
+                      @timeslice_manager.get_ingestion_start_time_for_wiki(wiki)
+                    end
       # Get start time from latest timeslice to update
       latest_start = get_latest_start_time_for_wiki(wiki)
 
