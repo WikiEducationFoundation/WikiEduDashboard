@@ -304,6 +304,10 @@ class Course < ApplicationRecord
     end.flatten
   end
 
+  def filter_revisions(revisions)
+    revisions
+  end
+
   def scoped_article_ids
     assigned_article_ids + category_article_ids
   end

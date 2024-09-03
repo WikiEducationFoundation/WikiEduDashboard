@@ -75,4 +75,19 @@ class VisitingScholarship < Course
   def multiple_roles_allowed?
     true
   end
+
+  def filter_revisions(revisions)
+    filtered_data = revisions.select do |_, details|
+      scoped_article_titles.include?(details['article']['title'])
+    end
+    filtered_data
+  end
+
+  def scoped_article_titles
+    assigned_article_titles
+  end
+
+  def assigned_article_titles
+    assignments.pluck(:article_title)
+  end
 end
