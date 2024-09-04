@@ -87,6 +87,7 @@ role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
     array_revisions << build(:revision, article:, user_id: 1, date: start)
     array_revisions << build(:revision, article:, user_id: 1, date: start + 2.hours)
     array_revisions << build(:revision, article:, user_id: 2, date: start + 3.hours)
+    array_revisions << build(:revision, article:, user_id: 2, date: start + 3.hours, system: true)
     array_revisions << build(:revision, article:, deleted: true, user_id: 1, date: start + 8.hours)
   end
 
