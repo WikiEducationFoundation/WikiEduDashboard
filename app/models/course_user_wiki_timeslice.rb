@@ -82,8 +82,8 @@ class CourseUserWikiTimeslice < ApplicationRecord
   private
 
   # Returns tracked revisions (revisions for tracked article courses)
-  # for which already exists an article record
-  # made for user_id. Notice that revisions are already made for a given user_id
+  # for which already exists an article record made for user_id.
+  # Notice that revisions are already made for a given user_id
   def live_revisions
     excluded_article_ids = course.articles_courses.not_tracked.pluck(:article_id)
     tracked_revisions = @revisions.reject do |revision|
@@ -95,7 +95,7 @@ class CourseUserWikiTimeslice < ApplicationRecord
     filtered_tracked_revisions = tracked_revisions.select do |revision|
       articles_ids_with_article_records.include?(revision.article_id)
     end
-    filtered_tracked_revisions.reject(&:deleted)
+    filtered_tracked_revisions.reject { |r| r.deleted || r.system }
   end
 
   def live_revisions_in_tracked_namespaces
