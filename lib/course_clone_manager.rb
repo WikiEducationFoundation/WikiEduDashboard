@@ -119,6 +119,8 @@ class CourseCloneManager
     working_individually
     working_in_groups
     research_write_assignment
+    yes_sandboxes
+    no_sandboxes
   ].freeze
   def tag_course
     tag_manager = TagManager.new(@clone)
@@ -133,7 +135,8 @@ class CourseCloneManager
   FLAGS_TO_CARRY_OVER = [
     :peer_review_count,
     :retain_available_articles,
-    :stay_in_sandbox
+    :stay_in_sandbox,
+    :no_sandboxes
   ].freeze
   def add_flags
     FLAGS_TO_CARRY_OVER.each do |flag_key|
