@@ -84,10 +84,6 @@ class VisitingScholarship < Course
   end
 
   def scoped_article_titles
-    assigned_article_titles
-  end
-
-  def assigned_article_titles
     assignments.pluck(:article_title)
   end
 end

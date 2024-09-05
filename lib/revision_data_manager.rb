@@ -56,7 +56,9 @@ class RevisionDataManager
 
   def get_course_revisions(users, start, end_date)
     all_sub_data = get_revisions(users, start, end_date)
-    filtered_sub_data(all_sub_data)
+    # Filter revisions based on the article type.
+    # Important for ArticleScopedProgram/VisitingScolarship courses
+    @course.filter_revisions(all_sub_data)
   end
 
   # Get revisions made by a set of users between two dates.
@@ -78,12 +80,6 @@ class RevisionDataManager
     when 'true'
       true
     end
-  end
-
-  # Filter revisions based on the article type.
-  # Important for ArticleScopedProgram/VisitingScolarship courses
-  def filtered_sub_data(sub_data)
-    @course.filter_revisions(sub_data)
   end
 
   def sub_data_to_article_attributes(sub_data)
