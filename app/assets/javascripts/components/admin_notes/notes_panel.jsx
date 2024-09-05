@@ -88,7 +88,7 @@ const NotesPanel = () => {
     return (
       <button
         onClick={() => setIsModalOpen('adminNotePanel')}
-        className="button"
+        className="button admin-focus-highlight"
         aria-haspopup="dialog"
       >
         {I18n.t('notes.admin.button_text')}
