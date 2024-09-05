@@ -79,7 +79,10 @@ class ArticleScopedProgram < Course
 
   def filter_revisions(revisions)
     filtered_data = revisions.select do |_, details|
-      scoped_article_titles.include?(details['article']['title'])
+      wiki = Wiki.find(details['article']['wiki_id'])
+      article_title = details['article']['title']
+      formatted_article_title = ArticleUtils.format_article_title(article_title, wiki)
+      scoped_article_titles.include?(formatted_article_title)
     end
     filtered_data
   end
