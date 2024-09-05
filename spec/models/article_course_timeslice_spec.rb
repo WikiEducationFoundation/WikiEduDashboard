@@ -59,7 +59,16 @@ describe ArticleCourseTimeslice, type: :model do
             user_id: 6,
             date: start + 16.hours)
   end
-  let(:revisions) { [revision1, revision2, revision3, revision4] }
+  let(:revision5) do
+    build(:revision, article:,
+           characters: 120,
+           features: { 'num_ref' => 3 },
+           features_previous: { 'num_ref' => 3 },
+           user_id: 25,
+           date: start + 12.hours,
+           system: true) # revision made automatically
+  end
+  let(:revisions) { [revision1, revision2, revision3, revision4, revision5] }
   let(:article_course_timeslice) do
     create(:article_course_timeslice,
            article:,

@@ -7,7 +7,7 @@ describe UpdateCourseWikiTimeslices do
   let(:enwiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
   let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }
   let(:updater) { described_class.new(course) }
-  let(:subject) { updater.run }
+  let(:subject) { updater.run(all_time: 0) }
   let(:flags) { nil }
   let(:user) { create(:user, username: 'Ragesoss') }
 

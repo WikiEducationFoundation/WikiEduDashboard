@@ -94,7 +94,15 @@ describe CourseUserWikiTimeslice, type: :model do
             features_previous: { 'num_ref' => 0 },
             user_id: user.id)
   end
-  let(:revisions) { [revision0, revision1, revision2, revision3, revision4, revision5] }
+  let(:revision6) do
+    build(:revision, article: draft, date: start,
+           characters: 220,
+           features: { 'num_ref' => 1 },
+           features_previous: { 'num_ref' => 0 },
+           user_id: user.id,
+           system: true) # revision made by the system
+  end
+  let(:revisions) { [revision0, revision1, revision2, revision3, revision4, revision5, revision6] }
   let(:subject) { course_user_wiki_timeslice.update_cache_from_revisions revisions }
 
   describe '.update_course_user_wiki_timeslices' do
@@ -160,7 +168,8 @@ describe CourseUserWikiTimeslice, type: :model do
       course_user_wiki_timeslice = described_class.all.first
 
       expect(course_user_wiki_timeslice.total_uploads).to eq(1)
-      # Don't consider deleted revisions or revisions for articles that don't exist
+      # Don't consider deleted revisions, automatic revisions, or revisions for
+      # articles that don't exist
       expect(course_user_wiki_timeslice.revision_count).to eq(4)
       # Only consider revision0 (mainspace)
       expect(course_user_wiki_timeslice.character_sum_ms).to eq(123)

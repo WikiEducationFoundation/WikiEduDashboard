@@ -64,7 +64,7 @@ class ArticleCourseTimeslice < ApplicationRecord
   # Takes an array of revisions for the article_course_timeslice
   def update_cache_from_revisions(revisions)
     # Filter the deleted revisions
-    live_revisions = revisions.reject(&:deleted)
+    live_revisions = revisions.reject { |r| r.deleted || r.system }
     self.character_sum = live_revisions.sum { |r| r.characters.to_i.positive? ? r.characters : 0 }
     self.references_count = live_revisions.sum(&:references_added)
     self.user_ids = associated_user_ids(live_revisions)

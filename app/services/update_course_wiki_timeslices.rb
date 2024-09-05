@@ -17,17 +17,31 @@ class UpdateCourseWikiTimeslices
     @timeslice_manager = TimesliceManager.new(@course)
   end
 
-  def run
-    fetch_data_and_process_timeslices_for_every_wiki
+  def run(all_time:)
+    clean_timeslices if all_time
+    fetch_data_and_process_timeslices_for_every_wiki(all_time)
     error_count
   end
 
   private
 
-  def fetch_data_and_process_timeslices_for_every_wiki
+  # Delete and recreate timeslices
+  def clean_timeslices
+    wiki_ids = @course.wikis.pluck(:wiki_id)
+    @timeslice_manager.delete_timeslices_for_deleted_course_wikis(wiki_ids)
+    # Destroy articles courses records to re-create article courses timeslices
+    @course.articles_courses.destroy_all
+    @timeslice_manager.create_timeslices_for_new_course_wiki_records(@course.wikis)
+  end
+
+  def fetch_data_and_process_timeslices_for_every_wiki(all_time)
     @course.wikis.each do |wiki|
       # Get start time from first timeslice to update
-      first_start = @timeslice_manager.get_ingestion_start_time_for_wiki(wiki)
+      first_start = if all_time
+                      @course.start.strftime('%Y%m%d%H%M%S')
+                    else
+                      @timeslice_manager.get_ingestion_start_time_for_wiki(wiki)
+                    end
       # Get start time from latest timeslice to update
       latest_start = get_latest_start_time_for_wiki(wiki)
 
