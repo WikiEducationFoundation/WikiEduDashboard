@@ -29,6 +29,8 @@ class UpdateCourseWikiTimeslices
   def clean_timeslices
     wiki_ids = @course.wikis.pluck(:wiki_id)
     @timeslice_manager.delete_timeslices_for_deleted_course_wikis(wiki_ids)
+    # Destroy articles courses records to re-create article courses timeslices
+    @course.articles_courses.destroy_all
     @timeslice_manager.create_timeslices_for_new_course_wiki_records(@course.wikis)
   end
 
