@@ -88,6 +88,7 @@ const NotesRow = ({ notesList }) => {
         const isShowingText = note.id === showNoteTextId;
         const rowClassName = isShowingText ? 'row--border' : '';
 
+        // Render the edit button or cancel button based on the editing state
         const notesEditButton = !isEditing ? (
           <button
             className="tooltip-trigger admin-focus-highlight"
@@ -112,6 +113,7 @@ const NotesRow = ({ notesList }) => {
           </button>
         );
 
+        // Render the save button
         const notesEditSaveButton = (
           <button
             className="tooltip-trigger post--note admin-focus-highlight"
