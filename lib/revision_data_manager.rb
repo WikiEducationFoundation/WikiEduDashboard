@@ -57,7 +57,7 @@ class RevisionDataManager
   def get_course_revisions(users, start, end_date)
     all_sub_data = get_revisions(users, start, end_date)
     # Filter revisions based on the article type.
-    # Important for ArticleScopedProgram/VisitingScolarship courses
+    # Important for ArticleScopedProgram/VisitingScholarship courses
     @course.filter_revisions(all_sub_data)
   end
 
