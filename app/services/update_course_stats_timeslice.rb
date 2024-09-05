@@ -22,12 +22,11 @@ class UpdateCourseStatsTimeslice
     # it could be because the dates or other paramters were just changed.
     # In that case, do a full update rather than just fetching the most
     # recent revisions.
-    # @full_update = full || @course.needs_update
 
     @start_time = Time.zone.now
     import_uploads
-    timeslice_errors = UpdateCourseWikiTimeslices.new(@course).run
     update_categories
+    timeslice_errors = UpdateCourseWikiTimeslices.new(@course).run
     update_article_status if should_update_article_status?
     update_average_pageviews
     update_caches
