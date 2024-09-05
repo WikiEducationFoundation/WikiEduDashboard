@@ -18,11 +18,19 @@ class UpdateCourseWikiTimeslices
   end
 
   def run(all_time:)
+    clean_timeslices if all_time
     fetch_data_and_process_timeslices_for_every_wiki(all_time)
     error_count
   end
 
   private
+
+  # Delete and recreate timeslices
+  def clean_timeslices
+    wiki_ids = @course.wikis.pluck(:wiki_id)
+    @timeslice_manager.delete_timeslices_for_deleted_course_wikis(wiki_ids)
+    @timeslice_manager.create_timeslices_for_new_course_wiki_records(@course.wikis)
+  end
 
   def fetch_data_and_process_timeslices_for_every_wiki(all_time)
     @course.wikis.each do |wiki|
