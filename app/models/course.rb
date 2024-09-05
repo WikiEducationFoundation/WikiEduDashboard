@@ -304,6 +304,12 @@ class Course < ApplicationRecord
     end.flatten
   end
 
+  # The default implemention retrieves all the revisions.
+  # A course type may override this implementation.
+  def filter_revisions(revisions)
+    revisions
+  end
+
   def scoped_article_ids
     assigned_article_ids + category_article_ids
   end

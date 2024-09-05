@@ -26,8 +26,8 @@ class UpdateCourseStatsTimeslice
 
     @start_time = Time.zone.now
     import_uploads
-    timeslice_errors = UpdateCourseWikiTimeslices.new(@course).run(all_time: @full_update)
     update_categories
+    timeslice_errors = UpdateCourseWikiTimeslices.new(@course).run(all_time: @full_update)
     update_article_status if should_update_article_status?
     update_average_pageviews
     update_caches

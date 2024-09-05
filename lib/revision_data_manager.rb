@@ -21,7 +21,7 @@ class RevisionDataManager
   # Returns an array of Revision records.
   # As a side effect, it imports Article records.
   def fetch_revision_data_for_course(timeslice_start, timeslice_end)
-    sub_data = get_revisions(@course.students, timeslice_start, timeslice_end)
+    sub_data = get_course_revisions(@course.students, timeslice_start, timeslice_end)
     @revisions = []
 
     # Extract all article data from the slice. Outputs a hash with article attrs.
@@ -53,6 +53,13 @@ class RevisionDataManager
   # Helpers #
   ###########
   private
+
+  def get_course_revisions(users, start, end_date)
+    all_sub_data = get_revisions(users, start, end_date)
+    # Filter revisions based on the article type.
+    # Important for ArticleScopedProgram/VisitingScholarship courses
+    @course.filter_revisions(all_sub_data)
+  end
 
   # Get revisions made by a set of users between two dates.
   # We limit the number of usernames per query in order to avoid

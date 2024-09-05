@@ -76,4 +76,26 @@ class ArticleScopedProgram < Course
   def passcode_required?
     false
   end
+
+  def filter_revisions(revisions)
+    filtered_data = revisions.select do |_, details|
+      wiki = Wiki.find(details['article']['wiki_id'])
+      article_title = details['article']['title']
+      formatted_article_title = ArticleUtils.format_article_title(article_title, wiki)
+      scoped_article_titles.include?(formatted_article_title)
+    end
+    filtered_data
+  end
+
+  def scoped_article_titles
+    assigned_article_titles + category_article_titles
+  end
+
+  def assigned_article_titles
+    assignments.pluck(:article_title)
+  end
+
+  def category_article_titles
+    categories.inject([]) { |ids, cat| ids + cat.article_titles }
+  end
 end

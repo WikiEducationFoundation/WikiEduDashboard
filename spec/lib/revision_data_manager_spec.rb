@@ -13,7 +13,6 @@ describe RevisionDataManager do
     let(:subject) do
       instance_class.fetch_revision_data_for_course('20180706', '20180707')
     end
-    let(:revision_count) { 0 }
     let(:revision_data) do
       [{ 'mw_page_id' => '55345266',
       'wiki_id' => 1,
@@ -22,7 +21,7 @@ describe RevisionDataManager do
     end
 
     before do
-      create(:courses_user, course:, user:, revision_count:)
+      create(:courses_user, course:, user:)
     end
 
     it 'fetches all the revisions that occurred during the given period of time' do
@@ -64,24 +63,40 @@ describe RevisionDataManager do
 
     it 'only calculates revisions scores for articles in mainspace, userspace or draftspace' do
       allow(instance_class).to receive(:get_revisions).and_return(
-        { '112' => {
-            'article' =>
-            { 'mw_page_id' => '777', 'title' => 'Some title',
-            'namespace' => '4', 'wiki_id' => 1 },
-          'revisions' =>
-          [{ 'mw_rev_id' => '849116430', 'date' => '20180706', 'characters' => '569',
-          'mw_page_id' => '777', 'username' => 'Ragesoss', 'new_article' => 'false',
-          'system' => 'false', 'wiki_id' => 1 }]
-          },
-          '789' => {
-            'article' =>
-            { 'mw_page_id' => '123', 'title' => 'Draft article',
-            'namespace' => '118', 'wiki_id' => 1 },
-          'revisions' =>
-          [{ 'mw_rev_id' => '456', 'date' => '20180706', 'characters' => '569',
-          'mw_page_id' => '123', 'username' => 'Ragesoss', 'new_article' => 'false',
-          'system' => 'false', 'wiki_id' => 1 }]
-          } }
+        [
+          [
+            '112',
+            {
+              'article' => {
+                'mw_page_id' => '777',
+                'title' => 'Some title',
+                'namespace' => '4',
+                'wiki_id' => 1
+              },
+              'revisions' => [
+                { 'mw_rev_id' => '849116430', 'date' => '20180706', 'characters' => '569',
+                  'mw_page_id' => '777', 'username' => 'Ragesoss', 'new_article' => 'false',
+                  'system' => 'false', 'wiki_id' => 1 }
+              ]
+            }
+          ],
+          [
+            '789',
+            {
+              'article' => {
+                'mw_page_id' => '123',
+                'title' => 'Draft article',
+                'namespace' => '118',
+                'wiki_id' => 1
+              },
+              'revisions' => [
+                { 'mw_rev_id' => '456', 'date' => '20180706', 'characters' => '569',
+                  'mw_page_id' => '123', 'username' => 'Ragesoss', 'new_article' => 'false',
+                  'system' => 'false', 'wiki_id' => 1 }
+              ]
+            }
+          ]
+        ]
       )
       VCR.use_cassette 'revision_importer/all' do
         revisions = subject
