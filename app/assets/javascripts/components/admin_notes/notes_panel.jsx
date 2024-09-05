@@ -42,8 +42,9 @@ const NotesPanel = () => {
   useEffect(() => {
     const handleEscape = (event) => {
       if (event.key === 'Escape') {
-        // Close the modal when the Escape key is pressed
+        // Close the modal and note creation when the Escape key is pressed
         setIsModalOpen(false);
+        setIsNoteCreationActive(false);
       }
     };
 
