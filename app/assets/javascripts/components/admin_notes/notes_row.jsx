@@ -76,7 +76,7 @@ const NotesRow = ({ notesList }) => {
 
   useEffect(() => {
     if (editNoteId) {
-      setLiveMessage(I18n.t('notes.screen_reader.note_edit_mode', { title: noteTitle }));
+      setLiveMessage(I18n.t('notes.admin.aria_label.note_edit_mode', { title: noteTitle }));
     }
   }, [editNoteId]);
 
@@ -92,7 +92,7 @@ const NotesRow = ({ notesList }) => {
         const notesEditButton = !isEditing ? (
           <button
             className="tooltip-trigger admin-focus-highlight"
-            aria-label={I18n.t('notes.screen_reader.note_edit_button_focused', { title: note.title })}
+            aria-label={I18n.t('notes.admin.aria_label.note_edit_button_focused', { title: note.title })}
             onClick={() => onNotesEditButtonClickHandler(note.id, note.title, note.text)}
           >
             <span className="icon admin-note-edit-icon"/>
@@ -103,7 +103,7 @@ const NotesRow = ({ notesList }) => {
         ) : (
           <button
             className="tooltip-trigger cancel--note admin-focus-highlight"
-            aria-label={I18n.t('notes.screen_reader.note_edit_cancel_button_focused', { title: note.title })}
+            aria-label={I18n.t('notes.admin.aria_label.note_edit_cancel_button_focused', { title: note.title })}
             onClick={() => onNotesEditCancelButtonClickHandler()}
           >
             <span className="icon admin-note-cancel-icon" />
@@ -118,7 +118,7 @@ const NotesRow = ({ notesList }) => {
           <button
             className="tooltip-trigger post--note admin-focus-highlight"
             onClick={() => onNotesEditSaveButtonClickHandler(note.id)}
-            aria-label={I18n.t('notes.screen_reader.note_edit_save_button_focused', { title: noteTitle })}
+            aria-label={I18n.t('notes.admin.aria_label.note_edit_save_button_focused', { title: noteTitle })}
           >
             <span className="icon admin-note-post-icon" />
             <div className="tooltip post--note">
@@ -135,8 +135,8 @@ const NotesRow = ({ notesList }) => {
               onKeyDown={e => handleKeyDown(e, note.id)}
               tabIndex="0"
               aria-label={isShowingText
-                ? I18n.t('notes.screen_reader.collapse_note', { title: note.title })
-                : I18n.t('notes.screen_reader.expand_note', { title: note.title })}
+                ? I18n.t('notes.admin.aria_label.collapse_note', { title: note.title })
+                : I18n.t('notes.admin.aria_label.expand_note', { title: note.title })}
             >
               <td className={rowClassName} onClick={e => (isEditing ? e.stopPropagation() : null)}>
                 <TextAreaInput
@@ -160,7 +160,7 @@ const NotesRow = ({ notesList }) => {
                 {!isEditing ? (
                   <button
                     className="tooltip-trigger admin-focus-highlight"
-                    aria-label={I18n.t('notes.screen_reader.note_delete_button_focused', { title: note.title })}
+                    aria-label={I18n.t('notes.admin.aria_label.note_delete_button_focused', { title: note.title })}
                     onClick={() => deleteNote(note.id)}
                   >
                     <span className="icon admin-note-delete-icon" />
@@ -177,7 +177,7 @@ const NotesRow = ({ notesList }) => {
               <tr
                 className="table__admin-note__th"
                 tabIndex="0"
-                aria-label={I18n.t('notes.screen_reader.note_details_focused', { title: note.title })}
+                aria-label={I18n.t('notes.admin.aria_label.note_details_focused', { title: note.title })}
               >
                 <th colSpan="5" tabIndex="0">
                   <TextAreaInput

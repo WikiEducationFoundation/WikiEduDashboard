@@ -6,7 +6,7 @@ const NotesCreator = ({ noteTitle, setTitle, noteText, setText }) => {
 
   useEffect(() => {
     // Announce that the note creation area is available when the component mounts for screen reader
-    setLiveMessage(I18n.t('notes.screen_reader.note_creation'));
+    setLiveMessage(I18n.t('notes.admin.aria_label.note_creation'));
   }, []);
 
   const updateNoteText = (_valueKey, value) => {
@@ -20,8 +20,8 @@ const NotesCreator = ({ noteTitle, setTitle, noteText, setText }) => {
   // handleFocus for keyboard accessibility and screen reader support
   const handleFocus = (field) => {
     const message = field === 'note_text'
-      ? I18n.t('notes.screen_reader.note_text_field')
-      : I18n.t('notes.screen_reader.note_title_field');
+      ? I18n.t('notes.admin.aria_label.note_text_field')
+      : I18n.t('notes.admin.aria_label.note_title_field');
     setLiveMessage(message);
   };
 

@@ -50,7 +50,7 @@ const NotesPanel = () => {
 
     if (isModalOpen) {
       // Announce modal opening for screen readers
-      setLiveMessage(I18n.t('notes.screen_reader.notes_panel_opened'));
+      setLiveMessage(I18n.t('notes.admin.aria_label.notes_panel_opened'));
       // Listen for the Escape key press
       document.addEventListener('keydown', handleEscape);
     } else {
@@ -103,7 +103,7 @@ const NotesPanel = () => {
         {/* Add a close button to the modal */}
         <button
           onClick={closeModalAndHandleNoteCreation}
-          aria-label={I18n.t('notes.screen_reader.close_admin')}
+          aria-label={I18n.t('notes.admin.aria_label.close_admin')}
           className="pull-right article-viewer-button icon-close admin-focus-highlight"
         />
 
@@ -116,7 +116,7 @@ const NotesPanel = () => {
               <button
                 className="tooltip-trigger admin--note--creator admin-focus-highlight"
                 onClick={() => setIsNoteCreationActive(true)}
-                aria-label={I18n.t('notes.screen_reader.create_note')}
+                aria-label={I18n.t('notes.admin.aria_label.create_note')}
               >
                 <span className="icon admin-note-create-icon" aria-hidden="true" />
                 <span className="tooltip create--admin--note" aria-hidden="true">
@@ -127,11 +127,11 @@ const NotesPanel = () => {
 
             {/* Add cancel and post buttons for the note creation process */}
             {isNoteCreationActive && (
-              <div role="group" aria-label={I18n.t('notes.screen_reader.note_action_button')}>
+              <div role="group" aria-label={I18n.t('notes.admin.aria_label.note_action_button')}>
                 <button
                   className="tooltip-trigger cancel--note admin-focus-highlight"
                   onClick={() => setIsNoteCreationActive(false)}
-                  aria-label={I18n.t('notes.screen_reader.cancel_note_creation')}
+                  aria-label={I18n.t('notes.admin.aria_label.cancel_note_creation')}
                 >
                   <span className="icon admin-note-cancel-icon" aria-hidden="true" />
                   <span className="tooltip cancel--note">
@@ -141,7 +141,7 @@ const NotesPanel = () => {
                 <button
                   className="tooltip-trigger post--note admin-focus-highlight"
                   onClick={() => onClickPostNotesHandler(course.id)}
-                  aria-label={I18n.t('notes.screen_reader.post_created_note')}
+                  aria-label={I18n.t('notes.admin.aria_label.post_created_note')}
                 >
                   <span
                     className="icon admin-note-post-icon"
