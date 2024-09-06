@@ -225,6 +225,24 @@ az:
     wiki: Viki
     wp10: Struktural tamlıq
     articles_short: Məqalələr
+    deleted_message: Panel məlumatlarına görə, bu səhifə silinib. (Bəzi hallarda səhifənin
+      addəyişməsi, tarixçənin birləşdirilməsi və ya digər hərəkətlər məqalənin yanlış
+      olaraq silinmiş kimi siyahıya alınması ilə nəticələnə bilər. Silinmiş məqalələr
+      də sonradan silinə bilər. Əslində silinməyən və ya sonradan bərpa edilmiş məqalələr
+      üçün İdarə Paneli adətən bunu bir və ya iki gün ərzində əks etdirir.)
+    page_logs: (səhifə jurnalları)
+    tracked_articles: İzlənən Məqalələr
+    view_articles: Məqalələrə Bax
+    no_tracked_articles: Bu kateqoriyada izlənilən məqalə yoxdur
+  items:
+    items: Elementlər
+    lexeme: Leksema
+    article_not_found: Bu element hələ yaradılmayıb.
+    assigned: Təyin edilmiş maddələr
+    assignments_none: Hələ təyin edilmiş element yoxdur.
+    available: Mövcud elementlər
+    character_doc: Başlanğıc və bitmə tarixləri arasında qeydiyyatdan keçmiş redaktorlar
+      tərəfindən elementlərə əlavə edilən simvolların cəmi
   assignments:
     change_sandbox_url: Qaralamanı dəyişdirin
     submit: Təsdiq et

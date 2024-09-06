@@ -74,9 +74,15 @@ essentials:
       -
         title: Evaluate Wikipedia
         kind: 1
-        training_module_ids: [28,7,34, 68] # How to edit, Evaluate an article, Exercise: Evaluate Wikipedia, Improving representation
+        training_module_ids: [28,7,34] # How to edit, Evaluate an article, Exercise: Evaluate Wikipedia
         graded: true
         points: 10
+        content: |
+
+      -
+        if: improving_representation
+        title: Improving Representation
+        training_module_ids: [68] # Improving representation
         content: |
 
       -

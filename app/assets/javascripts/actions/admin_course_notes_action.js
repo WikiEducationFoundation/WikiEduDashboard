@@ -21,6 +21,8 @@ const sendNotification = (dispatch, type, messageKey, dynamicValue) => {
     type: ADD_NOTIFICATION,
     notification: notificationConfig,
   });
+
+  return notificationConfig.type;
 };
 
 // Action creator to fetch all admin course notes for a given courseId

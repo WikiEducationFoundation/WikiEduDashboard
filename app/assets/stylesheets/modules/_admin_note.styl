@@ -42,7 +42,8 @@
 .tooltip-trigger 
 
   .tooltip.create--admin--note 
-    top -27%
+    top 5%
+    left: 112%
     min-width 95px
 
     &:before 
@@ -50,13 +51,14 @@
     
   &:hover 
     .tooltip.create--admin--note 
-      top -27%
+      top 5%
+      left: 112%
       min-width 95px
 
     .tooltip.cancel--note,
     .tooltip.post--note 
-      top 80%
-      left -96%
+      top 103%
+      left -62%
       min-width 48px
 
       &:before 
@@ -70,17 +72,33 @@
     
   &.cancel--note,
   &.post--note,
-  &.admin--note--creator 
-    top 10px
+    top 20px
+    left: 50px
 
   .tooltip.cancel--note,
   .tooltip.post--note 
-    top 80%
-    left -96%
+    top 103%
+    left -62%
     min-width 48px
 
     &:before 
       content none
+
+.cancel--note
+  top 3px
+  left -16px
+
+.post--note
+  top 3px
+  left -11px
+
+.admin--note--creator 
+  top -7px
+  left -16px
+
+.admin-focus-highlight:focus
+  outline 2px solid #000 
+  outline-offset 2px
 
 //Admin note Icon Styles
 .admin-note-edit-icon 
@@ -105,9 +123,6 @@
   background url('../svg/plus.svg') center no-repeat
   background-size 70%
   padding 15px
-  position relative
-  top -6px
-  left -16px
 
   &:hover 
     background url('../svg/plus-blue.svg') center no-repeat
@@ -117,33 +132,32 @@
 .admin-note-cancel-icon 
   background url('../images/clear.svg') center no-repeat
   background-size 60%
-  position relative
-  top -7px
-  left -13px
   padding 15px
 
   &:hover 
     background url('../images/clear-red.svg') center no-repeat
     background-size 60%
-    position relative
-    top -7px
-    left -13px
     padding 15px
     cursor pointer
 
 .admin-note-post-icon 
   background url('../images/check-grey.svg') center no-repeat
   background-size 75%
-  position relative
-  top -7px
-  left -13px
   padding 15px
   cursor pointer
 
   &:hover 
     background url('../images/check.svg') center no-repeat
     background-size 75%
-    position relative
-    top -7px
-    left -13px
     padding 15px
+
+
+.sr-only 
+  position absolute
+  width 1px
+  height 1px
+  margin -1px
+  padding 0
+  overflow hidden
+  clip rect(0, 0, 0, 0)
+  border 0

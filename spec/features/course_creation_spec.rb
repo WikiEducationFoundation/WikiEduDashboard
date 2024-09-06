@@ -47,6 +47,9 @@ def go_through_researchwrite_wizard
   click_button 'Next' # Default getting started options
   sleep 1
 
+  click_button 'Next' # Default "Improving representation" option
+  sleep 1
+
   # Working in groups
   find('.wizard__option', match: :first).find('button', match: :first).click
   click_button 'Next'
@@ -121,7 +124,7 @@ describe 'New course creation and editing', type: :feature do
   end
 
   describe 'course workflow', js: true do
-    let(:expected_course_blocks) { 24 }
+    let(:expected_course_blocks) { 25 }
     let(:module_name) { 'Get started on Wikipedia' }
 
     it 'allows the user to create a course' do
