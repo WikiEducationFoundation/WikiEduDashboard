@@ -1856,3 +1856,6 @@ en:
         note_edit_cancel_button_focused: "Cancel note edit {{title}}"
         note_delete_button_focused: "Delete the note {{title}}"
         note_edit_mode: "Entered Edit mode for note titled: {{title}}. You can now edit the title and content."      
+
+  customize_error_message:
+    JSONP_request_failed: "The request to fetch data from Wikipedia has timed out. This may be due to a slow internet connection or temporary server issues. Please try again later."
