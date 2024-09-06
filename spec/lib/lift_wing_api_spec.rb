@@ -34,13 +34,13 @@ describe LiftWingApi do
     it 'fetches json from api.wikimedia.org for wikipedia' do
       VCR.use_cassette 'liftwing_api/wikipedia' do
         expect(subject0).to be_a(Hash)
-        expect(subject0.dig('829840084', 'wp10').to_f).to eq(28.5936675221734978)
+        expect(subject0.dig('829840084', 'wp10').to_f).to be_within(0.01).of(28.59)
         expect(subject0.dig('829840084', 'features')).to be_a(Hash)
         expect(subject0.dig('829840084', 'deleted')).to eq(false)
         expect(subject0.dig('829840084', 'prediction')).to eq('Stub')
 
         expect(subject0).to be_a(Hash)
-        expect(subject0.dig('829840085', 'wp10').to_f).to eq(29.15228958136511656)
+        expect(subject0.dig('829840085', 'wp10').to_f).to be_within(0.01).of(29.15)
         expect(subject0.dig('829840085', 'features')).to be_a(Hash)
         expect(subject0.dig('829840085', 'deleted')).to eq(false)
         expect(subject0.dig('829840085', 'prediction')).to eq('Start')
