@@ -56,6 +56,8 @@ class CoursesPresenter
   end
 
   def can_remove_course?
+    # The remove [from campaign] buttons are not applicable to the tagged_courses view
+    return false if @tag
     @can_remove ||= current_user&.admin? || campaign_organizer?
   end
 

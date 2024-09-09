@@ -75,6 +75,7 @@ const Details = createReactClass({
       clearInterval(this.timeout); // End it
     }
   },
+
   updateDetails(valueKey, value) {
     const updatedCourse = this.props.course;
     updatedCourse[valueKey] = value;
@@ -127,7 +128,9 @@ const Details = createReactClass({
 
   poll() {
     return setInterval(() => {
-      if (this.state.updateCount > MAX_UPDATE_COUNT) { return; }
+      const documentHidden = document.hidden;
+
+      if (documentHidden || (this.state.updateCount > MAX_UPDATE_COUNT)) { return; }
       if (!this.props.editable) {
         this.props.refetchCourse(this.props.course.slug);
         this.setState({

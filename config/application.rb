@@ -68,8 +68,12 @@ module WikiEduDashboard
         origins '*'
         # Allows for embedding course stats
         resource '/embed/course_stats/*/*', :headers => :any, :methods => [:get, :options]
+
         # For use by on-wiki gadgets
         resource '/campaigns/*/*', :headers => :any, methods: [:get, :options]
+
+        # For use by external wiki tools
+        resource '/courses/*/*', :headers => :any, methods: [:get, :options]
       end
     end
   end

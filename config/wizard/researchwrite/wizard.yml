@@ -60,6 +60,40 @@
       logic: copyedit
 
 -
+  key: improving_representation
+  title: Improving representation
+  description: |
+    Wikipedia should provide access to all knowledge – everything and everyone, everywhere.
+    But just like the real world, Wikipedia can fall short, particularly when it comes to
+    accurate, representative content of culturally diverse perspectives and histories. This
+    not only includes gaps in article content but also in areas like the diversity of the
+    authors cited, which means that students across all disciplines have the opportunity to
+    improve equity on Wikipedia.
+ 
+    To help your students understand the impact and challenges of working on articles
+    related to historically underrepresented and misrepresented subjects and groups, or
+    of enhancing representation in articles of any topic, we offer the training module
+    “Improving Representation on Wikipedia.”
+
+    This training explores why this kind of work is important, gives examples of how to
+    identify representation gaps, and offers strategies for enhancing representation in
+    an article’s text, references, images, and image captions.
+
+    #### Would you like your students to take the training module “Improving Representation on Wikipedia”? 
+  type: 1  # single choice
+  minimum: 1
+  options:
+    -
+      title: "Yes"
+      blurb: I want my students to take this training module.
+      selected: true # selected by default
+      tag: improving_representation
+      logic: improving_representation
+    -
+      title: "No"
+      blurb: I do not want to incorporate this training module.
+
+-
   key: sandboxes
   title: Starting in sandboxes
   only_if: returning_instructor # filter out unless the course's return_instructor property is true
