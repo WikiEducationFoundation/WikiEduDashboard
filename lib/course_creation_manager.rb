@@ -40,13 +40,17 @@ class CourseCreationManager
   end
 
   def create
+    # Returns the course object, either as an in-memory object if save fails,
+    # or as a persisted object if save is successful.
     set_passcode
     set_course_type
     set_initial_campaign
-    @course = Course.create(@course_params.merge(@overrides))
-    add_instructor_to_course
-    add_tags_to_course
-    process_experiments
+    @course = Course.new(@course_params.merge(@overrides))
+    if @course.save
+      add_instructor_to_course
+      add_tags_to_course
+      process_experiments
+    end
     @course
   end
 

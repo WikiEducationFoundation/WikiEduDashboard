@@ -8,6 +8,7 @@ class PetScanApi
   def get_data(psid, update_service: nil)
     url = query_url(psid)
     response = petscan.get url
+    puts response.body
     Oj.load(response.body)
   rescue StandardError => e
     log_error(e, update_service:,
@@ -37,11 +38,11 @@ class PetScanApi
   private
 
   def query_url(psid)
-    return "https://petscan.wmflabs.org/?psid=#{psid}&format=json"
+    return "https://petscan.wmcloud.org/?psid=#{psid}&format=json"
   end
 
   def petscan
-    conn = Faraday.new(url: 'https://petscan.wmflabs.org')
+    conn = Faraday.new(url: 'https://petscan.wmcloud.org')
     conn.headers['User-Agent'] = ENV['dashboard_url'] + ' ' + Rails.env
     conn
   end

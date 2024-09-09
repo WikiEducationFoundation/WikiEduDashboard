@@ -5,7 +5,7 @@ describe CopyCourse do
   before do
     wiki_dashboard = 'https://dashboard.wikiedu.org'
     outreach_dashboard = 'https://outreachdashboard.wmflabs.org'
-    @selected_dashboard = Features.wiki_ed? ? outreach_dashboard : wiki_dashboard
+    @selected_dashboard = Features.wiki_ed? ? wiki_dashboard : outreach_dashboard
   end
 
   let(:url_base) { 'https://dashboard.wikiedu.org/courses/' }

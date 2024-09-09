@@ -8,6 +8,7 @@
 # Author: ArlandGa
 # Author: DARMAS BUDI SANTOSO
 # Author: Daud I.F. Argana
+# Author: Fafau06
 # Author: HaidirAndiNovianto
 # Author: Hidayatsrf
 # Author: Joseagush
@@ -66,7 +67,7 @@ id:
     request_account_create: Buat akun baru
     search: Ajukan pertanyaan
     show_current_revision: Tampilkan versi terkini
-    show_last_revision: Tampilkan versi yang terakhir kali disunting
+    show_last_revision: Tampilkan versi yang terakhir disunting
     sign_up_extended: Masuk dengan Wikipedia
     sign_up_wikipedia: Atau daftar di Wikipedia
     sign_up_log_in_extended: dengan Wikipedia

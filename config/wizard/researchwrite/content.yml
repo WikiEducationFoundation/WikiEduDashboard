@@ -80,6 +80,12 @@ essentials:
         content: |
 
       -
+        if: improving_representation
+        title: Improving Representation
+        training_module_ids: [68] # Improving representation
+        content: |
+
+      -
         if: sources_and_plagiarism_discussion
         title: "Discussion"
         kind: 0
