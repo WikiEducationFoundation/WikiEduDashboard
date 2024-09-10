@@ -15,10 +15,11 @@ class UpdateCourseWikiTimeslices
   def initialize(course)
     @course = course
     @timeslice_manager = TimesliceManager.new(@course)
+    @course_wiki_updater = CourseWikiUpdater.new(@course)
   end
 
   def run(all_time:)
-    clean_timeslices if all_time
+    all_time ? clean_timeslices : @course_wiki_updater.run
     fetch_data_and_process_timeslices_for_every_wiki(all_time)
     error_count
   end
