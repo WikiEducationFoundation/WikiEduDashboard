@@ -154,14 +154,6 @@ describe CoursesController, type: :request do
       course_params[:wikis].push(language: 'fr', project: 'wikipedia')
       put "/courses/#{course.slug}", params: params, as: :json
       expect(course.wikis.count).to eq(3)
-      # 350 timeslices for de.wikipedia (from 2015-01-05 to 2015-12-20)
-      expect(course.course_wiki_timeslices.where(wiki_id: 4).count).to eq(353)
-      # 350 timeslices for fr.wikipedia (from 2015-01-05 to 2015-12-20)
-      expect(course.course_wiki_timeslices.where(wiki_id: 3).count).to eq(353)
-      # TODO: fix this when deleting timeslices is implemented
-      # 354 timeslices for en.wikipedia (from 2015-01-01 to 2015-12-20)
-      expect(course.course_wiki_timeslices.where(wiki_id: 1).count).to eq(357)
-      expect(course.course_wiki_timeslices.count).to eq(1063)
     end
 
     it 'removes a wiki' do
@@ -170,7 +162,6 @@ describe CoursesController, type: :request do
       put "/courses/#{course.slug}", params: params, as: :json
       expect(course.wikis.count).to eq(2)
       course.reload
-      expect(CourseWikiUpdaterWorker).to receive(:schedule_deletion)
       course_params[:wikis].pop
       put "/courses/#{course.slug}", params: params, as: :json
       expect(course.wikis.count).to eq(1)
@@ -182,7 +173,6 @@ describe CoursesController, type: :request do
       put "/courses/#{course.slug}", params: params, as: :json
       expect(course.wikis.count).to eq(2)
       course.reload
-      expect(CourseWikiUpdaterWorker).to receive(:schedule_deletion)
       course_params[:wikis][0][:language] = 'fr'
       put "/courses/#{course.slug}", params: params, as: :json
       expect(course.wikis.last.language).to eq('fr')
@@ -208,7 +198,6 @@ describe CoursesController, type: :request do
       course_params[:namespaces] =
         ['en.wikipedia.org-namespace-0', 'en.wikibooks.org-namespace-102']
       params = { id: course.slug, course: course_params }
-      expect(CourseWikiUpdaterWorker).to receive(:schedule_deletion)
       put "/courses/#{course.slug}", params: params, as: :json
       expect(course.course_wiki_namespaces.count).to eq(2)
       course.reload
