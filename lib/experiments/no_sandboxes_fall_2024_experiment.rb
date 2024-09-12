@@ -7,10 +7,14 @@ require_dependency "#{Rails.root}/lib/tag_manager"
 # The first course from a new instructor will get randomly assigned to
 # the experimental condition or the control, until we reach the target
 # number of experiment courses.
+# 
+# During the Fall 2024, we decided to extend the experiment to Spring 2025,
+# and as of September 2024, the code is being modified accordingly. It's
+# already done its work for Fall 2024 new courses.
 class NoSandboxesFall2024Experiment
-  EXPERIMENT_TAG = 'no_sandbox_fall_2024_experiment_condition'
-  CONTROL_TAG = 'no_sandbox_fall_2024_control_condition'
-  TAG_KEY = 'no_sandbox_fall_2024_experiment'
+  EXPERIMENT_TAG = 'no_sandbox_spring_2025_experiment_condition'
+  CONTROL_TAG = 'no_sandbox_spring_2025_control_condition'
+  TAG_KEY = 'no_sandbox_spring_2025_experiment'
   TARGET_NEW_INSTRUCTOR_COUNT = 50
 
   def self.experiment_courses
@@ -24,11 +28,11 @@ class NoSandboxesFall2024Experiment
   def initialize(course, creator)
     return unless Features.wiki_ed?
 
-    unless Setting.exists?(key: 'no_sandbox_fall_2024_experiment')
-      Setting.create(key: 'no_sandbox_fall_2024_experiment',
+    unless Setting.exists?(key: 'no_sandbox_spring_2025_experiment')
+      Setting.create(key: 'no_sandbox_spring_2025_experiment',
                      value: { experiment_condition_count: 0 })
     end
-    @experiment_setting = Setting.find_by(key: 'no_sandbox_fall_2024_experiment')
+    @experiment_setting = Setting.find_by(key: 'no_sandbox_spring_2025_experiment')
     @course = course
     @creator = creator
     process_course
@@ -62,9 +66,9 @@ class NoSandboxesFall2024Experiment
   def eligible?
     # screen out courses that weren't persisted
     return false unless @course.persisted?
-    # Only courses happening in Fall 2024
-    return false unless @course.start > '2024-08-01'.to_date
-    return false unless @course.start < '2024-11-01'.to_date
+    # Only courses happening in  --Fall 2024-- Spring 2025
+    return false unless @course.start > '2025-01-01'.to_date
+    return false unless @course.start < '2025-04-01'.to_date
     # Only first-time instructors
     return false if @creator.returning_instructor?
 
