@@ -6,7 +6,7 @@ import { STATUSES } from './util';
 
 import { updateTicketStatus } from '../../actions/tickets_actions';
 
-export const TicketStatusHandler = ({ updateStatus, ticket }) => {
+export const TicketStatusHandler = ({ updateStatus, ticket, arialabelledby }) => {
   const options = Object.entries(STATUSES).map(([value, label]) => ({ label, value }));
   return (
     <Select
@@ -14,6 +14,7 @@ export const TicketStatusHandler = ({ updateStatus, ticket }) => {
       options={options}
       styles={{ ...selectStyles, singleValue: null }}
       value={{ label: STATUSES[ticket.status], value: ticket.status }}
+      aria-labelledby={arialabelledby}
     />
   );
 };

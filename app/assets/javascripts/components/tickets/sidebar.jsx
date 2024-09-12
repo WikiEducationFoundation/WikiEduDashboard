@@ -31,17 +31,23 @@ const Sidebar = ({ createdAt, currentUser, ticket }) => {
   const assignedTo = ticket.owner.id === currentUser.id ? 'You' : ticket.owner.username;
   const status = STATUSES[ticket.status];
   const realName = ticket.sender.real_name ? `(${ticket.sender.real_name})` : '';
+  const statusLabelId = `ticket-${ticket.id}-status`;
+  const ownerLabelId = `ticket-${ticket.id}-owner`;
 
   return (
     <section className="sidebar">
       <section className="created-at">Created <time className="bold">{formatDistanceToNow(toDate(createdAt), { addSuffix: true })}</time></section>
       <section className="status">
-        Ticket is currently <span className={`${status.toLowerCase()} bold`}>{status}</span>
-        <TicketStatusHandler ticket={ticket} />
+        <label id={statusLabelId} >
+          Ticket is currently <span className={`${status.toLowerCase()} bold`}>{status}</span>
+        </label>
+        <TicketStatusHandler ticket={ticket} arialabelledby={statusLabelId} />
       </section>
       <section className="owner">
-        Assigned to <span className="bold">{assignedTo}</span>
-        <TicketOwnerHandler ticket={ticket} />
+        <label id={ownerLabelId} >
+          Assigned to <span className="bold">{assignedTo}</span>
+        </label>
+        <TicketOwnerHandler ticket={ticket} arialabelledby={ownerLabelId} />
       </section>
       <section className="course-name">
         {
