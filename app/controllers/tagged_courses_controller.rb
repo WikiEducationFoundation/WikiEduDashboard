@@ -9,7 +9,7 @@ class TaggedCoursesController < ApplicationController
   def articles
     set_page
     set_courses_and_presenter
-    render 'campaigns/articles'
+    render 'tagged_courses/articles'
   end
 
   def alerts
@@ -25,7 +25,7 @@ class TaggedCoursesController < ApplicationController
   def programs
     set_page
     set_courses_and_presenter
-    render 'campaigns/programs'
+    render 'tagged_courses/programs'
   end
 
   private
@@ -41,8 +41,6 @@ class TaggedCoursesController < ApplicationController
 
   def set_courses_and_presenter
     @courses = Tag.courses_tagged_with(@tag)
-    # This fake Campaign is so that we can reuse campaigns views
-    @campaign = Campaign.new(slug: @tag, title: "Tag: #{@tag}")
     @presenter = CoursesPresenter.new(current_user:, tag: @tag,
                                       courses_list: @courses, page: @page)
   end

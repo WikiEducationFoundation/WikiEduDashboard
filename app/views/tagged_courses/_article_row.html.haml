@@ -1,0 +1,16 @@
+%tr{class: article.deleted ? 'table-row--danger' : ''}
+  %td.title
+    = link_to article.full_title, article.url
+    = t('articles.deleted') if article.deleted
+  %td.char_added
+    = article_course.character_sum
+  %td.references
+    = article_course.references_count
+  %td.views
+    = number_to_human article_course.view_count
+  %td.lang_project
+    %small
+      = "#{article.wiki.language}.#{article.wiki.project}"
+  %td.course_title
+    %small
+      = link_to article_course.course.slug.gsub('_',' '), "/courses/#{article_course.course.slug}"
