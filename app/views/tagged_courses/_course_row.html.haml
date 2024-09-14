@@ -8,7 +8,7 @@
       = course.school + "/" + course.term
   %td{:class => "table-link-cell school"}
     %a.course-link{:href => "#{course_slug_path(course.slug)}"}
-      = @presenter.expert_username_for_course(course.id)
+      = @presenter.assigned_wiki_expert_for_course(course.id)
   - if Features.wiki_ed?
     %td{:class => "table-link-cell"}   
       %a.course-link{:href => "#{course_slug_path(course.slug)}"}

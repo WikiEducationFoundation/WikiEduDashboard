@@ -167,7 +167,7 @@ class CoursesPresenter
   end
 
   # Returns the wiki expert username for the given course, if available
-  def expert_username_for_course(course_id)
+  def assigned_wiki_expert_for_course(course_id)
     expert = load_wiki_experts.find { |wiki_expert| wiki_expert[:course_id] == course_id }
     expert&.fetch(:username)
   end
