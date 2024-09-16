@@ -3,17 +3,17 @@
 #
 # Table name: article_course_timeslices
 #
-#  id                :bigint           not null, primary key
-#  article_id        :integer          not null
-#  course_id         :integer          not null
-#  start             :datetime
-#  end               :datetime
-#  last_mw_rev_id    :integer
-#  character_sum     :integer          default(0)
-#  references_count  :integer          default(0)
-#  user_ids          :text(65535)
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
+#  id               :bigint           not null, primary key
+#  start            :datetime
+#  end              :datetime
+#  last_mw_rev_id   :integer
+#  character_sum    :integer          default(0)
+#  references_count :integer          default(0)
+#  user_ids         :text(65535)
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  article_id       :integer          not null
+#  course_id        :integer          not null
 #
 class ArticleCourseTimeslice < ApplicationRecord
   belongs_to :article
@@ -36,6 +36,11 @@ class ArticleCourseTimeslice < ApplicationRecord
   #################
   # Class methods #
   #################
+
+  # Search by course and user.
+  def self.search_by_course_and_user(course, user_id)
+    ArticleCourseTimeslice.where(course:).where('user_ids LIKE ?', "%- #{user_id}\n%")
+  end
 
   # Given a course, an article, and a hash of revisions like the following:
   # {:start=>"20160320", :end=>"20160401", :revisions=>[...]},

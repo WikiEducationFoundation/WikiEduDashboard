@@ -3,17 +3,17 @@
 #
 # Table name: article_course_timeslices
 #
-#  id                :bigint           not null, primary key
-#  article_id        :integer          not null
-#  course_id         :integer          not null
-#  start             :datetime
-#  end               :datetime
-#  last_mw_rev_id    :integer
-#  character_sum     :integer          default(0)
-#  references_count  :integer          default(0)
-#  user_ids          :text(65535)
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
+#  id               :bigint           not null, primary key
+#  start            :datetime
+#  end              :datetime
+#  last_mw_rev_id   :integer
+#  character_sum    :integer          default(0)
+#  references_count :integer          default(0)
+#  user_ids         :text(65535)
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  article_id       :integer          not null
+#  course_id        :integer          not null
 #
 
 require 'rails_helper'
@@ -113,6 +113,22 @@ describe ArticleCourseTimeslice, type: :model do
       expect(article_course_timeslice_0.user_ids).to eq([25, 1])
       expect(article_course_timeslice_1.user_ids).to eq([1])
       expect(article_course_timeslice_2.user_ids).to eq([3, 7])
+    end
+  end
+
+  describe '.search_by_course_and_user' do
+    before do
+      create(:article_course_timeslice, course:, article:, start:, end: start + 1.day,
+             user_ids: [7])
+      create(:article_course_timeslice, course:, article:, start: start + 1.day,
+             end: start + 2.days, user_ids: [1, 2, 7])
+      create(:article_course_timeslice, course:, article:, start: start + 2.days,
+            end: start + 3.days, user_ids: [1, 2])
+    end
+
+    it 'fetches the records for the user' do
+      timeslices_for_user = described_class.search_by_course_and_user(course, 7)
+      expect(timeslices_for_user.count).to eq(2)
     end
   end
 
