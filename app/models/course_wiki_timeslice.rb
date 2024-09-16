@@ -19,6 +19,7 @@
 #  course_id            :integer          not null
 #  wiki_id              :integer          not null
 #  last_mw_rev_datetime :datetime
+#  needs_update         :boolean          default(FALSE)
 #
 class CourseWikiTimeslice < ApplicationRecord
   belongs_to :course
@@ -34,6 +35,7 @@ class CourseWikiTimeslice < ApplicationRecord
   scope :for_revisions_between, lambda { |period_start, period_end|
     in_period(period_start, period_end).or(for_datetime(period_start)).or(for_datetime(period_end))
   }
+  scope :needs_update, -> { where(needs_update: true) }
 
   #################
   # Class methods #
@@ -59,6 +61,19 @@ class CourseWikiTimeslice < ApplicationRecord
     end
   end
 
+  # Clean all the timeslices marked as needs_update.
+  def self.clean_empty_timeslices
+    not_reprocessed = CourseWikiTimeslice.for_course_and_wiki(@course, wiki).needs_update
+    not_reprocessed.update_all(needs_update: false, # rubocop:disable Rails/SkipsModelValidations
+                               character_sum: 0,
+                               references_count: 0,
+                               revision_count: 0,
+                               upload_count: 0,
+                               uploads_in_use_count: 0,
+                               upload_usages_count: 0,
+                               last_mw_rev_datetime: nil)
+  end
+
   ####################
   # Instance methods #
   ####################
@@ -74,6 +89,7 @@ class CourseWikiTimeslice < ApplicationRecord
     update_upload_count
     update_uploads_in_use_count
     update_upload_usages_count
+    self.needs_update = false
     save
   end
 

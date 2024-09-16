@@ -254,6 +254,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_15_163420) do
     t.integer "course_id", null: false
     t.integer "wiki_id", null: false
     t.datetime "last_mw_rev_datetime"
+    t.boolean "needs_update", default: false
     t.index ["course_id", "wiki_id", "start", "end"], name: "course_wiki_timeslice_by_course_wiki_start_and_end", unique: true
   end
 
