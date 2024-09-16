@@ -61,19 +61,6 @@ class CourseWikiTimeslice < ApplicationRecord
     end
   end
 
-  # Clean all the timeslices marked as needs_update.
-  def self.clean_empty_timeslices
-    not_reprocessed = CourseWikiTimeslice.for_course_and_wiki(@course, wiki).needs_update
-    not_reprocessed.update_all(needs_update: false, # rubocop:disable Rails/SkipsModelValidations
-                               character_sum: 0,
-                               references_count: 0,
-                               revision_count: 0,
-                               upload_count: 0,
-                               uploads_in_use_count: 0,
-                               upload_usages_count: 0,
-                               last_mw_rev_datetime: nil)
-  end
-
   ####################
   # Instance methods #
   ####################

@@ -124,8 +124,13 @@ role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
   end
 
   describe '#update_cache_from_revisions' do
-    it 'caches revision data for students' do
+    before do
+      described_class.find_by(course:, wiki:, start:).update(needs_update: true)
+    end
+
+    it 'caches revision data for students and remove needs_update flag' do
       course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
+      expect(course_wiki_timeslice.needs_update).to eq(true)
       course_wiki_timeslice.update_cache_from_revisions array_revisions
       course_wiki_timeslice.reload
 
@@ -135,6 +140,7 @@ role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
       expect(course_wiki_timeslice.upload_count).to eq(2)
       expect(course_wiki_timeslice.uploads_in_use_count).to eq(2)
       expect(course_wiki_timeslice.upload_usages_count).to eq(7)
+      expect(course_wiki_timeslice.needs_update).to eq(false)
     end
 
     it 'revision count cache only considers tracked articles courses' do
