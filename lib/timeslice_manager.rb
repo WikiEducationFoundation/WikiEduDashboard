@@ -7,6 +7,21 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
     @course = course
   end
 
+  # Deletes course user wiki timeslices records for removed course users
+  # Takes a collection of user ids
+  def delete_course_user_timeslices_for_deleted_course_users(user_ids)
+    return if user_ids.empty?
+
+    timeslice_ids = CourseUserWikiTimeslice.where(course: @course, user_id: user_ids).pluck(:id)
+
+    return if timeslice_ids.empty?
+
+    # Do this in batches to avoid running the MySQL server out of memory
+    timeslice_ids.each_slice(5000) do |slice|
+      CourseUserWikiTimeslice.where(id: slice).delete_all
+    end
+  end
+
   # Deletes course wiki timeslices records for removed course wikis
   # Deletes course user timeslices records for removed course wiki
   # Deletes article course timeslices records for removed course wiki
