@@ -36,6 +36,7 @@ Metrics/ClassLength:
     - 'app/controllers/courses_controller.rb'
     - 'app/controllers/users_controller.rb'
     - 'app/controllers/assignments_controller.rb'
+    - 'lib/course_creation_manager.rb'
     - 'lib/importers/revision_score_importer.rb'
     - 'lib/wizard_timeline_manager.rb'
     - 'lib/wiki_course_edits.rb'
@@ -85,6 +86,8 @@ Style/AsciiComments:
   Enabled: false # We need non-ascii characters to document Wikipedia stuff.
 Style/ParallelAssignment:
   Enabled: false # We generally use this only to initialize empty variables.
+Style/RedundantAssignment: # Same as Style/RedundantReturn, sometimes enhances clarity
+  Enabled: false
 Style/RedundantReturn:
   Enabled: false # Sometimes a redundant return enhances clarity.
 Style/SymbolArray:
@@ -171,8 +174,6 @@ Style/StringConcatenation:
 Style/OptionalBooleanParameter:
   Enabled: false
 Style/ExplicitBlockArgument:
-  Enabled: false
-Style/RedundantAssignment:
   Enabled: false
 Style/KeywordParametersOrder:
   Enabled: false

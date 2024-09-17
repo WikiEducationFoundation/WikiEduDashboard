@@ -41,7 +41,7 @@ essentials:
       -
         title: Get started on Wikipedia
         kind: 1
-        training_module_ids: [1,29] # Wikipedia policies, Sandboxes talk pages and watchlists
+        training_module_ids: [1,29,66] # Wikipedia policies, Sandboxes talk pages and watchlists, Communicating with others
         content: |
           <p>
             Create an account and join this course page, using the  enrollment
@@ -165,6 +165,7 @@ essentials:
     blocks:
       -
         if: working_individually
+        unless: no_sandboxes
         title: Start drafting your contributions
         kind: 1
         graded: true
@@ -179,6 +180,7 @@ essentials:
 
       -
         if: working_in_groups
+        unless: no_sandboxes
         title: Start drafting your contributions
         kind: 1
         graded: true
@@ -186,10 +188,29 @@ essentials:
         training_module_ids: [31,15] # Drafting in groups, Plagiarism
         content: |
           <p>Resource: <a href="https://wikiedu.org/editingwikipedia#page=7">Editing Wikipedia</a>, pages 7–9</p>
+
       -
         if: explore_to_find_articles
         title: Guide(s) for writing articles in your topic area
         kind: 4 # Special subject-specific guides block
+
+      -
+        if: no_sandboxes
+        title: Start editing your article
+        kind: 1
+        training_module_ids: [64, 15] # Working live, plagiarism
+        content: |
+          <p>Resource: <a href="https://wikiedu.org/editingwikipedia#page=7">Editing Wikipedia</a>, pages 7–9</p>
+
+      -
+        if: no_sandoxes
+        title: Drafting a new article in a sandbox
+        kind: 1
+        content: |
+          <p>If you are writing a new article, you will begin by drafting a short starter version of it in a sandbox, before
+          moving it live and continuing to expand it from there. Use the "Sandbox Draft" link from the "My Articles" section
+          of the Home tab to open the sandbox page.</p>
+          <p>Resource: <a href="/training/students/drafting-in-sandbox/using-a-sandbox-v2">Drafting in the sandbox</a> training module</p>
 
       -
         title: Everyone has started writing
@@ -259,7 +280,27 @@ essentials:
     weight: 6
     blocks:
       -
+        if: no_sandboxes
+        title: Publishing a new article
+        kind: 1 # Assignment
+        content: |
+          <div style="display: block;">
+            <p>
+              If you're creating a new article, it's time to take the step of making it live. (If you're working on an existing article,
+              you've already been publishing changes to the live article and this step won't be needed.) Consult the <a href="/training/students/moving-to-mainspace/creating-a-new-article-v2">Moving to Mainspace</a>
+              training for additional guidance.
+            </p>
+            <p>Resource: <a href="https://wikiedu.org/editingwikipedia#page=13">Editing Wikipedia</a>, page 13</p>
+            <br />
+            <p>
+              <h4>Demo: publishing a new article</h4>
+              <iframe width="100%" height="400px" src="https://www.youtube-nocookie.com/embed/gL3jWfMwawE" frameborder="0" allowfullscreen></iframe>
+            </p>
+          </div>
+
+      -
         if: working_individually
+        unless: no_sandboxes
         title: Begin moving your work to Wikipedia
         kind: 1 # Assignment
         training_module_ids: [32] # Moving work out of the sandbox
@@ -283,6 +324,7 @@ essentials:
           </div>
       -
         if: working_in_groups
+        unless: no_sandboxes
         title: Begin moving your work to Wikipedia
         kind: 1 # Assignment
         training_module_ids: [33] # Moving work out of the sandbox

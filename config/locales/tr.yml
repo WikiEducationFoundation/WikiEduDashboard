@@ -972,8 +972,8 @@ tr:
     error_count_message: Gösterge tablosu, en son güncelleme sırasında %{error_count}
       hata ile karşılaştı.
     future_updates_remaining:
-      1: İstatistikler %{date} tarihine kadar güncellenmeye devam edecek.
-      "": Bu programın istatistikleri artık düzenli olarak güncellenmiyor.
+      updates_active: İstatistikler %{date} tarihine kadar güncellenmeye devam edecek.
+      updates_inactive: Bu programın istatistikleri artık düzenli olarak güncellenmiyor.
     last_reviewed: Son İnceleme
     missing_data_heading: Eksik veya beklenmeyen sonuçlar mı var?
     missing_data_info: Sık karşılaşılan sorunlar

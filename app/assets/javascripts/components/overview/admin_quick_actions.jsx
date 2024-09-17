@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import GreetStudentsButton from './greet_students_button.jsx';
 import { format, toDate, parseISO } from 'date-fns';
 import { getUTCDateString } from '../../utils/date_utils.js';
+import NotesPanel from '../../components/admin_notes/notes_panel.jsx';
 
 // Helper Functions
 const DetailsText = ({ flags }) => (
@@ -27,26 +28,32 @@ const NoDetailsText = () => (
 
 export const AdminQuickActions = ({ course, current_user, persistCourse, greetStudents }) => (
   <div className="module" style={{ textAlign: 'center' }}>
-    {
-      course.flags && course.flags.last_reviewed && course.flags.last_reviewed.username
-      ? <DetailsText flags={course.flags} />
-      : <NoDetailsText />
-    }
-    <button
-      className="button"
-      onClick={() => {
-        course.last_reviewed = {
-          username: current_user.username,
-          timestamp: getUTCDateString(),
-        };
-        persistCourse(course.slug);
-      }}
-    >
-      Mark as Reviewed
-    </button>
-    <br />
-    <br />
-    <GreetStudentsButton course={course} current_user={current_user} greetStudents={greetStudents} />
+    {current_user.isStaff && (
+      <>
+        {course.flags && course.flags.last_reviewed && course.flags.last_reviewed.username ? (
+          <DetailsText flags={course.flags} />
+        ) : (
+          <NoDetailsText />
+        )}
+        <button
+          className="button"
+          onClick={() => {
+            course.last_reviewed = {
+              username: current_user.username,
+              timestamp: getUTCDateString(),
+            };
+            persistCourse(course.slug);
+          }}
+        >
+          Mark as Reviewed
+        </button>
+        <br />
+        <br />
+        <GreetStudentsButton course={course} current_user={current_user} greetStudents={greetStudents} />
+        <br />
+      </>
+    )}
+    {current_user.admin && <div><NotesPanel/></div>}
   </div>
 );
 

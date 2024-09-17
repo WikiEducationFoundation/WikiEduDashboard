@@ -72,6 +72,7 @@ const TrainingModules = createReactClass({
             onChange={this.onChange}
             placeholder="Add training module(s)…"
             styles={selectStyles}
+            aria-label="Training modules"
           />
         </div>
       </div>

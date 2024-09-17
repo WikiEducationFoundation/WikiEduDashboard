@@ -35,11 +35,9 @@ class SurveyMailerPreview < ActionMailer::Preview
     survey_assignment.custom_email_headline = 'Pick your 3 favorite articles'
     survey_assignment.custom_email_body = 'You will have to chose three articles.'
     survey_assignment.custom_email_signature = 'The survey creator'
-    notification = OpenStruct.new(survey_assignment:,
-                                  course: Course.nonprivate.last,
-                                  survey:, user:
-                                    User.new(email: 'sage@example.com', username: 'Ragesoss'))
-
-    notification
+    OpenStruct.new(survey_assignment:,
+                   course: Course.nonprivate.last,
+                   survey:, user:
+                      User.new(email: 'sage@example.com', username: 'Ragesoss'))
   end
 end

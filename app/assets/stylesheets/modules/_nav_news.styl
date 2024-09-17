@@ -1,0 +1,498 @@
+.tooltip 
+  &--news 
+    min-width 164px
+    left calc(100% + -91px)
+    
+    &.tooltip--small 
+      min-width 84px
+      min-height 21px
+      padding 2px 15px
+      left calc(100% + -51px)
+      top 7px
+
+      &:before 
+        border-bottom 0
+
+    &.tooltip--nav 
+      min-width 164px
+      left calc(100% + -91px)
+
+      &:before 
+        border-bottom 0
+    
+
+.pop 
+  &--news 
+    max-width 490px
+    border-radius 4px
+
+
+.pop__padded-content.news--content
+  min-width: 489px
+
+.pop__container--news 
+  left -1.8%
+  top 3px
+
+  .notification,
+  .notice 
+    .container 
+      height 10px
+        
+    .icon-close-small 
+      padding 11px
+        
+
+.padded-content--header
+  margin-top 8px
+  margin-bottom -19px
+
+
+.news-header 
+  display flex
+  justify-content space-between
+  align-items baseline
+  margin-left -9px
+  margin-right -9px
+  margin-bottom -11px
+  margin-top -11px
+  position relative
+  top -8px
+  color #676eb4
+
+  p:first-child 
+    margin-bottom 0px
+  
+  &__add 
+    display inline
+    cursor pointer
+  
+  .add 
+    border-radius 50%
+    position absolute
+    left -1px
+    padding 9px
+    top -3px
+    cursor pointer
+    opacity 0.7
+    background-position calc(100% - 0px) calc(100% - 3px)
+    transition transform 0.15s ease, box-shadow 0.15s ease
+
+    &:hover 
+      background-color #dedfed
+      width 20px
+      height 20px
+      box-shadow 0 0 10px rgba(92, 179, 253, 0.7)
+      transition transform 0.15s ease, box-shadow 0.15s ease
+    
+
+.news-footer 
+  display flex
+  justify-content space-between
+  align-items baseline
+  margin-left -9px
+  margin-right -9px
+  margin-bottom -11px
+  margin-top -11px
+  position relative
+  top -8px
+  color #676eb4
+
+  p:first-child 
+    margin-bottom 0px
+    font-size 13px
+  
+  &__link 
+    display inline
+    cursor pointer
+  
+  .link 
+    border-radius: 50%
+    position absolute
+    left -1px
+    padding: 11px
+    top -3px
+    cursor pointer
+    opacity 0.7
+    background-position calc(100% - 4px) calc(100% - 4px)
+    transition transform 0.15s ease, box-shadow 0.15s ease
+
+    &:hover 
+      background-color #dedfed
+      width 20px
+      height 20px
+      box-shadow 0 0 10px rgba(92, 179, 253, 0.7)
+      transition transform 0.15s ease, box-shadow 0.15s ease
+  
+  .tooltip-trigger 
+    left -16px
+    top -13px
+  
+  .tooltip--news.tooltip--small 
+    left calc(100% + -55px)
+    top 21px
+    padding 2px 10px
+  
+
+.padded-content__footer
+  margin-top 8px
+  margin-bottom -19px
+
+
+.news-container 
+  overflow-y auto
+  min-height 70px
+  max-height 450px
+  text-align justify
+  font-size 13px
+  line-height 18px
+  margin 0
+  padding 0
+
+  &::-webkit-scrollbar 
+    width 5px
+  
+  &:hover 
+    &::-webkit-scrollbar-thumb 
+      background-color #bdbbbb
+    
+
+.news-content
+  display grid
+  grid-template-columns 90fr 2fr
+  grid-template-rows auto 18fr
+  column-gap 7px
+  row-gap 7px
+  padding 14px
+
+  &:hover
+    background-color #f5f2f2
+
+  .news__creation-time
+    text-align right
+    font-size 11px
+
+
+.news-section
+  display flex
+  flex-direction column
+  max-width 488px
+  justify-content center
+  position relative
+
+  hr
+    top 133px
+    width 100%
+    margin 0
+  
+  .loading__spinner
+    position absolute
+    top 22%
+    left 42%
+    transform translate(-50%, -50%)
+ 
+  .loading
+    position relative
+    margin 0
+    pointer-events none
+
+  h1
+    font-size 1.141em
+    position absolute
+    top 50%
+    left 50%
+    transform translate(-50%, -50%)
+    pointer-events none
+    text-align center
+    width 100%
+
+
+.news-hr
+  position absolute
+  width 100%
+  left 0px
+
+
+.news-edit
+  cursor pointer
+
+
+.dot-icon-circle
+  width 20px
+  height 20px
+  background-color  #dedfed
+  border-radius 50%
+  position absolute
+  top -2px
+  left -2px
+  opacity 70%
+  cursor pointer
+  transition transform 0.15s ease, box-shadow 0.15s ease
+
+
+.dot-clicked
+  transform scale(1.2)
+  box-shadow 0 0 10px rgba(92, 179, 253, 0.7)
+
+
+.dot-circle 
+  position relative
+  top 5px
+  left -2px
+
+
+.news-dropdown-options
+  left 19px
+  top 12px
+  position absolute
+
+
+.news-dropdown-options-display 
+  display flex
+  flex-direction column
+  width 92px
+  height 54px
+  justify-content center
+
+  .news-hr 
+    top 27px
+  
+  .confirm-delete,
+  .confirm-post,
+  .delete-news,
+  .post-news 
+    position absolute
+    top 0px
+    min-width 92px
+    width 100%
+    border-radius 2px
+
+    p 
+      height 17px
+    
+  .confirm-delete p 
+    padding-right 20px
+  
+  .confirm-post p 
+    padding-right 0px
+  
+  .post-news p 
+    padding-right 15px
+  
+  .edit-news,
+  .cancel-edit,
+  .cancel-delete,
+  .cancel-post,
+  .discard-news 
+    top 28px
+    position absolute
+    height 47%
+    width 100%
+    border-radius 2px
+    min-width 92px
+
+    .icon 
+      background-size: 14px
+    
+    p 
+      height 20px
+    
+  .edit-news p,
+  .cancel-edit p 
+    padding-right 12px
+  
+  .cancel-delete p 
+    padding-right 27px
+  
+  .cancel-post p 
+    padding-right 7px
+  
+
+.edit-news-options-padded-content
+  padding 4px
+  min-width 1px
+  display flex
+  justify-content space-between
+  align-items center
+  &:hover
+    background-color #f5f2f2
+
+  p
+   font-size 10px
+
+  .icon
+    background-position calc(100% - 6px) calc(100% - 4px)
+    background-size 9px
+
+.create-news-options-padded-content
+  padding 4px
+  min-width 1px
+  display flex
+  justify-content space-between
+  align-items center
+  &:hover
+    background-color #f5f2f2
+
+  p
+   font-size: 10px
+
+  .icon
+    background-position calc(100% - 6px) calc(100% - 4px)
+    background-size 9px
+
+.create-news
+  textarea
+    max-width 430px
+
+
+.news-text-area 
+  min-width 443px
+  color #333
+  overflow-wrap break-word
+
+
+.disable-news
+  pointer-events: none
+  opacity 0
+
+
+.disable-text-area-input
+  pointer-events: none
+  opacity 0.2
+
+
+.no-news 
+  display flex
+  flex-direction column
+  align-items center
+  justify-content center
+  text-align center
+
+  hr 
+    width 100%
+    margin 0
+
+  .icon-wrapper 
+    display flex
+    justify-content center
+    margin-bottom 1rem
+  
+  .icon-notifications-grey_news 
+    background url('../images/news_icon_grey.svg') center no-repeat
+    background-size 16%
+    padding 160px
+  
+  p 
+    margin 0.25rem 0
+    position relative
+    top -142px
+
+
+.icon-edit_news
+  background url('../images/three-dots-vertical.svg') center no-repeat
+  background-size 20px
+  position relative
+  padding 9px
+  max-height 66px
+  grid-row span 2
+
+
+.icon-pencil
+  background url('../images/pencil.svg') center no-repeat
+  padding 11px
+
+
+.icon-pencil--blue
+  background url('../images/pencil-blue.svg') center no-repeat
+  padding 11px
+
+
+.icon-check--grey 
+  background url('../images/check_grey.svg')  center no-repeat
+  background-position calc(100% - 5px) calc(100% - 2px)
+
+
+.icon-check--blue 
+  background url('../images/check.svg') center no-repeat
+  background-position calc(100% - 5px) calc(100% - 2px)
+
+
+.icon-cancel 
+  padding 9px
+
+
+.icon-cancel--grey 
+  background url('../images/clear.svg') center no-repeat
+  background-position calc(100% - 5px) calc(100% - 4px)
+  background-size 11px
+
+
+.icon-cancel--red 
+  background url('../images/clear_red.svg') center no-repeat
+  background-position calc(100% - 5px) calc(100% - 4px)
+  background-size 11px
+
+
+.icon-post-news--grey 
+  padding 10px
+  background url('../images/post-news.svg') center no-repeat
+  background-position calc(100% - 4px) calc(100% - 1px)
+  background-size 15px
+
+
+.icon-post-news--blue 
+  padding 10px
+  background url('../images/post-news_blue.svg') center no-repeat
+  background-position calc(100% - 4px) calc(100% - 1px)
+  background-size 15px
+
+
+.icon-discard-news--grey 
+  padding 10px
+  background url('../images/discard-news.svg') center no-repeat
+  background-position calc(100% - 5px) calc(100% - 4px)
+  background-size 15px
+
+
+.icon-discard-news--red 
+  padding 10px
+  background: url('../images/discard-news_red.svg') center no-repeat
+  background-position calc(100% - 5px) calc(100% - 4px)
+  background-size 15px
+
+
+.news-link 
+  background url('../images/link-blue.svg') center no-repeat
+  background-size 15px
+
+
+.icon-notifications_news
+  background url('../images/news_icon.svg') center no-repeat
+  background-size 60%
+  cursor pointer
+
+
+.icon-notification_news--badge
+  background-color #c00
+  color #fff
+  position relative
+  display inline-block
+  padding 2px 4px
+  min-width 19px
+  max-width 25px
+  height 16px
+  left 26px
+  top -14px
+  border 1px solid #212121
+  border-radius 25px
+  text-align center
+  font-size 10px
+  font-weight 400
+  line-height 1
+
+
+.icon-notifications-grey_news
+  background url('../images/news_icon_grey.svg') center no-repeat
+  background-size 16%
+  padding 160px
+  background-position calc(100% - 211px) calc(100% - 191px)

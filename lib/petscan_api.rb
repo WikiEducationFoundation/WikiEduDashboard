@@ -2,8 +2,7 @@
 class PetScanApi
   def get_data(psid)
     response = petscan.get query_url(psid)
-    title_data = Oj.load(response.body)
-    title_data
+    Oj.load(response.body)
   rescue StandardError => e
     raise e unless typical_errors.include?(e.class)
     return {}

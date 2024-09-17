@@ -15,6 +15,7 @@
 # Author: Eric.LEWIN
 # Author: Fitoschido
 # Author: Gomoko
+# Author: Graineahumus
 # Author: Hecatonchire
 # Author: Hk5184
 # Author: Iketsi
@@ -55,6 +56,7 @@ fr:
     number_field: Ceci est un champ numérique. Les boutons générés sur la plupart
       des navigateurs incrémenteront et décrémenteront cette entrée.
   application:
+    back: Retour
     cancel: Annuler
     cookie_consent: Ce site utilise des témoins (''cookies'') pour vous maintenir
       connecté et stocker des informations liées à votre compte sur Wikipédia.
@@ -88,6 +90,8 @@ fr:
       one: '%{count} résultat pour : « %{search_terms} »'
       other: '%count résultats pour : « %{search_terms} »'
     no_results: Aucun résultat trouvé pour « %{query} »
+    show_current_revision: Affiche la version actuelle.
+    show_last_revision: Afficher la dernière version modifiée
     sign_up_extended: S’inscrire sur Wikipédia
     sign_up_wikipedia: Ou inscrivez-vous sur Wikipédia
     sign_up_log_in_extended: avec Wikipédia
@@ -201,7 +205,9 @@ fr:
       tracked: Suivi
       untracked: Non suivi
       tracked_and_untracked: Suivi et non suivi
+    filter_text: 'Filtres :'
     find: Trouver des articles
+    how_to_find: Comment trouver des articles
     hide: Masquer
     history: (historique)
     label: Articles
@@ -298,6 +304,7 @@ fr:
     edited: Éléments modifiés
     edited_none: Il n’y a encore aucun élément modifié.
     find: Trouver des éléments
+    how_to_find: Comment trouver des objets
     preview: Bref aperçu de l’élément
     search: Rechercher un élément dans Wikidata
     tracked_doc: Seuls les éléments suivis contribuent aux statistiques pour ce programme.
@@ -341,6 +348,7 @@ fr:
     confirm_deletion: Êtes-vous sûr(e) de vouloir supprimer cette affectation ?
     delete: Retirer et supprimer
     editors: Affecté à
+    change_sandbox_url: Changer de bac à sable
     group_members: Membres du groupe
     label: Affecter
     label_all: Affecter tout
@@ -393,6 +401,11 @@ fr:
       (si elle a été créée récemment, le tableau de bord mettra bientôt ses données
       à jour).
     select: Sélectionner
+    submit: Soumettre
+    invalid_url: Impossible de mettre à jour l'URL du bac à sable. L'URL %{url} n'est
+      pas une URL Wikipédia valide.
+    mismatched_wiki: Impossible de mettre à jour l'URL du bac à sable. L'URL %{url}
+      n'est pas sur le même wiki.
     warning_untracked_wiki: 'Veuillez noter que l’article que vous avez choisi est
       sur un wiki qui n’est pas suivi par ce cours. Pour suivre les contributions
       à cet article, un instructeur doit ajouter le wiki suivant à ce cours : %{wiki}'
@@ -424,6 +437,7 @@ fr:
       campagne « %{campaign_title} » ?
     course_already_removed: « %{title} » a déjà été supprimé de la campagne « %{campaign_title} »
     course: Cours
+    course_data: données de cours
     course_removed: « %{title} » a été supprimé de la campagne « %{campaign_title} »
     course_removed_and_deleted: « %{title} » a été supprimé de la campagne « %{campaign_title} »
     course_removed_but_not_deleted: '"%{title}" a été retiré de "%{campaign_title}",
@@ -459,18 +473,25 @@ fr:
     disable_account_requests: Désactiver les demandes de compte
     enable_account_requests: Activer les demandes de compte
     newest_campaigns: Nouvelles campagnes
+    featured_campaigns: Campagnes mises en avant
+    instructors_course: instructeurs par cours
     no_alerts: Cette campagne n’a aucune alerte
     no_passcode: aucun mot de passe
     none: Aucun
     organizers: Organisateurs
     organizer_added: '%{user} est désormais un organisateur de la campagne « %{title} »'
     organizer_removed: '%{user} n’est plus un organisateur de la campagne « %{title} »'
+    pages_edited_small: pages modifiées
     program_template: Modèle de programme
     program_template_tooltip: Quand un organisateur crée un programme dans cette campagne,
       le texte dans cette zone sera copié comme une description sur la page du programme
     random_passcode: un code d’accès aléatoire
     remove_course_tooltip: Retirer de la campagne.
     requested_accounts: Comptes demandés
+    resolve: Résoudre
+    revision_data: données de révision
+    students_small: étudiants
+    student_course: étudiants par cours
     title: Titre
     too_many_articles: La liste des articles modifiés pour cette campagne est trop
       longue pour être affichée. Veuillez consulter les cours / programmes / événements
@@ -536,6 +557,9 @@ fr:
     articles_i_will_create_wikidata: Éléments que je créerai
     articles_i_am_updating: Articles que je mets à jour
     articles_i_am_updating_wikidata: Éléments que je mets à jour
+    add_campaign_aria_label: Ajouter un bouton de campagne
+    new_tag_button_aria_label: Bouton Créer ou mettre à jour une étiquette
+    enroll_button_aria_label: Bouton d'inscription
     assignment_headings:
       assigned_articles: Articles affectés
       assigned_articles_wikidata: Éléments affectés
@@ -572,6 +596,7 @@ fr:
       le Centre des évènements Wikimedia. Il n’est pas possible de s’y inscrire depuis
       le Tableau de bord.
     course: Cours
+    course_type_label: 'Type :'
     course_dates_calendar_instructions: Sélectionner les dates à ajouter ou à supprimer
       de l’agenda (par ex., vacances et congés, école fermée). Cliquer sur la date
       pour basculer entre non sélectionnée, sélectionnée et en congé. Les dates des
@@ -617,6 +642,8 @@ fr:
         contributions que feront vos étudiants.
       course_private: Programme privé (visible uniquement par les administrateurs
         et les facilitateurs)
+      course_ta_support: Ce cours aura-t-il des instructeurs ou des assistants de
+        professeurs supplémentaires ?
       course_school: École du cours
       course_subject: Sujet du cours
       course_term: Période du cours
@@ -1170,6 +1197,8 @@ fr:
       thank_you: Merci ! Contactez votre Expert Wiki si vous avez des questions supplémentaires.
     exercises_and_trainings: '%{prefix} Exercices et formations'
     no_assignments: Aucun article n’est affecté à cet(te) étudiant(e) pour le moment.
+    can_assign_assignments: Vous pouvez attribuer un article en utilisant les boutons
+      ci-dessus.
     no_assignments_wikidata: Cet étudiant n’a actuellement aucun élément affecté.
       Vous pouvez affecter un élément en utilisant les boutons ci-dessus.
     overview: '%{prefix} Vue d’ensemble'
@@ -1215,8 +1244,9 @@ fr:
     error_count_message: Le tableau de bord a rencontré %{error_count} erreur(s) lors
       de la mise à jour la plus récente.
     future_updates_remaining:
-      1: Les statistiques continueront d’être mises à jour jusqu’au %{date}.
-      "": Les statistiques pour ce programme ne sont plus mises à jour régulièrement.
+      updates_active: Les statistiques continueront d’être mises à jour jusqu’au %{date}.
+      updates_inactive: Les statistiques pour ce programme ne sont plus mises à jour
+        régulièrement.
     last_reviewed: Dernière relecture
     missing_data_heading: Résultats manquants ou inattendus ?
     missing_data_info: Les problèmes courants incluent
@@ -1346,6 +1376,7 @@ fr:
       des raisons de droit d’auteur).
     recent_edits: Modifications récentes
     recent_uploads: Téléversements récents
+    report: Signalement
     revision_author: Auteur de la révision
     revision_datetime: Horodatage de la révision
     revision_score: Pointage de la version
@@ -1375,6 +1406,13 @@ fr:
     label: Ressources
     header: Ressources et formation
   settings:
+    categories:
+      other_settings: Autres paramètres
+      impact_stats: Statistiques d'impact
+      featured_campaigns: Campagnes mises en avant
+      special_users: Utilisateurs spéciaux
+      admin_users: Utilisateurs administrateurs
+      users: Utilisateurs
     admin_users:
       new:
         form_label: Accorder les droits d’administrateur
@@ -1391,6 +1429,12 @@ fr:
         demote_success: '%{username} a été modifié(e) en instructeur/trice.'
         no_super_admin: Impossible de révoquer les droit d’administration pour un(e)
           super-administrateur/trice.
+    featured_campaigns:
+      campaign_not_found: Campagne avec le slug '%{campaign_slug}' introuvable
+      no_featured_campaigns: Aucune campagne définie comme mise en avant
+      update_featured_campaigns_button: Mettre à jour les campagnes mises en avant
+      add_button: Ajouter une campagne
+      remove_button: Supprimer la campagne
     special_users:
       new:
         form_label: Attribuer les privilèges d’utilisateur spécial
@@ -1561,6 +1605,7 @@ fr:
     search_training_resources: Rechercher des ressources de formation
     no_training_resource_match_your_search: Aucune ressource de formation ne correspond
       à votre recherche
+    exercise_sandbox: Bac à sable d’exercice
   update_username:
     header: Mettre à jour un nom d’utilisateur modifié
     not_found: Utilisateur introuvable pour le nom d’utilisateur saisi.
@@ -1571,14 +1616,22 @@ fr:
     label: Nouveau nom d’utilisateur
     button: Mettre à jour
   uploads:
+    article_name: Nom de l'article
+    author: 'Auteur :'
+    categories: Catégories
     credit: Crédit
+    date: 'Date :'
+    description: Description
     file_name: Nom de fichier
+    file_usage: Utilisation du fichier sur d'autres wikis
     header: Fichiers téléversés sur Wikimedia Commons
     image: Image
     label: Téléversements
+    license: 'Licence :'
     loading: Chargement en cours des téléversements...
     none: Cette classe n’a contribué avec aucune image ni aucun autre fichier média
       à Wikimedia Commons.
+    original_file: Fichier original
     select_label: Filtrer par téléverseur
     time_doc: L’heure de chaque téléversement dans votre heure locale
     uploaded_at: Durée du téléversement
@@ -1589,6 +1642,13 @@ fr:
     usage_doc: Nombre d’articles de Wikipédia où apparaît cette image.
     usage_count_gallery_tile: Utilisé dans %{usage_count} articles
     usages: Utilisations
+    gallery_view: Vue en galerie
+    list_view: Vue en liste
+    source: 'Source :'
+    tile_view: Vue en mosaïque
+    views_per_day: Vues par jour
+    view_commons: Afficher sur Commons
+    wiki_big: Wiki
   users:
     already_enrolled: Cet utilisateur est déjà inscrit !
     assign_articles: Affecter des articles
@@ -1651,6 +1711,7 @@ fr:
     profile: profil
     recent_revisions: Modifications récentes
     references_count: Références ajoutées
+    training_modules: Modules de formation
     remove_confirmation: Êtes-vous sûr(e) de vouloir supprimer %{username} ?
     request_confirmation: Êtes-vous sûr(e) de vouloir demander ce compte ?
     requested_account_status:
@@ -1870,6 +1931,7 @@ fr:
     average_views: Nombre moyen de vues par jour
     category_search: Recherche par catégorie
     completeness_estimate: Note de complétude
+    estimation_score_not_found: Score d'estimation introuvable !
     fetching_assessments: Récupération en cours des déclarations de page
     fetching_scores: Récupération de la note de complétude
     fetching_pageviews: Récupération en cours des compteurs de vues de page
@@ -1885,6 +1947,7 @@ fr:
     no_article_found: Aucun article trouvé dans cette catégorie
     no_article_found_wikidata: Aucun élément trouvé dans cette catégorie
     page_assessment_class: Classe
+    page_views_not_found: Pages vues introuvables !
     relevanceIndex: Indice de pertinence
     remove_article: Retirer l’article
     remove_article_wikidata: Retirer les éléments
@@ -1912,4 +1975,18 @@ fr:
     assignment_status: Affectation de formation (%{status})
   multi_wiki:
     selector_placeholder: Commencez par entrer un domaine wiki
+  news:
+    footer:
+      P&E_dashboard:
+        link_text: Wikimédia
+    options:
+      news_content:
+        cancel_delete: Annuler
+    text_area_input:
+      placeholder: Ajouter des actualités et des modifications récentes
+  notes:
+    title: Titre
+    note_title: Titre de la note
+    cancel_note_creation: Annuler
+    cancel_edit_note: Annuler
 ...
