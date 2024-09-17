@@ -30,7 +30,7 @@ class CourseWikiUpdater
     # Delete timeslices for the deleted wikis
     @timeslice_manager.delete_timeslices_for_deleted_course_wikis wiki_ids
     # Delete articles courses
-    ArticlesCoursesCleanerTimeslice.remove_bad_articles_courses(@course, wiki_ids)
+    ArticlesCoursesCleanerTimeslice.clean_articles_courses_for_wiki_ids(@course, wiki_ids)
   end
 
   def add_courses_wikis(wiki_ids)
