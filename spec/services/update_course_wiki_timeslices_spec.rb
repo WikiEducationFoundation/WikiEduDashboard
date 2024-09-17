@@ -7,7 +7,7 @@ describe UpdateCourseWikiTimeslices do
   let(:enwiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
   let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }
   let(:updater) { described_class.new(course) }
-  let(:subject) { updater.run(all_time: 0) }
+  let(:subject) { updater.run(all_time: false) }
   let(:flags) { nil }
   let(:user) { create(:user, username: 'Ragesoss') }
 
@@ -138,6 +138,16 @@ describe UpdateCourseWikiTimeslices do
       timeslice = course.course_wiki_timeslices.where(wiki: enwiki, start: '2018-11-29').first
 
       expect(timeslice.last_mw_rev_datetime).to be_nil
+    end
+  end
+
+  context 'when non-full update' do
+    it 'runs pre-update' do
+      expect_any_instance_of(CourseWikiUpdater).to receive(:run)
+      expect_any_instance_of(CourseUserUpdater).to receive(:run)
+      VCR.use_cassette 'course_update' do
+        subject
+      end
     end
   end
 
