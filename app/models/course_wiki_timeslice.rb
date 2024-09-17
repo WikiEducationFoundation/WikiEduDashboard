@@ -19,6 +19,7 @@
 #  course_id            :integer          not null
 #  wiki_id              :integer          not null
 #  last_mw_rev_datetime :datetime
+#  needs_update         :boolean          default(FALSE)
 #
 class CourseWikiTimeslice < ApplicationRecord
   belongs_to :course
@@ -34,6 +35,7 @@ class CourseWikiTimeslice < ApplicationRecord
   scope :for_revisions_between, lambda { |period_start, period_end|
     in_period(period_start, period_end).or(for_datetime(period_start)).or(for_datetime(period_end))
   }
+  scope :needs_update, -> { where(needs_update: true) }
 
   #################
   # Class methods #
@@ -74,6 +76,7 @@ class CourseWikiTimeslice < ApplicationRecord
     update_upload_count
     update_uploads_in_use_count
     update_upload_usages_count
+    self.needs_update = false
     save
   end
 

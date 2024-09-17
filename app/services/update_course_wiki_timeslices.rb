@@ -16,10 +16,11 @@ class UpdateCourseWikiTimeslices
     @course = course
     @timeslice_manager = TimesliceManager.new(@course)
     @course_wiki_updater = CourseWikiUpdater.new(@course)
+    @course_user_updater = CourseUserUpdater.new(@course)
   end
 
   def run(all_time:)
-    all_time ? clean_timeslices : @course_wiki_updater.run
+    all_time ? clean_timeslices : pre_update
     fetch_data_and_process_timeslices_for_every_wiki(all_time)
     error_count
   end
@@ -35,6 +36,12 @@ class UpdateCourseWikiTimeslices
     @timeslice_manager.create_timeslices_for_new_course_wiki_records(@course.wikis)
   end
 
+  # Make changes if some wiki/users were added or removed.
+  def pre_update
+    @course_wiki_updater.run
+    @course_user_updater.run
+  end
+
   def fetch_data_and_process_timeslices_for_every_wiki(all_time)
     @course.wikis.each do |wiki|
       # Get start time from first timeslice to update
@@ -45,6 +52,10 @@ class UpdateCourseWikiTimeslices
                     end
       # Get start time from latest timeslice to update
       latest_start = get_latest_start_time_for_wiki(wiki)
+
+      # Sometimes we need to reprocess timeslices due to changes such as
+      # users removed from a course.
+      fetch_data_and_reprocess_timeslices(wiki)
 
       fetch_data_and_process_timeslices(wiki, first_start, latest_start)
     end
@@ -67,6 +78,14 @@ class UpdateCourseWikiTimeslices
       fetch_data(wiki, current_start, current_start + TimesliceManager::TIMESLICE_DURATION)
       process_timeslices(wiki)
       current_start += TimesliceManager::TIMESLICE_DURATION
+    end
+  end
+
+  def fetch_data_and_reprocess_timeslices(wiki)
+    to_reprocess = CourseWikiTimeslice.for_course_and_wiki(@course, wiki).needs_update
+    to_reprocess.each do |t|
+      fetch_data(wiki, t.start, t.end)
+      process_timeslices(wiki)
     end
   end
 

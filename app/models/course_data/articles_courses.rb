@@ -128,6 +128,12 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
   #################
   # Class methods #
   #################
+
+  # Search by course and user.
+  def self.search_by_course_and_user(course, user_id)
+    ArticlesCourses.where(course:).where('user_ids LIKE ?', "%- #{user_id}\n%")
+  end
+
   def self.update_all_caches(articles_courses)
     articles_courses.find_each(&:update_cache)
   end

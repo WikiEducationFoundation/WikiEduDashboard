@@ -91,6 +91,19 @@ describe TimesliceManager do
     end
   end
 
+  describe '#delete_course_user_timeslices_for_deleted_course_users' do
+    before do
+      timeslice_manager.create_timeslices_for_new_course_user_records(new_course_users)
+    end
+
+    it 'deletes course user wiki timeslices for the given users properly' do
+      expect(course.course_user_wiki_timeslices.size).to eq(684)
+
+      timeslice_manager.delete_course_user_timeslices_for_deleted_course_users([1, 2])
+      expect(course.course_user_wiki_timeslices.size).to eq(228)
+    end
+  end
+
   describe '#delete_timeslices_for_deleted_course_wikis' do
     before do
       create(:courses_wikis, wiki: wikibooks, course:)
