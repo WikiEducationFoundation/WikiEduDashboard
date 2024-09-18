@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { compact } from 'lodash-es';
 import { connect } from 'react-redux';
 import { fetchTrainingModule } from '../../actions/training_actions.js';
 import AddSlide from './modals/add_slide.jsx';
+import RemoveSlides from './modals/remove_slide.jsx';
+import ReorderSlides from './modals/reorder_slides.jsx';
 
 const TrainingModuleHandler = (props) => {
   useEffect(() => {
@@ -14,7 +17,18 @@ const TrainingModuleHandler = (props) => {
     setShowAddSlideModal(!showAddSlideModal);
   };
 
+  const toggleRemoveSlideModal = () => {
+    setShowRemoveSlideModal(!showRemoveSlideModal);
+  };
+
+  const toggleReorderSlideModal = () => {
+    setShowReorderSlideModal(!showReorderSlideModal);
+  };
+
+  const [showRemoveSlideModal, setShowRemoveSlideModal] = useState(false);
   const [showAddSlideModal, setShowAddSlideModal] = useState(false);
+  const [showReorderSlideModal, setShowReorderSlideModal] = useState(false);
+  const { library_id, module_id } = useParams();
   const locale = I18n.locale;
   const slidesAry = compact(props.training.module.slides);
   const slides = slidesAry.map((slide, i) => {
@@ -50,19 +64,29 @@ const TrainingModuleHandler = (props) => {
       </div>
     );
   }
+  let slideModificationButtons;
+  if (props.editMode) {
+    slideModificationButtons = (
+      <div className="training-modification training_slide_modification_buttons">
+        <button className="button dark" onClick={toggleReorderSlideModal}>{I18n.t('training.change_order')}</button>
+        <button className="button dark" onClick={toggleAddSlideModal}>{I18n.t('training.add_slide')}</button>
+        <button className="button danger" onClick={toggleRemoveSlideModal}>{I18n.t('training.remove_slide')}</button>
+      </div>
+    );
+  }
 
   return (
     <div>
-      {showAddSlideModal && <AddSlide toggleModal={toggleAddSlideModal} />}
+      {showAddSlideModal && <AddSlide library_id={library_id} module_id={module_id} toggleModal={toggleAddSlideModal} />}
+      {showRemoveSlideModal && <RemoveSlides module_id={module_id} slidesAry={slidesAry} toggleModal={toggleRemoveSlideModal} />}
+      {showReorderSlideModal && <ReorderSlides module_id={module_id} slidesAry={slidesAry} toggleModal={toggleReorderSlideModal} />}
       <div className="training__toc-container">
         <h1 className="h4 capitalize"> {I18n.t('training.table_of_contents')} <span className="pull-right total-slides">({slidesAry.length})</span></h1>
-        <ol>
+        <ol className="scrollable_slides_container">
           {slides}
         </ol>
         {moduleSource}
-        <div className="training-modification training_slide_modification_buttons">
-          <button className="button dark" onClick={toggleAddSlideModal}>{I18n.t('training.add_slide')}</button>
-        </div>
+        {slideModificationButtons}
       </div>
     </div>
   );

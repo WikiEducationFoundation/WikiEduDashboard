@@ -369,10 +369,12 @@ Rails.application.routes.draw do
   get 'training/:library_id/edit/:category_id/add_module', to: 'training#show', as: :add_module_training
 
   # Update
-  post '/training/:library_id/transfer_modules' => 'training_modules#transfer_modules'
+  put '/training/:library_id/transfer_modules' => 'training_modules#transfer_modules'
+  put '/training/:module_id/reorder_slides' => 'training_modules#reorder_slides'
   
   # Delete
   delete 'training/:library_id/categories/:category_id', to: 'training_library#delete_category', as: :delete_category
+  delete '/training/:module_id/remove_slide' => 'training_slides#remove_slide'
 
   # Misc
   # get 'courses' => 'courses#index'

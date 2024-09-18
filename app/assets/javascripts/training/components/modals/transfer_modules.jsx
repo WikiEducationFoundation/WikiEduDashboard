@@ -36,32 +36,34 @@ const TransferModules = ({ toggleModal }) => {
   return (
     <Modal>
       <div className="container">
-        <div className={`wizard__panel active training_modal single_column ${formClassName}`}>
+        <div className={`wizard__panel active training_modal single_column wide-container ${formClassName}`}>
           <h3>{I18n.t('training.transfer_module')}</h3>
           <p>{getInstruction(step)}</p>
-          <TransferStep1
-            categories={categories}
-            transferInfo={transferInfo}
-            setTransferInfo={setTransferInfo}
-            step={step}
-            setStep={setStep}
-            toggleModal={toggleModal}
-          />
-          <TransferStep2
-            categories={categories}
-            transferInfo={transferInfo}
-            setTransferInfo={setTransferInfo}
-            step={step}
-            setStep={setStep}
-          />
-          <TransferStep3
-            categories={categories}
-            transferInfo={transferInfo}
-            setTransferInfo={setTransferInfo}
-            step={step}
-            setStep={setStep}
-            setSubmitting={setSubmitting}
-          />
+          <div>
+            <TransferStep1
+              categories={categories}
+              transferInfo={transferInfo}
+              setTransferInfo={setTransferInfo}
+              step={step}
+              setStep={setStep}
+              toggleModal={toggleModal}
+            />
+            <TransferStep2
+              categories={categories}
+              transferInfo={transferInfo}
+              setTransferInfo={setTransferInfo}
+              step={step}
+              setStep={setStep}
+            />
+            <TransferStep3
+              categories={categories}
+              transferInfo={transferInfo}
+              setTransferInfo={setTransferInfo}
+              step={step}
+              setStep={setStep}
+              setSubmitting={setSubmitting}
+            />
+          </div>
         </div>
       </div>
     </Modal>

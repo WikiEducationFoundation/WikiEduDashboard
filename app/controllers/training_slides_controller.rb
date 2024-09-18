@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TrainingSlidesController < ApplicationController
-  before_action :set_training_module, only: [:add_slide]
+  before_action :set_training_module, only: [:add_slide, :remove_slide]
   respond_to :json
 
   def add_slide
@@ -13,6 +13,21 @@ class TrainingSlidesController < ApplicationController
       handle_existing_slide(existing_slide, slide_params)
     else
       create_and_add_new_slide(slide_params)
+    end
+  end
+
+  def remove_slide
+    slide_slugs = params.require(:slideSlugList)
+
+    slide_slugs.each do |slug|
+      @training_module.slide_slugs.delete(slug)
+    end
+
+    if @training_module.save
+      render json: { status: 'success', message: 'Slides removed successfully' }, status: :ok
+    else
+      render json: { status: 'error', errorMessages: @training_module.errors.full_messages },
+             status: :unprocessable_entity
     end
   end
 
