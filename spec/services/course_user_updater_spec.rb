@@ -20,6 +20,7 @@ describe CourseUserUpdater do
       course.campaigns << Campaign.first
       JoinCourse.new(course:, user: user1, role: 0)
       JoinCourse.new(course:, user: user2, role: 0)
+      manager.create_timeslices_for_new_course_wiki_records([enwiki])
       # Add articles courses and timeslices manually
       create(:articles_course, course:, article: article1, user_ids: [user1.id])
       create(:articles_course, course:, article: article2, user_ids: [user1.id, user2.id])

@@ -141,16 +141,6 @@ describe UpdateCourseWikiTimeslices do
     end
   end
 
-  context 'when non-full update' do
-    it 'runs pre-update' do
-      expect_any_instance_of(CourseWikiUpdater).to receive(:run)
-      expect_any_instance_of(CourseUserUpdater).to receive(:run)
-      VCR.use_cassette 'course_update' do
-        subject
-      end
-    end
-  end
-
   context 'sentry course update error tracking' do
     let(:flags) { { debug_updates: true } }
     let(:user) { create(:user, username: 'Ragesoss') }

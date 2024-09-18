@@ -76,17 +76,19 @@ describe TimesliceManager do
 
     context 'when there are new courses wikis' do
       it 'creates course wiki and course user wiki timeslices for the entire course' do
-        # Course wiki timeslices already exist for home wiki
-        expect(course.course_wiki_timeslices.size).to eq(114)
+        # No course wiki timeslices exist previously
+        expect(course.course_wiki_timeslices.size).to eq(0)
+        timeslice_manager.create_timeslices_for_new_course_wiki_records([enwiki, wikibooks])
+        course.reload
+        # Create enwiki and wikibooks course wiki timeslices for the entire course
         expect(course.course_wiki_timeslices.first.wiki).to eq(enwiki)
-        timeslice_manager.create_timeslices_for_new_course_wiki_records([wikibooks])
-        # Create wikibooks course wiki timeslices for the entire course
         expect(course.course_wiki_timeslices.last.wiki).to eq(wikibooks)
         expect(course.course_wiki_timeslices.size).to eq(228)
         # Create all the course user wiki timeslices for the existing course users with student role
         # for the new wiki
-        expect(course.course_user_wiki_timeslices.first.wiki).to eq(wikibooks)
-        expect(course.course_user_wiki_timeslices.size).to eq(228)
+        expect(course.course_user_wiki_timeslices.first.wiki).to eq(enwiki)
+        expect(course.course_user_wiki_timeslices.last.wiki).to eq(wikibooks)
+        expect(course.course_user_wiki_timeslices.size).to eq(456)
       end
     end
   end
@@ -145,7 +147,7 @@ describe TimesliceManager do
 
     context 'when empty course wiki timeslices' do
       it 'returns course start date' do
-        # only empty course wiki timeslices for enwiki
+        timeslice_manager.create_timeslices_for_new_course_wiki_records([enwiki])
         expect(course.course_wiki_timeslices.where(wiki_id: enwiki.id).size).to eq(114)
         expect(timeslice_manager.get_ingestion_start_time_for_wiki(enwiki)).to eq('20240101000000')
       end
@@ -153,6 +155,7 @@ describe TimesliceManager do
 
     context 'when non-empty course wiki timeslices' do
       it 'returns start datetime for the max last_mw_rev_datetime' do
+        timeslice_manager.create_timeslices_for_new_course_wiki_records([enwiki])
         # update last_mw_rev_datetime
         # Update last_mw_rev_datetime for the first course_wiki_timeslice
         first_timeslice = course.course_wiki_timeslices[3]
@@ -186,6 +189,7 @@ describe TimesliceManager do
 
     context 'when there were updates' do
       it 'updates last_mw_rev_datetime for every course wiki' do
+        timeslice_manager.create_timeslices_for_new_course_wiki_records([enwiki])
         course_wiki_timeslices = course.course_wiki_timeslices.where(wiki_id: enwiki.id)
         expect(course_wiki_timeslices.where(last_mw_rev_datetime: nil).size).to eq(114)
         timeslice_manager.update_last_mw_rev_datetime(new_fetched_data)
