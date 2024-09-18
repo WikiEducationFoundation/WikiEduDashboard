@@ -32,10 +32,10 @@ describe UpdateCourseWikiTimeslices do
       stub_wiki_validation
       travel_to Date.new(2018, 12, 1)
       course.campaigns << Campaign.first
-      JoinCourse.new(course:, user:, role: 0)
       # Create course wiki timeslices manually for wikidata
       course.wikis << Wiki.get_or_create(language: nil, project: 'wikidata')
-      TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records([wikidata])
+      TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records([enwiki, wikidata])
+      JoinCourse.new(course:, user:, role: 0)
     end
 
     it 'updates article course timeslices caches' do
