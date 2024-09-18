@@ -34,8 +34,8 @@ describe UpdateCourseWikiTimeslices do
       course.campaigns << Campaign.first
       # Create course wiki timeslices manually for wikidata
       course.wikis << Wiki.get_or_create(language: nil, project: 'wikidata')
-      TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records([enwiki, wikidata])
       JoinCourse.new(course:, user:, role: 0)
+      TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records([enwiki, wikidata])
     end
 
     it 'updates article course timeslices caches' do
