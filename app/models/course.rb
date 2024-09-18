@@ -54,7 +54,6 @@ require_dependency "#{Rails.root}/lib/course_training_progress_manager"
 require_dependency "#{Rails.root}/lib/trained_students_manager"
 require_dependency "#{Rails.root}/lib/word_count"
 require_dependency "#{Rails.root}/lib/course_meetings_manager"
-require_dependency "#{Rails.root}/lib/timeslice_manager"
 
 #= Course model
 class Course < ApplicationRecord
@@ -539,7 +538,6 @@ class Course < ApplicationRecord
   def ensure_home_wiki_in_courses_wikis
     return if wikis.include? home_wiki
     wikis.push(home_wiki)
-    TimesliceManager.new(self).create_timeslices_for_new_course_wiki_records [home_wiki]
   end
 
   private
