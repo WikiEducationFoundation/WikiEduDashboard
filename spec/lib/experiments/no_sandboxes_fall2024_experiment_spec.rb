@@ -5,7 +5,7 @@ require "#{Rails.root}/lib/experiments/no_sandboxes_fall_2024_experiment"
 
 describe NoSandboxesFall2024Experiment do
   def fresh_course
-    course = create(:course, start: '2025-01-05'.to_date) #updated for Spring 2025
+    course = create(:course, start: '2025-01-05'.to_date) # updated for Spring 2025
     user = create(:user)
     create(:courses_user, course:, user:, role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
     return [course, user]
