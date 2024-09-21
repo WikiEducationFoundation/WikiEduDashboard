@@ -55,8 +55,7 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
     create_empty_course_user_wiki_timeslices(courses_wikis:)
   end
 
-  # Returns a string with the date to start getting revisions.
-  # For example: '20181124000000'
+  # Returns a datetime with the date to start getting revisions.
   def get_ingestion_start_time_for_wiki(wiki)
     non_empty_timeslices = @course.course_wiki_timeslices.where(wiki:).reject do |ts|
       ts.last_mw_rev_datetime.nil?
@@ -67,7 +66,18 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
     last_datetime = non_empty_timeslices.max_by(&:last_mw_rev_datetime)&.start
 
     last_datetime ||= @course.start
-    last_datetime.strftime('%Y%m%d%H%M%S')
+    last_datetime
+  end
+
+  # Returns a datetime with the date to stop getting revisions.
+  def get_latest_start_time_for_wiki(wiki)
+    end_of_course = @course.end.end_of_day
+    today = Time.zone.now
+    end_of_update_period = [end_of_course, today].min
+    CourseWikiTimeslice.for_course_and_wiki(@course, wiki)
+                       .for_datetime(end_of_update_period)
+                       .first
+                       .start
   end
 
   # Given an array of revision data per wiki, it updates the last_mw_rev_datetime field

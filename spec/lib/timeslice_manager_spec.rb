@@ -141,7 +141,7 @@ describe TimesliceManager do
         # no course wiki timeslices for wikibooks
         expect(course.course_wiki_timeslices.where(wiki_id: wikibooks.id).size).to eq(0)
         expect(timeslice_manager.get_ingestion_start_time_for_wiki(wikibooks))
-          .to eq('20240101000000')
+          .to eq('20240101000000'.to_datetime)
       end
     end
 
@@ -149,7 +149,8 @@ describe TimesliceManager do
       it 'returns course start date' do
         timeslice_manager.create_timeslices_for_new_course_wiki_records([enwiki])
         expect(course.course_wiki_timeslices.where(wiki_id: enwiki.id).size).to eq(114)
-        expect(timeslice_manager.get_ingestion_start_time_for_wiki(enwiki)).to eq('20240101000000')
+        expect(timeslice_manager.get_ingestion_start_time_for_wiki(enwiki))
+          .to eq('20240101000000'.to_datetime)
       end
     end
 
@@ -172,7 +173,8 @@ describe TimesliceManager do
         fourth_timeslice.last_mw_rev_datetime = '20240104131500'.to_datetime
         fourth_timeslice.save
 
-        expect(timeslice_manager.get_ingestion_start_time_for_wiki(enwiki)).to eq('20240104000000')
+        expect(timeslice_manager.get_ingestion_start_time_for_wiki(enwiki))
+          .to eq('20240104000000'.to_datetime)
       end
     end
   end
