@@ -2,6 +2,7 @@
 
 require_dependency "#{Rails.root}/lib/timeslice_manager"
 require_dependency "#{Rails.root}/lib/articles_courses_cleaner_timeslice"
+require_dependency "#{Rails.root}/lib/revision_data_manager"
 
 class CourseUserUpdater
   def initialize(course)
@@ -17,24 +18,67 @@ class CourseUserUpdater
                                              .select(:user_id).distinct.pluck(:user_id)
 
     deleted_user_ids = processed_users - current_user_ids
-
     remove_courses_users(deleted_user_ids)
+
+    new_user_ids = current_user_ids - processed_users
+    add_user_ids(new_user_ids)
   end
 
   private
+
+  def add_user_ids(user_ids)
+    return if user_ids.empty?
+    course_user_ids = @course.courses_users.where(user: user_ids)
+    # Create course user wiki timeslices
+    @timeslice_manager.create_timeslices_for_new_course_user_records course_user_ids
+    return unless was_course_ever_updated?
+
+    @course.wikis.each do |wiki|
+      # Get start time from first timeslice to update
+      first_start = @course.start
+      # Get start time from latest timeslice to update
+      latest_start = @timeslice_manager.get_latest_start_time_for_wiki(wiki)
+      fetch_users_revisions_for_wiki(wiki, user_ids, first_start, latest_start)
+    end
+  end
+
+  def fetch_users_revisions_for_wiki(wiki, user_ids, first_start, latest_start)
+    current_start = first_start
+    users = User.find(user_ids)
+
+    manager = RevisionDataManager.new(wiki, @course)
+    current_end = latest_start + TimesliceManager::TIMESLICE_DURATION
+    # Fetch the revisions for users for the complete period
+    revisions = manager.fetch_revision_data_for_users(users,
+                                                      current_start.strftime('%Y%m%d%H%M%S'),
+                                                      current_end.strftime('%Y%m%d%H%M%S'))
+    wikis_and_starts = revisions_to_wiki_and_start_dates(revisions,
+                                                         wiki.id,
+                                                         first_start,
+                                                         latest_start)
+
+    update_course_wiki_timeslices_for_deleted_course_users(wikis_and_starts)
+  end
 
   def remove_courses_users(user_ids)
     return if user_ids.empty?
     # Delete course user wiki timeslices for the deleted users
     @timeslice_manager.delete_course_user_timeslices_for_deleted_course_users user_ids
+
     # Do this to avoid running the query twice
     @article_course_timeslices_for_users = get_article_course_timeslices_for_users(user_ids)
     # Mark course wiki timeslices that needs to be re-proccesed
-    update_course_wiki_timeslices_for_deleted_course_users
+    wikis_and_starts = get_wiki_and_start_dates_to_reprocess(@article_course_timeslices_for_users)
+    update_course_wiki_timeslices_for_deleted_course_users(wikis_and_starts)
     # Clean articles courses timeslices
     clean_article_course_timeslices
     # Delete articles courses that were updated only for removed users
     ArticlesCoursesCleanerTimeslice.clean_articles_courses_for_user_ids(@course, user_ids)
+  end
+
+  # TODO: find a better way to check if the course was already updated
+  def was_course_ever_updated?
+    @course.flags[:first_update].present? || @course.flags['update_logs'].present?
   end
 
   # Returns ArticleCourseTimeslice records that have edits from users
@@ -63,12 +107,27 @@ class CourseUserUpdater
     articles_and_starts.map { |article_id, start| [id_to_wiki_map[article_id], start] }.uniq
   end
 
+  def revisions_to_wiki_and_start_dates(revisions, wiki_id, first_start, latest_start)
+    tuples = []
+    current_start = first_start
+    while current_start <= latest_start
+      current_end = current_start + TimesliceManager::TIMESLICE_DURATION
+      revisions_per_timeslice = revisions.select do |r|
+        current_start <= r.date && r.date < current_end
+      end
+      unless revisions_per_timeslice.empty?
+        tuples += [[wiki_id,
+                    current_start.strftime('%Y%m%d%H%M%S')]]
+      end
+      current_start += TimesliceManager::TIMESLICE_DURATION
+    end
+    tuples
+  end
+
   # Marks course wiki timeslices as needs_update for those dates when
   # removed users made some edits
   # Takes a collection of user ids
-  def update_course_wiki_timeslices_for_deleted_course_users
-    wikis_and_starts = get_wiki_and_start_dates_to_reprocess(@article_course_timeslices_for_users)
-
+  def update_course_wiki_timeslices_for_deleted_course_users(wikis_and_starts)
     return if wikis_and_starts.empty?
 
     # Prepare the list of tuples for SQL
