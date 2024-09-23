@@ -37,7 +37,7 @@ class RevisionDataManager
     # Now get all the revisions
     # We need a slightly different article dictionary format here
     article_dict = @articles.each_with_object({}) { |a, memo| memo[a.mw_page_id] = a.id }
-    @revisions = sub_data_to_revision_attributes(sub_data, users, article_dict)
+    @revisions = sub_data_to_revision_attributes(sub_data, users, articles: article_dict)
 
     # TODO: resolve duplicates
     # DuplicateArticleDeleter.new(@wiki).resolve_duplicates(@articles)
@@ -47,6 +47,15 @@ class RevisionDataManager
     (revisions_in_spaces, revisions_out_spaces) = partition_revisions
 
     revisions_out_spaces.concat @importer.get_revision_scores(revisions_in_spaces)
+  end
+
+  # This method gets revisions for some specific users.
+  # It does not fetch scores. It has no side effects.
+  def fetch_revision_data_for_users(users, timeslice_start, timeslice_end)
+    sub_data = get_course_revisions(users, timeslice_start, timeslice_end)
+    users = user_dict_from_sub_data(sub_data)
+
+    sub_data_to_revision_attributes(sub_data, users)
   end
 
   ###########
@@ -102,16 +111,16 @@ class RevisionDataManager
     User.where(username: users).pluck(:username, :id).to_h
   end
 
-  def sub_data_to_revision_attributes(sub_data, users, articles)
+  def sub_data_to_revision_attributes(sub_data, users, articles: nil)
     sub_data.flat_map do |_a_id, article_data|
       article_data['revisions'].map do |rev_data|
         mw_page_id = rev_data['mw_page_id'].to_i
+        article_id = articles.nil? ? nil : articles[mw_page_id]
         Revision.new({
           mw_rev_id: rev_data['mw_rev_id'],
           date: rev_data['date'],
           characters: rev_data['characters'],
-          article_id: articles[mw_page_id],
-          mw_page_id:,
+          article_id:, mw_page_id:,
           user_id: users[rev_data['username']],
           new_article: string_to_boolean(rev_data['new_article']),
           system: string_to_boolean(rev_data['system']),

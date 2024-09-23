@@ -94,6 +94,7 @@ role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
 
   describe '.update_course_wiki_timeslices' do
     before do
+      TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records([wiki])
       array_revisions << build(:revision, article:, user_id: 1, date: start + 26.hours)
       array_revisions << build(:revision, article:, user_id: 1, date: start + 50.hours)
       array_revisions << build(:revision, article:, user_id: 1, date: start + 51.hours)
@@ -125,6 +126,7 @@ role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
 
   describe '#update_cache_from_revisions' do
     before do
+      TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records([wiki])
       described_class.find_by(course:, wiki:, start:).update(needs_update: true)
     end
 

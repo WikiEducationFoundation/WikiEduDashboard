@@ -56,6 +56,7 @@ class ArticlesCoursesCleanerTimeslice
 
     to_delete.each_slice(5000) do |slice|
       ArticlesCourses.where(id: slice.map(&:id)).delete_all
+      ArticleCourseTimeslice.where(course: @course, article_id: slice.map(&:article_id)).delete_all
     end
     Rails.logger.info "Deleted #{to_delete.size} ArticlesCourses from #{@course.title}"
   end

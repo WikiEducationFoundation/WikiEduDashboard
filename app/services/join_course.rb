@@ -23,7 +23,7 @@ class JoinCourse
 
   def process_join_request
     validate_request { return }
-    create_courses_user_and_timeslices
+    create_courses_user
     update_course_user_count
     # This needs to use string keys because it is used in Sidekiq arguments.
     @result = { 'success' => 'User added to course.' }
@@ -77,27 +77,14 @@ class JoinCourse
     @role == CoursesUsers::Roles::STUDENT_ROLE
   end
 
-  def create_courses_user_and_timeslices
-    course_user = CoursesUsers.create(
+  def create_courses_user
+    CoursesUsers.create(
       user_id: @user.id,
       course_id: @course.id,
       role: @role,
       real_name: @real_name,
       role_description: @role_description
     )
-
-    # Do not try to create course user wiki timeslices if there is no course id
-    # This should never happen in production but we need this check because otherwise
-    # there are specs that fail.
-    # Only create course user wiki timeslices for students.
-    if student_role? && course_user.course_id.present?
-      create_course_user_wiki_timeslices course_user
-    end
-  end
-
-  def create_course_user_wiki_timeslices(course_user)
-    TimesliceManager.new(@course)
-                    .create_timeslices_for_new_course_user_records [course_user]
   end
 
   def update_course_user_count

@@ -118,4 +118,26 @@ describe RevisionDataManager do
       end
     end
   end
+
+  describe '#fetch_revision_data_for_users' do
+    let(:course) { create(:course, start: '2018-01-01', end: '2018-12-31') }
+    let(:user1) { create(:user, username: 'HonorsCJ') }
+    let(:user2) { create(:user, username: 'Kh16897') }
+    let(:users) { [user1, user2] }
+    let(:home_wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
+    let(:instance_class) { described_class.new(home_wiki, course) }
+    let(:subject) do
+      instance_class.fetch_revision_data_for_users(users, '20240820000000', '20240830235959')
+    end
+
+    it 'fetches all the revisions for the specific users during the given period of time' do
+      VCR.use_cassette 'revision_importer/all' do
+        revisions = subject
+        expect(revisions.length).to eq(10)
+        # Revisions don't have scores
+        expect(revisions[0].wp10).to eq(nil)
+        expect(revisions[0].features).to eq({})
+      end
+    end
+  end
 end

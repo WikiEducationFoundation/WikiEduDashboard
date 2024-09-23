@@ -355,11 +355,6 @@ describe CoursesController, type: :request do
           post '/courses', params: { course: course_params }, as: :json
           expect(Course.last.passcode).to eq('passcode')
         end
-
-        it 'creates all the course wiki timeslices' do
-          post '/courses', params: { course: course_params }, as: :json
-          expect(Course.last.course_wiki_timeslices.count).to eq(353)
-        end
       end
 
       context 'sets en empty passcode' do

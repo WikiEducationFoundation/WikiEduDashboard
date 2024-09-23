@@ -18,6 +18,7 @@ describe CourseWikiUpdater do
       # Add a user
       course.campaigns << Campaign.first
       JoinCourse.new(course:, user:, role: 0)
+      manager.create_timeslices_for_new_course_wiki_records([enwiki])
       # Add articles courses and timeslices manually
       create(:articles_course, course:, article: wikidata_article)
       create(:articles_course, course:, article:)
@@ -55,6 +56,7 @@ describe CourseWikiUpdater do
       # Add a user
       course.campaigns << Campaign.first
       JoinCourse.new(course:, user:, role: 0)
+      manager.create_timeslices_for_new_course_wiki_records([enwiki])
       # Add articles courses and timeslices manually
       create(:articles_course, course:, article:)
       manager.create_timeslices_for_new_article_course_records(
