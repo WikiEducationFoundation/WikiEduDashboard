@@ -12,6 +12,7 @@ describe('active_course reducer', () => {
         expect(newState.courses).toEqual([]);
         expect(newState.isLoaded).toBe(false);
     });
+
     test('should return the same state when RECEIVE_ACTIVE_COURSES is dispatched multiple times with the same data', () => {
         const initialState = {
             courses: [],
@@ -29,6 +30,7 @@ describe('active_course reducer', () => {
         expect(secondState.courses).toEqual([{ id: 1, title: 'Course 1' }]);
         expect(secondState.isLoaded).toBe(true);
     });
+
     test('should handle an empty list of courses in RECEIVE_ACTIVE_COURSES', () => {
         const initialState = {
             courses: [{ id: 1, title: 'Existing Course' }],
@@ -84,6 +86,7 @@ describe('active_course reducer', () => {
         expect(newState.courses[0].id).toBe(1);
         expect(newState.courses[1].id).toBe(2);
     });
+
     test('should not modify courses when SORT_ACTIVE_COURSES is dispatched with an invalid key', () => {
         const initialState = {
             courses: [{ id: 2, title: 'Course 2' }, { id: 1, title: 'Course 1' }],
