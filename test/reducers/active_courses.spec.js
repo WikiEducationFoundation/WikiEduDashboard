@@ -84,6 +84,7 @@ describe('active_course reducer', () => {
         expect(newState.courses[0].id).toBe(1);
         expect(newState.courses[1].id).toBe(2);
     });
+
     test('should not modify courses when SORT_ACTIVE_COURSES is dispatched with an invalid key', () => {
         const initialState = {
             courses: [{ id: 2, title: 'Course 2' }, { id: 1, title: 'Course 1' }],
