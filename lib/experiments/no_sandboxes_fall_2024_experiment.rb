@@ -7,7 +7,7 @@ require_dependency "#{Rails.root}/lib/tag_manager"
 # The first course from a new instructor will get randomly assigned to
 # the experimental condition or the control, until we reach the target
 # number of experiment courses.
-# 
+#
 # During the Fall 2024, we decided to extend the experiment to Spring 2025,
 # and as of September 2024, the code is being modified accordingly. It's
 # already done its work for Fall 2024 new courses.
