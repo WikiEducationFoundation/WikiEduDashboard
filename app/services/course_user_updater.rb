@@ -57,7 +57,7 @@ class CourseUserUpdater
                                                          first_start,
                                                          latest_start)
 
-    update_course_wiki_timeslices_for_deleted_course_users(wikis_and_starts)
+    update_course_wiki_timeslices_that_need_update(wikis_and_starts)
   end
 
   def remove_courses_users(user_ids)
@@ -69,7 +69,7 @@ class CourseUserUpdater
     @article_course_timeslices_for_users = get_article_course_timeslices_for_users(user_ids)
     # Mark course wiki timeslices that needs to be re-proccesed
     wikis_and_starts = get_wiki_and_start_dates_to_reprocess(@article_course_timeslices_for_users)
-    update_course_wiki_timeslices_for_deleted_course_users(wikis_and_starts)
+    update_course_wiki_timeslices_that_need_update(wikis_and_starts)
     # Clean articles courses timeslices
     clean_article_course_timeslices
     # Delete articles courses that were updated only for removed users
@@ -125,9 +125,9 @@ class CourseUserUpdater
   end
 
   # Marks course wiki timeslices as needs_update for those dates when
-  # removed users made some edits
+  # removed/new users made some edits
   # Takes a collection of user ids
-  def update_course_wiki_timeslices_for_deleted_course_users(wikis_and_starts)
+  def update_course_wiki_timeslices_that_need_update(wikis_and_starts)
     return if wikis_and_starts.empty?
 
     # Prepare the list of tuples for SQL
