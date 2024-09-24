@@ -9,7 +9,6 @@ class TaggedCoursesController < ApplicationController
   def articles
     set_page
     set_courses_and_presenter
-    render 'tagged_courses/articles'
   end
 
   def alerts
@@ -26,7 +25,6 @@ class TaggedCoursesController < ApplicationController
     set_page
     set_courses_and_presenter
     load_wiki_experts
-    render 'tagged_courses/programs'
   end
 
   private
@@ -48,15 +46,7 @@ class TaggedCoursesController < ApplicationController
 
   # Loads CoursesUsers records with role 4 and filters by wiki experts, avoiding N+1 queries
   def load_wiki_experts
-    return @wiki_experts if @wiki_experts # Avoid re-loading if already loaded
-
-    course_ids = @courses.pluck(:id)
-    wiki_experts_set = SpecialUsers.special_users[:wikipedia_experts]&.to_set
-
-    @wiki_experts = CoursesUsers
-                    .where(course_id: course_ids, role: 4)
-                    .includes(:user)
-                    .select { |course_user| wiki_experts_set.include?(course_user.user.username) }
-                    .map { |course_user| { course_id: course_user.course_id, username: course_user.user.username } } # rubocop:disable Layout/LineLength
+    @wiki_experts = CoursesUsers.where(course: @courses, user: SpecialUsers.wikipedia_experts,
+                                       role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE)
   end
 end

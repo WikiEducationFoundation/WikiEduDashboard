@@ -8,8 +8,8 @@
       = course.school + "/" + course.term
   %td{:class => "table-link-cell school"}
     %a.course-link{:href => "#{course_slug_path(course.slug)}"}
-      - expert = @wiki_experts.find { |e| e[:course_id] == course.id }
-      = expert ? expert[:username] : "N/A"
+      - expert = @wiki_experts.find { |user| user.course_id == course.id }
+      = expert ? expert.user.username : "N/A"
   - if Features.wiki_ed?
     %td{:class => "table-link-cell"}   
       %a.course-link{:href => "#{course_slug_path(course.slug)}"}
