@@ -1,0 +1,107 @@
+- content_for :before_title, t("#{@presenter.course_string_prefix}.campaign_courses", title: @tag) + ' — '
+
+= render 'nav'
+
+#react_root{data: {slug: @tag}}
+
+.container{style: 'top: 28px'}
+  %section#courses
+    .section-header{style: 'transform: translateX(-40px); width: 110%;'}
+      %h3{style: 'color: #676eb4'}
+        = t("#{@presenter.course_string_prefix}.campaign_courses", title: "Tag: #{@tag}")
+      .sort-select
+        %select.sorts{rel: 'courses'}
+          %option{rel: 'asc', value: 'title'}
+            = t("courses.title")
+          %option{rel: 'asc', value: 'school'}
+            = t("courses.school")
+          %option{rel: 'desc', value: 'revisions'}
+            = t("metrics.revisions")
+          %option{rel: 'desc', value: 'characters'}
+            = t("metrics.word_count")
+          %option{rel: 'desc', value: 'average-words'}
+            = t("metrics.word_count_average")
+          %option{rel: 'desc', value: 'references'}
+            = t("metrics.references_count")
+          %option{rel: 'desc', value: 'views'}
+            = t("metrics.view")
+          %option{rel: 'desc', value: 'students'}
+            = t("users.editors")
+          %option{rel: 'desc', value: 'untrained'}
+            = t("courses.untrained")
+          - unless Features.wiki_ed?
+            %option{rel: 'desc', value: 'creation-date'}
+              = t("courses.creation_date")
+          %option{rel: 'asc', value: 'start-date'}
+            = t("courses.start_date")
+
+    %table.table.table--hoverable.table--sortable{style: 'transform: translateX(-40px);'}
+      %thead
+        %tr
+          %th.sort.sortable{'data-default-order' => 'asc', 'data-sort' => 'title'}
+            = t("#{@presenter.course_string_prefix}.courses")
+            %span.sortable-indicator
+          %th.sort.sortable{style: 'width: 200px;', 'data-default-order' => 'asc', 'data-sort' => 'school'}
+            = t("#{@presenter.course_string_prefix}.school_and_term")
+            %span.sortable-indicator
+          %th{style: 'width: 200px;'}
+            = "Wiki Expert"
+          - if Features.wiki_ed?
+            %th Instructor
+          %th.sort.sortable.desc{style: 'width: 165px;', 'data-default-order' => 'desc', 'data-sort' => 'revisions'}
+            .tooltip-trigger
+              = t('metrics.revisions')
+              %span.sortable-indicator
+              %span.tooltip-indicator
+              .tooltip.dark
+                %p= t('courses.revisions_doc', timeframe: RevisionStat::REVISION_TIMEFRAME)
+          %th.sort.sortable{style: 'width: 172px;', 'data-default-order' => 'desc', 'data-sort' => 'characters'}
+            .tooltip-trigger
+              = t('metrics.word_count')
+              %span.sortable-indicator
+              %span.tooltip-indicator
+              .tooltip.dark
+                %p= course_i18n('word_count_doc')
+          %th.sort.sortable{style: 'width: 172px;', 'data-default-order' => 'desc', 'data-sort' => 'references'}
+            .tooltip-trigger
+              = t('metrics.references_count')
+              %span.sortable-indicator
+              %span.tooltip-indicator
+              .tooltip.dark
+                %p= t('metrics.references_doc')
+          %th.sort.sortable{style: 'width: 125px;', 'data-default-order' => 'desc', 'data-sort' => 'views'}
+            .tooltip-trigger
+              = t('metrics.view')
+              %span.sortable-indicator
+              %span.tooltip-indicator
+              .tooltip.dark
+                %p= t('courses.view_doc')
+          %th.sort.sortable{style: 'width: 200px;', 'data-default-order' => 'desc', 'data-sort' => 'students'}
+            = t('users.editors')
+            %span.sortable-indicator
+          - unless Features.wiki_ed?
+            %th.sort.sortable{'data-default-order' => 'desc', 'data-sort' => 'creation-date', style: 'width: 160px'}
+              = t('courses.creation_date')
+              %span.sortable-indicator
+
+          %th.sort.sortable{style: 'width: 160px;', 'data-default-order' => 'desc', 'data-sort' => 'start-date'}
+            = t('courses.start_date')
+            %span.sortable-indicator
+          
+      %tbody.list
+        - if @search_terms.present?
+          - if @results.count > 1
+            %h4= t('application.search_results.other', search_terms: @search_terms, count: @results.count)
+          -else
+            %h4= t('application.search_results.one', search_terms: @search_terms, count: @results.count)
+          - @results.each do |c|
+            = render 'tagged_courses/course_row', course: c, admin: false, user: false
+        - else
+          - programs = @presenter.courses_by_recent_edits
+          = will_paginate programs
+          - programs.each do |course|
+            - cache [course, locale]  do
+              = render 'tagged_courses/course_row', course: course, admin: false, user: false
+              
+              
+              
