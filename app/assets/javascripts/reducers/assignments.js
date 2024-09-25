@@ -31,7 +31,7 @@ export default function assignments(state = initialState, action) {
       );
 
       if (assignmentExists) {
-        return state; // Return the current state if the assignment already exists
+        return state;
       }
       const updatedAssignments = [...state.assignments, newAssignment];
       return { ...state, assignments: updatedAssignments };
@@ -42,10 +42,7 @@ export default function assignments(state = initialState, action) {
     }
     case UPDATE_ASSIGNMENT: {
       const updatedAssignment = action.data.assignment;
-      // Check if the assignment with the provided ID exists
       const assignmentExists = state.assignments.some(assignment => assignment.id === updatedAssignment.id);
-
-      // If the assignment doesn't exist, return the current state
       if (!assignmentExists) {
         return state;
       }
