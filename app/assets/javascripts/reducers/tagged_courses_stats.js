@@ -22,7 +22,7 @@ export default function taggedCoursesStats(state = initialState, action) {
   switch (action.type) {
     case GET_TAGGED_COURSES_STATS:
       return {
-        ...action.tagged_course_stats.stats,
+        ...action.tagged_courses_stats.stats,
         loading: false
       };
     default:

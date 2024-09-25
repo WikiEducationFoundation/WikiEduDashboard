@@ -14,12 +14,12 @@ const getTaggedCoursesStats = async (slug) => {
   }
 };
 
-export const fetchTaggedCourseStats = slug => async (dispatch) => {
+export const fetchTaggedCoursesStats = slug => async (dispatch) => {
   try {
-    const tagged_course_stats = await getTaggedCoursesStats(slug);
+    const tagged_courses_stats = await getTaggedCoursesStats(slug);
     dispatch({
       type: GET_TAGGED_COURSES_STATS,
-      tagged_course_stats
+      tagged_courses_stats
     });
   } catch (error) {
     dispatch({ type: API_FAIL, data: error });

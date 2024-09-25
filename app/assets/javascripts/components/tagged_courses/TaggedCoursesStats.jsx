@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchTaggedCourseStats } from '@actions/tagged_courses_stats_action';
+import { fetchTaggedCoursesStats } from '@actions/tagged_courses_stats_action';
 import OverviewStat from '../common/OverviewStats/overview_stat';
 import CourseUtils from '../../utils/course_utils';
 import Loading from '../common/loading';
@@ -17,7 +17,7 @@ const TaggedCoursesStats = () => {
     [`${tagged_courses_stats.upload_usage_count}`, I18n.t('metrics.upload_usages_count', { count: tagged_courses_stats.upload_usage_count })]];
 
   useEffect(() => {
-    dispatch(fetchTaggedCourseStats(tag));
+    dispatch(fetchTaggedCoursesStats(tag));
   }, []);
 
   if (tagged_courses_stats.loading) {
