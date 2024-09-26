@@ -12,7 +12,7 @@ describe EmailProcessor do
       From:	Jess Profess <jprof@edu.edu>
       To:	helaine@wikiedu.org
 
-      Hi Helaine. What went wrong with these pages?
+      Hi Helaine. What went wrong with these pages? 🙂
 
       Breastfeeding - fine
       https://en.wikipedia.org/wiki/Breastfeeding
