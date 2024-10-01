@@ -21,12 +21,14 @@ class SelfEnrollmentController < ApplicationController
 
     # Creates the CoursesUsers record
     add_user_to_course
-
     # Make sure the user isn't already enrolled.
     redirect_if_enrollment_failed { return }
 
     # Automatic edits for newly enrolled user
     make_enrollment_edits
+
+    # Alert Wiki Expert if students join a ClassroomProgramCourse before its start date.
+    check_early_student_join
 
     respond_to do |format|
       format.html { redirect_to course_slug_path(@course.slug, enrolled: true) }
@@ -38,6 +40,12 @@ class SelfEnrollmentController < ApplicationController
   end
 
   private
+
+  def check_early_student_join
+    return unless @course.is_a?(ClassroomProgramCourse) && @course.start.to_date > Time.zone.today
+
+    WikiExpertNotificationAlert.new(course: @course)&.send_email
+  end
 
   def respond_to_non_get_request
     return if request.get?
