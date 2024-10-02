@@ -92,6 +92,9 @@ class Assignment < ApplicationRecord
 
   def sandbox_pagename
     URI.decode_www_form_component sandbox_url.gsub("#{wiki.base_url}/wiki/", '')
+  # Fallback for cases where the URL doesn't match URI's requirements
+  rescue ArgumentError
+    sandbox_url.gsub("#{wiki.base_url}/wiki/", '')
   end
 
   def bibliography_pagename
