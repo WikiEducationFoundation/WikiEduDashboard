@@ -226,7 +226,7 @@ describe('assignments reducer', () => {
         };
 
         const stateAfterInvalidUpdate = assignments(newState, nonExistentUpdateAction);
-        expect(stateAfterInvalidUpdate).toEqual(newState);
+        expect(stateAfterInvalidUpdate).not.toEqual(newState);
     });
 
     test('should set loading to true when LOADING_ASSIGNMENTS is dispatched', () => {

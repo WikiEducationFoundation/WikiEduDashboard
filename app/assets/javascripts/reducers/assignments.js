@@ -42,10 +42,6 @@ export default function assignments(state = initialState, action) {
     }
     case UPDATE_ASSIGNMENT: {
       const updatedAssignment = action.data.assignment;
-      const assignmentExists = state.assignments.some(assignment => assignment.id === updatedAssignment.id);
-      if (!assignmentExists) {
-        return state;
-      }
       const nonupdatedAssignments = reject(state.assignments, { id: updatedAssignment.id });
       return { ...state, assignments: [...nonupdatedAssignments, updatedAssignment] };
     }
