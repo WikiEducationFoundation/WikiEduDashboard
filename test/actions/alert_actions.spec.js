@@ -12,9 +12,7 @@ describe('AlertActions', () => {
   };
   test('submits and creates an alert, then resets it', async () => {
     expect(reduxStore.getState().needHelpAlert).toEqual(initialState);
-
     sinon.stub($, 'ajax').yieldsTo('success', { success: true });
-
     await reduxStore.dispatch(actions.submitNeedHelpAlert({}));
     expect(reduxStore.getState().needHelpAlert).not.toEqual(expectedState);
     await reduxStore.dispatch(actions.submitNeedHelpAlert(messageData));
