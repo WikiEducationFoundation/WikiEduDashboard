@@ -53,7 +53,7 @@
     "no-prototype-builtins": 0,
     "global-require": 0,
     "no-restricted-globals": 0,
-    "indent": 0,
+    "indent": 2,
     "function-paren-newline": 0,
     "react/no-find-dom-node": 0,
     "object-curly-newline": 0,

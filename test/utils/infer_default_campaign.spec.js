@@ -25,10 +25,10 @@ describe('Matching campaigns available', () => {
     });
 
     test('April 2022 - should return Spring 2022', () => {
-        start_date = new Date(2022, 3, 30);
-        const result = inferDefaultCampaign(campaigns, start_date);
-        expect(result).toStrictEqual({ id: 1, title: 'Spring 2022', slug: 'spring_2022' });
-      });
+      start_date = new Date(2022, 3, 30);
+      const result = inferDefaultCampaign(campaigns, start_date);
+      expect(result).toStrictEqual({ id: 1, title: 'Spring 2022', slug: 'spring_2022' });
+    });
   });
 
   describe('May to July', () => {
@@ -39,10 +39,10 @@ describe('Matching campaigns available', () => {
     });
 
     test('July 2022 - should return Summer 2022', () => {
-        start_date = new Date(2022, 6, 31);
-        const result = inferDefaultCampaign(campaigns, start_date);
-        expect(result).toStrictEqual({ id: 2, title: 'Summer 2022', slug: 'summer_2022' });
-      });
+      start_date = new Date(2022, 6, 31);
+      const result = inferDefaultCampaign(campaigns, start_date);
+      expect(result).toStrictEqual({ id: 2, title: 'Summer 2022', slug: 'summer_2022' });
+    });
   });
 
   describe('August to November', () => {
@@ -53,9 +53,9 @@ describe('Matching campaigns available', () => {
     });
 
     test('November 2022 - should return Fall 2022', () => {
-        start_date = new Date(2022, 10, 30);
-        const result = inferDefaultCampaign(campaigns, start_date);
-        expect(result).toStrictEqual({ id: 3, title: 'Fall 2022', slug: 'fall_2022' });
-      });
+      start_date = new Date(2022, 10, 30);
+      const result = inferDefaultCampaign(campaigns, start_date);
+      expect(result).toStrictEqual({ id: 3, title: 'Fall 2022', slug: 'fall_2022' });
+    });
   });
 });

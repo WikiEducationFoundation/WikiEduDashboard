@@ -157,26 +157,26 @@ describe('getFirstUpdateMessage', () => {
     'returns an array with the first update information',
     () => {
       const course = {
-            id: 1,
-            title: 'My Awesome Course',
-            flags: {
-              academic_system: null,
-              format: '',
-              first_update: {
-                enqueued_at: '2021-11-30T13:30:14.148Z',
-                queue_name: 'medium_update',
-                queue_latency: 0.3774135112762451
-              },
-            },
-            update_until: '2022-09-29T22:00:00.000Z',
-            updates: {
-              average_delay: null,
-              last_update: null
-            },
-            survey_notifications: [],
-            passcode_required: false,
-            passcode: 'omupyzac',
-            canUploadSyllabus: true,
+        id: 1,
+        title: 'My Awesome Course',
+        flags: {
+          academic_system: null,
+          format: '',
+          first_update: {
+            enqueued_at: '2021-11-30T13:30:14.148Z',
+            queue_name: 'medium_update',
+            queue_latency: 0.3774135112762451
+          },
+        },
+        update_until: '2022-09-29T22:00:00.000Z',
+        updates: {
+          average_delay: null,
+          last_update: null
+        },
+        survey_notifications: [],
+        passcode_required: false,
+        passcode: 'omupyzac',
+        canUploadSyllabus: true,
       };
 
       const result = getFirstUpdateMessage(course);
@@ -187,21 +187,21 @@ describe('getFirstUpdateMessage', () => {
     'if no first update data, still returns array with that information',
     () => {
       const course = {
-            id: 1,
-            title: 'My Awesome Course',
-            flags: {
-              academic_system: null,
-              format: ''
-            },
-            update_until: '2022-09-29T22:00:00.000Z',
-            updates: {
-              average_delay: null,
-              last_update: null
-            },
-            survey_notifications: [],
-            passcode_required: false,
-            passcode: 'omupyzac',
-            canUploadSyllabus: true,
+        id: 1,
+        title: 'My Awesome Course',
+        flags: {
+          academic_system: null,
+          format: ''
+        },
+        update_until: '2022-09-29T22:00:00.000Z',
+        updates: {
+          average_delay: null,
+          last_update: null
+        },
+        survey_notifications: [],
+        passcode_required: false,
+        passcode: 'omupyzac',
+        canUploadSyllabus: true,
       };
 
       const result = getFirstUpdateMessage(course);
@@ -514,7 +514,7 @@ describe('getUpdateLogs', () => {
       const result = getUpdateLogs(course);
       expect(result.length).toBe(4);
     }
-    );
+  );
   test(
     'if no last update data, returns an empty array',
     () => {

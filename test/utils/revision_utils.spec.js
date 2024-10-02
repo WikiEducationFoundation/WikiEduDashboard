@@ -40,29 +40,29 @@ describe('gets references count for ', () => {
   test('first revision', () => {
     const referencesAdded = getReferencesAdded(ORES_OBJECT, enwikiRevisionParent);
     expect(referencesAdded).toBe(10);
-   });
+  });
   test('revision with parent', () => {
     const referencesAdded = getReferencesAdded(ORES_OBJECT, enwikiRevision);
     expect(referencesAdded).toBe(10);
-   });
+  });
   test('revision under wikidata', () => {
     const referencesAdded = getReferencesAdded(ORES_OBJECT, wikidataRevision);
     expect(referencesAdded).toBe(2);
-   });
+  });
   test('revision with no ORES data', () => {
     const referencesAdded = getReferencesAdded(ORES_OBJECT, enwikiRevisionNoORES);
     expect(referencesAdded).not.toBeDefined();
-   });
+  });
   test('revision with parent having no ORES data', () => {
     const referencesAdded = getReferencesAdded(ORES_OBJECT, wikidataRevisionParent);
     expect(referencesAdded).not.toBeDefined();
-   });
+  });
   test('first revision having no references', () => {
     const referencesAdded = getReferencesAdded(ORES_OBJECT, enwikiFirstRevisionNoReferences);
     expect(referencesAdded).toBe(0);
-   });
+  });
   test('revision which added 0 references', () => {
     const referencesAdded = getReferencesAdded(ORES_OBJECT, frwikiRevision);
     expect(referencesAdded).toBe(0);
-   });
+  });
 });
