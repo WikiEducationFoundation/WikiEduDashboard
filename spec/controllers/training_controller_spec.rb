@@ -101,46 +101,6 @@ describe TrainingController, type: :request do
     end
   end
 
-  describe '#reload' do
-    context 'for all modules' do
-      let(:subject) { get '/reload_trainings', params: { module: 'all' } }
-
-      it 'returns the result upon success' do
-        subject
-        expect(response.body).to include('Success!')
-      end
-
-      it 'displays an error message upon failure' do
-        allow(TrainingModule).to receive(:load_all)
-          .and_raise(TrainingBase::DuplicateSlugError, 'oh noes!')
-        subject
-        expect(response.body).to include('oh noes!')
-      end
-    end
-
-    context 'for a single module, from wiki' do
-      before do
-        TrainingModule.delete_all
-        TrainingSlide.delete_all
-      end
-
-      let(:subject) { get '/reload_trainings', params: { module: 'plagiarism' } }
-
-      it 'returns the result upon success' do
-        allow(Features).to receive(:wiki_trainings?).and_return(true)
-        VCR.use_cassette 'wiki_trainings' do
-          subject
-        end
-        expect(response.body).to include('Success!')
-      end
-
-      it 'displays an error message if the module does not exist' do
-        get '/reload_trainings', params: { module: 'image-and-medium' }
-        expect(response.body).to include('No module')
-      end
-    end
-  end
-
   describe '#find' do
     subject { get "/find_training_module/#{module_id}" }
 
