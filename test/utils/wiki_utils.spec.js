@@ -65,8 +65,8 @@ describe('trackedWikisMaker', () => {
           project: 'wikipedia'
         }]
       };
-  const result = trackedWikisMaker(course);
-  expect(result).toStrictEqual([{ label: 'en.wikipedia.org', value: '{"language":"en","project":"wikipedia"}' }, { label: 'www.wikipedia.org', value: '{"language":"www","project":"wikipedia"}' }]);
+      const result = trackedWikisMaker(course);
+      expect(result).toStrictEqual([{ label: 'en.wikipedia.org', value: '{"language":"en","project":"wikipedia"}' }, { label: 'www.wikipedia.org', value: '{"language":"www","project":"wikipedia"}' }]);
     }
   );
   test(

@@ -18,7 +18,7 @@ describe('SettingsActions', () => {
   beforeEach(() => {
     sinon.stub(requestModule, 'default').resolves(
       { status: 200, ok: true, json: sinon.fake.returns({ spam: 'eggs' }) }
-      );
+    );
   });
 
   afterEach(() => {
@@ -44,10 +44,10 @@ describe('upgradeAdmin', () => {
     sinon.stub(requestModule, 'default')
       .onCall(0).resolves(
         { status: 200, ok: true, json: sinon.fake.returns({}) }
-        )
+      )
       .onCall(1).resolves(
         { status: 200, ok: true, json: sinon.fake.returns({ spam: 'eggs' }) }
-        );
+      );
   });
 
   afterEach(() => {
@@ -94,11 +94,11 @@ describe('downgradeAdmin', () => {
   beforeEach(() => {
     cannedResponse = { spam: 'eggs' };
     sinon.stub(requestModule, 'default')
-    .onCall(0).resolves(
-      { status: 200, ok: true, json: sinon.fake.returns({}) }
+      .onCall(0).resolves(
+        { status: 200, ok: true, json: sinon.fake.returns({}) }
       )
-    .onCall(1).resolves(
-      { status: 200, ok: true, json: sinon.fake.returns({ spam: 'eggs' }) }
+      .onCall(1).resolves(
+        { status: 200, ok: true, json: sinon.fake.returns({ spam: 'eggs' }) }
       );
   });
 
