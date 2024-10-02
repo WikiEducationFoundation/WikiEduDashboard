@@ -24,7 +24,7 @@ describe('users reducer', () => {
     deepFreeze(initialState);
 
     const action = (type, users_array) => ({
-      type: type,
+      type,
       data: {
         course: {
           users: users_array

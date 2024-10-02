@@ -114,7 +114,7 @@ describe('downgradeAdmin', () => {
         data: {
           revoking: {
             status: true,
-            username: username,
+            username,
           },
         },
       },
@@ -135,7 +135,7 @@ describe('downgradeAdmin', () => {
         data: {
           revoking: {
             status: false,
-            username: username,
+            username,
           },
         },
       }
