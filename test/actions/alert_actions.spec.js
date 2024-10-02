@@ -3,8 +3,9 @@ import '../testHelper';
 
 describe('AlertActions', () => {
   const initialState = { submitting: false, created: false };
+  const expectedState = { submitting: false, created: true };
   const expectedNewState = { submitting: true, created: false };
-    const messageData = {
+  const messageData = {
     target_user_id: 2,
     message: 'new Message',
     course_id: 1
