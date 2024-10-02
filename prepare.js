@@ -1,4 +1,5 @@
 /* eslint no-console: ["error", { allow: ["log"] }] */
+let start = process.hrtime();
 
 function elapsed(hrtime) {
   const seconds = (hrtime[0] + (hrtime[1] / 1e9)).toFixed(3);
@@ -6,7 +7,6 @@ function elapsed(hrtime) {
   return seconds;
 }
 
-let start = process.hrtime();
 const execSync = require('child_process').execSync;
 const config = require('./config');
 

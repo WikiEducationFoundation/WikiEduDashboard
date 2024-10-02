@@ -20,7 +20,7 @@
     "no-alert": 0,
     "new-cap": [2, { "capIsNew": false }],
     "no-else-return": [2, { "allowElseIf": true }],
-    "no-use-before-define": 0,
+    "no-use-before-define": 2,
     "no-trailing-spaces": 2,
     "no-unused-vars": [2, { "argsIgnorePattern": "^_", "ignoreRestSiblings": true }],
     # App is using html from an outside source (Wikipedia, eg. for training slides, articles), so
