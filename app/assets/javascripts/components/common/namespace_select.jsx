@@ -22,9 +22,32 @@ const NamespaceSelect = (props) => {
   }, [props.namespaces]);
 
   useEffect(() => {
+    // eslint-disable-next-line no-use-before-define
     updateNamespacesFromWikis();
+    // eslint-disable-next-line no-use-before-define
     updateOptionsFromWikis();
   }, [props.wikis]);
+
+  const updateNamespaces = (namespaces) => {
+    props.onChange(namespaces);
+  };
+
+  if (props.readOnly) {
+    const lastIndex = props.namespaces.length - 1;
+
+    const namespaceList = map(props.namespaces, (wiki_ns, index) => {
+      const comma = (index !== lastIndex) ? ', ' : '';
+      const wiki = wiki_ns.split('-')[0];
+      const namespace = wiki_ns.split('-')[2];
+      const label = wikiNamespaceLabel(wiki, namespace);
+      return <span key={wiki_ns}>{label}{comma}</span>;
+    });
+    return (
+      <>
+        {namespaceList}
+      </>
+    );
+  }
 
   // Filters currently selected namespaces according to tracked wikis
   // There shouldn't be any tracked namespace without corresponding tracked wiki
@@ -39,7 +62,7 @@ const NamespaceSelect = (props) => {
         return wiki_ns.split('-')[0] === domain;
       });
     }).reduce((a, b) => a.concat(b));
-  updateNamespaces(updated_namespaces);
+    updateNamespaces(updated_namespaces);
   };
 
   // Updates options according to tracked wikis
@@ -65,27 +88,6 @@ const NamespaceSelect = (props) => {
     updateNamespaces(tracked_namespaces);
   };
 
-  const updateNamespaces = (namespaces) => {
-    props.onChange(namespaces);
-  };
-
-  if (props.readOnly) {
-    const lastIndex = props.namespaces.length - 1;
-
-    const namespaceList = map(props.namespaces, (wiki_ns, index) => {
-      const comma = (index !== lastIndex) ? ', ' : '';
-      const wiki = wiki_ns.split('-')[0];
-      const namespace = wiki_ns.split('-')[2];
-      const label = wikiNamespaceLabel(wiki, namespace);
-      return <span key={wiki_ns}>{label}{comma}</span>;
-    });
-    return (
-      <>
-        {namespaceList}
-      </>
-    );
-  }
-
   return (
     <>
       <label id="namespace-label" htmlFor="namespace_select" className="text-input-component__label inline-label">
@@ -94,7 +96,7 @@ const NamespaceSelect = (props) => {
         </strong>
       </label>
       <div className="tooltip-trigger">
-        <img src ="/assets/images/info.svg" alt = "tooltip default logo" />
+        <img src="/assets/images/info.svg" alt="tooltip default logo" />
         <div className="tooltip large dark">
           <p>
             {I18n.t('namespace.tracked_namespaces_info')}
@@ -102,12 +104,12 @@ const NamespaceSelect = (props) => {
         </div>
       </div>
       <Select
-        id = "namespace_select"
-        value = {selectedNamespaces}
-        onChange = {handleChange}
-        options = {options}
+        id="namespace_select"
+        value={selectedNamespaces}
+        onChange={handleChange}
+        options={options}
         styles={props.styles}
-        isMulti = {true}
+        isMulti={true}
         isClearable={false}
         aria-labelledby="namespace-label"
       />

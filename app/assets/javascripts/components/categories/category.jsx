@@ -36,8 +36,8 @@ const Category = ({ course, category, remove, editable }) => {
     lastUpdateMessage = !beenUpdated
       ? '---'
       : `${I18n.t('metrics.last_update')}: ${formatDistanceToNow(lastUpdate, {
-          addSuffix: true,
-        })}`;
+        addSuffix: true,
+      })}`;
   }
   return (
     <>
@@ -88,8 +88,8 @@ const Category = ({ course, category, remove, editable }) => {
             category={category}
             course={course}
             lastUpdateMessage={`${I18n.t(
-            'metrics.last_articles_update'
-          )}: ${formatDistanceToNow(lastUpdate, { addSuffix: true })}`}
+              'metrics.last_articles_update'
+            )}: ${formatDistanceToNow(lastUpdate, { addSuffix: true })}`}
           />, document.body)
       )}
     </>

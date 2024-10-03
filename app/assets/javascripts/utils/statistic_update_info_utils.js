@@ -36,7 +36,7 @@ const getLastUpdateMessage = (course) => {
 
 const nextUpdateExpected = (course) => {
   if (!course.flags.update_logs) {
-   return formatDistanceToNow(firstUpdateTime(course.flags.first_update), { addSuffix: true });
+    return formatDistanceToNow(firstUpdateTime(course.flags.first_update), { addSuffix: true });
   }
   if (lastSuccessfulUpdateMoment(course.flags.update_logs) === null) {
     return 'unknown';
@@ -45,19 +45,6 @@ const nextUpdateExpected = (course) => {
   const averageDelay = course.updates.average_delay || 0;
   const nextUpdateTime = addSeconds(lastUpdateMoment, averageDelay);
   return formatDistanceToNow(nextUpdateTime, { addSuffix: true });
-};
-
-
-const getUpdateMessage = (course) => {
-  if (!course.flags.update_logs) {
-    return getFirstUpdateMessage(course);
-  }
-  const successfulUpdate = lastSuccessfulUpdateMoment(course.flags.update_logs);
-  if (course.flags.update_logs && successfulUpdate !== null) {
-    const ans = getLastUpdateMessage(course);
-    return ans;
-  }
-  return [`${I18n.t('metrics.no_update')}`, '', ''];
 };
 
 const getFirstUpdateMessage = (course) => {
@@ -74,6 +61,18 @@ const getFirstUpdateMessage = (course) => {
     lastUpdateMessage = `${I18n.t('metrics.no_update')}`;
   }
   return [lastUpdateMessage, nextUpdateMessage, isNextUpdateAfter];
+};
+
+const getUpdateMessage = (course) => {
+  if (!course.flags.update_logs) {
+    return getFirstUpdateMessage(course);
+  }
+  const successfulUpdate = lastSuccessfulUpdateMoment(course.flags.update_logs);
+  if (course.flags.update_logs && successfulUpdate !== null) {
+    const ans = getLastUpdateMessage(course);
+    return ans;
+  }
+  return [`${I18n.t('metrics.no_update')}`, '', ''];
 };
 
 const getLastUpdateSummary = (course) => {

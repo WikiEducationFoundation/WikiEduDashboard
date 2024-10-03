@@ -11,28 +11,28 @@ export const inferDefaultCampaign = (campaigns, course_start) => {
   switch (month) {
     case 11:
       term = `spring_${year + 1}`;
-    break;
+      break;
 
     case 0: case 1: case 2: case 3:
       term = `spring_${year}`;
-    break;
+      break;
 
     case 4: case 5: case 6:
       term = `summer_${year}`;
-    break;
+      break;
 
     case 7: case 8: case 9: case 10:
       term = `fall_${year}`;
-    break;
+      break;
 
     default:
       term = '';
-    break;
+      break;
   }
 
   const defaultCampaign = campaigns.filter(campaign => campaign.slug === term);
-    if (defaultCampaign.length > 0) {
-      return defaultCampaign[0];
-    }
+  if (defaultCampaign.length > 0) {
+    return defaultCampaign[0];
+  }
   return null;
 };

@@ -23,8 +23,8 @@ export const fetchRecentEdits = (opts = {}) => (dispatch) => {
             data: resp,
           }
         }))
-        .catch(response => (dispatch({ type: API_FAIL, data: response })))
+      .catch(response => (dispatch({ type: API_FAIL, data: response })))
   );
 };
 
-export const sortRecentEdits = key => ({ type: SORT_RECENT_EDITS, key: key });
+export const sortRecentEdits = key => ({ type: SORT_RECENT_EDITS, key });

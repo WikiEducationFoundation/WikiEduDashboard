@@ -31,6 +31,7 @@ const TextAreaInput = ({
 
   useEffect(() => {
     if (wysiwyg) {
+      // eslint-disable-next-line no-use-before-define
       loadTinyMCE();
     }
   }, [wysiwyg]);

@@ -26,14 +26,14 @@ const WikidataOverviewStats = ({ statistics, isCourseOverview }) => {
             <OverviewStat
               id="merged"
               className="stat-display__value-small"
-              stat = {statistics['merged to']}
+              stat={statistics['merged to']}
               statMsg={I18n.t('metrics.merged')}
               renderZero={true}
             />
             <OverviewStat
               id="interwiki-links"
               className="stat-display__value-small"
-              stat = {statistics['interwiki links added']}
+              stat={statistics['interwiki links added']}
               statMsg={I18n.t('metrics.interwiki_links_added')}
               renderZero={true}
             />
@@ -227,7 +227,7 @@ const WikidataOverviewStats = ({ statistics, isCourseOverview }) => {
         </div>
       </div>
     </div>
-    );
+  );
 };
 
 WikidataOverviewStats.propTypes = {
@@ -235,4 +235,4 @@ WikidataOverviewStats.propTypes = {
   isCourseOverview: PropTypes.bool
 };
 
-  export default WikidataOverviewStats;
+export default WikidataOverviewStats;

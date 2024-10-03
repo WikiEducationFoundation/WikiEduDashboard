@@ -30,6 +30,7 @@ import CourseApproval from './course_approval';
 const Course = withRouter((props) => {
   useEffect(() => {
     // Fetch all the data needed to render a course page
+    // eslint-disable-next-line no-use-before-define
     const courseSlug = getCourseSlug();
     props.fetchCourse(courseSlug);
     props.fetchUsers(courseSlug);

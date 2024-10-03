@@ -20,7 +20,7 @@ export default function SpringBlock({
         setAnimating(false);
       }}
       onStartImmediate={() => {
-          setAnimating(true);
+        setAnimating(true);
       }}
     >
       <li>

@@ -237,10 +237,10 @@ const TrainingSlideHandler = () => {
     );
   }
 
- let sourceLink;
- if (training.currentSlide.wiki_page) {
-   sourceLink = <span><a href={`https://meta.wikimedia.org/wiki/${training.currentSlide.wiki_page}`} target="_blank">wiki source</a></span>;
- }
+  let sourceLink;
+  if (training.currentSlide.wiki_page) {
+    sourceLink = <span><a href={`https://meta.wikimedia.org/wiki/${training.currentSlide.wiki_page}`} target="_blank">wiki source</a></span>;
+  }
 
 
   const toggleMenuOpen_FC = (e) => {

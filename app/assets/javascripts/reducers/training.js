@@ -24,11 +24,9 @@ const getCurrentSlide = (state) => {
   return state.currentSlide;
 };
 
-const getPreviousSlide = (state) => {
-  return getSlideRelativeToCurrent(state, { position: 'previous' });
-};
-const getNextSlide = (state) => {
-  return getSlideRelativeToCurrent(state, { position: 'next' });
+const desiredSlideIsCurrentSlide = (opts, currentSlide, slides) => {
+  if (!slides || !slides.length) { return; }
+  return (opts.position === 'next' && currentSlide.id === slides.length) || (opts.position === 'previous' && currentSlide.id === 1);
 };
 
 const getSlideRelativeToCurrent = (state, opts) => {
@@ -39,9 +37,11 @@ const getSlideRelativeToCurrent = (state, opts) => {
   return state.module.slides[newIndex];
 };
 
-const desiredSlideIsCurrentSlide = (opts, currentSlide, slides) => {
-  if (!slides || !slides.length) { return; }
-  return (opts.position === 'next' && currentSlide.id === slides.length) || (opts.position === 'previous' && currentSlide.id === 1);
+const getPreviousSlide = (state) => {
+  return getSlideRelativeToCurrent(state, { position: 'previous' });
+};
+const getNextSlide = (state) => {
+  return getSlideRelativeToCurrent(state, { position: 'next' });
 };
 
 const update = (state) => {

@@ -38,13 +38,13 @@ export default function users(state = initialState, action) {
       // Sort the 'user_list' array based on the 'sort_key'
       user_list = sortByKey(user_list, sort_key, isReversed, SORT_DESCENDING[sort_key]);
 
-    return {
-      ...state,
-      users: user_list.newModels, // Update 'users' with the sorted user list.
-      isLoaded: true,
-      lastRequestTimestamp: Date.now()
-    };
-  }
+      return {
+        ...state,
+        users: user_list.newModels, // Update 'users' with the sorted user list.
+        isLoaded: true,
+        lastRequestTimestamp: Date.now()
+      };
+    }
     case ADD_USER:
     case REMOVE_USER:
       return {

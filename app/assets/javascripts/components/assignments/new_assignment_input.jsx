@@ -11,11 +11,11 @@ const NewAssignmentInput = ({
     <form
       onSubmit={assign}
       style={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'flex-end',
-      gap: '5px'
-    }}
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-end',
+        gap: '5px'
+      }}
     >
       <textarea
         placeholder={I18n.t('assignments.add_available_placeholder')}
@@ -24,17 +24,17 @@ const NewAssignmentInput = ({
         onChange={handleChangeTitle}
         rows={`${articles <= 1 ? 1 : 3}`}
         style={{
-        padding: '10px',
-        width: '100%',
-        minWidth: '275px',
-      }}
+          padding: '10px',
+          width: '100%',
+          minWidth: '275px',
+        }}
       />
       <button
         className="button border"
         type="submit"
         style={{
-        width: 'max-content',
-      }}
+          width: 'max-content',
+        }}
       >
         {multipleArticles ? I18n.t('assignments.label_all') : I18n.t('assignments.label')}
       </button>
@@ -45,7 +45,7 @@ const NewAssignmentInput = ({
         trackedWikis={trackedWikis}
       />
     </form>
-);
+  );
 };
 
 export default NewAssignmentInput;

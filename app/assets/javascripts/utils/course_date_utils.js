@@ -15,6 +15,23 @@ import {
 } from 'date-fns';
 import { toDate } from './date_utils';
 
+function* range(left, right, inclusive) {
+  const ascending = left < right;
+
+  let endOfRange;
+  if (!inclusive) {
+    endOfRange = right;
+  } else if (ascending) {
+    endOfRange = right + 1;
+  } else {
+    endOfRange = right - 1;
+  }
+
+  for (let i = left; ascending ? i < endOfRange : i > endOfRange; ascending ? i += 1 : i -= 1) {
+    yield i;
+  }
+}
+
 const CourseDateUtils = {
   isDateValid(date) {
     return /^20\d{2}-\d{2}-\d{2}/.test(date) && isValid(toDate(date));
@@ -203,21 +220,6 @@ const CourseDateUtils = {
   }
 };
 
-function* range(left, right, inclusive) {
-  const ascending = left < right;
 
-  let endOfRange;
-  if (!inclusive) {
-    endOfRange = right;
-  } else if (ascending) {
-    endOfRange = right + 1;
-  } else {
-    endOfRange = right - 1;
-  }
-
-  for (let i = left; ascending ? i < endOfRange : i > endOfRange; ascending ? i += 1 : i -= 1) {
-    yield i;
-  }
-}
 
 export default CourseDateUtils;

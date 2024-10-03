@@ -55,7 +55,7 @@ export const fetchWizardPanels = wizardId => (dispatch, getState) => {
 
   return fetchWizardPanelsPromise(wizardId)
     .then((data) => {
-      dispatch({ type: RECEIVE_WIZARD_PANELS, extraPanels: data, course: course });
+      dispatch({ type: RECEIVE_WIZARD_PANELS, extraPanels: data, course });
       // Using a 0 timeout here gives the browser a chance
       // to re-render the new off-screen panels before the
       // advance to the next slide and helps ensure a smooth
@@ -63,6 +63,11 @@ export const fetchWizardPanels = wizardId => (dispatch, getState) => {
       setTimeout(dispatch, 0, { type: WIZARD_ADVANCE });
     })
     .catch(data => dispatch({ type: API_FAIL, data }));
+};
+
+const getWizardKey = (state) => {
+  const assignmentOptions = state.assignmentOptions;
+  return find(assignmentOptions, option => option.selected).key;
 };
 
 export const advanceWizard = () => (dispatch, getState) => {
@@ -122,11 +127,6 @@ const submitWizardPromise = async (courseSlug, wizardId, wizardOutput) => {
     throw response;
   }
   return response.json();
-};
-
-const getWizardKey = (state) => {
-  const assignmentOptions = state.assignmentOptions;
-  return find(assignmentOptions, option => option.selected).key;
 };
 
 const getWizardOutput = (state) => {

@@ -109,12 +109,12 @@ export const canUserCreateAccount = async () => {
 
   // cancreateaccounterror is present if the user cannot create an account
   // looks something like this
-//   {
-//     "code": "blocked",
-//     "type": "error",
-//     “message”: "blockedtext”,
-//     "params": [] -> contains actual error message. Is an array of strings.
-//   }
+  //   {
+  //     "code": "blocked",
+  //     "type": "error",
+  //     “message”: "blockedtext”,
+  //     "params": [] -> contains actual error message. Is an array of strings.
+  //   }
 
   return !data.query.userinfo.cancreateaccounterror;
 };

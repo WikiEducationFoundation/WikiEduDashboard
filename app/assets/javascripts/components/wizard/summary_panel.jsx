@@ -73,9 +73,9 @@ const SummaryPanel = (props) => {
 };
 SummaryPanel.displayName = 'SummaryPanel';
 SummaryPanel.propTypes = {
-    courseId: PropTypes.string,
-    course: PropTypes.object.isRequired,
-    panels: PropTypes.array.isRequired
-  };
+  courseId: PropTypes.string,
+  course: PropTypes.object.isRequired,
+  panels: PropTypes.array.isRequired
+};
 
 export default withRouter(SummaryPanel);

@@ -1,3 +1,4 @@
+/* eslint-disable object-shorthand */
 //--------------------------------------------------------
 // Vendor Requirements [imports]
 //--------------------------------------------------------
@@ -256,7 +257,7 @@ const Survey = {
       e.preventDefault();
       const data = _context.processQuestionGroupData($(this).serializeArray());
       return fetch(url, {
-        method: method,
+        method,
         body: JSON.stringify(data),
         credentials: 'include',
         headers: {
@@ -313,13 +314,13 @@ const Survey = {
             answerGroup[answerId] = val;
           }
         } else if (value !== '0') { // Multi-Select (Checkbox)
-            if (typeof answerGroup[answerId] !== 'undefined') {
-              answerGroup[answerId][answerKey].push('0');
-              answerGroup[answerId][answerKey].push(value);
-            } else {
-              answerText[answerKey] = ['0', value];
-              answerGroup[answerId] = answerText;
-            }
+          if (typeof answerGroup[answerId] !== 'undefined') {
+            answerGroup[answerId][answerKey].push('0');
+            answerGroup[answerId][answerKey].push(value);
+          } else {
+            answerText[answerKey] = ['0', value];
+            answerGroup[answerId] = answerText;
+          }
         }
       } else {
         _postData[name] = value;

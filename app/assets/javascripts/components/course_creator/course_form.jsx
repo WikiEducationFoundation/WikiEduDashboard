@@ -122,7 +122,7 @@ const CourseForm = (props) => {
         <CreatableInput
           id="role_description"
           onChange={({ value }) =>
-        props.updateCourseAction('role_description', value)
+            props.updateCourseAction('role_description', value)
       }
           label={I18n.t('courses.creator.role_description')}
           placeholder={I18n.t('courses.creator.role_description_placeholder')}
@@ -260,7 +260,7 @@ const CourseForm = (props) => {
           placeholder={CourseUtils.i18n(
             'creator.course_description_placeholder',
             props.stringPrefix
-            )}
+          )}
         />
         {roleDescription}
         {taSupportCheckbox}

@@ -44,6 +44,7 @@ const NewsPopoverContent = ({ createNews }) => {
   // Update the newsCreatedTime array whenever the newsContentList changes
   useEffect(() => {
     newsContentList.forEach((news, index) => {
+      // eslint-disable-next-line no-use-before-define
       updateNewsCreationTime(index, formatRelativeTime(news.created_at));
     });
   }, [newsContentList]);

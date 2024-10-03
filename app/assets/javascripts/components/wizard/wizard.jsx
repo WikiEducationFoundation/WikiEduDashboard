@@ -16,7 +16,7 @@ import { isValid } from '../../selectors';
 const persist = function (goToWizardFunc) {
   window.onbeforeunloadcache = window.onbeforeunload;
   window.onbeforeunload = function () {
-      return 'Data will be lost if you leave/refresh the page, are you sure?';
+    return 'Data will be lost if you leave/refresh the page, are you sure?';
   };
   window.history.replaceState({ index: 0 }, 'wizard', '#step1'); // Initial States
   document.title += ' — Step 1';
@@ -29,8 +29,8 @@ const persist = function (goToWizardFunc) {
 };
 
 const unloadEvents = function () {
-    window.onpopstate = null;
-    window.onbeforeunload = window.onbeforeunloadcache;
+  window.onpopstate = null;
+  window.onbeforeunload = window.onbeforeunloadcache;
 };
 
 const Wizard = createReactClass({

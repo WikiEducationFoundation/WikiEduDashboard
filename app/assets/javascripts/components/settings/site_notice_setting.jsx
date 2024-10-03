@@ -13,7 +13,7 @@ const SiteNoticeSetting = () => {
   const siteNotice = useSelector(state => state.settings.siteNotice);
 
   const keys = {
-      current_site_notice: { label: 'Current Site Notice' }
+    current_site_notice: { label: 'Current Site Notice' }
   };
   const settingRow = (
     <tr key="default_campaign_setting">

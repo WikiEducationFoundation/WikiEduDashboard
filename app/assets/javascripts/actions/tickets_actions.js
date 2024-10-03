@@ -62,7 +62,7 @@ const createReplyRecord = (body, status) => {
     body: JSON.stringify({ ...body, read: true, status }),
     method: 'POST'
   })
-  .then(response => response.json());
+    .then(response => response.json());
 };
 
 export const createReply = (body, status, bcc_to_salesforce) => async (dispatch) => {
@@ -102,7 +102,7 @@ export const readAllMessages = ticket => async (dispatch) => {
 
 const fetchSomeTickets = async (dispatch, page, searchQuery, batchSize = 100) => {
   const offset = batchSize * page;
-  let paramsObj = { limit: batchSize, offset: offset };
+  let paramsObj = { limit: batchSize, offset };
   // Initial display => TicketDispenser
   let path = '/td/tickets';
   // if at least one search query value is not-empty => search in DB
@@ -177,19 +177,19 @@ export const deleteNotePromise = async (id) => {
 };
 
 export const deleteNote = id => (dispatch) => {
-    deleteNotePromise(id)
-      .then(() => {
-        dispatch({ type: MESSAGE_KIND_NOTE_DELETE, id });
-        dispatch({
-          type: ADD_NOTIFICATION,
-          notification: {
-            message: 'Note Deleted Successfully',
-            type: 'success',
-            closable: true
-          }
-        });
-      })
-      .catch(response => (dispatch({ type: API_FAIL, data: response })));
+  deleteNotePromise(id)
+    .then(() => {
+      dispatch({ type: MESSAGE_KIND_NOTE_DELETE, id });
+      dispatch({
+        type: ADD_NOTIFICATION,
+        notification: {
+          message: 'Note Deleted Successfully',
+          type: 'success',
+          closable: true
+        }
+      });
+    })
+    .catch(response => (dispatch({ type: API_FAIL, data: response })));
 };
 
 export const setTicketOwnersFilter = filters => ({ type: FILTER_TICKETS, filters: { owners: filters } });

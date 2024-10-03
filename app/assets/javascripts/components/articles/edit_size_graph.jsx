@@ -1,3 +1,5 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable react/jsx-indent */
 /* global vegaEmbed */
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
@@ -124,20 +126,20 @@ const EditSizeGraph = (props) => {
             orient: { value: 'vertical' },
             opacity: { value: 0.5 }
           },
-            update: {
-              x: { scale: 'x', field: 'date' },
-              y: { scale: 'y', field: 'characters' },
-              y2: { scale: 'y' },
-              size: { value: 100 },
-              shape: { value: 'circle' },
-              fill: [
-                {
-                  test: 'datum.characters > 0',
-                  value: '#0000ff'
-                },
-                { value: '#ff0000' }
-              ]
-            }
+          update: {
+            x: { scale: 'x', field: 'date' },
+            y: { scale: 'y', field: 'characters' },
+            y2: { scale: 'y' },
+            size: { value: 100 },
+            shape: { value: 'circle' },
+            fill: [
+              {
+                test: 'datum.characters > 0',
+                value: '#0000ff'
+              },
+              { value: '#ff0000' }
+            ]
+          }
           }
         }
       ]
@@ -147,12 +149,12 @@ const EditSizeGraph = (props) => {
     vegaEmbed(`#${props.graphid}`, vegaSpec, { defaultStyle: true, actions: { source: false } });
   };
 
-    return (
+  return (
       <div>
         <div id={props.graphid} />
       </div>
-    );
-  };
+  );
+};
 
 EditSizeGraph.propTypes = {
   graphid: PropTypes.string,

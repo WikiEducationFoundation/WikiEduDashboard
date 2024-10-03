@@ -62,7 +62,7 @@ const claimAssignmentPromise = (assignment) => {
     method: 'PUT',
     body: JSON.stringify(assignment)
   })
-  .then(res => res.json());
+    .then(res => res.json());
 };
 
 export const claimAssignment = (assignment, successNotification) => (dispatch) => {
@@ -103,7 +103,7 @@ const updateSandboxUrlPromise = (assignment, newUrl) => {
   const body = {
     id: assignment.id,
     user_id: assignment.user_id,
-    newUrl: newUrl
+    newUrl
   };
   return request(`/assignments/${assignment.id}/update_sandbox_url`, {
     body: JSON.stringify(body),
@@ -140,6 +140,6 @@ export const updateSandboxUrl = (assignment, newUrl) => (dispatch) => {
       })
       .catch((error) => {
         dispatch({ type: types.API_FAIL, data: error });
-    })
+      })
   );
 };

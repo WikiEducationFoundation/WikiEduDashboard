@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-indent */
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
@@ -105,12 +106,12 @@ const CoursesTaughtGraph = (props) => {
   useEffect(() => {
     renderGraph(props.statsData, props.graphWidth, props.graphHeight, props.courseStringPrefix);
   }, []);
-    return (
-      <div id ="stats_graph">
+  return (
+      <div id="stats_graph">
         <h5> {I18n.t(`${props.courseStringPrefix}.courses_taught`)} </h5>
-        <div id= "CoursesTaughtGraph" />
+        <div id="CoursesTaughtGraph" />
       </div>
-    );
+  );
 };
 
 CoursesTaughtGraph.displayName = 'CoursesTaughtGraph';

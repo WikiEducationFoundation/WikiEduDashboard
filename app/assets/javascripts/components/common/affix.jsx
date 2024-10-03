@@ -6,7 +6,9 @@ const Affix = ({ className, offset = 0, children }) => {
   const affixRef = useRef(affix);
 
   useEffect(() => {
+    // eslint-disable-next-line no-use-before-define
     window.addEventListener('scroll', handleScroll);
+    // eslint-disable-next-line no-use-before-define
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 

@@ -72,7 +72,8 @@ export const OnboardingSupplementary = (props) => {
     </div>
   );
 
-    return (
+  return (
+      // eslint-disable-next-line react/jsx-indent
       <div className="form">
         <h1>{I18n.t('onboarding.supplementary.header')}</h1>
         <form id="supplementary" className="panel" onSubmit={_handleSubmit} ref={formRef}>
@@ -130,8 +131,8 @@ export const OnboardingSupplementary = (props) => {
           </button>
         </form>
       </div>
-    );
-  };
+  );
+};
 
 OnboardingSupplementary.propTypes = {
   returnToParam: PropTypes.string,

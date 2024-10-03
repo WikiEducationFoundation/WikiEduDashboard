@@ -1,3 +1,5 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable react/jsx-indent */
 /* global vegaEmbed */
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
@@ -121,11 +123,11 @@ const Wp10Graph = (props) => {
     vegaEmbed(`#${props.graphid}`, vegaSpec, { defaultStyle: true, actions: { source: false } });
   };
 
-    return (
+  return (
       <div>
         <div id={props.graphid} />
       </div>
-    );
+  );
 };
 Wp10Graph.displayName = 'Wp10Graph';
 Wp10Graph.propTypes = {

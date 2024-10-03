@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 import React, { useEffect, useRef, useState } from 'react';
 import Wp10Graph from './wp10_graph.jsx';
 import EditSizeGraph from './edit_size_graph.jsx';
@@ -20,6 +21,11 @@ const ArticleGraphs = ({ article }) => {
         handleHideGraph();
       }
     };
+
+    function handleHideGraph() {
+      setArticleData(null);
+      setShowGraph(false);
+    }
 
     const handlePressEscapeKey = (event) => {
       if (event.key === 'Escape') {
@@ -52,16 +58,11 @@ const ArticleGraphs = ({ article }) => {
     setShowGraph(true);
   }
 
-  function handleHideGraph() {
-    setArticleData(null);
-    setShowGraph(false);
-  }
-
   function handleRadioChange(event) {
     setSelectedRadio(event.currentTarget.value);
   }
 
-   const graphId = `vega-graph-${article_id}`;
+  const graphId = `vega-graph-${article_id}`;
 
   const dataIncludesWp10 = articleData?.[0]?.wp10;
 

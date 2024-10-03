@@ -63,7 +63,7 @@ const FinalArticleChecklist = () => {
               />
               {item.label}
             </dd>
-        ))}
+          ))}
         </dl>
         {button}
       </div>

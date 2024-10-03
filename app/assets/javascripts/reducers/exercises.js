@@ -15,7 +15,7 @@ const initialState = {
 
 const categorizeExercises = (blocks = []) => {
   const trainings = blocks.reduce((acc, block) => acc.concat(block.training_modules), [])
-                          .filter(val => val);
+    .filter(val => val);
   return trainings.reduce((acc, training) => {
     if (training.kind !== EXERCISE_KIND) return acc;
 

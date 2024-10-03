@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-await-in-loop */
 
@@ -53,6 +54,76 @@ export const fetchRevisionsFromUsers = async (course, users, days, last_date, fi
   let revisions = [];
   const wikiPromises = [];
 
+  // fetches revisions from a particular wiki
+  // days is the time period to fetch for. For example, if it is 7 days, and the last_date
+  // is today's date, it will look for revisions from the past week
+  const fetchAllRevisions = async (API_URL, days, usernames, wiki, course_start, last_date) => {
+    let ucend;
+    let exitNext = false;
+    if (isBefore(subDays(toDate(last_date), days), toDate(course_start))) {
+      ucend = formatISO(toDate(course_start));
+      exitNext = true;
+    } else if (isBefore(subDays(toDate(last_date), days), subYears(new Date(), 5))) {
+      ucend = formatISO(subYears(new Date(), 5));
+      exitNext = true;
+    } else {
+      ucend = formatISO(subDays(toDate(last_date), days));
+    }
+
+    // since a max of 50 users are allowed in one query
+    const usernamesChunks = chunk(usernames, 50);
+    const usernamePromises = [];
+
+    for (const usernameChunk of usernamesChunks) {
+      const params = {
+        action: 'query',
+        format: 'json',
+        list: 'usercontribs',
+        ucuser: usernameChunk.join('|'),
+        ucprop: 'ids|title|sizediff|timestamp',
+        uclimit: 50,
+        ucend,
+        ucstart: formatISO(toDate(last_date)),
+        ucdir: 'older',
+      };
+      usernamePromises.push(fetchAll(API_URL, params, 'uccontinue'));
+    }
+    const values = await Promise.all(usernamePromises);
+    const revisions = flatten(values);
+    return { revisions, exitNext };
+  };
+
+  // wrapper function around fetchAllRevisions. This gets all the revisions returned by that function
+  // adds some properties we require on the front end, like url, article_url, etc
+  const fetchRevisionsFromWiki = async (days, wiki, usernames, course_start, last_date) => {
+    const prefix = `https://${toWikiDomain(wiki)}`;
+    const API_URL = `${prefix}/w/api.php`;
+    const { revisions, exitNext } = await fetchAllRevisions(API_URL, days, usernames, wiki, course_start, last_date);
+    for (const revision of revisions) {
+      revision.wiki = wiki;
+      const diff_params = {
+        title: revision.title,
+        diff: 'prev',
+        oldid: revision.parentid
+      };
+
+      // url for the diff
+      revision.url = `${prefix}/w/index.php?${stringify(diff_params)}`;
+
+      // main article url - we use stringify to ensure that its encoded properly
+      revision.article_url = `${prefix}/wiki/${encodeURIComponent(revision.title)}`;
+
+      // to maintain the old structure of the revision object
+      revision.characters = revision.sizediff;
+      revision.mw_rev_id = revision.revid;
+      revision.id = revision.revid;
+      revision.revisor = revision.user;
+      revision.date = revision.timestamp;
+      revision.mw_page_id = revision.pageid;
+    }
+    return { revisions, wiki, exitNext };
+  };
+
   // request until we find 50 revisions or the date is outside the course duration
   // the last we fetch is up until 5 years ago
   let keepRunning = true;
@@ -84,73 +155,9 @@ export const fetchRevisionsFromUsers = async (course, users, days, last_date, fi
   return { revisions, last_date };
 };
 
-// fetches revisions from a particular wiki
-// days is the time period to fetch for. For example, if it is 7 days, and the last_date
-// is today's date, it will look for revisions from the past week
-const fetchAllRevisions = async (API_URL, days, usernames, wiki, course_start, last_date) => {
-  let ucend;
-  let exitNext = false;
-  if (isBefore(subDays(toDate(last_date), days), toDate(course_start))) {
-    ucend = formatISO(toDate(course_start));
-    exitNext = true;
-  } else if (isBefore(subDays(toDate(last_date), days), subYears(new Date(), 5))) {
-    ucend = formatISO(subYears(new Date(), 5));
-    exitNext = true;
-  } else {
-    ucend = formatISO(subDays(toDate(last_date), days));
-  }
 
-  // since a max of 50 users are allowed in one query
-  const usernamesChunks = chunk(usernames, 50);
-  const usernamePromises = [];
 
-  for (const usernameChunk of usernamesChunks) {
-    const params = {
-      action: 'query',
-      format: 'json',
-      list: 'usercontribs',
-      ucuser: usernameChunk.join('|'),
-      ucprop: 'ids|title|sizediff|timestamp',
-      uclimit: 50,
-      ucend,
-      ucstart: formatISO(toDate(last_date)),
-      ucdir: 'older',
-    };
-    usernamePromises.push(fetchAll(API_URL, params, 'uccontinue'));
-  }
-  const values = await Promise.all(usernamePromises);
-  const revisions = flatten(values);
-  return { revisions, exitNext };
-};
 
-// wrapper function around fetchAllRevisions. This gets all the revisions returned by that function
-// adds some properties we require on the front end, like url, article_url, etc
-const fetchRevisionsFromWiki = async (days, wiki, usernames, course_start, last_date) => {
-  const prefix = `https://${toWikiDomain(wiki)}`;
-  const API_URL = `${prefix}/w/api.php`;
-  const { revisions, exitNext } = await fetchAllRevisions(API_URL, days, usernames, wiki, course_start, last_date);
-  for (const revision of revisions) {
-    revision.wiki = wiki;
-    const diff_params = {
-      title: revision.title,
-      diff: 'prev',
-      oldid: revision.parentid
-    };
 
-    // url for the diff
-    revision.url = `${prefix}/w/index.php?${stringify(diff_params)}`;
 
-    // main article url - we use stringify to ensure that its encoded properly
-    revision.article_url = `${prefix}/wiki/${encodeURIComponent(revision.title)}`;
-
-    // to maintain the old structure of the revision object
-    revision.characters = revision.sizediff;
-    revision.mw_rev_id = revision.revid;
-    revision.id = revision.revid;
-    revision.revisor = revision.user;
-    revision.date = revision.timestamp;
-    revision.mw_page_id = revision.pageid;
-  }
-  return { revisions, wiki, exitNext };
-};
 

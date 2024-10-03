@@ -8,7 +8,7 @@ document.onreadystatechange = () => {
 
       const loc = e.currentTarget.dataset.link;
       if (e.metaKey || (window.navigator.userAgentData.platform.toLowerCase().indexOf('win') !== -1 && e.ctrlKey)) {
-      window.open(loc, '_blank');
+        window.open(loc, '_blank');
       } else {
         window.location = loc;
       }
@@ -81,13 +81,13 @@ document.onreadystatechange = () => {
   const removeCourseBtn = document.querySelectorAll('.remove-course');
   for (let i = 0; i < removeCourseBtn.length; i += 1) {
     removeCourseBtn[i]?.addEventListener('click', (e) => {
-        const confirmed = window.confirm(I18n.t('campaign.confirm_course_removal', {
-          title: e.target.dataset.title,
-          campaign_title: e.target.dataset.campaignTitle
-        }));
-        if (!confirmed) {
-          e.preventDefault();
-        }
+      const confirmed = window.confirm(I18n.t('campaign.confirm_course_removal', {
+        title: e.target.dataset.title,
+        campaign_title: e.target.dataset.campaignTitle
+      }));
+      if (!confirmed) {
+        e.preventDefault();
+      }
     });
   }
 
@@ -101,8 +101,8 @@ document.onreadystatechange = () => {
         e.preventDefault();
         alert(I18n.t('courses.confirm_course_deletion_failed', { title: enteredTitle }));
       }
-   });
-}
+    });
+  }
 
   return document.querySelectorAll('select.sorts').forEach(item => item?.addEventListener('change', function () {
     const list = (() => {
@@ -114,11 +114,11 @@ document.onreadystatechange = () => {
         case 'users': return studentsList;
         default: break;
       }
-  })();
-  if (list) {
-    return list.sort(this?.value, {
-      order: this.options[this.selectedIndex].getAttribute('rel')
-    });
+    })();
+    if (list) {
+      return list.sort(this?.value, {
+        order: this.options[this.selectedIndex].getAttribute('rel')
+      });
     }
   }));
 };

@@ -143,16 +143,16 @@ export const fetchCourseScopedRevisions = (course, limit) => async (dispatch, ge
   }
   return (
     fetchRevisionsCourseSpecificPromise(
-        course, users,
-        state.revisions.last_date_course_specific ?? course.last,
-        dispatch,
-        articles
-      )
+      course, users,
+      state.revisions.last_date_course_specific ?? course.last,
+      dispatch,
+      articles
+    )
       .then((resp) => {
         dispatch({
           type: RECEIVE_COURSE_SCOPED_REVISIONS,
           data: resp,
-          limit: limit
+          limit
         });
         // Now that we received the revisions data, query wikidata.org for the labels
         // of any Wikidata entries that are among the revisions.
@@ -161,4 +161,4 @@ export const fetchCourseScopedRevisions = (course, limit) => async (dispatch, ge
       .catch(response => (dispatch({ type: API_FAIL, data: response })))
   );
 };
-export const sortRevisions = key => ({ type: SORT_REVISIONS, key: key });
+export const sortRevisions = key => ({ type: SORT_REVISIONS, key });

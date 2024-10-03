@@ -1,3 +1,6 @@
+/* eslint-disable react/jsx-closing-bracket-location */
+/* eslint-disable react/jsx-indent-props */
+/* eslint-disable react/jsx-indent */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -11,7 +14,7 @@ import { BLOCK_KIND_RESOURCES } from '../../constants';
 import { initiateConfirm } from '../../actions/confirm_actions.js';
 
 const Block = (props) => {
-const updateBlock = (valueKey, value) => {
+  const updateBlock = (valueKey, value) => {
     const toPass = { ...props.block };
     toPass[valueKey] = value;
     delete toPass.deleteBlock;
@@ -48,32 +51,32 @@ const updateBlock = (valueKey, value) => {
     return props.weekStart && !props.editPermissions && props.block.kind === BLOCK_KIND_RESOURCES;
   };
 
-    const block = props.block;
-    const isEditable = _isEditable();
-    const isStudent = props.current_user && props.current_user.isStudent;
-    if (_hidden()) { return null; }
+  const block = props.block;
+  const isEditable = _isEditable();
+  const isStudent = props.current_user && props.current_user.isStudent;
+  if (_hidden()) { return null; }
 
-    let className = 'block';
-    className += ` block-kind-${block.kind}`;
+  let className = 'block';
+  className += ` block-kind-${block.kind}`;
 
-    let blockTypeClassName = 'block__block-type';
-    if (props.editPermissions) {
-      blockTypeClassName += ' editable';
-    }
+  let blockTypeClassName = 'block__block-type';
+  if (props.editPermissions) {
+    blockTypeClassName += ' editable';
+  }
 
-    let blockActions;
-    if (isEditable) {
-      blockActions = (
+  let blockActions;
+  if (isEditable) {
+    blockActions = (
         <div className="float-container block__block-actions">
           <button onClick={props.saveBlockChanges.bind(null, block.id)} className="button dark pull-right no-clear">Save</button>
           <span role="button" tabIndex={0} onClick={props.cancelBlockEditable.bind(null, block.id)} className="span-link pull-right no-clear">Cancel</span>
         </div>
-      );
-    }
+    );
+  }
 
-    let dueDateRead;
-    if (block.due_date !== null && block.kind === 1) {
-      dueDateRead = (
+  let dueDateRead;
+  if (block.due_date !== null && block.kind === 1) {
+    dueDateRead = (
         <TextInput
           onChange={updateBlock}
           value={block.due_date}
@@ -85,29 +88,29 @@ const updateBlock = (valueKey, value) => {
           onBlur={props.toggleFocused}
           p_tag_classname="block__read__due-date"
         />
-      );
-    }
+    );
+  }
 
-    let blockKindNote;
-    if (block.kind === BLOCK_KIND_RESOURCES && isEditable) {
-      blockKindNote = <small>This block will be included on the Resources tab. It will not appear on the Timeline for students.</small>;
-    }
+  let blockKindNote;
+  if (block.kind === BLOCK_KIND_RESOURCES && isEditable) {
+    blockKindNote = <small>This block will be included on the Resources tab. It will not appear on the Timeline for students.</small>;
+  }
 
-    let deleteBlock;
-    // let graded;
+  let deleteBlock;
+  // let graded;
+  if (isEditable) {
+    if (!block.is_new) {
+      deleteBlock = (<div className="delete-block-container"><button className="danger" onClick={deleteBlocks}>Delete Block</button></div>);
+    }
+    className += ' editable';
+    if (props.isDragging) { className += ' dragging'; }
+  }
+
+  let modules = [];
+  if (block.training_modules) {
     if (isEditable) {
-      if (!block.is_new) {
-        deleteBlock = (<div className="delete-block-container"><button className="danger" onClick={deleteBlocks}>Delete Block</button></div>);
-      }
-      className += ' editable';
-      if (props.isDragging) { className += ' dragging'; }
-    }
-
-    let modules = [];
-    if (block.training_modules) {
-      if (isEditable) {
-        const length = block.training_modules.length;
-        modules.push(<TrainingModules
+      const length = block.training_modules.length;
+      modules.push(<TrainingModules
           all_modules={props.all_training_modules}
           block_modules={block.training_modules}
           block={block}
@@ -117,17 +120,17 @@ const updateBlock = (valueKey, value) => {
           onChange={passedUpdateBlock}
           trainingLibrarySlug={props.trainingLibrarySlug}
         />);
-      } else {
-        modules = (<TrainingModulesViewMode
+    } else {
+      modules = (<TrainingModulesViewMode
           all_modules={props.all_training_modules}
           block={block}
           editable={isEditable}
           isStudent={isStudent}
           trainingLibrarySlug={props.trainingLibrarySlug}
         />);
-      }
-    } else {
-      modules.push(<TrainingModules
+    }
+  } else {
+    modules.push(<TrainingModules
         all_modules={props.all_training_modules}
         block_modules={[]}
         block={block}
@@ -137,9 +140,9 @@ const updateBlock = (valueKey, value) => {
         onChange={passedUpdateBlock}
         trainingLibrarySlug={props.trainingLibrarySlug}
       />);
-    }
+  }
 
-    const content = (
+  const content = (
       <div className="block__editor-container">
         {modules}
         <TextAreaInput
@@ -155,24 +158,24 @@ const updateBlock = (valueKey, value) => {
         />
 
       </div>
-    );
+  );
 
-    const dueDateSpacer = block.due_date && block.kind === 1 ? (
+  const dueDateSpacer = block.due_date && block.kind === 1 ? (
       <span className="block__due-date-spacer"> - </span>
-    ) : undefined;
+  ) : undefined;
 
-    const editButton = props.editPermissions ? (
+  const editButton = props.editPermissions ? (
       <div className="block__edit-button-container">
         <button className="pull-right button ghost-button block__edit-block" onClick={_setEditable}>Edit</button>
       </div>
-    ) : undefined;
+  ) : undefined;
 
-    let headerClass = 'block-title';
-    if (isEditable) {
-      headerClass += ' block-title--editing';
-    }
+  let headerClass = 'block-title';
+  if (isEditable) {
+    headerClass += ' block-title--editing';
+  }
 
-    return (
+  return (
       <li className={className}>
         {blockActions}
         {editButton}
@@ -238,25 +241,25 @@ const updateBlock = (valueKey, value) => {
         {content}
         {deleteBlock}
       </li>
-    );
-  };
+  );
+};
 Block.displayName = 'Block';
 
 Block.propTypes = {
-    block: PropTypes.object,
-    editableBlockIds: PropTypes.array,
-    editPermissions: PropTypes.bool,
-    saveBlockChanges: PropTypes.func,
-    cancelBlockEditable: PropTypes.func,
-    updateBlock: PropTypes.func,
-    toggleFocused: PropTypes.func,
-    isDragging: PropTypes.bool,
-    all_training_modules: PropTypes.array,
-    weekStart: PropTypes.object,
-    trainingLibrarySlug: PropTypes.string.isRequired,
-    current_user: PropTypes.object,
-    initiateConfirm: PropTypes.func.isRequired
-  };
+  block: PropTypes.object,
+  editableBlockIds: PropTypes.array,
+  editPermissions: PropTypes.bool,
+  saveBlockChanges: PropTypes.func,
+  cancelBlockEditable: PropTypes.func,
+  updateBlock: PropTypes.func,
+  toggleFocused: PropTypes.func,
+  isDragging: PropTypes.bool,
+  all_training_modules: PropTypes.array,
+  weekStart: PropTypes.object,
+  trainingLibrarySlug: PropTypes.string.isRequired,
+  current_user: PropTypes.object,
+  initiateConfirm: PropTypes.func.isRequired
+};
 const mapDispatchToProps = { initiateConfirm };
 
 export default connect(null, mapDispatchToProps)(

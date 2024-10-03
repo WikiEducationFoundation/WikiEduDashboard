@@ -5,9 +5,11 @@ const WEEKDAYS_LONG = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', '
 const WEEKDAYS_SHORT = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
 
 const localeUtils = {
+  // eslint-disable-next-line object-shorthand
   formatWeekdayLong: function (weekday) {
     return WEEKDAYS_LONG[weekday];
   },
+  // eslint-disable-next-line object-shorthand
   formatWeekdayShort: function (weekday) {
     return WEEKDAYS_SHORT[weekday];
   }
@@ -77,6 +79,11 @@ const WeekdayPicker = ({
     }
   };
 
+  const handleWeekdayClick = (e, weekday, modifiersProp) => {
+    e.persist();
+    onWeekdayClick(e, weekday, modifiersProp);
+  };
+
   const handleDayKeyDown = (e, weekday, modifiersProp) => {
     e.persist();
     switch (e.keyCode) {
@@ -103,11 +110,6 @@ const WeekdayPicker = ({
     }
   };
 
-  const handleWeekdayClick = (e, weekday, modifiersProp) => {
-    e.persist();
-    onWeekdayClick(e, weekday, modifiersProp);
-  };
-
   const handleWeekdayMouseEnter = (e, weekday, modifiersProp) => {
     e.persist();
     onWeekdayMouseEnter(e, weekday, modifiersProp);
@@ -116,22 +118,6 @@ const WeekdayPicker = ({
   const handleWeekdayMouseLeave = (e, weekday, modifiersProp) => {
     e.persist();
     onWeekdayMouseLeave(e, weekday, modifiersProp);
-  };
-
-  const renderWeekDays = () => {
-    const weekdays = [];
-    for (let i = 0; i < 7; i += 1) {
-      weekdays.push(renderWeekday(i));
-    }
-    return (
-      <div className="DayPicker-Month">
-        <div className="DayPicker-Weekdays">
-          <div>
-            {weekdays}
-          </div>
-        </div>
-      </div>
-    );
   };
 
   const renderWeekday = (weekday) => {
@@ -172,6 +158,22 @@ const WeekdayPicker = ({
           {localeUtils.formatWeekdayShort(weekday)}
         </span>
       </button>
+    );
+  };
+
+  const renderWeekDays = () => {
+    const weekdays = [];
+    for (let i = 0; i < 7; i += 1) {
+      weekdays.push(renderWeekday(i));
+    }
+    return (
+      <div className="DayPicker-Month">
+        <div className="DayPicker-Weekdays">
+          <div>
+            {weekdays}
+          </div>
+        </div>
+      </div>
     );
   };
 

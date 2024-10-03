@@ -7,14 +7,14 @@ const md = require('../../utils/markdown_it.js').default();
 
 const Panel = (props) => {
   const persistState = () => {
-      const step = props.step.toLowerCase().split(' ').slice(0, 2);
-      step[1] = +step[1] + 1; // Keeping the step in line with the UI
-      window.history.pushState(
-        { index: step[1] - 1 }, // Actual index to be rewinded to
-        `Step ${step[1]}`,
-        `#${step.join('')}`
-      );
-      document.title = document.title.replace(/\d+$/, step[1]);
+    const step = props.step.toLowerCase().split(' ').slice(0, 2);
+    step[1] = +step[1] + 1; // Keeping the step in line with the UI
+    window.history.pushState(
+      { index: step[1] - 1 }, // Actual index to be rewinded to
+      `Step ${step[1]}`,
+      `#${step.join('')}`
+    );
+    document.title = document.title.replace(/\d+$/, step[1]);
   };
 
   const advance = () => {

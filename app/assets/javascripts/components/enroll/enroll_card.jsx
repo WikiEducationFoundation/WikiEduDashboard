@@ -74,7 +74,7 @@ const EnrollCard = ({
           </a>
           {
             Features.wikiEd
-            ? (adviceModalButton) : (<NewAccountButton course={course} passcode={passcode} currentUser={user} />)
+              ? (adviceModalButton) : (<NewAccountButton course={course} passcode={passcode} currentUser={user} />)
           }
         </div>
       </div>

@@ -12,6 +12,13 @@ const SpecialUser = ({
 }) => {
   const [confirming, setConfirming] = useState(false);
 
+  // Function to check if currently revoking
+  const isRevoking = () => {
+    return (
+      revokingSpecialUser.status && revokingSpecialUser.username === username
+    );
+  };
+
   // Function to determine the current state of the button
   const getButtonState = () => {
     if (isRevoking()) {
@@ -34,13 +41,6 @@ const SpecialUser = ({
     } else {
       setConfirming(true);
     }
-  };
-
-  // Function to check if currently revoking
-  const isRevoking = () => {
-    return (
-      revokingSpecialUser.status && revokingSpecialUser.username === username
-    );
   };
 
   let buttonText;

@@ -44,6 +44,22 @@ export const getReferencesCount = (item, wikidata = false) => {
         ?? features?.['feature.enwiki.revision.shortened_footnote_templates'];
 };
 
+export const supportsPageAssessments = (wiki) => {
+  return PageAssessmentSupportedWiki?.[wiki.project]?.includes(wiki.language);
+};
+
+export const isSupportedORESWiki = (wiki) => {
+  // returns true if wiki.project is supported and wiki.language does not exist
+  // or if both the project and language is supported
+  return (
+    (!wiki.language && ORESSupportedWiki.projects.includes(wiki.project))
+    || (
+      ORESSupportedWiki.projects.includes(wiki.project)
+      && ORESSupportedWiki.languages.includes(wiki.language)
+    )
+  );
+};
+
 // this helper function returns a mapping between the different wikis and the various
 // revisions which belong to it
 // for example, {"en.wikipedia.org": [rev1, rev2], "fr.wikipedia.org": [rev4, rev3]}
@@ -72,23 +88,6 @@ export const sortRevisionsByDate = (revisions) => {
     const date2 = new Date(revision2.date);
     return date2.getTime() - date1.getTime();
   });
-};
-
-
-export const isSupportedORESWiki = (wiki) => {
-  // returns true if wiki.project is supported and wiki.language does not exist
-  // or if both the project and language is supported
-  return (
-    (!wiki.language && ORESSupportedWiki.projects.includes(wiki.project))
-    || (
-      ORESSupportedWiki.projects.includes(wiki.project)
-      && ORESSupportedWiki.languages.includes(wiki.language)
-      )
-    );
-};
-
-export const supportsPageAssessments = (wiki) => {
-  return PageAssessmentSupportedWiki?.[wiki.project]?.includes(wiki.language);
 };
 
 // urls are in the form www.wikidata.org or en.wikipedia.org

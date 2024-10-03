@@ -18,6 +18,7 @@ const AddSpecialUserForm = ({ submittingNewSpecialUser, upgradeSpecialUser: upgr
 
   useEffect(() => {
     if (!submittingNewSpecialUser) {
+      // eslint-disable-next-line no-use-before-define
       reset();
     }
   }, [submittingNewSpecialUser]);

@@ -42,14 +42,14 @@ const CategoriesScoping = () => {
           _value={depth}
           editable
           onChange={(_, value) => {
-          if (!value || value > 3 || value.length > 1) {
-            return;
-          }
-          dispatch({
-            type: UPDATE_CATEGORY_DEPTH,
-            depth: value,
-          });
-        }}
+            if (!value || value > 3 || value.length > 1) {
+              return;
+            }
+            dispatch({
+              type: UPDATE_CATEGORY_DEPTH,
+              depth: value,
+            });
+          }}
           max="3"
         />
         <WikiSelect

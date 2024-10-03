@@ -79,9 +79,9 @@ const ArticlesHandler = (props) => {
           path="*" element={<Navigate
             replace
             to={{
-                pathname: 'edited',
-                search: window.location.search
-              }}
+              pathname: 'edited',
+              search: window.location.search
+            }}
           />
           }
         />

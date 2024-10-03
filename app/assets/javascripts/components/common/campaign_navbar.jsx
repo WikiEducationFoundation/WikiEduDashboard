@@ -12,9 +12,9 @@ const CampaignNavbar = ({ campaign }) => {
     const links = document.querySelectorAll('.nav__item a');
     links.forEach((link) => {
       if (window.location.pathname === link.getAttribute('href')) {
-      link.classList.add('active');
+        link.classList.add('active');
       } else {
-      link.classList.remove('active');
+        link.classList.remove('active');
       }
     });
   }, [window.location.pathname]);

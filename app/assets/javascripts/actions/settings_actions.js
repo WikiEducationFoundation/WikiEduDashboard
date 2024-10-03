@@ -43,7 +43,7 @@ const grantAdminPromise = async (username, upgrade) => {
   const url = `/settings/${upgrade ? 'upgrade' : 'downgrade'}_admin`;
   const response = await request(url, {
     method: 'POST',
-    body: JSON.stringify({ user: { username: username } })
+    body: JSON.stringify({ user: { username } })
   });
   if (!response.ok) {
     logErrorMessage(response);
@@ -153,7 +153,7 @@ export const downgradeSpecialUser = (username, position) => (dispatch) => {
     data: {
       revoking: {
         status: true,
-        username: username,
+        username,
       },
     },
   });
@@ -179,7 +179,7 @@ export const downgradeSpecialUser = (username, position) => (dispatch) => {
             data: {
               revoking: {
                 status: false,
-                username: username,
+                username,
               },
             },
           });
@@ -262,7 +262,7 @@ export const downgradeAdmin = username => (dispatch) => {
     data: {
       revoking: {
         status: true,
-        username: username,
+        username,
       },
     },
   });
@@ -288,7 +288,7 @@ export const downgradeAdmin = username => (dispatch) => {
             data: {
               revoking: {
                 status: false,
-                username: username,
+                username,
               },
             },
           });
@@ -435,7 +435,7 @@ export const updateDefaultCampaign = campaignSlug => (dispatch) => {
 
 const updateImpactStatsPromise = async (impactStats) => {
   const body = {
-    impactStats: impactStats,
+    impactStats,
   };
   const response = await request('/settings/update_impact_stats', {
     method: 'POST',
@@ -514,8 +514,8 @@ const updateSiteNoticePromise = async (siteNotice) => {
 
 export const removeFeaturedCampaign = campaign_slug => (dispatch) => {
   return removeFeaturedCampaignPromise(campaign_slug)
-      .then(data => dispatch({ type: REMOVE_FEATURED_CAMPAIGN, data }))
-      .catch(data => dispatch({ type: API_FAIL, data }));
+    .then(data => dispatch({ type: REMOVE_FEATURED_CAMPAIGN, data }))
+    .catch(data => dispatch({ type: API_FAIL, data }));
 };
 
 const addFeaturedCampaignPromise = async (campaign_slug) => {
@@ -531,18 +531,6 @@ const addFeaturedCampaignPromise = async (campaign_slug) => {
   return response.json();
 };
 
-export const updateSiteNotice = siteNotice => (dispatch) => {
-  return updateSiteNoticePromise(siteNotice)
-  .then((data) => {
-          dispatch({
-            type: ADD_NOTIFICATION,
-            notification: { ...data, type: 'success', closable: true }
-          });
-          dispatch(getSiteNotice());
-  })
-  .catch(data => dispatch({ type: API_FAIL, data }));
-};
-
 const getSiteNoticePromise = async () => {
   const response = await request('/settings/fetch_site_notice', {
     method: 'GET'
@@ -556,21 +544,33 @@ const getSiteNoticePromise = async () => {
   return response.json();
 };
 
-export const addFeaturedCampaign = campaign_slug => (dispatch) => {
-    return addFeaturedCampaignPromise(campaign_slug)
-      .then(data => dispatch({ type: ADD_FEATURED_CAMPAIGN, data }))
-      .catch(data => dispatch({ type: API_FAIL, data }));
-};
-
 export const getSiteNotice = () => (dispatch) => {
   return getSiteNoticePromise()
-  .then((resp) => {
-    if (Object.keys(resp.site_notice).length !== 0) {
+    .then((resp) => {
+      if (Object.keys(resp.site_notice).length !== 0) {
+        dispatch({
+          type: SET_SITE_NOTICE,
+          data: resp,
+        });
+      }
+    })
+    .catch(data => dispatch({ type: API_FAIL, data }));
+};
+
+export const updateSiteNotice = siteNotice => (dispatch) => {
+  return updateSiteNoticePromise(siteNotice)
+    .then((data) => {
       dispatch({
-        type: SET_SITE_NOTICE,
-        data: resp,
+        type: ADD_NOTIFICATION,
+        notification: { ...data, type: 'success', closable: true }
       });
-    }
-  })
-  .catch(data => dispatch({ type: API_FAIL, data }));
+      dispatch(getSiteNotice());
+    })
+    .catch(data => dispatch({ type: API_FAIL, data }));
+};
+
+export const addFeaturedCampaign = campaign_slug => (dispatch) => {
+  return addFeaturedCampaignPromise(campaign_slug)
+    .then(data => dispatch({ type: ADD_FEATURED_CAMPAIGN, data }))
+    .catch(data => dispatch({ type: API_FAIL, data }));
 };

@@ -63,7 +63,7 @@ const CampaignList = ({ keys, showSearch, RowElement, headerText, userOnly, show
         <div className="explore-courses" >
           <SearchBar ref={inputRef} onClickHandler={onClickHandler} placeholder={I18n.t('campaign.search_campaigns')}/>
         </div>
-        )
+      )
       }
       <List
         elements={campaignElements}

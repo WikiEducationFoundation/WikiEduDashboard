@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-indent */
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -54,19 +55,19 @@ const AddCategoryButton = createReactClass({
 
   render() {
     let description;
-      if (this.props.source === 'pileid') {
-        description = (
+    if (this.props.source === 'pileid') {
+      description = (
           <p>
             Make sure the PagePile&apos;s wiki is one of the tracked wikis for this program.
           </p>
-        );
-      } else if (this.props.source === 'psid') {
-        description = (
+      );
+    } else if (this.props.source === 'psid') {
+      description = (
           <p>
             PetScan queries only work with the Dashboard one wiki at a time. Ensure that your PetScan query includes only articles from a single wiki, and that it matches the wiki set below.
           </p>
-        );
-      }
+      );
+    }
     const permitted = true;
     let className = 'button border small assign-button';
     if (this.props.is_open) { className += ' dark'; }
@@ -91,10 +92,10 @@ const AddCategoryButton = createReactClass({
           <td>
             <form
               onSubmit={this.addCategory} style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '1em'
-            }}
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1em'
+              }}
               className="category-add-form"
             >
               {description}

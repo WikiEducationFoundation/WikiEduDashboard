@@ -19,8 +19,8 @@ export const TicketsTableRow = ({ ticket }) => {
       <td className="course-page w20">
         {
           ticket.project.id
-          ? <Link to={`/courses/${ticket.project.slug}`}>{ ticket.project.title }</Link>
-          : 'Course Unknown'
+            ? <Link to={`/courses/${ticket.project.slug}`}>{ ticket.project.title }</Link>
+            : 'Course Unknown'
         }
       </td>
       <td className="status w20">

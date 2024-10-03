@@ -1,24 +1,5 @@
 import { submitReviewRequestAlert } from '../../../../actions/alert_actions';
 
-export default (assignment, course) => {
-  const reviewBibliography = course.review_bibliography;
-
-  if (course.stay_in_sandbox) {
-    return [
-      completeBibliography(assignment, reviewBibliography),
-      createInSandbox(assignment),
-      expandYourDraft(assignment),
-      prepareForMainspace(assignment)
-    ];
-  }
-  return [
-    completeBibliography(assignment, reviewBibliography),
-    createInSandbox(assignment),
-    expandYourDraft(assignment),
-    moveYourWork(assignment)
-  ];
-};
-
 const completeBibliography = (assignment, reviewBibliography) => {
   const bibliographyStep = {
     title: 'Complete your bibliography',
@@ -128,4 +109,23 @@ const prepareForMainspace = (assignment) => {
       }
     ]
   };
+};
+
+export default (assignment, course) => {
+  const reviewBibliography = course.review_bibliography;
+
+  if (course.stay_in_sandbox) {
+    return [
+      completeBibliography(assignment, reviewBibliography),
+      createInSandbox(assignment),
+      expandYourDraft(assignment),
+      prepareForMainspace(assignment)
+    ];
+  }
+  return [
+    completeBibliography(assignment, reviewBibliography),
+    createInSandbox(assignment),
+    expandYourDraft(assignment),
+    moveYourWork(assignment)
+  ];
 };

@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-indent */
 import React, { useEffect, useState } from 'react';
 
 import { connect } from 'react-redux';
@@ -216,7 +217,7 @@ const CourseApproval = (props) => {
   const wikiExpertOptions = props.wikiEdStaff.length > 0 ? setWikiExpertOptions() : [];
 
   const campaignOptions = props.allCampaigns.map((campaign) => {
-      return { value: campaign.title, label: campaign.title };
+    return { value: campaign.title, label: campaign.title };
   });
 
   const allTagOptions = uniq(props.allTags).map((tag) => {
@@ -337,7 +338,7 @@ const CourseApproval = (props) => {
       <div>Approving ... </div>
       <div className="loading__spinner__small" />
     </div>
-    ) : (
+  ) : (
       <div className="controls">
         <button className={`dark button ${approveButtonState}`} onClick={submitApprovalForm}>Approve Course</button>
       </div>);

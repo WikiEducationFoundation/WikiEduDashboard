@@ -19,19 +19,19 @@ const selectStyles = {
       color = 'black';
     }
 
-      return {
-        ...styles,
-        backgroundColor,
-        color,
-        cursor: isDisabled ? 'not-allowed' : 'default',
-      };
-    },
+    return {
+      ...styles,
+      backgroundColor,
+      color,
+      cursor: isDisabled ? 'not-allowed' : 'default',
+    };
+  },
   control: (base, { isFocused }) => ({
-      ...base,
-      borderColor: isFocused ? '#676EB4' : base.borderColor,
-      '&:hover': { borderColor: '#676EB4' },
-      boxShadow: 'none'
-    }),
+    ...base,
+    borderColor: isFocused ? '#676EB4' : base.borderColor,
+    '&:hover': { borderColor: '#676EB4' },
+    boxShadow: 'none'
+  }),
 };
 
 export default selectStyles;

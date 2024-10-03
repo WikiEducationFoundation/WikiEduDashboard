@@ -36,13 +36,13 @@ export const getStore = () => {
     reducer,
     preloadedState,
     middleware: getDefaultMiddleware =>
-    getDefaultMiddleware({
+      getDefaultMiddleware({
       // Temporarily disable mutation checks feature to facilitate Redux Toolkit migration.
       // TODO: Gradually resolve state mutations and re-enable these checks in the future.
       // Enable mutation checks when resolving or detecting these issues by setting enableMutationChecks to true.
-      immutableCheck: enableMutationChecks,
-      serializableCheck: enableMutationChecks,
-    }),
+        immutableCheck: enableMutationChecks,
+        serializableCheck: enableMutationChecks,
+      }),
     // Enable Redux DevTools
     devTools: true
   });

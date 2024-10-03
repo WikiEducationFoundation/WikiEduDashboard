@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-indent */
 import React, { useState } from 'react';
 import TextInput from '../../common/text_input';
 
@@ -13,7 +14,7 @@ const FeaturedCampaignForm = ({ addFeaturedCampaign }) => {
     addFeaturedCampaign(campaignSlug);
   };
 
-    return (
+  return (
       <tr>
         <td>
           <form onSubmit={handleSubmit}>
@@ -30,7 +31,7 @@ const FeaturedCampaignForm = ({ addFeaturedCampaign }) => {
           </form>
         </td>
       </tr>
-    );
+  );
 };
 
 export default FeaturedCampaignForm;

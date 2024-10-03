@@ -10,31 +10,31 @@ const AddToWatchlistButton = ({ slug, prefix = 'Students' }) => {
   const notificationMessage = (type) => {
     return {
       message: I18n.t(`users.sub_navigation.watch_list.${type === 'Success' ? 'success_message' : 'error_message'}`,
-      { prefix }
-     ),
+        { prefix }
+      ),
       closable: true,
       type: type === 'Success' ? 'success' : 'error'
     };
- };
+  };
 
- const addToWatchlist = () => {
+  const dispatch = useDispatch();
+
+  const addToWatchlist = () => {
     request(`/courses/${slug}/students/add_to_watchlist`, { method: 'POST' })
-     .then(res => res.json())
-     .then((data) => {
+      .then(res => res.json())
+      .then((data) => {
         if (data.message.status === 'Success') {
-        dispatch({ type: ADD_NOTIFICATION, notification: notificationMessage('Success') });
+          dispatch({ type: ADD_NOTIFICATION, notification: notificationMessage('Success') });
         } else {
           return Promise.reject(data);
         }
-     })
+      })
       .catch((error) => {
         dispatch({ type: ADD_NOTIFICATION, notification: notificationMessage('error') });
         logErrorMessage(error);
         return error;
       });
   };
-
-  const dispatch = useDispatch();
 
   const addToWatchlistHandler = () => {
     const onConfirm = () => {

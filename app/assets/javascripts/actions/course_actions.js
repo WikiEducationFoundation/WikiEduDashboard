@@ -80,12 +80,12 @@ export const updateClonedCourse = (course, courseSlug, newSlug) => (dispatch) =>
 
 const needsUpdatePromise = (courseSlug) => {
   return API.fetch(courseSlug, 'needs_update')
-  .then((data) => {
+    .then((data) => {
       return data;
-  })
-  .catch((err) => {
+    })
+    .catch((err) => {
       return err;
-  });
+    });
 };
 
 const needsUpdateNotification = (response) => {
@@ -165,7 +165,7 @@ export const searchPrograms = searchQuery => async (dispatch) => {
   return dispatch({ type: RECEIVE_COURSE_SEARCH_RESULTS, data });
 };
 
-export const sortCourseSearchResults = key => ({ type: SORT_COURSE_SEARCH_RESULTS, key: key });
+export const sortCourseSearchResults = key => ({ type: SORT_COURSE_SEARCH_RESULTS, key });
 
 // this fetches the active courses of a particular campaign(which currently is just the default campaign)
 export const fetchActiveCampaignCourses = campaign_slug => async (dispatch) => {
@@ -178,7 +178,7 @@ export const fetchActiveCampaignCourses = campaign_slug => async (dispatch) => {
   return dispatch({ type: RECEIVE_CAMPAIGN_ACTIVE_COURSES, data });
 };
 
-export const sortActiveCourses = key => ({ type: SORT_ACTIVE_COURSES, key: key });
+export const sortActiveCourses = key => ({ type: SORT_ACTIVE_COURSES, key });
 
 // this fetches the active courses across all campaigns
 export const fetchActiveCourses = () => async (dispatch) => {
@@ -202,4 +202,4 @@ export const fetchCoursesFromWiki = wiki => async (dispatch) => {
   return dispatch({ type: RECEIVE_WIKI_COURSES, data });
 };
 
-export const sortWikiCourses = key => ({ type: SORT_WIKI_COURSES, key: key });
+export const sortWikiCourses = key => ({ type: SORT_WIKI_COURSES, key });

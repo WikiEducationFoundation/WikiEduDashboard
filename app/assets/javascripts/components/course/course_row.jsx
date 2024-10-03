@@ -50,7 +50,7 @@ const CourseRow = ({ course }) => {
         <td className="table-link-cell creation-date">
           <a href={`/courses/${course.slug}/`}>{course.creation_date}</a>
         </td>
-        )
+      )
       }
     </tr>
   );

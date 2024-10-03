@@ -12,17 +12,9 @@ const Upload = ({ upload, view, linkUsername }) => {
   const [imageFile, setImageFile] = useState(null);
 
   useEffect(() => {
+    // eslint-disable-next-line no-use-before-define
     updateImageFile();
   }, []);
-
-  const updateImageFile = () => {
-    let file = upload.thumburl;
-    if (upload.deleted) {
-      file = '/assets/images/deleted_image.svg';
-    }
-    setImageFile(file);
-    setImageDimensions(file);
-  };
 
   const setImageDimensions = (file) => {
     const img = new Image();
@@ -31,6 +23,15 @@ const Upload = ({ upload, view, linkUsername }) => {
       setWidth(this.width);
       setHeight(this.height);
     };
+  };
+
+  const updateImageFile = () => {
+    let file = upload.thumburl;
+    if (upload.deleted) {
+      file = '/assets/images/deleted_image.svg';
+    }
+    setImageFile(file);
+    setImageDimensions(file);
   };
 
   const toggleUploadViewer = () => {

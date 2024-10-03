@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-indent */
 import React from 'react';
 import PropTypes from 'prop-types';
 import ArticleUtils from '../../../../utils/article_utils';
@@ -14,7 +15,7 @@ export const IconOpener = ({ showArticle, showButtonClass, showButtonLabel, arti
         <p>{showButtonLabel()}</p>
       </div>
     </div>
-    ) : (
+  ) : (
       <div className={`tooltip-trigger ${showButtonClass}`}>
         <button
           aria-label="Open Article Viewer"
@@ -25,7 +26,7 @@ export const IconOpener = ({ showArticle, showButtonClass, showButtonLabel, arti
           <p>{ArticleUtils.I18n('article_not_found', article.project)}</p>
         </div>
       </div>
-    )
+  )
 );
 
 IconOpener.propTypes = {

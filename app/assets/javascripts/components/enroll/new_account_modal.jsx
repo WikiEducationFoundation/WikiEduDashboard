@@ -74,7 +74,7 @@ const NewAccountModal = ({ course, passcode, currentUser, closeModal, newAccount
         placeholder={I18n.t('courses.new_account_email_placeholder')}
       />
       <div>
-        <div className = "left">
+        <div className="left">
           <p className="red" dangerouslySetInnerHTML={{ __html: newAccount.error }} />
           {checkingSpinner}
           {wikipediaAccountCreation}

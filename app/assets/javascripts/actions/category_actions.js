@@ -22,7 +22,7 @@ export const fetchCategories = courseSlug => (dispatch) => {
           type: RECEIVE_CATEGORIES,
           data: resp,
         }))
-        .catch(response => (dispatch({ type: API_FAIL, data: response })))
+      .catch(response => (dispatch({ type: API_FAIL, data: response })))
   );
 };
 
@@ -49,7 +49,7 @@ export const addCategory = categoryCourse => (dispatch) => {
           type: ADD_CATEGORY,
           data: resp,
         }))
-        .catch(response => (dispatch({ type: API_FAIL, data: response })))
+      .catch(response => (dispatch({ type: API_FAIL, data: response })))
   );
 };
 
@@ -80,6 +80,6 @@ export const removeCategory = (courseId, categoryId) => (dispatch) => {
           type: DELETE_CATEGORY,
           data: resp,
         }))
-        .catch(response => (dispatch({ type: API_FAIL, data: response })))
+      .catch(response => (dispatch({ type: API_FAIL, data: response })))
   );
 };

@@ -63,7 +63,7 @@ const NotesRow = ({ notesList }) => {
 
   // Function to handle clicking on the cancel note button
   const onNotesEditCancelButtonClickHandler = () => {
-     setEditNoteId(null);
+    setEditNoteId(null);
   };
 
   // Handles Enter key to toggle note expansion in the table row

@@ -47,19 +47,19 @@ export const saveUpdatedAdminCourseNote = adminCourseNoteDetails => async (dispa
     sendNotification(dispatch, 'Success', 'notes.updated');
 
     const updatedNotesList = getState().adminCourseNotes.notes_list.map((note) => {
-        if (note.id === adminCourseNoteDetails.id) {
-          return {
-            ...note,
-            title: adminCourseNoteDetails.title,
-            text: adminCourseNoteDetails.text,
-            edited_by: status.admin_course_note.edited_by,
-            updated_at: status.admin_course_note.updated_at
-          };
-        }
-        return note;
+      if (note.id === adminCourseNoteDetails.id) {
+        return {
+          ...note,
+          title: adminCourseNoteDetails.title,
+          text: adminCourseNoteDetails.text,
+          edited_by: status.admin_course_note.edited_by,
+          updated_at: status.admin_course_note.updated_at
+        };
+      }
+      return note;
     });
 
-    dispatch({ type: UPDATE_NOTES_LIST, updatedNotesList: updatedNotesList });
+    dispatch({ type: UPDATE_NOTES_LIST, updatedNotesList });
   } else {
     sendNotification(dispatch, 'Error', 'notes.failure');
   }

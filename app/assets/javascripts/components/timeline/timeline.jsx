@@ -18,6 +18,10 @@ import CourseDateUtils from '../../utils/course_date_utils.js';
 import { toDate } from '../../utils/date_utils.js';
 import { differenceInWeeks } from 'date-fns';
 
+function __guard__(value, transform) {
+  return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;
+}
+
 const Timeline = createReactClass({
   displayName: 'Timeline',
 
@@ -93,7 +97,7 @@ const Timeline = createReactClass({
   deleteAllWeeks() {
     if (confirm(I18n.t('timeline.delete_weeks_confirmation'))) {
       return this.props.deleteAllWeeks(this.props.course.slug)
-               .then(() => { return window.location.reload(); });
+        .then(() => { return window.location.reload(); });
     }
   },
 
@@ -476,6 +480,4 @@ const Timeline = createReactClass({
 
 export default EditableRedux(Timeline);
 
-function __guard__(value, transform) {
-  return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;
-}
+

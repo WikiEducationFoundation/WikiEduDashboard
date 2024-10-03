@@ -13,7 +13,7 @@ const CourseList = ({ keys, courses, none_message, sortBy, RowElement, headerTex
           <h2>{headerText}</h2>
           <DropdownSortSelect keys={keys} sortSelect={sortBy}/>
         </div>
-      )}
+        )}
       <List keys={keys} elements={elements} none_message={none_message} sortable={true} sortBy={sortBy}/>
     </>
   );

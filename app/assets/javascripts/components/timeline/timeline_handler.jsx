@@ -25,13 +25,13 @@ const TimelineHandler = (props) => {
   const [reorderable, setReorderable] = useState(false);
   const [editableTitles, setEditableTitles] = useState(false);
 
-// Replace componentDidMount with useEffect hook
+  // Replace componentDidMount with useEffect hook
   useEffect(() => {
     document.title = `${props.course.title} - ${I18n.t('courses.timeline_link')}`;
     props.fetchAllTrainingModules();
   }, [props.course.title, props.fetchAllTrainingModules]);
 
-// Convert class methods to regular functions within the component
+  // Convert class methods to regular functions within the component
   const _cancelBlockEditable = (blockId) => {
     // TODO: Restore to persisted state for this block only
     props.cancelBlockEditable(blockId);
@@ -51,18 +51,18 @@ const TimelineHandler = (props) => {
     setEditableTitles(true);
   };
 
-  const _resetTitles = () => {
-    if (confirm(I18n.t('timeline.reset_titles_confirmation'))) {
-      props.resetTitles();
-      saveTimeline();
-    }
-  };
-
   const saveTimeline = () => {
     setReorderable(false);
     setEditableTitles(false);
     const toSave = { weeks: props.weeks };
     props.persistTimeline(toSave, props.course_id);
+  };
+
+  const _resetTitles = () => {
+    if (confirm(I18n.t('timeline.reset_titles_confirmation'))) {
+      props.resetTitles();
+      saveTimeline();
+    }
   };
 
   if (props.course.loading) {

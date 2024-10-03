@@ -59,10 +59,10 @@ export const Footer = ({
     <div
       className="article-footer"
       style={{
-      display: 'flex',
-      alignItems: 'center',
-      padding: '0 1em',
-    }}
+        display: 'flex',
+        alignItems: 'center',
+        padding: '0 1em',
+      }}
     >
       {articleViewerLegend}
       <div

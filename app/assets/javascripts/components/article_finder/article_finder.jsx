@@ -1,3 +1,5 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable react/jsx-indent */
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import InputRange from 'react-input-range';
@@ -43,13 +45,15 @@ const ArticleFinder = (props) => {
     };
   }, []);
 
-  const getParamsURL = () => {
-    const query = qs.parse(window.location.search);
-    const entries = Object.entries(query);
-    entries.map(([key, val]) => {
-      val = (key === 'article_quality') ? parseInt(val) : val;
-      return updateFieldsHandler(key, val);
+  const buildURL = (key, value) => {
+    let queryStringUrl = window.location.href.split('?')[0];
+    const params_array = ['search_type', 'article_quality', 'min_views'];
+    const latestSearch = (key === 'search_term') ? value : props.search_term;
+    queryStringUrl += `?search_term=${latestSearch}`;
+    params_array.forEach((param) => {
+      return queryStringUrl += (param === key) ? `&${param}=${value}` : `&${param}=${props[param]}`;
     });
+    history.replaceState(window.location.href, 'query_string', queryStringUrl);
   };
 
   const updateFieldsHandler = (key, value) => {
@@ -61,19 +65,17 @@ const ArticleFinder = (props) => {
     });
   };
 
-  const toggleFilter = () => {
-    setShowFilters(!showFilters);
+  const getParamsURL = () => {
+    const query = qs.parse(window.location.search);
+    const entries = Object.entries(query);
+    entries.map(([key, val]) => {
+      val = (key === 'article_quality') ? parseInt(val) : val;
+      return updateFieldsHandler(key, val);
+    });
   };
 
-  const buildURL = (key, value) => {
-    let queryStringUrl = window.location.href.split('?')[0];
-    const params_array = ['search_type', 'article_quality', 'min_views'];
-    const latestSearch = (key === 'search_term') ? value : props.search_term;
-    queryStringUrl += `?search_term=${latestSearch}`;
-    params_array.forEach((param) => {
-      return queryStringUrl += (param === key) ? `&${param}=${value}` : `&${param}=${props[param]}`;
-    });
-    history.replaceState(window.location.href, 'query_string', queryStringUrl);
+  const toggleFilter = () => {
+    setShowFilters(!showFilters);
   };
 
   const searchArticles = async (searchTerm) => {
@@ -101,7 +103,7 @@ const ArticleFinder = (props) => {
     return updateFieldsHandler('wiki', { language: wiki.language, project: wiki.project });
   };
 
-    const searchType = (
+  const searchType = (
       <div>
         <div className="search-type">
           <div>
@@ -118,9 +120,9 @@ const ArticleFinder = (props) => {
           </div>
         </div>
       </div>
-    );
+  );
 
-    const minimumViews = (
+  const minimumViews = (
       <div>
         <TextInput
           id="min_views"
@@ -133,9 +135,9 @@ const ArticleFinder = (props) => {
           placeholder={I18n.t('article_finder.minimum_views_label')}
         />
       </div>
-    );
+  );
 
-    const articleQuality = (
+  const articleQuality = (
       <div>
         <div className="form-group range-container">
           <label className="mb2">{I18n.t(`article_finder.${ArticleUtils.projectSuffix(props.selectedWiki.project, 'article_quality')}`)}</label>
@@ -148,32 +150,32 @@ const ArticleFinder = (props) => {
           />
         </div>
       </div>
-    );
-    let filters;
-    if (showFilters) {
-      filters = (
+  );
+  let filters;
+  if (showFilters) {
+    filters = (
         <div className="filters">
           {minimumViews}
           {articleQuality}
           {searchType}
         </div>
-      );
-    }
+    );
+  }
 
-    let filterButton;
-    if (!showFilters) {
-      filterButton = (
+  let filterButton;
+  if (!showFilters) {
+    filterButton = (
         <button className="button dark" onClick={toggleFilter}>{I18n.t('article_finder.show_options')}</button>
-      );
-    } else {
-      filterButton = (
+    );
+  } else {
+    filterButton = (
         <button className="button" onClick={toggleFilter}>{I18n.t('article_finder.hide_options')}</button>
-      );
-    }
+    );
+  }
 
-    let filterBlock;
-    if (isSubmitted && !props.loading) {
-      filterBlock = (
+  let filterBlock;
+  if (isSubmitted && !props.loading) {
+    filterBlock = (
         <div className="filter-block">
           <div className="filter-button-block">
             {filterButton}
@@ -182,79 +184,79 @@ const ArticleFinder = (props) => {
             {filters}
           </div>
         </div>
-      );
-    }
+    );
+  }
 
-    const keys = {
-      relevanceIndex: {
-        label: I18n.t('article_finder.relevanceIndex'),
-        desktop_only: false
-      },
-      title: {
-        label: I18n.t('articles.title'),
-        desktop_only: false
-      },
-      grade: {
-        label: I18n.t('article_finder.page_assessment_class'),
-        desktop_only: false,
-        sortable: true,
-      },
-      revScore: {
-        label: I18n.t('article_finder.completeness_estimate'),
-        desktop_only: false,
-        sortable: true,
-      },
-      pageviews: {
-        label: I18n.t('article_finder.average_views'),
-        desktop_only: false,
-        sortable: true,
-      },
-      tools: {
-        label: I18n.t('article_finder.tools'),
-        desktop_only: false,
-        sortable: false,
-      }
-    };
-    if (props.sort.key) {
-      const order = (props.sort.sortKey) ? 'asc' : 'desc';
-      keys[props.sort.key].order = order;
+  const keys = {
+    relevanceIndex: {
+      label: I18n.t('article_finder.relevanceIndex'),
+      desktop_only: false
+    },
+    title: {
+      label: I18n.t('articles.title'),
+      desktop_only: false
+    },
+    grade: {
+      label: I18n.t('article_finder.page_assessment_class'),
+      desktop_only: false,
+      sortable: true,
+    },
+    revScore: {
+      label: I18n.t('article_finder.completeness_estimate'),
+      desktop_only: false,
+      sortable: true,
+    },
+    pageviews: {
+      label: I18n.t('article_finder.average_views'),
+      desktop_only: false,
+      sortable: true,
+    },
+    tools: {
+      label: I18n.t('article_finder.tools'),
+      desktop_only: false,
+      sortable: false,
     }
+  };
+  if (props.sort.key) {
+    const order = (props.sort.sortKey) ? 'asc' : 'desc';
+    keys[props.sort.key].order = order;
+  }
   if (!includes(ORESSupportedWiki.languages, props.selectedWiki.language) || !includes(ORESSupportedWiki.projects, props.selectedWiki.project)) {
-      delete keys.revScore;
-    }
+    delete keys.revScore;
+  }
 
-    if (!PageAssessmentSupportedWiki[props.selectedWiki.project] || !includes(PageAssessmentSupportedWiki[props.selectedWiki.project], props.selectedWiki.language)) {
-      delete keys.grade;
-    }
+  if (!PageAssessmentSupportedWiki[props.selectedWiki.project] || !includes(PageAssessmentSupportedWiki[props.selectedWiki.project], props.selectedWiki.language)) {
+    delete keys.grade;
+  }
 
-    if (!props.course_id || !props.current_user.id || props.current_user.notEnrolled) {
-      delete keys.tools;
-    }
+  if (!props.course_id || !props.current_user.id || props.current_user.notEnrolled) {
+    delete keys.tools;
+  }
 
-    let list;
-    if (isSubmitted && !props.loading) {
-      const modifiedAssignmentsArray = map(props.assignments, (element) => {
-          if (!element.language && !element.project) {
-            return {
-                ...element,
-                language: props.selectedWiki.language,
-                project: props.selectedWiki.project
-              };
-          }
-          return element;
-      });
+  let list;
+  if (isSubmitted && !props.loading) {
+    const modifiedAssignmentsArray = map(props.assignments, (element) => {
+      if (!element.language && !element.project) {
+        return {
+          ...element,
+          language: props.selectedWiki.language,
+          project: props.selectedWiki.project
+        };
+      }
+      return element;
+    });
 
-      const elements = map(props.articles, (article, title) => {
-        let assignment;
-        if (props.course_id) {
-          if (props.current_user.isAdvancedRole) {
-            assignment = find(modifiedAssignmentsArray, { article_title: title, user_id: null, language: props.selectedWiki.language, project: props.selectedWiki.project });
-          } else if (props.current_user.role === STUDENT_ROLE) {
-            assignment = find(modifiedAssignmentsArray, { article_title: title, user_id: props.current_user.id, language: props.selectedWiki.language, project: props.selectedWiki.project });
-          }
+    const elements = map(props.articles, (article, title) => {
+      let assignment;
+      if (props.course_id) {
+        if (props.current_user.isAdvancedRole) {
+          assignment = find(modifiedAssignmentsArray, { article_title: title, user_id: null, language: props.selectedWiki.language, project: props.selectedWiki.project });
+        } else if (props.current_user.role === STUDENT_ROLE) {
+          assignment = find(modifiedAssignmentsArray, { article_title: title, user_id: props.current_user.id, language: props.selectedWiki.language, project: props.selectedWiki.project });
         }
+      }
 
-        return (
+      return (
           <ArticleFinderRow
             article={article}
             title={title}
@@ -268,9 +270,9 @@ const ArticleFinder = (props) => {
             deleteAssignment={props.deleteAssignment}
             current_user={props.current_user}
           />
-        );
-      });
-      list = (
+      );
+    });
+    list = (
         <List
           elements={elements}
           keys={keys}
@@ -280,26 +282,26 @@ const ArticleFinder = (props) => {
           none_message={I18n.t(`article_finder.${ArticleUtils.projectSuffix(props.selectedWiki.project, 'no_article_found')}`)}
           sortBy={props.sortArticleFinder}
         />
-      );
-    }
+    );
+  }
 
-    let loader;
-    if (isSubmitted && props.loading) {
-      loader = <Loading />;
-    }
+  let loader;
+  if (isSubmitted && props.loading) {
+    loader = <Loading />;
+  }
 
-    let fetchMoreButton;
-    if (props.continue_results && isSubmitted) {
-      fetchMoreButton = (
+  let fetchMoreButton;
+  if (props.continue_results && isSubmitted) {
+    fetchMoreButton = (
         <button className="button dark text-center fetch-more" onClick={fetchMoreResults}>{I18n.t('article_finder.more_results')}</button>
-      );
-    }
+    );
+  }
 
-    let searchStats;
-    if (!props.loading && isSubmitted) {
-      const fetchedCount = Object.keys(props.unfilteredArticles).length;
-      const filteredCount = Object.keys(props.articles).length;
-      searchStats = (
+  let searchStats;
+  if (!props.loading && isSubmitted) {
+    const fetchedCount = Object.keys(props.unfilteredArticles).length;
+    const filteredCount = Object.keys(props.articles).length;
+    searchStats = (
         <div>
           <div className="stat-display">
             <div className="stat-display__stat" id="articles-fetched">
@@ -312,30 +314,30 @@ const ArticleFinder = (props) => {
             </div>
           </div>
         </div>
-      );
-    }
+    );
+  }
 
-    const loaderMessage = {
-      ARTICLES_LOADING: I18n.t(`article_finder.${ArticleUtils.projectSuffix(props.selectedWiki.project, 'searching_articles')}`),
-      TITLE_RECEIVED: I18n.t('article_finder.fetching_assessments'),
-      PAGEASSESSMENT_RECEIVED: I18n.t('article_finder.fetching_revisions'),
-      REVISION_RECEIVED: I18n.t('article_finder.fetching_scores'),
-      REVISIONSCORE_RECEIVED: I18n.t('article_finder.fetching_pageviews'),
-    };
+  const loaderMessage = {
+    ARTICLES_LOADING: I18n.t(`article_finder.${ArticleUtils.projectSuffix(props.selectedWiki.project, 'searching_articles')}`),
+    TITLE_RECEIVED: I18n.t('article_finder.fetching_assessments'),
+    PAGEASSESSMENT_RECEIVED: I18n.t('article_finder.fetching_revisions'),
+    REVISION_RECEIVED: I18n.t('article_finder.fetching_scores'),
+    REVISIONSCORE_RECEIVED: I18n.t('article_finder.fetching_pageviews'),
+  };
 
-    let fetchingLoader;
-    if (props.fetchState !== 'PAGEVIEWS_RECEIVED' && !props.loading) {
-      fetchingLoader = (
+  let fetchingLoader;
+  if (props.fetchState !== 'PAGEVIEWS_RECEIVED' && !props.loading) {
+    fetchingLoader = (
         <div className="text-center">
           <div className="loading__spinner__small" />
           {loaderMessage[props.fetchState]}
         </div>
-      );
-    }
+    );
+  }
 
-    const trackedWikis = trackedWikisMaker(props.course);
+  const trackedWikis = trackedWikisMaker(props.course);
 
-    const options = (
+  const options = (
       <div className="article-finder-options">
         <SelectedWikiOption
           language={props.selectedWiki.language || 'www'}
@@ -344,11 +346,11 @@ const ArticleFinder = (props) => {
           trackedWikis={trackedWikis}
         />
       </div>
-    );
+  );
 
-    const isButtonDisabled = props.fetchState !== 'PAGEVIEWS_RECEIVED' && !props.loading;
+  const isButtonDisabled = props.fetchState !== 'PAGEVIEWS_RECEIVED' && !props.loading;
 
-    return (
+  return (
       <div className="container">
         <header>
           <h1 className="title">{I18n.t(`article_finder.${ArticleUtils.projectSuffix(props.selectedWiki.project, 'article_finder')}`)}</h1>
@@ -386,7 +388,7 @@ const ArticleFinder = (props) => {
           {fetchMoreButton}
         </div>
       </div>
-    );
+  );
 };
 
 const mapStateToProps = state => ({
@@ -411,15 +413,15 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  fetchCategoryResults: fetchCategoryResults,
-  updateFields: updateFields,
-  addAssignment: addAssignment,
-  fetchAssignments: fetchAssignments,
-  sortArticleFinder: sortArticleFinder,
-  fetchKeywordResults: fetchKeywordResults,
-  deleteAssignment: deleteAssignment,
-  resetArticleFinder: resetArticleFinder,
-  clearResults: clearResults,
+  fetchCategoryResults,
+  updateFields,
+  addAssignment,
+  fetchAssignments,
+  sortArticleFinder,
+  fetchKeywordResults,
+  deleteAssignment,
+  resetArticleFinder,
+  clearResults,
 };
 
 export default compose(

@@ -6,6 +6,10 @@ import DateCalculator from '../../utils/date_calculator.js';
 import SpringBlock from './SpringBlock';
 import BlockList from './BlockList';
 
+function __guard__(value, transform) {
+  return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;
+}
+
 const Week = createReactClass({
   displayName: 'Week',
   propTypes: {
@@ -157,7 +161,7 @@ const Week = createReactClass({
 
     const weekContent = (
       this.props.reorderable
-          ? <BlockList blocks={this.props.blocks} week_id={this.props.week.id} moveBlock={this.props.moveBlock} {...this.props}/>
+        ? <BlockList blocks={this.props.blocks} week_id={this.props.week.id} moveBlock={this.props.moveBlock} {...this.props}/>
         : (
           <ul className="week__block-list list-unstyled">
             {blocks}
@@ -185,6 +189,4 @@ const Week = createReactClass({
 
 export default Week;
 
-function __guard__(value, transform) {
-  return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;
-}
+

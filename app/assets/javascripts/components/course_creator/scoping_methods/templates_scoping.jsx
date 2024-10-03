@@ -12,11 +12,11 @@ const TemplatesScoping = () => {
     <div>
       <div
         className="form-group" style={{
-        display: 'grid',
-        gridTemplateColumns: 'minmax(400px, 2fr) minmax(200px, 1fr)',
-        alignItems: 'end',
-        gap: '1em'
-      }}
+          display: 'grid',
+          gridTemplateColumns: 'minmax(400px, 2fr) minmax(200px, 1fr)',
+          alignItems: 'end',
+          gap: '1em'
+        }}
       >
         <TemplatesAutoCompleteInput
           label={

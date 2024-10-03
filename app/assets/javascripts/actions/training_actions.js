@@ -54,6 +54,15 @@ export const fetchAllTrainingModules = () => (dispatch) => {
     .catch(resp => dispatch({ type: API_FAIL, data: resp }));
 };
 
+export const setSlideCompleted = opts => (dispatch, getState) => {
+  // No need to ping the server if the module is already complete.
+  if (getState().training.completed) { return; }
+
+  return setSlideCompletedPromise(opts)
+    .then(resp => dispatch({ type: SLIDE_COMPLETED, data: resp }))
+    .catch(resp => dispatch({ type: API_FAIL, data: resp }));
+};
+
 export const fetchTrainingModule = (opts = {}) => (dispatch) => {
   return fetchTrainingModulePromise(opts)
     .then((resp) => {
@@ -64,15 +73,6 @@ export const fetchTrainingModule = (opts = {}) => (dispatch) => {
         dispatch(setSlideCompleted(opts));
       }
     }).catch(resp => dispatch({ type: API_FAIL, data: resp }));
-};
-
-export const setSlideCompleted = opts => (dispatch, getState) => {
-  // No need to ping the server if the module is already complete.
-  if (getState().training.completed) { return; }
-
-  return setSlideCompletedPromise(opts)
-    .then(resp => dispatch({ type: SLIDE_COMPLETED, data: resp }))
-    .catch(resp => dispatch({ type: API_FAIL, data: resp }));
 };
 
 const setExerciseModule = (complete = true) => (block_id, module_id) => (dispatch) => {

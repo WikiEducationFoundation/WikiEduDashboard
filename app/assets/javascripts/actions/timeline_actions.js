@@ -74,12 +74,12 @@ export const persistTimeline = (timelineData, courseSlug) => (dispatch) => {
 };
 
 export const setBlockEditable = (blockId) => {
- return { type: SET_BLOCK_EDITABLE, blockId };
+  return { type: SET_BLOCK_EDITABLE, blockId };
 };
 
 export const cancelBlockEditable = (blockId) => {
   return { type: CANCEL_BLOCK_EDITABLE, blockId };
- };
+};
 
 export const updateBlock = (block) => {
   return { type: UPDATE_BLOCK, block };

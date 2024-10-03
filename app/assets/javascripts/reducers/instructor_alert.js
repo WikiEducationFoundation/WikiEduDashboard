@@ -21,7 +21,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         subject: action.payload
-    };
+      };
 
     case ALERT_INSTRUCTOR_MODAL_VISIBLE:
       return {

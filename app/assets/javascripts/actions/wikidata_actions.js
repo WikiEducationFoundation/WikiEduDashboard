@@ -38,8 +38,8 @@ const isEntityTitle = (title) => {
 export const fetchWikidataLabels = (wikidataEntities, dispatch) => {
   if (wikidataEntities.length === 0) { return; }
   const qNumbers = map(wikidataEntities, 'title')
-                     .filter(isEntityTitle)
-                     .map(CourseUtils.removeNamespace);
+    .filter(isEntityTitle)
+    .map(CourseUtils.removeNamespace);
   chunk(qNumbers, 30).forEach((someQNumbers) => {
     fetchWikidataLabelsPromise(someQNumbers)
       .then((resp) => {

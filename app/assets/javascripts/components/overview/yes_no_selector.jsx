@@ -4,8 +4,8 @@ import Select from 'react-select';
 import selectStyles from '../../styles/single_select';
 
 const YesNoSelector = (props) => {
-    const initialState = props.course[props.courseProperty] ? I18n.t('application.opt_yes') : I18n.t('application.opt_no');
-    const [selectedOption, setSelectedOption] = useState({ value: initialState, label: initialState });
+  const initialState = props.course[props.courseProperty] ? I18n.t('application.opt_yes') : I18n.t('application.opt_no');
+  const [selectedOption, setSelectedOption] = useState({ value: initialState, label: initialState });
 
   const _handleChange = (e) => {
     const course = props.course;
@@ -30,7 +30,7 @@ const YesNoSelector = (props) => {
     if (props.tooltip) {
       tooltip = (
         <div className="tooltip-trigger">
-          <img src ="/assets/images/info.svg" alt = "tooltip default logo" />
+          <img src="/assets/images/info.svg" alt="tooltip default logo" />
           <div className="tooltip large dark">
             <p>
               {props.tooltip}

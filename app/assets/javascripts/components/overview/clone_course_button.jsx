@@ -5,21 +5,6 @@ import { cloneCourse } from '../../actions/course_creation_actions.js';
 import { initiateConfirm } from '../../actions/confirm_actions.js';
 import { updateCourse } from '../../actions/course_actions.js';
 
-CloneCourseButton.propTypes = {
-  courseId: PropTypes.number.isRequired,
-  cloneCourse: PropTypes.func.isRequired,
-  initiateConfirm: PropTypes.func.isRequired,
-  updateCourse: PropTypes.func.isRequired
-};
-
-export function CloneCourseButton(props) {
-  return (
-    <button onClick={onClickConfirmation(props)} className="button">
-      {I18n.t('courses.creator.clone_this')}
-    </button>
-  );
-}
-
 function onClickConfirmation(props) {
   return () => {
     const confirmMessage = 'Are you sure you want to clone this course?';
@@ -34,6 +19,20 @@ function onClickConfirmation(props) {
     props.initiateConfirm({ confirmMessage, warningMessage, onConfirm });
   };
 }
+export function CloneCourseButton(props) {
+  return (
+    <button onClick={onClickConfirmation(props)} className="button">
+      {I18n.t('courses.creator.clone_this')}
+    </button>
+  );
+}
+
+CloneCourseButton.propTypes = {
+  courseId: PropTypes.number.isRequired,
+  cloneCourse: PropTypes.func.isRequired,
+  initiateConfirm: PropTypes.func.isRequired,
+  updateCourse: PropTypes.func.isRequired
+};
 
 const mapDispatchToProps = {
   cloneCourse,

@@ -6,6 +6,10 @@ import DatePicker from '../common/date_picker.jsx';
 import Calendar from '../common/calendar.jsx';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 
+function __guard__(value, transform) {
+  return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;
+}
+
 const FormPanel = createReactClass({
   displayName: 'FormPanel',
 
@@ -131,7 +135,7 @@ const FormPanel = createReactClass({
         raw_options={rawOptions}
         nextEnabled={this.nextEnabled}
         saveCourse={this.saveCourse}
-        helperText = "Select meeting days and holiday dates, then continue."
+        helperText="Select meeting days and holiday dates, then continue."
       />
     );
   }
@@ -139,6 +143,3 @@ const FormPanel = createReactClass({
 
 export default FormPanel;
 
-function __guard__(value, transform) {
-  return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;
-}

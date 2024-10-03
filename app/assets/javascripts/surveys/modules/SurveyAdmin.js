@@ -187,7 +187,7 @@ const SurveyAdmin = {
     }).then(response => response.json())
       .then((data) => {
         SurveyAdmin.handleConditionalQuestionSelect.call(that, data);
-    });
+      });
   },
 
   handleConditionalQuestionSelect(e) {

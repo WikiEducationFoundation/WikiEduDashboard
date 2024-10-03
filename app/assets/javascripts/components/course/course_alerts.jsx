@@ -34,6 +34,7 @@ const CourseAlerts = ({
         if (isUnsubmittedClassroomProgramCourse) {
           // Show submit button if there is a timeline with trainings, or user is admin.
           if (CourseUtils.hasTrainings(weeks) || userRoles.isAdmin) {
+            // eslint-disable-next-line no-use-before-define
             newAlerts.push(<CourseAlert key="submit" message={I18n.t('courses.review_timeline')} actionMessage={I18n.t('application.submit')} buttonLink="#" onClick={submit} />);
             // Show 'add trainings' message if there is a timeline with no trainings
           } else if (weeks.length) {
@@ -53,7 +54,7 @@ const CourseAlerts = ({
           const url = `/alerts_list/${onboardingAlert.id}`;
           newAlerts.push(<CourseAlert key="supplementary" message={message} buttonLink={url} actionMessage={'Go to Alert'} />);
         }
-      // When the course has been submitted
+        // When the course has been submitted
         if (course.submitted) {
           // Show instructors the 'submitted' notice.
           if (!userRoles.isAdmin) {
@@ -110,6 +111,7 @@ const CourseAlerts = ({
       // //////////////////////
       if (course.survey_notifications && course.survey_notifications.length) {
         course.survey_notifications.forEach((notification) => {
+          // eslint-disable-next-line no-use-before-define
           const dismissOnClick = () => dismissSurvey(notification.id);
           const components = (
             <button

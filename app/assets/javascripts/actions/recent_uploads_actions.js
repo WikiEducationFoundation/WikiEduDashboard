@@ -9,8 +9,8 @@ export const fetchRecentUploads = (opts = {}) => (dispatch) => {
           type: RECEIVE_RECENT_UPLOADS,
           data: resp,
         }))
-        .catch(response => (dispatch({ type: API_FAIL, data: response })))
+      .catch(response => (dispatch({ type: API_FAIL, data: response })))
   );
 };
 
-export const sortRecentUploads = key => ({ type: SORT_RECENT_UPLOADS, key: key });
+export const sortRecentUploads = key => ({ type: SORT_RECENT_UPLOADS, key });

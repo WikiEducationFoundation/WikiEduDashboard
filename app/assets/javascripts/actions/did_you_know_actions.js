@@ -11,8 +11,8 @@ export const fetchDYKArticles = (opts = {}) => (dispatch) => {
             data: resp,
           }
         }))
-        .catch(response => (dispatch({ type: API_FAIL, data: response })))
+      .catch(response => (dispatch({ type: API_FAIL, data: response })))
   );
 };
 
-export const sortDYKArticles = key => ({ type: SORT_DYK, key: key });
+export const sortDYKArticles = key => ({ type: SORT_DYK, key });

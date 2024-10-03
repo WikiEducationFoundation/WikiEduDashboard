@@ -31,7 +31,7 @@ const DetailedCampaignRow = ({ campaign }) => {
         <td className="table-link-cell creation-date">
           <a href={`/campaigns/${campaign.slug}`}>{campaign.creation_date}</a>
         </td>
-        )
+      )
       }
     </tr>
   );

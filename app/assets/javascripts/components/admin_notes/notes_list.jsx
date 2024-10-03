@@ -10,15 +10,15 @@ const NotesList = ({ notesList }) => {
     },
 
     revisor: {
-    label: I18n.t('notes.edited_by'),
-    desktop_only: true,
-    info_key: 'notes.last_edited_by'
+      label: I18n.t('notes.edited_by'),
+      desktop_only: true,
+      info_key: 'notes.last_edited_by'
     },
 
     date: {
-    label: 'Date/Time',
-    desktop_only: true,
-    info_key: 'notes.edit'
+      label: 'Date/Time',
+      desktop_only: true,
+      info_key: 'notes.edit'
     }
   };
 

@@ -38,7 +38,7 @@ const NewReplyForm = ({ ticket, currentUser }) => {
 
   const onTextAreaChange = (_key, content, _e) => {
     setReplyDetails(prevState => ({
-      ...prevState, content: content, plainText: content
+      ...prevState, content, plainText: content
     }));
   };
 
@@ -49,19 +49,16 @@ const NewReplyForm = ({ ticket, currentUser }) => {
     }));
   };
 
-  const onReply = (e) => {
-    setReplyDetails(prevState => ({ ...prevState, sending: true }));
-    onSubmit(e, TICKET_STATUS_AWAITING_RESPONSE, MESSAGE_KIND_REPLY);
+  const _ccEmailsSplit = (emailString = '') => {
+    return emailString.split(',')
+      .map(email => email.trim())
+      .filter(email => email);
   };
 
-  const onCreateNote = (e) => {
-    setReplyDetails(prevState => ({ ...prevState, sending: true }));
-    onSubmit(e, ticket.status, MESSAGE_KIND_NOTE); // Leave status unchanged
-  };
-
-  const onResolve = (e) => {
-    setReplyDetails(prevState => ({ ...prevState, sending: true }));
-    onSubmit(e, TICKET_STATUS_RESOLVED, MESSAGE_KIND_REPLY);
+  const _ccEmailsAreValid = (emails) => {
+    if (!emails.length) return true;
+    const regexp = RegExp(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i);
+    return emails.every(email => regexp.test(email));
   };
 
   const onSubmit = (e, status, kind) => {
@@ -95,20 +92,24 @@ const NewReplyForm = ({ ticket, currentUser }) => {
       .then(() => setReplyDetails(prevState => ({ ...prevState, cc: '', content: '', sending: false }))
       );
   };
+
+  const onReply = (e) => {
+    setReplyDetails(prevState => ({ ...prevState, sending: true }));
+    onSubmit(e, TICKET_STATUS_AWAITING_RESPONSE, MESSAGE_KIND_REPLY);
+  };
+
+  const onCreateNote = (e) => {
+    setReplyDetails(prevState => ({ ...prevState, sending: true }));
+    onSubmit(e, ticket.status, MESSAGE_KIND_NOTE); // Leave status unchanged
+  };
+
+  const onResolve = (e) => {
+    setReplyDetails(prevState => ({ ...prevState, sending: true }));
+    onSubmit(e, TICKET_STATUS_RESOLVED, MESSAGE_KIND_REPLY);
+  };
+
   const toggleBcc = (e) => {
     setReplyDetails(prevState => ({ ...prevState, bccToSalesforce: e.target.checked }));
-  };
-
-  const _ccEmailsSplit = (emailString = '') => {
-    return emailString.split(',')
-      .map(email => email.trim())
-      .filter(email => email);
-  };
-
-  const _ccEmailsAreValid = (emails) => {
-    if (!emails.length) return true;
-    const regexp = RegExp(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i);
-    return emails.every(email => regexp.test(email));
   };
 
   const name = ticket.sender && (ticket.sender.real_name || ticket.sender.username);

@@ -8,6 +8,7 @@ const AddAdminForm = ({ submittingNewAdmin, upgradeAdmin, handlePopoverClose }) 
 
   useEffect(() => {
     if (!submittingNewAdmin) {
+      // eslint-disable-next-line no-use-before-define
       reset();
     }
   }, [submittingNewAdmin]);

@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-indent */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
@@ -24,6 +25,7 @@ const UploadViewer = ({ closeUploadViewer, upload, imageFile }) => {
     const metadata = get(uploadMetadata, `query.pages[${upload.id}]`);
     const fileUsage = get(metadata, 'globalusage', []);
     if (fileUsage && loadingViews) {
+      // eslint-disable-next-line no-use-before-define
       handleGetFileViews(fileUsage);
     }
   }, [uploadMetadata, upload.id, loadingViews]);
@@ -58,13 +60,13 @@ const UploadViewer = ({ closeUploadViewer, upload, imageFile }) => {
   let usageTableElements;
   if (globalUsage && pageViews !== undefined) {
     usageTableElements = globalUsage.map((usage, index) => {
-        return (
+      return (
           <tr className="view-file-details" key={usage.url}>
             <td className="row-details">{usage.wiki}&nbsp;&nbsp;&nbsp;</td>
             <td className="row-details"><a href={usage.url}>{usage.title}</a>&nbsp;&nbsp;&nbsp;</td>
             <td className="text-right row-details">{pageViews[index]}</td>
           </tr>
-        );
+      );
     });
   }
 

@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-indent */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
@@ -35,30 +36,30 @@ const CourseTypeSelector = (props) => {
     return props.updateCourse(course);
   };
 
-    const currentType = _getFormattedCourseType(props.course.type);
-    let selector = (
+  const currentType = _getFormattedCourseType(props.course.type);
+  let selector = (
       <span>
         <strong>Type:</strong> {currentType}
       </span>
-    );
+  );
 
-    if (props.editable && currentType !== 'LegacyCourse') {
-      let options = [
+  if (props.editable && currentType !== 'LegacyCourse') {
+    let options = [
+      { value: 'BasicCourse', label: _getFormattedCourseType('BasicCourse') },
+      { value: 'Editathon', label: _getFormattedCourseType('Editathon') },
+      { value: 'ArticleScopedProgram', label: _getFormattedCourseType('ArticleScopedProgram') },
+    ];
+    if (Features.wikiEd) {
+      options = [
+        { value: 'ClassroomProgramCourse', label: _getFormattedCourseType('ClassroomProgramCourse') },
+        { value: 'VisitingScholarship', label: _getFormattedCourseType('VisitingScholarship') },
+        { value: 'FellowsCohort', label: _getFormattedCourseType('FellowsCohort') },
         { value: 'BasicCourse', label: _getFormattedCourseType('BasicCourse') },
         { value: 'Editathon', label: _getFormattedCourseType('Editathon') },
         { value: 'ArticleScopedProgram', label: _getFormattedCourseType('ArticleScopedProgram') },
       ];
-      if (Features.wikiEd) {
-        options = [
-          { value: 'ClassroomProgramCourse', label: _getFormattedCourseType('ClassroomProgramCourse') },
-          { value: 'VisitingScholarship', label: _getFormattedCourseType('VisitingScholarship') },
-          { value: 'FellowsCohort', label: _getFormattedCourseType('FellowsCohort') },
-          { value: 'BasicCourse', label: _getFormattedCourseType('BasicCourse') },
-          { value: 'Editathon', label: _getFormattedCourseType('Editathon') },
-          { value: 'ArticleScopedProgram', label: _getFormattedCourseType('ArticleScopedProgram') },
-        ];
-      }
-      selector = (
+    }
+    selector = (
         <div className="form-group">
           <label id={`${id}-label`} htmlFor={id}>{I18n.t('courses.course_type_label')}</label>
           <Select
@@ -71,14 +72,14 @@ const CourseTypeSelector = (props) => {
             aria-labelledby={`${id}-label`}
           />
         </div>
-      );
-    }
-    return (
+    );
+  }
+  return (
       <div className="course_type_selector">
         {selector}
       </div>
-    );
-  };
+  );
+};
 CourseTypeSelector.propTypes = {
   course: PropTypes.object,
   editable: PropTypes.bool,

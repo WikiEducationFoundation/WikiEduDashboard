@@ -15,6 +15,25 @@ const fetchClassFromRevisionsOfWiki = async (wiki_url, revisionsOfWiki) => {
   const uniqueArticles = [...new Set(revisionsOfWiki.filter(revision => revision.ns === 0).map(revision => revision.title))];
   const chunks = chunk(uniqueArticles, 50);
   const allPromises = [];
+
+  // takes in a list of articles, and requests for their class information
+  // eslint-disable-next-line no-shadow
+  const getClassesForArticles = async (API_URL, articles) => {
+    const params = {
+      action: 'query',
+      format: 'json',
+      titles: articles.join('|'),
+      prop: 'pageassessments',
+      pasubprojects: false,
+      palimit: 500
+    };
+    const response = await request(`${API_URL}?${stringify(params)}&origin=*`);
+    const pages = (await response.json())?.query?.pages;
+    if (pages) {
+      return pages;
+    }
+  };
+
   for (const uniqueArticlesChunk of chunks) {
     allPromises.push(getClassesForArticles(API_URL, uniqueArticlesChunk));
   }
@@ -40,19 +59,4 @@ export const fetchClassFromRevisions = async (wikiMap) => {
   return Object.assign({}, ...resolvedValues);
 };
 
-// takes in a list of articles, and requests for their class information
-const getClassesForArticles = async (API_URL, articles) => {
-  const params = {
-    action: 'query',
-    format: 'json',
-    titles: articles.join('|'),
-    prop: 'pageassessments',
-    pasubprojects: false,
-    palimit: 500
-  };
-  const response = await request(`${API_URL}?${stringify(params)}&origin=*`);
-  const pages = (await response.json())?.query?.pages;
-  if (pages) {
-    return pages;
-  }
-};
+

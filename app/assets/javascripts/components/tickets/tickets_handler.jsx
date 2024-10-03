@@ -20,6 +20,7 @@ const TicketsHandler = () => {
   const filteredTickets = useSelector(state => getFilteredTickets(state));
 
   useEffect(() => {
+    // eslint-disable-next-line no-use-before-define
     const searchByCourseParamInURL = getCourseSearchParamInURL();
 
     if (searchByCourseParamInURL) {

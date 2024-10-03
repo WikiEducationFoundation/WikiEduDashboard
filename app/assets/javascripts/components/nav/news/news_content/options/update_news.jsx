@@ -17,13 +17,13 @@ const UpdateNews = ({ saveEditedNews, newsId }) => {
     if (!editedNews.content.trim().length) {
       dispatchNotification(dispatch, 'Error', I18n.t('news.notification.empty_update_news_content_error'));
     } else {
-        try {
-          dispatch(saveEditedNewsContent(newsId));
-          saveEditedNews();
-          dispatchNotification(dispatch, 'Success', I18n.t('news.notification.update'));
-        } catch (error) {
-          dispatchNotification(dispatch, 'Error', I18n.t('news.notification.update_error'));
-        }
+      try {
+        dispatch(saveEditedNewsContent(newsId));
+        saveEditedNews();
+        dispatchNotification(dispatch, 'Success', I18n.t('news.notification.update'));
+      } catch (error) {
+        dispatchNotification(dispatch, 'Error', I18n.t('news.notification.update_error'));
+      }
     }
   }
 

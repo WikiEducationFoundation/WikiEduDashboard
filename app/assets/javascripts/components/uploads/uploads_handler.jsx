@@ -37,6 +37,7 @@ const UploadsHandler = ({ course_id, course }) => {
   useEffect(() => {
     const data = stateValues.selectedUploads.slice(offset, offset + UPLOADS_PER_PAGE);
     if (currentPage === 0) {
+      // eslint-disable-next-line no-use-before-define
       setUploadMetadataHandler(data);
     }
     setOffset(0);

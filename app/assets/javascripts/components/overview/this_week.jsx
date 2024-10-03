@@ -67,7 +67,7 @@ const ThisWeek = ({ course, weeks, current_user }) => {
         index={weekIndex}
         key={week.id}
         editable={false}
-        blocks= {week.blocks}
+        blocks={week.blocks}
         moveBlock={null}
         deleteWeek={null}
         showTitle={false}

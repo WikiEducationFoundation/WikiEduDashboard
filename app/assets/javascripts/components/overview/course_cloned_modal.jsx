@@ -9,6 +9,10 @@ import Calendar from '../common/calendar.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 
+function __guard__(value, transform) {
+  return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;
+}
+
 const CourseClonedModal = createReactClass({
   displayName: 'CourseClonedModal',
 
@@ -29,9 +33,9 @@ const CourseClonedModal = createReactClass({
 
   statics: {
     getDerivedStateFromProps(props, state) {
-        return {
-          tempCourseId: CourseUtils.generateTempId(state.course)
-        };
+      return {
+        tempCourseId: CourseUtils.generateTempId(state.course)
+      };
     }
   },
 
@@ -288,7 +292,7 @@ const CourseClonedModal = createReactClass({
     } else {
       infoIcon = (
         <div className="tooltip-trigger">
-          <img src ="/assets/images/info.svg" alt = "tooltip default logo" />
+          <img src="/assets/images/info.svg" alt="tooltip default logo" />
           <div className="tooltip large dark">
             <p>
               {CourseUtils.i18n('creator.course_when', i18nPrefix)}
@@ -416,6 +420,3 @@ const CourseClonedModal = createReactClass({
 
 export default CourseClonedModal;
 
-function __guard__(value, transform) {
-  return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;
-}

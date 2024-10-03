@@ -22,23 +22,6 @@ export const setNewAccountEmail = (_, email) => ({
   type: types.SET_NEW_ACCOUNT_EMAIL, email
 });
 
-export const checkAvailability = newAccount => (dispatch) => {
-  dispatch({ type: types.NEW_ACCOUNT_VALIDATING_USERNAME });
-  return (
-    _checkAvailability(newAccount)
-      .then((resp) => {
-        // As of 2022-03-17, responses look like this:
-        // Valid: {"batchcomplete":"","query":{"users":[{"name":"Something Something New Editor","missing":"","cancreate":""}]}}
-        // Taken: {"batchcomplete":"","query":{"users":[{userid: 28076, name: 'Ragesoss'}]}}
-        // Too similar: {"batchcomplete":"","query":{"users":[{"name":"Rages0ss","missing":"","cancreateerror":[{"message":"$1","params":["The username &quot;Rages0ss&quot; is too similar to the following username:<ul><li>Ragesoss</li></ul>Please choose another username."],"code":"_1","type":"error"}]}]}}
-        if (canCreateAccount(resp)) {
-          return dispatch({ type: types.NEW_ACCOUNT_USERNAME_VALID });
-        }
-        return dispatch({ type: types.NEW_ACCOUNT_USERNAME_INVALID, error: parseCanCreateResponse(resp) });
-      }).catch(response => (dispatch({ type: types.API_FAIL, data: response })))
-  );
-};
-
 const canCreateAccount = (response) => {
   const user = response.query.users[0];
   if (user.cancreate === '') {
@@ -64,6 +47,23 @@ const parseCanCreateResponse = (response) => {
     return I18n.t('courses.new_account_username_taken');
   }
   return 'unknown error';
+};
+
+export const checkAvailability = newAccount => (dispatch) => {
+  dispatch({ type: types.NEW_ACCOUNT_VALIDATING_USERNAME });
+  return (
+    _checkAvailability(newAccount)
+      .then((resp) => {
+        // As of 2022-03-17, responses look like this:
+        // Valid: {"batchcomplete":"","query":{"users":[{"name":"Something Something New Editor","missing":"","cancreate":""}]}}
+        // Taken: {"batchcomplete":"","query":{"users":[{userid: 28076, name: 'Ragesoss'}]}}
+        // Too similar: {"batchcomplete":"","query":{"users":[{"name":"Rages0ss","missing":"","cancreateerror":[{"message":"$1","params":["The username &quot;Rages0ss&quot; is too similar to the following username:<ul><li>Ragesoss</li></ul>Please choose another username."],"code":"_1","type":"error"}]}]}}
+        if (canCreateAccount(resp)) {
+          return dispatch({ type: types.NEW_ACCOUNT_USERNAME_VALID });
+        }
+        return dispatch({ type: types.NEW_ACCOUNT_USERNAME_INVALID, error: parseCanCreateResponse(resp) });
+      }).catch(response => (dispatch({ type: types.API_FAIL, data: response })))
+  );
 };
 
 export function requestAccount(passcode, course, newAccount, createAccountNow = false) {

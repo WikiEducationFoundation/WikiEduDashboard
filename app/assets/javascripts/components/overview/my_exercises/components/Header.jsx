@@ -8,8 +8,8 @@ export const Header = ({ completed = false, course, remaining = [], text }) => (
       { text }
       {
         remaining.length
-        ? <small>{remaining.length} additional exercises remaining.</small>
-        : null
+          ? <small>{remaining.length} additional exercises remaining.</small>
+          : null
       }
     </h3>
     <Link

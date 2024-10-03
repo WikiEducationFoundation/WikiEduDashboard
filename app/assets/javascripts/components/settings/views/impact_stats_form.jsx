@@ -1,22 +1,23 @@
+/* eslint-disable react/jsx-indent */
 import React, { useState } from 'react';
 import TextInput from '../../common/text_input';
 import { updateImpactStats } from '../../../actions/settings_actions';
 import { connect } from 'react-redux';
 
 const ImpactStatsForm = (props) => {
-    const [stats, setStats] = useState({});
+  const [stats, setStats] = useState({});
 
-    const handleChange = (key, value) => {
-        setStats({ ...stats, [key]: value });
-    };
+  const handleChange = (key, value) => {
+    setStats({ ...stats, [key]: value });
+  };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        props.updateImpactStats(stats);
-        props.handlePopoverClose(e);
-    };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    props.updateImpactStats(stats);
+    props.handlePopoverClose(e);
+  };
 
-    return (
+  return (
       <tr>
         <td>
           <form onSubmit={handleSubmit}>
@@ -96,11 +97,11 @@ const ImpactStatsForm = (props) => {
           </form>
         </td>
       </tr>
-    );
+  );
 };
 
 const mapDispatchToProps = {
-    updateImpactStats,
+  updateImpactStats,
 };
 
 export default connect(null, mapDispatchToProps)(ImpactStatsForm);

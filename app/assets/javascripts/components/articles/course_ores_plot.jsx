@@ -12,6 +12,24 @@ const CourseOresPlot = ({ course }) => {
   const [refresh, setRefresh] = useState(false);
   const [filePath, setFilePath] = useState(null);
 
+  const fetchFile = () => {
+    request(`/courses/${course.slug}/refresh_ores_data.json`)
+      .then(resp => resp.json())
+      .then((data) => {
+        setRefreshedData(data.ores_plot);
+        setLoading(false);
+      });
+  };
+
+  const fetchFilePath = () => {
+    request(`/courses/${course.slug}/ores_plot.json`)
+      .then(resp => resp.json())
+      .then((data) => {
+        setFilePath(data.ores_plot);
+        setLoading(false);
+      });
+  };
+
   const showHandler = () => {
     if (!filePath) {
       fetchFilePath();
@@ -39,24 +57,6 @@ const CourseOresPlot = ({ course }) => {
   const shouldShowButton = () => {
     // Do not show it if there are zero articles edited, or it's not an en-wiki course.
     return isSupportedWiki() && course.edited_count !== '0';
-  };
-
-  const fetchFile = () => {
-    request(`/courses/${course.slug}/refresh_ores_data.json`)
-      .then(resp => resp.json())
-      .then((data) => {
-        setRefreshedData(data.ores_plot);
-        setLoading(false);
-      });
-  };
-
-  const fetchFilePath = () => {
-    request(`/courses/${course.slug}/ores_plot.json`)
-      .then(resp => resp.json())
-      .then((data) => {
-        setFilePath(data.ores_plot);
-        setLoading(false);
-      });
   };
 
   const displayGraph = (data) => {
