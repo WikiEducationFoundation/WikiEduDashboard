@@ -1,4 +1,4 @@
-- content_for :before_title, "Edit FAQ Topic - #{@topic.title}"
+- content_for :before_title, "Edit FAQ Topic - #{@topic.slug}"
 .container
   %h2= "Editing topic: #{@topic.slug}"
   = form_with url: "/faq_topics/#{@topic.slug}", method: :update do
