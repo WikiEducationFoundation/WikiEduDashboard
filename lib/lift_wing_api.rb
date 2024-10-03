@@ -12,7 +12,7 @@ class LiftWingApi
   DELETED_REVISION_ERRORS = [
     'TextDeleted',
     'RevisionNotFound',
-    'The MW API does not have any info related to the rev-id'
+    'MW API does not have any info'
   ].freeze
 
   LIFT_WING_SERVER_URL = 'https://api.wikimedia.org'
