@@ -78,7 +78,7 @@ describe RevisionScoreImporter do
   end
 
   it 'marks RevisionNotFound revisions as deleted' do
-    VCR.use_cassette 'revision_scores/deleted_revision' do
+    VCR.use_cassette 'revision_scores/not_found_revision' do
       # Article and its revisions are deleted
       article = create(:article,
                        mw_page_id: 123456,
