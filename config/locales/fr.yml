@@ -47,7 +47,7 @@ fr:
   number:
     human:
       decimal_units:
-        format: '%n%u'
+        format: "%n%u"
         units:
           thousand: k
           million: M
@@ -55,24 +55,27 @@ fr:
           trillion: T
           quadrillion: P
   accessibility:
-    number_field: Ceci est un champ numérique. Les boutons générés sur la plupart
+    number_field:
+      Ceci est un champ numérique. Les boutons générés sur la plupart
       des navigateurs incrémenteront et décrémenteront cette entrée.
   application:
     back: Retour
     cancel: Annuler
-    cookie_consent: Ce site utilise des témoins (''cookies'') pour vous maintenir
+    cookie_consent:
+      Ce site utilise des témoins (''cookies'') pour vous maintenir
       connecté et stocker des informations liées à votre compte sur Wikipédia.
     cookie_consent_acknowledge: Je comprends
     cookie_consent_see_more: Voir davantage.
     create_accounts: Créer les comptes Wikipédia
     dashboard: Tableau de bord de modification du wiki
     documentation: Documentation
-    error: 'Une erreur est survenue :'
+    error: "Une erreur est survenue :"
     explore: Explorer
     field_required: Ce champ est obligatoire
     field_invalid_characters: Ce champ contient des caractères non valides
     field_invalid_date: Ce champ requiert une date au format AAAA-MM-JJ
-    field_invalid_date_time: La fin doit être après le début (les heures vont de 0
+    field_invalid_date_time:
+      La fin doit être après le début (les heures vont de 0
       à 23).
     greeting2: Bienvenue !
     greeting_extended: Bienvenue dans Wikipédia
@@ -89,8 +92,8 @@ fr:
     request_account_create: Créer un compte
     search: poser une question
     search_results:
-      one: '%{count} résultat pour : « %{search_terms} »'
-      other: '%count résultats pour : « %{search_terms} »'
+      one: "%{count} résultat pour : « %{search_terms} »"
+      other: "%count résultats pour : « %{search_terms} »"
     no_results: Aucun résultat trouvé pour « %{query} »
     show_current_revision: Affiche la version actuelle.
     show_last_revision: Afficher la dernière version modifiée
@@ -120,28 +123,33 @@ fr:
     peer_review_completed: Révision terminée
   dashboard:
     create_note: Cliquer sur « Créer un cours » pour créer votre premier cours
-    create_preparation_note: Assurez-vous d’avoir votre calendrier scolaire sous la
+    create_preparation_note:
+      Assurez-vous d’avoir votre calendrier scolaire sous la
       main avant de commencer ; l’outil de prévision des affectations utilisera les
       dates de réunion de votre classe — y compris les congés scolaires et jours fériés —
       pour adapter votre agenda à la plage de dates que vous choisirez. Souvenez-vous
       que vous pouvez toujours modifier la planification pour l’adapter à vos besoins.
     explore_course_pages: Explorer les pages de cours
     explore_examples: Explorer les exemples
-    join_note: Une fois que vous aurez reçu un code d’accès de la part de votre formateur,
+    join_note:
+      Une fois que vous aurez reçu un code d’accès de la part de votre formateur,
       cliquez sur « Trouver votre cours » pour le trouver et le rejoindre.
     no_courses_instructor: Il semble que vous n’avez aucun cours.
     no_courses_student: Il semble que vous n’ayez encore rejoint aucun cours.
     opt_out: Demande de retrait de l’orientation
-    orientation_notice: Avant de créer un cours, passez par l’orientation pour vous
+    orientation_notice:
+      Avant de créer un cours, passez par l’orientation pour vous
       aider à commencer (cela prendra 30 minutes pour le terminer).
     review_orientation: Examiner l’orientation
     start_orientation: Orientation au départ
     blog_headline: Actualités récentes de Wiki Éducation
-    about_programs: Ce site suit les activités wiki au travers des Programmes — des
+    about_programs:
+      Ce site suit les activités wiki au travers des Programmes — des
       événements individuels tels qu’un wikithon ou un cours scolaire. Chaque Programme
       fait partie d’une ou de plusieurs Campagnes qui fournissent des statistiques
       agrégées sur leurs Programmes.
-    about_creating_programs: Si vous gérez un événement unique et indépendant, vous
+    about_creating_programs:
+      Si vous gérez un événement unique et indépendant, vous
       pouvez créer un Programme maintenant. Si votre événement fait partie d’un ensemble,
       trouvez ou créez une Campagne pour cela. Créez ensuite un nouveau Programme
       depuis la page de la Campagne.
@@ -152,17 +160,21 @@ fr:
     registration_advice:
       username_rules:
         heading: Règles de nom d'utilisateur
-        avoid_offensive_usernames: Ne choisissez pas un nom d'utilisateur choquant,
+        avoid_offensive_usernames:
+          Ne choisissez pas un nom d'utilisateur choquant,
           trompeur, perturbateur ou promotionnel.
-        represent_individual: Les noms utilisateur doivent représenter un contributeur
+        represent_individual:
+          Les noms utilisateur doivent représenter un contributeur
           ou une contributrice personnellement. N’utilisez pas le nom d’une école
           ou d’une organisation.
       additional_advice:
         heading: Conseil
-        anonymous_username_recommendation: L’équipe de Wiki Éducation recommande de
+        anonymous_username_recommendation:
+          L’équipe de Wiki Éducation recommande de
           choisir un nom d'utilisateur anonyme, qui ne comporte pas votre nom réel
           ou d'autres informations qui permettraient de vous identifier.
-    sign_up_help: Pour utiliser le tableau de bord, vous devez vous connecter via
+    sign_up_help:
+      Pour utiliser le tableau de bord, vous devez vous connecter via
       Wikipédia et lui donner le droit d’accéder à votre compte. Vous pouvez vous
       connecter avec un compte Wikipédia existant ou en créer un nouveau. Si vous
       ne parvenez pas à créer de compte, contactez dashboard@wikiedu.org.
@@ -186,17 +198,20 @@ fr:
     previous: Précédent
     article_title: Titre de l’article
     assigned_to: Affecté à
-    character_doc: Le total du nombre de caractères ajoutés aux articles par les rédacteurs
+    character_doc:
+      Le total du nombre de caractères ajoutés aux articles par les rédacteurs
       inscrits entre les dates de début et de fin
-    cross_wiki_tracking: Les pages de l’espace de noms principal modifiées entre les
+    cross_wiki_tracking:
+      Les pages de l’espace de noms principal modifiées entre les
       dates de début et de fin sont listées ci-dessous. Le tableau de bord agrège
       les contributions depuis le wiki d’accueil de ce programme, avec tous les autres
       wikis pour lesquels il y a une Affectation ou un Article disponible.
     deleted: (supprimé)
-    does_not_exist: L’article n’existe pas. Créez une page de bac à sable et affectez-vous
+    does_not_exist:
+      L’article n’existe pas. Créez une page de bac à sable et affectez-vous
       y pour recevoir des suggestions.
     edited: Articles modifiés
-    edited_by: 'Modifié par :'
+    edited_by: "Modifié par :"
     edited_mobile: Articles
     edited_none: Il n’y a encore aucun article modifié.
     filter:
@@ -207,7 +222,7 @@ fr:
       tracked: Suivi
       untracked: Non suivi
       tracked_and_untracked: Suivi et non suivi
-    filter_text: 'Filtres :'
+    filter_text: "Filtres :"
     find: Trouver des articles
     how_to_find: Comment trouver des articles
     hide: Masquer
@@ -219,55 +234,67 @@ fr:
     none: Ce cours n’a modifié aucun article.
     preview: Bref aperçu de l’article
     rating: Classe
-    rating_doc: La notation attribuée à un article par WikiProjets sur Wikipédia.
+    rating_doc:
+      La notation attribuée à un article par WikiProjets sur Wikipédia.
       Ces notes peuvent correspondre à des versions plus anciennes ; elles sont donc
       simplement un indicateur approximatif de la maturité de l’article.
     rating_docs:
-      fa: '%{class} (article vedette) — la plus haute notation de Wikipédia, probablement
+      fa:
+        "%{class} (article vedette) — la plus haute notation de Wikipédia, probablement
         un article trop mature pour être le projet principal d’un nouveau contributeur
-        ou nouvelle contributrice'
-      fl: '%{class} (liste vedette) — la plus haute notation de Wikipédia pour les
-        listes'
-      a: classe %{class} — article très développé qui pourrait être trop mature pour
+        ou nouvelle contributrice"
+      fl:
+        "%{class} (liste vedette) — la plus haute notation de Wikipédia pour les
+        listes"
+      a:
+        classe %{class} — article très développé qui pourrait être trop mature pour
         être le projet principal d’un nouveau contributeur ou nouvelle contributrice
-      ga: '%{class} (bon article) — un article bien développé qui pourrait être trop
+      ga:
+        "%{class} (bon article) — un article bien développé qui pourrait être trop
         mature pour être le projet principal d’un nouveau contributeur ou nouvelle
-        contributrice'
+        contributrice"
       b: classe %{class} — un article modérément développé
       c: classe %{class} — un article intermédiaire, avec des possibilités d’amélioration
-      start: classe %{class} — un article préliminaire avec beaucoup de possibilités
+      start:
+        classe %{class} — un article préliminaire avec beaucoup de possibilités
         d’amélioration
       stub: classe %{class} — court début d’un article qui nécessite plus de contenu
       list: classe %{class} — une liste plutôt qu’un article habituel
-      '?': non classé — un article qui n’a pas encore été noté sur l’échelle de qualité
+      "?":
+        non classé — un article qui n’a pas encore été noté sur l’échelle de qualité
         de Wikipédia
       does_not_exist: Cet article n’existe pas sur Wikipédia
     see_more: Voir plus
-    see_more_tooltip: Seuls les 500 premiers articles édités sont chargés initialement.
+    see_more_tooltip:
+      Seuls les 500 premiers articles édités sont chargés initialement.
       Cliquez pour charger des articles supplémentaires.
     search: Rechercher un article dans Wikipédia
     show_cumulative_changes: Afficher les modifications cumulatives
     show_current_version: Afficher la version courante
-    show_current_version_with_authorship_highlighting: Version actuelle avec mise
+    show_current_version_with_authorship_highlighting:
+      Version actuelle avec mise
       en évidence de la paternité
     title: Titre
     tracked: Suivi
-    tracked_doc: Seuls les articles suivis contribuent aux statistiques pour ce programme.
+    tracked_doc:
+      Seuls les articles suivis contribuent aux statistiques pour ce programme.
       Quand des articles sont marqués comme non suivi, ils seront supprimés des statistiques
       lors de la prochaine mise à jour des données.
     title_example: Titre de l’article
     tools: Outils d’évaluation
     view: Afficher l’article
     view_all: Tout afficher
-    view_doc: Le nombre estimé de vues de chaque article depuis qu’il a été modifié
+    view_doc:
+      Le nombre estimé de vues de chaque article depuis qu’il a été modifié
       pour la première fois, jusqu’à la dernière mise à jour des statistiques. Vous
       pouvez utiliser pageviews.toolforge.org pour voir les valeurs exactes.
     view_on_wiki: Afficher sur le wiki
-    views_added: '%{count} nouvelles vues ajoutées pour %{title}'
+    views_added: "%{count} nouvelles vues ajoutées pour %{title}"
     edit_size: Modifier la taille
     wiki: Wiki
     wp10: Complétude structurale
-    wp10_doc: L’évaluation de la « complétude structurale » mesure le degré d’adéquation
+    wp10_doc:
+      L’évaluation de la « complétude structurale » mesure le degré d’adéquation
       d’un article au modèle d’un article mature de Wikipédia, donné par le service
       d’évaluation objective des versions (https://ores.wikimedia.org/) basé sur l’apprentissage
       automatique. Ces valeurs sont calculées sur la taille de l’article, le nombre
@@ -277,7 +304,8 @@ fr:
       le contenu lui-même. (Ces statistiques ne sont disponibles que pour les articles
       de l’édition en anglais de Wikipédia).
     articles_short: Articles
-    deleted_message: Selon les données du tableau de bord, cette page a été effacée.
+    deleted_message:
+      Selon les données du tableau de bord, cette page a été effacée.
       (Dans quelques cas, des déplacements de pages, des fusions d’historique ou d’autres
       actions peuvent résulter en un article incorrectement listé comme supprimé.
       Les articles supprimés peuvent également être restaurés plus tard. Pour les
@@ -295,13 +323,16 @@ fr:
     assigned: Éléments affectés
     assignments_none: Il n’y a encore aucun élément affecté.
     available: Éléments disponibles
-    character_doc: Le total du nombre de caractères ajoutés aux articles par les contributeurs
+    character_doc:
+      Le total du nombre de caractères ajoutés aux articles par les contributeurs
       inscrits entre les dates de début et de fin
-    cross_wiki_tracking: Les pages de l’espace principal modifiées entre les dates
+    cross_wiki_tracking:
+      Les pages de l’espace principal modifiées entre les dates
       de début et de fin sont listées ci-dessous. Le tableau de bord réunit les contributions
       du wiki d’accueil de ce programme, parmi d’autres wikis pour lesquels il y a
       un élément d’affectation ou disponible.
-    does_not_exist: L’élément n’existe pas. Créer une page bac à sable et vous affecter
+    does_not_exist:
+      L’élément n’existe pas. Créer une page bac à sable et vous affecter
       à elle pour recevoir les suggestions.
     edited: Éléments modifiés
     edited_none: Il n’y a encore aucun élément modifié.
@@ -309,10 +340,12 @@ fr:
     how_to_find: Comment trouver des objets
     preview: Bref aperçu de l’élément
     search: Rechercher un élément dans Wikidata
-    tracked_doc: Seuls les éléments suivis contribuent aux statistiques pour ce programme.
+    tracked_doc:
+      Seuls les éléments suivis contribuent aux statistiques pour ce programme.
       Quand les éléments sont marqués comme non suivis, ils seront supprimés des statistiques
       lors de la prochaine mise à jour des données.
-    view_doc: Les affichages estimés de chaque élément depuis sa première modification,
+    view_doc:
+      Les affichages estimés de chaque élément depuis sa première modification,
       d’après la mise à jour des statistiques la plus récente. Vous pouvez utiliser
       pageviews.toolforge.org pour voir les chiffres exacts.
     title_example: Titre de l’élément
@@ -324,8 +357,9 @@ fr:
     article: L’article %{title} vous est maintenant affecté.
     article_link: Article
     article_link_wikidata: Élément
-    blocked_assignment: '%{title} n''a pas pu être attribué car il figure sur la liste
-      noire des affectations Wiki Education de la communauté Wikipédia.'
+    blocked_assignment:
+      "%{title} n'a pas pu être attribué car il figure sur la liste
+      noire des affectations Wiki Education de la communauté Wikipédia."
     already_exists: Cette affectation existe déjà !
     title_too_large: Le titre ne doit pas dépasser 255 caractères
     assignees: Affectation(s)
@@ -339,9 +373,11 @@ fr:
     add_available_submit_wikidata: Ajouter des éléments
     assign_self: M’affecter un article
     assign_self_wikidata: M’affecter un élément
-    assign_tooltip: Un article affecté est un article que vous prévoyez de créer ou
+    assign_tooltip:
+      Un article affecté est un article que vous prévoyez de créer ou
       d’améliorer.
-    assign_tooltip_wikidata: Un élément affecté est un élément que vous prévoyez de
+    assign_tooltip_wikidata:
+      Un élément affecté est un élément que vous prévoyez de
       créer ou d’améliorer.
     bibliography: Bibliographie
     clone: Cloner
@@ -359,13 +395,15 @@ fr:
     none_short_wikidata: Aucun élément affecté
     none: Ce cours n’a aucun article affecté.
     no_available: Ce cours n’a aucun article disponible.
-    peer_review_count: '%{currentCount} / %{total} sélectionnés'
-    peer_review_count_tooltip: Vous devez sélectionner %{total} articles pour une
+    peer_review_count: "%{currentCount} / %{total} sélectionnés"
+    peer_review_count_tooltip:
+      Vous devez sélectionner %{total} articles pour une
       relecture par des pairs.
     peer_review_link: Relecture par un pair
     peer_review_link_personalized: Révision du pair %{username}
     random_peer_review:
-      confirm_addition: Dans la plupart des cas, vous ne devrez utiliser cela qu’une
+      confirm_addition:
+        Dans la plupart des cas, vous ne devrez utiliser cela qu’une
         fois que tous les étudiants ont eu leurs articles principaux affectés. Au
         choix, vous pouvez demander à vos étudiants de choisir leurs propres relectures
         par un pair, ou bien vous pouvez affecter manuellement les relectures par
@@ -374,7 +412,8 @@ fr:
         un total de %{count} relecture(s) supplémentaire(s) par un pair, avec un maximum
         de %{maximum} pour chaque étudiant, choisies parmi les articles de leurs camarades
         de classe.
-      confirm_addition_wikidata: Dans la plupart des cas, vous ne devez utiliser cela
+      confirm_addition_wikidata:
+        Dans la plupart des cas, vous ne devez utiliser cela
         qu’après que tous les étudiants ont eu leurs éléments principaux affectés.
         Au choix, vous pouvez demander à vos étudiants de choisir leurs propres relectures
         par un pair, ou vous pouvez affecter manuellement des relectures par un pair
@@ -383,9 +422,11 @@ fr:
         relecture(s) supplémentaire(s) par un pair, avec un maximum de %{maximum}
         pour chaque étudiant, choisies parmi les éléments de leurs camarades de classe.
       heading: Affecter des relectures par des pairs aléatoires
-      tooltip_message: Affecte des articles aléatoires (avec le compte des revues
+      tooltip_message:
+        Affecte des articles aléatoires (avec le compte des revues
         de pair en nombre maximum) à chaque étudiant.
-      tooltip_message_wikidata: Affecte des éléments aléatoires (avec un nombre de
+      tooltip_message_wikidata:
+        Affecte des éléments aléatoires (avec un nombre de
         relecture par pair jusqu’au nombre maximal) à chaque étudiant.
       limit_exceeded: Chaque étudiant relit déjà au moins %{maximum} article(s).
       limit_exceeded_wikidata: Chaque étudiant relit déjà au moins %{maximum} élément(s).
@@ -394,23 +435,29 @@ fr:
     review_other: Affecter / retirer une relecture par un pair
     review_self: Relire un article
     review_self_wikidata: Relire un élément
-    review_tooltip: Ceci est prévu pour les articles que vous prévoyez de relire ou
+    review_tooltip:
+      Ceci est prévu pour les articles que vous prévoyez de relire ou
       de commenter.
-    review_tooltip_wikidata: Ceci est destiné aux éléments que vous prévoyez de faire
+    review_tooltip_wikidata:
+      Ceci est destiné aux éléments que vous prévoyez de faire
       relire par un pair ou sur lesquels vous prévoyez de fournir un avis.
     sandbox_draft_link: Brouillon
-    sandbox_redlink_info: Ce lien est rouge parce que la page n’a pas encore été créée
+    sandbox_redlink_info:
+      Ce lien est rouge parce que la page n’a pas encore été créée
       (si elle a été créée récemment, le tableau de bord mettra bientôt ses données
       à jour).
     select: Sélectionner
     submit: Soumettre
-    invalid_url: Impossible de mettre à jour l'URL du bac à sable. L'URL %{url} n'est
+    invalid_url:
+      Impossible de mettre à jour l'URL du bac à sable. L'URL %{url} n'est
       pas une URL Wikipédia valide.
-    mismatched_wiki: Impossible de mettre à jour l'URL du bac à sable. L'URL %{url}
+    mismatched_wiki:
+      Impossible de mettre à jour l'URL du bac à sable. L'URL %{url}
       n'est pas sur le même wiki.
-    warning_untracked_wiki: 'Veuillez noter que l’article que vous avez choisi est
+    warning_untracked_wiki:
+      "Veuillez noter que l’article que vous avez choisi est
       sur un wiki qui n’est pas suivi par ce cours. Pour suivre les contributions
-      à cet article, un instructeur doit ajouter le wiki suivant à ce cours : %{wiki}'
+      à cet article, un instructeur doit ajouter le wiki suivant à ce cours : %{wiki}"
   blocks:
     milestones:
       title: Jalons
@@ -423,7 +470,8 @@ fr:
     alert_type: Type
     alert_user_id: Utilisateur
     all_campaigns: Toutes les campagnes
-    already_exists: Cette campagne existe déjà ! Veuillez réessayer avec un autre
+    already_exists:
+      Cette campagne existe déjà ! Veuillez réessayer avec un autre
       titre ou libellé court.
     campaign: Campagne
     campaigns: Campagnes
@@ -431,18 +479,22 @@ fr:
     campaign_not_updated: La campagne n’a pas pu être mise à jour
     campaign_updated: Campagne mise à jour
     created_at: Date
-    confirm_campaign_deletion: Êtes-vous sûr de vouloir supprimer la campagne intitulée
+    confirm_campaign_deletion:
+      Êtes-vous sûr de vouloir supprimer la campagne intitulée
       « %{title} » ? Si oui, saisissez le titre de la campagne pour continuer.
-    confirm_campaign_deletion_failed: « %{title} » n’est pas le titre de cette campagne.
+    confirm_campaign_deletion_failed:
+      « %{title} » n’est pas le titre de cette campagne.
       La campagne n’a pas été supprimée.
-    confirm_course_removal: Êtes-vous sûr de vouloir supprimer « %{title} » de la
+    confirm_course_removal:
+      Êtes-vous sûr de vouloir supprimer « %{title} » de la
       campagne « %{campaign_title} » ?
     course_already_removed: « %{title} » a déjà été supprimé de la campagne « %{campaign_title} »
     course: Cours
     course_data: données de cours
     course_removed: « %{title} » a été supprimé de la campagne « %{campaign_title} »
     course_removed_and_deleted: « %{title} » a été supprimé de la campagne « %{campaign_title} »
-    course_removed_but_not_deleted: '"%{title}" a été retiré de "%{campaign_title}",
+    course_removed_but_not_deleted:
+      '"%{title}" a été retiré de "%{campaign_title}",
       mais n''a pas été supprimé car il est également présent dans d''autres campagnes.'
     create_campaign: Créer une nouvelle campagne
     create_my_campaign: Créer ma campagne !
@@ -457,18 +509,22 @@ fr:
     data_instructors: Formateurs
     data_instructors_info: Liste des formateurs/facilitateurs avec leur cours/programmes
     data_editors_by_course: Rédacteurs par cours
-    data_editors_by_course_info: Liste des rédacteurs et rédactrices inscrits avec
+    data_editors_by_course_info:
+      Liste des rédacteurs et rédactrices inscrits avec
       leurs cours/programmes
     data_editor_usernames: Noms d’utilisateur des rédacteurs
-    data_editor_usernames_info: Liste des noms utilisateur des rédacteurs et rédactrices,
+    data_editor_usernames_info:
+      Liste des noms utilisateur des rédacteurs et rédactrices,
       un par ligne
     data_wikidata: Statistiques de Wikidata
-    data_wikidata_info: Répartition détaillée de l’activité de Wikidata, d’après les
+    data_wikidata_info:
+      Répartition détaillée de l’activité de Wikidata, d’après les
       résumés des modifications
     default_course_type: Type de cours par défaut
     default_passcode: Mot de passe par défaut
-    default_passcode_explanation: 'Par défaut, les nouveaux programmes dans cette
-      campagne doivent avoir :'
+    default_passcode_explanation:
+      "Par défaut, les nouveaux programmes dans cette
+      campagne doivent avoir :"
     description: Description
     delete_campaign: Supprimer cette campagne
     delete_course_tooltip: Supprimer et retirer de la campagne.
@@ -481,11 +537,12 @@ fr:
     no_passcode: aucun mot de passe
     none: Aucun
     organizers: Organisateurs
-    organizer_added: '%{user} est désormais un organisateur de la campagne « %{title} »'
-    organizer_removed: '%{user} n’est plus un organisateur de la campagne « %{title} »'
+    organizer_added: "%{user} est désormais un organisateur de la campagne « %{title} »"
+    organizer_removed: "%{user} n’est plus un organisateur de la campagne « %{title} »"
     pages_edited_small: pages modifiées
     program_template: Modèle de programme
-    program_template_tooltip: Quand un organisateur crée un programme dans cette campagne,
+    program_template_tooltip:
+      Quand un organisateur crée un programme dans cette campagne,
       le texte dans cette zone sera copié comme une description sur la page du programme
     random_passcode: un code d’accès aléatoire
     remove_course_tooltip: Retirer de la campagne.
@@ -495,7 +552,8 @@ fr:
     students_small: étudiants
     student_course: étudiants par cours
     title: Titre
-    too_many_articles: La liste des articles modifiés pour cette campagne est trop
+    too_many_articles:
+      La liste des articles modifiés pour cette campagne est trop
       longue pour être affichée. Veuillez consulter les cours / programmes / événements
       individuels pour voir les articles modifiés.
     slug: Limace
@@ -512,7 +570,8 @@ fr:
     add_this_psid: Ajouter des PSID PetScan
     add_this_pileid: Ajouter des identifiants de PagePile
     add_this_template: Ajouter des modèles
-    import_articles_description: La liste des articles dans une catégorie est mise
+    import_articles_description:
+      La liste des articles dans une catégorie est mise
       à jour périodiquement et après un ajout cela peut prendre quelque temps pour
       que la liste soit renseignée.
     confirm_add_n_scoping_method: Ajouter %{n} méthode(s) de ciblage ?
@@ -530,18 +589,22 @@ fr:
   courses:
     school_system: Système académique
     assignment_edits_enabled: Modifications des affectations activées
-    assignment_edits_enabled_tooltip: Si activé, le tableau de bord publiera un modèle
+    assignment_edits_enabled_tooltip:
+      Si activé, le tableau de bord publiera un modèle
       sur la page de discussion pour chaque article affecté.
     accounts_generation_enabled: Génération de demande de compte activée
-    accounts_generation_explanation: Cela permet aux participants de saisir leur adresse
+    accounts_generation_explanation:
+      Cela permet aux participants de saisir leur adresse
       de courriel et leur nom d’utilisateur souhaité, au lieu de créer eux-mêmes de
       nouveaux comptes. Vous pourrez alors créer les comptes depuis ce tableau de
       bord et les ajouter comme participants au programme en même temps.
-    accounts_generation_confirm_message: Êtes-vous sûr de vouloir activer les demandes
+    accounts_generation_confirm_message:
+      Êtes-vous sûr de vouloir activer les demandes
       de compte ?
     activity: Activité
     active_courses: Cours actifs
-    add_trainings: Veuillez ajouter des formations d’étudiant à votre planification
+    add_trainings:
+      Veuillez ajouter des formations d’étudiant à votre planification
       d’affectation. Affecter les modules de formation est une part essentielle des
       meilleures pratiques du Wiki Éducation.
     alerts: Alertes
@@ -577,29 +640,36 @@ fr:
       legend_class_canceled: Congé/Annulé
       legend_class_meeting: Réunion de classe
       legend_class_not_meeting: Aucune réunion programmée
-      select_meeting_days: Sélectionner les jours de la semaine pendant lesquels votre
+      select_meeting_days:
+        Sélectionner les jours de la semaine pendant lesquels votre
         classe se réunit.
     cancel: Annuler
-    character_doc: Le nombre total de caractères ajoutés aux articles de l’espace
+    character_doc:
+      Le nombre total de caractères ajoutés aux articles de l’espace
       de nom principal par les étudiants du cours durant son déroulement
-    campaigns: 'Campagnes :'
+    campaigns: "Campagnes :"
     campaign_articles: Articles pour « %{title} »
     campaign_courses: Cours pour « %{title} »
     campaign_select: Sélectionner une campagne
     campaign_users: Contributorat pour « %{title} »
-    confirm_course_deletion: Êtes-vous sûr de vouloir supprimer le cours intitulé
+    confirm_course_deletion:
+      Êtes-vous sûr de vouloir supprimer le cours intitulé
       « %{title} » ? Si oui, taper le titre du cours pour continuer.
-    confirm_course_deletion_failed: « %{title} » n’est pas le titre de ce cours. Le
+    confirm_course_deletion_failed:
+      « %{title} » n’est pas le titre de ce cours. Le
       cours n’a pas été supprimé.
-    confirm_manual_update: Êtes-vous sûr de vouloir exécuter une mise à jour manuelle ?
+    confirm_manual_update:
+      Êtes-vous sûr de vouloir exécuter une mise à jour manuelle ?
       Les révisions les plus récentes seront importées puis la page rechargée. Ce
       processus peut prendre un peu de temps.
-    controlled_by_event_center: Les inscriptions à cet évènement sont contrôlées par
+    controlled_by_event_center:
+      Les inscriptions à cet évènement sont contrôlées par
       le Centre des évènements Wikimedia. Il n’est pas possible de s’y inscrire depuis
       le Tableau de bord.
     course: Cours
-    course_type_label: 'Type :'
-    course_dates_calendar_instructions: Sélectionner les dates à ajouter ou à supprimer
+    course_type_label: "Type :"
+    course_dates_calendar_instructions:
+      Sélectionner les dates à ajouter ou à supprimer
       de l’agenda (par ex., vacances et congés, école fermée). Cliquer sur la date
       pour basculer entre non sélectionnée, sélectionnée et en congé. Les dates des
       activités de cours seront modifiées pour tenir compte des semaines sans réunion
@@ -610,41 +680,49 @@ fr:
     creation_date: Date de création
     start_date: Date de début
     creator:
-      already_exists: Ce cours existe déjà. Changez plutôt le nom, l’école ou l’échéance
+      already_exists:
+        Ce cours existe déjà. Changez plutôt le nom, l’école ou l’échéance
         pour le rendre unique.
       assignment_end: Fin de l’affectation
       assignment_end_placeholder: AAAA-MM-JJ
       assignment_start: Début de l’affectation
       assignment_start_placeholder: AAAA-MM-JJ
       cancel_course_clone: Annuler le clonage du cours
-      cancel_course_clone_confirm: Êtes-vous sûr(e) de vouloir arrêter le clonage
+      cancel_course_clone_confirm:
+        Êtes-vous sûr(e) de vouloir arrêter le clonage
         de ce cours ?
       checking_for_uniqueness: Ce cours a été vérifié en terme d’unicité.
       choose_clone: Choisir un cours à dupliquer.
       clone_previous: Dupliquer le cours précédent
       clone_this: Dupliquer ce cours
-      cloned_course_calendar_instructions: Sélectionner les dates à ajouter ou à supprimer
+      cloned_course_calendar_instructions:
+        Sélectionner les dates à ajouter ou à supprimer
         de l’agenda (par ex. jours fériés, vacances ou congés, école fermée). Cliquer
         sur la date pour faire basculer son état entre non sélectionnée, sélectionnée
         et congé. Si vous n’avez pas de congés, cliquez sur « Je n’ai pas de vacances
         scolaires ». La planification clonée ajustera automatiquement les dates pour
         tenir compte des semaines sans réunions programmées.
       clone_successful: Cours dupliqué avec succès
-      clone_successful_details: Votre cours a été dupliqué, y compris les éléments
+      clone_successful_details:
+        Votre cours a été dupliqué, y compris les éléments
         de planification (semaines et blocages). Assurez-vous d’ajouter les dates
         qui ne sont pas reportées. Quelque chose d’autre au sujet de votre cours a-t-il
         changé ? N’hésitez pas à le mettre à jour maintenant.
-      course_dates_info: Saisir les dates de début et de fin de votre cours. Dans
+      course_dates_info:
+        Saisir les dates de début et de fin de votre cours. Dans
         la prochaine étape, vous pourrez choisir quand commencer l’affectation Wikipédia
         dans cet intervalle de temps.
       course_description: Description du cours
-      course_description_placeholder: Qu’est-ce qui est couvert par votre cours, et
+      course_description_placeholder:
+        Qu’est-ce qui est couvert par votre cours, et
         que feront les étudiants sur Wikipédia ? Indiquez suffisamment de détails
         pour donner aux autres contributeurs de Wikipédia une idée du contexte des
         contributions que feront vos étudiants.
-      course_private: Programme privé (visible uniquement par les administrateurs
+      course_private:
+        Programme privé (visible uniquement par les administrateurs
         et les facilitateurs)
-      course_ta_support: Ce cours aura-t-il des instructeurs ou des assistants de
+      course_ta_support:
+        Ce cours aura-t-il des instructeurs ou des assistants de
         professeurs supplémentaires ?
       course_school: École du cours
       course_subject: Sujet du cours
@@ -653,17 +731,20 @@ fr:
       course_title: Titre du cours
       course_types:
         basic_course_name: Programme de base
-        basic_course_description: Ce type de programme tracera les modifications à
+        basic_course_description:
+          Ce type de programme tracera les modifications à
           tout article ou page de l’espace de noms principal par tout participant.
           Si les modifications de wiki automatiques sont activées sur le wiki hôte
           du programme, alors une version de ce programme sera automatiquement créée
           et mise à jour dans le wiki.
         edit_a_thon_name: Edit-A-Thon
-        edit_a_thon_description: Un programme Edit-A-Thon tracera les modifications
+        edit_a_thon_description:
+          Un programme Edit-A-Thon tracera les modifications
           à tout article ou page de l’espace principal. Par défaut, aucune modification
           automatique ne sera faite pour ce programme.
         article_scoped_program_name: Programme ciblé sur les articles
-        article_scoped_program_description: Ce type de programme ne suit que les modifications  des
+        article_scoped_program_description:
+          Ce type de programme ne suit que les modifications  des
           articles assignés ainsi que des catégories. Utilisez ce type si vous voulez
           restreindre les statistiques à une collection d’articles connue ou de domaines
           du sujet. Par défaut, les modifications de wiki automatisées sont activées.
@@ -676,11 +757,13 @@ fr:
       end_date_placeholder: AAAA-MM-JJ
       expected_number: Nombre d’étudiants attendus
       find: Trouver votre cours
-      intro: Le titre, l’école et la période déterminent l’URL de la page créée pour
+      intro:
+        Le titre, l’école et la période déterminent l’URL de la page créée pour
         votre cours et ne peuvent pas être modifiés. Tout le reste pourra être changé
         ultérieurement. Cliquez sur « Créer mon cours ! » pour commencer à construire
         la planification de votre affectation à Wikipédia.
-      new_or_clone: Vous pouvez maintenant créer un nouveau cours en utilisant l’assistant
+      new_or_clone:
+        Vous pouvez maintenant créer un nouveau cours en utilisant l’assistant
         de conception de l’affectation. Si vous avez une planification fortement personnalisée
         provenant d’un cours précédent que vous voulez réutiliser, vous pouvez la
         dupliquer avec de nouvelles dates (si vous n’avez pas grandement personnalisé
@@ -691,12 +774,14 @@ fr:
       no_class_holidays: Je n’ai pas de congés scolaires
       role_description: Votre rôle dans le cours
       role_description_options:
-      - Formateur
-      - Assistant éducatif
+        - Formateur
+        - Assistant éducatif
       role_description_placeholder: Instructeur, assistant enseignant, etc.
-      separate_event_dates: Spécifier des heures distinctes de début et de fin de
+      separate_event_dates:
+        Spécifier des heures distinctes de début et de fin de
         l’événement (facultatif)
-      separate_event_dates_info: Les statistiques d’activité pour ce programme seront
+      separate_event_dates_info:
+        Les statistiques d’activité pour ce programme seront
         tracées d’après les dates et heures ci-dessus, mais vous pouvez spécifier
         des heures distinctes pour le démarrage et la fin de l’événement ou du programme
         lui-même (par exemple, afin que les participants sachent quand se présenter
@@ -705,55 +790,67 @@ fr:
       start_date: Date de début
       start_date_placeholder: AAAA-MM-JJ
       subject: Sujet
-      update_scheduled: Mise à jour programmée. La donnée sera mise à jour avec tous
+      update_scheduled:
+        Mise à jour programmée. La donnée sera mise à jour avec tous
         les programmes actuels lors du prochain cycle de mise à jour. Cela prend en
         général plusieurs heures.
       creating_course: Création d’un cours
     current: Cours actuels
     data_articles: Données des articles
-    data_articles_info: Les données des articles incluent le nombre de modifications
+    data_articles_info:
+      Les données des articles incluent le nombre de modifications
       sur chaque page, quelles pages sont nouvelles et le nombre total de vues par
       page. Ces valeurs de vues par page peuvent être obsolètes pour des cours déjà
       terminés, donc une URL vers l’outil de nombre de vues de page de WMF Tools Labs
       est inclus.
-    data_revisions_info: Les données de révision incluent le compteur de révisions
+    data_revisions_info:
+      Les données de révision incluent le compteur de révisions
       du cours, l’ID de révision, l’ID de l’article, les nouvelles pages et les nombres
       totaux de visites de pages.
     data_download_info: Télécharger les données au format CSV.
     data_overview: Données de compte-rendu
-    data_overview_info: Les données de compte-rendu fournissent des statistiques cumulées
+    data_overview_info:
+      Les données de compte-rendu fournissent des statistiques cumulées
       pour l’ensemble du projet.
     data_edits: Données de modifications
-    data_edits_info: Les données de modifications affichent des détails pour chaque
+    data_edits_info:
+      Les données de modifications affichent des détails pour chaque
       modification faite pendant le projet.
     data_students: Données des contributeurs
-    data_students_info: Les données des contributeurs listent tous les contributeurs
+    data_students_info:
+      Les données des contributeurs listent tous les contributeurs
       inscrits, combien de modifications ils ont fait et s’ils ont créé leur compte
       lors du projet.
     data_uploads: Données des téléversements sur Commons
     data_revisions: Données des révisions
-    data_uploads_info: Les données des téléversements sur Commons affichent le nom
+    data_uploads_info:
+      Les données des téléversements sur Commons affichent le nom
       et le nombre d’utilisations de chaque média téléversé.
     data_wikidata: Statistiques de Wikidata
-    data_wikidata_info: Répartition détaillée de l’activité de Wikidata, d’après les
+    data_wikidata_info:
+      Répartition détaillée de l’activité de Wikidata, d’après les
       résumés des modifications
     dates_too_long: La durée maximale est d’un an.
     delete_course: Supprimer le cours
     delete_suggestion: Supprimer
-    delete_course_instructions: Vous ne pouvez supprimer cette page que si toutes
+    delete_course_instructions:
+      Vous ne pouvez supprimer cette page que si toutes
       les campagnes ont été supprimées.
     disable_student_emails: Désactiver les courriels aux élèves
-    disable_student_emails_tooltip: Désactiver les courriels aux élèves arrêtera certains
+    disable_student_emails_tooltip:
+      Désactiver les courriels aux élèves arrêtera certains
       courriels de notification envoyés aux élèves durant ce cours.
     dismiss_survey: Fermer
-    dismiss_survey_confirm: Êtes-vous certain(e) de vouloir rejeter définitivement
+    dismiss_survey_confirm:
+      Êtes-vous certain(e) de vouloir rejeter définitivement
       ce sondage ?
     download_stats_data: Télécharger les statistiques
     duration: Durée du cours
     edit_count: Nombre de modifications
     edit_course_dates: Modifier les dates du cours
     embed_course_stats: Incorporer les statistiques du cours
-    embed_course_stats_description: Pour incorporer les statistiques pour ce programme
+    embed_course_stats_description:
+      Pour incorporer les statistiques pour ce programme
       dans une autre page web, copiez et collez cette partie de code dans
     enable_account_requests: Activer les demandes de compte
     end: Fin
@@ -761,26 +858,31 @@ fr:
     enroll: S’inscrire
     enrollment: Ajouter / supprimer des étudiants
     enrollment_edits_enabled: Modifications des inscriptions activées
-    enrollment_edits_enabled_tooltip: Si activé, le tableau de bord publiera un modèle
+    enrollment_edits_enabled_tooltip:
+      Si activé, le tableau de bord publiera un modèle
       sur la page utilisateur et la page de discussion de chaque personne qui a rejoint
       le programme.
-    event_sync: 'Edition désactivée : Ce champ ne peut pas être modifié car le cours
-      est déjà lié à un événement. Sa modification perturberait l''intégration de
-      l''événement'
+    event_sync:
+      "Edition désactivée : Ce champ ne peut pas être modifié car le cours
+      est déjà lié à un événement. Sa modification perturberait l'intégration de
+      l'événement"
     courses_enrolled: Cours inscrits
     error:
-      exists: Ce cours existe déjà ! Veuillez réessayer avec un autre titre, une autre
+      exists:
+        Ce cours existe déjà ! Veuillez réessayer avec un autre titre, une autre
         école ou une autre période.
       user_exists: Désolé, %{username} n’existe pas.
-      user_exists_on_wiki: Désolé, %{username} n’est pas un utilisateur existant sur
+      user_exists_on_wiki:
+        Désolé, %{username} n’est pas un utilisateur existant sur
         %{domain}.
       invalid_language_or_project: Langue ou projet non valide
-      invalid_wiki: Impossible de se connecter à %{domain}. Ce n’est peut-être pas
+      invalid_wiki:
+        Impossible de se connecter à %{domain}. Ce n’est peut-être pas
         un wiki valide.
       invalid_slug: École ou titre du cours non renseigné.
       duplicate_slug: Un autre programme appelé %{slug} existe déjà.
     expected_students: Étudiants attendus
-    features_feedback: 'Suggestions automatisées :'
+    features_feedback: "Suggestions automatisées :"
     feedback: Commentaire
     feedback_loading: Veuillez patienter durant le chargement des suggestions...
     gradeables_none: Ce cours n’a aucune affectation notable.
@@ -791,16 +893,20 @@ fr:
       one: Instructeur
       other: Instructeurs
     instructors: Instructeurs
-    instructor_message: Voici l’interface de « Mes articles », identique à celle dont
+    instructor_message:
+      Voici l’interface de « Mes articles », identique à celle dont
       disposent les élèves. Vous pouvez l’utiliser pour suivre les mêmes étapes que
       suivront les élèves. Cependant, seules les contributions des élèves seront suivies.
-    instructor_message_wikidata: Voici l’interface de « Mes articles », identique
+    instructor_message_wikidata:
+      Voici l’interface de « Mes articles », identique
       à celle dont disposent les élèves. Vous pouvez l’utiliser pour suivre les mêmes
       étapes que suivront les élèves. Cependant, seules les contributions des élèves
       seront suivies.
-    invitation: Vous avez été invité à rejoindre %{title}. Pour rejoindre le cours,
+    invitation:
+      Vous avez été invité à rejoindre %{title}. Pour rejoindre le cours,
       vous devez vous connecter avec un compte Wikipédia.
-    invitation_username_advice: Si vous n’avez pas encore de compte Wikipédia, inscrivez-vous
+    invitation_username_advice:
+      Si vous n’avez pas encore de compte Wikipédia, inscrivez-vous
       pour en avoir un maintenant. Votre nom d’utilisateur peut être anonyme ou vous
       identifier personnellement ― comme vous le souhaitez (les comptes partagés ne
       sont pas autorisés).
@@ -808,20 +914,25 @@ fr:
     join_course: Rejoindre le cours
     join_course_as_volunteer: Volontaire pour aider
     join_prompt: Rejoindre « %{title} » ?
-    join_successful: Vous avez bien rejoint %{title}. Le tableau de bord gardera automatiquement
+    join_successful:
+      Vous avez bien rejoint %{title}. Le tableau de bord gardera automatiquement
       la trace de vos contributions avec des mises à jour périodiques. Revenez vérifier
       plus tard pour voir quel a été votre impact !
     join_failed: L’inscription a échoué.
     join_failure_details:
-      cannot_join_twice: Les utilisateurs ne peuvent pas rejoindre le même cours deux
+      cannot_join_twice:
+        Les utilisateurs ne peuvent pas rejoindre le même cours deux
         fois.
       not_yet_approved: Ce cours n’a pas encore été approuvé pour l’inscription.
-      withdrawn: Ce cours a été marqué comme retiré — peut-être par erreur. Contactez
+      withdrawn:
+        Ce cours a été marqué comme retiré — peut-être par erreur. Contactez
         le personnel de Wiki Education pour le réactiver.
-      invalid_sync: Les inscriptions à cet évènement sont contrôlées par le Centre
+      invalid_sync:
+        Les inscriptions à cet évènement sont contrôlées par le Centre
         des évènements Wikimedia. Il n’est pas possible de s’y inscrire depuis le
         Tableau de bord.
-    join_details: Pour rejoindre ce cours, vous devez obtenir le code d’accès — ou
+    join_details:
+      Pour rejoindre ce cours, vous devez obtenir le code d’accès — ou
       un lien d’inscription qui l’inclut — de la part du formateur. Si vous ne l’avez
       pas reçu, contactez votre formateur.
     join_no_passcode: Êtes-vous sûr(e) de vouloir suivre ce cours ?
@@ -837,69 +948,82 @@ fr:
     new_account_check_username: Vérifier la disponibilité du nom d’utilisateur
     new_account_email: Adresse de courriel
     new_account_email_placeholder: nom@example.org
-    new_account_info: Pour demander un compte, saisissez votre adresse de courriel
+    new_account_info:
+      Pour demander un compte, saisissez votre adresse de courriel
       et le nom d’utilisateur souhaité. Un mot de passe vous sera envoyé une fois
       que le compte aura été créé par un des facilitateurs.
-    new_account_info_admin: Pour créer un nouveau compte, saisissez l’adresse de courriel
+    new_account_info_admin:
+      Pour créer un nouveau compte, saisissez l’adresse de courriel
       de la personne et le nom utilisateur souhaité. Un mot de passe lui sera envoyé
       une fois le compte créé.
     new_account_username: Nom d’utilisateur demandé
     new_account_username_invalid: Ce n’est pas un nom d’utilisateur valide.
     new_account_username_placeholder: Rédacteur du Wiki 123
-    new_account_username_taken: Ce nom d’utilisateur est déjà pris. Veuillez en choisir
+    new_account_username_taken:
+      Ce nom d’utilisateur est déjà pris. Veuillez en choisir
       un autre.
     new_account_submit: Demander un compte
-    new_account_submitted: Votre demande de compte a été soumise. Le Facilitateur
+    new_account_submitted:
+      Votre demande de compte a été soumise. Le Facilitateur
       pour ce programme peut finaliser la création de votre compte dès maintenant.
       Une fois celui-ci créé, vous recevrez par courriel un mot de passe pour le nouveau
       compte.
-    new_account_submitted_admin: Votre demande de compte a été créée. Veuillez demander
+    new_account_submitted_admin:
+      Votre demande de compte a été créée. Veuillez demander
       à vos étudiants de vérifier leur boîte de réception pour obtenir leur nouveau
       mot de passe.
-    no_campaign: Pour rendre ce programme actif et permettre aux utilisateurs de le
+    no_campaign:
+      Pour rendre ce programme actif et permettre aux utilisateurs de le
       rejoindre, il doit être ajouté à une campagne. Si vous ne savez pas bien quelle
       campagne ajouter, utilisez « Divers ».
     nocourses: Vous ne participez à aucun cours.
     nocourse: n’a participé à aucun cours.
     none: Aucun
     not_permitted: Vous n’avez pas le droit de modifier ce cours.
-    notify_untrained_confirmation: Cela publiera un rappel sur les pages de discussion
+    notify_untrained_confirmation:
+      Cela publiera un rappel sur les pages de discussion
       de tous les étudiants en retard dans l’achèvement de leurs modules de formation
       affectés. Êtes-vous sûr de vouloir faire cela ?
     no_available_actions: Aucune action disponible
     online_volunteers_enabled: Bénévoles en ligne activés
-    online_volunteers_tooltip: Activer les bénévoles en ligne permet à des contributeurs
+    online_volunteers_tooltip:
+      Activer les bénévoles en ligne permet à des contributeurs
       de participer en tant que bénévoles. Leurs modifications ne seront pas tracées.
     ores_plot: ORES
     overview: Accueil
     passcode: Code d’accès
     passcode_none: Aucun code d’accès
-    passcode_prompt: 'Entrer le code d’accès qui vous a été donné pour rejoindre le
-      cours :'
+    passcode_prompt:
+      "Entrer le code d’accès qui vous a été donné pour rejoindre le
+      cours :"
     please_log_in: Veuillez vous connecter.
     private: Privé
-    published: 'Votre cours a été publié ! Les étudiants peuvent s’inscrire au cours
-      via l’URL suivante :'
-    rating_feedback: 'L’évaluation prévue pour cet article est :'
+    published:
+      "Votre cours a été publié ! Les étudiants peuvent s’inscrire au cours
+      via l’URL suivante :"
+    rating_feedback: "L’évaluation prévue pour cet article est :"
     requested_accounts: Comptes demandés
     requested_accounts_alert:
-      one: '%{count} compte demandé en attente.'
-      other: '%{count} comptes demandés en attente.'
+      one: "%{count} compte demandé en attente."
+      other: "%{count} comptes demandés en attente."
     requested_accounts_alert_view: Afficher
     retain_available_articles: Conserver les articles disponibles
     retain_available_articles_wikidata: Conserver les éléments disponibles
-    retain_available_articles_info: Si activé, la sélection d’un article disponible
+    retain_available_articles_info:
+      Si activé, la sélection d’un article disponible
       ne le retire pas de la liste, ce qui permet à un groupe d’étudiants de sélectionner
       le même article.
-    retain_available_articles_info_wikidata: Si activé, la sélection d’un article
+    retain_available_articles_info_wikidata:
+      Si activé, la sélection d’un article
       disponible ne le retire pas de la liste, ce qui permet à un groupe d’étudiants
       de sélectionner le même article.
-    review_timeline: 'Veuillez consulter maintenant votre agenda d’affectation et
+    review_timeline:
+      "Veuillez consulter maintenant votre agenda d’affectation et
       y faire les adaptations qui conviennent. Une fois satisfait, soumettez-le pour
       approbation par l’équipe de Wiki Éducation. Une fois cet agenda approuvé, vous
       recevrez une URL d’inscription que les étudiants pourront utiliser pour rejoindre
       le cours et accéder aux contenus de formation (note : vous pourrez toujours
-      faire des modifications ultérieurement).'
+      faire des modifications ultérieurement)."
     revisions_doc: Le nombre de modifications dans les %{timeframe} jours passés
     revisions_none: Ce cours n’a aucune activité récente de modification de Wikipédia.
     school: École
@@ -916,58 +1040,69 @@ fr:
     student_editors: Rédacteurs ou rédactrices étudiant(e)s
     students_none: Ce cours n’a aucun étudiant.
     students_short: Étudiant(e)s
-    submitted_admin: Ce cours a été soumis à approbation par son créateur. Pour l’approuver,
+    submitted_admin:
+      Ce cours a été soumis à approbation par son créateur. Pour l’approuver,
       l’ajouter à une campagne sur la page de présentation.
     submitted_and_pending_heading: Soumis et en attente d’approbation
     submitted_heading: Cours soumis
-    submitted_note: Votre cours a été soumis. L’équipe de Wiki Éducation l’examinera
+    submitted_note:
+      Votre cours a été soumis. L’équipe de Wiki Éducation l’examinera
       et vous contactera pour toute question. En attendant, si vous souhaitez passer
       en revue les matériels de formation de Wiki Éducation, vous pouvez consulter
       la liste complète des ressources pour instructeurs et élèves.
-    suggestions_feedback: Vous avez des suggestions pour améliorer cette fonctionnalité ?
+    suggestions_feedback:
+      Vous avez des suggestions pour améliorer cette fonctionnalité ?
       Faites-le nous savoir !
     suggestions_sending: Envoi en cours du commentaire…
     suggestions_sent: Commentaire envoyé. Merci pour votre saisie.
     suggestions_failed: Impossible d’envoyer le commentaire. Essayez à nouveau ultérieurement.
     user_role: Rôle
     course_details: Détails du cours
-    course_submitted: L’état soumis est utilisé pour les cours de programme éducatif,
+    course_submitted:
+      L’état soumis est utilisé pour les cours de programme éducatif,
       quand un plan de cours doit être approuvé avant que le projet ne commence. Il
       n’est significatif que pour le type de cours « Programme en classe ».
     subject: Sujet
     submitted: Soumis
     submitted_at: Soumis le
     tag_select: Sélectionner ou créer une balise
-    tags: 'Balises :'
+    tags: "Balises :"
     term: Période
     timeline: Détails d’affectation
     timeline_enabled: Agenda activé
     timeline_link: Agenda
-    timeline_tooltip: L’activation de l’agenda vous permet de spécifier les activités
+    timeline_tooltip:
+      L’activation de l’agenda vous permet de spécifier les activités
       hebdomadaires et d’affecter les modules de formation. Elle est utile pour les
       cours du Programme Éducation et d’autres programmes longs et très structurés.
     timeline_nav: Aller à l’agenda
-    time_zone_message: Les heures de début et de fin sont affichées dans votre fuseau
+    time_zone_message:
+      Les heures de début et de fin sont affichées dans votre fuseau
       horaire local.
     title: Titre
-    training_due: Le module de formation « %{title} » est affecté pour ce cours et
+    training_due:
+      Le module de formation « %{title} » est affecté pour ce cours et
       est attendu le %{date}.
     training_nav: Aller à la formation
-    training_overdue: Le module de formation « %{title} » est affecté pour ce cours
+    training_overdue:
+      Le module de formation « %{title} » est affecté pour ce cours
       et était attendu le %{date}.
     unsubmitted: Cours non soumis
     untrained: Sans formation
     update_stats: Mettre à jour les statistiques
-    uploads_none: Cette classe n’a contribué à Wikimedia Commons avec aucune image
+    uploads_none:
+      Cette classe n’a contribué à Wikimedia Commons avec aucune image
       ni aucun autre fichier média.
-    user_uploads_none: Cet utilisateur n’a contribué à aucune image ni aucun autre
+    user_uploads_none:
+      Cet utilisateur n’a contribué à aucune image ni aucun autre
       fichier média sur Wikimedia Commons.
     user_recent_uploads: Téléversements récents
-    user_suggestions: 'Suggestions de l’utilisateur :'
+    user_suggestions: "Suggestions de l’utilisateur :"
     user_suggestions_prompt: Vos suggestions pour les modificateurs de l’article
     view_other: Afficher d’autres campagnes
     view: Afficher le cours
-    view_doc: Le nombre estimé de vues des articles modifiés par les contributeurs
+    view_doc:
+      Le nombre estimé de vues des articles modifiés par les contributeurs
       enregistrés depuis la date de leur première modification de chaque article.
     view_page: Afficher la page du cours
     view_wiki: Afficher sur Wikipédia
@@ -975,25 +1110,30 @@ fr:
       one: Bénévole
       other: Bénévoles
     weeks_none: Ce cours n’a pas encore d’agenda défini.
-    warn_mirrored: Lors de la soumission, le cours sera automatiquement publié sur
+    warn_mirrored:
+      Lors de la soumission, le cours sera automatiquement publié sur
       Wikipédia avec votre compte utilisateur. Après cela, les nouvelles modifications
       de l’agenda seront répercutées sur Wikipédia. Êtes-vous certain(e) de vouloir
       faire cela ?
     wiki_course_page_enabled: Page de cours du wiki activée
-    wiki_course_page_enabled_tooltip: Si activé, un miroir de la page sur le wiki
+    wiki_course_page_enabled_tooltip:
+      Si activé, un miroir de la page sur le wiki
       sera mis à jour dès que le programme ou ses utilisateurs et affectations seront
       modifiés.
     wiki_edits_enabled: Modifications du wiki activées
-    wiki_edits_enabled_tooltip: Si les modifications du wiki sont activées, alors
+    wiki_edits_enabled_tooltip:
+      Si les modifications du wiki sont activées, alors
       les modifications automatisées dans le wiki seront faites pour ce programme.
       Désactivez les modifications du wiki si vous ne voulez pas que les modèles soient
       ajoutés aux pages utilisateur, aux pages de discussion des articles affectés,
       etc.
     wiki_staff: Équipe de Wiki Éducation
     withdrawn: Affectation non réalisée
-    word_count_doc: Une estimation du nombre de mots ajoutés aux articles de l’espace
+    word_count_doc:
+      Une estimation du nombre de mots ajoutés aux articles de l’espace
       principal par les étudiants du cours pendant son déroulement
-    word_count_doc_wikidata: Une estimation du nombre de mots ajoutés aux éléments
+    word_count_doc_wikidata:
+      Une estimation du nombre de mots ajoutés aux éléments
       de l’espace principal par les étudiants du cours pendant sa durée
     yourcourses: Vos cours
     survey:
@@ -1001,14 +1141,16 @@ fr:
       link: Participer au sondage
   course_instructor_notification:
     notify_instructors: Envoyez des courriels aux instructeurs
-    notify_instructors_feature_description: Envoyer un message aux instructeurs par
+    notify_instructors_feature_description:
+      Envoyer un message aux instructeurs par
       courriel
     send_notification_button_text: Envoyer
     notification_sent_success: Message envoyé à tous les instructeurs de %{courseTitle}
-    notification_send_error_no_internet: Impossible d'envoyer la requête. Vérifiez
+    notification_send_error_no_internet:
+      Impossible d'envoyer la requête. Vérifiez
       si vous êtes connecté à Internet.
-    notification_send_error_server: 'Erreur du serveur : impossible d''envoyer de
-      notification (%{status} %{statusText})'
+    notification_send_error_server: "Erreur du serveur : impossible d'envoyer de
+      notification (%{status} %{statusText})"
     notification_empty_message: Le sujet ou le message ne peut pas être vide
     confirm_send_notification: Envoyer à tous les instructeurs de ce cours ?
     write_subject: Sujet
@@ -1030,7 +1172,7 @@ fr:
     course: Programme
     courses: Programmes
     courses_taught: Programmes enseignés
-    campaigns: 'Campagnes :'
+    campaigns: "Campagnes :"
     campaign_courses: Programmes pour « %{title} »
     creator:
       assignment_end: Fin de l’événement
@@ -1038,23 +1180,28 @@ fr:
       assignment_start: Début de l’événement
       assignment_start_placeholder: AAAA-MM-JJ
       cancel_course_clone: Annuler le clonage du programme
-      cancel_course_clone_confirm: Êtes-vous certain(e) de vouloir arrêter le clonage
+      cancel_course_clone_confirm:
+        Êtes-vous certain(e) de vouloir arrêter le clonage
         de ce programme ?
       checking_for_uniqueness: L’unicité de ce programme est en cours de vérification.
       choose_clone: Choisir un programme à cloner.
       clone_previous: Cloner le programme précédent
       clone_this: Cloner ce programme
       clone_successful: Programme cloné avec succès
-      clone_successful_details: Votre programme a été cloné. Cliquez sur « Enregistrer »
+      clone_successful_details:
+        Votre programme a été cloné. Cliquez sur « Enregistrer »
         pour le finaliser.
-      course_when: Ajoutez quelque chose dans le champ « Quand » (par exemple, le
+      course_when:
+        Ajoutez quelque chose dans le champ « Quand » (par exemple, le
         mois et l’année) pour le différencier de l’original.
-      course_dates_info: Saisir les dates de début et de fin pour votre programme.
+      course_dates_info:
+        Saisir les dates de début et de fin pour votre programme.
         Vous pouvez vouloir étendre la fin à plusieurs heures ou jours au delà de
         la fin des principales activités, afin d’y inclure les modifications associées
         qui auront lieu peu après l’événement.
       course_description: Description du programme
-      course_description_placeholder: Qu’est-ce que ce programme et que feront les
+      course_description_placeholder:
+        Qu’est-ce que ce programme et que feront les
         participant(e)s sur le(s) wiki(s) ? Indiquez suffisamment de détails pour
         donner aux autres contributeurs une idée du contexte des contributions que
         feront les participants.
@@ -1068,14 +1215,16 @@ fr:
       create_short: Créer un programme
       end_date: Fin du suivi d’activité
       find: Trouver un programme
-      intro: Le titre du programme et l’institution forment l’URL du programme. Le
+      intro:
+        Le titre du programme et l’institution forment l’URL du programme. Le
         wiki d’accueil est le wiki principal où travailleront les participants, et
         les modifications sur ce wiki seront tracées par défaut. Si votre programme
         couvre plusieurs langues ou projets, les contributions seront aussi tracées
         pour tout wiki qui a été explicitement ajouté aux « Wikis suivis ». Cliquez
         sur « Créer mon programme ! » pour commencer à construire la page de votre
         programme wiki.
-      new_or_clone: Créer un nouveau programme maintenant ou utiliser l’option « cloner »
+      new_or_clone:
+        Créer un nouveau programme maintenant ou utiliser l’option « cloner »
         pour copier un autre programme auquel vous avez participé.
       participate_in_campaign: Participer à une campagne
       save_cloned_course: Enregistrer
@@ -1087,7 +1236,8 @@ fr:
           Pour le Programme ciblé sur des articles, le tableau de bord tracera seulement les modifications aux articles configurés. Après la création de votre page, vous pourrez ajouter des articles à suivre individuellement en les assignant à des contributeurs en particulier, ou en les ajoutant aux « Articles disponibles ». Pour de plus gros ensembles d’articles, vous pourrez utiliser un de ces outils pour définir les articles que vous voulez tracer.
           Choisissez une des méthodes de ciblage que vous voulez configurer maintenant. Vous pourrez aussi ajouter des méthodes de ciblage ultérieurement depuis l’onglet « Articles ».
         categories: Catégories
-        categories_short_desc: La fonctionnalité Catégorie sur un wiki est utilisée
+        categories_short_desc:
+          La fonctionnalité Catégorie sur un wiki est utilisée
           pour rassembler des articles connexes. Vous pouvez utiliser le nom de la
           catégorie pour dire au tableau de bord de tracer tous les articles dans
           cette catégorie.
@@ -1095,20 +1245,24 @@ fr:
           Tracer une catégorie veut dire que le tableau de bord comptera les modifications à n’importe quel article de cette catégorie. Par défaut (profondeur 0), seuls les articles qui sont directement dans la catégorie seront tracés.
           Vous pouvez augmenter la valeur de la profondeur (jusqu’à 3 maximum) si vous voulez inclure les articles qui sont dans des sous-catégories de cette catégorie. Assurez-vous de naviguer d’abord dans la catégorie, pour vous assurer que les sous-catégories correspondent à ce que vous voulez suivre.
         templates: Modèles
-        templates_short_desc: Vous pouvez tracer les articles d’après un modèle qu’ils
+        templates_short_desc:
+          Vous pouvez tracer les articles d’après un modèle qu’ils
           contiennent, ce qui fonctionne mieux si le modèle est utilisé dans l’article
           lui-même, ou sur la page de discussion correspondante — comme les modèles
           de WikiProject.
         petscan: PetScan
-        petscan_short_desc: PetScan est un outil qui vous permet de requêter les pages
+        petscan_short_desc:
+          PetScan est un outil qui vous permet de requêter les pages
           du wiki d’après un vaste choix de critères — y compris les catégories, les
           modèles, les liens wiki, et bien plus. Vous pouvez utiliser un identifiant
           de requête PetScan pour configurer un ensemble d’articles à suivre sur votre
           tableau de bord.
         pagepile: PagePile
-        pagepile_short_desc: PagePile est un outil qui vous permet de créer une liste
+        pagepile_short_desc:
+          PagePile est un outil qui vous permet de créer une liste
           immuable de pages, identifiée par un identifiant unique.
-        templates_desc: Les modèles sont utilisés sur les pages wiki pour une grande
+        templates_desc:
+          Les modèles sont utilisés sur les pages wiki pour une grande
           variété de buts, mais certains sont spécifiques à un sujet. Les modèles
           de navigation, de WikiProject, et relatifs à un sujet, sont particulièrement
           utiles à utiliser comme modèle pour configurer un programme de ciblage d’articles.
@@ -1118,10 +1272,12 @@ fr:
         petscan_desc: |-
           PetScan est un outil puissant mais complexe pour requêter un ensemble de pages wiki d’après une large variété de critères et de sources de données. Vous pouvez utiliser directement PetScan pour créer une requête pour un ensemble d’articles que vous voulez suivre, ce qui vous donne accès à l’ensemble des options pour cibler très précisément votre requête. Sinon, vous pouvez créer une requête PetScan à partir de l’une des options les plus courantes directement depuis le tableau de bord.
           PetScan enregistre les paramètres de la requête et lui fournit un identifiant. Les résultats de cette requête peuvent varier au cours du temps, par exemple quand de nouveaux articles sont ajoutés à une catégorie que comprend la requête. Le tableau de bord rafraîchira périodiquement les résultats de la requête pour un identifiant donné, et mettra à jour ses statistiques d’après le dernier ensemble d’articles fourni par PetScan.
-        petscan_create_psid: Créer un identifiant PetScan en utilisant l’outil officiel
+        petscan_create_psid:
+          Créer un identifiant PetScan en utilisant l’outil officiel
           de PetScan
         pagepile_create_id: Créer une PagePile en utilisant l’outil officiel de PagePile
-        categories_include_OR: Les articles contenant UNE de ces catégories seront
+        categories_include_OR:
+          Les articles contenant UNE de ces catégories seront
           suivis
         templates_include_OR: Les articles contenant UN de ces modèles seront suivis
         start_typing_to_search: Commencer à taper pour chercher
@@ -1135,13 +1291,15 @@ fr:
     expected_students: Rédacteurs attendus
     instructors: Facilitateurs
     join_course: Rejoindre le programme
-    join_details: Pour rejoindre ce programme, vous devez obtenir le code d’accès
+    join_details:
+      Pour rejoindre ce programme, vous devez obtenir le code d’accès
       — ou un lien qui l’inclut — de la part du facilitateur.
     leave_course: Quitter le programme
     milestones_none: Ce projet n’a actuellement aucun jalon.
     not_permitted: Vous n’avez pas le droit de modifier ce programme.
-    published: 'Ce projet a été publié ! Les rédacteurs peuvent s’inscrire en allant
-      sur l’URL suivante :'
+    published:
+      "Ce projet a été publié ! Les rédacteurs peuvent s’inscrire en allant
+      sur l’URL suivante :"
     request_accounts: Demander des comptes
     revisions_none: Ce projet n’a pas été récemment modifié.
     school: Institution
@@ -1157,15 +1315,19 @@ fr:
     students_count: Nombre de participants
     term: Quand
     unsubmitted: Programmes non soumis
-    uploads_none: Ce projet n’a importé aucune image ni aucun fichier média sur Wikimedia
+    uploads_none:
+      Ce projet n’a importé aucune image ni aucun fichier média sur Wikimedia
       Commons.
-    user_uploads_none: Les utilisateurs sélectionnés n’ont contribué à ce projet avec
+    user_uploads_none:
+      Les utilisateurs sélectionnés n’ont contribué à ce projet avec
       aucune image ni aucun autre fichier média.
     view_other: Afficher les autres campagnes
     view_page: Afficher la page du programme
-    word_count_doc: Une estimation du nombre de mots ajoutés aux articles de l’espace
+    word_count_doc:
+      Une estimation du nombre de mots ajoutés aux articles de l’espace
       principal par les rédacteurs du programme durant son déroulement
-    word_count_doc_wikidata: Une estimation du nombre de mots ajoutés aux articles
+    word_count_doc_wikidata:
+      Une estimation du nombre de mots ajoutés aux articles
       de l’espace principal par les contributeurs et contributrices du programme durant
       son déroulement
     yourcourses: Vos programmes
@@ -1176,11 +1338,12 @@ fr:
     edit_description: Modifier la description
     edit_details: Modifier les détails
     edit_template: Modifier le modèle
-    rename_confirmation: Les champs du cours qui composent l’URL ont changé. Cela
+    rename_confirmation:
+      Les champs du cours qui composent l’URL ont changé. Cela
       va modifier l’URL et les liens pointant vers l’ancienne URL deviendront caducs.
       Voulez-vous vraiment continuer ?
   instructor_view:
-    article_assignments: '%{prefix} affectations'
+    article_assignments: "%{prefix} affectations"
     assignments_table:
       article_name: Nom
       current_stage: Étape actuelle
@@ -1188,25 +1351,30 @@ fr:
     assigned_articles: Articles affectés
     assigned_articles_wikidata: Éléments affectés
     bad_work:
-      learn_more: Si le travail de l’étudiant a dégradé l’article, nous vous encourageons
+      learn_more:
+        Si le travail de l’étudiant a dégradé l’article, nous vous encourageons
         à le modifier vous-même. Sinon, faites-nous savoir les problèmes pour que
         nous puissions les corriger plus tard.
-      learn_more_wikidata: Si le travail de l’étudiant dégrade l’élément, nous vous
+      learn_more_wikidata:
+        Si le travail de l’étudiant dégrade l’élément, nous vous
         encourageons à le modifier vous-même. Sinon, faites-nous savoir les problèmes
         afin que nous les corrigions ultérieurement.
       learn_more_button: En savoir plus
       submit_issue: Quels sont les problèmes significatifs de cet article ?
       submit_issue_wikidata: Quels sont les problèmes significatifs avec cet élément ?
-      submit_issue_placeholder: Plus vous pourrez fournir de perspective et de détails
+      submit_issue_placeholder:
+        Plus vous pourrez fournir de perspective et de détails
         d’expert, mieux ce sera.
       thank_you: Merci ! Contactez votre Expert Wiki si vous avez des questions supplémentaires.
-    exercises_and_trainings: '%{prefix} Exercices et formations'
+    exercises_and_trainings: "%{prefix} Exercices et formations"
     no_assignments: Aucun article n’est affecté à cet(te) étudiant(e) pour le moment.
-    can_assign_assignments: Vous pouvez attribuer un article en utilisant les boutons
+    can_assign_assignments:
+      Vous pouvez attribuer un article en utilisant les boutons
       ci-dessus.
-    no_assignments_wikidata: Cet étudiant n’a actuellement aucun élément affecté.
+    no_assignments_wikidata:
+      Cet étudiant n’a actuellement aucun élément affecté.
       Vous pouvez affecter un élément en utilisant les boutons ci-dessus.
-    overview: '%{prefix} Vue d’ensemble'
+    overview: "%{prefix} Vue d’ensemble"
     reviewing_articles: Relecture des articles
     reviewing_articles_wikidata: Relecture des éléments
     select_student:
@@ -1218,7 +1386,8 @@ fr:
     last_update: Dernière mise à jour des statistiques
     last_articles_update: Mise à jour des derniers articles
     next_update: Prochaine mise à jour estimée
-    late_update: Une nouvelle mise à jour était attendue avant le %{late_update_time}.
+    late_update:
+      Une nouvelle mise à jour était attendue avant le %{late_update_time}.
       Ceci peut signifier que la mise à jour  prend plus de temps qu’attendu ou qu’un
       problème bloque les mises à jour.
     no_update: Le tableau de bord n’a encore importé aucune donnée pour ce programme.
@@ -1234,9 +1403,11 @@ fr:
     articles_edited_wikidata: Éléments modifiés
     articles_edited_generic: Pages modifiées
     articles_edited_generic_wikidata: Éléments modifiés
-    article_scoped_program_info: Ceci est un « Programme ciblé sur les articles »,
+    article_scoped_program_info:
+      Ceci est un « Programme ciblé sur les articles »,
       qui ne compte que les modifications des articles et catégories affectés.
-    article_scoped_program_info_wikidata: Ceci est un « Programme ciblé sur les articles »,
+    article_scoped_program_info_wikidata:
+      Ceci est un « Programme ciblé sur les articles »,
       qui ne compte que les modifications des articles et catégories affectés.
     bytes_added: Octets ajoutés
     characters: Caractères
@@ -1246,36 +1417,45 @@ fr:
     close_modal: Fermer
     date_time: Horodatage
     edit_count_description: Total des modifications
-    error_count_message: Le tableau de bord a rencontré %{error_count} erreur(s) lors
+    error_count_message:
+      Le tableau de bord a rencontré %{error_count} erreur(s) lors
       de la mise à jour la plus récente.
     future_updates_remaining:
       updates_active: Les statistiques continueront d’être mises à jour jusqu’au %{date}.
-      updates_inactive: Les statistiques pour ce programme ne sont plus mises à jour
+      updates_inactive:
+        Les statistiques pour ce programme ne sont plus mises à jour
         régulièrement.
     last_reviewed: Dernière relecture
     missing_data_heading: Résultats manquants ou inattendus ?
     missing_data_info: Les problèmes courants incluent
-    non_updating_course_update: Une mise à jour unique a été planifiée et va bientôt
+    non_updating_course_update:
+      Une mise à jour unique a été planifiée et va bientôt
       commencer.
     last_update_failed: La dernière mise à jour de ce cours a échoué.
-    last_update_success: La dernière mise à jour a réussi, les statistiques devraient
+    last_update_success:
+      La dernière mise à jour a réussi, les statistiques devraient
       donc être à jour.
-    outreach_help: Besoin d’aide ? Reportez-vous à « Signaler un problème » dans la
+    outreach_help:
+      Besoin d’aide ? Reportez-vous à « Signaler un problème » dans la
       barre de navigation.
-    per_user: '%{number} / utilisateur'
-    recent_updates_summary: Parmi les %{total} mises à jour récentes, %{failure_count}
+    per_user: "%{number} / utilisateur"
+    recent_updates_summary:
+      Parmi les %{total} mises à jour récentes, %{failure_count}
       ont échoué et %{error_count} ont rencontré des erreurs.
     revisions: Modifications récentes
     references_count: Références ajoutées
-    references_doc: Ceci est le nombre de balises de référence ajoutées aux articles
+    references_doc:
+      Ceci est le nombre de balises de référence ajoutées aux articles
       et qui peut comprendre plusieurs références à la même source. Les données viennent
       du modèle de qualité d’article ORES et ne sont disponibles que pour certaines
       pages.
-    references_doc_wikidata: Ceci est le nombre de balises de référence ajoutées aux
+    references_doc_wikidata:
+      Ceci est le nombre de balises de référence ajoutées aux
       éléments, ce qui peut inclure plusieurs références à la même source. Les données
       viennent du modèle de qualité d’élément ORES et ne sont disponibles que pour
       certaines langues.
-    replag_info: Le tableau de bord récupère des données de modification des bases
+    replag_info:
+      Le tableau de bord récupère des données de modification des bases
       de données répliquées du cloud WMF. Parfois, ces bases n’ont pas les modifications
       les plus récentes du fait du délai de réplication (''replag''). Quand c’est
       le cas, les modifications manquantes s’afficheront plus tard.
@@ -1319,7 +1499,8 @@ fr:
     qualifiers_added: Qualificateurs ajoutés
     redirects_created: Redirections créées
     references_added: Références ajoutées
-    references_added_info: Ceci peut n’être qu’un décompte partiel des références
+    references_added_info:
+      Ceci peut n’être qu’un décompte partiel des références
       ajoutées. Il est basé sur les résumés des modifications et certaines modifications
       qui ajoutent des références sont classées à la place en tant que « Revendication
       modifiée » ou « Revendication créée ».
@@ -1355,7 +1536,8 @@ fr:
     rhymes: Rimes
     index: Index
     collection: Collection
-    tracked_namespaces_info: Seuls les articles qui correspondent aux espaces de noms
+    tracked_namespaces_info:
+      Seuls les articles qui correspondent aux espaces de noms
       suivis contribueront aux statistiques générales principales, comme « Articles
       modifiés », « Modifications totales », « Mots ajoutés », etc. Par conséquent,
       cela ne suit que les espaces de noms que votre programme vise à améliorer.
@@ -1371,7 +1553,8 @@ fr:
     no_edits: Il n’y a aucune modification récente.
     plagiarism_report: Signalement de plagiat
     possible_plagiarism: Plagiat possible
-    plagiarism_explanation: Le système de détection de plagiat de Wikipédia utilise
+    plagiarism_explanation:
+      Le système de détection de plagiat de Wikipédia utilise
       Turnitin/iThenticate pour comparer les nouvelles modifications avec le texte
       publié. Ces rapports ne sont pas fiables à 100 %. Par exemple, une citation
       directe avec la bonne attribution peut générer un faux signalement de plagiat
@@ -1424,15 +1607,16 @@ fr:
         form_placeholder: Nom d’utilisateur
         confirm_add_admin: Accorder l’administration
         confirm_remove_admin: Retirer les droits d’administration pour
-        already_admin: '%{username} est déjà un administrateur !'
-        elevate_success: '%{username} a été promu(e) administrateur ou administratrice.'
+        already_admin: "%{username} est déjà un administrateur !"
+        elevate_success: "%{username} a été promu(e) administrateur ou administratrice."
       remove:
         revoke_button: Révoquer un(e) administrateur/trice
         revoke_button_confirm: Révoquer les droits d’administration pour %{username}
         revoking_button_working: Révocation en cours...
-        already_instructor: '%{username} est déjà un(e) instructeur/trice !'
-        demote_success: '%{username} a été modifié(e) en instructeur/trice.'
-        no_super_admin: Impossible de révoquer les droit d’administration pour un(e)
+        already_instructor: "%{username} est déjà un(e) instructeur/trice !"
+        demote_success: "%{username} a été modifié(e) en instructeur/trice."
+        no_super_admin:
+          Impossible de révoquer les droit d’administration pour un(e)
           super-administrateur/trice.
     featured_campaigns:
       campaign_not_found: Campagne avec le slug '%{campaign_slug}' introuvable
@@ -1445,65 +1629,80 @@ fr:
         form_label: Attribuer les privilèges d’utilisateur spécial
         form_placeholder: Nom d’utilisateur
         confirm_add_special_user: Ajouter un utilisateur spécial
-        confirm_remove_special_user: Retirer les privilèges d’utilisateur spécial
+        _user: Retirer les privilèges d’utilisateur spécial
           pour
-        already_is: '%{username} est déjà un(e) {position} !'
-        elevate_success: '%{username} a été promu(e) en {position}.'
+        already_is: "%{username} est déjà un(e) {position} !"
+        elevate_success: "%{username} a été promu(e) en {position}."
       remove:
         revoke_button: Révoquer un utilisateur spécial
         revoke_button_confirm: Révoquer les droits d’utilisateur spécial de %{username}
         revoking_button_working: Révocation en cours...
-        already_is_not: '%{username} n’est pas un utilisateur spécial !'
-        demote_success: '%{username} est dorénavant un(e) simple utilisateur/trice.'
+        already_is_not: "%{username} n’est pas un utilisateur spécial !"
+        demote_success: "%{username} est dorénavant un(e) simple utilisateur/trice."
   suggestions:
     editing: Modification des suggestions
     suggestion_docs:
-      fa: Aucun ajout supplémentaire de contenu ne devrait être nécessaire, sauf si
+      fa:
+        Aucun ajout supplémentaire de contenu ne devrait être nécessaire, sauf si
         de nouvelles informations deviennent disponibles ; des améliorations avancées
         sur la qualité de la prose sont souvent possibles.
-      a: Une connaissance d’expert peut être nécessaire pour ajuster l’article et
+      a:
+        Une connaissance d’expert peut être nécessaire pour ajuster l’article et
         des problèmes de style peuvent nécessiter une résolution. La relecture par
         un pair peut aider.
-      ga: Certaines modifications par des experts du sujet ou du style sont utiles ;
+      ga:
+        Certaines modifications par des experts du sujet ou du style sont utiles ;
         la comparaison avec un article existant reconnu sur un sujet similaire peut
         mettre en évidence les domaines où le contenu est insuffisant ou manquant.
-      bplus: Peut être amélioré par la saisie d’experts pour évaluer là où la couverture
+      bplus:
+        Peut être amélioré par la saisie d’experts pour évaluer là où la couverture
         manque encore, et aussi par des illustrations, un contexte historique et d’autres
         références. Envisagez une relecture par un pair ou la nomination pour l’état
         de bon article. Si l’article n’est pas déjà entièrement au format wiki, c’est
         le moment de le faire.
-      b: Quelques aspects sur le contenu ou le style doivent être traités. Une expertise
+      b:
+        Quelques aspects sur le contenu ou le style doivent être traités. Une expertise
         peut être nécessaire. L’inclusion de matériel de soutien peut être envisagée
         si c’est pratique, et l’article peut être vérifié regardant son adéquation
         générale au Manuel de style et aux lignes directrices de style associées.
-      c: Une modification considérable est nécessaire pour combler les manques dans
+      c:
+        Une modification considérable est nécessaire pour combler les manques dans
         le contenu et résoudre les problèmes de nettoyage.
-      start: Fournir des références vers des sources fiables devrait être la première
+      start:
+        Fournir des références vers des sources fiables devrait être la première
         chose ; l’article a aussi besoin d’une amélioration importante dans son contenu
         et son organisation. Améliorer aussi la grammaire, l’orthographe, le style
         d’écriture et le jargon utilisé.
-      stub: Toute modification ou matériel supplémentaire peut être utile. La fourniture
+      stub:
+        Toute modification ou matériel supplémentaire peut être utile. La fourniture
         de contenu significatif devrait être une priorité. La meilleure solution pour
         faire progresser un article classé comme ébauche en article de classe classé
         comme bon début est d’y ajouter des motifs référencés pour dire en quoi le
         sujet est important.
-      fl: Aucun ajout supplémentaire de contenu n’est nécessaire, sauf si de nouvelles
+      fl:
+        Aucun ajout supplémentaire de contenu n’est nécessaire, sauf si de nouvelles
         informations deviennent disponibles.
-      list: Les listes doivent être des listes de liens actifs vers des articles de
+      list:
+        Les listes doivent être des listes de liens actifs vers des articles de
         Wikipédia, nommés et organisés de façon appropriée.
-      future: Les contenus ajoutés peuvent être spéculatifs et doivent être soigneusement
+      future:
+        Les contenus ajoutés peuvent être spéculatifs et doivent être soigneusement
         référencés.
-      disambig: Des ajouts devraient être faits sous forme de nouveaux articles créés
+      disambig:
+        Des ajouts devraient être faits sous forme de nouveaux articles créés
         sous ce nom. Faites bien attention au nommage correct de ces pages, car elles
         n’ont souvent pas besoin que le terme « (homonymie) » soit ajouté au titre.
-      '?': Suggestions non disponibles — Soit l’article n’est pas évalué, soit les
+      "?":
+        Suggestions non disponibles — Soit l’article n’est pas évalué, soit les
         suggestions ne sont pas autorisées pour l’évaluation.
       does_not_exist: Cet article n’existe pas sur Wikipédia.
   tasks:
     conseq: La tâche %{task} tourne déjà !
-    constant: La tâche %{task} ne peut pas tourner tant que la tâche « update_daily »
+    constant:
+      La tâche %{task} ne peut pas tourner tant que la tâche « update_daily »
       est en cours d’exécution.
-    paused: La tâche %{task} ne peut pas tourner car les mises à jour de l’ordonnanceur
+    paused:
+      La tâche %{task} ne peut pas tourner car les mises à jour de l’ordonnanceur
       ont été suspendues. Lancez « rake batch:resume » pour reprendre les mises à
       jour.
   tickets:
@@ -1513,24 +1712,29 @@ fr:
   timeline:
     add_week: Ajouter une semaine
     arrange_timeline: Organiser l’agenda
-    arrange_timeline_instructions: Organiser l’agenda en « glissant et déposant »
+    arrange_timeline_instructions:
+      Organiser l’agenda en « glissant et déposant »
       des blocs vers l’emplacement/semaine souhaité ou en repositionnant les blocs
       à l’aide des flèches sur la carte.
-    assignment_dates_instructions: Sélectionner les dates de début et de fin de l’agenda
+    assignment_dates_instructions:
+      Sélectionner les dates de début et de fin de l’agenda
       d’affectations de Wikipédia. Modifier la date de début décalera toutes les dates
       de l’agenda.
-    blackout_week_created: Il y a des blocs prévus dans cette semaine. Veuillez les
+    blackout_week_created:
+      Il y a des blocs prévus dans cette semaine. Veuillez les
       déplacer à une autre semaine avant de supprimer la dernière réunion de classe
       de cette semaine.
     block_assignment: Affectation
     block_custom: Personnalisé
     block_in_class: En classe
     block_milestone: Jalon
-    block_type: Le type bloc est utilisé pour communiquer à vos étudiants sur cet
+    block_type:
+      Le type bloc est utilisé pour communiquer à vos étudiants sur cet
       élément dans leur agenda et pour construire des outils utiles pour vous (comme
       la visualisation des jalons sur la page Vue d’ensemble).
     course_dates: Dates du cours
-    course_dates_instructions: Sélectionner les dates de début et de fin du cours
+    course_dates_instructions:
+      Sélectionner les dates de début et de fin du cours
       complet (pas seulement l’affectation Wikipédia).
     course_end: Fin du cours
     course_start: Début du cours
@@ -1546,7 +1750,8 @@ fr:
     delete_timeline_and_start_over: Supprimer l’agenda
     due_default: Attendu la semaine prochaine
     edit_titles: Modifier les titres de semaine
-    edit_titles_info: Modifier les titres de semaine dans l’agenda. Seules les semaines
+    edit_titles_info:
+      Modifier les titres de semaine dans l’agenda. Seules les semaines
       avec des réunions prévues peuvent recevoir des titres personnalisés. Si des
       titres personnalisés sont utilisés, les semaines sans réunion seront datées
       au lieu d’être numérotées.
@@ -1554,12 +1759,13 @@ fr:
     empty_week_2: commencer à modifier cette semaine
     empty_week_3: ou
     empty_week_4: utiliser l’assistant d’affectation pour créer un agenda.
-    empty_week_drag_items: Semaine vide. Vous pouvez déplacer ici un bloc d’une autre
+    empty_week_drag_items:
+      Semaine vide. Vous pouvez déplacer ici un bloc d’une autre
       semaine.
     first_week_title: Première semaine active
     gradeable_value: Valeur
     gradeables_none: Cet agenda n’a aucune affectation marquée comme évaluée.
-    grading_header: 'Évaluation (Total : %{total})'
+    grading_header: "Évaluation (Total : %{total})"
     move_block_down: Faire descendre le bloc
     move_block_up: Faire monter le bloc
     no_class_holidays: Je n’ai pas de congés scolaires
@@ -1567,12 +1773,14 @@ fr:
     no_activity_this_week: Aucune réunion prévue cette semaine
     nothing_this_week: Il n’y a rien dans l’agenda pour cette semaine.
     reset_titles: Réinitialiser à la valeur par défaut
-    reset_titles_confirmation: Êtes-vous certain(e) de vouloir réinitialiser tous
+    reset_titles_confirmation:
+      Êtes-vous certain(e) de vouloir réinitialiser tous
       les titres de semaine ? Cela ne pourra pas être annulé.
     save_all_changes: Tout enregistrer
     this_week_title_default: Cette semaine
     title: Agenda
-    unable_to_add_week: Vous ne pouvez pas ajouter de nouvelles semaines quand votre
+    unable_to_add_week:
+      Vous ne pouvez pas ajouter de nouvelles semaines quand votre
       agenda est saturé. Supprimez au moins une semaine ou modifiez vos dates d’affectation
       pour faire de la place pour une nouvelle semaine.
     view_full_timeline: Voir l’intégralité de l’agenda
@@ -1587,11 +1795,13 @@ fr:
     previous: ◂ Précédent
     table_of_contents: Table des matières
     training_library: Bibliothèque de formation
-    logged_out: Vous êtes déconnecté. Vous ne recevrez pas de crédit pour l’achèvement
+    logged_out:
+      Vous êtes déconnecté. Vous ne recevrez pas de crédit pour l’achèvement
       de ce module, sauf si vous vous reconnectez.
     done: Terminé !
     invalid: Désolé, ce transparent n’existe pas !
-    wait: Veuillez ne pas quitter la page car une mise à jour de votre progression
+    wait:
+      Veuillez ne pas quitter la page car une mise à jour de votre progression
       de formation est en cours.
     check_answer: Vérifier la réponse
     included_modules: Modules inclus
@@ -1602,39 +1812,44 @@ fr:
       exercise: Exercice
       discussion: Discussion
       training: Formation
-    no_training_library_records_wiki_ed_mode: Il n’y a aucun enregistrement « TrainingLibrary »
+    no_training_library_records_wiki_ed_mode:
+      Il n’y a aucun enregistrement « TrainingLibrary »
       dans la base de données. Cliquez <a href="%{url}">ici</a> pour charger des données
       de formation à partir de fichiers training_content/yaml.
-    no_training_library_records_non_wiki_ed_mode: Il n’y a aucun enregistrement « TrainingLibrary »
+    no_training_library_records_non_wiki_ed_mode:
+      Il n’y a aucun enregistrement « TrainingLibrary »
       dans la base de données.
     search_training_resources: Rechercher des ressources de formation
-    no_training_resource_match_your_search: Aucune ressource de formation ne correspond
+    no_training_resource_match_your_search:
+      Aucune ressource de formation ne correspond
       à votre recherche
     exercise_sandbox: Bac à sable d’exercice
   update_username:
     header: Mettre à jour un nom d’utilisateur modifié
     not_found: Utilisateur introuvable pour le nom d’utilisateur saisi.
     username_updated: Nom d’utilisateur mis à jour avec succès !
-    info: Si un utilisateur a changé de nom d’utilisateur pour son compte Wikimedia,
+    info:
+      Si un utilisateur a changé de nom d’utilisateur pour son compte Wikimedia,
       saisissez le nouveau nom d’utilisateur ici pour le mettre à jour sur le tableau
       de bord.
     label: Nouveau nom d’utilisateur
     button: Mettre à jour
   uploads:
     article_name: Nom de l'article
-    author: 'Auteur :'
+    author: "Auteur :"
     categories: Catégories
     credit: Crédit
-    date: 'Date :'
+    date: "Date :"
     description: Description
     file_name: Nom de fichier
     file_usage: Utilisation du fichier sur d'autres wikis
     header: Fichiers téléversés sur Wikimedia Commons
     image: Image
     label: Téléversements
-    license: 'Licence :'
+    license: "Licence :"
     loading: Chargement en cours des téléversements...
-    none: Cette classe n’a contribué avec aucune image ni aucun autre fichier média
+    none:
+      Cette classe n’a contribué avec aucune image ni aucun autre fichier média
       à Wikimedia Commons.
     original_file: Fichier original
     select_label: Filtrer par téléverseur
@@ -1649,7 +1864,7 @@ fr:
     usages: Utilisations
     gallery_view: Vue en galerie
     list_view: Vue en liste
-    source: 'Source :'
+    source: "Source :"
     tile_view: Vue en mosaïque
     views_per_day: Vues par jour
     view_commons: Afficher sur Commons
@@ -1664,7 +1879,8 @@ fr:
     assignees: Affecté(s)
     loading_authorship_data: chargement en cours des données de paternité
     authorship_data_not_fetched: impossible d’accéder aux données de paternité
-    character_doc: La quantité totale de contenu qu’un utilisateur a ajouté à son
+    character_doc:
+      La quantité totale de contenu qu’un utilisateur a ajouté à son
       espace de nom, calculée en ajoutant les caractères ajoutés pour chaque modification
       ayant augmenté la taille de la page. Ce nombre ne reflète pas nécessairement
       la quantité de nouveau contenu ajouté par l’utilisateur. Restaurer un contenu
@@ -1675,44 +1891,46 @@ fr:
     contributions_history_full: Afficher l’historique complet des contributions
     contributions_more: Afficher plus de contributions
     contribution_statistics: Statistiques des contributions
-    course_passcode: 'Code d''accès :'
+    course_passcode: "Code d'accès :"
     editors: Contributeurs·trices
     edits: modifications
-    edits_by: 'Modifié par :'
+    edits_by: "Modifié par :"
     enroll_confirmation: Êtes-vous certain(e) de vouloir ajouter %{username} ?
-    enroll_url: 'Les utilisateurs peuvent s’inscrire en visitant cette URL :'
-    enrolled_success: '%{username} a été ajouté(e) !'
+    enroll_url: "Les utilisateurs peuvent s’inscrire en visitant cette URL :"
+    enrolled_success: "%{username} a été ajouté(e) !"
     exercise_modules_completed:
-      one: '%{completed_count} / %{count} exercice terminé'
-      other: '%{completed_count} / %{count} exercices terminés'
+      one: "%{completed_count} / %{count} exercice terminé"
+      other: "%{completed_count} / %{count} exercices terminés"
     exercises_and_trainings: Exercices et formations
     first_name: Prénom
     last_name: Nom
     loading: Chargement en cours des utilisateurs...
     characters_added_mainspace: Caractères ajoutés (article)
     characters_added_mainspace_wikidata: Caractères ajoutés (élément)
-    characters_added_short: 'E.pr. : %{mainspace}, E.ut. : %{userspace}'
+    characters_added_short: "E.pr. : %{mainspace}, E.ut. : %{userspace}"
     characters_added_userspace: Caractères ajoutés (utilisateur)
     characters_added_draftspace: Caractères ajoutés (brouillon)
-    my_assigned: 'Affecté :'
-    my_reviewing: 'En cours de relecture :'
+    my_assigned: "Affecté :"
+    my_reviewing: "En cours de relecture :"
     name: Nom
     none: Il n’y a aucun participant.
     no_articles: Aucun article
     no_articles_wikidata: Aucun élément
     no_revisions: (aucune révision)
-    no_highlighting: Aucun texte de cette version de l’article n’est attribué à %{editor}.
+    no_highlighting:
+      Aucun texte de cette version de l’article n’est attribué à %{editor}.
       Vérifiez l’historique de la page pour voir ses modifications.
-    contributions_not_highlighted: Des contributions de l’utilisateur %{username}
+    contributions_not_highlighted:
+      Des contributions de l’utilisateur %{username}
       sont présentes, mais ne peuvent être surlignées. C’est typiquement le cas pour
       l’ajout de références ou de modèles. Consulter l’historique de la page pour
       voir ses modifications.
     number_of_articles:
-      one: '%{count} article'
-      other: '%{count} articles'
+      one: "%{count} article"
+      other: "%{count} articles"
     number_of_articles_wikidata:
-      one: '%{count} élément'
-      other: '%{count} éléments'
+      one: "%{count} élément"
+      other: "%{count} éléments"
     profile: profil
     recent_revisions: Modifications récentes
     references_count: Références ajoutées
@@ -1720,10 +1938,11 @@ fr:
     remove_confirmation: Êtes-vous sûr(e) de vouloir supprimer %{username} ?
     request_confirmation: Êtes-vous sûr(e) de vouloir demander ce compte ?
     requested_account_status:
-      success_message: 'Succès : %{result_description}'
-      failure_message: 'Échec : %{result_description}'
-    revision_characters_and_views: 'Caractères ajoutés : %{characters} ; vues : %{views}'
-    revisions_doc: Le nombre de modifications faites par cette personne durant les
+      success_message: "Succès : %{result_description}"
+      failure_message: "Échec : %{result_description}"
+    revision_characters_and_views: "Caractères ajoutés : %{characters} ; vues : %{views}"
+    revisions_doc:
+      Le nombre de modifications faites par cette personne durant les
       7 derniers jours
     references_doc: Le nombre de références ajoutées ou retirées par cette personne
     reviewers: Relecteur(s)
@@ -1737,28 +1956,32 @@ fr:
       student_overview: Vue d’ensemble de %{prefix}
       watch_list:
         students_add: Ajouter tous les %{prefix} à la liste de suivi
-        instructional_message: Vous êtes sur le point d’ajouter les pages de discussion
+        instructional_message:
+          Vous êtes sur le point d’ajouter les pages de discussion
           de vos étudiants à votre liste de suivi, pour rester à jour sur leurs discussions
           et leurs contributions. Cliquer sur 'OK' ajoutera tous les étudiants à la
           liste de suivi. Poursuivre ?
-        tooltip_message: Suivre facilement les discussions sur les pages de discussion
+        tooltip_message:
+          Suivre facilement les discussions sur les pages de discussion
           des étudiants en les ajoutant à votre liste de suivi.
-        success_message: '%{prefix} bien ajouté à la liste de suivi.'
-        error_message: Échec de l’ajout de %{prefix} à la liste de suivi. Veuillez
+        success_message: "%{prefix} bien ajouté à la liste de suivi."
+        error_message:
+          Échec de l’ajout de %{prefix} à la liste de suivi. Veuillez
           réessayer ultérieurement.
     total_uploads: Nombre total de téléversements
     training_complete:
       one: est à jour avec la formation
       other: sont à jour avec la formation
     training_complete_count:
-      one: '%{count} formation à jour'
-      other: '%{count} formations à jour'
-    training_doc: Les rédacteurs qui ont terminé tous les modules de formation échus
+      one: "%{count} formation à jour"
+      other: "%{count} formations à jour"
+    training_doc:
+      Les rédacteurs qui ont terminé tous les modules de formation échus
       qui leur ont été affectés sont comptabilisés comme à jour de leur formation.
     training_incomplete: Formation incomplète
     training_modules_completed:
-      one: '%{completed_count} / %{count} module de formation terminé'
-      other: '%{completed_count} / %{count} modules de formation terminés'
+      one: "%{completed_count} / %{count} module de formation terminé"
+      other: "%{completed_count} / %{count} modules de formation terminés"
     training_module_name: Module de formation
     training_module_status: État
     training_module_time:
@@ -1774,7 +1997,8 @@ fr:
     useremail_placeholder: Courriel
     userpasscode_placeholder: Code d’accès
     words_added: Mots ajoutés<br /> (article | utilisateur | brouillon)
-    word_count_doc: Une estimation de la somme totale de contenu qu’un utilisateur
+    word_count_doc:
+      Une estimation de la somme totale de contenu qu’un utilisateur
       a ajouté aux articles en cours, aux pages de l’espace utilisateur (bacs à sable)
       et à l’espace de noms brouillon. Les estimations de nombre de mots sont calculés
       depuis la somme des modifications en taille de page de toutes les modifications
@@ -1801,30 +2025,36 @@ fr:
   wiki_edits:
     notify_overdue:
       button_label: Rappeler aux étudiants leur formation en retard
-      confirm: Cela publiera un rappel sur les pages de discussion de tou(te)s les
+      confirm:
+        Cela publiera un rappel sur les pages de discussion de tou(te)s les
         étudiant(e)s qui sont en retard dans leur formation. Êtes-vous certain(e)
         de vouloir faire cela ?
       header: Vous avez une affectation de formation en retard.
-      message: Veuillez terminer les [%{link} modules de formation] qui vous ont été
+      message:
+        Veuillez terminer les [%{link} modules de formation] qui vous ont été
         affectés.
       summary: retard de formation d’étudiant
   wizard:
     assignment_dates: Dates d’affectation
-    assignment_description: Choisir les dates de début et de fin de votre agenda d’affectation.
+    assignment_description:
+      Choisir les dates de début et de fin de votre agenda d’affectation.
       Par exemple, si vous voulez commencer votre projet Wikipédia la deuxième semaine
       du cours, fixez la date de début d’affectation à une semaine après celle de
       début du cours. L’outil de conception des affectations créera un brouillon d’agenda
       qui correspondra aux dates que vous aurez choisies.
     assignment_type: Que devront compléter les étudiants pour leur affectation Wikipédia ?
-    calendar_instructions: Sélectionner les dates à ajouter ou supprimer de l’agenda  (par
+    calendar_instructions:
+      Sélectionner les dates à ajouter ou supprimer de l’agenda  (par
       ex., vacances, pas d’école). Cela aidera l’outil de création des cours à répartir
       correctement vos affectations. Cliquer sur la date pour basculer entre non sélectionnée,
       sélectionnée et en vacances. Si vous n’avez pas de vacances, cocher « Je n’ai
       pas de congés scolaires » ci-dessous.
-    confirm_dates: Choisir les dates du cours, les réunions hebdomadaires et les congés
+    confirm_dates:
+      Choisir les dates du cours, les réunions hebdomadaires et les congés
       pour votre cours.
     course_dates: Dates du cours
-    min_weeks: Cette tâche nécessite au moins %{min_weeks} semaines disponibles. Veuillez
+    min_weeks:
+      Cette tâche nécessite au moins %{min_weeks} semaines disponibles. Veuillez
       ajuster vos dates de début et de fin de tâche si vous voulez utiliser ce type
       de tâche.
     select_one_option: Veuillez sélectionner 1 option.
@@ -1833,86 +2063,106 @@ fr:
       other: Veuillez sélectionner au moins %{count} options.
     read_less: Lire moins
     read_more: Lire davantage
-    review_selections: Veuillez vérifier vos sélections ci-dessous. Cliquez pour modifier
+    review_selections:
+      Veuillez vérifier vos sélections ci-dessous. Cliquez pour modifier
       une sélection. Quand ce sera fini, cliquez sur « Soumettre » pour terminer l’assistant
       et construire votre agenda.
-    select_assignment: Sélectionner le type de tâche que vous voulez ajouter à votre
+    select_assignment:
+      Sélectionner le type de tâche que vous voulez ajouter à votre
       agenda.
     summary: Résumé
   error:
     form_errors: Veuillez vérifier les erreurs du formulaire.
     invalid_assignment: Affectation non valide
     invalid_date: La date %{key} n’est pas valide
-    invalid_file_format: Le fichier n’a pas pu être enregistré. Veuillez téléverser
+    invalid_file_format:
+      Le fichier n’a pas pu être enregistré. Veuillez téléverser
       un document PDF ou Word.
     oauth_invalid: Votre autorisation sur Wikipédia a expiré. Veuillez vous reconnecter.
-    start_date_before_end_date: La date de début doit être antérieure à la date de
+    start_date_before_end_date:
+      La date de début doit être antérieure à la date de
       fin
     unsupported_browser:
       header: Navigateur non pris en charge. :-(
-      explanation: Vous utilisez un navigateur qui n’est pas compatible avec le tableau
+      explanation:
+        Vous utilisez un navigateur qui n’est pas compatible avec le tableau
         de bord. Le site fonctionne bien avec les versions récentes de Chrome, Firefox,
         Edge et d’autres navigateurs modernes.
-    ip_blocked: Vous ne pouvez actuellement pas créer de compte à partir de cet appareil.
+    ip_blocked:
+      Vous ne pouvez actuellement pas créer de compte à partir de cet appareil.
       Cela peut arriver si votre adresse IP est bloquée par Wikipédia ou a déjà atteint
       la limite quotidienne de nouveaux comptes. Essayez de vous connecter à partir
       d’un autre réseau.
   error_401:
     header: Non autorisé. >:-(
-    explanation: Vous n’avez pas l’autorisation d’exécuter cette requête. Si vous
+    explanation:
+      Vous n’avez pas l’autorisation d’exécuter cette requête. Si vous
       pensez avoir reçu cet avis par erreur, veuillez contacter les mainteneurs de
       ce tableau de bord pour les informer du problème.
-    json_explanation: Il semble que vous avez été déconnecté. Veuillez actualiser
+    json_explanation:
+      Il semble que vous avez été déconnecté. Veuillez actualiser
       la page, vous connecter et essayer à nouveau.
   error_incorrect_passcode:
     header: Code d’accès erroné. :-(
-    explanation: Le code d’accès pour s’inscrire à ce cours n’est pas correct. Veuillez
+    explanation:
+      Le code d’accès pour s’inscrire à ce cours n’est pas correct. Veuillez
       demander au formateur le code d’accès actuel pour s’inscrire à ce cours. Vous
       pouvez réessayer en entrant le bon code d’accès ci-dessous.
   error_no_course:
     explanation: Il n’existe aucun cours de type %{slug} .
   error_404:
     header: Page non trouvée. :-(
-    explanation: Cette page n’existe pas. Si vous essayez d’atteindre le tableau de
+    explanation:
+      Cette page n’existe pas. Si vous essayez d’atteindre le tableau de
       bord d’un cours, ce cours peut ne pas être inscrit dans ce tableau de bord.
   error_422:
     header: 422 — entité non traitable. :-(
-    explanation: Quelque chose s’est mal passé. Veuillez contacter les mainteneurs
+    explanation:
+      Quelque chose s’est mal passé. Veuillez contacter les mainteneurs
       de ce tableau de bord pour les informer du problème.
   error_500:
     header: 500 — erreur interne du serveur. :-(
-    explanation: Quelque chose s’est mal passé. Veuillez contacter les mainteneurs
+    explanation:
+      Quelque chose s’est mal passé. Veuillez contacter les mainteneurs
       de ce tableau de bord pour les informer du problème.
   login_error:
     header: Erreur de connexion
-    explanation: Il semble qu’il y ait eu un problème avec le processus d’inscription.
+    explanation:
+      Il semble qu’il y ait eu un problème avec le processus d’inscription.
       (Désolé à ce sujet ! Cela arrive de temps en temps.) Veuillez essayez à nouveau
       de vous connecter ou de vous inscrire.
   survey:
-    login_message: Merci pour votre temps. Veuillez vous connecter au tableau de bord
+    login_message:
+      Merci pour votre temps. Veuillez vous connecter au tableau de bord
       pour participer au sondage.
-    notification_explanation: Si la case ci-dessous est cochée, les utilisateurs recevront
+    notification_explanation:
+      Si la case ci-dessous est cochée, les utilisateurs recevront
       des courriels selon l’agenda de notification, en plus de voir les notifications
       dans le navigateur. Si non, seules les notifications dans le navigateur seront
       affichées.
-    notification_schedule_explanation: Les notifications incluent celles affichées
+    notification_schedule_explanation:
+      Les notifications incluent celles affichées
       dans le navigateur et celles reçues par courriel, si elles sont activées ci-dessus.
-    follow_up_explanation: Laisser en blanc si aucun courriel de notification pour
+    follow_up_explanation:
+      Laisser en blanc si aucun courriel de notification pour
       le suivi n’est souhaité.
     email:
       headline: Bonjour, %{username}
-      message_line1: Nous espérons que vous avez aimé ce cursus ! Wiki Éducation attend
+      message_line1:
+        Nous espérons que vous avez aimé ce cursus ! Wiki Éducation attend
         votre avis pour améliorer ses ressources et soutenir vos affectations sur
         Wikipédia. Votre réponse est cruciale pour améliorer nos offres actuelles.
-      message_line2: Voulez-vous prendre 15 minutes pour notre enquête des formateurs ?
+      message_line2:
+        Voulez-vous prendre 15 minutes pour notre enquête des formateurs ?
         Cliquez sur le bouton ci-dessous pour nous aider rendre l’expérience de l’enseignement
         avec Wikipédia encore plus enrichissante et valorisante.
-      course: 'Cours : %{course_info}'
+      course: "Cours : %{course_info}"
       closing: Sincèrement vôtre,
       signed: – l’équipe de Wiki Éducation.
       link: Participer au sondage
     follow_up:
-      message: Ceci est un rappel au sujet du sondage sur votre cours, %{course_title}.
+      message:
+        Ceci est un rappel au sujet du sondage sur votre cours, %{course_title}.
         Les résultats de ce sondage nous aideront à améliorer notre soutien pour des
         affectations sur Wikipédia comme la vôtre.
   feedback_form_responses:
@@ -1922,7 +2172,8 @@ fr:
   onboarding:
     supplementary:
       header: Comment avez-vous entendu parler de nous ?
-      where_did_you_hear: Où (ou bien de qui) avez-vous eu connaissance de Wiki Éducation
+      where_did_you_hear:
+        Où (ou bien de qui) avez-vous eu connaissance de Wiki Éducation
         pour la première fois ?
       why_are_you_here: Qu’aimeriez-vous faire ?
   article_finder:
@@ -1997,4 +2248,3 @@ fr:
     note_title: Titre de la note
     cancel_note_creation: Annuler
     cancel_edit_note: Annuler
-...

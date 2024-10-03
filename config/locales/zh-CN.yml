@@ -43,7 +43,7 @@ zh-CN:
   number:
     human:
       decimal_units:
-        format: '%n%u'
+        format: "%n%u"
         units:
           thousand: K
           million: M
@@ -82,8 +82,8 @@ zh-CN:
     request_account_create: 创建账户
     search: 提问
     search_results:
-      one: '%{count} Result for: ''%{search_terms}'''
-      other: '%{count} Results for: ''%{search_terms}'''
+      one: "%{count} Result for: '%{search_terms}'"
+      other: "%{count} Results for: '%{search_terms}'"
     no_results: 找不到“%{query}”的结果
     show_current_revision: 显示当前版本
     sign_up_extended: 注册维基百科
@@ -177,16 +177,16 @@ zh-CN:
     rating: 等级
     rating_doc: 条目的等级由维基百科的对应专题分配。这些等级可能与旧有版本相对应，因此这些评级只是粗略的条目成熟度指标。
     rating_docs:
-      fa: '%{class}（典范条目） — 维基百科的最高评级，可能过于成熟而不适合作为新编辑者的主要项目目标'
-      fl: '%{class}（特色列表） — 维基百科用于列表的最高评级'
-      a: '%{class}级 — 十分完善的条目，可能过于成熟而不适合作为新编辑者的主要项目目标'
-      ga: '%{class}（优良条目） — 一个组织良好的条目，可能过于成熟而不适合作为新编辑者的主要项目目标'
-      b: '%{class}级 — 一个适度开发的条目'
-      c: '%{class}级 — 一个有改进空间的中等条目'
-      start: '%{class}级 — 一个有很大改进空间的初等条目'
-      stub: '%{class}级 — 一篇条目的短小开始，它需要更多内容'
-      list: '%{class}级 — 一个列表，而不是一篇传统条目'
-      '?': 未评级 — 一篇未被维基百科质量等级体系评级的条目
+      fa: "%{class}（典范条目） — 维基百科的最高评级，可能过于成熟而不适合作为新编辑者的主要项目目标"
+      fl: "%{class}（特色列表） — 维基百科用于列表的最高评级"
+      a: "%{class}级 — 十分完善的条目，可能过于成熟而不适合作为新编辑者的主要项目目标"
+      ga: "%{class}（优良条目） — 一个组织良好的条目，可能过于成熟而不适合作为新编辑者的主要项目目标"
+      b: "%{class}级 — 一个适度开发的条目"
+      c: "%{class}级 — 一个有改进空间的中等条目"
+      start: "%{class}级 — 一个有很大改进空间的初等条目"
+      stub: "%{class}级 — 一篇条目的短小开始，它需要更多内容"
+      list: "%{class}级 — 一个列表，而不是一篇传统条目"
+      "?": 未评级 — 一篇未被维基百科质量等级体系评级的条目
       does_not_exist: 此条目在维基百科不存在
     see_more: 查看更多
     search: 在维基百科中搜索条目
@@ -266,7 +266,8 @@ zh-CN:
     peer_review_count_tooltip: 您应该选择%{total} 个条目来同行审核
     peer_review_link: 同行评审
     random_peer_review:
-      confirm_addition: 在大多数情况下，您应当仅在所有学生都已分配他们的主要文章后使用此功能。您也可以让您的学生选择他们自己的同行评审，或者您可以通过点击学生所在行然后使用“分配/删除同行评审”按钮来手动分配同行评审。点击“OK”分配共计
+      confirm_addition:
+        在大多数情况下，您应当仅在所有学生都已分配他们的主要文章后使用此功能。您也可以让您的学生选择他们自己的同行评审，或者您可以通过点击学生所在行然后使用“分配/删除同行评审”按钮来手动分配同行评审。点击“OK”分配共计
         %{count} 个额外的同行评审，每个学生最多从同学的文章中选择 %{maximum} 个。
       heading: 分配随机的同行复核
       limit_exceeded: 每位学生都已经在评论至少%{maximum}条文章。
@@ -315,8 +316,8 @@ zh-CN:
     no_passcode: 无密码
     none: 无
     organizers: 组织者
-    organizer_added: '%{user}现为“%{title}”活动的组织者'
-    organizer_removed: '%{user}已从“%{title}”活动的组织者中被移除'
+    organizer_added: "%{user}现为“%{title}”活动的组织者"
+    organizer_removed: "%{user}已从“%{title}”活动的组织者中被移除"
     program_template: 计划模板
     program_template_tooltip: 当组织者在此活动中创建计划时，此区域的文本将被复制为计划页面上的描述
     random_passcode: 随机密码
@@ -366,10 +367,10 @@ zh-CN:
     cancel: 取消
     character_doc: 在课程的学期期间，由课程的学生添加至主命名空间条目的字符之和
     campaigns: 活动：
-    campaign_articles: '%{title}个条目'
-    campaign_courses: '%{title}课程'
+    campaign_articles: "%{title}个条目"
+    campaign_courses: "%{title}课程"
     campaign_select: 选择一个活动
-    campaign_users: '%{title}位编辑者'
+    campaign_users: "%{title}位编辑者"
     confirm_course_deletion: 您是否要删除标题为%{title}的课程？如果是，输入课程标题以进行。
     confirm_course_deletion_failed: “%{title}”不是此课程的标题。课程未被删除。
     confirm_manual_update: 您确定要运行手动更新么？最近修订版本将会导入，并且页面将会重新加载。此操作可能需要一些时间。
@@ -523,7 +524,7 @@ zh-CN:
     student: 学生
     students: 学生
     students_taught: 所教学生
-    students_count: '# 学生'
+    students_count: "# 学生"
     student_editors: 学生编辑者
     students_none: 此课程没有学生。
     students_short: 学生
@@ -589,7 +590,7 @@ zh-CN:
     courses: 计划
     courses_taught: 教授的计划
     campaigns: 活动：
-    campaign_courses: '%{title}计划'
+    campaign_courses: "%{title}计划"
     creator:
       assignment_end: 活动结束
       assignment_end_placeholder: YYYY-MM-DD
@@ -614,7 +615,8 @@ zh-CN:
       create_short: 创建计划
       end_date: 活跃追踪结束
       find: 寻找一个计划
-      intro: 来自计划URL的计划标题及机构。主wiki是参与者将要工作的主要wiki，默认情况下将跟踪这个wiki上的编辑。如果您的计划跨越多种语言或项目，那么任何wiki的已明确添加到“跟踪
+      intro:
+        来自计划URL的计划标题及机构。主wiki是参与者将要工作的主要wiki，默认情况下将跟踪这个wiki上的编辑。如果您的计划跨越多种语言或项目，那么任何wiki的已明确添加到“跟踪
         Wiki”都将被跟踪。点击“创建我的计划！”以开始构造用于您wiki计划的页面。
       new_or_clone: 现在创建一个新计划，或者使用“克隆”选项复制您参与的另一个计划。
       participate_in_campaign: 参与活动
@@ -679,7 +681,7 @@ zh-CN:
     edit_count_description: 总计编辑
     error_count_message: 控制面板在最近的更新中遇到%{error_count}错误。
     missing_data_heading: 丢失或者是意想不到的结果？
-    per_user: '%{number}/用户'
+    per_user: "%{number}/用户"
     revisions: 最近编辑
     references_count: 添加的参考文献
     references_doc: 这是添加到条目中的参考标签的数量，可以包括对同一来源的多次参考。该数据来自ORES的条目质量模型，仅适用于某些语言。
@@ -749,26 +751,26 @@ zh-CN:
         form_placeholder: 用户名
         confirm_add_admin: 授予管理员
         confirm_remove_admin: 移除该用户的管理员特权
-        already_admin: '%{username}已经是管理员！'
-        elevate_success: '%{username}被提升为管理员。'
+        already_admin: "%{username}已经是管理员！"
+        elevate_success: "%{username}被提升为管理员。"
       remove:
         revoke_button: 撤除管理员
         revoke_button_confirm: 撤除%{username}的管理员权限
         revoking_button_working: 正在撤除……
-        already_instructor: '%{username}已经是导师！'
-        demote_success: '%{username}已更改为导师。'
+        already_instructor: "%{username}已经是导师！"
+        demote_success: "%{username}已更改为导师。"
         no_super_admin: 不能撤除超级管理员的管理员状态
     special_users:
       new:
         form_label: 授予特殊用户权限
         form_placeholder: 用户名
         confirm_add_special_user: 添加特别用户
-        confirm_remove_special_user: 删除特殊用户权限
+        _user: 删除特殊用户权限
       remove:
         revoke_button: 撤销特殊用户
         revoking_button_working: 正在移除……
-        already_is_not: '%{username}还不是特别用户！'
-        demote_success: '%{username}现在仅仅是普通用户。'
+        already_is_not: "%{username}还不是特别用户！"
+        demote_success: "%{username}现在仅仅是普通用户。"
   suggestions:
     editing: 编辑建议
     suggestion_docs:
@@ -784,7 +786,7 @@ zh-CN:
       list: 列表应为正常链至维基百科条目的链接列表，并应适当命名和组织。
       future: 添加的材料可能存在投机炒作，并应仔细检查来源。
       disambig: 附加物应制作为要创建名称的新条目。密切注意这类页面的适当名称，这是因为它们不需要将“（消歧义）”附加在标题上。
-      '?': 建议不可用——条目未评级，或没有用于评级的建议。
+      "?": 建议不可用——条目未评级，或没有用于评级的建议。
       does_not_exist: 此条目在维基百科不存在。
   tasks:
     conseq: 课程%{task}已在进行！
@@ -889,7 +891,7 @@ zh-CN:
     edits_by: 编辑者：
     enroll_confirmation: 您确定要添加%{username}么？
     enroll_url: 用户可通过访问此URL加入：
-    enrolled_success: '%{username}已成功添加！'
+    enrolled_success: "%{username}已成功添加！"
     first_name: 名
     last_name: 姓
     loading: 正在加载用户...
@@ -904,8 +906,8 @@ zh-CN:
     no_articles: 没有条目
     no_revisions: （没有修订版本）
     number_of_articles:
-      one: '%{count}个条目'
-      other: '%{count}个条目'
+      one: "%{count}个条目"
+      other: "%{count}个条目"
     recent_revisions: 最近编辑
     remove_confirmation: 您确定要移除%{username}吗？
     request_confirmation: 您确定要请求这个账户么？
@@ -918,13 +920,13 @@ zh-CN:
       one: 是最新的培训
       other: 是最新的培训
     training_complete_count:
-      one: '%{count}最近的培训'
-      other: '%{count}最近的培训'
+      one: "%{count}最近的培训"
+      other: "%{count}最近的培训"
     training_doc: 已完成所有分配的已到期培训模块的编辑者可算作是最近完成训练的。
     training_incomplete: 培训未完成
     training_modules_completed:
-      one: '%{completed_count}/%{count}培训模块已完成'
-      other: '%{completed_count}/%{count}培训模块已完成'
+      one: "%{completed_count}/%{count}培训模块已完成"
+      other: "%{completed_count}/%{count}培训模块已完成"
     training_module_name: 培训模块
     training_module_status: 状态
     user_training_status: 培训状态
@@ -976,7 +978,7 @@ zh-CN:
   error:
     form_errors: 请检查表单中的错误。
     invalid_assignment: 无效分配
-    invalid_date: '%{key}日期无效'
+    invalid_date: "%{key}日期无效"
     invalid_file_format: 文件不能保存。请上传PDF或Word文档。
     oauth_invalid: 您的维基百科授权已过期。请重新登录。
     start_date_before_end_date: 开始日期必须在结束日期之前
@@ -1015,7 +1017,7 @@ zh-CN:
       message_line2: 您愿意花费15分钟以填写我们的导师调查表么？点击下面的按钮以帮助我们使通过维基百科教学回报更多，及获得宝贵的经验。
       course: 课程：%{course_info}
       closing: 真诚地感谢您
-      signed: '- 维基教育团队'
+      signed: "- 维基教育团队"
       link: 接受调查
     follow_up:
       message: 这是有关对您的课程（%{course_title}）调查的提示。来自该调查的反馈会帮助我们改进我们对像您一样的维基百科作业的支持。
@@ -1064,4 +1066,3 @@ zh-CN:
     view: 查看
     started: 开始
     not_started: 入门
-...

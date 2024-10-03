@@ -36,7 +36,7 @@ nl:
   number:
     human:
       decimal_units:
-        format: '%n%u'
+        format: "%n%u"
         units:
           thousand: k
           million: mln
@@ -44,24 +44,27 @@ nl:
           trillion: bln
           quadrillion: bld
   accessibility:
-    number_field: Dit is een numeriek veld. De meeste browsers geven hier knoppen
+    number_field:
+      Dit is een numeriek veld. De meeste browsers geven hier knoppen
       weer waarmee u de invoer kunt verhogen en verlagen.
   application:
     back: Terug
     cancel: Annuleren
-    cookie_consent: Deze site gebruikt cookies om u aangemeld te houden en slaat informatie
+    cookie_consent:
+      Deze site gebruikt cookies om u aangemeld te houden en slaat informatie
       op met betrekking tot uw Wikipedia-account.
     cookie_consent_acknowledge: Ik begrijp het
     cookie_consent_see_more: Meer zien.
     create_accounts: Wikipedia-accounts aanmaken
     dashboard: Wiki Ed Dashboard
     documentation: Documentatie
-    error: 'Er is een fout opgetreden:'
+    error: "Er is een fout opgetreden:"
     explore: Verkennen
     field_required: Dit veld is verplicht
     field_invalid_characters: Dit veld heeft ongeldige tekens
     field_invalid_date: Dit veld vereist een datum in JJJJ-MM-DD-indeling
-    field_invalid_date_time: Het einde moet na het begin zijn. (Uren gaan van 0 tot
+    field_invalid_date_time:
+      Het einde moet na het begin zijn. (Uren gaan van 0 tot
       23.)
     greeting2: Welkom!
     greeting_extended: Welkom op Wikipedia
@@ -78,8 +81,8 @@ nl:
     request_account_create: Een account aanmaken
     search: een vraag stellen
     search_results:
-      one: '%{count} resultaat voor: ''%{search_terms}'''
-      other: '%{count} resultaten voor: ''%{search_terms}'''
+      one: "%{count} resultaat voor: '%{search_terms}'"
+      other: "%{count} resultaten voor: '%{search_terms}'"
     no_results: Geen resultaten gevonden voor '%{query}'
     show_current_revision: Huidige versie bekijken
     show_last_revision: Laatste bewerkte versie weergeven
@@ -109,27 +112,32 @@ nl:
     peer_review_completed: Beoordeling voltooid
   dashboard:
     create_note: Klik op "Cursus aanmaken" om je eerste cursus aan te maken.
-    create_preparation_note: Houd uw academische kalender bij de hand voordat u begint;
+    create_preparation_note:
+      Houd uw academische kalender bij de hand voordat u begint;
       de opdrachtontwerper gebruikt de vergaderdata van uw klas - met inbegrip van
       eventuele schoolpauzes en vakanties - om uw tijdlijn in het door u gekozen datumbereik
       in te passen. U kunt de tijdlijn altijd aanpassen aan uw behoeften.
     explore_course_pages: Verken de cursuspagina's
     explore_examples: Verken voorbeelden
-    join_note: Als je een wachtwoord van je instructeur krijgt, klik dan op "Vind
+    join_note:
+      Als je een wachtwoord van je instructeur krijgt, klik dan op "Vind
       je cursus" om deze te vinden en aan deel te nemen.
     no_courses_instructor: Je hebt nog geen cursussen.
     no_courses_student: Je neemt nog geen deel aan een cursus.
     opt_out: Verzoek af te zien van de training
-    orientation_notice: Voordat je een cursus aanmaakt, volg je een training die helpt
+    orientation_notice:
+      Voordat je een cursus aanmaakt, volg je een training die helpt
       om de slag te gaan. Dit duurt ongeveer 30 minuten om deze te voltooien.
     review_orientation: Review oriëntatie
     start_orientation: Training beginnen
     blog_headline: Actualiteiten van Wiki Education
-    about_programs: 'Deze site volgt wiki-activiteiten via Programma''s: individuele
+    about_programs:
+      "Deze site volgt wiki-activiteiten via Programma's: individuele
       evenementen zoals een bewerkingsactie of een schoolcursus. Elk programma maakt
-      deel uit van een of meer campagnes, die samengevoegde statistieken over de programma''s
-      leveren.'
-    about_creating_programs: Als u een afzonderlijk, onafhankelijk evenement organiseert,
+      deel uit van een of meer campagnes, die samengevoegde statistieken over de programma's
+      leveren."
+    about_creating_programs:
+      Als u een afzonderlijk, onafhankelijk evenement organiseert,
       kunt u nu een programma maken. Maakt uw evenement deel uit van iets groters,
       dan zoekt of maakt u de campagne ervoor, en dan kunt u vanaf de campagnepagina
       een nieuw programma maken.
@@ -140,16 +148,20 @@ nl:
     registration_advice:
       username_rules:
         heading: Gebruikersnaamregels
-        avoid_offensive_usernames: Kies geen gebruikersnaam die aanstootgevend, misleidend,
+        avoid_offensive_usernames:
+          Kies geen gebruikersnaam die aanstootgevend, misleidend,
           storend of promotioneel is.
-        represent_individual: Gebruikersnamen moeten een individuele redacteur vertegenwoordigen.
+        represent_individual:
+          Gebruikersnamen moeten een individuele redacteur vertegenwoordigen.
           Gebruik niet de naam van een school of organisatie.
       additional_advice:
         heading: Advies
-        anonymous_username_recommendation: Wiki Education raadt aan een anonieme gebruikersnaam
+        anonymous_username_recommendation:
+          Wiki Education raadt aan een anonieme gebruikersnaam
           te kiezen, en niet een gebruikersnaam die uw echte naam of andere identificerende
           informatie bevat.
-    sign_up_help: Om het dashboard te gebruiken moet u zich aanmelden via Wikipedia
+    sign_up_help:
+      Om het dashboard te gebruiken moet u zich aanmelden via Wikipedia
       en daar toestemming geven voor toegang tot uw account. U kunt zich aanmelden
       met een bestaand Wikipedia-account of een nieuw aanmaken. Als het niet lukt
       om een account aan te maken, neem dan contact op met dashboard@wikiedu.org.
@@ -173,17 +185,20 @@ nl:
     previous: Vorige
     article_title: Artikelnaam
     assigned_to: Toegewezen aan
-    character_doc: Het totale aantal tekens dat is toegevoegd aan pagina's door de
+    character_doc:
+      Het totale aantal tekens dat is toegevoegd aan pagina's door de
       ingeschreven studenten tussen de begin- en einddatum
-    cross_wiki_tracking: De hoofdruimtepagina's die tussen de begin- en einddatum
+    cross_wiki_tracking:
+      De hoofdruimtepagina's die tussen de begin- en einddatum
       zijn bewerkt, worden hieronder weergegeven. Het dashboard haalt bijdragen van
       de home-wiki van dit programma, samen met andere wiki's waarvoor een opdracht
       of een beschikbaar artikel beschikbaar is.
     deleted: (verwijderd)
-    does_not_exist: Het artikel bestaat niet. Maak een zandbakpagina aan en wijs uzelf
+    does_not_exist:
+      Het artikel bestaat niet. Maak een zandbakpagina aan en wijs uzelf
       daaraan toe om suggesties te ontvangen.
     edited: Pagina's bewerkt
-    edited_by: 'Bewerkt door:'
+    edited_by: "Bewerkt door:"
     edited_mobile: Pagina's
     edited_none: Er zijn nog geen artikelen bewerkt.
     filter:
@@ -194,7 +209,7 @@ nl:
       tracked: Gevolgd
       untracked: Niet bijgehouden
       tracked_and_untracked: Gevolgd en niet gevolgd
-    filter_text: 'Filters:'
+    filter_text: "Filters:"
     find: Artikelen zoeken
     how_to_find: Hoe pagina's vinden
     hide: Verbergen
@@ -206,49 +221,60 @@ nl:
     none: Deze cursus heeft geen bewerkte pagina's.
     preview: Korte samenvatting van het artikel
     rating: Klasse
-    rating_doc: De waardering van een artikel is toegekend door WikiProjecten op Wikipedia.
+    rating_doc:
+      De waardering van een artikel is toegekend door WikiProjecten op Wikipedia.
       Deze waarderingen kunnen gebaseerd zijn op veel oudere versies en zijn dus maar
       een ruwe aanduiding van de volwassenheid van het artikel.
     rating_docs:
-      fa: '%{class} (uitgelicht artikel) – De hoogste waardering in Wikipedia, waarschijnlijk
-        een te volwassen pagina voor het hoofdproject van een nieuwe redacteur'
-      fl: '%{class} (Uitgelichte lijst) — De hoogste waardering van lijsten in Wikipedia'
-      a: Klasse %{class} — zeer ontwikkelde pagina, waarschijnlijk een te volwassen
+      fa:
+        "%{class} (uitgelicht artikel) – De hoogste waardering in Wikipedia, waarschijnlijk
+        een te volwassen pagina voor het hoofdproject van een nieuwe redacteur"
+      fl: "%{class} (Uitgelichte lijst) — De hoogste waardering van lijsten in Wikipedia"
+      a:
+        Klasse %{class} — zeer ontwikkelde pagina, waarschijnlijk een te volwassen
         pagina voor het hoofdproject van een nieuwe bewerker
-      ga: '%{class} (Goed artikel) — een prima ontwikkeld artikel, mogelijk een te
-        volwassen artikel voor het hoofdproject van een nieuwe bewerker'
+      ga:
+        "%{class} (Goed artikel) — een prima ontwikkeld artikel, mogelijk een te
+        volwassen artikel voor het hoofdproject van een nieuwe bewerker"
       b: Klasse %{class} — een matig ontwikkeld artikel
       c: Klasse %{class} — een redelijk ontwikkeld artikel met ruimte voor verbetering
-      start: Klasse %{class} — een artikel in het beginstadium met veel mogelijkheden
+      start:
+        Klasse %{class} — een artikel in het beginstadium met veel mogelijkheden
         tot verbetering
-      stub: Klasse %{class} — een kort begin van een artikel dat meer tekst nodig
+      stub:
+        Klasse %{class} — een kort begin van een artikel dat meer tekst nodig
         heeft
       list: Klasse %{class} — een lijst en geen gewoon artikel
-      '?': Zonder beoordeling — een pagina die nog niet is beoordeeld op de kwaliteitsschaal
+      "?":
+        Zonder beoordeling — een pagina die nog niet is beoordeeld op de kwaliteitsschaal
         van Wikipedia
       does_not_exist: Dit artikel bestaat niet op Wikipedia
     see_more: Bekijk meer
-    see_more_tooltip: Alleen de eerste 500 bewerkte artikelen worden in eerste instantie
+    see_more_tooltip:
+      Alleen de eerste 500 bewerkte artikelen worden in eerste instantie
       geladen. Klik om extra artikelen te laden.
     search: Op Wikipedia naar een artikel zoeken
     show_cumulative_changes: Cumulatieve wijzigingen weergeven
     show_current_version: Huidige versie bekijken
-    show_current_version_with_authorship_highlighting: Huidige versie met markering
+    show_current_version_with_authorship_highlighting:
+      Huidige versie met markering
       van auteurschap
     title: Naam
     tracked: Gevolgd
-    tracked_doc: Alleen gevolgde artikelen dragen bij aan de statistieken voor dit
+    tracked_doc:
+      Alleen gevolgde artikelen dragen bij aan de statistieken voor dit
       programma. Wanneer artikelen als niet-getrackt zijn gemarkeerd, worden ze bij
       de volgende gegevensupdate uit de statistieken verwijderd.
     title_example: Paginanaam
     tools: Beoordelingstools
     view: Pagina bekijken
     view_all: Alle bekijken
-    view_doc: Bij benadering het aantal maal dat ieder artikel bekeken werd sinds
+    view_doc:
+      Bij benadering het aantal maal dat ieder artikel bekeken werd sinds
       het voor het eerst bewerkt werd, volgens de meest recente gegevens update. U
       kunt met pageviews.toolforge.org  het exacte aantal zien.
     view_on_wiki: Bekijk op wiki
-    views_added: '%{count} nieuwe weergaven toegevoegd voor %{title}'
+    views_added: "%{count} nieuwe weergaven toegevoegd voor %{title}"
     edit_size: Bewerkingsgrootte
     wiki: Wiki
     wp10: Structurele volledigheid
@@ -308,7 +334,7 @@ nl:
     none_short_wikidata: Geen items toegewezen
     none: Aan deze cursus zijn geen artikelen toegewezen.
     no_available: Deze cursus heeft geen beschikbare pagina's
-    peer_review_count: '%{currentCount}/%{total} geselecteerd'
+    peer_review_count: "%{currentCount}/%{total} geselecteerd"
     peer_review_count_tooltip: U moet %{total} pagina's selecteren voor peer review.
     peer_review_link: Peer review
     peer_review_link_personalized: Peer review van %{username}
@@ -354,12 +380,14 @@ nl:
     data_editor_usernames: Gebruikersnamen van bewerkers
     data_editor_usernames_info: Lijst met gebruikersnamen van bewerkers, één per regel
     data_wikidata: Wikidata-statistieken
-    data_wikidata_info: Gedetailleerd overzicht van Wikidata-activiteiten, gebaseerd
+    data_wikidata_info:
+      Gedetailleerd overzicht van Wikidata-activiteiten, gebaseerd
       op bewerkingssamenvattingen
     default_course_type: Standaard cursustype
     default_passcode: Standaard toegangscode
-    default_passcode_explanation: 'Nieuwe programma''s in deze campagne moeten standaard
-      het volgende hebben:'
+    default_passcode_explanation:
+      "Nieuwe programma's in deze campagne moeten standaard
+      het volgende hebben:"
     description: Beschrijving
     delete_campaign: Campagne verwijderen
     delete_course_tooltip: Verwijderen en uit de campagne verwijderen
@@ -376,7 +404,8 @@ nl:
     organizer_removed: '%{user} is verwijderd als organisator van de campagne "%{title}"'
     pages_edited_small: pagina's bewerkt
     program_template: Programmasjabloon
-    program_template_tooltip: Als een organisator een programma in deze campagne aanmaakt,
+    program_template_tooltip:
+      Als een organisator een programma in deze campagne aanmaakt,
       wordt de tekst in dit gebied gekopieerd als beschrijving op de programmapagina
     random_passcode: een willekeurige toegangscode
     remove_course_tooltip: Verwijderen uit campagne.
@@ -414,15 +443,19 @@ nl:
       legend_class_meeting: Klasbijeenkomst
       legend_class_not_meeting: Geen geplande vergadering
       select_meeting_days: Selecteer de dagen van de week waarop uw klas samenkomt.
-    character_doc: Het aantal tekens dat tijdens de cursus is toegevoegd aan pagina's
+    character_doc:
+      Het aantal tekens dat tijdens de cursus is toegevoegd aan pagina's
       in de hoofdnaamruimte door studenten van de cursus
-    campaigns: 'Campaignen:'
-    confirm_course_deletion: Weet je zeker dat je de cursus met de titel %{title}
+    campaigns: "Campaignen:"
+    confirm_course_deletion:
+      Weet je zeker dat je de cursus met de titel %{title}
       wilt verwijderen? Als dat zo is, typ dan de titel van de cursus om verder te
       gaan.
-    confirm_course_deletion_failed: '"%{title}" is niet de titel van deze cursus.
+    confirm_course_deletion_failed:
+      '"%{title}" is niet de titel van deze cursus.
       De cursus is niet verwijderd.'
-    course_dates_calendar_instructions: Selecteer datums om ze toe te voegen of te
+    course_dates_calendar_instructions:
+      Selecteer datums om ze toe te voegen of te
       verwijderen uit het schema, bijvoorbeeld vakantie of geen onderwijs. Klik op
       de datum om te wisselen tussen niet geselecteerd, geselecteerd en vakantiestatus.
       De datums van de cursusactiviteiten veranderen om weken weer te geven zonder
@@ -437,14 +470,16 @@ nl:
       assignment_start: Begin opdracht
       assignment_start_placeholder: JJJJ-MM-DD
       checking_for_uniqueness: Deze cursus wordt gecontroleerd op uniciteit.
-      cloned_course_calendar_instructions: Selecteer data om deze van het schema te
+      cloned_course_calendar_instructions:
+        Selecteer data om deze van het schema te
         verwijderen (feestdagen, vakantie, etc.). Klik op de datum om de status van
         niet-geselecteerd, geselecteerd en vakantie aan te passen. Indien je geen
         vakantie hebt, vink dan "Ik heb geen vakantie met de klas" aan. De gekloonde
         tijdlijn zal automatisch de data aanpassen voor weken waarin er geen bijeenkomsten
         gepland staan.
       clone_successful: Gegevens bijwerken voor gekloonde cursus
-      clone_successful_details: Uw cursus is gekloond, ook de elementen van de tijdlijn
+      clone_successful_details:
+        Uw cursus is gekloond, ook de elementen van de tijdlijn
         (weken en blokken). Zorg ervoor dat u de datums toevoegt, want die worden
         niet overgedragen. Is er nog iets anders aan uw cursus veranderd? Dan kunt
         u dat nu aanpassen.
@@ -464,13 +499,14 @@ nl:
       end_date_placeholder: JJJJ-MM-DD
       expected_number: Het verwachte aantal studenten
       find: Vind je cursus
-      intro: De titel, school en periode zijn onderdeel van de URL van de cursuspagina
+      intro:
+        De titel, school en periode zijn onderdeel van de URL van de cursuspagina
         en kan niet gewijzigd worden. Al het andere kan later aangepast worden. Klik
         "Maak mijn cursus aan!" om te beginnen met de tijdlijn voor de Wikipedia-opdracht.
       no_class_holidays: Ik heb geen vakantie met de klas
       role_description_options:
-      - Instructeur
-      - Onderwijsassistent
+        - Instructeur
+        - Onderwijsassistent
       role_description_placeholder: Instructeur, onderwijsassistent, etc
       save_cloned_course: Nieuwe cursus opslaan
       start_date: Startdatum
@@ -478,7 +514,8 @@ nl:
       subject: Onderwerp
     current: Huidige cursussen
     data_wikidata: Wikidata-statistieken
-    data_wikidata_info: Gedetailleerd overzicht van Wikidata-activiteiten, gebaseerd
+    data_wikidata_info:
+      Gedetailleerd overzicht van Wikidata-activiteiten, gebaseerd
       op bewerkingssamenvattingen
     dates_too_long: De maximale duur is één jaar.
     delete_course: Cursus verwijderen
@@ -490,10 +527,12 @@ nl:
     enroll: Inschrijven
     enrollment: Studenten toevoegen / verwijderen
     error:
-      exists: Die cursus bestaat al. Probeer het opnieuw met een andere naam, school
+      exists:
+        Die cursus bestaat al. Probeer het opnieuw met een andere naam, school
         of termijn.
-      user_exists: '%{username} is geen bestaande gebruiker.'
-      invalid_wiki: Kan geen verbinding maken met %{domain}. Het is mogelijk geen
+      user_exists: "%{username} is geen bestaande gebruiker."
+      invalid_wiki:
+        Kan geen verbinding maken met %{domain}. Het is mogelijk geen
         geldige wiki.
     expected_students: Verwachte studenten
     gradeables_none: Deze cursus heeft nog geen te beoordelen opdrachten.
@@ -501,12 +540,14 @@ nl:
       one: Instructeur
       other: Instructeurs
     instructors: Instructeurs
-    invitation: U bent uitgenodigd om deel te nemen aan %{title}. Om deel te nemen
+    invitation:
+      U bent uitgenodigd om deel te nemen aan %{title}. Om deel te nemen
       moet u zich aanmelden met een Wikipedia-account.
     join: Deelnemen
     join_course: Neem deel aan cursus
     join_prompt: Wil je deelnemen aan "%{title}"?
-    join_successful: U neemt nu deel aan %{title}. Het dashboard houdt automatisch
+    join_successful:
+      U neemt nu deel aan %{title}. Het dashboard houdt automatisch
       uw bijdragen bij met periodieke updates. Kom later terug om te zien hoeveel
       voortgang u heeft gemaakt!
     leave_confirmation: Weet je zeker dat je deze cursus wilt verlaten?
@@ -517,10 +558,12 @@ nl:
     new_week: Nieuwe week toevoegen
     new_account_email: E-mailadres
     new_account_email_placeholder: name@example.org
-    new_account_info: Om een ​​account aan te vragen, voert u uw e-mailadres en uw
+    new_account_info:
+      Om een ​​account aan te vragen, voert u uw e-mailadres en uw
       gewenste gebruikersnaam in. U ontvangt een wachtwoord per e-mail zodra het account
       door een van de facilitators is aangemaakt.
-    new_account_info_admin: Als u een account voor een nieuwe editor wilt maken, voert
+    new_account_info_admin:
+      Als u een account voor een nieuwe editor wilt maken, voert
       u hun e-mailadres en de gewenste gebruikersnaam in. Een wachtwoord zal naar
       hen worden gemaild zodra het account is aangemaakt.
     new_account_username: Gevraagde gebruikersnaam
@@ -531,11 +574,13 @@ nl:
     overview: Startpagina
     passcode: Wachtwoord
     passcode_none: Geen wachtwoord
-    passcode_prompt: 'Voer de toegangscode in om deel te nemen:'
-    published: 'Je cursus is gepubliceerd! Studenten kunnen zich inschrijven voor
-      de cursus door een bezoek aan de volgende URL:'
+    passcode_prompt: "Voer de toegangscode in om deel te nemen:"
+    published:
+      "Je cursus is gepubliceerd! Studenten kunnen zich inschrijven voor
+      de cursus door een bezoek aan de volgende URL:"
     requested_accounts_alert_view: Weergeven
-    review_timeline: Bekijk nu de tijdlijn van uw opdracht en pas deze aan uw behoeften
+    review_timeline:
+      Bekijk nu de tijdlijn van uw opdracht en pas deze aan uw behoeften
       aan. Zodra u tevreden bent kunt u de tijdlijn ter goedkeuring voorleggen aan
       medewerkers van Wiki Education. Na goedkeuring ontvangt u een inschrijvings-URL
       waarmee studenten deel kunnen nemen aan de cursus en toegang kunnen krijgen
@@ -547,56 +592,66 @@ nl:
     start: Start
     start_typing: Start met typen
     students: Studenten
-    students_count: '# Studenten'
+    students_count: "# Studenten"
     student_editors: Studentbewerkers
     students_none: Deze cursus heeft nog geen geregistreerde studenten.
     students_short: Studenten
-    submitted_admin: Deze cursus is ter goedkeuring voorgelegd aan de maker ervan.
+    submitted_admin:
+      Deze cursus is ter goedkeuring voorgelegd aan de maker ervan.
       Om de cursus goed te keuren voegt u hem toe aan een campagne op de overzichtspagina.
     submitted_and_pending_heading: Ingediend en in afwachting van goedkeuring
     submitted_heading: Ingediend cursussen
-    submitted_note: Uw cursus is ingediend en zal nu worden beoordeeld door medewerkers
+    submitted_note:
+      Uw cursus is ingediend en zal nu worden beoordeeld door medewerkers
       van Wiki Education. Bij vragen kunnen zij eventueel contact met u opnemen. Als
       u ondertussen het trainingsmateriaal van Wiki Education wilt doornemen, kunt
       u de volledige lijst van bronnen voor docenten en studenten bekijken.
-    suggestions_feedback: Enige suggesties om deze functie te verbeteren? Laat het
+    suggestions_feedback:
+      Enige suggesties om deze functie te verbeteren? Laat het
       ons weten!
     user_role: Rol
     course_details: Cursusdetails
-    course_submitted: Voorgelegde status wordt gebruikt voor opleidingsprogramma's
+    course_submitted:
+      Voorgelegde status wordt gebruikt voor opleidingsprogramma's
       waar een cursusplan moet worden goedgekeurd voordat het project begint. Het
       is alleen relevant voor het cursus type klaslokaalProgramma.
     subject: Onderwerp
     submitted: Verzonden
     submitted_at: Ingediend bij
     tag_select: Een label selecteren of aanmaken
-    tags: 'Labels:'
+    tags: "Labels:"
     term: Periode
     timeline: Opdrachtdetails
     timeline_enabled: Tijdlijn ingeschakeld
     timeline_link: Tijdlijn
-    timeline_tooltip: Als u de tijdlijn inschakelt, kunt u activiteiten van week tot
+    timeline_tooltip:
+      Als u de tijdlijn inschakelt, kunt u activiteiten van week tot
       week opgeven en trainingsmodules toewijzen. Het is nuttig voor cursussen in
       het onderwijsprogramma en andere lange, goed gestructureerde programma's.
     timeline_nav: Ga naar Tijdlijn
     time_zone_message: Begin- en eindtijden worden weergegeven in uw lokale tijdzone.
     title: Naam
-    training_due: De trainingsmodule "%{title}" is toegekend voor deze cursus en vervalt
+    training_due:
+      De trainingsmodule "%{title}" is toegekend voor deze cursus en vervalt
       op %{date}.
     training_nav: Ga naar de training
-    training_overdue: De trainingsmodule "%{title}" is toegekend voor deze cursus
+    training_overdue:
+      De trainingsmodule "%{title}" is toegekend voor deze cursus
       en verviel op %{date}.
     unsubmitted: Niet-ingediende cursussen
     untrained: Ongetraind
     update_stats: Statistieken bijwerken
-    uploads_none: Dit project heeft geen enkele afbeelding of andere media bijgedragen
+    uploads_none:
+      Dit project heeft geen enkele afbeelding of andere media bijgedragen
       aan Wikimedia Commons.
-    user_uploads_none: Deze gebruiker heeft geen afbeeldingen of andere mediabestanden
+    user_uploads_none:
+      Deze gebruiker heeft geen afbeeldingen of andere mediabestanden
       bijgedragen aan Wikimedia Commons.
     user_recent_uploads: Recente uploads
-    user_suggestions: 'Gebruikerssuggesties:'
+    user_suggestions: "Gebruikerssuggesties:"
     view: Cursus weergeven
-    view_doc: Het geschatte aantal weergaven van artikelen die zijn bewerkt door ingeschreven
+    view_doc:
+      Het geschatte aantal weergaven van artikelen die zijn bewerkt door ingeschreven
       redacteuren sinds die aan ieder artikel hun eerste wijziging hebben aangebracht
     view_page: Bekijk cursuspagina
     view_wiki: Op Wikipedia bekijken
@@ -604,12 +659,14 @@ nl:
       one: Vrijwilliger
       other: Vrijwilligers
     weeks_none: Deze cursus heeft nog geen tijdlijn.
-    warn_mirrored: Bij indiening wordt de cursus automatisch onder uw gebruikersaccount
+    warn_mirrored:
+      Bij indiening wordt de cursus automatisch onder uw gebruikersaccount
       op Wikipedia geplaatst. Nadien worden nieuwe bewerkingen aan de tijdlijn synchroon
       gehouden op Wikipedia. Weet u zeker dat u dit wilt doen?
     wiki_staff: Medewerkers van Wiki Education
     withdrawn: Opdracht niet gedaan
-    word_count_doc: Een schatting van het aantal woorden toegevoegd aan artikelen
+    word_count_doc:
+      Een schatting van het aantal woorden toegevoegd aan artikelen
       van de cursus in de artikelnaamruimte door de studenten tijdens de cursusperiode
     yourcourses: Je cursussen
     survey:
@@ -638,7 +695,8 @@ nl:
       create_new: Maak een onafhankelijk programma
       create_short: Maak een programma aan
       find: Zoek een programma
-      intro: De programmatitel en instelling vormen de URL van het programma. De thuiswiki
+      intro:
+        De programmatitel en instelling vormen de URL van het programma. De thuiswiki
         is de hoofdwiki waar deelnemers aan het werk zullen zijn. Bewerkingen op deze
         wiki worden standaard bijgehouden. Omvat uw programma meerdere talen of projecten,
         dan worden de bijdragen ook bijgehouden voor elke wiki die is toegevoegd aan
@@ -653,8 +711,9 @@ nl:
     expected_students: Verwachte bewerkers
     instructors: Facilitators
     milestones_none: Dit project heeft momenteel geen mijlpalen.
-    published: 'Dit project is gepubliceerd! Bewerkers kunnen zich inschrijven door
-      een bezoek te brengen aan de volgende URL:'
+    published:
+      "Dit project is gepubliceerd! Bewerkers kunnen zich inschrijven door
+      een bezoek te brengen aan de volgende URL:"
     revisions_none: Dit project heeft geen recente bewerkingsactiviteit.
     school: Instelling
     school_and_term: Instelling / Als
@@ -666,7 +725,8 @@ nl:
     students_none: Dit project heeft geen ingeschreven bewerkers.
     students_short: Bewerkers
     term: Wanneer
-    uploads_none: Dit project heeft geen enkele afbeelding of andere media bijgedragen
+    uploads_none:
+      Dit project heeft geen enkele afbeelding of andere media bijgedragen
       aan Wikimedia Commons.
     view_other: Bekijk andere campagnes
   editable:
@@ -757,9 +817,11 @@ nl:
     did_you_know_eligible: In aanmerking voor Wist-Je-Dat
     image: Afbeelding
     file_name: Bestandsnaam
-    no_dyk_eligible: Er zijn momenteel geen voor Wist-je-dat in aanmerking komende
+    no_dyk_eligible:
+      Er zijn momenteel geen voor Wist-je-dat in aanmerking komende
       artikelen
-    no_plagiarism: Er zijn momenteel geen recente versies die verdacht worden van
+    no_plagiarism:
+      Er zijn momenteel geen recente versies die verdacht worden van
       plagiaat.
     no_edits: Er zijn geen recente bewerkingen.
     plagiarism_report: Plagiaat-rapport
@@ -790,44 +852,51 @@ nl:
         form_placeholder: Gebruikersnaam
       remove:
         revoking_button_working: Intrekken...
-        already_instructor: '%{username} is al een instructeur!'
+        already_instructor: "%{username} is al een instructeur!"
     special_users:
       new:
         form_label: Bevoegdheden voor bijzondere gebruiker toekennen
         form_placeholder: Gebruikersnaam
         confirm_add_special_user: Bijzondere gebruiker toevoegen
-        confirm_remove_special_user: Bevoegdheid voor bijzondere gebruiker ontnemen
+        _user: Bevoegdheid voor bijzondere gebruiker ontnemen
           van
-        already_is: '%{username} is al een {position}!'
-        elevate_success: '%{username} naar {position} verhoogd.'
+        already_is: "%{username} is al een {position}!"
+        elevate_success: "%{username} naar {position} verhoogd."
       remove:
         revoke_button: Bijzondere gebruiker intrekken
-        revoke_button_confirm: Bevoegdheden voor bijzondere gebruiker van %{username}
+        revoke_button_confirm:
+          Bevoegdheden voor bijzondere gebruiker van %{username}
           intrekken
         revoking_button_working: Intrekken...
-        already_is_not: '%{username} is geen bijzondere gebruiker!'
-        demote_success: '%{username} is vanaf nu een gebruiker.'
+        already_is_not: "%{username} is geen bijzondere gebruiker!"
+        demote_success: "%{username} is vanaf nu een gebruiker."
   suggestions:
     suggestion_docs:
-      a: Deskundige kennis kan nodig zijn om het artikel te tweaken en stijlproblemen
+      a:
+        Deskundige kennis kan nodig zijn om het artikel te tweaken en stijlproblemen
         moeten mogelijk worden opgelost. Peer review kan helpen.
-      ga: Sommige bewerkingen door vak- en stijlexperts zijn nuttig; Vergelijking
+      ga:
+        Sommige bewerkingen door vak- en stijlexperts zijn nuttig; Vergelijking
         met een bestaand aanbevolen artikel over een soortgelijk onderwerp kan de
         aandacht vestigen op gebieden waar de inhoud zwak is of ontbreekt.
-      bplus: Kan verbeterd worden door input van experts om te beoordelen waar de
+      bplus:
+        Kan verbeterd worden door input van experts om te beoordelen waar de
         dekking nog steeds ontbreekt, en ook door illustraties, historische achtergrond
         en verdere referenties. Overweeg peer-review of nomineren voor een goede artikelstatus.
         Als het artikel nog niet volledig is geverifieerd, is dit het moment.
   tasks:
     conseq: Taak %{task} is al actief!
     constant: Taak %{task} kan niet actief zijn terwijl update_daily wordt uitgevoerd.
-    paused: 'De taak %{task} kan niet uitgevoerd worden omdat geplande taken gepauzeerd
-      zijn. Voer het volgende commando uit om bijwerken te hervatten: ''rake batch:resume''.'
+    paused:
+      "De taak %{task} kan niet uitgevoerd worden omdat geplande taken gepauzeerd
+      zijn. Voer het volgende commando uit om bijwerken te hervatten: 'rake batch:resume'."
   timeline:
-    blackout_week_created: Er zijn blokken gepland voor deze week. Verplaats deze
+    blackout_week_created:
+      Er zijn blokken gepland voor deze week. Verplaats deze
       naar een andere week, voordat je de laatste klasbijeenkomst van deze week verwijderd.
     block_milestone: Mijlpaal
-    block_type: Het type blok wordt gebruikt om te communiceren met je studenten over
+    block_type:
+      Het type blok wordt gebruikt om te communiceren met je studenten over
       dit item op hun tijdlijn en om handige hulpmiddelen voor je te bouwen (zoals
       het mijlpaaloverzicht op de pagina Overzicht)
     due_default: Volgende week af te ronden
@@ -835,7 +904,8 @@ nl:
     no_activity_this_week: Geen geplande vergaderingen deze week.
     nothing_this_week: Er staat niets op de planning voor deze week.
     title: Tijdlijn
-    unable_to_add_week: Je kunt geen nieuwe weken toevoegen als de tijdlijn vol is.
+    unable_to_add_week:
+      Je kunt geen nieuwe weken toevoegen als de tijdlijn vol is.
       Verwijder minstens één week of wijzig de opdrachtdatums om ruimte te maken voor
       een nieuwe.
   training:
@@ -844,7 +914,8 @@ nl:
     view: Bekijken
     next: Volgende pagina
     page: Pagina
-    logged_out: Je bent afgemeld. Je ontvangt geen krediet voor het voltooien van
+    logged_out:
+      Je bent afgemeld. Je ontvangt geen krediet voor het voltooien van
       deze module, tenzij je je aanmeldt.
     done: Klaar!
     check_answer: Antwoord nakijken
@@ -855,14 +926,16 @@ nl:
     header: Een wijziging van gebruikersnaam doorvoeren
     not_found: Gebruiker niet gevonden voor ingevoerde gebruikersnaam.
     username_updated: De gebruikersnaam is bijgewerkt.
-    info: Als een gebruiker de gebruikersnaam voor diens Wikimedia-account heeft gewijzigd,
+    info:
+      Als een gebruiker de gebruikersnaam voor diens Wikimedia-account heeft gewijzigd,
       voer dan hier de nieuwe gebruikersnaam in om deze bij te werken op het Dashboard.
     label: Nieuwe gebruikersnaam
     button: Bijwerken
   uploads:
     label: Uploads
     loading: Bezig met het laden van uploads...
-    none: Voor deze klasse zijn geen afbeeldingen of andere mediabestanden bijgedragen
+    none:
+      Voor deze klasse zijn geen afbeeldingen of andere mediabestanden bijgedragen
       aan Wikimedia Commons.
     select_label: Filteren op uploader
     time_doc: De tijd van iedere upload in je lokale tijd
@@ -880,7 +953,8 @@ nl:
     assign_articles_done: Afgerond
     assigned: Toegewezen pagina's
     assignees: Toegewezen aan
-    character_doc: De totale hoeveelheid inhoud die een gebruiker heeft toegevoegd
+    character_doc:
+      De totale hoeveelheid inhoud die een gebruiker heeft toegevoegd
       aan deze naamruimte, berekend door het aantal tekens dat de bewerkte pagina's
       groter zijn geworden bij elkaar op te tellen. Dit getal is niet noodzakelijk
       gelijk aan de hoeveelheid inhoud die een gebruiker heeft toegevoegd. Het terugplaatsen
@@ -894,133 +968,156 @@ nl:
     first_name: Voornaam
     last_name: Achternaam
     loading: Bezig met het laden van gebruikers...
-    my_assigned: 'Toegewezen:'
+    my_assigned: "Toegewezen:"
     name: Naam
     none: Er zijn geen deelnemers.
     no_articles: Geen artikelen
     profile: profiel
     recent_revisions: Recente bewerkingen
-    revisions_doc: Het aantal bewerkingen dat is gemaakt door deze redacteur in de
+    revisions_doc:
+      Het aantal bewerkingen dat is gemaakt door deze redacteur in de
       afgelopen 7 dagen
     reviewers: Controleur(s)
     reviewing: Wordt gecontroleerd
     revisions: Versies
     sub_navigation:
       assignments_and_exercises: Opdrachten & Oefeningen
-      student_overview: '%{prefix}  Overzicht'
+      student_overview: "%{prefix}  Overzicht"
     training_complete:
       one: is up-to-date met de training
       other: zijn up-to-date met de training
     training_complete_count:
-      one: '%{count} is bij met de training'
-      other: '%{count} zijn bij met de training'
-    training_doc: Bewerkers die alle beschikbare trainingmodules hebben voltooid worden
+      one: "%{count} is bij met de training"
+      other: "%{count} zijn bij met de training"
+    training_doc:
+      Bewerkers die alle beschikbare trainingmodules hebben voltooid worden
       geteld als up-to-date met hun training.
     training_incomplete: Training onvolledig
     training_modules_completed:
-      one: '%{completed_count} trainingsmodule voltooid van %{count}'
-      other: '%{completed_count} trainingsmodules voltooid van %{count}'
+      one: "%{completed_count} trainingsmodule voltooid van %{count}"
+      other: "%{completed_count} trainingsmodules voltooid van %{count}"
     training_module_status: Status
     up_to_date_with_training: up-to-date met de training
     useremail_placeholder: E-mail
     userpasscode_placeholder: Toegangscode
   wiki_edits:
     notify_overdue:
-      confirm: Dit plaatst een herinnering op de overlegpagina's van alle studenten
+      confirm:
+        Dit plaatst een herinnering op de overlegpagina's van alle studenten
         die overtijd zijn met hun training. Weet je zeker dat je dit wilt doen?
       header: Je hebt een achterstallige trainingsopdracht.
       message: Voltooi alsjeblieft de toegewezen [%{link} trainingmodules].
       summary: training studenten is overtijd
   wizard:
     assignment_dates: Opdrachtdatums
-    assignment_description: Kies de begin- en einddatums voor deze opdracht. Als je
+    assignment_description:
+      Kies de begin- en einddatums voor deze opdracht. Als je
       bijvoorbeeld in de tweede week wilt starten met je Wikipedia-project, stel je
       de startdatum van de opdracht in op een week na het begin van de startdatum
       van de cursus. Deze tool zal een tijdlijn maken die past bij de datums in de
       tijdlijn die je aangegeven hebt.
     assignment_type: Waar gaan studenten aan werken voor hun Wikipedia-opdracht?
-    calendar_instructions: Selecteer data om deze toe te voegen aan of te verwijderen
+    calendar_instructions:
+      Selecteer data om deze toe te voegen aan of te verwijderen
       uit het schema (vakantie, feestdag, etc.). Dit helpt de tool om preciezer ruimte
       in te plannen voor je opdrachten. Klik op de datum om de status van niet-geselecteerd,
       geselecteerd en vakantie aan te passen. Indien je geen vakantie hebt, vink dan
       "Ik heb geen vakantie met de klas" aan.
-    confirm_dates: Kies de cursusdatums, wekelijkse oplevermomenten en vakanties voor
+    confirm_dates:
+      Kies de cursusdatums, wekelijkse oplevermomenten en vakanties voor
       je cursus.
     course_dates: Cursusdatums
-    min_weeks: Voor deze opdracht zijn ten minste %{min_weeks} beschikbare weken nodig.
+    min_weeks:
+      Voor deze opdracht zijn ten minste %{min_weeks} beschikbare weken nodig.
       Pas de begin- en einddatum aan als je dit type opdracht wilt gebruiken.
     minimum_options:
       one: Selecteer ten minste %{count} optie.
       other: Selecteer ten minste %{count} opties.
     read_less: Minder lezen
     read_more: Meer lezen
-    review_selections: Controleer je keuzes. Klik om een keuze te bewerken. Klik op
+    review_selections:
+      Controleer je keuzes. Klik om een keuze te bewerken. Klik op
       "Opslaan" als je klaar bent om je tijdlijn op te bouwen.
     select_assignment: Selecteer het soort opdracht dat je wilt toevoegen aan je tijdlijn.
     summary: Samenvatting
   error:
     invalid_assignment: Ongeldige opdracht
-    invalid_date: '%{key} datum is ongeldig'
-    invalid_file_format: Het bestand kon niet worden opgeslagen. Upload een PDF- of
+    invalid_date: "%{key} datum is ongeldig"
+    invalid_file_format:
+      Het bestand kon niet worden opgeslagen. Upload een PDF- of
       Word-document.
     oauth_invalid: Je toegang tot Wikipedia is verlopen. Meld je opnieuw aan.
     start_date_before_end_date: De begindatum moet voor de einddatum liggen
     unsupported_browser:
       header: De browser wordt niet ondersteund
-      explanation: U gebruikt een browser die niet door het dashboard wordt ondersteund.
+      explanation:
+        U gebruikt een browser die niet door het dashboard wordt ondersteund.
         Deze site werkt goed met recente versies van Chrome, Firefox, Edge en andere
         moderne browsers.
   error_401:
     header: Geen rechten
-    explanation: Je kunt dit verzoek niet uitvoeren. Als je denkt dat deze foutmelding
+    explanation:
+      Je kunt dit verzoek niet uitvoeren. Als je denkt dat deze foutmelding
       onterecht is, neem dan contact op met de beheerders van dit dashboard en stel
       ze op de hoogte van het probleem.
   error_incorrect_passcode:
     header: Onjuist wachtwoord. :-(
-    explanation: De toegangscode voor het inschrijven in deze cursus is onjuist. Gelieve
+    explanation:
+      De toegangscode voor het inschrijven in deze cursus is onjuist. Gelieve
       de instructeur om de huidige inschrijftoegangscode te vragen. U kunt een nieuwe
       poging wagen door de juiste code hieronder te tikken.
   error_404:
     header: Pagina niet gevonden.
-    explanation: Deze pagina bestaat niet. Als u probeerde het dashboard van een cursus
+    explanation:
+      Deze pagina bestaat niet. Als u probeerde het dashboard van een cursus
       te bereiken, dan is het mogelijk dat die cursus niet is geregistreerd bij dit
       dashboard.
   error_422:
     header: 422 — entiteit kan niet verwerkt worden.
-    explanation: Er is iets fout gegaan. Neem contact op met de beheerders van dit
+    explanation:
+      Er is iets fout gegaan. Neem contact op met de beheerders van dit
       dashboard en geef ze details over het probleem.
   error_500:
     header: 500 — interne serverfout.
-    explanation: Er is iets fout gegaan. Neem contact op met de beheerders van dit
+    explanation:
+      Er is iets fout gegaan. Neem contact op met de beheerders van dit
       dashboard en geef ze details over het probleem.
   login_error:
     header: Aanmeldfout
-    explanation: Er lijkt een probleem te zijn geweest met het aanmeldproces. (Excuses
+    explanation:
+      Er lijkt een probleem te zijn geweest met het aanmeldproces. (Excuses
       daarvoor! Het gebeurt af en toe.) Probeer het aanmelden of inschrijven opnieuw.
   survey:
-    login_message: Bedankt voor uw tijd. Meld u aan op het Dashboard om de enquête
+    login_message:
+      Bedankt voor uw tijd. Meld u aan op het Dashboard om de enquête
       in te vullen.
-    notification_explanation: Als hieronder is aangevinkt, zullen de gebruikers e-mails
+    notification_explanation:
+      Als hieronder is aangevinkt, zullen de gebruikers e-mails
       ontvangen op basis van het notificatieschema, in aanvulling op het zien van
       meldingen in het browser. Zo niet worden alleen meldingen in het browser weergegeven.
-    notification_schedule_explanation: Notificaties omvatten meldingen in het browser
+    notification_schedule_explanation:
+      Notificaties omvatten meldingen in het browser
       en e-mails, indien hierboven aangevinkt.
-    follow_up_explanation: Laat leeg als er geen follow-up van e-mailberichten gewenst
+    follow_up_explanation:
+      Laat leeg als er geen follow-up van e-mailberichten gewenst
       zijn.
     email:
       headline: Hallo, %{username}
-      message_line1: We hopen dat u de cursus fijn hebt gevonden! Wiki Education ontvangt
+      message_line1:
+        We hopen dat u de cursus fijn hebt gevonden! Wiki Education ontvangt
         graag uw feedback over onze cursusmaterialen en de ondersteuning van Wikipedia-opdrachten.
         Uw reactie is van groot belang voor het verbeteren van ons huidige aanbod.
-      message_line2: Ben je bereid om in 15 minuten de instructeur-enquête in te vullen?
+      message_line2:
+        Ben je bereid om in 15 minuten de instructeur-enquête in te vullen?
         Klik op de knop hieronder om ons te helpen om het onderwijzen met Wikipedia
         nog meer een lonende en waardevolle ervaring te maken.
-      course: 'Cursus: %{course_info}'
+      course: "Cursus: %{course_info}"
       closing: Met vriendelijke groet,
-      signed: '- het team van Wiki Education'
+      signed: "- het team van Wiki Education"
       link: Neem deel aan de enquête
     follow_up:
-      message: Dit is een herinnering over de enquête over je cursus %{course_title}.
+      message:
+        Dit is een herinnering over de enquête over je cursus %{course_title}.
         De feedback van deze enquête helpt ons bij het verbeteren van onze steun aan
         Wikipedia-opdrachten zoals de jouwe.
   onboarding:
@@ -1042,4 +1139,3 @@ nl:
     due: vervalt %{due_date}
   multi_wiki:
     selector_placeholder: Wikidomein invoeren
-...

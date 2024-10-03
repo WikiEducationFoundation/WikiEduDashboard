@@ -22,7 +22,7 @@ ca:
   number:
     human:
       decimal_units:
-        format: '%n%u'
+        format: "%n%u"
         units:
           thousand: m
           million: M
@@ -30,23 +30,26 @@ ca:
           trillion: bilions
           quadrillion: trilions
   accessibility:
-    number_field: Això és un camp numèric. Els botons mostrats al costat poden apujar
+    number_field:
+      Això és un camp numèric. Els botons mostrats al costat poden apujar
       o abaixar el valor introduït.
   application:
     cancel: Cancel·la
-    cookie_consent: Aquest lloc utilitza galetes per mantenir-te connectat i emmagatzema
+    cookie_consent:
+      Aquest lloc utilitza galetes per mantenir-te connectat i emmagatzema
       informació relacionada amb el teu compte de Viquipèdia.
     cookie_consent_acknowledge: Entenc
     cookie_consent_see_more: Veure més.
     create_accounts: Crea comptes de la Viquipèdia
     dashboard: Tauler de control de Wiki Ed
     documentation: Documentació
-    error: 'S’ha produït un error:'
+    error: "S’ha produït un error:"
     explore: Exploreu!
     field_required: Aquest camp és obligatori
     field_invalid_characters: Aquest camp té caràcters nuls
     field_invalid_date: Aquest camp requereix una data en format AAAA-MM-DD
-    field_invalid_date_time: El final ha de ser després de l'inici. (Les hores van
+    field_invalid_date_time:
+      El final ha de ser després de l'inici. (Les hores van
       de 0 a 23.)
     greeting2: Us donem la benvinguda!
     greeting_extended: Benvinguts a la Viquipèdia
@@ -86,28 +89,33 @@ ca:
     ready_for_mainspace: Moure la feina a l'espai principal
   dashboard:
     create_note: Feu clic a Crea Curs per crear el vostre primer curs.
-    create_preparation_note: Assegureu-vos que teniu el vostre calendari acadèmic
+    create_preparation_note:
+      Assegureu-vos que teniu el vostre calendari acadèmic
       a mà abans de començar; l'eina per dissenyar les tasques utilitzarà com a referència
       quins dies teniu classe (tingueu present també els dies de lliure disposició
       i les vacances). Sempre podreu modificar la línia temporal segons les vostres
       necessitats.
     explore_course_pages: Explora les pàgines del curs
     explore_examples: Explora exemples
-    join_note: Amb el codi d'accés del teu instructor, premeu Trobeu el Vostre Curs
+    join_note:
+      Amb el codi d'accés del teu instructor, premeu Trobeu el Vostre Curs
       per a trobar-lo i apuntar-vos-hi.
     no_courses_instructor: Sembla que no teniu cap curs.
     no_courses_student: Sembla que no us heu unit a cap curs encara.
     opt_out: Sol·licita sortir de l'orientació
-    orientation_notice: Abans de crear un curs, deixeu-nos explicar com funciona.
+    orientation_notice:
+      Abans de crear un curs, deixeu-nos explicar com funciona.
       (Té una durada aproximada de 30 minuts.)
     review_orientation: Revisa l'orientació
     start_orientation: Inicia l'orientació
     blog_headline: Notícies recents de Wiki Ed
-    about_programs: Aquesta eina fa seguiment d'activitats wiki mitjançant Programes,
+    about_programs:
+      Aquesta eina fa seguiment d'activitats wiki mitjançant Programes,
       esdeveniments individuals com una viquimarató o un taller en una escola. Cada
       programa és part d'una o diverses Campanyes, que proporcionen estadístiques
       entre Programes.
-    about_creating_programs: Si esteuorganitzant un esdeveniment independent, podeu
+    about_creating_programs:
+      Si esteuorganitzant un esdeveniment independent, podeu
       crear un Programa ara mateix. Si l'esdeveniment és part d'una Campanya més gran,
       podeu trobar-ne o crear-ne una. A continuació, podeu crear un Programa nou des
       de la pàgina de la Campanya.
@@ -115,7 +123,8 @@ ca:
     explore: Exploreu!
     log_in: Inicia una sessió amb la Viquipèdia
     sign_up: Registreu-vos amb la Viquipèdia
-    sign_up_help: Per utilitzar el tauler de control, cal iniciar la sessió a la Viquipèdia
+    sign_up_help:
+      Per utilitzar el tauler de control, cal iniciar la sessió a la Viquipèdia
       i donar-li permís per a accedir al teu compte. Es pot iniciar sessió amb un
       altre compte de Viquipèdia, o crear-ne un de nou.
   activity:
@@ -131,17 +140,20 @@ ca:
     previous: Anterior
     article_title: Títol de l'article
     assigned_to: Assignat a
-    character_doc: La suma de total de caràcters afegits als articles pels estudiants
+    character_doc:
+      La suma de total de caràcters afegits als articles pels estudiants
       inscrits durant les dates d'inici i finalització
-    cross_wiki_tracking: A continuació es llisten les pàgines de l'espai principal
+    cross_wiki_tracking:
+      A continuació es llisten les pàgines de l'espai principal
       editades entre les dates d'inici i final. El tauler recull contribuacions al
       wiki principal d'aquest programa, juntament amb qualsevol altra wiki on hi ha
       un article disponible o assignat.
     deleted: (suprimit)
-    does_not_exist: Aquest article no existeix. Creeu una pàgina de proves i assigneu-vos-hi
+    does_not_exist:
+      Aquest article no existeix. Creeu una pàgina de proves i assigneu-vos-hi
       per rebre suggeriments.
     edited: Articles editats
-    edited_by: 'Editat per:'
+    edited_by: "Editat per:"
     edited_mobile: Articles
     filter:
       wiki_all: Tots
@@ -155,38 +167,46 @@ ca:
     new: (nou)
     none: Aquest curs encara no ha editat cap article
     rating: Classe
-    rating_doc: La puntuació de l'article ha estat assignada segons la pàgina a la
+    rating_doc:
+      La puntuació de l'article ha estat assignada segons la pàgina a la
       Viquipèdia del Viquiprojecte. Aquesta puntuació podia correspondre a versions
       anteriors, així que són uns simples indicadors de la maduresa de l'article.
     rating_docs:
-      fa: '%{class} (Article de qualitat) — Els articles de més qualitat de la Viquipèdia,
-        probablement massa madurs perquè siguin un projecte principal d''un editor
-        novell.'
-      fl: '%{class} (Llista de qualitat) — La qualificació més alta de la Viquipèdia
-        per a llistes'
-      a: '%{class} — Article molt ben desenvolupat que podria ser massa madur per
-        a un editor novell.'
-      ga: '%{class} (Article bo) — un article ben desenvolupat, que podria ser massa
-        madur per a un editor novell.'
-      b: '%{class} — un article moderadament desenvolupat'
-      c: '%{class} — un article de nivell mitjà amb marge de millora'
-      start: '%{class} — un article preliminar amb molt marge de millora'
-      stub: '%{class} — un article curt que necessita més contingut'
-      list: '%{class} — una llista més que un article convencional'
-      '?': Sense qualificar — un article que encara no s'ha qualificat en l'escala
+      fa:
+        "%{class} (Article de qualitat) — Els articles de més qualitat de la Viquipèdia,
+        probablement massa madurs perquè siguin un projecte principal d'un editor
+        novell."
+      fl:
+        "%{class} (Llista de qualitat) — La qualificació més alta de la Viquipèdia
+        per a llistes"
+      a:
+        "%{class} — Article molt ben desenvolupat que podria ser massa madur per
+        a un editor novell."
+      ga:
+        "%{class} (Article bo) — un article ben desenvolupat, que podria ser massa
+        madur per a un editor novell."
+      b: "%{class} — un article moderadament desenvolupat"
+      c: "%{class} — un article de nivell mitjà amb marge de millora"
+      start: "%{class} — un article preliminar amb molt marge de millora"
+      stub: "%{class} — un article curt que necessita més contingut"
+      list: "%{class} — una llista més que un article convencional"
+      "?":
+        Sense qualificar — un article que encara no s'ha qualificat en l'escala
         de qualitat de la Viquipèdia
       does_not_exist: Aquest article no existeix a la Viquipèdia
     see_more: Mostra’n més
     show_cumulative_changes: Mostra els canvis acumulats
     show_current_version: Mostra la versió actual
-    show_current_version_with_authorship_highlighting: Versió actual destacant els
+    show_current_version_with_authorship_highlighting:
+      Versió actual destacant els
       autors
     title: Títol
     title_example: Títol de l'article
     tools: Eines de valoració
     view: Mostra l’article
     view_all: Mostra-ho tot
-    view_doc: El nombre de vistes estimat de cadascun dels articles des que ha estat
+    view_doc:
+      El nombre de vistes estimat de cadascun dels articles des que ha estat
       modificat per primera vegada fins a l'últim valor proporcionat per les estadístiques.
       Podeu utilitzar pageviews.toolforge.org per veure els valors exactes.
     view_on_wiki: Mostra-ho al wiki
@@ -194,7 +214,8 @@ ca:
     edit_size: Edita la mida
     wiki: Wiki
     wp10: Completesa estructural
-    wp10_doc: La puntuació de "Completesa estructural" representa com de prop està
+    wp10_doc:
+      La puntuació de "Completesa estructural" representa com de prop està
       un article al model d'article madur, basat en el Servei d'Evaluació Objectiva
       de Revisions (https://ores.wikimedia.org/), que utilitza aprenentatge automàtic.
       Aquestes puntuacions es calculent basant-se en les dimensions d'un article,
@@ -235,7 +256,8 @@ ca:
     reviewers: Revisors
     review_other: Assigna una revisió
     review_self: Revisa un article
-    review_tooltip: Això serveix per als articles que tingeu intenció de revisar o
+    review_tooltip:
+      Això serveix per als articles que tingeu intenció de revisar o
       de comentar.
     sandbox_draft_link: Esborrany de prova
     select: Selecciona
@@ -251,7 +273,8 @@ ca:
     alert_type: Tipus
     alert_user_id: Usuari
     all_campaigns: Totes les Campanyes
-    already_exists: Aquesta campanya ja existeix! Torneu-ho a intentar amb un títol
+    already_exists:
+      Aquesta campanya ja existeix! Torneu-ho a intentar amb un títol
       diferent.
     campaign: Campanya
     campaigns: Campanyes
@@ -259,9 +282,11 @@ ca:
     campaign_not_updated: No s’ha pogut actualitzar la campanya
     campaign_updated: Campanya actualitzada
     created_at: Data
-    confirm_campaign_deletion: Segur que voleu esborrar la campanya anomenada "%{title}"?
+    confirm_campaign_deletion:
+      Segur que voleu esborrar la campanya anomenada "%{title}"?
       Si és així, escriviu el títol de la campanya per continuar.
-    confirm_campaign_deletion_failed: «%{title}» no és el títol d’aquesta campanya.
+    confirm_campaign_deletion_failed:
+      «%{title}» no és el títol d’aquesta campanya.
       No s’ha suprimit la campanya.
     confirm_course_removal: Segur que voleu eliminar "%{title}" de la campanya "%{campaign_title}"?
     course_already_removed: '"%{title}" ja s''havia eliminat de la campanya "%{campaign_title}"'
@@ -272,8 +297,9 @@ ca:
     customize_passcode: un codi d'accés per defecte
     default_course_type: Tipus de curs per defecte
     default_passcode: Codi d’accés per defecte
-    default_passcode_explanation: 'Per defecte, nous programes en aquesta campanya
-      haurien de tenir:'
+    default_passcode_explanation:
+      "Per defecte, nous programes en aquesta campanya
+      haurien de tenir:"
     description: Descripció
     delete_campaign: Suprimeix aquesta campanya
     disable_account_requests: Desactiva sol·licituds de comptes
@@ -283,10 +309,12 @@ ca:
     none: Cap
     organizers: Organitzadors
     organizer_added: '%{user} ara és un organitzador de la campanya "%{title}"'
-    organizer_removed: S'ha eliminat "%{user}" de l'equip d'organitzadors de la campanya
+    organizer_removed:
+      S'ha eliminat "%{user}" de l'equip d'organitzadors de la campanya
       "%{title}"
     program_template: Plantilla de programa
-    program_template_tooltip: Quan un organitzador crea un programa en aquesta campanya,
+    program_template_tooltip:
+      Quan un organitzador crea un programa en aquesta campanya,
       el text en aquesta àrea es copiarà com una descripció a la pàgina del programa
     random_passcode: un codi d’accés a l’atzar
     requested_accounts: Comptes sol·licitats
@@ -308,18 +336,22 @@ ca:
   courses:
     school_system: Sistema acadèmic
     assignment_edits_enabled: S'han activat les edicions assignades
-    assignment_edits_enabled_tooltip: Si s'activa, el tauler afegirà una plantilla
+    assignment_edits_enabled_tooltip:
+      Si s'activa, el tauler afegirà una plantilla
       a la pàgina de discussió de cada article assignat.
     accounts_generation_enabled: S'ha activat la generació de sol·licitud de comptes
-    accounts_generation_explanation: Això permetrà que els participants introdueixin
+    accounts_generation_explanation:
+      Això permetrà que els participants introdueixin
       els seus correus electrònics i noms d'usuaris, en comptes de crear-se els seus
       propis comptes. A continuació, podreu crear els comptes des d'aquest tauler
       i afegir-los com a participants alhora.
-    accounts_generation_confirm_message: Segur que voleu activar la sol·licitud de
+    accounts_generation_confirm_message:
+      Segur que voleu activar la sol·licitud de
       comptes?
     activity: Activitat
-    active_courses: '%{course_type} en actiu'
-    add_trainings: Si us plau, afegiu formacions del vostre alumnat al calendari de
+    active_courses: "%{course_type} en actiu"
+    add_trainings:
+      Si us plau, afegiu formacions del vostre alumnat al calendari de
       treball. L'assignació de mòduls de formació perquè aprenguin l'entorn wiki i
       l'edició és una part essencial dels projectes Eduwiki.
     alerts: Alertes
@@ -336,25 +368,31 @@ ca:
       legend_class_canceled: Vacances/Cancel·lat
       legend_class_meeting: Reunió de classe
       legend_class_not_meeting: No hi ha cap reunió planificada
-      select_meeting_days: Selecciona els dies de la setmana en els quals us trobeu
+      select_meeting_days:
+        Selecciona els dies de la setmana en els quals us trobeu
         a classe.
     cancel: Cancel·la
-    character_doc: La suma dels caràcters afegits a l'espai principal (articles) per
+    character_doc:
+      La suma dels caràcters afegits a l'espai principal (articles) per
       part dels estudiants durant aquest curs
-    campaigns: 'Grups:'
+    campaigns: "Grups:"
     campaign_articles: Articles %{title}
     campaign_courses: Cursos de %{title}
     campaign_select: Selecioneu una campanya
     campaign_users: Editors de %{title}
-    confirm_course_deletion: Esteu segurs que voleu suprimir el curs titulat %{title}?
+    confirm_course_deletion:
+      Esteu segurs que voleu suprimir el curs titulat %{title}?
       Si és així, escriviu el títol del curs per a procedir.
-    confirm_course_deletion_failed: '"%{title}" no és el títol d''aquest curs. El
+    confirm_course_deletion_failed:
+      '"%{title}" no és el títol d''aquest curs. El
       curs no ha estat esborrat.'
-    confirm_manual_update: Segur que voleu actualitzar-ho manualment? S'importaran
+    confirm_manual_update:
+      Segur que voleu actualitzar-ho manualment? S'importaran
       les revisions més recents i s'actualitzarà la pàgina. El procés podria trigar
       una estona.
     course: Curs
-    course_dates_calendar_instructions: Seleccioneu les dates per afegir o treure
+    course_dates_calendar_instructions:
+      Seleccioneu les dates per afegir o treure
       de la planificació (per ex., vacances, dies de lliure disposició). Clica per
       canviar les dates entre seleccionades, no seleccionades i vacances. Les dates
       de les activitats del curs canviaran segons les setmanes en què no hi hagi trobades
@@ -364,34 +402,40 @@ ca:
     courses_taught: Cursos ensenyats.
     creation_date: Data de creació
     creator:
-      already_exists: Aquest curs ja existeix. Considereu canviar el nom, escola o
+      already_exists:
+        Aquest curs ja existeix. Considereu canviar el nom, escola o
         terme per tal de fer-lo únic.
       assignment_end: Fi de la tasca
       assignment_end_placeholder: AAAA-MM-DD
       assignment_start: Inici de la tasca
       assignment_start_placeholder: AAAA-MM-DD
       cancel_course_clone: Cancel·la el duplicat del curs
-      cancel_course_clone_confirm: Segur que voleu cancel·la la duplicació d'aquest
+      cancel_course_clone_confirm:
+        Segur que voleu cancel·la la duplicació d'aquest
         curs?
       checking_for_uniqueness: Estem mirant si aquest curs és únic.
       choose_clone: Trieu un curs per a clonar-lo.
       clone_previous: Clona el curs anterior
       clone_this: Clona aquest curs
-      cloned_course_calendar_instructions: Seleccioneu les dates per afegir-les o
+      cloned_course_calendar_instructions:
+        Seleccioneu les dates per afegir-les o
         treure-les de la planificació (per ex., vacances, dies de lliure disposició).
         Premeu la data per canviar entre seleccionat, no seleccionat i vacances. Si
         no teniu vacances seleccioneu "No tinc vacances". La línia del temps clonada
         ajustarà automàticament les dates per comptar les setmanes en que no hi ha
         trobades programades.
       clone_successful: Actualització de les dades del curs clonat
-      clone_successful_details: El vostre curs ha estat duplicat, incloent elements
+      clone_successful_details:
+        El vostre curs ha estat duplicat, incloent elements
         de la línia de temps (setmanes i blocs). Ha canviat alguna cosa del curs?
         El podeu actualitzar ara mateix si voleu.
-      course_dates_info: Introduïu les dates d'inici i final d'aquest curs acadèmic.
+      course_dates_info:
+        Introduïu les dates d'inici i final d'aquest curs acadèmic.
         En el proper pas podreu escollir quan voleu començar el projecte Eduwiki dins
         d'aquest marc temporal.
       course_description: Descripció del curs
-      course_description_placeholder: Quina temàtica cobreix aquesta assignatura,
+      course_description_placeholder:
+        Quina temàtica cobreix aquesta assignatura,
         i quin rol desenvoluparà l'alumnat a la Viquipèdia? Si us plau, introduïu
         la informació necessària perquè la resta de la comunitat viquipedista pugui
         contextualitzar les contribucions de l'alumnat i interactuar-hi en conseqüència.
@@ -403,16 +447,19 @@ ca:
       course_title: Títol de curs
       course_types:
         basic_course_name: Programa bàsic
-        basic_course_description: Aquest programa farà seguiment d'edicions de qualsevol
+        basic_course_description:
+          Aquest programa farà seguiment d'edicions de qualsevol
           participant a qualsevol article o pàgines de l'espai principal. Si s'han
           activat les edicions automàtiques al wiki principal d'aquest programa, una
           versió on-wiki d'aquest programa es crearà i s'actualitzarà automàticament.
         edit_a_thon_name: Viquimarató
-        edit_a_thon_description: Un programa de Viquimarató farà seguiment de qualsevol
+        edit_a_thon_description:
+          Un programa de Viquimarató farà seguiment de qualsevol
           article o pàgines a l'espai principal. Per defecte, no es realitzaran edicions
           automàtiques per aquest programa.
         article_scoped_program_name: Programa amb article d'un àmbit
-        article_scoped_program_description: Aquest programa només fa seguiment d'edicions
+        article_scoped_program_description:
+          Aquest programa només fa seguiment d'edicions
           per articles o categories assignades. Utilitzeu aquest tipus si voleu limitar
           les estadístiques a una col·leció d'articles o àrees temàtiques. Per defecte,
           les edicions automàtiques estan activades.
@@ -424,18 +471,20 @@ ca:
       end_date_placeholder: AAAA-MM-DD
       expected_number: Nombre previst d'alumnes
       find: Trobeu el vostre curs
-      intro: El títol, l'escola i el termini creant l'enllaç (URL) per al teu curs
+      intro:
+        El títol, l'escola i el termini creant l'enllaç (URL) per al teu curs
         i no es poden canviar. Tota la resta de coses es poden modificar a posteriori.
         Premeu "Crea el meu curs!" per començar a construir la línia de temps per
         a la vostra tasca de Viquipèdia.
       no_class_holidays: No faig mai vacances
       role_description: La vostra funció en el curs
       role_description_options:
-      - Instructor
-      - Assistent d'ensenyament
+        - Instructor
+        - Assistent d'ensenyament
       role_description_placeholder: Instructor, auxiliar docent, etc.
       separate_event_dates: Especifiqueu unes dates d'inici i final diferents (opcional)
-      separate_event_dates_info: Les estadístiques d'activitat per aquest programa
+      separate_event_dates_info:
+        Les estadístiques d'activitat per aquest programa
         seran recopilades basantse en les dates especificades anteriorment, però podeu
         especificar dates diferents per quan el programa en si comença i acaba (per
         exemple, perquè els participants sàpiguen quan poden arribar al lloc o quan
@@ -444,29 +493,35 @@ ca:
       start_date: Data d'inici
       start_date_placeholder: AAAA-MM-DD
       subject: Assumpte
-      update_scheduled: Actualització planificada. Les dades s'actualitzaran juntament
+      update_scheduled:
+        Actualització planificada. Les dades s'actualitzaran juntament
         amb tots els programes actuals durant el proper cícle d'actualització. Normalment
         això dura diverses hores.
     current: Cursos actuals
     data_articles: Dades dels articles
-    data_articles_info: Les dades d'articles inclouen el nombre d'edicions a cada
+    data_articles_info:
+      Les dades d'articles inclouen el nombre d'edicions a cada
       pàgina, quines pàgines són noves, i visualitzacions totals. Les estadístiques
       de visualitazacions podrien estar obsoletes si el curs ja ha acaba, de manera
       que s'inclou un enllaç a l'eina de visites dels WMF Tool Labs.
     data_download_info: Baixa les dades en el format CSV.
     data_overview: Dades del resum
     data_edits: Dades de les edicions
-    data_edits_info: Les dades d'edició mostren detalls per cada edició feta durant
+    data_edits_info:
+      Les dades d'edició mostren detalls per cada edició feta durant
       el projecte.
     data_students: Dades dels editors
-    data_students_info: Les dades d'editors llisten tots els editors inscrits, quantes
+    data_students_info:
+      Les dades d'editors llisten tots els editors inscrits, quantes
       edicions han fet, i si s'han registrat durant el projecte.
     data_uploads: Dades de càrregues a Commons
-    data_uploads_info: Les dades de càrregues a Commons mostren el nom i ús de cada
+    data_uploads_info:
+      Les dades de càrregues a Commons mostren el nom i ús de cada
       fitxer multimèdia carregat.
     delete_course: Esborra el curs
     delete_suggestion: Suprimeix
-    delete_course_instructions: Podeu esborrar aquesta pàgina si totes les campanyes
+    delete_course_instructions:
+      Podeu esborrar aquesta pàgina si totes les campanyes
       s'eliminen abans.
     dismiss_survey: Descarta
     dismiss_survey_confirm: Esteu segurs que voleu rebutjar aquesta enquesta?
@@ -475,7 +530,8 @@ ca:
     edit_count: Recompte d’edicions
     edit_course_dates: Edita les dates del curs
     embed_course_stats: Incrusta les estadístiques del curs
-    embed_course_stats_description: Per incrustar les estadístiques d'aquest programa
+    embed_course_stats_description:
+      Per incrustar les estadístiques d'aquest programa
       en una altra web, copieu i enganxeu aquest fragment de codi a
     enable_account_requests: Activa sol·licituds de comptes
     end: Final
@@ -485,14 +541,15 @@ ca:
     enrollment_edits_enabled: S'han activitat les modificacions de les inscripcions
     courses_enrolled: Les meves assignatures
     error:
-      exists: Aquest curs ja existeix! Torneu-ho a provar amb un altre títol, escola
+      exists:
+        Aquest curs ja existeix! Torneu-ho a provar amb un altre títol, escola
         o terme.
       user_exists: Ho sentim, %{username} no és un usuari existent.
       invalid_language_or_project: Idioma o projecte no vàlids
       invalid_slug: Títol de l'assignatura
       duplicate_slug: Ja hi ha un altre programa anomenat %{slug}.
     expected_students: Estudiants esperats
-    features_feedback: 'Suggeriments automatitzats:'
+    features_feedback: "Suggeriments automatitzats:"
     feedback: Comentaris
     feedback_loading: Espereu mentre es carreguen els suggeriments...
     gradeables_none: Aquest curs no té tasques avaluables.
@@ -500,15 +557,18 @@ ca:
       one: Instructor
       other: Instructors
     instructors: Instructors
-    invitation: Heu estat convidat a participar a %{title}. Per unir-te, heu d'entrar
+    invitation:
+      Heu estat convidat a participar a %{title}. Per unir-te, heu d'entrar
       amb un compte de la Viquipèdia.
-    invitation_username_advice: Si encara no en teniu una, podeu registrar-vos ara.
+    invitation_username_advice:
+      Si encara no en teniu una, podeu registrar-vos ara.
       El vostre usuari pot ser anònim o us pot identificar personalmet, com preferiu
       (no es permeten els comptes compartits).
     join: Uniu-vos
     join_course: Uneix-te al curs
     join_prompt: Unir-se a '%{title}'?
-    join_successful: Us heu unit amb èxit a %{title}. El tauler farà seguiment automàtic
+    join_successful:
+      Us heu unit amb èxit a %{title}. El tauler farà seguiment automàtic
       de les vostres contribucions amb actualitzacions periòdiques. Torneu a entrar
       més tard per veure el vostre impacte!
     join_failed: La inscripció ha fallat.
@@ -527,10 +587,12 @@ ca:
     new_account_check_username: Comprova la disponibilitat dels noms d’usuari
     new_account_email: Adreça electrònica
     new_account_email_placeholder: nom@example.org
-    new_account_info: Per sol·licitar un compte, introduïu una adreça de correu electrònic
+    new_account_info:
+      Per sol·licitar un compte, introduïu una adreça de correu electrònic
       i el nom d'usuari que vulgueu. Rebreu una contrasenya per correu quan un dels
       facilitadors us hagi creat el compte.
-    new_account_info_admin: Per crear un compte per un editor nou, introduïu la seva
+    new_account_info_admin:
+      Per crear un compte per un editor nou, introduïu la seva
       adreça de correu electrònic i el nom d'usuari que hagin triat. Se'ls enviarà
       una contrasenya per correu quan s'hagi creat el compte.
     new_account_username: Nom d’usuari sol·licitat
@@ -538,17 +600,20 @@ ca:
     new_account_username_placeholder: Editor Wiki 123
     new_account_username_taken: Aquest usuari ja existeix. Trieu-ne un altre.
     new_account_submit: Sol·licita un compte
-    new_account_submitted: S'ha entregat la vostra sol·licitud de compte. El facilitador
+    new_account_submitted:
+      S'ha entregat la vostra sol·licitud de compte. El facilitador
       d'aquest programa finalitzarà el procés de creació de compte. Quan es creï el
       compte, rebreu una contrasenya per correu.
-    new_account_submitted_admin: La vostra petició per un compte ha estat creada.
+    new_account_submitted_admin:
+      La vostra petició per un compte ha estat creada.
       Si us plau, informeu a l'alumnat perquè accedeixi al correu electrònic i aconseguixi
       la seva nova contrasenya.
     nocourses: No fas cap curs.
     nocourse: no ha participat a cap curs.
     none: Cap
     not_permitted: No podeu editar aquest curs.
-    notify_untrained_confirmation: Aquest missatge és un recordatori per a les pàgines
+    notify_untrained_confirmation:
+      Aquest missatge és un recordatori per a les pàgines
       de discussió de tots els estudiants que han sobrepassat el temps dels mòduls
       d'entrenament. N'estàs segur què vols fer aquesta acció?
     no_available_actions: Cap acció disponible
@@ -556,21 +621,23 @@ ca:
     overview: Inici
     passcode: Codi d'accés
     passcode_none: Sense codi d'accés
-    passcode_prompt: 'Introduïu el codi d''accés per unir-vos-hi:'
+    passcode_prompt: "Introduïu el codi d'accés per unir-vos-hi:"
     please_log_in: Inicieu la sessió.
     private: Privat
-    published: 'S’ha publicat el vostre curs. Els estudiants podran inscriure-s’hi
-      en visitar l’URL següent:'
+    published:
+      "S’ha publicat el vostre curs. Els estudiants podran inscriure-s’hi
+      en visitar l’URL següent:"
     requested_accounts: Comptes sol·licitats
     requested_accounts_alert:
       one: Resta %{count} sol·licitud de compte.
       other: Resten %{count} sol·licituds de compte.
     requested_accounts_alert_view: Visualitza
-    review_timeline: 'Ara reviseu la línia del temps i personaliteu-la perquè s''adigui
-      a les vostres necessitats. A continuació, podeu entregar-la a l''equip de Wiki
-      Education perquè l''aprovi. Un cop aprovada, rebreu un URL d''inscripció que
+    review_timeline:
+      "Ara reviseu la línia del temps i personaliteu-la perquè s'adigui
+      a les vostres necessitats. A continuació, podeu entregar-la a l'equip de Wiki
+      Education perquè l'aprovi. Un cop aprovada, rebreu un URL d'inscripció que
       els alumnes poden utilitzar per unir-se al curs i accedir a les formacions.
-      (Nota: podreu modificar-ne els detalls més tard igualment.)'
+      (Nota: podreu modificar-ne els detalls més tard igualment.)"
     revisions_doc: Nombre d'edicions en els últims %{timeframe} dies
     revisions_none: Aquest curs no ha tingut canvis d'edició recents a la Viquipèdia.
     school: Escola
@@ -580,51 +647,59 @@ ca:
     start_typing: Comença a escriure
     students: Estudiants
     students_taught: Alumnat
-    students_count: '# Estudiants'
+    students_count: "# Estudiants"
     student_editors: Estudiants editors
     students_none: Aquest curs no té estudiants.
     students_short: Estudiants
-    submitted_admin: El creador d'aquest curs l'ha enviat perquè s'aprovi. Per aprovar-lo,
+    submitted_admin:
+      El creador d'aquest curs l'ha enviat perquè s'aprovi. Per aprovar-lo,
       afegiu-lo en una campanya des de la pàgina de Vista general.
     submitted_and_pending_heading: Enviat i pendent d'aprovació
     submitted_heading: Cursos enviats
-    submitted_note: El vostre curs ha estat enviat. L'equip de Wiki Education el revisarà
+    submitted_note:
+      El vostre curs ha estat enviat. L'equip de Wiki Education el revisarà
       i es posarà en contacte amb vós si tenen cap dubte.
-    suggestions_feedback: Teniu cap comentari per millorar aquesta funció? Feu-nos-ho
+    suggestions_feedback:
+      Teniu cap comentari per millorar aquesta funció? Feu-nos-ho
       saber!
     suggestions_sending: Enviant comentaris...
     suggestions_sent: S'han enviat els comentaris. Gràcies pels vostres suggeriments.
-    suggestions_failed: No s'han pogut enviar els comentaris. Torneu-ho a provar més
+    suggestions_failed:
+      No s'han pogut enviar els comentaris. Torneu-ho a provar més
       tard.
     user_role: Paper
     course_details: Detalls del curs
     subject: Assumpte
     submitted: Enviat
     tag_select: Seleccioneu o creeu una etiqueta
-    tags: 'Etiquetes:'
+    tags: "Etiquetes:"
     term: Període
     timeline: Detalls de la tasca
     timeline_enabled: Cronologia activada
     timeline_link: Línia temporal
-    timeline_tooltip: L'activació de la Cronologia us permetrà especificar les activitats
+    timeline_tooltip:
+      L'activació de la Cronologia us permetrà especificar les activitats
       setmanalment i assignar també mòduls de pràctica. És útil per a cursos educatius
       de llarga durada i molt estructurats.
     timeline_nav: Vés a la Cronologia
-    time_zone_message: Els horaris d'inici i de finalització es mostren en la vostra
+    time_zone_message:
+      Els horaris d'inici i de finalització es mostren en la vostra
       zona horària local.
     title: Títol
     training_nav: Anar a la formació
     unsubmitted: Cursos no enviats
     untrained: No entrenat
     update_stats: Actualitza les estadístiques
-    uploads_none: Aquesta classe encara no ha contribuït amb cap imatge o algun altre
+    uploads_none:
+      Aquesta classe encara no ha contribuït amb cap imatge o algun altre
       tipus de fitxer a Wikimedia Commons.
     user_recent_uploads: Càrregues recents
     user_suggestions: Suggeriments d'usuaris
     user_suggestions_prompt: Els vostres suggeriments pels editors de l'article
     view_other: Visualitza altres campanyes
     view: Vegeu el curs
-    view_doc: El nombre estimat de les visites a articles editats pels estudiants
+    view_doc:
+      El nombre estimat de les visites a articles editats pels estudiants
       apuntats des de que van fer la primera modificació.
     view_page: Mostra la pàgina del curs
     view_wiki: Mostra a la Viquipèdia
@@ -632,7 +707,8 @@ ca:
       one: Voluntari
       other: Voluntaris
     weeks_none: Aquest curs encara no té línia temporal.
-    warn_mirrored: "Amb l'enviament aquest curs serà automàticament penjat a la Viquipèdia
+    warn_mirrored:
+      "Amb l'enviament aquest curs serà automàticament penjat a la Viquipèdia
       amb el teu compte d'usuari. Després d'això, les noves edicions a la línia de
       temps seran automàticament reflectides a la Viquipèdia. \n\nN'estàs segur què
       vols fer aquesta acció?"
@@ -640,7 +716,8 @@ ca:
     wiki_edits_enabled: Edicions wiki activades
     wiki_staff: Equip de Wiki Education
     withdrawn: No va fer la tasca
-    word_count_doc: Una estimació del nombre de paraules afegides a l'espai principal
+    word_count_doc:
+      Una estimació del nombre de paraules afegides a l'espai principal
       (article) pels estudiants del curs durant el període del curs
     yourcourses: El teus cursos
     survey:
@@ -668,16 +745,19 @@ ca:
       assignment_start: Inici de l’esdeveniment
       assignment_start_placeholder: AAAA-MM-DD
       cancel_course_clone: Cancel·la la duplicació del programa
-      cancel_course_clone_confirm: Segur que voleu cancel·lar la duplicació d'aquest
+      cancel_course_clone_confirm:
+        Segur que voleu cancel·lar la duplicació d'aquest
         curs?
       checking_for_uniqueness: Estem revisant si aquest programa és únic.
       choose_clone: Escolliu un programa per clonar.
       clone_previous: Clona el curs anterior
       clone_this: Clona aquest programa
       clone_successful: El programa ha estat clonat amb èxit.
-      clone_successful_details: El programa ha estat clonat. Cliqueu el botó "Desa"
+      clone_successful_details:
+        El programa ha estat clonat. Cliqueu el botó "Desa"
         a continuació per finalitzar el procés.
-      course_when: Afegiu alguna cosa al camp "Quan" (per exemple, el mes i l'any)
+      course_when:
+        Afegiu alguna cosa al camp "Quan" (per exemple, el mes i l'any)
         per diferenciar-lo de l'original.
       course_description: Descripció del programa
       course_school: Institució
@@ -709,8 +789,9 @@ ca:
     leave_course: Deixa el programa
     milestones_none: Actualment aquest projecte no té cap fita.
     not_permitted: No podeu editar aquest programa.
-    published: 'El projecte s''ha publicat! Els editors s''haurien d''apuntar visitant
-      el següent enllaç:'
+    published:
+      "El projecte s'ha publicat! Els editors s'haurien d'apuntar visitant
+      el següent enllaç:"
     request_accounts: Sol·licita els comptes
     revisions_none: El projecte no té activitat d'edició recent.
     school: Institució
@@ -724,7 +805,8 @@ ca:
     students_short: Editors
     students_count: Número de participants
     term: Quan
-    uploads_none: Aquest projecte encara no ha contribuït amb cap imatge o algun altre
+    uploads_none:
+      Aquest projecte encara no ha contribuït amb cap imatge o algun altre
       tipus de fitxer a Wikimedia Commons.
     view_other: Mostra altres campanyes
     view_page: Visualitza la pàgina del programa
@@ -758,7 +840,7 @@ ca:
     char: Caràcters afegits
     date_time: Data/Hora
     edit_count_description: Edicions totals
-    per_user: '%{number}/user'
+    per_user: "%{number}/user"
     revisions: Edicions recents
     tags: Etiquetes
     update_statistics_link: Mostra’n més
@@ -819,21 +901,21 @@ ca:
         form_placeholder: Nom d'usuari
         confirm_add_admin: Concedeix privilegis d'administrador
         confirm_remove_admin: Eliminar privilegis d'administrador a
-        already_admin: '%{username} ja és administrador!'
+        already_admin: "%{username} ja és administrador!"
         elevate_success: S'ha elevat %{username} a administrador.
       remove:
         revoke_button: Anul·la un administrador
         revoke_button_confirm: Anul·la els drets d'adminsitrador de %{username}
         revoking_button_working: Anul·lant...
-        already_instructor: '%{username} ja és un instructor!'
-        demote_success: '%{username} ara és un instructor.'
+        already_instructor: "%{username} ja és un instructor!"
+        demote_success: "%{username} ara és un instructor."
         no_super_admin: No es pot anul·lar l'estatus d'administrador d'un súperadministrador.
     special_users:
       new:
         form_label: Concedeix privilegis d'usuari especials
         form_placeholder: Nom d'usuari
-        confirm_remove_special_user: Elimina privilegis d'usuari especial de
-        already_is: '%{username} ja és %{username}!'
+
+        already_is: "%{username} ja és %{username}!"
         elevate_success: S'ha elevat %{username} a {position}.
   suggestions:
     editing: Suggeriments d'edició
@@ -844,24 +926,29 @@ ca:
   timeline:
     add_week: Afegir setmana
     arrange_timeline: Organitza la línia temporal
-    arrange_timeline_instructions: Modifica la línia temporal arrossegant blocs en
+    arrange_timeline_instructions:
+      Modifica la línia temporal arrossegant blocs en
       la posició o setmana desitjada, també pots moure els blocs amb les fletxes de
       la targeta.
-    assignment_dates_instructions: Selecciona les dates d'inici i d'acabament per
+    assignment_dates_instructions:
+      Selecciona les dates d'inici i d'acabament per
       a la tasca de la Viquipèdia. Canviar la data d'inici farà desplaçar totes les
       dates de la línia temporal.
-    blackout_week_created: Ja hi ha blocs programats per a aquesta setmana. Moveu-los
+    blackout_week_created:
+      Ja hi ha blocs programats per a aquesta setmana. Moveu-los
       a una altra setmana abans de treure els de l'última vegada que us vau veure
       a classe aquesta setmana.
     block_assignment: Tasca
     block_custom: Personalitzar
     block_in_class: A classe
     block_milestone: Fita
-    block_type: El tipus de bloc és usat per comunicar-te amb els teus estudiants
+    block_type:
+      El tipus de bloc és usat per comunicar-te amb els teus estudiants
       sobre aquest ítem de la seva línia temporal i per construir eines útils per
       a tu (com ara una fita fora de la pàgina de visió principal)
     course_dates: Dates del curs
-    course_dates_instructions: Selecciona la data d'inici i de finalització del projecte
+    course_dates_instructions:
+      Selecciona la data d'inici i de finalització del projecte
       sencer (no només la tasca de la Viquipèdia)
     course_end: Final del curs
     course_start: Inici del curs
@@ -878,7 +965,7 @@ ca:
     first_week_title: Primera setmana actiu
     gradeable_value: Valor
     gradeables_none: Aquesta línia temporal no té tasques marcades com a qualificables
-    grading_header: 'Puntuació (Total: %{total}%)'
+    grading_header: "Puntuació (Total: %{total}%)"
     move_block_down: Mou el bloc avall
     move_block_up: Moure el bloc amunt
     no_class_holidays: No tinc vacances de les classes
@@ -888,7 +975,8 @@ ca:
     save_all_changes: Desa-ho tot
     this_week_title_default: Aquesta setmana
     title: Línia temporal
-    unable_to_add_week: No pots afegir només setmanes quan la teva línia temporal
+    unable_to_add_week:
+      No pots afegir només setmanes quan la teva línia temporal
       està plena. Elimina almenys una setmana o canvia les dates de la tasca per a
       fer lloc per a una nova.
     week_number: Setmana %{number}
@@ -901,7 +989,8 @@ ca:
     page_number: Pàgina %{number}/%{total}
     previous: < Anterior
     table_of_contents: Taula de continguts
-    logged_out: Heu finalitzat la sessió. No et puntuarà completar aquest mòdul si
+    logged_out:
+      Heu finalitzat la sessió. No et puntuarà completar aquest mòdul si
       no tens la sessió iniciada.
     done: Fet!
     check_answer: Comprova la resposta
@@ -912,7 +1001,8 @@ ca:
     image: Imatge
     label: Càrregues
     loading: Carregant les càrregues...
-    none: Aquest projecte encara no ha contribuït amb cap imatge o algun altre tipus
+    none:
+      Aquest projecte encara no ha contribuït amb cap imatge o algun altre tipus
       de fitxer a Wikimedia Commons.
     select_label: Filtra segons qui ha carregat
     time_doc: Hora de cada càrrega amb la teva hora local
@@ -930,7 +1020,8 @@ ca:
     assign_articles_done: Fet
     assigned: Articles assignats
     assignees: Assignat a
-    character_doc: La suma de total de contingut que un usuari ha afegit a l'espai
+    character_doc:
+      La suma de total de contingut que un usuari ha afegit a l'espai
       principal, sumant els caràcters afegits amb totes les edicions que han fet créixer
       la pàgina. Aquest nombre no reflexa necessàriament la quantitat de nou contingut
       que ha afegit l'usuari. Recuperar contingut esborrat pel vandalisme farà pujar
@@ -940,39 +1031,42 @@ ca:
     contributions_history_full: Visualitza l'historial de contribucions sencer
     contributions_more: Mostra més contribucions
     contribution_statistics: Estadístiques de contribucions
-    course_passcode: 'Paraula de pas:'
+    course_passcode: "Paraula de pas:"
     editors: Editors
-    edits_by: 'Edicions de:'
+    edits_by: "Edicions de:"
     enroll_confirmation: Segur que voleu afegir %{username}?
-    enroll_url: 'Els usuaris poden utilitzar aquest enllaç per a unir-se al curs:'
-    enrolled_success: '%{username} s''ha afegit amb èxit!'
+    enroll_url: "Els usuaris poden utilitzar aquest enllaç per a unir-se al curs:"
+    enrolled_success: "%{username} s'ha afegit amb èxit!"
     first_name: Nom
     last_name: Cognoms
     loading: Carregant usuaris...
     characters_added_mainspace: Caràcters afegits (article)
-    characters_added_short: 'P: %{mainspace}, U: %{userspace}'
+    characters_added_short: "P: %{mainspace}, U: %{userspace}"
     characters_added_userspace: Caràcters afegits (usuari)
     characters_added_draftspace: Caràcters afegits (esborrany)
-    my_assigned: 'Assignat:'
-    my_reviewing: 'Revisant:'
+    my_assigned: "Assignat:"
+    my_reviewing: "Revisant:"
     name: Nom
     none: No hi ha participants.
     no_articles: No hi ha articles
     no_revisions: Aquest editor no ha fet cap revisió.
     number_of_articles:
-      one: '%{count} article'
-      other: '%{count} articles'
+      one: "%{count} article"
+      other: "%{count} articles"
     recent_revisions: Edicions recents
     remove_confirmation: Esteu segur que voleu eliminar %{username}?
     request_confirmation: Esteu segur que voleu sol·licitar aquest compte?
-    revision_characters_and_views: 'Caràcters afegits: %{characters}; Visualitzacions:
-      %{views}'
-    revisions_doc: El nombre d'edicions realitzades per aquest editor en els últims
+    revision_characters_and_views:
+      "Caràcters afegits: %{characters}; Visualitzacions:
+      %{views}"
+    revisions_doc:
+      El nombre d'edicions realitzades per aquest editor en els últims
       7 dies
     reviewers: Revisor(s)
     reviewing: Revisant
     total_uploads: Càrregues totals
-    training_doc: Els editors que han completat tots els mòduls d'entrenament assignats
+    training_doc:
+      Els editors que han completat tots els mòduls d'entrenament assignats
       dins de les dates se'ls compta com a usuaris que estan al dia amb el seu entrenament.
     training_incomplete: Formació Incompleta
     training_module_status: Estat
@@ -998,24 +1092,28 @@ ca:
     image_link_placeholder: Afegiu un enllaç a una imatge (opcional)
   wiki_edits:
     notify_overdue:
-      confirm: Això publicarà un recordatori a les pàgines de discussió de tots els
+      confirm:
+        Això publicarà un recordatori a les pàgines de discussió de tots els
         estudiants que tinguin pendent l'entrenament. N'estàs segur que ho vols publicar?
       header: Ha vençut el plaç de la tasca d'entrenament.
       summary: entrenament de l'estudiant fora de plaç
   wizard:
     assignment_dates: Dates de la tasca
-    assignment_description: Selecciona les dates d'inici i de finalització per a la
+    assignment_description:
+      Selecciona les dates d'inici i de finalització per a la
       línia temporal de la tasca. Per exemple, si vols començar el teu projecte de
       la Viquipèda la segona setmana de classe, situa l'inici de la tasca una setmana
       després de l'inici de curs. Aquesta eina de disseny de tasques crearà un esborrany
       de línia temporal inscrita dins de les dates que seleccionis.
     assignment_type: Què hauran de completar els alumnes a la Viquipèdia?
-    calendar_instructions: Selecciona les dates que s'han d'afegir o treure de la
+    calendar_instructions:
+      Selecciona les dates que s'han d'afegir o treure de la
       planificació (per exemple vacances o dies de lliure disposició). Això ajuda
       a l'eina de creació del curs a espaiar correctament les tasques. Clica a les
       dates per canviar entre no-seleccionades, seleccionades i vacances. Si no tens
       vacances, selecciona "No tinc vacances de classe" a sota.
-    confirm_dates: Selecciona les dates del curs, les trobades setmanals i les vacances
+    confirm_dates:
+      Selecciona les dates del curs, les trobades setmanals i les vacances
       del curs.
     course_dates: Dates del curs
     select_one_option: Seleccioneu una opció.
@@ -1024,75 +1122,92 @@ ca:
       other: Seleccioneu %{count} o més opcions.
     read_less: Mostra’n menys
     read_more: Més informació
-    review_selections: Si us plau revisa les teves seleccions. Clica a edita una selecció.
+    review_selections:
+      Si us plau revisa les teves seleccions. Clica a edita una selecció.
       Quan hagis acabat, clica a "Envia" per a acabar i construir la teva línia temporal.
-    select_assignment: Selecciona el tipus de tasca que vols afegir a la teva línia
+    select_assignment:
+      Selecciona el tipus de tasca que vols afegir a la teva línia
       temporal.
     summary: Resum
   error:
     form_errors: Si us plau revisa si hi han errors.
     invalid_assignment: Tasca invàlida
     invalid_date: La data %{key} no és vàlida
-    oauth_invalid: La teva sessió a la Viquipèdia ha caducat. Si us plau torna a entrar
+    oauth_invalid:
+      La teva sessió a la Viquipèdia ha caducat. Si us plau torna a entrar
       amb el teu usuari.
     unsupported_browser:
       header: Navegador no compatible :-(
-      explanation: Estàs fent servir un navegador que no és compatible amb el panell
+      explanation:
+        Estàs fent servir un navegador que no és compatible amb el panell
         de control. Aquesta pàgina funciona bé a les versions recents de Chrome, Firefox,
         Edge,  i altres navegadors moderns.
   error_401:
     header: No autoritzat. >:-(
-    explanation: No estàs autoritzat a executar aquesta petició. Si creus que t'ha
+    explanation:
+      No estàs autoritzat a executar aquesta petició. Si creus que t'ha
       arribat aquest missatge per error, si us plau contacta amb els mantenidors d'aquest
       tauler de control per a fer-lis saber sobre aquest problema.
   error_incorrect_passcode:
     header: Codi d'accés incorrecte. :-(
-    explanation: El codi d'accés per inscriure's en aquest curs és incorrecte.  Demaneu
+    explanation:
+      El codi d'accés per inscriure's en aquest curs és incorrecte.  Demaneu
       a l'instructor el codi d'accés actual per poder-vos inscriure-us. Ho podeu tornar
       a intentar introduint el codi d'accés a sota.
   error_404:
     header: Pàgina no trobada. :-(
-    explanation: Aquesta pàgina no existeix. Si esteu intentant accedir al panell
+    explanation:
+      Aquesta pàgina no existeix. Si esteu intentant accedir al panell
       de control del curs, potser aquest curs no n’ha estat registrat.
   error_422:
     header: Error 422 — Entitat no processable
-    explanation: Alguna cosa ha sortit malament. Si us plau contacta els usuaris que
+    explanation:
+      Alguna cosa ha sortit malament. Si us plau contacta els usuaris que
       mantenen l'eina per informar-los sobre el problema.
   error_500:
     header: 500 — error intern del servidor. :-(
-    explanation: Alguna cosa ha sortit malament. Si us plau contacta els usuaris que
+    explanation:
+      Alguna cosa ha sortit malament. Si us plau contacta els usuaris que
       mantenen l'eina per informar-los sobre el problema.
   login_error:
     header: Error d'inici de sessió
-    explanation: Sembla que hi ha hagut un problema durant l'inici de sessió. Ens
+    explanation:
+      Sembla que hi ha hagut un problema durant l'inici de sessió. Ens
       sap greu aquest error, a vegades passa. Si us plau torna a iniciar sessió o
       apunta't una altra vegada.
   survey:
-    login_message: Gràcies pel vostre temps. Podeu entrar al tauler per respondre
+    login_message:
+      Gràcies pel vostre temps. Podeu entrar al tauler per respondre
       l'enquesta.
-    notification_explanation: Si la casella de sota està marcada els usuaris rebran
+    notification_explanation:
+      Si la casella de sota està marcada els usuaris rebran
       emails amb les notificacions a més de veure-les amb el navegador. Si no està
       marcada només veuran les notificacions amb el navegador.
-    notification_schedule_explanation: Notificacions incloses al navegador i al email
+    notification_schedule_explanation:
+      Notificacions incloses al navegador i al email
       si a dalt estan activades.
-    follow_up_explanation: Deixar en blanc si no voleu més notificacions enviades
+    follow_up_explanation:
+      Deixar en blanc si no voleu més notificacions enviades
       per email.
     email:
       headline: Hola, %{username}
-      message_line1: Esperem que hàgiu tingut un bon trimestre! Wiki Education vol
+      message_line1:
+        Esperem que hàgiu tingut un bon trimestre! Wiki Education vol
         saber què penseu sobre els nostres recursos per poder-los millorar. La vostra
         resposta és crucial per millorar la nostra oferta actual.
-      message_line2: Estàs disposat a fer la nostra enquesta per a professors de 15
+      message_line2:
+        Estàs disposat a fer la nostra enquesta per a professors de 15
         minuts? Clica al botó de sota per ajudar-nos a millorar la Viquipèdia com
         a eina pedagògica.
-      course: 'Curs: %{course_info}'
+      course: "Curs: %{course_info}"
       closing: Sincerament,
-      signed: '- L''equip de Wiki Education'
+      signed: "- L'equip de Wiki Education"
       link: Començeu l'enquesta
   onboarding:
     supplementary:
       header: Com us heu enterat de nosaltres?
-      where_did_you_hear: On, o de quins, vau sentir parlar sobre Wiki Education per
+      where_did_you_hear:
+        On, o de quins, vau sentir parlar sobre Wiki Education per
         primera vegada?
       why_are_you_here: Què voleu fer?
   article_finder:
@@ -1127,4 +1242,3 @@ ca:
     started: Iniciat
     not_started: No s'ha iniciat
     due: per %{due_date}
-...

@@ -36,7 +36,7 @@ tr:
   number:
     human:
       decimal_units:
-        format: '%n%u'
+        format: "%n%u"
         units:
           thousand: B
           million: M
@@ -44,23 +44,26 @@ tr:
           trillion: T
           quadrillion: K
   accessibility:
-    number_field: Bu bir numara alanı. Çoğu tarayıcı tarafından oluşturulan butonlar,
+    number_field:
+      Bu bir numara alanı. Çoğu tarayıcı tarafından oluşturulan butonlar,
       girişi artırır ve azaltır.
   application:
     cancel: İptal
-    cookie_consent: Bu site oturumunuzu açık tutmak için çerezleri kullanır ve Vikipedi
+    cookie_consent:
+      Bu site oturumunuzu açık tutmak için çerezleri kullanır ve Vikipedi
       hesabınızla ilgili bilgileri saklar.
     cookie_consent_acknowledge: Anladım
     cookie_consent_see_more: Daha fazla gör.
     create_accounts: Vikipedi hesabı oluştur
     dashboard: Viki Eğitim Paneli
     documentation: Belgelendirme
-    error: 'Bir hata oluştu:'
+    error: "Bir hata oluştu:"
     explore: Keşfet
     field_required: Bu alan gereklidir
     field_invalid_characters: Bu alanda geçersiz karakterler mevcuttur
     field_invalid_date: Bu alanın tarihi YYYY-AA-GG formatında olmalıdır
-    field_invalid_date_time: Bitiş, başlangıçtan sonra olmalı. (Saatler 0'dan 23'e
+    field_invalid_date_time:
+      Bitiş, başlangıçtan sonra olmalı. (Saatler 0'dan 23'e
       gider.)
     greeting2: Hoş geldiniz!
     greeting_extended: Vikipedi'ye Hoş Geldiniz
@@ -77,9 +80,9 @@ tr:
     request_account_create: Hesap oluştur
     search: soru sor
     search_results:
-      one: '%{count} Sonucu: ''%{search_terms}'''
-      other: '%{count} Sonucu: ''%{search_terms}'''
-    no_results: '''%{query}'' için sonuç bulunamadı'
+      one: "%{count} Sonucu: '%{search_terms}'"
+      other: "%{count} Sonucu: '%{search_terms}'"
+    no_results: "'%{query}' için sonuç bulunamadı"
     sign_up_extended: Vikipedi ile Kaydol
     sign_up_wikipedia: Veya Vikipedi'ye kaydol
     sign_up_log_in_extended: Vikipedi ile
@@ -105,26 +108,31 @@ tr:
     peer_review_completed: İnceleme Tamamlandı
   dashboard:
     create_note: İlk dersinizi oluşturmak için Oluştur'a tıklayın.
-    create_preparation_note: Başlamadan önce akademik takviminizi hazır bulundurun;
+    create_preparation_note:
+      Başlamadan önce akademik takviminizi hazır bulundurun;
       ödev tasarım aracı, zaman çizelgenizi seçtiğiniz tarih aralığına uydurmak için
       sınıfınızın buluşma tarihlerini (okul tatilleri ve diğer tatiller dahil) kullanır.
       Unutmayın, zaman çizelgesini gereksinimlerinize göre her zaman düzenleyebilirsiniz.
     explore_course_pages: Kurs Sayfalarını Keşfedin
     explore_examples: Örnekleri Keşfedin
-    join_note: Eğitmeninizden bir şifre aldıktan sonra Kursunuzu Bul'a tıklayarak
+    join_note:
+      Eğitmeninizden bir şifre aldıktan sonra Kursunuzu Bul'a tıklayarak
       kursunuzu bulun ve kursa katılın.
     no_courses_instructor: Görünüşe göre kursunuz yok.
     no_courses_student: Görünüşe göre henüz bir kursa katılmadınız.
     opt_out: Oryantasyondan çıkmayı talep edin
-    orientation_notice: Bir kurs oluşturmadan önce başlamanıza yardımcı olması için
+    orientation_notice:
+      Bir kurs oluşturmadan önce başlamanıza yardımcı olması için
       oryantasyon yapalım. (Tamamlanması yaklaşık 30 dakika alır.)
     review_orientation: Oryantasyonu İncele
     start_orientation: Oryantasyonu Başlat
     blog_headline: Viki Eğitiminden Son Haberler
-    about_programs: Bu site, programlar arasında - bir müzik dersi veya okul kursu
+    about_programs:
+      Bu site, programlar arasında - bir müzik dersi veya okul kursu
       gibi kişisel etkinlikler olan wiki etkinliklerini izler. Her program, programlar
       arasında toplam istatistikler sağlayan bir veya daha fazla kampanyanın parçasıdır.
-    about_creating_programs: Tek, bağımsız bir etkinlik yürütüyorsanız şimdi bir program
+    about_creating_programs:
+      Tek, bağımsız bir etkinlik yürütüyorsanız şimdi bir program
       oluşturabilirsiniz. Etkinliğiniz daha büyük bir şeyin parçasıysa bunun için
       kampanyayı bulun veya oluşturun. Ardından, kampanya sayfasından yeni bir program
       oluşturabilirsiniz.
@@ -132,7 +140,8 @@ tr:
     explore: Keşfet
     log_in: Vikipedi ile Oturum Aç
     sign_up: Vikipedi ile Kaydol
-    sign_up_help: Gösterge panelini kullanmak için Vikipedi ile oturum açmanız ve
+    sign_up_help:
+      Gösterge panelini kullanmak için Vikipedi ile oturum açmanız ve
       hesabınıza erişme izni vermeniz gerekir. Var olan bir Vikipedi hesabıyla giriş
       yapabilir veya yeni bir Vikipedi hesabı oluşturabilirsiniz.
   alerts:
@@ -145,7 +154,7 @@ tr:
   articles:
     article_not_found: Bu makale henüz oluşturulmadı.
     article_development: (makale geliştirme)
-    articles_shown: '%{count}/%{total} gösteriliyor'
+    articles_shown: "%{count}/%{total} gösteriliyor"
     assigned: Atanmış Makale
     available: Kullanılabilir Makale
     no_available: Makale Yok
@@ -153,17 +162,20 @@ tr:
     previous: Önceki
     article_title: Makale Başlığı
     assigned_to: Atanan
-    character_doc: Kayıtlı editörler tarafından başlangıç ve bitiş tarihleri arasında
+    character_doc:
+      Kayıtlı editörler tarafından başlangıç ve bitiş tarihleri arasında
       eklenen karakterlerin toplamı
-    cross_wiki_tracking: Başlangıç ve bitiş tarihleri arasında düzenlenen ana sayfalar
+    cross_wiki_tracking:
+      Başlangıç ve bitiş tarihleri arasında düzenlenen ana sayfalar
       aşağıda listelenmiştir. Gösterge paneli, bu programın ev vikisinden ve ayrıca
       bir atama veya kullanılabilir makale bulunan diğer vikilerden gelen katkıları
       alır.
     deleted: (silindi)
-    does_not_exist: Madde mevcut değil. Bir deneme tahtası sayfası oluşturun ve öneri
+    does_not_exist:
+      Madde mevcut değil. Bir deneme tahtası sayfası oluşturun ve öneri
       almak için kendinize atayın.
     edited: Düzenlenen Makaleler
-    edited_by: 'Düzenleyen:'
+    edited_by: "Düzenleyen:"
     edited_mobile: Makale
     filter:
       wiki_all: Hepsi
@@ -182,27 +194,35 @@ tr:
     none: Bu kursta herhangi bir makale düzenlenmedi.
     preview: Maddenin kısa önizlemesi
     rating: Sınıf
-    rating_doc: Bir maddenin derecelendirmesi Vikipedi üzerinde VikiProje tarafından
+    rating_doc:
+      Bir maddenin derecelendirmesi Vikipedi üzerinde VikiProje tarafından
       atanmıştır. Bu derecelendirmeler çok daha eski sürümlere karşılık gelebilir,
       bu nedenle bunlar yalnızca madde olgunluğunun kaba bir göstergesidir.
     rating_docs:
-      fa: '%{class} (Seçkin madde) — Vikipedi''nin en yüksek reytingli ve muhtemelen
-        yeni bir editörün ana projesi için oldukça olgun bir maddesidir'
-      fl: '%{class} (Seçkin liste) — Vikipedi''nin listeler için en yüksek reytingli
-        sayfalarıdır'
-      a: '%{class}-sınıf: yeni bir editörün ana projesi çok olgun olabilecek çok gelişmiş
-        bir madde'
-      ga: '%{class} (Kaliteli madde) — yeni bir editörün ana projesi için çok olgun
-        olabilecek iyi geliştirilmiş bir madde'
-      b: '%{class}-sınıf — orta gelişmiş bir madde'
-      c: '%{class}-sınıf — iyileştirilebilecek içeriğe sahip orta düzeyde bir madde'
-      start: '%{class}-sınıf: iyileştirilmesi için birçok eksiği olan başlangıç düzeyindeki
-        bir madde'
-      stub: '%{class}-sınıf: Daha fazla içeriğe ihtiyaç duyan bir makalenin kısa bir
-        başlangıcı'
-      list: '%{class}-sınıf: geleneksel bir makale yerine bir liste'
-      '?': 'Değerlendirilmemiş: Vikipedi''nin kalite ölçeğinde henüz değerlendirilmemiş
-        bir makalesi'
+      fa:
+        "%{class} (Seçkin madde) — Vikipedi'nin en yüksek reytingli ve muhtemelen
+        yeni bir editörün ana projesi için oldukça olgun bir maddesidir"
+      fl:
+        "%{class} (Seçkin liste) — Vikipedi'nin listeler için en yüksek reytingli
+        sayfalarıdır"
+      a:
+        "%{class}-sınıf: yeni bir editörün ana projesi çok olgun olabilecek çok gelişmiş
+        bir madde"
+      ga:
+        "%{class} (Kaliteli madde) — yeni bir editörün ana projesi için çok olgun
+        olabilecek iyi geliştirilmiş bir madde"
+      b: "%{class}-sınıf — orta gelişmiş bir madde"
+      c: "%{class}-sınıf — iyileştirilebilecek içeriğe sahip orta düzeyde bir madde"
+      start:
+        "%{class}-sınıf: iyileştirilmesi için birçok eksiği olan başlangıç düzeyindeki
+        bir madde"
+      stub:
+        "%{class}-sınıf: Daha fazla içeriğe ihtiyaç duyan bir makalenin kısa bir
+        başlangıcı"
+      list: "%{class}-sınıf: geleneksel bir makale yerine bir liste"
+      "?":
+        "Değerlendirilmemiş: Vikipedi'nin kalite ölçeğinde henüz değerlendirilmemiş
+        bir makalesi"
       does_not_exist: Bu makale, Vikipedi'de mevcut değil
     see_more: Daha fazla gör
     search: Vikipedi'de Madde Arayın
@@ -211,29 +231,32 @@ tr:
     show_current_version_with_authorship_highlighting: Yazar Vurgulamalı Güncel Sürüm
     title: Başlık
     tracked: İzlenen
-    tracked_doc: Yalnızca izlenen makaleler, bu programın istatistiklerine katkıda
+    tracked_doc:
+      Yalnızca izlenen makaleler, bu programın istatistiklerine katkıda
       bulunur. Makaleler izlenmemiş olarak işaretlendiğinde, bir sonraki veri güncellemesi
       sırasında istatistiklerden kaldırılırlar.
     title_example: Makale başlığı
     tools: Değerlendirme araçları
     view: Makaleyi Göster
     view_all: Hepsini Göster
-    view_doc: En son istatistik güncellemesi yoluyla, ilk düzenlendiğinden beri her
+    view_doc:
+      En son istatistik güncellemesi yoluyla, ilk düzenlendiğinden beri her
       makalenin tahmini görüntüleme sayısı. Tam sayıları görmek için pageviews.toolforge.org
       adresini kullanabilirsiniz.
     view_on_wiki: Viki'de görüntüle
-    views_added: '%{title} için %{count} yeni görüntüleme eklendi'
+    views_added: "%{title} için %{count} yeni görüntüleme eklendi"
     edit_size: Boyutu Düzenle
     wiki: Viki
     wp10: Yapısal Bütünlük
-    wp10_doc: '''Yapısal Tamamlanma'' puanı, bir makalenin, makine öğrenmeye dayalı
-      Amaç Revizyon Değerlendirme Hizmeti''ne (https://ores.wikimedia.org/) dayanarak,
+    wp10_doc:
+      "'Yapısal Tamamlanma' puanı, bir makalenin, makine öğrenmeye dayalı
+      Amaç Revizyon Değerlendirme Hizmeti'ne (https://ores.wikimedia.org/) dayanarak,
       olgun bir Vikipedi makalesinin kalıbına ne kadar uyduğunu gösterir. Bu puanlar
       bir makalenin büyüklüğüne, referans sayısına ve wiki bağlantılar sayısına ve
       diğer temel metin özelliklerine göre hesaplanır. Yüksek bir puan genellikle
-      bir makalenin Vikipedi''nin iyi bir makalenin yapısına ilişkin sözleşmelerini
+      bir makalenin Vikipedi'nin iyi bir makalenin yapısına ilişkin sözleşmelerini
       takip ettiğini gösterir, ancak içeriğin kendisini dikkate almaz. (Bu puanlar
-      yalnızca İngilizce Vikipedi makaleleri için geçerlidir.)'
+      yalnızca İngilizce Vikipedi makaleleri için geçerlidir.)"
     articles_short: Makale
   items:
     article_not_found: Bu öge henüz oluşturulmadı.
@@ -246,7 +269,7 @@ tr:
   articles_generic:
     articles_short: Sayfa
   assignments:
-    article: '%{title} makalesi artık size devredilmiştir.'
+    article: "%{title} makalesi artık size devredilmiştir."
     article_link: Makale
     article_link_wikidata: Ögeler
     already_exists: Bu devir işlemi zaten yapılmış!
@@ -261,13 +284,15 @@ tr:
     add_available_submit_wikidata: Öge ekle
     assign_self: Bir makaleyi kendime devredeyim
     assign_self_wikidata: Kendimi bir ögeye ata
-    assign_tooltip: Atanan bir makale, oluşturmayı veya geliştirmeyi planladığınız
+    assign_tooltip:
+      Atanan bir makale, oluşturmayı veya geliştirmeyi planladığınız
       bir maddedir.
     bibliography: Bibliyografya
     clone: Klonla
-    confirm_add_available: '%{title} başlığını eklemek istediğinize emin misiniz?'
-    confirm_addition: '%{username} kullanıcısına %{title} atamak istediğinizden emin
-      misiniz?'
+    confirm_add_available: "%{title} başlığını eklemek istediğinize emin misiniz?"
+    confirm_addition:
+      "%{username} kullanıcısına %{title} atamak istediğinizden emin
+      misiniz?"
     confirm_deletion: Bu ödevi silmek istediğinizden emin misiniz?
     editors: Atanan
     group_members: Grup üyeleri
@@ -277,12 +302,13 @@ tr:
     none_short_wikidata: Atanmış öge yok
     none: Bu kursun atanmış makalesi bulunmamaktadır.
     no_available: Bu kursun atanmış makalesi bulunmamaktadır.
-    peer_review_count: '%{currentCount}/%{total} seçildi'
+    peer_review_count: "%{currentCount}/%{total} seçildi"
     peer_review_count_tooltip: Hakem incelemesi için %{total} makaleyi seçmelisiniz.
     peer_review_link: Hakem Denetimi
-    peer_review_link_personalized: '%{username} Kullanıcısının Akran Değerlendirmesi'
+    peer_review_link_personalized: "%{username} Kullanıcısının Akran Değerlendirmesi"
     random_peer_review:
-      confirm_addition: Çoğu durumda, bunu yalnızca tüm öğrencilere ana maddeleri
+      confirm_addition:
+        Çoğu durumda, bunu yalnızca tüm öğrencilere ana maddeleri
         atandıktan sonra kullanmalısınız. Alternatif olarak, öğrencilerinizden kendi
         akran değerlendirmelerini seçmelerini isteyebilir veya bir öğrencinin satırını
         tıklayıp ardından "Meslektaş incelemesi ata/kaldır" düğmesini kullanarak meslektaş
@@ -290,7 +316,8 @@ tr:
         her öğrenci için sınıf arkadaşlarının maddelerinden seçilen maksimum %{maximum}
         olmak üzere toplam %{count} ek akran değerlendirmesi atanır.
       heading: Rastgele akran incelemeleri atayın
-      tooltip_message: Her öğrenciye rastgele makaleler atar (maksimum sayı olarak
+      tooltip_message:
+        Her öğrenciye rastgele makaleler atar (maksimum sayı olarak
         akran incelemesi sayılır).
       limit_exceeded: Her öğrenci zaten en az %{maximum} maddeyi inceliyor.
     remove: Kaldır
@@ -298,13 +325,15 @@ tr:
     review_other: Meslektaş incelemesi ata/kaldır
     review_self: Bir makaleyi incele
     review_self_wikidata: Ögeyi Gözden geçirin
-    review_tooltip: Bu incelemeyi gözden geçirmeyi veya geri bildirim vermeyi planladığınız
+    review_tooltip:
+      Bu incelemeyi gözden geçirmeyi veya geri bildirim vermeyi planladığınız
       makale içindir.
     sandbox_draft_link: Deneme Tahtası Taslağı
     select: Seç
-    warning_untracked_wiki: 'Seçtiğiniz makalenin bu kurs tarafından izlenmeyen bir
+    warning_untracked_wiki:
+      "Seçtiğiniz makalenin bu kurs tarafından izlenmeyen bir
       vikide olduğunu lütfen unutmayın. Bu makaleye katkıları izlemek için bir eğitmen
-      bu kursa şu vikiyi eklemelidir: %{wiki}'
+      bu kursa şu vikiyi eklemelidir: %{wiki}"
   blocks:
     milestones:
       title: Kilometre taşları
@@ -324,13 +353,17 @@ tr:
     campaign_not_updated: Kampanya güncellenemedi
     campaign_updated: Kampanya güncellendi
     created_at: Tarih
-    confirm_campaign_deletion: '"%{title}" başlıklı kampanyayı silmek istediğinizden
+    confirm_campaign_deletion:
+      '"%{title}" başlıklı kampanyayı silmek istediğinizden
       emin misiniz? Öyleyse devam etmek için kampanyanın başlığını yazın.'
-    confirm_campaign_deletion_failed: '"%{title}", bu kampanyanın başlığı değil. Kampanya
+    confirm_campaign_deletion_failed:
+      '"%{title}", bu kampanyanın başlığı değil. Kampanya
       silinmedi.'
-    confirm_course_removal: '"%{title}" kampanyasını "%{campaign_title}" kampanyasından
+    confirm_course_removal:
+      '"%{title}" kampanyasını "%{campaign_title}" kampanyasından
       kaldırmak istediğinizden emin misiniz?'
-    course_already_removed: '"%{title}", "%{campaign_title}" kampanyasından zaten
+    course_already_removed:
+      '"%{title}", "%{campaign_title}" kampanyasından zaten
       kaldırılmış.'
     course: Kurs
     course_removed: '"%{title}", "%{campaign_title}" kampanyasından kaldırıldı'
@@ -342,22 +375,27 @@ tr:
     data_courses_info: Her kurs/program için temel ölçümler
     data_articles: Sayfalar düzenlendi
     data_revisions: Düzeltme verileri
-    data_articles_info: Kampanya tarafından düzenlenen her izlenen sayfa hakkındaki
+    data_articles_info:
+      Kampanya tarafından düzenlenen her izlenen sayfa hakkındaki
       ayrıntılar
     data_revisions_info: Kampanyanın izlenen her revizyonuyla ilgili ayrıntılar
     data_instructors: Eğitmen
-    data_instructors_info: Öğretim elemanlarının/kolaylaştırıcıların ve kursların/programların
+    data_instructors_info:
+      Öğretim elemanlarının/kolaylaştırıcıların ve kursların/programların
       listesi
     data_editors_by_course: Kurs editörü
-    data_editors_by_course_info: Kayıtlı editörlerin ve kurslarının/programlarının
+    data_editors_by_course_info:
+      Kayıtlı editörlerin ve kurslarının/programlarının
       listesi
     data_editor_usernames: Düzenleyici kullanıcı adları
-    data_editor_usernames_info: Editör kullanıcı adlarının listesi, her satıra bir
+    data_editor_usernames_info:
+      Editör kullanıcı adlarının listesi, her satıra bir
       tane
     default_course_type: Varsayılan Kurs Türü
     default_passcode: Varsayılan Şifre
-    default_passcode_explanation: 'Varsayılan olarak bu kampanyadaki yeni programlar
-      şunlara sahip olmalıdır:'
+    default_passcode_explanation:
+      "Varsayılan olarak bu kampanyadaki yeni programlar
+      şunlara sahip olmalıdır:"
     description: Açıklama
     delete_campaign: Bu kampanyayı sil
     disable_account_requests: Hesap isteklerini devre dışı bırak
@@ -369,7 +407,8 @@ tr:
     organizer_added: '%{user}, artık "%{title}" kampanyasının organizatörü durumunda.'
     organizer_removed: '%{user}, "%{title}" kampanyasının organizatörlüğünden çıkarıldı'
     program_template: Program Şablonu
-    program_template_tooltip: Bir organizatör bu kampanyada bir program oluşturduğunda
+    program_template_tooltip:
+      Bir organizatör bu kampanyada bir program oluşturduğunda
       bu alandaki metin, program sayfasında bir açıklama olarak kopyalanacaktır.
     random_passcode: rastgele bir şifre
     requested_accounts: İstenen hesaplar
@@ -387,7 +426,8 @@ tr:
     add_this_psid: Bu PSID'yi ekle
     add_this_pileid: Bunu PagePile kimliğini ekle
     add_this_template: Bu şablonu ekle
-    import_articles_description: Bir kategorideki makalelerin listesi düzenli aralıklarla
+    import_articles_description:
+      Bir kategorideki makalelerin listesi düzenli aralıklarla
       güncellenir ve listenin eklenmesinden önce eklenmesinden sonra biraz zaman alabilir.
     depth: Alt kategori derinliği
     articles_count: Makale Sayısı
@@ -403,18 +443,22 @@ tr:
   courses:
     school_system: Akademik Sistemi
     assignment_edits_enabled: Atama düzenlemeleri etkin
-    assignment_edits_enabled_tooltip: Etkinleştirilmişse gösterge paneli atanan her
+    assignment_edits_enabled_tooltip:
+      Etkinleştirilmişse gösterge paneli atanan her
       madde için tartışma sayfasına bir şablon gönderir.
     accounts_generation_enabled: Hesap isteği oluşturma etkinleştirildi
-    accounts_generation_explanation: Bu, katılımcıların yeni hesaplar oluşturmak yerine
+    accounts_generation_explanation:
+      Bu, katılımcıların yeni hesaplar oluşturmak yerine
       e-posta adreslerini ve istenen kullanıcı adlarını girmelerine olanak tanır.
       Daha sonra bu Gösterge Tablosundan hesaplar oluşturabilir ve aynı anda program
       katılımcıları olarak ekleyebilirsiniz.
-    accounts_generation_confirm_message: Hesap isteklerini etkinleştirmek istediğinizden
+    accounts_generation_confirm_message:
+      Hesap isteklerini etkinleştirmek istediğinizden
       emin misiniz?
     activity: Etkinlik
     active_courses: Aktif Kurslar
-    add_trainings: Lütfen ödev zaman çizelgenize öğrenci eğitimleri ekleyin. Eğitim
+    add_trainings:
+      Lütfen ödev zaman çizelgenize öğrenci eğitimleri ekleyin. Eğitim
       modüllerinin atanması, Wiki Ed'in en iyi uygulamalarının önemli bir parçasıdır.
     alerts: Uyarılar
     all_courses: Tüm Kurslar
@@ -447,21 +491,25 @@ tr:
       legend_class_not_meeting: Belirlenmiş Toplantı Yok
       select_meeting_days: Sınıfınızın buluşacağı haftanın günlerini seçin.
     cancel: İptal
-    character_doc: Kurs dönemi boyunca kursun öğrencileri tarafından kursun makalelerine
+    character_doc:
+      Kurs dönemi boyunca kursun öğrencileri tarafından kursun makalelerine
       eklenen karakterlerin toplamı
-    campaigns: 'Kampanyalar:'
-    campaign_articles: '%{title} Makaleleri'
-    campaign_courses: '%{title} Kursları'
+    campaigns: "Kampanyalar:"
+    campaign_articles: "%{title} Makaleleri"
+    campaign_courses: "%{title} Kursları"
     campaign_select: Bir kampanya seç
-    campaign_users: '%{title} Editörleri'
-    confirm_course_deletion: '%{title} kampanyasını silmek istediğinizden emin misiniz?
-      Öyleyse devam etmek için kampanyanın başlığını yazın.'
+    campaign_users: "%{title} Editörleri"
+    confirm_course_deletion:
+      "%{title} kampanyasını silmek istediğinizden emin misiniz?
+      Öyleyse devam etmek için kampanyanın başlığını yazın."
     confirm_course_deletion_failed: '"%{title}", bu dersin başlığı değil. Ders silinmedi.'
-    confirm_manual_update: Manuel güncelleme yapmak istediğinizden emin misiniz? En
+    confirm_manual_update:
+      Manuel güncelleme yapmak istediğinizden emin misiniz? En
       son sürümler içe aktarılacak ve sayfa yeniden yüklenecektir. Bu işlem biraz
       zaman alabilir.
     course: Kurs
-    course_dates_calendar_instructions: Bunları programdan eklemek veya kaldırmak
+    course_dates_calendar_instructions:
+      Bunları programdan eklemek veya kaldırmak
       için tarih seçin (ör. tatiller, okul yok). Seçilmemiş, seçili ve tatil durumu
       arasında geçiş yapmak için tarihi tıklayın. Kurs aktivitelerinin tarihleri,
       planlanmış toplantıları olmayan haftalar için değişecektir.
@@ -470,36 +518,43 @@ tr:
     courses_taught: Öğretilen Kurslar
     creation_date: Oluşturulma Tarihi
     creator:
-      already_exists: Bu ders zaten var. Benzersiz olması için adı, okulu veya terimi
+      already_exists:
+        Bu ders zaten var. Benzersiz olması için adı, okulu veya terimi
         değiştirmeyi düşünün.
       assignment_end: Atama sonu
       assignment_end_placeholder: (YYYY-AA-GG)
       assignment_start: Atama başlangıcı
       assignment_start_placeholder: (YYYY-AA-GG)
       cancel_course_clone: Kurs klonunu iptal et
-      cancel_course_clone_confirm: Bu kursu klonlamayı durdurmak istediğinize emin
+      cancel_course_clone_confirm:
+        Bu kursu klonlamayı durdurmak istediğinize emin
         misiniz?
       checking_for_uniqueness: Bu kurs, benzersizliği açısından kontrol ediliyor.
       choose_clone: Klonlanacak bir ders seçin.
       clone_previous: Önceki Kursun Klonu
       clone_this: Bu Kursu Klonla
-      cloned_course_calendar_instructions: Bunları programdan eklemek veya kaldırmak
+      cloned_course_calendar_instructions:
+        Bunları programdan eklemek veya kaldırmak
         için tarihleri seçin (ör. tatiller, okul yok). Seçilmemiş, seçili ve tatil
         durumu arasında geçiş yapmak için tarihi tıklayın. Tatiliniz yoksa "Sınıf
         tatilim yok" seçeneğini işaretleyin. Klonlanmış zaman çizelgesi, tarihleri,
         zamanlanmış toplantıları olmayan haftalar için otomatik olarak ayarlar.
       clone_successful: Klonlanmış Kurs için Detayları Güncelle
-      clone_successful_details: Zaman çizelgesinin unsurları (haftalar ve bloklar)
+      clone_successful_details:
+        Zaman çizelgesinin unsurları (haftalar ve bloklar)
         dahil olmak üzere dersiniz klonlanmıştır. Taşınmayan tarihleri eklediğinizden
         emin olun. Kursunuz hakkında başka bir şey değişti mi? Güncellemeyi şimdi
         yapmak için çekinmeyin.
-      course_dates_info: Kursunuzun başlangıç ve bitiş tarihlerini girin. Bir sonraki
+      course_dates_info:
+        Kursunuzun başlangıç ve bitiş tarihlerini girin. Bir sonraki
         adımda, bu zaman diliminde Vikipedi atamasının ne zaman başlayacağını seçebilirsiniz.
       course_description: Kurs açıklaması
-      course_description_placeholder: Kursunuzda neler var ve Vikipedi'de öğrenciler
+      course_description_placeholder:
+        Kursunuzda neler var ve Vikipedi'de öğrenciler
         ne yapacak? Lütfen diğer Vikipedi editörlerine öğrencilerinizin yapacağı katkılar
         için bir bağlam hissi vermek için yeterli ayrıntı ekleyin.
-      course_private: Özel program (yalnızca hizmetliler ve kolaylaştırıcılar tarafından
+      course_private:
+        Özel program (yalnızca hizmetliler ve kolaylaştırıcılar tarafından
         görülebilir)
       course_school: Kurs okulu
       course_subject: Kurs konusu
@@ -508,16 +563,19 @@ tr:
       course_title: Kurs başlığı
       course_types:
         basic_course_name: Temel Program
-        basic_course_description: Bu program türü, katılımcıların herhangi bir makalesinde
+        basic_course_description:
+          Bu program türü, katılımcıların herhangi bir makalesinde
           veya ana sayfasında yapılan düzenlemeleri izler. Programın ana wikisinde
           otomatik wiki düzenlemeleri etkinleştirilmişse, bu programın bir wiki sürümü
           otomatik olarak oluşturulur ve güncellenir.
         edit_a_thon_name: Edit-A-Thon
-        edit_a_thon_description: Edit-A-Thon programı herhangi bir makaleye ya da
+        edit_a_thon_description:
+          Edit-A-Thon programı herhangi bir makaleye ya da
           ana sayfadaki düzenlemeleri izler. Varsayılan olarak, bu program için otomatik
           düzenleme yapılmayacaktır.
         article_scoped_program_name: Madde Kapsamlı Program
-        article_scoped_program_description: Bu program türü yalnızca atanmış maddeler
+        article_scoped_program_description:
+          Bu program türü yalnızca atanmış maddeler
           veya kategoriler için yapılan düzenlemeleri izler. İstatistikleri bilinen
           bir madde veya konu alanı koleksiyonuyla sınırlamak istiyorsanız bu türü
           kullanın. Varsayılan olarak, otomatik wiki düzenlemeleri açıktır.
@@ -529,10 +587,12 @@ tr:
       end_date_placeholder: (YYYY-AA-GG)
       expected_number: Beklenen öğrenci sayısı
       find: Kursunuzu Bulun
-      intro: Başlık, okul ve dönem, kurs sayfanızın URL'sini oluşturur ve değiştirilemez.
+      intro:
+        Başlık, okul ve dönem, kurs sayfanızın URL'sini oluşturur ve değiştirilemez.
         Diğer her şey, daha sonra düzenleyebilirsiniz. Vikipedi göreviniz için zaman
         çizelgesini oluşturmaya başlamak için "Kursumu Oluştur!"u tıklayın.
-      new_or_clone: Atama tasarım sihirbazını kullanarak şimdi yeni bir kurs oluşturabilirsiniz.
+      new_or_clone:
+        Atama tasarım sihirbazını kullanarak şimdi yeni bir kurs oluşturabilirsiniz.
         Yeniden kullanmak istediğiniz önceki bir kursun son derece özelleştirilmiş
         bir zaman çizelgesine sahipseniz, bir kopyasını yeni tarihlerle kopyalayabilirsiniz.
         (Daha önce zaman çizelgenizi önemli ölçüde özelleştirmediyseniz, atama seçeneklerinin
@@ -542,12 +602,14 @@ tr:
       no_class_holidays: Sınıf tatilim yok
       role_description: Kurstaki rolünüz
       role_description_options:
-      - Eğitmen
-      - Öğretim asistanı
+        - Eğitmen
+        - Öğretim asistanı
       role_description_placeholder: öğretim görevlisi, asistan vb.
-      separate_event_dates: Ayrı etkinlik başlangıç/bitiş zamanlarını belirtin (isteğe
+      separate_event_dates:
+        Ayrı etkinlik başlangıç/bitiş zamanlarını belirtin (isteğe
         bağlı)
-      separate_event_dates_info: Bu programın etkinlik istatistikleri, yukarıdaki
+      separate_event_dates_info:
+        Bu programın etkinlik istatistikleri, yukarıdaki
         tarih ve saatlere göre izlenir, ancak etkinlik veya programın ne zaman başlayıp
         bittiği (örneğin, katılımcıların ne zaman gösterileceğini veya mekanın ne
         zaman kapanacağını bilmesi için) ayrı zamanlar belirleyebilirsiniz.
@@ -555,33 +617,40 @@ tr:
       start_date: Başlangıç tarihi
       start_date_placeholder: (YYYY-AA-GG)
       subject: Konu
-      update_scheduled: Güncelleme planlandı. Veriler, bir sonraki güncelleme döngüsü
+      update_scheduled:
+        Güncelleme planlandı. Veriler, bir sonraki güncelleme döngüsü
         boyunca mevcut tüm programlarla birlikte güncellenecektir. Bu genellikle birkaç
         saat sürer.
     current: Mevcut Kurslar
     data_articles: Madde verileri
-    data_articles_info: Madde verileri her sayfadaki düzenleme sayfalarını, sayfaların
+    data_articles_info:
+      Madde verileri her sayfadaki düzenleme sayfalarını, sayfaların
       yeni olduğunu ve sayfa görüntüleme toplamlarını içerir. Bu sayfa görüntüleme
       değerleri daha önce bitmiş olan kurslar için eski olabilir, bu nedenle WMF Aracı
       Laboratuarları sayfa görüntüleme aracına bir URL eklenir.
-    data_revisions_info: Revizyon verileri dersin revizyon sayısını, revizyon kimliğini,
+    data_revisions_info:
+      Revizyon verileri dersin revizyon sayısını, revizyon kimliğini,
       madde kimliğini, sayfaların yeni olduğunu ve sayfa görüntüleme toplamlarını
       içerir.
     data_download_info: Verileri CSV formatında indirin.
     data_overview: Genel bakış verileri
     data_overview_info: Genel bakış verileri, tüm proje için toplu istatistikler sağlar.
     data_edits: Düzenleme verileri
-    data_edits_info: Düzenleme verileri, proje sırasında yapılan her düzenleme için
+    data_edits_info:
+      Düzenleme verileri, proje sırasında yapılan her düzenleme için
       detayları gösterir.
     data_students: Düzenleyici verileri
-    data_students_info: Editör verileri, tüm kayıtlı editörleri, ne kadar düzenleme
+    data_students_info:
+      Editör verileri, tüm kayıtlı editörleri, ne kadar düzenleme
       yaptıklarını ve proje sırasında hesaplarını kaydettirip kaydetmediklerini listeler.
     data_uploads: Commons yükleme verileri
     data_revisions: Düzeltme verileri
-    data_uploads_info: Commons yükleme verileri, her medya yüklemesinin adını ve kullanım
+    data_uploads_info:
+      Commons yükleme verileri, her medya yüklemesinin adını ve kullanım
       sayısını gösterir.
     data_wikidata: Vikiveri durumları
-    data_wikidata_info: Düzenleme özetlerine dayalı olarak Vikiveri etkinliğinin ayrıntılı
+    data_wikidata_info:
+      Düzenleme özetlerine dayalı olarak Vikiveri etkinliğinin ayrıntılı
       dökümü
     dates_too_long: Maksimum uzunluk bir yıldır.
     delete_course: Kursu silin
@@ -594,7 +663,8 @@ tr:
     edit_count: Değişiklik Sayısı
     edit_course_dates: Kurs Tarihlerini Düzenle
     embed_course_stats: Gömülü Ders İstatistikleri
-    embed_course_stats_description: Bu programın istatistiklerini başka bir web sitesine
+    embed_course_stats_description:
+      Bu programın istatistiklerini başka bir web sitesine
       yerleştirmek için bu kod pasajını kopyalayıp yapıştırın.
     enable_account_requests: Hesap isteklerini etkinleştir
     end: Bitiş
@@ -602,20 +672,23 @@ tr:
     enroll: Kaydol
     enrollment: Öğrenci Ekle/Kaldır
     enrollment_edits_enabled: Kayıt düzenlemeleri etkin
-    enrollment_edits_enabled_tooltip: Etkinleştirilirse, gösterge panosu programa
+    enrollment_edits_enabled_tooltip:
+      Etkinleştirilirse, gösterge panosu programa
       katılan her editörün kullanıcı sayfasına ve konuşma sayfasına bir şablon gönderir.
     courses_enrolled: Kaydolunan dersler
     error:
-      exists: Bu kurs zaten var! Lütfen farklı bir başlık, okul veya dönemle tekrar
+      exists:
+        Bu kurs zaten var! Lütfen farklı bir başlık, okul veya dönemle tekrar
         deneyin.
       user_exists: Üzgünüz, %{username} mevcut bir kullanıcı değil.
-      user_exists_on_wiki: Üzgünüz, %{domain} üzerinde %{username} adlı bir kullanıcı
+      user_exists_on_wiki:
+        Üzgünüz, %{domain} üzerinde %{username} adlı bir kullanıcı
         mevcut değil.
       invalid_language_or_project: Geçersiz dil/proje
       invalid_slug: Ders için boş okul/başlık.
-      duplicate_slug: '%{slug} adlı başka bir program zaten var.'
+      duplicate_slug: "%{slug} adlı başka bir program zaten var."
     expected_students: Beklenen Öğrenciler
-    features_feedback: 'Otomatik Öneriler:'
+    features_feedback: "Otomatik Öneriler:"
     feedback: Geri bildirim
     feedback_loading: Öneriler yükleniyorken lütfen bekleyin...
     gradeables_none: Bu kursta notlandırılabilen ödev bulunmamaktadır
@@ -625,25 +698,30 @@ tr:
       one: Eğitmen
       other: Eğitmen
     instructors: Eğitmenler
-    invitation: '%{title} grubuna katılmaya davet edildiniz. Katılmak için bir Vikipedi
-      hesabıyla oturum açmanız gerekir.'
-    invitation_username_advice: Henüz bir Vikipedi hesabınız yoksa hemen kaydolun.
+    invitation:
+      "%{title} grubuna katılmaya davet edildiniz. Katılmak için bir Vikipedi
+      hesabıyla oturum açmanız gerekir."
+    invitation_username_advice:
+      Henüz bir Vikipedi hesabınız yoksa hemen kaydolun.
       Kullanıcı adınız, istediğiniz gibi anonim veya kişisel olarak tanımlanabilir.
       (Paylaşılan hesaplara izin verilmez.)
     join: Katıl
     join_course: Kursa katıl
     join_course_as_volunteer: Yardım etmek için gönüllü ol
-    join_prompt: '''%{title}'' kursuna katılmak ister misin?'
-    join_successful: '%{title} programına başarıyla katıldınız. Gösterge paneli, periyodik
+    join_prompt: "'%{title}' kursuna katılmak ister misin?"
+    join_successful:
+      "%{title} programına başarıyla katıldınız. Gösterge paneli, periyodik
       güncellemelerle katkılarınızı otomatik olarak takip edecektir. Hangi etkiyi
-      gördüğünüzü görmek için daha sonra tekrar kontrol edin!'
+      gördüğünüzü görmek için daha sonra tekrar kontrol edin!"
     join_failed: Kayıt başarısız.
     join_failure_details:
       cannot_join_twice: Kullanıcılar aynı kursa iki kez katılamaz.
       not_yet_approved: Bu kurs henüz kayıt için onaylanmamıştır.
-      withdrawn: Bu kurs, muhtemelen yanlışlıkla geri çekilmiş olarak işaretlendi.
+      withdrawn:
+        Bu kurs, muhtemelen yanlışlıkla geri çekilmiş olarak işaretlendi.
         Yeniden etkinleştirmek için Wiki Eğitim personeli ile iletişime geçin.
-    join_details: Bu kursa katılmak için şifre kodunu (veya şifreyi içeren bir kayıt
+    join_details:
+      Bu kursa katılmak için şifre kodunu (veya şifreyi içeren bir kayıt
       bağlantısı) eğitmenden almanız gerekmektedir. Bunu almadıysanız, eğitmeninizle
       iletişim kurun.
     join_no_passcode: Bu kursa katılmak istediğinden emin misin?
@@ -659,60 +737,71 @@ tr:
     new_account_check_username: Kullanıcı adı müsaitliğini kontrol et
     new_account_email: E-posta adresi
     new_account_email_placeholder: ornek@example.org
-    new_account_info: Bir hesap istemek için e-posta adresinizi ve istediğiniz kullanıcı
+    new_account_info:
+      Bir hesap istemek için e-posta adresinizi ve istediğiniz kullanıcı
       adını girin. Hesap, kolaylaştırıcılardan biri tarafından oluşturulduktan sonra
       size bir şifre gönderilecektir.
-    new_account_info_admin: Yeni bir editör için hesap oluşturmak için e-posta adreslerini
+    new_account_info_admin:
+      Yeni bir editör için hesap oluşturmak için e-posta adreslerini
       ve istenen kullanıcı adını girin. Hesap oluşturulduktan sonra bir şifre onlara
       e-postayla gönderilecektir.
     new_account_username: İstenen kullanıcı adı
     new_account_username_invalid: Bu geçerli bir kullanıcı adı değil.
     new_account_username_placeholder: Viki Ediör 123
-    new_account_username_taken: Bu kullanıcı adı önceden alınmış. Lütfen diğerini
+    new_account_username_taken:
+      Bu kullanıcı adı önceden alınmış. Lütfen diğerini
       seçin.
     new_account_submit: Hesap iste
-    new_account_submitted: Bir hesap isteğiniz gönderildi. Bu programın kolaylaştırıcısı,
+    new_account_submitted:
+      Bir hesap isteğiniz gönderildi. Bu programın kolaylaştırıcısı,
       hesabınızın oluşturulmasını şimdi tamamlayabilir. Oluşturulduktan sonra yeni
       hesap için e-posta ile bir şifre alacaksınız.
-    new_account_submitted_admin: Bir hesap isteğiniz oluşturuldu. Lütfen yeni şifrelerini
+    new_account_submitted_admin:
+      Bir hesap isteğiniz oluşturuldu. Lütfen yeni şifrelerini
       almak için e-posta gelen kutusunu kontrol etmeleri için öğrencilerinizi bilgilendirin
-    no_campaign: Bu programı etkin hale getirmek ve kullanıcıların katılmasını sağlamak
+    no_campaign:
+      Bu programı etkin hale getirmek ve kullanıcıların katılmasını sağlamak
       için bir kampanyaya eklenmelidir. Hangi kampanyayı ekleyeceğinizden emin değilseniz,
       'Miscellanea' seçeneğini kullanın.
     nocourses: Herhangi bir kursa dahil değilsiniz.
     nocourse: herhangi bir kursa katılmamıştır.
     none: Hiçbiri
     not_permitted: Bu kursu düzenleme yetkiniz yok.
-    notify_untrained_confirmation: Bu, atanan eğitim modüllerini tamamlamak için geciken
+    notify_untrained_confirmation:
+      Bu, atanan eğitim modüllerini tamamlamak için geciken
       tüm öğrenciler için mesaj sayfalarında bir hatırlatma yayınlayacaktır. Bunu
       yapmak istediğinize emin misiniz?
     no_available_actions: Kullanılabilir işlem yok
     online_volunteers_enabled: Çevrimiçi Gönüllüler etkin
-    online_volunteers_tooltip: Çevrimiçi Gönüllüleri Etkinleştirmek, kullanıcı düzenleyicilerin
+    online_volunteers_tooltip:
+      Çevrimiçi Gönüllüleri Etkinleştirmek, kullanıcı düzenleyicilerin
       gönüllü olarak katılmasını sağlar. Düzenlemeleri izlenmeyecek.
     ores_plot: ORES
     overview: Anasayfa
     passcode: Parola Kodu
     passcode_none: Şifre yok
-    passcode_prompt: 'Katılmak için şifreyi girin:'
+    passcode_prompt: "Katılmak için şifreyi girin:"
     please_log_in: Lütfen giriş yapın.
     private: Özel
-    published: 'Kursunuz yayınlandı! Öğrenciler aşağıdaki URL’yi ziyaret ederek kursa
-      kayıt olabilirler:'
-    rating_feedback: 'madde için tahmini değerlendirme:'
+    published:
+      "Kursunuz yayınlandı! Öğrenciler aşağıdaki URL’yi ziyaret ederek kursa
+      kayıt olabilirler:"
+    rating_feedback: "madde için tahmini değerlendirme:"
     requested_accounts: İstenen hesaplar
     requested_accounts_alert:
-      one: '%{count} istenen hesap beklemede.'
-      other: '%{count} istenen hesap beklemede.'
+      one: "%{count} istenen hesap beklemede."
+      other: "%{count} istenen hesap beklemede."
     requested_accounts_alert_view: Görüntüle
     retain_available_articles: Müsait Yazıları Koru
-    retain_available_articles_info: Etkinleştirildiğinde, Müsait bir Yazıyı seçmek,
+    retain_available_articles_info:
+      Etkinleştirildiğinde, Müsait bir Yazıyı seçmek,
       onu listeden çıkarmaz, bir grup öğrencinin aynı yazıyı seçmesine izin verir.
-    review_timeline: 'Şimdi, atama zaman çizelgenizi inceleyin ve ihtiyaçlarınıza
+    review_timeline:
+      "Şimdi, atama zaman çizelgenizi inceleyin ve ihtiyaçlarınıza
       göre özelleştirin. Memnun kaldığınızda, Wiki Eğitim personeli tarafından onay
       için gönderebilirsiniz. Onaylandıktan sonra, öğrencilerin kursa katılmak ve
       eğitimlere erişmek için kullanabilecekleri bir kayıt URL’si alacaksınız. (Not:
-      Daha sonra hala düzenlemeler yapabileceksiniz.)'
+      Daha sonra hala düzenlemeler yapabileceksiniz.)"
     revisions_doc: Son %{timeframe} gün içindeki düzenleme sayısı
     revisions_none: Bu dersin Vikipedi düzenleme faaliyeti bulunmamaktadır.
     school: Okul
@@ -724,61 +813,71 @@ tr:
     student: Öğrenci
     students: Öğrenciler
     students_taught: Öğretilen Öğrenciler
-    students_count: '# Öğrenciler'
+    students_count: "# Öğrenciler"
     student_editors: Öğrenci Editörler
     students_none: Bu dersin öğrencisi yok.
     students_short: Öğrenciler
-    submitted_admin: Bu kurs, içerik oluşturucusu tarafından onaylanmak üzere sunulmuştur.
+    submitted_admin:
+      Bu kurs, içerik oluşturucusu tarafından onaylanmak üzere sunulmuştur.
       Onaylamak için, Genel Bakış sayfasındaki bir kampanyaya ekleyin.
     submitted_and_pending_heading: Gönderilen ve Bekleyen Onay
     submitted_heading: Gönderilen Kurslar
-    submitted_note: Kursunuz başarıyla gönderildi. Viki Eğitim personeli onu inceleyecek
+    submitted_note:
+      Kursunuz başarıyla gönderildi. Viki Eğitim personeli onu inceleyecek
       ve herhangi bir soruyla temasa geçecektir. Bu arada, iki Eğitim'in eğitim materyallerini
       incelemek isterseniz, eğitmenler ve öğrenciler için kaynakların tam listesini
       görüntüleyebilirsiniz.
-    suggestions_feedback: Bu özelliği geliştirmek için herhangi bir öneriniz var mı?
+    suggestions_feedback:
+      Bu özelliği geliştirmek için herhangi bir öneriniz var mı?
       Bilmemize izin ver!
     suggestions_sending: Geri Bildirim Gönderiliyor...
     suggestions_sent: Geri bildirim gönderildi. Girdiniz için teşekkürler.
     suggestions_failed: Geri bildirim gönderilemedi. Daha sonra tekrar deneyin.
     user_role: Rol
     course_details: Kurs ayrıntıları
-    course_submitted: Gönderilen durum, proje başlamadan önce bir ders planının onaylanması
+    course_submitted:
+      Gönderilen durum, proje başlamadan önce bir ders planının onaylanması
       gereken eğitim programı dersleri için kullanılır. Sadece ClassroomProgram ders
       türü ile ilgilidir.
     subject: Konu
     submitted: Gönderilen
     submitted_at: Gönderme tarihi
     tag_select: Bir etiket seç ya da oluştur
-    tags: 'Etiketler:'
+    tags: "Etiketler:"
     term: Dönem
     timeline: Atama Detayları
     timeline_enabled: Zaman çizelgesi etkin
     timeline_link: Zaman çizelgesi
-    timeline_tooltip: Zaman Çizelgesini etkinleştirmek haftada bir haftalık aktiviteleri
+    timeline_tooltip:
+      Zaman Çizelgesini etkinleştirmek haftada bir haftalık aktiviteleri
       belirlemenize ve eğitim modülleri atamanıza izin verir. Bu, Eğitim Programı
       kursları ve diğer uzun, yüksek yapılandırılmış programlar için yararlıdır.
     timeline_nav: Zaman Çizelgesi'ne git
     time_zone_message: Başlangıç ve bitiş saatleri yerel saat diliminizde görüntülenir.
     title: Başlık
-    training_due: Bu kurs için "%{title}" eğitim modülü atanmıştır ve %{date} tarihine
+    training_due:
+      Bu kurs için "%{title}" eğitim modülü atanmıştır ve %{date} tarihine
       kadar devam edecektir.
     training_nav: Eğitime git
-    training_overdue: Bu kurs için "%{title}" eğitim modülü atanmıştır ve %{date}
+    training_overdue:
+      Bu kurs için "%{title}" eğitim modülü atanmıştır ve %{date}
       tarihine kadar devam etmiştir.
     unsubmitted: Gönderilmeyen Kurslar
     untrained: Eğitimsiz
     update_stats: İstatistikleri güncelle
-    uploads_none: Bu sınıf, herhangi bir resim veya diğer medya dosyası yükleyerek
+    uploads_none:
+      Bu sınıf, herhangi bir resim veya diğer medya dosyası yükleyerek
       Wikimedia Commons'a katkıda bulunmamıştır.
-    user_uploads_none: Bu kullanıcı, Wikimedia Commons'a herhangi bir görüntü veya
+    user_uploads_none:
+      Bu kullanıcı, Wikimedia Commons'a herhangi bir görüntü veya
       başka medya dosyası eklemedi.
     user_recent_uploads: Son Yüklenenler
-    user_suggestions: 'Kullanıcı Önerileri:'
+    user_suggestions: "Kullanıcı Önerileri:"
     user_suggestions_prompt: Makalenin editörleri için önerileriniz
     view_other: Diğer kampanyaları görüntüle
     view: Kursu Görüntüle
-    view_doc: Editör her makalede ilk düzenlemesini yaptıktan sonra kayıtlı editörler
+    view_doc:
+      Editör her makalede ilk düzenlemesini yaptıktan sonra kayıtlı editörler
       tarafından düzenlenen makalelere ilişkin tahmini görüntüleme sayısı
     view_page: Kurs Sayfasını Görüntüle
     view_wiki: Vikipedi'de görüntüle
@@ -786,20 +885,24 @@ tr:
       one: Gönüllü
       other: Gönüllü
     weeks_none: Bu kursun henüz bir zaman çizelgesi yok.
-    warn_mirrored: Gönderildikten sonra, bu kurs kullanıcı hesabınızla otomatik olarak
+    warn_mirrored:
+      Gönderildikten sonra, bu kurs kullanıcı hesabınızla otomatik olarak
       Vikipedi'ye gönderilecektir. Bundan sonra, zaman çizelgesindeki yeni düzenlemeler
       Vikipedi'ye yansıtılır. Bunu yapmak istediğinden emin misin?
     wiki_course_page_enabled: Viki ders sayfası etkin
-    wiki_course_page_enabled_tooltip: Etkinleştirildiğinde, program veya kullanıcıları
+    wiki_course_page_enabled_tooltip:
+      Etkinleştirildiğinde, program veya kullanıcıları
       ve atamaları her değiştirildiğinde, sayfanın bir wiki yansıması güncellenir.
     wiki_edits_enabled: Viki düzenlemeleri etkinleştirildi
-    wiki_edits_enabled_tooltip: Viki düzenlemeleri etkinse, bu program için otomatik
+    wiki_edits_enabled_tooltip:
+      Viki düzenlemeleri etkinse, bu program için otomatik
       viki düzenlemeleri yapılacaktır. Şablonların kullanıcı sayfalarına, atanmış
       makalelerin konuşma sayfalarına vb. eklenmesini istemiyorsanız viki düzenlemelerini
       devre dışı bırakın.
     wiki_staff: Viki Eğitim ekibi
     withdrawn: Atama yapmadı
-    word_count_doc: Kurs süresince öğrenciler tarafından ana alan makalelerine eklenen
+    word_count_doc:
+      Kurs süresince öğrenciler tarafından ana alan makalelerine eklenen
       kelime sayısının tahmini
     yourcourses: Kurslarınız
     survey:
@@ -821,30 +924,35 @@ tr:
     course: Program
     courses: Program
     courses_taught: Öğretilen Programlar
-    campaigns: 'Kampanyalar:'
-    campaign_courses: '%{title} Programları'
+    campaigns: "Kampanyalar:"
+    campaign_courses: "%{title} Programları"
     creator:
       assignment_end: Etkinlik sonu
       assignment_end_placeholder: (YYYY-AA-GG)
       assignment_start: Etkinlik başlangıcı
       assignment_start_placeholder: (YYYY-AA-GG)
       cancel_course_clone: Program klonunu iptal et
-      cancel_course_clone_confirm: Bu programı kopyalamayı durdurmak istediğinize
+      cancel_course_clone_confirm:
+        Bu programı kopyalamayı durdurmak istediğinize
         emin misiniz?
       checking_for_uniqueness: Bu kurs, benzersizliği açısından kontrol ediliyor.
       choose_clone: Klonlanacak bir program seçin.
       clone_previous: Önceki Programın Klonu
       clone_this: Bu Programı Klonla
       clone_successful: Program Başarıyla Klonlandı
-      clone_successful_details: Programın klonlanmış. Sonlandırmak için aşağıdaki
+      clone_successful_details:
+        Programın klonlanmış. Sonlandırmak için aşağıdaki
         'Kaydet' seçeneğini tıklayın.
-      course_when: Orijinalinden ayırt etmek için 'Ne zaman' alanına (örneğin, ay
+      course_when:
+        Orijinalinden ayırt etmek için 'Ne zaman' alanına (örneğin, ay
         ve yıl) bir şey ekleyin.
-      course_dates_info: Programınızın başlangıç ve bitiş tarihlerini girin. Etkinlikten
+      course_dates_info:
+        Programınızın başlangıç ve bitiş tarihlerini girin. Etkinlikten
         kısa bir süre sonra gerçekleşecek ilgili düzenlemeleri eklemek için, bitişi
         ana etkinliklerin sona ermesinin birkaç saat veya güne uzatmak isteyebilirsiniz.
       course_description: Program açıklaması
-      course_description_placeholder: Bu program nedir ve katılımcılar wiki(ler) de
+      course_description_placeholder:
+        Bu program nedir ve katılımcılar wiki(ler) de
         ne yapacak? Lütfen diğer editörlere katılımcıların yapacağı katkılarla ilgili
         bir bağlam bilgisi vermek için yeterince ayrıntı ekleyin.
       course_school: Kurum
@@ -857,12 +965,14 @@ tr:
       create_short: Program Oluştur
       end_date: Etkinlik takibinin sonu
       find: Program bul
-      intro: Programın adı ve kurumu programın URL'sini oluşturur. Ana wiki, katılımcıların
+      intro:
+        Programın adı ve kurumu programın URL'sini oluşturur. Ana wiki, katılımcıların
         çalışacağı ana vikidir ve bu vikideki düzenlemeler varsayılan olarak izlenir.
         Programınız birden fazla dil veya projeyi içeriyorsa, "İzlenen Viki"'ye açıkça
         eklenmiş olan herhangi bir viki için katkılar da izlenecektir. "Programımı
         Oluştur!" viki programınızın sayfasını oluşturmaya başlamak için kullanılır.
-      new_or_clone: Şimdi yeni bir program oluşturun veya katıldığınız başka bir programı
+      new_or_clone:
+        Şimdi yeni bir program oluşturun veya katıldığınız başka bir programı
         kopyalamak için 'klon' seçeneğini kullanın.
       participate_in_campaign: Bir Kampanyaya Katıl
       save_cloned_course: Kaydet
@@ -877,13 +987,15 @@ tr:
     expected_students: Beklenen Editörler
     instructors: Kolaylaştırıcı
     join_course: Programa katıl
-    join_details: Bu programa katılmak için şifreyi (veya şifreyi içeren bağlantıyı)
+    join_details:
+      Bu programa katılmak için şifreyi (veya şifreyi içeren bağlantıyı)
       kolaylaştırıcıdan almanız gerekmektedir.
     leave_course: Programdan ayrıl
     milestones_none: Bu projenin şu anda herhangi bir dönüm noktası bulunmamaktadır.
     not_permitted: Bu programı düzenleme yetkiniz yok.
-    published: 'Bu proje yayınlandı! Editörler aşağıdaki URL’yi ziyaret ederek kayıt
-      olabilirler:'
+    published:
+      "Bu proje yayınlandı! Editörler aşağıdaki URL’yi ziyaret ederek kayıt
+      olabilirler:"
     request_accounts: Hesap iste
     revisions_none: Bu projede son düzenleme etkinliği yok.
     school: Kurum
@@ -899,13 +1011,16 @@ tr:
     students_count: Katılımcı sayısı
     term: Ne zaman
     unsubmitted: Gönderilmeyen Programlar
-    uploads_none: Bu proje, Wikimedia Commons'a herhangi bir görüntü veya başka medya
+    uploads_none:
+      Bu proje, Wikimedia Commons'a herhangi bir görüntü veya başka medya
       dosyası eklemedi.
-    user_uploads_none: Seçilen kullanıcılar bu projeye hiçbir resim veya başka medya
+    user_uploads_none:
+      Seçilen kullanıcılar bu projeye hiçbir resim veya başka medya
       dosyası eklememişlerdir.
     view_other: Diğer kampanyaları görüntüle
     view_page: Program Sayfasını Görüntüle
-    word_count_doc: Program döneminde programın editörleri tarafından makalelere eklenen
+    word_count_doc:
+      Program döneminde programın editörleri tarafından makalelere eklenen
       tahmini kelime sayısı
     yourcourses: Programlarınız
   editable:
@@ -915,10 +1030,11 @@ tr:
     edit_description: Tanımı Düzenle
     edit_details: Ayrıntıları Düzenle
     edit_template: Şablonu değiştir
-    rename_confirmation: URL'yi oluşturan kurs alanları değişti. Bu durum, URL'yi
+    rename_confirmation:
+      URL'yi oluşturan kurs alanları değişti. Bu durum, URL'yi
       değiştirecek ve gelen linkleri bozacaktır. Bunu yapmak istediğine emin misin?
   instructor_view:
-    article_assignments: '%{prefix} Atanma'
+    article_assignments: "%{prefix} Atanma"
     assignments_table:
       article_name: Ad
       current_stage: Geçerli Adım
@@ -926,23 +1042,26 @@ tr:
     assigned_articles: Atanmış Maddeler
     assigned_articles_wikidata: Atanan Ögeler
     bad_work:
-      learn_more: Öğrenci çalışması maddeyi daha da kötüleştirdiyse, maddeyi kendiniz
+      learn_more:
+        Öğrenci çalışması maddeyi daha da kötüleştirdiyse, maddeyi kendiniz
         düzenlemenizi öneririz. Aksi takdirde, sorunları daha sonra çözebilmemiz için
         bize bildirin.
       learn_more_button: Daha Fazla Bilgi
       submit_issue: Bu madde ile ilgili önemli sorunlar nelerdir?
       submit_issue_wikidata: Bu ögeye ilişkin önemli sorunlar nedir?
-      submit_issue_placeholder: Ne kadar uzman bakış açısı ve ayrıntı sunabilirseniz
+      submit_issue_placeholder:
+        Ne kadar uzman bakış açısı ve ayrıntı sunabilirseniz
         o kadar iyidir.
       thank_you: Teşekkür ederim! Başka sorularınız varsa Viki Uzmanınıza başvurun.
-    exercises_and_trainings: '%{prefix} Egzersizler ve Eğitimler'
-    no_assignments: Şu anda bu öğrencinin atanmış maddesi yok. Yukarıdaki düğmeleri
+    exercises_and_trainings: "%{prefix} Egzersizler ve Eğitimler"
+    no_assignments:
+      Şu anda bu öğrencinin atanmış maddesi yok. Yukarıdaki düğmeleri
       kullanarak madde atayabilirsiniz.
-    overview: '%{prefix} Genel Bakış'
+    overview: "%{prefix} Genel Bakış"
     reviewing_articles: Makaleleri Gözden Geçirme
     reviewing_articles_wikidata: İncelenen Ögeler
     select_student:
-      title: '%{prefix} Seç'
+      title: "%{prefix} Seç"
       content: atamak ve maddeyi görüntülemek için
       content_wikidata: atama ve öge atamalarını görüntüleme
   metrics:
@@ -959,7 +1078,8 @@ tr:
     articles_edited_wikidata: Düzenlenmiş Öğeler
     articles_edited_generic: Düzenlenmiş Sayfalar
     articles_edited_generic_wikidata: Düzenlenmiş Ögeler
-    article_scoped_program_info: Bu, yalnızca atanan maddelerde ve kategorilerde yapılan
+    article_scoped_program_info:
+      Bu, yalnızca atanan maddelerde ve kategorilerde yapılan
       düzenlemeleri sayan bir 'Madde Kapsamlı Program'dır.
     bytes_added: Bayt Eklendi
     characters: Karakter
@@ -969,7 +1089,8 @@ tr:
     close_modal: Kapat
     date_time: Tarih/Saat
     edit_count_description: Toplam Düzenleme
-    error_count_message: Gösterge tablosu, en son güncelleme sırasında %{error_count}
+    error_count_message:
+      Gösterge tablosu, en son güncelleme sırasında %{error_count}
       hata ile karşılaştı.
     future_updates_remaining:
       updates_active: İstatistikler %{date} tarihine kadar güncellenmeye devam edecek.
@@ -977,22 +1098,28 @@ tr:
     last_reviewed: Son İnceleme
     missing_data_heading: Eksik veya beklenmeyen sonuçlar mı var?
     missing_data_info: Sık karşılaşılan sorunlar
-    non_updating_course_update: Yakında gerçekleşmesi gereken bir kerelik bir güncelleme
+    non_updating_course_update:
+      Yakında gerçekleşmesi gereken bir kerelik bir güncelleme
       için planlandı.
     last_update_failed: Bu kursta son güncelleme başarısız oldu.
-    last_update_success: Son güncelleme başarıyla gerçekleştirildi, bu yüzden istatistikler
+    last_update_success:
+      Son güncelleme başarıyla gerçekleştirildi, bu yüzden istatistikler
       güncel olmalıdır.
-    outreach_help: Yardıma mı ihtiyacınız var?  Gezinme çubuğunda 'Sorun bildir' konusuna
+    outreach_help:
+      Yardıma mı ihtiyacınız var?  Gezinme çubuğunda 'Sorun bildir' konusuna
       bakın.
-    per_user: '%{number}/kullanıcı'
-    recent_updates_summary: Son %{total} güncellemeden %{failure_count} başarısız
+    per_user: "%{number}/kullanıcı"
+    recent_updates_summary:
+      Son %{total} güncellemeden %{failure_count} başarısız
       oldu ve %{error_count} hata ile karşılaştı.
     revisions: Son Düzenlemeler
     references_count: Referanslar Eklendi
-    references_doc: Bu makalelere eklenen referans etiketi sayısıdır ve aynı kaynağa
+    references_doc:
+      Bu makalelere eklenen referans etiketi sayısıdır ve aynı kaynağa
       birden fazla referans içerebilir. Veriler ORES ürün kalitesi modelinden gelmektedir
       ve sadece bazı diller için mevcuttur.
-    replag_info: Gösterge Tablosu, düzenleme verilerini WMF Bulut çoğaltma veritabanlarından
+    replag_info:
+      Gösterge Tablosu, düzenleme verilerini WMF Bulut çoğaltma veritabanlarından
       alır. Bazen bu veritabanları, çoğaltma gecikmesi nedeniyle en son düzenlemeleri
       kaçırır. Bu durumda, eksik düzenlemeler daha sonra görünecektir.
     replag_link: Gecikmeyi kontrol et
@@ -1031,7 +1158,8 @@ tr:
     no_edits: Yakın zamanda düzenleme yapılmadı.
     plagiarism_report: İntihal Raporu
     possible_plagiarism: Olası İntihal
-    plagiarism_explanation: Vikipedi’nin intihal tespit sistemi yeni değişikliklerin
+    plagiarism_explanation:
+      Vikipedi’nin intihal tespit sistemi yeni değişikliklerin
       yayımlanmış metinlerle karşılaştırılması için Turnitin/iThenticate kullanır.
       Bu raporlar %100 kesin değildir. Örneğin, düzgün atıfa sahip bir söz yanlış
       bir intihal raporunu tetikleyebilir. Lütfen herhangi bir işlem yapmadan önce
@@ -1053,10 +1181,11 @@ tr:
     diff: fark
     diff_show: Göster
     diff_hide: Gizle
-    edit_time_span: Düzenlemeler %{first_time} tarihinden %{last_time} tarihine kadar
+    edit_time_span:
+      Düzenlemeler %{first_time} tarihinden %{last_time} tarihine kadar
       gerçekleşti
     edited_by: Düzenleyen
-    edited_on: '%{edit_date} tarihinde düzenlendi'
+    edited_on: "%{edit_date} tarihinde düzenlendi"
     loading: Sürümler yükleniyor...
     none: Bu kursun son düzenleme faaliyeti yok.
     time_doc: Yerel saatinizdeki her sürümün saati
@@ -1075,71 +1204,83 @@ tr:
         form_placeholder: Kullanıcı Adı
         confirm_add_admin: Yönetici ver
         confirm_remove_admin: Yönetici ayrıcalıklarını kaldır
-        already_admin: '%{username}, zaten bir yönetici!'
-        elevate_success: '%{username}, yönetici yapıldı.'
+        already_admin: "%{username}, zaten bir yönetici!"
+        elevate_success: "%{username}, yönetici yapıldı."
       remove:
         revoke_button: Yöneticiliği geri al
-        revoke_button_confirm: '%{username} adlı kullanıcının yöneticilik haklarını
-          al'
+        revoke_button_confirm:
+          "%{username} adlı kullanıcının yöneticilik haklarını
+          al"
         revoking_button_working: Geri alınıyor...
-        already_instructor: '%{username}, zaten bir eğitmen!'
-        demote_success: '%{username}, eğitmen yapıldı.'
+        already_instructor: "%{username}, zaten bir eğitmen!"
+        demote_success: "%{username}, eğitmen yapıldı."
         no_super_admin: Bir süper yöneticiden yöneticilik hakları geri alınamaz
     special_users:
       new:
         form_label: Özel Kullanıcı ayrıcalıkları verin
         form_placeholder: Kullanıcı Adı
         confirm_add_special_user: Özel Kullanıcı Ekleyin
-        confirm_remove_special_user: Özel Kullanıcı ayrıcalıklarını kaldırın
-        already_is: '%{username} zaten bir {position}!'
-        elevate_success: '%{username}, {position} yükseltilmiş.'
+        already_is: "%{username} zaten bir {position}!"
+        elevate_success: "%{username}, {position} yükseltilmiş."
       remove:
         revoke_button: Özel Kullanıcıyı İptal Et
-        revoke_button_confirm: '%{username} adresinden Özel Kullanıcı haklarını iptal
-          et'
+        revoke_button_confirm:
+          "%{username} adresinden Özel Kullanıcı haklarını iptal
+          et"
         revoking_button_working: İptal ediliyor...
-        already_is_not: '%{username} Özel Kullanıcı değil!'
-        demote_success: '%{username} şimdi yalnızca bir kullanıcı.'
+        already_is_not: "%{username} Özel Kullanıcı değil!"
+        demote_success: "%{username} şimdi yalnızca bir kullanıcı."
   suggestions:
     editing: Önerileri Düzenleme
     suggestion_docs:
-      fa: Yeni bilgi mevcut olmadıkça başka içerik eklenmesi gerekmez. Düzyazı kalitesinde
+      fa:
+        Yeni bilgi mevcut olmadıkça başka içerik eklenmesi gerekmez. Düzyazı kalitesinde
         daha fazla gelişme genellikle mümkündür.
-      a: Makaleyi düzeltmek için uzman bilgisi gerekebilir ve stil problemleri çözüme
+      a:
+        Makaleyi düzeltmek için uzman bilgisi gerekebilir ve stil problemleri çözüme
         ihtiyaç duyabilir. Akran değerlendirmesi yardımcı olabilir.
-      ga: Konu ve stil uzmanlarına göre bazı düzenleme yapmak yararlıdır; Benzer bir
+      ga:
+        Konu ve stil uzmanlarına göre bazı düzenleme yapmak yararlıdır; Benzer bir
         konudaki mevcut bir madde ile karşılaştırmak, içeriğin zayıf veya eksik olduğu
         alanları vurgulayabilir.
-      bplus: Kapsamın hala eksik olduğunu değerlendirmek için uzmanlardan alınan bilgilerle
+      bplus:
+        Kapsamın hala eksik olduğunu değerlendirmek için uzmanlardan alınan bilgilerle
         ve ayrıca resimler, tarihsel arka plan ve diğer kaynakça ile iyileştirilebilir.
         Üst değerlendirmesini ya da iyi madde statüsü için aday göstermeyi düşünün.
         Madde zaten hiç yanlış değilse şimdi zamanı.
-      b: İçerik ve stilin birkaç yönü ele alınmalıdır. Uzman bilgisi gerekli olabilir.
+      b:
+        İçerik ve stilin birkaç yönü ele alınmalıdır. Uzman bilgisi gerekli olabilir.
         Destekleyici materyallerin dahil edilmesi, eğer pratikse dikkate alınmalı
         ve madde, Stil Kılavuzu ve ilgili stil kılavuzlarına genel uygunluk açısından
         kontrol edildi.
-      c: İçerikteki boşlukları kapatmak ve temizleme sorunlarını çözmek için önemli
+      c:
+        İçerikteki boşlukları kapatmak ve temizleme sorunlarını çözmek için önemli
         düzenleme gereklidir.
-      start: Önce güvenilir kaynaklara referans verilmeli; makalenin ayrıca içerik
+      start:
+        Önce güvenilir kaynaklara referans verilmeli; makalenin ayrıca içerik
         ve organizasyonda da önemli iyileştirmelere ihtiyacı var. Ayrıca dilbilgisi,
         yazım, yazma stili ve jargon kullanımını geliştirin.
-      stub: Herhangi bir düzenleme veya ek materyal faydalı olabilir. Anlamlı içerik
+      stub:
+        Herhangi bir düzenleme veya ek materyal faydalı olabilir. Anlamlı içerik
         sağlama öncelikli olmalıdır. Bir başlangıç sınıfı makaleye adım atmak için
         bir taslak-sınıf makalesi için en iyi çözüm, konunun neden önemli olduğu,
         başvurulan nedenleriyle eklemektir.
       fl: Yeni bilgi mevcut olmadığı sürece başka içerik eklemesi gerekli değildir.
-      list: Listeler, Vikipedi maddelerine canlı bağlantılar listesi olmalıdır;  uygun
+      list:
+        Listeler, Vikipedi maddelerine canlı bağlantılar listesi olmalıdır;  uygun
         şekilde adlandırılmış ve düzenlenmiş olmalıdır.
       future: Eklenen materyal spekülasyon olabilir ve dikkatli bir şekilde kaynaklanmalıdır.
-      disambig: Bu isimdeki yeni makaleler oluşturuldukça eklemeler yapılmalıdır.
+      disambig:
+        Bu isimdeki yeni makaleler oluşturuldukça eklemeler yapılmalıdır.
         Bu tür sayfaların düzgün bir şekilde adlandırılmasına dikkat edin, çünkü başlığa
         genellikle "(ayrıştırma)" gerek duymazlar.
-      '?': Öneriler mevcut değil - Madde, derecelendirilmemiş veya önerilmeyen önerilerdir.
+      "?": Öneriler mevcut değil - Madde, derecelendirilmemiş veya önerilmeyen önerilerdir.
       does_not_exist: Bu madde Vikipedi'de mevcut değil.
   tasks:
-    conseq: '%{task} görevi zaten yürütülüyor!'
+    conseq: "%{task} görevi zaten yürütülüyor!"
     constant: update_daily görevi yürütülürken %{task} görevi yürütülemedi.
-    paused: Zamanlanmış güncelleştirmeler duraklatılmış olduğundan %{task} görevi
+    paused:
+      Zamanlanmış güncelleştirmeler duraklatılmış olduğundan %{task} görevi
       çalıştırılamıyor. Güncellemelere devam etmek için 'rake batch:resume' komutunu
       çalıştırın.
   tickets:
@@ -1147,19 +1288,23 @@ tr:
   timeline:
     add_week: Hafta Ekle
     arrange_timeline: Zaman Çizelgesini Düzenle
-    arrange_timeline_instructions: Blokları "sürükleyip bırakarak" istediğiniz yere/haftaya
+    arrange_timeline_instructions:
+      Blokları "sürükleyip bırakarak" istediğiniz yere/haftaya
       sürükleyerek zaman çizelgesini düzenleyin veya karttaki okları kullanarak blokları
       yeniden konumlandırın.
-    assignment_dates_instructions: Vikipedi atama zaman çizelgesi için başlangıç ve
+    assignment_dates_instructions:
+      Vikipedi atama zaman çizelgesi için başlangıç ve
       bitiş tarihlerini seçin. Başlangıç tarihini değiştirmek tüm zaman çizelgesinin
       tarihini değiştirir.
-    blackout_week_created: Bu hafta için planlanan bloklar var. Lütfen bu sınıftan
+    blackout_week_created:
+      Bu hafta için planlanan bloklar var. Lütfen bu sınıftan
       son sınıf toplantısını kaldırmadan önce onları başka bir haftaya taşıyın.
     block_assignment: Atama
     block_custom: Özel
     block_in_class: Sınıfta
     block_milestone: Kilometre taşı
-    block_type: Blok türü, öğrencilerinize bu ögeyle ilgili zaman çizelgelerinde iletişim
+    block_type:
+      Blok türü, öğrencilerinize bu ögeyle ilgili zaman çizelgelerinde iletişim
       kurmak ve sizin için yararlı araçlar oluşturmak için kullanılır (Genel Bakış
       sayfasındaki dönüm noktası taslağı gibi).
     course_dates: Kurs Tarihleri
@@ -1178,7 +1323,8 @@ tr:
     delete_timeline_and_start_over: Zaman çizelgesini kaldır
     due_default: Gelecek hafta nedeniyle
     edit_titles: Hafta Başlıklarını Düzenle
-    edit_titles_info: Zaman çizelgesinde hafta başlıklarını düzenleyin. Sadece haftalar
+    edit_titles_info:
+      Zaman çizelgesinde hafta başlıklarını düzenleyin. Sadece haftalar
       süren toplantılar özel başlıklarla verilebilir. Herhangi bir özel başlık kullanılırsa,
       numaralandırılmak yerine toplantıya sahip olmayan haftalar tarihlendirilir.
     empty_week_1: Başlamak için,
@@ -1187,9 +1333,10 @@ tr:
     empty_week_4: bir zaman çizelgesi oluşturmak için atama sihirbazını kullanın.
     first_week_title: İlk Aktif Hafta
     gradeable_value: Değer
-    gradeables_none: Bu zaman çizelgesinde derecelendirilmiş olarak işaretlenmiş bir
+    gradeables_none:
+      Bu zaman çizelgesinde derecelendirilmiş olarak işaretlenmiş bir
       ödev yoktur.
-    grading_header: 'Sınıflandırma (Toplam: %{total})'
+    grading_header: "Sınıflandırma (Toplam: %{total})"
     move_block_down: Bloğu aşağı taşı
     move_block_up: Bloğu yukarı taşı
     no_class_holidays: Sınıf tatilim yok
@@ -1197,12 +1344,14 @@ tr:
     no_activity_this_week: Bu hafta planlanmış toplantı yok
     nothing_this_week: Bu hafta için programda bir şey yok.
     reset_titles: Varsayılana sıfırla
-    reset_titles_confirmation: Tüm hafta başlıklarını sıfırlamak istediğinize emin
+    reset_titles_confirmation:
+      Tüm hafta başlıklarını sıfırlamak istediğinize emin
       misiniz? Bu geri alınamaz.
     save_all_changes: Tümünü Kaydet
     this_week_title_default: Bu Hafta
     title: Zaman çizelgesi
-    unable_to_add_week: Zaman çizelgeniz dolduğunda yeni hafta ekleyemezsiniz. En
+    unable_to_add_week:
+      Zaman çizelgeniz dolduğunda yeni hafta ekleyemezsiniz. En
       az bir haftayı silin veya yeni bir tarihe yer açmak için ödevlerinizi değiştirin.
     view_full_timeline: Tam Zaman Çizelgesini Görüntüle
     week_number: Hafta %{number}
@@ -1212,11 +1361,12 @@ tr:
     view: Görüntüle
     next: Sonraki Sayfa
     page: Sayfa
-    page_number: '%{total} sayfadan %{number}. sayfa'
+    page_number: "%{total} sayfadan %{number}. sayfa"
     previous: < Önceki
     table_of_contents: İçindekiler
     training_library: Eğitim Kütüphanesi
-    logged_out: Çıkış yaptınız. Giriş yapmadığınız sürece bu modülü tamamlamak için
+    logged_out:
+      Çıkış yaptınız. Giriş yapmadığınız sürece bu modülü tamamlamak için
       kredi almayacaksınız.
     done: Yapıldı!
     invalid: Üzgünüm, bu slayt mevcut değil!
@@ -1237,7 +1387,8 @@ tr:
     image: Resim
     label: Yükleme
     loading: Yüklemeler yükleniyor...
-    none: Bu sınıf, herhangi bir resim veya diğer medya dosyası yükleyerek Wikimedia
+    none:
+      Bu sınıf, herhangi bir resim veya diğer medya dosyası yükleyerek Wikimedia
       Commons'a katkıda bulunmamıştır.
     select_label: Yükleyiciye göre filtrele
     time_doc: Yerel saatinizdeki her yükleme saati
@@ -1247,7 +1398,7 @@ tr:
     uploaded_on: Yüklenen yer
     usage_count: Kullanım Sayısı
     usage_doc: Bu görselin kullanıldığı Vikipedi maddesi sayısı.
-    usage_count_gallery_tile: '%{usage_count} maddede kullanıldı'
+    usage_count_gallery_tile: "%{usage_count} maddede kullanıldı"
     usages: Kullanım
   users:
     already_enrolled: Bu kullanıcı zaten kayıtlı!
@@ -1259,7 +1410,8 @@ tr:
     assignees: Devredilen(ler)
     loading_authorship_data: yazarlık verileri yükleniyor
     authorship_data_not_fetched: yazarlık verileri alınamadı
-    character_doc: Bir kullanıcının bu ad alanına eklediği toplam sayfa miktarı, sayfa
+    character_doc:
+      Bir kullanıcının bu ad alanına eklediği toplam sayfa miktarı, sayfa
       boyutunu artıran tüm düzenlemeler için eklenen karakterler eklenerek hesaplanır.
       Bu sayı, kullanıcının eklediği yeni içerik miktarını yansıtmaz. Kaldırılan içeriğin
       geri yüklenmesi de bu toplamı artıracaktır.
@@ -1269,47 +1421,49 @@ tr:
     contributions_history_full: Tam katkı geçmişini görüntüle
     contributions_more: Diğer Katkıları Görüntüle
     contribution_statistics: Katkı İstatistikleri
-    course_passcode: 'Şifre Kodu:'
+    course_passcode: "Şifre Kodu:"
     editors: Editörler
     edits: düzenlemeler
-    edits_by: 'Düzenleyen:'
-    enroll_confirmation: '%{username} kullanıcısını eklemek istediğinize emin misiniz?'
-    enroll_url: 'Kullanıcılar şu URL''yi ziyaret ederek katılabilir:'
-    enrolled_success: '%{username}, başarıyla eklendi!'
+    edits_by: "Düzenleyen:"
+    enroll_confirmation: "%{username} kullanıcısını eklemek istediğinize emin misiniz?"
+    enroll_url: "Kullanıcılar şu URL'yi ziyaret ederek katılabilir:"
+    enrolled_success: "%{username}, başarıyla eklendi!"
     exercise_modules_completed:
-      one: '%{completed_count}/%{count} egzersiz tamamlandı'
-      other: '%{completed_count}/%{count} egzersiz tamamlandı'
+      one: "%{completed_count}/%{count} egzersiz tamamlandı"
+      other: "%{completed_count}/%{count} egzersiz tamamlandı"
     exercises_and_trainings: Egzersizler ve Eğitimler
     first_name: Ad
     last_name: Soyad
     loading: Kullanıcılar yükleniyor...
     characters_added_mainspace: Eklenen Karakter (madde)
     characters_added_mainspace_wikidata: Eklenen Karakter (öge)
-    characters_added_short: 'MS: %{mainspace}, US: %{userspace}'
+    characters_added_short: "MS: %{mainspace}, US: %{userspace}"
     characters_added_userspace: Eklenen Karakter (kullanıcı)
     characters_added_draftspace: Eklenen Karakter (taslak)
-    my_assigned: 'Atanan:'
-    my_reviewing: 'İnceleme:'
+    my_assigned: "Atanan:"
+    my_reviewing: "İnceleme:"
     name: Ad
     none: Katılımcı yok.
     no_articles: Madde yok
     no_articles_wikidata: Öge yok
     no_revisions: Bu düzenleyici hiçbir revizyon yapmadı.
-    no_highlighting: Maddenin mevcut sürümünden hiçbir metin bu editöre atfedilmemiştir.
+    no_highlighting:
+      Maddenin mevcut sürümünden hiçbir metin bu editöre atfedilmemiştir.
       Düzenlemelerini görmek için sayfa geçmişini kontrol edin.
     number_of_articles:
-      one: '%{count} madde'
-      other: '%{count} madde'
+      one: "%{count} madde"
+      other: "%{count} madde"
     profile: profil
     recent_revisions: Son Düzenlemeler
     references_count: Referanslar Eklendi
-    remove_confirmation: '%{username} kullanıcısını çıkarmak istediğinize emin misiniz?'
+    remove_confirmation: "%{username} kullanıcısını çıkarmak istediğinize emin misiniz?"
     request_confirmation: Bu hesabı talep etmek istediğinizden emin misiniz?
     requested_account_status:
-      success_message: 'Başarılı: %{result_description}'
-      failure_message: 'Başarısızlık: %{result_description}'
-    revision_characters_and_views: 'Eklenen Karakter: %{characters}, Görüntüleme:
-      %{views}'
+      success_message: "Başarılı: %{result_description}"
+      failure_message: "Başarısızlık: %{result_description}"
+    revision_characters_and_views:
+      "Eklenen Karakter: %{characters}, Görüntüleme:
+      %{views}"
     revisions_doc: Bu editör tarafından son 7 günde yapılan düzenlemelerin sayısı
     references_doc: Bu editör tarafından eklenen veya kaldırılan referansların sayısı
     reviewers: İnceleyici(ler)
@@ -1320,13 +1474,14 @@ tr:
       assignments_and_exercises: Ödevler ve Alıştırmalar
       editor_overview: Editöre Genel Bakış
       exercises_and_trainings: Egzersizler ve Eğitimler
-      student_overview: '%{prefix}  Genel Bakış'
+      student_overview: "%{prefix}  Genel Bakış"
     total_uploads: Toplam Yükleme
     training_complete:
       other: bir=eğitim ile güncel
     training_complete_count:
       other: bir=%{count} güncel eğitim
-    training_doc: Teslim edilen tüm atanmış eğitim modüllerini tamamlayan editörler,
+    training_doc:
+      Teslim edilen tüm atanmış eğitim modüllerini tamamlayan editörler,
       eğitimleriyle birlikte güncel sayılır.
     training_incomplete: Eksik Eğitim
     training_modules_completed:
@@ -1346,7 +1501,8 @@ tr:
     useremail_placeholder: E-posta
     userpasscode_placeholder: Şifre Kodu
     words_added: Kelimeler Eklendi<br>(article | user | draft)
-    word_count_doc: Bir kullanıcının canlı maddelere, kullanıcı alanı sayfalarına
+    word_count_doc:
+      Bir kullanıcının canlı maddelere, kullanıcı alanı sayfalarına
       (deneme tahtaları) ve Taslak ad alanına eklediği toplam içerik miktarı tahminidir.
       Kelime sayısı tahminleri, kaldırdıklarından daha fazlasını ekleyen tüm düzenlemelerde
       sayfa boyutundaki değişikliklerin toplamından hesaplanır. Bu sayı, kullanıcının
@@ -1361,10 +1517,11 @@ tr:
       online_volunteer: Çevrimiçi Gönüllü
       wiki_ed_staff: Viki Eğitim Ekibi
   user_profiles:
-    student_impact: '%{username} tarafından öğrenci olarak yapılan toplam etki'
-    instructor_impact: '%{username} tarafından eğitmen olarak yapılan toplam etki'
-    instructors_student_impact: '%{username} kullanıcısının öğrencileri tarafından
-      yapılan toplam etki'
+    student_impact: "%{username} tarafından öğrenci olarak yapılan toplam etki"
+    instructor_impact: "%{username} tarafından eğitmen olarak yapılan toplam etki"
+    instructors_student_impact:
+      "%{username} kullanıcısının öğrencileri tarafından
+      yapılan toplam etki"
     disclaimer: Sağladığınız bilgiler herkese açık olarak görünecektir.
     bio_placeholder: Biyografinizi ekleyin (isteğe bağlı)
     location_placeholder: Konumuzunu ekleyin (isteğe bağlı)
@@ -1373,27 +1530,32 @@ tr:
   wiki_edits:
     notify_overdue:
       button_label: Öğrencilere gecikmiş eğitimi hatırlatın
-      confirm: Bu, gecikmiş eğitim alan tüm öğrencilerin mesaj sayfalarında bir hatırlatma
+      confirm:
+        Bu, gecikmiş eğitim alan tüm öğrencilerin mesaj sayfalarında bir hatırlatma
         yayınlayacaktır. Bunu yapmak istediğine emin misin?
       header: Gecikmiş bir eğitim göreviniz var.
       message: Lütfen tahsis edilmiş [%{link} eğitim modüllerini] tamamlayın
       summary: öğrenci eğitimi gecikmiş
   wizard:
     assignment_dates: Atama Tarihleri
-    assignment_description: Ödev zaman çizelgenizin başlangıç ve bitiş tarihlerini
+    assignment_description:
+      Ödev zaman çizelgenizin başlangıç ve bitiş tarihlerini
       seçin. Örneğin, Vikipedi projenize sınıfın ikinci haftasını başlatmak istiyorsanız
       ödev başlangıç tarihini kursun başlangıç tarihinden sonraki bir haftaya ayarlayın.
       Bu atama tasarım aracı, seçtiğiniz zaman çizelgesi tarihlerine uyan bir taslak
       zaman çizelgesi oluşturur.
     assignment_type: Öğrenciler Vikipedi ödevi için ne tamamlayacak?
-    calendar_instructions: Programa eklemek veya kaldırmak için tarihleri seçin (örneğin
+    calendar_instructions:
+      Programa eklemek veya kaldırmak için tarihleri seçin (örneğin
       tatiller, okul yok). Bu, kurs oluşturma aracının ödevlerinizi doğru bir şekilde
       yapmasını sağlar. Seçilmemiş, seçili ve tatil durumu arasında geçiş yapmak için
       tarihi tıklayın. Tatiliniz yoksa, aşağıdaki "Sınıf tatilleri yok"u işaretleyin.
-    confirm_dates: Kursunuz için kurs tarihlerini, haftalık toplantıları ve tatilleri
+    confirm_dates:
+      Kursunuz için kurs tarihlerini, haftalık toplantıları ve tatilleri
       seçin.
     course_dates: Kurs günleri
-    min_weeks: Bu ödev en az %{min_weeks} uygun haftalar gerektiriyor. Bu tür bir
+    min_weeks:
+      Bu ödev en az %{min_weeks} uygun haftalar gerektiriyor. Bu tür bir
       ödevi kullanmak istiyorsanız, lütfen ödevinizin başlangıç ve bitiş tarihlerini
       ayarlayın.
     select_one_option: Lütfen 1 seçenek seçin.
@@ -1402,7 +1564,8 @@ tr:
       other: Lütfen, %{count} veya daha fazla seçenek seçin.
     read_less: Az oku
     read_more: Daha fazla oku
-    review_selections: Lütfen aşağıdaki seçimlerinizi gözden geçirin. Bir seçimi düzenlemek
+    review_selections:
+      Lütfen aşağıdaki seçimlerinizi gözden geçirin. Bir seçimi düzenlemek
       için tıklayın. Bittiğinde sihirbazı bitirip zaman çizelgenizi oluşturmak için
       'Gönder' seçeneğine tıklayın.
     select_assignment: Zaman çizelgenize eklemek istediğiniz ödevi seçin.
@@ -1410,69 +1573,83 @@ tr:
   error:
     form_errors: Lütfen hatalar için formu kontrol edin.
     invalid_assignment: Geçersiz atama
-    invalid_date: 'Geçersiz tarih: %{key}'
+    invalid_date: "Geçersiz tarih: %{key}"
     invalid_file_format: Dosya kaydedilemedi. Lütfen bir PDF veya Word belgesi yükleyin.
     oauth_invalid: Vikipedi yetkinizin süresi doldu. Lütfen tekrar giriş yapın.
     start_date_before_end_date: Başlangıç tarihi bitiş tarihinden önce olmalıdır
     unsupported_browser:
       header: Desteklenmeyen tarayıcı. :-(
-      explanation: Kontrol paneliyle uyumlu olmayan bir tarayıcı kullanıyorsunuz.
+      explanation:
+        Kontrol paneliyle uyumlu olmayan bir tarayıcı kullanıyorsunuz.
         Bu site, Internet Explorer 11 veya sonraki sürümlerinde, Edge, Chrome ve Firefox'un
         son sürümlerinde ve diğer modern tarayıcılarda iyi çalışır.
   error_401:
     header: Yetkisiz. >:-(
-    explanation: Bu isteği yürütme yetkiniz yok. Bu bildirime yanlışlıkla ulaştığınızı
+    explanation:
+      Bu isteği yürütme yetkiniz yok. Bu bildirime yanlışlıkla ulaştığınızı
       düşünüyorsanız sorun hakkında bilgi vermek için lütfen bu gösterge panosundaki
       bakım görevlilerine başvurun.
-    json_explanation: Çıkış yapmışsınız gibi görünüyor. Lütfen sayfayı yenileyin,
+    json_explanation:
+      Çıkış yapmışsınız gibi görünüyor. Lütfen sayfayı yenileyin,
       giriş yapın ve tekrar deneyin.
   error_incorrect_passcode:
     header: Yanlış parola. :-(
-    explanation: Bu derse kayıt parolası doğru değildir. Lütfen bu derse kaydolmak
+    explanation:
+      Bu derse kayıt parolası doğru değildir. Lütfen bu derse kaydolmak
       için güncel parola kodunu eğitmenden isteyin. Aşağıdaki doğru şifreyi girerek
       tekrar deneyebilirsiniz.
   error_no_course:
-    explanation: '%{slug} gibi bir kurs mevcut değil.'
+    explanation: "%{slug} gibi bir kurs mevcut değil."
   error_404:
     header: Sayfa bulunamadı. :-(
-    explanation: Bu sayfa mevcut değil. Bir kurs için kontrol paneline ulaşmaya çalışıyorsanız
+    explanation:
+      Bu sayfa mevcut değil. Bir kurs için kontrol paneline ulaşmaya çalışıyorsanız
       bu kurs,  bu gösterge tablosuna kayıtlı olmayabilir.
   error_422:
     header: 422 — işlenemez varlık.  :-(
-    explanation: Bir şeyler yanlış gitti. Sorun hakkında bilgi vermek için lütfen
+    explanation:
+      Bir şeyler yanlış gitti. Sorun hakkında bilgi vermek için lütfen
       bu gösterge panosundaki bakım görevlilerine başvurun.
   error_500:
     header: 500 — İç Sunucu Hatası.  :-(
-    explanation: Bir şeyler yanlış gitti. Sorun hakkında bilgi vermek için lütfen
+    explanation:
+      Bir şeyler yanlış gitti. Sorun hakkında bilgi vermek için lütfen
       bu gösterge panosundaki bakım görevlilerine başvurun.
   login_error:
     header: Oturum Açma Hatası
-    explanation: Oturum açma sürecinde bir sorun varmış gibi görünüyor. (Bu konuda
+    explanation:
+      Oturum açma sürecinde bir sorun varmış gibi görünüyor. (Bu konuda
       üzgünüm! Böyle şeyler bazen olur.) Lütfen tekrar giriş yapmayı veya kayıt olmayı
       deneyin.
   survey:
-    login_message: Zaman ayırdığınız için teşekkürler. Ankete katılmak için lütfen
+    login_message:
+      Zaman ayırdığınız için teşekkürler. Ankete katılmak için lütfen
       Kontrol Paneli'nde oturum açın.
-    notification_explanation: Aşağı kontrol edilirse kullanıcılar tarayıcı içi bildirimlerin
+    notification_explanation:
+      Aşağı kontrol edilirse kullanıcılar tarayıcı içi bildirimlerin
       yanı sıra bildirim zamanlamasına göre de e-posta alırlar. Yapılmazsa yalnızca
       tarayıcı içi bildirimler gösterilecektir.
-    notification_schedule_explanation: Bildirimler, yukarıda etkinleştirildiyse tarayıcı
+    notification_schedule_explanation:
+      Bildirimler, yukarıda etkinleştirildiyse tarayıcı
       içi bildirimleri ve e-postaları içerir.
     follow_up_explanation: Herhangi bir izleme e-postası istenmiyorsa boş bırakın.
     email:
       headline: Selam %{username},
-      message_line1: Umarız harika bir dönem geçirdiniz! Wiki Eğitim, kaynaklarımızı
+      message_line1:
+        Umarız harika bir dönem geçirdiniz! Wiki Eğitim, kaynaklarımızı
         geliştirmek ve Vikipedi ödevlerinize destek olmak için geri bildiriminizi
         bekliyor. Yanıtınız mevcut tekliflerimizi iyileştirmek için çok önemli.
-      message_line2: Eğitmen anketimizi doldurmak için 15 dakikanızı harcamaya istekli
+      message_line2:
+        Eğitmen anketimizi doldurmak için 15 dakikanızı harcamaya istekli
         misiniz? Vikipedi ile öğretimi daha da faydalı ve değerli bir deneyim haline
         getirmemize yardımcı olmak için aşağıdaki butona tıklayın.
-      course: 'Kurs: %{course_info}'
+      course: "Kurs: %{course_info}"
       closing: İçtenlikle,
-      signed: '- Viki Eğitim ekibi'
+      signed: "- Viki Eğitim ekibi"
       link: Anketi Doldur
     follow_up:
-      message: Bu, %{course_title} adlı kursunuzun anketi hakkında bir hatırlatmadır.
+      message:
+        Bu, %{course_title} adlı kursunuzun anketi hakkında bir hatırlatmadır.
         Bu anketten aldığımız geri bildirimler, sizinki gibi Vikipedi ödevlerine verdiğimiz
         desteği geliştirmemize yardımcı oluyor.
   feedback_form_responses:
@@ -1518,7 +1695,8 @@ tr:
     searching_articles_wikidata: Öge Aranıyor
     search_placeholder: Anahtar kelimenizi girin
     show_options: Seçenekleri Göster
-    subheading_message: Haydi, üzerinde çalışmak için uygun bir Vikipedi makalesi
+    subheading_message:
+      Haydi, üzerinde çalışmak için uygun bir Vikipedi makalesi
       bulalım
     subheading_message_wikidata: Hadi, üzerinde çalışmak için bir Wikidata ögesi bulalım.
     submit: Gönder
@@ -1528,14 +1706,13 @@ tr:
   training_status:
     completed: Tamamlandı
     continue: Devam et
-    completed_at: 'Tamamlanma tarihi:'
+    completed_at: "Tamamlanma tarihi:"
     completion_time: Tamamlanma süresi
     late: Geç
     view: Görüntüle
     started: Başladı
     not_started: Başlatılmadı
-    due: '%{due_date} boyunca'
+    due: "%{due_date} boyunca"
     assignment_status: Eğitim Ataması (%{status})
   multi_wiki:
     selector_placeholder: Bir viki alanı yazmaya başla
-...
