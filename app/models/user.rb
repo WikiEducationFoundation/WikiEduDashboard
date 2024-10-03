@@ -180,6 +180,8 @@ class User < ApplicationRecord
       if course_user.any? { |cu| EDITING_ROLES.include?(cu.role) }
         # return the editing role
         return course_user.find { |cu| EDITING_ROLES.include?(cu.role) }.role
+      else
+        return course_user.order('role DESC').first.role
       end
     end
 
