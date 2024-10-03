@@ -172,8 +172,16 @@ class User < ApplicationRecord
     # Give admins the instructor permissions.
     return CoursesUsers::Roles::INSTRUCTOR_ROLE if admin?
 
-    course_user = course.courses_users.where(user_id: id).order('role DESC').first
-    return course_user.role unless course_user.nil?
+    # Get the courses_users record for the user in the course
+    course_user = course.courses_users.where(user_id: id)
+
+    if course_user.exists?
+      # check if the user has any editing role
+      if course_user.any? { |cu| EDITING_ROLES.include?(cu.role) }
+        # return the editing role
+        return course_user.find { |cu| EDITING_ROLES.include?(cu.role) }.role
+      end
+    end
 
     # User is in visitor role, if no other role found.
     CoursesUsers::Roles::VISITOR_ROLE

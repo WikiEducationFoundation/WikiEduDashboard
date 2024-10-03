@@ -140,6 +140,27 @@ describe User do
       permission = user.can_edit?(course)
       expect(permission).to be false
     end
+
+    it 'returns true for users with multiple roles, including an editing role' do
+      course = create(:course,
+                      id: 1)
+      user = create(:user,
+                    id: 1)
+      # User is an instructor
+      create(:courses_user,
+             course_id: 1,
+             user_id: 1,
+             role: 1) # instructor
+
+      # User is also a campus volunteer
+      create(:courses_user,
+             course_id: 1,
+             user_id: 1,
+             role: 2) # campus volunteer
+
+      permission = user.can_edit?(course)
+      expect(permission).to be true
+    end
   end
 
   describe 'email validation' do
