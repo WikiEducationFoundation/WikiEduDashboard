@@ -172,28 +172,23 @@ class User < ApplicationRecord
     # Give admins the instructor permissions.
     return CoursesUsers::Roles::INSTRUCTOR_ROLE if admin?
 
-    # Get the courses_users record for the user in the course
-    course_user = course.courses_users.where(user_id: id)
-
-    if course_user.exists?
-      # check if the user has any editing role
-      if course_user.any? { |cu| EDITING_ROLES.include?(cu.role) }
-        # return the editing role
-        return course_user.find { |cu| EDITING_ROLES.include?(cu.role) }.role
-      else
-        return course_user.order('role DESC').first.role
-      end
-    end
+    course_user = course.courses_users.where(user_id: id).order('role DESC').first
+    return course_user.role unless course_user.nil?
 
     # User is in visitor role, if no other role found.
     CoursesUsers::Roles::VISITOR_ROLE
+  end
+
+  def editing_role?(course)
+    # Check if the user has an editing role in the course
+    CoursesUsers.exists?(course:, user: self, role: EDITING_ROLES)
   end
 
   EDITING_ROLES = [CoursesUsers::Roles::INSTRUCTOR_ROLE,
                    CoursesUsers::Roles::WIKI_ED_STAFF_ROLE].freeze
   def can_edit?(course)
     return true if admin?
-    return true if EDITING_ROLES.include? role(course)
+    return true if editing_role?(course)
     return true if campaign_organizer?(course)
     false
   end
