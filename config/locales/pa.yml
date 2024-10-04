@@ -22,6 +22,8 @@ pa:
     edit: ਸੋਧੋ
     cancel: ਰੱਦ ਕਰੋ
     save: ਸੰਭਾਲੋ
+  metrics:
+    articles_created_generic: ਵਰਕੇ ਬਣਾਏ
   namespace:
     draft: ਖਰੜਾ
   recent_activity:
