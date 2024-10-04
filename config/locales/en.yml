@@ -1276,7 +1276,6 @@ en:
         form_label: Grant Special User privileges
         form_placeholder: Username
         confirm_add_special_user: "Add Special User"
-        _user: "Remove Special User privileges for"
         already_is: "%{username} is already an {position}!"
         elevate_success: "%{username} elevated to {position}."
       remove:
