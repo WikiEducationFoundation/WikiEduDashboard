@@ -41,6 +41,8 @@ const CourseDates = (props) => {
         blank
         isClearable={true}
         showTime={props.showTimeValues}
+        date_props={dateProps.timeline_start}
+        rerenderHoc={hasUpDatedDateProps}
       />
     );
     timelineEnd = (

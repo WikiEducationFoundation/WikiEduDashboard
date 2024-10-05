@@ -50,7 +50,7 @@ const CourseDateUtils = {
       },
       timeline_start: {
         minDate: startDate,
-        maxDate: parseISO(course.timeline_end)
+        maxDate: parseISO(course.end)
       },
       timeline_end: {
         minDate: parseISO(course.timeline_start),
