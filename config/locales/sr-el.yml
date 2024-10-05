@@ -11,7 +11,7 @@ sr-el:
   number:
     human:
       decimal_units:
-        format: "%n%u"
+        format: '%n%u'
         units:
           thousand: hilj.
           million: mil.
@@ -19,26 +19,23 @@ sr-el:
           trillion: trl.
           quadrillion: kvdrl.
   accessibility:
-    number_field:
-      Ovo je numeričko polje. Dugmići će, kako ih prikazuje većina pregledača,
+    number_field: Ovo je numeričko polje. Dugmići će, kako ih prikazuje većina pregledača,
       inkrementirati i dekrementirati unos.
   application:
     cancel: Otkaži
-    cookie_consent:
-      Ovaj sajt koristi kolačiće kako bi vas držao prijavljenim, i čuvao
+    cookie_consent: Ovaj sajt koristi kolačiće kako bi vas držao prijavljenim, i čuvao
       informacije vezanih za vaš nalog na Vikipediji.
     cookie_consent_acknowledge: Razumem.
     cookie_consent_see_more: Pogledaj više.
     create_accounts: Napravi naloge na Vikipediji
     dashboard: Kontrolna tabla Viki Ed-a
     documentation: Dokumentacija
-    error: "Došlo je do greške:"
+    error: 'Došlo je do greške:'
     explore: Istraži
     field_required: Ovo polje je obavezno.
     field_invalid_characters: Polje sadrži nevažeće znakove
     field_invalid_date: Ovo polje zahteva datum u formatu GGGG-MM-DD
-    field_invalid_date_time:
-      Kraj mora da bude nakon početka. (Časovi su u rasponu
+    field_invalid_date_time: Kraj mora da bude nakon početka. (Časovi su u rasponu
       od 0 do 23.)
     greeting2: Dobro došli!
     greeting_extended: Dobro došli na Vikipediju
@@ -54,7 +51,7 @@ sr-el:
     request_account: Zahtevaj nalog
     request_account_create: Otvori nalog
     search: postavi pitanje
-    search_results: "Rezultati za: „%{search_terms}”"
+    search_results: 'Rezultati za: „%{search_terms}”'
     no_results: Nema pronađenih rezultata za termin „%{query}”
     sign_up_extended: Otvori nalog sa Vikipedijom
     sign_up_wikipedia: Ili se prijavite na Vikipediju
@@ -71,32 +68,27 @@ sr-el:
     opt_no: ne
   dashboard:
     create_note: Kliknite na „Napravi kurs“ da biste napravili svoj prvi kurs.
-    create_preparation_note:
-      Budite sigurni da imate svoj akademski kalendar pri ruci
+    create_preparation_note: Budite sigurni da imate svoj akademski kalendar pri ruci
       pre nego što počnete; alat za dizajn zadataka će koristiti termine sastanaka
       Vašeg razreda/sekcije — uključujući raspuste i praznike — kako bi se rokovi
       uklopili u datume koje odaberete. Ne zaboravite, uvek možete da izmenite rokove
       kako bi odgovarali Vašim potrebama.
     explore_course_pages: Istražite stranice sa kursevima
     explore_examples: Istražite primere
-    join_note:
-      Kada primite lozinku od svog instruktora, kliknite na „Pronađi moj
+    join_note: Kada primite lozinku od svog instruktora, kliknite na „Pronađi moj
       kurs” da ga pronađete i priključite mu se.
     no_courses_instructor: Izgleda da još uvek nemate kurseve.
     no_courses_student: Izgleda da se još uvek niste priključili kursu.
     opt_out: Zahtevaj isključenje iz orijentacije
-    orientation_notice:
-      Pre nego što napravite kurs, prođite kroz orijentaciju koja
+    orientation_notice: Pre nego što napravite kurs, prođite kroz orijentaciju koja
       će Vam pomoći u počecima. (Potrebno je oko 30 minuta da je završite.)
     review_orientation: Pregled orijentacije
     start_orientation: Početak orijentacije
     blog_headline: Skorašnje vesti sa Viki obrazovanja
-    about_programs:
-      Ovaj sajt prati viki aktivnosti kroz programe - individualne događaje
+    about_programs: Ovaj sajt prati viki aktivnosti kroz programe - individualne događaje
       kao što su uređivački maratoni ili školski kursevi. Svaki program je deo jedne
       ili više kampanja, koje pružaju statistike programa.
-    about_creating_programs:
-      Ako započinjete jedan, nezavistan događaj, možete sada
+    about_creating_programs: Ako započinjete jedan, nezavistan događaj, možete sada
       da započnete program. Ako je događaj deo većeg događaja, onda napravite kampanju
       ili potražite neku postojeću. Ako pravite novu kampanju, onda možete da napravite
       program na početnoj stranici svoje kampanje.
@@ -104,8 +96,7 @@ sr-el:
     explore: Istraži
     log_in: Prijava sa Vikipedijom
     sign_up: Otvori nalog sa Vikipedijom
-    sign_up_help:
-      Da biste koristili kontrolnu tablu, morate da se prijavite preko
+    sign_up_help: Da biste koristili kontrolnu tablu, morate da se prijavite preko
       Vikipedije i date joj dozvolu za pristup svom nalogu. Možete se prijaviti sa
       postojećim nalogom na Vikipediji, ili napraviti novi.
   activity:
@@ -121,20 +112,17 @@ sr-el:
     previous: Prethodni
     article_title: Naslov članka
     assigned_to: Dodeljeno
-    character_doc:
-      Zbir znakova dodatih člancima od strane prijavljenih urednika između
+    character_doc: Zbir znakova dodatih člancima od strane prijavljenih urednika između
       početnog i krajnjeg datuma
-    cross_wiki_tracking:
-      Stranice glavnog imenskog prostora uređene između početnih
+    cross_wiki_tracking: Stranice glavnog imenskog prostora uređene između početnih
       i krajnjih datuma su navedene u nastavku. Kontrolna tabla računa doprinose sa
       matičnog vikija ovog programa, zajedno sa svim drugim vikijima za koje postoji
       zadatak ili dostupni članak za uređivanje.
     deleted: (obrisano)
-    does_not_exist:
-      Članak ne postoji. Napravite stranicu u Pesku i dodelite je sebi
+    does_not_exist: Članak ne postoji. Napravite stranicu u Pesku i dodelite je sebi
       da biste dobili predloge.
     edited: Uređeni članci
-    edited_by: "Izmenio/la:"
+    edited_by: 'Izmenio/la:'
     edited_mobile: Članci
     filter:
       wiki_all: Sve
@@ -151,27 +139,23 @@ sr-el:
     new: (novo)
     none: Ovaj kurs nije uredio nijedan članak.
     rating: Klasa
-    rating_doc:
-      Ocenjivanje članka su dodelili vikiprojekti na Vikipediji. Ove ocene
+    rating_doc: Ocenjivanje članka su dodelili vikiprojekti na Vikipediji. Ove ocene
       mogu da se odnose na mnogo starije verzije, tako da su samo grubi pokazatelj
       kvaliteta članka.
     rating_docs:
-      fa:
-        "%{class} (Sjajan članak) — Najveća Vikipedijina ocena, verovatno previše
-        zreo članak za glavni projekat novih urednika"
-      fl: "%{class} (Sjajan spisak) — najveća Vikipedijina ocena za spiskove"
-      a:
-        "%{class}-klasa — veoma dobro razvijen članak koji je možda previše zreo
-        članak za glavni projekat novih urednika"
-      ga:
-        "%{class} (Dobar članak) — dobro razvijen članak koji je možda previše zreo
-        članak za glavni projekat novih urednika"
-      b: "%{class}-klasa — srednje razvijen članak"
-      c: "%{class}-klasa — osrednje razvijen članak koji treba proširiti"
-      start: "%{class}-klasa — preliminarni članak sa dosta mogućnosti za popravak"
-      stub: "%{class}-klasa — kratak početak članka, kome treba još sadržaja"
-      list: "%{class}-klasa — spisak umesto konvencionalnog članka"
-      "?": Nema ocene — članak još nije ocenjen na Vikipedijinoj lestvici kvaliteta
+      fa: '%{class} (Sjajan članak) — Najveća Vikipedijina ocena, verovatno previše
+        zreo članak za glavni projekat novih urednika'
+      fl: '%{class} (Sjajan spisak) — najveća Vikipedijina ocena za spiskove'
+      a: '%{class}-klasa — veoma dobro razvijen članak koji je možda previše zreo
+        članak za glavni projekat novih urednika'
+      ga: '%{class} (Dobar članak) — dobro razvijen članak koji je možda previše zreo
+        članak za glavni projekat novih urednika'
+      b: '%{class}-klasa — srednje razvijen članak'
+      c: '%{class}-klasa — osrednje razvijen članak koji treba proširiti'
+      start: '%{class}-klasa — preliminarni članak sa dosta mogućnosti za popravak'
+      stub: '%{class}-klasa — kratak početak članka, kome treba još sadržaja'
+      list: '%{class}-klasa — spisak umesto konvencionalnog članka'
+      '?': Nema ocene — članak još nije ocenjen na Vikipedijinoj lestvici kvaliteta
       does_not_exist: Ovaj članak ne postoji na Vikipediji
     see_more: Pogledaj više
     show_cumulative_changes: Prikaži kumulativne promene
@@ -183,19 +167,16 @@ sr-el:
     tools: Alatke za procenu
     view: Vidi članak
     view_all: Vidi sve
-    view_doc:
-      Procenjeni prikazi svakog članka od njegovog prvog uređivanja, pomoću
+    view_doc: Procenjeni prikazi svakog članka od njegovog prvog uređivanja, pomoću
       najnovijeg ažuriranja statistike. Možete da koristite pageviews.toolforge.org
       da biste videli tačne brojeve.
     view_on_wiki: Pogledaj na vikiju
-    views_added:
-      "{{PLURAL:%{count}|Dodat %{count} novi pregled|Dodata %{count} nova
-      pregleda|Dodato %{count} novih pregleda}} za %{title}"
+    views_added: '{{PLURAL:%{count}|Dodat %{count} novi pregled|Dodata %{count} nova
+      pregleda|Dodato %{count} novih pregleda}} za %{title}'
     edit_size: Veličina izmene
     wiki: Viki
     wp10: Strukturna potpunost
-    wp10_doc:
-      Ocena „Strukturne potpunosti” predstavlja koliko dobro se članak uklapa
+    wp10_doc: Ocena „Strukturne potpunosti” predstavlja koliko dobro se članak uklapa
       u kalup zrelih Vikipedijinih članaka, na osnovu ORES servisa baziranog na mašinskom
       učenju (https://ores.wikimedia.org/). Ove ocene se računaju na osnovu veličine
       članka, broja referenci i vikiveza i ostalih osnovnih odlika teksta. Visoka
@@ -229,8 +210,7 @@ sr-el:
     reviewers: Pregledač(i)
     review_other: Dodeli pregled
     review_self: Pregledaj članak
-    review_tooltip:
-      Ovo je za članke koje planirate da pregledate ili o kojima želite
+    review_tooltip: Ovo je za članke koje planirate da pregledate ili o kojima želite
       da pružite povratne informacije.
     sandbox_draft_link: Nacrt peska
     select: Izaberi
@@ -246,8 +226,7 @@ sr-el:
     alert_type: Vrsta
     alert_user_id: Korisnik
     all_campaigns: Sve kampanje
-    already_exists:
-      Ta kampanja već postoji! Molimo pokušajte ponovo sa drugačijim
+    already_exists: Ta kampanja već postoji! Molimo pokušajte ponovo sa drugačijim
       naslovom.
     campaign: Kampanja
     campaigns: Kampanje
@@ -255,14 +234,11 @@ sr-el:
     campaign_not_updated: Kampanja ne može da se ažurira
     campaign_updated: Kampanja ažurirana
     created_at: Datum
-    confirm_campaign_deletion:
-      Da li ste sigurni da želite da obrišete kampanju pod
+    confirm_campaign_deletion: Da li ste sigurni da želite da obrišete kampanju pod
       nazivom „%{title}”? Ako je tako, upišite naziv kampanje da nastavite.
-    confirm_campaign_deletion_failed:
-      „%{title}” nije naslov ove kampanje. Kampanja
+    confirm_campaign_deletion_failed: „%{title}” nije naslov ove kampanje. Kampanja
       nije obrisana.
-    confirm_course_removal:
-      Da li ste sigurni da želite da uklonite „%{title}” iz
+    confirm_course_removal: Da li ste sigurni da želite da uklonite „%{title}” iz
       kampanje „%{campaign_title}”?
     course_already_removed: Naslov „%{title}” je već uklonjen iz kampanje „%{campaign_title}”
     course: Kurs
@@ -277,9 +253,8 @@ sr-el:
     data_editor_usernames: Korisnička imena urednika
     default_course_type: Podrazumevana vrsta kursa
     default_passcode: Podrazumevana lozinka
-    default_passcode_explanation:
-      "Podrazumevano, novi programi u ovoj kampanji treba
-      da imaju:"
+    default_passcode_explanation: 'Podrazumevano, novi programi u ovoj kampanji treba
+      da imaju:'
     description: Opis
     delete_campaign: Obriši ovu kampanju
     disable_account_requests: Onemogući zahtevanje naloga
@@ -288,11 +263,10 @@ sr-el:
     no_passcode: nema lozinke
     none: Ništa
     organizers: Organizatori
-    organizer_added: "%{user} je sada organizator kampanje „%{title}”"
-    organizer_removed: "%{user} više nije organizator kampanje „%{title}”"
+    organizer_added: '%{user} je sada organizator kampanje „%{title}”'
+    organizer_removed: '%{user} više nije organizator kampanje „%{title}”'
     program_template: Šablon programa
-    program_template_tooltip:
-      Kad organizator napravi program u ovoj kampanji, tekst
+    program_template_tooltip: Kad organizator napravi program u ovoj kampanji, tekst
       iz ove površi će biti iskorišćen kao opis na stranici programa
     random_passcode: slučajna lozinka
     requested_accounts: Zahtevani nalozi
@@ -318,18 +292,15 @@ sr-el:
   courses:
     school_system: Akademski sistem
     assignment_edits_enabled: Omogućeno dodeljivanje izmena
-    assignment_edits_enabled_tooltip:
-      Ako je omogućeno, radna tabla će slati šablon
+    assignment_edits_enabled_tooltip: Ako je omogućeno, radna tabla će slati šablon
       na stranici za razgovor za svaki dodeljeni članak.
     accounts_generation_enabled: Zahtevi za generisanje naloga su omogućeni
-    accounts_generation_explanation:
-      Ovo će omogućiti učesnicima da unesu svoju adresu
+    accounts_generation_explanation: Ovo će omogućiti učesnicima da unesu svoju adresu
       e-pošte i željeno korisničko ime, umesto da sami kreiraju nove naloge. Tada
       ćete moći da kreirate naloge sa ove kontrolne table i da ih istovremeno dodate
       kao učesnike programa. Da biste koristili ovu funkciju, trebalo bi da imate
       dozvolu za kreiranje naloga na matičnom vikiju za ovaj program.
-    accounts_generation_confirm_message:
-      Želite li zaista da omogućite zahteve za
+    accounts_generation_confirm_message: Želite li zaista da omogućite zahteve za
       naloge?
     activity: Aktivnost
     active_courses: Aktivni %{course_type}
@@ -354,27 +325,22 @@ sr-el:
       legend_class_not_meeting: Nema dogovorenih sastanaka
       select_meeting_days: Izaberite dane u nedelji kojima se sastaje Vaš razred/sekcija.
     cancel: Otkaži
-    character_doc:
-      Zbir znakova dodatih člancima u glavnom imenskom prostoru studentskih
+    character_doc: Zbir znakova dodatih člancima u glavnom imenskom prostoru studentskih
       kurseva tokom trajanja kursa
-    campaigns: "Kampanje:"
-    campaign_articles: "%{title} Članci"
-    campaign_courses: "%{title} kursevi"
+    campaigns: 'Kampanje:'
+    campaign_articles: '%{title} Članci'
+    campaign_courses: '%{title} kursevi'
     campaign_select: Izaberi kampanju
-    campaign_users: "%{title} Urednici"
-    confirm_course_deletion:
-      Da li ste sigurni da želite da izbrišete kurs pod nazivom
+    campaign_users: '%{title} Urednici'
+    confirm_course_deletion: Da li ste sigurni da želite da izbrišete kurs pod nazivom
       %{title}? Ako je tako, upišite naziv kursa da biste nastavili.
-    confirm_course_deletion_failed:
-      '"%{title}" nije naslov ovog kursa. Kurs još nije
+    confirm_course_deletion_failed: '"%{title}" nije naslov ovog kursa. Kurs još nije
       izbrisan.'
-    confirm_manual_update:
-      Želite li zaista da pokrenete ručno ažuriranje? Najnovije
+    confirm_manual_update: Želite li zaista da pokrenete ručno ažuriranje? Najnovije
       izmene će se uvesti, a zatim će se stranica ponovo učitati. Ovaj proces može
       potrajati neko vreme.
     course: Kurs
-    course_dates_calendar_instructions:
-      Odaberite datume kako biste ih dodali ili
+    course_dates_calendar_instructions: Odaberite datume kako biste ih dodali ili
       uklonili sa rasporeda (npr. praznici, raspusti). Kliknite na datum da biste
       promenili stanje između neselektovanog, selektovanog i prazničnog. Datumi aktivnosti
       na kursu će biti promenjeni kako bi se uzele u obzir nedelje kada nema zakazanih
@@ -384,8 +350,7 @@ sr-el:
     courses_taught: Predavani kursevi
     creation_date: Datum kreiranja
     creator:
-      already_exists:
-        Ovaj kurs već postoji. Razmotrite promenu imena, škole ili polugodišta
+      already_exists: Ovaj kurs već postoji. Razmotrite promenu imena, škole ili polugodišta
         kako bi bio jedinstven.
       assignment_end: Kraj zadatka
       assignment_end_placeholder: GGGG-MM-DD
@@ -395,21 +360,18 @@ sr-el:
       choose_clone: Odaberite kurs za kloniranje.
       clone_previous: Kloniraj prethodni krus
       clone_this: Kloniraj ovaj kurs
-      cloned_course_calendar_instructions:
-        Odaberite datume kako biste ih dodali ili
+      cloned_course_calendar_instructions: Odaberite datume kako biste ih dodali ili
         uklonili sa rasporeda (npr. praznici, raspusti). Kliknite na datum da biste
         promenili stanje između neselektovanog, selektovanog i prazničnog. Ako nemate
         praznike, odaberite opciju „Nemam praznike”. Klonirana vremenska linija će
         automatski podesiti datume kako bi uzela u obzir nedelje koje nemaju zakazane
         sastanke.
       clone_successful: Ažuriranje informacija za kopiran kurs
-      clone_successful_details:
-        Vaš kurs je kloniran, uključujući elemente vremenske
+      clone_successful_details: Vaš kurs je kloniran, uključujući elemente vremenske
         linije (nedelje i blokovi). Ne zaboravite da dodate datume koji nisu preneti.
         Da li se još nešto promenilo oko Vašeg kursa? Slobodno ažurirajte to sada.
       course_description: Opis kursa
-      course_description_placeholder:
-        Šta je pokriveno tokom vašeg kursa, i šta će
+      course_description_placeholder: Šta je pokriveno tokom vašeg kursa, i šta će
         učenici raditi na Vikipediji? Molimo vas, ukucajte dovoljno detalja da biste
         ostalim urednicima Vikipedije predstavili doprinose koje će vaši učenici praviti.
       course_private: Privatni program (vidljiv samo od strane administratora i facilitatora)
@@ -426,12 +388,10 @@ sr-el:
       end_date_placeholder: GGGG-MM-DD
       expected_number: Očekivani broj učenika
       find: Pronađi svoj kurs
-      intro:
-        Naziv, škola i polugodište kreiraju adresu stranice Vašeg kursa i ne
+      intro: Naziv, škola i polugodište kreiraju adresu stranice Vašeg kursa i ne
         mogu se promeniti. Sve ostalo možete promeniti kasnije. Kliknite „Napravi
         moj kurs!” da biste započeli gradnju vremenske linije za Vaš zadatak na Vikipediji.
-      new_or_clone:
-        Sada možete da kreirate novi kurs pomoću čarobnjaka za pravljenje
+      new_or_clone: Sada možete da kreirate novi kurs pomoću čarobnjaka za pravljenje
         zadataka. Ako imate prilagođenu vremensku liniju sa prethodnog kursa koju
         želite da ponovo koristite, možete je kopirati i potom možete uvesti nove
         datume. (Ukoliko niste značajno prilagodili vremensku liniju ranije, preporučujemo
@@ -441,12 +401,11 @@ sr-el:
       no_class_holidays: Nemam praznika
       role_description: Vaša uloga na kursu
       role_description_options:
-        - Instruktor
-        - Asistent
+      - Instruktor
+      - Asistent
       role_description_placeholder: Instruktor, asistent itd.
       separate_event_dates: Navedite zasebna vremena početka/završetka događaja
-      separate_event_dates_info:
-        Statistike aktivnosti za ovaj program će se pratiti
+      separate_event_dates_info: Statistike aktivnosti za ovaj program će se pratiti
         na osnovu gore navedenih datuma i vremena, ali možete da odredite odvojena
         vremena kada događaj ili program počinje i kada se  završava (na primer, tako
         da učesnici znaju kada treba da se pojave negde i do kada se očekuje da budu
@@ -455,14 +414,12 @@ sr-el:
       start_date: Datum početka
       start_date_placeholder: GGGG-MM-DD
       subject: Predmet
-      update_scheduled:
-        Ažuriranje je zakazano. Podaci će se ažurirati zajedno sa
+      update_scheduled: Ažuriranje je zakazano. Podaci će se ažurirati zajedno sa
         drugim trenutnim programima tokom sledećeg ciklusa ažuriranja. Za ovo je obično
         potrebno nekoliko sati.
     current: Trenutni kursevi
     data_articles: Podaci članaka
-    data_articles_info:
-      Podaci o člancima uključuju broj izmena na svakoj stranici,
+    data_articles_info: Podaci o člancima uključuju broj izmena na svakoj stranici,
       koje stranice su nove i ukupan broj prikaza stranice. Ove vrednosti za prikaz
       stranice mogu da budu zastarele za kurseve koji su već završeni, tako da je
       uključen link do alata Zadužbine Vikimedija koji prikazuje posećenost strana.
@@ -470,22 +427,18 @@ sr-el:
     data_overview: Pregled podataka
     data_overview_info: Podaci o pregledu pružaju kumulativne statistike za ceo projekat.
     data_edits: Podaci o izmenama
-    data_edits_info:
-      Podaci o izmenama prikazuju detalje za svaku izmenu napravljenu
+    data_edits_info: Podaci o izmenama prikazuju detalje za svaku izmenu napravljenu
       tokom projekta.
     data_students: Podaci o urednicima
-    data_students_info:
-      Podaci o urednicima navode sve upisane urednike, koliko su
+    data_students_info: Podaci o urednicima navode sve upisane urednike, koliko su
       uređivali i da li su registrovali svoje naloge tokom projekta.
     data_uploads: Podaci o otpremanju na Vikimedijinu ostavu
     data_revisions: Podaci o izmenama
-    data_uploads_info:
-      Podaci o otpremanju na Ostavu prikazuju ime i korišćenje svih
+    data_uploads_info: Podaci o otpremanju na Ostavu prikazuju ime i korišćenje svih
       otpremljenih medija.
     delete_course: Obriši kurs
     delete_suggestion: Obriši
-    delete_course_instructions:
-      Možete obrisati ovu stranicu ako se pre toga uklone
+    delete_course_instructions: Možete obrisati ovu stranicu ako se pre toga uklone
       sve kampanje.
     dismiss_survey: Odbaci
     dismiss_survey_confirm: Da li ste sigurni da želite da odbacite ovu anketu?
@@ -500,15 +453,14 @@ sr-el:
     enrollment: Dodaj/ukloni studente
     courses_enrolled: Upisani kursevi
     error:
-      exists:
-        Ovaj kurs već postoji! Molimo da pokušate ponovo s drugim naslovom,
+      exists: Ovaj kurs već postoji! Molimo da pokušate ponovo s drugim naslovom,
         školom ili vremenom trajanja.
       user_exists: Izvinjavamo se, %{username} ne postoji među postojećim korisnicima.
       invalid_language_or_project: Pogrešan jezik/projekat
       invalid_slug: Prazna škola/naslov za kurs.
       duplicate_slug: Već postoji program sa nazivom „%{slug}”.
     expected_students: Očekivani studenti
-    features_feedback: "Automatizovani predlozi:"
+    features_feedback: 'Automatizovani predlozi:'
     feedback: Povratne informacije
     feedback_loading: Sačekajte dok se predlozi učitavaju.
     gradeables_none: Ovaj kurs nema zadatke za ocenjivanje.
@@ -518,27 +470,23 @@ sr-el:
       one: instruktor
       other: instruktori
     instructors: Nastavnici
-    invitation:
-      Pozvani ste da se priključite kursu %{title}. Da biste se priključili
+    invitation: Pozvani ste da se priključite kursu %{title}. Da biste se priključili
       kursu, morate da se prijavite sa svojim nalogom na Vikipediji.
-    invitation_username_advice:
-      Ako još uvek nemate nalog na Vikipediji, možete da
+    invitation_username_advice: Ako još uvek nemate nalog na Vikipediji, možete da
       se registrujete. Vaše korisničko ime može biti anonimno ili onoliko lično koliko
       Vi to želite. (Deljenje jednog naloga od strane više korisnika nije dozvoljeno)
     join: Priključi se
     join_course: Priključi se kursu
     join_course_as_volunteer: Volonter za pomoć
     join_prompt: Priključi se kursu '%{title}'?
-    join_successful:
-      Uspešno ste se priključili kursu %{title}. Kontrolna tabla će
+    join_successful: Uspešno ste se priključili kursu %{title}. Kontrolna tabla će
       automatski pratiti vaš doprinos s periodičnim ažuriranjem. Pogledajte kasnije
       kako biste videli šta ste učinili!
     join_failed: Upisivanje nije uspelo.
     join_failure_details:
       cannot_join_twice: Korisnici ne mogu da se priljuče dva puta istom kursu.
       not_yet_approved: Ovaj kurs još uvek nije odobren za upis.
-    join_details:
-      Da biste se priključili ovom kursu, potrebna Vam je lozinka (ili
+    join_details: Da biste se priključili ovom kursu, potrebna Vam je lozinka (ili
       veza za upis koji uključuje lozinku) od instruktora. Ako je još niste dobili,
       kontaktirajte Vašeg instruktora.
     join_no_passcode: Da li ste sigurni da želite da se pridružite kursu?
@@ -553,11 +501,9 @@ sr-el:
     new_account_check_username: Proveri dostupnost korisničkog imena
     new_account_email: Imejl adresa
     new_account_email_placeholder: ime@example.org
-    new_account_info:
-      Da biste zatražili nalog, upišite svoju adresu e-pošte i željeno
+    new_account_info: Da biste zatražili nalog, upišite svoju adresu e-pošte i željeno
       korisničko ime. Lozinka će vam biti poslata pošto nalog kreira jedan od facilitatora.
-    new_account_info_admin:
-      Da biste kreirali nalog za novog urednika, unesit imejl
+    new_account_info_admin: Da biste kreirali nalog za novog urednika, unesit imejl
       adresu i željeno korisničko ime. Lozinka će biti poslata uredniku kada se kreira
       nalog.
     new_account_username: Željeno korisničko ime
@@ -565,19 +511,16 @@ sr-el:
     new_account_username_placeholder: Viki urednik 123
     new_account_username_taken: Ovo korisničko ime je zauzeto. Molimo odaberite drugo.
     new_account_submit: Zahtevaj nalog
-    new_account_submitted:
-      Vaš zahtev za nalog je podnet. Facilitator za ovaj program
+    new_account_submitted: Vaš zahtev za nalog je podnet. Facilitator za ovaj program
       sada može da završi kreiranje vašeg naloga. Kada se nalog kreira, dobićete lozinku
       za novi nalog na imejl adresu.
-    new_account_submitted_admin:
-      Vaš zahtev za nalog je napravljen. Obavestite svoje
+    new_account_submitted_admin: Vaš zahtev za nalog je napravljen. Obavestite svoje
       učenike da provere svoje prijemno sanduče imejla da bi dobili novu lozinku
     nocourses: Ne učestvujete ni u jednom kursu.
     nocourse: nije učestvovao ni u jednom kursu.
     none: Nema
     not_permitted: Nije vam dozvoljeno da uređujete ovaj kurs.
-    notify_untrained_confirmation:
-      Ovo će postaviti podsetnik na strane za razgovor
+    notify_untrained_confirmation: Ovo će postaviti podsetnik na strane za razgovor
       svim studentima koji kasne sa završavanjem zadatih modula za trening. Da li
       ste sigurni da želite ovo da uradite?
     no_available_actions: Nema dostupnih aktivnosti
@@ -585,21 +528,19 @@ sr-el:
     overview: Početna
     passcode: Lozinka
     passcode_none: Nema lozinke
-    passcode_prompt: "Unesite lozinku za pristup:"
+    passcode_prompt: 'Unesite lozinku za pristup:'
     please_log_in: Prijavite se.
     private: Privatno
-    published:
-      "Vaš kurs je objavljen! Studenti se mogu upisati tako što će posetiti
-      sledeću adresu:"
-    rating_feedback: "Predviđena ocena za članak je:"
+    published: 'Vaš kurs je objavljen! Studenti se mogu upisati tako što će posetiti
+      sledeću adresu:'
+    rating_feedback: 'Predviđena ocena za članak je:'
     requested_accounts: Zahtevani nalozi
     requested_accounts_alert_view: Pregled
-    review_timeline:
-      "Sada pregledajte vremenski okvir za izradu zadatka, prilagođavajući
+    review_timeline: 'Sada pregledajte vremenski okvir za izradu zadatka, prilagođavajući
       ga tako da odgovara vašim potrebama. Ako ste zadovoljni, možete ga poslati na
       odobrenje saradnicima na Obrazovnom programu Vikimedije. Nakon odobrenja, dobićete
       URL za upis koji studenti mogu da koriste da bi se pridružili kursu i pristupili
-      obukama. (Napomena: i dalje ćete moći da napravite naknadne izmene)"
+      obukama. (Napomena: i dalje ćete moći da napravite naknadne izmene)'
     revisions_doc: Broj uređivanja u proteklih %{timeframe} dana.
     revisions_none: Ovaj kurs nema nedavne uređivačke aktivnosti na Vikipediji.
     school: Škola
@@ -609,72 +550,60 @@ sr-el:
     start_typing: Započni kucanje
     students: Studenti
     students_taught: Studenti podučavaju
-    students_count: "# Studenti"
+    students_count: '# Studenti'
     student_editors: Studenti urednici
     students_none: Kurs nema nijednog studenta.
     students_short: Studenti
-    submitted_admin:
-      Ovaj kurs je autor istog poslao na potvrdu. Da biste ga potvrdili,
+    submitted_admin: Ovaj kurs je autor istog poslao na potvrdu. Da biste ga potvrdili,
       dodajte ga u kampanju na stranici Pregleda.
     submitted_and_pending_heading: Poslato i čeka odobrenje
     submitted_heading: Podneti kursevi
-    submitted_note:
-      Vaš kurs je podnet. Osoblje Viki edukacije će ga pregledati i
+    submitted_note: Vaš kurs je podnet. Osoblje Viki edukacije će ga pregledati i
       stupiti u kontakt sa bilo kojim pitanjima.
-    suggestions_feedback:
-      Da li imate predloge za poboljšanje ove alatke? Ukoliko
+    suggestions_feedback: Da li imate predloge za poboljšanje ove alatke? Ukoliko
       ih imate, obavestite nas!
     suggestions_sending: Slanje povratnih informacija…
     suggestions_sent: Povratna informacija je poslata. Zahvaljujemo vam se!
-    suggestions_failed:
-      Trenutno nije moguće poslatu povratnu informaciju. Molimo
+    suggestions_failed: Trenutno nije moguće poslatu povratnu informaciju. Molimo
       vas da pokušate kasnije.
     user_role: Uloga
     course_details: Detalji kursa
-    course_submitted:
-      Poslati status se koristi za kurseve Obrazovnih programa u kojima
+    course_submitted: Poslati status se koristi za kurseve Obrazovnih programa u kojima
       plan rada mora da se odobri pre početka projekta. To je relevantno samo za tip
       kursa Program učionice.
     subject: Predmet
     submitted: Poslato
     tag_select: Izaberite ili napravite oznaku
-    tags: "Oznake:"
+    tags: 'Oznake:'
     term: Polugodište
     timeline: Detalji zadatka
     timeline_enabled: Hronologija je omogućena
     timeline_link: Vremenska linija
-    timeline_tooltip:
-      Omogućavanje vremenskog okvira će vam omogućiti da odrećujete
+    timeline_tooltip: Omogućavanje vremenskog okvira će vam omogućiti da odrećujete
       nedeljne aktivnosti i dodeljujete module za obuku. To je korisno za kurseve
       Obrazovnog programa i druge dugotrajne, visoko strukturirane programe.
     timeline_nav: Idi na hronologiju
-    time_zone_message:
-      Početno i krajnje vreme su prikazani u Vašoj lokalnoj vremenskoj
+    time_zone_message: Početno i krajnje vreme su prikazani u Vašoj lokalnoj vremenskoj
       zoni.
     title: Naslov
-    training_due:
-      Modul za treniranje „%{title}” je dodeen za ovaj kurs i rok je bio
+    training_due: Modul za treniranje „%{title}” je dodeen za ovaj kurs i rok je bio
       %{date}.
     training_nav: Idi na obuku
-    training_overdue:
-      Modul za treniranje „%{title}” je dodeen za ovaj kurs i rok
+    training_overdue: Modul za treniranje „%{title}” je dodeen za ovaj kurs i rok
       je bio %{date}.
     unsubmitted: Nepodneti kursevi
     untrained: Netrenirano
     update_stats: Ažuriranje statistika
-    uploads_none:
-      Ovaj razred nije dodao nikakve slike ili druge medijske datoteke
+    uploads_none: Ovaj razred nije dodao nikakve slike ili druge medijske datoteke
       na Ostavu.
-    user_uploads_none:
-      Ovaj korisnik nije otpremio nijednu sliku ili drugu medijsku
+    user_uploads_none: Ovaj korisnik nije otpremio nijednu sliku ili drugu medijsku
       datoteku na Vikimedijinu ostavu.
     user_recent_uploads: Skorašnja otpremanja
-    user_suggestions: "Predlozi korisnika:"
+    user_suggestions: 'Predlozi korisnika:'
     user_suggestions_prompt: Vaši predlozi za urednike članka
     view_other: Pogledaj ostale kampanje
     view: Vidi kurs
-    view_doc:
-      Procenjeni broj pregleda članaka koji su uređeni od strane upisanih
+    view_doc: Procenjeni broj pregleda članaka koji su uređeni od strane upisanih
       urednika od kada je urednik prvi put uredio svaki članak
     view_page: Pogledaj stranicu kursa
     view_wiki: Vidi na Vikipediji
@@ -686,15 +615,13 @@ sr-el:
       Po podnošenju, ovaj kurs će automatski biti postavljen na Vikipediju sa Vašim korisničkim nalogom. Nakon toga, nove izmene na vremenskoj liniji će biti prenete na Vikipediju.
       Da li ste sigurni da ovo želite da uradite?
     wiki_edits_enabled: Viki izmene su omogućene
-    wiki_edits_enabled_tooltip:
-      Ako su omogućene Viki izmene, onda će za ovaj program
+    wiki_edits_enabled_tooltip: Ako su omogućene Viki izmene, onda će za ovaj program
       biti napravljene automatske izmene na Vikiju. Onemogućite Viki izmene ako ne
       želite da se šabloni dodaju autimatski na korisničke stranice, stranice razgovora
       dodeljenih članaka itd.
     wiki_staff: Osoblje Viki Ed-a
     withdrawn: Nisam izvršio zadatak
-    word_count_doc:
-      Procena broja reči koje su studenti kursa dodali u članke iz glavnog
+    word_count_doc: Procena broja reči koje su studenti kursa dodali u članke iz glavnog
       imenskog prostora tokom trajanja kursa
     yourcourses: Vaši kursevi
     survey:
@@ -714,8 +641,8 @@ sr-el:
     course: Program
     courses: Programi
     courses_taught: Predavani programi
-    campaigns: "Kampanje:"
-    campaign_courses: "%{title} programi"
+    campaigns: 'Kampanje:'
+    campaign_courses: '%{title} programi'
     creator:
       assignment_end: Kraj događaja
       assignment_end_placeholder: GGGG-MM-DD
@@ -726,15 +653,12 @@ sr-el:
       clone_previous: Kloniraj prethodni program
       clone_this: Kloniraj ovaj program
       clone_successful: Program je uspešno kloniran
-      clone_successful_details:
-        Vaš program je kloniran. Kliknite na dolenavedeno
+      clone_successful_details: Vaš program je kloniran. Kliknite na dolenavedeno
         dugme „Sačuvaj” da biste ga dovršili.
-      course_when:
-        Dodajte nešto u polje 'Kada' (na primer, mesec i godinu) da biste
+      course_when: Dodajte nešto u polje 'Kada' (na primer, mesec i godinu) da biste
         ga razlikovali od originala.
       course_description: Opis projekta
-      course_description_placeholder:
-        Šta je ovaj program, i šta će učesnici raditi
+      course_description_placeholder: Šta je ovaj program, i šta će učesnici raditi
         na vikiju? Molimo da u opis uključite dovoljno detalja kako biste drugim urednicima
         objasnili kakve će doprinose učesnici praviti.
       course_school: Ustanova
@@ -747,15 +671,13 @@ sr-el:
       create_short: Napravi program
       end_date: Kraj praćenja aktivnosti
       find: Pronađi program
-      intro:
-        Naziv programa i institucija formiraju URL programa. Matični viki je
+      intro: Naziv programa i institucija formiraju URL programa. Matični viki je
         glavni viki u kome će učesnici raditi, a izmene na tom vikiju će biti praćene
         po podrazumevanoj vrednosti. Ako vaš program obuhvata više jezika ili projekata,
         doprinosi će takođe biti praćeni za bilo koji viki koji ima 'Dostupan članak'
         ili 'Članak za dodeljivanje' za taj viki. Kliknite na "Kreiraj moj program!"
         da počnete da pravite stranicu za svoj viki program.
-      new_or_clone:
-        Kreirajte novi program ili koristite opciju 'klon' da biste kopirali
+      new_or_clone: Kreirajte novi program ili koristite opciju 'klon' da biste kopirali
         drugi program u kome ste učestvovali.
       participate_in_campaign: Učestvujte u kampanji
       save_cloned_course: Sačuvaj
@@ -770,15 +692,13 @@ sr-el:
     expected_students: Očekivani urednici
     instructors: Facilitatori
     join_course: Pridruži se programu
-    join_details:
-      Da biste se pridružili ovom programu, morate da nabavite lozinku
+    join_details: Da biste se pridružili ovom programu, morate da nabavite lozinku
       (ili vezu koja uključuje lozinku) od facilitatora.
     leave_course: Napusti program
     milestones_none: Ovaj projekat trenutno nema nijedan miljokaz.
     not_permitted: Nije vam dozvoljeno da uređujete ovaj program.
-    published:
-      "Ovaj projekat je objavljen! Urednici mogu da se upišu tako što će
-      posetiti sledeći URL:"
+    published: 'Ovaj projekat je objavljen! Urednici mogu da se upišu tako što će
+      posetiti sledeći URL:'
     request_accounts: Zahtevaj naloge
     revisions_none: Ovaj projekat ne sadrži nedavnu uređivačku aktivnost.
     school: Ustanova
@@ -793,16 +713,13 @@ sr-el:
     students_count: Broj učesnika
     term: Kada
     unsubmitted: Neposlati programi
-    uploads_none:
-      Ovaj projekat nije dodao nikakve slike ili druge medijske datoteke
+    uploads_none: Ovaj projekat nije dodao nikakve slike ili druge medijske datoteke
       na Ostavu.
-    user_uploads_none:
-      Odabrani urednici nisu otpremili nikakve fotografije ili druge
+    user_uploads_none: Odabrani urednici nisu otpremili nikakve fotografije ili druge
       medijske datoteke u ovaj projekat.
     view_other: Pogledaj ostale kampanje
     view_page: Pogledaj stranicu programa
-    word_count_doc:
-      Procena broja reči koje su urednici programa dodali u članke iz
+    word_count_doc: Procena broja reči koje su urednici programa dodali u članke iz
       glavnog imenskog prostora tokom trajanja programa
     yourcourses: Tvoji programi
   editable:
@@ -812,8 +729,7 @@ sr-el:
     edit_description: Izmeni opis
     edit_details: Izmeni detalje
     edit_template: Uredi šablon
-    rename_confirmation:
-      Polja kursa koja formiraju URL su promenjena. Ovo će promeniti
+    rename_confirmation: Polja kursa koja formiraju URL su promenjena. Ovo će promeniti
       URL adresu i prekinuti sve dolazne veze. Želite li zaista da učitite to?
   metrics:
     label: Aktivnost kursa
@@ -830,7 +746,7 @@ sr-el:
     char: Dodato znakova
     date_time: Datum/vreme
     edit_count_description: Ukupno izmena
-    per_user: "%{number}/korisnik"
+    per_user: '%{number}/korisnik'
     revisions: Skorašnje izmene
     references_count: Dodato referenci
     tags: Oznake
@@ -865,11 +781,11 @@ sr-el:
     possible_plagiarism: Moguć plagijat
     recent_edits: Skorašnje izmene
     recent_uploads: Skorašnje otpreme
-    revision_author: "Autor izmene:"
+    revision_author: 'Autor izmene:'
     revision_datetime: Datum/vreme izmene
     revision_score: Ocena izmene
     show_courses: Prikaži samo moje kurseve
-    uploaded_by: "Otpremio:"
+    uploaded_by: 'Otpremio:'
     usage_count: Broj upotreba
   revisions:
     chars_added: Dodato znakova
@@ -880,7 +796,7 @@ sr-el:
     diff_show: Prikaži
     diff_hide: Sakrij
     edit_time_span: Izmene koje su se desile u periodu %{first_time} — %{last_time}
-    edited_by: "Izmenio/la:"
+    edited_by: 'Izmenio/la:'
     edited_on: Izmenjeno na datum %{edit_date}
     loading: Učitavanje izmene…
     none: Ovaj kurs ne sadrži nedavnu uređivačku aktivnost.
@@ -898,109 +814,91 @@ sr-el:
         form_placeholder: Korisničko ime
         confirm_add_admin: Dodeli administratorska prava
         confirm_remove_admin: Ukloni administratorske privilegije za
-        already_admin: "%{username} je već administrator!"
-        elevate_success: "%{username} je unapređen u administratora."
+        already_admin: '%{username} je već administrator!'
+        elevate_success: '%{username} je unapređen u administratora.'
       remove:
         revoke_button: Opozovi administratorska prava
         revoke_button_confirm: Opozovi administratorska prava uredniku %{username}
         revoking_button_working: Ukidanje…
-        already_instructor: "%{username} je već instruktor!"
-        demote_success: "%{username} je sada instruktor."
+        already_instructor: '%{username} je već instruktor!'
+        demote_success: '%{username} je sada instruktor.'
         no_super_admin: Ne možete da opozovete administratorski status super administratoru.
     special_users:
       new:
         form_label: Dodeli privilegije „Poseban korisnik”
         form_placeholder: Korisničko ime
         confirm_add_special_user: Dodaj privilegije „Poseban korisnik”
-        _user: Ukloni privilegije „Poseban korisnik” za
-        already_is: "%{username} je već {position}!"
-        elevate_success: "%{username} je unapređen/a  u {position}."
+        already_is: '%{username} je već {position}!'
+        elevate_success: '%{username} je unapređen/a  u {position}.'
       remove:
         revoke_button: Opozovi privilegije „Poseban korisnik”
         revoke_button_confirm: Ukloni prava „Poseban korisnik” korisniku %{username}
         revoking_button_working: Opozivanje…
         already_is_not: Korisnik %{username} nije poseban!
-        demote_success: "%{username} je sada samo korisnik."
+        demote_success: '%{username} je sada samo korisnik.'
   suggestions:
     editing: Uređivanje predloga
     suggestion_docs:
-      fa:
-        Nije potrebno nijedno dodatno dodavanje sadržaja ako nema novih dostupnih
+      fa: Nije potrebno nijedno dodatno dodavanje sadržaja ako nema novih dostupnih
         informacija.
-      a:
-        Stručno znanje može biti potrebno za doterivanje članka i možda treba poraditi
+      a: Stručno znanje može biti potrebno za doterivanje članka i možda treba poraditi
         na stilu kojim je članak pisan. Pregledanje članka od strane drugih upisanih
         urednika na ovaj kurs takođe može biti od koristi.
-      ga:
-        Nekada je potrebno izmeniti stil teksta; poređenje sa postojećim člankom
+      ga: Nekada je potrebno izmeniti stil teksta; poređenje sa postojećim člankom
         na sličnu temu može da pomogne u shvatanju koji deo članka je slab ili nedostaje.
-      bplus:
-        Može se poboljšati pomoću iskusnijih urednika kako bi se procenilo gde
+      bplus: Može se poboljšati pomoću iskusnijih urednika kako bi se procenilo gde
         još uvek nedostaju ilustracije, istorijska pozadina i druge reference. Razmislite
         o pregledanju sadržaja od strane drugih urednika u grupi ili nominovanju za
         status dobrog članka. Ako članak nije već u potpunosti u skladu sa pravilima
         uređivanja, sada je vreme da to ispravite.
-      b:
-        Potrebno je napraviti nekoliko ispravki u vezi sadržaja i stila. Znanje iskusnijih
+      b: Potrebno je napraviti nekoliko ispravki u vezi sadržaja i stila. Znanje iskusnijih
         urednika može da vam bude od koristi. Uključivanje pratećih materijala treba
         uzeti u obzir ukoliko je to potrebno, a trebalo bi proveriti i da li je sadržaj
         napisan u skladu sa Priručnikom o stilu pisanja i srodnim smernicama.
-      c:
-        Potrebno je znatno veće uređivanje da biste zatvorili praznine u sadržaju
+      c: Potrebno je znatno veće uređivanje da biste zatvorili praznine u sadržaju
         i rešili problem čišćenja sadržaja.
-      start:
-        Prvo treba navesti reference na pouzdane izvore; članak takođe treba
+      start: Prvo treba navesti reference na pouzdane izvore; članak takođe treba
         znatno poboljšati u smislu sadržaja i organizacije. Takođe poboljšajte gramatiku,
         pravopis, stil pisanja i upotrebu žargona.
-      stub:
-        Bilo kakvo uređivanje ili dodatni materijal može biti od pomoći. Obezbeđivanje
+      stub: Bilo kakvo uređivanje ili dodatni materijal može biti od pomoći. Obezbeđivanje
         značajnog sadržaja treba da bude prioritet. Najbolje rešenje za ovu vrstu
         članka je dodavanje razloga zašto je tema značajna.
       fl: Nije potreban dodatni sadržaj osim ako nove informacije postanu dostupne.
-      list:
-        Liste bi trebalo da budu spiskovi živih veza sa člancima na Vikipediji,
+      list: Liste bi trebalo da budu spiskovi živih veza sa člancima na Vikipediji,
         odgovarajući imenovane i organizovane.
       future: Dodati materijal može biti nekredibilan i treba ga pažljivo izabrati.
-      disambig:
-        Dodatke izmene treba napraviti ukoliko već postoji članak istog imena.
+      disambig: Dodatke izmene treba napraviti ukoliko već postoji članak istog imena.
         Posebno obratite pažnju na pravilno davanje naziva tim stranima, jer oni ne
         moraju da budu višeznačna odrednica ukoliko pravilno formirate naslov.
-      "?":
-        Sugestije nisu dostupne - članak nije ocenjen niti su dostupne sugestije
+      '?': Sugestije nisu dostupne - članak nije ocenjen niti su dostupne sugestije
         za ocenjivanje.
       does_not_exist: Ovaj članak ne postoji na Vikipediji.
   tasks:
     conseq: Zadatak %{task} je već u toku!
     constant: Zadatak %{task} se ne može pokrenuti dok je update_daily u toku.
-    paused:
-      Zadatak %{task} ne može se pokrenuti zato što su planirana ažuriranja
+    paused: Zadatak %{task} ne može se pokrenuti zato što su planirana ažuriranja
       pauzirana. Pokrenite „rake batch:resume“ kako biste nastavili ažuriranja.
   tickets:
     none: Nema tiketa
   timeline:
     add_week: Dodaj nedelju
     arrange_timeline: Uredi vremensku liniju
-    arrange_timeline_instructions:
-      Organizujte vremensku liniju prevlačenjem blokova
+    arrange_timeline_instructions: Organizujte vremensku liniju prevlačenjem blokova
       na željeno mesto/nedelju ili pomerite blokove koristeći strelice na kartici.
-    assignment_dates_instructions:
-      Izaberite datume početka i završetka za hronologiju
+    assignment_dates_instructions: Izaberite datume početka i završetka za hronologiju
       zadataka na Vikipediji. Promena datuma početka će pomeriti datume u celoj hronologiji.
-    blackout_week_created:
-      Postoje blokovi zakazani za ovu nedelju. Molimo pomerite
+    blackout_week_created: Postoje blokovi zakazani za ovu nedelju. Molimo pomerite
       ih u neku drugu nedelju pre nego što uklonite poslednji sastanak grupe iz ove
       nedelje.
     block_assignment: Zadatak
     block_custom: Prilagođeno
     block_in_class: Na času
     block_milestone: Miljokaz
-    block_type:
-      Tip bloka se koristi da prenese informacije Vašim studentima o ovoj
+    block_type: Tip bloka se koristi da prenese informacije Vašim studentima o ovoj
       stavki na njihovoj vremenskoj liniji i za izgradnju korisnih alatki za Vas (kao
       što je pregled miljokaza na stranici za pregled)
     course_dates: Datumi kursa
-    course_dates_instructions:
-      Izaberite datume početka i završetka za ceo kurs (ne
+    course_dates_instructions: Izaberite datume početka i završetka za ceo kurs (ne
       samo za zadatke na Vikipediji).
     course_end: Kraj kursa
     course_start: Početak kursa
@@ -1008,8 +906,7 @@ sr-el:
       Da li ste sigurni da želite da obrišete ovu nedelju? Ovo će obrisati nedelju i sve njoj pridružene blokove?
 
       Ova radnja ne može da se vrati.
-    delete_weeks_confirmation:
-      Da li ste sigurni da želite da izbrišete ceo vrmeenski
+    delete_weeks_confirmation: Da li ste sigurni da želite da izbrišete ceo vrmeenski
       okvir i da počnete ponovo? Ovaj korak ne može da bude opozvan.
     discard_all_changes: Odbaci sve promene
     delete_timeline_and_start_over: Izbriši hronologiju
@@ -1021,7 +918,7 @@ sr-el:
     first_week_title: Prva aktivna nedelja
     gradeable_value: Vrednost
     gradeables_none: Ova vremenska linija nema zadataka označenih kao ocenjeni.
-    grading_header: "Ocenjivanje (Ukupno: %{total})"
+    grading_header: 'Ocenjivanje (Ukupno: %{total})'
     move_block_down: Pomeri blok gore
     move_block_up: Pomeri blok gore
     no_class_holidays: Nemam praznika
@@ -1031,8 +928,7 @@ sr-el:
     save_all_changes: Sačuvaj sve
     this_week_title_default: Ova nedelja
     title: Vremenska linija
-    unable_to_add_week:
-      Ne možete dodati nove nedelje kada Vam je vremenska linija
+    unable_to_add_week: Ne možete dodati nove nedelje kada Vam je vremenska linija
       puna. Obrišite bar jednu nedelju ili izmenite datume za zadatke kako biste napravili
       mesta za nove.
     view_full_timeline: Pogledaj potpunu vremensku liniju
@@ -1043,12 +939,11 @@ sr-el:
     view: Pogledaj
     next: Sledeća stranica
     page: Stranica
-    page_number: "%{number} stranica od ukupno %{total}"
+    page_number: '%{number} stranica od ukupno %{total}'
     previous: < Prethodno
     table_of_contents: Tabela sadržaja
     training_library: Biblioteka obuke
-    logged_out:
-      Odjavljeni ste. Nećete dobiti poene za završavanje ovog modula ukoliko
+    logged_out: Odjavljeni ste. Nećete dobiti poene za završavanje ovog modula ukoliko
       se ne prijavite.
     done: Završeno!
     invalid: Slajd ne postoji.
@@ -1070,7 +965,7 @@ sr-el:
     time_doc: Vreme svakog otpremanja u vašem lokalnom vremenu
     uploaded_at: Vreme otpremanja
     uploader: Otpremalac
-    uploaded_by: "Otpremio/la:"
+    uploaded_by: 'Otpremio/la:'
     uploaded_on: Otpremljeno na
     usage_count: Broj upotreba
     usage_doc: Broj članaka na Vikipediji na kojima se pojavljuje ova slika.
@@ -1084,8 +979,7 @@ sr-el:
     assignees: Dodeljeni korisnici
     loading_authorship_data: Učitavanje podataka o autorstvu
     authorship_data_not_fetched: Nije moguće preuzeti podatke o autorstvu
-    character_doc:
-      Ukupna količina sadržaja koji je korisnik dodao u ovaj imenski
+    character_doc: Ukupna količina sadržaja koji je korisnik dodao u ovaj imenski
       prostor, izračunato sabiranjem dodatih znakova svih izmena koje su povećale
       veličinu stranice. Ovaj broj ne mora da tačno prikazuje količinu novog sadržaja
       koji je korisnik doprineo. Vraćanje uklonjenog sadržaja će takođe povećati ukupan
@@ -1095,34 +989,34 @@ sr-el:
     contributions_history_full: Prikaži celu istoriju doprinosa
     contributions_more: Vidi još doprinosa
     contribution_statistics: Statistike doprinosa
-    course_passcode: "Lozinka:"
+    course_passcode: 'Lozinka:'
     editors: Urednici
     edits: izmene
-    edits_by: "Urednici:"
+    edits_by: 'Urednici:'
     enroll_confirmation: Da li ste sigurni da želite da dodate %{username}?
-    enroll_url: "Korisnici se mogu priključiti klikom na:"
-    enrolled_success: "%{username} je uspešno dodat/a!"
+    enroll_url: 'Korisnici se mogu priključiti klikom na:'
+    enrolled_success: '%{username} je uspešno dodat/a!'
     first_name: Ime
     last_name: Prezime
     loading: Učitavanje korisnika…
     characters_added_mainspace: Dodatno znakova (članak)
-    characters_added_short: "GIP: %{mainspace}, KIP: %{userspace}"
+    characters_added_short: 'GIP: %{mainspace}, KIP: %{userspace}'
     characters_added_userspace: Dodato znakova (korisnik)
     characters_added_draftspace: Dodato znakova (radno)
-    my_assigned: "Dodeljeno:"
-    my_reviewing: "Pregledanje:"
+    my_assigned: 'Dodeljeno:'
+    my_reviewing: 'Pregledanje:'
     name: Ime
     none: Ovaj kurs nema učesnika.
     no_articles: Nema članaka
     no_revisions: Ovaj uređivač nije napravio nikakve izmene.
     number_of_articles:
-      one: "%{count} članak"
-      other: "%{count} članaka"
+      one: '%{count} članak'
+      other: '%{count} članaka'
     recent_revisions: Skorašnje izmene
     references_count: Dodato referenci
     remove_confirmation: Da li ste sigurni da želite da uklonite %{username}?
     request_confirmation: Želite li da zatražite ovaj nalog?
-    revision_characters_and_views: "Znakova dodato: %{characters}, Pregleda: %{views}"
+    revision_characters_and_views: 'Znakova dodato: %{characters}, Pregleda: %{views}'
     revisions_doc: Broj izmena koje je ovaj urednik napravio u proteklih 7 dana
     references_doc: Broj referenci koje su dodate ili uklonjene od strane ovog urednika
     reviewers: Pregledač(i)
@@ -1133,10 +1027,9 @@ sr-el:
       one: je razvršio trening
       other: su završili trening
     training_complete_count:
-      one: "%{count} završen trening"
-      other: "%{count} završena treninga"
-    training_doc:
-      Urednici koji su završili sve dodeljene module za trening se računaju
+      one: '%{count} završen trening'
+      other: '%{count} završena treninga'
+    training_doc: Urednici koji su završili sve dodeljene module za trening se računaju
       kao da su završili svoj trening.
     training_incomplete: Nezavršen trening
     training_modules_completed:
@@ -1164,8 +1057,7 @@ sr-el:
   user_profiles:
     student_impact: Ukupni učinak koji je ostvario %{username} kao student
     instructor_impact: Ukupni učinak koji je ostvario %{username} kao nastavnik
-    instructors_student_impact:
-      Ukupni učinak koji su ostvarili studenti nastavnika
+    instructors_student_impact: Ukupni učinak koji su ostvarili studenti nastavnika
       %{username}
     disclaimer: Informacije koje pružite će biti javno dostupne.
     bio_placeholder: Dodajte svoju biografiju (neobavezno)
@@ -1174,8 +1066,7 @@ sr-el:
     image_link_placeholder: Dodajte link ka slici (neobavezno)
   wiki_edits:
     notify_overdue:
-      confirm:
-        Ovo će postaviti podsetnik na strane za razgovor svim studentima koji
+      confirm: Ovo će postaviti podsetnik na strane za razgovor svim studentima koji
         kasne sa završavanjem zadatih modula za trening. Da li ste sigurni da želite
         ovo da uradite?
       header: Imate zadatak čije je vreme za izradu isteklo.
@@ -1183,23 +1074,20 @@ sr-el:
       summary: probijen je rok za studentski trening
   wizard:
     assignment_dates: Datumi zadataka
-    assignment_description:
-      Odaberite datume početka i završetka za svoju hronologiju
+    assignment_description: Odaberite datume početka i završetka za svoju hronologiju
       zadataka. Na primer, ako želite da započnete svoj projekat na Vikipediji u drugoj
       nedelji predavanja, postavite datum početka zadatka nedelju dana nakon početka
       kursa. Ova alatka za dizajniranje zadataka napraviće radnu verziju hronologije
       koja se uklapa u datume sa hronologije koje ste odabrali.
     assignment_type: Šta će studenti završiti za njihov zadatak na Vikipediji?
-    calendar_instructions:
-      Odaberite datume kako biste ih dodali ili uklonili sa rasporeda
+    calendar_instructions: Odaberite datume kako biste ih dodali ili uklonili sa rasporeda
       (npr. praznici, raspusti). Ovo pomaže alatki za kreiranje kursa da precizno
       rasporedi Vaše zadatke. Kliknite na datum da biste promenili stanje između neselektovanog,
       selektovanog i prazničnog. Ako nemate praznike, odaberite opciju „Nemam praznike”
       ispod.
     confirm_dates: Odaberite datume kursa, nedeljne sastanke i praznike za Vaš kurs.
     course_dates: Datum kursa
-    min_weeks:
-      Ovaj zadatak zahteva najmanje %{min_weeks} {{PLURAL:%{min_weeks}|dostupnu
+    min_weeks: Ovaj zadatak zahteva najmanje %{min_weeks} {{PLURAL:%{min_weeks}|dostupnu
       nedelju|dostupne nedelje|dostupnih nedelja}} dostupnih nedelja. Molimo prilagodite
       datume početka i kraja Vašeg zadatka ukoliko želite da koristite ovaj tip zadatka.
     select_one_option: Molimo, izaberite jednu opciju.
@@ -1208,100 +1096,81 @@ sr-el:
       other: Molimo odaberite %{count} ili više opcija.
     read_less: Pročitaj manje
     read_more: Detaljnije
-    review_selections:
-      Molimo pregledajte Vaše izbore ispod. Kliknite da biste izmenili
+    review_selections: Molimo pregledajte Vaše izbore ispod. Kliknite da biste izmenili
       selekciju. Kada završite, kliknite na „Pošalji” kako biste završili sa čarobnjakom
       i napravili svoju vremensku liniju.
-    select_assignment:
-      Izaberite vrstu zadatka koji želite da dodate u svoju vremensku
+    select_assignment: Izaberite vrstu zadatka koji želite da dodate u svoju vremensku
       liniju.
     summary: Kratak opis
   error:
     form_errors: Proverite da li forma ima grešaka.
     invalid_assignment: Nevažeći zadatak
     invalid_date: Datum %{key} nije ispravan
-    invalid_file_format:
-      Neuspešno snimanje datoteke. Molimo otpremite PDF ili Majkrosoft
+    invalid_file_format: Neuspešno snimanje datoteke. Molimo otpremite PDF ili Majkrosoft
       vord dokument.
-    oauth_invalid:
-      Vaša autorizacija sa Vikipedije je istekla. Molimo prijavite se
+    oauth_invalid: Vaša autorizacija sa Vikipedije je istekla. Molimo prijavite se
       ponovo.
     start_date_before_end_date: Datum početka mora da bude pre datuma završetka
     unsupported_browser:
       header: Nepodržavani pregledač. :(
-      explanation:
-        Koristite pregledač koji nije kompatibilan sa Kontrolnom tablom.
+      explanation: Koristite pregledač koji nije kompatibilan sa Kontrolnom tablom.
         Ovaj sajt radi dobro na Internet eksploreru 11 ili kasnijem, na skorijim verzijama
         Krouma i Fajerfoksa i na drugim modernim pregledačima.
   error_401:
     header: Neovlašćeno. >:-(
-    explanation:
-      Niste ovlašćeni da izvršite ovaj zahtev. Ako smatrate da ste ovde
+    explanation: Niste ovlašćeni da izvršite ovaj zahtev. Ako smatrate da ste ovde
       došli greškom, kontaktirajte održavatelje ove kontrolne table kako biste ih
       obavestili o ovom problemu.
-    json_explanation:
-      Izgleda da ste se odjavili. Molimo vas osvežite stranicu, prijavite
+    json_explanation: Izgleda da ste se odjavili. Molimo vas osvežite stranicu, prijavite
       se i pokušajte ponovo.
   error_incorrect_passcode:
     header: Pogrešna lozinka. :-(
-    explanation:
-      Lozinka za upisivanje na ovaj kurs nije ispravna. Kontaktirajte nastavnika
+    explanation: Lozinka za upisivanje na ovaj kurs nije ispravna. Kontaktirajte nastavnika
       za trenutnu lozinku kako biste se upisali na ovaj kurs. Možete ponovo pokušati
       unosom tačne lozinke ispod.
   error_no_course:
     explanation: Kurs %{slug} ne postoji.
   error_404:
     header: Stranica nije pronađena. :-(
-    explanation:
-      Ova stranica nije pronađena. Ako pokušavate da otvorite kontrolnu
+    explanation: Ova stranica nije pronađena. Ako pokušavate da otvorite kontrolnu
       tablu za kurs, taj kurs možda nije registrovan na ovoj tabli.
   error_422:
     header: 422 — neobradiv entitet. :-(
-    explanation:
-      Nešto nije u redu. Molimo da kontaktirate održavatelje ove kontrolne
+    explanation: Nešto nije u redu. Molimo da kontaktirate održavatelje ove kontrolne
       table kako biste ih obavestili o ovom problemu.
   error_500:
     header: 500 — interna serverska greška :-(
-    explanation:
-      Nešto nije u redu. Molimo da kontaktirate održavatelje ove kontrolne
+    explanation: Nešto nije u redu. Molimo da kontaktirate održavatelje ove kontrolne
       table kako biste ih obavestili o ovom problemu.
   login_error:
     header: Greška pri prijavljivanju
-    explanation:
-      Izgleda da je došlo do problema prilikom prijave. (Žao nam je zbog
+    explanation: Izgleda da je došlo do problema prilikom prijave. (Žao nam je zbog
       toga! Dešava se ponekad.) Pokušajte da se prijavite ponovo.
   survey:
-    login_message:
-      Hvala vam na izdvojenom vremenu. Prijavite se na kontrolnu tablu
+    login_message: Hvala vam na izdvojenom vremenu. Prijavite se na kontrolnu tablu
       Viki obrazovanja kako biste popunili anketu.
-    notification_explanation:
-      Ukoliko je polje ispod označeno, korisnici će primati
+    notification_explanation: Ukoliko je polje ispod označeno, korisnici će primati
       imejlove prema rasporedu obaveštenja, uz obaveštenja koja vide u pretraživaču.
       Ako polje nije označeno, dobijaće obaveštenja samo u pretraživaču.
-    notification_schedule_explanation:
-      Obaveštenja podrazumevaju obaveštenja u pregledaču
+    notification_schedule_explanation: Obaveštenja podrazumevaju obaveštenja u pregledaču
       i obaveštenja u imejlovima, ako je opcija iznad omogućena.
-    follow_up_explanation:
-      Ostavite prazno polje ako ne želite da dobijate obaveštenja
+    follow_up_explanation: Ostavite prazno polje ako ne želite da dobijate obaveštenja
       putem imejla.
     email:
       headline: Zdravo, %{username}
-      message_line1:
-        Nadamo se da ste imali uspešno polugodište! Viki Edukacija traži
+      message_line1: Nadamo se da ste imali uspešno polugodište! Viki Edukacija traži
         povratne informacije od Vas, kako bismo poboljšali naše resurse i podržali
         svoje zadatke na Vikipediji. Vaši odgovori su ključni za popravljanje našeg
         rada.
-      message_line2:
-        Da li možete da izdvojite 15 minuta da popunite anketu? Kliknite
+      message_line2: Da li možete da izdvojite 15 minuta da popunite anketu? Kliknite
         na dugme ispod kako bismo učenje sa Vikipedijom učinili korisnijim i vrednijim
         iskustvom.
-      course: "Kurs: %{course_info}"
+      course: 'Kurs: %{course_info}'
       closing: Srdačno,
       signed: — tim Viki obrazovanja
       link: Popuni anketu
     follow_up:
-      message:
-        Ovo je podsetnik o anketi za Vaš kurs, %{course_title}. Povratna informacija
+      message: Ovo je podsetnik o anketi za Vaš kurs, %{course_title}. Povratna informacija
         koju dobijemo od Vas će nam pomoći da unapredimo našu podršku budućim Vikipedijinim
         kursevima.
   feedback_form_responses:
@@ -1347,3 +1216,4 @@ sr-el:
     completed: Završeno
     started: Započeto
     not_started: Nije započeto
+...

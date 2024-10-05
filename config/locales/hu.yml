@@ -19,7 +19,7 @@ hu:
   number:
     human:
       decimal_units:
-        format: "%n %u"
+        format: '%n %u'
         units:
           thousand: e
           million: M
@@ -27,26 +27,23 @@ hu:
           trillion: B
           quadrillion: brd
   accessibility:
-    number_field:
-      Ez egy számmező. A legtöbb böngésző által megjelenített gombok növelik
+    number_field: Ez egy számmező. A legtöbb böngésző által megjelenített gombok növelik
       vagy csökkentik a bevitt értéket.
   application:
     cancel: Mégse
-    cookie_consent:
-      Ez az oldal sütiket használ, hogy Ön bejelentkezve maradjon, és
+    cookie_consent: Ez az oldal sütiket használ, hogy Ön bejelentkezve maradjon, és
       tárolja a Wikipédia-fiókjával kapcsolatos információkat.
     cookie_consent_acknowledge: Értem
     cookie_consent_see_more: Tovább
     create_accounts: Hozz létre Wikipédia-fiókokat
     dashboard: Wiki Ed kezelőpult
     documentation: Dokumentáció
-    error: "Hiba történt:"
+    error: 'Hiba történt:'
     explore: Felfedezés
     field_required: A mező kitöltése kötelező.
     field_invalid_characters: Ez a mező érvénytelen karaktereket tartalmaz
     field_invalid_date: Ebben a mezőben a dátumot YYYY-MM-DD formátumban kell megadni.
-    field_invalid_date_time:
-      A befejezésnek a kezdet után kell lennie. (Az órák 0-tól
+    field_invalid_date_time: A befejezésnek a kezdet után kell lennie. (Az órák 0-tól
       23-ig tartanak.)
     greeting2: Üdvözlünk!
     greeting_extended: Üdvözlünk a Wikipédián
@@ -63,8 +60,8 @@ hu:
     request_account_create: Fiók létrehozása
     search: kérdés feltevése
     search_results:
-      one: "%{count} keresési eredmény erre: '%{search_terms}'"
-      other: "%{count} keresési eredmény erre: '%{search_terms}'"
+      one: '%{count} keresési eredmény erre: ''%{search_terms}'''
+      other: '%{count} keresési eredmény erre: ''%{search_terms}'''
     no_results: Nincs találat '%{query}'-re.
     sign_up_extended: Regisztráció Wikipédiával
     sign_up_wikipedia: Vagy regisztrálj a Wikipédián
@@ -91,33 +88,28 @@ hu:
     peer_review_completed: Értékelés befejezve
   dashboard:
     create_note: Kattints a Kurzus létrehozása gombra az első kurzusod létrehozásához.
-    create_preparation_note:
-      Mielőtt elkezdenéd, mindenképpen legyen kéznél az akadémiai
+    create_preparation_note: Mielőtt elkezdenéd, mindenképpen legyen kéznél az akadémiai
       naptár; a feladattervezési eszköz az osztály találkozási dátumait fogja használni
       - beleértve az iskolai szüneteket és ünnepnapokat is, hogy az időbeosztást az
       általad kiválasztott dátumtartományba illessze. Ne feledd, hogy az idővonalat
       bármikor szerkesztheted az igényeidnek megfelelően.
     explore_course_pages: A Kurzusoldalak felfedezése
     explore_examples: Példák felfedezése
-    join_note:
-      Amikor megkapod a jelszót az oktatótól, kattints a Kurzus keresése
+    join_note: Amikor megkapod a jelszót az oktatótól, kattints a Kurzus keresése
       gombra, hogy megtaláld és csatlakozhass.
     no_courses_instructor: Úgy tűnik, egyetlen kurzusod sincs.
     no_courses_student: Úgy tűnik, nem csatlakoztál még kurzushoz.
     opt_out: Szeretnék leiratkozni az orientációról.
-    orientation_notice:
-      Mielőtt kurzust hoznál létre, nézzük át az orientációt, hogy
+    orientation_notice: Mielőtt kurzust hoznál létre, nézzük át az orientációt, hogy
       segítsünk az indulásnál. (Ez körülbelül 30 percet vesz igénybe.)
     review_orientation: Orientáció megtekintése
     start_orientation: Oreintáció megkezdése
     blog_headline: Hírek a Wiki Educationtől
-    about_programs:
-      Ez az oldal a Programokon keresztül követi nyomon a wikis tevékenységeket
+    about_programs: Ez az oldal a Programokon keresztül követi nyomon a wikis tevékenységeket
       - olyan egyedi eseményeket, mint a szerkesztőversenyek vagy egy iskolai kurzus.
       Minden Program egy vagy több Kampány része, amelyek a Programok összesített
       statisztikáit szolgáltatják.
-    about_creating_programs:
-      Ha egyetlen, független eseményt szervezel, akkor most
+    about_creating_programs: Ha egyetlen, független eseményt szervezel, akkor most
       létrehozhatsz egy Programot. Ha ez egy nagyobb esemény része, keresd meg vagy
       hozd létre a hozzá tartozó Kampányt. Ezután a Kampányoldalról hozhatsz létre
       új Programot.
@@ -125,8 +117,7 @@ hu:
     explore: Felfedezés
     log_in: Bejelentkezés Wikipédiával
     sign_up: Regisztráció Wikipédiával
-    sign_up_help:
-      A kezelőpult használatához be kell jelentkezned a Wikipedián keresztül,
+    sign_up_help: A kezelőpult használatához be kell jelentkezned a Wikipedián keresztül,
       és engedélyt kell adnod a fiókodhoz való hozzáférésre. Bejelentkezhetsz egy
       meglévő Wikipédia-fiókkal, vagy létrehozhatsz egy újat. Ha nem tudsz fiókot
       létrehozni, lépj kapcsolatba velünk a dashboard@wikiedu.org címen.
@@ -141,7 +132,7 @@ hu:
     articles: Szócikkek
     article_not_found: Ez a szócikk még nem létezik.
     article_development: (szócikk fejlesztése)
-    articles_shown: "%{count} / %{total} megjelenítése"
+    articles_shown: '%{count} / %{total} megjelenítése'
     assigned: Hozzárendelt szócikkek
     assignments_none: Még nincsenek hozzárendelt szócikkek.
     available: Elérhető szócikkek
@@ -149,21 +140,18 @@ hu:
     next: Tovább
     previous: Előző
     article_title: Szócikk címe
-    assigned_to: "Hozzárendelve a következőhöz:"
-    character_doc:
-      A feliratkozott szerkesztők által a szócikkekhez hozzáadott karakterek
+    assigned_to: 'Hozzárendelve a következőhöz:'
+    character_doc: A feliratkozott szerkesztők által a szócikkekhez hozzáadott karakterek
       összege a kezdő és a befejező dátum között.
-    cross_wiki_tracking:
-      A kezdő és a befejező dátum között szerkesztett szócikk névtérbeli
+    cross_wiki_tracking: A kezdő és a befejező dátum között szerkesztett szócikk névtérbeli
       oldalakat az alábbi lista tartalmazza. A műszerfal a program fő wikijéből származó
       hozzájárulásokat mutatja, valamint minden olyan wikiből is, amelyhez Feladat
       vagy Elérhető szócikk tartozik.
     deleted: (törölve)
-    does_not_exist:
-      A Szócikk nem létezik. Hozz létre egy Próbalapot és rendeld hozzá
+    does_not_exist: A Szócikk nem létezik. Hozz létre egy Próbalapot és rendeld hozzá
       magad a javaslatok fogadásához.
     edited: Szerkesztett szócikkek
-    edited_by: "Szerkesztette:"
+    edited_by: 'Szerkesztette:'
     edited_mobile: Szócikkek
     edited_none: Még nincsenek szerkesztett szócikkek.
     filter:
@@ -183,32 +171,25 @@ hu:
     none: Ez a kurzus nem szerkesztett egyetlen szócikket sem.
     preview: A szócikk rövid előnézete
     rating: Osztály
-    rating_doc:
-      Egy szócikk minősítését a Műhelyek adták meg a Wikipédián. Ezek a
+    rating_doc: Egy szócikk minősítését a Műhelyek adták meg a Wikipédián. Ezek a
       minősítések sokkal régebbi verziókhoz is tartozhatnak, így csak egy hozzávetőleges
       mutatója a szócikk minőségének.
     rating_docs:
-      fa:
-        "%{class} (Kiemelt szócikk) — A legmagasabb értékelés a Wikipédián, egy
-        új szerkesztő számára valószínűleg túl fejlett szócikk."
-      fl:
-        "%{class} (Kiemelt lista) – A Wikipédia legmagasabb értékelése a listákra
-        vonatkozóan"
-      a:
-        "%{class}-class - nagyon kidolgozott szócikk, ami talán túlságosan érett
-        szócikk lehet egy új szerkesztő fő projektjéhez"
-      ga:
-        "%{class} (Jó cikk) - jól kidolgozott szócikk, mely túl érett szócikk lehet
-        egy új szerkesztő fő projektjéhez"
-      b: "%{class}-class - közepesen kidolgozott szócikk"
-      c: "%{class}-class - közepesen jó szócikk, melyen még lehet mit javítani"
-      start: "%{class}-class - előkészítő szócikk, melyen még bőven van mit javítani"
-      stub:
-        "%{class}-class - egy szócikk rövid kezdete, aminek több tartalomra van
-        szüksége"
-      list: "%{class}-class - inkább lista, mint hagyományos szócikk"
-      "?":
-        Nem minősített - olyan szócikk, melyet még nem értékeltek a Wikipédia minőségi
+      fa: '%{class} (Kiemelt szócikk) — A legmagasabb értékelés a Wikipédián, egy
+        új szerkesztő számára valószínűleg túl fejlett szócikk.'
+      fl: '%{class} (Kiemelt lista) – A Wikipédia legmagasabb értékelése a listákra
+        vonatkozóan'
+      a: '%{class}-class - nagyon kidolgozott szócikk, ami talán túlságosan érett
+        szócikk lehet egy új szerkesztő fő projektjéhez'
+      ga: '%{class} (Jó cikk) - jól kidolgozott szócikk, mely túl érett szócikk lehet
+        egy új szerkesztő fő projektjéhez'
+      b: '%{class}-class - közepesen kidolgozott szócikk'
+      c: '%{class}-class - közepesen jó szócikk, melyen még lehet mit javítani'
+      start: '%{class}-class - előkészítő szócikk, melyen még bőven van mit javítani'
+      stub: '%{class}-class - egy szócikk rövid kezdete, aminek több tartalomra van
+        szüksége'
+      list: '%{class}-class - inkább lista, mint hagyományos szócikk'
+      '?': Nem minősített - olyan szócikk, melyet még nem értékeltek a Wikipédia minőségi
         skáláján
       does_not_exist: Ez a szócikk nem létezik a Wikipédián
     see_more: Tovább
@@ -218,25 +199,22 @@ hu:
     show_current_version_with_authorship_highlighting: Jelenlegi verzió szerzői kiemeléssel
     title: Cím
     tracked: Követett
-    tracked_doc:
-      Csak a nyomon követett szócikkek járulnak hozzá a program statisztikáihoz.
+    tracked_doc: Csak a nyomon követett szócikkek járulnak hozzá a program statisztikáihoz.
       Ha a szócikkeket nem nyomon követhetőnek jelölik, akkor a következő adatfrissítéskor
       törlik őket a statisztikából.
     title_example: Szócikk címe
     tools: Értékelési eszközök
     view: Cikk megtekintése
     view_all: Összes megtekintése
-    view_doc:
-      Az egyes szócikkek becsült megtekintési számai az első szerkesztés óta,
+    view_doc: Az egyes szócikkek becsült megtekintési számai az első szerkesztés óta,
       a legutóbbi statisztikák frissítéséig. A pontos számokat a pageviews.toolforge.org
       oldalon találod.
     view_on_wiki: Megtekintés a wikin
-    views_added: "%{count} új megtekintés hozzáadva a következőhöz: %{title}"
+    views_added: '%{count} új megtekintés hozzáadva a következőhöz: %{title}'
     edit_size: Szerkesztés mérete
     wiki: Wiki
     wp10: Strukturális teljesség
-    wp10_doc:
-      A "Strukturális teljesség" pontszám azt mutatja meg, hogy egy szócikk
+    wp10_doc: A "Strukturális teljesség" pontszám azt mutatja meg, hogy egy szócikk
       mennyire felel meg egy fejlett Wikipédia-szócikknek, a gépi tanuláson alapuló
       Objective Revision Evaluation Service (https://ores.wikimedia.org/) alapján.
       Ezeket a pontszámokat a szócikk mérete, a hivatkozások és a wikilinkek száma,
@@ -245,8 +223,7 @@ hu:
       szerkezetére vonatkozóan, de nem veszi figyelembe magát a tartalmat. (Ezek a
       pontszámok csak az angol nyelvű Wikipédia-szócikkek esetében érhetőek el.)
     articles_short: Szócikkek
-    deleted_message:
-      A Kezelőpult adatai szerint ezt az oldalt törölték. (Bizonyos
+    deleted_message: A Kezelőpult adatai szerint ezt az oldalt törölték. (Bizonyos
       esetekben az oldal átnevezése, az előzmények összevonása vagy más műveletek
       azt eredményezhetik, hogy egy szócikk tévesen töröltként szerepel. A törölt
       szócikkek később is visszaállíthatók. A ténylegesen nem törölt vagy utólagosan
@@ -261,28 +238,23 @@ hu:
     assigned: Hozzárendelt elemek
     assignments_none: Még nincsenek hozzárendelt elemek.
     available: Elérhető elemek
-    character_doc:
-      A beiratkozott szerkesztők által a szócikkekhez hozzáadott karakterek
+    character_doc: A beiratkozott szerkesztők által a szócikkekhez hozzáadott karakterek
       összege a kezdő és a befejező dátum között
-    cross_wiki_tracking:
-      A kezdő- és a befejező dátum között szerkesztett szócikk
+    cross_wiki_tracking: A kezdő- és a befejező dátum között szerkesztett szócikk
       névtérbeli oldalai az alábbiakban vannak felsorolva. A vezérlőpult a program
       fő wikijéből származó hozzájárulásokat mutatja, valamint minden olyan wikiből
       is, amihez hozzárendelés vagy elérhető szócikk tartozik.
-    does_not_exist:
-      Az Elem nem létezik. Hozz létre egy Homokozó oldalt, és rendeld
+    does_not_exist: Az Elem nem létezik. Hozz létre egy Homokozó oldalt, és rendeld
       hozzá magadat, hogy javaslatok fogadásához.
     edited: Szerkesztett elemek
     edited_none: Még nincsenek szerkesztett elemek.
     find: Elemek keresése
     preview: Az elem rövid előnézete
     search: Wikidata keresés egy elemre
-    tracked_doc:
-      Csak a nyomon követett elemek tartoznak a program statisztikáihoz.
+    tracked_doc: Csak a nyomon követett elemek tartoznak a program statisztikáihoz.
       Ha az elemek nem nyomon követethetőnek vannak megjelölve, akkor a következő
       adatfrissítés során törölve lesznek a statisztikából.
-    view_doc:
-      Az egyes elemek becsült nézettsége az első szerkesztés óta a legutóbbi
+    view_doc: Az egyes elemek becsült nézettsége az első szerkesztés óta a legutóbbi
       statisztikák frissítéséig. A pontos számok megtekintéséhez használhatod a pageviews.toolforge.org
       oldalt.
     title_example: Elem címe
@@ -302,27 +274,23 @@ hu:
     add_available: Elérhető szócikkek hozzáadása
     add_available_wikidata: Elérhető elemek hozzáadása
     add_available_placeholder: Soronként egy szócikkcímet vagy URL-t adj meg
-    add_available_placeholder_wikidata:
-      Soronként egy elem címe vagy URL címe adható
+    add_available_placeholder_wikidata: Soronként egy elem címe vagy URL címe adható
       hozzá
     add_available_submit: Szócikkek hozzáadása
     add_available_submit_wikidata: Elemek hozzáadása
     assign_self: Szócikk hozzárendelése az azonosítómhoz
     assign_self_wikidata: Saját magamhoz hozzárendelni egy elemet
-    assign_tooltip:
-      A hozzárendelt szócikk olyan cikk, mely létrehozását vagy javítását
+    assign_tooltip: A hozzárendelt szócikk olyan cikk, mely létrehozását vagy javítását
       tervezed.
-    assign_tooltip_wikidata:
-      A hozzárendelt elem olyan szócikk, amit létrehozni vagy
+    assign_tooltip_wikidata: A hozzárendelt elem olyan szócikk, amit létrehozni vagy
       javítani szeretnél.
     bibliography: Bibliográfia
     clone: Klón
-    confirm_add_available: "Biztos, hogy szeretnéd hozzáadni a következőt: %{title}?"
-    confirm_addition:
-      "Biztosan hozzá szeretnéd rendelni a(z) %{title} oldalt a következőhöz:
-      %{username}?"
+    confirm_add_available: 'Biztos, hogy szeretnéd hozzáadni a következőt: %{title}?'
+    confirm_addition: 'Biztosan hozzá szeretnéd rendelni a(z) %{title} oldalt a következőhöz:
+      %{username}?'
     confirm_deletion: Biztos, hogy törölni szeretnéd ezt a hozzárendelést?
-    editors: "Hozzárendelve a következőhöz:"
+    editors: 'Hozzárendelve a következőhöz:'
     group_members: Csoporttagok
     label: Hozzárendelés
     loading: Feladatok betöltése...
@@ -330,21 +298,19 @@ hu:
     none_short_wikidata: Nincsenek hozzárendelt elemek
     none: Ehhez a kurzushoz nincsenek hozzárendelt szócikkek.
     no_available: Ennek a kurzusnak nincsenek elérhető szócikkei.
-    peer_review_count: "%{currentCount}/%{total} kiválasztva"
+    peer_review_count: '%{currentCount}/%{total} kiválasztva'
     peer_review_count_tooltip: Válassz ki %{total} szócikket a szakértői értékeléshez.
     peer_review_link: Lektorálás
-    peer_review_link_personalized: "%{username} lektorálása"
+    peer_review_link_personalized: '%{username} lektorálása'
     random_peer_review:
-      confirm_addition:
-        A legtöbb esetben ezt csak azután érdemes használni, hogy
+      confirm_addition: A legtöbb esetben ezt csak azután érdemes használni, hogy
         minden hallgatónak ki lett osztva a fő szócikk. Alternatív megoldásként megkérheted
         a diákokat, hogy maguk válasszák ki a társértékeléseket, vagy manuálisan is
         kijelölheted a társértékeléseket, ha rákattintasz egy tanuló sorára, majd
         a "Társértékelés kijelölése/eltávolítása" gombot használhatod. Az "OK" gombra
         kattintva összesen %{count} további, legfeljebb %{maximum} értékelést kaphat
         minden diák, melyet az osztálytársai szócikkei közül választhat ki.
-      confirm_addition_wikidata:
-        A legtöbb esetben ezt csak azután érdemes használni,
+      confirm_addition_wikidata: A legtöbb esetben ezt csak azután érdemes használni,
         hogy minden hallgatónak ki lettek osztva a fő elemek. Alternatív megoldásként
         megkérheted a diákokat, hogy maguk válasszák ki a társértékeléseket, vagy
         manuálisan is kijelölheted a társértékeléseket, ha rákattintasz egy tanuló
@@ -353,11 +319,9 @@ hu:
         értékelést kaphat minden hallgató, melyet az osztálytársaik elemei közül lehet
         kiválasztani.
       heading: Véletlenszerű társértékelések hozzárendelése
-      tooltip_message:
-        Véletlenszerű szócikket rendel minden hallgatóhoz (a szakértői
+      tooltip_message: Véletlenszerű szócikket rendel minden hallgatóhoz (a szakértői
         értékelések száma a maximális szám).
-      tooltip_message_wikidata:
-        Véletlenszerű elemeket rendel minden hallgatóhoz (a
+      tooltip_message_wikidata: Véletlenszerű elemeket rendel minden hallgatóhoz (a
         szakértői értékelések száma a maximális szám).
       limit_exceeded: Minden hallgató legalább %{maximum} cikk(ek)et ellenőriz.
       limit_exceeded_wikidata: Minden hallgató legalább %{maximum} elem(eke)t ellenőriz.
@@ -366,19 +330,16 @@ hu:
     review_other: Szakértői értékelés hozzárendelése/eltávolítása
     review_self: Véleményezz egy szócikket
     review_self_wikidata: Véleményezz egy elemet
-    review_tooltip:
-      Ez a szócikk(ek)re vonatkozik, mely(ek)ről szakértői értékelést
+    review_tooltip: Ez a szócikk(ek)re vonatkozik, mely(ek)ről szakértői értékelést
       vagy visszajelzést szeretnél küldeni.
-    review_tooltip_wikidata:
-      Ez az elem(ek)re vonatkozik, mely(ek)ről szakértői értékelést
+    review_tooltip_wikidata: Ez az elem(ek)re vonatkozik, mely(ek)ről szakértői értékelést
       vagy visszajelzést szeretnél küldeni.
     sandbox_draft_link: Homokozó nem ellenőrzött változat
     select: Kiválaszt
-    warning_untracked_wiki:
-      "Vedd figyelembe, hogy az általad kiválasztott szócikk
+    warning_untracked_wiki: 'Vedd figyelembe, hogy az általad kiválasztott szócikk
       egy olyan wikin van, melyet ez a kurzus nem követ nyomon. A szócikkhez való
       hozzászólások nyomon követéséhez az oktatónak hozzá kell adnia a következő wikit
-      ehhez a kurzushoz: %{wiki}"
+      ehhez a kurzushoz: %{wiki}'
   blocks:
     milestones:
       title: Mérföldkövek
@@ -391,8 +352,7 @@ hu:
     alert_type: Típus
     alert_user_id: Felhasználó
     all_campaigns: Minden kampány
-    already_exists:
-      Ez a kampány már létezik! Próbáld meg újra egy másik címmel vagy
+    already_exists: Ez a kampány már létezik! Próbáld meg újra egy másik címmel vagy
       azonosítóval.
     campaign: Kampány
     campaigns: Kampányok
@@ -400,14 +360,11 @@ hu:
     campaign_not_updated: A kampányt nem sikerült frissíteni
     campaign_updated: A kampány frissítve
     created_at: Dátum
-    confirm_campaign_deletion:
-      Biztosan törlőd a(z) "%{title}" kampányt? Ha igen,
+    confirm_campaign_deletion: Biztosan törlőd a(z) "%{title}" kampányt? Ha igen,
       a folytatáshoz írd be a kampány címét.
-    confirm_campaign_deletion_failed:
-      '"%{title}" nem ennek a kampánynak a címe. A
+    confirm_campaign_deletion_failed: '"%{title}" nem ennek a kampánynak a címe. A
       kampány nem lett törölve.'
-    confirm_course_removal:
-      Biztosan eltávolítod a(z) „%{title}” elemet a „%{campaign_title}”
+    confirm_course_removal: Biztosan eltávolítod a(z) „%{title}” elemet a „%{campaign_title}”
       kampányból?
     course_already_removed: „%{title}” már eltávolítva a „%{campaign_title}” kampányból
     course: Tanfolyam
@@ -425,20 +382,17 @@ hu:
     data_instructors: Oktatók
     data_instructors_info: Az oktatók/facilitátorok és tanfolyamaik/programjaik listája
     data_editors_by_course: Szerkesztők tanfolyam szerint
-    data_editors_by_course_info:
-      A beiratkozott szerkesztők és tanfolyamaik/programjaik
+    data_editors_by_course_info: A beiratkozott szerkesztők és tanfolyamaik/programjaik
       listája
     data_editor_usernames: Szerkesztőnevek
     data_editor_usernames_info: A szerkesztőnevek listája, soronként egy-egy név
     data_wikidata: Wikidata statisztikák
-    data_wikidata_info:
-      A Wikidata-aktivitás részletes bontása a szerkesztési összefoglalók
+    data_wikidata_info: A Wikidata-aktivitás részletes bontása a szerkesztési összefoglalók
       alapján
     default_course_type: Alapértelmezett kurzustípus
     default_passcode: Alapértelmezett belépési kód
-    default_passcode_explanation:
-      "Alapértelmezés szerint az új programoknak ebben
-      a kampányban a következőkkel kell rendelkezniük:"
+    default_passcode_explanation: 'Alapértelmezés szerint az új programoknak ebben
+      a kampányban a következőkkel kell rendelkezniük:'
     description: Leírás
     delete_campaign: Kampány törlése
     disable_account_requests: Fiókkérelmek letiltása
@@ -451,15 +405,13 @@ hu:
     organizer_added: '%{user} mostantól a(z) "%{title}" kampány szervezője'
     organizer_removed: '%{user} el lett távolítva a(z) "%{title}" kampány szervezőjeként'
     program_template: Program sablon
-    program_template_tooltip:
-      Amikor egy programszervező programot hoz létre ebben
+    program_template_tooltip: Amikor egy programszervező programot hoz létre ebben
       a kampányban, az ezen a területen lévő szöveg átmásolásra kerül a programoldalon
       leírásként
     random_passcode: egy véletlenszerű jelszó
     requested_accounts: Kért felhasználói fiókok
     title: Cím
-    too_many_articles:
-      A kampány szerkesztett cikklistája túl hosszú a megjelenítéshez.
+    too_many_articles: A kampány szerkesztett cikklistája túl hosszú a megjelenítéshez.
       Nézd meg az egyes kurzusokat/programokat/eseményeket a szerkesztett szócikkek
       megtekintéséhez.
     slug: Bejegyzés
@@ -475,8 +427,7 @@ hu:
     add_this_psid: PSID hozzáadása
     add_this_pileid: Ez a PagePile id hozzáadása
     add_this_template: Ez a sablon hozzáadása
-    import_articles_description:
-      A kategóriába tartozó szócikkek listája rendszeresen
+    import_articles_description: A kategóriába tartozó szócikkek listája rendszeresen
       frissül, és a hozzáadás után bizonyos időbe telhet, mire a lista feltöltődik.
     depth: Alkategória mélysége
     articles_count: Szócikkek száma
@@ -492,20 +443,17 @@ hu:
   courses:
     school_system: Akadémiai rendszer
     assignment_edits_enabled: A hozzárendelés szerkesztése engedélyezve
-    assignment_edits_enabled_tooltip:
-      Ha engedélyezve van, akkor az irányítópult minden
+    assignment_edits_enabled_tooltip: Ha engedélyezve van, akkor az irányítópult minden
       hozzárendelt szócikkéhez egy sablont tesz fel a vitalapra.
     accounts_generation_enabled: Felhasználói fiók generálása engedélyezve
-    accounts_generation_explanation:
-      Ez lehetővé teszi a résztvevők számára, hogy
+    accounts_generation_explanation: Ez lehetővé teszi a résztvevők számára, hogy
       megadják e-mail-címüket és a kívánt felhasználónevet, ahelyett, hogy maguk hoznának
       létre új felhasználói fiókokat. Ezután a fiókokat erről az irányítópultról lehet
       majd létrehozni, és egyúttal hozzáadni a program résztvevőiként.
     accounts_generation_confirm_message: Biztosan engedélyezed a fiókkéréseket?
     activity: Tevékenység
     active_courses: Aktív tanfolyamok
-    add_trainings:
-      Add hozzá a tanulói képzéseket a hozzárendelési idővonalhoz. A
+    add_trainings: Add hozzá a tanulói képzéseket a hozzárendelési idővonalhoz. A
       képzési modulok hozzárendelése a Wiki Ed legjobb gyakorlatainak lényeges része.
     alerts: Értesítések
     all_courses: Minden tanfolyam
@@ -539,30 +487,24 @@ hu:
       legend_class_not_meeting: Nincs ütemezett találkozó
       select_meeting_days: Válaszd ki a hét azon napjait, amikor az osztályod találkozik.
     cancel: Mégse
-    character_doc:
-      A kurzus hallgatói által a kurzus féléve alatt a főtérbe írt szócikkekhez
+    character_doc: A kurzus hallgatói által a kurzus féléve alatt a főtérbe írt szócikkekhez
       hozzáadott karakterek összege.
-    campaigns: "Kampányok:"
-    campaign_articles: "%{title} szócikkek"
-    campaign_courses: "%{title} tanfolyamok"
+    campaigns: 'Kampányok:'
+    campaign_articles: '%{title} szócikkek'
+    campaign_courses: '%{title} tanfolyamok'
     campaign_select: Kampány kiválasztása
-    campaign_users: "%{title} szerkesztők"
-    confirm_course_deletion:
-      Biztos, hogy törölni szeretnéd a(z) %{title} című kurzust?
+    campaign_users: '%{title} szerkesztők'
+    confirm_course_deletion: Biztos, hogy törölni szeretnéd a(z) %{title} című kurzust?
       Ha igen, akkor a folytatáshoz add meg a kurzus címét.
-    confirm_course_deletion_failed:
-      '"%{title}" nem ennek a kurzusnak a címe. A kurzus
+    confirm_course_deletion_failed: '"%{title}" nem ennek a kurzusnak a címe. A kurzus
       nem lett törölve.'
-    confirm_manual_update:
-      Biztos, hogy kézi frissítést szeretnél futtatni? A legfrissebb
+    confirm_manual_update: Biztos, hogy kézi frissítést szeretnél futtatni? A legfrissebb
       változatok importálásra kerülnek, majd az oldal újratöltődik. Ez a folyamat
       eltarthat egy ideig.
-    controlled_by_event_center:
-      Az eseményre való beiratkozást a Wikimedia Event Center
+    controlled_by_event_center: Az eseményre való beiratkozást a Wikimedia Event Center
       ellenőrzi. Az irányítópultról nem lehet csatlakozni.
     course: Tanfolyam
-    course_dates_calendar_instructions:
-      Válaszd ki a dátumokat, hogy hozzáadj vagy
+    course_dates_calendar_instructions: Válaszd ki a dátumokat, hogy hozzáadj vagy
       eltávolítsd őket a menetrendből (pl. ünnepnapok, tanítás nélküli időszakok).
       Kattints a dátumra a nem kijelölt, a kijelölt és a szünnapos állapot közötti
       váltáshoz. A kurzustevékenységek dátumai megváltoznak, hogy figyelembe vegyék
@@ -572,8 +514,7 @@ hu:
     courses_taught: Tanított kurzusok
     creation_date: Létrehozás dátuma
     creator:
-      already_exists:
-        Ez a tanfolyam már létezik. Érdemes megfontolni a név, az iskola
+      already_exists: Ez a tanfolyam már létezik. Érdemes megfontolni a név, az iskola
         vagy a kifejezés megváltoztatását, hogy egyedivé váljon.
       assignment_end: Hozzárendelés vége
       assignment_start: Hozzárendelés kezdete
@@ -583,25 +524,21 @@ hu:
       choose_clone: Válassz egy tanfolyamot a klónozáshoz.
       clone_previous: Előző tanfolyam klónozása
       clone_this: A tanfolyam klónozása
-      cloned_course_calendar_instructions:
-        Válaszd ki a dátumokat, hogy hozzáadj vagy
+      cloned_course_calendar_instructions: Válaszd ki a dátumokat, hogy hozzáadj vagy
         eltávolítsd őket a menetrendből (pl. ünnepnapok, tanítás nélküli időszakok).
         Kattints a dátumra a nem kijelölt, a kijelölt és a szünnapos állapot közötti
         váltáshoz. Ha nincsenek szünnapok, akkor jelöld be a "Nincsenek tanítási szüneteim"
         jelölőnégyzetet. A klónozott időbeosztás automatikusan beállítja a dátumokat,
         hogy figyelembe vegye azokat a heteket, amikor nincsenek tervezett találkozók.
       clone_successful: A klónozott kurzus adatainak frissítése
-      clone_successful_details:
-        A kurzusod klónozva lett, beleértve az idővonal elemeit
+      clone_successful_details: A kurzusod klónozva lett, beleértve az idővonal elemeit
         (hetek és blokkok). Mindenképp add hozzá a dátumokat, melyek nem kerülnek
         átvitelre. Változott még valami a tanfolyamot illetően? Akkor most nyugodtan
         frissítsed.
-      course_dates_info:
-        Add meg a kurzus kezdő és befejező dátumát. A következő lépésben
+      course_dates_info: Add meg a kurzus kezdő és befejező dátumát. A következő lépésben
         kiválaszthatod, hogy az adott időkereten belül mikor kezdődjön a Wikipédia-feladat.
       course_description: A kurzus leírása
-      course_description_placeholder:
-        Miről szól a kurzusod, és mit fognak a hallgatók
+      course_description_placeholder: Miről szól a kurzusod, és mit fognak a hallgatók
         a Wikipédián végezni? Kérjük, adj meg annyi részletet más Wikipédia szerkesztők
         számára, hogy a diákjai hozzájárulásaival kapcsolatos összefüggéseket érzékelhessék.
       course_private: Zártkörű program (csak az adminok és a moderátorok láthatják)
@@ -612,19 +549,16 @@ hu:
       course_title: Tanfolyam címe
       course_types:
         basic_course_name: Alapprogram
-        basic_course_description:
-          Ez a programtípus bármelyik résztvevő által bármilyen
+        basic_course_description: Ez a programtípus bármelyik résztvevő által bármilyen
           szócikkhez vagy főtéri lapra végzett szerkesztéseket nyomon követi. Ha az
           automatikus wiki szerkesztés engedélyezve van a program fő wikijén, akkor
           ennek a programnak a wikiben lévő változata automatikusan létrejön és frissül.
         edit_a_thon_name: Szerkesztési verseny
-        edit_a_thon_description:
-          A szerkesztési verseny nyomon követi a szócikkek
+        edit_a_thon_description: A szerkesztési verseny nyomon követi a szócikkek
           vagy a főtéri oldalak szerkesztéseit. Alapértelmezés szerint ehhez a programhoz
           nem történik automatikus szerkesztés.
         article_scoped_program_name: A szócikk hatálya alá tartozó program
-        article_scoped_program_description:
-          Ez a programtípus csak a hozzárendelt
+        article_scoped_program_description: Ez a programtípus csak a hozzárendelt
           szócikkek vagy kategóriák szerkesztését követi nyomon. Akkor érdemes ezt
           a típust használni, ha a statisztikákat a cikkek vagy témakörök egy ismert
           gyűjteményére szeretnéd korlátozni. Alapértelmezés szerint az automatikus
@@ -636,12 +570,10 @@ hu:
       end_date: Záró dátum
       expected_number: Várható tanulólétszám
       find: A kurzusom megtalálása
-      intro:
-        A cím, az iskola és a kifejezés hozza létre a tanfolyam oldalának URL-címét,
+      intro: A cím, az iskola és a kifejezés hozza létre a tanfolyam oldalának URL-címét,
         és nem módosítható. A többi később szerkeszthető. Kattints a "Hozd létre a
         kurzusomat!" gombra, hogy elkezdhesd felépíteni a Wikipédia-feladatod idővonalát.
-      new_or_clone:
-        Most új kurzust hozhatsz létre a feladattervezési varázsló segítségével.
+      new_or_clone: Most új kurzust hozhatsz létre a feladattervezési varázsló segítségével.
         Ha egy korábbi kurzusból van egy erősen testreszabott idővonalad, amit újra
         szeretnél használni, akkor klónozhatod a másolatát új dátumokkal. (Ha korábban
         nem igazítottad jelentősen testre az idővonaladat, javasoljuk, hogy kezdj
@@ -651,64 +583,53 @@ hu:
       no_class_holidays: Nincs tanítási szünetem
       role_description: A szereped a kurzuson
       role_description_options:
-        - Oktató
-        - Oktatási asszisztens
+      - Oktató
+      - Oktatási asszisztens
       role_description_placeholder: Oktató, oktatási asszisztens, stb
       separate_event_dates: Adj meg külön esemény kezdési/záró időpontokat (opcionális)
-      separate_event_dates_info:
-        A program aktivitási statisztikái a fenti dátumok
+      separate_event_dates_info: A program aktivitási statisztikái a fenti dátumok
         és időpontok alapján kerülnek nyomon követésre, de meg lehet adni külön időpontokat
         az esemény vagy program kezdetére és végére (például, hogy a résztvevők tudják,
         mikor kell megjelenniük, vagy mikor zár a hely).
       save_cloned_course: Új kurzus elmentése
       start_date: Kezdő dátum
       subject: Tárgy
-      update_scheduled:
-        Tervezett frissítés. Az adatok a következő frissítési ciklus
+      update_scheduled: Tervezett frissítés. Az adatok a következő frissítési ciklus
         során az összes aktuális programmal együtt frissülnek. Ez általában több órát
         vesz igénybe.
     current: Aktuális kurzusok
     data_articles: Szócikkek adatai
-    data_articles_info:
-      A szócikkek adatai tartalmazzák az egyes oldalakon végzett
+    data_articles_info: A szócikkek adatai tartalmazzák az egyes oldalakon végzett
       szerkesztések számát, az új oldalakat és az oldalmegtekintések számát is beleértve.
       Ezek az oldalmegtekintési értékek elavultak lehetnek a már befejeződött kurzusok
       esetében, ezért a WMF Tool Labs oldalmegtekintési eszközének url címét is tartalmazza.
-    data_revisions_info:
-      A felülvizsgálati adatok tartalmazzák a kurzus felülvizsgálatainak
+    data_revisions_info: A felülvizsgálati adatok tartalmazzák a kurzus felülvizsgálatainak
       számát, a felülvizsgálat azonosítóját, a szócikk azonosítóját, az új oldalakat
       és az oldalmegtekintések összesített számát.
     data_download_info: Adatok letöltése CSV formátumban.
     data_overview: Áttekintő adatok
-    data_overview_info:
-      Az áttekintő adatok az egész projektre vonatkozóan összesített
+    data_overview_info: Az áttekintő adatok az egész projektre vonatkozóan összesített
       statisztikákat nyújtanak.
     data_edits: Szerkesztési adatok
-    data_edits_info:
-      A szerkesztési adatok a projekt során végzett minden egyes szerkesztés
+    data_edits_info: A szerkesztési adatok a projekt során végzett minden egyes szerkesztés
       részleteit mutatják.
     data_students: A szerkesztők adatai
-    data_students_info:
-      A szerkesztők adatai listázza az összes beiratkozott szerkesztőt,
+    data_students_info: A szerkesztők adatai listázza az összes beiratkozott szerkesztőt,
       hogy mennyit szerkesztettek, és hogy regisztrálták-e fiókjukat a projekt során.
     data_uploads: A Commons adatokat tölt fel
     data_revisions: Változatok adatai
-    data_uploads_info:
-      A Commons feltöltési adatai az egyes médiafeltöltések nevét
+    data_uploads_info: A Commons feltöltési adatai az egyes médiafeltöltések nevét
       és használati számát mutatja meg.
     data_wikidata: Wikidata statisztikák
-    data_wikidata_info:
-      A Wikidata-aktivitás részletes bontása a szerkesztési összefoglalók
+    data_wikidata_info: A Wikidata-aktivitás részletes bontása a szerkesztési összefoglalók
       alapján
     dates_too_long: A maximális időtartam egy év.
     delete_course: Kurzus törlése
     delete_suggestion: Törlés
-    delete_course_instructions:
-      Törölheted ezt az oldalt, ha előbb az összes kampányt
+    delete_course_instructions: Törölheted ezt az oldalt, ha előbb az összes kampányt
       eltávolítod.
     disable_student_emails: Hallgatói e-mailek letiltása
-    disable_student_emails_tooltip:
-      A hallgatói e-mail letiltása megakadályozza, hogy
+    disable_student_emails_tooltip: A hallgatói e-mail letiltása megakadályozza, hogy
       bizonyos értesítési e-mailek kerüljenek elküldésre a hallgatóknak erre a kurzusra
       vonatkozóan.
     dismiss_survey: Elvetés
@@ -718,8 +639,7 @@ hu:
     edit_count: Szerkesztésszám
     edit_course_dates: Tanfolyamdátumok szerkesztése
     embed_course_stats: Kurzus statisztikáinak beágyazása
-    embed_course_stats_description:
-      A program statisztikáinak egy másik webhelybe
+    embed_course_stats_description: A program statisztikáinak egy másik webhelybe
       ágyazásához másold ki és illeszd be ezt a kódrészletet ide
     enable_account_requests: Fiókkérések engedélyezése
     end: Vége
@@ -727,21 +647,19 @@ hu:
     enroll: Feliratkozás
     enrollment: Tanulók hozzáadása/eltávolítása
     enrollment_edits_enabled: Beiratkozási szerkesztés engedélyezve
-    enrollment_edits_enabled_tooltip:
-      Ha engedélyezve van, az irányítópult egy sablont
+    enrollment_edits_enabled_tooltip: Ha engedélyezve van, az irányítópult egy sablont
       tesz közzé minden, a programhoz csatlakozó szerkesztő felhasználói és vitalapján.
     courses_enrolled: Beiratkozott kurzusok
     error:
       exists: Ez a kurzus már létezik! Próbáld meg újra egy másik címmel vagy azonosítóval.
       user_exists: Sajnáljuk, %{username} nem létező felhasználó.
-      user_exists_on_wiki:
-        Sajnáljuk, %{username} nem létező felhasználó a(z) %{domain}
+      user_exists_on_wiki: Sajnáljuk, %{username} nem létező felhasználó a(z) %{domain}
         oldalon.
       invalid_language_or_project: Érvénytelen nyelv/projekt
       invalid_slug: Üres iskola/kurzus cím.
       duplicate_slug: Már létezik egy másik %{slug} nevű program.
     expected_students: Várható hallgatók
-    features_feedback: "Automatizált javaslatok:"
+    features_feedback: 'Automatizált javaslatok:'
     feedback: Visszajelzés
     feedback_loading: Kérjük, várj, amíg a javaslatok betöltődnek...
     gradeables_none: Ezen a kurzuson nincsenek osztályozható feladatok.
@@ -751,41 +669,33 @@ hu:
       one: Instructor
       other: Instructors
     instructors: Oktatók
-    instructor_message:
-      Ez ugyanaz a Saját szócikkek felület, mint a hallgatóké. Segítségével
+    instructor_message: Ez ugyanaz a Saját szócikkek felület, mint a hallgatóké. Segítségével
       végigjárhatod ugyanazokat a lépéseket, amelyeken a diákok is végigmennek. Azonban
       csak a diákok hozzájárulásai kerülnek nyomon követésre.
-    instructor_message_wikidata:
-      Ez ugyanaz a Saját elemek felület, mint a hallgatóké.
+    instructor_message_wikidata: Ez ugyanaz a Saját elemek felület, mint a hallgatóké.
       Segítségével végigjárhatod ugyanazokat a lépéseket, amelyeken a diákok is végigmennek.
       Azonban csak a diákok hozzájárulásai kerülnek nyomon követésre.
-    invitation:
-      Meghívást kaptál, hogy csatlakozz a %{title} programhoz. A csatlakozáshoz
+    invitation: Meghívást kaptál, hogy csatlakozz a %{title} programhoz. A csatlakozáshoz
       be kell jelentkezned egy Wikipédia-fiókkal.
-    invitation_username_advice:
-      Ha még nincs Wikipédia-fiókod, regisztrálj most. Felhasználóneved
+    invitation_username_advice: Ha még nincs Wikipédia-fiókod, regisztrálj most. Felhasználóneved
       tetszés szerint lehet anonim – vagy személyazonosításra alkalmas. (Megosztott
       fiókok nem engedélyezettek.)
     join: Csatlakozás
     join_course: Csatlakozz a tanfolyamhoz
     join_course_as_volunteer: Segíts önkéntesként
     join_prompt: Csatlakozol a(z) '%{title}' kurzushoz?
-    join_successful:
-      Sikeresen csatlakoztál a(z) %{title} csoporthoz. Az irányítópult
+    join_successful: Sikeresen csatlakoztál a(z) %{title} csoporthoz. Az irányítópult
       automatikusan nyomon követi a szerkesztéseidet, és rendszeres időközönként frissítéseket
       végez. Nézz vissza később, hogy megnézd, milyen hatást értél el!
     join_failed: A beiratkozás nem sikerült.
     join_failure_details:
       cannot_join_twice: A felhasználók nem csatlakozhatnak kétszer ugyanahhoz a kurzushoz.
       not_yet_approved: Ez a kurzus még nem lett jóváhagyva a beiratkozásra.
-      withdrawn:
-        Ezt a kurzust - valószínűleg tévedésből - visszavontnak lett jelölve.
+      withdrawn: Ezt a kurzust - valószínűleg tévedésből - visszavontnak lett jelölve.
         Lépj kapcsolatba a Wiki Education munkatársaival, hogy újra aktiváld.
-      invalid_sync:
-        Az eseményre való beiratkozást a Wikimedia Event Center ellenőrzi.
+      invalid_sync: Az eseményre való beiratkozást a Wikimedia Event Center ellenőrzi.
         Az irányítópultról nem lehet csatlakozni.
-    join_details:
-      Ahhoz, hogy csatlakozz ehhez a kurzushoz, meg kell szereznie az
+    join_details: Ahhoz, hogy csatlakozz ehhez a kurzushoz, meg kell szereznie az
       oktatótól a jelszót – vagy a belépési linket, ami tartalmazza a jelszót. Ha
       ezt nem kaptad meg, fordulj az oktatódhoz.
     join_no_passcode: Biztos, hogy csatlakozni akarsz ehhez a tanfolyamhoz?
@@ -799,13 +709,11 @@ hu:
     needs_update: Adatfrissítés ütemezése
     new_week: Új hét hozzáadása
     new_account_check_username: Felhasználónév elérhetőségének ellenőrzése
-    new_account_email: "E-mail-cím:"
+    new_account_email: 'E-mail-cím:'
     new_account_email_placeholder: name@example.org
-    new_account_info:
-      Fiók igényléséhez add meg e-mail-címedet és a kívánt felhasználónevedet.
+    new_account_info: Fiók igényléséhez add meg e-mail-címedet és a kívánt felhasználónevedet.
       A jelszó e-mailben lesz elküldve, miután az egyik facilitátor létrehozta a fiókot.
-    new_account_info_admin:
-      Egy új szerkesztő fiókjának létrehozásához add meg az
+    new_account_info_admin: Egy új szerkesztő fiókjának létrehozásához add meg az
       e-mail-címedet és a kívánt felhasználónevedet. A fiók létrehozását követően
       e-mailben lesz a jelszó megküldve.
     new_account_username: Kért felhasználónév
@@ -813,63 +721,54 @@ hu:
     new_account_username_placeholder: Wiki Editor 123
     new_account_username_taken: Ez a felhasználónév már foglalt. Kérjük, válassz másikat.
     new_account_submit: Felhasználói fiók kérése
-    new_account_submitted:
-      Fiók iránti kérelmedet elküldtük. A program facilitátora
+    new_account_submitted: Fiók iránti kérelmedet elküldtük. A program facilitátora
       most már véglegesítheti a fiók létrehozását. Amint létrehoztad, e-mailben megkapod
       a jelszót az új fiókodhoz.
-    new_account_submitted_admin:
-      A fiókkérelmed elkészült. Kérjük, tájékoztassad diákjaidat,
+    new_account_submitted_admin: A fiókkérelmed elkészült. Kérjük, tájékoztassad diákjaidat,
       hogy nézzék meg az e-mail postaládájukat, hogy megkapják az új jelszavukat.
-    no_campaign:
-      Ahhoz, hogy ez a program aktív legyen, és a felhasználók csatlakozhassanak
+    no_campaign: Ahhoz, hogy ez a program aktív legyen, és a felhasználók csatlakozhassanak
       hozzá, ahhoz hozzá kell adni egy kampányhoz. Ha nem tudod, melyik kampányhoz
       add hozzá, használd a 'Többi' lehetőséget.
     nocourses: Nem veszel részt semmilyen kurzuson.
     nocourse: nem vett részt semmilyen kurzuson.
     none: Nincs
     not_permitted: Ezt a kurzust nem szerkesztheted.
-    notify_untrained_confirmation:
-      Ez emlékeztetőt tesz közzé a vitalapokon minden
+    notify_untrained_confirmation: Ez emlékeztetőt tesz közzé a vitalapokon minden
       olyan diák számára, aki késik a kijelölt képzési modulok elvégzésével. Biztos
       vagy benne, hogy ezt szeretnéd?
     no_available_actions: Nincsenek elérhető műveletek
     online_volunteers_enabled: Online önkéntesek engedélyezve
-    online_volunteers_tooltip:
-      Az Online önkéntesek engedélyezése lehetővé teszi a
+    online_volunteers_tooltip: Az Online önkéntesek engedélyezése lehetővé teszi a
       felhasználói szerkesztők számára, hogy önkéntesként csatlakozzanak. A szerkesztéseik
       nem lesznek nyomon követve.
     ores_plot: ORES
     overview: Főoldal
     passcode: Jelszó
     passcode_none: Nincs jelkód
-    passcode_prompt: "Add meg a jelszót a csatlakozáshoz:"
+    passcode_prompt: 'Add meg a jelszót a csatlakozáshoz:'
     please_log_in: Kérjük, jelentkezz be.
     private: Privát
-    published:
-      "A tanfolyamod megjelent! A kurzusra a hallgatók az alábbi URL-címen
-      jelentkezhetnek:"
-    rating_feedback: "A szócikk várható értékelése:"
+    published: 'A tanfolyamod megjelent! A kurzusra a hallgatók az alábbi URL-címen
+      jelentkezhetnek:'
+    rating_feedback: 'A szócikk várható értékelése:'
     requested_accounts: Kért felhasználói fiókok
     requested_accounts_alert:
-      one: "%{count} igényelt fiók függőben."
-      other: "%{count} igényelt fiókok függőben."
+      one: '%{count} igényelt fiók függőben.'
+      other: '%{count} igényelt fiókok függőben.'
     requested_accounts_alert_view: Megtekintés
     retain_available_articles: Elérhető szócikkek megtartása
     retain_available_articles_wikidata: Elérhető elemek megtartása
-    retain_available_articles_info:
-      Ha engedélyezve van, az Elérhető szócikk kiválasztása
+    retain_available_articles_info: Ha engedélyezve van, az Elérhető szócikk kiválasztása
       nem távolítja el azt a listáról, így a diákok csoportja választhatja ki ugyanazt
       a szócikket.
-    retain_available_articles_info_wikidata:
-      Ha engedélyezve van, az Elérhető elem
+    retain_available_articles_info_wikidata: Ha engedélyezve van, az Elérhető elem
       kiválasztása nem távolítja el azt a listáról, így a diákok csoportja választhatja
       ki ugyanazt az elemet.
-    review_timeline:
-      "Most ellenőrizd a feladat ütemezését, és igazítsd az igényeidhez.
+    review_timeline: 'Most ellenőrizd a feladat ütemezését, és igazítsd az igényeidhez.
       Ha meg vagy vele elégedve, elküldheted jóváhagyásra a Wiki Education munkatársainak.
       A jóváhagyást követően kapni fogsz egy beiratkozási URL-címet, amellyel a diákok
       csatlakozhatnak a tanfolyamhoz és hozzáférhetnek a képzésekhez. (Megjegyzés:
-      később is lesz lehetőséged a szerkesztésre)."
+      később is lesz lehetőséged a szerkesztésre).'
     revisions_doc: Az elmúlt %{timeframe} nap szerkesztéseinek száma
     revisions_none: Ennek a kurzusnak nincs legutóbbi Wikipédia szerkesztési tevékenysége.
     school: Iskola
@@ -881,17 +780,15 @@ hu:
     student: Diák
     students: Diákok
     students_taught: Oktatott hallgatók
-    students_count: "# Diákok"
+    students_count: '# Diákok'
     student_editors: Diákszerkesztők
     students_none: Ennek a kurzusnak nincsenek hallgatói.
     students_short: Diákok
-    submitted_admin:
-      Ez a kurzus az alkotója által jóváhagyásra benyújtásra került.
+    submitted_admin: Ez a kurzus az alkotója által jóváhagyásra benyújtásra került.
       A jóváhagyáshoz add hozzá egy kampányhoz az Áttekintés oldalon.
     submitted_and_pending_heading: Beküldve & jóváhagyásra vár
     submitted_heading: Beküldött tanfolyamok
-    submitted_note:
-      A kurzusod sikeres beküldése megtörtént. A Wiki Education munkatársai
+    submitted_note: A kurzusod sikeres beküldése megtörtént. A Wiki Education munkatársai
       átnézik, és kapcsolatba lépnek veled, ha bármilyen kérdésed van. Addig is, ha
       szeretnéd áttekinteni a Wiki Education képzési anyagait, megtekintheted az oktatóknak
       és hallgatóknak szánt források teljes listáját.
@@ -901,51 +798,43 @@ hu:
     suggestions_failed: Nem sikerült visszajelzést küldeni. Próbáld újra később.
     user_role: Szerep
     course_details: A tanfolyam részletei
-    course_submitted:
-      A benyújtott státusz olyan oktatási programtárgyak esetében
+    course_submitted: A benyújtott státusz olyan oktatási programtárgyak esetében
       használatos, ahol a projekt megkezdése előtt jóvá kell hagyni a kurzustervet.
       Ez csak a ClassroomProgram kurzustípus esetében releváns.
     subject: Tárgy
     submitted: Beküldve
-    submitted_at: "Beküldve:"
+    submitted_at: 'Beküldve:'
     tag_select: Válassz vagy hozz létre egy címkét
-    tags: "Címkék:"
+    tags: 'Címkék:'
     term: Term
     timeline: A megbízás részletei
     timeline_enabled: Idővonal engedélyezve
     timeline_link: Idővonal
-    timeline_tooltip:
-      Az Idővonal engedélyezésével hétről hétre meghatározhatod a
+    timeline_tooltip: Az Idővonal engedélyezésével hétről hétre meghatározhatod a
       tevékenységeket és kijelölheted a képzési modulokat. Ez hasznos az Oktatási
       program tanfolyamaihoz és más hosszabb, erősen strukturált programokhoz.
     timeline_nav: Lépj az Idővonalra
-    time_zone_message:
-      A kezdési és befejezési időpontok a helyi időzónában jelennek
+    time_zone_message: A kezdési és befejezési időpontok a helyi időzónában jelennek
       meg.
     title: Cím
-    training_due:
-      A(z) "%{title}" képzési modul ehhez a kurzushoz van rendelve, esedékessége
+    training_due: A(z) "%{title}" képzési modul ehhez a kurzushoz van rendelve, esedékessége
       %{date}.
     training_nav: Tovább a képzésre
-    training_overdue:
-      A(z) "%{title}" képzési modul ehhez a kurzushoz van rendelve,
+    training_overdue: A(z) "%{title}" képzési modul ehhez a kurzushoz van rendelve,
       esedékessége %{date}.
     unsubmitted: Be nem küldött kurzusok
     untrained: Nem képzett
     update_stats: Statisztikák frissítése
-    uploads_none:
-      Ez az osztály nem adott hozzá képeket vagy más médiafájlokat a Wikimédia
+    uploads_none: Ez az osztály nem adott hozzá képeket vagy más médiafájlokat a Wikimédia
       Commonshoz.
-    user_uploads_none:
-      Ez a felhasználó nem adott hozzá képeket vagy más médiafájlokat
+    user_uploads_none: Ez a felhasználó nem adott hozzá képeket vagy más médiafájlokat
       a Wikimédia Commonshoz.
     user_recent_uploads: Friss feltöltések
-    user_suggestions: "Felhasználói javaslatok:"
+    user_suggestions: 'Felhasználói javaslatok:'
     user_suggestions_prompt: Javaslataid a szócikk szerkesztőinek
     view_other: Más kampányok megtekintése
     view: Kurzus megtekintése
-    view_doc:
-      A beiratkozott szerkesztők által szerkesztett szócikkek becsült megtekintéseinek
+    view_doc: A beiratkozott szerkesztők által szerkesztett szócikkek becsült megtekintéseinek
       száma azóta, hogy a szerkesztő elvégezte az egyes szócikkek első szerkesztését
     view_page: Kurzus oldal megtekintése
     view_wiki: Megtekintés a Wikipédián
@@ -953,27 +842,22 @@ hu:
       one: Önkéntes
       other: Önkéntesek
     weeks_none: Ennek a kurzusnak még nincs idővonala.
-    warn_mirrored:
-      A beküldés után ez a kurzus automatikusan felkerül a Wikipédiára
+    warn_mirrored: A beküldés után ez a kurzus automatikusan felkerül a Wikipédiára
       a felhasználói fiókoddal együtt. Ezt követően az idővonal új szerkesztései a
       Wikipédiára is átkerülnek. Biztos vagy benne, hogy ezt szeretnéd?
     wiki_course_page_enabled: Wiki kurzusoldal engedélyezve
-    wiki_course_page_enabled_tooltip:
-      Ha engedélyezve van, az oldal wiki tükörképe
+    wiki_course_page_enabled_tooltip: Ha engedélyezve van, az oldal wiki tükörképe
       frissül, amikor a program vagy a felhasználók és a feladatok változnak.
     wiki_edits_enabled: Wiki szerkesztés engedélyezve
-    wiki_edits_enabled_tooltip:
-      Ha a wikiszerkesztés engedélyezve van, akkor a programhoz
+    wiki_edits_enabled_tooltip: Ha a wikiszerkesztés engedélyezve van, akkor a programhoz
       automatikus wikiszerkesztés fog készülni. Kapcsold ki a wiki szerkesztéseket,
       ha nem szeretnéd, hogy sablonok kerüljenek a felhasználói lapokra, a hozzárendelt
       szócikkek vitalapjaira, stb.
     wiki_staff: Wiki oktatási munkatársak
     withdrawn: Nem végzett megbízás
-    word_count_doc:
-      A kurzus hallgatói által a kurzus ideje alatt a főtérbe írt szócikkekhez
+    word_count_doc: A kurzus hallgatói által a kurzus ideje alatt a főtérbe írt szócikkekhez
       hozzáadott szavak becsült száma
-    word_count_doc_wikidata:
-      A kurzus hallgatói által a kurzus ideje alatt a főtér
+    word_count_doc_wikidata: A kurzus hallgatói által a kurzus ideje alatt a főtér
       elemeihez hozzáadott szavak becsült száma
     yourcourses: A kurzusod
     survey:
@@ -995,8 +879,8 @@ hu:
     course: Program
     courses: Programok
     courses_taught: Tanított programok
-    campaigns: "Kampányok:"
-    campaign_courses: "%{title} Programok"
+    campaigns: 'Kampányok:'
+    campaign_courses: '%{title} Programok'
     creator:
       assignment_end: Esemény vége
       assignment_end_placeholder: ÉÉÉÉ-HH-NN
@@ -1004,27 +888,22 @@ hu:
       assignment_start_placeholder: ÉÉÉÉ-HH-NN
       cancel_course_clone: A program klónozásának megszakítása
       cancel_course_clone_confirm: Biztos, hogy nem akarod tovább klónozni ezt a programot?
-      checking_for_uniqueness:
-        Ez a program egyediségének ellenőrzése folyamatban
+      checking_for_uniqueness: Ez a program egyediségének ellenőrzése folyamatban
         van.
       choose_clone: Válassz egy programot a klónozáshoz.
       clone_previous: Előző program klónozása
       clone_this: Program klónozása
       clone_successful: A program sikeresen klónozva
-      clone_successful_details:
-        A programod klónozva lett. A véglegesítéshez kattints
+      clone_successful_details: A programod klónozva lett. A véglegesítéshez kattints
         az alábbi „Mentés” gombra.
-      course_when:
-        Adj hozzá valamit a "Mikor" mezőben (például a hónapot és az évet),
+      course_when: Adj hozzá valamit a "Mikor" mezőben (például a hónapot és az évet),
         hogy megkülönböztesd az eredetitől.
-      course_dates_info:
-        Add meg a program kezdő és befejező dátumát. Érdemes lehet
+      course_dates_info: Add meg a program kezdő és befejező dátumát. Érdemes lehet
         a végét több órával vagy nappal a fő tevékenységek befejezése utánra is kiterjeszteni,
         hogy a kapcsolódó szerkesztést, ami nem sokkal az esemény után történik, bele
         lehessen foglalni.
       course_description: Program leírása
-      course_description_placeholder:
-        Mi ez a program, és mit fognak csinálni a résztvevők
+      course_description_placeholder: Mi ez a program, és mit fognak csinálni a résztvevők
         a wiki(k)-en? Kérjük, adj meg elég részletet ahhoz, hogy a többi szerkesztőnek
         is legyen fogalma arról, hogy a résztvevők milyen szerkesztést fognak nyújtani
         a Wikihez.
@@ -1038,15 +917,13 @@ hu:
       create_short: Program létrehozása
       end_date: A tevékenységkövetés vége
       find: Program keresése
-      intro:
-        A program címe és az intézmény alkotja a program URL-címét. A kezdő wiki
+      intro: A program címe és az intézmény alkotja a program URL-címét. A kezdő wiki
         a fő wiki, ahol a résztvevők dolgozni fognak, és az ezen a wikin végzett szerkesztéseket
         alapértelmezés szerint nyomon követik. Ha a programod több nyelvre vagy projektre
         terjed ki, a szerkesztések figyelemmel lesznek kísérve minden olyan wiki esetében
         is, ami kifejezetten hozzá lett adva a "Nyomon követett wikik" listához. Kattints
         a "Programom létrehozása!" gombra a wikiprogramod oldalának létrehozásához.
-      new_or_clone:
-        Hozz létre egy új programot most, vagy használd a „klónozás” opciót
+      new_or_clone: Hozz létre egy új programot most, vagy használd a „klónozás” opciót
         egy másik program másolásához, ahol részt vettél.
       participate_in_campaign: Részvétel egy kampányban
       save_cloned_course: Mentés
@@ -1061,13 +938,12 @@ hu:
     expected_students: Várható szerkesztők
     instructors: Facilitátorok
     join_course: Csatlakozás a programhoz
-    join_details:
-      A programhoz való csatlakozáshoz meg kell szerezned a jelszót -
+    join_details: A programhoz való csatlakozáshoz meg kell szerezned a jelszót -
       vagy a jelszót tartalmazó linket - a facilitátortól.
     leave_course: Program elhagyása
     milestones_none: Ennek a projektnek jelenleg nincsenek mérföldkövei.
     not_permitted: Nem jogosult szerkeszteni ezt a programot.
-    published: "Ez a projekt megjelent! A szerkesztők a következő URL-címen regisztrálhatnak:"
+    published: 'Ez a projekt megjelent! A szerkesztők a következő URL-címen regisztrálhatnak:'
     request_accounts: Felhasználói fiók igénylése
     revisions_none: Ennek a projektnek nincs friss szerkesztési tevékenysége.
     school: Intézmény
@@ -1083,19 +959,15 @@ hu:
     students_count: Résztvevők száma
     term: Mikor
     unsubmitted: Be nem küldött programok
-    uploads_none:
-      Ez a projekt nem járult hozzá képekkel vagy más médiafájlokkal a
+    uploads_none: Ez a projekt nem járult hozzá képekkel vagy más médiafájlokkal a
       Wikimédia Commonshoz.
-    user_uploads_none:
-      A kiválasztott felhasználók nem adtak hozzá képeket vagy más
+    user_uploads_none: A kiválasztott felhasználók nem adtak hozzá képeket vagy más
       médiafájlokat ehhez a projekthez.
     view_other: Más kampányok megtekintése
     view_page: Programoldal megtekintése
-    word_count_doc:
-      A program szerkesztői által a program időtartama alatt a főtérbe
+    word_count_doc: A program szerkesztői által a program időtartama alatt a főtérbe
       írt szócikkekhez hozzáadott szavak becsült száma
-    word_count_doc_wikidata:
-      A program futamideje alatt a program szerkesztői által
+    word_count_doc_wikidata: A program futamideje alatt a program szerkesztői által
       a főtéri elemekhez hozzáadott szavak becsült száma.
     yourcourses: A programjaid
   editable:
@@ -1105,11 +977,10 @@ hu:
     edit_description: Leírás szerkesztése
     edit_details: Részletek szerkesztése
     edit_template: Sablon szerkesztése
-    rename_confirmation:
-      Az URL-címet alkotó kurzusmezők megváltoztak. Ez megváltoztatja
+    rename_confirmation: Az URL-címet alkotó kurzusmezők megváltoztak. Ez megváltoztatja
       az URL-címet és megszakítja a bejövő linkeket. Biztos, hogy ezt szeretnéd?
   instructor_view:
-    article_assignments: "%{prefix} Hozzárendelések"
+    article_assignments: '%{prefix} Hozzárendelések'
     assignments_table:
       article_name: Név
       current_stage: Jelenlegi szakasz
@@ -1117,41 +988,35 @@ hu:
     assigned_articles: Hozzárendelt szócikkek
     assigned_articles_wikidata: Hozzárendelt elemek
     bad_work:
-      learn_more:
-        Ha a diákmunka rontott a szócikken, arra biztatunk, hogy szerkesszed
+      learn_more: Ha a diákmunka rontott a szócikken, arra biztatunk, hogy szerkesszed
         meg magad. Ellenkező esetben értesíts bennünket a problémákról, hogy később
         kijavíthassuk azokat.
-      learn_more_wikidata:
-        Ha a diákmunka rontott az elemen, arra biztatunk, hogy
+      learn_more_wikidata: Ha a diákmunka rontott az elemen, arra biztatunk, hogy
         szerkesszed meg magad. Ellenkező esetben értesíts bennünket a problémákról,
         hogy később kijavíthassuk azokat.
       learn_more_button: További info
       submit_issue: Melyek a szócikk jelentős problémái?
       submit_issue_wikidata: Melyek a lényeges problémák ezzel az elemmel?
-      submit_issue_placeholder:
-        Minél több szakértői szempontot és részletet tudsz
+      submit_issue_placeholder: Minél több szakértői szempontot és részletet tudsz
         nyújtani, annál jobb.
       thank_you: Köszönöm! Ha további kérdéseid vannak, fordulj a Wiki-szakértődhöz.
-    exercises_and_trainings: "%{prefix} Gyakorlatok és képzések"
-    no_assignments:
-      Ehhez a tanulóhoz jelenleg nincsenek hozzárendelt szócikkek. A
+    exercises_and_trainings: '%{prefix} Gyakorlatok és képzések'
+    no_assignments: Ehhez a tanulóhoz jelenleg nincsenek hozzárendelt szócikkek. A
       fenti gombok segítségével hozzárendelhetsz egy szócikket.
-    no_assignments_wikidata:
-      Ennek a tanulónak jelenleg nincsenek hozzárendelt elemei.
+    no_assignments_wikidata: Ennek a tanulónak jelenleg nincsenek hozzárendelt elemei.
       A fenti gombok segítségével hozzárendelhetsz egy elemet.
-    overview: "%{prefix} Áttekintés"
+    overview: '%{prefix} Áttekintés'
     reviewing_articles: Szócikkek ellenőrzése
     reviewing_articles_wikidata: Elemek ellenőrzése
     select_student:
-      title: "%{prefix} kiválasztása"
+      title: '%{prefix} kiválasztása'
       content: Szócikkfeladatok hozzárendelésére és megtekintésére
       content_wikidata: elem-hozzárendelések hozzárendeléséhez és megtekintéséhez
   metrics:
     label: Tanfolyami tevékenység
     last_update: Utolsó statisztikai frissítés
     next_update: Következő becsült frissítés
-    late_update:
-      Újabb frissítés várható %{late_update_time}. Ez azt jelentheti, hogy
+    late_update: Újabb frissítés várható %{late_update_time}. Ez azt jelentheti, hogy
       a frissítés a vártnál tovább tart, vagy olyan problémát jelezhet, ami blokkolja
       a frissítéseket.
     no_update: Az irányítópult még nem importált adatokat ehhez a programhoz.
@@ -1167,11 +1032,9 @@ hu:
     articles_edited_wikidata: Szerkesztett elemek
     articles_edited_generic: Szerkesztett lapok
     articles_edited_generic_wikidata: Szerkesztett elemek
-    article_scoped_program_info:
-      Ez egy „Szócikkekre kiterjedő program”, mely csak
+    article_scoped_program_info: Ez egy „Szócikkekre kiterjedő program”, mely csak
       a hozzárendelt szócikkek és kategóriák módosításait számolja.
-    article_scoped_program_info_wikidata:
-      Ez egy „Szócikkekre kiterjedő program”,
+    article_scoped_program_info_wikidata: Ez egy „Szócikkekre kiterjedő program”,
       mely csak a hozzárendelt elemek és kategóriák módosításait számolja.
     bytes_added: Bájtok hozzáadva
     characters: Karakterek
@@ -1181,8 +1044,7 @@ hu:
     close_modal: Bezárás
     date_time: Dátum/idő
     edit_count_description: Összes szerkesztés
-    error_count_message:
-      Az irányítópult %{error_count} hibát észlelt a legutóbbi
+    error_count_message: Az irányítópult %{error_count} hibát észlelt a legutóbbi
       frissítés során.
     future_updates_remaining:
       updates_active: A statisztikák folyamatosan frissülnek %{date} dátumig.
@@ -1190,32 +1052,25 @@ hu:
     last_reviewed: Utolsó ellenőrzés
     missing_data_heading: Hiányzó vagy váratlan eredmények?
     missing_data_info: A gyakori problémák közé tartozik
-    non_updating_course_update:
-      Egyszeri frissítésre lett beütemezve, ami hamarosan
+    non_updating_course_update: Egyszeri frissítésre lett beütemezve, ami hamarosan
       megtörténik.
     last_update_failed: A kurzus legutóbbi frissítése meghiúsult.
-    last_update_success:
-      Az utolsó frissítés sikeresen lefutott, így a statisztikáknak
+    last_update_success: Az utolsó frissítés sikeresen lefutott, így a statisztikáknak
       naprakésznek kell lenniük.
-    outreach_help:
-      Kell segítség? Tekintsd meg a „Hibabejelentés” részt a navigációs
+    outreach_help: Kell segítség? Tekintsd meg a „Hibabejelentés” részt a navigációs
       sávban.
-    per_user: "%{number}/felhasználó"
-    recent_updates_summary:
-      Az utolsó %{total} frissítésből %{failure_count} sikertelen,
+    per_user: '%{number}/felhasználó'
+    recent_updates_summary: Az utolsó %{total} frissítésből %{failure_count} sikertelen,
       és %{error_count} hibát észlelt.
     revisions: Friss szerkesztések
     references_count: Hozzáadott lábjegyzetek
-    references_doc:
-      Ez a szócikkekhez hozzáadott hivatkozási címkék száma, és tartalmazhat
+    references_doc: Ez a szócikkekhez hozzáadott hivatkozási címkék száma, és tartalmazhat
       több hivatkozást ugyanarra a forrásra. Az adatok az ORES cikkminőségi modellből
       származnak, és csak néhány nyelv esetében állnak rendelkezésre.
-    references_doc_wikidata:
-      Ez az elemekhez hozzáadott hivatkozási címkék száma,
+    references_doc_wikidata: Ez az elemekhez hozzáadott hivatkozási címkék száma,
       és tartalmazhat több hivatkozást ugyanarra a forrásra. Az adatok az ORES cikkminőségi
       modellből származnak, és csak néhány nyelv esetében állnak rendelkezésre.
-    replag_info:
-      Az irányítópult a szerkesztési adatokat a WMF Cloud replikációs adatbázisokból
+    replag_info: Az irányítópult a szerkesztési adatokat a WMF Cloud replikációs adatbázisokból
       hívja le. Néha ezekből az adatbázisokból a replikációs késedelem (replag) miatt
       hiányoznak a legfrissebb szerkesztések. Ebben az esetben a hiányzó szerkesztések
       később jelennek meg.
@@ -1259,8 +1114,7 @@ hu:
     qualifiers_added: Selejtezők hozzáadva
     redirects_created: Átirányítások létrehozva
     references_added: Hozzáadott lábjegyzetek
-    references_added_info:
-      Ez csak a hozzáadott hivatkozások részleges számlálása
+    references_added_info: Ez csak a hozzáadott hivatkozások részleges számlálása
       lehet. Ez a Wikidata szerkesztési összefoglalóin alapul, és egyes hivatkozásokat
       hozzáadó szerkesztések "Megváltozott állítás" vagy "Létrehozott állítás" kategóriába
       sorolhatóak.
@@ -1308,8 +1162,7 @@ hu:
     no_edits: Nincsenek friss szerkesztések.
     plagiarism_report: Plágiumjelentés
     possible_plagiarism: Lehetséges plágium
-    plagiarism_explanation:
-      A Wikipédia plágiumfelismerő rendszere a Turnitin/iThenticate
+    plagiarism_explanation: A Wikipédia plágiumfelismerő rendszere a Turnitin/iThenticate
       segítségével hasonlítja össze az új szerkesztéseket a közzétett szöveggel. Ezek
       a jelentések nem 100%-os pontosságúak. Például egy közvetlen idézet a megfelelő
       hivatkozással téves pozitív plágiumjelentést válthat ki. Kérjük, mielőtt bármilyen
@@ -1334,7 +1187,7 @@ hu:
     diff_hide: Elrejtés
     edit_time_span: Szerkesztések története %{first_time} és %{last_time} között
     edited_by: Szerkesztette
-    edited_on: "Szerkesztve: %{edit_date}"
+    edited_on: 'Szerkesztve: %{edit_date}'
     loading: Változatok betöltése...
     none: Ennek a kurzusnak nincs legutóbbi szerkesztési tevékenysége.
     time_doc: Az egyes változatok időpontja a helyi idő szerint
@@ -1353,122 +1206,99 @@ hu:
         form_placeholder: Felhasználónév
         confirm_add_admin: Adminisztrátor engedélyezése
         confirm_remove_admin: Adminisztrátori jogosultságok eltávolítása
-        already_admin: "%{username} már rendszergazda!"
-        elevate_success: "%{username} adminisztrátorrá lett emelve."
+        already_admin: '%{username} már rendszergazda!'
+        elevate_success: '%{username} adminisztrátorrá lett emelve.'
       remove:
         revoke_button: Rendszergazda visszavonása
         revoke_button_confirm: Rendszergazdai jogok visszavonása %{username} felhasználótól
         revoking_button_working: Visszavonás...
-        already_instructor: "%{username} már oktató!"
-        demote_success: "%{username} oktatóvá változott."
-        no_super_admin:
-          A kiemelt adminisztrátor adminisztrátori állapota nem vonható
+        already_instructor: '%{username} már oktató!'
+        demote_success: '%{username} oktatóvá változott.'
+        no_super_admin: A kiemelt adminisztrátor adminisztrátori állapota nem vonható
           vissza
     special_users:
       new:
         form_label: Speciális felhasználói jogosultságok megadása
         form_placeholder: Felhasználónév
         confirm_add_special_user: Speciális felhasználó hozzáadása
-        _user: Speciális felhasználói jogosultságok eltávolítása
-          a
-        already_is: "%{username} már {position}!"
-        elevate_success: "%{username} a következő helyre emelve: {position}."
+        already_is: '%{username} már {position}!'
+        elevate_success: '%{username} a következő helyre emelve: {position}.'
       remove:
         revoke_button: Speciális felhasználó visszavonása
-        revoke_button_confirm:
-          Speciális felhasználói jogok visszavonása %{username}
+        revoke_button_confirm: Speciális felhasználói jogok visszavonása %{username}
           felhasználótól
         revoking_button_working: Visszavonás...
-        already_is_not: "%{username} nem különleges felhasználó!"
-        demote_success: "%{username} mostantól csak egy felhasználó."
+        already_is_not: '%{username} nem különleges felhasználó!'
+        demote_success: '%{username} mostantól csak egy felhasználó.'
   suggestions:
     editing: Szerkesztési javaslatok
     suggestion_docs:
-      fa:
-        További tartalmi kiegészítésekre csak akkor van szükség, ha új információk
+      fa: További tartalmi kiegészítésekre csak akkor van szükség, ha új információk
         válnak hozzáférhetővé; a szöveg minőségének további javítása gyakran lehetséges.
-      a:
-        A szócikk finomhangolásához szakértői ismeretekre lehet szükség, és előfordulhat,
+      a: A szócikk finomhangolásához szakértői ismeretekre lehet szükség, és előfordulhat,
         hogy stílusproblémákat kell megoldani. A szakértői értékelés segíthet.
-      ga:
-        Hasznos lehet némi szerkesztés téma- és stílusszakértők által; egy hasonló
+      ga: Hasznos lehet némi szerkesztés téma- és stílusszakértők által; egy hasonló
         témájú, már meglévő kiemelt szócikkel való összehasonlítás rávilágíthat azokra
         a területekre, ahol a tartalom gyenge vagy hiányzik.
-      bplus:
-        Javítható szakértők közreműködésével, hogy felmérjék, hol hiányzik még
+      bplus: Javítható szakértők közreműködésével, hogy felmérjék, hol hiányzik még
         a lefedettség, valamint illusztrációkkal, háttéranyagokkal és további hivatkozásokkal.
         Megfontolandó a szakértői értékelés vagy a jó szócikk státuszra való jelölés.
         Ha a cikk még nincs teljesen wikiesitve, akkor épp itt az ideje.
-      b:
-        Néhány tartalmi és stilisztikai szempontot meg kell vizsgálni. Szükség lehet
+      b: Néhány tartalmi és stilisztikai szempontot meg kell vizsgálni. Szükség lehet
         szakértői ismeretekre. Ha célszerű, meg lehet fontolni az alátámasztó anyagok
         beillesztését, és ellenőrizni kell, hogy a szócikk általában megfelel-e a
         Stíluskézikönyvnek és a kapcsolódó stílusirányelveknek.
-      c:
-        Jelentős szerkesztésre van szükség a tartalmi hiányosságok megszüntetéséhez
+      c: Jelentős szerkesztésre van szükség a tartalmi hiányosságok megszüntetéséhez
         és a tisztítási problémák megoldásához.
-      start:
-        A megbízható forrásokra való hivatkozásnak kell az első helyen állnia;
+      start: A megbízható forrásokra való hivatkozásnak kell az első helyen állnia;
         a cikket tartalmilag és szervezésileg is jelentősen javítani kell. Emellett
         javítani szükséges még a nyelvtant, a helyesírást, az írásmódot és a szakkifejezések
         használatán.
-      stub:
-        Bármilyen szerkesztés vagy kiegészítő anyag hasznos lehet. A tartalommal
+      stub: Bármilyen szerkesztés vagy kiegészítő anyag hasznos lehet. A tartalommal
         való ellátásnak prioritást kell élveznie. A legjobb megoldás egy Csonk-osztályú
         szócikk Kezdő-osztályú szócikké való fokozására az, ha hivatkozásokkal alátámasztott
         indoklást adunk hozzá, hogy miért fontos az adott téma.
-      fl:
-        Nincs szükség további tartalom-kiegészítésekre, hacsak nem válik elérhetővé
+      fl: Nincs szükség további tartalom-kiegészítésekre, hacsak nem válik elérhetővé
         új információ.
-      list:
-        A listáknak a Wikipédia-szócikkekre mutató élő hivatkozások listáinak
+      list: A listáknak a Wikipédia-szócikkekre mutató élő hivatkozások listáinak
         kell lenniük, megfelelő elnevezéssel és rendszerezéssel.
-      future:
-        A hozzáadott anyag lehet spekuláció, és gondosan meg kell keresni a
+      future: A hozzáadott anyag lehet spekuláció, és gondosan meg kell keresni a
         forrásokat.
-      disambig:
-        A kiegészítéseket akkor kell elvégezni, amikor új, ilyen nevű szócikkek
+      disambig: A kiegészítéseket akkor kell elvégezni, amikor új, ilyen nevű szócikkek
         jönnek létre. Fordíts nagy figyelmet az ilyen oldalak megfelelő elnevezésére,
         mivel gyakran nincs szükség arra, hogy a címükhöz "(egyértelművé)" legyen
         csatolva.
-      "?":
-        Nem állnak rendelkezésre javaslatok – A szócikk vagy nincs besorolva, vagy
+      '?': Nem állnak rendelkezésre javaslatok – A szócikk vagy nincs besorolva, vagy
         nem állnak rendelkezésre javaslatok az értékeléshez.
       does_not_exist: Ez a szócikk nem létezik a Wikipédián.
   tasks:
     conseq: A %{task} feladat már fut!
     constant: A %{task} feladat nem futhat, amíg az update_daily feladat fut.
-    paused:
-      A %{task} feladat nem futhat, mert az ütemezett frissítések szünetelnek.
+    paused: A %{task} feladat nem futhat, mert az ütemezett frissítések szünetelnek.
       Futtassad a 'rake batch:resume' parancsot a frissítések folytatásához.
   tickets:
     none: Nincs jegy
   timeline:
     add_week: Hét hozzáadása
     arrange_timeline: Idővonal rendezése
-    arrange_timeline_instructions:
-      Rendezzed el az idővonalat úgy, hogy a blokkokat
+    arrange_timeline_instructions: Rendezzed el az idővonalat úgy, hogy a blokkokat
       a kívánt helyre/hétre húzzad, vagy helyezzed át a blokkokat a kártyán lévő nyilak
       segítségével.
-    assignment_dates_instructions:
-      Válasszad ki a Wikipédia hozzárendelési idővonalának
+    assignment_dates_instructions: Válasszad ki a Wikipédia hozzárendelési idővonalának
       kezdő és befejező dátumát. A kezdési dátum módosítása a teljes idővonal dátumait
       eltolja.
-    blackout_week_created:
-      Ezen a héten blokkok vannak betervezve. Kérjük, helyezd
+    blackout_week_created: Ezen a héten blokkok vannak betervezve. Kérjük, helyezd
       át őket egy másik hétre, mielőtt eltávolítanád az utolsó osztálytalálkozót erről
       a hétről.
     block_assignment: Feladat
     block_custom: Egyedi
     block_in_class: Osztályban
     block_milestone: Mérföldkő
-    block_type:
-      A blokk típus arra szolgál, hogy kommunikáljon a diákokkal erről az
+    block_type: A blokk típus arra szolgál, hogy kommunikáljon a diákokkal erről az
       elemről az idővonalukon, és hogy hasznos eszközöket hozzon létre  (például a
       mérföldkő vázlatot az Áttekintés oldalon)
     course_dates: Tanfolyam dátumai
-    course_dates_instructions:
-      Válaszd ki a teljes kurzus kezdési és befejezési dátumát
+    course_dates_instructions: Válaszd ki a teljes kurzus kezdési és befejezési dátumát
       (nem csak a Wikipédia-feladat).
     course_end: Tanfolyam vége
     course_start: Tanfolyam kezdete
@@ -1476,15 +1306,13 @@ hu:
       Biztosan törölni szeretnéd ezt a hetet? Ezzel törölve lesz a hét és az összes kapcsolódó blokk.
 
       Ez nem vonható vissza.
-    delete_weeks_confirmation:
-      "Biztosan törlöd ezt az egész idővonalat, és újrakezdést?
+    delete_weeks_confirmation: "Biztosan törlöd ezt az egész idővonalat, és újrakezdést?
       \n\nEz nem vonható vissza."
     discard_all_changes: Minden változtatás elvetése
     delete_timeline_and_start_over: Idővonal törlése
     due_default: Jövő héten esedékes
     edit_titles: Heti címek szerkesztése
-    edit_titles_info:
-      Heti címek szerkesztése az idővonalon. Csak a tervezett találkozókkal
+    edit_titles_info: Heti címek szerkesztése az idővonalon. Csak a tervezett találkozókkal
       rendelkező heteknek lehet adni egyéni címet. Ha bármilyen egyéni címet használsz,
       a találkozók nélküli hetek dátummal lesznek ellátva ahelyett, hogy számozva
       lennének.
@@ -1496,7 +1324,7 @@ hu:
     first_week_title: Első aktív hét
     gradeable_value: Érték
     gradeables_none: Ezen az idővonalon nincsenek értékeltként megjelölt feladatok.
-    grading_header: "Osztályozás (összesen: %{total})"
+    grading_header: 'Osztályozás (összesen: %{total})'
     move_block_down: Block lefelé mozgatása
     move_block_up: Block felfelé mozgatása
     no_class_holidays: Nincs tanítási szünetem
@@ -1504,30 +1332,27 @@ hu:
     no_activity_this_week: Nincsenek ütemezett találkozók ezen a héten
     nothing_this_week: Erre a hétre nincs semmi program.
     reset_titles: Visszaállítás alapértelmezettre
-    reset_titles_confirmation:
-      Biztos, hogy vissza szeretnéd állítani az összes heti
+    reset_titles_confirmation: Biztos, hogy vissza szeretnéd állítani az összes heti
       címet? Ezt nem lehet visszavonni.
     save_all_changes: Összes mentése
     this_week_title_default: Ezen a héten
     title: Idővonal
-    unable_to_add_week:
-      Nem adhatsz hozzá új heteket ha az idővonal megtelt. Törölj
+    unable_to_add_week: Nem adhatsz hozzá új heteket ha az idővonal megtelt. Törölj
       legalább egy hetet, vagy módosítsd a megbízás dátumait, hogy az újnak legyen
       helye.
     view_full_timeline: Teljes idővonal megtekintése
-    week_number: "%{number}. hét"
+    week_number: '%{number}. hét'
   training:
     continue: Folytatás (%{progress})
     start: Indítás
     view: Nézet
     next: Következő lap
     page: Lap
-    page_number: "%{number}. oldal / %{total}"
+    page_number: '%{number}. oldal / %{total}'
     previous: < Elöző
     table_of_contents: Tartalomjegyzék
     training_library: Képzőkönyvtár
-    logged_out:
-      Ki vagy jelentkezve. Nem kapsz jóváírást a modul elvégzéséért, hacsak
+    logged_out: Ki vagy jelentkezve. Nem kapsz jóváírást a modul elvégzéséért, hacsak
       be nem jelentkezel.
     done: Kész
     invalid: Sajnálom, hogy a dia nem létezik!
@@ -1541,12 +1366,10 @@ hu:
       exercise: Gyakorlat
       discussion: Megbeszélés
       training: Gyakorlás
-    no_training_library_records_wiki_ed_mode:
-      Az adatbázisban nincsenek TrainingLibrary
+    no_training_library_records_wiki_ed_mode: Az adatbázisban nincsenek TrainingLibrary
       rekordok. Kattints <a href="%{url}"> ide</a> a képzési adatok betöltéséhez a
       training_content/ yaml fájlokból.
-    no_training_library_records_non_wiki_ed_mode:
-      Az adatbázisban nincsenek TrainingLibrary
+    no_training_library_records_non_wiki_ed_mode: Az adatbázisban nincsenek TrainingLibrary
       rekordok.
   uploads:
     credit: Kredit
@@ -1555,8 +1378,7 @@ hu:
     image: Kép
     label: Feltöltések
     loading: Feltöltések betöltése...
-    none:
-      Ez az osztály nem adott hozzá képeket vagy más médiafájlokat a Wikimédia
+    none: Ez az osztály nem adott hozzá képeket vagy más médiafájlokat a Wikimédia
       Commonshoz.
     select_label: Szűrés feltöltő alapján
     time_doc: Az egyes feltöltések időpontja a helyi idő szerint
@@ -1566,7 +1388,7 @@ hu:
     uploaded_on: Feltöltve
     usage_count: Használat száma
     usage_doc: A Wikipédia azon szócikkeinek száma, melyekben ez a kép megjelenik.
-    usage_count_gallery_tile: "%{usage_count} szócikkben használatos"
+    usage_count_gallery_tile: '%{usage_count} szócikkben használatos'
     usages: Felhasználások
   users:
     already_enrolled: Ez a felhasználó már regisztrált!
@@ -1578,67 +1400,62 @@ hu:
     assignees: Megbízott(ak)
     loading_authorship_data: szerzői adatok betöltése
     authorship_data_not_fetched: nem sikerült lekérni a szerzői adatokat
-    character_doc:
-      A felhasználó által ehhez a névtérhez hozzáadott tartalom teljes
+    character_doc: A felhasználó által ehhez a névtérhez hozzáadott tartalom teljes
       mennyisége, melyet az oldal méretét növelő összes szerkesztés hozzáadott karaktereinek
       összeadásával lehet kiszámítani. Ez a szám nem feltétlenül tükrözi a felhasználó
       által hozzáadott új tartalom mennyiségét. Az eltávolított tartalom visszaállítása
       szintén növeli ezt az értéket.
-    chars_added:
-      Karakterek hozzáadva<br>(szócikk | felhasználó | nem ellenőrzött
+    chars_added: Karakterek hozzáadva<br>(szócikk | felhasználó | nem ellenőrzött
       változat)
-    chars_added_wikidata:
-      Karakterek hozzáadva<br>(elem | felhasználó | nem ellenőrzött
+    chars_added_wikidata: Karakterek hozzáadva<br>(elem | felhasználó | nem ellenőrzött
       változat)
     contributions: Felhasználó szerkesztései
     contributions_history_full: A teljes szerkesztési előzmények megtekintése
     contributions_more: További szerkesztések megtekintése
     contribution_statistics: Szerkesztési statisztika
-    course_passcode: "Hozzáférési kód:"
+    course_passcode: 'Hozzáférési kód:'
     editors: Szerkesztők
     edits: szerkesztések
-    edits_by: "Szerkesztette:"
-    enroll_confirmation: "Biztosan hozzáadod a következőt: %{username}?"
-    enroll_url: "A felhasználók a következő URL-cím meglátogatásával csatlakozhatnak:"
-    enrolled_success: "%{username} sikeresen hozzáadva!"
+    edits_by: 'Szerkesztette:'
+    enroll_confirmation: 'Biztosan hozzáadod a következőt: %{username}?'
+    enroll_url: 'A felhasználók a következő URL-cím meglátogatásával csatlakozhatnak:'
+    enrolled_success: '%{username} sikeresen hozzáadva!'
     exercise_modules_completed:
-      one: "%{completed_count}/%{count} gyakorlat befejezve"
-      other: " %{completed_count}/% {count} gyakorlat befejezve"
+      one: '%{completed_count}/%{count} gyakorlat befejezve'
+      other: ' %{completed_count}/% {count} gyakorlat befejezve'
     exercises_and_trainings: Gyakorlatok és oktatások
     first_name: Keresztnév
     last_name: Vezetéknév
     loading: Felhasználók betöltése...
     characters_added_mainspace: Hozzáadott karakterek (szócikk)
     characters_added_mainspace_wikidata: Hozzáadott karakterek (elem)
-    characters_added_short: "MS: %{mainspace}, US: %{userspace}"
+    characters_added_short: 'MS: %{mainspace}, US: %{userspace}'
     characters_added_userspace: Hozzáadott karakterek (felhasználó)
     characters_added_draftspace: Hozzáadott karakterek (nem ellenőrzött változat)
-    my_assigned: "Kijelölt:"
-    my_reviewing: "Ellenőrzés:"
+    my_assigned: 'Kijelölt:'
+    my_reviewing: 'Ellenőrzés:'
     name: Név
     none: Nincsenek résztvevők.
     no_articles: Nincsenek szócikkek
     no_articles_wikidata: Nincsenek elemek
     no_revisions: (nincs változat)
-    no_highlighting:
-      A szócikk jelenlegi verziójából nincs szöveg hozzárendelve ehhez
+    no_highlighting: A szócikk jelenlegi verziójából nincs szöveg hozzárendelve ehhez
       a szerkesztőhöz. Less bele az oldalelőzményekbe a szerkesztéseik megtekintéséhez.
     number_of_articles:
       other: egy=%{count} szócikk
     number_of_articles_wikidata:
-      one: "%{count} elem"
-      other: "%{count} elem"
+      one: '%{count} elem'
+      other: '%{count} elem'
     profile: profil
     recent_revisions: Friss szerkesztések
     references_count: Hozzáadott lábjegyzetek
-    remove_confirmation: "Biztosan eltávolítod a következőt: %{username}?"
+    remove_confirmation: 'Biztosan eltávolítod a következőt: %{username}?'
     request_confirmation: Biztos, hogy törölni szeretnéd ezt a felhasználói fiókot?
     requested_account_status:
-      success_message: "Siker: %{result_description}"
-      failure_message: "Hiba: %{result_description}"
-    revision_characters_and_views:
-      "Hozzáadott karakterek: %{characters}, Megtekintések:
-      %{views}"
+      success_message: 'Siker: %{result_description}'
+      failure_message: 'Hiba: %{result_description}'
+    revision_characters_and_views: 'Hozzáadott karakterek: %{characters}, Megtekintések:
+      %{views}'
     revisions_doc: A szerkesztő által az elmúlt 7 napban végzett szerkesztések száma
     references_doc: A szerkesztő által hozzáadott vagy eltávolított lábjegyzetek száma
     reviewers: Lektor(ok)
@@ -1649,29 +1466,27 @@ hu:
       assignments_and_exercises: Feladatok és gyakorlatok
       editor_overview: Szerkesztő áttekintése
       exercises_and_trainings: Gyakorlatok és oktatások
-      student_overview: "%{prefix}  Áttekintés"
+      student_overview: '%{prefix}  Áttekintés'
     total_uploads: Összes feltöltés
     training_complete:
       one: naprakész a képzéssel
       other: naprakész a képzéssel
     training_complete_count:
-      one: "%{count} képzés naprakész"
-      other: "%{count} képzés naprakész"
-    training_doc:
-      Azok a szerkesztők, akik az összes kijelölt, esedékessé vált képzési
+      one: '%{count} képzés naprakész'
+      other: '%{count} képzés naprakész'
+    training_doc: Azok a szerkesztők, akik az összes kijelölt, esedékessé vált képzési
       modult elvégezték, a képzésükkel naprakésznek számítanak.
     training_incomplete: A képzés hiányos
     training_modules_completed:
-      one: "%{completed_count}/%{count} képzési modul befejezve"
-      other: "%{completed_count}/%{count} képzési modulok befejezve"
+      one: '%{completed_count}/%{count} képzési modul befejezve'
+      other: '%{completed_count}/%{count} képzési modulok befejezve'
     training_module_name: Képzési modul
     training_module_status: Állapot
     training_module_time:
       minutes: Min
       seconds: Sec
     user_training_status: Képzés állapota
-    user_no_training_status:
-      Ez a felhasználó egyetlen képzési modult sem végzett
+    user_no_training_status: Ez a felhasználó egyetlen képzési modult sem végzett
       el.
     up_to_date_with_training: naprakész a képzéssel
     uploads_doc: A Wikimédia Commonsba feltöltött fájlok száma
@@ -1681,8 +1496,7 @@ hu:
     useremail_placeholder: E-mail-cím
     userpasscode_placeholder: Hozzáférési kód
     words_added: Hozzáadott szavak<br>(szócikk | felhasználó | nem ellenőrzött változat)
-    word_count_doc:
-      A felhasználó által az élő szócikkekhez, a felhasználói tér oldalaihoz
+    word_count_doc: A felhasználó által az élő szócikkekhez, a felhasználói tér oldalaihoz
       (homokozók) és a Nem ellenőrzött változat névtérbe hozzáadott teljes tartalom
       becsült mennyisége. A szómennyiség becslését az oldal méretének változásaiból
       számítják ki az összes olyan szerkesztés összegéből, mely többet adott hozzá,
@@ -1698,11 +1512,10 @@ hu:
       online_volunteer: Online önkéntes
       wiki_ed_staff: Wiki oktatási munkatársak
   user_profiles:
-    student_impact: "%{username} által diákként szerzett teljes hatás"
-    instructor_impact: "%{username} által oktatóként szerzett teljes hatás"
-    instructors_student_impact: "%{username} diákjai által elért teljes hatás"
-    disclaimer:
-      Az általad megadott információk nyilvánosan hozzáférhetővé lesznek
+    student_impact: '%{username} által diákként szerzett teljes hatás'
+    instructor_impact: '%{username} által oktatóként szerzett teljes hatás'
+    instructors_student_impact: '%{username} diákjai által elért teljes hatás'
+    disclaimer: Az általad megadott információk nyilvánosan hozzáférhetővé lesznek
       téve.
     bio_placeholder: Életrajz hozzáadása (nem kötelező)
     location_placeholder: Add meg az elhelyezkedésed (opcionális)
@@ -1711,31 +1524,27 @@ hu:
   wiki_edits:
     notify_overdue:
       button_label: A tanulók emlékeztetése a lejárt képzésre
-      confirm:
-        Ez emlékeztetőt tesz közzé a vitalapon minden olyan tanuló számára,
+      confirm: Ez emlékeztetőt tesz közzé a vitalapon minden olyan tanuló számára,
         akinek lejárt a képzése. Biztos vagy benne, hogy ezt szeretnéd?
       header: Van egy lejárt képzési feladatod.
       message: Kérjük, töltsd ki a hozzárendelt [%{link} képzési modult].
       summary: lejárt hallgatói képzés
   wizard:
     assignment_dates: Kijelölési dátumok
-    assignment_description:
-      Válaszd ki a feladatod idővonalának kezdő és befejező
+    assignment_description: Válaszd ki a feladatod idővonalának kezdő és befejező
       dátumát. Ha például a Wikipédia-projektet az oktatás második hetében szeretnéd
       elkezdeni, állítsd be a feladat kezdeti dátumát egy héttel a kurzus kezdete
       utánra. Ez a feladat tervezési eszköz olyan idővonal-tervezetet hoz létre, ami
       illeszkedik az általad választott idővonal dátumaihoz.
     assignment_type: Mit fognak a tanulók kitölteni a Wikipédia-feladatukhoz?
-    calendar_instructions:
-      Válaszd ki azokat a dátumokat, amelyeket hozzáadhatsz vagy
+    calendar_instructions: Válaszd ki azokat a dátumokat, amelyeket hozzáadhatsz vagy
       eltávolíthatsz a menetrendből (pl. ünnepnapok, iskolaszünet). Ez segít a tanfolyamkészítő
       eszköznek a feladatok pontos beosztásában. A dátumra kattintva módosíthatod
       a kijelölés nélküli, a kijelölt és az ünnepnapos állapotot. Ha nincsenek ünnepnapok,
       jelöld be alul a "Nincsenek tanítási szüneteim" lehetőséget.
     confirm_dates: Válaszd ki a kurzus dátumait, heti találkozóit és ünnepnapjait.
     course_dates: Tanfolyam dátumai
-    min_weeks:
-      Ehhez a feladathoz legalább %{min_weeks} rendelkezésre álló hétre van
+    min_weeks: Ehhez a feladathoz legalább %{min_weeks} rendelkezésre álló hétre van
       szükség. Kérjük, módosítsd a megbízás kezdő és befejező dátumát, ha ezt a típusú
       feladatot szeretnéd használni.
     select_one_option: Kérjük, válassz 1 lehetőséget.
@@ -1744,8 +1553,7 @@ hu:
       other: Kérjük, válassz %{count} vagy több lehetőséget.
     read_less: Olvass kevesebbet
     read_more: További információ
-    review_selections:
-      Kérjük, nézd át az alábbiakban a választásodat. Kattints a
+    review_selections: Kérjük, nézd át az alábbiakban a választásodat. Kattints a
       kiválasztás szerkesztéséhez. Ha készen vagy, kattints a "Küldés" gombra a varázsló
       befejezéséhez és az idővonal létrehozásához.
     select_assignment: Válaszd ki az idővonalhoz hozzáadni kívánt feladat típusát.
@@ -1753,37 +1561,30 @@ hu:
   error:
     form_errors: Kérjük, ellenőrizd az űrlapot a hibák elkerülése végett.
     invalid_assignment: Érvénytelen hozzárendelés
-    invalid_date: "%{key} dátum érvénytelen"
+    invalid_date: '%{key} dátum érvénytelen'
     invalid_file_format: A fájl mentése sikertelen. Tölts fel egy PDF vagy Word-fájlt.
-    oauth_invalid:
-      Lejárt a Wikipédia használati engedélyed. Kérjük, jelentkezz be
+    oauth_invalid: Lejárt a Wikipédia használati engedélyed. Kérjük, jelentkezz be
       újra.
-    start_date_before_end_date:
-      A kezdési dátumnak régebbinek kell lennie a befejezési
+    start_date_before_end_date: A kezdési dátumnak régebbinek kell lennie a befejezési
       dátumnál
     unsupported_browser:
       header: Nem támogatott böngésző. :-(
-      explanation:
-        Olyan böngészőprogramot használsz, amely nem kompatibilis a kezelőpulttal.
+      explanation: Olyan böngészőprogramot használsz, amely nem kompatibilis a kezelőpulttal.
         Ez az oldal jól működik a Chrome, Firefox, Edge és más modern böngészők legújabb
         verzióiban.
-    ip_blocked:
-      Erről az eszközről jelenleg nem tudsz fiókot létrehozni. Lehetséges,
+    ip_blocked: Erről az eszközről jelenleg nem tudsz fiókot létrehozni. Lehetséges,
       hogy a Wikipédia blokkolta az IP-címed, vagy elérted az egy nap alatt létrehozható
       új fiókok maximális számát. Próbálj csatlakozni egy másik hálózatról!
   error_401:
     header: Jogosulatlan. >:-(
-    explanation:
-      Nincs jogosultságod ennek a kérésnek a végrehajtására. Ha úgy gondolod,
+    explanation: Nincs jogosultságod ennek a kérésnek a végrehajtására. Ha úgy gondolod,
       hogy tévedésből kaptad meg ezt az értesítést, kérjük, fordulj az irányítópult
       karbantartóihoz, és tájékoztassad őket a problémáról.
-    json_explanation:
-      Úgy tűnik, kijelentkeztél. Kérjük, frissíts, jelentkezz be,
+    json_explanation: Úgy tűnik, kijelentkeztél. Kérjük, frissíts, jelentkezz be,
       és próbáld újra.
   error_incorrect_passcode:
     header: Helytelen jelszó. :-(
-    explanation:
-      A tanfolyamra való beiratkozáshoz használt belépési kód helytelen.
+    explanation: A tanfolyamra való beiratkozáshoz használt belépési kód helytelen.
       Kérjük, kérd az oktatótól az aktuális belépési kódot, hogy beiratkozhass erre
       a kurzusra. Megpróbálhatod újra, ha az alábbiakban megadod a helyes belépési
       kódot.
@@ -1791,54 +1592,44 @@ hu:
     explanation: Nem létezik ilyen %{slug} kurzus.
   error_404:
     header: A lap nem található. :-(
-    explanation:
-      Ez az oldal nem létezik. Ha egy tanfolyam irányítópultját próbáltad
+    explanation: Ez az oldal nem létezik. Ha egy tanfolyam irányítópultját próbáltad
       elérni, előfordulhat, hogy az adott kurzus nincs regisztrálva erre az irányítópultra.
   error_422:
     header: 422 – feldolgozhatatlan egység. :-(
-    explanation:
-      Valami elromlott. Kérjük, fordulj az irányítópult karbantartóihoz,
+    explanation: Valami elromlott. Kérjük, fordulj az irányítópult karbantartóihoz,
       hogy tájékoztasd őket a problémáról.
   error_500:
     header: 500 — belső szerverhiba. :-(
-    explanation:
-      Valami elromlott. Kérjük, fordulj az irányítópult karbantartóihoz,
+    explanation: Valami elromlott. Kérjük, fordulj az irányítópult karbantartóihoz,
       hogy tájékoztasd őket a problémáról.
   login_error:
     header: Bejelentkezési hiba
-    explanation:
-      Úgy tűnik, probléma volt a bejelentkezési folyamattal. (Elnézést!
+    explanation: Úgy tűnik, probléma volt a bejelentkezési folyamattal. (Elnézést!
       Alkalmanként előfordul.) Kérjük, próbálj meg újra bejelentkezni vagy regisztrálni.
   survey:
-    login_message:
-      Köszönjük, hogy időt szánt rá. Kérjük, jelentkezz be az irányítópultra
+    login_message: Köszönjük, hogy időt szánt rá. Kérjük, jelentkezz be az irányítópultra
       a felmérés elvégzéséhez.
-    notification_explanation:
-      Ha az alábbi jelölőnégyzet be van jelölve, a felhasználók
+    notification_explanation: Ha az alábbi jelölőnégyzet be van jelölve, a felhasználók
       az értesítési ütemtervnek megfelelően e-maileket kapnak, amellett, hogy a böngészőben
       megjelenő értesítéseket is látják. Ha nem, akkor csak a böngészőben megjelenő
       értesítések jelennek meg.
-    notification_schedule_explanation:
-      Az értesítések közé tartoznak a böngészőn belüli
+    notification_schedule_explanation: Az értesítések közé tartoznak a böngészőn belüli
       értesítések és e-mailek, ha fent engedélyezve van.
     follow_up_explanation: Hagyd üresen, ha nem szeretnél utólagos értesítést küldeni.
     email:
       headline: Helló, %{username}
-      message_line1:
-        Reméljük, hogy jól éreztétek magatokat! A Wiki Education várja
+      message_line1: Reméljük, hogy jól éreztétek magatokat! A Wiki Education várja
         visszajelzéseiteket, hogy javíthassuk a Wikipédia-feladatokhoz szükséges forrásainkat
         és segítségünket. Válaszotok kulcsfontosságú a jelenlegi ajánlataink javításához.
-      message_line2:
-        Hajlandó vagy 15 percet szánni arra, hogy kitöltsd az oktatói
+      message_line2: Hajlandó vagy 15 percet szánni arra, hogy kitöltsd az oktatói
         felmérésünket? Kattints az alábbi gombra, és támogass bennünket abban, hogy
         a Wikipédiával való tanítás még kifizetődőbb és értékesebb élmény legyen.
-      course: "Kurzus: %{course_info}"
+      course: 'Kurzus: %{course_info}'
       closing: Tisztelettel,
-      signed: "- a Wiki Education csapata"
+      signed: '- a Wiki Education csapata'
       link: Kérdőív kitöltése
     follow_up:
-      message:
-        Ez egy emlékeztető a %{course_title} nevű kurzusodhoz kapcsolódó felmérésről.
+      message: Ez egy emlékeztető a %{course_title} nevű kurzusodhoz kapcsolódó felmérésről.
         A felmérésből származó visszajelzések segítenek nekünk abban, hogy javítani
         tudjuk a Wikipédia-feladatok támogatását, mint a tiéd.
   feedback_form_responses:
@@ -1903,3 +1694,4 @@ hu:
     assignment_status: Képzési megbízás (%{status})
   multi_wiki:
     selector_placeholder: Egy wiki tartomány beírásának elkezdése
+...
