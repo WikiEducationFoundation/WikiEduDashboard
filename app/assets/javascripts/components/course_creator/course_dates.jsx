@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import DatePicker from '../common/date_picker.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 
 const CourseDates = (props) => {
+  const [hasUpDatedDateProps, setHasUpDatedDateProps] = useState(false);
+
   const updateCourseDates = (key, value) => {
     const updatedCourse = CourseDateUtils.updateCourseDates(props.course, key, value);
     props.updateCourseProps(updatedCourse);
+    setHasUpDatedDateProps(true);
   };
   const dateProps = CourseDateUtils.dateProps(props.course);
   const timeZoneMessage = (
@@ -87,6 +90,7 @@ const CourseDates = (props) => {
         enabled={!!props.course.start}
         isClearable={false}
         showTime={props.showTimeValues}
+        rerenderHoc={hasUpDatedDateProps}
       />
       {timelineText}
       {timelineStart}
