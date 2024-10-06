@@ -33,7 +33,11 @@ const initialState = {
 
 export default function campaigns(state = initialState, action) {
   switch (action.type) {
-    case ADD_CAMPAIGN:
+    case ADD_CAMPAIGN: {
+      const newCampaign = action.data.course.campaigns;
+      const updatedCampaign = [...state.campaigns, newCampaign];
+      return { ...state, campaigns: updatedCampaign, isLoaded: true };
+    }
     case DELETE_CAMPAIGN:
     case RECEIVE_COURSE_CAMPAIGNS: {
       const newState = {
