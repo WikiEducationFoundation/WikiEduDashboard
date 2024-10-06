@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import TextAreaInput from '../common/text_area_input.jsx';
 import CreatableInput from '../common/creatable_input.jsx';
 import TextInput from '../common/text_input.jsx';
@@ -187,12 +188,7 @@ const CourseForm = (props) => {
       />
     );
   }
-  let backCondition;
-  if (Features.wikiEd) {
-    backCondition = props.previousWikiEd;
-  } else {
-    backCondition = props.previous;
-  }
+
   return (
     <div className={props.courseFormClass}>
       <div className="column">
@@ -216,7 +212,7 @@ const CourseForm = (props) => {
           onChange={props.updateCourseAction}
           value={props.course.school}
           value_key="school"
-          required
+          required={props.defaultCourse === 'ClassroomProgramCourse'}
           validation={CourseUtils.courseSlugRegex()}
           editable
           label={CourseUtils.i18n('creator.course_school', props.stringPrefix)}
@@ -232,7 +228,7 @@ const CourseForm = (props) => {
         {home_wiki}
         {multi_wiki}
         <div className="backButtonContainer">
-          <button onClick={backCondition} className="button dark">{I18n.t('application.back')}</button>
+          <Link className="button" to="/" id="course_cancel">{I18n.t('metrics.close_modal')}</Link>
           <p className="tempEduCourseIdText">
             {props.tempCourseId || '\xa0'}
           &nbsp;
