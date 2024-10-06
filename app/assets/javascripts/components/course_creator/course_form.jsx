@@ -193,6 +193,7 @@ const CourseForm = (props) => {
   } else {
     backCondition = props.previous;
   }
+
   return (
     <div className={props.courseFormClass}>
       <div className="column">
@@ -232,7 +233,7 @@ const CourseForm = (props) => {
         {home_wiki}
         {multi_wiki}
         <div className="backButtonContainer">
-          <button onClick={backCondition} className="button dark">{I18n.t('application.back')}</button>
+          <button onClick={backCondition} className="button">{I18n.t('metrics.close_modal')}</button>
           <p className="tempEduCourseIdText">
             {props.tempCourseId || '\xa0'}
           &nbsp;

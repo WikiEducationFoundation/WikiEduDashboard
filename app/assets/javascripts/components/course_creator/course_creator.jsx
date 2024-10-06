@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { includes } from 'lodash-es';
-
+import withRouter from '../util/withRouter';
+import { compose } from 'redux';
 import { updateCourse } from '../../actions/course_actions';
 import { fetchCampaign, submitCourse, cloneCourse } from '../../actions/course_creation_actions.js';
 import { fetchCoursesForUser } from '../../actions/user_courses_actions.js';
@@ -272,6 +273,7 @@ const CourseCreator = createReactClass({
   },
 
   showCourseTypes() {
+    this.props.router.navigate('/');
     return this.setState({
       showWizardForm: true,
       showCourseForm: false
@@ -302,7 +304,8 @@ const CourseCreator = createReactClass({
   },
 
   hideCourseForm() {
-    return this.setState({ showCourseForm: false });
+    this.props.router.navigate('/');
+   return this.setState({ showCourseForm: false });
   },
 
   hideWizardForm() {
@@ -518,6 +521,6 @@ const mapDispatchToProps = ({
 });
 
 // exporting two difference ways as a testing hack.
-export default connect(mapStateToProps, mapDispatchToProps)(CourseCreator);
 
+export default compose(withRouter, connect(mapStateToProps, mapDispatchToProps))(CourseCreator);
 export { CourseCreator };
