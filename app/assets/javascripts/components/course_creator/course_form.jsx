@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import TextAreaInput from '../common/text_area_input.jsx';
 import CreatableInput from '../common/creatable_input.jsx';
 import TextInput from '../common/text_input.jsx';
@@ -188,6 +187,13 @@ const CourseForm = (props) => {
       />
     );
   }
+  let backCondition;
+  if (Features.wikiEd) {
+    backCondition = props.previousWikiEd;
+  } else {
+    backCondition = props.previous;
+  }
+
   return (
     <div className={props.courseFormClass}>
       <div className="column">
@@ -227,7 +233,7 @@ const CourseForm = (props) => {
         {home_wiki}
         {multi_wiki}
         <div className="backButtonContainer">
-          <Link className="button" to="/" id="course_cancel">{I18n.t('metrics.close_modal')}</Link>
+          <button onClick={backCondition} className="button">{I18n.t('metrics.close_modal')}</button>
           <p className="tempEduCourseIdText">
             {props.tempCourseId || '\xa0'}
           &nbsp;
