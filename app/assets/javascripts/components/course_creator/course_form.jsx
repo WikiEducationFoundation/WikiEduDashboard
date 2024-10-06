@@ -188,7 +188,6 @@ const CourseForm = (props) => {
       />
     );
   }
-
   return (
     <div className={props.courseFormClass}>
       <div className="column">
@@ -212,7 +211,7 @@ const CourseForm = (props) => {
           onChange={props.updateCourseAction}
           value={props.course.school}
           value_key="school"
-          required={props.defaultCourse === 'ClassroomProgramCourse'}
+          required
           validation={CourseUtils.courseSlugRegex()}
           editable
           label={CourseUtils.i18n('creator.course_school', props.stringPrefix)}
