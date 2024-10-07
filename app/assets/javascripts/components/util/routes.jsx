@@ -16,6 +16,7 @@ const SettingsHandler = lazy(() => import('../settings/settings_handler.jsx'));
 const TicketsHandler = lazy(() => import('../tickets/tickets_handler.jsx'));
 const TicketShowHandler = lazy(() => import('../tickets/ticket_show_handler.jsx'));
 const TaggedCourseAlerts = lazy(() => import('../alerts/tagged_course_alerts.jsx'));
+const TaggedCoursesStats = lazy(() => import('../tagged_courses/TaggedCoursesStats.jsx'));
 const CampaignsHandler = lazy(() => import('../campaign/campaigns_handler.jsx'));
 const DetailedCampaignList = lazy(() => import('../campaign/detailed_campaign_list'));
 const Explore = lazy(() => import('../explore/explore.jsx'));
@@ -65,6 +66,7 @@ const routes = () => {
         <Route path="/tickets/dashboard/:id" element={<TicketShowHandler />} />
         <Route path="/campaigns/*" element={<CampaignsHandler />} />
         <Route path="/tagged_courses/:tag/alerts" element={<TaggedCourseAlerts />} />
+        <Route path="/tagged_courses/:tag/programs" element={<TaggedCoursesStats/>}/>
         <Route index element={<DetailedCampaignList headerText={I18n.t('campaign.campaigns')} userOnly={true}/>} />
         <Route path="/dashboard" element={<DetailedCampaignList headerText={I18n.t('campaign.campaigns')} userOnly={true}/>} />
         <Route path="/explore" element={<Explore dashboardTitle={window.dashboardTitle}/>} />

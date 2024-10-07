@@ -297,13 +297,18 @@ Rails.application.routes.draw do
   get 'current_term(/:subpage)' => 'campaigns#current_term'
 
   # Courses by tag
-  resources :tagged_courses, param: :tag do
+  resources :tagged_courses, param: :tag, except: :show do
     member do
       get 'programs'
       get 'articles'
       get 'alerts'
     end
   end
+
+  # Custom JSON route for tagged courses stats
+  get 'tagged_courses/:tag.json',
+    controller: :tagged_courses,
+    action: :stats 
 
   # Recent Activity
   get 'recent-activity(/*any)' => 'recent_activity#index', as: :recent_activity
