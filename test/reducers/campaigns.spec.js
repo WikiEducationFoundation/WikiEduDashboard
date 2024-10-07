@@ -44,6 +44,7 @@ describe('campaigns reducer', () => {
                             all_campaigns: [],
                             isLoaded: false };
         deepFreeze(initialState);
+
         const mockedAction = {
           type: RECEIVE_COURSE_CAMPAIGNS,
           data: { course: { campaigns: campaignsArray } }
@@ -71,6 +72,7 @@ describe('campaigns reducer', () => {
       test('sort active courses via SORT_ACTIVE_CAMPAIGN', () => {
         const initialState = { campaigns: [], all_campaigns: campaignsArray, isLoaded: false, sort: { sortKey: null } };
         deepFreeze(initialState);
+
         const mockedAction = {
             type: SORT_ALL_CAMPAIGNS,
             key: 'id'
@@ -84,6 +86,7 @@ describe('campaigns reducer', () => {
     test('should not modify courses when SORT_ACTIVE_COURSES or SORT_CAMPAIGNS_WITH_STATS is dispatched with an invalid key', () => {
         const initialState = { all_campaigns: campaignsArray, sort: { sortKey: null, key: null } };
         deepFreeze(initialState);
+
         const mockedAction = {
             type: SORT_CAMPAIGNS_WITH_STATS,
             key: 'nonExistentKey',
