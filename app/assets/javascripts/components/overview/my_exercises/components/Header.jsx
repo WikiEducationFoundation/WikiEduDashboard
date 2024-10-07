@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { HashLink as Link } from 'react-router-hash-link';
 
 export const Header = ({ completed = false, course, remaining = [], text }) => (
-  <header className='header'>
+  <header className="header">
     <h3 className={completed ? 'completed' : ''}>
       {text}
       {remaining.length ? (
@@ -13,10 +13,10 @@ export const Header = ({ completed = false, course, remaining = [], text }) => (
       ) : null}
     </h3>
     <Link
-      exact='true'
-      scroll={(el) => el.scrollIntoView({ block: 'center' })}
+      exact="true"
+      scroll={el => el.scrollIntoView({ block: 'center' })}
       to={`/courses/${course.slug}/resources#exercises`}
-      className='resources-link'
+      className="resources-link"
     >
       {I18n.t('training.view_all_exercise')}
     </Link>

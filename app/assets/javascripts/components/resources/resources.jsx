@@ -72,7 +72,7 @@ const Resources = ({ weeks, current_user, course }) => {
   let instructorModulesLink;
   if (current_user.isInstructor && Features.wikiEd) {
     instructorModulesLink = (
-      <a href={'/training/instructors'} className='button pull-right'>
+      <a href={'/training/instructors'} className="button pull-right">
         {I18n.t('training.orientation_modules')}
       </a>
     );
@@ -81,12 +81,12 @@ const Resources = ({ weeks, current_user, course }) => {
   const { blocks, modules } = getModulesAndBlocksFromWeeks(weeks);
   let additionalResources;
   const additionalResourcesBlocks = blocks.filter(
-    (block) => block.kind === BLOCK_KIND_RESOURCES
+    block => block.kind === BLOCK_KIND_RESOURCES
   );
   if (additionalResourcesBlocks) {
     additionalResources = (
-      <div className='list-unstyled container mt2 mb2'>
-        {additionalResourcesBlocks.map((block) => (
+      <div className="list-unstyled container mt2 mb2">
+        {additionalResourcesBlocks.map(block => (
           <Block
             key={block.id}
             block={block}
@@ -119,24 +119,24 @@ const Resources = ({ weeks, current_user, course }) => {
     additionalModules = (
       <a
         href={`/training/${trainingLibrarySlug}`}
-        className='button pull-right ml1'
+        className="button pull-right ml1"
       >
         {I18n.t('training.additional_training')}
       </a>
     );
   } else {
     additionalModules = (
-      <a href={'/training'} className='button dark mb1'>
+      <a href={'/training'} className="button dark mb1">
         {I18n.t('training.training_library')}
       </a>
     );
   }
 
   return (
-    <div id='resources' className='w75'>
-      <div className='section-header'>
+    <div id="resources" className="w75">
+      <div className="section-header">
         <h3>{I18n.t('resources.header')}</h3>
-        <div id='training-modules' className='container'>
+        <div id="training-modules" className="container">
           {assignedModules}
           {additionalModules}
           {instructorModulesLink}
@@ -152,7 +152,7 @@ const Resources = ({ weeks, current_user, course }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   weeks: getWeeksArray(state),
 });
 
