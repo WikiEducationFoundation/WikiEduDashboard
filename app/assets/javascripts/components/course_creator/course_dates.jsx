@@ -4,12 +4,12 @@ import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 
 const CourseDates = (props) => {
-  const [hasUpDatedDateProps, setHasUpDatedDateProps] = useState(false);
+  const [hasUpdatedDateProps, setHasUpdatedDateProps] = useState(false);
 
   const updateCourseDates = (key, value) => {
     const updatedCourse = CourseDateUtils.updateCourseDates(props.course, key, value);
     props.updateCourseProps(updatedCourse);
-    setHasUpDatedDateProps(true);
+    setHasUpdatedDateProps(true);
   };
   const dateProps = CourseDateUtils.dateProps(props.course);
   const timeZoneMessage = (
@@ -42,7 +42,7 @@ const CourseDates = (props) => {
         isClearable={true}
         showTime={props.showTimeValues}
         date_props={dateProps.timeline_start}
-        rerenderHoc={hasUpDatedDateProps}
+        rerenderHoc={hasUpdatedDateProps}
       />
     );
     timelineEnd = (
@@ -92,7 +92,7 @@ const CourseDates = (props) => {
         enabled={!!props.course.start}
         isClearable={false}
         showTime={props.showTimeValues}
-        rerenderHoc={hasUpDatedDateProps}
+        rerenderHoc={hasUpdatedDateProps}
       />
       {timelineText}
       {timelineStart}
