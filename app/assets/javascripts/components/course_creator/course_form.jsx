@@ -11,8 +11,14 @@ import selectStyles from '../../styles/select';
 import WikiSelect from '../common/wiki_select.jsx';
 import AcademicSystem from '../common/academic_system.jsx';
 import WIKI_OPTIONS from '../../utils/wiki_options';
+import { getCurrentUser } from '../../selectors/index.js';
+import { useSelector } from 'react-redux';
+
 
 const CourseForm = (props) => {
+  const user = getCurrentUser(useSelector(state => state));
+  const isAdminOrInstructor = user.admin || user.isAdvancedRole;
+
   const handleWikiChange = (wiki) => {
     const home_wiki = wiki.value;
     const prev_wiki = { ...props.course.home_wiki };
@@ -132,6 +138,15 @@ const CourseForm = (props) => {
     );
   }
 
+  let backOrCancelButton;
+
+  if (isAdminOrInstructor) {
+    backOrCancelButton = (
+      <button onClick={backCondition} className="button dark">{I18n.t('application.back')}</button>
+    );
+  } else {
+    backOrCancelButton = (<button onClick={backCondition} className="button">{I18n.t('metrics.close_modal')}</button>)
+  }
 
   let privacyCheckbox;
   let campaign;
@@ -233,7 +248,8 @@ const CourseForm = (props) => {
         {home_wiki}
         {multi_wiki}
         <div className="backButtonContainer">
-          <button onClick={backCondition} className="button">{I18n.t('metrics.close_modal')}</button>
+          {/* <button onClick={backCondition} className="button">{I18n.t('metrics.close_modal')}</button> */}
+          {backOrCancelButton}
           <p className="tempEduCourseIdText">
             {props.tempCourseId || '\xa0'}
           &nbsp;
