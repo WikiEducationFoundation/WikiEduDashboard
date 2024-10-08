@@ -6,12 +6,12 @@ const ByStudentsStats = ({ username, stats, maxProject }) => {
   const uploads_in_use_count = ArticleUtils.projectSuffix(maxProject, 'uploads_in_use_count');
 
   return (
-    <div className = "user_stats">
+    <div className="user_stats">
       <h5>
         {I18n.t('user_profiles.instructors_student_impact', { username: username })}
       </h5>
-      <div className= "stat-display">
-        <div className= "stat-display__stat">
+      <div className="stat-display">
+        <div className="stat-display__stat">
           <div className="stat-display__value">
             {stats.word_count}
           </div>
@@ -19,7 +19,7 @@ const ByStudentsStats = ({ username, stats, maxProject }) => {
             {I18n.t('metrics.word_count')}
           </small>
         </div>
-        <div className= "stat-display__stat">
+        <div className="stat-display__stat">
           <div className="stat-display__value">
             {stats.references_count}
           </div>
@@ -27,7 +27,7 @@ const ByStudentsStats = ({ username, stats, maxProject }) => {
             {I18n.t('metrics.references_count')}
           </small>
         </div>
-        <div className= "stat-display__stat">
+        <div className="stat-display__stat">
           <div className="stat-display__value">
             {stats.view_sum}
           </div>
@@ -35,7 +35,7 @@ const ByStudentsStats = ({ username, stats, maxProject }) => {
             {I18n.t(`metrics.${ArticleUtils.projectSuffix(maxProject, 'view_count_description')}`)}
           </small>
         </div>
-        <div className= "stat-display__stat">
+        <div className="stat-display__stat">
           <div className="stat-display__value">
             {stats.article_count}
           </div>
@@ -43,7 +43,7 @@ const ByStudentsStats = ({ username, stats, maxProject }) => {
             {I18n.t(`metrics.${ArticleUtils.projectSuffix(maxProject, 'articles_edited')}`)}
           </small>
         </div>
-        <div className= "stat-display__stat">
+        <div className="stat-display__stat">
           <div className="stat-display__value">
             {stats.new_article_count}
           </div>
@@ -51,10 +51,10 @@ const ByStudentsStats = ({ username, stats, maxProject }) => {
             {I18n.t(`metrics.${ArticleUtils.projectSuffix(maxProject, 'articles_created')}`)}
           </small>
         </div>
-        <div className ="stat-display__stat tooltip-trigger">
+        <div className="stat-display__stat tooltip-trigger">
           <div className="stat-display__value">
             {stats.upload_count}
-            <img src ="/assets/images/info.svg" alt = "tooltip default logo" />
+            <img src="/assets/images/info.svg" alt="tooltip default logo" />
           </div>
           <small>
             {I18n.t('metrics.upload_count')}

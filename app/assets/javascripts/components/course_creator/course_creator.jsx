@@ -435,7 +435,7 @@ const CourseCreator = createReactClass({
               stringPrefix={this.state.course_string_prefix}
             />
             <CourseType
-              back = {this.hideWizardForm}
+              back={this.hideWizardForm}
               wizardClass={courseWizard}
               wizardAction={this.showCourseForm}
             />

@@ -131,7 +131,7 @@ const FormPanel = createReactClass({
         raw_options={rawOptions}
         nextEnabled={this.nextEnabled}
         saveCourse={this.saveCourse}
-        helperText = "Select meeting days and holiday dates, then continue."
+        helperText="Select meeting days and holiday dates, then continue."
       />
     );
   }

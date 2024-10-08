@@ -126,7 +126,7 @@ const RevisionHandler = ({ course, courseScopedLimit }) => {
           />
         </div>
       </div>
-      <div className= "revision-list-container">
+      <div className="revision-list-container">
         <RevisionList
           revisions={isCourseScoped ? revisionsDisplayedCourseSpecific : revisionsDisplayed}
           loaded={loaded}

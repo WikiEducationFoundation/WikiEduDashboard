@@ -17,14 +17,14 @@ const NamespaceOverviewStats = ({ course, statistics }) => {
       <OverviewStat
         id="articles-edited"
         className="stat-display__value"
-        stat = {statistics.edited_count}
+        stat={statistics.edited_count}
         statMsg={I18n.t('metrics.articles_edited')}
         renderZero={false}
       />
       <OverviewStat
         id="total-edits"
         className="stat-display__value"
-        stat = {statistics.revision_count}
+        stat={statistics.revision_count}
         statMsg={I18n.t('metrics.edit_count_description')}
         renderZero={false}
       />

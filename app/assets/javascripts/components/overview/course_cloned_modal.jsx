@@ -288,7 +288,7 @@ const CourseClonedModal = createReactClass({
     } else {
       infoIcon = (
         <div className="tooltip-trigger">
-          <img src ="/assets/images/info.svg" alt = "tooltip default logo" />
+          <img src="/assets/images/info.svg" alt="tooltip default logo" />
           <div className="tooltip large dark">
             <p>
               {CourseUtils.i18n('creator.course_when', i18nPrefix)}
