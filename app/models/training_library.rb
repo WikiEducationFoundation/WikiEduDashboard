@@ -23,8 +23,9 @@ class TrainingLibrary < ApplicationRecord
   serialize :translations, Hash
 
   validates_uniqueness_of :slug, case_sensitive: false
+  validates_uniqueness_of :name, case_sensitive: false
 
-  validates_presence_of [:id, :name, :slug, :introduction, :categories]
+  validates_presence_of [:name, :slug, :introduction]
 
   def self.path_to_yaml
     "#{base_path}/libraries/*.yml"
@@ -102,5 +103,30 @@ class TrainingLibrary < ApplicationRecord
     categories.map do |cat|
       cat['modules'].map { |mod| mod['slug'] }
     end.flatten
+  end
+
+  ########################
+  # Modification methods #
+  ########################
+  def add_category(category_params)
+    category_hash = {
+      'title' => category_params[:title],
+      'description' => category_params[:description],
+      'modules' => []
+    }
+    if categories.nil?
+      self.categories = [category_hash]
+    else
+      categories << category_hash
+    end
+    save
+  end
+
+  def delete_category_by_title(category_title)
+    category_index = categories.index { |category| category['title'] == category_title }
+    return false if category_index.nil?
+
+    categories.delete_at(category_index)
+    save
   end
 end

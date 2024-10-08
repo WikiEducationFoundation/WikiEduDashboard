@@ -2,8 +2,10 @@ import { findIndex } from 'lodash-es';
 import {
   RECEIVE_TRAINING_MODULE, MENU_TOGGLE, REVIEW_ANSWER,
   SET_CURRENT_SLIDE, RECEIVE_ALL_TRAINING_MODULES,
-  SLIDE_COMPLETED
+  SLIDE_COMPLETED, SET_TRAINING_MODE
 } from '../constants';
+
+const mainDiv = document.getElementById('main');
 
 const reviewAnswer = function (state, answer) {
   const answerId = parseInt(answer);
@@ -69,7 +71,8 @@ const initialState = {
   enabledSlides: [],
   loading: true,
   completed: null,
-  valid: false
+  valid: false,
+  editMode: false,
 };
 
 export default function training(state = initialState, action) {
@@ -99,6 +102,11 @@ export default function training(state = initialState, action) {
         ...state,
         enabledSlides: [...state.enabledSlides, data.slide.id],
         completed: data.completed
+      };
+    case SET_TRAINING_MODE:
+      return {
+        ...state,
+        editMode: JSON.parse(mainDiv.getAttribute('data-training_mode')).editMode
       };
     default:
       return state;
