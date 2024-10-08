@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 #= Controller for collections of courses with a common tag
-#= reusing the views from CampaignsController
 class TaggedCoursesController < ApplicationController
   before_action :require_admin_permissions
   before_action :set_tag
@@ -25,6 +24,13 @@ class TaggedCoursesController < ApplicationController
     set_page
     set_courses_and_presenter
     load_wiki_experts
+  end
+
+  def stats
+    set_courses_and_presenter
+    respond_to do |format|
+      format.json { render 'stats' }
+    end
   end
 
   private
