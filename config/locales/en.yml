@@ -1409,7 +1409,7 @@ en:
     search_training_resources: Search for training resources
     no_training_resource_match_your_search: No training resource matches your search
     exercise_sandbox: Exercise Sandbox
-    remaining_exercise: additional exercises remaining.
+    remaining_exercise: "%{count} additional exercises remaining."
     view_all: View all exercises
 
   update_username:

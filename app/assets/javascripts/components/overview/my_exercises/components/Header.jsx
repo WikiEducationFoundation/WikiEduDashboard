@@ -8,7 +8,7 @@ export const Header = ({ completed = false, course, remaining = [], text }) => (
       {text}
       {remaining.length ? (
         <small>
-          {remaining.length} {I18n.t('training.remaining_exercise')}
+          {I18n.t('training.remaining_exercise', { count: remaining.length })}
         </small>
       ) : null}
     </h3>
