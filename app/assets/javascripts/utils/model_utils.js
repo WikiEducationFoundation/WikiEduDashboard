@@ -76,8 +76,8 @@ export const transformUsers = (users) => {
       const last_name = middle_last_name.pop(); // Get the last name from the split
       usersWithRealName.push({
         ...user,
-        first_name: first_name,
-        ...(last_name && { last_name: last_name }),
+        first_name,
+        ...(last_name && { last_name }),
       });
     } else {
       usersWithoutRealName.push(user);

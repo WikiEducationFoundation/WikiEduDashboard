@@ -5,9 +5,11 @@ const WEEKDAYS_LONG = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', '
 const WEEKDAYS_SHORT = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
 
 const localeUtils = {
+  // eslint-disable-next-line object-shorthand
   formatWeekdayLong: function (weekday) {
     return WEEKDAYS_LONG[weekday];
   },
+  // eslint-disable-next-line object-shorthand
   formatWeekdayShort: function (weekday) {
     return WEEKDAYS_SHORT[weekday];
   }
