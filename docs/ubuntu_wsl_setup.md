@@ -16,10 +16,10 @@
    1. If you haven't done so already, fork this repo, see [GitHub Forking Documentation](https://docs.github.com/en/get-started/quickstart/fork-a-repo)
    2. From Ubuntu terminal, clone your forked repo by replacing the URL in this command: `git clone https://github.com/{your-github-username}/WikiEducationFoundation/WikiEduDashboard.git`. For performance, it's important to install this in the WSL filesystem (`cd ~`).
    3. Enter the Dashboard directory, then attempt to install the Dashboard's current Ruby version (updating the version number in this command if necessary): `rvm install 3.1.2`.
-   5. `sudo apt-get update`
-   6. `sudo apt-get install -y mariadb-server libmariadb-dev`
+   5. Update system packages: `sudo apt-get update`
+   6. Install MariaDB: `sudo apt-get install -y mariadb-server libmariadb-dev`
    7. Start the database: `sudo /etc/init.d/mariadb start`
-5. The rest of the installation process should work the same way as a normal Linux installation, and the setup script can automate most of it: `python3 setup.py`. If the setup script fails, refer to the manual setup procedures in `setup.md` to continue.
+5. The rest of the installation process should work the same way as a normal Linux installation, and the setup script can automate most of it. Run setup script: `python3 setup.py`. If it fails, refer to the manual setup procedures in [`setup.md`](./setup.md) to continue.
 6. Build the assets: `yarn build`
 7. Run `rails s`. Now you should have a development running and accessible via web browser at localhost:3000.
 
