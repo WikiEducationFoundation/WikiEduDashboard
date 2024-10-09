@@ -43,6 +43,7 @@ const CourseDates = (props) => {
         showTime={props.showTimeValues}
         date_props={dateProps.timeline_start}
         rerenderHoc={hasUpdatedDateProps}
+        enabled={!!props.course.end}
       />
     );
     timelineEnd = (
@@ -59,6 +60,7 @@ const CourseDates = (props) => {
         enabled={!!props.course.timeline_start}
         isClearable={true}
         showTime={props.showTimeValues}
+        rerenderHoc={hasUpdatedDateProps}
       />
     );
   }
