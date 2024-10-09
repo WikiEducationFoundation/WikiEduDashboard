@@ -13,8 +13,8 @@
    4. Add your user to the rvm group: `sudo usermod -a -G rvm [your username]`
    5. Close and reopen the Ubuntu terminal to activate RVM
 4. Get the Dashboard code and install Ruby and other prerequisites.
-   1. If you haven't done so already, fork this repo on Github
-   2. From Ubuntu terminal, clone your forked repo by replacing the URL in this command: `git clone https://WikiEducationFoundation/WikiEduDashboard.git`. For performance, it's important to install this in the WSL filesystem.
+   1. If you haven't done so already, fork this repo, see [GitHub Forking Documentation](https://docs.github.com/en/get-started/quickstart/fork-a-repo)
+   2. From Ubuntu terminal, clone your forked repo by replacing the URL in this command: `git clone https://github.com/{your-github-username}/WikiEducationFoundation/WikiEduDashboard.git`. For performance, it's important to install this in the WSL filesystem (`cd ~`).
    3. Enter the Dashboard directory, then attempt to install the Dashboard's current Ruby version (updating the version number in this command if necessary): `rvm install 3.1.2`.
    5. `sudo apt-get update`
    6. `sudo apt-get install -y mariadb-server libmariadb-dev`
