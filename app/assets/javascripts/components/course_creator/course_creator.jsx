@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { includes } from 'lodash-es';
+import withRouter from '../util/withRouter';
 
 import { updateCourse } from '../../actions/course_actions';
 import { fetchCampaign, submitCourse, cloneCourse } from '../../actions/course_creation_actions.js';
@@ -418,7 +419,12 @@ const CourseCreator = createReactClass({
         <label htmlFor="checkbox_id">{I18n.t('courses.creator.copy_courses_with_assignments')}</label>
       </span>
     );
-
+    const { ifadmin: ifAdminStr, wiki_ed: wikiEdStr } = document.getElementById('nav_root').dataset;
+    let isAdminOrInstructor;
+    if (ifAdminStr === 'true' || Features.wikiEd === 'true') {
+      console.log(ifAdminStr, wikiEdStr, Features.wikiEd);
+      isAdminOrInstructor = true;
+    }
 
     return (
       <Modal key="modal">
@@ -462,6 +468,7 @@ const CourseCreator = createReactClass({
               previousWikiEd={this.hideCourseForm}
               tempCourseId={this.state.tempCourseId}
               firstErrorMessage={this.props.firstErrorMessage}
+              isAdminOrInstructor={isAdminOrInstructor}
             />
             <CourseDates
               courseDateClass={courseDates}
@@ -518,6 +525,6 @@ const mapDispatchToProps = ({
 });
 
 // exporting two difference ways as a testing hack.
-export default connect(mapStateToProps, mapDispatchToProps)(CourseCreator);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CourseCreator));
 
 export { CourseCreator };
