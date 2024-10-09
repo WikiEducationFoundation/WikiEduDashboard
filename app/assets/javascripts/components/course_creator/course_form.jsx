@@ -198,19 +198,16 @@ const CourseForm = (props) => {
 
   let backOrCancelButton;
 
-  if (props.isAdminOrInstructor) {
-    console.log('=========== isAdmin for the second time \n');
-    console.log(props.isAdminOrInstructor);
-
+  if (props.defaultCourse !== 'ClassroomProgramCourse' || props.isAdminOrInstructor) {
     backOrCancelButton = (
       <button onClick={backCondition} className="button dark">{I18n.t('application.back')}</button>
     );
   } else {
-    backOrCancelButton = (
-      <Link className="button" to="/" id="course_cancel">{I18n.t('application.cancel')}</Link>
+        backOrCancelButton = (
+          <Link className="button" to="/" id="course_cancel">{I18n.t('application.cancel')}</Link>
+        );
+      }
 
-    );
-  }
   return (
     <div className={props.courseFormClass}>
       <div className="column">

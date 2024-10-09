@@ -421,7 +421,7 @@ const CourseCreator = createReactClass({
     );
     const { ifadmin: ifAdminStr, wiki_ed: wikiEdStr } = document.getElementById('nav_root').dataset;
     let isAdminOrInstructor;
-    if (ifAdminStr === 'true' && Features.wikiEd === 'true') {
+    if (ifAdminStr === 'true' || Features.wikiEd === 'true') {
       console.log(ifAdminStr, wikiEdStr, Features.wikiEd);
       isAdminOrInstructor = true;
     }
