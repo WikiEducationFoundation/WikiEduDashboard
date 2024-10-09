@@ -5,7 +5,7 @@
 2. Install "Ubuntu" app
    1. Open "Microsoft Store", search for and install the app "Ubuntu"
    2. Optional: install Windows Terminal from the Microsoft Store as well
-   3. Check whether you are on WSL 2: open a Windows PowerShell or Terminal as Admin and enter `wsl --list --verbose`. If your system is on WSL 1, try the upgrade 
+   3. Check whether you are on WSL 2: open a Windows PowerShell or Terminal as Admin and enter `wsl --list --verbose`. If your system is on WSL 1, try the upgrade command `wsl --set-version Ubuntu 2`. You may need to take additional steps to enable WSL 2, such as installing a kernel upgrade and enabling virtualization in your BIOS. See [Microsoft WSL installation guide](https://learn.microsoft.com/en-us/windows/wsl/install)
 3. Launch the Ubuntu app, which opens an Ubuntu terminal, and then:
    1. Create your Ubuntu username and password (if this is the first time using the Ubuntu system)
    2. Add the RVM repo so you can install Ruby: `sudo apt-add-repository -y ppa:rael-gc/rvm`
