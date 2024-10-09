@@ -11,6 +11,7 @@ require_dependency "#{Rails.root}/lib/analytics/course_revisions_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/course_wikidata_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/campaign_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/ungreeted_list"
+require_dependency "#{Rails.root}/lib/analytics/tagged_courses_csv_builder"
 
 #= Controller for analytics tools
 class AnalyticsController < ApplicationController
@@ -59,6 +60,12 @@ class AnalyticsController < ApplicationController
     course = find_course_by_slug(params[:course])
     send_data CourseEditsCsvBuilder.new(course).generate_csv,
               filename: "#{course.slug}-edits-#{Time.zone.today}.csv"
+  end
+
+  def tagged_courses_csv
+    tag = params[:tag]
+    send_data TaggedCoursesCsvBuilder.new(tag).generate_csv,
+              filename: "#{tag}-courses-#{Time.zone.today}.csv"
   end
 
   def course_uploads_csv

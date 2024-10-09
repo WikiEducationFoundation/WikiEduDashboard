@@ -8,6 +8,8 @@
     .section-header{style: 'width: 100%;'}
       %h3{style: 'color: #676eb4'}
         = t("#{@presenter.course_string_prefix}.campaign_courses", title: "Tag: #{@tag}")
+      = link_to "/tagged_courses_csv/#{@tag}", class: 'button tag-download-csv' do
+        = t("tagged_courses.download_csv")
       .sort-select{style: 'margin: 0 auto;'}
         %select.sorts{rel: 'courses'}
           %option{rel: 'asc', value: 'title'}
