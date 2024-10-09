@@ -10,10 +10,6 @@ const Explore = ({ dashboardTitle }) => {
   const { featuredCampaigns } = useSelector(state => state.settings);
   const isFeaturedCampaigns = featuredCampaigns.length > 0;
   const showCreateButton = user.admin || Features.open_course_creation;
-
-  console.log('uuuuuuuuuuuu');
-  console.log(user);
-  console.log('uuuuuuuuuuuu');
   return (
     <>
       <header className="main-page">
