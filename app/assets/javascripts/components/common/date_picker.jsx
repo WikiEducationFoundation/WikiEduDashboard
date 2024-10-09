@@ -284,7 +284,7 @@ const DatePicker = createReactClass({
             className={`${inputClass} ${this.props.value_key}`}
             onChange={this.handleDateFieldChange}
             onClick={this.handleDateFieldClick}
-            disabled={this.props.enabled && !this.props.enabled}
+            disabled={typeof this.props.enabled === 'undefined' ? false : !this.props.enabled}
             autoFocus={this.props.focus}
             onFocus={this.handleDateFieldFocus}
             onBlur={this.handleDateFieldBlur}
