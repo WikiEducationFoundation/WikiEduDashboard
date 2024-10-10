@@ -59,7 +59,7 @@ export const saveUpdatedAdminCourseNote = adminCourseNoteDetails => async (dispa
         return note;
     });
 
-    dispatch({ type: UPDATE_NOTES_LIST, updatedNotesList: updatedNotesList });
+    dispatch({ type: UPDATE_NOTES_LIST, updatedNotesList });
   } else {
     sendNotification(dispatch, 'Error', 'notes.failure');
   }

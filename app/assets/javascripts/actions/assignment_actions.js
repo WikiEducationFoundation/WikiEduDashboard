@@ -103,7 +103,7 @@ const updateSandboxUrlPromise = (assignment, newUrl) => {
   const body = {
     id: assignment.id,
     user_id: assignment.user_id,
-    newUrl: newUrl
+    newUrl
   };
   return request(`/assignments/${assignment.id}/update_sandbox_url`, {
     body: JSON.stringify(body),

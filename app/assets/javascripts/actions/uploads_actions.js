@@ -146,8 +146,8 @@ export const setUploadPageViews = articleList => (dispatch) => {
 
 export const resetUploadsViews = () => ({ type: RESET_UPLOAD_PAGEVIEWS });
 
-export const sortUploads = key => ({ type: SORT_UPLOADS, key: key });
+export const sortUploads = key => ({ type: SORT_UPLOADS, key });
 
-export const setView = view => ({ type: SET_VIEW, view: view });
+export const setView = view => ({ type: SET_VIEW, view });
 
-export const setUploadFilters = selectedFilters => ({ type: FILTER_UPLOADS, selectedFilters: selectedFilters });
+export const setUploadFilters = selectedFilters => ({ type: FILTER_UPLOADS, selectedFilters });

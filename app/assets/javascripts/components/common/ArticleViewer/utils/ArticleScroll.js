@@ -27,7 +27,7 @@ export class ArticleScroll {
                 }
                 if (paragraph.querySelector(`span.token-editor-${user.userid}`) !== null) {
                     const resObj = {
-                        paragraph: paragraph,
+                        paragraph,
                         position: index,
                         coordinates: paragraph.getBoundingClientRect()
                     };

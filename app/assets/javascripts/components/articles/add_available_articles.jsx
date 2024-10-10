@@ -47,7 +47,7 @@ const AddAvailableArticles = ({
         project: proj,
         language: lang,
         course_slug: course_id,
-        role: role,
+        role,
       };
     });
 

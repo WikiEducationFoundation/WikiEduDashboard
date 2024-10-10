@@ -43,7 +43,7 @@ const grantAdminPromise = async (username, upgrade) => {
   const url = `/settings/${upgrade ? 'upgrade' : 'downgrade'}_admin`;
   const response = await request(url, {
     method: 'POST',
-    body: JSON.stringify({ user: { username: username } })
+    body: JSON.stringify({ user: { username } })
   });
   if (!response.ok) {
     logErrorMessage(response);
@@ -153,7 +153,7 @@ export const downgradeSpecialUser = (username, position) => (dispatch) => {
     data: {
       revoking: {
         status: true,
-        username: username,
+        username,
       },
     },
   });
@@ -179,7 +179,7 @@ export const downgradeSpecialUser = (username, position) => (dispatch) => {
             data: {
               revoking: {
                 status: false,
-                username: username,
+                username,
               },
             },
           });
@@ -262,7 +262,7 @@ export const downgradeAdmin = username => (dispatch) => {
     data: {
       revoking: {
         status: true,
-        username: username,
+        username,
       },
     },
   });
@@ -288,7 +288,7 @@ export const downgradeAdmin = username => (dispatch) => {
             data: {
               revoking: {
                 status: false,
-                username: username,
+                username,
               },
             },
           });
@@ -435,7 +435,7 @@ export const updateDefaultCampaign = campaignSlug => (dispatch) => {
 
 const updateImpactStatsPromise = async (impactStats) => {
   const body = {
-    impactStats: impactStats,
+    impactStats,
   };
   const response = await request('/settings/update_impact_stats', {
     method: 'POST',

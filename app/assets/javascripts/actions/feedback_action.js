@@ -11,7 +11,7 @@ export function fetchFeedback(articleTitle, assignmentId) {
   return function (dispatch) {
     return API.fetchFeedback(articleTitle, assignmentId)
       .then((resp) => {
-        dispatch({ type: types.RECEIVE_ARTICLE_FEEDBACK, data: resp, assignmentId: assignmentId });
+        dispatch({ type: types.RECEIVE_ARTICLE_FEEDBACK, data: resp, assignmentId });
       })
       .catch(response => (dispatch({ type: types.API_FAIL, data: response })));
   };
@@ -22,7 +22,7 @@ export function postUserFeedback(assignmentId, feedback, userId) {
     return API.createCustomFeedback(assignmentId, feedback, userId)
       .then((resp) => {
         dispatch({
-          type: types.POST_USER_FEEDBACK, data: resp, assignmentId: assignmentId, feedback: feedback, messageId: resp.id, userId: userId
+          type: types.POST_USER_FEEDBACK, data: resp, assignmentId, feedback, messageId: resp.id, userId
         });
       })
       .catch(response => (dispatch({ type: types.API_FAIL, data: response })));
@@ -34,7 +34,7 @@ export function deleteUserFeedback(assignmentId, messageId, arrayId) {
     return API.destroyCustomFeedback(assignmentId, messageId)
       .then((resp) => {
         dispatch({
-          type: types.DELETE_USER_FEEDBACK, data: resp, assignmentId: assignmentId, arrayId: arrayId
+          type: types.DELETE_USER_FEEDBACK, data: resp, assignmentId, arrayId
         });
       })
       .catch(response => (dispatch({ type: types.API_FAIL, data: response })));

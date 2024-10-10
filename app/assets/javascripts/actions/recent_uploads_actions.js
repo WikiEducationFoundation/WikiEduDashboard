@@ -13,4 +13,4 @@ export const fetchRecentUploads = (opts = {}) => (dispatch) => {
   );
 };
 
-export const sortRecentUploads = key => ({ type: SORT_RECENT_UPLOADS, key: key });
+export const sortRecentUploads = key => ({ type: SORT_RECENT_UPLOADS, key });

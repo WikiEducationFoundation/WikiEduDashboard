@@ -8,7 +8,7 @@ const ByStudentsStats = ({ username, stats, maxProject }) => {
   return (
     <div className = "user_stats">
       <h5>
-        {I18n.t('user_profiles.instructors_student_impact', { username: username })}
+        {I18n.t('user_profiles.instructors_student_impact', { username })}
       </h5>
       <div className= "stat-display">
         <div className= "stat-display__stat">

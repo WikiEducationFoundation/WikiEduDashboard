@@ -202,7 +202,7 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
   // Function to check if contributions of unhighlighted editors exist in the wikitext metadata
   const usersContributionExists = (usersID) => {
     // Create a URL builder and API instance for fetching wikitext metadata
-    const builder = new URLBuilder({ article: article });
+    const builder = new URLBuilder({ article });
     const api = new ArticleViewerAPI({ builder });
 
     // Fetch wikitext metadata for the current article revision
@@ -234,7 +234,7 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
   };
 
   const fetchParsedArticle = () => {
-    const builder = new URLBuilder({ article: article });
+    const builder = new URLBuilder({ article });
     const api = new ArticleViewerAPI({ builder });
     setPendingRequest(true);
     api.fetchParsedArticle(revisionId)
@@ -249,7 +249,7 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
   };
 
   const fetchWhocolorHtml = () => {
-    const builder = new URLBuilder({ article: article });
+    const builder = new URLBuilder({ article });
     const api = new ArticleViewerAPI({ builder });
     api.fetchWhocolorHtml(revisionId)
       .then((response) => {
@@ -271,7 +271,7 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
       In this case, the users prop will be combined with an empty array.
      */
     const allUsers = union(assignedUsers || [], users);
-    const builder = new URLBuilder({ article: article, users: allUsers });
+    const builder = new URLBuilder({ article, users: allUsers });
     const api = new ArticleViewerAPI({ builder });
     api.fetchUserIds()
       .then((response) => {
