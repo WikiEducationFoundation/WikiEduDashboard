@@ -763,7 +763,6 @@ zh-CN:
         form_label: 授予特殊用户权限
         form_placeholder: 用户名
         confirm_add_special_user: 添加特别用户
-        confirm_remove_special_user: 删除特殊用户权限
       remove:
         revoke_button: 撤销特殊用户
         revoking_button_working: 正在移除……

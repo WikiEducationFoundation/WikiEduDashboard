@@ -1221,8 +1221,6 @@ hu:
         form_label: Speciális felhasználói jogosultságok megadása
         form_placeholder: Felhasználónév
         confirm_add_special_user: Speciális felhasználó hozzáadása
-        confirm_remove_special_user: Speciális felhasználói jogosultságok eltávolítása
-          a
         already_is: '%{username} már {position}!'
         elevate_success: '%{username} a következő helyre emelve: {position}.'
       remove:

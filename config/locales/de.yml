@@ -1117,7 +1117,6 @@ de:
         form_label: Spezialbenutzerrechte gewähren
         form_placeholder: Benutzername
         confirm_add_special_user: Spezialbenutzer hinzufügen
-        confirm_remove_special_user: Spezialbenutzerrechte entfernen für
         already_is: '%{username} ist bereits ein {position}!'
         elevate_success: '%{username} wurde zum {position} befördert.'
       remove:

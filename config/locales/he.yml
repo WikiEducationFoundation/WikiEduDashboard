@@ -1102,7 +1102,6 @@ he:
         form_label: הענקת הרשאות משתמש מיוחדות
         form_placeholder: שם משתמש
         confirm_add_special_user: הוספת משתמש מיוחד
-        confirm_remove_special_user: הסרת הרשאות משתמש מיוחדות עבור
         already_is: המשתמש %{username} הוא כבר {position}!
         elevate_success: '%{username} הועלה לתפקיד {position}.'
       remove:

@@ -1230,7 +1230,6 @@ da:
         form_label: Tildel særlige brugerrettigheder
         form_placeholder: Brugernavn
         confirm_add_special_user: Tilføj specialbruger
-        confirm_remove_special_user: Fjern særlige brugerrettigheder for
         already_is: '%{username} er allerede en {position}!'
         elevate_success: '%{username} forfremmet til {position}.'
       remove:

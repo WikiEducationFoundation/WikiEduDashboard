@@ -153,7 +153,6 @@ roa-tara:
         form_label: Dà le privilegge de utende speciale
         form_placeholder: Nome de l'utende
         confirm_add_special_user: Aggiunge 'n'utende speciale
-        confirm_remove_special_user: Live le privilegge de utende speciale a
         already_is: '%{username} jè ggià ''na {position}!'
         elevate_success: '%{username} ''nghianate a {position}.'
       remove:

@@ -828,7 +828,6 @@ sr-el:
         form_label: Dodeli privilegije „Poseban korisnik”
         form_placeholder: Korisničko ime
         confirm_add_special_user: Dodaj privilegije „Poseban korisnik”
-        confirm_remove_special_user: Ukloni privilegije „Poseban korisnik” za
         already_is: '%{username} je već {position}!'
         elevate_success: '%{username} je unapređen/a  u {position}.'
       remove:

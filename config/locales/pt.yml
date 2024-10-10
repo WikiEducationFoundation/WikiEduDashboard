@@ -1256,8 +1256,6 @@ pt:
         form_label: Conceder privilégios de utilizador especial
         form_placeholder: Nome de utilizador
         confirm_add_special_user: Adicionar utilizador especial
-        confirm_remove_special_user: Remover os privilégios de utilizador especial
-          de
         already_is: '%{username} já é {position}!'
         elevate_success: '%{username} promovido a {position}.'
       remove:
