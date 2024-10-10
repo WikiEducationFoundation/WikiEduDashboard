@@ -179,11 +179,16 @@ class User < ApplicationRecord
     CoursesUsers::Roles::VISITOR_ROLE
   end
 
+  def editing_role?(course)
+    # Check if the user has an editing role in the course
+    CoursesUsers.exists?(course:, user: self, role: EDITING_ROLES)
+  end
+
   EDITING_ROLES = [CoursesUsers::Roles::INSTRUCTOR_ROLE,
                    CoursesUsers::Roles::WIKI_ED_STAFF_ROLE].freeze
   def can_edit?(course)
     return true if admin?
-    return true if EDITING_ROLES.include? role(course)
+    return true if editing_role?(course)
     return true if campaign_organizer?(course)
     false
   end
