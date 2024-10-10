@@ -29,17 +29,13 @@ describe('campaigns reducer', () => {
     const initialState = { campaigns: [], all_campaigns: [], isLoaded: false };
     deepFreeze(initialState);
 
-
-    // Review needed: The implementation of the ADD_CAMPAIGN case in the reducer
-    // is unclear regarding whether it should replace the existing campaigns or
-    // append to them. The expected behavior of the state update should be clarified.
     const mockedAction = {
       type: ADD_CAMPAIGN,
       data: { course: { campaigns: campaignsArray[0] } }
     };
 
     const newState = campaigns(initialState, mockedAction);
-    expect(newState.campaigns).toEqual(campaignsArray[0]); // Adjust based on expected behavior
+    expect(newState.campaigns).toEqual(campaignsArray[0]);
     expect(newState.isLoaded).toBe(true);
   });
 
