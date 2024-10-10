@@ -56,6 +56,7 @@ pt-br:
     number_field: Isso é um campo numérico. Os botões mostrados pela maioria dos navegadores
       vão aumentar ou reduzir a entrada.
   application:
+    back: Voltar
     cancel: Cancelar
     cookie_consent: Este site usa cookies para mantê-lo conectado e armazena informações
       relacionadas à sua conta da Wikipédia.
@@ -88,6 +89,8 @@ pt-br:
       one: '%{count} resultado para: ''%{search_terms}'''
       other: '%{count} resultados para: ''%{search_terms}'''
     no_results: Nenhum resultado encontrado para '%{query}'
+    show_current_revision: Mostrar versão atual
+    show_last_revision: Mostrar a última versão editada
     sign_up_extended: Registrar-se na Wikipédia
     sign_up_wikipedia: Ou registre-se na Wikipédia
     sign_up_log_in_extended: pela Wikipédia
@@ -294,6 +297,7 @@ pt-br:
     edited: Itens editados
     edited_none: Ainda não há itens editados.
     find: Encontrar Itens
+    how_to_find: Como encontrar itens
     preview: Antevisão breve do Item
     search: Pesquisar um item no Wikidata
     tracked_doc: Apenas itens rastreados contribuem para as estatísticas deste programa.
@@ -311,6 +315,8 @@ pt-br:
     article: O artigo %{title} foi atribuído a você.
     article_link: Artigo
     article_link_wikidata: Item
+    blocked_assignment: '%{title} não pode ser atribuído porque está na lista de bloqueio
+      da comunidade da Wikipedia para tarefas de Wiki Education'
     already_exists: Essa atribuição já existe!
     title_too_large: O título não deve exceder 255 caracteres
     assignees: Assinante(s)
@@ -423,6 +429,9 @@ pt-br:
     course: Curso
     course_data: dados do curso
     course_removed: '"%{title}" foi removido da campanha "%{campaign_title}"'
+    course_removed_and_deleted: '"%{title}" foi removido da campanha "%{campaign_title}"'
+    course_removed_but_not_deleted: '%{title} foi removido de %{campaign_title} mas
+      não foi eliminaod pois também está presente em outras campanhas'
     create_campaign: Criar uma nova campanha
     create_my_campaign: Criar a minha campanha!
     customize_passcode: um código de acesso padrão
@@ -448,6 +457,7 @@ pt-br:
       ter:'
     description: Descrição
     delete_campaign: Deletar essa campanha
+    delete_course_tooltip: Deletar e remover da campanha
     disable_account_requests: Desativar solicitações de conta
     enable_account_requests: Ativar as solicitações de contas
     newest_campaigns: Campanhas mais recentes
@@ -479,6 +489,7 @@ pt-br:
     use_start_end_dates: Use datas de início e término
     search: Pesquisar
   categories:
+    searching_for_category: Procurando por categorias em
     add_category: Adicionar categoria
     add_psid: Adicionar PetScan PSID
     add_pileid: Adicionar ID da pilha de páginas
@@ -490,6 +501,7 @@ pt-br:
     import_articles_description: A lista de artigos em uma categoria é atualizada
       periodicamente e pode levar algum tempo depois de ser adicionada antes que a
       lista seja preenchida.
+    confirm_add_n_scoping_method: Adicionar %{n} método de alcance
     depth: Profundidade de subcategorias
     articles_count: Contagem de artigos
     name: Nome
@@ -533,6 +545,9 @@ pt-br:
     articles_i_will_create_wikidata: Itens que vou criar
     articles_i_am_updating: Artigos eu estou atualizando.
     articles_i_am_updating_wikidata: Itens que estou atualizando
+    add_campaign_aria_label: Adiciónar butão de campanha
+    new_tag_button_aria_label: Crie or atualize o botão etiqueta
+    enroll_button_aria_label: Butão de inscrição
     assignment_headings:
       assigned_articles: Artigos atribuídos
       assigned_articles_wikidata: Itens Atribuídos
@@ -567,6 +582,7 @@ pt-br:
     controlled_by_event_center: A inscrição neste evento é controlada pelo Centro
       de eventos Wikimedia. Ele não pode ser associado a partir do Painel.
     course: Curso
+    course_type_label: 'Tipo:'
     course_dates_calendar_instructions: Selecione datas para adicionar ou removê-las
       do calendário (por exemplo, feriados, sem aula etc). Clique na data para alternar
       entre estado selecionado, selecionado e férias. As datas das atividades do curso
@@ -575,6 +591,7 @@ pt-br:
     courses: Cursos
     courses_taught: Cursos ensinados
     creation_date: Data de criação
+    start_date: Data de início
     creator:
       already_exists: Este curso já existe. Considere mudar o nome, instituição de
         ensino ou semestre para torná-lo único.
@@ -599,6 +616,9 @@ pt-br:
       clone_successful_details: Seu curso foi clonado, incluindo os elementos do cronograma
         (semanas e blocos). Alguma coisa sobre seu curso mudou? Fique à vontade para
         atualizá-lo agora.
+      copy_successful_details: Seu curso foi copiado, incluindo os elementos do cronograma
+        (semanas e blocos). Certifique-se de adicionar datas que não foram selecionadas.
+        Alguma coisa sobre seu curso mudou? Fique à vontade para atualizá-lo agora.
       course_dates_info: Digite as datas inicial e final do seu curso. Na próxima
         etapa, você pode escolher quando começar a atribuição da Wikipédia dentro
         desse período de tempo.
@@ -608,6 +628,7 @@ pt-br:
         para atribuir aos outros editores da Wikipédia uma ideia do contexto das contribuições
         feitas pelos os seus alunos.
       course_private: Programa privado (visível apenas para os administradores e facilitadores)
+      course_ta_support: Esse curso terá instrutores adicionais ou técnicos adicionais?
       course_school: Escola do curso
       course_subject: Tema do curso
       course_term: Prazo do curso
@@ -632,6 +653,7 @@ pt-br:
       create_button: Criar meu curso!
       create_label: Criar novo curso
       create_new: Criar um novo curso
+      copy_courses_with_assignments: Cópie lista de artigos disponíveis
       create_short: Criar Curso
       end_date: Data de término
       end_date_placeholder: AAAA-MM-DD
@@ -668,6 +690,7 @@ pt-br:
       update_scheduled: Atualização agendada. Os dados serão atualizados juntos com
         todos os outros programas no próximo ciclo de atualização. Isso geralmente
         demora várias horas.
+      creating_course: Criar Curso
     current: Cursos atuais
     data_articles: Dados dos artigos
     data_articles_info: Os dados dos artigos incluem o número de edições realizadas
@@ -721,6 +744,8 @@ pt-br:
     enrollment_edits_enabled_tooltip: Se ativado, o painel de controle postará um
       modelo na página do usuário e na página de discussão de cada editor que ingressar
       no programa.
+    event_sync: Editar desabilitado. Esse campo não pode ser modificado pois o curso
+      já está atrelado a um evento. Mudá-lo iriam interromper a integração de evento
     courses_enrolled: Cursos inscritos
     error:
       exists: Esse curso já existe! Por favor, tente novamente com um título, escola
@@ -728,6 +753,7 @@ pt-br:
       user_exists: Desculpe, o usuário %{username} não existe.
       user_exists_on_wiki: Desculpe, %{username} não é um usuário existente em %{domain}.
       invalid_language_or_project: Idioma/projeto inválido
+      invalid_wiki: Não pode conectar a %{domain}. Pode não ser válido na wiki
       invalid_slug: Escola ou título em branco para o curso.
       duplicate_slug: Outro programa chamado %{slug} já existe.
     expected_students: Alunos esperados
@@ -940,7 +966,11 @@ pt-br:
       notification_message: Responda nossa pesquisa sobre este curso
       link: Responder o questionário
   course_instructor_notification:
+    notify_instructors: Invie um email aos Instrutores
+    notify_instructors_feature_description: Envie uma mensagem aos instrutores via
+      email
     send_notification_button_text: Enviar
+    notification_sent_success: Mensagem enviada para todos os instrutores de %{courseTitle}
     write_message_placeholder: Mensagem
   courses_generic:
     school_system: Sistema acadêmico
