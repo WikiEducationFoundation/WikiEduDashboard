@@ -1859,3 +1859,6 @@ en:
 
   customize_error_message:
     JSONP_request_failed: "The request to fetch data from Wikipedia has timed out. This may be due to a slow internet connection or temporary server issues. Please try again later."
+
+  tagged_courses:
+    download_csv: 'Download CSV'
