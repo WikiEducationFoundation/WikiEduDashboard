@@ -4,6 +4,9 @@ class TrainingModulesUsersController < ApplicationController
   respond_to :json
   before_action :require_signed_in, only: [:create_or_update, :mark_exercise_complete]
 
+  # ID of the "How to teach with Wikipedia" training module
+  MODULE_ID = 3
+
   def index
     course = Course.find(params[:course_id])
     user = User.find_by(id: params[:user_id]) if params[:user_id]
@@ -17,6 +20,7 @@ class TrainingModulesUsersController < ApplicationController
     complete_slide if should_set_slide_completed?
     complete_module if last_slide?
     @completed = @training_module_user.completed_at.present?
+    make_training_module_user_instructor if @completed && (MODULE_ID == @training_module.id)
     render_slide
   end
 
@@ -71,5 +75,12 @@ class TrainingModulesUsersController < ApplicationController
   def mark_completion_status(value, course_id)
     @training_module_user.mark_completion(value, course_id)
     @training_module_user.save
+  end
+
+  def make_training_module_user_instructor
+    # Do not downgrade admins' permissions.
+    return if @training_module_user.user.admin?
+
+    @training_module_user.user.update(permissions: User::Permissions::INSTRUCTOR)
   end
 end
