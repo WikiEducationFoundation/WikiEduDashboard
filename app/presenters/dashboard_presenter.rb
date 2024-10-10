@@ -8,16 +8,17 @@ class DashboardPresenter
 
   ORIENTATION_ID = 3
 
-  def initialize(current, past, submitted, strictly_current, current_user)
+  def initialize(current, past, submitted, strictly_current, current_user, force_instructor_view) # rubocop:disable Metrics/ParameterLists
     @current = current
     @past = past
     @submitted = submitted
     @strictly_current = strictly_current
     @current_user = current_user
+    @force_instructor_view = force_instructor_view
   end
 
   def instructor?
-    current_user.instructor_permissions?
+    @force_instructor_view || current_user.instructor_permissions?
   end
 
   def admin?
@@ -80,7 +81,7 @@ class DashboardPresenter
 
   # Show explore button for non instructors/admins
   def show_explore_button?
-    current_user.permissions == User::Permissions::NONE
+    !instructor? && current_user.permissions == User::Permissions::NONE
   end
 
   # Get the url path for orientation
