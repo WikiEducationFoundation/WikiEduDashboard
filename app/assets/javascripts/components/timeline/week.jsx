@@ -76,19 +76,30 @@ const Week = createReactClass({
     const dateCalc = new DateCalculator(this.props.timeline_start, this.props.timeline_end, this.props.index, { zeroIndexed: false });
     let weekDatesContent;
     let meetDates;
-    if (this.props.meetings && this.props.meetings.length > 0) {
-      meetDates = `Meetings: ${this.props.meetings.join(', ')}`;
-    }
-    if (this.props.meetings) {
-      weekDatesContent = `${dateCalc.start()} - ${dateCalc.end()}`;
-    } else {
-      weekDatesContent = `Week of ${dateCalc.start()} — AFTER TIMELINE END DATE!`;
-    }
-    const meetDatesDiv = (
-      <div className="margin-bottom">
-        {meetDates}
-      </div>
-    );
+    
+    // Here I filter the meetings array to exclude dates after timeline_end
+  const filteredMeetings = this.props.meetings?.filter(meetingDate => {
+    const isBeforeEnd = new Date(meetingDate) <= new Date(this.props.timeline_end);
+    return isBeforeEnd;
+  });
+
+  // Here I update the meetDates logic to use the filtered meetings
+  if (filteredMeetings && filteredMeetings.length > 0) {
+    meetDates = `Meetings: ${filteredMeetings.join(', ')}`;
+  }
+  
+  // Here I set weekDatesContent accordingly
+  if (filteredMeetings) {
+    weekDatesContent = `${dateCalc.start()} - ${dateCalc.end()}`;
+  } else {
+    weekDatesContent = `Week of ${dateCalc.start()} — AFTER TIMELINE END DATE!`;
+  }
+
+  const meetDatesDiv = (
+    <div className="margin-bottom">
+      {meetDates}
+    </div>
+  );
     let weekTitleContent;
     if (this.props.week.title) {
       weekTitleContent = this.props.week.title;
