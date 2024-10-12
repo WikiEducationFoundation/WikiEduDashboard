@@ -7,7 +7,7 @@ require_dependency "#{Rails.root}/lib/word_count"
 class IndividualStatisticsPresenter
   def initialize(user:)
     @user = user
-    set_articles_edited
+    set_articles_created
     set_article_views
     set_upload_usage_counts
   end
@@ -25,7 +25,7 @@ class IndividualStatisticsPresenter
   end
 
   def individual_character_count
-    @articles_edited.values.sum do |article|
+    @articles_created.values.sum do |article|
       article[:characters].values.inject(0) do |sum, characters|
         characters&.positive? ? sum + characters : sum
       end
@@ -33,7 +33,7 @@ class IndividualStatisticsPresenter
   end
 
   def individual_references_count
-    @articles_edited.values.sum do |article|
+    @articles_created.values.sum do |article|
       article[:references].values.inject(0) do |sum, references|
         references ? sum + references : sum
       end
@@ -49,49 +49,44 @@ class IndividualStatisticsPresenter
   end
 
   def individual_article_count
-    @articles_edited.count
+    @articles_created.count
   end
 
+  # going
   def individual_article_views
-    @articles_edited.values.sum { |article| article[:views] }
+    @articles_created.values.sum { |article| article[:views] }
   end
 
   def individual_articles_created
-    @articles_edited.values.count { |article_edits| article_edits[:new_article] }
+    @articles_created.values.count { |articles| articles[:new_article] }
   end
 
   private
 
   # rubocop:disable Metrics/AbcSize
-  def set_articles_edited
-    @articles_edited = {}
+  def set_articles_created
+    @articles_created = {}
     individual_courses.each do |course|
-      individual_mainspace_edits(course).each do |edit|
-        article_edits = @articles_edited[edit.article_id] || { new_article: false,
-                                                               views: 0, characters: {},
-                                                               references: {} }
-        article_edits[:characters][edit.mw_rev_id] = edit.characters
-        article_edits[:references][edit.mw_rev_id] = edit.references_added
-        article_edits[:new_article] = true if edit.new_article
-        article_edits[:earliest_revision] = edit.date if earliest_rev_yet?(edit, article_edits)
-        article_edits[:average_views] ||= edit.article.average_views
-        @articles_edited[edit.article_id] = article_edits
+      course.articles_courses.where(new_article: true).each do |edit|
+        articles = @articles_created[edit.article_id] || { new_article: true,
+                                                                views: 0,
+                                                                character_sum: 0,
+                                                                references_count: 0 }
+        articles[:character_sum] += edit.character_sum
+        articles[:references_count] += edit.references_count
+        articles[:views] += edit.view_count
+        @articles_created[edit.article_id] = articles
       end
     end
   end
   # rubocop:enable Metrics/AbcSize
 
   def set_article_views
-    @articles_edited.each do |_article_id, article_edits|
-      next unless article_edits[:average_views]
-      days = (Time.now.utc.to_date - article_edits[:earliest_revision].to_date).to_i
-      article_edits[:views] = days * article_edits[:average_views]
+    @articles_created.each do |_article_id, articles|
+      next unless articles[:average_views]
+      days = (Time.now.utc.to_date - articles[:earliest_revision].to_date).to_i
+      articles[:views] = days * articles[:average_views]
     end
-  end
-
-  def earliest_rev_yet?(edit, article_edits)
-    return true if article_edits[:earliest_revision].nil?
-    edit.date < article_edits[:earliest_revision]
   end
 
   def set_upload_usage_counts
@@ -101,13 +96,5 @@ class IndividualStatisticsPresenter
         @upload_usage_counts[upload.id] = upload.usage_count || 0
       end
     end
-  end
-
-  def individual_mainspace_edits(course)
-    course.all_revisions
-          .joins(:article)
-          .includes(:article)
-          .where(articles: { namespace: Article::Namespaces::MAINSPACE })
-          .where(user: @user, deleted: false)
   end
 end
