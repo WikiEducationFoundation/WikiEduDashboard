@@ -125,7 +125,7 @@ class LiftWingApi
     log_error(@errors.first, update_service: @update_service,
       sentry_extra: { rev_ids:, project_code: wiki_key,
                       project_model: model_key,
-                      error_count: @errors.count })
+                      new_errors_count: @errors.count})
   end
 
   def deleted?(response)
