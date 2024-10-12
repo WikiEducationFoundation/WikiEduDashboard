@@ -3,7 +3,7 @@
 
 class InstructorNotificationPreview < ActionMailer::Preview
   def message_to_instructors
-    InstructorNotificationMailer.email(example_alert)
+    InstructorNotificationMailer.email(example_alert, true)
   end
 
   private
