@@ -887,7 +887,6 @@ sr-ec:
         form_label: Додели привилегије „Посебан корисник”
         form_placeholder: Корисничко име
         confirm_add_special_user: Додај привилегије „Посебан корисник”
-        confirm_remove_special_user: Уклони привилегије „Посебан корисник” за
         already_is: '%{username} је већ {position}!'
         elevate_success: '%{username} је унапређен/а  у {position}.'
       remove:

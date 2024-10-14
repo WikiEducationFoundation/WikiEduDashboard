@@ -1236,7 +1236,6 @@ ar:
         form_label: منح امتيازات المستخدم الخاصة
         form_placeholder: اسم المستخدم
         confirm_add_special_user: إضافة مستخدم خاص
-        confirm_remove_special_user: إزالة امتيازات المستخدم الخاصة لـ
         already_is: '%{username} بالفعل {position}!'
         elevate_success: '%{username} ارتقى إلى {position}.'
       remove:

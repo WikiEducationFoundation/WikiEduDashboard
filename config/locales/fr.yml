@@ -1455,8 +1455,6 @@ fr:
         form_label: Attribuer les privilèges d’utilisateur spécial
         form_placeholder: Nom d’utilisateur
         confirm_add_special_user: Ajouter un utilisateur spécial
-        confirm_remove_special_user: Retirer les privilèges d’utilisateur spécial
-          pour
         already_is: '%{username} est déjà un(e) {position} !'
         elevate_success: '%{username} a été promu(e) en {position}.'
       remove:

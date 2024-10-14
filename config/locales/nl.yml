@@ -796,8 +796,6 @@ nl:
         form_label: Bevoegdheden voor bijzondere gebruiker toekennen
         form_placeholder: Gebruikersnaam
         confirm_add_special_user: Bijzondere gebruiker toevoegen
-        confirm_remove_special_user: Bevoegdheid voor bijzondere gebruiker ontnemen
-          van
         already_is: '%{username} is al een {position}!'
         elevate_success: '%{username} naar {position} verhoogd.'
       remove:
