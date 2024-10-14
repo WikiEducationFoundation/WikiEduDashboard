@@ -125,8 +125,6 @@ describe 'Training', type: :feature, js: true do
     end
 
     it 'sets the new_instructor_orientation completed on viewing the last slide and promotes the user to instructor if applicable' do # rubocop:disable Layout/LineLength
-      login_as(user, scope: :user)
-      sleep 1
       visit "/training/students/#{new_instructor_orientation_module.slug}"
       click_link 'Start'
       tmu = TrainingModulesUsers.find_by(user_id: user.id,
