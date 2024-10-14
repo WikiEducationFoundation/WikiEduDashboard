@@ -1,3 +1,4 @@
+- content_for :before_title, "Edit FAQ - #{@faq.title}"
 .container
   = simple_form_for @faq do |f|
     = f.input :title

@@ -9,7 +9,11 @@ class LiftWingApi
   include ApiErrorHandling
   include WeightedScoreCalculator
 
-  DELETED_REVISION_ERRORS = %w[TextDeleted deletion].freeze
+  DELETED_REVISION_ERRORS = [
+    'TextDeleted',
+    'RevisionNotFound',
+    'MW API does not have any info'
+  ].freeze
 
   LIFT_WING_SERVER_URL = 'https://api.wikimedia.org'
 

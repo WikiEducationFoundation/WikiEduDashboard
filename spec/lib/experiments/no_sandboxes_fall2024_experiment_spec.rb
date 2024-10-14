@@ -5,7 +5,7 @@ require "#{Rails.root}/lib/experiments/no_sandboxes_fall_2024_experiment"
 
 describe NoSandboxesFall2024Experiment do
   def fresh_course
-    course = create(:course, start: '2024-08-05'.to_date)
+    course = create(:course, start: '2025-01-05'.to_date) # updated for Spring 2025
     user = create(:user)
     create(:courses_user, course:, user:, role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
     return [course, user]
@@ -26,7 +26,7 @@ describe NoSandboxesFall2024Experiment do
       delete_course
     end
     expect(experiment_count).to eq(50)
-    setting_count = Setting.find_by(key: 'no_sandbox_fall_2024_experiment').value
+    setting_count = Setting.find_by(key: 'no_sandbox_spring_2025_experiment').value
     expect(setting_count[:experiment_condition_count]).to eq(50)
   end
 
@@ -34,7 +34,7 @@ describe NoSandboxesFall2024Experiment do
     it 'puts a new course into control if the first one is control' do
       course, user = *fresh_course
       create(:tag, course:, tag: described_class::CONTROL_TAG)
-      second_course = create(:course, slug: 'experiment/second_course', start: '2024-08-02'.to_date)
+      second_course = create(:course, slug: 'experiment/second_course', start: '2025-01-02'.to_date)
       create(:courses_user, course: second_course, user:,
              role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
       expect(described_class.control_courses.count).to eq(1)
@@ -45,7 +45,7 @@ describe NoSandboxesFall2024Experiment do
     it 'puts a new course into experiment if the first one is experiment' do
       course, user = *fresh_course
       create(:tag, course:, tag: described_class::EXPERIMENT_TAG)
-      second_course = create(:course, slug: 'experiment/second_course', start: '2024-08-02'.to_date)
+      second_course = create(:course, slug: 'experiment/second_course', start: '2025-01-02'.to_date)
       create(:courses_user, course: second_course, user:,
              role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
       expect(described_class.experiment_courses.count).to eq(1)

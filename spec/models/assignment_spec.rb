@@ -22,10 +22,11 @@ require 'rails_helper'
 describe Assignment do
   before { stub_wiki_validation }
 
+  let(:course) { create(:course) }
+
   describe 'assignment creation' do
     context 'when no similar assignments exist' do
       it 'creates Assignment objects' do
-        course = create(:course)
         assignment = create(:assignment, course_id: course.id)
         assignment2 = create(:redlink, course_id: course.id)
 
@@ -34,7 +35,6 @@ describe Assignment do
       end
 
       it 'generates a sandbox_url by default' do
-        course = create(:course)
         user = create(:user)
         article = create(:article)
         article_title = article.title
@@ -49,7 +49,6 @@ describe Assignment do
 
       it 'generates a sandbox_url if no language is defined' do
         wiki = create(:wiki, language: nil, project: 'wikidata')
-        course = create(:course)
         user = create(:user)
         article = create(:article)
         article_title = article.title
@@ -63,7 +62,6 @@ describe Assignment do
       end
 
       it 'uses an already existing sandbox URL for assignments with the same article' do
-        course = create(:course)
         user = create(:user)
         article = create(:article)
         article_title = article.title
@@ -83,7 +81,6 @@ describe Assignment do
       end
 
       it 'generates a sandbox_url for new articles' do
-        course = create(:course)
         user = create(:user)
         article_title = 'New_Article'
         assignment = create(:assignment, course:, user:,
@@ -95,7 +92,6 @@ describe Assignment do
       end
 
       it 'generates a working sandbox_url for article ending in "?"' do
-        course = create(:course)
         user = create(:user)
         article = create(:article, title: 'Brown_Bear,_Brown_Bear,_What_Do_You_See?')
         assignment = create(:assignment, course:, user:,
@@ -106,6 +102,13 @@ describe Assignment do
         encoded_title = 'Brown_Bear%2C_Brown_Bear%2C_What_Do_You_See%3F'
         expected = "#{base_url}/User:#{user.username}/#{encoded_title}"
         expect(assignment.sandbox_url).to eq(expected)
+      end
+
+      it 'returns a #sandbox_pagename for a username that ends in "%"' do
+        user = create(:user, username: 'DocKaryme28%')
+        assignment = create(:assignment, user:, article_title: 'Plague_of_Athens')
+        expected = 'User:DocKaryme28%/Plague_of_Athens'
+        expect(assignment.sandbox_pagename).to eq(expected)
       end
     end
 
