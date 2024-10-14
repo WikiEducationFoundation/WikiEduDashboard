@@ -4,9 +4,6 @@ class TrainingModulesUsersController < ApplicationController
   respond_to :json
   before_action :require_signed_in, only: [:create_or_update, :mark_exercise_complete]
 
-  # ID of the "How to teach with Wikipedia" training module
-  MODULE_ID = 3
-
   def index
     course = Course.find(params[:course_id])
     user = User.find_by(id: params[:user_id]) if params[:user_id]
@@ -20,7 +17,6 @@ class TrainingModulesUsersController < ApplicationController
     complete_slide if should_set_slide_completed?
     complete_module if last_slide?
     @completed = @training_module_user.completed_at.present?
-    make_training_module_user_instructor if @completed && (MODULE_ID == @training_module.id)
     render_slide
   end
 
@@ -62,6 +58,14 @@ class TrainingModulesUsersController < ApplicationController
 
   def complete_module
     @training_module_user.update(completed_at: Time.now.utc)
+    make_training_module_user_instructor if instructor_orientation_module?
+  end
+
+  HOW_TO_TEACH_WITH_WIKIPEDIA_TRAINING_MODULE_ID = 3
+
+  def instructor_orientation_module?
+    @training_module_user.completed_at.present? &&
+      (HOW_TO_TEACH_WITH_WIKIPEDIA_TRAINING_MODULE_ID == @training_module.id)
   end
 
   def last_slide?

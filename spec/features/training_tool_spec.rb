@@ -7,6 +7,9 @@ DESIRED_TRAINING_MODULES = [{ slug: 'evaluating-articles' }].freeze
 describe 'Training', type: :feature, js: true do
   let(:user) { create(:user, id: 1) }
   let(:module_2) { TrainingModule.find_by(slug: 'evaluating-articles') }
+  let(:new_instructor_orientation_module) do
+    TrainingModule.find_by(slug: 'new-instructor-orientation')
+  end
 
   before(:all) do
     TrainingModule.load_all
@@ -119,6 +122,20 @@ describe 'Training', type: :feature, js: true do
       visit "/training/students/#{module_2.slug}/#{module_2.slides.last.slug}"
       sleep 2
       expect(tmu.reload.completed_at).to be_between(1.minute.ago, 1.minute.from_now)
+    end
+
+    it 'sets the new_instructor_orientation completed on viewing the last slide and promotes the user to instructor if applicable' do # rubocop:disable Layout/LineLength
+      login_as(user, scope: :user)
+      sleep 1
+      visit "/training/students/#{new_instructor_orientation_module.slug}"
+      click_link 'Start'
+      tmu = TrainingModulesUsers.find_by(user_id: user.id,
+                                         training_module_id: new_instructor_orientation_module.id)
+      visit "/training/students/#{new_instructor_orientation_module.slug}
+                              /#{new_instructor_orientation_module.slides.last.slug}"
+      sleep 2
+      expect(tmu.reload.completed_at).to be_between(1.minute.ago, 1.minute.from_now)
+      expect(user.reload.permissions).to eq(User::Permissions::INSTRUCTOR)
     end
 
     it 'disables slides that have not been seen' do
