@@ -1313,4 +1313,6 @@ sr-ec:
     failure: Грешка! Покушајте поново касније.
     cancel_note_creation: Откажи
     save_note: Сачувај
+  tagged_courses:
+    download_csv: Преузми као CSV
 ...

@@ -6,6 +6,8 @@
 # Author: ਪ੍ਰਚਾਰਕ
 ---
 pa:
+  application:
+    recent_activity: ਹਾਲੀਆ ਸਰਗਰਮੀ
   article_statuses:
     ready_for_review: ਖਰੜਾ ਦਾ ਵਿਸਤਾਰ
   assignments:
@@ -23,13 +25,16 @@ pa:
     cancel: ਰੱਦ ਕਰੋ
     save: ਸੰਭਾਲੋ
   metrics:
+    activity: ਹਾਲੀਆ ਸਰਗਰਮੀ
     articles_created_generic: ਵਰਕੇ ਬਣਾਏ
+    revisions: ਹਾਲੀਆ ਸੋਧਾਂ
   namespace:
     draft: ਖਰੜਾ
   recent_activity:
     datetime: ਮਿਤੀ/ਵੇਲਾ
     image: ਤਸਵੀਰ
     file_name: ਫ਼ਾਈਲ ਦਾ ਨਾਂ
+    recent_edits: ਹਾਲੀਆ ਸੋਧਾਂ
   timeline:
     add_week: ਹਫ਼ਤਾ ਜੋੜੋ
     block_custom: ਚੁਣਿੰਦਾ
@@ -46,6 +51,7 @@ pa:
     first_name: ਮੂਹਰਲਾ ਨਾਂ
     last_name: ਪਿਛਲਾ ਨਾਂ
     characters_added_draftspace: ਅੱਖਰ ਜੋੜੇ ਗਏ (ਖਰੜਾ)
+    recent_revisions: ਹਾਲੀਆ ਸੋਧਾਂ
     training_incomplete: ਅਧੂਰਾ ਅਭਿਆਸ
     username: ਵਰਤੋਂਕਾਰ ਨਾਂ
     username_placeholder: ਵਰਤੋਂਕਾਰ ਨਾਂ

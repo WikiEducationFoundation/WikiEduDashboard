@@ -1,6 +1,7 @@
 # Messages for Arabic (العربية)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: 5glup
 # Author: ASHmed
 # Author: Alshamiri1
 # Author: Ayatun
@@ -43,6 +44,7 @@ ar:
     number_field: هذا هو حقل الأرقام، والأزرار التي تقدمها معظم المتصفحات ستزيد وتنقص
       المدخلات.
   application:
+    back: رجوع
     cancel: ألغ
     cookie_consent: يستخدم هذا الموقع ملفات تعريف الارتباط للحفاظ على تسجيل الدخول
       وتخزين المعلومات المتعلقة بحساب ويكيبيديا الخاص بك.
@@ -55,10 +57,12 @@ ar:
     explore: استكشف
     field_required: هذا الحقل مطلوب
     field_invalid_characters: هذا الحقل به أحرف غير صالحة
-    field_invalid_date: يتطلب هذا الحقل تاريخ بالشكل سسسس-شش-يي
-    field_invalid_date_time: يجب أن تكون النهاية بعد البداية. (الساعات من 0 إلى 23.)
+    field_invalid_date: |-
+      يتطلب هذا الحقل تاريخ بالشكل التالي
+      السنة (4 ارقام)-الشهر (رقمان)- اليوم (رقمان)
+    field_invalid_date_time: على النهاية أن تكون بعد البداية. (الساعات من 0 إلى 23.)
     greeting2: مرحبا!
-    greeting_extended: مرحبا بكم في ويكيبيديا
+    greeting_extended: مرحبا في ويكيبيديا
     greeting: أهلاّ بك!
     help: مساعدة
     home: الرئيسية
@@ -75,6 +79,8 @@ ar:
       one: '%{count} نتيجة البحث عن: ''%{search_terms}'''
       other: '%{count} نتائج البحث عن: ''%{search_terms}'''
     no_results: لم يتم العثور على نتائج لـ'%{query}'
+    show_current_revision: أظهر النسخة الحالية
+    show_last_revision: إظهار النسخة المحررة الأخيرة
     sign_up_extended: إنشاء حساب عبر ويكيبيديا
     sign_up_wikipedia: أو أنشئ حسابًا على ويكيبيديا
     sign_up_log_in_extended: باستخدام ويكبيديا
@@ -127,6 +133,17 @@ ar:
     explore: استكشف
     log_in: تسجيل الدخول عبر ويكيبيديا
     sign_up: إنشاء حساب عبر ويكيبيديا
+    registration_advice:
+      username_rules:
+        heading: قواعد اسم المستخدم
+        avoid_offensive_usernames: لا تختار اسم مستخدم مسيء، أو مضلل، أو مزعج، أو
+          ترويجي.
+        represent_individual: يجب أن تمثل أسماء المستخدمين الأفراد. لا تستخدم اسم
+          مدرسة أو منظمة.
+      additional_advice:
+        heading: نصيحة
+        anonymous_username_recommendation: يوصي ويكي التعليم باختيار اسم مستخدم مجهول،
+          وليس اسمًا يحتوي على اسمك الحقيقي أو معلومات تحديد شخصيتك الأخرى.
     sign_up_help: لاستخدام لوحة القيادة ، ستحتاج إلى تسجيل الدخول من خلال ويكيبيديا
       ومنحها الإذن للوصول إلى حسابك. يمكنك تسجيل الدخول باستخدام حساب Wikipedia موجود
       ، أو إنشاء حساب جديد. إذا لم تتمكن من إنشاء حساب ، فاتصل بـ dashboard@wikiedu.org.
@@ -170,11 +187,14 @@ ar:
       tracked: متتبع
       untracked: غير متتبع
       tracked_and_untracked: متتبع وغير متتبع
+    filter_text: 'المرشحات:'
     find: البحث عن المقالات
+    how_to_find: كيفية العثور على مقالة
     hide: أخف
     history: تاريخ
     label: المقالات
     loading: جارٍ تحميل المقالات...
+    mark_as_complete: وضع علامة مكتمل
     new: (جديد)
     none: هذه الدورة لم تحرر أية مقالات.
     preview: معاينة موجزة للمادة
@@ -197,6 +217,7 @@ ar:
       '?': 'غير مصنفة: مقالة غير مصنفة على أساس جودة ويكيبيديا'
       does_not_exist: هذه المقالة غير موجودة على ويكيبيديا
     see_more: طالع المزيد
+    see_more_tooltip: سيتم تحميل أول 500 مقالة محررة فقط. انقر هنا لتحميل مقالات إضافية.
     search: ابحث في ويكيبيديا عن مقال
     show_cumulative_changes: أظهر التغييرات التراكمية
     show_current_version: عرض النسخة الحالية
@@ -230,6 +251,13 @@ ar:
       بالنسبة للمقالات التي لم يتم حذفها فعليًا أو تمت استعادتها لاحقًا ، فإن لوحة
       التحكم عادةً تعكس هذا في غضون يوم أو يومين.)
     page_logs: (سجلات الصفحة)
+    tracked_articles: المقالات المجلوبة
+    view_articles: عرض المقالة
+    no_tracked_articles: هذا التصنيف لا يحوي مقالات مجلوبة أو متعقبة
+    not_choosen_article: لم تخار مقالة للعمل عليها. عندما تعثر على واحدة استعمل الزر
+      بالأعلى لتعيينها.
+    use_dashboard: كيفية استخدام لوحة التحكم
+    evaluate_and_source: تقييم المقالات والمصادر
   items:
     items: العناصر
     lexeme: مفردة
@@ -247,6 +275,7 @@ ar:
     edited: العناصر المعدلة
     edited_none: لا توجد عناصر تم تعديلها حتى الآن.
     find: البحث عن العناصر
+    how_to_find: كيفية العثور على العناصر
     preview: معاينة موجزة للعنصر
     search: ابحث في ويكي بيانات عن عنصر
     tracked_doc: تساهم العناصر المتعقبة فقط في إحصاءات هذا البرنامج. عندما يتم وضع
@@ -284,6 +313,7 @@ ar:
     confirm_addition: هل أنت متأكد أنك تريد تعيين %{title} ل%{username}?
     confirm_deletion: هل أنت متأكد أنك تريد حذف هذا الواجب؟
     editors: مخصص لـ
+    change_sandbox_url: تغيير صندوق الرمل
     group_members: أعضاء المجموعة
     label: تعيين
     label_all: تعيين الكل
@@ -327,7 +357,13 @@ ar:
     review_tooltip_wikidata: هذا للعنصر (العناصر) الذي تخطط لمراجعة الأقران أو تقديم
       ملاحظات بشأنه.
     sandbox_draft_link: مسودة الملعب
+    sandbox_redlink_info: هذا الرابط باللون الأحمر لأن الصفحة لم يتم إنشاؤها بعد.
+      (إذا تم إنشاؤها مؤخرًا، فستقوم لوحة التحكم بتحديث بياناتها قريبًا.)
     select: اختر
+    invalid_url: لا يمكن تحديث عنوان URL الخاص بـصندوق الرمل. عنوان URL %{url} ليس
+      عنوان URL صالحًا على ويكيبيديا.
+    mismatched_wiki: لا يمكن تحديث عنوان URL الخاص بـصندوق الرمل. عنوان URL %{url}
+      ليس موجودًا على نفس الويكي.
     warning_untracked_wiki: 'انتبه رجاءً لأنك اخترتَ مقالةً في نسخة من مواقع ويكيميديا
       غير متضمّنة بهذه المادة، ولذلك لا يمكن تتبّع التعديلات عليها. يجب على أستاذ
       المادة أن يضيف هذا الموقع إلى المادة: %{wiki}'
@@ -357,7 +393,9 @@ ar:
     confirm_course_removal: هل أنت متأكد أنك تريد إزالة "%{title}" من حملة "%{campaign_title}"؟
     course_already_removed: تمت إزالة %{title} بالفعل من حملة "%{campaign_title}"
     course: مقرر
+    course_data: بيانات الدورةض
     course_removed: تمت إزالة %{title} بالفعل من حملة "%{campaign_title}"
+    course_removed_and_deleted: تمت إزالة %{title} بالفعل من حملة "%{campaign_title}"
     create_campaign: إنشاء حملة جديدة
     create_my_campaign: أنشئ حملتي!
     customize_passcode: كلمة سر افتراضية
@@ -385,6 +423,7 @@ ar:
     disable_account_requests: تعطيل طلبات الحسابات
     enable_account_requests: تمكين طلبات الحسابات
     newest_campaigns: أحدث الحملات
+    instructors_course: المعلمون حسب الدورة
     no_alerts: هذه الحملة لا تحتوي على إشعارات
     no_passcode: لا توجد كلمة سر
     none: لا شيء
@@ -395,7 +434,12 @@ ar:
     program_template_tooltip: حينما ينشئ منظم برنامج في هذه الحملة، سوف ينسخ النص
       الموجود في هذه المساحة ليكون وصفا على صفحة البرنامج
     random_passcode: كلمة سر عشوائية
+    remove_course_tooltip: إزالة من الحملة.
     requested_accounts: الحسابات المطلوبة
+    resolve: إعادة الحل
+    revision_data: بيانات المراجعة
+    students_small: طلاب
+    student_course: الطلاب حسب الدورة
     title: العنوان
     too_many_articles: قائمة المقالات المحررة لهذه الحملة طويلة جدًا بحيث يتعذر عرضها.
       يرجى عرض الدورات / البرامج / الأحداث الفردية لرؤية المقالات المحررة.
@@ -404,14 +448,15 @@ ar:
     use_start_end_dates: استخدام تاريخ بدء وتاريخ نهاية
     search: بحث
   categories:
+    searching_for_category: البحث عن الفئات في
     add_category: أضف تصنيفًا
     add_psid: إضافة PetScan PSID
     add_pileid: إضافة معرف PagePile
     add_template: أضف القالب
-    add_this_category: أضف هذا التصنيف
-    add_this_psid: إضافة هذا PSID
+    add_this_category: أضف تصنيفات
+    add_this_psid: إضافة PSID petScan
     add_this_pileid: أضف معرف PagePile هذا
-    add_this_template: أضف هذا القالب
+    add_this_template: أضف قوالب
     import_articles_description: يتم تحديث قائمة المقالات في تصنيف بشكل دوري، وقد
       يستغرق الأمر بعض الوقت بعد إضافتها قبل ملء القائمة.
     depth: عمق التصنيف الفرعي
@@ -513,7 +558,11 @@ ar:
         فحدِّد "ليس لدي أية عطلات فصول"، سيعمل الجدول الزمني المستنسخ على ضبط تواريخ
         الحساب تلقائيا لأسابيع لا تحتوي على اجتماعات مجدولة.
       clone_successful: تحديث التفاصيل للدورة المستنسخة
+      copy_successful: تحديث تفاصيل الدورة المنسوخة
       clone_successful_details: تم استنساخ دورتك التدريبية، بما في ذلك عناصر المخطط
+        الزمني (الأسابيع والكتل)، تأكد من إضافة التواريخ، التي لا يتم ترحيلها، هل
+        تغير أي شيء آخر عن دراستك؟ لا تتردد في تحديثها الآن.
+      copy_successful_details: تم استنساخ دورتك التدريبية، بما في ذلك عناصر المخطط
         الزمني (الأسابيع والكتل)، تأكد من إضافة التواريخ، التي لا يتم ترحيلها، هل
         تغير أي شيء آخر عن دراستك؟ لا تتردد في تحديثها الآن.
       course_dates_info: أدخل تواريخ البداية والنهاية للدورة، في الخطوة التالية، يمكنك
@@ -523,6 +572,7 @@ ar:
         سيفعل الطلاب في ويكيبيديا؟ يُرجَى إدراج التفاصيل الكافية لإعطاء محرري ويكيبيديا
         الآخرين الشعور بالسياق للمساهمات التي سيقدمها الطلاب.
       course_private: برنامج خاص (يمكن مشاهدته فقط بواسطة الإداريين والميسرين)
+      course_ta_support: هل سيكون لهذه الدورة مدربين أو مساعدين تدريس إضافيين؟
       course_school: مدرسة المساق
       course_subject: موضوع المساق
       course_term: مدة المقرر الدراسي
@@ -577,6 +627,7 @@ ar:
       subject: الموضوع
       update_scheduled: تحديث المقرر، سيتم تحديث البيانات جنبا إلى جنب مع جميع البرامج
         الحالية خلال دورة التحديث القادمة، هذا عادةً ما يستغرق عدة ساعات.
+      creating_course: إنشاء دورة
     current: الدورات الحالية
     data_articles: بيانات المقالات
     data_articles_info: تتضمن بيانات المقالات عدد التعديلات لكل صفحة، والصفحات الجديدة،
@@ -623,6 +674,8 @@ ar:
     enrollment_edits_enabled: تم تمكين تعديلات التسجيل
     enrollment_edits_enabled_tooltip: في حالة التمكين، ستقوم لوحة البيانات بنشر قالب
       لصفحة المستخدم وصفحة نقاش كل محرر ينضم إلى البرنامج.
+    event_sync: 'تم تعطيل التحرير: لا يمكن تغيير هذا الحقل لأن الدورة مرتبطة بالفعل
+      بحدث. سيؤدي تغييره إلى تعطيل تكامل الحدث.'
     courses_enrolled: المقررات الدراسية المسجل فيها
     error:
       exists: هذا المقرر الدراسي موجود بالفعل! حاول مرة أخرى بعنوان مختلف أو مدرسة
@@ -828,6 +881,13 @@ ar:
     survey:
       notification_message: شارك في استبياننا لهذه الدورة.
       link: المشاركة في استبيان
+  course_instructor_notification:
+    send_notification_button_text: إرسال
+    notification_send_error_server: 'خطأ الخادم: تعذر إرسال الإشعار (%{status} %{statusText})'
+    confirm_send_notification: هل تود الارسال لجميع المدربين في الدورة؟
+    write_subject: موضوع
+    write_message_placeholder: رسالة
+    sending_notification: جاري الإرسال
   courses_generic:
     school_system: النظام الأكاديمي
     add_campaign: إضافة حملة
