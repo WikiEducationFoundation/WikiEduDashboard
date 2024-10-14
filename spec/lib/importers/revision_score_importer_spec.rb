@@ -92,7 +92,7 @@ describe RevisionScoreImporter do
   end
 
   it 'marks RevisionNotFound revisions as deleted' do
-    VCR.use_cassette 'revision_scores/notfound_revision' do
+    VCR.use_cassette 'revision_scores/not_found_revision' do
       article = Article.find(678)
       described_class.new.update_revision_scores
       revision = article.revisions.first

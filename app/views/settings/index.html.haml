@@ -1,3 +1,4 @@
+- content_for :before_title, "#{current_user.username} Settings"
 -user =  current_user.to_json(only: [:real_name, :email, :permissions, :username]).to_str
 
 %div#react_root{"data-current_user" => user}

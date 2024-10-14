@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 #= Controller for collections of courses with a common tag
-#= reusing the views from CampaignsController
 class TaggedCoursesController < ApplicationController
   before_action :require_admin_permissions
   before_action :set_tag
@@ -9,7 +8,6 @@ class TaggedCoursesController < ApplicationController
   def articles
     set_page
     set_courses_and_presenter
-    render 'campaigns/articles'
   end
 
   def alerts
@@ -25,7 +23,14 @@ class TaggedCoursesController < ApplicationController
   def programs
     set_page
     set_courses_and_presenter
-    render 'campaigns/programs'
+    load_wiki_experts
+  end
+
+  def stats
+    set_courses_and_presenter
+    respond_to do |format|
+      format.json { render 'stats' }
+    end
   end
 
   private
@@ -41,9 +46,13 @@ class TaggedCoursesController < ApplicationController
 
   def set_courses_and_presenter
     @courses = Tag.courses_tagged_with(@tag)
-    # This fake Campaign is so that we can reuse campaigns views
-    @campaign = Campaign.new(slug: @tag, title: "Tag: #{@tag}")
     @presenter = CoursesPresenter.new(current_user:, tag: @tag,
                                       courses_list: @courses, page: @page)
+  end
+
+  # Loads CoursesUsers records with role 4 and filters by wiki experts, avoiding N+1 queries
+  def load_wiki_experts
+    @wiki_experts = CoursesUsers.where(course: @courses, user: SpecialUsers.wikipedia_experts,
+                                       role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE)
   end
 end

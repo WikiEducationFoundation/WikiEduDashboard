@@ -1581,4 +1581,24 @@ zh-TW:
     admin:
       button_text: 管理註釋
       header_text: 管理註釋面板
+      aria_label:
+        notes_panel_opened: 已開啟管理註釋面板互動視窗。您可以按下退出鍵來關閉。
+        close_admin: 關閉管理註釋面板互動視窗
+        note_action_button: 註釋操作按鈕
+        create_note: 建立註釋按鈕
+        note_creation: 建立註釋區域現可用。
+        cancel_note_creation: 取消建立註釋。
+        post_created_note: 發布已建立註釋
+        note_title_field: 聚焦在註釋標題欄位。在此輸入註釋的標題。
+        note_text_field: 聚焦在註釋文字欄位。在此輸入註釋的內容。
+        collapse_note: 按下輸入鍵可折疊註釋{{title}}的文字。
+        expand_note: 按下輸入鍵可展開顯示註釋{{title}}的文字。
+        note_details_focused: 註釋{{title}}的詳細資料
+        note_edit_button_focused: 編輯註釋{{title}}的詳細資料
+        note_edit_save_button_focused: 儲存已編輯的註釋{{title}}
+        note_edit_cancel_button_focused: 取消編輯註釋{{title}}
+        note_delete_button_focused: 刪除註釋{{title}}
+        note_edit_mode: 已進入標題為{{title}}的註釋的編輯模式。現在您可以編輯標題和內容。
+  customize_error_message:
+    JSONP_request_failed: 從維基百科取得資料的請求已逾時。這可能是由於網路連線速度太慢，或是臨時伺服器問題造成的。請稍後重試。
 ...

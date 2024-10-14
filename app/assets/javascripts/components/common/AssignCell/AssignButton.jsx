@@ -336,6 +336,8 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
     const reviewing = {
       title: assignment.article_title,
       course_slug: course.slug,
+      language: assignment.language,
+      project: assignment.project,
       role
     };
 

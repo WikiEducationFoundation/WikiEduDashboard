@@ -96,6 +96,19 @@ essentials:
   - # Week three
     weight: 6
     blocks:
+      -
+        if: no_sandboxes
+        title: Keeping track of your work
+        kind: 1
+        training_module_ids: [65] # Keeping track of work without sandboxes
+        content: |
+
+      -
+        unless: no_sandboxes
+        title: Keeping track of your work
+        kind: 1
+        training_module_ids: [60] # Keeping track of work
+        content: |
 
       -
         if: medical_topics

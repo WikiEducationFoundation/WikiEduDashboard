@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: DareDevil
 # Author: Gayatree Tripathy
+# Author: Psubhashish
 ---
 or:
   application:
@@ -10,7 +11,7 @@ or:
     create_accounts: ଉଇକିପିଡ଼ିଆ ଖାତାଟିଏ ଖୋଲିବେ
     error: 'ଗୋଟିଏ ତ୍ରୁଟି ଥିଲା:'
     explore: ଅଧିକ ଦେଖନ୍ତୁ
-    field_required: ଏହି ସ୍ଥାନ ପୂରଣ ହେବା ଦରକାର ।
+    field_required: ଏ ଘରଟି ଦରକାରୀ
     field_invalid_characters: ଏହି ସ୍ଥାନରେ ନୀତିଵିରୁଦ୍ଧ ଅକ୍ଷରସବୁ ଅଛି
     field_invalid_date_time: ଆରମ୍ଭ ହେବା ପରେ ଶେଷ ହେବ (୦ରୁ ୨୩ ଘଣ୍ଟା ପର୍ଯ୍ୟନ୍ତ ଚାଲିବ)
     greeting2: ସ୍ଵାଗତ!

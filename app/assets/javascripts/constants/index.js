@@ -33,6 +33,7 @@ export * from './user_roles';
 export * from './users';
 export * from './settings';
 export * from './tags';
+export * from './tagged_courses_stats';
 export * from './timeline';
 export * from './training';
 export * from './training_status';

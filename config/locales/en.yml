@@ -247,6 +247,11 @@ en:
     tracked_articles: Tracked Articles
     view_articles: View Articles
     no_tracked_articles: This category has no tracked articles
+    not_choosen_article:  You have not chosen an article to work on. When you have found an
+        article to work on, use the button above to assign it.
+    use_dashboard: How to use the Dashboard
+    how_to_find: How to find an article
+    evaluate_and_source: Evaluating articles and sources
 
   items:
     items: Items
@@ -1384,6 +1389,8 @@ en:
     previous: < Previous
     table_of_contents: Table of Contents
     training_library: Training Library
+    additional_training: Additional training modules
+    orientation_modules:  Instructor orientation modules
     logged_out: "You are logged out. You will not receive credit for completing this module unless you log in."
     done: Done!
     invalid: Sorry that slide does not exist!
@@ -1402,6 +1409,8 @@ en:
     search_training_resources: Search for training resources
     no_training_resource_match_your_search: No training resource matches your search
     exercise_sandbox: Exercise Sandbox
+    remaining_exercise: "%{count} additional exercises remaining."
+    view_all: View all exercises
 
   update_username:
     header: Update a changed username
@@ -1859,3 +1868,6 @@ en:
 
   customize_error_message:
     JSONP_request_failed: "The request to fetch data from Wikipedia has timed out. This may be due to a slow internet connection or temporary server issues. Please try again later."
+
+  tagged_courses:
+    download_csv: 'Download CSV'

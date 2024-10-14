@@ -61,12 +61,20 @@ class CampaignsController < ApplicationController
   end
 
   def articles
-    set_page
-    set_presenter
-    # If there are more edited articles than the limit, we disable the feed of campaign articles
-    if @presenter.too_many_articles?
-      render 'too_many_articles'
-      return
+    respond_to do |format|
+      format.html do
+        set_page
+        set_presenter
+        # If there are more edited articles than the limit, we disable the feed of campaign articles
+        if @presenter.too_many_articles?
+          render 'too_many_articles'
+          return
+        end
+      end
+      format.json do
+        set_campaign
+        render json: { campaign: @campaign.slug, articles: @campaign.articles_to_json }
+      end
     end
   end
 

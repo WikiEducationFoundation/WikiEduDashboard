@@ -95,6 +95,15 @@ class Campaign < ApplicationRecord
     end
   end
 
+  def articles_to_json
+    articles.distinct.map do |article|
+      {
+        title: article.title,
+        wiki: article.wiki
+      }
+    end
+  end
+
   def assignments_to_json
     Assignment.where(course: nonprivate_courses)
               .includes(:user, :course, article: :wiki)
