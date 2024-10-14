@@ -93,15 +93,7 @@ describe RevisionScoreImporter do
 
   it 'marks RevisionNotFound revisions as deleted' do
     VCR.use_cassette 'revision_scores/not_found_revision' do
-      # Article and its revisions are deleted
-      article = create(:article,
-                       mw_page_id: 123456,
-                       title: 'Premi_O_Premi',
-                       namespace: 0)
-      create(:revision,
-             mw_rev_id: 753277075,
-             article_id: article.id,
-             mw_page_id: 123456)
+      article = Article.find(678)
       described_class.new.update_revision_scores
       revision = article.revisions.first
       expect(revision.deleted).to eq(true)
