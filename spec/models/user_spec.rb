@@ -52,22 +52,8 @@ describe User do
     end
   end
 
-  describe '#role' do
-    it 'grants instructor permission for a user creating a new course' do
-      course = nil
-      user = create(:user)
-      role = user.role(course)
-      expect(role).to eq(1)
-    end
-
-    it 'treats an admin like the instructor' do
-      course = create(:course)
-      admin = create(:admin)
-      role = admin.role(course)
-      expect(role).to eq(1)
-    end
-
-    it 'returns the assigned role for a non-admin' do
+  describe '#course_roles' do
+    it 'returns an array of roles a user has in a course' do
       course = create(:course,
                       id: 1)
       user = create(:user,
@@ -76,36 +62,23 @@ describe User do
              course_id: 1,
              user_id: 1,
              role: 0) # student
-      role = user.role(course)
-      expect(role).to eq(0)
-      expect(user.student?(course)).to eq(true)
-      expect(user.course_student?).to eq(true)
-      expect(user.instructor?(course)).to eq(false)
 
-      # Now let's make this user also an instructor.
       create(:courses_user,
              course_id: 1,
              user_id: 1,
              role: 1) # instructor
-      expect(user.instructor?(course)).to eq(true)
-      expect(user.course_instructor?).to eq(true)
 
-      # User is only an instructor, not an admin.
-      adminship = user.roles(course)[:admin]
-      expect(adminship).to eq(false)
-      # role = user.role(course)
-      # FIXME: User#role does not account for users with multiple roles.
-      # We can probably disable the option of multiple roles when we disconnect
-      # the MediaWiki EP extension. For the sake of permissions, though, #role
-      # probably ought to return the most permissive role for a user.
-      # expect(role).to eq(1)
+      roles = user.course_roles(course)
+      expect(roles).to contain_exactly(0, 1)
     end
 
-    it 'returns -1 for a user who is not part of the course' do
-      course = create(:course)
-      user = create(:user)
-      role = user.role(course)
-      expect(role).to eq(-1)
+    it 'returns an empty array when the user has no roles in the course' do
+      course = create(:course,
+                      id: 1)
+      user = create(:user,
+                    id: 1)
+      roles = user.course_roles(course)
+      expect(roles).to be_empty
     end
   end
 
