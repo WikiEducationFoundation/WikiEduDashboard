@@ -49,7 +49,7 @@ class AssignmentsController < ApplicationController
 
   # Select an Available Article as a new Assignment for a user
   def claim
-    @claimed_assignment = Assignment.find(params[:assignment_id])
+    @claimed_assignment = Assignment.find(params[:id])
     @course = @claimed_assignment.course
     check_permissions(assignment_params[:user_id].to_i)
     check_participation # prevents a user from a different course claiming an assignment
@@ -67,8 +67,9 @@ class AssignmentsController < ApplicationController
   end
 
   def update_status
-    check_permissions(assignment_params[:user_id].to_i)
     @assignment = Assignment.find(assignment_params[:id])
+    @course = @assignment.course
+    check_permissions(assignment_params[:user_id].to_i)
 
     if assignment_params[:status]
       @assignment.update_status(assignment_params[:status])
