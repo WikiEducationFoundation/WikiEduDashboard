@@ -49,7 +49,8 @@ class UpdateCourseWikiTimeslices
     @course.wikis.each do |wiki|
       # Get start time from first timeslice to update
       first_start = if all_time
-                      @course.start
+                      CourseWikiTimeslice.for_course_and_wiki(@course, wiki)
+                                         .for_datetime(@course.start).first.start
                     else
                       @timeslice_manager.get_ingestion_start_time_for_wiki(wiki)
                     end
@@ -68,8 +69,9 @@ class UpdateCourseWikiTimeslices
   def fetch_data_and_process_timeslices(wiki, first_start, latest_start)
     current_start = first_start
     while current_start <= latest_start
-      fetch_data(wiki, current_start,
-                 current_start + TimesliceManager::TIMESLICE_DURATION - 1.second)
+      start_date = [current_start, @course.start].max
+      end_date = [current_start + TimesliceManager::TIMESLICE_DURATION - 1.second, @course.end].min
+      fetch_data(wiki, start_date, end_date)
       process_timeslices(wiki)
       current_start += TimesliceManager::TIMESLICE_DURATION
     end
@@ -78,7 +80,9 @@ class UpdateCourseWikiTimeslices
   def fetch_data_and_reprocess_timeslices(wiki)
     to_reprocess = CourseWikiTimeslice.for_course_and_wiki(@course, wiki).needs_update
     to_reprocess.each do |t|
-      fetch_data(wiki, t.start, t.end - 1.second)
+      start_date = [t.start, @course.start].max
+      end_date = [t.end - 1.second, @course.end].min
+      fetch_data(wiki, start_date, end_date)
       process_timeslices(wiki)
     end
   end
