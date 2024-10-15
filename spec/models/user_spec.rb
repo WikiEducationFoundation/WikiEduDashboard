@@ -136,6 +136,55 @@ describe User do
     end
   end
 
+  describe '#can_view?' do
+    it 'returns false when the user has only visitor role' do
+      course = create(:course,
+                      id: 1)
+      user = create(:user,
+                    id: 1)
+      create(:courses_user,
+             course_id: 1,
+             user_id: 1,
+             role: -1) # visitor
+      permission = user.can_view?(course)
+      expect(permission).to be false
+    end
+
+    it 'returns true when the user has one non-visitor role' do
+      course = create(:course,
+                      id: 1)
+      user = create(:user,
+                    id: 1)
+      create(:courses_user,
+             course_id: 1,
+               user_id: 1,
+               role: 0) # student
+      permission = user.can_view?(course)
+      expect(permission).to be true
+    end
+
+    it 'returns true for users with multiple roles, including a visitor role' do
+      course = create(:course,
+                      id: 1)
+      user = create(:user,
+                    id: 1)
+      # User is a visitor
+      create(:courses_user,
+             course_id: 1,
+             user_id: 1,
+             role: -1) # visitor
+
+      # User is also a campus volunteer
+      create(:courses_user,
+             course_id: 1,
+             user_id: 1,
+             role: 2) # campus volunteer
+
+      permission = user.can_view?(course)
+      expect(permission).to be true
+    end
+  end
+
   describe 'email validation' do
     context 'when email is valid' do
       it 'saves the email' do
