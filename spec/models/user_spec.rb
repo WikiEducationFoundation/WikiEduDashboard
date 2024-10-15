@@ -185,6 +185,86 @@ describe User do
     end
   end
 
+  describe '#can_see_real_names?' do
+    it 'returns true when the user has an instructor role' do
+      course = create(:course,
+                      id: 1)
+      user = create(:user,
+                    id: 1)
+      create(:courses_user,
+             course_id: 1,
+             user_id: 1,
+             role: 1) # Instructor
+      permission = user.can_see_real_names?(course)
+      expect(permission).to be true
+    end
+
+    it 'returns true when the user has a staff role' do
+      course = create(:course,
+                      id: 1)
+      user = create(:user,
+                    id: 1)
+      create(:courses_user,
+             course_id: 1,
+              user_id: 1,
+              role: 4) # Wiki education staff
+      permission = user.can_see_real_names?(course)
+      expect(permission).to be true
+    end
+
+    it 'returns true for users with multiple roles, including a real name role' do
+      course = create(:course,
+                      id: 1)
+      user = create(:user,
+                    id: 1)
+      # User is a visitor
+      create(:courses_user,
+             course_id: 1,
+             user_id: 1,
+             role: -1) # visitor
+
+      # User is also an instructor
+      create(:courses_user,
+             course_id: 1,
+             user_id: 1,
+             role: 1) # Instructor
+
+      permission = user.can_see_real_names?(course)
+      expect(permission).to be true
+    end
+
+    it 'returns false when the user has no real name role' do
+      course = create(:course,
+                      id: 1)
+      user = create(:user,
+                    id: 1)
+      create(:courses_user,
+             course_id: 1,
+              user_id: 1,
+              role: -1) # visitor
+      permission = user.can_see_real_names?(course)
+      expect(permission).to be false
+    end
+
+    it 'returns false when the user has multiple roles and no real name role' do
+      course = create(:course,
+                      id: 1)
+      user = create(:user,
+                    id: 1)
+      create(:courses_user,
+             course_id: 1,
+              user_id: 1,
+              role: 0) # student
+
+      create(:courses_user,
+             course_id: 1,
+               user_id: 1,
+               role: 2) # campus volunteer
+      permission = user.can_see_real_names?(course)
+      expect(permission).to be false
+    end
+  end
+
   describe 'email validation' do
     context 'when email is valid' do
       it 'saves the email' do
