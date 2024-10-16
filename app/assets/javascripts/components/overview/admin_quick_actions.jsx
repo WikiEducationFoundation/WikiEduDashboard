@@ -37,7 +37,7 @@ export const AdminQuickActions = ({ course, current_user, persistCourse, greetSt
           <NoDetailsText />
         )}
         <button
-          className="button"
+          className="button mark-as-review"
           onClick={() => {
             course.last_reviewed = {
               username: current_user.username,
