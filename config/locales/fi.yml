@@ -826,7 +826,7 @@ fi:
     next: Seuraava sivu
     page: Sivu
     page_number: Sivu %{number}/%{total}
-    previous: < Edellinen
+    previous: Edellinen Sivu
     training_library: Harjoittelukirjasto
     logged_out: Olet kirjautunut ulos. Et saa pisteitä tämän moduulin suorittamisesta,
       ellet kirjaudu sisään.

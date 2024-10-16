@@ -1004,7 +1004,7 @@ cs:
     next: Další stránka
     page: Stránka
     page_number: Strana %{number} z %{total}
-    previous: < Předchozí
+    previous: Předchozí stránka
     table_of_contents: Obsah
     training_library: Cvičná knihovna
     logged_out: Byl jste odhlášen. Nebudete moci získat body za dokončení tohoto modulu,

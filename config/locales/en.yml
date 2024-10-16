@@ -1386,7 +1386,7 @@ en:
     next: Next Page
     page: Page
     page_number: Page %{number} of %{total}
-    previous: < Previous
+    previous: Previous Page
     table_of_contents: Table of Contents
     training_library: Training Library
     additional_training: Additional training modules

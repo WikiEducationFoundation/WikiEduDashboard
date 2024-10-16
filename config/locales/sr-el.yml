@@ -941,7 +941,7 @@ sr-el:
     next: Sledeća stranica
     page: Stranica
     page_number: '%{number} stranica od ukupno %{total}'
-    previous: < Prethodno
+    previous: Prethodno Stranica
     table_of_contents: Tabela sadržaja
     training_library: Biblioteka obuke
     logged_out: Odjavljeni ste. Nećete dobiti poene za završavanje ovog modula ukoliko

@@ -678,7 +678,7 @@ cy:
     next: Tudalen nesaf
     page: Tudalen
     page_number: Tudalen %{number} allan o %{total}
-    previous: <Cynt
+    previous: Cynt Tudalen
     table_of_contents: Cynnwys
     training_library: Llyfrgell Hyfforddi
     logged_out: Nid ydych wedi mewngofnodi. Ni fyddwch, felly, yn derbyn credyd am

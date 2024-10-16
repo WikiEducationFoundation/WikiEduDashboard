@@ -973,7 +973,7 @@ eu:
     next: Hurrengo orria
     page: Orria
     page_number: '%{number}. orria %{total}(e)tik'
-    previous: < Aurrekoa
+    previous: Aurrekoa Orria
     table_of_contents: Eduki taula
     training_library: Trebakuntzaren liburutegia
     logged_out: Saioa bukatu duzu. Ez duzu modulua bukatu izanaren egiaztagirik jasoko

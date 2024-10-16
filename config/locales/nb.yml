@@ -818,7 +818,7 @@ nb:
     next: Neste side
     page: Side
     page_number: Side %{number} av %{total}
-    previous: < Forrige
+    previous: Forrige Side
     table_of_contents: Indholdsfortegnelse
     training_library: Opplæringsbibliotek
     logged_out: Du er logget ut. Du vil ikke få poeng for å fullføre denne modulen

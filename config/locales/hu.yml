@@ -1351,7 +1351,7 @@ hu:
     next: Következő lap
     page: Lap
     page_number: '%{number}. oldal / %{total}'
-    previous: < Elöző
+    previous: Elöző Lap
     table_of_contents: Tartalomjegyzék
     training_library: Képzőkönyvtár
     logged_out: Ki vagy jelentkezve. Nem kapsz jóváírást a modul elvégzéséért, hacsak

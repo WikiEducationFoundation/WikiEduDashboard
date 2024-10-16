@@ -909,7 +909,7 @@ it:
     next: Pagina successiva
     page: Pagina
     page_number: Pagina %{number} di %{total}
-    previous: < Precedente
+    previous: Precedente Pagina
     table_of_contents: Sommario
     logged_out: Sei disconnesso. Non riceverai crediti per il completamento di questo
       modulo a meno che non accedi.

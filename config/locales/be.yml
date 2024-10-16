@@ -1007,7 +1007,7 @@ be:
     next: Наступная старонка
     page: Старонка
     page_number: Старонка %{number} з %{total}
-    previous: < Папярэдняя
+    previous: Папярэдняя Старонка
     table_of_contents: Змест
     training_library: Вучэбная бібліятэка
     logged_out: Вы выйшлі. Вы не зможаце змяняць гэты модуль пакуль не залагініцеся.

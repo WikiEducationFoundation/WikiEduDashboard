@@ -1352,7 +1352,7 @@ da:
     next: Næste side
     page: Side
     page_number: Side %{number} af %{total}
-    previous: < Forrige
+    previous: Forrige Side
     table_of_contents: Indholdsfortegnelse
     training_library: Træning bibliotek
     logged_out: Du er logget ud. Du vil ikke få point for at gennemføre dette modul,

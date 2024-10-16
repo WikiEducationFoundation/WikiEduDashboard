@@ -639,7 +639,7 @@ sv:
     next: Nästa sida
     page: Sida
     page_number: Sida %{number} av %{total}
-    previous: < Föregående
+    previous: Föregående Sida
     table_of_contents: Innehållsförteckning
     training_library: Träningsbibliotek
     done: Klar!

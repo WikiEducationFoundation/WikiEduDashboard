@@ -1025,7 +1025,7 @@ et:
     next: Järgmine lehekülg
     page: Lehekülg
     page_number: Lehekülg %{number} %{total}-st
-    previous: < Eelmine
+    previous: Eelmine Lehekülg
     table_of_contents: Sisukord
     training_library: Õpperaamatukogu
     logged_out: Oled välja logitud. Mooduli läbimist ei hinnata, kui Sa ei ole sisse

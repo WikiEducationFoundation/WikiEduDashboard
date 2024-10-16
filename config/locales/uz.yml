@@ -232,7 +232,7 @@ uz:
   training:
     view: Koʻrish
     page: Sahifa
-    previous: < Avvalgisi
+    previous: Avvalgisi Sahifa
     done: Bajarildi!
   users:
     assign_articles_done: Bajarildi

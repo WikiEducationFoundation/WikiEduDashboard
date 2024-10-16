@@ -1294,7 +1294,7 @@ ar:
     next: الصفحة التالية
     page: الصفحة
     page_number: الصفحة %{number} من %{total}
-    previous: < السابق
+    previous: الصفحةالسابق
     table_of_contents: جدول المحتويات
     training_library: مكتبة التدريب
     logged_out: قمت بتسجيل الخروج، لن تتلقى الائتمان لإكمال هذه الوحدة إلا إذا قمت

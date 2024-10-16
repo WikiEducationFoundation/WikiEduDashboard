@@ -1286,7 +1286,7 @@ uk:
     next: Наступна сторінка
     page: Сторінка
     page_number: Сторінка %{number} з %{total}
-    previous: < Попередня
+    previous: Попередня Сторінка
     table_of_contents: Зміст
     training_library: Навчальна бібліотека
     logged_out: Ви вийшли з системи. Ви не отримаєте оцінку за завершення цього модуля,

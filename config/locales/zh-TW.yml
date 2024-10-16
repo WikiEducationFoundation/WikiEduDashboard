@@ -1191,7 +1191,7 @@ zh-TW:
     next: 下一頁
     page: 頁面
     page_number: 總計共 %{total} 個裡的第 %{number} 頁
-    previous: <上一個
+    previous: 上一個 頁面
     table_of_contents: 目次
     training_library: 培訓圖書館
     logged_out: 您已經登出。除非您登入，否則您將不會收到完成此訓練的紀錄。

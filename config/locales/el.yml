@@ -340,7 +340,7 @@ el:
     update_statistics_link: Δείτε περισσότερα
     general: Γενικά
   training:
-    previous: < Προηγούμενο
+    previous: Προηγούμενο
     view_library_source: προβολή πηγής βιβλιοθήκης
     view_module_source: προβολή πηγής δομοστοιχείου
     reload_from_source: επαναφόρτωση από πηγή

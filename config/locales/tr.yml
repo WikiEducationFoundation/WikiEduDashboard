@@ -1213,7 +1213,7 @@ tr:
     next: Sonraki Sayfa
     page: Sayfa
     page_number: '%{total} sayfadan %{number}. sayfa'
-    previous: < Önceki
+    previous: Önceki Sayfa
     table_of_contents: İçindekiler
     training_library: Eğitim Kütüphanesi
     logged_out: Çıkış yaptınız. Giriş yapmadığınız sürece bu modülü tamamlamak için

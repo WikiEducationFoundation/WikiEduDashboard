@@ -1190,7 +1190,7 @@ he:
     next: הדף הבא
     page: דף
     page_number: עמוד %{number} מתוך %{total}
-    previous: < הקודם
+    previous: הקודם דף
     table_of_contents: תוכן עניינים
     training_library: ספריית הדרכה
     logged_out: יצאת מהחשבון. לא יינתן לך קרדיט על השלמת המודול הזה ללא כניסה לחשבון.

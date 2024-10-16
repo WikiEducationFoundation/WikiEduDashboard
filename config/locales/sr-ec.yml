@@ -1001,7 +1001,7 @@ sr-ec:
     next: Следећа страница
     page: Страница
     page_number: '%{number} страница од укупно %{total}'
-    previous: < Претходно
+    previous: Претходно Страница
     table_of_contents: Табела садржаја
     training_library: Библиотека обуке
     logged_out: Одјављени сте. Нећете добити поене за завршавање овог модула уколико

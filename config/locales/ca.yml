@@ -899,7 +899,7 @@ ca:
     next: Pàgina següent
     page: Pàgina
     page_number: Pàgina %{number}/%{total}
-    previous: < Anterior
+    previous: Anterior Pàgina
     table_of_contents: Taula de continguts
     logged_out: Heu finalitzat la sessió. No et puntuarà completar aquest mòdul si
       no tens la sessió iniciada.

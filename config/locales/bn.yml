@@ -467,7 +467,7 @@ bn:
     start: শুরু করুন
     view: দেখুন
     page: পাতা
-    previous: < পূর্ববর্তী
+    previous: পূর্ববর্তী পাতা
     done: সম্পন্ন!
     check_answer: উত্তর যাচাই করুন
   update_username:
