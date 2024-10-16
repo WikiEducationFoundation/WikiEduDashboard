@@ -14,8 +14,12 @@ class DashboardController < ApplicationController
     set_blog_posts if Features.wiki_ed?
     set_admin_courses_if_admin
     @pres = DashboardPresenter.new(current_courses, past_courses,
+<<<<<<< HEAD
                                    @submitted, @strictly_current,
                                    current_user, params.key?(:teach))
+=======
+                                   @submitted, @strictly_current, current_user)
+>>>>>>> f3815a4f0 (Done)
   end
 
   def my_account

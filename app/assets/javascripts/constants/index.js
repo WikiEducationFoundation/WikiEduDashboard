@@ -33,7 +33,10 @@ export * from './user_roles';
 export * from './users';
 export * from './settings';
 export * from './tags';
+<<<<<<< HEAD
 export * from './tagged_courses_stats';
+=======
+>>>>>>> f3815a4f0 (Done)
 export * from './timeline';
 export * from './training';
 export * from './training_status';

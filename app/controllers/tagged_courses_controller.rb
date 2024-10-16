@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 #= Controller for collections of courses with a common tag
+<<<<<<< HEAD
+=======
+#= reusing the views from CampaignsController
+>>>>>>> f3815a4f0 (Done)
 class TaggedCoursesController < ApplicationController
   before_action :require_admin_permissions
   before_action :set_tag
@@ -26,6 +30,7 @@ class TaggedCoursesController < ApplicationController
     load_wiki_experts
   end
 
+<<<<<<< HEAD
   def stats
     set_courses_and_presenter
     respond_to do |format|
@@ -33,6 +38,8 @@ class TaggedCoursesController < ApplicationController
     end
   end
 
+=======
+>>>>>>> f3815a4f0 (Done)
   private
 
   def set_page

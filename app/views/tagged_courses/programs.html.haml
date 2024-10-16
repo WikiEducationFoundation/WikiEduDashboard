@@ -3,6 +3,7 @@
 = render 'nav'
 
 #react_root{data: {slug: @tag}}
+<<<<<<< HEAD
 .container{style: 'display: flex; justify-content: center; align-items: center;'}
   %section#courses
     .section-header{style: 'width: 100%;'}
@@ -11,6 +12,15 @@
       = link_to "/tagged_courses_csv/#{@tag}", class: 'button dark' do
         = t("tagged_courses.download_csv")
       .sort-select{style: 'margin: 0 auto;'}
+=======
+
+.container{style: 'top: 28px'}
+  %section#courses
+    .section-header{style: 'transform: translateX(-40px); width: 110%;'}
+      %h3{style: 'color: #676eb4'}
+        = t("#{@presenter.course_string_prefix}.campaign_courses", title: "Tag: #{@tag}")
+      .sort-select
+>>>>>>> f3815a4f0 (Done)
         %select.sorts{rel: 'courses'}
           %option{rel: 'asc', value: 'title'}
             = t("courses.title")
@@ -36,7 +46,11 @@
           %option{rel: 'asc', value: 'start-date'}
             = t("courses.start_date")
 
+<<<<<<< HEAD
     %table.table.table--hoverable.table--sortable{style: 'width: 80%; margin: auto;'}
+=======
+    %table.table.table--hoverable.table--sortable{style: 'transform: translateX(-40px);'}
+>>>>>>> f3815a4f0 (Done)
       %thead
         %tr
           %th.sort.sortable{'data-default-order' => 'asc', 'data-sort' => 'title'}

@@ -1,5 +1,9 @@
 - if @pres.can_create_course?
+<<<<<<< HEAD
   = link_to course_creator_path, class: 'button dark dashboard-cta', style: 'margin-right: 12px;' do
+=======
+  = link_to course_creator_path, class: 'button dark dashboard-cta' do
+>>>>>>> f3815a4f0 (Done)
     = t("courses.creator.create_short")
     %i.icon.icon-plus
 - elsif @pres.show_explore_button?
@@ -10,4 +14,8 @@
 - if @pres.show_orientation_review?
   = link_to @pres.orientation_path, class: 'button' do
     = t("dashboard.review_orientation")
+<<<<<<< HEAD
     %i.icon.icon-rt_arrow_dark{ style: 'background-position: 0px 11px'}
+=======
+    %i.icon.icon-rt_arrow_dark
+>>>>>>> f3815a4f0 (Done)

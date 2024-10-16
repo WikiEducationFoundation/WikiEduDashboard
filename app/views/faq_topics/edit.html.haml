@@ -1,6 +1,11 @@
+<<<<<<< HEAD
 - content_for :before_title, "Edit FAQ Topic - #{@topic.slug}"
 .container
   %h2= "Editing topic: #{@topic.slug}"
+=======
+.container
+  %h2= "Editing topic: #{@topic.slug}" 
+>>>>>>> f3815a4f0 (Done)
   = form_with url: "/faq_topics/#{@topic.slug}", method: :update do
     = label_tag :name, 'Name'
     = text_field_tag :name, @topic.name
@@ -13,7 +18,11 @@
       - @topic.faqs.each do |faq|
         %li
           %a{href: "/faq/#{faq.id}"}= faq.title
+<<<<<<< HEAD
           = "(#{faq.id})"
+=======
+          = "(#{faq.id})" 
+>>>>>>> f3815a4f0 (Done)
 
   %hr
   = button_to 'delete', "/faq_topics/#{@topic.slug}", method: :delete, data: { confirm: "Are you sure you want to delete this?" }

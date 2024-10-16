@@ -26,6 +26,7 @@ export default function assignments(state = initialState, action) {
     }
     case ADD_ASSIGNMENT: {
       const newAssignment = action.data;
+<<<<<<< HEAD
       const assignmentExists = state.assignments.some(
         assignment => assignment.id === newAssignment.id
       );
@@ -33,6 +34,8 @@ export default function assignments(state = initialState, action) {
       if (assignmentExists) {
         return state;
       }
+=======
+>>>>>>> f3815a4f0 (Done)
       const updatedAssignments = [...state.assignments, newAssignment];
       return { ...state, assignments: updatedAssignments };
     }

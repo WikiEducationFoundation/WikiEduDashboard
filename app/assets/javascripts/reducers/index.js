@@ -24,7 +24,10 @@ import recentUploads from './recent_uploads';
 import revisions from './revisions';
 import settings from './settings';
 import tags from './tags';
+<<<<<<< HEAD
 import taggedCoursesStats from './tagged_courses_stats';
+=======
+>>>>>>> f3815a4f0 (Done)
 import tickets from './tickets';
 import timeline from './timeline';
 import training from './training';
@@ -86,7 +89,10 @@ const reducer = combineReducers({
   revisions,
   settings,
   tags,
+<<<<<<< HEAD
   taggedCoursesStats,
+=======
+>>>>>>> f3815a4f0 (Done)
   tickets,
   timeline,
   scopingMethods,

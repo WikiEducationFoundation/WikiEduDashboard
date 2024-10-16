@@ -253,7 +253,10 @@ Rails.application.routes.draw do
   get 'course_uploads_csv' => 'analytics#course_uploads_csv'
   get 'course_students_csv' => 'analytics#course_students_csv'
   get 'course_articles_csv' => 'analytics#course_articles_csv'
+<<<<<<< HEAD
   get 'tagged_courses_csv/:tag' => 'analytics#tagged_courses_csv'
+=======
+>>>>>>> f3815a4f0 (Done)
   get 'course_revisions_csv' => 'analytics#course_revisions_csv'
   get 'course_wikidata_csv' => 'analytics#course_wikidata_csv'
   get 'all_courses_csv' => 'analytics#all_courses_csv'
@@ -298,7 +301,11 @@ Rails.application.routes.draw do
   get 'current_term(/:subpage)' => 'campaigns#current_term'
 
   # Courses by tag
+<<<<<<< HEAD
   resources :tagged_courses, param: :tag, except: :show do
+=======
+  resources :tagged_courses, param: :tag do
+>>>>>>> f3815a4f0 (Done)
     member do
       get 'programs'
       get 'articles'
@@ -306,11 +313,14 @@ Rails.application.routes.draw do
     end
   end
 
+<<<<<<< HEAD
   # Custom JSON route for tagged courses stats
   get 'tagged_courses/:tag.json',
     controller: :tagged_courses,
     action: :stats 
 
+=======
+>>>>>>> f3815a4f0 (Done)
   # Recent Activity
   get 'recent-activity(/*any)' => 'recent_activity#index', as: :recent_activity
 

@@ -258,7 +258,11 @@ az:
     duration: Kursun müddəti
     new_week: Yeni həftə əlavə et
     school: Məktəb
+<<<<<<< HEAD
     stay_in_sandbox: Qaralamada qalın
+=======
+    stay_in_sandbox: Sandboxda qalın
+>>>>>>> f3815a4f0 (Done)
     students: Tələbələr
     students_short: Tələbələr
     submitted_at: Göndərilib
