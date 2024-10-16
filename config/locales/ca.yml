@@ -832,7 +832,6 @@ ca:
       new:
         form_label: Concedeix privilegis d'usuari especials
         form_placeholder: Nom d'usuari
-        confirm_remove_special_user: Elimina privilegis d'usuari especial de
         already_is: '%{username} ja és %{username}!'
         elevate_success: S'ha elevat %{username} a {position}.
   suggestions:

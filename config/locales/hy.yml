@@ -99,6 +99,7 @@ hy:
       new_and_existing: Նոր և գոյություն ունեցող
     filter_text: Զտիչներ՝
     find: Գտնել հոդվածներ
+    how_to_find: Ինչպես գտնել հոդված
     hide: Թաքցնել
     history: (պատմություն)
     label: Հոդվածներ
@@ -386,6 +387,7 @@ hy:
     reload_from_source: վերաբեռնել աղբյուրից
     kind:
       discussion: քննարկում
+    view_all: Դիտել բոլոր վարժություններ
   update_username:
     button: Թարմացնել
   uploads:

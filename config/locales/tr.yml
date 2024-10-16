@@ -1090,7 +1090,6 @@ tr:
         form_label: Özel Kullanıcı ayrıcalıkları verin
         form_placeholder: Kullanıcı Adı
         confirm_add_special_user: Özel Kullanıcı Ekleyin
-        confirm_remove_special_user: Özel Kullanıcı ayrıcalıklarını kaldırın
         already_is: '%{username} zaten bir {position}!'
         elevate_success: '%{username}, {position} yükseltilmiş.'
       remove:

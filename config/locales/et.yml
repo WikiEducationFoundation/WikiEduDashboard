@@ -902,7 +902,6 @@ et:
         form_label: Kasutajale eriõiguste andmine
         form_placeholder: Kasutajanimi
         confirm_add_special_user: Lisa eriõigus
-        confirm_remove_special_user: Võta ära eriõigused kasutajalt
         already_is: '%{username} on juba {position}!'
         elevate_success: '%{username} on nüüd {position}.'
       remove:

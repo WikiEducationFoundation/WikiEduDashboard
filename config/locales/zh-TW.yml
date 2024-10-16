@@ -1099,7 +1099,6 @@ zh-TW:
         form_label: 授予特別使用者權限
         form_placeholder: 使用者名稱
         confirm_add_special_user: 添加特殊使用者
-        confirm_remove_special_user: 移除特殊使用者的權限有關於
         already_is: '%{username} 已是{position}！'
         elevate_success: '%{username}升為{position}。'
       remove:
@@ -1601,4 +1600,6 @@ zh-TW:
         note_edit_mode: 已進入標題為{{title}}的註釋的編輯模式。現在您可以編輯標題和內容。
   customize_error_message:
     JSONP_request_failed: 從維基百科取得資料的請求已逾時。這可能是由於網路連線速度太慢，或是臨時伺服器問題造成的。請稍後重試。
+  tagged_courses:
+    download_csv: 下載 CSV
 ...
