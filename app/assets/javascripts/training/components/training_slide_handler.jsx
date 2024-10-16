@@ -208,6 +208,8 @@ const TrainingSlideHandler = () => {
         buttonText={I18n.t('training.previous')}
         params={routeParams}
         onClick={prev}
+        button={true}
+        isPrevious={true}
       />
 
     );
