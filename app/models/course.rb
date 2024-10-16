@@ -459,6 +459,11 @@ class Course < ApplicationRecord
     flags[:very_long_update].present?
   end
 
+  # TODO: find a better way to check if the course was already updated
+  def was_course_ever_updated?
+    flags[:first_update].present? || flags['update_logs'].present?
+  end
+
   # Overridden for ClassroomProgramCourse
   def progress_tracker_enabled?
     false

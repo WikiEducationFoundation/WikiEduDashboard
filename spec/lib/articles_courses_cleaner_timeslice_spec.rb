@@ -42,11 +42,11 @@ describe ArticlesCoursesCleanerTimeslice do
     end
 
     it 'removes ArticlesCourses and their timeslices that were edited only by removed users' do
-      expect(course.article_course_timeslices.size).to eq(342)
+      expect(course.article_course_timeslices.size).to eq(333)
       expect(course.articles_courses.size).to eq(3)
       # User ids 5, 45 and 47 were deleted
       described_class.clean_articles_courses_for_user_ids(course, [5, 45, 47])
-      expect(course.article_course_timeslices.size).to eq(228)
+      expect(course.article_course_timeslices.size).to eq(222)
       expect(course.articles_courses.size).to eq(2)
       expect(course.articles_courses.first.user_ids).to eq([1, 45])
       expect(course.articles_courses.second.user_ids).to eq([455])
@@ -93,7 +93,7 @@ describe ArticlesCoursesCleanerTimeslice do
     end
 
     it 'removes ArticlesCourses and timeslices that do not belong to the course anymore' do
-      expect(course.article_course_timeslices.size).to eq(342)
+      expect(course.article_course_timeslices.size).to eq(333)
       expect(course.articles_courses.size).to eq(3)
       # Clean articles courses
       described_class.clean_articles_courses_prior_to_course_start(course)

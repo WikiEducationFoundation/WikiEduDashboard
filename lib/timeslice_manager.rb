@@ -204,8 +204,7 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
 
   def start_dates
     start_dates = []
-    # Create timeslices for 3 days before the course start day.
-    current_start = @course.start - 3.days
+    current_start = @course.start
     while current_start <= @course.end
       start_dates << current_start
       current_start += TIMESLICE_DURATION

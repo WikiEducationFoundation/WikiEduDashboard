@@ -38,7 +38,6 @@ describe UpdateCourseWikiTimeslices do
       # Create course wiki timeslices manually for wikidata
       course.wikis << Wiki.get_or_create(language: nil, project: 'wikidata')
       JoinCourse.new(course:, user:, role: 0)
-      TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records([enwiki, wikidata])
     end
 
     it 'updates article course timeslices caches' do
@@ -53,13 +52,13 @@ describe UpdateCourseWikiTimeslices do
 
       # Article course timeslice record was created for mw_page_id 6901525
       # timeslices from 2018-11-24 to 2018-11-30 were created
-      expect(article_course.article_course_timeslices.count).to eq(10)
-      expect(article_course.article_course_timeslices.fourth.start).to eq('2018-11-24')
+      expect(article_course.article_course_timeslices.count).to eq(7)
+      expect(article_course.article_course_timeslices.first.start).to eq('2018-11-24')
       expect(article_course.article_course_timeslices.last.start).to eq('2018-11-30')
       # Article course timeslices caches were updated
-      expect(article_course.article_course_timeslices.fourth.character_sum).to eq(427)
-      expect(article_course.article_course_timeslices.fourth.references_count).to eq(-2)
-      expect(article_course.article_course_timeslices.fourth.user_ids).to eq([user.id])
+      expect(article_course.article_course_timeslices.first.character_sum).to eq(427)
+      expect(article_course.article_course_timeslices.first.references_count).to eq(-2)
+      expect(article_course.article_course_timeslices.first.user_ids).to eq([user.id])
     end
 
     it 'updates course user wiki timeslices caches' do
@@ -99,7 +98,7 @@ describe UpdateCourseWikiTimeslices do
         subject
       end
       # 14 course wiki timeslices records were created: 7 for enwiki and 7 for wikidata
-      expect(course.course_wiki_timeslices.count).to eq(20)
+      expect(course.course_wiki_timeslices.count).to eq(14)
 
       # Course user timeslices caches were updated
       # For enwiki

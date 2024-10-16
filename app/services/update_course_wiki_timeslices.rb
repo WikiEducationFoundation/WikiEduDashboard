@@ -41,6 +41,9 @@ class UpdateCourseWikiTimeslices
   # Make changes if some wiki/users were added or removed.
   def pre_update
     # order matters
+    unless @course.was_course_ever_updated?
+      @timeslice_manager.create_timeslices_for_new_course_wiki_records(@course.wikis)
+    end
     @course_user_updater.run
     @course_wiki_updater.run
   end
