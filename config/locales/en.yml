@@ -521,7 +521,7 @@ en:
     campaign_courses: "%{title} Courses"
     campaign_select: "Select a campaign"
     campaign_users: "%{title} Editors"
-    confirm_course_deletion: 'Are you sure you want to delete the course titled %{title}? If so, type the title of the course to proceed.'
+    confirm_course_deletion: "Are you sure you want to delete the course titled %{title}? If so, type the title of the course to proceed."
     confirm_course_deletion_failed: '"%{title}" is not the title of this course. The course has not been deleted.'
     confirm_manual_update: Are you sure you want to run a manual update? The most recent revisions will be imported and then the page will reload. This process may take some time.
     controlled_by_event_center: Enrollment in this event is controlled by Wikimedia Event Center. It cannot be joined from the Dashboard.
@@ -1230,7 +1230,7 @@ en:
     diff: diff
     diff_show: Show
     diff_hide: Hide
-    edit_time_span: 'Edits occurred from: %{first_time} to %{last_time}'
+    edit_time_span: "Edits occurred from: %{first_time} to %{last_time}"
     edited_by: Edited By
     edited_on: Edited on %{edit_date}
     loading: Loading revisions...
@@ -1281,7 +1281,6 @@ en:
         form_label: Grant Special User privileges
         form_placeholder: Username
         confirm_add_special_user: "Add Special User"
-        confirm_remove_special_user: "Remove Special User privileges for"
         already_is: "%{username} is already an {position}!"
         elevate_success: "%{username} elevated to {position}."
       remove:
@@ -1534,8 +1533,8 @@ en:
       watch_list:
         students_add: "Add all %{prefix} to Watchlist"
         instructional_message: You're about to add your student's talk pages to your watchlist, to stay updated on their discussions and contributions. Clicking 'OK' will add all the students to the watchlist. Continue?
-        tooltip_message:  Easily track discussions on students talk pages by adding them to your watchlist.
-        success_message:  "%{prefix} successfully added to the Watchlist."
+        tooltip_message: Easily track discussions on students talk pages by adding them to your watchlist.
+        success_message: "%{prefix} successfully added to the Watchlist."
         error_message: "Failed to add %{prefix} to the Watchlist. Please try again later."
     total_uploads: "Total Uploads"
     training_complete:
@@ -1864,7 +1863,7 @@ en:
         note_edit_save_button_focused: "Save the edited note {{title}}"
         note_edit_cancel_button_focused: "Cancel note edit {{title}}"
         note_delete_button_focused: "Delete the note {{title}}"
-        note_edit_mode: "Entered Edit mode for note titled: {{title}}. You can now edit the title and content."      
+        note_edit_mode: "Entered Edit mode for note titled: {{title}}. You can now edit the title and content."
 
   customize_error_message:
     JSONP_request_failed: "The request to fetch data from Wikipedia has timed out. This may be due to a slow internet connection or temporary server issues. Please try again later."

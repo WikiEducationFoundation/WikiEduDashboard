@@ -209,7 +209,7 @@ fr:
       tracked_and_untracked: Suivi et non suivi
     filter_text: 'Filtres :'
     find: Trouver des articles
-    how_to_find: Comment trouver des articles
+    how_to_find: Comment trouver un article
     hide: Masquer
     history: (historique)
     label: Articles
@@ -288,6 +288,11 @@ fr:
     tracked_articles: Articles suivis
     view_articles: Afficher les articles
     no_tracked_articles: Cette catégorie n’a pas d’articles suivis
+    not_choosen_article: Vous n’avez pas choisi d’article sur lequel travailler. Lorsque
+      vous avez trouvé un article sur lequel travailler, utilisez le bouton ci-dessus
+      pour l’attribuer.
+    use_dashboard: Comment utiliser le Dashboard
+    evaluate_and_source: Évaluation des articles et des sources
   items:
     items: Éléments
     lexeme: Lexème
@@ -630,10 +635,15 @@ fr:
         scolaires ». La planification clonée ajustera automatiquement les dates pour
         tenir compte des semaines sans réunions programmées.
       clone_successful: Cours dupliqué avec succès
+      copy_successful: Mettre à jour les détails du cours copié
       clone_successful_details: Votre cours a été dupliqué, y compris les éléments
         de planification (semaines et blocages). Assurez-vous d’ajouter les dates
         qui ne sont pas reportées. Quelque chose d’autre au sujet de votre cours a-t-il
         changé ? N’hésitez pas à le mettre à jour maintenant.
+      copy_successful_details: Votre cours a été copié, y compris les éléments de
+        la chronologie (semaines et blocs). Assurez-vous d’ajouter les dates qui ne
+        sont pas reportées. Y a-t-il d’autres éléments de votre cours qui ont changé
+        ? N’hésitez pas à le mettre à jour maintenant.
       course_dates_info: Saisir les dates de début et de fin de votre cours. Dans
         la prochaine étape, vous pourrez choisir quand commencer l’affectation Wikipédia
         dans cet intervalle de temps.
@@ -1445,8 +1455,6 @@ fr:
         form_label: Attribuer les privilèges d’utilisateur spécial
         form_placeholder: Nom d’utilisateur
         confirm_add_special_user: Ajouter un utilisateur spécial
-        confirm_remove_special_user: Retirer les privilèges d’utilisateur spécial
-          pour
         already_is: '%{username} est déjà un(e) {position} !'
         elevate_success: '%{username} a été promu(e) en {position}.'
       remove:
@@ -1587,6 +1595,8 @@ fr:
     previous: ◂ Précédent
     table_of_contents: Table des matières
     training_library: Bibliothèque de formation
+    additional_training: Modules de formation complémentaires
+    orientation_modules: Modules d’orientation des instructeurs·trices
     logged_out: Vous êtes déconnecté. Vous ne recevrez pas de crédit pour l’achèvement
       de ce module, sauf si vous vous reconnectez.
     done: Terminé !
@@ -1611,6 +1621,8 @@ fr:
     no_training_resource_match_your_search: Aucune ressource de formation ne correspond
       à votre recherche
     exercise_sandbox: Bac à sable d’exercice
+    remaining_exercise: '%{count} exercices supplémentaires restants.'
+    view_all: Voir tous les exercices
   update_username:
     header: Mettre à jour un nom d’utilisateur modifié
     not_found: Utilisateur introuvable pour le nom d’utilisateur saisi.
@@ -1663,7 +1675,7 @@ fr:
     assigned_wikidata: Éléments affectés
     assignees: Affecté(s)
     loading_authorship_data: chargement en cours des données de paternité
-    authorship_data_not_fetched: impossible d’accéder aux données de paternité
+    authorship_data_not_fetched: Impossible d’accéder aux données de paternité
     character_doc: La quantité totale de contenu qu’un utilisateur a ajouté à son
       espace de nom, calculée en ajoutant les caractères ajoutés pour chaque modification
       ayant augmenté la taille de la page. Ce nombre ne reflète pas nécessairement
@@ -1984,6 +1996,10 @@ fr:
     add_news: Ajouter des nouvelles
     post_confirmation:
       title: Voulez-vous publier la mise à jour de l'actualité ?
+      confirmation: Veuillez confirmer.
+    delete_confirmation:
+      title: Procéder à la suppression du contenu des actualités ?
+      confirmation: S’il vous plaît confirmez.
     footer:
       P&E_dashboard:
         link_text: Wikimédia
