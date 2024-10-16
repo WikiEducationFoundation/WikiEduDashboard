@@ -16,6 +16,10 @@ class ArticlesCoursesCleanerTimeslice
     new(course).remove_articles_courses_for_user_ids(user_ids)
   end
 
+  def self.clean_articles_courses_prior_to_course_start(course)
+    new(course).remove_articles_courses_for_dates_prior_to_start_date
+  end
+
   def initialize(course)
     @course = course
   end
@@ -59,5 +63,56 @@ class ArticlesCoursesCleanerTimeslice
       ArticleCourseTimeslice.where(course: @course, article_id: slice.map(&:article_id)).delete_all
     end
     Rails.logger.info "Deleted #{to_delete.size} ArticlesCourses from #{@course.title}"
+  end
+
+  def remove_articles_courses_for_dates_prior_to_start_date
+    # Articles to be deleted are those that were edited only before the current start date
+    article_ids_to_delete = article_ids_edited_beofre_start - article_ids_edited_after_start
+
+    article_ids_to_delete.each_slice(5000) do |id_slice|
+      ArticlesCourses.where(article_id: id_slice).delete_all
+    end
+
+    # NOTE: this could be implemented in the TimesliceManager class
+
+    # Delete article course timeslices for deleted articles
+    timeslice_ids = ArticleCourseTimeslice.where(course: @course)
+                                          .where(article_id: article_ids_to_delete)
+                                          .pluck(:id)
+
+    # Do this in batches to avoid running the MySQL server out of memory
+    timeslice_ids.each_slice(5000) do |timeslice_id_slice|
+      ArticleCourseTimeslice.where(id: timeslice_id_slice).delete_all
+    end
+
+    # Delete article course timeslices for dates prior to the course start date
+    timeslice_ids = ArticleCourseTimeslice.where(course: @course)
+                                          .where('end <= ?', @course.start)
+                                          .pluck(:id)
+
+    # Do this in batches to avoid running the MySQL server out of memory
+    timeslice_ids.each_slice(5000) do |timeslice_id_slice|
+      ArticleCourseTimeslice.where(id: timeslice_id_slice).delete_all
+    end
+  end
+
+  private
+
+  # Returns article ids for every article edited before the current course start date
+  def article_ids_edited_beofre_start
+    ArticleCourseTimeslice.where(course: @course)
+                          .where('end <= ?', @course.start)
+                          .where.not(user_ids: nil)
+                          .distinct
+                          .pluck(:article_id)
+  end
+
+  # Returns article ids for every article edited before the current course start date
+  def article_ids_edited_after_start
+    ArticleCourseTimeslice.where(course: @course)
+                          .where('start >= ?', @course.start)
+                          .where.not(user_ids: nil)
+                          .distinct
+                          .pluck(:article_id)
   end
 end
