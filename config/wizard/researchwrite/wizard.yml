@@ -49,7 +49,7 @@
       selected: true # selected by default
     -
       title: Add to an article (recommended)
-      blurb: Students use course readings or other relevant secondary sources to add 1-2 sentences to a Wikipedia article related to the class. They see how to integrate their new information, and how to include a citation for their source.
+      blurb: Students help fix Wikipedia's equity gap by adding missing facts to a biography of a diverse person. They learn to add information, including the technical how-tos of citations.
       # description:
       logic: add_to_article
       selected: true # selected by default
