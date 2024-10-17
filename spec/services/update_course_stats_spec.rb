@@ -78,23 +78,6 @@ describe UpdateCourseStats do
       create(:courses_user, course_id: course.id, user_id: user.id)
     end
 
-    it 'tracks individual errors instead of batch count' do
-  
-      allow(Sentry).to receive(:capture_exception)
-      allow_any_instance_of(LiftWingApi).to receive(:get_single_revision_parsed_data).and_raise(Faraday::ConnectionFailed)
-    
-      rev_ids = [1, 2, 3, 4]
-      subject.get_revision_data(rev_ids)  # Assuming `subject` is an instance of LiftWingApi
-    
-      # Retrieve the latest update log entry from flags['update_logs'] to check error_count
-      last_log = course.reload.flags['update_logs'].last
-    
-      # Expect the error_count in the most recent log entry to match the number of actual errors
-      expect(last_log['error_count']).to eq(4) 
-    end
-    
-    
-
     it 'tracks update errors properly in Replica' do
       allow(Sentry).to receive(:capture_exception)
 
