@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 json.course do
-  user_role = current_user&.course_roles(@course) || CoursesUsers::Roles::VISITOR_ROLE
+  user_role = current_user&.highest_role(@course) || CoursesUsers::Roles::VISITOR_ROLE
 
   json.call(@course, :id, :title, :description, :start, :end, :school,
             :subject, :slug, :url, :submitted, :expected_students, :timeline_start,

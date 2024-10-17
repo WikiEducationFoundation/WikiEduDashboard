@@ -170,8 +170,16 @@ class User < ApplicationRecord
 
   # returns an array of roles a user has in a given course
   def course_roles(course)
-    user_course_roles = course.courses_users.where(user_id: id).pluck(:role)
+    user_course_roles = course.courses_users.where(user_id: id).order('role DESC').pluck(:role)
     return user_course_roles
+  end
+
+  def highest_role(course)
+    roles = course_roles(course)
+
+    return CoursesUsers::Roles::VISITOR_ROLE if roles.empty?
+
+    roles.first
   end
 
   def editing_role?(course)
