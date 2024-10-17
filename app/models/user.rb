@@ -164,14 +164,12 @@ class User < ApplicationRecord
 
   def nonvisitor?(course)
     return true if admin?
-    roles = course_roles(course)
-    roles.size > 1 || (roles.size == 1 && roles.first != CoursesUsers::Roles::VISITOR_ROLE)
+    !course_roles(course).empty?
   end
 
   # returns an array of roles a user has in a given course
   def course_roles(course)
-    user_course_roles = course.courses_users.where(user_id: id).order('role DESC').pluck(:role)
-    return user_course_roles
+    course.courses_users.where(user_id: id).order('role DESC').pluck(:role)
   end
 
   def highest_role(course)
@@ -182,16 +180,11 @@ class User < ApplicationRecord
     roles.first
   end
 
-  def editing_role?(course)
-    # Check if the user has an editing role in the course
-    CoursesUsers.exists?(course:, user: self, role: EDITING_ROLES)
-  end
-
   EDITING_ROLES = [CoursesUsers::Roles::INSTRUCTOR_ROLE,
                    CoursesUsers::Roles::WIKI_ED_STAFF_ROLE].freeze
   def can_edit?(course)
     return true if admin?
-    return true if editing_role?(course)
+    return true if course_roles(course).any? { |role| EDITING_ROLES.include?(role) }
     return true if campaign_organizer?(course)
     false
   end
