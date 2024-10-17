@@ -148,7 +148,7 @@ describe('course reducer', () => {
       };
       const mockedAction = {
         type: RECEIVE_INITIAL_CAMPAIGN,
-        data: { campaign: campaign }
+        data: { campaign }
       };
 
       const newState = course(initialState, mockedAction);

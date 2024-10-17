@@ -55,7 +55,7 @@ export const fetchWizardPanels = wizardId => (dispatch, getState) => {
 
   return fetchWizardPanelsPromise(wizardId)
     .then((data) => {
-      dispatch({ type: RECEIVE_WIZARD_PANELS, extraPanels: data, course: course });
+      dispatch({ type: RECEIVE_WIZARD_PANELS, extraPanels: data, course });
       // Using a 0 timeout here gives the browser a chance
       // to re-render the new off-screen panels before the
       // advance to the next slide and helps ensure a smooth

@@ -78,5 +78,5 @@ Assignment.propTypes = {
   user: PropTypes.object.isRequired
 };
 
-const mapStateToProps = ({ articleDetails }) => ({ articleDetails: articleDetails });
+const mapStateToProps = ({ articleDetails }) => ({ articleDetails });
 export default connect(mapStateToProps)(Assignment);

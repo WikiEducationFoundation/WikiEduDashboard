@@ -15,4 +15,4 @@ export const fetchDYKArticles = (opts = {}) => (dispatch) => {
   );
 };
 
-export const sortDYKArticles = key => ({ type: SORT_DYK, key: key });
+export const sortDYKArticles = key => ({ type: SORT_DYK, key });

@@ -27,7 +27,7 @@ export const fetchCampaigns = courseId => (dispatch) => {
   );
 };
 
-export const sortCampaigns = key => ({ type: SORT_CAMPAIGNS_WITH_STATS, key: key });
+export const sortCampaigns = key => ({ type: SORT_CAMPAIGNS_WITH_STATS, key });
 
 const removeCampaignsPromise = async (courseId, campaignId) => {
   const response = await request(`/courses/${courseId}/campaign.json`, {

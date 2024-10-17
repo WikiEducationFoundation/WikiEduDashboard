@@ -25,7 +25,7 @@ export const fetchArticles = (courseId, limit, refresh = false) => {
         dispatch({
           type: types.RECEIVE_ARTICLES,
           data: resp,
-          limit: limit,
+          limit,
         });
         dispatch({
           type: types.SORT_ARTICLES,
@@ -47,13 +47,13 @@ export const fetchArticles = (courseId, limit, refresh = false) => {
 
 export const sortArticles = (key, refresh) => ({
   type: types.SORT_ARTICLES,
-  key: key,
+  key,
   refresh,
 });
 
 export const filterArticles = wiki => ({
   type: types.SET_PROJECT_FILTER,
-  wiki: wiki,
+  wiki,
 });
 
 export const filterNewness = newness => ({

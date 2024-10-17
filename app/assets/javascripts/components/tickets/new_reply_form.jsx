@@ -38,7 +38,7 @@ const NewReplyForm = ({ ticket, currentUser }) => {
 
   const onTextAreaChange = (_key, content, _e) => {
     setReplyDetails(prevState => ({
-      ...prevState, content: content, plainText: content
+      ...prevState, content, plainText: content
     }));
   };
 

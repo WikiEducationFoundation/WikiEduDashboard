@@ -311,10 +311,10 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
     title.split('\n').filter(Boolean).forEach((assignment_title) => {
       const assignment = {
         title: decodeURIComponent(assignment_title).trim(),
-        project: project,
-        language: language,
+        project,
+        language,
         course_slug: course.slug,
-        role: role
+        role
       };
 
       if (!assignment.title || assignment.title === 'undefined') return;
@@ -355,7 +355,7 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
       action: claimAssignment,
       assignment: {
         id: assignment.id,
-        role: role
+        role
       },
       title: assignment.article_title
     });

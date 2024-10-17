@@ -1,3 +1,4 @@
+/* eslint-disable object-shorthand */
 //--------------------------------------------------------
 // Vendor Requirements [imports]
 //--------------------------------------------------------
@@ -256,7 +257,7 @@ const Survey = {
       e.preventDefault();
       const data = _context.processQuestionGroupData($(this).serializeArray());
       return fetch(url, {
-        method: method,
+        method,
         body: JSON.stringify(data),
         credentials: 'include',
         headers: {

@@ -98,9 +98,9 @@ export default class CourseUtils {
         const project = indexphpFormatUrlParts[2];
         const language = indexphpFormatUrlParts[1];
         return {
-          title: title,
-          project: project,
-          language: language,
+          title,
+          project,
+          language,
            article_url: articleTitle,
         };
       }

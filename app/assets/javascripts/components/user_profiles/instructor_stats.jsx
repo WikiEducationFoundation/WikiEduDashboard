@@ -65,7 +65,7 @@ const InstructorStats = ({ username, stats, maxProject, statsGraphsData, graphWi
     <div className="user_stats">
       <div id="instructor-profile-stats">
         <h5>
-          {I18n.t('user_profiles.instructor_impact', { username: username })}
+          {I18n.t('user_profiles.instructor_impact', { username })}
         </h5>
         <div className="stat-display">
           <div onClick={setCoursesCountGraph} className={`stat-display__stat button${coursesGraph ? ' active-button' : ''}`}>
