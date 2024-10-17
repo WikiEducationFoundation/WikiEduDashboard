@@ -89,7 +89,7 @@ describe 'onboarding', type: :feature, js: true do
       find('input[type=radio][value=true]').click
       find('form button[type=submit]').click
       page.assert_selector('form#supplementary')
-      find('input[type="radio"][value="conference"]').click
+      find('input[type="radio"][value="association-or-conference"]').click
       fill_in 'referralDetails', with: 'Conference Name'
       click_button 'Submit'
     end
