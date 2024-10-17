@@ -93,6 +93,35 @@ describe TimesliceManager do
     end
   end
 
+  describe '#create_timeslices_for_new_course_start_date' do
+    before do
+      create(:courses_wikis, wiki: wikibooks, course:)
+      timeslice_manager.create_timeslices_for_new_course_wiki_records([wikibooks,
+                                                                       wikidata,
+                                                                       enwiki])
+      timeslice_manager.create_timeslices_for_new_article_course_records(
+        new_article_courses
+      )
+      course.update(start: '2023-12-20')
+    end
+
+    context 'when the start date changed to a previous date' do
+      it 'creates timeslices for the missing period that needs_update' do
+        expect(course.course_wiki_timeslices.size).to eq(333)
+        expect(course.course_user_wiki_timeslices.size).to eq(666)
+        expect(course.article_course_timeslices.size).to eq(333)
+
+        timeslice_manager.create_timeslices_for_new_course_start_date
+        course.reload
+        # Create timeslices for the period between 2023-12-20 and 2024-01-01
+        expect(course.course_wiki_timeslices.size).to eq(369)
+        expect(course.course_wiki_timeslices.where(needs_update: true).size).to eq(36)
+        expect(course.course_user_wiki_timeslices.size).to eq(738)
+        expect(course.article_course_timeslices.size).to eq(369)
+      end
+    end
+  end
+
   describe '#delete_course_user_timeslices_for_deleted_course_users' do
     before do
       timeslice_manager.create_timeslices_for_new_course_user_records(new_course_users)
