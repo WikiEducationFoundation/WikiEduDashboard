@@ -91,9 +91,9 @@ categories:
       - slug: 'choose-topic-from-list-exercise'
         name: 'Exercise: Choose your article (from a list)'
         description: Select an article to work on from your class's list, and begin finding sources.
-      - slug: add-to-article-exercise
-        name: 'Exercise: Make a small edit'
-        description: Practice editing by adding a missing citation to an article.
+      - slug: update-a-biography-exercise
+        name: 'Exercise: Add a fact to Wikipedia'
+        description: Add new information to an existing Wikipedia article.
       - slug: copyedit-exercise
         name: 'Exercise: Copyedit an article'
         description: Practice editing by improving an existing article through small copyedits.
