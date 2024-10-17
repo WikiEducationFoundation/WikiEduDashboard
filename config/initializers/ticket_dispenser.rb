@@ -15,7 +15,7 @@ Rails.application.config.to_prepare do
         username: user.username,
         real_name: user.real_name,
         email: user.email,
-        role: user.role(project)
+        role: user.highest_role(project)
       }
     end
   end
