@@ -167,10 +167,6 @@ describe User do
     it 'returns false when the user has only visitor role' do
       course = create(:course)
       user = create(:user)
-      create(:courses_user,
-             course_id: course.id,
-             user_id: user.id,
-             role: CoursesUsers::Roles::VISITOR_ROLE)
       permission = user.can_view?(course)
       expect(permission).to be false
     end
@@ -187,13 +183,9 @@ describe User do
     end
 
     it 'returns true for users with multiple roles, including a visitor role' do
+      # User is a visitor
       course = create(:course)
       user = create(:user)
-      # User is a visitor
-      create(:courses_user,
-             course_id: course.id,
-             user_id: user.id,
-             role: CoursesUsers::Roles::VISITOR_ROLE)
 
       # User is also a campus volunteer
       create(:courses_user,
@@ -230,15 +222,13 @@ describe User do
     end
 
     it 'returns true for users with multiple roles, including a real name role' do
+      # User is a visitor
       course = create(:course)
       user = create(:user)
-      # User is a visitor
-      create(:courses_user,
-             course_id: course.id,
-             user_id: user.id,
-             role: CoursesUsers::Roles::VISITOR_ROLE)
+      permission = user.can_see_real_names?(course)
+      expect(permission).to be false
 
-      # User is also an instructor
+      # Now user is an instructor
       create(:courses_user,
              course_id: course.id,
              user_id: user.id,
@@ -254,7 +244,7 @@ describe User do
       create(:courses_user,
              course_id: course.id,
               user_id: user.id,
-              role: CoursesUsers::Roles::VISITOR_ROLE)
+              role: CoursesUsers::Roles::STUDENT_ROLE)
       permission = user.can_see_real_names?(course)
       expect(permission).to be false
     end
