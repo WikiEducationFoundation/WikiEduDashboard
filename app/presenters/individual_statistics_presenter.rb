@@ -67,7 +67,7 @@ class IndividualStatisticsPresenter
   def set_articles_created
     @articles_created = {}
     individual_courses.each do |course|
-      course.articles_courses.each do |edit|
+      course.articles_courses.where(user: @user).each do |edit|
         articles = @articles_created[edit.article_id] || { new_article: true,
                                                                 views: 0,
                                                                 character_sum: 0,
