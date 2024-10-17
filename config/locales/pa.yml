@@ -12,6 +12,8 @@ pa:
     ready_for_review: ਖਰੜਾ ਦਾ ਵਿਸਤਾਰ
   assignments:
     sandbox_draft_link: ਕੱਚੇ ਖ਼ਾਕੇ ਦਾ ਖਰੜਾ
+  categories:
+    add_this_template: ਫਰਮੇ ਜੋੜੋ
   courses:
     actions: ਕਾਰਵਾਈਆਂ
     creator:
@@ -20,6 +22,10 @@ pa:
     none: ਕੋਈ ਵੀ ਨਹੀਂ
     start: ਸ਼ੁਰੂ ਕਰੋ
     start_typing: ਲਿਖਣਾ ਸ਼ੁਰੂ ਕਰੋ
+  courses_generic:
+    creator:
+      scoping_methods:
+        templates: ਫਰਮੇ
   editable:
     edit: ਸੋਧੋ
     cancel: ਰੱਦ ਕਰੋ
