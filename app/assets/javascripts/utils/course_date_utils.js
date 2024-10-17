@@ -50,7 +50,7 @@ const CourseDateUtils = {
       },
       timeline_start: {
         minDate: startDate,
-        maxDate: parseISO(course.timeline_end)
+        maxDate: parseISO(course.end)
       },
       timeline_end: {
         minDate: parseISO(course.timeline_start),
@@ -75,7 +75,7 @@ const CourseDateUtils = {
     if (isAfter(toDate(updatedCourse.timeline_start), toDate(updatedCourse.timeline_end)) && valueKey !== 'timeline_end') {
       updatedCourse.timeline_end = updatedCourse.timeline_start;
     }
-    if (isAfter(toDate(updatedCourse.timeline_end), toDate(updatedCourse.end)) && valueKey !== 'end') {
+    if (updatedCourse.timeline_end && isAfter(toDate(updatedCourse.timeline_end), toDate(updatedCourse.end)) && valueKey !== 'end') {
       updatedCourse.end = updatedCourse.timeline_end;
     }
     if (isAfter(toDate(updatedCourse.timeline_start), toDate(updatedCourse.end)) && valueKey !== 'timeline_start') {
