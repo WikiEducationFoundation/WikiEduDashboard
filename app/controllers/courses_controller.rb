@@ -421,7 +421,7 @@ class CoursesController < ApplicationController
   def protect_privacy
     return unless @course.private
     # Admins and enrolled users have non-visitor roles
-    return if current_user&.can_view?(@course)
+    return if current_user&.nonvisitor?(@course)
     raise ActionController::RoutingError, 'not found'
   end
 
