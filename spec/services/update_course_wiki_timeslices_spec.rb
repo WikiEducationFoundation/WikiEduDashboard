@@ -3,7 +3,10 @@
 require 'rails_helper'
 
 describe UpdateCourseWikiTimeslices do
-  let(:course) { create(:course, start: '2018-11-24', end: '2018-11-30', flags:) }
+  # Use basic_course to not override the end datetime with end_of_day
+  let(:course) do
+    create(:basic_course, start: '2018-11-24 00:00:00', end: '2018-11-30 23:55:00', flags:)
+  end
   let(:enwiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
   let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }
   let(:updater) { described_class.new(course) }
@@ -35,7 +38,6 @@ describe UpdateCourseWikiTimeslices do
       # Create course wiki timeslices manually for wikidata
       course.wikis << Wiki.get_or_create(language: nil, project: 'wikidata')
       JoinCourse.new(course:, user:, role: 0)
-      TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records([enwiki, wikidata])
     end
 
     it 'updates article course timeslices caches' do
@@ -50,13 +52,13 @@ describe UpdateCourseWikiTimeslices do
 
       # Article course timeslice record was created for mw_page_id 6901525
       # timeslices from 2018-11-24 to 2018-11-30 were created
-      expect(article_course.article_course_timeslices.count).to eq(10)
-      expect(article_course.article_course_timeslices.fourth.start).to eq('2018-11-24')
+      expect(article_course.article_course_timeslices.count).to eq(7)
+      expect(article_course.article_course_timeslices.first.start).to eq('2018-11-24')
       expect(article_course.article_course_timeslices.last.start).to eq('2018-11-30')
       # Article course timeslices caches were updated
-      expect(article_course.article_course_timeslices.fourth.character_sum).to eq(427)
-      expect(article_course.article_course_timeslices.fourth.references_count).to eq(-2)
-      expect(article_course.article_course_timeslices.fourth.user_ids).to eq([user.id])
+      expect(article_course.article_course_timeslices.first.character_sum).to eq(427)
+      expect(article_course.article_course_timeslices.first.references_count).to eq(-2)
+      expect(article_course.article_course_timeslices.first.user_ids).to eq([user.id])
     end
 
     it 'updates course user wiki timeslices caches' do
@@ -96,7 +98,7 @@ describe UpdateCourseWikiTimeslices do
         subject
       end
       # 14 course wiki timeslices records were created: 7 for enwiki and 7 for wikidata
-      expect(course.course_wiki_timeslices.count).to eq(20)
+      expect(course.course_wiki_timeslices.count).to eq(14)
 
       # Course user timeslices caches were updated
       # For enwiki
@@ -138,6 +140,32 @@ describe UpdateCourseWikiTimeslices do
       timeslice = course.course_wiki_timeslices.where(wiki: enwiki, start: '2018-11-29').first
 
       expect(timeslice.last_mw_rev_datetime).to be_nil
+    end
+
+    it 'fetches revisions up to end date' do
+      expected_dates = [
+        %w[20181124000000 20181124235959],
+        %w[20181125000000 20181125235959],
+        %w[20181126000000 20181126235959],
+        %w[20181127000000 20181127235959],
+        %w[20181128000000 20181128235959],
+        %w[20181129000000 20181129235959],
+        %w[20181130000000 20181130235500]
+      ]
+
+      expected_wikis = [enwiki, wikidata]
+
+      expected_dates.each do |start_time, end_time|
+        expected_wikis.each do |wiki|
+          expect(CourseRevisionUpdater).to receive(:fetch_revisions_and_scores_for_wiki)
+            .with(course, wiki, start_time, end_time, update_service: updater)
+            .once
+        end
+      end
+
+      VCR.use_cassette 'course_update' do
+        subject
+      end
     end
   end
 
