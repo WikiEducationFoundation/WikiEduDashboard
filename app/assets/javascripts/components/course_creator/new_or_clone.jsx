@@ -6,7 +6,7 @@ const NewOrClone = ({ cloneClasss, chooseNewCourseAction, showCloneChooserAction
   return (
     <div className={cloneClasss}>
       <button className="button dark" onClick={chooseNewCourseAction}>{CourseUtils.i18n('creator.create_label', stringPrefix)}</button>
-      <button className="button dark" onClick={showCloneChooserAction}>{CourseUtils.i18n('creator.clone_previous', stringPrefix)}</button>
+      <button className="button small" onClick={showCloneChooserAction}>{CourseUtils.i18n('creator.clone_previous', stringPrefix)}</button>
       <Link className="button right" to="/" id="course_cancel">{I18n.t('application.cancel')}</Link>
     </div>
   );
