@@ -31,7 +31,7 @@ class CourseUserUpdater
     course_user_ids = @course.courses_users.where(user: user_ids)
     # Create course user wiki timeslices
     @timeslice_manager.create_timeslices_for_new_course_user_records course_user_ids
-    return unless was_course_ever_updated?
+    return unless @course.was_course_ever_updated?
 
     @course.wikis.each do |wiki|
       # Get start time from first timeslice to update
@@ -74,11 +74,6 @@ class CourseUserUpdater
     clean_article_course_timeslices
     # Delete articles courses that were updated only for removed users
     ArticlesCoursesCleanerTimeslice.clean_articles_courses_for_user_ids(@course, user_ids)
-  end
-
-  # TODO: find a better way to check if the course was already updated
-  def was_course_ever_updated?
-    @course.flags[:first_update].present? || @course.flags['update_logs'].present?
   end
 
   # Returns ArticleCourseTimeslice records that have edits from users

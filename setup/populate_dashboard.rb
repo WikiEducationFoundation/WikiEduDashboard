@@ -41,10 +41,6 @@ def make_copy_of(url)
     CoursesUsers.create!(user_id: user.id, role: user_hash['role'], course_id: course.id)
   end
 
-  course.reload
-  # Create course user wiki and course user timeslices
-  TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records(course.wikis)
-
   # Get assignments
   assignments_data = JSON.parse(Net::HTTP.get URI(url + '/assignments.json'))['course']['assignments']
   # Replicate the assignments as available articles

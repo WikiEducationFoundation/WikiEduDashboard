@@ -215,8 +215,8 @@ describe ArticlesCourses, type: :model do
       described_class.update_from_course_revisions(course, array_revisions)
       expect(described_class.count).to eq(2)
       # 62 days from course start up to course end x 2 articles courses
-      expect(described_class.first.article_course_timeslices.count).to eq(65)
-      expect(described_class.second.article_course_timeslices.count).to eq(65)
+      expect(described_class.first.article_course_timeslices.count).to eq(62)
+      expect(described_class.second.article_course_timeslices.count).to eq(62)
     end
   end
 end

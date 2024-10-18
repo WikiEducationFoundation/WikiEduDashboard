@@ -34,17 +34,17 @@ describe CourseWikiUpdater do
 
     it 'removes existing wiki timeslices' do
       # There is one user, two articles and two wikis
-      expect(course.course_wiki_timeslices.count).to eq(20)
-      expect(course.course_user_wiki_timeslices.count).to eq(20)
-      expect(course.article_course_timeslices.count).to eq(20)
+      expect(course.course_wiki_timeslices.count).to eq(14)
+      expect(course.course_user_wiki_timeslices.count).to eq(14)
+      expect(course.article_course_timeslices.count).to eq(14)
       expect(course.articles.count).to eq(2)
       expect(course.articles_courses.count).to eq(2)
 
       described_class.new(course).run
       # There is one user, one article and one wiki
-      expect(course.course_wiki_timeslices.count).to eq(10)
-      expect(course.course_user_wiki_timeslices.count).to eq(10)
-      expect(course.article_course_timeslices.count).to eq(10)
+      expect(course.course_wiki_timeslices.count).to eq(7)
+      expect(course.course_user_wiki_timeslices.count).to eq(7)
+      expect(course.article_course_timeslices.count).to eq(7)
       expect(course.articles.count).to eq(1)
       expect(course.articles_courses.count).to eq(1)
     end
@@ -66,18 +66,18 @@ describe CourseWikiUpdater do
 
     it 'adds wiki timeslices' do
       # There is one user, one article and one wiki
-      expect(course.course_wiki_timeslices.count).to eq(10)
-      expect(course.course_user_wiki_timeslices.count).to eq(10)
-      expect(course.article_course_timeslices.count).to eq(10)
+      expect(course.course_wiki_timeslices.count).to eq(7)
+      expect(course.course_user_wiki_timeslices.count).to eq(7)
+      expect(course.article_course_timeslices.count).to eq(7)
       expect(course.articles.count).to eq(1)
       expect(course.articles_courses.count).to eq(1)
 
       course.wikis << wikidata
       described_class.new(course).run
       # There is one user, one article and two wikis
-      expect(course.course_wiki_timeslices.count).to eq(20)
-      expect(course.course_user_wiki_timeslices.count).to eq(20)
-      expect(course.article_course_timeslices.count).to eq(10)
+      expect(course.course_wiki_timeslices.count).to eq(14)
+      expect(course.course_user_wiki_timeslices.count).to eq(14)
+      expect(course.article_course_timeslices.count).to eq(7)
       expect(course.articles.count).to eq(1)
       expect(course.articles_courses.count).to eq(1)
     end

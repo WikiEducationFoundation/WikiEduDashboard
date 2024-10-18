@@ -40,17 +40,17 @@ describe CourseUserUpdater do
 
     it 'removes course user wiki timeslices and updates course wiki timeslices' do
       # There are two users, two articles and one wiki
-      expect(course.course_wiki_timeslices.count).to eq(10)
-      expect(course.course_user_wiki_timeslices.count).to eq(20)
-      expect(course.article_course_timeslices.count).to eq(20)
+      expect(course.course_wiki_timeslices.count).to eq(7)
+      expect(course.course_user_wiki_timeslices.count).to eq(14)
+      expect(course.article_course_timeslices.count).to eq(14)
       expect(course.articles.count).to eq(2)
       expect(course.articles_courses.count).to eq(2)
 
       described_class.new(course).run
       # There is one user, one article and one wiki
-      expect(course.course_wiki_timeslices.count).to eq(10)
+      expect(course.course_wiki_timeslices.count).to eq(7)
       expect(course.course_wiki_timeslices.needs_update.count).to eq(2)
-      expect(course.course_user_wiki_timeslices.count).to eq(10)
+      expect(course.course_user_wiki_timeslices.count).to eq(7)
       expect(course.articles.count).to eq(1)
       expect(course.articles_courses.count).to eq(1)
     end
@@ -70,35 +70,35 @@ describe CourseUserUpdater do
 
     it 'only adds course user wiki timeslices if no previous update' do
       # There is one user and one wiki
-      expect(course.course_wiki_timeslices.count).to eq(10)
-      expect(course.course_user_wiki_timeslices.count).to eq(10)
+      expect(course.course_wiki_timeslices.count).to eq(7)
+      expect(course.course_user_wiki_timeslices.count).to eq(7)
 
       VCR.use_cassette 'course_user_updater' do
         described_class.new(course).run
       end
 
       # There are two users and one wiki
-      expect(course.course_wiki_timeslices.count).to eq(10)
+      expect(course.course_wiki_timeslices.count).to eq(7)
       # No timeslice was marked as needs_update
       expect(course.course_wiki_timeslices.needs_update.count).to eq(0)
-      expect(course.course_user_wiki_timeslices.count).to eq(20)
+      expect(course.course_user_wiki_timeslices.count).to eq(14)
     end
 
     it 'adds course user wiki timeslices and updates course wiki timeslices if previous update' do
       course.flags[:first_update] = true
       course.save
       # There is one user and one wiki
-      expect(course.course_wiki_timeslices.count).to eq(10)
-      expect(course.course_user_wiki_timeslices.count).to eq(10)
+      expect(course.course_wiki_timeslices.count).to eq(7)
+      expect(course.course_user_wiki_timeslices.count).to eq(7)
 
       VCR.use_cassette 'course_user_updater' do
         described_class.new(course).run
       end
 
       # There are two users and one wiki
-      expect(course.course_wiki_timeslices.count).to eq(10)
+      expect(course.course_wiki_timeslices.count).to eq(7)
       expect(course.course_wiki_timeslices.needs_update.count).to eq(6)
-      expect(course.course_user_wiki_timeslices.count).to eq(20)
+      expect(course.course_user_wiki_timeslices.count).to eq(14)
     end
   end
 end
