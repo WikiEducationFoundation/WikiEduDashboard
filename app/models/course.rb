@@ -575,16 +575,22 @@ class Course < ApplicationRecord
     self.end = start if start > self.end
   end
 
-  # If the start date changed, set needs_update to `true` for the (maybe new)
-  # first course timeslice for every wiki. We need to do this now because we
-  # might not be able to identify a change in the start date after.
+  # If the start date changed, set needs_update to 'true' for the (maybe new)
+  # first course timeslice for every wiki.
+  # If the end date changed, set needs_update to 'true' for the (maybe new)
+  # end course timeslice for every wiki.
+  # We need to do this now because we might not be able to identify a change
+  # in the start date after.
   def set_needs_update_for_timeslice
-    if start_changed?
-      wikis.each do |wiki|
-        timeslice = CourseWikiTimeslice.for_course_and_wiki(self, wiki).for_datetime(start).first
-        break unless timeslice
-        timeslice.update(needs_update: true)
-      end
+    wikis.each do |wiki|
+      update_timeslice_if_exists(wiki, start) if start_changed?
+      update_timeslice_if_exists(wiki, self.end) if end_changed?
     end
+  end
+
+  def update_timeslice_if_exists(wiki, date)
+    timeslice = CourseWikiTimeslice.for_course_and_wiki(self, wiki).for_datetime(date).first
+    return unless timeslice
+    timeslice.update(needs_update: true)
   end
 end

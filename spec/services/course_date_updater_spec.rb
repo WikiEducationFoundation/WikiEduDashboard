@@ -80,4 +80,25 @@ describe CourseDateUpdater do
       expect(course.article_course_timeslices.count).to eq(5)
     end
   end
+
+  context 'when the end date changed to a later date' do
+    before do
+      course.update(end: '2021-02-11')
+    end
+
+    it 'adds new timeslices that needs_update' do
+      # There are two users, two articles and one wiki
+      expect(course.course_wiki_timeslices.count).to eq(7)
+      expect(course.course_wiki_timeslices.needs_update.count).to eq(0)
+      expect(course.course_user_wiki_timeslices.count).to eq(14)
+      expect(course.article_course_timeslices.count).to eq(14)
+
+      described_class.new(course).run
+      # Timeslices from 2021-01-30 to 2021-02-11 were added
+      expect(course.course_wiki_timeslices.count).to eq(19)
+      expect(course.course_wiki_timeslices.needs_update.count).to eq(13)
+      expect(course.course_user_wiki_timeslices.count).to eq(38)
+      expect(course.article_course_timeslices.count).to eq(38)
+    end
+  end
 end

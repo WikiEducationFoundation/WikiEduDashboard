@@ -10,6 +10,13 @@ class CourseDateUpdater
   end
 
   def run
+    update_timeslices_if_start_date_changed
+    update_timeslices_if_end_date_changed
+  end
+
+  private
+
+  def update_timeslices_if_start_date_changed
     # Get the min course wiki timeslice end date
     min_course_end = CourseWikiTimeslice.where(course: @course)
                                         .minimum(:end)
@@ -17,17 +24,29 @@ class CourseDateUpdater
     # Remove timeslices if there are timesmlices prior to the current start date
     remove_timeslices_prior_to_start_date unless min_course_end > @course.start
 
-    # Get the min course wiki timeslice end start
+    # Get the min course wiki timeslice start date
     min_course_start = CourseWikiTimeslice.where(course: @course)
                                           .minimum(:start)
 
     add_timeslices_from_new_start_date unless min_course_start <= @course.start
   end
 
-  private
+  def update_timeslices_if_end_date_changed
+    # Get the max course wiki timeslice end date
+    max_course_end = CourseWikiTimeslice.where(course: @course)
+                                        .maximum(:end)
+
+    add_timeslices_up_to_new_end_date unless max_course_end >= @course.end
+  end
+
+  def add_timeslices_up_to_new_end_date
+    mark_old_last_timeslce_as_needs_update
+
+    @timeslice_manager.create_timeslices_up_to_new_course_end_date
+  end
 
   def remove_timeslices_prior_to_start_date
-    mark_new_first_timeslces_as_needs_update
+    mark_new_first_timeslce_as_needs_update
 
     # Delete course and course user timeslices
     @timeslice_manager.delete_course_wiki_timeslices_prior_to_start_date
@@ -38,17 +57,27 @@ class CourseDateUpdater
   end
 
   def add_timeslices_from_new_start_date
-    mark_new_first_timeslces_as_needs_update
+    mark_new_first_timeslce_as_needs_update
 
     @timeslice_manager.create_timeslices_for_new_course_start_date
   end
 
-  def mark_new_first_timeslces_as_needs_update
+  def mark_new_first_timeslce_as_needs_update
     # If the start date changed, mark the new first timeslices as 'needs_update'
     @course.wikis.each do |wiki|
       timeslice = CourseWikiTimeslice.for_course_and_wiki(@course, wiki)
                                      .for_datetime(@course.start)
                                      .first
+      break unless timeslice
+      timeslice.update(needs_update: true)
+    end
+  end
+
+  def mark_old_last_timeslce_as_needs_update
+    # If the end date changed, mark the previous last timeslices as 'needs_update'
+    @course.wikis.each do |wiki|
+      timeslice = CourseWikiTimeslice.for_course_and_wiki(@course, wiki)
+                                     .last
       break unless timeslice
       timeslice.update(needs_update: true)
     end
