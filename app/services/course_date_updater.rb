@@ -21,7 +21,7 @@ class CourseDateUpdater
     min_course_end = CourseWikiTimeslice.where(course: @course)
                                         .minimum(:end)
 
-    # Remove timeslices if there are timesmlices prior to the current start date
+    # Remove timeslices if there are timeslices prior to the current start date
     remove_timeslices_prior_to_start_date unless min_course_end > @course.start
 
     # Get the min course wiki timeslice start date
@@ -32,6 +32,13 @@ class CourseDateUpdater
   end
 
   def update_timeslices_if_end_date_changed
+    # Get the max course wiki timeslice start date
+    max_course_start = CourseWikiTimeslice.where(course: @course)
+                                          .maximum(:start)
+
+    # Remove timeslices if there are timeslices after the current end date
+    remove_timeslices_after_end_date unless max_course_start <= @course.end
+
     # Get the max course wiki timeslice end date
     max_course_end = CourseWikiTimeslice.where(course: @course)
                                         .maximum(:end)
@@ -54,6 +61,17 @@ class CourseDateUpdater
 
     # Delete articles courses
     ArticlesCoursesCleanerTimeslice.clean_articles_courses_prior_to_course_start(@course)
+  end
+
+  def remove_timeslices_after_end_date
+    mark_old_last_timeslce_as_needs_update
+
+    # Delete course and course user timeslices
+    @timeslice_manager.delete_course_wiki_timeslices_after_end_date
+    @timeslice_manager.delete_course_user_wiki_timeslices_after_end_date
+
+    # Delete articles courses
+    ArticlesCoursesCleanerTimeslice.clean_articles_courses_after_course_end(@course)
   end
 
   def add_timeslices_from_new_start_date
