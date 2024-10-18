@@ -91,6 +91,16 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
     create_empty_course_wiki_timeslices(start_dates_backward, courses_wikis, needs_update: true)
   end
 
+  # Creates course wiki timeslices records for missing timeslices due to a change in the end date
+  # Creates course user wiki timeslices records for missing timeslices
+  def create_timeslices_up_to_new_course_end_date
+    courses_wikis = @course.courses_wikis
+    # order matters
+    create_empty_article_course_timeslices(start_dates_from_old_end, @course.articles_courses)
+    create_empty_course_user_wiki_timeslices(start_dates_from_old_end)
+    create_empty_course_wiki_timeslices(start_dates_from_old_end, courses_wikis, needs_update: true)
+  end
+
   # Returns a datetime with the date to start getting revisions.
   def get_ingestion_start_time_for_wiki(wiki)
     non_empty_timeslices = @course.course_wiki_timeslices.where(wiki:).reject do |ts|
@@ -239,6 +249,8 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
     end
   end
 
+  # Returns start dates from the course start up to course end, for timeslices with
+  # TIMESLICE_DURATION.
   def start_dates
     start_dates = []
     current_start = @course.start
@@ -250,6 +262,8 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
     start_dates
   end
 
+  # Returns start dates from the old course start up to the new (previous) course start,
+  # for timeslices with TIMESLICE_DURATION.
   def start_dates_backward
     start_dates = []
     last_start = CourseWikiTimeslice.where(course: @course)
@@ -258,6 +272,21 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
     while current_start >= @course.start
       start_dates << current_start
       current_start -= TIMESLICE_DURATION
+    end
+
+    start_dates
+  end
+
+  # Returns start dates from the old course end up to the new (later) course end,
+  # for timeslices with TIMESLICE_DURATION.
+  def start_dates_from_old_end
+    start_dates = []
+    last_start = CourseWikiTimeslice.where(course: @course)
+                                    .maximum(:start)
+    current_start = last_start + TIMESLICE_DURATION
+    while current_start <= @course.end
+      start_dates << current_start
+      current_start += TIMESLICE_DURATION
     end
 
     start_dates
