@@ -217,6 +217,30 @@ describe TimesliceManager do
     end
   end
 
+  describe '#delete_course_wiki_timeslices_after_end_date' do
+    before do
+      create(:courses_wikis, wiki: wikibooks, course:)
+      timeslice_manager.create_timeslices_for_new_course_wiki_records([wikibooks,
+                                                                       wikidata,
+                                                                       enwiki])
+      timeslice_manager.create_timeslices_for_new_article_course_records(
+        new_article_courses
+      )
+    end
+
+    it 'deletes course wiki timeslices for dates after the end date properly' do
+      expect(course.course_wiki_timeslices.size).to eq(333)
+
+      # Update course start date
+      course.update(end: '2024-04-10'.to_datetime)
+      timeslice_manager.delete_course_wiki_timeslices_after_end_date
+      course.reload
+
+      # Course wiki timeslices prior to the new start date were deleted
+      expect(course.course_wiki_timeslices.size).to eq(303)
+    end
+  end
+
   describe '#delete_course_user_wiki_timeslices_prior_to_start_date' do
     before do
       create(:courses_wikis, wiki: wikibooks, course:)
@@ -238,6 +262,30 @@ describe TimesliceManager do
 
       # Course user wiki timeslices prior to the new start date were deleted
       expect(course.course_user_wiki_timeslices.size).to eq(612)
+    end
+  end
+
+  describe '#delete_course_user_wiki_timeslices_after_end_date' do
+    before do
+      create(:courses_wikis, wiki: wikibooks, course:)
+      timeslice_manager.create_timeslices_for_new_course_wiki_records([wikibooks,
+                                                                       wikidata,
+                                                                       enwiki])
+      timeslice_manager.create_timeslices_for_new_article_course_records(
+        new_article_courses
+      )
+    end
+
+    it 'deletes course user wiki timeslices for dates after the end date properly' do
+      expect(course.course_user_wiki_timeslices.size).to eq(666)
+
+      # Update course start date
+      course.update(end: '2024-04-10'.to_datetime)
+      timeslice_manager.delete_course_user_wiki_timeslices_after_end_date
+      course.reload
+
+      # Course user wiki timeslices prior to the new start date were deleted
+      expect(course.course_user_wiki_timeslices.size).to eq(606)
     end
   end
 
