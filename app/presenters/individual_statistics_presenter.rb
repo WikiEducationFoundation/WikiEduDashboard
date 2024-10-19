@@ -72,9 +72,11 @@ class IndividualStatisticsPresenter
           articles = @articles_created[edit.article_id] || { new_article: false,
                                                                   views: 0,
                                                                   characters: {},
-                                                                  references: {} }
+                                                                  references: {},
+                                                                  earliest_revision: nil }
           articles[:characters][0] ||= edit.character_sum
           articles[:references][1] ||= edit.references_count
+          articles[:earliest_revision] = edit.updated_at if earliest_rev_yet?(edit, articles)
           articles[:average_views] ||= edit.article.average_views
           @articles_created[edit.article_id] = articles
         end
@@ -89,6 +91,11 @@ class IndividualStatisticsPresenter
       days = (Time.now.utc.to_date - articles[:earliest_revision].to_date).to_i
       articles[:views] = days * articles[:average_views]
     end
+  end
+
+  def earliest_rev_yet?(edit, article_edits)
+    return true if article_edits[:earliest_revision].nil?
+    edit.date < article_edits[:earliest_revision]
   end
 
   def set_upload_usage_counts
