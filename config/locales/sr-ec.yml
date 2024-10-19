@@ -1013,6 +1013,7 @@ sr-ec:
     view_library_source: изворник библиотеке
     view_module_source: изворник модула
     reload_from_source: поново учитај из изворника
+    view_all: Види све вежбе
   update_username:
     label: Ново корисничко име
   uploads:

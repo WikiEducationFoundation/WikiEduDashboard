@@ -599,13 +599,13 @@ en:
         changed. Everything else, you can edit later. Click “Create my Course!” to
         start building the timeline for your Wikipedia assignment.
       new_or_clone: >
-        You can create a new course now using the assignment design wizard.
-        If you have a highly customized timeline from a previous course that you
-        want to re-use, you can clone a copy of it with new dates. (If you did
-        not significantly customize your timeline previously, we recommend
-        starting a new course so that you'll have the most up-to-date
-        versions of the assignment options.) You can also use the clone option
-        to create additional sections for a course you already set up.
+        Click 'Create New Course' to proceed to the assignment design wizard. Your
+        timeline will include the latest options for Wiki Education's recommended
+        training modules and other resources.
+        If you have a highly customized timeline from a previous course that you want
+        to re-use, you can clone a copy of it with new dates. You can also
+        use the clone option to create additional sections for a course you
+        already set up.
       no_class_holidays: I have no class holidays
       role_description: Your role in the course
       role_description_options:

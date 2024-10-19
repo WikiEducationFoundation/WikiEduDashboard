@@ -149,9 +149,9 @@ essentials:
     blocks:
       -
         if: add_to_article
-        title: Make a small edit
+        title: Add a fact to Wikipedia
         kind: 1
-        training_module_ids: [8, 35] # Adding citations, Exercise: Make a small edit
+        training_module_ids: [8, 69] # Adding citations, Exercise: Add a fact to Wikipedia (aka update a bio)
         graded: true
         points: 10
         content: |
