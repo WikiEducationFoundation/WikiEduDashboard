@@ -54,7 +54,7 @@ class IndividualStatisticsPresenter
 
   # going
   def individual_article_views
-    @articles_created.values.sum { |article| article[:views] }
+    @articles_created.values.sum { |article| article[:average_views] }
   end
 
   def individual_articles_created
@@ -67,15 +67,17 @@ class IndividualStatisticsPresenter
   def set_articles_created
     @articles_created = {}
     individual_courses.each do |course|
-      course.articles_courses.where(user: @user).each do |edit|
-        articles = @articles_created[edit.article_id] || { new_article: true,
-                                                                views: 0,
-                                                                character_sum: 0,
-                                                                references_count: 0 }
-        articles[:character_sum] += edit.character_sum
-        articles[:references_count] += edit.references_count
-        articles[:views] += edit.view_count
-        @articles_created[edit.article_id] = articles
+      course.articles_courses.each do |edit|
+        if edit.user_ids.include?(@user.id)
+          articles = @articles_created[edit.article_id] || { new_article: false,
+                                                                  views: 0,
+                                                                  characters: {},
+                                                                  references: {} }
+          articles[:characters][0] ||= edit.character_sum
+          articles[:references][1] ||= edit.references_count
+          articles[:average_views] ||= edit.article.average_views
+          @articles_created[edit.article_id] = articles
+        end
       end
     end
   end
@@ -83,7 +85,7 @@ class IndividualStatisticsPresenter
 
   def set_article_views
     @articles_created.each do |_article_id, articles|
-      next unless articles[:average_views]
+      next 
       days = (Time.now.utc.to_date - articles[:earliest_revision].to_date).to_i
       articles[:views] = days * articles[:average_views]
     end
