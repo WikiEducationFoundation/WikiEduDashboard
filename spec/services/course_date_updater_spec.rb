@@ -27,12 +27,8 @@ describe CourseDateUpdater do
        { article_id: article2.id, course_id: course.id }]
     )
     # Update articles courses timeslices
-    ArticleCourseTimeslice.where(course:,
-                                 article: article1).first.update(user_ids: [user1.id])
-    timeslices = ArticleCourseTimeslice.where(course:, article: article2)
-    timeslices.first.update(user_ids: [user1.id])
-    timeslices.second.update(user_ids: [user2.id])
-    timeslices.third.update(user_ids: [user1.id])
+    ArticleCourseTimeslice.where(course:, article: article1).first.update(user_ids: [user1.id])
+    ArticleCourseTimeslice.where(course:, article: article2).last.update(user_ids: [user1.id])
   end
 
   context 'when the start date changed to a previous date' do
@@ -99,6 +95,31 @@ describe CourseDateUpdater do
       expect(course.course_wiki_timeslices.needs_update.count).to eq(13)
       expect(course.course_user_wiki_timeslices.count).to eq(38)
       expect(course.article_course_timeslices.count).to eq(38)
+    end
+  end
+
+  context 'when the end date changed to a previous date' do
+    before do
+      course.update(end: '2021-01-29')
+    end
+
+    it 'deletes timeslices and article courses' do
+      # There are two users, two articles and one wiki
+      expect(course.course_wiki_timeslices.count).to eq(7)
+      # When updating the start date, the timeslice is marked as needs_update
+      expect(course.course_wiki_timeslices.needs_update.count).to eq(1)
+      expect(course.course_user_wiki_timeslices.count).to eq(14)
+      expect(course.article_course_timeslices.count).to eq(14)
+      expect(course.articles_courses.count).to eq(2)
+
+      described_class.new(course).run
+      # Timeslices for 2021-01-30 were deleted
+      expect(course.course_wiki_timeslices.count).to eq(6)
+      expect(course.course_wiki_timeslices.needs_update.count).to eq(1)
+      expect(course.course_user_wiki_timeslices.count).to eq(12)
+      # Article course for article 2 was deleted
+      expect(course.articles_courses.count).to eq(1)
+      expect(course.article_course_timeslices.count).to eq(6)
     end
   end
 end
