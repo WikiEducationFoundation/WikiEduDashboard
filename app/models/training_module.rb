@@ -51,25 +51,16 @@ class TrainingModule < ApplicationRecord
     TrainingBase.load(content_class: self)
   end
 
-  def self.base_path
-    TrainingBase.base_path
+  def self.load_async
+    TrainingBase.load_async(content_class: self)
   end
 
   def self.load_all
     TrainingBase.load_all
   end
 
-  # This reloads all the library and module content, but only updates the slides
-  # for the module with the given slug.
-  def self.reload_module(slug:)
-    # First reload the libraries and modules so we have the new list of slugs
-    # and can load slides for brand-new modules.
-    TrainingLibrary.load
-    TrainingModule.load
-    # Reload the requested module's slides
-    training_module = TrainingModule.find_by(slug:)
-    raise ModuleNotFound, "No module #{slug} found!" unless training_module
-    TrainingSlide.load(slug_list: training_module.slide_slugs)
+  def self.base_path
+    TrainingBase.base_path
   end
 
   def self.inflate(content, slug, wiki_page = nil)

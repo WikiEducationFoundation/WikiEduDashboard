@@ -13,7 +13,6 @@
 #  exclude_from_index :boolean          default(FALSE)
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
-#
 
 require_dependency "#{Rails.root}/lib/training/training_base"
 
@@ -40,6 +39,10 @@ class TrainingLibrary < ApplicationRecord
 
   def self.load
     TrainingBase.load(content_class: self)
+  end
+
+  def self.load_async
+    TrainingBase.load_async(content_class: self)
   end
 
   def self.base_path
