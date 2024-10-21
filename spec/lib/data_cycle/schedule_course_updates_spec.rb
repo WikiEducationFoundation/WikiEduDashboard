@@ -30,10 +30,14 @@ describe ScheduleCourseUpdates do
                       slug: 'Medium/Course', needs_update: true)
       create(:course, start: 1.day.ago, end: 1.year.from_now,
                       slug: 'Long/Program')
-      create(:course, slug: 'Fast/Updates', flags: fast_update_logs)
-      create(:course, slug: 'Medium/Updates', flags: medium_update_logs)
-      create(:course, slug: 'Slow/Updates', flags: slow_update_logs)
-      create(:course, slug: 'VeryLong/Updates', flags: { very_long_updates: true })
+      create(:course, start: 1.day.ago, end: 2.months.from_now,
+                      slug: 'Fast/Updates', flags: fast_update_logs)
+      create(:course, start: 1.day.ago, end: 2.months.from_now,
+                      slug: 'Medium/Updates', flags: medium_update_logs)
+      create(:course, start: 1.day.ago, end: 2.months.from_now,
+                      slug: 'Slow/Updates', flags: slow_update_logs)
+      create(:course, start: 1.day.ago, end: 2.months.from_now,
+                      slug: 'VeryLong/Updates', flags: { very_long_updates: true })
     end
 
     it 'calls the revisions and articles updates on courses currently taking place' do

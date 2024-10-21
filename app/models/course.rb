@@ -233,7 +233,7 @@ class Course < ApplicationRecord
   before_save :reorder_weeks
   before_save :set_default_times
   before_save :check_course_times
-  before_save :set_needs_update
+  before_save :set_needs_update_for_timeslice
   after_create :ensure_home_wiki_in_courses_wikis
 
   ####################
@@ -459,6 +459,11 @@ class Course < ApplicationRecord
     flags[:very_long_update].present?
   end
 
+  # TODO: find a better way to check if the course was already updated
+  def was_course_ever_updated?
+    flags[:first_update].present? || flags['update_logs'].present?
+  end
+
   # Overridden for ClassroomProgramCourse
   def progress_tracker_enabled?
     false
@@ -570,10 +575,22 @@ class Course < ApplicationRecord
     self.end = start if start > self.end
   end
 
-  # If the start date changed, set needs_update to `true` so that
-  # the stats will be updated to reflect the new start date
-  # and the earlier revisions will be fetched.
-  def set_needs_update
-    self.needs_update = true if start_changed?
+  # If the start date changed, set needs_update to 'true' for the (maybe new)
+  # first course timeslice for every wiki.
+  # If the end date changed, set needs_update to 'true' for the (maybe new)
+  # end course timeslice for every wiki.
+  # We need to do this now because we might not be able to identify a change
+  # in the start date after.
+  def set_needs_update_for_timeslice
+    wikis.each do |wiki|
+      update_timeslice_if_exists(wiki, start) if start_changed?
+      update_timeslice_if_exists(wiki, self.end) if end_changed?
+    end
+  end
+
+  def update_timeslice_if_exists(wiki, date)
+    timeslice = CourseWikiTimeslice.for_course_and_wiki(self, wiki).for_datetime(date).first
+    return unless timeslice
+    timeslice.update(needs_update: true)
   end
 end

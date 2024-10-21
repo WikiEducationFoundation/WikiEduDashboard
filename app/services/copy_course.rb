@@ -13,7 +13,6 @@ class CopyCourse # rubocop:disable Metrics/ClassLength
     @cat_data = retrieve_categories_data
     copy_tracked_categories_data
     maybe_copy_user_data
-    create_timeslices
     @training_modules = retrieve_all_training_modules
     @timeline_data = retrieve_timeline_data
     # This only works if the wiki_education envvar is set differently from the
@@ -199,11 +198,5 @@ class CopyCourse # rubocop:disable Metrics/ClassLength
       <i class=\"icon icon-rt_arrow_purple_training_module\"></i></a>"
 
     return html_block, matching_module['kind']
-  end
-
-  def create_timeslices
-    @course.reload
-    # Create course user wiki and course user timeslices
-    TimesliceManager.new(@course).create_timeslices_for_new_course_wiki_records(@course.wikis)
   end
 end
