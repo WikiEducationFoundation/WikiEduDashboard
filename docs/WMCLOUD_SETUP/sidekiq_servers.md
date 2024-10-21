@@ -9,7 +9,7 @@ My strategy this time is to put every worker on a separate VM, so try to make th
 - Spin up a fresh server and log in to it
 - Install requirements:
   - `sudo apt install pandoc libmariadb-dev imagemagick gnupg2 shared-mime-info`
-- Install RVM (see web server doc)
+- Install RVM [(see web server doc)](./web_server.md)
 - Get the Dashboard code: `git clone https://github.com/WikiEducationFoundation/WikiEduDashboard.git`
 - In the Dashboard directory:
   - `bundle install`
