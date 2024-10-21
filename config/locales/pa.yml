@@ -7,7 +7,10 @@
 ---
 pa:
   application:
+    greeting2: ਜੀ ਆਇਆਂ ਨੂੰ!
+    greeting_extended: ਵਿਕੀਪੀਡੀਆ 'ਤੇ ਜੀ ਆਇਆਂ ਨੂੰ
     recent_activity: ਹਾਲੀਆ ਸਰਗਰਮੀ
+    change: ਬਦਲੋ
   article_statuses:
     ready_for_review: ਖਰੜਾ ਦਾ ਵਿਸਤਾਰ
   assignments:
@@ -35,6 +38,7 @@ pa:
     articles_created_generic: ਵਰਕੇ ਬਣਾਏ
     revisions: ਹਾਲੀਆ ਸੋਧਾਂ
   namespace:
+    translation: ਤਰਜਮਾ
     draft: ਖਰੜਾ
   recent_activity:
     datetime: ਮਿਤੀ/ਵੇਲਾ

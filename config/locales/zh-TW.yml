@@ -208,6 +208,9 @@ zh-TW:
     tracked_articles: 已追蹤條目
     view_articles: 檢視條目
     no_tracked_articles: 此分類沒有追蹤的條目
+    not_choosen_article: 您還沒有選擇要處理的條目。當您找到要處理的條目時，請使用上面的按鈕來指派。
+    use_dashboard: 如何使用面板
+    evaluate_and_source: 評估條目和來源
   items:
     items: 項目
     lexeme: 詞位
@@ -1193,6 +1196,8 @@ zh-TW:
     previous: <上一個
     table_of_contents: 目次
     training_library: 培訓圖書館
+    additional_training: 額外培訓模組
+    orientation_modules: 導師導覽模組
     logged_out: 您已經登出。除非您登入，否則您將不會收到完成此訓練的紀錄。
     done: 完成！
     invalid: 很抱歉，該投影片不存在！
@@ -1212,6 +1217,8 @@ zh-TW:
     search_training_resources: 培訓資源搜尋
     no_training_resource_match_your_search: 沒有符合您要搜尋的培訓資源
     exercise_sandbox: 練習沙盒
+    remaining_exercise: 剩下 %{count} 個額外練習。
+    view_all: 查看所有練習
   update_username:
     header: 更新已更改的使用者名稱
     not_found: 找不到所輸入名稱的使用者。

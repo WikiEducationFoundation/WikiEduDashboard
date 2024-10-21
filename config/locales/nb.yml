@@ -10,6 +10,7 @@
 # Author: Kingu
 # Author: Pmt
 # Author: Tarjeimo
+# Author: Yupik
 ---
 nb:
   number:
@@ -1032,4 +1033,6 @@ nb:
     search: Søk
     show_options: Vis valg
     tools: Verktøy
+  training_status:
+    continue: Fortsett
 ...
