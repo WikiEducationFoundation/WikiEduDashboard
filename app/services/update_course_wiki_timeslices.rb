@@ -17,6 +17,7 @@ class UpdateCourseWikiTimeslices
     @timeslice_manager = TimesliceManager.new(@course)
     @course_wiki_updater = CourseWikiUpdater.new(@course)
     @course_user_updater = CourseUserUpdater.new(@course)
+    @course_date_updater = CourseDateUpdater.new(@course)
   end
 
   def run(all_time:)
@@ -38,7 +39,8 @@ class UpdateCourseWikiTimeslices
     )
   end
 
-  # Make changes if some wiki/users were added or removed.
+  # Make changes if some wiki/users were added or removed, or the start/end
+  # course dates changed.
   def pre_update
     # order matters
     unless @course.was_course_ever_updated?
@@ -46,6 +48,7 @@ class UpdateCourseWikiTimeslices
     end
     @course_user_updater.run
     @course_wiki_updater.run
+    @course_date_updater.run
   end
 
   def fetch_data_and_process_timeslices_for_every_wiki(all_time)
