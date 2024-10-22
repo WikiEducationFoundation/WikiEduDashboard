@@ -180,7 +180,18 @@ class Course < ApplicationRecord
     where('end <= ?', Time.zone.now - UPDATE_LENGTH)
   }
 
-  scope :ready_for_update, -> { current.or(where(needs_update: true)) }
+  scope :needs_partial_update, lambda {
+    joins(:course_wiki_timeslices)
+      .where(course_wiki_timeslices: { needs_update: true })
+      .distinct
+  }
+
+  scope :current_or_set_to_full_update, -> { current.or(where(needs_update: true)) }
+
+  def self.ready_for_update
+    ready_for_update = current_or_set_to_full_update + needs_partial_update
+    ready_for_update.uniq
+  end
 
   def self.will_be_ready_for_survey(opts)
     days_offset, before, relative_to = opts.values_at(:days, :before, :relative_to)
