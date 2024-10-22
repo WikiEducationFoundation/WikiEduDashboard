@@ -13,8 +13,7 @@ const AdminUser = createReactClass({
     }),
   },
 
-  // eslint-disable-next-line object-shorthand
-  getInitialState: function () {
+  getInitialState() {
     return { confirming: false };
   },
 
