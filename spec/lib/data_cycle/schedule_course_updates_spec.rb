@@ -22,6 +22,8 @@ describe ScheduleCourseUpdates do
     }
   end
 
+  let(:wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
+
   describe 'on initialization' do
     before do
       create(:editathon, start: 1.day.ago, end: 2.hours.from_now,
@@ -36,8 +38,12 @@ describe ScheduleCourseUpdates do
                       slug: 'Medium/Updates', flags: medium_update_logs)
       create(:course, start: 1.day.ago, end: 2.months.from_now,
                       slug: 'Slow/Updates', flags: slow_update_logs)
-      create(:course, start: 1.day.ago, end: 2.months.from_now,
+      create(:course, start: 1.year.ago, end: 6.months.ago,
                       slug: 'VeryLong/Updates', flags: { very_long_updates: true })
+      course = Course.find_by(slug: 'VeryLong/Updates')
+      manager = TimesliceManager.new(course)
+      manager.create_timeslices_for_new_course_wiki_records([wiki])
+      course.course_wiki_timeslices.first.update(needs_update: true)
     end
 
     it 'calls the revisions and articles updates on courses currently taking place' do

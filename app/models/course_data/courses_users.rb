@@ -41,7 +41,9 @@ class CoursesUsers < ApplicationRecord
   validates :course_id, uniqueness: { scope: %i[user_id role] }
 
   scope :current, -> { joins(:course).merge(Course.current).distinct }
-  scope :ready_for_update, -> { joins(:course).merge(Course.ready_for_update).distinct }
+  scope :ready_for_update, lambda {
+                             joins(:course).where(course: Course.ready_for_update).distinct
+                           }
   scope :with_instructor_role, -> { where(role: Roles::INSTRUCTOR_ROLE) }
   scope :with_student_role, -> { where(role: Roles::STUDENT_ROLE) }
 
