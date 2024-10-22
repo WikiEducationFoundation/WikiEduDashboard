@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Cookies } from 'react-cookie-consent';
 import { fetchAllAdminCourseNotes, createAdminCourseNote } from '../../actions/admin_course_notes_action';
 import NotesList from './notes_list';
 import NotesCreator from './notes_creator';
+import NotesModalTrigger from './notes_modal_trigger';
 
 const NotesPanel = () => {
   // State variables for managing the modal and note creation
@@ -22,6 +24,18 @@ const NotesPanel = () => {
 
   // Get the dispatch function from the Redux store
   const dispatch = useDispatch();
+
+  // Updates the cookie timestamp to track when notes were last fetched or created.
+  const setNoteFetchTimestamp = () => {
+    // Set the current timestamp as a cookie when the user fetches notes or create notes
+    const currentTimestamp = Date.now();
+
+    // Set the expiration date to 10 years from now
+    const expires = new Date();
+    expires.setFullYear(expires.getFullYear() + 10);
+
+    Cookies.set('lastFetchAdminNoteTimestamp', currentTimestamp, { expires: expires });
+  };
 
   // Fetch all course notes when the component mounts
   useEffect(() => {
@@ -76,6 +90,8 @@ const NotesPanel = () => {
 
     setText('');
     setTitle('');
+    // Set the cookie timestamp after note creation to prevent the admin from receiving redundant notifications for notes they’ve created
+    setNoteFetchTimestamp();
   };
 
   // Close the modal and deactivate note creation
@@ -86,15 +102,7 @@ const NotesPanel = () => {
 
   // Conditionally render a button if modalType is null
   if (!isModalOpen) {
-    return (
-      <button
-        onClick={() => setIsModalOpen('adminNotePanel')}
-        className="button admin-focus-highlight"
-        aria-haspopup="dialog"
-      >
-        {I18n.t('notes.admin.button_text')}
-      </button>
-    );
+    return (<NotesModalTrigger setIsModalOpen={setIsModalOpen} notesList={notesList} setNoteFetchTimestamp={setNoteFetchTimestamp}/>);
   }
 
   return (
@@ -163,7 +171,7 @@ const NotesPanel = () => {
         </div>
 
         {/* Announcement for screen readers */}
-        <div aria-live="assertive" aria-atomic="true" className="sr-only">
+        <div aria-live="assertive" aria-atomic="true" className="sr-admin-note-only">
           {liveMessage}
         </div>
       </div>
