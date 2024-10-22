@@ -18,7 +18,7 @@ export const Header = ({ completed = false, course, remaining = [], text }) => (
       to={`/courses/${course.slug}/resources#exercises`}
       className="resources-link"
     >
-      {I18n.t('training.view_all_exercise')}
+      {I18n.t('training.view_all')}
     </Link>
   </header>
 );
