@@ -198,6 +198,8 @@ const CourseForm = (props) => {
 
   let backOrCancelButton;
 
+  // Display the back button if it's Program and Events dashboard and the user is an Admin or Instructor
+  // Otherwise display the Cancel button if it is the WikiEd dashboard
   if (props.defaultCourse !== 'ClassroomProgramCourse' || props.isAdminOrInstructor) {
     backOrCancelButton = (
       <button onClick={backCondition} className="button dark">{I18n.t('application.back')}</button>
