@@ -129,7 +129,7 @@ VCR.configure do |c|
   c.allow_http_connections_when_no_cassette = false
   c.cassette_library_dir = 'fixtures/vcr_cassettes'
   c.hook_into :webmock # or :fakeweb
-  c.default_cassette_options = { record: :new_episodes }
+  c.default_cassette_options = { record: :all }
   c.configure_rspec_metadata!
   # Allows RSPEC to test the availability of the Wikimedia Tools
   c.ignore_hosts '127.0.0.1'
