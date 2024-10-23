@@ -411,15 +411,15 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  fetchCategoryResults: fetchCategoryResults,
-  updateFields: updateFields,
-  addAssignment: addAssignment,
-  fetchAssignments: fetchAssignments,
-  sortArticleFinder: sortArticleFinder,
-  fetchKeywordResults: fetchKeywordResults,
-  deleteAssignment: deleteAssignment,
-  resetArticleFinder: resetArticleFinder,
-  clearResults: clearResults,
+  fetchCategoryResults,
+  updateFields,
+  addAssignment,
+  fetchAssignments,
+  sortArticleFinder,
+  fetchKeywordResults,
+  deleteAssignment,
+  resetArticleFinder,
+  clearResults,
 };
 
 export default compose(
