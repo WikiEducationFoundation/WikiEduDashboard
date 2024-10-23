@@ -388,16 +388,23 @@ const Timeline = createReactClass({
         navClassName += ' is-current';
       }
 
-      const dateCalc = new DateCalculator(this.props.course.timeline_start, this.props.course.timeline_end, navIndex, { zeroIndexed: true });
+      const datesStr = DateCalculator.calculateDates(
+        this.props.course.timeline_start, 
+        this.props.course.timeline_end, 
+        navIndex, 
+        { zeroIndexed: true }
+      );
+      
+      const [startDate, endDate] = datesStr.split(' - ');
+      
       const navWeekKey = `week-${navIndex}`;
       const navWeekLink = `#week-${navIndex + 1 + weeksBeforeTimeline}`;
-
+      
       // if using custom titles, show only titles, otherwise, show default titles and dates
       let navItem;
       if (usingCustomTitles) {
         let navTitle = '';
         if (weekInfo.emptyWeek) {
-          const datesStr = `${dateCalc.start()} - ${dateCalc.end()}`;
           navTitle = I18n.t('timeline.week_number', { number: datesStr });
         } else {
           navTitle = weekInfo.title ? weekInfo.title : I18n.t('timeline.week_number', { number: navIndex + 1 + weeksBeforeTimeline });
@@ -411,7 +418,7 @@ const Timeline = createReactClass({
         navItem = (
           <li className={navClassName} key={navWeekKey}>
             <a href={navWeekLink}>{I18n.t('timeline.week_number', { number: navIndex + 1 + weeksBeforeTimeline })}</a>
-            <span className="pull-right">{dateCalc.start()} - {dateCalc.end()}</span>
+            <span className="pull-right">{startDate} - {endDate}</span>
           </li>
         );
       }
