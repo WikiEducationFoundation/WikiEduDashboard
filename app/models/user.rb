@@ -173,9 +173,10 @@ class User < ApplicationRecord
   end
 
   def highest_role(course)
+    return CoursesUsers::Roles::INSTRUCTOR_ROLE if admin?
+
     roles = course_roles(course)
 
-    return CoursesUsers::Roles::INSTRUCTOR_ROLE if admin?
     return CoursesUsers::Roles::VISITOR_ROLE if roles.empty?
 
     roles.first
@@ -188,10 +189,6 @@ class User < ApplicationRecord
     return true if course_roles(course).any? { |role| EDITING_ROLES.include?(role) }
     return true if campaign_organizer?(course)
     false
-  end
-
-  def can_view?(course)
-    nonvisitor?(course)
   end
 
   def campaign_organizer?(course)
