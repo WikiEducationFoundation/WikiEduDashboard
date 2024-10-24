@@ -43,6 +43,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_15_163420) do
     t.datetime "updated_at", null: false
     t.integer "article_id", null: false
     t.integer "course_id", null: false
+    t.index ["article_id", "course_id", "start", "end"], name: "article_course_timeslice_by_article_course_start_and_end", unique: true
   end
 
   create_table "admin_course_notes", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
