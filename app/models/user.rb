@@ -175,6 +175,7 @@ class User < ApplicationRecord
   def highest_role(course)
     roles = course_roles(course)
 
+    return CoursesUsers::Roles::INSTRUCTOR_ROLE if admin?
     return CoursesUsers::Roles::VISITOR_ROLE if roles.empty?
 
     roles.first
