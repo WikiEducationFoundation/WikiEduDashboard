@@ -61,6 +61,26 @@ class CourseWikiTimeslice < ApplicationRecord
     end
   end
 
+  # These three class methods are used to create missing timeslices when there is no
+  # guarantee that all courses wikis are in the same state.
+  def self.max_min_course_start(course)
+    course.wikis.filter_map do |wiki|
+      CourseWikiTimeslice.for_course_and_wiki(course, wiki).minimum(:start)
+    end.max
+  end
+
+  def self.min_max_course_start(course)
+    course.wikis.filter_map do |wiki|
+      CourseWikiTimeslice.for_course_and_wiki(course, wiki).maximum(:start)
+    end.min
+  end
+
+  def self. min_max_course_end(course)
+    course.wikis.filter_map do |wiki|
+      CourseWikiTimeslice.for_course_and_wiki(course, wiki).maximum(:end)
+    end.min
+  end
+
   ####################
   # Instance methods #
   ####################
