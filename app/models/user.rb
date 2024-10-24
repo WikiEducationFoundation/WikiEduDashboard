@@ -163,27 +163,30 @@ class User < ApplicationRecord
   end
 
   def nonvisitor?(course)
-    role(course) != CoursesUsers::Roles::VISITOR_ROLE
+    return true if admin?
+    !course_roles(course).empty?
   end
 
-  def role(course)
-    # If this is a new course, grant permissions.
-    return CoursesUsers::Roles::INSTRUCTOR_ROLE if course.nil?
-    # Give admins the instructor permissions.
+  # returns an array of roles a user has in a given course
+  def course_roles(course)
+    course.courses_users.where(user_id: id).order('role DESC').pluck(:role)
+  end
+
+  def highest_role(course)
     return CoursesUsers::Roles::INSTRUCTOR_ROLE if admin?
 
-    course_user = course.courses_users.where(user_id: id).order('role DESC').first
-    return course_user.role unless course_user.nil?
+    roles = course_roles(course)
 
-    # User is in visitor role, if no other role found.
-    CoursesUsers::Roles::VISITOR_ROLE
+    return CoursesUsers::Roles::VISITOR_ROLE if roles.empty?
+
+    roles.first
   end
 
   EDITING_ROLES = [CoursesUsers::Roles::INSTRUCTOR_ROLE,
                    CoursesUsers::Roles::WIKI_ED_STAFF_ROLE].freeze
   def can_edit?(course)
     return true if admin?
-    return true if EDITING_ROLES.include? role(course)
+    return true if course_roles(course).any? { |role| EDITING_ROLES.include?(role) }
     return true if campaign_organizer?(course)
     false
   end
@@ -197,7 +200,7 @@ class User < ApplicationRecord
                      CoursesUsers::Roles::WIKI_ED_STAFF_ROLE].freeze
   def can_see_real_names?(course)
     return true if admin?
-    REAL_NAME_ROLES.include? role(course)
+    course_roles(course).any? { |role| REAL_NAME_ROLES.include?(role) }
   end
 
   def email_preferences_token
