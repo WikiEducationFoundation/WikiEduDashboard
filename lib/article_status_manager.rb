@@ -5,28 +5,34 @@ require_dependency "#{Rails.root}/lib/assignment_updater"
 
 #= Updates articles to reflect deletion and page moves on Wikipedia
 class ArticleStatusManager
-  def initialize(wiki = nil)
+  def initialize(wiki = nil, update_service: nil)
     @wiki = wiki || Wiki.default_wiki
+    @update_service = update_service
   end
 
   ################
   # Entry points #
   ################
 
-  def self.update_article_status_for_course(course)
+  def self.update_article_status_for_course(course, update_service: nil)
     course.wikis.each do |wiki|
-      # Updating only those articles which are updated more than  1 day ago
-      course.pages_edited
-            .where(wiki_id: wiki.id)
-            .where('articles.updated_at < ?', 1.day.ago)
-            .in_batches do |article_batch|
-        # Using in_batches so that the update_at of all articles in the batch can be
-        # excuted in a single query, otherwise if we use find_in_batches, query for
-        # each article for updating the same would be required
-        new(wiki).update_status(article_batch)
-        # rubocop:disable Rails/SkipsModelValidations
-        article_batch.touch_all(:updated_at)
-        # rubocop:enable Rails/SkipsModelValidations
+      begin
+        # Updating only those articles which are updated more than  1 day ago
+        course.pages_edited
+              .where(wiki_id: wiki.id)
+              .where('articles.updated_at < ?', 1.day.ago)
+              .in_batches do |article_batch|
+          # Using in_batches so that the update_at of all articles in the batch can be
+          # excuted in a single query, otherwise if we use find_in_batches, query for
+          # each article for updating the same would be required
+          new(wiki, update_service: update_service).update_status(article_batch)
+          # rubocop:disable Rails/SkipsModelValidations
+          article_batch.touch_all(:updated_at)
+          # rubocop:enable Rails/SkipsModelValidations
+        end
+        log_update_progress(course, wiki, :article_status_updated)
+      rescue => e
+          log_error(e, :update_article_status_for_course, course: course.id, wiki: wiki.id)
       end
     end
   end
