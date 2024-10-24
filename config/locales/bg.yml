@@ -328,6 +328,8 @@ bg:
   user_profiles:
     location_placeholder: Добавяне на местоположение (незадължително)
     institution_placeholder: Име на институцията (незадължително)
+  wizard:
+    read_more: Прочетете повече
   error:
     start_date_before_end_date: Началната дата трябва да бъде по-ранна от крайната
       дата
