@@ -163,11 +163,11 @@ describe User do
     end
   end
 
-  describe '#can_view?' do
+  describe '#nonvisitor' do
     it 'returns false when the user has only visitor role' do
       course = create(:course)
       user = create(:user)
-      permission = user.can_view?(course)
+      permission = user.nonvisitor?(course)
       expect(permission).to be false
     end
 
@@ -178,7 +178,7 @@ describe User do
              course_id: course.id,
                user_id: user.id,
                role: CoursesUsers::Roles::STUDENT_ROLE)
-      permission = user.can_view?(course)
+      permission = user.nonvisitor?(course)
       expect(permission).to be true
     end
 
@@ -193,7 +193,7 @@ describe User do
              user_id: user.id,
              role: CoursesUsers::Roles::CAMPUS_VOLUNTEER_ROLE)
 
-      permission = user.can_view?(course)
+      permission = user.nonvisitor?(course)
       expect(permission).to be true
     end
   end
