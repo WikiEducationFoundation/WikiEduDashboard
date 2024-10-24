@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { includes } from 'lodash-es';
-
+import withRouter from '../util/withRouter';
 import { updateCourse } from '../../actions/course_actions';
 import { fetchCampaign, submitCourse, cloneCourse } from '../../actions/course_creation_actions.js';
 import { fetchCoursesForUser } from '../../actions/user_courses_actions.js';
@@ -23,7 +23,6 @@ import CourseDates from './course_dates.jsx';
 import { fetchAssignments } from '../../actions/assignment_actions';
 import CourseScoping from './course_scoping_methods';
 import { getScopingMethods } from '../util/scoping_methods';
-
 import Select from 'react-select';
 import selectStyles from '../../styles/single_select.js';
 
@@ -46,7 +45,7 @@ const CourseCreator = createReactClass({
     isValid: PropTypes.bool.isRequired,
     validations: PropTypes.object.isRequired,
     firstErrorMessage: PropTypes.string,
-    activateValidations: PropTypes.func.isRequired
+    activateValidations: PropTypes.func.isRequired,
   },
 
   getInitialState() {
@@ -302,7 +301,7 @@ const CourseCreator = createReactClass({
   },
 
   hideCourseForm() {
-    return this.setState({ showCourseForm: false });
+   return this.setState({ showCourseForm: false });
   },
 
   hideWizardForm() {
@@ -315,6 +314,7 @@ const CourseCreator = createReactClass({
     if (this.props.loadingUserCourses) {
       return <div />;
     }
+
     // There are four fundamental states: NewOrClone, CourseForm, wizardForm and CloneChooser
     let showCourseForm;
     let showCloneChooser;
@@ -322,6 +322,7 @@ const CourseCreator = createReactClass({
     let showWizardForm;
     let showCourseDates;
     let showCourseScoping;
+
     if (this.state.showWizardForm) {
       showWizardForm = true;
     } else if (this.state.showCourseDates) {
@@ -418,7 +419,11 @@ const CourseCreator = createReactClass({
         <label htmlFor="checkbox_id">{I18n.t('courses.creator.copy_courses_with_assignments')}</label>
       </span>
     );
-
+    const { ifadmin: ifAdminStr, wiki_ed: wikiEdStr } = document.getElementById('nav_root').dataset;
+    let isAdminOrInstructor;
+    if (ifAdminStr === 'true' || Features.wikiEd === 'true' || wikiEdStr === 'true') {
+      isAdminOrInstructor = true;
+    }
 
     return (
       <Modal key="modal">
@@ -458,6 +463,7 @@ const CourseCreator = createReactClass({
               defaultCourse={this.state.default_course_type}
               updateCourseProps={this.props.updateCourse}
               next={this.showCourseDates}
+              isAdminOrInstructor={isAdminOrInstructor}
               previous={this.showCourseTypes}
               previousWikiEd={this.hideCourseForm}
               tempCourseId={this.state.tempCourseId}
@@ -518,6 +524,6 @@ const mapDispatchToProps = ({
 });
 
 // exporting two difference ways as a testing hack.
-export default connect(mapStateToProps, mapDispatchToProps)(CourseCreator);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CourseCreator));
 
 export { CourseCreator };

@@ -59,27 +59,65 @@ class LiftWingApi
 
   # Returns a hash with wp10, features, deleted, and prediction, or empty hash if
   # there is an error.
+  # def get_single_revision_parsed_data(rev_id)
+  #   tries ||= 5
+  #   body = { rev_id:, extended_output: true }.to_json
+  #   response = lift_wing_server.post(quality_query_url, body)
+  #   parsed_response = Oj.load(response.body)
+  #   # If the responses contain an error, do not try to calculate wp10 or features.
+  #   if parsed_response.key? 'error'
+  #     return { 'wp10' => nil, 'features' => nil, 'deleted' => deleted?(parsed_response),
+  #     'prediction' => nil }
+  #   end
+
+  #   build_successful_response(rev_id, parsed_response)
+  # rescue StandardError => e
+  #   tries -= 1
+  #   retry unless tries.zero?
+  #   @errors << e
+  #   return { 'wp10' => nil, 'features' => nil, 'deleted' => false, 'prediction' => nil }
+  # end
+
+  # class InvalidProjectError < StandardError
+  # end
+
   def get_single_revision_parsed_data(rev_id)
     tries ||= 5
+    retries_done = 0  # Introduce a counter for retries
+  
     body = { rev_id:, extended_output: true }.to_json
     response = lift_wing_server.post(quality_query_url, body)
     parsed_response = Oj.load(response.body)
-    # If the responses contain an error, do not try to calculate wp10 or features.
-    if parsed_response.key? 'error'
-      return { 'wp10' => nil, 'features' => nil, 'deleted' => deleted?(parsed_response),
-      'prediction' => nil }
+    Rails.logger.info("LiftWing response for revision #{rev_id}: #{parsed_response.inspect} \n\n")
+  
+    # If the response contains an error, do not try to calculate wp10 or features.
+    if parsed_response.key?('error')
+      result = { 'wp10' => nil, 'features' => nil, 'deleted' => deleted?(parsed_response), 'prediction' => nil }
+      Rails.logger.info("Returning value for revision #{rev_id}: #{result.inspect}")
+      return result
     end
-
-    build_successful_response(rev_id, parsed_response)
+  
+    result = build_successful_response(rev_id, parsed_response)
+    Rails.logger.info("Successful response for revision #{rev_id}: #{result.inspect}")
+    result
+  
   rescue StandardError => e
+    retries_done += 1  # Increment the retry counter
     tries -= 1
+    Rails.logger.error("Error occurred for revision #{rev_id}: #{e.message}")
+    Rails.logger.error("LiftWing response for revision #{rev_id}: #{parsed_response.inspect} \n\n")
+    Rails.logger.error("Retry attempt #{retries_done}. Remaining tries: #{tries} \n\n")
+  
+    # Log the value being returned at this stage (before retrying or exiting)
+    result = { 'wp10' => nil, 'features' => nil, 'deleted' => false, 'prediction' => nil }
+    Rails.logger.info("Returning value for revision #{rev_id} on retry #{retries_done}: #{result.inspect}")
+  
     retry unless tries.zero?
+  
     @errors << e
-    return { 'wp10' => nil, 'features' => nil, 'deleted' => false, 'prediction' => nil }
+    result  # Final return value after retries
   end
-
-  class InvalidProjectError < StandardError
-  end
+  
 
   # The top-level key representing the wiki in LiftWing data
   def wiki_key

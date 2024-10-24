@@ -52,9 +52,27 @@ class RevisionScoreApiHandler
     {}
   end
 
+  # def maybe_get_reference_data(rev_batch)
+  #   if ReferenceCounterApi.valid_wiki?(@wiki)
+  #     Rails.logger.info("ReferenceCounterApi response for revisions======= #{rev_batch}: #{reference_data.inspect} \n\n")
+  #     return @reference_counter_api.get_number_of_references_from_revision_ids(rev_batch)
+  #   end
+  #   {}
+  # end
+
   def maybe_get_reference_data(rev_batch)
     if ReferenceCounterApi.valid_wiki?(@wiki)
-      return @reference_counter_api.get_number_of_references_from_revision_ids(rev_batch)
+      begin
+        reference_data = @reference_counter_api.get_number_of_references_from_revision_ids(rev_batch)
+        
+        # Log the response for debugging purposes
+        Rails.logger.info("ReferenceCounterApi response for revisions #{rev_batch}: #{reference_data.inspect}")
+  
+        return reference_data
+      rescue StandardError => e
+        Rails.logger.error("Error fetching reference data for revisions #{rev_batch}: #{e.message}")
+        return {}
+      end
     end
     {}
   end

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import TextAreaInput from '../common/text_area_input.jsx';
 import CreatableInput from '../common/creatable_input.jsx';
 import TextInput from '../common/text_input.jsx';
@@ -133,6 +134,7 @@ const CourseForm = (props) => {
   }
 
 
+
   let privacyCheckbox;
   let campaign;
   let home_wiki;
@@ -193,6 +195,21 @@ const CourseForm = (props) => {
   } else {
     backCondition = props.previous;
   }
+
+  let backOrCancelButton;
+
+  // Display the back button if it's Program and Events dashboard and the user is an Admin or Instructor
+  // Otherwise display the Cancel button if it is the WikiEd dashboard
+  if (props.defaultCourse !== 'ClassroomProgramCourse' || props.isAdminOrInstructor) {
+    backOrCancelButton = (
+      <button onClick={backCondition} className="button dark">{I18n.t('application.back')}</button>
+    );
+  } else {
+        backOrCancelButton = (
+          <Link className="button" to="/" id="course_cancel">{I18n.t('application.cancel')}</Link>
+        );
+      }
+
   return (
     <div className={props.courseFormClass}>
       <div className="column">
@@ -232,7 +249,8 @@ const CourseForm = (props) => {
         {home_wiki}
         {multi_wiki}
         <div className="backButtonContainer">
-          <button onClick={backCondition} className="button dark">{I18n.t('application.back')}</button>
+          {/* <button onClick={backCondition} className="button dark">{I18n.t('application.back')}</button> */}
+          {backOrCancelButton}
           <p className="tempEduCourseIdText">
             {props.tempCourseId || '\xa0'}
           &nbsp;

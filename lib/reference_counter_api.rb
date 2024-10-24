@@ -52,12 +52,37 @@ class ReferenceCounterApi
   # reference-counter Toolforge API.
   # If the API response is not 200 or an error occurs, it returns nil.
   # Any encountered errors are logged in Sentry at the batch level.
+  # def get_number_of_references_from_revision_id(rev_id)
+  #   tries ||= 5
+  #   response = toolforge_server.get(references_query_url(rev_id))
+  #   parsed_response = Oj.load(response.body)
+  #   if response.status == 200
+  #     return { 'num_ref' => parsed_response['num_ref'] }
+  #   else
+  #     # Log the error and return empty hash
+  #     # Sentry.capture_message 'Non-200 response hitting references counter API', level: 'warning',
+  #     # extra: { project_code: @project_code, language_code: @language_code, rev_id:,
+  #     #                        status_code: response.status, content: parsed_response }
+  #     return { 'num_ref' => nil }
+  #   end
+  # rescue StandardError => e
+  #   tries -= 1
+  #   retry unless tries.zero?
+  #   @errors << e
+  #   return { 'num_ref' => nil }
+  # end
+
   def get_number_of_references_from_revision_id(rev_id)
     tries ||= 5
+    retries_done = 0  # Introduce a counter for retries
+
     response = toolforge_server.get(references_query_url(rev_id))
     parsed_response = Oj.load(response.body)
+    Rails.logger.info("ReferenceCounterApi response for revisions #{rev_id}: #{parsed_response.inspect} \n\n")
     if response.status == 200
-      return { 'num_ref' => parsed_response['num_ref'] }
+      result = { 'num_ref' => parsed_response['num_ref'] }
+      Rails.logger.info("Returning the value of the revision #{rev_id}: #{result.inspect} \n\n")
+      return result
     else
       # Log the error and return empty hash
       # Sentry.capture_message 'Non-200 response hitting references counter API', level: 'warning',
@@ -67,9 +92,15 @@ class ReferenceCounterApi
     end
   rescue StandardError => e
     tries -= 1
+    Rails.logger.error("Error occurred for revision #{rev_id}: #{e.message}")
+    Rails.logger.error("Reference Counter response for revision #{rev_id}: #{parsed_response.inspect} \n\n")
+    Rails.logger.error("Retry attempt #{retries_done}. Remaining tries: #{tries} \n\n")
+    result = { 'num_ref' => nil }
+    Rails.logger.info("Returning value for revision #{rev_id} on retry #{retries_done}: #{result.inspect}")
+    
     retry unless tries.zero?
     @errors << e
-    return { 'num_ref' => nil }
+    return result
   end
 
   class InvalidProjectError < StandardError

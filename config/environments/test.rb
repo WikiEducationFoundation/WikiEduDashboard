@@ -93,5 +93,11 @@ Rails.application.configure do
 
   config.allow_concurrency = false
 
-  config.log_level = :warn
+  # config.log_level = :warn
+  # config.log_level = :info
+  config.log_level = :debug
+  config.log_tags = [:request_id, :uuid]
+
+
+
 end

@@ -33,8 +33,10 @@ Rails.application.configure do
 
   # Set to :debug to see everything in the log.
   config.logger = Logger.new(STDOUT)
-  config.log_level = :info
+  # config.log_level = :info
+  config.log_level = :debug
 
+  config.log_tags = [:request_id, :uuid]
   # Prepend all log lines with the following tags.
   # config.log_tags = [ :subdomain, :uuid ]
 
