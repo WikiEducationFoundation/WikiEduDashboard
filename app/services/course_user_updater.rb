@@ -34,11 +34,7 @@ class CourseUserUpdater
     return unless @course.was_course_ever_updated?
 
     @course.wikis.each do |wiki|
-      # Get start time from first timeslice to update
-      first_start = @course.start
-      # Get start time from latest timeslice to update
-      latest_start = @timeslice_manager.get_latest_start_time_for_wiki(wiki)
-      fetch_users_revisions_for_wiki(wiki, user_ids, first_start, latest_start)
+      fetch_users_revisions_for_wiki(wiki, user_ids, @course.start, @course.end)
     end
   end
 
