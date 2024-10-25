@@ -419,13 +419,12 @@ const CourseCreator = createReactClass({
         <label htmlFor="checkbox_id">{I18n.t('courses.creator.copy_courses_with_assignments')}</label>
       </span>
     );
-    const { ifadmin: ifAdminStr, wiki_ed: wikiEdStr } = document.getElementById('nav_root').dataset;
-    let isAdminOrInstructor;
-    if (ifAdminStr === 'true' || Features.wikiEd === 'true') {
-      console.log(ifAdminStr, wikiEdStr, Features.wikiEd);
-      isAdminOrInstructor = true;
-    }
 
+    // set hasClonableCourses to true if the user has a clonable course
+    let hasClonableCourses;
+    if (this.props.cloneableCourses.length > 0) {
+      hasClonableCourses = true;
+    }
     return (
       <Modal key="modal">
         <Notifications />
@@ -464,7 +463,7 @@ const CourseCreator = createReactClass({
               defaultCourse={this.state.default_course_type}
               updateCourseProps={this.props.updateCourse}
               next={this.showCourseDates}
-              isAdminOrInstructor={isAdminOrInstructor}
+              hasClonableCourses={hasClonableCourses}
               previous={this.showCourseTypes}
               previousWikiEd={this.hideCourseForm}
               tempCourseId={this.state.tempCourseId}

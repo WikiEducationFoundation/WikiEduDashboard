@@ -198,15 +198,16 @@ const CourseForm = (props) => {
 
   let backOrCancelButton;
 
-  if (props.defaultCourse !== 'ClassroomProgramCourse' || props.isAdminOrInstructor) {
-    backOrCancelButton = (
-      <button onClick={backCondition} className="button dark">{I18n.t('application.back')}</button>
-    );
+// Displays "Back" button if the user has clonable courses or is on the P&E dashboard; otherwise shows "Cancel" link.
+if (props.hasClonableCourses || props.defaultCourse !== 'ClassroomProgramCourse') {
+  backOrCancelButton = (
+    <button onClick={backCondition} className="button dark">{I18n.t('application.back')}</button>
+  );
   } else {
-        backOrCancelButton = (
-          <Link className="button" to="/" id="course_cancel">{I18n.t('application.cancel')}</Link>
-        );
-      }
+  backOrCancelButton = (
+    <Link className="button" to="/" id="course_cancel">{I18n.t('application.cancel')}</Link>
+  );
+  }
 
   return (
     <div className={props.courseFormClass}>
@@ -247,7 +248,6 @@ const CourseForm = (props) => {
         {home_wiki}
         {multi_wiki}
         <div className="backButtonContainer">
-          {/* <button onClick={backCondition} className="button dark">{I18n.t('application.back')}</button> */}
           {backOrCancelButton}
           <p className="tempEduCourseIdText">
             {props.tempCourseId || '\xa0'}
