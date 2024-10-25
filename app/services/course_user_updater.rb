@@ -11,8 +11,8 @@ class CourseUserUpdater
   end
 
   def run
-    # Get the existing users in the course
-    current_user_ids = @course.users.pluck(:id)
+    # Get the existing students in the course (we don't create timeslices for non-students)
+    current_user_ids = @course.students.pluck(:id)
     # Users for whose exist a course user timeslice are considered processed
     processed_users = CourseUserWikiTimeslice.where(course: @course)
                                              .select(:user_id).distinct.pluck(:user_id)
