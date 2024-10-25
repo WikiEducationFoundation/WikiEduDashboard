@@ -100,8 +100,7 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
     non_empty_timeslices = article_course_timeslices.non_empty
     self.view_count = views_since_earliest_timeslices(non_empty_timeslices)
 
-    # TODO: update new_article. This should be done when ArticleCourse is created
-    # (update_from_course class method) because it's an invariant.
+    self.new_article = article_course_timeslices.any?(&:new_article)
     save
   end
 
