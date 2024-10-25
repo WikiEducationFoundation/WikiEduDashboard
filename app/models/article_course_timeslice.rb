@@ -74,6 +74,7 @@ class ArticleCourseTimeslice < ApplicationRecord
     self.character_sum = live_revisions.sum { |r| r.characters.to_i.positive? ? r.characters : 0 }
     self.references_count = live_revisions.sum(&:references_added)
     self.user_ids = associated_user_ids(live_revisions)
+    self.new_article = revisions.any?(&:new_article)
     save
   end
 
