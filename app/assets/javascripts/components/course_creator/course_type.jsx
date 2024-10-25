@@ -3,7 +3,7 @@ import { map } from 'lodash-es';
 import SelectableBox from '../common/selectable_box';
 import { Link } from 'react-router-dom';
 
-const CourseType = ({ back, wizardClass, wizardAction }) => {
+const CourseType = ({ back, hasClonableCourses, wizardClass, wizardAction }) => {
   const courseTypes = [
     {
       name: I18n.t('courses.creator.course_types.basic_course_name'),
@@ -31,8 +31,8 @@ const CourseType = ({ back, wizardClass, wizardAction }) => {
           );
         })}
       </div>
-      <button className="button dark" onClick={back}>{I18n.t('application.back')}</button>
-      <Link className="button right" to="/" id="course_cancel">{I18n.t('application.cancel')}</Link>
+      { hasClonableCourses && <button className="button dark" onClick={back}>{I18n.t('application.back')}</button> }
+      <Link style={{ marginRight: !hasClonableCourses ? '6em' : '' }} className="button right" to="/" id="course_cancel">{I18n.t('application.cancel')}</Link>
     </div>
   );
 };
