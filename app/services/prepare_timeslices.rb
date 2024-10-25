@@ -24,8 +24,8 @@ class PrepareTimeslices
       @timeslice_manager.create_timeslices_for_new_course_wiki_records(@course.wikis)
     end
     # Execute update tasks in a specific order
-    CourseUserUpdater.new(@course).run
-    CourseWikiUpdater.new(@course).run
-    CourseDateUpdater.new(@course).run
+    UpdateTimeslicesCourseUser.new(@course).run
+    UpdateTimeslicesCourseWiki.new(@course).run
+    UpdateTimeslicesCourseDate.new(@course).run
   end
 end

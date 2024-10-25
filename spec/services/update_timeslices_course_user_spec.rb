@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe CourseUserUpdater do
+describe UpdateTimeslicesCourseUser do
   let(:course) { create(:course, start: '2021-01-24', end: '2021-01-30') }
   let(:enwiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
   let(:updater) { described_class.new(course).run }

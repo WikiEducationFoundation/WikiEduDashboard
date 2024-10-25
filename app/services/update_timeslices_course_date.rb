@@ -3,7 +3,7 @@
 require_dependency "#{Rails.root}/lib/timeslice_manager"
 require_dependency "#{Rails.root}/lib/articles_courses_cleaner_timeslice"
 
-class CourseDateUpdater
+class UpdateTimeslicesCourseDate
   def initialize(course)
     @course = course
     @timeslice_manager = TimesliceManager.new(course)

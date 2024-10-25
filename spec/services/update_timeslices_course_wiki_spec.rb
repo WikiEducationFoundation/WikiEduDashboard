@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe CourseWikiUpdater do
+describe UpdateTimeslicesCourseWiki do
   let(:course) { create(:course, start: '2018-11-24', end: '2018-11-30') }
   let(:enwiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
   let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }
