@@ -3,7 +3,7 @@
 require_dependency "#{Rails.root}/lib/timeslice_manager"
 require_dependency "#{Rails.root}/lib/articles_courses_cleaner_timeslice"
 
-class CourseDateUpdater
+class UpdateTimeslicesCourseDate
   def initialize(course)
     @course = course
     @timeslice_manager = TimesliceManager.new(course)
@@ -24,11 +24,11 @@ class CourseDateUpdater
     # Remove timeslices if there are timeslices prior to the current start date
     remove_timeslices_prior_to_start_date unless min_course_end > @course.start
 
-    # Get the min course wiki timeslice start date
-    min_course_start = CourseWikiTimeslice.where(course: @course)
-                                          .minimum(:start)
+    # There is no guarantee that all wikis are in the same state.
+    # If at least one wiki is missing timeslices, then we need to add new timeslices.
+    max_min_course_start = CourseWikiTimeslice.max_min_course_start(@course)
 
-    add_timeslices_from_new_start_date unless min_course_start <= @course.start
+    add_timeslices_from_new_start_date unless max_min_course_start <= @course.start
   end
 
   def update_timeslices_if_end_date_changed
@@ -39,11 +39,11 @@ class CourseDateUpdater
     # Remove timeslices if there are timeslices after the current end date
     remove_timeslices_after_end_date unless max_course_start <= @course.end
 
-    # Get the max course wiki timeslice end date
-    max_course_end = CourseWikiTimeslice.where(course: @course)
-                                        .maximum(:end)
+    # There is no guarantee that all wikis are in the same state.
+    # If at least one wiki is missing timeslices, then we need to add new timeslices.
+    min_max_course_end = CourseWikiTimeslice.min_max_course_end(@course)
 
-    add_timeslices_up_to_new_end_date unless max_course_end >= @course.end
+    add_timeslices_up_to_new_end_date unless min_max_course_end >= @course.end
   end
 
   def add_timeslices_up_to_new_end_date

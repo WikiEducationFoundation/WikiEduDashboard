@@ -15,40 +15,19 @@ class UpdateCourseWikiTimeslices
   def initialize(course)
     @course = course
     @timeslice_manager = TimesliceManager.new(@course)
-    @course_wiki_updater = CourseWikiUpdater.new(@course)
-    @course_user_updater = CourseUserUpdater.new(@course)
-    @course_date_updater = CourseDateUpdater.new(@course)
   end
 
   def run(all_time:)
-    all_time ? clean_timeslices : pre_update
+    pre_update(all_time)
     fetch_data_and_process_timeslices_for_every_wiki(all_time)
     error_count
   end
 
   private
 
-  # Delete and recreate timeslices
-  def clean_timeslices
-    wiki_ids = @course.wikis.pluck(:wiki_id)
-    @timeslice_manager.delete_timeslices_for_deleted_course_wikis(wiki_ids)
-    # Destroy articles courses records to re-create article courses timeslices
-    @course.articles_courses.destroy_all
-    @timeslice_manager.create_timeslices_for_new_course_wiki_records(
-      @course.wikis.where(id: wiki_ids)
-    )
-  end
-
-  # Make changes if some wiki/users were added or removed, or the start/end
-  # course dates changed.
-  def pre_update
-    # order matters
-    unless @course.was_course_ever_updated?
-      @timeslice_manager.create_timeslices_for_new_course_wiki_records(@course.wikis)
-    end
-    @course_user_updater.run
-    @course_wiki_updater.run
-    @course_date_updater.run
+  def pre_update(from_scratch)
+    prepare_timeslices = PrepareTimeslices.new(@course)
+    from_scratch ? prepare_timeslices.recreate_timeslices : prepare_timeslices.adjust_timeslices
   end
 
   def fetch_data_and_process_timeslices_for_every_wiki(all_time)

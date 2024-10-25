@@ -143,6 +143,7 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
 
   # Returns a datetime with the date to stop getting revisions.
   def get_latest_start_time_for_wiki(wiki)
+    @course.reload
     end_of_course = @course.end.end_of_day
     today = Time.zone.now
     end_of_update_period = [end_of_course, today].min
@@ -186,7 +187,7 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
     return if new_records.empty?
     # Do this in batches to avoid running the MySQL server out of memory
     new_records.each_slice(5000) do |new_record_slice|
-      ArticleCourseTimeslice.import new_record_slice
+      ArticleCourseTimeslice.import new_record_slice, on_duplicate_key_ignore: true
     end
   end
 
@@ -211,7 +212,7 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
     return if new_records.empty?
     # Do this in batches to avoid running the MySQL server out of memory
     new_records.each_slice(5000) do |new_record_slice|
-      CourseUserWikiTimeslice.import new_record_slice
+      CourseUserWikiTimeslice.import new_record_slice, on_duplicate_key_ignore: true
     end
   end
 
@@ -292,8 +293,8 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
   # for timeslices with TIMESLICE_DURATION.
   def start_dates_backward
     start_dates = []
-    last_start = CourseWikiTimeslice.where(course: @course)
-                                    .minimum(:start)
+    # There is no guarantee that all wikis are in the same state.
+    last_start = CourseWikiTimeslice.max_min_course_start(@course)
     current_start = last_start - TIMESLICE_DURATION
     while current_start >= @course.start
       start_dates << current_start
@@ -307,8 +308,8 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
   # for timeslices with TIMESLICE_DURATION.
   def start_dates_from_old_end
     start_dates = []
-    last_start = CourseWikiTimeslice.where(course: @course)
-                                    .maximum(:start)
+    # There is no guarantee that all wikis are in the same state.
+    last_start = CourseWikiTimeslice.min_max_course_start(@course)
     current_start = last_start + TIMESLICE_DURATION
     while current_start <= @course.end
       start_dates << current_start
