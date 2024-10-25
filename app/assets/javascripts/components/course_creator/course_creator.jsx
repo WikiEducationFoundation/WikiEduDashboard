@@ -443,6 +443,7 @@ const CourseCreator = createReactClass({
               back = {this.hideWizardForm}
               wizardClass={courseWizard}
               wizardAction={this.showCourseForm}
+              hasClonableCourses={hasClonableCourses}
             />
             <ReuseExistingCourse
               selectClassName={selectClassName}
