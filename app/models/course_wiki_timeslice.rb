@@ -75,7 +75,7 @@ class CourseWikiTimeslice < ApplicationRecord
     end.min
   end
 
-  def self. min_max_course_end(course)
+  def self.min_max_course_end(course)
     course.wikis.filter_map do |wiki|
       CourseWikiTimeslice.for_course_and_wiki(course, wiki).maximum(:end)
     end.min
