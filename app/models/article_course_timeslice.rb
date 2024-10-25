@@ -14,6 +14,7 @@
 #  updated_at       :datetime         not null
 #  article_id       :integer          not null
 #  course_id        :integer          not null
+#  new_article      :boolean          default(FALSE)
 #
 class ArticleCourseTimeslice < ApplicationRecord
   belongs_to :article
