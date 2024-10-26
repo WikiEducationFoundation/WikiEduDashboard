@@ -126,7 +126,8 @@ describe ArticlesCourses, type: :model do
              end: '2024-07-08',
              character_sum: 12,
              references_count: 5,
-             user_ids: [2, user.id])
+             user_ids: [2, user.id],
+             new_article: true)
 
       # Empty timeslice, which should not count towards stats.
       create(:article_course_timeslice,
@@ -148,6 +149,7 @@ describe ArticlesCourses, type: :model do
       expect(article_course.references_count).to eq(9)
       expect(article_course.user_ids).to eq([2, 3, user.id])
       expect(article_course.view_count).to eq(12340)
+      expect(article_course.new_article).to be true
     end
   end
 

@@ -14,6 +14,7 @@
 #  updated_at       :datetime         not null
 #  article_id       :integer          not null
 #  course_id        :integer          not null
+#  new_article      :boolean          default(FALSE)
 #
 
 require 'rails_helper'
@@ -32,7 +33,8 @@ describe ArticleCourseTimeslice, type: :model do
            features: { 'num_ref' => 4 },
            features_previous: { 'num_ref' => 0 },
            user_id: 25,
-           date: start + 1.hour)
+           date: start + 1.hour,
+           new_article: true)
   end
   let(:revision2) do
     build(:revision, article:,
@@ -137,10 +139,12 @@ describe ArticleCourseTimeslice, type: :model do
       expect(article_course_timeslice.character_sum).to eq(100)
       expect(article_course_timeslice.references_count).to eq(3)
       expect(article_course_timeslice.user_ids).to eq([2, 4])
+      expect(article_course_timeslice.new_article).to eq(false)
       subject
       expect(article_course_timeslice.character_sum).to eq(348)
       expect(article_course_timeslice.references_count).to eq(3)
       expect(article_course_timeslice.user_ids).to eq([25, 1])
+      expect(article_course_timeslice.new_article).to eq(true)
     end
   end
 end
