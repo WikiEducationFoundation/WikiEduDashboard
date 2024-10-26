@@ -100,7 +100,7 @@ describe UpdateCourseStatsTimeslice do
       # TODO: update recent_revision_count
       expect(course.recent_revision_count).to eq(0)
       expect(course.article_count).to eq(14)
-      expect(course.new_article_count).to eq(0)
+      expect(course.new_article_count).to eq(3)
       expect(course.upload_count).to eq(0)
       expect(course.uploads_in_use_count).to eq(0)
       expect(course.upload_usages_count).to eq(0)
