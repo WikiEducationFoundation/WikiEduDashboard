@@ -25,6 +25,7 @@
 # Author: Mabroukb
 # Author: MacOS Weed
 # Author: Macofe
+# Author: Mahabarata
 # Author: Melimeli
 # Author: Méthodes Bulebe Hangi
 # Author: Oujon
@@ -690,14 +691,13 @@ fr:
         votre cours et ne peuvent pas être modifiés. Tout le reste pourra être changé
         ultérieurement. Cliquez sur « Créer mon cours ! » pour commencer à construire
         la planification de votre affectation à Wikipédia.
-      new_or_clone: Vous pouvez maintenant créer un nouveau cours en utilisant l’assistant
-        de conception de l’affectation. Si vous avez une planification fortement personnalisée
-        provenant d’un cours précédent que vous voulez réutiliser, vous pouvez la
-        dupliquer avec de nouvelles dates (si vous n’avez pas grandement personnalisé
-        votre planification auparavant, nous vous recommandons de démarrer un nouveau
-        cours pour avoir les versions les plus à jour des options d’affectation).
-        Vous pouvez aussi utiliser l’option duplication pour créer des sections supplémentaires
-        pour un cours que vous avez déjà défini.
+      new_or_clone: Cliquez sur « Créer un nouveau cours » pour accéder à l’assistant
+        de conception de devoirs. Votre calendrier comprendra les dernières options
+        pour les modules de formation recommandés de Wiki Education et pour d’autres
+        ressources. Si vous avez un calendrier fortement personnalisé provenant d’un
+        cours précédent que vous voulez réutiliser, vous pouvez le dupliquer avec
+        de nouvelles dates. Vous pouvez aussi utiliser l’option de duplication pour
+        créer des sections supplémentaires pour un cours que vous avez déjà configuré.
       no_class_holidays: Je n’ai pas de congés scolaires
       role_description: Votre rôle dans le cours
       role_description_options:
@@ -1993,6 +1993,7 @@ fr:
   multi_wiki:
     selector_placeholder: Commencez par entrer un domaine wiki
   news:
+    nav_tooltip: Modifications récentes et actualité
     add_news: Ajouter des nouvelles
     post_confirmation:
       title: Voulez-vous publier la mise à jour de l'actualité ?
@@ -2000,17 +2001,101 @@ fr:
     delete_confirmation:
       title: Procéder à la suppression du contenu des actualités ?
       confirmation: S’il vous plaît confirmez.
+    no_updates:
+      message: Actuellement, aucune mise à jour des actualités n'est disponible
+      check_later: Veuillez vérifier plus tard.
+    header:
+      P&E_dashboard_title: Modifications récentes et actualité
+      wiki_education_dashboard_title: Actualité du tableau de bord Wiki Education
     footer:
       P&E_dashboard:
         link_text: Wikimédia
+        footer_text: Lire les actualités et les changements récents
+      wiki_education_dashboard:
+        link_text: wikiedu.org/blog
+        footer_text: Autres actualités de Wiki Education
     options:
       news_content:
+        delete_news: Supprimer les actualités
+        confirm_delete: Confirmer
         cancel_delete: Annuler
+        cancel_edit: Annuler les modifications
+        edit_news: Modifier les actualités
+        update_news: Actualiser les actualités
+      create_news:
+        cancel_post: Annuler la publication
+        confirm_post: Confirmer la publication
+        discard_post: Supprimer une actualité
+        post_news: Publier une actualité
+    notification:
+      delete: Contenu de l'actualité supprimé avec succès
+      update: Contenu de l'actualité mis à jour avec succès
+      create_news: Contenu de l'actualité publié avec succès
+      create_news_error: Erreur lors de la création du contenu de l'actualité. Veuillez
+        réessayer.
+      update_error: Erreur lors de la mise à jour du contenu de l'actualité. Veuillez
+        réessayer.
+      empty_create_news_content_error: Veuillez saisir le contenu de l'actualité avant
+        de la publier.
+      empty_update_news_content_error: Veuillez saisir le contenu de l'actualité pour
+        la mettre à jour.
     text_area_input:
       placeholder: Ajouter des actualités et des modifications récentes
   notes:
     title: Titre
     note_title: Titre de la note
+    note_text: Texte de la note
+    created: La note a été créée avec succès.
+    updated: La note a été mise à jour avec succès.
+    failure: Erreur ! Veuillez réessayer plus tard.
+    empty_fields: Veuillez vous assurer que tous les champs de saisie sont remplis
+      et réessayez.
+    edit: L'heure de chaque modification est affichée dans votre fuseau horaire.
+    edited_by: Modifié par
+    last_edited_by: Affiche le nom de l'administrateur qui a modifié la note en dernier.
+    deleted: La note a été supprimée avec succès. Elle n'est plus disponible dans
+      vos notes.
+    delete_note_confirmation: 'Supprimer la note : cette action supprimera définitivement
+      la note. Êtes-vous sûr de vouloir continuer ?'
+    delete_note_error: Impossible de supprimer la note. Veuillez réessayer.
+    no_notes: Ce cours n'a actuellement aucune note associée.
+    create_note: Créer une note
     cancel_note_creation: Annuler
+    post_note: Publier
+    edit_note: Modifier la note
     cancel_edit_note: Annuler
+    save_note: Enregistrer
+    delete_note: Supprimer la note
+    admin:
+      button_text: Notes de l’administrateur
+      header_text: Panneau de notes de l'administrateur
+      aria_label:
+        notes_panel_opened: Le panneau des notes de l'administrateur est ouvert. Vous
+          pouvez appuyer sur la touche Échap pour le refermer.
+        close_admin: Fermer le panneau des notes de l'administrateur
+        note_action_button: Bouton d'action de notes
+        create_note: Bouton Créer une note
+        note_creation: La zone de création d'une note est désormais disponible.
+        cancel_note_creation: Annuler la création de la note.
+        post_created_note: Publier la note créée
+        note_title_field: Champ du titre de la note activé. Saisissez ici le titre
+          de la note.
+        note_text_field: Champ du texte de la note activé. Saisissez ici le contenu
+          de la note.
+        collapse_note: Appuyez sur Entrée pour replier le texte de la note {{title}}.
+        expand_note: Appuyez sur Entrée pour déplier afin d'afficher le texte de la
+          note {{title}}.
+        note_details_focused: Détails de la note {{title}}
+        note_edit_button_focused: Modifier les détails de la note {{title}}
+        note_edit_save_button_focused: Enregistrer la note modifiée {{title}}
+        note_edit_cancel_button_focused: Annuler les modifications de la note {{title}}
+        note_delete_button_focused: Supprimer la note {{title}}
+        note_edit_mode: 'Vous êtes entré en mode Édition pour la note intitulée :
+          {{title}}. Vous pouvez désormais modifier le titre et le contenu.'
+  customize_error_message:
+    JSONP_request_failed: La demande de récupération des données de Wikipédia a expiré.
+      Cela peut être dû à une connexion Internet lente ou à des problèmes temporaires
+      de serveur. Veuillez réessayer plus tard.
+  tagged_courses:
+    download_csv: Télécharger en CSV
 ...
