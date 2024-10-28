@@ -169,6 +169,7 @@ class User < ApplicationRecord
 
   # returns an array of roles a user has in a given course
   def course_roles(course)
+    return [] unless course
     course.courses_users.where(user_id: id).order('role DESC').pluck(:role)
   end
 
