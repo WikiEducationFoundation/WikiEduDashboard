@@ -1,6 +1,6 @@
 ## Article Scoped Programs
 
-The Article Scoped Program course type behaves differently from others: when it comes to stats and the Articles Edited list, it only tracks articles that within the specified scope.
+The Article Scoped Program course type behaves differently from others: when it comes to stats and the Articles Edited list, it only tracks articles that are within the specified scope.
 
 The scope of an Article Scoped Program is compiled from:
 
