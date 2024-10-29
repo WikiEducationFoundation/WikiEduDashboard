@@ -5,7 +5,6 @@ require_dependency "#{Rails.root}/lib/articles_courses_cleaner_timeslice"
 require_dependency "#{Rails.root}/lib/revision_data_manager"
 
 class UpdateTimeslicesUntrackedArticle
-  include TimesliceHelper
   def initialize(course)
     @course = course
     @timeslice_manager = TimesliceManager.new(course)
