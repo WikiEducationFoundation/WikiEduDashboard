@@ -54,11 +54,6 @@ const AvailableActions = ({ course, current_user, updateCourse, courseCreationNo
   };
 
   const deleteCourseFunc = () => {
-    // The action is only available once a course has been removed from all campaigns.
-    if (course.published) {
-      return alert(I18n.t('courses.delete_course_instructions'));
-    }
-
     const enteredTitle = prompt(I18n.t('courses.confirm_course_deletion', { title: course.title }));
     // Check if enteredTitle is not null before calling trim.
     if (enteredTitle !== null && enteredTitle.trim() === course.title.trim()) {
@@ -112,7 +107,7 @@ const AvailableActions = ({ course, current_user, updateCourse, courseCreationNo
     // so that users can see the instructions for how to enable deletion.
     if ((user.isAdvancedRole || user.admin) && (!course.published || !Features.wikiEd)) {
       controls.push((
-        <div title={I18n.t('courses.delete_course_instructions')} key="delete" className="available-action">
+        <div title={Features.wikiEd ? I18n.t('courses.delete_course_instructions') : undefined} key="delete" className="available-action">
           <button className="button danger" onClick={deleteCourseFunc}>
             {CourseUtils.i18n('delete_course', course.string_prefix)}
           </button>
