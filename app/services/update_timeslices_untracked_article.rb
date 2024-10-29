@@ -23,9 +23,9 @@ class UpdateTimeslicesUntrackedArticle
 
   def untrack(article_ids)
     return if article_ids.empty?
-    @article_course_timeslices_to_untrack = ArticleCourseTimeslice.where(course: @course)
-                                                                  .where(article_id: article_ids)
-                                                                  .where(tracked: true)
+    @article_course_timeslices_to_untrack = ArticleCourseTimeslice
+                                            .for_course_and_article(@course, article_ids)
+                                            .where(tracked: true)
     # Only reprocess those non-empty timeslices
     non_empty = @article_course_timeslices_to_untrack.where.not(user_ids: nil)
     # Mark course wiki timeslices that needs to be re-proccesed
@@ -41,9 +41,9 @@ class UpdateTimeslicesUntrackedArticle
 
   def retrack(article_ids)
     return if article_ids.empty?
-    @article_course_timeslices_to_retrack = ArticleCourseTimeslice.where(course: @course)
-                                                                  .where(article_id: article_ids)
-                                                                  .where(tracked: false)
+    @article_course_timeslices_to_retrack = ArticleCourseTimeslice
+                                            .for_course_and_article(@course, article_ids)
+                                            .where(tracked: false)
     # Only reprocess those non-empty timeslices
     non_empty = @article_course_timeslices_to_retrack.where.not(user_ids: nil)
     # Mark course wiki timeslices that needs to be re-proccesed
