@@ -15,6 +15,7 @@
 #  article_id       :integer          not null
 #  course_id        :integer          not null
 #  new_article      :boolean          default(FALSE)
+#  tracked          :boolean          default(TRUE)
 #
 
 require 'rails_helper'
