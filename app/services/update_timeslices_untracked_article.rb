@@ -36,7 +36,7 @@ class UpdateTimeslicesUntrackedArticle
 
   def untrack_timeslices
     ids = @article_course_timeslices_to_untrack.map(&:id)
-    ArticleCourseTimeslice.where(id: ids).update_all(tracked: 0) # rubocop:disable Rails/SkipsModelValidations
+    ArticleCourseTimeslice.where(id: ids).update_all(tracked: false) # rubocop:disable Rails/SkipsModelValidations
   end
 
   def retrack(article_ids)

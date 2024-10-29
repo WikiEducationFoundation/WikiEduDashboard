@@ -214,8 +214,9 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
   def create_empty_article_course_timeslices(starts, articles_courses)
     new_records = starts.map do |start|
       articles_courses.map do |a_c|
+        tracked = a_c[:tracked].nil? || a_c[:tracked]
         { article_id: a_c[:article_id], course_id: a_c[:course_id], start:,
-          end: start + TIMESLICE_DURATION, tracked: a_c[:tracked] }
+          end: start + TIMESLICE_DURATION, tracked: }
       end
     end.flatten
 
