@@ -102,7 +102,7 @@ const Article = ({ article, index, course, fetchArticleDetails, updateArticleTra
       <td className="desktop-only-tc">
         <a href={pageviewUrl} target="_blank" className="inline">{article.view_count}</a>
       </td>
-      <td>
+      <td className="article-diff-icons">
         <ArticleViewer
           article={article}
           course={course}
