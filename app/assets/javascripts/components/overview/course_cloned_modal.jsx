@@ -339,7 +339,6 @@ const CourseClonedModal = createReactClass({
           onChange={this.updateCourse}
           value={this.state.course.term}
           value_key="term"
-          required={true}
           validation={CourseUtils.courseSlugRegex()}
           editable={true}
           label={CourseUtils.i18n('creator.course_term', i18nPrefix)}
