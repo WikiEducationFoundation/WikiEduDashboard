@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe UpdateCourseStats do
-  let(:course) { create(:course) } 
+  let(:course) { create(:course) }
   let!(:article1) { create(:article) }
   let!(:article2) { create(:article) }
   let(:update_service) { described_class.new(course) }
@@ -15,7 +15,7 @@ RSpec.describe UpdateCourseStats do
   describe '#update_average_pageviews' do
     it 'updates outdated average views for the course articles' do
       expect(AverageViewsImporter).to receive(:update_outdated_average_views)
-        .with(course.articles, update_service: update_service)
+        .with(course.articles, update_service:)
 
       # Call the update_average_pageviews method directly
       update_service.send(:update_average_pageviews)
