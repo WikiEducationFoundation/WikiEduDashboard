@@ -18,6 +18,7 @@
 # Author: Ragesoss
 # Author: Raymond
 # Author: Robby
+# Author: Stjn
 # Author: Verdy p
 # Author: Vojtěch Dostál
 # Author: Zoranzoki21
@@ -535,11 +536,10 @@ qqq:
     volunteer:
       one: |-
         Label for a single course volunteer
-        {{Identical|Label for multiple course volunteers
-        {{Identical|Volunteer}}}}
+        {{Identical|Volunteer}}
       other: |-
-        Volunteer|Label for multiple course volunteers
-        {{Identical|Volunteer}}}}
+        Label for multiple course volunteers
+        {{Identical|Volunteer}}
     weeks_none: Message indicating that a course does not have a timeline (Wiki Ed
       only)
     warn_mirrored: Message to alert instructor that their new course will be uploaded

@@ -21,7 +21,7 @@
 
 ## Jobs rejected from redis queue by uniquejobs
 
-Sometimes the redis entry for a job lock remains even though the job is not enqueued or runnings. Use `redis-cli` to interact with redis directly.
+Sometimes the redis entry for a job lock remains even though the job is not enqueued or running. Use `redis-cli` to interact with redis directly.
 
 It's usually okay to delete all the locks by removing all uniquejobs keys. If there are no running jobs and the queues are empty, this is unlikely to cause problems. This will not interfere with scheduled jobs that haven't been enqueue yet.
 

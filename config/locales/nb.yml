@@ -10,6 +10,7 @@
 # Author: Kingu
 # Author: Pmt
 # Author: Tarjeimo
+# Author: Yupik
 ---
 nb:
   number:
@@ -742,7 +743,6 @@ nb:
         form_label: Bevilg spesielle brukerrettigheter
         form_placeholder: Brukernavn
         confirm_add_special_user: Legg til spesialbruker
-        confirm_remove_special_user: Fjern spesielle brukerrettigheter for
         already_is: '%{username} er allerede {position}!'
         elevate_success: '%{username} satt til {position}.'
       remove:
@@ -1033,4 +1033,6 @@ nb:
     search: Søk
     show_options: Vis valg
     tools: Verktøy
+  training_status:
+    continue: Fortsett
 ...

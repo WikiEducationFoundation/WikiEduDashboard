@@ -5,10 +5,10 @@ const WEEKDAYS_LONG = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', '
 const WEEKDAYS_SHORT = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
 
 const localeUtils = {
-  formatWeekdayLong: function (weekday) {
+  formatWeekdayLong(weekday) {
     return WEEKDAYS_LONG[weekday];
   },
-  formatWeekdayShort: function (weekday) {
+  formatWeekdayShort(weekday) {
     return WEEKDAYS_SHORT[weekday];
   }
 };

@@ -17,7 +17,7 @@ const NewsNavIcon = ({ setIsOpen }) => {
     const expires = new Date();
     expires.setFullYear(expires.getFullYear() + 10);
 
-    Cookies.set(`lastFetchTimestamp_${newsType}`, currentTimestamp, { expires: expires });
+    Cookies.set(`lastFetchTimestamp_${newsType}`, currentTimestamp, { expires });
   };
 
   useEffect(() => {

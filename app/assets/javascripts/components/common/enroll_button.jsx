@@ -26,7 +26,7 @@ const EnrollButton = ({ users, role, course, current_user, allowed, inline }) =>
   useEffect(() => {
     if (!usernameRef.current || !usernameRef.current.value) { return; }
     const username = usernameRef.current.value;
-    if (getFiltered(users, { username, role: role }).length > 0) {
+    if (getFiltered(users, { username, role }).length > 0) {
       dispatch(addNotification({
         message: I18n.t('users.enrolled_success', { username }),
         closable: true,
@@ -57,7 +57,7 @@ const EnrollButton = ({ users, role, course, current_user, allowed, inline }) =>
 
     const userObject = {
       username,
-      role: role,
+      role,
       role_description: roleDescription,
       real_name: realName
     };
@@ -69,7 +69,7 @@ const EnrollButton = ({ users, role, course, current_user, allowed, inline }) =>
     const confirmMessage = I18n.t('users.enroll_confirmation', { username });
 
     // If the user is not already enrolled
-    if (getFiltered(users, { username, role: role }).length === 0) {
+    if (getFiltered(users, { username, role }).length === 0) {
       return dispatch(initiateConfirm({ confirmMessage, onConfirm }));
     }
     // If the user us already enrolled
@@ -81,9 +81,9 @@ const EnrollButton = ({ users, role, course, current_user, allowed, inline }) =>
   };
 
   const unenroll = (userId) => {
-    const user = getFiltered(users, { id: userId, role: role })[0];
+    const user = getFiltered(users, { id: userId, role })[0];
     const courseId = course.slug;
-    const userObject = { user_id: userId, role: role };
+    const userObject = { user_id: userId, role };
 
     const onConfirm = () => {
       // Post the user deletion request to the server

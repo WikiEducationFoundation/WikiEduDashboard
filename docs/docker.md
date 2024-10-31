@@ -25,7 +25,7 @@ docker compose will mount project directory to the container for development pur
 # Run all service
 $ docker compose up
 ``` 
-This command will start init container, it will wait for MySQL and redis container to start. Then init container will try to initialized db. If the init container success, app container will start and mount `./` (project directory) to the `/app` (container `WORKDIR` location). Last, the docker compose will expose the port to make sure the container can be accessible from host computer.
+This command will start init container, it will wait for MySQL and Redis container to start. Then init container will try to initialized db. If the init container success, app container will start and mount `./` (project directory) to the `/app` (container `WORKDIR` location). Last, the docker compose will expose the port to make sure the container can be accessible from host computer.
 ```
 => Booting Puma
 => Rails 7.0.4 application starting in development

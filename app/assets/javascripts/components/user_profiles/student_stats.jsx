@@ -5,7 +5,7 @@ import ArticleUtils from '../../utils/article_utils';
 const StudentStats = ({ username, stats, maxProject }) => {
   return (
     <div className= "user_stats">
-      <h5> {I18n.t('user_profiles.student_impact', { username: username })} </h5>
+      <h5> {I18n.t('user_profiles.student_impact', { username })} </h5>
       <div className= "stat-display">
         <div className= "stat-display__stat">
           <div className="stat-display__value">

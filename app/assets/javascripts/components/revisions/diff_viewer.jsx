@@ -197,7 +197,7 @@ const DiffViewer = createReactClass({
       }
 
       this.setState({
-        diff: diff,
+        diff,
         comment: firstRevisionData.comment,
         fetched: true,
         firstRevDateTime: firstRevisionData.timestamp,

@@ -12,7 +12,7 @@
 - [Contributing](../CONTRIBUTING.md)
 - [Development Process outline](dev_process.md)
 - [Deployment](deploy.md)
-- [Upgrading dependencies](upgrading_dependencies.md)
+- [Upgrading dependencies](upgrade_dependencies.md)
 - [Tools & Integrations](tools.md)
 - [Model diagram](../erd.pdf)
 - [Miscellaneous Credits](miscellaneous_credits.md)

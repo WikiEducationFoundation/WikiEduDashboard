@@ -52,92 +52,216 @@ describe User do
     end
   end
 
-  describe '#role' do
-    it 'grants instructor permission for a user creating a new course' do
-      course = nil
-      user = create(:user)
-      role = user.role(course)
-      expect(role).to eq(1)
-    end
-
-    it 'treats an admin like the instructor' do
-      course = create(:course)
-      admin = create(:admin)
-      role = admin.role(course)
-      expect(role).to eq(1)
-    end
-
-    it 'returns the assigned role for a non-admin' do
-      course = create(:course,
-                      id: 1)
-      user = create(:user,
-                    id: 1)
-      create(:courses_user,
-             course_id: 1,
-             user_id: 1,
-             role: 0) # student
-      role = user.role(course)
-      expect(role).to eq(0)
-      expect(user.student?(course)).to eq(true)
-      expect(user.course_student?).to eq(true)
-      expect(user.instructor?(course)).to eq(false)
-
-      # Now let's make this user also an instructor.
-      create(:courses_user,
-             course_id: 1,
-             user_id: 1,
-             role: 1) # instructor
-      expect(user.instructor?(course)).to eq(true)
-      expect(user.course_instructor?).to eq(true)
-
-      # User is only an instructor, not an admin.
-      adminship = user.roles(course)[:admin]
-      expect(adminship).to eq(false)
-      # role = user.role(course)
-      # FIXME: User#role does not account for users with multiple roles.
-      # We can probably disable the option of multiple roles when we disconnect
-      # the MediaWiki EP extension. For the sake of permissions, though, #role
-      # probably ought to return the most permissive role for a user.
-      # expect(role).to eq(1)
-    end
-
-    it 'returns -1 for a user who is not part of the course' do
+  describe '#course_roles' do
+    it 'returns an array of roles a user has in a course' do
       course = create(:course)
       user = create(:user)
-      role = user.role(course)
-      expect(role).to eq(-1)
+      create(:courses_user,
+             course_id: course.id,
+             user_id: user.id,
+             role: CoursesUsers::Roles::STUDENT_ROLE)
+
+      create(:courses_user,
+             course_id: course.id,
+             user_id: user.id,
+             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+
+      roles = user.course_roles(course)
+      expect(roles).to contain_exactly(1, 0)
+    end
+
+    it 'returns an empty array when the user has no roles in the course' do
+      course = create(:course)
+      user = create(:user)
+      roles = user.course_roles(course)
+      expect(roles).to be_empty
+    end
+  end
+
+  describe '#highest_role' do
+    it 'returns the highest role a user has in a course - multiple roles' do
+      course = create(:course)
+      user = create(:user)
+      create(:courses_user,
+             course_id: course.id,
+             user_id: user.id,
+             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+
+      create(:courses_user,
+             course_id: course.id,
+             user_id: user.id,
+             role: CoursesUsers::Roles::CAMPUS_VOLUNTEER_ROLE)
+      highest_role = user.highest_role(course)
+      expect(highest_role).to be(2)
+    end
+
+    it 'returns the highest role a user has in a course' do
+      course = create(:course)
+      user = create(:user)
+      create(:courses_user,
+             course_id: course.id,
+             user_id: user.id,
+             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+      highest_role = user.highest_role(course)
+      expect(highest_role).to be(1)
+    end
+
+    it 'returns visitor role when user has no role in the course' do
+      course = create(:course)
+      user = create(:user)
+
+      highest_role = user.highest_role(course)
+      expect(highest_role).to be(-1)
     end
   end
 
   describe '#can_edit?' do
     it 'returns true for users with non-student roles' do
-      course = create(:course,
-                      id: 1)
-      user = create(:user,
-                    id: 1)
+      course = create(:course)
+      user = create(:user)
       create(:courses_user,
-             course_id: 1,
-             user_id: 1,
-             role: 1) # instructor
+             course_id: course.id,
+             user_id: user.id,
+             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
       permission = user.can_edit?(course)
       expect(permission).to be true
     end
 
     it 'returns false for students and visitors' do
-      course = create(:course,
-                      id: 1)
-      user = create(:user,
-                    id: 1)
+      course = create(:course)
+      user = create(:user)
       # User is not associated with course.
       permission = user.can_edit?(course)
       expect(permission).to be false
 
       # Now user is a student.
       create(:courses_user,
-             course_id: 1,
-             user_id: 1,
-             role: 0) # instructor
+             course_id: course.id,
+             user_id: user.id,
+             role: CoursesUsers::Roles::STUDENT_ROLE)
       permission = user.can_edit?(course)
+      expect(permission).to be false
+    end
+
+    it 'returns true for users with multiple roles, including an editing role' do
+      course = create(:course)
+      user = create(:user)
+      # User is an instructor
+      create(:courses_user,
+             course_id: course.id,
+             user_id: user.id,
+             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+
+      # User is also a campus volunteer
+      create(:courses_user,
+             course_id: course.id,
+             user_id: user.id,
+             role: CoursesUsers::Roles::CAMPUS_VOLUNTEER_ROLE)
+
+      permission = user.can_edit?(course)
+      expect(permission).to be true
+    end
+  end
+
+  describe '#nonvisitor' do
+    it 'returns false when the user has only visitor role' do
+      course = create(:course)
+      user = create(:user)
+      permission = user.nonvisitor?(course)
+      expect(permission).to be false
+    end
+
+    it 'returns true when the user has one non-visitor role' do
+      course = create(:course)
+      user = create(:user)
+      create(:courses_user,
+             course_id: course.id,
+               user_id: user.id,
+               role: CoursesUsers::Roles::STUDENT_ROLE)
+      permission = user.nonvisitor?(course)
+      expect(permission).to be true
+    end
+
+    it 'returns true for users with multiple roles, including a visitor role' do
+      # User is a visitor
+      course = create(:course)
+      user = create(:user)
+
+      # User is also a campus volunteer
+      create(:courses_user,
+             course_id: course.id,
+             user_id: user.id,
+             role: CoursesUsers::Roles::CAMPUS_VOLUNTEER_ROLE)
+
+      permission = user.nonvisitor?(course)
+      expect(permission).to be true
+    end
+  end
+
+  describe '#can_see_real_names?' do
+    it 'returns true when the user has an instructor role' do
+      course = create(:course)
+      user = create(:user)
+      create(:courses_user,
+             course_id: course.id,
+             user_id: user.id,
+             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+      permission = user.can_see_real_names?(course)
+      expect(permission).to be true
+    end
+
+    it 'returns true when the user has a staff role' do
+      course = create(:course)
+      user = create(:user)
+      create(:courses_user,
+             course_id: course.id,
+              user_id: user.id,
+              role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE)
+      permission = user.can_see_real_names?(course)
+      expect(permission).to be true
+    end
+
+    it 'returns true for users with multiple roles, including a real name role' do
+      # User is a visitor
+      course = create(:course)
+      user = create(:user)
+      permission = user.can_see_real_names?(course)
+      expect(permission).to be false
+
+      # Now user is an instructor
+      create(:courses_user,
+             course_id: course.id,
+             user_id: user.id,
+             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+
+      permission = user.can_see_real_names?(course)
+      expect(permission).to be true
+    end
+
+    it 'returns false when the user has no real name role' do
+      course = create(:course)
+      user = create(:user)
+      create(:courses_user,
+             course_id: course.id,
+              user_id: user.id,
+              role: CoursesUsers::Roles::STUDENT_ROLE)
+      permission = user.can_see_real_names?(course)
+      expect(permission).to be false
+    end
+
+    it 'returns false when the user has multiple roles and no real name role' do
+      course = create(:course)
+      user = create(:user)
+      create(:courses_user,
+             course_id: course.id,
+              user_id: user.id,
+              role: CoursesUsers::Roles::STUDENT_ROLE)
+
+      create(:courses_user,
+             course_id: course.id,
+               user_id: user.id,
+               role: CoursesUsers::Roles::CAMPUS_VOLUNTEER_ROLE)
+      permission = user.can_see_real_names?(course)
       expect(permission).to be false
     end
   end

@@ -203,7 +203,7 @@ ru:
       tracked_and_untracked: Отслеживаемые и неотслеживаемые
     filter_text: Фильтры
     find: Найти статьи
-    how_to_find: Как найти статьи
+    how_to_find: Как найти статью
     hide: Скрыть
     history: (история)
     label: Статьи
@@ -244,6 +244,9 @@ ru:
     edit_size: Изменить размер
     wiki: Вики
     articles_short: Статьи
+    not_choosen_article: Вы не выбрали статью для работы. Когда вы найдете статью
+      для работы, используйте кнопку выше, чтобы назначить ее.
+    use_dashboard: Как использовать панель инструментов
   items:
     lexeme: Лексема
     how_to_find: Как найти предметы
@@ -656,6 +659,7 @@ ru:
     next: Следующая страница
     page: Страница
     previous: < Предыдущая
+    additional_training: Дополнительные учебные модули
     done: Готово!
     invalid: Извините, этого слайда не существует!
     check_answer: Проверить ответ
@@ -665,6 +669,8 @@ ru:
       Нажмите <a href="%{url}">здесь</a>, чтобы загрузить данные обучения из файлов
       training_content/yaml.
     no_training_library_records_non_wiki_ed_mode: В базе данных нет записей TrainingLibrary.
+    remaining_exercise: Осталось %{count} дополнительных упражнений.
+    view_all: Просмотреть все упражнения
   update_username:
     username_updated: Имя участника успешно обновлено!
     label: Новое имя участника

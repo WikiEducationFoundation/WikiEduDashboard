@@ -2,7 +2,7 @@
 
 ## Front end Technology
 
-The dashboard front end is primary built using React.js, written in Javascript and JSX. What follows is an overview of how data moves through the app and some more general resources for understanding the stack.
+The dashboard front end is primarily built using React.js, written in Javascript and JSX. What follows is an overview of how data moves through the app and some more general resources for understanding the stack.
 
 The stylesheet language used is Stylus along with its Rupture utility.
 ### Resources
