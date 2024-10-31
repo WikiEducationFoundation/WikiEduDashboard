@@ -4,12 +4,12 @@ Here's a template you can use for index.html:
 
 ```
 <html>
-<p>Programs &amp; Events Dashboard has been having unexpected problems since 2021-03-16.</p>
-<p>I'm taking it offline to repair it. It will be back as soon as possible, likely later today.</p>
-<p>For details and updates, see <a href="https://phabricator.wikimedia.org/T277651">https://phabricator.wikimedia.org/T277651</a>.</p>
-<p>&nbsp;</p>
-<p>-Sage Ross (User:Ragesoss), Wiki Education</p>
-<p>sage@wikiedu.org</p>
+  <p>Programs &amp; Events Dashboard has been having unexpected problems since 2021-03-16.</p>
+  <p>I'm taking it offline to repair it. It will be back as soon as possible, likely later today.</p>
+  <p>For details and updates, see <a href="https://phabricator.wikimedia.org/T277651">https://phabricator.wikimedia.org/T277651</a>.</p>
+  <p>&nbsp;</p>
+  <p>-Sage Ross (User:Ragesoss), Wiki Education</p>
+  <p>sage@wikiedu.org</p>
 </html>
 
 ```

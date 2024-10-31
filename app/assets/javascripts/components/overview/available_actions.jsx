@@ -47,7 +47,7 @@ const AvailableActions = ({ course, current_user, updateCourse, courseCreationNo
   const leave = () => {
     const courseSlug = course.slug;
     const role = current_user.isOnlineVolunteer ? ONLINE_VOLUNTEER_ROLE : STUDENT_ROLE;
-    const userRecord = { user: { user_id: current_user.id, role: role } };
+    const userRecord = { user: { user_id: current_user.id, role } };
     const onConfirm = () => dispatch(removeUser(courseSlug, userRecord));
     const confirmMessage = I18n.t('courses.leave_confirmation');
     dispatch(initiateConfirm({ confirmMessage, onConfirm }));

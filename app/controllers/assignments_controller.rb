@@ -67,8 +67,9 @@ class AssignmentsController < ApplicationController
   end
 
   def update_status
-    check_permissions(assignment_params[:user_id].to_i)
     @assignment = Assignment.find(assignment_params[:id])
+    @course = @assignment.course
+    check_permissions(assignment_params[:user_id].to_i)
 
     if assignment_params[:status]
       @assignment.update_status(assignment_params[:status])

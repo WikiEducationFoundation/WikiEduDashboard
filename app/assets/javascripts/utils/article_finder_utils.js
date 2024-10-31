@@ -27,7 +27,7 @@ export const categoryQueryGenerator = (category, cmcontinue, namespace) => {
     cmtitle: category,
     cmlimit: 50,
     cmnamespace: namespace,
-    cmcontinue: cmcontinue
+    cmcontinue
   };
 };
 

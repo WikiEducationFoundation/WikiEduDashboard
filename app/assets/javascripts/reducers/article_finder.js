@@ -103,9 +103,9 @@ export default function articleFinder(state = initialState, action) {
         ...state,
         articles: newStateArticles,
         continue_results: continueResults,
-        cmcontinue: cmcontinue,
+        cmcontinue,
         loading: false,
-        fetchState: fetchState,
+        fetchState,
         lastRelevanceIndex: state.lastRelevanceIndex + 50,
       };
     }
@@ -134,9 +134,9 @@ export default function articleFinder(state = initialState, action) {
         ...state,
         articles: newStateArticles,
         continue_results: continueResults,
-        offset: offset,
+        offset,
         loading: false,
-        fetchState: fetchState,
+        fetchState,
         lastRelevanceIndex: state.lastRelevanceIndex + 50,
       };
     }

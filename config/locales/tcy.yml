@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: BHARATHESHA ALASANDEMAJALU
+# Author: ChiK
 # Author: Ravi Mundkur
 # Author: Vishwanatha Badikana
 ---
@@ -12,10 +13,10 @@ tcy:
     filter:
       wiki_all: ಮಾತಾ
       new: ಪೊಸ
-      existing: ಇತ್ತಿನ (ಇಪ್ಪುನ)
+      existing: ಇಪ್ಪುನ
       new_and_existing: ಪೊಸ ಬೊಕ ಇತ್ತಿನ
   courses:
-    enrollment: ಜೋಕ್ಲೆನ್ ಸೇರಲೆ / ದೆತ್ತ್‌ಪಾಡ್ಲೆ
+    enrollment: ಜೋಕ್ಲೆನ್ ಸೇರಲೆ/ದೆತ್ತ್‌ಪಾಡ್ಲೆ
     requested_accounts_alert:
       other: ಒಂಜಿ=%{count}ಕೇಣಿನ ಖಾತೆ ಬಾಕಿ ಉಂಡು.
     requested_accounts_alert_view: ನೋಟ

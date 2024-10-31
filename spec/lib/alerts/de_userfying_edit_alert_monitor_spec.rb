@@ -15,21 +15,25 @@ describe DeUserfyingEditAlertMonitor do
   let(:student1) { create(:user, username: 'alice', email: 'student1@example.edu') }
   let(:student2) { create(:user, username: 'bob', email: 'student2@example.edu') }
   let(:student3) { create(:user, username: 'carol', email: 'student3@example.edu') }
+  let(:instructor1) { create(:user, username: 'sidney', email: 'instructor1@example.edu') }
   let(:article1) { create(:article, title: 'my title 1', mw_page_id: 111) }
   let(:article2) { create(:article, title: 'my title 2', mw_page_id: 222) }
   let(:content_expert) { create(:user, greeter: true) }
   let!(:student_role) { CoursesUsers::Roles::STUDENT_ROLE }
+  let!(:instructor_role) { CoursesUsers::Roles::INSTRUCTOR_ROLE }
   let(:courses_users) do
     [
       { course_id: course1.id, user_id: student1.id, role: student_role },
       { course_id: course1.id, user_id: student3.id, role: student_role },
       { course_id: course2.id, user_id: student2.id, role: student_role },
-      { course_id: course2.id, user_id: student3.id, role: student_role }
+      { course_id: course2.id, user_id: student3.id, role: student_role },
+      { course_id: course1.id, user_id: instructor1.id, role: instructor_role },
+      { course_id: course2.id, user_id: instructor1.id, role: instructor_role }
     ]
   end
 
   before do
-    populate_students
+    populate_users
   end
 
   describe '.edits' do
@@ -46,18 +50,18 @@ describe DeUserfyingEditAlertMonitor do
     end
   end
 
-  describe '.current_students' do
-    it 'checks distinct enrolled students' do
-      expect(mntor.current_students.count).to eq 3
+  describe '.current_users' do
+    it 'checks distinct enrolled users' do
+      expect(mntor.current_users.count).to eq 4
     end
   end
 
-  describe '.edits_made_by_students' do
-    it 'filters students that de-userfyed their page' do
+  describe '.edits_made_by_users' do
+    it 'filters users that de-userfyed their page' do
       allow(mntor).to receive(:edits).and_return(editsfeed)
       edits = mntor.edits
-      students = mntor.current_students
-      expect(mntor.edits_made_by_students(edits, students).count).to eq editsfeed.count
+      users = mntor.current_users
+      expect(mntor.edits_made_by_users(edits, users).count).to eq editsfeed.count
     end
   end
 
@@ -95,9 +99,18 @@ describe DeUserfyingEditAlertMonitor do
 
   describe '.courses_for_a_student' do
     it 'checks course(s) for a given student' do
-      expect(mntor.courses_for_a_student(student1))
+      expect(mntor.courses_for_user(student1))
         .to eq courses_users
           .filter { |cu| cu[:user_id] == student1.id }
+          .pluck(:course_id)
+    end
+  end
+
+  describe '.courses_for_an_instructor' do
+    it 'checks course(s) for a given instructor' do
+      expect(mntor.courses_for_user(instructor1))
+        .to eq courses_users
+          .filter { |cu| cu[:user_id] == instructor1.id }
           .pluck(:course_id)
     end
   end
@@ -125,9 +138,9 @@ describe DeUserfyingEditAlertMonitor do
 
   private
 
-  # Some students should be enrolled in multiple courses to make
+  # Some students and instructors should be enrolled in multiple courses to make
   # the test effective.
-  def populate_students
+  def populate_users
     CoursesUsers.create(courses_users)
   end
 

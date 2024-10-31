@@ -102,7 +102,7 @@ export const readAllMessages = ticket => async (dispatch) => {
 
 const fetchSomeTickets = async (dispatch, page, searchQuery, batchSize = 100) => {
   const offset = batchSize * page;
-  let paramsObj = { limit: batchSize, offset: offset };
+  let paramsObj = { limit: batchSize, offset };
   // Initial display => TicketDispenser
   let path = '/td/tickets';
   // if at least one search query value is not-empty => search in DB
