@@ -169,6 +169,41 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
     end
   end
 
+  # Returns (wiki, start) tuples for timeslices to reprocess
+  def get_wiki_and_start_dates_to_reprocess(article_course_timeslices)
+    # Extract article IDs and start dates as unique pairs
+    articles_and_starts = article_course_timeslices.map do |timeslice|
+      [timeslice.article_id, timeslice.start.strftime('%Y-%m-%d %H:%M:%S')]
+    end.uniq
+
+    # Fetch articles and map article IDs to their corresponding wiki IDs
+    id_to_wiki_map = Article.where(id: articles_and_starts.map(&:first))
+                            .index_by(&:id)
+                            .transform_values(&:wiki_id)
+
+    # Return unique combinations of wiki IDs and start dates
+    articles_and_starts.map { |article_id, start| [id_to_wiki_map[article_id], start] }.uniq
+  end
+
+  # Marks course wiki timeslices as needs_update for those dates when
+  # removed/new users made some edits
+  # Takes a collection of user ids
+  def update_course_wiki_timeslices_that_need_update(wikis_and_starts)
+    return if wikis_and_starts.empty?
+
+    # Prepare the list of tuples for SQL
+    tuples_list = wikis_and_starts.map do |wiki_id, start_date|
+      "(#{wiki_id}, '#{start_date}')"
+    end.join(', ')
+
+    # Perform the query using raw SQL for specific (wiki_id, start_date) pairs
+    course_wiki_timeslices = CourseWikiTimeslice.where(course: @course)
+                                                .where("(wiki_id, start) IN (#{tuples_list})")
+
+    # Update all CourseWikiTimeslice records with matching course, wiki and start dates
+    course_wiki_timeslices.update_all(needs_update: true) # rubocop:disable Rails/SkipsModelValidations
+  end
+
   TIMESLICE_DURATION = 1.day
 
   private
@@ -179,8 +214,9 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
   def create_empty_article_course_timeslices(starts, articles_courses)
     new_records = starts.map do |start|
       articles_courses.map do |a_c|
+        tracked = a_c[:tracked].nil? || a_c[:tracked]
         { article_id: a_c[:article_id], course_id: a_c[:course_id], start:,
-          end: start + TIMESLICE_DURATION }
+          end: start + TIMESLICE_DURATION, tracked: }
       end
     end.flatten
 

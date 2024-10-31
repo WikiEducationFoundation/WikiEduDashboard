@@ -11,8 +11,9 @@ class PrepareTimeslices
   # Deletes all existing timeslices and recreates them from scratch.
   def recreate_timeslices
     @timeslice_manager.delete_timeslices_for_deleted_course_wikis(@course.wikis.pluck(:wiki_id))
-    # Destroy articles courses records to re-create article courses timeslices
-    @course.articles_courses.destroy_all
+    # Destroy articles courses records to re-create article courses timeslices, except for
+    # untracked articles courses so that we don't miss they're untracked.
+    @course.articles_courses.tracked.destroy_all
     @timeslice_manager.create_timeslices_for_new_course_wiki_records(@course.wikis)
   end
 
@@ -25,6 +26,7 @@ class PrepareTimeslices
     end
     # Execute update tasks in a specific order
     UpdateTimeslicesCourseUser.new(@course).run
+    UpdateTimeslicesUntrackedArticle.new(@course).run
     UpdateTimeslicesCourseWiki.new(@course).run
     UpdateTimeslicesCourseDate.new(@course).run
   end
