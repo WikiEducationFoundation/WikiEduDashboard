@@ -58,8 +58,8 @@ const AvailableActions = ({ course, current_user, updateCourse, courseCreationNo
     const enteredTitle = prompt(I18n.t('courses.confirm_course_deletion', { title: course.title }));
     // Check if enteredTitle is not null before calling trim.
     if (enteredTitle !== null && enteredTitle.trim() === course.title.trim()) {
-      // If in Wiki Ed or course has no campaigns, delete the course directly; otherwise, remove from campaign first.
-      if (Features.wikiEd || !course.campaigns || course.campaigns.length === 0) {
+      // If course has no campaigns, delete the course directly; otherwise, remove from campaign first.
+      if (!course.campaigns || course.campaigns.length === 0) {
         return dispatch(deleteCourse(courseSlug));
       }
       const campaign = course.campaigns[0];
