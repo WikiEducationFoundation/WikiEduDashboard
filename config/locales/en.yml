@@ -1128,6 +1128,8 @@ en:
       other: total usages across languages
     view_count_description: Article Views
     view_count_description_wikidata: Item Views
+    view_count_doc: This is the estimated number of views based on a 30-day average for each article, through the most recent stats update. Views may decrease if the updated average is lower than previous counts.
+    view_count_doc_wikidata: This is the estimated number of views based on a 30-day average for each item, through the most recent stats update. Views may decrease if the updated average is lower than previous counts.
     view_data_unavailable: No view data available
     view: Views
     wiki_ed_help: Use the 'Get Help' button to report a problem.
