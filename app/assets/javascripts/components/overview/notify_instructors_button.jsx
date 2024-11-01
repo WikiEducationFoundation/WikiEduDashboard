@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { initiateConfirm } from '../../actions/confirm_actions.js';
 import TextAreaInput from '@components/common/text_area_input.jsx';
@@ -11,6 +11,11 @@ import { ALERT_INSTRUCTOR_UPDATE_MESSAGE, ALERT_INSTRUCTOR_UPDATE_SUBJECT, ALERT
 const NotifyInstructorsButton = (props) => {
   const { notification, visible } = props;
   const dispatch = useDispatch();
+  const [bccEnabled, setBccEnabled] = useState(true);
+
+  const toggleBcc = () => {
+    setBccEnabled(!bccEnabled);
+  };
 
   const sendNotificationHandler = () => {
     dispatch(
@@ -20,7 +25,8 @@ const NotifyInstructorsButton = (props) => {
           courseTitle: props.courseTitle,
           courseId: props.courseId,
           subject: notification.subject,
-          message: notification.message
+          message: notification.message,
+          bccToSalesforce: bccEnabled
         }),
       })
     );
@@ -40,6 +46,21 @@ const NotifyInstructorsButton = (props) => {
           <hr />
 
           {notification.status === 'FAILED' && <div className="notice--error">{notification.error}</div>}
+
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <label htmlFor="bcc" style={{ marginRight: '.5rem' }}>
+              BCC to Salesforce
+            </label>
+            <input
+              checked={bccEnabled}
+              className="top2"
+              id="bcc"
+              name="bcc"
+              onChange={toggleBcc}
+              type="checkbox"
+              style={{ width: '50px' }}
+            />
+          </div>
 
           <TextInput
             placeholder={I18n.t('course_instructor_notification.write_subject')}
