@@ -136,6 +136,8 @@ const OverviewStats = ({ course }) => {
         stat={course.view_count}
         statMsg={I18n.t(`metrics.${ArticleUtils.projectSuffix(course.home_wiki.project, 'view_count_description')}`)}
         renderZero={false}
+        info={I18n.t(`metrics.${ArticleUtils.projectSuffix(course.home_wiki.project, 'view_count_doc')}`)}
+        infoId="view-count-info"
       />
       {uploadCount}
     </div>
