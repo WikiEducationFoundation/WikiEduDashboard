@@ -76,7 +76,11 @@ const Week = createReactClass({
     const dateCalc = new DateCalculator(this.props.timeline_start, this.props.timeline_end, this.props.index, { zeroIndexed: false });
     let weekDatesContent;
     let meetDates;
-    if (this.props.meetings && this.props.meetings.length > 0) {
+    let meetingDate;
+    if(this.props.meetings){
+      meetingDate=this.props.meetings[0].trim().match(/\(\s*(\d{2}\/\d{2})\s*\)/)[1];
+    }
+    if (this.props.meetings && this.props.meetings.length > 0 && meetingDate < dateCalc.end()) {
       meetDates = `Meetings: ${this.props.meetings.join(', ')}`;
     }
     if (this.props.meetings) {
