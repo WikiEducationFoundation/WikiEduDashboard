@@ -5,6 +5,7 @@ import Block from './block.jsx';
 import DateCalculator from '../../utils/date_calculator.js';
 import SpringBlock from './SpringBlock';
 import BlockList from './BlockList';
+import ExtractDate from '../../utils/date_extractor.js';
 
 const Week = createReactClass({
   displayName: 'Week',
@@ -78,7 +79,8 @@ const Week = createReactClass({
     let meetDates;
     let meetingDate;
     if(this.props.meetings){
-      meetingDate=this.props.meetings[0].trim().match(/\(\s*(\d{2}\/\d{2})\s*\)/)[1];
+      const dateExtractor = new ExtractDate(this.props.meetings[0]);
+      meetingDate = dateExtractor.getDate();
     }
     if (this.props.meetings && this.props.meetings.length > 0 && meetingDate < dateCalc.end()) {
       meetDates = `Meetings: ${this.props.meetings.join(', ')}`;
