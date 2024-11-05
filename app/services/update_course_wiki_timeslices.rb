@@ -5,6 +5,7 @@ require_dependency "#{Rails.root}/lib/analytics/histogram_plotter"
 require_dependency "#{Rails.root}/lib/data_cycle/update_logger"
 require_dependency "#{Rails.root}/lib/errors/update_service_error_helper"
 require_dependency "#{Rails.root}/lib/timeslice_manager"
+require_dependency "#{Rails.root}/lib/data_cycle/update_debugger"
 
 #= Pulls in new revisions for a single course and updates the corresponding timeslices records.
 # It updates all the tracked wikis for the course, from the latest start time for every wiki
@@ -15,6 +16,7 @@ class UpdateCourseWikiTimeslices
   def initialize(course)
     @course = course
     @timeslice_manager = TimesliceManager.new(@course)
+    @debugger = UpdateDebugger.new(@course)
   end
 
   def run(all_time:)
@@ -26,8 +28,10 @@ class UpdateCourseWikiTimeslices
   private
 
   def pre_update(from_scratch)
+    @debugger.log_update_progress :pre_update_start
     prepare_timeslices = PrepareTimeslices.new(@course)
     from_scratch ? prepare_timeslices.recreate_timeslices : prepare_timeslices.adjust_timeslices
+    @debugger.log_update_progress :pre_update_finish
   end
 
   def fetch_data_and_process_timeslices_for_every_wiki(all_time)
@@ -48,10 +52,11 @@ class UpdateCourseWikiTimeslices
 
       fetch_data_and_process_timeslices(wiki, first_start, latest_start)
     end
-    log_update_progress :course_timeslices_updated
+    @debugger.log_update_progress :course_timeslices_updated
   end
 
   def fetch_data_and_process_timeslices(wiki, first_start, latest_start)
+    @debugger.log_update_progress :fetch_and_process_timeslices_start
     current_start = first_start
     while current_start <= latest_start
       start_date = [current_start, @course.start].max
@@ -60,9 +65,11 @@ class UpdateCourseWikiTimeslices
       process_timeslices(wiki)
       current_start += TimesliceManager::TIMESLICE_DURATION
     end
+    @debugger.log_update_progress :fetch_and_process_timeslices_finish
   end
 
   def fetch_data_and_reprocess_timeslices(wiki)
+    @debugger.log_update_progress :fetch_and_reprocess_timeslices_start
     to_reprocess = CourseWikiTimeslice.for_course_and_wiki(@course, wiki).needs_update
     to_reprocess.each do |t|
       start_date = [t.start, @course.start].max
@@ -70,10 +77,10 @@ class UpdateCourseWikiTimeslices
       fetch_data(wiki, start_date, end_date)
       process_timeslices(wiki)
     end
+    @debugger.log_update_progress :fetch_and_reprocess_timeslices_finish
   end
 
   def fetch_data(wiki, timeslice_start, timeslice_end)
-    log_update_progress :start
     # Fetches revision for wiki
     @revisions = CourseRevisionUpdater
                  .fetch_revisions_and_scores_for_wiki(@course,
@@ -86,7 +93,6 @@ class UpdateCourseWikiTimeslices
     # That may happen if the course dates changed, so some revisions are no
     # longer part of the course.
     # Also remove records for articles that aren't on a tracked wiki.
-    log_update_progress :revision_scores_fetched
   end
 
   def process_timeslices(wiki)
@@ -138,21 +144,8 @@ class UpdateCourseWikiTimeslices
     end
   end
 
-  def log_update_progress(step)
-    return unless debug?
-    @sentry_logs ||= {}
-    @sentry_logs[step] = Time.zone.now
-    Sentry.capture_message "#{@course.title} update: #{step}",
-                           level: 'warning',
-                           extra: { logs: @sentry_logs }
-  end
-
   def log_error(error)
     Sentry.capture_message "#{@course.title} update timeslices error: #{error}",
                            level: 'error'
-  end
-
-  def debug?
-    @course.flags[:debug_updates]
   end
 end
