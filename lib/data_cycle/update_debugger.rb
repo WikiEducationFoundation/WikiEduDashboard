@@ -7,7 +7,6 @@ class UpdateDebugger
 
   def log_update_progress(step)
     return unless debug?
-    # puts "#{@course.title} update: #{step}"
     @sentry_logs ||= {}
     @sentry_logs[step] = Time.zone.now
     Sentry.capture_message "#{@course.title} update: #{step}",
