@@ -144,13 +144,17 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
   # Returns a datetime with the date to stop getting revisions.
   def get_latest_start_time_for_wiki(wiki)
     @course.reload
-    end_of_course = @course.end.end_of_day
+    end_of_course = @course.end
     today = Time.zone.now
     end_of_update_period = [end_of_course, today].min
     CourseWikiTimeslice.for_course_and_wiki(@course, wiki)
                        .for_datetime(end_of_update_period)
                        .first
                        .start
+  rescue NoMethodError => e
+    Sentry.capture_exception e, extra: { course_id: @course.id,
+                                         wiki_id: wiki.id,
+                                         datetime: end_of_update_period }
   end
 
   # Given an array of revision data per wiki, it updates the last_mw_rev_datetime field
