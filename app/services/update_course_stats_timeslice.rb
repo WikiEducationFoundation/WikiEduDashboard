@@ -9,6 +9,7 @@ require_dependency "#{Rails.root}/lib/importers/revision_score_importer"
 require_dependency "#{Rails.root}/lib/importers/average_views_importer"
 require_dependency "#{Rails.root}/lib/errors/update_service_error_helper"
 require_dependency "#{Rails.root}/lib/data_cycle/course_queue_sorting"
+require_dependency "#{Rails.root}/lib/data_cycle/update_debugger"
 
 #= Pulls in new revisions for a single course wiki timeslice and updates the corresponding records
 class UpdateCourseStatsTimeslice
@@ -23,6 +24,7 @@ class UpdateCourseStatsTimeslice
     # In that case, do a full update rather than just fetching the most
     # recent revisions.
     @full_update = @course.needs_update
+    @debugger = UpdateDebugger.new(@course)
 
     @start_time = Time.zone.now
     import_uploads
@@ -47,22 +49,22 @@ class UpdateCourseStatsTimeslice
   private
 
   def import_uploads
-    log_update_progress :start
+    @debugger.log_update_progress :UpdateCourseStatsTimeslice_start
     # TODO: note this is not wiki scoped.
     CourseUploadImporter.new(@course, update_service: self).run
-    log_update_progress :uploads_imported
+    @debugger.log_update_progress :uploads_imported
   end
 
   def update_categories
     # TODO: note this is not wiki scoped.
     Category.refresh_categories_for(@course)
-    log_update_progress :categories_updated
+    @debugger.log_update_progress :categories_updated
   end
 
   def update_article_status
     # TODO: note this is not wiki scoped.
     ArticleStatusManager.update_article_status_for_course(@course)
-    log_update_progress :article_status_updated
+    @debugger.log_update_progress :article_status_updated
 
     # TODO: replace the logic on ModifiedRevisionsManager.new(@wiki).move_or_delete_revisions
   end
@@ -70,19 +72,19 @@ class UpdateCourseStatsTimeslice
   def update_average_pageviews
     # TODO: note this is not wiki scoped.
     AverageViewsImporter.update_outdated_average_views(@course.articles)
-    log_update_progress :average_pageviews_updated
+    @debugger.log_update_progress :average_pageviews_updated
   end
 
   def update_caches
     ActiveRecord::Base.transaction do
       ArticlesCourses.update_all_caches_from_timeslices(@course.articles_courses)
-      log_update_progress :articles_courses_updated
+      @debugger.log_update_progress :articles_courses_updated
       CoursesUsers.update_all_caches_from_timeslices(@course.courses_users)
-      log_update_progress :courses_users_updated
+      @debugger.log_update_progress :courses_users_updated
       @course.reload
       @course.update_cache_from_timeslices
       HistogramPlotter.delete_csv(course: @course) # clear cached structural completeness data
-      log_update_progress :course_cache_updated
+      @debugger.log_update_progress :course_cache_updated
     rescue StandardError => e
       log_error(e)
       raise ActiveRecord::Rollback
@@ -91,7 +93,7 @@ class UpdateCourseStatsTimeslice
 
   def update_wikidata_stats
     UpdateWikidataStatsWorker.new.perform(@course)
-    log_update_progress :wikidata_stats_updated
+    @debugger.log_update_progress :wikidata_stats_updated
   end
 
   def update_wiki_namespace_stats
@@ -110,15 +112,6 @@ class UpdateCourseStatsTimeslice
     @course.wikis.find { |wiki| wiki.project == 'wikidata' }
   end
 
-  def log_update_progress(step)
-    return unless debug?
-    @sentry_logs ||= {}
-    @sentry_logs[step] = Time.zone.now
-    Sentry.capture_message "#{@course.title} update: #{step}",
-                           level: 'warning',
-                           extra: { logs: @sentry_logs }
-  end
-
   def log_error(error)
     Sentry.capture_message "#{@course.title} update caches error: #{error}",
                            level: 'error'
@@ -134,9 +127,5 @@ class UpdateCourseStatsTimeslice
     # This means we miss cases of article deletion
     # and namespace changes unless the article
     longest_update_time(@course).to_i < TEN_MINUTES
-  end
-
-  def debug?
-    @course.flags[:debug_updates]
   end
 end
