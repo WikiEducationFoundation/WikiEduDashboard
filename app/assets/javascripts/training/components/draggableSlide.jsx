@@ -30,7 +30,7 @@ const DraggableSlide = ({
       <div className="draggable-slide-container">
         <div className="program-description__header">
           <h4><strong>{heading}</strong></h4>
-          {description.split('\n').map((paragraph, i) => paragraph && <p key={i}>{paragraph}</p>)}
+          {description?.split('\n').map((paragraph, i) => paragraph && <p key={i}>{paragraph}</p>)}
         </div>
         <div className="reorder-slide-buttons">
           <button className="button border reordering_icons" onClick={() => onSlideMoveDown(index)}onMouseEnter={() => setIsHoverArrowDown(true)} onMouseLeave={() => setIsHoverArrowDown(false)} disabled={!canSlideMoveDown}>
