@@ -200,7 +200,27 @@ const CourseDateUtils = {
     // Week order is indexed from 1, so we add 1 to the number of weeks that have
     // passed since the start of the timeline to get the current week.
     return this.currentWeekIndex(timelineStart) + 1;
+  },
+
+  extractDate(date) {
+    // Use a regular expression to match the date format (MM/DD).
+    // The regex breakdown:
+    // - `\(`: Matches the literal opening parenthesis '('.
+    // - `\s*`: Matches any whitespace characters (spaces or tabs) zero or more times.
+    // - `(\d{1,2}\/\d{1,2})`: Capturing group that matches:
+    //   - `\d{1,2}`: Exactly one or two digits (for MM).
+    //   - `\/`: Matches the literal '/' character.
+    //   - `\d{1,2}`: Exactly one or two digits (for DD).
+    // - `\s*`: Matches any whitespace characters zero or more times.
+    // - `\)`: Matches the literal closing parenthesis ')'.
+    
+    const match = date.trim().match(/\(\s*(\d{1,2}\/\d{1,2})\s*\)/);
+    
+    // Check if a match was found and return the first capturing group (MM/DD).
+    // If no match is found, return null.
+    return match && match[1] ? match[1] : null;
   }
+  
 };
 
 function* range(left, right, inclusive) {

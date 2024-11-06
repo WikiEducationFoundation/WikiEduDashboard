@@ -5,7 +5,7 @@ import Block from './block.jsx';
 import DateCalculator from '../../utils/date_calculator.js';
 import SpringBlock from './SpringBlock';
 import BlockList from './BlockList';
-import ExtractDate from '../../utils/date_extractor.js';
+import CourseDateUtils from '../../utils/course_date_utils.js';
 
 const Week = createReactClass({
   displayName: 'Week',
@@ -79,8 +79,7 @@ const Week = createReactClass({
     let meetDates;
     let meetingDate;
     if(this.props.meetings){
-      const dateExtractor = new ExtractDate(this.props.meetings[0]);
-      meetingDate = dateExtractor.getDate();
+      meetingDate = CourseDateUtils.extractDate(this.props.meetings[0]);
     }
     if (this.props.meetings && this.props.meetings.length > 0 && meetingDate < dateCalc.end()) {
       meetDates = `Meetings: ${this.props.meetings.join(', ')}`;
