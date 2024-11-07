@@ -40,8 +40,10 @@ class TrainingSlidesController < ApplicationController
 
   def create_and_add_new_slide(slide_params)
     @slide = TrainingSlide.new(slide_params)
+    return unless check_wiki_page_exist(@slide.wiki_page)
+
     if @slide.save
-      load_slide_content(@slide)
+      parse_slide_content(fetch_wikitext(@slide.wiki_page))
       @training_module.slide_slugs << @slide.slug
       @training_module.save
       render json: @slide, status: :created
@@ -51,12 +53,24 @@ class TrainingSlidesController < ApplicationController
     end
   end
 
-  def load_slide_content(slide)
-    wikitext = WikiApi.new(MetaWiki.new).get_page_content(slide.wiki_page)
-    return if wikitext.blank?
+  def check_wiki_page_exist(wiki_page)
+    wikitext = fetch_wikitext(wiki_page)
+    if wikitext.blank?
+      render json: { status: 'error',
+             errorMessages: [I18n.t('training.validation.wikipage_not_found')] },
+             status: :unprocessable_entity
+      return false
+    end
+    true
+  end
 
+  def fetch_wikitext(wiki_page)
+    WikiApi.new(MetaWiki.new).get_page_content(wiki_page)
+  end
+
+  def parse_slide_content(wikitext)
     parser = WikiSlideParser.new(wikitext)
-    slide.update(
+    @slide.update(
       title: parser.title,
       content: parser.content,
       assessment: parser.quiz

@@ -219,6 +219,11 @@ const addSlidePromise = async (library_id, module_id, slide, setSubmitting) => {
 };
 
 export const addSlide = (library_id, module_id, slide, setSubmitting) => (dispatch) => {
+  // Transform wiki_page if it starts with the base URL
+  const wikiBaseUrl = 'https://meta.wikimedia.org/wiki/';
+  slide.wiki_page = slide.wiki_page.startsWith(wikiBaseUrl)
+    ? slide.wiki_page.replace(wikiBaseUrl, '')
+    : slide.wiki_page;
   return addSlidePromise(library_id, module_id, slide, setSubmitting)
   .then(() => window.location.reload())
   .catch((error) => {

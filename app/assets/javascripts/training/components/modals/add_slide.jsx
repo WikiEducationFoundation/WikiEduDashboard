@@ -103,6 +103,7 @@ const AddSlide = (props) => {
                 value_key="wiki_page"
                 required
                 editable
+                maxLength={'200'}
                 label={I18n.t('training.slide_wiki_page')}
                 placeholder={`${I18n.t('training.enter')} ${I18n.t('training.slide_wiki_page')}`}
               />

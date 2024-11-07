@@ -319,15 +319,14 @@ describe 'TrainingContent', type: :feature, js: true do
         expect(page).to have_content(existing_slide1.title)
       end
 
-      it 'creates a new slide if slide with same slug does not exist in database' do
+      it 'adding a new slide with invalid wikipage' do
         click_button 'Add Slide'
         fill_in 'Title', with: 'New Slide Title'
         fill_in 'Slug', with: 'new-slide-slug'
-        fill_in 'wiki_page', with: 'Training modules/dashboard/slides/10801-welcome-new-editor'
+        fill_in 'wiki_page', with: 'anyInvalidWikipage'
         click_button 'Add'
 
-        expect(page).to have_content('New Slide Title')
-        expect(training_module.reload.slide_slugs).to include('new-slide-slug')
+        expect(page).to have_content('Wikipage not found')
       end
 
       it 'removes the slide from the training module' do
