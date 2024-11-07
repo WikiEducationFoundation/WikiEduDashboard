@@ -4,7 +4,6 @@ import createReactClass from 'create-react-class';
 import { filter } from 'lodash-es';
 
 import CourseDateUtils from '../../utils/course_date_utils';
-import DateCalculator from '../../utils/date_calculator';
 
 const md = require('../../utils/markdown_it.js').default();
 

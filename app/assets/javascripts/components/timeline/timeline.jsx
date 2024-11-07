@@ -12,7 +12,6 @@ import CourseLink from '../common/course_link.jsx';
 import Affix from '../common/affix.jsx';
 import EditableRedux from '../high_order/editable_redux';
 
-import DateCalculator from '../../utils/date_calculator.js';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 import { toDate } from '../../utils/date_utils.js';
