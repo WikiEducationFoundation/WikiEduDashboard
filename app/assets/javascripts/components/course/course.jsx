@@ -26,6 +26,7 @@ import CourseAlerts from './course_alerts';
 import { getStudentCount, getCurrentUser, getWeeksArray } from '../../selectors';
 import ActivityHandler from '../activity/activity_handler';
 import CourseApproval from './course_approval';
+import { getAllWeekDates } from '../../selectors/index';
 
 const Course = withRouter((props) => {
   useEffect(() => {
@@ -80,6 +81,7 @@ const Course = withRouter((props) => {
     course_id: courseSlug,
     current_user: userRoles,
     course,
+    allWeekDates: props.allWeekDates,
   };
 
   let courseApprovalForm;
@@ -170,7 +172,8 @@ const mapStateToProps = state => ({
   weeks: getWeeksArray(state),
   usersLoaded: state.users.isLoaded,
   studentCount: getStudentCount(state),
-  currentUser: getCurrentUser(state)
+  currentUser: getCurrentUser(state),
+  allWeekDates: getAllWeekDates(state)
 });
 
 const mapDispatchToProps = {

@@ -5,6 +5,7 @@ import { STUDENT_ROLE, INSTRUCTOR_ROLE, ONLINE_VOLUNTEER_ROLE, CAMPUS_VOLUNTEER_
 import UserUtils from '../utils/user_utils.js';
 import { PageAssessmentGrades } from '../utils/article_finder_language_mappings.js';
 import CourseDateUtils from '../utils/course_date_utils.js';
+import DateCalculator from '../utils/date_calculator';
 
 
 const getUsers = state => state.users.users;
@@ -355,5 +356,23 @@ export const getFilteredTickets = createSelector(
 export const getTicketsById = createSelector(
   [getTickets], (tickets) => {
     return tickets.all.reduce((acc, ticket) => ({ ...acc, [ticket.id]: ticket }), {});
+  }
+);
+
+
+export const getAllWeekDates = createSelector(
+  [getCourse, getWeeks], (course, weeks) => {
+    const weekDates = Object.keys(weeks).map((weekId, index) => {
+      const dateCalc=new DateCalculator(course.timeline_start, course.timeline_end,index,{
+        zeroIndexed:true
+      }
+      )
+      return {
+        weekId,
+        start: dateCalc.start(),
+        end: dateCalc.end()
+      };
+    });
+    return weekDates;
   }
 );

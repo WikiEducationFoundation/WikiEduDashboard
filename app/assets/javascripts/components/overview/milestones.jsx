@@ -16,7 +16,8 @@ const Milestones = createReactClass({
     timelineEnd: PropTypes.string.isRequired,
     weeks: PropTypes.array.isRequired,
     allWeeks: PropTypes.array.isRequired,
-    course: PropTypes.object.isRequired
+    course: PropTypes.object.isRequired,
+    weekDates: PropTypes.array.isRequired
   },
 
   milestoneBlockType: 2,
@@ -30,13 +31,18 @@ const Milestones = createReactClass({
     const weekNumberOffset = CourseDateUtils.weeksBeforeTimeline(this.props.course);
     const blocks = [];
 
+    
     this.props.allWeeks.map((week,navIndex) => {
       if (week.empty) return null;
-      const dateCalc=new DateCalculator(this.props.timelineStart, this.props.timelineEnd,navIndex,{
-        zeroIndexed:true
-      });
       const milestoneBlocks = filter(week.blocks, block => block.kind === this.milestoneBlockType);
       return milestoneBlocks.map((block) => {
+        if (
+          !this.props.weekDates[navIndex]?.start || 
+          !this.props.weekDates[navIndex]?.end || 
+          this.props.weekDates[navIndex]?.start > this.props.weekDates[navIndex]?.end
+        ) {
+          return null;
+        }        
         let classNames = 'module__data';
         if (this.weekIsCompleted(week, currentWeek)) { classNames += ' completed'; }
         const rawHtml = md.render(block.content || '');
@@ -44,7 +50,7 @@ const Milestones = createReactClass({
         return blocks.push(
           <div key={block.id} className="section-header">
             <div className={classNames}>
-              <p>Week {week.weekNumber + weekNumberOffset} ({dateCalc.start()} - {dateCalc.end()}) {completionNote}</p>
+              <p>Week {week.weekNumber + weekNumberOffset} ({this.props.weekDates[navIndex]?.start} - {this.props.weekDates[navIndex]?.end}) {completionNote}</p>
               <div className="markdown" dangerouslySetInnerHTML={{ __html: rawHtml }} />
               <hr />
             </div>

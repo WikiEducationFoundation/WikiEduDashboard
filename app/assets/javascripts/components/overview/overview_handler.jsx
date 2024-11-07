@@ -49,7 +49,8 @@ const Overview = createReactClass({
     activateValidations: PropTypes.func.isRequired,
     firstErrorMessage: PropTypes.string,
     isValid: PropTypes.bool.isRequired,
-    courseCreationNotice: PropTypes.string
+    courseCreationNotice: PropTypes.string,
+    allWeekDates: PropTypes.array,
   },
 
   componentDidMount() {
@@ -159,7 +160,7 @@ const Overview = createReactClass({
           refetchCourse={this.props.refetchCourse}
         />
         <AvailableActions course={course} current_user={this.props.current_user} updateCourse={this.props.updateCourse} courseCreationNotice={this.props.courseCreationNotice} />
-        <Milestones timelineStart={course.timeline_start} timelineEnd={course.timeline_end} weeks={this.props.weeks} allWeeks={this.props.allWeeks} course={course} />
+        <Milestones timelineStart={course.timeline_start} timelineEnd={course.timeline_end} weeks={this.props.weeks} allWeeks={this.props.allWeeks} course={course} weekDates={this.props.allWeekDates}  />
       </div>
     ) : (
       <div className="sidebar" />

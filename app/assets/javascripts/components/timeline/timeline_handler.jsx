@@ -122,6 +122,7 @@ const TimelineHandler = (props) => {
         nameHasChanged={() => false}
         edit_permissions={props.editPermissions}
         current_user={props.current_user}
+        weekDates={props.allWeekDates}
       />
       {/* {grading} */}
     </div>
@@ -139,7 +140,8 @@ TimelineHandler.propTypes = {
   editableBlockIds: PropTypes.array,
   all_training_modules: PropTypes.array,
   fetchAllTrainingModules: PropTypes.func.isRequired,
-  editPermissions: PropTypes.bool.isRequired
+  editPermissions: PropTypes.bool.isRequired,
+  allWeekDates: PropTypes.array.isRequired
 };
 
 const mapStateToProps = state => ({
