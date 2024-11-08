@@ -363,10 +363,10 @@ export const getTicketsById = createSelector(
 export const getAllWeekDates = createSelector(
   [getCourse, getWeeks], (course, weeks) => {
     const weekDates = Object.keys(weeks).map((weekId, index) => {
-      const dateCalc=new DateCalculator(course.timeline_start, course.timeline_end,index,{
-        zeroIndexed:true
+      const dateCalc = new DateCalculator(course.timeline_start, course.timeline_end, index, {
+        zeroIndexed: true
       }
-      )
+      );
       return {
         weekId,
         start: dateCalc.start(),

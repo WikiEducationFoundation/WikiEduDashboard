@@ -23,10 +23,10 @@ import EnrollCard from '../enroll/enroll_card.jsx';
 import CourseNavbar from '../common/course_navbar.jsx';
 import Notifications from '../common/notifications.jsx';
 import CourseAlerts from './course_alerts';
-import { getStudentCount, getCurrentUser, getWeeksArray } from '../../selectors';
+import { getStudentCount, getCurrentUser, getWeeksArray, getAllWeekDates } from '../../selectors';
 import ActivityHandler from '../activity/activity_handler';
 import CourseApproval from './course_approval';
-import { getAllWeekDates } from '../../selectors/index';
+
 
 const Course = withRouter((props) => {
   useEffect(() => {

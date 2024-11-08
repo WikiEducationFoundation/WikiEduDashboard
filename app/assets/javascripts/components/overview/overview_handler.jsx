@@ -160,7 +160,7 @@ const Overview = createReactClass({
           refetchCourse={this.props.refetchCourse}
         />
         <AvailableActions course={course} current_user={this.props.current_user} updateCourse={this.props.updateCourse} courseCreationNotice={this.props.courseCreationNotice} />
-        <Milestones timelineStart={course.timeline_start} timelineEnd={course.timeline_end} weeks={this.props.weeks} allWeeks={this.props.allWeeks} course={course} weekDates={this.props.allWeekDates}  />
+        <Milestones timelineStart={course.timeline_start} timelineEnd={course.timeline_end} weeks={this.props.weeks} allWeeks={this.props.allWeeks} course={course} weekDates={this.props.allWeekDates} />
       </div>
     ) : (
       <div className="sidebar" />

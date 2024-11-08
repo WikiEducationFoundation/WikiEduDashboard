@@ -394,10 +394,10 @@ const Timeline = createReactClass({
       const endDate = this.props.weekDates[navIndex]?.end;
 
       if (
-        !startDate || 
-        !endDate
+        !startDate
+        || !endDate
       ) {
-        return null;  
+        return null;
       }
 
       // if using custom titles, show only titles, otherwise, show default titles and dates

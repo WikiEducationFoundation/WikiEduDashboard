@@ -30,17 +30,17 @@ const Milestones = createReactClass({
     const weekNumberOffset = CourseDateUtils.weeksBeforeTimeline(this.props.course);
     const blocks = [];
 
-    
-    this.props.allWeeks.map((week,navIndex) => {
+
+    this.props.allWeeks.map((week, navIndex) => {
       if (week.empty) return null;
       const milestoneBlocks = filter(week.blocks, block => block.kind === this.milestoneBlockType);
       return milestoneBlocks.map((block) => {
         if (
-          !this.props.weekDates[navIndex]?.start || 
-          !this.props.weekDates[navIndex]?.end  
+          !this.props.weekDates[navIndex]?.start
+          || !this.props.weekDates[navIndex]?.end
           ) {
           return null;
-        }        
+        }
         let classNames = 'module__data';
         if (this.weekIsCompleted(week, currentWeek)) { classNames += ' completed'; }
         const rawHtml = md.render(block.content || '');
