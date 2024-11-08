@@ -114,6 +114,11 @@ class Assignment < ApplicationRecord
     update(sandbox_url: new_url)
   end
 
+  def editable_by?(editing_user)
+    return true if user_id == editing_user.id
+    editing_user.can_edit?(course)
+  end
+
   private
 
   def assignment_pipeline

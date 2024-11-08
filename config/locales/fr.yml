@@ -1306,6 +1306,14 @@ fr:
       other: utilisations en tout (dans toutes les langues)
     view_count_description: Articles vus
     view_count_description_wikidata: Vues de l’élément
+    view_count_doc: Il s'agit du nombre estimé de vues basé sur une moyenne de 30
+      jours pour chaque article, à partir de la mise à jour des statistiques la plus
+      récente. Le nombre de vues peut diminuer si la moyenne mise à jour est inférieure
+      aux chiffres précédents.
+    view_count_doc_wikidata: Il s'agit du nombre estimé de vues basé sur une moyenne
+      de 30 jours pour chaque élément, à partir de la mise à jour des statistiques
+      la plus récente. Le nombre de vues peut diminuer si la moyenne mise à jour est
+      inférieure aux chiffres précédents.
     view_data_unavailable: Aucune donnée visible disponible
     view: Vues
     wiki_ed_help: Utiliser le bouton « Obtenir de l’aide » pour signaler un problème.
