@@ -37,9 +37,8 @@ const Milestones = createReactClass({
       return milestoneBlocks.map((block) => {
         if (
           !this.props.weekDates[navIndex]?.start || 
-          !this.props.weekDates[navIndex]?.end || 
-          this.props.weekDates[navIndex]?.start > this.props.weekDates[navIndex]?.end
-        ) {
+          !this.props.weekDates[navIndex]?.end  
+          ) {
           return null;
         }        
         let classNames = 'module__data';
