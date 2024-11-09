@@ -4,6 +4,7 @@ require_dependency "#{Rails.root}/lib/importers/wikidata_summary_importer"
 # require the installed wikidata-diff-analyzer gem
 require 'wikidata-diff-analyzer'
 
+# rubocop:disable Metrics/ClassLength
 class UpdateWikidataStats
   # This hash contains uses the keys of the wikidata-diff-analyzer output hash
   # and maps them to the values used in the UI and CourseStat Hash
@@ -85,6 +86,7 @@ class UpdateWikidataStats
   # with wikidata-diff-analyzer gem.
   # if summary is nil, then the stats would be created and saved in the summary
 
+  # rubocop:disable Metrics/MethodLength
   def update_summary_with_stats
     return if wikidata_revisions_without_summaries.empty?
     revision_ids = wikidata_revisions_without_summaries.pluck(:mw_rev_id)
@@ -92,16 +94,20 @@ class UpdateWikidataStats
     # Analyze the revisions, wrapped in a begin-rescue to handle errors from WikidataDiffAnalyzer.
     # This is a temporary workaround to prevent the gem errors from breaking processing.
     analyzed_revisions = {}
-    analyzed_revisions = WikidataDiffAnalyzer.analyze(revision_ids)[:diffs] rescue (
-    # Log the error for debugging, but allow the method to continue
-    Rails.logger.error("WikidataDiffAnalyzer failed: #{$!.message}"))
+    begin
+      analyzed_revisions = WikidataDiffAnalyzer.analyze(revision_ids)[:diffs]
+    rescue StandardError => e
+      # Log the error for debugging, but allow the method to continue
+      Rails.logger.error("WikidataDiffAnalyzer failed: #{e.message}")
+    end
 
     Revision.transaction do
       wikidata_revisions_without_summaries.each do |revision|
         rev_id = revision.mw_rev_id
 
         # Skip this revision if no analyzed revision available for the current rev_id.
-        # This ensures only revisions that were successfully analyzed are processed.
+        # Some rev_ids may not map to analyzed_revisions due to the revision being missing so
+        # this ensures only revisions that were successfully analyzed are processed.
         next unless analyzed_revisions[rev_id]
 
         individual_stat = analyzed_revisions[rev_id]
@@ -111,6 +117,7 @@ class UpdateWikidataStats
       end
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   def update_wikidata_statistics
     return if course_revisions.empty?
@@ -192,3 +199,4 @@ class UpdateWikidataStats
     @wikidata ||= Wiki.get_or_create(language: nil, project: 'wikidata')
   end
 end
+# rubocop:enable Metrics/ClassLength
