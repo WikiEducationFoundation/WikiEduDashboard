@@ -88,10 +88,26 @@ class UpdateWikidataStats
   def update_summary_with_stats
     return if wikidata_revisions_without_summaries.empty?
     revision_ids = wikidata_revisions_without_summaries.pluck(:mw_rev_id)
-    analyzed_revisions = WikidataDiffAnalyzer.analyze(revision_ids)[:diffs]
+
+    # Analyze the revisions, wrapped in a begin-rescue to handle errors from WikidataDiffAnalyzer.
+    # This is a temporary workaround to prevent wikidata-diff-analyzer gem errors from breaking processing.
+    analyzed_revisions = {}
+    begin
+      analyzed_revisions = WikidataDiffAnalyzer.analyze(revision_ids)[:diffs]
+    rescue StandardError => e
+       # Log the error for debugging, but allow the method to continue
+       Rails.logger.error("WikidataDiffAnalyzer failed: #{e.message}")
+    end
+
     Revision.transaction do
       wikidata_revisions_without_summaries.each do |revision|
         rev_id = revision.mw_rev_id
+
+        # Skip this revision if no analyzed revision available for the current rev_id.
+        # Some rev_ids may not map to analyzed_revisions due to the revision being missing so
+        # this ensures only revisions that were successfully analyzed are processed.
+        next unless analyzed_revisions[rev_id]
+
         individual_stat = analyzed_revisions[rev_id]
         serialized_stat = individual_stat.to_json
         revision.summary = serialized_stat
@@ -154,6 +170,11 @@ class UpdateWikidataStats
     revisions_with_serialized_stats.each do |revision|
       # Deserialize the summary field to get the stats
       deserialized_stat = revision.diff_stats
+
+      # Skip processing if deserialized_stat is nil or false
+      # This ensures invalid or missing stats are not summed
+      next unless deserialized_stat
+
       # create a stats which sums up each field of the deserialized_stat and create a stats hash
       deserialized_stat.each do |key, value|
         stats[STATS_CLASSIFICATION[key]] += value
