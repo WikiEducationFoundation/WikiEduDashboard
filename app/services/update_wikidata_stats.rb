@@ -90,22 +90,18 @@ class UpdateWikidataStats
     revision_ids = wikidata_revisions_without_summaries.pluck(:mw_rev_id)
 
     # Analyze the revisions, wrapped in a begin-rescue to handle errors from WikidataDiffAnalyzer.
-    # This is a temporary workaround to prevent wikidata-diff-analyzer gem errors from breaking processing.
+    # This is a temporary workaround to prevent the gem errors from breaking processing.
     analyzed_revisions = {}
-    begin
-      analyzed_revisions = WikidataDiffAnalyzer.analyze(revision_ids)[:diffs]
-    rescue StandardError => e
-       # Log the error for debugging, but allow the method to continue
-       Rails.logger.error("WikidataDiffAnalyzer failed: #{e.message}")
-    end
+    analyzed_revisions = WikidataDiffAnalyzer.analyze(revision_ids)[:diffs] rescue (
+    # Log the error for debugging, but allow the method to continue
+    Rails.logger.error("WikidataDiffAnalyzer failed: #{$!.message}"))
 
     Revision.transaction do
       wikidata_revisions_without_summaries.each do |revision|
         rev_id = revision.mw_rev_id
 
         # Skip this revision if no analyzed revision available for the current rev_id.
-        # Some rev_ids may not map to analyzed_revisions due to the revision being missing so
-        # this ensures only revisions that were successfully analyzed are processed.
+        # This ensures only revisions that were successfully analyzed are processed.
         next unless analyzed_revisions[rev_id]
 
         individual_stat = analyzed_revisions[rev_id]
