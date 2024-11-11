@@ -266,4 +266,25 @@ describe 'Student users', type: :feature, js: true do
       expect(page).to have_content 'An Example Course'
     end
   end
+
+  describe 'my articles section' do
+    it 'lets a student assign an article and update a sandbox' do
+      login_as(user, scope: :user)
+      create(:courses_user,
+             course:,
+             user:,
+             role: CoursesUsers::Roles::STUDENT_ROLE)
+      create(:assignment, course:, article_title: 'Selfie', role: Assignment::Roles::ASSIGNED_ROLE)
+      visit "/courses/#{Course.first.slug}/"
+      click_button 'Assign myself an article'
+      click_button 'Select'
+      click_button 'OK'
+      click_button 'Done'
+      expect(page).to have_text 'Sandbox Draft'
+      click_button 'Change sandbox'
+      find('input.edit_sandbox_url_input').fill_in with: 'https://en.wikipedia.org/wiki/User:Classmate/selfie'
+      click_button 'Submit'
+      expect(page).to have_text 'Sandbox url updated successfully.'
+    end
+  end
 end
