@@ -78,7 +78,7 @@ const Week = createReactClass({
     let weekDatesContent;
     let meetDates;
     let meetingDate;
-    if(this.props.meetings){
+    if (this.props.meetings) {
       meetingDate = CourseDateUtils.extractDate(this.props.meetings[0]);
     }
     if (this.props.meetings && this.props.meetings.length > 0 && meetingDate < dateCalc.end()) {
@@ -121,7 +121,7 @@ const Week = createReactClass({
     const blocks = this.props.blocks.map((block, i) => {
       // If in reorderable mode
       if (this.props.reorderable) {
-        return <SpringBlock block={block} i={i} key={block.id} {...this.props}/>;
+        return <SpringBlock block={block} i={i} key={block.id} {...this.props} />;
       }
       // If not in reorderable mode
       return (
@@ -150,7 +150,7 @@ const Week = createReactClass({
     ) : undefined;
 
     const deleteWeek = !this.props.reorderable && !this.props.week.is_new ? (
-      <button onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} className="pull-right week__delete-week" href="" onClick={this.props.deleteWeek}>Delete Week <span className={`${this.state.isHover ? 'icon-trash_can-hover' : 'icon-trash_can'}`}/></button>
+      <button onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} className="pull-right week__delete-week" href="" onClick={this.props.deleteWeek}>Delete Week <span className={`${this.state.isHover ? 'icon-trash_can-hover' : 'icon-trash_can'}`} /></button>
     ) : undefined;
 
     const weekAddDelete = this.props.edit_permissions ? (
@@ -162,7 +162,7 @@ const Week = createReactClass({
 
     const weekContent = (
       this.props.reorderable
-          ? <BlockList blocks={this.props.blocks} week_id={this.props.week.id} moveBlock={this.props.moveBlock} {...this.props}/>
+        ? <BlockList blocks={this.props.blocks} week_id={this.props.week.id} moveBlock={this.props.moveBlock} {...this.props} />
         : (
           <ul className="week__block-list list-unstyled">
             {blocks}

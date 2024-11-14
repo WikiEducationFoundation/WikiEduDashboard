@@ -213,14 +213,14 @@ const CourseDateUtils = {
     //   - `\d{1,2}`: Exactly one or two digits (for DD).
     // - `\s*`: Matches any whitespace characters zero or more times.
     // - `\)`: Matches the literal closing parenthesis ')'.
-    
+
     const match = date.trim().match(/\(\s*(\d{1,2}\/\d{1,2})\s*\)/);
-    
+
     // Check if a match was found and return the first capturing group (MM/DD).
     // If no match is found, return null.
     return match && match[1] ? match[1] : null;
   }
-  
+
 };
 
 function* range(left, right, inclusive) {
