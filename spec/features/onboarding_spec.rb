@@ -60,9 +60,20 @@ describe 'onboarding', type: :feature, js: true do
       find('.intro .button').click
       find('input[type=radio][value=true]').click
       find('form button[type=submit]').click
-      sleep 1
+      expect(page).to have_content 'How did you hear about us?'
       expect(user.reload.onboarded).to eq true
       expect(user.permissions).to eq User::Permissions::INSTRUCTOR
+    end
+
+    it 'updates real name for enrolled courses' do
+      course = create(:course)
+      enrollment = create(:courses_user, course:, user:, real_name: 'Old Name')
+      visit onboarding_path
+      find('.intro .button').click
+      fill_in 'name', with: 'New Name'
+      find('form button[type=submit]').click
+      expect(page).to have_content 'Permissions'
+      expect(enrollment.reload.real_name).to eq('New Name')
     end
   end
 
