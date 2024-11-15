@@ -44,7 +44,8 @@ class InstructorNotificationAlert < Alert
 
   # returns the email of the sender
   def sender_email
-    User.find_by(id: user_id)&.email
+    email = User.find_by(id: user_id)&.email
+    return email
   end
 
   # not used but required to be implemented (Subject is Dynamic)

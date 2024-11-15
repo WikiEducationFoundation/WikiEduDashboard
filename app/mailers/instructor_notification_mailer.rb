@@ -3,7 +3,7 @@
 class InstructorNotificationMailer < ApplicationMailer
   def self.send_email(alert, bcc_to_salesforce)
     return unless Features.email?
-    email(alert, bcc_to_salesforce).deliver
+    email(alert, bcc_to_salesforce).deliver_now
   end
 
   def email(alert, bcc_to_salesforce = true)
@@ -11,11 +11,9 @@ class InstructorNotificationMailer < ApplicationMailer
     set_email_parameters
     params = { to: @instructors.pluck(:email),
                subject: @alert.subject,
-               bcc: [
-                 @alert.sender_email,
-                 bcc_to_salesforce ? @alert.bcc_to_salesforce_email : nil
-               ].compact }
+               bcc: bcc_to_salesforce ? ENV['SALESFORCE_BCC_EMAIL'] : nil }
     return if params[:to].empty?
+    params[:from] = @alert.sender_email unless @alert.sender_email.nil?
     params[:reply_to] = @alert.sender_email unless @alert.sender_email.nil?
     mail(params)
   end

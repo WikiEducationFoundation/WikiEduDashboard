@@ -2,6 +2,8 @@
 
 require 'rails_helper'
 
+SUBJECT = 'Test Notification'
+
 describe AlertsController, type: :request do
   describe '#create' do
     let(:course) { create(:course) }
@@ -101,39 +103,133 @@ describe AlertsController, type: :request do
   end
 
   describe '#notify_instructors' do
-    let(:admin) { create(:admin) }
-    let(:course) { create(:course) }
     let(:route) { '/alerts/notify_instructors' }
+    let(:course) { create(:course) }
+    let(:admin) { create(:admin, email: 'admin@wikiedu.org') }
+    let(:instructor) { create(:user, email: 'instructor@wikiedu.org') }
+    let!(:courses_user) do
+      create(:courses_user, course_id: course.id, user_id: instructor.id,
+      role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+    end
+    let(:instructor_notification_alert) do
+      create(:instructor_notification_alert, type: 'InstructorNotificationAlert',
+            course_id: course.id, message: 'Test Email Content', user: admin,
+            details: { subject: SUBJECT, bcc_to_salesforce: true })
+      Alert.last
+    end
 
     let(:body_params) do
       {
         course_id: course.id,
-        subject: 'Test Title',
+        subject: 'Test Notification',
         message: 'Dear Test, Its working?',
         bcc_to_salesforce: true
       }
     end
 
-    let(:headers) do
-      {
-        CONTENT_TYPE: 'application/json',
-        ACCEPT: 'application/json'
-      }
-    end
+    let(:mail) { described_class.email(instructor_notification_alert, true) }
 
     before do
+      ActionMailer::Base.deliveries.clear
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+      allow(Features).to receive(:email?).and_return(true)
     end
 
     it 'create and send email alert to instructors' do
-      post '/alerts/notify_instructors', params: body_params.to_json, headers: headers
+      post route, params: body_params
 
       expect(response.status).to eq(201)
       expect(InstructorNotificationAlert.count).to eq(1)
 
       alert = InstructorNotificationAlert.first
+      delivery = ActionMailer::Base.deliveries.first
+
+      expect(delivery.to).to include(instructor.email)
+      expect(delivery.from).to include(admin.email)
+      expect(delivery.bcc).to include(ENV['SALESFORCE_BCC_EMAIL'])
+      expect(delivery.subject).to eq('Test Notification')
       expect(alert.subject).to eq(body_params[:subject])
       expect(alert.message).to eq(body_params[:message])
     end
+
+    it 'set BCC if bcc_to_salesforce is included' do
+      post route, params: body_params
+      delivery = ActionMailer::Base.deliveries.first
+      expect(delivery.bcc).to include(ENV['SALESFORCE_BCC_EMAIL'])
+    end
+
+    it 'does not set BCC if bcc_to_salesforce is not included' do
+      allow(Features).to receive(:email?).and_return(true)
+      expect(InstructorNotificationMailer).to receive(:send_email).and_call_original
+      post route, params: {
+        course_id: course.id,
+        subject: 'Re: Test Notification',
+        message: 'Dear Test, Its working?',
+      }
+
+      delivery = ActionMailer::Base.deliveries.first
+      print "#{delivery.bcc.inspect}"
+      expect(delivery.bcc).to be_empty
+    end
   end
+
+  # describe '#reply' do
+  #   let(:route) { '/alerts/reply' }
+  #   let(:course) { create(:course) }
+  #   let(:admin) { create(:admin, email: 'admin@wikiedu.org') }
+  #   let(:instructor) { create(:user, email: 'instructor@wikiedu.org') }
+  #   let!(:courses_user) do
+  #     create(:courses_user, course_id: course.id, user_id: instructor.id,
+  #     role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+  #   end
+  #   let(:instructor_notification_alert) do
+  #     create(:instructor_notification_alert, type: 'InstructorNotificationAlert',
+  #           course_id: course.id, message: 'Test Email Content', user: admin,
+  #           details: { subject: SUBJECT, bcc_to_salesforce: true })
+  #     Alert.last
+  #   end
+
+  #   let(:body_params) do
+  #     {
+  #       course_id: course.id,
+  #       subject: 'Re: Test Notification',
+  #       message: 'Thank you for your help',
+  #       bcc_to_salesforce: true
+  #     }
+  #   end
+
+  #   let(:mail) { described_class.email(instructor_notification_alert, true) }
+
+  #   before do
+  #     ActionMailer::Base.deliveries.clear
+  #     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+  #     allow(Features).to receive(:email?).and_return(true)
+  #   end
+
+  #   it 'sends an email reply with the correct details' do
+  #     post route, params: body_params
+  #     expect(response.status).to eq(201)
+  #     delivery = ActionMailer::Base.deliveries.first
+  #     expect(delivery.to).to include(instructor.email)
+  #     expect(delivery.subject).to eq('Re: Test Notification')
+  #     expect(delivery.text_part.body).to include('Thank you for your help')
+  #     expect(delivery.bcc).to include(ENV['SALESFORCE_BCC_EMAIL'])
+  #   end
+
+  #   it 'set BCC if bcc_to_salesforce is included' do
+  #     post route, params: body_params
+  #     delivery = ActionMailer::Base.deliveries.first
+  #     expect(delivery.bcc).to include(ENV['SALESFORCE_BCC_EMAIL'])
+  #   end
+
+  #   it 'does not set BCC if bcc_to_salesforce is not included' do
+  #     post route, params: {
+  #       message: 'Thank you for your help',
+  #       course_id: course.id,
+  #       subject: 'Re: Test Notification'}
+
+  #     delivery = ActionMailer::Base.deliveries.first
+  #     expect(delivery.bcc).to be_empty
+  #   end
+  # end
 end

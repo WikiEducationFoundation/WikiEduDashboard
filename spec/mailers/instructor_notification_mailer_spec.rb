@@ -15,12 +15,17 @@ describe InstructorNotificationMailer do
 
   let(:instructor_notification_alert) do
     create(:instructor_notification_alert, type: 'InstructorNotificationAlert',
-course_id: course.id, message: 'Test Email Content', user: admin, subject: SUBJECT)
+                course_id: course.id, message: 'Test Email Content', user: admin,
+                details: { subject: SUBJECT, bcc_to_salesforce: true })
     Alert.last
   end
 
   describe '.email' do
     let(:mail) { described_class.email(instructor_notification_alert) }
+
+    before do
+      allow(Features).to receive(:email?).and_return(true)
+    end
 
     it 'generates an email to the instructor and CCs Wiki Ed staff' do
       allow(Features).to receive(:email?).and_return(true)
@@ -31,11 +36,44 @@ course_id: course.id, message: 'Test Email Content', user: admin, subject: SUBJE
     end
   end
 
+  context 'when bcc_to_salesforce is true' do
+    before do
+      instructor_notification_alert.update(
+        details: { subject: SUBJECT, bcc_to_salesforce: true }
+      )
+    end
+
+    it 'includes the BCC field' do
+      mail = described_class.email(instructor_notification_alert, true)
+      expect(mail.bcc).to include(ENV['SALESFORCE_BCC_EMAIL'])
+    end
+  end
+
+  context 'when bcc_to_salesforce is not included' do
+    before do
+      instructor_notification_alert.update(
+        details: { subject: SUBJECT }
+      )
+    end
+
+    it 'does not include the BCC field' do
+      mail = described_class.email(instructor_notification_alert, false)
+      expect(mail.bcc).to be_empty
+    end
+  end
+
   describe '.send_email' do
     it 'triggers email delivery' do
+      ActionMailer::Base.deliveries.clear
       allow(Features).to receive(:email?).and_return(true)
       expect_any_instance_of(ActionMailer::MessageDelivery).to receive(:deliver_now)
-      described_class.send_email(instructor_notification_alert)
+      described_class.send_email(instructor_notification_alert, true)
+      delivery = ActionMailer::Base.deliveries
+
+      expect(delivery.count).to eq(1)
+      expect(delivery.first.subject).to include(SUBJECT)
+      expect(delivery.first.to).to include(instructor.email)
+      expect(delivery.first.reply_to).to include(admin.email)
     end
   end
 end
