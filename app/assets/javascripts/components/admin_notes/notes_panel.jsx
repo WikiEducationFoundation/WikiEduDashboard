@@ -34,7 +34,7 @@ const NotesPanel = () => {
     const expires = new Date();
     expires.setFullYear(expires.getFullYear() + 10);
 
-    Cookies.set('lastFetchAdminNoteTimestamp', currentTimestamp, { expires: expires });
+    Cookies.set('lastFetchAdminNoteTimestamp', currentTimestamp, { expires });
   };
 
   // Fetch all course notes when the component mounts
