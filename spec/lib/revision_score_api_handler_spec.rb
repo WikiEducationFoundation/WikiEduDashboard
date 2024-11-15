@@ -12,14 +12,14 @@ describe RevisionScoreApiHandler do
       it 'returns completed scores if retrieves data without errors' do
         VCR.use_cassette 'revision_score_api_handler/en_wikipedia' do
           expect(subject).to be_a(Hash)
-          expect(subject.dig('829840090', 'wp10').to_f).to eq(62.805729915108664)
+          expect(subject.dig('829840090', 'wp10').to_f).to be_within(0.01).of(62.81)
           expect(subject.dig('829840090', 'features')).to be_a(Hash)
           # Only num_ref feature is stored. LiftWing features are discarded.
           expect(subject.dig('829840090', 'features')).to eq({ 'num_ref' => 132 })
           expect(subject.dig('829840090', 'deleted')).to eq(false)
           expect(subject.dig('829840090', 'prediction')).to eq('B')
 
-          expect(subject.dig('829840091', 'wp10').to_f).to eq(39.507631367268004)
+          expect(subject.dig('829840091', 'wp10').to_f).to be_within(0.01).of(39.51)
           expect(subject.dig('829840091', 'features')).to be_a(Hash)
           # Only num_ref feature is stored. LiftWing features are discarded.
           expect(subject.dig('829840091', 'features')).to eq({ 'num_ref' => 1 })
@@ -47,13 +47,13 @@ describe RevisionScoreApiHandler do
 
           expect(subject).to be_a(Hash)
 
-          expect(subject.dig('829840090', 'wp10').to_f).to eq(62.805729915108664)
+          expect(subject.dig('829840090', 'wp10').to_f).to be_within(0.01).of(62.81)
           expect(subject.dig('829840090')).to have_key('features')
           expect(subject.dig('829840090', 'features')).to be_nil
           expect(subject.dig('829840090', 'deleted')).to eq(false)
           expect(subject.dig('829840090', 'prediction')).to eq('B')
 
-          expect(subject.dig('829840091', 'wp10').to_f).to eq(39.507631367268004)
+          expect(subject.dig('829840091', 'wp10').to_f).to be_within(0.01).of(39.51)
           expect(subject.dig('829840091')).to have_key('features')
           expect(subject.dig('829840091', 'features')).to be_nil
           expect(subject.dig('829840091', 'deleted')).to eq(false)

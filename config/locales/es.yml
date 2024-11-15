@@ -20,9 +20,11 @@
 # Author: Fitoschido
 # Author: Fortega
 # Author: Gabina
+# Author: I DOWNGRADED YT APP (1)
 # Author: Ice bulldog
 # Author: Ihojose
 # Author: Irus
+# Author: JMMaok
 # Author: Jakeukalane
 # Author: Javiersanp
 # Author: Joanmp17
@@ -93,7 +95,7 @@ es:
       other: '%{count} resultados para «%{search_terms}»'
     no_results: No se encontraron resultados para '%{query}'
     show_current_revision: Mostrar la versión actual
-    show_last_revision: Mostrar última revisión
+    show_last_revision: Mostrar la última versión editada
     sign_up_extended: Regístrate con Wikipedia
     sign_up_wikipedia: O regístrate en Wikipedia
     sign_up_log_in_extended: con Wikipedia
@@ -116,6 +118,7 @@ es:
     assignment_completed: Tarea marcada como completa
     reading_the_article: Leer artículo
     providing_feedback: Proporcionar comentarios
+    post_to_talk: Publicar en la página de discusión
     peer_review_completed: Revisión completada
   dashboard:
     create_note: Haz clic en Crear curso para crear tu primer curso.
@@ -186,19 +189,36 @@ es:
     assigned_to: Asignado a
     character_doc: La suma de caracteres agregados a los artículos por los editores
       inscriptos entre las fechas de inicio y fin
+    cross_wiki_tracking: A continuación se enumeran las páginas del espacio principal
+      editadas entre las fechas de inicio y finalización. El panel de control incluye
+      contribuciones de la wiki principal de este programa, junto con otras wikis
+      para las que hay una tarea o un artículo disponible.
     deleted: (borrado)
+    does_not_exist: El artículo no existe. Crea una página de Sandbox y asígnate a
+      ella para recibir sugerencias.
     edited: Artículos editados
     edited_by: 'Editado por:'
     edited_mobile: Artículos
     edited_none: Aún no hay artículos editados.
+    filter:
+      wiki_all: Todo
+      new: Nuevo
+      existing: Existente
+      new_and_existing: Nuevo y existente
+      tracked: Rastreado
+      untracked: No rastreado
+      tracked_and_untracked: Rastreado y no rastreado
     filter_text: 'Filtros:'
+    find: Buscar artículos
     how_to_find: Cómo encontrar artículos
     hide: Ocultar
     history: (historial)
     label: Artículos
     loading: Cargando artículos...
+    mark_as_complete: Marcar como completo
     new: (nuevo)
     none: En este curso no se ha editado ningún artículo.
+    preview: Breve vista previa del artículo
     rating: Clase
     rating_doc: La calificación que ha recibido un artículo de wikiproyectos en la
       Wikipedia. Estas calificaciones pueden corresponder a versiones mucho más antiguas,
@@ -222,11 +242,18 @@ es:
         de calidad de Wikipedia'
       does_not_exist: Este artículo no existe en Wikipedia
     see_more: Ver más
+    see_more_tooltip: Sólo se cargan inicialmente los primeros 500 artículos editados.
+      Haga clic para cargar artículos adicionales.
+    search: Buscar un artículo en Wikipedia
     show_cumulative_changes: Mostrar cambios acumulados
     show_current_version: Mostrar la versión actual
     show_current_version_with_authorship_highlighting: Versión actual con resalte
       de autoría
     title: Título
+    tracked: Rastreado
+    tracked_doc: Solo los artículos rastreados contribuyen a las estadísticas de este
+      programa. Cuando los artículos se marcan como no rastreados, se eliminarán de
+      las estadísticas durante la próxima actualización de datos.
     title_example: Título del artículo
     tools: Herramientas de evaluación
     view: Ver artículo
@@ -249,6 +276,16 @@ es:
       artículo, pero no toma en cuenta el contenido en sí mismo. (Estos resultados
       solo están disponibles para los artículos de la Wikipedia en inglés.)
     articles_short: Artículos
+    deleted_message: Según los datos del panel de control, esta página ha sido eliminada.
+      (En algunos casos, los traslados de páginas, las fusiones de historiales u otras
+      acciones pueden resultar en que un artículo aparezca incorrectamente como eliminado.
+      Los artículos eliminados también pueden recuperarse más tarde. En el caso de
+      los artículos que no se eliminan realmente o que se han restaurado posteriormente,
+      el panel de control normalmente lo reflejará dentro de uno o dos días).
+    page_logs: (registros de página)
+    tracked_articles: Artículos rastreados
+    view_articles: Ver artículos
+    no_tracked_articles: Esta categoría no tiene ningún artículo rastreado
   items:
     items: Elementos
     lexeme: Lexema
@@ -256,7 +293,27 @@ es:
     assigned: Elementos asignados
     assignments_none: Aún no hay elementos asignados.
     available: Elementos disponibles
+    character_doc: La suma de caracteres añadidos a los elementos por los editores
+      inscritos entre las fechas de inicio y finalización
+    cross_wiki_tracking: A continuación se enumeran las páginas del espacio principal
+      editadas entre las fechas de inicio y finalización. El panel de control incluye
+      contribuciones de la wiki principal de este programa, junto con otras wikis
+      para las que hay una tarea o un elemento disponible.
+    does_not_exist: El elemento no existe. Crea una página de Sandbox y asígnate a
+      ella para recibir sugerencias.
+    edited: Elementos editados
+    edited_none: Todavía no hay elementos editados.
+    find: Buscar elementos
     how_to_find: Cómo encontrar artículos
+    preview: Breve vista previa del elemento
+    search: Buscar un elemento en Wikidata
+    tracked_doc: Solo los elementos rastreados contribuyen a las estadísticas de este
+      programa. Cuando los elementos se marcan como no rastreados, se eliminarán de
+      las estadísticas durante la próxima actualización de datos.
+    view_doc: La suma estimada de las visitas a cada elemento desde que se editó por
+      primera vez hasta la última actualización de datos. Puedes usar pageviews.toolforge.org
+      para ver los números exactos.
+    title_example: Título del elemento
   articles_wikidata:
     articles_short: Elementos
   articles_generic:
@@ -264,30 +321,70 @@ es:
   assignments:
     article: El artículo %{title} ahora está asignado a ti.
     article_link: Artículo
+    article_link_wikidata: Elemento
+    blocked_assignment: No se pudo asignar %{title} porque está en la lista de bloqueo
+      de la comunidad Wikipedia para tareas de Wiki Education.
     already_exists: ¡Esta tarea ya existe!
     title_too_large: El título no debería exceder los 255 caracteres
     assignees: Asignado(s)
     assign_other: Asignar/desasignar un artículo
     assign_other_wikidata: Asignar/desasignar un elemento
     add_available: Añadir artículos disponibles
+    add_available_wikidata: Añadir elementos disponibles
     add_available_placeholder: Añade un título de artículo o un URL por renglón
+    add_available_placeholder_wikidata: Añade un título de elemento o un URL por línea
     add_available_submit: Añadir artículos
+    add_available_submit_wikidata: Añadir elementos
     assign_self: Asignarme un artículo
     assign_self_wikidata: Asignarme un elemento
     assign_tooltip: Un artículo asignado es aquel que planeas crear o mejorar.
     assign_tooltip_wikidata: Un elemento asignado es un elemento que piensas crear
       o mejorar.
     bibliography: Bibliografía
+    clone: Clonar
     confirm_add_available: ¿Confirmas que quieres añadir %{title}?
     confirm_addition: ¿Confirmas que quieres asignar %{title} a %{username}?
     confirm_deletion: ¿Estás seguro de que quieres eliminar esta tarea?
+    delete: Eliminar y Borrar
+    editors: Asignado a
     change_sandbox_url: Cambiar zona de pruebas
+    group_members: Miembros del grupo
     label: Asignar
     loading: Cargando tareas...
     none_short: No hay artículos asignados
+    none_short_wikidata: No hay elementos asignados
     none: Este curso no tiene artículos asignados.
     no_available: Este curso no tiene artículos disponibles.
+    peer_review_count: Se seleccionó %{currentCount}/%{total}
+    peer_review_count_tooltip: Debería seleccionar el %{total} artículos para revisión
+      por pares.
     peer_review_link: Revisión por pares
+    peer_review_link_personalized: Revisión por pares de %{username}
+    random_peer_review:
+      confirm_addition: En la mayoría de los casos, solo debes utilizar esta función
+        después de que a todos los estudiantes se les hayan asignado sus artículos
+        principales. Como alternativa, puedes pedirles a los estudiantes que elijan
+        sus propias revisiones por pares o puede asignarlas manualmente haciendo clic
+        en la fila de un estudiante y luego usando el botón "Asignar/eliminar una
+        revisión por pares". Al hacer clic en "Aceptar", se asignarán un total de
+        %{count} revisiones por pares adicionales, con un máximo de %{maximum} para
+        cada estudiante, elegidas entre los artículos de sus compañeros de clase.
+      confirm_addition_wikidata: En la mayoría de los casos, solo debes utilizar esta
+        función después de que a todos los estudiantes se les hayan asignado sus artículos
+        principales. Como alternativa, puedes pedirles a los estudiantes que elijan
+        sus propias revisiones por pares o puede asignarlas manualmente haciendo clic
+        en la fila de un estudiante y luego usando el botón "Asignar/eliminar una
+        revisión por pares". Al hacer clic en "Aceptar", se asignarán un total de
+        %{count} revisiones por pares adicionales, con un máximo de %{maximum} para
+        cada estudiante, elegidas entre los artículos de sus compañeros de clase.
+      heading: Asignar revisiones por pares aleatoriamente
+      tooltip_message: Asigna artículos aleatorios (con la cuenta de revisiones por
+        pares como número máximo) a cada estudiante.
+      tooltip_message_wikidata: Asigna elementos aleatorios (con la cuenta de revisiones
+        por pares como número máximo) a cada estudiante.
+      limit_exceeded: Cada estudiante ya está revisando al menos %{maximum} artículo(s).
+      limit_exceeded_wikidata: Cada estudiante ya está revisando al menos %{maximum}
+        elemento(s).
     remove: Eliminar
     reviewers: Revisor(es)
     review_other: Asignar/desasignar una revisión
@@ -298,12 +395,17 @@ es:
     review_tooltip_wikidata: Esto es para elemento(s) sobre los que piensas hacer
       revisión por pares o comentar.
     sandbox_draft_link: Zona de pruebas
+    sandbox_redlink_info: Este enlace está en rojo porque la página aún no se ha creado.
+      (Si se creó recientemente, el panel de control actualizará sus datos pronto).
     select: Seleccionar
     submit: Enviar
     invalid_url: No se puede actualizar la URL de la zona de pruebas. No es una URL
       %{url} válida de Wikipedia.
     mismatched_wiki: No se puede actualizar la URL de la zona de pruebas. La URL %{url}
       no está en la misma wiki.
+    warning_untracked_wiki: 'Por favor, ten en cuenta que el artículo que has elegido
+      está en una wiki que no está rastreada por este curso. Para rastrear las contribuciones
+      a este artículo, un instructor debe añadir el siguiente wiki a este curso: %{wiki}'
   blocks:
     milestones:
       title: Hitos
@@ -311,10 +413,13 @@ es:
     active_campaigns: Campañas activas
     add_organizer: Añadir organizador
     alert_article: Título del artículo
+    alert_label: Alertas de campaña
     alert_select_label: Filtrar por tipo de alerta
     alert_type: Tipo
     alert_user_id: Usuario
     all_campaigns: Todas las campañas
+    already_exists: ¡Esa campaña ya existe! Por favor, vuelve a intentarlo con otro
+      título o una ficha diferente.
     campaign: Campaña
     campaigns: Campañas
     campaign_deleted: Se eliminó la campaña «%{title}»
@@ -331,14 +436,23 @@ es:
     course: Curso
     course_data: datos del curso
     course_removed: «%{title}» se ha quitado de la campaña «%{campaign_title}»
+    course_removed_and_deleted: '"%{title}" ha sido eliminado y quitado de la campaña
+      "%{campaign_title}"'
+    course_removed_but_not_deleted: '"%{title}" ha sido quitada de la campaña %{campaign_title}",
+      pero no ha sido eliminada ya que también está presente en otras campañas'
     create_campaign: Crear una campaña nueva
     create_my_campaign: ¡Crear mi campaña!
     customize_passcode: un código de acceso predeterminado
+    data_download_info: Descargar datos de campaña como CSV
+    data_courses: Datos generales del curso
+    data_courses_info: Metricas básicas para cada curso/programa
     data_articles: Páginas editadas
     data_revisions: Datos de revisiones
+    data_articles_info: Detalles sobre cada página rastreada editada por la campaña
     data_revisions_info: Detalles sobre cada una de las revisiones monitorizadas de
       la campaña
     data_instructors: Instructores
+    data_instructors_info: Lista de instructores/facilitadores y sus cursos/programas
     data_editors_by_course: Editores por curso
     data_editors_by_course_info: Lista de editores inscritos y sus cursos/programas
     data_editor_usernames: Nombres de usuario de editores
@@ -376,15 +490,25 @@ es:
     students_small: Estudiantes
     student_course: estudiantes por curso
     title: Título
+    too_many_articles: La lista de artículos editados para esta campaña es demasiado
+      larga para ser exhibida. Consulte los cursos/programas/eventos individuales
+      para ver los artículos editados.
     slug: URL semántico
     search_campaigns: Buscar campañas
     use_start_end_dates: Usar fechas de inicio y fin
     search: Buscar
   categories:
+    searching_for_category: Buscando categorías en
     add_category: Añadir categoría
+    add_psid: Añadir el PSID de PetScan
     add_template: Añadir plantilla
     add_this_category: Añadir categorías
+    add_this_psid: Añadir los PSID de PetScan
     add_this_template: Añadir plantillas
+    import_articles_description: La lista de artículos de una categoría se actualiza
+      periódicamente, y puede tardar algún tiempo después de que se añade antes de
+      que la lista se complete.
+    confirm_add_n_scoping_method: ¿Añadir %{n} método(s) de alcance?
     depth: Profundidad de subcategorías
     articles_count: Recuento de artículos
     name: Nombre
@@ -393,13 +517,24 @@ es:
     none: No hay ninguna categoría en seguimiento.
     remove: Quitar
     tracked_categories: Categorías, PSID y plantillas en seguimiento
+    timestamp: Última actualización
   courses:
     school_system: Sistema académico
+    assignment_edits_enabled: Modificación de asignaciones habilitada
+    assignment_edits_enabled_tooltip: Si está habilitado, el panel de control publicará
+      una plantilla en la página de discusión para cada artículo asignado.
     accounts_generation_enabled: Generación de cuentas activada
+    accounts_generation_explanation: Esto permitirá a los participantes ingresar su
+      dirección de correo electrónico y nombre de usuario deseado, en lugar de crear
+      nuevas cuentas ellos mismos. Luego podrás crear las cuentas de este panel de
+      control y agregarlas como participantes del programa al mismo tiempo.
     accounts_generation_confirm_message: ¿Confirmas que quieres activar las solicitudes
       de cuentas?
     activity: Actividad
     active_courses: Cursos activos
+    add_trainings: Por favor, añade a la línea de tiempo de sus tareas las formaciones
+      para los estudiantes. La asignación de módulos de formación es una parte esencial
+      de las mejores prácticas de Wiki Ed.
     alerts: Alertas
     all_courses: Todos los cursos
     already_enrolled: Ya eres parte de «%{title}».
@@ -407,12 +542,25 @@ es:
     archived: Cursos archivados
     actions: Acciones
     articles: Artículos
+    article_viewer: Visualizador de artículos
+    article_viewer_wikidata: Visualizador de elementos
+    articles_i_am_reviewing_wikidata: Elementos que estoy revisando por pares
+    articles_i_am_reviewing: Artículos que estoy revisando por pares
+    articles_i_will_create: Artículos que voy a crear
+    articles_i_will_create_wikidata: Elementos que voy a crear
+    articles_i_am_updating: Artículos que estoy actualizando
+    articles_i_am_updating_wikidata: Elementos que estoy actualizando
     add_campaign_aria_label: Agregar botón de campaña
     new_tag_button_aria_label: Botón Crear o actualizar etiqueta
     enroll_button_aria_label: Botón de inscripción
     assignment_headings:
+      assigned_articles: Artículos asignados
+      assigned_articles_wikidata: Elementos asignados
+      assigned_reviews: Revisiones asignadas
       available_articles: Artículos disponibles
+      available_articles_wikidata: Elementos disponibles
       available_reviews: Artículos de compañeros
+      available_reviews_wikidata: Los artículos de tus compañeros de clase
     assignment_end: Fin de la tarea
     assignment_start: Inicio de la tarea
     calendar:
@@ -436,6 +584,8 @@ es:
     confirm_manual_update: ¿Confirmas que quieres actualizar manualmante? Se importarán
       las revisiones más recientes y se cargará de nuevo la página. El proceso podría
       tomar algo de tiempo.
+    controlled_by_event_center: La inscripción en este evento es controlada por el
+      Centro de Eventos de Wikimedia. No se puede unir desde el panel de control.
     course: Curso
     course_type_label: 'Tipo:'
     course_dates_calendar_instructions: Selecciona fechas para añadirlas o quitarlas
@@ -447,6 +597,7 @@ es:
     courses: Cursos
     courses_taught: Cursos impartidos
     creation_date: Fecha de creación
+    start_date: Fecha de inicio
     creator:
       already_exists: Este curso ya existe. Considera cambiar el nombre, la escuela
         o el plazo para hacerlo único.
@@ -454,6 +605,9 @@ es:
       assignment_end_placeholder: Fin de la tarea (AAAA-MM-DD)
       assignment_start: Inicio de la tarea
       assignment_start_placeholder: Inicio de la tarea (AAAA-MM-DD)
+      cancel_course_clone: Cancelar el clon del curso
+      cancel_course_clone_confirm: ¿Estás seguro de que quieres dejar de clonar este
+        curso?
       checking_for_uniqueness: Se está comprobando que este curso sea único.
       choose_clone: Elige un curso para clonarlo.
       clone_previous: Clonar el curso previo
@@ -465,10 +619,17 @@ es:
         El cronograma copiado ajustará automáticamente las fechas para dar cuenta
         de las semanas que no tienen reuniones programadas.
       clone_successful: Actualizar detalles del curso clonado
+      copy_successful: Actualizar detalles del curso copiado
       clone_successful_details: Tu curso se ha clonado, incluyendo los elementos del
         cronograma (semanas y bloques). Asegúrate de añadir las fechas, ya que no
         se trasladadas. ¿Ha cambiado algo más acerca de tu curso? Siéntete libre de
         actualizarlo ahora.
+      copy_successful_details: Tu curso se ha copiado, incluyendo las partes del cronograma
+        (semanas y bloques). Asegúrate de añadir las fechas, ya que no se trasladan.
+        ¿Ha cambiado algo más acerca de tu curso? Siéntete libre de actualizarlo ahora.
+      course_dates_info: Ingrese las fechas de inicio y finalización de tu curso.
+        En el siguiente paso, puede elegir cuándo comenzar la asignación de Wikipedia
+        dentro de ese plazo.
       course_description: Descripción del curso
       course_ta_support: ¿Este curso tendrá instructores o asistentes técnicos adicionales?
       course_school: Escuela del curso
@@ -852,6 +1013,7 @@ es:
     lexeme: Lexema
     appendix: Apéndice
     portal: Portal
+    school: Escuela
   recent_activity:
     active_courses: El artículo está activo en
     article_title: Título

@@ -5,7 +5,7 @@ import CreatableSelect from 'react-select/creatable';
 import WikiSelect from '../../common/wiki_select';
 import { formatCategoryName } from '../../util/scoping_methods';
 
-const PETSCAN_URL_PATTERN = /https:\/\/petscan.wmflabs.org\/\?psid=(\d+)/;
+const PETSCAN_URL_PATTERN = /https:\/\/petscan.wmcloud.org\/\?psid=(\d+)/;
 const PetScanScoping = () => {
   const [inputValue, setInputValue] = React.useState('');
   const petscanIDs = useSelector(state => state.scopingMethods.petscan.psids);
@@ -111,7 +111,7 @@ const PetScanScoping = () => {
           onChange={wiki => setCurrentWiki(wiki.value)}
         />
       </div>
-      <a href="https://petscan.wmflabs.org/" target="_blank">
+      <a href="https://petscan.wmcloud.org/" target="_blank">
         {I18n.t('courses_generic.creator.scoping_methods.petscan_create_psid')}
       </a>
     </div>

@@ -250,6 +250,9 @@ skr-arab:
     admin_users:
       new:
         form_placeholder: ورتݨ ناں
+    special_users:
+      new:
+        form_placeholder: ورتݨ ناں
   timeline:
     add_week: ہفتہ شامل کرو
     block_milestone: سنگ میل

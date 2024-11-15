@@ -21,10 +21,18 @@
 
 ## Jobs rejected from redis queue by uniquejobs
 
-Sometimes the redis entry for a job lock remains even though the job is not enqueued or runnings. Use `redis-cli` to interact with redis directly.
+Sometimes the redis entry for a job lock remains even though the job is not enqueued or running. Use `redis-cli` to interact with redis directly.
 
 It's usually okay to delete all the locks by removing all uniquejobs keys. If there are no running jobs and the queues are empty, this is unlikely to cause problems. This will not interfere with scheduled jobs that haven't been enqueue yet.
 
 * Useful commands:
   * Delete all uniquejobs keys: `redis-cli --raw keys "uniquejobs*" | xargs redis-cli del`
   * List all uniquejobs keys within redis-cli: `keys uniquejobs*`
+
+## Database encoding errors related to unicode
+
+Currently, mysql/mariadb use utf8mb4 by default and newly created databases will have columns that can handle 4-byte emoji characters. But the databases in production were created before this was the case, and have some columns that use utfmb3. For columns that are indexed, changing the encoding is complicated because the index size can change to become incompatible. For cases without any indexed columns that need conversion, an ALTER TABLE command will work. For example, to fix the `ticket_dispenser_messages` column in Wiki Education production in September 2024, we used this command:
+
+* `ALTER TABLE ticket_dispenser_messages CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;`
+
+(It ran very quickly on 20k rows.)

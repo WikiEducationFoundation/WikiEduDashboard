@@ -21,6 +21,7 @@ class OnboardingController < ApplicationController
                  email: params[:email],
                  permissions: @permissions,
                  onboarded: true)
+    update_real_names_on_courses if Features.wiki_ed?
     CheckWikiEmailWorker.check(user: @user)
     head :no_content
   end
@@ -85,5 +86,17 @@ class OnboardingController < ApplicationController
 
   def sanitized_real_name
     params[:real_name].squish
+  end
+
+  # If a user goes through onboarding to change their name
+  # we will add that to all CoursesUsers student role records.
+  # This assumes that the user is legitimately part of all
+  # the courses they are enrolled in at the time, including
+  # ones where they were added by someone else and don't
+  # have a real name on the CoursesUsers record.
+  def update_real_names_on_courses
+    CoursesUsers.where(user: @user, role: CoursesUsers::Roles::STUDENT_ROLE).each do |cu|
+      cu.update(real_name: @user.real_name)
+    end
   end
 end

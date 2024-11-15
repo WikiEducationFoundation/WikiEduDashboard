@@ -1,9 +1,10 @@
 # frozen_string_literal: true
-
 #= Copy course from another server
+# rubocop:disable Metrics/ClassLength
 class CopyCourse
-  def initialize(url:)
+  def initialize(url:, user_data:)
     @url = url
+    @user_data = user_data
   end
 
   def make_copy
@@ -12,11 +13,13 @@ class CopyCourse
     add_tracked_wikis
     @cat_data = retrieve_categories_data
     copy_tracked_categories_data
-    @users_data = retrieve_users_data
-    copy_users_data
+    copy_users_data if @user_data.present? && @user_data != '0'
+    @training_modules = retrieve_all_training_modules
     @timeline_data = retrieve_timeline_data
     copy_timeline_data
     return { course: @course, error: nil }
+  rescue ActiveRecord::RecordNotUnique
+    return { course: Course.find_by(slug: @course_data['slug']), error: nil }
   rescue ActiveRecord::RecordInvalid, StandardError => e
     return { course: nil, error: e.message }
   end
@@ -27,11 +30,11 @@ class CopyCourse
     # Extract the attributes we want to copy
     params_to_copy = %w[school title term description start end subject slug timeline_start
                         timeline_end type flags weekdays]
+    modify_course_slug
     copied_data = {}
     params_to_copy.each { |p| copied_data[p] = @course_data[p] }
-    @home_wiki = Wiki.get_or_create(language: @course_data['home_wiki']['language'],
-                                    project: @course_data['home_wiki']['project'])
-    copied_data['home_wiki_id'] = @home_wiki.id
+    change_type(copied_data) # Changes the course type of certain courses
+    assign_home_wiki(copied_data)
     copied_data['passcode'] = GeneratePasscode.call # set a random passcode
     if copied_data['flags'].key?('update_logs')
       copied_data['flags']['update_logs'] =
@@ -39,6 +42,26 @@ class CopyCourse
     end
     # Create the course
     @course = Course.create!(copied_data)
+  end
+
+  def change_type(copied_data)
+    if @course_data['type'] == 'ClassroomProgramCourse' ||
+       @course_data['type'] == 'FellowsCohort' ||
+       @course_data['type'] == 'VisitingScholarship'
+      copied_data['type'] = 'BasicCourse'
+    end
+  end
+
+  def assign_home_wiki(copied_data)
+    @home_wiki = Wiki.get_or_create(language: @course_data['home_wiki']['language'],
+                                    project: @course_data['home_wiki']['project'])
+    copied_data['home_wiki_id'] = @home_wiki.id
+  end
+
+  def modify_course_slug
+    @course_data['term'] = "COPIED FROM #{@course_data['term']}"
+    @course_data['slug'] =
+      "#{@course_data['school']}/#{@course_data['title']}_(#{@course_data['term']})".tr(' ', '_')
   end
 
   # When parsing update_logs from flags, keys are set as strings instead of integers
@@ -59,17 +82,14 @@ class CopyCourse
     @cat_data.each do |cat_hash|
       wiki = Wiki.get_or_create(language: cat_hash['wiki']['language'],
                                 project: cat_hash['wiki']['project'])
-      cat = Category.find_or_create_by!(
-        depth: cat_hash['depth'],
-        source: cat_hash['source'],
-        name: cat_hash['name'],
-        wiki:
-      )
+      cat = Category.find_or_create_by!(depth: cat_hash['depth'], source: cat_hash['source'],
+                                        name: cat_hash['name'], wiki:)
       @course.categories << cat
     end
   end
 
   def copy_users_data
+    retrieve_users_data
     @users_data.each do |user_hash|
       user = User.find_or_create_by!(username: user_hash['username'])
       CoursesUsers.create!(user_id: user.id, role: user_hash['role'], course_id: @course.id)
@@ -77,10 +97,20 @@ class CopyCourse
   end
 
   def get_request(path)
-    uri = URI(@url + path)
+    sanitized_url = sanitize_url(@url)
+    uri = URI(sanitized_url + path)
     response = Net::HTTP.get_response(uri)
     raise "Error getting data from #{uri}" unless response.is_a?(Net::HTTPSuccess)
     response
+  end
+
+  def sanitize_url(input_url)
+    uri = URI.parse(input_url)
+    path_segments = uri.path.split('/')
+    desired_path = path_segments[0..3].join('/')
+    sanitized_url = "https://#{uri.host}#{desired_path}"
+    @host = "https://#{uri.host}"
+    return sanitized_url
   end
 
   def retrieve_course_data
@@ -93,25 +123,6 @@ class CopyCourse
     JSON.parse(response.body)['course']
   end
 
-  def copy_timeline_data
-    @timeline_data['weeks'].each do |week_data|
-      week = Week.new(
-        course_id: @course.id,
-        title: week_data['title'],
-        order: week_data['order']
-      )
-      week.save!
-      week_data['blocks'].each do |block_data|
-        block_attributes = {
-          week_id: week.id, title: block_data['title'], content: block_data['content'],
-          order: block_data['order'], kind: block_data['kind']
-        }
-        block = Block.new(block_attributes)
-        block.save!
-      end
-    end
-  end
-
   def retrieve_categories_data
     response = get_request('/categories.json')
     JSON.parse(response.body)['course']['categories']
@@ -119,6 +130,65 @@ class CopyCourse
 
   def retrieve_users_data
     response = get_request('/users.json')
-    JSON.parse(response.body)['course']['users']
+    @users_data = JSON.parse(response.body)['course']['users']
+  end
+
+  def retrieve_all_training_modules
+    dashboard_uri = URI.parse(@host + '/training_modules.json')
+    response = Net::HTTP.get_response(dashboard_uri)
+    return [] unless response.is_a?(Net::HTTPSuccess)
+
+    data = JSON.parse(response.body)
+    data['training_modules'] || []
+  end
+
+  # Copy the timeline
+  def copy_timeline_data
+    @timeline_data['weeks'].each do |week_data|
+      week = Week.create!(course_id: @course.id,
+                          title: week_data['title'], order: week_data['order'])
+      copy_blocks(week, week_data['blocks'])
+    end
+  end
+
+  def copy_blocks(week, blocks)
+    blocks.each do |block_data|
+      block = Block.create!(content: block_data['content'], title: block_data['title'],
+                            week_id: week.id, order: block_data['order'], kind: block_data['kind'])
+      update_block_content(block, block_data)
+    end
+  end
+
+  def update_block_content(block, block_data)
+    headings = %w[Training Exercise Discussion].map do |title|
+      "<h4 class=\"timeline-exercise\">#{title}</h4>\n"
+    end
+    content_additions = { 0 => '', 1 => '', 2 => '' }
+
+    block_data['training_module_ids']&.each do |id|
+      data, kind = copy_training_modules(id)
+      content_additions[kind] += data
+    end
+
+    final_content = block.content || ''
+    content_additions.reverse_each do |kind, addition|
+      final_content = headings[kind] + addition + final_content unless addition.empty?
+    end
+
+    block.update!(content: final_content)
+  end
+
+  def copy_training_modules(module_id)
+    matching_module = @training_modules.find { |mod| mod['id'] == module_id }
+    return ['', nil] unless matching_module
+
+    training_library = @course_data['training_library_slug']
+    module_url = "#{@host}/training/#{training_library}/#{matching_module['slug']}"
+
+    html_block = "<a href=\"#{module_url}\" class=\"training-module\">#{matching_module['name']}
+      <i class=\"icon icon-rt_arrow_purple_training_module\"></i></a>"
+
+    return html_block, matching_module['kind']
   end
 end
+# rubocop:enable Metrics/ClassLength

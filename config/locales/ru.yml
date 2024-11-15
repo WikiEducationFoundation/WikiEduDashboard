@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Alexander Yukal
 # Author: Alexandr Efremov
+# Author: Amire80
 # Author: Aram1985
 # Author: Athena Atterdag
 # Author: Av6
@@ -202,7 +203,7 @@ ru:
       tracked_and_untracked: Отслеживаемые и неотслеживаемые
     filter_text: Фильтры
     find: Найти статьи
-    how_to_find: Как найти статьи
+    how_to_find: Как найти статью
     hide: Скрыть
     history: (история)
     label: Статьи
@@ -243,6 +244,9 @@ ru:
     edit_size: Изменить размер
     wiki: Вики
     articles_short: Статьи
+    not_choosen_article: Вы не выбрали статью для работы. Когда вы найдете статью
+      для работы, используйте кнопку выше, чтобы назначить ее.
+    use_dashboard: Как использовать панель инструментов
   items:
     lexeme: Лексема
     how_to_find: Как найти предметы
@@ -555,7 +559,7 @@ ru:
     word_count_average: Среднее количество слов
     total_revisions: Всего версий
     claims: Претензии
-    aliases: Алиасы
+    aliases: Синонимы
     merged: Объединено
     created: Создано
     changed: Изменилось
@@ -621,12 +625,18 @@ ru:
       special_users: 'Служебная: Участники'
       admin_users: Администраторы
       users: Участники
+    admin_users:
+      new:
+        form_placeholder: Имя участника
     featured_campaigns:
       campaign_not_found: Кампания со слагом «%{campaign_slug}» не найдена
       no_featured_campaigns: Рекомендуемые кампании не определены
       update_featured_campaigns_button: Обновить избранные кампании
       add_button: Добавить уведомление
       remove_button: Новое переименование компании
+    special_users:
+      new:
+        form_placeholder: Имя участника
   tasks:
     conseq: Задача %{task} уже выполняется!
     constant: Задача %{task} не может быть выполнена, когда происходит ежедневное
@@ -649,6 +659,7 @@ ru:
     next: Следующая страница
     page: Страница
     previous: < Предыдущая
+    additional_training: Дополнительные учебные модули
     done: Готово!
     invalid: Извините, этого слайда не существует!
     check_answer: Проверить ответ
@@ -658,6 +669,8 @@ ru:
       Нажмите <a href="%{url}">здесь</a>, чтобы загрузить данные обучения из файлов
       training_content/yaml.
     no_training_library_records_non_wiki_ed_mode: В базе данных нет записей TrainingLibrary.
+    remaining_exercise: Осталось %{count} дополнительных упражнений.
+    view_all: Просмотреть все упражнения
   update_username:
     username_updated: Имя участника успешно обновлено!
     label: Новое имя участника

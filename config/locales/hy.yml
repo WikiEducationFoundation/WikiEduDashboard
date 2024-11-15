@@ -99,6 +99,7 @@ hy:
       new_and_existing: Նոր և գոյություն ունեցող
     filter_text: Զտիչներ՝
     find: Գտնել հոդվածներ
+    how_to_find: Ինչպես գտնել հոդված
     hide: Թաքցնել
     history: (պատմություն)
     label: Հոդվածներ
@@ -355,6 +356,12 @@ hy:
   settings:
     categories:
       users: Մասնակիցներ
+    admin_users:
+      new:
+        form_placeholder: Օգտանուն
+    special_users:
+      new:
+        form_placeholder: Օգտանուն
   suggestions:
     suggestion_docs:
       does_not_exist: 'Այս հոդվածը Վիքիպեդիայում գոյություն չունի:'
@@ -380,6 +387,7 @@ hy:
     reload_from_source: վերաբեռնել աղբյուրից
     kind:
       discussion: քննարկում
+    view_all: Դիտել բոլոր վարժություններ
   update_username:
     button: Թարմացնել
   uploads:
@@ -439,6 +447,7 @@ hy:
     options:
       news_content:
         confirm_delete: Հաստատել
+        cancel_delete: Չեղարկել
   notes:
     cancel_note_creation: Չեղարկել
     cancel_edit_note: Չեղարկել

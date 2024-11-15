@@ -2,14 +2,21 @@
 require 'rails_helper'
 
 describe CopyCourse do
+  before do
+    wiki_dashboard = 'https://dashboard.wikiedu.org'
+    outreach_dashboard = 'https://outreachdashboard.wmflabs.org'
+    @selected_dashboard = Features.wiki_ed? ? wiki_dashboard : outreach_dashboard
+  end
+
   let(:url_base) { 'https://dashboard.wikiedu.org/courses/' }
   let(:existent_prod_course_slug) do
-    'University_of_South_Carolina/Invertebrate_Zoology_(Spring_2022)'
+    'University_of_South_Carolina/Invertebrate_Zoology_(COPIED_FROM_Spring_2022)'
   end
   let(:course_url) { url_base + existent_prod_course_slug + '/course.json' }
   let(:categories_url) { url_base + existent_prod_course_slug + '/categories.json' }
   let(:users_url) { url_base + existent_prod_course_slug + '/users.json' }
   let(:timeline_url) { url_base + existent_prod_course_slug + '/timeline.json' }
+  let(:training_modules_url) { @selected_dashboard + '/training_modules.json' }
   let(:course_response_body) do
     '{
       "course": {
@@ -127,7 +134,7 @@ describe CopyCourse do
   end
 
   let(:subject) do
-    service = described_class.new(url: url_base + existent_prod_course_slug)
+    service = described_class.new(url: url_base + existent_prod_course_slug, user_data: true)
     service.make_copy
   end
 
@@ -181,6 +188,9 @@ describe CopyCourse do
       stub_request(:get, categories_url)
         .to_return(status: 200, body: categories_response_body, headers: {})
 
+      stub_request(:get, training_modules_url)
+        .to_return(status: 200, body: '{}', headers: {})
+
       # Stub the response to the timeline request
       stub_request(:get, timeline_url)
         .to_return(status: 404, body: timeline_response_body, headers: {})
@@ -202,6 +212,9 @@ describe CopyCourse do
       # Stub the response to the categories request
       stub_request(:get, categories_url)
         .to_return(status: 200, body: categories_response_body, headers: {})
+
+      stub_request(:get, training_modules_url)
+        .to_return(status: 200, body: '{}', headers: {})
 
       # Stub the response to the timeline request
       stub_request(:get, timeline_url)

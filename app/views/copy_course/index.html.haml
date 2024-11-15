@@ -1,5 +1,4 @@
-- content_for :before_title, 'Admin - '
-
+- content_for :before_title, "Copy Course"
 .container.dashboard
   %header
     %h1
@@ -12,5 +11,9 @@
 .container
   = form_tag copy_course_path, class: 'explore-courses', method: :post do
     = text_field_tag(:url, '', placeholder: 'Copy course URL here...')
+    %div.checkbox-group
+      = check_box_tag(:user_data, '1', true)
+      %label{for: 'user_data'} Copy User Data
     %button{type: 'submit'}
-      %i.icon.icon-check
+      %div.button.dark
+        Copy Course

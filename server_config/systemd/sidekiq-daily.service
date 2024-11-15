@@ -14,11 +14,10 @@ Type=simple
 WorkingDirectory=/var/www/dashboard/current
 # If you use rbenv:
 # ExecStart=/bin/bash -lc '/home/deploy/.rbenv/shims/bundle exec sidekiq -e production'
-# If you use the system's ruby:
-# ExecStart=/usr/local/rvm/bin/rvm default do bundle exec sidekiq -e production --queue daily_update --concurrency 1
-ExecStart=/home/sage/.rvm/bin/rvm default do bundle exec sidekiq -e production --queue daily_update --concurrency 1
-User=root
-Group=root
+# If you use rvm:
+ExecStart=/home/ragesoss/.rvm/bin/rvm default do bundle exec sidekiq -e production --queue daily_update --concurrency 1
+User=ragesoss
+Group=project-globaleducation
 UMask=0002
 
 # Greatly reduce Ruby memory fragmentation and heap usage
@@ -38,6 +37,3 @@ SyslogIdentifier=sidekiq-daily
 
 [Install]
 WantedBy=multi-user.target
-
-
-

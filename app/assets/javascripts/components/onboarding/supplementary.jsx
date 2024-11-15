@@ -52,9 +52,10 @@ export const OnboardingSupplementary = (props) => {
     const selected = state.heardFrom;
     const options = {
       colleague: 'Colleague\'s name:',
-      association: 'Academic association\'s name:',
-      conference: 'Conference name:',
-      workshop: 'University workshop name:',
+      'association-or-conference': 'Which academic association or conference?',
+      'social-media': 'Which social media?',
+      listserv: 'Which listserv / email list?',
+      'academic-paper': 'Which academic paper?',
       other: 'Other way you heard about us:'
     };
 
@@ -82,27 +83,29 @@ export const OnboardingSupplementary = (props) => {
             <input type="radio" name="heardFrom" id="colleague" value="colleague" onChange={_handleFieldChange} />
             <label className="no-label" htmlFor="colleague">A colleague referred me</label><br/>
 
-            <input type="radio" name="heardFrom" id="association" value="association" onChange={_handleFieldChange} />
-            <label className="no-label" htmlFor="association">Academic association</label><br/>
-
-            <input type="radio" name="heardFrom" id="conference" value="conference" onChange={_handleFieldChange} />
-            <label className="no-label" htmlFor="conference">Conference</label><br/>
-
-            <input type="radio" name="heardFrom" id="workshop" value="workshop" onChange={_handleFieldChange} />
-            <label className="no-label" htmlFor="workshop">University workshop</label><br/>
+            <input type="radio" name="heardFrom" id="association-or-conference" value="association-or-conference" onChange={_handleFieldChange} />
+            <label className="no-label" htmlFor="association-or-conference">Academic association or conference</label><br/>
 
             <input type="radio" name="heardFrom" id="web" value="web" onChange={_handleFieldChange} />
-            <label className="no-label" htmlFor="web">Web Search</label><br/>
+            <label className="no-label" htmlFor="web">Web search</label><br/>
 
-            <input type="radio" name="heardFrom" id="twitter" value="twitter" onChange={_handleFieldChange} />
-            <label className="no-label" htmlFor="twitter">Twitter</label><br/>
+            <input type="radio" name="heardFrom" id="social-media" value="social-media" onChange={_handleFieldChange} />
+            <label className="no-label" htmlFor="social-media">Social media</label><br/>
 
-            <input type="radio" name="heardFrom" id="facebook" value="facebook" onChange={_handleFieldChange} />
-            <label className="no-label" htmlFor="facebook">Facebook</label><br/>
+            <input type="radio" name="heardFrom" id="wiki-ed-email" value="wiki-ed-email" onChange={_handleFieldChange} />
+            <label className="no-label" htmlFor="wiki-ed-email">Email from Wiki Education staff</label><br/>
+
+            <input type="radio" name="heardFrom" id="listserv" value="listserv" onChange={_handleFieldChange} />
+            <label className="no-label" htmlFor="listserv">Listserv / email list</label><br/>
+
+            <input type="radio" name="heardFrom" id="wikipedia" value="wikipedia" onChange={_handleFieldChange} />
+            <label className="no-label" htmlFor="wikipedia">On Wikipedia</label><br/>
+
+            <input type="radio" name="heardFrom" id="academic-paper" value="academic-paper" onChange={_handleFieldChange} />
+            <label className="no-label" htmlFor="academic-paper">Academic paper</label><br/>
 
             <input type="radio" name="heardFrom" id="heardFrom-other" value="other" onChange={_handleFieldChange} />
             <label className="no-label" htmlFor="heardFrom-other">Other</label><br/>
-
 
             {
               referralDetailsLabel && referralDetails

@@ -4,6 +4,7 @@ import GreetStudentsButton from './greet_students_button.jsx';
 import { format, toDate, parseISO } from 'date-fns';
 import { getUTCDateString } from '../../utils/date_utils.js';
 import NotesPanel from '../../components/admin_notes/notes_panel.jsx';
+import AdminStatusPanel from '../../components/overview/admin_status_panel.jsx';
 
 // Helper Functions
 const DetailsText = ({ flags }) => (
@@ -27,7 +28,7 @@ const NoDetailsText = () => (
 );
 
 export const AdminQuickActions = ({ course, current_user, persistCourse, greetStudents }) => (
-  <div className="module" style={{ textAlign: 'center' }}>
+  <div className="module admin-quick-actions" style={{ textAlign: 'center' }}>
     {current_user.isStaff && (
       <>
         {course.flags && course.flags.last_reviewed && course.flags.last_reviewed.username ? (
@@ -36,7 +37,7 @@ export const AdminQuickActions = ({ course, current_user, persistCourse, greetSt
           <NoDetailsText />
         )}
         <button
-          className="button"
+          className="button mark-as-review"
           onClick={() => {
             course.last_reviewed = {
               username: current_user.username,
@@ -53,7 +54,7 @@ export const AdminQuickActions = ({ course, current_user, persistCourse, greetSt
         <br />
       </>
     )}
-    {current_user.admin && <div><NotesPanel/></div>}
+    {current_user.admin && <div><NotesPanel/><AdminStatusPanel course={course} /></div>}
   </div>
 );
 

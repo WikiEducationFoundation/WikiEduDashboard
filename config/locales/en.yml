@@ -247,6 +247,11 @@ en:
     tracked_articles: Tracked Articles
     view_articles: View Articles
     no_tracked_articles: This category has no tracked articles
+    not_choosen_article:  You have not chosen an article to work on. When you have found an
+        article to work on, use the button above to assign it.
+    use_dashboard: How to use the Dashboard
+    how_to_find: How to find an article
+    evaluate_and_source: Evaluating articles and sources
 
   items:
     items: Items
@@ -333,7 +338,7 @@ en:
       heading: Assign random peer reviews
       tooltip_message: Assigns random articles (with peer review count as the maximum number) to each student.
       tooltip_message_wikidata: Assigns random items (with peer review count as the maximum number) to each student.
-      limit_exceeded: Each student is already reviewing at least %{maximum} articles(s).
+      limit_exceeded: Each student is already reviewing at least %{maximum} article(s).
       limit_exceeded_wikidata: Each student is already reviewing at least %{maximum} item(s).
     remove: Remove
     reviewers: Reviewer(s)
@@ -516,7 +521,7 @@ en:
     campaign_courses: "%{title} Courses"
     campaign_select: "Select a campaign"
     campaign_users: "%{title} Editors"
-    confirm_course_deletion: 'Are you sure you want to delete the course titled %{title}? If so, type the title of the course to proceed.'
+    confirm_course_deletion: "Are you sure you want to delete the course titled %{title}? If so, type the title of the course to proceed."
     confirm_course_deletion_failed: '"%{title}" is not the title of this course. The course has not been deleted.'
     confirm_manual_update: Are you sure you want to run a manual update? The most recent revisions will be imported and then the page will reload. This process may take some time.
     controlled_by_event_center: Enrollment in this event is controlled by Wikimedia Event Center. It cannot be joined from the Dashboard.
@@ -551,8 +556,13 @@ en:
         The cloned timeline will automatically adjust the dates to account for
         weeks that have no scheduled meetings.
       clone_successful: Update Details for Cloned Course
+      copy_successful: Update Details for Copied Course
       clone_successful_details: >
         Your course has been cloned, including the elements of the timeline
+        (weeks and blocks). Be sure to add the dates, which are not carried over.
+        Has anything else about your course changed? Feel free to update it now.
+      copy_successful_details: >
+        Your course has been copied, including the elements of the timeline
         (weeks and blocks). Be sure to add the dates, which are not carried over.
         Has anything else about your course changed? Feel free to update it now.
       course_dates_info: Enter the starting and ending dates for your course. In the next step, you can choose when to begin the Wikipedia assignment within that timeframe.
@@ -589,13 +599,13 @@ en:
         changed. Everything else, you can edit later. Click “Create my Course!” to
         start building the timeline for your Wikipedia assignment.
       new_or_clone: >
-        You can create a new course now using the assignment design wizard.
-        If you have a highly customized timeline from a previous course that you
-        want to re-use, you can clone a copy of it with new dates. (If you did
-        not significantly customize your timeline previously, we recommend
-        starting a new course so that you'll have the most up-to-date
-        versions of the assignment options.) You can also use the clone option
-        to create additional sections for a course you already set up.
+        Click 'Create New Course' to proceed to the assignment design wizard. Your
+        timeline will include the latest options for Wiki Education's recommended
+        training modules and other resources.
+        If you have a highly customized timeline from a previous course that you want
+        to re-use, you can clone a copy of it with new dates. You can also
+        use the clone option to create additional sections for a course you
+        already set up.
       no_class_holidays: I have no class holidays
       role_description: Your role in the course
       role_description_options:
@@ -662,6 +672,7 @@ en:
     enrollment_edits_enabled_tooltip: >
       If enabled, the dashboard will post a template to the userpage and talk page of
       each editor who joins the program.
+    event_sync: "Editing disabled: This field cannot be changed because the course is already linked to an event. Changing it would disrupt the event's integration."
     courses_enrolled: Courses enrolled
     error:
       exists: That course already exists! Please try again with a different title, school, or term.
@@ -1118,6 +1129,8 @@ en:
       other: total usages across languages
     view_count_description: Article Views
     view_count_description_wikidata: Item Views
+    view_count_doc: This is the estimated number of views based on a 30-day average for each article, through the most recent stats update. Views may decrease if the updated average is lower than previous counts.
+    view_count_doc_wikidata: This is the estimated number of views based on a 30-day average for each item, through the most recent stats update. Views may decrease if the updated average is lower than previous counts.
     view_data_unavailable: No view data available
     view: Views
     wiki_ed_help: Use the 'Get Help' button to report a problem.
@@ -1220,7 +1233,7 @@ en:
     diff: diff
     diff_show: Show
     diff_hide: Hide
-    edit_time_span: 'Edits occurred from: %{first_time} to %{last_time}'
+    edit_time_span: "Edits occurred from: %{first_time} to %{last_time}"
     edited_by: Edited By
     edited_on: Edited on %{edit_date}
     loading: Loading revisions...
@@ -1248,7 +1261,7 @@ en:
     admin_users:
       new:
         form_label: Grant admin privileges
-        form_placeholder: User Name
+        form_placeholder: Username
         confirm_add_admin: "Grant admin"
         confirm_remove_admin: "Remove admin privileges for"
         already_admin: "%{username} is already an admin!"
@@ -1269,9 +1282,8 @@ en:
     special_users:
       new:
         form_label: Grant Special User privileges
-        form_placeholder: User Name
+        form_placeholder: Username
         confirm_add_special_user: "Add Special User"
-        confirm_remove_special_user: "Remove Special User privileges for"
         already_is: "%{username} is already an {position}!"
         elevate_success: "%{username} elevated to {position}."
       remove:
@@ -1309,7 +1321,7 @@ en:
   tickets:
     none: "No tickets"
     search_bar_placeholder: Search tickets
-    chose_search_type: Chose a search type
+    chose_search_type: Choose a search type
 
   timeline:
     add_week: Add Week
@@ -1379,6 +1391,8 @@ en:
     previous: < Previous
     table_of_contents: Table of Contents
     training_library: Training Library
+    additional_training: Additional training modules
+    orientation_modules:  Instructor orientation modules
     logged_out: "You are logged out. You will not receive credit for completing this module unless you log in."
     done: Done!
     invalid: Sorry that slide does not exist!
@@ -1397,6 +1411,8 @@ en:
     search_training_resources: Search for training resources
     no_training_resource_match_your_search: No training resource matches your search
     exercise_sandbox: Exercise Sandbox
+    remaining_exercise: "%{count} additional exercises remaining."
+    view_all: View all exercises
 
   update_username:
     header: Update a changed username
@@ -1449,7 +1465,7 @@ en:
     assigned_wikidata: Assigned Items
     assignees: Assignee(s)
     loading_authorship_data: loading authorship data
-    authorship_data_not_fetched: could not fetch authorship data
+    authorship_data_not_fetched: Could not fetch authorship data
     character_doc: >
       The total amount of content a user has added to this namespace,
       calculated by adding up the added characters for all edits that
@@ -1520,8 +1536,8 @@ en:
       watch_list:
         students_add: "Add all %{prefix} to Watchlist"
         instructional_message: You're about to add your student's talk pages to your watchlist, to stay updated on their discussions and contributions. Clicking 'OK' will add all the students to the watchlist. Continue?
-        tooltip_message:  Easily track discussions on students talk pages by adding them to your watchlist.
-        success_message:  "%{prefix} successfully added to the Watchlist."
+        tooltip_message: Easily track discussions on students talk pages by adding them to your watchlist.
+        success_message: "%{prefix} successfully added to the Watchlist."
         error_message: "Failed to add %{prefix} to the Watchlist. Please try again later."
     total_uploads: "Total Uploads"
     training_complete:
@@ -1709,8 +1725,8 @@ en:
     add_available_article_wikidata: "Add as available item"
     article_finder: "Article Finder"
     article_finder_wikidata: "Item Finder"
-    article_quality: "Article Quality(0-100)"
-    article_quality_wikidata: "Item Quality(0-100)"
+    article_quality: "Article Quality (0-100)"
+    article_quality_wikidata: "Item Quality (0-100)"
     assign_article_self: "Assign yourself"
     average_views: "Average views per day"
     category_search: "Category Search"
@@ -1814,7 +1830,7 @@ en:
     note_text: "Note Text"
     created: "The note has been created successfully."
     updated: "The note has been updated successfully."
-    failure: "Unable to %{operation} the note. Please try again later."
+    failure: "Error! Please try again later."
     empty_fields: "Please ensure all input fields are filled and try again."
     edit: "The time of each edit is shown in your local time."
     edited_by: "Edited By"
@@ -1833,3 +1849,29 @@ en:
     admin:
       button_text: "Admin Notes"
       header_text: "Admin Notes Panel"
+      aria_label:
+        no_notes_available: "No admin notes are available in the panel. Press the return key to open the Admin Notes Panel."
+        new_notes_message: "%{count} new admin notes available."
+        notes_panel_opened: "The admin notes panel modal has opened. You can press the Escape key to close the panel."
+        close_admin: "Close the admin note panel modal"
+        note_action_button: "Notes action button"
+        create_note: "Create note button"
+        note_creation: "The note creation area is now available."
+        cancel_note_creation: "Cancel note creation."
+        post_created_note: "Post created note"
+        note_title_field: "Note title field focused. Enter the title of the note here."
+        note_text_field: "Note text field focused. Enter the content of the note here."
+        collapse_note: "Press return to Collapse the text of the note {{title}}."
+        expand_note: "Press return key to Expand to show the text of the note {{title}}."
+        note_details_focused: "Details of the note {{title}}"
+        note_edit_button_focused: "Edit the details of the note {{title}}"
+        note_edit_save_button_focused: "Save the edited note {{title}}"
+        note_edit_cancel_button_focused: "Cancel note edit {{title}}"
+        note_delete_button_focused: "Delete the note {{title}}"
+        note_edit_mode: "Entered Edit mode for note titled: {{title}}. You can now edit the title and content."
+
+  customize_error_message:
+    JSONP_request_failed: "The request to fetch data from Wikipedia has timed out. This may be due to a slow internet connection or temporary server issues. Please try again later."
+
+  tagged_courses:
+    download_csv: 'Download CSV'

@@ -16,6 +16,7 @@ hyw:
     opt_in: Այո
     opt_yes: այո
   articles:
+    articles: Յօդուածներ
     edited_mobile: Յօդուածներ
   assignments:
     article_link: Յօդուած
@@ -24,6 +25,25 @@ hyw:
     articles: Յօդուածներ
   metrics:
     activity: Վերջին փոփոխութիւնները
+  settings:
+    admin_users:
+      new:
+        form_placeholder: Մասնակիցի անուն
+    special_users:
+      new:
+        form_placeholder: Մասնակիցի անուն
   timeline:
     empty_week_3: կամ
+  news:
+    footer:
+      P&E_dashboard:
+        link_text: Ուիքիմետիա
+    options:
+      news_content:
+        confirm_delete: Հաստատել
+        cancel_delete: Չեղարկել
+  notes:
+    cancel_note_creation: Չեղարկել
+    cancel_edit_note: Չեղարկել
+    save_note: Յիշել
 ...

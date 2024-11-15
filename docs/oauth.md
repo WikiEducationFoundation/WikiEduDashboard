@@ -4,7 +4,7 @@
 
 **If you have not already completed the [dashboard setup](setup.md) portion of the documentation, please head over there first.**
 
-In order to use and develop the authenticated features of the application (course creation, the assignment design wizard, user management, etc) you will need to create a MediaWiki OAuth consumer. You can skip this setup process and use the consumer provided in `config/application.example.yml` to get started; this consumer cannot be used to make edits or update preferences on Wikipedia, but can be used to log in.
+In order to use and develop the authenticated features of the application (course creation, the assignment design wizard, user management, etc) you will need to create a [MediaWiki OAuth](https://www.mediawiki.org/wiki/Extension:OAuth) consumer. You can skip this setup process and use the consumer provided in `config/application.example.yml` to get started; this consumer cannot be used to make edits or update preferences on Wikipedia, but can be used to log in.
 
 If you haven't already set an email address for your Wikimedia project account, [log in to a Wikimedia site](https://www.mediawiki.org/w/index.php?title=Special:UserLogin&returnto=Special%3AUserLogout&returntoquery=noreturnto%3D) with your username and password. Once you're logged in, click on "Preferences" in the upper right-hand corner. In the "User profile" tab under "Preferences" (selected by default), set your email address. You'll need this to confirm your account and get your token and secret key in the next step.
 
@@ -31,7 +31,7 @@ A development consumer, used only by the proposer, will work immediately. For pr
 When you request a new consumer, add the tokens to the production server's `application.yml`, commented out, so they are ready for the switchover.
 
 0. Ideally, schedule the consumer update for a time when few users will be active.
-1. Add a site notice informing users that they will be logged out, 30 mintues or more before the consumer is updated.
+1. Add a site notice informing users that they will be logged out, 30 minutes or more before the consumer is updated.
 2. Initiate a snapshot of the Linode server and wait for it to finish (just in case).
 3. Update `application.yml`, commenting out the old tokens and uncommenting the new, and removing the sitenotice.
 4. In a rails console on production, remove all oauth tokens from users: `User.update_all(wiki_token: nil, wiki_secret: nil)`.

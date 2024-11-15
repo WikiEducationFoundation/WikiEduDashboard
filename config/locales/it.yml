@@ -7,6 +7,7 @@
 # Author: Anto
 # Author: Beta16
 # Author: Camillo Pellizzari
+# Author: Dream Indigo
 # Author: Einreiher
 # Author: Fierodelveneto
 # Author: Gianfranco
@@ -478,12 +479,11 @@ it:
         e non possono essere modificati. Tutto il resto puoi modificarli in seguito.
         Clicca su "Crea il mio corso!" per iniziare a costruire la linea temporale
         per la tua assegnazione Wikipedia.
-      new_or_clone: ÈOra è possibile creare un nuovo corso utilizzando la procedura
-        guidata di progettazione del compito. Se si dispone di un calendario altamente
-        personalizzato da un corso precedente che si desidera riutilizzare, è possibile
-        clonarne una copia con nuove date (se non hai personalizzato in modo significativo
-        il tuo calendario in precedenza, ti consigliamo di iniziare un nuovo corso
-        in modo da avere le versioni più aggiornate delle opzioni di assegnazione.)
+      new_or_clone: Fai clic su "Crea nuovo corso" per accedere alla procedura guidata
+        di progettazione del compito. Il tuo calendario includerà le ultime opzioni
+        per i moduli di formazione consigliati da Wiki Education e altre risorse.
+        Se si dispone di un calendario altamente personalizzato da un corso precedente
+        che si desidera riutilizzare, è possibile clonarne una copia con nuove date.
         Puoi anche usare l'opzione clone per creare sezioni aggiuntive per un corso
         che hai già impostato.
       no_class_holidays: Non ho vacanze di classe
@@ -867,6 +867,8 @@ it:
   suggestions:
     suggestion_docs:
       does_not_exist: Questa voce non esiste su Wikipedia.
+  tickets:
+    chose_search_type: Scegli un tipo di ricerca
   timeline:
     add_week: Aggiungi settimana
     block_custom: Personalizzato
@@ -984,7 +986,7 @@ it:
       %{views}'
     revisions_doc: Il numero di modifiche effettuate da questo contributore negli
       ultimi 7 giorni
-    references_doc: Il numero di riferimenti aggiunti o rimossi da questo utente
+    references_doc: Il numero di riferimenti aggiunti o rimossi da quest'utente
     reviewers: Revisori
     revisions: Versioni
     total_uploads: Totale caricamenti
@@ -1085,11 +1087,13 @@ it:
       signed: '- il team Wiki Education'
       link: Rispondi sondaggio
   wiki_api:
-    create_account_reason: Questo utente sta partecipando a %{event}.
+    create_account_reason: Quest'utente sta partecipando a %{event}.
   onboarding:
     supplementary:
       why_are_you_here: Cosa ti piacerebbe fare?
   article_finder:
+    article_quality: Qualità voce (0-100)
+    article_quality_wikidata: Qualità elemento (0-100)
     category_search: Ricerca per categoria
     fetched_articles_wikidata: Recupera elementi
     hide_options: Nascondi opzioni

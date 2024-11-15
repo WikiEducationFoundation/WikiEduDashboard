@@ -138,7 +138,7 @@ const Nav = () => {
                   </li>
                 )}
                 {userSignedIn ? (
-                  <span>
+                  <span className="user-signed-in">
                     <li>
                       <b><a href={`/users/${encodeURIComponent(currentUser)}`} className="current-user">{currentUser}</a></b>
                     </li>

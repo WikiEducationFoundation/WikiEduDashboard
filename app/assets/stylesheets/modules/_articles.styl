@@ -15,6 +15,8 @@
     .sort-container
       position unset
       height 40px
+      +below(tablet)
+        position absolute
       
   .see-more
     p
@@ -29,6 +31,9 @@
       background: url(../images/sort.svg) no-repeat 48% #fff;
       -webkit-appearance: none;
       text-indent: -200px;
+
+  .article-diff-icons
+    min-width: 144px;
 
   .article.tooltip-trigger
     display: inline-block
@@ -67,3 +72,11 @@
   .articles-shown-label
     grid-area: articles-shown-label
     padding-top: 0px
+
+// Hide the next li element for ReactPaginate 
+.hide-next-btn li.next 
+  display: none
+
+// Hide the previous  li element for ReactPaginate
+.hide-prev-btn li.previous 
+  display: none

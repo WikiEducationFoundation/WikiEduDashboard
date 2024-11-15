@@ -1168,7 +1168,6 @@ uk:
         form_label: Надати права спеціальному користувачу
         form_placeholder: Ім'я користувача
         confirm_add_special_user: Додати спеціального користувача
-        confirm_remove_special_user: Забрати права спеціального користувача у
         already_is: '%{username} уже {position}!'
         elevate_success: '%{username} підвищений до {position}.'
       remove:

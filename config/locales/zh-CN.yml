@@ -86,6 +86,7 @@ zh-CN:
       other: '%{count} Results for: ''%{search_terms}'''
     no_results: 找不到“%{query}”的结果
     show_current_revision: 显示当前版本
+    show_last_revision: 显示最新编辑修订
     sign_up_extended: 注册维基百科
     sign_up_wikipedia: 或在维基百科注册
     sign_up_log_in_extended: 通过维基百科
@@ -129,6 +130,14 @@ zh-CN:
     explore: 探索
     log_in: 登录维基百科
     sign_up: 注册维基百科
+    registration_advice:
+      username_rules:
+        heading: 用户名规则
+        avoid_offensive_usernames: 请勿选择具有冒犯、误导、扰乱或宣传性质的用户名。
+        represent_individual: 用户名必须代表个人编辑者。请勿使用学校或组织的名称。
+      additional_advice:
+        heading: 建议
+        anonymous_username_recommendation: 维基教育建议选择匿名用户名，而不是包含真实姓名或其他身份信息的用户名。
     sign_up_help: 要使用面板，您需要通过维基百科登录，并提供权限以访问您的账户。您可以使用现有的维基百科账户登录，或创建一个新账户。如果您无法创建账户，请联系dashboard@wikiedu.org。
   alerts:
     alert_label: 提醒
@@ -166,11 +175,14 @@ zh-CN:
       tracked: 跟踪的
       untracked: 未跟踪的
       tracked_and_untracked: 追踪和未追踪
+    filter_text: 筛选：
     find: 寻找条目
+    how_to_find: 如何查找条目
     hide: 隐藏
     history: （历史）
     label: 条目
     loading: 正在加载条目...
+    mark_as_complete: 标记为完成
     new: （新）
     none: 此课程没有编辑任何条目。
     preview: 条目简要预览
@@ -250,14 +262,19 @@ zh-CN:
     assign_self: 给我自己分配一个条目
     assign_tooltip: 一个分配的条目时您计划创建或改进的条目。
     bibliography: 参考文献
+    clone: 复制
     confirm_add_available: 您确定要添加%{title}么？
     confirm_addition: 您确定要分配%{title}至%{username}？
     confirm_deletion: 您确定要删除此分配吗？
+    delete: 移除和删除
     editors: 分派给
+    change_sandbox_url: 更改沙盒
     group_members: 小组成员
     label: 分配
+    label_all: 分配全部
     loading: 正在加载作业...
     none_short: 没有分配的条目
+    none_short_wikidata: 未分配任何项目
     none: 此课程没有被条目所分配。
     no_available: 此课程没有可用的条目。
     peer_review_count: |2-
@@ -763,7 +780,6 @@ zh-CN:
         form_label: 授予特殊用户权限
         form_placeholder: 用户名
         confirm_add_special_user: 添加特别用户
-        confirm_remove_special_user: 删除特殊用户权限
       remove:
         revoke_button: 撤销特殊用户
         revoking_button_working: 正在移除……
@@ -1031,7 +1047,7 @@ zh-CN:
   article_finder:
     add_available_article: 添加为可用条目
     article_finder: 条目查找器
-    article_quality: 条目质量（0~100）
+    article_quality: 条目质量（0-100）
     assign_article_self: 分配您自己
     average_views: 每天平均访问
     category_search: 分类搜索

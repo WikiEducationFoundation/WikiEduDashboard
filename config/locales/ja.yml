@@ -914,7 +914,6 @@ ja:
         form_label: 特別な利用者権限を付与する
         form_placeholder: 利用者名
         confirm_add_special_user: 特別な利用者を追加
-        confirm_remove_special_user: 特別利用者権限を次の人から除去。
         already_is: '%{username} さんは既存の{position}です。'
       remove:
         revoke_button: 特別な利用者を撤回
@@ -1155,4 +1154,6 @@ ja:
     assignment_status: トレーニングの割り当て (%{status})
   multi_wiki:
     selector_placeholder: ウィキのドメイン名の入力を開始する
+  notes:
+    failure: エラーが発生しました。後ほどもう一度お試しください。
 ...

@@ -9,29 +9,262 @@
 # Author: Şeyx Şamil
 ---
 az:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: min
+          million: mln
+          billion: mlrd
+          trillion: T
+          quadrillion: Q
+  accessibility:
+    number_field: Bu bir rəqəm sahəsidir. Əksər brauzerlər tərəfindən göstərilən düymələr
+      daxil edilmiş dəyəri artırıb azaldacaq.
   application:
+    back: Geri
     cancel: İmtina
+    cookie_consent: Bu sayt sizi giriş etmiş vəziyyətdə saxlamaq üçün kukilərdən istifadə
+      edir və Vikipediya hesabınızla əlaqəli məlumatları saxlayır.
+    cookie_consent_acknowledge: Başa düşdüm
+    cookie_consent_see_more: Daha ətraflı.
+    create_accounts: Vikipediya hesabları yarat
+    dashboard: Viki Təlim Paneli
+    documentation: Sənədləşdirmə
+    error: 'Xəta baş verdi:'
+    explore: Araşdır
+    field_required: Bu sahə tələb olunur
+    field_invalid_characters: Bu sahədə etibarsız simvollar var
+    field_invalid_date: Bu sahə YYYY-MM-DD formatında bir tarix tələb edir
+    field_invalid_date_time: Bitmə tarixi başlanğıcdan sonra olmalıdır. (Saatlar 0-dan
+      23-ə qədər qəbul edilir.)
     greeting2: Xoş gəldiniz!
     greeting_extended: Vikipediyaya xoş gəldiniz
     greeting: Salam!
     help: Kömək
     home: Ana səhifə
+    log_in_extended: Vikipediya ilə daxil olun
     log_in: Daxil ol
     log_out: Sistemdən çıx
+    my_dashboard: Panelim
+    recent_activity: Son fəaliyyətlər
+    report_problem: Problem bildir
+    request_account: Hesab tələb et
+    request_account_create: Hesab yarat
+    search: sual veer
+    search_results:
+      other: '%{count} ''%{search_terms}'' üçün nəticələr'
+    no_results: '''%{query}'' üçün nəticə yoxdur.'
+    show_current_revision: Mövcud versiyanı göstər
+    show_last_revision: Son redaktə edilmiş versiyanı göstər
+    sign_up_extended: Vikipediya ilə qeydiyyatdan keçin
+    sign_up_wikipedia: Və ya Vikipediyada qeydiyyatdan keçin
+    sign_up_log_in_extended: Vikipediya
     sign_up: Qeydiyyatdan keç
+    submit: Təsdiq et
+    training: Təlim
     change: Dəyişdir
+    details: Detallar
+    confirm: Oldu
     opt_in: Bəli
     opt_out: Xeyr
     opt_yes: bəli
     opt_no: xeyr
+    print: Çap
+  article_statuses:
+    not_yet_started: Başlamaq
+    in_progress: Qaralamada işləmək
+    ready_for_review: Genişləndirilən layihə
+    ready_for_mainspace: İşin əsas fəzaya köçürülməsi
+    assignment_completed: Tapşırıq tamamlanmış olaraq işarələndi
+    reading_the_article: Məqalə oxumaq
+    providing_feedback: Rəy vermək
+    post_to_talk: Müzakirə səhifəsində yazmaq
+    peer_review_completed: Yoxlanış tamamlandı
+  dashboard:
+    create_note: İlk dərsi yaratmaq üçün Yarata klikləyin
+    create_preparation_note: Başlamazdan əvvəl akademik təqviminizin əlinizdə olduğundan
+      əmin olun; tapşırıq yaratma aləti, seçdiyiniz tarix diapazonuna uyğunlaşmaq
+      üçün sinifinizin görüş tarixlərindən, o cümlədən hər hansı tətil və bayramlardan
+      istifadə edəcək. Unutmayın ki, siz həmişə ehtiyaclarınıza uyğun olaraq vaxt
+      qrafikini redaktə edə bilərsiniz.
+    explore_course_pages: Kurs Səhifələrini araşdırın
+    explore_examples: Nümunələri araşdırın
+    join_note: Təlimatçınızdan parol aldıqdan sonra onu tapmaq və qoşulmaq üçün Kursu
+      Tapın üzərinə klikləyin.
+    no_courses_instructor: Deyəsən, heç bir kursunuz yoxdur.
+    no_courses_student: Deyəsən, hələ kursa qoşulmamısınız.
+    opt_out: Orientasiyadan çıxmağı tələb edin
+    orientation_notice: Bir kurs yaratmazdan əvvəl, işə başlamağınıza kömək etmək
+      üçün oriyentasiyadan keçək. (Tamamlamaq təxminən 30 dəqiqə çəkir.)
+    review_orientation: Orientasiyanı nəzərdən keçir
+    start_orientation: Orientasiyaya başla
+    blog_headline: Wiki Təhsildən Son Xəbərlər
+    about_programs: Bu sayt viki fəaliyyətlərini Proqramlar - redaktə və ya məktəb
+      kursu kimi fərdi tədbirlər - vasitəsilə izləyir . Hər bir Proqram Proqramlar
+      üzrə ümumi statistikanı təmin edən bir və ya daha çox Kampaniyanın bir hissəsidir.
+    about_creating_programs: Əgər siz tək, müstəqil tədbir keçirirsinizsə, Proqram
+      yarada bilərsiniz. Tədbiriniz daha böyük bir şeyin bir hissəsidirsə, bunun üçün
+      Kampaniya tapın və ya yaradın. Sonra Kampaniya səhifəsindən yeni Proqram yarada
+      bilərsiniz.
+  home:
+    explore: Araşdır
+    log_in: Vikipediya ilə daxil olun
+    sign_up: Vikipediya ilə qeydiyyatdan keçin
+    registration_advice:
+      username_rules:
+        heading: İstifadəçi adı qaydaları
+        avoid_offensive_usernames: Təhqiredici, aldadıcı, pozucu və ya reklam xarakterli
+          istifadəçi adı seçməyin.
+        represent_individual: İstifadəçi adları fərdi şəxsi təmsil etməlidir. Məktəb
+          və ya təşkilatın adından istifadə etməyin.
+      additional_advice:
+        heading: Məsləhət
+        anonymous_username_recommendation: Wiki Education sizin real adınız və ya
+          digər müəyyənedici məlumatı özündə əks etdirən deyil, anonim istifadəçi
+          adı seçməyi tövsiyə edir.
+    sign_up_help: İdarə panelindən istifadə etmək üçün siz Vikipediya vasitəsilə daxil
+      olmalı və ona hesabınıza daxil olmaq üçün icazə verməlisiniz. Siz mövcud Vikipediya
+      hesabı ilə daxil ola və ya yenisini yarada bilərsiniz. Əgər hesab yarada bilmirsinizsə,
+      dashboard@wikiedu.org ilə əlaqə saxlayın.
+  alerts:
+    alert_label: Xəbərdarlıqlar
+    no_alerts: Heç bir xəbərdarlıq tapılmadı.
   activity:
+    all: Fəaliyyət
     edited_by: tərəfindən dəyişdirildi
+    label: Fəaliyyət
   articles:
+    articles: Məqalələr
+    article_not_found: Bu məqalə hələ yaradılmayıb.
+    article_development: (məqalənin təkmilləşdirilməsi)
+    articles_shown: '%{total} məqalədən %{count} ədədi göstərilir'
+    assigned: Təyin edilmiş məqalələr
+    assignments_none: Hələlik təyin edilmiş məqalə yoxdur.
+    available: Mövcud Məqalələr
+    no_available: Mövcud məqalə yoxdur
+    next: Növbəti
+    previous: Əvvəlki
+    article_title: Məqalənin Başlığı
+    assigned_to: Təyin edilən
+    character_doc: Başlanğıc və bitmə tarixləri arasında qeydiyyatdan keçmiş redaktorlar
+      tərəfindən məqalələrə əlavə edilən simvolların cəmi
+    cross_wiki_tracking: Başlanğıc və bitmə tarixləri arasında redaktə edilən məqalələr
+      (Əsas ad fəzası) aşağıda verilmişdir. İdarə paneli bu proqramın ev vikisindən,
+      tapşırıq və ya əlçatan məqalə olan hər hansı digər vikilərdən töhfələri götürür.
+    deleted: (silindi)
+    does_not_exist: Məqalə mövcud deyil. Təkliflər almaq üçün Qaralama səhifəsi yaradın
+      və özünüzü bu səhifəyə təyin edin.
     edited: məqalə redaktə edilib
+    edited_by: 'Redaktə edən:'
     edited_mobile: Məqalələr
+    edited_none: Hələ redaktə edilmiş məqalə yoxdur.
+    filter:
+      wiki_all: Hamısı
+      new: Yeni
+      existing: Mövcud
+      new_and_existing: Yeni və mövcud
+      tracked: İzlənilən
+      untracked: İzlənilməyən
+      tracked_and_untracked: İzlənilən və izlənilməyən
+    filter_text: 'Filtrlər:'
+    find: Məqalə tap
+    how_to_find: Necə məqalə tapmaq olar
+    hide: Gizlət
+    history: (tarixçə)
     label: Məqalələr
+    loading: Məqalələr yüklənir...
+    mark_as_complete: Tamamlanmış olaraq işarələ
+    new: (yeni)
+    none: Bu kursda heç bir məqalə redaktə olunmayıb.
+    preview: Məqalənin qısa xülasəsi
+    rating: Qiymət
+    rating_doc: Məqalənin reytinqi Vikipediyada Vikilayihələr tərəfindən təyin edilmişdir.
+      Bu reytinqlər daha köhnə versiyalara uyğun ola bilər, buna görə də məqalənin
+      doluluğunun təxmini göstəricisidir.
+    rating_docs:
+      fa: '%{class} (Seçilmiş məqalə) — Vikipediyanın ən yüksək reytinqi, yəqin ki,
+        yeni redaktorun əsas layihəsi üçün çox böyük məqalədir'
+      fl: '%{class} (Seçilmiş siyahı) — Vikipediyanın siyahılar üçün ən yüksək reytinqi'
+      a: '%{class} sinfi — çox işlənmiş məqalə, yeni redaktorun əsas layihəsi üçün
+        çox böyük məqalə ola bilər'
+      ga: '%{class} (Yaxşı məqalə) — yeni redaktorun əsas layihəsi üçün çox böyük
+        məqalə ola biləcək yaxşı işlənmiş məqalə'
+      b: '%{class} sinfi — orta səviyyədə işlənmiş məqalə'
+      c: '%{class} sinfi — təkmilləşdirmə yeri olan orta məqalə'
+      start: '%{class} sinfi — təkmilləşdirmə üçün çox yer olan ilkin məqalə'
+      stub: '%{class} sinfi — daha çox məzmun tələb edən qısa başlanğıc məqalə'
+      list: '%{class} sinfi — şərti məqalədən daha çox siyahı'
+      '?': Qiymətləndirilməmiş — hələ Vikipediyanın keyfiyyət şkalasında qiymətləndirilməmiş
+        məqalə
+      does_not_exist: Bu məqalə Vikipediyada mövcud deyil
+    see_more: Daha ətraflı
+    see_more_tooltip: Yalnız ilk redaktə edilmiş ilk 500 məqalə birinci yüklənir.
+      Əlavə məqalələri yükləmək üçün klikləyin.
+    search: Məqalə üçün Vikipediyada axtarın
+    show_cumulative_changes: Toplu dəyişiklikləri göstərin
+    show_current_version: Mövcud versiyanı göstər
+    show_current_version_with_authorship_highlighting: Müəllifliyin vurğulanması ilə
+      cari versiya
     title: Başlıq
+    tracked: İzlənilən
+    tracked_doc: Yalnız izlənən məqalələr bu proqramın statistikasına əlavə edilir.
+      Məqalələr izlənilməmiş kimi qeyd edildikdə, növbəti məlumat yeniləməsi zamanı
+      onlar statistikadan silinəcək.
+    title_example: Məqalənin başlığı
+    tools: Qiymətləndirmə vasitələri
+    view: Məqaləyə bax
     view_all: Hamısını görüntülə
+    view_doc: Ən son statistik yeniləmə vasitəsilə ilk redaktə edildiyi gündən hər
+      bir məqaləyə təxmini baxışlar. Dəqiq rəqəmləri görmək üçün pageviews.toolforge.org-dan
+      istifadə edə bilərsiniz.
+    view_on_wiki: Vikidə bax
+    views_added: '%{title} üçün %{count} yeni oxunma sayı əlavə edildi'
+    edit_size: Ölçünü redaktə et
+    wiki: Viki
+    wp10: Struktural tamlıq
+    wp10_doc: '"Struktur Tamamlanma" balı, maşın öyrənməsinə əsaslanan Obyektiv Versiya
+      Qiymətləndirmə Xidmətinə (https://ores.wikimedia.org/) əsaslanan məqalənin tam
+      ölçülü Vikipediya məqaləsi formasına nə qədər uyğun olduğunu göstərir. Bu ballar
+      məqalənin ölçüsünə, istinadların və vikikeçidlərin sayına və digər əsas mətn
+      xüsusiyyətlərinə əsasən hesablanır. Yüksək bal adətən məqalənin yaxşı məqalənin
+      strukturu üçün Vikipediya konvensiyalarına əməl etdiyini göstərir, lakin məzmunun
+      özünü nəzərə almır. (Bu ballar yalnız İngiliscə Vikipediya üçün mövcuddur.)'
+    articles_short: Məqalələr
+    deleted_message: Panel məlumatlarına görə, bu səhifə silinib. (Bəzi hallarda səhifənin
+      addəyişməsi, tarixçənin birləşdirilməsi və ya digər hərəkətlər məqalənin yanlış
+      olaraq silinmiş kimi siyahıya alınması ilə nəticələnə bilər. Silinmiş məqalələr
+      də sonradan silinə bilər. Əslində silinməyən və ya sonradan bərpa edilmiş məqalələr
+      üçün İdarə Paneli adətən bunu bir və ya iki gün ərzində əks etdirir.)
+    page_logs: (səhifə jurnalları)
+    tracked_articles: İzlənən Məqalələr
+    view_articles: Məqalələrə Bax
+    no_tracked_articles: Bu kateqoriyada izlənilən məqalə yoxdur
+  items:
+    items: Elementlər
+    lexeme: Leksema
+    article_not_found: Bu element hələ yaradılmayıb.
+    assigned: Təyin edilmiş maddələr
+    assignments_none: Hələ təyin edilmiş element yoxdur.
+    available: Mövcud elementlər
+    character_doc: Başlanğıc və bitmə tarixləri arasında qeydiyyatdan keçmiş redaktorlar
+      tərəfindən elementlərə əlavə edilən simvolların cəmi
+    cross_wiki_tracking: Başlanğıc və bitmə tarixləri arasında redaktə edilən əsas
+      ad fəzası (Məqalə) səhifələri aşağıda verilmişdir. İdarə paneli Təyinat və ya
+      Əlçatan Element olan hər hansı digər vikilərlə birlikdə bu proqramın ev vikisindən
+      töhfələri götürür.
+    does_not_exist: Element mövcud deyil. Təkliflər almaq üçün Qaralama səhifəsi yaradın
+      və özünüzü bu səhifəyə təyin edin.
+    edited: Elementlər Redaktə Edildi
+    edited_none: Hələ redaktə edilmiş element yoxdur.
+    find: Elementləri Tap
+    how_to_find: Elementləri necə tapmaq olar
+    preview: Elementin qısa xülasəsi
+    search: Elementi Vikidatada axtar
+    tracked_doc: Yalnız izlənən elementlər bu proqram üçün statistikaya əlavə edilir.
+      Elementlər izlənilməmiş kimi qeyd edildikdə, növbəti məlumat yeniləməsi zamanı
+      onlar statistikadan silinəcək.
   assignments:
     change_sandbox_url: Qaralamanı dəyişdirin
     submit: Təsdiq et
@@ -47,7 +280,7 @@ az:
     duration: Kursun müddəti
     new_week: Yeni həftə əlavə et
     school: Məktəb
-    stay_in_sandbox: Sandboxda qalın
+    stay_in_sandbox: Qaralamada qalın
     students: Tələbələr
     students_short: Tələbələr
     submitted_at: Göndərilib

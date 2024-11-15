@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Ajeje Brazorf
+# Author: Andrekowacs
 # Author: Athena in Wonderland
 # Author: B3rnas
 # Author: Chicocvenancio
@@ -540,6 +541,7 @@ pt:
         selecione "Não tenho férias escolares". O calendário clonado ajustará automaticamente
         as datas para refletir as semanas em que não há encontros agendados.
       clone_successful: Atualizar detalhes do curso clonado
+      copy_successful: Atualize detalhes para o curso copiado
       clone_successful_details: O seu curso foi clonado, incluindo os elementos de
         calendarização (semanas e blocos). Certifique-se de que adiciona as datas,
         que não são transferidas. Alterou-se mais alguma coisa no seu curso? Atualize-a
@@ -1254,8 +1256,6 @@ pt:
         form_label: Conceder privilégios de utilizador especial
         form_placeholder: Nome de utilizador
         confirm_add_special_user: Adicionar utilizador especial
-        confirm_remove_special_user: Remover os privilégios de utilizador especial
-          de
         already_is: '%{username} já é {position}!'
         elevate_success: '%{username} promovido a {position}.'
       remove:

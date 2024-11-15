@@ -18,6 +18,7 @@
 # Author: Ragesoss
 # Author: Raymond
 # Author: Robby
+# Author: Stjn
 # Author: Verdy p
 # Author: Vojtěch Dostál
 # Author: Zoranzoki21
@@ -470,6 +471,8 @@ qqq:
 
       '''Note :''' do not ''translate'' the "<kbd>@example.org</kbd>" part, which is one of the safe domain names specially reserved by IANA for sample documentation published on the web or elsewhere, standardized in Internet [https://tools.ietf.org/html/rfc2606 RFC 2606] (see also [https://en.wikipedia.org/wiki/Example.com Example.com on Wikipedia]) so that it will not reach anyone and will not display or return harmful contents or steal personal data with unfair practices. Sending any email to that address will go instantly to a dust bin (and no one will reply, except if this address is abused). Mails to that fake address may also be blocked instantly by an upstream mail service provider and not delivered.<br />
       Other ''translated'' domain names may be dangerous (could be hosting scams and malwares), or this could cause spam to be delivered to that target address and could harm an unrelated legitimate user or business.
+    no_campaign: '{{Warning|Don''t translate "Miscellanea". It''s a name that always
+      appears in English.}}'
     nocourses: Message indicating that the logged in user is not part of any courses
     none: Default placeholder to indicate that there are no items in a list. Used
       to indicate that there are no instructors in a course, or the course is part
@@ -533,11 +536,10 @@ qqq:
     volunteer:
       one: |-
         Label for a single course volunteer
-        {{Identical|Label for multiple course volunteers
-        {{Identical|Volunteer}}}}
+        {{Identical|Volunteer}}
       other: |-
-        Volunteer|Label for multiple course volunteers
-        {{Identical|Volunteer}}}}
+        Label for multiple course volunteers
+        {{Identical|Volunteer}}
     weeks_none: Message indicating that a course does not have a timeline (Wiki Ed
       only)
     warn_mirrored: Message to alert instructor that their new course will be uploaded
@@ -938,4 +940,8 @@ qqq:
     unassign_article_self: Button label to unassign an article to self
   training_status:
     continue: '{{Identical/Continue}}'
+  news:
+    footer:
+      wiki_education_dashboard:
+        link_text: '{{optional}}'
 ...

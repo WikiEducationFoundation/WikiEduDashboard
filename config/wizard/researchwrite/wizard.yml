@@ -49,7 +49,7 @@
       selected: true # selected by default
     -
       title: Add to an article (recommended)
-      blurb: Students use course readings or other relevant secondary sources to add 1-2 sentences to a Wikipedia article related to the class. They see how to integrate their new information, and how to include a citation for their source.
+      blurb: Students help fix Wikipedia's equity gap by adding missing facts to a biography of a diverse person. They learn to add information, including the technical how-tos of citations.
       # description:
       logic: add_to_article
       selected: true # selected by default
@@ -58,6 +58,40 @@
       blurb: Students browse Wikipedia until they find an article they'd like to improve. They make edits to improve the language or formatting.
       # description:
       logic: copyedit
+
+-
+  key: improving_representation
+  title: Improving representation
+  description: |
+    Wikipedia should provide access to all knowledge – everything and everyone, everywhere.
+    But just like the real world, Wikipedia can fall short, particularly when it comes to
+    accurate, representative content of culturally diverse perspectives and histories. This
+    not only includes gaps in article content but also in areas like the diversity of the
+    authors cited, which means that students across all disciplines have the opportunity to
+    improve equity on Wikipedia.
+ 
+    To help your students understand the impact and challenges of working on articles
+    related to historically underrepresented and misrepresented subjects and groups, or
+    of enhancing representation in articles of any topic, we offer the training module
+    “Improving Representation on Wikipedia.”
+
+    This training explores why this kind of work is important, gives examples of how to
+    identify representation gaps, and offers strategies for enhancing representation in
+    an article’s text, references, images, and image captions.
+
+    #### Would you like your students to take the training module “Improving Representation on Wikipedia”? 
+  type: 1  # single choice
+  minimum: 1
+  options:
+    -
+      title: "Yes"
+      blurb: I want my students to take this training module.
+      selected: true # selected by default
+      tag: improving_representation
+      logic: improving_representation
+    -
+      title: "No"
+      blurb: I do not want to incorporate this training module.
 
 -
   key: sandboxes
@@ -417,18 +451,21 @@
   minimum: 0
   options:
     -
-      title: Class blog or class discussion
+      title: Weekly journal
       blurb: |
-        Students keep a blog about their experiences, and/or discuss their experiences in class.
+        Students keep a weekly journal about their Wikipedia assignment. (Recommended)
 
-        Note: Wiki Education does not provide a blog platform.
+        Note: Wiki Education does not provide a platform for this activity. We recommend
+        using your LMS discussion board or another platform where students can submit
+        their weekly journal.
       description: >
-        Giving them prompts every week or two, such as “To what extent are the editors on Wikipedia a
-        self-selecting group and why?” will help them think about the larger
-        issues surrounding this online encyclopedia community. It will also give
-        you material on and off wiki to grade. If you have time in class, these
-        discussions can be particularly constructive in person.
-      logic: blog_or_discussion_assignment
+        Weekly journaling about the Wikipedia assignment is a great way for your students
+        to reflect on what they are learning throughout this project and help them stay
+        on task. It also allows you to track their progress and learn about any issues
+        they’ve encountered in a timely way.
+
+      logic: weekly_journal_assignment
+      selected: true # this is a new default for Fall 2024 onward
     -
       title: In-class presentation
       blurb: Each student or group prepares a short presentation for the class, explaining what they worked on, what went well and what didn't, and what they learned. These presentations can make excellent fodder for class discussions to reinforce your course's learning goals.

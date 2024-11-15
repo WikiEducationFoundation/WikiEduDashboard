@@ -13,7 +13,7 @@ const AdminUser = createReactClass({
     }),
   },
 
-  getInitialState: function () {
+  getInitialState() {
     return { confirming: false };
   },
 

@@ -274,7 +274,7 @@ ku-latn:
       headline: Silav %{username}
   article_finder:
     article_finder: Peydakera Gotar
-    article_quality: Kalîteya Gotar(0-100)
+    article_quality: Kalîteya Gotarê (0-100)
     average_views: Hejmara lênerîna rojane ya nîvekî
     category_search: Lêgerîna Kategorî
     fetching_assessments: Nirxandinên Rûpelan Stendin

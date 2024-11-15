@@ -291,6 +291,13 @@ bg:
     title: Заглавие
   resources:
     label: Ресурси
+  settings:
+    admin_users:
+      new:
+        form_placeholder: Потребителско име
+    special_users:
+      new:
+        form_placeholder: Потребителско име
   timeline:
     add_week: Добавяне на седмица
     gradeable_value: Стойност
@@ -321,6 +328,8 @@ bg:
   user_profiles:
     location_placeholder: Добавяне на местоположение (незадължително)
     institution_placeholder: Име на институцията (незадължително)
+  wizard:
+    read_more: Прочетете повече
   error:
     start_date_before_end_date: Началната дата трябва да бъде по-ранна от крайната
       дата
@@ -333,4 +342,11 @@ bg:
     search: Търсене
     submit: Изпращане
     tools: Инструменти
+  news:
+    footer:
+      P&E_dashboard:
+        link_text: Уикимедия
+    options:
+      news_content:
+        confirm_delete: Потвърждаване
 ...

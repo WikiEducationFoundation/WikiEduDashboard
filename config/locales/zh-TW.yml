@@ -65,7 +65,7 @@ zh-TW:
       other: '''%{search_terms}'' %{count} 個結果：'
     no_results: 查無「%{query}」的結果
     show_current_revision: 顯示目前版本
-    show_last_revision: 檢視最新修訂
+    show_last_revision: 檢視最新編輯修訂
     sign_up_extended: 註冊維基百科
     sign_up_wikipedia: 或在維基百科註冊
     sign_up_log_in_extended: 參與維基百科
@@ -208,6 +208,9 @@ zh-TW:
     tracked_articles: 已追蹤條目
     view_articles: 檢視條目
     no_tracked_articles: 此分類沒有追蹤的條目
+    not_choosen_article: 您還沒有選擇要處理的條目。當您找到要處理的條目時，請使用上面的按鈕來指派。
+    use_dashboard: 如何使用面板
+    evaluate_and_source: 評估條目和來源
   items:
     items: 項目
     lexeme: 詞位
@@ -477,7 +480,9 @@ zh-TW:
       cloned_course_calendar_instructions: 選擇日期，以便從行事曆中增加或移除這些時間 (例如假日或不上課的時候) 。點選一個日期可以從不上課時段、上課時段、以及休假時段三種設定之間轉換。若您開課期間沒有遇到假日，點選
         "我的課程沒有休假時段" 。複製完成的時間軸將會隨著不上課時段的星期自動坐相對應的調整。
       clone_successful: 替複製課程更新詳情
+      copy_successful: 替複製的課程更新詳細資訊
       clone_successful_details: 您的課程已經被複製，包含時間軸的各種內容 (所有的星期以及障礙) 。請確認所增加的日期沒有延續。您的課程還有哪些更動嗎？歡迎您現在更新。
+      copy_successful_details: 已複製您的課程，包含時間軸的各元素（星期與區塊）。請確認所添加的日期沒有延期。您還有哪些課程有更動到嗎？歡迎您現在更新。
       course_dates_info: 輸入您課程的起始和結束日期。在下個步驟裡，您可以從時間範圍來挑選何時開始作維基百科分配。
       course_description: 課程說明
       course_description_placeholder: 您的課程會涵蓋什麼？必且會讓學生們在維基百科上做出那些事情？請包含足夠的詳細內容，讓其他維基百科編者能有充分理解的感覺，來方便您的學生做出貢獻。
@@ -561,6 +566,7 @@ zh-TW:
     enrollment: 添加/移除學生
     enrollment_edits_enabled: 登記編輯已啟用
     enrollment_edits_enabled_tooltip: 若有啟用，面板會對加入方案的各編者發布使用者頁面與討論頁模板。
+    event_sync: 已停用編輯：因為課程已連結到別的事項，無法更改此欄位。更改會造成擾亂到事項的整合。
     courses_enrolled: 課程已登記
     error:
       exists: 此項課程已經存在！請嘗試使用其他不同的標題、學校名稱或學期。
@@ -1048,7 +1054,7 @@ zh-TW:
     diff: 差異
     diff_show: 顯示
     diff_hide: 隱藏
-    edit_time_span: 從%{first_time}至%{last_time}發生的編輯數
+    edit_time_span: 從：%{first_time}至%{last_time}發生的編輯數
     edited_by: 編輯者為
     edited_on: 編輯於%{edit_date}
     loading: 正在載入修訂⋯⋯
@@ -1096,7 +1102,6 @@ zh-TW:
         form_label: 授予特別使用者權限
         form_placeholder: 使用者名稱
         confirm_add_special_user: 添加特殊使用者
-        confirm_remove_special_user: 移除特殊使用者的權限有關於
         already_is: '%{username} 已是{position}！'
         elevate_success: '%{username}升為{position}。'
       remove:
@@ -1191,6 +1196,8 @@ zh-TW:
     previous: <上一個
     table_of_contents: 目次
     training_library: 培訓圖書館
+    additional_training: 額外培訓模組
+    orientation_modules: 導師導覽模組
     logged_out: 您已經登出。除非您登入，否則您將不會收到完成此訓練的紀錄。
     done: 完成！
     invalid: 很抱歉，該投影片不存在！
@@ -1210,6 +1217,8 @@ zh-TW:
     search_training_resources: 培訓資源搜尋
     no_training_resource_match_your_search: 沒有符合您要搜尋的培訓資源
     exercise_sandbox: 練習沙盒
+    remaining_exercise: 剩下 %{count} 個額外練習。
+    view_all: 查看所有練習
   update_username:
     header: 更新已更改的使用者名稱
     not_found: 找不到所輸入名稱的使用者。
@@ -1508,4 +1517,96 @@ zh-TW:
     assignment_status: 培訓分配（%{status}）
   multi_wiki:
     selector_placeholder: 開屬輸入一個 wiki 網域
+  news:
+    nav_tooltip: 新聞和最近的更動
+    add_news: 新增新聞
+    post_confirmation:
+      title: 繼續發布新聞更新嗎？
+      confirmation: 請確認。
+    delete_confirmation:
+      title: 繼續刪除新聞內容嗎？
+      confirmation: 請確認。
+    no_updates:
+      message: 目前沒有可用的新聞更新
+      check_later: 請稍後檢查。
+    header:
+      P&E_dashboard_title: 新聞和最近的更動
+      wiki_education_dashboard_title: 維基教育功能面板新聞
+    footer:
+      P&E_dashboard:
+        link_text: 維基媒體
+        footer_text: 閱讀新聞和最近的更動
+      wiki_education_dashboard:
+        link_text: wikiedu.org/blog
+        footer_text: 來自維基教育的最新消息
+    options:
+      news_content:
+        delete_news: 刪除新聞
+        confirm_delete: 確認
+        cancel_delete: 取消
+        cancel_edit: 取消編輯
+        edit_news: 編輯新聞
+        update_news: 更新新聞
+      create_news:
+        cancel_post: 取消發布
+        confirm_post: 確認發布
+        discard_post: 捨棄新聞
+        post_news: 發布新聞
+    notification:
+      delete: 新聞內容刪除成功
+      update: 新聞內容更新成功
+      create_news: 新聞內容發布成功
+      create_news_error: 建立新聞內容時出錯。請再試一次。
+      update_error: 更新新聞內容時出錯。請再試一次。
+      empty_create_news_content_error: 發布前請輸入新聞內容。
+      empty_update_news_content_error: 更新前請輸入新聞內容。
+    text_area_input:
+      placeholder: 新增新聞和最近的更動
+  notes:
+    title: 標題
+    note_title: 註釋標題
+    note_text: 註釋文字
+    created: 建立註釋成功。
+    updated: 更新註釋成功
+    failure: 錯誤！請稍後再試。
+    empty_fields: 請確認已填寫所有欄位，然後再試一次。
+    edit: 各編輯的時間均以您的當地時間顯示。
+    edited_by: 編輯自
+    last_edited_by: 顯示上次編輯該註釋的管理員名稱。
+    deleted: 該註釋已成功刪除。在您的註釋裡不再可用。
+    delete_note_confirmation: 刪除註釋：此操作將永久刪除此註釋。您確定要繼續嗎？
+    delete_note_error: 無法刪除註釋。請再試一次。
+    no_notes: 本課程目前沒有相關註釋。
+    create_note: 建立註釋
+    cancel_note_creation: 取消
+    post_note: 發布
+    edit_note: 編輯註釋
+    cancel_edit_note: 取消
+    save_note: 儲存
+    delete_note: 刪除註釋
+    admin:
+      button_text: 管理註釋
+      header_text: 管理註釋面板
+      aria_label:
+        notes_panel_opened: 已開啟管理註釋面板互動視窗。您可以按下退出鍵來關閉。
+        close_admin: 關閉管理註釋面板互動視窗
+        note_action_button: 註釋操作按鈕
+        create_note: 建立註釋按鈕
+        note_creation: 建立註釋區域現可用。
+        cancel_note_creation: 取消建立註釋。
+        post_created_note: 發布已建立註釋
+        note_title_field: 聚焦在註釋標題欄位。在此輸入註釋的標題。
+        note_text_field: 聚焦在註釋文字欄位。在此輸入註釋的內容。
+        collapse_note: 按下輸入鍵可折疊註釋{{title}}的文字。
+        expand_note: 按下輸入鍵可展開顯示註釋{{title}}的文字。
+        note_details_focused: 註釋{{title}}的詳細資料
+        note_edit_button_focused: 編輯註釋{{title}}的詳細資料
+        note_edit_save_button_focused: 儲存已編輯的註釋{{title}}
+        note_edit_cancel_button_focused: 取消編輯註釋{{title}}
+        note_delete_button_focused: 刪除註釋{{title}}
+        note_edit_mode: 已進入標題為{{title}}的註釋的編輯模式。現在您可以編輯標題和內容。
+  customize_error_message:
+    JSONP_request_failed: 從維基百科取得資料的請求已逾時。這可能是由於網路連線速度太慢，或是臨時伺服器問題造成的。請稍後重試。
+  tagged_courses:
+    download_csv: 下載 CSV
 ...

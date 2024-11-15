@@ -52,14 +52,14 @@ essentials:
           </p>
 
       -
-        if: blog_or_discussion_assignment
-        title: Wikipedia assignment blog
+        if: weekly_journal_assignment
+        title: Wikipedia assignment journal
         kind: 1
         content: |
           <p>
-            <a href="/training/students/assignment-blog/keep-a-blog">Begin a blog about your experiences</a>. You can use
+            <a href="/training/students/assignment-journal/keep-a-journal">Write a weekly journal about your experiences</a>. You can use
             discussion questions to frame your entries, or reflect on the
-            research and writing process. Create at least one blog entry
+            research and writing process. Create at least one journal entry
             each week during the Wikipedia assignment.
           </p>
 
@@ -80,6 +80,12 @@ essentials:
         content: |
 
       -
+        if: improving_representation
+        title: Improving Representation
+        training_module_ids: [68] # Improving representation
+        content: |
+
+      -
         if: sources_and_plagiarism_discussion
         title: "Discussion"
         kind: 0
@@ -90,6 +96,19 @@ essentials:
   - # Week three
     weight: 6
     blocks:
+      -
+        if: no_sandboxes
+        title: Keeping track of your work
+        kind: 1
+        training_module_ids: [65] # Keeping track of work without sandboxes
+        content: |
+
+      -
+        unless: no_sandboxes
+        title: Keeping track of your work
+        kind: 1
+        training_module_ids: [60] # Keeping track of work
+        content: |
 
       -
         if: medical_topics
@@ -130,9 +149,9 @@ essentials:
     blocks:
       -
         if: add_to_article
-        title: Make a small edit
+        title: Add a fact to Wikipedia
         kind: 1
-        training_module_ids: [8, 35] # Adding citations, Exercise: Make a small edit
+        training_module_ids: [8, 69] # Adding citations, Exercise: Add a fact to Wikipedia (aka update a bio)
         graded: true
         points: 10
         content: |

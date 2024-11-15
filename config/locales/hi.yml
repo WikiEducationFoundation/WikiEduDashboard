@@ -415,6 +415,12 @@ hi:
   settings:
     categories:
       users: सदस्य
+    admin_users:
+      new:
+        form_placeholder: सदस्यनाम
+    special_users:
+      new:
+        form_placeholder: सदस्यनाम
   timeline:
     empty_week_3: या
   training:

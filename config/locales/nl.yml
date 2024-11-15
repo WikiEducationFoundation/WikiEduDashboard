@@ -44,9 +44,10 @@ nl:
           trillion: bln
           quadrillion: bld
   accessibility:
-    number_field: Dit is een numeriek veld. De meeste browsers tonen hier knoppen
-      waarmee u de invoer kunt verhogen en verlagen.
+    number_field: Dit is een numeriek veld. De meeste browsers geven hier knoppen
+      weer waarmee u de invoer kunt verhogen en verlagen.
   application:
+    back: Terug
     cancel: Annuleren
     cookie_consent: Deze site gebruikt cookies om u aangemeld te houden en slaat informatie
       op met betrekking tot uw Wikipedia-account.
@@ -80,6 +81,8 @@ nl:
       one: '%{count} resultaat voor: ''%{search_terms}'''
       other: '%{count} resultaten voor: ''%{search_terms}'''
     no_results: Geen resultaten gevonden voor '%{query}'
+    show_current_revision: Huidige versie bekijken
+    show_last_revision: Laatste bewerkte versie weergeven
     sign_up_extended: Registreren via Wikipedia
     sign_up_wikipedia: Of maak een account aan op Wikipedia
     sign_up_log_in_extended: met Wikipedia
@@ -158,7 +161,7 @@ nl:
     edited_by: Bewerkt door
     label: Activiteit
   articles:
-    articles: Artikelen
+    articles: Pagina's
     article_not_found: Dit artikel is nog niet aangemaakt.
     article_development: (artikelontwikkeling)
     articles_shown: Toont %{count} van %{total}
@@ -191,7 +194,9 @@ nl:
       tracked: Gevolgd
       untracked: Niet bijgehouden
       tracked_and_untracked: Gevolgd en niet gevolgd
+    filter_text: 'Filters:'
     find: Artikelen zoeken
+    how_to_find: Hoe vind ik een artikel
     hide: Verbergen
     history: (geschiedenis)
     label: Pagina's
@@ -244,37 +249,96 @@ nl:
       kunt met pageviews.toolforge.org  het exacte aantal zien.
     view_on_wiki: Bekijk op wiki
     views_added: '%{count} nieuwe weergaven toegevoegd voor %{title}'
+    edit_size: Bewerkingsgrootte
     wiki: Wiki
     wp10: Structurele volledigheid
+    articles_short: Pagina's
+    page_logs: (paginalogboeken)
+    tracked_articles: Gevolgde pagina's
+    view_articles: Pagina's bekijken
+    no_tracked_articles: Deze categorie bevat geen gevolgde pagina's
+  items:
+    items: Items
+    lexeme: Lexeem
+    article_not_found: Dit item is nog niet gemaakt.
+    assigned: Items toewijzen
+    assignments_none: Er zijn nog geen toegewezen items.
+    available: Beschikbare items
+    edited: Bewerkte items
+    edited_none: Er zijn nog geen items bewerkt.
+    find: Items vinden
+    how_to_find: Hoe meer items vinden
+    preview: Korte voorvertoning van item
+    search: Item in Wikidata zoeken
+    title_example: Itemnaam
+  articles_wikidata:
+    articles_short: Items
+  articles_generic:
+    articles_short: Pagina's
   assignments:
+    article: De pagina %{title} is nu aan u toegewezen.
     article_link: Artikel
+    article_link_wikidata: Item
     already_exists: Deze opdracht bestaat al!
     assignees: Toegewezen aan
     assign_other: Een artikel toewijzen/verwijderen
+    add_available: Beschikbare pagina's toevoegen
+    add_available_wikidata: Beschikbare items toevoegen
+    add_available_placeholder: Voeg één paginanaam of URL toe per regel
+    add_available_placeholder_wikidata: Voeg één itemnaam of URL toe per regel
+    add_available_submit: Pagina's toevoegen
+    add_available_submit_wikidata: Items toevoegen
     assign_self: Wijs een pagina aan mezelf toe
+    assign_self_wikidata: Item aan mezelf toewijzen
+    assign_tooltip: Een toegewezen pagina is een pagina die u wilt maken of verbeteren.
+    assign_tooltip_wikidata: Een toegewezen item is een item dat u wilt maken of verbeteren.
     bibliography: Bibliografie
+    clone: Kopiëren
+    confirm_add_available: Weet u zeker dat u %{title} wilt toevoegen?
     confirm_addition: Weet je zeker dat je %{title} wilt toewijzen aan %{username}?
     confirm_deletion: Weet u zeker dat u deze toewijzing wilt verwijderen?
+    delete: Verwijderen
+    editors: Toegewezen aan
+    change_sandbox_url: Zandbak wijzigen
     group_members: Groepsleden
     label: Toewijzen
+    label_all: Allemaal toewijzen
     loading: Bezig met het laden van opdrachten...
     none_short: Geen pagina's toegewezen
+    none_short_wikidata: Geen items toegewezen
     none: Aan deze cursus zijn geen artikelen toegewezen.
+    no_available: Deze cursus heeft geen beschikbare pagina's
+    peer_review_count: '%{currentCount}/%{total} geselecteerd'
+    peer_review_count_tooltip: U moet %{total} pagina's selecteren voor peer review.
+    peer_review_link: Peer review
+    peer_review_link_personalized: Peer review van %{username}
+    remove: Verwijderen
     reviewers: Controleur(s)
     review_other: Een peerreview toewijzen/verwijderen
     review_self: Controleer een pagina
+    review_self_wikidata: Item controleren
+    select: Selecteren
+    submit: Opslaan
   blocks:
     milestones:
       title: Mijlpalen
   campaign:
+    active_campaigns: Actieve campagnes
     add_organizer: Voeg organisator toe
     alert_article: Paginanaam
+    alert_label: Campagnewaarschuwingen
+    alert_select_label: Filter per waarschuwingstype
+    alert_type: Type
+    alert_user_id: Gebruiker
+    all_campaigns: Alle campagnes
     campaign: Campagne
     campaigns: Campagnes
     campaign_deleted: Campagne "%{title}" is verwijderd
     campaign_not_updated: Campagne kan niet worden bijgewerkt
     campaign_updated: Campagne bijgewerkt
     created_at: Datum
+    course: Cursus
+    course_data: cursusgegevens
     create_campaign: Maak een nieuwe campagne aan
     create_my_campaign: Creëer mijn campagne!
     customize_passcode: een standaard toegangscode
@@ -282,12 +346,45 @@ nl:
     data_courses: Cursusoverzichtgegevens
     data_courses_info: Basisstatistieken voor elke cursus/programma
     data_articles: Pagina's bewerkt
+    data_revisions: Versiegegevens
+    data_instructors: Instructeurs
+    data_instructors_info: Lijst van instructeurs/facilitatoren en hun cursussen/programma's
+    data_editors_by_course: Bewerkers per cursus
+    data_editors_by_course_info: Lijst van ingeschreven bewerkers en hun cursussen/programma's
+    data_editor_usernames: Gebruikersnamen van bewerkers
+    data_editor_usernames_info: Lijst met gebruikersnamen van bewerkers, één per regel
     data_wikidata: Wikidata-statistieken
+    data_wikidata_info: Gedetailleerd overzicht van Wikidata-activiteiten, gebaseerd
+      op bewerkingssamenvattingen
+    default_course_type: Standaard cursustype
+    default_passcode: Standaard toegangscode
+    default_passcode_explanation: 'Nieuwe programma''s in deze campagne moeten standaard
+      het volgende hebben:'
     description: Beschrijving
+    delete_campaign: Campagne verwijderen
+    delete_course_tooltip: Verwijderen en uit de campagne verwijderen
+    disable_account_requests: Accountaanvragen uitschakelen
+    enable_account_requests: Accountaanvragen inschakelen
+    newest_campaigns: Nieuwste campagnes
+    featured_campaigns: Aanbevolen campagnes
+    instructors_course: instructeurs per cursus
     no_alerts: Deze campagne bevat geen waarschuwingen
     no_passcode: geen toegangscode
     none: Geen
     organizers: Organisatoren
+    organizer_added: '%{user} is nu een organisator van de campagne "%{title}"'
+    organizer_removed: '%{user} is verwijderd als organisator van de campagne "%{title}"'
+    pages_edited_small: pagina's bewerkt
+    program_template: Programmasjabloon
+    program_template_tooltip: Als een organisator een programma in deze campagne aanmaakt,
+      wordt de tekst in dit gebied gekopieerd als beschrijving op de programmapagina
+    random_passcode: een willekeurige toegangscode
+    remove_course_tooltip: Verwijderen uit campagne.
+    requested_accounts: Accountaanvragen
+    resolve: Oplossen
+    revision_data: versiegegevens
+    students_small: studenten
+    student_course: studenten per cursus
     title: Titel
     search: Zoeken
   categories:
@@ -699,8 +796,6 @@ nl:
         form_label: Bevoegdheden voor bijzondere gebruiker toekennen
         form_placeholder: Gebruikersnaam
         confirm_add_special_user: Bijzondere gebruiker toevoegen
-        confirm_remove_special_user: Bevoegdheid voor bijzondere gebruiker ontnemen
-          van
         already_is: '%{username} is al een {position}!'
         elevate_success: '%{username} naar {position} verhoogd.'
       remove:

@@ -11,6 +11,8 @@
 
 .training__intro
   column(8/12)
+  +below(tablet)
+    column(12/12)
 
 .training__toc-container
   column(7/24, offset: (1/24))
@@ -86,6 +88,12 @@
   margin 0 0 2em
   h1
     margin 0 0 10px 0
+  +below(tablet)
+    margin 10px 10px 20px
+    h1
+      font-size 30px
+    p
+      font-size 18px
 
 .training__categories
   list-style none
@@ -108,6 +116,9 @@
   p
     font-size 15px
     line-height 1.5
+  +below(tablet)
+    column(12/12)
+    margin 10px
 
 .training__category__source
   a
@@ -121,6 +132,10 @@
     background white
     &:first-of-type
       margin-top 0
+  +below(tablet)
+    column(12/12)
+    li
+      margin 10px 10px 30px
 
 .training-intro__header
   text-align left

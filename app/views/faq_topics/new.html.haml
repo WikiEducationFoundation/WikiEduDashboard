@@ -1,3 +1,4 @@
+- content_for :before_title, 'New FAQ Topic'
 .container
   = form_with url: '/faq_topics', method: :create do
     = label_tag :slug, 'Slug'

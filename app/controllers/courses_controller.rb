@@ -35,10 +35,9 @@ class CoursesController < ApplicationController
       return
     end
     @course = course_creation_manager.create
-    update_courses_wikis
-    update_course_wiki_namespaces
-    update_academic_system
-    update_course_format
+    # return early if the course was not persisted to the db
+    return if @course.id.nil?
+    handle_post_course_creation_updates
   end
 
   def update
@@ -221,7 +220,8 @@ class CoursesController < ApplicationController
   def validate
     slug = params[:id].gsub(/\.json$/, '')
     @course = find_course_by_slug(slug)
-    raise NotPermittedError unless current_user&.can_edit?(@course)
+    course_cloned_status = @course.cloned_status == 3
+    raise NotPermittedError unless current_user&.can_edit?(@course) || course_cloned_status
   end
 
   def handle_course_announcement(instructor)
@@ -363,6 +363,13 @@ class CoursesController < ApplicationController
     end
   end
 
+  def handle_post_course_creation_updates
+    update_courses_wikis
+    update_course_wiki_namespaces
+    update_academic_system
+    update_course_format
+  end
+
   def course_params
     params
       .require(:course)
@@ -414,7 +421,7 @@ class CoursesController < ApplicationController
   def protect_privacy
     return unless @course.private
     # Admins and enrolled users have non-visitor roles
-    return if current_user && current_user.role(@course) != CoursesUsers::Roles::VISITOR_ROLE
+    return if current_user&.nonvisitor?(@course)
     raise ActionController::RoutingError, 'not found'
   end
 

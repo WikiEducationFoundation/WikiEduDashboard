@@ -79,6 +79,7 @@ class PushCourseToSalesforce
       Interested_in_DYK_or_GA__c: interested_in_dyk_or_ga?,
       Content_Expert__c: content_expert,
       Stay_in_sandbox__c: @course.stay_in_sandbox?,
+      No_sandboxes__c: @course.no_sandboxes?,
       Submitted_at__c: @course.submitted_at&.iso8601,
       Approved_at__c: @course.approved_at&.iso8601
     }

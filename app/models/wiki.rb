@@ -42,13 +42,13 @@ class Wiki < ApplicationRecord
   # https://incubator.wikimedia.org/wiki/Incubator:News
   LANGUAGES = %w[
     aa ab ace ady af ak als alt am ami an ang ar arc ary arz as ast atj av avk ay awa az azb
-    ba ban bar bat-smg bbc bcl be be-tarask be-x-old bg bh bi bjn blk bm bn bo bpy br bs btm
+    ba ban bar bat-smg bbc bcl be be-tarask be-x-old bew bg bh bi bjn blk bm bn bo bpy br bs btm
     bug bxr ca cbk-zam cdo ce ceb ch cho chr chy ckb cmn co commons cr crh cs csb cu
-    cv cy da dag de dga din diq dk dsb dty dv dz ee egl el eml en eo epo es et eu ext fa fat
+    cv cy da dag de dga din diq dk dsb dtp dty dv dz ee egl el eml en eo epo es et eu ext fa fat
     ff fi fiu-vro fj fo fon fr frp frr fur fy ga gag gan gcr gd gl glk gn gom gor got gpe gsw
     gu guc gur guw gv ha hak haw he hi hif ho hr hsb ht hu hy hyw hz ia id ie ig igl ii ik ilo
     incubator inh io is it iu ja jam jbo jp jv ka kaa kab kcg kbd kbp kg ki kj kk kl km kn ko
-    koi kr krc ks ksh ku kv kw ky la lad lb lbe lez lfn lg li lij lld lmo ln lo lrc lt
+    koi kr krc ks ksh ku kus kv kw ky la lad lb lbe lez lfn lg li lij lld lmo ln lo lrc lt
     ltg lv lzh mad mai map-bms mdf meta mg mh mhr mi min minnan mk ml mn mni mnw mo mr mrj ms mt
     mus mwl my myv mzn na nah nan nap nb nds nds-nl ne new ng nia nl nn no nov nqo nrm
     nso nv ny oc olo om or os pa pag pam pap pcd pcm pdc pfl pi pih pl pms pnb pnt ps
@@ -72,7 +72,7 @@ class Wiki < ApplicationRecord
     wikimedia: [0, 2, 4, 6, 8, 10, 12, 14],
     wikinews: [0, 2, 4, 6, 8, 10, 12, 14],
     wikiquote: [0, 2, 4, 6, 8, 10, 12, 14],
-    wikisource: [0, 2, 4, 6, 8, 10, 12, 14, 100, 102, 106],
+    wikisource: [0, 2, 4, 6, 8, 10, 12, 14, 100, 102, 104, 106],
     wikiversity: [0, 2, 4, 6, 8, 10, 12, 14, 100, 102, 106],
     wikivoyage: [0, 2, 4, 6, 8, 10, 12, 14],
     wiktionary: [0, 2, 4, 6, 8, 10, 12, 14, 100, 106]

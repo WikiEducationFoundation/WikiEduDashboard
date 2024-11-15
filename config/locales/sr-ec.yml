@@ -887,7 +887,6 @@ sr-ec:
         form_label: Додели привилегије „Посебан корисник”
         form_placeholder: Корисничко име
         confirm_add_special_user: Додај привилегије „Посебан корисник”
-        confirm_remove_special_user: Уклони привилегије „Посебан корисник” за
         already_is: '%{username} је већ {position}!'
         elevate_success: '%{username} је унапређен/а  у {position}.'
       remove:
@@ -1014,6 +1013,7 @@ sr-ec:
     view_library_source: изворник библиотеке
     view_module_source: изворник модула
     reload_from_source: поново учитај из изворника
+    view_all: Види све вежбе
   update_username:
     label: Ново корисничко име
   uploads:
@@ -1291,7 +1291,28 @@ sr-ec:
     started: Започето
     not_started: Није започето
     due: до %{due_date}
+  news:
+    post_confirmation:
+      confirmation: Потврдите.
+    footer:
+      P&E_dashboard:
+        link_text: Викимедија
+    options:
+      news_content:
+        delete_news: Обришите вести
+        edit_news: Уреди новости
+      create_news:
+        confirm_post: Потврди објаву
+        post_news: Објави новости
+    notification:
+      delete: Садржај вести је успешно обрисан
+      create_news_error: Дошло је до грешке приликом креирања садржаја вести. Покушајте
+        поново.
+      empty_create_news_content_error: Унесите садржај вести пре објављивања.
   notes:
+    failure: Грешка! Покушајте поново касније.
     cancel_note_creation: Откажи
     save_note: Сачувај
+  tagged_courses:
+    download_csv: Преузми као CSV
 ...

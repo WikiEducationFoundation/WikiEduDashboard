@@ -135,9 +135,9 @@ export const fetchCourseAlerts = courseSlug => (dispatch) => {
 };
 
 
-export const sortAlerts = key => ({ type: types.SORT_ALERTS, key: key });
+export const sortAlerts = key => ({ type: types.SORT_ALERTS, key });
 
-export const filterAlerts = selectedFilters => ({ type: types.FILTER_ALERTS, selectedFilters: selectedFilters });
+export const filterAlerts = selectedFilters => ({ type: types.FILTER_ALERTS, selectedFilters });
 
 export const createInstructorAlert = ({ courseTitle, courseId, subject, message, bccToSalesforce }) => {
   return (dispatch) => {
@@ -153,7 +153,7 @@ export const createInstructorAlert = ({ courseTitle, courseId, subject, message,
         dispatch({
           type: types.ADD_NOTIFICATION,
           notification: {
-            message: I18n.t('course_instructor_notification.notification_sent_success', { courseTitle: courseTitle }),
+            message: I18n.t('course_instructor_notification.notification_sent_success', { courseTitle }),
             closable: true,
             type: 'success',
           },

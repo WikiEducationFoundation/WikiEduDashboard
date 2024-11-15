@@ -33,7 +33,8 @@ describe CourseCloneManager do
     create(:week, id: 1, course_id: 1, order: 1)
     create(:block,
            id: 1, week_id: 1, content: 'First Assignment',
-           kind: 1, due_date: 10.months.ago, points: 15)
+           kind: 1, due_date: 10.months.ago, points: 15,
+           training_module_ids: [8, 35]) # module 35 triggers replacement with an updated version
     create(:week, id: 2, course_id: 1, order: 2)
     create(:week, id: 3, course_id: 1, order: 3)
     create(:tag, course_id: 1, key: 'tricky_topic_areas', tag: 'no_medical_topics')
@@ -88,6 +89,11 @@ describe CourseCloneManager do
     it 'carries over block points' do
       # Points should carry over.
       expect(clone.weeks.first.blocks.first.points).to eq(15)
+    end
+
+    it 'replaces an outdated training module with an updated version' do
+      # Module 69 is the updated version of module 35.
+      expect(clone.weeks.first.blocks.first.training_module_ids).to eq([8, 69])
     end
 
     it 'adds tags new/returning and for cloned' do

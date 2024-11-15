@@ -40,6 +40,8 @@ body.training nav.top-nav
         color $breadcrumb_light_text
         font-weight 400
         letter-spacing 0
+  +below(tablet)
+    padding 62px 0 16px 0
 
 .training__show
   ol.breadcrumbs
@@ -52,6 +54,11 @@ body.training nav.top-nav
     a
       color $type_light
       font-size 15px
+  +below(tablet)
+    margin-top 23px
+    ol.breadcrumbs
+      margin 70px 52px 0px 10px
+      width 100%
 
 
 
@@ -60,6 +67,8 @@ a.slide-nav
   display block
   position absolute
   @extends .truncated-text
+  +below(tablet)
+    max-width 55%
 
 .training__slide__nav
   cursor pointer
