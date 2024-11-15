@@ -24,9 +24,11 @@ class TrainingModulesUsersController < ApplicationController
     set_training_module
     set_training_module_user
     block = Block.find(params[:block_id])
-    mark_completion_status(params[:complete], block.course.id)
+    @course = block.course
+    verify_exercise_sandbox { return }
+    mark_completion_status(params[:complete], @course.id)
 
-    render 'courses/_block', locals: { block:, course: block.course }
+    render 'courses/_block', locals: { block:, course: @course }
   end
 
   private
@@ -75,6 +77,15 @@ class TrainingModulesUsersController < ApplicationController
 
   def should_set_slide_completed?
     @training_module_user.furthest_slide?(@slide.slug)
+  end
+
+  def verify_exercise_sandbox
+    return if @training_module_user.eligible_for_completion?(@course.home_wiki)
+
+    error_message = "Please complete the exercise in your Exercise Sandbox (#{@training_module_user.exercise_sandbox_location}) before marking it complete" # rubocop:disable Layout/LineLength
+    render json: { message: error_message, status: 'incomplete' },
+           status: :forbidden
+    yield
   end
 
   def mark_completion_status(value, course_id)
