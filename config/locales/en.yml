@@ -247,6 +247,11 @@ en:
     tracked_articles: Tracked Articles
     view_articles: View Articles
     no_tracked_articles: This category has no tracked articles
+    not_choosen_article:  You have not chosen an article to work on. When you have found an
+        article to work on, use the button above to assign it.
+    use_dashboard: How to use the Dashboard
+    how_to_find: How to find an article
+    evaluate_and_source: Evaluating articles and sources
 
   items:
     items: Items
@@ -516,7 +521,7 @@ en:
     campaign_courses: "%{title} Courses"
     campaign_select: "Select a campaign"
     campaign_users: "%{title} Editors"
-    confirm_course_deletion: 'Are you sure you want to delete the course titled %{title}? If so, type the title of the course to proceed.'
+    confirm_course_deletion: "Are you sure you want to delete the course titled %{title}? If so, type the title of the course to proceed."
     confirm_course_deletion_failed: '"%{title}" is not the title of this course. The course has not been deleted.'
     confirm_manual_update: Are you sure you want to run a manual update? The most recent revisions will be imported and then the page will reload. This process may take some time.
     controlled_by_event_center: Enrollment in this event is controlled by Wikimedia Event Center. It cannot be joined from the Dashboard.
@@ -594,13 +599,13 @@ en:
         changed. Everything else, you can edit later. Click “Create my Course!” to
         start building the timeline for your Wikipedia assignment.
       new_or_clone: >
-        You can create a new course now using the assignment design wizard.
-        If you have a highly customized timeline from a previous course that you
-        want to re-use, you can clone a copy of it with new dates. (If you did
-        not significantly customize your timeline previously, we recommend
-        starting a new course so that you'll have the most up-to-date
-        versions of the assignment options.) You can also use the clone option
-        to create additional sections for a course you already set up.
+        Click 'Create New Course' to proceed to the assignment design wizard. Your
+        timeline will include the latest options for Wiki Education's recommended
+        training modules and other resources.
+        If you have a highly customized timeline from a previous course that you want
+        to re-use, you can clone a copy of it with new dates. You can also
+        use the clone option to create additional sections for a course you
+        already set up.
       no_class_holidays: I have no class holidays
       role_description: Your role in the course
       role_description_options:
@@ -1123,6 +1128,8 @@ en:
       other: total usages across languages
     view_count_description: Article Views
     view_count_description_wikidata: Item Views
+    view_count_doc: This is the estimated number of views based on a 30-day average for each article, through the most recent stats update. Views may decrease if the updated average is lower than previous counts.
+    view_count_doc_wikidata: This is the estimated number of views based on a 30-day average for each item, through the most recent stats update. Views may decrease if the updated average is lower than previous counts.
     view_data_unavailable: No view data available
     view: Views
     wiki_ed_help: Use the 'Get Help' button to report a problem.
@@ -1225,7 +1232,7 @@ en:
     diff: diff
     diff_show: Show
     diff_hide: Hide
-    edit_time_span: 'Edits occurred from: %{first_time} to %{last_time}'
+    edit_time_span: "Edits occurred from: %{first_time} to %{last_time}"
     edited_by: Edited By
     edited_on: Edited on %{edit_date}
     loading: Loading revisions...
@@ -1276,7 +1283,6 @@ en:
         form_label: Grant Special User privileges
         form_placeholder: Username
         confirm_add_special_user: "Add Special User"
-        confirm_remove_special_user: "Remove Special User privileges for"
         already_is: "%{username} is already an {position}!"
         elevate_success: "%{username} elevated to {position}."
       remove:
@@ -1384,6 +1390,8 @@ en:
     previous: < Previous
     table_of_contents: Table of Contents
     training_library: Training Library
+    additional_training: Additional training modules
+    orientation_modules:  Instructor orientation modules
     logged_out: "You are logged out. You will not receive credit for completing this module unless you log in."
     done: Done!
     invalid: Sorry that slide does not exist!
@@ -1402,6 +1410,8 @@ en:
     search_training_resources: Search for training resources
     no_training_resource_match_your_search: No training resource matches your search
     exercise_sandbox: Exercise Sandbox
+    remaining_exercise: "%{count} additional exercises remaining."
+    view_all: View all exercises
 
   update_username:
     header: Update a changed username
@@ -1525,8 +1535,8 @@ en:
       watch_list:
         students_add: "Add all %{prefix} to Watchlist"
         instructional_message: You're about to add your student's talk pages to your watchlist, to stay updated on their discussions and contributions. Clicking 'OK' will add all the students to the watchlist. Continue?
-        tooltip_message:  Easily track discussions on students talk pages by adding them to your watchlist.
-        success_message:  "%{prefix} successfully added to the Watchlist."
+        tooltip_message: Easily track discussions on students talk pages by adding them to your watchlist.
+        success_message: "%{prefix} successfully added to the Watchlist."
         error_message: "Failed to add %{prefix} to the Watchlist. Please try again later."
     total_uploads: "Total Uploads"
     training_complete:
@@ -1857,7 +1867,10 @@ en:
         note_edit_save_button_focused: "Save the edited note {{title}}"
         note_edit_cancel_button_focused: "Cancel note edit {{title}}"
         note_delete_button_focused: "Delete the note {{title}}"
-        note_edit_mode: "Entered Edit mode for note titled: {{title}}. You can now edit the title and content."      
+        note_edit_mode: "Entered Edit mode for note titled: {{title}}. You can now edit the title and content."
 
   customize_error_message:
     JSONP_request_failed: "The request to fetch data from Wikipedia has timed out. This may be due to a slow internet connection or temporary server issues. Please try again later."
+
+  tagged_courses:
+    download_csv: 'Download CSV'

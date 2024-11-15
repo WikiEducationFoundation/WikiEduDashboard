@@ -141,6 +141,7 @@ ko:
       untracked: 추적하지 않음
       tracked_and_untracked: 추적 및 추적하지 않음
     find: 문서 찾기
+    how_to_find: 문서를 찾는 방법
     hide: 숨기기
     history: (역사)
     label: 문서
@@ -184,6 +185,7 @@ ko:
     wiki: 위키
     articles_short: 문서
     page_logs: (문서 기록)
+    use_dashboard: 대시보드 사용 방법
   items:
     items: 항목
     assigned: 할당된 항목
@@ -1003,4 +1005,6 @@ ko:
     not_started: 시작되지 않음
   multi_wiki:
     selector_placeholder: 위키 도메인 입력 시작
+  tagged_courses:
+    download_csv: CSV 다운로드
 ...

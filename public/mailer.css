@@ -80,7 +80,8 @@ li.numbered-item {
 
 .share_button {
   float: right;
-  margin-left: 10px
+  margin-left: 10px;
+  font-size: 16px;
 }
 
 .button_link.small {

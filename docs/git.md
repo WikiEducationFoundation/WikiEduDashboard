@@ -13,12 +13,12 @@
   * `git pull upstream master`
 
 2. Create a new branch starting from that newly updated main branch, and link it to your GitHub fork.
-  * `git checkout -b MyNewIssue`
-  * `git push --set-upstream origin MyNewIssue`
+  * `git checkout -b my-new-issue`
+  * `git push --set-upstream origin my-new-issue`
 
 3. Make your changes, commit them, and push them to your fork
   * *make changes*
-  * `git commit -a`
+  * `git commit -a "your-commit-message"`
   * *write a good commit message*
   * `git push`
 

@@ -22,7 +22,7 @@ describe('courseNotes reducer', () => {
 
   it('should handle ADD_NEW_NOTE_TO_LIST', () => {
     const newNote = { id: 2, title: 'Note 2' };
-    const action = { type: types.ADD_NEW_NOTE_TO_LIST, newNote: newNote };
+    const action = { type: types.ADD_NEW_NOTE_TO_LIST, newNote };
 
     expect(courseNotesReducer(initialState, action)).toEqual({
       ...initialState,

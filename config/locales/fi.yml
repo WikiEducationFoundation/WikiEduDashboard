@@ -1046,4 +1046,6 @@ fi:
     show_options: Näytä asetukset
     subheading_message: Etsitään artikkeli, jota voit muokata.
     submit: Tallenna
+  training_status:
+    continue: Jatka
 ...

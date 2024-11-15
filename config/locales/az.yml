@@ -224,6 +224,13 @@ az:
     edit_size: Ölçünü redaktə et
     wiki: Viki
     wp10: Struktural tamlıq
+    wp10_doc: '"Struktur Tamamlanma" balı, maşın öyrənməsinə əsaslanan Obyektiv Versiya
+      Qiymətləndirmə Xidmətinə (https://ores.wikimedia.org/) əsaslanan məqalənin tam
+      ölçülü Vikipediya məqaləsi formasına nə qədər uyğun olduğunu göstərir. Bu ballar
+      məqalənin ölçüsünə, istinadların və vikikeçidlərin sayına və digər əsas mətn
+      xüsusiyyətlərinə əsasən hesablanır. Yüksək bal adətən məqalənin yaxşı məqalənin
+      strukturu üçün Vikipediya konvensiyalarına əməl etdiyini göstərir, lakin məzmunun
+      özünü nəzərə almır. (Bu ballar yalnız İngiliscə Vikipediya üçün mövcuddur.)'
     articles_short: Məqalələr
     deleted_message: Panel məlumatlarına görə, bu səhifə silinib. (Bəzi hallarda səhifənin
       addəyişməsi, tarixçənin birləşdirilməsi və ya digər hərəkətlər məqalənin yanlış
@@ -243,6 +250,21 @@ az:
     available: Mövcud elementlər
     character_doc: Başlanğıc və bitmə tarixləri arasında qeydiyyatdan keçmiş redaktorlar
       tərəfindən elementlərə əlavə edilən simvolların cəmi
+    cross_wiki_tracking: Başlanğıc və bitmə tarixləri arasında redaktə edilən əsas
+      ad fəzası (Məqalə) səhifələri aşağıda verilmişdir. İdarə paneli Təyinat və ya
+      Əlçatan Element olan hər hansı digər vikilərlə birlikdə bu proqramın ev vikisindən
+      töhfələri götürür.
+    does_not_exist: Element mövcud deyil. Təkliflər almaq üçün Qaralama səhifəsi yaradın
+      və özünüzü bu səhifəyə təyin edin.
+    edited: Elementlər Redaktə Edildi
+    edited_none: Hələ redaktə edilmiş element yoxdur.
+    find: Elementləri Tap
+    how_to_find: Elementləri necə tapmaq olar
+    preview: Elementin qısa xülasəsi
+    search: Elementi Vikidatada axtar
+    tracked_doc: Yalnız izlənən elementlər bu proqram üçün statistikaya əlavə edilir.
+      Elementlər izlənilməmiş kimi qeyd edildikdə, növbəti məlumat yeniləməsi zamanı
+      onlar statistikadan silinəcək.
   assignments:
     change_sandbox_url: Qaralamanı dəyişdirin
     submit: Təsdiq et
@@ -258,7 +280,7 @@ az:
     duration: Kursun müddəti
     new_week: Yeni həftə əlavə et
     school: Məktəb
-    stay_in_sandbox: Sandboxda qalın
+    stay_in_sandbox: Qaralamada qalın
     students: Tələbələr
     students_short: Tələbələr
     submitted_at: Göndərilib

@@ -27,4 +27,4 @@ export const fetchRecentEdits = (opts = {}) => (dispatch) => {
   );
 };
 
-export const sortRecentEdits = key => ({ type: SORT_RECENT_EDITS, key: key });
+export const sortRecentEdits = key => ({ type: SORT_RECENT_EDITS, key });

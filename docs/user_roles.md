@@ -13,7 +13,7 @@ home page.
 
 NOTE: The dashboard is capable of making edits on Wikipedia using your account. This
 will only happen if you have set up your own OAuth consumer; the default one
-included in `application.example.yml` is not capable of making edits. Unless you
+included in [`application.example.yml`](../config/application.example.yml) is not capable of making edits. Unless you
 are working on features related to making Wikipedia edits, you won't need to worry
 about this. If you are working on Wikipedia edits, be aware that live public edits
 can be made on Wikipedia, and you are responsible for the content of them.

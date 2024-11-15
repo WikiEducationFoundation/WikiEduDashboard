@@ -27,8 +27,8 @@ export const updateFields = (key, value) => (dispatch) => {
   dispatch({
     type: UPDATE_FINDER_FIELD,
     data: {
-      key: key,
-      value: value,
+      key,
+      value,
     },
   });
 };
@@ -36,7 +36,7 @@ export const updateFields = (key, value) => (dispatch) => {
 export const sortArticleFinder = (key) => {
   return {
     type: SORT_ARTICLE_FINDER,
-    key: key,
+    key,
   };
 };
 
@@ -67,7 +67,7 @@ const getDataForCategory = (category, wiki, cmcontinue, namespace = 0, dispatch,
     //   }
     dispatch({
       type: RECEIVE_CATEGORY_RESULTS,
-      data: data,
+      data,
     });
     return data.query.categorymembers;
   })
@@ -102,7 +102,7 @@ const fetchPageViews = (articlesList, wiki, dispatch, getState) => {
     .then((data) => {
       dispatch({
         type: RECEIVE_ARTICLE_PAGEVIEWS,
-        data: data
+        data
       });
     })
     .catch(response => (dispatch({ type: API_FAIL, data: response })));
@@ -120,7 +120,7 @@ const fetchPageViews = (articlesList, wiki, dispatch, getState) => {
       type: SORT_ARTICLE_FINDER,
       key: sort.key,
       initial: true,
-      desc: desc,
+      desc,
     });
   });
 };
@@ -135,7 +135,7 @@ const fetchPageAssessment = (articlesList, wiki, dispatch, getState) => {
       .then((data) => {
         dispatch({
           type: RECEIVE_ARTICLE_PAGEASSESSMENT,
-          data: data
+          data
         });
       })
       .catch(response => (dispatch({ type: API_FAIL, data: response })));
@@ -159,7 +159,7 @@ const fetchPageRevision = (articlesList, wiki, dispatch, getState) => {
       .then((data) => {
         dispatch({
           type: RECEIVE_ARTICLE_REVISION,
-          data: data
+          data
         });
         return data;
       })
@@ -209,7 +209,7 @@ const fetchPageRevisionScore = async (revids, wiki, dispatch) => {
     await dispatch({
       type: RECEIVE_ARTICLE_REVISIONSCORE,
       data: {
-        data: data,
+        data,
         language: wiki.language,
         project: wiki.project,
       },
@@ -239,7 +239,7 @@ export const fetchKeywordResults = (keyword, wiki, offset = 0, continueResults =
   .then((data) => {
     dispatch({
       type: RECEIVE_KEYWORD_RESULTS,
-      data: data,
+      data,
     });
     return data.query.search;
   })

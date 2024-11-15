@@ -5,7 +5,7 @@ For example:
 * Locally disabling a global block: https://en.wikipedia.org/w/index.php?title=Special:Log&logid=117955646
 
 
-The Dashboard also may make enough edits to exceed the normal rate limits (eg, for new for account creation). Exemptions must be configured for the Dashboard to operate normally. Here are some relevant Phabricator tickets for requests to add or update the Wikimedia site configuration to allow Dashboard to bypass rate-limited edits:
+The Dashboard also may make enough edits to exceed the normal rate limits (eg, for new account creation). Exemptions must be configured for the Dashboard to operate normally. Here are some relevant Phabricator tickets for requests to add or update the Wikimedia site configuration to allow Dashboard to bypass rate-limited edits:
 * https://phabricator.wikimedia.org/T126541
 * https://phabricator.wikimedia.org/T151823
 * https://phabricator.wikimedia.org/T283096

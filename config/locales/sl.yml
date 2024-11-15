@@ -71,6 +71,7 @@ sl:
     filter:
       wiki_all: Vsi
       new: Nov
+    how_to_find: Kako najti članek
     history: (zgodovina)
     label: Članki
     loading: Nalaganje člankov ...
@@ -87,6 +88,10 @@ sl:
     tracked_articles: Spremljani članki
     view_articles: Ogled člankov
     no_tracked_articles: Ta kategorija ne vsebuje spremljanih člankov
+    not_choosen_article: Niste izbrali članka za delo. Ko boste našli primeren članek
+      za delo, uporabite zgornji gumb, da ga dodelite.
+    use_dashboard: Kako uporabljati nadzorno ploščo
+    evaluate_and_source: Ocenjevanje člankov in virov
   items:
     lexeme: Leksem
     assignments_none: Ni še nobenih dodeljenih predmetov.
@@ -438,6 +443,8 @@ sl:
     view: Ogled
     page: Stran
     table_of_contents: Kazalo vsebine
+    additional_training: Dodatni moduli usposabljanja
+    orientation_modules: Moduli za usmerjanje učitelja
     done: Opravljeno!
     invalid: Ta diapozitiv žal ne obstaja!
     kind:
@@ -449,6 +456,8 @@ sl:
     search_training_resources: Poiščite vire za usposabljanje
     no_training_resource_match_your_search: Z vašim iskanjem se ne ujema noben vir
       za usposabljanje
+    remaining_exercise: '%{count} preostalih dodatnih vaj.'
+    view_all: Ogled vseh vaj
   update_username:
     header: Posodobite spremenjeno uporabniško ime
     not_found: Za vneseno uporabniško ime ni bilo mogoče najti uporabnika.

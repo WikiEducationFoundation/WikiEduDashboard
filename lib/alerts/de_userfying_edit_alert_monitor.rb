@@ -14,11 +14,12 @@ class DeUserfyingEditAlertMonitor
   end
 
   def create_alerts
-    student_edits = edits_made_by_students(edits, current_students)
-    student_edits.each do |edit|
+    edits_by_users = edits_made_by_users(edits, current_users)
+
+    edits_by_users.each do |edit|
       article = article_by_mw_page_id(edit['pageid'])
       user = User.find_by(username: edit['user'])
-      course_ids = courses_for_a_student(user.id)
+      course_ids = courses_for_user(user.id)
       details = { logid: edit['logid'], timestamp: edit['timestamp'], title: edit['title'] }
       course_ids.each do |course_id|
         create_alert(user.id, course_id, article&.id, edit['revid'], details)
@@ -47,16 +48,16 @@ class DeUserfyingEditAlertMonitor
   end
 
   # Those enrolled in at least one course. Multiple enrolled are counted only once.
-  def current_students
+  def current_users
     CoursesUsers
       .select(:user_id, 'users.username')
       .joins(:user)
-      .where(role: CoursesUsers::Roles::STUDENT_ROLE)
+      .where(role: [CoursesUsers::Roles::STUDENT_ROLE, CoursesUsers::Roles::INSTRUCTOR_ROLE])
       .distinct(:user_id)
   end
 
-  def edits_made_by_students(edits, students)
-    usernames = students.map(&:username)
+  def edits_made_by_users(edits, users)
+    usernames = Set.new(users.map(&:username))
     edits.filter { |edit| usernames.include?(edit['user']) }
   end
 
@@ -78,11 +79,10 @@ class DeUserfyingEditAlertMonitor
                   revision_id:)
   end
 
-  def courses_for_a_student(id)
-    student = CoursesUsers::Roles::STUDENT_ROLE
+  def courses_for_user(user_id)
     CoursesUsers
       .joins(:user)
-      .where(role: student, user_id: id)
+      .where(user_id:)
       .pluck(:course_id)
   end
 

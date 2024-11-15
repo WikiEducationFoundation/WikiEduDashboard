@@ -6,7 +6,7 @@ These are notes from setting up a fresh database server for use with the existin
 * `sudo systemctl stop mysql`
 
 * configure mariaDB to use /srv as the location of database files:
-  - edit `/etc/mysql/my.conf` and add the following directives:
+  - edit `/etc/mysql/my.cnf` and add the following directives:
 
     ```
 [mysqld]

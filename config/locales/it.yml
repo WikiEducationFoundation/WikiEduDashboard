@@ -479,12 +479,11 @@ it:
         e non possono essere modificati. Tutto il resto puoi modificarli in seguito.
         Clicca su "Crea il mio corso!" per iniziare a costruire la linea temporale
         per la tua assegnazione Wikipedia.
-      new_or_clone: ÈOra è possibile creare un nuovo corso utilizzando la procedura
-        guidata di progettazione del compito. Se si dispone di un calendario altamente
-        personalizzato da un corso precedente che si desidera riutilizzare, è possibile
-        clonarne una copia con nuove date (se non hai personalizzato in modo significativo
-        il tuo calendario in precedenza, ti consigliamo di iniziare un nuovo corso
-        in modo da avere le versioni più aggiornate delle opzioni di assegnazione.)
+      new_or_clone: Fai clic su "Crea nuovo corso" per accedere alla procedura guidata
+        di progettazione del compito. Il tuo calendario includerà le ultime opzioni
+        per i moduli di formazione consigliati da Wiki Education e altre risorse.
+        Se si dispone di un calendario altamente personalizzato da un corso precedente
+        che si desidera riutilizzare, è possibile clonarne una copia con nuove date.
         Puoi anche usare l'opzione clone per creare sezioni aggiuntive per un corso
         che hai già impostato.
       no_class_holidays: Non ho vacanze di classe

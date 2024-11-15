@@ -49,6 +49,8 @@ const CampaignStats = ({ campaign }) => {
         stat={campaign.view_sum_human}
         statMsg={I18n.t('metrics.view_count_description')}
         renderZero={true}
+        info={I18n.t('metrics.view_count_doc')}
+        infoId="campaign-views-info"
       />
 
       <OverviewStat

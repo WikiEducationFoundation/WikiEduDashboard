@@ -96,6 +96,19 @@ essentials:
   - # Week three
     weight: 6
     blocks:
+      -
+        if: no_sandboxes
+        title: Keeping track of your work
+        kind: 1
+        training_module_ids: [65] # Keeping track of work without sandboxes
+        content: |
+
+      -
+        unless: no_sandboxes
+        title: Keeping track of your work
+        kind: 1
+        training_module_ids: [60] # Keeping track of work
+        content: |
 
       -
         if: medical_topics
@@ -136,9 +149,9 @@ essentials:
     blocks:
       -
         if: add_to_article
-        title: Make a small edit
+        title: Add a fact to Wikipedia
         kind: 1
-        training_module_ids: [8, 35] # Adding citations, Exercise: Make a small edit
+        training_module_ids: [8, 69] # Adding citations, Exercise: Add a fact to Wikipedia (aka update a bio)
         graded: true
         points: 10
         content: |

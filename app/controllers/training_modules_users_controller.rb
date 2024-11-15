@@ -58,6 +58,15 @@ class TrainingModulesUsersController < ApplicationController
 
   def complete_module
     @training_module_user.update(completed_at: Time.now.utc)
+    make_training_module_user_instructor if instructor_orientation_module?
+  end
+
+  HOW_TO_TEACH_WITH_WIKIPEDIA_TRAINING_MODULE_ID = 3
+
+  def instructor_orientation_module?
+    return false unless Features.wiki_ed?
+    @training_module_user.completed_at.present? &&
+      (HOW_TO_TEACH_WITH_WIKIPEDIA_TRAINING_MODULE_ID == @training_module.id)
   end
 
   def last_slide?
@@ -71,5 +80,12 @@ class TrainingModulesUsersController < ApplicationController
   def mark_completion_status(value, course_id)
     @training_module_user.mark_completion(value, course_id)
     @training_module_user.save
+  end
+
+  def make_training_module_user_instructor
+    # Do not downgrade admins' permissions.
+    return if @training_module_user.user.admin?
+
+    @training_module_user.user.update(permissions: User::Permissions::INSTRUCTOR)
   end
 end

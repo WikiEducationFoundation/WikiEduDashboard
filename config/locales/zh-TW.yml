@@ -208,6 +208,9 @@ zh-TW:
     tracked_articles: 已追蹤條目
     view_articles: 檢視條目
     no_tracked_articles: 此分類沒有追蹤的條目
+    not_choosen_article: 您還沒有選擇要處理的條目。當您找到要處理的條目時，請使用上面的按鈕來指派。
+    use_dashboard: 如何使用面板
+    evaluate_and_source: 評估條目和來源
   items:
     items: 項目
     lexeme: 詞位
@@ -1099,7 +1102,6 @@ zh-TW:
         form_label: 授予特別使用者權限
         form_placeholder: 使用者名稱
         confirm_add_special_user: 添加特殊使用者
-        confirm_remove_special_user: 移除特殊使用者的權限有關於
         already_is: '%{username} 已是{position}！'
         elevate_success: '%{username}升為{position}。'
       remove:
@@ -1194,6 +1196,8 @@ zh-TW:
     previous: <上一個
     table_of_contents: 目次
     training_library: 培訓圖書館
+    additional_training: 額外培訓模組
+    orientation_modules: 導師導覽模組
     logged_out: 您已經登出。除非您登入，否則您將不會收到完成此訓練的紀錄。
     done: 完成！
     invalid: 很抱歉，該投影片不存在！
@@ -1213,6 +1217,8 @@ zh-TW:
     search_training_resources: 培訓資源搜尋
     no_training_resource_match_your_search: 沒有符合您要搜尋的培訓資源
     exercise_sandbox: 練習沙盒
+    remaining_exercise: 剩下 %{count} 個額外練習。
+    view_all: 查看所有練習
   update_username:
     header: 更新已更改的使用者名稱
     not_found: 找不到所輸入名稱的使用者。
@@ -1601,4 +1607,6 @@ zh-TW:
         note_edit_mode: 已進入標題為{{title}}的註釋的編輯模式。現在您可以編輯標題和內容。
   customize_error_message:
     JSONP_request_failed: 從維基百科取得資料的請求已逾時。這可能是由於網路連線速度太慢，或是臨時伺服器問題造成的。請稍後重試。
+  tagged_courses:
+    download_csv: 下載 CSV
 ...

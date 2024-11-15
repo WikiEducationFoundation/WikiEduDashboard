@@ -67,8 +67,9 @@ class AssignmentsController < ApplicationController
   end
 
   def update_status
-    check_permissions(assignment_params[:user_id].to_i)
     @assignment = Assignment.find(assignment_params[:id])
+    @course = @assignment.course
+    check_permissions(assignment_params[:user_id].to_i)
 
     if assignment_params[:status]
       @assignment.update_status(assignment_params[:status])
@@ -81,7 +82,8 @@ class AssignmentsController < ApplicationController
 
   # Updates the sandbox url of an assignment.
   def update_sandbox_url
-    check_permissions(params[:user_id].to_i).then { set_assignment }
+    set_assignment { return }
+    raise NotPermittedError unless @assignment.editable_by?(current_user)
     render SandboxUrlUpdator.new(params[:newUrl], @assignment).update
   end
 
