@@ -97,8 +97,8 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
     # View count is calculated based on the first non-empty article course timeslice
     # record start date. We estimate the first non-empty record checking user_ids
     # field is not null.
-    non_empty_timeslices = article_course_timeslices.non_empty
-    self.view_count = views_since_earliest_timeslices(non_empty_timeslices)
+    # non_empty_timeslices = article_course_timeslices.non_empty
+    # self.view_count = views_since_earliest_timeslices(non_empty_timeslices)
 
     self.new_article = article_course_timeslices.any?(&:new_article)
     save
@@ -132,8 +132,30 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
     ArticlesCourses.where(course:).where('user_ids LIKE ?', "%- #{user_id}\n%")
   end
 
+  # Calculate articles courses that need a cache update. For courses with a huge number
+  # of articles, updating all caches in every update can be heavy. In order to
+  # speed up the cache update process, we calculate the articles courses that
+  # have at least one timeslice that was updated after the last course update,
+  # and upate the cache only for them.
+  # If no course update exists yet, then we update all the articles courses.
+  def self.articles_courses_to_update(course)
+    last_update = course.flags['update_logs'].values.last['end_time']
+    Rails.logger.info "Updating partial ArticlesCourses caches for #{course.title}"
+    course.article_course_timeslices.where('updated_at >= ?', last_update)
+          .distinct
+          .pluck(:article_id)
+  rescue StandardError
+    Rails.logger.info "Updating caches for all ArticlesCourses for #{course.title}"
+    course.articles_courses.pluck(:article_id)
+  end
+
   def self.update_all_caches(articles_courses)
     articles_courses.find_each(&:update_cache)
+  end
+
+  def self.update_required_caches_from_timeslices(course)
+    ArticlesCourses.where(article_id: articles_courses_to_update(course))
+                   .find_each(&:update_cache_from_timeslices)
   end
 
   def self.update_all_caches_from_timeslices(articles_courses)
