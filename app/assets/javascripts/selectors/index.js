@@ -1,12 +1,28 @@
 import { createSelector } from 'reselect';
-import { sortBy, difference, uniq, filter, includes, pickBy, find } from 'lodash-es';
+import {
+  sortBy,
+  difference,
+  uniq,
+  filter,
+  includes,
+  pickBy,
+  find,
+} from 'lodash-es';
 import { getFiltered } from '../utils/model_utils';
-import { STUDENT_ROLE, INSTRUCTOR_ROLE, ONLINE_VOLUNTEER_ROLE, CAMPUS_VOLUNTEER_ROLE, STAFF_ROLE, fetchStates, ARTICLES_PER_PAGE, REVIEWING_ROLE } from '../constants';
+import {
+  STUDENT_ROLE,
+  INSTRUCTOR_ROLE,
+  ONLINE_VOLUNTEER_ROLE,
+  CAMPUS_VOLUNTEER_ROLE,
+  STAFF_ROLE,
+  fetchStates,
+  ARTICLES_PER_PAGE,
+  REVIEWING_ROLE,
+} from '../constants';
 import UserUtils from '../utils/user_utils.js';
 import { PageAssessmentGrades } from '../utils/article_finder_language_mappings.js';
 import CourseDateUtils from '../utils/course_date_utils.js';
 import DateCalculator from '../utils/date_calculator';
-
 
 const getUsers = state => state.users.users;
 const getCurrentUserFromHtml = state => state.currentUserFromHtml;
@@ -36,32 +52,34 @@ const getCourse = state => state.course;
 const getTickets = state => state.tickets;
 const getSpecialUsers = state => state.settings.specialUsers;
 
-export const getInstructorUsers = createSelector(
-  [getUsers], users => sortBy(getFiltered(users, { role: INSTRUCTOR_ROLE }), 'enrolled_at')
+export const getInstructorUsers = createSelector([getUsers], users =>
+  sortBy(getFiltered(users, { role: INSTRUCTOR_ROLE }), 'enrolled_at')
 );
 
-export const getStudentUsers = createSelector(
-  [getUsers], users => getFiltered(users, { role: STUDENT_ROLE })
+export const getStudentUsers = createSelector([getUsers], users =>
+  getFiltered(users, { role: STUDENT_ROLE })
 );
 
 export const getStudentCount = createSelector(
-  [getStudentUsers], users => users.length
+  [getStudentUsers],
+  users => users.length
 );
 
-export const getStaffUsers = createSelector(
-  [getUsers], users => sortBy(getFiltered(users, { role: STAFF_ROLE }), 'enrolled_at')
+export const getStaffUsers = createSelector([getUsers], users =>
+  sortBy(getFiltered(users, { role: STAFF_ROLE }), 'enrolled_at')
 );
 
-export const getProgramManagers = createSelector(
-  [getStaffUsers], users => getFiltered(users, { program_manager: true })
+export const getProgramManagers = createSelector([getStaffUsers], users =>
+  getFiltered(users, { program_manager: true })
 );
 
-export const getContentExperts = createSelector(
-  [getStaffUsers], users => getFiltered(users, { content_expert: true })
+export const getContentExperts = createSelector([getStaffUsers], users =>
+  getFiltered(users, { content_expert: true })
 );
 
 export const getCourseApprovalStaff = createSelector(
-  [getSpecialUsers, getStaffUsers], (specialUsers, staffUsers) => {
+  [getSpecialUsers, getStaffUsers],
+  (specialUsers, staffUsers) => {
     // Compare staff users of a course with classroom program manager and
     // wiki expert users. Make a list of all Special Users objects with
     // required information. Mark any user in the list as already_selected
@@ -74,25 +92,32 @@ export const getCourseApprovalStaff = createSelector(
         role: 'classroom_program_manager',
         username: specialUsers.classroom_program_manager[0].username,
         realname: specialUsers.classroom_program_manager[0].real_name,
-        already_selected: false
+        already_selected: false,
       });
     }
     // Add wikipedia experts
-    if (specialUsers.wikipedia_experts && specialUsers.wikipedia_experts.length > 0) {
+    if (
+      specialUsers.wikipedia_experts
+      && specialUsers.wikipedia_experts.length > 0
+    ) {
       specialUsers.wikipedia_experts.forEach((user) => {
         staffList.push({
           role: 'wikipedia_expert',
           username: user.username,
           realname: user.real_name,
-          already_selected: false
+          already_selected: false,
         });
       });
     }
     // Check if any of the staff users were already selected
-    const staffUsernames = staffList.map((user) => { return user.username; });
+    const staffUsernames = staffList.map((user) => {
+      return user.username;
+    });
     staffUsers.forEach((staffUser) => {
       if (staffUsernames.includes(staffUser.username)) {
-        const userObject = staffList.find(user => user.username === staffUser.username);
+        const userObject = staffList.find(
+          user => user.username === staffUser.username
+        );
         userObject.already_selected = true;
       }
     });
@@ -100,17 +125,20 @@ export const getCourseApprovalStaff = createSelector(
   }
 );
 
-export const getOnlineVolunteerUsers = createSelector(
-  [getUsers], users => sortBy(getFiltered(users, { role: ONLINE_VOLUNTEER_ROLE }), 'enrolled_at')
+export const getOnlineVolunteerUsers = createSelector([getUsers], users =>
+  sortBy(getFiltered(users, { role: ONLINE_VOLUNTEER_ROLE }), 'enrolled_at')
 );
 
-export const getCampusVolunteerUsers = createSelector(
-  [getUsers], users => sortBy(getFiltered(users, { role: CAMPUS_VOLUNTEER_ROLE }), 'enrolled_at')
+export const getCampusVolunteerUsers = createSelector([getUsers], users =>
+  sortBy(getFiltered(users, { role: CAMPUS_VOLUNTEER_ROLE }), 'enrolled_at')
 );
 
 export const getCurrentUser = createSelector(
-  [getCurrentUserFromHtml, getUsers], (currentUserFromHtml, users) => {
-    const currentUserFromUsers = getFiltered(users, { id: currentUserFromHtml.id })[0];
+  [getCurrentUserFromHtml, getUsers],
+  (currentUserFromHtml, users) => {
+    const currentUserFromUsers = getFiltered(users, {
+      id: currentUserFromHtml.id,
+    })[0];
     const currentUser = currentUserFromUsers || currentUserFromHtml;
     const userRoles = UserUtils.userRoles(currentUser, users);
     return { ...currentUser, ...userRoles };
@@ -118,7 +146,8 @@ export const getCurrentUser = createSelector(
 );
 
 export const getAvailableCampaigns = createSelector(
-  [getCourseCampaigns, getAllCampaigns], (campaigns, allCampaigns) => {
+  [getCourseCampaigns, getAllCampaigns],
+  (campaigns, allCampaigns) => {
     campaigns = campaigns.map(campaign => campaign.title);
     allCampaigns = allCampaigns.map(campaign => campaign.title);
     return difference(allCampaigns, campaigns);
@@ -126,7 +155,8 @@ export const getAvailableCampaigns = createSelector(
 );
 
 export const getAvailableTags = createSelector(
-  [getTags, getAllTags], (tags, allTags) => {
+  [getTags, getAllTags],
+  (tags, allTags) => {
     tags = tags.map(tag => tag.tag);
     allTags = uniq(allTags);
     return difference(allTags, tags);
@@ -134,26 +164,30 @@ export const getAvailableTags = createSelector(
 );
 
 export const getCloneableCourses = createSelector(
-  [getUserCourses], (userCourses) => {
+  [getUserCourses],
+  (userCourses) => {
     return getFiltered(userCourses, { cloneable: true });
   }
 );
 
 // This returns all the Articles with user_id null
 export const getAvailableArticles = createSelector(
-  [assignments], (assignment) => {
+  [assignments],
+  (assignment) => {
     return getFiltered(assignment, { user_id: null });
   }
 );
 
 export const getReviewAssignments = createSelector(
-  [assignments], (assignment) => {
+  [assignments],
+  (assignment) => {
     return getFiltered(assignment, { role: REVIEWING_ROLE });
   }
 );
 
 export const getWikiArticles = createSelector(
-  [getAllEditedArticles, getWikiFilter], (editedArticles, wikiFilter) => {
+  [getAllEditedArticles, getWikiFilter],
+  (editedArticles, wikiFilter) => {
     if (wikiFilter.project === 'all') {
       return editedArticles;
     }
@@ -162,7 +196,8 @@ export const getWikiArticles = createSelector(
 );
 
 export const getArticlesByNewness = createSelector(
-  [getWikiArticles, getNewnessFilter], (articles, newnessFilter) => {
+  [getWikiArticles, getNewnessFilter],
+  (articles, newnessFilter) => {
     switch (newnessFilter) {
       case 'new':
         return articles.filter(a => a.new_article);
@@ -175,7 +210,8 @@ export const getArticlesByNewness = createSelector(
 );
 
 export const getArticlesByTrackedStatus = createSelector(
-  [getArticlesByNewness, getTrackedStatusFilter], (articles, trackedStatusFilter) => {
+  [getArticlesByNewness, getTrackedStatusFilter],
+  (articles, trackedStatusFilter) => {
     switch (trackedStatusFilter) {
       case 'tracked':
         return articles.filter(a => a.tracked);
@@ -188,31 +224,45 @@ export const getArticlesByTrackedStatus = createSelector(
 );
 
 export const getArticlesByPage = createSelector(
-  [getArticlesByTrackedStatus, getCurrentArticlesPage], (articles, page) => {
+  [getArticlesByTrackedStatus, getCurrentArticlesPage],
+  (articles, page) => {
     const toSkip = (page - 1) * ARTICLES_PER_PAGE;
     return articles.slice(toSkip, toSkip + ARTICLES_PER_PAGE);
   }
 );
 
 export const getFilteredAlerts = createSelector(
-  [getAlerts, getAlertFilters], (alerts, alertFilters) => {
-    if (!alertFilters.length) { return alerts; }
+  [getAlerts, getAlertFilters],
+  (alerts, alertFilters) => {
+    if (!alertFilters.length) {
+      return alerts;
+    }
     const alertTypes = alertFilters.map(_filter => _filter.value);
     return filter(alerts, alert => includes(alertTypes, alert.type));
   }
 );
 
 export const getFilteredArticleFinder = createSelector(
-  [getArticleFinderState], (articleFinder) => {
+  [getArticleFinderState],
+  (articleFinder) => {
     return pickBy(articleFinder.articles, (article) => {
       const language = articleFinder.home_wiki.language;
       const project = articleFinder.home_wiki.project;
-      if (article.grade && !includes(Object.keys(PageAssessmentGrades[project][language]), article.grade)) {
+      if (
+        article.grade
+        && !includes(
+          Object.keys(PageAssessmentGrades[project][language]),
+          article.grade
+        )
+      ) {
         return false;
       }
       let quality;
       if (article.grade && article.revScore) {
-        quality = Math.max(article.revScore, PageAssessmentGrades[project][language][article.grade].score);
+        quality = Math.max(
+          article.revScore,
+          PageAssessmentGrades[project][language][article.grade].score
+        );
       } else if (article.grade) {
         quality = PageAssessmentGrades[project][language][article.grade].score;
       } else if (article.revScore) {
@@ -221,10 +271,16 @@ export const getFilteredArticleFinder = createSelector(
         quality = 0;
       }
       const qualityFilter = articleFinder.article_quality;
-      if (fetchStates[article.fetchState] >= fetchStates.PAGEVIEWS_RECEIVED && article.pageviews < articleFinder.min_views) {
+      if (
+        fetchStates[article.fetchState] >= fetchStates.PAGEVIEWS_RECEIVED
+        && article.pageviews < articleFinder.min_views
+      ) {
         return false;
       }
-      if (fetchStates[article.fetchState] >= fetchStates.REVISIONSCORE_RECEIVED && quality > qualityFilter) {
+      if (
+        fetchStates[article.fetchState] >= fetchStates.REVISIONSCORE_RECEIVED
+        && quality > qualityFilter
+      ) {
         return false;
       }
       return true;
@@ -233,15 +289,19 @@ export const getFilteredArticleFinder = createSelector(
 );
 
 export const getFilteredUploads = createSelector(
-  [getUploads, getUploadFilters], (uploads, uploadFilters) => {
-    if (!uploadFilters.length) { return uploads; }
+  [getUploads, getUploadFilters],
+  (uploads, uploadFilters) => {
+    if (!uploadFilters.length) {
+      return uploads;
+    }
     const uploaders = uploadFilters.map(_filter => _filter.value);
     return filter(uploads, upload => includes(uploaders, upload.uploader));
   }
 );
 
 export const getWeeksArray = createSelector(
-  [getWeeks, getBlocks], (weeks, blocks) => {
+  [getWeeks, getBlocks],
+  (weeks, blocks) => {
     const weeksArray = [];
     const weekIds = Object.keys(weeks);
     const blocksByWeek = {};
@@ -265,13 +325,17 @@ export const getWeeksArray = createSelector(
 );
 
 export const getAllWeeksArray = createSelector(
-  [getWeeksArray, getCourse], (weeksArray, course) => {
+  [getWeeksArray, getCourse],
+  (weeksArray, course) => {
     // For each week, first insert an extra empty week for each week with empty
     // week meetings, which indicates a blackout week. Then insert the week itself.
     // The index 'i' represents the zero-index week number. However, weekNumber
     // property indicates week number starting from 1. Both empty and non-empty
     // weeks are included in this numbering scheme.
-    const weekMeetings = CourseDateUtils.weekMeetings(course, course.day_exceptions);
+    const weekMeetings = CourseDateUtils.weekMeetings(
+      course,
+      course.day_exceptions
+    );
     const allWeeks = [];
     let i = 0;
     weeksArray.forEach((week) => {
@@ -293,32 +357,42 @@ export const getAllWeeksArray = createSelector(
 );
 
 export const getAvailableTrainingModules = createSelector(
-  [getCourseType, getTraining], (courseType, training) => {
+  [getCourseType, getTraining],
+  (courseType, training) => {
     // We only do filtering for ClassroomProgramCourse type.
     if (courseType !== 'ClassroomProgramCourse') {
       return training.modules;
     }
     // Find the Student library that we want to filter by.
-    const studentsLibrary = training.libraries.find(library => library.slug === 'students');
-    if (!studentsLibrary) { return training.modules; }
+    const studentsLibrary = training.libraries.find(
+      library => library.slug === 'students'
+    );
+    if (!studentsLibrary) {
+      return training.modules;
+    }
 
     // Only include modules that are part of the Student library.
-    const studentModules = training.modules.filter(module => studentsLibrary.modules.includes(module.slug));
+    const studentModules = training.modules.filter(module =>
+      studentsLibrary.modules.includes(module.slug)
+    );
     return studentModules;
   }
 );
 
-export const isValid = createSelector(
-  [getValidations], (validations) => {
-    // If any validation is not valid, return false.
-    const invalidValue = find(validations, (value) => { return value.valid === false; });
-    if (invalidValue) { return false; }
-    return true;
+export const isValid = createSelector([getValidations], (validations) => {
+  // If any validation is not valid, return false.
+  const invalidValue = find(validations, (value) => {
+    return value.valid === false;
+  });
+  if (invalidValue) {
+    return false;
   }
-);
+  return true;
+});
 
 export const firstValidationErrorMessage = createSelector(
-  [getValidations, getValidationErrors], (validations, validationErrors) => {
+  [getValidations, getValidationErrors],
+  (validations, validationErrors) => {
     if (validationErrors.length > 0) {
       return validations[validationErrors[0]].message;
     }
@@ -327,52 +401,71 @@ export const firstValidationErrorMessage = createSelector(
 );
 
 export const editPermissions = createSelector(
-  [getCourse, getCurrentUser], (course, user) => {
-    if (!user.isAdvancedRole) { return false; }
+  [getCourse, getCurrentUser],
+  (course, user) => {
+    if (!user.isAdvancedRole) {
+      return false;
+    }
     return user.isAdmin || !course.closed;
   }
 );
 
-export const getFilteredTickets = createSelector(
-  [getTickets], (tickets) => {
-    const ownerIds = tickets.filters.owners.map(_filter => _filter.value);
-    const statuses = tickets.filters.statuses.map(_filter => parseInt(_filter.value));
+export const getFilteredTickets = createSelector([getTickets], (tickets) => {
+  const ownerIds = tickets.filters.owners.map(_filter => _filter.value);
+  const statuses = tickets.filters.statuses.map(_filter =>
+    parseInt(_filter.value)
+  );
 
-    let ownerFilter = ticket => ticket;
-    let statusFilter = ticket => ticket;
-    if (ownerIds.length) {
-      ownerFilter = ticket => ownerIds.includes(ticket.owner?.id);
-    }
-    if (statuses.length) {
-      statusFilter = ticket => statuses.includes(ticket.status);
-    }
-
-    return tickets.all
-      .filter(ownerFilter)
-      .filter(statusFilter);
+  let ownerFilter = ticket => ticket;
+  let statusFilter = ticket => ticket;
+  if (ownerIds.length) {
+    ownerFilter = ticket => ownerIds.includes(ticket.owner?.id);
   }
-);
-
-export const getTicketsById = createSelector(
-  [getTickets], (tickets) => {
-    return tickets.all.reduce((acc, ticket) => ({ ...acc, [ticket.id]: ticket }), {});
+  if (statuses.length) {
+    statusFilter = ticket => statuses.includes(ticket.status);
   }
-);
 
+  return tickets.all.filter(ownerFilter).filter(statusFilter);
+});
+
+export const getTicketsById = createSelector([getTickets], (tickets) => {
+  return tickets.all.reduce(
+    (acc, ticket) => ({ ...acc, [ticket.id]: ticket }),
+    {}
+  );
+});
 
 export const getAllWeekDates = createSelector(
-  [getCourse, getWeeks], (course, weeks) => {
+  [getCourse, getWeeks],
+  (course, weeks) => {
+    if (!course || !course.timeline_start || !course.timeline_end) {
+      return [];
+    }
+
     const weekDates = Object.keys(weeks).map((weekId, index) => {
-      const dateCalc = new DateCalculator(course.timeline_start, course.timeline_end, index, {
-        zeroIndexed: true
+      const startDate = new Date(course.timeline_start);
+      const endDate = new Date(course.timeline_end);
+
+      if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+        return { weekId, start: null, end: null };
       }
+
+      const dateCalc = new DateCalculator(
+        course.timeline_start,
+        course.timeline_end,
+        index,
+        {
+          zeroIndexed: true,
+        }
       );
+
       return {
         weekId,
-        start: dateCalc.start(),
-        end: dateCalc.end()
+        start: dateCalc.start() || null,
+        end: dateCalc.end() || null,
       };
     });
+
     return weekDates;
   }
 );
