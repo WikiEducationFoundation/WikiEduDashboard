@@ -5,7 +5,7 @@ import Revision from './revision.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import ArticleUtils from '../../utils/article_utils.js';
 
-const RevisionList = ({ revisions, course, sortBy, wikidataLabels, sort, loaded }) => {
+const RevisionList = ({ revisions, course, sortBy, wikidataLabels, sort, loaded, students }) => {
   const [selectedIndex, setSelectedIndex] = useState(-1);
 
   const showDiff = (index) => {
@@ -22,6 +22,7 @@ const RevisionList = ({ revisions, course, sortBy, wikidataLabels, sort, loaded 
       setSelectedIndex={showDiff}
       lastIndex={revisions.length}
       selectedIndex={selectedIndex}
+      student={students.find(student => student.username === revision.revisor)}
     />
   ));
 
@@ -81,7 +82,8 @@ RevisionList.propTypes = {
   sortBy: PropTypes.func,
   wikidataLabels: PropTypes.object,
   sort: PropTypes.object,
-  loaded: PropTypes.bool
+  loaded: PropTypes.bool,
+  students: PropTypes.array
 };
 
 export default RevisionList;

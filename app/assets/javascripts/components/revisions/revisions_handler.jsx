@@ -8,6 +8,7 @@ import ProgressIndicator from '../common/progress_indicator.jsx';
 import { ARTICLE_FETCH_LIMIT } from '../../constants/revisions.js';
 import Select from 'react-select';
 import sortSelectStyles from '../../styles/sort_select';
+import { getStudentUsers } from '../../selectors/index.js';
 
 const RevisionHandler = ({ course, courseScopedLimit }) => {
   const [isCourseScoped, setIsCourseScoped] = useState(false);
@@ -26,6 +27,7 @@ const RevisionHandler = ({ course, courseScopedLimit }) => {
   const referencesLoaded = useSelector(state => state.revisions.referencesLoaded);
   const assessmentsLoaded = useSelector(state => state.revisions.assessmentsLoaded);
   const courseSpecificReferencesLoaded = useSelector(state => state.revisions.courseSpecificReferencesLoaded);
+  const students = useSelector(state => getStudentUsers(state));
 
   useEffect(() => {
     // sets the title of this tab
@@ -126,7 +128,7 @@ const RevisionHandler = ({ course, courseScopedLimit }) => {
           />
         </div>
       </div>
-      <div className= "revision-list-container">
+      <div className="revision-list-container">
         <RevisionList
           revisions={isCourseScoped ? revisionsDisplayedCourseSpecific : revisionsDisplayed}
           loaded={loaded}
@@ -134,11 +136,12 @@ const RevisionHandler = ({ course, courseScopedLimit }) => {
           sortBy={sortRevisions}
           wikidataLabels={wikidataLabels}
           sort={sort}
+          students={students}
         />
       </div>
-      {!loaded && <Loading/>}
+      {!loaded && <Loading />}
       {loaded && showMoreButton}
-      {loaded && metaDataLoading && <ProgressIndicator message={getLoadingMessage()}/>}
+      {loaded && metaDataLoading && <ProgressIndicator message={getLoadingMessage()} />}
     </div>
   );
 };
