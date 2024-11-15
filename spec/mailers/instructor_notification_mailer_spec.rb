@@ -10,13 +10,13 @@ describe InstructorNotificationMailer do
   let(:instructor) { create(:user, email: 'instructor@wikiedu.org') }
   let!(:courses_user) do
     create(:courses_user, course_id: course.id, user_id: instructor.id,
-                          role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+    role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
   end
 
   let(:instructor_notification_alert) do
     create(:instructor_notification_alert, type: 'InstructorNotificationAlert',
-                course_id: course.id, message: 'Test Email Content', user: admin,
-                details: { subject: SUBJECT, bcc_to_salesforce: true })
+          course_id: course.id, message: 'Test Email Content', user: admin,
+          details: { subject: SUBJECT, bcc_to_salesforce: true })
     Alert.last
   end
 
@@ -65,15 +65,13 @@ describe InstructorNotificationMailer do
   describe '.send_email' do
     it 'triggers email delivery' do
       ActionMailer::Base.deliveries.clear
-      allow(Features).to receive(:email?).and_return(true)
-      expect_any_instance_of(ActionMailer::MessageDelivery).to receive(:deliver_now)
-      described_class.send_email(instructor_notification_alert, true)
-      delivery = ActionMailer::Base.deliveries
 
-      expect(delivery.count).to eq(1)
-      expect(delivery.first.subject).to include(SUBJECT)
-      expect(delivery.first.to).to include(instructor.email)
-      expect(delivery.first.reply_to).to include(admin.email)
+      allow(Features).to receive(:email?).and_return(true)
+      described_class.send_email(instructor_notification_alert, true)
+      expect(ActionMailer::Base.deliveries.count).to eq(1)
+      expect(ActionMailer::Base.deliveries.first.subject).to include(SUBJECT)
+      expect(ActionMailer::Base.deliveries.first.to).to include(instructor.email)
+      expect(ActionMailer::Base.deliveries.first.reply_to).to include(admin.email)
     end
   end
 end
