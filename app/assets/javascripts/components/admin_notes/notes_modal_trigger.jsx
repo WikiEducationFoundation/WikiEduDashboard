@@ -26,8 +26,9 @@ const NotesModalTrigger = ({ setIsModalOpen, notesList, setNoteFetchTimestamp })
   }, [notesList]);
 
   // Accessible message for screen readers, indicating whether there are new admin notes or none available
-  const notesAriaLabel = !notesList.length ? I18n.t('notes.admin.aria_label.no_notes_available')
-  : I18n.t('notes.admin.aria_label.new_notes_message', { count: notificationCount, plural: notificationCount > 1 ? 's' : '' });
+  const notesAriaLabel = !notesList.length
+    ? I18n.t('notes.admin.aria_label.no_notes_available')
+    : I18n.t('notes.admin.aria_label.new_notes_message', { count: notificationCount });
 
   return (
     <div className="admin-notes-modal-trigger">
