@@ -43,6 +43,7 @@ class SelfEnrollmentController < ApplicationController
 
   def check_early_student_join
     return unless @course.is_a?(ClassroomProgramCourse) && @course.start.to_date > Time.zone.today
+    return if Alert.exists?(course_id: @course.course_id, type: 'WikiExpertNotificationAlert')
 
     WikiExpertNotificationAlert.new(course: @course)&.send_email
   end

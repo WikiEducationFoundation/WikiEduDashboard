@@ -1,20 +1,11 @@
 %link{rel: 'stylesheet', href:'/mailer.css'}
 
-%p Dear Wiki Experts,
-
 %p
-  We wanted to bring to your attention that a student has joined the course,
-  #{@course.title}, ahead of the official start date, #{@course.start}.
-
-%p
-  Please review this activity and consider adjusting the course start date to better reflect the actual start. 
-  This will help ensure that the early edits made by the student are properly tracked and counted.
-
-%p
-  You can review the course details and make any necessary adjustments here:
+  One or more students joined this course early: 
   %a{ href: @course_link }= @course.title
 
-%p Best regards,
+%p
+  Current start date: #{@course.start}
 
 %p
-  The Wiki Education Team
+  (Note: No additional alerts will be created if additional students join before the start date.)
