@@ -46,6 +46,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_15_163420) do
     t.boolean "new_article", default: false
     t.boolean "tracked", default: true
     t.index ["article_id", "course_id", "start", "end"], name: "article_course_timeslice_by_article_course_start_and_end", unique: true
+    t.index ["course_id", "updated_at", "article_id"], name: "article_course_timeslice_by_updated_at"
   end
 
   create_table "admin_course_notes", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
