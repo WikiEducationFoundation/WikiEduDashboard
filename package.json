@@ -101,6 +101,7 @@
   },
   "scripts": {
     "test": "jest",
+    "lint": "eslint 'app/assets/javascripts/**/*.{jsx,js}'",
     "lint-non-build": "eslint 'test/**/*.{jsx,js}' '*.js'",
     "start": "node prepare.js && webpack serve --env development --client-overlay --client-progress --progress",
     "start:no-lint": "node prepare.js && webpack serve --env development --env DISABLE_ESLINT --client-overlay --client-progress --progress",
