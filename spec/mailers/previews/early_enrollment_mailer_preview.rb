@@ -10,6 +10,6 @@ class EarlyEnrollmentMailerPreview < ActionMailer::Preview
 
   def example_alert
     EarlyEnrollmentAlert.new(type: 'EarlyEnrollmentAlert',
-                                    course: Course.nonprivate.last || Course.first)
+                             course: Course.nonprivate.last || Course.first)
   end
 end
