@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class WikiExpertNotificationMailer < ApplicationMailer
+class EarlyEnrollmentMailer < ApplicationMailer
   def self.send_email(alert)
     return unless Features.email?
 

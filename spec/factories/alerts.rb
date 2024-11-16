@@ -27,7 +27,7 @@ FactoryBot.define do
 
   factory :instructor_notification_alert, class: 'InstructorNotificationAlert'
 
-  factory :wiki_expert_notification_alert, class: 'WikiExpertNotificationAlert'
+  factory :early_enrollment_alert, class: 'EarlyEnrollmentAlert'
 
   factory :active_course_alert, class: 'ActiveCourseAlert'
 

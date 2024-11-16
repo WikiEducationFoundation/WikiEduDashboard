@@ -19,7 +19,7 @@
 #  resolved       :boolean          default(FALSE)
 #  details        :text(65535)
 
-class WikiExpertNotificationAlert < Alert
+class EarlyEnrollmentAlert < Alert
   def wiki_experts_email
     CoursesUsers.where(course:, user: SpecialUsers.wikipedia_experts,
                        role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE)
@@ -29,7 +29,7 @@ class WikiExpertNotificationAlert < Alert
   def send_email
     return if emails_disabled?
 
-    WikiExpertNotificationMailer.send_email(self)
+    EarlyEnrollmentMailer.send_email(self)
     update(email_sent_at: Time.zone.now)
   end
 
@@ -38,6 +38,6 @@ class WikiExpertNotificationAlert < Alert
   end
 
   def main_subject
-    "Alert: A Student Joined Early in Course #{course.title}"
+    "EarlyEnrollmentAlert: #{course.slug}"
   end
 end

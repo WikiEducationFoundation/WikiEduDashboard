@@ -44,7 +44,7 @@ class Alert < ApplicationRecord
     DiscretionarySanctionsAssignmentAlert
     DiscretionarySanctionsEditAlert
     DYKNominationAlert
-    WikiExpertNotificationAlert
+    EarlyEnrollmentAlert
     FirstEnrolledStudentAlert
     GANominationAlert
     HighQualityArticleAssignmentAlert
