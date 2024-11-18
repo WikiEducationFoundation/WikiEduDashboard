@@ -41,11 +41,17 @@ class UpdateTimeslicesUntrackedArticle
 
   def retrack(article_ids)
     return if article_ids.empty?
+
+    # Most of the time there are no untracked timeslices, so we can skip the retrack step
+    has_untracked_timeslices = @course.article_course_timeslices.exists?(tracked: false)
+    return unless has_untracked_timeslices
+
     @article_course_timeslices_to_retrack = ArticleCourseTimeslice
                                             .for_course_and_article(@course, article_ids)
                                             .where(tracked: false)
     # Only reprocess those non-empty timeslices
     non_empty = @article_course_timeslices_to_retrack.where.not(user_ids: nil)
+
     # Mark course wiki timeslices that needs to be re-proccesed
     wikis_and_starts = @timeslice_manager.get_wiki_and_start_dates_to_reprocess(non_empty)
     @timeslice_manager.update_course_wiki_timeslices_that_need_update(wikis_and_starts)
