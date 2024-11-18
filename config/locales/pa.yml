@@ -135,6 +135,7 @@ pa:
       subject: ਵਿਸ਼ਾ
     loading: ਲੱਦ ਰਿਹਾ ਹੈ...
     none: ਕੋਈ ਵੀ ਨਹੀਂ
+    please_log_in: ਕਿਰਪਾ ਕਰਕੇ ਦਾਖ਼ਲ ਹੋਵੋ।
     start: ਸ਼ੁਰੂ ਕਰੋ
     start_typing: ਲਿਖਣਾ ਸ਼ੁਰੂ ਕਰੋ
   courses_generic:
@@ -170,6 +171,7 @@ pa:
   users:
     assign_articles_done: ਪੂਰਾ ਹੋਇਆ
     chars_added: ਅੱਖਰ ਜੋੜੇ ਗਏ<br/>(ਲੇਖ। ਵਰਤੋਂਕਾਰ। ਖਰੜਾ)
+    edits: ਸੋਧਾਂ
     first_name: ਮੂਹਰਲਾ ਨਾਂ
     last_name: ਪਿਛਲਾ ਨਾਂ
     characters_added_draftspace: ਅੱਖਰ ਜੋੜੇ ਗਏ (ਖਰੜਾ)
