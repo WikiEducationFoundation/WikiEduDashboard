@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { extend } from 'lodash-es';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchTrainingModule, setSlideCompleted, setCurrentSlide, toggleMenuOpen } from '../../actions/training_actions.js';
+import { fetchTrainingModule, setSlideCompleted, setCurrentSlide, toggleMenuOpen, refreshEditAssignmentStatus } from '../../actions/training_actions.js';
 import SlideLink from './slide_link.jsx';
 import SlideMenu from './slide_menu.jsx';
 import Quiz from './quiz.jsx';
@@ -30,21 +30,52 @@ const userLoggedIn = () => {
   return typeof __guard__(document.getElementById('main'), x => x.getAttribute('data-user-id')) === 'string';
 };
 
+const getLoggedInUsername = () => {
+  return window.currentUser?.username ?? null;
+};
+
 const trainingUrl = (params) => {
   return `/training/${params.library_id}/${params.module_id}/${params.slide_id}`;
 };
 
-const disableNext = (training) => {
-  return Boolean(training.currentSlide.assessment) && !training.currentSlide.answeredCorrectly;
+const getParsedTrainingContentData = (rawHtml) => {
+  const username = getLoggedInUsername();
+
+  // enable wiki edit assignment check only when user is logged in.
+
+  if (!username) {
+    return { wikiEditAssignment: null };
+  }
+
+  const wikiRegex = new RegExp(/^https:\/\/en\.wikipedia\.org\/wiki\/[^#?]+(?:$|[?#])/); // update this regex to include more wikis
+  const parser = new DOMParser();
+  const htmlDOM = parser.parseFromString(rawHtml, 'text/html');
+  let wikiEditAssignment = null;
+  const wikiEditLink = htmlDOM.querySelector('a.wiki-edit-assignment');
+      if (wikiEditLink) {
+        wikiEditAssignment = wikiEditLink.getAttribute('href');
+        // check if its valid wiki link
+        if (!wikiRegex.test(wikiEditAssignment)) {
+          // not valid wiki link
+          wikiEditAssignment = null;
+        }
+      }
+  return { wikiEditAssignment };
 };
 
 const getSlideInfo = (training, locale) => {
   let slideTitle;
   let assessment;
   let rawHtml;
+  let parsedContentFields = {
+    wikiEditAssignment: null
+  };
+
   if (training.currentSlide.translations && training.currentSlide.translations[locale]) {
     slideTitle = training.currentSlide.translations[locale].title;
     rawHtml = md.render(training.currentSlide.translations[locale].content);
+    parsedContentFields = getParsedTrainingContentData(rawHtml);
+
     if (training.currentSlide.translations[locale].assessment) {
       assessment = training.currentSlide.translations[locale].assessment;
     }
@@ -52,12 +83,14 @@ const getSlideInfo = (training, locale) => {
     slideTitle = training.currentSlide.title;
     if (training.currentSlide.content) {
       rawHtml = md.render(training.currentSlide.content);
-    }
+      parsedContentFields = getParsedTrainingContentData(rawHtml);
+  }
     if (training.currentSlide.assessment) {
       assessment = training.currentSlide.assessment;
     }
   }
-  return { slideTitle, assessment, rawHtml };
+
+    return { slideTitle, assessment, rawHtml, wikiEditAssignment: parsedContentFields.wikiEditAssignment };
 };
 
 const keys = { rightKey: 39, leftKey: 37 };
@@ -68,6 +101,23 @@ const TrainingSlideHandler = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [baseTitle, setBaseTitle] = useState('');
+  const [isNextDisabled, setNextDisabled] = useState(true);
+  const { slideTitle, assessment, rawHtml, wikiEditAssignment } = getSlideInfo(training, I18n.locale);
+  const wikiEditAssignmentStatus = training.currentSlide.wikiEditAssignmentStatus;
+  const WikiEditAssignmentStatusList = {
+    0: I18n.t('training.wiki_edit_assignment_status_pending'),
+    1: I18n.t('training.wiki_edit_assignment_status_loading'),
+    2: I18n.t('training.wiki_edit_assignment_status_error'),
+    3: I18n.t('training.wiki_edit_assignment_status_success'),
+  };
+
+  const disableNext = () => {
+    return isNextDisabled;
+  };
+
+  useEffect(() => {
+    setNextDisabled((Boolean(training.currentSlide.assessment) && !training.currentSlide.answeredCorrectly) || (wikiEditAssignment && getLoggedInUsername() && wikiEditAssignmentStatus !== 3));
+  }, [training, wikiEditAssignment, wikiEditAssignmentStatus]);
 
   // useState for fastTrainingAlertHandler function
   const [isShown, setIsShown] = useState(false);
@@ -124,8 +174,11 @@ const TrainingSlideHandler = () => {
     window.addEventListener('keyup', handleKeyPress);
 
     // training has changed, so update the title of the slide
-    const { slideTitle } = getSlideInfo(training, I18n.locale);
     document.title = `${slideTitle} - ${baseTitle}`;
+    // refresh edit assignment status at start
+    if (wikiEditAssignmentStatus === -1) {
+      dispatch(refreshEditAssignmentStatus({ username: getLoggedInUsername(), wikiEditAssignment }));
+    }
 
     return () => {
       // cleanup. Removes the old event listener
@@ -213,8 +266,6 @@ const TrainingSlideHandler = () => {
     );
   }
 
-  const { slideTitle, assessment, rawHtml } = getSlideInfo(training, I18n.locale);
-
   const menuClass = training.menuIsOpen === false ? 'hidden' : 'shown';
 
   let quiz;
@@ -286,6 +337,35 @@ const TrainingSlideHandler = () => {
         <h1>{slideTitle}</h1>
         <div className="markdown training__slide__content" dangerouslySetInnerHTML={{ __html: rawHtml }} />
         {quiz}
+
+        {
+          wikiEditAssignment && wikiEditAssignmentStatus !== -1
+          && (wikiEditAssignmentStatus < 3 ? (
+            <div className="training__slide__notification" key="pending">
+              <div className="container">
+                <p>
+                  {I18n.t('training.wiki_edit_assignment_pending_message')}
+                  <b style={{ margin: '0 15px' }}>({I18n.t('training.wiki_edit_assignment_status')} : {WikiEditAssignmentStatusList[wikiEditAssignmentStatus]})</b>
+                  <button
+                    className="training__slide_link"
+                    onClick={() => {
+                      dispatch(refreshEditAssignmentStatus({ username: getLoggedInUsername(), wikiEditAssignment }));
+                    }}
+                  >
+                    {I18n.t('training.wiki_edit_assignment_refresh_button')}
+                  </button>
+                </p>
+              </div>
+            </div>
+            ) : (
+              <div className="training__slide__notification success">
+                <div className="container">
+                  <p>{I18n.t('training.wiki_edit_assignment_success_message')}</p>
+                </div>
+              </div>
+            ))
+        }
+
         <footer className="training__slide__footer">
           <span className="pull-left">{previousLink}</span>
           {sourceLink}

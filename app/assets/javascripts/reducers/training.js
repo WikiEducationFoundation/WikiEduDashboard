@@ -2,8 +2,10 @@ import { findIndex } from 'lodash-es';
 import {
   RECEIVE_TRAINING_MODULE, MENU_TOGGLE, REVIEW_ANSWER,
   SET_CURRENT_SLIDE, RECEIVE_ALL_TRAINING_MODULES,
-  SLIDE_COMPLETED
+  SLIDE_COMPLETED, UPDATE_WIKI_EDIT_ASSIGNMENT_STATUS
 } from '../constants';
+
+const DEFAULT_WIKI_EDIT_ASSIGN_STATUS = -1;
 
 const reviewAnswer = function (state, answer) {
   const answerId = parseInt(answer);
@@ -17,7 +19,7 @@ const reviewAnswer = function (state, answer) {
 const setCurrentSlide = function (state, slideId) {
   if (!state.module.slides) { return state; }
   const slideIndex = findIndex(state.module.slides, slide => slide.slug === slideId);
-  return { ...state, currentSlide: { ...state.module.slides[slideIndex] }, loading: false };
+  return { ...state, currentSlide: { ...state.module.slides[slideIndex], wikiEditAssignmentStatus: DEFAULT_WIKI_EDIT_ASSIGN_STATUS }, loading: false };
 };
 
 const getCurrentSlide = (state) => {
@@ -61,7 +63,8 @@ const initialState = {
   currentSlide: {
     id: null,
     title: '',
-    content: ''
+    content: '',
+    wikiEditAssignmentStatus: DEFAULT_WIKI_EDIT_ASSIGN_STATUS // -1 for not initialized,  0 for Not Completed, 1 for Checking, 2 for error, 3 for Completed
   },
   previousSlide: {},
   nextSlide: {},
@@ -85,6 +88,9 @@ export default function training(state = initialState, action) {
         return update(setCurrentSlide(newState, data.slide));
       }
       return { ...newState, loading: false };
+    }
+    case UPDATE_WIKI_EDIT_ASSIGNMENT_STATUS: {
+      return { ...state, currentSlide: { ...state.currentSlide, wikiEditAssignmentStatus: data } };
     }
     case MENU_TOGGLE:
       return { ...state, menuIsOpen: !data.currently };

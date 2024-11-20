@@ -1401,6 +1401,14 @@ en:
     view_library_source: view library source
     view_module_source: view module source
     reload_from_source: reload from source
+    wiki_edit_assignment_status_pending: Pending
+    wiki_edit_assignment_status_loading: Checking...
+    wiki_edit_assignment_status_error: Error, Try Refreshing
+    wiki_edit_assignment_status_success: Completed
+    wiki_edit_assignment_pending_message: Please complete your practice wiki edits to continue to the next slide
+    wiki_edit_assignment_success_message: Awesome! You have made a successful edit
+    wiki_edit_assignment_status: Status
+    wiki_edit_assignment_refresh_button: REFRESH
     kind:
       exercise: Exercise
       discussion: Discussion
