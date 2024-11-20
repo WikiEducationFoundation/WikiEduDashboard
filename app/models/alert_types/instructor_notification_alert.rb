@@ -36,15 +36,16 @@ class InstructorNotificationAlert < Alert
   end
 
   # deliver the actual email immediately
-  def send_email
+  def send_email(bcc_to_salesforce=true)
     return if emails_disabled?
-    InstructorNotificationMailer.send_email(self)
+    InstructorNotificationMailer.send_email(self, bcc_to_salesforce)
     update(email_sent_at: Time.zone.now)
   end
 
   # returns the email of the sender
   def sender_email
-    User.find_by(id: user_id)&.email
+    email = User.find_by(id: user_id)&.email
+    return email
   end
 
   # not used but required to be implemented (Subject is Dynamic)

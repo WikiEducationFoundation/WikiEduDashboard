@@ -1,9 +1,10 @@
-import { ALERT_INSTRUCTOR_CREATE, ALERT_INSTRUCTOR_FAILED, ALERT_INSTRUCTOR_MODAL_VISIBLE, ALERT_INSTRUCTOR_MODAL_HIDDEN, ALERT_INSTRUCTOR_UPDATE_MESSAGE, ALERT_INSTRUCTOR_UPDATE_SUBJECT } from '../constants/alert';
+import { ALERT_INSTRUCTOR_CREATE, ALERT_INSTRUCTOR_FAILED, ALERT_INSTRUCTOR_MODAL_VISIBLE, ALERT_INSTRUCTOR_MODAL_HIDDEN, ALERT_INSTRUCTOR_UPDATE_MESSAGE, ALERT_INSTRUCTOR_UPDATE_SUBJECT, ALERT_INSTRUCTOR_UPDATE_BCC } from '../constants/alert';
 
 
 const initialState = {
   subject: '',
   message: '',
+  bccToSalesforce: true,
   status: 'DEFAULT', // DEFAULT, PENDING, FAILED, SUCCESS
   error: null,
   modal: false // modal visibility
@@ -21,6 +22,13 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         subject: action.payload
+    };
+
+    case ALERT_INSTRUCTOR_UPDATE_BCC:
+    // toggle bcc checkbox
+      return {
+        ...state,
+        bccToSalesforce: !state.bccToSalesforce
     };
 
     case ALERT_INSTRUCTOR_MODAL_VISIBLE:
