@@ -12,6 +12,8 @@ const Revision = ({ revision, index, wikidataLabel, course, setSelectedIndex, la
   const subtitle = wikidataLabel ? `(${CourseUtils.removeNamespace(revision.title)})` : '';
   const isWikipedia = revision.wiki.project === 'wikipedia';
   const showRealName = student.real_name;
+  const url = `/courses/${course.slug}/students/articles/${encodeURIComponent(student.username)}`;
+
   return (
     <tr className="revision">
       <td className="tooltip-trigger desktop-only-tc">
@@ -31,14 +33,14 @@ const Revision = ({ revision, index, wikidataLabel, course, setSelectedIndex, la
           <span>
             <strong>{trunc(student.real_name)}</strong>&nbsp;
             (
-            <a onClick={e => e.preventDefault()}>
+            <a href={url}>
               {revision.revisor}
             </a>
             )
           </span>
         ) : (
           <span>
-            <a onClick={e => e.preventDefault()}>
+            <a href={url}>
               {revision.revisor}
             </a>
           </span>
