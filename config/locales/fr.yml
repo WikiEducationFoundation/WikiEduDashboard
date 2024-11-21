@@ -1024,6 +1024,7 @@ fr:
     write_subject: Sujet
     write_message_placeholder: Message
     sending_notification: Envoi en cours
+    bcc_to_salesforce: Copie cachée à Salesforce
   courses_generic:
     school_system: Système académique
     add_campaign: Ajouter une campagne
