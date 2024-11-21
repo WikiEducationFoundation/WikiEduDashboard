@@ -91,6 +91,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_15_163420) do
     t.integer "references_count", default: 0
     t.boolean "tracked", default: true
     t.text "user_ids"
+    t.datetime "first_revision"
     t.index ["article_id"], name: "index_articles_courses_on_article_id"
     t.index ["course_id"], name: "index_articles_courses_on_course_id"
   end
