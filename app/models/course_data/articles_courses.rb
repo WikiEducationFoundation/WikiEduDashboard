@@ -94,13 +94,6 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
     self.character_sum = article_course_timeslices.sum(&:character_sum)
     self.references_count = article_course_timeslices.sum(&:references_count)
     self.user_ids = article_course_timeslices.sum([], &:user_ids).uniq
-
-    # View count is calculated based on the first non-empty article course timeslice
-    # record start date. We estimate the first non-empty record checking user_ids
-    # field is not null.
-    # non_empty_timeslices = article_course_timeslices.non_empty
-    # self.view_count = views_since_earliest_timeslices(non_empty_timeslices)
-
     self.new_article = article_course_timeslices.any?(&:new_article)
     save
   end
@@ -109,13 +102,6 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
     return if revisions.blank?
     return if article.average_views.nil?
     days = (Time.now.utc.to_date - revisions.min_by(&:date).date.to_date).to_i
-    days * article.average_views
-  end
-
-  def views_since_earliest_timeslices(timeslices)
-    return if timeslices.blank?
-    return if article.average_views.nil?
-    days = (Time.now.utc.to_date - timeslices.min_by(&:start).start.to_date).to_i
     days * article.average_views
   end
 
