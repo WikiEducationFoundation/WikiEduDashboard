@@ -212,10 +212,30 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
     tracked_wiki_ids = course.wikis.pluck(:id)
     new_article_ids = Article.where(id: article_ids_without_ac, wiki_id: tracked_wiki_ids)
                              .pluck(:id)
+    first_revisions = get_first_revisions(revisions, new_article_ids)
     new_records = new_article_ids.map do |id|
-      { article_id: id, course_id: course.id }
+      { article_id: id, course_id: course.id, first_revision: first_revisions[id] }
     end
 
+    maybe_insert_new_records(course, new_records)
+  end
+
+  # Given an array of revisions and an array of article ids,
+  # it returns a hash with the min revision datetime for every article id.
+  def self.get_first_revisions(revisions, new_article_ids)
+    # This is the only way I found to get an always-greater value
+    max_time = Time.utc(9999, 12, 31)
+    min_dates = Hash.new(max_time)
+
+    revisions.each do |revision|
+      if new_article_ids.include?(revision.article_id)
+        min_dates[revision.article_id] = [min_dates[revision.article_id], revision.date].min
+      end
+    end
+    min_dates
+  end
+
+  def self.maybe_insert_new_records(course, new_records)
     return if new_records.empty?
     # Do this in batches to avoid running the MySQL server out of memory
     new_records.each_slice(5000) do |new_record_slice|
