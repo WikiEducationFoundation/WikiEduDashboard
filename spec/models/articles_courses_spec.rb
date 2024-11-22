@@ -14,6 +14,7 @@
 #  references_count :integer          default(0)
 #  tracked          :boolean          default(TRUE)
 #  user_ids         :text(65535)
+#  first_revision   :datetime
 #
 
 require 'rails_helper'
@@ -148,7 +149,7 @@ describe ArticlesCourses, type: :model do
       expect(article_course.character_sum).to eq(9012)
       expect(article_course.references_count).to eq(9)
       expect(article_course.user_ids).to eq([2, 3, user.id])
-      # expect(article_course.view_count).to eq(12340)
+      expect(article_course.view_count).to eq(0)
       expect(article_course.new_article).to be true
     end
   end
@@ -204,6 +205,12 @@ describe ArticlesCourses, type: :model do
                             role: CoursesUsers::Roles::STUDENT_ROLE)
       array_revisions << build(:revision, article:, user:, date: '2024-07-07',
                         system: true, new_article: true)
+      array_revisions << build(:revision, article:, user:, date: '2024-07-06 20:05:10',
+                        system: true, new_article: true)
+      array_revisions << build(:revision, article:, user:, date: '2024-07-06 20:06:11',
+                        system: true, new_article: true)
+      array_revisions << build(:revision, article:, user:, date: '2024-07-08 20:03:01',
+                        system: true, new_article: true)
       array_revisions << build(:revision, article: article3, user:, date: '2024-07-07',
                         system: true, new_article: true)
       # revision for a non-tracked wiki
@@ -216,6 +223,7 @@ describe ArticlesCourses, type: :model do
       expect(described_class.count).to eq(0)
       described_class.update_from_course_revisions(course, array_revisions)
       expect(described_class.count).to eq(2)
+      expect(described_class.first.first_revision).to eq('2024-07-06 20:05:10')
       # 62 days from course start up to course end x 2 articles courses
       expect(described_class.first.article_course_timeslices.count).to eq(62)
       expect(described_class.second.article_course_timeslices.count).to eq(62)

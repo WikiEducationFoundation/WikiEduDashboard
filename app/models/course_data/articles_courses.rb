@@ -14,6 +14,7 @@
 #  references_count :integer          default(0)
 #  tracked          :boolean          default(TRUE)
 #  user_ids         :text(65535)
+#  first_revision   :datetime
 #
 
 require_dependency "#{Rails.root}/lib/timeslice_manager"
@@ -93,13 +94,6 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
     self.character_sum = article_course_timeslices.sum(&:character_sum)
     self.references_count = article_course_timeslices.sum(&:references_count)
     self.user_ids = article_course_timeslices.sum([], &:user_ids).uniq
-
-    # View count is calculated based on the first non-empty article course timeslice
-    # record start date. We estimate the first non-empty record checking user_ids
-    # field is not null.
-    # non_empty_timeslices = article_course_timeslices.non_empty
-    # self.view_count = views_since_earliest_timeslices(non_empty_timeslices)
-
     self.new_article = article_course_timeslices.any?(&:new_article)
     save
   end
@@ -108,13 +102,6 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
     return if revisions.blank?
     return if article.average_views.nil?
     days = (Time.now.utc.to_date - revisions.min_by(&:date).date.to_date).to_i
-    days * article.average_views
-  end
-
-  def views_since_earliest_timeslices(timeslices)
-    return if timeslices.blank?
-    return if article.average_views.nil?
-    days = (Time.now.utc.to_date - timeslices.min_by(&:start).start.to_date).to_i
     days * article.average_views
   end
 
@@ -211,10 +198,30 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
     tracked_wiki_ids = course.wikis.pluck(:id)
     new_article_ids = Article.where(id: article_ids_without_ac, wiki_id: tracked_wiki_ids)
                              .pluck(:id)
+    first_revisions = get_first_revisions(revisions, new_article_ids)
     new_records = new_article_ids.map do |id|
-      { article_id: id, course_id: course.id }
+      { article_id: id, course_id: course.id, first_revision: first_revisions[id] }
     end
 
+    maybe_insert_new_records(course, new_records)
+  end
+
+  # Given an array of revisions and an array of article ids,
+  # it returns a hash with the min revision datetime for every article id.
+  def self.get_first_revisions(revisions, new_article_ids)
+    # This is the only way I found to get an always-greater value
+    max_time = Time.utc(9999, 12, 31)
+    min_dates = Hash.new(max_time)
+
+    revisions.each do |revision|
+      if new_article_ids.include?(revision.article_id)
+        min_dates[revision.article_id] = [min_dates[revision.article_id], revision.date].min
+      end
+    end
+    min_dates
+  end
+
+  def self.maybe_insert_new_records(course, new_records)
     return if new_records.empty?
     # Do this in batches to avoid running the MySQL server out of memory
     new_records.each_slice(5000) do |new_record_slice|
