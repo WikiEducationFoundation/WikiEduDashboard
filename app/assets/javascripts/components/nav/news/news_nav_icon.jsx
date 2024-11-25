@@ -21,7 +21,7 @@ const NewsNavIcon = ({ setIsOpen }) => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchNewsData = async () => {
       try {
         const newsContentList = await API.fetchNews(newsType);
 
@@ -41,12 +41,7 @@ const NewsNavIcon = ({ setIsOpen }) => {
       }
     };
 
-    // Fetch the data and set up a polling interval to fetch data periodically (every 60 seconds)
-    fetchData();
-    const pollInterval = setInterval(fetchData, 60000);
-
-    // Clean up the polling interval when the component unmounts
-    return () => clearInterval(pollInterval);
+    fetchNewsData();
   }, []);
 
   return (
