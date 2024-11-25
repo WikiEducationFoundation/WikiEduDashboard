@@ -624,6 +624,7 @@ lb:
     usage_doc: Zuel vu Wikipedia-Artikelen an deenen dës Bild ze gesinn ass.
     usage_count_gallery_tile: A(n) %{usage_count} Artikele benotzt
     source: 'Quell:'
+    views_per_day: Opriff pro Dag
     view_commons: Op Commons weisen
     wiki_big: Wiki
   users:
