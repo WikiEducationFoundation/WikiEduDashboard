@@ -138,11 +138,13 @@ describe ArticleCourseTimeslice, type: :model do
 
   describe '#update_cache_from_revisions' do
     it 'updates cache correctly' do
+      expect(article_course_timeslice.revision_count).to eq(0)
       expect(article_course_timeslice.character_sum).to eq(100)
       expect(article_course_timeslice.references_count).to eq(3)
       expect(article_course_timeslice.user_ids).to eq([2, 4])
       expect(article_course_timeslice.new_article).to eq(false)
       subject
+      expect(article_course_timeslice.revision_count).to eq(3)
       expect(article_course_timeslice.character_sum).to eq(348)
       expect(article_course_timeslice.references_count).to eq(3)
       expect(article_course_timeslice.user_ids).to eq([25, 1])
