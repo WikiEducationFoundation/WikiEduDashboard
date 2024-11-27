@@ -2,20 +2,26 @@
 
 require_dependency "#{Rails.root}/lib/modified_revisions_manager"
 require_dependency "#{Rails.root}/lib/assignment_updater"
+require_dependency "#{Rails.root}/lib/errors/api_error_handling"
 
 #= Updates articles to reflect deletion and page moves on Wikipedia
 class ArticleStatusManager
-  def initialize(wiki = nil)
+  include ApiErrorHandling
+
+  def initialize(wiki = nil, update_service: nil)
     @wiki = wiki || Wiki.default_wiki
+    @update_service = update_service
   end
 
   ################
   # Entry points #
   ################
 
-  def self.update_article_status_for_course(course)
+  def self.update_article_status_for_course(course, update_service: nil)
     course.wikis.each do |wiki|
       # Updating only those articles which are updated more than  1 day ago
+      manager = new(wiki, update_service:)
+
       course.pages_edited
             .where(wiki_id: wiki.id)
             .where('articles.updated_at < ?', 1.day.ago)
@@ -23,11 +29,14 @@ class ArticleStatusManager
         # Using in_batches so that the update_at of all articles in the batch can be
         # excuted in a single query, otherwise if we use find_in_batches, query for
         # each article for updating the same would be required
-        new(wiki).update_status(article_batch)
+        manager.update_status(article_batch)
         # rubocop:disable Rails/SkipsModelValidations
         article_batch.touch_all(:updated_at)
         # rubocop:enable Rails/SkipsModelValidations
       end
+    rescue StandardError => e
+      manager.log_error(e, update_service:,
+                        sentry_extra: { course_id: course.id, wiki_id: wiki.id })
     end
   end
 
@@ -83,7 +92,8 @@ class ArticleStatusManager
   def article_data_from_replica(articles)
     @failed_request_count = 0
     synced_articles = Utils.chunk_requests(articles, 100) do |block|
-      request_results = Replica.new(@wiki).get_existing_articles_by_id block
+      request_results = Replica.new(@wiki, update_service: @update_service)
+                               .get_existing_articles_by_id(block)
       @failed_request_count += 1 if request_results.nil?
       request_results
     end

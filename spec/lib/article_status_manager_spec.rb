@@ -13,8 +13,24 @@ describe ArticleStatusManager do
   let(:course) { create(:course, start: 1.year.ago, end: 1.year.from_now) }
   let(:user) { create(:user) }
   let!(:courses_user) { create(:courses_user, course:, user:) }
+  let(:update_service) { instance_double('UpdateService') }
 
   describe '.update_article_status_for_course' do
+    it 'logs unexpected errors with the update_service passed' do
+      # Simulate an unexpected error
+      allow_any_instance_of(Course).to receive(:pages_edited)
+        .and_raise(StandardError, 'Unexpected error occurred')
+
+      expect_any_instance_of(described_class).to receive(:log_error).with(
+        instance_of(StandardError),
+        update_service:,
+        sentry_extra: { course_id: course.id, wiki_id: anything }
+      ).once
+
+      # Call the method to trigger the error
+      described_class.update_article_status_for_course(course, update_service:)
+    end
+
     it 'marks deleted articles as "deleted"' do
       VCR.use_cassette 'article_status_manager/main' do
         create(:article,
