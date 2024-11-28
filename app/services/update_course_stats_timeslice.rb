@@ -36,7 +36,7 @@ class UpdateCourseStatsTimeslice
     # update_wikidata_stats if wikidata
     # This needs to happen after `update_caches` because it relies on ArticlesCourses#new_article
     # to calculate new article stats for each namespace.
-    # update_wiki_namespace_stats
+    update_wiki_namespace_stats
     @course.update(needs_update: false)
     @end_time = Time.zone.now
     # TODO: improve the course flag updates
