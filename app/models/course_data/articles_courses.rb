@@ -92,6 +92,7 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def update_cache_from_timeslices
+    self.revision_count = article_course_timeslices.sum(&:revision_count)
     self.character_sum = article_course_timeslices.sum(&:character_sum)
     self.references_count = article_course_timeslices.sum(&:references_count)
     self.user_ids = article_course_timeslices.sum([], &:user_ids).uniq
