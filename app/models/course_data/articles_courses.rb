@@ -15,6 +15,7 @@
 #  tracked          :boolean          default(TRUE)
 #  user_ids         :text(65535)
 #  first_revision   :datetime
+#  revision_count   :integer          default(0)
 #
 
 require_dependency "#{Rails.root}/lib/timeslice_manager"
