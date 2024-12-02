@@ -11,11 +11,11 @@
               %p.paragraph
                 Wikipedia's plagiarism detection system picked up an edit from one
                 of the students enrolled in
-                #{link_to @course.title, "https://#{ENV['dashboard_url']}/courses/#{@course.slug}", class: 'link'}.
+                #{link_to @course&.title, "https://#{ENV['dashboard_url']}/courses/#{@course&.slug}", class: 'link'}.
               %p.paragraph
                 #{link_to @user.username, "https://#{ENV['dashboard_url']}/users/#{@user.url_encoded_username}", class: 'link'}
                 made
-                #{link_to 'this change', @revision.url, class: 'link'}
+                #{link_to 'this change', @diff_url, class: 'link'}
                 to the article
                 "#{link_to @article.full_title, @article_url, class: 'link'}", which Turnitin/iThenticate matched to published
                 text.

@@ -5,13 +5,13 @@ class SuspectedPlagiarismMailer < ApplicationMailer
 
   def self.alert_content_expert(alert)
     return unless Features.email?
-    content_experts = content_experts_for(alert.revision)
+    content_experts = content_experts_for(alert.user)
     return if content_experts.empty?
     content_expert_email(alert, content_experts).deliver_now
   end
 
   def content_expert_email(alert, content_experts)
-    @revision = alert.revision
+    @diff_url = alert.diff_url
     @user = alert.user
     @article = alert.article
     @article_url = @article.url
@@ -25,8 +25,7 @@ class SuspectedPlagiarismMailer < ApplicationMailer
          subject: "Possible plagiarism from #{@course.title}")
   end
 
-  def self.content_experts_for(revision)
-    user = revision.user
+  def self.content_experts_for(user)
     return [] if user.nil?
     course = user.courses.last
     return [] if course.nil?
