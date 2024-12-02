@@ -24,7 +24,7 @@ describe UpdateWikiNamespaceStatsTimeslice do
     JoinCourse.new(course:, user: user1, role: 0)
     JoinCourse.new(course:, user: user2, role: 0)
     course.reload
-    VCR.use_cassette 'course_update' do
+    VCR.use_cassette 'course_update_timeslices' do
       UpdateCourseStatsTimeslice.new(course)
     end
   end
