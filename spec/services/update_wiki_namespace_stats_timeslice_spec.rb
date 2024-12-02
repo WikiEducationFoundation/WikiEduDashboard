@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe UpdateWikiNamespaceStats do
+describe UpdateWikiNamespaceStatsTimeslice do
   let(:course) { create(:course, start: Date.new(2022, 8, 1), end: Date.new(2022, 8, 2)) }
   let(:wikibooks) { Wiki.get_or_create(language: 'en', project: 'wikibooks') }
   let(:enwiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
@@ -23,8 +23,9 @@ describe UpdateWikiNamespaceStats do
                                     namespace: file_ns) # not mainspace
     JoinCourse.new(course:, user: user1, role: 0)
     JoinCourse.new(course:, user: user2, role: 0)
+    course.reload
     VCR.use_cassette 'course_update' do
-      UpdateCourseStats.new(course)
+      UpdateCourseStatsTimeslice.new(course)
     end
   end
 
@@ -67,7 +68,6 @@ describe UpdateWikiNamespaceStats do
   end
 
   it 'updates the wiki-namespace stats correctly' do
-    pending 'This fails on data-rearchitecture branch.'
     stats = course.course_stat.stats_hash['en.wikibooks.org-namespace-102']
 
     expect(stats[:edited_count]).to eq 1
@@ -77,6 +77,5 @@ describe UpdateWikiNamespaceStats do
     expect(stats[:word_count]).to eq 262
     expect(stats[:reference_count]).to eq 0
     expect(stats[:view_count]).to eq 0
-    pass_pending_spec
   end
 end
