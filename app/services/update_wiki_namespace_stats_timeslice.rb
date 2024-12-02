@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class UpdateWikiNamespaceStats
+class UpdateWikiNamespaceStatsTimeslice
   def self.clear_untracked_namespace_data(course)
     tracked_keys = stat_keys(course.course_wiki_namespaces)
     course_stats = CourseStat.find_or_create_by(course_id: course.id)
@@ -40,23 +40,17 @@ class UpdateWikiNamespaceStats
       view_count:
     }
     course_stats = CourseStat.find_or_create_by(course_id: @course.id)
-    course_stats.stats_hash[UpdateWikiNamespaceStats.stat_key(@wiki, @namespace)] = stats
+    course_stats.stats_hash[UpdateWikiNamespaceStatsTimeslice.stat_key(@wiki, @namespace)] = stats
     course_stats.save
   end
 
   private
 
-  # live, tracked course revisions filtered by wiki and namespace
-  def revisions_filtered_by_wiki_namespace
-    @course.revisions.where.not(article_id: @course.articles_courses.not_tracked.pluck(:article_id))
-           .where(wiki_id: @wiki.id)
-           .namespace(@namespace).live
-  end
-
   # live, tracked articles filtered by wiki and namespace
   def articles_filtered_by_wiki_namespace
-    @course.articles_courses.joins(:article).where(articles: { wiki: @wiki, namespace: @namespace })
-           .tracked.live
+    # do not use tracked and live scopes to avoid issue #5911
+    @course.articles_courses.joins(:article).where(articles: { wiki: @wiki, namespace: @namespace,
+           deleted: false }).where(tracked: true)
   end
 
   def edited_articles_count
@@ -70,24 +64,20 @@ class UpdateWikiNamespaceStats
   end
 
   def revision_count
-    revisions = revisions_filtered_by_wiki_namespace
-    revisions.size
+    articles_filtered_by_wiki_namespace.sum(:revision_count)
   end
 
   def user_count
-    revisions = revisions_filtered_by_wiki_namespace
-    revisions.distinct.pluck(:user_id).count
+    articles_filtered_by_wiki_namespace.sum([], &:user_ids).uniq.count
   end
 
   def word_count
-    revisions = revisions_filtered_by_wiki_namespace
-    character_sum = revisions.where('characters >= 0').sum(:characters) || 0
+    character_sum = articles_filtered_by_wiki_namespace.sum(:character_sum)
     WordCount.from_characters(character_sum)
   end
 
   def reference_count
-    revisions = revisions_filtered_by_wiki_namespace
-    revisions.sum(&:references_added)
+    articles_filtered_by_wiki_namespace.sum(:references_count)
   end
 
   def view_count

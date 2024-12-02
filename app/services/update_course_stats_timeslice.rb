@@ -18,7 +18,6 @@ class UpdateCourseStatsTimeslice
 
   def initialize(course)
     @course = course
-    # @timeslice_manager = TimesliceManager.new(@course)
     # If the upate was explicitly requested by a user,
     # it could be because the dates or other paramters were just changed.
     # In that case, do a full update rather than just fetching the most
@@ -29,7 +28,7 @@ class UpdateCourseStatsTimeslice
     @start_time = Time.zone.now
     import_uploads
     update_categories
-    timeslice_errors = UpdateCourseWikiTimeslices.new(@course).run(all_time: @full_update)
+    @timeslice_errors = UpdateCourseWikiTimeslices.new(@course).run(all_time: @full_update)
     update_article_status if should_update_article_status?
     update_average_pageviews
     update_caches
@@ -37,13 +36,7 @@ class UpdateCourseStatsTimeslice
     # This needs to happen after `update_caches` because it relies on ArticlesCourses#new_article
     # to calculate new article stats for each namespace.
     update_wiki_namespace_stats
-    @course.update(needs_update: false)
-    @end_time = Time.zone.now
-    # TODO: improve the course flag updates
-    UpdateLogger.update_course(@course, 'start_time' => @start_time.to_datetime,
-                                         'end_time' => @end_time.to_datetime,
-                                         'sentry_tag_uuid' => sentry_tag_uuid,
-                                         'error_count' => error_count + timeslice_errors)
+    log_end_of_update
   end
 
   private
@@ -101,11 +94,22 @@ class UpdateCourseStatsTimeslice
     @course.course_wiki_namespaces.each do |course_wiki_ns|
       wiki = course_wiki_ns.courses_wikis.wiki
       namespace = course_wiki_ns.namespace
-      UpdateWikiNamespaceStats.new(@course, wiki, namespace)
+      UpdateWikiNamespaceStatsTimeslice.new(@course, wiki, namespace)
     end
     # Remove stats data for any namespaces that were previously
     # tracked but are no longer tracked.
-    UpdateWikiNamespaceStats.clear_untracked_namespace_data(@course)
+    UpdateWikiNamespaceStatsTimeslice.clear_untracked_namespace_data(@course)
+    @debugger.log_update_progress :wiki_namespace_stats_updated
+  end
+
+  def log_end_of_update
+    @course.update(needs_update: false)
+    @end_time = Time.zone.now
+    # TODO: improve the course flag updates
+    UpdateLogger.update_course(@course, 'start_time' => @start_time.to_datetime,
+                                         'end_time' => @end_time.to_datetime,
+                                         'sentry_tag_uuid' => sentry_tag_uuid,
+                                         'error_count' => error_count + @timeslice_errors)
   end
 
   def wikidata

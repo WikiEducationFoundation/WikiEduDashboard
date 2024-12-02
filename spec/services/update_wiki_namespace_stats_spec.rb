@@ -23,14 +23,12 @@ describe UpdateWikiNamespaceStats do
                                     namespace: file_ns) # not mainspace
     JoinCourse.new(course:, user: user1, role: 0)
     JoinCourse.new(course:, user: user2, role: 0)
-    course.reload
     VCR.use_cassette 'course_update' do
-      UpdateCourseStatsTimeslice.new(course)
+      UpdateCourseStats.new(course)
     end
   end
 
   it 'adds articles with only tracked namespaces to article_courses' do
-    pending 'This fails on data-rearchitecture branch.'
     # namespaces of all the fetched revisions of course users
     fetched_namespaces = course.revisions.joins(:article).distinct.pluck('articles.namespace')
     # namespaces of article_courses
@@ -39,7 +37,6 @@ describe UpdateWikiNamespaceStats do
     expect(fetched_namespaces).to include(0, 2, 3, 102)
     expect(article_namespaces).to include(102)
     expect(article_namespaces).not_to include(0, 2, 3)
-    pass_pending_spec
   end
 
   it 'only counts tracked namespaces for words added' do
