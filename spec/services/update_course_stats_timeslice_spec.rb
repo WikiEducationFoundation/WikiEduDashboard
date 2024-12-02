@@ -62,6 +62,7 @@ describe UpdateCourseStatsTimeslice do
       expect(article_course.references_count).to eq(-2)
       expect(article_course.user_ids).to eq([user.id])
       expect(article_course.view_count).to eq(0)
+      expect(article_course.first_revision).to eq('2018-11-24 04:49:31'.to_datetime)
     end
 
     it 'updates course user caches' do
@@ -94,7 +95,9 @@ describe UpdateCourseStatsTimeslice do
       expect(course.references_count).to eq(-2)
       expect(course.revision_count).to eq(29)
       # TODO: view_sum is miscalculated due to a DISTINCT. See issue #5911
-      expect(course.view_sum).to eq(905580)
+      # For performance reasons, view_sum is calculated in the database using UTC_TIMESTAMP().
+      # Since we can't mock UTC_TIMESTAMP(), we use a lower bound for the assertion.
+      expect(course.view_sum).to be > 905580
       expect(course.user_count).to eq(1)
       expect(course.trained_count).to eq(1)
       # TODO: update recent_revision_count
