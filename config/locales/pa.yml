@@ -191,6 +191,8 @@ pa:
     revisions: ਹਾਲੀਆ ਸੋਧਾਂ
   namespace:
     article: ਲੇਖ
+    mediaWiki: ਮੀਡੀਆਵਿਕੀ
+    help: ਮਦਦ
     translation: ਤਰਜਮਾ
     draft: ਖਰੜਾ
   recent_activity:
