@@ -12,7 +12,6 @@ import confirm from './confirm';
 import course from './course';
 import courseAlerts from './course_alerts';
 import courseCreator from './course_creator';
-import didYouKnow from './did_you_know';
 import exercises from './exercises';
 import feedback from './feedback';
 import needHelpAlert from './need_help_alert';
@@ -68,7 +67,6 @@ const reducer = combineReducers({
   adminCourseNotes,
   course_search_results,
   currentUserFromHtml: (state = {}) => state, // only set from preloaded state
-  didYouKnow,
   exercises,
   feedback,
   instructorAlert,

@@ -13,7 +13,6 @@ export * from './course';
 export * from './course_alerts';
 export * from './admin_course_notes';
 export * from './course_search_results';
-export * from './did_you_know';
 export * from './exercises';
 export * from './feedback';
 export * from './new_accounts';
