@@ -42,8 +42,12 @@ class ScheduleCourseUpdates
 
     courses_to_update = Course.ready_for_update
 
+    log_message "Courses to update #{courses_to_update.map(&:slug).join(', ')}"
+
     courses_to_update.each do |course|
-      CourseDataUpdateWorker.update_course(course_id: course.id, queue: queue_for(course))
+      queue = queue_for(course)
+      log_message "Set course #{course.slug} to queue #{queue}"
+      CourseDataUpdateWorker.update_course(course_id: course.id, queue:)
 
       # if course isn't updated before, add first update flags
       next if course.flags[:first_update] || course.flags['update_logs']

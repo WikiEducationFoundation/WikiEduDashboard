@@ -14,6 +14,7 @@ class CourseDataUpdateWorker
 
   def perform(course_id)
     course = Course.find(course_id)
+    logger.info "Ignoring #{course.slug} update" if course.very_long_update?
     return if course.very_long_update?
 
     logger.info "Updating course timeslice version: #{course.slug}"
