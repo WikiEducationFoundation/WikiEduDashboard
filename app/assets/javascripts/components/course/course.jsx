@@ -23,7 +23,7 @@ import EnrollCard from '../enroll/enroll_card.jsx';
 import CourseNavbar from '../common/course_navbar.jsx';
 import Notifications from '../common/notifications.jsx';
 import CourseAlerts from './course_alerts';
-import { getStudentCount, getCurrentUser, getWeeksArray, getAllWeekDates } from '../../selectors';
+import { getStudentCount, getCurrentUser, getWeeksArray } from '../../selectors';
 import ActivityHandler from '../activity/activity_handler';
 import CourseApproval from './course_approval';
 
@@ -81,7 +81,6 @@ const Course = withRouter((props) => {
     course_id: courseSlug,
     current_user: userRoles,
     course,
-    allWeekDates: props.allWeekDates,
   };
 
   let courseApprovalForm;
@@ -172,8 +171,7 @@ const mapStateToProps = state => ({
   weeks: getWeeksArray(state),
   usersLoaded: state.users.isLoaded,
   studentCount: getStudentCount(state),
-  currentUser: getCurrentUser(state),
-  allWeekDates: getAllWeekDates(state)
+  currentUser: getCurrentUser(state)
 });
 
 const mapDispatchToProps = {

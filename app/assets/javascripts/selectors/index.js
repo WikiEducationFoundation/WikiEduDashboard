@@ -436,36 +436,21 @@ export const getTicketsById = createSelector([getTickets], (tickets) => {
 });
 
 export const getAllWeekDates = createSelector(
-  [getCourse, getWeeks],
-  (course, weeks) => {
-    if (!course || !course.timeline_start || !course.timeline_end) {
-      return [];
-    }
-
-    const weekDates = Object.keys(weeks).map((weekId, index) => {
-      const startDate = new Date(course.timeline_start);
-      const endDate = new Date(course.timeline_end);
-
-      if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
-        return { weekId, start: null, end: null };
-      }
-
-      const dateCalc = new DateCalculator(
+  [getAllWeeksArray, getCourse],
+  (weeksArray, course) => {
+    return weeksArray.map((_, index) => {
+      const DateCalc = new DateCalculator(
         course.timeline_start,
         course.timeline_end,
         index,
-        {
-          zeroIndexed: true,
-        }
+        { zeroIndexed: true }
       );
-
       return {
-        weekId,
-        start: dateCalc.start() || null,
-        end: dateCalc.end() || null,
+        start: DateCalc.start(),
+        end: DateCalc.end(),
       };
     });
-
-    return weekDates;
   }
 );
+
+
