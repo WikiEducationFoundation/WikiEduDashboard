@@ -86,18 +86,6 @@ describe 'activity page', type: :feature, js: true do
       end
     end
 
-    context 'recent edits' do
-      before do
-        allow(RevisionAnalyticsService).to receive(:recent_edits)
-          .and_return([revision])
-      end
-
-      it 'displays a list of recent revisions' do
-        visit '/recent-activity/recent-edits'
-        assert_page_content article.title.tr('_', ' ')
-      end
-    end
-
     context 'recent uploads' do
       let!(:upload) do
         create(:commons_upload,

@@ -13,13 +13,6 @@ class RevisionAnalyticsController < ApplicationController
     )
   end
 
-  def recent_edits
-    @revisions = RevisionAnalyticsService.recent_edits(
-      scoped: params[:scoped],
-      current_user:
-    )
-  end
-
   def recent_uploads
     student_ids = User.role('student').pluck(:id)
     @uploads = CommonsUpload.where(user_id: student_ids).order(id: :desc).first(100)

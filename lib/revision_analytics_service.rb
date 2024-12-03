@@ -11,11 +11,6 @@ class RevisionAnalyticsService
     new(opts).dyk_eligible
   end
 
-  DEFAULT_RECENT_EDITS_LIMIT = 30
-  def self.recent_edits(opts={})
-    new(opts).recent_edits
-  end
-
   #########
   # Setup #
   #########
@@ -40,14 +35,6 @@ class RevisionAnalyticsService
 
     good_draft_ids = userspace_draft_ids(good_article_ids) + draft_space_ids(good_article_ids)
     articles_sorted_by_latest_revision(good_draft_ids)
-  end
-
-  def recent_edits
-    if @course_ids
-      Revision.user.where(user_id: student_ids).last(DEFAULT_RECENT_EDITS_LIMIT)
-    else
-      Revision.user.last(DEFAULT_RECENT_EDITS_LIMIT)
-    end
   end
 
   ##################

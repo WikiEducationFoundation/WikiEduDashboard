@@ -21,7 +21,6 @@ export * from './notifications';
 export * from './news';
 export * from './news_notification';
 export * from './ui';
-export * from './recent_edits';
 export * from './recent_uploads';
 export * from './refreshing';
 export * from './revisions';

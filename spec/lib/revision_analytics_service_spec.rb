@@ -90,37 +90,4 @@ describe RevisionAnalyticsService do
       end
     end
   end
-
-  describe '.recent_edits' do
-    context 'not scoped to current user' do
-      subject { described_class.recent_edits }
-
-      it 'returns recent edits' do
-        expect(subject).to include(revision)
-        expect(subject).to include(revision2)
-        expect(subject).to include(revision3)
-      end
-
-      it 'excludes automatic dashboard edits' do
-        expect(subject).not_to include(revision5)
-      end
-    end
-
-    context 'scoped to current user' do
-      subject { described_class.recent_edits(scoped: 'true', current_user: user) }
-
-      it 'returns recent edits from their course' do
-        expect(subject).to include(revision)
-      end
-
-      it 'excludes edits from outside their course' do
-        expect(subject).not_to include(revision2)
-        expect(subject).not_to include(revision3)
-      end
-
-      it 'excludes automatic dashboard edits' do
-        expect(subject).not_to include(revision5)
-      end
-    end
-  end
 end

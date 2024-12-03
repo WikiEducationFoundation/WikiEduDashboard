@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Navigate, NavLink, Route, Routes } from 'react-router-dom';
 
 import DidYouKnowHandler from './did_you_know_handler.jsx';
-import RecentEditsHandler from './recent_edits_handler.jsx';
 import RecentUploadsHandler from './recent_uploads_handler.jsx';
 
 const RecentActivityHandler = () => (
@@ -19,15 +18,6 @@ const RecentActivityHandler = () => (
             </NavLink>
           </p>
         </div>
-
-        <div className="nav__item" id="recent-edits-link">
-          <p>
-            <NavLink to="/recent-activity/recent-edits" className={({ isActive }) => (isActive ? 'active' : '')}>
-              {I18n.t('recent_activity.recent_edits')}
-            </NavLink>
-          </p>
-        </div>
-
         <div className="nav__item" id="recent-uploads-link">
           <p>
             <NavLink to="/recent-activity/recent-uploads" className={({ isActive }) => (isActive ? 'active' : '')}>
@@ -41,7 +31,6 @@ const RecentActivityHandler = () => (
     <div className="container">
       <Routes>
         <Route path="dyk" element={<DidYouKnowHandler />} />
-        <Route path="recent-edits" element={<RecentEditsHandler />} />
         <Route path="recent-uploads" element={<RecentUploadsHandler />} />
         <Route path="*" element={<Navigate replace to="dyk"/>}/>
       </Routes>

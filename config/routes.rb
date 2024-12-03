@@ -318,9 +318,6 @@ Rails.application.routes.draw do
   get 'revision_analytics/dyk_eligible',
       controller: 'revision_analytics',
       action: 'dyk_eligible'
-  get 'revision_analytics/recent_edits',
-      controller: 'revision_analytics',
-      action: 'recent_edits'
   get 'revision_analytics/recent_uploads',
       controller: 'revision_analytics',
       action: 'recent_uploads'
