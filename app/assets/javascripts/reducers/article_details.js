@@ -6,7 +6,7 @@ export default function articleDetails(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_ARTICLE_DETAILS: {
       const newState = { ...state };
-      newState[action.articleId] = action.data.article_details;
+      newState[action.articleId] = { ...action.details, ...action.revisionRange };
       return newState;
     }
     default:

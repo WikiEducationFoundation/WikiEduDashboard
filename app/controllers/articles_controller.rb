@@ -12,9 +12,6 @@ class ArticlesController < ApplicationController
   # returns details about how an article changed during a course
   def details
     @article = Article.find(params[:article_id])
-    revisions = @course.tracked_revisions.where(article_id: @article.id).order(:date)
-    @first_revision = revisions.first
-    @last_revision = revisions.last
     article_course = ArticlesCourses.find_by(course: @course, article: @article, tracked: true)
     @editors = User.where(id: article_course&.user_ids)
   end

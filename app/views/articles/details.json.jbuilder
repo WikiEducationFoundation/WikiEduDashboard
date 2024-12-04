@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 json.article_details do
-  json.first_revision do
-    json.call(@first_revision, :wiki, :mw_rev_id, :mw_page_id) if @first_revision
-  end
-
-  json.last_revision do
-    json.call(@last_revision, :wiki, :mw_rev_id, :mw_page_id) if @last_revision
+  json.startDate @course.start
+  json.endDate @course.end
+  json.articleTitle @article.escaped_full_title
+  json.apiUrl @article.wiki.api_url
+  json.wiki do
+    json.project @article.wiki.project
+    json.language @article.wiki.language
   end
 
   json.editors do
