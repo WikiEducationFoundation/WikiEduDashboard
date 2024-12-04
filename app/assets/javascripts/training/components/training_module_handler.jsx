@@ -68,7 +68,7 @@ const TrainingModuleHandler = (props) => {
   if (props.editMode) {
     slideModificationButtons = (
       <div className="training-modification training_slide_modification_buttons">
-        <button className="button dark" onClick={toggleReorderSlideModal}>{I18n.t('training.change_order')}</button>
+        <button className="button dark" onClick={toggleReorderSlideModal} disabled={slides.length < 2}>{I18n.t('training.change_order')}</button>
         <button className="button dark" onClick={toggleAddSlideModal}>{I18n.t('training.add_slide')}</button>
         <button className="button danger" onClick={toggleRemoveSlideModal}>{I18n.t('training.remove_slide')}</button>
       </div>
