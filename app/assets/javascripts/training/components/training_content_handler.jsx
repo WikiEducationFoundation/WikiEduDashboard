@@ -8,6 +8,8 @@ const TrainingContentHandler = (props) => {
   const [showModal, setShowModal] = useState(false);
   const [updatingEditMode, setUpdatingEditMode] = useState(false);
   const dispatch = useDispatch();
+  const { usersignedin: userSignedInStr } = document.getElementById('nav_root').dataset;
+  const userSignedIn = userSignedInStr === 'true';
 
   const toggleModal = () => {
     setShowModal(!showModal);
@@ -42,9 +44,12 @@ const TrainingContentHandler = (props) => {
               <i className="icon icon-plus" />
             </button>
           )}
-          <button className="button dark" onClick={toggleEditMode} style={buttonStyle}>
-            {trainingMode}
-          </button>
+          {/* Switching to edit mode is only allowed for admins */}
+          {userSignedIn && props.currentUser.isAdmin && (
+            <button className="button dark" onClick={toggleEditMode} style={buttonStyle}>
+              {trainingMode}
+            </button>
+          )}
         </div>
       </div>
     </div>

@@ -31,8 +31,11 @@ const slideValidationRules = [
 
 // For switching between edit and view mode
 export const getTrainingMode = () => (dispatch) => {
+  const mainDiv = document.getElementById('main');
+  const editMode = JSON.parse(mainDiv.getAttribute('data-training_mode')).editMode;
   dispatch({
     type: SET_TRAINING_MODE,
+    data: { editMode },
   });
 };
 

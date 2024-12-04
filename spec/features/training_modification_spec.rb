@@ -68,18 +68,17 @@ describe 'TrainingContent', type: :feature, js: true do
       before do
         login_as(user, scope: :user)
         visit '/training'
-        click_button 'Switch to Edit Mode'
       end
 
-      it 'does not show the "Create Training Library" button' do
-        expect(page).not_to have_content('Create New Library')
+      it 'does not show the "Switch to Edit Mode" button' do
+        expect(page).not_to have_content('Switch to Edit Mode')
       end
     end
   end
 
   describe 'TrainingCategory' do
     before do
-      login_as(user, scope: :user)
+      login_as(admin, scope: :user)
       visit '/training'
       click_button 'Switch to Edit Mode'
       visit "/training/#{training_library.slug}"
@@ -155,7 +154,7 @@ describe 'TrainingContent', type: :feature, js: true do
   # For Training Module
   describe 'TrainingModule' do
     before do
-      login_as(user, scope: :user)
+      login_as(admin, scope: :user)
       visit '/training'
       click_button 'Switch to Edit Mode'
       visit "/training/#{training_library.slug}"
@@ -253,7 +252,7 @@ describe 'TrainingContent', type: :feature, js: true do
     end
 
     before do
-      login_as(user, scope: :user)
+      login_as(admin, scope: :user)
       visit '/training'
       click_button 'Switch to Edit Mode'
       sleep 1
