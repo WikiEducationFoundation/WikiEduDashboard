@@ -12,7 +12,6 @@ import CourseLink from '../common/course_link.jsx';
 import Affix from '../common/affix.jsx';
 import EditableRedux from '../high_order/editable_redux';
 
-import DateCalculator from '../../utils/date_calculator.js';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 import { toDate } from '../../utils/date_utils.js';
@@ -389,7 +388,6 @@ const Timeline = createReactClass({
         navClassName += ' is-current';
       }
       const weekDates = this.props.allWeeksDates;
-      const dateCalc = new DateCalculator(this.props.course.timeline_start, this.props.course.timeline_end, navIndex, { zeroIndexed: true });
       const navWeekKey = `week-${navIndex}`;
       const navWeekLink = `#week-${navIndex + 1 + weeksBeforeTimeline}`;
 
@@ -412,7 +410,7 @@ const Timeline = createReactClass({
         navItem = (
           <li className={navClassName} key={navWeekKey}>
             <a href={navWeekLink}>{I18n.t('timeline.week_number', { number: navIndex + 1 + weeksBeforeTimeline })}</a>
-            <span className="pull-right">{dateCalc.start()} - {dateCalc.end()}</span>
+            <span className="pull-right">{weekDates[navIndex].start} - {weekDates[navIndex].end}</span>
           </li>
         );
       }
