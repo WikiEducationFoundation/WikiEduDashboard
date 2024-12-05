@@ -45,6 +45,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_15_163420) do
     t.integer "course_id", null: false
     t.boolean "new_article", default: false
     t.boolean "tracked", default: true
+    t.integer "revision_count", default: 0
     t.index ["article_id", "course_id", "start", "end"], name: "article_course_timeslice_by_article_course_start_and_end", unique: true
     t.index ["course_id", "tracked"], name: "article_course_timeslice_by_tracked"
     t.index ["course_id", "updated_at", "article_id"], name: "article_course_timeslice_by_updated_at"
@@ -92,6 +93,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_15_163420) do
     t.boolean "tracked", default: true
     t.text "user_ids"
     t.datetime "first_revision"
+    t.integer "revision_count", default: 0
     t.index ["article_id"], name: "index_articles_courses_on_article_id"
     t.index ["course_id"], name: "index_articles_courses_on_course_id"
   end

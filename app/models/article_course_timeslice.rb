@@ -16,6 +16,7 @@
 #  course_id        :integer          not null
 #  new_article      :boolean          default(FALSE)
 #  tracked          :boolean          default(TRUE)
+#  revision_count   :integer          default(0)
 #
 class ArticleCourseTimeslice < ApplicationRecord
   belongs_to :article
@@ -72,6 +73,7 @@ class ArticleCourseTimeslice < ApplicationRecord
   def update_cache_from_revisions(revisions)
     # Filter the deleted revisions
     live_revisions = revisions.reject { |r| r.deleted || r.system }
+    self.revision_count = live_revisions.size
     self.character_sum = live_revisions.sum { |r| r.characters.to_i.positive? ? r.characters : 0 }
     self.references_count = live_revisions.sum(&:references_added)
     self.user_ids = associated_user_ids(live_revisions)

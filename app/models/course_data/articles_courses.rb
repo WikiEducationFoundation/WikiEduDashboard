@@ -15,6 +15,7 @@
 #  tracked          :boolean          default(TRUE)
 #  user_ids         :text(65535)
 #  first_revision   :datetime
+#  revision_count   :integer          default(0)
 #
 
 require_dependency "#{Rails.root}/lib/timeslice_manager"
@@ -91,6 +92,7 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def update_cache_from_timeslices
+    self.revision_count = article_course_timeslices.sum(&:revision_count)
     self.character_sum = article_course_timeslices.sum(&:character_sum)
     self.references_count = article_course_timeslices.sum(&:references_count)
     self.user_ids = article_course_timeslices.sum([], &:user_ids).uniq

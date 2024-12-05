@@ -16,6 +16,7 @@
 #  course_id        :integer          not null
 #  new_article      :boolean          default(FALSE)
 #  tracked          :boolean          default(TRUE)
+#  revision_count   :integer          default(0)
 #
 
 FactoryBot.define do
