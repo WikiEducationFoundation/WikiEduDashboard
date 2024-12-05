@@ -191,7 +191,7 @@ const DiffViewer = createReactClass({
         comment: firstRevisionData.comment,
         fetched: true,
         firstRevDateTime: firstRevisionData.timestamp,
-        lastRevDateTime: lastRevisionData ? lastRevisionData.timestamp : null
+        lastRevDateTime: lastRevisionData ? lastRevisionData.timestamp : firstRevisionData.timestamp
       });
     });
   },
