@@ -11,7 +11,7 @@ import CourseStatsDownloadModal from './course_stats_download_modal.jsx';
 import EmbedStatsButton from './embed_stats_button.jsx';
 import CloneCourseButton from './clone_course_button.jsx';
 import { enableAccountRequests } from '../../actions/new_account_actions.js';
-import { needsUpdate, linkToSalesforce, updateSalesforceRecord, deleteCourse } from '../../actions/course_actions';
+import { needsUpdate, linkToSalesforce, updateSalesforceRecord, deleteCourse, removeAndDeleteCourse } from '../../actions/course_actions';
 import { STUDENT_ROLE, ONLINE_VOLUNTEER_ROLE } from '../../constants/user_roles';
 import { removeUser } from '../../actions/user_actions';
 import NotifyInstructorsButton from './notify_instructors_button.jsx';
@@ -54,15 +54,19 @@ const AvailableActions = ({ course, current_user, updateCourse, courseCreationNo
   };
 
   const deleteCourseFunc = () => {
-    // The action is only available once a course has been removed from all campaigns.
-    if (course.published) {
-      return alert(I18n.t('courses.delete_course_instructions'));
-    }
-
+    const courseSlug = course.slug;
     const enteredTitle = prompt(I18n.t('courses.confirm_course_deletion', { title: course.title }));
     // Check if enteredTitle is not null before calling trim.
     if (enteredTitle !== null && enteredTitle.trim() === course.title.trim()) {
-      return dispatch(deleteCourse(course.slug));
+      // If course has no campaigns, delete the course directly; otherwise, remove from campaign first.
+      if (!course.campaigns || course.campaigns.length === 0) {
+        return dispatch(deleteCourse(courseSlug));
+      }
+      const campaign = course.campaigns[0];
+      const campaignTitle = campaign.title;
+      const campaignId = campaign.id;
+      const campaignSlug = campaign.slug;
+      return dispatch(removeAndDeleteCourse(courseSlug, campaignTitle, campaignId, campaignSlug));
     } else if (enteredTitle) {
       return alert(I18n.t('courses.confirm_course_deletion_failed', { title: enteredTitle }));
     }
@@ -108,11 +112,9 @@ const AvailableActions = ({ course, current_user, updateCourse, courseCreationNo
       controls.push((<div key="search" className="available-action"><a href={`/tickets/dashboard?search_by_course=${course.slug}`} className="button">{I18n.t('courses.search_all_tickets_for_this_course')}</a></div>));
     }
     // If course is not published, show the 'delete' button to instructors and admins.
-    // Show a disabled version of it on P&E Dashboard even if a course is published,
-    // so that users can see the instructions for how to enable deletion.
     if ((user.isAdvancedRole || user.admin) && (!course.published || !Features.wikiEd)) {
       controls.push((
-        <div title={I18n.t('courses.delete_course_instructions')} key="delete" className="available-action">
+        <div title={Features.wikiEd ? I18n.t('courses.delete_course_instructions') : undefined} key="delete" className="available-action">
           <button className="button danger" onClick={deleteCourseFunc}>
             {CourseUtils.i18n('delete_course', course.string_prefix)}
           </button>

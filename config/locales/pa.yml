@@ -3,48 +3,207 @@
 # Export driver: phpyaml
 # Author: Cabal
 # Author: Jimidar
+# Author: Kuldeepburjbhalaike
 # Author: ਪ੍ਰਚਾਰਕ
 ---
 pa:
   application:
+    back: ਪਿਛਾਂਹ
+    cancel: ਰੱਦ ਕਰੋ
+    cookie_consent_acknowledge: ਮੈਂ ਸਮਝ ਗਿਆ(ਗਈ)।
+    cookie_consent_see_more: ਹੋਰ ਵੇਖੋ।
+    create_accounts: ਵਿਕੀਪੀਡੀਆ ਖ਼ਾਤੇ ਬਣਾਓ
+    dashboard: ਵਿਕੀ ਪੜ੍ਹਾਈ ਡੈਸ਼ਬੋਰਡ
+    documentation: ਲਿਖਤਾਂ
+    error: 'ਇੱਕ ਗਲਤੀ:'
+    explore: ਪੜਚੋਲ ਕਰੋ
+    field_required: ਇਹ ਖੇਤਰ ਲੋਡ਼ੀਂਦਾ ਹੈ
+    field_invalid_characters: ਇਸ ਖੇਤਰ ਵਿੱਚ ਗਲਤ ਅੱਖਰ ਹਨ
+    field_invalid_date: ਇਸ ਖੇਤਰ ਲਈ YYYY-MM-DD ਤਰਤੀਬ ਵਿੱਚ ਮਿਤੀ ਦੀ ਲੋਡ਼ ਹੈ
+    field_invalid_date_time: ਅੰਤ ਸ਼ੁਰੂਆਤ ਤੋਂ ਬਾਅਦ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ। (ਘੰਟੇ 0 ਤੋਂ 23 ਤੱਕ
+      ਜਾਂਦੇ ਹਨ।)
     greeting2: ਜੀ ਆਇਆਂ ਨੂੰ!
     greeting_extended: ਵਿਕੀਪੀਡੀਆ 'ਤੇ ਜੀ ਆਇਆਂ ਨੂੰ
+    greeting: ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ!
+    help: ਮਦਦ
+    home: ਘਰ
+    log_in_extended: ਵਿਕੀਪੀਡੀਆ ਨਾਲ ਦਾਖ਼ਲ ਹੋਵੋ
+    log_in: ਦਾਖ਼ਲ ਹੋਵੋ
+    log_out: ਬਾਹਰ ਆਉ
+    my_dashboard: ਮੇਰਾ ਡੈਸ਼ਬੋਰਡ
     recent_activity: ਹਾਲੀਆ ਸਰਗਰਮੀ
+    report_problem: ਸਮੱਸਿਆ ਦੀ ਇਤਲਾਹ ਦਿਓ
+    request_account: ਇੱਕ ਖਾਤੇ ਲਈ ਬੇਨਤੀ ਕਰੋ
+    request_account_create: ਖਾਤਾ ਬਣਾਓ
+    search: ਇੱਕ ਸਵਾਲ ਪੁੱਛੋ
+    search_results:
+      one: '%{count} ਇਸ ਲਈ ਨਤੀਜਾ: '' %{search_terms}'''
+      other: '% {count} ਇਸ ਲਈ ਨਤੀਜੇ: ''%{search_terms}'''
+    no_results: '''%{query}'' ਲਈ ਕੋਈ ਨਤੀਜੇ ਨਹੀਂ ਮਿਲੇ'
+    sign_up_extended: ਵਿਕੀਪੀਡੀਆ ਨਾਲ ਸਾਈਨ ਅੱਪ ਕਰੋ
+    sign_up_wikipedia: ਜਾਂ ਵਿਕੀਪੀਡੀਆ 'ਤੇ ਸਾਈਨ ਅੱਪ ਕਰੋ
+    sign_up_log_in_extended: (ਵਿਕੀਪੀਡੀਆ ਨਾਲ)
+    sign_up: ਖਾਤਾ ਬਣਾਓ
+    submit: ਸਪੁਰਦ ਕਰੋ
+    training: ਸਿਖਲਾਈ
     change: ਬਦਲੋ
+    details: ਵੇਰਵੇ
+    confirm: ਠੀਕ ਹੈ
+    opt_in: ਹਾਂ
+    opt_out: ਨਹੀਂ
+    opt_yes: ਹਾਂ
+    opt_no: ਨਹੀਂ
+    print: ਛਾਪੋ
   article_statuses:
+    not_yet_started: ਸ਼ੁਰੂਆਤ ਕਰਨੀ
+    in_progress: ਕੱਚੇ-ਖ਼ਾਕੇ ਵਿੱਚ ਕੰਮ ਕਰਨਾ
     ready_for_review: ਖਰੜਾ ਦਾ ਵਿਸਤਾਰ
+    ready_for_mainspace: ਕੰਮ ਨੂੰ ਮੇਨਸਪੇਸ 'ਤੇ ਲਿਜਾਣਾ
+    reading_the_article: ਲੇਖ ਪੜ੍ਹਨਾ
+    providing_feedback: ਸਲਾਹ ਪ੍ਰਦਾਨ ਕਰਨੀ
+    post_to_talk: ਗੱਲਬਾਤ ਪੰਨੇ 'ਤੇ ਪੋਸਟ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ
+    peer_review_completed: ਸਮੀਖਿਆ ਪੂਰੀ ਹੋਈ
+  dashboard:
+    create_note: ਆਪਣਾ ਪਹਿਲਾ ਪਾਠਕ੍ਰਮ ਬਣਾਉਣ ਲਈ ਪਾਠਕ੍ਰਮ ਬਣਾਓ 'ਤੇ ਬਟਨ ਨੂੰ ਦੱਬੋ।
+    explore_course_pages: ਪਾਠਕ੍ਰਮ ਸਫ਼ਿਆਂ ਦੀ ਪੜਚੋਲ ਕਰੋ
+    explore_examples: ਉਦਾਹਰਨਾਂ ਦੀ ਪੜਚੋਲ ਕਰੋ
+    no_courses_instructor: ਇੰਝ ਲੱਗਦਾ ਹੈ ਕਿ ਤੁਹਾਡੇ ਕੋਲ ਕੋਈ ਪਾਠਕ੍ਰਮ ਨਹੀਂ ਹਨ।
+    no_courses_student: ਇੰਝ ਲੱਗਦਾ ਹੈ ਕਿ ਤੁਸੀਂ ਹਾਲੇ ਕਿਸੇ ਪਾਠਕ੍ਰਮ ਵਿੱਚ ਸ਼ਾਮਲ ਨਹੀਂ ਹੋਏ
+      ਹੋ।
+    blog_headline: ਵਿਕੀ ਸਿੱਖਿਆ ਤੋਂ ਤਾਜ਼ਾ ਖਬਰਾਂ
+  home:
+    explore: ਪੜਚੋਲ ਕਰੋ
+    log_in: ਵਿਕੀਪੀਡੀਆ ਨਾਲ ਦਾਖ਼ਲ ਹੋਵੋ
+    sign_up: ਵਿਕੀਪੀਡੀਆ ਨਾਲ ਸਾਈਨ ਅੱਪ ਕਰੋ
+    registration_advice:
+      username_rules:
+        heading: ਵਰਤੋਂਕਾਰ ਨਾਮ
+      additional_advice:
+        heading: ਸਲਾਹ
+  alerts:
+    alert_label: ਚੇਤਾਵਨੀਆਂ
+    no_alerts: ਕੋਈ ਚਿਤਾਵਨੀਆਂ ਨਹੀਂ ਮਿਲੀਆਂ।
+  activity:
+    all: ਸਰਗਰਮੀ
+    edited_by: ਦੁਆਰਾ ਸੰਪਾਦਿਤ
+    label: ਸਰਗਰਮੀ
+  articles:
+    articles: ਲੇਖ
+    article_not_found: ਇਹ ਲੇਖ ਅਜੇ ਤੱਕ ਨਹੀਂ ਬਣਾਇਆ ਗਿਆ ਹੈ।
+    article_development: (ਲੇਖ ਵਿਕਾਸ)
+    articles_shown: '%{total} ਵਿੱਚੋਂ %{count} ਵਿਖਾ ਰਿਹਾ ਹੈ'
+    assigned: ਸੌਂਪੇ ਗਏ ਲੇਖ
+    assignments_none: ਹਾਲੇ ਤੱਕ ਕੋਈ ਨਿਰਧਾਰਤ ਲੇਖ ਨਹੀਂ ਹਨ।
+    available: ਉਪਲਬਧ ਲੇਖ
+    no_available: ਕੋਈ ਉਪਲਬਧ ਲੇਖ ਨਹੀਂ
+    next: ਅਗਲਾ
+    previous: ਪਿਛਲਾ
+    article_title: ਲੇਖ ਦਾ ਸਿਰਲੇਖ
+    assigned_to: ਨੂੰ ਸੌਂਪਿਆ ਗਿਆ
+    deleted: (ਮਿਟਾਏ)
+    edited: ਸੰਪਾਦਿਤ ਲੇਖ
+    edited_by: 'ਦੁਆਰਾ ਸੰਪਾਦਿਤ:'
+    edited_mobile: ਲੇਖ
+    edited_none: ਹਾਲੇ ਤੱਕ ਕੋਈ ਸੰਪਾਦਿਤ ਲੇਖ ਨਹੀਂ ਹਨ।
+    filter:
+      wiki_all: ਸਾਰੇ
+      new: ਨਵਾਂ
+      existing: ਮੌਜੂਦਾ
+      new_and_existing: ਨਵਾਂ ਅਤੇ ਮੌਜੂਦਾ
+    filter_text: 'ਛਾਨਣੀ:'
+    find: ਲੇਖ ਲੱਭੋ
+    how_to_find: ਇੱਕ ਲੇਖ ਕਿਵੇਂ ਲੱਭਣਾ ਹੈ
+    hide: ਲੁਕਾਓ
+    history: (ਇਤਿਹਾਸ)
+    label: ਲੇਖ
+    loading: ਲੇਖ ਲੋਡ ਕੀਤੇ ਜਾ ਰਹੇ ਹਨ...
+    new: (ਨਵਾਂ)
+    rating_docs:
+      does_not_exist: ਇਹ ਲੇਖ ਵਿਕੀਪੀਡੀਆ 'ਤੇ ਮੌਜੂਦ ਨਹੀਂ ਹੈ
+    see_more: ਹੋਰ ਵੇਖੋ
+    search: ਕਿਸੇ ਲੇਖ ਲਈ ਵਿਕੀਪੀਡੀਆ ਖੋਜੋ
+    title: ਸਿਰਲੇਖ
+    title_example: ਲੇਖ ਦਾ ਸਿਰਲੇਖ
+    tools: ਮੁਲਾਂਕਣ ਸੰਦ
+    view: ਲੇਖ ਦੇਖੋ
+    view_all: ਸਾਰੇ ਵੇਖੋ
+    view_on_wiki: ਵਿਕੀ 'ਤੇ ਦੇਖੋ
+    edit_size: ਆਕਾਰ ਦਾ ਸੋਧ ਕਰੋ
+    wiki: ਵਿਕੀ
+    articles_short: ਲੇਖ
+    view_articles: ਲੇਖ ਵੇਖੋ
+  items:
+    lexeme: ਸ਼ਬਦਾਵਲੀ
+  articles_generic:
+    articles_short: ਸਫ਼ੇ
   assignments:
+    article_link: ਲੇਖ
     sandbox_draft_link: ਕੱਚੇ ਖ਼ਾਕੇ ਦਾ ਖਰੜਾ
+  campaign:
+    data_editors_by_course: ਪਾਠਕ੍ਰਮ ਅਨੁਸਾਰ ਸੰਪਾਦਕ
+    none: ਕੋਈ ਨਹੀਂ
   categories:
     add_this_template: ਫਰਮੇ ਜੋੜੋ
   courses:
     actions: ਕਾਰਵਾਈਆਂ
+    campaign_users: '%{title} ਸੰਪਾਦਕ'
     creator:
       subject: ਵਿਸ਼ਾ
+    data_articles: ਲੇਖ ਡਾਟਾ
+    data_students: ਸੰਪਾਦਕ ਡਾਟਾ
     loading: ਲੱਦ ਰਿਹਾ ਹੈ...
+    my_articles: ਮੇਰੇ ਲੇਖ
     none: ਕੋਈ ਵੀ ਨਹੀਂ
+    please_log_in: ਕਿਰਪਾ ਕਰਕੇ ਦਾਖ਼ਲ ਹੋਵੋ।
     start: ਸ਼ੁਰੂ ਕਰੋ
     start_typing: ਲਿਖਣਾ ਸ਼ੁਰੂ ਕਰੋ
+    student_editors: ਵਿਦਿਆਰਥੀ ਸੰਪਾਦਕ
+    view_wiki: ਵਿਕੀਪੀਡੀਆ 'ਤੇ ਦੇਖੋ
   courses_generic:
     creator:
       scoping_methods:
         templates: ਫਰਮੇ
+    enrollment: ਸੰਪਾਦਕਾਂ ਨੂੰ ਜੋੜੋ/ਹਟਾਓ
+    expected_students: ਸੰਭਾਵਿਤ ਸੰਪਾਦਕ
+    student_editors: ਸੰਪਾਦਕ
+    students: ਸੰਪਾਦਕ
+    students_taught: ਕੁੱਲ ਸੰਪਾਦਕ
+    students_short: ਸੰਪਾਦਕ
   editable:
     edit: ਸੋਧੋ
     cancel: ਰੱਦ ਕਰੋ
     save: ਸੰਭਾਲੋ
+  instructor_view:
+    assignments_table:
+      article_name: ਨਾਮ
+    assigned_articles: ਸੌਂਪੇ ਗਏ ਲੇਖ
   metrics:
+    last_articles_update: ਪਿਛਲੇ ਲੇਖ ਅੱਪਡੇਟ
     activity: ਹਾਲੀਆ ਸਰਗਰਮੀ
-    articles_created_generic: ਵਰਕੇ ਬਣਾਏ
+    articles_created: ਲੇਖ ਬਣਾਏ
+    articles_created_wikidata: ਆਈਟਮਾਂ ਬਣਾਈਆਂ
+    articles_created_generic: ਸਫ਼ੇ ਬਣਾਏ
+    articles_created_generic_wikidata: ਆਈਟਮਾਂ ਬਣਾਈਆਂ
+    articles_edited: ਸੰਪਾਦਿਤ ਲੇਖ
+    articles_edited_wikidata: ਸੰਪਾਦਿਤ ਆਈਟਮਾਂ
+    articles_edited_generic: ਸੰਪਾਦਿਤ ਸਫ਼ੇ
+    articles_edited_generic_wikidata: ਸੰਪਾਦਿਤ ਆਈਟਮਾਂ
     revisions: ਹਾਲੀਆ ਸੋਧਾਂ
   namespace:
+    article: ਲੇਖ
+    mediaWiki: ਮੀਡੀਆਵਿਕੀ
+    help: ਮਦਦ
     translation: ਤਰਜਮਾ
     draft: ਖਰੜਾ
   recent_activity:
+    article_title: ਸਿਰਲੇਖ
     datetime: ਮਿਤੀ/ਵੇਲਾ
     image: ਤਸਵੀਰ
     file_name: ਫ਼ਾਈਲ ਦਾ ਨਾਂ
     recent_edits: ਹਾਲੀਆ ਸੋਧਾਂ
+  suggestions:
+    suggestion_docs:
+      does_not_exist: ਇਹ ਲੇਖ ਵਿਕੀਪੀਡੀਆ 'ਤੇ ਮੌਜੂਦ ਨਹੀਂ ਹੈ।
   timeline:
     add_week: ਹਫ਼ਤਾ ਜੋੜੋ
     block_custom: ਚੁਣਿੰਦਾ
@@ -53,18 +212,90 @@ pa:
     gradeable_value: ਮੁੱਲ
     save_all_changes: ਸੱਭ ਸੰਭਾਲੋ
   uploads:
+    article_name: ਲੇਖ ਦਾ ਨਾਮ
     file_name: ਫ਼ਾਈਲ ਦਾ ਨਾਂ
     image: ਤਸਵੀਰ
+    usage_count_gallery_tile: '%{usage_count} ਲੇਖਾਂ ਵਿੱਚ ਵਰਤੀ ਗਈ'
   users:
+    assign_articles: ਲੇਖ ਸੌਂਪੋ
     assign_articles_done: ਪੂਰਾ ਹੋਇਆ
+    assigned: ਸੌਂਪੇ ਗਏ ਲੇਖ
     chars_added: ਅੱਖਰ ਜੋੜੇ ਗਏ<br/>(ਲੇਖ। ਵਰਤੋਂਕਾਰ। ਖਰੜਾ)
+    editors: ਸੰਪਾਦਕ
+    edits: ਸੋਧਾਂ
     first_name: ਮੂਹਰਲਾ ਨਾਂ
     last_name: ਪਿਛਲਾ ਨਾਂ
     characters_added_draftspace: ਅੱਖਰ ਜੋੜੇ ਗਏ (ਖਰੜਾ)
+    no_articles: ਕੋਈ ਲੇਖ ਨਹੀਂ
     recent_revisions: ਹਾਲੀਆ ਸੋਧਾਂ
     training_incomplete: ਅਧੂਰਾ ਅਭਿਆਸ
     username: ਵਰਤੋਂਕਾਰ ਨਾਂ
     username_placeholder: ਵਰਤੋਂਕਾਰ ਨਾਂ
   login_error:
     header: ਦਾਖ਼ਲ ਹੋਣ ਦੀ ਗ਼ਲਤੀ
+  article_finder:
+    more_results: ਹੋਰ ਨਤੀਜੇ
+    remove_article: ਲੇਖ ਹਟਾਓ
+    remove_article_wikidata: ਆਈਟਮ ਹਟਾਓ
+    search: ਖੋਜੋ
+    searching_articles: ਲੇਖ ਖੋਜ ਰਿਹਾ ਹੈ
+    searching_articles_wikidata: ਆਈਟਮਾਂ ਦੀ ਖੋਜ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ
+    show_options: ਵਿਕਲਪ ਦਿਖਾਓ
+    subheading_message: ਆਓ ਕੰਮ ਕਰਨ ਲਈ ਇੱਕ ਵਿਕੀਪੀਡੀਆ ਲੇਖ ਲੱਭੀਏ।
+    subheading_message_wikidata: ਆਓ ਕੰਮ ਕਰਨ ਲਈ ਇੱਕ ਵਿਕੀਡਾਟਾ ਆਈਟਮ ਲੱਭੀਏ।
+    submit: ਸਪੁਰਦ ਕਰੋ
+    tools: ਸੰਦ
+  training_status:
+    completed: ਪੂਰਾ ਹੋਇਆ
+    continue: ਜਾਰੀ ਰੱਖੋ
+    completed_at: '''ਤੇ ਪੂਰਾ ਹੋਇਆ'
+    completion_time: ਪੂਰਾ ਹੋਣ ਦਾ ਸਮਾਂ
+    late: ਦੇਰ ਹੋ ਗਈ
+    view: ਵੇਖੋ
+    started: ਸ਼ੁਰੂ ਕੀਤਾ
+    not_started: ਸ਼ੁਰੂ ਨਹੀਂ ਕੀਤਾ
+  news:
+    nav_tooltip: ਖਬਰਾਂ ਅਤੇ ਹਾਲੀਆ ਤਬਦੀਲੀਆਂ
+    add_news: ਖ਼ਬਰਾਂ ਜੋੜੋ
+    post_confirmation:
+      confirmation: ਕਿਰਪਾ ਕਰਕੇ ਤਸਦੀਕ ਕਰੋ।
+    delete_confirmation:
+      title: ਕੀ ਖ਼ਬਰਾਂ ਦੀ ਸਮੱਗਰੀ ਨੂੰ ਮਿਟਾਉਣਾ ਜਾਰੀ ਰੱਖਣਾ ਹੈ?
+      confirmation: ਕਿਰਪਾ ਕਰਕੇ ਤਸਦੀਕ ਕਰੋ।
+    no_updates:
+      check_later: ਕਿਰਪਾ ਕਰਕੇ ਬਾਅਦ ਵਿੱਚ ਮੁੜ ਜਾਂਚੋ।
+    header:
+      P&E_dashboard_title: ਖਬਰਾਂ ਅਤੇ ਹਾਲੀਆ ਤਬਦੀਲੀਆਂ
+      wiki_education_dashboard_title: ਵਿਕੀ ਸਿੱਖਿਆ ਡੈਸ਼ਬੋਰਡ ਖ਼ਬਰਾਂ
+    footer:
+      P&E_dashboard:
+        link_text: ਵਿਕੀਮੀਡੀਆ
+        footer_text: ਖ਼ਬਰਾਂ ਅਤੇ ਤਾਜ਼ਾ ਤਬਦੀਲੀਆਂ ਪਡ਼੍ਹੋ
+      wiki_education_dashboard:
+        footer_text: ਵਿਕੀ ਸਿੱਖਿਆ ਤੋਂ ਹੋਰ ਖ਼ਬਰਾਂ
+    options:
+      news_content:
+        delete_news: ਖਬਰਾਂ ਮਿਟਾਓ
+        confirm_delete: ਤਸਦੀਕ ਕਰੋ
+        cancel_delete: ਰੱਦ ਕਰੋ
+        cancel_edit: ਸੋਧ ਰੱਦ ਕਰੋ
+        edit_news: ਖ਼ਬਰਾਂ ਸੋਧੋ
+        update_news: ਖ਼ਬਰਾ ਨਵਿਆਓ
+      create_news:
+        discard_post: ਖ਼ਬਰਾਂ ਨੂੰ ਰੱਦ ਕਰੋ
+    notification:
+      delete: ਖ਼ਬਰ ਸਮੱਗਰੀ ਮਿਟਾਉਣ ਵਿੱਚ ਕਾਮਯਾਬ
+      update: ਖ਼ਬਰ ਸਮੱਗਰੀ ਨਵਿਆਓਣ ਵਿੱਚ ਕਾਮਯਾਬ
+      create_news: ਖ਼ਬਰਾਂ ਦੀ ਸਮੱਗਰੀ ਛਾਪਣ ਵਿੱਚ ਕਾਮਯਾਬ
+      create_news_error: ਖਬਰ ਸਮੱਗਰੀ ਬਣਾਉਣ ਵਿੱਚ ਗਲਤੀ। ਕਿਰਪਾ ਕਰਕੇ ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ।
+      update_error: ਖਬਰ ਸਮੱਗਰੀ ਨੂੰ ਨਵਿਆਓਣ ਵਿੱਚ ਗਲਤੀ। ਕਿਰਪਾ ਕਰਕੇ ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ।
+      empty_update_news_content_error: ਕਿਰਪਾ ਕਰਕੇ ਨਵਿਆਓਣ ਤੋਂ ਪਹਿਲਾਂ ਖ਼ਬਰਾਂ ਦੀ ਸਮੱਗਰੀ
+        ਦਰਜ ਕਰੋ।
+    text_area_input:
+      placeholder: ਖ਼ਬਰਾਂ ਅਤੇ ਹਾਲੀਆ ਤਬਦੀਲੀਆਂ ਸ਼ਾਮਲ ਕਰੋ
+  notes:
+    title: ਸਿਰਲੇਖ
+    cancel_note_creation: ਰੱਦ ਕਰੋ
+    cancel_edit_note: ਰੱਦ ਕਰੋ
+    save_note: ਸਾਂਭੋ
 ...

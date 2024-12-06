@@ -806,6 +806,8 @@ ko:
     reload_from_source: 원본에서 다시 불러오기
     kind:
       discussion: 토론
+  update_username:
+    button: 업데이트
   uploads:
     article_name: 문서 이름
     author: '만든이:'
@@ -1005,6 +1007,13 @@ ko:
     not_started: 시작되지 않음
   multi_wiki:
     selector_placeholder: 위키 도메인 입력 시작
+  news:
+    options:
+      news_content:
+        cancel_delete: 취소
+  notes:
+    cancel_note_creation: 취소
+    cancel_edit_note: 취소
   tagged_courses:
     download_csv: CSV 다운로드
 ...

@@ -885,6 +885,7 @@ en:
     write_subject: "Subject"
     write_message_placeholder: "Message"
     sending_notification: "Sending"
+    bcc_to_salesforce: "BCC to Salesforce"
 
   # These are strings that are not specific to education/classroom contexts
   courses_generic:
@@ -1128,6 +1129,8 @@ en:
       other: total usages across languages
     view_count_description: Article Views
     view_count_description_wikidata: Item Views
+    view_count_doc: This is the estimated number of views based on a 30-day average for each article, through the most recent stats update. Views may decrease if the updated average is lower than previous counts.
+    view_count_doc_wikidata: This is the estimated number of views based on a 30-day average for each item, through the most recent stats update. Views may decrease if the updated average is lower than previous counts.
     view_data_unavailable: No view data available
     view: Views
     wiki_ed_help: Use the 'Get Help' button to report a problem.
@@ -1847,6 +1850,8 @@ en:
       button_text: "Admin Notes"
       header_text: "Admin Notes Panel"
       aria_label:
+        no_notes_available: "No admin notes are available in the panel. Press the return key to open the Admin Notes Panel."
+        new_notes_message: "%{count} new admin notes available."
         notes_panel_opened: "The admin notes panel modal has opened. You can press the Escape key to close the panel."
         close_admin: "Close the admin note panel modal"
         note_action_button: "Notes action button"

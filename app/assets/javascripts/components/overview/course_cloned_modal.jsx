@@ -176,6 +176,7 @@ const CourseClonedModal = createReactClass({
 
     const dateProps = CourseDateUtils.dateProps(this.state.course);
     const saveDisabled = this.saveEnabled() ? '' : 'disabled';
+    const isRequiredTermField = this.props.course.type === 'ClassroomProgramCourse';
 
     // Form components that are conditional on course type
     let expectedStudents;
@@ -339,7 +340,7 @@ const CourseClonedModal = createReactClass({
           onChange={this.updateCourse}
           value={this.state.course.term}
           value_key="term"
-          required={true}
+          required={isRequiredTermField}
           validation={CourseUtils.courseSlugRegex()}
           editable={true}
           label={CourseUtils.i18n('creator.course_term', i18nPrefix)}

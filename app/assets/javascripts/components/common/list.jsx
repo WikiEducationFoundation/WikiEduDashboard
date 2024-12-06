@@ -112,10 +112,8 @@ const List = ({
   if (elements.length === 0) {
     let emptyMessage;
     if (!loading) {
-      // eslint-disable-next-line
       let noneMessage = none_message;
       if (typeof noneMessage === 'undefined' || noneMessage === null) {
-        // eslint-disable-next-line
         noneMessage = I18n.t(`${table_key}.none`);
       }
       emptyMessage = <span>{noneMessage}</span>;

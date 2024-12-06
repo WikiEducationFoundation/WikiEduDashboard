@@ -202,6 +202,8 @@ sms:
     view_module_source: čuäʹjet moduulkääiv
     kind:
       discussion: Saǥstõõllmõš
+  update_username:
+    label: Ođđ õõʹnninõmm
   uploads:
     file_name: Teâttõsnõmm
     image: Kartt leʼbe snimldõk

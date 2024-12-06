@@ -391,8 +391,25 @@ const API = {
       response.responseText = data;
       throw response;
     }
+    const result = await response.json();
     window.location = '/';
-    return response.json();
+    return result;
+  },
+
+  async removeAndDeleteCourse(courseSlug, campaignTitle, campaignId, campaignSlug) {
+    const response = await request(`/courses/${courseSlug}.json/delete_from_campaign?campaign_title=${campaignTitle}&campaign_id=${campaignId}&campaign_slug=${campaignSlug}`, {
+      method: 'DELETE'
+    });
+
+    if (!response.ok) {
+      logErrorMessage(response);
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
+    }
+    const result = await response.json();
+    window.location = '/';
+    return result;
   },
 
   async deleteBlock(block_id) {

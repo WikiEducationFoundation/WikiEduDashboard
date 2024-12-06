@@ -8,7 +8,7 @@
 # to work on medical topics tries to do so.
 # Issue #4693
 class MedicineArticleMonitor
-  WIKI_PROJECT_MEDICINE_CAT = 'All_WikiProject_Medicine_articles'
+  WIKI_PROJECT_MEDICINE_CAT = 'All_WikiProject_Medicine_pages'
   MEDICAL_TRAINING_IDS = [11, 48].freeze
 
   def self.create_alerts_for_no_med_training_for_course

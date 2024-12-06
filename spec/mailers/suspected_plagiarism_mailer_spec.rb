@@ -27,8 +27,15 @@ describe SuspectedPlagiarismMailer do
                       ithenticate_id: 10)
   end
 
+  let(:details) do
+    {
+      submission_id: 'abcde',
+      revision_id: 12345,
+      wiki_id: Wiki.first.id
+    }
+  end
   let(:alert) do
-    create(:alert, type: 'PossiblePlagiarismAlert', user:, course:, revision:, article:)
+    PossiblePlagiarismAlert.create!(user:, course:, article:, details:)
   end
 
   describe '.alert_content_expert' do

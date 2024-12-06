@@ -1024,6 +1024,7 @@ fr:
     write_subject: Sujet
     write_message_placeholder: Message
     sending_notification: Envoi en cours
+    bcc_to_salesforce: Copie cachée à Salesforce
   courses_generic:
     school_system: Système académique
     add_campaign: Ajouter une campagne
@@ -1306,6 +1307,14 @@ fr:
       other: utilisations en tout (dans toutes les langues)
     view_count_description: Articles vus
     view_count_description_wikidata: Vues de l’élément
+    view_count_doc: Il s'agit du nombre estimé de vues basé sur une moyenne de 30
+      jours pour chaque article, à partir de la mise à jour des statistiques la plus
+      récente. Le nombre de vues peut diminuer si la moyenne mise à jour est inférieure
+      aux chiffres précédents.
+    view_count_doc_wikidata: Il s'agit du nombre estimé de vues basé sur une moyenne
+      de 30 jours pour chaque élément, à partir de la mise à jour des statistiques
+      la plus récente. Le nombre de vues peut diminuer si la moyenne mise à jour est
+      inférieure aux chiffres précédents.
     view_data_unavailable: Aucune donnée visible disponible
     view: Vues
     wiki_ed_help: Utiliser le bouton « Obtenir de l’aide » pour signaler un problème.
@@ -1435,15 +1444,15 @@ fr:
         confirm_add_admin: Accorder l’administration
         confirm_remove_admin: Retirer les droits d’administration pour
         already_admin: '%{username} est déjà un administrateur !'
-        elevate_success: '%{username} a été promu(e) administrateur ou administratrice.'
+        elevate_success: '%{username} a été promu administrateur.'
       remove:
-        revoke_button: Révoquer un(e) administrateur/trice
+        revoke_button: Révoquer l'administration
         revoke_button_confirm: Révoquer les droits d’administration pour %{username}
         revoking_button_working: Révocation en cours...
         already_instructor: '%{username} est déjà un(e) instructeur/trice !'
         demote_success: '%{username} a été modifié(e) en instructeur/trice.'
-        no_super_admin: Impossible de révoquer les droit d’administration pour un(e)
-          super-administrateur/trice.
+        no_super_admin: Impossible de révoquer les droit d’administration d'un super
+          administrateur.
     featured_campaigns:
       campaign_not_found: Campagne avec le slug '%{campaign_slug}' introuvable
       no_featured_campaigns: Aucune campagne définie comme mise en avant
@@ -2067,12 +2076,16 @@ fr:
     save_note: Enregistrer
     delete_note: Supprimer la note
     admin:
-      button_text: Notes de l’administrateur
-      header_text: Panneau de notes de l'administrateur
+      button_text: Notes des administrateurs
+      header_text: Panneau des notes des administrateurs
       aria_label:
-        notes_panel_opened: Le panneau des notes de l'administrateur est ouvert. Vous
+        no_notes_available: Aucune note d'administrateur n'est accessible dans ce
+          panneau. Appuyez sur la touche Entrée pour ouvrir le panneau des notes des
+          administrateurs.
+        new_notes_message: '%{count} nouvelle(s) note(s) des administrateurs disponible(s).'
+        notes_panel_opened: Le panneau des notes des administrateurs est ouvert. Vous
           pouvez appuyer sur la touche Échap pour le refermer.
-        close_admin: Fermer le panneau des notes de l'administrateur
+        close_admin: Fermer le panneau des notes des administrateurs
         note_action_button: Bouton d'action de notes
         create_note: Bouton Créer une note
         note_creation: La zone de création d'une note est désormais disponible.

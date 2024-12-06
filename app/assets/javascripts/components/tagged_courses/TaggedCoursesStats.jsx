@@ -65,6 +65,8 @@ const TaggedCoursesStats = () => {
           stat={tagged_courses_stats.view_sum_human}
           statMsg={I18n.t('metrics.view_count_description')}
           renderZero={true}
+          info={I18n.t('metrics.view_count_doc')}
+          infoId="tagged-courses-article-views-info"
         />
         <OverviewStat
           id="articles-edited"
