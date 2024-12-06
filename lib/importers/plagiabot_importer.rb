@@ -14,20 +14,27 @@ class PlagiabotImporter
     suspected_diffs.each do |rev|
       wiki = Wiki.find_by(language: rev['lang'], project: rev['project'])
       next unless wiki
-      revision = Revision.find_by(mw_rev_id: rev['rev_id'], wiki_id: wiki.id)
-      next unless revision
-      file_new_plagiarism_report(revision, rev['submission_id'])
+      user = User.find_by(username: rev['rev_user_text'])
+      next unless user
+
+      file_new_plagiarism_report(rev, wiki, user) unless alert_exists?(rev, user)
     end
   end
 
   ##################
   # Helper methods #
   ##################
-  def self.file_new_plagiarism_report(revision, submission_id)
-    # This is just to log the fact that a revision got flagged
-    revision.ithenticate_id = revision.mw_rev_id
-    revision.save
-    alert = PossiblePlagiarismAlert.new_from_revision(revision, submission_id)
+  def self.file_new_plagiarism_report(rev_data, wiki, user)
+    course = user.courses_users&.last&.course
+    article = Article.find_by(title: rev_data['page_title'],
+                              namespace: rev_data['page_namespace'],
+                              wiki:)
+    details = {
+      submission_id: rev_data['submission_id'],
+      mw_rev_id: rev_data['revision_id'],
+      wiki_id: wiki.id
+    }
+    alert = PossiblePlagiarismAlert.create!(user:, course:, article:, details:)
     return unless alert
     SuspectedPlagiarismMailer.alert_content_expert(alert)
   end
@@ -36,6 +43,12 @@ class PlagiabotImporter
     base_url = 'https://ruby-suspected-plagiarism.toolforge.org/'
     url = base_url + type
     url
+  end
+
+  def self.alert_exists?(rev_data, user)
+    PossiblePlagiarismAlert.where(user:).any? do |alert|
+      alert.details[:submission_id] == rev_data['submission_id']
+    end
   end
 
   ###############

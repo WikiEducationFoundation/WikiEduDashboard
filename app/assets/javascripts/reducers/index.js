@@ -12,14 +12,12 @@ import confirm from './confirm';
 import course from './course';
 import courseAlerts from './course_alerts';
 import courseCreator from './course_creator';
-import didYouKnow from './did_you_know';
 import exercises from './exercises';
 import feedback from './feedback';
 import needHelpAlert from './need_help_alert';
 import newAccount from './new_account';
 import notifications from './notifications';
 import persistedCourse from './persisted_course';
-import recentEdits from './recent_edits.js';
 import recentUploads from './recent_uploads';
 import revisions from './revisions';
 import settings from './settings';
@@ -69,7 +67,6 @@ const reducer = combineReducers({
   adminCourseNotes,
   course_search_results,
   currentUserFromHtml: (state = {}) => state, // only set from preloaded state
-  didYouKnow,
   exercises,
   feedback,
   instructorAlert,
@@ -80,7 +77,6 @@ const reducer = combineReducers({
   newsNotifications,
   persistedCourse,
   persistedNews,
-  recentEdits,
   recentUploads,
   refreshing,
   revisions,

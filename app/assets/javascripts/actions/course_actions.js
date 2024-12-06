@@ -141,6 +141,12 @@ export const deleteCourse = courseSlug => (dispatch) => {
     .catch(data => dispatch({ type: API_FAIL, data }));
 };
 
+export const removeAndDeleteCourse = (courseSlug, campaignTitle, campaignId, campaignSlug) => (dispatch) => {
+  return API.removeAndDeleteCourse(courseSlug, campaignTitle, campaignId, campaignSlug)
+    .then(data => dispatch({ type: 'DELETED_COURSE', data }))
+    .catch(data => dispatch({ type: API_FAIL, data }));
+};
+
 export const notifyOverdue = courseSlug => (dispatch) => {
   return API.notifyOverdue(courseSlug)
     .then(data => dispatch({ type: 'NOTIFIED_OVERDUE', data }))

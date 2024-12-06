@@ -138,6 +138,9 @@ se:
     admin_users:
       new:
         form_placeholder: Geavaheaddjinamma
+    special_users:
+      new:
+        form_placeholder: Geavaheaddjinamma
   timeline:
     add_week: Lasit vahkku
     arrange_timeline: Ordne áigelinnjá
@@ -150,6 +153,8 @@ se:
     view: Čájet
     next: Čuovvovaš siidu
     page: Siidu
+  update_username:
+    label: Ođđa geavaheaddjinamma
   uploads:
     file_name: Fiilanamma
   users:

@@ -118,12 +118,20 @@ smn:
     categories:
       other_settings: Eres asâttâsah
       users: Kevtteeh
+    admin_users:
+      new:
+        form_placeholder: Kevtteenommâ
+    special_users:
+      new:
+        form_placeholder: Kevtteenommâ
   timeline:
     save_all_changes: Vuorkkii puoh
   training:
     view: Čääiti
     next: Čuávuvâš sijđo
     page: Sijđo
+  update_username:
+    label: Uđđâ kevtteenommâ
   uploads:
     image: Kove
   users:

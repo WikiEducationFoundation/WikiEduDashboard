@@ -37,6 +37,7 @@ Metrics/ClassLength:
     - 'app/controllers/users_controller.rb'
     - 'app/controllers/assignments_controller.rb'
     - 'lib/course_creation_manager.rb'
+    - 'lib/course_clone_manager.rb'
     - 'lib/importers/revision_score_importer.rb'
     - 'lib/wizard_timeline_manager.rb'
     - 'lib/wiki_course_edits.rb'

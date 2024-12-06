@@ -22,9 +22,13 @@
     %small= t("metrics.references_count")
     .tooltip.dark
       %p= t("metrics.references_doc")
-  .stat-display__stat
-    .stat-display__value= number_to_human presenter.courses.sum(:view_sum)
+  .stat-display__stat.tooltip-trigger
+    .stat-display__value
+      = number_to_human presenter.courses.sum(:view_sum)
+      %img{:src => "/assets/images/info.svg", :alt => "tooltip default logo"}
     %small= t("metrics.view_count_description")
+    .tooltip.dark
+      %p= t("metrics.view_count_doc")
   .stat-display__stat
     .stat-display__value= number_to_human presenter.courses.sum(:article_count)
     %small= t("metrics.articles_edited")

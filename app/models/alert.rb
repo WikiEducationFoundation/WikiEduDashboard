@@ -44,6 +44,7 @@ class Alert < ApplicationRecord
     DiscretionarySanctionsAssignmentAlert
     DiscretionarySanctionsEditAlert
     DYKNominationAlert
+    EarlyEnrollmentAlert
     FirstEnrolledStudentAlert
     GANominationAlert
     HighQualityArticleAssignmentAlert

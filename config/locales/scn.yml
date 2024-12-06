@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Ajeje Brazorf
+# Author: GianAntonucci
 ---
 scn:
   number:
@@ -24,7 +25,7 @@ scn:
     greeting_extended: Bommegna supra Wikipedia
     greeting: Ciau!
     help: Aiutu
-    home: Pàggina principali
+    home: Pàggina mastra
     log_in_extended: Trasi supra Wikipedia
     log_in: Trasi
     log_out: Nesci
@@ -134,7 +135,7 @@ scn:
     new_account_email_placeholder: nomu@example.org
     none: Nuḍḍu
     ores_plot: ORES
-    overview: Pàggina principali
+    overview: Pàggina mastra
     please_log_in: Pi favuri trasi.
     private: Privatu
     requested_accounts_alert_view: Talìa

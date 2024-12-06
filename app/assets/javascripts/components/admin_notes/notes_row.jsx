@@ -197,7 +197,7 @@ const NotesRow = ({ notesList }) => {
       })}
 
       {/* Announcement for screen readers */}
-      <tr className="sr-only">
+      <tr className="sr-admin-note-only">
         <td>
           <div aria-live="assertive" aria-atomic="true">
             {liveMessage}
