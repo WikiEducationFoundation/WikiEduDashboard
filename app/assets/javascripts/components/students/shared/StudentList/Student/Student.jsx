@@ -34,6 +34,7 @@ const Student = createReactClass({
     fetchTrainingStatus: PropTypes.func.isRequired,
     minimalView: PropTypes.bool,
     student: PropTypes.object.isRequired,
+    openStudentDetailsView: PropTypes.func.isRequired
   },
 
   setUploadFilters(selectedFilters) {
@@ -44,10 +45,9 @@ const Student = createReactClass({
     return e.stopPropagation();
   },
 
-  openStudentDetails() {
-    const { course, router, student } = this.props;
-    const url = `/courses/${course.slug}/students/articles/${encodeURIComponent(student.username)}`;
-    return router.navigate(url);
+  openStudentDetailsView() {
+    const { course, student, openStudentDetailsView } = this.props;
+    openStudentDetailsView(course.slug, student.username);
   },
 
   _shouldShowRealName() {
@@ -64,7 +64,7 @@ const Student = createReactClass({
     let recentRevisions;
     if (showRecent) {
       recentRevisions = (
-        <td className="desktop-only-tc" onClick={this.openStudentDetails} >
+        <td className="desktop-only-tc" onClick={this.openStudentDetailsView} >
           {student.recent_revisions}
         </td>
       );
@@ -111,7 +111,7 @@ const Student = createReactClass({
 
     return (
       <tr className="students">
-        <td onClick={this.openStudentDetails} style={{ minWidth: '250px' }}>
+        <td onClick={this.openStudentDetailsView} style={{ minWidth: '250px' }}>
           <div className="name">
             <StudentUsername current_user={current_user} student={student} />
           </div>
@@ -123,17 +123,17 @@ const Student = createReactClass({
           <ExerciseProgressDescription student={student} />
           <TrainingProgressDescription student={student} />
         </td>
-        <td className="desktop-only-tc" onClick={this.openStudentDetails}>
+        <td className="desktop-only-tc" onClick={this.openStudentDetailsView}>
           {assignButton}
         </td>
-        <td className="desktop-only-tc" onClick={this.openStudentDetails}>
+        <td className="desktop-only-tc" onClick={this.openStudentDetailsView}>
           {reviewButton}
         </td>
         {recentRevisions}
-        <td className="desktop-only-tc" onClick={this.openStudentDetails}>
+        <td className="desktop-only-tc" onClick={this.openStudentDetailsView}>
           <ContentAdded course={course} student={student} />
         </td>
-        <td className="desktop-only-tc" onClick={this.openStudentDetails}>
+        <td className="desktop-only-tc" onClick={this.openStudentDetailsView}>
           {student.references_count}
         </td>
         <td className="desktop-only-tc">
