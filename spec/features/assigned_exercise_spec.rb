@@ -2,6 +2,10 @@
 
 require 'rails_helper'
 
+def stub_sandbox_existence_query(content)
+  allow_any_instance_of(WikiApi).to receive(:get_page_content).and_return content
+end
+
 describe 'students with assigned exercise modules', type: :feature, js: true do
   let(:student) { create(:user) }
   let(:course) { create(:course, weekdays: '1111111') }
@@ -26,6 +30,9 @@ describe 'students with assigned exercise modules', type: :feature, js: true do
   end
 
   it 'can go mark a module complete, then mark it incomplete' do
+    # Assume exercise sandbox has been created
+    stub_sandbox_existence_query 'sandbox content'
+
     visit "/courses/#{course.slug}"
 
     expect(page).to have_content 'Upcoming Exercises'
@@ -37,10 +44,23 @@ describe 'students with assigned exercise modules', type: :feature, js: true do
     expect(page).to have_content 'Evaluate Wikipedia'
   end
 
+  it 'see an error message if exercise sandbox does not exist' do
+    stub_sandbox_existence_query ''
+
+    visit "/courses/#{course.slug}"
+
+    expect(page).to have_content 'Upcoming Exercises'
+    click_button 'Mark Complete'
+    expect(page).to have_content 'Please complete the exercise in your Exercise Sandbox'
+  end
+
   context 'when there are multiple incomplete exercises' do
     let(:assigned_ids) { [evaluate_exercise_id, presentation_exercise_id] }
 
     it 'shows the next incomplete exercise after complete one' do
+      # Assume exercise sandbox has been created
+      stub_sandbox_existence_query 'sandbox content'
+
       visit "/courses/#{course.slug}"
 
       within '.my-exercises' do
@@ -61,6 +81,9 @@ describe 'students with assigned exercise modules', type: :feature, js: true do
     let(:assigned_ids) { [evaluate_exercise_id] }
 
     it 'shows the next incomplete exercise after complete one' do
+      # Assume exercise sandbox has been created
+      stub_sandbox_existence_query 'sandbox content'
+
       visit "/courses/#{course.slug}"
 
       within '.my-exercises' do

@@ -36,7 +36,7 @@ describe MedicineArticleMonitor do
       end
 
       it 'returns the right category' do
-        expect(monitor.med_category.name).to eq 'All_WikiProject_Medicine_articles'
+        expect(monitor.med_category.name).to eq 'All_WikiProject_Medicine_pages'
       end
     end
 

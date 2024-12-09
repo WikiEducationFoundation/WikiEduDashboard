@@ -314,17 +314,9 @@ Rails.application.routes.draw do
   # Recent Activity
   get 'recent-activity(/*any)' => 'recent_activity#index', as: :recent_activity
 
-  # Revision analytics JSON API for React
-  get 'revision_analytics/dyk_eligible',
-      controller: 'revision_analytics',
-      action: 'dyk_eligible'
-  get 'revision_analytics/recent_edits',
-      controller: 'revision_analytics',
-      action: 'recent_edits'
   get 'revision_analytics/recent_uploads',
       controller: 'revision_analytics',
       action: 'recent_uploads'
-
 
   # Revision Feedback
   get '/revision_feedback' => 'revision_feedback#index'

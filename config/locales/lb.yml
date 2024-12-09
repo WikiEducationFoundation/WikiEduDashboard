@@ -624,6 +624,7 @@ lb:
     usage_doc: Zuel vu Wikipedia-Artikelen an deenen dës Bild ze gesinn ass.
     usage_count_gallery_tile: A(n) %{usage_count} Artikele benotzt
     source: 'Quell:'
+    views_per_day: Opriff pro Dag
     view_commons: Op Commons weisen
     wiki_big: Wiki
   users:
@@ -656,7 +657,7 @@ lb:
     recent_revisions: Rezent Ännerungen
     references_count: Referenzen derbäigesat
     remove_confirmation: Sidd Dir sécher, datt Dir %{username} ewechhuele wëllt?
-    request_confirmation: Sidd Dir sécher datt Dir dëse Benotzerkont ufroe wëllt?
+    request_confirmation: Sidd Dir sécher, datt Dir dëse Benotzerkont ufroe wëllt?
     revisions: Versiounen
     sandboxes: Sandkëschten
     sub_navigation:

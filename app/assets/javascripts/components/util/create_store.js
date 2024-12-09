@@ -43,8 +43,6 @@ export const getStore = () => {
       immutableCheck: enableMutationChecks,
       serializableCheck: enableMutationChecks,
     }),
-    // Enable Redux DevTools
-    devTools: true
   });
 
   return store;
