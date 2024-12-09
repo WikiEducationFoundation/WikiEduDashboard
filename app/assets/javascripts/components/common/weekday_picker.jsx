@@ -27,6 +27,7 @@ const WeekdayPicker = ({
 
   ariaModifier,
   modifiers,
+  useAriaLabel,
 
   locale,
   onWeekdayClick,
@@ -158,11 +159,22 @@ const WeekdayPicker = ({
     const onClickHandler = onWeekdayClick ? e => handleWeekdayClick(e, weekday, customModifiers) : null;
     const onMouseEnterHandler = onWeekdayMouseEnter ? e => handleWeekdayMouseEnter(e, weekday, customModifiers) : null;
     const onMouseLeaveHandler = onWeekdayMouseLeave ? e => handleWeekdayMouseLeave(e, weekday, customModifiers) : null;
+    const ariaLabelMessage = useAriaLabel && (ariaSelected
+      ? I18n.t('weekday_picker.aria_label.weekday_selected', {
+          weekday: localeUtils.formatWeekdayLong(weekday),
+        })
+      : I18n.t('weekday_picker.aria_label.weekday_select', {
+          weekday: localeUtils.formatWeekdayLong(weekday),
+        })
+      );
 
     return (
       <button
-        key={weekday} className={dayClassName} tabIndex={tabIndexValue}
-        aria-pressed={ariaSelected}
+        key={weekday}
+        className={dayClassName}
+        tabIndex={tabIndexValue}
+        {...(!useAriaLabel && { 'aria-pressed': ariaSelected })}
+        {...(useAriaLabel && { 'aria-label': ariaLabelMessage })}
         onClick={onClickHandler}
         onKeyDown={e => handleDayKeyDown(e, weekday, customModifiers)}
         onMouseEnter={onMouseEnterHandler}
@@ -171,6 +183,10 @@ const WeekdayPicker = ({
         <span title={localeUtils.formatWeekdayLong(weekday)}>
           {localeUtils.formatWeekdayShort(weekday)}
         </span>
+        {/* Aria-live region for screen reader announcements when a week day is selected */}
+        <div aria-live="assertive" aria-atomic="true" className="sr-WeekdayPicker-aria-live">
+          {ariaLabelMessage}
+        </div>
       </button>
     );
   };
@@ -202,6 +218,7 @@ WeekdayPicker.propTypes = {
   tabIndex: PropTypes.number,
 
   ariaModifier: PropTypes.string,
+  useAriaLabel: PropTypes.bool,
   modifiers: PropTypes.object,
 
   locale: PropTypes.string,
