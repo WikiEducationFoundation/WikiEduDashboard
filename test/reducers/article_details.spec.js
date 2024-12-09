@@ -21,12 +21,14 @@ describe('article_details reducer', () => {
       const mockAction = {
         type: RECEIVE_ARTICLE_DETAILS,
         articleId: 586,
-        data: {
-          article_details: 'best article ever'
-        }
+        details: { detailsData: 'best article ever' },
+        revisionRange: { revisionRangeData: 'more data' }
       };
       const expectedState = {
-        586: 'best article ever'
+        586: {
+          detailsData: 'best article ever',
+          revisionRangeData: 'more data'
+        }
       };
       expect(article_details(undefined, mockAction)).toEqual(expectedState);
     }
