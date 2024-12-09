@@ -29,6 +29,20 @@ class TrainingModulesUsers < ApplicationRecord
     flags[course_id] = { marked_complete: value }
   end
 
+  def eligible_for_completion?(wiki)
+    # If module doesn't have a sandbox_location, there's nothing to check.
+    return true unless training_module.sandbox_location
+
+    sandbox_content = WikiApi.new(wiki).get_page_content exercise_sandbox_location
+    sandbox_content.present?
+  end
+
+  # This is only used on Wiki Education Dashboard
+  # so we will assume User: prefix for en.wiki
+  def exercise_sandbox_location
+    "User:#{user.url_encoded_username}/#{training_module.sandbox_location}"
+  end
+
   private
 
   def training_progress_manager

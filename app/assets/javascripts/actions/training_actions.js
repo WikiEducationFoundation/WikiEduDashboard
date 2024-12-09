@@ -80,8 +80,14 @@ const setExerciseModule = (complete = true) => (block_id, module_id) => (dispatc
     body: JSON.stringify({ block_id, complete, module_id }),
     method: 'POST'
   }).then(resp => resp.json())
-    .then(resp => dispatch({ type: EXERCISE_COMPLETION_UPDATE, data: resp }))
-    .catch(resp => dispatch({ type: API_FAIL, data: resp }));
+    .then((resp) => {
+      if (resp.status === 'incomplete') {
+        dispatch({ type: API_FAIL, data: resp });
+      } else {
+        dispatch({ type: EXERCISE_COMPLETION_UPDATE, data: resp });
+      }
+    }
+    ).catch(resp => dispatch({ type: API_FAIL, data: resp }));
 };
 
 export const setExerciseModuleComplete = setExerciseModule();

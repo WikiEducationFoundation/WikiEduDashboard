@@ -9,6 +9,7 @@
 # Author: NGC 54
 # Author: Paloi Sciurala
 # Author: Strainu
+# Author: Trotinel Iftode
 # Author: Wintereu
 ---
 ro:
@@ -52,4 +53,10 @@ ro:
     none: Acest curs nu are studenți.
   training_status:
     continue: Continuă
+  notes:
+    admin:
+      aria_label:
+        no_notes_available: Nu sunt disponibile note de administrator în panou. Apăsați
+          tasta de întoarcere pentru a deschide panoul de note de administrator.
+        new_notes_message: '%{count} noi note de administrator disponibile.'
 ...

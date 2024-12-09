@@ -49,7 +49,7 @@ const NotesCreator = ({ noteTitle, setTitle, noteText, setText }) => {
         </div>
       </div>
       {/* Aria-live region for screen reader announcements */}
-      <div aria-live="assertive" aria-atomic="true" className="sr-only">
+      <div aria-live="assertive" aria-atomic="true" className="sr-admin-note-only">
         {liveMessage}
       </div>
     </div>

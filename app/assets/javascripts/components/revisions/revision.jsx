@@ -4,14 +4,20 @@ import DiffViewer from './diff_viewer.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import { formatDateWithTime } from '../../utils/date_utils.js';
 import { trunc } from '../../utils/strings.js';
+import withRouter from '@components/util/withRouter.jsx';
 
-const Revision = ({ revision, index, wikidataLabel, course, setSelectedIndex, lastIndex, selectedIndex, student }) => {
+const Revision = ({ revision, index, wikidataLabel, course, setSelectedIndex, lastIndex, selectedIndex, student, router }) => {
   const ratingClass = `rating ${revision.rating}`;
   const ratingMobileClass = `${ratingClass} tablet-only`;
   const formattedTitle = CourseUtils.formattedArticleTitle({ title: revision.title, project: revision.wiki.project, language: revision.wiki.language }, course.home_wiki, wikidataLabel);
   const subtitle = wikidataLabel ? `(${CourseUtils.removeNamespace(revision.title)})` : '';
   const isWikipedia = revision.wiki.project === 'wikipedia';
   const showRealName = student.real_name;
+
+  const openStudentDetails = () => {
+    const url = `/courses/${course.slug}/students/articles/${encodeURIComponent(student.username)}`;
+    router.navigate(url);
+  };
   return (
     <tr className="revision">
       <td className="tooltip-trigger desktop-only-tc">
@@ -31,14 +37,22 @@ const Revision = ({ revision, index, wikidataLabel, course, setSelectedIndex, la
           <span>
             <strong>{trunc(student.real_name)}</strong>&nbsp;
             (
-            <a onClick={e => e.preventDefault()}>
+            <a
+              onClick={openStudentDetails} style={{
+                cursor: 'pointer'
+              }}
+            >
               {revision.revisor}
             </a>
             )
           </span>
         ) : (
           <span>
-            <a onClick={e => e.preventDefault()}>
+            <a
+              onClick={openStudentDetails} style={{
+                cursor: 'pointer'
+              }}
+            >
               {revision.revisor}
             </a>
           </span>
@@ -73,4 +87,4 @@ Revision.propTypes = {
   student: PropTypes.object
 };
 
-export default Revision;
+export default withRouter(Revision);

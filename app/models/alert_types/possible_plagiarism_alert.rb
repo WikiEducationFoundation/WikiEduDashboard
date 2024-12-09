@@ -22,18 +22,8 @@
 
 # Alert for course revision flagged as possible plagiarism by CopyPatrol
 class PossiblePlagiarismAlert < Alert
-  def self.new_from_revision(revision, submission_id)
-    return if PossiblePlagiarismAlert.exists?(revision:)
-
-    user = revision.user
-    course = user.courses_users.last.course
-    article = revision.article
-    details = { submission_id: }
-    create!(revision:, user:, course:, article:, details:)
-  end
-
   def main_subject
-    "Possible plagiarism from #{course.title}"
+    "Possible plagiarism from #{course&.title}"
   end
 
   def url
@@ -42,5 +32,19 @@ class PossiblePlagiarismAlert < Alert
 
   def copypatrol_submission_id
     details[:submission_id]
+  end
+
+  def revision_id
+    details[:mw_rev_id]
+  end
+
+  def wiki
+    @wiki ||= Wiki.find details[:wiki_id]
+  end
+
+  def diff_url
+    return if article.nil?
+    title = article.escaped_full_title
+    "#{wiki.base_url}/w/index.php?title=#{title}&diff=prev&oldid=#{revision_id}"
   end
 end

@@ -454,4 +454,8 @@ hi:
     title: शीर्षक
     cancel_note_creation: रद्द करें
     save_note: सहेजें
+    admin:
+      aria_label:
+        no_notes_available: पैनल में कोई एडमिन नोट उपलब्ध नहीं है। एडमिन नोट्स पैनल
+          खोलने के लिए रिटर्न दबाएँ।
 ...
