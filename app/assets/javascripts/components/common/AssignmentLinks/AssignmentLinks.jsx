@@ -59,9 +59,9 @@ const AssignmentLinks = ({ assignment, courseType, user, course, project, editMo
   let groupMembers;
   if (editors) {
     if (role === ASSIGNED_ROLE) {
-      groupMembers = <GroupMembersLink members={editors} />;
+      groupMembers = <GroupMembersLink members={editors} course={course} />;
     } else {
-      groupMembers = <EditorLink key={`editor-${id}`} editors={editors} />;
+      groupMembers = <EditorLink key={`editor-${id}`} editors={editors} course={course} />;
     }
   }
 
