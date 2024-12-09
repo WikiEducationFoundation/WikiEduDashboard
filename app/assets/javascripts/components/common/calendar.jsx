@@ -20,7 +20,8 @@ const Calendar = createReactClass({
     calendarInstructions: PropTypes.string,
     editable: PropTypes.bool,
     shouldShowSteps: PropTypes.bool,
-    updateCourse: PropTypes.func.isRequired
+    updateCourse: PropTypes.func.isRequired,
+    useAriaLabel: PropTypes.bool
   },
 
   statics: {
@@ -151,6 +152,7 @@ const Calendar = createReactClass({
 
     const onWeekdayClick = this.props.editable ? this.selectWeekday : null;
     const onDayClick = this.props.editable ? this.selectDay : null;
+    const ariaModifier = this.props.useAriaLabel ? 'selected' : null;
 
     return (
       <div>
@@ -159,6 +161,8 @@ const Calendar = createReactClass({
           <WeekdayPicker
             modifiers={modifiers}
             onWeekdayClick={onWeekdayClick}
+            ariaModifier={ariaModifier}
+            useAriaLabel={this.props.useAriaLabel}
           />
         </div>
         <hr />

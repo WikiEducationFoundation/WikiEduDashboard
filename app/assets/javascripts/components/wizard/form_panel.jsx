@@ -117,6 +117,7 @@ const FormPanel = createReactClass({
             setBlackoutDatesSelected={this.setBlackoutDatesSelected}
             calendarInstructions={I18n.t('wizard.calendar_instructions')}
             updateCourse={this.props.updateCourse}
+            useAriaLabel={true}
           />
           <label> I have no class holidays
             <input type="checkbox" onChange={this.setNoBlackoutDatesChecked} ref={(checkbox) => { this.noDates = checkbox; }} />

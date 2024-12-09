@@ -126,6 +126,7 @@ const Meetings = createReactClass({
               calendarInstructions={I18n.t('courses.course_dates_calendar_instructions')}
               weeks={this.props.weeks}
               updateCourse={this.props.updateCourse}
+              useAriaLabel={true}
             />
             <label> {I18n.t('timeline.no_class_holidays')}
               <input
