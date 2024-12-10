@@ -16,7 +16,7 @@ import {
   addWeek, deleteWeek, persistTimeline, setBlockEditable, cancelBlockEditable,
   updateBlock, addBlock, deleteBlock, insertBlock, updateTitle, resetTitles, restoreTimeline, deleteAllWeeks
 } from '../../actions/timeline_actions';
-import { getWeeksArray, getAllWeeksArray, getAvailableTrainingModules, editPermissions } from '../../selectors';
+import { getWeeksArray, getAllWeeksArray, getAvailableTrainingModules, editPermissions, getAllWeekDates } from '../../selectors';
 
 // Define TimelineHandler as a functional component using an arrow function
 // Move propTypes outside the component definition
@@ -96,6 +96,7 @@ const TimelineHandler = (props) => {
         course={props.course}
         weeks={props.weeks}
         allWeeks={props.allWeeks}
+        allWeeksDates={props.allWeeksDates}
         week_meetings={weekMeetings}
         editableBlockIds={props.editableBlockIds}
         reorderable={reorderable}
@@ -145,6 +146,7 @@ TimelineHandler.propTypes = {
 const mapStateToProps = state => ({
   weeks: getWeeksArray(state),
   allWeeks: getAllWeeksArray(state),
+  allWeeksDates: getAllWeekDates(state),
   loading: state.timeline.loading || state.course.loading,
   editableBlockIds: state.timeline.editableBlockIds,
   availableTrainingModules: getAvailableTrainingModules(state),
