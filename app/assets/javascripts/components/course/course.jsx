@@ -27,7 +27,6 @@ import { getStudentCount, getCurrentUser, getWeeksArray } from '../../selectors'
 import ActivityHandler from '../activity/activity_handler';
 import CourseApproval from './course_approval';
 
-
 const Course = withRouter((props) => {
   useEffect(() => {
     // Fetch all the data needed to render a course page
