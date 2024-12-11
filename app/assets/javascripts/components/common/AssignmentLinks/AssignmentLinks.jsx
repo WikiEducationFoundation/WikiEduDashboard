@@ -70,7 +70,6 @@ const AssignmentLinks = ({ assignment, courseType, user, course, project, editMo
     reviewers = <AllPeerReviewLinks assignment={assignment} />;
   }
 
-  // const reviewers = <ReviewerLink key={`reviewers-${id}`} reviewers={assignment.reviewers} />;
   const links = actions.reduce(interleaveSeparators, []);
 
   return (
