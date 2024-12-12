@@ -80,6 +80,7 @@ Rails.application.routes.draw do
   end
   patch '/assignments/:id/update_sandbox_url' => 'assignments#update_sandbox_url'
   put '/assignments/:assignment_id/claim' => 'assignments#claim'
+  patch '/assignments/:assignment_id/unclaim' => 'assignments#unclaim'
   post '/assignments/assign_reviewers_randomly' => 'assignments#assign_reviewers_randomly'
 
   get 'mass_enrollment/:course_id'  => 'mass_enrollment#index',

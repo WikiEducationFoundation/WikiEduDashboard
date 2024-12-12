@@ -66,6 +66,16 @@ class AssignmentsController < ApplicationController
            status: :conflict
   end
 
+  def unclaim
+    @assignment = Assignment.find(params[:assignment_id])
+    check_permissions(@assignment.user_id)
+    check_participation
+    @assignment.update(user_id: nil)
+    render partial: 'updated_assignment', locals: { assignment: @assignment }
+  rescue ActiveRecord::RecordInvalid
+    render json: { message: 'Failed to unclaim the assignment' }, status: :unprocessable_entity
+  end
+
   def update_status
     @assignment = Assignment.find(assignment_params[:id])
     @course = @assignment.course

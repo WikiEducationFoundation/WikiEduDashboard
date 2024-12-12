@@ -410,6 +410,33 @@ describe AssignmentsController, type: :request do
     end
   end
 
+  describe 'PATCH #unclaim' do
+    let(:assignment) { create(:assignment, course_id: course.id, role: 0) }
+    let(:request_params) do
+      { course_id: course.id, id: assignment.id, user_id: user.id, format: :json }
+    end
+
+    context 'when the unclaim succeeds' do
+      before do
+        create(:courses_user, course:, user:)
+        assignment.update(user_id: user.id)
+      end
+
+      it 'renders a 200 and the assignment does not belong to the user' do
+        patch "/assignments/#{assignment.id}/unclaim", params: request_params
+        expect(response.status).to eq(200)
+        expect(assignment.reload.user_id).to be_nil
+      end
+    end
+
+    context 'when the user is not in the course' do
+      it 'renders a 401' do
+        patch "/assignments/#{assignment.id}/unclaim", params: request_params
+        expect(response.status).to eq(401)
+      end
+    end
+  end
+
   describe 'PATCH #update_status' do
     let(:assignment) { create(:assignment, course:, role: 0) }
     let(:request_params) do
