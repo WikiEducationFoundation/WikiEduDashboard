@@ -32,7 +32,7 @@ class UpdateCourseStatsTimeslice
     update_article_status if should_update_article_status?
     update_average_pageviews
     update_caches
-    # update_wikidata_stats if wikidata
+    update_wikidata_stats if wikidata
     # This needs to happen after `update_caches` because it relies on ArticlesCourses#new_article
     # to calculate new article stats for each namespace.
     update_wiki_namespace_stats
@@ -85,7 +85,10 @@ class UpdateCourseStatsTimeslice
   end
 
   def update_wikidata_stats
-    UpdateWikidataStatsWorker.new.perform(@course)
+    wikidata = Wiki.get_or_create(language: nil, project: 'wikidata')
+    timeslices = CourseWikiTimeslice.for_course_and_wiki(@course, wikidata)
+    stats = timeslices.pluck(:stats)
+    UpdateWikidataStatsTimeslice.new(@course).update_wikidata_statistics(stats)
     @debugger.log_update_progress :wikidata_stats_updated
   end
 

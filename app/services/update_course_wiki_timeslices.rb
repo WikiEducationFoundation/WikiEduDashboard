@@ -17,6 +17,7 @@ class UpdateCourseWikiTimeslices
     @course = course
     @timeslice_manager = TimesliceManager.new(@course)
     @debugger = UpdateDebugger.new(@course)
+    @wikidata_stats_updater = UpdateWikidataStatsTimeslice.new(@course) if wikidata
   end
 
   def run(all_time:)
@@ -88,6 +89,13 @@ class UpdateCourseWikiTimeslices
                                                       timeslice_start.strftime('%Y%m%d%H%M%S'),
                                                       timeslice_end.strftime('%Y%m%d%H%M%S'),
                                                       update_service: self)
+
+    # Only for wikidata project, fetch wikidata stats
+    if wiki.project == 'wikidata' && @revisions.present?
+      wikidata_revisions = @revisions[wiki][:revisions]
+      @revisions[wiki][:revisions] =
+        @wikidata_stats_updater.update_revisions_with_stats(wikidata_revisions)
+    end
     # TODO: replace the logic on ArticlesCourses.update_from_course to remove all
     # the ArticlesCourses that do not correspond to course revisions.
     # That may happen if the course dates changed, so some revisions are no
@@ -142,6 +150,10 @@ class UpdateCourseWikiTimeslices
       CourseUserWikiTimeslice.update_course_user_wiki_timeslices(@course, user_id, wiki,
                                                                  course_user_wiki_data)
     end
+  end
+
+  def wikidata
+    @course.wikis.find { |wiki| wiki.project == 'wikidata' }
   end
 
   def log_error(error)
