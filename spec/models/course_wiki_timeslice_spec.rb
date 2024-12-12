@@ -20,6 +20,7 @@
 #  wiki_id              :integer          not null
 #  last_mw_rev_datetime :datetime
 #  needs_update         :boolean          default(FALSE)
+#  stats                :text(65535)
 #
 require 'rails_helper'
 

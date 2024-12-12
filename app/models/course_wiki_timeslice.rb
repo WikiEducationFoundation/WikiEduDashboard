@@ -20,10 +20,13 @@
 #  wiki_id              :integer          not null
 #  last_mw_rev_datetime :datetime
 #  needs_update         :boolean          default(FALSE)
+#  stats                :text(65535)
 #
 class CourseWikiTimeslice < ApplicationRecord
   belongs_to :course
   belongs_to :wiki
+
+  serialize :stats, Hash
 
   scope :for_course_and_wiki, ->(course, wiki) { where(course:, wiki:) }
   # Returns the timeslice to which a datetime belongs (it should be a single timeslice)
