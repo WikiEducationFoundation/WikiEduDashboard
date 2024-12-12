@@ -249,7 +249,6 @@ Rails.application.routes.draw do
   get 'usage' => 'analytics#usage'
   get 'ungreeted' => 'analytics#ungreeted'
   get 'course_csv' => 'analytics#course_csv'
-  get 'course_edits_csv' => 'analytics#course_edits_csv'
   get 'course_uploads_csv' => 'analytics#course_uploads_csv'
   get 'course_students_csv' => 'analytics#course_students_csv'
   get 'course_articles_csv' => 'analytics#course_articles_csv'
