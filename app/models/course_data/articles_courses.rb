@@ -211,7 +211,7 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
   # Given an array of revisions and an array of article ids,
   # it returns a hash with the min revision datetime for every article id.
   def self.get_first_revisions(revisions, new_article_ids)
-    # This is the only way I found to get an always-greater value
+    # TODO: find a better way to ensure an always-greater value
     max_time = Time.utc(9999, 12, 31)
     min_dates = Hash.new(max_time)
 
