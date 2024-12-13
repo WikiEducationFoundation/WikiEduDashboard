@@ -92,7 +92,7 @@ class UpdateCourseWikiTimeslices
 
     # Only for wikidata project, fetch wikidata stats
     if wiki.project == 'wikidata' && @revisions.present?
-      wikidata_revisions = @revisions[wiki][:revisions]
+      wikidata_revisions = @revisions[wiki][:revisions].reject(&:deleted)
       @revisions[wiki][:revisions] =
         @wikidata_stats_updater.update_revisions_with_stats(wikidata_revisions)
     end
