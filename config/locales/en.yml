@@ -846,7 +846,7 @@ en:
     view_other: View other campaigns
     view: View Course
     view_doc: The estimated number of views to articles edited by enrolled editors since the editor made their first edit to each article
-    view_page: View Page
+    view_page: View Course Page
     view_wiki: View on Wikipedia
     volunteer:
       one: Volunteer
@@ -1021,7 +1021,7 @@ en:
     uploads_none: This project has not contributed any images or other media files to Wikimedia Commons.
     user_uploads_none: Selected users have not contributed any images or other media files to this project.
     view_other: View other campaigns
-    view_page: View Program Page
+    view_page: View Page
     word_count_doc: An estimate of the number of words added to mainspace articles by the program's editors during the program term
     word_count_doc_wikidata: An estimate of the number of words added to mainspace items by the program's editors during the program term
     yourcourses: Your Programs
