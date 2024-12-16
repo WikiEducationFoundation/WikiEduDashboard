@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const CourseDetails = ({ courses }) => {
-  const labelKey = window.Features.wiki_ed ? 'courses.view_page' : 'courses_generic.view_page';
+  const labelKey = Features.wikiEd ? 'courses.view_page' : 'courses_generic.view_page';
   const elements = courses.map((course) => {
     return (
       <a className="course" key={`${course.course_slug}-${course.user_role}`} href={`/courses/${course.course_slug}`}>
