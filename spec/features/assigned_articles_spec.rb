@@ -23,6 +23,8 @@ describe 'Assigned Articles view', type: :feature, js: true do
       visit "/courses/#{course.slug}/articles/assigned"
       expect(page).to have_content('Nancy Tuana')
       find('a', text: 'Feedback').click
+      expect(page).to have_no_content(I18n.t('courses.feedback_loading'))
+      expect(page).to have_selector('textarea.feedback-form')
       find('textarea.feedback-form').fill_in with: 'This is a great article!'
       click_button 'Add Suggestion'
       find('a', text: 'Delete').click
