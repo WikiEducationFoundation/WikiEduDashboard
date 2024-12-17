@@ -143,14 +143,6 @@ class AlertMailerPreview < ActionMailer::Preview
 
   def example_user_blocked_alert
     user = example_user
-    message = "Student #{user.username} have been blocked on Wikipedia.
-This mail to inform staff, student as well as instructors."
-    alert = Alert.new(type: 'BlockedUserAlert', user:,
-                      course: example_course, message:)
-    alert.tap do |alrt|
-      alrt.define_singleton_method(:main_subject) do
-        "User #{user.username} have been blocked on Wikipedia"
-      end
-    end
+    Alert.new(type: 'BlockedUserAlert', user:, course: example_course)
   end
 end
