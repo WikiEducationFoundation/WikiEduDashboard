@@ -481,6 +481,7 @@ en:
     active_courses: Active Courses
     add_trainings: Please add student trainings to your assignment timeline. Assigning training modules is an essential part of Wiki Ed's best practices.
     alerts: Alerts
+    does_not_exist: The Item doesn't exist. Create a Sandbox page and assign yourself to that to receive suggestions.
     all_courses: All Courses
     already_enrolled: You are already a part of '%{title}'!
     already_exists: That already exists for this course!
