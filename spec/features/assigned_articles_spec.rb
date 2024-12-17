@@ -17,7 +17,7 @@ describe 'Assigned Articles view', type: :feature, js: true do
   end
 
   it 'lets users submit feedback about articles' do
-    # Since this makes a call to the ORES API from the server,
+    # This makes a call to the LiftWing API from the server,
     # we need to use VCR to avoid getting stopped by WebMock
     VCR.use_cassette('assigned_articles_view') do
       visit "/courses/#{course.slug}/articles/assigned"
