@@ -253,7 +253,6 @@ Rails.application.routes.draw do
   get 'course_students_csv' => 'analytics#course_students_csv'
   get 'course_articles_csv' => 'analytics#course_articles_csv'
   get 'tagged_courses_csv/:tag' => 'analytics#tagged_courses_csv'
-  get 'course_revisions_csv' => 'analytics#course_revisions_csv'
   get 'course_wikidata_csv' => 'analytics#course_wikidata_csv'
   get 'all_courses_csv' => 'analytics#all_courses_csv'
   get 'all_courses' => 'analytics#all_courses'

@@ -109,15 +109,6 @@ describe AnalyticsController, type: :request do
     end
   end
 
-  describe '#course_revisions_csv' do
-    let(:course) { create(:course, slug: 'foo/bar_(baz)') }
-
-    it 'returns a CSV' do
-      get '/course_revisions_csv', params: { course: course.slug }
-      expect(response.body).to include('references_added')
-    end
-  end
-
   describe '#course_wikidata_csv' do
     let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }
     let(:course) { create(:course, slug: 'foo/bar_(baz)', home_wiki: wikidata) }
