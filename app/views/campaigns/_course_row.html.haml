@@ -1,4 +1,6 @@
-%tr{:class => "#{user ? date_highlight_class(course) : private_highlight_class(course)}", "data-link" => "#{course_slug_path(course.slug)}"}
+%tr{:class => "#{user ? date_highlight_class(course) : private_highlight_class(course)}", "data-link" => "#{course_slug_path(course.slug)}",
+  :style => "#{course.closed? ? 'background-color: #f8d7da; color: #721c24; font-weight: bold;' : ''}"
+}
   %td{:class => "table-link-cell", :role => "button", :tabindex => "0"}
     %a.course-link{:href => "#{course_slug_path(course.slug)}"}
       %span.title
