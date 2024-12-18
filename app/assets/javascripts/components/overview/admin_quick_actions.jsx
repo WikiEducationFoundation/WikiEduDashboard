@@ -35,7 +35,7 @@ export const AdminQuickActions = ({ course, current_user, persistCourse, greetSt
       backgroundColor: '#f8d7da',
       color: '#721c24',
       padding: '15px',
-      borderRadius: '8px',
+      borderRadius: '2px',
       fontWeight: 'bold',
     }
     : {};
@@ -48,7 +48,6 @@ export const AdminQuickActions = ({ course, current_user, persistCourse, greetSt
             <strong>This course was closed on:</strong>&nbsp;
             {format(toDate(parseISO(course.flags.closed_date)), 'PPPP')}.
           </p>
-          <p>All review work for this course has been completed. </p>
         </div>
       )}
       {current_user.isStaff && (
