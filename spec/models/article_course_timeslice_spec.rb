@@ -28,6 +28,7 @@ describe ArticleCourseTimeslice, type: :model do
   let(:user) { create(:user) }
   let(:start) { 1.month.ago.beginning_of_day }
   let(:course) { create(:course, start:, end: 1.month.from_now.beginning_of_day) }
+  let(:wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
   let(:article_course) { create(:articles_course, article:, course:) }
   let(:revision1) do
     build(:revision, article:,
@@ -89,14 +90,43 @@ describe ArticleCourseTimeslice, type: :model do
       revisions << build(:revision, article:, user_id: 3, date: start + 50.hours)
       revisions << build(:revision, article:, user_id: 7, date: start + 51.hours)
 
+      create(:course_wiki_timeslice, course:, wiki:, start:, end: start + 1.day)
+      create(:course_wiki_timeslice, course:, wiki:, start: start + 1.day,
+             end: start + 2.days)
+      create(:course_wiki_timeslice, course:, wiki:, start: start + 2.days,
+            end: start + 3.days)
+    end
+
+    it 'creates the right article timeslices based on the revisions' do
+      article_course_timeslice_0 = described_class.find_by(course:, article:, start:)
+      article_course_timeslice_1 = described_class.find_by(course:, article:, start: start + 1.day)
+      article_course_timeslice_2 = described_class.find_by(course:, article:, start: start + 2.days)
+
+      expect(article_course_timeslice_0).to be_nil
+      expect(article_course_timeslice_1).to be_nil
+      expect(article_course_timeslice_2).to be_nil
+
+      start_period = start.strftime('%Y%m%d%H%M%S')
+      end_period = (start + 55.hours).strftime('%Y%m%d%H%M%S')
+      revision_data = { start: start_period, end: end_period, revisions: }
+      described_class.update_article_course_timeslices(course, article.id, revision_data)
+
+      article_course_timeslice_0 = described_class.find_by(course:, article:, start:)
+      article_course_timeslice_1 = described_class.find_by(course:, article:, start: start + 1.day)
+      article_course_timeslice_2 = described_class.find_by(course:, article:, start: start + 2.days)
+
+      expect(article_course_timeslice_0.user_ids).to eq([25, 1])
+      expect(article_course_timeslice_1.user_ids).to eq([1])
+      expect(article_course_timeslice_2.user_ids).to eq([3, 7])
+    end
+
+    it 'updates the right article timeslices based on the revisions' do
       create(:article_course_timeslice, course:, article:, start:, end: start + 1.day)
       create(:article_course_timeslice, course:, article:, start: start + 1.day,
              end: start + 2.days)
       create(:article_course_timeslice, course:, article:, start: start + 2.days,
             end: start + 3.days)
-    end
 
-    it 'updates the right article timeslices based on the revisions' do
       article_course_timeslice_0 = described_class.find_by(course:, article:, start:)
       article_course_timeslice_1 = described_class.find_by(course:, article:, start: start + 1.day)
       article_course_timeslice_2 = described_class.find_by(course:, article:, start: start + 2.days)
@@ -110,6 +140,8 @@ describe ArticleCourseTimeslice, type: :model do
       revision_data = { start: start_period, end: end_period, revisions: }
       described_class.update_article_course_timeslices(course, article.id, revision_data)
 
+      # No new article course timeslices were created
+      expect(described_class.where(course:, article:).count).to eq(3)
       article_course_timeslice_0 = described_class.find_by(course:, article:, start:)
       article_course_timeslice_1 = described_class.find_by(course:, article:, start: start + 1.day)
       article_course_timeslice_2 = described_class.find_by(course:, article:, start: start + 2.days)

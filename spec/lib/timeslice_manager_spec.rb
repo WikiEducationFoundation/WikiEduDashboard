@@ -113,11 +113,10 @@ describe TimesliceManager do
 
         timeslice_manager.create_timeslices_for_new_course_start_date
         course.reload
-        # Create timeslices for the period between 2023-12-20 and 2024-01-01
+        # Create course and user timeslices for the period between 2023-12-20 and 2024-01-01
         expect(course.course_wiki_timeslices.size).to eq(369)
         expect(course.course_wiki_timeslices.where(needs_update: true).size).to eq(36)
         expect(course.course_user_wiki_timeslices.size).to eq(738)
-        expect(course.article_course_timeslices.size).to eq(369)
       end
     end
   end
@@ -142,11 +141,10 @@ describe TimesliceManager do
 
         timeslice_manager.create_timeslices_up_to_new_course_end_date
         course.reload
-        # Create timeslices for the period between 2024-04-20 and 2024-04-30
+        # Create course and user timeslices for the period between 2024-04-20 and 2024-04-30
         expect(course.course_wiki_timeslices.size).to eq(363)
         expect(course.course_wiki_timeslices.where(needs_update: true).size).to eq(30)
         expect(course.course_user_wiki_timeslices.size).to eq(726)
-        expect(course.article_course_timeslices.size).to eq(363)
       end
     end
   end

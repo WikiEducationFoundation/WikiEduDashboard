@@ -112,7 +112,6 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
   def create_timeslices_for_new_course_start_date
     courses_wikis = @course.courses_wikis
     # order matters
-    create_empty_article_course_timeslices(start_dates_backward, @course.articles_courses)
     create_empty_course_user_wiki_timeslices(start_dates_backward)
     create_empty_course_wiki_timeslices(start_dates_backward, courses_wikis, needs_update: true)
   end
@@ -122,7 +121,6 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
   def create_timeslices_up_to_new_course_end_date
     courses_wikis = @course.courses_wikis
     # order matters
-    create_empty_article_course_timeslices(start_dates_from_old_end, @course.articles_courses)
     create_empty_course_user_wiki_timeslices(start_dates_from_old_end)
     create_empty_course_wiki_timeslices(start_dates_from_old_end, courses_wikis, needs_update: true)
   end

@@ -223,7 +223,7 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
     min_dates
   end
 
-  def self.maybe_insert_new_records(course, new_records)
+  def self.maybe_insert_new_records(_course, new_records)
     return if new_records.empty?
     # Do this in batches to avoid running the MySQL server out of memory
     new_records.each_slice(5000) do |new_record_slice|
@@ -231,8 +231,6 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
       insert_all new_record_slice
       # rubocop:enable Rails/SkipsModelValidations
     end
-
-    TimesliceManager.new(course).create_timeslices_for_new_article_course_records(new_records)
   end
 
   def self.destroy_invalid_records(course, valid_article_ids)

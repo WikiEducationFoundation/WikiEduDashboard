@@ -51,17 +51,21 @@ class ArticleCourseTimeslice < ApplicationRecord
   def self.update_article_course_timeslices(course, article_id, revisions)
     rev_start = revisions[:start]
     rev_end = revisions[:end]
-    # Article course timeslices to update
-    article_course_timeslices = ArticleCourseTimeslice.for_course_and_article(course,
-                                                                              article_id)
-                                                      .for_revisions_between(rev_start, rev_end)
-    article_course_timeslices.each do |timeslice|
+    # Timeslice dates to update are determined based on course wiki timeslices
+    timeslices = course.course_wiki_timeslices.for_revisions_between(rev_start, rev_end)
+    timeslices.each do |timeslice|
       # Group revisions that belong to the timeslice
       revisions_in_timeslice = revisions[:revisions].select do |revision|
         timeslice.start <= revision.date && revision.date < timeslice.end
       end
+      # Get or create article course timeslice based on course, article_id,
+      # timeslice.start and timeslice.end
+      ac_timeslice = ArticleCourseTimeslice.find_or_create_by(course:,
+                                                              article_id:,
+                                                              start: timeslice.start,
+                                                              end: timeslice.end)
       # Update cache for ArticleCourseTimeslice
-      timeslice.update_cache_from_revisions revisions_in_timeslice
+      ac_timeslice.update_cache_from_revisions revisions_in_timeslice
     end
   end
 
