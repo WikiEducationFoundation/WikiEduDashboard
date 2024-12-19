@@ -11,7 +11,7 @@ class SalesforceSyncWorker
       PushCourseToSalesforce.new(course)
     end
     ClassroomProgramCourse
-      .archived
+      .ended
       .where(withdrawn: false)
       .reject(&:closed?)
       .select(&:approved?).each do |course|
