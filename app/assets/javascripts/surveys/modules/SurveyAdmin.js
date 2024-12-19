@@ -182,7 +182,7 @@ const SurveyAdmin = {
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
-        'X-CSRF-Token': SurveyAdmin.$csrf_token.content
+        'X-CSRF-Token': SurveyAdmin.$csrf_token?.content
       },
     }).then(response => response.json())
       .then((data) => {
