@@ -205,7 +205,7 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
       { article_id: id, course_id: course.id, first_revision: first_revisions[id] }
     end
 
-    maybe_insert_new_records(course, new_records)
+    maybe_insert_new_records(new_records)
   end
 
   # Given an array of revisions and an array of article ids,
@@ -223,7 +223,7 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
     min_dates
   end
 
-  def self.maybe_insert_new_records(_course, new_records)
+  def self.maybe_insert_new_records(new_records)
     return if new_records.empty?
     # Do this in batches to avoid running the MySQL server out of memory
     new_records.each_slice(5000) do |new_record_slice|
