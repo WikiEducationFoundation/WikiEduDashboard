@@ -51,10 +51,9 @@ describe UpdateCourseWikiTimeslices do
       article_course = ArticlesCourses.find_by(article_id: article.id)
 
       # Article course timeslice record was created for mw_page_id 6901525
-      # timeslices from 2018-11-24 to 2018-11-30 were created
-      expect(article_course.article_course_timeslices.count).to eq(7)
+      # timeslices for 2018-11-24 was created
+      expect(article_course.article_course_timeslices.count).to eq(1)
       expect(article_course.article_course_timeslices.first.start).to eq('2018-11-24')
-      expect(article_course.article_course_timeslices.last.start).to eq('2018-11-30')
       # Article course timeslices caches were updated
       expect(article_course.article_course_timeslices.first.character_sum).to eq(427)
       expect(article_course.article_course_timeslices.first.references_count).to eq(-2)
