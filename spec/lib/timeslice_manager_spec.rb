@@ -14,7 +14,6 @@ describe TimesliceManager do
   let(:article1) { create(:article, wiki_id: enwiki.id) }
   let(:article2) { create(:article, wiki_id: wikidata.id) }
   let(:article3) { create(:article, wiki_id: wikidata.id) }
-  let(:new_article_courses) { [] }
   let(:new_course_users) { [] }
   let(:new_course_wikis) { [] }
 
@@ -29,27 +28,11 @@ describe TimesliceManager do
     new_course_users << create(:courses_user, id: 2, user_id: 2, course:)
     new_course_users << create(:courses_user, id: 3, user_id: 3, course:)
 
-    new_article_courses << create(:articles_course, article_id: article1.id, course:)
-    new_article_courses << create(:articles_course, article_id: article2.id, course:)
-    new_article_courses << create(:articles_course, article_id: article3.id, course:)
-    course.reload
-  end
+    create(:articles_course, article_id: article1.id, course:)
+    create(:articles_course, article_id: article2.id, course:)
+    create(:articles_course, article_id: article3.id, course:)
 
-  describe '#create_timeslices_for_new_article_course_records' do
-    context 'when there are new articles courses' do
-      it 'creates article course timeslices for the entire course' do
-        expect(course.article_course_timeslices.size).to eq(0)
-        timeslice_manager.create_timeslices_for_new_article_course_records(
-          new_article_courses
-        )
-        course.reload
-        expect(course.article_course_timeslices.size).to eq(333)
-        expect(course.article_course_timeslices.min_by(&:start).start.to_date)
-          .to eq(Date.new(2024, 1, 1))
-        expect(course.article_course_timeslices.max_by(&:start).start.to_date)
-          .to eq(Date.new(2024, 4, 20))
-      end
-    end
+    course.reload
   end
 
   describe '#create_timeslices_for_new_course_user_records' do
@@ -72,13 +55,15 @@ describe TimesliceManager do
   describe '#create_course_wiki_timeslices_for_new_records' do
     before do
       create(:courses_wikis, wiki: wikibooks, course:)
+      course.reload
     end
 
     context 'when there are new courses wikis' do
       it 'creates course wiki and course user wiki timeslices for the entire course' do
         # No course wiki timeslices exist previously
         expect(course.course_wiki_timeslices.size).to eq(0)
-        timeslice_manager.create_timeslices_for_new_course_wiki_records([enwiki, wikibooks])
+        timeslice_manager.create_timeslices_for_new_course_wiki_records([enwiki,
+                                                                         wikibooks])
         course.reload
         # Create enwiki and wikibooks course wiki timeslices for the entire course
         expect(course.course_wiki_timeslices.first.wiki).to eq(enwiki)
@@ -99,25 +84,21 @@ describe TimesliceManager do
       timeslice_manager.create_timeslices_for_new_course_wiki_records([wikibooks,
                                                                        wikidata,
                                                                        enwiki])
-      timeslice_manager.create_timeslices_for_new_article_course_records(
-        new_article_courses
-      )
       course.update(start: '2023-12-20')
+      course.reload
     end
 
     context 'when the start date changed to a previous date' do
       it 'creates timeslices for the missing period that needs_update' do
         expect(course.course_wiki_timeslices.size).to eq(333)
         expect(course.course_user_wiki_timeslices.size).to eq(666)
-        expect(course.article_course_timeslices.size).to eq(333)
 
         timeslice_manager.create_timeslices_for_new_course_start_date
         course.reload
-        # Create timeslices for the period between 2023-12-20 and 2024-01-01
+        # Create course and user timeslices for the period between 2023-12-20 and 2024-01-01
         expect(course.course_wiki_timeslices.size).to eq(369)
         expect(course.course_wiki_timeslices.where(needs_update: true).size).to eq(36)
         expect(course.course_user_wiki_timeslices.size).to eq(738)
-        expect(course.article_course_timeslices.size).to eq(369)
       end
     end
   end
@@ -128,25 +109,21 @@ describe TimesliceManager do
       timeslice_manager.create_timeslices_for_new_course_wiki_records([wikibooks,
                                                                        wikidata,
                                                                        enwiki])
-      timeslice_manager.create_timeslices_for_new_article_course_records(
-        new_article_courses
-      )
       course.update(end: '2024-04-30')
+      course.reload
     end
 
     context 'when the end date changed to a later date' do
       it 'creates timeslices for the missing period that needs_update' do
         expect(course.course_wiki_timeslices.size).to eq(333)
         expect(course.course_user_wiki_timeslices.size).to eq(666)
-        expect(course.article_course_timeslices.size).to eq(333)
 
         timeslice_manager.create_timeslices_up_to_new_course_end_date
         course.reload
-        # Create timeslices for the period between 2024-04-20 and 2024-04-30
+        # Create course and user timeslices for the period between 2024-04-20 and 2024-04-30
         expect(course.course_wiki_timeslices.size).to eq(363)
         expect(course.course_wiki_timeslices.where(needs_update: true).size).to eq(30)
         expect(course.course_user_wiki_timeslices.size).to eq(726)
-        expect(course.article_course_timeslices.size).to eq(363)
       end
     end
   end
@@ -154,6 +131,7 @@ describe TimesliceManager do
   describe '#delete_course_user_timeslices_for_deleted_course_users' do
     before do
       timeslice_manager.create_timeslices_for_new_course_user_records(new_course_users)
+      course.reload
     end
 
     it 'deletes course user wiki timeslices for the given users properly' do
@@ -170,17 +148,19 @@ describe TimesliceManager do
       timeslice_manager.create_timeslices_for_new_course_wiki_records([wikibooks,
                                                                        wikidata,
                                                                        enwiki])
-      timeslice_manager.create_timeslices_for_new_article_course_records(
-        new_article_courses
-      )
+      create(:article_course_timeslice, course:, article: article1)
+      create(:article_course_timeslice, course:, article: article2)
+      create(:article_course_timeslice, course:, article: article3)
+      course.reload
     end
 
     it 'deletes wiki timeslices for the entire course properly' do
       expect(course.course_wiki_timeslices.size).to eq(333)
       expect(course.course_user_wiki_timeslices.size).to eq(666)
-      expect(course.article_course_timeslices.size).to eq(333)
+      expect(course.article_course_timeslices.size).to eq(3)
 
-      timeslice_manager.delete_timeslices_for_deleted_course_wikis([wikibooks.id, wikidata.id])
+      timeslice_manager.delete_timeslices_for_deleted_course_wikis([wikibooks.id,
+                                                                    wikidata.id])
       course.reload
       # Course wiki timeslices for wikibooks and wikidata were deleted
       expect(course.course_wiki_timeslices.where(wiki_id: wikibooks.id).size).to eq(0)
@@ -189,7 +169,7 @@ describe TimesliceManager do
       expect(course.course_user_wiki_timeslices.where(wiki_id: wikibooks.id).size).to eq(0)
       expect(course.course_user_wiki_timeslices.where(wiki_id: wikidata.id).size).to eq(0)
       # Article course timeslices for wikibooks and wikidata were deleted
-      expect(course.article_course_timeslices.size).to eq(111)
+      expect(course.article_course_timeslices.size).to eq(1)
     end
   end
 
@@ -199,9 +179,7 @@ describe TimesliceManager do
       timeslice_manager.create_timeslices_for_new_course_wiki_records([wikibooks,
                                                                        wikidata,
                                                                        enwiki])
-      timeslice_manager.create_timeslices_for_new_article_course_records(
-        new_article_courses
-      )
+      course.reload
     end
 
     it 'deletes course wiki timeslices for dates prior to start date properly' do
@@ -223,9 +201,7 @@ describe TimesliceManager do
       timeslice_manager.create_timeslices_for_new_course_wiki_records([wikibooks,
                                                                        wikidata,
                                                                        enwiki])
-      timeslice_manager.create_timeslices_for_new_article_course_records(
-        new_article_courses
-      )
+      course.reload
     end
 
     it 'deletes course wiki timeslices for dates after the end date properly' do
@@ -247,9 +223,7 @@ describe TimesliceManager do
       timeslice_manager.create_timeslices_for_new_course_wiki_records([wikibooks,
                                                                        wikidata,
                                                                        enwiki])
-      timeslice_manager.create_timeslices_for_new_article_course_records(
-        new_article_courses
-      )
+      course.reload
     end
 
     it 'deletes course user wiki timeslices for dates prior to start date properly' do
@@ -271,9 +245,6 @@ describe TimesliceManager do
       timeslice_manager.create_timeslices_for_new_course_wiki_records([wikibooks,
                                                                        wikidata,
                                                                        enwiki])
-      timeslice_manager.create_timeslices_for_new_article_course_records(
-        new_article_courses
-      )
     end
 
     it 'deletes course user wiki timeslices for dates after the end date properly' do

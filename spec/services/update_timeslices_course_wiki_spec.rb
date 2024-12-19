@@ -22,10 +22,9 @@ describe UpdateTimeslicesCourseWiki do
       # Add articles courses and timeslices manually
       create(:articles_course, course:, article: wikidata_article)
       create(:articles_course, course:, article:)
-      manager.create_timeslices_for_new_article_course_records(
-        [{ article_id: wikidata_article.id, course_id: course.id },
-         { article_id: article.id, course_id: course.id }]
-      )
+      create(:article_course_timeslice, course:, article: wikidata_article)
+      create(:article_course_timeslice, course:, article:)
+
       # Create course wiki timeslices manually for wikidata
       course.wikis << wikidata
       manager.create_timeslices_for_new_course_wiki_records([wikidata])
@@ -36,7 +35,7 @@ describe UpdateTimeslicesCourseWiki do
       # There is one user, two articles and two wikis
       expect(course.course_wiki_timeslices.count).to eq(14)
       expect(course.course_user_wiki_timeslices.count).to eq(14)
-      expect(course.article_course_timeslices.count).to eq(14)
+      expect(course.article_course_timeslices.count).to eq(2)
       expect(course.articles.count).to eq(2)
       expect(course.articles_courses.count).to eq(2)
 
@@ -44,7 +43,7 @@ describe UpdateTimeslicesCourseWiki do
       # There is one user, one article and one wiki
       expect(course.course_wiki_timeslices.count).to eq(7)
       expect(course.course_user_wiki_timeslices.count).to eq(7)
-      expect(course.article_course_timeslices.count).to eq(7)
+      expect(course.article_course_timeslices.count).to eq(1)
       expect(course.articles.count).to eq(1)
       expect(course.articles_courses.count).to eq(1)
     end
@@ -59,16 +58,12 @@ describe UpdateTimeslicesCourseWiki do
       manager.create_timeslices_for_new_course_wiki_records([enwiki])
       # Add articles courses and timeslices manually
       create(:articles_course, course:, article:)
-      manager.create_timeslices_for_new_article_course_records(
-        [{ article_id: article.id, course_id: course.id }]
-      )
     end
 
     it 'adds wiki timeslices' do
       # There is one user, one article and one wiki
       expect(course.course_wiki_timeslices.count).to eq(7)
       expect(course.course_user_wiki_timeslices.count).to eq(7)
-      expect(course.article_course_timeslices.count).to eq(7)
       expect(course.articles.count).to eq(1)
       expect(course.articles_courses.count).to eq(1)
 
@@ -77,7 +72,6 @@ describe UpdateTimeslicesCourseWiki do
       # There is one user, one article and two wikis
       expect(course.course_wiki_timeslices.count).to eq(14)
       expect(course.course_user_wiki_timeslices.count).to eq(14)
-      expect(course.article_course_timeslices.count).to eq(7)
       expect(course.articles.count).to eq(1)
       expect(course.articles_courses.count).to eq(1)
     end
