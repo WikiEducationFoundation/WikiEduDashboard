@@ -111,6 +111,7 @@ describe UpdateCourseWikiTimeslices do
       expect(timeslice.uploads_in_use_count).to eq(0)
       expect(timeslice.upload_usages_count).to eq(0)
       expect(timeslice.last_mw_rev_datetime).to eq('20181129180841'.to_datetime)
+      expect(timeslice.stats).to be_empty
 
       # For wikidata
       timeslice = course.course_wiki_timeslices.where(wiki: wikidata,
@@ -122,6 +123,7 @@ describe UpdateCourseWikiTimeslices do
       expect(timeslice.uploads_in_use_count).to eq(0)
       expect(timeslice.upload_usages_count).to eq(0)
       expect(timeslice.last_mw_rev_datetime).to eq('20181124045740'.to_datetime)
+      expect(timeslice.stats['references removed']).to eq(2)
     end
 
     it 'rolls back the updates if something goes wrong' do

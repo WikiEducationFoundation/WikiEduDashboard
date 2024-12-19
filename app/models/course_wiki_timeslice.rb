@@ -20,10 +20,13 @@
 #  wiki_id              :integer          not null
 #  last_mw_rev_datetime :datetime
 #  needs_update         :boolean          default(FALSE)
+#  stats                :text(65535)
 #
 class CourseWikiTimeslice < ApplicationRecord
   belongs_to :course
   belongs_to :wiki
+
+  serialize :stats, Hash
 
   scope :for_course_and_wiki, ->(course, wiki) { where(course:, wiki:) }
   # Returns the timeslice to which a datetime belongs (it should be a single timeslice)
@@ -96,6 +99,7 @@ class CourseWikiTimeslice < ApplicationRecord
     update_upload_count
     update_uploads_in_use_count
     update_upload_usages_count
+    update_stats
     self.needs_update = false
     save
   end
@@ -150,5 +154,10 @@ class CourseWikiTimeslice < ApplicationRecord
   def update_upload_usages_count
     # TODO: count only uploads updated at during the timeslice range
     self.upload_usages_count = course.uploads_in_use.sum(:usage_count)
+  end
+
+  def update_stats
+    return unless wiki.project == 'wikidata'
+    self.stats = UpdateWikidataStatsTimeslice.new(course).build_stats_from_revisions(@revisions)
   end
 end
