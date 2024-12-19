@@ -1,0 +1,66 @@
+.container.queues
+  .module
+    .section-header
+      %h3 Queues Overview
+    .notification
+      .container
+        - if @queue_metrics[:all_operational]
+          %p All Queues Operational
+        - else
+          %p All Queues Operational except:
+          .notifications
+            .notice
+              .container
+                - @queue_metrics[:paused_queues].each do |queue_name|
+                  %p= queue_name.humanize
+    %br/
+
+    %table.table.table--hoverable
+      %thead
+        %tr
+          %th Queue
+          %th Purpose
+          %th Status
+          %th 
+            .tooltip-trigger
+              = t("status.size")
+              %span.tooltip-indicator
+              .tooltip.dark
+                %p= t("status.size_doc")
+          %th 
+            .tooltip-trigger
+              = t("status.latency")
+              %span.tooltip-indicator
+              .tooltip.dark
+                %p= t("status.latency_doc")
+      %tbody
+        - @queue_metrics[:queues].each do |queue|
+          %tr{ class: queue[:size].zero? ? "table-row--success" : "table-row--warning" }
+            %td
+              .tooltip-trigger
+                = t("status.#{queue[:name]}")
+                %span.tooltip-indicator
+                .tooltip.dark
+                  %p= t("status.#{queue[:name]}_description")
+            %td= t("status.#{queue[:name]}_doc")
+            %td= queue[:status]
+            %td= queue[:size]
+            %td= queue[:latency]
+
+.container.sidekiq_stats
+  %br/
+  %h3 Sidekiq Stats
+  .stat-display
+    - @sidekiq_stats.each do |key, value|
+      .stat-display__stat.tooltip-trigger
+        .stat-display__value= value
+        %small= key.to_s.humanize
+
+        .tooltip.dark
+          - case key
+          - when :enqueued_jobs
+            %p= t("status.enqueued_jobs_doc")
+          - when :active_jobs
+            %p= t("status.active_jobs_doc")
+          - else
+            %p No additional info available
