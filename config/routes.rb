@@ -474,6 +474,8 @@ Rails.application.routes.draw do
   get '/private_information' => 'about_this_site#private_information'
   get '/styleguide' => 'styleguide#index'
 
+  get '/status' => 'system_status#index'
+
   # Errors
   match '/404', to: 'errors#file_not_found', via: :all
   match '/422', to: 'errors#unprocessable', via: :all
