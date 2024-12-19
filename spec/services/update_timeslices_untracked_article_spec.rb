@@ -3,7 +3,8 @@
 require 'rails_helper'
 
 describe UpdateTimeslicesUntrackedArticle do
-  let(:course) { create(:course, start: '2021-01-24', end: '2021-01-30') }
+  let(:start) { '2021-01-24'.to_datetime }
+  let(:course) { create(:course, start:, end: '2021-01-30') }
   let(:enwiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
   let(:updater) { described_class.new(course).run }
   let(:user1) { create(:user, username: 'Ragesoss') }
@@ -24,16 +25,13 @@ describe UpdateTimeslicesUntrackedArticle do
     # Add articles courses and timeslices manually
     create(:articles_course, course:, article: article1, user_ids: [user1.id])
     create(:articles_course, course:, article: article2, user_ids: [user1.id, user2.id])
-    manager.create_timeslices_for_new_article_course_records(
-      [{ article_id: article1.id, course_id: course.id },
-       { article_id: article2.id, course_id: course.id }]
-    )
-    # Update articles courses timeslices
-    ArticleCourseTimeslice.where(course:, article: article1).first.update(user_ids: [user1.id])
-    timeslices = ArticleCourseTimeslice.where(course:, article: article2)
-    timeslices.first.update(user_ids: [user1.id, user2.id])
-    timeslices.second.update(user_ids: [user2.id])
-    timeslices.third.update(user_ids: [user1.id])
+
+    create(:article_course_timeslice, course:, article: article1, start:, user_ids: [user1.id])
+    create(:article_course_timeslice, course:, article: article2, start: start + 1.day,
+           user_ids: [user1.id, user2.id])
+    create(:article_course_timeslice, course:, article: article2, start:, user_ids: [user2.id])
+    create(:article_course_timeslice, course:, article: article2, start: start + 2.days,
+           user_ids: [user1.id])
   end
 
   context 'when some article was untracked' do
@@ -49,7 +47,7 @@ describe UpdateTimeslicesUntrackedArticle do
       described_class.new(course).run
 
       expect(course.course_wiki_timeslices.where(needs_update: true).count).to eq(3)
-      expect(course.article_course_timeslices.where(tracked: false).count).to eq(7)
+      expect(course.article_course_timeslices.where(tracked: false).count).to eq(3)
     end
   end
 
@@ -61,7 +59,7 @@ describe UpdateTimeslicesUntrackedArticle do
 
     it 'sets course wiki timeslices as needs_update' do
       expect(course.course_wiki_timeslices.where(needs_update: true).count).to eq(0)
-      expect(course.article_course_timeslices.where(tracked: false).count).to eq(7)
+      expect(course.article_course_timeslices.where(tracked: false).count).to eq(3)
 
       described_class.new(course).run
 

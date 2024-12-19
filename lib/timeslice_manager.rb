@@ -85,13 +85,6 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
     end
   end
 
-  # Creates article course timeslices records for new articles courses
-  # Takes an array like the following:
-  # [{:article_id=>115, :course_id=>72},..., {:article_id=>116, :course_id=>72}]
-  def create_timeslices_for_new_article_course_records(articles_courses)
-    create_empty_article_course_timeslices(start_dates, articles_courses)
-  end
-
   # Creates course user timeslices records for every course wiki for new course users
   # Takes an array of CoursesUsers records
   def create_timeslices_for_new_course_user_records(courses_users)
