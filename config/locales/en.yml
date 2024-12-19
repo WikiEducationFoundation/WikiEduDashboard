@@ -1297,6 +1297,8 @@ en:
   status:
     active_jobs: Active jobs
     active_jobs_doc: The number of currently processing jobs.
+    all_queues_operational: All Queues Operational
+    all_queues_not_operational: All Queues Operational except
     constant_update: Constant update
     constant_update_description: Constant updates are independent of the main course stats, pulling in revision metadata, generating alerts, and doing other data and network-intensive tasks, for all current courses.
     constant_update_doc: Handles transactional jobs like wiki edits and sending email. 
@@ -1316,11 +1318,17 @@ en:
     medium_update: Medium update
     medium_update_description: Medium updates process courses with fewer than 10,000 revisions.
     medium_update_doc: Handles updates for typical-sized courses.
+    no_info: No info available.
+    purpose: Purpose
+    queues_overview: Queues Overview
+    queue: Queue
     short_update: Short update
     short_update_description: Short updates process courses with fewer than 1,000 revisions.
     short_update_doc: Handles updates for small courses.
+    sidekiq_stats: Sidekiq Stats
     size: Size
     size_doc: The number of jobs within a queue.
+    status: Status
 
   # Suggestions source: https://en.wikipedia.org/wiki/Template:Grading_scheme
   suggestions:

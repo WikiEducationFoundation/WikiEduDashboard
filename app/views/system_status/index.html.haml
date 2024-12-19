@@ -1,13 +1,14 @@
 .container.queues
   .module
     .section-header
-      %h3 Queues Overview
+      %h3= t("status.queues_overview")
     .notification
       .container
         - if @queue_metrics[:all_operational]
-          %p All Queues Operational
+          %p= t("status.all_queues_operational")
         - else
-          %p All Queues Operational except:
+          %p= t("status.all_queues_not_operational")
+          
           .notifications
             .notice
               .container
@@ -18,9 +19,9 @@
     %table.table.table--hoverable
       %thead
         %tr
-          %th Queue
-          %th Purpose
-          %th Status
+          %th= t("status.queue")
+          %th= t("status.purpose")
+          %th= t("status.status")
           %th 
             .tooltip-trigger
               = t("status.size")
@@ -49,7 +50,7 @@
 
 .container.sidekiq_stats
   %br/
-  %h3 Sidekiq Stats
+  %h3= t("status.sidekiq_stats")
   .stat-display
     - @sidekiq_stats.each do |key, value|
       .stat-display__stat.tooltip-trigger
@@ -63,4 +64,4 @@
           - when :active_jobs
             %p= t("status.active_jobs_doc")
           - else
-            %p No additional info available
+            %p= t("status.no_info")
