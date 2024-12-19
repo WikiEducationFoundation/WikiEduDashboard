@@ -222,5 +222,97 @@ describe 'Survey Administration', type: :feature, js: true do
       end
       expect(page).not_to have_content instructor.username
     end
+
+    it 'correctly clones question groups with conditionals question', js: true do
+      # Create a base question group with conditional questions
+
+      # Visit question groups page and create Question Group
+      visit 'surveys/rapidfire/question_groups'
+      click_link 'New Question Group'
+      fill_in('question_group_name', with: 'Conditional Questions Group')
+      page.find('input.button[value="Save Question Group"]').click
+
+      # Create first question
+      click_link 'Edit'
+      omniclick(find('a.button', text: 'Add New Question'))
+      first_question_text = 'Do you like ice cream?'
+      find('textarea#question_text').set(first_question_text)
+      find('textarea#question_answer_options').set("Yes\nNo")
+      page.find('input.button').click
+
+      # Create a conditional follow-up question
+      omniclick(find('a.button', text: 'Add New Question'))
+      follow_up_question_text = 'What is your favorite flavour?'
+      find('textarea#question_text').set(follow_up_question_text)
+      find('textarea#question_answer_options').set("Vanilla\nChocolate")
+
+      # Set conditional logic
+      page.find('label', text: 'Conditionally show this question').click
+
+      # Wait and verify the conditional elements are present
+      first_question = Rapidfire::Question.find_by(question_text: first_question_text)
+
+      # Use a way to interact with the conditional elements
+      within('.survey__question__conditional-row') do
+        # Trigger the conditional select to populate options
+        page.find('select[data-conditional-select="true"]').click
+
+        # Wait for and select the first question
+        option = page.find('select[data-conditional-select="true"] option',
+                           text: first_question.question_text)
+        page.execute_script(
+          "arguments[0].selected = true;
+          arguments[0].parentNode.dispatchEvent(new Event('change'))", option.native
+        )
+
+        # Select the condition value
+        find('select[data-conditional-value-select=""]')
+          .select(first_question.answer_options[/^\s*Yes\b/])
+      end
+
+      # Verify the hidden input has been populated correctly
+      hidden_input = page.find('input[data-conditional-field-input="true"]', visible: false)
+      expect(hidden_input.value)
+        .to include("#{first_question.id}|=|#{first_question.answer_options[/^\s*Yes\b/]}|multi")
+
+      page.find('input.button').click
+
+      # Visit the question groups page to clone the newly created question group
+      visit 'surveys/rapidfire/question_groups'
+
+      # Find the clone link for the newly created question group and click it to clone it
+      within("li#question_group_#{Rapidfire::QuestionGroup.last.id}") do
+        click_link 'Clone'
+      end
+
+      # Find the Edit link for the cloned question group
+      within("li#question_group_#{Rapidfire::QuestionGroup.last.id}") do
+        click_link 'Edit'
+      end
+
+      # Find the conditional question of the cloned question group and click edit
+      # If successfully cloned then there should be no error
+      within "tr[data-item-id=\"#{Rapidfire::Question.last.id}\"]" do
+        click_link 'Edit'
+      end
+
+      # Verify manually to check if the cloned group exists
+      expect(Rapidfire::QuestionGroup.count).to eq(2)
+      cloned_group = Rapidfire::QuestionGroup.last
+
+      # Verify questions were cloned
+      expect(cloned_group.questions.count).to eq(2)
+
+      # Check conditional question
+      conditional_question = cloned_group.questions.detect { |q| q.question_text == follow_up_question_text } # rubocop:disable Layout/LineLength
+      expect(conditional_question).not_to be_nil
+
+      # Verify the conditional logic points to the cloned first question
+      cloned_first_question = cloned_group.questions.detect do |q|
+        q.question_text == first_question_text
+      end
+      expect(conditional_question.conditionals)
+        .to eq("#{cloned_first_question.id}|=|#{cloned_first_question.answer_options[/^\s*Yes\b/]}|multi") # rubocop:disable Layout/LineLength
+    end
   end
 end
