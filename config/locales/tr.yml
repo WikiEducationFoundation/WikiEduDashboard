@@ -14,6 +14,7 @@
 # Author: Hedda
 # Author: Incelemeelemani
 # Author: JackUKElliott
+# Author: Jelican9
 # Author: Joseph
 # Author: Katpatuka
 # Author: KorkmazO
@@ -47,6 +48,7 @@ tr:
     number_field: Bu bir numara alanı. Çoğu tarayıcı tarafından oluşturulan butonlar,
       girişi artırır ve azaltır.
   application:
+    back: Geri
     cancel: İptal
     cookie_consent: Bu site oturumunuzu açık tutmak için çerezleri kullanır ve Vikipedi
       hesabınızla ilgili bilgileri saklar.
@@ -80,6 +82,8 @@ tr:
       one: '%{count} Sonucu: ''%{search_terms}'''
       other: '%{count} Sonucu: ''%{search_terms}'''
     no_results: '''%{query}'' için sonuç bulunamadı'
+    show_current_revision: Mevcut sürümü göster
+    show_last_revision: Son düzenlenmiş versiyonu göster
     sign_up_extended: Vikipedi ile Kaydol
     sign_up_wikipedia: Veya Vikipedi'ye kaydol
     sign_up_log_in_extended: Vikipedi ile
@@ -93,6 +97,7 @@ tr:
     opt_out: Hayır
     opt_yes: evet
     opt_no: hayır
+    print: Yazdır
   article_statuses:
     not_yet_started: Başlangıç
     in_progress: Deneme Tahtası Üzerinde Çalışıyor
@@ -132,9 +137,17 @@ tr:
     explore: Keşfet
     log_in: Vikipedi ile Oturum Aç
     sign_up: Vikipedi ile Kaydol
+    registration_advice:
+      username_rules:
+        heading: Kullanıcı adı kuralları
+        avoid_offensive_usernames: Saldırgan, yanıltıcı, rahatsız edici veya reklam
+          amaçlı bir kullanıcı adı seçmeyin.
+        represent_individual: Kullanıcı adları bireysel bir editörü temsil etmelidir.
+          Bir okul veya kuruluşun adını kullanmayın.
     sign_up_help: Gösterge panelini kullanmak için Vikipedi ile oturum açmanız ve
       hesabınıza erişme izni vermeniz gerekir. Var olan bir Vikipedi hesabıyla giriş
-      yapabilir veya yeni bir Vikipedi hesabı oluşturabilirsiniz.
+      yapabilir veya yeni bir Vikipedi hesabı oluşturabilirsiniz. Bir hesap oluşturamıyorsanız,
+      dashboard@wikiedu.org ile iletişime geçiniz.
   alerts:
     alert_label: Uyarılar
     no_alerts: Uyarı bulunamadı.
@@ -383,10 +396,10 @@ tr:
     add_psid: PetScan PSID Ekle
     add_pileid: PagePile kimliği ekle
     add_template: Şablon ekle
-    add_this_category: Bu kategoriyi ekle
-    add_this_psid: Bu PSID'yi ekle
-    add_this_pileid: Bunu PagePile kimliğini ekle
-    add_this_template: Bu şablonu ekle
+    add_this_category: Kateogileri ekle
+    add_this_psid: PetScan PSID'lerini ekle
+    add_this_pileid: PagePile id'lerini ekle
+    add_this_template: Şablonları ekle
     import_articles_description: Bir kategorideki makalelerin listesi düzenli aralıklarla
       güncellenir ve listenin eklenmesinden önce eklenmesinden sonra biraz zaman alabilir.
     depth: Alt kategori derinliği
@@ -936,8 +949,7 @@ tr:
         o kadar iyidir.
       thank_you: Teşekkür ederim! Başka sorularınız varsa Viki Uzmanınıza başvurun.
     exercises_and_trainings: '%{prefix} Egzersizler ve Eğitimler'
-    no_assignments: Şu anda bu öğrencinin atanmış maddesi yok. Yukarıdaki düğmeleri
-      kullanarak madde atayabilirsiniz.
+    no_assignments: Şu anda bu öğrencinin atanmış maddesi yok.
     overview: '%{prefix} Genel Bakış'
     reviewing_articles: Makaleleri Gözden Geçirme
     reviewing_articles_wikidata: İncelenen Ögeler
@@ -989,9 +1001,9 @@ tr:
       oldu ve %{error_count} hata ile karşılaştı.
     revisions: Son Düzenlemeler
     references_count: Referanslar Eklendi
-    references_doc: Bu makalelere eklenen referans etiketi sayısıdır ve aynı kaynağa
-      birden fazla referans içerebilir. Veriler ORES ürün kalitesi modelinden gelmektedir
-      ve sadece bazı diller için mevcuttur.
+    references_doc: Bu makalelere eklenen referans etiketlerinin ve kısaltılmış dipnot
+      şablonlarının sayısıdır ve aynı kaynağa ait birden fazla referans içerebilir.
+      Veriler referans sayacı Toolforge API'sinden gelmektedir.
     replag_info: Gösterge Tablosu, düzenleme verilerini WMF Bulut çoğaltma veritabanlarından
       alır. Bazen bu veritabanları, çoğaltma gecikmesi nedeniyle en son düzenlemeleri
       kaçırır. Bu durumda, eksik düzenlemeler daha sonra görünecektir.
@@ -1053,8 +1065,8 @@ tr:
     diff: fark
     diff_show: Göster
     diff_hide: Gizle
-    edit_time_span: Düzenlemeler %{first_time} tarihinden %{last_time} tarihine kadar
-      gerçekleşti
+    edit_time_span: 'Düzenlemeler: %{first_time} tarihinden %{last_time} tarihine
+      kadar gerçekleşti'
     edited_by: Düzenleyen
     edited_on: '%{edit_date} tarihinde düzenlendi'
     loading: Sürümler yükleniyor...

@@ -551,6 +551,8 @@ fr:
       d’affectation. Affecter les modules de formation est une part essentielle des
       meilleures pratiques du Wiki Éducation.
     alerts: Alertes
+    does_not_exist: L'élément n'existe pas. Créez une page Sandbox et affectez-vous-y
+      pour recevoir des suggestions.
     all_courses: Tous les cours
     already_enrolled: Vous faites déjà partie de « %{title} » !
     already_exists: Cela existe déjà pour ce cours !
@@ -1173,7 +1175,7 @@ fr:
     user_uploads_none: Les utilisateurs sélectionnés n’ont contribué à ce projet avec
       aucune image ni aucun autre fichier média.
     view_other: Afficher les autres campagnes
-    view_page: Afficher la page du programme
+    view_page: Afficher la page
     word_count_doc: Une estimation du nombre de mots ajoutés aux articles de l’espace
       principal par les rédacteurs du programme durant son déroulement
     word_count_doc_wikidata: Une estimation du nombre de mots ajoutés aux articles
