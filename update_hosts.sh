@@ -11,6 +11,11 @@ MYSQL_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{
 # Check if we successfully fetched the IP address
 if [ -z "$MYSQL_IP" ]; then
     echo "Failed to retrieve the MySQL container IP address. Please ensure the Docker containers are running by executing 'docker compose up -d'."
+    if grep -q "$MYSQL_IP mysql" /etc/hosts; then
+    sudo sed -i '/[[:space:]]mysql$/d' /etc/hosts
+    echo "MySQL entry removed from /etc/hosts."
+    fi
+    
     exit 1
 fi
 
