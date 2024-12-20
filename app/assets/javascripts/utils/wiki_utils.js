@@ -41,4 +41,8 @@ const getArticleUrl = (wiki, title) => {
   return `https://${domain}/wiki/${title}`;
 };
 
-export { trackedWikisMaker, formatOption, toWikiDomain, wikiNamespaceLabel, getArticleUrl };
+const getDiffUrl = (revision) => {
+  return `https://${toWikiDomain(revision.wiki)}/w/index.php?diff=${revision.revid}`;
+};
+
+export { trackedWikisMaker, formatOption, toWikiDomain, wikiNamespaceLabel, getArticleUrl, getDiffUrl };

@@ -3,7 +3,6 @@ import createReactClass from 'create-react-class';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { setUploadFilters } from '~/app/assets/javascripts/actions/uploads_actions';
-import { fetchUserRevisions } from '~/app/assets/javascripts/actions/user_revisions_actions';
 import { fetchTrainingStatus } from '~/app/assets/javascripts/actions/training_status_actions';
 
 // Components
@@ -23,7 +22,6 @@ const Student = createReactClass({
     course: PropTypes.object.isRequired,
     current_user: PropTypes.object,
     editable: PropTypes.bool,
-    fetchUserRevisions: PropTypes.func.isRequired,
     fetchTrainingStatus: PropTypes.func.isRequired,
     isOpen: PropTypes.bool,
     minimalView: PropTypes.bool,
@@ -43,7 +41,6 @@ const Student = createReactClass({
   openDrawer() {
     if (!this.props.isOpen) {
       const { course, student } = this.props;
-      this.props.fetchUserRevisions(course.id, student.id);
       this.props.fetchTrainingStatus(student.id, course.id);
       this.props.fetchExercises(course.id, student.id);
     }
@@ -75,7 +72,6 @@ const Student = createReactClass({
 
 const mapDispatchToProps = {
   setUploadFilters,
-  fetchUserRevisions,
   fetchTrainingStatus,
   fetchExercises: fetchTrainingModuleExercisesByUser
 };

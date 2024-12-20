@@ -68,11 +68,7 @@ Rails.application.routes.draw do
   end
 
   # Users
-  resources :users, only: [:index, :show], param: :username, constraints: { username: /.*/ } do
-    collection do
-      get 'revisions'
-    end
-  end
+  resources :users, only: [:index, :show], param: :username, constraints: { username: /.*/ }
 
   resources :assignments do
     patch '/status' => 'assignments#update_status'
@@ -220,8 +216,6 @@ Rails.application.routes.draw do
        constraints: { course_id: /.*/ }
   post 'courses/:course_id/disable_timeline' => 'timeline#disable_timeline',
        constraints: { course_id: /.*/ }
-
-  get 'revisions' => 'revisions#index'
 
   get 'articles/article_data' => 'articles#article_data'
   get 'articles/details' => 'articles#details'
