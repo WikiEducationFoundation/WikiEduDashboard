@@ -51,9 +51,8 @@ module CourseHelper
     end
   end
 
- def closed_course_class(course)
-  return 'table-row--closed' if course.flags&.dig(:closed_date)
-  ''
-end
-
+  def closed_course_class(course)
+    return 'table-row--closed' if course.flags&.dig(:closed_date)
+    return ''
+  end
 end
