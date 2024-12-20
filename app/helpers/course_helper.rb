@@ -50,4 +50,10 @@ module CourseHelper
       "#{wiki_domain}-namespace-#{namespace}"
     end
   end
+
+ def closed_course_class(course)
+  return 'table-row--closed' if course.flags&.dig(:closed_date)
+  ''
+end
+
 end
