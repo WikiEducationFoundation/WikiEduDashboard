@@ -211,7 +211,7 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
       articles_courses.map do |a_c|
         tracked = a_c[:tracked].nil? || a_c[:tracked]
         { article_id: a_c[:article_id], course_id: a_c[:course_id], start:,
-          end: start + TIMESLICE_DURATION, tracked: }
+          end: start + @course.timeslice_duration, tracked: }
       end
     end.flatten
 
@@ -231,7 +231,7 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
       courses_users.map do |c_u|
         courses_wikis.map do |c_w|
           { course_id: c_u.course_id, user_id: c_u.user_id, wiki_id: c_w.wiki_id, start:,
-            end: start + TIMESLICE_DURATION }
+            end: start + @course.timeslice_duration }
         end
       end
     end.flatten
@@ -251,8 +251,8 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
   def create_empty_course_wiki_timeslices(starts, courses_wikis, needs_update: false)
     new_records = starts.map do |start|
       courses_wikis.map do |c_w|
-        { course_id: @course.id, wiki_id: c_w.wiki_id, start:, end: start + TIMESLICE_DURATION,
-          needs_update: }
+        { course_id: @course.id, wiki_id: c_w.wiki_id, start:,
+          end: start + @course.timeslice_duration, needs_update: }
       end
     end.flatten
 
@@ -314,7 +314,7 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
     current_start = @course.start
     while current_start <= @course.end
       start_dates << current_start
-      current_start += TIMESLICE_DURATION
+      current_start += @course.timeslice_duration
     end
 
     start_dates
@@ -326,10 +326,10 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
     start_dates = []
     # There is no guarantee that all wikis are in the same state.
     last_start = CourseWikiTimeslice.max_min_course_start(@course)
-    current_start = last_start - TIMESLICE_DURATION
+    current_start = last_start - @course.timeslice_duration
     while current_start >= @course.start
       start_dates << current_start
-      current_start -= TIMESLICE_DURATION
+      current_start -= @course.timeslice_duration
     end
 
     start_dates
@@ -341,10 +341,10 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
     start_dates = []
     # There is no guarantee that all wikis are in the same state.
     last_start = CourseWikiTimeslice.min_max_course_start(@course)
-    current_start = last_start + TIMESLICE_DURATION
+    current_start = last_start + @course.timeslice_duration
     while current_start <= @course.end
       start_dates << current_start
-      current_start += TIMESLICE_DURATION
+      current_start += @course.timeslice_duration
     end
 
     start_dates

@@ -520,7 +520,7 @@ class Course < ApplicationRecord
   end
 
   def timeslice_duration
-    flags[:timeslice_duration]
+    (flags[:timeslice_duration] || TimesliceManager::TIMESLICE_DURATION).seconds
   end
 
   #################
