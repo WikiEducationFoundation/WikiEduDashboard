@@ -519,6 +519,10 @@ class Course < ApplicationRecord
     flags[:no_sandboxes].present?
   end
 
+  def timeslice_duration
+    flags[:timeslice_duration]
+  end
+
   #################
   # Cache methods #
   #################

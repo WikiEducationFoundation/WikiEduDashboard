@@ -199,7 +199,7 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
     course_wiki_timeslices.update_all(needs_update: true) # rubocop:disable Rails/SkipsModelValidations
   end
 
-  TIMESLICE_DURATION = ENV['TIMESLICE_DURATION'].to_i.seconds
+  TIMESLICE_DURATION = ENV['TIMESLICE_DURATION'].to_i
 
   private
 
