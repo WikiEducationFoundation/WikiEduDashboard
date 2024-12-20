@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import AssignCell from '@components/common/AssignCell/AssignCell.jsx';
 import { setUploadFilters } from '~/app/assets/javascripts/actions/uploads_actions';
-import { fetchUserRevisions } from '~/app/assets/javascripts/actions/user_revisions_actions';
 import { fetchTrainingStatus } from '~/app/assets/javascripts/actions/training_status_actions';
 import { groupByAssignmentType } from '@components/util/helpers';
 import { ASSIGNED_ROLE, REVIEWING_ROLE } from '@constants/assignments';
@@ -30,7 +29,6 @@ const Student = createReactClass({
     course: PropTypes.object.isRequired,
     current_user: PropTypes.object,
     editable: PropTypes.bool,
-    fetchUserRevisions: PropTypes.func.isRequired,
     fetchTrainingStatus: PropTypes.func.isRequired,
     minimalView: PropTypes.bool,
     student: PropTypes.object.isRequired,
@@ -154,7 +152,6 @@ const Student = createReactClass({
 
 const mapDispatchToProps = {
   setUploadFilters,
-  fetchUserRevisions,
   fetchTrainingStatus,
   fetchExercises: fetchTrainingModuleExercisesByUser
 };
