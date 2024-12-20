@@ -10,7 +10,7 @@ MYSQL_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{
 
 # Check if we successfully fetched the IP address
 if [ -z "$MYSQL_IP" ]; then
-    echo "Could not retrieve MySQL container IP address."
+    echo "Failed to retrieve the MySQL container IP address. Please ensure the Docker containers are running by executing 'docker compose up -d'."
     exit 1
 fi
 
@@ -21,12 +21,16 @@ echo "MySQL IP address: $MYSQL_IP"
 sudo cp /etc/hosts /etc/hosts.bak
 
 # Add MySQL container IP to /etc/hosts
-if ! grep -q "$MYSQL_IP mysql" /etc/hosts; then
-    echo "Adding MySQL container IP address to /etc/hosts"
-    echo "$MYSQL_IP mysql" | sudo tee -a /etc/hosts > /dev/null
-else
+if grep -q "$MYSQL_IP mysql" /etc/hosts; then
     echo "MySQL entry already exists in /etc/hosts."
+    # Remove existing MySQL entry from /etc/hosts (if it exists)
+    sudo sed -i '/[[:space:]]mysql$/d' /etc/hosts
+    echo "Removed old MySQL entry from /etc/hosts."
 fi
+
+# Add new MySQL container IP address to /etc/hosts
+echo "Adding MySQL container IP address to /etc/hosts"
+echo "$MYSQL_IP mysql" | sudo tee -a /etc/hosts > /dev/null
 
 # Print success message
 echo "MySQL IP address has been added to /etc/hosts."
