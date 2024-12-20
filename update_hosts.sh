@@ -1,12 +1,5 @@
 #!/bin/bash
 
-# # Check if Docker Compose is up and running
-# docker-compose ps mysql &>/dev/null
-# if [ $? -ne 0 ]; then
-#     echo "MySQL container is not running. Please ensure Docker Compose is up."
-#     exit 1
-# fi
-
 # Get the MySQL container ID
 MYSQL_CONTAINER_ID=$(docker ps --format '{{.ID}} {{.Names}}' | grep 'wikiedudashboard-mysql-1' | awk '{print $1}')
 
