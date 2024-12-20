@@ -67,6 +67,9 @@ Rails.application.routes.draw do
     get 'download_personal_data' => 'personal_data#show'
   end
 
+  # Users
+  resources :users, only: [:index, :show], param: :username, constraints: { username: /.*/ }
+
   resources :assignments do
     patch '/status' => 'assignments#update_status'
     resources :assignment_suggestions
@@ -263,6 +266,7 @@ Rails.application.routes.draw do
       get 'courses'
       get 'ores_plot'
       get 'articles_csv'
+      get 'revisions_csv'
       get 'alerts'
       get 'wikidata'
       put 'add_organizer'
