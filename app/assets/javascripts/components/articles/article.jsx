@@ -14,7 +14,7 @@ const Article = ({ article, index, course, fetchArticleDetails, updateArticleTra
 
   const fetchMissingArticleDetails = () => {
     if (!articleDetails) {
-      fetchArticleDetails(article.id, course.id);
+      fetchArticleDetails(article.id, course.id, article.title, article.mw_page_id);
     }
   };
 

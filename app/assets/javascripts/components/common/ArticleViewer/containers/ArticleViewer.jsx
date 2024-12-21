@@ -27,6 +27,7 @@ import colors from '@components/common/ArticleViewer/constants/colors';
 
 // Actions
 import { resetBadWorkAlert, submitBadWorkAlert } from '~/app/assets/javascripts/actions/alert_actions.js';
+import { crossCheckArticleTitle } from '@actions/article_actions';
 
 /*
   Quick summary of the ArticleViewer component's main logic
@@ -60,6 +61,15 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
   const dispatch = useDispatch();
   const ref = useRef();
   const isFirstRender = useRef(true);
+  const crossCheckedArticleTitle = useRef(null);
+
+  // Open the article viewer if the article title has been updated (moved)
+  // and the user has already clicked the icon to open the article viewer.
+  useEffect(() => {
+    if (!showArticle && crossCheckedArticleTitle.current) {
+      openArticle();
+    }
+  }, [article.title]);
 
   useEffect(() => {
     if (showArticle && users) {
@@ -121,23 +131,33 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
     }
   };
 
-  const openArticle = () => {
-    setShowArticle(true);
-    if (!fetched) {
-      fetchParsedArticle();
+  const openArticle = async () => {
+    // Ensure the article title is cross-checked with the API before opening the article viewer
+    if (!crossCheckedArticleTitle.current) {
+      crossCheckedArticleTitle.current = await dispatch(crossCheckArticleTitle(article.id, article.title, article.mw_page_id));
     }
 
-    if (!users && !showArticleFinder) {
-      fetchArticleDetails();
-    } else if (!userIdsFetched && !showArticleFinder) {
-      fetchUserIds();
+    // Proceed only if the cross-checked title matches the current article title.
+    if (crossCheckedArticleTitle.current === article.title) {
+      setShowArticle(true);
+      if (!fetched) {
+        fetchParsedArticle();
+      }
+
+      if (!users && !showArticleFinder) {
+        fetchArticleDetails();
+      } else if (!userIdsFetched && !showArticleFinder) {
+        fetchUserIds();
+      }
+
+      // WhoColor is only available for some languages
+      if (isWhocolorLang()) {
+        fetchWhocolorHtml();
+      }
+
+      // Add article id in the URL
+      addParamToURL(article.id);
     }
-    // WhoColor is only available for some languages
-    if (isWhocolorLang()) {
-      fetchWhocolorHtml();
-    }
-    // Add article id in the URL
-    addParamToURL(article.id);
   };
 
   const hideArticle = (e) => {
