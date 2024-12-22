@@ -41,11 +41,13 @@ describe 'Survey Administration', type: :feature, js: true do
       click_link 'New Question Group'
       fill_in('question_group_name', with: 'New Question Group')
 
-      # FIXME: Fails to find the div with Poltergeist
-      # within('div#question_group_campaign_ids_chosen') do
-      #   find('input').set('Spring 2015')
-      #   find('input').native.send_keys(:return)
-      # end
+      within('#question_group_campaign_ids') do
+        option = find('option', text: 'Spring 2015')
+        page.execute_script(
+          "arguments[0].selected = true;
+          arguments[0].parentNode.dispatchEvent(new Event('change'))", option.native
+        )
+      end
       page.find('input.button[value="Save Question Group"]').click
 
       # Create a question
@@ -68,13 +70,13 @@ describe 'Survey Administration', type: :feature, js: true do
       expect(Rapidfire::Question.count).to eq(2)
 
       page.find('label', text: 'Conditionally show this question').click
-      # FIXME: fails to find the div with Poltergeist
-      # within 'div.survey__question__conditional-row' do
-      #   select('Who is awesome?')
-      # end
-      # within 'select[data-conditional-value-select=""]' do
-      #   select('Me!')
-      # end
+
+      within 'div.survey__question__conditional-row' do
+        select('Who is awesome?')
+      end
+      within 'select[data-conditional-value-select=""]' do
+        select('Me!')
+      end
       page.find('input.button').click
 
       # Create two more question groups, so that we can reorder them.
@@ -127,11 +129,14 @@ describe 'Survey Administration', type: :feature, js: true do
       visit '/surveys/assignments'
       click_link 'New Survey Assignment'
 
-      # FIXME: Fails to find the div with Poltergeist
-      # within('div#survey_assignment_campaign_ids_chosen') do
-      #   find('input').set('Spring 2015')
-      #   find('input').native.send_keys(:return)
-      # end
+      within('#survey_assignment_campaign_ids') do
+        option = find('option', text: 'Spring 2015')
+        page.execute_script(
+          "arguments[0].selected = true;
+          arguments[0].parentNode.dispatchEvent(new Event('change'))", option.native
+        )
+      end
+
       fill_in('survey_assignment_send_date_days', with: '7')
       check 'survey_assignment_published'
       fill_in('survey_assignment_custom_email_subject', with: 'My Custom Subject!')
