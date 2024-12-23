@@ -67,13 +67,18 @@ class AssignmentsController < ApplicationController
   end
 
   def unclaim
-    @assignment = Assignment.find(params[:assignment_id])
-    check_permissions(@assignment.user_id)
+    @claimed_assignment = Assignment.find(params[:assignment_id])
+    @course = @claimed_assignment.course
+    check_permissions(assignment_params[:user_id].to_i)
     check_participation
-    @assignment.update(user_id: nil)
-    render partial: 'updated_assignment', locals: { assignment: @assignment }
-  rescue ActiveRecord::RecordInvalid
-    render json: { message: 'Failed to unclaim the assignment' }, status: :unprocessable_entity
+
+    if @claimed_assignment.user_id == assignment_params[:user_id].to_i
+      @claimed_assignment.update(user_id: nil)
+      render partial: 'updated_assignment', locals: { assignment: @claimed_assignment }
+    else
+      render json: { message: 'This assignment has been claimed by another user. Please refresh.' },
+             status: :conflict
+    end
   end
 
   def update_status
