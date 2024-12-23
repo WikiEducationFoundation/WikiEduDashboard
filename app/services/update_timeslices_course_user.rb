@@ -11,8 +11,11 @@ class UpdateTimeslicesCourseUser
   end
 
   def run
+    # If this is the first course update, then we don't need to update course user timeslices
+    return unless @course.was_course_ever_updated?
     # Get the existing students in the course (we don't create timeslices for non-students)
     current_user_ids = @course.students.pluck(:id)
+
     # Users for whose exist a course user timeslice are considered processed
     processed_users = CourseUserWikiTimeslice.where(course: @course)
                                              .select(:user_id).distinct.pluck(:user_id)
@@ -20,7 +23,11 @@ class UpdateTimeslicesCourseUser
     deleted_user_ids = processed_users - current_user_ids
     remove_courses_users(deleted_user_ids)
 
-    new_user_ids = current_user_ids - processed_users
+    # Users that were added after the last course update start are considered new
+    # It's not safe to rely on new_user_ids = current_user_ids - processed_users
+    course_update_start = @course.flags['update_logs'].values.last['start_time']
+    new_user_ids = @course.students.where('courses_users.created_at >= ?',
+                                                  course_update_start).pluck(:id)
     add_user_ids(new_user_ids)
   end
 
