@@ -47,18 +47,23 @@ class CourseUserWikiTimeslice < ApplicationRecord
   def self.update_course_user_wiki_timeslices(course, user_id, wiki, revisions)
     rev_start = revisions[:start]
     rev_end = revisions[:end]
-    # Course user wiki timeslices to update
-    course_user_wiki_timeslices = CourseUserWikiTimeslice.for_course_user_and_wiki(course,
-                                                                                   user_id,
-                                                                                   wiki)
-                                                         .for_revisions_between(rev_start, rev_end)
-    course_user_wiki_timeslices.each do |timeslice|
+    # Timeslice dates to update are determined based on course wiki timeslices
+    timeslices = course.course_wiki_timeslices.where(wiki:)
+                       .for_revisions_between(rev_start, rev_end)
+    timeslices.each do |timeslice|
       # Group revisions that belong to the timeslice
       revisions_in_timeslice = revisions[:revisions].select do |revision|
         timeslice.start <= revision.date && revision.date < timeslice.end
       end
+      # Get or create article course timeslice based on course, article_id,
+      # timeslice.start and timeslice.end
+      cu_timeslice = CourseUserWikiTimeslice.find_or_create_by(course:,
+                                                               user_id:,
+                                                               wiki:,
+                                                               start: timeslice.start,
+                                                               end: timeslice.end)
       # Update cache for CourseUserWikiTimeslice
-      timeslice.update_cache_from_revisions revisions_in_timeslice
+      cu_timeslice.update_cache_from_revisions revisions_in_timeslice
     end
   end
 

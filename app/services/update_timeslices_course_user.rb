@@ -35,10 +35,6 @@ class UpdateTimeslicesCourseUser
 
   def add_user_ids(user_ids)
     return if user_ids.empty?
-    course_user_ids = @course.courses_users.where(user: user_ids)
-    # Create course user wiki timeslices
-    @timeslice_manager.create_timeslices_for_new_course_user_records course_user_ids
-    return unless @course.was_course_ever_updated?
 
     @course.wikis.each do |wiki|
       fetch_users_revisions_for_wiki(wiki, user_ids, @course.start, @course.end)
