@@ -144,6 +144,7 @@ pa:
     none: ਕੋਈ ਨਹੀਂ
   categories:
     add_this_template: ਫਰਮੇ ਜੋੜੋ
+    template_name: ਫ਼ਰਮੇ ਦਾ ਨਾਂ
   courses:
     actions: ਕਾਰਵਾਈਆਂ
     campaign_users: '%{title} ਸੰਪਾਦਕ'
@@ -169,6 +170,7 @@ pa:
     students: ਸੰਪਾਦਕ
     students_taught: ਕੁੱਲ ਸੰਪਾਦਕ
     students_short: ਸੰਪਾਦਕ
+    view_page: ਸਫ਼ਾ ਵੇਖੋ
   editable:
     edit: ਸੋਧੋ
     cancel: ਰੱਦ ਕਰੋ
@@ -196,6 +198,7 @@ pa:
     help: ਮਦਦ
     translation: ਤਰਜਮਾ
     draft: ਖਰੜਾ
+    query: ਪੁੱਛਗਿੱਛ
   recent_activity:
     article_title: ਸਿਰਲੇਖ
     datetime: ਮਿਤੀ/ਵੇਲਾ

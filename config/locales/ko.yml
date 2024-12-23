@@ -588,6 +588,7 @@ ko:
     uploads_none: 이 프로젝트는 이미지나 다른 미디어 파일을 위키미디어 공용에 기여하지 않았습니다.
     user_uploads_none: 선택된 사용자는 이 프로젝트에 어떠한 그림이나 그 밖의 미디어 파일을 기여하지 않았습니다.
     view_other: 다른 캠페인 보기
+    view_page: 문서 보기
     yourcourses: 당신의 프로그램
   editable:
     edit: 편집
