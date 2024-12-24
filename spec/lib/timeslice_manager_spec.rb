@@ -58,48 +58,44 @@ describe TimesliceManager do
     end
   end
 
-  describe '#create_timeslices_for_new_course_start_date' do
+  describe '#create_wiki_timeslices_for_new_course_start_date' do
     before do
       create(:courses_wikis, wiki: wikibooks, course:)
-      timeslice_manager.create_timeslices_for_new_course_wiki_records([wikibooks,
-                                                                       wikidata,
-                                                                       enwiki])
+      timeslice_manager.create_timeslices_for_new_course_wiki_records(wikibooks)
       course.update(start: '2023-12-20')
       course.reload
     end
 
     context 'when the start date changed to a previous date' do
       it 'creates timeslices for the missing period that needs_update' do
-        expect(course.course_wiki_timeslices.size).to eq(333)
+        expect(course.course_wiki_timeslices.size).to eq(111)
 
-        timeslice_manager.create_timeslices_for_new_course_start_date
+        timeslice_manager.create_wiki_timeslices_for_new_course_start_date(wikibooks)
         course.reload
         # Create course and user timeslices for the period between 2023-12-20 and 2024-01-01
-        expect(course.course_wiki_timeslices.size).to eq(369)
-        expect(course.course_wiki_timeslices.where(needs_update: true).size).to eq(36)
+        expect(course.course_wiki_timeslices.size).to eq(123)
+        expect(course.course_wiki_timeslices.where(needs_update: true).size).to eq(12)
       end
     end
   end
 
-  describe '#create_timeslices_up_to_new_course_end_date' do
+  describe '#create_wiki_timeslices_up_to_new_course_end_date' do
     before do
       create(:courses_wikis, wiki: wikibooks, course:)
-      timeslice_manager.create_timeslices_for_new_course_wiki_records([wikibooks,
-                                                                       wikidata,
-                                                                       enwiki])
+      timeslice_manager.create_timeslices_for_new_course_wiki_records(wikibooks)
       course.update(end: '2024-04-30')
       course.reload
     end
 
     context 'when the end date changed to a later date' do
       it 'creates timeslices for the missing period that needs_update' do
-        expect(course.course_wiki_timeslices.size).to eq(333)
+        expect(course.course_wiki_timeslices.size).to eq(111)
 
-        timeslice_manager.create_timeslices_up_to_new_course_end_date
+        timeslice_manager.create_wiki_timeslices_up_to_new_course_end_date(wikibooks)
         course.reload
         # Create course and user timeslices for the period between 2024-04-20 and 2024-04-30
-        expect(course.course_wiki_timeslices.size).to eq(363)
-        expect(course.course_wiki_timeslices.where(needs_update: true).size).to eq(30)
+        expect(course.course_wiki_timeslices.size).to eq(121)
+        expect(course.course_wiki_timeslices.where(needs_update: true).size).to eq(10)
       end
     end
   end
