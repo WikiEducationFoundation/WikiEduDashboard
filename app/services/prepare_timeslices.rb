@@ -30,9 +30,9 @@ class PrepareTimeslices
       @timeslice_manager.create_timeslices_for_new_course_wiki_records(@course.wikis)
     end
     # Execute update tasks in a specific order
+    UpdateTimeslicesCourseWiki.new(@course).run
     UpdateTimeslicesCourseUser.new(@course).run
     UpdateTimeslicesUntrackedArticle.new(@course).run
-    UpdateTimeslicesCourseWiki.new(@course).run
     UpdateTimeslicesCourseDate.new(@course).run
     @debugger.log_update_progress :adjust_timeslices_end
   end
