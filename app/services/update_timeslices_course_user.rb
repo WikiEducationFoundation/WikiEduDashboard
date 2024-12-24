@@ -27,7 +27,7 @@ class UpdateTimeslicesCourseUser
     # It's not safe to rely on new_user_ids = current_user_ids - processed_users
     course_update_start = @course.flags['update_logs'].values.last['start_time']
     new_user_ids = @course.students.where('courses_users.created_at >= ?',
-                                                  course_update_start).pluck(:id)
+                                          course_update_start).pluck(:id)
     add_user_ids(new_user_ids)
   end
 
