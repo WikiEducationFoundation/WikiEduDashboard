@@ -28,6 +28,12 @@ describe UpdateTimeslicesCourseDate do
            user_ids: [user1.id])
     create(:article_course_timeslice, course:, article: article2, start: start + 6.days,
            end: start + 7.days, user_ids: [user1.id])
+    create(:course_user_wiki_timeslice, course:, user: user1, wiki: enwiki,
+           start:, end: start + 1.day)
+    create(:course_user_wiki_timeslice, course:, user: user1, wiki: enwiki,
+           start: start + 3.days, end: start + 4.days)
+    create(:course_user_wiki_timeslice, course:, user: user1, wiki: enwiki,
+           start: start + 6.days, end: start + 7.days)
   end
 
   context 'when the start date changed to a previous date' do
@@ -39,14 +45,15 @@ describe UpdateTimeslicesCourseDate do
       # There are two users, two articles and one wiki
       expect(course.course_wiki_timeslices.count).to eq(7)
       expect(course.course_wiki_timeslices.needs_update.count).to eq(0)
-      expect(course.course_user_wiki_timeslices.count).to eq(14)
+      expect(course.course_user_wiki_timeslices.count).to eq(3)
       expect(course.article_course_timeslices.count).to eq(2)
 
       described_class.new(course).run
-      # Course wiki and course user timeslices from 2021-01-20 to 2021-01-24 were added
+      # Course wiki timeslices from 2021-01-20 to 2021-01-24 were added
       expect(course.course_wiki_timeslices.count).to eq(11)
       expect(course.course_wiki_timeslices.needs_update.count).to eq(4)
-      expect(course.course_user_wiki_timeslices.count).to eq(22)
+      expect(course.course_user_wiki_timeslices.count).to eq(3)
+      expect(course.article_course_timeslices.count).to eq(2)
     end
   end
 
@@ -60,7 +67,7 @@ describe UpdateTimeslicesCourseDate do
       expect(course.course_wiki_timeslices.count).to eq(7)
       # When updating the start date, the timeslice is marked as needs_update
       expect(course.course_wiki_timeslices.needs_update.count).to eq(1)
-      expect(course.course_user_wiki_timeslices.count).to eq(14)
+      expect(course.course_user_wiki_timeslices.count).to eq(3)
       expect(course.article_course_timeslices.count).to eq(2)
       expect(course.articles_courses.count).to eq(2)
 
@@ -68,7 +75,7 @@ describe UpdateTimeslicesCourseDate do
       # Timeslices from 2021-01-24 to 2021-01-26 were deleted
       expect(course.course_wiki_timeslices.count).to eq(5)
       expect(course.course_wiki_timeslices.needs_update.count).to eq(1)
-      expect(course.course_user_wiki_timeslices.count).to eq(10)
+      expect(course.course_user_wiki_timeslices.count).to eq(2)
       # Article course for article 1 was deleted
       expect(course.articles_courses.count).to eq(1)
       expect(course.article_course_timeslices.count).to eq(1)
@@ -84,14 +91,14 @@ describe UpdateTimeslicesCourseDate do
       # There are two users, two articles and one wiki
       expect(course.course_wiki_timeslices.count).to eq(7)
       expect(course.course_wiki_timeslices.needs_update.count).to eq(0)
-      expect(course.course_user_wiki_timeslices.count).to eq(14)
+      expect(course.course_user_wiki_timeslices.count).to eq(3)
       expect(course.article_course_timeslices.count).to eq(2)
 
       described_class.new(course).run
       # Timeslices from 2021-01-30 to 2021-02-11 were added
       expect(course.course_wiki_timeslices.count).to eq(19)
       expect(course.course_wiki_timeslices.needs_update.count).to eq(13)
-      expect(course.course_user_wiki_timeslices.count).to eq(38)
+      expect(course.course_user_wiki_timeslices.count).to eq(3)
       expect(course.article_course_timeslices.count).to eq(2)
     end
   end
@@ -106,7 +113,7 @@ describe UpdateTimeslicesCourseDate do
       expect(course.course_wiki_timeslices.count).to eq(7)
       # When updating the start date, the timeslice is marked as needs_update
       expect(course.course_wiki_timeslices.needs_update.count).to eq(1)
-      expect(course.course_user_wiki_timeslices.count).to eq(14)
+      expect(course.course_user_wiki_timeslices.count).to eq(3)
       expect(course.article_course_timeslices.count).to eq(2)
       expect(course.articles_courses.count).to eq(2)
 
@@ -114,7 +121,7 @@ describe UpdateTimeslicesCourseDate do
       # Timeslices for 2021-01-30 were deleted
       expect(course.course_wiki_timeslices.count).to eq(6)
       expect(course.course_wiki_timeslices.needs_update.count).to eq(1)
-      expect(course.course_user_wiki_timeslices.count).to eq(12)
+      expect(course.course_user_wiki_timeslices.count).to eq(2)
       # Article course for article 2 was deleted
       expect(course.articles_courses.count).to eq(1)
       expect(course.article_course_timeslices.count).to eq(1)
