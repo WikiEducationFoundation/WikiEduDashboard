@@ -205,6 +205,9 @@ pa:
     image: ਤਸਵੀਰ
     file_name: ਫ਼ਾਈਲ ਦਾ ਨਾਂ
     recent_edits: ਹਾਲੀਆ ਸੋਧਾਂ
+  settings:
+    categories:
+      users: ਵਰਤੋਂਕਾਰ
   suggestions:
     suggestion_docs:
       does_not_exist: ਇਹ ਲੇਖ ਵਿਕੀਪੀਡੀਆ 'ਤੇ ਮੌਜੂਦ ਨਹੀਂ ਹੈ।

@@ -319,6 +319,7 @@ ko:
     accounts_generation_confirm_message: 계정 요청을 사용하시겠습니까?
     activity: 활동
     alerts: 경보
+    does_not_exist: 항목이 존재하지 않습니다. 제안을 받으려면 연습장 문서를 만들고 해당 문서에 자신을 할당하세요.
     all_courses: 모든 프로그램
     already_enrolled: 이미 %{title}에 참여하고 계세요!
     actions: 기능
