@@ -80,4 +80,49 @@ describe UpdateTimeslicesCourseWiki do
       expect(course.articles_courses.count).to eq(1)
     end
   end
+
+  context 'when timeslice duration changes' do
+    before do
+      stub_wiki_validation
+      manager.create_timeslices_for_new_course_wiki_records([enwiki])
+      timeslice = course.course_wiki_timeslices.where(start: '2018-11-26'.to_datetime).first
+      timeslice.update(last_mw_rev_datetime: '2018-11-26 00:45:45'.to_datetime)
+
+      first_timeslice = course.course_wiki_timeslices.where(start: '2018-11-24'.to_datetime).first
+      expect(first_timeslice.end - first_timeslice.start).to eq(86400)
+      limit_timeslice = course.course_wiki_timeslices.where(start: '2018-11-26'.to_datetime).first
+      expect(limit_timeslice.end - limit_timeslice.start).to eq(86400)
+      last_timeslice = course.course_wiki_timeslices.where(start: '2018-11-30'.to_datetime).first
+      expect(last_timeslice.end - last_timeslice.start).to eq(86400)
+    end
+
+    it 'updates current and future timeslices if new timeslice duration is smaller' do
+      # Update timeslice duration to 12 hours
+      course.flags = { timeslice_duration: 43200 }
+      course.save
+
+      described_class.new(course).run
+      first_timeslice = course.course_wiki_timeslices.where(start: '2018-11-24'.to_datetime).first
+      expect(first_timeslice.end - first_timeslice.start).to eq(86400)
+      limit_timeslice = course.course_wiki_timeslices.where(start: '2018-11-26'.to_datetime).first
+      expect(limit_timeslice.end - limit_timeslice.start).to eq(43200)
+      last_timeslice = course.course_wiki_timeslices.where(start: '2018-11-30'.to_datetime).first
+      expect(last_timeslice.end - last_timeslice.start).to eq(43200)
+    end
+
+    it 'updates current and future timeslices if new timeslice duration is greater' do
+      # Update timeslice duration to 2 days
+      course.flags = { timeslice_duration: 172800 }
+      course.save
+
+      described_class.new(course).run
+
+      first_timeslice = course.course_wiki_timeslices.where(start: '2018-11-24'.to_datetime).first
+      expect(first_timeslice.end - first_timeslice.start).to eq(86400)
+      limit_timeslice = course.course_wiki_timeslices.where(start: '2018-11-26'.to_datetime).first
+      expect(limit_timeslice.end - limit_timeslice.start).to eq(172800)
+      last_timeslice = course.course_wiki_timeslices.where(start: '2018-11-28'.to_datetime).first
+      expect(last_timeslice.end - last_timeslice.start).to eq(172800)
+    end
+  end
 end
