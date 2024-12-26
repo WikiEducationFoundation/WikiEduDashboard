@@ -168,7 +168,9 @@ Rails.application.routes.draw do
           titleterm: /[^\/]*/,
           _subsubsubpage: /.*/
         }
-
+    get '/courses/approved_classroom_courses.json',
+        to: 'courses#approved_classroom_courses_json',
+        as: :approved_classroom_courses
     post '/courses/:slug/students/add_to_watchlist', to: 'courses/watchlist#add_to_watchlist', as: 'add_to_watchlist',
         constraints: { slug: /.*/ }
     delete 'courses/:slug/delete_from_campaign' => 'courses/delete_from_campaign#delete_course_from_campaign', as: 'delete_from_campaign', 

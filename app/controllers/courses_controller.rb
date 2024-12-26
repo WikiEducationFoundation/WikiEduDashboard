@@ -139,6 +139,12 @@ class CoursesController < ApplicationController
     @alerts = current_user&.admin? ? @course.alerts : @course.public_alerts
   end
 
+  def approved_classroom_courses_json
+    courses = Course.approved_classroom_courses_with_users
+
+    render json: courses, include: :users
+  end
+
   ##########################
   # User-initiated actions #
   ##########################

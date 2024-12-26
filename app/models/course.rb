@@ -160,6 +160,14 @@ class Course < ApplicationRecord
           .where(submitted: false).references(:campaigns)
   end
 
+  def self.approved_classroom_courses_with_users
+    nonprivate
+      .where(type: 'ClassroomProgramCourse', withdrawn: false)
+      .joins(:campaigns)
+      .distinct
+      .includes(:users)
+  end
+
   scope :strictly_current, -> { where('? BETWEEN start AND end', Time.zone.now) }
   scope :current, -> { current_and_future.where('start < ?', Time.zone.now) }
   scope :ended, -> { where('end < ?', Time.zone.now) }
