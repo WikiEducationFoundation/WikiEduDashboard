@@ -90,8 +90,8 @@ class UpdateTimeslicesCourseDate
   def mark_new_wiki_first_timeslce_as_needs_update(wiki)
     # If the start date changed, mark the new first timeslices as 'needs_update'
     timeslice = CourseWikiTimeslice.for_course_and_wiki(@course, wiki)
-                                    .for_datetime(@course.start)
-                                    .first
+                                   .for_datetime(@course.start)
+                                   .first
     return unless timeslice
     timeslice.update(needs_update: true)
   end
@@ -106,7 +106,7 @@ class UpdateTimeslicesCourseDate
   def mark_old_last_wiki_timeslce_as_needs_update(wiki)
     # If the end date changed, mark the previous last timeslices as 'needs_update'
     timeslice = CourseWikiTimeslice.for_course_and_wiki(@course, wiki)
-                                    .last
+                                   .last
     return unless timeslice
     timeslice.update(needs_update: true)
   end
