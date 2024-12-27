@@ -212,8 +212,8 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
   # Creates empty course wiki timeslices
   def create_empty_course_wiki_timeslices(starts, wiki, needs_update: false)
     new_records = starts.map do |start|
-        { course_id: @course.id, wiki_id: wiki.id, start:,
-          end: start + timeslice_duration(wiki), needs_update: }
+      { course_id: @course.id, wiki_id: wiki.id, start:,
+        end: start + timeslice_duration(wiki), needs_update: }
     end
 
     return if new_records.empty?
