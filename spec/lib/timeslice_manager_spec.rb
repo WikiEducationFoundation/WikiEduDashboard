@@ -61,7 +61,7 @@ describe TimesliceManager do
   describe '#create_wiki_timeslices_for_new_course_start_date' do
     before do
       create(:courses_wikis, wiki: wikibooks, course:)
-      timeslice_manager.create_timeslices_for_new_course_wiki_records(wikibooks)
+      timeslice_manager.create_timeslices_for_new_course_wiki_records([wikibooks])
       course.update(start: '2023-12-20')
       course.reload
     end
@@ -82,7 +82,7 @@ describe TimesliceManager do
   describe '#create_wiki_timeslices_up_to_new_course_end_date' do
     before do
       create(:courses_wikis, wiki: wikibooks, course:)
-      timeslice_manager.create_timeslices_for_new_course_wiki_records(wikibooks)
+      timeslice_manager.create_timeslices_for_new_course_wiki_records([wikibooks])
       course.update(end: '2024-04-30')
       course.reload
     end

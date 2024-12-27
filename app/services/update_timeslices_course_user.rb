@@ -46,13 +46,13 @@ class UpdateTimeslicesCourseUser
     users = User.find(user_ids)
 
     manager = RevisionDataManager.new(wiki, @course)
-    current_end = latest_start + @course.timeslice_duration
+    current_end = latest_start + @timeslice_manager.timeslice_duration(wiki)
     # Fetch the revisions for users for the complete period
     revisions = manager.fetch_revision_data_for_users(users,
                                                       current_start.strftime('%Y%m%d%H%M%S'),
                                                       current_end.strftime('%Y%m%d%H%M%S'))
     wikis_and_starts = revisions_to_wiki_and_start_dates(revisions,
-                                                         wiki.id,
+                                                         wiki,
                                                          first_start,
                                                          latest_start)
 
@@ -87,19 +87,19 @@ class UpdateTimeslicesCourseUser
     timeslices.flatten
   end
 
-  def revisions_to_wiki_and_start_dates(revisions, wiki_id, first_start, latest_start)
+  def revisions_to_wiki_and_start_dates(revisions, wiki, first_start, latest_start)
     tuples = []
     current_start = first_start
     while current_start <= latest_start
-      current_end = current_start + @course.timeslice_duration
+      current_end = current_start + @timeslice_manager.timeslice_duration(wiki)
       revisions_per_timeslice = revisions.select do |r|
         current_start <= r.date && r.date < current_end
       end
       unless revisions_per_timeslice.empty?
-        tuples += [[wiki_id,
+        tuples += [[wiki.id,
                     current_start.strftime('%Y%m%d%H%M%S')]]
       end
-      current_start += @course.timeslice_duration
+      current_start += @timeslice_manager.timeslice_duration(wiki)
     end
     tuples
   end

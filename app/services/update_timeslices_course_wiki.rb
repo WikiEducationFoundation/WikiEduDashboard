@@ -37,8 +37,9 @@ class UpdateTimeslicesCourseWiki
   end
 
   def add_courses_wikis(wiki_ids)
+    wikis = Wiki.where(wiki_id: wiki_ids)
     # Create course wiki timeslice records for new wikis
-    @timeslice_manager.create_timeslices_for_new_course_wiki_records wiki_ids
+    @timeslice_manager.create_timeslices_for_new_course_wiki_records(wikis)
   end
 
   def update_timeslices_durations
@@ -46,7 +47,7 @@ class UpdateTimeslicesCourseWiki
       start = @timeslice_manager.get_ingestion_start_time_for_wiki wiki
       timeslice = @course.course_wiki_timeslices.where(wiki:, start:).first
       effective_timeslice_duration = timeslice.end - timeslice.start
-      real_timeslice_duration = @course.timeslice_duration
+      real_timeslice_duration = @timeslice_manager.timeslice_duration(wiki)
       # Continue if timeslice duration didn't change for the wiki
       next unless effective_timeslice_duration != real_timeslice_duration
       @timeslice_manager.delete_course_wiki_timeslices_after_date([wiki], start - 1.second)

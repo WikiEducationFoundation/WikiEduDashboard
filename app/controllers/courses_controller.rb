@@ -359,8 +359,8 @@ class CoursesController < ApplicationController
   end
 
   def update_timeslice_duration
-    # Set the timeslice_duration to the default value
-    @course.flags[:timeslice_duration] = TimesliceManager::TIMESLICE_DURATION
+    # Set the default timeslice_duration to the default value
+    @course.flags[:timeslice_duration] = { default: TimesliceManager::TIMESLICE_DURATION }
     @course.save
   end
 

@@ -61,10 +61,11 @@ class UpdateCourseWikiTimeslices
     current_start = first_start
     while current_start <= latest_start
       start_date = [current_start, @course.start].max
-      end_date = [current_start + @course.timeslice_duration - 1.second, @course.end].min
+      end_date = [current_start + @timeslice_manager.timeslice_duration(wiki) - 1.second,
+                  @course.end].min
       fetch_data(wiki, start_date, end_date)
       process_timeslices(wiki)
-      current_start += @course.timeslice_duration
+      current_start += @timeslice_manager.timeslice_duration(wiki)
     end
     @debugger.log_update_progress :fetch_and_process_timeslices_finish
   end

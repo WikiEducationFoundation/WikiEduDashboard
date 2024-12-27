@@ -7,6 +7,15 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
     @course = course
   end
 
+  def timeslice_duration(wiki)
+    begin
+      flag = @course.flags[:timeslice_duration]
+      flag[wiki.domain.to_sym] || flag[:default]
+    rescue StandardError
+      TIMESLICE_DURATION
+    end.seconds
+  end
+
   # Deletes course user wiki timeslices records for removed course users
   # Takes a collection of user ids
   def delete_course_user_timeslices_for_deleted_course_users(user_ids)
@@ -96,24 +105,23 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
   # Creates course user timeslices records for new course wiki
   # Takes a collection of Wikis
   def create_timeslices_for_new_course_wiki_records(wikis)
-    courses_wikis = @course.courses_wikis.where(wiki: wikis)
-    create_empty_course_wiki_timeslices(start_dates, courses_wikis)
+    wikis.each do |wiki|
+      create_empty_course_wiki_timeslices(start_dates(wiki), wiki)
+    end
   end
 
   # Creates course wiki timeslices records for missing timeslices due to a change in the start date
   # Creates course user wiki timeslices records for missing timeslices
   def create_wiki_timeslices_for_new_course_start_date(wiki)
-    courses_wikis = @course.courses_wikis.where(wiki:)
-    # Notice that start_dates_backward should use the timeslice duration for the specific wiki
-    create_empty_course_wiki_timeslices(start_dates_backward, courses_wikis, needs_update: true)
+    create_empty_course_wiki_timeslices(start_dates_backward(wiki), wiki,
+                                        needs_update: true)
   end
 
   # Creates course wiki timeslices records for missing timeslices due to a change in the end date
   # Creates course user wiki timeslices records for missing timeslices
   def create_wiki_timeslices_up_to_new_course_end_date(wiki)
-    courses_wikis = @course.courses_wikis.where(wiki:)
-    # Notice that start_dates_from_old_end should use the timeslice duration for the specific wiki
-    create_empty_course_wiki_timeslices(start_dates_from_old_end, courses_wikis, needs_update: true)
+    create_empty_course_wiki_timeslices(start_dates_from_old_end(wiki), wiki,
+                                        needs_update: true)
   end
 
   # Returns a datetime with the date to start getting revisions.
@@ -202,13 +210,11 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
   private
 
   # Creates empty course wiki timeslices
-  def create_empty_course_wiki_timeslices(starts, courses_wikis, needs_update: false)
+  def create_empty_course_wiki_timeslices(starts, wiki, needs_update: false)
     new_records = starts.map do |start|
-      courses_wikis.map do |c_w|
-        { course_id: @course.id, wiki_id: c_w.wiki_id, start:,
-          end: start + @course.timeslice_duration, needs_update: }
-      end
-    end.flatten
+        { course_id: @course.id, wiki_id: wiki.id, start:,
+          end: start + timeslice_duration(wiki), needs_update: }
+    end
 
     return if new_records.empty?
     # Do this in batches to avoid running the MySQL server out of memory
@@ -263,12 +269,12 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
 
   # Returns start dates from the course start up to course end, for timeslices with
   # TIMESLICE_DURATION.
-  def start_dates
+  def start_dates(wiki)
     start_dates = []
     current_start = @course.start
     while current_start <= @course.end
       start_dates << current_start
-      current_start += @course.timeslice_duration
+      current_start += timeslice_duration(wiki)
     end
 
     start_dates
@@ -276,14 +282,14 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
 
   # Returns start dates from the old course start up to the new (previous) course start,
   # for timeslices with TIMESLICE_DURATION.
-  def start_dates_backward
+  def start_dates_backward(wiki)
     start_dates = []
     # There is no guarantee that all wikis are in the same state.
     last_start = CourseWikiTimeslice.max_min_course_start(@course)
-    current_start = last_start - @course.timeslice_duration
+    current_start = last_start - timeslice_duration(wiki)
     while current_start >= @course.start
       start_dates << current_start
-      current_start -= @course.timeslice_duration
+      current_start -= timeslice_duration(wiki)
     end
 
     start_dates
@@ -291,13 +297,13 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
 
   # Returns start dates from the old course end up to the new (later) course end,
   # for timeslices with TIMESLICE_DURATION.
-  def start_dates_from_old_end
+  def start_dates_from_old_end(wiki)
     start_dates = []
     # There is no guarantee that all wikis are in the same state.
     current_start = CourseWikiTimeslice.min_max_course_end(@course)
     while current_start <= @course.end
       start_dates << current_start
-      current_start += @course.timeslice_duration
+      current_start += timeslice_duration(wiki)
     end
 
     start_dates
