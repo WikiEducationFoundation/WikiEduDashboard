@@ -98,7 +98,7 @@ describe UpdateTimeslicesCourseWiki do
 
     it 'updates current and future timeslices if new timeslice duration is smaller' do
       # Update timeslice duration to 12 hours
-      course.flags = { timeslice_duration: 43200 }
+      course.flags = { timeslice_duration: { default: 43200 } }
       course.save
 
       described_class.new(course).run
@@ -112,7 +112,7 @@ describe UpdateTimeslicesCourseWiki do
 
     it 'updates current and future timeslices if new timeslice duration is greater' do
       # Update timeslice duration to 2 days
-      course.flags = { timeslice_duration: 172800 }
+      course.flags = { timeslice_duration: { default: 172800 } }
       course.save
 
       described_class.new(course).run
