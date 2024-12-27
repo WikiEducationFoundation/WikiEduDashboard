@@ -37,7 +37,7 @@ class UpdateTimeslicesCourseWiki
   end
 
   def add_courses_wikis(wiki_ids)
-    wikis = Wiki.where(wiki_id: wiki_ids)
+    wikis = Wiki.where(id: wiki_ids)
     # Create course wiki timeslice records for new wikis
     @timeslice_manager.create_timeslices_for_new_course_wiki_records(wikis)
   end
