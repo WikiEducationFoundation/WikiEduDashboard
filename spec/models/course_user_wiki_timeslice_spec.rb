@@ -21,6 +21,7 @@
 #
 
 require 'rails_helper'
+require "#{Rails.root}/lib/timeslice_manager"
 
 describe CourseUserWikiTimeslice, type: :model do
   let(:wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
@@ -107,18 +108,40 @@ describe CourseUserWikiTimeslice, type: :model do
 
   describe '.update_course_user_wiki_timeslices' do
     before do
+      TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records(course.wikis)
       revisions << build(:revision, article:, user_id: user.id, date: start + 26.hours)
       revisions << build(:revision, article:, user_id: user.id, date: start + 50.hours)
       revisions << build(:revision, article:, user_id: user.id, date: start + 51.hours)
+    end
 
+    it 'creates the right article timeslices based on the revisions' do
+      expect(course.course_user_wiki_timeslices.count).to eq(0)
+
+      start_period = start.strftime('%Y%m%d%H%M%S')
+      end_period = (start + 55.hours).strftime('%Y%m%d%H%M%S')
+      revision_data = { start: start_period, end: end_period, revisions: }
+      described_class.update_course_user_wiki_timeslices(course, user.id, wiki, revision_data)
+
+      course_user_wiki_timeslice_0 = described_class.find_by(course:, wiki:, user:, start:)
+      course_user_wiki_timeslice_1 = described_class.find_by(course:, wiki:, user:,
+                                                             start: start + 1.day)
+      course_user_wiki_timeslice_2 = described_class.find_by(course:, wiki:, user:,
+                                                             start: start + 2.days)
+
+      expect(course_user_wiki_timeslice_0.revision_count).to eq(4)
+      expect(course_user_wiki_timeslice_1.revision_count).to eq(1)
+      expect(course_user_wiki_timeslice_2.revision_count).to eq(2)
+      expect(course.course_user_wiki_timeslices.count).to eq(3)
+    end
+
+    it 'updates the right article timeslices based on the revisions' do
+      # Timeslices are already created
       create(:course_user_wiki_timeslice, course:, wiki:, user:, start:, end: start + 1.day)
       create(:course_user_wiki_timeslice, course:, wiki:, user:, start: start + 1.day,
              end: start + 2.days)
       create(:course_user_wiki_timeslice, course:, wiki:, user:, start: start + 2.days,
             end: start + 3.days)
-    end
 
-    it 'updates the right article timeslices based on the revisions' do
       course_user_wiki_timeslice_0 = described_class.find_by(course:, wiki:, user:, start:)
       course_user_wiki_timeslice_1 = described_class.find_by(course:, wiki:, user:,
                                                              start: start + 1.day)
@@ -132,7 +155,7 @@ describe CourseUserWikiTimeslice, type: :model do
       start_period = start.strftime('%Y%m%d%H%M%S')
       end_period = (start + 55.hours).strftime('%Y%m%d%H%M%S')
       revision_data = { start: start_period, end: end_period, revisions: }
-      described_class.update_course_user_wiki_timeslices(course, user, wiki, revision_data)
+      described_class.update_course_user_wiki_timeslices(course, user.id, wiki, revision_data)
 
       course_user_wiki_timeslice_0 = described_class.find_by(course:, wiki:, user:, start:)
       course_user_wiki_timeslice_1 = described_class.find_by(course:, wiki:, user:,
@@ -143,6 +166,7 @@ describe CourseUserWikiTimeslice, type: :model do
       expect(course_user_wiki_timeslice_0.revision_count).to eq(4)
       expect(course_user_wiki_timeslice_1.revision_count).to eq(1)
       expect(course_user_wiki_timeslice_2.revision_count).to eq(2)
+      expect(course.course_user_wiki_timeslices.count).to eq(3)
     end
   end
 

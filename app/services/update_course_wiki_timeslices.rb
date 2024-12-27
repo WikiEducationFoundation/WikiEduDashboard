@@ -37,6 +37,10 @@ class UpdateCourseWikiTimeslices
 
   def fetch_data_and_process_timeslices_for_every_wiki(all_time)
     @course.wikis.each do |wiki|
+      # Sometimes we need to reprocess timeslices due to changes such as
+      # users removed from a course.
+      fetch_data_and_reprocess_timeslices(wiki)
+
       # Get start time from first timeslice to update
       first_start = if all_time
                       CourseWikiTimeslice.for_course_and_wiki(@course, wiki)
@@ -46,10 +50,6 @@ class UpdateCourseWikiTimeslices
                     end
       # Get start time from latest timeslice to update
       latest_start = @timeslice_manager.get_latest_start_time_for_wiki(wiki)
-
-      # Sometimes we need to reprocess timeslices due to changes such as
-      # users removed from a course.
-      fetch_data_and_reprocess_timeslices(wiki)
 
       fetch_data_and_process_timeslices(wiki, first_start, latest_start)
     end
@@ -61,10 +61,11 @@ class UpdateCourseWikiTimeslices
     current_start = first_start
     while current_start <= latest_start
       start_date = [current_start, @course.start].max
-      end_date = [current_start + TimesliceManager::TIMESLICE_DURATION - 1.second, @course.end].min
+      end_date = [current_start + @timeslice_manager.timeslice_duration(wiki) - 1.second,
+                  @course.end].min
       fetch_data(wiki, start_date, end_date)
       process_timeslices(wiki)
-      current_start += TimesliceManager::TIMESLICE_DURATION
+      current_start += @timeslice_manager.timeslice_duration(wiki)
     end
     @debugger.log_update_progress :fetch_and_process_timeslices_finish
   end

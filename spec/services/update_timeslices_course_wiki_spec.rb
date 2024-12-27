@@ -25,6 +25,10 @@ describe UpdateTimeslicesCourseWiki do
       create(:article_course_timeslice, course:, article: wikidata_article)
       create(:article_course_timeslice, course:, article:)
 
+      # Add course user wiki timeslices manually
+      create(:course_user_wiki_timeslice, course:, user:, wiki: enwiki)
+      create(:course_user_wiki_timeslice, course:, user:, wiki: wikidata)
+
       # Create course wiki timeslices manually for wikidata
       course.wikis << wikidata
       manager.create_timeslices_for_new_course_wiki_records([wikidata])
@@ -34,7 +38,7 @@ describe UpdateTimeslicesCourseWiki do
     it 'removes existing wiki timeslices' do
       # There is one user, two articles and two wikis
       expect(course.course_wiki_timeslices.count).to eq(14)
-      expect(course.course_user_wiki_timeslices.count).to eq(14)
+      expect(course.course_user_wiki_timeslices.count).to eq(2)
       expect(course.article_course_timeslices.count).to eq(2)
       expect(course.articles.count).to eq(2)
       expect(course.articles_courses.count).to eq(2)
@@ -42,7 +46,7 @@ describe UpdateTimeslicesCourseWiki do
       described_class.new(course).run
       # There is one user, one article and one wiki
       expect(course.course_wiki_timeslices.count).to eq(7)
-      expect(course.course_user_wiki_timeslices.count).to eq(7)
+      expect(course.course_user_wiki_timeslices.count).to eq(1)
       expect(course.article_course_timeslices.count).to eq(1)
       expect(course.articles.count).to eq(1)
       expect(course.articles_courses.count).to eq(1)
@@ -63,7 +67,7 @@ describe UpdateTimeslicesCourseWiki do
     it 'adds wiki timeslices' do
       # There is one user, one article and one wiki
       expect(course.course_wiki_timeslices.count).to eq(7)
-      expect(course.course_user_wiki_timeslices.count).to eq(7)
+      expect(course.course_user_wiki_timeslices.count).to eq(0)
       expect(course.articles.count).to eq(1)
       expect(course.articles_courses.count).to eq(1)
 
@@ -71,9 +75,54 @@ describe UpdateTimeslicesCourseWiki do
       described_class.new(course).run
       # There is one user, one article and two wikis
       expect(course.course_wiki_timeslices.count).to eq(14)
-      expect(course.course_user_wiki_timeslices.count).to eq(14)
+      expect(course.course_user_wiki_timeslices.count).to eq(0)
       expect(course.articles.count).to eq(1)
       expect(course.articles_courses.count).to eq(1)
+    end
+  end
+
+  context 'when timeslice duration changes' do
+    before do
+      stub_wiki_validation
+      manager.create_timeslices_for_new_course_wiki_records([enwiki])
+      timeslice = course.course_wiki_timeslices.where(start: '2018-11-26'.to_datetime).first
+      timeslice.update(last_mw_rev_datetime: '2018-11-26 00:45:45'.to_datetime)
+
+      first_timeslice = course.course_wiki_timeslices.where(start: '2018-11-24'.to_datetime).first
+      expect(first_timeslice.end - first_timeslice.start).to eq(86400)
+      limit_timeslice = course.course_wiki_timeslices.where(start: '2018-11-26'.to_datetime).first
+      expect(limit_timeslice.end - limit_timeslice.start).to eq(86400)
+      last_timeslice = course.course_wiki_timeslices.where(start: '2018-11-30'.to_datetime).first
+      expect(last_timeslice.end - last_timeslice.start).to eq(86400)
+    end
+
+    it 'updates current and future timeslices if new timeslice duration is smaller' do
+      # Update timeslice duration to 12 hours
+      course.flags = { timeslice_duration: { default: 43200 } }
+      course.save
+
+      described_class.new(course).run
+      first_timeslice = course.course_wiki_timeslices.where(start: '2018-11-24'.to_datetime).first
+      expect(first_timeslice.end - first_timeslice.start).to eq(86400)
+      limit_timeslice = course.course_wiki_timeslices.where(start: '2018-11-26'.to_datetime).first
+      expect(limit_timeslice.end - limit_timeslice.start).to eq(43200)
+      last_timeslice = course.course_wiki_timeslices.where(start: '2018-11-30'.to_datetime).first
+      expect(last_timeslice.end - last_timeslice.start).to eq(43200)
+    end
+
+    it 'updates current and future timeslices if new timeslice duration is greater' do
+      # Update timeslice duration to 2 days
+      course.flags = { timeslice_duration: { default: 172800 } }
+      course.save
+
+      described_class.new(course).run
+
+      first_timeslice = course.course_wiki_timeslices.where(start: '2018-11-24'.to_datetime).first
+      expect(first_timeslice.end - first_timeslice.start).to eq(86400)
+      limit_timeslice = course.course_wiki_timeslices.where(start: '2018-11-26'.to_datetime).first
+      expect(limit_timeslice.end - limit_timeslice.start).to eq(172800)
+      last_timeslice = course.course_wiki_timeslices.where(start: '2018-11-28'.to_datetime).first
+      expect(last_timeslice.end - last_timeslice.start).to eq(172800)
     end
   end
 end

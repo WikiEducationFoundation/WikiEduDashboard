@@ -11,8 +11,11 @@ class UpdateTimeslicesCourseUser
   end
 
   def run
+    # If this is the first course update, then we don't need to update course user timeslices
+    return unless @course.was_course_ever_updated?
     # Get the existing students in the course (we don't create timeslices for non-students)
     current_user_ids = @course.students.pluck(:id)
+
     # Users for whose exist a course user timeslice are considered processed
     processed_users = CourseUserWikiTimeslice.where(course: @course)
                                              .select(:user_id).distinct.pluck(:user_id)
@@ -20,7 +23,11 @@ class UpdateTimeslicesCourseUser
     deleted_user_ids = processed_users - current_user_ids
     remove_courses_users(deleted_user_ids)
 
-    new_user_ids = current_user_ids - processed_users
+    # Users that were added after the last course update start are considered new
+    # It's not safe to rely on new_user_ids = current_user_ids - processed_users
+    course_update_start = @course.flags['update_logs'].values.last['start_time']
+    new_user_ids = @course.students.where('courses_users.created_at >= ?',
+                                          course_update_start).pluck(:id)
     add_user_ids(new_user_ids)
   end
 
@@ -28,10 +35,6 @@ class UpdateTimeslicesCourseUser
 
   def add_user_ids(user_ids)
     return if user_ids.empty?
-    course_user_ids = @course.courses_users.where(user: user_ids)
-    # Create course user wiki timeslices
-    @timeslice_manager.create_timeslices_for_new_course_user_records course_user_ids
-    return unless @course.was_course_ever_updated?
 
     @course.wikis.each do |wiki|
       fetch_users_revisions_for_wiki(wiki, user_ids, @course.start, @course.end)
@@ -43,13 +46,13 @@ class UpdateTimeslicesCourseUser
     users = User.find(user_ids)
 
     manager = RevisionDataManager.new(wiki, @course)
-    current_end = latest_start + TimesliceManager::TIMESLICE_DURATION
+    current_end = latest_start + @timeslice_manager.timeslice_duration(wiki)
     # Fetch the revisions for users for the complete period
     revisions = manager.fetch_revision_data_for_users(users,
                                                       current_start.strftime('%Y%m%d%H%M%S'),
                                                       current_end.strftime('%Y%m%d%H%M%S'))
     wikis_and_starts = revisions_to_wiki_and_start_dates(revisions,
-                                                         wiki.id,
+                                                         wiki,
                                                          first_start,
                                                          latest_start)
 
@@ -84,19 +87,19 @@ class UpdateTimeslicesCourseUser
     timeslices.flatten
   end
 
-  def revisions_to_wiki_and_start_dates(revisions, wiki_id, first_start, latest_start)
+  def revisions_to_wiki_and_start_dates(revisions, wiki, first_start, latest_start)
     tuples = []
     current_start = first_start
     while current_start <= latest_start
-      current_end = current_start + TimesliceManager::TIMESLICE_DURATION
+      current_end = current_start + @timeslice_manager.timeslice_duration(wiki)
       revisions_per_timeslice = revisions.select do |r|
         current_start <= r.date && r.date < current_end
       end
       unless revisions_per_timeslice.empty?
-        tuples += [[wiki_id,
+        tuples += [[wiki.id,
                     current_start.strftime('%Y%m%d%H%M%S')]]
       end
-      current_start += TimesliceManager::TIMESLICE_DURATION
+      current_start += @timeslice_manager.timeslice_duration(wiki)
     end
     tuples
   end
