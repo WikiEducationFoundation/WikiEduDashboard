@@ -586,4 +586,12 @@ module RequestHelpers
       }
     }
   end
+
+  def stub_reference_counter_response
+    {
+      '5006940' => { 'num_ref' => 10 },
+      '5006942' => { 'num_ref' => 4 },
+      '5006946' => { 'num_ref' => 2 }
+    }
+  end
 end
