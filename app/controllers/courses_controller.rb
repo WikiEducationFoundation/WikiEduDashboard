@@ -139,10 +139,28 @@ class CoursesController < ApplicationController
     @alerts = current_user&.admin? ? @course.alerts : @course.public_alerts
   end
 
-  def approved_classroom_courses_json
-    courses = Course.approved_classroom_courses_with_users
+  def classroom_program_students_json
+    courses = Course.classroom_program_students
 
-    render json: courses, include: :users
+    render json: courses, include: :students
+  end
+
+  def classroom_program_students_and_instructors_json
+    courses = Course.classroom_program_students_and_instructors
+
+    render json: courses, include: [:students, :instructors]
+  end
+
+  def fellows_cohort_students_json
+    courses = Course.fellows_cohort_students
+
+    render json: courses, include: :students
+  end
+
+  def fellows_cohort_students_and_instructors_json
+    courses = Course.fellows_cohort_students_and_instructors
+
+    render json: courses, include: [:students, :instructors]
   end
 
   ##########################
