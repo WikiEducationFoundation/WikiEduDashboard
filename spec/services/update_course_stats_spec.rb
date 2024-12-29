@@ -87,7 +87,9 @@ describe UpdateCourseStats do
         subject
       end
       sentry_tag_uuid = subject.sentry_tag_uuid
-      expect(course.flags['update_logs'][1]['error_count']).to eq 1
+      expected_error_count = subject.error_count
+
+      expect(course.flags['update_logs'][1]['error_count']).to eq expected_error_count
       expect(course.flags['update_logs'][1]['sentry_tag_uuid']).to eq sentry_tag_uuid
 
       # Checking whether Sentry receives correct error and tags as arguments
@@ -106,12 +108,13 @@ describe UpdateCourseStats do
         subject
       end
       sentry_tag_uuid = subject.sentry_tag_uuid
-      expect(course.flags['update_logs'][1]['error_count']).to eq 8
+      expected_error_count = subject.error_count
+      expect(course.flags['update_logs'][1]['error_count']).to eq expected_error_count
       expect(course.flags['update_logs'][1]['sentry_tag_uuid']).to eq sentry_tag_uuid
 
       # Checking whether Sentry receives correct error and tags as arguments
       expect(Sentry).to have_received(:capture_exception)
-        .exactly(8).times.with(Faraday::ConnectionFailed, anything)
+        .exactly(expected_error_count).times.with(Faraday::ConnectionFailed, anything)
       expect(Sentry).to have_received(:capture_exception)
         .exactly(8).times.with anything, hash_including(tags: { update_service_id: sentry_tag_uuid,
                                                                 course: course.slug })

@@ -20,6 +20,8 @@ class LiftWingApi
   # All the wikis with an articlequality model as of 2023-06-28
   # https://wikitech.wikimedia.org/wiki/Machine_Learning/LiftWingq
   AVAILABLE_WIKIPEDIAS = %w[en eu fa fr gl nl pt ru sv tr uk].freeze
+  # config/initializers/retry_config.rb
+  RETRY_COUNT = Rails.env.test? ? 1 : 5
 
   def self.valid_wiki?(wiki)
     return true if wiki.project == 'wikidata'
@@ -51,7 +53,6 @@ class LiftWingApi
     end
 
     log_error_batch(rev_ids)
-
     return results
   end
 
@@ -60,7 +61,7 @@ class LiftWingApi
   # Returns a hash with wp10, features, deleted, and prediction, or empty hash if
   # there is an error.
   def get_single_revision_parsed_data(rev_id)
-    tries ||= 5
+    tries ||= RETRY_COUNT
     body = { rev_id:, extended_output: true }.to_json
     response = lift_wing_server.post(quality_query_url, body)
     parsed_response = Oj.load(response.body)
@@ -69,7 +70,6 @@ class LiftWingApi
       return { 'wp10' => nil, 'features' => nil, 'deleted' => deleted?(parsed_response),
       'prediction' => nil }
     end
-
     build_successful_response(rev_id, parsed_response)
   rescue StandardError => e
     tries -= 1

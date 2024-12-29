@@ -9,7 +9,7 @@ describe RevisionScoreApiHandler do
     let(:subject) { handler.get_revision_data [829840090, 829840091] }
 
     describe '#get_revision_data' do
-      it 'returns completed scores if retrieves data without errors' do
+      it 'returns completed scores if data is retrieved without errors' do
         VCR.use_cassette 'revision_score_api_handler/en_wikipedia' do
           expect(subject).to be_a(Hash)
           expect(subject.dig('829840090', 'wp10').to_f).to be_within(0.01).of(62.81)
@@ -28,15 +28,26 @@ describe RevisionScoreApiHandler do
         end
       end
 
-      it 'returns completed scores if there is an error hitting LiftWingApi' do
-        VCR.use_cassette 'revision_score_api_handler/en_wikipedia_liftwing_error' do
-          stub_request(:any, /.*api.wikimedia.org.*/)
-            .to_raise(Errno::ETIMEDOUT)
-          expect(subject).to be_a(Hash)
-          expect(subject.dig('829840090')).to eq({ 'wp10' => nil,
-          'features' => { 'num_ref' => 132 }, 'deleted' => false, 'prediction' => nil })
-          expect(subject.dig('829840091')).to eq({ 'wp10' => nil,
-          'features' => { 'num_ref' => 1 }, 'deleted' => false, 'prediction' => nil })
+      describe 'error hitting LiftWingApi' do
+        before do
+          allow_any_instance_of(Wiki).to receive(:ensure_wiki_exists).and_return(true)
+          stub_revision_score_reference_counter_reponse
+        end
+
+        let(:wiki) { create(:wiki, project: 'wikipedia', language: 'es') }
+        let(:handler) { described_class.new(wiki:) }
+        let(:subject) { handler.get_revision_data [829840090, 829840091] }
+
+        it 'returns completed scores if there is an error hitting LiftWingApi' do
+          VCR.use_cassette 'revision_score_api_handler/en_wikipedia_liftwing_error' do
+            stub_request(:any, /.*api.wikimedia.org.*/)
+              .to_raise(Errno::ETIMEDOUT)
+            expect(subject).to be_a(Hash)
+            expect(subject.dig('829840090')).to eq({ 'wp10' => nil,
+            'features' => { 'num_ref' => 132 }, 'deleted' => false, 'prediction' => nil })
+            expect(subject.dig('829840091')).to eq({ 'wp10' => nil,
+            'features' => { 'num_ref' => 1 }, 'deleted' => false, 'prediction' => nil })
+          end
         end
       end
 
@@ -76,15 +87,19 @@ describe RevisionScoreApiHandler do
   end
 
   context 'when the wiki is available only for LiftWing API' do
-    before { stub_wiki_validation }
-
     let(:wiki) { create(:wiki, project: 'wikidata', language: nil) }
     let(:handler) { described_class.new(wiki:) }
-    let(:subject) { stub_revision_score_reponse }
-    let(:subject1) { handler.get_revision_data [144495297, 144495298] }
+
+    before do
+      stub_wiki_validation
+      allow_any_instance_of(Wiki).to receive(:ensure_wiki_exists).and_return(true)
+      stub_revision_score_lift_wing_reponse
+    end
 
     describe '#get_revision_data' do
-      it 'returns completed scores if retrieves data without errors' do
+      let(:subject) { handler.get_revision_data [144495297, 144495298] }
+
+      it 'returns completed scores if data is retrieved without errors' do
         expect(subject).to be_a(Hash)
         expect(subject.dig('144495297', 'wp10').to_f).to eq(0)
         expect(subject.dig('144495297', 'features')).to be_a(Hash)
@@ -108,17 +123,21 @@ describe RevisionScoreApiHandler do
       it 'returns completed scores if there is an error hitting LiftWingApi' do
         stub_request(:any, /.*api.wikimedia.org.*/)
           .to_raise(Errno::ETIMEDOUT)
-        expect(subject1).to be_a(Hash)
-        expect(subject1.dig('144495297')).to eq({ 'wp10' => nil,
+        expect(subject).to be_a(Hash)
+        expect(subject.dig('144495297')).to eq({ 'wp10' => nil,
         'features' => nil, 'deleted' => false, 'prediction' => nil })
-        expect(subject1.dig('144495298')).to eq({ 'wp10' => nil,
+        expect(subject.dig('144495298')).to eq({ 'wp10' => nil,
         'features' => nil, 'deleted' => false, 'prediction' => nil })
       end
     end
   end
 
   context 'when the wiki is available only for reference-counter API' do
-    before { stub_wiki_validation }
+    before do
+      stub_wiki_validation
+      allow_any_instance_of(Wiki).to receive(:ensure_wiki_exists).and_return(true)
+      stub_revision_score_reference_counter_reponse
+    end
 
     let(:wiki) { create(:wiki, project: 'wikipedia', language: 'es') }
     let(:handler) { described_class.new(wiki:) }
@@ -126,13 +145,11 @@ describe RevisionScoreApiHandler do
 
     describe '#get_revision_data' do
       it 'returns completed scores if retrieves data without errors' do
-        VCR.use_cassette 'revision_score_api_handler/es_wikipedia' do
-          expect(subject).to be_a(Hash)
-          expect(subject.dig('157412237')).to eq({ 'wp10' => nil,
-          'features' => { 'num_ref' => 111 }, 'deleted' => false, 'prediction' => nil })
-          expect(subject.dig('157417768')).to eq({ 'wp10' => nil,
-          'features' => { 'num_ref' => 42 }, 'deleted' => false, 'prediction' => nil })
-        end
+        expect(subject).to be_a(Hash)
+        expect(subject.dig('157412237')).to eq({ 'wp10' => nil,
+        'features' => { 'num_ref' => 111 }, 'deleted' => false, 'prediction' => nil })
+        expect(subject.dig('157417768')).to eq({ 'wp10' => nil,
+        'features' => { 'num_ref' => 42 }, 'deleted' => false, 'prediction' => nil })
       end
 
       it 'returns completed scores if there is an error hitting reference-counter api' do
