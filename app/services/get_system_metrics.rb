@@ -66,7 +66,15 @@ class GetSystemMetrics
     remaining_seconds = (seconds % unit).to_i
     result = "#{main_unit} #{main_unit_name}#{'s' unless main_unit == 1}"
     if remaining_seconds.positive?
-      sub_unit_value = (remaining_seconds / (unit / 60)).to_i
+      sub_unit, sub_unit_name = case main_unit_name
+                                when 'day'
+                                  [3600, 'hour']
+                                when 'hour'
+                                  [60, 'minute']
+                                else
+                                  [1, 'second']
+                                end
+      sub_unit_value = (remaining_seconds / sub_unit).to_i
       result += " #{sub_unit_value} #{sub_unit_name}#{'s' unless sub_unit_value == 1}"
     end
     result
