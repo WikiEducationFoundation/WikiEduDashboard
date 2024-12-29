@@ -561,4 +561,29 @@ module RequestHelpers
     stub_timeline
     stub_users
   end
+
+  def stub_lift_wing_response
+    {
+      '829840084' => {
+        'wp10' => nil,
+        'features' => {
+          'feature.len(<datasource.wikibase.revision.claim>)' => 3.0,
+          'feature.len(<datasource.wikibase.revision.properties>)' => 3.0,
+          'feature.len(<datasource.wikibase.revision.aliases>)' => 0.0
+        },
+        'deleted' => false,
+        'prediction' => 'D'
+      },
+      '829840085' => {
+        'wp10' => nil,
+        'features' => {
+          'feature.len(<datasource.wikibase.revision.claim>)' => 10.0,
+          'feature.len(<datasource.wikibase.revision.properties>)' => 9.0,
+          'feature.len(<datasource.wikibase.revision.aliases>)' => 1.0
+        },
+        'deleted' => false,
+        'prediction' => 'D'
+      }
+    }
+  end
 end

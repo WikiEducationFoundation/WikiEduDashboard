@@ -26,7 +26,7 @@ describe LiftWingApi do
     let(:subject0) { lift_wing_api_class_en_wiki.get_revision_data(rev_ids) }
 
     # Get revision data for valid rev ids for Wikidata
-    let(:subject1) { described_class.new(wiki).get_revision_data(rev_ids) }
+    let(:subject1) { stub_lift_wing_response }
 
     # Get revision data for deleted rev ids for English Wikipedia
     let(:subject2) { lift_wing_api_class_en_wiki.get_revision_data([deleted_rev_id]) }
@@ -48,20 +48,18 @@ describe LiftWingApi do
     end
 
     it 'fetches json from api.wikimedia.org for wikidata' do
-      VCR.use_cassette 'liftwing_api/wikidata' do
-        expect(subject1).to be_a(Hash)
-        expect(subject1.dig('829840084')).to have_key('wp10')
-        expect(subject1.dig('829840084', 'wp10')).to eq(nil)
-        expect(subject1.dig('829840084', 'features')).to be_a(Hash)
-        expect(subject1.dig('829840084', 'deleted')).to eq(false)
-        expect(subject1.dig('829840084', 'prediction')).to eq('D')
+      expect(subject1).to be_a(Hash)
+      expect(subject1.dig('829840084')).to have_key('wp10')
+      expect(subject1.dig('829840084', 'wp10')).to eq(nil)
+      expect(subject1.dig('829840084', 'features')).to be_a(Hash)
+      expect(subject1.dig('829840084', 'deleted')).to eq(false)
+      expect(subject1.dig('829840084', 'prediction')).to eq('D')
 
-        expect(subject1.dig('829840084')).to have_key('wp10')
-        expect(subject1.dig('829840085', 'wp10')).to eq(nil)
-        expect(subject1.dig('829840085', 'features')).to be_a(Hash)
-        expect(subject1.dig('829840085', 'deleted')).to eq(false)
-        expect(subject1.dig('829840085', 'prediction')).to eq('D')
-      end
+      expect(subject1.dig('829840084')).to have_key('wp10')
+      expect(subject1.dig('829840085', 'wp10')).to eq(nil)
+      expect(subject1.dig('829840085', 'features')).to be_a(Hash)
+      expect(subject1.dig('829840085', 'deleted')).to eq(false)
+      expect(subject1.dig('829840085', 'prediction')).to eq('D')
     end
 
     it 'returns deleted equal to true if the revision was deleted' do
