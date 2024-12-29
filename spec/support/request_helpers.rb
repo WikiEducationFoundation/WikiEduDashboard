@@ -594,4 +594,31 @@ module RequestHelpers
       '5006946' => { 'num_ref' => 2 }
     }
   end
+
+  def stub_revision_score_reponse
+    {
+      '144495297' => {
+        'wp10' => 0,
+        'features' => {
+          'feature.len(<datasource.wikibase.revision.claim>)' => 3.0,
+          'feature.len(<datasource.wikibase.revision.properties>)' => 3.0,
+          'feature.len(<datasource.wikibase.revision.aliases>)' => 2.0,
+          'feature.len(<datasource.wikidatawiki.revision.references>)' => 2.0
+        },
+        'deleted' => false,
+        'prediction' => 'D'
+      },
+      '144495298' => {
+        'wp10' => 0,
+        'features' => {
+          'feature.len(<datasource.wikibase.revision.claim>)' => 1.0,
+          'feature.len(<datasource.wikibase.revision.properties>)' => 1.0,
+          'feature.len(<datasource.wikibase.revision.aliases>)' => 0.0,
+          'feature.len(<datasource.wikidatawiki.revision.references>)' => 0.0
+        },
+        'deleted' => false,
+        'prediction' => 'E'
+      }
+    }
+  end
 end

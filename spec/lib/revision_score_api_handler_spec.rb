@@ -80,39 +80,38 @@ describe RevisionScoreApiHandler do
 
     let(:wiki) { create(:wiki, project: 'wikidata', language: nil) }
     let(:handler) { described_class.new(wiki:) }
-    let(:subject) { handler.get_revision_data [144495297, 144495298] }
+    let(:subject) { stub_revision_score_reponse }
+    let(:subject1) { handler.get_revision_data [144495297, 144495298] }
 
     describe '#get_revision_data' do
       it 'returns completed scores if retrieves data without errors' do
-        VCR.use_cassette 'revision_score_api_handler/wikidata' do
-          expect(subject).to be_a(Hash)
-          expect(subject.dig('144495297', 'wp10').to_f).to eq(0)
-          expect(subject.dig('144495297', 'features')).to be_a(Hash)
-          expect(subject.dig('144495297', 'features',
-                             'feature.len(<datasource.wikidatawiki.revision.references>)')).to eq(2)
-          # 'num_ref' key doesn't exist for wikidata features
-          expect(subject.dig('144495297', 'features').key?('num_ref')).to eq(false)
-          expect(subject.dig('144495297', 'deleted')).to eq(false)
-          expect(subject.dig('144495297', 'prediction')).to eq('D')
+        expect(subject).to be_a(Hash)
+        expect(subject.dig('144495297', 'wp10').to_f).to eq(0)
+        expect(subject.dig('144495297', 'features')).to be_a(Hash)
+        expect(subject.dig('144495297', 'features',
+                           'feature.len(<datasource.wikidatawiki.revision.references>)')).to eq(2)
+        # 'num_ref' key doesn't exist for wikidata features
+        expect(subject.dig('144495297', 'features').key?('num_ref')).to eq(false)
+        expect(subject.dig('144495297', 'deleted')).to eq(false)
+        expect(subject.dig('144495297', 'prediction')).to eq('D')
 
-          expect(subject.dig('144495298', 'wp10').to_f).to eq(0)
-          expect(subject.dig('144495298', 'features')).to be_a(Hash)
-          expect(subject.dig('144495298', 'features',
-                             'feature.len(<datasource.wikidatawiki.revision.references>)')).to eq(0)
-          # 'num_ref' key doesn't exist for wikidata features
-          expect(subject.dig('144495298', 'features').key?('num_ref')).to eq(false)
-          expect(subject.dig('144495298', 'deleted')).to eq(false)
-          expect(subject.dig('144495298', 'prediction')).to eq('E')
-        end
+        expect(subject.dig('144495298', 'wp10').to_f).to eq(0)
+        expect(subject.dig('144495298', 'features')).to be_a(Hash)
+        expect(subject.dig('144495298', 'features',
+                           'feature.len(<datasource.wikidatawiki.revision.references>)')).to eq(0)
+        # 'num_ref' key doesn't exist for wikidata features
+        expect(subject.dig('144495298', 'features').key?('num_ref')).to eq(false)
+        expect(subject.dig('144495298', 'deleted')).to eq(false)
+        expect(subject.dig('144495298', 'prediction')).to eq('E')
       end
 
       it 'returns completed scores if there is an error hitting LiftWingApi' do
         stub_request(:any, /.*api.wikimedia.org.*/)
           .to_raise(Errno::ETIMEDOUT)
-        expect(subject).to be_a(Hash)
-        expect(subject.dig('144495297')).to eq({ 'wp10' => nil,
+        expect(subject1).to be_a(Hash)
+        expect(subject1.dig('144495297')).to eq({ 'wp10' => nil,
         'features' => nil, 'deleted' => false, 'prediction' => nil })
-        expect(subject.dig('144495298')).to eq({ 'wp10' => nil,
+        expect(subject1.dig('144495298')).to eq({ 'wp10' => nil,
         'features' => nil, 'deleted' => false, 'prediction' => nil })
       end
     end
