@@ -37,26 +37,19 @@ class UpdateTimeslicesCourseUser
     return if user_ids.empty?
 
     @course.wikis.each do |wiki|
-      fetch_users_revisions_for_wiki(wiki, user_ids, @course.start, @course.end)
+      fetch_users_revisions_for_wiki(wiki, user_ids)
     end
   end
 
-  def fetch_users_revisions_for_wiki(wiki, user_ids, first_start, latest_start)
-    current_start = first_start
+  def fetch_users_revisions_for_wiki(wiki, user_ids)
     users = User.find(user_ids)
 
     manager = RevisionDataManager.new(wiki, @course)
-    current_end = latest_start + @timeslice_manager.timeslice_duration(wiki)
     # Fetch the revisions for users for the complete period
     revisions = manager.fetch_revision_data_for_users(users,
-                                                      current_start.strftime('%Y%m%d%H%M%S'),
-                                                      current_end.strftime('%Y%m%d%H%M%S'))
-    wikis_and_starts = revisions_to_wiki_and_start_dates(revisions,
-                                                         wiki,
-                                                         first_start,
-                                                         latest_start)
-
-    @timeslice_manager.update_course_wiki_timeslices_that_need_update(wikis_and_starts)
+                                                      @course.start.strftime('%Y%m%d%H%M%S'),
+                                                      @course.end.strftime('%Y%m%d%H%M%S'))
+    update_timeslices_that_need_update_from_revisions(revisions, wiki)
   end
 
   def remove_courses_users(user_ids)
@@ -87,21 +80,16 @@ class UpdateTimeslicesCourseUser
     timeslices.flatten
   end
 
-  def revisions_to_wiki_and_start_dates(revisions, wiki, first_start, latest_start)
-    tuples = []
-    current_start = first_start
-    while current_start <= latest_start
-      current_end = current_start + @timeslice_manager.timeslice_duration(wiki)
+  def update_timeslices_that_need_update_from_revisions(revisions, wiki)
+    timeslice_ids = []
+    timeslices = CourseWikiTimeslice.for_course_and_wiki(@course, wiki)
+    timeslices.each do |t|
       revisions_per_timeslice = revisions.select do |r|
-        current_start <= r.date && r.date < current_end
+        t.start <= r.date && r.date < t.end
       end
-      unless revisions_per_timeslice.empty?
-        tuples += [[wiki.id,
-                    current_start.strftime('%Y%m%d%H%M%S')]]
-      end
-      current_start += @timeslice_manager.timeslice_duration(wiki)
+      timeslice_ids << t.id unless revisions_per_timeslice.empty?
     end
-    tuples
+    CourseWikiTimeslice.where(id: timeslice_ids).update_all(needs_update: true) # rubocop:disable Rails/SkipsModelValidations
   end
 
   def clean_article_course_timeslices
