@@ -17,11 +17,9 @@ const CourseStatsDownloadModal = ({ course }) => {
   }
 
   const overviewCsvLink = `/course_csv?course=${course.slug}`;
-  const editsCsvLink = `/course_edits_csv?course=${course.slug}`;
   const uploadsCsvLink = `/course_uploads_csv?course=${course.slug}`;
   const studentsCsvLink = `/course_students_csv?course=${course.slug}`;
   const articlesCsvLink = `/course_articles_csv?course=${course.slug}`;
-  const revisionsCsvLink = `/course_revisions_csv?course=${course.slug}`;
   const wikidataCsvLink = `/course_wikidata_csv?course=${course.slug}`;
 
   let wikidataLink;
@@ -48,11 +46,6 @@ const CourseStatsDownloadModal = ({ course }) => {
       </p>
       <hr />
       <p>
-        <a href={editsCsvLink} className="button right">{I18n.t('courses.data_edits')}</a>
-        {I18n.t('courses.data_edits_info')}
-      </p>
-      <hr />
-      <p>
         <a href={uploadsCsvLink} className="button right">{I18n.t('courses.data_uploads')}</a>
         {I18n.t('courses.data_uploads_info')}
       </p>
@@ -67,10 +60,6 @@ const CourseStatsDownloadModal = ({ course }) => {
         {I18n.t('courses.data_articles_info')}
       </p>
       <hr />
-      <p>
-        <a href={revisionsCsvLink} className="button right">{I18n.t('courses.data_revisions')}</a>
-        {I18n.t('courses.data_revisions_info')}
-      </p>
       {wikidataLink}
     </div>
   );

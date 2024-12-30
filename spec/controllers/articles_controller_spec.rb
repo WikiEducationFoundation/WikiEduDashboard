@@ -39,15 +39,11 @@ describe ArticlesController, type: :request do
       expect(assigns(:course)).to eq(course)
     end
 
-    it 'sets the first revision, last revision, and list of editors' do
+    it 'sets the list of editors' do
       get '/articles/details', params: request_params
       expect(assigns(:article)).to eq(article)
       expect(assigns(:course)).to eq(course)
       json_response = Oj.load(response.body)
-      expect(json_response['article_details']['first_revision']['mw_rev_id'])
-        .to eq(revision1.mw_rev_id)
-      expect(json_response['article_details']['last_revision']['mw_rev_id'])
-        .to eq(revision2.mw_rev_id)
       expect(json_response['article_details']['editors']).to include(user.username)
       expect(json_response['article_details']['editors']).to include(second_user.username)
     end

@@ -68,11 +68,7 @@ Rails.application.routes.draw do
   end
 
   # Users
-  resources :users, only: [:index, :show], param: :username, constraints: { username: /.*/ } do
-    collection do
-      get 'revisions'
-    end
-  end
+  resources :users, only: [:index, :show], param: :username, constraints: { username: /.*/ }
 
   resources :assignments do
     patch '/status' => 'assignments#update_status'
@@ -222,8 +218,6 @@ Rails.application.routes.draw do
   post 'courses/:course_id/disable_timeline' => 'timeline#disable_timeline',
        constraints: { course_id: /.*/ }
 
-  get 'revisions' => 'revisions#index'
-
   get 'articles/article_data' => 'articles#article_data'
   get 'articles/details' => 'articles#details'
   post 'articles/status' => 'articles#update_tracked_status'
@@ -250,12 +244,10 @@ Rails.application.routes.draw do
   get 'usage' => 'analytics#usage'
   get 'ungreeted' => 'analytics#ungreeted'
   get 'course_csv' => 'analytics#course_csv'
-  get 'course_edits_csv' => 'analytics#course_edits_csv'
   get 'course_uploads_csv' => 'analytics#course_uploads_csv'
   get 'course_students_csv' => 'analytics#course_students_csv'
   get 'course_articles_csv' => 'analytics#course_articles_csv'
   get 'tagged_courses_csv/:tag' => 'analytics#tagged_courses_csv'
-  get 'course_revisions_csv' => 'analytics#course_revisions_csv'
   get 'course_wikidata_csv' => 'analytics#course_wikidata_csv'
   get 'all_courses_csv' => 'analytics#all_courses_csv'
   get 'all_courses' => 'analytics#all_courses'

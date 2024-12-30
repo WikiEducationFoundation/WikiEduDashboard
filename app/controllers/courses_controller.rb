@@ -177,7 +177,7 @@ class CoursesController < ApplicationController
   def manual_update
     require_super_admin_permissions
     @course = find_course_by_slug(params[:id])
-    UpdateCourseStats.new(@course, full: true)
+    UpdateCourseStats.new(@course)
     redirect_to "/courses/#{@course.slug}"
   end
 
