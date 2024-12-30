@@ -85,7 +85,7 @@ pa:
     no_alerts: ਕੋਈ ਚਿਤਾਵਨੀਆਂ ਨਹੀਂ ਮਿਲੀਆਂ।
   activity:
     all: ਸਰਗਰਮੀ
-    edited_by: ਦੁਆਰਾ ਸੰਪਾਦਿਤ
+    edited_by: ਵੱਲੋਂ ਸੋਧਿਆ
     label: ਸਰਗਰਮੀ
   articles:
     articles: ਲੇਖ
@@ -102,7 +102,7 @@ pa:
     assigned_to: ਨੂੰ ਸੌਂਪਿਆ ਗਿਆ
     deleted: (ਮਿਟਾਏ)
     edited: ਸੰਪਾਦਿਤ ਲੇਖ
-    edited_by: 'ਦੁਆਰਾ ਸੰਪਾਦਿਤ:'
+    edited_by: 'ਵੱਲੋਂ ਸੋਧਿਆ:'
     edited_mobile: ਲੇਖ
     edited_none: ਹਾਲੇ ਤੱਕ ਕੋਈ ਸੰਪਾਦਿਤ ਲੇਖ ਨਹੀਂ ਹਨ।
     filter:
@@ -166,10 +166,10 @@ pa:
         templates: ਫਰਮੇ
     enrollment: ਸੰਪਾਦਕਾਂ ਨੂੰ ਜੋੜੋ/ਹਟਾਓ
     expected_students: ਸੰਭਾਵਿਤ ਸੰਪਾਦਕ
-    student_editors: ਸੰਪਾਦਕ
-    students: ਸੰਪਾਦਕ
+    student_editors: ਸੋਧਕ
+    students: ਸੋਧਕ
     students_taught: ਕੁੱਲ ਸੰਪਾਦਕ
-    students_short: ਸੰਪਾਦਕ
+    students_short: ਸੋਧਕ
     view_page: ਸਫ਼ਾ ਵੇਖੋ
   editable:
     edit: ਸੋਧੋ
@@ -228,7 +228,7 @@ pa:
     assign_articles_done: ਪੂਰਾ ਹੋਇਆ
     assigned: ਸੌਂਪੇ ਗਏ ਲੇਖ
     chars_added: ਅੱਖਰ ਜੋੜੇ ਗਏ<br/>(ਲੇਖ। ਵਰਤੋਂਕਾਰ। ਖਰੜਾ)
-    editors: ਸੰਪਾਦਕ
+    editors: ਸੋਧਕ
     edits: ਸੋਧਾਂ
     first_name: ਮੂਹਰਲਾ ਨਾਂ
     last_name: ਪਿਛਲਾ ਨਾਂ
