@@ -48,7 +48,10 @@ describe 'course overview page', type: :feature, js: true do
   end
 
   context 'when course starts in future' do
-    let(:timeline_start) { '2025-02-11'.to_date + 2.weeks } # a Tuesday
+    let(:course_start) { '2025-02-11'.to_date }
+    let(:course_end) { course_start + 6.months }
+    let(:timeline_start) { '2025-02-11'.to_date + 2.weeks }
+    let(:timeline_end) { course_end.to_date }
 
     before do
       course.update(timeline_start:)
