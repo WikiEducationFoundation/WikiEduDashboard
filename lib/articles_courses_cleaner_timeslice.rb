@@ -24,6 +24,10 @@ class ArticlesCoursesCleanerTimeslice
     new(course).remove_articles_courses_for_dates_after_end_date
   end
 
+  def self.clean_articles_courses_for_article_ids(course, article_ids)
+    new(course).remove_articles_courses_for_article_ids(article_ids)
+  end
+
   def initialize(course)
     @course = course
   end
@@ -106,6 +110,13 @@ class ArticlesCoursesCleanerTimeslice
                                           .pluck(:id)
 
     delete_article_course_timeslice_ids(timeslice_ids)
+  end
+
+  # Removes the articles courses and timeslices records for article ids.
+  def remove_articles_courses_for_article_ids(article_ids)
+    delete_article_course(article_ids)
+    timeslices = ArticleCourseTimeslice.where(course: @course).where(article_id: article_ids)
+    delete_article_course_timeslice_ids(timeslices.pluck(:id))
   end
 
   private
