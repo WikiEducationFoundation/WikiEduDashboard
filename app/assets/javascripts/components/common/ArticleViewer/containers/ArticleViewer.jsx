@@ -55,7 +55,7 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
   const [unhighlightedContributors, setUnhighlightedContributors] = useState([]);
   const [revisionId, setRevisionId] = useState(null);
   const [pendingRequest, setPendingRequest] = useState(false);
-  const lastRevisionId = useSelector(state => state.articleDetails[article.id]?.last_revision?.mw_rev_id);
+  const lastRevisionId = useSelector(state => state.articleDetails[article.id]?.last_revision?.revid);
 
   const dispatch = useDispatch();
   const ref = useRef();
