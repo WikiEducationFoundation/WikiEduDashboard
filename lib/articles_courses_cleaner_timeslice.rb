@@ -34,17 +34,10 @@ class ArticlesCoursesCleanerTimeslice
     # Collect the ids of articles to be deleted
     article_ids = @course.articles.where(wiki_id: wiki_ids).pluck(:id)
 
-    # Collect the ids of articles courses to be deleted
-    articles_courses_ids = ArticlesCourses.where(course_id: @course.id,
-                                                 article_id: article_ids).pluck(:id)
+    return if article_ids.empty?
 
-    return if articles_courses_ids.empty?
-
-    # Do this in batches to avoid running the MySQL server out of memory
-    articles_courses_ids.each_slice(5000) do |slice|
-      ArticlesCourses.where(id: slice).delete_all
-    end
-    Rails.logger.info "Deleted #{articles_courses_ids.size} ArticlesCourses from #{@course.title}"
+    delete_article_course(article_ids)
+    Rails.logger.info "Deleted #{article_ids.size} ArticlesCourses from #{@course.title}"
   end
 
   # Removes the articles courses records that were edited only by users that got disenrolled
@@ -73,9 +66,7 @@ class ArticlesCoursesCleanerTimeslice
     # Articles to be deleted are those that were edited only before the current start date
     article_ids_to_delete = article_ids_edited_beofre_start - article_ids_edited_after_start
 
-    article_ids_to_delete.each_slice(5000) do |id_slice|
-      ArticlesCourses.where(article_id: id_slice).delete_all
-    end
+    delete_article_course(article_ids_to_delete)
 
     # NOTE: this could be implemented in the TimesliceManager class
 
@@ -84,29 +75,21 @@ class ArticlesCoursesCleanerTimeslice
                                           .where(article_id: article_ids_to_delete)
                                           .pluck(:id)
 
-    # Do this in batches to avoid running the MySQL server out of memory
-    timeslice_ids.each_slice(5000) do |timeslice_id_slice|
-      ArticleCourseTimeslice.where(id: timeslice_id_slice).delete_all
-    end
+    delete_article_course_timeslice_ids(timeslice_ids)
 
     # Delete article course timeslices for dates prior to the course start date
     timeslice_ids = ArticleCourseTimeslice.where(course: @course)
                                           .where('end <= ?', @course.start)
                                           .pluck(:id)
 
-    # Do this in batches to avoid running the MySQL server out of memory
-    timeslice_ids.each_slice(5000) do |timeslice_id_slice|
-      ArticleCourseTimeslice.where(id: timeslice_id_slice).delete_all
-    end
+    delete_article_course_timeslice_ids(timeslice_ids)
   end
 
   def remove_articles_courses_for_dates_after_end_date
     # Articles to be deleted are those that were edited only after the current end date
     article_ids_to_delete = article_ids_edited_after_end - article_ids_edited_before_end
 
-    article_ids_to_delete.each_slice(5000) do |id_slice|
-      ArticlesCourses.where(article_id: id_slice).delete_all
-    end
+    delete_article_course(article_ids_to_delete)
 
     # NOTE: this could be implemented in the TimesliceManager class
 
@@ -115,20 +98,14 @@ class ArticlesCoursesCleanerTimeslice
                                           .where(article_id: article_ids_to_delete)
                                           .pluck(:id)
 
-    # Do this in batches to avoid running the MySQL server out of memory
-    timeslice_ids.each_slice(5000) do |timeslice_id_slice|
-      ArticleCourseTimeslice.where(id: timeslice_id_slice).delete_all
-    end
+    delete_article_course_timeslice_ids(timeslice_ids)
 
     # Delete article course timeslices for dates after the course end date
     timeslice_ids = ArticleCourseTimeslice.where(course: @course)
                                           .where('start > ?', @course.end)
                                           .pluck(:id)
 
-    # Do this in batches to avoid running the MySQL server out of memory
-    timeslice_ids.each_slice(5000) do |timeslice_id_slice|
-      ArticleCourseTimeslice.where(id: timeslice_id_slice).delete_all
-    end
+    delete_article_course_timeslice_ids(timeslice_ids)
   end
 
   private
@@ -167,5 +144,17 @@ class ArticlesCoursesCleanerTimeslice
                           .where.not(user_ids: nil)
                           .distinct
                           .pluck(:article_id)
+  end
+
+  def delete_article_course(article_ids)
+    article_ids.each_slice(5000) do |slice|
+      ArticlesCourses.where(course: @course).where(article_id: slice).delete_all
+    end
+  end
+
+  def delete_article_course_timeslice_ids(ids)
+    ids.each_slice(5000) do |slice|
+      ArticleCourseTimeslice.where(id: slice).delete_all
+    end
   end
 end
