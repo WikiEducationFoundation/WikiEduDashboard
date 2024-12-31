@@ -49,7 +49,7 @@ class UpdateTimeslicesCourseUser
     revisions = manager.fetch_revision_data_for_users(users,
                                                       @course.start.strftime('%Y%m%d%H%M%S'),
                                                       @course.end.strftime('%Y%m%d%H%M%S'))
-    update_timeslices_that_need_update_from_revisions(revisions, wiki)
+    @timeslice_manager.update_timeslices_that_need_update_from_revisions(revisions, wiki)
   end
 
   def remove_courses_users(user_ids)
@@ -60,10 +60,9 @@ class UpdateTimeslicesCourseUser
     # Do this to avoid running the query twice
     @article_course_timeslices_for_users = get_article_course_timeslices_for_users(user_ids)
     # Mark course wiki timeslices that needs to be re-proccesed
-    wikis_and_starts = @timeslice_manager.get_wiki_and_start_dates_to_reprocess(
+    @timeslice_manager.update_timeslices_that_need_update_from_article_timeslices(
       @article_course_timeslices_for_users
     )
-    @timeslice_manager.update_course_wiki_timeslices_that_need_update(wikis_and_starts)
     # Clean articles courses timeslices
     clean_article_course_timeslices
     # Delete articles courses that were updated only for removed users
@@ -78,18 +77,6 @@ class UpdateTimeslicesCourseUser
 
     # These are the ArticleCourseTimeslice records that were updated by users
     timeslices.flatten
-  end
-
-  def update_timeslices_that_need_update_from_revisions(revisions, wiki)
-    timeslice_ids = []
-    timeslices = CourseWikiTimeslice.for_course_and_wiki(@course, wiki)
-    timeslices.each do |t|
-      revisions_per_timeslice = revisions.select do |r|
-        t.start <= r.date && r.date < t.end
-      end
-      timeslice_ids << t.id unless revisions_per_timeslice.empty?
-    end
-    CourseWikiTimeslice.where(id: timeslice_ids).update_all(needs_update: true) # rubocop:disable Rails/SkipsModelValidations
   end
 
   def clean_article_course_timeslices
