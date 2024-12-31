@@ -37,9 +37,9 @@ Below is a breakdown of the key servers and their roles within the infrastructur
        - `sidekiq-daily`: Executes long-running daily update tasks.  
 
 2. **Sidekiq Servers**: These dedicated servers handle the other Sidekiq processes to isolate bottlenecks and failures:  
-   - **`peony-sidekiq.globaleducation.eqiad1.wikimedia.cloud`**: Hosts `sidekiq-short` for short-running course updates.  
+   - **`peony-sidekiq.globaleducation.eqiad1.wikimedia.cloud`**: Hosts `sidekiq-long` for long-running course updates with higher queue latency.    
    - **`peony-sidekiq-medium.globaleducation.eqiad1.wikimedia.cloud`**: Hosts `sidekiq-medium` for typical course updates.  
-   - **`peony-sidekiq-3.globaleducation.eqiad1.wikimedia.cloud`**: Hosts `sidekiq-long` for long-running course updates with higher queue latency.  
+   - **`peony-sidekiq-3.globaleducation.eqiad1.wikimedia.cloud`**: Hosts `sidekiq-short` for short-running course updates.  
 
 3. **Database Server**  
    - **`peony-database.globaleducation.eqiad1.wikimedia.cloud`**: Stores program, user, and revision data. It supports the dashboard’s data queries and updates.
@@ -50,54 +50,56 @@ Below is a breakdown of the key servers and their roles within the infrastructur
 ### Integrated Toolforge Tools
 
 - **[wikiedudashboard](https://toolsadmin.wikimedia.org/tools/id/wikiedudashboard)**  
-  A collection of PHP endpoints used to retrieve revision and article data from Wikimedia Replica databases.  
-  See [replica.rb](https://github.com/WikiEducationFoundation/WikiEduDashboard/blob/wmflabs/lib/replica.rb) for an example of its usage.  
-  **[[Live Tool](https://replica-revision-tools.wmcloud.org/), [Source Code](https://github.com/WikiEducationFoundation/WikiEduDashboardTools)]**
+  The Dashboard uses this tool's PHP endpoints to query Wikimedia Replica databases for detailed revision and article data. The specific replica database the tool connects to is dependent on the wiki being queried. These endpoints support features like retrieving user contributions, identifying existing articles or revisions, and checking for deleted content. For example, the Dashboard uses the `/revisions.php` endpoint to fetch revisions by specific users within a time range, and `/articles.php` to verify the existence of articles or revisions. See [replica.rb](https://github.com/WikiEducationFoundation/WikiEduDashboard/blob/wmflabs/lib/replica.rb) for implementation details.  
+
+  **[[Live Tool](https://replica-revision-tools.wmcloud.org/), [Source Code](https://github.com/WikiEducationFoundation/WikiEduDashboardTools)]**  
 
 - **[Reference Counter API](https://toolsadmin.wikimedia.org/tools/id/reference-counter)**  
-  Flask API to count the number of existing references in a specified revision ID for a Wiki. This API has two main endpoints to retrieve number of references for a given revision, one using [wikitext](https://gitlab.wikimedia.org/toolforge-repos/reference-counter#based-on-wikitext), the other [using HTML](https://gitlab.wikimedia.org/toolforge-repos/reference-counter#based-on-html).  
-  See [reference_counter_api.rb](https://github.com/WikiEducationFoundation/WikiEduDashboard/blob/wmflabs/lib/reference_counter_api.rb) for an example of its usage.  
+  The Reference Counter API is used to retrieve the number of references in a specified revision ID from a Wiki. The Dashboard interacts with the API through the [`ReferenceCounterApi`](https://github.com/WikiEducationFoundation/WikiEduDashboard/blob/wmflabs/lib/reference_counter_api.rb) class, which handles requests for reference counts by revision ID and processes multiple revisions in batch. It's important to note that the `ReferenceCounterApi` class and the `reference-counter` Toolforge API do not support Wikidata, as it uses a different method for calculating references.      
+
   **[[Live Tool](https://reference-counter.toolforge.org/), [Source Code](https://gitlab.wikimedia.org/toolforge-repos/reference-counter),  [Phabricator Documentation](https://phabricator.wikimedia.org/T352177)]**
 
 - **[Suspected Plagiarism API](https://toolsadmin.wikimedia.org/tools/id/ruby-suspected-plagiarism)**  
-  API for fetching recent suspected plagiarism detected by CopyPatrol and accessing Turnitin reports.  
-  See [plagiabot_importer.rb](https://github.com/WikiEducationFoundation/WikiEduDashboard/blob/wmflabs/lib/importers/plagiabot_importer.rb) for an example of its usage.  
+  This API is used to detect and report suspected plagiarism in course-related content. It leverages CopyPatrol to detect instances of potential plagiarism by comparing revisions of Wikipedia articles. The API then retrieves data on suspected plagiarism, which includes information such as the revision ID, the user responsible, and the article involved. The [`PlagiabotImporter`](https://github.com/WikiEducationFoundation/WikiEduDashboard/blob/wmflabs/lib/importers/plagiabot_importer.rb) class uses this data to identify recent instances of suspected plagiarism and match them with relevant revisions in the Dashboard's database. If a new case is found, an alert is generated for suspected plagiarism in course materials and sent to content experts for review.  
+
   **[[Live Tool](https://ruby-suspected-plagiarism.toolforge.org/), [Source Code](https://github.com/WikiEducationFoundation/ruby-suspected-plagiarism)]**
 
 - **[Copypatrol](https://toolsadmin.wikimedia.org/tools/id/copypatrol)**  
-  A plagiarism detection tool, that allows you to see recent Wikipedia edits that are flagged as possible copyright violations. It serves as the database for the ruby-suspected-plagiarism tool.  
+  A plagiarism detection tool, that allows you to see recent Wikipedia edits that are flagged as possible copyright violations. It is responsible for detecting instances of potential plagiarism by comparing revisions of Wikipedia articles.  
+
   **[[Live Tool](https://copypatrol.wmcloud.org/en), [Source Code](https://github.com/wikimedia/CopyPatrol/), [Documentation](https://meta.wikimedia.org/wiki/CopyPatrol), [Phabricator Project](https://phabricator.wikimedia.org/project/profile/1638/)]**
 
 - **[PagePile](https://toolsadmin.wikimedia.org/tools/id/pagepile)**  
-  Manages static lists of Wiki pages. You can use a PetScan query (among other options) to create a PagePile, essentially creating a permanent snapshot of the PetScan query results. You can also create a PagePile from a simple one-per-line text list of article titles.  
-  See [pagepile_scoping.jsx](https://github.com/WikiEducationFoundation/WikiEduDashboard/blob/wmflabs/app/assets/javascripts/components/course_creator/scoping_methods/pagepile_scoping.jsx) and [pagepile_api.rb](https://github.com/WikiEducationFoundation/WikiEduDashboard/blob/wmflabs/lib/pagepile_api.rb) for examples of its usage.  
+  PagePile manages static lists of Wiki pages. The Dashboard utilizes it to fetch a permanent snapshot of article titles through PagePile IDs or URLs. This is integrated into the course creation process, where users can input PagePile IDs or URLs to define a set of articles for the course. The [`PagePileApi`](https://github.com/WikiEducationFoundation/WikiEduDashboard/blob/wmflabs/lib/pagepile_api.rb) class is responsible for retrieving page titles from PagePile, ensuring the category's wiki is consistent with the PagePile data, and updating the system with the retrieved titles. The data is then used to scope course materials to specific articles - see [pagepile_scoping.jsx](https://github.com/WikiEducationFoundation/WikiEduDashboard/blob/wmflabs/app/assets/javascripts/components/course_creator/scoping_methods/pagepile_scoping.jsx).  
+
   **[[Live Tool](https://pagepile.toolforge.org/), [Source Code](https://bitbucket.org/magnusmanske/pagepile/src/master/), [Documentation](https://pagepile.toolforge.org/howto.html)]**
 
 
 ### Other Integrated APIs and Third-Party Dependencies
 
 - **[PetScan](https://petscan.wmcloud.org/)**  
-    A powerful tool that can assemble lists of articles using a wide variety of data sources (including categories and templates, as well incoming and outgoing links, Wikidata relationships, and more). Users create a query on the PetScan website, which returns a PSID for that query, and that PSID is how the Dashboard connects to the PetScan API to get the list of articles. PetScan queries are dynamic; while the query for a given PSID cannot be modified, the results may change each time the the query is run, based on changes that happened on Wikipedia and Wikidata.  
-    See [petscan_scoping.jsx](https://github.com/WikiEducationFoundation/WikiEduDashboard/blob/wmflabs/app/assets/javascripts/components/course_creator/scoping_methods/petscan_scoping.jsx) and [petscan_api.rb](https://github.com/WikiEducationFoundation/WikiEduDashboard/blob/wmflabs/lib/petscan_api.rb#L5) for examples of its usage.  
-    **[[Source Code](https://github.com/magnusmanske/petscan_rs), [Documentation](https://meta.wikimedia.org/wiki/PetScan/en)]**
+  The PetScan API is used in the Dashboard to integrate dynamic lists of articles based on user-defined queries. Users can enter PetScan IDs (PSIDs) or URLs to fetch a list of articles relevant to a course. The [`PetScanApi`](https://github.com/WikiEducationFoundation/WikiEduDashboard/blob/wmflabs/lib/petscan_api.rb#L5) class handles retrieving the list of page titles associated with a given PSID by querying PetScan's API. This data is used for scoping course materials to specific sets of articles - see [petscan_scoping.jsx](https://github.com/WikiEducationFoundation/WikiEduDashboard/blob/wmflabs/app/assets/javascripts/components/course_creator/scoping_methods/petscan_scoping.jsx), ensuring the Dashboard reflects the most up-to-date information from PetScan queries. The system ensures proper error handling for invalid or unreachable PSIDs to avoid disrupting the course creation process.  
+
+  **[[Source Code](https://github.com/magnusmanske/petscan_rs), [Documentation](https://meta.wikimedia.org/wiki/PetScan/en)]**
 
 - **[WikiWho API](https://wikiwho-api.wmcloud.org/en/api/v1.0.0-beta/)**  
-  Set of APIs to parse historical revisions of Wikipedia articles, providing detailed provenance of each token (word) in terms of who added, removed, or reintroduced it across different revisions.  
-  See [`ArticleViewerAPI.js`](https://github.com/WikiEducationFoundation/WikiEduDashboard/blob/wmflabs/app/assets/javascripts/components/common/ArticleViewer/utils/ArticleViewerAPI.js#L96) and the [`wikiwhoColorURL`](https://github.com/WikiEducationFoundation/WikiEduDashboard/blob/wmflabs/app/assets/javascripts/components/common/ArticleViewer/utils/URLBuilder.js#L35) for examples of its usage.  
+  The WikiWho API is used in the Dashboard to parse historical revisions of Wikipedia articles and track the provenance of each word in the article. This data is particularly useful for displaying authorship information, such as identifying who added, removed, or reintroduced specific tokens (words) across different revisions. The [`URLBuilder`](https://github.com/WikiEducationFoundation/WikiEduDashboard/blob/wmflabs/app/assets/javascripts/components/common/ArticleViewer/utils/URLBuilder.js#L35) class constructs the necessary URLs to interact with the WikiWho API, allowing the Dashboard to fetch parsed article data and token-level authorship highlights. This data is then used in the [`ArticleViewer`](https://github.com/WikiEducationFoundation/WikiEduDashboard/blob/wmflabs/app/assets/javascripts/components/common/ArticleViewer/utils/ArticleViewerAPI.js#L96) component to enhance the display of articles by showing detailed authorship information, providing insights into the contributions of different editors over time.    
+
   **[[Source Code](https://github.com/wikimedia/wikiwho_api), [Documentation](https://wikiwho-api.wmcloud.org/gesis_home)]**
 
 - **[WhoColor API](https://wikiwho-api.wmcloud.org/en/whocolor/v1.0.0-beta/)**  
-  Set of APIs built on top of the WikiWho API that allow for the visualization of authorship data by color-coding tokens in the text based on their original authors. The dashboard employs this to show authorship data on its dashboard for students.  
+  The WhoColor API is used in the Dashboard to add color-coding to the authorship data provided by the WikiWho API. It enhances the parsed article revisions by highlighting each token (word) with a color corresponding to its original author, making it easier to visualize contributions. The Dashboard processes this color-coded data by using the [`highlightAuthors`](https://github.com/WikiEducationFoundation/WikiEduDashboard/blob/wmflabs/app/assets/javascripts/components/common/ArticleViewer/containers/ArticleViewer.jsx#L163) function, which replaces the span elements in the HTML with styled versions that include user-specific color classes. This allows the [`ArticleViewer`](https://github.com/WikiEducationFoundation/WikiEduDashboard/blob/wmflabs/app/assets/javascripts/components/common/ArticleViewer/utils/ArticleViewerAPI.js#L96) component to display the article text with visual cues, highlighting which user contributed each part of the article, helping quick identification of the contributions of different authors.  
+
    **[[Source Code](https://github.com/wikimedia/wikiwho_api), [Documentation](https://wikiwho-api.wmcloud.org/gesis_home)]**
 
 - **[WikidataDiffAnalyzer](https://github.com/WikiEducationFoundation/wikidata-diff-analyzer)**  
-   Ruby gem for analyzing differences between revisions.  
-   See [update_wikidata_stats.rb](https://github.com/WikiEducationFoundation/WikiEduDashboard/blob/wmflabs/app/services/update_wikidata_stats.rb#L91) for an example of its usage.  
+   The WikidataDiffAnalyzer gem is used to analyze differences between Wikidata revisions. It is utilized by the [`update_wikidata_stats.rb`](https://github.com/WikiEducationFoundation/WikiEduDashboard/blob/wmflabs/app/services/update_wikidata_stats.rb#L91) service to process a list of revision IDs and determine the changes made between them, such as diffs added, removed, or changed claims, references, and labels. The results of the analysis are serialized and stored in the summary field of Wikidata revisions, providing detailed statistics about the nature of the edits. This enables the Dashboard to track and display revision-level changes.
+
    **[[Source Code and Documentation](https://github.com/WikiEducationFoundation/wikidata-diff-analyzer)]**
 
 - **[Liftwing API](https://api.wikimedia.org/wiki/Lift_Wing_API/Reference)**  
-  Makes predictions about pages and edits using machine learning. The dashboard uses this API to fetch items and article quality data.  
-  See [article_finder_action.js](https://github.com/WikiEducationFoundation/WikiEduDashboard/blob/wmflabs/app/assets/javascripts/actions/article_finder_action.js#L18) and [lift_wing_api.rb](https://github.com/WikiEducationFoundation/WikiEduDashboard/blob/wmflabs/lib/lift_wing_api.rb#L8) for examples of its usage.  
+  The Liftwing API is used to fetch article quality and item quality data by making predictions about pages and edits using machine learning models. The Dashboard interacts with this API to assess the quality of articles and revisions, utilizing the [`LiftWingApi`](https://github.com/WikiEducationFoundation/WikiEduDashboard/blob/wmflabs/lib/lift_wing_api.rb#L8) service to retrieve scores and features associated with each revision. The [`article_finder_action.js`](https://github.com/WikiEducationFoundation/WikiEduDashboard/blob/wmflabs/app/assets/javascripts/actions/article_finder_action.js#L18) class is responsible for fetching and processing article data. It takes the revision IDs from fetched revision data and sends them to the LiftWing API for processing by calling the [`fetchPageRevisionScore`](https://github.com/WikiEducationFoundation/WikiEduDashboard/blob/wmflabs/app/assets/javascripts/actions/article_finder_action.js#L180) function. The LiftWing API then processes the revision data and returns the quality scores for the articles.  
+
   **[[Source Code](https://gerrit.wikimedia.org/g/machinelearning/liftwing/), [Documentation](https://api.wikimedia.org/wiki/Lift_Wing_API), [Phabricator Project](https://phabricator.wikimedia.org/project/profile/5020/)]**
 
 ## Monitoring and Logs
