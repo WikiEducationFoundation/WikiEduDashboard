@@ -52,13 +52,13 @@ describe 'course overview page', type: :feature, js: true do
     let(:course_end) { course_start + 6.months }
     let(:timeline_start) { '2025-02-11'.to_date + 2.weeks }
     let(:timeline_end) { course_end.to_date }
-  
+
     before do
       course.update(timeline_start:)
       visit "/courses/#{course.slug}"
       sleep 1
     end
-  
+
     it 'displays week activity for the first week' do
       within '.course__this-week' do
         expect(page).to have_content('First Active Week')
@@ -73,11 +73,13 @@ describe 'course overview page', type: :feature, js: true do
           Date.parse('2025-02-26'),  # Wednesday (02/26)
           Date.parse('2025-03-01')   # Saturday (03/01)
         ]
-  
-        meeting_dates.each do |meeting_date|
-          expect(meeting_date).to be_between(timeline_start, timeline_end).or be_between(course_start, course_end)
+
+        meeting_dates.each do |meeting_date| # rubocop:disable RSpec/IteratedExpectation
+          expect(meeting_date)
+            .to be_between(timeline_start, timeline_end)
+            .or be_between(course_start, course_end)
         end
-  
+
         expect(page).to have_content('Meetings: Wednesday (02/26), Saturday (03/01)')
       end
       within '.week-index' do
