@@ -81,6 +81,8 @@ describe UpdateCourseStats do
     it 'tracks update errors properly in Replica' do
       allow(Sentry).to receive(:capture_exception)
 
+      # Stub the constant RETRY_COUNT for this test to ensure retries are controlled
+      stub_const('LiftWingApi::RETRY_COUNT', 1)
       # Raising errors only in Replica
       stub_request(:any, %r{https://replica-revision-tools.wmcloud.org/.*}).to_raise(Errno::ECONNREFUSED)
       VCR.use_cassette 'course_update/replica' do
@@ -102,6 +104,7 @@ describe UpdateCourseStats do
     it 'tracks update errors properly in LiftWing' do
       allow(Sentry).to receive(:capture_exception)
 
+      stub_const('LiftWingApi::RETRY_COUNT', 1)
       # Raising errors only in LiftWing
       stub_request(:any, %r{https://api.wikimedia.org/service/lw.*}).to_raise(Faraday::ConnectionFailed)
       VCR.use_cassette 'course_update/lift_wing_api' do

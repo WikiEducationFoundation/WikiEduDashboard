@@ -21,7 +21,7 @@ describe ReferenceCounterApi do
 
   context 'returns the number of references' do
     before do
-      allow_any_instance_of(Wiki).to receive(:ensure_wiki_exists).and_return(true)
+      stub_wiki_validation
       stub_reference_counter_response
     end
 

@@ -21,7 +21,7 @@ class LiftWingApi
   # https://wikitech.wikimedia.org/wiki/Machine_Learning/LiftWingq
   AVAILABLE_WIKIPEDIAS = %w[en eu fa fr gl nl pt ru sv tr uk].freeze
   # config/initializers/retry_config.rb
-  RETRY_COUNT = Rails.env.test? ? 1 : 5
+  RETRY_COUNT = 5
 
   def self.valid_wiki?(wiki)
     return true if wiki.project == 'wikidata'

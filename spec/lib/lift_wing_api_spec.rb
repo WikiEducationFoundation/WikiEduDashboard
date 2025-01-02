@@ -46,7 +46,7 @@ describe LiftWingApi do
 
     context 'fetch json data from api.wikimedia.org' do
       before do
-        allow_any_instance_of(Wiki).to receive(:ensure_wiki_exists).and_return(true)
+        stub_wiki_validation
         stub_lift_wing_response
       end
 

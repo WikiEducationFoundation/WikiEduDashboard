@@ -30,7 +30,7 @@ describe RevisionScoreApiHandler do
 
       describe 'error hitting LiftWingApi' do
         before do
-          allow_any_instance_of(Wiki).to receive(:ensure_wiki_exists).and_return(true)
+          stub_wiki_validation
           stub_revision_score_reference_counter_reponse
         end
 
@@ -92,7 +92,6 @@ describe RevisionScoreApiHandler do
 
     before do
       stub_wiki_validation
-      allow_any_instance_of(Wiki).to receive(:ensure_wiki_exists).and_return(true)
       stub_revision_score_lift_wing_reponse
     end
 
@@ -135,7 +134,6 @@ describe RevisionScoreApiHandler do
   context 'when the wiki is available only for reference-counter API' do
     before do
       stub_wiki_validation
-      allow_any_instance_of(Wiki).to receive(:ensure_wiki_exists).and_return(true)
       stub_revision_score_reference_counter_reponse
     end
 
