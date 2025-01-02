@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe GetSystemMetrics, type: :service do
+describe GetSystemMetrics do
   let(:service) { described_class.new }
 
   describe '#initialize' do
@@ -31,6 +31,13 @@ describe GetSystemMetrics, type: :service do
         expect(queue[:latency]).to be_a(String)
       end
     end
+
+    it 'identifies paused queues correctly' do
+      allow_any_instance_of(Sidekiq::Queue).to receive(:paused?).and_return(true)
+      metrics = service.fetch_queue_management_metrics
+      expect(metrics[:paused_queues]).not_to be_empty
+      expect(metrics[:all_operational]).to eq(false)
+    end
   end
 
   describe '#get_queue_data' do
@@ -44,8 +51,28 @@ describe GetSystemMetrics, type: :service do
     end
   end
 
+  describe '#get_queue_status' do
+    it 'returns Normal for queues under threshold latency' do
+      expect(service.get_queue_status('short_update', 1.hour)).to eq('Normal')
+      expect(service.get_queue_status('medium_update', 6.hours)).to eq('Normal')
+      expect(service.get_queue_status('long_update', 12.hours)).to eq('Normal')
+      expect(service.get_queue_status('daily_update', 12.hours)).to eq('Normal')
+      expect(service.get_queue_status('constant_update', 12.minutes)).to eq('Normal')
+      expect(service.get_queue_status('default', 0)).to eq('Normal')
+    end
+
+    it 'returns Backlogged for queues exceeding threshold latency' do
+      expect(service.get_queue_status('short_update', 3.hours)).to eq('Backlogged')
+      expect(service.get_queue_status('medium_update', 13.hours)).to eq('Backlogged')
+      expect(service.get_queue_status('long_update', 26.hours)).to eq('Backlogged')
+      expect(service.get_queue_status('daily_update', 26.hours)).to eq('Backlogged')
+      expect(service.get_queue_status('constant_update', 16.minutes)).to eq('Backlogged')
+      expect(service.get_queue_status('default', 2)).to eq('Backlogged')
+    end
+  end
+
   describe '#convert_latency' do
-    it 'converts latency into human-readable format' do
+    it 'converts latency in seconds to more readable formats' do
       expect(service.convert_latency(30)).to eq('30 seconds')
       expect(service.convert_latency(90)).to eq('1 minute 30 seconds')
       expect(service.convert_latency(3600)).to eq('1 hour')

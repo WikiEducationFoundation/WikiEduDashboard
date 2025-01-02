@@ -36,7 +36,7 @@
                 %p= t("status.latency_doc")
       %tbody
         - @queue_metrics[:queues].each do |queue|
-          %tr{ class: queue[:size].zero? ? "table-row--success" : "table-row--warning" }
+          %tr{ class: queue[:status] == "Normal" ? "table-row--success" : "table-row--warning" }
             %td
               .tooltip-trigger
                 = t("status.#{queue[:name]}")

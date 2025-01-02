@@ -43,9 +43,23 @@ class GetSystemMetrics
     {
       name: queue.name,
       size: queue.size,
-      status: queue.size.zero? ? 'No pending jobs' : 'Pending jobs',
+      status: get_queue_status(queue.name, queue.latency),
       latency: convert_latency(queue.latency)
     }
+  end
+
+  def get_queue_status(queue_name, latency)
+    latency_thresholds = {
+      'default' => 1,
+      'short_update' => 2.hours,
+      'medium_update' => 12.hours,
+      'long_update' => 1.day,
+      'daily_update' => 1.day,
+      'constant_update' => 15.minutes
+    }
+    threshold = latency_thresholds[queue_name]
+
+    latency < threshold ? 'Normal' : 'Backlogged'
   end
 
   def convert_latency(seconds)
