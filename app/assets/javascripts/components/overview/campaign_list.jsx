@@ -11,7 +11,7 @@ const CampaignList = ({ campaigns, course }) => {
       let comma = '';
       const url = `/campaigns/${campaign.slug}`;
       if (index !== lastIndex) { comma = ', '; }
-      return <span key={campaign.slug}><a href={url}>{campaign.title}</a>{comma}</span>;
+      return <span key={`${campaign.slug}-${index}`}><a href={url}>{campaign.title}</a>{comma}</span>;
     })
     : I18n.t('courses.none'));
 
