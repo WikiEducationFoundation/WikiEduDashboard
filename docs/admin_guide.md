@@ -1,4 +1,7 @@
-# Admin Guide for Program & Events Dashboard
+[Back to README](../README.md)
+
+## Admin Guide for Program & Events Dashboard
+
 The **Programs & Events Dashboard** ([outreachdashboard.wmflabs.org](https://outreachdashboard.wmflabs.org)) is a web application designed to support the global Wikimedia community in organizing various programs, including edit-a-thons, education initiatives, and other events. See the **[Source Code](https://github.com/WikiEducationFoundation/WikiEduDashboard/tree/wmflabs)** and **[Phabricator Project](https://phabricator.wikimedia.org/project/manage/1052/)** for more details.
 
 This guide provides an overview of the **Program & Events Dashboard** infrastructure, detailing the servers, tools, and third-party dependencies that power the system. It also provides resources for managing and troubleshooting the system.
