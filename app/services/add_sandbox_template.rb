@@ -44,7 +44,7 @@ class AddSandboxTemplate
 
   def add_sandbox_template
     sandbox_summary = "adding #{@sandbox_template}"
-    new_line_template = "#{@sandbox_template}\n"
+    new_line_template = @sandbox_template + "\n"
     @wiki_editor.add_to_page_top(@sandbox, @current_user, new_line_template, sandbox_summary)
   end
 end

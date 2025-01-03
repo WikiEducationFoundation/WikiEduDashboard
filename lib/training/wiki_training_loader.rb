@@ -116,7 +116,7 @@ class WikiTrainingLoader
     return [] unless response
     translations = []
     response.data['messagegroupstats'].each do |language|
-      translations << ("#{base_page}/#{language['code']}") if any_translations?(language)
+      translations << (base_page + '/' + language['code']) if any_translations?(language)
     end
     return translations
   end

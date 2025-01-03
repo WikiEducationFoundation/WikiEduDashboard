@@ -157,7 +157,7 @@ class WikiCourseEdits
     return if initial_page_content.include?(template)
 
     summary = @generator.enrollment_summary
-    new_line_template = "#{template}\n"
+    new_line_template = template + "\n"
     @wiki_editor.add_to_page_top(user_page, @current_user, new_line_template, summary)
   end
 
@@ -170,7 +170,7 @@ class WikiCourseEdits
     return if initial_page_content.include?(talk_template)
 
     talk_summary = "adding {{#{template_name(@templates, 'user_talk')}}}"
-    new_line_template = "#{talk_template}\n"
+    new_line_template = talk_template + "\n"
     @wiki_editor.add_to_page_top(talk_page, @current_user, new_line_template, talk_summary)
   end
 

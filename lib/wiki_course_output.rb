@@ -44,7 +44,7 @@ class WikiCourseOutput
 
   def course_details_and_description
     description = Wikitext.markdown_to_mediawiki(@course.description)
-    "#{course_details}\r#{description}"
+    course_details + "\r" + description
   end
 
   def course_details # rubocop:disable Metrics/MethodLength

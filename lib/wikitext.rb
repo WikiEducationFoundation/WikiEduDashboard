@@ -71,7 +71,7 @@ class Wikitext
     formatted_titles = assignments.map do |assignment|
       format_assignment_title(assignment, home_wiki)
     end
-    wikitext = "[[#{formatted_titles.join(']], [[')}]]"
+    wikitext = '[[' + formatted_titles.join(']], [[') + ']]'
     wikitext
   end
 
@@ -90,7 +90,7 @@ class Wikitext
     # If the project is different, a project prefix is also necessary.
     project_prefix = project == home_wiki.project ? '' : ":#{project}"
 
-    "#{INTERWIKI_PREFIXES[project_prefix] || project_prefix}#{language_prefix}:#{title}"
+    (INTERWIKI_PREFIXES[project_prefix] || project_prefix) + language_prefix + ':' + title
   end
 
   # converts page title to a format suitable for on-wiki use

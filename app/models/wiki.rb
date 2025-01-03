@@ -118,7 +118,7 @@ class Wiki < ApplicationRecord
   end
 
   def base_url
-    "https://#{domain}"
+    'https://' + domain
   end
 
   def api_url

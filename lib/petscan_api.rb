@@ -43,7 +43,7 @@ class PetScanApi
 
   def petscan
     conn = Faraday.new(url: 'https://petscan.wmcloud.org')
-    conn.headers['User-Agent'] = "#{ENV['dashboard_url']} #{Rails.env}"
+    conn.headers['User-Agent'] = ENV['dashboard_url'] + ' ' + Rails.env
     conn
   end
 

@@ -28,7 +28,7 @@ describe CourseWikidataCsvBuilder do
 
     it 'generates csv data' do
       expect(builder.generate_csv.lines.first).to start_with('course name,claims created')
-      expect(builder.generate_csv.lines.last).to start_with("#{course.title},2")
+      expect(builder.generate_csv.lines.last).to start_with(course.title + ',2')
       expect(builder.generate_csv.lines.count).to eq 2
     end
   end

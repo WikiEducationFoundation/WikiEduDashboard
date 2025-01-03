@@ -197,7 +197,7 @@ describe WikiAssignmentOutput do
         output = wiki_assignment_output
                  .build_assignment_page_content(assignment_tag,
                                                 initial_talk_page_content)
-        expected_output = "#{assignment_tag}\n\n#{initial_talk_page_content}"
+        expected_output = assignment_tag + "\n\n" + initial_talk_page_content
         expect(output).to eq(expected_output)
       end
 
@@ -209,7 +209,7 @@ describe WikiAssignmentOutput do
         output = wiki_assignment_output
                  .build_assignment_page_content(assignment_tag,
                                                 initial_talk_page_content)
-        expected_output = "#{talk_page_templates}#{assignment_tag}\n#{additional_talk_content}"
+        expected_output = talk_page_templates + assignment_tag + "\n" + additional_talk_content
         expect(output).to eq(expected_output)
       end
 
@@ -254,7 +254,7 @@ describe WikiAssignmentOutput do
         output = wiki_assignment_output
                  .build_assignment_page_content(assignment_tag,
                                                 initial_talk_page_content)
-        expected_output = "#{initial_talk_page_content}#{assignment_tag}\n"
+        expected_output = initial_talk_page_content + assignment_tag + "\n"
         expect(output).to eq(expected_output)
       end
     end

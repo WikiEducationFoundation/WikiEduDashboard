@@ -60,6 +60,6 @@ class TicketNotificationMailer < ApplicationMailer
 
   def email_subject
     subject_prefix = @course ? "#{@course.title}: " : ''
-    "#{subject_prefix}Response to your help request"
+    subject_prefix + 'Response to your help request'
   end
 end

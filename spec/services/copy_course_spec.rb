@@ -12,11 +12,11 @@ describe CopyCourse do
   let(:existent_prod_course_slug) do
     'University_of_South_Carolina/Invertebrate_Zoology_(COPIED_FROM_Spring_2022)'
   end
-  let(:course_url) { "#{url_base}#{existent_prod_course_slug}/course.json" }
-  let(:categories_url) { "#{url_base}#{existent_prod_course_slug}/categories.json" }
-  let(:users_url) { "#{url_base}#{existent_prod_course_slug}/users.json" }
-  let(:timeline_url) { "#{url_base}#{existent_prod_course_slug}/timeline.json" }
-  let(:training_modules_url) { "#{@selected_dashboard}/training_modules.json" }
+  let(:course_url) { url_base + existent_prod_course_slug + '/course.json' }
+  let(:categories_url) { url_base + existent_prod_course_slug + '/categories.json' }
+  let(:users_url) { url_base + existent_prod_course_slug + '/users.json' }
+  let(:timeline_url) { url_base + existent_prod_course_slug + '/timeline.json' }
+  let(:training_modules_url) { @selected_dashboard + '/training_modules.json' }
   let(:course_response_body) do
     '{
       "course": {

@@ -14,6 +14,6 @@ class DefaultCampaignUpdate
     month = Time.zone.today.month
     # Determine if it's spring or fall semester based on academic calendar
     semester = month.between?(1, 6) ? 'spring' : 'fall'
-    "#{semester}_#{year}"
+    semester + '_' + year.to_s
   end
 end

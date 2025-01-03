@@ -24,7 +24,7 @@ class TaggedCoursesCsvBuilder
 
   def row(course) # rubocop:disable Metrics/AbcSize
     row = [course.title]
-    row << ("#{course.school}/#{course.term}")
+    row << (course.school + '/' + course.term)
     row << (@wiki_experts.find { |user| user.course_id == course.id }&.user&.username || 'N/A')
     row << course.courses_users.where(role: 1).first&.real_name
     row << course.recent_revision_count
