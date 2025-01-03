@@ -185,6 +185,20 @@ const API = {
     return response.json();
   },
 
+  async unclaimAssignment(assignment){
+    const response = await request(`/assignments/${assignment.id}/unclaim`, {
+      method: 'PUT',
+      body: JSON.stringify(assignment)
+    });
+    if (!response.ok) {
+      logErrorMessage(response);
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
+    }
+    return response.json();
+  },
+
   async createAssignment(opts) {
     const queryString = stringify(opts);
     const response = await request(`/assignments.json?${queryString}`, {

@@ -78,6 +78,12 @@ export const claimAssignment = (assignment, successNotification) => (dispatch) =
     .catch(response => dispatch({ type: types.API_FAIL, data: response }));
 };
 
+export const unclaimAssignment = assignment => (dispatch) => {
+  return API.unclaimAssignment(assignment)
+    .then(resp => dispatch({ type: types.UPDATE_ASSIGNMENT, data: resp }))
+    .catch(response => dispatch({ type: types.API_FAIL, data: response }));
+};
+
 export const updateAssignmentStatus = (assignment, status) => () => {
   const body = {
     id: assignment.id,
