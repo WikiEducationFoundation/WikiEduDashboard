@@ -171,8 +171,6 @@ Style/DateTime:
   Enabled: false
 Rails/ContentTag:
   Enabled: false
-Style/StringConcatenation:
-  Enabled: false
 Style/OptionalBooleanParameter:
   Enabled: false
 Style/ExplicitBlockArgument:
