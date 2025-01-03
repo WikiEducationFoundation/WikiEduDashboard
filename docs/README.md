@@ -12,6 +12,7 @@
 - [Contributing](../CONTRIBUTING.md)
 - [Development Process outline](dev_process.md)
 - [Deployment](deploy.md)
+- [Admin Guide](docs/admin_guide.md)
 - [Upgrading dependencies](upgrade_dependencies.md)
 - [Tools & Integrations](tools.md)
 - [Model diagram](../erd.pdf)

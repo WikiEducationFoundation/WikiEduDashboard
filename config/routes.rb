@@ -169,6 +169,19 @@ Rails.application.routes.draw do
           _subsubsubpage: /.*/
         }
 
+    get '/courses/classroom_program_students.json',
+        to: 'courses#classroom_program_students_json',
+        as: :classroom_program_students
+    get '/courses/classroom_program_students_and_instructors.json',
+        to: 'courses#classroom_program_students_and_instructors_json',
+        as: :classroom_program_students_and_instructors
+    get '/courses/fellows_cohort_students.json',
+        to: 'courses#fellows_cohort_students_json',
+        as: :fellows_cohort_students
+    get '/courses/fellows_cohort_students_and_instructors.json',
+        to: 'courses#fellows_cohort_students_and_instructors_json',
+        as: :fellows_cohort_students_and_instructors
+
     post '/courses/:slug/students/add_to_watchlist', to: 'courses/watchlist#add_to_watchlist', as: 'add_to_watchlist',
         constraints: { slug: /.*/ }
     delete 'courses/:slug/delete_from_campaign' => 'courses/delete_from_campaign#delete_course_from_campaign', as: 'delete_from_campaign', 

@@ -139,6 +139,60 @@ class CoursesController < ApplicationController
     @alerts = current_user&.admin? ? @course.alerts : @course.public_alerts
   end
 
+  def classroom_program_students_json
+    courses = Course.classroom_program_students
+    render json: courses.as_json(
+      only: %i[title created_at updated_at start end school term slug],
+      include: {
+        students: {
+          only: %i[username created_at updated_at permissions]
+        }
+      }
+    )
+  end
+
+  def classroom_program_students_and_instructors_json
+    courses = Course.classroom_program_students_and_instructors
+    render json: courses.as_json(
+      only: %i[title created_at updated_at start end school term slug],
+      include: {
+        students: {
+          only: %i[username created_at updated_at permissions]
+        },
+        instructors: {
+          only: %i[username created_at updated_at permissions]
+        }
+      }
+    )
+  end
+
+  def fellows_cohort_students_json
+    courses = Course.fellows_cohort_students
+    render json: courses.as_json(
+      only: %i[title created_at updated_at start end school term slug],
+      include: {
+        students: {
+          only: %i[username created_at updated_at permissions]
+        }
+      }
+    )
+  end
+
+  def fellows_cohort_students_and_instructors_json
+    courses = Course.fellows_cohort_students_and_instructors
+    render json: courses.as_json(
+      only: %i[title created_at updated_at start end school term slug],
+      include: {
+        students: {
+          only: %i[username created_at updated_at permissions]
+        },
+        instructors: {
+          only: %i[username created_at updated_at permissions]
+        }
+      }
+    )
+  end
+
   ##########################
   # User-initiated actions #
   ##########################
