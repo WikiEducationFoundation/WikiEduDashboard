@@ -108,6 +108,8 @@ Layout/HashAlignment:
   Enabled: false # Hashes look uglier when corrected
 Rails/I18nLocaleTexts:
   Enabled: false # Generally the translations are done manually so most times many language translations will be missing while the fallback message is English
+Style/StringConcatenation:
+  Enabled: false
 
 ########################
 # Temporary exceptions #
