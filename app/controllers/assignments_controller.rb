@@ -68,13 +68,22 @@ class AssignmentsController < ApplicationController
 
   def unclaim
     @claimed_assignment = Assignment.find(params[:assignment_id])
+    puts "Debugging claimed_assignment: #{@claimed_assignment.inspect}"
     @course = @claimed_assignment.course
     check_permissions(assignment_params[:user_id].to_i)
     check_participation
-
-    if @claimed_assignment.user_id == assignment_params[:user_id].to_i
+    puts "Debugging claimed_assignment: #{@claimed_assignment.flags[:available]}"
+    if @claimed_assignment.user_id == assignment_params[:user_id].to_i and @claimed_assignment.flags[:available]
+      puts 'I am in this block1'
       @claimed_assignment.update(user_id: nil)
+      puts 'I am in this block'
       render partial: 'updated_assignment', locals: { assignment: @claimed_assignment }
+    elsif @claimed_assignment.user_id == assignment_params[:user_id].to_i and !@claimed_assignment.flags[:available]
+      puts 'I am in this block2'
+      remove_assignment_template
+      puts 'I am in this block3'
+      @claimed_assignment.destroy
+      render json: { assignmentId: @claimed_assignment.id }
     else
       render json: { message: 'This assignment has been claimed by another user. Please refresh.' },
              status: :conflict
