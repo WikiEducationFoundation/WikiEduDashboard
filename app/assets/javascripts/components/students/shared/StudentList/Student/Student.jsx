@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import AssignCell from '@components/common/AssignCell/AssignCell.jsx';
 import { setUploadFilters } from '~/app/assets/javascripts/actions/uploads_actions';
-import { fetchUserRevisions } from '~/app/assets/javascripts/actions/user_revisions_actions';
 import { fetchTrainingStatus } from '~/app/assets/javascripts/actions/training_status_actions';
 import { groupByAssignmentType } from '@components/util/helpers';
 import { ASSIGNED_ROLE, REVIEWING_ROLE } from '@constants/assignments';
@@ -30,10 +29,10 @@ const Student = createReactClass({
     course: PropTypes.object.isRequired,
     current_user: PropTypes.object,
     editable: PropTypes.bool,
-    fetchUserRevisions: PropTypes.func.isRequired,
     fetchTrainingStatus: PropTypes.func.isRequired,
     minimalView: PropTypes.bool,
     student: PropTypes.object.isRequired,
+    openStudentDetailsView: PropTypes.func.isRequired
   },
 
   setUploadFilters(selectedFilters) {
@@ -44,10 +43,9 @@ const Student = createReactClass({
     return e.stopPropagation();
   },
 
-  openStudentDetails() {
-    const { course, router, student } = this.props;
-    const url = `/courses/${course.slug}/students/articles/${encodeURIComponent(student.username)}`;
-    return router.navigate(url);
+  openStudentDetailsView() {
+    const { course, student, openStudentDetailsView } = this.props;
+    openStudentDetailsView(course.slug, student.username);
   },
 
   _shouldShowRealName() {
@@ -64,7 +62,7 @@ const Student = createReactClass({
     let recentRevisions;
     if (showRecent) {
       recentRevisions = (
-        <td className="desktop-only-tc" onClick={this.openStudentDetails} >
+        <td className="desktop-only-tc" onClick={this.openStudentDetailsView} >
           {student.recent_revisions}
         </td>
       );
@@ -111,7 +109,7 @@ const Student = createReactClass({
 
     return (
       <tr className="students">
-        <td onClick={this.openStudentDetails} style={{ minWidth: '250px' }}>
+        <td onClick={this.openStudentDetailsView} style={{ minWidth: '250px' }}>
           <div className="name">
             <StudentUsername current_user={current_user} student={student} />
           </div>
@@ -123,17 +121,17 @@ const Student = createReactClass({
           <ExerciseProgressDescription student={student} />
           <TrainingProgressDescription student={student} />
         </td>
-        <td className="desktop-only-tc" onClick={this.openStudentDetails}>
+        <td className="desktop-only-tc" onClick={this.openStudentDetailsView}>
           {assignButton}
         </td>
-        <td className="desktop-only-tc" onClick={this.openStudentDetails}>
+        <td className="desktop-only-tc" onClick={this.openStudentDetailsView}>
           {reviewButton}
         </td>
         {recentRevisions}
-        <td className="desktop-only-tc" onClick={this.openStudentDetails}>
+        <td className="desktop-only-tc" onClick={this.openStudentDetailsView}>
           <ContentAdded course={course} student={student} />
         </td>
-        <td className="desktop-only-tc" onClick={this.openStudentDetails}>
+        <td className="desktop-only-tc" onClick={this.openStudentDetailsView}>
           {student.references_count}
         </td>
         <td className="desktop-only-tc">
@@ -154,7 +152,6 @@ const Student = createReactClass({
 
 const mapDispatchToProps = {
   setUploadFilters,
-  fetchUserRevisions,
   fetchTrainingStatus,
   fetchExercises: fetchTrainingModuleExercisesByUser
 };

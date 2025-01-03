@@ -20,7 +20,7 @@ describe 'Article Viewer', type: :feature, js: true do
   it 'shows list of students who edited the article' do
     visit "/courses/#{course.slug}/articles"
     find('button.icon-article-viewer').click
-    expect(page).to have_content("Edits by: \nRagesoss")
+    expect(page).to have_content("Edits by: \nRagesoss", wait: 10)
     # once authorship date loads
     within(:css, '.article-viewer-legend.user-legend-name.user-highlight-1', wait: 20) do
       # click to scroll to next highlight
@@ -33,7 +33,7 @@ describe 'Article Viewer', type: :feature, js: true do
     login_as(instructor)
     visit "/courses/#{course.slug}/articles"
     find('button.icon-article-viewer').click
-    expect(page).to have_content("Edits by: \nRagesoss")
+    expect(page).to have_content("Edits by: \nRagesoss", wait: 10)
     find('a', text: 'Quality Problems?').click
     fill_in 'submit-bad-work-alert', with: 'Something has gone terribly wrong'
     click_button 'Notify Wiki Expert'

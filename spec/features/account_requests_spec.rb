@@ -18,7 +18,10 @@ describe 'Account requests', type: :feature, js: true do
     login_as(instructor)
     visit "/courses/#{course.slug}"
     click_button 'Enable account requests'
-    click_button 'OK'
+    expect(page).to have_selector('.confirm-modal-overlay')
+    within('.confirm-modal') do
+      click_button 'OK'
+    end
     expect(page).to have_content('Account request generation enabled')
   end
 

@@ -141,6 +141,11 @@ const CourseDateUtils = {
     for (const week of range(0, (courseWeeks - 1), true)) {
       weekStart = addWeeks(startOfWeek(toDate(course.timeline_start)), week);
 
+      let weekendDate = endOfWeek(toDate(weekStart));
+      if (isAfter(weekendDate, toDate(course.end))) {
+        weekendDate = toDate(course.end);
+      }
+
       // Account for the first partial week, which may not have 7 days.
       let firstDayOfWeek;
       if (week === 0) {
@@ -153,7 +158,7 @@ const CourseDateUtils = {
       // eslint-disable-next-line no-restricted-syntax
       for (const i of range(firstDayOfWeek, 6, true)) {
         const day = addDays(weekStart, i);
-        if (course && this.courseMeets(course.weekdays, i, format(day, 'yyyyMMdd'), exceptions)) {
+        if (course && this.courseMeets(course.weekdays, i, format(day, 'yyyyMMdd'), exceptions) && !isAfter(day, weekendDate)) {
           ms.push(format(day, 'EEEE (MM/dd)'));
         }
       }

@@ -27,6 +27,7 @@ import colors from '@components/common/ArticleViewer/constants/colors';
 
 // Actions
 import { resetBadWorkAlert, submitBadWorkAlert } from '~/app/assets/javascripts/actions/alert_actions.js';
+import { crossCheckArticleTitle } from '@actions/article_actions';
 
 /*
   Quick summary of the ArticleViewer component's main logic
@@ -55,7 +56,11 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
   const [unhighlightedContributors, setUnhighlightedContributors] = useState([]);
   const [revisionId, setRevisionId] = useState(null);
   const [pendingRequest, setPendingRequest] = useState(false);
-  const lastRevisionId = useSelector(state => state.articleDetails[article.id]?.last_revision?.mw_rev_id);
+  const lastRevisionId = useSelector(state => state.articleDetails[article.id]?.last_revision?.revid);
+
+  // State to track whether the article title needs to be verified and updated
+  // (i.e., if a fetch failed due to the article title being moved)
+  const [checkArticleTitle, setCheckArticleTitle] = useState(false);
 
   const dispatch = useDispatch();
   const ref = useRef();
@@ -245,6 +250,8 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
         setFailureMessage(error.message);
         setFetched(true);
         setWhoColorFailed(true);
+        // Set flag to verify and fetch the article title if the fetch failed, possibly due to the article being moved
+        setCheckArticleTitle(true);
       });
   };
 
@@ -257,8 +264,31 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
       }).catch((error) => {
         setWhoColorFailed(true);
         setFailureMessage(error.message);
+        // Set flag to verify and fetch the article title if the fetch failed, possibly due to the article being moved
+        setCheckArticleTitle(true);
       });
   };
+
+  // Function to verify if the article title has changed and fetch updated data accordingly
+  const verifyAndFetchArticle = async () => {
+    // Dispatch an action to cross-check the current article title using its ID and MediaWiki page ID
+    const crossCheckedArticleTitle = await dispatch(crossCheckArticleTitle(article.id, article.title, article.mw_page_id));
+
+    if (crossCheckedArticleTitle === article.title) {
+      setWhoColorFailed(false); // Clear the failure state for WhoColor data
+      setCheckArticleTitle(false); // Stop further title verification checks
+      fetchParsedArticle(); // Re-fetch the parsed article content with the current title
+      fetchWhocolorHtml(); // Re-fetch the WhoColor HTML for the article using the current title
+    } else if (crossCheckArticleTitle !== article.title) {
+      setFetched(false); // Indicate a loading state until the Redux store updates the new article title and the component re-renders
+    }
+  };
+
+  // Trigger the article title verification and data fetching process if a previous fetch failed
+  if (checkArticleTitle) {
+    verifyAndFetchArticle();
+  }
+
 
   // These are mediawiki user ids, and don't necessarily match the dashboard
   // database user ids, so we must fetch them by username from the wiki.

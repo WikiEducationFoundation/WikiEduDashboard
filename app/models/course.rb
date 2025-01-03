@@ -160,6 +160,38 @@ class Course < ApplicationRecord
           .where(submitted: false).references(:campaigns)
   end
 
+  def self.classroom_program_students
+    nonprivate
+      .where(type: 'ClassroomProgramCourse', withdrawn: false)
+      .joins(:campaigns)
+      .distinct
+      .includes(:students)
+  end
+
+  def self.classroom_program_students_and_instructors
+    nonprivate
+      .where(type: 'ClassroomProgramCourse', withdrawn: false)
+      .joins(:campaigns)
+      .distinct
+      .includes(:students, :instructors)
+  end
+
+  def self.fellows_cohort_students
+    nonprivate
+      .where(type: 'FellowsCohort', withdrawn: false)
+      .joins(:campaigns)
+      .distinct
+      .includes(:students)
+  end
+
+  def self.fellows_cohort_students_and_instructors
+    nonprivate
+      .where(type: 'FellowsCohort', withdrawn: false)
+      .joins(:campaigns)
+      .distinct
+      .includes(:students, :instructors)
+  end
+
   scope :strictly_current, -> { where('? BETWEEN start AND end', Time.zone.now) }
   scope :current, -> { current_and_future.where('start < ?', Time.zone.now) }
   scope :ended, -> { where('end < ?', Time.zone.now) }

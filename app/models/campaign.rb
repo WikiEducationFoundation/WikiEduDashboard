@@ -70,12 +70,14 @@ class Campaign < ApplicationRecord
   ####################
 
   def users_to_csv(role, opts = {})
-    csv_data = []
+    headers = opts[:course] ? %w[username course registered_at] : ['username']
+    csv_data = [headers]
     courses.nonprivate.each do |course|
       users = course.send(role)
       users.each do |user|
         line = [user.username]
         line << course.slug if opts[:course]
+        line << user.registered_at if opts[:course]
         csv_data << line
       end
     end

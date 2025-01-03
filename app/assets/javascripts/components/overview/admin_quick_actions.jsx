@@ -20,6 +20,8 @@ const DetailsText = ({ flags }) => (
   </p>
 );
 
+const isCourseClosed = flags => !!(flags && flags.closed_date);
+
 const NoDetailsText = () => (
   <p>
     This course has not yet been marked as having been reviewed by a staff member.
@@ -27,36 +29,56 @@ const NoDetailsText = () => (
   </p>
 );
 
-export const AdminQuickActions = ({ course, current_user, persistCourse, greetStudents }) => (
-  <div className="module admin-quick-actions" style={{ textAlign: 'center' }}>
-    {current_user.isStaff && (
-      <>
-        {course.flags && course.flags.last_reviewed && course.flags.last_reviewed.username ? (
-          <DetailsText flags={course.flags} />
-        ) : (
-          <NoDetailsText />
-        )}
-        <button
-          className="button mark-as-review"
-          onClick={() => {
-            course.last_reviewed = {
-              username: current_user.username,
-              timestamp: getUTCDateString(),
-            };
-            persistCourse(course.slug);
-          }}
-        >
-          Mark as Reviewed
-        </button>
-        <br />
-        <br />
-        <GreetStudentsButton course={course} current_user={current_user} greetStudents={greetStudents} />
-        <br />
-      </>
-    )}
-    {current_user.admin && <div><NotesPanel/><AdminStatusPanel course={course} /></div>}
-  </div>
-);
+export const AdminQuickActions = ({ course, current_user, persistCourse, greetStudents }) => {
+  const closedCourseStyle = isCourseClosed(course.flags)
+    ? {
+      backgroundColor: '#f8d7da',
+      color: '#721c24',
+      padding: '15px',
+      borderRadius: '2px',
+      fontWeight: 'bold',
+    }
+    : {};
+
+  return (
+    <div className="module admin-quick-actions" style={{ textAlign: 'center', ...closedCourseStyle }}>
+      {isCourseClosed(course.flags) && (
+        <div style={{ marginBottom: '15px' }}>
+          <p>
+            <strong>This course was closed on:</strong>&nbsp;
+            {format(toDate(parseISO(course.flags.closed_date)), 'PPPP')}.
+          </p>
+        </div>
+      )}
+      {current_user.isStaff && (
+        <>
+          {course.flags && course.flags.last_reviewed && course.flags.last_reviewed.username ? (
+            <DetailsText flags={course.flags} />
+          ) : (
+            <NoDetailsText />
+          )}
+          <button
+            className="button mark-as-review"
+            onClick={() => {
+              course.last_reviewed = {
+                username: current_user.username,
+                timestamp: getUTCDateString(),
+              };
+              persistCourse(course.slug);
+            }}
+          >
+            Mark as Reviewed
+          </button>
+          <br />
+          <br />
+          <GreetStudentsButton course={course} current_user={current_user} greetStudents={greetStudents} />
+          <br />
+        </>
+      )}
+      {current_user.admin && <div><NotesPanel /><AdminStatusPanel course={course} /></div>}
+    </div>
+  );
+};
 
 AdminQuickActions.propTypes = {
   course: PropTypes.shape({

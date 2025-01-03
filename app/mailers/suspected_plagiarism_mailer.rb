@@ -14,7 +14,7 @@ class SuspectedPlagiarismMailer < ApplicationMailer
     @diff_url = alert.diff_url
     @user = alert.user
     @article = alert.article
-    @article_url = @article.url
+    @article_url = @article&.url
     @courses_user = @user.courses_users.last
     @course = alert.course
     @talk_page_new_section_url = @courses_user.talk_page_url + '?action=edit&section=new'

@@ -17,7 +17,7 @@
                 made
                 #{link_to 'this change', @diff_url, class: 'link'}
                 to the article
-                "#{link_to @article.full_title, @article_url, class: 'link'}", which Turnitin/iThenticate matched to published
+                "#{link_to @article&.full_title, @article_url, class: 'link'}", which Turnitin/iThenticate matched to published
                 text.
               %p.paragraph
                 These reports are not 100% accurate. For example, a direct quote with proper attribution

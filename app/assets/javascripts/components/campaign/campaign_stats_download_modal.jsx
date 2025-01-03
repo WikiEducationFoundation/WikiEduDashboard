@@ -5,7 +5,6 @@ const CampaignStatsDownloadModal = ({ campaign_slug }) => {
 
   const courseDataLink = `/campaigns/${campaign_slug}/courses.csv`;
   const articlesEditedLink = `/campaigns/${campaign_slug}/articles_csv.csv`;
-  const RevisionsLink = `/campaigns/${campaign_slug}/revisions_csv.csv`;
   const editorsLink = `/campaigns/${campaign_slug}/students.csv`;
   const editorsByCourseLink = `/campaigns/${campaign_slug}/students.csv?course=true`;
   const instructorsLink = `/campaigns/${campaign_slug}/instructors.csv?course=true`;
@@ -30,11 +29,6 @@ const CampaignStatsDownloadModal = ({ campaign_slug }) => {
       <p>
         <a href={articlesEditedLink} className="button right">{I18n.t('campaign.data_articles')}</a>
         {I18n.t('campaign.data_articles_info')}
-      </p>
-      <hr />
-      <p>
-        <a href={RevisionsLink} className="button right">{I18n.t('campaign.data_revisions')}</a>
-        {I18n.t('campaign.data_revisions_info')}
       </p>
       <hr />
       <p>

@@ -31,8 +31,6 @@ export const Contributions = ({ course, revisions, selectedIndex, student, wikid
           <th>{I18n.t('users.contributions')}</th>
           <th className="desktop-only-tc">{I18n.t('metrics.date_time')}</th>
           <th className="desktop-only-tc">{I18n.t('metrics.char_added')}</th>
-          <th className="desktop-only-tc">{I18n.t('metrics.references_count')}</th>
-          <th className="desktop-only-tc">{I18n.t('metrics.view')}</th>
           <th className="desktop-only-tc" />
         </tr>
       </thead>

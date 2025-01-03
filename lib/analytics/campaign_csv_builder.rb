@@ -3,7 +3,6 @@
 require 'csv'
 require_dependency "#{Rails.root}/lib/analytics/course_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/course_articles_csv_builder"
-require_dependency "#{Rails.root}/lib/analytics/course_revisions_csv_builder"
 require_dependency "#{Rails.root}/app/workers/campaign_csv_worker"
 require "#{Rails.root}/lib/analytics/course_wikidata_csv_builder"
 
@@ -25,18 +24,6 @@ class CampaignCsvBuilder
     csv_data = [CourseArticlesCsvBuilder::CSV_HEADERS + ['course_slug']]
     @campaign.courses.find_each do |course|
       CourseArticlesCsvBuilder.new(course).article_rows.each do |row|
-        row_with_slug = row + [course.slug]
-        csv_data << row_with_slug
-      end
-    end
-
-    CSV.generate { |csv| csv_data.each { |line| csv << line } }
-  end
-
-  def revisions_to_csv
-    csv_data = [CourseRevisionsCsvBuilder::CSV_HEADERS + ['course_slug']]
-    @campaign.courses.find_each do |course|
-      CourseRevisionsCsvBuilder.new(course).revisions_rows.each do |row|
         row_with_slug = row + [course.slug]
         csv_data << row_with_slug
       end

@@ -48,7 +48,10 @@ describe 'course overview page', type: :feature, js: true do
   end
 
   context 'when course starts in future' do
-    let(:timeline_start) { '2025-02-11'.to_date + 2.weeks } # a Tuesday
+    let(:course_start) { '2025-02-11'.to_date }
+    let(:course_end) { course_start + 6.months }
+    let(:timeline_start) { '2025-02-11'.to_date + 2.weeks }
+    let(:timeline_end) { course_end.to_date }
 
     before do
       course.update(timeline_start:)
@@ -63,9 +66,20 @@ describe 'course overview page', type: :feature, js: true do
       end
       within '.week-range' do
         expect(page).to have_content(timeline_start.beginning_of_week(:sunday).strftime('%m/%d'))
-        # Class normally meets on Sun, W, Sat, but timeline starts on Tuesday.
       end
       within '.margin-bottom' do
+        meeting_dates = [
+          Date.parse('2025-02-23'),  # Sunday (02/23)
+          Date.parse('2025-02-26'),  # Wednesday (02/26)
+          Date.parse('2025-03-01')   # Saturday (03/01)
+        ]
+
+        meeting_dates.each do |meeting_date| # rubocop:disable RSpec/IteratedExpectation
+          expect(meeting_date)
+            .to be_between(timeline_start, timeline_end)
+            .or be_between(course_start, course_end)
+        end
+
         expect(page).to have_content('Meetings: Wednesday (02/26), Saturday (03/01)')
       end
       within '.week-index' do

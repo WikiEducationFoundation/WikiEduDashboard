@@ -82,15 +82,6 @@ describe AnalyticsController, type: :request do
     end
   end
 
-  describe '#course_edits_csv' do
-    let(:course) { create(:course, slug: 'foo/bar_(baz)') }
-
-    it 'returns a CSV' do
-      get '/course_edits_csv', params: { course: course.slug }
-      expect(response.body).to include('revision_id')
-    end
-  end
-
   describe '#course_uploads_csv' do
     let(:course) { create(:course, slug: 'foo/bar_(baz)') }
 
@@ -115,15 +106,6 @@ describe AnalyticsController, type: :request do
     it 'returns a CSV' do
       get '/course_articles_csv', params: { course: course.slug }
       expect(response.body).to include('pageviews_link')
-    end
-  end
-
-  describe '#course_revisions_csv' do
-    let(:course) { create(:course, slug: 'foo/bar_(baz)') }
-
-    it 'returns a CSV' do
-      get '/course_revisions_csv', params: { course: course.slug }
-      expect(response.body).to include('references_added')
     end
   end
 

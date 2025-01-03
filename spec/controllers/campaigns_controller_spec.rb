@@ -417,17 +417,6 @@ describe CampaignsController, type: :request do
       expect(csv).to include(article.title)
     end
 
-    it 'return a csv of revision data' do
-      expect(CsvCleanupWorker).to receive(:perform_at)
-      get "/campaigns/#{campaign.slug}/revisions_csv", params: request_params
-      get "/campaigns/#{campaign.slug}/revisions_csv", params: request_params
-      follow_redirect!
-      csv = response.body.force_encoding('utf-8')
-      expect(csv).to include(course.slug)
-      expect(csv).to include(article.title)
-      expect(csv).to include('references_added')
-    end
-
     it 'returns a csv of wikidata' do
       expect(CsvCleanupWorker).to receive(:perform_at)
       get "/campaigns/#{campaign.slug}/wikidata.csv"

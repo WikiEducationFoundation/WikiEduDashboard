@@ -56,17 +56,36 @@ end
 
 # Set up some example data in the dashboard
 def populate_dashboard
-  puts "setting up example courses..."
+  puts "Setting up example courses..."
   example_courses = [
     'https://outreachdashboard.wmflabs.org/courses/Uffizi/WDG_-_AF_2018_Florence',
     'https://outreachdashboard.wmflabs.org/courses/QCA/Brisbane_QCA_ArtandFeminism_2018',
     'https://dashboard.wikiedu.org/courses/Stanford_Law_School/Advanced_Legal_Research_Winter_2020_(Winter)'
   ]
+  
   example_courses.each do |url|
-    default_campaign = Campaign.find_or_create_by!(title: 'Default Campaign', slug: ENV['default_campaign'])
-    course = make_copy_of(url)
-    default_campaign.courses << course
-    puts "getting data for #{course.slug}..."
-    UpdateCourseStats.new(course)
+    begin
+      # Try to find or create the default campaign
+      default_campaign = Campaign.find_or_create_by!(title: 'Default Campaign', slug: ENV['default_campaign'])
+
+      # Attempt to make a copy of the course
+      course = make_copy_of(url)
+
+      # Check if the course already exists before associating it with the campaign
+      if default_campaign.courses.exists?(slug: course.slug)
+        Rails.logger.error("Course with slug #{course.slug} already exists in the campaign. Skipping...")
+      else
+        # Add the course to the campaign if it doesn't already exist
+        default_campaign.courses << course
+        puts "Getting data for #{course.slug}..."
+        UpdateCourseStats.new(course)
+      end
+    rescue ActiveRecord::RecordInvalid => e
+      # Handle specific error when record creation fails
+      Rails.logger.error("Error processing course at #{url}: #{e.message}")
+    rescue StandardError => e
+      # Generic error handling for other issues
+      Rails.logger.error("An error occurred for course at #{url}: #{e.message}")
+    end
   end
 end

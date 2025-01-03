@@ -41,11 +41,13 @@ describe 'Survey Administration', type: :feature, js: true do
       click_link 'New Question Group'
       fill_in('question_group_name', with: 'New Question Group')
 
-      # FIXME: Fails to find the div with Poltergeist
-      # within('div#question_group_campaign_ids_chosen') do
-      #   find('input').set('Spring 2015')
-      #   find('input').native.send_keys(:return)
-      # end
+      within('#question_group_campaign_ids') do
+        option = find('option', text: 'Spring 2015')
+        page.execute_script(
+          "arguments[0].selected = true;
+          arguments[0].parentNode.dispatchEvent(new Event('change'))", option.native
+        )
+      end
       page.find('input.button[value="Save Question Group"]').click
 
       # Create a question
@@ -68,13 +70,13 @@ describe 'Survey Administration', type: :feature, js: true do
       expect(Rapidfire::Question.count).to eq(2)
 
       page.find('label', text: 'Conditionally show this question').click
-      # FIXME: fails to find the div with Poltergeist
-      # within 'div.survey__question__conditional-row' do
-      #   select('Who is awesome?')
-      # end
-      # within 'select[data-conditional-value-select=""]' do
-      #   select('Me!')
-      # end
+
+      within 'div.survey__question__conditional-row' do
+        select('Who is awesome?')
+      end
+      within 'select[data-conditional-value-select=""]' do
+        select('Me!')
+      end
       page.find('input.button').click
 
       # Create two more question groups, so that we can reorder them.
@@ -127,11 +129,14 @@ describe 'Survey Administration', type: :feature, js: true do
       visit '/surveys/assignments'
       click_link 'New Survey Assignment'
 
-      # FIXME: Fails to find the div with Poltergeist
-      # within('div#survey_assignment_campaign_ids_chosen') do
-      #   find('input').set('Spring 2015')
-      #   find('input').native.send_keys(:return)
-      # end
+      within('#survey_assignment_campaign_ids') do
+        option = find('option', text: 'Spring 2015')
+        page.execute_script(
+          "arguments[0].selected = true;
+          arguments[0].parentNode.dispatchEvent(new Event('change'))", option.native
+        )
+      end
+
       fill_in('survey_assignment_send_date_days', with: '7')
       check 'survey_assignment_published'
       fill_in('survey_assignment_custom_email_subject', with: 'My Custom Subject!')
@@ -221,6 +226,98 @@ describe 'Survey Administration', type: :feature, js: true do
         click_link 'Delete'
       end
       expect(page).not_to have_content instructor.username
+    end
+
+    it 'correctly clones question groups with conditional questions', js: true do
+      # Create a base question group with conditional questions
+
+      # Visit question groups page and create Question Group
+      visit 'surveys/rapidfire/question_groups'
+      click_link 'New Question Group'
+      fill_in('question_group_name', with: 'Conditional Questions Group')
+      page.find('input.button[value="Save Question Group"]').click
+
+      # Create the first question
+      click_link 'Edit'
+      omniclick(find('a.button', text: 'Add New Question'))
+      first_question_text = 'Do you like ice cream?'
+      find('textarea#question_text').set(first_question_text)
+      find('textarea#question_answer_options').set("Yes\nNo")
+      page.find('input.button').click
+
+      # Create a conditional follow-up question
+      omniclick(find('a.button', text: 'Add New Question'))
+      follow_up_question_text = 'What is your favorite flavor?'
+      find('textarea#question_text').set(follow_up_question_text)
+      find('textarea#question_answer_options').set("Vanilla\nChocolate")
+
+      # Set conditional logic
+      page.find('label', text: 'Conditionally show this question').click
+
+      # Wait and verify the conditional elements are present
+      first_question_record = Rapidfire::Question.find_by(question_text: first_question_text)
+
+      # Interact with conditional elements
+      within('.survey__question__conditional-row') do
+        # Trigger the conditional select to populate options
+        page.find('select[data-conditional-select="true"]').click
+
+        # Wait for and select the first question
+        option = page.find('select[data-conditional-select="true"] option',
+                           text: first_question_record.question_text)
+        page.execute_script(
+          "arguments[0].selected = true;
+          arguments[0].parentNode.dispatchEvent(new Event('change'))", option.native
+        )
+
+        # Select the condition value
+        find('select[data-conditional-value-select=""]')
+          .select(first_question_record.answer_options[/^\s*Yes\b/])
+      end
+
+      # Verify the hidden input has been populated correctly
+      hidden_input = page.find('input[data-conditional-field-input="true"]', visible: false)
+      # rubocop:disable Layout/LineLength,Lint/MissingCopEnableDirective
+      expected_conditionals = "#{first_question_record.id}|=|#{first_question_record.answer_options[/^\s*Yes\b/]}|multi"
+      expect(hidden_input.value).to include(expected_conditionals)
+
+      page.find('input.button').click
+
+      # Visit the question groups page to clone the newly created question group
+      visit 'surveys/rapidfire/question_groups'
+
+      # Find and click the clone link for the newly created question group
+      within("li#question_group_#{Rapidfire::QuestionGroup.last.id}") do
+        click_link 'Clone'
+      end
+
+      # Edit the cloned question group
+      within("li#question_group_#{Rapidfire::QuestionGroup.last.id}") do
+        click_link 'Edit'
+      end
+
+      # Edit the conditional question of the cloned group
+      within "tr[data-item-id=\"#{Rapidfire::Question.last.id}\"]" do
+        click_link 'Edit'
+      end
+
+      # Verify manually to check if the cloned group exists
+      expect(Rapidfire::QuestionGroup.count).to eq(2)
+      cloned_group = Rapidfire::QuestionGroup.last
+
+      # Verify questions were cloned
+      expect(cloned_group.questions.count).to eq(2)
+
+      # Check the conditional question
+      conditional_question = cloned_group.questions.detect { |q| q.question_text == follow_up_question_text }
+      expect(conditional_question).not_to be_nil
+
+      # Verify the conditional logic points to the cloned first question
+      cloned_first_question = cloned_group.questions.detect do |q|
+        q.question_text == first_question_text
+      end
+      expected_cloned_conditionals = "#{cloned_first_question.id}|=|#{cloned_first_question.answer_options[/^\s*Yes\b/]}|multi"
+      expect(conditional_question.conditionals).to eq(expected_cloned_conditionals)
     end
   end
 end
