@@ -121,7 +121,7 @@ class AnalyticsController < ApplicationController
 
   def campaign_intersection
     set_campaigns
-    campaign_name = @campaign_1.title + ' + ' + @campaign_2.title
+    campaign_name = "#{@campaign_1.title} + #{@campaign_2.title}"
     campaign_1_course_ids = @campaign_1.courses.pluck(:id)
     course_ids = @campaign_2.courses.where(id: campaign_1_course_ids).pluck(:id)
 

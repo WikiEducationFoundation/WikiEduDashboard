@@ -28,7 +28,7 @@ module SurveysHelper
   def question_answer_field_name(form, multiple)
     name = "answer_group[#{form.object.question_id}][answer_text]"
     if multiple
-      name + '[]'
+      "#{name}[]"
     else
       name
     end

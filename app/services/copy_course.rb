@@ -134,7 +134,7 @@ class CopyCourse
   end
 
   def retrieve_all_training_modules
-    dashboard_uri = URI.parse(@host + '/training_modules.json')
+    dashboard_uri = URI.parse("#{@host}/training_modules.json")
     response = Net::HTTP.get_response(dashboard_uri)
     return [] unless response.is_a?(Net::HTTPSuccess)
 

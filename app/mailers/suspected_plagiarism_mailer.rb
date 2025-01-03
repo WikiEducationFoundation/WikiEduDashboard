@@ -17,7 +17,7 @@ class SuspectedPlagiarismMailer < ApplicationMailer
     @article_url = @article&.url
     @courses_user = @user.courses_users.last
     @course = alert.course
-    @talk_page_new_section_url = @courses_user.talk_page_url + '?action=edit&section=new'
+    @talk_page_new_section_url = "#{@courses_user.talk_page_url}?action=edit&section=new"
     @report_url = alert.url
     mail(to: @course.instructors.pluck(:email),
          cc: content_experts.pluck(:email),

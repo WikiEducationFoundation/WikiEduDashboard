@@ -248,7 +248,7 @@ describe 'Surveys', type: :feature, js: true do
       expect(SurveyNotification.last.completed).to eq(true)
 
       expect(Survey.last.to_csv).to match('username,') # beginning of header
-      expect(Survey.last.to_csv).to match(@instructor.username + ',') # beginning of response row
+      expect(Survey.last.to_csv).to match("#{@instructor.username},") # beginning of response row
     end
 
     it 'loads a question group preview' do
