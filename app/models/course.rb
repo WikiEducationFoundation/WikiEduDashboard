@@ -60,6 +60,9 @@ class Course < ApplicationRecord
   ######################
   # Users for a course #
   ######################
+  # Validations
+  validates :slug, presence: true, uniqueness: { message: "Slug must be unique. Another course with this slug already exists." }
+
   has_many :courses_users, class_name: 'CoursesUsers', dependent: :destroy
   has_many :users, -> { distinct }, through: :courses_users
   has_many :students, -> { where('courses_users.role = 0') },
