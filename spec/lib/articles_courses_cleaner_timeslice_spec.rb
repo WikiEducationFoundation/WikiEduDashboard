@@ -137,4 +137,29 @@ describe ArticlesCoursesCleanerTimeslice do
       expect(course.articles_courses.second.article_id).to eq(article3.id)
     end
   end
+
+  describe '.clean_articles_courses_for_article_ids' do
+    before do
+      stub_wiki_validation
+      create(:articles_course, course:, article: article1)
+      create(:articles_course, course:, article: article2)
+
+      create(:article_course_timeslice, course:, article: article1, start: '2024-04-11',
+             end: '2024-04-12')
+
+      create(:article_course_timeslice, course:, article: article2, start:, end: start + 1.day)
+      create(:article_course_timeslice, course:, article: article2, start: '2024-04-11',
+      end: '2024-04-12')
+    end
+
+    it 'removes ArticlesCourses and timeslices for article ids' do
+      expect(course.article_course_timeslices.size).to eq(3)
+      expect(course.articles_courses.size).to eq(2)
+      # Clean articles courses
+      described_class.clean_articles_courses_for_article_ids(course, [article2.id])
+
+      expect(course.article_course_timeslices.size).to eq(1)
+      expect(course.articles_courses.size).to eq(1)
+    end
+  end
 end

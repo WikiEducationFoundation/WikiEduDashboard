@@ -170,27 +170,13 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
     end
   end
 
-  # Returns (wiki, start) tuples for timeslices to reprocess
-  def get_wiki_and_start_dates_to_reprocess(article_course_timeslices)
-    # Extract article IDs and start dates as unique pairs
-    articles_and_starts = article_course_timeslices.map do |timeslice|
-      [timeslice.article_id, timeslice.start.strftime('%Y-%m-%d %H:%M:%S')]
-    end.uniq
+  # Marks course wiki timeslices as needs_update for dates with associated
+  # article course timeslices
+  # Takes a collection of article course timeslices
+  def update_timeslices_that_need_update_from_article_timeslices(timeslices, wiki = nil)
+    return if timeslices.empty?
 
-    # Fetch articles and map article IDs to their corresponding wiki IDs
-    id_to_wiki_map = Article.where(id: articles_and_starts.map(&:first))
-                            .index_by(&:id)
-                            .transform_values(&:wiki_id)
-
-    # Return unique combinations of wiki IDs and start dates
-    articles_and_starts.map { |article_id, start| [id_to_wiki_map[article_id], start] }.uniq
-  end
-
-  # Marks course wiki timeslices as needs_update for those dates when
-  # removed/new users made some edits
-  # Takes a collection of user ids
-  def update_course_wiki_timeslices_that_need_update(wikis_and_starts)
-    return if wikis_and_starts.empty?
+    wikis_and_starts = get_wiki_and_start_dates_to_reprocess(timeslices, wiki)
 
     # Prepare the list of tuples for SQL
     tuples_list = wikis_and_starts.map do |wiki_id, start_date|
@@ -203,6 +189,20 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
 
     # Update all CourseWikiTimeslice records with matching course, wiki and start dates
     course_wiki_timeslices.update_all(needs_update: true) # rubocop:disable Rails/SkipsModelValidations
+  end
+
+  # Marks course wiki timeslices as needs_update for dates with associated revisions
+  # Takes a collection of revisions and a wiki
+  def update_timeslices_that_need_update_from_revisions(revisions, wiki)
+    timeslice_ids = []
+    timeslices = CourseWikiTimeslice.for_course_and_wiki(@course, wiki)
+    timeslices.each do |t|
+      revisions_per_timeslice = revisions.select do |r|
+        t.start <= r.date && r.date < t.end
+      end
+      timeslice_ids << t.id unless revisions_per_timeslice.empty?
+    end
+    CourseWikiTimeslice.where(id: timeslice_ids).update_all(needs_update: true) # rubocop:disable Rails/SkipsModelValidations
   end
 
   TIMESLICE_DURATION = ENV['TIMESLICE_DURATION'].to_i
@@ -265,6 +265,24 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
     timeslice_ids.each_slice(5000) do |timeslice_id_slice|
       ArticleCourseTimeslice.where(id: timeslice_id_slice).delete_all
     end
+  end
+
+  # Returns (wiki, start) tuples for timeslices to reprocess
+  def get_wiki_and_start_dates_to_reprocess(article_course_timeslices, wiki = nil)
+    # Extract article IDs and start dates as unique pairs
+    articles_and_starts = article_course_timeslices.map do |timeslice|
+      [timeslice.article_id, timeslice.start.strftime('%Y-%m-%d %H:%M:%S')]
+    end.uniq
+
+    return articles_and_starts.map { |_, start| [wiki, start] }.uniq if wiki
+
+    # Fetch articles and map article IDs to their corresponding wiki IDs
+    id_to_wiki_map = Article.where(id: articles_and_starts.map(&:first))
+                            .index_by(&:id)
+                            .transform_values(&:wiki_id)
+
+    # Return unique combinations of wiki IDs and start dates
+    articles_and_starts.map { |article_id, start| [id_to_wiki_map[article_id], start] }.uniq
   end
 
   # Returns start dates from the course start up to course end, for timeslices with
