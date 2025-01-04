@@ -44,18 +44,25 @@ class CoursesController < ApplicationController
     validate
     handle_course_announcement(@course.instructors.first)
     slug_from_params if should_set_slug?
-    @course.update update_params
-    update_courses_wikis
-    update_course_wiki_namespaces
-    update_flags
-    ensure_passcode_set
-    UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
-    render json: { course: @course }
+  
+    if @course.update(update_params)
+      update_courses_wikis
+      update_course_wiki_namespaces
+      update_flags
+      ensure_passcode_set
+      UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
+      render json: { course: @course }
+    else
+      # If update fails, check for validation errors (e.g., duplicate slug)
+      render json: { errors: @course.errors.full_messages },
+             status: :unprocessable_entity
+    end
   rescue Wiki::InvalidWikiError => e
     message = I18n.t('courses.error.invalid_wiki', domain: e.domain)
     render json: { errors: e, message: },
            status: :not_found
   end
+  
 
   def destroy
     validate
