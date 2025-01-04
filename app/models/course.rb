@@ -332,6 +332,13 @@ class Course < ApplicationRecord
     categories.inject([]) { |ids, cat| ids + cat.article_ids }
   end
 
+  def articles_from_timeslices(wiki_id)
+    Article.joins(:article_course_timeslices)
+           .where(article_course_timeslices: { course_id: id })
+           .where(wiki_id:)
+           .distinct
+  end
+
   def update_until
     self.end + UPDATE_LENGTH
   end

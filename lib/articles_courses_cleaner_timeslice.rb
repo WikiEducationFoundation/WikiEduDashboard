@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/timeslice_manager"
+
 #= Cleaner for ArticlesCourses that are not part of a course anymore.
 # This class has to be renamed to ArticlesCoursesCleaner when deleting
 # the existing ArticlesCoursesCleaner class.
@@ -26,6 +28,18 @@ class ArticlesCoursesCleanerTimeslice
 
   def self.clean_articles_courses_for_article_ids(course, article_ids)
     new(course).remove_articles_courses_for_article_ids(article_ids)
+  end
+
+  def self.clean_articles_courses_for_deleted_or_untracked_articles(course)
+    new(course).remove_articles_courses_for_deleted_or_untracked_articles
+  end
+
+  def self.clean_articles_courses_for_undeleted_or_retracked_articles(course)
+    new(course).remove_articles_courses_for_undeleted_or_retracked_articles
+  end
+
+  def self.clean_articles(course, articles)
+    new(course).clean(articles)
   end
 
   def initialize(course)
@@ -119,6 +133,49 @@ class ArticlesCoursesCleanerTimeslice
     delete_article_course_timeslice_ids(timeslices.pluck(:id))
   end
 
+  def remove_articles_courses_for_deleted_or_untracked_articles
+    # Find articles with an articles_courses record but without a non-deleted article record.
+    @course.articles.where(deleted: true).in_batches do |article_batch|
+      clean(article_batch)
+    end
+
+    @course.articles.in_batches do |article_batch|
+      tracked = []
+      @course.tracked_namespaces.each do |wiki_ns|
+        wiki_id = wiki_ns[:wiki].id
+        namespace = wiki_ns[:namespace]
+        tracked << article_batch.where(wiki_id:, namespace:)
+      end
+      # Find articles with articles_courses records but not in tracked namespaces
+      untracked_articles = article_batch.where.not(id: tracked.first.select(:id))
+
+      clean(untracked_articles)
+    end
+  end
+
+  def remove_articles_courses_for_undeleted_or_retracked_articles
+    @course.wikis.each do |wiki|
+      # Find non-deleted and tracked articles without an articles_courses record
+      @course.articles_from_timeslices(wiki.id)
+             .where(deleted: false).in_batches do |article_batch|
+              tracked = []
+              @course.tracked_namespaces.each do |wiki_ns|
+                wiki_id = wiki_ns[:wiki].id
+                namespace = wiki_ns[:namespace]
+                tracked << article_batch.where(wiki_id:, namespace:)
+              end
+
+              tracked_without_articles_courses = tracked.first - @course.articles.to_a
+              clean(tracked_without_articles_courses)
+      end
+    end
+  end
+
+  def clean(articles)
+    mark_as_needs_update(articles)
+    remove_articles_courses_for_article_ids(articles.pluck(:id))
+  end
+
   private
 
   # Returns article ids for every article edited before the current course start date
@@ -167,5 +224,13 @@ class ArticlesCoursesCleanerTimeslice
     ids.each_slice(5000) do |slice|
       ArticleCourseTimeslice.where(id: slice).delete_all
     end
+  end
+
+  def mark_as_needs_update(article_batch)
+    timeslices = @course.article_course_timeslices.where(article: article_batch)
+    timeslice_manager = TimesliceManager.new(@course)
+    timeslice_manager.update_timeslices_that_need_update_from_article_timeslices(
+       timeslices
+     )
   end
 end
