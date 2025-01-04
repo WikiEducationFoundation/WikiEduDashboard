@@ -60,8 +60,9 @@ describe 'multiwiki assignments', type: :feature, js: true do
         first('textarea').set(
           "Terre\nhttps://fr.wikipedia.org/wiki/Anglais"
         )
+        expect(page).to have_button('Assign all')
+        click_button 'Assign all'
       end
-      click_button 'Assign all'
 
       visit "/courses/#{course.slug}/students/articles"
       first('.student-selection .student').click
