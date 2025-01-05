@@ -108,7 +108,7 @@ class AssignmentManager
   def check_wiki_edu_discouraged_article
     category = Category.find_by(name: ENV['blocked_assignment_category'])
 
-    if category.present? && category.article_titles.include?(@clean_title)
+    if category.present? && category.article_titles.include?(@clean_title) # rubocop:disable Style/GuardClause
       raise DiscouragedArticleError, I18n.t('assignments.blocked_assignment', title: @clean_title)
     end
   end

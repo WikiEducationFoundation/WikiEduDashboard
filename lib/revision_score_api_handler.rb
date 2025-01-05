@@ -14,9 +14,8 @@ class RevisionScoreApiHandler
     # Initialize LiftWingApi if the wiki is valid for it
     @lift_wing_api = LiftWingApi.new(@wiki, @update_service) if LiftWingApi.valid_wiki?(@wiki)
     # Initialize ReferenceCounterApi if the wiki is valid for it
-    if ReferenceCounterApi.valid_wiki?(@wiki)
-      @reference_counter_api = ReferenceCounterApi.new(@wiki, @update_service)
-    end
+    return unless ReferenceCounterApi.valid_wiki?(@wiki)
+    @reference_counter_api = ReferenceCounterApi.new(@wiki, @update_service)
   end
 
   # Returns data from LiftWing API and/or reference-counter API.

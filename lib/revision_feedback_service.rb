@@ -19,9 +19,8 @@ class RevisionFeedbackService
   def citation_feedback
     ref_tags = @features['feature.wikitext.revision.ref_tags']
     # cite_templates = @features['feature.enwiki.revision.cite_templates']
-    if ref_tags < MINIMUM_REFERENCES
-      @feedback << 'Cite your sources! This article needs more references.'
-    end
+    return unless ref_tags < MINIMUM_REFERENCES
+    @feedback << 'Cite your sources! This article needs more references.'
   end
 
   # The largest reasonable average section size, calculated from content characters

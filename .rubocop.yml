@@ -123,8 +123,6 @@ Rails/FilePath:
   Enabled: false
 Performance/UnfreezeString:
   Enabled: false
-Style/GuardClause:
-  Enabled: false
 Rails/HasManyOrHasOneDependent:
   Enabled: false
 Rails/InverseOf:
