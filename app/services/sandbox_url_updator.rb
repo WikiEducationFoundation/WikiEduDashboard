@@ -32,7 +32,7 @@ class SandboxUrlUpdator
     raise InvalidUrlError, I18n.t('assignments.invalid_url', url: @new_url) unless new_url_match
     # Handle mismatched wiki
     new_language, new_project = new_url_match.captures
-    unless existing_language == new_language && existing_project == new_project
+    unless existing_language == new_language && existing_project == new_project # rubocop:disable Style/GuardClause
       raise MismatchedWikiError, I18n.t('assignments.mismatched_wiki', url: @new_url)
     end
   end
