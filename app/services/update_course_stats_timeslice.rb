@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/course_revision_updater"
-require_dependency "#{Rails.root}/lib/article_status_manager"
+require_dependency "#{Rails.root}/lib/article_status_manager_timeslice"
 require_dependency "#{Rails.root}/lib/importers/course_upload_importer"
 require_dependency "#{Rails.root}/lib/data_cycle/update_logger"
 require_dependency "#{Rails.root}/lib/analytics/histogram_plotter"
@@ -28,8 +28,8 @@ class UpdateCourseStatsTimeslice
     @start_time = Time.zone.now
     import_uploads
     update_categories
-    @timeslice_errors = UpdateCourseWikiTimeslices.new(@course).run(all_time: @full_update)
     update_article_status if should_update_article_status?
+    @timeslice_errors = UpdateCourseWikiTimeslices.new(@course).run(all_time: @full_update)
     update_average_pageviews
     update_caches
     update_wikidata_stats if wikidata
@@ -55,11 +55,8 @@ class UpdateCourseStatsTimeslice
   end
 
   def update_article_status
-    # TODO: note this is not wiki scoped.
-    ArticleStatusManager.update_article_status_for_course(@course)
+    ArticleStatusManagerTimeslice.update_article_status_for_course(@course)
     @debugger.log_update_progress :article_status_updated
-
-    # TODO: replace the logic on ModifiedRevisionsManager.new(@wiki).move_or_delete_revisions
   end
 
   def update_average_pageviews
