@@ -4,13 +4,17 @@ require_dependency "#{Rails.root}/lib/articles_courses_cleaner_timeslice"
 require_dependency "#{Rails.root}/lib/assignment_updater"
 
 #= Updates articles to reflect deletion and page moves on Wikipedia
-# This class is responsible for identifying articles that:
-# * Were deleted or untracked: These are articles that were either deleted or
-# moved to a namespace not traceable by the course. Such articles should be
-# excluded from course statistics.
-# * Were restored or re-tracked: These are articles that were either restored
-# or moved to a namespace relevant to the course. Such articles should be
-# included in course statistics.
+# This class is responsible for two main things (we may separate it in the future).
+# - Iterate over article course timeslices to sync articles. This updates title,
+# namespace, deleted and mw_page_id fields.
+# - Reset articles according to their new status:
+#   * Articles that were deleted or untracked. These are articles that were either
+#   deleted or moved to a namespace not traceable by the course. Such articles
+#   should be excluded from course statistics.
+#   * Articles that were restored or re-tracked: These are articles that were
+#   either undeleted or moved to a namespace relevant to the course. Such articles
+#   should be included in course statistics.
+#   TODO: this class can probably be made simpler
 
 class ArticleStatusManagerTimeslice
   def initialize(course, wiki = nil)
@@ -24,10 +28,8 @@ class ArticleStatusManagerTimeslice
 
   def self.update_article_status_for_course(course)
     course.wikis.each do |wiki|
-      # Determine articles based on ac timeslices
+      # Retrieve articles based on ac timeslices to also include current untracked articles.
       course.articles_from_timeslices(wiki.id)
-            # we should determine articles based on ac timeslices
-            # .where(wiki_id: wiki.id)
             # Updating only those articles which are updated more than 1 day ago
             .where('articles.updated_at < ?', 1.day.ago)
             .in_batches do |article_batch|
@@ -41,8 +43,7 @@ class ArticleStatusManagerTimeslice
       end
     end
 
-    ArticlesCoursesCleanerTimeslice.clean_articles_courses_for_deleted_or_untracked_articles(course)
-    ArticlesCoursesCleanerTimeslice.clean_articles_courses_for_undeleted_or_retracked_articles(course)
+    ArticlesCoursesCleanerTimeslice.reset_articles_for_course(course)
   end
 
   ####################
@@ -117,11 +118,6 @@ class ArticleStatusManagerTimeslice
         article.update!(title: article_data['page_title'],
                         namespace: article_data['page_namespace'],
                         deleted: false)
-        # If namespace changed or the article gets undeleted, I had to re-reprocess timeslices for
-        # that article
-        # Call timeslice_manager.update_timeslices_that_need_update_from_article_timeslices(
-        #     timeslices
-        #    )
         # Find corresponding Assignment records and update the titles
         AssignmentUpdater.update_assignments_for_article(article)
       rescue ActiveRecord::RecordNotUnique => e
@@ -130,12 +126,10 @@ class ArticleStatusManagerTimeslice
         # it was called from a cleanup script. In this case, we consider @article as
         # a duplicate article record, so we re-process timeslices for it.
 
-        # if this is a duplicate article record, moving the revisions to the non-deleted
+        # If this is a duplicate article record, moving the revisions to the non-deleted
         # copy should prevent it from being part of a future update.
         # NOTE: ActiveRecord::RecordNotUnique is a subtype of ActiveRecord::StatementInvalid
         # so this rescue comes first.
-
-        # I don't know what to do here
         handle_undeletion(article)
         Sentry.capture_exception e, level: 'warning'
       rescue ActiveRecord::StatementInvalid => e # workaround for 4-byte unicode errors
@@ -171,10 +165,7 @@ class ArticleStatusManagerTimeslice
     # If there is only one copy of the article, it was already found and updated
     # via `update_title_and_namespace`
     return unless nondeleted_article
-    ArticlesCoursesCleanerTimeslice.clean_articles(@course, [article])
-    # Mark all ac timeslices for article as needs_update
-    # Remove ac timeslices for article
-    # remove ac for article (if it exists)
+    ArticlesCoursesCleanerTimeslice.reset_specific_articles(@course, [article])
   end
 
   def data_matches_article?(article_data, article)

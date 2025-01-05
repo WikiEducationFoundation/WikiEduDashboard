@@ -5,7 +5,7 @@ require_dependency "#{Rails.root}/lib/timeslice_manager"
 #= Cleaner for ArticlesCourses that are not part of a course anymore.
 # This class has to be renamed to ArticlesCoursesCleaner when deleting
 # the existing ArticlesCoursesCleaner class.
-class ArticlesCoursesCleanerTimeslice
+class ArticlesCoursesCleanerTimeslice # rubocop:disable Metrics/ClassLength
   ################
   # Entry points #
   ################
@@ -30,16 +30,18 @@ class ArticlesCoursesCleanerTimeslice
     new(course).remove_articles_courses_for_article_ids(article_ids)
   end
 
-  def self.clean_articles_courses_for_deleted_or_untracked_articles(course)
-    new(course).remove_articles_courses_for_deleted_or_untracked_articles
+  # Reset articles involves the following actions:
+  # - Mark timeslices for those articles as needs_update
+  # - Remove article course records for those articles (if they exist)
+  # - Remove article course timeslices for those articles
+  def self.reset_articles_for_course(course)
+    cleaner = new(course)
+    cleaner.reset_deleted_or_untracked_articles
+    cleaner.reset_undeleted_or_retracked_articles
   end
 
-  def self.clean_articles_courses_for_undeleted_or_retracked_articles(course)
-    new(course).remove_articles_courses_for_undeleted_or_retracked_articles
-  end
-
-  def self.clean_articles(course, articles)
-    new(course).clean(articles)
+  def self.reset_specific_articles(course, articles)
+    new(course).reset(articles)
   end
 
   def initialize(course)
@@ -133,10 +135,10 @@ class ArticlesCoursesCleanerTimeslice
     delete_article_course_timeslice_ids(timeslices.pluck(:id))
   end
 
-  def remove_articles_courses_for_deleted_or_untracked_articles
+  def reset_deleted_or_untracked_articles
     # Find articles with an articles_courses record but without a non-deleted article record.
     @course.articles.where(deleted: true).in_batches do |article_batch|
-      clean(article_batch)
+      reset(article_batch)
     end
 
     @course.articles.in_batches do |article_batch|
@@ -149,11 +151,11 @@ class ArticlesCoursesCleanerTimeslice
       # Find articles with articles_courses records but not in tracked namespaces
       untracked_articles = article_batch.where.not(id: tracked.first.select(:id))
 
-      clean(untracked_articles)
+      reset(untracked_articles)
     end
   end
 
-  def remove_articles_courses_for_undeleted_or_retracked_articles
+  def reset_undeleted_or_retracked_articles
     @course.wikis.each do |wiki|
       # Find non-deleted and tracked articles without an articles_courses record
       @course.articles_from_timeslices(wiki.id)
@@ -166,12 +168,12 @@ class ArticlesCoursesCleanerTimeslice
               end
 
               tracked_without_articles_courses = tracked.first - @course.articles.to_a
-              clean(tracked_without_articles_courses)
+              reset(tracked_without_articles_courses)
       end
     end
   end
 
-  def clean(articles)
+  def reset(articles)
     mark_as_needs_update(articles)
     remove_articles_courses_for_article_ids(articles.pluck(:id))
   end

@@ -332,6 +332,9 @@ class Course < ApplicationRecord
     categories.inject([]) { |ids, cat| ids + cat.article_ids }
   end
 
+  # Retrieve articles based on the existing article course timeslices.
+  # This includes both tracked and untracked articles, such as those that
+  # don't belong to a tracked namespace.
   def articles_from_timeslices(wiki_id)
     Article.joins(:article_course_timeslices)
            .where(article_course_timeslices: { course_id: id })
