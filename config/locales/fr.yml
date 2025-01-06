@@ -2113,4 +2113,10 @@ fr:
       de serveur. Veuillez réessayer plus tard.
   tagged_courses:
     download_csv: Télécharger en CSV
+  weekday_picker:
+    aria:
+      weekday_select: '{{weekday}} Appuyez sur la touche Entrée pour sélectionner'
+      weekday_selected: '{{weekday}} sélectionné, Appuyez sur la touche Entrée pour
+        désélectionner'
+      weekday_unselected: '{{weekday}} non sélectionné'
 ...

@@ -158,6 +158,7 @@ se:
     label: Ođđa geavaheaddjinamma
   uploads:
     file_name: Fiilanamma
+    license: 'Liseansa:'
   users:
     editors: Geavaheddjiid mearri
     first_name: Ovdanamma
