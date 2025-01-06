@@ -22,7 +22,7 @@ class ContinuedCourseActivityAlertManager
 
   private
 
-  MINIMUM_CHARACTERS_ADDED_AFTER_COURSE_END = 1000
+  MINIMUM_CHARACTERS_ADDED_AFTER_COURSE_END = 200
   def significant_activity_after_course_end?(course)
     user_ids = course.students.pluck(:id)
     post_course_characters = Revision
