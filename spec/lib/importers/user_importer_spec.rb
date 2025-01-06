@@ -180,6 +180,16 @@ describe UserImporter do
 
   describe '.update_user_from_wiki' do
     let(:course) { create(:course) }
+    let(:enwiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
+
+    context 'when get_user_info returns nil' do
+      it 'returns early without raising an error and does not update the user' do
+        user = create(:user, username: 'RageSoss')
+        allow_any_instance_of(WikiApi).to receive(:get_user_info).and_return(nil)
+        expect(user).not_to receive(:update!)
+        expect { described_class.update_user_from_wiki(user, enwiki) }.not_to raise_error
+      end
+    end
 
     it 'cleans up records when there are collisions' do
       VCR.use_cassette 'user/new_from_renamed_user' do
@@ -197,7 +207,6 @@ describe UserImporter do
     it 'sets the registration date from English Wikipedia' do
       VCR.use_cassette 'user/enwiki_only_account' do
         user = create(:user, username: 'Brady2421')
-        enwiki = Wiki.get_or_create(language: 'en', project: 'wikipedia')
         described_class.update_user_from_wiki(user, enwiki)
         expect(user.registered_at).not_to be_nil
       end
