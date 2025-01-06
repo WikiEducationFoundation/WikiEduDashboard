@@ -23,7 +23,7 @@ import { deleteCourse, updateCourse, resetCourse, persistCourse, nameHasChanged,
 import { fetchOnboardingAlert } from '../../actions/course_alert_actions';
 import { fetchTags } from '../../actions/tag_actions';
 import { addValidation, setValid, setInvalid, activateValidations } from '../../actions/validation_actions';
-import { getStudentUsers, getWeeksArray, getAllWeeksArray, firstValidationErrorMessage, isValid } from '../../selectors';
+import { getStudentUsers, getWeeksArray, getAllWeeksArray, firstValidationErrorMessage, isValid, getAllWeekDates } from '../../selectors';
 import OverviewStatsTabs from '../common/overview_stats_tabs';
 
 const Overview = createReactClass({
@@ -44,12 +44,13 @@ const Overview = createReactClass({
     updateClonedCourse: PropTypes.func.isRequired,
     weeks: PropTypes.array.isRequired,
     allWeeks: PropTypes.array.isRequired,
+    allWeeksDates: PropTypes.array.isRequired,
     setValid: PropTypes.func.isRequired,
     setInvalid: PropTypes.func.isRequired,
     activateValidations: PropTypes.func.isRequired,
     firstErrorMessage: PropTypes.string,
     isValid: PropTypes.bool.isRequired,
-    courseCreationNotice: PropTypes.string
+    courseCreationNotice: PropTypes.string,
   },
 
   componentDidMount() {
@@ -159,7 +160,7 @@ const Overview = createReactClass({
           refetchCourse={this.props.refetchCourse}
         />
         <AvailableActions course={course} current_user={this.props.current_user} updateCourse={this.props.updateCourse} courseCreationNotice={this.props.courseCreationNotice} />
-        <Milestones timelineStart={course.timeline_start} weeks={this.props.weeks} allWeeks={this.props.allWeeks} course={course} />
+        <Milestones timelineStart={course.timeline_start} weeks={this.props.weeks} allWeeks={this.props.allWeeks} course={course} allWeeksDates={this.props.allWeeksDates} />
       </div>
     ) : (
       <div className="sidebar" />
@@ -192,6 +193,7 @@ const mapStateToProps = state => ({
   campaigns: state.campaigns.campaigns,
   weeks: getWeeksArray(state),
   allWeeks: getAllWeeksArray(state),
+  allWeeksDates: getAllWeekDates(state),
   loading: state.timeline.loading || state.course.loading,
   firstErrorMessage: firstValidationErrorMessage(state),
   isValid: isValid(state),

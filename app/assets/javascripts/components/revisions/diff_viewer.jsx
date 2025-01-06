@@ -121,15 +121,15 @@ const DiffViewer = createReactClass({
       return;
     }
     this.setState({ diffFetchInitiated: true });
+    this.fetchDiff(this.diffUrl(props.revision));
 
-    if (props.first_revision) {
+    if (props.first_revision && !this.state.parentRevisionId) {
       return this.findParentOfFirstRevision(props);
     }
-    this.fetchDiff(this.diffUrl(props.revision));
   },
 
   wikiUrl(revision) {
-    return `https://${toWikiDomain(revision.wiki)}`;
+    return `https://${toWikiDomain(revision.wiki || this.props.article)}`;
   },
 
   diffUrl(lastRevision, firstRevision) {
@@ -138,11 +138,11 @@ const DiffViewer = createReactClass({
     // eg, "https://en.wikipedia.org/w/api.php?action=query&prop=revisions&revids=139993&rvdiffto=prev&format=json",
     let diffUrl;
     if (this.state.parentRevisionId) {
-      diffUrl = `${queryBase}&revids=${this.state.parentRevisionId}|${lastRevision.mw_rev_id}&rvdiffto=${lastRevision.mw_rev_id}`;
+      diffUrl = `${queryBase}&revids=${this.state.parentRevisionId}|${lastRevision.revid}&rvdiffto=${lastRevision.revid}`;
     } else if (firstRevision) {
-      diffUrl = `${queryBase}&revids=${firstRevision.mw_rev_id}|${lastRevision.mw_rev_id}&rvdiffto=${lastRevision.mw_rev_id}`;
+      diffUrl = `${queryBase}&revids=${firstRevision.revid}|${lastRevision.revid}&rvdiffto=${lastRevision.revid}`;
     } else {
-      diffUrl = `${queryBase}&revids=${lastRevision.mw_rev_id}&rvdiffto=prev`;
+      diffUrl = `${queryBase}&revids=${lastRevision.revid}&rvdiffto=prev`;
     }
 
     return diffUrl;
@@ -151,26 +151,16 @@ const DiffViewer = createReactClass({
   webDiffUrl() {
     const wikiUrl = this.wikiUrl(this.props.revision);
     if (this.state.parentRevisionId) {
-      return `${wikiUrl}/w/index.php?oldid=${this.state.parentRevisionId}&diff=${this.props.revision.mw_rev_id}`;
+      return `${wikiUrl}/w/index.php?oldid=${this.state.parentRevisionId}&diff=${this.props.revision.revid}`;
     } else if (this.props.first_revision) {
-      return `${wikiUrl}/w/index.php?oldid=${this.props.first_revision.mw_rev_id}&diff=${this.props.revision.mw_rev_id}`;
+      return `${wikiUrl}/w/index.php?oldid=${this.props.first_revision.revid}&diff=${this.props.revision.revid}`;
     }
-    return `${wikiUrl}/w/index.php?diff=${this.props.revision.mw_rev_id}`;
+    return `${wikiUrl}/w/index.php?diff=${this.props.revision.revid}`;
   },
 
   findParentOfFirstRevision(props) {
-    const wikiUrl = this.wikiUrl(props.revision);
-    const queryBase = `${wikiUrl}/w/api.php?action=query&prop=revisions&origin=*&format=json`;
-    const diffUrl = `${queryBase}&revids=${props.first_revision.mw_rev_id}`;
-
-    fetch(diffUrl)
-    .then(resp => resp.json())
-    .then((data) => {
-      const revisionData = data.query.pages[props.first_revision.mw_page_id].revisions[0];
-      const parentRevisionId = revisionData.parentid;
-      this.setState({ parentRevisionId });
-      this.fetchDiff(this.diffUrl(props.revision, props.first_revision));
-    });
+    const parentRevisionId = props.first_revision.parentid;
+    this.setState({ parentRevisionId });
   },
 
   fetchDiff(diffUrl) {
@@ -179,13 +169,13 @@ const DiffViewer = createReactClass({
     .then((data) => {
       let firstRevisionData;
       try {
-        firstRevisionData = data.query.pages[this.props.revision.mw_page_id].revisions[0];
+        firstRevisionData = data.query.pages[this.props.revision.pageid].revisions[0];
       } catch (_err) {
         firstRevisionData = {};
       }
       let lastRevisionData;
       try {
-        lastRevisionData = data.query.pages[this.props.revision.mw_page_id].revisions[1];
+        lastRevisionData = data.query.pages[this.props.revision.pageid].revisions[1];
       } catch (_err) { /* noop */ }
 
       // Data may or may not include the diff.
@@ -201,7 +191,7 @@ const DiffViewer = createReactClass({
         comment: firstRevisionData.comment,
         fetched: true,
         firstRevDateTime: firstRevisionData.timestamp,
-        lastRevDateTime: lastRevisionData ? lastRevisionData.timestamp : null
+        lastRevDateTime: lastRevisionData ? lastRevisionData.timestamp : firstRevisionData.timestamp
       });
     });
   },
@@ -282,7 +272,7 @@ const DiffViewer = createReactClass({
       editDate = I18n.t('revisions.edited_on', { edit_date: formatedDate });
       finalDate = <div className="diff-viewer-legend" style={{ width: '66%' }}>{editDate}</div>;
       charactersCount = <div className="diff-viewer-legend">{this.props.revision.characters} {I18n.t('revisions.chars_added')}</div>;
-    } else {
+    } else if (this.state.fetched) {
       firstRevTime = formatDateWithTime(this.state.firstRevDateTime);
       lastRevTime = formatDateWithTime(this.state.lastRevDateTime);
       timeSpan = I18n.t('revisions.edit_time_span', { first_time: firstRevTime, last_time: lastRevTime });
@@ -310,7 +300,7 @@ const DiffViewer = createReactClass({
           article={this.props.article}
           editors={this.props.editors}
           before_rev_id={this.state.parentRevisionId}
-          after_rev_id={this.props.revision.mw_rev_id}
+          after_rev_id={this.props.revision.revid}
         />
       );
     }

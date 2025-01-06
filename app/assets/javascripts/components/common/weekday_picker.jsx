@@ -25,7 +25,6 @@ const WeekdayPicker = ({
   style,
   tabIndex,
 
-  ariaModifier,
   modifiers,
 
   locale,
@@ -145,7 +144,7 @@ const WeekdayPicker = ({
 
     dayClassName += customModifiers.map(modifier => ` ${dayClassName}--${modifier}`).join('');
 
-    const ariaSelected = customModifiers.indexOf(ariaModifier) > -1;
+    const ariaSelected = customModifiers.indexOf('selected') > -1;
 
     let tabIndexValue = null;
     if (onWeekdayClick) {
@@ -159,10 +158,20 @@ const WeekdayPicker = ({
     const onMouseEnterHandler = onWeekdayMouseEnter ? e => handleWeekdayMouseEnter(e, weekday, customModifiers) : null;
     const onMouseLeaveHandler = onWeekdayMouseLeave ? e => handleWeekdayMouseLeave(e, weekday, customModifiers) : null;
 
+    const ariaLabelMessage = ariaSelected
+      ? I18n.t('weekday_picker.aria.weekday_selected', { weekday: localeUtils.formatWeekdayLong(weekday), })
+      : I18n.t('weekday_picker.aria.weekday_select', { weekday: localeUtils.formatWeekdayLong(weekday), });
+
+    const ariaLiveMessage = ariaSelected
+      ? I18n.t('weekday_picker.aria.weekday_selected', { weekday: localeUtils.formatWeekdayLong(weekday), })
+      : I18n.t('weekday_picker.aria.weekday_unselected', { weekday: localeUtils.formatWeekdayLong(weekday), });
+
     return (
       <button
-        key={weekday} className={dayClassName} tabIndex={tabIndexValue}
-        aria-pressed={ariaSelected}
+        key={weekday}
+        className={dayClassName}
+        tabIndex={tabIndexValue}
+        aria-label= {ariaLabelMessage}
         onClick={onClickHandler}
         onKeyDown={e => handleDayKeyDown(e, weekday, customModifiers)}
         onMouseEnter={onMouseEnterHandler}
@@ -171,6 +180,10 @@ const WeekdayPicker = ({
         <span title={localeUtils.formatWeekdayLong(weekday)}>
           {localeUtils.formatWeekdayShort(weekday)}
         </span>
+        {/* Aria-live region for screen reader announcements for confirmation of when a week day is selected or unselected */}
+        <div aria-live="assertive" aria-atomic="true" className="sr-WeekdayPicker-aria-live">
+          {ariaLiveMessage}
+        </div>
       </button>
     );
   };
@@ -201,7 +214,6 @@ WeekdayPicker.propTypes = {
   style: PropTypes.object,
   tabIndex: PropTypes.number,
 
-  ariaModifier: PropTypes.string,
   modifiers: PropTypes.object,
 
   locale: PropTypes.string,

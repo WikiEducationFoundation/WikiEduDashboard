@@ -161,6 +161,7 @@ sms:
     tags: Ǩeâlggal
     update_statistics_link: Lââʹssteâđ
     removed: Jaukkuum
+    descriptions: Deskriipt
   namespace:
     article: Artikkel
     project: Projeʹktt
@@ -208,6 +209,7 @@ sms:
     file_name: Teâttõsnõmm
     image: Kartt leʼbe snimldõk
     label: Ruõkkmõõžž
+    license: 'Liseʹnss:'
     uploaded_by: 'Ruõkkâm:'
   users:
     contributions: Õõʹnni muttâz

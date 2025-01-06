@@ -9,7 +9,8 @@ import {
   UPDATE_ARTICLE_TRACKED_STATUS,
   SET_ARTICLES_PAGE,
   ARTICLES_PER_PAGE,
-  RESET_PAGES
+  RESET_PAGES,
+  UPDATE_ARTICLE_TITLE_AND_URL,
 } from '../constants';
 
 const initialState = {
@@ -145,6 +146,16 @@ export default function articles(state = initialState, action) {
     }
     case RESET_PAGES: {
       return { ...state, currentPage: 1, totalPages: action.totalPages };
+    }
+
+    case UPDATE_ARTICLE_TITLE_AND_URL: {
+      return {
+        ...state,
+        articles: _.map(state.articles, article =>
+        ((action.payload.articleId === article.id)
+          ? { ...article, title: action.payload.title, url: action.payload.url }
+          : article))
+      };
     }
 
     default:

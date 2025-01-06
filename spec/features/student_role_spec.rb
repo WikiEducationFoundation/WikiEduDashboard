@@ -15,8 +15,8 @@ describe 'Student users', type: :feature, js: true do
            slug: 'University/An_Example_Course_(Term)',
            submitted: true,
            passcode: 'passcode',
-           start: '2015-01-01'.to_date,
-           end: '2025-01-01'.to_date)
+           start: '2025-01-01'.to_date,
+           end: 1.month.from_now)
   end
   let!(:editathon) do
     create(:editathon,
@@ -26,8 +26,8 @@ describe 'Student users', type: :feature, js: true do
            slug: 'University/An_Example_Editathon_(Term)',
            submitted: true,
            passcode: '',
-           start: '2015-01-01'.to_date,
-           end: '2025-01-01'.to_date)
+           start: '2025-01-01'.to_date,
+           end: 1.month.from_now)
   end
 
   before do

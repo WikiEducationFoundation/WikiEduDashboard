@@ -80,6 +80,7 @@ smn:
     download_stats_data: Luođii lovottuvâid
     feedback: Macâttâs
     home_wiki: Päikkiwiki
+    loading: Luođiimin…
     new_account_email: Šleđgâpostâčujottâs
     overview: Päikki
     please_log_in: Čáládât siisâ.
@@ -134,6 +135,7 @@ smn:
     label: Uđđâ kevtteenommâ
   uploads:
     image: Kove
+    license: 'Liiseens:'
   users:
     first_name: Ovdânommâ
     last_name: Suhânommâ

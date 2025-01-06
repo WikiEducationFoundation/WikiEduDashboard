@@ -29,4 +29,10 @@ class BlockedUserAlert < Alert
   def url
     "https://en.wikipedia.org/wiki/Special:Log?type=block&user=&page=User%3A#{user.url_encoded_username}&wpdate=&tagfilter=&subtype="
   end
+
+  def send_mails_to_concerned
+    BlockedUserAlertMailer.send_mails_to_concerned(self)
+    return if emails_disabled?
+    update(email_sent_at: Time.zone.now)
+  end
 end

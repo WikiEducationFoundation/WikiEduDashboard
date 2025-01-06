@@ -16,6 +16,7 @@
 # Author: Wwycheuk
 # Author: Xiplus
 # Author: 列维劳德
+# Author: 張詠涵
 # Author: 捍粵者
 ---
 zh-TW:
@@ -1609,4 +1610,9 @@ zh-TW:
     JSONP_request_failed: 從維基百科取得資料的請求已逾時。這可能是由於網路連線速度太慢，或是臨時伺服器問題造成的。請稍後重試。
   tagged_courses:
     download_csv: 下載 CSV
+  weekday_picker:
+    aria:
+      weekday_select: '{{weekday}}，按下返回鍵以選擇'
+      weekday_selected: '{{weekday}} 已選擇，按下返回鍵以取消選擇'
+      weekday_unselected: '{{weekday}} 未選擇'
 ...

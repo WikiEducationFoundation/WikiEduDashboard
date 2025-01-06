@@ -6,6 +6,7 @@
 # Author: Alshamiri1
 # Author: Ayatun
 # Author: Azouz.anis
+# Author: Cigaryno
 # Author: Dr. Mohammed
 # Author: Eyas
 # Author: FShbib
@@ -984,7 +985,7 @@ ar:
     user_uploads_none: لم يساهم المستخدمون المختارون بأية صور أو ملفات وسائط أخرى
       في هذا المشروع.
     view_other: عرض حملات أخرى
-    view_page: عرض صفحة البرنامج
+    view_page: عرض الصفحة
     word_count_doc: تقدير عدد الكلمات التي تمت إضافتها إلى مقالات النطاق الرئيسي من
       قبل طلاب البرنامج أثناء فترة البرنامج
     word_count_doc_wikidata: تقدير لعدد الكلمات المضافة إلى عناصر المساحة الرئيسية
@@ -1691,4 +1692,9 @@ ar:
     assignment_status: مهمة التدريب (%{status})
   multi_wiki:
     selector_placeholder: ابدأ في كتابة نطاق الويكي
+  weekday_picker:
+    aria:
+      weekday_select: '{{weekday}} اضغط على مفتاح الرجوع للتحديد'
+      weekday_selected: '{{weekday}} تم ضغط على مفتاح الرجوع لإلغاء التحديد'
+      weekday_unselected: '{{weekday}} غير محدد'
 ...

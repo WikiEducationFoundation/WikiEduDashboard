@@ -12,6 +12,10 @@ class AlertMailerPreview < ActionMailer::Preview
     AlertMailer.alert(example_blocked_edits_alert, example_user)
   end
 
+  def blocked_student_alert
+    BlockedUserAlertMailer.email(example_user_blocked_alert)
+  end
+
   def check_timeline_alert
     AlertMailer.alert(example_alert(type: 'CheckTimelineAlert'), example_user)
   end
@@ -135,5 +139,10 @@ class AlertMailerPreview < ActionMailer::Preview
     Alert.new(type: 'BlockedEditsAlert',
               user: example_user,
               details:)
+  end
+
+  def example_user_blocked_alert
+    user = example_user
+    Alert.new(type: 'BlockedUserAlert', user:, course: example_course)
   end
 end

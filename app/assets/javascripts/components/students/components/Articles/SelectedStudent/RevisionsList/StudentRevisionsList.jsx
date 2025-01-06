@@ -27,10 +27,10 @@ export const StudentRevisionsList = ({ course, student, wikidataLabels, userRevi
   // filter the revisions according to namespace
   const getfilteredRevisions = () => {
     let revisions = [];
-    if (userRevisions[student.id] !== undefined && userRevisions[student.id] !== null) {
+    if (userRevisions[student.username] !== undefined && userRevisions[student.username] !== null) {
       revisions = (namespace === 'all')
-        ? userRevisions[student.id]
-        : userRevisions[student.id].filter((rev) => {
+        ? userRevisions[student.username]
+        : userRevisions[student.username].filter((rev) => {
           const current_ns_id = ArticleUtils.getNamespaceId(namespace);
           return rev.article.namespace === current_ns_id;
         });
@@ -43,7 +43,7 @@ export const StudentRevisionsList = ({ course, student, wikidataLabels, userRevi
   };
 
 
-  if (!userRevisions[student.id]) dispatch(fetchUserRevisions(course.id, student.id));
+  if (!userRevisions[student.id]) dispatch(fetchUserRevisions(course, student));
   const filteredRevisions = getfilteredRevisions();
   const uploadsLink = `/courses/${course.slug}/uploads`;
   const elements = [

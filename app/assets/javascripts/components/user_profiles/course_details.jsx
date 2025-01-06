@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const CourseDetails = ({ courses }) => {
+  const labelKey = Features.wikiEd ? 'courses.view_page' : 'courses_generic.view_page';
   const elements = courses.map((course) => {
     return (
       <a className="course" key={`${course.course_slug}-${course.user_role}`} href={`/courses/${course.course_slug}`}>
-        <div className="button border">{I18n.t('courses.view_page')}</div>
+        <div className="button border">{I18n.t(labelKey)}</div>
         <div className="course-title">{course.course_title}</div>
         <div className="course-details">
           <div className="col">

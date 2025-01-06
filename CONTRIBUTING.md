@@ -36,6 +36,7 @@ If you're a new developer and you're looking for an easy way to get involved, tr
 - [MediaWiki API Sandbox](https://en.wikipedia.org/wiki/Special%3aApiSandbox)
 - [Quarry](http://quarry.wmflabs.org/): Public querying interface for the Labs replica database. Very useful for testing SQL queries and for figuring out what data is available.
 - [Guide to the front end](docs/frontend.md)
+- [Admin Guide](docs/admin_guide.md): Overview of the Dashboard infrastructure, including servers, tools, dependencies, and troubleshooting resources.
 - [Vagrant](https://github.com/marxarelli/wikied-vagrant): a configuration to quickly get a development environment up and running using Vagrant. If you already have VirtualBox and/or Vagrant on your machine, this might be a simple way to set up a dev environment. However, it is not actively maintained. If you try it and run into problems, let us know!
 
 #### Code Style
