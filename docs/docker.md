@@ -58,3 +58,10 @@ If you are using Linux you may encounter permission error when trying to change 
 $ sudo chown $USER:$GROUPS -R ./
 ```
 The command will change the owner of all file inside project directory to the `$USER:$GROUPS`
+
+If you encounter the following error when connecting to the database: _"There is an issue connecting with your hostname mysql"_, please run the following command:
+```sh
+bash ./update_hosts.sh
+```
+This script automatically resolves the issue by ensuring proper network mapping in your system's ```/etc/hosts``` file, facilitating seamless database connections. It retrieves the IP address of the MySQL Docker container, checks for any existing hostname entries, and updates or removes outdated ones. This process ensures that the hostname ```mysql``` is correctly mapped to the container’s IP address.
+This bash script is designed for Linux distributions like Fedora.
