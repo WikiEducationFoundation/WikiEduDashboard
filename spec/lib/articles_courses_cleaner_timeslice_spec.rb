@@ -11,7 +11,8 @@ describe ArticlesCoursesCleanerTimeslice do
   let(:manager) { TimesliceManager.new(course) }
   let(:article1) { create(:article, wiki: enwiki) }
   let(:article2) { create(:article, wiki: wikidata) }
-  let(:article3) { create(:article, wiki: wikidata) }
+  let(:article3) { create(:article, wiki: wikidata, namespace: 3) }
+  let(:article4) { create(:article, wiki: enwiki) }
 
   describe '.clean_articles_courses_for_wiki_ids' do
     before do
@@ -135,6 +136,82 @@ describe ArticlesCoursesCleanerTimeslice do
       expect(course.articles_courses.size).to eq(2)
       expect(course.articles_courses.first.article_id).to eq(article2.id)
       expect(course.articles_courses.second.article_id).to eq(article3.id)
+    end
+  end
+
+  describe '.clean_articles_courses_for_article_ids' do
+    before do
+      stub_wiki_validation
+      create(:articles_course, course:, article: article1)
+      create(:articles_course, course:, article: article2)
+
+      create(:article_course_timeslice, course:, article: article1, start: '2024-04-11',
+             end: '2024-04-12')
+
+      create(:article_course_timeslice, course:, article: article2, start:, end: start + 1.day)
+      create(:article_course_timeslice, course:, article: article2, start: '2024-04-11',
+      end: '2024-04-12')
+    end
+
+    it 'removes ArticlesCourses and timeslices for article ids' do
+      expect(course.article_course_timeslices.size).to eq(3)
+      expect(course.articles_courses.size).to eq(2)
+      # Clean articles courses
+      described_class.clean_articles_courses_for_article_ids(course, [article2.id])
+
+      expect(course.article_course_timeslices.size).to eq(1)
+      expect(course.articles_courses.size).to eq(1)
+    end
+  end
+
+  describe '.reset_articles_for_course' do
+    before do
+      stub_wiki_validation
+      create(:articles_course, course:, article: article1)
+      create(:articles_course, course:, article: article2)
+      create(:articles_course, course:, article: article3)
+
+      create(:article_course_timeslice, course:, article: article1, start: '2024-04-11',
+             end: '2024-04-12')
+
+      create(:article_course_timeslice, course:, article: article2, start:, end: start + 1.day)
+      create(:article_course_timeslice, course:, article: article3, start: '2024-01-11',
+             end: '2024-01-12')
+      create(:article_course_timeslice, course:, article: article4, start: '2024-03-15',
+             end: '2024-03-16')
+
+      manager.create_timeslices_for_new_course_wiki_records([enwiki, wikidata])
+      article1.update(deleted: true)
+      course.wikis << wikidata
+    end
+
+    it 'reset articles for deleted articles' do
+      described_class.reset_articles_for_course(course)
+
+      expect(course.article_course_timeslices.where(article: article1)).to be_empty
+      expect(course.articles_courses.where(article: article1)).to be_empty
+      course_wiki_timeslice = course.course_wiki_timeslices.find_by(wiki: enwiki,
+                                                                    start: '2024-04-11')
+      expect(course_wiki_timeslice.needs_update).to eq(true)
+    end
+
+    it 'reset articles for untracked articles' do
+      described_class.reset_articles_for_course(course)
+
+      expect(course.article_course_timeslices.where(article: article3)).to be_empty
+      expect(course.articles_courses.where(article: article3)).to be_empty
+      course_wiki_timeslice = course.course_wiki_timeslices.find_by(wiki: wikidata,
+                                                                    start: '2024-01-11')
+      expect(course_wiki_timeslice.needs_update).to eq(true)
+    end
+
+    it 'reset articles for undeleted or retracked articles' do
+      described_class.reset_articles_for_course(course)
+
+      expect(course.article_course_timeslices.where(article: article4)).to be_empty
+      course_wiki_timeslice = course.course_wiki_timeslices.find_by(wiki: enwiki,
+                                                                    start: '2024-03-15')
+      expect(course_wiki_timeslice.needs_update).to eq(true)
     end
   end
 end
