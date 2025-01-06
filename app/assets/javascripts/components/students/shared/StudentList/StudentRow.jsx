@@ -2,10 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Student from './Student/Student.jsx';
+import useNavigationsUtils from '../../../../hooks/useNavigationUtils.js';
 
 export const StudentRow = ({
   assignments, course, current_user, editAssignments, showRecent, student, wikidataLabels
 }) => {
+  const { openStudentDetailsView } = useNavigationsUtils();
   return (
     <Student
       assignments={assignments}
@@ -15,6 +17,7 @@ export const StudentRow = ({
       showRecent={showRecent}
       student={student}
       wikidataLabels={wikidataLabels}
+      openStudentDetailsView={openStudentDetailsView}
     />
   );
 };

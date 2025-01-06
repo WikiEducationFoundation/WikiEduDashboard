@@ -59,9 +59,9 @@ const AssignmentLinks = ({ assignment, courseType, user, course, project, editMo
   let groupMembers;
   if (editors) {
     if (role === ASSIGNED_ROLE) {
-      groupMembers = <GroupMembersLink members={editors} />;
+      groupMembers = <GroupMembersLink members={editors} course={course} />;
     } else {
-      groupMembers = <EditorLink key={`editor-${id}`} editors={editors} />;
+      groupMembers = <EditorLink key={`editor-${id}`} editors={editors} course={course} />;
     }
   }
 
@@ -70,7 +70,6 @@ const AssignmentLinks = ({ assignment, courseType, user, course, project, editMo
     reviewers = <AllPeerReviewLinks assignment={assignment} />;
   }
 
-  // const reviewers = <ReviewerLink key={`reviewers-${id}`} reviewers={assignment.reviewers} />;
   const links = actions.reduce(interleaveSeparators, []);
 
   return (

@@ -154,3 +154,98 @@ const fetchRevisionsFromWiki = async (days, wiki, usernames, course_start, last_
   return { revisions, wiki, exitNext };
 };
 
+const parseRevisionResponse = (json) => {
+  const page = Object.values(json.query.pages)[0];
+  if (page.revisions) {
+    return { pageid: page.pageid, ...page.revisions[0] };
+  }
+};
+
+const fetchEarliestRef = async (API_URL, articleTitle, username, startDate, endDate) => {
+  const params = {
+    action: 'query',
+    format: 'json',
+    prop: 'revisions',
+    titles: articleTitle,
+    rvprop: 'timestamp|user|ids',
+    rvuser: username,
+    rvdir: 'newer',
+    rvlimit: 1,
+    rvstart: formatISO(toDate(startDate)),
+    rvend: formatISO(toDate(endDate)),
+  };
+
+  const response = await request(`${API_URL}?${stringify(params)}&origin=*`);
+  const json = await response.json();
+  return parseRevisionResponse(json);
+};
+
+const fetchLatestRef = async (API_URL, articleTitle, username, startDate, endDate) => {
+  const params = {
+    action: 'query',
+    format: 'json',
+    prop: 'revisions',
+    titles: articleTitle,
+    rvprop: 'timestamp|user|ids',
+    rvuser: username,
+    rvdir: 'older',
+    rvlimit: 1,
+    rvstart: formatISO(toDate(endDate)),
+    rvend: formatISO(toDate(startDate))
+  };
+
+  const response = await request(`${API_URL}?${stringify(params)}&origin=*`);
+  const json = await response.json();
+  return parseRevisionResponse(json);
+};
+
+const earliestRev = (revs) => {
+  let earliest;
+  for (const rev of revs) {
+    if (rev) {
+      if (!earliest) { earliest = rev; }
+      if (toDate(rev.timestamp) < toDate(earliest.timestamp)) { earliest = rev; }
+    }
+  }
+  return earliest;
+};
+
+const latestRev = (revs) => {
+  let latest;
+  for (const rev of revs) {
+    if (rev) {
+      if (!latest) { latest = rev; }
+      if (toDate(rev.timestamp) > toDate(latest.timestamp)) { latest = rev; }
+    }
+  }
+  return latest;
+};
+
+export const getRevisionRange = async (API_URL, articleTitle, usernames, startDate, endDate) => {
+  let firstRevs = [];
+  let lastRevs = [];
+  for (const username of usernames) {
+    firstRevs.push(fetchEarliestRef(API_URL, articleTitle, username, startDate, endDate));
+    lastRevs.push(fetchLatestRef(API_URL, articleTitle, username, startDate, endDate));
+  }
+  firstRevs = await Promise.all(firstRevs);
+  lastRevs = await Promise.all(lastRevs);
+  return { first_revision: earliestRev(firstRevs), last_revision: latestRev(lastRevs) };
+};
+
+export const fetchLatestRevisionsForUser = async (username, wiki) => {
+  const prefix = `https://${toWikiDomain(wiki)}`;
+  const API_URL = `${prefix}/w/api.php`;
+
+  const params = {
+    action: 'query',
+    format: 'json',
+    list: 'usercontribs',
+    ucuser: username,
+    ucprop: 'ids|title|timestamp|sizediff'
+  };
+
+  const response = await request(`${API_URL}?${stringify(params)}&origin=*`);
+  const json = await response.json();
+  return json.query.usercontribs;
+};

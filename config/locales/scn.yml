@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Ajeje Brazorf
 # Author: GianAntonucci
+# Author: Gmelfi
 ---
 scn:
   number:
@@ -25,7 +26,7 @@ scn:
     greeting_extended: Bommegna supra Wikipedia
     greeting: Ciau!
     help: Aiutu
-    home: Pàggina mastra
+    home: Pàggina principali
     log_in_extended: Trasi supra Wikipedia
     log_in: Trasi
     log_out: Nesci
@@ -135,7 +136,7 @@ scn:
     new_account_email_placeholder: nomu@example.org
     none: Nuḍḍu
     ores_plot: ORES
-    overview: Pàggina mastra
+    overview: Pàggina principali
     please_log_in: Pi favuri trasi.
     private: Privatu
     requested_accounts_alert_view: Talìa
