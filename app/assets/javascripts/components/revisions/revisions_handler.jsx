@@ -9,6 +9,7 @@ import { ARTICLE_FETCH_LIMIT } from '../../constants/revisions.js';
 import Select from 'react-select';
 import sortSelectStyles from '../../styles/sort_select';
 import { getStudentUsers } from '../../selectors/index.js';
+import { sortByKey } from '../../utils/model_utils.js';
 
 const RevisionHandler = ({ course, courseScopedLimit }) => {
   const [isCourseScoped, setIsCourseScoped] = useState(false);
@@ -129,17 +130,21 @@ const RevisionHandler = ({ course, courseScopedLimit }) => {
   ];
 
   const filterRevisions = () => {
-    const revisions = isCourseScoped ? revisionsDisplayedCourseSpecific : revisionsDisplayed;
+    let revisions = isCourseScoped ? revisionsDisplayedCourseSpecific : revisionsDisplayed; // Use 'let' instead of 'const'
     if (isNewEditor) {
       // this filters out the revisions where the user registered after the course start date and presents only those revisions
-      return revisions.filter((revision) => {
+      revisions = revisions.filter((revision) => {
         const registered_at = new Date(revision.registered_at);
         const course_start = new Date(course.start);
         return registered_at > course_start;
       });
+
+      const sorted = sortByKey(revisions, 'registered_at');
+      return sorted.newModels;
     }
     return revisions;
   };
+
 
   return (
     <div id="revisions">

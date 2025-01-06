@@ -49,7 +49,7 @@ const fetchAll = async (API_URL, params, continue_str) => {
 // currently its used to filter tracked articles
 export const fetchRevisionsFromUsers = async (course, users, days, last_date, filter) => {
   const usernames = users.map(user => user.username);
-  const registered_dates = users.map(user => user.enrolled_at);
+  const registered_dates = users.map(user => user.registered_at);
 
   let revisions = [];
   const wikiPromises = [];
