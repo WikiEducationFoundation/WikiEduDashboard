@@ -9,6 +9,7 @@ json.users course.courses_users.eager_load(:user, :course) do |cu|
   json.call(cu.user, :id, :username)
   json.enrolled_at cu.created_at
   json.admin cu.user.admin?
+  json.registered_at cu.user.registered_at
 
   exercise_progress = cu.course.training_progress_manager.course_exercise_progress(cu.user)
   if exercise_progress.is_a?(Hash)
