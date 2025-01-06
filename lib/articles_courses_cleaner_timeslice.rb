@@ -26,10 +26,6 @@ class ArticlesCoursesCleanerTimeslice # rubocop:disable Metrics/ClassLength
     new(course).remove_articles_courses_for_dates_after_end_date
   end
 
-  def self.clean_articles_courses_for_article_ids(course, article_ids)
-    new(course).remove_articles_courses_for_article_ids(article_ids)
-  end
-
   # Reset articles involves the following actions:
   # - Mark timeslices for those articles as needs_update
   # - Remove article course records for those articles (if they exist)
