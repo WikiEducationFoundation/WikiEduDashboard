@@ -152,7 +152,8 @@ describe ArticleStatusManagerTimeslice do
       end
       expect(course.articles_courses.count).to eq(1)
       expect(course.article_course_timeslices.count).to eq(1)
-      expect(course.course_wiki_timeslices.find_by(start: 3.days.ago.beginning_of_day).needs_update).to eq(true)
+      timeslice = course.course_wiki_timeslices.find_by(start: 3.days.ago.beginning_of_day)
+      expect(timeslice.needs_update).to eq(true)
     end
 
     it 'handles undeleted articles' do
@@ -171,7 +172,8 @@ describe ArticleStatusManagerTimeslice do
         described_class.update_article_status_for_course(course)
       end
       expect(Article.find(53058287).deleted).to eq(false)
-      expect(course.course_wiki_timeslices.find_by(start: 2.days.ago.beginning_of_day).needs_update).to eq(true)
+      timeslice = course.course_wiki_timeslices.find_by(start: 2.days.ago.beginning_of_day)
+      expect(timeslice.needs_update).to eq(true)
     end
 
     context 'when a title is a unicode dump' do
@@ -254,29 +256,29 @@ describe ArticleStatusManagerTimeslice do
     end
 
     it 'does not delete articles by mistake if Replica is down' do
-       VCR.use_cassette 'article_status_manager/main' do
-         create(:article,
-                id: 848,
-                mw_page_id: 848,
-                title: 'Audi',
-                namespace: 0,
-                updated_at: 2.days.ago)
-         create(:article_course_timeslice, course:, article_id: 848,
-                start: 3.days.ago.beginning_of_day, end: 2.days.ago.beginning_of_day)
-         create(:article,
-                id: 1,
-                mw_page_id: 1,
-                title: 'Noarticle',
-                namespace: 0,
-                updated_at: 2.days.ago)
-         create(:article_course_timeslice, course:, article_id: 1,
-                start: 3.days.ago.beginning_of_day, end: 2.days.ago.beginning_of_day)
+      VCR.use_cassette 'article_status_manager/main' do
+        create(:article,
+               id: 848,
+               mw_page_id: 848,
+               title: 'Audi',
+               namespace: 0,
+               updated_at: 2.days.ago)
+        create(:article_course_timeslice, course:, article_id: 848,
+               start: 3.days.ago.beginning_of_day, end: 2.days.ago.beginning_of_day)
+        create(:article,
+               id: 1,
+               mw_page_id: 1,
+               title: 'Noarticle',
+               namespace: 0,
+               updated_at: 2.days.ago)
+        create(:article_course_timeslice, course:, article_id: 1,
+               start: 3.days.ago.beginning_of_day, end: 2.days.ago.beginning_of_day)
 
-         allow_any_instance_of(Replica).to receive(:get_existing_articles_by_id).and_return(nil)
-         described_class.update_article_status_for_course(course)
-         expect(Article.find(848).deleted).to eq(false)
-         expect(Article.find(1).deleted).to eq(false)
-       end
+        allow_any_instance_of(Replica).to receive(:get_existing_articles_by_id).and_return(nil)
+        described_class.update_article_status_for_course(course)
+        expect(Article.find(848).deleted).to eq(false)
+        expect(Article.find(1).deleted).to eq(false)
+      end
     end
 
     it 'does not delete articles by mistake if Replica goes right before trying to fetch titles' do
@@ -317,10 +319,13 @@ describe ArticleStatusManagerTimeslice do
         create(:article_course_timeslice, course:, article_id: 50661367,
                start: 3.days.ago.beginning_of_day, end: 2.days.ago.beginning_of_day)
         # Create course wiki timeslices
-        TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records([course.home_wiki])
+        TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records(
+          [course.home_wiki]
+        )
         described_class.update_article_status_for_course(course)
         expect(Article.find(50661367).deleted).to eq(false)
-        expect(course.course_wiki_timeslices.find_by(start: 3.days.ago.beginning_of_day).needs_update).to eq(true)
+        timeslice = course.course_wiki_timeslices.find_by(start: 3.days.ago.beginning_of_day)
+        expect(timeslice.needs_update).to eq(true)
       end
     end
 
