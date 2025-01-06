@@ -136,21 +136,20 @@ class ArticlesCoursesCleanerTimeslice # rubocop:disable Metrics/ClassLength
   end
 
   def reset_deleted_or_untracked_articles
+    # Note that this could remove articles courses records for manually untracked articles
     # Find articles with an articles_courses record but without a non-deleted article record.
     @course.articles.where(deleted: true).in_batches do |article_batch|
       reset(article_batch)
     end
 
     @course.articles.in_batches do |article_batch|
-      tracked = []
-      @course.tracked_namespaces.each do |wiki_ns|
+      tracked = @course.tracked_namespaces.each.flat_map do |wiki_ns|
         wiki_id = wiki_ns[:wiki].id
         namespace = wiki_ns[:namespace]
-        tracked << article_batch.where(wiki_id:, namespace:)
+        article_batch.where(wiki_id:, namespace:).pluck(:id)
       end
       # Find articles with articles_courses records but not in tracked namespaces
-      untracked_articles = article_batch.where.not(id: tracked.first.select(:id))
-
+      untracked_articles = article_batch.where.not(id: tracked)
       reset(untracked_articles)
     end
   end
@@ -160,15 +159,15 @@ class ArticlesCoursesCleanerTimeslice # rubocop:disable Metrics/ClassLength
       # Find non-deleted and tracked articles without an articles_courses record
       @course.articles_from_timeslices(wiki.id)
              .where(deleted: false).in_batches do |article_batch|
-              tracked = []
-              @course.tracked_namespaces.each do |wiki_ns|
-                wiki_id = wiki_ns[:wiki].id
-                namespace = wiki_ns[:namespace]
-                tracked << article_batch.where(wiki_id:, namespace:)
-              end
+        tracked = []
+        @course.tracked_namespaces.each do |wiki_ns|
+          wiki_id = wiki_ns[:wiki].id
+          namespace = wiki_ns[:namespace]
+          tracked << article_batch.where(wiki_id:, namespace:)
+        end
 
-              tracked_without_articles_courses = tracked.first - @course.articles.to_a
-              reset(tracked_without_articles_courses)
+        tracked_without_articles_courses = tracked.first - @course.articles.to_a
+        reset(tracked_without_articles_courses)
       end
     end
   end
@@ -232,7 +231,7 @@ class ArticlesCoursesCleanerTimeslice # rubocop:disable Metrics/ClassLength
     timeslices = @course.article_course_timeslices.where(article: article_batch)
     timeslice_manager = TimesliceManager.new(@course)
     timeslice_manager.update_timeslices_that_need_update_from_article_timeslices(
-       timeslices
-     )
+      timeslices
+    )
   end
 end
