@@ -87,7 +87,7 @@ jobs:
         if: failure()
         with:
           name: dist-without-markdown
-          path: tmp/capybara/*.png
+          path: tmp/screenshots/*.png
           if-no-files-found: ignore
             
       - name: Ruby linting
