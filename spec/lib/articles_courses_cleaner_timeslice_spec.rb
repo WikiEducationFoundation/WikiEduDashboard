@@ -12,7 +12,7 @@ describe ArticlesCoursesCleanerTimeslice do
   let(:article1) { create(:article, wiki: enwiki) }
   let(:article2) { create(:article, wiki: wikidata) }
   let(:article3) { create(:article, wiki: wikidata, namespace: 3) }
-  let(:article4) { create(:article, wiki: enwiki) }
+  let(:article4) { create(:article, wiki: wikidata) }
 
   describe '.clean_articles_courses_for_wiki_ids' do
     before do
@@ -184,7 +184,7 @@ describe ArticlesCoursesCleanerTimeslice do
       described_class.reset_articles_for_course(course)
 
       expect(course.article_course_timeslices.where(article: article4)).to be_empty
-      course_wiki_timeslice = course.course_wiki_timeslices.find_by(wiki: enwiki,
+      course_wiki_timeslice = course.course_wiki_timeslices.find_by(wiki: wikidata,
                                                                     start: '2024-03-15')
       expect(course_wiki_timeslice.needs_update).to eq(true)
     end
