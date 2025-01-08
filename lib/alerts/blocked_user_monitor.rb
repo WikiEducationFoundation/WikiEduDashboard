@@ -68,8 +68,7 @@ class BlockedUserMonitor
   end
 
   def create_alert_and_send_email(block, user)
-    BlockedUserAlert
-      .create(user:, details: block, course: user.courses.last)
-      .email_content_expert
+    alert = BlockedUserAlert.create(user:, details: block, course: user.courses.last)
+    alert.send_mails_to_concerned
   end
 end

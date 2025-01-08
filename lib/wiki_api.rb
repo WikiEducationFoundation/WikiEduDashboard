@@ -47,7 +47,7 @@ class WikiApi
                    ususers: username,
                    usprop: 'centralids|registration' }
     user_data = mediawiki('query', user_query)
-    return unless user_data.data['users'].any?
+    return unless user_data&.data&.dig('users')&.any?
     user_data.data['users'][0]
   end
 

@@ -5,19 +5,24 @@ const initialState = {};
 export default function userRevisions(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_USER_REVISIONS: {
-      // Merge project information into article, so that titles
+      // Merge wiki information, so that titles
       // can correctly show
-      const revisions = action.data.course.revisions.map(rev => ({
+      const revisions = action.revisions.map(rev => ({
         ...rev,
+        wiki: {
+          language: action.wiki.language,
+          project: action.wiki.project
+        },
         article: {
-          ...rev.article,
-          project: rev.wiki.project
+          title: rev.title,
+          language: action.wiki.language,
+          project: action.wiki.project
         }
       }));
 
       return {
         ...state,
-        [action.userId]: revisions
+        [action.username]: revisions
       };
     }
     default:

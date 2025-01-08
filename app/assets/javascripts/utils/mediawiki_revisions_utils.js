@@ -233,3 +233,19 @@ export const getRevisionRange = async (API_URL, articleTitle, usernames, startDa
   return { first_revision: earliestRev(firstRevs), last_revision: latestRev(lastRevs) };
 };
 
+export const fetchLatestRevisionsForUser = async (username, wiki) => {
+  const prefix = `https://${toWikiDomain(wiki)}`;
+  const API_URL = `${prefix}/w/api.php`;
+
+  const params = {
+    action: 'query',
+    format: 'json',
+    list: 'usercontribs',
+    ucuser: username,
+    ucprop: 'ids|title|timestamp|sizediff'
+  };
+
+  const response = await request(`${API_URL}?${stringify(params)}&origin=*`);
+  const json = await response.json();
+  return json.query.usercontribs;
+};

@@ -119,9 +119,13 @@ class SurveysController < ApplicationController
   end
 
   def clone_question_group
-    clone = Rapidfire::QuestionGroup.find(params[:id]).deep_clone include: [:questions]
-    clone.name = "#{clone.name} (Copy)"
-    clone.save
+    # Fetch the original question group and its questions
+    @original_group = Rapidfire::QuestionGroup.includes(:questions).find(params[:id])
+    @clone_group = @original_group.deep_clone include: [:questions]
+    @clone_group.name = "#{@clone_group.name} (Copy)"
+    @clone_group.save
+
+    update_cloned_conditionals
     redirect_to rapidfire.question_groups_path
   end
 
@@ -214,6 +218,32 @@ class SurveysController < ApplicationController
     render plain: 'The results for this survey are confidential.',
            status: :forbidden
     yield
+  end
+
+  def update_cloned_conditionals # rubocop:disable Metrics/AbcSize
+    # Cache all questions related to the original group for fast lookup
+    original_questions = @original_group.questions.index_by(&:id)
+
+    # Cache all cloned questions for fast lookup
+    cloned_questions = @clone_group.questions.index_by(&:position)
+
+    @clone_group.questions.each do |question|
+      next unless question.conditionals.present?
+
+      # Extract the original question ID from cloned conditionals question
+      original_question_id = question.conditionals.split('|').first.to_i
+      original_question = original_questions[original_question_id]
+
+      # Skip if no matching original question and update cloned question conditionals to nil
+      next question.update(conditionals: nil) unless original_question.present?
+
+      # Find the cloned equivalent of the original question
+      cloned_question = cloned_questions[original_question.position]
+
+      # Update the conditionals with the cloned question's ID
+      updated_conditionals = question.conditionals.gsub(/\d+/, cloned_question.id.to_s)
+      question.update(conditionals: updated_conditionals)
+    end
   end
 
   class FailedSaveError < StandardError; end

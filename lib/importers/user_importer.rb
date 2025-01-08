@@ -114,7 +114,7 @@ class UserImporter
 
   def self.update_user_from_wiki(user, wiki)
     user_data = WikiApi.new(wiki).get_user_info(user.username)
-    return if user_data['missing']
+    return if user_data.nil? || user_data['missing']
     user.update!(username: user_data['name'],
                  registered_at: user_data['registration'],
                  global_id: user_data&.dig('centralids', 'CentralAuth'))

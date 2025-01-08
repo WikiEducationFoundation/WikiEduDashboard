@@ -18,6 +18,7 @@
 # Author: Metalhead64
 # Author: Ngschaider
 # Author: Sebastian Wallroth
+# Author: SergeCroise
 # Author: Taresi
 # Author: ThisCarthing
 # Author: ToBeFree
@@ -1598,4 +1599,10 @@ de:
     title: Titel
     cancel_note_creation: Abbrechen
     save_note: Speichern
+  weekday_picker:
+    aria:
+      weekday_select: '{{weekday}} Drücken Sie die Eingabetaste, um auszuwählen'
+      weekday_selected: '{{weekday}} ausgewählt Drücken Sie die Eingabetaste, um die
+        Auswahl aufzuheben'
+      weekday_unselected: '{{weekday}} Nicht ausgewählt'
 ...

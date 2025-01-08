@@ -114,7 +114,7 @@ const CourseCreator = createReactClass({
 
   campaignParam() {
     // The regex allows for any number of URL parameters, while only capturing the campaign_slug parameter
-    const campaignParam = window.location.search.match(/\?.*?campaign_slug=(.*?)(?:$|&)/);
+    const campaignParam = window.location?.search?.match(/\?.*?campaign_slug=(.*?)(?:$|&)/);
     if (campaignParam) {
       return campaignParam[1];
     }
@@ -162,8 +162,11 @@ const CourseCreator = createReactClass({
         cleanedCourse.scoping_methods = getScopingMethods(this.props.scopingMethods);
         this.props.submitCourse({ course: cleanedCourse }, onSaveFailure);
       }
-    } else if (!this.props.validations.exists.valid) {
-      this.setState({ isSubmitting: false });
+    } else {
+      const existsValidation = this.props.validations?.exists?.valid;
+      if (existsValidation === false) {
+        this.setState({ isSubmitting: false });
+      }
     }
   },
 
