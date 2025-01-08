@@ -25,10 +25,7 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
 
     return if timeslice_ids.empty?
 
-    # Do this in batches to avoid running the MySQL server out of memory
-    timeslice_ids.each_slice(5000) do |slice|
-      CourseUserWikiTimeslice.where(id: slice).delete_all
-    end
+    delete_course_user_wiki_timeslice_ids(timeslice_ids)
   end
 
   # Deletes course wiki timeslices records for removed course wikis
@@ -49,10 +46,7 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
                                        .where('end <= ?', @course.start)
                                        .pluck(:id)
 
-    # Do this in batches to avoid running the MySQL server out of memory
-    timeslice_ids.each_slice(5000) do |timeslice_id_slice|
-      CourseWikiTimeslice.where(id: timeslice_id_slice).delete_all
-    end
+    delete_course_wiki_timeslice_ids(timeslice_ids)
   end
 
   # Deletes course wiki timeslices records with a start date later than the current end date
@@ -69,10 +63,7 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
                                        .where('start > ?', date)
                                        .pluck(:id)
 
-    # Do this in batches to avoid running the MySQL server out of memory
-    timeslice_ids.each_slice(5000) do |timeslice_id_slice|
-      CourseWikiTimeslice.where(id: timeslice_id_slice).delete_all
-    end
+    delete_course_wiki_timeslice_ids(timeslice_ids)
   end
 
   # Deletes course user wiki timeslices records with a date prior to the current start date
@@ -82,10 +73,7 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
                                            .where('end <= ?', @course.start)
                                            .pluck(:id)
 
-    # Do this in batches to avoid running the MySQL server out of memory
-    timeslice_ids.each_slice(5000) do |timeslice_id_slice|
-      CourseUserWikiTimeslice.where(id: timeslice_id_slice).delete_all
-    end
+    delete_course_user_wiki_timeslice_ids(timeslice_ids)
   end
 
   # Deletes course user wiki timeslices records with a start date later than the current end date
@@ -95,10 +83,7 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
                                            .where('start > ?', @course.end)
                                            .pluck(:id)
 
-    # Do this in batches to avoid running the MySQL server out of memory
-    timeslice_ids.each_slice(5000) do |timeslice_id_slice|
-      CourseUserWikiTimeslice.where(id: timeslice_id_slice).delete_all
-    end
+    delete_course_user_wiki_timeslice_ids(timeslice_ids)
   end
 
   # Creates course wiki timeslices records for new course wikis
@@ -230,10 +215,7 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
 
     return if timeslice_ids.empty?
 
-    # Do this in batches to avoid running the MySQL server out of memory
-    timeslice_ids.each_slice(5000) do |timeslice_id_slice|
-      CourseWikiTimeslice.where(id: timeslice_id_slice).delete_all
-    end
+    delete_course_wiki_timeslice_ids(timeslice_ids)
   end
 
   # Deletes existing course user wiki timeslices for a collection of wiki ids
@@ -244,10 +226,7 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
 
     return if timeslice_ids.empty?
 
-    # Do this in batches to avoid running the MySQL server out of memory
-    timeslice_ids.each_slice(5000) do |timeslice_id_slice|
-      CourseUserWikiTimeslice.where(id: timeslice_id_slice).delete_all
-    end
+    delete_course_user_wiki_timeslice_ids(timeslice_ids)
   end
 
   # Deletes existing article course timeslices for a collection of wiki ids
@@ -261,10 +240,7 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
 
     return if timeslice_ids.empty?
 
-    # Do this in batches to avoid running the MySQL server out of memory
-    timeslice_ids.each_slice(5000) do |timeslice_id_slice|
-      ArticleCourseTimeslice.where(id: timeslice_id_slice).delete_all
-    end
+    delete_article_course_timeslice_ids(timeslice_ids)
   end
 
   # Returns (wiki, start) tuples for timeslices to reprocess
@@ -365,5 +341,23 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
   def get_course_wiki_timeslices(wiki, period_start, period_end)
     CourseWikiTimeslice.for_course_and_wiki(@course, wiki).for_revisions_between(period_start,
                                                                                  period_end)
+  end
+
+  def delete_article_course_timeslice_ids(ids)
+    ids.each_slice(5000) do |slice|
+      ArticleCourseTimeslice.where(id: slice).delete_all
+    end
+  end
+
+  def delete_course_wiki_timeslice_ids(ids)
+    ids.each_slice(5000) do |slice|
+      CourseWikiTimeslice.where(id: slice).delete_all
+    end
+  end
+
+  def delete_course_user_wiki_timeslice_ids(ids)
+    ids.each_slice(5000) do |slice|
+      CourseUserWikiTimeslice.where(id: slice).delete_all
+    end
   end
 end
