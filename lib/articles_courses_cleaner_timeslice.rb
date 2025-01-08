@@ -169,7 +169,8 @@ class ArticlesCoursesCleanerTimeslice # rubocop:disable Metrics/ClassLength
 
   def reset(articles)
     mark_as_needs_update(articles)
-    remove_articles_courses_for_article_ids(articles.pluck(:id))
+    delete_article_course(articles.pluck(:id))
+    # remove_articles_courses_for_article_ids(articles.pluck(:id))
   end
 
   private

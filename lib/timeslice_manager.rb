@@ -155,8 +155,10 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
     end
   end
 
-  # Marks course wiki timeslices as needs_update for dates with associated
-  # article course timeslices
+  # Resets course wiki timeslices. This involves:
+  # - Marking timeslices as needs_update for dates with associated article course timeslices
+  # - Deleting given article course timeslices
+  # - Deleting course wiki timeslcies for those dates and wikis
   # Takes a collection of article course timeslices
   def reset_timeslices_that_need_update_from_article_timeslices(timeslices,
                                                                 wiki: nil,
@@ -176,6 +178,14 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
 
     # Update all CourseWikiTimeslice records with matching course, wiki and start dates
     course_wiki_timeslices.update_all(needs_update: true) # rubocop:disable Rails/SkipsModelValidations
+
+    delete_article_course_timeslice_ids(timeslices.pluck(:id)) unless soft
+
+    # Perform the query using raw SQL for specific (wiki_id, start_date) pairs
+    cuw_imeslices = CourseUserWikiTimeslice.where(course: @course)
+                                           .where("(wiki_id, start) IN (#{tuples_list})")
+
+    delete_course_user_wiki_timeslice_ids(cuw_imeslices.pluck(:id))
   end
 
   # Marks course wiki timeslices as needs_update for dates with associated revisions
