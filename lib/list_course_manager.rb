@@ -39,12 +39,11 @@ class ListCourseManager
 
   def add_classroom_program_manager_if_exists
     cpm = SpecialUsers.classroom_program_manager
-    if cpm && @course.type == 'ClassroomProgramCourse'
-      CoursesUsers.create(user: cpm,
-                          course: @course,
-                          role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE,
-                          real_name: cpm.real_name)
-    end
+    return unless cpm && @course.type == 'ClassroomProgramCourse'
+    CoursesUsers.create(user: cpm,
+                        course: @course,
+                        role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE,
+                        real_name: cpm.real_name)
   end
 
   def send_approval_notification_emails
