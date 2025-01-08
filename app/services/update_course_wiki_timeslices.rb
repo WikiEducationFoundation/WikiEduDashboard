@@ -105,6 +105,7 @@ class UpdateCourseWikiTimeslices
   end
 
   def process_timeslices(wiki)
+    @course.reload
     # Update timeslices
     ActiveRecord::Base.transaction do
       update_timeslices(wiki)

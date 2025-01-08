@@ -244,7 +244,7 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
   # Deletes existing article course timeslices for a collection of wiki ids
   def delete_existing_article_course_timeslices(wiki_ids)
     # Collect the ids of articles to be deleted
-    article_ids = @course.articles.where(wiki_id: wiki_ids).pluck(:id)
+    article_ids = @course.articles_from_timeslices(wiki_ids).pluck(:id)
 
     # Collect the ids of timeslices to be deleted
     timeslice_ids = ArticleCourseTimeslice.where(course_id: @course.id,
