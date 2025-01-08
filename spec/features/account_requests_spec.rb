@@ -39,11 +39,4 @@ describe 'Account requests', type: :feature, js: true do
 
     pass_pending_spec
   end
-
-  it 'Testing Capybara screenshot on CI' do
-    login_as(instructor)
-    visit "/courses/#{course.slug}"
-    click_button 'Enable account'
-    expect(page).to have_content('Account request generation enabled')
-  end
 end

@@ -61,6 +61,8 @@ describe 'multiwiki assignments', type: :feature, js: true do
           "Terre\nhttps://fr.wikipedia.org/wiki/Anglais"
         )
       end
+
+      save_screenshot('first_textarea_filled.png')
       click_button 'Assign all'
 
       visit "/courses/#{course.slug}/students/articles"
@@ -118,6 +120,7 @@ describe 'multiwiki assignments', type: :feature, js: true do
       within('#users') do
         first('textarea').set('https://wikisource.org/wiki/Heyder_Cansa')
       end
+      save_screenshot('second_textarea_filled.png')
       click_button 'Assign'
       visit "/courses/#{course.slug}/students/articles"
       first('.student-selection .student').click
@@ -141,12 +144,13 @@ describe 'multiwiki assignments', type: :feature, js: true do
       within('#users') do
         first('textarea').set('https://incubator.wikimedia.org/wiki/Wp/kiu/Heyder_Cansa')
       end
+      save_screenshot('third_textarea_filled.png')
       click_button 'Assign'
       visit "/courses/#{course.slug}/students/articles"
       first('.student-selection .student').click
 
       within('#users') do
-        expect(page).to have_content 'Wp/kiu/Hey'
+        expect(page).to have_content 'Wp/kiu/Heyder Cansa'
         link = first('.assignment-links a')
         expect(link[:href]).to include('incubator.wikimedia')
       end
