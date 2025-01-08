@@ -28,8 +28,7 @@ describe 'syllabus upload', type: :feature, js: true do
       visit "/courses/#{course.slug}?syllabus_upload=true"
       expect(page).to have_content course.title
       expect(page).to have_content 'Syllabus'
-      expect(page).to have_selector('.module.course-description.course__syllabus-upload__inner')
-      click_button 'edit' if page.has_button?('edit')
+      click_button 'edit'
       find('input[type="file"]', visible: false)
         .attach_file "#{Rails.root}/spec/fixtures/files/syllabus.pdf", make_visible: true
       click_link 'save'
