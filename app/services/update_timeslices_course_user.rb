@@ -60,11 +60,11 @@ class UpdateTimeslicesCourseUser
     # Do this to avoid running the query twice
     @article_course_timeslices_for_users = get_article_course_timeslices_for_users(user_ids)
     # Mark course wiki timeslices that needs to be re-proccesed
-    @timeslice_manager.update_timeslices_that_need_update_from_article_timeslices(
+    @timeslice_manager.reset_timeslices_that_need_update_from_article_timeslices(
       @article_course_timeslices_for_users
     )
     # Clean articles courses timeslices
-    clean_article_course_timeslices
+    # clean_article_course_timeslices
     # Delete articles courses that were updated only for removed users
     ArticlesCoursesCleanerTimeslice.clean_articles_courses_for_user_ids(@course, user_ids)
   end
@@ -79,10 +79,10 @@ class UpdateTimeslicesCourseUser
     timeslices.flatten
   end
 
-  def clean_article_course_timeslices
-    ids = @article_course_timeslices_for_users.map(&:id)
-    ArticleCourseTimeslice.where(id: ids).update_all(character_sum: 0, # rubocop:disable Rails/SkipsModelValidations
-                                                     references_count: 0,
-                                                     user_ids: nil)
-  end
+  # def clean_article_course_timeslices
+  #   ids = @article_course_timeslices_for_users.map(&:id)
+  #   ArticleCourseTimeslice.where(id: ids).update_all(character_sum: 0,
+  #                                                    references_count: 0,
+  #                                                    user_ids: nil)
+  # end
 end

@@ -185,15 +185,6 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
     course_article_ids = course.articles.where(wiki: course.wikis).pluck(:id)
     revision_article_ids = article_ids_by_namespaces_from_revisions(course, revisions)
 
-    # Remove all the ArticlesCourses that do not correspond to course revisions.
-    # That may happen if the course dates changed, so some revisions are no
-    # longer part of the course.
-    # Also remove records for articles that aren't on a tracked wiki.
-    # valid_article_ids = revision_article_ids & course_article_ids
-    # destroy_invalid_records(course, valid_article_ids)
-    # TODO: changes on course dates or tracked wikis should trigger recalculations
-    # or calculations of new timeslices.
-
     # Add new ArticlesCourses
     # Using `insert_all` is massively more efficient than inserting them one at a time.
     article_ids_without_ac = revision_article_ids - course_article_ids

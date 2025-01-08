@@ -28,6 +28,7 @@ class PrepareTimeslices
     # Ensure initial timeslices are created if this is the first course update
     unless @course.was_course_ever_updated?
       @timeslice_manager.create_timeslices_for_new_course_wiki_records(@course.wikis)
+      return
     end
     # Execute update tasks in a specific order
     UpdateTimeslicesCourseWiki.new(@course).run

@@ -12,7 +12,7 @@ describe ArticlesCoursesCleanerTimeslice do
   let(:article1) { create(:article, wiki: enwiki) }
   let(:article2) { create(:article, wiki: wikidata) }
   let(:article3) { create(:article, wiki: wikidata, namespace: 3) }
-  let(:article4) { create(:article, wiki: enwiki) }
+  let(:article4) { create(:article, wiki: wikidata) }
 
   describe '.clean_articles_courses_for_wiki_ids' do
     before do
@@ -94,6 +94,14 @@ describe ArticlesCoursesCleanerTimeslice do
       expect(course.articles_courses.first.article_id).to eq(article2.id)
       expect(course.articles_courses.second.article_id).to eq(article3.id)
     end
+
+    it 'touches article course timeslice when deleting previous ones' do
+      # Clean articles courses
+      described_class.clean_articles_courses_prior_to_course_start(course)
+      created_at = course.article_course_timeslices.find_by(article_id: article2).created_at
+      updated_at = course.article_course_timeslices.find_by(article_id: article2).updated_at
+      expect(updated_at).to be > created_at
+    end
   end
 
   describe '.clean_articles_courses_after_course_end' do
@@ -137,30 +145,13 @@ describe ArticlesCoursesCleanerTimeslice do
       expect(course.articles_courses.first.article_id).to eq(article2.id)
       expect(course.articles_courses.second.article_id).to eq(article3.id)
     end
-  end
 
-  describe '.clean_articles_courses_for_article_ids' do
-    before do
-      stub_wiki_validation
-      create(:articles_course, course:, article: article1)
-      create(:articles_course, course:, article: article2)
-
-      create(:article_course_timeslice, course:, article: article1, start: '2024-04-11',
-             end: '2024-04-12')
-
-      create(:article_course_timeslice, course:, article: article2, start:, end: start + 1.day)
-      create(:article_course_timeslice, course:, article: article2, start: '2024-04-11',
-      end: '2024-04-12')
-    end
-
-    it 'removes ArticlesCourses and timeslices for article ids' do
-      expect(course.article_course_timeslices.size).to eq(3)
-      expect(course.articles_courses.size).to eq(2)
+    it 'touches article course timeslice when deleting later ones' do
       # Clean articles courses
-      described_class.clean_articles_courses_for_article_ids(course, [article2.id])
-
-      expect(course.article_course_timeslices.size).to eq(1)
-      expect(course.articles_courses.size).to eq(1)
+      described_class.clean_articles_courses_after_course_end(course)
+      created_at = course.article_course_timeslices.find_by(article_id: article2).created_at
+      updated_at = course.article_course_timeslices.find_by(article_id: article2).updated_at
+      expect(updated_at).to be > created_at
     end
   end
 
@@ -209,7 +200,7 @@ describe ArticlesCoursesCleanerTimeslice do
       described_class.reset_articles_for_course(course)
 
       expect(course.article_course_timeslices.where(article: article4)).to be_empty
-      course_wiki_timeslice = course.course_wiki_timeslices.find_by(wiki: enwiki,
+      course_wiki_timeslice = course.course_wiki_timeslices.find_by(wiki: wikidata,
                                                                     start: '2024-03-15')
       expect(course_wiki_timeslice.needs_update).to eq(true)
     end

@@ -26,10 +26,6 @@ class ArticlesCoursesCleanerTimeslice # rubocop:disable Metrics/ClassLength
     new(course).remove_articles_courses_for_dates_after_end_date
   end
 
-  def self.clean_articles_courses_for_article_ids(course, article_ids)
-    new(course).remove_articles_courses_for_article_ids(article_ids)
-  end
-
   # Reset articles involves the following actions:
   # - Mark timeslices for those articles as needs_update
   # - Remove article course records for those articles (if they exist)
@@ -98,11 +94,12 @@ class ArticlesCoursesCleanerTimeslice # rubocop:disable Metrics/ClassLength
     delete_article_course_timeslice_ids(timeslice_ids)
 
     # Delete article course timeslices for dates prior to the course start date
-    timeslice_ids = ArticleCourseTimeslice.where(course: @course)
-                                          .where('end <= ?', @course.start)
-                                          .pluck(:id)
-
-    delete_article_course_timeslice_ids(timeslice_ids)
+    timeslice_ids, article_ids = ArticleCourseTimeslice.where(course: @course)
+                                                       .where('end <= ?', @course.start)
+                                                       .pluck(:id, :article_id)
+                                                       .transpose
+    touch_timeslices(article_ids.uniq) unless article_ids.nil?
+    delete_article_course_timeslice_ids(timeslice_ids) unless timeslice_ids.nil?
   end
 
   def remove_articles_courses_for_dates_after_end_date
@@ -121,11 +118,12 @@ class ArticlesCoursesCleanerTimeslice # rubocop:disable Metrics/ClassLength
     delete_article_course_timeslice_ids(timeslice_ids)
 
     # Delete article course timeslices for dates after the course end date
-    timeslice_ids = ArticleCourseTimeslice.where(course: @course)
-                                          .where('start > ?', @course.end)
-                                          .pluck(:id)
-
-    delete_article_course_timeslice_ids(timeslice_ids)
+    timeslice_ids, article_ids = ArticleCourseTimeslice.where(course: @course)
+                                                       .where('start > ?', @course.end)
+                                                       .pluck(:id, :article_id)
+                                                       .transpose
+    touch_timeslices(article_ids.uniq) unless article_ids.nil?
+    delete_article_course_timeslice_ids(timeslice_ids) unless timeslice_ids.nil?
   end
 
   # Removes the articles courses and timeslices records for article ids.
@@ -159,14 +157,13 @@ class ArticlesCoursesCleanerTimeslice # rubocop:disable Metrics/ClassLength
       # Find non-deleted and tracked articles without an articles_courses record
       @course.articles_from_timeslices(wiki.id)
              .where(deleted: false).in_batches do |article_batch|
-        tracked = []
-        @course.tracked_namespaces.each do |wiki_ns|
+        tracked = @course.tracked_namespaces.flat_map do |wiki_ns|
           wiki_id = wiki_ns[:wiki].id
           namespace = wiki_ns[:namespace]
-          tracked << article_batch.where(wiki_id:, namespace:)
+          article_batch.where(wiki_id:, namespace:)
         end
 
-        tracked_without_articles_courses = tracked.first - @course.articles.to_a
+        tracked_without_articles_courses = tracked - @course.articles.to_a
         reset(tracked_without_articles_courses)
       end
     end
@@ -174,7 +171,8 @@ class ArticlesCoursesCleanerTimeslice # rubocop:disable Metrics/ClassLength
 
   def reset(articles)
     mark_as_needs_update(articles)
-    remove_articles_courses_for_article_ids(articles.pluck(:id))
+    delete_article_course(articles.pluck(:id))
+    # remove_articles_courses_for_article_ids(articles.pluck(:id))
   end
 
   private
@@ -230,8 +228,18 @@ class ArticlesCoursesCleanerTimeslice # rubocop:disable Metrics/ClassLength
   def mark_as_needs_update(article_batch)
     timeslices = @course.article_course_timeslices.where(article: article_batch)
     timeslice_manager = TimesliceManager.new(@course)
-    timeslice_manager.update_timeslices_that_need_update_from_article_timeslices(
+    timeslice_manager.reset_timeslices_that_need_update_from_article_timeslices(
       timeslices
     )
+  end
+
+  def touch_timeslices(article_batch)
+    # rubocop:disable Rails/SkipsModelValidations
+    # Using touch to update the timestamps so article caches are updated during
+    # next update
+    ArticleCourseTimeslice.where(course: @course)
+                          .where(article_id: article_batch)
+                          .touch_all(:updated_at)
+    # rubocop:enable Rails/SkipsModelValidations
   end
 end
