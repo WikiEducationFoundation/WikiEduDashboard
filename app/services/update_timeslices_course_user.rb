@@ -60,7 +60,7 @@ class UpdateTimeslicesCourseUser
     # Do this to avoid running the query twice
     @article_course_timeslices_for_users = get_article_course_timeslices_for_users(user_ids)
     # Mark course wiki timeslices that needs to be re-proccesed
-    @timeslice_manager.update_timeslices_that_need_update_from_article_timeslices(
+    @timeslice_manager.reset_timeslices_that_need_update_from_article_timeslices(
       @article_course_timeslices_for_users
     )
     # Clean articles courses timeslices

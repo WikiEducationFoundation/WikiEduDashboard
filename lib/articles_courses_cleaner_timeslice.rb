@@ -225,7 +225,7 @@ class ArticlesCoursesCleanerTimeslice # rubocop:disable Metrics/ClassLength
   def mark_as_needs_update(article_batch)
     timeslices = @course.article_course_timeslices.where(article: article_batch)
     timeslice_manager = TimesliceManager.new(@course)
-    timeslice_manager.update_timeslices_that_need_update_from_article_timeslices(
+    timeslice_manager.reset_timeslices_that_need_update_from_article_timeslices(
       timeslices
     )
   end

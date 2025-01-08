@@ -158,7 +158,9 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
   # Marks course wiki timeslices as needs_update for dates with associated
   # article course timeslices
   # Takes a collection of article course timeslices
-  def update_timeslices_that_need_update_from_article_timeslices(timeslices, wiki = nil)
+  def reset_timeslices_that_need_update_from_article_timeslices(timeslices,
+                                                                wiki: nil,
+                                                                soft: false)
     return if timeslices.empty?
 
     wikis_and_starts = get_wiki_and_start_dates_to_reprocess(timeslices, wiki)
