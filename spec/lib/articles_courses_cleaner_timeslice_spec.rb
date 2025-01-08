@@ -94,6 +94,14 @@ describe ArticlesCoursesCleanerTimeslice do
       expect(course.articles_courses.first.article_id).to eq(article2.id)
       expect(course.articles_courses.second.article_id).to eq(article3.id)
     end
+
+    it 'touches article course timeslice when deleting previous ones' do
+      # Clean articles courses
+      described_class.clean_articles_courses_prior_to_course_start(course)
+      created_at = course.article_course_timeslices.find_by(article_id: article2).created_at
+      updated_at = course.article_course_timeslices.find_by(article_id: article2).updated_at
+      expect(updated_at).to be > created_at
+    end
   end
 
   describe '.clean_articles_courses_after_course_end' do
@@ -136,6 +144,14 @@ describe ArticlesCoursesCleanerTimeslice do
       expect(course.articles_courses.size).to eq(2)
       expect(course.articles_courses.first.article_id).to eq(article2.id)
       expect(course.articles_courses.second.article_id).to eq(article3.id)
+    end
+
+    it 'touches article course timeslice when deleting later ones' do
+      # Clean articles courses
+      described_class.clean_articles_courses_after_course_end(course)
+      created_at = course.article_course_timeslices.find_by(article_id: article2).created_at
+      updated_at = course.article_course_timeslices.find_by(article_id: article2).updated_at
+      expect(updated_at).to be > created_at
     end
   end
 

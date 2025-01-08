@@ -94,10 +94,11 @@ class ArticlesCoursesCleanerTimeslice # rubocop:disable Metrics/ClassLength
     delete_article_course_timeslice_ids(timeslice_ids)
 
     # Delete article course timeslices for dates prior to the course start date
-    timeslice_ids = ArticleCourseTimeslice.where(course: @course)
-                                          .where('end <= ?', @course.start)
-                                          .pluck(:id)
-
+    timeslice_ids, article_ids = ArticleCourseTimeslice.where(course: @course)
+                                                       .where('end <= ?', @course.start)
+                                                       .pluck(:id, :article_id)
+                                                       .transpose
+    touch_timeslices(article_ids.uniq) unless article_ids.nil?
     delete_article_course_timeslice_ids(timeslice_ids)
   end
 
@@ -117,10 +118,11 @@ class ArticlesCoursesCleanerTimeslice # rubocop:disable Metrics/ClassLength
     delete_article_course_timeslice_ids(timeslice_ids)
 
     # Delete article course timeslices for dates after the course end date
-    timeslice_ids = ArticleCourseTimeslice.where(course: @course)
-                                          .where('start > ?', @course.end)
-                                          .pluck(:id)
-
+    timeslice_ids, article_ids = ArticleCourseTimeslice.where(course: @course)
+                                                       .where('start > ?', @course.end)
+                                                       .pluck(:id, :article_id)
+                                                       .transpose
+    touch_timeslices(article_ids.uniq) unless article_ids.nil?
     delete_article_course_timeslice_ids(timeslice_ids)
   end
 
@@ -229,5 +231,15 @@ class ArticlesCoursesCleanerTimeslice # rubocop:disable Metrics/ClassLength
     timeslice_manager.reset_timeslices_that_need_update_from_article_timeslices(
       timeslices
     )
+  end
+
+  def touch_timeslices(article_batch)
+    # rubocop:disable Rails/SkipsModelValidations
+    # Using touch to update the timestamps so article caches are updated during
+    # next update
+    ArticleCourseTimeslice.where(course: @course)
+                          .where(article_id: article_batch)
+                          .touch_all(:updated_at)
+    # rubocop:enable Rails/SkipsModelValidations
   end
 end
