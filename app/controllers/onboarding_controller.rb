@@ -22,6 +22,7 @@ class OnboardingController < ApplicationController
                  permissions: @permissions,
                  onboarded: true)
     update_real_names_on_courses if Features.wiki_ed?
+    EnrollmentReminderEmailWorker.schedule_reminder(@user)
     CheckWikiEmailWorker.check(user: @user)
     head :no_content
   end
