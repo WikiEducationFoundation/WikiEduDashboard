@@ -99,7 +99,7 @@ class ArticlesCoursesCleanerTimeslice # rubocop:disable Metrics/ClassLength
                                                        .pluck(:id, :article_id)
                                                        .transpose
     touch_timeslices(article_ids.uniq) unless article_ids.nil?
-    delete_article_course_timeslice_ids(timeslice_ids)
+    delete_article_course_timeslice_ids(timeslice_ids) unless timeslice_ids.nil?
   end
 
   def remove_articles_courses_for_dates_after_end_date
@@ -123,7 +123,7 @@ class ArticlesCoursesCleanerTimeslice # rubocop:disable Metrics/ClassLength
                                                        .pluck(:id, :article_id)
                                                        .transpose
     touch_timeslices(article_ids.uniq) unless article_ids.nil?
-    delete_article_course_timeslice_ids(timeslice_ids)
+    delete_article_course_timeslice_ids(timeslice_ids) unless timeslice_ids.nil?
   end
 
   # Removes the articles courses and timeslices records for article ids.
