@@ -104,6 +104,7 @@ se:
     creator:
       save_cloned_course: Vurke
       scoping_methods:
+        categories: Kategoriijat
         templates: Mállet
     student_editors: Geavaheaddjit
     students: Geavaheaddjit
@@ -124,6 +125,7 @@ se:
     article: Artihkal
     file: Fiila
     page: Siidu
+    book: Girji
   recent_activity:
     file_name: Fiilanamma
   revisions:
@@ -157,6 +159,7 @@ se:
   update_username:
     label: Ođđa geavaheaddjinamma
   uploads:
+    categories: Kategoriijat
     file_name: Fiilanamma
     license: 'Liseansa:'
   users:
@@ -178,4 +181,6 @@ se:
   training_status:
     continue: Joatkke
     view: Čájet
+  notes:
+    save_note: Ruõkk
 ...
