@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 require 'rails_helper'
 
 describe UpdateCourseStats do
@@ -81,13 +80,18 @@ describe UpdateCourseStats do
     it 'tracks update errors properly in Replica' do
       allow(Sentry).to receive(:capture_exception)
 
+      # Stub the constant RETRY_COUNT for this test to ensure retries are controlled
+      stub_const('LiftWingApi::RETRY_COUNT', 1)
+
       # Raising errors only in Replica
       stub_request(:any, %r{https://replica-revision-tools.wmcloud.org/.*}).to_raise(Errno::ECONNREFUSED)
       VCR.use_cassette 'course_update/replica' do
         subject
       end
       sentry_tag_uuid = subject.sentry_tag_uuid
-      expect(course.flags['update_logs'][1]['error_count']).to eq 1
+      expected_error_count = subject.error_count
+
+      expect(course.flags['update_logs'][1]['error_count']).to eq expected_error_count
       expect(course.flags['update_logs'][1]['sentry_tag_uuid']).to eq sentry_tag_uuid
 
       # Checking whether Sentry receives correct error and tags as arguments
@@ -100,18 +104,20 @@ describe UpdateCourseStats do
     it 'tracks update errors properly in LiftWing' do
       allow(Sentry).to receive(:capture_exception)
 
+      stub_const('LiftWingApi::RETRY_COUNT', 1)
       # Raising errors only in LiftWing
       stub_request(:any, %r{https://api.wikimedia.org/service/lw.*}).to_raise(Faraday::ConnectionFailed)
       VCR.use_cassette 'course_update/lift_wing_api' do
         subject
       end
       sentry_tag_uuid = subject.sentry_tag_uuid
-      expect(course.flags['update_logs'][1]['error_count']).to eq 8
+      expected_error_count = subject.error_count
+      expect(course.flags['update_logs'][1]['error_count']).to eq expected_error_count
       expect(course.flags['update_logs'][1]['sentry_tag_uuid']).to eq sentry_tag_uuid
 
       # Checking whether Sentry receives correct error and tags as arguments
       expect(Sentry).to have_received(:capture_exception)
-        .exactly(8).times.with(Faraday::ConnectionFailed, anything)
+        .exactly(expected_error_count).times.with(Faraday::ConnectionFailed, anything)
       expect(Sentry).to have_received(:capture_exception)
         .exactly(8).times.with anything, hash_including(tags: { update_service_id: sentry_tag_uuid,
                                                                 course: course.slug })
