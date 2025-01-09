@@ -128,14 +128,8 @@ describe 'Survey navigation and rendering', type: :feature, js: true do
         click_button('Next', visible: true) # Q2
       end
 
-      # Now this question ideally should be skipped
-      # but the code that did that breaks the survey
-      # by removing the question without sliding
-      # the next one into view.
-      find('.label', text: 'Maybe').click
-      within('div[data-progress-index="4"]') do
-        click_button('Next', visible: true) # Q3
-      end
+      sleep 2
+      expect(page).to have_content('Submit Survey')
 
       # Now we can actually submit the survey
       # and finish.
