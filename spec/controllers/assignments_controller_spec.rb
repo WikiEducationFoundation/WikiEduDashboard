@@ -412,7 +412,8 @@ describe AssignmentsController, type: :request do
 
   describe 'PUT #unclaim' do
     let(:assignment) do
-      create(:assignment, course_id: course.id, user_id: user.id)
+      create(:assignment, course_id: course.id, user_id: user.id,
+flags: { available_article: true })
     end
     let(:request_params) do
       { course_id: course.id, id: assignment.id, user_id: user.id, format: :json }
@@ -425,6 +426,17 @@ describe AssignmentsController, type: :request do
         put "/assignments/#{assignment.id}/unclaim", params: request_params
         expect(response.status).to eq(200)
         expect(assignment.reload.user_id).to be_nil
+      end
+    end
+
+    context 'when the article is not an available article' do
+      before { create(:courses_user, course:, user:) }
+
+      let!(:updated_assignment) { assignment.update(flags: { available_article: false }) }
+
+      it 'renders a 409' do
+        put "/assignments/#{assignment.id}/unclaim", params: request_params
+        expect(response.status).to eq(409)
       end
     end
 

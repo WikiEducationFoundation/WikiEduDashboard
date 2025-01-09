@@ -4,7 +4,7 @@ json.call(assignment, :id, :user_id, :article_id, :role, :article_url, :sandbox_
           :draft_sandbox_status, :bibliography_sandbox_status, :peer_review_sandbox_status)
 json.assignment_id assignment.id
 json.article_title assignment.article_title.tr('_', ' ')
-
+json.flags assignment.flags
 if assignment.article
   json.article_rating assignment.article.rating
   json.article_rating_num rating_priority(assignment.article.rating)

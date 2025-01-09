@@ -33,8 +33,6 @@ class AssignmentManager
     set_clean_title
     set_article_from_database
     check_wiki_edu_discouraged_article
-    # sets the flag values for the assignment if the article is nil or is already an available article Ex:{ available: true, status: 'available' }
-    puts "article is #{@article}"
     flags = set_flags
     import_article_from_wiki unless @article
     # TODO: update rating via Sidekiq worker
@@ -117,11 +115,8 @@ class AssignmentManager
   end
 
   def set_flags
-    if @article
-      { available: true, status: 'available' }
-    else
-      { available: false, status: 'not_available' }
-    end
+    return { available_article: true } if @user_id.nil?
+    nil
   end
 
   def import_article_from_wiki

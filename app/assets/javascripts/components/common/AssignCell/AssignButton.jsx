@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import Popover from '../popover.jsx';
 import { initiateConfirm } from '../../../actions/confirm_actions';
-import { addAssignment, claimAssignment, unclaimAssignment } from '../../../actions/assignment_actions';
+import { addAssignment, claimAssignment, unclaimAssignment, deleteAssignment } from '../../../actions/assignment_actions';
 import useExpandablePopover from '../../../hooks/useExpandablePopover';
 import CourseUtils from '../../../utils/course_utils.js';
 import AddAvailableArticles from '../../articles/add_available_articles';
@@ -55,7 +55,7 @@ const RemoveAssignmentButton = ({ assignment, unassign }) => {
         className="button border assign-selection-button"
         onClick={() => unassign(assignment)}
       >
-        Remove
+        {I18n.t('assignments.remove')}
       </button>
     </span>
   );
@@ -363,9 +363,16 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
 
   const unassign = (assignment) => {
     const confirmMessage = I18n.t('assignments.confirm_deletion');
-    const onConfirm = () => {
-      dispatch(unclaimAssignment({ course_slug: course.slug, ...assignment }));
-    };
+    let onConfirm;
+    if (assignment.flags.available_article) {
+      onConfirm = () => {
+        dispatch(unclaimAssignment({ course_slug: course.slug, ...assignment }));
+      };
+    } else {
+      onConfirm = () => {
+        dispatch(deleteAssignment({ course_slug: course.slug, ...assignment }));
+      };
+    }
     dispatch(initiateConfirm({ confirmMessage, onConfirm }));
   };
 

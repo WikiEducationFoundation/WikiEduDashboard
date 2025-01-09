@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Actions from './Actions/Actions.jsx';
 import MyArticlesAssignmentLinks from './MyArticlesAssignmentLinks.jsx';
 import { initiateConfirm } from '@actions/confirm_actions';
-import { unclaimAssignment } from '@actions/assignment_actions';
+import { unclaimAssignment, deleteAssignment } from '@actions/assignment_actions';
 
 import { useDispatch } from 'react-redux';
 
@@ -33,7 +33,12 @@ const isClassroomProgram = course => (course.type === 'ClassroomProgramCourse');
 const unassign = ({ assignment, course, dispatch }) => {
   const body = { course_slug: course.slug, ...assignment };
   const confirmMessage = I18n.t('assignments.confirm_deletion');
-  const onConfirm = () => dispatch(unclaimAssignment(body));
+  let onConfirm;
+  if (assignment.flags.available_article) {
+    onConfirm = () => dispatch(unclaimAssignment(body));
+  } else {
+    onConfirm = () => dispatch(deleteAssignment(body));
+  }
 
   return () => dispatch(initiateConfirm({ confirmMessage, onConfirm }));
 };
