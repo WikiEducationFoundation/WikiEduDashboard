@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'json' # Ensure JSON is required for to_json
 
 #= Stubs for various requests
 module RequestHelpers
@@ -560,5 +561,160 @@ module RequestHelpers
     stub_training_modules
     stub_timeline
     stub_users
+  end
+
+  def stub_lift_wing_response
+    request_body = {
+      'wikidatawiki' => {
+        'models' => {
+          'itemquality' => {
+            'version' => '0.5.0'
+          }
+        },
+        'scores' => {
+          '829840084' => {
+            'itemquality' => {
+              'score' => {
+                'prediction' => 'D',
+                'probability' => { 'A' => 0.001863543366261331, 'B' => 0.001863543366261331 }
+              },
+              'features' => {
+                'feature.len(<datasource.wikibase.revision.claim>)' => 3.0,
+                'feature.len(<datasource.wikibase.revision.properties>)' => 3.0,
+                'feature.len(<datasource.wikibase.revision.aliases>)' => 0.0
+              }
+            }
+          },
+          '829840085' => {
+            'itemquality' => {
+              'score' => {
+                'prediction' => 'D',
+                'probability' => { 'A' => 0.005396336449201622, 'B' => 0.005396336449201622 }
+              },
+              'features' => {
+                'feature.len(<datasource.wikibase.revision.claim>)' => 10.0,
+                'feature.len(<datasource.wikibase.revision.properties>)' => 9.0,
+                'feature.len(<datasource.wikibase.revision.aliases>)' => 1.0
+              }
+            }
+          }
+        }
+      }
+    }
+    stub_request(:post, 'https://api.wikimedia.org/service/lw/inference/v1/models/wikidatawiki-itemquality:predict')
+      .with(
+        body: hash_including(extended_output: true),
+        headers: { 'Content-Type': 'application/json' }
+      ).to_return(
+        status: 200,
+        body: request_body.to_json
+      )
+  end
+
+  def stub_reference_counter_response
+    # Define the response body in a hash with revision IDs as keys
+    request_body = {
+      '5006940' => { 'num_ref' => 10, 'lang' => 'es', 'project' => 'wiktionary',
+      'revid' => 5006940 },
+      '5006942' => { 'num_ref' => 4, 'lang' => 'es', 'project' => 'wiktionary',
+      'revid' => 5006942 },
+      '5006946' => { 'num_ref' => 2, 'lang' => 'es', 'project' => 'wiktionary', 'revid' => 5006946 }
+    }
+
+    # Stub the request to match the revision ID in the URL
+    stub_request(:get, %r{https://reference-counter.toolforge.org/api/v1/references/wiktionary/es/\d+})
+      .to_return(
+        status: 200,
+        body: lambda do |request|
+          # Extract revision ID from the URL
+          rev_id = request.uri.path.split('/').last
+          # Return the appropriate response based on the revision ID
+          { 'num_ref' => request_body[rev_id.to_s]['num_ref'] }.to_json
+        end,
+        headers: { 'Content-Type' => 'application/json' }
+      )
+  end
+
+  def stub_revision_score_lift_wing_reponse
+    request_body =
+      {
+          'wikidatawiki' => {
+            'models' => {
+              'itemquality' => {
+                'version' => '0.5.0'
+              }
+            },
+            'scores' => {
+              '144495297' => {
+                'itemquality' => {
+                  'score' => {
+                    'prediction' => 'D',
+                    'probability' => {
+                      'A' => 0.004943068308984735,
+                      'B' => 0.004943068308984735
+                    }
+                  },
+                  'features' => {
+                  'feature.len(<datasource.wikibase.revision.claim>)' => 3.0,
+                  'feature.len(<datasource.wikibase.revision.properties>)' => 3.0,
+                  'feature.len(<datasource.wikibase.revision.aliases>)' => 2.0,
+                  'feature.len(<datasource.wikidatawiki.revision.references>)' => 2.0
+                  }
+                }
+              },
+              '144495298' => {
+                'itemquality' => {
+                  'score' => {
+                    'prediction' => 'E',
+                    'probability' => {
+                      'A' => 0.0006501008909422321,
+                      'B' => 0.000887054617313177
+                    }
+                  },
+                  'features' => {
+                  'feature.len(<datasource.wikibase.revision.claim>)' => 1.0,
+                  'feature.len(<datasource.wikibase.revision.properties>)' => 1.0,
+                  'feature.len(<datasource.wikibase.revision.aliases>)' => 0.0,
+                  'feature.len(<datasource.wikidatawiki.revision.references>)' => 0.0
+                  }
+                }
+              }
+            }
+          }
+        }
+    stub_request(:post, 'https://api.wikimedia.org/service/lw/inference/v1/models/wikidatawiki-itemquality:predict')
+      .with(
+        body: hash_including(extended_output: true),
+        headers: { 'Content-Type': 'application/json' }
+      ).to_return(
+        status: 200,
+        body: request_body.to_json
+      )
+  end
+
+  def stub_revision_score_reference_counter_reponse
+    request_body = {
+      '157412237' => { 'num_ref' => 111, 'lang' => 'es', 'project' => 'wikipedia',
+      'revid' => 157412237 },
+      '157417768' => { 'num_ref' => 42, 'lang' => 'es', 'project' => 'wikipedia',
+      'revid' => 157417768 },
+      '829840090' => { 'num_ref' => 132, 'lang' => 'es', 'project' => 'wikipedia',
+      'revid' => 829840090 },
+      '829840091' => { 'num_ref' => 1, 'lang' => 'es', 'project' => 'wikipedia',
+      'revid' => 829840091 }
+    }
+
+    # Stub the request to match the revision ID in the URL
+    stub_request(:get, %r{https://reference-counter.toolforge.org/api/v1/references/wikipedia/es/\d+})
+      .to_return(
+        status: 200,
+        body: lambda do |request|
+          # Extract revision ID from the URL
+          rev_id = request.uri.path.split('/').last
+          # Return the appropriate response based on the revision ID
+          { 'num_ref' => request_body[rev_id.to_s]['num_ref'] }.to_json
+        end,
+        headers: { 'Content-Type' => 'application/json' }
+      )
   end
 end
