@@ -11,6 +11,7 @@ describe ReferenceCounterApi do
   let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }
   let(:deleted_rev_ids) { [708326238] }
   let(:rev_ids) { [5006940, 5006942, 5006946] }
+  let(:response) { stub_reference_counter_response }
 
   it 'raises InvalidProjectError if using wikidata project' do
     expect do
@@ -18,12 +19,20 @@ describe ReferenceCounterApi do
     end.to raise_error(described_class::InvalidProjectError)
   end
 
-  it 'returns the number of references if response is 200 OK', vcr: true do
-    ref_counter_api = described_class.new(es_wiktionary)
-    response = ref_counter_api.get_number_of_references_from_revision_ids rev_ids
-    expect(response.dig('5006940', 'num_ref')).to eq(10)
-    expect(response.dig('5006942', 'num_ref')).to eq(4)
-    expect(response.dig('5006946', 'num_ref')).to eq(2)
+  context 'returns the number of references' do
+    before do
+      stub_wiki_validation
+      stub_reference_counter_response
+    end
+
+    # Get revision data for valid rev ids for Wikidata
+    it 'if response is 200 OK', vcr: true do
+      ref_counter_api = described_class.new(es_wiktionary)
+      response = ref_counter_api.get_number_of_references_from_revision_ids rev_ids
+      expect(response.dig('5006940', 'num_ref')).to eq(10)
+      expect(response.dig('5006942', 'num_ref')).to eq(4)
+      expect(response.dig('5006946', 'num_ref')).to eq(2)
+    end
   end
 
   # it 'logs the message if response is not 200 OK', vcr: true do
