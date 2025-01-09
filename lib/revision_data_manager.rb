@@ -21,13 +21,14 @@ class RevisionDataManager
   # Returns an array of Revision records.
   # As a side effect, it imports Article records.
   def fetch_revision_data_for_course(timeslice_start, timeslice_end)
-    sub_data = get_course_revisions(@course.students, timeslice_start, timeslice_end)
+    all_sub_data, sub_data = get_course_revisions(@course.students, timeslice_start, timeslice_end)
     @revisions = []
 
     # Extract all article data from the slice. Outputs a hash with article attrs.
-    articles = sub_data_to_article_attributes(sub_data)
+    articles = sub_data_to_article_attributes(all_sub_data)
 
     # Import articles. We do this here to avoid saving article data in memory.
+    # Note that we create articles for all sub data (not only for filtered ones).
     ArticleImporter.new(@wiki).import_articles_from_revision_data(articles)
     @articles = Article.where(wiki_id: @wiki.id, mw_page_id: articles.map { |a| a['mw_page_id'] })
 
@@ -52,7 +53,7 @@ class RevisionDataManager
   # This method gets revisions for some specific users.
   # It does not fetch scores. It has no side effects.
   def fetch_revision_data_for_users(users, timeslice_start, timeslice_end)
-    sub_data = get_course_revisions(users, timeslice_start, timeslice_end)
+    _, sub_data = get_course_revisions(users, timeslice_start, timeslice_end)
     users = user_dict_from_sub_data(sub_data)
 
     sub_data_to_revision_attributes(sub_data, users)
@@ -63,11 +64,15 @@ class RevisionDataManager
   ###########
   private
 
+  # Returns a list of revisions for users during the given period:
+  # [all_sub_data, sub_data].
+  # - all_sub_data: all revisions within the period.
+  # - sub_data: revisions filtered based on the course type.
   def get_course_revisions(users, start, end_date)
     all_sub_data = get_revisions(users, start, end_date)
-    # Filter revisions based on the article type.
+    # Filter revisions based on the course type.
     # Important for ArticleScopedProgram/VisitingScholarship courses
-    @course.filter_revisions(all_sub_data)
+    [all_sub_data, @course.filter_revisions(all_sub_data)]
   end
 
   # Get revisions made by a set of users between two dates.

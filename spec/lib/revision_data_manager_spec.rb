@@ -19,6 +19,50 @@ describe RevisionDataManager do
       'title' => 'Ragesoss/citing_sources',
       'namespace' => '2' }]
     end
+    let(:revision_data2) do
+      [{ 'mw_page_id' => '777',
+      'wiki_id' => 1,
+      'title' => 'Ragesoss/citing_sources',
+      'namespace' => '4' }]
+    end
+    let(:sub_data) { [data1] }
+    let(:data1) do
+      [
+        '112',
+        {
+          'article' => {
+            'mw_page_id' => '777',
+            'title' => 'Ragesoss/citing_sources',
+            'namespace' => '4',
+            'wiki_id' => 1
+          },
+          'revisions' => [
+            { 'mw_rev_id' => '849116430', 'date' => '20180706', 'characters' => '569',
+              'mw_page_id' => '777', 'username' => 'Ragesoss', 'new_article' => 'false',
+              'system' => 'false', 'wiki_id' => 1 }
+          ]
+        }
+      ]
+    end
+    let(:data2) do
+      [
+        '789',
+        {
+          'article' => {
+            'mw_page_id' => '123',
+            'title' => 'Draft article',
+            'namespace' => '118',
+            'wiki_id' => 1
+          },
+          'revisions' => [
+            { 'mw_rev_id' => '456', 'date' => '20180706', 'characters' => '569',
+              'mw_page_id' => '123', 'username' => 'Ragesoss', 'new_article' => 'false',
+              'system' => 'false', 'wiki_id' => 1 }
+          ]
+        }
+      ]
+    end
+    let(:filtered_sub_data) { [] }
 
     before do
       create(:courses_user, course:, user:)
@@ -62,42 +106,7 @@ describe RevisionDataManager do
     end
 
     it 'only calculates revisions scores for articles in mainspace, userspace or draftspace' do
-      allow(instance_class).to receive(:get_revisions).and_return(
-        [
-          [
-            '112',
-            {
-              'article' => {
-                'mw_page_id' => '777',
-                'title' => 'Some title',
-                'namespace' => '4',
-                'wiki_id' => 1
-              },
-              'revisions' => [
-                { 'mw_rev_id' => '849116430', 'date' => '20180706', 'characters' => '569',
-                  'mw_page_id' => '777', 'username' => 'Ragesoss', 'new_article' => 'false',
-                  'system' => 'false', 'wiki_id' => 1 }
-              ]
-            }
-          ],
-          [
-            '789',
-            {
-              'article' => {
-                'mw_page_id' => '123',
-                'title' => 'Draft article',
-                'namespace' => '118',
-                'wiki_id' => 1
-              },
-              'revisions' => [
-                { 'mw_rev_id' => '456', 'date' => '20180706', 'characters' => '569',
-                  'mw_page_id' => '123', 'username' => 'Ragesoss', 'new_article' => 'false',
-                  'system' => 'false', 'wiki_id' => 1 }
-              ]
-            }
-          ]
-        ]
-      )
+      allow(instance_class).to receive(:get_revisions).and_return([data1, data2])
       VCR.use_cassette 'revision_importer/all' do
         revisions = subject
         # Returns all revisions
@@ -116,6 +125,20 @@ describe RevisionDataManager do
       VCR.use_cassette 'revision_importer/all' do
         subject
       end
+    end
+
+    it 'creates articles for all revisions even for article scoped programs' do
+      allow_any_instance_of(described_class).to receive(:get_course_revisions)
+        .and_return([sub_data, filtered_sub_data])
+
+      article_importer = instance_double(ArticleImporter)
+      allow(ArticleImporter).to receive(:new).and_return(article_importer)
+
+      expect(article_importer).to receive(:import_articles_from_revision_data)
+        .once
+        .with(revision_data2)
+
+      subject
     end
   end
 
