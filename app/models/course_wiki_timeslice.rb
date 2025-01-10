@@ -48,6 +48,7 @@ class CourseWikiTimeslice < ApplicationRecord
   # {:start=>"20160320", :end=>"20160401", :revisions=>[...]},
   # updates the course wiki timeslices based on the revisions.
   def self.update_course_wiki_timeslices(course, wiki, revisions)
+    revisions[:revisions] = revisions[:revisions].reject { |r| r.views.zero? }
     rev_start = revisions[:start]
     rev_end = revisions[:end]
     # Course wiki timeslices to update

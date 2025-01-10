@@ -33,12 +33,13 @@ class RevisionDataManager
     @articles = Article.where(wiki_id: @wiki.id, mw_page_id: articles.map { |a| a['mw_page_id'] })
 
     # Prep: get a user dictionary for all users referred to by revisions.
-    users = user_dict_from_sub_data(sub_data)
+    users = user_dict_from_sub_data(all_sub_data)
 
     # Now get all the revisions
     # We need a slightly different article dictionary format here
     article_dict = @articles.each_with_object({}) { |a, memo| memo[a.mw_page_id] = a.id }
-    @revisions = sub_data_to_revision_attributes(sub_data, users, articles: article_dict)
+    @revisions = sub_data_to_revision_attributes(all_sub_data, users, filtered: sub_data,
+articles: article_dict)
 
     # TODO: resolve duplicates
     # DuplicateArticleDeleter.new(@wiki).resolve_duplicates(@articles)
@@ -116,8 +117,8 @@ class RevisionDataManager
     User.where(username: users).pluck(:username, :id).to_h
   end
 
-  def sub_data_to_revision_attributes(sub_data, users, articles: nil)
-    sub_data.flat_map do |_a_id, article_data|
+  def sub_data_to_revision_attributes(all_sub_data, users, filtered: nil, articles: nil)
+    all_sub_data.flat_map do |_a_id, article_data|
       article_data['revisions'].map do |rev_data|
         mw_page_id = rev_data['mw_page_id'].to_i
         article_id = articles.nil? ? nil : articles[mw_page_id]
@@ -129,10 +130,21 @@ class RevisionDataManager
           user_id: users[rev_data['username']],
           new_article: string_to_boolean(rev_data['new_article']),
           system: string_to_boolean(rev_data['system']),
-          wiki_id: rev_data['wiki_id']
+          wiki_id: rev_data['wiki_id'],
+          views: revision_filtered?(filtered, mw_page_id, rev_data['mw_rev_id'])
         })
       end
     end.uniq(&:mw_rev_id)
+  end
+
+  def revision_filtered?(data, mw_page_id, mw_rev_id)
+    return false if data.nil?
+    data.any? do |_, entry|
+      next unless entry.is_a?(Hash) && entry['article'] && entry['revisions']
+
+      entry['article']['mw_page_id'] == mw_page_id.to_s &&
+        entry['revisions'].any? { |rev| rev['mw_rev_id'] == mw_rev_id.to_s }
+    end
   end
 
   # Partition revisions between those belonging to articles in/out of mainspace/userspace/draftspace

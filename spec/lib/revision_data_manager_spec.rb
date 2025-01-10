@@ -23,9 +23,13 @@ describe RevisionDataManager do
       [{ 'mw_page_id' => '777',
       'wiki_id' => 1,
       'title' => 'Ragesoss/citing_sources',
-      'namespace' => '4' }]
+      'namespace' => '4' },
+       { 'mw_page_id' => '123',
+       'wiki_id' => 1,
+       'title' => 'Draft article',
+       'namespace' => '118' }]
     end
-    let(:sub_data) { [data1] }
+    let(:sub_data) { [data1, data2] }
     let(:data1) do
       [
         '112',
@@ -62,7 +66,7 @@ describe RevisionDataManager do
         }
       ]
     end
-    let(:filtered_sub_data) { [] }
+    let(:filtered_sub_data) { [data1] }
 
     before do
       create(:courses_user, course:, user:)
