@@ -6,6 +6,7 @@ import { fetchTrainingModule } from '../../actions/training_actions.js';
 import AddSlide from './modals/add_slide.jsx';
 import RemoveSlides from './modals/remove_slide.jsx';
 import ReorderSlides from './modals/reorder_slides.jsx';
+import EditSlide from './modals/edit_slide.jsx';
 
 const TrainingModuleHandler = (props) => {
   useEffect(() => {
@@ -25,9 +26,16 @@ const TrainingModuleHandler = (props) => {
     setShowReorderSlideModal(!showReorderSlideModal);
   };
 
+  const editButtonHandler = (slide) => {
+    setSelectedSlide(slide);
+    setShowEditSlideModal(!showEditSlideModal);
+  };
+
   const [showRemoveSlideModal, setShowRemoveSlideModal] = useState(false);
   const [showAddSlideModal, setShowAddSlideModal] = useState(false);
   const [showReorderSlideModal, setShowReorderSlideModal] = useState(false);
+  const [showEditSlideModal, setShowEditSlideModal] = useState(false);
+  const [selectedSlide, setSelectedSlide] = useState({});
   const { library_id, module_id } = useParams();
   const locale = I18n.locale;
   const slidesAry = compact(props.training.module.slides);
@@ -46,10 +54,18 @@ const TrainingModuleHandler = (props) => {
     }
     return (
       <li className={liClassName} key={i}>
-        <a disabled={disabled} href={slideLink}>
-          <h3 className="h5">{slideTitle}</h3>
-          {summary}
-        </a>
+        <div className="training__slide-list-container">
+          <a disabled={disabled} href={slideLink}>
+            <h3 className="h5">{slideTitle}</h3>
+            {summary}
+          </a>
+          {
+            (props.editMode) && (
+              <button onClick={() => editButtonHandler(slide)}>
+                <span className="icon-pencil--blue"/>
+              </button>
+          )}
+        </div>
       </li>
     );
   }
@@ -80,6 +96,7 @@ const TrainingModuleHandler = (props) => {
       {showAddSlideModal && <AddSlide library_id={library_id} module_id={module_id} toggleModal={toggleAddSlideModal} />}
       {showRemoveSlideModal && <RemoveSlides module_id={module_id} slidesAry={slidesAry} toggleModal={toggleRemoveSlideModal} />}
       {showReorderSlideModal && <ReorderSlides module_id={module_id} slidesAry={slidesAry} toggleModal={toggleReorderSlideModal} />}
+      {showEditSlideModal && <EditSlide library_id={library_id} module_id={module_id} slide={selectedSlide} toggleModal={editButtonHandler}/>}
       <div className="training__toc-container">
         <h1 className="h4 capitalize"> {I18n.t('training.table_of_contents')} <span className="pull-right total-slides">({slidesAry.length})</span></h1>
         <ol className="scrollable_slides_container">

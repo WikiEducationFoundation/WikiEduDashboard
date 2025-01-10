@@ -377,6 +377,7 @@ Rails.application.routes.draw do
   # Update
   put '/training/:library_id/transfer_modules' => 'training_modules#transfer_modules'
   put '/training/:module_id/reorder_slides' => 'training_modules#reorder_slides'
+  put 'training/:library_id/:module_id/update_slide' => 'training_slides#update_slide'
   
   # Delete
   delete 'training/:library_id/categories/:category_id', to: 'training_library#delete_category', as: :delete_category

@@ -31,6 +31,28 @@ class TrainingSlidesController < ApplicationController
     end
   end
 
+  def update_slide
+    slide_params = params.require(:slide).permit(:title, :slug, :wiki_page)
+    @slide = TrainingSlide.find_by(slug: slide_params[:slug])
+
+    if @slide
+      return unless check_wiki_page_exist(slide_params[:wiki_page])
+
+      # Check if wiki_page is updated
+      if @slide.wiki_page != slide_params[:wiki_page]
+        parse_slide_content(fetch_wikitext(slide_params[:wiki_page]))
+      end
+
+      # Check if title is updated
+      @slide.update(title: slide_params[:title]) if @slide.title != slide_params[:title]
+      render json: { status: 'success', message: 'Slides updated successfully' }, status: :ok
+    else
+      render json: { status: 'error',
+                     errorMessages: [I18n.t('training.validation.slide_not_found')] },
+             status: :not_found
+    end
+  end
+
   private
 
   def set_training_module

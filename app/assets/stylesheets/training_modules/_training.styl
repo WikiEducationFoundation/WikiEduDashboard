@@ -27,11 +27,12 @@
     text-decoration none
     color $type_light
   li
+    display flex
+    align-items start
     margin 0 0 1.5em
-    padding 0 0 0 20px
+    padding-top 1.5px
     list-style-type none
     counter-increment item
-    text-indent -20px
     font-size: 14px
     &:before
       display inline-block
@@ -45,9 +46,17 @@
       color $type_light
   .ui-text
     margin-left 20px
+  .training__slide-list-container
+    width 100%
+    display flex
+    align-items start
+    justify-content space-between
+    .icon-pencil--blue
+      margin-right 12px
 
 .total-slides
   font-weight 400
+  margin-right 8px
 
 .training-intro__cta-container
   margin-top 30px

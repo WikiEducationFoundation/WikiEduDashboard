@@ -222,11 +222,7 @@ const addSlidePromise = async (library_id, module_id, slide, setSubmitting) => {
 };
 
 export const addSlide = (library_id, module_id, slide, setSubmitting) => (dispatch) => {
-  // Transform wiki_page if it starts with the base URL
-  const wikiBaseUrl = 'https://meta.wikimedia.org/wiki/';
-  slide.wiki_page = slide.wiki_page.startsWith(wikiBaseUrl)
-    ? slide.wiki_page.replace(wikiBaseUrl, '')
-    : slide.wiki_page;
+  slide.wiki_page = transformWikiPage(slide.wiki_page);
   return addSlidePromise(library_id, module_id, slide, setSubmitting)
   .then(() => window.location.reload())
   .catch((error) => {
@@ -277,4 +273,38 @@ export const reorderSlides = (module_id, slides, setSubmitting) => (dispatch) =>
   return reorderSlidesPromise(module_id, slides, setSubmitting)
   .then(() => window.location.reload())
   .catch(data => dispatch({ type: API_FAIL, data }));
+};
+
+// For Updating Existing Slide
+const updateSlidePromise = async (library_id, module_id, slide, setSubmitting) => {
+  const response = await request(`/training/${library_id}/${module_id}/update_slide`, {
+    method: 'PUT',
+    body: JSON.stringify({ slide }),
+  });
+  setSubmitting(false);
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.json();
+    response.responseText = data;
+    throw response;
+  }
+  return response.json();
+};
+
+export const updateSlide = (library_id, module_id, slide, setSubmitting) => (dispatch) => {
+  slide.wiki_page = transformWikiPage(slide.wiki_page);
+  return updateSlidePromise(library_id, module_id, slide, setSubmitting)
+  .then(() => window.location.reload())
+  .catch((error) => {
+    performValidation(error, dispatch, slideValidationRules);
+  });
+};
+
+// Transform wiki_page if it starts with the base URL
+const transformWikiPage = (givenWikiPage) => {
+  const wikiBaseUrl = 'https://meta.wikimedia.org/wiki/';
+  if (givenWikiPage.startsWith(wikiBaseUrl)) {
+    return givenWikiPage.replace(wikiBaseUrl, '');
+  }
+    return givenWikiPage;
 };

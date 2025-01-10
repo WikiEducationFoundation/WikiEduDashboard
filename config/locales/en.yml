@@ -1465,12 +1465,17 @@ en:
     switch_view: Switch to View Mode
     table_of_contents: Table of Contents
     training_library: Training Library
+    update: Update
+    update_slide: Update Slide
+    update_slide_msg: >
+      Here, you can edit the title and the associated Wiki page for this slide.
     validation_message: This field is required
     validation:
       category: Category with this title already exists
       category_not_found: Category not found
       lib_not_found: Library not found
       slide_already_exist: Wikipage already exist in this module
+      slide_not_found: Slide not found
       slide_slug_already_exist: Slug is already taken by another wikipage
       wikipage_not_found: Wikipage not found
     view: View
