@@ -125,6 +125,33 @@ describe AssignmentsController, type: :request do
         end
       end
 
+      context 'when adding an article to the list of available articles' do
+        let(:assignment_params) do
+          { course_slug: course.slug, title: 'jalapeño', role: 0, format: :json }
+        end
+
+        before do
+          # Creates an association between the user and the course as an instructor
+          create(:courses_user, course:, user:, role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+        end
+
+        it 'creates the assignment and marks the article as available' do
+          expect(Article.find_by(title: 'Jalapeño')).to be_nil
+
+          VCR.use_cassette 'assignment_import' do
+            expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
+            expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
+            post '/assignments', params: assignment_params
+            assignment = assigns(:assignment)
+            expect(assignment).to be_a_kind_of(Assignment)
+            expect(assignment.article.title).to eq('Jalapeño')
+            expect(assignment.user_id).to be_nil # Ensure the assignment is not claimed by the user
+            expect(assignment.flags[:available_article])
+              .to eq(true) # Ensure the article is marked as available
+          end
+        end
+      end
+
       context 'when the assignment is for Wiktionary' do
         let!(:en_wiktionary) { create(:wiki, language: 'en', project: 'wiktionary') }
         let(:wiktionary_params) do
