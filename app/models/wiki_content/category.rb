@@ -38,6 +38,22 @@ class Category < ApplicationRecord
     less_than_or_equal_to: 3
   }
 
+  def self.get_or_create(wiki:, name:, depth:, source:)
+    if source == 'pileid'
+      get_or_create_by_pileid(wiki:, name:, depth:, source:) 
+    else
+      find_or_create_by(wiki:, name:, depth:, source:) 
+    end
+  end
+
+  def self.get_or_create_by_pileid(wiki:, name:, depth:, source:)
+    # For pagepile records, the name should be unique. Depth
+    # is not applicable, and wiki gets set via PagePileApi if it
+    # doesn't match.
+    record = find_by(source:, name:)
+    return record || create(wiki:, name:, depth:, source:)
+  end
+
   def self.refresh_categories_for(course, update_service: nil)
     # Updating categories only if they were last updated since
     # more than a day, or those which are newly created
