@@ -24,6 +24,11 @@ end
 
 Rails.cache.clear
 Capybara::Screenshot.prune_strategy = :keep_last_run
+Capybara::Screenshot.register_filename_prefix_formatter(:rspec) do |example|
+  file_name = example.file_path.split('/').last.gsub('.rb', '')
+  formatted_description = example.description.tr(' ', '-').gsub(%r{^.*/spec/}, '')
+  "screenshot_#{file_name}_description_#{formatted_description}"
+end
 Capybara.save_path = 'tmp/screenshots/'
 Capybara.server = :puma, { Silent: true }
 Capybara.default_max_wait_time = 10
@@ -98,7 +103,6 @@ RSpec.configure do |config|
     # them.
     # Instead, we clear and print any after-success error
     # logs in the `before` block above.
-    Capybara::Screenshot.screenshot_and_save_page if example.exception
     errors = page.driver.browser.logs.get(:browser)
 
     # pass `js_error_expected: true` to skip JS error checking
