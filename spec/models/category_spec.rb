@@ -132,6 +132,22 @@ RSpec.describe Category, type: :model do
         described_class.refresh_categories_for(course)
         expect(described_class.last.article_titles).to be_empty
       end
+
+      context 'updating the wiki to match PagePile results' do
+        let(:duplicate_cat) { create(:category, name: 28301, source: 'pileid', wiki: lawiktionary) }
+
+        it 'handles collisions and updates CategoriesCourses' do
+          pending 'Fails when PagePile is down.'
+
+          VCR.use_cassette 'categories' do
+            duplicate_cat
+            described_class.refresh_categories_for(course)
+            expect(course.categories).to include(duplicate_cat)
+            expect(course.categories).not_to include(category)
+          end
+          pass_pending_spec
+        end
+      end
     end
 
     context 'for template-source Category' do

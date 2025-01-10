@@ -47,7 +47,34 @@ class PagePileApi
     return if [@wiki.language, @wiki.project] == [language, project]
 
     @wiki = Wiki.get_or_create(language:, project:)
-    @category.update(wiki: @wiki)
+
+    begin
+      @category.update(wiki: @wiki)
+    rescue ActiveRecord::RecordNotUnique
+      handle_category_collision
+    end
+  end
+
+  # If updating the wiki causes a category collision,
+  # the actual desired Category record already exists
+  # and we need to update the CategoriesCourses record
+  # to point to that one.
+  def handle_category_collision
+    categories_courses = @category.categories_courses
+    existing_category = Category.find_by(wiki: @wiki,
+                                         name: @category.name,
+                                         depth: @category.depth,
+                                         source: @category.source)
+    categories_courses.each do |cat_course|
+      # Avoid another potential collision.
+      if CategoriesCourses.exists?(category: existing_category, course: cat_course.course)
+        cat_course.delete
+      else
+        cat_course.update(category: existing_category)
+      end
+    end
+    existing_category.refresh_titles
+    @category.reload # Reload without saving so that calling #save won't retrigger the collision.
   end
 
   def query_url
