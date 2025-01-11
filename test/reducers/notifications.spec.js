@@ -3,7 +3,10 @@ import notifications from '../../app/assets/javascripts/reducers/notifications';
 import { ADD_NOTIFICATION, REMOVE_NOTIFICATION, API_FAIL, SAVE_TIMELINE_FAIL } from '../../app/assets/javascripts/constants';
 
 describe('notifications reducer', () => {
-  let errorNotification1, errorNotification2, errorNotification3, successNotification1;
+  let errorNotification1;
+  let errorNotification2;
+  let errorNotification3;
+  let successNotification1;
   beforeEach(() => {
     errorNotification1 = {
     type: 'error',
@@ -52,14 +55,14 @@ describe('notifications reducer', () => {
     deepFreeze(initialState);
     expect(notifications(initialState, action)).toEqual(expectedState);
   });
-  
+
   it('should handle REMOVE_NOTIFICATION', () => {
-    const expectedState = [errorNotification1, successNotification1, errorNotification3]
+    const expectedState = [errorNotification1, successNotification1, errorNotification3];
     const initialState = [...expectedState, errorNotification2];
     const action = {
       type: REMOVE_NOTIFICATION,
       notification: errorNotification2
-    }
+    };
     deepFreeze(initialState);
     expect(notifications(initialState, action)).toEqual(expectedState);
   });
@@ -75,7 +78,7 @@ describe('notifications reducer', () => {
     deepFreeze(initialState);
     expect(notifications(initialState, action)).toEqual(initialState);
   });
-  
+
   it('should handle API_FAIL for silent action', () => {
     const initialState = [errorNotification2, successNotification1];
     const action = {
@@ -93,15 +96,15 @@ describe('notifications reducer', () => {
     const notification = {
       closable: true,
       type: 'error',
-      message:  'Example notification status'
-    }
+      message: 'Example notification status'
+    };
     const initialState = [notification];
     const action = {
       type: API_FAIL,
       data: {
         statusText: 'Example notification status'
       }
-    }; 
+    };
     deepFreeze(initialState);
     expect(notifications(initialState, action)).toEqual(initialState);
   });
@@ -118,10 +121,10 @@ describe('notifications reducer', () => {
       closable: true,
       type: 'error',
       message: 'Example notification status'
-    }; 
-    const expectedState = [notification]
+    };
+    const expectedState = [notification];
     deepFreeze(initialState);
-    expect(notifications(initialState, action)).toEqual(expectedState); 
+    expect(notifications(initialState, action)).toEqual(expectedState);
   });
 
   it('should handle API_FAIL for action with invalid data.responseText', () => {
@@ -138,8 +141,8 @@ describe('notifications reducer', () => {
       message: {
         responseText: '{"message":"Example notification status"'
       }
-    }; 
-    const expectedState = [notification]
+    };
+    const expectedState = [notification];
     deepFreeze(initialState);
     expect(notifications(initialState, action)).toEqual(expectedState);
   });
@@ -158,8 +161,8 @@ describe('notifications reducer', () => {
       closable: true,
       type: 'error',
       message: 'Example notification status'
-    }; 
-    const expectedState = [notification]
+    };
+    const expectedState = [notification];
     deepFreeze(initialState);
     expect(notifications(initialState, action)).toEqual(expectedState);
   });
@@ -176,8 +179,8 @@ describe('notifications reducer', () => {
       closable: true,
       type: 'error',
       message: I18n.t('customize_error_message.JSONP_request_failed')
-    }; 
-    const expectedState = [notification]
+    };
+    const expectedState = [notification];
     deepFreeze(initialState);
     expect(notifications(initialState, action)).toEqual(expectedState);
   });
@@ -192,15 +195,15 @@ describe('notifications reducer', () => {
     const action = {
       type: API_FAIL,
       data: ''
-    }; 
-    const expectedState = [notification]
+    };
+    const expectedState = [notification];
     const errorSpy = jest.spyOn(console, 'error');
     const logSpy = jest.spyOn(console, 'log');
     deepFreeze(initialState);
     expect(notifications(initialState, action)).toEqual(expectedState);
     expect(errorSpy).toHaveBeenCalledWith('Error: ', '');
     expect(logSpy).toHaveBeenCalledWith('');
-  }); 
+  });
 
   it('should handle SAVE_TIMELINE_FAIL', () => {
     const initialState = [errorNotification2, successNotification1];
@@ -209,7 +212,7 @@ describe('notifications reducer', () => {
       type: SAVE_TIMELINE_FAIL,
       data: {},
       courseSlug: {}
-    }
+    };
     const notification = {
       closable: true,
       type: 'error',
@@ -219,7 +222,7 @@ describe('notifications reducer', () => {
               + 'window — since the page was loaded. The latest '
               + 'course data has been reloaded, and is ready for '
               + 'you to edit further.'
-    }
+    };
     const expectedState = [...initialState, notification];
     deepFreeze(initialState);
     expect(notifications(initialState, action)).toEqual(expectedState);
