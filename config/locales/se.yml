@@ -62,6 +62,7 @@ se:
     loading: Viežžamin bargguid...
     remove: Sihko
     select: Vállje
+    submit: Sádde
   campaign:
     alert_label: Kampánjja várrehusat
     alert_user_id: Geavaheaddji
