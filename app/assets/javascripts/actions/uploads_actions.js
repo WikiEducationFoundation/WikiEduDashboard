@@ -10,7 +10,7 @@ const fetchUploads = (courseId) => {
       if (res.ok && res.status === 200) {
         return res.json();
       }
-      return Promise.reject({ error: 'Failed to fetch uploads', status: res.status });
+      return Promise.reject(new Error(`Failed to fetch uploads. Status: ${res.status}`));
     })
     .catch((error) => {
       logErrorMessage(error);
