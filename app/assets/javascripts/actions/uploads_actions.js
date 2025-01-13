@@ -10,25 +10,34 @@ const fetchUploads = (courseId) => {
       if (res.ok && res.status === 200) {
         return res.json();
       }
-        return Promise.reject(res);
+      return Promise.reject(new Error(`Failed to fetch uploads. Status: ${res.status}`));
     })
     .catch((error) => {
       logErrorMessage(error);
+      return { error: 'Failed to fetch uploads', status: error.status || 500 };
     });
 };
 
 export const receiveUploads = courseId => (dispatch) => {
-  return (
-    fetchUploads(courseId)
-      .then(resp => dispatch({
+  return fetchUploads(courseId)
+    .then((resp) => {
+      if (!resp) {
+        return dispatch({
+          type: API_FAIL,
+          data: { error: 'No response received' },
+        });
+      }
+      return dispatch({
         type: RECEIVE_UPLOADS,
         data: resp,
-      }))
-      .catch(resp => dispatch({
+      });
+    })
+    .catch((resp) => {
+      dispatch({
         type: API_FAIL,
-        data: resp
-      }))
-  );
+        data: resp,
+      });
+    });
 };
 
 const fetchUploadMetadata = (uploads) => {
