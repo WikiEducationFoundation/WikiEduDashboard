@@ -18,6 +18,14 @@ jobs:
         with:
           pandoc-version: '2.9.2.1'
       
+      - name: install imagemagick
+        uses: mfinelli/setup-imagemagick@v6
+        with:
+          cache: true
+
+      - name: Check identify path
+        run: which identify
+
       - name: setup Redis
         uses: supercharge/redis-github-action@1.4.0
       
