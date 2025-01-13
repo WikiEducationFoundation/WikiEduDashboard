@@ -58,6 +58,7 @@ sms:
     confirm_add_available: Haaʹlääk-a ton tuõđi artikkeeʹl %{title} lââʹzzted?
     remove: Jaukkâd
     select: Vaʹlljed
+    submit: Vuõlttâd
   campaign:
     alert_article: Artikkeeʹl nõmm
     alert_user_id: Õõʹnni
