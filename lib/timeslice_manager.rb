@@ -157,8 +157,8 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
 
   # Resets course wiki timeslices. This involves:
   # - Marking timeslices as needs_update for dates with associated article course timeslices
-  # - Deleting given article course timeslices
-  # - Deleting course wiki timeslcies for those dates and wikis
+  # - Deleting given article course timeslices if no soft
+  # - Deleting course user wiki timeslices for those dates and wikis
   # Takes a collection of article course timeslices
   def reset_timeslices_that_need_update_from_article_timeslices(timeslices,
                                                                 wiki: nil,
