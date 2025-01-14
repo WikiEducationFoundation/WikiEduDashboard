@@ -107,4 +107,8 @@ class Revision < ApplicationRecord
   rescue JSON::ParserError
     nil # Return nil if parsing fails (i.e., not diff_stats)
   end
+
+  def scoped_revision
+    !views.zero?
+  end
 end

@@ -56,7 +56,7 @@ class CourseWikiTimeslice < ApplicationRecord
                                                 .for_revisions_between(rev_start, rev_end)
     course_wiki_timeslices.each do |timeslice|
       # Group revisions that belong to the timeslice
-      revisions_in_timeslice = revisions[:revisions].select do |revision|
+      revisions_in_timeslice = revisions[:revisions].select(&:scoped_revision).select do |revision|
         timeslice.start <= revision.date && revision.date < timeslice.end
       end
       # Update cache for CourseWikiTimeslice

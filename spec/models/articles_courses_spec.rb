@@ -208,15 +208,15 @@ describe ArticlesCourses, type: :model do
       create(:courses_user, user:, course:,
                             role: CoursesUsers::Roles::STUDENT_ROLE)
       array_revisions << build(:revision, article:, user:, date: '2024-07-07',
-                        system: true, new_article: true)
+                        system: true, new_article: true, views: true)
       array_revisions << build(:revision, article:, user:, date: '2024-07-06 20:05:10',
-                        system: true, new_article: true)
+                        system: true, new_article: true, views: true)
       array_revisions << build(:revision, article:, user:, date: '2024-07-06 20:06:11',
-                        system: true, new_article: true)
+                        system: true, new_article: true, views: true)
       array_revisions << build(:revision, article:, user:, date: '2024-07-08 20:03:01',
-                        system: true, new_article: true)
+                        system: true, new_article: true, views: true)
       array_revisions << build(:revision, article: article3, user:, date: '2024-07-07',
-                        system: true, new_article: true)
+                        system: true, new_article: true, views: true)
       # revision for a non-tracked wiki
       array_revisions << build(:revision, article: article2, user:, date: '2024-07-06')
       # revision for a non-tracked namespace

@@ -86,19 +86,21 @@ role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
            references_count: 4,
            revision_count: 4)
 
-    array_revisions << build(:revision, article:, user_id: 1, date: start)
-    array_revisions << build(:revision, article:, user_id: 1, date: start + 2.hours)
-    array_revisions << build(:revision, article:, user_id: 2, date: start + 3.hours)
-    array_revisions << build(:revision, article:, user_id: 2, date: start + 3.hours, system: true)
-    array_revisions << build(:revision, article:, deleted: true, user_id: 1, date: start + 8.hours)
+    array_revisions << build(:revision, article:, user_id: 1, date: start, views: true)
+    array_revisions << build(:revision, article:, user_id: 1, date: start + 2.hours, views: true)
+    array_revisions << build(:revision, article:, user_id: 2, date: start + 3.hours, views: true)
+    array_revisions << build(:revision, article:, user_id: 2, date: start + 3.hours, system: true,
+                             views: true)
+    array_revisions << build(:revision, article:, deleted: true, user_id: 1, date: start + 8.hours,
+                             views: true)
   end
 
   describe '.update_course_wiki_timeslices' do
     before do
       TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records([wiki])
-      array_revisions << build(:revision, article:, user_id: 1, date: start + 26.hours)
-      array_revisions << build(:revision, article:, user_id: 1, date: start + 50.hours)
-      array_revisions << build(:revision, article:, user_id: 1, date: start + 51.hours)
+      array_revisions << build(:revision, article:, user_id: 1, date: start + 26.hours, views: true)
+      array_revisions << build(:revision, article:, user_id: 1, date: start + 50.hours, views: true)
+      array_revisions << build(:revision, article:, user_id: 1, date: start + 51.hours, views: true)
     end
 
     it 'updates the right course wiki timeslices based on the revisions' do
