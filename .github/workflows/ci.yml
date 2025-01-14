@@ -53,13 +53,6 @@ jobs:
         run: |
           echo "Identify location: $(which identify)"
 
-      # Check versions again for debugging
-      - name: Check ImageMagick Version
-        run: magick -version
-
-      - name: Verify identify Command
-        run: identify -version
-
       - name: setup Redis
         uses: supercharge/redis-github-action@1.4.0
       
