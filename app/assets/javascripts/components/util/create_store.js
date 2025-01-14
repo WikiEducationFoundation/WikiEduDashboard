@@ -29,8 +29,8 @@ export const getStore = () => {
     };
   }
 
-  // Determine if Redux Toolkit's safety checks should be enabled
-  const enableReduxSafetyChecks = false;
+  // Determine if mutation checks should be enabled
+  const enableMutationChecks = false;
 
   const store = configureStore({
     reducer,
@@ -39,9 +39,9 @@ export const getStore = () => {
     getDefaultMiddleware({
       // Temporarily disable mutation checks feature to facilitate Redux Toolkit migration.
       // TODO: Gradually resolve state mutations and re-enable these checks in the future.
-      // Enable mutation checks when resolving or detecting these issues by setting enableReduxSafetyChecks to true.
-      immutableCheck: enableReduxSafetyChecks,
-      serializableCheck: enableReduxSafetyChecks,
+      // Enable mutation checks when resolving or detecting these issues by setting enableMutationChecks to true.
+      immutableCheck: enableMutationChecks,
+      serializableCheck: enableMutationChecks,
     }),
   });
 
