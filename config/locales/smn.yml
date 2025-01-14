@@ -64,7 +64,6 @@ smn:
     article_link: Artikkâl
     add_available_submit: Lasseet artikkâlijd
     remove: Siho
-    submit: Vuolgât
   campaign:
     alert_user_id: Kevttee
     description: Kuvvim
