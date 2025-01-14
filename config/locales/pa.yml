@@ -44,7 +44,7 @@ pa:
     sign_up_wikipedia: ਜਾਂ ਵਿਕੀਪੀਡੀਆ 'ਤੇ ਸਾਈਨ ਅੱਪ ਕਰੋ
     sign_up_log_in_extended: (ਵਿਕੀਪੀਡੀਆ ਨਾਲ)
     sign_up: ਖਾਤਾ ਬਣਾਓ
-    submit: ਸਪੁਰਦ ਕਰੋ
+    submit: ਹਵਾਲੇ ਕਰੋ
     training: ਸਿਖਲਾਈ
     change: ਬਦਲੋ
     details: ਵੇਰਵੇ
@@ -250,7 +250,7 @@ pa:
     show_options: ਵਿਕਲਪ ਦਿਖਾਓ
     subheading_message: ਆਓ ਕੰਮ ਕਰਨ ਲਈ ਇੱਕ ਵਿਕੀਪੀਡੀਆ ਲੇਖ ਲੱਭੀਏ।
     subheading_message_wikidata: ਆਓ ਕੰਮ ਕਰਨ ਲਈ ਇੱਕ ਵਿਕੀਡਾਟਾ ਆਈਟਮ ਲੱਭੀਏ।
-    submit: ਸਪੁਰਦ ਕਰੋ
+    submit: ਹਵਾਲੇ ਕਰੋ
     tools: ਸੰਦ
   training_status:
     completed: ਪੂਰਾ ਹੋਇਆ

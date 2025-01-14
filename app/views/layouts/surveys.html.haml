@@ -20,6 +20,6 @@
     // survey.js sometimes interferes with the rendering of results.
     = javascript_include_tag '/assets/javascripts/jquery.min.js'
     = hot_javascript_tag("survey") unless page_class == 'surveys results'
-    - if can_administer?
+    - if can_administer? && !params.key?("preview")
       = hot_javascript_tag("survey_admin")
     = content_for :additional_javascripts

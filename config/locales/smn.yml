@@ -64,6 +64,7 @@ smn:
     article_link: Artikkâl
     add_available_submit: Lasseet artikkâlijd
     remove: Siho
+    submit: Vuolgât
   campaign:
     alert_user_id: Kevttee
     description: Kuvvim
@@ -94,6 +95,7 @@ smn:
     creator:
       save_cloned_course: Vuorkkii
       scoping_methods:
+        categories: Luokah
         templates: Myenstereh
   editable:
     cancel: Jooskâ
@@ -106,6 +108,7 @@ smn:
     upload_count: Vuorkkiimeh Commonsin
     removed: Sikkum
   namespace:
+    book: Kirje
     lexeme: Lekseem
   recent_activity:
     image: Kove
@@ -134,6 +137,7 @@ smn:
   update_username:
     label: Uđđâ kevtteenommâ
   uploads:
+    categories: Luokah
     image: Kove
     license: 'Liiseens:'
   users:

@@ -169,6 +169,18 @@ describe WikiApi do
     end
   end
 
+  describe '#get_user_info' do
+    let(:wiki) { Wiki.new(language: 'en', project: 'wikipedia') }
+
+    context 'when mediawiki query returns nil' do
+      it 'returns early without raising an error' do
+        allow_any_instance_of(described_class).to receive(:mediawiki).and_return(nil)
+        expect { described_class.new.get_user_info('Ragesoss') }.not_to raise_error
+        expect(described_class.new.get_user_info('Ragesoss')).to be_nil
+      end
+    end
+  end
+
   describe '#redirect?' do
     let(:wiki) { Wiki.new(language: 'en', project: 'wikipedia') }
     let(:subject) { described_class.new(wiki).redirect?(title) }
