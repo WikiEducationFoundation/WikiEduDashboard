@@ -18,13 +18,39 @@ jobs:
         with:
           pandoc-version: '2.9.2.1'
       
-      - name: install imagemagick
+            # Install the latest version of ImageMagick
+      - name: Setup ImageMagick
         uses: mfinelli/setup-imagemagick@v6
         with:
-          cache: true
+          version: latest # Use '6.x.x' or '7.x.x' if you want a specific version
+          cache: true 
 
-      - name: Check identify path
-        run: which identify
+      # Cache ImageMagick binaries
+      - name: Cache Latest ImageMagick
+        uses: actions/cache@v3
+        with:
+          path: /usr/bin/magick
+          key: ${{ runner.os }}-imagemagick-latest
+          restore-keys: |
+            ${{ runner.os }}-imagemagick-latest
+
+      # Create symlink for identify
+      - name: Create Symlink for identify
+        run: |
+          if ! [ -x "$(command -v identify)" ]; then
+            sudo ln -s $(which magick) /usr/bin/identify
+          fi
+
+      # Debug steps
+      - name: Check ImageMagick Version
+        run: magick -version
+
+      - name: Verify identify Command
+        run: identify -version
+
+      - name: Testing which imagemagick
+        run: magick convert
+      
 
       - name: setup Redis
         uses: supercharge/redis-github-action@1.4.0
