@@ -18,6 +18,32 @@ jobs:
         with:
           pandoc-version: '2.9.2.1'
       
+      - name: install ImageMagick
+        uses: mfinelli/setup-imagemagick@v6
+        with:
+          cache: true
+
+      # Cache ImageMagick binaries
+      - name: Cache Latest ImageMagick
+        uses: actions/cache@v3
+        with:
+          path: /home/runner/bin/magick
+          key: ${{ runner.os }}-imagemagick-latest
+          restore-keys: |
+            ${{ runner.os }}-imagemagick-latest
+
+      # Update PATH for ImageMagick
+      - name: Update PATH for ImageMagick
+        run: echo "/home/runner/bin" >> $GITHUB_PATH
+
+      - name: Create symlink for identify and convert
+        run: |
+          for cmd in identify convert; do
+            if ! [ -x "$(command -v $cmd)" ]; then
+              sudo ln -s $(which magick) /usr/bin/$cmd
+            fi
+          done
+
       - name: setup Redis
         uses: supercharge/redis-github-action@1.4.0
       
