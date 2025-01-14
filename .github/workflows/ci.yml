@@ -42,6 +42,9 @@ jobs:
             sudo ln -s $(which magick) /usr/bin/identify
           fi
 
+          if ! [ -x "$(command -v convert)" ]; then
+            sudo ln -s $(which magick) /usr/bin/convert
+          fi
 
       # Debug steps to check for magick and identify
       - name: Debug magick command
