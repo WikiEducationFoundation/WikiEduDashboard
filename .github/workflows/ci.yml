@@ -18,46 +18,44 @@ jobs:
         with:
           pandoc-version: '2.9.2.1'
       
-            # Install the latest version of ImageMagick
       - name: Setup ImageMagick
         uses: mfinelli/setup-imagemagick@v6
         with:
-          cache: true 
+          cache: true
 
       # Cache ImageMagick binaries
       - name: Cache Latest ImageMagick
         uses: actions/cache@v3
         with:
-          path: /usr/bin/magick
+          path: /home/runner/bin/magick
           key: ${{ runner.os }}-imagemagick-latest
           restore-keys: |
             ${{ runner.os }}-imagemagick-latest
 
-      # Create symlink for identify
-      - name: Create Symlink for identify
+      # Update PATH for ImageMagick
+      - name: Update PATH for ImageMagick
+        run: echo "/home/runner/bin" >> $GITHUB_PATH
+
+      - name: Create symlink for identify
         run: |
           if ! [ -x "$(command -v identify)" ]; then
             sudo ln -s $(which magick) /usr/bin/identify
           fi
 
-      # Debug steps
 
+      # Debug steps to check for magick and identify
       - name: Debug magick command
         run: |
           echo "Magick location: $(which magick)"
           echo "Magick version: $(magick -version)"
+
       - name: Check if identify exists
         run: |
           echo "Identify location: $(which identify)"
 
-      - name: Check ImageMagick 
-        run: which magick
-        
+      # Check versions again for debugging
       - name: Check ImageMagick Version
         run: magick -version
-
-      - name: Testing which imagemagick
-        run: magick convert
 
       - name: Verify identify Command
         run: identify -version
