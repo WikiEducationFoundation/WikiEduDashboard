@@ -698,45 +698,50 @@ const Survey = {
     }
   },
 
-  // To remove a conditional question from the flow if the condition that it depends on has changed.
-  resetConditionalGroupChildren(conditionalGroup) {
-    const { children, currentAnswers } = conditionalGroup;
+  // FIXME: This is supposed to remove a conditional question from
+  // the flow if the condition that it depends on has changed.
+  // However, when this happens it leaves the survey in a state
+  // with no visible questions and no way to proceed.
+  // Disabling this feature means that, once inserted, a conditional
+  // question will not be removed, but that's better than a broken survey.
+  resetConditionalGroupChildren(/* conditionalGroup */) {
+    // const { children, currentAnswers } = conditionalGroup;
 
-    if ((typeof currentAnswers !== 'undefined' && currentAnswers !== null) && currentAnswers.length) {
-      const excludeFromReset = [];
-      currentAnswers.forEach((a) => { excludeFromReset.push(a); });
-      children.forEach((question) => {
-        const $question = $(question);
-        let string;
-        if ($question.data('conditional-question')) {
-          string = $question.data('conditional-question');
-        } else {
-          string = $question.find('[data-conditional-question]').data('conditional-question');
-        }
-        const { value } = Utils.parseConditionalString(string);
-        if (excludeFromReset.indexOf(value) === -1) {
-          this.resetConditionalQuestion($question);
-        } else {
-          $question.removeClass('hidden');
-        }
-      });
-    } else {
-      children.forEach((question) => {
-        this.resetConditionalQuestion($(question));
-        if ($(question).hasClass('survey__question-row')) {
-          const $parentBlock = $(question).parents(BLOCK_CONTAINER_SELECTOR);
-          const blockIndex = $(question).data('block-index');
-          if (!($parentBlock.find('.survey__question-row:not([data-conditional-question])').length > 1)) {
-            this.resetConditionalQuestion($parentBlock);
-            if (this.detachedParentBlocks[blockIndex] === undefined) {
-              this.detachedParentBlocks[blockIndex] = $parentBlock;
-              this.removeSlide($parentBlock);
-              $parentBlock.detach();
-            }
-          }
-        }
-      });
-    }
+    // if ((typeof currentAnswers !== 'undefined' && currentAnswers !== null) && currentAnswers.length) {
+    //   const excludeFromReset = [];
+    //   currentAnswers.forEach((a) => { excludeFromReset.push(a); });
+    //   children.forEach((question) => {
+    //     const $question = $(question);
+    //     let string;
+    //     if ($question.data('conditional-question')) {
+    //       string = $question.data('conditional-question');
+    //     } else {
+    //       string = $question.find('[data-conditional-question]').data('conditional-question');
+    //     }
+    //     const { value } = Utils.parseConditionalString(string);
+    //     if (excludeFromReset.indexOf(value) === -1) {
+    //       this.resetConditionalQuestion($question);
+    //     } else {
+    //       $question.removeClass('hidden');
+    //     }
+    //   });
+    // } else {
+    //   children.forEach((question) => {
+    //     this.resetConditionalQuestion($(question));
+    //     if ($(question).hasClass('survey__question-row')) {
+    //       const $parentBlock = $(question).parents(BLOCK_CONTAINER_SELECTOR);
+    //       const blockIndex = $(question).data('block-index');
+    //       if (!($parentBlock.find('.survey__question-row:not([data-conditional-question])').length > 1)) {
+    //         this.resetConditionalQuestion($parentBlock);
+    //         if (this.detachedParentBlocks[blockIndex] === undefined) {
+    //           this.detachedParentBlocks[blockIndex] = $parentBlock;
+    //           this.removeSlide($parentBlock);
+    //           $parentBlock.detach();
+    //         }
+    //       }
+    //     }
+    //   });
+    // }
   },
 
   removeSlide($block) {
@@ -748,29 +753,7 @@ const Survey = {
     if ($question.hasClass('survey__question-row')) {
       $question.removeAttr('style').addClass('hidden not-seen disabled');
     } else {
-      // Find which question group/slider this question belongs to by climbing up the DOM tree
-      const $grandParents = $question.parents('[data-question-group-blocks]');
-
-      // Extract the group's index number so we know which specific slider we need to modify
-      const questionGroupIndex = $grandParents.data('question-group-blocks');
-
-      // Get the actual slider jQuery object that we need to remove the question from
-      const $slider = this.groupSliders[questionGroupIndex];
-
-      // Get the slide index before detaching
-      const slideIndex = $question.data('slick-index');
-
-      // Remove the slide from Slick first
-      $slider?.slick('slickRemove', slideIndex);
-
-      // Then detach the element
       $question.detach();
-
-      // Updates Progress Bar on Top Right of the UI.
-      this.indexBlocks();
-
-      // Update Slide Button to Determine whether to show Next or Submit button.
-      this.updateButtonText();
     }
     $question.find('input[type=text], textarea').val('');
     $question.find('input:checked').removeAttr('checked');
