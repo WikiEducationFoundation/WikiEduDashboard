@@ -25,6 +25,9 @@ describe LiftWingApi do
     # Get revision data for valid rev ids for English Wikipedia
     let(:subject0) { lift_wing_api_class_en_wiki.get_revision_data(rev_ids) }
 
+    # Get revision data for valid rev ids for Wikidata
+    let(:subject1) { described_class.new(wiki).get_revision_data(rev_ids) }
+
     # Get revision data for deleted rev ids for English Wikipedia
     let(:subject2) { lift_wing_api_class_en_wiki.get_revision_data([deleted_rev_id]) }
 
@@ -44,16 +47,8 @@ describe LiftWingApi do
       end
     end
 
-    context 'fetch json data from api.wikimedia.org' do
-      before do
-        stub_wiki_validation
-        stub_lift_wing_response
-      end
-
-      # Get revision data for valid rev ids for Wikidata
-      let(:subject1) { described_class.new(wiki).get_revision_data([829840084, 829840085]) }
-
-      it 'fetches data for wikidata' do
+    it 'fetches json from api.wikimedia.org for wikidata' do
+      VCR.use_cassette 'liftwing_api/wikidata' do
         expect(subject1).to be_a(Hash)
         expect(subject1.dig('829840084')).to have_key('wp10')
         expect(subject1.dig('829840084', 'wp10')).to eq(nil)
