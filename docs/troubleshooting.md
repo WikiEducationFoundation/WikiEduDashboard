@@ -43,7 +43,7 @@ Your system has cmdtest installed, which provides a different program as yarn. U
 
 - **To check if redis is running as a daemon in Linux** `ps aux | grep redis-server`
 
-- Use node v14 or newer to avoid any errors.
+- Use node v10 or lower to avoid any errors.
 - **For WSL users , if rspec tests are taking too long to run** make sure to fork the repo in the linux file system and not in the windows partition. Use command `pwd` to know the exact path of your repo. If the path starts with `/mnt/`, the repo is in windows partition. Follow the documentation available at link: https://learn.microsoft.com/en-us/windows/wsl/filesystems to know more about storing and moving files in the linux file system. 
 
 	If you have received error related to dependencies(`sudo apt-get install -y redis-server mariadb-server libmariadb-dev rvm nodejs npm pandoc`), try to install packages one by one and figure out which packages are creating problems.

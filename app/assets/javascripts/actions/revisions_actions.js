@@ -1,3 +1,4 @@
+
 import {
   RECEIVE_REVISIONS,
   REVISIONS_LOADING,
@@ -34,19 +35,12 @@ const fetchAllArticles = async (course) => {
 
 const fetchRevisionsPromise = async (course, users, last_date, dispatch) => {
   const { revisions, last_date: new_last_date } = await fetchRevisionsFromUsers(course, users, 7, last_date);
+  course.revisions = sortRevisionsByDate(revisions);
 
-  // Create a new course object with updated revisions
-  const updatedCourse = {
-    ...course,
-    revisions: sortRevisionsByDate(revisions),
-  };
-
-  // we don't await this. When the assessments/references get loaded, the action is dispatched
+  // we don't await this. When the assessments/references get laoded, the action is dispatched
   fetchRevisionsAndReferences(revisions, dispatch);
-
-  return { course: updatedCourse, last_date: new_last_date };
+  return { course, last_date: new_last_date };
 };
-
 const fetchRevisionsCourseSpecificPromise = async (course, users, last_date, dispatch, articles) => {
   const trackedArticles = new Set(
     articles.filter(article => article.tracked).map(article => article.title)

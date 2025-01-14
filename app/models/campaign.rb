@@ -171,9 +171,10 @@ class Campaign < ApplicationRecord
   def set_slug
     campaign_slug = slug.presence || title
     self.slug = campaign_slug.downcase
-    return if /^[\p{L}0-9_]+$/.match?(campaign_slug.downcase)
-    # Strip everything but unicode letters and digits, and convert spaces to underscores.
-    self.slug = campaign_slug.downcase.gsub(/[^\p{L}0-9 ]/, '').tr(' ', '_')
+    unless /^[\p{L}0-9_]+$/.match?(campaign_slug.downcase)
+      # Strip everything but unicode letters and digits, and convert spaces to underscores.
+      self.slug = campaign_slug.downcase.gsub(/[^\p{L}0-9 ]/, '').tr(' ', '_')
+    end
   end
 
   def set_default_times

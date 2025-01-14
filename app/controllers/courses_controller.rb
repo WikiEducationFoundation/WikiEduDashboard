@@ -421,12 +421,13 @@ class CoursesController < ApplicationController
   def update_last_reviewed
     username = params.dig(:course, 'last_reviewed', 'username')
     timestamp = params.dig(:course, 'last_reviewed', 'timestamp')
-    return unless username && timestamp
-    @course.flags['last_reviewed'] = {
-      'username' => username,
-      'timestamp' => timestamp
-    }
-    @course.save
+    if username && timestamp
+      @course.flags['last_reviewed'] = {
+        'username' => username,
+        'timestamp' => timestamp
+      }
+      @course.save
+    end
   end
 
   def handle_post_course_creation_updates

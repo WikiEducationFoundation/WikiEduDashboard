@@ -49,8 +49,11 @@ class TrainingModuleDueDateManager
 
   def flags(course_id)
     flags_hash = @tmu&.flags
-    return flags_hash[course_id] || flags_hash if @training_module.exercise? && flags_hash.present?
-    return flags_hash
+    if @training_module.exercise? && flags_hash.present?
+      return flags_hash[course_id] || flags_hash
+    else
+      return flags_hash
+    end
   end
 
   def sandbox_url

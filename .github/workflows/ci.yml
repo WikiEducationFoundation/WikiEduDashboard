@@ -81,14 +81,6 @@ jobs:
           coverageCommand: bundle exec rspec spec/ --color --profile --format documentation
           coverageLocations: |
             ${{github.workspace}}/public/js_coverage/lcov.info:lcov
-      
-      - name: Archive capybara failure screenshots
-        uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: dist-without-markdown
-          path: tmp/capybara/*.png
-          if-no-files-found: ignore
             
       - name: Ruby linting
         run: bundle exec rubocop
