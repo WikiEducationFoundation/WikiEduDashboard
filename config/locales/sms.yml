@@ -55,8 +55,10 @@ sms:
     article_link: Artikkel
     add_available_submit: Lââʹzzet artikkeeʹlid
     bibliography: Bibliografia
+    confirm_add_available: Haaʹlääk-a ton tuõđi artikkeeʹl %{title} lââʹzzted?
     remove: Jaukkâd
     select: Vaʹlljed
+    submit: Vuõlttâd
   campaign:
     alert_article: Artikkeeʹl nõmm
     alert_user_id: Õõʹnni
@@ -76,9 +78,9 @@ sms:
     add_category: Lââʹzzet kategoria
     add_psid: Lââʹzzet PetScan PSID
     add_template: Lââʹzzet maall
-    add_this_category: Lââʹzzet tän kategoria
+    add_this_category: Lââʹzzet kategoriaid
     add_this_psid: Lââʹzzet tän PSID
-    add_this_template: Lââʹzzet tän maall
+    add_this_template: Lââʹzzet maallid
     articles_count: Artikkelmieʹrr
     name: Nõmm
     category_name: Kategorianõmm
@@ -143,6 +145,7 @@ sms:
       find: Ooʒʒ prograamm
       save_cloned_course: Ruõkk
       scoping_methods:
+        categories: Kategoria
         templates: Maall
     delete_course: Jaukkâd prograamm
     explore: Ooʒʒ prograammi
@@ -167,6 +170,7 @@ sms:
     project: Projeʹktt
     file: Teâttõs
     category: Kategoria
+    book: Ǩeʹrjj
   recent_activity:
     article_title: Nõmm
     image: Kaart da snimldõõǥǥ
@@ -206,6 +210,7 @@ sms:
   update_username:
     label: Ođđ õõʹnninõmm
   uploads:
+    categories: Kategoria
     file_name: Teâttõsnõmm
     image: Kartt leʼbe snimldõk
     label: Ruõkkmõõžž
@@ -216,6 +221,7 @@ sms:
     contribution_statistics: Muʹttemstatistiikk
     course_passcode: 'Peittsääʹnn:'
     edits: muttâz
+    enroll_confirmation: Haaʹlääk-a ton tuõđi õõʹnni %{username} lââʹzzted?
     first_name: Risttnõmm
     last_name: Sokknõmm
     name: Nõmm
@@ -225,6 +231,7 @@ sms:
       one: '%{count} artikkel'
       other: '%{count} artikkeeʹl'
     references_count: Lââʹzztum teâttkääiv
+    remove_confirmation: Haaʹlääk-a ton tuõđi õõʹnni %{username} jaukkeed?
     training_module_status: Status
     username: Õõʹnninõmm
     username_placeholder: Õõʹnninõmm

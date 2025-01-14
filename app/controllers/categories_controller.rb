@@ -46,8 +46,8 @@ class CategoriesController < ApplicationController
 
   def add_category(params)
     name = ArticleUtils.format_article_title(params[:name])
-    @category = Category.find_or_create_by(wiki: @wiki, depth: params[:depth],
-                                           name:, source: params[:source])
+    @category = Category.get_or_create(wiki: @wiki, depth: params[:depth],
+                                       name:, source: params[:source])
     @course.categories << @category
   end
 end
