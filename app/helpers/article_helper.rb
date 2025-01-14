@@ -35,17 +35,26 @@ module ArticleHelper
   def rating_display(rating)
     rating = default_class(rating)
     return nil if rating.nil?
-    return rating if %w[fa ga fl].include? rating
-    return rating[0] # use the first letter of the rating as the abbreviated version
+    if %w[fa ga fl].include? rating
+      return rating
+    else
+      return rating[0] # use the first letter of the rating as the abbreviated version
+    end
   end
 
   def default_class(rating)
     # Handles the different article classes and returns a known article class
-    return rating if %w[fa fl a ga b c start stub list].include? rating
-    return 'b' if rating.eql? 'bplus'
-    return 'a' if rating.eql? 'a/ga'
-    return 'list' if %w[al bl cl sl].include? rating
-    return nil
+    if %w[fa fl a ga b c start stub list].include? rating
+      return rating
+    elsif rating.eql? 'bplus'
+      return 'b'
+    elsif rating.eql? 'a/ga'
+      return 'a'
+    elsif %w[al bl cl sl].include? rating
+      return 'list'
+    else
+      return nil
+    end
   end
 
   def view_count(first_revision, average_views)

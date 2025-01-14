@@ -130,9 +130,10 @@ class RequestedAccountsController < ApplicationController
 
   def handle_existing_request
     existing_request = RequestedAccount.find_by(course: @course, username: params[:username])
-    return unless existing_request
-    existing_request.update(email: params[:email])
-    render json: { message: existing_request.updated_email_message }
-    yield
+    if existing_request
+      existing_request.update(email: params[:email])
+      render json: { message: existing_request.updated_email_message }
+      yield
+    end
   end
 end
