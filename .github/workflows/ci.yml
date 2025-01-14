@@ -22,7 +22,6 @@ jobs:
       - name: Setup ImageMagick
         uses: mfinelli/setup-imagemagick@v6
         with:
-          version: latest # Use '6.x.x' or '7.x.x' if you want a specific version
           cache: true 
 
       # Cache ImageMagick binaries
@@ -42,15 +41,26 @@ jobs:
           fi
 
       # Debug steps
+
+      - name: Debug magick command
+        run: |
+          echo "Magick location: $(which magick)"
+          echo "Magick version: $(magick -version)"
+      - name: Check if identify exists
+        run: |
+          echo "Identify location: $(which identify)"
+
+      - name: Check ImageMagick 
+        run: which magick
+        
       - name: Check ImageMagick Version
         run: magick -version
 
-      - name: Verify identify Command
-        run: identify -version
-
       - name: Testing which imagemagick
         run: magick convert
-      
+
+      - name: Verify identify Command
+        run: identify -version
 
       - name: setup Redis
         uses: supercharge/redis-github-action@1.4.0
