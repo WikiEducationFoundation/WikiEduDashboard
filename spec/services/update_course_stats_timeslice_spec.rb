@@ -78,9 +78,9 @@ describe UpdateCourseStatsTimeslice do
       expect(course_user.character_sum_ms).to eq(7991)
       expect(course_user.character_sum_us).to eq(0)
       expect(course_user.character_sum_draft).to eq(0)
-      # expect(course_user.references_count).to eq(-2)
+      expect(course_user.references_count).to eq(-2)
       expect(course_user.revision_count).to eq(29)
-      expect(course_user.recent_revisions).to eq(0)
+      expect(course_user.recent_revisions).to eq(29)
       expect(course_user.total_uploads).to eq(0)
     end
 
@@ -100,8 +100,7 @@ describe UpdateCourseStatsTimeslice do
       expect(course.view_sum).to be > 905580
       expect(course.user_count).to eq(1)
       expect(course.trained_count).to eq(1)
-      # TODO: update recent_revision_count
-      expect(course.recent_revision_count).to eq(0)
+      expect(course.recent_revision_count).to eq(29)
       expect(course.article_count).to eq(14)
       expect(course.new_article_count).to eq(3)
       expect(course.upload_count).to eq(0)

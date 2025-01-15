@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/revision_stat"
+require_dependency "#{Rails.root}/lib/revision_stat_timeslice"
 require_dependency "#{Rails.root}/lib/course_training_progress_manager"
 
 #= Service for updating the counts that are cached on Course objects
@@ -34,8 +35,7 @@ class CourseCacheManager
     update_view_sum_based_on_first_revision
     update_user_count
     update_trained_count
-    # TODO: count recent revisions based on revision_count field from last timeslices
-    # update_recent_revision_count
+    update_recent_revision_count_from_timeslices
     update_article_count
     update_new_article_count
     update_upload_count
@@ -109,6 +109,10 @@ class CourseCacheManager
 
   def update_recent_revision_count
     @course.recent_revision_count = RevisionStat.get_records(course: @course)
+  end
+
+  def update_recent_revision_count_from_timeslices
+    @course.recent_revision_count = RevisionStatTimeslice.new(@course).recent_revisions_for_course
   end
 
   def update_article_count
