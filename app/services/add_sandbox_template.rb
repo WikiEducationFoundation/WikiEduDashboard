@@ -10,12 +10,19 @@ class AddSandboxTemplate
     @sandbox = sandbox
     @sandbox_template = sandbox_template
     @wiki_editor = WikiEdits.new(home_wiki)
-    wiki_api = WikiApi.new(home_wiki)
-    @initial_page_content = wiki_api.get_page_content(@sandbox)
+    @wiki_api = WikiApi.new(home_wiki)
+    initial_page_content
     add_template
   end
 
   private
+
+  def initial_page_content
+    @initial_page_content = @wiki_api.get_page_content(@sandbox)
+    exception = Errors::PageContentErrors::NilPageContentError.new(@sandbox)
+    raise exception if @initial_page_content.nil?
+    @initial_page_content
+  end
 
   def add_template
     # Never double-post the sandbox template

@@ -2,6 +2,7 @@
 
 require 'rails_helper'
 require "#{Rails.root}/lib/wiki_course_edits"
+require "#{Rails.root}/lib/errors/page_content_errors"
 
 describe WikiCourseEdits do
   let(:home_wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
@@ -181,6 +182,19 @@ describe WikiCourseEdits do
                           course:,
                           current_user: user,
                           enrolling_user:)
+    end
+
+    context 'when get_page_content returns nil' do
+      it 'raises a NilPageContentError' do
+        allow_any_instance_of(WikiApi).to receive(:get_page_content).and_return(nil)
+        expect_any_instance_of(WikiEdits).not_to receive(:add_to_page_top)
+        expect do
+          described_class.new(action: :enroll_in_course,
+                              course:,
+                              current_user: user,
+                              enrolling_user:)
+        end.to raise_error(Errors::PageContentErrors::NilPageContentError)
+      end
     end
 
     context 'makes correct edits on P&E Outreach Dashboard' do

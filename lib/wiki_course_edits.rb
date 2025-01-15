@@ -154,6 +154,10 @@ class WikiCourseEdits
 
     # Never double-post the enrollment template
     initial_page_content = @wiki_api.get_page_content(user_page)
+
+    exception = Errors::PageContentErrors::NilPageContentError.new(user_page)
+    raise exception if initial_page_content.nil?
+
     return if initial_page_content.include?(template)
 
     summary = @generator.enrollment_summary
@@ -167,6 +171,10 @@ class WikiCourseEdits
 
     # Never double-post the talk template
     initial_page_content = @wiki_api.get_page_content(talk_page)
+
+    exception = Errors::PageContentErrors::NilPageContentError.new(talk_page)
+    raise exception if initial_page_content.nil?
+
     return if initial_page_content.include?(talk_template)
 
     talk_summary = "adding {{#{template_name(@templates, 'user_talk')}}}"
