@@ -17,6 +17,7 @@ describe 'Account requests', type: :feature, js: true do
   it 'can be enabled by the course facilitator', focus: true  do
     login_as(instructor)
     visit "/courses/#{course.slug}"
+
     click_button 'Enable account requests'
     expect(page).to have_selector('.confirm-modal-overlay')
     within('.confirm-modal') do
