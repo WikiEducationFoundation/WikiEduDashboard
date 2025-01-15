@@ -14,7 +14,7 @@ describe 'Account requests', type: :feature, js: true do
     stub_token_request
   end
 
-  it 'can be enabled by the course facilitator' do
+  it 'can be enabled by the course facilitator', focus: true  do
     login_as(instructor)
     visit "/courses/#{course.slug}"
     click_button 'Enable account requests'
@@ -25,7 +25,7 @@ describe 'Account requests', type: :feature, js: true do
     expect(page).to have_content('Account request generation enabled')
   end
 
-  it 'can be used by logged out users via the enroll link' do
+  it 'can be used by logged out users via the enroll link', focus: true  do
     pending 'Checking username availibility will not work in CI because of IP range blocks'
 
     course.update(flags: { register_accounts: true })
