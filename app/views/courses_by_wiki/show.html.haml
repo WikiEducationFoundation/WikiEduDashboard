@@ -1,2 +1,10 @@
-.container
-  #react_root{"data-current_user" => current_user ? { admin: current_user.admin?, id: current_user.id }.to_json : '{ "admin": false, "id": null }'}
+- content_for :title, "Courses by Wiki - #{current_user.username} Settings"
+- user = current_user.to_json(only: [:real_name, :email, :permissions, :username]).to_str
+
+%html
+  %head
+    %title= yield(:title)
+  %body
+    .container
+      #react_root{"data-current_user" => current_user ? { admin: current_user.admin?, id: current_user.id }.to_json : '{ "admin": false, "id": null }'}
+
