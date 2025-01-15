@@ -144,7 +144,8 @@ class CoursesUsers < ApplicationRecord
     update_values_from_timeslices
 
     # recent_revisions field doesn't belong to timeslices
-    self.recent_revisions = RevisionStat.recent_revisions_for_courses_user(self).count
+    self.recent_revisions = RevisionStatTimeslice.new(course)
+                                                 .recent_revisions_for_courses_user(self)
     # assigned_article_title field doesn't belong to timeslices
     assignments = user.assignments.where(course_id:)
     self.assigned_article_title = assignments.empty? ? '' : assignments.first.article_title
