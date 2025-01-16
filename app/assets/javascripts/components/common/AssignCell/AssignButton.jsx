@@ -363,16 +363,17 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
 
   const unassign = (assignment) => {
     const confirmMessage = I18n.t('assignments.confirm_deletion');
-    let onConfirm;
+    const successNotification = {
+      message: 'The assignment has been successfully moved to the available articles list.',
+      closable: true,
+      type: 'success'
+    };
     if (assignment.flags.available_article) {
-      onConfirm = () => {
-        dispatch(unclaimAssignment({ course_slug: course.slug, ...assignment }));
-      };
-    } else {
-      onConfirm = () => {
-        dispatch(deleteAssignment({ course_slug: course.slug, ...assignment }));
-      };
+      return dispatch(unclaimAssignment({ course_slug: course.slug, ...assignment }, successNotification));
     }
+    const onConfirm = () => {
+      dispatch(deleteAssignment({ course_slug: course.slug, ...assignment }));
+    };
     dispatch(initiateConfirm({ confirmMessage, onConfirm }));
   };
 
@@ -392,7 +393,7 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
     let tooltip;
     let tooltipIndicator;
     if (tooltip_message && !isOpen) {
-      tooltipIndicator = (<span className={`${hover ? 'tooltip-indicator-hover' : 'tooltip-indicator'}`}/>);
+      tooltipIndicator = (<span className={`${hover ? 'tooltip-indicator-hover' : 'tooltip-indicator'}`} />);
       tooltip = (<Tooltip message={tooltip_message} />);
     }
 

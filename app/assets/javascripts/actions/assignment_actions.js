@@ -78,11 +78,20 @@ export const claimAssignment = (assignment, successNotification) => (dispatch) =
     .catch(response => dispatch({ type: types.API_FAIL, data: response }));
 };
 
-export const unclaimAssignment = assignment => (dispatch) => {
+// This moves the assigned articles to the 'available articles' section if they are already listed there.
+export const unclaimAssignment = (assignment, successNotification) => (dispatch) => {
   return API.unclaimAssignment(assignment)
-    .then(resp => dispatch({ type: types.UPDATE_ASSIGNMENT, data: resp }))
+    .then((resp) => {
+      if (resp.assignment) {
+        if (successNotification) { dispatch(addNotification(successNotification)); }
+        dispatch({ type: types.UPDATE_ASSIGNMENT, data: resp });
+      } else {
+        dispatch({ type: types.API_FAIL, data: resp });
+      }
+    })
     .catch(response => dispatch({ type: types.API_FAIL, data: response }));
 };
+
 
 export const updateAssignmentStatus = (assignment, status) => () => {
   const body = {
