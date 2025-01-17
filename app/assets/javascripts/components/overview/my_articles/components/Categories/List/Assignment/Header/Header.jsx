@@ -33,15 +33,13 @@ const isClassroomProgram = course => (course.type === 'ClassroomProgramCourse');
 const unassign = ({ assignment, course, dispatch }) => {
   const body = { course_slug: course.slug, ...assignment };
   const confirmMessage = I18n.t('assignments.confirm_deletion');
-  const successNotification = {
-    message: 'The assignment has been successfully moved to the available articles list.',
-    closable: true,
-    type: 'success'
-  };
+  let onConfirm;
   if (assignment.flags.available_article) {
-    return () => dispatch(unclaimAssignment(body, successNotification));
+    onConfirm = () => dispatch(unclaimAssignment(body));
+  } else {
+    onConfirm = () => dispatch(deleteAssignment(body));
   }
-  const onConfirm = () => dispatch(deleteAssignment(body));
+
   return () => dispatch(initiateConfirm({ confirmMessage, onConfirm }));
 };
 
@@ -68,7 +66,7 @@ export const Header = ({
         isEnglishWikipedia={isEnglishWikipedia({ assignment, course })}
         isClassroomProgram={isClassroomProgram(course)}
         isComplete={isComplete}
-        unassign={unassign({ assignment, course, dispatch })}
+        unassign={unassign({ assignment, course, unclaimAssignment, dispatch })}
         username={username}
       />
     </header>

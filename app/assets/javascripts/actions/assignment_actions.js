@@ -79,11 +79,16 @@ export const claimAssignment = (assignment, successNotification) => (dispatch) =
 };
 
 // This moves the assigned articles to the 'available articles' section if they are already listed there.
-export const unclaimAssignment = (assignment, successNotification) => (dispatch) => {
+export const unclaimAssignment = assignment => (dispatch) => {
   return API.unclaimAssignment(assignment)
     .then((resp) => {
-      if (resp.assignment) {
-        if (successNotification) { dispatch(addNotification(successNotification)); }
+      if (!resp.assignment.user_id) {
+        const successNotification = {
+          message: 'The assignment has been successfully moved to the available articles list.',
+          closable: true,
+          type: 'success'
+        };
+        dispatch(addNotification(successNotification));
         dispatch({ type: types.UPDATE_ASSIGNMENT, data: resp });
       } else {
         dispatch({ type: types.API_FAIL, data: resp });
