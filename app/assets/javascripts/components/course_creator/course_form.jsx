@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import TextAreaInput from '../common/text_area_input.jsx';
 import CreatableInput from '../common/creatable_input.jsx';
@@ -12,6 +13,7 @@ import selectStyles from '../../styles/select';
 import WikiSelect from '../common/wiki_select.jsx';
 import AcademicSystem from '../common/academic_system.jsx';
 import WIKI_OPTIONS from '../../utils/wiki_options';
+import { updateCourse } from '@actions/course_actions.js';
 
 const CourseForm = (props) => {
   const handleWikiChange = (wiki) => {
@@ -30,6 +32,15 @@ const CourseForm = (props) => {
     wikis = CourseUtils.normalizeWikis(wikis, home_wiki);
     props.updateCourseProps({ wikis });
   };
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (props.course.wikis && !props.course.wikis.length) {
+      dispatch(updateCourse({ wikis: [{ language: 'en', project: 'wikipedia' }] }));
+    }
+  }, []);
+
 
   let term;
   let courseSubject;
@@ -133,16 +144,10 @@ const CourseForm = (props) => {
     );
   }
 
-
-
   let privacyCheckbox;
   let campaign;
   let home_wiki;
   let multi_wiki;
-
-  if (props.course.wikis && !props.course.wikis.length) {
-    props.course.wikis.push({ language: 'en', project: 'wikipedia' });
-  }
 
   if (props.defaultCourse !== 'ClassroomProgramCourse') {
     home_wiki = (
@@ -181,6 +186,7 @@ const CourseForm = (props) => {
       />
     );
   }
+
   if (props.course.initial_campaign_title) {
     campaign = (
       <TextInput
@@ -189,7 +195,9 @@ const CourseForm = (props) => {
       />
     );
   }
+
   let backCondition;
+
   if (Features.wikiEd) {
     backCondition = props.previousWikiEd;
   } else {
@@ -198,15 +206,15 @@ const CourseForm = (props) => {
 
   let backOrCancelButton;
 
-// Displays "Back" button if the user has clonable courses or is on the P&E dashboard; otherwise shows "Cancel" link.
-if (props.hasClonableCourses || props.defaultCourse !== 'ClassroomProgramCourse') {
-  backOrCancelButton = (
-    <button onClick={backCondition} className="button dark">{I18n.t('application.back')}</button>
-  );
-  } else {
-  backOrCancelButton = (
-    <Link className="button" to="/" id="course_cancel">{I18n.t('application.cancel')}</Link>
-  );
+  // Displays "Back" button if the user has clonable courses or is on the P&E dashboard; otherwise shows "Cancel" link.
+  if (props.hasClonableCourses || props.defaultCourse !== 'ClassroomProgramCourse') {
+    backOrCancelButton = (
+      <button onClick={backCondition} className="button dark">{I18n.t('application.back')}</button>
+    );
+    } else {
+    backOrCancelButton = (
+      <Link className="button" to="/" id="course_cancel">{I18n.t('application.cancel')}</Link>
+    );
   }
 
   return (

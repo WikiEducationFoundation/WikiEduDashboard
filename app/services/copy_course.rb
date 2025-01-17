@@ -92,10 +92,9 @@ class CopyCourse # rubocop:disable Metrics/ClassLength
   end
 
   def maybe_copy_user_data
-    if @user_data.present? && @user_data != '0'
-      @users_data = retrieve_users_data
-      copy_users_data
-    end
+    return unless @user_data.present? && @user_data != '0'
+    @users_data = retrieve_users_data
+    copy_users_data
   end
 
   def copy_users_data
