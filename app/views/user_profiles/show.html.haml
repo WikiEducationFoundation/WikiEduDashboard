@@ -21,4 +21,5 @@
   - if @user == current_user
     .personal_data
       %small
-        = link_to 'Download personal data', '/download_personal_data.json'
+        = link_to 'Download personal data', download_personal_data_path, method: :get
+
