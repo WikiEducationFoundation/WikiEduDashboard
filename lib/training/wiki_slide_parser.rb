@@ -216,9 +216,13 @@ class WikiSlideParser
   end
 
   def template_parameter_value(template, parameter)
-    # Extract value from something like:
-    # | parameter_name = value
-    match = template.match(/\|\s*#{parameter}\s*=\s*(?<value>.*)/)
-    match && match['value']
+    # Extract value from the template
+    match = template.match(/\|\s*#{parameter}\s*=\s*(?<value>.*?)(?=\||\Z)/m)
+
+    # Check if match is present and value is not nil
+    value = match && match['value']
+
+    # Remove undesired formatting and whitespace, only if value is not nil
+    value ? value.gsub(/(^:|''')/, '').strip : nil
   end
 end
