@@ -92,11 +92,10 @@ class UpdateCourseWikiTimeslices
                                                       update_service: self)
 
     # Only for wikidata project, fetch wikidata stats
-    if wiki.project == 'wikidata' && @revisions.present?
-      wikidata_revisions = @revisions[wiki][:revisions].reject(&:deleted)
-      @revisions[wiki][:revisions] =
-        @wikidata_stats_updater.update_revisions_with_stats(wikidata_revisions)
-    end
+    return unless wiki.project == 'wikidata' && @revisions.present?
+    wikidata_revisions = @revisions[wiki][:revisions].reject(&:deleted)
+    @revisions[wiki][:revisions] =
+      @wikidata_stats_updater.update_revisions_with_stats(wikidata_revisions)
     # TODO: replace the logic on ArticlesCourses.update_from_course to remove all
     # the ArticlesCourses that do not correspond to course revisions.
     # That may happen if the course dates changed, so some revisions are no

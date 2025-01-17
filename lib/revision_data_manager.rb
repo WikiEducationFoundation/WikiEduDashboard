@@ -22,7 +22,7 @@ class RevisionDataManager
   # As a side effect, it imports Article records.
   def fetch_revision_data_for_course(timeslice_start, timeslice_end)
     all_sub_data, scoped_sub_data = get_course_revisions(@course.students, timeslice_start,
-                                                           timeslice_end)
+                                                         timeslice_end)
     @revisions = []
 
     # Extract all article data from the slice. Outputs a hash with article attrs.
