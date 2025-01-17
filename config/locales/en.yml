@@ -1352,6 +1352,7 @@ en:
     delete_weeks_confirmation: "Are you sure you want to delete this entire timeline and start over? \n\nThis cannot be undone."
     discard_all_changes: Discard All Changes
     delete_timeline_and_start_over: Delete Timeline
+    done: Done
     due_default: Due next week
     edit_titles: Edit Week Titles
     edit_titles_info: Edit week titles in timeline. Only weeks with scheduled meetings can be given custom titles. If any custom titles are used, weeks with no meetings will be dated instead of numbered.
