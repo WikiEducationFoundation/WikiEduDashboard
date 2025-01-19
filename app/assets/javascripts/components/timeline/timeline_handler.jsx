@@ -1,11 +1,9 @@
-// Import necessary hooks (useState, useEffect) and useNavigate from react-router-dom
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import TransitionGroup from '../common/css_transition_group';
 import { Route, Routes } from 'react-router-dom';
 import Timeline from './timeline.jsx';
-// import Grading from './grading.jsx';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 import Wizard from '../wizard/wizard.jsx';
 import Meetings from './meetings.jsx';
@@ -24,14 +22,20 @@ import { getWeeksArray, getAllWeeksArray, getAvailableTrainingModules, editPermi
 const TimelineHandler = (props) => {
   const [reorderable, setReorderable] = useState(false);
   const [editableTitles, setEditableTitles] = useState(false);
+  const resetWeekTitles = useRef(false);
 
-// Replace componentDidMount with useEffect hook
   useEffect(() => {
     document.title = `${props.course.title} - ${I18n.t('courses.timeline_link')}`;
     props.fetchAllTrainingModules();
   }, [props.course.title, props.fetchAllTrainingModules]);
 
-// Convert class methods to regular functions within the component
+  useEffect(() => {
+    if (resetWeekTitles.current) {
+      saveTimeline();
+      resetWeekTitles.current = false;
+    }
+  }, props.weeks);
+
   const _cancelBlockEditable = (blockId) => {
     // TODO: Restore to persisted state for this block only
     props.cancelBlockEditable(blockId);
@@ -54,7 +58,7 @@ const TimelineHandler = (props) => {
   const _resetTitles = () => {
     if (confirm(I18n.t('timeline.reset_titles_confirmation'))) {
       props.resetTitles();
-      saveTimeline();
+      resetWeekTitles.current = true;
     }
   };
 
@@ -124,7 +128,6 @@ const TimelineHandler = (props) => {
         edit_permissions={props.editPermissions}
         current_user={props.current_user}
       />
-      {/* {grading} */}
     </div>
   );
 };
