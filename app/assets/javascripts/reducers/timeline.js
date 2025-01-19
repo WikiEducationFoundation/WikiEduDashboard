@@ -14,6 +14,7 @@ import {
   RESTORE_TIMELINE,
   EXERCISE_COMPLETION_UPDATE
 } from '../constants';
+import { cloneDeep } from 'lodash';
 
 const initialState = {
   blocks: {},
@@ -207,14 +208,14 @@ export default function timeline(state = initialState, action) {
       return { ...state, blocks };
     }
     case UPDATE_TITLE: {
-      const weeks = { ...state.weeks };
+      const weeks = cloneDeep(state.weeks);
       if (validateTitle(action.title)) {
         weeks[action.weekId].title = action.title;
       }
       return { ...state, weeks };
     }
     case RESET_TITLES: {
-      const weeks = { ...state.weeks };
+      const weeks = cloneDeep(state.weeks);
       Object.keys(weeks).forEach((weekId) => {
         weeks[weekId].title = '';
       });
