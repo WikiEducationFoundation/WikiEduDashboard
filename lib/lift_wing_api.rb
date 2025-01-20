@@ -117,8 +117,7 @@ class LiftWingApi
                  end),
       'features' => score.dig('features'),
       'deleted' => false,
-      'prediction' => score.dig('score', 'prediction'), # only for revision feedback
-      'error' => nil
+      'prediction' => score.dig('score', 'prediction') # only for revision feedback
     }
   end
 

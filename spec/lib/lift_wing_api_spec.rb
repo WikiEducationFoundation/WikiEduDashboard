@@ -35,14 +35,14 @@ describe LiftWingApi do
         expect(subject0.dig('829840084', 'features')).to be_a(Hash)
         expect(subject0.dig('829840084', 'deleted')).to eq(false)
         expect(subject0.dig('829840084', 'prediction')).to eq('Stub')
-        expect(subject0.dig('829840084', 'error')).to be_nil
+        expect(subject0.dig('829840084').key?('error')).to eq(false)
 
         expect(subject0).to be_a(Hash)
         expect(subject0.dig('829840085', 'wp10').to_f).to be_within(0.01).of(29.15)
         expect(subject0.dig('829840085', 'features')).to be_a(Hash)
         expect(subject0.dig('829840085', 'deleted')).to eq(false)
         expect(subject0.dig('829840085', 'prediction')).to eq('Start')
-        expect(subject0.dig('829840085', 'error')).to be_nil
+        expect(subject0.dig('829840085').key?('error')).to eq(false)
       end
     end
 
@@ -62,14 +62,14 @@ describe LiftWingApi do
         expect(subject1.dig('829840084', 'features')).to be_a(Hash)
         expect(subject1.dig('829840084', 'deleted')).to eq(false)
         expect(subject1.dig('829840084', 'prediction')).to eq('D')
-        expect(subject1.dig('829840084', 'error')).to be_nil
+        expect(subject1.dig('829840084').key?('error')).to eq(false)
 
         expect(subject1.dig('829840084')).to have_key('wp10')
         expect(subject1.dig('829840085', 'wp10')).to eq(nil)
         expect(subject1.dig('829840085', 'features')).to be_a(Hash)
         expect(subject1.dig('829840085', 'deleted')).to eq(false)
         expect(subject1.dig('829840085', 'prediction')).to eq('D')
-        expect(subject1.dig('829840085', 'error')).to be_nil
+        expect(subject1.dig('829840085').key?('error')).to eq(false)
       end
     end
 
