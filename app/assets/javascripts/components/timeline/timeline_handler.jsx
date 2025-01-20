@@ -1,5 +1,5 @@
 // Import necessary hooks (useState, useEffect) and useNavigate from react-router-dom
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import TransitionGroup from '../common/css_transition_group';
@@ -25,11 +25,20 @@ const TimelineHandler = (props) => {
   const [reorderable, setReorderable] = useState(false);
   const [editableTitles, setEditableTitles] = useState(false);
 
-// Replace componentDidMount with useEffect hook
+  const resetWeekTitles = useRef(false);
+
+  // Replace componentDidMount with useEffect hook
   useEffect(() => {
     document.title = `${props.course.title} - ${I18n.t('courses.timeline_link')}`;
     props.fetchAllTrainingModules();
   }, [props.course.title, props.fetchAllTrainingModules]);
+
+  useEffect(() => {
+    if (resetWeekTitles.current) {
+      saveTimeline();
+      resetWeekTitles.current = false;
+    }
+  }, [props.weeks]);
 
 // Convert class methods to regular functions within the component
   const _cancelBlockEditable = (blockId) => {
@@ -54,7 +63,7 @@ const TimelineHandler = (props) => {
   const _resetTitles = () => {
     if (confirm(I18n.t('timeline.reset_titles_confirmation'))) {
       props.resetTitles();
-      saveTimeline();
+      resetWeekTitles.current = true;
     }
   };
 
