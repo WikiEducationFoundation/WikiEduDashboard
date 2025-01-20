@@ -11,6 +11,7 @@
 # Author: Reke
 # Author: S8321414
 # Author: Shangkuanlc
+# Author: SupaplexTW
 # Author: Wehwei
 # Author: Winston Sung
 # Author: Wwycheuk
@@ -414,6 +415,7 @@ zh-TW:
     active_courses: 啟動課程
     add_trainings: 請添加學生培訓至您分配到的時間軸。分配培訓模組是 Wiki 教育最佳實踐的重要部分。
     alerts: 提醒
+    does_not_exist: 該項目不存在。請建立一個沙盒頁面並分配給您自己來接收建議。
     all_courses: 所有課程
     already_enrolled: 您已經成為「%{title}」課程的一份子！
     already_exists: 已存在於該課程中！
@@ -514,7 +516,7 @@ zh-TW:
       find: 查找您的課程
       intro: 您所選擇的課程標題、學校、和學期將會構成您課程頁面的 URL，並且不可更改。除了以上三者之外，其餘項目皆可稍後編輯。點選 「建立我的課程！」
         開始規劃您的維基百科分配作業時間軸。
-      new_or_clone: 您現在可透過分配事項精靈來創建新的課程、如果您擁有來自先前課程的高度自定義時間軸而想重新使用，您可以使用新的日期來複製複本（如果您先前沒有明確自定義您的時間軸，我們建議您先開始一個課程，以便擁有最新版本的分配作業選項。）。您也可以使用複製選項來替您先前設定好的課程創建額外部份。
+      new_or_clone: 點'創建新的課程'來透過分配事項精靈來創建新的課程，你的時間軸會包括維基教育專案推薦訓練模組的最新選項，以及其他資源。如果您擁有來自先前課程的高度自定義時間軸而想重新使用，您可以使用新的日期來複製複本。您也可以使用複製選項來替您先前設定好的課程創建額外部份。
       no_class_holidays: 我的課程沒有遭遇假日
       role_description: 您在課程裡的身份
       role_description_options:
@@ -746,6 +748,7 @@ zh-TW:
     write_subject: 主旨
     write_message_placeholder: 訊息
     sending_notification: 寄送中
+    bcc_to_salesforce: 密件副本至 Salesforce
   courses_generic:
     school_system: 學院系統
     add_campaign: 新增競賽
@@ -862,7 +865,7 @@ zh-TW:
     uploads_none: 此專案沒有提供任何圖片或媒體檔案至維基共享資源裡。
     user_uploads_none: 所選使用者尚未對此專案貢獻任何圖片或其它多媒體檔案。
     view_other: 檢視其它競賽
-    view_page: 檢視方案頁面
+    view_page: 檢視頁面
     word_count_doc: 一個由條目編輯者在方案學期期間增加至條目主空間的估計數量
     word_count_doc_wikidata: 一個由條目編輯者在方案學期期間增加至主空間項目的估計字詞數量
     yourcourses: 您的方案
@@ -967,6 +970,8 @@ zh-TW:
       other: 跨語言項目使用總計
     view_count_description: 條目檢視數
     view_count_description_wikidata: 項目查看
+    view_count_doc: 這是根據近期統計更新，平均30天每篇文章的平均瀏覽次數所推估的瀏覽次數。瀏覽次數可能因為更新後的次數比先前少而減少。
+    view_count_doc_wikidata: 這是根據近期統計更新，平均30天每個項目的平均瀏覽次數所推估的瀏覽次數。瀏覽次數可能因為更新後的次數比先前少而減少。
     view_data_unavailable: 沒有可用的檢視資料
     view: 檢視數
     wiki_ed_help: 使用「取得協助」按鈕來回報問題。
@@ -1589,6 +1594,8 @@ zh-TW:
       button_text: 管理註釋
       header_text: 管理註釋面板
       aria_label:
+        no_notes_available: 面板中沒有可用的管理註解。按返回鍵開啟管理註解面板。
+        new_notes_message: '%{count} 個新的管理員註釋可用。'
         notes_panel_opened: 已開啟管理註釋面板互動視窗。您可以按下退出鍵來關閉。
         close_admin: 關閉管理註釋面板互動視窗
         note_action_button: 註釋操作按鈕
