@@ -128,40 +128,59 @@ role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
   end
 
   describe '#update_cache_from_revisions' do
-    before do
-      TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records([wiki])
-      described_class.find_by(course:, wiki:, start:).update(needs_update: true)
+    context 'if no revisions with errors' do
+      before do
+        TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records([wiki])
+        described_class.find_by(course:, wiki:, start:).update(needs_update: true)
+      end
+
+      it 'caches revision data for students and remove needs_update flag' do
+        course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
+        expect(course_wiki_timeslice.needs_update).to eq(true)
+        course_wiki_timeslice.update_cache_from_revisions array_revisions
+        course_wiki_timeslice.reload
+
+        expect(course_wiki_timeslice.character_sum).to eq(9010)
+        expect(course_wiki_timeslice.references_count).to eq(7)
+        expect(course_wiki_timeslice.revision_count).to eq(3)
+        expect(course_wiki_timeslice.upload_count).to eq(2)
+        expect(course_wiki_timeslice.uploads_in_use_count).to eq(2)
+        expect(course_wiki_timeslice.upload_usages_count).to eq(7)
+        expect(course_wiki_timeslice.needs_update).to eq(false)
+      end
+
+      it 'revision count cache only considers tracked articles courses' do
+        # Untrack articles courses record
+        ArticlesCourses.find(1).update(tracked: 0)
+
+        course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
+        course_wiki_timeslice.update_cache_from_revisions array_revisions
+
+        expect(course_wiki_timeslice.character_sum).to eq(9010)
+        expect(course_wiki_timeslice.references_count).to eq(7)
+        # Don't add any new revision count
+        expect(course_wiki_timeslice.revision_count).to eq(0)
+        expect(course_wiki_timeslice.upload_count).to eq(2)
+        expect(course_wiki_timeslice.uploads_in_use_count).to eq(2)
+        expect(course_wiki_timeslice.upload_usages_count).to eq(7)
+      end
     end
 
-    it 'caches revision data for students and remove needs_update flag' do
-      course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
-      expect(course_wiki_timeslice.needs_update).to eq(true)
-      course_wiki_timeslice.update_cache_from_revisions array_revisions
-      course_wiki_timeslice.reload
+    context 'if revision with error' do
+      before do
+        TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records([wiki])
+        array_revisions << build(:revision, article:, user_id: 1, date: start + 51.hours,
+        views: true, ithenticate_id: 1) # add revision with error
+      end
 
-      expect(course_wiki_timeslice.character_sum).to eq(9010)
-      expect(course_wiki_timeslice.references_count).to eq(7)
-      expect(course_wiki_timeslice.revision_count).to eq(3)
-      expect(course_wiki_timeslice.upload_count).to eq(2)
-      expect(course_wiki_timeslice.uploads_in_use_count).to eq(2)
-      expect(course_wiki_timeslice.upload_usages_count).to eq(7)
-      expect(course_wiki_timeslice.needs_update).to eq(false)
-    end
+      it 'keeps needs_update flag if revisions with error' do
+        course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
+        expect(course_wiki_timeslice.needs_update).to eq(false)
+        course_wiki_timeslice.update_cache_from_revisions array_revisions
+        course_wiki_timeslice.reload
 
-    it 'revision count cache only considers tracked articles courses' do
-      # Untrack articles courses record
-      ArticlesCourses.find(1).update(tracked: 0)
-
-      course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
-      course_wiki_timeslice.update_cache_from_revisions array_revisions
-
-      expect(course_wiki_timeslice.character_sum).to eq(9010)
-      expect(course_wiki_timeslice.references_count).to eq(7)
-      # Don't add any new revision count
-      expect(course_wiki_timeslice.revision_count).to eq(0)
-      expect(course_wiki_timeslice.upload_count).to eq(2)
-      expect(course_wiki_timeslice.uploads_in_use_count).to eq(2)
-      expect(course_wiki_timeslice.upload_usages_count).to eq(7)
+        expect(course_wiki_timeslice.needs_update).to eq(true)
+      end
     end
   end
 end
