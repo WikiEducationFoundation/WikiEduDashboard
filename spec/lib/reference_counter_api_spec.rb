@@ -30,11 +30,11 @@ describe ReferenceCounterApi do
       ref_counter_api = described_class.new(es_wiktionary)
       response = ref_counter_api.get_number_of_references_from_revision_ids rev_ids
       expect(response.dig('5006940', 'num_ref')).to eq(10)
-      expect(response.dig('5006940', 'error')).to be_nil
+      expect(response.dig('5006940').key?('error')).to eq(false)
       expect(response.dig('5006942', 'num_ref')).to eq(4)
-      expect(response.dig('5006942', 'error')).to be_nil
+      expect(response.dig('5006942').key?('error')).to eq(false)
       expect(response.dig('5006946', 'num_ref')).to eq(2)
-      expect(response.dig('5006946', 'error')).to be_nil
+      expect(response.dig('5006946').key?('error')).to eq(false)
     end
   end
 

@@ -57,7 +57,7 @@ class ReferenceCounterApi
     tries ||= RETRY_COUNT
     response = toolforge_server.get(references_query_url(rev_id))
     parsed_response = Oj.load(response.body)
-    return { 'num_ref' => parsed_response['num_ref'], 'error' => nil } if response.status == 200
+    return { 'num_ref' => parsed_response['num_ref'] } if response.status == 200
     # Log the error and return empty hash
     # Sentry.capture_message 'Non-200 response hitting references counter API', level: 'warning',
     # extra: { project_code: @project_code, language_code: @language_code, rev_id:,
