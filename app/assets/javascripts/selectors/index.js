@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { sortBy, difference, uniq, filter, includes, pickBy, find } from 'lodash-es';
+import { sortBy, difference, uniq, filter, includes, pickBy, find, cloneDeep } from 'lodash-es';
 import { getFiltered } from '../utils/model_utils';
 import { STUDENT_ROLE, INSTRUCTOR_ROLE, ONLINE_VOLUNTEER_ROLE, CAMPUS_VOLUNTEER_ROLE, STAFF_ROLE, fetchStates, ARTICLES_PER_PAGE, REVIEWING_ROLE } from '../constants';
 import UserUtils from '../utils/user_utils.js';
@@ -254,7 +254,7 @@ export const getWeeksArray = createSelector(
     });
 
     weekIds.forEach((weekId) => {
-      const newWeek = weeks[weekId];
+      const newWeek = cloneDeep(weeks[weekId]);
       newWeek.blocks = blocksByWeek[weekId] || [];
       weeksArray.push(newWeek);
     });
