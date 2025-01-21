@@ -635,7 +635,7 @@ module RequestHelpers
       )
   end
 
-  def stub_revision_score_lift_wing_reponse
+  def stub_wikidata_lift_wing_reponse
     request_body =
       {
           'wikidatawiki' => {
@@ -692,12 +692,30 @@ module RequestHelpers
       )
   end
 
-  def stub_revision_score_reference_counter_reponse
+  def stub_es_wikipedia_reference_counter_reponse
     request_body = {
       '157412237' => { 'num_ref' => 111, 'lang' => 'es', 'project' => 'wikipedia',
       'revid' => 157412237 },
       '157417768' => { 'num_ref' => 42, 'lang' => 'es', 'project' => 'wikipedia',
-      'revid' => 157417768 },
+      'revid' => 157417768 }
+    }
+
+    # Stub the request to match the revision ID in the URL
+    stub_request(:get, %r{https://reference-counter.toolforge.org/api/v1/references/wikipedia/es/\d+})
+      .to_return(
+        status: 200,
+        body: lambda do |request|
+          # Extract revision ID from the URL
+          rev_id = request.uri.path.split('/').last
+          # Return the appropriate response based on the revision ID
+          { 'num_ref' => request_body[rev_id.to_s]['num_ref'] }.to_json
+        end,
+        headers: { 'Content-Type' => 'application/json' }
+      )
+  end
+
+  def stub_en_wikipedia_reference_counter_reponse
+    request_body = {
       '829840090' => { 'num_ref' => 132, 'lang' => 'es', 'project' => 'wikipedia',
       'revid' => 829840090 },
       '829840091' => { 'num_ref' => 1, 'lang' => 'es', 'project' => 'wikipedia',
@@ -705,7 +723,7 @@ module RequestHelpers
     }
 
     # Stub the request to match the revision ID in the URL
-    stub_request(:get, %r{https://reference-counter.toolforge.org/api/v1/references/wikipedia/es/\d+})
+    stub_request(:get, %r{https://reference-counter.toolforge.org/api/v1/references/wikipedia/en/\d+})
       .to_return(
         status: 200,
         body: lambda do |request|
