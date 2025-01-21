@@ -25,7 +25,7 @@ class UpdateCourseWikiTimeslices
 
   def pre_update(from_scratch)
     @debugger.log_update_progress :pre_update_start
-    prepare_timeslices = PrepareTimeslices.new(@course)
+    prepare_timeslices = PrepareTimeslices.new(@course, update_service: @update_service)
     from_scratch ? prepare_timeslices.recreate_timeslices : prepare_timeslices.adjust_timeslices
     @debugger.log_update_progress :pre_update_finish
   end

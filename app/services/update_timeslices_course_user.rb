@@ -5,9 +5,10 @@ require_dependency "#{Rails.root}/lib/articles_courses_cleaner_timeslice"
 require_dependency "#{Rails.root}/lib/revision_data_manager"
 
 class UpdateTimeslicesCourseUser
-  def initialize(course)
+  def initialize(course, update_service: nil)
     @course = course
     @timeslice_manager = TimesliceManager.new(course)
+    @update_sercice = update_service
   end
 
   def run
@@ -44,7 +45,7 @@ class UpdateTimeslicesCourseUser
   def fetch_users_revisions_for_wiki(wiki, user_ids)
     users = User.find(user_ids)
 
-    manager = RevisionDataManager.new(wiki, @course)
+    manager = RevisionDataManager.new(wiki, @course, update_service: @update_service)
     # Fetch the revisions for users for the complete period
     revisions = manager.fetch_revision_data_for_users(users,
                                                       @course.start.strftime('%Y%m%d%H%M%S'),
