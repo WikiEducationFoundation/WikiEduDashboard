@@ -611,7 +611,7 @@ module RequestHelpers
       )
   end
 
-  def stub_reference_counter_response
+  def stub_es_wiktionary_reference_counter_response
     # Define the response body in a hash with revision IDs as keys
     request_body = {
       '5006940' => { 'num_ref' => 10, 'lang' => 'es', 'project' => 'wiktionary',

@@ -11,7 +11,6 @@ describe ReferenceCounterApi do
   let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }
   let(:deleted_rev_ids) { [708326238] }
   let(:rev_ids) { [5006940, 5006942, 5006946] }
-  let(:response) { stub_reference_counter_response }
 
   it 'raises InvalidProjectError if using wikidata project' do
     expect do
@@ -22,7 +21,7 @@ describe ReferenceCounterApi do
   context 'returns the number of references' do
     before do
       stub_wiki_validation
-      stub_reference_counter_response
+      stub_es_wiktionary_reference_counter_response
     end
 
     # Get revision data for valid rev ids for Wikidata
