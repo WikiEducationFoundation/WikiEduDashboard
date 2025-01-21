@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/course_revision_updater"
-require_dependency "#{Rails.root}/lib/analytics/histogram_plotter"
-require_dependency "#{Rails.root}/lib/data_cycle/update_logger"
-require_dependency "#{Rails.root}/lib/errors/update_service_error_helper"
 require_dependency "#{Rails.root}/lib/timeslice_manager"
 require_dependency "#{Rails.root}/lib/data_cycle/update_debugger"
 
@@ -11,19 +8,17 @@ require_dependency "#{Rails.root}/lib/data_cycle/update_debugger"
 # It updates all the tracked wikis for the course, from the latest start time for every wiki
 # up to the end of update (today or end date course).
 class UpdateCourseWikiTimeslices
-  include UpdateServiceErrorHelper
-
-  def initialize(course)
+  def initialize(course, update_service: nil)
     @course = course
     @timeslice_manager = TimesliceManager.new(@course)
     @debugger = UpdateDebugger.new(@course)
+    @update_service = update_service
     @wikidata_stats_updater = UpdateWikidataStatsTimeslice.new(@course) if wikidata
   end
 
   def run(all_time:)
     pre_update(all_time)
     fetch_data_and_process_timeslices_for_every_wiki(all_time)
-    error_count
   end
 
   private
@@ -89,7 +84,7 @@ class UpdateCourseWikiTimeslices
                                                       wiki,
                                                       timeslice_start.strftime('%Y%m%d%H%M%S'),
                                                       timeslice_end.strftime('%Y%m%d%H%M%S'),
-                                                      update_service: self)
+                                                      update_service: @update_service)
 
     # Only for wikidata project, fetch wikidata stats
     return unless wiki.project == 'wikidata' && @revisions.present?

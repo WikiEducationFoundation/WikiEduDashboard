@@ -159,7 +159,7 @@ describe UpdateCourseWikiTimeslices do
       expected_dates.each do |start_time, end_time|
         expected_wikis.each do |wiki|
           expect(CourseRevisionUpdater).to receive(:fetch_revisions_and_scores_for_wiki)
-            .with(course, wiki, start_time, end_time, update_service: updater)
+            .with(course, wiki, start_time, end_time, update_service: nil)
             .once
         end
       end
@@ -167,54 +167,6 @@ describe UpdateCourseWikiTimeslices do
       VCR.use_cassette 'course_update' do
         subject
       end
-    end
-  end
-
-  context 'sentry course update error tracking' do
-    let(:flags) { { debug_updates: true } }
-    let(:user) { create(:user, username: 'Ragesoss') }
-
-    before do
-      travel_to Date.new(2018, 11, 28)
-      course.campaigns << Campaign.first
-      JoinCourse.new(course:, user:, role: 0)
-    end
-
-    it 'tracks update errors properly in Replica' do
-      allow(Sentry).to receive(:capture_exception)
-
-      # Raising errors only in Replica
-      stub_request(:any, %r{https://replica-revision-tools.wmcloud.org/.*}).to_raise(Errno::ECONNREFUSED)
-      VCR.use_cassette 'course_update/replica' do
-        subject
-      end
-      sentry_tag_uuid = updater.sentry_tag_uuid
-
-      # Checking whether Sentry receives correct error and tags as arguments
-      expect(Sentry).to have_received(:capture_exception).exactly(5).times.with(
-        Errno::ECONNREFUSED, anything
-      )
-      expect(Sentry).to have_received(:capture_exception)
-        .exactly(5).times.with anything, hash_including(tags: { update_service_id: sentry_tag_uuid,
-                                                    course: course.slug })
-    end
-
-    it 'tracks update errors properly in LiftWing' do
-      allow(Sentry).to receive(:capture_exception)
-
-      # Raising errors only in LiftWing
-      stub_request(:any, %r{https://api.wikimedia.org/service/lw.*}).to_raise(Faraday::ConnectionFailed)
-      VCR.use_cassette 'course_update/lift_wing_api' do
-        subject
-      end
-      sentry_tag_uuid = updater.sentry_tag_uuid
-
-      # Checking whether Sentry receives correct error and tags as arguments
-      expect(Sentry).to have_received(:capture_exception)
-        .exactly(2).times.with(Faraday::ConnectionFailed, anything)
-      expect(Sentry).to have_received(:capture_exception)
-        .exactly(2).times.with anything, hash_including(tags: { update_service_id: sentry_tag_uuid,
-                                                                course: course.slug })
     end
   end
 end
