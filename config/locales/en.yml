@@ -1621,6 +1621,7 @@ en:
       assignments. Click the date to change between unselected, selected, and
       holiday state. If you have no holidays, check "I have no class holidays"
       below.
+    confirm_course_dates: Confirm the course's start and end dates.
     confirm_dates: Choose the course dates, weekly meetings, and holidays for your course.
     course_dates: Course Dates
     min_weeks: >
@@ -1631,6 +1632,7 @@ en:
     minimum_options:
       one: Please select %{count} or more options.
       other: Please select %{count} or more options.
+    no_class_holidays: I have no class holidays
     read_less: Read Less
     read_more: Read More
     review_selections: >
