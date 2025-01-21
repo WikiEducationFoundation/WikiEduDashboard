@@ -85,7 +85,7 @@ export const fetchRevisionsFromUsers = async (course, users, days, last_date, fi
   revisions = revisions.map((revision) => {
     const userIndex = usernames.indexOf(revision.user);
     return {
-      ...revision, // Keep all existing properties
+      ...revision,
       registered_at: userIndex !== -1 ? registered_dates[userIndex] : null
     };
   });

@@ -130,7 +130,7 @@ const RevisionHandler = ({ course, courseScopedLimit }) => {
   ];
 
   const filterRevisions = () => {
-    let revisions = isCourseScoped ? revisionsDisplayedCourseSpecific : revisionsDisplayed; // Use 'let' instead of 'const'
+    let revisions = isCourseScoped ? revisionsDisplayedCourseSpecific : revisionsDisplayed;
     if (isNewEditor) {
       // this filters out the revisions where the user registered after the course start date and presents only those revisions
       revisions = revisions.filter((revision) => {
