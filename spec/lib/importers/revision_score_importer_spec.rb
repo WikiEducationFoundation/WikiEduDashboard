@@ -221,6 +221,8 @@ describe RevisionScoreImporter do
         expect(revisions[2].deleted).to eq(true)
         expect(revisions[2].wp10).to be_nil
         expect(revisions[2].features).to eq({})
+        # TODO: use another field for this. For now we use ithenticate_id as an error field
+        expect(revisions[2].ithenticate_id).to eq(1)
       end
     end
 
@@ -230,6 +232,8 @@ describe RevisionScoreImporter do
         expect(revisions[3].deleted).to eq(true)
         expect(revisions[3].wp10).to be_nil
         expect(revisions[3].features).to eq({})
+        # TODO: use another field for this. For now we use ithenticate_id as an error field
+        expect(revisions[3].ithenticate_id).to eq(1)
       end
     end
 
@@ -242,8 +246,8 @@ describe RevisionScoreImporter do
 
       revisions = described_class.new.get_revision_scores(array_revisions)
 
-      # no value changed for the revisions
-      expect(revisions).to eq(array_revisions)
+      # TODO: use another field for this. For now we use ithenticate_id as an error field
+      expect(revisions[0].ithenticate_id).to eq(1)
     end
   end
 end
