@@ -99,7 +99,7 @@ describe UpdateCourseWikiTimeslices do
       # 14 course wiki timeslices records were created: 7 for enwiki and 7 for wikidata
       expect(course.course_wiki_timeslices.count).to eq(14)
 
-      # Course user timeslices caches were updated
+      # Course wiki timeslices caches were updated
       # For enwiki
       timeslice = course.course_wiki_timeslices.where(wiki: enwiki,
                                                       start: '2018-11-29').first
@@ -215,6 +215,8 @@ describe UpdateCourseWikiTimeslices do
       expect(Sentry).to have_received(:capture_exception)
         .exactly(2).times.with anything, hash_including(tags: { update_service_id: sentry_tag_uuid,
                                                                 course: course.slug })
+      # The timeslice for the revision with score errors is marked as 'needs update'
+      expect(course.course_wiki_timeslices.find_by(start: '2018-11-24').needs_update).to eq(true)
     end
   end
 end
