@@ -29,7 +29,8 @@ class UpdateCourseStatsTimeslice
     import_uploads
     update_categories
     update_article_status if should_update_article_status?
-    UpdateCourseWikiTimeslices.new(@course, update_service: self).run(all_time: @full_update)
+    UpdateCourseWikiTimeslices.new(@course, @debugger,
+                                   update_service: self).run(all_time: @full_update)
     update_average_pageviews
     update_caches
     update_wikidata_stats if wikidata

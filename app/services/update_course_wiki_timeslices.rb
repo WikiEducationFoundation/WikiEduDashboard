@@ -8,10 +8,10 @@ require_dependency "#{Rails.root}/lib/data_cycle/update_debugger"
 # It updates all the tracked wikis for the course, from the latest start time for every wiki
 # up to the end of update (today or end date course).
 class UpdateCourseWikiTimeslices
-  def initialize(course, update_service: nil)
+  def initialize(course, debugger, update_service: nil)
     @course = course
     @timeslice_manager = TimesliceManager.new(@course)
-    @debugger = UpdateDebugger.new(@course)
+    @debugger = debugger
     @update_service = update_service
     @wikidata_stats_updater = UpdateWikidataStatsTimeslice.new(@course) if wikidata
   end
@@ -25,7 +25,7 @@ class UpdateCourseWikiTimeslices
 
   def pre_update(from_scratch)
     @debugger.log_update_progress :pre_update_start
-    prepare_timeslices = PrepareTimeslices.new(@course, update_service: @update_service)
+    prepare_timeslices = PrepareTimeslices.new(@course, @debugger, update_service: @update_service)
     from_scratch ? prepare_timeslices.recreate_timeslices : prepare_timeslices.adjust_timeslices
     @debugger.log_update_progress :pre_update_finish
   end

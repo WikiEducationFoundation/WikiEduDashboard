@@ -4,10 +4,10 @@ require_dependency "#{Rails.root}/lib/data_cycle/update_debugger"
 # Ensures that the necessary timeslices are created prior to a new update
 # of the course statistics.
 class PrepareTimeslices
-  def initialize(course, update_service: nil)
+  def initialize(course, debugger, update_service: nil)
     @course = course
     @timeslice_manager = TimesliceManager.new(@course)
-    @debugger = UpdateDebugger.new(@course)
+    @debugger = debugger
     @update_service = update_service
   end
 
