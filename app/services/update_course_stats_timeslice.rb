@@ -29,7 +29,9 @@ class UpdateCourseStatsTimeslice
     import_uploads
     update_categories
     update_article_status if should_update_article_status?
-    @timeslice_errors = UpdateCourseWikiTimeslices.new(@course).run(all_time: @full_update)
+    @processed, @reprocessed = UpdateCourseWikiTimeslices.new(@course, @debugger,
+                                                              update_service: self)
+                                                         .run(all_time: @full_update)
     update_average_pageviews
     update_caches
     update_wikidata_stats if wikidata
@@ -109,7 +111,9 @@ class UpdateCourseStatsTimeslice
     UpdateLogger.update_course(@course, 'start_time' => @start_time.to_datetime,
                                          'end_time' => @end_time.to_datetime,
                                          'sentry_tag_uuid' => sentry_tag_uuid,
-                                         'error_count' => error_count + @timeslice_errors)
+                                         'error_count' => error_count,
+                                         'proccesed' => @processed,
+                                         'reprocessed' => @reprocessed)
   end
 
   def wikidata
