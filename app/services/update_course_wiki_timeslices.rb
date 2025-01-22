@@ -14,11 +14,14 @@ class UpdateCourseWikiTimeslices
     @debugger = debugger
     @update_service = update_service
     @wikidata_stats_updater = UpdateWikidataStatsTimeslice.new(@course) if wikidata
+    @processed_timeslices = 0
+    @reprocessed_timeslices = 0
   end
 
   def run(all_time:)
     pre_update(all_time)
     fetch_data_and_process_timeslices_for_every_wiki(all_time)
+    [@processed_timeslices, @reprocessed_timeslices]
   end
 
   private
@@ -64,6 +67,7 @@ class UpdateCourseWikiTimeslices
       fetch_data(wiki, start_date, end_date)
       process_timeslices(wiki)
       current_start += @timeslice_manager.timeslice_duration(wiki)
+      @processed_timeslices += 1
     end
     @debugger.log_update_progress "fetch_and_process_timeslices_finish_#{wiki.id}".to_sym
   end
@@ -79,6 +83,7 @@ class UpdateCourseWikiTimeslices
 
       fetch_data(wiki, start_date, end_date)
       process_timeslices(wiki)
+      @reprocessed_timeslices += 1
     end
     @debugger.log_update_progress "fetch_and_reprocess_timeslices_finish_#{wiki.id}".to_sym
   end

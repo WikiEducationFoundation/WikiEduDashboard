@@ -17,7 +17,9 @@ describe UpdateCourseWikiTimeslices do
   context 'when debugging is not enabled' do
     it 'posts no Sentry logs' do
       expect(Sentry).not_to receive(:capture_message)
-      subject
+      processed, reprocessed = subject
+      expect(processed).to eq(7)
+      expect(reprocessed).to eq(0)
     end
   end
 
