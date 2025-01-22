@@ -254,8 +254,7 @@ export const getWeeksArray = createSelector(
     });
 
     weekIds.forEach((weekId) => {
-      const newWeek = weeks[weekId];
-      newWeek.blocks = blocksByWeek[weekId] || [];
+      const newWeek = { ...weeks[weekId], blocks: blocksByWeek[weekId] || [] };
       weeksArray.push(newWeek);
     });
 
