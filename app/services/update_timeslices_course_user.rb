@@ -37,7 +37,8 @@ class UpdateTimeslicesCourseUser
   def add_user_ids(user_ids)
     return if user_ids.empty?
 
-    Rails.logger.info "UpdateTimeslicesCourseUser: Adding new users: #{user_ids}"
+    Rails.logger.info "UpdateTimeslicesCourseUser: Course: #{@course.slug}\
+    Adding new users: #{user_ids}"
 
     @course.wikis.each do |wiki|
       fetch_users_revisions_for_wiki(wiki, user_ids)
@@ -58,7 +59,8 @@ class UpdateTimeslicesCourseUser
   def remove_courses_users(user_ids)
     return if user_ids.empty?
 
-    Rails.logger.info "UpdateTimeslicesCourseUser: Removing old users: #{user_ids}"
+    Rails.logger.info "UpdateTimeslicesCourseUser: Course: #{@course.slug}\
+    Removing old users: #{user_ids}"
     # Delete course user wiki timeslices for the deleted users
     @timeslice_manager.delete_course_user_timeslices_for_deleted_course_users user_ids
 

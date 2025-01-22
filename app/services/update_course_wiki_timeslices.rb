@@ -58,6 +58,9 @@ class UpdateCourseWikiTimeslices
       start_date = [current_start, @course.start].max
       end_date = [current_start + @timeslice_manager.timeslice_duration(wiki) - 1.second,
                   @course.end].min
+
+      log_processing(wiki, start_date, end_date)
+
       fetch_data(wiki, start_date, end_date)
       process_timeslices(wiki)
       current_start += @timeslice_manager.timeslice_duration(wiki)
@@ -71,6 +74,9 @@ class UpdateCourseWikiTimeslices
     to_reprocess.each do |t|
       start_date = [t.start, @course.start].max
       end_date = [t.end - 1.second, @course.end].min
+
+      log_reprocessing(wiki, start_date, end_date)
+
       fetch_data(wiki, start_date, end_date)
       process_timeslices(wiki)
     end
@@ -153,7 +159,17 @@ class UpdateCourseWikiTimeslices
   end
 
   def log_error(error)
-    Sentry.capture_message "#{@course.title} update timeslices error: #{error}",
+    Sentry.capture_message "#{@course.slug} update timeslices error: #{error}",
                            level: 'error'
+  end
+
+  def log_processing(wiki, start_date, end_date)
+    Rails.logger.info "UpdateCourseWikiTimeslices: Course: #{@course.slug} Wiki: #{wiki.id}.\
+    Processing timeslice [#{start_date}, #{end_date}]"
+  end
+
+  def log_reprocessing(wiki, start_date, end_date)
+    Rails.logger.info "UpdateCourseWikiTimeslices: Course: #{@course.slug} Wiki: #{wiki.id}.\
+    Reprocessing timeslice [#{start_date}, #{end_date}]"
   end
 end
