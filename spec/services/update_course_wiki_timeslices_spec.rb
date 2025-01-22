@@ -14,11 +14,19 @@ describe UpdateCourseWikiTimeslices do
   let(:flags) { nil }
   let(:user) { create(:user, username: 'Ragesoss') }
 
+  before do
+    stub_wiki_validation
+    travel_to Date.new(2018, 12, 1)
+    course.campaigns << Campaign.first
+    course.wikis << Wiki.get_or_create(language: nil, project: 'wikidata')
+    JoinCourse.new(course:, user:, role: 0)
+  end
+
   context 'when debugging is not enabled' do
     it 'posts no Sentry logs' do
       expect(Sentry).not_to receive(:capture_message)
       processed, reprocessed = subject
-      expect(processed).to eq(7)
+      expect(processed).to eq(14)
       expect(reprocessed).to eq(0)
     end
   end
@@ -33,15 +41,6 @@ describe UpdateCourseWikiTimeslices do
   end
 
   context 'when there are revisions' do
-    before do
-      stub_wiki_validation
-      travel_to Date.new(2018, 12, 1)
-      course.campaigns << Campaign.first
-      # Create course wiki timeslices manually for wikidata
-      course.wikis << Wiki.get_or_create(language: nil, project: 'wikidata')
-      JoinCourse.new(course:, user:, role: 0)
-    end
-
     it 'updates article course timeslices caches' do
       VCR.use_cassette 'course_update' do
         subject
