@@ -42,6 +42,8 @@ class UpdateTimeslicesScopedArticle
   def reset(article_ids)
     return if article_ids.empty?
 
+    Rails.logger.info "UpdateTimeslicesUntrackedArticle: Resetting #{@article_ids}"
+
     # Mark course wiki timeslices to be re-proccesed
     articles = Article.where(id: article_ids)
     ArticlesCoursesCleanerTimeslice.reset_specific_articles(@course, articles)
