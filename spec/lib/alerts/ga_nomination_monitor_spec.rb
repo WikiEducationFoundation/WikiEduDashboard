@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/alerts/ga_nomination_monitor"
+require "#{Rails.root}/lib/alerts/g_a_nomination_monitor"
 
 def mock_mailer
   OpenStruct.new(deliver_now: true)
