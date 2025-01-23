@@ -45,6 +45,10 @@ const handleErrorNotification = function (data) {
     console.log(data); // eslint-disable-line no-console
   }
 
+  if (typeof notification.message !== 'string') {
+     notification.message = JSON.stringify(notification.message);
+  }
+
   return notification;
 };
 
