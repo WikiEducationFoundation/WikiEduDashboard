@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import Popover from '../popover.jsx';
 import { initiateConfirm } from '../../../actions/confirm_actions';
-import { addAssignment, claimAssignment, unclaimAssignment, deleteAssignment } from '../../../actions/assignment_actions';
+import { addAssignment, deleteAssignment, claimAssignment } from '../../../actions/assignment_actions';
 import useExpandablePopover from '../../../hooks/useExpandablePopover';
 import CourseUtils from '../../../utils/course_utils.js';
 import AddAvailableArticles from '../../articles/add_available_articles';
@@ -362,17 +362,17 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
   };
 
   const unassign = (assignment) => {
-    const confirmMessage = I18n.t('assignments.confirm_deletion');
-    let onConfirm;
+    const body = { course_slug: course.slug, ...assignment };
+    // If the assignment is available, then sets the action_type to unclaim and the article is moved to the available articles list
     if (assignment.flags.available_article) {
-      onConfirm = () => {
-        dispatch(unclaimAssignment({ course_slug: course.slug, ...assignment }));
-      };
+      body.action_type = 'unclaim';
     } else {
-      onConfirm = () => {
-        dispatch(deleteAssignment({ course_slug: course.slug, ...assignment }));
-      };
+      body.action_type = 'delete';
     }
+    const confirmMessage = I18n.t('assignments.confirm_deletion');
+    const onConfirm = () => {
+      dispatch(deleteAssignment(body));
+    };
     dispatch(initiateConfirm({ confirmMessage, onConfirm }));
   };
 

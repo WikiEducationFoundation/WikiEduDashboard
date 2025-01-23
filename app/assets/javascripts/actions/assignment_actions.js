@@ -53,7 +53,21 @@ export const randomPeerAssignments = randomAssignments => (dispatch) => {
 
 export const deleteAssignment = assignment => (dispatch) => {
   return API.deleteAssignment(assignment)
-    .then(resp => dispatch({ type: types.DELETE_ASSIGNMENT, data: resp }))
+    .then((resp) => {
+      if (assignment.action_type === 'unclaim') {
+        if (!resp.assignment.user_id) {
+          const successNotification = {
+            message: 'The assignment has been successfully moved to the available articles list.',
+            closable: true,
+            type: 'success'
+          };
+          dispatch(addNotification(successNotification));
+          dispatch({ type: types.UPDATE_ASSIGNMENT, data: resp });
+        }
+      } else {
+        dispatch({ type: types.DELETE_ASSIGNMENT, data: resp });
+      }
+})
     .catch(response => dispatch({ type: types.API_FAIL, data: response }));
 };
 
@@ -77,26 +91,6 @@ export const claimAssignment = (assignment, successNotification) => (dispatch) =
     })
     .catch(response => dispatch({ type: types.API_FAIL, data: response }));
 };
-
-// This moves the assigned articles to the 'available articles' section if they are already listed there.
-export const unclaimAssignment = assignment => (dispatch) => {
-  return API.unclaimAssignment(assignment)
-    .then((resp) => {
-      if (!resp.assignment.user_id) {
-        const successNotification = {
-          message: 'The assignment has been successfully moved to the available articles list.',
-          closable: true,
-          type: 'success'
-        };
-        dispatch(addNotification(successNotification));
-        dispatch({ type: types.UPDATE_ASSIGNMENT, data: resp });
-      } else {
-        dispatch({ type: types.API_FAIL, data: resp });
-      }
-    })
-    .catch(response => dispatch({ type: types.API_FAIL, data: response }));
-};
-
 
 export const updateAssignmentStatus = (assignment, status) => () => {
   const body = {

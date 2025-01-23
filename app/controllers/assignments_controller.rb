@@ -15,10 +15,17 @@ class AssignmentsController < ApplicationController
     set_assignment { return }
     @course = @assignment.course
     check_permissions(@assignment.user_id)
-    remove_assignment_template
-    @assignment.destroy
-    update_onwiki_course_and_assignments
-    render json: { assignmentId: @assignment.id }
+    @flags = @assignment.flags
+    @action_type = params[:action_type]
+    if @action_type == 'unclaim' && @assignment.flags[:available_article]
+      @assignment.update(user_id: nil)
+      render partial: 'updated_assignment', locals: { assignment: @assignment }
+    else
+      remove_assignment_template
+      @assignment.destroy
+      update_onwiki_course_and_assignments
+      render json: { assignmentId: @assignment.id }
+    end
   end
 
   # For creating single assignments
@@ -64,21 +71,6 @@ class AssignmentsController < ApplicationController
   rescue AssignmentManager::DuplicateAssignmentError => e
     render json: { errors: e, message: I18n.t('assignments.already_exists') },
            status: :conflict
-  end
-
-  def unclaim
-    @claimed_assignment = Assignment.find(params[:assignment_id])
-    @course = @claimed_assignment.course
-    check_permissions(assignment_params[:user_id].to_i)
-    check_participation
-
-    if @claimed_assignment.flags[:available_article]
-      @claimed_assignment.update(user_id: nil)
-      render partial: 'updated_assignment', locals: { assignment: @claimed_assignment }
-    else
-      render json: { message: 'This assignment cannot be unclaimed.' },
-             status: :conflict
-    end
   end
 
   def update_status

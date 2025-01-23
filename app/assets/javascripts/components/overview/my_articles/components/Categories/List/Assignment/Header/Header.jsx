@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Actions from './Actions/Actions.jsx';
 import MyArticlesAssignmentLinks from './MyArticlesAssignmentLinks.jsx';
 import { initiateConfirm } from '@actions/confirm_actions';
-import { unclaimAssignment, deleteAssignment } from '@actions/assignment_actions';
+import { deleteAssignment } from '@actions/assignment_actions';
 
 import { useDispatch } from 'react-redux';
 
@@ -32,13 +32,14 @@ const isClassroomProgram = course => (course.type === 'ClassroomProgramCourse');
 
 const unassign = ({ assignment, course, dispatch }) => {
   const body = { course_slug: course.slug, ...assignment };
+   // If the assignment is available, then sets the action_type to unclaim and the article is moved to the available articles list
+   if (assignment.flags.available_article) {
+    body.action_type = 'unclaim';
+   } else {
+    body.action_type = 'delete';
+   }
   const confirmMessage = I18n.t('assignments.confirm_deletion');
-  let onConfirm;
-  if (assignment.flags.available_article) {
-    onConfirm = () => dispatch(unclaimAssignment(body));
-  } else {
-    onConfirm = () => dispatch(deleteAssignment(body));
-  }
+  const onConfirm = () => dispatch(deleteAssignment(body));
 
   return () => dispatch(initiateConfirm({ confirmMessage, onConfirm }));
 };
@@ -66,7 +67,7 @@ export const Header = ({
         isEnglishWikipedia={isEnglishWikipedia({ assignment, course })}
         isClassroomProgram={isClassroomProgram(course)}
         isComplete={isComplete}
-        unassign={unassign({ assignment, course, unclaimAssignment, dispatch })}
+        unassign={unassign({ assignment, course, deleteAssignment, dispatch })}
         username={username}
       />
     </header>

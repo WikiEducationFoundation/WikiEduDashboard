@@ -34,9 +34,9 @@ export const AvailableArticle = ({ assignment, current_user, course, selectable 
       language: assignment.language,
       project: assignment.project,
       article_title: assignment.article_title,
-      role: 0
+      role: 0,
+      action_type: 'delete'
     };
-
     const confirmMessage = I18n.t('assignments.confirm_deletion');
 
     const onConfirm = () => {

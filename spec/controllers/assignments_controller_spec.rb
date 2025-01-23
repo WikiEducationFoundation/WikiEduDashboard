@@ -61,6 +61,67 @@ describe AssignmentsController, type: :request do
       end
     end
 
+    # This test case checks behavior when the article is marked as an available article,
+    # indicated by the assignment's flags having `available_article: true`.
+    context 'when the article is marked as an available article' do
+      let(:assignment) do
+        create(:assignment, course_id: course.id, user_id: user.id,
+                            flags: { available_article: true })
+      end
+
+      before do
+        create(:courses_user, course:, user:)
+      end
+
+      context 'when the assignment_id is provided' do
+        let(:params) do
+          { course_slug: course.slug, action_type: 'unclaim', format: :json }
+        end
+
+        before do
+          delete "/assignments/#{assignment.id}", params: { id: assignment.id }.merge(params)
+        end
+
+        it 'unclaims the assignment' do
+          expect(assignment.reload.user_id).to be_nil
+        end
+      end
+
+      context 'when the assignment_id is not provided' do
+        let(:params) do
+          { course_slug: course.slug, user_id: user.id,
+            article_title: assignment.article_title, role: assignment.role,
+            action_type: 'unclaim', format: :json }
+        end
+
+        before do
+          delete "/assignments/#{assignment.id}", params: { id: 'undefined' }.merge(params)
+        end
+
+        it 'unclaims the assignment' do
+          expect(assignment.reload.user_id).to be_nil
+        end
+      end
+
+      context 'when the user does not have permission to unclaim the assignment' do
+        let(:params) do
+          { course_slug: course.slug, action_type: 'unclaim', format: :json }
+        end
+
+        let!(:assignment) do
+          create(:assignment, course_id: course.id, user_id: user.id + 1)
+        end
+
+        before do
+          delete "/assignments/#{assignment.id}", params: { id: assignment.id }.merge(params)
+        end
+
+        it 'does not allow the assignment to be unclaimed' do
+          expect(response.status).to eq(401)
+        end
+      end
+    end
+
     context 'when the user does not have permission do destroy the assignment' do
       let(:assignment) { create(:assignment, course_id: course.id, user_id: user.id + 1) }
       let(:params) { { course_slug: course.slug } }
@@ -433,44 +494,6 @@ describe AssignmentsController, type: :request do
         expect(response.status).to eq(200)
         expect(assignment.reload.user_id).to be_nil
         expect(user.assignments.first.article_title).to eq(assignment.article_title)
-      end
-    end
-  end
-
-  describe 'PUT #unclaim' do
-    let(:assignment) do
-      create(:assignment, course_id: course.id, user_id: user.id,
-flags: { available_article: true })
-    end
-    let(:request_params) do
-      { course_id: course.id, id: assignment.id, user_id: user.id, format: :json }
-    end
-
-    context 'when the unclaim succeeds' do
-      before { create(:courses_user, course:, user:) }
-
-      it 'renders a 200 and the assignment does not belong to the user' do
-        put "/assignments/#{assignment.id}/unclaim", params: request_params
-        expect(response.status).to eq(200)
-        expect(assignment.reload.user_id).to be_nil
-      end
-    end
-
-    context 'when the article is not an available article' do
-      before { create(:courses_user, course:, user:) }
-
-      let!(:updated_assignment) { assignment.update(flags: { available_article: false }) }
-
-      it 'renders a 409' do
-        put "/assignments/#{assignment.id}/unclaim", params: request_params
-        expect(response.status).to eq(409)
-      end
-    end
-
-    context 'when the user is not in the course' do
-      it 'renders a 401' do
-        put "/assignments/#{assignment.id}/unclaim", params: request_params
-        expect(response.status).to eq(401)
       end
     end
   end
