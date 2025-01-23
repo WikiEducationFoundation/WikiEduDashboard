@@ -44,7 +44,7 @@ class UpdateCourseStatsTimeslice
   private
 
   def import_uploads
-    @debugger.log_update_progress :UpdateCourseStatsTimeslice_start
+    @debugger.log_update_progress :start
     # TODO: note this is not wiki scoped.
     CourseUploadImporter.new(@course, update_service: self).run
     @debugger.log_update_progress :uploads_imported
