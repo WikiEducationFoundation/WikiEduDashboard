@@ -29,7 +29,7 @@ lb:
     error: 'Et gouf e Feeler:'
     explore: Entdecken
     field_required: Dëst Feld ass obligatoresch
-    field_invalid_characters: Dëst Feld huet net valabel Zeechen
+    field_invalid_characters: Dëst Feld enthält ongülteg Zeechen
     field_invalid_date: Dëst Feld brauch en Datum am Format JJJJ-MM-DD
     field_invalid_date_time: De Schluss muss nom Ufank sinn. (Stonne gi vun 0 bis
       23.)
