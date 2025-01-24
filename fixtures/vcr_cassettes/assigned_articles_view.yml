@@ -1,0 +1,133 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&rvprop=ids&titles=Nancy%20Tuana
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.10.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 24 Jan 2025 11:15:26 GMT
+      Server:
+      - mw-api-ext.eqiad.canary-65d88fb4b-nz87k
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      Content-Disposition:
+      - inline; filename=api-result.json
+      Vary:
+      - Accept-Encoding,Treat-as-Untrusted,X-Forwarded-Proto,Cookie,Authorization
+      Cache-Control:
+      - private, must-revalidate, max-age=0
+      Content-Type:
+      - application/json; charset=utf-8
+      Age:
+      - '0'
+      X-Cache:
+      - cp3068 miss, cp3068 pass
+      X-Cache-Status:
+      - pass
+      Server-Timing:
+      - cache;desc="pass", host;desc="cp3068"
+      Strict-Transport-Security:
+      - max-age=106384710; includeSubDomains; preload
+      Report-To:
+      - '{ "group": "wm_nel", "max_age": 604800, "endpoints": [{ "url": "https://intake-logging.wikimedia.org/v1/events?stream=w3c.reportingapi.network_error&schema_uri=/w3c/reportingapi/network_error/1.0.0"
+        }] }'
+      Nel:
+      - '{ "report_to": "wm_nel", "max_age": 604800, "failure_fraction": 0.05, "success_fraction":
+        0.0}'
+      Set-Cookie:
+      - GeoIP=CM:SW:Buea:4.15:9.24:v4; Path=/; secure; Domain=.wikipedia.org
+      - NetworkProbeLimit=0.001;Path=/;Secure;SameSite=Lax;Max-Age=3600
+      - WMF-Last-Access-Global=24-Jan-2025;Path=/;Domain=.wikipedia.org;HttpOnly;secure;Expires=Tue,
+        25 Feb 2025 00:00:00 GMT
+      - WMF-Last-Access=24-Jan-2025;Path=/;HttpOnly;secure;Expires=Tue, 25 Feb 2025
+        00:00:00 GMT
+      X-Client-Ip:
+      - 129.0.79.156
+      Accept-Ranges:
+      - bytes
+      Content-Length:
+      - '144'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"batchcomplete":"","query":{"pages":{"51910526":{"pageid":51910526,"ns":0,"title":"Nancy
+        Tuana","revisions":[{"revid":1220423548,"parentid":1180607625}]}}}}'
+  recorded_at: Fri, 24 Jan 2025 11:15:26 GMT
+- request:
+    method: post
+    uri: https://api.wikimedia.org/service/lw/inference/v1/models/enwiki-articlequality:predict
+    body:
+      encoding: UTF-8
+      string: '{"rev_id":1220423548,"extended_output":true}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v1.10.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 24 Jan 2025 11:15:27 GMT
+      Server:
+      - envoy
+      Cache-Control:
+      - no-cache
+      X-Ratelimit-Limit:
+      - 50000, 50000;w=3600
+      X-Ratelimit-Remaining:
+      - '49999'
+      X-Ratelimit-Reset:
+      - '2672'
+      Vary:
+      - Accept-Encoding
+      Age:
+      - '2'
+      X-Cache:
+      - cp3068 miss, cp3068 pass
+      X-Cache-Status:
+      - pass
+      Server-Timing:
+      - cache;desc="pass", host;desc="cp3068"
+      Strict-Transport-Security:
+      - max-age=106384710; includeSubDomains; preload
+      Report-To:
+      - '{ "group": "wm_nel", "max_age": 604800, "endpoints": [{ "url": "https://intake-logging.wikimedia.org/v1/events?stream=w3c.reportingapi.network_error&schema_uri=/w3c/reportingapi/network_error/1.0.0"
+        }] }'
+      Nel:
+      - '{ "report_to": "wm_nel", "max_age": 604800, "failure_fraction": 0.05, "success_fraction":
+        0.0}'
+      X-Client-Ip:
+      - 129.0.79.156
+      Accept-Ranges:
+      - bytes
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"enwiki":{"models":{"articlequality":{"version":"0.9.2"}},"scores":{"1220423548":{"articlequality":{"score":{"prediction":"Start","probability":{"B":0.0967005597473408,"C":0.33396017760551916,"FA":0.00454057782408097,"GA":0.012108337779692136,"Start":0.5182220232989376,"Stub":0.03446832374442916}},"features":{"feature.wikitext.revision.chars":6782.0,"feature.wikitext.revision.content_chars":3161.0,"feature.wikitext.revision.ref_tags":5.0,"feature.wikitext.revision.wikilinks":17.0,"feature.wikitext.revision.external_links":12.0,"feature.wikitext.revision.headings_by_level(2)":3.0,"feature.wikitext.revision.headings_by_level(3)":0.0,"feature.wikitext.revision.list_items":8.0,"feature.enwiki.revision.image_links":0.0,"feature.enwiki.revision.image_template":0.0,"feature.enwiki.revision.images_in_templates":0,"feature.enwiki.revision.images_in_tags":0,"feature.enwiki.infobox_images":0,"feature.enwiki.revision.category_links":8.0,"feature.enwiki.revision.shortened_footnote_templates":0.0,"feature.enwiki.revision.cite_templates":12.0,"feature.wikitext.revision.templates":19.0,"feature.enwiki.revision.infobox_templates":1.0,"feature.enwiki.revision.cn_templates":0.0,"feature.enwiki.revision.who_templates":0.0,"feature.enwiki.main_article_templates":0.0,"feature.english.stemmed.revision.stems_length":3928,"feature.enwiki.revision.paragraphs_without_refs_total_length":3674.0,"feature.len(<datasource.english.words_to_watch.revision.matches>)":1.0,"feature.len(<datasource.wikitext.revision.words>)":782.0,"feature.len(<datasource.english.idioms.revision.matches>)":0.0}}}}}}'
+  recorded_at: Fri, 24 Jan 2025 11:15:28 GMT
+recorded_with: VCR 6.1.0
