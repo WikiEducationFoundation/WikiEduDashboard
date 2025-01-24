@@ -57,15 +57,11 @@ class DiscretionarySanctionsMonitor
 
   def create_edit_alert(articles_course)
     return if unresolved_edit_alert_already_exists?(articles_course)
-    revisions = articles_course.course.revisions.where(article_id: articles_course.article_id)
-    last_revision = revisions.last
-    return if resolved_edit_alert_covers_latest_revision?(articles_course, last_revision)
-    first_revision = revisions.first
+    return if resolved_edit_alert_covers_latest_revision?(articles_course)
     alert = Alert.create!(type: 'DiscretionarySanctionsEditAlert',
                           article_id: articles_course.article_id,
-                          user_id: first_revision&.user_id,
-                          course_id: articles_course.course_id,
-                          revision_id: first_revision&.id)
+                          user_id: articles_course&.user_ids&.first,
+                          course_id: articles_course.course_id)
     alert.email_content_expert
   end
 
@@ -90,12 +86,60 @@ class DiscretionarySanctionsMonitor
                                                   resolved: false)
   end
 
-  def resolved_edit_alert_covers_latest_revision?(articles_course, last_revision)
-    return false if last_revision.nil?
+  def resolved_edit_alert_covers_latest_revision?(articles_course)
     last_resolved = DiscretionarySanctionsEditAlert.where(article_id: articles_course.article_id,
                                                           course_id: articles_course.course_id,
                                                           resolved: true).last
     return false unless last_resolved.present?
-    last_resolved.created_at > last_revision.date
+
+    course = Course.find(articles_course.course_id)
+    # If the last resolved alert was created after the course end, do not create a new one
+    return true if last_resolved.created_at > course.end
+
+    mw_page_id = articles_course.article.mw_page_id
+    last_revision_by_student = last_revision(course, mw_page_id, last_resolved.created_at)
+
+    return last_revision_by_student.nil?
+  end
+
+  # Returns the most recent edit made by a course student to the specified page,
+  # within the period from the creation date of the last resolved alert to the course end date.
+  def last_revision(course, page_id, last_resolved_date)
+    @api = WikiApi.new @wiki
+    @query_params = query_params(course, page_id, last_resolved_date)
+    @continue = true
+    until @continue.nil?
+      response = @api.query(@query_params)
+      return unless response
+      reivisons = filter_revisions(response, page_id, course)
+      # If we found an edit made by the user then return it
+      return reivisons.first if reivisons.present?
+      @continue = response['continue']
+      @query_params['rvcontinue'] = @continue['rvcontinue'] if @continue
+    end
+    nil
+  end
+
+  # Filters the API response to exclude edits made by users who are not course students.
+  # Returns only the edits associated with the course.
+  def filter_revisions(response, page_id, course)
+    revisions = response.data['pages'][page_id.to_s]['revisions']
+    return if revisions.nil?
+    students = course.students.pluck(:username)
+    revisions.select { |revision| students.include?(revision['user']) }
+  end
+
+  # Queries for edits made to the specified page within the period
+  # [last resolved alert, course end]
+  def query_params(course, page_id, last_resolved_date)
+    {
+      action: 'query',
+      prop: 'revisions',
+      pageids: page_id,
+      rvend: last_resolved_date.strftime('%Y%m%d%H%M%S'),
+      rvstart: course.end.strftime('%Y%m%d%H%M%S'),
+      rvdir: 'older', # List newest first. rvstart has to be later than rvend.
+      rvmax: 500
+  }
   end
 end

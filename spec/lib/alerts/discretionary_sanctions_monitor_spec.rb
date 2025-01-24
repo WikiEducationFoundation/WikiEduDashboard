@@ -9,8 +9,8 @@ end
 
 describe DiscretionarySanctionsMonitor do
   describe '.create_alerts_for_course_articles' do
-    let(:course) { create(:course, start: 1.month.ago, end: 1.month.after) }
-    let(:student) { create(:user, username: 'student') }
+    let(:course) { create(:course, start: '2024-12-10', end: '2025-01-20') }
+    let(:student) { create(:user, username: 'Gelasin') }
     let!(:courses_user) do
       create(:courses_user, user_id: student.id,
                             course_id: course.id,
@@ -22,15 +22,13 @@ describe DiscretionarySanctionsMonitor do
     let!(:article2) { create(:article, title: '1948_war', namespace: 0) }
 
     # Article that has been edited by a student
-    let(:article) { create(:article, title: 'Ahmed_Mohamed_clock_incident', namespace: 0) }
-    let!(:revision) do
-      create(:revision, article_id: article.id,
-                        user_id: student.id,
-                        date: course.start + 1.day)
+    let(:article) do
+      create(:article, title: 'Ahmed_Mohamed_clock_incident', mw_page_id: 47905394, namespace: 0)
     end
     let!(:articles_course) do
       create(:articles_course, article_id: article.id,
-                               course_id: course.id)
+                               course_id: course.id,
+                               user_ids: [student.id])
     end
 
     let!(:assignment) do
@@ -83,17 +81,31 @@ describe DiscretionarySanctionsMonitor do
 
     it 'does not create second Alert if the first alert is resolved but there are no new edits' do
       Alert.create(type: 'DiscretionarySanctionsEditAlert', article_id: article.id,
-                   course_id: course.id, resolved: true, created_at: revision.date + 1.hour)
+                   course_id: course.id, resolved: true, created_at: course.end - 1.minute)
       expect(DiscretionarySanctionsEditAlert.count).to eq(1)
-      described_class.create_alerts_for_course_articles
+      VCR.use_cassette 'discretionary_sanctions_monitors' do
+        described_class.create_alerts_for_course_articles
+      end
       expect(DiscretionarySanctionsEditAlert.count).to eq(1)
     end
 
-    it 'does create second Alert if the first alert is resolved and there are later edits' do
+    it 'does not create second Alert if the first alert is resolved but no new student edits' do
       Alert.create(type: 'DiscretionarySanctionsEditAlert', article_id: article.id,
-                   course_id: course.id, resolved: true, created_at: revision.date - 1.hour)
+                   course_id: course.id, resolved: true, created_at: course.start + 1.day)
       expect(DiscretionarySanctionsEditAlert.count).to eq(1)
-      described_class.create_alerts_for_course_articles
+      VCR.use_cassette 'discretionary_sanctions_monitors' do
+        described_class.create_alerts_for_course_articles
+      end
+      expect(DiscretionarySanctionsEditAlert.count).to eq(1)
+    end
+
+    it 'does create second Alert if the first alert is resolved and later student edits' do
+      Alert.create(type: 'DiscretionarySanctionsEditAlert', article_id: article.id,
+                   course_id: course.id, resolved: true, created_at: course.start + 1.minute)
+      expect(DiscretionarySanctionsEditAlert.count).to eq(1)
+      VCR.use_cassette 'discretionary_sanctions_monitors' do
+        described_class.create_alerts_for_course_articles
+      end
       expect(DiscretionarySanctionsEditAlert.count).to eq(2)
     end
 
