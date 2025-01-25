@@ -8,7 +8,11 @@ class UpdateDebugger
   def log_update_progress(step)
     return unless debug?
     @sentry_logs ||= {}
-    @sentry_logs[step] = Time.zone.now
+    @log_number ||= 0
+    # Add the log number to the step name so that the records are sorted
+    ordered_step = "#{@log_number}_#{step}".to_sym
+    @sentry_logs[ordered_step] = Time.zone.now
+    @log_number += 1
     Sentry.capture_message "#{@course.title} update: #{step}",
                            level: 'warning',
                            extra: { logs: @sentry_logs }

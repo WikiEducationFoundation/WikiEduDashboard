@@ -27,10 +27,8 @@ class UpdateCourseWikiTimeslices
   private
 
   def pre_update(from_scratch)
-    @debugger.log_update_progress :pre_update_start
     prepare_timeslices = PrepareTimeslices.new(@course, @debugger, update_service: @update_service)
     from_scratch ? prepare_timeslices.recreate_timeslices : prepare_timeslices.adjust_timeslices
-    @debugger.log_update_progress :pre_update_finish
   end
 
   def fetch_data_and_process_timeslices_for_every_wiki(all_time)
@@ -50,12 +48,11 @@ class UpdateCourseWikiTimeslices
       latest_start = @timeslice_manager.get_latest_start_time_for_wiki(wiki)
 
       fetch_data_and_process_timeslices(wiki, first_start, latest_start)
+      @debugger.log_update_progress "timeslices_processed_#{wiki.id}".to_sym
     end
-    @debugger.log_update_progress :course_timeslices_updated
   end
 
   def fetch_data_and_process_timeslices(wiki, first_start, latest_start)
-    @debugger.log_update_progress "fetch_and_process_timeslices_start_#{wiki.id}".to_sym
     current_start = first_start
     while current_start <= latest_start
       start_date = [current_start, @course.start].max
@@ -69,11 +66,9 @@ class UpdateCourseWikiTimeslices
       current_start += @timeslice_manager.timeslice_duration(wiki)
       @processed_timeslices += 1
     end
-    @debugger.log_update_progress "fetch_and_process_timeslices_finish_#{wiki.id}".to_sym
   end
 
   def fetch_data_and_reprocess_timeslices(wiki)
-    @debugger.log_update_progress "fetch_and_reprocess_timeslices_start_#{wiki.id}".to_sym
     to_reprocess = CourseWikiTimeslice.for_course_and_wiki(@course, wiki).needs_update
     to_reprocess.each do |t|
       start_date = [t.start, @course.start].max
@@ -85,7 +80,6 @@ class UpdateCourseWikiTimeslices
       process_timeslices(wiki)
       @reprocessed_timeslices += 1
     end
-    @debugger.log_update_progress "fetch_and_reprocess_timeslices_finish_#{wiki.id}".to_sym
   end
 
   def fetch_data(wiki, timeslice_start, timeslice_end)
