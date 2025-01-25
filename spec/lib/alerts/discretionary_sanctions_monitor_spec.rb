@@ -28,7 +28,7 @@ describe DiscretionarySanctionsMonitor do
     let!(:articles_course) do
       create(:articles_course, article_id: article.id,
                                course_id: course.id,
-                               user_ids: [student.id])
+                               user_ids: [student.id, 45])
     end
 
     let!(:assignment) do
@@ -52,6 +52,8 @@ describe DiscretionarySanctionsMonitor do
       expect(DiscretionarySanctionsAssignmentAlert.count).to eq(1)
       alerted_edit_article_ids = DiscretionarySanctionsEditAlert.all.pluck(:article_id)
       expect(alerted_edit_article_ids).to include(article.id)
+      alerted_edit_user_ids = DiscretionarySanctionsEditAlert.all.pluck(:user_id)
+      expect(alerted_edit_user_ids).to include(student.id)
       alerted_assignment_article_ids = DiscretionarySanctionsAssignmentAlert.all.pluck(:article_id)
       expect(alerted_assignment_article_ids).to include(article.id)
     end

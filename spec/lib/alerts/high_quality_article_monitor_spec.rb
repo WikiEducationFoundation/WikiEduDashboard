@@ -56,6 +56,8 @@ describe HighQualityArticleMonitor do
       expect(HighQualityArticleAssignmentAlert.count).to eq(1)
       alerted_edit_article_ids = HighQualityArticleEditAlert.all.pluck(:article_id)
       expect(alerted_edit_article_ids).to include(article.id)
+      alerted_edit_user_ids = HighQualityArticleEditAlert.all.pluck(:user_id)
+      expect(alerted_edit_user_ids).to include(student.id)
       alerted_assignment_article_ids = HighQualityArticleAssignmentAlert.all.pluck(:article_id)
       expect(alerted_assignment_article_ids).to include(article.id)
     end
