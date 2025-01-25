@@ -49,9 +49,7 @@ describe HighQualityArticleMonitor do
     end
 
     it 'creates Alert records for edited Good articles' do
-      VCR.use_cassette 'high_quality' do
-        described_class.create_alerts_for_course_articles
-      end
+      described_class.create_alerts_for_course_articles
       expect(HighQualityArticleEditAlert.count).to eq(1)
       expect(HighQualityArticleAssignmentAlert.count).to eq(1)
       alerted_edit_article_ids = HighQualityArticleEditAlert.all.pluck(:article_id)
@@ -64,9 +62,7 @@ describe HighQualityArticleMonitor do
 
     it 'emails a greeter' do
       create(:courses_user, user_id: content_expert.id, course_id: course.id, role: 4)
-      VCR.use_cassette 'high_quality' do
-        described_class.create_alerts_for_course_articles
-      end
+      described_class.create_alerts_for_course_articles
       expect(Alert.last.email_sent_at).not_to be_nil
     end
 
@@ -74,9 +70,7 @@ describe HighQualityArticleMonitor do
       Alert.create(type: 'HighQualityArticleAssignmentAlert', article_id: assignment.article_id,
                    course_id: assignment.course_id, user_id: assignment.user_id)
       expect(HighQualityArticleAssignmentAlert.count).to eq(1)
-      VCR.use_cassette 'high_quality' do
-        described_class.create_alerts_for_course_articles
-      end
+      described_class.create_alerts_for_course_articles
       expect(HighQualityArticleAssignmentAlert.count).to eq(1)
     end
 
