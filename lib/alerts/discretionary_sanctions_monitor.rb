@@ -97,27 +97,25 @@ class DiscretionarySanctionsMonitor
     return true if last_resolved.created_at > course.end
 
     mw_page_id = articles_course.article.mw_page_id
-    last_revision_by_student = last_revision(course, mw_page_id, last_resolved.created_at)
-
-    return last_revision_by_student.nil?
+    return !course_edit_after?(course, mw_page_id, last_resolved.created_at)
   end
 
-  # Returns the most recent edit made by a course student to the specified page,
+  # Returns true if there was an edit made by a course student to the specified page
   # within the period from the creation date of the last resolved alert to the course end date.
-  def last_revision(course, page_id, last_resolved_date)
+  def course_edit_after?(course, page_id, last_resolved_date)
     @api = WikiApi.new @wiki
     @query_params = query_params(course, page_id, last_resolved_date)
     @continue = true
     until @continue.nil?
       response = @api.query(@query_params)
-      return unless response
+      return false unless response
       reivisons = filter_revisions(response, page_id, course)
-      # If we found an edit made by the user then return it
-      return reivisons.first if reivisons.present?
+      # If we found an edit made by the user then return true
+      return true if reivisons.present?
       @continue = response['continue']
       @query_params['rvcontinue'] = @continue['rvcontinue'] if @continue
     end
-    nil
+    false
   end
 
   # Filters the API response to exclude edits made by users who are not course students.
@@ -139,7 +137,7 @@ class DiscretionarySanctionsMonitor
       rvend: last_resolved_date.strftime('%Y%m%d%H%M%S'),
       rvstart: course.end.strftime('%Y%m%d%H%M%S'),
       rvdir: 'older', # List newest first. rvstart has to be later than rvend.
-      rvmax: 500
+      rvlimit: 500
   }
   end
 end
