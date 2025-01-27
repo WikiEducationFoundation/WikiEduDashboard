@@ -8,6 +8,7 @@ class ReferenceCounterApi
   include ApiErrorHandling
 
   TOOLFORGE_SERVER_URL = 'https://reference-counter.toolforge.org'
+  RETRY_COUNT = 5
 
   # This class is not designed for use with wikidata, as that wiki works pretty
   # different from other wikis and it has its own method of calculating references.
@@ -53,7 +54,7 @@ class ReferenceCounterApi
   # If the API response is not 200 or an error occurs, it returns nil.
   # Any encountered errors are logged in Sentry at the batch level.
   def get_number_of_references_from_revision_id(rev_id)
-    tries ||= 5
+    tries ||= RETRY_COUNT
     response = toolforge_server.get(references_query_url(rev_id))
     parsed_response = Oj.load(response.body)
     return { 'num_ref' => parsed_response['num_ref'] } if response.status == 200
@@ -61,12 +62,12 @@ class ReferenceCounterApi
     # Sentry.capture_message 'Non-200 response hitting references counter API', level: 'warning',
     # extra: { project_code: @project_code, language_code: @language_code, rev_id:,
     #                        status_code: response.status, content: parsed_response }
-    return { 'num_ref' => nil }
+    return { 'num_ref' => nil, 'error' => parsed_response }
   rescue StandardError => e
     tries -= 1
     retry unless tries.zero?
     @errors << e
-    return { 'num_ref' => nil }
+    return { 'num_ref' => nil, 'error' => e }
   end
 
   class InvalidProjectError < StandardError

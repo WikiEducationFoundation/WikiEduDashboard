@@ -100,7 +100,7 @@ describe UpdateCourseWikiTimeslices do
       # 14 course wiki timeslices records were created: 7 for enwiki and 7 for wikidata
       expect(course.course_wiki_timeslices.count).to eq(14)
 
-      # Course user timeslices caches were updated
+      # Course wiki timeslices caches were updated
       # For enwiki
       timeslice = course.course_wiki_timeslices.where(wiki: enwiki,
                                                       start: '2018-11-29').first

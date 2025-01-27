@@ -111,4 +111,8 @@ class Revision < ApplicationRecord
   def scoped_revision
     !views.zero?
   end
+
+  def revision_with_error
+    !ithenticate_id.nil?
+  end
 end

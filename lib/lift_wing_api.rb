@@ -68,14 +68,15 @@ class LiftWingApi
     # If the responses contain an error, do not try to calculate wp10 or features.
     if parsed_response.key? 'error'
       return { 'wp10' => nil, 'features' => nil, 'deleted' => deleted?(parsed_response),
-      'prediction' => nil }
+      'prediction' => nil, 'error' => parsed_response.dig('error') }
     end
     build_successful_response(rev_id, parsed_response)
   rescue StandardError => e
     tries -= 1
     retry unless tries.zero?
     @errors << e
-    return { 'wp10' => nil, 'features' => nil, 'deleted' => false, 'prediction' => nil }
+    return { 'wp10' => nil, 'features' => nil, 'deleted' => false, 'prediction' => nil,
+             'error' => e }
   end
 
   class InvalidProjectError < StandardError

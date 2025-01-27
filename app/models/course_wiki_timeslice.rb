@@ -94,7 +94,7 @@ class CourseWikiTimeslice < ApplicationRecord
     update_uploads_in_use_count
     update_upload_usages_count
     update_stats
-    self.needs_update = false
+    update_needs_update
     save
   end
 
@@ -153,5 +153,9 @@ class CourseWikiTimeslice < ApplicationRecord
   def update_stats
     return unless wiki.project == 'wikidata'
     self.stats = UpdateWikidataStatsTimeslice.new(course).build_stats_from_revisions(@revisions)
+  end
+
+  def update_needs_update
+    self.needs_update = !@revisions.select(&:revision_with_error).empty?
   end
 end
