@@ -735,4 +735,13 @@ module RequestHelpers
         headers: { 'Content-Type' => 'application/json' }
       )
   end
+
+  def stub_not_supported_wiki_reference_counter_response
+    stub_request(:get, %r{https://reference-counter.toolforge.org/api/v1/references/wikimedia/incubator/\d+})
+      .to_return(
+        status: 400,
+        body: { 'description' => 'Language incubator is not a valid language. ' }.to_json,
+        headers: { 'Content-Type' => 'application/json' }
+      )
+  end
 end
