@@ -5,8 +5,8 @@ require "#{Rails.root}/lib/alerts/high_quality_article_monitor"
 
 describe HighQualityArticleMonitor do
   describe '.create_alerts_for_course_articles' do
-    let(:course) { create(:course, start: 1.month.ago, end: 1.month.after) }
-    let(:student) { create(:user, username: 'student', email: 'learn@school.edu') }
+    let(:course) { create(:course, start: '2024-01-01', end: '2025-01-01') }
+    let(:student) { create(:user, username: 'Leemyongpak', email: 'learn@school.edu') }
     let(:instructor) { create(:user, username: 'instructor', email: 'teach@school.edu') }
     let!(:courses_user) do
       create(:courses_user, user_id: student.id,
@@ -19,15 +19,11 @@ describe HighQualityArticleMonitor do
     let!(:article2) { create(:article, title: 'History_of_aspirin', namespace: 0) }
 
     # Featured article edited by student
-    let(:article) { create(:article, title: 'Phan_Đình_Phùng', namespace: 0) }
-    let!(:revision) do
-      create(:revision, article_id: article.id,
-                        user_id: student.id,
-                        date: course.start + 1.day)
-    end
+    let(:article) { create(:article, title: 'Phan_Đình_Phùng', mw_page_id: 10771083, namespace: 0) }
     let!(:articles_course) do
       create(:articles_course, article_id: article.id,
-                               course_id: course.id)
+                               course_id: course.id,
+                               user_ids: [student.id, 45])
     end
     let!(:assignment) do
       create(:assignment, article_title: article.title,
@@ -53,22 +49,20 @@ describe HighQualityArticleMonitor do
     end
 
     it 'creates Alert records for edited Good articles' do
-      VCR.use_cassette 'high_quality' do
-        described_class.create_alerts_for_course_articles
-      end
+      described_class.create_alerts_for_course_articles
       expect(HighQualityArticleEditAlert.count).to eq(1)
       expect(HighQualityArticleAssignmentAlert.count).to eq(1)
       alerted_edit_article_ids = HighQualityArticleEditAlert.all.pluck(:article_id)
       expect(alerted_edit_article_ids).to include(article.id)
+      alerted_edit_user_ids = HighQualityArticleEditAlert.all.pluck(:user_id)
+      expect(alerted_edit_user_ids).to include(student.id)
       alerted_assignment_article_ids = HighQualityArticleAssignmentAlert.all.pluck(:article_id)
       expect(alerted_assignment_article_ids).to include(article.id)
     end
 
     it 'emails a greeter' do
       create(:courses_user, user_id: content_expert.id, course_id: course.id, role: 4)
-      VCR.use_cassette 'high_quality' do
-        described_class.create_alerts_for_course_articles
-      end
+      described_class.create_alerts_for_course_articles
       expect(Alert.last.email_sent_at).not_to be_nil
     end
 
@@ -76,9 +70,7 @@ describe HighQualityArticleMonitor do
       Alert.create(type: 'HighQualityArticleAssignmentAlert', article_id: assignment.article_id,
                    course_id: assignment.course_id, user_id: assignment.user_id)
       expect(HighQualityArticleAssignmentAlert.count).to eq(1)
-      VCR.use_cassette 'high_quality' do
-        described_class.create_alerts_for_course_articles
-      end
+      described_class.create_alerts_for_course_articles
       expect(HighQualityArticleAssignmentAlert.count).to eq(1)
     end
 
@@ -94,7 +86,7 @@ describe HighQualityArticleMonitor do
 
     it 'does not create second Alert if the first alert is resolved but there are no new edits' do
       Alert.create(type: 'HighQualityArticleEditAlert', article_id: article.id,
-                   course_id: course.id, resolved: true, created_at: revision.date + 1.hour)
+                   course_id: course.id, resolved: true, created_at: course.end - 1.minute)
       expect(HighQualityArticleEditAlert.count).to eq(1)
       VCR.use_cassette 'high_quality' do
         described_class.create_alerts_for_course_articles
@@ -102,9 +94,19 @@ describe HighQualityArticleMonitor do
       expect(HighQualityArticleEditAlert.count).to eq(1)
     end
 
-    it 'does create second Alert if the first alert is resolved and there are later edits' do
+    it 'does not create second Alert if the first alert is resolved but no new student edits' do
       Alert.create(type: 'HighQualityArticleEditAlert', article_id: article.id,
-                   course_id: course.id, resolved: true, created_at: revision.date - 1.hour)
+                   course_id: course.id, resolved: true, created_at: course.start + 2.months)
+      expect(HighQualityArticleEditAlert.count).to eq(1)
+      VCR.use_cassette 'high_quality' do
+        described_class.create_alerts_for_course_articles
+      end
+      expect(HighQualityArticleEditAlert.count).to eq(1)
+    end
+
+    it 'does create second Alert if the first alert is resolved and later student edits' do
+      Alert.create(type: 'HighQualityArticleEditAlert', article_id: article.id,
+                   course_id: course.id, resolved: true, created_at: course.start + 1.minute)
       expect(HighQualityArticleEditAlert.count).to eq(1)
       VCR.use_cassette 'high_quality' do
         described_class.create_alerts_for_course_articles
