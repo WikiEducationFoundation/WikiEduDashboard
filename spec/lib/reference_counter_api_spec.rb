@@ -8,6 +8,7 @@ describe ReferenceCounterApi do
 
   let(:en_wikipedia) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
   let(:es_wiktionary) { Wiki.get_or_create(language: 'es', project: 'wiktionary') }
+  let(:not_supported) { Wiki.get_or_create(language: 'incubator', project: 'wikimedia') }
   let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }
   let(:deleted_rev_ids) { [708326238] }
   let(:rev_ids) { [5006940, 5006942, 5006946] }
@@ -33,6 +34,24 @@ describe ReferenceCounterApi do
       expect(response.dig('5006942', 'num_ref')).to eq(4)
       expect(response.dig('5006942').key?('error')).to eq(false)
       expect(response.dig('5006946', 'num_ref')).to eq(2)
+      expect(response.dig('5006946').key?('error')).to eq(false)
+    end
+  end
+
+  context 'fails silently' do
+    before do
+      stub_wiki_validation
+      stub_not_supported_wiki_reference_counter_response
+    end
+
+    it 'if response is 400 bad request' do
+      ref_counter_api = described_class.new(not_supported)
+      response = ref_counter_api.get_number_of_references_from_revision_ids rev_ids
+      expect(response.dig('5006940', 'num_ref')).to be_nil
+      expect(response.dig('5006940').key?('error')).to eq(false)
+      expect(response.dig('5006942', 'num_ref')).to be_nil
+      expect(response.dig('5006942').key?('error')).to eq(false)
+      expect(response.dig('5006946', 'num_ref')).to be_nil
       expect(response.dig('5006946').key?('error')).to eq(false)
     end
   end
