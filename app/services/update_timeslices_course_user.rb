@@ -5,9 +5,10 @@ require_dependency "#{Rails.root}/lib/articles_courses_cleaner_timeslice"
 require_dependency "#{Rails.root}/lib/revision_data_manager"
 
 class UpdateTimeslicesCourseUser
-  def initialize(course)
+  def initialize(course, update_service: nil)
     @course = course
     @timeslice_manager = TimesliceManager.new(course)
+    @update_sercice = update_service
   end
 
   def run
@@ -36,6 +37,9 @@ class UpdateTimeslicesCourseUser
   def add_user_ids(user_ids)
     return if user_ids.empty?
 
+    Rails.logger.info "UpdateTimeslicesCourseUser: Course: #{@course.slug}\
+    Adding new users: #{user_ids}"
+
     @course.wikis.each do |wiki|
       fetch_users_revisions_for_wiki(wiki, user_ids)
     end
@@ -44,7 +48,7 @@ class UpdateTimeslicesCourseUser
   def fetch_users_revisions_for_wiki(wiki, user_ids)
     users = User.find(user_ids)
 
-    manager = RevisionDataManager.new(wiki, @course)
+    manager = RevisionDataManager.new(wiki, @course, update_service: @update_service)
     # Fetch the revisions for users for the complete period
     revisions = manager.fetch_revision_data_for_users(users,
                                                       @course.start.strftime('%Y%m%d%H%M%S'),
@@ -54,6 +58,9 @@ class UpdateTimeslicesCourseUser
 
   def remove_courses_users(user_ids)
     return if user_ids.empty?
+
+    Rails.logger.info "UpdateTimeslicesCourseUser: Course: #{@course.slug}\
+    Removing old users: #{user_ids}"
     # Delete course user wiki timeslices for the deleted users
     @timeslice_manager.delete_course_user_timeslices_for_deleted_course_users user_ids
 

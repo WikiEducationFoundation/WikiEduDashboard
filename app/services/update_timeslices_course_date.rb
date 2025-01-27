@@ -49,11 +49,17 @@ class UpdateTimeslicesCourseDate
   def add_wiki_timeslices_up_to_new_end_date(wiki)
     mark_old_last_wiki_timeslce_as_needs_update(wiki)
 
+    Rails.logger.info "UpdateTimeslicesCourseDate: Course: #{@course.slug}\
+    Adding data up to: #{@course.end}"
+
     @timeslice_manager.create_wiki_timeslices_up_to_new_course_end_date(wiki)
   end
 
   def remove_timeslices_prior_to_start_date
     mark_new_first_timeslce_as_needs_update
+
+    Rails.logger.info "UpdateTimeslicesCourseDate: Course: #{@course.slug}\
+    Removing data prior to: #{@course.start}"
 
     # Delete course and course user timeslices
     @timeslice_manager.delete_course_wiki_timeslices_prior_to_start_date
@@ -66,6 +72,9 @@ class UpdateTimeslicesCourseDate
   def remove_timeslices_after_end_date
     mark_old_last_timeslce_as_needs_update
 
+    Rails.logger.info "UpdateTimeslicesCourseDate: Course: #{@course.slug}\
+    Removing data after to: #{@course.end}"
+
     # Delete course and course user timeslices
     @timeslice_manager.delete_course_wiki_timeslices_after_end_date
     @timeslice_manager.delete_course_user_wiki_timeslices_after_end_date
@@ -76,6 +85,9 @@ class UpdateTimeslicesCourseDate
 
   def add_wiki_timeslices_from_new_start_date(wiki)
     mark_new_wiki_first_timeslce_as_needs_update(wiki)
+
+    Rails.logger.info "UpdateTimeslicesCourseDate: Course: #{@course.slug}\
+    Adding data after to: #{@course.start}"
 
     @timeslice_manager.create_wiki_timeslices_for_new_course_start_date(wiki)
   end

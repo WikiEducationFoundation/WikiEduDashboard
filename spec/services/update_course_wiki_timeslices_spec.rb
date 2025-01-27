@@ -9,15 +9,25 @@ describe UpdateCourseWikiTimeslices do
   end
   let(:enwiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
   let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }
-  let(:updater) { described_class.new(course) }
+  let(:updater) { described_class.new(course, UpdateDebugger.new(course)) }
   let(:subject) { updater.run(all_time: false) }
   let(:flags) { nil }
   let(:user) { create(:user, username: 'Ragesoss') }
 
+  before do
+    stub_wiki_validation
+    travel_to Date.new(2018, 12, 1)
+    course.campaigns << Campaign.first
+    course.wikis << Wiki.get_or_create(language: nil, project: 'wikidata')
+    JoinCourse.new(course:, user:, role: 0)
+  end
+
   context 'when debugging is not enabled' do
     it 'posts no Sentry logs' do
       expect(Sentry).not_to receive(:capture_message)
-      subject
+      processed, reprocessed = subject
+      expect(processed).to eq(14)
+      expect(reprocessed).to eq(0)
     end
   end
 
@@ -25,21 +35,12 @@ describe UpdateCourseWikiTimeslices do
     let(:flags) { { debug_updates: true } }
 
     it 'posts debug info to Sentry' do
-      expect(Sentry).to receive(:capture_message).at_least(6).times.and_call_original
+      expect(Sentry).to receive(:capture_message).at_least(:twice).and_call_original
       subject
     end
   end
 
   context 'when there are revisions' do
-    before do
-      stub_wiki_validation
-      travel_to Date.new(2018, 12, 1)
-      course.campaigns << Campaign.first
-      # Create course wiki timeslices manually for wikidata
-      course.wikis << Wiki.get_or_create(language: nil, project: 'wikidata')
-      JoinCourse.new(course:, user:, role: 0)
-    end
-
     it 'updates article course timeslices caches' do
       VCR.use_cassette 'course_update' do
         subject
@@ -159,7 +160,7 @@ describe UpdateCourseWikiTimeslices do
       expected_dates.each do |start_time, end_time|
         expected_wikis.each do |wiki|
           expect(CourseRevisionUpdater).to receive(:fetch_revisions_and_scores_for_wiki)
-            .with(course, wiki, start_time, end_time, update_service: updater)
+            .with(course, wiki, start_time, end_time, update_service: nil)
             .once
         end
       end
@@ -167,56 +168,6 @@ describe UpdateCourseWikiTimeslices do
       VCR.use_cassette 'course_update' do
         subject
       end
-    end
-  end
-
-  context 'sentry course update error tracking' do
-    let(:flags) { { debug_updates: true } }
-    let(:user) { create(:user, username: 'Ragesoss') }
-
-    before do
-      travel_to Date.new(2018, 11, 28)
-      course.campaigns << Campaign.first
-      JoinCourse.new(course:, user:, role: 0)
-    end
-
-    it 'tracks update errors properly in Replica' do
-      allow(Sentry).to receive(:capture_exception)
-
-      # Raising errors only in Replica
-      stub_request(:any, %r{https://replica-revision-tools.wmcloud.org/.*}).to_raise(Errno::ECONNREFUSED)
-      VCR.use_cassette 'course_update/replica' do
-        subject
-      end
-      sentry_tag_uuid = updater.sentry_tag_uuid
-
-      # Checking whether Sentry receives correct error and tags as arguments
-      expect(Sentry).to have_received(:capture_exception).exactly(5).times.with(
-        Errno::ECONNREFUSED, anything
-      )
-      expect(Sentry).to have_received(:capture_exception)
-        .exactly(5).times.with anything, hash_including(tags: { update_service_id: sentry_tag_uuid,
-                                                    course: course.slug })
-    end
-
-    it 'tracks update errors properly in LiftWing' do
-      allow(Sentry).to receive(:capture_exception)
-
-      # Raising errors only in LiftWing
-      stub_request(:any, %r{https://api.wikimedia.org/service/lw.*}).to_raise(Faraday::ConnectionFailed)
-      VCR.use_cassette 'course_update/lift_wing_api' do
-        subject
-      end
-      sentry_tag_uuid = updater.sentry_tag_uuid
-
-      # Checking whether Sentry receives correct error and tags as arguments
-      expect(Sentry).to have_received(:capture_exception)
-        .exactly(2).times.with(Faraday::ConnectionFailed, anything)
-      expect(Sentry).to have_received(:capture_exception)
-        .exactly(2).times.with anything, hash_including(tags: { update_service_id: sentry_tag_uuid,
-                                                                course: course.slug })
-      # The timeslice for the revision with score errors is marked as 'needs update'
-      expect(course.course_wiki_timeslices.find_by(start: '2018-11-24').needs_update).to eq(true)
     end
   end
 end

@@ -30,6 +30,8 @@ class UpdateTimeslicesCourseWiki
   private
 
   def remove_courses_wikis(wiki_ids)
+    return if wiki_ids.empty?
+    Rails.logger.info { "UpdateTimeslicesCourseWiki: Deleting wikis: #{wiki_ids}" }
     # Delete timeslices for the deleted wikis
     @timeslice_manager.delete_timeslices_for_deleted_course_wikis wiki_ids
     # Delete articles courses
@@ -37,7 +39,9 @@ class UpdateTimeslicesCourseWiki
   end
 
   def add_courses_wikis(wiki_ids)
+    return if wiki_ids.empty?
     wikis = Wiki.where(id: wiki_ids)
+    Rails.logger.info { "UpdateTimeslicesCourseWiki: Adding wikis: #{wiki_ids}" }
     # Create course wiki timeslice records for new wikis
     @timeslice_manager.create_timeslices_for_new_course_wiki_records(wikis)
   end

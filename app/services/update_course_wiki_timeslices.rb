@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/course_revision_updater"
-require_dependency "#{Rails.root}/lib/analytics/histogram_plotter"
-require_dependency "#{Rails.root}/lib/data_cycle/update_logger"
-require_dependency "#{Rails.root}/lib/errors/update_service_error_helper"
 require_dependency "#{Rails.root}/lib/timeslice_manager"
 require_dependency "#{Rails.root}/lib/data_cycle/update_debugger"
 
@@ -11,28 +8,27 @@ require_dependency "#{Rails.root}/lib/data_cycle/update_debugger"
 # It updates all the tracked wikis for the course, from the latest start time for every wiki
 # up to the end of update (today or end date course).
 class UpdateCourseWikiTimeslices
-  include UpdateServiceErrorHelper
-
-  def initialize(course)
+  def initialize(course, debugger, update_service: nil)
     @course = course
     @timeslice_manager = TimesliceManager.new(@course)
-    @debugger = UpdateDebugger.new(@course)
+    @debugger = debugger
+    @update_service = update_service
     @wikidata_stats_updater = UpdateWikidataStatsTimeslice.new(@course) if wikidata
+    @processed_timeslices = 0
+    @reprocessed_timeslices = 0
   end
 
   def run(all_time:)
     pre_update(all_time)
     fetch_data_and_process_timeslices_for_every_wiki(all_time)
-    error_count
+    [@processed_timeslices, @reprocessed_timeslices]
   end
 
   private
 
   def pre_update(from_scratch)
-    @debugger.log_update_progress :pre_update_start
-    prepare_timeslices = PrepareTimeslices.new(@course)
+    prepare_timeslices = PrepareTimeslices.new(@course, @debugger, update_service: @update_service)
     from_scratch ? prepare_timeslices.recreate_timeslices : prepare_timeslices.adjust_timeslices
-    @debugger.log_update_progress :pre_update_finish
   end
 
   def fetch_data_and_process_timeslices_for_every_wiki(all_time)
@@ -52,34 +48,38 @@ class UpdateCourseWikiTimeslices
       latest_start = @timeslice_manager.get_latest_start_time_for_wiki(wiki)
 
       fetch_data_and_process_timeslices(wiki, first_start, latest_start)
+      @debugger.log_update_progress "timeslices_processed_#{wiki.id}".to_sym
     end
-    @debugger.log_update_progress :course_timeslices_updated
   end
 
   def fetch_data_and_process_timeslices(wiki, first_start, latest_start)
-    @debugger.log_update_progress "fetch_and_process_timeslices_start_#{wiki.id}".to_sym
     current_start = first_start
     while current_start <= latest_start
       start_date = [current_start, @course.start].max
       end_date = [current_start + @timeslice_manager.timeslice_duration(wiki) - 1.second,
                   @course.end].min
+
+      log_processing(wiki, start_date, end_date)
+
       fetch_data(wiki, start_date, end_date)
       process_timeslices(wiki)
       current_start += @timeslice_manager.timeslice_duration(wiki)
+      @processed_timeslices += 1
     end
-    @debugger.log_update_progress "fetch_and_process_timeslices_finish_#{wiki.id}".to_sym
   end
 
   def fetch_data_and_reprocess_timeslices(wiki)
-    @debugger.log_update_progress "fetch_and_reprocess_timeslices_start_#{wiki.id}".to_sym
     to_reprocess = CourseWikiTimeslice.for_course_and_wiki(@course, wiki).needs_update
     to_reprocess.each do |t|
       start_date = [t.start, @course.start].max
       end_date = [t.end - 1.second, @course.end].min
+
+      log_reprocessing(wiki, start_date, end_date)
+
       fetch_data(wiki, start_date, end_date)
       process_timeslices(wiki)
+      @reprocessed_timeslices += 1
     end
-    @debugger.log_update_progress "fetch_and_reprocess_timeslices_finish_#{wiki.id}".to_sym
   end
 
   def fetch_data(wiki, timeslice_start, timeslice_end)
@@ -89,7 +89,7 @@ class UpdateCourseWikiTimeslices
                                                       wiki,
                                                       timeslice_start.strftime('%Y%m%d%H%M%S'),
                                                       timeslice_end.strftime('%Y%m%d%H%M%S'),
-                                                      update_service: self)
+                                                      update_service: @update_service)
 
     # Only for wikidata project, fetch wikidata stats
     return unless wiki.project == 'wikidata' && @revisions.present?
@@ -158,7 +158,17 @@ class UpdateCourseWikiTimeslices
   end
 
   def log_error(error)
-    Sentry.capture_message "#{@course.title} update timeslices error: #{error}",
+    Sentry.capture_message "#{@course.slug} update timeslices error: #{error}",
                            level: 'error'
+  end
+
+  def log_processing(wiki, start_date, end_date)
+    Rails.logger.info "UpdateCourseWikiTimeslices: Course: #{@course.slug} Wiki: #{wiki.id}.\
+    Processing timeslice [#{start_date}, #{end_date}]"
+  end
+
+  def log_reprocessing(wiki, start_date, end_date)
+    Rails.logger.info "UpdateCourseWikiTimeslices: Course: #{@course.slug} Wiki: #{wiki.id}.\
+    Reprocessing timeslice [#{start_date}, #{end_date}]"
   end
 end

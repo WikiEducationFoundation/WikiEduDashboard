@@ -25,7 +25,6 @@ class ContinuedCourseActivityAlertManager
   MINIMUM_REVISIONS_AFTER_COURSE_END = 20
   def significant_activity_after_course_end?(course)
     total_revisions = course.wikis.sum do |wiki|
-      puts wiki.id
       count_revisions_for_wiki(course, wiki)
     end
     total_revisions > MINIMUM_REVISIONS_AFTER_COURSE_END
@@ -35,7 +34,6 @@ class ContinuedCourseActivityAlertManager
     # 50 is the max users for query
     course.students.pluck(:username).in_groups_of(40, false).sum do |usernames|
       response = WikiApi.new(wiki).query(query(course, usernames))
-      puts response.data['usercontribs'].count
       response.data['usercontribs'].count
     end
   end
