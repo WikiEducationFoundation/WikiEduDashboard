@@ -2,8 +2,18 @@
 
 require 'sidekiq/api'
 
-class GetSystemMetrics
+class SystemMetrics
+  LATENCY_THRESHOLDS = {
+    'default' => 1,
+    'short_update' => 2.hours,
+    'medium_update' => 12.hours,
+    'long_update' => 1.day,
+    'daily_update' => 1.day,
+    'constant_update' => 15.minutes
+}.freeze
+
   def initialize
+    # 'very_long_update' queue is excluded as it is intentionally never processed
     @queues = YAML.load_file('config/sidekiq.yml')[:queues]
                   .reject { |queue_name| queue_name == 'very_long_update' }
     fetch_sidekiq_stats
@@ -49,16 +59,7 @@ class GetSystemMetrics
   end
 
   def get_queue_status(queue_name, latency)
-    latency_thresholds = {
-      'default' => 1,
-      'short_update' => 2.hours,
-      'medium_update' => 12.hours,
-      'long_update' => 1.day,
-      'daily_update' => 1.day,
-      'constant_update' => 15.minutes
-    }
-    threshold = latency_thresholds[queue_name]
-
+    threshold = LATENCY_THRESHOLDS[queue_name]
     latency < threshold ? 'Normal' : 'Backlogged'
   end
 

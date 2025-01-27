@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe GetSystemMetrics do
+describe SystemMetrics do
   let(:service) { described_class.new }
 
   describe '#initialize' do
