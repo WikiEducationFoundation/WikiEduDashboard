@@ -63,6 +63,21 @@ describe WikiApi do
         expect(response).not_to be_blank
       end
     end
+
+    it 'raises a PageFetchError for unexpected response statuses' do
+      # some possible status codes
+      unexpected_statuses = [401, 403, 406, 408, 409, 413, 414, 429]
+      unexpected_statuses.each do |status_code|
+        allow_any_instance_of(described_class).to receive(:mediawiki)
+          .and_return(OpenStruct.new(status: status_code))
+        expect do
+          described_class.new.get_page_content('SomePage')
+        end.to raise_error(
+          WikiApi::PageFetchError,
+          /Failed to fetch content for SomePage with response status: #{status_code}/
+        )
+      end
+    end
   end
 
   describe '#fetch_all' do
