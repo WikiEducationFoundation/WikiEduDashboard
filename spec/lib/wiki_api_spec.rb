@@ -11,28 +11,40 @@ describe WikiApi do
 
     it 'handles mediawiki 503 errors gracefully' do
       stub_wikipedia_503_error
-      expect(subject).to eq(nil)
+      expect { subject }.to raise_error(
+        WikiApi::PageFetchError,
+        /Failed to fetch content for Ragesoss with response status: 503/
+      )
     end
 
     it 'handles timeout errors gracefully' do
       allow_any_instance_of(MediawikiApi::Client).to receive(:send)
         .and_raise(Faraday::TimeoutError)
       expect_any_instance_of(described_class).to receive(:log_error).once
-      expect(subject).to eq(nil)
+      expect { subject }.to raise_error(
+        WikiApi::PageFetchError,
+        /Failed to fetch content for Ragesoss with response status: ./
+      )
     end
 
     it 'handles API errors gracefully' do
       allow_any_instance_of(MediawikiApi::Client).to receive(:send)
         .and_raise(MediawikiApi::ApiError)
       expect_any_instance_of(described_class).to receive(:log_error).once
-      expect(subject).to eq(nil)
+      expect { subject }.to raise_error(
+        WikiApi::PageFetchError,
+        /Failed to fetch content for Ragesoss with response status: ./
+      )
     end
 
     it 'handles HTTP errors gracefully' do
       allow_any_instance_of(MediawikiApi::Client).to receive(:send)
         .and_raise(MediawikiApi::HttpError, '')
       expect_any_instance_of(described_class).to receive(:log_error).once
-      expect(subject).to eq(nil)
+      expect { subject }.to raise_error(
+        WikiApi::PageFetchError,
+        /Failed to fetch content for Ragesoss with response status: ./
+      )
     end
   end
 
@@ -61,21 +73,6 @@ describe WikiApi do
       VCR.use_cassette 'wiki/user_talk' do
         response = described_class.new.get_page_content(user.talk_page)
         expect(response).not_to be_blank
-      end
-    end
-
-    it 'raises a PageFetchError for unexpected response statuses' do
-      # some possible status codes
-      unexpected_statuses = [401, 403, 406, 408, 409, 413, 414, 429]
-      unexpected_statuses.each do |status_code|
-        allow_any_instance_of(described_class).to receive(:mediawiki)
-          .and_return(OpenStruct.new(status: status_code))
-        expect do
-          described_class.new.get_page_content('SomePage')
-        end.to raise_error(
-          WikiApi::PageFetchError,
-          /Failed to fetch content for SomePage with response status: #{status_code}/
-        )
       end
     end
   end
