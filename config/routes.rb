@@ -65,6 +65,7 @@ Rails.application.routes.draw do
   #PersonalDataController
   controller :personal_data do
     get 'download_personal_data' => 'personal_data#show'
+    get 'download_personal_data_csv' => 'personal_data#personal_data_csv'
   end
 
   # Users
