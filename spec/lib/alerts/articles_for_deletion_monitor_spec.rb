@@ -23,30 +23,20 @@ describe ArticlesForDeletionMonitor do
 
     # AFD article
     let(:article) { create(:article, title: 'One_page', namespace: 0) }
-    let(:revision) do
-      create(:revision, article_id: article.id,
-                        user_id: student.id,
-                        date: course.start + 1.day,
-                        new_article: article_is_new)
-    end
     let(:articles_course) do
       create(:articles_course, article_id: article.id,
                                course_id: course.id,
-                               new_article: article_is_new)
+                               new_article: article_is_new,
+                               user_ids: [student.id])
     end
 
     # PRODded article
     let(:prod) { create(:article, title: 'PRODded_page', namespace: 0) }
-    let!(:prod_revision) do
-      create(:revision, article_id: prod.id,
-                        user_id: student.id,
-                        date: course.start + 1.day,
-                        new_article: article_is_new)
-    end
     let!(:prod_articles_course) do
       create(:articles_course, article_id: prod.id,
                                course_id: course.id,
-                               new_article: article_is_new)
+                               new_article: article_is_new,
+                               user_ids: [student.id])
     end
 
     before do
@@ -73,7 +63,7 @@ describe ArticlesForDeletionMonitor do
     context 'when there is a new article' do
       let(:article_is_new) { true }
 
-      before { articles_course && revision && courses_user }
+      before { articles_course && courses_user }
 
       it 'creates Alert records for both AfD and PROD' do
         described_class.create_alerts_for_course_articles
@@ -81,6 +71,21 @@ describe ArticlesForDeletionMonitor do
         alerted_article_ids = Alert.all.pluck(:article_id)
         expect(alerted_article_ids).to include(article.id)
         expect(alerted_article_ids).to include(prod.id)
+      end
+
+      it 'assigns user_id from articles_course.user_ids.first' do
+        described_class.create_alerts_for_course_articles
+        alert = Alert.find_by(article_id: article.id)
+
+        expect(alert.user_id).to eq(student.id) # First user_id from user_ids
+      end
+
+      it 'creates Alert records without requiring revisions' do
+        described_class.create_alerts_for_course_articles
+        alert = Alert.find_by(article_id: article.id)
+
+        expect(alert).not_to be_nil
+        expect(alert.revision_id).to be_nil # revision_id should not matter
       end
 
       it 'emails a greeter' do
@@ -98,7 +103,7 @@ describe ArticlesForDeletionMonitor do
         expect(Alert.count).to eq(2)
       end
 
-      it 'does create second Alert if the first alert is resolved' do
+      it 'does create a second Alert if the first alert is resolved' do
         Alert.create(type: 'ArticlesForDeletionAlert', article_id: article.id,
                      course_id: course.id, resolved: true)
         Alert.create(type: 'ArticlesForDeletionAlert', article_id: prod.id, course_id: course.id)
@@ -111,9 +116,9 @@ describe ArticlesForDeletionMonitor do
     context 'when there is not a new article' do
       let(:article_is_new) { false }
 
-      before { articles_course && revision && courses_user }
+      before { articles_course && courses_user }
 
-      it 'does still creates an Alert record' do
+      it 'still creates an Alert record' do
         described_class.create_alerts_for_course_articles
         expect(Alert.count).to eq(2)
       end

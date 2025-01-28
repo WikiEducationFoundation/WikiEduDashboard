@@ -24,12 +24,12 @@ const handleErrorNotification = function (data) {
     try {
       notification.message = JSON.parse(data.responseText).message;
     } catch (error) {
-      // do nothing nothing
+      // do nothing
     }
   }
 
-  if (data.responseJSON && data.responseJSON.error) {
-    if (!notification.message) { notification.message = data.responseJSON.error; }
+  if (!notification.message && data.responseJSON && data.responseJSON.error) {
+    notification.message = data.responseJSON.error;
   }
 
   if (!notification.message) {

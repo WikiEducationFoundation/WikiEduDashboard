@@ -10,6 +10,7 @@ class BlockedUserAlertMailer < ApplicationMailer
     @alert = alert
     set_recipients
     return if @recipients.empty?
+    return unless @alert.course # A user who isn't in a course may trigger an alert.
     params = { to: @recipients,
              subject: @alert.main_subject }
     params[:reply_to] = @alert.reply_to unless @alert.reply_to.nil?

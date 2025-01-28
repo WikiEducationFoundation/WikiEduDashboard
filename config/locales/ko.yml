@@ -775,6 +775,7 @@ ko:
       이 작업은 되돌릴 수 없습니다.
     discard_all_changes: 모든 바뀜 취소
     delete_timeline_and_start_over: 타임라인 삭제
+    done: 완료
     due_default: 다음 주까지
     empty_week_1: 시작하려면,
     empty_week_3: 또는
