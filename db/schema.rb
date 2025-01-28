@@ -249,22 +249,18 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_15_163420) do
   end
 
   create_table "course_wiki_timeslices", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.integer "course_id", null: false
+    t.integer "wiki_id", null: false
     t.datetime "start"
     t.datetime "end"
-    t.integer "last_mw_rev_id"
     t.integer "character_sum", default: 0
     t.integer "references_count", default: 0
     t.integer "revision_count", default: 0
-    t.integer "upload_count", default: 0
-    t.integer "uploads_in_use_count", default: 0
-    t.integer "upload_usages_count", default: 0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "course_id", null: false
-    t.integer "wiki_id", null: false
+    t.text "stats"
     t.datetime "last_mw_rev_datetime"
     t.boolean "needs_update", default: false
-    t.text "stats"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["course_id", "wiki_id", "start", "end"], name: "course_wiki_timeslice_by_course_wiki_start_and_end", unique: true
   end
 
