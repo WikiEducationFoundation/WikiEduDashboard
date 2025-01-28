@@ -11,7 +11,7 @@ const TagList = ({ tags, course }) => {
       const comma = (index !== lastIndex) ? ', ' : '';
       return <span key={`${tag.tag}${tag.id}`}>{tag.tag}{comma}</span>;
     })
-    : I18n.t('courses.none'));
+    : <span>{I18n.t('courses.none')}</span>);
 
   return (
     <span key="tags_list" className="tags">

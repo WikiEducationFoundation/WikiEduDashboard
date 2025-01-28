@@ -89,7 +89,7 @@ const ArticleGraphs = ({ article }) => {
   }
 
   let radioInput;
-  if (articleData?.[0].wp10) {
+  if (articleData?.length > 0 && articleData?.[0]?.wp10) {
     radioInput = (
       <div>
         <div className="input-row">
