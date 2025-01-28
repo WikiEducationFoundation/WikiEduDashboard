@@ -33,19 +33,18 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_15_163420) do
   end
 
   create_table "article_course_timeslices", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.integer "course_id", null: false
+    t.integer "article_id", null: false
     t.datetime "start"
     t.datetime "end"
-    t.integer "last_mw_rev_id"
     t.integer "character_sum", default: 0
     t.integer "references_count", default: 0
+    t.integer "revision_count", default: 0
     t.text "user_ids"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "article_id", null: false
-    t.integer "course_id", null: false
     t.boolean "new_article", default: false
     t.boolean "tracked", default: true
-    t.integer "revision_count", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["article_id", "course_id", "start", "end"], name: "article_course_timeslice_by_article_course_start_and_end", unique: true
     t.index ["course_id", "tracked"], name: "article_course_timeslice_by_tracked"
     t.index ["course_id", "updated_at", "article_id"], name: "article_course_timeslice_by_updated_at"
