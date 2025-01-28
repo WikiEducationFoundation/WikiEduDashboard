@@ -3,6 +3,8 @@
 /config/newrelic.yml
 /config/secrets.yml
 /dockerAuth.json
+/fixtures
+!/fixtures/cached
 /node_modules
 /js_coverage
 /vendor/*
