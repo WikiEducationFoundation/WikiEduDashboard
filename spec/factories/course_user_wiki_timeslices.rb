@@ -9,8 +9,6 @@
 #  wiki_id             :integer          not null
 #  start               :datetime
 #  end                 :datetime
-#  last_mw_rev_id      :integer
-#  total_uploads       :integer          default(0)
 #  character_sum_ms    :integer          default(0)
 #  character_sum_us    :integer          default(0)
 #  character_sum_draft :integer          default(0)

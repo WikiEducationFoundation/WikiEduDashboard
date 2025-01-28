@@ -9,8 +9,6 @@
 #  wiki_id             :integer          not null
 #  start               :datetime
 #  end                 :datetime
-#  last_mw_rev_id      :integer
-#  total_uploads       :integer          default(0)
 #  character_sum_ms    :integer          default(0)
 #  character_sum_us    :integer          default(0)
 #  character_sum_draft :integer          default(0)
@@ -43,7 +41,6 @@ describe CourseUserWikiTimeslice, type: :model do
            course:,
            user:,
            wiki_id: wiki.id,
-           total_uploads: 0,
            character_sum_ms: 3,
            character_sum_us: 4,
            character_sum_draft: 2,
@@ -184,9 +181,6 @@ describe CourseUserWikiTimeslice, type: :model do
              article:,
              course:)
 
-      # Create a common upload for the user
-      create(:commons_upload, user:, uploaded_at: '2015-02-01'.to_date)
-
       # create the CoursesUsers record
       courses_user
     end
@@ -198,7 +192,6 @@ describe CourseUserWikiTimeslice, type: :model do
       # Fetch the created CourseUserWikiTimeslice entry
       course_user_wiki_timeslice = described_class.all.first
 
-      expect(course_user_wiki_timeslice.total_uploads).to eq(1)
       # Don't consider deleted revisions, automatic revisions, or revisions for
       # articles that don't exist
       expect(course_user_wiki_timeslice.revision_count).to eq(4)

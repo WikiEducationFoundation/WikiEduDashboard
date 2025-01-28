@@ -10,8 +10,6 @@
 #  wiki_id             :integer          not null
 #  start               :datetime
 #  end                 :datetime
-#  last_mw_rev_id      :integer
-#  total_uploads       :integer          default(0)
 #  character_sum_ms    :integer          default(0)
 #  character_sum_us    :integer          default(0)
 #  character_sum_draft :integer          default(0)
@@ -76,7 +74,6 @@ class CourseUserWikiTimeslice < ApplicationRecord
     @revisions = revisions
     @liverevisions = live_revisions
     tracked_namespace_revisions = live_revisions_in_tracked_namespaces
-    self.total_uploads = course.uploads.where(user:).count
     update_character_sum(@liverevisions, tracked_namespace_revisions)
     self.references_count = references_sum(tracked_namespace_revisions)
 
