@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/alerts/articles_for_deletion_monitor"
-require_dependency "#{Rails.root}/lib/alerts/dyk_nomination_monitor"
-require_dependency "#{Rails.root}/lib/alerts/ga_nomination_monitor"
+require_dependency "#{Rails.root}/lib/alerts/d_y_k_nomination_monitor"
+require_dependency "#{Rails.root}/lib/alerts/g_a_nomination_monitor"
 require_dependency "#{Rails.root}/lib/alerts/course_alert_manager"
 require_dependency "#{Rails.root}/lib/alerts/survey_response_alert_manager"
 require_dependency "#{Rails.root}/lib/alerts/discretionary_sanctions_monitor"

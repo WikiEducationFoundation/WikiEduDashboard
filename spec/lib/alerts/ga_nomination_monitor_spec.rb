@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/alerts/ga_nomination_monitor"
+require "#{Rails.root}/lib/alerts/g_a_nomination_monitor"
 
 def mock_mailer
   OpenStruct.new(deliver_now: true)
@@ -23,14 +23,10 @@ describe GANominationMonitor do
 
     # Good Article article
     let(:article) { create(:article, title: 'Be_Here_Now_(George_Harrison_song)', namespace: 0) }
-    let(:revision) do
-      create(:revision, article_id: article.id,
-                        user_id: student.id,
-                        date: course.start + 1.day)
-    end
     let(:articles_course) do
       create(:articles_course, article_id: article.id,
-                               course_id: course.id)
+                               course_id: course.id,
+                               user_ids: [student.id]) # Add user_ids for testing user_id logic
     end
 
     before do
@@ -40,7 +36,7 @@ describe GANominationMonitor do
                      'Talk:2017–18 London & South East Premier',
                      'Talk:17776'])
 
-      articles_course && revision && courses_user
+      articles_course && courses_user # Ensure `ArticlesCourses` and `CoursesUser` are created
     end
 
     it 'creates an Alert record for the edited article' do
@@ -48,6 +44,21 @@ describe GANominationMonitor do
       expect(Alert.count).to eq(1)
       alerted_article_ids = Alert.all.pluck(:article_id)
       expect(alerted_article_ids).to include(article.id)
+    end
+
+    it 'assigns user_id from articles_course.user_ids.first' do
+      described_class.create_alerts_for_course_articles
+      alert = Alert.find_by(article_id: article.id)
+
+      expect(alert.user_id).to eq(student.id) # First user_id from user_ids
+    end
+
+    it 'does not depend on revisions for creating alerts' do
+      described_class.create_alerts_for_course_articles
+      alert = Alert.find_by(article_id: article.id)
+
+      expect(alert).not_to be_nil
+      expect(alert.revision_id).to be_nil # revision_id is not required
     end
 
     it 'emails a content expert' do
@@ -64,7 +75,7 @@ describe GANominationMonitor do
       expect(Alert.count).to eq(1)
     end
 
-    it 'does create second Alert if the first alert is resolved' do
+    it 'does create a second Alert if the first alert is resolved' do
       Alert.create(type: 'GANominationAlert', article_id: article.id,
                    course_id: course.id, resolved: true)
       expect(Alert.count).to eq(1)

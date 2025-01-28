@@ -2817,6 +2817,7 @@ __metadata:
     eslint-webpack-plugin: ^3.1.1
     fetch-jsonp: ^1.2.1
     i18n-js: ^4.2.2
+    immer: ^10.1.1
     jeet: ^7.2.0
     jest: ^26.0.1
     jquery: ^3.5.1
@@ -6866,7 +6867,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"immer@npm:^10.0.3":
+"immer@npm:^10.0.3, immer@npm:^10.1.1":
   version: 10.1.1
   resolution: "immer@npm:10.1.1"
   checksum: 07c67970b7d22aded73607193d84861bf786f07d47f7d7c98bb10016c7a88f6654ad78ae1e220b3c623695b133aabbf24f5eb8d9e8060cff11e89ccd81c9c10b

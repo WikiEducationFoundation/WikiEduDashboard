@@ -646,6 +646,7 @@ ru:
   timeline:
     arrange_timeline: Настроить расписание
     delete_timeline_and_start_over: Удалить расписание
+    done: Готово
     empty_week_3: или
     gradeable_value: Значение
     no_timeline: У этого курса пока нет расписания.
