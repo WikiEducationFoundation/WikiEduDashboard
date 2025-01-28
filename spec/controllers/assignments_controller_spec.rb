@@ -66,7 +66,7 @@ describe AssignmentsController, type: :request do
     context 'when the article is marked as an available article' do
       let(:assignment) do
         create(:assignment, course_id: course.id, user_id: user.id,
-                            flags: { available_article: true })
+                           flags: { available_article: true })
       end
 
       before do
@@ -75,7 +75,8 @@ describe AssignmentsController, type: :request do
 
       context 'when the assignment_id is provided' do
         let(:params) do
-          { course_slug: course.slug, action_type: 'unclaim', format: :json }
+          { course_slug: course.slug, assignment_id: assignment.id,
+          user_id: user.id, format: :json }
         end
 
         before do
@@ -89,9 +90,9 @@ describe AssignmentsController, type: :request do
 
       context 'when the assignment_id is not provided' do
         let(:params) do
-          { course_slug: course.slug, user_id: user.id,
+          { course_slug: course.slug, user_id: user.id, assignment_id: assignment.id,
             article_title: assignment.article_title, role: assignment.role,
-            action_type: 'unclaim', format: :json }
+             format: :json }
         end
 
         before do
@@ -105,7 +106,7 @@ describe AssignmentsController, type: :request do
 
       context 'when the user does not have permission to unclaim the assignment' do
         let(:params) do
-          { course_slug: course.slug, action_type: 'unclaim', format: :json }
+          { course_slug: course.slug, format: :json }
         end
 
         let!(:assignment) do

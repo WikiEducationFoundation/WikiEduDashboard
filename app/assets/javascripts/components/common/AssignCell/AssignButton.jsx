@@ -55,7 +55,7 @@ const RemoveAssignmentButton = ({ assignment, unassign }) => {
         className="button border assign-selection-button"
         onClick={() => unassign(assignment)}
       >
-        {I18n.t('assignments.remove')}
+        Remove
       </button>
     </span>
   );
@@ -362,16 +362,9 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
   };
 
   const unassign = (assignment) => {
-    const body = { course_slug: course.slug, ...assignment };
-    // If the assignment is available, then sets the action_type to unclaim and the article is moved to the available articles list
-    if (assignment.flags.available_article) {
-      body.action_type = 'unclaim';
-    } else {
-      body.action_type = 'delete';
-    }
     const confirmMessage = I18n.t('assignments.confirm_deletion');
     const onConfirm = () => {
-      dispatch(deleteAssignment(body));
+      dispatch(deleteAssignment({ course_slug: course.slug, ...assignment }));
     };
     dispatch(initiateConfirm({ confirmMessage, onConfirm }));
   };

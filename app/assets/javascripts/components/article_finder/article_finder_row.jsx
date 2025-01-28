@@ -50,7 +50,6 @@ const ArticleFinderRow = (props) => {
           id: props.assignment.id,
           assignment_id: props.assignment.assignment_id,
           user_id: userId,
-          action_type: 'delete',
         };
         setIsLoading(true);
         return props.deleteAssignment(assignment);

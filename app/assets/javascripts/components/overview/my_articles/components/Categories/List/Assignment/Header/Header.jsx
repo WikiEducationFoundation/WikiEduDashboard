@@ -32,12 +32,6 @@ const isClassroomProgram = course => (course.type === 'ClassroomProgramCourse');
 
 const unassign = ({ assignment, course, dispatch }) => {
   const body = { course_slug: course.slug, ...assignment };
-   // If the assignment is available, then sets the action_type to unclaim and the article is moved to the available articles list
-   if (assignment.flags.available_article) {
-    body.action_type = 'unclaim';
-   } else {
-    body.action_type = 'delete';
-   }
   const confirmMessage = I18n.t('assignments.confirm_deletion');
   const onConfirm = () => dispatch(deleteAssignment(body));
 

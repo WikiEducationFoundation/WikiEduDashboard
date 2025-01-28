@@ -16,8 +16,9 @@ class AssignmentsController < ApplicationController
     @course = @assignment.course
     check_permissions(@assignment.user_id)
     @flags = @assignment.flags
-    @action_type = params[:action_type]
-    if @action_type == 'unclaim' && @assignment.flags[:available_article]
+    assignment_id = params[:assignment_id]
+    user_id = params[:user_id]
+    if assignment_id &&  user_id.present? && @assignment.flags[:available_article]
       @assignment.update(user_id: nil)
       render partial: 'updated_assignment', locals: { assignment: @assignment }
     else
