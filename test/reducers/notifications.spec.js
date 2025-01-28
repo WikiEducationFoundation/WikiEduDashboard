@@ -141,7 +141,7 @@ describe('notifications reducer', () => {
     const notification = {
       closable: true,
       type: 'error',
-      message: '{\"responseText\":\"{\\\"message\\\":\\\"Example notification status\\\"\"}'
+      message: '{"responseText":"{\\"message\\":\\"Example notification status\\""}',
     };
     const expectedState = [notification];
     deepFreeze(initialState);
