@@ -55,12 +55,6 @@ export const deleteAssignment = assignment => (dispatch) => {
   return API.deleteAssignment(assignment)
     .then((resp) => {
       if (assignment.assignment_id && assignment.user_id !== null && assignment.flags.available_article) {
-        const successNotification = {
-          message: 'The assignment has been successfully moved to the available articles list.',
-          closable: true,
-          type: 'success'
-        };
-        dispatch(addNotification(successNotification));
         dispatch({ type: types.UPDATE_ASSIGNMENT, data: resp });
       } else {
         dispatch({ type: types.DELETE_ASSIGNMENT, data: resp });
