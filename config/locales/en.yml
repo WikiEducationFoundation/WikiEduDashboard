@@ -412,6 +412,7 @@ en:
     delete_course_tooltip: Delete and remove from the campaign.
     disable_account_requests: Disable account requests
     enable_account_requests: Enable account requests
+    enable_account_requests_doc: The account requests feature adds an account request form to the enrollment link for an event. Users who don't have accounts yet can enter their email and desired username, and event facilitators can use the Dashboard to create the requested accounts. Users who request accounts are automatically added to the event upon account creation.
     newest_campaigns: Newest Campaigns
     featured_campaigns: Featured Campaigns
     instructors_course: instructors by course
