@@ -304,6 +304,7 @@ qqq:
       Label for the input to change the title of a campaign
       {{Identical|Title}}
     use_start_end_dates: Label for checkbox to enable start and end dates for a campaign
+    enable_account_requests_doc: Tooltip explaining what the 'Enable Account Requests' button does
   categories:
     name: '{{Identical|Name}}'
     category_name: '{{Identical|Category name}}'
