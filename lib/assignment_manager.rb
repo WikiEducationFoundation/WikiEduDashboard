@@ -33,13 +33,14 @@ class AssignmentManager
     set_clean_title
     set_article_from_database
     check_wiki_edu_discouraged_article
-    flags = set_flags
+    set_available_article_flag
     import_article_from_wiki unless @article
     # TODO: update rating via Sidekiq worker
     update_article_rating if @article
+    set_available_article_flag
     Assignment.create!(user_id: @user_id, course: @course,
                        article_title: @clean_title, wiki: @wiki, article: @article,
-                       role: @role, flags:)
+                       role: @role, flags: @flags)
   rescue ActiveRecord::RecordInvalid => e
     message = if e.message.include?('invalid')
                 "#{@clean_title} is not a valid article title."
@@ -114,9 +115,8 @@ class AssignmentManager
     end
   end
 
-  def set_flags
-    return { available_article: true } if @user_id.nil?
-    nil
+  def set_available_article_flag
+    @flags = @user_id.nil? ? { available_article: true } : nil
   end
 
   def import_article_from_wiki
