@@ -125,7 +125,7 @@ class WikiApi
 
   class PageFetchError < StandardError
     def initialize(page, status)
-      message = "Failed to fetch content for #{page} with response status: #{status}."
+      message = "Failed to fetch content for #{page} with response status: #{status.inspect}"
       super(message)
     end
   end
