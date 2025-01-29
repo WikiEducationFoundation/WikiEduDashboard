@@ -50,7 +50,6 @@ role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
            character_sum_ms: 9000,
            character_sum_us: 500,
            character_sum_draft: 400,
-           total_uploads: 200,
            references_count: 4,
            revision_count: 5)
     create(:course_user_wiki_timeslice,
@@ -62,7 +61,6 @@ role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
            character_sum_ms: 10,
            character_sum_us: 20,
            character_sum_draft: 30,
-           total_uploads: 200,
            references_count: 3,
            revision_count: 1)
     # Course user wiki timeslice for non-student
@@ -75,7 +73,6 @@ role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
            character_sum_ms: 100,
            character_sum_us: 200,
            character_sum_draft: 330,
-           total_uploads: 100,
            references_count: 4,
            revision_count: 4)
 

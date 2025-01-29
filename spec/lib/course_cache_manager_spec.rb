@@ -33,10 +33,7 @@ describe CourseCacheManager do
            end: 9.days.ago,
            character_sum: 9000,
            references_count: 4,
-           revision_count: 5,
-           upload_count: 400,
-           uploads_in_use_count: 200,
-           upload_usages_count: 200)
+           revision_count: 5)
     create(:course_wiki_timeslice,
            course:,
            wiki:,
@@ -44,10 +41,7 @@ describe CourseCacheManager do
            end: 8.days.ago,
            character_sum: 10,
            references_count: 3,
-           revision_count: 1,
-           upload_count: 30,
-           uploads_in_use_count: 200,
-           upload_usages_count: 200)
+           revision_count: 1)
     create(:course_wiki_timeslice,
            course:,
            wiki:,
@@ -55,10 +49,7 @@ describe CourseCacheManager do
            end: 7.days.ago,
            character_sum: 100,
            references_count: 4,
-           revision_count: 4,
-           upload_count: 330,
-           uploads_in_use_count: 100,
-           upload_usages_count: 200)
+           revision_count: 4)
   end
 
   describe '#update_cache_from_timeslices' do
