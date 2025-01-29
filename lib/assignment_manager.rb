@@ -38,9 +38,8 @@ class AssignmentManager
     # TODO: update rating via Sidekiq worker
     update_article_rating if @article
     set_available_article_flag
-    Assignment.create!(user_id: @user_id, course: @course,
-                       article_title: @clean_title, wiki: @wiki, article: @article,
-                       role: @role, flags: @flags)
+    Assignment.create!(user_id: @user_id, course: @course, article_title: @clean_title,
+                       wiki: @wiki, article: @article, role: @role, flags: @flags)
   rescue ActiveRecord::RecordInvalid => e
     message = if e.message.include?('invalid')
                 "#{@clean_title} is not a valid article title."
