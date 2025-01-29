@@ -39,14 +39,22 @@
           %button.button.dark
             = t('editable.edit')
       - if (current_user&.admin?)
+        
         - if (!@campaign.register_accounts)
-          = form_tag("/requested_accounts_campaigns/#{@campaign.slug}/enable_account_requests", method: :put, class: 'campaign-create') do
-            %button.button.dark
-              = t('campaign.enable_account_requests')
+          .tooltip-trigger
+            = form_tag("/requested_accounts_campaigns/#{@campaign.slug}/enable_account_requests", method: :put, class: 'campaign-create') do
+              %button.button.dark
+                = t('campaign.enable_account_requests')
+            .tooltip.dark
+              %p= t('campaign.enable_account_requests_doc')
         - else
-          = form_tag("/requested_accounts_campaigns/#{@campaign.slug}/disable_account_requests", method: :put, class: 'campaign-create') do
-            %button.button.dark
-              = t('campaign.disable_account_requests')
+          .tooltip-trigger
+            = form_tag("/requested_accounts_campaigns/#{@campaign.slug}/disable_account_requests", method: :put, class: 'campaign-create') do
+              %button.button.dark
+                = t('campaign.disable_account_requests')
+            .tooltip.dark
+              %p= t('campaign.enable_account_requests_doc')
+        
       - if (current_user&.admin? && @campaign.requested_accounts.any?)
         = form_tag("/requested_accounts_campaigns/#{@campaign.slug}", method: :get, class: 'campaign-create') do
           %button.button.dark
