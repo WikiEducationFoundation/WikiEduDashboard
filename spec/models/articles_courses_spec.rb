@@ -15,7 +15,6 @@
 #  tracked          :boolean          default(TRUE)
 #  user_ids         :text(65535)
 #  first_revision   :datetime
-#  revision_count   :integer          default(0)
 #
 
 require 'rails_helper'
@@ -119,8 +118,7 @@ describe ArticlesCourses, type: :model do
              end: '2024-07-07',
              character_sum: 9000,
              references_count: 4,
-             user_ids: [2, 3],
-             revision_count: 3)
+             user_ids: [2, 3])
 
       create(:article_course_timeslice,
              article:,
@@ -130,8 +128,7 @@ describe ArticlesCourses, type: :model do
              character_sum: 12,
              references_count: 5,
              user_ids: [2, user.id],
-             new_article: true,
-             revision_count: 4)
+             new_article: true)
 
       # Empty timeslice, which should not count towards stats.
       create(:article_course_timeslice,
@@ -154,7 +151,6 @@ describe ArticlesCourses, type: :model do
       expect(article_course.user_ids).to eq([2, 3, user.id])
       expect(article_course.view_count).to eq(0)
       expect(article_course.new_article).to be true
-      expect(article_course.revision_count).to eq(7)
     end
   end
 
