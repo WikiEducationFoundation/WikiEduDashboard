@@ -754,6 +754,14 @@ ko:
         elevate_success: '%{username}님은 {position}(으)로 승격되었습니다.'
       remove:
         already_is_not: '%{username}님은 특수 사용자가 아닙니다!'
+  status:
+    daily_update: 일일 업데이트
+    default: 기본값
+    latency: 레이턴시
+    no_info: 정보가 없습니다.
+    purpose: 목적
+    size: 크기
+    status: 상태
   suggestions:
     editing: 편집 제안
     suggestion_docs:

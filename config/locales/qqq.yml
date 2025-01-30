@@ -285,6 +285,8 @@ qqq:
       Label for the description field when creating a new campaign
       {{Identical|Description}}
     delete_campaign: Button to delete a campaign
+    enable_account_requests_doc: Tooltip explaining what the 'Enable Account Requests'
+      button does
     none: |-
       Option for a course with no campaign
       {{Identical|None}}
@@ -304,7 +306,6 @@ qqq:
       Label for the input to change the title of a campaign
       {{Identical|Title}}
     use_start_end_dates: Label for checkbox to enable start and end dates for a campaign
-    enable_account_requests_doc: Tooltip explaining what the 'Enable Account Requests' button does
   categories:
     name: '{{Identical|Name}}'
     category_name: '{{Identical|Category name}}'

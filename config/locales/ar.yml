@@ -23,6 +23,7 @@
 # Author: Shbib Al-Subaie
 # Author: Sonic N800
 # Author: Tala Ali
+# Author: XIDME
 # Author: Youssef
 # Author: أَحمد
 # Author: ديفيد
@@ -46,7 +47,7 @@ ar:
       المدخلات.
   application:
     back: رجوع
-    cancel: ألغ
+    cancel: إلغاء
     cookie_consent: يستخدم هذا الموقع ملفات تعريف الارتباط للحفاظ على تسجيل الدخول
       وتخزين المعلومات المتعلقة بحساب ويكيبيديا الخاص بك.
     cookie_consent_acknowledge: أفهم

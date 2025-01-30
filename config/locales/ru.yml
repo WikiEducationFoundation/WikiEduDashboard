@@ -637,6 +637,9 @@ ru:
     special_users:
       new:
         form_placeholder: Имя участника
+  status:
+    size: Размер
+    status: Статус
   tasks:
     conseq: Задача %{task} уже выполняется!
     constant: Задача %{task} не может быть выполнена, когда происходит ежедневное
