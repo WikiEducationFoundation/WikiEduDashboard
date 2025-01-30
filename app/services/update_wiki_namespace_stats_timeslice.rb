@@ -53,6 +53,11 @@ class UpdateWikiNamespaceStatsTimeslice
            deleted: false }).where(tracked: true)
   end
 
+  def articles_timeslices_filtered_by_wiki_namespace
+    @course.article_course_timeslices
+           .where(article_id: articles_filtered_by_wiki_namespace.pluck(:article_id))
+  end
+
   def edited_articles_count
     articles = articles_filtered_by_wiki_namespace
     articles.count
@@ -64,7 +69,9 @@ class UpdateWikiNamespaceStatsTimeslice
   end
 
   def revision_count
-    articles_filtered_by_wiki_namespace.sum(:revision_count)
+    # Compute revision_count using timeslices, since ArticlesCourses records
+    # do not have a revision_count field.
+    articles_timeslices_filtered_by_wiki_namespace.sum(:revision_count)
   end
 
   def user_count
