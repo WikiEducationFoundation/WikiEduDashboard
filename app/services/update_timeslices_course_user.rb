@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/timeslice_cleaner"
+require_dependency "#{Rails.root}/lib/timeslice_manager"
 require_dependency "#{Rails.root}/lib/articles_courses_cleaner_timeslice"
 require_dependency "#{Rails.root}/lib/revision_data_manager"
 
@@ -8,6 +9,7 @@ class UpdateTimeslicesCourseUser
   def initialize(course, update_service: nil)
     @course = course
     @timeslice_cleaner = TimesliceCleaner.new(course)
+    @timeslice_manager = TimesliceManager.new(course)
     @update_sercice = update_service
   end
 
@@ -53,7 +55,7 @@ class UpdateTimeslicesCourseUser
     revisions = manager.fetch_revision_data_for_users(users,
                                                       @course.start.strftime('%Y%m%d%H%M%S'),
                                                       @course.end.strftime('%Y%m%d%H%M%S'))
-    @timeslice_cleaner.update_timeslices_that_need_update_from_revisions(revisions, wiki)
+    @timeslice_manager.update_timeslices_that_need_update_from_revisions(revisions, wiki)
   end
 
   def remove_courses_users(user_ids)
