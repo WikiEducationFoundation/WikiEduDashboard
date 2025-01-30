@@ -87,7 +87,6 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
   end
 
   # Creates course wiki timeslices records for new course wikis
-  # Creates course user timeslices records for new course wiki
   # Takes a collection of Wikis
   def create_timeslices_for_new_course_wiki_records(wikis)
     wikis.each do |wiki|
@@ -96,14 +95,12 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
   end
 
   # Creates course wiki timeslices records for missing timeslices due to a change in the start date
-  # Creates course user wiki timeslices records for missing timeslices
   def create_wiki_timeslices_for_new_course_start_date(wiki)
     create_empty_course_wiki_timeslices(start_dates_backward(wiki), wiki,
                                         needs_update: true)
   end
 
   # Creates course wiki timeslices records for missing timeslices due to a change in the end date
-  # Creates course user wiki timeslices records for missing timeslices
   def create_wiki_timeslices_up_to_new_course_end_date(wiki)
     create_empty_course_wiki_timeslices(start_dates_from_old_end(wiki), wiki,
                                         needs_update: true)
@@ -273,8 +270,8 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
     articles_and_starts.map { |article_id, start| [id_to_wiki_map[article_id], start] }.uniq
   end
 
-  # Returns start dates from the course start up to course end, for timeslices with
-  # TIMESLICE_DURATION.
+  # Returns start dates from the course start to the course end,
+  # ensuring they align with the timeslice duration for the given wiki.
   def start_dates(wiki)
     start_dates = []
     current_start = @course.start
@@ -287,7 +284,7 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
   end
 
   # Returns start dates from the old course start up to the new (previous) course start,
-  # for timeslices with TIMESLICE_DURATION.
+  # ensuring they align with the timeslice duration for the given wiki.
   def start_dates_backward(wiki)
     start_dates = []
     # There is no guarantee that all wikis are in the same state.
@@ -302,7 +299,7 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
   end
 
   # Returns start dates from the old course end up to the new (later) course end,
-  # for timeslices with TIMESLICE_DURATION.
+  # ensuring they align with the timeslice duration for the given wiki.
   def start_dates_from_old_end(wiki)
     start_dates = []
     # There is no guarantee that all wikis are in the same state.
