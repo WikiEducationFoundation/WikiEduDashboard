@@ -287,9 +287,9 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
   # ensuring they align with the timeslice duration for the given wiki.
   def start_dates_backward(wiki)
     start_dates = []
-    # There is no guarantee that all wikis are in the same state.
-    last_start = CourseWikiTimeslice.max_min_course_start(@course)
-    current_start = last_start - timeslice_duration(wiki)
+    old_start = CourseWikiTimeslice.for_course_and_wiki(@course, wiki)
+                                    .minimum(:start)
+    current_start = old_start - timeslice_duration(wiki)
     while current_start >= @course.start
       start_dates << current_start
       current_start -= timeslice_duration(wiki)
@@ -302,8 +302,7 @@ class TimesliceManager # rubocop:disable Metrics/ClassLength
   # ensuring they align with the timeslice duration for the given wiki.
   def start_dates_from_old_end(wiki)
     start_dates = []
-    # There is no guarantee that all wikis are in the same state.
-    current_start = CourseWikiTimeslice.min_max_course_end(@course)
+    current_start = CourseWikiTimeslice.for_course_and_wiki(@course, wiki).maximum(:end)
     while current_start <= @course.end
       start_dates << current_start
       current_start += timeslice_duration(wiki)
