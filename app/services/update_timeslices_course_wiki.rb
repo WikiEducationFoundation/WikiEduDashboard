@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/timeslice_manager"
+require_dependency "#{Rails.root}/lib/timeslice_cleaner"
 require_dependency "#{Rails.root}/lib/articles_courses_cleaner_timeslice"
 
 class UpdateTimeslicesCourseWiki
   def initialize(course)
     @course = course
     @timeslice_manager = TimesliceManager.new(course)
+    @timeslice_cleaner = TimesliceCleaner.new(course)
   end
 
   def run
@@ -33,7 +35,7 @@ class UpdateTimeslicesCourseWiki
     return if wiki_ids.empty?
     Rails.logger.info { "UpdateTimeslicesCourseWiki: Deleting wikis: #{wiki_ids}" }
     # Delete timeslices for the deleted wikis
-    @timeslice_manager.delete_timeslices_for_deleted_course_wikis wiki_ids
+    @timeslice_cleaner.delete_timeslices_for_deleted_course_wikis wiki_ids
     # Delete articles courses
     ArticlesCoursesCleanerTimeslice.clean_articles_courses_for_wiki_ids(@course, wiki_ids)
   end
@@ -54,7 +56,7 @@ class UpdateTimeslicesCourseWiki
       real_timeslice_duration = @timeslice_manager.timeslice_duration(wiki)
       # Continue if timeslice duration didn't change for the wiki
       next unless effective_timeslice_duration != real_timeslice_duration
-      @timeslice_manager.delete_course_wiki_timeslices_after_date([wiki], start - 1.second)
+      @timeslice_cleaner.delete_course_wiki_timeslices_after_date([wiki], start - 1.second)
       @timeslice_manager.create_wiki_timeslices_up_to_new_course_end_date(wiki)
     end
   end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/timeslice_manager"
+require_dependency "#{Rails.root}/lib/timeslice_cleaner"
 
 #= Cleaner for ArticlesCourses that are not part of a course anymore.
 # This class has to be renamed to ArticlesCoursesCleaner when deleting
@@ -227,8 +227,8 @@ class ArticlesCoursesCleanerTimeslice # rubocop:disable Metrics/ClassLength
 
   def mark_as_needs_update(article_batch)
     timeslices = @course.article_course_timeslices.where(article: article_batch)
-    timeslice_manager = TimesliceManager.new(@course)
-    timeslice_manager.reset_timeslices_that_need_update_from_article_timeslices(
+    timeslice_cleaner = TimesliceCleaner.new(@course)
+    timeslice_cleaner.reset_timeslices_that_need_update_from_article_timeslices(
       timeslices
     )
   end
