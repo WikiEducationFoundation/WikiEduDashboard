@@ -3,7 +3,6 @@
 require_dependency "#{Rails.root}/app/workers/daily_update/update_users_worker"
 require_dependency "#{Rails.root}/app/workers/daily_update/update_commons_uploads_worker"
 require_dependency "#{Rails.root}/app/workers/daily_update/find_assignments_worker"
-require_dependency "#{Rails.root}/app/workers/daily_update/clean_articles_courses_worker"
 require_dependency "#{Rails.root}/app/workers/daily_update/import_ratings_worker"
 require_dependency "#{Rails.root}/app/workers/daily_update/import_wikidata_summaries_worker"
 require_dependency "#{Rails.root}/app/workers/daily_update/overdue_training_alert_worker"
@@ -64,9 +63,6 @@ class DailyUpdate
   def update_article_data
     log_message 'Finding articles that match assignment titles'
     FindAssignmentsWorker.set(queue: QUEUE).perform_async
-
-    log_message 'Rebuilding ArticlesCourses for all current students'
-    CleanArticlesCoursesWorker.set(queue: QUEUE).perform_async
 
     log_message 'Updating ratings for all articles'
     ImportRatingsWorker.set(queue: QUEUE).perform_async
