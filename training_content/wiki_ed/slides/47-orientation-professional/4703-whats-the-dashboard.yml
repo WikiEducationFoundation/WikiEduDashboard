@@ -23,3 +23,21 @@ content: |
 
   For each week in the Timeline you'll see the meeting agenda, milestones, tasks
   to focus on for the next week, and helpful resources.
+
+translations:
+  es:
+    title: ¿Qué es el Dashboard?
+    content: |
+      El Dashboard de Wiki Education es el hogar de la página de tu curso, la cual es un plan de estudios multipropósito. El Dashboard no es Wikipedia en sí, sino más bien una herramienta que mantiene un registro de todo el trabajo que haces dentro de Wikipedia. También es donde tendrás acceso a la capacitación en línea, las tareas asignadas, y las grabaciones de las reuniones.
+
+      Ahora, si todavía no lo has hecho, haz clic en "Acceder" en la esquina superior derecha de esta página. Una vez que respondas algunas preguntas, entrarás en el Dashboard.
+
+      Encontrarás la página del curso del Dashboard en el correo electrónico de bienvenida. Asegúrate de guardar la página del curso en tu navegador para poder encontrarla fácilmente. Explora la página y familiarízate con las pestañas.
+
+      <figure class="alt-layout-100">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Generic_screenshot_of_Wiki_Education_Dashboard_menu.png" />
+      </figure>
+
+      En la pestaña **Home (Inicio)**, verás las actividades de la semana actual. Haz clic en la pestaña **Timeline (Línea de Tiempo)** para ver el calendario *completo* del curso.
+
+      Para cada semana en la Timeline (Línea de Tiempo) verás la agenda de las reuniones, los escalones, las tareas para enfocarte en la semana siguiente, y recursos útiles.

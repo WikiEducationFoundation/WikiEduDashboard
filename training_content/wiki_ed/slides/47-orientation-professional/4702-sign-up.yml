@@ -20,3 +20,19 @@ content: |
   <div class="training__button-container">
   <a target="_blank" class="btn btn-primary" href="https://en.wikipedia.org/wiki/Special:CreateAccount">
   Create my account </a>
+
+translations:
+  es:
+    title: Crea una cuenta en Wikipedia
+    content: |
+      Antes de continuar, necesitarás entrar en una cuenta de Wikipedia. **Si ya tienes una cuenta accesible**, ignora esta diapositiva y haz clic en "Acceder/Log in" en la esquina superior derecha de esta ventana.
+
+      **Si todavía no tienes una cuenta de Wikipedia**, continúa:
+
+      Algunas personas utilizan su nombre real en Wikipedia, pero recomendamos usar un seudónimo por razones de privacidad. Todas las contribuciones a Wikipedia quedan vinculadas a tu nombre de usuario indefinidamente, incluyendo errores y ediciones de temas polémicos.
+
+      En un momento, cuando te registres, asegúrate de asociar tu cuenta a una dirección de correo electrónico y responder al correo de confirmación. Los wikipedistas podrán enviarte correos electrónicos, pero tu dirección no será visible públicamente. Una dirección de correo electrónico confirmada es la única forma de recuperar tu cuenta en caso de que olvides la contraseña.
+
+      <div class="training__button-container">
+      <a target="_blank" class="btn btn-primary" href="https://en.wikipedia.org/wiki/Special:CreateAccount">
+      Crear mi cuenta </a>

@@ -10,3 +10,15 @@ content: |
   * Look out for that invitation to join our Slack channel.
 
   See you soon!
+
+translations:
+  es:
+    title: ¿Y ahora qué?
+    content: |
+      ¡Ya estás listo para nuestra primera reunión!
+
+      * <a href="https://en.wikipedia.org/wiki/Special:CreateAccount">Crea</a> tu cuenta en Wikipedia, si aún no lo has hecho. ¡Asegúrate de vincular una dirección de correo electrónico!
+      * Entra al Dashboard de tu página del curso haciendo clic en el **enlace de inscripción** que te enviamos en el correo electrónico de bienvenida. ¡Explora!
+      * Mantente atento a la invitación para unirte a nuestro canal de Slack.
+
+      ¡Nos vemos pronto!
