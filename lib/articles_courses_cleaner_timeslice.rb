@@ -164,13 +164,13 @@ class ArticlesCoursesCleanerTimeslice # rubocop:disable Metrics/ClassLength
         end
 
         tracked_without_articles_courses = tracked - @course.articles.to_a
-        reset(tracked_without_articles_courses)
+        reset(tracked_without_articles_courses, wiki)
       end
     end
   end
 
-  def reset(articles)
-    mark_as_needs_update(articles)
+  def reset(articles, wiki = nil)
+    mark_as_needs_update(articles, wiki)
     delete_article_course(articles.pluck(:id))
     # remove_articles_courses_for_article_ids(articles.pluck(:id))
   end
@@ -225,11 +225,11 @@ class ArticlesCoursesCleanerTimeslice # rubocop:disable Metrics/ClassLength
     end
   end
 
-  def mark_as_needs_update(article_batch)
+  def mark_as_needs_update(article_batch, wiki)
     timeslices = @course.article_course_timeslices.where(article: article_batch)
     timeslice_cleaner = TimesliceCleaner.new(@course)
     timeslice_cleaner.reset_timeslices_that_need_update_from_article_timeslices(
-      timeslices
+      timeslices, wiki:
     )
   end
 

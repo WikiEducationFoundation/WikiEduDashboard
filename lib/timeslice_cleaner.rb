@@ -153,7 +153,7 @@ class TimesliceCleaner
       [timeslice.article_id, timeslice.start.strftime('%Y-%m-%d %H:%M:%S')]
     end.uniq
 
-    return articles_and_starts.map { |_, start| [wiki, start] }.uniq if wiki
+    return articles_and_starts.map { |_, start| [wiki.id, start] }.uniq if wiki
 
     # Fetch articles and map article IDs to their corresponding wiki IDs
     id_to_wiki_map = Article.where(id: articles_and_starts.map(&:first))
