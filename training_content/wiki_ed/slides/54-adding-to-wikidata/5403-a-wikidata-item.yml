@@ -12,7 +12,7 @@ content: |
   This is an example of what a Wikidata item looks like.
 
   At the top are the **label** and the item **identifier** (the Q number). Each item has
-  a unique item identifier that distinguished it from all other items on Wikidata.
+  a unique item identifier that distinguishes it from all other items on Wikidata.
   The label is the name of the item in English (or whatever language you have set
   up). Because Wikidata is multilingual, it's possible that the label will be 
   different depending on the language you have set on your computer.

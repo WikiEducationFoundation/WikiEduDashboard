@@ -12,7 +12,7 @@ content: |
   Unlike most databases, the way editors describe how items relate to each other
   is always changing. Wikidata has an emergent ontology because its community
   of editors is constantly adding new items and organizing them in relation to
-  other items. Some concepts are well established and documented, while others
+  other items. Some concepts are well-established and documented, while others
   could use more details. For example, lighthouses have a clear <a href="https://www.wikidata.org/w/index.php?title=Wikidata:WikiProject_Lighthouses&oldid=930543773">set of properties</a>
   editors use to describe them on Wikidata. On the other hand, descriptions of
   the common parts of <a href="https://www.wikidata.org/w/index.php?title=Wikidata:WikiProject_Energy/Electrical_grids&oldid=960776570">electrical grids</a> are still in development.
