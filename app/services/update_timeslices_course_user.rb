@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/timeslice_cleaner"
 require_dependency "#{Rails.root}/lib/timeslice_manager"
 require_dependency "#{Rails.root}/lib/articles_courses_cleaner_timeslice"
 require_dependency "#{Rails.root}/lib/revision_data_manager"
@@ -7,6 +8,7 @@ require_dependency "#{Rails.root}/lib/revision_data_manager"
 class UpdateTimeslicesCourseUser
   def initialize(course, update_service: nil)
     @course = course
+    @timeslice_cleaner = TimesliceCleaner.new(course)
     @timeslice_manager = TimesliceManager.new(course)
     @update_sercice = update_service
   end
@@ -62,12 +64,12 @@ class UpdateTimeslicesCourseUser
     Rails.logger.info "UpdateTimeslicesCourseUser: Course: #{@course.slug}\
     Removing old users: #{user_ids}"
     # Delete course user wiki timeslices for the deleted users
-    @timeslice_manager.delete_course_user_timeslices_for_deleted_course_users user_ids
+    @timeslice_cleaner.delete_course_user_timeslices_for_deleted_course_users user_ids
 
     # Do this to avoid running the query twice
     @article_course_timeslices_for_users = get_article_course_timeslices_for_users(user_ids)
     # Mark course wiki timeslices that needs to be re-proccesed
-    @timeslice_manager.reset_timeslices_that_need_update_from_article_timeslices(
+    @timeslice_cleaner.reset_timeslices_that_need_update_from_article_timeslices(
       @article_course_timeslices_for_users
     )
     # Clean articles courses timeslices

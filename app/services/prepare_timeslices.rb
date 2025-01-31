@@ -7,13 +7,14 @@ class PrepareTimeslices
   def initialize(course, debugger, update_service: nil)
     @course = course
     @timeslice_manager = TimesliceManager.new(@course)
+    @timeslice_cleaner = TimesliceCleaner.new(@course)
     @debugger = debugger
     @update_service = update_service
   end
 
   # Deletes all existing timeslices and recreates them from scratch.
   def recreate_timeslices
-    @timeslice_manager.delete_timeslices_for_deleted_course_wikis(@course.wikis.pluck(:wiki_id))
+    @timeslice_cleaner.delete_timeslices_for_deleted_course_wikis(@course.wikis.pluck(:wiki_id))
     # Destroy articles courses records to re-create article courses timeslices, except for
     # untracked articles courses so that we don't miss they're untracked.
     @course.articles_courses.tracked.destroy_all

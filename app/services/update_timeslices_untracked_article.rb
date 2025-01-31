@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/timeslice_manager"
+require_dependency "#{Rails.root}/lib/timeslice_cleaner"
 require_dependency "#{Rails.root}/lib/articles_courses_cleaner_timeslice"
 require_dependency "#{Rails.root}/lib/revision_data_manager"
 
 class UpdateTimeslicesUntrackedArticle
   def initialize(course)
     @course = course
-    @timeslice_manager = TimesliceManager.new(course)
+    @timeslice_cleaner = TimesliceCleaner.new(course)
   end
 
   def run
@@ -29,7 +29,7 @@ class UpdateTimeslicesUntrackedArticle
     # Only reprocess those non-empty timeslices
     non_empty = @article_course_timeslices_to_untrack.where.not(user_ids: nil)
     # Mark course wiki timeslices that needs to be re-proccesed
-    @timeslice_manager.reset_timeslices_that_need_update_from_article_timeslices(non_empty,
+    @timeslice_cleaner.reset_timeslices_that_need_update_from_article_timeslices(non_empty,
                                                                                  soft: true)
     untrack_timeslices
   end
@@ -53,7 +53,7 @@ class UpdateTimeslicesUntrackedArticle
     non_empty = @article_course_timeslices_to_retrack.where.not(user_ids: nil)
 
     # Mark course wiki timeslices that needs to be re-proccesed
-    @timeslice_manager.reset_timeslices_that_need_update_from_article_timeslices(non_empty)
+    @timeslice_cleaner.reset_timeslices_that_need_update_from_article_timeslices(non_empty)
     retrack_timeslices
   end
 

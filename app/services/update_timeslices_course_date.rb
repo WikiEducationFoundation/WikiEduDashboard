@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/timeslice_manager"
+require_dependency "#{Rails.root}/lib/timeslice_cleaner"
 require_dependency "#{Rails.root}/lib/articles_courses_cleaner_timeslice"
 
 class UpdateTimeslicesCourseDate
   def initialize(course)
     @course = course
     @timeslice_manager = TimesliceManager.new(course)
+    @timeslice_cleaner = TimesliceCleaner.new(course)
   end
 
   def run
@@ -62,8 +64,8 @@ class UpdateTimeslicesCourseDate
     Removing data prior to: #{@course.start}"
 
     # Delete course and course user timeslices
-    @timeslice_manager.delete_course_wiki_timeslices_prior_to_start_date
-    @timeslice_manager.delete_course_user_wiki_timeslices_prior_to_start_date
+    @timeslice_cleaner.delete_course_wiki_timeslices_prior_to_start_date
+    @timeslice_cleaner.delete_course_user_wiki_timeslices_prior_to_start_date
 
     # Delete articles courses
     ArticlesCoursesCleanerTimeslice.clean_articles_courses_prior_to_course_start(@course)
@@ -76,8 +78,8 @@ class UpdateTimeslicesCourseDate
     Removing data after to: #{@course.end}"
 
     # Delete course and course user timeslices
-    @timeslice_manager.delete_course_wiki_timeslices_after_end_date
-    @timeslice_manager.delete_course_user_wiki_timeslices_after_end_date
+    @timeslice_cleaner.delete_course_wiki_timeslices_after_end_date
+    @timeslice_cleaner.delete_course_user_wiki_timeslices_after_end_date
 
     # Delete articles courses
     ArticlesCoursesCleanerTimeslice.clean_articles_courses_after_course_end(@course)
