@@ -40,9 +40,9 @@ export class ArticleScroll {
     // Scrolling Logic, Scrolls to paragraph that contains revision by user
     scrollTo(name, scrollBox) {
         this.bump = false;
-        const paragraphs = this.scrollObject[name].filteredParagraphs;
+        const paragraphs = this.scrollObject[name]?.filteredParagraphs || [];
         const length = paragraphs.length;
-        this.nextPosition = paragraphs[this.scrollObject[name].index].coordinates;
+        this.nextPosition = paragraphs[this.scrollObject[name]?.index]?.coordinates ?? null;
 
         // Finds closest edit if user switchs to a different editor
         if (name !== this.currentName && this.currentName !== null) {

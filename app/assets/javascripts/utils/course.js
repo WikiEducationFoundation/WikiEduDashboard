@@ -7,7 +7,7 @@ document.onreadystatechange = () => {
       if (e.target.tagName === 'BUTTON') return;
 
       const loc = e.currentTarget.dataset.link;
-      if (e.metaKey || (window.navigator.userAgentData.platform.toLowerCase().indexOf('win') !== -1 && e.ctrlKey)) {
+      if (e.metaKey || (window.navigator.userAgentData?.platform?.toLowerCase().includes('win') && e.ctrlKey)) {
       window.open(loc, '_blank');
       } else {
         window.location = loc;
@@ -18,7 +18,7 @@ document.onreadystatechange = () => {
   // Course sorting
   // only sort if there are tables to sort
   let courseList;
-  if (document.querySelectorAll('#courses table').length) {
+  if (isTableValid('#courses')) {
     courseList = new List('courses', {
       page: 500,
       valueNames: [
@@ -31,7 +31,7 @@ document.onreadystatechange = () => {
   // Course Results sorting
   // only sort if there are tables to sort
   let courseResultList;
-  if (document.querySelectorAll('#course_results table').length) {
+  if (isTableValid('#course_results')) {
     courseResultList = new List('course_results', {
       page: 500,
       valueNames: [
@@ -44,7 +44,7 @@ document.onreadystatechange = () => {
   // Campaign sorting
   // only sort if there are tables to sort
   let campaignList;
-  if (document.querySelectorAll('#campaigns table').length) {
+  if (isTableValid('#campaigns')) {
     campaignList = new List('campaigns', {
       page: 500,
       valueNames: [
@@ -56,7 +56,7 @@ document.onreadystatechange = () => {
   // Article sorting
   // only sort if there are tables to sort
   let articlesList;
-  if (document.querySelectorAll('#campaign-articles table').length) {
+  if (isTableValid('#campaign-articles')) {
     articlesList = new List('campaign-articles', {
       page: 10000,
       valueNames: [
@@ -68,13 +68,27 @@ document.onreadystatechange = () => {
   // Student sorting
   // only sort if there are tables to sort
   let studentsList;
-  if (document.querySelectorAll('#users table').length) {
+  if (isTableValid('#users')) {
     studentsList = new List('users', {
       page: 10000,
       valueNames: [
         'username', 'revision-count', 'title'
       ]
     });
+  }
+
+  function isTableValid(selector) {
+    const tables = document.querySelectorAll(`${selector} table`);
+    if (tables.length === 0) return false;
+
+    let isValid = false;
+    tables.forEach((table) => {
+      const tbody = table.querySelector('tbody');
+      if (tbody && tbody.children.length > 0) {
+        isValid = true;
+      }
+    });
+    return isValid;
   }
 
   // for use on campaign/programs page

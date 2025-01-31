@@ -8,7 +8,6 @@ class PetScanApi
   def get_data(psid, update_service: nil)
     url = query_url(psid)
     response = petscan.get url
-    puts response.body
     Oj.load(response.body)
   rescue StandardError => e
     log_error(e, update_service:,

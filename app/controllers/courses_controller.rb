@@ -142,10 +142,10 @@ class CoursesController < ApplicationController
   def classroom_program_students_json
     courses = Course.classroom_program_students
     render json: courses.as_json(
-      only: %i[title created_at updated_at start end school term slug],
+      only: %i[title school slug],
       include: {
         students: {
-          only: %i[username created_at updated_at permissions]
+          only: %i[username]
         }
       }
     )
@@ -154,13 +154,13 @@ class CoursesController < ApplicationController
   def classroom_program_students_and_instructors_json
     courses = Course.classroom_program_students_and_instructors
     render json: courses.as_json(
-      only: %i[title created_at updated_at start end school term slug],
+      only: %i[title school slug],
       include: {
         students: {
-          only: %i[username created_at updated_at permissions]
+          only: %i[username]
         },
         instructors: {
-          only: %i[username created_at updated_at permissions]
+          only: %i[username]
         }
       }
     )
@@ -169,10 +169,10 @@ class CoursesController < ApplicationController
   def fellows_cohort_students_json
     courses = Course.fellows_cohort_students
     render json: courses.as_json(
-      only: %i[title created_at updated_at start end school term slug],
+      only: %i[title school slug],
       include: {
         students: {
-          only: %i[username created_at updated_at permissions]
+          only: %i[username]
         }
       }
     )
@@ -181,13 +181,13 @@ class CoursesController < ApplicationController
   def fellows_cohort_students_and_instructors_json
     courses = Course.fellows_cohort_students_and_instructors
     render json: courses.as_json(
-      only: %i[title created_at updated_at start end school term slug],
+      only: %i[title school slug],
       include: {
         students: {
-          only: %i[username created_at updated_at permissions]
+          only: %i[username]
         },
         instructors: {
-          only: %i[username created_at updated_at permissions]
+          only: %i[username]
         }
       }
     )
@@ -408,13 +408,12 @@ class CoursesController < ApplicationController
   def update_last_reviewed
     username = params.dig(:course, 'last_reviewed', 'username')
     timestamp = params.dig(:course, 'last_reviewed', 'timestamp')
-    if username && timestamp
-      @course.flags['last_reviewed'] = {
-        'username' => username,
-        'timestamp' => timestamp
-      }
-      @course.save
-    end
+    return unless username && timestamp
+    @course.flags['last_reviewed'] = {
+      'username' => username,
+      'timestamp' => timestamp
+    }
+    @course.save
   end
 
   def handle_post_course_creation_updates

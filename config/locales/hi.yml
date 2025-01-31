@@ -423,6 +423,7 @@ hi:
       new:
         form_placeholder: सदस्यनाम
   timeline:
+    done: पूर्ण हुआ
     empty_week_3: या
   training:
     next: अगला पृष्ठ

@@ -285,6 +285,8 @@ qqq:
       Label for the description field when creating a new campaign
       {{Identical|Description}}
     delete_campaign: Button to delete a campaign
+    enable_account_requests_doc: Tooltip explaining what the 'Enable Account Requests'
+      button does
     none: |-
       Option for a course with no campaign
       {{Identical|None}}

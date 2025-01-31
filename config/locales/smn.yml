@@ -64,6 +64,7 @@ smn:
     article_link: Artikkâl
     add_available_submit: Lasseet artikkâlijd
     remove: Siho
+    submit: Vuolgât
   campaign:
     alert_user_id: Kevttee
     description: Kuvvim
@@ -80,6 +81,7 @@ smn:
     download_stats_data: Luođii lovottuvâid
     feedback: Macâttâs
     home_wiki: Päikkiwiki
+    loading: Luođiimin…
     new_account_email: Šleđgâpostâčujottâs
     overview: Päikki
     please_log_in: Čáládât siisâ.
@@ -93,6 +95,7 @@ smn:
     creator:
       save_cloned_course: Vuorkkii
       scoping_methods:
+        categories: Luokah
         templates: Myenstereh
   editable:
     cancel: Jooskâ
@@ -105,6 +108,7 @@ smn:
     upload_count: Vuorkkiimeh Commonsin
     removed: Sikkum
   namespace:
+    book: Kirje
     lexeme: Lekseem
   recent_activity:
     image: Kove
@@ -133,7 +137,9 @@ smn:
   update_username:
     label: Uđđâ kevtteenommâ
   uploads:
+    categories: Luokah
     image: Kove
+    license: 'Liiseens:'
   users:
     first_name: Ovdânommâ
     last_name: Suhânommâ
