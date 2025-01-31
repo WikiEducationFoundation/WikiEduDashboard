@@ -177,4 +177,77 @@ describe TimesliceCleaner do
       expect(course.course_user_wiki_timeslices.size).to eq(2)
     end
   end
+
+  describe '#delete_course_wiki_timeslices_after_date' do
+    before do
+      create(:courses_wikis, wiki: wikibooks, course:)
+      timeslice_manager.create_timeslices_for_new_course_wiki_records([wikibooks,
+                                                                       wikidata,
+                                                                       enwiki])
+      course.reload
+    end
+
+    it 'deletes course wiki timeslices after date properly' do
+      expect(course.course_wiki_timeslices.size).to eq(333)
+
+      timeslice_cleaner.delete_course_wiki_timeslices_after_date([wikidata, enwiki],
+                                                                 '2024-04-01'.to_datetime)
+      course.reload
+
+      expect(course.course_wiki_timeslices.size).to eq(295)
+    end
+  end
+
+  describe '#reset_timeslices_that_need_update_from_article_timeslices' do
+    let(:timeslices) { [] }
+
+    before do
+      timeslice_manager.create_timeslices_for_new_course_wiki_records([wikidata,
+                                                                       enwiki])
+      create(:course_user_wiki_timeslice, course:, user_id: 1, wiki: enwiki,
+              start: '2024-01-08'.to_datetime, end: '2024-01-09'.to_datetime)
+      create(:course_user_wiki_timeslice, course:, user_id: 1, wiki: enwiki,
+              start: '2024-04-10'.to_datetime, end: '2024-04-11'.to_datetime)
+      create(:course_user_wiki_timeslice, course:, user_id: 1, wiki: wikidata,
+              start: '2024-04-11'.to_datetime, end: '2024-04-12'.to_datetime)
+      timeslices << create(:article_course_timeslice, course:, article: article1,
+             start: '2024-01-08'.to_datetime, end: '2024-01-09'.to_datetime)
+      timeslices << create(:article_course_timeslice, course:, article: article1,
+             start: '2024-04-10'.to_datetime, end: '2024-04-11'.to_datetime)
+      create(:article_course_timeslice, course:, article: article3,
+             start: '2024-04-11'.to_datetime, end: '2024-04-12'.to_datetime)
+    end
+
+    it 'resets timeslices softly properly for unknown wiki' do
+      timeslice_cleaner.reset_timeslices_that_need_update_from_article_timeslices(timeslices,
+                                                                                  soft: true)
+      expect(course.article_course_timeslices.count).to eq(3)
+      expect(course.course_wiki_timeslices.where(needs_update: true).count).to eq(2)
+      expect(course.course_user_wiki_timeslices.count).to eq(1)
+    end
+
+    it 'resets timeslices hardly properly for unknown wiki' do
+      timeslice_cleaner.reset_timeslices_that_need_update_from_article_timeslices(timeslices)
+      expect(course.article_course_timeslices.count).to eq(1)
+      expect(course.course_wiki_timeslices.where(needs_update: true).count).to eq(2)
+      expect(course.course_user_wiki_timeslices.count).to eq(1)
+    end
+
+    it 'resets timeslices softly properly for known wiki' do
+      timeslice_cleaner.reset_timeslices_that_need_update_from_article_timeslices(timeslices,
+                                                                                  wiki: enwiki,
+                                                                                  soft: true)
+      expect(course.article_course_timeslices.count).to eq(3)
+      expect(course.course_wiki_timeslices.where(needs_update: true).count).to eq(2)
+      expect(course.course_user_wiki_timeslices.count).to eq(1)
+    end
+
+    it 'resets timeslices hardly properly for known wiki' do
+      timeslice_cleaner.reset_timeslices_that_need_update_from_article_timeslices(timeslices,
+                                                                                  wiki: enwiki)
+      expect(course.article_course_timeslices.count).to eq(1)
+      expect(course.course_wiki_timeslices.where(needs_update: true).count).to eq(2)
+      expect(course.course_user_wiki_timeslices.count).to eq(1)
+    end
+  end
 end
