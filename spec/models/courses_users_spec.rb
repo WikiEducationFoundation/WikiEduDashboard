@@ -149,7 +149,6 @@ describe CoursesUsers, type: :model do
              character_sum_ms: 9000,
              character_sum_us: 500,
              character_sum_draft: 400,
-             total_uploads: 200,
              references_count: 4,
              revision_count: 5)
 
@@ -162,7 +161,6 @@ describe CoursesUsers, type: :model do
              character_sum_ms: 10,
              character_sum_us: 20,
              character_sum_draft: 30,
-             total_uploads: 200,
              references_count: 3,
              revision_count: 1)
 
@@ -176,7 +174,6 @@ describe CoursesUsers, type: :model do
              character_sum_ms: 0,
              character_sum_us: 0,
              character_sum_draft: 0,
-             total_uploads: 0,
              references_count: 0,
              revision_count: 0)
 

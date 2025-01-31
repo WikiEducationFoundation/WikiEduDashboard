@@ -15,7 +15,6 @@
 #  tracked          :boolean          default(TRUE)
 #  user_ids         :text(65535)
 #  first_revision   :datetime
-#  revision_count   :integer          default(0)
 #
 
 FactoryBot.define do

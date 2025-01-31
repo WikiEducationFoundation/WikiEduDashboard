@@ -5,22 +5,18 @@
 # Table name: course_wiki_timeslices
 #
 #  id                   :bigint           not null, primary key
+#  course_id            :integer          not null
+#  wiki_id              :integer          not null
 #  start                :datetime
 #  end                  :datetime
-#  last_mw_rev_id       :integer
 #  character_sum        :integer          default(0)
 #  references_count     :integer          default(0)
 #  revision_count       :integer          default(0)
-#  upload_count         :integer          default(0)
-#  uploads_in_use_count :integer          default(0)
-#  upload_usages_count  :integer          default(0)
-#  created_at           :datetime         not null
-#  updated_at           :datetime         not null
-#  course_id            :integer          not null
-#  wiki_id              :integer          not null
+#  stats                :text(65535)
 #  last_mw_rev_datetime :datetime
 #  needs_update         :boolean          default(FALSE)
-#  stats                :text(65535)
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
 #
 class CourseWikiTimeslice < ApplicationRecord
   belongs_to :course
@@ -76,9 +72,6 @@ class CourseWikiTimeslice < ApplicationRecord
     update_character_sum
     update_references_count
     update_revision_count
-    update_upload_count
-    update_uploads_in_use_count
-    update_upload_usages_count
     update_stats
     update_needs_update
     save
@@ -119,21 +112,6 @@ class CourseWikiTimeslice < ApplicationRecord
     end
 
     self.revision_count = tracked_revisions.count { |rev| !rev.deleted && !rev.system }
-  end
-
-  def update_upload_count
-    # TODO: count only uploads updated at during the timeslice range
-    self.upload_count = course.uploads.count
-  end
-
-  def update_uploads_in_use_count
-    # TODO: count only uploads updated at during the timeslice range
-    self.uploads_in_use_count = course.uploads_in_use.count
-  end
-
-  def update_upload_usages_count
-    # TODO: count only uploads updated at during the timeslice range
-    self.upload_usages_count = course.uploads_in_use.sum(:usage_count)
   end
 
   def update_stats
