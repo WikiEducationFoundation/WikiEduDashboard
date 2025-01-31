@@ -7,7 +7,11 @@ export const printArticleViewer = () => {
   pageHeader.classList.add('header-print-article-viewer');
 
   pageHeader.appendChild(document.querySelector('.article-viewer-title').cloneNode(true));
-  pageHeader.appendChild(document.querySelector('.user-legend-wrap').cloneNode(true));
+
+  const userLegendWrap = document.querySelector('.user-legend-wrap');
+  if (userLegendWrap) {
+    pageHeader.appendChild(userLegendWrap.cloneNode(true));
+  }
 
   doc.write(pageHeader.outerHTML);
   doc.write(document.querySelector('#article-scrollbox-id').innerHTML);

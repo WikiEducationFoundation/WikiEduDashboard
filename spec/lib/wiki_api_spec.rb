@@ -6,33 +6,45 @@ require "#{Rails.root}/lib/wiki_api"
 class UnexpectedError < StandardError; end
 
 describe WikiApi do
-  describe 'error handling and calls ApiErrorHandling method' do
+  describe 'handles errors by calling ApiErrorHandling method and raising a PageFetchError' do
     let(:subject) { described_class.new.get_page_content('Ragesoss') }
 
     it 'handles mediawiki 503 errors gracefully' do
       stub_wikipedia_503_error
-      expect(subject).to eq(nil)
+      expect { subject }.to raise_error(
+        WikiApi::PageFetchError,
+        /Failed to fetch content for Ragesoss with response status: 503/
+      )
     end
 
     it 'handles timeout errors gracefully' do
       allow_any_instance_of(MediawikiApi::Client).to receive(:send)
         .and_raise(Faraday::TimeoutError)
       expect_any_instance_of(described_class).to receive(:log_error).once
-      expect(subject).to eq(nil)
+      expect { subject }.to raise_error(
+        WikiApi::PageFetchError,
+        /Failed to fetch content for Ragesoss with response status: nil/
+      )
     end
 
     it 'handles API errors gracefully' do
       allow_any_instance_of(MediawikiApi::Client).to receive(:send)
         .and_raise(MediawikiApi::ApiError)
       expect_any_instance_of(described_class).to receive(:log_error).once
-      expect(subject).to eq(nil)
+      expect { subject }.to raise_error(
+        WikiApi::PageFetchError,
+        /Failed to fetch content for Ragesoss with response status: nil/
+      )
     end
 
     it 'handles HTTP errors gracefully' do
       allow_any_instance_of(MediawikiApi::Client).to receive(:send)
         .and_raise(MediawikiApi::HttpError, '')
       expect_any_instance_of(described_class).to receive(:log_error).once
-      expect(subject).to eq(nil)
+      expect { subject }.to raise_error(
+        WikiApi::PageFetchError,
+        /Failed to fetch content for Ragesoss with response status: nil/
+      )
     end
   end
 
@@ -165,6 +177,18 @@ describe WikiApi do
         username = 'RagesossRagesossRagesoss'
         user_id = described_class.new.get_user_id(username)
         expect(user_id).to be_nil
+      end
+    end
+  end
+
+  describe '#get_user_info' do
+    let(:wiki) { Wiki.new(language: 'en', project: 'wikipedia') }
+
+    context 'when mediawiki query returns nil' do
+      it 'returns early without raising an error' do
+        allow_any_instance_of(described_class).to receive(:mediawiki).and_return(nil)
+        expect { described_class.new.get_user_info('Ragesoss') }.not_to raise_error
+        expect(described_class.new.get_user_info('Ragesoss')).to be_nil
       end
     end
   end

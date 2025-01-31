@@ -412,6 +412,7 @@ en:
     delete_course_tooltip: Delete and remove from the campaign.
     disable_account_requests: Disable account requests
     enable_account_requests: Enable account requests
+    enable_account_requests_doc: The account requests feature adds an account request form to the enrollment link for an event. Users who don't have accounts yet can enter their email and desired username, and event facilitators can use the Dashboard to create the requested accounts. Users who request accounts are automatically added to the event upon account creation.
     newest_campaigns: Newest Campaigns
     featured_campaigns: Featured Campaigns
     instructors_course: instructors by course
@@ -1294,6 +1295,42 @@ en:
         already_is_not: "%{username} is not a Special User!"
         demote_success: "%{username} is now just a user."
 
+  status:
+    active_jobs: Active jobs
+    active_jobs_doc: The number of currently processing jobs.
+    all_queues_operational: All Queues Operational
+    all_queues_not_operational: All Queues Operational except
+    constant_update: Constant update
+    constant_update_description: Constant updates are independent of the main course stats, pulling in revision metadata, generating alerts, and doing other data and network-intensive tasks, for all current courses.
+    constant_update_doc: Handles transactional jobs like wiki edits and sending email. 
+    daily_update: Daily update
+    daily_update_description: This pulls in additional data and performs other tasks that do not need to be done many times per day.
+    daily_update_doc: Handles once-daily long-running data update tasks.
+    default: Default
+    default_description: Schedule course updates by sorting courses into queues depending on how long they run.
+    default_doc: Handles frequently-run tasks like adding courses to the update queues.
+    enqueued_jobs: Enqueued jobs
+    enqueued_jobs_doc: The number of currently enqueued jobs in all queues.
+    latency: Latency
+    latency_doc: The waiting time for jobs to start processing in the queue. High latency may indicate a busy system or processing delays.
+    long_update: Long update
+    long_update_description: Long updates process courses with more than 10,000 revisions.
+    long_update_doc: Handles updates for large courses.
+    medium_update: Medium update
+    medium_update_description: Medium updates process courses with fewer than 10,000 revisions.
+    medium_update_doc: Handles updates for typical-sized courses.
+    no_info: No info available.
+    purpose: Purpose
+    queues_overview: Queues Overview
+    queue: Queue
+    short_update: Short update
+    short_update_description: Short updates process courses with fewer than 1,000 revisions.
+    short_update_doc: Handles updates for small courses.
+    sidekiq_stats: Sidekiq Stats
+    size: Size
+    size_doc: The number of jobs within a queue.
+    status: Status
+
   # Suggestions source: https://en.wikipedia.org/wiki/Template:Grading_scheme
   suggestions:
     editing: Editing Suggestions
@@ -1352,6 +1389,7 @@ en:
     delete_weeks_confirmation: "Are you sure you want to delete this entire timeline and start over? \n\nThis cannot be undone."
     discard_all_changes: Discard All Changes
     delete_timeline_and_start_over: Delete Timeline
+    done: Done
     due_default: Due next week
     edit_titles: Edit Week Titles
     edit_titles_info: Edit week titles in timeline. Only weeks with scheduled meetings can be given custom titles. If any custom titles are used, weeks with no meetings will be dated instead of numbered.
@@ -1621,6 +1659,7 @@ en:
       assignments. Click the date to change between unselected, selected, and
       holiday state. If you have no holidays, check "I have no class holidays"
       below.
+    confirm_course_dates: Confirm the course's start and end dates.
     confirm_dates: Choose the course dates, weekly meetings, and holidays for your course.
     course_dates: Course Dates
     min_weeks: >
@@ -1631,6 +1670,7 @@ en:
     minimum_options:
       one: Please select %{count} or more options.
       other: Please select %{count} or more options.
+    no_class_holidays: I have no class holidays
     read_less: Read Less
     read_more: Read More
     review_selections: >
@@ -1870,9 +1910,16 @@ en:
         note_edit_cancel_button_focused: "Cancel note edit {{title}}"
         note_delete_button_focused: "Delete the note {{title}}"
         note_edit_mode: "Entered Edit mode for note titled: {{title}}. You can now edit the title and content."
-
+  
   customize_error_message:
     JSONP_request_failed: "The request to fetch data from Wikipedia has timed out. This may be due to a slow internet connection or temporary server issues. Please try again later."
 
   tagged_courses:
     download_csv: 'Download CSV'
+
+  weekday_picker:
+    aria:
+      weekday_select: "{{weekday}} Press Return key to select"
+      weekday_selected: "{{weekday}} Selected Press Return Key to unselect"
+      weekday_unselected: "{{weekday}} Unselected"
+      

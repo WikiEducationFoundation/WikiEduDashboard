@@ -33,6 +33,8 @@ class WikiApi
       response.body.force_encoding('UTF-8')
     when 404
       ''
+    else
+      raise PageFetchError.new(page_title, response&.status)
     end
   end
 
@@ -47,7 +49,7 @@ class WikiApi
                    ususers: username,
                    usprop: 'centralids|registration' }
     user_data = mediawiki('query', user_query)
-    return unless user_data.data['users'].any?
+    return unless user_data&.data&.dig('users')&.any?
     user_data.data['users'][0]
   end
 
@@ -119,6 +121,13 @@ class WikiApi
   def too_many_requests?(e)
     return false unless e.instance_of?(MediawikiApi::HttpError)
     e.status == 429
+  end
+
+  class PageFetchError < StandardError
+    def initialize(page, status)
+      message = "Failed to fetch content for #{page} with response status: #{status.inspect}"
+      super(message)
+    end
   end
 
   TYPICAL_ERRORS = [Faraday::TimeoutError,

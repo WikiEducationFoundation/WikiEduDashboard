@@ -33,7 +33,8 @@ class TrainingModulesUsers < ApplicationRecord
     # If module doesn't have a sandbox_location, there's nothing to check.
     return true unless training_module.sandbox_location
 
-    sandbox_content = WikiApi.new(wiki).get_page_content exercise_sandbox_location
+    # Via the API, we send the title without the URL encoding of special characters.
+    sandbox_content = WikiApi.new(wiki).get_page_content CGI.unescape exercise_sandbox_location
     sandbox_content.present?
   end
 

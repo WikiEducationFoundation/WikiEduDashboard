@@ -58,7 +58,8 @@ describe 'multiwiki assignments', type: :feature, js: true do
 
       within('#users') do
         first('textarea').set(
-          "Terre\nhttps://fr.wikipedia.org/wiki/Anglais"
+          "Terre\nhttps://fr.wikipedia.org/wiki/Anglais",
+          rapid: false
         )
       end
       click_button 'Assign all'
@@ -86,7 +87,7 @@ describe 'multiwiki assignments', type: :feature, js: true do
       button.click
 
       within('#users') do
-        find('textarea', visible: true).set('No le des prisa, dolor')
+        find('textarea', visible: true).set('No le des prisa, dolor', rapid: false)
         click_link 'Change'
         find('div.wiki-select').click
         within('.wiki-select') do
@@ -116,7 +117,7 @@ describe 'multiwiki assignments', type: :feature, js: true do
       expect(button).to have_content 'Assign/remove an article'
       button.click
       within('#users') do
-        first('textarea').set('https://wikisource.org/wiki/Heyder_Cansa')
+        first('textarea').set('https://wikisource.org/wiki/Heyder_Cansa', rapid: false)
       end
       click_button 'Assign'
       visit "/courses/#{course.slug}/students/articles"
@@ -139,7 +140,8 @@ describe 'multiwiki assignments', type: :feature, js: true do
       expect(button).to have_content 'Assign/remove an article'
       button.click
       within('#users') do
-        first('textarea').set('https://incubator.wikimedia.org/wiki/Wp/kiu/Heyder_Cansa')
+        first('textarea').set('https://incubator.wikimedia.org/wiki/Wp/kiu/Heyder_Cansa',
+                              rapid: false)
       end
       click_button 'Assign'
       visit "/courses/#{course.slug}/students/articles"

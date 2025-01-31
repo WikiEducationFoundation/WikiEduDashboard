@@ -139,6 +139,60 @@ class CoursesController < ApplicationController
     @alerts = current_user&.admin? ? @course.alerts : @course.public_alerts
   end
 
+  def classroom_program_students_json
+    courses = Course.classroom_program_students
+    render json: courses.as_json(
+      only: %i[title school slug],
+      include: {
+        students: {
+          only: %i[username]
+        }
+      }
+    )
+  end
+
+  def classroom_program_students_and_instructors_json
+    courses = Course.classroom_program_students_and_instructors
+    render json: courses.as_json(
+      only: %i[title school slug],
+      include: {
+        students: {
+          only: %i[username]
+        },
+        instructors: {
+          only: %i[username]
+        }
+      }
+    )
+  end
+
+  def fellows_cohort_students_json
+    courses = Course.fellows_cohort_students
+    render json: courses.as_json(
+      only: %i[title school slug],
+      include: {
+        students: {
+          only: %i[username]
+        }
+      }
+    )
+  end
+
+  def fellows_cohort_students_and_instructors_json
+    courses = Course.fellows_cohort_students_and_instructors
+    render json: courses.as_json(
+      only: %i[title school slug],
+      include: {
+        students: {
+          only: %i[username]
+        },
+        instructors: {
+          only: %i[username]
+        }
+      }
+    )
+  end
+
   ##########################
   # User-initiated actions #
   ##########################
@@ -354,13 +408,12 @@ class CoursesController < ApplicationController
   def update_last_reviewed
     username = params.dig(:course, 'last_reviewed', 'username')
     timestamp = params.dig(:course, 'last_reviewed', 'timestamp')
-    if username && timestamp
-      @course.flags['last_reviewed'] = {
-        'username' => username,
-        'timestamp' => timestamp
-      }
-      @course.save
-    end
+    return unless username && timestamp
+    @course.flags['last_reviewed'] = {
+      'username' => username,
+      'timestamp' => timestamp
+    }
+    @course.save
   end
 
   def handle_post_course_creation_updates

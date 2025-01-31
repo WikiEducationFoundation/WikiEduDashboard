@@ -44,6 +44,7 @@ This project welcomes contributions, and we try to be as newbie-friendly as poss
 - [Interface strings & Internationalization](docs/i18n.md)
 - [OAuth setup](docs/oauth.md)
 - [Deployment](docs/deploy.md)
+- [Admin Guide](docs/admin_guide.md) - Overview of the Dashboard infrastructure, including servers, tools, dependencies, and troubleshooting resources.
 - [Tools & Integrations](docs/tools.md)
 - [Using Docker for development](docs/docker.md)
 - [Model diagram](erd.pdf)

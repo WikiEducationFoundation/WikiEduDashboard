@@ -65,6 +65,7 @@ Rails.application.routes.draw do
   #PersonalDataController
   controller :personal_data do
     get 'download_personal_data' => 'personal_data#show'
+    get 'download_personal_data_csv' => 'personal_data#personal_data_csv'
   end
 
   # Users
@@ -168,6 +169,19 @@ Rails.application.routes.draw do
           titleterm: /[^\/]*/,
           _subsubsubpage: /.*/
         }
+
+    get '/courses/classroom_program_students.json',
+        to: 'courses#classroom_program_students_json',
+        as: :classroom_program_students
+    get '/courses/classroom_program_students_and_instructors.json',
+        to: 'courses#classroom_program_students_and_instructors_json',
+        as: :classroom_program_students_and_instructors
+    get '/courses/fellows_cohort_students.json',
+        to: 'courses#fellows_cohort_students_json',
+        as: :fellows_cohort_students
+    get '/courses/fellows_cohort_students_and_instructors.json',
+        to: 'courses#fellows_cohort_students_and_instructors_json',
+        as: :fellows_cohort_students_and_instructors
 
     post '/courses/:slug/students/add_to_watchlist', to: 'courses/watchlist#add_to_watchlist', as: 'add_to_watchlist',
         constraints: { slug: /.*/ }
@@ -467,6 +481,8 @@ Rails.application.routes.draw do
 
   get '/private_information' => 'about_this_site#private_information'
   get '/styleguide' => 'styleguide#index'
+
+  get '/status' => 'system_status#index'
 
   # Errors
   match '/404', to: 'errors#file_not_found', via: :all
