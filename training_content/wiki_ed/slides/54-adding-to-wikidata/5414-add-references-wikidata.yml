@@ -10,7 +10,7 @@ content: |
   Click "+ add reference". Wikidata allows you to be specific in describing how
   you are referencing something. In this case we know this fact is **stated in**
   *Politics in a Half Made Society*. We can click in the property box and pick
-  "stated in", and start typing
+  "stated in", and start typing.
 
   <figure class="alt-layout-100">
     <img src="https://upload.wikimedia.org/wikipedia/commons/0/0a/Adding_a_reference_to_a_Wikidata_item.png" />

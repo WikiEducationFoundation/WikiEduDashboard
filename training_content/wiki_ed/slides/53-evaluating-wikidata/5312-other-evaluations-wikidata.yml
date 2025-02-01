@@ -5,12 +5,12 @@ content: |
   There are a few other methods by which you can evaluate the quality of data on
   Wikidata.
 
-  Wikidata has a **querying** service which you can use to see if items are missing
+  Wikidata has a **querying** service that you can use to see if items are missing
   properties, values, or other information.
 
   See what's missing: tools like <a href="https://tabernacle.toolforge.org/#/">TABernacle</a> help you easily identify gaps in
   information by selecting properties to compare in a tabular format (think
-  filling the blanks in a spreadsheet).
+  filling in the blanks in a spreadsheet).
 
   There are several other Wikidata games that invite editors to fill in the
   blanks, enhance descriptions and add non-existent information to items.
@@ -23,9 +23,9 @@ content: |
   * <a href="https://wikidata-game.toolforge.org/distributed/#">The Distributed Game</a> -
   Fill in missing information about items such as what images depict, missing
   birth dates, and items without descriptions
-  * <a href="https://wikishootme.toolforge.org/">Wikishootme</a> - A webapp 
+  * <a href="https://wikishootme.toolforge.org/">Wikishootme</a> - A web app 
   that alerts editors when they are near Wikidata items without an image.
-  Take a photo, upload directly to Commons, and the particular Wikidata item
+  Take a photo, upload it directly to Commons, and the particular Wikidata item
   * <a href="https://wikidata-terminator.toolforge.org/#/">Terminator</a> -
   Items are missing labels, descriptions, and articles in many languages. Help
   change that with this game.

@@ -14,3 +14,15 @@ content: |
   <figure class="alt-layout-100">
   <img src="https://upload.wikimedia.org/wikipedia/commons/4/40/Resources_tab_of_Wiki_Education%27s_Dashboard.png" />
   </figure>
+
+translations:
+  es:
+    title: Examina las capacitaciones
+    content: |
+      Te asignaremos capacitaciones que te guiarán en habilidades específicas en Wikipedia. Estas capacitaciones están incorporadas en las semanas correspondientes de la Línea de tiempo del curso.
+
+      Si tienes curiosidad sobre las próximas capacitaciones o quieres volver a consultar contenido, puedes encontrar todas las capacitaciones del curso en la pestaña **Recursos** del Dashboard de tu página del curso. Si por casualidad acabas en la pestaña **Capacitación** del Dashboard, asegúrate de seguir los "Módulos de Capacitación para el Desarrollo Profesional" y no nuestros cursos de capacitación para estudiantes o instructores.
+
+      <figure class="alt-layout-100">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/4/40/Resources_tab_of_Wiki_Education%27s_Dashboard.png" />
+      </figure>

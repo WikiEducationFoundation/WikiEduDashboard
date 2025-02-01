@@ -8,11 +8,11 @@ content: |
   Bibliographic information in Wikidata uses the FRBR model, which is the same
   model libraries use to describe items. Don't worry if you're not familiar with
   FRBR. All you need to know is that you can express your reference as a work
-  (a book, article, publication) or a specific edition of a book, article, publication.
-  You only need to refer to a specific edition if the information your referencing
-  exists only in a particular edition. Otherwise you can use the work as your reference.
+  (a book, article, or publication) or a specific edition of a book, article, or publication.
+  You only need to refer to a specific edition if the information you're referencing
+  exists only in a particular edition. Otherwise, you can use the work as your reference.
 
   You can see a list of properties that correspond to both editions and works on
   <a href="https://www.wikidata.org/wiki/Wikidata:WikiProject_Books">this WikiProject Books page</a>. 
-  They are properties like author, title, publisher, date, that are all common
+  They are properties like author, title, publisher, date, which are all common
   pieces of bibliographic information.
