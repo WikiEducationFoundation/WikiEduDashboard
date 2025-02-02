@@ -45,13 +45,11 @@ class UpdateCourseStatsTimeslice
 
   def import_uploads
     @debugger.log_update_progress :start
-    # TODO: note this is not wiki scoped.
     CourseUploadImporter.new(@course, update_service: self).run
     @debugger.log_update_progress :uploads_imported
   end
 
   def update_categories
-    # TODO: note this is not wiki scoped.
     Category.refresh_categories_for(@course)
     @debugger.log_update_progress :categories_updated
   end
@@ -62,7 +60,6 @@ class UpdateCourseStatsTimeslice
   end
 
   def update_average_pageviews
-    # TODO: note this is not wiki scoped.
     AverageViewsImporter.update_outdated_average_views(@course.articles)
     @debugger.log_update_progress :average_pageviews_updated
   end
@@ -107,7 +104,6 @@ class UpdateCourseStatsTimeslice
   def log_end_of_update
     @course.update(needs_update: false)
     @end_time = Time.zone.now
-    # TODO: improve the course flag updates
     UpdateLogger.update_course(@course, 'start_time' => @start_time.to_datetime,
                                          'end_time' => @end_time.to_datetime,
                                          'sentry_tag_uuid' => sentry_tag_uuid,
