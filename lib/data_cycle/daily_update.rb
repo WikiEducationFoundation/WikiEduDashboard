@@ -33,7 +33,6 @@ class DailyUpdate
     update_commons_uploads
     update_article_data
     update_wiki_discouraged_article if Features.wiki_ed?
-    import_wikidata_summaries if Features.wiki_ed?
     send_term_recap_emails if Features.wiki_ed?
     generate_overdue_training_alerts if Features.wiki_ed?
     push_course_data_to_salesforce if Features.wiki_ed?
