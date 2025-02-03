@@ -53,7 +53,13 @@ export const randomPeerAssignments = randomAssignments => (dispatch) => {
 
 export const deleteAssignment = assignment => (dispatch) => {
   return API.deleteAssignment(assignment)
-    .then(resp => dispatch({ type: types.DELETE_ASSIGNMENT, data: resp }))
+    .then((resp) => {
+      if (assignment.assignment_id && assignment.user_id !== null && assignment.flags.available_article) {
+        dispatch({ type: types.UPDATE_ASSIGNMENT, data: resp });
+      } else {
+        dispatch({ type: types.DELETE_ASSIGNMENT, data: resp });
+      }
+})
     .catch(response => dispatch({ type: types.API_FAIL, data: response }));
 };
 

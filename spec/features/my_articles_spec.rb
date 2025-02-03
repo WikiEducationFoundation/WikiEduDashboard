@@ -15,8 +15,10 @@ describe 'My Articles', type: :feature, js: true do
     stub_info_query # for the query that checks whether an article exists
 
     create(:courses_user, user: student, course:)
-    create(:assignment, course:, article_title: 'Border_Collie', user: nil, role: ASSIGNED)
-    create(:assignment, course:, article_title: 'Poodle', user: classmate, role: ASSIGNED)
+    create(:assignment, course:, article_title: 'Border_Collie', user: nil, role: ASSIGNED,
+flags: { available_article: true })
+    create(:assignment, course:, article_title: 'Poodle', user: classmate, role: ASSIGNED,
+flags: { available_article: false })
     login_as(student)
   end
 
@@ -34,10 +36,12 @@ describe 'My Articles', type: :feature, js: true do
 
     expect(page).to have_content "Articles I'm updating"
     expect(student.assignments.where(role: ASSIGNED).count).to eq(1)
+    expect(student.assignments.where(flags: { available_article: true }).count).to eq(1)
   end
 
   it 'lets a student choose a second article' do
-    create(:assignment, course:, article_title: 'Shiba_Inu', user: student, role: ASSIGNED)
+    create(:assignment, course:, article_title: 'Shiba_Inu', user: student, role: ASSIGNED,
+flags: { available_article: false })
 
     visit "/courses/#{course.slug}"
     expect(page).to have_content 'My Articles'
@@ -49,6 +53,7 @@ describe 'My Articles', type: :feature, js: true do
 
     expect(page).to have_content 'Shiba Inu'
     expect(student.assignments.where(role: ASSIGNED).count).to eq(2)
+    expect(student.assignments.where(flags: { available_article: false }).count).to eq(1)
   end
 
   it "lets a student choose a classmate's article to review" do

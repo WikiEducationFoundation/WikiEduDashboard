@@ -33,12 +33,13 @@ class AssignmentManager
     set_clean_title
     set_article_from_database
     check_wiki_edu_discouraged_article
+    set_available_article_flag
     import_article_from_wiki unless @article
     # TODO: update rating via Sidekiq worker
     update_article_rating if @article
-    Assignment.create!(user_id: @user_id, course: @course,
-                       article_title: @clean_title, wiki: @wiki, article: @article,
-                       role: @role)
+    set_available_article_flag
+    Assignment.create!(user_id: @user_id, course: @course, article_title: @clean_title,
+                       wiki: @wiki, article: @article, role: @role, flags: @flags)
   rescue ActiveRecord::RecordInvalid => e
     message = if e.message.include?('invalid')
                 "#{@clean_title} is not a valid article title."
@@ -113,6 +114,10 @@ class AssignmentManager
 
   def handle_discouraged_article
     raise DiscouragedArticleError, I18n.t('assignments.blocked_assignment', title: @clean_title)
+  end
+
+  def set_available_article_flag
+    @flags = @user_id.nil? ? { available_article: true } : nil
   end
 
   def import_article_from_wiki
