@@ -60,6 +60,10 @@ class Course < ApplicationRecord
   ######################
   # Users for a course #
   ######################
+
+  # Validations for slug to avoid duplicacy
+  validates :slug, uniqueness: { message: '' }
+
   has_many :courses_users, class_name: 'CoursesUsers', dependent: :destroy
   has_many :users, -> { distinct }, through: :courses_users
   has_many :students, -> { where('courses_users.role = 0') },
