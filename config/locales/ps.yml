@@ -175,8 +175,8 @@ ps:
     none: دا کورس کوم زدکړيال نه لري.
     number_of_articles: '%{number} ليکنې'
     recent_revisions: وروستني بدلونونه
-    username: کارن-نوم
-    username_placeholder: کارن-نوم
+    username: کارن‌نوم
+    username_placeholder: کارن‌نوم
   wizard:
     course_dates: کورس نېټې
     read_less: لږ لوستل
