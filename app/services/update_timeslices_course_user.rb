@@ -72,8 +72,6 @@ class UpdateTimeslicesCourseUser
     @timeslice_cleaner.reset_timeslices_that_need_update_from_article_timeslices(
       @article_course_timeslices_for_users
     )
-    # Clean articles courses timeslices
-    # clean_article_course_timeslices
     # Delete articles courses that were updated only for removed users
     ArticlesCoursesCleanerTimeslice.clean_articles_courses_for_user_ids(@course, user_ids)
   end
@@ -87,11 +85,4 @@ class UpdateTimeslicesCourseUser
     # These are the ArticleCourseTimeslice records that were updated by users
     timeslices.flatten
   end
-
-  # def clean_article_course_timeslices
-  #   ids = @article_course_timeslices_for_users.map(&:id)
-  #   ArticleCourseTimeslice.where(id: ids).update_all(character_sum: 0,
-  #                                                    references_count: 0,
-  #                                                    user_ids: nil)
-  # end
 end

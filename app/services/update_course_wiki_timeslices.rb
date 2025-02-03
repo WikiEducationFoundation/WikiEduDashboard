@@ -96,11 +96,6 @@ class UpdateCourseWikiTimeslices
     wikidata_revisions = @revisions[wiki][:revisions].reject(&:deleted)
     @revisions[wiki][:revisions] =
       @wikidata_stats_updater.update_revisions_with_stats(wikidata_revisions)
-    # TODO: replace the logic on ArticlesCourses.update_from_course to remove all
-    # the ArticlesCourses that do not correspond to course revisions.
-    # That may happen if the course dates changed, so some revisions are no
-    # longer part of the course.
-    # Also remove records for articles that aren't on a tracked wiki.
   end
 
   def process_timeslices(wiki)
@@ -128,9 +123,7 @@ class UpdateCourseWikiTimeslices
     end_period = revisions[:end]
     revs = revisions[:revisions]
     revs.group_by(&:article_id).each do |article_id, article_revisions|
-      # We don't create articles courses for every article
-      # article_course = ArticlesCourses.find_by(course: @course, article_id:)
-      # next unless article_course
+      # We create articles courses for every article
 
       # Update cache for ArticleCourseTimeslice
       article_revisions_data = { start: start_period, end: end_period,

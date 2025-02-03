@@ -79,7 +79,6 @@ describe CourseCacheManager do
 
     it 'updates uploads based on existing common uploads records' do
       described_class.new(course).update_cache_from_timeslices []
-      # TODO: modify to be calculated from course wiki timeslices values
       expect(course.upload_count).to eq(2)
       expect(course.uploads_in_use_count).to eq(2)
       expect(course.upload_usages_count).to eq(7)

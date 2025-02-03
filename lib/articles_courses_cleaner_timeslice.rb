@@ -84,8 +84,6 @@ class ArticlesCoursesCleanerTimeslice # rubocop:disable Metrics/ClassLength
 
     delete_article_course(article_ids_to_delete)
 
-    # NOTE: this could be implemented in the TimesliceManager class
-
     # Delete article course timeslices for deleted articles
     timeslice_ids = ArticleCourseTimeslice.where(course: @course)
                                           .where(article_id: article_ids_to_delete)
@@ -108,8 +106,6 @@ class ArticlesCoursesCleanerTimeslice # rubocop:disable Metrics/ClassLength
 
     delete_article_course(article_ids_to_delete)
 
-    # NOTE: this could be implemented in the TimesliceManager class
-
     # Delete article course timeslices for deleted articles
     timeslice_ids = ArticleCourseTimeslice.where(course: @course)
                                           .where(article_id: article_ids_to_delete)
@@ -124,13 +120,6 @@ class ArticlesCoursesCleanerTimeslice # rubocop:disable Metrics/ClassLength
                                                        .transpose
     touch_timeslices(article_ids.uniq) unless article_ids.nil?
     delete_article_course_timeslice_ids(timeslice_ids) unless timeslice_ids.nil?
-  end
-
-  # Removes the articles courses and timeslices records for article ids.
-  def remove_articles_courses_for_article_ids(article_ids)
-    delete_article_course(article_ids)
-    timeslices = ArticleCourseTimeslice.where(course: @course).where(article_id: article_ids)
-    delete_article_course_timeslice_ids(timeslices.pluck(:id))
   end
 
   def reset_deleted_or_untracked_articles
@@ -172,7 +161,6 @@ class ArticlesCoursesCleanerTimeslice # rubocop:disable Metrics/ClassLength
   def reset(articles, wiki = nil)
     mark_as_needs_update(articles, wiki)
     delete_article_course(articles.pluck(:id))
-    # remove_articles_courses_for_article_ids(articles.pluck(:id))
   end
 
   private
