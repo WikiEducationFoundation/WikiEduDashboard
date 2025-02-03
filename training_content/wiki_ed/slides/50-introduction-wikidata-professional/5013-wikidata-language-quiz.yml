@@ -9,7 +9,7 @@ assessment:
   answers:
     - id: 1
       text: |
-        Each language has its own, independent set of facts, just like Wikipedia.
+        Each language has its own, independent set of facts just like Wikipedia.
       explanation: |
         INCORRECT! Although users can choose from over 300 languages to view Wikidata,
         all languages use and see the same data.
@@ -22,7 +22,7 @@ assessment:
         tied to the language you use to read Wikidata.
     - id: 3
       text: |
-        You can work in the language of your choice, since the underlying data
+        You can work in the language of your choice since the underlying data
         is independent of your Wikidata language preference.
       explanation: |
         CORRECT! This is one of the most exciting things about Wikidata - since

@@ -112,7 +112,7 @@ class TrainingModule < ApplicationRecord
     self.name = content['name'] || content[:name]
     self.description = content['description'] || content[:description]
     self.estimated_ttc = content['estimated_ttc']
-    self.translations = content['translations']
+    self.translations = TrainingBase.format_translation_keys content['translations']
     self.settings = content['settings']
     self.slide_slugs = content['slides'].pluck('slug')
   end

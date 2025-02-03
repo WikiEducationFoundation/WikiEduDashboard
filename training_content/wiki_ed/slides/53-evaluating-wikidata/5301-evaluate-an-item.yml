@@ -2,18 +2,18 @@ id: 5301
 title: "Ways to evaluate the quality of an item"
 summary:
 content: |
-  Adding and evaluating data on Wikidata can feel like an art, but in many ways
+  Adding and evaluating data on Wikidata can feel like an art, but in many ways,
   Wikidata items are a lot easier to evaluate than Wikipedia articles. There are
   six easy questions to ask to evaluate the quality of a Wikidata item.
 
   1. Is this statement accurate? (Follow this link if you need a refresher on
   what a **<a href="https://dashboard.wikiedu.org/training/wikidata-professional/introduction-wikidata-professional/what-are-statements">statement</a>** is)
   2. Does this statement contain at least one reference? Although every statement
-  should have a references, Wikidata allows editors to add statements without
+  should have a reference, Wikidata allows editors to add statements without
   references.
   3. Use a data model to see if the item is described properly. A data model
-  describes an item with an agreed upon set of properties (example: any country
-  you describe is a country, has a capital, has a population, is located on a
+  describes an item with an agreed-upon set of properties (example: any country
+  you describe is a country, has a capital, has a population, and is located on a
   continent or region). Remember: some items can be part of multiple data models.
   4. Does this item include all of the properties it should? Data models can
   change or be out of date. As an editor, you can determine properties that may
