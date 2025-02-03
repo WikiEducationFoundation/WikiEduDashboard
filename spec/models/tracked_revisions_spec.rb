@@ -23,7 +23,7 @@ describe 'Course#tracked_revisions' do
 
   it 'fetches the course stats for only tracked articles' do
     # Fetch the original data
-    VCR.use_cassette 'course_upload_importer/Hbultra' do
+    VCR.use_cassette 'cached/course_upload_importer/Hbultra' do
       UpdateCourseStats.new(course)
       UpdateCourseStats.new(different_wiki_course)
     end
@@ -47,7 +47,7 @@ describe 'Course#tracked_revisions' do
     course.articles_courses.where(article_id: untracked_id).update(tracked: false)
 
     # Update the data to reflect the new data
-    VCR.use_cassette 'course_upload_importer/Hbultra' do
+    VCR.use_cassette 'cached/course_upload_importer/Hbultra' do
       UpdateCourseStats.new(course)
     end
     # Check if the updated cached data is lesser than previous data due to excluded articles

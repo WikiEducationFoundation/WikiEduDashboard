@@ -23,7 +23,7 @@ describe UpdateWikiNamespaceStats do
                                     namespace: file_ns) # not mainspace
     JoinCourse.new(course:, user: user1, role: 0)
     JoinCourse.new(course:, user: user2, role: 0)
-    VCR.use_cassette 'course_update' do
+    VCR.use_cassette 'cached/course_update' do
       UpdateCourseStats.new(course)
     end
   end
