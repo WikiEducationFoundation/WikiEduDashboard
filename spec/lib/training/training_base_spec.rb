@@ -112,7 +112,7 @@ describe TrainingBase do
       end
 
       it 'loads libraries, modules and slides that include the source wiki_page' do
-        VCR.use_cassette 'wiki_trainings' do
+        VCR.use_cassette 'cached/wiki_trainings' do
           described_class.load_all
         end
         TrainingLibrary.all.each do |library|

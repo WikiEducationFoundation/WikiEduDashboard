@@ -73,7 +73,7 @@ describe TrainingController, type: :request do
       allow(I18n).to receive(:locale).and_return(:de)
       allow(Features).to receive(:wiki_trainings?).and_return(true)
       content_class.destroy_all
-      VCR.use_cassette 'training/load_from_wiki' do
+      VCR.use_cassette 'cached/training/load_from_wiki' do
         content_class.load
       end
     end
@@ -128,7 +128,7 @@ describe TrainingController, type: :request do
 
       it 'returns the result upon success' do
         allow(Features).to receive(:wiki_trainings?).and_return(true)
-        VCR.use_cassette 'wiki_trainings' do
+        VCR.use_cassette 'cached/wiki_trainings' do
           subject
         end
         expect(response.body).to include('Success!')

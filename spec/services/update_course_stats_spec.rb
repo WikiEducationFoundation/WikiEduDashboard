@@ -43,7 +43,7 @@ describe UpdateCourseStats do
       course.campaigns << Campaign.first
       course.wikis << Wiki.get_or_create(language: nil, project: 'wikidata')
       JoinCourse.new(course:, user:, role: 0)
-      VCR.use_cassette 'course_update' do
+      VCR.use_cassette 'cached/course_update' do
         subject
       end
     end
@@ -85,7 +85,7 @@ describe UpdateCourseStats do
 
       # Raising errors only in Replica
       stub_request(:any, %r{https://replica-revision-tools.wmcloud.org/.*}).to_raise(Errno::ECONNREFUSED)
-      VCR.use_cassette 'course_update/replica' do
+      VCR.use_cassette 'cached/course_update/replica' do
         subject
       end
       sentry_tag_uuid = subject.sentry_tag_uuid
@@ -107,7 +107,7 @@ describe UpdateCourseStats do
       stub_const('LiftWingApi::RETRY_COUNT', 1)
       # Raising errors only in LiftWing
       stub_request(:any, %r{https://api.wikimedia.org/service/lw.*}).to_raise(Faraday::ConnectionFailed)
-      VCR.use_cassette 'course_update/lift_wing_api' do
+      VCR.use_cassette 'cached/course_update/lift_wing_api' do
         subject
       end
       sentry_tag_uuid = subject.sentry_tag_uuid
@@ -130,7 +130,7 @@ describe UpdateCourseStats do
       # Raising errors only in WikiApi
       allow_any_instance_of(MediawikiApi::Client).to receive(:send)
         .and_raise(MediawikiApi::ApiError)
-      VCR.use_cassette 'course_update/wiki_api' do
+      VCR.use_cassette 'cached/course_update/wiki_api' do
         subject
       end
       sentry_tag_uuid = subject.sentry_tag_uuid

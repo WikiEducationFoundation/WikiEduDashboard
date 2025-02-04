@@ -58,7 +58,7 @@ describe RevisionImporter do
     context 'when there are no edits' do
       it 'imports all edits' do
         expect(Revision.count).to eq(0)
-        VCR.use_cassette 'revision_importer/all' do
+        VCR.use_cassette 'cached/revision_importer/all' do
           subject
         end
         expect(Revision.count).to be > 77
@@ -75,7 +75,7 @@ describe RevisionImporter do
 
       it 'only imports newer edits' do
         expect(Revision.count).to eq(1)
-        VCR.use_cassette 'revision_importer/newer' do
+        VCR.use_cassette 'cached/revision_importer/newer' do
           subject
         end
         expect(Revision.count).to be > 54
@@ -115,7 +115,7 @@ describe RevisionImporter do
       let(:user) { create(:user, username: 'Elmond') }
 
       it 'handles revisions with four-byte unicode characters' do
-        VCR.use_cassette 'four-byte-unicode' do
+        VCR.use_cassette 'cached/four-byte-unicode' do
           expect(Article.exists?(title: CGI.escape('黃𨥈瑩'))).to be(false)
           subject
           expect(Article.exists?(title: CGI.escape('黃𨥈瑩'))).to be(true)

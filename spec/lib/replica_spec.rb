@@ -8,7 +8,7 @@ describe Replica do
 
   describe 'API requests' do
     it 'returns revisions from this term' do
-      VCR.use_cassette 'replica/revisions' do
+      VCR.use_cassette 'cached/replica/revisions' do
         all_users = [
           build(:user, username: 'ELE427'),
           build(:user, username: 'Ragesoss'),
@@ -40,7 +40,7 @@ describe Replica do
     end
 
     it 'works for users with a reserved url characters in the name' do
-      VCR.use_cassette 'replica/comma' do
+      VCR.use_cassette 'cached/replica/comma' do
         comma_user = build(:user,
                            id: 17137867,
                            username: 'JRicker,PhD')
@@ -73,7 +73,7 @@ describe Replica do
     end
 
     it 'returns system parameter for dashboard edits' do
-      VCR.use_cassette 'replica/system_edits' do
+      VCR.use_cassette 'cached/replica/system_edits' do
         all_users = [
           build(:user, username: 'Petra Sen')
         ]
@@ -96,7 +96,7 @@ describe Replica do
         end
 
         it 'returns article "Allegiance"' do
-          VCR.use_cassette 'replica/articles/2' do
+          VCR.use_cassette 'cached/replica/articles/2' do
             response = articles_response('Allegiance')
             expect(response.size).to eq(2) # exists in namespace 0, 1
           end
@@ -104,14 +104,14 @@ describe Replica do
 
         # Test with URI reserved characters
         it 'returns article "Broussard\'s"' do
-          VCR.use_cassette 'replica/articles/3' do
+          VCR.use_cassette 'cached/replica/articles/3' do
             response = articles_response("Broussard's")
             expect(response.size).to eq(2) # exists in namespace 0, 1
           end
         end
 
         it 'returns article "Procter_&_Gamble"' do
-          VCR.use_cassette 'replica/articles/4' do
+          VCR.use_cassette 'cached/replica/articles/4' do
             response = articles_response('Procter_&_Gamble')
             expect(response.size).to eq(4) # exists in namespace 0, 1, 10, 11
           end
@@ -119,21 +119,21 @@ describe Replica do
 
         # Test with special characters
         it 'returns article "Paul_Cézanne"' do
-          VCR.use_cassette 'replica/articles/5' do
+          VCR.use_cassette 'cached/replica/articles/5' do
             response = articles_response('Paul_Cézanne')
             expect(response.size).to eq(4) # exists in namespace 0, 1, 10, 11
           end
         end
 
         it 'returns article "Mmilldev/sandbox"' do
-          VCR.use_cassette 'replica/articles/6' do
+          VCR.use_cassette 'cached/replica/articles/6' do
             response = articles_response('Mmilldev/sandbox')
             expect(response.size).to eq(1) # exists in namespace 2
           end
         end
 
         it 'does not return article "THIS_ARTICLE_DOES_NOT_EXIST"' do
-          VCR.use_cassette 'replica/articles/7' do
+          VCR.use_cassette 'cached/replica/articles/7' do
             response = articles_response('THIS_ARTICLE_DOES_NOT_EXIST')
             expect(response.size).to eq(0) # does not exist
           end
@@ -142,7 +142,7 @@ describe Replica do
     end
 
     it 'functions identically on non-English wikis' do
-      VCR.use_cassette 'replica/es_revisions' do
+      VCR.use_cassette 'cached/replica/es_revisions' do
         all_users = [
           build(:user, username: 'AndresAlvarezGalina95', id: 3556537),
           build(:user, username: 'Patyelena25', id: 3471984),
@@ -159,7 +159,7 @@ describe Replica do
     end
 
     it 'functions identically on wikidata' do
-      VCR.use_cassette 'replica/wikidata_revisions' do
+      VCR.use_cassette 'cached/replica/wikidata_revisions' do
         all_users = [
           build(:user, username: 'Ragesoss')
         ]
@@ -174,7 +174,7 @@ describe Replica do
     end
 
     it 'functions identically for a language code with a hyphen' do
-      VCR.use_cassette 'replica/nds_nl_revisions' do
+      VCR.use_cassette 'cached/replica/nds_nl_revisions' do
         all_users = [
           build(:user, username: 'Woolters')
         ]
@@ -189,7 +189,7 @@ describe Replica do
     end
 
     it 'functions identically on multilingual wikisource' do
-      VCR.use_cassette 'replica/wikisource_revisions' do
+      VCR.use_cassette 'cached/replica/wikisource_revisions' do
         all_users = [
           build(:user, username: 'Jimregan')
         ]
@@ -204,7 +204,7 @@ describe Replica do
     end
 
     it 'functions identically on wikimedia incubator' do
-      VCR.use_cassette 'replica/wikimedia_incubator_revisions' do
+      VCR.use_cassette 'cached/replica/wikimedia_incubator_revisions' do
         all_users = [
           build(:user, username: 'Daad Ikram')
         ]
@@ -219,7 +219,7 @@ describe Replica do
     end
 
     it 'functions identically on meta.wikimedia.org' do
-      VCR.use_cassette 'replica/meta_revisions' do
+      VCR.use_cassette 'cached/replica/meta_revisions' do
         all_users = [
           build(:user, username: 'EPIC')
         ]
@@ -234,7 +234,7 @@ describe Replica do
     end
 
     it 'includes "File" namespace edits on Wikimedia Commons' do
-      VCR.use_cassette 'replica/wikimedia_commons_revisions' do
+      VCR.use_cassette 'cached/replica/wikimedia_commons_revisions' do
         all_users = [
           build(:user, username: 'Oursana')
         ]

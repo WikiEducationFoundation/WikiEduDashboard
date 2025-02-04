@@ -6,7 +6,7 @@ require "#{Rails.root}/lib/commons"
 describe Commons do
   describe '.get_uploads' do
     it 'gets upload data for a user with many uploads' do
-      VCR.use_cassette 'commons/get_uploads_many' do
+      VCR.use_cassette 'cached/commons/get_uploads_many' do
         user = create(:user,
                       username: 'Ragesoss')
         response = described_class.get_uploads [user]
@@ -19,7 +19,7 @@ describe Commons do
     end
 
     it 'gets upload data from a particular time period' do
-      VCR.use_cassette 'commons/get_uploads_time_limited' do
+      VCR.use_cassette 'cached/commons/get_uploads_time_limited' do
         user = create(:user,
                       username: 'Ragesoss')
         response = described_class.get_uploads([user], start_date: '2017-01-01'.to_time,
@@ -33,7 +33,7 @@ describe Commons do
     end
 
     it 'handles a user with no uploads' do
-      VCR.use_cassette 'commons/get_uploads_none' do
+      VCR.use_cassette 'cached/commons/get_uploads_none' do
         user = create(:user,
                       username: 'Ragetest 7')
         response = described_class.get_uploads [user]
@@ -42,7 +42,7 @@ describe Commons do
     end
 
     it 'handles a user with one upload' do
-      VCR.use_cassette 'commons/get_uploads_one' do
+      VCR.use_cassette 'cached/commons/get_uploads_one' do
         user = create(:user,
                       username: 'EDA2018')
         response = described_class.get_uploads [user]
@@ -53,7 +53,7 @@ describe Commons do
 
   describe '.get_usages' do
     it 'gets usage data for a widely-used file' do
-      VCR.use_cassette 'commons/get_usage_lots' do
+      VCR.use_cassette 'cached/commons/get_usage_lots' do
         upload = create(:commons_upload,
                         id: 1488574,
                         file_name: 'File:Goblet Glass (Banquet).svg')
@@ -66,7 +66,7 @@ describe Commons do
     end
 
     it 'gets usage data for an unused file' do
-      VCR.use_cassette 'commons/get_usage_none' do
+      VCR.use_cassette 'cached/commons/get_usage_none' do
         # rubocop:disable Layout/LineLength
         upload = create(:commons_upload,
                         id: 39997956,
@@ -78,7 +78,7 @@ describe Commons do
     end
 
     it 'gets usage data for a file used only once' do
-      VCR.use_cassette 'commons/get_uploads_one' do
+      VCR.use_cassette 'cached/commons/get_uploads_one' do
         upload = create(:commons_upload,
                         id: 39636530,
                         file_name: 'File:Paper prototype of website user interface, 2015-04-16.jpg')
@@ -88,7 +88,7 @@ describe Commons do
     end
 
     it 'does not fail when missing files are queried' do
-      VCR.use_cassette 'commons/missing_files' do
+      VCR.use_cassette 'cached/commons/missing_files' do
         upload = create(:commons_upload,
                         id: 541408,
                         file_name: 'File:Haeckel Stephoidea.jpg')
@@ -107,7 +107,7 @@ describe Commons do
     let(:existing_file) { create(:commons_upload, id: 20523186) }
 
     it 'returns CommonsUploads that are reported missing' do
-      VCR.use_cassette 'commons/find_missing_files' do
+      VCR.use_cassette 'cached/commons/find_missing_files' do
         result = described_class.find_missing_files([deleted_file, existing_file])
         expect(result).to include deleted_file
         expect(result).not_to include existing_file
@@ -115,7 +115,7 @@ describe Commons do
     end
 
     it 'returns an empty array if all files exist' do
-      VCR.use_cassette 'commons/find_missing_files' do
+      VCR.use_cassette 'cached/commons/find_missing_files' do
         result = described_class.find_missing_files([existing_file])
         expect(result).to eq([])
       end
@@ -124,7 +124,7 @@ describe Commons do
 
   describe '.get_urls' do
     it 'gets thumbnail url data for files' do
-      VCR.use_cassette 'commons/get_urls' do
+      VCR.use_cassette 'cached/commons/get_urls' do
         create(:commons_upload,
                id: 541408,
                file_name: 'File:Haeckel Stephoidea.jpg')
@@ -146,7 +146,7 @@ describe Commons do
     end
 
     it 'does not fail for files that have placeholder thumbnails' do
-      VCR.use_cassette 'commons/get_urls_with_placeholder_thumbnails' do
+      VCR.use_cassette 'cached/commons/get_urls_with_placeholder_thumbnails' do
         # MediaWiki can't generate a real thumbnail of this file.
         # It used to cause a 'iiurlparamnormal' error, but since late February
         # 2016, it fails gracefully with a placeholder image.
@@ -169,7 +169,7 @@ describe Commons do
     # Testing workaround for MediaWiki bug
     # https://phabricator.wikimedia.org/T101532
     it 'handles broken continues gracefully' do
-      VCR.use_cassette 'commons/cotinue_loop' do
+      VCR.use_cassette 'cached/commons/cotinue_loop' do
         result = described_class.new(bad_query).get_image_data('imageinfo', 'iicontinue')
         expect(result.length).to be > 10
       end

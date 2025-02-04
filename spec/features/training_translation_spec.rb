@@ -11,7 +11,7 @@ describe 'Training Translations', type: :feature, js: true do
     TrainingSlide.destroy_all
     TrainingLibrary.destroy_all
     allow(Features).to receive(:wiki_trainings?).and_return(true)
-    VCR.use_cassette 'training/slide_translations' do
+    VCR.use_cassette 'cached/training/slide_translations' do
       TrainingUpdate.new(module_slug: 'all')
     end
     login_as(basque_user, scope: :user)

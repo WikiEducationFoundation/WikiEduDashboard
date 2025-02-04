@@ -30,7 +30,7 @@ describe WikiTrainingLoader do
 
       context 'with no slug list' do
         it 'returns an array of training content' do
-          VCR.use_cassette 'training/load_from_wiki' do
+          VCR.use_cassette 'cached/training/load_from_wiki' do
             slides = subject.load_content
             expect(slides.first.content).not_to be_empty
           end
@@ -43,7 +43,7 @@ describe WikiTrainingLoader do
         let(:slug_list) { ['using-media'] }
 
         it 'returns an array of just the content from the slug list' do
-          VCR.use_cassette 'training/load_from_wiki' do
+          VCR.use_cassette 'cached/training/load_from_wiki' do
             slides = subject.load_content
             expect(slides.count).to eq(1)
             expect(slides.first.slug).to eq('using-media')
@@ -55,7 +55,7 @@ describe WikiTrainingLoader do
         let(:slug_list) { ['this-is-not-a-slug-listed-on-meta'] }
 
         it 'raises an error' do
-          VCR.use_cassette 'training/load_from_wiki' do
+          VCR.use_cassette 'cached/training/load_from_wiki' do
             expect { subject.load_content }
               .to raise_error(WikiTrainingLoader::NoMatchingWikiPagesFound)
           end
@@ -72,7 +72,7 @@ describe WikiTrainingLoader do
       end
 
       it 'logs a message and does not return the invalid content' do
-        VCR.use_cassette 'training/load_from_wiki' do
+        VCR.use_cassette 'cached/training/load_from_wiki' do
           expect(Sentry).to receive(:capture_message).at_least(:once)
           libraries = subject.load_content
           expect(libraries.count).to eq(0)
@@ -89,7 +89,7 @@ describe WikiTrainingLoader do
       end
 
       it 'returns an empty collection' do
-        VCR.use_cassette 'training/load_from_wiki' do
+        VCR.use_cassette 'cached/training/load_from_wiki' do
           modules = subject.load_content
           expect(modules.count).to eq(0)
         end
@@ -105,7 +105,7 @@ describe WikiTrainingLoader do
       end
 
       it 'imports slides with translated content' do
-        VCR.use_cassette 'training/load_from_wiki' do
+        VCR.use_cassette 'cached/training/load_from_wiki' do
           slides = subject.load_content
           spanish = slides.first.translations['es']
           expect(spanish).not_to be_empty
@@ -122,7 +122,7 @@ describe WikiTrainingLoader do
       end
 
       it 'returns an array of training content' do
-        VCR.use_cassette 'training/load_from_wiki' do
+        VCR.use_cassette 'cached/training/load_from_wiki' do
           modules = subject.load_content
           expect(modules.first.slug).not_to be_empty
         end
@@ -138,7 +138,7 @@ describe WikiTrainingLoader do
       end
 
       it 'returns an array of training content' do
-        VCR.use_cassette 'training/load_from_wiki' do
+        VCR.use_cassette 'cached/training/load_from_wiki' do
           libraries = subject.load_content
           expect(libraries.first.slug).not_to be_empty
         end
@@ -154,7 +154,7 @@ describe WikiTrainingLoader do
       end
 
       it 'loads translated content' do
-        VCR.use_cassette 'training/load_from_wiki' do
+        VCR.use_cassette 'cached/training/load_from_wiki' do
           content_class.load
           # https://meta.wikimedia.org/wiki/User:Ragesoss/dashboard_libraries/editing-wikipedia-dev.json
           expect(content_class.find(10002).translations.key?('de')).to eq(true)

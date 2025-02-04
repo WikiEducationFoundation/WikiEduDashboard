@@ -13,7 +13,7 @@ describe CategoryImporter do
       let(:depth) { 0 }
 
       it 'returns page page titles for a given category' do
-        VCR.use_cassette 'category_importer/page_titles' do
+        VCR.use_cassette 'cached/category_importer/page_titles' do
           # this is a direct article in the category
           expect(subject).to include('List of flood basalt provinces')
 
@@ -31,7 +31,7 @@ describe CategoryImporter do
       let(:depth) { 1 }
 
       it 'works recursively for subcategories' do
-        VCR.use_cassette 'category_importer/page_titles' do
+        VCR.use_cassette 'cached/category_importer/page_titles' do
           expect(subject).to include(article_in_cat)
           expect(subject).to include(article_in_subcat)
 

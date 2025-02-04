@@ -58,7 +58,7 @@ describe RevisionScoreImporter do
   end
 
   it 'marks TextDeleted revisions as deleted' do
-    VCR.use_cassette 'revision_scores/deleted_revision' do
+    VCR.use_cassette 'cached/revision_scores/deleted_revision' do
       # See https://ores.wikimedia.org/v2/scores/enwiki/wp10/708326238?features
       # https://en.wikipedia.org/wiki/Philip_James_Rutledge?diff=708326238
       article = create(:article,
@@ -78,7 +78,7 @@ describe RevisionScoreImporter do
   end
 
   it 'marks RevisionNotFound revisions as deleted' do
-    VCR.use_cassette 'revision_scores/not_found_revision' do
+    VCR.use_cassette 'cached/revision_scores/not_found_revision' do
       # Article and its revisions are deleted
       article = create(:article,
                        mw_page_id: 123456,
@@ -129,7 +129,7 @@ describe RevisionScoreImporter do
 
   # This probably represents buggy behavior from ores.
   it 'handles revisions that return an array' do
-    VCR.use_cassette 'revision_scores/array_bug' do
+    VCR.use_cassette 'cached/revision_scores/array_bug' do
       create(:article,
              id: 1,
              mw_page_id: 1,
@@ -145,7 +145,7 @@ describe RevisionScoreImporter do
 
   describe '#update_previous_revision_scores' do
     it 'saves the wp10_previous score for a set of revisions' do
-      VCR.use_cassette 'revision_scores/wp10_previous' do
+      VCR.use_cassette 'cached/revision_scores/wp10_previous' do
         expect(Revision.find_by(mw_rev_id: 662106477).wp10_previous).to be_nil
         expect(Revision.find_by(mw_rev_id: 46745264).wp10_previous).to be_nil
         described_class.new.update_previous_revision_scores

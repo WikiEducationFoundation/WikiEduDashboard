@@ -7,7 +7,7 @@ describe UploadImporter do
   describe '.import_all_uploads' do
     it 'finds and saves files uploaded to Commons' do
       create(:user, username: 'Guettarda')
-      VCR.use_cassette 'commons/import_all_uploads' do
+      VCR.use_cassette 'cached/commons/import_all_uploads' do
         described_class.import_all_uploads(User.all)
         expect(CommonsUpload.all.count).to be > 50
       end
@@ -35,10 +35,10 @@ describe UploadImporter do
     end
 
     it 'counts and saves how many times files are used' do
-      VCR.use_cassette 'commons/import_all_uploads' do
+      VCR.use_cassette 'cached/commons/import_all_uploads' do
         described_class.import_uploads_for_current_users
       end
-      VCR.use_cassette 'commons/update_usage_count' do
+      VCR.use_cassette 'cached/commons/update_usage_count' do
         described_class.update_usage_count_by_course(Course.current)
         peas_photo = CommonsUpload.find(543972)
         expect(peas_photo.usage_count).to be > 1
@@ -50,7 +50,7 @@ describe UploadImporter do
     before do
       create(:commons_upload, id: 4)
       create(:commons_upload, id: 20523186)
-      VCR.use_cassette 'commons/find_deleted_files' do
+      VCR.use_cassette 'cached/commons/find_deleted_files' do
         described_class.find_deleted_files
       end
     end
@@ -70,7 +70,7 @@ describe UploadImporter do
     it 'processes all files that need thumbnails' do
       create(:commons_upload, id: 174, file_name: 'File:Magnolia × soulangeana blossom.jpg')
       expect(CommonsUpload.last.thumburl).to be_nil
-      VCR.use_cassette 'commons/import_all_missing_urls' do
+      VCR.use_cassette 'cached/commons/import_all_missing_urls' do
         described_class.import_all_missing_urls
       end
       expect(CommonsUpload.last.thumburl).not_to be_nil
@@ -81,10 +81,10 @@ describe UploadImporter do
     it 'finds and saves Commons thumbnail urls' do
       create(:user,
              username: 'Guettarda')
-      VCR.use_cassette 'commons/import_all_uploads' do
+      VCR.use_cassette 'cached/commons/import_all_uploads' do
         described_class.import_all_uploads(User.all)
       end
-      VCR.use_cassette 'commons/import_urls_in_batches' do
+      VCR.use_cassette 'cached/commons/import_urls_in_batches' do
         described_class.import_urls_in_batches([CommonsUpload.find(543972)])
         peas_photo = CommonsUpload.find(543972)
         expect(peas_photo.thumburl[0...24]).to eq('https://upload.wikimedia')

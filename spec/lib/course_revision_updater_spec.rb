@@ -78,7 +78,7 @@ describe CourseRevisionUpdater do
     end
 
     it 'handles returning users with earlier revisions' do
-      VCR.use_cassette 'revisions/returning_students' do
+      VCR.use_cassette 'cached/revisions/returning_students' do
         # Create a user who has a revision from long ago
         create(:trained, id: 5) # This is user Ragesoss, with edits since 2015.
         create(:revision,
