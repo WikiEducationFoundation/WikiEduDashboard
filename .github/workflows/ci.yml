@@ -43,6 +43,26 @@ jobs:
               sudo ln -s $(which magick) /usr/bin/$cmd
             fi
           done
+        
+      # Cache for slow tests (cached folder)
+      - name: Cache VCR cassettes (Slow Tests)
+        uses: actions/cache@v3
+        with:
+          path: fixtures/vcr_cassettes/cached
+          key: vcr-cached-v1  # Static key to keep the cache stable
+          restore-keys: |
+            vcr-cached-
+
+      # Cache for other tests (dynamic cache)
+      - name: Cache VCR cassettes (Other Tests)
+        uses: actions/cache@v3
+        with:
+          path: fixtures/vcr_cassettes
+          exclude: fixtures/vcr_cassettes/cached  # Exclude the cached folder
+          key: vcr-dynamic-${{ hashFiles('spec/**/*_spec.rb') }}
+          restore-keys: |
+            vcr-dynamic-
+
 
       - name: setup Redis
         uses: supercharge/redis-github-action@1.4.0

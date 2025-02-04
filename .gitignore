@@ -3,9 +3,10 @@
 /config/newrelic.yml
 /config/secrets.yml
 /dockerAuth.json
-/fixtures/vcr_cassettes/*
-!/fixtures/vcr_cassettes/cached/
-!/fixtures/vcr_cassettes/cached/*
+/fixtures
+# /fixtures/vcr_cassettes/*
+# !/fixtures/vcr_cassettes/cached/
+# !/fixtures/vcr_cassettes/cached/*
 /node_modules
 /js_coverage
 /vendor/*
