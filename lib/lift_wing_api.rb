@@ -66,7 +66,7 @@ class LiftWingApi
     response = lift_wing_server.post(quality_query_url, body)
     parsed_response = Oj.load(response.body)
     # If the responses contain an error, do not try to calculate wp10 or features.
-    return build_error_response parsed_response if parsed_response.key? 'error'
+    return build_error_response parsed_response.dig('error') if parsed_response.key? 'error'
     build_successful_response(rev_id, parsed_response)
   rescue StandardError => e
     tries -= 1
@@ -118,11 +118,11 @@ class LiftWingApi
     }
   end
 
-  def build_error_response(response)
-    deleted = deleted?(response)
+  def build_error_response(error)
+    deleted = deleted?(error)
     error_response = { 'wp10' => nil, 'features' => nil, 'deleted' => deleted, 'prediction' => nil }
     # Add error field only if the revision was not deleted
-    error_response['error'] = response.dig('error') unless deleted
+    error_response['error'] = error unless deleted
 
     error_response
   end
@@ -139,9 +139,9 @@ class LiftWingApi
                       error_count: @errors.count })
   end
 
-  def deleted?(response)
+  def deleted?(error)
     LiftWingApi::DELETED_REVISION_ERRORS.any? do |revision_error|
-      response.dig('error').include?(revision_error)
+      error.include?(revision_error)
     end
   end
 end
