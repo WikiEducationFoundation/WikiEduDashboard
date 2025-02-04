@@ -66,10 +66,7 @@ class LiftWingApi
     response = lift_wing_server.post(quality_query_url, body)
     parsed_response = Oj.load(response.body)
     # If the responses contain an error, do not try to calculate wp10 or features.
-    if parsed_response.key? 'error'
-      return { 'wp10' => nil, 'features' => nil, 'deleted' => deleted?(parsed_response),
-      'prediction' => nil, 'error' => parsed_response.dig('error') }
-    end
+    return build_error_response parsed_response if parsed_response.key? 'error'
     build_successful_response(rev_id, parsed_response)
   rescue StandardError => e
     tries -= 1
@@ -119,6 +116,15 @@ class LiftWingApi
       'deleted' => false,
       'prediction' => score.dig('score', 'prediction') # only for revision feedback
     }
+  end
+
+  def build_error_response(response)
+    deleted = deleted?(response)
+    error_response = { 'wp10' => nil, 'features' => nil, 'deleted' => deleted, 'prediction' => nil }
+    # Add error field only if the revision was not deleted
+    error_response['error'] = response.dig('error') unless deleted
+
+    error_response
   end
 
   # TODO: monitor production for errors, understand them, put benign ones here

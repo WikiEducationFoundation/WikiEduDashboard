@@ -77,7 +77,7 @@ describe LiftWingApi do
       VCR.use_cassette 'liftwing_api/deleted_revision' do
         expect(subject2).to be_a(Hash)
         expect(subject2.dig('708326238', 'deleted')).to eq(true)
-        expect(subject2.dig('708326238', 'error').class).to be(String)
+        expect(subject2.dig('708326238').key?('error')).to eq(false)
       end
     end
 
