@@ -72,8 +72,7 @@ class LiftWingApi
     tries -= 1
     retry unless tries.zero?
     @errors << e
-    return { 'wp10' => nil, 'features' => nil, 'deleted' => false, 'prediction' => nil,
-             'error' => e }
+    build_error_response e.to_s
   end
 
   class InvalidProjectError < StandardError
