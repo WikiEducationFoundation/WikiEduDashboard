@@ -14,11 +14,15 @@ describe 'Sentry before_send configuration', type: :request do
   end
 
   let(:filter_patterns) do
+    # rubocop:disable Layout/LineLength
     [
       /Failed to fetch/,
       /NetworkError when attempting to fetch resource/,
-      /Network request failed/
+      /Network request failed/,
+      /^Non-Error promise rejection captured with value: Object Not Found Matching Id:9, MethodName:simulateEvent, ParamCount:1/,
+      /^Non-Error promise rejection captured with value: Object Not Found Matching Id:5, MethodName:update, ParamCount:4/
     ]
+    # rubocop:enable Layout/LineLength
   end
 
   it 'does not filter out normal events' do
@@ -53,6 +57,19 @@ describe 'Sentry before_send configuration', type: :request do
                               '//hidden/:26:40:in getCurrentStore@webkit-masked-url:',
                               '//hidden/:108:54:in @webkit-masked-url:'
                             ])
+    Sentry.capture_exception(exception)
+
+    expect(sentry_events).to be_empty
+  end
+
+  it 'filters out events with stack traces containing chrome-extension' do
+    exception = TypeError.new('Cannot assign to read only property')
+    # rubocop:disable Layout/LineLength
+    exception.set_backtrace([
+                              'chrome-extension://egjidjbpglichdchtdbcbdnbeeppgdph/inpage.js:259:38:in proxyETH:',
+                              'chrome-extension://egjidjbpglichdchtdbcbdnbeeppgdph/inpage.js:259:31:in '
+                            ])
+    # rubocop:enable Layout/LineLength
     Sentry.capture_exception(exception)
 
     expect(sentry_events).to be_empty

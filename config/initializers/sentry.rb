@@ -8,7 +8,10 @@ Sentry.init do |config|
   filter_patterns = [
     /Failed to fetch/, # Thrown when stop(X) button is clicked while API request being made
     /NetworkError when attempting to fetch resource/,
-    /Network request failed/
+    /Network request failed/,
+    # Known errors caused by Microsoft Outlook SafeSearch or bot crawlers that use the CefSharp library.
+    /^Non-Error promise rejection captured with value: Object Not Found Matching Id:\d+, MethodName:simulateEvent, ParamCount:\d+$/,
+    /^Non-Error promise rejection captured with value: Object Not Found Matching Id:\d+, MethodName:update, ParamCount:\d+$/
   ]
 
   config.before_send = lambda do |event, hint|
@@ -19,10 +22,13 @@ Sentry.init do |config|
     end
 
     if exception.is_a?(TypeError)
-      stacktrace = event.exception&.stacktrace
+      stacktrace = exception&.stacktrace
       if stacktrace
         stacktrace.frames.each do |frame|
-          if frame.function&.include?("@webkit-masked-url")
+          if frame.function&.include?('@webkit-masked-url')
+            return nil
+          end
+          if frame.function&.include?('chrome-extension://')
             return nil
           end
         end
