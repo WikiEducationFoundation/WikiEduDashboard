@@ -58,9 +58,8 @@ class ReferenceCounterApi
     response = toolforge_server.get(references_query_url(rev_id))
     parsed_response = Oj.load(response.body)
     return { 'num_ref' => parsed_response['num_ref'] } if response.status == 200
-    # If the response is bad request, then the language and/or the project is not supported.
-    # Leave the error empty in this case, as it is not a transient error.
-    return { 'num_ref' => nil } if response.status == 400
+    # Leave the error empty if it is not a transient error.
+    return { 'num_ref' => nil } if non_transient_error? response.status
     # Log the error and return empty hash
     # Sentry.capture_message 'Non-200 response hitting references counter API', level: 'warning',
     # extra: { project_code: @project_code, language_code: @language_code, rev_id:,
@@ -87,6 +86,16 @@ class ReferenceCounterApi
         'Content-Type': 'application/json'
       }
     )
+  end
+
+  BAD_REQUEST = 400
+  FORBIDDEN = 403
+  NOT_FOUND = 404
+  # A bad request response indicates that the language and/or project is not supported.
+  # A forbidden response likely means we lack permission to access the revision,
+  # possibly because it was deleted or hidden.
+  def non_transient_error?(status)
+    [BAD_REQUEST, FORBIDDEN, NOT_FOUND].include? status
   end
 
   TYPICAL_ERRORS = [Faraday::TimeoutError,

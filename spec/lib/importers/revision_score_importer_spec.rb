@@ -222,7 +222,7 @@ describe RevisionScoreImporter do
         expect(revisions[2].wp10).to be_nil
         expect(revisions[2].features).to eq({})
         # TODO: use another field for this. For now we use ithenticate_id as an error field
-        expect(revisions[2].ithenticate_id).to eq(1)
+        expect(revisions[2].ithenticate_id).to be_nil
       end
     end
 
@@ -233,7 +233,7 @@ describe RevisionScoreImporter do
         expect(revisions[3].wp10).to be_nil
         expect(revisions[3].features).to eq({})
         # TODO: use another field for this. For now we use ithenticate_id as an error field
-        expect(revisions[3].ithenticate_id).to eq(1)
+        expect(revisions[3].ithenticate_id).to be_nil
       end
     end
 
