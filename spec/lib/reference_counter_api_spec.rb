@@ -66,6 +66,18 @@ describe ReferenceCounterApi do
       expect(response.dig('5006946', 'num_ref')).to be_nil
       expect(response.dig('5006946').key?('error')).to eq(false)
     end
+
+    it 'if response is 404 not found' do
+      stub_404_wiki_reference_counter_response
+      ref_counter_api = described_class.new(not_supported)
+      response = ref_counter_api.get_number_of_references_from_revision_ids rev_ids
+      expect(response.dig('5006940', 'num_ref')).to be_nil
+      expect(response.dig('5006940').key?('error')).to eq(false)
+      expect(response.dig('5006942', 'num_ref')).to be_nil
+      expect(response.dig('5006942').key?('error')).to eq(false)
+      expect(response.dig('5006946', 'num_ref')).to be_nil
+      expect(response.dig('5006946').key?('error')).to eq(false)
+    end
   end
 
   # it 'logs the message if response is not 200 OK', vcr: true do

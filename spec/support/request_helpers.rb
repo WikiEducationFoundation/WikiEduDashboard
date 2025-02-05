@@ -754,4 +754,13 @@ module RequestHelpers
         headers: { 'Content-Type' => 'application/json' }
       )
   end
+
+  def stub_404_wiki_reference_counter_response
+    stub_request(:get, %r{https://reference-counter.toolforge.org/api/v1/references/wikimedia/incubator/\d+})
+      .to_return(
+        status: 404,
+        body: { 'description' => 'rest-nonexistent-revision - The specified revision does not exist' }.to_json,
+        headers: { 'Content-Type' => 'application/json' }
+      )
+  end
 end
