@@ -749,7 +749,7 @@ module RequestHelpers
     stub_request(:get, %r{https://reference-counter.toolforge.org/api/v1/references/wikimedia/incubator/\d+})
       .to_return(
         status: 403,
-        body: { 'description' => "mwapi error: permissiondenied - You don't have permission to view
+        body: { 'description' => "mwapi error: permissiondenied - You don't have permission to view\
         deleted text or changes between deleted revisions." }.to_json,
         headers: { 'Content-Type' => 'application/json' }
       )
@@ -759,7 +759,8 @@ module RequestHelpers
     stub_request(:get, %r{https://reference-counter.toolforge.org/api/v1/references/wikimedia/incubator/\d+})
       .to_return(
         status: 404,
-        body: { 'description' => 'rest-nonexistent-revision - The specified revision does not exist' }.to_json,
+        body: { 'description' => 'rest-nonexistent-revision -\
+        The specified revision does not exist' }.to_json,
         headers: { 'Content-Type' => 'application/json' }
       )
   end
