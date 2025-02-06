@@ -1748,6 +1748,7 @@ en:
       link: "Take Survey"
     follow_up:
       message: "This is a reminder about the survey for your course, %{course_title}. Feedback from this survey helps us to improve our support for Wikipedia assignments like yours."
+    edit_survey: "Edit Survey"
 
   feedback_form_responses:
     no_responses: "There are no feedback responses yet."

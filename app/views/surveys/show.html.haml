@@ -1,6 +1,9 @@
 - if params.key?("preview")
-  .survey-previewing Preview Mode
-
+  .survey-previewing
+    .preview-content
+      Preview Mode
+      = link_to t('survey.edit_survey'), edit_survey_path(params[:id]), class: "button"
+      
 // Used for logging survey data via Sentry
 :javascript
   SurveyDetails = {
