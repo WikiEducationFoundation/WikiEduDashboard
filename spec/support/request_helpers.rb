@@ -692,6 +692,21 @@ module RequestHelpers
       )
   end
 
+  def stub_400_wikidata_lift_wing_reponse
+    response_body = { error: "Unexpected content type for rev-id 2260577532: UnexpectedContentType:\
+    Expected content of type JSON, but the following can't be parsed (max 50 chars showed): == About\
+    me ==\n\n[[m:User:Arcstur|Find me at Meta-W"}
+
+    stub_request(:post, 'https://api.wikimedia.org/service/lw/inference/v1/models/wikidatawiki-itemquality:predict')
+      .with(
+        body: hash_including(rev_id: 2260577532, extended_output: true),
+        headers: { 'Content-Type': 'application/json' }
+      ).to_return(
+        status: 400,
+        body: response_body.to_json
+      )
+  end
+
   def stub_es_wikipedia_reference_counter_reponse
     request_body = {
       '157412237' => { 'num_ref' => 111, 'lang' => 'es', 'project' => 'wikipedia',

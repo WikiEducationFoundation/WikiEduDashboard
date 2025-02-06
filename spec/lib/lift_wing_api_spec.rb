@@ -16,6 +16,8 @@ describe LiftWingApi do
   end
 
   describe '#get_revision_data' do
+    before { stub_wiki_validation }
+
     let(:rev_ids) { [829840084, 829840085] }
     let(:deleted_rev_id) { 708326238 }
     let(:wiki) { create(:wiki, project: 'wikidata', language: nil) }
@@ -48,7 +50,6 @@ describe LiftWingApi do
 
     context 'fetch json data from api.wikimedia.org' do
       before do
-        stub_wiki_validation
         stub_lift_wing_response
       end
 
@@ -71,6 +72,15 @@ describe LiftWingApi do
         expect(subject1.dig('829840085', 'prediction')).to eq('D')
         expect(subject1.dig('829840085').key?('error')).to eq(false)
       end
+    end
+
+    it 'fails silently if the error is not transient' do
+      stub_400_wikidata_lift_wing_reponse
+
+      subject = described_class.new(wiki).get_revision_data([2260577532])
+      expect(subject).to be_a(Hash)
+      expect(subject.dig('2260577532', 'deleted')).to eq(false)
+      expect(subject.dig('2260577532').key?('error')).to eq(false)
     end
 
     it 'returns deleted equal to true if the revision was deleted' do
