@@ -947,4 +947,6 @@ qqq:
     footer:
       wiki_education_dashboard:
         link_text: '{{optional}}'
+  question_groups:
+    edit_question_group: Button label for editing a question group
 ...
