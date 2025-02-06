@@ -15,6 +15,9 @@ class LiftWingApi
     'MW API does not have any info'
   ].freeze
 
+  NON_TRANSIENT_ERRORS =
+    DELETED_REVISION_ERRORS + ['UnexpectedContentType'].freeze
+
   LIFT_WING_SERVER_URL = 'https://api.wikimedia.org'
 
   # All the wikis with an articlequality model as of 2023-06-28
@@ -121,7 +124,7 @@ class LiftWingApi
     deleted = deleted?(error)
     error_response = { 'wp10' => nil, 'features' => nil, 'deleted' => deleted, 'prediction' => nil }
     # Add error field only if the revision was not deleted
-    error_response['error'] = error unless deleted
+    error_response['error'] = error unless non_transient_error?(error)
 
     error_response
   end
@@ -139,7 +142,13 @@ class LiftWingApi
   end
 
   def deleted?(error)
-    LiftWingApi::DELETED_REVISION_ERRORS.any? do |revision_error|
+    DELETED_REVISION_ERRORS.any? do |revision_error|
+      error.include?(revision_error)
+    end
+  end
+
+  def non_transient_error?(error)
+    NON_TRANSIENT_ERRORS.any? do |revision_error|
       error.include?(revision_error)
     end
   end
