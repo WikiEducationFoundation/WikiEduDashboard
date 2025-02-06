@@ -896,6 +896,7 @@ sr-ec:
         already_is_not: Корисник %{username} није посебан!
         demote_success: '%{username} је сада само корисник.'
   status:
+    default: Подразумевано
     no_info: Нема података.
     purpose: Сврха
     status: Статус
