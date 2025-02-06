@@ -282,6 +282,7 @@ io:
       new:
         form_placeholder: Nomo dil uzero
   timeline:
+    block_custom: Ajustita
     gradeable_value: Valoro
     week_number: Semano %{number}
   training:

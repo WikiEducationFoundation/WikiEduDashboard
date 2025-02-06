@@ -8,6 +8,9 @@ The stylesheet language used is Stylus along with its Rupture utility.
 ### Resources
 - [Thinking in React](https://facebook.github.io/react/docs/thinking-in-react.html)
 - [Redux docs](http://redux.js.org/)
+- [Redux Toolkit docs - The official, opinionated toolkit for Redux development](https://redux-toolkit.js.org/)
+- [Immer docs - Library for working with immutable state](https://immerjs.github.io/immer/)
+- [Immutability in React and Redux: The Complete Guide](https://daveceddia.com/react-redux-immutability-guide/)
 - [Getting Started with Redux](https://egghead.io/courses/getting-started-with-redux)
 - [React DnD](http://gaearon.github.io/react-dnd/) - The library used for drag-and-drop interactions on the timeline
 - [Stylus](https://github.com/stylus/stylus/)
@@ -20,6 +23,10 @@ New features should rely on actions in the form of plain objects that are dispat
 
 ### Redux store
 Redux uses a single store, which is built up from many independent reducer functions that handle different actions. Container components — those that determine which child components to render based on application state ­— can then use `connect()` to subscribe to the store, typically with `mapStateToProps()` and `mapDispatchToProps()` functions used to filter out just the data and actions that the Component needs. Using this standard Redux pattern, we pass only the props needed by the immediate child components. This minimizes the amount of rendering, since a React component re-renders whenever its props change.
+
+### Immer Usage
+For components still using traditional Redux, you can use Immer's [produce](https://immerjs.github.io/immer/produce) function directly to simplify immutable updates.
+
 
 ### Components
 Components are the view layer of the JS application. They contain HTML markup and methods that trigger Actions based on user input.

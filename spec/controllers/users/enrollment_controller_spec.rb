@@ -18,6 +18,7 @@ describe Users::EnrollmentController, type: :request do
       allow_any_instance_of(WikiCourseEdits).to receive(:update_course)
       allow_any_instance_of(WikiCourseEdits).to receive(:remove_assignment)
       allow_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
+      allow_any_instance_of(WikiApi).to receive(:get_page_content).and_return('Some content')
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
       course.campaigns << Campaign.first
     end

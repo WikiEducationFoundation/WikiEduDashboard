@@ -14,6 +14,7 @@ import {
   RESTORE_TIMELINE,
   EXERCISE_COMPLETION_UPDATE
 } from '../constants';
+import { produce } from 'immer';
 
 const initialState = {
   blocks: {},
@@ -207,18 +208,18 @@ export default function timeline(state = initialState, action) {
       return { ...state, blocks };
     }
     case UPDATE_TITLE: {
-      const weeks = { ...state.weeks };
-      if (validateTitle(action.title)) {
-        weeks[action.weekId].title = action.title;
-      }
-      return { ...state, weeks };
+      return produce(state, (draft) => {
+        if (validateTitle(action.title)) {
+          draft.weeks[action.weekId].title = action.title;
+        }
+      });
     }
     case RESET_TITLES: {
-      const weeks = { ...state.weeks };
-      Object.keys(weeks).forEach((weekId) => {
-        weeks[weekId].title = '';
+      return produce(state, (draft) => {
+        Object.keys(draft.weeks).forEach((weekId) => {
+            draft.weeks[weekId].title = '';
+        });
       });
-      return { ...state, weeks };
     }
     case RESTORE_TIMELINE: {
       return { ...state, blocks: { ...state.blocksPersisted }, weeks: deepCopyWeeks(state.weeksPersisted), editableBlockIds: [] };

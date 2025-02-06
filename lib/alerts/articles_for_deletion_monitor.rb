@@ -104,13 +104,10 @@ class ArticlesForDeletionMonitor
 
   def create_alert(articles_course)
     return if alert_already_exists?(articles_course)
-    first_revision = articles_course
-                     .course.revisions.where(article_id: articles_course.article_id).first
     alert = Alert.create!(type: 'ArticlesForDeletionAlert',
                           article_id: articles_course.article_id,
-                          user_id: first_revision&.user_id,
-                          course_id: articles_course.course_id,
-                          revision_id: first_revision&.id)
+                          user_id: articles_course&.user_ids&.first,
+                          course_id: articles_course.course_id)
     alert.email_content_expert
   end
 

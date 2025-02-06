@@ -29,7 +29,7 @@ lb:
     error: 'Et gouf e Feeler:'
     explore: Entdecken
     field_required: Dëst Feld ass obligatoresch
-    field_invalid_characters: Dëst Feld huet net valabel Zeechen
+    field_invalid_characters: Dëst Feld enthält ongülteg Zeechen
     field_invalid_date: Dëst Feld brauch en Datum am Format JJJJ-MM-DD
     field_invalid_date_time: De Schluss muss nom Ufank sinn. (Stonne gi vun 0 bis
       23.)
@@ -557,6 +557,14 @@ lb:
         already_is: '%{username} ass schonn e(n) {position}!'
       remove:
         demote_success: '%{username} ass elo just e Benotzer.'
+  status:
+    default: Standard
+    latency: Latenz
+    no_info: Keng Informatiounen disponibel.
+    purpose: Zweck
+    queue: Schlaang
+    size: Gréisst
+    status: Status
   suggestions:
     editing: Virschléi änneren
     suggestion_docs:
@@ -746,6 +754,7 @@ lb:
     remove_article: Artikel ewechhuelen
     search: Sichen
     searching_articles: Artikele sichen
+    search_placeholder: Gitt Äert Schlësselwuert an
     show_options: Optioune weisen
     submit: Schécken
     tools: Geschierkëscht

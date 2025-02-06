@@ -64,9 +64,7 @@ const Calendar = createReactClass({
       }
     }
 
-    course.day_exceptions = exceptions.join(',');
-    course.no_day_exceptions = (compact(exceptions).length === 0);
-    return this.props.updateCourse(course);
+    return this.props.updateCourse({ ...course, day_exceptions: exceptions.join(','), no_day_exceptions: (compact(exceptions).length === 0) });
   },
   selectWeekday(e, weekday) {
     let weekdays;

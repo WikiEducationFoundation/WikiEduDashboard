@@ -2,11 +2,11 @@
 
 require 'rails_helper'
 
-DESIRED_TRAINING_MODULES = [{ slug: 'evaluating-articles' }].freeze
+DESIRED_TRAINING_MODULES = [{ slug: 'sandboxes-talk-watchlists' }].freeze
 
 describe 'Training', type: :feature, js: true do
   let(:user) { create(:user, id: 1) }
-  let(:module_2) { TrainingModule.find_by(slug: 'evaluating-articles') }
+  let(:module_2) { TrainingModule.find_by(slug: 'sandboxes-talk-watchlists') }
   let(:new_instructor_orientation_module) do
     TrainingModule.find_by(slug: 'new-instructor-orientation')
   end
@@ -130,7 +130,7 @@ describe 'Training', type: :feature, js: true do
       tmu = TrainingModulesUsers.find_by(user_id: user.id,
                                          training_module_id: new_instructor_orientation_module.id)
       visit "/training/students/#{new_instructor_orientation_module.slug}
-                              /#{new_instructor_orientation_module.slides.last.slug}"
+                                /#{new_instructor_orientation_module.slides.last.slug}"
       sleep 2
       expect(tmu.reload.completed_at).to be_between(1.minute.ago, 1.minute.from_now)
       expect(user.reload.permissions).to eq(User::Permissions::INSTRUCTOR)
@@ -209,6 +209,11 @@ describe 'Training', type: :feature, js: true do
   end
 
   describe 'finish module button' do
+    before do
+      TrainingSlide.load
+      visit "/training/students/#{module_2.slug}"
+    end
+
     context 'logged in user' do
       it 'redirects to their dashboard' do
         login_as(user, scope: :user)
@@ -236,13 +241,13 @@ describe 'Training', type: :feature, js: true do
     end
   end
 
-  DESIRED_TRAINING_MODULES.each do |module_slug|
-    describe "'#{module_slug[:slug]}' module" do
-      before do
-        TrainingSlide.load
-      end
+  describe 'lets the user go from start to finish' do
+    before do
+      TrainingSlide.load
+    end
 
-      it 'lets the user go from start to finish' do
+    DESIRED_TRAINING_MODULES.each do |module_slug|
+      it "'#{module_slug[:slug]}' module" do
         training_module = TrainingModule.find_by(module_slug)
         go_through_module_from_start_to_finish(training_module)
       end
@@ -279,7 +284,7 @@ def check_slide_contents(slide, slide_number, slide_count)
 end
 
 def proceed_to_next_slide
-  if page.has_selector?('.alert-box-container', wait: 10)
+  if page.has_selector?('.alert-box-container')
     within('.alert-box-container') do
       find('.alert-button').click
     end

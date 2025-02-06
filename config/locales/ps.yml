@@ -100,7 +100,7 @@ ps:
     student_editors: زده کوونکي سمونگران
     students_none: دا کورس کوم زدکړيال نه لري.
     students_short: زده کړيالان
-    timeline_link: وختکرښه
+    timeline_link: وخت‌کرښه
     title: سرليک
     view: کورس کتل
     view_page: د کورس مخ کتل
@@ -153,7 +153,7 @@ ps:
     gradeable_value: ارزښت
     save_all_changes: ټول خوندي کول
     this_week_title_default: دا اونۍ
-    title: وختکرښه
+    title: وخت‌کرښه
     week_number: اونۍ %{number}
   training:
     start: پيلول
@@ -175,8 +175,8 @@ ps:
     none: دا کورس کوم زدکړيال نه لري.
     number_of_articles: '%{number} ليکنې'
     recent_revisions: وروستني بدلونونه
-    username: کارن-نوم
-    username_placeholder: کارن-نوم
+    username: کارن‌نوم
+    username_placeholder: کارن‌نوم
   wizard:
     course_dates: کورس نېټې
     read_less: لږ لوستل
@@ -190,4 +190,7 @@ ps:
     email:
       headline: سلامونه، %{username}
       course: 'کورس: %{course_info}'
+  weekday_picker:
+    aria:
+      weekday_unselected: '{{د اونۍ ورځ}} ناټاکلی'
 ...

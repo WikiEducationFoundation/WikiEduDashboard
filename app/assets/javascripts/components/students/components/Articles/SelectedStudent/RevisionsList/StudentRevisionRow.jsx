@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 // Components
 import ContentAdded from '@components/students/shared/StudentList/Student/ContentAdded.jsx';
+import { setUploadFilters } from '~/app/assets/javascripts/actions/uploads_actions';
 
 export const StudentRevisionRow = ({ course, isOpen, toggleDrawer, student, uploadsLink }) => {
   return (
@@ -18,7 +19,7 @@ export const StudentRevisionRow = ({ course, isOpen, toggleDrawer, student, uplo
       <td className="desktop-only-tc">
         <Link
           to={uploadsLink}
-          onClick={() => { this.setUploadFilters([{ value: student.username, label: student.username }]); }}
+          onClick={() => { setUploadFilters([{ value: student.username, label: student.username }]); }}
         >
           {student.total_uploads || 0}
         </Link>
