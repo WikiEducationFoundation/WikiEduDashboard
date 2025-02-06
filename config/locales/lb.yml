@@ -557,6 +557,14 @@ lb:
         already_is: '%{username} ass schonn e(n) {position}!'
       remove:
         demote_success: '%{username} ass elo just e Benotzer.'
+  status:
+    default: Standard
+    latency: Latenz
+    no_info: Keng Informatiounen disponibel.
+    purpose: Zweck
+    queue: Schlaang
+    size: Gréisst
+    status: Status
   suggestions:
     editing: Virschléi änneren
     suggestion_docs:
@@ -746,6 +754,7 @@ lb:
     remove_article: Artikel ewechhuelen
     search: Sichen
     searching_articles: Artikele sichen
+    search_placeholder: Gitt Äert Schlësselwuert an
     show_options: Optioune weisen
     submit: Schécken
     tools: Geschierkëscht

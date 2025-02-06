@@ -31,26 +31,26 @@ describe DuplicateArticleDeleter do
                        deleted: true)
     end
 
-    it 'marks one deleted when there are two ids for one page' do
-      first = create(:article,
-                     id: 2262715,
-                     title: 'Kostanay',
-                     namespace: 0,
-                     created_at: 1.day.from_now)
-      second = create(:article,
-                      id: 46349871,
-                      title: 'Kostanay',
-                      namespace: 0,
-                      created_at: 1.day.ago)
-      described_class.new.resolve_duplicates([first])
-      undeleted = Article.where(
+    it 'marks oldest one deleted when there are two ids for one page' do
+      new_article = create(:article,
+                           id: 2262715,
+                           title: 'Kostanay',
+                           namespace: 0,
+                           created_at: 1.day.from_now)
+      duplicate_article = create(:article,
+                                 id: 46349871,
+                                 title: 'Kostanay',
+                                 namespace: 0,
+                                 created_at: 1.day.ago)
+      described_class.new.resolve_duplicates([new_article])
+      deleted = Article.where(
         title: 'Kostanay',
         namespace: 0,
-        deleted: false
+        deleted: true
       )
 
-      expect(undeleted.count).to eq(1)
-      expect(undeleted.first.id).to eq(second.id)
+      expect(deleted.count).to eq(1)
+      expect(deleted.first.id).to eq(duplicate_article.id)
     end
 
     it 'does not mark any deleted when articles different in title case' do

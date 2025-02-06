@@ -30,3 +30,21 @@ content: |
   Please try to connect in a location without a great
   deal of background noise, and mute your microphone while you're not
   talking.
+
+translations:
+  es:
+    title: Usando Zoom
+    content: |
+      Zoom es una plataforma de videoconferencias en línea. En las reuniones de Zoom, aprenderás de los expertos de Wikipedia y de tus compañeros colaboradores. Las reuniones se grabarán y estarán disponibles para los participantes en la carpeta de Dropbox protegida por contraseña.
+
+      Recibirás un enlace de Zoom por correo electrónico. Si no has usado Zoom antes, se te pedirá que descargues su programa ejecutor. Funciona en PC, Mac, Linux, iOS y Android. El enlace será el mismo todas las semanas.
+
+      <figure class="alt-layout-100">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Wikipedia_Fellows_-_Fall_2018_-_Women_in_Science.png" />
+      </figure>
+
+      Si no puedes conectarte a la llamada de Zoom por computador o por la aplicación, también puedes hacerlo por teléfono. Ten en cuenta que tu capacidad para participar en la reunión será muy limitada si llamas por teléfono ya que no podrás compartir la pantalla, chatear en directo y otras funciones. No es obligatorio prender la cámara en las reuniones, pero lo hacemos por defecto porque hemos visto que las reuniones tienen más éxito cuando todo el mundo está "cara a cara".
+
+      La intención de nuestras reuniones de Zoom es que sean interactivas. Si tienes alguna pregunta o comentario, puedes hacerlos. En grupos más grandes, o cuando la discusión es particularmente animada, esto puede ser difícil. Para esos momentos, Zoom tiene una función para "levantar la mano", además de otras formas de señales no verbales que puedes explorar. El uso de estas herramientas no es obligatorio, pero a algunas personas les resultan útiles.
+
+      Por favor, intenta conectarte en un lugar sin mucho ruido de fondo y silencia el micrófono cuando no estés hablando.

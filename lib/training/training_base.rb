@@ -43,6 +43,17 @@ class TrainingBase
     Features.wiki_trainings? ? WikiTrainingLoader : YamlTrainingLoader
   end
 
+  # Takes a hash of translations and turns the keys within each
+  # locale into symbols, so that yml-based translations will have
+  # the same format as wiki-based translations.
+  def self.format_translation_keys(translations_hash)
+    return unless translations_hash
+    translations_hash.each_key do |locale_key|
+      translations_hash[locale_key] = translations_hash[locale_key].transform_keys(&:to_sym)
+    end
+    translations_hash
+  end
+
   class DuplicateSlugError < StandardError
   end
 end

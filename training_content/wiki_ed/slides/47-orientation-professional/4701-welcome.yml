@@ -11,3 +11,13 @@ content: |
   and the future of technology.
 
   To start, let's go over a few things.
+
+translations:
+  es:
+    title: ¡Bienvenido a tu curso de Wikipedia!
+    content: |
+      *Por ahora, ignora el aviso "You are logged out/Has cerrado sesión" si te aparece.*
+
+      En este curso vas a aprender a dominar las herramientas de Wikipedia, ampliarás los artículos existentes, y aprenderás a crear otros nuevos. Vas a establecer contactos y colaborar con un grupo de otros académicos en reuniones semanales en tiempo real. Y al finalizar, vas a comprender el valor de Wikipedia dentro de marcos más amplios de conocimiento gratuito, cultura, y el futuro de la tecnología.
+
+      Para empezar, repasemos algunas cosas.
