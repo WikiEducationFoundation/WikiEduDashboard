@@ -32,6 +32,8 @@ class DuplicateArticleDeleter
       delete_duplicates_in(article_group)
     end
 
+    return if @deleted_ids.empty?
+
     articles = Article.where(id: @deleted_ids)
     # Get all courses with at least one deleted article
     course_ids = ArticlesCourses.where(article_id: @deleted_ids).pluck(:course_id).uniq
