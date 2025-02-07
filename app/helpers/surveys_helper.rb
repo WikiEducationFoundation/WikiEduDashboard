@@ -162,7 +162,7 @@ module SurveysHelper
   def survey_class_for_path(req, path)
     current_path_segments = req.path.split('/').reject(&:blank?)
     active_path = path.split('/').reject(&:blank?).last
-    current_path_segments.last == active_path ? 'active' : nil
+    current_path_segments.include?(active_path) ? 'active' : nil
   end
 
   ######################
