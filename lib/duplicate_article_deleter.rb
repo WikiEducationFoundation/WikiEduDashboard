@@ -25,6 +25,22 @@ class DuplicateArticleDeleter
     ModifiedRevisionsManager.new(@wiki).move_or_delete_revisions limbo_revisions
   end
 
+  def resolve_duplicates_for_timeslices(articles)
+    grouped = articles_grouped_by_title_and_namespace(articles)
+    @deleted_ids = []
+    grouped.each do |article_group|
+      delete_duplicates_in(article_group)
+    end
+
+    articles = Article.where(id: @deleted_ids)
+    # Get all courses with at least one deleted article
+    course_ids = ArticlesCourses.where(article_id: @deleted_ids).pluck(:course_id).uniq
+    course_ids.each do |course_id|
+      # Reset articles for every course involved
+      ArticlesCoursesCleanerTimeslice.reset_specific_articles(Course.find(course_id), articles)
+    end
+  end
+
   #################
   # Helper method #
   #################
