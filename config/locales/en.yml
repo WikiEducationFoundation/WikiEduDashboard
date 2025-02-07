@@ -1923,4 +1923,7 @@ en:
       weekday_select: "{{weekday}} Press Return key to select"
       weekday_selected: "{{weekday}} Selected Press Return Key to unselect"
       weekday_unselected: "{{weekday}} Unselected"
+
+  question_groups:
+    edit_question_group: "Edit Question Group"
       
