@@ -109,17 +109,17 @@ describe DuplicateArticleDeleter do
     end
     let!(:new_article) do
       create(:article,
-                     id: 2262715,
-                     title: 'Kostanay',
-                     namespace: 0,
-                     created_at: 1.day.from_now)
+             id: 2262715,
+             title: 'Kostanay',
+             namespace: 0,
+             created_at: 1.day.from_now)
     end
     let!(:duplicate_article) do
       create(:article,
-                      id: 46349871,
-                      title: 'Kostanay',
-                      namespace: 0,
-                      created_at: 1.day.ago)
+             id: 46349871,
+             title: 'Kostanay',
+             namespace: 0,
+             created_at: 1.day.ago)
     end
 
     it 'marks oldest one deleted when there are two ids for one page' do
