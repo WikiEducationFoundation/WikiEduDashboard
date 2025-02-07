@@ -51,10 +51,13 @@ class CoursesController < ApplicationController
     ensure_passcode_set
     UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
     render json: { course: @course }
-    else
-    # Handle update failures by checking for validation errors, such as a duplicate slug.
-    render json: { error: @course.errors.full_messages.first }, status: :unprocessable_entity
+  else
+    render json: { errors: @course.errors.full_messages }, status: :unprocessable_entity
   end
+  rescue Course::DuplicateCourseSlugError => e
+  message = I18n.t('courses.error.duplicate_slug', slug: e.slug)
+  render json: { errors: [message] }, status: :unprocessable_entity
+
   rescue Wiki::InvalidWikiError => e
     message = I18n.t('courses.error.invalid_wiki', domain: e.domain)
     render json: { errors: e, message: },

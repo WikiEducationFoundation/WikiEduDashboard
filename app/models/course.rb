@@ -60,10 +60,6 @@ class Course < ApplicationRecord
   ######################
   # Users for a course #
   ######################
-
-  # Validations for slug to avoid duplicacy
-  validates :slug, uniqueness: { message: '' }
-
   has_many :courses_users, class_name: 'CoursesUsers', dependent: :destroy
   has_many :users, -> { distinct }, through: :courses_users
   has_many :students, -> { where('courses_users.role = 0') },
@@ -596,5 +592,24 @@ class Course < ApplicationRecord
   # and the earlier revisions will be fetched.
   def set_needs_update
     self.needs_update = true if start_changed?
+  end
+
+  # Handle duplicate slug collision
+  validate :check_duplicate_slug, on: :update
+
+  def check_duplicate_slug
+    if Course.where(slug: slug).where.not(id: id).exists?
+      raise DuplicateCourseSlugError.new(slug)
+    end
+ end
+
+  class DuplicateCourseSlugError < StandardError
+    def initialize(slug, msg = 'Duplicate Slug')
+      @msg = msg
+      @slug = slug
+      super('#{msg}: #{slug}')
+    end
+
+    attr_reader :slug
   end
 end

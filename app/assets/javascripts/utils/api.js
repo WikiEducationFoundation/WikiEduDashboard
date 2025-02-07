@@ -321,10 +321,11 @@ const API = {
     });
 
     if (!response.ok) {
-      if (response.status === 422 || response.status === 400) {
-        // Check for 422 or 400
-        const errorMessage = 'Slug must be unique, This course slug is already in use. Please choose a different one.';
-        throw { message: errorMessage }};
+      if (response.status === 422 ) {
+      const data = await response.json();
+      const errorMessage = data.errors?.[0] || 'Unknown error';
+      throw new Error(errorMessage);}
+      else {
       const data = await response.text();
       this.obj = data;
       this.status = response.statusText;
@@ -336,7 +337,7 @@ const API = {
       });
       response.responseText = data;
       throw response;
-    }
+    }}
     return response.json();
   },
 
