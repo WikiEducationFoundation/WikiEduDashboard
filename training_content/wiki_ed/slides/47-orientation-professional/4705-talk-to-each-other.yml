@@ -4,3 +4,9 @@ summary:
 content: |
   In addition to the Dashboard and Wikipedia, we'll use two communication
   platforms: Slack and Zoom. Let's walk through how and when to use them.
+
+translations:
+  es:
+    title: ¡Comuníquense entre sí!
+    content: |
+      Además del Dashboard y Wikipedia, vamos a utilizar dos plataformas de comunicación: Slack y Zoom. Veamos cómo y cuándo utilizarlas.

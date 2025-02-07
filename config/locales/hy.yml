@@ -363,6 +363,9 @@ hy:
     special_users:
       new:
         form_placeholder: Օգտանուն
+  status:
+    size: Չափ
+    status: Կարգավիճակ
   suggestions:
     suggestion_docs:
       does_not_exist: 'Այս հոդվածը Վիքիպեդիայում գոյություն չունի:'
@@ -370,6 +373,7 @@ hy:
     add_week: Ավելացնել շաբաթ
     arrange_timeline: Կազմակերպել ժամանակացույցը
     block_custom: Կարգավորվող
+    done: Արված է
     empty_week_3: կամ
     this_week_title_default: Այս շաբաթ
   training:

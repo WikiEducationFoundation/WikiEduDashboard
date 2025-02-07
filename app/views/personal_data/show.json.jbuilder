@@ -25,7 +25,7 @@ end
 
 json.campaigns do
   json.array! @user.campaigns_users.includes(:campaign).each do |campaign_user|
-    json.campaign campaign.user.campaign.slug
+    json.campaign campaign_user.campaign.slug
     json.joined_at campaign_user.created_at
   end
 end

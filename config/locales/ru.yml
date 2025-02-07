@@ -637,6 +637,9 @@ ru:
     special_users:
       new:
         form_placeholder: Имя участника
+  status:
+    size: Размер
+    status: Статус
   tasks:
     conseq: Задача %{task} уже выполняется!
     constant: Задача %{task} не может быть выполнена, когда происходит ежедневное
@@ -646,6 +649,7 @@ ru:
   timeline:
     arrange_timeline: Настроить расписание
     delete_timeline_and_start_over: Удалить расписание
+    done: Готово
     empty_week_3: или
     gradeable_value: Значение
     no_timeline: У этого курса пока нет расписания.

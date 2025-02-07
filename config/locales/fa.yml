@@ -538,6 +538,12 @@ fa:
     none: این دوره فعالیت‌های اخیر ویرایشی ویکی‌پدیایی ندارد.
     time_doc: زمان هر بازبینی به وقت محلی‌تان
     title: عنوان
+  status:
+    active_jobs: کارهای فعال
+    default: پیش‌فرض
+    no_info: اطلاعاتی در دسترس نیست.
+    size: اندازه
+    status: وضعیت
   tasks:
     conseq: تکلیفِ %{task} در حال اجراست!
   timeline:

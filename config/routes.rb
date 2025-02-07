@@ -65,6 +65,7 @@ Rails.application.routes.draw do
   #PersonalDataController
   controller :personal_data do
     get 'download_personal_data' => 'personal_data#show'
+    get 'download_personal_data_csv' => 'personal_data#personal_data_csv'
   end
 
   # Users
@@ -482,6 +483,8 @@ Rails.application.routes.draw do
 
   get '/private_information' => 'about_this_site#private_information'
   get '/styleguide' => 'styleguide#index'
+
+  get '/status' => 'system_status#index'
 
   # Errors
   match '/404', to: 'errors#file_not_found', via: :all

@@ -22,9 +22,11 @@ const List = ({
         const persistAreaElement = persistAreaElements[i];
         if (fixHeader) {
           const floatingHeaderRow = persistAreaElements[i].getElementsByClassName('floatingHeader')[0];
-          const style = window.getComputedStyle(persistAreaElement);
-          const width = style.getPropertyValue('width');
-          floatingHeaderRow.style.width = width;
+          if (floatingHeaderRow) {
+            const style = window.getComputedStyle(persistAreaElement);
+            const width = style.getPropertyValue('width');
+            floatingHeaderRow.style.width = width;
+          }
         }
         const offset = persistAreaElement.offsetTop;
         const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;

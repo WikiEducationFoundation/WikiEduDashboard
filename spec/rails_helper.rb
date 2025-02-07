@@ -26,9 +26,13 @@ Rails.cache.clear
 Capybara::Screenshot.prune_strategy = :keep_last_run
 Capybara::Screenshot.register_filename_prefix_formatter(:rspec) do |example|
   file_name = example.file_path.split('/').last.gsub('.rb', '')
-  formatted_description = example.description.tr(' ', '-').gsub(%r{^.*/spec/}, '')
+  formatted_description = example.description
+                                 .tr(' ', '-')
+                                 .gsub(%r{^.*/spec/}, '')
+                                 .gsub(/["*:<>|?\\\r\n]/, '')
   "screenshot_#{file_name}_description_#{formatted_description}"
 end
+
 Capybara.save_path = 'tmp/screenshots/'
 Capybara.server = :puma, { Silent: true }
 Capybara.default_max_wait_time = 10

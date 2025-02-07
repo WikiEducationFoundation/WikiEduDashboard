@@ -164,7 +164,7 @@ const TrainingSlideHandler = () => {
           params={routeParams}
           onClick={next}
         />
-        {isShown && <FastTrainingAlert/>}
+        {isShown && <div><FastTrainingAlert/></div>}
       </>
     );
   } else {

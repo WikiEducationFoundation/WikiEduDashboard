@@ -4,7 +4,7 @@ summary:
 content: |
   Depending on what you are querying, Wikidata has different visualization tools
   to represent the results of your queries. Keep in mind to activate some of the
-  visualizations you need to query the correct type of data. For example you
+  visualizations you need to query the correct type of data. For example, you
   need coordinates to see a map, dates to see a timeline, and images to see the
   image grid.
 

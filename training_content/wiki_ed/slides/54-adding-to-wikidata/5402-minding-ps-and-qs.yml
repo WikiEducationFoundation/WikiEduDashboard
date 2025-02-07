@@ -8,10 +8,10 @@ content: |
   **Items**, which begin with Q, describe some entity in the world. <code>Q2</code> is the planet
   Earth, <code>Q42</code> is the writer Douglas Adams, and <code>Q4648</code> is the island of Bali.
   Because the Q-number associated with items is difficult for humans to remember,
-  each item also has a label which gives the name of the item in English and
+  each item also has a label that gives the name of the item in English and
   other languages.
 
-  Items are associated with **statements** which describe various properties of the
+  Items are associated with **statements**, which describe various properties of the
   item. A statement consists of a **property** and the **value** associated with that
   property. For Bali, the property **instance of** has the associated value "island".
   That's just Wikidata's way of saying "Bali is an island". Properties, as you

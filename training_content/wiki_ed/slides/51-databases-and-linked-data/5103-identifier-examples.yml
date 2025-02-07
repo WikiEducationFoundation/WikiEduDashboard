@@ -9,8 +9,8 @@ content: |
 
   Systems like this have existed before databases. Consider Zip codes or Postal
   Index Numbers or longitude and latitude as examples of identifiers that refer
-  to an explicit geographic area in different ways. (There other non-geographic
-  examples: license plates, credit card numbers, phone numbers, etc.)
+  to an explicit geographic area in different ways. (There are other non-geographic
+  examples such as license plates, credit card numbers, phone numbers, etc.)
 
   If every point on the globe can be represented as a number, it's not such a
   stretch to imagine every single thing having a unique identifier associated

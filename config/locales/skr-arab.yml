@@ -253,6 +253,12 @@ skr-arab:
     special_users:
       new:
         form_placeholder: ورتݨ ناں
+  status:
+    default: پہلے کنوں طے تھیا ہویا
+    purpose: مقصد
+    queue: قطار
+    size: سائز
+    status: حیثیت
   timeline:
     add_week: ہفتہ شامل کرو
     block_milestone: سنگ میل
@@ -260,6 +266,7 @@ skr-arab:
     course_end: کورس دا چھیکڑ
     course_start: کورس شروع
     delete_timeline_and_start_over: ٹائم لائن مٹاؤ
+    done: تھی ڳیا
     empty_week_1: شروع کرو
     empty_week_3: یا
     gradeable_value: قدر
