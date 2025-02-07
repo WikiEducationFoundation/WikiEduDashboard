@@ -217,12 +217,22 @@ class WikiSlideParser
 
   def template_parameter_value(template, parameter)
     # Extract value from the template
+    # The expected format is: | parameter_name = value
+    # The regex breakdown:
+    # - \|:            Matches the pipe character at the start of the parameter line.
+    # - \s*:           Matches any whitespace characters (spaces or tabs) after the pipe.
+    # - #{parameter}:  Inserts the parameter name to match.
+    # - \s*=\s*:       Matches the equals sign with optional whitespace around it.
+    # - (?<value>.*?): Captures the value after the equals sign into a named group 'value'.
+    # - (?=\||\Z):     Positive lookahead to ensure the match ends at the next pipe
+    #                   or the end of the string.
     match = template.match(/\|\s*#{parameter}\s*=\s*(?<value>.*?)(?=\||\Z)/m)
 
     # Check if match is present and value is not nil
     value = match && match['value']
 
     # Remove undesired formatting and whitespace, only if value is not nil
+    # The gsub removes leading colons and triple quotes, and strip removes surrounding whitespace.
     value ? value.gsub(/(^:|''')/, '').strip : nil
   end
 end
