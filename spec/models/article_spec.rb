@@ -59,4 +59,46 @@ describe Article, type: :model do
       expect(article.namespace_prefix).to eq('Incubator:')
     end
   end
+
+  describe '#fetch_page_content' do
+    let(:wiki) { build(:wiki, language: 'en', project: 'wikipedia') }
+    let(:article) { create(:article, title: 'Selfies', namespace: 0, wiki:) }
+    let(:wiki_api) { instance_double(WikiApi) }
+
+    before do
+      allow(WikiApi).to receive(:new).with(wiki).and_return(wiki_api)
+    end
+
+    it 'returns the page content when the API call is successful' do
+      allow(wiki_api).to receive(:get_page_content).with(article.escaped_full_title).and_return(
+        'Page content'
+      )
+      expect(article.fetch_page_content).to eq('Page content')
+    end
+
+    it 'returns an empty string when the API call returns 404' do
+      allow(wiki_api).to receive(:get_page_content).with(article.escaped_full_title).and_return('')
+      expect(article.fetch_page_content).to eq('')
+    end
+
+    it 'raises an error if the API call fails' do
+      allow(wiki_api).to receive(:get_page_content).with(article.escaped_full_title).and_raise(
+        StandardError, 'API Error'
+      )
+      expect { article.fetch_page_content }.to raise_error(StandardError, 'API Error')
+    end
+
+    it 'handles mediawiki 503 errors gracefully' do
+      allow(wiki_api).to receive(:get_page_content).and_raise(
+        WikiApi::PageFetchError.new(
+          'Failed to fetch content for Ragesoss with response status: 503', 503
+        )
+      )
+
+      expect { article.fetch_page_content }.to raise_error(
+        WikiApi::PageFetchError,
+        /Failed to fetch content for Ragesoss with response status: 503/
+      )
+    end
+  end
 end
