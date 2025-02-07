@@ -5,7 +5,11 @@ require "#{Rails.root}/lib/alerts/high_quality_article_monitor"
 
 describe HighQualityArticleMonitor do
   describe '.create_alerts_for_course_articles' do
-    let(:course) { create(:course, start: '2024-01-01', end: '2025-01-01') }
+    let(:course) do
+      travel_to Date.new(2025, 1, 10) do
+        create(:course, start: '2024-01-01', end: Date.new(2025, 1, 10))
+      end
+    end
     let(:student) { create(:user, username: 'Leemyongpak', email: 'learn@school.edu') }
     let(:instructor) { create(:user, username: 'instructor', email: 'teach@school.edu') }
     let!(:courses_user) do

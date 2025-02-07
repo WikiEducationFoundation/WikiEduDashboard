@@ -6,8 +6,8 @@ content: |
   features called **property constraints** to show users how to enter the correct
   data and ensure that items will be formatted correctly.
 
-  Properties express how two things relate to each other. In some cases that
-  relationship may be a number, in other cases it may be another item. **Property
+  Properties express how two things relate to each other. In some cases, that
+  relationship may be a number; in other cases, it may be another item. **Property
   constraints** describe the kind of values that properties can have.
 
   An example of a property constraint is the "allowed units constraint", which

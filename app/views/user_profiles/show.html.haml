@@ -21,4 +21,11 @@
   - if @user == current_user
     .personal_data
       %small
-        = link_to 'Download personal data', '/download_personal_data.json'
+        =  'Download personal data as'
+      %small
+        = link_to 'json', '/download_personal_data.json'
+      %small
+        =  'or'
+      %small
+        = link_to 'csv', '/download_personal_data_csv'
+

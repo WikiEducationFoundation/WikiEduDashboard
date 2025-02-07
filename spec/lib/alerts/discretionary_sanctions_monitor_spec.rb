@@ -9,7 +9,11 @@ end
 
 describe DiscretionarySanctionsMonitor do
   describe '.create_alerts_for_course_articles' do
-    let(:course) { create(:course, start: '2024-12-10', end: '2025-01-20') }
+    let(:course) do
+      travel_to Date.new(2025, 1, 20) do
+        create(:course, start: '2024-12-10', end: Date.new(2025, 1, 20))
+      end
+    end
     let(:student) { create(:user, username: 'Gelasin') }
     let!(:courses_user) do
       create(:courses_user, user_id: student.id,

@@ -1474,6 +1474,16 @@ fr:
         revoking_button_working: Révocation en cours...
         already_is_not: '%{username} n’est pas un utilisateur spécial !'
         demote_success: '%{username} est dorénavant un(e) simple utilisateur/trice.'
+  status:
+    daily_update: Mise à jour quotidienne
+    default: Par défaut
+    latency: Latence
+    no_info: Aucune information disponible.
+    purpose: But
+    queue: File d’attente
+    short_update: Mise à jour courte
+    size: Taille
+    status: État
   suggestions:
     editing: Modification des suggestions
     suggestion_docs:

@@ -8,7 +8,7 @@ content: |
   **User discussion pages**
   Just like items and properties, your user page has an associated discussion
   page where other editors can leave you messages. You will see a link to it,
-  labeled "Discussion" in the top of each page. You can also access your talk
+  labeled "Discussion" on the top of each page. You can also access your talk
   page by clicking on <a href="https://www.wikidata.org/wiki/Special:MyTalk">this link</a>.
   You can also leave messages for other editors by posting on their talk page.
 
@@ -19,13 +19,13 @@ content: |
     </figcaption>
   </figure>
 
-  This image shows a few important details. First this is a draft of a message
+  This image shows a few important details. First, this is a draft of a message
   on Will's discussion page. It has not been published yet. The way the message
   will look is below the Preview section. It starts with "Wikidata Training,"
   the subject for this message. Below you can see the message in the editing area.
 
   You may notice some characters that look like code. This is Wikicode, which
-  is a markup language that Wikimedia projects use. For this course you will not
+  is a markup language that Wikimedia projects use. For this course, you will not
   need to learn Wikicode *except* when using discussion pages. The first bit of
   Wikicode is there to ping Ian. The formula to ping another user is: <code>{{ping|USERNAME}}</code>
   where "ping" is the action to reach out to someone and after the pipe "|" you
@@ -48,7 +48,7 @@ content: |
   talk page. When you engage in Project chat or a similar page, you will use the
   main project page, not the talk page.
 
-  Editors will assume that you will read messages left on your user talk page,
+  Editors will assume that you will read messages left on your user talk page
   and that you will check back to see if they replied to posts that you left on
   their talk page, on WikiProjects, or in other places like Project chat. You
   can do this by adding their page to your Watchlist (as explained on the next

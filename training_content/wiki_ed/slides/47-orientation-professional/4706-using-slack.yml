@@ -16,3 +16,13 @@ content: |
   questions outside of office hours, at night, or over the weekend, you can
   still use Slack. It is a powerful tool for asynchronous communication and
   staff will respond when they can (at latest, by the next day's office hours).
+
+translations:
+  es:
+    title: Usando Slack
+    content: |
+      Recibirás una invitación para unirte a Slack al inicio del curso. Slack es un servicio de chat/mensajes al que puedes entrar a través de la web, el programa descargable, o la aplicación del teléfono.
+
+      Aquí es donde puedes hacer preguntas, compartir enlaces útiles o información, y coordinar cualquier trabajo colaborativo con tus compañeros. Tendremos un canal dedicado, visible sólo para los participantes del curso y el personal de Wiki Education. También puedes enviar mensajes privados o de grupo.
+
+      El personal de Wiki Education tiene horas de oficina en Slack durante una hora todos los días de la semana. Consulta el horario en tu correo electrónico de bienvenida o en la pestaña de Inicio del Dashboard. Si tienes preguntas fuera del horario de oficina, por la noche o durante el fin de semana, puedes utilizar Slack. Es una herramienta poderosa para la comunicación asíncrona y el personal responderá cuando pueda (a más tardar, en el horario de oficina del día siguiente).

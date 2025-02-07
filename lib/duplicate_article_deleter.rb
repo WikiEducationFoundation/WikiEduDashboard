@@ -49,7 +49,8 @@ class DuplicateArticleDeleter
   def delete_duplicates(title, ns)
     articles = Article.where(title:, namespace: ns, wiki_id: @wiki.id, deleted: false)
                       .order(:created_at)
-    keeper = articles.first
+    # Default order is ascendent, so we want to keep the last article
+    keeper = articles.last
     return [] if keeper.nil?
 
     # Here we must verify that the titles match, since searching by title is case-insensitive.

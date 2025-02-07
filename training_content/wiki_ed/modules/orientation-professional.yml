@@ -13,3 +13,9 @@ slides:
   - slug: using-slack # 4706
   - slug: using-zoom # 4707
   - slug: what-now # 4708
+
+translations:
+  es:
+    name: Orientación del curso de Wikipedia (Profesional)
+    description: |
+      ¡Bienvenido a tu curso de Wikipedia! Aquí va un poco de contexto sobre lo que vamos a hacer.

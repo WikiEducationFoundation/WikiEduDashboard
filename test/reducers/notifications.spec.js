@@ -135,12 +135,13 @@ describe('notifications reducer', () => {
         responseText: '{"message":"Example notification status"'
       }
     };
+    // when data.responseText is invalid, notification.message is assigned
+    // the data object as the last fallback. This is however serialized into
+    // a string as React cannot render objects.
     const notification = {
       closable: true,
       type: 'error',
-      message: {
-        responseText: '{"message":"Example notification status"'
-      }
+      message: '{"responseText":"{\\"message\\":\\"Example notification status\\""}',
     };
     const expectedState = [notification];
     deepFreeze(initialState);
