@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe UpdateTimeslicesCourseDate do
   let(:start) { '2021-01-24'.to_datetime }
-  let(:course) { create(:course, start: '2021-01-24', end: '2021-01-30') }
+  let(:course) { create(:course, start:, end: '2021-01-30') }
   let(:enwiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
   let(:updater) { described_class.new(course).run }
   let(:user1) { create(:user, username: 'Ragesoss') }
@@ -125,6 +125,50 @@ describe UpdateTimeslicesCourseDate do
       # Article course for article 2 was deleted
       expect(course.articles_courses.count).to eq(1)
       expect(course.article_course_timeslices.count).to eq(1)
+    end
+  end
+
+  context 'when the course was entirely moved backward' do
+    before do
+      course.update(start: '2020-02-10')
+      course.update(end: '2020-02-20')
+    end
+
+    it 'deletes existing timeslices and create new ones' do
+      # There are two users, two articles and one wiki
+      expect(course.course_wiki_timeslices.count).to eq(7)
+      expect(course.course_wiki_timeslices.needs_update.count).to eq(0)
+      expect(course.course_user_wiki_timeslices.count).to eq(3)
+      expect(course.article_course_timeslices.count).to eq(2)
+
+      described_class.new(course).run
+      # Timeslices from old period were deleted and new ones were created
+      expect(course.course_wiki_timeslices.count).to eq(11)
+      expect(course.course_wiki_timeslices.needs_update.count).to eq(0)
+      expect(course.course_user_wiki_timeslices.count).to eq(0)
+      expect(course.article_course_timeslices.count).to eq(0)
+    end
+  end
+
+  context 'when the course was entirely moved forward' do
+    before do
+      course.update(start: '2022-02-10')
+      course.update(end: '2022-02-20')
+    end
+
+    it 'deletes existing timeslices and create new ones' do
+      # There are two users, two articles and one wiki
+      expect(course.course_wiki_timeslices.count).to eq(7)
+      expect(course.course_wiki_timeslices.needs_update.count).to eq(0)
+      expect(course.course_user_wiki_timeslices.count).to eq(3)
+      expect(course.article_course_timeslices.count).to eq(2)
+
+      described_class.new(course).run
+      # Timeslices from old period were deleted and new ones were created
+      expect(course.course_wiki_timeslices.count).to eq(11)
+      expect(course.course_wiki_timeslices.needs_update.count).to eq(0)
+      expect(course.course_user_wiki_timeslices.count).to eq(0)
+      expect(course.article_course_timeslices.count).to eq(0)
     end
   end
 end

@@ -12,11 +12,27 @@ class UpdateTimeslicesCourseDate
   end
 
   def run
+    update_timeslices_if_drastic_change
     update_timeslices_if_start_date_changed
     update_timeslices_if_end_date_changed
   end
 
   private
+
+  # A 'drastic' change occurs when the previous course period and the current one have no overlap.
+  # In this case, we delete the existing timeslices and generate new ones.
+  def update_timeslices_if_drastic_change
+    min_course_start = CourseWikiTimeslice.where(course: @course).minimum(:start)
+    max_course_end = CourseWikiTimeslice.where(course: @course).maximum(:end)
+
+    drastic_change = @course.start >= max_course_end || @course.end <= min_course_start
+
+    return unless drastic_change
+
+    remove_timeslices_prior_to_start_date
+    remove_timeslices_after_end_date
+    @timeslice_manager.create_timeslices_for_new_course_wiki_records(@course.wikis)
+  end
 
   def update_timeslices_if_start_date_changed
     # Get the min course wiki timeslice end date
