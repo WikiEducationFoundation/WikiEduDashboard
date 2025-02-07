@@ -4,6 +4,7 @@ require_dependency "#{Rails.root}/lib/replica"
 require_dependency "#{Rails.root}/lib/importers/article_importer"
 require_dependency "#{Rails.root}/app/helpers/encoding_helper"
 require_dependency "#{Rails.root}/lib/importers/revision_score_importer"
+require_dependency "#{Rails.root}/lib/duplicate_article_deleter"
 
 #= Fetches revision data from API
 class RevisionDataManager
@@ -44,8 +45,7 @@ class RevisionDataManager
                                                  scoped_sub_data:,
                                                  articles: article_dict)
 
-    # TODO: resolve duplicates
-    # DuplicateArticleDeleter.new(@wiki).resolve_duplicates(@articles)
+    DuplicateArticleDeleter.new(@wiki).resolve_duplicates_for_timeslices(@articles)
 
     # We need to partition revisions because we don't want to calculate scores for revisions
     # out of important spaces
