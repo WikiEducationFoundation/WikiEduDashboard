@@ -4,6 +4,7 @@ require_dependency "#{Rails.root}/lib/replica"
 require_dependency "#{Rails.root}/lib/importers/article_importer"
 require_dependency "#{Rails.root}/app/helpers/encoding_helper"
 require_dependency "#{Rails.root}/lib/importers/revision_score_importer"
+require_dependency "#{Rails.root}/lib/duplicate_article_deleter"
 
 #= Fetches revision data from API
 class RevisionDataManager
@@ -30,8 +31,7 @@ class RevisionDataManager
 
     # Import articles. We do this here to avoid saving article data in memory.
     # Note that we create articles for all sub data (not only for scoped revisions).
-    ArticleImporter.new(@wiki).import_articles_from_revision_data(articles)
-    @articles = Article.where(wiki_id: @wiki.id, mw_page_id: articles.map { |a| a['mw_page_id'] })
+    import_and_resolve_duplicate_articles articles
 
     # Prep: get a user dictionary for all users referred to by revisions.
     users = user_dict_from_sub_data(all_sub_data)
@@ -43,9 +43,6 @@ class RevisionDataManager
                                                  users,
                                                  scoped_sub_data:,
                                                  articles: article_dict)
-
-    # TODO: resolve duplicates
-    # DuplicateArticleDeleter.new(@wiki).resolve_duplicates(@articles)
 
     # We need to partition revisions because we don't want to calculate scores for revisions
     # out of important spaces
@@ -67,6 +64,12 @@ class RevisionDataManager
   # Helpers #
   ###########
   private
+
+  def import_and_resolve_duplicate_articles(articles)
+    ArticleImporter.new(@wiki).import_articles_from_revision_data(articles)
+    @articles = Article.where(wiki_id: @wiki.id, mw_page_id: articles.map { |a| a['mw_page_id'] })
+    DuplicateArticleDeleter.new(@wiki).resolve_duplicates_for_timeslices(@articles)
+  end
 
   # Returns a list of revisions for users during the given period:
   # [all_sub_data, sub_data].
