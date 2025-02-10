@@ -52,6 +52,7 @@ class UpdateTimeslicesCourseWiki
     @course.wikis.each do |wiki|
       start = @timeslice_manager.get_ingestion_start_time_for_wiki wiki
       timeslice = @course.course_wiki_timeslices.where(wiki:, start:).first
+      next unless timeslice
       effective_timeslice_duration = timeslice.end - timeslice.start
       real_timeslice_duration = @timeslice_manager.timeslice_duration(wiki)
       # Continue if timeslice duration didn't change for the wiki
