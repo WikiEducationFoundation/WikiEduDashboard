@@ -125,4 +125,10 @@ describe UpdateTimeslicesCourseWiki do
       expect(last_timeslice.end - last_timeslice.start).to eq(172800)
     end
   end
+
+  it 'doesnt fail if there are no timeslices for the ingestion start date' do
+    manager.create_timeslices_for_new_course_wiki_records([enwiki])
+    course.update(start: '2018-11-20')
+    described_class.new(course).run
+  end
 end
