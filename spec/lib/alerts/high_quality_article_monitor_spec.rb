@@ -5,11 +5,7 @@ require "#{Rails.root}/lib/alerts/high_quality_article_monitor"
 
 describe HighQualityArticleMonitor do
   describe '.create_alerts_for_course_articles' do
-    let(:course) do
-      travel_to Date.new(2025, 1, 10) do
-        create(:course, start: '2024-01-01', end: Date.new(2025, 1, 10))
-      end
-    end
+    let(:course)  { create(:course, start: '2024-01-01', end: '2025-01-01') }
     let(:student) { create(:user, username: 'Leemyongpak', email: 'learn@school.edu') }
     let(:instructor) { create(:user, username: 'instructor', email: 'teach@school.edu') }
     let!(:courses_user) do
@@ -37,6 +33,7 @@ describe HighQualityArticleMonitor do
     end
 
     before do
+      travel_to Time.zone.local(2024, 0o5, 11, 0o1, 0o4, 44)
       create(:courses_user, course:, user: instructor,
                             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
 
@@ -50,6 +47,10 @@ describe HighQualityArticleMonitor do
         .and_return(["Petter's big-footed mouse",
                      'Phan Đình Phùng',
                      'The Phantom Tollbooth'])
+    end
+
+    after do
+      travel_back
     end
 
     it 'creates Alert records for edited Good articles' do
