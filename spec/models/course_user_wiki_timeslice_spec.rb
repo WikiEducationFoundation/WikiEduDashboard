@@ -22,6 +22,8 @@ require 'rails_helper'
 require "#{Rails.root}/lib/timeslice_manager"
 
 describe CourseUserWikiTimeslice, type: :model do
+  before { stub_const('TimesliceManager::TIMESLICE_DURATION', 86400) }
+
   let(:wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
   let(:refs_tags_key) { 'feature.wikitext.revision.ref_tags' }
   let(:user) { create(:user, username: 'User') }

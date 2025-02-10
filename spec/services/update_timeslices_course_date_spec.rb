@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require "#{Rails.root}/lib/timeslice_manager"
 
 describe UpdateTimeslicesCourseDate do
   let(:start) { '2021-01-24'.to_datetime }
@@ -15,6 +16,7 @@ describe UpdateTimeslicesCourseDate do
 
   before do
     stub_wiki_validation
+    stub_const('TimesliceManager::TIMESLICE_DURATION', 86400)
     # Add two users
     course.campaigns << Campaign.first
     JoinCourse.new(course:, user: user1, role: 0)

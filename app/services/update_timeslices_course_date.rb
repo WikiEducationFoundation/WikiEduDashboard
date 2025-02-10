@@ -29,6 +29,9 @@ class UpdateTimeslicesCourseDate
 
     return unless drastic_change
 
+    Rails.logger.info "UpdateTimeslicesCourseDate: Course: #{@course.slug}\
+    Drastic date change. Recreating timeslices."
+
     remove_timeslices_prior_to_start_date
     remove_timeslices_after_end_date
     @timeslice_manager.create_timeslices_for_new_course_wiki_records(@course.wikis)

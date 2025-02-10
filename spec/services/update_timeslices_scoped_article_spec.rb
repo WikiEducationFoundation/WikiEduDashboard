@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require "#{Rails.root}/lib/timeslice_manager"
 
 describe UpdateTimeslicesScopedArticle do
+  before { stub_const('TimesliceManager::TIMESLICE_DURATION', 86400) }
+
   let(:course) { create(:article_scoped_program) }
   let(:basic_course) { create(:course) }
   let(:assigned_article) { create(:article, title: 'Assigned', id: 2, namespace: 0) }

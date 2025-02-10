@@ -16,6 +16,7 @@ describe UpdateCourseWikiTimeslices do
 
   before do
     stub_wiki_validation
+    stub_const('TimesliceManager::TIMESLICE_DURATION', 86400)
     travel_to Date.new(2018, 12, 1)
     course.campaigns << Campaign.first
     course.wikis << Wiki.get_or_create(language: nil, project: 'wikidata')

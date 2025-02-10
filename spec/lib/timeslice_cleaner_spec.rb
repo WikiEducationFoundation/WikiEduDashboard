@@ -2,6 +2,7 @@
 
 require 'rails_helper'
 require "#{Rails.root}/lib/timeslice_cleaner"
+require "#{Rails.root}/lib/timeslice_manager"
 
 describe TimesliceCleaner do
   let(:enwiki) { Wiki.get_or_create(project: 'wikipedia', language: 'en') }
@@ -18,6 +19,7 @@ describe TimesliceCleaner do
 
   before do
     stub_wiki_validation
+    stub_const('TimesliceManager::TIMESLICE_DURATION', 86400)
     travel_to Date.new(2024, 1, 21)
     enwiki_course
     wikidata_course
