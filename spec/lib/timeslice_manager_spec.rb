@@ -18,6 +18,7 @@ describe TimesliceManager do
 
   before do
     stub_wiki_validation
+    allow(course).to receive(:flags).and_return({ timeslice_duration: { default: 86400 } })
     travel_to Date.new(2024, 1, 21)
     enwiki_course
     wikidata_course
@@ -71,7 +72,7 @@ describe TimesliceManager do
 
         timeslice_manager.create_wiki_timeslices_for_new_course_start_date(wikibooks)
         course.reload
-        # Create course and user timeslices for the period between 2023-12-20 and 2024-01-01
+        # Create course timeslices for the period between 2023-12-20 and 2024-01-01
         expect(course.course_wiki_timeslices.size).to eq(123)
         expect(course.course_wiki_timeslices.where(needs_update: true).size).to eq(12)
       end

@@ -133,7 +133,7 @@ class TimesliceManager
     old_start = CourseWikiTimeslice.for_course_and_wiki(@course, wiki)
                                    .minimum(:start)
     current_start = old_start - timeslice_duration(wiki)
-    while current_start >= @course.start
+    while current_start > @course.start - timeslice_duration(wiki)
       start_dates << current_start
       current_start -= timeslice_duration(wiki)
     end
