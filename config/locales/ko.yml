@@ -971,6 +971,7 @@ ko:
       headline: 안녕하세요, %{username}님
       signed: '- Wiki 교육 팀'
       link: 설문 조사 참가
+    edit_survey: 설문 조사 편집
   wiki_api:
     create_account_reason: 이 사용자는 %{event}에 참여하고 있습니다.
   onboarding:
@@ -1027,4 +1028,6 @@ ko:
     cancel_edit_note: 취소
   tagged_courses:
     download_csv: CSV 다운로드
+  question_groups:
+    edit_question_group: 질문 그룹 편집
 ...
