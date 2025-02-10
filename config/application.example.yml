@@ -129,3 +129,7 @@
 # Secret for authentication with Wikimedia Event Center
 # Generate one for production or staging via `rails secret`
 # WikimediaCampaignsPlatformSecret: 
+
+# LTIAAS Configuration
+  LTIAAS_API_KEY: 'example_api_key'
+  LTIAAS_DOMAIN: 'example.ltiaas.com'

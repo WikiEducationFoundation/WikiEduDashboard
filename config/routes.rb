@@ -484,6 +484,9 @@ Rails.application.routes.draw do
 
   get '/status' => 'system_status#index'
 
+  # LTI
+  get '/lti' => 'lti_launch#link_user'
+
   # Errors
   match '/404', to: 'errors#file_not_found', via: :all
   match '/422', to: 'errors#unprocessable', via: :all
