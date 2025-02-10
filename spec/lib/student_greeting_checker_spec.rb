@@ -43,5 +43,21 @@ describe StudentGreetingChecker do
       subject
       expect(User.find(2).greeted).to eq(true)
     end
+
+    describe '.check' do
+      let(:course) { Course.find(1) }
+      let(:wiki) { course.home_wiki }
+      let(:greeters) { [User.find(1)] }
+      let(:checker) { StudentGreetingChecker::Check.new(User.find(2), wiki, greeters) }
+
+      describe '#talk_page_blank?' do
+        it 'returns true when a PageFetchError with status 429 is raised' do
+          allow_any_instance_of(WikiApi).to receive(:get_page_content)
+            .and_raise(WikiApi::PageFetchError.new('User:Ragesoss', 429))
+
+          expect(checker.send(:talk_page_blank?)).to eq(true)
+        end
+      end
+    end
   end
 end
