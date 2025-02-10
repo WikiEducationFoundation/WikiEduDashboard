@@ -2,6 +2,7 @@
 
 require 'rails_helper'
 require "#{Rails.root}/lib/articles_courses_cleaner_timeslice"
+require "#{Rails.root}/lib/timeslice_manager"
 
 describe ArticlesCoursesCleanerTimeslice do
   let(:enwiki) { Wiki.get_or_create(project: 'wikipedia', language: 'en') }
@@ -13,6 +14,8 @@ describe ArticlesCoursesCleanerTimeslice do
   let(:article2) { create(:article, wiki: wikidata) }
   let(:article3) { create(:article, wiki: wikidata, namespace: 3) }
   let(:article4) { create(:article, wiki: wikidata) }
+
+  before { stub_const('TimesliceManager::TIMESLICE_DURATION', 86400) }
 
   describe '.clean_articles_courses_for_wiki_ids' do
     before do

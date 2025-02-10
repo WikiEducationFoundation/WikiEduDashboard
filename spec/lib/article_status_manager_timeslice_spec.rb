@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require "#{Rails.root}/lib/timeslice_manager"
 require "#{Rails.root}/lib/article_status_manager_timeslice"
 
 describe ArticleStatusManagerTimeslice do
-  before { stub_wiki_validation }
+  before do
+    stub_wiki_validation
+    stub_const('TimesliceManager::TIMESLICE_DURATION', 86400)
+  end
 
   # CHANGE THIS
   # For update_article_status_for_course, updated_at: 2.days.ago is used

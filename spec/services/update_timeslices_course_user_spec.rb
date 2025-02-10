@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require "#{Rails.root}/lib/timeslice_manager"
 
 describe UpdateTimeslicesCourseUser do
+  before { stub_const('TimesliceManager::TIMESLICE_DURATION', 86400) }
+
   let(:start) { '2021-01-24'.to_datetime }
   let(:course) { create(:course, start:, end: '2021-01-30') }
   let(:enwiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
