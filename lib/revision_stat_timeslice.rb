@@ -7,7 +7,7 @@ class RevisionStatTimeslice
   def initialize(course, end_period = Time.zone.now)
     @course = course
     @end_period = end_period
-    @start_period = REVISION_TIMEFRAME.days.ago
+    @start_period = [REVISION_TIMEFRAME.days.ago, course.start].max
   end
 
   def recent_revisions_for_course
