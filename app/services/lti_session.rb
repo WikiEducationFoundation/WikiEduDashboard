@@ -8,7 +8,7 @@ class LTIAASClientError < StandardError
   end
 end
 
-class LTISession
+class LtiSession
   attr_reader :idtoken
 
   INSTRUCTOR_ROLES = [
@@ -65,7 +65,7 @@ class LTISession
       'userId' => @idtoken['user']['id']
     }
     score['comment'] = "Wikipedia user ID: #{user_wikipedia_id}" if !user_wikipedia_id.nil?
-    make_post_request("/api/lineitems/#{URI.encode_uri_component(line_item_id)}/scores", score)
+    make_post_request("/api/lineitems/#{CGI.escape(line_item_id)}/scores", score)
   end
 
   private
@@ -88,7 +88,7 @@ class LTISession
 
   def determine_line_item_id
     line_item_id = @idtoken['services']['assignmentAndGrades']['lineItemId']
-    return line_item_id if !line_item_id.nil?
+    return line_item_id if !(line_item_id.nil? || line_item_id.empty?)
 
     resource_link_id = @idtoken['launch']['resourceLink']['id']
     line_items = make_get_request("/api/lineitems?resourceLinkId#{resource_link_id}")['lineItems']
