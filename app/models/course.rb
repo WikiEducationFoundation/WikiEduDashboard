@@ -607,7 +607,7 @@ class Course < ApplicationRecord
     def initialize(slug, msg = 'Duplicate Slug')
       @msg = msg
       @slug = slug
-      super('#{msg}: #{slug}')
+      super(msg)
     end
 
     attr_reader :slug
