@@ -366,6 +366,9 @@ Rails.application.routes.draw do
   get 'active_courses' => 'active_courses#index'
   get '/courses_by_wiki/:language.:project(.org)' => 'courses_by_wiki#show'
 
+    # LTI
+  get 'lti' => 'lti_launch#link_user'
+
   # frequenty asked questions
   resources :faq do
     member do
@@ -483,9 +486,6 @@ Rails.application.routes.draw do
   get '/styleguide' => 'styleguide#index'
 
   get '/status' => 'system_status#index'
-
-  # LTI
-  get '/lti' => 'lti_launch#link_user'
 
   # Errors
   match '/404', to: 'errors#file_not_found', via: :all
