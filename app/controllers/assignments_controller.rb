@@ -15,10 +15,18 @@ class AssignmentsController < ApplicationController
     set_assignment { return }
     @course = @assignment.course
     check_permissions(@assignment.user_id)
-    remove_assignment_template
-    @assignment.destroy
-    update_onwiki_course_and_assignments
-    render json: { assignmentId: @assignment.id }
+    @flags = @assignment.flags
+    assignment_id = params[:assignment_id]
+    user_id = params[:user_id]
+    if assignment_id &&  user_id.present? && @assignment.flags[:available_article]
+      @assignment.update(user_id: nil)
+      render partial: 'updated_assignment', locals: { assignment: @assignment }
+    else
+      remove_assignment_template
+      @assignment.destroy
+      update_onwiki_course_and_assignments
+      render json: { assignmentId: @assignment.id }
+    end
   end
 
   # For creating single assignments

@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
 json.call(assignment, :id, :user_id, :article_id, :role, :article_url, :sandbox_url,
-          :draft_sandbox_status, :bibliography_sandbox_status, :peer_review_sandbox_status)
+          :draft_sandbox_status, :bibliography_sandbox_status, :peer_review_sandbox_status, :flags)
 json.assignment_id assignment.id
 json.article_title assignment.article_title.tr('_', ' ')
-
 if assignment.article
   json.article_rating assignment.article.rating
   json.article_rating_num rating_priority(assignment.article.rating)
