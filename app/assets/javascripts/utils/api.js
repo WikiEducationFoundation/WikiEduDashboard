@@ -333,7 +333,7 @@ const API = {
         });
       } catch (error) {
         console.error('Sentry.captureMessage failed:', error);
-      };
+      }
       response.responseText = data;
       throw response;
     }
