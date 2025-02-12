@@ -601,15 +601,15 @@ class Course < ApplicationRecord
     if Course.where(slug: slug).where.not(id: id).exists?
       raise DuplicateCourseSlugError.new(slug)
     end
- end
+  end
 
   class DuplicateCourseSlugError < StandardError
+    attr_reader :slug
+  
     def initialize(slug, msg = 'Duplicate Slug')
-      @msg = msg
       @slug = slug
       super(msg)
     end
-
-    attr_reader :slug
   end
+  
 end
