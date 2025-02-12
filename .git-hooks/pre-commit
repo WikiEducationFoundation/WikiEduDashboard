@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Notify that the pre-commit hook is running
+echo "Pre-commit hook is running..."
+
+# Run Rubocop with parallel processing
+bundle exec rubocop --parallel
+
+# Check the status of Rubocop
+if [ $? -ne 0 ]; then
+  echo "🔴 Linting failed! Please fix the offenses before committing."
+  echo "You can run 'bundle exec rubocop -a' to auto-correct the issues."
+  exit 1
+fi
+
+# Notify that there are no linting issues and the commit can proceed
+echo "✅ No linting issues found. Proceeding with commit.\n"
