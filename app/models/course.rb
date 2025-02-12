@@ -598,18 +598,17 @@ class Course < ApplicationRecord
   validate :check_duplicate_slug, on: :update
 
   def check_duplicate_slug
-    if Course.where(slug: slug).where.not(id: id).exists?
-      raise DuplicateCourseSlugError.new(slug)
-    end
+    return unless Course.where(slug:).where.not(id:).exists?
+
+    raise DuplicateCourseSlugError, slug
   end
 
   class DuplicateCourseSlugError < StandardError
     attr_reader :slug
-  
+
     def initialize(slug, msg = 'Duplicate Slug')
       @slug = slug
       super(msg)
     end
   end
-  
 end

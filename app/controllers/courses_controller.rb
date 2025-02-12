@@ -52,14 +52,14 @@ class CoursesController < ApplicationController
     UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
     render json: { course: @course }
   rescue Course::DuplicateCourseSlugError => e
-    message = I18n.t('courses.error.duplicate_slug', slug: e.slug)
-    render json: { errors: e, message: message },
-           status: :unprocessable_entity  
-
+    render_error(:unprocessable_entity, 'courses.error.duplicate_slug', slug: e.slug)
   rescue Wiki::InvalidWikiError => e
-    message = I18n.t('courses.error.invalid_wiki', domain: e.domain)
-    render json: { errors: e, message: },
-           status: :not_found
+    render_error(:not_found, 'courses.error.invalid_wiki', domain: e.domain)
+  end
+
+  def render_error(status, error_key, **params)
+    render json: { errors: params, message: I18n.t(error_key, **params) },
+           status:
   end
 
   def destroy
