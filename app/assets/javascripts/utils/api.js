@@ -332,7 +332,7 @@ const API = {
           extra: SentryLogger
         });
       } catch (error) {
-        console.error("Sentry.captureMessage failed:", error);
+        console.error('Sentry.captureMessage failed:', error);
       };
       response.responseText = data;
       throw response;
