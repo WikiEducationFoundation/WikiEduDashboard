@@ -23,13 +23,15 @@ export function fetchArticleDetails(articleId, courseId) {
               const { title: articleTitle, mw_page_id: article_mw_page_id } = find(
                 getState().articles.articles,
                 { id: articleId }
-              );
+              ) || {};
 
               // Dispatch an action to cross-check the article title with its metadata.
-              const crossCheckedArticleTitle = await dispatch(crossCheckArticleTitle(articleId, articleTitle, article_mw_page_id));
+              if (articleId && articleTitle && article_mw_page_id) {
+                const crossCheckedArticleTitle = await dispatch(crossCheckArticleTitle(articleId, articleTitle, article_mw_page_id));
 
-              // Re-fetch the article details using the cross-checked title for accuracy.
-              fetchArticleDetailsAgain(crossCheckedArticleTitle, articleId, courseId, dispatch);
+                // Re-fetch the article details using the cross-checked title for accuracy.
+                fetchArticleDetailsAgain(crossCheckedArticleTitle, articleId, courseId, dispatch);
+              }
             } else {
               dispatch({ type: types.RECEIVE_ARTICLE_DETAILS, articleId, details, revisionRange });
             }
