@@ -33,6 +33,7 @@ const initialState = {
   home_wiki: { language: 'en', project: 'wikipedia' },
   day_exceptions: '',
   weekdays: '0000000',
+  is_monday_start: false,
   editingSyllabus: false,
   training_library_slug: 'students',
   loading: true,

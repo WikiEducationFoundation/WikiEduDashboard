@@ -55,6 +55,7 @@ const FormPanel = (props) => {
             editable={true}
             validation={CourseDateUtils.isDateValid}
             label="Course Start"
+            is_monday_start={props.course.flags.is_monday_start}
           />
           <DatePicker
             onChange={updateCourseDates}
@@ -65,6 +66,7 @@ const FormPanel = (props) => {
             label="Course End"
             date_props={dateProps.end}
             enabled={Boolean(props.course.start)}
+            is_monday_start={props.course.flags.is_monday_start}
           />
         </div>
       </div>
@@ -80,6 +82,7 @@ const FormPanel = (props) => {
             validation={CourseDateUtils.isDateValid}
             label={I18n.t('courses.assignment_start')}
             date_props={dateProps.timeline_start}
+            is_monday_start={props.course.flags.is_monday_start}
           />
           <DatePicker
             onChange={updateCourseDates}
@@ -90,6 +93,7 @@ const FormPanel = (props) => {
             label={I18n.t('courses.assignment_end')}
             date_props={dateProps.timeline_end}
             enabled={Boolean(props.course.start)}
+            is_monday_start={props.course.flags.is_monday_start}
           />
         </div>
       </div>

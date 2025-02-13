@@ -75,7 +75,8 @@ const Calendar = createReactClass({
     } else {
       weekdays = toPass.weekdays.split('');
     }
-    weekdays[weekday] = weekdays[weekday] === '1' ? '0' : '1';
+    const adjustedWeekDay = this.props.course.flags.is_monday_start ? (weekday + 1) % 7 : weekday;
+    weekdays[adjustedWeekDay] = weekdays[adjustedWeekDay] === '1' ? '0' : '1';
     toPass.weekdays = weekdays.join('');
     return this.props.updateCourse(toPass);
   },
@@ -146,7 +147,6 @@ const Calendar = createReactClass({
       }
     }
 
-
     const onWeekdayClick = this.props.editable ? this.selectWeekday : null;
     const onDayClick = this.props.editable ? this.selectDay : null;
 
@@ -157,6 +157,7 @@ const Calendar = createReactClass({
           <WeekdayPicker
             modifiers={modifiers}
             onWeekdayClick={onWeekdayClick}
+            is_monday_start={this.props.course.flags.is_monday_start}
           />
         </div>
         <hr />
@@ -167,6 +168,7 @@ const Calendar = createReactClass({
               modifiers={modifiers}
               onDayClick={onDayClick}
               initialMonth={this.state.initialMonth}
+              firstDayOfWeek={this.props.course.flags.is_monday_start ? 1 : 0}
             />
             <div className="course-dates__calendar-key">
               <h3>{I18n.t('courses.calendar.legend')}</h3>

@@ -34,7 +34,8 @@ const DatePicker = createReactClass({
     onClick: PropTypes.func,
     append: PropTypes.string,
     date_props: PropTypes.object,
-    showTime: PropTypes.bool
+    showTime: PropTypes.bool,
+    is_monday_start: PropTypes.bool
   },
 
   getDefaultProps() {
@@ -291,7 +292,6 @@ const DatePicker = createReactClass({
             onKeyDown={this.handleDateFieldKeyDown}
             placeholder={this.props.placeholder}
           />
-
           <DayPicker
             className={this.state.datePickerVisible ? 'DayPicker--visible ignore-react-onclickoutside' : null}
             ref="daypicker"
@@ -300,6 +300,7 @@ const DatePicker = createReactClass({
             disabledDays={this.isDayDisabled}
             onDayClick={this.handleDatePickerChange}
             month={currentMonth}
+            firstDayOfWeek={this.props.is_monday_start ? 1 : 0}
           />
         </div>
       );

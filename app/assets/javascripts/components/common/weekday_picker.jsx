@@ -1,15 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const WEEKDAYS_LONG = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-const WEEKDAYS_SHORT = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+const WEEKDAYS_LONG = {
+  sundayStart: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+  mondayStart: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+};
+
+const WEEKDAYS_SHORT = {
+  sundayStart: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+  mondayStart: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
+};
 
 const localeUtils = {
-  formatWeekdayLong(weekday) {
-    return WEEKDAYS_LONG[weekday];
+  formatWeekdayLong(weekday, is_monday_start) {
+    return is_monday_start ? WEEKDAYS_LONG.mondayStart[weekday] : WEEKDAYS_LONG.sundayStart[weekday];
   },
-  formatWeekdayShort(weekday) {
-    return WEEKDAYS_SHORT[weekday];
+  formatWeekdayShort(weekday, is_monday_start) {
+    return is_monday_start ? WEEKDAYS_SHORT.mondayStart[weekday] : WEEKDAYS_SHORT.sundayStart[weekday];
   }
 };
 
@@ -26,6 +33,8 @@ const WeekdayPicker = ({
   tabIndex,
 
   modifiers,
+
+  is_monday_start,
 
   locale,
   onWeekdayClick,
@@ -138,7 +147,8 @@ const WeekdayPicker = ({
     let customModifiers = [];
 
     if (modifiers) {
-      const propModifiers = getModifiersForDay(weekday, modifiers);
+      const adjustedWeekDay = is_monday_start ? (weekday + 1) % 7 : weekday;
+      const propModifiers = getModifiersForDay(adjustedWeekDay, modifiers);
       customModifiers = [...customModifiers, ...propModifiers];
     }
 
@@ -159,12 +169,12 @@ const WeekdayPicker = ({
     const onMouseLeaveHandler = onWeekdayMouseLeave ? e => handleWeekdayMouseLeave(e, weekday, customModifiers) : null;
 
     const ariaLabelMessage = ariaSelected
-      ? I18n.t('weekday_picker.aria.weekday_selected', { weekday: localeUtils.formatWeekdayLong(weekday), })
-      : I18n.t('weekday_picker.aria.weekday_select', { weekday: localeUtils.formatWeekdayLong(weekday), });
+      ? I18n.t('weekday_picker.aria.weekday_selected', { weekday: localeUtils.formatWeekdayLong(weekday, is_monday_start), })
+      : I18n.t('weekday_picker.aria.weekday_select', { weekday: localeUtils.formatWeekdayLong(weekday, is_monday_start), });
 
     const ariaLiveMessage = ariaSelected
-      ? I18n.t('weekday_picker.aria.weekday_selected', { weekday: localeUtils.formatWeekdayLong(weekday), })
-      : I18n.t('weekday_picker.aria.weekday_unselected', { weekday: localeUtils.formatWeekdayLong(weekday), });
+      ? I18n.t('weekday_picker.aria.weekday_selected', { weekday: localeUtils.formatWeekdayLong(weekday, is_monday_start), })
+      : I18n.t('weekday_picker.aria.weekday_unselected', { weekday: localeUtils.formatWeekdayLong(weekday, is_monday_start), });
 
     return (
       <button
@@ -177,8 +187,8 @@ const WeekdayPicker = ({
         onMouseEnter={onMouseEnterHandler}
         onMouseLeave={onMouseLeaveHandler}
       >
-        <span title={localeUtils.formatWeekdayLong(weekday)}>
-          {localeUtils.formatWeekdayShort(weekday)}
+        <span title={localeUtils.formatWeekdayLong(weekday, is_monday_start)}>
+          {localeUtils.formatWeekdayShort(weekday, is_monday_start)}
         </span>
         {/* Aria-live region for screen reader announcements for confirmation of when a week day is selected or unselected */}
         <div aria-live="assertive" aria-atomic="true" className="sr-WeekdayPicker-aria-live">
@@ -215,6 +225,8 @@ WeekdayPicker.propTypes = {
   tabIndex: PropTypes.number,
 
   modifiers: PropTypes.object,
+
+  is_monday_start: PropTypes.bool,
 
   locale: PropTypes.string,
   onWeekdayClick: PropTypes.func,
