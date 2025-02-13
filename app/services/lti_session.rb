@@ -37,7 +37,7 @@ class LtiSession
   end
 
   def user_lti_id
-    "#{@idtoken['platform']['id']}:#{@idtoken['user']['id']}"
+    @idtoken['user']['id']
   end
 
   def user_name
@@ -50,6 +50,14 @@ class LtiSession
 
   def user_is_teacher?
     @idtoken['user']['roles'].any? { |str| INSTRUCTOR_ROLES.any? { |suffix| str.end_with?(suffix) } }
+  end
+
+  def lms_id
+    @idtoken['platform']['id']
+  end
+
+  def lms_family
+    @idtoken['platform']['productFamilyCode']
   end
 
   def line_item_id

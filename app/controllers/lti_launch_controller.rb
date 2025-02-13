@@ -2,21 +2,32 @@
 
 class LtiLaunchController < ApplicationController
 
-  def link_user
+  def launch
     unless current_user
-      # Redirect user to page requiring them to log in
+      # Redirecting user to page requiring them to log in
       redirect_to root_path
       return
     end
-
+    # Starting LTI Session
     ltik = params[:ltik]
     ltiaas_domain = ENV['LTIAAS_DOMAIN']
     api_key = ENV['LTIAAS_API_KEY']
-
     lti_session = LtiSession.new(ltiaas_domain, api_key, ltik)
-    lti_session.send_account_created_signal
-
-    # Redirect user to page confirming their account has been linked
+    # Linking LTI User
+    link_lti_user(lti_session)
+    # Redirecting user to page confirming their account has been linked
     redirect_to root_path
+  end
+
+  private
+  def link_lti_user(lti_session)
+    user_lti_id = lti_session.user_lti_id
+    lms_id = lti_session.lms_id
+    lms_family = lti_session.lms_family
+    # Creating LTI User if it does not already exist
+    return if !LtiUser.find_by(user: current_user, user_lti_id: user_lti_id, lms_id: lms_id).nil?
+    LtiUser.create(user: current_user, user_lti_id: user_lti_id, lms_id: lms_id, lms_family: lms_family)
+    # Sending account created signal
+    lti_session.send_account_created_signal
   end
 end
