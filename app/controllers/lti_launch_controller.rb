@@ -24,10 +24,11 @@ class LtiLaunchController < ApplicationController
     user_lti_id = lti_session.user_lti_id
     lms_id = lti_session.lms_id
     lms_family = lti_session.lms_family
-    # Creating LTI User if it does not already exist
+    # Checking if LTI User already exists
     return if !LtiUser.find_by(user: current_user, user_lti_id: user_lti_id, lms_id: lms_id).nil?
-    LtiUser.create(user: current_user, user_lti_id: user_lti_id, lms_id: lms_id, lms_family: lms_family)
     # Sending account created signal
     lti_session.send_account_created_signal
+    # Creating LTI User
+    LtiUser.create(user: current_user, user_lti_id: user_lti_id, lms_id: lms_id, lms_family: lms_family)
   end
 end

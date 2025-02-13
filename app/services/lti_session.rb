@@ -1,13 +1,3 @@
-class LTIAASClientError < StandardError
-  attr_reader :response_body, :status_code
-
-  def initialize(response_body, status_code)
-    @response_body = response_body
-    @status_code = status_code
-    super("LTIAAS Request failed: #{response_body}")
-  end
-end
-
 class LtiSession
   attr_reader :idtoken
 
@@ -81,7 +71,7 @@ class LtiSession
   def make_get_request(path)
     response = @conn.get(path)
     unless response.success?
-      raise LTIAASClientError.new(response.body, response.status)
+      raise LtiaasClientError.new(response.body, response.status)
     end
     return response.body
   end
@@ -89,12 +79,13 @@ class LtiSession
   def make_post_request(path, body)
     response = @conn.post(path, body)
     unless response.success?
-      raise LTIAASClientError.new(response.body, response.status)
-    end
+      raise LtiaasClientError.new(response.body, response.status)
     return response.body
   end
 
   def determine_line_item_id
+    raise LtiGradingServiceUnavailable if !@idtoken['services']['assignmentAndGrades']['available']
+      
     line_item_id = @idtoken['services']['assignmentAndGrades']['lineItemId']
     return line_item_id if !(line_item_id.nil? || line_item_id.empty?)
 
@@ -109,5 +100,17 @@ class LtiSession
     }
     return make_post_request('/api/lineitems', line_item)['id']
   end
+
+  class LtiaasClientError < StandardError
+    attr_reader :response_body, :status_code
+
+    def initialize(response_body, status_code)
+      @response_body = response_body
+      @status_code = status_code
+      super("LTIAAS Request failed: #{response_body}")
+    end
+  end
+
+  class LtiGradingServiceUnavailable < StandardError; end
 
 end
