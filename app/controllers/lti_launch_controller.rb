@@ -2,6 +2,10 @@
 
 class LtiLaunchController < ApplicationController
 
+  # The LTI Session can raise two types of exceptions:
+  # LtiaasClientError: Raised if any of the LTIAAS requests fail
+  # LtiGradingServiceUnavailable: Raised if the grading service is unavailable for the current LTI context
+
   def launch
     unless current_user
       # Redirecting user to page requiring them to log in
@@ -27,7 +31,9 @@ class LtiLaunchController < ApplicationController
     # Checking if LTI User already exists
     return if !LtiUser.find_by(user: current_user, user_lti_id: user_lti_id, lms_id: lms_id).nil?
     # Sending account created signal
-    lti_session.send_account_created_signal
+    # You can pass the User Wikipedia ID as parameter to this method to generate a comment in the grade
+    # Example: lti_session.send_account_created_signal(123)
+    lti_session.send_account_created_signal 
     # Creating LTI User
     LtiUser.create(user: current_user, user_lti_id: user_lti_id, lms_id: lms_id, lms_family: lms_family)
   end
