@@ -865,6 +865,26 @@ describe Course, type: :model do
     end
   end
 
+  describe 'validations' do
+    let!(:existing_course) { create(:course, slug: 'existing-slug') }
+
+    context 'when updating a course' do
+      let!(:duplicate_course) { create(:course, slug: 'duplicate-slug') }
+
+      it 'raises Course::DuplicateCourseSlugError if the slug is duplicated' do
+        # Attempting to update the course with an existing slug should raise an error
+        expect do
+          duplicate_course.update!(slug: existing_course.slug)
+        end.to raise_error(Course::DuplicateCourseSlugError, 'Duplicate Slug')
+      end
+
+      it 'does not raise an error if the slug is unique' do
+        # Updating the course with a unique slug should pass without errors
+        expect { existing_course.update!(slug: 'new-unique-slug') }.not_to raise_error
+      end
+    end
+  end
+
   describe '#approved' do
     let(:course) { create(:course) }
 
