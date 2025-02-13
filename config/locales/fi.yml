@@ -833,6 +833,8 @@ fi:
     done: Tehty!
     check_answer: Tarkista vastaus
     included_modules: Sisällytetyt moduulit
+    kind:
+      discussion: Keskustelu
   update_username:
     label: Uusi käyttäjänimi
   uploads:
