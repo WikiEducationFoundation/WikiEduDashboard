@@ -474,4 +474,116 @@ describe SettingsController, type: :request do
       expect(Deadlines.course_creation_notice).to eq('The deadline has passed.')
     end
   end
+
+  describe `#remove_featured_campaign` do
+    let(:admin) { create(:super_admin) }
+    let(:campaign) { create(:campaign) }
+    let(:setting) { Setting.find_or_create_by(key: 'featured_campaigns') }
+
+    before do
+      setting.update(value: { 'campaign_slugs' => [campaign.slug] })
+      allow_any_instance_of(ApplicationController)
+        .to receive(:current_user).and_return(admin)
+    end
+
+    describe 'DELETE #remove_featured_campaign' do
+      context 'when the campaign exists in the featured campaigns' do
+        it 'removes the campaign and returns a success response' do
+          post '/settings/remove_featured_campaign',
+               params: { featured_campaign_slug: campaign.slug }
+
+          expect(response).to have_http_status(:ok)
+          expect(JSON.parse(response.body)).to eq({ 'campaign_removed' => campaign.slug })
+          expect(setting.reload.value['campaign_slugs']).not_to include(campaign.slug)
+        end
+      end
+
+      context 'when the campaign does not exist in the featured campaigns' do
+        it 'returns a success response even if no campaign was removed' do
+          post '/settings/remove_featured_campaign',
+                 params: { featured_campaign_slug: 'non-existent-campaign' }
+
+          expect(response).to have_http_status(:ok)
+          expect(JSON.parse(response.body)).to eq({ 'campaign_removed' => 'non-existent-campaign' })
+          expect(setting.reload.value['campaign_slugs']).to include(campaign.slug)
+        end
+      end
+    end
+  end
+
+  describe '#update_impact_stats' do
+    let(:admin) { create(:super_admin) }
+
+    before do
+      allow_any_instance_of(ApplicationController)
+        .to receive(:current_user).and_return(admin)
+    end
+
+    context 'when updating impact stats' do
+      let(:impact_stats) { { 'first' => 234, 'second' => 234 } }
+
+      it 'updates the impact stats and clears the cache' do
+        post '/settings/update_impact_stats', params: { impactStats: impact_stats }
+
+        expect(response).to have_http_status(:ok)
+        expect(JSON.parse(response.body)).to eq({ 'message' => 'Impact Stats Updated Successfully.' })
+        expect(Rails.cache.read('impact_stats')).to be_nil
+      end
+    end
+  end
+
+  describe '#add_featured_campaign' do
+    let(:admin) { create(:super_admin) }
+    let(:campaign) { create(:campaign) }
+    let(:campaign1) { create(:campaign) }
+    let!(:setting) { Setting.find_or_create_by(key: 'featured_campaigns') }
+
+    before do
+      allow_any_instance_of(ApplicationController)
+        .to receive(:current_user).and_return(admin)
+    end
+
+    context 'when adding a new campaign' do
+      it 'adds the campaign_slug and returns a success response' do
+        post '/settings/add_featured_campaign',
+             params: { featured_campaign_slug: campaign.slug }
+
+        expect(response).to have_http_status(:ok)
+        expect(JSON.parse(response.body)).to eq(
+          'campaign_added' => { 'slug' => campaign.slug, 'title' => campaign.title }
+        )
+        expect(setting.reload.value['campaign_slugs']).to include(campaign.slug)
+      end
+    end
+
+    context 'when the campaign is already added' do
+      before { setting.update(value: { 'campaign_slugs' => [campaign1.slug] }) }
+
+      it 'does not add a duplicate campaign and returns a success response' do
+        post '/settings/add_featured_campaign',
+             params: { featured_campaign_slug: campaign1.slug }
+
+        expect(response).to have_http_status(:ok)
+        expect(JSON.parse(response.body)).to eq(
+          'campaign_added' => { 'slug' => campaign1.slug, 'title' => campaign1.title }
+        )
+        expect(setting.reload.value['campaign_slugs']).to include(campaign1.slug)
+      end
+    end
+
+    context 'when the campaign does not exist' do
+      let(:not_found_slug) { 'not_found_campaign' }
+
+      it 'returns a not_found error' do
+        post '/settings/add_featured_campaign',
+             params: { featured_campaign_slug: not_found_slug }
+
+        expect(response).to have_http_status(:not_found)
+        expect(JSON.parse(response.body)).to eq(
+          'message' => I18n.t('settings.featured_campaigns.campaign_not_found',
+                              campaign_slug: not_found_slug)
+        )
+      end
+    end
+  end
 end
