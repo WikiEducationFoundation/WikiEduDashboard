@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class LtiLaunchController < ApplicationController
+  # We need to allow iframe embedding for the LTI launch to work
+  # We also need it for the related views
+  after_action :allow_iframe
 
   # The LTI Session can raise two types of exceptions:
   # LtiaasClientError: Raised if any of the LTIAAS requests fail
@@ -9,6 +12,8 @@ class LtiLaunchController < ApplicationController
   def launch
     unless current_user
       # Redirecting user to page requiring them to log in
+      # You might want to append the ltik here, depending on whether or not
+      # you want the user to remain in the iframe for the login process (if it's even possible)
       redirect_to root_path
       return
     end
@@ -36,5 +41,10 @@ class LtiLaunchController < ApplicationController
     lti_session.send_account_created_signal 
     # Creating LTI User
     LtiUser.create(user: current_user, user_lti_id: user_lti_id, lms_id: lms_id, lms_family: lms_family)
+  end
+
+  private
+  def allow_iframe
+    response.headers.except! 'X-Frame-Options'
   end
 end

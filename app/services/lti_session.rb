@@ -80,6 +80,7 @@ class LtiSession
     response = @conn.post(path, body)
     unless response.success?
       raise LtiaasClientError.new(response.body, response.status)
+    end
     return response.body
   end
 
@@ -103,7 +104,7 @@ class LtiSession
 
   class LtiaasClientError < StandardError
     attr_reader :response_body, :status_code
-
+  
     def initialize(response_body, status_code)
       @response_body = response_body
       @status_code = status_code
@@ -112,5 +113,5 @@ class LtiSession
   end
 
   class LtiGradingServiceUnavailable < StandardError; end
-
+  
 end
