@@ -501,7 +501,7 @@ describe SettingsController, type: :request do
       context 'when the campaign does not exist in the featured campaigns' do
         it 'returns a success response even if no campaign was removed' do
           post '/settings/remove_featured_campaign',
-                 params: { featured_campaign_slug: 'non-existent-campaign' }
+               params: { featured_campaign_slug: 'non-existent-campaign' }
 
           expect(response).to have_http_status(:ok)
           expect(JSON.parse(response.body)).to eq({ 'campaign_removed' => 'non-existent-campaign' })
@@ -526,7 +526,9 @@ describe SettingsController, type: :request do
         post '/settings/update_impact_stats', params: { impactStats: impact_stats }
 
         expect(response).to have_http_status(:ok)
-        expect(JSON.parse(response.body)).to eq({ 'message' => 'Impact Stats Updated Successfully.' })
+        expect(JSON.parse(response.body)).to eq({
+          'message' => 'Impact Stats Updated Successfully.'
+})
         expect(Rails.cache.read('impact_stats')).to be_nil
       end
     end
