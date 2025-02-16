@@ -49,7 +49,10 @@ describe RevisionStat do
 
     context 'course id' do
       context 'not for this course' do
-        before { course.update(id: 1000) }
+        before do
+          allow_any_instance_of(Course).to receive(:check_duplicate_slug).and_return(true)
+          course.update(id: 1000)
+        end
 
         it 'does not include in scope' do
           expect(subject).to eq(0)
