@@ -55,7 +55,7 @@ describe CourseUserWikiTimeslice, type: :model do
            features: { 'num_ref' => 8 },
            features_previous: { 'num_ref' => 1 },
            user_id: user.id,
-           views: true)
+           scoped: true)
   end
   let(:revision1) do
     build(:revision, article: talk_page, date: start,
@@ -63,7 +63,7 @@ describe CourseUserWikiTimeslice, type: :model do
            features: { 'num_ref' => 12 },
            features_previous: { 'num_ref' => 10 },
            user_id: user.id,
-           views: true)
+           scoped: true)
   end
   let(:revision2) do
     build(:revision, article: sandbox, date: start,
@@ -71,7 +71,7 @@ describe CourseUserWikiTimeslice, type: :model do
            features: { 'num_ref' => 1 },
            features_previous: { 'num_ref' => 2 },
            user_id: user.id,
-           views: true)
+           scoped: true)
   end
   let(:revision3) do
     build(:revision, article: draft, date: start,
@@ -79,7 +79,7 @@ describe CourseUserWikiTimeslice, type: :model do
            features: { 'num_ref' => 3 },
            features_previous: { 'num_ref' => 3 },
            user_id: user.id,
-           views: true)
+           scoped: true)
   end
   let(:revision4) do
     build(:revision, article:, date: start,
@@ -88,7 +88,7 @@ describe CourseUserWikiTimeslice, type: :model do
             features: { 'num_ref' => 2 },
             features_previous: { 'num_ref' => 0 },
             user_id: user.id,
-            views: true)
+            scoped: true)
   end
   let(:revision5) do
     build(:revision, article_id: -1, # revision for a non-existing article
@@ -98,7 +98,7 @@ describe CourseUserWikiTimeslice, type: :model do
             features: { 'num_ref' => 2 },
             features_previous: { 'num_ref' => 0 },
             user_id: user.id,
-            views: true)
+            scoped: true)
   end
   let(:revision6) do
     build(:revision, article: draft, date: start,
@@ -107,7 +107,7 @@ describe CourseUserWikiTimeslice, type: :model do
            features_previous: { 'num_ref' => 0 },
            user_id: user.id,
            system: true, # revision made by the system
-           views: true)
+           scoped: true)
   end
   let(:revisions) { [revision0, revision1, revision2, revision3, revision4, revision5, revision6] }
   let(:subject) { course_user_wiki_timeslice.update_cache_from_revisions revisions }
@@ -115,9 +115,12 @@ describe CourseUserWikiTimeslice, type: :model do
   describe '.update_course_user_wiki_timeslices' do
     before do
       TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records(course.wikis)
-      revisions << build(:revision, article:, user_id: user.id, date: start + 26.hours, views: true)
-      revisions << build(:revision, article:, user_id: user.id, date: start + 50.hours, views: true)
-      revisions << build(:revision, article:, user_id: user.id, date: start + 51.hours, views: true)
+      revisions << build(:revision, article:, user_id: user.id, date: start + 26.hours,
+                         scoped: true)
+      revisions << build(:revision, article:, user_id: user.id, date: start + 50.hours,
+                         scoped: true)
+      revisions << build(:revision, article:, user_id: user.id, date: start + 51.hours,
+                         scoped: true)
     end
 
     it 'creates the right article timeslices based on the revisions' do

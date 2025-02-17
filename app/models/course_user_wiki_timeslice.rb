@@ -50,7 +50,7 @@ class CourseUserWikiTimeslice < ApplicationRecord
                        .for_revisions_between(rev_start, rev_end)
     timeslices.each do |timeslice|
       # Group revisions that belong to the timeslice
-      revisions_in_timeslice = revisions[:revisions].select(&:scoped_revision).select do |revision|
+      revisions_in_timeslice = revisions[:revisions].select(&:scoped).select do |revision|
         timeslice.start <= revision.date && revision.date < timeslice.end
       end
       # Get or create article course timeslice based on course, article_id,

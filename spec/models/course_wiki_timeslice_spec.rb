@@ -19,6 +19,7 @@
 #  updated_at           :datetime         not null
 #
 require 'rails_helper'
+require "#{Rails.root}/lib/timeslice_manager"
 
 describe CourseWikiTimeslice, type: :model do
   let(:wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
@@ -31,6 +32,8 @@ describe CourseWikiTimeslice, type: :model do
   let(:end) { 9.days.ago.beginning_of_day }
 
   before do
+    stub_const('TimesliceManager::TIMESLICE_DURATION', 86400)
+
     create(:user, id: 1, username: 'Ragesoss')
     create(:user, id: 2, username: 'Gatoespecie')
 
@@ -76,21 +79,24 @@ role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
            references_count: 4,
            revision_count: 4)
 
-    array_revisions << build(:revision, article:, user_id: 1, date: start, views: true)
-    array_revisions << build(:revision, article:, user_id: 1, date: start + 2.hours, views: true)
-    array_revisions << build(:revision, article:, user_id: 2, date: start + 3.hours, views: true)
+    array_revisions << build(:revision, article:, user_id: 1, date: start, scoped: true)
+    array_revisions << build(:revision, article:, user_id: 1, date: start + 2.hours, scoped: true)
+    array_revisions << build(:revision, article:, user_id: 2, date: start + 3.hours, scoped: true)
     array_revisions << build(:revision, article:, user_id: 2, date: start + 3.hours, system: true,
-                             views: true)
+                             scoped: true)
     array_revisions << build(:revision, article:, deleted: true, user_id: 1, date: start + 8.hours,
-                             views: true)
+                             scoped: true)
   end
 
   describe '.update_course_wiki_timeslices' do
     before do
       TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records([wiki])
-      array_revisions << build(:revision, article:, user_id: 1, date: start + 26.hours, views: true)
-      array_revisions << build(:revision, article:, user_id: 1, date: start + 50.hours, views: true)
-      array_revisions << build(:revision, article:, user_id: 1, date: start + 51.hours, views: true)
+      array_revisions << build(:revision, article:, user_id: 1, date: start + 26.hours,
+                               scoped: true)
+      array_revisions << build(:revision, article:, user_id: 1, date: start + 50.hours,
+                               scoped: true)
+      array_revisions << build(:revision, article:, user_id: 1, date: start + 51.hours,
+                               scoped: true)
     end
 
     it 'updates the right course wiki timeslices based on the revisions' do
@@ -154,7 +160,7 @@ role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
       before do
         TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records([wiki])
         array_revisions << build(:revision, article:, user_id: 1, date: start + 51.hours,
-        views: true, ithenticate_id: 1) # add revision with error
+        scoped: true, ithenticate_id: 1) # add revision with error
       end
 
       it 'keeps needs_update flag if revisions with error' do

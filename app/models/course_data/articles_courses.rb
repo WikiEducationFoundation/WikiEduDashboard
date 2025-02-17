@@ -180,7 +180,7 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def self.update_from_course_revisions(course, revisions)
-    revisions = revisions.select(&:scoped_revision)
+    revisions = revisions.select(&:scoped)
     course_article_ids = course.articles.where(wiki: course.wikis).pluck(:id)
     revision_article_ids = article_ids_by_namespaces_from_revisions(course, revisions)
 

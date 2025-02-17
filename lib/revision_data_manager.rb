@@ -158,7 +158,7 @@ class RevisionDataManager
           new_article: string_to_boolean(rev_data['new_article']),
           system: string_to_boolean(rev_data['system']),
           wiki_id: rev_data['wiki_id'],
-          views: scoped_revision?(scoped_sub_data, mw_page_id, rev_data['mw_rev_id'])
+          scoped: scoped_revision?(scoped_sub_data, mw_page_id, rev_data['mw_rev_id'])
         })
   end
 
