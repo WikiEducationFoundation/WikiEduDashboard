@@ -326,10 +326,14 @@ const API = {
       this.status = response.statusText;
       SentryLogger.obj = this.obj;
       SentryLogger.status = this.status;
-      Sentry.captureMessage('saveCourse failed', {
-        level: 'error',
-        extra: SentryLogger
-      });
+      try {
+        Sentry.captureMessage('saveCourse failed', {
+          level: 'error',
+          extra: SentryLogger
+        });
+      } catch (error) {
+        console.error('Sentry.captureMessage failed:', error);
+      }
       response.responseText = data;
       throw response;
     }
