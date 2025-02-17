@@ -160,7 +160,7 @@ role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
       before do
         TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records([wiki])
         array_revisions << build(:revision, article:, user_id: 1, date: start + 51.hours,
-        scoped: true, ithenticate_id: 1) # add revision with error
+        scoped: true, error: true) # add revision with error
       end
 
       it 'keeps needs_update flag if revisions with error' do

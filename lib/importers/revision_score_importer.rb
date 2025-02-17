@@ -190,16 +190,13 @@ class RevisionScoreImporter
     rev.features = rev_scores['features']
     rev.wp10 = rev_scores['wp10']
     rev.deleted = rev_scores['deleted'] # double check if this is a boolean
-    # TODO: use another field for this
-    rev.ithenticate_id = 1 if rev_scores['error'] # tocuh ithenticate_id if there was an error
+    rev.error = rev_scores['error']
   end
 
   def update_previous_scores(rev, parent_rev_scores)
     rev.wp10_previous = parent_rev_scores['wp10']
     rev.features_previous = parent_rev_scores['features']
-    # TODO: use another field for this
-    # tocuh ithenticate_id if there was an error
-    rev.ithenticate_id = 1 if parent_rev_scores['error']
+    rev.error = parent_rev_scores['error']
   end
 
   class InvalidWikiError < StandardError; end
