@@ -23,9 +23,5 @@ class CreateArticleCourseTimeslices < ActiveRecord::Migration[7.0]
     add_index :article_course_timeslices,
               [:course_id, :updated_at, :article_id],
               name: 'article_course_timeslice_by_updated_at'
-
-    add_index :article_course_timeslices,
-              [:course_id, :tracked],
-              name: 'article_course_timeslice_by_tracked'
   end
 end
