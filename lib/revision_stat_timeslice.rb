@@ -2,12 +2,12 @@
 
 #= Provides a count of recent revisions by a user(s)
 class RevisionStatTimeslice
-  REVISION_TIMEFRAME = 7
+  REVISION_WINDOW_DAYS = 7
 
   def initialize(course, end_period = Time.zone.now)
     @course = course
     @end_period = end_period
-    @start_period = [REVISION_TIMEFRAME.days.ago, course.start].max
+    @start_period = [REVISION_WINDOW_DAYS.days.ago, course.start].max
   end
 
   def recent_revisions_for_course
@@ -17,7 +17,7 @@ class RevisionStatTimeslice
                                       .for_revisions_between(@start_period, @end_period)
       next if timeslices.empty?
       start = timeslices.minimum(:start)
-      revisions += calculate_revisions_in_timeframe(timeslices, start, @end_period)
+      revisions += calculate_revisions_in_window(timeslices, start, @end_period)
     end
     revisions.ceil
   end
@@ -36,17 +36,17 @@ class RevisionStatTimeslice
                                  .for_datetime(@start_period)
                                  .first
                                  .start
-      revisions += calculate_revisions_in_timeframe(timeslices, start, @end_period)
+      revisions += calculate_revisions_in_window(timeslices, start, @end_period)
     end
     revisions.ceil
   end
 
   private
 
-  def calculate_revisions_in_timeframe(timeslices, start, end_period)
+  def calculate_revisions_in_window(timeslices, start, end_period)
     rev_count = timeslices.sum(&:revision_count)
     seconds = (end_period - start).seconds
     revisions_per_day = rev_count * 1.day.seconds / seconds
-    revisions_per_day * REVISION_TIMEFRAME
+    revisions_per_day * REVISION_WINDOW_DAYS
   end
 end
