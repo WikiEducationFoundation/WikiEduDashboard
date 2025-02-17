@@ -84,6 +84,7 @@ sl:
     show_current_version: Prikaži trenutno različico
     title: Naslov
     title_example: Naslov članka
+    tools: Ocenjevalna orodja
     view_all: Pokaži vse
     tracked_articles: Spremljani članki
     view_articles: Ogled člankov
@@ -365,8 +366,10 @@ sl:
     last_update_failed: Zadnja posodobitev tega tečaja ni uspela.
     tags: Oznake
     update_statistics_link: Več o tem
+    view_count_description: Ogledi članka
     view_count_description_wikidata: Ogledi predmeta
     view_data_unavailable: Ni razpoložljivih podatkov o ogledu
+    view: Ogledi
     word_count: Dodane besede
     changed: Spremenjen
     labels: Oznake
@@ -473,6 +476,7 @@ sl:
     time_doc: Čas vsake naložitve v vašem lokalnem času
     uploaded_at: Čas naložitve
     usage_count: Število uporab
+    views_per_day: Ogledi na dan
   users:
     assign_articles_done: Končano
     loading_authorship_data: nalaganje podatkov o avtorstvu
@@ -546,9 +550,13 @@ sl:
     create_account_reason: Ta uporabnik sodeluje pri %{event}.
   article_finder:
     article_finder_wikidata: Iskalnik predmetov
+    average_views: Povprečno ogledov na dan
     category_search: Poišči po kategorijah
+    fetching_pageviews: Pridobivanje ogledov strani
     keyword_search: Iskanje po ključni besedi
+    minimum_views_label: Minimum ogledov
     more_results: Več zadetkov
+    page_views_not_found: Ogledi strani niso bili najdeni!
     relevanceIndex: Indeks ustreznosti
     search: Išči
     searching_articles: Iskanje člankov
