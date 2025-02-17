@@ -120,6 +120,6 @@ class CourseWikiTimeslice < ApplicationRecord
   end
 
   def update_needs_update
-    self.needs_update = !@revisions.select(&:revision_with_error).empty?
+    self.needs_update = @revisions.any?(&:error)
   end
 end
