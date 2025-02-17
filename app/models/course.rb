@@ -348,7 +348,7 @@ class Course < ApplicationRecord
 
   # The default implemention retrieves all the revisions.
   # A course type may override this implementation.
-  def filter_revisions(revisions)
+  def filter_revisions(_wiki, revisions)
     revisions
   end
 

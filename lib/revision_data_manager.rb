@@ -79,7 +79,7 @@ class RevisionDataManager
     all_sub_data = get_revisions(users, start, end_date)
     # Filter revisions based on the course type.
     # Important for ArticleScopedProgram/VisitingScholarship courses
-    [all_sub_data, @course.filter_revisions(all_sub_data)]
+    [all_sub_data, @course.filter_revisions(@wiki, all_sub_data)]
   end
 
   # Get revisions made by a set of users between two dates.
