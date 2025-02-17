@@ -99,6 +99,7 @@ describe ArticleScopedProgram, type: :model do
   end
 
   describe '#filter_revisions' do
+    let(:wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
     let(:course) { create(:article_scoped_program, start: '2018-01-01', end: '2018-12-31') }
     let(:user) { create(:user, username: 'Ragesoss') }
     let(:revisions) do
@@ -154,7 +155,7 @@ describe ArticleScopedProgram, type: :model do
       ]
     end
     let(:subject) do
-      course.filter_revisions(revisions)
+      course.filter_revisions(wiki, revisions)
     end
 
     before do
