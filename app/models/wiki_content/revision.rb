@@ -43,6 +43,8 @@ class Revision < ApplicationRecord
   serialize :features, Hash
   serialize :features_previous, Hash
 
+  attr_accessor :scoped
+
   include ArticleHelper
 
   ####################
@@ -106,10 +108,6 @@ class Revision < ApplicationRecord
     JSON.parse(summary) if summary.present? && summary.start_with?('{', '[')
   rescue JSON::ParserError
     nil # Return nil if parsing fails (i.e., not diff_stats)
-  end
-
-  def scoped_revision
-    !views.zero?
   end
 
   def revision_with_error
