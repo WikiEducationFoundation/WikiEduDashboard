@@ -7,6 +7,7 @@
 # Author: Aram1985
 # Author: Athena Atterdag
 # Author: Av6
+# Author: Cabadeck
 # Author: DDPAT
 # Author: Diralik
 # Author: Dirruw'o
@@ -805,6 +806,7 @@ ru:
       closing: С уважением,
       signed: '- Команда Wiki Education'
       link: Принять участие в опросе
+    edit_survey: Редактировать опрос
   wiki_api:
     create_account_reason: Этот пользователь учавствует в %{event}.
   article_finder:
@@ -852,4 +854,6 @@ ru:
     cancel_note_creation: Отмена
     cancel_edit_note: Отменить
     save_note: Сохранить
+  question_groups:
+    edit_question_group: Редактировать группу вопросов
 ...

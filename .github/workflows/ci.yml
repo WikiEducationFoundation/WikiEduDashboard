@@ -86,9 +86,17 @@ jobs:
         with:
           path: node_modules/.cache/
           key: ${{ runner.os }}-webpack
+
+      # Create cache or restore cache for Tests
+      - name: Cache VCR cassettes
+        uses: actions/cache@v3
+        with:
+          path: fixtures/vcr_cassettes
+          key: vcr-cached-v1
+          restore-keys: |
+            vcr-cached-
           
       #Testing the pushed code onwards
-      
       - name: JavaScript test suite 
         run: |
             yarn install --immutable
