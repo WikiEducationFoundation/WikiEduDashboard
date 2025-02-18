@@ -34,7 +34,27 @@ class Commons
   end
 
   def self.get_urls(commons_uploads, update_service: nil)
-    url_query = build_url_query commons_uploads
+    filename_query = build_info_query(commons_uploads)
+    filename_response = new(filename_query).get_image_data('pageid', '')
+    image_page_ids = []
+
+    filename_response.each do |file_data|
+      title = file_data['title']
+      page_id = file_data['pageid']
+
+      # mediawiki can generate thumbnails for jpg,png,tiff,wav files
+      # mediawiki cannot generate thumbnails for pdf,djvu files
+      if title.match?(/\.(pdf|djvu)$/i)
+        bad_file = CommonsUpload.find_by(file_name: title)
+        save_placeholder_thumbnail(bad_file) if bad_file
+      else
+        image_page_ids << page_id
+      end
+    end
+
+    return {} if image_page_ids.empty?
+
+    url_query = build_url_query(image_page_ids)
     new(url_query, update_service).get_image_data('imageinfo', 'iicontinue')
   end
 
@@ -73,8 +93,7 @@ class Commons
                    continue: '' }
   end
 
-  def self.build_url_query(commons_uploads)
-    file_ids = commons_uploads.map(&:id)
+  def self.build_url_query(file_ids)
     { prop: 'imageinfo',
                   iiprop: 'url',
                   iiurlheight: 480,
@@ -131,6 +150,16 @@ class Commons
     @continue = nil if @query[@continue_param] == @continue[@continue_param]
 
     @query[@continue_param] = @continue[@continue_param] if @continue
+  end
+
+  ####################
+  # Database methods #
+  ####################
+  def self.save_placeholder_thumbnail(file)
+    file.thumburl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/200px-No_image_3x4.svg.png'
+    file.thumbwidth = 200
+    file.thumbheight = 150
+    file.save
   end
 
   ###################
