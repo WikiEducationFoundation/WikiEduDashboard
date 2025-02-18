@@ -230,6 +230,24 @@ describe WikiSlideParser do
     WIKITEXT
   end
 
+  let(:multiline_quiz_wikitext) do
+    <<~WIKISLIDE
+      {{Training module quiz
+      | question = <translate>
+      Take a look at this original (fictional) passage. Then, look at the options below. Choose the one you think is an acceptable way to present that information on Wikipedia.
+
+      Passage:
+
+      :"In 1967, only 25% of eligible Boston voters supported a measure to limit the space afforded to keeping cattle in the city. Dr. Bickford's research suggests that this was on account of the confusing language on the ballot measure, and that support for the measure would have been higher had the memorandum been more clearly stated on the ballot."
+
+      '''How would you share this information in a Wikipedia article? '''</translate>
+      | correct_answer_id = 3
+      | answer_1 = <translate>Some answer text</translate>
+      | explanation_1 = <translate>Some explanation</translate>
+      }}
+    WIKISLIDE
+  end
+
   describe '#title' do
     it 'extracts title from translation-enabled source wikitext' do
       output = described_class.new(source_wikitext.dup).title
@@ -320,6 +338,19 @@ describe WikiSlideParser do
       output = described_class.new(quiz_wikitext.dup).quiz
       expect(output[:correct_answer_id]).to eq(1)
       expect(output[:answers].count).to eq(2)
+    end
+
+    it 'correctly parses multi-line quiz question with formatting' do
+      quiz = described_class.new(multiline_quiz_wikitext.dup).quiz
+
+      expect(quiz).to be_present
+      expect(quiz[:question]).to include('Take a look at this original (fictional) passage')
+      expect(quiz[:question]).to include('Passage:')
+      expect(quiz[:question]).to include(
+        'How would you share this information in a Wikipedia article?'
+      )
+      expect(quiz[:question]).not_to include(':"')
+      expect(quiz[:question]).not_to include("'''")
     end
   end
 
