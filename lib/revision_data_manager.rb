@@ -143,9 +143,6 @@ class RevisionDataManager
   end
 
   # Creates a revision record for the given revision data.
-  # Note that views field is currently used to track if the revision
-  # is a scoped one.
-  # TODO: change the field name. Review this
   def create_revision(rev_data, scoped_sub_data, users, articles)
     mw_page_id = rev_data['mw_page_id'].to_i
     Revision.new({
