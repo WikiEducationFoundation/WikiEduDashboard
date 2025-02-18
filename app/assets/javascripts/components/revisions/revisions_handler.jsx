@@ -9,9 +9,11 @@ import { ARTICLE_FETCH_LIMIT } from '../../constants/revisions.js';
 import Select from 'react-select';
 import sortSelectStyles from '../../styles/sort_select';
 import { getStudentUsers } from '../../selectors/index.js';
+import { sortByKey } from '../../utils/model_utils.js';
 
 const RevisionHandler = ({ course, courseScopedLimit }) => {
   const [isCourseScoped, setIsCourseScoped] = useState(false);
+  const [isNewEditor, setIsNewEditor] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -74,8 +76,17 @@ const RevisionHandler = ({ course, courseScopedLimit }) => {
     }
   };
 
+  const toggleNewEditor = () => {
+    const toggledIsNewEditor = !isNewEditor;
+    setIsNewEditor(toggledIsNewEditor);
+  };
+
   const revisionFilterButtonText = () => {
     return isCourseScoped ? I18n.t('revisions.show_all') : I18n.t('revisions.show_course_specific');
+  };
+
+  const newEditorFilterButtonText = () => {
+    return isNewEditor ? 'Show all' : 'Show new Editors';
   };
 
   const sortSelect = (e) => {
@@ -102,7 +113,11 @@ const RevisionHandler = ({ course, courseScopedLimit }) => {
   // we only fetch articles data for a max of 500 articles(for course specific revisions).
   // If there are more than 500 articles, the toggle button is not shown
   const revisionFilterButton = (
-    <div><button className="button ghost stacked right" onClick={toggleCourseSpecific}>{revisionFilterButtonText()}</button></div>
+    <button className="button ghost stacked right" style={{ marginLeft: '10px' }} onClick={toggleCourseSpecific}>{revisionFilterButtonText()}</button>
+  );
+
+  const editorFilterButton = (
+    <button className="button ghost stacked right" onClick={toggleNewEditor}>{newEditorFilterButtonText()}</button>
   );
 
   const options = [
@@ -114,11 +129,31 @@ const RevisionHandler = ({ course, courseScopedLimit }) => {
     { value: 'date', label: I18n.t('revisions.date_time') },
   ];
 
+  const filterRevisions = () => {
+    let revisions = isCourseScoped ? revisionsDisplayedCourseSpecific : revisionsDisplayed;
+    if (isNewEditor) {
+      // this filters out the revisions where the user registered after the course start date and presents only those revisions
+      revisions = revisions.filter((revision) => {
+        const registered_at = new Date(revision.registered_at);
+        const course_start = new Date(course.start);
+        return registered_at > course_start;
+      });
+
+      const sorted = sortByKey(revisions, 'registered_at');
+      return sorted.newModels;
+    }
+    return revisions;
+  };
+
+
   return (
     <div id="revisions">
       <div className="section-header">
         <h3>{I18n.t('application.recent_activity')}</h3>
-        {course.article_count <= ARTICLE_FETCH_LIMIT && revisionFilterButton}
+        <div>
+          {course.article_count <= ARTICLE_FETCH_LIMIT && revisionFilterButton}
+          {editorFilterButton}
+        </div>
         <div className="sort-container">
           <Select
             name="sorts"
@@ -130,7 +165,7 @@ const RevisionHandler = ({ course, courseScopedLimit }) => {
       </div>
       <div className="revision-list-container">
         <RevisionList
-          revisions={isCourseScoped ? revisionsDisplayedCourseSpecific : revisionsDisplayed}
+          revisions={filterRevisions()}
           loaded={loaded}
           course={course}
           sortBy={sortRevisions}
