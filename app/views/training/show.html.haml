@@ -1,4 +1,6 @@
 - content_for :before_title, "#{@library.translated_name} - "
+#react_root{ "data-translated_categories" => @library.translated_categories.to_json, 
+             "data-current_user" => current_user ? { admin: current_user.admin?, id: current_user.id }.to_json : '{ "admin": false, "id": null }' }
 .training__show.container
   %ol.breadcrumbs= render_breadcrumbs tag: :li, separator: ' > '
 .training__section-overview.container
@@ -34,3 +36,9 @@
                   %small.block-element.capitalize{ class: pm.assignment_status_css_class }
                     = pm.assignment_status
                   %span= lib_module.description
+          - if @current_training_mode['editMode']
+            .training-modification.training-modification-buttons
+              = link_to t("training.add_module"), add_module_training_path(@library.slug, category_id: lib_category['title']), class: 'button dark'
+              - if lib_category.modules.empty?
+                = link_to delete_category_path(library_id: @library.slug, category_id: lib_category['title']), method: :delete, data: { confirm: t('training.confirmation.delete_category') }, class: 'button danger' do
+                  = t("training.delete_category")
