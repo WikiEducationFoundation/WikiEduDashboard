@@ -9,11 +9,8 @@ end
 
 describe DiscretionarySanctionsMonitor do
   describe '.create_alerts_for_course_articles' do
-    let(:course) do
-      travel_to Date.new(2025, 1, 20) do
-        create(:course, start: '2024-12-10', end: Date.new(2025, 1, 20))
-      end
-    end
+    let(:course) { create(:course, start: '2024-12-10', end: '2025-01-20') }
+
     let(:student) { create(:user, username: 'Gelasin') }
     let!(:courses_user) do
       create(:courses_user, user_id: student.id,
@@ -43,11 +40,16 @@ describe DiscretionarySanctionsMonitor do
     end
 
     before do
+      travel_to Time.zone.local(2024, 12, 20, 0o1, 0o4, 44)
       allow_any_instance_of(CategoryImporter).to receive(:page_titles_for_category)
         .with('Category:Wikipedia pages about contentious topics', 1)
         .and_return(['Talk:1948 war',
                      'Talk:Ahmed Mohamed clock incident',
                      'Talk:Armenian Genocide denial'])
+    end
+
+    after do
+      travel_back
     end
 
     it 'creates Alert records for assignments and edited articles under discretionary sanctions' do

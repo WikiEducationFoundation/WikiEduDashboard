@@ -45,6 +45,9 @@ class StudentGreetingChecker
     def talk_page_blank?
       # Non-existent pages will return '', but API errors will return nil
       WikiApi.new(@wiki).get_page_content(@student.talk_page) == ''
+    rescue WikiApi::PageFetchError => e
+      return true if e.status == 429
+      raise e
     end
 
     def contributors_to_page(page_title)

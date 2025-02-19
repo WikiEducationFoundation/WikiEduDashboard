@@ -61,6 +61,68 @@ describe AssignmentsController, type: :request do
       end
     end
 
+    # This test case checks behavior when the article is marked as an available article,
+    # indicated by the assignment's flags having `available_article: true`.
+    context 'when the article is marked as an available article' do
+      let(:assignment) do
+        create(:assignment, course_id: course.id, user_id: user.id,
+                           flags: { available_article: true })
+      end
+
+      before do
+        create(:courses_user, course:, user:)
+      end
+
+      context 'when the assignment_id is provided' do
+        let(:params) do
+          { course_slug: course.slug, assignment_id: assignment.id,
+          user_id: user.id, format: :json }
+        end
+
+        before do
+          delete "/assignments/#{assignment.id}", params: { id: assignment.id }.merge(params)
+        end
+
+        it 'unclaims the assignment' do
+          expect(assignment.reload.user_id).to be_nil
+        end
+      end
+
+      context 'when the assignment_id is not provided' do
+        let(:params) do
+          { course_slug: course.slug, user_id: user.id, assignment_id: assignment.id,
+            article_title: assignment.article_title, role: assignment.role,
+             format: :json }
+        end
+
+        before do
+          delete "/assignments/#{assignment.id}", params: { id: 'undefined' }.merge(params)
+        end
+
+        it 'unclaims the assignment' do
+          expect(assignment.reload.user_id).to be_nil
+        end
+      end
+
+      context 'when the user does not have permission to unclaim the assignment' do
+        let(:params) do
+          { course_slug: course.slug, format: :json }
+        end
+
+        let!(:assignment) do
+          create(:assignment, course_id: course.id, user_id: user.id + 1)
+        end
+
+        before do
+          delete "/assignments/#{assignment.id}", params: { id: assignment.id }.merge(params)
+        end
+
+        it 'does not allow the assignment to be unclaimed' do
+          expect(response.status).to eq(401)
+        end
+      end
+    end
+
     context 'when the user does not have permission do destroy the assignment' do
       let(:assignment) { create(:assignment, course_id: course.id, user_id: user.id + 1) }
       let(:params) { { course_slug: course.slug } }
@@ -121,6 +183,33 @@ describe AssignmentsController, type: :request do
             expect(assignment.article.namespace).to eq(Article::Namespaces::MAINSPACE)
             expect(assignment.article.rating).not_to be_nil
             expect(assignment.article.updated_at).not_to be_nil
+          end
+        end
+      end
+
+      context 'when adding an article to the list of available articles' do
+        let(:assignment_params) do
+          { course_slug: course.slug, title: 'jalapeño', role: 0, format: :json }
+        end
+
+        before do
+          # Creates an association between the user and the course as an instructor
+          create(:courses_user, course:, user:, role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+        end
+
+        it 'creates the assignment and marks the article as available' do
+          expect(Article.find_by(title: 'Jalapeño')).to be_nil
+
+          VCR.use_cassette 'assignment_import' do
+            expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
+            expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
+            post '/assignments', params: assignment_params
+            assignment = assigns(:assignment)
+            expect(assignment).to be_a_kind_of(Assignment)
+            expect(assignment.article.title).to eq('Jalapeño')
+            expect(assignment.user_id).to be_nil # Ensure the assignment is not claimed by the user
+            expect(assignment.flags[:available_article])
+              .to eq(true) # Ensure the article is marked as available
           end
         end
       end

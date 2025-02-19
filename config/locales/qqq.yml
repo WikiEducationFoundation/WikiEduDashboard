@@ -902,6 +902,7 @@ qqq:
       link: Link to take survey from email
     follow_up:
       message: Survey invitation email text. (Wiki Ed only)
+    edit_survey: Button label for editing a survey
   article_finder:
     add_available_article: Button label to add an article finder result to available
       articles
@@ -946,4 +947,6 @@ qqq:
     footer:
       wiki_education_dashboard:
         link_text: '{{optional}}'
+  question_groups:
+    edit_question_group: Button label for editing a question group
 ...
