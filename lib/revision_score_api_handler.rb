@@ -24,13 +24,15 @@ class RevisionScoreApiHandler
   #     { "wp10"=>0.296976285416441736e2,
   #       "features"=> { "num_ref"=>0 },
   #       "deleted"=>false,
-  #       "prediction"=>"Start" },
+  #       "prediction"=>"Start",
+  #       "start" => false },
   #   ...,
   #   "rev_n"=>
   #     { "wp10"=>0.2929458626376752846e2,
   #       "features"=> nil,
   #       "deleted"=>false,
-  #       "prediction"=>"Start" }
+  #       "prediction"=>"Start",
+  #       "start" => false }
   # }
   #
   # For wikidata, "features" key contains Liftwing features. For other wikis, "features"
@@ -60,6 +62,9 @@ class RevisionScoreApiHandler
 
   def complete_score(score)
     completed_score = {}
+
+    # If the score already has error is key is because some API request failed some way
+    completed_score['error'] = score.key?('error')
 
     # Fetch the value for 'wp10' and 'prediction', or default to nil if not present.
     completed_score['wp10'] = score.fetch('wp10', nil)

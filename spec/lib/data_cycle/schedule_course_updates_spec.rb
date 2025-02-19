@@ -22,6 +22,8 @@ describe ScheduleCourseUpdates do
     }
   end
 
+  let(:wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
+
   describe 'on initialization' do
     before do
       create(:editathon, start: 1.day.ago, end: 2.hours.from_now,
@@ -30,14 +32,22 @@ describe ScheduleCourseUpdates do
                       slug: 'Medium/Course', needs_update: true)
       create(:course, start: 1.day.ago, end: 1.year.from_now,
                       slug: 'Long/Program')
-      create(:course, slug: 'Fast/Updates', flags: fast_update_logs)
-      create(:course, slug: 'Medium/Updates', flags: medium_update_logs)
-      create(:course, slug: 'Slow/Updates', flags: slow_update_logs)
-      create(:course, slug: 'VeryLong/Updates', flags: { very_long_updates: true })
+      create(:course, start: 1.day.ago, end: 2.months.from_now,
+                      slug: 'Fast/Updates', flags: fast_update_logs)
+      create(:course, start: 1.day.ago, end: 2.months.from_now,
+                      slug: 'Medium/Updates', flags: medium_update_logs)
+      create(:course, start: 1.day.ago, end: 2.months.from_now,
+                      slug: 'Slow/Updates', flags: slow_update_logs)
+      create(:course, start: 1.year.ago, end: 6.months.ago,
+                      slug: 'VeryLong/Updates', flags: { very_long_updates: true })
+      course = Course.find_by(slug: 'VeryLong/Updates')
+      manager = TimesliceManager.new(course)
+      manager.create_timeslices_for_new_course_wiki_records([wiki])
+      course.course_wiki_timeslices.first.update(needs_update: true)
     end
 
     it 'calls the revisions and articles updates on courses currently taking place' do
-      expect(UpdateCourseStats).to receive(:new).exactly(7).times
+      expect(UpdateCourseStatsTimeslice).to receive(:new).exactly(7).times
       update = described_class.new
       sentry_logs = update.instance_variable_get(:@sentry_logs)
       expect(sentry_logs.grep(/Short update latency/).any?).to eq(true)

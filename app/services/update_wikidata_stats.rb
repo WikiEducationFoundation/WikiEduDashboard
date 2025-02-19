@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 require_dependency "#{Rails.root}/lib/wikidata_summary_parser"
-require_dependency "#{Rails.root}/lib/importers/wikidata_summary_importer"
 # require the installed wikidata-diff-analyzer gem
 require 'wikidata-diff-analyzer'
 

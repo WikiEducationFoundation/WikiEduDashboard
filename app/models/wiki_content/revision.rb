@@ -43,6 +43,8 @@ class Revision < ApplicationRecord
   serialize :features, Hash
   serialize :features_previous, Hash
 
+  attr_accessor :scoped, :error
+
   include ArticleHelper
 
   ####################

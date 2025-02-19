@@ -15,6 +15,9 @@ class LiftWingApi
     'MW API does not have any info'
   ].freeze
 
+  NON_TRANSIENT_ERRORS =
+    DELETED_REVISION_ERRORS + ['UnexpectedContentType'].freeze
+
   LIFT_WING_SERVER_URL = 'https://api.wikimedia.org'
 
   # All the wikis with an articlequality model as of 2023-06-28
@@ -66,16 +69,13 @@ class LiftWingApi
     response = lift_wing_server.post(quality_query_url, body)
     parsed_response = Oj.load(response.body)
     # If the responses contain an error, do not try to calculate wp10 or features.
-    if parsed_response.key? 'error'
-      return { 'wp10' => nil, 'features' => nil, 'deleted' => deleted?(parsed_response),
-      'prediction' => nil }
-    end
+    return build_error_response parsed_response.dig('error') if parsed_response.key? 'error'
     build_successful_response(rev_id, parsed_response)
   rescue StandardError => e
     tries -= 1
     retry unless tries.zero?
     @errors << e
-    return { 'wp10' => nil, 'features' => nil, 'deleted' => false, 'prediction' => nil }
+    build_error_response e.to_s
   end
 
   class InvalidProjectError < StandardError
@@ -120,6 +120,15 @@ class LiftWingApi
     }
   end
 
+  def build_error_response(error)
+    deleted = deleted?(error)
+    error_response = { 'wp10' => nil, 'features' => nil, 'deleted' => deleted, 'prediction' => nil }
+    # Add error field only if the revision was not deleted
+    error_response['error'] = error unless non_transient_error?(error)
+
+    error_response
+  end
+
   # TODO: monitor production for errors, understand them, put benign ones here
   TYPICAL_ERRORS = [].freeze
 
@@ -132,9 +141,15 @@ class LiftWingApi
                       error_count: @errors.count })
   end
 
-  def deleted?(response)
-    LiftWingApi::DELETED_REVISION_ERRORS.any? do |revision_error|
-      response.dig('error').include?(revision_error)
+  def deleted?(error)
+    DELETED_REVISION_ERRORS.any? do |revision_error|
+      error.include?(revision_error)
+    end
+  end
+
+  def non_transient_error?(error)
+    NON_TRANSIENT_ERRORS.any? do |revision_error|
+      error.include?(revision_error)
     end
   end
 end

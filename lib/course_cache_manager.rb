@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/revision_stat"
+require_dependency "#{Rails.root}/lib/revision_stat_timeslice"
 require_dependency "#{Rails.root}/lib/course_training_progress_manager"
 
 #= Service for updating the counts that are cached on Course objects
@@ -17,6 +18,24 @@ class CourseCacheManager
     update_trained_count
     update_revision_count
     update_recent_revision_count
+    update_article_count
+    update_new_article_count
+    update_upload_count
+    update_uploads_in_use_count
+    update_upload_usages_count
+    @course.save
+  end
+
+  # Expects a CourseWikiTimeslice::ActiveRecord_Associations_CollectionProxy to
+  # calculate course caches
+  def update_cache_from_timeslices(course_wiki_timeslices)
+    @course.character_sum = course_wiki_timeslices.sum(&:character_sum)
+    @course.references_count = course_wiki_timeslices.sum(&:references_count)
+    @course.revision_count = course_wiki_timeslices.sum(&:revision_count)
+    update_view_sum_based_on_first_revision
+    update_user_count
+    update_trained_count
+    update_recent_revision_count_from_timeslices
     update_article_count
     update_new_article_count
     update_upload_count
@@ -50,7 +69,24 @@ class CourseCacheManager
   end
 
   def update_view_sum
+    # TODO: fix issue #5911
     @course.view_sum = @course.articles_courses.tracked.live.sum(:view_count)
+  end
+
+  def update_view_sum_based_on_first_revision
+    # This query calculates the views for the entire course based on the first revision for
+    # every article course and the average views for every article (related to an article course).
+    # The view count for a single article is: (days from first revision to today) * average views
+    # It's enterely done on the SQL side because is much faster that way.
+    view_sum = @course.articles_courses
+                      .tracked
+                      .live
+                      .joins(:article)
+                      .where.not(articles: { average_views: nil })
+                      .where.not(first_revision: nil)
+                      .sum('FLOOR(DATEDIFF(UTC_TIMESTAMP(),
+                      articles_courses.first_revision) * articles.average_views)')
+    @course.view_sum = view_sum
   end
 
   def update_trained_count
@@ -73,6 +109,10 @@ class CourseCacheManager
 
   def update_recent_revision_count
     @course.recent_revision_count = RevisionStat.get_records(course: @course)
+  end
+
+  def update_recent_revision_count_from_timeslices
+    @course.recent_revision_count = RevisionStatTimeslice.new(@course).recent_revisions_for_course
   end
 
   def update_article_count

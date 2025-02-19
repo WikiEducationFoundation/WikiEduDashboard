@@ -32,7 +32,10 @@ module CourseHelper
   def format_course_stats(course_stats)
     course_stats.each do |wiki_ns_key, _wiki_ns_stats|
       if wiki_ns_key == 'www.wikidata.org'
-        course_stats[wiki_ns_key]['other updates'] += course_stats[wiki_ns_key]['unknown']
+        # Not all course stats have the 'other updates' field
+        if course_stats[wiki_ns_key]['other updates']
+          course_stats[wiki_ns_key]['other updates'] += course_stats[wiki_ns_key]['unknown']
+        end
         course_stats[wiki_ns_key].reject! { |k, _v| k == 'unknown' }
       end
       # convert stats to human readable values
