@@ -1086,6 +1086,7 @@ it:
       closing: Cordiali saluti,
       signed: '- il team Wiki Education'
       link: Rispondi sondaggio
+    edit_survey: Modifica sondaggio
   wiki_api:
     create_account_reason: Quest'utente sta partecipando a %{event}.
   onboarding:
@@ -1117,4 +1118,6 @@ it:
     not_started: Non iniziato
   multi_wiki:
     selector_placeholder: Inizia a digitare un dominio wiki
+  question_groups:
+    edit_question_group: Modifica gruppo di domande
 ...

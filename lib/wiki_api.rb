@@ -124,7 +124,10 @@ class WikiApi
   end
 
   class PageFetchError < StandardError
+    attr_reader :status
+
     def initialize(page, status)
+      @status = status
       message = "Failed to fetch content for #{page} with response status: #{status.inspect}"
       super(message)
     end

@@ -134,6 +134,8 @@ smn:
     view: Čääiti
     next: Čuávuvâš sijđo
     page: Sijđo
+    kind:
+      discussion: Savâstâllâm
   update_username:
     label: Uđđâ kevtteenommâ
   uploads:

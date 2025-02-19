@@ -579,6 +579,7 @@ lb:
     course_end: Ënn vum Cours
     course_start: Ufank vum Cours
     delete_timeline_and_start_over: Zäitplang läschen
+    done: Fäerdeg
     due_default: Nächst Woch fälleg
     empty_week_1: Fir unzefänken.
     empty_week_3: oder
@@ -733,6 +734,7 @@ lb:
       course: 'Cours: %{course_info}'
       closing: Mat beschte Gréiss
       link: Bei der Ëmfro matmaachen
+    edit_survey: Ëmfro änneren
   onboarding:
     supplementary:
       header: Wéi hutt Dir vun eis héieren?

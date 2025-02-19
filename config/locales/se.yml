@@ -157,6 +157,8 @@ se:
     view: Čájet
     next: Čuovvovaš siidu
     page: Siidu
+    kind:
+      discussion: Ságastallan
   update_username:
     label: Ođđa geavaheaddjinamma
   uploads:
