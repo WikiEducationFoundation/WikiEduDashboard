@@ -24,4 +24,19 @@ describe NoTaEnrolledAlertMailer do
       expect(mail.to).to include(instructor.email)
     end
   end
+
+  describe '.send_email' do
+    before do
+      allow(Features).to receive(:email?).and_return(true)
+      allow(described_class).to receive(:email).and_call_original
+    end
+  
+    it 'calls email and sends an email' do
+      expect(described_class).to receive(:email).with(add_ta_alert).and_call_original
+      expect_any_instance_of(ActionMailer::MessageDelivery).to receive(:deliver_now)
+      
+      described_class.send_email(add_ta_alert)
+    end
+  end
+  
 end
