@@ -111,6 +111,11 @@ Rails.application.routes.draw do
   get 'copy_course' => 'copy_course#index'
   post 'copy_course' => 'copy_course#copy'
 
+  # Change timeslice duration
+  get 'timeslice_duration' => 'timeslice_duration#index'
+  get 'timeslice_duration/update' => 'timeslice_duration#show'
+  post 'timeslice_duration/update' => 'timeslice_duration#update'
+
   # Self-enrollment: joining a course by entering a passcode or visiting a url
   get 'courses/:course_id/enroll/(:passcode)' => 'self_enrollment#enroll_self',
       constraints: { course_id: /.*/ }
