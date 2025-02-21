@@ -45,8 +45,8 @@ import scopingMethods from './scoping_methods';
 import news from './news';
 import persistedNews from './persisted_news';
 import newsNotifications from './news_notification';
-import adminCourseNotes from './admin_course_notes';
 import instructorAlert from './instructor_alert';
+import { apiSlice } from '@components/util/apiSlice';
 
 const reducer = combineReducers({
   active_courses,
@@ -64,7 +64,6 @@ const reducer = combineReducers({
   course,
   courseAlerts,
   courseCreator,
-  adminCourseNotes,
   course_search_results,
   currentUserFromHtml: (state = {}) => state, // only set from preloaded state
   exercises,
@@ -98,7 +97,8 @@ const reducer = combineReducers({
   validations,
   wikidataLabels,
   wiki_courses,
-  wizard
+  wizard,
+  [apiSlice.reducerPath]: apiSlice.reducer,
 });
 
 export default reducer;
