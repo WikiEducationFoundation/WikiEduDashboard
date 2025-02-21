@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteAdminNoteFromList, saveUpdatedAdminCourseNote } from '../../actions/admin_course_notes_action';
 import { initiateConfirm } from '../../actions/confirm_actions';
 import { format, toDate, parseISO } from 'date-fns';
 import TextAreaInput from '../common/text_area_input';
+import { useDeleteAdminCourseNoteMutation, useSaveUpdatedAdminCourseNoteMutation } from '../../slices/AdminCourseNotesSlice';
 
-const NotesRow = ({ notesList }) => {
+const NotesRow = ({ notesList, current_user }) => {
   // State variables to keep track of the currently edited note and the note with expanded text
   const [editNoteId, setEditNoteId] = useState(null);
   const [showNoteTextId, setShowNoteTextId] = useState(null);
@@ -15,12 +15,18 @@ const NotesRow = ({ notesList }) => {
   // State for the live message when the admin panel modal opens
   const [liveMessage, setLiveMessage] = useState('');
 
+  // Hook to trigger the deletion of an admin course note via RTK Query mutation
+  const [deleteAdminNote] = useDeleteAdminCourseNoteMutation();
+
+  // Hook to update an existing admin course note via RTK Query mutation
+  const [saveUpdatedAdminNote] = useSaveUpdatedAdminCourseNoteMutation();
+
   const dispatch = useDispatch();
 
   // Function to handle note deletion
   const deleteNote = (noteId) => {
     const onConfirmDelete = () => {
-      dispatch(deleteAdminNoteFromList(noteId));
+      deleteAdminNote(noteId);
     };
     const confirmMessage = I18n.t('notes.delete_note_confirmation');
     dispatch(initiateConfirm({ confirmMessage, onConfirm: onConfirmDelete }));
@@ -57,7 +63,7 @@ const NotesRow = ({ notesList }) => {
 
   // Function to handle clicking on the save note button
   const onNotesEditSaveButtonClickHandler = (noteId) => {
-    dispatch(saveUpdatedAdminCourseNote({ id: noteId, title: noteTitle, text: noteText }));
+    saveUpdatedAdminNote({ id: noteId, title: noteTitle, text: noteText, edited_by: current_user.username });
     setEditNoteId(null);
   };
 
