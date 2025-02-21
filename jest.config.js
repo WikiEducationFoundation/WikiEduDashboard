@@ -14,7 +14,7 @@ module.exports = {
 
   // all these are ESM modules which must be converted to CJS
   transformIgnorePatterns: [
-    '/node_modules/(?!@react-dnd|react-dnd|dnd-core|react-dnd-html5-backend|lodash-es|i18n-js)',
+    '/node_modules/(?!@reduxjs/toolkit|@react-dnd|react-dnd|dnd-core|react-dnd-html5-backend|lodash-es|i18n-js)',
   ],
   setupFiles: ['./test/setup.js'],
 };
