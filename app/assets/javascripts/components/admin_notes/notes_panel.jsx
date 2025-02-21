@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Cookies } from 'react-cookie-consent';
-import { fetchAllAdminCourseNotes, createAdminCourseNote } from '../../actions/admin_course_notes_action';
 import NotesList from './notes_list';
 import NotesCreator from './notes_creator';
 import NotesModalTrigger from './notes_modal_trigger';
+import { useFetchAllAdminCourseNotesQuery, useCreateAdminCourseNoteMutation, sendNotification } from '../../slices/AdminCourseNotesSlice';
 
-const NotesPanel = () => {
+const NotesPanel = ({ current_user }) => {
   // State variables for managing the modal and note creation
   const [isModalOpen, setIsModalOpen] = useState(null);
   const [isNoteCreationActive, setIsNoteCreationActive] = useState(false);
@@ -18,15 +18,30 @@ const NotesPanel = () => {
   // State for the live message when the admin panel modal opens
   const [liveMessage, setLiveMessage] = useState('');
 
-  // Get the list of course notes and the current course from the Redux store
-  const notesList = useSelector(state => state.adminCourseNotes.notes_list);
+  // Get the current course from the Redux store
   const course = useSelector(state => state.course);
 
   // Get the dispatch function from the Redux store
   const dispatch = useDispatch();
 
+  // Hook to Fetch all admin course notes for the current course
+  const { data: fetchedAdminNotes } = useFetchAllAdminCourseNotesQuery(course.id);
+
+  // Hook to trigger the note creation mutation and track its success state
+  const [addNewAdminNote, { isSuccess: noteCreationSuccess, reset: resetNoteCreationState }] = useCreateAdminCourseNoteMutation();
+
+  if (noteCreationSuccess) {
+    setIsNoteCreationActive(false);
+    setText('');
+    setTitle('');
+    // Set the cookie timestamp after note creation to prevent the admin from receiving redundant notifications for notes they’ve created
+    setNoteFetchTimestamp();
+    // Resets the note creation mutation state after a successful creation
+    resetNoteCreationState();
+  }
+
   // Updates the cookie timestamp to track when notes were last fetched or created.
-  const setNoteFetchTimestamp = () => {
+  function setNoteFetchTimestamp() {
     // Set the current timestamp as a cookie when the user fetches notes or create notes
     const currentTimestamp = Date.now();
 
@@ -35,24 +50,9 @@ const NotesPanel = () => {
     expires.setFullYear(expires.getFullYear() + 10);
 
     Cookies.set('lastFetchAdminNoteTimestamp', currentTimestamp, { expires });
-  };
+  }
 
-  // Fetch all course notes when the component mounts
-  useEffect(() => {
-    // Define a function to fetch the course notes
-    const fetchData = () => {
-      dispatch(fetchAllAdminCourseNotes(course.id));
-    };
-
-    // Fetch the data and set up a polling interval to fetch data periodically (every 60 seconds)
-    fetchData();
-    const pollInterval = setInterval(fetchData, 60000);
-
-    // Clean up the polling interval when the component unmounts
-    return () => clearInterval(pollInterval);
-  }, []);
-
-  // Handle opening and closing the modal with the Escape key and manage the live region message
+  // Handle opening and closing the modal with the Escape key and manage the live region message For SR
   useEffect(() => {
     const handleEscape = (event) => {
       if (event.key === 'Escape') {
@@ -78,20 +78,15 @@ const NotesPanel = () => {
     };
   }, [isModalOpen]);
 
-  // Handle posting a new note and reset note creation state based on the result
-  const onClickPostNotesHandler = async (courseId) => {
-    setIsNoteCreationActive(false);
+  // Handle posting a new note
+  const onClickPostNotesHandler = (courseId) => {
+    const adminCourseNoteDetails = { text: noteText, title: noteTitle, courses_id: courseId, edited_by: current_user.username };
 
-    const status = await dispatch(createAdminCourseNote(courseId, { text: noteText, title: noteTitle }));
-
-    if (status === 'error') {
-      return setIsNoteCreationActive(true);
+    if ((adminCourseNoteDetails.title.trim().length === 0) || (adminCourseNoteDetails.text.trim().length === 0)) {
+      return sendNotification(dispatch, 'Error', 'notes.empty_fields');
     }
 
-    setText('');
-    setTitle('');
-    // Set the cookie timestamp after note creation to prevent the admin from receiving redundant notifications for notes they’ve created
-    setNoteFetchTimestamp();
+    addNewAdminNote(adminCourseNoteDetails);
   };
 
   // Close the modal and deactivate note creation
@@ -102,7 +97,13 @@ const NotesPanel = () => {
 
   // Conditionally render a button if modalType is null
   if (!isModalOpen) {
-    return (<NotesModalTrigger setIsModalOpen={setIsModalOpen} notesList={notesList} setNoteFetchTimestamp={setNoteFetchTimestamp}/>);
+    return (
+      <NotesModalTrigger
+        setIsModalOpen={setIsModalOpen}
+        notesList={fetchedAdminNotes?.AdminCourseNotes || []}
+        setNoteFetchTimestamp={setNoteFetchTimestamp}
+      />
+    );
   }
 
   return (
@@ -167,7 +168,7 @@ const NotesPanel = () => {
           {isNoteCreationActive && <NotesCreator noteTitle={noteTitle} setTitle={setTitle} noteText={noteText} setText={setText} />}
 
           {/* Render the list of course notes */}
-          <NotesList notesList={notesList} />
+          <NotesList notesList={fetchedAdminNotes?.AdminCourseNotes || []} current_user={current_user} />
         </div>
 
         {/* Announcement for screen readers */}

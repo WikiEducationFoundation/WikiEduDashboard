@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import reducer from '../../reducers';
+import { apiSlice } from './apiSlice';
 
 export const getStore = () => {
   const reactRoot = document.getElementById('react_root');
@@ -42,7 +43,8 @@ export const getStore = () => {
       // Enable mutation checks when resolving or detecting these issues by setting enableReduxSafetyChecks to true.
       immutableCheck: enableReduxSafetyChecks,
       serializableCheck: enableReduxSafetyChecks,
-    }),
+    })
+    .concat(apiSlice.middleware),
   });
 
   return store;
