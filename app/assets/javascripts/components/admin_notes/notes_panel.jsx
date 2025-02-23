@@ -168,7 +168,11 @@ const NotesPanel = ({ current_user }) => {
           {isNoteCreationActive && <NotesCreator noteTitle={noteTitle} setTitle={setTitle} noteText={noteText} setText={setText} />}
 
           {/* Render the list of course notes */}
-          <NotesList notesList={fetchedAdminNotes?.AdminCourseNotes || []} current_user={current_user} />
+          <NotesList
+            notesList={fetchedAdminNotes?.AdminCourseNotes || []}
+            current_user={current_user}
+            setNoteFetchTimestamp={setNoteFetchTimestamp}
+          />
         </div>
 
         {/* Announcement for screen readers */}

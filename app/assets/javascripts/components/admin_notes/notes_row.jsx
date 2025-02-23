@@ -5,7 +5,7 @@ import { format, toDate, parseISO } from 'date-fns';
 import TextAreaInput from '../common/text_area_input';
 import { useDeleteAdminCourseNoteMutation, useSaveUpdatedAdminCourseNoteMutation } from '../../slices/AdminCourseNotesSlice';
 
-const NotesRow = ({ notesList, current_user }) => {
+const NotesRow = ({ notesList, current_user, setNoteFetchTimestamp }) => {
   // State variables to keep track of the currently edited note and the note with expanded text
   const [editNoteId, setEditNoteId] = useState(null);
   const [showNoteTextId, setShowNoteTextId] = useState(null);
@@ -62,8 +62,11 @@ const NotesRow = ({ notesList, current_user }) => {
   };
 
   // Function to handle clicking on the save note button
-  const onNotesEditSaveButtonClickHandler = (noteId) => {
-    saveUpdatedAdminNote({ id: noteId, title: noteTitle, text: noteText, edited_by: current_user.username });
+  const onNotesEditSaveButtonClickHandler = async (noteId) => {
+    await saveUpdatedAdminNote({ id: noteId, title: noteTitle, text: noteText, edited_by: current_user.username });
+    // Set the cookie timestamp after note creation to prevent the admin
+    // from receiving redundant notifications for notes they’ve edited/updated
+    setNoteFetchTimestamp();
     setEditNoteId(null);
   };
 
