@@ -2,7 +2,7 @@ import React from 'react';
 import List from '../common/list.jsx';
 import NotesRow from './notes_row.jsx';
 
-const NotesList = ({ notesList, current_user }) => {
+const NotesList = ({ notesList, current_user, setNoteFetchTimestamp }) => {
   const keys = {
     title: {
       label: I18n.t('notes.title'),
@@ -25,7 +25,7 @@ const NotesList = ({ notesList, current_user }) => {
   let notesRow = [];
 
   if (notesList.length > 0) {
-    notesRow = <NotesRow notesList={notesList} current_user={current_user} />;
+    notesRow = <NotesRow notesList={notesList} current_user={current_user} setNoteFetchTimestamp={setNoteFetchTimestamp} />;
   }
 
   return (
