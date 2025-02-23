@@ -59,7 +59,6 @@ class TimesliceCleaner
   # Deletes course user wiki timeslices records with a start date later than the
   # specific given date
   def delete_course_user_wiki_timeslices_after_date(wikis, date)
-    # Delete course wiki timeslices
     timeslice_ids = CourseUserWikiTimeslice.where(course: @course)
                                            .where(wiki: wikis)
                                            .where('start > ?', date)
@@ -74,7 +73,6 @@ class TimesliceCleaner
     # Collect the ids of articles to be deleted
     article_ids = @course.articles_from_timeslices(wikis).pluck(:id)
 
-    # Delete course wiki timeslices
     timeslice_ids = ArticleCourseTimeslice.where(course: @course)
                                           .where(article_id: article_ids)
                                           .where('start > ?', date)

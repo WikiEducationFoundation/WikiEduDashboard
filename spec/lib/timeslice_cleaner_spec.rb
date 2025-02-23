@@ -199,10 +199,9 @@ describe TimesliceCleaner do
 
   describe '#delete_course_user_wiki_timeslices_after_date' do
     before do
-      create(:courses_wikis, wiki: wikibooks, course:)
       create(:course_user_wiki_timeslice, course:, user_id: 1, wiki: enwiki,
               start: '2024-01-08'.to_datetime, end: '2024-01-09'.to_datetime)
-      create(:course_user_wiki_timeslice, course:, user_id: 1, wiki: wikibooks,
+      create(:course_user_wiki_timeslice, course:, user_id: 1, wiki: wikidata,
               start: '2024-04-11'.to_datetime, end: '2024-04-12'.to_datetime)
       create(:course_user_wiki_timeslice, course:, user_id: 1, wiki: enwiki,
               start: '2024-04-11'.to_datetime, end: '2024-04-12'.to_datetime)
@@ -215,7 +214,6 @@ describe TimesliceCleaner do
       timeslice_cleaner.delete_course_user_wiki_timeslices_after_date([enwiki], date)
       course.reload
 
-      # Course user wiki timeslices prior to the new start date were deleted
       expect(course.course_user_wiki_timeslices.size).to eq(2)
     end
   end
@@ -237,7 +235,6 @@ describe TimesliceCleaner do
       timeslice_cleaner.delete_article_course_timeslices_after_date([enwiki], date)
       course.reload
 
-      # Course user wiki timeslices prior to the new start date were deleted
       expect(course.article_course_timeslices.size).to eq(2)
     end
   end
