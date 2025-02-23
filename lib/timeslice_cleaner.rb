@@ -56,6 +56,33 @@ class TimesliceCleaner
     delete_course_wiki_timeslice_ids(timeslice_ids)
   end
 
+  # Deletes course user wiki timeslices records with a start date later than the
+  # specific given date
+  def delete_course_user_wiki_timeslices_after_date(wikis, date)
+    # Delete course wiki timeslices
+    timeslice_ids = CourseUserWikiTimeslice.where(course: @course)
+                                           .where(wiki: wikis)
+                                           .where('start > ?', date)
+                                           .pluck(:id)
+
+    delete_course_user_wiki_timeslice_ids(timeslice_ids)
+  end
+
+  # Deletes article course timeslices records with a start date later than the
+  # specific given date
+  def delete_article_course_timeslices_after_date(wikis, date)
+    # Collect the ids of articles to be deleted
+    article_ids = @course.articles_from_timeslices(wikis).pluck(:id)
+
+    # Delete course wiki timeslices
+    timeslice_ids = ArticleCourseTimeslice.where(course: @course)
+                                          .where(article_id: article_ids)
+                                          .where('start > ?', date)
+                                          .pluck(:id)
+
+    delete_article_course_timeslice_ids(timeslice_ids)
+  end
+
   # Deletes course user wiki timeslices records with a date prior to the current start date
   def delete_course_user_wiki_timeslices_prior_to_start_date
     # Delete course user wiki timeslices
@@ -68,12 +95,7 @@ class TimesliceCleaner
 
   # Deletes course user wiki timeslices records with a start date later than the current end date
   def delete_course_user_wiki_timeslices_after_end_date
-    # Delete course user wiki timeslices
-    timeslice_ids = CourseUserWikiTimeslice.where(course: @course)
-                                           .where('start > ?', @course.end)
-                                           .pluck(:id)
-
-    delete_course_user_wiki_timeslice_ids(timeslice_ids)
+    delete_course_user_wiki_timeslices_after_date(@course.wikis, @course.end)
   end
 
   # Resets course wiki timeslices. This involves:
