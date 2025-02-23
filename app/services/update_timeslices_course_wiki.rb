@@ -58,6 +58,8 @@ class UpdateTimeslicesCourseWiki
       # Continue if timeslice duration didn't change for the wiki
       next unless effective_timeslice_duration != real_timeslice_duration
       @timeslice_cleaner.delete_course_wiki_timeslices_after_date([wiki], start - 1.second)
+      @timeslice_cleaner.delete_course_user_wiki_timeslices_after_date([wiki], start - 1.second)
+      @timeslice_cleaner.delete_article_course_timeslices_after_date([wiki], start - 1.second)
       @timeslice_manager.create_wiki_timeslices_up_to_new_course_end_date(wiki)
     end
   end
