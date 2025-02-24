@@ -52,7 +52,7 @@ describe ContinuedCourseActivityAlertManager do
 
   context 'when there is significant after the course ends' do
     let(:content) do
-      { 'usercontribs' => Array.new(21) { |_| contribution } }
+      { 'usercontribs' => Array.new(6) { |_| contribution } }
     end
 
     it 'creates an alert' do

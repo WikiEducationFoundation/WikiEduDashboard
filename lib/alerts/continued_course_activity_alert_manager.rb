@@ -22,7 +22,7 @@ class ContinuedCourseActivityAlertManager
 
   private
 
-  MINIMUM_REVISIONS_AFTER_COURSE_END = 20
+  MINIMUM_REVISIONS_AFTER_COURSE_END = 5
   def significant_activity_after_course_end?(course)
     total_revisions = course.wikis.sum do |wiki|
       count_revisions_for_wiki(course, wiki)
