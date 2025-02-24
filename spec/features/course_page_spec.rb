@@ -364,10 +364,10 @@ describe 'the course page', type: :feature, js: true do
       expect(assigned_articles_section).to have_content 'Education'
       expect(Assignment.count).to eq(1)
       expect(assigned_articles_section).to have_content 'Remove'
-      click_button 'Remove'
       accept_alert do
-        click_button 'OK'
+        click_button 'Remove'
       end
+      click_button 'OK'
       expect(assigned_articles_section).not_to have_content 'Education'
 
       # pass_pending_spec
