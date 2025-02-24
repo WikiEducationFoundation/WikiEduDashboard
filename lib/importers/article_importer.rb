@@ -34,7 +34,7 @@ class ArticleImporter
         prop: 'info',
         titles: some_article_titles.join('|')
       }
-      response = api_post(@wiki, params)
+      response = api_post(@wiki.api_url, params)
       results = response.dig('query', 'pages')
       next if results.blank?
       import_articles_from_title_query(results)
@@ -71,9 +71,9 @@ class ArticleImporter
   # API methods #
   ###############
 
-  def api_post(wiki, params)
+  def api_post(api_url, params)
     tries ||= 3
-    response = do_post(wiki, params)
+    response = do_post(api_url, params)
     return unless response
     parsed_body = JSON.parse(response.body)
     return if parsed_body.empty?
@@ -83,12 +83,12 @@ class ArticleImporter
     sleep 1 if too_many_requests?(e)
     retry unless tries.zero?
     log_error(e, update_service: @update_service,
-              sentry_extra: { params:, api_url: @api_url })
+              sentry_extra: { params:, api_url: })
     return nil
   end
 
-  def do_post(wiki, params)
-    uri = URI(wiki.api_url)
+  def do_post(api_url, params)
+    uri = URI(api_url)
     https = Net::HTTP.new(uri.host, uri.port)
     https.use_ssl = true
 
