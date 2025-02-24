@@ -56,7 +56,7 @@ describe 'cloning a course', js: true do
   # end
 
   it 'copies relevant attributes of an existing course' do
-    pending 'This sometimes fails for unknown reasons.'
+    # pending 'This sometimes fails for unknown reasons.'
     course.wikis = Wiki.find([1, 3, 4]) # Let the original course have some tracked wikis.
     login_as user, scope: :user, run_callbacks: false
     visit root_path
@@ -117,7 +117,7 @@ describe 'cloning a course', js: true do
     expect(new_course.article_count).to be_zero
     expect(new_course.wikis.count).to eq(3) # Check if the tracked wikis are cloned.
 
-    pass_pending_spec
+    # pass_pending_spec
   end
 
   it 'copies relevant attributes of an existing course with assignments' do

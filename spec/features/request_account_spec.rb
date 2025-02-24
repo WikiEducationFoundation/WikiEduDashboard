@@ -6,7 +6,7 @@ describe 'Account requests', type: :feature, js: true do
   let(:course) { create(:course, end: 1.week.from_now, flags: { register_accounts: true }) }
 
   it 'lets an unregistered user request an account' do
-    pending 'This may fail on travis-ci if the IP range is blocked from account creation.'
+    # pending 'This may fail on travis-ci if the IP range is blocked from account creation.'
 
     visit "/courses/#{course.slug}?enroll=#{course.passcode}"
     click_button 'Request an account'
@@ -16,6 +16,6 @@ describe 'Account requests', type: :feature, js: true do
     click_button 'Request account'
     expect(page).to have_content 'Your request for an account has been submitted'
 
-    pass_pending_spec
+    # pass_pending_spec
   end
 end

@@ -24,7 +24,7 @@ describe 'Survey Administration', type: :feature, js: true do
     end
 
     it 'can create a Survey and a SurveyAssignment' do
-      pending 'This sometimes fails at the "Delete this survey" step for unknown reasons.'
+      # pending 'This sometimes fails at the "Delete this survey" step for unknown reasons.'
 
       # Create the survey
       expect(Survey.count).to eq(0)
@@ -192,7 +192,7 @@ describe 'Survey Administration', type: :feature, js: true do
       sleep 1
       expect(Survey.count).to eq(0)
 
-      pass_pending_spec
+      # pass_pending_spec
     end
 
     it 'can view survey results' do

@@ -20,7 +20,7 @@ describe 'logging in', type: :feature, js: true do
 
   context 'without a stubbed OAuth flow' do
     it 'sends the user to log in on Wikipedia and allow the app' do
-      pending 'This started failing in CI.'
+      # pending 'This started failing in CI.'
 
       OmniAuth.config.logger = Rails.logger
 
@@ -38,7 +38,7 @@ describe 'logging in', type: :feature, js: true do
         page.driver.browser.manage.logs.get(:browser)
       end
 
-      pass_pending_spec
+      # pass_pending_spec
     end
   end
 

@@ -132,7 +132,7 @@ describe 'Instructor users', type: :feature, js: true do
     end
 
     it 'is able to assign articles' do
-      pending 'This sometimes fails on travis.'
+      # pending 'This sometimes fails on travis.'
 
       visit "/courses/#{Course.first.slug}/students/articles"
 
@@ -173,7 +173,7 @@ describe 'Instructor users', type: :feature, js: true do
       end
       expect(page).not_to have_content 'Article 1'
 
-      pass_pending_spec
+      # pass_pending_spec
     end
 
     it 'is able to add Available Articles' do
@@ -187,7 +187,7 @@ describe 'Instructor users', type: :feature, js: true do
     end
 
     it 'is able to remove students from the course' do
-      pending 'This sometimes fails on travis.'
+      # pending 'This sometimes fails on travis.'
 
       visit "/courses/#{Course.first.slug}/students/overview"
 
@@ -197,7 +197,7 @@ describe 'Instructor users', type: :feature, js: true do
       sleep 1
       expect(page).not_to have_content 'Student A'
 
-      pass_pending_spec
+      # pass_pending_spec
     end
 
     it 'is able to notify users with overdue training' do

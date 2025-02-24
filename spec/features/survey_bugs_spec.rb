@@ -77,7 +77,7 @@ describe 'Survey navigation and rendering', type: :feature, js: true do
     end
 
     it 'handles changes in condition questions' do
-      pending 'This sometimes fails for unknown reasons.'
+      # pending 'This sometimes fails for unknown reasons.'
 
       visit survey_path(@survey)
 
@@ -137,7 +137,7 @@ describe 'Survey navigation and rendering', type: :feature, js: true do
       click_button('Submit Survey', visible: true)
       expect(page).to have_content 'You made it!'
 
-      pass_pending_spec
+      # pass_pending_spec
     end
   end
 end

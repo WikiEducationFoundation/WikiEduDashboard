@@ -15,7 +15,7 @@ describe 'Account requests', type: :feature, js: true do
   end
 
   it 'can be enabled by the course facilitator' do
-    pending 'Confirmation modal is not displaying'
+    # pending 'Confirmation modal is not displaying'
     login_as(instructor)
     visit "/courses/#{course.slug}"
     click_button 'Enable account requests'
@@ -24,11 +24,11 @@ describe 'Account requests', type: :feature, js: true do
       click_button 'OK'
     end
     expect(page).to have_content('Account request generation enabled')
-    pass_pending_spec
+    # pass_pending_spec
   end
 
   it 'can be used by logged out users via the enroll link' do
-    pending 'Checking username availibility will not work in CI because of IP range blocks'
+    # pending 'Checking username availibility will not work in CI because of IP range blocks'
 
     course.update(flags: { register_accounts: true })
     visit "/courses/#{course.slug}?enroll=#{course.passcode}"
@@ -39,6 +39,6 @@ describe 'Account requests', type: :feature, js: true do
     click_button 'Request account'
     expect(page).to have_content('Your request for an account has been submitted')
 
-    pass_pending_spec
+    # pass_pending_spec
   end
 end
