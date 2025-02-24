@@ -36,7 +36,7 @@ class InstructorNotificationAlert < Alert
   end
 
   # deliver the actual email immediately
-  def send_email(bcc_to_salesforce=true)
+  def send_email(bcc_to_salesforce: true)
     return if emails_disabled?
     InstructorNotificationMailer.send_email(self, bcc_to_salesforce)
     update(email_sent_at: Time.zone.now)

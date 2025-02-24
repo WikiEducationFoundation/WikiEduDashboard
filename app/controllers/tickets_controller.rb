@@ -25,7 +25,7 @@ class TicketsController < ApplicationController
 
   private
 
-  def send_ticket_notification(owner=false)
+  def send_ticket_notification(owner: false)
     set_ticket_details
     TicketNotificationMailer.notify_of_message(
       course: @course,
