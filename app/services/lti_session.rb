@@ -50,6 +50,10 @@ class LtiSession
     @idtoken['platform']['productFamilyCode']
   end
 
+  def context_id
+    "#{@idtoken['launch']['context']['id']}::#{@idtoken['launch']['resourceLink']['id']}"
+  end
+
   def line_item_id
     @cached_line_item_id ||= determine_line_item_id
   end

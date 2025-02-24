@@ -33,14 +33,15 @@ class LtiLaunchController < ApplicationController
     user_lti_id = lti_session.user_lti_id
     lms_id = lti_session.lms_id
     lms_family = lti_session.lms_family
+    context_id = lti_session.context_id
     # Checking if LTI User already exists
-    return if !LtiUser.find_by(user: current_user, user_lti_id: user_lti_id, lms_id: lms_id).nil?
+    return if !LtiContext.find_by(user: current_user, user_lti_id: user_lti_id, lms_id: lms_id, context_id: context_id).nil?
     # Sending account created signal
     # You can pass the User Wikipedia ID as parameter to this method to generate a comment in the grade
     # Example: lti_session.send_account_created_signal(123)
-    lti_session.send_account_created_signal 
+    lti_session.send_account_created_signal(current_user.username)
     # Creating LTI User
-    LtiUser.create(user: current_user, user_lti_id: user_lti_id, lms_id: lms_id, lms_family: lms_family)
+    LtiContext.create(user: current_user, user_lti_id: user_lti_id, lms_id: lms_id, lms_family: lms_family, context_id: context_id)
   end
 
   private
