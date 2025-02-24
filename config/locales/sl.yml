@@ -475,12 +475,15 @@ sl:
     loading: Nalaganje naložitev ...
     time_doc: Čas vsake naložitve v vašem lokalnem času
     uploaded_at: Čas naložitve
+    uploader: Naložnik
     usage_count: Število uporab
     views_per_day: Ogledi na dan
   users:
     assign_articles_done: Končano
     loading_authorship_data: nalaganje podatkov o avtorstvu
     authorship_data_not_fetched: Podatkov o avtorstvu ni bilo mogoče pridobiti
+    contributions: Uporabnikovi prispevki
+    contributions_more: Ogled več prispevkov
     contribution_statistics: Statistika prispevkov
     enrolled_success: '%{username} je bil_a uspešno dodan_a!'
     first_name: Ime
