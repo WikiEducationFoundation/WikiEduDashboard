@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LtiSession
   attr_reader :idtoken
 
@@ -5,7 +7,7 @@ class LtiSession
     'membership#Administrator',
     'membership#Instructor',
     'membership#Mentor'
-  ]
+  ].freeze
 
   SCORE_MAXIMUM = 1
 
@@ -39,7 +41,9 @@ class LtiSession
   end
 
   def user_is_teacher?
-    @idtoken['user']['roles'].any? { |str| INSTRUCTOR_ROLES.any? { |suffix| str.end_with?(suffix) } }
+    @idtoken['user']['roles'].any? {
+      |str| INSTRUCTOR_ROLES.any? { |suffix| str.end_with?(suffix) }
+    }
   end
 
   def lms_id
@@ -58,6 +62,19 @@ class LtiSession
     @cached_line_item_id ||= determine_line_item_id
   end
 
+  def link_lti_user(current_user)
+    # Checking if LTI User already exists
+    return unless LtiContext.find_by(user: current_user, user_lti_id:, lms_id:, context_id:).nil?
+    # Sending account created signal if user is a student
+    # You can pass the User Wikipedia ID as parameter to this method to generate a comment in the grade
+    # Example: lti_session.send_account_created_signal(123)
+    send_account_created_signal(current_user.username) unless user_is_teacher?
+    # Creating LTI User
+    LtiContext.create(user: current_user, user_lti_id:, lms_id:, lms_family:, context_id:)
+  end
+
+  private
+
   def send_account_created_signal(user_wikipedia_id = nil)
     score = {
       'scoreGiven' => SCORE_MAXIMUM,
@@ -66,40 +83,34 @@ class LtiSession
       'gradingProgress' => 'FullyGraded',
       'userId' => @idtoken['user']['id']
     }
-    score['comment'] = "Wikipedia user ID: #{user_wikipedia_id}" if !user_wikipedia_id.nil?
+    score['comment'] = "Wikipedia user ID: #{user_wikipedia_id}" unless user_wikipedia_id.nil?
     make_post_request("/api/lineitems/#{CGI.escape(line_item_id)}/scores", score)
   end
 
-  private
-
   def make_get_request(path)
     response = @conn.get(path)
-    unless response.success?
-      raise LtiaasClientError.new(response.body, response.status)
-    end
+    raise LtiaasClientError.new(response.body, response.status) unless response.success?
     return response.body
   end
 
   def make_post_request(path, body)
     response = @conn.post(path, body)
-    unless response.success?
-      raise LtiaasClientError.new(response.body, response.status)
-    end
+    raise LtiaasClientError.new(response.body, response.status) unless response.success?
     return response.body
   end
 
   def determine_line_item_id
-    raise LtiGradingServiceUnavailable if !@idtoken['services']['assignmentAndGrades']['available']
+    raise LtiGradingServiceUnavailable unless @idtoken['services']['assignmentAndGrades']['available']
       
     line_item_id = @idtoken['services']['assignmentAndGrades']['lineItemId']
-    return line_item_id if !(line_item_id.nil? || line_item_id.empty?)
+    return line_item_id unless (line_item_id.nil? || line_item_id.empty?)
 
     resource_link_id = @idtoken['launch']['resourceLink']['id']
     line_items = make_get_request("/api/lineitems?resourceLinkId#{resource_link_id}")['lineItems']
-    return line_items.first['id'] if !line_items.empty?
+    return line_items.first['id'] unless line_items.empty?
 
     line_item = {
-      'label' => "WikiEdu Account Creation",
+      'label' => 'WikiEdu Account Creation',
       'resourceLinkId' => resource_link_id,
       'scoreMaximum' => SCORE_MAXIMUM
     }
@@ -117,5 +128,5 @@ class LtiSession
   end
 
   class LtiGradingServiceUnavailable < StandardError; end
-  
+
 end
