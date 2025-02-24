@@ -35,7 +35,7 @@ class ArticleImporter
         titles: some_article_titles.join('|')
       }
       response = api_post(@wiki.api_url, params)
-      results = response.dig('query', 'pages')
+      results = response&.dig('query', 'pages')
       next if results.blank?
       import_articles_from_title_query(results)
     end
@@ -102,4 +102,8 @@ class ArticleImporter
     return false unless e.instance_of?(MediawikiApi::HttpError)
     e.status == 429
   end
+
+  TYPICAL_ERRORS = [Net::ReadTimeout,
+                    MediawikiApi::HttpError,
+                    MediawikiApi::ApiError].freeze
 end
