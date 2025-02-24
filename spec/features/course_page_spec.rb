@@ -364,8 +364,9 @@ describe 'the course page', type: :feature, js: true do
       expect(assigned_articles_section).to have_content 'Education'
       expect(Assignment.count).to eq(1)
       expect(assigned_articles_section).to have_content 'Remove'
+      click_button 'Remove'
       accept_alert do
-        click_button 'Remove'
+        click_button 'OK'
       end
       expect(assigned_articles_section).not_to have_content 'Education'
 
