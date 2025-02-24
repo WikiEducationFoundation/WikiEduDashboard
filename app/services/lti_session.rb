@@ -41,9 +41,9 @@ class LtiSession
   end
 
   def user_is_teacher?
-    @idtoken['user']['roles'].any? {
-      |str| INSTRUCTOR_ROLES.any? { |suffix| str.end_with?(suffix) }
-    }
+    @idtoken['user']['roles'].any? do |str|
+      INSTRUCTOR_ROLES.any? { |suffix| str.end_with?(suffix) }
+    end
   end
 
   def lms_id
@@ -63,10 +63,11 @@ class LtiSession
   end
 
   def link_lti_user(current_user)
-    # Checking if LTI User already exists
+    # Checking if LTI User already exists.
     return unless LtiContext.find_by(user: current_user, user_lti_id:, lms_id:, context_id:).nil?
-    # Sending account created signal if user is a student
-    # You can pass the User Wikipedia ID as parameter to this method to generate a comment in the grade
+    # Sending account created signal if user is a student.
+    # You can pass the User Wikipedia ID as parameter to this method to
+    #  generate a comment in the grade.
     # Example: lti_session.send_account_created_signal(123)
     send_account_created_signal(current_user.username) unless user_is_teacher?
     # Creating LTI User
@@ -100,10 +101,12 @@ class LtiSession
   end
 
   def determine_line_item_id
-    raise LtiGradingServiceUnavailable unless @idtoken['services']['assignmentAndGrades']['available']
-      
+    unless @idtoken['services']['assignmentAndGrades']['available']
+      raise LtiGradingServiceUnavailable
+    end
+
     line_item_id = @idtoken['services']['assignmentAndGrades']['lineItemId']
-    return line_item_id unless (line_item_id.nil? || line_item_id.empty?)
+    return line_item_id unless line_item_id.nil? || line_item_id.empty?
 
     resource_link_id = @idtoken['launch']['resourceLink']['id']
     line_items = make_get_request("/api/lineitems?resourceLinkId#{resource_link_id}")['lineItems']
@@ -119,7 +122,7 @@ class LtiSession
 
   class LtiaasClientError < StandardError
     attr_reader :response_body, :status_code
-  
+
     def initialize(response_body, status_code)
       @response_body = response_body
       @status_code = status_code
@@ -128,5 +131,4 @@ class LtiSession
   end
 
   class LtiGradingServiceUnavailable < StandardError; end
-
 end
