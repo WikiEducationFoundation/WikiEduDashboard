@@ -314,13 +314,13 @@ const Survey = {
             answerGroup[answerId] = val;
           }
         } else if (value !== '0') { // Multi-Select (Checkbox)
-            if (typeof answerGroup[answerId] !== 'undefined') {
-              answerGroup[answerId][answerKey].push('0');
-              answerGroup[answerId][answerKey].push(value);
-            } else {
-              answerText[answerKey] = ['0', value];
-              answerGroup[answerId] = answerText;
-            }
+          if (typeof answerGroup[answerId] !== 'undefined') {
+            answerGroup[answerId][answerKey].push('0');
+            answerGroup[answerId][answerKey].push(value);
+          } else {
+            answerText[answerKey] = ['0', value];
+            answerGroup[answerId] = answerText;
+          }
         }
       } else {
         _postData[name] = value;
@@ -358,7 +358,7 @@ const Survey = {
 
     // Validate Checkbox
     if ($block.find('[data-required-checkbox]').length
-        && $block.find('input[type="checkbox"]:checked').length === 0) {
+      && $block.find('input[type="checkbox"]:checked').length === 0) {
       validation = false;
     }
 
@@ -625,53 +625,66 @@ const Survey = {
   },
 
   handleParentConditionalChange(value, conditionalGroup, $parent) {
-    let { currentAnswers } = conditionalGroup;
-    let conditional;
-    // let resetQuestions = false;
-
-    if (Array.isArray(value)) {
-      // Check if empty
-      if (value.length === 0 && currentAnswers) {
-        conditionalGroup.currentAnswers = [];
-      }
-
-      // Check if conditional was present and is no longer
-      currentAnswers.forEach((a) => {
-        if (value.indexOf(a) === -1) {
-          const index = currentAnswers.indexOf(a);
-          if (currentAnswers.length === 1) {
-            currentAnswers = [];
-          } else {
-            currentAnswers = currentAnswers.slice(index, index + 1);
-          }
-        }
-      });
-      // Check if value matches a conditional question
-      value.forEach((v) => {
-        if (conditionalGroup[v] !== undefined
-            && currentAnswers.indexOf(v) === -1) {
-          conditional = conditionalGroup[v];
-          currentAnswers.push(v);
-          conditionalGroup.currentAnswers = currentAnswers;
-        }
-      });
-
-      if (currentAnswers.length === 0) {
-        conditionalGroup.currentAnswers = [];
-      }
-    } else {
-      conditional = conditionalGroup[value];
+    // Get a reference to the current answers (or initialize it if not yet set)
+    if (!conditionalGroup.currentAnswers) {
+      conditionalGroup.currentAnswers = [];
     }
 
-    this.resetConditionalGroupChildren(conditionalGroup);
+    let conditional;
+    const answersToRemove = [];
 
-    if (typeof conditional !== 'undefined' && conditional !== null) {
+    // Find answers that were previously selected but are no longer selected
+    if (Array.isArray(value)) {
+      // For multi-select questions
+      conditionalGroup.currentAnswers.forEach((prevAnswer) => {
+        if (value.indexOf(prevAnswer) === -1) {
+          // This answer was selected before but not anymore
+          answersToRemove.push(prevAnswer);
+        }
+      });
+
+      // Add newly selected answers
+      value.forEach((newAnswer) => {
+        if (conditionalGroup[newAnswer] !== undefined
+          && conditionalGroup.currentAnswers.indexOf(newAnswer) === -1) {
+          conditionalGroup.currentAnswers.push(newAnswer);
+          conditional = conditionalGroup[newAnswer];
+        }
+      });
+    } else {
+      // For single-select questions
+      if (conditionalGroup.currentAnswers.length > 0
+        && conditionalGroup.currentAnswers[0] !== value) {
+        // Previous answer is different from current answer
+        answersToRemove.push(...conditionalGroup.currentAnswers);
+        conditionalGroup.currentAnswers = [];
+      }
+
+      if (conditionalGroup[value] !== undefined
+        && conditionalGroup.currentAnswers.indexOf(value) === -1) {
+        conditionalGroup.currentAnswers = [value];
+        conditional = conditionalGroup[value];
+      }
+    }
+
+    // Reset only the questions that are no longer relevant
+    answersToRemove.forEach((answer) => {
+      if (conditionalGroup[answer]) {
+        // Find and reset just this conditional question
+        this.resetConditionalQuestion($(conditionalGroup[answer]));
+
+        // Remove this answer from currentAnswers array
+        const index = conditionalGroup.currentAnswers.indexOf(answer);
+        if (index !== -1) {
+          conditionalGroup.currentAnswers.splice(index, 1);
+        }
+      }
+    });
+
+    // Activate the new conditional question if one exists
+    if (conditional) {
       this.activateConditionalQuestion($(conditional), $parent);
     }
-
-    // this.indexBlocks();
-
-    // $parent.find('.survey__next.hidden').removeClass('hidden');
   },
 
   conditionalPresenceListeners(id, question) {
