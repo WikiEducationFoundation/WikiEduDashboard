@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'Instructor users', type: :feature, js: true do
+describe 'Instructor users', :js, type: :feature do
   before do
     include type: :feature
     include Devise::TestHelpers
@@ -70,7 +70,7 @@ describe 'Instructor users', type: :feature, js: true do
     it 'can see the passcode' do
       visit "/courses/#{Course.first.slug}"
       expect(page).to have_content('passcode')
-      expect(page).not_to have_content('****')
+      expect(page).to have_no_content('****')
     end
   end
 
@@ -128,52 +128,34 @@ describe 'Instructor users', type: :feature, js: true do
       sleep 1
       visit "/courses/#{Course.first.slug}/students"
       expect(page).to have_content 'Student A'
-      expect(page).not_to have_content 'Student B'
+      expect(page).to have_no_content 'Student B'
     end
 
     it 'is able to assign articles' do
-      # pending 'This sometimes fails on travis.'
-
       visit "/courses/#{Course.first.slug}/students/articles"
+      first('.student-selection .student').click
 
-      # Assign an article
-      click_button 'Assign Articles'
       find('button.border', text: 'Assign/remove an article', match: :first).click
-      within('#users') { find('input', match: :first).set('Article 1') }
+      within('#users') { find('textarea', match: :first).set('Article 1') }
       click_button 'Assign'
-      click_button 'OK'
-      find('button.border.assign-button', match: :first).click
+      click_button 'Done'
 
       # Assign a review
       find('button.border', text: 'Assign/remove a peer review', match: :first).click
-      sleep 1
-      within('#users') { find('input', match: :first).set('Article 2') }
+      within('#users') { find('textarea', match: :first).set('Article 2') }
       click_button 'Assign'
-      click_button 'OK'
-      find('button.border.assign-button', match: :first).click
+      click_button 'Done'
 
-      # Leave editing mode
-      within 'div.controls' do
-        click_button 'Done'
-      end
       expect(page).to have_content 'Article 1'
       expect(page).to have_content 'Article 2'
 
       # Delete an assignments
       visit "/courses/#{Course.first.slug}/students/articles"
-      sleep 1
-      click_button 'Assign Articles'
-      find('button.border.assign-button', match: :first).click
-      page.accept_confirm do
-        click_button '-'
-      end
-      sleep 1
-      within 'div.controls' do
-        click_button 'Done'
-      end
-      expect(page).not_to have_content 'Article 1'
-
-      # pass_pending_spec
+      first('.student-selection .student').click
+      find('button.border', text: 'Assign/remove an article', match: :first).click
+      first('button.border.assign-selection-button', text: 'Remove').click
+      click_button 'OK'
+      expect(page).to have_no_content 'Article 1'
     end
 
     it 'is able to add Available Articles' do
@@ -195,7 +177,7 @@ describe 'Instructor users', type: :feature, js: true do
       find('button.border.plus', text: '-', match: :first).click
       click_button 'OK'
       sleep 1
-      expect(page).not_to have_content 'Student A'
+      expect(page).to have_no_content 'Student A'
 
       # pass_pending_spec
     end
