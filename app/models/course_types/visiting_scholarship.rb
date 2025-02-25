@@ -50,6 +50,8 @@
 #
 
 class VisitingScholarship < Course
+  include CustomRevisionFilter
+
   has_many(:revisions, lambda do |course|
     where('date >= ?', course.start)
     .where('date <= ?', course.end)
@@ -74,15 +76,6 @@ class VisitingScholarship < Course
 
   def multiple_roles_allowed?
     true
-  end
-
-  def filter_revisions(wiki, revisions)
-    filtered_data = revisions.select do |_, details|
-      article_title = details['article']['title']
-      formatted_article_title = ArticleUtils.format_article_title(article_title, wiki)
-      scoped_article_titles.include?(formatted_article_title)
-    end
-    filtered_data
   end
 
   def scoped_article_titles
