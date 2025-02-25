@@ -563,6 +563,7 @@ en:
         Your course has been cloned, including the elements of the timeline
         (weeks and blocks). Be sure to add the dates, which are not carried over.
         Has anything else about your course changed? Feel free to update it now.
+      closed_on: This course was closed on
       copy_successful_details: >
         Your course has been copied, including the elements of the timeline
         (weeks and blocks). Be sure to add the dates, which are not carried over.
@@ -719,10 +720,12 @@ en:
       invalid_sync: Enrollment in this event is controlled by Wikimedia Event Center. It cannot be joined from the Dashboard.
     join_details: To join this course, you need to get the passcode — or an enrollment link that includes the passcode — from the instructor. If you haven't received this, contact your instructor.
     join_no_passcode: Are you sure you want to join this course?
+    last_reviewed: Last Reviewed
     launch_wizard: Launch the Wizard
     leave_confirmation: Are you sure you want to leave this course?
     leave_course: Leave course
     loading: Loading…
+    mark_as_reviewed: Mark as Reviewed
     milestones_none: This course does not currently have any milestones.
     my_articles: My Articles
     my_articles_wikidata: My Items
@@ -751,6 +754,7 @@ en:
     new_account_submitted_admin: >
       Your request for an account has been created. Please inform your students to check
       their email inbox to get their new password
+    no_details: This course has not yet been marked as having been reviewed by a staff member. Click below to mark it as reviewed!
     no_campaign: To make this program active and allow users to join, it must be added to a campaign. If you're unsure of which campaign to add, use 'Miscellanea'.
     nocourses: You are not participating in any courses.
     nocourse: has not participated in any courses.
@@ -760,6 +764,7 @@ en:
       This will post a reminder on the talk pages for all students who overdue
       for completing assigned training modules. Are you sure you want to do this?
     no_available_actions: No available actions
+    on: on
     online_volunteers_enabled: Online Volunteers enabled
     online_volunteers_tooltip: Enabling Online Volunteers allows user editors to join as a volunteer. Their edits will not be tracked.
     ores_plot: ORES
