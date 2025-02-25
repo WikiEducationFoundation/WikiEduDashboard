@@ -77,7 +77,6 @@ describe 'Survey navigation and rendering', type: :feature, js: true do
     end
 
     it 'handles changes in condition questions' do
-      pending 'This sometimes fails for unknown reasons.'
 
       visit survey_path(@survey)
 
@@ -100,7 +99,6 @@ describe 'Survey navigation and rendering', type: :feature, js: true do
       end
 
       expect(page).to have_content('Submit Survey')
-
       # Now go back to the previous question
       within('div[data-progress-index="4"]') do
         click_button('Previous', visible: true) # Q4
@@ -114,7 +112,6 @@ describe 'Survey navigation and rendering', type: :feature, js: true do
       end
 
       sleep 1
-
       # Now go back to the previous question
       within('div[data-progress-index="4"]') do
         click_button('Previous', visible: true) # Q3
@@ -128,16 +125,14 @@ describe 'Survey navigation and rendering', type: :feature, js: true do
         click_button('Next', visible: true) # Q2
       end
 
-      sleep 2
-      expect(page).to have_content('Submit Survey')
-
       # Now we can actually submit the survey
       # and finish.
+      expect(page).to have_field("answer_group_#{Rapidfire::Question.last.id}_answer_text")
       fill_in("answer_group_#{Rapidfire::Question.last.id}_answer_text", with: 'Done!')
+      expect(page).to have_content('Submit Survey')
       click_button('Submit Survey', visible: true)
       expect(page).to have_content 'You made it!'
 
-      pass_pending_spec
     end
   end
 end
