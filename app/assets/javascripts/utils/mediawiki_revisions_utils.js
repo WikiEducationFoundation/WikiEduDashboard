@@ -49,6 +49,7 @@ const fetchAll = async (API_URL, params, continue_str) => {
 // currently its used to filter tracked articles
 export const fetchRevisionsFromUsers = async (course, users, days, last_date, filter) => {
   const usernames = users.map(user => user.username);
+  const registered_dates = users.map(user => user.registered_at);
 
   let revisions = [];
   const wikiPromises = [];
@@ -80,6 +81,14 @@ export const fetchRevisionsFromUsers = async (course, users, days, last_date, fi
   // remove duplicates
   // they occur because dates overlap and sometimes the same revision is included twice
   revisions = [...new Map(revisions.map(v => [v.id, v])).values()];
+  // adds the enrolled_at property to each revision
+  revisions = revisions.map((revision) => {
+    const userIndex = usernames.indexOf(revision.user);
+    return {
+      ...revision,
+      registered_at: userIndex !== -1 ? registered_dates[userIndex] : null
+    };
+  });
 
   return { revisions, last_date };
 };
