@@ -26,7 +26,7 @@ class ArticleImporter
     # 40 is too much for some languages, such as bn.wipedia.org
     titles.each_slice(30) do |some_article_titles|
       query = { prop: 'info', titles: some_article_titles }
-      response = WikiApi.new(@wiki).query(query)
+      response = WikiApi.new(@wiki).query(query, http_method: :post)
       results = response&.data
       next if results.blank?
       results = results['pages']
