@@ -235,11 +235,42 @@ describe RevisionScoreImporter do
       end
     end
 
-    it 'handles network errors gracefully' do
-      stub_request(:any, %r{https://api.wikimedia.org/service/lw/.*})
+    it 'propagates error if fetching revision scores fails' do
+      VCR.use_cassette 'revision_scores/revision_score_fails' do
+        stub_request(:any, /reference-counter\.toolforge\.org.*662106477/)
+          .to_raise(Errno::ECONNREFUSED)
+
+        revisions = described_class.new.get_revision_scores(array_revisions)
+        expect(revisions[0].error).to eq(false)
+        expect(revisions[1].error).to eq(true)
+        expect(revisions[2].error).to eq(false)
+        expect(revisions[3].error).to eq(false)
+      end
+    end
+
+    it 'propagates error if fetching parent revision scores fails' do
+      VCR.use_cassette 'revision_scores/parent_revision_score_fails' do
+        stub_request(:any, /reference-counter\.toolforge\.org.*708291784/)
+          .to_raise(Errno::ECONNREFUSED)
+
+        revisions = described_class.new.get_revision_scores(array_revisions)
+        expect(revisions[0].error).to eq(false)
+        expect(revisions[1].error).to eq(false)
+        expect(revisions[2].error).to eq(true)
+        expect(revisions[3].error).to eq(false)
+      end
+    end
+
+    it 'handles network errors gracefully when reference-counter fails' do
+      stub_request(:any, /.*reference-counter.toolforge.org*/)
         .to_raise(Errno::ECONNREFUSED)
 
-      stub_request(:any, /.*reference-counter.toolforge.org*/)
+      revisions = described_class.new.get_revision_scores(array_revisions)
+      expect(revisions[0].error).to eq(true)
+    end
+
+    it 'handles network errors gracefully when lift wing API fails' do
+      stub_request(:any, %r{https://api.wikimedia.org/service/lw/.*})
         .to_raise(Errno::ECONNREFUSED)
 
       revisions = described_class.new.get_revision_scores(array_revisions)
