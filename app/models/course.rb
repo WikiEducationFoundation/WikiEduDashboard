@@ -352,6 +352,18 @@ class Course < ApplicationRecord
     revisions
   end
 
+  def scoped_article_titles
+    assigned_article_titles + category_article_titles
+  end
+
+  def assigned_article_titles
+    assignments.pluck(:article_title)
+  end
+
+  def category_article_titles
+    categories.inject([]) { |ids, cat| ids + cat.article_titles }
+  end
+
   def scoped_article_ids
     assigned_article_ids + category_article_ids
   end
