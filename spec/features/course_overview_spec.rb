@@ -48,9 +48,9 @@ describe 'course overview page', type: :feature, js: true do
   end
 
   context 'when course starts in future' do
-    let(:course_start) { '2025-02-11'.to_date }
+    let(:course_start) { '2055-02-11'.to_date }
     let(:course_end) { course_start + 6.months }
-    let(:timeline_start) { '2025-02-11'.to_date + 2.weeks }
+    let(:timeline_start) { '2055-02-11'.to_date + 2.weeks }
     let(:timeline_end) { course_end.to_date }
 
     before do
@@ -69,9 +69,9 @@ describe 'course overview page', type: :feature, js: true do
       end
       within '.margin-bottom' do
         meeting_dates = [
-          Date.parse('2025-02-23'),  # Sunday (02/23)
-          Date.parse('2025-02-26'),  # Wednesday (02/26)
-          Date.parse('2025-03-01')   # Saturday (03/01)
+          Date.parse('2055-02-21'),  # Sunday (02/21)
+          Date.parse('2055-02-24'),  # Wednesday (02/24)
+          Date.parse('2055-02-27')   # Saturday (02/27)
         ]
 
         meeting_dates.each do |meeting_date| # rubocop:disable RSpec/IteratedExpectation
@@ -80,7 +80,7 @@ describe 'course overview page', type: :feature, js: true do
             .or be_between(course_start, course_end)
         end
 
-        expect(page).to have_content('Meetings: Wednesday (02/26), Saturday (03/01)')
+        expect(page).to have_content('Meetings: Wednesday (02/24), Saturday (02/27)')
       end
       within '.week-index' do
         expect(page).to have_content(/Week \d+/)
