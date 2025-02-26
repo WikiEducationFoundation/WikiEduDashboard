@@ -37,7 +37,6 @@ describe 'course overview page', type: :feature, js: true do
   context 'when course has started' do
     before do
       visit "/courses/#{course.slug}"
-      sleep 1
     end
 
     it 'displays week activity for this week' do
@@ -50,13 +49,12 @@ describe 'course overview page', type: :feature, js: true do
   context 'when course starts in future' do
     let(:course_start) { '2055-02-11'.to_date }
     let(:course_end) { course_start + 6.months }
-    let(:timeline_start) { '2055-02-11'.to_date + 2.weeks }
+    let(:timeline_start) { '2055-02-23'.to_date }
     let(:timeline_end) { course_end.to_date }
 
     before do
       course.update(timeline_start:)
       visit "/courses/#{course.slug}"
-      sleep 1
     end
 
     it 'displays week activity for the first week' do
