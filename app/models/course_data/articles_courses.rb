@@ -95,6 +95,11 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
     self.references_count = article_course_timeslices.sum(&:references_count)
     self.user_ids = article_course_timeslices.sum([], &:user_ids).uniq
     self.new_article = article_course_timeslices.any?(&:new_article)
+    # This was added as a hot fix after first timeslice deployment because
+    # all articles courses records had first_revision set to null after
+    # migration.
+    # IMPORTANT: only makes sense if using daily timeslice duration
+    self.first_revision = article_course_timeslices.minimum(:start) if first_revision.nil?
     save
   end
 
