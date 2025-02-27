@@ -612,7 +612,7 @@ module RequestHelpers
       )
   end
 
-  def stub_reference_counter_response
+  def stub_es_wiktionary_reference_counter_response
     # Define the response body in a hash with revision IDs as keys
     request_body = {
       '5006940' => { 'num_ref' => 10, 'lang' => 'es', 'project' => 'wiktionary',
@@ -636,7 +636,7 @@ module RequestHelpers
       )
   end
 
-  def stub_revision_score_lift_wing_reponse
+  def stub_wikidata_lift_wing_reponse
     request_body =
       {
           'wikidatawiki' => {
@@ -693,16 +693,27 @@ module RequestHelpers
       )
   end
 
-  def stub_revision_score_reference_counter_reponse
+  def stub_400_wikidata_lift_wing_reponse
+    response_body = { error: "Unexpected content type for rev-id 2260577532: UnexpectedContentType:\
+    Expected content of type JSON, but the following can't be parsed (max 50 chars showed): ==\
+    About me ==\n\n[[m:User:Arcstur|Find me at Meta-W"}
+
+    stub_request(:post, 'https://api.wikimedia.org/service/lw/inference/v1/models/wikidatawiki-itemquality:predict')
+      .with(
+        body: hash_including(rev_id: 2260577532, extended_output: true),
+        headers: { 'Content-Type': 'application/json' }
+      ).to_return(
+        status: 400,
+        body: response_body.to_json
+      )
+  end
+
+  def stub_es_wikipedia_reference_counter_reponse
     request_body = {
       '157412237' => { 'num_ref' => 111, 'lang' => 'es', 'project' => 'wikipedia',
       'revid' => 157412237 },
       '157417768' => { 'num_ref' => 42, 'lang' => 'es', 'project' => 'wikipedia',
-      'revid' => 157417768 },
-      '829840090' => { 'num_ref' => 132, 'lang' => 'es', 'project' => 'wikipedia',
-      'revid' => 829840090 },
-      '829840091' => { 'num_ref' => 1, 'lang' => 'es', 'project' => 'wikipedia',
-      'revid' => 829840091 }
+      'revid' => 157417768 }
     }
 
     # Stub the request to match the revision ID in the URL
@@ -715,6 +726,57 @@ module RequestHelpers
           # Return the appropriate response based on the revision ID
           { 'num_ref' => request_body[rev_id.to_s]['num_ref'] }.to_json
         end,
+        headers: { 'Content-Type' => 'application/json' }
+      )
+  end
+
+  def stub_en_wikipedia_reference_counter_reponse
+    request_body = {
+      '829840090' => { 'num_ref' => 132, 'lang' => 'es', 'project' => 'wikipedia',
+      'revid' => 829840090 },
+      '829840091' => { 'num_ref' => 1, 'lang' => 'es', 'project' => 'wikipedia',
+      'revid' => 829840091 }
+    }
+
+    # Stub the request to match the revision ID in the URL
+    stub_request(:get, %r{https://reference-counter.toolforge.org/api/v1/references/wikipedia/en/\d+})
+      .to_return(
+        status: 200,
+        body: lambda do |request|
+          # Extract revision ID from the URL
+          rev_id = request.uri.path.split('/').last
+          # Return the appropriate response based on the revision ID
+          { 'num_ref' => request_body[rev_id.to_s]['num_ref'] }.to_json
+        end,
+        headers: { 'Content-Type' => 'application/json' }
+      )
+  end
+
+  def stub_400_wiki_reference_counter_response
+    stub_request(:get, %r{https://reference-counter.toolforge.org/api/v1/references/wikimedia/incubator/\d+})
+      .to_return(
+        status: 400,
+        body: { 'description' => 'Language incubator is not a valid language. ' }.to_json,
+        headers: { 'Content-Type' => 'application/json' }
+      )
+  end
+
+  def stub_403_wiki_reference_counter_response
+    stub_request(:get, %r{https://reference-counter.toolforge.org/api/v1/references/wikimedia/incubator/\d+})
+      .to_return(
+        status: 403,
+        body: { 'description' => "mwapi error: permissiondenied - You don't have permission to view\
+        deleted text or changes between deleted revisions." }.to_json,
+        headers: { 'Content-Type' => 'application/json' }
+      )
+  end
+
+  def stub_404_wiki_reference_counter_response
+    stub_request(:get, %r{https://reference-counter.toolforge.org/api/v1/references/wikimedia/incubator/\d+})
+      .to_return(
+        status: 404,
+        body: { 'description' => 'rest-nonexistent-revision -\
+        The specified revision does not exist' }.to_json,
         headers: { 'Content-Type' => 'application/json' }
       )
   end

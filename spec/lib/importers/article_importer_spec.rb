@@ -122,4 +122,27 @@ describe ArticleImporter do
       end
     end
   end
+
+  describe '.import_articles_from_revision_data' do
+    let(:revision_data) do
+      [{ 'mw_page_id' => '69830902', 'wiki_id' => 5, 'title' => 'Ar00', 'namespace' => '2' },
+       { 'mw_page_id' => '69830903', 'wiki_id' => 5, 'title' => 'Any title', 'namespace' => '1' }]
+    end
+
+    it 'creates all the Article records' do
+      VCR.use_cassette 'article_importer/article_importer' do
+        expect(Article.find_by(mw_page_id: 69830902)).to be_nil
+        expect(Article.find_by(mw_page_id: 69830903)).to be_nil
+        described_class.new(es_wiki).import_articles_from_revision_data revision_data
+        article_1 = Article.find_by(mw_page_id: 69830902)
+        expect(article_1.title).to eq('Ar00')
+        expect(article_1.wiki_id).to eq(5)
+        expect(article_1.namespace).to eq(2)
+        article_2 = Article.find_by(mw_page_id: 69830903)
+        expect(article_2.title).to eq('Any title')
+        expect(article_2.wiki_id).to eq(5)
+        expect(article_2.namespace).to eq(1)
+      end
+    end
+  end
 end

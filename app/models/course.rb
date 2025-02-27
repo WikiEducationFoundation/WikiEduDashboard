@@ -130,6 +130,10 @@ class Course < ApplicationRecord
 
   has_many :course_wiki_namespaces, class_name: 'CourseWikiNamespaces', through: :courses_wikis
 
+  has_many :article_course_timeslices, dependent: :destroy
+  has_many :course_user_wiki_timeslices, dependent: :destroy
+  has_many :course_wiki_timeslices, dependent: :destroy
+
   serialize :flags, Hash
 
   module ClonedStatus
@@ -208,7 +212,18 @@ class Course < ApplicationRecord
     where('end <= ?', Time.zone.now - UPDATE_LENGTH)
   }
 
-  scope :ready_for_update, -> { current.or(where(needs_update: true)) }
+  scope :needs_partial_update, lambda {
+    joins(:course_wiki_timeslices)
+      .where(course_wiki_timeslices: { needs_update: true })
+      .distinct
+  }
+
+  scope :current_or_set_to_full_update, -> { current.or(where(needs_update: true)) }
+
+  def self.ready_for_update
+    ready_for_update = current_or_set_to_full_update + needs_partial_update
+    ready_for_update.uniq
+  end
 
   def self.will_be_ready_for_survey(opts)
     days_offset, before, relative_to = opts.values_at(:days, :before, :relative_to)
@@ -261,7 +276,7 @@ class Course < ApplicationRecord
   before_save :reorder_weeks
   before_save :set_default_times
   before_save :check_course_times
-  before_save :set_needs_update
+  before_save :set_needs_update_for_timeslice
   after_create :ensure_home_wiki_in_courses_wikis
 
   ####################
@@ -331,6 +346,24 @@ class Course < ApplicationRecord
     end.flatten
   end
 
+  # The default implemention retrieves all the revisions.
+  # A course type may override this implementation.
+  def filter_revisions(_wiki, revisions)
+    revisions
+  end
+
+  def scoped_article_titles
+    assigned_article_titles + category_article_titles
+  end
+
+  def assigned_article_titles
+    assignments.pluck(:article_title)
+  end
+
+  def category_article_titles
+    categories.inject([]) { |ids, cat| ids + cat.article_titles }
+  end
+
   def scoped_article_ids
     assigned_article_ids + category_article_ids
   end
@@ -341,6 +374,16 @@ class Course < ApplicationRecord
 
   def category_article_ids
     categories.inject([]) { |ids, cat| ids + cat.article_ids }
+  end
+
+  # Retrieve articles based on the existing article course timeslices.
+  # This includes both tracked and untracked articles, such as those that
+  # don't belong to a tracked namespace.
+  def articles_from_timeslices(wiki_id)
+    Article.joins(:article_course_timeslices)
+           .where(article_course_timeslices: { course_id: id })
+           .where(wiki_id:)
+           .distinct
   end
 
   def update_until
@@ -481,6 +524,11 @@ class Course < ApplicationRecord
     flags[:very_long_update].present?
   end
 
+  # TODO: find a better way to check if the course was already updated
+  def was_course_ever_updated?
+    flags['update_logs'].present?
+  end
+
   # Overridden for ClassroomProgramCourse
   def progress_tracker_enabled?
     false
@@ -533,6 +581,10 @@ class Course < ApplicationRecord
     CourseCacheManager.new(self).update_cache
   end
 
+  def update_cache_from_timeslices
+    CourseCacheManager.new(self).update_cache_from_timeslices course_wiki_timeslices
+  end
+
   #################
   # Class methods #
   #################
@@ -554,7 +606,8 @@ class Course < ApplicationRecord
   # Makes sure that the home wiki
   # is always a part of courses wikis.
   def ensure_home_wiki_in_courses_wikis
-    wikis.push(home_wiki) unless wikis.include? home_wiki
+    return if wikis.include? home_wiki
+    wikis.push(home_wiki)
   end
 
   private
@@ -587,10 +640,22 @@ class Course < ApplicationRecord
     self.end = start if start > self.end
   end
 
-  # If the start date changed, set needs_update to `true` so that
-  # the stats will be updated to reflect the new start date
-  # and the earlier revisions will be fetched.
-  def set_needs_update
-    self.needs_update = true if start_changed?
+  # If the start date changed, set needs_update to 'true' for the (maybe new)
+  # first course timeslice for every wiki.
+  # If the end date changed, set needs_update to 'true' for the (maybe new)
+  # end course timeslice for every wiki.
+  # We need to do this now because we might not be able to identify a change
+  # in the start date after.
+  def set_needs_update_for_timeslice
+    wikis.each do |wiki|
+      update_timeslice_if_exists(wiki, start) if start_changed?
+      update_timeslice_if_exists(wiki, self.end) if end_changed?
+    end
+  end
+
+  def update_timeslice_if_exists(wiki, date)
+    timeslice = CourseWikiTimeslice.for_course_and_wiki(self, wiki).for_datetime(date).first
+    return unless timeslice
+    timeslice.update(needs_update: true)
   end
 end

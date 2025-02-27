@@ -50,6 +50,7 @@
 #
 
 class ArticleScopedProgram < Course
+  include CustomRevisionFilter
   has_many(:revisions, lambda do |course|
     where('date >= ?', course.start)
     .where('date <= ?', course.end)
