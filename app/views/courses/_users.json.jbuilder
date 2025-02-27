@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 show_email_and_real_name = user_signed_in? && current_user.can_see_real_names?(course)
+show_instructor_identity = user_signed_in? && current_user.nonvisitor?(course)
 
 json.users course.courses_users.eager_load(:user, :course) do |cu|
   json.call(cu, :character_sum_ms, :character_sum_us, :character_sum_draft, :references_count,
@@ -31,8 +32,8 @@ json.users course.courses_users.eager_load(:user, :course) do |cu|
     json.real_name cu.real_name
     # Student emails are not shown to anyone.
     json.email cu.user.email unless cu.role == CoursesUsers::Roles::STUDENT_ROLE
-  # Real names of instructors are public.
-  elsif cu.role == CoursesUsers::Roles::INSTRUCTOR_ROLE
+  # Real names of instructors are only shown to course participants
+  elsif cu.role == CoursesUsers::Roles::INSTRUCTOR_ROLE && show_instructor_identity
     json.real_name cu.real_name
   end
 end

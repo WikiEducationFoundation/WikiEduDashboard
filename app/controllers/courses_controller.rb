@@ -235,6 +235,13 @@ class CoursesController < ApplicationController
     redirect_to "/courses/#{@course.slug}"
   end
 
+  def manual_update_timeslice
+    require_super_admin_permissions
+    @course = find_course_by_slug(params[:id])
+    UpdateCourseStatsTimeslice.new(@course)
+    redirect_to "/courses/#{@course.slug}"
+  end
+
   def needs_update
     @course = find_course_by_slug(params[:id])
     @course.update(needs_update: true)
@@ -405,9 +412,14 @@ class CoursesController < ApplicationController
     @course.save
   end
 
+  def update_timeslice_duration
+    # Set the default timeslice_duration to the default value
+    @course.flags[:timeslice_duration] = { default: TimesliceManager::TIMESLICE_DURATION }
+    @course.save
+  end
+
   def update_course_calendar_view
     @course.flags[:is_monday_start] = params.dig(:course, :is_monday_start)
-    @course.save
   end
 
   def update_last_reviewed
@@ -426,6 +438,7 @@ class CoursesController < ApplicationController
     update_course_wiki_namespaces
     update_academic_system
     update_course_format
+    update_timeslice_duration
     update_course_calendar_view
   end
 

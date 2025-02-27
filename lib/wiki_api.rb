@@ -20,8 +20,13 @@ class WikiApi
   ################
 
   # General entry point for making arbitrary queries of a MediaWiki wiki's API
-  def query(query_parameters)
-    mediawiki('query', query_parameters)
+  def query(query_parameters= {}, http_method: :get)
+    mediawiki('query', query_parameters.merge(http_method:))
+  end
+
+  def meta(type, params = {})
+    @mediawiki = api_client
+    @mediawiki.meta(type, params)
   end
 
   # Returns nil if it cannot get any info from the wiki, but returns
@@ -124,7 +129,10 @@ class WikiApi
   end
 
   class PageFetchError < StandardError
+    attr_reader :status
+
     def initialize(page, status)
+      @status = status
       message = "Failed to fetch content for #{page} with response status: #{status.inspect}"
       super(message)
     end

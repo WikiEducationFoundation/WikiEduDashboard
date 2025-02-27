@@ -234,7 +234,7 @@ Rails.application.config.to_prepare do
         :placeholder_text => placeholder_text,
         :track_sentiment => track_sentiment,
         :validation_rules => {
-          :presence => !conditionals.nil? && !conditionals.empty? ? "0" : answer_presence,
+          :presence => answer_presence,
           :grouped => answer_grouped,
           :grouped_question => answer_grouped_question,
           :minimum  => answer_minimum_length,

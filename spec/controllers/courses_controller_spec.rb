@@ -106,8 +106,8 @@ describe CoursesController, type: :request do
     let(:course_params) do
       { title: 'New title',
         description: 'New description',
-        start: 2.months.ago.beginning_of_day,
-        end: 2.months.from_now.end_of_day,
+        start: Time.zone.parse('2015-01-05'),
+        end: Time.zone.parse('2015-12-20').end_of_day,
         term: 'pizza',
         slug: 'food',
         subject: 'cooking',

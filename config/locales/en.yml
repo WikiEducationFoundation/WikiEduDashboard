@@ -789,7 +789,9 @@ en:
       Once you're satisfied, you can submit it for approval by Wiki Education staff.
       Once approved, you'll receive an enrollment URL that students can use to
       join the course and access the trainings. (Note: You'll still be able to make edits later.)
-    revisions_doc: The number of edits in the past %{timeframe} days
+    revisions_doc: >
+      The estimated number of edits in the past %{timeframe} days, based on the
+      average edits per day over the last period.
     revisions_none: This course has no recent Wikipedia editing activity.
     school: School
     school_and_term: Institution/Term
@@ -1561,7 +1563,9 @@ en:
       success_message: "Success: %{result_description}"
       failure_message: "Failure: %{result_description}"
     revision_characters_and_views: "Chars Added: %{characters}, Views: %{views}"
-    revisions_doc: The number of edits made by this editor in the past 7 days
+    revisions_doc: >
+      The estimated number of edits made by this editor in the past 7 days,
+      based on the average edits per day over the last period.
     references_doc: The number of references added or removed by this editor
     reviewers: Reviewer(s)
     reviewing: Reviewing
@@ -1748,6 +1752,7 @@ en:
       link: "Take Survey"
     follow_up:
       message: "This is a reminder about the survey for your course, %{course_title}. Feedback from this survey helps us to improve our support for Wikipedia assignments like yours."
+    edit_survey: "Edit Survey"
 
   feedback_form_responses:
     no_responses: "There are no feedback responses yet."
@@ -1922,4 +1927,7 @@ en:
       weekday_select: "{{weekday}} Press Return key to select"
       weekday_selected: "{{weekday}} Selected Press Return Key to unselect"
       weekday_unselected: "{{weekday}} Unselected"
+
+  question_groups:
+    edit_question_group: "Edit Question Group"
       

@@ -17,6 +17,7 @@ class Wiki < ApplicationRecord
   has_many :revisions
   has_many :courses_wikis, class_name: 'CoursesWikis'
   has_many :courses, through: :courses_wikis
+  has_many :course_user_wiki_timeslices
 
   before_validation :ensure_valid_project
   after_validation :ensure_wiki_exists
@@ -185,7 +186,7 @@ class Wiki < ApplicationRecord
 
   def ensure_wiki_exists
     return if errors.any? # Skip this check if the wiki had a validation error.
-    site_info = WikiApi.new(self).query(meta: :siteinfo)
+    site_info = WikiApi.new(self).meta(:siteinfo)
     raise InvalidWikiError, domain if site_info.nil?
     servername = site_info.data.dig('general', 'servername')
     raise InvalidWikiError, domain unless base_url == "https://#{servername}"

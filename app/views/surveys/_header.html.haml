@@ -3,7 +3,8 @@
     %div
       %strong= survey_course_title
 
-    %div.survey__progress
-      .survey__progress-bar{data: {survey_progress: true}}
-        .label
-          progress
+    .survey__progress__container
+      .progress-label Progress
+      %div.survey__progress
+        .survey__progress-bar{data: {survey_progress: true}}
+        .survey__progress-percentage 0%

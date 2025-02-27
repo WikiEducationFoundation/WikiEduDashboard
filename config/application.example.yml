@@ -129,3 +129,6 @@
 # Secret for authentication with Wikimedia Event Center
 # Generate one for production or staging via `rails secret`
 # WikimediaCampaignsPlatformSecret: 
+
+# Default timeslice duration (in seconds) used for processing course updates
+  TIMESLICE_DURATION: '86400'

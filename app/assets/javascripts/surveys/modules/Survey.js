@@ -440,6 +440,8 @@ const Survey = {
     const width = `${progress}%`;
     this.surveyProgress.css('width', width);
 
+    $('.survey__progress-percentage').text(`${Math.round(progress)}%`);
+
     if (progress === 100 && !this.submittedAll) {
       this.submitAllQuestionGroups();
     }

@@ -115,4 +115,55 @@ describe CourseRevisionUpdater do
       described_class.import_revisions(course, all_time: true)
     end
   end
+
+  describe '.fetch_revisions_and_scores_for_wiki' do
+    let(:course) { create(:course, start: '2016-03-20', end: '2016-03-31') }
+    let(:user) { create(:user, username: 'Tedholtby') }
+    let(:start_date) { '20160320000000' }
+    let(:end_date) { '20160331235959' }
+    let(:wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
+    let(:courses_user) do
+      create(:courses_user, course:,
+                          user:,
+                          role: CoursesUsers::Roles::STUDENT_ROLE)
+    end
+
+    before do
+      course && user && courses_user
+    end
+
+    it 'fetches all the revisions' do
+      VCR.use_cassette 'course_revision_updater' do
+        revision_data = described_class.fetch_revisions_and_scores_for_wiki(course,
+                                                                            wiki,
+                                                                            start_date,
+                                                                            end_date)
+        revisions = revision_data.values.flat_map { |data| data[:revisions] }.flatten
+        expect(revisions.count).to eq(3)
+
+        expected_article = Article.find_by(wiki_id: 1,
+                                           title: '1978_Revelation_on_Priesthood',
+                                           mw_page_id: 15124285,
+                                           namespace: 0)
+
+        expect(revisions.last.mw_rev_id).to eq(712907095)
+        expect(revisions.last.user_id).to eq(user.id)
+        expect(revisions.last.wiki_id).to eq(1)
+        expect(revisions.last.mw_page_id).to eq(15124285)
+        expect(revisions.last.characters).to eq(579)
+        expect(revisions.last.article_id).to eq(expected_article.id)
+      end
+    end
+
+    it 'skips import for ArticleScopedCourse with no tracked articles' do
+      expect_any_instance_of(RevisionDataManager).not_to receive(:fetch_revision_data_for_course)
+      course = create(:article_scoped_program)
+      student = create(:user)
+      create(:courses_user, course:, user: student)
+      described_class.fetch_revisions_and_scores_for_wiki(course,
+                                                          wiki,
+                                                          start_date,
+                                                          end_date)
+    end
+  end
 end
