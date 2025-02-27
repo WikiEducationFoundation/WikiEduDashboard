@@ -33,7 +33,7 @@ class ContinuedCourseActivityAlertManager
   def count_revisions_for_wiki(course, wiki)
     # 50 is the max users for query
     course.students.pluck(:username).in_groups_of(40, false).sum do |usernames|
-      response = WikiApi.new(wiki).query(query(course, usernames), http_method: :post)
+      response = WikiApi.new(wiki).query(query(course, usernames))
       response.data['usercontribs'].count
     end
   end
