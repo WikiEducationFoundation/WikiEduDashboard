@@ -25,8 +25,8 @@ class ArticleImporter
     # Slice size is limited by max URI length.
     # 40 is too much for some languages, such as bn.wipedia.org
     titles.each_slice(30) do |some_article_titles|
-      query = { prop: 'info', titles: some_article_titles }
-      response = WikiApi.new(@wiki).query(query, http_method: :post)
+      query = { prop: 'info', titles: some_article_titles, http_method: :post }
+      response = WikiApi.new(@wiki).query(query)
       results = response&.data
       next if results.blank?
       results = results['pages']
