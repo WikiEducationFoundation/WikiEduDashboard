@@ -56,7 +56,13 @@ describe ArticleStatusManager do
                namespace: 0,
                updated_at: 2.days.ago)
         create(:revision, date: 1.day.ago, article_id: 100, user:)
+        described_class.update_article_status_for_course(course)
+        expect(Article.find_by(title: 'Audi', wiki_id: 1).mw_page_id).to eq(848)
+      end
+    end
 
+    it 'does not updates the mw_page_ids of articles that are remove/deleted' do
+      VCR.use_cassette 'article_status_manager/mw_page_ids' do
         # es.wikipedia
         course.wikis << create(:wiki, id: 2, language: 'es', project: 'wikipedia')
         create(:article,
@@ -69,9 +75,11 @@ describe ArticleStatusManager do
         create(:revision, date: 1.day.ago, article_id: 10000001, user:)
 
         described_class.update_article_status_for_course(course)
-
-        expect(Article.find_by(title: 'Audi', wiki_id: 1).mw_page_id).to eq(848)
-        expect(Article.find_by(wiki_id: 2).mw_page_id).to eq(10000001)
+        # article has been removed from the replica and the title
+        # corresponds to Tour_de_Inglaterra_de_1965_de_Bob_Dylan
+        article = Article.find_by(wiki_id: 2)
+        expect(article.mw_page_id).to eq(10000001)
+        expect(article.title).to eq('Tour_de_Inglaterra_de_1965_de_Bob_Dylan')
       end
     end
 
