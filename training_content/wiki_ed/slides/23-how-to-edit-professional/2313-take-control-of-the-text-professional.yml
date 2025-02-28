@@ -15,7 +15,7 @@ content: |
   `[[bold]]` = [bold](https://en.wikipedia.org/wiki/Bold)
 
   On the English Wikipedia, that link to the article
-  [bold](https://en.wikipedia.org/wiki/Boldness) will redirect you to
+  [bold](https://en.wikipedia.org/wiki/Bold) will redirect you to
   [Emphasis
   (typography)](https://en.wikipedia.org/wiki/Emphasis_%28typography%29).
   To link to an article with a different name than the
@@ -26,3 +26,28 @@ content: |
   `[[boldness|bold]]` = [bold](https://en.wikipedia.org/wiki/Boldness)
   (with the link to [Boldness](https://en.wikipedia.org/wiki/Boldness))
 id: 2313
+
+translations:
+  es:
+    title: ¡Toma el control del texto!
+    content: |
+      La mayor parte del tiempo usarás el Editor Visual, pero si quieres editar
+      una página de Discusión (que se encuentra en la parte superior izquierda
+      de cada artículo de Wikipedia) o hacer cambios en el modo de edición de
+      código fuente, vas a necesitar aprender un poquito de Wikitexto.
+
+      El código wiki para el texto en negrita es así:
+
+      `'''negrita'''` = **negrita**
+
+      Crear un wikienlace (es decir, un enlace a otro artículo de Wikipedia) es así:
+
+      ``[[bold]]`` = [bold](https://en.wikipedia.org/wiki/Bold)
+
+      En la Wikipedia en inglés, ese enlace al artículo "[bold](https://en.wikipedia.org/wiki/Bold)" te redirigirá
+      a [Emphasis (typography)](https://en.wikipedia.org/wiki/Emphasis_%28typography%29). Para enlazar
+      a un artículo con un nombre diferente al del texto, pon un `|` (una "pleca", que se inserta con "shift +"
+      en la mayoría de los teclados) entre el código y la palabra que quieres que aparezca en la página. Así:
+
+      `[[boldness|bold]]` = [bold](https://en.wikipedia.org/wiki/Boldness) (con el enlace a [Boldness](https://en.wikipedia.org/wiki/Boldness))
+

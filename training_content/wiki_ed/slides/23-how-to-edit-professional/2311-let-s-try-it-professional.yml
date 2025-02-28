@@ -14,3 +14,19 @@ content: |+
   </div>
 
 id: 2311
+
+translations:
+  es:
+    title: ¡Vamos a probar!
+    content: |
+      ¿Listo para practicar algunas ediciones en Wikipedia? Este
+      enlace te va a llevar a una página de Wikipedia y te guiará en algunas ediciones básicas.
+
+      Cuando hayas terminado, puedes volver aquí para continuar
+      con este módulo de capacitación.
+
+      <div class="training__button-container">
+      <a target="_blank" class="btn btn-primary" href="/redirect/sandbox/be_bold?tour=wikiedbeboldfellows">
+      Inicia el tutorial "Sé valiente".</a>
+
+      </div>

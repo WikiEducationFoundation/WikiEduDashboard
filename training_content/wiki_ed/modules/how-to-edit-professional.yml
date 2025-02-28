@@ -22,3 +22,9 @@ slides:
   - slug: talk-page-tutorial-professional # 2317
   - slug: pinging-another-wikipedian-professional # 2318
   - slug: thats-it-editing-professional # 2319
+
+translations:
+  es:
+    name: "Cómo editar: Wikitexto vs Editor Visual (Profesional)"
+    description: |
+      En este tutorial, vas a recibir consejos prácticos para navegar y editar Wikipedia.

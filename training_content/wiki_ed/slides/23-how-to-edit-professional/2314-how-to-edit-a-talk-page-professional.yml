@@ -8,3 +8,13 @@ content: |
   top of the page. Make sure to add your comments to the bottom of the
   Talk page, and to give your message a title.
 id: 2314
+
+translations:
+  es:
+    title: Cómo editar una página de Discusión
+    content: |
+      Las páginas de discusión no tienen una opción de Editor visual, por lo que deberás usar Wikicode.
+
+      Para agregar un mensaje a una página de discusión, haz clic en el botón “Añadir tema” en la
+      parte superior de la página. Asegúrate de agregar tus comentarios en la parte inferior de la
+      página de discusión y de darle un título a tu mensaje.
