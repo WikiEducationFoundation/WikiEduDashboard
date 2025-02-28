@@ -17,3 +17,21 @@ content: |
 
   Ready? Let’s get started!
 id: 2101
+
+translations:
+  es:
+    title: 'Políticas y pautas: resumen básico'
+    content: |
+      ¡Bienvenido a Wikipedia!
+
+      Wikipedia está constantemente clasificada como uno de los diez sitios web más
+      visitados del planeta, con más visitas diarias que Twitter o CNN.
+
+      Wikipedia es libre y está escrita por voluntarios. Y como tanta gente confía en ella, es
+      esencial que la información que encuentren sea verídica. Vamos a mostrarte todo lo que
+      necesitas para compartir tus conocimientos en Wikipedia.
+
+      Todo el contenido de esta capacitación es tuyo. Puedes visitar cualquier parte de
+      la capacitación más adelante, así que no dudes en volver cuando tengas preguntas.
+
+      ¿Listo? ¡Vamos a empezar!

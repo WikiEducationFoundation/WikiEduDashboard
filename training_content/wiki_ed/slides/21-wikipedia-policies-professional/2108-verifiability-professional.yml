@@ -30,3 +30,27 @@ content: |
   editing in these areas, take a look at this [training](/training/professional-development/editing-medical-topics-professional)
   to familiarize yourself with these restrictions.
 id: 2108
+
+translations:
+  es:
+    title: Verificabilidad
+    content: |
+      <figure class="alt-layout-40-right">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Books_in_a_shopping_cart_in_a_library_-_8457.jpg/325px-Books_in_a_shopping_cart_in_a_library_-_8457.jpg" />
+
+      <figcaption class="image-credit">
+      <a href="https://commons.wikimedia.org/wiki/File:Books_in_a_shopping_cart_in_a_library_-_8457.jpg">Foto de Jorge Royan, CC-BY-SA</a>
+      </figcaption>
+      </figure>
+
+      Detrás de todo artículo genial de Wikipedia hay una colección de recursos geniales.
+      Una de las primeras cosas en las que deberías pensar es recopilar buenas fuentes. 
+
+      Tú no confiarías en todo lo que lees en el internet, y Wikipedia es igual. Pero
+      al final de cada página, puedes ver de dónde provienen los hechos expresados en el
+      cuerpo del artículo: su fuente. Eso ayuda a cualquier persona a verificar los hechos
+      para asegurarse de que sean ciertos. Cuando agregues contenido a Wikipedia, es
+      bueno que le des esa oportunidad a los demás.  
+
+      Entonces, asegúrate de compartir solamente los hechos que obtengas
+      de fuentes confiables, preferiblemente académicas. 
