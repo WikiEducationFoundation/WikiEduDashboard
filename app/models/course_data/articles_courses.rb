@@ -203,6 +203,15 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
     maybe_insert_new_records(new_records)
   end
 
+  def self.maybe_update_first_revision(course, article_id, revisions)
+    article_course = ArticlesCourses.find_by(course:, article_id:)
+    return unless article_course
+    first_revision = article_course.first_revision
+    min_revision = revisions.minimum(:date)
+    return if first_revision && min_revision >= first_revision
+    article_course.update(first_revision: min_revision)
+  end
+
   # Given an array of revisions and an array of article ids,
   # it returns a hash with the min revision datetime for every article id.
   def self.get_first_revisions(revisions, new_article_ids)
