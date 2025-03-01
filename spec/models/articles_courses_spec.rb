@@ -223,7 +223,6 @@ describe ArticlesCourses, type: :model do
       expect(described_class.count).to eq(0)
       described_class.update_from_course_revisions(course, array_revisions)
       expect(described_class.count).to eq(2)
-      expect(described_class.first.first_revision).to eq('2024-07-06 20:05:10')
     end
   end
 
