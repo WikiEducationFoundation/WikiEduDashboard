@@ -42,12 +42,8 @@ if @user.course_student?
     json.individual_word_count number_to_human @individual_stats_presenter.individual_word_count
     json.individual_references_count number_to_human @individual_stats_presenter
       .individual_references_count
-    json.individual_article_views number_to_human @individual_stats_presenter
-      .individual_article_views
     json.individual_article_count number_to_human @individual_stats_presenter
       .individual_article_count
-    json.individual_articles_created number_to_human @individual_stats_presenter
-      .individual_articles_created
     json.individual_upload_count number_to_human @individual_stats_presenter
       .individual_upload_count
     json.individual_upload_usage_count number_to_human @individual_stats_presenter
