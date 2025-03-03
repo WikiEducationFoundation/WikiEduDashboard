@@ -186,7 +186,7 @@ class SurveysController < ApplicationController
     return false
   end
 
-  def user_is_assigned_to_survey(return_notification = false)
+  def user_is_assigned_to_survey(return_notification: false)
     return false if current_user.nil?
     notifications = current_user.survey_notifications.select do |n|
       n if n.survey.id == @survey.id

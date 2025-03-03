@@ -6,7 +6,7 @@ class InstructorNotificationMailer < ApplicationMailer
     email(alert, bcc_to_salesforce).deliver_now
   end
 
-  def email(alert, bcc_to_salesforce = true)
+  def email(alert, bcc_to_salesforce: true)
     @alert = alert
     set_email_parameters
     params = { to: @instructors.pluck(:email),

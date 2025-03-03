@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module SurveysAnalyticsHelper
-  def survey_status(survey, count = false)
+  def survey_status(survey, count: false)
     assignments = SurveyAssignment.published.where(survey_id: survey.id)
     return assignments.count if count
     return "In Use (#{assignments.count})" unless assignments.empty?
