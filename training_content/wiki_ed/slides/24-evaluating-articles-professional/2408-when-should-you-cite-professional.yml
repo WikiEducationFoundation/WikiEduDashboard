@@ -8,3 +8,11 @@ content: |
   Basically, whenever you add information to an article, be sure to
   include references.
 id: 2408
+
+translations:
+  es:
+    title: ¿Cuándo deberías citar?
+    content: |
+      En general, deberías citar al menos una vez por cada párrafo que aportes a Wikipedia, pero cualquier cita, hecho concreto (como una estadística, por ejemplo) y afirmación controvertida debe citarse.
+
+      Básicamente, siempre que añadas información a un artículo, asegúrate de incluir referencias.

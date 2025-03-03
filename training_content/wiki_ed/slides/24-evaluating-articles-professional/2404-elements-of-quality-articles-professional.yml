@@ -19,3 +19,15 @@ content: |+
       article, and as much as possible.
 
 id: 2404
+
+translations:
+  es:
+    title: Elementos de los artículos de calidad
+    content: |
+        Los mejores artículos comparten ciertas cualidades que puedes seguir como modelo en tu propio trabajo:
+
+        -   **Sección principal detallada**: la descripción general al principio del artículo es un resumen claro y fácil de entender.
+        -   **Estructura clara**: hay varios títulos y subtítulos ordenados cronológicamente o por temas, con imágenes o diagramas cuando corresponde.
+        -   **Contenido equilibrado**: el artículo cubre muchos aspectos del tema, dando más peso a los puntos de vista importantes y menos a las ideas secundarias.
+        -   **Tono neutro**: el artículo está escrito sin prejuicios hacia un punto de vista concreto, y representa todos los puntos de vista que fuentes fiables han expresado sobre el tema.
+        -   **Buenas fuentes**: se citan fuentes fiables a lo largo de todo el artículo, y tanto como sea posible.
