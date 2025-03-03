@@ -22,3 +22,17 @@ content: |
   of Wikipedia and scrolling down to “email options.” Then check the box
   that reads “Email me when a page or a file on my Watchlist is changed.”
 id: 2206
+
+translations:
+  es:
+    title: Listas de Seguimiento
+    content: |
+      ¿Cómo sabes cuándo un artículo ha cambiado, o si otros editores tienen sugerencias?
+
+      Una Lista de Seguimiento personal es una forma sencilla de controlar todas las páginas en las que participas. Puedes usar tu Lista de Seguimiento para monitorear cambios en los artículos, conversaciones, y colaboraciones.
+
+      Para añadir cualquier página a tu "Lista de Seguimiento", asegúrate de haber iniciado sesión. Después, haz clic en la estrella junto a la pestaña "Ver historial" de cualquier página de Wikipedia. Cuando se pone azul, está en tu "Lista de Seguimiento". Para ver tu Lista de Seguimiento, haz clic en "Lista de Seguimiento" en la parte superior de tu página cuando hayas iniciado sesión.
+
+      Cuando añades un artículo a tu lista de seguimiento, también "vigila" la página de discusión de ese artículo. Si alguien responde a tus ediciones de artículos en la página de Discusión, aparecerá en tu Lista de Seguimiento.
+
+      Puedes configurar tus preferencias de email para recibir un correo electrónico cada vez que se modifiquen las páginas de tu Lista de Seguimiento haciendo clic en la pestaña "Preferencias" en la parte superior de Wikipedia, y desplazándote hacia abajo hasta "Opciones de correo electrónico". Después marca la casilla que dice "Enviarme un correo electrónico cuando se modifique una página en mi lista de seguimiento".
