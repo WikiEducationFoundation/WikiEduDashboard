@@ -208,6 +208,24 @@ class User < ApplicationRecord
     (user_profile || create_user_profile).email_preferences_token
   end
 
+  def taught_courses_with_edited_articles
+    taught_courses = instructed_courses.includes(articles_courses: :article)
+
+    taught_courses.map do |course|
+      {
+        course_id: course.id,
+        course_title: course.title,
+        course_slug: course.slug,
+        articles: course.articles_courses.map do |ac|
+          {
+            article_id:   ac.article.id,
+            article_title: ac.article.title
+          }
+        end.uniq { |a| a[:article_id] }
+      }
+    end
+  end
+
   # Exclude tokens/secrets from json output
   def to_json(options={})
     options[:except] ||= %i[wiki_token wiki_secret remember_token]
