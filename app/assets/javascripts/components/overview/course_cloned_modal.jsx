@@ -153,10 +153,13 @@ const CourseClonedModal = createReactClass({
     return true;
   },
 
+
   render() {
     const i18nPrefix = this.props.course.string_prefix;
     let buttonClass = 'button dark';
     buttonClass += this.state.isPersisting ? ' working' : '';
+
+    console.log('I am in this ', this.props.course);
 
     let errorMessage;
     if (this.props.firstErrorMessage) {
@@ -223,6 +226,7 @@ const CourseClonedModal = createReactClass({
             placeholder={I18n.t('courses.creator.start_date_placeholder')}
             validation={CourseDateUtils.isDateValid}
             isClearable={false}
+            is_monday_start={this.state.course.flags.is_monday_start}
           />
           <DatePicker
             id="course_end"
@@ -238,6 +242,7 @@ const CourseClonedModal = createReactClass({
             validation={CourseDateUtils.isDateValid}
             enabled={Boolean(this.state.course.start)}
             isClearable={false}
+            is_monday_start={this.state.course.flags.is_monday_start}
           />
           <DatePicker
             id="timeline_start"
@@ -252,6 +257,7 @@ const CourseClonedModal = createReactClass({
             validation={CourseDateUtils.isDateValid}
             enabled={Boolean(this.state.course.start)}
             isClearable={false}
+            is_monday_start={this.state.course.flags.is_monday_start}
           />
           <DatePicker
             id="timeline_end"
@@ -266,6 +272,7 @@ const CourseClonedModal = createReactClass({
             validation={CourseDateUtils.isDateValid}
             enabled={Boolean(this.state.course.start)}
             isClearable={false}
+            is_monday_start={this.state.course.flags.is_monday_start}
           />
         </div>
       );

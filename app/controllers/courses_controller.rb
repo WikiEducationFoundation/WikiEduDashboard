@@ -418,6 +418,10 @@ class CoursesController < ApplicationController
     @course.save
   end
 
+  def update_course_calendar_view
+    @course.flags[:is_monday_start] = params.dig(:course, :is_monday_start)
+  end
+
   def update_last_reviewed
     username = params.dig(:course, 'last_reviewed', 'username')
     timestamp = params.dig(:course, 'last_reviewed', 'timestamp')
@@ -435,6 +439,7 @@ class CoursesController < ApplicationController
     update_academic_system
     update_course_format
     update_timeslice_duration
+    update_course_calendar_view
   end
 
   def course_params
