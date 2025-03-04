@@ -123,6 +123,7 @@ class UpdateCourseStatsTimeslice
 
   TEN_MINUTES = 600
   def should_update_article_status?
+    return false unless @course.article_status_manager_enabled?
     return true if Features.wiki_ed?
     # To cut down on overwhelming the system
     # for courses with huge numbers of articles
