@@ -77,4 +77,8 @@ class ArticleScopedProgram < Course
   def passcode_required?
     false
   end
+
+  def article_status_manager_enabled?
+    false
+  end
 end

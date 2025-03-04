@@ -81,4 +81,8 @@ class VisitingScholarship < Course
   def scoped_article_titles
     assigned_article_titles
   end
+
+  def article_status_manager_enabled?
+    false
+  end
 end

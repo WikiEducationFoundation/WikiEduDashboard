@@ -346,6 +346,10 @@ class Course < ApplicationRecord
     end.flatten
   end
 
+  def article_status_manager_enabled?
+    true
+  end
+
   # The default implemention retrieves all the revisions.
   # A course type may override this implementation.
   def filter_revisions(_wiki, revisions)
