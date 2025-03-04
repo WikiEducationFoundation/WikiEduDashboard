@@ -43,7 +43,7 @@ class UpdateTimeslicesScopedArticle
     return if article_ids.empty?
 
     Rails.logger.info "UpdateTimeslicesScopedArticle: Course: #{@course.slug}\
-    Resetting #{@article_ids}"
+    Resetting #{article_ids}"
 
     # Mark course wiki timeslices to be re-proccesed
     articles = Article.where(id: article_ids)
