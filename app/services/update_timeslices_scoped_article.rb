@@ -16,7 +16,7 @@ class UpdateTimeslicesScopedArticle
   end
 
   def run
-    return unless %w[ArticleScopedProgram VisitingScholarship].include? @course.type
+    return unless @course.only_scoped_articles_course?
     # Get the scoped articles that don't have articles courses but do have ac timeslices
     articles_with_timeslices = @course.article_course_timeslices
                                       .where(article_id: @scoped_article_ids)
