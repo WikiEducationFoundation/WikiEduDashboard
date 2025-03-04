@@ -223,7 +223,46 @@ describe ArticlesCourses, type: :model do
       expect(described_class.count).to eq(0)
       described_class.update_from_course_revisions(course, array_revisions)
       expect(described_class.count).to eq(2)
-      expect(described_class.first.first_revision).to eq('2024-07-06 20:05:10')
+    end
+  end
+
+  describe '.maybe_update_first_revision' do
+    let(:array_revisions) { [] }
+    let(:subject) do
+      described_class.maybe_update_first_revision(course, article.id, array_revisions)
+    end
+
+    before do
+      array_revisions << build(:revision, article:, user:, date: '2024-07-07',
+            system: true, new_article: true, scoped: true)
+      array_revisions << build(:revision, article:, user:, date: '2024-07-06 20:05:10',
+            system: true, new_article: true, scoped: true)
+      array_revisions << build(:revision, article:, user:, date: '2024-07-06 20:06:11',
+            system: true, new_article: true, scoped: true)
+    end
+
+    it 'returns immediately if no article course' do
+      subject
+    end
+
+    it 'does not update first_revision if existing value is a previous date' do
+      date = '2024-07-05 23:59:52'
+      create(:articles_course, course:, article:, first_revision: date)
+      subject
+      expect(described_class.find_by(course:, article:).first_revision).to eq(date)
+    end
+
+    it 'updates first_revision if existing value is a later date' do
+      date = '2024-07-07 05:59:52'
+      create(:articles_course, course:, article:, first_revision: date)
+      subject
+      expect(described_class.find_by(course:, article:).first_revision).to eq('2024-07-06 20:05:10')
+    end
+
+    it 'updates first_revision if existing value is nil' do
+      create(:articles_course, course:, article:)
+      subject
+      expect(described_class.find_by(course:, article:).first_revision).to eq('2024-07-06 20:05:10')
     end
   end
 end

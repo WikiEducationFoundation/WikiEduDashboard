@@ -346,6 +346,10 @@ class Course < ApplicationRecord
     end.flatten
   end
 
+  def only_scoped_articles_course?
+    false
+  end
+
   # The default implemention retrieves all the revisions.
   # A course type may override this implementation.
   def filter_revisions(_wiki, revisions)

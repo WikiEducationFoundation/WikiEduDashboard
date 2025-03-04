@@ -16,7 +16,7 @@ class UpdateTimeslicesScopedArticle
   end
 
   def run
-    return unless %w[ArticleScopedProgram VisitingScholarship].include? @course.type
+    return unless @course.only_scoped_articles_course?
     # Get the scoped articles that don't have articles courses but do have ac timeslices
     articles_with_timeslices = @course.article_course_timeslices
                                       .where(article_id: @scoped_article_ids)
@@ -43,7 +43,7 @@ class UpdateTimeslicesScopedArticle
     return if article_ids.empty?
 
     Rails.logger.info "UpdateTimeslicesScopedArticle: Course: #{@course.slug}\
-    Resetting #{@article_ids}"
+    Resetting #{article_ids}"
 
     # Mark course wiki timeslices to be re-proccesed
     articles = Article.where(id: article_ids)

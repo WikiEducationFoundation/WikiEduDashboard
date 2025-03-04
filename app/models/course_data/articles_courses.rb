@@ -95,11 +95,6 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
     self.references_count = article_course_timeslices.sum(&:references_count)
     self.user_ids = article_course_timeslices.sum([], &:user_ids).uniq
     self.new_article = article_course_timeslices.any?(&:new_article)
-    # This was added as a hot fix after first timeslice deployment because
-    # all articles courses records had first_revision set to null after
-    # migration.
-    # IMPORTANT: only makes sense if using daily timeslice duration
-    self.first_revision = article_course_timeslices.minimum(:start) if first_revision.nil?
     save
   end
 
@@ -195,27 +190,20 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
     tracked_wiki_ids = course.wikis.pluck(:id)
     new_article_ids = Article.where(id: article_ids_without_ac, wiki_id: tracked_wiki_ids)
                              .pluck(:id)
-    first_revisions = get_first_revisions(revisions, new_article_ids)
     new_records = new_article_ids.map do |id|
-      { article_id: id, course_id: course.id, first_revision: first_revisions[id] }
+      { article_id: id, course_id: course.id }
     end
 
     maybe_insert_new_records(new_records)
   end
 
-  # Given an array of revisions and an array of article ids,
-  # it returns a hash with the min revision datetime for every article id.
-  def self.get_first_revisions(revisions, new_article_ids)
-    # TODO: find a better way to ensure an always-greater value
-    max_time = Time.utc(9999, 12, 31)
-    min_dates = Hash.new(max_time)
-
-    revisions.each do |revision|
-      if new_article_ids.include?(revision.article_id)
-        min_dates[revision.article_id] = [min_dates[revision.article_id], revision.date].min
-      end
-    end
-    min_dates
+  def self.maybe_update_first_revision(course, article_id, revisions)
+    article_course = ArticlesCourses.find_by(course:, article_id:)
+    return unless article_course
+    first_revision = article_course.first_revision
+    min_revision = revisions.minimum(:date)
+    return if first_revision && min_revision >= first_revision
+    article_course.update(first_revision: min_revision)
   end
 
   def self.maybe_insert_new_records(new_records)

@@ -206,5 +206,27 @@ describe UpdateCourseStatsTimeslice do
         subject
       end
     end
+
+    context 'when course is ArticleScopedProgram type' do
+      let(:course) do
+        create(:article_scoped_program, start: 1.day.ago, end: 1.year.from_now)
+      end
+
+      it 'skips article status updates' do
+        expect_any_instance_of(described_class).not_to receive(:update_article_status)
+        subject
+      end
+    end
+
+    context 'when course is VistingScholarship type' do
+      let(:course) do
+        create(:visiting_scholarship, start: 1.day.ago, end: 1.year.from_now)
+      end
+
+      it 'skips article status updates' do
+        expect_any_instance_of(described_class).not_to receive(:update_article_status)
+        subject
+      end
+    end
   end
 end

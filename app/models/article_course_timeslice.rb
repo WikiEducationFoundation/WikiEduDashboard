@@ -66,6 +66,8 @@ class ArticleCourseTimeslice < ApplicationRecord
       # Update cache for ArticleCourseTimeslice
       ac_timeslice.update_cache_from_revisions revisions_in_timeslice
     end
+    # Maybe update first_revision in article course record
+    ArticlesCourses.maybe_update_first_revision(course, article_id, revisions[:revisions])
   end
 
   ####################

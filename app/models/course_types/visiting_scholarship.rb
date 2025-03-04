@@ -81,4 +81,12 @@ class VisitingScholarship < Course
   def scoped_article_titles
     assigned_article_titles
   end
+
+  def scoped_article_ids
+    assigned_article_ids
+  end
+
+  def only_scoped_articles_course?
+    true
+  end
 end
