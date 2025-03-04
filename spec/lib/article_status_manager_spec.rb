@@ -71,7 +71,7 @@ describe ArticleStatusManager do
         described_class.update_article_status_for_course(course)
 
         expect(Article.find_by(title: 'Audi', wiki_id: 1).mw_page_id).to eq(848)
-        expect(Article.find_by(wiki_id: 2).mw_page_id).to eq(10000001)
+        expect(Article.find_by(title: 'Audi', wiki_id: 2).mw_page_id).to eq(4976786)
       end
     end
 
