@@ -346,8 +346,8 @@ class Course < ApplicationRecord
     end.flatten
   end
 
-  def article_status_manager_enabled?
-    true
+  def only_scoped_articles_course?
+    false
   end
 
   # The default implemention retrieves all the revisions.

@@ -78,7 +78,7 @@ class ArticleScopedProgram < Course
     false
   end
 
-  def article_status_manager_enabled?
-    false
+  def only_scoped_articles_course?
+    true
   end
 end

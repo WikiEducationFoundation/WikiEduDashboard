@@ -82,7 +82,7 @@ class VisitingScholarship < Course
     assigned_article_titles
   end
 
-  def article_status_manager_enabled?
-    false
+  def only_scoped_articles_course?
+    true
   end
 end
