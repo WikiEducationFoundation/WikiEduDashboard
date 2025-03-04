@@ -33,26 +33,10 @@ const StudentStats = ({ username, stats, maxProject }) => {
         </div>
         <div className= "stat-display__stat">
           <div className="stat-display__value">
-            {stats.individual_article_views}
-          </div>
-          <small>
-            {I18n.t(`metrics.${ArticleUtils.projectSuffix(maxProject, 'view_count_description')}`)}
-          </small>
-        </div>
-        <div className= "stat-display__stat">
-          <div className="stat-display__value">
             {stats.individual_article_count}
           </div>
           <small>
             {I18n.t(`metrics.${ArticleUtils.projectSuffix(maxProject, 'articles_edited')}`)}
-          </small>
-        </div>
-        <div className= "stat-display__stat">
-          <div className="stat-display__value">
-            {stats.individual_articles_created}
-          </div>
-          <small>
-            {I18n.t(`metrics.${ArticleUtils.projectSuffix(maxProject, 'articles_created')}`)}
           </small>
         </div>
         <div className ="stat-display__stat tooltip-trigger">

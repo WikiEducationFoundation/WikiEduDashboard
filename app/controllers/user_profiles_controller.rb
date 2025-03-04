@@ -31,7 +31,7 @@ class UserProfilesController < ApplicationController
 
   def stats
     @courses_users = @user.courses_users.includes(:course).where(courses: { private: false })
-    @individual_stats_presenter = IndividualStatisticsPresenter.new(user: @user)
+    @individual_stats_presenter = IndividualStatisticsTimeslicePresenter.new(user: @user)
     @courses_list = public_courses
                     .where(courses_users: { role: CoursesUsers::Roles::INSTRUCTOR_ROLE })
     @courses_presenter = CoursesPresenter.new(current_user:,
