@@ -13,3 +13,19 @@ content: |
   shouldn’t make those connections unless someone else has made them in a
   published, reliable source.
 id: 2111
+
+translations:
+  es:
+    title: No investigación original
+    content: |
+      Wikipedia no es un lugar para publicar tus propias conclusiones o teorías
+      sobre un tema. En Wikipedia, eso se considera “investigación original”. 
+
+      “No investigación original” significa que tu escritura en Wikipedia va
+      a resumir lo que otras personas han dicho sobre el tema que te interesa,
+      para que un lector de Wikipedia pueda obtener una reseña de las ideas y
+      conocimientos actuales de ese tema. 
+
+      Aunque podría ser tentador conectar ideas en un artículo de Wikipedia,
+      no deberías hacer esas conexiones a menos que alguien mas ya las haya
+      hecho en una fuente publicada y fiable. 

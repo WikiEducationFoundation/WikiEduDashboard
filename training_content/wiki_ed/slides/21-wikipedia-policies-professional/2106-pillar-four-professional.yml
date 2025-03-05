@@ -41,3 +41,34 @@ content: |
   you. And if you encounter any issues, reach out to the Wikipedia Expert
   supporting your course or the Program Manager. We're here for you!
 id: 2106
+
+translations:
+  es:
+    title: Pilar Cuatro
+    content: |
+      <figure class="alt-layout-30-right">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Palace_of_Fine_Arts%2C_four_pillars.jpg/320px-Palace_of_Fine_Arts%2C_four_pillars.jpg" />
+
+      <figcaption class="image-credit">
+      <a href="https://commons.wikimedia.org/wiki/File:Palace_of_Fine_Arts,_four_pillars.jpg">Foto de Eryk Salvaggio, CC-BY-SA</a>
+      </figcaption>
+      </figure>
+
+      **Los editores deben interactuar entre sí de forma respetuosa y civilizada.**
+
+      No te alarmes si alguien edita tu trabajo o elimina
+      tus aportaciones. ¡Esto forma parte del proceso!
+
+      Cada artículo tiene una página de Discusión donde puedes interactuar con los otros editores de Wikipedia
+      que están trabajando en tu artículo. Si tienes un desacuerdo, ten en cuenta algunos valores fundamentales de Wikipedia:
+
+      -   Respeta y sé cortés con tus compañeros wikipedistas, incluso cuando no estén de acuerdo.
+      -   Evita los ataques personales. Habla con las personas con las que no estés de acuerdo e intenta llegar a un consenso.
+      -   Si no estás de acuerdo con la edición de alguien, no simplemente "la cambies a como estaba antes" y ya. ¡Eso sería una guerra de ediciones y podría hacer que los bloqueen a los dos! Si tienes un desacuerdo persistente, consulta al personal de Wiki Education que apoya tu curso.
+      -   Actúa de buena fe y asume la buena fe de los demás editores. Es difícil leer el tono en una comunicación en línea. Recuerda que, independientemente de cómo percibas el comportamiento de otro editor, es fundamental que respondas de forma cortés y respetuosa.
+
+      Ser respetuoso también significa responder a los mensajes que dejan otros editores, dar
+      las gracias a las personas que ayudan, y volver a revisar después de editar para ver si
+      alguien ha respondido. Sé siempre consciente de la comunidad que te rodea. Y si te encuentras
+      con algún problema, ponte en contacto con el Experto de Wikipedia que apoya tu curso o con el
+      Administrador del Programa. ¡Estamos aquí para apoyarte!

@@ -17,3 +17,20 @@ content: |+
   -   How and where to talk to other Wikipedia editors
 
 id: 2201
+
+translations:
+  es:
+    title: ¡Bienvenido!
+    content: |
+      Este módulo de capacitación te guiará por los diferentes tipos de páginas que encontrarás en Wikipedia.
+
+      ¡Leíste bien! Hay páginas de artículos, que son las que la mayoría de la gente imagina cuando piensa
+      en Wikipedia. Pero también hay muchos otros tipos de páginas que tienen su propio propósito. En
+      Wikipedia encontrarás **páginas de usuario** (incluyendo entornos de prueba), **páginas de discusión**,
+      **listas de seguimiento**, **WikiProyectos**, y mucho más.
+
+      En esta capacitación, repasaremos:
+
+      -   Las diferencias entre todas estas páginas
+      -   Dónde puedes practicar la edición
+      -   Cómo y dónde hablar con otros editores de Wikipedia

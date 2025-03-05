@@ -17,3 +17,22 @@ content: |
   9. If that's alright, click the blue "Publish changes" button at the top right.
 
   Presto! The image should appear right where you wanted it.
+
+translations:
+  es:
+    title: ¿Cómo añado una imagen a Wikipedia?
+    content: |
+      Una vez que hayas encontrado o subido una imagen útil a Commons, puedes adjuntarla a un artículo relevante de Wikipedia.
+
+      1. Ve al artículo al que quieras añadir tu imagen.
+      2. Haz clic en "Editar" en la sección donde quieras añadir tu imagen.
+      3. Cuando se abra la barra de la parte superior de la página, haz clic en la pestaña "Insertar" y selecciona "Multimedia" en el menú desplegable.
+      4. Escribe el nombre de tu archivo. Wikipedia realizará una búsqueda por esa palabra clave y ese nombre de archivo, y te mostrará todo lo que encuentre en Commons.
+      5. Busca tu imagen (o cualquier imagen que quieras utilizar). Haz clic en ella.
+      6. Vas a ver los detalles de la imagen. Haz clic en el botón azul "Usar esta imagen" para insertar la imagen en el artículo.
+      7. Se te pedirá que introduzcas un pie de foto para la imagen. También puedes hacer clic en "Configuración avanzada" para acceder a las opciones de formato.
+         * Normalmente, una foto irá a la derecha del artículo, a unos 220 pixeles de ancho.
+      8. "Inserta" la imagen. Verás cómo aparecerá en la página.
+      9. Si te parece bien, haz clic en el botón azul "Publicar cambios", arriba a la derecha.
+
+      ¡Listo! La imagen debería aparecer justo donde la querías.

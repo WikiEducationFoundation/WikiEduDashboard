@@ -11,3 +11,14 @@ content: |
   contributed will always be accessible in your [Wikipedia contribution history](https://en.wikipedia.org/wiki/Special:MyContributions),
   so don't worry about “protecting” your page from other editors.
 id: 2610
+
+translations:
+  es:
+    title: ¿Y ahora qué?
+    content: |
+      Tu página ya está activa en Wikipedia, ¡donde cualquier persona con conexión a Internet y curiosidad por lo que has escrito puede encontrarla!
+
+      Otros wikipedistas podrán pasar a echarle un vistazo, hacer preguntas, o presentar sugerencias. Incluso puede que algunos empiecen a hacer cambios.
+
+      ¡Que no cunda el pánico! Así es el proceso de Wikipedia. Todo lo que hayas aportado estará
+      siempre accesible en tu [historial de contribuciones a Wikipedia](https://en.wikipedia.org/wiki/Special:MyContributions), asi que no te preocupes por "proteger" tu página de otros editores.

@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { toDate } from '~/app/assets/javascripts/utils/date_utils';
 import { format } from 'date-fns';
 
-export const ModuleName = ({ due_date, isExercise, name }) => {
+export const ModuleName = ({ due_date, isExercise, translated_name }) => {
   const date = due_date ? due_date.replace(/\//g, '-') : null;
   const dueDate = format(toDate(date), 'MMM do');
   return (
     <td className="block__training-modules-table__module-name">
-      {name}
+      {translated_name}
       {
         isExercise
           ? <small className="due-date">Due on {dueDate}</small>

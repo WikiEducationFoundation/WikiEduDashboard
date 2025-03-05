@@ -27,3 +27,16 @@ content: |+
       sections are missing completely.
 
 id: 2405
+
+translations:
+  es:
+    title: Elementos de los artículos no tan buenos
+    content: |
+      Estos son algunos signos de que un artículo posiblemente no es tan bueno:
+
+      -   **Anuncios o banners de advertencia**: A menudo estos anuncios hacen una declaración sobre la fiabilidad del artículo, aunque a veces se trata simplemente de una sugerencia de mejora. Toma nota y lee atentamente.
+      -   **Sección principal fragmentada**: Una sección principal muy corta (o con muchos errores) puede indicar que el artículo se ha escrito con colaboraciones escalonadas y que podría necesitar una reescritura para cohesionarlo.
+      -   **Declaraciones de valor**: Afirmaciones como "el mejor" o "el más importante" son señales de que el artículo está escrito para persuadir o no está bien referenciado.
+      -   **Falta de fuentes**: ¿Hay referencias a fuentes de información anónimas, como "algunas personas dicen" o "muchos creen"? Si no puedes responder a la pregunta "¿Quién dijo eso?", lo más probable es que no se haya citado una fuente fiable.
+      -   **Sección de referencias poco desarrollada, pocas cita**: Debe haber una buena cantidad de citas, en proporción a la cantidad de información incluida en el artículo. Esas citas deben proceder de editoriales fiables, no de sitios web cuestionables o de editoriales con un sesgo claro.
+      -   **Secciones desequilibradas**: Las secciones sobre un aspecto importante del tema no deben ser más cortas que las secciones sobre un aspecto sin importancia. Este tipo de desequilibrio también puede significar que falten secciones relevantes por completo.

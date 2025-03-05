@@ -16,3 +16,9 @@ slides:
   - slug: reading-history-professional # 2411
   - slug: past-versions-professional # 2412
   - slug: you-re-all-done-professional # 2413
+
+translations:
+  es:
+    name: Evaluando artículos y fuentes (Profesional)
+    description: |
+      En este tutorial vamos a explorar cómo leer artículos de Wikipedia, y las fuentes potenciales, con un ojo crítico.

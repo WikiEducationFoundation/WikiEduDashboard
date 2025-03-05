@@ -9,3 +9,13 @@ content: |
 
   <iframe width="420" height="315" src="https://www.youtube-nocookie.com/embed/25hWh1Pa44M" frameborder="0" allowfullscreen></iframe>
 id: 2302
+
+translations:
+  es:
+    title: ¡Empieza empezando!
+    content: |
+      La mejor forma de aprender a editar en Wikipedia es lanzarte y empezar.
+
+      Abre Wikipedia en otra ventana del navegador en este momento, y sigue los siguientes ejercicios de ejemplo.
+
+      <iframe width="420" height="315" src="https://www.youtube-nocookie.com/embed/25hWh1Pa44M" frameborder="0" allowfullscreen></iframe>

@@ -26,3 +26,29 @@ content: |
 
   Let’s explore these a bit.
 id: 2102
+
+translations:
+  es:
+    title: Cinco Pilares
+    content: |
+      <figure class="alt-layout-40-right">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Palace_of_Fine_Arts%2C_five_pillars.jpg/640px-Palace_of_Fine_Arts%2C_five_pillars.jpg" />
+
+      <figcaption class="image-credit">
+      <a href="https://commons.wikimedia.org/wiki/File:Palace_of_Fine_Arts,_five_pillars.jpg">Foto de Eryk Salvaggio, CC-BY-SA</a>
+      </figcaption>
+      </figure>
+
+      Wikipedia es la enciclopedia que cualquiera puede editar, pero detrás de cada artículo
+      hay mucha colaboración. Vas a trabajar con muchas personas para desarrollar Wikipedia.
+      Para colaborar eficazmente, deberás seguir los cinco principios clave, o pilares, de Wikipedia.
+
+      Los cinco pilares de Wikipedia son:
+
+      -   Wikipedia es una enciclopedia en línea
+      -   Wikipedia tiene un punto de vista neutral
+      -   Wikipedia es contenido libre
+      -   Los wikipedistas deben interactuar de forma respetuosa y civilizada
+      -   Wikipedia no tiene reglas firmes
+
+      Exploremos un poco estos aspectos.
