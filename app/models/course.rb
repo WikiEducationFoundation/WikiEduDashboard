@@ -598,7 +598,7 @@ class Course < ApplicationRecord
   validate :check_duplicate_slug, on: :update
 
   def check_duplicate_slug
-    return unless Course.where(slug: slug).where.not(id: id).exists?
+    return unless Course.where(slug:).where.not(id:).exists?
 
     raise DuplicateCourseSlugError, slug
   end

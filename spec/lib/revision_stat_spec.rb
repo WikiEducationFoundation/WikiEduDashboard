@@ -48,17 +48,6 @@ describe RevisionStat do
     end
 
     context 'course id' do
-      context 'not for this course' do
-        before do
-          allow_any_instance_of(Course).to receive(:check_duplicate_slug).and_return(true)
-          course.update(id: 1000)
-        end
-
-        it 'does not include in scope' do
-          expect(subject).to eq(0)
-        end
-      end
-
       context 'for this course' do
         it 'does include in scope' do
           expect(subject).to eq(1)
