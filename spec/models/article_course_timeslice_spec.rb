@@ -175,12 +175,30 @@ describe ArticleCourseTimeslice, type: :model do
       expect(article_course_timeslice.references_count).to eq(3)
       expect(article_course_timeslice.user_ids).to eq([2, 4])
       expect(article_course_timeslice.new_article).to eq(false)
+      expect(article_course_timeslice.first_revision).to be_nil
       subject
       expect(article_course_timeslice.revision_count).to eq(3)
       expect(article_course_timeslice.character_sum).to eq(348)
       expect(article_course_timeslice.references_count).to eq(3)
       expect(article_course_timeslice.user_ids).to eq([25, 1])
       expect(article_course_timeslice.new_article).to eq(true)
+      expect(article_course_timeslice.first_revision).to eq(start + 1.hour)
+    end
+
+    it 'updates cache correctly if no live revisions' do
+      expect(article_course_timeslice.revision_count).to eq(0)
+      expect(article_course_timeslice.character_sum).to eq(100)
+      expect(article_course_timeslice.references_count).to eq(3)
+      expect(article_course_timeslice.user_ids).to eq([2, 4])
+      expect(article_course_timeslice.new_article).to eq(false)
+      expect(article_course_timeslice.first_revision).to be_nil
+      article_course_timeslice.update_cache_from_revisions [revision4, revision5]
+      expect(article_course_timeslice.revision_count).to eq(0)
+      expect(article_course_timeslice.character_sum).to eq(0)
+      expect(article_course_timeslice.references_count).to eq(0)
+      expect(article_course_timeslice.user_ids).to eq([])
+      expect(article_course_timeslice.new_article).to eq(false)
+      expect(article_course_timeslice.first_revision).to be_nil
     end
   end
 end

@@ -84,6 +84,8 @@ class ArticleCourseTimeslice < ApplicationRecord
     self.references_count = live_revisions.sum(&:references_added)
     self.user_ids = associated_user_ids(live_revisions)
     self.new_article = revisions.any?(&:new_article)
+    # first_revision may be nil if revision count is 0
+    self.first_revision = live_revisions.minimum(:date)
     save
   end
 
