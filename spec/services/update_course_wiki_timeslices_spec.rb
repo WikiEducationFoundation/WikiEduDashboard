@@ -60,6 +60,8 @@ describe UpdateCourseWikiTimeslices do
       expect(article_course.article_course_timeslices.first.character_sum).to eq(427)
       expect(article_course.article_course_timeslices.first.references_count).to eq(-2)
       expect(article_course.article_course_timeslices.first.user_ids).to eq([user.id])
+      expect(article_course.article_course_timeslices.first.first_revision)
+        .to eq('2018-11-24 04:49:31')
     end
 
     it 'updates course user wiki timeslices caches' do
