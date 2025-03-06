@@ -54,6 +54,7 @@ Rails.application.routes.draw do
 
   #UserProfilesController
   controller :user_profiles do
+    get 'users/:username/taught_courses_articles' => 'user_profiles#taught_courses_articles', constraints: { username: /.*/ }
     get 'users/:username' => 'user_profiles#show' , constraints: { username: /.*/ }
     get 'user_stats' => 'user_profiles#stats'
     get 'stats_graphs' => 'user_profiles#stats_graphs'
@@ -111,6 +112,11 @@ Rails.application.routes.draw do
   get 'copy_course' => 'copy_course#index'
   post 'copy_course' => 'copy_course#copy'
 
+  # Change timeslice duration
+  get 'timeslice_duration' => 'timeslice_duration#index'
+  get 'timeslice_duration/update' => 'timeslice_duration#show'
+  post 'timeslice_duration/update' => 'timeslice_duration#update'
+
   # Self-enrollment: joining a course by entering a passcode or visiting a url
   get 'courses/:course_id/enroll/(:passcode)' => 'self_enrollment#enroll_self',
       constraints: { course_id: /.*/ }
@@ -122,6 +128,8 @@ Rails.application.routes.draw do
 
     get 'courses/*id/manual_update' => 'courses#manual_update',
         :as => :manual_update, constraints: { id: /.*/ }
+    get 'courses/*id/manual_update_timeslice' => 'courses#manual_update_timeslice',
+        :as => :manual_update_timeslice, constraints: { id: /.*/ }
     get 'courses/*id/notify_untrained' => 'courses#notify_untrained',
         :as => :notify_untrained, constraints: { id: /.*/ }
     get 'courses/*id/needs_update' =>  'courses#needs_update',

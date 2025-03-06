@@ -25,3 +25,9 @@ slides:
   - slug: uploading-work-quiz # 618
   - slug: online-images-quiz # 619
   - slug: images-and-media-complete # 620
+
+translations:
+  es:
+    name: Contribuyendo con imágenes y archivos multimedia
+    description: |
+      Este tutorial te muestra cómo añadir imágenes y otros archivos multimedia a los artículos de Wikipedia, y cubre las normas de derechos de autor para subir nuevas imágenes y archivos multimedia.

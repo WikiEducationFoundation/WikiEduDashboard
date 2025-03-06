@@ -76,8 +76,11 @@ If you know your way around Rails, here's the very short version. Some additiona
 10. **Building assets:**
       * `yarn start` to built the development version
       * `yarn build` to generate the production version
-11. Finally, start rails with `guard` or `rails s`and open http://localhost:3000 in a web browser.
-12. Now, you're up and running!!
+11. (Recommended) Configure Git
+      * `git config core.hooksPath .git-hooks` to recognize the .git-hooks directory as the hooks directory
+      * `chmod +x .git-hooks/pre-commit` to make the pre-commit hook executable
+12. Finally, start rails with `guard` or `rails s`and open http://localhost:3000 in a web browser.
+13. Now, you're up and running!!
 
 ## Detailed instructions
 
@@ -148,6 +151,13 @@ If you know your way around Rails, here's the very short version. Some additiona
 
 - (Optional) Set up a [`post-merge`](https://git-scm.com/docs/githooks#_post_merge) hook to update all dependencies if `package.json` or `Gemfile` changes.
   - Copy `.git-hooks/pull-update-deps` to `.git/hooks/post-merge`
+
+- (Recommended) Set up a [`pre-commit`](https://git-scm.com/docs/githooks#_pre-commit) hook to run linting before making a commit
+  - `git config core.hooksPath .git-hooks` Configure Git to recognize the .git-hooks directory as the hooks directory
+  - `chmod +x .git-hooks/pre-commit` Make the pre-commit hook executable
+  
+
+
 ## Initialize
 1. **Migrate the development and test databases**
   - $ `rake db:migrate`

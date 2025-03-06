@@ -50,6 +50,7 @@
 #
 
 class ArticleScopedProgram < Course
+  include CustomRevisionFilter
   has_many(:revisions, lambda do |course|
     where('date >= ?', course.start)
     .where('date <= ?', course.end)
@@ -75,5 +76,9 @@ class ArticleScopedProgram < Course
 
   def passcode_required?
     false
+  end
+
+  def only_scoped_articles_course?
+    true
   end
 end

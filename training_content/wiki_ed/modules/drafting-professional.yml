@@ -11,3 +11,9 @@ slides:
   - slug: drafting-a-new-article-professional # 2506
   - slug: avoiding-edit-conflicts-professional # 2507
   - slug: thats-it-drafting-professional # 2508
+
+translations:
+  es:
+    name: Haciendo borradores en el entorno de pruebas (Profesional)
+    description: |
+      En este tutorial, te mostraremos los pasos prácticos para trabajar en un entorno de pruebas y comenzar a redactar un artículo.

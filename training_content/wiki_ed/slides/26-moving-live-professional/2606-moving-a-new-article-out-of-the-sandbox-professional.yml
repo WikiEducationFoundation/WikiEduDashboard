@@ -15,8 +15,21 @@ content: |
       Wikipedia](https://upload.wikimedia.org/wikipedia/commons/9/90/Editing_Wikipedia_brochure_%28Wiki_Education_Foundation%29_%282017%29.pdf#page=15)
       brochure.
   4.  On the draft sandbox page where your article is, look to the upper-right.
-      To the left of your search bar is a tab called “More.” Click it, and
+      To the left of your search bar is a tab called “Tools.” Click it, and
       then click “Move.”
 
   A new page will appear.
 id: 2606
+
+translations:
+  es:
+    title: Trasladando un artículo nuevo fuera de la zona de pruebas
+    content: |
+      Con un buen título en mente, probablemente estés listo para ponerte en marcha.
+
+      1. Haz una búsqueda en Wikipedia para asegurarte de que no haya ningún artículo sobre el tema en el que has trabajado. (Es posible, aunque no muy común, que otra persona cree un artículo con el mismo nombre al mismo tiempo que tú redactabas el tuyo). Si ya existe un artículo, sigue los pasos de las diapositivas anteriores para fusionar tu contenido en el artículo.
+      2. Ve a tu borrador en la zona de pruebas.
+      3. Haz una revisión final de tu artículo, siguiendo la lista de verificación que se encuentra en la página 15 del folleto [Editando Wikipedia](https://upload.wikimedia.org/wikipedia/commons/9/90/Editing_Wikipedia_brochure_%28Wiki_Education_Foundation%29_%282017%29.pdf#page=15).
+      4. En la página del borrador de la zona de pruebas donde se encuentra tu artículo, mira arriba a la derecha. A la izquierda de la barra de búsqueda hay una pestaña titulada "Más". Haz clic en ella y, después en "Mover"
+
+      Aparecerá una nueva página.

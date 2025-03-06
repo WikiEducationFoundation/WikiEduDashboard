@@ -75,7 +75,7 @@ nl:
     recent_activity: Recente activiteit
     report_problem: Een probleem melden
     request_account: Account aanvragen
-    request_account_create: Een account aanmaken
+    request_account_create: Account aanmaken
     search: een vraag stellen
     search_results:
       one: '%{count} resultaat voor: ''%{search_terms}'''

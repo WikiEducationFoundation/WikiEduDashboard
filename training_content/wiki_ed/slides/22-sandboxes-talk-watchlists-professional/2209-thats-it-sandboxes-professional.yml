@@ -18,3 +18,19 @@ content: |+
   </div>
 
 id: 2209
+
+translations:
+  es:
+    title: ¡Eso es todo!
+    content: |
+      Ya deberías estar familiarizado con las diferentes páginas que encontrarás en Wikipedia. No dudes en volver a esta capacitación en cualquier momento para refrescar tus conocimientos.
+
+      ¡A continuación, aprenderás a editar!
+
+      Apreciaríamos cualquier comentario que tengas sobre este módulo de orientación. Haz clic a continuación para decirnos qué te ha gustado y qué no, y cualquier sugerencia que tengas para mejorarlo.
+
+
+      <div class="training__button-container">
+      <a target="_blank" class="btn btn-primary" href="https://dashboard.wikiedu.org/feedback">
+      Enviar comentarios </a>
+      </div>

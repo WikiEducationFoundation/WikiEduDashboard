@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Ahmed-Najib-Biabani-Ibrahimkhel
+# Author: شاه زمان پټان
 ---
 ps:
   application:
@@ -19,6 +20,7 @@ ps:
     log_out: وتل
     my_dashboard: زما ډشبورډ
     recent_activity: تازه فعاليتونه
+    request_account_create: يو گڼون جوړول
     search: يوه پوښتنه پوښتل
     sign_up_extended: د ويکيپېډيا له لارې نومليکنه
     sign_up_log_in_extended: د ويکيپېډيا سره
@@ -26,8 +28,12 @@ ps:
     submit: سپارل
     training: تمرين
     change: بدلول
+    confirm: ښه
+    opt_in: هو
+    opt_out: نه
     opt_yes: هو
     opt_no: نه
+    print: چاپول
   article_statuses:
     not_yet_started: پیل کول
   home:
@@ -42,6 +48,7 @@ ps:
     filter:
       wiki_all: ټول
       new: نوی
+    filter_text: 'چاڼگران:'
     hide: پټول
     label: ليکنې
     loading: ليکنې برسېرېږي...
@@ -51,6 +58,8 @@ ps:
     title_example: د ليکنې سرليک
     view: ليکنه کتل
     view_all: ټول کتل
+    wiki: ويکي
+    articles_short: ليکنې
   assignments:
     remove: غورځول
     review_self: يوه ليکنه بياکتل
@@ -109,6 +118,12 @@ ps:
   courses_generic:
     assignment_end: د وختکرښې پای
     assignment_start: د وختکرښې پيل
+    creator:
+      course_term: کله
+      course_term_placeholder: کله
+      save_cloned_course: خوندي کول
+      scoping_methods:
+        templates: کينډۍ
     edit_course_dates: د پروژې نېټې سمول
     instructors: اسانتياگران
     school: انستيتيوت
@@ -120,6 +135,9 @@ ps:
     edit: سمول
     cancel: ناگارل
     save: خوندي کول
+  instructor_view:
+    assignments_table:
+      article_name: نوم
   metrics:
     activity: تازه فعاليتونه
     articles_created: جوړې شوې ليکنې
@@ -133,7 +151,22 @@ ps:
     view: کتنې
   namespace:
     user: کارن تشيال
+    help: لارښود
+    category: وېشنيزه
+    page: مخ
+    book: کتاب
+    wikijunior: ویکي‌جونير
+    translation: ژباړه
+    draft: گارليک
+    property: ځانتيا
+    query: پوښتنه
+    portal: تانبه
+    school: ښوونځی
+    author: ليکوال
+    index: ليکلړ
+    collection: غونډ
   recent_activity:
+    article_title: سرليک
     datetime: نېټه/وخت
     image: انځور
     file_name: د دوتنې نوم
@@ -143,8 +176,13 @@ ps:
     class: ټولگی
     date_time: نېټه/وخت
     diff: توپير
+    diff_show: ښکاره کول
+    diff_hide: پټول
     edited_by: سمونگر
     title: سرليک
+  settings:
+    categories:
+      users: کارنان
   timeline:
     add_week: اونۍ ورگډول
     block_in_class: په ټولگي کې
@@ -158,6 +196,8 @@ ps:
   training:
     start: پيلول
     view: کتل
+    page: مخ
+    done: وشو!
   uploads:
     file_name: د دوتنې نوم
     image: انځور
@@ -190,6 +230,18 @@ ps:
     email:
       headline: سلامونه، %{username}
       course: 'کورس: %{course_info}'
+  news:
+    footer:
+      P&E_dashboard:
+        link_text: ويکيمېډيا
+        footer_text: خبرونه او وروستي بدلونونه ولولئ
+      wiki_education_dashboard:
+        link_text: wikiedu.org/blog
+  notes:
+    cancel_note_creation: ناگارل
+    save_note: خوندي کول
+  tagged_courses:
+    download_csv: CSV ښکته کول
   weekday_picker:
     aria:
       weekday_unselected: '{{د اونۍ ورځ}} ناټاکلی'

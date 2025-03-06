@@ -7,3 +7,13 @@ content: |
   By the end of this section, you'll understand technical details of
   Wikipedia editing so you can make your first edits!
 id: 2301
+
+translations:
+  es:
+    title: ¡Bienvenido!
+    content: |
+      En este punto, ya deberías haber completado el módulo "Políticas de Wikipedia",
+      aprendiendo sobre la comunidad y la cultura de Wikipedia.
+
+      ¡Al finalizar esta sección, entenderás los detalles técnicos de la
+      edición en Wikipedia para que puedas hacer tus primeras ediciones!

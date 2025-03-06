@@ -133,3 +133,7 @@
 # LTIAAS Configuration
   LTIAAS_API_KEY: 'example_api_key'
   LTIAAS_DOMAIN: 'example.ltiaas.com'
+
+# Default timeslice duration (in seconds) used for processing course updates
+  TIMESLICE_DURATION: '86400'
+

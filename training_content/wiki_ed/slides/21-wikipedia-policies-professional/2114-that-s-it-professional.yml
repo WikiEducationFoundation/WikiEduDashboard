@@ -4,3 +4,9 @@ content: |
   You're almost ready to dive into editing. In the next modules, we'll
   cover how to edit.
 id: 2114
+
+translations:
+  es:
+    title: ¡Eso es todo!
+    content: |
+      Ya estás casi listo para lanzarte a la edición. En los próximos módulos, vamos a cubrir cómo editar.

@@ -55,7 +55,6 @@ class WikiCourseOutput
     # {{program details
     #  | course_name = Advanced Legal Research Winter 2020
     #  | instructor_username = Tlmarks
-    #  | instructor_realname =
     #  | instructor_username_2 = Shelbaum
     #  | instructor_username_3 = Abishekdascs
     #  | instructor_username_4 = Abishek CS Das
@@ -75,7 +74,6 @@ class WikiCourseOutput
       {{#{template_name(@templates, 'course')}
        | course_name = #{@course.title}
        | instructor_username = #{instructor_username}
-       | instructor_realname = #{instructor_realname}
        | support_staff = #{support_staff_username}
        | subject = #{@course.subject}
        | start_date = #{@course.start}
@@ -98,19 +96,15 @@ class WikiCourseOutput
     @first_instructor&.username
   end
 
-  def instructor_realname
-    @first_instructor_course_user&.real_name
-  end
-
   def insert_additional_instructors(details)
     # Collect additional instructor usernames and insert them after the first instructor
     additional_instructors = @all_instructors[1..].map.with_index(2) do |instructor, index|
       "\n | instructor_username_#{index} = #{instructor.username}"
     end.join
 
-    # Insert additional instructors immediately after the first instructor's real name
-    insertion_point = details.index("| instructor_realname = #{instructor_realname}") +
-                      "| instructor_realname = #{instructor_realname}".length
+    # Insert additional instructors immediately after the first instructor's username
+    insertion_point = details.index("| instructor_username = #{instructor_username}") +
+                      "| instructor_username = #{instructor_username}".length
 
     details.insert(insertion_point, additional_instructors)
   end

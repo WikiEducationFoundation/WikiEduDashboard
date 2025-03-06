@@ -11,6 +11,19 @@ content: |+
   <a target="_blank" class="btn btn-primary" href="https://dashboard.wikiedu.org/feedback">
   Submit feedback </a>
 
-  </div>
+
 
 id: 2413
+
+translations:
+  es:
+    title: ¡Ya terminaste!
+    content: |
+      ¡Que disfrutes editando!
+
+      Nos gustaría recibir tus comentarios sobre este módulo de orientación. Haz clic a continuación para decirnos qué te gustó y qué no, y cualquier sugerencia que tengas para mejorarlo.
+
+      <div class="training__button-container">
+      <a target="_blank" class="btn btn-primary" href="https://dashboard.wikiedu.org/feedback">
+      Enviar comentarios </a>
+      </div>

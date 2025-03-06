@@ -132,7 +132,7 @@ describe 'Surveys', type: :feature, js: true do
       visit survey_path(@survey)
       # Sets the course automatically
       expect(page).to have_content 'Survey for My Active Course'
-      expect(page).to have_content 'progress'
+      expect(page).to have_content 'Progress'
     end
 
     it 'sets the course and shows the progress bar by going to the course page' do
@@ -144,7 +144,7 @@ describe 'Surveys', type: :feature, js: true do
       click_link 'Take Survey'
       # Sets the course automatically
       expect(page).to have_content 'Survey for My Active Course'
-      expect(page).to have_content 'progress'
+      expect(page).to have_content 'Progress'
     end
 
     it 'renders an optout page' do

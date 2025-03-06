@@ -50,10 +50,12 @@
 #
 
 class VisitingScholarship < Course
+  include CustomRevisionFilter
+
   has_many(:revisions, lambda do |course|
     where('date >= ?', course.start)
     .where('date <= ?', course.end)
-    .where(article_id: course.assignments.pluck(:article_id))
+    .where(article_id: course.assigned_article_ids)
   end, through: :students)
 
   def wiki_edits_enabled?
@@ -73,6 +75,18 @@ class VisitingScholarship < Course
   end
 
   def multiple_roles_allowed?
+    true
+  end
+
+  def scoped_article_titles
+    assigned_article_titles
+  end
+
+  def scoped_article_ids
+    assigned_article_ids
+  end
+
+  def only_scoped_articles_course?
     true
   end
 end

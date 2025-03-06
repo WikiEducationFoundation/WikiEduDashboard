@@ -13,3 +13,15 @@ content: |+
   -   Use spaces between words, not underscores
 
 id: 2605
+
+translations:
+  es:
+    title: Nombra tu artículo
+    content: |
+      Antes de trasladar tu artículo de la zona de pruebas a la página principal de Wikipedia, vamos a darle un nombre.
+
+      Fíjate en temas similares y elige un título que coincida con el suyo. El título de tu artículo no debe ser una pregunta, ni siquiera una frase. ¡El mejor título suele ser el enunciado más sencillo de lo que trata tu artículo!
+
+      -   Utiliza un español natural
+      -   Escribe sólo la primera letra en mayúscula (y los nombres propios)
+      -   Pon espacios entre las palabras, no guiones bajos

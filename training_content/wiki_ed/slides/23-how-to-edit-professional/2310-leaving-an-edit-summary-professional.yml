@@ -30,3 +30,34 @@ content: |
   summary *before* you hit publish. There's a space to do that beneath the
   text area.
 id: 2310
+
+translations:
+  es:
+    title: Dejando un resumen de ediciones
+    content: |
+      <figure class="alt-layout-40-right">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a8/Wikipedia_Edit_Summary_dialog_in_VisualEditor.png" />
+
+      <figcaption>
+      Edita el diálogo del resumen en el editor visual
+      </figcaption>
+      </figure>
+
+      Cuando hayas terminado de editar algo, deja un resumen sobre lo que hiciste. Por ejemplo,
+      si añadiste una cita, escribirías "añadí cita", seguido de una razón. En el caso de
+      ediciones más pequeñas o errores gramaticales, puedes escribir "corregido". Estas
+      descripciones breves ayudan a otros editores a entender sus ediciones.
+
+      Si editas en el modo Editor Visual, si haces clic en "Publicar cambios"
+      aparecerá un cuadro para escribir el resumen de la edición.
+
+      <figure class="alt-layout-40-right">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/8/80/Wikipedia_Edit_Summary_input_field_in_Edit_Source_mode.png" />
+
+      <figcaption>
+      Ingreso del resumen de edición para el modo WikiTexto
+      </figcaption>
+      </figure>
+
+      Si está editando en el modo de edición de fuentes (o Wikitexto), escribe tu resumen
+      de edición **antes** de hacer clic en publicar. Hay un espacio para hacerlo debajo del área de texto.
