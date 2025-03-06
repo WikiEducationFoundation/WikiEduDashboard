@@ -67,7 +67,8 @@ class RevisionDataManager
 
   def import_and_resolve_duplicate_articles(articles)
     ArticleImporter.new(@wiki).import_articles_from_revision_data(articles)
-    @articles = Article.where(wiki_id: @wiki.id, mw_page_id: articles.map { |a| a['mw_page_id'] })
+    @articles = Article.where(wiki_id: @wiki.id, deleted: false,
+                              mw_page_id: articles.map { |a| a['mw_page_id'] })
     DuplicateArticleDeleter.new(@wiki).resolve_duplicates_for_timeslices(@articles)
   end
 
