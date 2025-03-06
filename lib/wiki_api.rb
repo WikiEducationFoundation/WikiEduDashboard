@@ -8,6 +8,9 @@ require_dependency "#{Rails.root}/lib/errors/api_error_handling"
 #= This class is for getting data directly from the MediaWiki API.
 class WikiApi
   include ApiErrorHandling
+  def self.clients
+    @clients ||= {} # Class-level hash to persist clients (different api urls)
+  end
 
   def initialize(wiki = nil, update_service = nil)
     wiki ||= Wiki.default_wiki
@@ -107,7 +110,7 @@ class WikiApi
 
   def mediawiki(action, query)
     tries ||= 3
-    @mediawiki = api_client
+    @mediawiki = ensure_logged_in(api_client)
     @mediawiki.send(action, query)
   rescue StandardError => e
     tries -= 1
@@ -121,7 +124,22 @@ class WikiApi
   end
 
   def api_client
-    MediawikiApi::Client.new @api_url
+    self.class.clients[@api_url] ||= MediawikiApi::Client.new(@api_url)
+  end
+
+  def ensure_logged_in(client)
+    return client if client.logged_in?
+    login_tries = 2
+    begin
+      login_token = client.send(:get_token, 'login') # get_token is a protected method
+      client.log_in(ENV['bot_username'], ENV['bot_password'], login_token)
+      return client
+    rescue MediawikiApi::LoginError => e
+      login_tries -= 1
+      raise e if login_tries.zero?
+      client = MediawikiApi::Client.new(@api_url) # Reset client
+      retry
+    end
   end
 
   def too_many_requests?(e)
