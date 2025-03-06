@@ -16,6 +16,7 @@
 #  tracked          :boolean          default(TRUE)
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  first_revision   :datetime
 #
 class ArticleCourseTimeslice < ApplicationRecord
   belongs_to :article
@@ -50,8 +51,10 @@ class ArticleCourseTimeslice < ApplicationRecord
   def self.update_article_course_timeslices(course, article_id, revisions)
     rev_start = revisions[:start]
     rev_end = revisions[:end]
+    wiki_id = revisions[:revisions].first.wiki_id
     # Timeslice dates to update are determined based on course wiki timeslices
-    timeslices = course.course_wiki_timeslices.for_revisions_between(rev_start, rev_end)
+    timeslices = course.course_wiki_timeslices.where(wiki_id:)
+                       .for_revisions_between(rev_start, rev_end)
     timeslices.each do |timeslice|
       # Group revisions that belong to the timeslice
       revisions_in_timeslice = revisions[:revisions].select do |revision|
@@ -66,8 +69,6 @@ class ArticleCourseTimeslice < ApplicationRecord
       # Update cache for ArticleCourseTimeslice
       ac_timeslice.update_cache_from_revisions revisions_in_timeslice
     end
-    # Maybe update first_revision in article course record
-    ArticlesCourses.maybe_update_first_revision(course, article_id, revisions[:revisions])
   end
 
   ####################
@@ -83,6 +84,8 @@ class ArticleCourseTimeslice < ApplicationRecord
     self.references_count = live_revisions.sum(&:references_added)
     self.user_ids = associated_user_ids(live_revisions)
     self.new_article = revisions.any?(&:new_article)
+    # first_revision may be nil if revision count is 0
+    self.first_revision = live_revisions.minimum(:date)
     save
   end
 
