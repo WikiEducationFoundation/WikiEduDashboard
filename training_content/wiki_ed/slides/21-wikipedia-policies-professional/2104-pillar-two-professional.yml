@@ -29,3 +29,32 @@ content: |
   include it. (We'll cover the mechanisms of adding citations in an
   article later on!).
 id: 2104
+
+translations:
+  es:
+    title: Pilar Dos
+    content: |
+      <figure class="alt-layout-30-right">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Palace_of_Fine_Arts%2C_two_pillars.jpg/320px-Palace_of_Fine_Arts%2C_two_pillars.jpg" />
+
+      <figcaption class="image-credit">
+      <a href="https://commons.wikimedia.org/wiki/File:Palace_of_Fine_Arts,_two_pillars.jpg">Foto de Eryk Salvaggio, CC-BY-SA</a>
+      </figcaption>
+      </figure>
+
+      **Wikipedia tiene un punto de vista neutral.**
+
+      Los artículos de Wikipedia deben documentar y explicar los puntos
+      de vista principales de forma equilibrada e imparcial. ¡Sólo los hechos! No:
+
+      -   debatas o intentes persuadir a los lectores
+      -   compartas experiencias u opiniones personales, ni
+      -   compartas tu propio análisis de la información que encuentres.
+
+      Por supuesto, los hechos no siempre son claros. Es posible que algunos
+      artículos tengan que describir varios puntos de vista. En esos casos, presenta
+      cada punto de vista fielmente, con su contexto.
+
+      Todo lo que añadas a un artículo debe basarse en una fuente de información publicada,
+      y siempre debes citar esa información cuando la incluyas. (¡Más adelante explicaremos
+      los mecanismos para añadir citas en un artículo!).

@@ -54,6 +54,7 @@ Rails.application.routes.draw do
 
   #UserProfilesController
   controller :user_profiles do
+    get 'users/:username/taught_courses_articles' => 'user_profiles#taught_courses_articles', constraints: { username: /.*/ }
     get 'users/:username' => 'user_profiles#show' , constraints: { username: /.*/ }
     get 'user_stats' => 'user_profiles#stats'
     get 'stats_graphs' => 'user_profiles#stats_graphs'

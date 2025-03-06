@@ -16,3 +16,21 @@ content: |
   To find your sandbox, click the **Sandbox** link, which can be found at
   the top right of Wikipedia whenever you are logged in.
 id: 2202
+
+translations:
+  es:
+    title: Conociendo tu zona de pruebas
+    content: |
+      Una “[zona de pruebas](/redirect/sandbox/sandbox?veaction=edit)” ("sandbox") es tu página wiki
+      personal donde puedes practicar la edición, planificar artículos, redactar borradores,
+      o simplemente experimentar. Puedes cambiar tu zona de pruebas sin que afecte
+      la "página principal" o Mainspace del artículo en Wikipedia, que es lo que llamamos
+      artículos activos.
+
+      La gente puede seguir viendo tu zona de pruebas si tienen el enlace, así que
+      es importante que el contenido que pongas allí no sea algo que no quieras que
+      la gente vea. Esto también significa que no debes copiar y pegar ahí cosas que
+      podrían violar las normas de derechos de autor.
+
+      Para encontrar tu zona de pruebas, haz clic en el enlace **Sandbox**,
+      que se encuentra en la parte superior derecha de Wikipedia siempre que estés conectado.

@@ -16,3 +16,18 @@ content: |
   It may be helpful to compile a list of relevant, reliable books, journal
   articles, or other sources in your sandbox, regardless of whether or not you've
   used them yet.
+
+translations:
+  es:
+    title: Empieza a escribir el borrador
+    content: |
+      En <a href="/redirect/sandbox/sandbox">tu zona de pruebas</a>,
+      empieza a escribir tu contribución al artículo. Repasa las
+      <a href="https://dashboard.wikiedu.org/training/professional-development/sandboxes-talk-watchlists-professional">capacitaciones sobre las Zonas de Pruebas, las páginas de discusión, y las listas de seguimiento</a>
+      si necesitas refrescar tus conocimientos.
+
+      No dudes en copiar algún contenido del artículo existente en tu zona de pruebas si te resulta útil, pero asegúrate de indicarlo en el resumen de edición para cumplir con los requisitos de derechos de autor.
+
+      Procura escribir al menos uno o dos párrafos completos para la próxima semana.
+
+      Podría ser útil recopilar una lista de libros, artículos de revistas, u otras fuentes relevantes y fiables en tu zona de pruebas, independientemente de si ya los has utilizado o no.

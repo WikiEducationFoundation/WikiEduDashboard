@@ -9,3 +9,11 @@ content: |
 
   On Wikipedia, you can add an image to an article easily. You can do this
   through Visual Editor (the "edit" button) or Wikicode.
+
+translations:
+  es:
+    title: ¡Ya está subido! ¿Y ahora qué?
+    content: |
+      Una vez que hayas subido la imagen, encontrarás instrucciones para utilizarla en otros lugares. El nombre de la página, donde siempre puedes encontrar el archivo, es el nombre que le diste al archivo cuando lo subiste ( incluyendo la extensión del archivo).
+
+      En Wikipedia puedes añadir una imagen a un artículo fácilmente. Puedes hacerlo a través del Editor Visual (el botón "editar") o Wikitexto.

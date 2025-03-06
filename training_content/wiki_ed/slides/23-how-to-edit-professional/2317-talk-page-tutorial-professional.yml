@@ -15,3 +15,19 @@ content: |+
   </div>
 
 id: 2317
+
+translations:
+  es:
+    title: Tutorial de la página de discusión
+    content: |
+      Practiquemos el uso de una página de discusión. Este enlace lo llevará a un ejemplo de
+      página de discusión en Wikipedia y lo guiará en el proceso de responder, lo que se hace
+      haciendo una edición, utilizando Wikicode.
+
+      Cuando haya terminado, puede regresar aquí para continuar con este módulo de capacitación.
+
+      <div class="training__button-container">
+      <a target="_blank" class="btn btn-primary" href="https://en.wikipedia.org/wiki/Special:MyTalk/talk_page_tutorial?tour=wikiedtalkpagefellows">
+      Iniciar tutorial de “Página de discusión”. </a>
+
+      </div>

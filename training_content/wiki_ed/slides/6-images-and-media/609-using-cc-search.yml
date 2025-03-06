@@ -7,7 +7,7 @@ content: |
   search engine that will help find materials that fit a certain type of license:
   Openverse. Let's look at how it works.
 
-  First, go to <a href="https://wordpress.org/openverse/" target="_blank">wordpress.org/openverse</a>.
+  First, go to <a href="https://openverse.org" target="_blank">openverse.org</a>.
 
   In the search bar, click "All content" and change it to "Images". Then, type 
   the topic of your search into the search box just like you would with any 
@@ -20,3 +20,17 @@ content: |
 
   When you find an image, make a note. We'll show you later on how to add that 
   image to Wikimedia Commons, so you can include it in your Wikipedia article.
+
+translations:
+  es:
+    title: Usando la búsqueda de Openverse
+    content: |
+      Creative Commons es una organización sin ánimo de lucro que ayuda a correr la voz sobre las licencias libres. En realidad no está conectada con Wikipedia, pero han creado un motor de búsqueda que te ayudará a encontrar materiales que se ajusten a un determinado tipo de licencia: Openverse. Veamos cómo funciona.
+
+      Primero, ve a <a href="https://openverse.org" target="_blank">openverse.org</a>.
+
+      En la barra de búsqueda, haz clic en "Todo el contenido" y cámbialo por "Imágenes". Después, escribe el tema de tu búsqueda en el cuadro de búsqueda como harías con cualquier motor de búsqueda. Haz clic en "Buscar".
+
+      Cuando aparezcan los resultados, haz clic en "Filtros" en la esquina superior derecha. DEBES hacer clic en las dos casillas "Uso comercial" y "Modificar o adaptar". Si no haces clic en esas dos casillas, es posible que NO puedas utilizar en Wikipedia las imágenes que encuentres por medio de esta búsqueda.
+
+      Cuando encuentres una imagen, anótala. Más adelante te mostraremos cómo añadir esa imagen a Wikimedia Commons, para que puedas incluirla en tu artículo de Wikipedia.

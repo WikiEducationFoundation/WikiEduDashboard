@@ -34,3 +34,34 @@ content: |
 
   Then select the “compare history” button at the top.
 id: 2411
+
+translations:
+  es:
+    title: Leyendo el historial
+    content: |
+      Veamos qué pasa si ves que alguien ha editado un artículo en el que estás trabajando.
+
+      <figure class="alt-layout-40-right">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/4/45/View_history_button_on_English_Wikipedia.png" />
+      </figure>
+
+      Puedes ver cómo ha evolucionado un artículo a lo largo del tiempo haciendo clic en el enlace "Ver historial" que aparece en la parte superior de cada artículo.
+
+      En la página "Ver historial", verás una lista de los cambios recientes en el artículo, con resúmenes de edición que describen lo que han hecho otros editores.
+
+      <figure class="alt-layout-100">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Multiple_revisions_in_Nellie_Bly_article_history.png" />
+      </figure>
+
+      En este ejemplo, en la página de Nellie Bly, puedes ver que el 15 de julio un editor hizo un cambio en la
+      sección “Asylum exposé” de su artículo. Otros dejaron descripciones más detalladas. Tom Streissguth añadió
+      un enlace a una colección en línea de artículos periodísticos de Bly, mientras que CutOffTies eliminó
+      una afirmación sin fuentes. ¿Y qué haces si quieres ver cuál era esa afirmación sin fuentes?
+
+      Puedes comparar historiales entre artículos haciendo clic en los botones de opción que aparecen junto a cada línea:
+
+      <figure class="alt-layout-100">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Two_consecutive_revisions_in_Nellie_Bly_article_history.png" />
+      </figure>
+
+      Después, selecciona el botón "comparar historial" en la parte superior.

@@ -8,3 +8,11 @@ content: |
   of your Dashboard page. You can also share your sandbox URL with someone
   else, who will be able to see all that you've drafted there.
 id: 2503
+
+translations:
+  es:
+    title: Cómo encontrar un entorno de pruebas
+    content: |
+      Para encontrar tu entorno de pruebas, haz clic en el enlace del **Entorno de Pruebas** ("Sandbox") que se encuentra en la parte superior derecha de Wikipedia cuando hayas iniciado sesión.
+
+      Para encontrar el entorno de pruebas de otro usuario, navega hasta él desde la pestaña **Editores** de tu página del Dashboard. También puedes compartir la URL de tu entorno de pruebas con otra persona, y podrá ver todo lo que has redactado ahí.

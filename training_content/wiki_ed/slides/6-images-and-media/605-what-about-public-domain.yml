@@ -20,3 +20,27 @@ content: |
   * Copyright is transferrable, so even if the author has died, the work may still be under copyright.
   * If the work is freely available, that doesn't mean it's free to use.
   * Publicity shots — for example, of celebrities — are usually not public domain.
+
+translations:
+  es:
+    title: ¿Qué pasa con el dominio público?
+    content: |
+      También puedes compartir obras de dominio público.
+
+      Una obra de dominio público no está cubierta por los derechos de autor de nadie.
+      Suelen ser obras creadas y compartidas sin restricciones, por ejemplo, por organismos
+      gubernamentales. También incluyen obras en las que los plazos de los derechos de autor
+      han expirado; en los Estados Unidos, las obras publicadas hace por lo menos 96 años
+      son de dominio público.
+
+      Cómo y cuándo entran las obras en el dominio público varía dependiendo del país. Para
+      obtener una guía de referencia, visita [Help:Public domain](https://commons.wikimedia.org/wiki/Help:Public_domain),
+      o introduce ese término en la barra de búsqueda de Wikimedia Commons.
+
+      Algunos tips sobre el dominio público:
+
+      * El hecho de que no veas un aviso de derechos de autor no significa que no esté bajo derechos de autor.
+      * El hecho de que algo sea más antiguo que el Internet no significa que no esté protegido por derechos de autor.
+      * Los derechos de autor son transferibles, y por lo tanto, aunque el autor haya fallecido, la obra podría seguir estando protegida por ellos.
+      * Si la obra es de libre acceso, eso no significa que su uso sea gratuito.
+      * Las fotos publicitarias, por ejemplo de famosos, generalmente no son de dominio público.

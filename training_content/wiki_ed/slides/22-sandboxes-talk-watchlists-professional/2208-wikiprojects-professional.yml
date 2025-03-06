@@ -10,3 +10,11 @@ content: |
   improving in a particular subject, as some of the projects keeps lists
   of undeveloped or missing articles.
 id: 2208
+
+translations:
+  es:
+    title: Wikiproyectos
+    content: |
+      Un Wikiproyecto es una página en donde los editores de Wikipedia se han organizado en torno a un tema en particular con el fin de mejorar sistemáticamente ese tema, y hacer un seguimiento de su progreso. Algunos Wikiproyectos son más activos que otros; todo depende de los editores involucrados.
+
+      Los Wikiproyectos pueden ser un buen lugar para buscar artículos que necesitan mejorar en un tema en particular, ya que algunos de los proyectos mantienen listas de artículos sin desarrollar o que faltan.

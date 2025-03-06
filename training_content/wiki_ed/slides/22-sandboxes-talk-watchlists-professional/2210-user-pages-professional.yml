@@ -29,3 +29,25 @@ content: |
 
   When you're done, type a summary of what you just did where it says "Edit summary"
   at the bottom of the page and click "Publish changes".
+
+translations:
+  es:
+    title: Páginas de Usuario
+    content: |
+      Todas las personas con una cuenta en Wikipedia tienen una página de Usuario. Y todas las páginas de Usuario tienen sus propias páginas de Discusión. Aquí es donde puedes interactuar directamente con un editor en particular. Recibirán una notificación si les dejas un mensaje en su página personal de Discusión.
+
+      Puedes encontrar tu página de Usuario en la barra de menú superior derecha de Wikipedia siempre que estés conectado.
+
+      <figure class="alt-layout-100">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Upper_menu_on_English_Wikipedia.png" />
+      </figure>
+
+      Abre Wikipedia en otra pestaña, inicia sesión, y haz clic en tu nombre de usuario. Esto abrirá una ventana de edición para crear la nueva página. Intenta copiar y pegar esta frase en el editor:
+
+      <p style="margin-left: 40px">
+      <code>
+      Formo parte de un curso enseñado por Wiki Education que capacita a académicos en cómo editar Wikipedia. Para más información, visita wikiedu.org. Todas mis contribuciones son mías y me responsabilizo de ellas.
+      </code>
+      </p>
+
+      Cuando hayas terminado, escribe un resumen de lo que acabas de hacer donde dice "Editar resumen" en la parte inferior de la página y haz clic en "Publicar cambios".

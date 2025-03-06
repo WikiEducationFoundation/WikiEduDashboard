@@ -8,3 +8,11 @@ content: |
   of your topic, you should go ahead and move it into Wikipedia proper. In
   the next slides, we'll show you how.
 id: 2604
+
+translations:
+  es:
+    title: ¿Creando un artículo nuevo?
+    content: |
+      Si estás creando un artículo nuevo, el proceso es un poco diferente al de añadir algo a un artículo existente.
+
+      Una vez que tengas unos cuantos párrafos sólidos y bien documentados y una buena visión general de tu tema, deberías trasladarlo a Wikipedia en sí. En las siguientes diapositivas te mostraremos cómo hacerlo.

@@ -27,3 +27,19 @@ content: |
   says that people can't make something new out of the image, under any
   circumstance. That's not something we can promise on Wikipedia, so this type
   of restriction isn't allowed.
+
+translations:
+  es:
+    title: Tipos de licencias
+    content: |
+      Existen varios tipos de licencias libres que puedes utilizar en Wikipedia.
+
+      * CC BY-SA: Esto significa que es una licencia de "Atribución-CompartirIgual".
+      * CC BY: Significa que quieres recibir crédito por tu obra, incluyendo remezclas y modificaciones, pero no te importa si la nueva obra se comparte bajo la misma licencia.
+      * CC0: Esto significa que liberas tu obra sin ningún tipo de restricción. Pueden modificar, reutilizar y vender la obra sin darte crédito ni seguir una licencia similar.
+
+      Cuando buscas imágenes en el internet, puede que también veas que la gente haya creado una licencia "Sin uso comercial": CC BY-NC-SA. Esta licencia significa que el creador ha prohibido que esa obra se venda. Ese tipo de licencia NO está permitido para las imágenes de Wikipedia.
+
+      Wikipedia es una página web que cualquier persona puede utilizar por cualquier motivo. La gente puede usar copias de artículos para incluirlos en libros de texto, o como ejemplos en un libro sobre su tema. Una licencia No Comercial significa que la gente no puede usar la imagen en nada que pueda ser teóricamente vendido. Por eso estas licencias no pueden usarse en Wikipedia.
+
+      Otra licencia que hay que evitar son las licencias No Derivadas, o ND. Esta restricción dice que las personas no pueden hacer algo nuevo en base a la imagen, bajo ninguna circunstancia. Eso no es algo que podamos garantizar en Wikipedia, entonces este tipo de restricción no está permitida.
