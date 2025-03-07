@@ -77,8 +77,7 @@ const RevisionHandler = ({ course, courseScopedLimit }) => {
   };
 
   const toggleNewEditor = () => {
-    const toggledIsNewEditor = !isNewEditor;
-    setIsNewEditor(toggledIsNewEditor);
+    setIsNewEditor(curr => !curr);
   };
 
   const revisionFilterButtonText = () => {
