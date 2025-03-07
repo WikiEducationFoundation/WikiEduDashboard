@@ -48,7 +48,7 @@ module ArticleHelper
     return nil
   end
 
-  def view_count(first_revision, average_views, view_count)
+  def calculate_view_count(first_revision, average_views, view_count)
     # view_count AC Field is no longer used in the timeslice system
     # however, this is a hack to display article views for historical courses
     # that will not receive a new update
