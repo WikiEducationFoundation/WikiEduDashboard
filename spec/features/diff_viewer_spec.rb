@@ -18,8 +18,10 @@ describe 'difference viewer', type: :feature, js: true do
   it 'checks if renders details properly' do
     Capybara.using_wait_time 10 do
       visit "/courses/#{course.slug}/activity"
-
+      FileUtils.mkdir_p('tmp/screenshots')
+      save_screenshot('tmp/screenshots/renders_details_properly.png')
       expect(page).to have_css('button.icon-diff-viewer')
+      save_screenshot('tmp/screenshots/renders_details_properly_final.png')
     end
   end
 end
