@@ -486,6 +486,7 @@ describe 'the course page', type: :feature, js: true do
     it 'displays a list of edits' do
       Capybara.using_wait_time 10 do
         js_visit "/courses/#{slug}/activity"
+        FileUtils.mkdir_p('tmp/screenshots')
         save_screenshot('tmp/screenshots/activity_view.png')
         expect(page).to have_css('.revision', minimum: 5)
         save_screenshot('tmp/screenshots/activity_view_final.png')
