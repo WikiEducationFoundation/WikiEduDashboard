@@ -153,7 +153,8 @@ class CourseCloneManager
     :retain_available_articles,
     :stay_in_sandbox,
     :no_sandboxes,
-    :timeslice_duration
+    :timeslice_duration,
+    :is_monday_start
   ].freeze
   def add_flags
     FLAGS_TO_CARRY_OVER.each do |flag_key|

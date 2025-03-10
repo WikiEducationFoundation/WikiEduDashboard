@@ -481,6 +481,7 @@ const CourseCreator = createReactClass({
               showEventDatesState={this.state.showEventDates}
               stringPrefix={this.state.course_string_prefix}
               updateCourseProps={this.props.updateCourse}
+              updateCourseAction={this.updateCourse}
               enableTimeline={this.props.courseCreator.useStartAndEndTimes}
               // the following properties are only required when scopingModalEnabled is enabled
               // that is, when the selected course type is ArticleScopedProgram
