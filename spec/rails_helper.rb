@@ -8,6 +8,7 @@ require File.expand_path('../config/environment', __dir__)
 require 'rspec/rails'
 
 # Add additional requires below this line. Rails is not loaded until this point!
+require 'sentry/test_helper'
 require 'capybara/rails'
 require 'capybara/rspec'
 require 'capybara-screenshot/rspec'
@@ -62,6 +63,7 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true # This enables transactions for all tests
   config.global_fixtures = :all
 
+  config.include Sentry::TestHelper
   config.include Devise::Test::ControllerHelpers, type: :controller
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
