@@ -13,6 +13,7 @@
 ---
 hy:
   application:
+    back: Հետ
     cancel: Չեղարկել
     cookie_consent_acknowledge: Հասկանում եմ
     cookie_consent_see_more: Տեսնել ավելին
@@ -75,6 +76,9 @@ hy:
     explore: Ուսումնասիրել
     log_in: Մուտք գործել Վիքիպեդիա
     sign_up: Գրանցվել Վիքիպեդիայում
+    registration_advice:
+      additional_advice:
+        heading: Խորհուրդ
   alerts:
     alert_label: Հաղորդագրություններ
   activity:
@@ -119,8 +123,10 @@ hy:
     view_on_wiki: Դիտել Վիքիյում
     wiki: Վիքի
     articles_short: Հոդվածներ
+    view_articles: Դիտել հոդվածներ
   items:
     items: Տարրեր
+    lexeme: Բառույթ
     find: Գտնել տարրեր
   articles_wikidata:
     articles_short: Տարրեր
@@ -186,7 +192,7 @@ hy:
   categories:
     add_category: Ավելացնել կատեգորիա
     add_template: Ավելացնել կաղապար
-    add_this_category: Ավելացնել այս կատեգորիան
+    add_this_category: Ավելացնել կատեգորիաներ
     add_this_template: Ավելացնել այս կաղապարը
     articles_count: Հոդվածների հաշվիչ
     name: Անուն
@@ -255,11 +261,21 @@ hy:
       other: Կամավորներ
   course_instructor_notification:
     send_notification_button_text: Ուղարկել
+    write_subject: Թեմա
     write_message_placeholder: Հաղորդագրություն
   courses_generic:
+    all_courses: Բոլոր ծրագրերը
+    archived: Արխիվացված ծրագրեր
+    articles_i_am_reviewing: Հոդվածներ, որոնք ես վերանայում եմ
+    assignment_headings:
+      available_reviews: Հասանելի է վերանայման համար
+      available_reviews_wikidata: Հասանելի է վերանայման համար
+    assignment_end: Միջոցառման ավարտ
     assignments_none: Այս նախագծում չկան հանձնարարված հոդվածներ։
     assignment_start: Միջոցառման սկիզբ
     cancel: Չեղարկել
+    course: Ծրագիր
+    courses: Ծրագրեր
     creator:
       assignment_end_placeholder: ՏՏՏՏ-ԱԱ-ՕՕ
       assignment_start_placeholder: ՏՏՏՏ-ԱԱ-ՕՕ
@@ -274,6 +290,9 @@ hy:
       create_short: Ստեղծել նախագիծ
       find: Գտեք ծրագիր
       save_cloned_course: Հիշել
+      scoping_methods:
+        categories: Կատեգորիաներ
+        templates: Կաղապարներ
     edit_course_dates: Խմբագրել նախագծի ամսաթվերը
     enroll: Ավելացնել խմբագրին
     enrollment: Ավելացնել/հեռացնել խմբագիրներին
@@ -290,6 +309,7 @@ hy:
     uploads_none: Այս նախագծի շրջանակներում ոչ մի պատկեր կամ մեդիա նիշք չի բեռնվել
       Վիքիպահեստ։
     view_page: Դիտել էջը
+    yourcourses: Ձեր ծրագրերը
   editable:
     edit: Խմբագրել
     cancel: Չեղարկել
@@ -311,11 +331,13 @@ hy:
     edit_count_description: Ընդհանուր խմբագրումներ
     revisions: Վերջին խմբագրումներ
     references_count: Ավելացված ծանոթագրություններ
+    update_statistics_link: Տեսնել ավելին
     upload_count: Բեռնվել է Վիքիպահեստ
     view_count_description: Հոդվածի դիտումներ
     view: Դիտումներ
     word_count: Ավելացված բառեր
     general: Ընդհանուր
+    descriptions: Նկարագրություններ
     labels: Պիտակներ
     no_data: Տվյալներ չկան
     other_updates: Այլ թարմացումներ
@@ -346,6 +368,8 @@ hy:
   recent_activity:
     image: Պատկեր
   revisions:
+    class: Դաս
+    diff: տարբ
     diff_show: Ցուցադրել
     diff_hide: Թաքցնել
     edited_by: Խմբագրված
@@ -406,7 +430,7 @@ hy:
     assign_articles_done: Արված է
     assigned: Հանձնարարված հոդվածներ
     assignees: Կատարող(ներ)
-    contributions: Մասնակցի ներդրումներ
+    contributions: Մասնակցի ներդրումը
     contributions_more: Դիտել ավելի շատ ներդրումներ
     editors: Խմբագիրներ
     edits: խմբագրումներ

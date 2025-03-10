@@ -540,7 +540,8 @@ nl:
       medewerkers van Wiki Education. Na goedkeuring ontvangt u een inschrijvings-URL
       waarmee studenten deel kunnen nemen aan de cursus en toegang kunnen krijgen
       tot de trainingen. (Overigens kunt u ook later nog wijzigingen aanbrengen.)
-    revisions_doc: Het aantal bewerkingen in de afgelopen %{timeframe} dagen
+    revisions_doc: Het geschatte aantal bewerkingen in de afgelopen %{timeframe} dagen,
+      gebaseerd op het gemiddelde aantal bewerkingen per dag in de afgelopen periode.
     revisions_none: Deze cursus heeft geen recente bijbehorende Wikipediabewerkingen.
     school: School
     search_all_tickets_for_this_course: Alle tickets voor deze cursus zoeken
@@ -898,8 +899,9 @@ nl:
     no_articles: Geen artikelen
     profile: profiel
     recent_revisions: Recente bewerkingen
-    revisions_doc: Het aantal bewerkingen dat is gemaakt door deze redacteur in de
-      afgelopen 7 dagen
+    revisions_doc: Het geschatte aantal door deze redacteur in de afgelopen 7 dagen
+      aangebrachte bewerkingen, op basis van het gemiddelde aantal bewerkingen per
+      dag in de afgelopen periode.
     reviewers: Controleur(s)
     reviewing: Wordt gecontroleerd
     revisions: Versies
