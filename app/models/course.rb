@@ -376,6 +376,10 @@ class Course < ApplicationRecord
     assignments.pluck(:article_id)
   end
 
+  def assigned_article_page_ids(wiki)
+    @assigned_article_page_ids ||= Article.where(id: assigned_article_ids, wiki:).pluck(:mw_page_id)
+  end
+
   def category_article_ids
     categories.inject([]) { |ids, cat| ids + cat.article_ids }
   end
