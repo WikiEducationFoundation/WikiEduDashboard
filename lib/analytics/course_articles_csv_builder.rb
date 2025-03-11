@@ -37,8 +37,6 @@ class CourseArticlesCsvBuilder
       article_edits[:characters][edit.mw_rev_id] = edit.characters
       article_edits[:references][edit.mw_rev_id] = edit.references_added
       article_edits[:new_article] = true if edit.new_article
-      # highest view count of all revisions for this article is the total for the article
-      article_edits[:views] = edit.views if edit.views > article_edits[:views]
       article_edits[:username] = edit.user.username
       @articles_edited[edit.article_id] = article_edits
     end
@@ -49,7 +47,6 @@ class CourseArticlesCsvBuilder
     article = edit.article
     {
       new_article: false,
-      views: 0,
       characters: {},
       references: {},
       title: article.title,
@@ -74,7 +71,6 @@ class CourseArticlesCsvBuilder
     references_added
     new
     deleted
-    pageviews
     pageviews_link
   ].freeze
 
@@ -91,7 +87,6 @@ class CourseArticlesCsvBuilder
     row << references_sum(article_data)
     row << article_data[:new_article]
     row << article_data[:deleted]
-    row << article_data[:views]
     row << article_data[:pageview_url]
   end
   # rubocop:enable Metrics/AbcSize
