@@ -577,6 +577,16 @@ class Course < ApplicationRecord
     flags[:no_sandboxes].present?
   end
 
+  def assigned_articles
+    @assigned_articles ||= Article.where(id: assigned_article_ids).to_a
+  end
+
+  def assigned_articles_from_edit_data(assignment_wiki_id, mw_page_ids)
+    assigned_articles.filter do |article|
+      article.wiki_id == assignment_wiki_id && mw_page_ids.include?(article.mw_page_id)
+    end
+  end
+
   #################
   # Cache methods #
   #################

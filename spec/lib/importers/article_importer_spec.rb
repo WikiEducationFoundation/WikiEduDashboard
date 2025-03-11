@@ -125,8 +125,9 @@ describe ArticleImporter do
 
   describe '.import_articles_from_revision_data' do
     let(:revision_data) do
-      [{ 'mw_page_id' => '69830902', 'wiki_id' => 5, 'title' => 'Ar00', 'namespace' => '2' },
-       { 'mw_page_id' => '69830903', 'wiki_id' => 5, 'title' => 'Any title', 'namespace' => '1' }]
+      [{ 'mw_page_id' => '69830902', 'wiki_id' => es_wiki.id, 'title' => 'Ar00', 'namespace' => '2' },
+       { 'mw_page_id' => '69830903', 'wiki_id' => es_wiki.id, 'title' => 'Any title', 'namespace' => '1' },
+       { 'mw_page_id' => '69830904', 'wiki_id' => es_wiki.id, 'title' => 'New_title', 'namespace' => '0' }]
     end
 
     it 'creates all the Article records' do
@@ -136,12 +137,24 @@ describe ArticleImporter do
         described_class.new(es_wiki).import_articles_from_revision_data revision_data
         article_1 = Article.find_by(mw_page_id: 69830902)
         expect(article_1.title).to eq('Ar00')
-        expect(article_1.wiki_id).to eq(5)
+        expect(article_1.wiki_id).to eq(es_wiki.id)
         expect(article_1.namespace).to eq(2)
         article_2 = Article.find_by(mw_page_id: 69830903)
         expect(article_2.title).to eq('Any title')
-        expect(article_2.wiki_id).to eq(5)
+        expect(article_2.wiki_id).to eq(es_wiki.id)
         expect(article_2.namespace).to eq(1)
+      end
+    end
+
+    context 'when called for a course with assignments' do
+      let(:course) { create(:course) }
+      let(:article) { create(:article, wiki: es_wiki, mw_page_id: 69830904, title: 'Old_title') }
+      let!(:assignment) { create(:assignment, course:, article:, article_title: 'Old_title') }
+
+      it 'updates Article titles and updates Assignment titles to match' do
+        described_class.new(es_wiki, course).import_articles_from_revision_data revision_data
+        expect(article.reload.title).to eq('New_title')
+        expect(assignment.reload.article_title).to eq('New_title')
       end
     end
   end
