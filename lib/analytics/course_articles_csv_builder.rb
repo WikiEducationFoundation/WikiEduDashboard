@@ -57,7 +57,8 @@ class CourseArticlesCsvBuilder
       url: article.url,
       deleted: article.deleted,
       pageview_url: pageview_url(article),
-      wiki_domain: article.wiki.domain
+      wiki_domain: article.wiki.domain,
+      rating: article.rating
     }
   end
 
