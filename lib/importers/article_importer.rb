@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/assignment_updater"
 require_dependency "#{Rails.root}/lib/replica"
 
 #= Imports articles from Wikipedia into the dashboard database
@@ -40,9 +41,20 @@ class ArticleImporter
   # ...
   # {"mw_page_id"=>"69834562", "wiki_id"=>1, "title"=>"Some article", "namespace"=>"1"}]
   # Creates article records with that data.
+  # Update assignments for articles as side effect.
   def import_articles_from_revision_data(data)
     # We rely on the unique index here, mw_page_id and wiki_id
     Article.import data, on_duplicate_key_update: [:title, :namespace]
+
+    # Recover recently imported articles
+    imported = data.map { |d| [d['mw_page_id'], d['wiki_id']] }
+    # Get the articles with specific mw_page_id and wiki_id
+    articles = imported.each_slice(1000).flat_map do |batch|
+      Article.where(batch.map { '(mw_page_id = ? AND wiki_id = ?)' }.join(' OR '), *batch.flatten)
+    end
+
+    # Update assignments
+    articles.each { |article| AssignmentUpdater.update_assignments_for_article(article) }
   end
 
   private
