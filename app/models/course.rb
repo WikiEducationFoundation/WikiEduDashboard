@@ -356,16 +356,19 @@ class Course < ApplicationRecord
     revisions
   end
 
-  def scoped_article_titles
-    assigned_article_titles + category_article_titles
+  def scoped_article_titles(wiki)
+    assigned_article_titles(wiki) + category_article_titles(wiki)
   end
 
-  def assigned_article_titles
-    assignments.pluck(:article_title)
+  def assigned_article_titles(wiki)
+    @assigned_article_titles ||= {}
+    @assigned_article_titles[wiki] ||= assignments.where(wiki:).pluck(:article_title)
   end
 
-  def category_article_titles
-    categories.inject([]) { |ids, cat| ids + cat.article_titles }
+  def category_article_titles(wiki)
+    @category_article_titles ||= {}
+    @category_article_titles[wiki] ||= categories.where(wiki:)
+                                                 .inject([]) { |ids, cat| ids + cat.article_titles }
   end
 
   def scoped_article_ids
