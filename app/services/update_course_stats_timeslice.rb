@@ -108,7 +108,7 @@ class UpdateCourseStatsTimeslice
                                          'end_time' => @end_time.to_datetime,
                                          'sentry_tag_uuid' => sentry_tag_uuid,
                                          'error_count' => error_count,
-                                         'proccesed' => @processed,
+                                         'processed' => @processed,
                                          'reprocessed' => @reprocessed)
   end
 
