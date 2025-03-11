@@ -380,7 +380,7 @@ class Course < ApplicationRecord
   end
 
   def assigned_article_page_ids(wiki)
-    @assigned_article_page_ids || {}
+    @assigned_article_page_ids ||= {}
     @assigned_article_page_ids[wiki] ||= Article.where(id: assigned_article_ids, wiki:)
                                                 .pluck(:mw_page_id)
   end
