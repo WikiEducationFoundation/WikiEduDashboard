@@ -125,9 +125,12 @@ describe ArticleImporter do
 
   describe '.import_articles_from_revision_data' do
     let(:revision_data) do
-      [{ 'mw_page_id' => '69830902', 'wiki_id' => es_wiki.id, 'title' => 'Ar00', 'namespace' => '2' },
-       { 'mw_page_id' => '69830903', 'wiki_id' => es_wiki.id, 'title' => 'Any title', 'namespace' => '1' },
-       { 'mw_page_id' => '69830904', 'wiki_id' => es_wiki.id, 'title' => 'New_title', 'namespace' => '0' }]
+      [{ 'mw_page_id' => '69830902', 'wiki_id' => es_wiki.id,
+         'title' => 'Ar00', 'namespace' => '2' },
+       { 'mw_page_id' => '69830903', 'wiki_id' => es_wiki.id,
+         'title' => 'Any title', 'namespace' => '1' },
+       { 'mw_page_id' => '69830904', 'wiki_id' => es_wiki.id,
+         'title' => 'New_title', 'namespace' => '0' }]
     end
 
     it 'creates all the Article records' do
