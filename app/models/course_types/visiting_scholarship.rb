@@ -78,8 +78,8 @@ class VisitingScholarship < Course
     true
   end
 
-  def scoped_article_titles
-    assigned_article_titles
+  def scoped_article_titles(wiki)
+    assigned_article_titles(wiki)
   end
 
   def scoped_article_ids
