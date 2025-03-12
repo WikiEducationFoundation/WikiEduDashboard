@@ -104,4 +104,13 @@ describe CheckAssignmentStatus do
       expect(assignment_2.reload.peer_review_sandbox_status).to eq('exists_in_userspace')
     end
   end
+
+  describe '#page_present?' do
+    let(:sandbox_url) { 'https://en.wikipedia.org/wiki/User:Ragesock/student_sandbox' }
+    context 'when there is no page_info' do
+      it 'should return false' do
+        expect(subject.page_present?(nil)).to eq(false)
+      end
+    end
+  end
 end
