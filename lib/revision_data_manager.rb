@@ -17,7 +17,9 @@ class RevisionDataManager
     @importer = RevisionScoreImporter.new(wiki:, course:, update_service:)
   end
 
-  INCLUDED_NAMESPACES = [0, 2, 118].freeze
+  INCLUDED_NAMESPACES = [Article::Namespaces::MAINSPACE,
+                         Article::Namespaces::USER,
+                         Article::Namespaces::DRAFT].freeze
   # This method gets revisions and scores for them from different APIs.
   # Returns an array of Revision records.
   # As a side effect, it imports Article records.
