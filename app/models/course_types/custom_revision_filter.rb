@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require "#{Rails.root}/lib/article_utils"
 
 module CustomRevisionFilter
   # This module contains the shared logic for ArticleScopedCourse
