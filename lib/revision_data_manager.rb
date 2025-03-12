@@ -5,7 +5,6 @@ require_dependency "#{Rails.root}/lib/importers/article_importer"
 require_dependency "#{Rails.root}/app/helpers/encoding_helper"
 require_dependency "#{Rails.root}/lib/importers/revision_score_importer"
 require_dependency "#{Rails.root}/lib/duplicate_article_deleter"
-require_dependency "#{Rails.root}/app/models/wiki_content/article"
 
 #= Fetches revision data from API
 class RevisionDataManager
@@ -18,9 +17,7 @@ class RevisionDataManager
     @importer = RevisionScoreImporter.new(wiki:, course:, update_service:)
   end
 
-  INCLUDED_NAMESPACES = [Article::Namespaces::MAINSPACE,
-                         Article::Namespaces::USER,
-                         Article::Namespaces::DRAFT].freeze
+  INCLUDED_NAMESPACES = [0, 2, 118].freeze
   # This method gets revisions and scores for them from different APIs.
   # Returns an array of Revision records.
   # As a side effect, it imports Article records.
