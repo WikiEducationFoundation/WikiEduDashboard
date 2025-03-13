@@ -74,6 +74,8 @@ module WikiEduDashboard
 
         # For use by external wiki tools
         resource '/courses/*/*', :headers => :any, methods: [:get, :options]
+        resource '/users/*', :headers => :any, methods: [:get, :options]
+
       end
     end
   end
