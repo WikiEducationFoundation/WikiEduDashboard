@@ -7,6 +7,7 @@
 # Author: Neriman2003
 # Author: Vesely35
 # Author: Şeyx Şamil
+# Author: Əkrəm
 ---
 az:
   number:
@@ -39,8 +40,8 @@ az:
     field_invalid_date: Bu sahə YYYY-MM-DD formatında bir tarix tələb edir
     field_invalid_date_time: Bitmə tarixi başlanğıcdan sonra olmalıdır. (Saatlar 0-dan
       23-ə qədər qəbul edilir.)
-    greeting2: Xoş gəldiniz!
-    greeting_extended: Vikipediyaya xoş gəldiniz
+    greeting2: Xoş gəlmisiniz!
+    greeting_extended: Vikipediyaya xoş gəlmisiniz
     greeting: Salam!
     help: Kömək
     home: Ana səhifə
