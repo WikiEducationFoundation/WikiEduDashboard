@@ -146,7 +146,7 @@ class ArticleStatusManagerTimeslice
       # because the page was moved rather than deleted.
       next unless @deleted_page_ids.include? article.reload.mw_page_id
       article.update(deleted: true)
-      AssignmentUpdater.update_assignments_for_article(article)
+      AssignmentUpdater.clean_assignment_for_deleted_article(article)
     end
   end
 
@@ -217,7 +217,7 @@ class ArticleStatusManagerTimeslice
       # Catches case where update_constantly has
       # already added this article under a new ID
       article.update(deleted: true)
-      AssignmentUpdater.update_assignments_for_article(article)
+      AssignmentUpdater.clean_assignment_for_deleted_article(article)
     else
       article.update(mw_page_id:)
     end

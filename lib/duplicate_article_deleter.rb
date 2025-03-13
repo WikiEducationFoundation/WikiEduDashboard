@@ -75,7 +75,7 @@ class DuplicateArticleDeleter
     deleted = articles.where.not(id: keeper.id).select { |article| article.title == keeper.title }
     deleted.each do |article|
       article.update(deleted: true)
-      AssignmentUpdater.update_assignments_for_article(article)
+      AssignmentUpdater.clean_assignment_for_deleted_article(article)
     end
     deleted.map(&:id)
   end
