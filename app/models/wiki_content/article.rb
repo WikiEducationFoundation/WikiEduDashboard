@@ -159,6 +159,11 @@ class Article < ApplicationRecord
     WikiApi.new(wiki).get_page_content(escaped_full_title)
   end
 
+  def mark_deleted!
+    update(deleted: true)
+    AssignmentUpdater.clean_assignment_for_deleted_article(self)
+  end
+
   private
 
   def set_defaults_and_normalize

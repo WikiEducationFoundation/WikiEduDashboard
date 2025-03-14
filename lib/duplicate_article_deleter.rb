@@ -73,10 +73,7 @@ class DuplicateArticleDeleter
 
     # Here we must verify that the titles match, since searching by title is case-insensitive.
     deleted = articles.where.not(id: keeper.id).select { |article| article.title == keeper.title }
-    deleted.each do |article|
-      article.update(deleted: true)
-      AssignmentUpdater.clean_assignment_for_deleted_article(article)
-    end
+    deleted.each(&:mark_deleted!)
     deleted.map(&:id)
   end
 end
