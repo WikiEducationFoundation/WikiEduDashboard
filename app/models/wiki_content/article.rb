@@ -22,6 +22,7 @@
 #
 
 require_dependency "#{Rails.root}/lib/importers/article_importer"
+require_dependency "#{Rails.root}/lib/assignment_updater"
 
 #= Article model
 class Article < ApplicationRecord
@@ -157,6 +158,11 @@ class Article < ApplicationRecord
 
   def fetch_page_content
     WikiApi.new(wiki).get_page_content(escaped_full_title)
+  end
+
+  def mark_deleted!
+    update(deleted: true)
+    AssignmentUpdater.clean_assignment_for_deleted_article(self)
   end
 
   private
