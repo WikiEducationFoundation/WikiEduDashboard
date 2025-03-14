@@ -22,6 +22,7 @@
 #
 
 require_dependency "#{Rails.root}/lib/importers/article_importer"
+require_dependency "#{Rails.root}/lib/assignment_updater"
 
 #= Article model
 class Article < ApplicationRecord
