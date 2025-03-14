@@ -44,6 +44,24 @@ describe ArticleStatusManagerTimeslice do
       end
     end
 
+    it 'cleans associated Assignment records for deleted articles' do
+      VCR.use_cassette 'article_status_manager/main' do
+        article = create(:article,
+                         id: 1,
+                         mw_page_id: 1,
+                         title: 'Noarticle',
+                         namespace: 0,
+                         updated_at: 2.days.ago)
+        assignment = create(:assignment, article_title: 'Noarticle', article:, course:)
+        expect(assignment.article_id).to eq(article.id)
+        create(:article_course_timeslice, course:, article_id: 1,
+               start: 2.days.ago.beginning_of_day, end: 1.day.ago.beginning_of_day)
+        described_class.update_article_status_for_course(course)
+        expect(Article.find(1).deleted).to be true
+        expect(assignment.reload.article_id).to eq(nil)
+      end
+    end
+
     it 'updates the mw_page_ids of articles' do
       VCR.use_cassette 'article_status_manager/mw_page_ids' do
         # en.wikipedia - article 100 does not exist
@@ -110,6 +128,31 @@ describe ArticleStatusManagerTimeslice do
         expect(course.article_course_timeslices.first.article_id).to eq(848)
         expect(course.course_wiki_timeslices.first.needs_update).to eq(true)
         expect(course.course_wiki_timeslices.second.needs_update).to eq(false)
+      end
+    end
+
+    it 'cleans associated Assignment records when id changed but new one already exists' do
+      VCR.use_cassette 'article_status_manager/deleted_new_exists' do
+        article = create(:article,
+                         id: 100,
+                         mw_page_id: 100,
+                         title: 'Audi',
+                         namespace: 0,
+                         updated_at: 2.days.ago)
+        assignment = create(:assignment, article_title: 'Noarticle', article:, course:)
+        create(:article_course_timeslice, course:, article_id: 100,
+               start: 2.days.ago.beginning_of_day, end: 1.day.ago.beginning_of_day)
+        create(:article,
+               id: 848,
+               mw_page_id: 848,
+               title: 'Audi',
+               namespace: 0)
+        create(:article_course_timeslice, course:, article_id: 848,
+               start: 3.days.ago.beginning_of_day, end: 2.days.ago.beginning_of_day)
+
+        expect(assignment.article_id).to eq(article.id)
+        described_class.update_article_status_for_course(course)
+        expect(assignment.reload.article_id).to eq(nil)
       end
     end
 
