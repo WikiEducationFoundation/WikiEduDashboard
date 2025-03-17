@@ -61,6 +61,36 @@ describe AssignmentUpdater do
     end
   end
 
+  describe '.update_assignments_for_article' do
+    context 'when two assignments for the same article id exist' do
+      let!(:article) { create(:article, title: 'Deep_Sea_Fishing') }
+
+      # Set both assignments to the same article id but different title
+      let!(:assignment) do
+        create(:assignment, course_id: course.id,
+                            user_id: user.id,
+                            role: 0,
+                            article_id: article.id,
+                            article_title: 'Deep_Sea_Fishing')
+      end
+      let!(:duplicate_assignment) do
+        create(:assignment, course_id: course.id,
+                            user_id: user.id,
+                            role: 0,
+                            article_id: article.id,
+                            article_title: 'DSF')
+      end
+
+      it 'cleans the article id for duplicate one and does not raise an error' do
+        described_class.update_assignments_for_article(article)
+        expect(Assignment.find(assignment.id).article_title).to eq('Deep_Sea_Fishing')
+        expect(Assignment.find(assignment.id).article_id).to eq(article.id)
+        expect(Assignment.find(duplicate_assignment.id).article_title).to eq('DSF')
+        expect(Assignment.find(duplicate_assignment.id).article_id).to eq(nil)
+      end
+    end
+  end
+
   describe '.clean_assignment_for_deleted_article' do
     it 'sets article_id to nil for article assignments' do
       deleted_article = create(:article, title: 'Deep_Sea_Fishing', deleted: true)
