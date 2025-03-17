@@ -81,7 +81,7 @@ describe AssignmentUpdater do
                             article_title: 'DSF')
       end
 
-      it 'clean the article id and does not raise an error' do
+      it 'cleans the article id for duplicate one and does not raise an error' do
         described_class.update_assignments_for_article(article)
         expect(Assignment.find(assignment.id).article_title).to eq('Deep_Sea_Fishing')
         expect(Assignment.find(assignment.id).article_id).to eq(article.id)
