@@ -20,6 +20,12 @@ class AssignmentUpdater
   def self.update_assignment_from_article(assignment, article)
     assignment.article_id = article.id
     assignment.article_title = article.title # update assignment to match case
+    assignment.save!
+  rescue ActiveRecord::RecordInvalid
+    # If there is already an assignment for article_title/course_id/user_id/role/wiki_id,
+    # then clean the article id
+    assignment.reload
+    assignment.article_id = nil
     assignment.save
   end
 
