@@ -20,6 +20,14 @@ describe 'campaign overview page', type: :feature, js: true do
            description: 'This is the best campaign')
   end
 
+  before do
+    travel_to Time.zone.local(2016, 0o1, 0o5, 0o1, 0o4, 44)
+  end
+
+  after do
+    travel_back
+  end
+
   describe 'header' do
     before do
       campaign_two = create(:campaign_two)
