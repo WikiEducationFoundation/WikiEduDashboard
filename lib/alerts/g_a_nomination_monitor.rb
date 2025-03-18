@@ -14,11 +14,11 @@ class GANominationMonitor
     find_pending_ga_nominations
     extract_page_titles_from_nominations
     normalize_titles
+    set_article_ids
   end
 
   def create_alerts_from_page_titles
-    course_articles = ArticlesCourses.joins(:article)
-                                     .where(articles: { title: @page_titles, wiki_id: @wiki.id })
+    course_articles = ArticlesCourses.where(article_id: @article_ids)
     course_articles.each do |articles_course|
       create_alert(articles_course)
     end
@@ -46,6 +46,10 @@ class GANominationMonitor
     end
     @page_titles.compact!
     @page_titles.uniq!
+  end
+
+  def set_article_ids
+    @article_ids = Article.where(title: @page_titles, wiki_id: @wiki.id).pluck(:id)
   end
 
   def create_alert(articles_course)
