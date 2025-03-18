@@ -5,6 +5,14 @@ require 'rails_helper'
 describe 'campaigns page', type: :feature, js: true do
   let(:user) { create(:user) }
 
+  before do
+    travel_to Time.zone.local(2016, 0o1, 0o5, 0o1, 0o4, 44)
+  end
+
+  after do
+    travel_back
+  end
+
   context 'hiding campaign creation' do
     it 'does not show the create button if the feature flag is off' do
       allow(Features).to receive(:open_course_creation?).and_return(false)
