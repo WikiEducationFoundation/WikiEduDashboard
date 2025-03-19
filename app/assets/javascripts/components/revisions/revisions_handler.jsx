@@ -85,7 +85,7 @@ const RevisionHandler = ({ course, courseScopedLimit }) => {
   };
 
   const newEditorFilterButtonText = () => {
-    return isNewEditor ? 'Show all' : 'Show new Editors';
+    return isNewEditor ? I18n.t('revisions.show_all') : I18n.t('revisions.show_only_new_editors');
   };
 
   const sortSelect = (e) => {

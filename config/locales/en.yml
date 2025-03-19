@@ -1246,6 +1246,7 @@ en:
     see_more: See more
     show_all: Show All
     show_course_specific: Show Course Specific
+    show_only_new_editors: Show Only New Editors
 
   resources:
     label: Resources
