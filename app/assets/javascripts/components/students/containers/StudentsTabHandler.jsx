@@ -1,5 +1,4 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Navigate, Route, Routes } from 'react-router-dom';
@@ -20,58 +19,62 @@ import CourseUtils from '~/app/assets/javascripts/utils/course_utils.js';
 import { getArticlesByNewness } from '~/app/assets/javascripts/selectors';
 import { delayFetchAssignmentsAndArticles } from '@components/util/helpers';
 
-const StudentsTabHandler = createReactClass({
-  displayName: 'StudentsTabHandler',
+const StudentsTabHandler = ({
+  course_id,
+  current_user,
+  course,
+  loadingAssignments,
+}) => {
+  const [loading, setLoading] = useState(true);
 
-  propTypes: {
-    course_id: PropTypes.string,
-    current_user: PropTypes.object,
-    course: PropTypes.object,
-    sortUsers: PropTypes.func.isRequired,
-    fetchAssignments: PropTypes.func.isRequired,
-    loadingAssignments: PropTypes.bool
-  },
+  useEffect(() => {
+    delayFetchAssignmentsAndArticles({ fetchAssignments, fetchArticles }, () => setLoading(false));
+  }, [fetchAssignments, fetchArticles]);
 
-  getInitialState() {
-    return { loading: true };
-  },
-
-  componentDidMount() {
-    delayFetchAssignmentsAndArticles(this.props, () => this.setState({ loading: false }));
-  },
-
-  notify() {
+  const notify = () => {
     if (confirm(I18n.t('wiki_edits.notify_overdue.confirm'))) {
-      return this.props.notifyOverdue(this.props.course.slug);
+      return notifyOverdue(course.slug);
     }
-  },
+  };
 
-  sortSelect(e) {
-    return this.props.sortUsers(e.target.value);
-  },
+  const sortSelect = (e) => { sortUsers(e.target.value); };
 
-  render() {
-    if (this.state.loading) return <Loading />;
+  if (loading) return <Loading />;
 
-    const prefix = CourseUtils.i18n('students', this.props.course.string_prefix);
-    const props = {
-      ...this.props,
-      prefix,
-      notify: this.notify,
-      sortSelect: this.sortSelect
-    };
-    return (
-      <div id="users">
-        <Routes>
-          <Route path="overview/*" element={<Overview {...props} />} />
-          <Route path="articles/*" element={<Articles {...props} />} />
-          <Route path="*" element={<Navigate replace to="overview"/>} />
-        </Routes>
-      </div>
-    );
-  }
-}
-);
+  const prefix = CourseUtils.i18n('students', course.string_prefix);
+  const props = {
+    course_id,
+    current_user,
+    course,
+    sortUsers,
+    fetchAssignments,
+    loadingAssignments,
+    prefix,
+    notify,
+    sortSelect
+  };
+
+  return (
+    <div id="users">
+      <Routes>
+        <Route path="overview/*" element={<Overview {...props} />} />
+        <Route path="articles/*" element={<Articles {...props} />} />
+        <Route path="*" element={<Navigate replace to="overview"/>} />
+      </Routes>
+    </div>
+  );
+};
+
+StudentsTabHandler.propTypes = {
+  course_id: PropTypes.string,
+  current_user: PropTypes.object,
+  course: PropTypes.object,
+  sortUsers: PropTypes.func.isRequired,
+  fetchAssignments: PropTypes.func.isRequired,
+  loadingAssignments: PropTypes.bool,
+  notifyOverdue: PropTypes.func.isRequired,
+  fetchArticles: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = state => ({
   articles: getArticlesByNewness(state),
