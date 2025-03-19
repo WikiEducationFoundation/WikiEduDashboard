@@ -143,15 +143,13 @@ const RevisionHandler = ({ course, courseScopedLimit }) => {
     }
     return revisions;
   };
-
-
   return (
     <div id="revisions">
       <div className="section-header">
         <h3>{I18n.t('application.recent_activity')}</h3>
         <div>
           {course.article_count <= ARTICLE_FETCH_LIMIT && revisionFilterButton}
-          {editorFilterButton}
+          {course.type !== 'ClassroomProgramCourse' && editorFilterButton}
         </div>
         <div className="sort-container">
           <Select
