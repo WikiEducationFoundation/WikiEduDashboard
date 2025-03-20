@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 require_dependency "#{Rails.root}/lib/replica"
 require_dependency "#{Rails.root}/lib/importers/revision_importer"
-require_dependency "#{Rails.root}/lib/timeslice_manager"
 require_dependency "#{Rails.root}/lib/revision_data_manager"
 
 #= Fetches and imports new revisions for courses and creates ArticlesCourses records
@@ -10,41 +9,14 @@ class CourseRevisionUpdater
   # Entry point #
   ###############
   def self.import_revisions(course, all_time:, update_service: nil)
-    return if no_point_in_importing_revisions?(course)
-    new(course, update_service:).update_revisions_for_relevant_wikis(all_time)
+    updater = new(course, update_service:)
+    return if updater.no_point_in_importing_revisions?
+    updater.update_revisions_for_relevant_wikis(all_time)
     ArticlesCourses.update_from_course(course)
-  end
-
-  # Returns a hash with start, end and revisions fetched by wiki or an empty
-  # hash if no point in importing revisions.
-  # Example:
-  # {wiki0 => {:start=>"20160320", :end=>"20160401", :revisions=>[...]},
-  # ...,
-  # wikiN => {:start=>"20160328", :end=>"20160401", :revisions=>[...]}}
-  def self.fetch_revisions_and_scores_for_wiki(course, wiki, ts_start, ts_end, update_service: nil)
-    return {} if no_point_in_importing_revisions?(course)
-    revision_data = new(course, update_service:)
-                    .fetch_revisions_and_scores_for_wiki_timeslice(wiki, ts_start, ts_end)
-    # Get an array with all revisions
-    revisions = revision_data.values.flat_map { |data| data[:revisions] }.flatten
-    ArticlesCourses.update_from_course_revisions(course, revisions)
-    revision_data
-  end
-
-  def self.no_point_in_importing_revisions?(course)
-    return true if course.students.empty?
-    # If there are no assignments or categories being tracked,
-    # there's no point in importing revisions.
-    # This avoids treating every update as a 'new users' update
-    # for an ArcticleScopedProgram with highly active users
-    # but no tracked articles.
-    return false unless course.type == 'ArticleScopedProgram'
-    course.assignments.none? && course.categories.none?
   end
 
   def initialize(course, update_service: nil)
     @course = course
-    @timeslice_manager = TimesliceManager.new(course)
     @update_service = update_service
   end
 
@@ -55,16 +27,79 @@ class CourseRevisionUpdater
     end
   end
 
-  def fetch_revisions_and_scores_for_wiki_timeslice(wiki, timeslice_start, timeslice_end)
+  def no_point_in_importing_revisions?
+    return true if @course.students.empty?
+    # If there are no assignments or categories being tracked,
+    # there's no point in importing revisions.
+    # This avoids treating every update as a 'new users' update
+    # for an ArcticleScopedProgram with highly active users
+    # but no tracked articles.
+    return false unless @course.type == 'ArticleScopedProgram'
+    @course.assignments.none? && @course.categories.none?
+  end
+
+  # Returns a hash with start, end, new_data and revisions fetched by wiki or an empty
+  # hash if no point in importing revisions.
+  # Example:
+  # {wiki0 => {:start=>"20160320", :end=>"20160401", :new_data=>true, :revisions=>[...]}}
+  # If the only_new argument is true, revisions scores will only be fetched if there are new
+  # revisions for that timeslice. The new_data field is true if new revisions were found.
+  # This optimization was added to improve performance.
+  def fetch_data_for_course_wiki(wiki, ts_start, ts_end, only_new: false)
+    return {} if no_point_in_importing_revisions?
+    revision_data = get_data(wiki, ts_start, ts_end, only_new:)
+    # Get an array with all revisions
+    revisions = revision_data.values.flat_map { |data| data[:revisions] }.flatten
+    ArticlesCourses.update_from_course_revisions(@course, revisions)
+    revision_data
+  end
+
+  private
+
+  def get_data(wiki, ts_start, ts_end, only_new:)
+    revision_data, new_revisions = fetch_data(wiki, ts_start, ts_end, only_new:)
+    build_response(wiki, ts_start, ts_end, revision_data, new_revisions)
+  end
+
+  def build_response(wiki, timeslice_start, timeslice_end, revision_data, new_revisions)
     # Fetches revision for wiki
     results = {}
     revisions = {}
     revisions[:start] = timeslice_start
     revisions[:end] = timeslice_end
-    revisions[:revisions] = RevisionDataManager
-                            .new(wiki, @course, update_service: @update_service)
-                            .fetch_revision_data_for_course(timeslice_start, timeslice_end)
+    revisions[:new_data] = new_revisions
+    revisions[:revisions] = revision_data
     results[wiki] = revisions
     results
+  end
+
+  # Fetches revisions and maybe scores for them.
+  # Returns revisions and a boolean indicating if new revisions were found (always
+  # true if only_new is false).
+  def fetch_data(wiki, timeslice_start, timeslice_end, only_new: false)
+    manager = RevisionDataManager.new(wiki, @course, update_service: @update_service)
+    revisions = manager.fetch_revision_data_for_course(timeslice_start, timeslice_end)
+    new_revisions = new_revisions?(revisions, wiki, timeslice_start, timeslice_end) if only_new
+    # Do not fetch scores if we're only interested in new revisions and there are no new revisions
+    return revisions, false if only_new && !new_revisions
+    return manager.fetch_score_data_for_course(revisions), true
+  end
+
+  # Determines if there is any new revisions for the given timeslice
+  def new_revisions?(revisions, wiki, timeslice_start, timeslice_end)
+    live_revisions = revisions.reject(&:system)
+    revision_count = live_revisions.count
+    puts "Start: #{timeslice_start}, end: #{timeslice_end}"
+    timeslice = CourseWikiTimeslice.for_course_and_wiki(@course, wiki)
+                                   .where(start: timeslice_start)
+                                   # .where(end: timeslice_end)
+                                   .first
+    puts "Start: #{timeslice.start}, end: #{timeslice.end}"
+
+    # Log error if no timeslice is found (or more than once)
+    latest_revision = revisions.maximum(:date)
+    puts "revision_count: #{revision_count} vs #{timeslice.revision_count}"
+    puts "latest_revision: #{latest_revision} vs #{timeslice.last_mw_rev_datetime}"
+    revision_count != timeslice.revision_count || latest_revision != timeslice.last_mw_rev_datetime
   end
 end
