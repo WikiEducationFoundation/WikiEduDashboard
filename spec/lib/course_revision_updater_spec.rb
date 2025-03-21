@@ -139,7 +139,7 @@ describe CourseRevisionUpdater do
       it 'fetches all the revisions with scores if only_new is false' do
         VCR.use_cassette 'course_revision_updater' do
           revision_data = instance_class.fetch_data_for_course_wiki(wiki, start_date, end_date)
-          # add expect for :new_data
+          expect(revision_data[wiki][:new_data]).to eq(true)
           revisions = revision_data.values.flat_map { |data| data[:revisions] }.flatten
           expect(revisions.count).to eq(3)
 
@@ -166,6 +166,7 @@ describe CourseRevisionUpdater do
         VCR.use_cassette 'course_revision_updater' do
           revision_data = instance_class.fetch_data_for_course_wiki(wiki, start_date, end_date,
                                                                     only_new: true)
+          expect(revision_data[wiki][:new_data]).to eq(true)
           revisions = revision_data.values.flat_map { |data| data[:revisions] }.flatten
           puts revisions.inspect
           expect(revisions.count).to eq(3)
@@ -191,11 +192,13 @@ describe CourseRevisionUpdater do
 
       it 'does not fetch scoress if only_new is true and no new revisions' do
         # complete the timeslice
+        last_mw_rev_datetime = '2016-03-31 19:50:54'.to_datetime
         course.course_wiki_timeslices.update(revision_count: 3,
-                                             last_mw_rev_datetime: '2016-03-31 19:50:54'.to_datetime)
+                                             last_mw_rev_datetime:)
         VCR.use_cassette 'course_revision_updater' do
           revision_data = instance_class.fetch_data_for_course_wiki(wiki, start_date, end_date,
                                                                     only_new: true)
+          expect(revision_data[wiki][:new_data]).to eq(false)
           revisions = revision_data.values.flat_map { |data| data[:revisions] }.flatten
           puts revisions.inspect
           expect(revisions.count).to eq(3)
