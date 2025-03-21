@@ -222,6 +222,7 @@ describe 'campaign overview page', type: :feature, js: true do
           find('#use_dates').click # uncheck
           find('#campaign_start', visible: false)
           find('.campaign-details .rails_editable-save').click
+          expect(page).to have_content 'Campaign updated'
           find('.campaign-start', visible: false)
           expect(campaign.reload.start).to be_nil
           expect(campaign.end).to be_nil
