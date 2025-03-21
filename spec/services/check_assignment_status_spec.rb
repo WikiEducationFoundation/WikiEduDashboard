@@ -107,8 +107,9 @@ describe CheckAssignmentStatus do
 
   describe '#page_present?' do
     let(:sandbox_url) { 'https://en.wikipedia.org/wiki/User:Ragesock/student_sandbox' }
+
     context 'when there is no page_info' do
-      it 'should return false' do
+      it 'returns false' do
         expect(subject.page_present?(nil)).to eq(false)
       end
     end
