@@ -168,7 +168,6 @@ describe CourseRevisionUpdater do
                                                                     only_new: true)
           expect(revision_data[wiki][:new_data]).to eq(true)
           revisions = revision_data.values.flat_map { |data| data[:revisions] }.flatten
-          puts revisions.inspect
           expect(revisions.count).to eq(3)
 
           expected_article = Article.find_by(wiki_id: 1,
@@ -200,7 +199,6 @@ describe CourseRevisionUpdater do
                                                                     only_new: true)
           expect(revision_data[wiki][:new_data]).to eq(false)
           revisions = revision_data.values.flat_map { |data| data[:revisions] }.flatten
-          puts revisions.inspect
           expect(revisions.count).to eq(3)
 
           expected_article = Article.find_by(wiki_id: 1,
