@@ -75,7 +75,7 @@ class CourseRevisionUpdater
   def fetch_data(wiki, timeslice_start, timeslice_end, only_new: false)
     manager = RevisionDataManager.new(wiki, @course, update_service: @update_service)
     revisions = manager.fetch_revision_data_for_course(timeslice_start, timeslice_end)
-    new_revisions = new_revisions?(revisions, wiki, timeslice_start, timeslice_end) if only_new
+    new_revisions = new_revisions?(revisions, wiki, timeslice_start) if only_new
     # Do not fetch scores if we're only interested in new revisions and there are no new revisions
     return revisions, false if only_new && !new_revisions
     return manager.fetch_score_data_for_course(revisions), true
@@ -83,20 +83,23 @@ class CourseRevisionUpdater
 
   # Determines if there are new revisions, based on the number of revisions and the
   # last revision datetime.
-  def new_revisions?(revisions, wiki, timeslice_start, timeslice_end)
+  def new_revisions?(revisions, wiki, timeslice_start)
     live_revisions = revisions.reject(&:system)
     revision_count = live_revisions.count
-    puts "Start: #{timeslice_start}, end: #{timeslice_end}"
     timeslice = CourseWikiTimeslice.for_course_and_wiki(@course, wiki)
                                    .where(start: timeslice_start)
-                                   # .where(end: timeslice_end)
                                    .first
-    puts "Start: #{timeslice.start}, end: #{timeslice.end}"
+    if timeslice.nil?
+      # This scenario is unexpected, so we log the message to understand why this happens.
+      Sentry.capture_message 'No timeslice found for revision date',
+                             level: 'warning',
+                             extra: { course_name: @course.slug,
+                                       wiki: wiki.id,
+                                       date: timeslice_start }
+      return true
+    end
 
-    # Log error if no timeslice is found (or more than once)
     latest_revision = revisions.maximum(:date)
-    puts "revision_count: #{revision_count} vs #{timeslice.revision_count}"
-    puts "latest_revision: #{latest_revision} vs #{timeslice.last_mw_rev_datetime}"
     revision_count != timeslice.revision_count || latest_revision != timeslice.last_mw_rev_datetime
   end
 end
