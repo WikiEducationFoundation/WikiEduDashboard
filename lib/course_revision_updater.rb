@@ -34,7 +34,7 @@ class CourseRevisionUpdater
     # This avoids treating every update as a 'new users' update
     # for an ArcticleScopedProgram with highly active users
     # but no tracked articles.
-    return false unless @course.type == 'ArticleScopedProgram'
+    return false unless @course.only_scoped_articles_course?
     @course.assignments.none? && @course.categories.none?
   end
 
