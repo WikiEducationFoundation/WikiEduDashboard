@@ -133,7 +133,8 @@ describe UpdateCourseWikiTimeslices do
         subject
       end
 
-      expect(Sentry).to have_received(:capture_message).exactly(14).times
+      # only fails for timeslices with new data
+      expect(Sentry).to have_received(:capture_message).exactly(3).times
 
       # last_mw_rev_datetime wasn't updated
       timeslice = course.course_wiki_timeslices.where(wiki: enwiki, start: '2018-11-29').first
@@ -156,14 +157,28 @@ describe UpdateCourseWikiTimeslices do
 
       expected_dates.each do |start_time, end_time|
         expected_wikis.each do |wiki|
-          expect(CourseRevisionUpdater).to receive(:fetch_revisions_and_scores_for_wiki)
-            .with(course, wiki, start_time, end_time, update_service: nil)
+          expect_any_instance_of(CourseRevisionUpdater).to receive(:fetch_data_for_course_wiki)
+            .with(wiki, start_time, end_time, only_new: true)
             .once
         end
       end
 
       VCR.use_cassette 'course_update' do
         subject
+      end
+    end
+  end
+
+  context 'when there are no revisions' do
+    context 'because there is no point in importing revisions' do
+      before do
+        CoursesUsers.find_by(course:, user:).destroy
+      end
+
+      it 'does not fail' do
+        VCR.use_cassette 'course_update' do
+          subject
+        end
       end
     end
   end
