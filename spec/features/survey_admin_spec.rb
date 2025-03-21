@@ -228,7 +228,7 @@ describe 'Survey Administration', type: :feature, js: true do
       expect(page).not_to have_content instructor.username
     end
 
-    it 'correctly clones question groups with conditional questions', js: true do
+    it 'correctly clones question groups with conditional questions', js: true, focus: true do
       # Create a base question group with conditional questions
 
       # Visit question groups page and create Question Group
@@ -280,12 +280,12 @@ describe 'Survey Administration', type: :feature, js: true do
       # rubocop:disable Layout/LineLength,Lint/MissingCopEnableDirective
       expected_conditionals = "#{first_question_record.id}|=|#{first_question_record.answer_options[/^\s*Yes\b/]}|multi"
       expect(hidden_input.value).to include(expected_conditionals)
-
       page.find('input.button').click
+      expect(page).to have_content 'Editing Conditional Questions Group'
 
       # Visit the question groups page to clone the newly created question group
-      visit 'surveys/rapidfire/question_groups'
-
+      click_link 'Question Groups'
+      expect(page).to have_current_path '/surveys/rapidfire/question_groups'
       # Find and click the clone link for the newly created question group
       within("li#question_group_#{Rapidfire::QuestionGroup.last.id}") do
         click_link 'Clone'
