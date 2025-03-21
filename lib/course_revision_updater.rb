@@ -47,21 +47,17 @@ class CourseRevisionUpdater
   # This optimization was added to improve performance.
   def fetch_data_for_course_wiki(wiki, ts_start, ts_end, only_new: false)
     return {} if no_point_in_importing_revisions?
-    revision_data = get_data(wiki, ts_start, ts_end, only_new:)
+    revision_data, new_revisions = fetch_data(wiki, ts_start, ts_end, only_new:)
+    response = format_revision_response(wiki, ts_start, ts_end, revision_data, new_revisions)
     # Get an array with all revisions
-    revisions = revision_data.values.flat_map { |data| data[:revisions] }.flatten
+    revisions = response.values.flat_map { |data| data[:revisions] }.flatten
     ArticlesCourses.update_from_course_revisions(@course, revisions)
-    revision_data
+    response
   end
 
   private
 
-  def get_data(wiki, ts_start, ts_end, only_new:)
-    revision_data, new_revisions = fetch_data(wiki, ts_start, ts_end, only_new:)
-    build_response(wiki, ts_start, ts_end, revision_data, new_revisions)
-  end
-
-  def build_response(wiki, timeslice_start, timeslice_end, revision_data, new_revisions)
+  def format_revision_response(wiki, timeslice_start, timeslice_end, revision_data, new_revisions)
     # Fetches revision for wiki
     results = {}
     revisions = {}
@@ -85,7 +81,8 @@ class CourseRevisionUpdater
     return manager.fetch_score_data_for_course(revisions), true
   end
 
-  # Determines if there is any new revisions for the given timeslice
+  # Determines if there are new revisions, based on the number of revisions and the
+  # last revision datetime.
   def new_revisions?(revisions, wiki, timeslice_start, timeslice_end)
     live_revisions = revisions.reject(&:system)
     revision_count = live_revisions.count
