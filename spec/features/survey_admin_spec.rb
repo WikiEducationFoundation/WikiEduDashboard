@@ -228,7 +228,7 @@ describe 'Survey Administration', type: :feature, js: true do
       expect(page).not_to have_content instructor.username
     end
 
-    it 'correctly clones question groups with conditional questions', js: true, focus: true do
+    it 'correctly clones question groups with conditional questions', js: true do
       # Create a base question group with conditional questions
 
       # Visit question groups page and create Question Group
