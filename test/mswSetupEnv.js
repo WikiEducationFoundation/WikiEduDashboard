@@ -1,4 +1,4 @@
-import { server } from './server.js'; // Import the MSW mock server instance
+import { server } from './mswServer.js'; // Import the MSW mock server instance
 
 // Starts the mock server before all tests run.
 // - Ensures that all network requests made in tests are intercepted by MSW.
