@@ -11,10 +11,10 @@ import { updateCourse } from '@actions/course_actions.js';
 // Helper Functions
 const DetailsText = ({ flags }) => (
   <p>
-    Last Reviewed:&nbsp;
+    {I18n.t('courses.last_reviewed')}:&nbsp;
     <strong>
       {flags.last_reviewed.username}
-    </strong>&nbsp;on
+    </strong>&nbsp;{I18n.t('courses.on')}
     <br />
     <strong>
       {format(toDate(parseISO(flags.last_reviewed.timestamp)), 'PPPP p')}
@@ -26,8 +26,7 @@ const isCourseClosed = flags => !!(flags && flags.closed_date);
 
 const NoDetailsText = () => (
   <p>
-    This course has not yet been marked as having been reviewed by a staff member.
-    Click below to mark it as reviewed!
+    {I18n.t('courses.no_details')}
   </p>
 );
 
@@ -49,7 +48,7 @@ export const AdminQuickActions = ({ course, current_user, persistCourse, greetSt
       {isCourseClosed(course.flags) && (
         <div style={{ marginBottom: '15px' }}>
           <p>
-            <strong>This course was closed on:</strong>&nbsp;
+            <strong>{I18n.t('courses.closed_on')}:</strong>&nbsp;
             {format(toDate(parseISO(course.flags.closed_date)), 'PPPP')}.
           </p>
         </div>
@@ -74,7 +73,7 @@ export const AdminQuickActions = ({ course, current_user, persistCourse, greetSt
               persistCourse(course.slug);
             }}
           >
-            Mark as Reviewed
+            {I18n.t('courses.mark_as_reviewed')}
           </button>
           <br />
           <br />
