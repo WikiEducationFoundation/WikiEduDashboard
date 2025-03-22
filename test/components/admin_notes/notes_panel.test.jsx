@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import NotesPanel from '../../../app/assets/javascripts/components/admin_notes/notes_panel';
 import Confirm from '../../../app/assets/javascripts/components/common/confirm';
 import { sendNotification } from '../../../app/assets/javascripts/slices/AdminCourseNotesSlice';
-import { renderWithProviders } from '../../redux_test_utils';
+import { renderWithProviders } from '../../ReduxTestUtils';
 
 jest.mock('../../../app/assets/javascripts/slices/AdminCourseNotesSlice', () => ({
   ...jest.requireActual('../../../app/assets/javascripts/slices/AdminCourseNotesSlice'),
