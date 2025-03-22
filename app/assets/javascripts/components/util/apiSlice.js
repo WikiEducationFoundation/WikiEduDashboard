@@ -4,13 +4,27 @@ import Rails from '@rails/ujs';
 
 // Define our single API slice object
 export const apiSlice = createApi({
+  // A unique key for the Redux store slice where this API's state will be stored.
   reducerPath: 'api',
+
+  // Configure how API requests are made
   baseQuery: fetchBaseQuery({
-    prepareHeaders: (headers) => {
-      // Add CSRF token for all requests through RTK Query
-      headers.set('X-CSRF-Token', Rails.csrfToken());
+    // Set the base URL dynamically
+    // a) In test (`NODE_ENV === 'test'`), use 'http://locahost' to match MSW.
+    // b) In other environments, use an empty string (assumes absolute URLs are used elsewhere).
+    baseUrl: process.env.NODE_ENV === 'test' ? 'http://localhost' : '',
+
+    // Add headers to API requests (if needed)
+    prepareHeaders: (headers, api) => {
+      if (api.type === 'mutation') {
+        headers.set('X-CSRF-Token', Rails.csrfToken());
+      }
+
+      // Return modified headers
       return headers;
     }
   }),
-  endpoints: () => ({}) // Leave empty since endpoints will be added using `injectEndpoints` in slices
+
+  // Define API endpoints separately using `injectEndpoints()`
+  endpoints: () => ({})
 });
