@@ -45,7 +45,7 @@ class UpdateTimeslicesScopedArticle
     Rails.logger.info "UpdateTimeslicesScopedArticle: Course: #{@course.slug}\
     Resetting #{article_ids}"
 
-    # Mark course wiki timeslices to be re-proccesed
+    # Mark course wiki timeslices to be re-processed
     articles = Article.where(id: article_ids)
     ArticlesCoursesCleanerTimeslice.reset_specific_articles(@course, articles)
   end

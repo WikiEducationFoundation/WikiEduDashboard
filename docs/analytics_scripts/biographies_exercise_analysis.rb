@@ -31,10 +31,17 @@ hla_scientists_cat.refresh_titles # 271 titles
 
 exercise_biographies = wikidata_cat.article_titles + aa_scientists_cat.article_titles + hla_scientists_cat.article_titles
 
+bio_article_ids = Article.where(title: exercise_biographies, namespace: 0, wiki_id: 1).pluck(&:id)
+
 spring_2025 = Campaign.find_by_slug 'spring_2025'
-spring_2025_edited_titles = spring_2025.articles.pluck(:title) # 1800 as of March 4, 2025
+spring_2025_ac = ArticlesCourses.where(course: spring_2025.courses, article_id: bio_article_ids)
 
-edited_titles = spring_2025_edited_titles & exercise_biographies
 
-puts edited_titles.count # 323 as of March 4, 2025
-puts edited_titles
+CSV.open("/home/sage/broadcom_bios.csv", 'wb') do |csv|
+  csv << %w[article_title course student references_added]
+  spring_2025_ac.each do |ac|
+    # Including just the first student who edited each one is good enough.
+    student = ac.user_ids.first && User.find(ac.user_ids.first)
+    csv << [ac.article.title, ac.course.slug, student&.username, ac.references_count]
+  end
+end

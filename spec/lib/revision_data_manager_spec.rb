@@ -32,7 +32,7 @@ describe RevisionDataManager do
     let(:sub_data) { [data1, data2] }
     let(:data1) do
       [
-        '112',
+        '777',
         {
           'article' => {
             'mw_page_id' => '777',
@@ -50,7 +50,7 @@ describe RevisionDataManager do
     end
     let(:data2) do
       [
-        '789',
+        '123',
         {
           'article' => {
             'mw_page_id' => '123',
@@ -67,6 +67,25 @@ describe RevisionDataManager do
       ]
     end
     let(:filtered_sub_data) { [data1] }
+
+    let(:data3) do
+      [
+        '55345266',
+        {
+          'article' => {
+            'mw_page_id' => '55345266',
+            'title' => 'Scoped article',
+            'namespace' => '0',
+            'wiki_id' => 1
+          },
+          'revisions' => [
+            { 'mw_rev_id' => '1241392191', 'date' => '20180706', 'characters' => '1020',
+              'mw_page_id' => '55345266', 'username' => 'Ragesoss', 'new_article' => 'true',
+              'system' => 'false', 'wiki_id' => 1 }
+          ]
+        }
+      ]
+    end
 
     before do
       create(:courses_user, course:, user:)
@@ -109,15 +128,49 @@ describe RevisionDataManager do
       end
     end
 
-    it 'only calculates revisions scores for articles in mainspace, userspace or draftspace' do
-      allow(instance_class).to receive(:get_revisions).and_return([data1, data2])
+    it 'does not calculate scores for revisions out mainspace/userspace/draftspace' do
+      allow(instance_class).to receive(:get_revisions).and_return([data1, data2, data3])
       VCR.use_cassette 'revision_importer/all' do
         revisions = subject
         # Returns all revisions
-        expect(revisions.length).to eq(2)
-        # Only the one in mainspace has scores
+        expect(revisions.length).to eq(3)
+        # Only the ones in mainspace and draft have scores
+        expect(revisions[0].mw_rev_id).to eq(849116430)
+        expect(revisions[0].scoped).to eq(true)
         expect(revisions[0].features).to eq({})
+
+        expect(revisions[1].mw_rev_id).to eq(456)
+        expect(revisions[1].scoped).to eq(true)
         expect(revisions[1].features).to eq({ 'num_ref' => 0 })
+
+        expect(revisions[2].mw_rev_id).to eq(1241392191)
+        expect(revisions[2].scoped).to eq(true)
+        expect(revisions[2].features).to eq({ 'num_ref' => 0 })
+      end
+    end
+
+    it 'does not calculate scores for non-scoped revisions' do
+      # Use article scoped course since otherwise all revisions are scoped
+      scoped_course = create(:article_scoped_program, start: '2018-01-01', end: '2018-12-31')
+      scoped_instance_class = described_class.new(home_wiki, scoped_course)
+      allow(scoped_instance_class).to receive(:get_revisions).and_return([data1, data2, data3])
+      allow(scoped_course).to receive(:scoped_article_titles).and_return(['Scoped_article'])
+      VCR.use_cassette 'revision_importer/all' do
+        revisions = scoped_instance_class.fetch_revision_data_for_course('20180706', '20180707')
+        # Returns all revisions
+        expect(revisions.length).to eq(3)
+        # Only the scoped revision in mainspace has scores
+        expect(revisions[0].mw_rev_id).to eq(849116430)
+        expect(revisions[0].scoped).to eq(false)
+        expect(revisions[0].features).to eq({})
+
+        expect(revisions[1].mw_rev_id).to eq(456)
+        expect(revisions[1].scoped).to eq(false)
+        expect(revisions[1].features).to eq({})
+
+        expect(revisions[2].mw_rev_id).to eq(1241392191)
+        expect(revisions[2].scoped).to eq(true)
+        expect(revisions[2].features).to eq({ 'num_ref' => 0 })
       end
     end
 

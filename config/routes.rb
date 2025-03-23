@@ -374,6 +374,9 @@ Rails.application.routes.draw do
   get 'active_courses' => 'active_courses#index'
   get '/courses_by_wiki/:language.:project(.org)' => 'courses_by_wiki#show'
 
+    # LTI
+  get 'lti' => 'lti_launch#launch'
+
   # frequenty asked questions
   resources :faq do
     member do

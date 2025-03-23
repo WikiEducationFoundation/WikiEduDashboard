@@ -10,7 +10,8 @@ class AssignmentUpdater
   def self.update_assignment_article_ids_and_titles
     Assignment.where(article_id: nil).find_each do |assignment|
       title = assignment.article_title.tr(' ', '_')
-      article = Article.where(namespace: 0, wiki_id: assignment.wiki_id).find_by(title:)
+      article = Article.where(namespace: 0, wiki_id: assignment.wiki_id, deleted: false)
+                       .find_by(title:)
       next if article.nil?
       update_assignment_from_article(assignment, article)
     end
@@ -19,6 +20,12 @@ class AssignmentUpdater
   def self.update_assignment_from_article(assignment, article)
     assignment.article_id = article.id
     assignment.article_title = article.title # update assignment to match case
+    assignment.save!
+  rescue ActiveRecord::RecordInvalid
+    # If there is already an assignment for article_title/course_id/user_id/role/wiki_id,
+    # then clean the article id
+    assignment.reload
+    assignment.article_id = nil
     assignment.save
   end
 
@@ -27,6 +34,14 @@ class AssignmentUpdater
   def self.update_assignments_for_article(article)
     article.assignments.each do |assignment|
       update_assignment_from_article(assignment, article)
+    end
+  end
+
+  # If an article is set as deleted, we don't want any assignment to be associated
+  # to it. This method cleans the article_id field for those assignments.
+  def self.clean_assignment_for_deleted_article(article)
+    article.assignments.each do |assignment|
+      assignment.update(article_id: nil)
     end
   end
 end

@@ -18,8 +18,8 @@ describe 'Update username controller', type: :feature, js: true do
         visit '/update_username'
         fill_in('username', with: new_username)
         click_button 'update_username'
-        expect(User.find_by(global_id: '14093230').username).to eq(new_username)
         expect(page).to have_content(I18n.t('update_username.username_updated'))
+        expect(User.find_by(global_id: '14093230').username).to eq(new_username)
       end
     end
 

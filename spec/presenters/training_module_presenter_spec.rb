@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe TrainingModulePresenter do
-  before { TrainingModule.load_all }
+  before(:all) { TrainingModule.load_all }
 
   let!(:user)      { create(:user) }
   let(:lib)        { TrainingLibrary.find_by(slug: 'students') }

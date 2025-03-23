@@ -54,6 +54,23 @@ describe DuplicateArticleDeleter do
       expect(deleted.first.id).to eq(duplicate_article.id)
     end
 
+    it 'cleans associated Assignment records for deleted articles' do
+      new_article = create(:article,
+                           id: 2262715,
+                           title: 'Kostanay',
+                           namespace: 0,
+                           created_at: 1.day.from_now)
+      duplicate_article = create(:article,
+                                 id: 46349871,
+                                 title: 'Kostanay',
+                                 namespace: 0,
+                                 created_at: 1.day.ago)
+      assignment = create(:assignment, article_title: 'Kostanay', article: duplicate_article)
+      expect(assignment.article_id).to eq(duplicate_article.id)
+      described_class.new.resolve_duplicates([new_article])
+      expect(assignment.reload.article_id).to eq(nil)
+    end
+
     it 'does not mark any deleted when articles different in title case' do
       first = create(:article,
                      id: 123,

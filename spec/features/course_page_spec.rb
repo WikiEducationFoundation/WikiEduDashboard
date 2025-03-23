@@ -76,7 +76,7 @@ describe 'the course page', type: :feature, js: true do
              user_id: i.to_s)
     end
     # for testing Activity using Media Wiki API
-    user = create(:user, username: 'DSMalhotra')
+    user = create(:user, username: 'Sage (Wiki Ed)')
     create(:courses_user, user:, course:)
 
     ratings = ['fl', 'fa', 'a', 'ga', 'b', 'c', 'start', 'stub', 'list', nil]

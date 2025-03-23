@@ -6,6 +6,7 @@
 # Author: Fitoschido
 # Author: Macofe
 # Author: Maria zaos
+# Author: Toliño
 ---
 gl:
   number:
@@ -172,7 +173,8 @@ gl:
     join_prompt: Unirse a '%{title}'?
     new_week: Engadir nova semana
     nocourses: Non está a participar en ningún curso.
-    revisions_doc: Número de edicións nos pasados %{timeframe} días
+    revisions_doc: O número estimado de edicións nos pasados %{timeframe} días, en
+      base á media de edicións ao día durante o último período.
     students: Estudantes
     students_none: Este curso non ten estudantes.
     students_short: Estudantes
