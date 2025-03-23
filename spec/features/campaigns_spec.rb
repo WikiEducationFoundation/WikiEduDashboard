@@ -94,6 +94,8 @@ describe 'campaigns page', type: :feature, js: true do
       fill_in('campaign_start', with: '2016-01-10'.to_date)
       fill_in('campaign_end', with: '2016-02-10'.to_date)
       find('.wizard__form .button__submit').click
+      expect(page).not_to have_content 'Create my Campaign!'
+      expect(page).to have_current_path(/.*overview.*/)
       expect(Campaign.last.title).to eq(title)
       expect(Campaign.last.description).to eq(description)
       expect(Campaign.last.start).to eq(Time.zone.parse('2016-1-10 00:00:00'))

@@ -7,7 +7,7 @@ class StudentGreetingChecker
   end
 
   def initialize
-    @greeters = User.where(greeter: true)
+    @greeter_usernames = User.where(greeter: true).pluck(:username)
   end
 
   def check_all_ungreeted_students
@@ -20,22 +20,22 @@ class StudentGreetingChecker
   end
 
   def check(student, wiki)
-    Check.new(student, wiki, @greeters).update_greeting_status
+    Check.new(student, wiki, @greeter_usernames).update_greeting_status
   end
 
   # Checks a single student to see if they are actually ungreeted, and updates
   # their greeted attribute if so.
   class Check
-    def initialize(student, wiki, greeters)
+    def initialize(student, wiki, usernames)
       @student = student
       @wiki = wiki
-      @all_greeters = greeters
+      @usernames = usernames
     end
 
     def update_greeting_status
       return if talk_page_blank?
       contributor_names = contributors_to_page(@student.talk_page)
-      return if (@all_greeters.pluck(:username) & contributor_names).empty?
+      return if (@usernames & contributor_names).empty?
       # Mark student as greeted if a greeter has already edited their talk page
       @student.update(greeted: true)
     end

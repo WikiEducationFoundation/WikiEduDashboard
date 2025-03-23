@@ -44,6 +44,7 @@ describe PlagiabotImporter do
       expect(new_alert.details[:submission_id]).to eq('96342545-948b-4af4-b728-b34b8e91ce7a')
       expect(new_alert.article.title).to eq('Assumption_College,_Changanasserry')
       expect(new_alert.wiki.language).to eq('en')
+      expect(new_alert.revision_id).to eq(1260726925)
 
       # Make sure it doesn't make duplicates
       described_class.find_recent_plagiarism

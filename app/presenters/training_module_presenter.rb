@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/training_progress_manager"
+
 class TrainingModulePresenter
   attr_reader :training_module, :progress_manager
 
