@@ -9,8 +9,8 @@ const KINDS = [
   I18n.t('timeline.block_in_class'),
   I18n.t('timeline.block_assignment'),
   I18n.t('timeline.block_milestone'),
-  I18n.t('timeline.block_in_custom'),
-  I18n.t('timeline.block_in_handouts'),
+  I18n.t('timeline.block_custom'),
+  I18n.t('timeline.block_handouts'),
   I18n.t('timeline.block_resources'),
 ];
 
