@@ -5,7 +5,14 @@ import InputHOC from '../high_order/input_hoc.jsx';
 import Select from 'react-select';
 import selectStyles from '../../styles/single_select';
 
-const KINDS = ['In Class', 'Assignment', 'Milestone', 'Custom', 'Handouts', 'Resources'];
+const KINDS = [
+  I18.t('timeline.block_in_class'),
+  I18.t('timeline.block_assignment'),
+  I18.t('timeline.block_milestone'),
+  I18.t('timeline.block_in_custom'),
+  I18.t('timeline.block_in_handouts'),
+  I18.t('timeline.block_resources'),
+];
 
 const BlockTypeSelect = ({ onChange, editable, id, value }) => {
   const handleClick = (selectedOption) => {
