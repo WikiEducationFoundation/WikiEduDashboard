@@ -18,7 +18,7 @@ class RevisionDataManager
   end
 
   INCLUDED_NAMESPACES = [0, 2, 118].freeze
-  # This method gets revisions and scores for them from different APIs.
+  # This method gets course revisions for a given period.
   # Returns an array of Revision records.
   # As a side effect, it imports Article records.
   def fetch_revision_data_for_course(timeslice_start, timeslice_end)
@@ -43,6 +43,13 @@ class RevisionDataManager
                                                  users,
                                                  scoped_sub_data:,
                                                  articles: article_dict)
+    return @revisions
+  end
+
+  # This method gets scores for specific revisions from different APIs.
+  # Returns an array of Revision records with completed scores.
+  def fetch_score_data_for_course(revisions)
+    @revisions = revisions
 
     # We need to partition revisions because we don't want to calculate scores for revisions
     # out of important spaces
