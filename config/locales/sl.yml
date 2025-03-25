@@ -7,40 +7,110 @@
 # Author: Upwinxp
 ---
 sl:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: K
+          million: M
+          billion: G
+          trillion: T
+          quadrillion: P
   accessibility:
     number_field: To je številsko polje. Gumbi, ki jih prikaže večina brskalnikov,
       bodo povečali ali zmanjšali vnos.
   application:
+    back: Nazaj
     cancel: Prekliči
+    cookie_consent: To spletno mesto uporablja piškotke, da ostanete prijavljeni,
+      in shranjuje informacije, povezane z vašim računom v Wikipediji.
+    cookie_consent_acknowledge: Razumem
     cookie_consent_see_more: Prikaži več.
     create_accounts: Ustvari račune Wikipedije
     dashboard: Nadzorna plošča urejanja vikija
+    documentation: Dokumentacija
     error: 'Prišlo je do napake:'
     explore: Raziskuj
+    field_required: To polje je obvezno
+    field_invalid_characters: To polje vsebuje neveljavne znake
+    field_invalid_date: To polje zahteva datum v obliki LLLL-MM-DD
+    field_invalid_date_time: Konec mora biti za začetkom. (Ure gredo od 0 do 23.)
     greeting2: Pozdravljeni!
+    greeting_extended: Pozdravljeni v Wikipediji
     greeting: Pozdravljeni!
     help: Pomoč
     home: Domov
     log_in_extended: Prijava z Wikipedijo
     log_in: Prijava
     log_out: Odjava
+    my_dashboard: Moja nadzorna plošča
+    recent_activity: Nedavna aktivnost
+    report_problem: Sporoči težavo
+    request_account: Zaprosi za račun
+    request_account_create: Ustvari račun
+    search: postavite vprašanje
+    search_results:
+      one: '%{count} zadetek za: ''%{search_terms}'''
+      two: '%{count} Zadetka za: ''%{search_terms}'' '
+      few: '%{count} zadetki za: ''%{search_terms}'''
+      other: '%{count} zadetkov za: ''%{search_terms}'''
     no_results: Za »%{query}« ni bil najden noben zadetek
+    show_current_revision: Prikaži trenutno raličico
+    show_last_revision: Prikaži zadnjo urejeno različico
+    sign_up_extended: Prijava z Wikipedijo
+    sign_up_wikipedia: Ali pa se prijavite v Wikipediji
+    sign_up_log_in_extended: z Wikipedijo
     sign_up: Ustvari račun
     submit: Pošlji
+    training: Izobraževanje
     change: Spremeni
     details: Podrobnosti
     confirm: V redu
     opt_in: Da
     opt_out: Ne
+    opt_yes: da
+    opt_no: ne
     print: Natisni
   article_statuses:
+    not_yet_started: Prvi koraki
+    in_progress: Delo v peskovniku
+    ready_for_review: Razširitev osnutka
     ready_for_mainspace: Prestavitev dela v glavni imenski prostor
+    assignment_completed: Naloga označena kot opravljena
+    reading_the_article: Branje članka
+    providing_feedback: Pošiljanje mnenja
+    post_to_talk: Objava na pogovorni strani
     peer_review_completed: Pregled končan
   dashboard:
+    create_note: Za ustvaritev prvega tečaja kliknite Ustvari tečaj
+    create_preparation_note: Preden začnete, imejte pri roki svoj akademski koledar;
+      orodje za načrtovanje nalog bo uporabilo datume sestankov vašega razreda – vključno
+      z vsemi šolskimi odmori in počitnicami, da prilagodi vašo časovnico izbranemu
+      datumskemu razponu. Ne pozabite, da lahko časovnico kadar koli uredite tako,
+      da ustreza vašim potrebam.
     explore_course_pages: Raziščite strani tečajev
+    explore_examples: Razišči zglede
+    join_note: Ko boste od inštruktorja prejeli geslo, kliknite Poišči moj tečaj,
+      da ga poiščete in se mu pridružite.
+    no_courses_instructor: Videti je, da nimate tečajev.
+    no_courses_student: Videti je, da se še niste pridružili tečaju.
+    opt_out: Zahtevek za izstop iz usmeritve
+    orientation_notice: Preden ustvarite tečaj, se sprehodimo skozi usmeritev, ki
+      vam bo pomagala začeti. (Izpolnjevanje traja približno 30 minut.)
     review_orientation: Pregled usmeritve
+    start_orientation: Začni usmeritev
+    blog_headline: Nedavne novice iz Wiki Education
+    about_programs: To spletno mesto spremlja viki aktivnosti prek programov — posameznih
+      dogodkov, kot je edit-a-thon ali šolski tečaj. Vsak program je del ene ali več
+      kampanj, ki zagotavljajo skupno statistiko po programih.
+    about_creating_programs: Če izvajate en sam, neodvisen dogodek, lahko zdaj ustvarite
+      program. Če je vaš dogodek del nečesa večjega, poiščite ali ustvarite kampanjo
+      zanj. Nato lahko na strani Kampanja ustvarite nov program.
   home:
     explore: Raziskuj
+    log_in: Prijava z Wikipedijo
+    sign_up: Registracija z Wikipedijo
     registration_advice:
       username_rules:
         heading: Pravila uporabniških imen
@@ -62,23 +132,71 @@ sl:
     no_alerts: Ni najdenih opomnikov.
   activity:
     all: Dejavnost
+    edited_by: Uredil
     label: Dejavnost
   articles:
     articles: Članki
+    article_not_found: Ta članek še ni ustvarjen.
+    article_development: (razvoj članka)
+    articles_shown: Prikazujem %{count} od%{total}
+    assigned: Dodeljeni članki
     assignments_none: Ni še nobenega dodeljenega članka.
+    available: Razpoložljivi članki
+    no_available: Ni razpoložljivih člankov
+    next: Naslednji
+    previous: Predhodni
     article_title: Naslov članka
+    assigned_to: Dodeljeno
+    character_doc: Vsota znakov, ki so jih člankom med začetnim in končnim datumom
+      dodali prijavljeni uporabniki
+    cross_wiki_tracking: Spodaj so navedene strani glavnega imenskega prostora, urejene
+      med začetnim in končnim datumom. Nadzorna plošča pridobi prispevke iz domačega
+      vikija tega programa, skupaj z vsemi drugimi vikiji, za katere obstaja naloga
+      ali razpoložljiv članek.
+    deleted: (izbrisano)
+    does_not_exist: Ta članek še ne obstaja. Ustvarite stran v peskovniku in se prijavite,
+      da prejmete predloge.
+    edited: Urejani članki
+    edited_by: 'Urejal:'
     edited_mobile: Članki
+    edited_none: Ni še urejanih člankov.
     filter:
       wiki_all: Vsi
       new: Nov
+      existing: Obstoječi
+      new_and_existing: Novi in obstoječi
+      tracked: Spremljani
+      untracked: Nespremljani
+      tracked_and_untracked: Spremljani in nespremljani
+    filter_text: 'Filtri:'
+    find: Poišči članke
     how_to_find: Kako najti članek
+    hide: Skrij
     history: (zgodovina)
     label: Članki
     loading: Nalaganje člankov ...
     mark_as_complete: Označi kot končano
     new: (novo)
+    none: Ta tečaj še ni urejal nobenega članka.
     preview: Kratek predogled članka
     rating: Razred
+    rating_doc: Oceno, ki so jo članku dodelili vikiprojekti v Wikipediji. Te ocene
+      morda ustrezajo veliko starejšim redakcijam, zato so le grob pokazatelj zrelosti
+      članka.
+    rating_docs:
+      fa: '%{class} (Izbrani članek) — najvišja ocena Wikipedije, verjetno preveč
+        zrel članek za glavni projekt novega urejevalca'
+      fl: '%{class} (izbrani seznam) — najvišja ocena Wikipedije za sezname'
+      a: razred %{class} — zelo razvit članek, ki je morda preveč zrel za glavni projekt
+        novega urejevalca
+      ga: '%{class} (dober članek) — dobro razvit članek, ki je morda preveč zrel
+        za glavni projekt novega urejevalca'
+      b: razred %{class} — srednje razvit članek
+      c: razred %{class} — srednje razvit članek z možnostjo za izboljšave
+      start: razred %{class} — predhodni članek z veliki možnostmi za izboljšave
+      list: razred %{class} — seznam in ne klasični članek
+      '?': brez ocene — članek, ki še ni ocenjen po lestvici kakovosti Wikipedije
+      does_not_exist: Ta članek v Wikipediji ne obstaja
     see_more: Več o tem
     show_cumulative_changes: Prikaži kumulativne spremembe
     show_current_version: Prikaži trenutno različico
@@ -136,6 +254,7 @@ sl:
     data_revisions: Podatki o redakcijah
     description: Opis
     delete_course_tooltip: Izbriši in odstrani iz kampanje.
+    featured_campaigns: Izbrane kampanje
     no_alerts: Ta kampanja nima opomnikov
     none: Noben
     program_template: Predloga programa
@@ -159,6 +278,7 @@ sl:
     timestamp: Zadnja posodobitev dne
   courses:
     active_courses: Aktivni tečaji
+    all_courses: Vsi tečaji
     archived: Arhivirani tečaji
     actions: Dejanja
     articles: Članki
@@ -353,6 +473,8 @@ sl:
   metrics:
     last_update: Zadnja posodobitev statistike
     last_articles_update: Zadnja posodobitev članka
+    are_trained: je posodobljenih z izobraževanjem
+    articles_created: Ustvarjeni članki
     articles_created_generic: Ustvarjene strani
     articles_edited_generic: Urejene strani
     bytes_added: Zlogov dodanih
@@ -364,6 +486,7 @@ sl:
     last_reviewed: Zadnjič pregledano
     missing_data_heading: Manjkajoči ali nepričakovani zadetki?
     last_update_failed: Zadnja posodobitev tega tečaja ni uspela.
+    references_count: Dodani sklici
     tags: Oznake
     update_statistics_link: Več o tem
     view_count_description: Ogledi članka
@@ -415,9 +538,14 @@ sl:
     see_more: Več o tem
     show_all: Prikaži vse
   settings:
+    categories:
+      featured_campaigns: Izbrane kampanje
     admin_users:
       new:
         form_placeholder: Uporabniško ime
+    featured_campaigns:
+      no_featured_campaigns: Ni določenih izbranih kampanj
+      update_featured_campaigns_button: Posodobi izbrane kampanje
   suggestions:
     editing: Predlogi za urejanje
     suggestion_docs:

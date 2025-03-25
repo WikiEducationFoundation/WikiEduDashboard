@@ -19,3 +19,21 @@ content: |+
   </div>
 
 id: 2508
+
+translations:
+  es:
+    title: Evitando conflictos de edición
+    content: |
+      Es posible que estés ansioso, pero no pases demasiado tiempo editando en tu entorno de pruebas.
+      Formar parte de Wikipedia significa contribuir e interactuar con otros wikipedistas al mismo
+      tiempo que compartes conocimientos con el mundo.
+
+      No dudes en pedir ayuda a tu Experto en Wikipedia o al Director del Programa si tienes alguna pregunta.
+
+      También agradeceríamos cualquier comentario que tengas sobre este módulo de capacitación.
+      Haz clic a continuación para contarnos qué te gustó y qué no, y cualquier sugerencia que tengas para mejorarlo.
+
+      <div class="training__button-container">
+      <a target="_blank" class="btn btn-primary" href="https://dashboard.wikiedu.org/feedback">
+      Enviar comentarios </a>
+      </div>

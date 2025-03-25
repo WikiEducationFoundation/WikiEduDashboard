@@ -12,3 +12,16 @@ content: |
   Wikipedians know that they checked out your work, and it isn't spam or
   otherwise problematic.
 id: 2204
+
+translations:
+  es:
+    title: ¡Ayuda! ¡Me patrullaron!
+    content: |
+      Cada nueva página de Wikipedia es vulnerable a personas con malas intenciones.
+
+      Para prevenirlo, otros wikipedistas de confianza las revisarán.
+
+      Cuando un revisor voluntario revisa tu página y dice que está bien, puede
+      marcarla como "patrullada". Aunque suene como si hubieras hecho algo mal,
+      en realidad es algo bueno: están informando a otros wikipedistas de que han
+      revisado tu trabajo y de que no es spam ni problemático de otra forma.

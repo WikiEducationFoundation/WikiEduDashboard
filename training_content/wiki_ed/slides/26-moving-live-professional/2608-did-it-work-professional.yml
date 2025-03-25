@@ -8,3 +8,11 @@ content: |
   One option is to ask the Wikipedia Expert listed on your Dashboard page
   for help.
 id: 2608
+
+translations:
+  es:
+    title: ¿Funcionó?
+    content: |
+      Para trasladar una página a Wikipedia, tu cuenta debe tener por lo menos cuatro días de antigüedad y al menos 10 ediciones. Si no puedes mover la página tú mismo, puedes pedir a otro editor que lo haga por ti.
+
+      Una opción es pedir ayuda al Experto en Wikipedia que aparece en tu página del Dashboard.

@@ -21,3 +21,23 @@ content: |
   As long as the person using it:
   * provides credit to the original author and notes the license (Attribution)
   * releases any modifications of the work under the same license (Share-Alike)
+
+translations:
+  es:
+    title: ¿Qué es una licencia libre?
+    content: |
+      En Wikipedia, las imágenes que utilices deben tener lo que se conoce como "licencia libre".
+
+      Cualquiera que cree una obra es automáticamente el propietario de sus derechos de autor, a menos que la haya producido para un empleador o haya transferido sus derechos de autor a otra persona. Una licencia libre es un tipo de licencia de derechos de autor que dice que el creador permite a cualquiera utilizar su obra (con algunas restricciones o sin ellas) sin tener que pedir permiso.
+
+      Wikimedia Commons (la colección de medios libres de la que se nutre Wikipedia) utiliza por defecto lo que se denomina una licencia «Creative Commons Atribución-CompartirIgual» (CC BY-SA).
+
+      Esto significa que cualquiera puede:
+
+      * usarla, copiarla, compartirla
+      * modificarla y compartirla como una nueva obra
+
+      Siempre y cuando la persona que lo utilice:
+
+      * dé crédito al autor original e indique la licencia (Atribución)
+      * publique cualquier modificación de la obra bajo la misma licencia (CompartirIgual)

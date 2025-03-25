@@ -12,3 +12,16 @@ content: |
   </figure>
 
   When you're done, you should see the article name next to your username.
+
+translations:
+  es:
+    title: Asígnate un artículo
+    content: |
+      Añade el artículo como uno de tus artículos "asignados" en la pestaña Inicio del Dashboard. Junto a "Mis artículos", haz clic en el botón "Asignarme un artículo".
+
+      <figure class="alt-layout-100">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/58/Screenshot_of_Wiki_Education_Dashboard_My_Articles_tab.png" />
+        <figcaption class="image-credit">
+      </figure>
+
+      Cuando hayas terminado, deberías ver el nombre del artículo junto a tu nombre de usuario.

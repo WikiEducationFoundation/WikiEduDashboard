@@ -8,3 +8,13 @@ content: |+
   -   Creating references and citations
 
 id: 2303
+
+translations:
+  es:
+    title: Lo que repasaremos
+    content: |
+      Estos son algunos de los temas por los que empezaremos:
+
+      -   Escribiendo texto en negrita e itálica
+      -   Creando enlaces a otros artículos de Wikipedia o páginas web externas
+      -   Creando referencias y citas

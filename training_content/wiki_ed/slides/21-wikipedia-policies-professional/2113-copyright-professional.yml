@@ -28,3 +28,31 @@ content: |
   Note, however, that lengthy quotations usually aren't appropriate,
   anyway. It's best to paraphrase the information into your own words.
 id: 2113
+
+translations:
+  es:
+    title: Derechos de autor
+    content: |
+      <figure class="alt-layout-40-right">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Old_book_bindings_NR.jpg/800px-Old_book_bindings_NR.jpg" />
+
+      <figcaption class="image-credit">
+      <a href="https://commons.wikimedia.org/wiki/File:Old_book_bindings_NR.jpg">Foto de Tom Murphy VII,CC-BY-SA</a>
+      </figcaption>
+      </figure>
+
+      Todo en Wikipedia es de uso libre. Esto significa que todo lo que pongas en Wikipedia
+      debe poder ser compartido libremente también. Materiales con derechos de autor,
+      incluyendo fragmentos largos de libros, ilustraciones, y fotografías, no le pertenecen
+      a Wikipedia. Este es el caso aún cuando cites el material y le des el crédito apropiado
+      al autor.  
+
+      La excepción son las obras tan antiguas que ya no están protegidas por derechos de
+      autor o son de "dominio público". Algunas obras se publican bajo licencia libre.
+      Esas también están permitidas.
+
+      En esos casos, debes asegurarte de citar la fuente de la información y mostrar dónde
+      la publicó el autor bajo una licencia libre (es decir, enlazar directamente con la licencia).
+
+      Sin embargo, ten en cuenta que las citas largas no suelen ser apropiadas de todas formas.
+      Lo mejor es parafrasear la información en tus propias palabras.

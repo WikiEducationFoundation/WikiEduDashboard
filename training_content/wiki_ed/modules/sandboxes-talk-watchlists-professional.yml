@@ -15,3 +15,9 @@ slides:
   - slug: wikiprojects-professional # 2208
   - slug: user-pages-professional # 2210
   - slug: thats-it-sandboxes-professional # 2209
+
+translations:
+  es:
+    name: 'Zonas de pruebas, páginas de discusión, y listas de seguimiento (Profesional)'
+    description: |
+      En este tutorial te familiarizarás con los diferentes tipos de páginas que se encuentran en Wikipedia, y cómo interactuar con cada una de ellas.

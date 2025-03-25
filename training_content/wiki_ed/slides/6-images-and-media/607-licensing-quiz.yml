@@ -33,3 +33,33 @@ assessment:
       explanation: |
         Incorrect! If there is clear agreement from the original author that the
         work is shared with no restrictions, you can use the image.
+
+translations:
+  es:
+    title: ¿Qué no está permitido?
+    content: ""
+    assessment:
+      correct_answer_id: 3
+      question: |
+        ¿Cuál de las siguientes licencias NO se puede utilizar en Wikipedia?
+      answers:
+        - id: 1
+          text: |
+            Una licencia que dice que la obra puede ser reutilizada si se da crédito al autor original (CC-BY)
+          explanation: |
+            ¡Incorrecto! Las imágenes de Wikipedia dan crédito al autor original si el autor así lo requiere.
+        - id: 2
+          text: |
+            Una licencia que dice que la obra debe ser compartida bajo la misma licencia (CC-BY-SA)
+          explanation: |
+            ¡Incorrecto! El texto de Wikipedia siempre será “ShareAlike” y también se permiten imágenes con el requisito ShareAlike.
+        - id: 3
+          text: |
+            Una licencia que establece que la obra no puede venderse (CC-BY-NC)
+          explanation: |
+            ¡Correcto! El contenido de Wikipedia puede ser vendido por otros o incorporado a obras que se venden. No puedes utilizar imágenes que requieran un uso no comercial.
+        - id: 4
+          text: |
+            Una licencia que dice que no hay restricciones en el uso de la obra (CC-ZERO)
+          explanation: |
+            ¡Incorrecto! Si existe un acuerdo claro por parte del autor original de que la obra se comparte sin restricciones, puedes usar la imagen.

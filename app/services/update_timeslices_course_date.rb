@@ -34,7 +34,8 @@ class UpdateTimeslicesCourseDate
 
     remove_timeslices_prior_to_start_date
     remove_timeslices_after_end_date
-    @timeslice_manager.create_timeslices_for_new_course_wiki_records(@course.wikis)
+    @timeslice_manager.create_timeslices_for_new_course_wiki_records(@course.wikis,
+                                                                     needs_update: true)
   end
 
   def update_timeslices_if_start_date_changed

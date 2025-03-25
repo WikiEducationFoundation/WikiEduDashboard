@@ -24,3 +24,15 @@ slides:
   - slug: plagiarism-professional # 2112
   - slug: copyright-professional # 2113
   - slug: that-s-it-professional # 2114
+
+translations:
+  es:
+    name: Políticas de Wikipedia (Profesional)
+    description: |
+      Este módulo te dará una descripción básica de las políticas y pautas fundamentales de Wikipedia.
+
+      Cuando termines, sabrás responder:
+
+      * ¿Cuáles son las políticas y pautas fundamentales de Wikipedia?
+      * ¿Qué son los derechos de autor y el plagio en el contexto de Wikipedia?
+      * ¿Qué significa "notabilidad" en Wikipedia?

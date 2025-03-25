@@ -146,7 +146,7 @@ describe UpdateTimeslicesCourseDate do
       described_class.new(course).run
       # Timeslices from old period were deleted and new ones were created
       expect(course.course_wiki_timeslices.count).to eq(11)
-      expect(course.course_wiki_timeslices.needs_update.count).to eq(0)
+      expect(course.course_wiki_timeslices.needs_update.count).to eq(11)
       expect(course.course_user_wiki_timeslices.count).to eq(0)
       expect(course.article_course_timeslices.count).to eq(0)
     end
@@ -168,7 +168,7 @@ describe UpdateTimeslicesCourseDate do
       described_class.new(course).run
       # Timeslices from old period were deleted and new ones were created
       expect(course.course_wiki_timeslices.count).to eq(11)
-      expect(course.course_wiki_timeslices.needs_update.count).to eq(0)
+      expect(course.course_wiki_timeslices.needs_update.count).to eq(11)
       expect(course.course_user_wiki_timeslices.count).to eq(0)
       expect(course.article_course_timeslices.count).to eq(0)
     end

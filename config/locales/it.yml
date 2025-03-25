@@ -984,8 +984,9 @@ it:
     remove_confirmation: Sei sicuro di voler rimuovere %{username}?
     revision_characters_and_views: 'Caratteri aggiunti: %{characters}, Visualizzazioni:
       %{views}'
-    revisions_doc: Il numero di modifiche effettuate da questo contributore negli
-      ultimi 7 giorni
+    revisions_doc: Il numero stimato di modifiche apportate da questo editor negli
+      ultimi 7 giorni, in base alla media delle modifiche giornaliere nell'ultimo
+      periodo.
     references_doc: Il numero di riferimenti aggiunti o rimossi da quest'utente
     reviewers: Revisori
     revisions: Versioni

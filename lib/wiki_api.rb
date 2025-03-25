@@ -20,7 +20,8 @@ class WikiApi
   ################
 
   # General entry point for making arbitrary queries of a MediaWiki wiki's API
-  def query(query_parameters= {}, http_method: :get)
+  def query(query_parameters)
+    http_method = query_parameters[:http_method] || :get
     mediawiki('query', query_parameters.merge(http_method:))
   end
 

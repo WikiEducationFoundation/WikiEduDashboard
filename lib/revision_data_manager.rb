@@ -18,7 +18,7 @@ class RevisionDataManager
   end
 
   INCLUDED_NAMESPACES = [0, 2, 118].freeze
-  # This method gets revisions and scores for them from different APIs.
+  # This method gets course revisions for a given period.
   # Returns an array of Revision records.
   # As a side effect, it imports Article records.
   def fetch_revision_data_for_course(timeslice_start, timeslice_end)
@@ -43,6 +43,13 @@ class RevisionDataManager
                                                  users,
                                                  scoped_sub_data:,
                                                  articles: article_dict)
+    return @revisions
+  end
+
+  # This method gets scores for specific revisions from different APIs.
+  # Returns an array of Revision records with completed scores.
+  def fetch_score_data_for_course(revisions)
+    @revisions = revisions
 
     # We need to partition revisions because we don't want to calculate scores for revisions
     # out of important spaces
@@ -66,8 +73,9 @@ class RevisionDataManager
   private
 
   def import_and_resolve_duplicate_articles(articles)
-    ArticleImporter.new(@wiki).import_articles_from_revision_data(articles)
-    @articles = Article.where(wiki_id: @wiki.id, mw_page_id: articles.map { |a| a['mw_page_id'] })
+    ArticleImporter.new(@wiki, @course).import_articles_from_revision_data(articles)
+    @articles = Article.where(wiki_id: @wiki.id, deleted: false,
+                              mw_page_id: articles.map { |a| a['mw_page_id'] })
     DuplicateArticleDeleter.new(@wiki).resolve_duplicates_for_timeslices(@articles)
   end
 
@@ -159,16 +167,24 @@ class RevisionDataManager
         })
   end
 
-  # Partition revisions between those belonging to articles in/out of mainspace/userspace/draftspace
-  # We need this to avoid calculating scores for articles out of pertinent spaces
-  # Returns [revisions_in_spaces, revisions_out_spaces]
+  # Partition revisions between those for which we want to calculate scores and
+  # those for which we don't.
+  # We want to calculate scores for scoped reivsions belonging to articles in
+  # mainspace/userspace/draftspace.
+  # We don't want to calculate scores for revisions in articles out of pertinent spaces or
+  # for revisions which are not scoped (this is only important for articles with
+  # only_scoped_articles_course? set to true).
+  # Returns [scoped_revisions_in_spaces, non_scoped_revisions_or_out_spaces]
   def partition_revisions
     # Calculate articles out of mainspace/userspace/draftspace
     excluded_articles = @articles
                         .reject { |article| INCLUDED_NAMESPACES.include?(article.namespace) }
                         .map(&:mw_page_id).freeze
 
-    [@revisions.select { |rev| excluded_articles.exclude?(rev.mw_page_id) },
-     @revisions.select { |rev| excluded_articles.include?(rev.mw_page_id) }]
+    # Note that scoped is always true for non-only-scoped-articles courses
+    scoped_revisions_in_spaces = @revisions.select do |rev|
+      (excluded_articles.exclude?(rev.mw_page_id) && rev.scoped)
+    end
+    [scoped_revisions_in_spaces, @revisions - scoped_revisions_in_spaces]
   end
 end

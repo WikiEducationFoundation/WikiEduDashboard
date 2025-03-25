@@ -1,0 +1,39 @@
+# Messages for Igbo (Igbo)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Edith Nwobu
+# Author: Izuchi Onyeike
+# Author: Jenniferkene
+# Author: King ChristLike
+# Author: Pasjoesscc
+# Author: Ukabia
+---
+ig:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: K
+          million: M
+          billion: B
+          trillion: T
+          quadrillion: Q
+  application:
+    cancel: Hapụ̀
+    submit: Zibànye
+  campaign:
+    data_wikidata: wikidata statị
+    data_wikidata_info: Ntụri maka ọrụ wikidata, nke dabeere na nchịkọta ndezi
+    search: Chọọ
+  courses:
+    cancel: Hapụ̀
+  courses_generic:
+    cancel: Hapụ̀
+  editable:
+    edit: Mèzi
+    cancel: Hapụ̀
+  metrics:
+    general: Izugbe
+    references_added: Edensibịa e tinyere
+...

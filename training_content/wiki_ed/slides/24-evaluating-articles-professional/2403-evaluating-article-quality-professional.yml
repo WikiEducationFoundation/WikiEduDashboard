@@ -22,3 +22,29 @@ content: |
   great articles to work on, because there's lots you can do, and you can
   quickly make a dramatic impact.
 id: 2403
+
+translations:
+  es:
+    title: Evaluando la calidad de un artículo
+    content: |
+      Una herramienta importante para evaluar un artículo de Wikipedia es
+      fijarse en su **índice de calidad**.
+
+      Los artículos de Wikipedia se mejoran constantemente, y todos a ritmos
+      diferentes. Algunos compiten con las mejores enciclopedias, pero otros
+      están desactualizados o incompletos.
+
+      Los voluntarios revisan los artículos y dejan una calificación en la página
+      de discusión. Puedes encontrarla haciendo clic en "Discusión" en la parte
+      superior izquierda del texto del artículo.
+
+      Los mejores artículos han sido evaluados como artículos "Buenos" o "Destacados".
+      Estos son los mejores que ofrece Wikipedia, y la calificación refleja una
+      opinión compartida de muchos wikipedistas. Puede ser más difícil encontrar
+      formas de mejorar un artículo Bueno o Destacado, y cualquier edición importante
+      debe ser mencionada en la página de discusión del artículo antes de hacer los cambios.
+
+      Los artículos de clase "principiante" o "Esbozos" no se consideran tan fiables,
+      o simplemente no proporcionan una descripción general muy sólida del tema.
+      Estos artículos son ideales para trabajar en ellos, ya que hay mucho que hacer
+      y puedes lograr un impacto dramático rápidamente.

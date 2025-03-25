@@ -16,3 +16,24 @@ content: |
   to “Email options.” You will be sent an email asking you to confirm your
   account. Click the link to confirm, and you're done!
 id: 2304
+
+translations:
+  es:
+    title: Tu cuenta de Wikipedia
+    content: |
+      Ya tienes una cuenta en Wikipedia. Como la mayoría de las cuentas en línea,
+      es posible que quieras recuperar una contraseña en el futuro. En Wikipedia,
+      eso significa que tienes que optar por añadir tu dirección de correo electrónico.
+      Si alguna vez olvidas tu contraseña de Wikipedia, puedes pedir que te la envíen
+      por correo electrónico.
+
+      Añadir una dirección de correo electrónico también permite que otros editores te
+      contacten, y puedes recibir notificaciones por correo electrónico cada vez que se
+      modifiquen las páginas que te interesan. Tu dirección de correo electrónico no se
+      revela cuando otros usuarios te contacten.
+
+      Para hacer esto, inicia sesión en tu cuenta de Wikipedia. Haz clic en el
+      enlace **Preferencias** en la esquina superior derecha de la página.
+      Desplázate hasta "Opciones de correo electrónico". Te llegará un correo
+      electrónico pidiéndote que confirmes tu cuenta. Haz clic en el enlace para
+      confirmar ¡y listo!

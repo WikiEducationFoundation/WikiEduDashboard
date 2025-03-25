@@ -1379,6 +1379,8 @@ en:
     block_custom: Custom
     block_in_class: In Class
     block_milestone: Milestone
+    block_handouts: Handouts
+    block_resources: Resources
     block_type: >
       The block type is used to communicate to your students about this item on
       their timeline and to build useful tools for you (such as the milestone

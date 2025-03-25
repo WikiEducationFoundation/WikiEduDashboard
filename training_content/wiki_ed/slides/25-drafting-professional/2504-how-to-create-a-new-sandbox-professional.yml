@@ -20,3 +20,25 @@ content: |
   it in your **Contributions** history, linked at the top right when
   you're logged in.
 id: 2504
+
+translations:
+  es:
+    title: Cómo crear un nuevo entorno de pruebas
+    content: |
+      Puedes trabajar en tu entorno de pruebas o crear otro entorno de pruebas
+      desde tu página de usuario. Puedes crear tantas páginas de entornos de
+      pruebas como desees editando la URL después de tu nombre de usuario con
+      el nombre de la nueva página que quieres crear.
+
+      Por ejemplo, para crear una nueva página llamada «Nuevo entorno de pruebas»,
+      primero haz clic en tu nombre de usuario en la parte superior derecha
+      cuando hayas iniciado sesión. Después, edita el final de la URL para que quede así:
+       <code><pre>es.wikipedia.org/wiki/Usuario:Nombredeusuario<b>/Nuevoentornodepruebas</b></pre></code>
+
+      Haz clic en **Crear** en la parte superior derecha para entrar en el modo de edición para una nueva página.
+
+
+      Cuando hayas agregado contenido, haz clic en **Publicar página** para guardar lo que agregaste. (Va a seguir siendo un entorno de pruebas; «Publicar» solo significa guardar).
+
+      Si olvidas la URL de esta nueva página, ¡no te preocupes! Siempre puedes encontrarla en tu historial de **Contribuciones**,
+      enlazado en la parte superior derecha cuando hayas iniciado sesión.

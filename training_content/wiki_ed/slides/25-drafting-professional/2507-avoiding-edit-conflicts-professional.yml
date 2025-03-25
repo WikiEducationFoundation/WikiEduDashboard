@@ -9,3 +9,11 @@ content: |
   user attempts to publish an edit while another is also editing the page.
   Make small edits and publish them often to avoid conflicts.
 id: 2507
+
+translations:
+  es:
+    title: Evitando conflictos de edición
+    content: |
+      Si estás colaborando con otro académico en tu entorno de pruebas o en el suyo, puedes toparte con lo que se denomina un "conflicto de edición".
+
+      Wikipedia no maneja muy bien el hecho de que varias personas editen desde distintos dispositivos al mismo tiempo. Un conflicto de edición sucede cuando más de un usuario intenta publicar una edición mientras que otro también está editando la página. Haz ediciones pequeñas y publícalas con frecuencia para evitar conflictos.

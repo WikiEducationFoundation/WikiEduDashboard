@@ -15,3 +15,20 @@ content: |+
   </div>
 
 id: 2319
+
+translations:
+  es:
+    title: ¡Eso es todo!
+    content: |
+      Recuerda, usa el Editor Visual cuando esté disponible, y agregar
+      citas y opciones de formato te resultará más fácil que nunca.
+
+      ¡Gracias por completar este módulo de orientación! Apreciamos cualquier
+      observación; déjanos saber lo que te gustó, lo que no te gustó,
+      y cualquier sugerencia que tengas sobre cómo mejorarlo.
+
+      <div class="training__button-container">
+      <a target="_blank" class="btn btn-primary" href="https://dashboard.wikiedu.org/feedback">
+      Enviar comentarios </a>
+
+      </div>

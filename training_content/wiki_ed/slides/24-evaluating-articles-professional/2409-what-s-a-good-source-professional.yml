@@ -15,3 +15,13 @@ content: |
   take our [training module](/training/students/editing-medical-topics)
   about the more strict source requirements for these topics.
 id: 2409
+
+translations:
+  es:
+    title: ¿Cuáles son fuentes buenas?
+    content: |
+      La información de Wikipedia debe proceder de:
+
+      -   **Fuentes independientes**, es decir, que no estén directamente relacionadas con el tema ni sean de autoría de éste.
+      -   **Fuentes conocidas por su verificación de hechos y su neutralidad**, como la prensa académica, las revistas revisadas por pares, o los periódicos nacionales o internacionales.
+      -   **Editoriales fiables** que representen un consenso general en la materia.

@@ -18,9 +18,9 @@ class TimesliceManager
 
   # Creates course wiki timeslices records for new course wikis
   # Takes a collection of Wikis
-  def create_timeslices_for_new_course_wiki_records(wikis)
+  def create_timeslices_for_new_course_wiki_records(wikis, needs_update: false)
     wikis.each do |wiki|
-      create_empty_course_wiki_timeslices(start_dates(wiki), wiki)
+      create_empty_course_wiki_timeslices(start_dates(wiki), wiki, needs_update:)
     end
   end
 

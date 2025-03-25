@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 json.training_modules do
-  json.array! @training_modules, :name, :id, :status, :slug, :kind
+  json.array! @training_modules do |tm|
+    json.name tm.translated_name
+    json.call(tm, :id, :status, :slug, :kind)
+  end
 end
 
 json.training_libraries @training_libraries do |library|

@@ -25,8 +25,7 @@ content: |
   <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/Auto-citing_a_source_using_VisualEditor%2C_small.gif" />
 
   <figcaption class="image-credit">
-  <a href="https://commons.wikimedia.org/wiki/File:Auto-citing_a_source_using_VisualEditor,_small.gif">Photo
-  by Neil P. Quinn, CC BY-SA.</a>
+  <a href="https://commons.wikimedia.org/wiki/File:Auto-citing_a_source_using_VisualEditor,_small.gif">Animated gif by Neil P. Quinn, CC BY-SA.</a>
 
   </figcaption>
   </figure>
@@ -53,3 +52,55 @@ content: |
   at the bottom of the page from the citations you've entered, keeping
   track of all the sources you've cited so far.
 id: 2308
+
+translations:
+  es:
+    title: Añadiendo citas
+    content: |
+      Añadir referencias y citas es una parte importante de la mejora de un artículo.
+      Permite a otros editores comprobar que la información que has agregado es correcta.
+
+      <figure class="alt-layout-30-right">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/VisualEditor_citoid_Cite_button.png" />
+
+      <figcaption class="">
+      <a href="https://commons.wikimedia.org/wiki/File:VisualEditor_citoid_Cite_button.png"></a>
+
+      </figcaption>
+      </figure>
+
+      Haz clic en "Editar" arriba de la sección o artículo que quieras editar.
+      Coloca el cursor donde quieras añadir la referencia.
+
+      En la barra de herramientas del Editor Visual, encontrarás el botón "Citar".
+      Si simplemente pegas una URL, asegúrate de revisar el campo que el Editor Visual
+      rellena automáticamente.
+
+      <figure class="alt-layout-100">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/Auto-citing_a_source_using_VisualEditor%2C_small.gif" />
+
+      <figcaption class="image-credit">
+      <a href="https://commons.wikimedia.org/wiki/File:Auto-citing_a_source_using_VisualEditor,_small.gif">Gif animado de Neil P. Quinn, CC BY-SA.</a>
+
+      </figcaption>
+      </figure>
+
+      El gif muestra cómo la herramienta de citas crea una cita automáticamente a partir de una URL.
+      También puedes introducir los campos de una cita manualmente y se generará una para ti.
+      Una vez creada, puedes reutilizarla en todo el artículo.
+
+      <figure class="alt-layout-40-right">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/2/26/VisualEditor_references_more_-_Vector_skin_2022.png" />
+
+      <figcaption class="">
+      <a href="https://commons.wikimedia.org/wiki/File:VisualEditor_references_more_-_Vector_skin_2022.png"></a>
+
+      </figcaption>
+      </figure>
+
+      Para reutilizar una referencia existente, sitúa el cursor en el cuerpo del texto donde quieras
+      agregar la nueva referencia para esa cita. Después, abre el menú "Citar" y busca la opción "Reutilizar".
+
+      El Editor Visual también generará una sección de "Referencia" automáticamente en la parte
+      inferior de la página a partir de las citas que hayas introducido, manteniendo un registro
+      de todas las fuentes que hayas citado hasta el momento.

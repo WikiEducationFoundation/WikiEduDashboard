@@ -12,3 +12,17 @@ content: |
   It is **crucial** that you sign your messages with four tildes (`~~~~`)
   to automatically mark it with your username and a timestamp.
 id: 2316
+
+translations:
+  es:
+    title: Responder en una página de discusión
+    content: |
+      Si alguien deja una respuesta o te etiqueta con una pregunta, debes responder.
+
+      Abre la página como lo harías con un artículo para editarlo.
+      Debajo del comentario al que estás respondiendo, escribe dos puntos (`:`). Cada :
+      hará que tu respuesta quede más sangrada en la conversación. Por lo tanto, si
+      respondes a una respuesta, usa dos puntos, etc.
+
+      Es **fundamental** que firmes tus mensajes con cuatro tildes (`~~~~`)
+      para marcarlos automáticamente con tu nombre de usuario y una marca de tiempo.
