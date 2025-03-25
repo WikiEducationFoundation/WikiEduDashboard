@@ -7,11 +7,18 @@ require "#{Rails.root}/lib/articles_courses_cleaner"
 describe RevisionDataManager do
   describe '#fetch_revision_data_for_course' do
     let(:course) { create(:course, start: '2018-01-01', end: '2018-12-31') }
+    let(:course2) { create(:course, slug: 'Ar_course', start: '2024-11-28', end: '2024-11-01') }
     let(:user) { create(:user, username: 'Ragesoss') }
+    let(:user2) { create(:user, username: 'كريم رائد') }
     let(:home_wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
+    let(:arwiki) { Wiki.get_or_create(language: 'ar', project: 'wikipedia') }
     let(:instance_class) { described_class.new(home_wiki, course) }
+    let(:instance_class2) { described_class.new(arwiki, course2) }
     let(:subject) do
       instance_class.fetch_revision_data_for_course('20180706', '20180707')
+    end
+    let(:subject2) do
+      instance_class2.fetch_revision_data_for_course('20241129134300', '20241130201900')
     end
     let(:revision_data) do
       [{ 'mw_page_id' => '55345266',
@@ -70,6 +77,7 @@ describe RevisionDataManager do
 
     before do
       create(:courses_user, course:, user:)
+      create(:courses_user, course: course2, user: user2)
     end
 
     it 'fetches all the revisions that occurred during the given period of time' do
@@ -106,6 +114,15 @@ describe RevisionDataManager do
         .with(revision_data2)
 
       subject
+    end
+
+    it 'ensures all revisions have a non-nil character field' do
+      VCR.use_cassette 'revision_importer/all' do
+        # Revisions retrieved from the replica may have a nil characters field.
+        # This spec ensures that the created Revision record always has a non-nil
+        # characters value, defaulting to zero if nil.
+        subject2.each { |rev| expect(rev.characters).not_to be_nil }
+      end
     end
   end
 

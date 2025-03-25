@@ -24,6 +24,7 @@ class RevisionDataManager
   def fetch_revision_data_for_course(timeslice_start, timeslice_end)
     all_sub_data, scoped_sub_data = get_course_revisions(@course.students, timeslice_start,
                                                          timeslice_end)
+
     @revisions = []
 
     # Extract all article data from the slice. Outputs a hash with article attrs.
@@ -156,7 +157,7 @@ class RevisionDataManager
     Revision.new({
           mw_rev_id: rev_data['mw_rev_id'],
           date: rev_data['date'],
-          characters: rev_data['characters'],
+          characters: rev_data['characters'] || 0,
           article_id: articles.nil? ? nil : articles[mw_page_id],
           mw_page_id:,
           user_id: users[rev_data['username']],
