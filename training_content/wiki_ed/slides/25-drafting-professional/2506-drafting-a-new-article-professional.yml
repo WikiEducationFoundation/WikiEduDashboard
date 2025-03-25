@@ -23,3 +23,23 @@ content: |
   from the Wikipedia policies training before doing too much work on your
   new article.
 id: 2506
+
+translations:
+  es:
+    title: ¿Estás redactando un artículo nuevo?
+    content: |
+      Si estás creando un artículo nuevo, tiene sentido preparar un primer borrador en un entorno de pruebas.
+      De esta forma puedes manejar parte de la estructura del artículo, y desarrollar un párrafo de
+      introducción que contenga todo lo que quieras abordar.
+
+      Escribe un resumen de tu tema en forma de "sección principal" de un artículo estándar de Wikipedia.
+
+      Una sección "principal" no es una introducción tradicional. Debe resumir, muy brevemente, lo que
+      el resto del artículo va a decir en detalle. Sólo debe incluir datos importantes y generales sobre
+      el tema. Después de redactar el borrador, revisa la introducción para asegurarte de que todos los
+      puntos principales estén representados en esta importante sección. Un buen ejemplo es [Ada Lovelace](https://en.wikipedia.org/wiki/Ada_Lovelace).
+      Consulta la página 9 de [Editando Wikipedia](https://wikiedu.org/editingwikipedia) para ver más consejos.
+
+      Ten en cuenta que no todos los temas pasan las [normas de notabilidad](/training/professional-development/wikipedia-policies-professional/notability-professional)
+      de Wikipedia, así que revisa las diapositivas de notabilidad de la capacitación sobre
+      políticas de Wikipedia antes de dedicarle demasiado trabajo a tu nuevo artículo.

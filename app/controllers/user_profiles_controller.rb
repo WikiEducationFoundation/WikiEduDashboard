@@ -7,6 +7,15 @@ class UserProfilesController < ApplicationController
   before_action :set_user_profile, only: [:update, :update_email_preferences]
   before_action :require_write_permissions, only: [:update]
 
+  def taught_courses_articles
+    user = User.find_by(username: params[:username])
+    return render json: { error: 'User not found' }, status: :not_found if user.nil?
+
+    data = user.taught_courses_with_edited_articles
+
+    render json: data, status: :ok
+  end
+
   def show
     if @user
       @last_courses_user = @user.courses_users.includes(:course)

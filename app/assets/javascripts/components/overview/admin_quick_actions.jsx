@@ -1,10 +1,12 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import GreetStudentsButton from './greet_students_button.jsx';
 import { format, toDate, parseISO } from 'date-fns';
 import { getUTCDateString } from '../../utils/date_utils.js';
 import NotesPanel from '../../components/admin_notes/notes_panel.jsx';
 import AdminStatusPanel from '../../components/overview/admin_status_panel.jsx';
+import { updateCourse } from '@actions/course_actions.js';
 
 // Helper Functions
 const DetailsText = ({ flags }) => (
@@ -40,6 +42,8 @@ export const AdminQuickActions = ({ course, current_user, persistCourse, greetSt
     }
     : {};
 
+  const dispatch = useDispatch();
+
   return (
     <div className="module admin-quick-actions" style={{ textAlign: 'center', ...closedCourseStyle }}>
       {isCourseClosed(course.flags) && (
@@ -60,10 +64,13 @@ export const AdminQuickActions = ({ course, current_user, persistCourse, greetSt
           <button
             className="button mark-as-review"
             onClick={() => {
-              course.last_reviewed = {
-                username: current_user.username,
-                timestamp: getUTCDateString(),
-              };
+              dispatch(updateCourse({
+                ...course,
+                last_reviewed: {
+                  username: current_user.username,
+                  timestamp: getUTCDateString(),
+                }
+              }));
               persistCourse(course.slug);
             }}
           >

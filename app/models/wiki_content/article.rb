@@ -22,12 +22,14 @@
 #
 
 require_dependency "#{Rails.root}/lib/importers/article_importer"
+require_dependency "#{Rails.root}/lib/assignment_updater"
 
 #= Article model
 class Article < ApplicationRecord
   has_many :revisions
   has_many :editors, through: :revisions, source: :user
   has_many :articles_courses, class_name: 'ArticlesCourses'
+  has_many :article_course_timeslices
   has_many :courses, -> { distinct }, through: :articles_courses
   has_many :assignments
   belongs_to :wiki
@@ -36,7 +38,6 @@ class Article < ApplicationRecord
 
   scope :live, -> { where(deleted: false) }
   scope :current, -> { joins(:courses).merge(Course.current).distinct }
-  scope :ready_for_update, -> { joins(:courses).merge(Course.ready_for_update).distinct }
   scope :namespace, ->(ns) { where(namespace: ns) }
   scope :sandbox, -> { where(namespace: Namespaces::USER) }
   scope :assigned, -> { joins(:assignments).distinct }
@@ -157,6 +158,11 @@ class Article < ApplicationRecord
 
   def fetch_page_content
     WikiApi.new(wiki).get_page_content(escaped_full_title)
+  end
+
+  def mark_deleted!
+    update(deleted: true)
+    AssignmentUpdater.clean_assignment_for_deleted_article(self)
   end
 
   private

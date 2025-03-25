@@ -13,3 +13,13 @@ content: |
   You can always reach out to your Wikipedia Expert for advice. 
 
 id: 2612
+
+translations:
+  es:
+    title: ¡Mi trabajo fue revertido!
+    content: |
+      ¡Tranquilo! Si su trabajo es revertido por otro editor, es tu responsabilidad abrir un diálogo con ese editor acerca de por qué el trabajo fue removido.
+
+      No vuelvas a añadir nada hasta que entiendas por qué fue eliminado y cómo puedes arreglarlo. Si vuelves a añadir un trabajo revertido sin seguir estos pasos, se considerará una guerra de ediciones y tu cuenta podría ser bloqueada.
+
+      Siempre puedes pedir consejo a tu Experto en Wikipedia.

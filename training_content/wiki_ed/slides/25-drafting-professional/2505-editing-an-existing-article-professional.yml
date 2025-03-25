@@ -22,3 +22,19 @@ content: |+
       them.
 
 id: 2505
+
+translations:
+  es:
+    title: ¿Estás editando un artículo existente?
+    content: |
+      Si estás editando un artículo existente, un entorno de pruebas es un lugar ideal para preparar tus primeras actualizaciones copiando una pequeña parte del artículo que quieras cambiar o expandir. No trates de revisar un artículo completo desde el entorno de pruebas.
+
+      Identifica lo que falta en la forma actual del artículo. Sigue leyendo tus fuentes mientras te preparas para escribir el cuerpo del artículo.
+
+      Cuando estés listo para editar:
+
+      1.  Abre el artículo que deseas cambiar en modo **Editar**. (Las referencias y otras plantillas se rompen si copias desde el modo **Leer**).
+      2.  Selecciona la parte en la que quieras trabajar, unos pocos párrafos como máximo, y cópiala.
+      3.  Abre tu entorno de pruebas en modo Editar y pega el contenido del artículo copiado.
+      4.  Agrega un resumen de la edición que diga copiado de `[[artículo]]` con el nombre del original, y guárdalo haciendo clic en **Publicar cambios**.
+      5.  Vuelve a entrar a modo edición en tu entorno de pruebas, haz los cambios, y guárdalos.

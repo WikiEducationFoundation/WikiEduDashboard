@@ -22,15 +22,29 @@ class ContinuedCourseActivityAlertManager
 
   private
 
-  MINIMUM_CHARACTERS_ADDED_AFTER_COURSE_END = 200
+  MINIMUM_REVISIONS_AFTER_COURSE_END = 5
   def significant_activity_after_course_end?(course)
-    user_ids = course.students.pluck(:id)
-    post_course_characters = Revision
-                             .where(user_id: user_ids)
-                             .where('date > ?', course.end.end_of_day)
-                             .joins(:article)
-                             .where(articles: { namespace: Article::Namespaces::MAINSPACE })
-                             .sum(:characters)
-    post_course_characters > MINIMUM_CHARACTERS_ADDED_AFTER_COURSE_END
+    total_revisions = course.wikis.sum do |wiki|
+      count_revisions_for_wiki(course, wiki)
+    end
+    total_revisions > MINIMUM_REVISIONS_AFTER_COURSE_END
+  end
+
+  def count_revisions_for_wiki(course, wiki)
+    # 50 is the max users for query
+    course.students.pluck(:username).in_groups_of(40, false).sum do |usernames|
+      response = WikiApi.new(wiki).query(query(course, usernames))
+      response.data['usercontribs'].count
+    end
+  end
+
+  def query(course, users)
+    {
+      list: 'usercontribs',
+      ucuser: users,
+      ucnamespace: Article::Namespaces::MAINSPACE,
+      ucend: course.end.end_of_day.strftime('%Y%m%d%H%M%S'),
+      uclimit: MINIMUM_REVISIONS_AFTER_COURSE_END + 1
+    }
   end
 end

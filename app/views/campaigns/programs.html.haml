@@ -50,7 +50,7 @@
               %span.sortable-indicator
               %span.tooltip-indicator
               .tooltip.dark
-                %p= t('courses.revisions_doc', timeframe: RevisionStat::REVISION_TIMEFRAME)
+                %p= t('courses.revisions_doc', timeframe: RevisionStatTimeslice::REVISION_WINDOW_DAYS)
           %th.sort.sortable{style: 'width: 172px;', 'data-default-order' => 'desc', 'data-sort' => 'characters'}
             .tooltip-trigger
               = t('metrics.word_count')

@@ -47,7 +47,6 @@ describe ArticleStatusManager do
     end
 
     it 'updates the mw_page_ids of articles' do
-      pending 'This sometimes fails for unknown reasons.'
       VCR.use_cassette 'article_status_manager/mw_page_ids' do
         # en.wikipedia - article 100 does not exist
         create(:article,
@@ -58,23 +57,22 @@ describe ArticleStatusManager do
                updated_at: 2.days.ago)
         create(:revision, date: 1.day.ago, article_id: 100, user:)
 
-        # es.wikipedia
+        # es.wikipedia - article 1 does not exist
         course.wikis << create(:wiki, id: 2, language: 'es', project: 'wikipedia')
         create(:article,
-               id: 10000001,
-               mw_page_id: 10000001,
+               id: 1,
+               mw_page_id: 1,
                title: 'Audi',
                namespace: 0,
                wiki_id: 2,
                updated_at: 2.days.ago)
-        create(:revision, date: 1.day.ago, article_id: 10000001, user:)
+        create(:revision, date: 1.day.ago, article_id: 1, user:)
 
         described_class.update_article_status_for_course(course)
 
         expect(Article.find_by(title: 'Audi', wiki_id: 1).mw_page_id).to eq(848)
         expect(Article.find_by(title: 'Audi', wiki_id: 2).mw_page_id).to eq(4976786)
       end
-      pass_pending_spec
     end
 
     it 'deletes articles when id changed but new one already exists' do

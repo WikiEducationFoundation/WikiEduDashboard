@@ -47,4 +47,13 @@ module ArticleHelper
     return 'list' if %w[al bl cl sl].include? rating
     return nil
   end
+
+  def calculate_view_count(first_revision, average_views, view_count)
+    # view_count AC Field is no longer used in the timeslice system
+    # however, this is a hack to display article views for historical courses
+    # that will not receive a new update
+    return view_count if first_revision.nil? || average_views.nil?
+    days = (Time.now.utc.to_date - first_revision.to_date).to_i
+    (days * average_views).to_i
+  end
 end

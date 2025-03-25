@@ -5,3 +5,10 @@ description: |
 slides:
   - slug: assign-yourself-professional # 5801
   - slug: start-draft-professional #5802
+
+
+translations:
+  es:
+    name: 'Ejercicio: Finalizando tu tema (Profesional)'
+    description: |
+      Finaliza la selección del primer artículo al que te gustaría hacer una contribución significativa.

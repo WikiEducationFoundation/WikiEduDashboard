@@ -5,3 +5,9 @@ description: |
 slides:
   - slug: where-to-start-professional # 5701
   - slug: what-to-consider-professional #5702
+
+translations:
+  es:
+    name: 'Ejercicio: Evalúa Wikipedia (Profesional)'
+    description: |
+      Este ejercicio te guiará en la evaluación de un artículo de Wikipedia.

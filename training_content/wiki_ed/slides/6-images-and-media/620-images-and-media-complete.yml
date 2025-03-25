@@ -8,7 +8,7 @@ content: |
   Here are some take-aways:
   * Never upload images you find through an image search or on Instagram, Tumblr,
   Reddit, Imgur, or even so-called "Free image" or "free stock photo" websites.
-  * Try searching [wordpress.org/openverse](https://wordpress.org/openverse/)
+  * Try searching [openverse.org](https://openverse.org)
   for appropriate images.
   * Don't just upload an image to a Wikipedia article. Upload it to Wikipedia's
   sister site for images, Wikimedia Commons, first.
@@ -26,3 +26,25 @@ content: |
   </a></div>
 
   Happy editing!
+
+translations:
+  es:
+    title: ¡Buen trabajo!
+    content: |
+      Deberías sentirte listo y seguro para compartir imágenes en Wikimedia Commons, o añadir imágenes a los artículos de Wikipedia.
+
+      Aquí tienes algunos consejos:
+
+      * Nunca subas imágenes que encuentres en una búsqueda de imágenes o en Instagram, Tumblr, Reddit, Imgur, o incluso en páginas web que las llaman "Imágenes gratis" o "fotos de stock gratis".
+      * Busca imágenes adecuadas en [openverse.org](https://openverse.org).
+      * No te limites a subir una imagen a un artículo de Wikipedia. Súbela primero al sitio hermano de Wikipedia para imágenes, Wikimedia Commons.
+
+      Si tienes más preguntas, siempre puedes repasar esta capacitación, o consultar nuestra guía "[Ilustrando Wikipedia](https://commons.wikimedia.org/wiki/File:Illustrating_Wikipedia_brochure_(Wiki_Education_Foundation).pdf)".
+
+      También agradeceríamos cualquier comentario que tengas sobre este módulo de orientación. Haz clic a continuación para contarnos qué te gustó y qué no, y cualquier sugerencia que tengas para mejorarlo
+
+      <div class="training__button-container"><a target="_blank" class="btn btn-primary" href='/feedback'>
+        Enviar comentarios
+      </a></div>
+
+      ¡Que disfrutes editando!

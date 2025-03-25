@@ -15,5 +15,5 @@
 
   = simple_form_for @feedback_form_response do |f|
     = f.input :subject,  as: :hidden, input_html: { value: @subject }
-    = f.input :body, label: false
+    = f.input :body, label: false, required: true
     = f.submit 'Submit', class: 'button dark'

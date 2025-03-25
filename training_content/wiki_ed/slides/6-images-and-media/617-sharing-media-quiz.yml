@@ -40,3 +40,33 @@ assessment:
         CORRECT! You can scan, or photograph, images in the public domain. Most
         likely, an image in a 150-year-old newspaper has fallen out of
         copyright, and could be shared.
+
+translations:
+  es:
+    title: Quiz sobre compartir multimedia
+    content: ""
+    assessment:
+      correct_answer_id: 4
+      question: |
+        Repasemos parte de lo que has aprendido. ¿Cuál de los siguientes es un elemento multimedia aceptable para compartir en Commons?
+      answers:
+        - id: 1
+          text: |
+            Un póster promocional de una película, compartido por el estudio cinematográfico con los periódicos para promocionar la película.
+          explanation: |
+            ¡Incorrecto!
+        - id: 2
+          text: |
+            Una imagen que encontraste en una página web de imágenes prediseñadas gratuitas.
+          explanation: |
+            ¡Incorrecto!
+        - id: 3
+          text: |
+            Una foto que tomaste de una pintura nueva en el museo de la universidad.
+          explanation: |
+            ¡Incorrecto!
+        - id: 4
+          text: |
+            Una caricatura política de un periódico de hace 150 años.
+          explanation: |
+            ¡Correcto!

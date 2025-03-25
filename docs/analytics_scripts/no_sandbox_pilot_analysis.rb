@@ -7,7 +7,7 @@ fall_2024 = Campaign.find_by_slug('fall_2024')
 
 headers = ['course', 'student count', 'articles edited', 'total edit count', 'mainspace edit count',
            'mainspace bytes added', 'ticket count', 'yes or no sandbox', 'new or returning',
-           'experiment tag', 'how hard Q']
+           'experiment tag', 'how hard Q', 'where draft Q', 'most challenging Q' ]
 data = [headers]
 
 fall_2024.courses.each do |c|
@@ -28,8 +28,15 @@ fall_2024.courses.each do |c|
                     'no_sandbox_fall_2024_control_condition'
                    end
   row << experiment_tag
-  how_hard_answer = Rapidfire::AnswerGroup.find_by(course_id: c.id, question_group_id: 75)&.answers&.where(question_id: 1858)&.first&.answer_text
-  row << how_hard_answer
+  # On a scale from 1 to 5 (1 being very easy and 5 being very difficult), how easy was it for your students to contribute to Wikipedia?
+  how_hard_answer = Rapidfire::AnswerGroup.find_by(course_id: c.id, question_group_id: 75)&.answers&.where(question_id: 1858)&.first
+  row << how_hard_answer&.answer_text
+  # Where did your students draft their work?
+  where_draft_answer = Rapidfire::AnswerGroup.find_by(course_id: c.id, question_group_id: 75)&.answers&.where(question_id: 1859)&.first
+  row << "#{where_draft_answer&.answer_text}\n#{where_draft_answer&.follow_up_answer_text}"
+  # What aspect(s) of the Wikipedia assignment did you or your students find challenging?
+  most_challenging_answer = Rapidfire::AnswerGroup.find_by(course_id: c.id, question_group_id: 75)&.answers&.where(question_id: 1847)&.first
+  row << "#{most_challenging_answer&.answer_text}\n#{most_challenging_answer&.follow_up_answer_text}"
   data << row
 end
 

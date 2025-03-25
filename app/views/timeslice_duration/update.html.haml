@@ -1,0 +1,42 @@
+- content_for :before_title, "Timeslice duration"
+.container.dashboard
+  %header
+    %h1
+      = 'View and update timeslice duration'
+
+.container
+  - if @course.present? && @results.present?
+    %div#results
+      %hr
+      %h2 Results
+      %h3 Course: #{@course.slug}
+      %ul
+        %table.table.table--striped
+          %thead
+          %tr
+            %th Wiki ID
+            %th Wiki Domain
+            %th Duration (seconds)
+          %tbody
+            - @results.each do |wiki, duration|
+              %tr
+              %td{style: "text-align: center;"}= wiki.id.to_s
+              %td{style: "text-align: center;"}= wiki.domain.to_s
+              %td{style: "text-align: center;"}= duration.to_s
+
+    %div#update
+      %hr
+      %h2 Update timeslice duration
+      %h4 Suggested durations: 1 day (86400 s) or 10 days (864000 s)
+    %form#timeslice-form{action: '/timeslice_duration/update', method: 'post'}
+      = csrf_meta_tags
+      %input{name: "authenticity_token", type: "hidden", value: form_authenticity_token}
+      
+      %input#course_id{type: "hidden", name: "course_id", value: @course.id}
+
+      %label{for: "wiki-id"} Wiki id (example: 1):
+      %input#wiki-id{type: "number", name: "wiki_id"}
+      %label{for: "duration"} New timeslice duration (in seconds):
+      %input#duration{type: "number", name: "duration"}
+      %button{type: 'submit'}
+        %div.button.dark Update timeslice duration    

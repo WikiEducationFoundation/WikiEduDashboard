@@ -40,3 +40,33 @@ assessment:
         you take of someone else's artwork, because of copyright. Citing the
         source doesn't give you the right to copy their work, unless they
         specifically say so.
+
+translations:
+  es:
+    title: Quiz sobre compartir multimedia
+    content: ""
+    assessment:
+      correct_answer_id: 3
+      question: |
+        ¿Cuál de las siguientes afirmaciones es cierta?
+      answers:
+        - id: 1
+          text: |
+            No puedes subir obras de otras personas, aunque te den permiso en su sitio web.
+          explanation: |
+            ¡Incorrecto!
+        - id: 2
+          text: |
+            No puedes subir imágenes originales de edificios o personas tomadas en público sin permiso escrito.
+          explanation: |
+            ¡Incorrecto!
+        - id: 3
+          text: |
+            La gente tiene que seguir las normas al pie de la letra cuando utiliza imágenes de "licencia libre", o podrían ser demandados por daños y perjuicios económicos.
+          explanation: |
+            ¡Correcto!
+        - id: 4
+          text: |
+            Puedes compartir cualquier imagen que encuentres en Internet, siempre y cuando cites la fuente.
+          explanation: |
+            ¡Incorrecto!

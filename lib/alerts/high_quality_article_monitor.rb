@@ -14,11 +14,11 @@ class HighQualityArticleMonitor
     @wiki = Wiki.find_by(language: 'en', project: 'wikipedia')
     find_good_and_featured_articles
     normalize_titles
+    set_article_ids
   end
 
   def create_alerts_from_page_titles
-    course_articles = ArticlesCourses.joins(:article)
-                                     .where(articles: { title: @page_titles, wiki_id: @wiki.id })
+    course_articles = ArticlesCourses.where(article_id: @article_ids)
     course_assignments = Assignment.joins(:article)
                                    .where(articles: { title: @page_titles, wiki_id: @wiki.id })
                                    .where(course: Course.current)
@@ -47,6 +47,10 @@ class HighQualityArticleMonitor
     end
     @page_titles.compact!
     @page_titles.uniq!
+  end
+
+  def set_article_ids
+    @article_ids = Article.where(title: @page_titles, wiki_id: @wiki.id).pluck(:id)
   end
 
   def create_edit_alert(articles_course)

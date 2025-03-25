@@ -136,29 +136,47 @@ ul.list--survey
   background white
   padding 1rem 0
 
-.survey__progress
-  background sprout-dark
+.survey__progress__container
   position relative
   float right
-  width 200px
-  height 20px
-  border-radius 5px
-  overflow hidden
+  margin-left auto
+  display flex
+  align-items center
+  gap 10px
 
-  +above(tablet)
-    margin-left auto
-
-  &-bar
-    position absolute
-    left 0
-    top 0
-    width 0%
-    height 30px
+  .survey__progress
     background lighten(sprout, 50%)
-    transition width 500ms cubic-bezier(0.19, 1, 0.22, 1)
-    border-right 2px solid darken(sprout-dark, 10%)
+    width 200px
+    height 20px
+    border-radius 5px
+    overflow hidden
 
-    .label
-      padding-left 5px
-      font-size 85%
-      color $text_dk
+    +above(tablet)
+      margin-left auto
+
+    &-bar
+      position relative
+      left 0
+      top 0
+      width 0%
+      height 30px
+      background sprout-dark
+      transition width 500ms cubic-bezier(0.19, 1, 0.22, 1)
+
+    &-percentage
+      position absolute
+      right 5px
+      top 0
+      line-height 20px
+      font-size 12px
+      color #fff
+      font-weight bold
+
+  .progress-label
+    background #40ad90
+    width fit-content
+    color #fff
+    font-size 75%
+    padding 2px 6px
+    border-radius 5px
+

@@ -20,3 +20,25 @@ content: |+
       your inline reference number.
 
 id: 2309
+
+translations:
+  es:
+    title: Añadiendo citas usando Wikitexto
+    content: |
+      También puedes añadir una cita usando Wikitexto.
+
+      Puedes acceder el Wikitexto desde el modo de edición haciendo clic
+      en el icono del lápiz y seleccionando "Edición de fuentes".
+
+      Después, sigue estas instrucciones:
+
+      1.  Comprueba que la parte inferior de la página tenga una sección de "Referencias" o
+      "Notas". Si no la tiene, escribe: `==References==`.
+
+      2.  Comprueba que la sección Referencias tenga el texto `{{reflist}}` o `<references />`.
+      Si no lo tiene, escribe: `{{reflist}}`. Esto determina dónde aparecerán las referencias en la página.
+
+      3.  Ahora haz clic después del texto para el que deseas crear una referencia.
+
+      4.  Ahora escribe la etiqueta `<ref>` antes de tu referencia y escribe `</ref>` después
+      de tu referencia. El software de Wikipedia añadirá tu número de referencia integrado automáticamente.

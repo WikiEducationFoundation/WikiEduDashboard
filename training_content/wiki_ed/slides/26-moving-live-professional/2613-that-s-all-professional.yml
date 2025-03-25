@@ -20,3 +20,19 @@ content: |+
   </div>
 
 id: 2613
+
+translations:
+  es:
+    title: ¡Eso es todo!
+    content: |
+      Buen trabajo llevando tu artículo a las "grandes ligas". Si quieres emociones fuertes, haz una búsqueda en Internet sobre el tema de tu artículo dentro de unas semanas. ¡A lo mejor te sorprenda lo que encuentres!
+
+      Para recibir más guía sobre cómo trasladar el trabajo, consulta la página 13 de [Editando Wikipedia](https://upload.wikimedia.org/wikipedia/commons/9/90/Editing_Wikipedia_brochure_%28Wiki_Education_Foundation%29_%282017%29.pdf#page=13) y sigue estos pasos.
+
+      También agradeceríamos cualquier comentario que tengas sobre este módulo de capacitación. Haz clic a continuación para contarnos qué te gustó y qué no, y cualquier sugerencia que tengas para mejorarlo.
+
+      <div class="training__button-container">
+      <a target="_blank" class="btn btn-primary" href="https://dashboard.wikiedu.org/feedback">
+      Enviar comentarios </a>
+
+      </div>

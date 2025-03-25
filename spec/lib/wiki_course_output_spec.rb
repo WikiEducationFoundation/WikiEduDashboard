@@ -83,7 +83,7 @@ describe WikiCourseOutput do
       expect(response).to include('The course description')
       expect(response).to include('[[My article]]')
       expect(response).to include('[[Your article]]')
-      expect(response).to include('Jacque')
+      expect(response).not_to include('Jacque')
       expect(response).to include('Campaign Title 1, Campaign Title 2')
       expect(response).to include('InstructorUser', 'InstructorUser2', 'InstructorUser3')
     end
@@ -122,7 +122,6 @@ describe WikiCourseOutput do
         {{program details
          | course_name = Advanced Legal Research Winter 2020
          | instructor_username = Tlmarks
-         | instructor_realname = Terry Marks
          | instructor_username_2 = Shelbaum
          | instructor_username_3 = Abishekdascs
          | support_staff =#{' '}

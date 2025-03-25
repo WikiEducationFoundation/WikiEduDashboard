@@ -16,3 +16,17 @@ content: |
   you've contributed to an article, even if another editor removes it.
   That's why you should never panic if your contributions get removed!
 id: 2412
+
+translations:
+  es:
+    title: Versiones anteriores
+    content: |
+      Vas a ver dos secciones una al lado de la otra. La primera es la original, la segunda es lo que se cambió.
+
+      <figure class="alt-layout-100">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Diff_comparison_-_Nellie_Bly.png" />
+      </figure>
+
+      ¿Encuentras la diferencia? La sección sobre "And the Wind Whispered" se eliminó porque no se citaba correctamente a una fuente fiable.
+
+      Puedes usar estas comparaciones para ver lo que un editor ha hecho con un artículo en el que estás trabajando. También es la forma de ver lo que has aportado a un artículo, incluso si otro editor lo elimina. ¡Por eso, que nunca cunda el pánico si eliminan tus contribuciones!

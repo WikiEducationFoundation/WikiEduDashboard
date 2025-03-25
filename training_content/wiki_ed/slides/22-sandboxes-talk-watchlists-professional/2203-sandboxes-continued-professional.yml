@@ -12,3 +12,14 @@ content: |
   In the next training, you'll learn how to edit in [your
   sandbox](/redirect/sandbox/sandbox).
 id: 2203
+
+translations:
+  es:
+    title: Zonas de pruebas (continuado)
+    content: |
+      Si estás inscrito correctamente en tu curso en este Dashboard, entonces tu página de zona de pruebas se configuró automáticamente.
+
+      Verás una sección en la parte superior - una *plantilla* - que dice "esta es una zona de pruebas de usuario". En el modo de edición de código fuente,
+      puedes ver el Wikitexto para esa plantilla, es algo así como `{{dashboard.wikiedu.org sandbox}}`. Es bueno dejarlo ahí.
+
+      En la próxima capacitación, aprenderás cómo editar en [tu zona de pruebas](/redirect/sandbox/sandbox).
