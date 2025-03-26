@@ -162,6 +162,11 @@ describe 'New course creation and editing', type: :feature do
       find('#course_description').set('In this course, we study things.')
       click_button 'Next'
 
+      find('#course_start_day').click
+      within '#course_start_day' do
+        find('option', text: 'Sunday to Saturday').click
+      end
+
       start_date = '2015-01-01'
       end_date = '2015-12-15'
       find('.course_start-datetime-control input').set(start_date)

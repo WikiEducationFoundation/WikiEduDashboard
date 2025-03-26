@@ -628,7 +628,10 @@ en:
         Update scheduled. The data will be updated along with all current
         programs during the next update cycle. This typically takes
         several hours.
-      creating_course: Creating Course
+      creating_course: Creating Course  
+      weeks_start_on: Weeks start on
+      sunday_to_saturday: "Sunday to Saturday"
+      monday_to_sunday: "Monday to Sunday"
     current: Current Courses
     data_articles: Articles data
     data_articles_info: >

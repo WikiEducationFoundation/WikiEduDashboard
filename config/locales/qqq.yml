@@ -416,6 +416,9 @@ qqq:
         Placeholder text for course subject field
         (Wiki Ed only)
         {{Identical|Subject}}
+      weeks_start_on: Label for the day of the week that a course starts on 
+      sunday_to_saturday: Option for the day of the week that a course starts on
+      monday_to_sunday: Option for the day of the week that a course starts on 
     current: Label for the list of current courses
     delete_course: Button to delete a course
     delete_suggestion: '{{Identical|Delete}}'

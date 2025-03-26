@@ -418,7 +418,7 @@ class CoursesController < ApplicationController
     @course.save
   end
 
-  def update_course_calendar_view
+  def update_week_start_day
     @course.flags[:is_monday_start] = params.dig(:course, :is_monday_start)
   end
 
@@ -439,7 +439,7 @@ class CoursesController < ApplicationController
     update_academic_system
     update_course_format
     update_timeslice_duration
-    update_course_calendar_view
+    update_week_start_day
   end
 
   def course_params

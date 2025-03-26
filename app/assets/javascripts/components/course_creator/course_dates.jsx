@@ -73,21 +73,21 @@ const CourseDates = (props) => {
     );
   }
 
-  const calendarDropdown = (
-    <div>
-      <p><strong>Select a Day for the calendar:</strong></p>
-      <select onChange={handleCalendarStartDayChange} value={props.course.is_monday_start ? '1' : '0'}>
-        <option value="none" disabled>Select Option</option>
-        <option value="0">Sunday - Saturday</option>
-        <option value="1">Monday - Sunday</option>
+  const calendarStartDaySelector = (
+    <div className="form-group">
+      <label htmlFor="course_start_day">{I18n.t('courses.creator.weeks_start_on')}:</label>
+      <select id="course_start_day" onChange={handleCalendarStartDayChange} value={props.course.is_monday_start ? '1' : '0'} aria-labelledby="course_start_day">
+        <option value="0">{I18n.t('courses.creator.sunday_to_saturday')}</option>
+        <option value="1">{I18n.t('courses.creator.monday_to_sunday')}</option>
       </select>
     </div>
   );
 
+
   return (
     <div className={props.courseDateClass}>
       <p>{CourseUtils.i18n('creator.course_dates_info', props.stringPrefix)}</p>
-      {calendarDropdown}
+      {calendarStartDaySelector}
       {/*  The key ensures the component re-renders when the is_monday_start value changes */}
       <DatePicker
         id="course_start"
@@ -141,7 +141,7 @@ const CourseDates = (props) => {
             id="back"
             className="dark button button__submit next"
           >
-            Back
+            {I18n.t('application.back')}
           </button>
         )}
         {props.firstErrorMessage && (
@@ -160,7 +160,7 @@ const CourseDates = (props) => {
             id="next"
             className="dark button button__submit next"
           >
-            Next
+            {I18n.t('articles.next')}
           </button>
         )}
       </div>
