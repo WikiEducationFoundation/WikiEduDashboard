@@ -435,6 +435,7 @@ en:
     students_small: students
     student_course: students by course
     title: Title
+    too_large: This campaign is too large for the requested data to be displayed.
     too_many_articles: The edited article list for this campaign is too long to be displayed. Please view individual courses/programs/events to see the articles edited.
     slug: Slug
     search_campaigns: Search campaigns

@@ -67,6 +67,7 @@ class CampaignsController < ApplicationController
         set_presenter
         # If there are more edited articles than the limit, we disable the feed of campaign articles
         if @presenter.too_many_articles?
+          @too_many_message = t('campaign.too_many_articles')
           render 'too_many_articles'
           return
         end
@@ -78,10 +79,18 @@ class CampaignsController < ApplicationController
     end
   end
 
+  # rubocop:disable Metrics/MethodLength
   def users
     respond_to do |format|
       format.html do
         set_presenter
+
+        if @presenter.too_large?
+          @too_many_message = t('campaign.too_large')
+          render 'too_many_articles'
+          return
+        end
+
         @courses_users = CoursesUsers.where(
           course: @campaign.nonprivate_courses, role: CoursesUsers::Roles::STUDENT_ROLE
         ).eager_load(:user, :course).order(revision_count: :desc)
@@ -93,6 +102,7 @@ class CampaignsController < ApplicationController
       end
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   def assignments
     set_campaign

@@ -12,7 +12,15 @@ class CoursesPresenter
     @campaign_param = campaign_param
     @page = page
     @tag = tag
+    @course_count = campaign.courses.count
     @courses_list = courses_list || campaign_courses
+  end
+
+  MAX_COURSE_COUNT = 500
+
+  def too_large?
+    return false if Features.wiki_ed?
+    @course_count > MAX_COURSE_COUNT
   end
 
   def campaign_courses
