@@ -21,6 +21,10 @@ export const Header = ({
     reviewable, assignable
   } = groupByAssignmentType(assignments, selected.id);
 
+  const editsLink = course.wikis.length > 1
+    ? selected.global_contribution_url
+    : selected.contribution_url;
+
   return (
     <aside className="header">
       <section>
@@ -28,7 +32,7 @@ export const Header = ({
         <div className="sandbox-link">
           <a href={selected.sandbox_url} target="_blank">{I18n.t('users.sandboxes')}</a>
             &nbsp;
-          <a href={selected.contribution_url} target="_blank">{I18n.t('users.edits')}</a>
+          <a href={editsLink} target="_blank">{I18n.t('users.edits')}</a>
             &nbsp;
           <a href={`/users/${encodeURIComponent(selected.username)}`}>{I18n.t('users.profile')}</a>
         </div>
