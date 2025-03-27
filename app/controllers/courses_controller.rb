@@ -419,7 +419,8 @@ class CoursesController < ApplicationController
   end
 
   def update_week_start_day
-    @course.flags[:is_monday_start] = params.dig(:course, :is_monday_start)
+    @course.flags[:is_monday_start] = params.dig(:course, :is_monday_start) 
+    @course.save
   end
 
   def update_last_reviewed
