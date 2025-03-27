@@ -87,7 +87,7 @@ class CourseRevisionUpdater
     live_revisions = revisions.reject(&:system)
     revision_count = live_revisions.count
     timeslice = CourseWikiTimeslice.for_course_and_wiki(@course, wiki)
-                                   .where(start: timeslice_start)
+                                   .for_datetime(timeslice_start)
                                    .first
     if timeslice.nil?
       # This scenario is unexpected, so we log the message to understand why this happens.
