@@ -114,7 +114,13 @@ class CoursesPresenter
                     'SUM(user_count), ' \
                     'SUM(courses.references_count)'
   def course_sums
-    @course_sums ||= courses.pick(Arel.sql(COURSE_SUMS_SQL))
+    @course_sums ||= if campaign
+                       Rails.cache.fetch("#{campaign.slug}-course_sums", expires_in: 3.hours) do
+                         courses.pick(Arel.sql(COURSE_SUMS_SQL))
+                       end
+                     else
+                       courses.pick(Arel.sql(COURSE_SUMS_SQL))
+                     end
   end
 
   def word_count
@@ -163,10 +169,19 @@ class CoursesPresenter
   end
 
   def wikidata_stats
-    stats ||= courses.joins(:course_stat).where.not(course_stats: nil).filter_map do |course|
+    return combined_wikidata_stats unless campaign
+
+    Rails.cache.fetch("#{campaign.slug}-wikidata_stats", expires_in: 3.hours) do
+      combined_wikidata_stats
+    end
+  end
+
+  def combined_wikidata_stats
+    @stats ||= courses.joins(:course_stat).where.not(course_stats: nil).filter_map do |course|
       course.course_stat.stats_hash['www.wikidata.org']
     end
-    return { 'www.wikidata.org' => stats.inject { |a, b| a.merge(b) { |_, x, y| x + y } } }
+
+    { 'www.wikidata.org' => @stats.inject { |a, b| a.merge(b) { |_, x, y| x + y } } }
   end
 
   def creation_date
