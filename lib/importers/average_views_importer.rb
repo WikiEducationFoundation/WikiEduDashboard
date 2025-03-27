@@ -5,10 +5,28 @@ require_dependency "#{Rails.root}/lib/wiki_pageviews"
 class AverageViewsImporter
   DAYS_UNTIL_OUTDATED = 14
   def self.update_outdated_average_views(articles)
-    articles.where(average_views_updated_at: nil).or(
-      articles.where('average_views_updated_at < ?', DAYS_UNTIL_OUTDATED.days.ago)
-    ).includes(:wiki).find_in_batches(batch_size: 200) do |article_group|
+    batch_size = 200
+    last_id = nil # Track the last processed article ID to ensure continuous batch processing
+
+    loop do
+      # Build a query to fetch outdated articles in batches
+      query = articles
+              .where(average_views_updated_at: nil)
+              .or(articles.where('average_views_updated_at < ?', DAYS_UNTIL_OUTDATED.days.ago))
+              .includes(:wiki)
+              .limit(batch_size)
+
+      # Ensure we only fetch articles with IDs greater than the last processed one
+      query = query.where('articles.id > ?', last_id) if last_id
+
+      article_group = query.to_a # Convert the query result into an array for processing
+      break if article_group.empty? # Exit loop if no more outdated articles exist
+
+       # Update the average views for the batch of articles
       update_average_views(article_group)
+
+      # Set last_id to the last processed article's ID to continue from there
+      last_id = article_group.last.id.to_i
     end
   end
 
