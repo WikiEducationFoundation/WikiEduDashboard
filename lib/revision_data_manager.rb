@@ -156,7 +156,7 @@ class RevisionDataManager
     Revision.new({
           mw_rev_id: rev_data['mw_rev_id'],
           date: rev_data['date'],
-          characters: rev_data['characters'],
+          characters: rev_data['characters'] || 0,
           article_id: articles.nil? ? nil : articles[mw_page_id],
           mw_page_id:,
           user_id: users[rev_data['username']],

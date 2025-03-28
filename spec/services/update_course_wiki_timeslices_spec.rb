@@ -169,16 +169,19 @@ describe UpdateCourseWikiTimeslices do
     end
   end
 
-  context 'when there are no revisions' do
-    context 'because there is no point in importing revisions' do
-      before do
-        CoursesUsers.find_by(course:, user:).destroy
-      end
+  context 'when there is no point in importing revisions' do
+    before do
+      CoursesUsers.find_by(course:, user:).destroy
+      # Create timeslices
+      TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records(course.wikis)
+      # Set timeslices to reprocess
+      course.course_wiki_timeslices.first.update(needs_update: true)
+    end
 
-      it 'does not fail' do
-        VCR.use_cassette 'course_update' do
-          subject
-        end
+    it 'does not fail and logs no errors' do
+      VCR.use_cassette 'course_update' do
+        expect(Sentry).not_to receive(:capture_message)
+        subject
       end
     end
   end

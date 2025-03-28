@@ -22,7 +22,7 @@ export const Contributions = ({ course, revisions, selectedIndex, student, wikid
   ));
 
   if (rows.length === 0) rows.push(<NoRevisionsRow key="no-revisions" student={student} />);
-  rows.push(<FullHistoryRow key="full-history" student={student} />);
+  rows.push(<FullHistoryRow key="full-history" student={student} course={course} />);
 
   return (
     <table className="table">

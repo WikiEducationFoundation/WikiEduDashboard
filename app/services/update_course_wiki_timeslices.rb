@@ -7,7 +7,7 @@ require_dependency "#{Rails.root}/lib/data_cycle/update_debugger"
 #= Pulls in new revisions for a single course and updates the corresponding timeslices records.
 # It updates all the tracked wikis for the course, from the latest start time for every wiki
 # up to the end of update (today or end date course).
-class UpdateCourseWikiTimeslices
+class UpdateCourseWikiTimeslices # rubocop:disable Metrics/ClassLength
   def initialize(course, debugger, update_service: nil)
     @course = course
     @timeslice_manager = TimesliceManager.new(@course)
@@ -79,7 +79,7 @@ class UpdateCourseWikiTimeslices
       log_reprocessing(wiki, start_date, end_date)
 
       fetch_data(wiki, start_date, end_date, only_new: false)
-      process_timeslices(wiki)
+      process_timeslices(wiki) if data?
       @reprocessed_timeslices += 1
     end
   end
@@ -97,9 +97,12 @@ class UpdateCourseWikiTimeslices
     fetch_wikidata_stats(wiki) if wiki.project == 'wikidata' && @revisions.present?
   end
 
+  def data?
+    @revisions.present?
+  end
+
   def new_data?(wiki)
-    return false if @revisions.blank?
-    @revisions[wiki][:new_data]
+    data? && @revisions[wiki][:new_data]
   end
 
   # Only for wikidata project, fetch wikidata stats
