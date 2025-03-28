@@ -41,7 +41,7 @@ class IndividualStatisticsTimeslicePresenter
   end
 
   def individual_article_count
-    @article_course_data[:count]
+    @article_course_data.length
   end
 
   private
@@ -60,10 +60,9 @@ class IndividualStatisticsTimeslicePresenter
 
   def set_data_from_article_course
     @article_course_data = {}
-    @article_course_data[:count] = 0
     individual_courses.each do |course|
-      article_course_records(course).each do |_article_course|
-        @article_course_data[:count] += 1
+      article_course_records(course).each do |article_course|
+        @article_course_data[article_course.article_id] = 1
       end
     end
   end
