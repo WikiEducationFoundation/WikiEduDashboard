@@ -7,12 +7,13 @@ require_dependency "#{Rails.root}/lib/data_cycle/update_debugger"
 #= Pulls in new revisions for a single course and updates the corresponding timeslices records.
 # It updates all the tracked wikis for the course, from the latest start time for every wiki
 # up to the end of update (today or end date course).
-class UpdateCourseWikiTimeslices
+class UpdateCourseWikiTimeslices # rubocop:disable Metrics/ClassLength
   def initialize(course, debugger, update_service: nil)
     @course = course
     @timeslice_manager = TimesliceManager.new(@course)
     @debugger = debugger
     @update_service = update_service
+    @revision_updater = CourseRevisionUpdater.new(@course, update_service:)
     @wikidata_stats_updater = UpdateWikidataStatsTimeslice.new(@course) if wikidata
     @processed_timeslices = 0
     @reprocessed_timeslices = 0
@@ -61,8 +62,9 @@ class UpdateCourseWikiTimeslices
 
       log_processing(wiki, start_date, end_date)
 
-      fetch_data(wiki, start_date, end_date)
-      process_timeslices(wiki)
+      fetch_data(wiki, start_date, end_date, only_new: true)
+      # Only process timeslices if there is new data
+      process_timeslices(wiki) if new_data?(wiki)
       current_start += @timeslice_manager.timeslice_duration(wiki)
       @processed_timeslices += 1
     end
@@ -76,23 +78,35 @@ class UpdateCourseWikiTimeslices
 
       log_reprocessing(wiki, start_date, end_date)
 
-      fetch_data(wiki, start_date, end_date)
-      process_timeslices(wiki)
+      fetch_data(wiki, start_date, end_date, only_new: false)
+      process_timeslices(wiki) if data?
       @reprocessed_timeslices += 1
     end
   end
 
-  def fetch_data(wiki, timeslice_start, timeslice_end)
+  def fetch_data(wiki, timeslice_start, timeslice_end, only_new:)
     # Fetches revision for wiki
-    @revisions = CourseRevisionUpdater
-                 .fetch_revisions_and_scores_for_wiki(@course,
-                                                      wiki,
-                                                      timeslice_start.strftime('%Y%m%d%H%M%S'),
-                                                      timeslice_end.strftime('%Y%m%d%H%M%S'),
-                                                      update_service: @update_service)
+    @revisions = @revision_updater.fetch_data_for_course_wiki(
+      wiki,
+      timeslice_start.strftime('%Y%m%d%H%M%S'),
+      timeslice_end.strftime('%Y%m%d%H%M%S'),
+      only_new:
+    )
+    # Return if only_new was true but no new data was found
+    return unless new_data?(wiki)
+    fetch_wikidata_stats(wiki) if wiki.project == 'wikidata' && @revisions.present?
+  end
 
-    # Only for wikidata project, fetch wikidata stats
-    return unless wiki.project == 'wikidata' && @revisions.present?
+  def data?
+    @revisions.present?
+  end
+
+  def new_data?(wiki)
+    data? && @revisions[wiki][:new_data]
+  end
+
+  # Only for wikidata project, fetch wikidata stats
+  def fetch_wikidata_stats(wiki)
     wikidata_revisions = @revisions[wiki][:revisions].reject(&:deleted)
     @revisions[wiki][:revisions] =
       @wikidata_stats_updater.update_revisions_with_stats(wikidata_revisions)
@@ -112,7 +126,6 @@ class UpdateCourseWikiTimeslices
   end
 
   def update_timeslices(wiki)
-    return if @revisions.length.zero?
     update_course_user_wiki_timeslices_for_wiki(wiki, @revisions[wiki])
     update_article_course_timeslices_for_wiki(@revisions[wiki])
     CourseWikiTimeslice.update_course_wiki_timeslices(@course, wiki, @revisions[wiki])

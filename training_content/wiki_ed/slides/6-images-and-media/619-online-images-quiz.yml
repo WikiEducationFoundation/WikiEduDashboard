@@ -35,3 +35,33 @@ assessment:
         The best source of images is scanning material from your textbook.
       explanation: |
         Incorrect! Textbooks are not appropriate, as most are under a restrictive copyright.
+
+translations:
+  es:
+    title: ¡Pon a prueba tus conocimientos!
+    content: ""
+    assessment:
+      correct_answer_id: 3
+      question: |
+        ¿Cuál de las siguientes afirmaciones es cierta?
+      answers:
+        - id: 1
+          text: |
+            Las páginas web de imágenes gratuitas son una buena fuente de imágenes para los artículos de Wikipedia, porque tienen una calidad profesional y no cobran por sus imágenes.
+          explanation: |
+            ¡Incorrecto!
+        - id: 2
+          text: |
+            Si el creador de la imagen publica una imagen en un foro en línea y dice "No me importa lo que la gente haga con esto", puedes usar la imagen en Wikipedia.
+          explanation: |
+            ¡Incorrecto!
+        - id: 3
+          text: |
+            Openverse, con los filtros adecuados, es una forma ideal de encontrar imágenes porque sólo muestra imágenes que ya se ajustan a los criterios de Wikipedia.
+          explanation: |
+            ¡Correcto!
+        - id: 4
+          text: |
+            La mejor fuente de imágenes es escanear el material de tu libro.
+          explanation: |
+            ¡Incorrecto!

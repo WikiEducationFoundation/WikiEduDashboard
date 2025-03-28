@@ -95,6 +95,7 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
     self.references_count = article_course_timeslices.sum(&:references_count)
     self.user_ids = article_course_timeslices.sum([], &:user_ids).uniq
     self.new_article = article_course_timeslices.any?(&:new_article)
+    self.first_revision = article_course_timeslices.minimum(:first_revision)
     save
   end
 
@@ -195,15 +196,6 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
     end
 
     maybe_insert_new_records(new_records)
-  end
-
-  def self.maybe_update_first_revision(course, article_id, revisions)
-    article_course = ArticlesCourses.find_by(course:, article_id:)
-    return unless article_course
-    first_revision = article_course.first_revision
-    min_revision = revisions.minimum(:date)
-    return if first_revision && min_revision >= first_revision
-    article_course.update(first_revision: min_revision)
   end
 
   def self.maybe_insert_new_records(new_records)

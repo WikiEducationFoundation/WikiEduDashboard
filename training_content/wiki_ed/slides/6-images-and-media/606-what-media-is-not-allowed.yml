@@ -14,3 +14,18 @@ content: |
   Note that the rules for images and text are the same: If it's copyrighted
   material that you didn't create, you can't copy and use it, even if you cite
   the source.
+
+translations:
+  es:
+    title: ¿Qué no está permitido?
+    content: |
+      No puedes subir obras creadas o basadas en la obra de otros, incluyendo fotografías de esa obra. Es decir:
+
+      * logotipos
+      * carátulas de CD/DVD o libros
+      * fotos promocionales
+      * capturas de pantalla de programas de televisión, películas, DVD o software
+      * dibujos de personajes de cómics, televisión o cine.
+      * la mayoría de las imágenes que encuentres en el Internet
+
+      Ten en cuenta que las normas para imágenes y texto son las mismas: si se trata de material protegido por derechos de autor que no has creado tú, no puedes copiarlo ni usarlo, aunque cites la fuente.

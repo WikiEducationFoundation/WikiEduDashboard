@@ -82,6 +82,7 @@ class CheckAssignmentStatus
   end
 
   def page_present?(page_info)
+    return false unless page_info.present?
     page_info.dig('pages', '-1', 'missing').nil?
   end
 end

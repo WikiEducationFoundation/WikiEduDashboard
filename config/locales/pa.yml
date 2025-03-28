@@ -61,7 +61,7 @@ pa:
     ready_for_mainspace: ਕੰਮ ਨੂੰ ਮੇਨਸਪੇਸ 'ਤੇ ਲਿਜਾਣਾ
     reading_the_article: ਲੇਖ ਪੜ੍ਹਨਾ
     providing_feedback: ਸਲਾਹ ਪ੍ਰਦਾਨ ਕਰਨੀ
-    post_to_talk: ਗੱਲਬਾਤ ਪੰਨੇ 'ਤੇ ਪੋਸਟ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ
+    post_to_talk: ਗੱਲਬਾਤ ਵਰਕੇ 'ਤੇ ਚੇਪਿਆ ਜਾ ਰਿਹਾ ਐ
     peer_review_completed: ਸਮੀਖਿਆ ਪੂਰੀ ਹੋਈ
   dashboard:
     create_note: ਆਪਣਾ ਪਹਿਲਾ ਪਾਠਕ੍ਰਮ ਬਣਾਉਣ ਲਈ ਪਾਠਕ੍ਰਮ ਬਣਾਓ 'ਤੇ ਬਟਨ ਨੂੰ ਦੱਬੋ।
@@ -131,13 +131,31 @@ pa:
     edit_size: ਆਕਾਰ ਦਾ ਸੋਧ ਕਰੋ
     wiki: ਵਿਕੀ
     articles_short: ਲੇਖ
+    page_logs: (ਵਰਕੇ ਦਾ ਚਿੱਠਾ)
+    tracked_articles: ਪੈੜ ਕੀਤੇ ਲੇਖ
     view_articles: ਲੇਖ ਵੇਖੋ
+    no_tracked_articles: ਇਸ ਸ਼੍ਰੇਣੀ ਵਿੱਚ ਕੋਈ ਪੈੜ ਕੀਤੇ ਲੇਖ ਨਹੀਂ ਹਨ
   items:
+    items: ਚੀਜ਼ਾਂ
     lexeme: ਸ਼ਬਦਾਵਲੀ
+    article_not_found: ਇਹ ਚੀਜ਼ਾਂ ਅਜੇ ਤੱਕ ਨਹੀਂ ਬਣਾਇਆ ਗਇਆਂ ਹਨ।
+    edited: ਸੋਧਿਆ ਵਸਤਾਂ
+    edited_none: ਹਾਲੇ ਤੱਕ ਕੋਈ ਸੋਧਿਆ ਵਸਤਾਂ ਨਹੀਂ ਹਨ।
+    find: ਚੀਜ਼ਾਂ ਲੱਭੋ
+    how_to_find: ਚੀਜ਼ਾਂ ਕਿਵੇਂ ਲੱਭਣੀਆਂ ਹਨ
+    preview: ਵਸਤਾਂ ਦੀ ਸੰਖੇਪ ਝਲਕ
+    title_example: ਚੀਜ਼ਾਂ ਦਾ ਸਿਰਲੇਖ
+  articles_wikidata:
+    articles_short: ਚੀਜ਼ਾਂ
   articles_generic:
     articles_short: ਸਫ਼ੇ
   assignments:
+    article: ਲੇਖ %{title} ਹੁਣ ਤੁਹਾਨੂੰ ਦਿੱਤਾ ਗਿਆ ਐ।
     article_link: ਲੇਖ
+    article_link_wikidata: ਚੀਜ਼ਾਂ
+    add_available_submit: ਲੇਖ ਸ਼ਾਮਲ ਕਰੋ
+    add_available_submit_wikidata: ਚੀਜ਼ਾਂ ਸ਼ਾਮਲ ਕਰੋ
+    bibliography: ਗ੍ਰੰਥ-ਸੂਚੀ
     sandbox_draft_link: ਕੱਚੇ ਖ਼ਾਕੇ ਦਾ ਖਰੜਾ
   campaign:
     data_editors_by_course: ਪਾਠਕ੍ਰਮ ਅਨੁਸਾਰ ਸੰਪਾਦਕ
@@ -187,9 +205,9 @@ pa:
     articles_created_generic: ਸਫ਼ੇ ਬਣਾਏ
     articles_created_generic_wikidata: ਆਈਟਮਾਂ ਬਣਾਈਆਂ
     articles_edited: ਸੰਪਾਦਿਤ ਲੇਖ
-    articles_edited_wikidata: ਸੰਪਾਦਿਤ ਆਈਟਮਾਂ
+    articles_edited_wikidata: ਸੋਧਿਆ ਵਸਤਾਂ
     articles_edited_generic: ਸੰਪਾਦਿਤ ਸਫ਼ੇ
-    articles_edited_generic_wikidata: ਸੰਪਾਦਿਤ ਆਈਟਮਾਂ
+    articles_edited_generic_wikidata: ਸੋਧਿਆ ਵਸਤਾਂ
     revisions: ਹਾਲੀਆ ਸੋਧਾਂ
   namespace:
     article: ਲੇਖ
@@ -228,6 +246,8 @@ pa:
     assign_articles_done: ਪੂਰਾ ਹੋਇਆ
     assigned: ਸੌਂਪੇ ਗਏ ਲੇਖ
     chars_added: ਅੱਖਰ ਜੋੜੇ ਗਏ<br/>(ਲੇਖ। ਵਰਤੋਂਕਾਰ। ਖਰੜਾ)
+    contributions: ਵਰਤੋਂਕਾਰ ਯੋਗਦਾਨ
+    contributions_more: ਹੋਰ ਯੋਗਦਾਨ ਵੇਖੋ
     editors: ਸੋਧਕ
     edits: ਸੋਧਾਂ
     first_name: ਮੂਹਰਲਾ ਨਾਂ

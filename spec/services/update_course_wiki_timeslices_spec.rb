@@ -60,6 +60,8 @@ describe UpdateCourseWikiTimeslices do
       expect(article_course.article_course_timeslices.first.character_sum).to eq(427)
       expect(article_course.article_course_timeslices.first.references_count).to eq(-2)
       expect(article_course.article_course_timeslices.first.user_ids).to eq([user.id])
+      expect(article_course.article_course_timeslices.first.first_revision)
+        .to eq('2018-11-24 04:49:31')
     end
 
     it 'updates course user wiki timeslices caches' do
@@ -131,7 +133,8 @@ describe UpdateCourseWikiTimeslices do
         subject
       end
 
-      expect(Sentry).to have_received(:capture_message).exactly(14).times
+      # only fails for timeslices with new data
+      expect(Sentry).to have_received(:capture_message).exactly(3).times
 
       # last_mw_rev_datetime wasn't updated
       timeslice = course.course_wiki_timeslices.where(wiki: enwiki, start: '2018-11-29').first
@@ -154,13 +157,30 @@ describe UpdateCourseWikiTimeslices do
 
       expected_dates.each do |start_time, end_time|
         expected_wikis.each do |wiki|
-          expect(CourseRevisionUpdater).to receive(:fetch_revisions_and_scores_for_wiki)
-            .with(course, wiki, start_time, end_time, update_service: nil)
+          expect_any_instance_of(CourseRevisionUpdater).to receive(:fetch_data_for_course_wiki)
+            .with(wiki, start_time, end_time, only_new: true)
             .once
         end
       end
 
       VCR.use_cassette 'course_update' do
+        subject
+      end
+    end
+  end
+
+  context 'when there is no point in importing revisions' do
+    before do
+      CoursesUsers.find_by(course:, user:).destroy
+      # Create timeslices
+      TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records(course.wikis)
+      # Set timeslices to reprocess
+      course.course_wiki_timeslices.first.update(needs_update: true)
+    end
+
+    it 'does not fail and logs no errors' do
+      VCR.use_cassette 'course_update' do
+        expect(Sentry).not_to receive(:capture_message)
         subject
       end
     end

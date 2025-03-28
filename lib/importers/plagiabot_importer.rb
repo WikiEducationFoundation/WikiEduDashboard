@@ -31,7 +31,7 @@ class PlagiabotImporter
                               wiki:)
     details = {
       submission_id: rev_data['submission_id'],
-      mw_rev_id: rev_data['revision_id'],
+      mw_rev_id: rev_data['rev_id'],
       wiki_id: wiki.id
     }
     alert = PossiblePlagiarismAlert.create!(user:, course:, article:, details:)

@@ -77,4 +77,8 @@ class ArticleScopedProgram < Course
   def passcode_required?
     false
   end
+
+  def only_scoped_articles_course?
+    true
+  end
 end

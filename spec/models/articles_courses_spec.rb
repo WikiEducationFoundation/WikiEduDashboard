@@ -118,7 +118,8 @@ describe ArticlesCourses, type: :model do
              end: '2024-07-07',
              character_sum: 9000,
              references_count: 4,
-             user_ids: [2, 3])
+             user_ids: [2, 3],
+             first_revision: '2024-07-06 03:45:04')
 
       create(:article_course_timeslice,
              article:,
@@ -128,7 +129,8 @@ describe ArticlesCourses, type: :model do
              character_sum: 12,
              references_count: 5,
              user_ids: [2, user.id],
-             new_article: true)
+             new_article: true,
+             first_revision: '2024-07-07 20:10:24')
 
       # Empty timeslice, which should not count towards stats.
       create(:article_course_timeslice,
@@ -138,7 +140,8 @@ describe ArticlesCourses, type: :model do
              end: '2024-06-26',
              character_sum: 0,
              references_count: 0,
-             user_ids: nil)
+             user_ids: nil,
+             first_revision: nil)
 
       # Run the cache update again with an existing revision.
       described_class.update_all_caches_from_timeslices(described_class.all)
@@ -151,6 +154,7 @@ describe ArticlesCourses, type: :model do
       expect(article_course.user_ids).to eq([2, 3, user.id])
       expect(article_course.view_count).to eq(0)
       expect(article_course.new_article).to be true
+      expect(article_course.first_revision).to eq('2024-07-06 03:45:04')
     end
   end
 
@@ -223,46 +227,6 @@ describe ArticlesCourses, type: :model do
       expect(described_class.count).to eq(0)
       described_class.update_from_course_revisions(course, array_revisions)
       expect(described_class.count).to eq(2)
-    end
-  end
-
-  describe '.maybe_update_first_revision' do
-    let(:array_revisions) { [] }
-    let(:subject) do
-      described_class.maybe_update_first_revision(course, article.id, array_revisions)
-    end
-
-    before do
-      array_revisions << build(:revision, article:, user:, date: '2024-07-07',
-            system: true, new_article: true, scoped: true)
-      array_revisions << build(:revision, article:, user:, date: '2024-07-06 20:05:10',
-            system: true, new_article: true, scoped: true)
-      array_revisions << build(:revision, article:, user:, date: '2024-07-06 20:06:11',
-            system: true, new_article: true, scoped: true)
-    end
-
-    it 'returns immediately if no article course' do
-      subject
-    end
-
-    it 'does not update first_revision if existing value is a previous date' do
-      date = '2024-07-05 23:59:52'
-      create(:articles_course, course:, article:, first_revision: date)
-      subject
-      expect(described_class.find_by(course:, article:).first_revision).to eq(date)
-    end
-
-    it 'updates first_revision if existing value is a later date' do
-      date = '2024-07-07 05:59:52'
-      create(:articles_course, course:, article:, first_revision: date)
-      subject
-      expect(described_class.find_by(course:, article:).first_revision).to eq('2024-07-06 20:05:10')
-    end
-
-    it 'updates first_revision if existing value is nil' do
-      create(:articles_course, course:, article:)
-      subject
-      expect(described_class.find_by(course:, article:).first_revision).to eq('2024-07-06 20:05:10')
     end
   end
 end

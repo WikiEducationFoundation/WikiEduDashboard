@@ -64,9 +64,11 @@ const Quiz = (props) => {
       );
     });
 
+    const rawQuestionHtml = md.render(props.question);
+
     return (
       <form className="training__slide__quiz">
-        <h3>{props.question}</h3>
+        <h3 dangerouslySetInnerHTML={{ __html: rawQuestionHtml }} />
         <fieldset>
           <ul>
             {answers}

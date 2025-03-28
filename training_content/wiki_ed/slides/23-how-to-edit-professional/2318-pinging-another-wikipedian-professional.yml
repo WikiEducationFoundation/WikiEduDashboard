@@ -17,3 +17,23 @@ content: |
   username of the scholar you'd like to leave a message. Then click
   **Talk** in the upper-left corner of their userpage.
 id: 2318
+
+translations:
+  es:
+    title: Mencionando a otro Wikipedista
+    content: |
+      Para captar la atención de un usuario específico, puedes "mencionarlo" (hacerle ping)
+      escribiendo `{{ping|Nombre de usuario}}` en una página de Discusión, lo cual le enviará
+      una notificación. Algunos wikipedistas tienen cientos, o incluso miles de páginas en
+      sus listas de seguimiento, de modo que ésta es una buena forma de captar su atención.
+
+      Si te estás dirigiendo a un usuario en su página de discusión, se le notificará
+      ya sea que le hagas ping o no. Si te diriges a un usuario en tu propia página
+      de Discusión o en la página de Discusión de un artículo, deberás hacerle ping.
+
+      ¡Recuerda firmar tu mensaje!
+
+      Si quieres practicar un poco, prueba presentándote a otro académico de tu
+      curso en su página de Discusión. Para encontrarla, ve a la pestaña **Editores** y haz
+      clic en el nombre de usuario del académico al que quieras dejar un mensaje.
+      Después, haz clic en **Discusión** en la esquina superior izquierda de su página de usuario.

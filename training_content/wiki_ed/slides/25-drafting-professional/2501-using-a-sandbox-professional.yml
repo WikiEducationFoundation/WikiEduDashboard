@@ -15,3 +15,18 @@ content: |+
   -   Collaborating with another user in a sandbox
 
 id: 2501
+
+translations:
+  es:
+    title: Usando un entorno de pruebas
+    content: |
+      Escogiste un tema y encontraste tus fuentes. ¡Este hora de empezar a escribir!
+
+      En esta capacitación, te mostraremos cómo usar un entorno de pruebas para redactar cambios en un artículo, o crear un borrador para un artículo nuevo.
+
+      Repasaremos:
+
+      -   Cómo encontrar tu entorno de pruebas
+      -   Cómo crear páginas de entorno de pruebas adicionales
+      -   Cómo encontrar el entorno de pruebas de otro usuario
+      -   Cómo colaborar con otro usuario en un entorno de pruebas

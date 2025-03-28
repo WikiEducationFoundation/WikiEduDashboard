@@ -8,7 +8,7 @@ content: |
   <img src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Page_move_dialog_closeup_with_example_fields.png" />
 
   <figcaption class="image-credit">
-  <a href="https://commons.wikimedia.org/wiki/File:Page_move_dialog_closeup_with_example_fields.png">}}</a>
+  <a href="https://commons.wikimedia.org/wiki/File:Page_move_dialog_closeup_with_example_fields.png"></a>
 
   </figcaption>
   </figure>
@@ -25,3 +25,25 @@ content: |
 
   You're done!
 id: 2607
+
+translations:
+  es:
+    title: Mueve tu página
+    content: |
+      La nueva página dirá "Mover página". En una ventana grande en el centro de esa página (marcada como "Mover página") se te pedirán dos campos.
+
+      <figure class="alt-layout-100">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Page_move_dialog_closeup_with_example_fields.png" />
+
+      <figcaption class="image-credit">
+      <a href="https://commons.wikimedia.org/wiki/File:Page_move_dialog_closeup_with_example_fields.png"></a>
+
+      </figcaption>
+      </figure>
+
+      1. Primero, a la izquierda, verás una casilla que dice "Usuario". Haz clic y cámbialo a "Artículo". Este campo es el "espacio de nombre". Asegúrate de que diga "(Artículo)" y **no** "Wikipedia".
+      2. A la derecha vas a ver una casilla que te pide un título. Escribe el título de tu artículo. ¡Presta atención a la puntuación y a la ortografía, porque puede ser difícil cambiarlo una vez que lo hayas escrito!
+      3. En el menú desplegable "motivo", elige la opción "Publicar página en espacio principal".
+      4. Revisa tu título una última vez, y luego haz clic en el botón gris "Mover página".
+
+      ¡Y listo!

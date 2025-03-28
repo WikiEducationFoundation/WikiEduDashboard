@@ -57,9 +57,10 @@ describe 'FAQs', type: :feature, js: true do
       fill_in 'faq_title', with: 'new question'
       fill_in 'faq_content', with: 'new answer'
       click_button 'Create Faq'
+      expect(page).not_to have_content 'Add new FAQ'
+      expect(page).to have_content 'Let us know'
       expect(Faq.count).to eq(2)
       expect(page).to have_current_path("/faq/#{Faq.last.id}")
-      expect(page).to have_content 'new answer'
     end
   end
 end

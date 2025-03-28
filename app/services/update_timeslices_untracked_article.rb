@@ -28,7 +28,7 @@ class UpdateTimeslicesUntrackedArticle
                                             .where(tracked: true)
     # Only reprocess those non-empty timeslices
     non_empty = @article_course_timeslices_to_untrack.where.not(user_ids: nil)
-    # Mark course wiki timeslices that needs to be re-proccesed
+    # Mark course wiki timeslices that needs to be re-processed
     @timeslice_cleaner.reset_timeslices_that_need_update_from_article_timeslices(non_empty,
                                                                                  soft: true)
     untrack_timeslices
@@ -52,7 +52,7 @@ class UpdateTimeslicesUntrackedArticle
     # Only reprocess those non-empty timeslices
     non_empty = @article_course_timeslices_to_retrack.where.not(user_ids: nil)
 
-    # Mark course wiki timeslices that needs to be re-proccesed
+    # Mark course wiki timeslices that needs to be re-processed
     @timeslice_cleaner.reset_timeslices_that_need_update_from_article_timeslices(non_empty)
     retrack_timeslices
   end

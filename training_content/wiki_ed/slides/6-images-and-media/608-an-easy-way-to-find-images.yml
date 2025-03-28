@@ -10,3 +10,16 @@ content: |
   Openverse is a search engine for content specifically filtered to match the
   types of licenses you’re looking for. Let’s take a look at how to use it in
   the next slide.
+
+translations:
+  es:
+    title: Una forma fácil de encontrar imágenes
+    content: |
+      Entonces, ya sabes que no puedes simplemente tomar imágenes del Internet y añadirlas
+      a un artículo de Wikipedia. Tienen que ser compartidas bajo la licencia adecuada,
+      y tienes que poder encontrar y mostrar esa licencia.
+
+      Afortunadamente, hay un sitio web que lo hace muy fácil: **Openverse**.
+      Openverse es un motor de búsqueda de contenidos filtrado específicamente
+      para que coincida con los tipos de licencias que estás buscando. Vamos
+      a ver cómo usarlo en la siguiente diapositiva.

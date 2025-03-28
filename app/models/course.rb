@@ -346,22 +346,29 @@ class Course < ApplicationRecord
     end.flatten
   end
 
+  def only_scoped_articles_course?
+    false
+  end
+
   # The default implemention retrieves all the revisions.
   # A course type may override this implementation.
   def filter_revisions(_wiki, revisions)
     revisions
   end
 
-  def scoped_article_titles
-    assigned_article_titles + category_article_titles
+  def scoped_article_titles(wiki)
+    assigned_article_titles(wiki) + category_article_titles(wiki)
   end
 
-  def assigned_article_titles
-    assignments.pluck(:article_title)
+  def assigned_article_titles(wiki)
+    @assigned_article_titles ||= {}
+    @assigned_article_titles[wiki] ||= assignments.where(wiki:).pluck(:article_title)
   end
 
-  def category_article_titles
-    categories.inject([]) { |ids, cat| ids + cat.article_titles }
+  def category_article_titles(wiki)
+    @category_article_titles ||= {}
+    @category_article_titles[wiki] ||= categories.where(wiki:)
+                                                 .inject([]) { |ids, cat| ids + cat.article_titles }
   end
 
   def scoped_article_ids
@@ -370,6 +377,12 @@ class Course < ApplicationRecord
 
   def assigned_article_ids
     assignments.pluck(:article_id)
+  end
+
+  def assigned_article_page_ids(wiki)
+    @assigned_article_page_ids ||= {}
+    @assigned_article_page_ids[wiki] ||= Article.where(id: assigned_article_ids, wiki:)
+                                                .pluck(:mw_page_id)
   end
 
   def category_article_ids
@@ -571,6 +584,16 @@ class Course < ApplicationRecord
 
   def no_sandboxes?
     flags[:no_sandboxes].present?
+  end
+
+  def assigned_articles
+    @assigned_articles ||= Article.where(id: assigned_article_ids).to_a
+  end
+
+  def assigned_articles_from_edit_data(assignment_wiki_id, mw_page_ids)
+    assigned_articles.filter do |article|
+      article.wiki_id == assignment_wiki_id && mw_page_ids.include?(article.mw_page_id)
+    end
   end
 
   #################

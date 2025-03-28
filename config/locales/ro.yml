@@ -10,6 +10,7 @@
 # Author: Paloi Sciurala
 # Author: Strainu
 # Author: Trotinel Iftode
+# Author: Valentin JJ.
 # Author: Wintereu
 ---
 ro:
@@ -46,6 +47,8 @@ ro:
         pagepile_create_id: Creați un PagePile folosind instrumentul oficial PagePile
   metrics:
     last_articles_update: Ultimele actualizări ale articolelor
+  namespace:
+    talk: Discuție
   users:
     contributions: Contribuții utilizator
     contributions_more: Vezi mai multe contribuții

@@ -18,3 +18,9 @@ slides:
   - slug: did-you-get-patrolled-professional # 2611
   - slug: my-work-was-reverted-professional # 2612
   - slug: that-s-all-professional # 2613
+
+translations:
+  es:
+    name: 'Trasladando tu trabajo fuera de la zona de pruebas (Profesional)'
+    description: |
+      En este tutorial, te mostraremos los pasos prácticos para trasladar tu trabajo a Wikipedia.

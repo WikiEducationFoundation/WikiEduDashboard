@@ -108,7 +108,7 @@ class UpdateCourseStatsTimeslice
                                          'end_time' => @end_time.to_datetime,
                                          'sentry_tag_uuid' => sentry_tag_uuid,
                                          'error_count' => error_count,
-                                         'proccesed' => @processed,
+                                         'processed' => @processed,
                                          'reprocessed' => @reprocessed)
   end
 
@@ -123,6 +123,9 @@ class UpdateCourseStatsTimeslice
 
   TEN_MINUTES = 600
   def should_update_article_status?
+    # Never run article status manager for courses that work only with a specific
+    # list of articles.
+    return false if @course.only_scoped_articles_course?
     return true if Features.wiki_ed?
     # To cut down on overwhelming the system
     # for courses with huge numbers of articles
