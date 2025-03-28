@@ -15,21 +15,35 @@ const StudentStats = ({ username, stats, maxProject }) => {
             {I18n.t(`${stats.course_string_prefix}.courses_enrolled`)}
           </small>
         </div>
-        <div className= "stat-display__stat">
+        <div className= "stat-display__stat tooltip-trigger">
           <div className="stat-display__value">
             {stats.individual_word_count}
+            <img src ="/assets/images/info.svg" alt = "tooltip default logo" />
           </div>
           <small>
             {I18n.t('metrics.word_count')}
           </small>
+          <div className="tooltip dark">
+            <h4> {stats.individual_word_count} </h4>
+            <p>
+              {I18n.t('user_profiles.words_added_disclaimer')}
+            </p>
+          </div>
         </div>
-        <div className= "stat-display__stat">
+        <div className= "stat-display__stat tooltip-trigger">
           <div className="stat-display__value">
             {stats.individual_references_count}
+            <img src ="/assets/images/info.svg" alt = "tooltip default logo" />
           </div>
           <small>
             {I18n.t('metrics.references_count')}
           </small>
+          <div className="tooltip dark">
+            <h4> {stats.individual_references_count} </h4>
+            <p>
+              {I18n.t('user_profiles.references_disclaimer')}
+            </p>
+          </div>
         </div>
         <div className= "stat-display__stat">
           <div className="stat-display__value">
