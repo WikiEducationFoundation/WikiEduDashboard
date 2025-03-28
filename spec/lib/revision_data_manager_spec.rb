@@ -7,11 +7,18 @@ require "#{Rails.root}/lib/articles_courses_cleaner"
 describe RevisionDataManager do
   describe '#fetch_revision_data_for_course' do
     let(:course) { create(:course, start: '2018-01-01', end: '2018-12-31') }
+    let(:course2) { create(:course, slug: 'Ar_course', start: '2024-11-28', end: '2024-11-01') }
     let(:user) { create(:user, username: 'Ragesoss') }
+    let(:user2) { create(:user, username: 'كريم رائد') }
     let(:home_wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
+    let(:arwiki) { Wiki.get_or_create(language: 'ar', project: 'wikipedia') }
     let(:instance_class) { described_class.new(home_wiki, course) }
+    let(:instance_class2) { described_class.new(arwiki, course2) }
     let(:subject) do
       instance_class.fetch_revision_data_for_course('20180706', '20180707')
+    end
+    let(:subject2) do
+      instance_class2.fetch_revision_data_for_course('20241129134300', '20241130201900')
     end
     let(:revision_data) do
       [{ 'mw_page_id' => '55345266',
@@ -68,6 +75,102 @@ describe RevisionDataManager do
     end
     let(:filtered_sub_data) { [data1] }
 
+    before do
+      create(:courses_user, course:, user:)
+      create(:courses_user, course: course2, user: user2)
+    end
+
+    it 'fetches all the revisions that occurred during the given period of time' do
+      VCR.use_cassette 'revision_importer/all' do
+        revisions = subject
+        expect(revisions.length).to eq(4)
+        # Fetches the right revision ids
+        expect(revisions[0].mw_rev_id).to eq(849116430)
+        expect(revisions[1].mw_rev_id).to eq(849116480)
+        expect(revisions[2].mw_rev_id).to eq(849116533)
+        expect(revisions[3].mw_rev_id).to eq(849116572)
+      end
+    end
+
+    it 'calls ArticeImporter as side effect' do
+      expect_any_instance_of(ArticleImporter).to receive(:import_articles_from_revision_data)
+        .once
+        .with(revision_data)
+
+      VCR.use_cassette 'revision_importer/all' do
+        subject
+      end
+    end
+
+    it 'creates articles for all revisions even for article scoped programs' do
+      allow_any_instance_of(described_class).to receive(:get_course_revisions)
+        .and_return([sub_data, filtered_sub_data])
+
+      article_importer = instance_double(ArticleImporter)
+      allow(ArticleImporter).to receive(:new).and_return(article_importer)
+
+      expect(article_importer).to receive(:import_articles_from_revision_data)
+        .once
+        .with(revision_data2)
+
+      subject
+    end
+
+    it 'ensures all revisions have a non-nil character field' do
+      VCR.use_cassette 'revision_importer/all' do
+        # Revisions retrieved from the replica may have a nil characters field.
+        # This spec ensures that the created Revision record always has a non-nil
+        # characters value, defaulting to zero if nil.
+        subject2.each { |rev| expect(rev.characters).not_to be_nil }
+      end
+    end
+  end
+
+  describe '#fetch_score_data_for_course' do
+    let(:course) { create(:course, start: '2018-01-01', end: '2018-12-31') }
+    let(:user) { create(:user, username: 'Ragesoss') }
+    let(:home_wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
+    let(:instance_class) { described_class.new(home_wiki, course) }
+    let(:revisions) { instance_class.fetch_revision_data_for_course('20180706', '20180707') }
+    let(:subject) do
+      instance_class.fetch_score_data_for_course(revisions)
+    end
+    let(:data1) do
+      [
+        '777',
+        {
+          'article' => {
+            'mw_page_id' => '777',
+            'title' => 'Ragesoss/citing_sources',
+            'namespace' => '4',
+            'wiki_id' => 1
+          },
+          'revisions' => [
+            { 'mw_rev_id' => '849116430', 'date' => '20180706', 'characters' => '569',
+              'mw_page_id' => '777', 'username' => 'Ragesoss', 'new_article' => 'false',
+              'system' => 'false', 'wiki_id' => 1 }
+          ]
+        }
+      ]
+    end
+    let(:data2) do
+      [
+        '123',
+        {
+          'article' => {
+            'mw_page_id' => '123',
+            'title' => 'Draft article',
+            'namespace' => '118',
+            'wiki_id' => 1
+          },
+          'revisions' => [
+            { 'mw_rev_id' => '456', 'date' => '20180706', 'characters' => '569',
+              'mw_page_id' => '123', 'username' => 'Ragesoss', 'new_article' => 'false',
+              'system' => 'false', 'wiki_id' => 1 }
+          ]
+        }
+      ]
+    end
     let(:data3) do
       [
         '55345266',
@@ -91,16 +194,10 @@ describe RevisionDataManager do
       create(:courses_user, course:, user:)
     end
 
-    it 'fetches all the revisions that occurred during the given period of time' do
+    it 'fetches all the revisions scores' do
       VCR.use_cassette 'revision_importer/all' do
         revisions = subject
         expect(revisions.length).to eq(4)
-        # Fetches the right revision ids
-        expect(revisions[0].mw_rev_id).to eq(849116430)
-        expect(revisions[1].mw_rev_id).to eq(849116480)
-        expect(revisions[2].mw_rev_id).to eq(849116533)
-        expect(revisions[3].mw_rev_id).to eq(849116572)
-
         # Fetches the scores
         expect(revisions[0].wp10).to be_within(0.01).of(18.29)
         expect(revisions[0].wp10_previous).to be_within(0.01).of(11.96)
@@ -157,6 +254,7 @@ describe RevisionDataManager do
       allow(scoped_course).to receive(:scoped_article_titles).and_return(['Scoped_article'])
       VCR.use_cassette 'revision_importer/all' do
         revisions = scoped_instance_class.fetch_revision_data_for_course('20180706', '20180707')
+        revisions = scoped_instance_class.fetch_score_data_for_course(revisions)
         # Returns all revisions
         expect(revisions.length).to eq(3)
         # Only the scoped revision in mainspace has scores
@@ -172,30 +270,6 @@ describe RevisionDataManager do
         expect(revisions[2].scoped).to eq(true)
         expect(revisions[2].features).to eq({ 'num_ref' => 0 })
       end
-    end
-
-    it 'calls ArticeImporter as side effect' do
-      expect_any_instance_of(ArticleImporter).to receive(:import_articles_from_revision_data)
-        .once
-        .with(revision_data)
-
-      VCR.use_cassette 'revision_importer/all' do
-        subject
-      end
-    end
-
-    it 'creates articles for all revisions even for article scoped programs' do
-      allow_any_instance_of(described_class).to receive(:get_course_revisions)
-        .and_return([sub_data, filtered_sub_data])
-
-      article_importer = instance_double(ArticleImporter)
-      allow(ArticleImporter).to receive(:new).and_return(article_importer)
-
-      expect(article_importer).to receive(:import_articles_from_revision_data)
-        .once
-        .with(revision_data2)
-
-      subject
     end
   end
 
