@@ -22,7 +22,7 @@ class AverageViewsImporter
       article_group = query.to_a # Convert the query result into an array for processing
       break if article_group.empty? # Exit loop if no more outdated articles exist
 
-       # Update the average views for the batch of articles
+      # Update the average views for the batch of articles
       update_average_views(article_group)
 
       # Set last_id to the last processed article's ID to continue from there

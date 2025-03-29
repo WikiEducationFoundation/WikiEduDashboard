@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_03_27_082410) do
+ActiveRecord::Schema[7.0].define(version: 2025_03_29_050825) do
   create_table "alerts", id: :integer, charset: "utf8mb4", force: :cascade do |t|
     t.integer "course_id"
     t.integer "user_id"
@@ -94,7 +94,6 @@ ActiveRecord::Schema[7.0].define(version: 2025_03_27_082410) do
     t.datetime "first_revision"
     t.index ["article_id"], name: "index_articles_courses_on_article_id"
     t.index ["course_id", "article_id"], name: "index_articles_courses_on_course_id_and_article_id"
-    t.index ["course_id"], name: "index_articles_courses_on_course_id"
   end
 
   create_table "assignment_suggestions", charset: "utf8mb4", force: :cascade do |t|
