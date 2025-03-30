@@ -77,15 +77,13 @@ const Details = createReactClass({
   },
 
   updateDetails(valueKey, value) {
-    const updatedCourse = this.props.course;
-    updatedCourse[valueKey] = value;
-    return this.props.updateCourse(updatedCourse);
+    return this.props.updateCourse({ ...this.props.course, [valueKey]: value });
   },
 
   updateSlugPart(valueKey, value) {
-    const updatedCourse = this.props.course;
-    updatedCourse[valueKey] = value;
+    const updatedCourse = { ...this.props.course, [valueKey]: value };
     updatedCourse.slug = CourseUtils.generateTempId(updatedCourse);
+
     return this.props.updateCourse(updatedCourse);
   },
 
