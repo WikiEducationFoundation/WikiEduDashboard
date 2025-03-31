@@ -24,6 +24,19 @@ const DetailsText = ({ flags }) => (
 
 const isCourseClosed = flags => !!(flags && flags.closed_date);
 
+// checks if the closed date is a boolean
+const formatClosedDate = (closedDate) => {
+  if (typeof closedDate === 'boolean') {
+    return 'an unspecified date';
+  }
+
+  try {
+    return format(toDate(parseISO(closedDate)), 'PPPP');
+  } catch (error) {
+    return 'an unspecified date';
+  }
+};
+
 const NoDetailsText = () => (
   <p>
     This course has not yet been marked as having been reviewed by a staff member.
@@ -50,7 +63,7 @@ export const AdminQuickActions = ({ course, current_user, persistCourse, greetSt
         <div style={{ marginBottom: '15px' }}>
           <p>
             <strong>This course was closed on:</strong>&nbsp;
-            {format(toDate(parseISO(course.flags.closed_date)), 'PPPP')}.
+            {formatClosedDate(course.flags.closed_date)}.
           </p>
         </div>
       )}
