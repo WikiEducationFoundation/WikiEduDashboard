@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-
+require 'pp'
 # Checks whether expected sandboxes have been created,
 # or if they've been created already, checks their
 # current size and location
@@ -7,82 +7,91 @@ class CheckAssignmentStatus
   def self.check_current_assignments
     return unless Features.wiki_ed?
 
-    Course.current.each do |course|
-      course.assignments.where.not(user: nil).each do |assignment|
-        new(assignment)
+    assignments = Assignment.joins(:course).merge(Course.current).where.not(user: nil)
+    sandboxes_to_check = collect_sandboxes(assignments)
+
+    process_sandboxes(sandboxes_to_check)
+  end
+
+  class << self
+    private
+
+    def collect_sandboxes(assignments)
+      sandboxes = []
+      assignments.each do |assignment|
+        case assignment.role
+        when Assignment::Roles::ASSIGNED_ROLE
+          add_assigned_sandboxes(sandboxes, assignment)
+        when Assignment::Roles::REVIEWING_ROLE
+          add_assigned_sandboxes(sandboxes, assignment)
+          add_review_sandbox(sandboxes, assignment)
+        end
+      end
+      sandboxes
+    end
+
+    def add_assigned_sandboxes(sandboxes, assignment)
+      sandboxes << { assignment: assignment, key: :draft, wiki: assignment.wiki, pagename: assignment.sandbox_pagename }
+      sandboxes << { assignment: assignment, key: :bibliography, wiki: assignment.wiki, pagename: assignment.bibliography_pagename }
+    end
+
+    def add_review_sandbox(sandboxes, assignment)
+      sandboxes << { assignment: assignment, key: :review, wiki: assignment.wiki, pagename: assignment.peer_review_pagename }
+    end
+
+    def process_sandboxes(sandboxes)
+      grouped_by_wiki = sandboxes.group_by { |s| s[:wiki] }
+
+      grouped_by_wiki.each do |wiki, entries|
+        pagenames = entries.map { |e| e[:pagename] }.uniq
+
+        pagenames.each_slice(50) do |batch|
+          api = WikiApi.new(wiki)
+          page_infos = api.get_page_info(batch)
+
+          process_batch(entries, batch, page_infos)
+        end
       end
     end
-  end
 
-  def initialize(assignment)
-    @assignment = assignment
-    @sandboxes = {}
+    def process_batch(entries, batch, page_infos)
+      return unless page_infos && page_infos['pages']
 
-    case @assignment.role
-    when Assignment::Roles::ASSIGNED_ROLE
-      set_assigned_sandboxes
-    when Assignment::Roles::REVIEWING_ROLE
-      # For reviews, we also need to check whether the draft sandboxes to review exist.
-      # An alternative strategy would be to use the corresponding ASSIGNED_ROLE assignment
-      # to get data about it, but this way keeps the records independent.
-      set_assigned_sandboxes
-      set_review_sandbox
+      # Convert pages hash to array maintaining API response order
+      pages_array = page_infos['pages'].values.sort_by { |page| page['index'] }
+
+      batch.each_with_index do |pagename, index|
+        # Get page data by index instead of searching by title
+        page_data = pages_array[index]
+        status = if page_data
+                  status_from_namespace(page_data['ns'])
+                else
+                  AssignmentPipeline::SandboxStatuses::DOES_NOT_EXIST
+                end
+
+        entries_for_pagename = entries.select { |e| e[:pagename] == pagename }
+
+        entries_for_pagename.each do |entry|
+          entry[:assignment].update_sandbox_status(entry[:key], status)
+        end
+      end
     end
 
-    update_status
-    # what are the expected sandboxes?
-    # do we already know that some of them exist?
-    # what are the Article records for each of them that exist?
-  end
-
-  def set_assigned_sandboxes
-    @sandboxes[:draft] = {
-      wiki: @assignment.wiki,
-      pagename: @assignment.sandbox_pagename
-    }
-    @sandboxes[:bibliography] = {
-      wiki: @assignment.wiki,
-      pagename: @assignment.bibliography_pagename
-    }
-  end
-
-  def set_review_sandbox
-    @sandboxes[:review] = {
-      wiki: @assignment.wiki,
-      pagename: @assignment.peer_review_pagename
-    }
-  end
-
-  def update_status
-    @sandboxes.each do |sandbox_key, page_details|
-      info = WikiApi.new(page_details[:wiki]).get_page_info page_details[:pagename]
-      new_status = page_status(info)
-      @assignment.update_sandbox_status(sandbox_key, new_status)
+    def find_page_data(page_infos, pagename)
+      page_infos['pages']&.values&.find { |pd| pd['title'] == pagename }
     end
-    # Do any already have corresponding Article records?
-    # If not, have any been created?
-    # If so, what namespaces are they in? what are their current titles? how big are they?
-  end
 
-  # Takes a hash of page info from the MediaWiki API and returns a status for
-  # the Assignment record
-  def page_status(page_info)
-    return AssignmentPipeline::SandboxStatuses::DOES_NOT_EXIST unless page_present?(page_info)
-
-    case page_info['pages'].values.first['ns']
-    when Article::Namespaces::USER
-      AssignmentPipeline::SandboxStatuses::EXISTS_IN_USERSPACE
-    when Article::Namespaces::DRAFT
-      AssignmentPipeline::SandboxStatuses::EXISTS_IN_DRAFT_SPACE
-    when Article::Namespaces::MAINSPACE
-      AssignmentPipeline::SandboxStatuses::EXISTS_IN_MAINSPACE
-    else
-      AssignmentPipeline::SandboxStatuses::EXISTS_ELSEWHERE
+    def status_from_namespace(namespace)
+      case namespace
+      when Article::Namespaces::USER
+        AssignmentPipeline::SandboxStatuses::EXISTS_IN_USERSPACE
+      when Article::Namespaces::DRAFT
+        AssignmentPipeline::SandboxStatuses::EXISTS_IN_DRAFT_SPACE
+      when Article::Namespaces::MAINSPACE
+        AssignmentPipeline::SandboxStatuses::EXISTS_IN_MAINSPACE
+      else
+        AssignmentPipeline::SandboxStatuses::EXISTS_ELSEWHERE
+      end
     end
-  end
-
-  def page_present?(page_info)
-    return false unless page_info.present?
-    page_info.dig('pages', '-1', 'missing').nil?
   end
 end
