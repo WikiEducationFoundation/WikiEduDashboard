@@ -5,11 +5,12 @@ class SurveyResponsesController < ApplicationController
   layout 'surveys'
 
   def index
-    @responses = []
-    Rapidfire::AnswerGroup.order(created_at: :desc).first(100).each do |answer_group|
-      @responses << { user: User.find(answer_group.user_id),
-                      answer_group:,
-                      question_group: answer_group.question_group }
+    answer_groups = Rapidfire::AnswerGroup.includes(:question_group, :user)
+                                          .order(created_at: :desc)
+                                          .limit(100)
+
+    @responses = answer_groups.map do |answer_group|
+      { user: answer_group.user, question_group: answer_group.question_group, answer_group: }
     end
   end
 
