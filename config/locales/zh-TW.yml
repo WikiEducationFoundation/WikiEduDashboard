@@ -356,6 +356,7 @@ zh-TW:
     delete_course_tooltip: 刪除並從競賽裡移除。
     disable_account_requests: 停用帳號申請
     enable_account_requests: 啟用帳號申請
+    enable_account_requests_doc: 帳戶請求功能將帳戶請求表單新增至活動的註冊連結。尚未擁有帳戶的用戶可以輸入他們的電子郵件和所需的用戶名，活動組織者可以使用儀表板來建立所需的帳戶。申請帳戶的使用者在建立帳戶後會自動加入活動。
     newest_campaigns: 最新競賽
     featured_campaigns: 特色競賽
     instructors_course: 按課程區分的導師
@@ -376,6 +377,7 @@ zh-TW:
     students_small: 學生
     student_course: 按課程區分的學生
     title: 標題
+    too_large: 此活動過於龐大，無法顯示所要求的資料。
     too_many_articles: 為該競賽編輯的條目清單太長而無法顯示。請檢視各課程/方案/事項來查看編輯的條目。
     slug: 代稱
     search_campaigns: 搜尋競賽
@@ -663,7 +665,7 @@ zh-TW:
       現在，請確認您的分配計畫時間表，並自訂內容來符合您的需求。
       一旦您確認時間軸無誤，您可以提交來給維基教育成員審核。
       一旦審核透過，您將會收到一個登記過的 URL 讓學生能夠參與課程並取用培訓（註：您仍可稍後編輯此項課程）。
-    revisions_doc: 最近 %{timeframe} 天內的編輯數量。%{timeframe}
+    revisions_doc: 依據最近期間的平均每天編輯數，最近 %{timeframe} 天內的預估編輯數量。%{timeframe}。
     revisions_none: 此課程最近沒有編輯。
     school: 學校
     school_and_term: 機構/學期
@@ -1116,6 +1118,19 @@ zh-TW:
         revoking_button_working: 正在撤回…
         already_is_not: '%{username} 不是特殊使用者！'
         demote_success: '%{username} 現在僅是一般使用者。'
+  status:
+    active_jobs: 有效任務
+    active_jobs_doc: 目前正在處理的任務數量。
+    all_queues_operational: 所有隊列均已運行
+    all_queues_not_operational: 所有隊列均可運行，除了
+    constant_update: 持續更新
+    constant_update_description: 對於所有當前課程，持續更新獨立於主要課程統計資料、提取修訂元資料、產生警報以及執行其他資料和網路密集型任務。
+    constant_update_doc: 處理事務性工作，例如 wiki 編輯和發送電子郵件。
+    daily_update: 每日更新
+    default: 預設
+    size: 大小
+    size_doc: 佇列中的任務數。
+    status: 狀態
   suggestions:
     editing: 編輯建議
     suggestion_docs:
@@ -1151,6 +1166,8 @@ zh-TW:
     block_custom: 自訂
     block_in_class: 課程中
     block_milestone: 里程碑
+    block_handouts: 講義
+    block_resources: 資源
     block_type: 區塊類型用於傳遞給您的學生有關此項目在他們的時間軸上狀況，並為您建立可用工具 (如概述頁面上的里程碑)
     course_dates: 課程日期
     course_dates_instructions: 選擇整個課程起始和結束日期 （而不是僅有維基百科的分配作業）。
@@ -1166,6 +1183,7 @@ zh-TW:
       請注意此操作是不可還原的。
     discard_all_changes: 放棄所有更改
     delete_timeline_and_start_over: 刪除時間軸
+    done: 完成
     due_default: 下週到期
     edit_titles: 編輯週標題
     edit_titles_info: 在時間軸上編輯週標題。自訂標題僅可提供給帶有預定會議的週。如果使用了任何自訂標題，會以日期取代編號來標註沒有會議的週。
@@ -1326,7 +1344,7 @@ zh-TW:
       success_message: 成功：%{result_description}
       failure_message: 失敗：%{result_description}
     revision_characters_and_views: 增加的字元：%{characters}，檢視數：%{views}
-    revisions_doc: 此編輯者在過去 7 天的編輯次數
+    revisions_doc: 依據最近期間每天平均編輯數，此編輯者在過去 7 天的預估編輯次數
     references_doc: 由此編輯者所添加或移除的參考來源數量
     reviewers: 審核者
     reviewing: 審查中
@@ -1400,6 +1418,7 @@ zh-TW:
     assignment_description: 選擇您的分配作業時間表起始日期。例如若您想要在課程上第二週開始您的維基計劃專案，設定分配開始日期在課程開始日期的後一週。此分配工具將建立適用您所選擇之時間表日期的草稿時間軸
     assignment_type: 學生將會為他們的維基百科分配作業完成什麼？
     calendar_instructions: 選擇日期，以便從行事曆中增加或移除這些時間（例如假日或不上課的時候）。這能夠讓課程建立工具精準的開出你的分配作業時段。點選一個日期可以從非課程時段、上課時段、以及休假時段三種設定之間轉換。
+    confirm_course_dates: 確認課程的開始和結束日期。
     confirm_dates: 選擇您課程的課程日期、每週會議與假日。
     course_dates: 課程日期
     min_weeks: 此分配作業至少需要 %{min_weeks}個可用週間。若您要使用此分配作業類型請調整您的分配起始日期。
@@ -1407,6 +1426,7 @@ zh-TW:
     minimum_options:
       one: 請選擇 %{count}個或更多選項。
       other: 請選擇 %{count}個或更多選項。
+    no_class_holidays: 我沒有課程假期
     read_less: 閱讀更少
     read_more: 延伸閱讀
     review_selections: 請在下方檢查您的選項。點選以編輯一個選項。當結束時，點選"送出"來結束入門精靈並開始架構您的時間軸。
@@ -1459,6 +1479,7 @@ zh-TW:
       link: 參加調查
     follow_up:
       message: 這是有關您對課程 %{course_title}調查的提醒。來自此調查的回饋將幫助我們改進像您在維基百科上的分配作業。
+    edit_survey: 編輯問卷
   feedback_form_responses:
     no_responses: 目前尚未有意見回饋反應。
   wiki_api:
@@ -1622,4 +1643,6 @@ zh-TW:
       weekday_select: '{{weekday}}，按下返回鍵以選擇'
       weekday_selected: '{{weekday}} 已選擇，按下返回鍵以取消選擇'
       weekday_unselected: '{{weekday}} 未選擇'
+  question_groups:
+    edit_question_group: 編輯問題群組
 ...

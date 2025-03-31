@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Edwingudfriend
+# Author: Joeamj
 # Author: Killy95
 # Author: Magotech
 # Author: Rance
@@ -113,6 +114,8 @@ sw:
       tooltip_message: Hupeana nakala za nasibu (na hesabu ya ukaguzi wa rika kama
         nambari ya juu) kwa kila mwanafunzi.
       limit_exceeded: Kila mwanafunzi tayari anakagua nakala (s) za angalau% {maximum}.
+  campaign:
+    too_large: Kampeni hii ni kubwa sana kwa data iliyoombwa kuonyeshwa.
   courses:
     view: Tazama msimbo
   courses_generic:
