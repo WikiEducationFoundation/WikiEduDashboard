@@ -57,22 +57,32 @@ class CheckAssignmentStatus
     def process_batch(entries, batch, page_infos)
       return unless page_infos && page_infos['pages']
 
-      # Convert pages hash to array maintaining API response order
-      pages_array = page_infos['pages'].values.sort_by { |page| page['index'] }
+      pages_by_normalized_title = {}
+      page_infos['pages'].each_value do |page|
+        normalized_title = page['title'].tr(' ', '_')
 
-      batch.each_with_index do |pagename, index|
-        # Get page data by index instead of searching by title
-        page_data = pages_array[index]
-        status = if page_data
-                  status_from_namespace(page_data['ns'])
-                else
-                  AssignmentPipeline::SandboxStatuses::DOES_NOT_EXIST
-                end
+        page['present'] = !page.key?('missing')
 
-        entries_for_pagename = entries.select { |e| e[:pagename] == pagename }
+        pages_by_normalized_title[normalized_title] = page
+      end
 
-        entries_for_pagename.each do |entry|
-          entry[:assignment].update_sandbox_status(entry[:key], status)
+      Assignment.transaction do
+        batch.each do |pagename|
+          # Get page data by index instead of searching by title
+          normalized_pagename = pagename.tr(' ', '_')
+          page_data = pages_by_normalized_title[normalized_pagename]
+
+          status = if page_data
+                    status_from_namespace(page_data['ns'], page_data['present'])
+                  else
+                    AssignmentPipeline::SandboxStatuses::DOES_NOT_EXIST
+                  end
+
+          entries_for_pagename = entries.select { |e| e[:pagename] == pagename }
+
+          entries_for_pagename.each do |entry|
+            entry[:assignment].update_sandbox_status(entry[:key], status)
+          end
         end
       end
     end
@@ -81,7 +91,9 @@ class CheckAssignmentStatus
       page_infos['pages']&.values&.find { |pd| pd['title'] == pagename }
     end
 
-    def status_from_namespace(namespace)
+    def status_from_namespace(namespace, present)
+      return AssignmentPipeline::SandboxStatuses::DOES_NOT_EXIST unless present
+
       case namespace
       when Article::Namespaces::USER
         AssignmentPipeline::SandboxStatuses::EXISTS_IN_USERSPACE
