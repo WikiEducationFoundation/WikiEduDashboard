@@ -4,7 +4,7 @@ require_dependency "#{Rails.root}/app/services/update_course_stats_timeslice"
 class CourseDataUpdateWorker
   THIRTY_DAYS = 60 * 60 * 24 * 30
   include Sidekiq::Worker
-  sidekiq_options lock: :until_executed,
+  sidekiq_options lock: :until_and_while_executing,
                   lock_ttl: THIRTY_DAYS,
                   retry: 0 # Move job to the 'dead' queue if it fails
 
