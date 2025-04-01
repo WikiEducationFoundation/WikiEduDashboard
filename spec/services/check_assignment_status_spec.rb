@@ -22,7 +22,6 @@ describe CheckAssignmentStatus do
     end
 
     it 'updates status for all current course assignments' do
-      # ActiveRecord::Base.logger = Logger.new(STDOUT)
       expect(assignment_1.draft_sandbox_status).to eq('does_not_exist')
       expect(assignment_2.peer_review_sandbox_status).to eq('does_not_exist')
 
@@ -32,15 +31,13 @@ describe CheckAssignmentStatus do
 
       assignment_1.reload
 
-      pp assignment_1
-
       expect(assignment_1.reload.draft_sandbox_status).to eq('exists_in_userspace')
       expect(assignment_2.reload.peer_review_sandbox_status).to eq('exists_in_userspace')
     end
 
     context 'when the draft sandbox exists' do
       let(:sandbox_url) { 'https://en.wikipedia.org/wiki/User:Ragesock/student_sandbox' }
-  
+
       it 'updates the Assignment draft sandbox status' do
         expect(assignment.draft_sandbox_status).to eq('does_not_exist')
         VCR.use_cassette 'assignment_status' do
@@ -54,7 +51,7 @@ describe CheckAssignmentStatus do
 
     context 'when the bibliography sandbox exists' do
       let(:sandbox_url) { 'https://en.wikipedia.org/wiki/User:Ragesock/student_sandbox_empty' }
-  
+
       it 'updates the bibliography draft sandbox status' do
         expect(assignment.bibliography_sandbox_status).to eq('does_not_exist')
         VCR.use_cassette 'assignment_status' do
@@ -64,10 +61,10 @@ describe CheckAssignmentStatus do
         expect(assignment.draft_sandbox_status).to eq('does_not_exist')
         expect(assignment.bibliography_sandbox_status).to eq('exists_in_userspace')
       end
-  
+
       context 'whent the sandbox include URL-encoded characters' do
         let(:sandbox_url) { 'https://en.wikipedia.org/wiki/User:Sage (Wiki Ed)/Fender_%28company%29' }
-  
+
         it 'still works' do
           expect(assignment.bibliography_sandbox_status).to eq('does_not_exist')
           VCR.use_cassette 'assignment_status' do
@@ -84,7 +81,7 @@ describe CheckAssignmentStatus do
       let(:role) { Assignment::Roles::REVIEWING_ROLE }
       let(:sandbox_url) { 'https://en.wikipedia.org/wiki/User:Ragesock/student_sandbox' }
       # Peer review sandbox: https://en.wikipedia.org/wiki/User:Ragesock/student_sandbox/Ragesock_Peer_Review
-  
+
       it 'updates the peer review sandbox sandbox status' do
         expect(assignment.peer_review_sandbox_status).to eq('does_not_exist')
         VCR.use_cassette 'assignment_status' do
@@ -97,7 +94,7 @@ describe CheckAssignmentStatus do
 
     context 'when an assignment pipeline status is set' do
       let(:sandbox_url) { 'https://en.wikipedia.org/wiki/User:Ragesock/student_sandbox' }
-  
+
       it 'does not overwrite it when updating sandbox status' do
         assignment.update_status('assignment_completed')
         expect(assignment.draft_sandbox_status).to eq('does_not_exist')

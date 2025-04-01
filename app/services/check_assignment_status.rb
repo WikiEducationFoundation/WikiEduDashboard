@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require 'pp'
 # Checks whether expected sandboxes have been created,
 # or if they've been created already, checks their
 # current size and location
@@ -31,19 +30,28 @@ class CheckAssignmentStatus
     end
 
     def add_assigned_sandboxes(sandboxes, assignment)
-      sandboxes << { assignment: assignment, key: :draft, wiki: assignment.wiki, pagename: assignment.sandbox_pagename }
-      sandboxes << { assignment: assignment, key: :bibliography, wiki: assignment.wiki, pagename: assignment.bibliography_pagename }
+      sandboxes << { assignment:,
+        key: :draft,
+        wiki: assignment.wiki,
+        pagename: assignment.sandbox_pagename }
+      sandboxes << { assignment:,
+        key: :bibliography,
+        wiki: assignment.wiki,
+        pagename: assignment.bibliography_pagename }
     end
 
     def add_review_sandbox(sandboxes, assignment)
-      sandboxes << { assignment: assignment, key: :review, wiki: assignment.wiki, pagename: assignment.peer_review_pagename }
+      sandboxes << { assignment:,
+        key: :review,
+        wiki: assignment.wiki,
+        pagename: assignment.peer_review_pagename }
     end
 
     def process_sandboxes(sandboxes)
       grouped_by_wiki = sandboxes.group_by { |s| s[:wiki] }
 
       grouped_by_wiki.each do |wiki, entries|
-        pagenames = entries.map { |e| e[:pagename] }.uniq
+        pagenames = entries.map { |e| e[:pagename] }.uniq # rubocop:disable Rails/Pluck
 
         pagenames.each_slice(50) do |batch|
           api = WikiApi.new(wiki)
@@ -57,33 +65,42 @@ class CheckAssignmentStatus
     def process_batch(entries, batch, page_infos)
       return unless page_infos && page_infos['pages']
 
-      pages_by_normalized_title = {}
-      page_infos['pages'].each_value do |page|
-        normalized_title = page['title'].tr(' ', '_')
-
-        page['present'] = !page.key?('missing')
-
-        pages_by_normalized_title[normalized_title] = page
-      end
+      pages_by_normalized_title = build_pages_by_normalized_title(page_infos)
 
       Assignment.transaction do
-        batch.each do |pagename|
-          # Get page data by index instead of searching by title
-          normalized_pagename = pagename.tr(' ', '_')
-          page_data = pages_by_normalized_title[normalized_pagename]
+        update_assignments_for_batch(entries, batch, pages_by_normalized_title)
+      end
+    end
 
-          status = if page_data
-                    status_from_namespace(page_data['ns'], page_data['present'])
-                  else
-                    AssignmentPipeline::SandboxStatuses::DOES_NOT_EXIST
-                  end
+    def build_pages_by_normalized_title(page_infos)
+      page_infos['pages'].each_with_object({}) do |(_, page), hash|
+        normalized_title = page['title'].tr(' ', '_')
+        page['present'] = !page.key?('missing')
+        hash[normalized_title] = page
+      end
+    end
 
-          entries_for_pagename = entries.select { |e| e[:pagename] == pagename }
+    def update_assignments_for_batch(entries, batch, pages_by_normalized_title)
+      batch.each do |pagename|
+        normalized_pagename = pagename.tr(' ', '_')
+        page_data = pages_by_normalized_title[normalized_pagename]
+        status = determine_status(page_data)
 
-          entries_for_pagename.each do |entry|
-            entry[:assignment].update_sandbox_status(entry[:key], status)
-          end
-        end
+        update_entries_for_pagename(entries, pagename, status)
+      end
+    end
+
+    def determine_status(page_data)
+      if page_data
+        status_from_namespace(page_data['ns'], page_data['present'])
+      else
+        AssignmentPipeline::SandboxStatuses::DOES_NOT_EXIST
+      end
+    end
+
+    def update_entries_for_pagename(entries, pagename, status)
+      entries.select { |e| e[:pagename] == pagename }.each do |entry|
+        entry[:assignment].update_sandbox_status(entry[:key], status)
       end
     end
 
