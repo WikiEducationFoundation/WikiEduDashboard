@@ -20,19 +20,16 @@ const CourseTypeSelector = (props) => {
   const [selectedOption, setSelectedOption] = useState({ value: props.course.type, label: _getFormattedCourseType(props.course.type) });
 
   const _handleChange = (e) => {
-    const course = props.course;
     const courseType = e.value;
-    course.type = courseType;
+    let { timeline_start, timeline_end } = props.course;
     setSelectedOption(e);
-    if (courseType === 'ClassroomProgramCourse' || course.timeline_enabled) {
-      if (!course.timeline_start) {
-        course.timeline_start = course.start;
-      }
-      if (!course.timeline_end) {
-        course.timeline_end = course.end;
-      }
+
+    if (courseType === 'ClassroomProgramCourse' || props.course.timeline_enabled) {
+      timeline_start = timeline_start ?? props.course.start;
+      timeline_end = timeline_end ?? props.course.end;
     }
-    return props.updateCourse(course);
+
+    return props.updateCourse({ ...props.course, type: courseType, timeline_start, timeline_end });
   };
 
     const currentType = _getFormattedCourseType(props.course.type);
