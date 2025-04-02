@@ -10,6 +10,7 @@ require_dependency "#{Rails.root}/lib/importers/average_views_importer"
 require_dependency "#{Rails.root}/lib/errors/update_service_error_helper"
 require_dependency "#{Rails.root}/lib/data_cycle/course_queue_sorting"
 require_dependency "#{Rails.root}/lib/data_cycle/update_debugger"
+require_dependency "#{Rails.root}/app/services/update_course_wiki_timeslices"
 
 #= Pulls in new revisions for a single course wiki timeslice and updates the corresponding records
 class UpdateCourseStatsTimeslice

@@ -22,6 +22,7 @@ class ScheduleCourseUpdates
   def run_update
     log_start_of_update 'Schedule course updates starting.'
     enqueue_course_updates
+    log_latency_messages
   # These are very reliable, so no need to log the successful ones.
   # log_end_of_update 'Schedule course updates finished.'
 
@@ -41,10 +42,11 @@ class ScheduleCourseUpdates
     log_message "Ready to update #{Course.ready_for_update.count} courses"
 
     courses_to_update = Course.ready_for_update
-
-    log_message "Courses to update #{courses_to_update.map(&:slug).join(', ')}"
+    course_ids_to_skip = course_ids_for_ongoing_updates
 
     courses_to_update.each do |course|
+      next if course_ids_to_skip.include? course.id
+
       queue = queue_for(course)
       log_message "Set course #{course.slug} to queue #{queue}"
       CourseDataUpdateWorker.update_course(course_id: course.id, queue:)
@@ -55,8 +57,6 @@ class ScheduleCourseUpdates
       course.flags[:first_update] = first_update
       course.save
     end
-
-    log_latency_messages
   end
 
   def latency(queue)
@@ -75,5 +75,37 @@ class ScheduleCourseUpdates
       queue_name: queue_for(course),
       queue_latency: latency(queue_for(course))
     }
+  end
+
+  def course_ids_for_ongoing_updates
+    course_ids = []
+    current_jobs = Sidekiq::WorkSet.new
+    # Each job in the WorkSet is an array that looks something like this:
+    # ["peony-sidekiq-medium:997699:0a5ebc4b7c42",
+    # "js0f",
+    # {"queue"=>"medium_update",
+    #   "payload"=>
+    #   {"retry"=>0,
+    #     "queue"=>"medium_update",
+    #     "lock"=>"until_executed",
+    #     "lock_ttl"=>2592000,
+    #     "args"=>[31480],
+    #     "class"=>"CourseDataUpdateWorker",
+    #     "jid"=>"1e9eafe911dbd521ad2a2928",
+    #     "created_at"=>1743516909.464536,
+    #     "sentry_trace"=>"87b06a7fed374e9ea31a5e47eab39457-a5e9c95dad13287c-0",
+    #     "lock_timeout"=>0,
+    #     "lock_prefix"=>"uniquejobs",
+    #     "lock_args"=>[31480],
+    #     "lock_digest"=>"uniquejobs:929a711942186a4f20887ca9129b715f",
+    #     "enqueued_at"=>1743516909.468488},
+    #   "run_at"=>1743538518}]
+    current_jobs.each do |_process_id, _thread_id, job_args|
+      job_class = job_args.dig('payload', 'class')
+      next unless job_class == 'CourseDataUpdateWorker'
+      course_ids += job_args.dig('payload', 'args')
+    end
+
+    course_ids
   end
 end
