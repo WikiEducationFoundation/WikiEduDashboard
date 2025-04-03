@@ -96,10 +96,17 @@ class IndividualStatisticsPresenter
 
   def set_upload_usage_counts
     @upload_usage_counts = {}
-    individual_courses.each do |course|
-      course.uploads.where(user_id: @user.id).each do |upload|
-        @upload_usage_counts[upload.id] = upload.usage_count || 0
-      end
+    
+    # Get all course IDs in a single query
+    course_ids = individual_courses.pluck(:id)
+    return if course_ids.empty?
+    
+    # Execute a single efficient query for uploads by this user
+    # Since commons_uploads doesn't have a course_id column, we're just filtering by user_id
+    CommonsUpload.where(user_id: @user.id)
+                .pluck(:id, :usage_count)
+                .each do |id, usage_count|
+      @upload_usage_counts[id] = usage_count || 0
     end
   end
 
