@@ -314,6 +314,7 @@ ar:
     confirm_add_available: هل أنت متأكد أنك تريد إضافة %{title}?
     confirm_addition: هل أنت متأكد أنك تريد تعيين %{title} ل%{username}?
     confirm_deletion: هل أنت متأكد أنك تريد حذف هذا الواجب؟
+    delete: إزالة وحذف
     editors: مخصص لـ
     change_sandbox_url: تغيير صندوق الرمل
     group_members: أعضاء المجموعة
@@ -362,6 +363,7 @@ ar:
     sandbox_redlink_info: هذا الرابط باللون الأحمر لأن الصفحة لم يتم إنشاؤها بعد.
       (إذا تم إنشاؤها مؤخرًا، فستقوم لوحة التحكم بتحديث بياناتها قريبًا.)
     select: اختر
+    submit: إرسال
     invalid_url: لا يمكن تحديث عنوان URL الخاص بـصندوق الرمل. عنوان URL %{url} ليس
       عنوان URL صالحًا على ويكيبيديا.
     mismatched_wiki: لا يمكن تحديث عنوان URL الخاص بـصندوق الرمل. عنوان URL %{url}
@@ -422,9 +424,16 @@ ar:
       تحتوي على ما يلي:'
     description: وصف
     delete_campaign: حذف هذه الحملة
+    delete_course_tooltip: حذف وإزالة من الحملة.
     disable_account_requests: تعطيل طلبات الحسابات
     enable_account_requests: تمكين طلبات الحسابات
+    enable_account_requests_doc: تُضيف ميزة طلبات الحسابات نموذج طلب حساب إلى رابط
+      التسجيل لأي فعالية. يُمكن للمستخدمين الذين ليس لديهم حسابات بعد إدخال بريدهم
+      الإلكتروني واسم المستخدم المطلوب، ويمكن لمُنظّمي الفعالية استخدام لوحة المعلومات
+      لإنشاء الحسابات المطلوبة. يُضاف المستخدمون الذين يطلبون حسابات تلقائيًا إلى
+      الفعالية عند إنشاء الحساب.
     newest_campaigns: أحدث الحملات
+    featured_campaigns: الحملات المميزة
     instructors_course: المعلمون حسب الدورة
     no_alerts: هذه الحملة لا تحتوي على إشعارات
     no_passcode: لا توجد كلمة سر
@@ -432,6 +441,7 @@ ar:
     organizers: المنظمون
     organizer_added: '%{user} الآن منظم لحملة "%{title}"'
     organizer_removed: '%{user} لم يعد منظما لحملة "%{title}"'
+    pages_edited_small: الصفحات المحررة
     program_template: قالب البرامج
     program_template_tooltip: حينما ينشئ منظم برنامج في هذه الحملة، سوف ينسخ النص
       الموجود في هذه المساحة ليكون وصفا على صفحة البرنامج

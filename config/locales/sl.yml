@@ -634,15 +634,15 @@ sl:
     revisions: Redakcije
     sub_navigation:
       watch_list:
-        students_add: Dodaj vse %{prefix} na spisek nadzorov
+        students_add: Dodaj vse %{prefix} na nadzorni seznam
         instructional_message: Pogovorne strani svojih študentov boste dodali na svoj
-          spisek nadzorov, da boste na tekočem z njihovimi razpravami in prispevki.
-          Če kliknete »V redu«, boste na spisek nadzorov dodali vse študente. Želite
+          nadzorni seznam, da boste na tekočem z njihovimi razpravami in prispevki.
+          Če kliknete »V redu«, boste na nadzorni seznam dodali vse študente. Želite
           nadaljevati?
         tooltip_message: Preprosto sledite razpravam na pogovornih straneh študentov,
-          tako da jih dodate na svoj spisek nadzorov.
-        success_message: '%{prefix} uspešno dodan na spisek nadzorov.'
-        error_message: '%{prefix} ni bilo mogoče dodati na spisek nadzorov. Prosimo,
+          tako da jih dodate na svoj nadzorni seznam.
+        success_message: '%{prefix} uspešno dodan na nadzorni seznam'
+        error_message: '%{prefix} ni bilo mogoče dodati na nadzorni seznam. Prosimo,
           poskusite pozneje.'
     training_module_status: Stanje
     username: Uporabniško ime
