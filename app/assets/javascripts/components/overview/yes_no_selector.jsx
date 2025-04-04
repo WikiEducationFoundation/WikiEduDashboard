@@ -4,20 +4,24 @@ import Select from 'react-select';
 import selectStyles from '../../styles/single_select';
 
 const YesNoSelector = (props) => {
-    const initialState = props.course[props.courseProperty] ? I18n.t('application.opt_yes') : I18n.t('application.opt_no');
-    const [selectedOption, setSelectedOption] = useState({ value: initialState, label: initialState });
+  const initialState = props.course[props.courseProperty] ? I18n.t('application.opt_yes') : I18n.t('application.opt_no');
+  const [selectedOption, setSelectedOption] = useState({ value: initialState, label: initialState });
 
   const _handleChange = (e) => {
-    const course = props.course;
     const value = e.value;
+    let coursePropertyValue = props.course[props.courseProperty];
+
     setSelectedOption(e);
+
     if (value === I18n.t('application.opt_yes')) {
-      course[props.courseProperty] = true;
+      coursePropertyValue = true;
     } else if (value === I18n.t('application.opt_no')) {
-      course[props.courseProperty] = false;
+      coursePropertyValue = false;
     }
-    return props.updateCourse(course);
+
+    return props.updateCourse({ ...props.course, [props.courseProperty]: coursePropertyValue });
   };
+
 
   const currentValue = props.course[props.courseProperty];
   let selector = (
