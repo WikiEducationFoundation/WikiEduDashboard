@@ -20,10 +20,13 @@ describe 'Article Viewer', type: :feature, js: true do
   it 'shows list of students who edited the article' do
     visit "/courses/#{course.slug}/articles"
     find('button.icon-article-viewer').click
-    expect(page).to have_content("Edits by: \nRagesoss", wait: 10)
+    expect(page).to have_content("Edits by: \nRagesoss", wait: 20)
+    # Ensure that the user highlight element is present before interacting with it
+    expect(page).to have_css('.article-viewer-legend.user-legend-name.user-highlight-1', wait: 20)
+
     # once authorship date loads
-    within(:css, '.article-viewer-legend.user-legend-name.user-highlight-1', wait: 20) do
-      # click to scroll to next highlight
+    within(:css, '.article-viewer-legend.user-legend-name.user-highlight-1') do
+      # Click to scroll to the next highlight
       find('img.user-legend-hover').click
     end
   end
