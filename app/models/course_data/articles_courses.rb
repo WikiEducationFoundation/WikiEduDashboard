@@ -116,7 +116,9 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
     revisions = if fetched_live_manual_revisions
                   fetched_live_manual_revisions.select { |r| r.article_id == article_id }
                 else
-                  live_manual_revisions.load
+                  revs = live_manual_revisions.load
+                  # If the revisions were bulk-fetched for the whole course, filter them
+                  fetched_course_article_ids ? revs.select { |r| r.article_id == article_id } : revs
                 end
 
     # Load all revisions only if we have previously stored all
@@ -185,6 +187,13 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
   #################
   # Class methods #
   #################
+
+  def self.reset_cached_data
+    @live_manual_revision = nil
+    @course_article_ids = nil
+    @all_revisions = nil
+    @revisions_by_article = nil
+  end
 
   # Store live manual revisions for course articles
   def self.store_live_manual_revisions(revisions)
