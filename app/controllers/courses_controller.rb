@@ -104,6 +104,9 @@ class CoursesController < ApplicationController
   def articles
     set_course
     set_limit
+
+    load_course_articles # Load articles_courses with associated article and wiki info
+    store_article_ids # Extract article IDs and store them for use in ArticlesCourses
   end
 
   def users
@@ -466,6 +469,22 @@ class CoursesController < ApplicationController
 
   def set_limit
     @limit = params[:limit]
+  end
+
+  # Loads articles for the course with associated article and wiki data, limited by @limit
+  def load_course_articles
+    @course_articles = @course.articles_courses.includes(article: :wiki).limit(@limit)
+  end
+
+  # Extracts article IDs from loaded course articles
+  def fetch_article_ids
+    @article_ids = @course_articles.pluck(:article_id)
+  end
+
+  # Stores article IDs using a class-level method for caching or cross-method access
+  def store_article_ids
+    fetch_article_ids
+    ArticlesCourses.store_course_article_ids(@article_ids)
   end
 
   # If the user could make an edit to the course, this verifies that

@@ -61,19 +61,71 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def live_manual_revisions
+    if !fetched_live_manual_revisions && fetched_course_article_ids
+      revisions = course.revisions.live.where(article_id: fetched_course_article_ids)
+      return self.class.store_live_manual_revisions(revisions)
+    end
+
     course.revisions.live.where(article_id:)
   end
 
   def all_revisions
+    if !fetched_all_revisions && fetched_course_article_ids
+      revisions = course.all_revisions.where(article_id: fetched_course_article_ids)
+      self.class.store_all_revisions(revisions)
+      return
+    end
+
     course.all_revisions.where(article_id:)
   end
 
   def article_revisions
-    article.revisions.where('date >= ?', course.start).where('date <= ?', course.end)
+    if !fetched_revisions_by_article && fetched_course_article_ids
+      revisions = Revision.where(article_id: fetched_course_article_ids)
+                          .where(date: course.start..course.end)
+
+      self.class.store_revisions_by_article(revisions)
+      return
+    end
+
+    article.revisions
+           .where('date >= ?', course.start)
+           .where('date <= ?', course.end)
   end
 
-  def update_cache
-    revisions = live_manual_revisions.load
+  def fetched_live_manual_revisions
+    self.class.live_manual_revisions
+  end
+
+  def fetched_course_article_ids
+    self.class.course_article_ids
+  end
+
+  def fetched_all_revisions
+    self.class.all_revisions
+  end
+
+  def fetched_revisions_by_article
+    self.class.revisions_by_article
+  end
+
+  def update_cache # rubocop:disable Metrics
+    # Fetch relevant revisions:
+    # a) Use previously fetched live manual revisions if course article IDs were stored in advance
+    # b) Otherwise, load revisions for the current article only
+    revisions = if fetched_live_manual_revisions
+                  fetched_live_manual_revisions.select { |r| r.article_id == article_id }
+                else
+                  live_manual_revisions.load
+                end
+
+    # Load all revisions only if we have previously stored all
+    # course article IDs and haven't fetched the revisions yet
+    all_revisions if !fetched_all_revisions && fetched_course_article_ids
+
+    # Load article-specific revisions only if they haven't been
+    # loaded yet and course article IDs were stored in advance
+    article_revisions if !fetched_revisions_by_article && fetched_course_article_ids
 
     self.character_sum = revisions.sum { |r| r.characters.to_i.positive? ? r.characters : 0 }
     self.references_count = revisions.sum(&:references_added)
@@ -84,10 +136,29 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
     # create sandboxes are not excluded, since those are often wind up being the
     # first edit of a mainspace article's revision history
     self.new_article = new_article || # If it's already known to be new, that won't change
-                       all_revisions.exists?(new_article: true) || # First edit was by a student
+                       student_made_first_edit? || # First edit was by a student
                        # First edit was done automatically by the Dashboard during the course
-                       article_revisions.exists?(new_article: true, system: true)
+                       #  article_revisions.exists?(new_article: true, system: true)
+                       system_made_first_edit?
+
+    # Save updated data to the database
     save
+  end
+
+  def student_made_first_edit?
+    if fetched_course_article_ids
+      fetched_all_revisions.any?(&:new_article?)
+    else
+      all_revisions.exists?(new_article: true)
+    end
+  end
+
+  def system_made_first_edit?
+    if fetched_course_article_ids
+      fetched_revisions_by_article.any? { |r| r.new_article? && r.system? }
+    else
+      article_revisions.exists?(new_article: true, system: true)
+    end
   end
 
   def update_cache_from_timeslices
@@ -114,6 +185,42 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
   #################
   # Class methods #
   #################
+
+  # Store live manual revisions for course articles
+  def self.store_live_manual_revisions(revisions)
+    @live_manual_revision = revisions
+  end
+
+  def self.live_manual_revisions
+    @live_manual_revision
+  end
+
+  # Store article IDs that belong to the course
+  def self.store_course_article_ids(article_ids)
+    @course_article_ids = article_ids
+  end
+
+  def self.course_article_ids # rubocop:disable Style/TrivialAccessors
+    @course_article_ids
+  end
+
+  # Store all revisions for course articles
+  def self.store_all_revisions(revisions)
+    @all_revisions = revisions
+  end
+
+  def self.all_revisions # rubocop:disable Style/TrivialAccessors
+    @all_revisions
+  end
+
+  # Store all revisions by article_id
+  def self.store_revisions_by_article(revisions_by_article)
+    @revisions_by_article = revisions_by_article
+  end
+
+  def self.revisions_by_article # rubocop:disable Style/TrivialAccessors
+    @revisions_by_article
+  end
 
   # Search by course and user.
   def self.search_by_course_and_user(course, user_id)
