@@ -217,7 +217,7 @@ ku-latn:
     articles_edited: Gotar Hate Sererastkirin
     characters: Karakter
     char_changed: Karakter Hate Guhartin
-    date_time: Dîrok/Katjimêr
+    date_time: Tarîx/Wext
     edit_count_description: Hemû Guhartin
     per_user: '%{number}/bikarhêner'
     revisions: Guhartinên Dawî
@@ -225,7 +225,7 @@ ku-latn:
     view: Dîtin
   recent_activity:
     article_title: Sernavê gotarê
-    datetime: Dîrok/Katjimêr
+    datetime: Tarîx/Wext
     image: Wêne
   revisions:
     diff_hide: Veşêre

@@ -261,6 +261,7 @@ pa:
   login_error:
     header: ਦਾਖ਼ਲ ਹੋਣ ਦੀ ਗ਼ਲਤੀ
   article_finder:
+    keyword_search: ਖ਼ਾਸ-ਸ਼ਬਦ ਖੋਜ
     more_results: ਹੋਰ ਨਤੀਜੇ
     remove_article: ਲੇਖ ਹਟਾਓ
     remove_article_wikidata: ਆਈਟਮ ਹਟਾਓ
