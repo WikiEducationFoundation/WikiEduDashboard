@@ -96,21 +96,21 @@ class IndividualStatisticsPresenter
 
   def set_upload_usage_counts
     @upload_usage_counts = {}
-    
+
     # Get all student courses with their date ranges
     student_courses = individual_courses
                       .includes(:courses_users)
                       .where(courses_users: { role: CoursesUsers::Roles::STUDENT_ROLE })
                       .pluck(:id, :start, :end)
-    
+
     return if student_courses.empty?
-    
+
     # For each course, find uploads within its date range
-    student_courses.each do |course_id, start_date, end_date|
+    student_courses.each do |_course_id, start_date, end_date|
       CommonsUpload.where(user_id: @user.id)
-                  .where('uploaded_at >= ? AND uploaded_at <= ?', start_date, end_date)
-                  .pluck(:id, :usage_count)
-                  .each do |id, usage_count|
+                   .where('uploaded_at >= ? AND uploaded_at <= ?', start_date, end_date)
+                   .pluck(:id, :usage_count)
+                   .each do |id, usage_count|
         @upload_usage_counts[id] = usage_count || 0
       end
     end
