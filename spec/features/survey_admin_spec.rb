@@ -296,17 +296,18 @@ describe 'Survey Administration', type: :feature, js: true do
         click_link 'Edit'
       end
 
-      # Edit the conditional question of the cloned group
-      within "tr[data-item-id=\"#{Rapidfire::Question.last.id}\"]" do
-        click_link 'Edit'
-      end
-
       # Verify manually to check if the cloned group exists
       expect(Rapidfire::QuestionGroup.count).to eq(2)
       cloned_group = Rapidfire::QuestionGroup.last
 
       # Verify questions were cloned
       expect(cloned_group.questions.count).to eq(2)
+      expect(Rapidfire::Question.count).to eq(4)
+
+      # Edit the conditional question of the cloned group
+      within "tr[data-item-id=\"#{Rapidfire::Question.last.id}\"]" do
+        click_link 'Edit'
+      end
 
       # Check the conditional question
       conditional_question = cloned_group.questions.detect { |q| q.question_text == follow_up_question_text }
