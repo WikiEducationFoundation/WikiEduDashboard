@@ -1639,6 +1639,8 @@ en:
     location_placeholder: Add your location (optional)
     institution_placeholder: Institution name (optional)
     image_link_placeholder: Add link to image (optional)
+    references_disclaimer: References might be overcounted if the same user edit is considered part of multiple courses.
+    words_added_disclaimer: Words added might be overcounted if the same user edit is considered part of multiple courses.
 
   wiki_edits:
     notify_overdue:
