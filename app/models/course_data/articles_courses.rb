@@ -61,7 +61,7 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def live_manual_revisions
-    if !fetched_live_manual_revisions && fetched_course_article_ids
+    if fetched_course_article_ids
       revisions = course.revisions.live.where(article_id: fetched_course_article_ids)
       return self.class.store_live_manual_revisions(revisions)
     end
@@ -70,7 +70,7 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def all_revisions
-    if !fetched_all_revisions && fetched_course_article_ids
+    if fetched_course_article_ids
       revisions = course.all_revisions.where(article_id: fetched_course_article_ids)
       self.class.store_all_revisions(revisions)
       return
@@ -80,7 +80,7 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def article_revisions
-    if !fetched_revisions_by_article && fetched_course_article_ids
+    if fetched_course_article_ids
       revisions = Revision.where(article_id: fetched_course_article_ids)
                           .where(date: course.start..course.end)
 
