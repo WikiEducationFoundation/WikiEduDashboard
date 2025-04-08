@@ -88,9 +88,7 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
       return
     end
 
-    article.revisions
-           .where('date >= ?', course.start)
-           .where('date <= ?', course.end)
+    article.revisions.where('date >= ?', course.start).where('date <= ?', course.end)
   end
 
   def fetched_live_manual_revisions
@@ -110,21 +108,15 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def update_cache # rubocop:disable Metrics
-    # Fetch relevant revisions:
-    # a) Use previously fetched live manual revisions if course article IDs were stored in advance
-    # b) Otherwise, load revisions for the current article only
-    revisions = if fetched_live_manual_revisions
-                  fetched_live_manual_revisions.select { |r| r.article_id == article_id }
-                else
-                  live_manual_revisions.load
-                end
+    # Determine relevant revisions for this article:
+    # - If already fetched, filter from cache
+    # - Otherwise, load from DB and filter if bulk-loaded
+    revisions = relevant_revisions_for_article
 
-    # Load all revisions only if we have previously stored all
-    # course article IDs and haven't fetched the revisions yet
+    # Fetch all revisions once if not already done and cached course article IDs exist
     all_revisions if !fetched_all_revisions && fetched_course_article_ids
 
-    # Load article-specific revisions only if they haven't been
-    # loaded yet and course article IDs were stored in advance
+    # Fetch article-specific revisions if not already fetched and cached course article IDs exist
     article_revisions if !fetched_revisions_by_article && fetched_course_article_ids
 
     self.character_sum = revisions.sum { |r| r.characters.to_i.positive? ? r.characters : 0 }
@@ -143,6 +135,21 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
     # Save updated data to the database
     save
+  end
+
+  # Returns relevant revisions for this article, using cache if available
+  def relevant_revisions_for_article
+    if fetched_live_manual_revisions
+      return filter_revisions_by_article_id(fetched_live_manual_revisions)
+    end
+
+    revs = live_manual_revisions.load
+    fetched_course_article_ids ? filter_revisions_by_article_id(revs) : revs
+  end
+
+  # Filters a list of revisions for only a given article id
+  def filter_revisions_by_article_id(revisions)
+    revisions.select { |r| r.article_id == article_id }
   end
 
   def student_made_first_edit?
@@ -185,6 +192,13 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
   #################
   # Class methods #
   #################
+
+  def self.reset_cached_data
+    @live_manual_revision = nil
+    @course_article_ids = nil
+    @all_revisions = nil
+    @revisions_by_article = nil
+  end
 
   # Store live manual revisions for course articles
   def self.store_live_manual_revisions(revisions)

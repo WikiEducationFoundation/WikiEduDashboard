@@ -12,4 +12,6 @@ json.course do
     json.rating_num rating_priority(article.rating)
     json.pretty_rating rating_display(article.rating)
   end
+  # Clear cached article IDs to prevent reuse across requests or rendering processes
+  ArticlesCourses.reset_cached_data
 end
