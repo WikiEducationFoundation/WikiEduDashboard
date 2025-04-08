@@ -19,6 +19,7 @@ class RevisionFeedbackController < ApplicationController
     query = { prop: 'revisions', titles: params['title'], rvprop: 'ids' }
     @wiki = Wiki.find_by(language: 'en', project: 'wikipedia')
     response = WikiApi.new(@wiki).query(query)
+    return unless response&.data
     page = response.data['pages']
     # The Page ID is the only key in the response
     page_id = page.keys[0]
