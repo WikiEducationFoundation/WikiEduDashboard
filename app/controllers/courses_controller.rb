@@ -484,6 +484,7 @@ class CoursesController < ApplicationController
   # Stores article IDs using a class-level method for caching or cross-method access
   def store_article_ids
     fetch_article_ids
+    ArticlesCourses.reset_cached_data # Clear old cached data before setting new ones
     ArticlesCourses.store_course_article_ids(@article_ids)
   end
 
