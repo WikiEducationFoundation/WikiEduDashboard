@@ -774,6 +774,7 @@ ko:
     block_custom: 사용자 지정
     block_in_class: 수업중
     block_milestone: 마일스톤
+    block_resources: 리소스
     course_dates: 과정 날짜
     course_end: 코스 종료
     course_start: 코스 시작

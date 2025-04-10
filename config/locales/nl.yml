@@ -1,6 +1,7 @@
 # Messages for Dutch (Nederlands)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: ABPMAB
 # Author: Bouman4
 # Author: Danieldegroot2
 # Author: Dutchy45
@@ -257,6 +258,7 @@ nl:
     tracked_articles: Gevolgde pagina's
     view_articles: Pagina's bekijken
     no_tracked_articles: Deze categorie bevat geen gevolgde pagina's
+    evaluate_and_source: Artikelen en bronnen evalueren
   items:
     items: Items
     lexeme: Lexeem
@@ -280,8 +282,10 @@ nl:
     article_link: Artikel
     article_link_wikidata: Item
     already_exists: Deze opdracht bestaat al!
+    title_too_large: De titel mag niet langer zijn dan 255 tekens
     assignees: Toegewezen aan
     assign_other: Een artikel toewijzen/verwijderen
+    assign_other_wikidata: Een item toewijzen/verwijderen
     add_available: Beschikbare pagina's toevoegen
     add_available_wikidata: Beschikbare items toevoegen
     add_available_placeholder: Voeg één paginanaam of URL toe per regel
@@ -388,6 +392,8 @@ nl:
     title: Titel
     search: Zoeken
   categories:
+    add_category: Categorie toevoegen
+    add_template: Sjabloon toevoegen
     add_this_category: Categorieën toevoegen
     add_this_psid: Voeg PetScan PSID's toe
     add_this_pileid: Voeg PagePile-ID's toe
@@ -396,16 +402,31 @@ nl:
     articles_count: Aantal pagina's
     name: Naam
     category_name: Categorienaam
+    template_name: Sjabloonnaam
+    none: Er worden geen categorieën bijgehouden.
     remove: Verwijderen
     timestamp: Laatst gewijzigd op
   courses:
     activity: Activiteit
+    active_courses: Actieve cursussen
+    alerts: Meldingen
     all_courses: Alle cursussen
     already_enrolled: Je bent onderdeel van "%{title}"!
     already_exists: Dat bestaat al in voor deze cursus!
     archived: Gearchiveerde cursussen
     actions: Handelingen
     articles: Pagina's
+    articles_i_am_updating: Artikelen die ik aan het bijwerken ben
+    articles_i_am_updating_wikidata: Items die ik aan het bijwerken ben
+    enroll_button_aria_label: Inschrijfknop
+    assignment_headings:
+      assigned_articles: Toegewezen artikelen
+      assigned_articles_wikidata: Toegewezen items
+      assigned_reviews: Toegewezen beoordelingen
+      available_articles: Beschikbare artikelen
+      available_articles_wikidata: Beschikbare items
+      available_reviews: Artikelen van klasgenoten
+      available_reviews_wikidata: Items van klasgenoten
     assignment_end: Einde opdracht
     assignment_start: Begin opdracht
     calendar:
@@ -414,14 +435,18 @@ nl:
       legend_class_meeting: Klasbijeenkomst
       legend_class_not_meeting: Geen geplande vergadering
       select_meeting_days: Selecteer de dagen van de week waarop uw klas samenkomt.
+    cancel: Annuleren
     character_doc: Het aantal tekens dat tijdens de cursus is toegevoegd aan pagina's
       in de hoofdnaamruimte door studenten van de cursus
     campaigns: 'Campaignen:'
+    campaign_articles: '%{title} Artikelen'
+    campaign_courses: '%{title} Cursussen'
     confirm_course_deletion: Weet je zeker dat je de cursus met de titel %{title}
       wilt verwijderen? Als dat zo is, typ dan de titel van de cursus om verder te
       gaan.
     confirm_course_deletion_failed: '"%{title}" is niet de titel van deze cursus.
       De cursus is niet verwijderd.'
+    course: Cursus
     course_dates_calendar_instructions: Selecteer datums om ze toe te voegen of te
       verwijderen uit het schema, bijvoorbeeld vakantie of geen onderwijs. Klik op
       de datum om te wisselen tussen niet geselecteerd, geselecteerd en vakantiestatus.
@@ -514,6 +539,7 @@ nl:
     loading: Bezig met laden...
     milestones_none: Deze cursus heeft nog geen mijlpalen.
     my_articles: Mijn pagina's
+    my_articles_wikidata: Mijn items
     new_week: Nieuwe week toevoegen
     new_account_email: E-mailadres
     new_account_email_placeholder: name@example.org
@@ -547,6 +573,7 @@ nl:
     search_all_tickets_for_this_course: Alle tickets voor deze cursus zoeken
     start: Start
     start_typing: Start met typen
+    student: Student
     students: Studenten
     students_count: '# Studenten'
     student_editors: Studentbewerkers
@@ -633,6 +660,8 @@ nl:
       choose_clone: Kies een programma om te klonen.
       course_description: Beschrijving van programma
       course_school: Instelling
+      course_term: Wanneer
+      course_term_placeholder: Wanneer
       course_title: Programmatitel
       create_button: Maak mijn programma aan!
       create_label: Maak nieuw programma aan
@@ -645,6 +674,7 @@ nl:
         dan worden de bijdragen ook bijgehouden voor elke wiki die is toegevoegd aan
         de lijst "Bijgehouden wiki's". Klik op "Maak mijn programma aan!" om te beginnen
         met het ontwerp van de pagina voor uw wikiprogramma.
+      save_cloned_course: Opslaan
       scoping_methods:
         categories: Categorieën
         templates: Sjablonen

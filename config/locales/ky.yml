@@ -37,6 +37,8 @@ ky:
     courses: Программалар
     campaign_courses: '%{title} программалары'
     creator:
+      course_term: Качан
+      course_term_placeholder: Качан
       save_cloned_course: Сактоо
     student_editors: Түзөтүүчүлөр
     students: Түзөтүүчүлөр
