@@ -234,7 +234,7 @@ lb:
     timestamp: Lescht Aktualiséierung den
   courses:
     school_system: Akademesche System
-    accounts_generation_confirm_message: Sidd Dir sécher datt Dir Ufroe fir Benotzerkonten
+    accounts_generation_confirm_message: Sidd Dir sécher, datt Dir Ufroe fir Benotzerkonten
       aktivéiere wëllt?
     activity: Aktivitéit
     active_courses: Aktiv Coursen
@@ -292,7 +292,7 @@ lb:
     delete_course: Cours läschen
     delete_suggestion: Läschen
     dismiss_survey: Verwerfen
-    dismiss_survey_confirm: Sidd Dir sécher datt Dir dës Ëmfro permaentn ausblende
+    dismiss_survey_confirm: Sidd Dir sécher, datt Dir dës Ëmfro permanent ausblende
       wëllt?
     download_stats_data: Statistiken eroflueden
     duration: Dauer vum Cours
@@ -321,8 +321,8 @@ lb:
     join_failed: Aschreiwung huet net funktionéiert.
     join_failure_details:
       cannot_join_twice: Benotzer kënne sech net zweemol an deeselwechte Cours aschreiwen.
-    join_no_passcode: Sidd Dir sécher datt Dir an dëse Cours goe wëllt?
-    leave_confirmation: Sidd Dir sécher datt Dir aus dësem Cours erausgoe wëllt?
+    join_no_passcode: Sidd Dir sécher, datt Dir an dëse Cours goe wëllt?
+    leave_confirmation: Sidd Dir sécher, datt Dir aus dësem Cours erausgoe wëllt?
     leave_course: Aus dem Cours erausgoen
     loading: Lueden...
     my_articles: Meng Artikelen

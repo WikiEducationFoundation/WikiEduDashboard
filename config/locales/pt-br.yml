@@ -28,6 +28,7 @@
 # Author: Maxan
 # Author: Mello25
 # Author: Mellogabi03
+# Author: Ninawauwau
 # Author: Pedrofariasm
 # Author: Peter Fernando
 # Author: Raphaelras
@@ -279,6 +280,10 @@ pt-br:
     tracked_articles: Artigos Rastreados
     view_articles: Ver Artigos
     no_tracked_articles: Esta categoria não possui nenhum artigo rastreado
+    not_choosen_article: Você não selecionou um artigo para trabalhar. Quando encontrar
+      um, use o botão acima para indicar.
+    use_dashboard: Como usar o Dashboard
+    evaluate_and_source: Analisar artigos e fontes
   items:
     items: Itens
     lexeme: Lexema
@@ -481,6 +486,7 @@ pt-br:
     students_small: estudantes
     student_course: estudantes por curso
     title: Título
+    too_large: Esta ação é muito grande para que os dados requisitados sejam exibidos.
     too_many_articles: A lista de artigos editados para esta campanha é muito longa
       para ser exibida. Por favor, veja cursos/programas/eventos individuais para
       ver os artigos editados.
@@ -971,6 +977,7 @@ pt-br:
       email
     send_notification_button_text: Enviar
     notification_sent_success: Mensagem enviada para todos os instrutores de %{courseTitle}
+    write_subject: Assunto
     write_message_placeholder: Mensagem
   courses_generic:
     school_system: Sistema acadêmico
@@ -1508,14 +1515,22 @@ pt-br:
     label: Novo nome de usuário
     button: Atualizar
   uploads:
+    article_name: Nome do artigo
+    author: 'Autor:'
+    categories: Categorias
     credit: Crédito
+    date: 'Data:'
+    description: Descrição
     file_name: Nome do Arquivo
+    file_usage: Uso do arquivo em outras wikis
     header: Arquivos enviados ao Wikimedia Commons
     image: Imagem
     label: Envios
+    license: 'Licença:'
     loading: Carregando atualizações...
     none: Esta classe não contribuiu com nenhuma imagem ou com outros arquivos de
       mídia no Wikimedia Commons.
+    original_file: Arquivo original
     select_label: Filtrar por quem enviou
     time_doc: Horário de cada envio em seu horário local
     uploaded_at: Carregado a
@@ -1528,7 +1543,10 @@ pt-br:
     usages: Usos
     gallery_view: Visualização em Galeria
     list_view: Visualização em lista
+    source: 'Fonte:'
     tile_view: Visualização em bloco
+    views_per_day: Visualizações por dia
+    wiki_big: Wiki
   users:
     already_enrolled: Aquele usuário já está inscrito!
     assign_articles: Indicar artigos
