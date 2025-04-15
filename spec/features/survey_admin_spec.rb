@@ -291,16 +291,19 @@ describe 'Survey Administration', type: :feature, js: true do
         click_link 'Clone'
       end
 
+      expect(page).to have_content 'Conditional Questions Group (Copy)'
       # Edit the cloned question group
       within("li#question_group_#{Rapidfire::QuestionGroup.last.id}") do
         click_link 'Edit'
       end
 
+      expect(page).to have_content 'What is your favorite flavor?'
       # Edit the conditional question of the cloned group
       within "tr[data-item-id=\"#{Rapidfire::Question.last.id}\"]" do
         click_link 'Edit'
       end
 
+      expect(page).to have_current_path "/surveys/rapidfire/question_groups/#{Rapidfire::QuestionGroup.last.id}/questions/#{Rapidfire::Question.last.id}/edit"
       # Verify manually to check if the cloned group exists
       expect(Rapidfire::QuestionGroup.count).to eq(2)
       cloned_group = Rapidfire::QuestionGroup.last
