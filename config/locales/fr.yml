@@ -11,6 +11,7 @@
 # Author: Derugon
 # Author: DreZhsh
 # Author: Eihel
+# Author: EmDashUser002
 # Author: Eneelk
 # Author: Eric.LEWIN
 # Author: Fitoschido
@@ -1831,6 +1832,12 @@ fr:
     location_placeholder: Ajouter votre emplacement (facultatif)
     institution_placeholder: Nom de l’établissement (facultatif)
     image_link_placeholder: Ajouter un lien vers une image (facultatif)
+    references_disclaimer: Il se peut que le nombre de références peuvent êtres surcomposé
+      si la même modification d'utilisateur est considéré comme faisant partie de
+      celles de plusieurs autres.
+    words_added_disclaimer: Il se peut que les mots saisis peuvent êtres surcomposé
+      si la même modification d'utilisateur est considéré comme faisant partie de
+      celles de plusieurs autres.
   wiki_edits:
     notify_overdue:
       button_label: Rappeler aux étudiants leur formation en retard

@@ -1358,6 +1358,11 @@ pt-br:
         revoking_button_working: Revogando...
         already_is_not: '%{username} não é um usuário especial!'
         demote_success: '%{username} agora é apenas um usuário.'
+  status:
+    no_info: Nenhuma informação disponível.
+    purpose: Propósito
+    queues_overview: Visão geral das filas
+    short_update: Atualização curta
   suggestions:
     editing: Editando sugestões
     suggestion_docs:
@@ -1441,6 +1446,7 @@ pt-br:
       por completo e recomeçar? \n\nEsta operação é irreversível."
     discard_all_changes: Descartar todas as mudanças
     delete_timeline_and_start_over: Apagar cronograma
+    done: Feito
     due_default: Previsto para a próxima semana
     edit_titles: Editar títulos da semana
     edit_titles_info: Edite títulos da semana na linha do tempo. Apenas semanas com
@@ -1706,6 +1712,7 @@ pt-br:
     minimum_options:
       one: Por favor selecione %{count} ou mais opções.
       other: Por favor selecione %{count} ou mais opções.
+    no_class_holidays: Não há férias escolares
     read_less: Ler menos
     read_more: Ler mais
     review_selections: Por favor, revise suas opções abaixo. Clique para editar uma
@@ -1726,6 +1733,9 @@ pt-br:
       explanation: Você está usando um navegador que não é compatível com o painel.
         Este site funciona bem em versões recentes do Chrome, Firefox, Edge e outros
         navegadores modernos.
+    ip_blocked: No momento, você não pode criar uma conta neste dispositivo. Isso
+      pode ocorrer se seu endereço IP estiver bloqueado pela Wikipédia ou se o limite
+      diário de contas novas foi alcançado. Tente conectar-se de uma rede diferente.
   error_401:
     header: Não autorizado. >:-(
     explanation: Você não está autorizado a executar este requerimento. Se você acredita
@@ -1847,4 +1857,50 @@ pt-br:
     assignment_status: Atribuição de treinamento (%{status})
   multi_wiki:
     selector_placeholder: Comece a digitar um domínio de wiki
+  news:
+    post_confirmation:
+      confirmation: Confirme.
+    delete_confirmation:
+      title: Deletar o conteúdo de notícias?
+      confirmation: Confirme.
+    no_updates:
+      message: Não há atualizações de notícias no momento
+      check_later: Por favor, cheque novamente mais tarde.
+    header:
+      P&E_dashboard_title: Notícias e mudanças recentes
+      wiki_education_dashboard_title: Notícias do painel do Wiki Education
+    footer:
+      P&E_dashboard:
+        link_text: Wikimedia
+        footer_text: Ler notícias e mudanças recentes
+    options:
+      news_content:
+        delete_news: Apagar notícias
+        confirm_delete: Confirmar
+        cancel_delete: Cancelar
+        cancel_edit: Cancelar edição
+        edit_news: Editar notícias
+        update_news: Atualizar notícias
+      create_news:
+        cancel_post: Cancelar post
+        confirm_post: Confirmar post
+        discard_post: Descartar notícias
+  notes:
+    failure: Erro! Tente novamente mais tarde.
+    edited_by: 'Editado por:'
+    cancel_note_creation: Cancelar
+    post_note: Postar
+    edit_note: Editar nota
+    cancel_edit_note: Cancelar
+    save_note: Salvar
+    delete_note: Apagar nota
+    admin:
+      aria_label:
+        note_details_focused: Detalhes da nota {{title}}
+        note_edit_button_focused: Editar detalhes da nota {{title}}
+        note_edit_save_button_focused: Salvar edições na nota {{title}}
+        note_edit_cancel_button_focused: Cancelar edições na nota {{title}}
+        note_delete_button_focused: Apagar a nota {{title}}
+        note_edit_mode: Modo de edição para a nota {{title}} ativado. Você agora pode
+          editar o título e o conteúdo.
 ...
