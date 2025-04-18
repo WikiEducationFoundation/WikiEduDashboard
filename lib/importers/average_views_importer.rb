@@ -4,10 +4,18 @@ require_dependency "#{Rails.root}/lib/wiki_pageviews"
 
 class AverageViewsImporter
   DAYS_UNTIL_OUTDATED = 14
-  def self.update_outdated_average_views(articles)
-    articles.where(average_views_updated_at: nil).or(
-      articles.where('average_views_updated_at < ?', DAYS_UNTIL_OUTDATED.days.ago)
-    ).includes(:wiki).find_in_batches(batch_size: 200) do |article_group|
+  def self.update_outdated_average_views(course)
+    article_ids = course.articles_courses.pluck(:article_id)
+
+    Article.where(id: article_ids)
+           .where(average_views_updated_at: nil)
+           .includes(:wiki).find_in_batches(batch_size: 200) do |article_group|
+      update_average_views(article_group)
+    end
+
+    Article.where(id: article_ids)
+           .where('average_views_updated_at < ?', DAYS_UNTIL_OUTDATED.days.ago)
+           .includes(:wiki).find_in_batches(batch_size: 200) do |article_group|
       update_average_views(article_group)
     end
   end
