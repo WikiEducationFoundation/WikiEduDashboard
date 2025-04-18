@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 json.course do
-  json.articles @course.articles_courses.includes(article: :wiki).limit(@limit) do |ac|
+  json.articles @course_articles do |ac|
     article = ac.article
     json.call(ac, :character_sum, :references_count, :view_count, :new_article, :tracked, :user_ids)
     json.call(article, :id, :namespace, :rating, :deleted, :mw_page_id, :url)
@@ -12,4 +12,6 @@ json.course do
     json.rating_num rating_priority(article.rating)
     json.pretty_rating rating_display(article.rating)
   end
+  # Clear cached article IDs to prevent reuse across requests or rendering processes
+  ArticlesCourses.reset_cached_data
 end
