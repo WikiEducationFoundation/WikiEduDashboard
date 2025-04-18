@@ -66,7 +66,7 @@ class UpdateCourseStats
   end
 
   def update_average_pageviews
-    AverageViewsImporter.update_outdated_average_views(@course.articles)
+    AverageViewsImporter.update_outdated_average_views(@course)
     log_update_progress :average_pageviews_updated
   end
 

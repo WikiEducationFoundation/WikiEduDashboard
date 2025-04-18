@@ -19,7 +19,8 @@ describe AverageViewsImporter do
 
   describe '.update_outdated_average_views' do
     it 'does not update recently-updated records' do
-      described_class.update_outdated_average_views(Article.all)
+      course = create(:course)
+      described_class.update_outdated_average_views(course)
       expect(article.reload.average_views).to eq(1)
     end
   end

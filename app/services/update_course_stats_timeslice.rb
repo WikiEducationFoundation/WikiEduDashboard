@@ -61,7 +61,7 @@ class UpdateCourseStatsTimeslice
   end
 
   def update_average_pageviews
-    AverageViewsImporter.update_outdated_average_views(@course.articles)
+    AverageViewsImporter.update_outdated_average_views(@course)
     @debugger.log_update_progress :average_pageviews_updated
   end
 
