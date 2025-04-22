@@ -6,7 +6,7 @@ require "#{Rails.root}/lib/analytics/course_articles_csv_builder"
 describe CourseArticlesCsvBuilder do
   let(:course) { create(:course) }
   let(:user) { create(:user, registered_at: course.start + 1.minute) }
-  let!(:courses_user) { create(:courses_user, course:, user:) }
+  let(:another_user) { create(:user, username: 'Absa', registered_at: course.start + 1.minute) }
 
   let(:article) { create(:article, title: 'First_Article') }
   let(:article2) { create(:article, title: 'Second_Article') }
@@ -14,9 +14,15 @@ describe CourseArticlesCsvBuilder do
   let(:subject) { described_class.new(course).generate_csv }
 
   before do
+    # add courses users
+    create(:courses_user, course:, user:)
+    create(:courses_user, course:, user: another_user)
+
     # multiple revisions for first article
     revision_count.times do |i|
       create(:revision, mw_rev_id: i, user:, date: course.start + 1.minute, article:)
+      create(:revision, mw_rev_id: i + revision_count, user: another_user,
+             date: course.start + 1.minute, article:, characters: 3)
     end
     # one revision for second article
     create(:revision, mw_rev_id: 123, user:, date: course.start + 1.minute, article: article2)
@@ -32,8 +38,15 @@ describe CourseArticlesCsvBuilder do
   end
 
   it 'creates an edited CSV article with a rating column' do
-    article_headers = subject.split('\n').first
+    article_headers = subject.split("\n").first
     expect(article_headers.include?('rating')).to be true
+  end
+
+  it 'metrics are right' do
+    first_row = subject.split("\n").second.split(',')
+    expect(first_row[4]).to eq('Absa') # usernames
+    expect(first_row[6]).to eq('10') # edit_count
+    expect(first_row[7]).to eq('20') # characters_added
   end
 
   it 'excludes untracked articles' do
