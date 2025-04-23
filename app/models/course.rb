@@ -356,6 +356,10 @@ class Course < ApplicationRecord
     revisions
   end
 
+  def scoped_article_timeslices
+    article_course_timeslices
+  end
+
   def scoped_article_titles(wiki)
     assigned_article_titles(wiki) + category_article_titles(wiki)
   end
