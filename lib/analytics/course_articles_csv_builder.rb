@@ -29,15 +29,15 @@ class CourseArticlesCsvBuilder
   # rubocop:disable Metrics/AbcSize
   def set_articles_edited
     @articles_edited = {}
-    @course.tracked_revisions.includes(:user, article: :wiki).each do |edit|
-      # Skip if the Article record is missing
-      next unless edit.article
+    @course.scoped_article_timeslices.includes(article: :wiki).each do |edit|
+      next unless valid_timeslice(edit)
 
       article_edits = @articles_edited[edit.article_id] || new_article_entry(edit)
-      article_edits[:characters][edit.mw_rev_id] = edit.characters
-      article_edits[:references][edit.mw_rev_id] = edit.references_added
+      article_edits[:characters] += edit.character_sum # if edit.character_sum.positive?
+      article_edits[:revisions] += edit.revision_count
+      article_edits[:references] += edit.references_count
       article_edits[:new_article] = true if edit.new_article
-      article_edits[:username] = edit.user.username
+      article_edits[:usernames] += edit.user_ids
       @articles_edited[edit.article_id] = article_edits
     end
   end
@@ -47,8 +47,10 @@ class CourseArticlesCsvBuilder
     article = edit.article
     {
       new_article: false,
-      characters: {},
-      references: {},
+      characters: 0,
+      revisions: 0,
+      references: 0,
+      usernames: [],
       title: article.title,
       namespace: article.namespace,
       url: article.url,
@@ -64,7 +66,7 @@ class CourseArticlesCsvBuilder
     rating
     namespace
     wiki
-    username
+    usernames
     url
     edit_count
     characters_added
@@ -80,25 +82,27 @@ class CourseArticlesCsvBuilder
     row << article_data[:rating]
     row << article_data[:namespace]
     row << article_data[:wiki_domain]
-    row << article_data[:username]
+    row << to_usernames(article_data[:usernames])
     row << article_data[:url]
-    row << article_data[:characters].count
-    row << character_sum(article_data)
-    row << references_sum(article_data)
+    row << article_data[:revisions]
+    row << article_data[:characters]
+    # row << character_sum(article_data)
+    row << article_data[:references]
+    # row << references_sum(article_data)
     row << article_data[:new_article]
     row << article_data[:deleted]
     row << article_data[:pageview_url]
   end
   # rubocop:enable Metrics/AbcSize
 
-  def character_sum(article_data)
-    article_data[:characters].values.inject(0) do |sum, characters|
-      characters&.positive? ? sum + characters : sum
-    end
+  # If the Article record is missing or the ACT is empty or it's untracked
+  # then we don't want to take that ACT into account for the report.
+  def valid_timeslice(edit)
+    edit.article && edit.revision_count.positive? && edit.tracked
   end
 
-  def references_sum(article_data)
-    article_data[:references].values.sum(&:to_i)
+  def to_usernames(user_ids)
+    User.where(id: user_ids).pluck(:username).join(', ')
   end
 
   # Example:
