@@ -17,4 +17,8 @@ module CustomRevisionFilter
     end
     filtered_data
   end
+
+  def scoped_article_timeslices
+    article_course_timeslices.where(article_id: scoped_article_ids)
+  end
 end
