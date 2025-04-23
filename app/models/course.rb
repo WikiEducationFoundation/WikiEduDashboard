@@ -356,6 +356,8 @@ class Course < ApplicationRecord
     revisions
   end
 
+  # The default implemention retrieves all the ACTs.
+  # A course type may override this implementation.
   def scoped_article_timeslices
     article_course_timeslices
   end
