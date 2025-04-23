@@ -29,22 +29,22 @@ class CourseArticlesCsvBuilder
   # rubocop:disable Metrics/AbcSize
   def set_articles_edited
     @articles_edited = {}
-    @course.scoped_article_timeslices.includes(article: :wiki).each do |edit|
-      next unless valid_timeslice(edit)
+    @course.scoped_article_timeslices.includes(article: :wiki).each do |act|
+      next unless valid_timeslice(act)
 
-      article_edits = @articles_edited[edit.article_id] || new_article_entry(edit)
-      article_edits[:characters] += edit.character_sum # if edit.character_sum.positive?
-      article_edits[:revisions] += edit.revision_count
-      article_edits[:references] += edit.references_count
-      article_edits[:new_article] = true if edit.new_article
-      article_edits[:usernames] += edit.user_ids
-      @articles_edited[edit.article_id] = article_edits
+      article_edits = @articles_edited[act.article_id] || new_article_entry(act)
+      article_edits[:characters] += act.character_sum
+      article_edits[:revisions] += act.revision_count
+      article_edits[:references] += act.references_count
+      article_edits[:new_article] = true if act.new_article
+      article_edits[:usernames] += act.user_ids
+      @articles_edited[act.article_id] = article_edits
     end
   end
   # rubocop:enable Metrics/AbcSize
 
-  def new_article_entry(edit)
-    article = edit.article
+  def new_article_entry(act)
+    article = act.article
     {
       new_article: false,
       characters: 0,
@@ -86,9 +86,7 @@ class CourseArticlesCsvBuilder
     row << article_data[:url]
     row << article_data[:revisions]
     row << article_data[:characters]
-    # row << character_sum(article_data)
     row << article_data[:references]
-    # row << references_sum(article_data)
     row << article_data[:new_article]
     row << article_data[:deleted]
     row << article_data[:pageview_url]
@@ -97,8 +95,8 @@ class CourseArticlesCsvBuilder
 
   # If the Article record is missing or the ACT is empty or it's untracked
   # then we don't want to take that ACT into account for the report.
-  def valid_timeslice(edit)
-    edit.article && edit.revision_count.positive? && edit.tracked
+  def valid_timeslice(act)
+    act.article && act.revision_count.positive? && act.tracked
   end
 
   def to_usernames(user_ids)
