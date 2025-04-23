@@ -91,8 +91,14 @@ class ArticleCourseTimeslice < ApplicationRecord
 
   private
 
+  # Returns an array containing all the user ids in the given revisions.
+  # If the first article revision is present, then the article creator is guaranteed
+  # to be the first user_id in the array.
   def associated_user_ids(revisions)
     return [] if revisions.blank?
-    revisions.filter_map(&:user_id).uniq
+    user_ids = revisions.filter_map(&:user_id).uniq
+    # Force the article creator to be the first user_id if it exists
+    first_revision = revisions.find(&:new_article)
+    first_revision ? user_ids.unshift(first_revision.user_id).uniq : user_ids
   end
 end

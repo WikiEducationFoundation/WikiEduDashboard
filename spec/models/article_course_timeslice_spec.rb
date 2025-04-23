@@ -73,7 +73,7 @@ describe ArticleCourseTimeslice, type: :model do
            date: start + 12.hours,
            system: true) # revision made automatically
   end
-  let(:revisions) { [revision1, revision2, revision3, revision4, revision5] }
+  let(:revisions) { [revision2, revision1, revision3, revision4, revision5] }
   let(:article_course_timeslice) do
     create(:article_course_timeslice,
            article:,
@@ -115,6 +115,7 @@ describe ArticleCourseTimeslice, type: :model do
       article_course_timeslice_1 = described_class.find_by(course:, article:, start: start + 1.day)
       article_course_timeslice_2 = described_class.find_by(course:, article:, start: start + 2.days)
 
+      # creator id (25) is the first one in the array
       expect(article_course_timeslice_0.user_ids).to eq([25, 1])
       expect(article_course_timeslice_1.user_ids).to eq([1])
       expect(article_course_timeslice_2.user_ids).to eq([3, 7])
