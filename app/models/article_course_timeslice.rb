@@ -89,7 +89,7 @@ class ArticleCourseTimeslice < ApplicationRecord
     save
   end
 
-  # Returns the id of the user that created the article for and ACT record with
+  # Returns the id of the user that created the article for an ACT record with
   # new_article set to true that was populated after CREATOR_FIRST_DEPLOY_DATE.
   def article_creator
     return nil unless new_article && creator_first_ensured?
