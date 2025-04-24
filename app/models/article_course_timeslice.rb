@@ -89,12 +89,22 @@ class ArticleCourseTimeslice < ApplicationRecord
     save
   end
 
+  # Returns the id of the user that created the article for and ACT record with
+  # new_article set to true that was populated after CREATOR_FIRST_DEPLOY_DATE.
   def article_creator
-    return nil unless new_article
+    return nil unless new_article && creator_first_ensured?
     user_ids.first
   end
 
   private
+
+  # From this day, article creator is guaranteed to be the first user id in
+  # the ACT user_ids field when new_article is true. See associated_user_ids.
+  CREATOR_FIRST_DEPLOY_DATE = Date.new(2025, 4, 20)
+
+  def creator_first_ensured?
+    updated_at && updated_at > CREATOR_FIRST_DEPLOY_DATE
+  end
 
   # Returns an array containing all the user ids in the given revisions.
   # If the first article revision is present, then the article creator is guaranteed

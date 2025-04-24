@@ -82,7 +82,6 @@ describe ArticleCourseTimeslice, type: :model do
            references_count: 3,
            user_ids: [2, 4])
   end
-  let(:subject) { article_course_timeslice.update_cache_from_revisions revisions }
 
   describe '.update_article_course_timeslices' do
     before do
@@ -170,6 +169,8 @@ describe ArticleCourseTimeslice, type: :model do
   end
 
   describe '#update_cache_from_revisions' do
+    let(:subject) { article_course_timeslice.update_cache_from_revisions revisions }
+
     it 'updates cache correctly' do
       expect(article_course_timeslice.revision_count).to eq(0)
       expect(article_course_timeslice.character_sum).to eq(100)
@@ -200,6 +201,55 @@ describe ArticleCourseTimeslice, type: :model do
       expect(article_course_timeslice.user_ids).to eq([])
       expect(article_course_timeslice.new_article).to eq(false)
       expect(article_course_timeslice.first_revision).to be_nil
+    end
+  end
+
+  describe '#article_creator' do
+    context 'timeslice is not for new_article' do
+      let(:article_course_timeslice) do
+        create(:article_course_timeslice,
+               article:,
+               course:,
+               new_article: false,
+               user_ids: [2, 4])
+      end
+      let(:subject) { article_course_timeslice.article_creator }
+
+      it 'returns nil' do
+        expect(subject).to be_nil
+      end
+    end
+
+    context 'timeslice was populated before CREATOR_FIRST_DEPLOY_DATE' do
+      let(:article_course_timeslice) do
+        create(:article_course_timeslice,
+               article:,
+               course:,
+               new_article: true,
+               user_ids: [2, 4],
+               updated_at: Date.new(2024, 1, 1))
+      end
+      let(:subject) { article_course_timeslice.article_creator }
+
+      it 'returns nil' do
+        expect(subject).to be_nil
+      end
+    end
+
+    context 'timeslice is new and was populated after CREATOR_FIRST_DEPLOY_DATE' do
+      let(:article_course_timeslice) do
+        create(:article_course_timeslice,
+               article:,
+               course:,
+               new_article: true,
+               user_ids: [2, 4],
+               updated_at: Date.new(2026, 1, 1))
+      end
+      let(:subject) { article_course_timeslice.article_creator }
+
+      it 'returns the first user id' do
+        expect(subject).to eq(2)
+      end
     end
   end
 end
