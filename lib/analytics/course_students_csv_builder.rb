@@ -13,8 +13,7 @@ class CourseStudentsCsvBuilder
   end
 
   def generate_csv
-    # Only populate created articles if we can guarantee information about the article creator id
-    populate_created_articles if creator_first_ensured?
+    populate_created_articles
     populate_edited_articles
     populate_training_data
     csv_data = [CSV_HEADERS]
@@ -25,15 +24,6 @@ class CourseStudentsCsvBuilder
   end
 
   private
-
-  # From this day, article creator is guaranteed to be the first user id in the ACT user_ids
-  # field when new_article is true. See associated_user_ids ACT method.
-  CREATOR_FIRST_DEPLOY_DATE = Date.new(2025, 4, 20)
-
-  def creator_first_ensured?
-    first_updated_at = @course.article_course_timeslices.minimum(:updated_at)
-    first_updated_at && first_updated_at > CREATOR_FIRST_DEPLOY_DATE
-  end
 
   def populate_training_data
     courses_users.each do |courses_user|
@@ -72,13 +62,10 @@ class CourseStudentsCsvBuilder
   end
 
   def populate_created_articles
-    # A user has created an article during the course if
-    # the user id is the first id in the user_ids field in an ACT
-    # record with new_article: true
-    @course.new_articles_courses.pluck(:article_id).each do |article_id|
-      timeslice = ArticleCourseTimeslice.find_by(course: @course, article_id:,
-                                                 new_article: true)
-      @created_articles[timeslice.article_creator] += 1
+    @course.new_articles_courses.each do |article_course|
+      creator = article_course.article_creator
+      next if creator.nil?
+      @created_articles[creator] += 1
     end
   end
 

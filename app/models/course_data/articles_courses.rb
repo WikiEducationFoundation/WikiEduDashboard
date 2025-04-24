@@ -72,6 +72,16 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
     article.revisions.where('date >= ?', course.start).where('date <= ?', course.end)
   end
 
+  # Returns the article creator if the article was created by a course user
+  # during the course period.
+  # Note that only ensures a non-nil result for timeslices populated after
+  # CREATOR_FIRST_DEPLOY_DATE
+  def article_creator
+    timeslice = article_course_timeslices.where(new_article: true).first
+    return nil if timeslice.nil?
+    timeslice.article_creator
+  end
+
   def update_cache
     revisions = live_manual_revisions.load
 
