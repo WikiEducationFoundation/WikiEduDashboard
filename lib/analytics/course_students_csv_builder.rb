@@ -13,9 +13,8 @@ class CourseStudentsCsvBuilder
   end
 
   def generate_csv
-    @new_article_revisions = @course.all_revisions.where(new_article: true)
-                                    .pluck(:article_id, :user_id).to_h
-    populate_created_articles
+    # Only populate created articles if we can guarantee information about the article creator id
+    populate_created_articles if creator_first_ensured?
     populate_edited_articles
     populate_training_data
     csv_data = [CSV_HEADERS]
@@ -26,6 +25,15 @@ class CourseStudentsCsvBuilder
   end
 
   private
+
+  # From this day, article creator is guaranteed to be the first user id in the ACT user_ids
+  # field when new_article is true. See associated_user_ids ACT method.
+  CREATOR_FIRST_DEPLOY_DATE = Date.new(2025, 4, 20)
+
+  def creator_first_ensured?
+    first_updated_at = @course.article_course_timeslices.minimum(:updated_at)
+    first_updated_at && first_updated_at > CREATOR_FIRST_DEPLOY_DATE
+  end
 
   def populate_training_data
     courses_users.each do |courses_user|
@@ -65,17 +73,13 @@ class CourseStudentsCsvBuilder
 
   def populate_created_articles
     # A user has created an article during the course if
-    # the user is in the user_ids of new_articles_courses
-    # has a revision with new_article: true for that article
-    @course.new_articles_courses.pluck(:article_id, :user_ids).each do |article_id, user_ids|
-      user_ids.each do |user_id|
-        @created_articles[user_id] += 1 if article_creator?(article_id, user_id)
-      end
+    # the user id is the first id in the user_ids field in an ACT
+    # record with new_article: true
+    @course.new_articles_courses.pluck(:article_id).each do |article_id|
+      timeslice = ArticleCourseTimeslice.find_by(course: @course, article_id:,
+                                                 new_article: true)
+      @created_articles[timeslice.user_ids.first] += 1
     end
-  end
-
-  def article_creator?(article_id, user_id)
-    @new_article_revisions[article_id] == user_id
   end
 
   def populate_edited_articles

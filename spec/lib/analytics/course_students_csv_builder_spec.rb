@@ -18,12 +18,10 @@ describe CourseStudentsCsvBuilder do
     create(:articles_course, article:, course:, user_ids: [user1.id, user2.id],
            new_article: true, tracked: true)
   end
-  let!(:revision1) do
-    create(:revision, article:, user: user1, new_article: true,
-           date: course.start + 10.minutes)
-  end
-  let!(:revision2) do
-    create(:revision, article:, user: user2, date: course.start + 15.minutes)
+  let!(:act) do
+    create(:article_course_timeslice, course:, article:, user_ids: [user1.id, user2.id],
+          new_article: true, updated_at: Date.new(2025, 4, 24), start: course.start,
+          end: course.start + 1.day)
   end
   let(:subject) { described_class.new(course).generate_csv }
 
