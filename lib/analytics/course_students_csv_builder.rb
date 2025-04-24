@@ -78,7 +78,7 @@ class CourseStudentsCsvBuilder
     @course.new_articles_courses.pluck(:article_id).each do |article_id|
       timeslice = ArticleCourseTimeslice.find_by(course: @course, article_id:,
                                                  new_article: true)
-      @created_articles[timeslice.user_ids.first] += 1
+      @created_articles[timeslice.article_creator] += 1
     end
   end
 

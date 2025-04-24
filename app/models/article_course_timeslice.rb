@@ -89,6 +89,11 @@ class ArticleCourseTimeslice < ApplicationRecord
     save
   end
 
+  def article_creator
+    return nil unless new_article
+    user_ids.first
+  end
+
   private
 
   # Returns an array containing all the user ids in the given revisions.
