@@ -14,6 +14,7 @@ json.course do
 
   json.wikis @course.wikis, :language, :project
   json.namespaces format_wiki_namespaces(@course.course_wiki_namespaces)
+  json.timeslice_update_ran @course.timeslice_update_ran?
   json.timeline_enabled @course.timeline_enabled?
   json.disable_student_emails @course.disable_student_emails?
   json.academic_system @course.academic_system
