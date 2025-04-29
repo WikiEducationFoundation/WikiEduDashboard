@@ -18,12 +18,12 @@ describe CourseStudentsCsvBuilder do
     create(:articles_course, article:, course:, user_ids: [user1.id, user2.id],
            new_article: true, tracked: true)
   end
-  let!(:revision1) do
-    create(:revision, article:, user: user1, new_article: true,
-           date: course.start + 10.minutes)
+  let(:article2) do
+    create(:article, created_at: course.start + 15.minutes, namespace: 0, deleted: false)
   end
-  let!(:revision2) do
-    create(:revision, article:, user: user2, date: course.start + 15.minutes)
+  let!(:articles_course2) do
+    create(:articles_course, article: article2, course:, user_ids: [user2.id],
+           new_article: true, tracked: true)
   end
   let(:subject) { described_class.new(course).generate_csv }
 
@@ -33,9 +33,9 @@ describe CourseStudentsCsvBuilder do
     lines.shift # Remove headers
 
     expected_result = {
-      'user1' => { articles_created: '1', articles_updated: '1' },
-      'user2' => { articles_created: '0', articles_updated: '1' },
-      'user3' => { articles_created: '0', articles_updated: '0' }
+      'user1' => { articles_updated: '1' },
+      'user2' => { articles_updated: '2' },
+      'user3' => { articles_updated: '0' }
     }
 
     lines.each do |line|
@@ -44,10 +44,8 @@ describe CourseStudentsCsvBuilder do
       user_result = expected_result[username]
       # column 10 is 'registered_during_project', which should be true
       expect(columns[9]).to eq('true')
-      # column 11 is 'total_articles_created'
-      expect(columns[10]).to eq(user_result[:articles_created])
-      # column 12 is 'total_articles_edited'
-      expect(columns[11]).to eq(user_result[:articles_updated])
+      # column 11 is 'total_articles_edited'
+      expect(columns[10]).to eq(user_result[:articles_updated])
     end
   end
 end
