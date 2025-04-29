@@ -639,6 +639,10 @@ en:
       included.
     data_revisions_info: Revision data includes revision count of the course, revision id, article id, which pages are new and pageviews totals.
     data_download_info: Download data in CSV format.
+    data_download_warning: >
+      This course is not up to date within the new system yet. Stats may be incomplete.
+      Before downloading them, please schedule a data update for this course and wait for
+      it to finish. If this is an on-going course, please wait until the current update is complete.
     data_overview: Overview data
     data_overview_info: Overview data provides cumulative statistics for the whole project.
     data_edits: Edits data
