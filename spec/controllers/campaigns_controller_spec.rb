@@ -387,7 +387,10 @@ describe CampaignsController, type: :request do
     let(:campaign) { create(:campaign) }
     let(:article) { create(:article) }
     let(:user) { create(:user) }
-    let!(:revision) { create(:revision, article:, user:, date: course.start + 1.hour) }
+    let!(:act) do
+      create(:article_course_timeslice, course:, article:, user_ids: [user.id], revision_count: 12,
+      start: course.start, end: course.start + 1.day)
+    end
     let!(:course_stats) do
       create(:course_stats, stats_hash: { 'www.wikidata.org' => {
                'claims created' => 12, 'other updates' => 1, 'unknown' => 1
