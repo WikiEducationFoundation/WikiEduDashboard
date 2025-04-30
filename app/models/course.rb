@@ -548,6 +548,14 @@ class Course < ApplicationRecord
     flags['update_logs'].present?
   end
 
+  # Determines if at least one timeslice update ran for the course based on the
+  # 'processed' field into update_logs flag.
+  def timeslice_update_ran?
+    update_logs = flags['update_logs']
+    return false unless update_logs
+    update_logs.values.any? { |f| f.key?('processed') }
+  end
+
   # Overridden for ClassroomProgramCourse
   def progress_tracker_enabled?
     false

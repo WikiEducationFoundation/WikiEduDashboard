@@ -425,6 +425,35 @@ describe Course, type: :model do
     end
   end
 
+  describe '#timeslice_update_ran?' do
+    let(:course) { build(:basic_course, flags:) }
+    let(:subject) { course.timeslice_update_ran? }
+
+    context 'when the update_logs flag does not exist' do
+      let(:flags) { {} }
+
+      it 'returns false' do
+        expect(subject).to be false
+      end
+    end
+
+    context 'when the update_logs flag exists but for old system' do
+      let(:flags) { { 'update_logs' => { '1' => { 'error_count' => 0 } } } }
+
+      it 'returns false' do
+        expect(subject).to be false
+      end
+    end
+
+    context 'when the update_logs flag exists for timeslices system' do
+      let(:flags) { { 'update_logs' => { '1' => { 'error_count' => 0, 'processed' => 10 } } } }
+
+      it 'returns true' do
+        expect(subject).to be true
+      end
+    end
+  end
+
   describe '#cloneable?' do
     let(:subject) { course.cloneable? }
 
