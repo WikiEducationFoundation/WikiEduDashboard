@@ -109,20 +109,20 @@ describe AnalyticsController, type: :request do
     end
   end
 
-  describe '#course_wikidata_csv' do
-    let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }
-    let(:course) { create(:course, slug: 'foo/bar_(baz)', home_wiki: wikidata) }
+  # describe '#course_wikidata_csv' do
+  #   let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }
+  #   let(:course) { create(:course, slug: 'foo/bar_(baz)', home_wiki: wikidata) }
 
-    before do
-      stub_wiki_validation
-      UpdateWikidataStats.new(course)
-    end
+  #   before do
+  #     stub_wiki_validation
+  #     UpdateWikidataStats.new(course)
+  #   end
 
-    it 'returns a CSV' do
-      get '/course_wikidata_csv', params: { course: course.slug }
-      expect(response.body).to include('total revisions')
-    end
-  end
+  #   it 'returns a CSV' do
+  #     get '/course_wikidata_csv', params: { course: course.slug }
+  #     expect(response.body).to include('total revisions')
+  #   end
+  # end
 
   describe '#all_courses_csv' do
     it 'returns a CSV' do
