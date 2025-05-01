@@ -6,6 +6,7 @@
 # Author: Geraki
 # Author: Giorgos456
 # Author: Glavkos
+# Author: Jimkats
 # Author: KATRINE1992
 # Author: McDutchie
 # Author: NikosLikomitros
@@ -30,6 +31,7 @@ el:
     number_field: Αυτό είναι ένα πεδίο αριθμών. Τα κουμπιά που απεικονίζονται από
       τις περισσότερες περιηγήσεις θα αυξάνουν και θα μειώνουν την εισαγωγή.
   application:
+    back: Πίσω
     cancel: Ακύρωση
     cookie_consent: Ο ιστότοπος αυτός χρησιμοποιεί cookies για να παραμείνετε συνδεδεμένοι,
       και αποθηκεύει πληροφορίες σχετικές με τον λογαριασμό σας στην Wikipedia
@@ -63,6 +65,8 @@ el:
       one: '%{count}Αποτελέσμα για: ''%{search_terms}'''
       other: '%{count} Αποτελέσματα για: ''%{search_terms}'''
     no_results: Δεν βρέθηκαν αποτελέσματα για «%{query}»
+    show_current_revision: Εμφάνιση τρέχουσας έκδοσης
+    show_last_revision: Εμφάνιση της τελευταίας επεξεργασμένης έκδοσης
     sign_up_extended: Εγγραφή με Βικιπαίδεια
     sign_up_wikipedia: ή συνδεθείτε στη Βικιπαίδεια
     sign_up_log_in_extended: με τη Βικιπαίδεια
@@ -80,9 +84,11 @@ el:
   article_statuses:
     not_yet_started: Ξεκινώντας
     in_progress: Δουλεύω στο Sandbox
+    ready_for_review: Επέκταση Προσχεδίου
     ready_for_mainspace: Μεταφέρω την εργασία στον κύριο χώρο
     reading_the_article: Διαβάζοντας Άρθρα
     providing_feedback: Παροχή ανατροφοδότησης
+    post_to_talk: Δημοσίευση στη Σελίδα Συζήτησης
     peer_review_completed: Η αναθεώρηση ολοκληρώθηκε
   dashboard:
     explore_course_pages: Εξερεύνηση των σελίδων μαθήματος
@@ -92,15 +98,27 @@ el:
     explore: Εξερεύνηση
     log_in: Σύνδεση μέσω Βικιπαίδειας
     sign_up: Εγγραφή μέσω Βικιπαίδειας
+    registration_advice:
+      username_rules:
+        heading: Κανόνες ονόματος χρήστη
+        represent_individual: Τα ονόματα χρηστών πρέπει να αντιπροσωπεύουν έναν μεμονωμένο
+          συντάκτη. Μην χρησιμοποιείτε το όνομα σχολείου ή οργανισμού.
+      additional_advice:
+        heading: Συμβουλή
   alerts:
+    alert_label: Ειδοποιήσεις
     no_alerts: Δεν βρέθηκαν ειδοποιήσεις.
   activity:
     all: Δραστηριότητα
     edited_by: Επεξεργάστηκε από
     label: Δραστηριότητα
   articles:
+    articles: Άρθρα
+    article_not_found: Αυτό το άρθρο δεν έχει δημιουργηθεί ακόμη.
     article_development: (ανάπτυξη άρθρου)
+    articles_shown: Εμφάνιση %{count} από %{total}
     assigned: Ανατεθειμένα άρθρα
+    assignments_none: Δεν υπάρχουν ακόμη ανατεθειμένα άρθρα.
     available: Διαθέσιμα άρθρα
     no_available: Δεν υπάρχουν διαθέσιμα άρθρα
     next: Επόμενο
@@ -116,11 +134,16 @@ el:
       new: Νέο
       existing: Υπάρχοντα
       new_and_existing: Νέα και υπάρχοντα
+    filter_text: 'Φίλτρα:'
+    find: Βρείτε Άρθρα
+    how_to_find: Πως να βρείτε ένα άρθρο
     hide: Απόκρυψη
     history: (ιστορικό)
     label: Λήμματα
     loading: Φόρτωση λημμάτων...
+    mark_as_complete: Σήμανση ως Ολοκληρωμένο
     new: (Νέο)
+    preview: Σύντομη προεπισκόπηση του Άρθρου
     rating: Κλάση
     rating_docs:
       b: '%{class} — ένα μέτρια ανεπτυγμένο άρθρο'
@@ -129,7 +152,7 @@ el:
     show_current_version: Εμφάνιση τρέχουσας έκδοσης
     title: Τίτλος
     title_example: Τίτλος άρθρου
-    tools: Αξιολόγηση εργαλείων
+    tools: Εργαλεία αξιολόγησης
     view: Προβολή άρθρου
     view_all: Προβολή όλων
     view_on_wiki: Προβολή στο βίκι
@@ -137,23 +160,63 @@ el:
     wiki: Βίκι
     wp10: Δομική Ολοκληρωτικότητα
     articles_short: Άρθρα
+    use_dashboard: Πως να χρησιμοποιήσετε τον Πίνακα εργασίας
+  items:
+    items: Αντικείμενα
+    article_not_found: Αυτό το αντικείμενο δεν έχει δημιουργηθεί ακόμη.
+    assigned: Ανατεθειμένα Αντικείμενα
+    assignments_none: Δεν υπάρχουν ακόμη ανατεθειμένα αντικείμενα.
+    available: Διαθέσιμα Αντικείμενα
+    edited: Επεξεργασμένα Αντικείμενα
+    edited_none: Δεν υπάρχουν ακόμα επεξεργασμένα αντικείμενα.
+    find: Βρείτε Αντικείμενα
+    how_to_find: Πως να βρείτε αντικείμενα
+    preview: Σύντομη προεπισκόπηση του Αντικειμένου
+    search: Αναζήτηση στο Wikidata για ένα Αντικείμενο
+    title_example: Τίτλος αντικειμένου
   articles_wikidata:
     articles_short: Αντικέιμενα
   articles_generic:
     articles_short: Σελίδες
   assignments:
     article_link: Άρθρο
-    assign_other: Αναθέστε ένα άρθρο
+    article_link_wikidata: Αντικείμενο
+    already_exists: Αυτή η ανάθεση υπάρχει ήδη!
+    title_too_large: Ο τίτλος δεν πρέπει να υπερβαίνει τους 255 χαρακτήρες
+    assign_other: Ανάθεση/αφαίρεση ενός άρθρου
+    assign_other_wikidata: Ανάθεση/αφαίρεση ενός αντικειμένου
     add_available: Προσθήκη διαθέσιμων άρθρων
+    add_available_wikidata: Προσθήκη διαθέσιμων αντικειμένων
+    add_available_placeholder: Προσθήκη ενός τίτλου άρθρου ή URL ανά γραμμή
+    add_available_placeholder_wikidata: Προσθήκη ενός τίτλου αντικειμένου ή URL ανά
+      γραμμή
     add_available_submit: Προσθήκη λήμματος
+    add_available_submit_wikidata: Προσθήκη αντικειμένων
+    assign_self: Ανάθεση άρθρου στον εαυτό μου
+    assign_self_wikidata: Ανάθεση αντικειμένου στον εαυτό μου
+    bibliography: Βιβλιογραφία
+    clone: Κλωνοποίηση
+    confirm_add_available: Είστε σίγουροι ότι θέλετε να προσθέσετε το %{title}?
+    confirm_addition: Είστε σίγουροι ότι θέλετε να αναθέσετε το %{title} στον χρήστη
+      %{username}?
+    confirm_deletion: Είστε σίγουροι ότι θέλετε να διαγράψετε αυτή την ανάθεση;
+    delete: Αφαίρεση και Διαγραφή
+    editors: Ανατέθηκε σε
+    group_members: Μέλη ομάδας
     label: Ανάθεση
+    label_all: Ανάθεση όλων
     loading: Φόρτωση αναθέσεων...
     none_short: Δεν ανατέθηκαν άρθρα
+    none_short_wikidata: Δεν έχουν ανατεθεί αντικείμενα
+    none: Αυτό το μάθημα δεν έχει ανατεθειμένα άρθρα.
+    no_available: Αυτό το μάθημα δεν έχει διαθέσιμα άρθρα.
+    peer_review_count: '%{currentCount}/%{total} διαγράφηκαν'
     remove: Αφαίρεση
     reviewers: Θεωρητής(-ές)
     review_other: Ανάθεση ομότιμης αναθεώρησης
     review_self: Αναθεώρηση ενός άρθρου
     select: Διαλέξτε
+    submit: Υποβολή
   blocks:
     milestones:
       title: Ορόσημα
@@ -162,17 +225,31 @@ el:
     add_organizer: Προσθήκη οργανωτή
     alert_article: Τίτλος άρθρου
     alert_label: Ειδοποιήσεις εκστρατείας
+    alert_select_label: Φιλτράρισμα κατά τύπο ειδοποίησης
     alert_type: Τύπος
     alert_user_id: Χρήστης
     all_campaigns: Όλες οι εκστρατείες
+    already_exists: Αυτή η καμπάνια υπάρχει ήδη! Δοκιμάστε ξανά με διαφορετικό τίτλο
+      ή slug.
     campaign: Εκστρατεία
     campaigns: Ανακοινώσεις
+    campaign_deleted: Η καμπάνια "%{title}" έχει διαγραφεί
+    campaign_not_updated: Δεν ήταν δυνατή η ενημέρωση της καμπάνιας
+    campaign_updated: Η καμπάνια ενημερώθηκε
     created_at: Ημερομηνία
     course: Μάθημα
+    course_data: δεδομένα μαθήματος
     create_campaign: Δημιουργία νέας εκστρατείας
     create_my_campaign: Δημιουργία της εκστρατείας μου!
     customize_passcode: ένας προεπιλεγμένος κωδικός πρόσβασης
     data_download_info: Κατεβάσετε τα δεδομένα της καμπάνιας σε μορφή CSV
+    data_instructors: Εκπαιδευτές
+    data_instructors_info: Λίστα εκπαιδευτών/διοργανωτών και των μαθημάτων/προγραμμάτων
+      τους
+    data_editors_by_course: Συντάκτες ανά μάθημα
+    data_editor_usernames: Ονόματα χρήστών συντακτών
+    data_editor_usernames_info: Λίστα ονομάτων χρηστών συντακτών, ένα ανά γραμμή
+    data_wikidata: Στατιστικά Wikidata
     default_course_type: προεπιλεγμένος τύπος μαθήματος
     default_passcode: Προεπιλεγμένος κωδικός πρόσβασης
     default_passcode_explanation: 'Από προεπιλογή, τα νέα προγράμματα σε αυτή την
@@ -181,33 +258,68 @@ el:
     delete_campaign: Διαγραφή αυτής της εκστρατείας
     disable_account_requests: Απενεργοποίηση αιτήσεων λογαριασμών
     enable_account_requests: Ενεργοποίηση αιτήσεων λογαριασμών
+    newest_campaigns: Νεότερες καμπάνιες
+    featured_campaigns: Αναδεικνυόμενες καμπάνιες
+    instructors_course: εκπαιδευτές ανά μάθημα
     no_alerts: Αυτή η εκστρατεία δεν έχει ειδοποιήσεις
     no_passcode: Χωρίς κωδικό πρόσβασης
     none: Κανένα
     organizers: Οργανωτές
     program_template: Πρότυπο προγράμματος
     random_passcode: ένας τυχαίος κωδικός πρόσβασης
+    remove_course_tooltip: Αφαίρεση από την καμπάνια.
     requested_accounts: Αιτούμενοι λογαριασμοί
+    resolve: Επίλυση
     title: Τίτλος
+    slug: Slug
+    search_campaigns: Αναζήτηση καμπανιών
     use_start_end_dates: Χρησιμοποιήστε ημερομηνίες αρχής και τέλους
+    search: Αναζήτηση
   categories:
+    searching_for_category: Αναζήτηση για κατηγορίες σε
     add_category: Προσθήκη κατηγορίας
+    add_psid: Προσθήκη PetScan PSID
+    add_pileid: Προσθήκη PagePile id
     add_template: Προσθήκη προτύπου
-    add_this_category: Προσθήκη αυτής της κατηγορίας
-    add_this_template: Προσθήκη αυτού του προτύπου
+    add_this_category: Προσθήκη κατηγοριών
+    add_this_psid: Προσθήκη PetScan PSIDs
+    add_this_pileid: Προσθήκη PagePile ids
+    add_this_template: Προσθήκη προτύπων
     depth: Βάθος υποκατηγορίας
+    articles_count: Πλήθος Άρθρων
     name: Όνομα
     category_name: Όνομα κατηγορίας
-    template_name: Nom de modele
+    psid_name: PSID
+    pileid_name: PagePile id
+    template_name: Όνομα προτύπου
     remove: Αφαίρεση
     tracked_categories: Κατηγορίες Παρακολούθησης $ Μοντέλα
   courses:
+    school_system: Ακαδημαϊκό Σύστημα
     activity: Δραστηριότητα
+    active_courses: Ενεργά μαθήματα
     alerts: Ειδοποιήσεις
     all_courses: Όλα τα μαθήματα
+    already_enrolled: Είστε ήδη μέρος του '%{title}'!
+    already_exists: Αυτό υπάρχει ήδη για αυτό το μάθημα!
     archived: Αρχειοθετημένα μαθήματα
     actions: Ενέργειες
     articles: Λήμματα
+    articles_i_will_create: Άρθρα που θα δημιουργήσω
+    articles_i_will_create_wikidata: Αντικείμενα που θα δημιουργήσω
+    articles_i_am_updating: Άρθρα που ενημερώνω
+    articles_i_am_updating_wikidata: Αντικείμενα που ενημερώνω
+    add_campaign_aria_label: Κουμπί Προσθήκης Καμπάνιας
+    new_tag_button_aria_label: Κουμπί Δημιουργίας ή Ενημέρωσης Ετικέτας
+    enroll_button_aria_label: Κουμπί Εγγραφής
+    assignment_headings:
+      assigned_articles: Ανατεθειμένα Άρθρα
+      assigned_articles_wikidata: Ανατεθειμένα Αντικείμενα
+      assigned_reviews: Ανατεθειμένες Αξιολογήσεις
+      available_articles: Διαθέσιμα Άρθρα
+      available_articles_wikidata: Διαθέσιμα Αντικείμενα
+      available_reviews: Άρθρα συμμαθητών
+      available_reviews_wikidata: Αντικείμενα συμμαθητών
     calendar:
       legend: Λεζάντα
       legend_class_canceled: Διακοπές/Ακυρώθηκε
@@ -217,14 +329,25 @@ el:
     campaigns: 'Εκστρατείες:'
     campaign_articles: '%{title} λήμματα'
     campaign_courses: '%{title} Μαθήματα'
+    campaign_select: Επιλέξτε μια καμπάνια
     campaign_users: '%{title} συντάκτες'
     course: Μάθημα
+    course_type_label: 'Τύπος:'
     course_description: Μαθήματα
     courses: Μαθήματα
     courses_taught: Μαθήματα που διδάχτηκαν
     creation_date: Ημερομηνία δημιουργίας
+    start_date: Ημερομηνία έναρξης
     creator:
+      cancel_course_clone: Ακύρωση κλωνοποίησης μαθήματος
+      cancel_course_clone_confirm: Είστε σίγουροι ότι θέλετε να σταματήσετε την κλωνοποίηση
+        αυτού του μαθήματος;
+      checking_for_uniqueness: Αυτό το μάθημα ελέγχεται για μοναδικότητα.
+      choose_clone: Επιλέξτε ένα μάθημα για κλωνοποίηση.
+      clone_previous: Κλωνοποίηση προηγούμενου μαθήματος
+      clone_this: Κλωνοποίηση αυτού του μαθήματος
       course_description: Περιγραφή μαθήματος
+      course_private: Ιδιωτικό πρόγραμμα (ορατό μόνο από διαχειριστές και διοργανωτές)
       course_term_placeholder: Όρος
       course_title: Τίτλος μαθήματος
       create_button: Δημιουργία του μαθήματός μου!
@@ -236,17 +359,23 @@ el:
       expected_number: Προσδοκώμενος αριθμός μαθητών
       find: Βρείτε το μάθημά σας
       role_description: Ο ρόλος σας στο μάθημα
+      role_description_options:
+      - Εκπαιδευτής
+      - Βοηθός Εκπαιδευτικός
       role_description_placeholder: Καθηγητής, διδακτικός βοηθός, κτλ.
       save_cloned_course: Αποθήκευση νέου μαθήματος
       start_date: Ημερομηνία έναρξης
       start_date_placeholder: Ημερομηνία έναρξης (εεεε/μμ/ηη)
       subject: Θέμα
+      creating_course: Δημιουργία μαθήματος
     current: Τρέχοντα μαθήματα
     data_articles: Δεδομένα λημμάτων
     data_download_info: Λήψη δεδομένων σε μορφή CSV.
     data_overview: Επισκόπηση δεδομένων
     data_edits: Δεδομένα επεξεργασιών
-    data_students: Δεδομένα επεξεργασιών
+    data_students: Δεδομένα συντακτών
+    data_wikidata: Στατιστικά Wikidata
+    dates_too_long: Η μέγιστη διάρκεια είναι ένα έτος.
     delete_course: Διαγραφή μαθήματος
     delete_suggestion: Διαγραφή
     dismiss_survey: Απόρριψη
@@ -261,10 +390,16 @@ el:
     enrollment: Προσθήκη/Αφαίρεση Μαθητών
     error:
       user_exists: Λυπούμαστε, ο χρήστης %{username} δεν υπάρχει.
+      user_exists_on_wiki: Λυπούμαστε, %{username} δεν είναι υπαρκτός χρήστης στο
+        %{domain}.
       invalid_language_or_project: Μη έγκυρη γλώσσα/εγχείρημα
+      duplicate_slug: Ένα άλλο πρόγραμμα που ονομάζεται %{slug} υπάρχει ήδη.
     expected_students: Προσδοκώμενοι μαθητές
     features_feedback: 'Αυτοματοποιημένες προτάσεις:'
     feedback: Ανατροφοδότηση
+    instructor:
+      one: Εκπαιδευτής
+      other: Εκπαιδευτές
     instructors: Καθηγητές
     join: μπείτε
     join_course: μπείτε στο μάθημα
@@ -273,13 +408,14 @@ el:
     leave_course: Εγκατάλειψη του μαθήματος
     loading: Φόρτωση σε εξέλιξη...
     my_articles: Τα λήμματά μου
+    my_articles_wikidata: Τα αντικείμενα μου
     new_week: Πρόσθεση νέας εβδομάδας
     new_account_check_username: Έλεγχος διαθεσιμότητας ονόματος χρήστη
     new_account_email: 'Διεύθυνση ηλεκτρονικού ταχυδρομείου:'
     new_account_email_placeholder: όνομα@example.org
     new_account_username: Απαιτούμενο όνομα χρήστη
     new_account_username_invalid: Αυτό δεν είναι έγκυρο όνομα χρήστη
-    new_account_username_placeholder: Επεξεργαστής βίκι 123
+    new_account_username_placeholder: Συντάκτης βίκι 123
     new_account_submit: Αίτηση λογαριασμού
     none: Κανένα
     no_available_actions: Μη διαθέσιμες δράσεις
@@ -287,13 +423,18 @@ el:
     overview: Αρχική
     passcode: Κωδικός πρόσβασης
     passcode_none: Χωρίς κωδικό πρόσβασης
+    please_log_in: Παρακαλούμε συνδεθείτε.
     private: Ιδιωτικό
     school: Σχολείο
+    search_courses: Αναζήτηση μαθημάτων
     start: Έναρξη
     start_typing: Ξεκινήστε την πληκτρολόγηση
+    student: Μαθητής
     students: Σπουδαστές
     students_taught: Σπουδαστές που διδάχθηκαν
     students_count: '# Φοιτητές'
+    student_editors: Μαθητές Συντάκτες
+    students_none: Αυτό το μάθημα δεν έχει μαθητές.
     students_short: Σπουδαστές
     suggestions_sending: Αποστολή ανατροφοδότησης σε εξέλιξη...
     user_role: Ρόλος
@@ -308,55 +449,336 @@ el:
     time_zone_message: Οι χρόνοι αρχής και τέλους εμφανίζονται στην τοπική ζώνη ώρας
       σας.
     title: Τίτλος
-    user_recent_uploads: Πρόσφατες φορτώσεις
+    training_nav: Πήγαινε στην εκπαίδευση
+    update_stats: Ενημέρωση στατιστικών
+    user_recent_uploads: Πρόσφατες μεταφορτώσεις
+    user_suggestions: 'Προτάσεις χρήστη:'
+    user_suggestions_prompt: Οι προτάσεις σας για τους συντάκτες του άρθρου
+    volunteer:
+      one: Εθελοντής
+      other: Εθελοντές
     wiki_edits_enabled: Οι επεξεργασίες βίκι είναι ενεργοποιημένες
+    yourcourses: Τα μαθήματα σου
+  course_instructor_notification:
+    notify_instructors: Στείλτε email στους εκπαιδευτές
+    notify_instructors_feature_description: Στείλτε μήνυμα στους Εκπαιδευτές μέσω
+      email
+    send_notification_button_text: Αποστολή
+    notification_sent_success: Μήνυμα στάλθηκε σε όλους τους Εκπαιδευτές του %{courseTitle}
+    notification_send_error_no_internet: Δεν είναι δυνατή η αποστολή του αιτήματος.
+      Ελέγξτε αν είστε συνδεδεμένοι στο Διαδίκτυο.
+    notification_send_error_server: 'Σφάλμα διακομιστή: Δεν είναι δυνατή η αποστολή
+      ειδοποίησης (%{status} %{statusText})'
+    notification_empty_message: Το Θέμα ή το Μήνυμα δεν μπορούν να είναι κενά
+    confirm_send_notification: Αποστολή σε όλους τους εκπαιδευτές για αυτό το μάθημα;
+    write_subject: Θέμα
+    write_message_placeholder: Μήνυμα
+    sending_notification: Αποστέλλεται
+    bcc_to_salesforce: BCC προς Salesforce
   courses_generic:
+    school_system: Ακαδημαϊκό Σύστημα
+    add_campaign: Προσθήκη καμπάνιας
     all_courses: Όλα τα προγράμματα.
+    archived: Αρχειοθετημένα Προγράμματα
     cancel: Ακύρωση
     course: Πρόγραμμα
     courses: Προγράμματα
     courses_taught: Προγράμματα που διδάχθηκαν
     campaigns: 'Εκστρατείες:'
+    campaign_courses: Προγράμματα %{title}
     creator:
+      assignment_end: Λήξη εκδήλωσης
+      assignment_end_placeholder: ΕΕΕΕ-ΜΜ-ΗΗ
+      assignment_start: Έναρξη εκδήλωσης
+      assignment_start_placeholder: ΕΕΕΕ-ΜΜ-ΗΗ
+      cancel_course_clone: Ακύρωση κλωνοποίησης προγράμματος
+      cancel_course_clone_confirm: Είστε σίγουροι ότι θέλετε να σταματήσετε την κλωνοποίηση
+        αυτού του προγράμματος;
+      checking_for_uniqueness: Αυτό το πρόγραμμα ελέγχεται για μοναδικότητα.
+      choose_clone: Επιλέξτε ένα πρόγραμμα για κλωνοποίηση.
+      clone_previous: Κλωνοποίηση προηγούμενου προγράμματος
+      clone_this: Κλωνοποίηση αυτού του προγράμματος
+      clone_successful: Το πρόγραμμα κλωνοποιήθηκε με επιτυχία
       course_description: Περιγραφή προγράμματος
       course_school: Ίδρυμα
       course_term: Πότε
       course_term_placeholder: Πότε
       course_title: Τίτλος προγράμματος
+      create_button: Δημιουργία προγράμματος μου!
+      create_label: Δημιουργία νέου προγράμματος
+      create_new: Δημιουργία ενός ανεξάρτητου προγράμματος
+      create_short: Δημιουργία προγράμματος
+      end_date: Λήξη της παρακολούθησης δραστηριότητας
+      find: Βρείτε ένα πρόγραμμα
       save_cloned_course: Αποθήκευση
+      start_date: Έναρξη της παρακολούθησης δραστηριότητας
+      scoping_methods:
+        categories: Κατηγορίες
+        templates: Πρότυπα
+        petscan: PetScan
+        pagepile: PagePile
     delete_course: Διαγραφή προγράμματος
+    end: Λήξη παρακολούθησης δραστηριότητας
+    enroll: Προσθήκη Συντάκτη
     enrollment: Προσθήκη/Αφαίρεση Συντακτών
+    expected_students: Αναμενόμενοι Συντάκτες
+    instructors: Διοργανωτές
+    join_course: Συμμετοχή στο πρόγραμμα
+    leave_course: Αποχώρηση από το πρόγραμμα
+    school: Ίδρυμα
+    search_courses: Αναζήτηση προγραμμάτων
+    start: Έναρξη παρακολούθησης δραστηριότητας
+    student_editors: Συντάκτες
+    student: Συντάκτης
+    students: Συντάκτες
+    students_taught: Συνολικοί Συντάκτες
+    students_short: Συντάκτες
+    students_count: Αριθμός συμμετεχόντων
+    term: Πότε
+    view_other: Δείτε άλλες καμπάνιες
     view_page: Δείτε τη Σελίδα του Προγράμματος
+  editable:
+    edit: Επεξεργασία
+    cancel: Ακύρωση
+    save: Αποθήκευση
+    edit_description: Επεξεργασία περιγραφής
+    edit_details: Επεξεργασία λεπτομερειών
+    edit_template: Επεξεργασία προτύπου
   instructor_view:
+    article_assignments: '%{prefix} Αναθέσεις'
     assignments_table:
-      article_name: Όνομα λήμματος
+      article_name: Όνομα
+      current_stage: Τρέχον Στάδιο
+      relevant_links: Σχετικοί σύνδεσμοι
+    bad_work:
+      learn_more_button: Μάθετε περισσότερα
+    select_student:
+      title: Επιλέξτε %{prefix}
+      content: για να αναθέσετε και να δείτε αναθέσεις άρθρων
+      content_wikidata: για να αναθέσετε και να δείτε αναθέσεις αντικειμένων
   metrics:
-    label: Μαθήματα
+    label: Δραστηριότητα μαθήματος
     last_update: Τελευταία ενημέρωση στατιστικών
+    last_articles_update: Τελευταία ενημέρωση άρθρων
+    next_update: Επόμενη εκτιμώμενη ενημέρωση
+    activity: Πρόσφατη δραστηριότητα
     bytes_added: Μπάιτ που προστέθηκαν
+    characters: Χαρακτήρες
+    char_added: Χαρακτήρες που προστέθηκαν
+    char_changed: Χαρακτήρες άλλαξαν
+    char: Χαρακτήρες που προστέθηκαν
     close_modal: Κλείσιμο
+    date_time: Ημέρα/Ώρα
+    edit_count_description: Συνολικές επεξεργασίες
+    missing_data_heading: Ελλιπή ή μη αναμενόμενα αποτελέσματα;
+    missing_data_info: Συνήθη ζητήματα περιλαμβάνουν
+    per_user: '%{number}/χρήστη'
+    revisions: Πρόσφατες επεξεργασίες
+    references_count: Προσθήκη Αναφορών
+    tags: Ετικέτες
     total_updates: Συνολικός αριθμός ενημερώσεων έως τώρα
     update_status_heading: Ενημέρωση κατάστασης
     update_statistics_link: Δείτε περισσότερα
+    upload_count: Μεταφορτώσεις Commons
+    uploads_in_use_count:
+      one: αρχείο χρησιμοποιήθηκε σε άρθρο
+      other: αρχεία χρησιμοποιήθηκαν σε άρθρα
+    uploads_in_use_count_wikidata:
+      one: αρχείο χρησιμοποιήθηκε σε αντικείμενο
+      other: αρχεία χρησιμοποιήθηκαν σε αντικείμενα
+    upload_usages_count:
+      one: συνολική χρήση σε όλες τις γλώσσες
+      other: συνολικές χρήσεις σε όλες τις γλώσσες
+    word_count: Λέξεις προστέθηκαν
+    word_count_average: Μέσος αριθμός λέξεων
     general: Γενικά
+    total_revisions: Συνολικές αναθεωρήσεις
+    claims: Αξιώσεις
+    aliases: Ψευδώνυμα
+    merged: Συγχωνεύτηκε
+    created: Δημιουργήθηκε
+    changed: Άλλαξε
+    removed: Αφαιρέθηκε
+    cleared: Καθαρίστηκε
+    added: Προστέθηκε
+    descriptions: Περιγραφές
+    labels: Ετικέτες
+    other_updates: Άλλες ενημερώσεις
+    references_added: Προσθήκη αναφορών
+  namespace:
+    all: Όλοι
+    main: Κύριος χώρος
+    main_char_added: Χαρακτήρες που προστέθηκαν στον Κύριο Χώρο
+    article: Άρθρο
+    talk: Συζήτηση
+    user: Χώρος χρήστη
+    user_char_added: Χαρακτήρες που προστέθηκαν στον Χώρο Χρήστη
+    project: Εγχείρημα
+    file: Αρχείο
+    mediaWiki: MediaWiki
+    template: Πρότυπο
+    help: Βοήθεια
+    category: Κατηγορία
+    page: Σελίδα
+    book: Βιβλίο
+    wikijunior: WikiJunior
+    translation: Μετάφραση
+    draft: Πρόχειρο
+    property: Ιδιότητα
+    query: Ερώτημα
+    portal: Πύλη
+    school: Σχολείο
+    collection: Συλλογή
+  recent_activity:
+    article_title: Τίτλος
+    datetime: Ημέρα/Ώρα
+    image: Εικόνα
+    file_name: Όνομα αρχείου
+    no_edits: Δεν υπάρχουν πρόσφατες επεξεργασίες.
+    recent_edits: Πρόσφατες επεξεργασίες
+    recent_uploads: Πρόσφατες μεταφορτώσεις
+    report: Αναφορά
+    revision_datetime: Ημέρα/Ώρα αναθεώρησης
+  revisions:
+    chars_added: Χαρακτήρες που προστέθηκαν
+    references: Προσθήκη Αναφορών
+    date_time: Ημέρα/Ώρα
+    diff_show: Εμφάνιση
+    diff_hide: Απόκρυψη
+    none: Αυτό το μάθημα δεν έχει πρόσφατη δραστηριότητα επεξεργασίας.
+    title: Τίτλος
+    see_more: Δείτε περισσότερα
+    show_all: Εμφάνιση όλων
+  resources:
+    label: Πηγές
+    header: Πηγές και Εκπαίδευση
+  settings:
+    categories:
+      other_settings: Άλλες ρυθμίσεις
+      featured_campaigns: Αναδεικνυόμενες καμπάνιες
+      users: Χρήστες
+    admin_users:
+      new:
+        form_placeholder: Όνομα χρήστη
+    featured_campaigns:
+      campaign_not_found: Δεν βρέθηκε καμπάνια με slug '%{campaign_slug}'
+      no_featured_campaigns: Δεν έχουν οριστεί αναδεικνυόμενες καμπάνιες
+      update_featured_campaigns_button: Ενημέρωση Αναδεικνυόμενων Καμπανιών
+      add_button: Προσθήκη καμπάνιας
+      remove_button: Αφαίρεση καμπάνιας
+    special_users:
+      new:
+        form_placeholder: Όνομα χρήστη
+  status:
+    active_jobs: Ενεργές εργασίες
+    constant_update: Συνεχής ενημέρωση
+    daily_update: Καθημερινή ενημέρωση
+    default: Προεπιλογή
+    long_update: Μακρά ενημέρωση
+    medium_update: Μέτρια ενημέρωση
+    no_info: Δεν υπάρχουν διαθέσιμες πληροφορίες.
+    purpose: Σκοπός
+    queue: Ουρά
+    short_update: Σύντομη ενημέρωση
+    sidekiq_stats: Στατιστικά Sidekiq
+    size: Μέγεθος
+    status: Κατάσταση
+  tickets:
+    chose_search_type: Επιλέξτε τύπο αναζήτησης
+  timeline:
+    discard_all_changes: Απόρριψη όλων των αλλαγών
+    empty_week_3: ή
+    gradeable_value: Τιμή
+    save_all_changes: Αποθήκευση όλων
+    this_week_title_default: Αυτή την εβδομάδα
+    week_number: Εβδομάδα %{number}
   training:
+    continue: Συνεχίστε (%{progress})
+    start: Έναρξη
+    view: Προβολή
+    next: Επόμενη σελίδα
+    page: Σελίδα
+    page_number: Σελίδα %{number} από %{total}
     previous: < Προηγούμενο
+    table_of_contents: Πίνακας περιεχομένων
     view_library_source: προβολή πηγής βιβλιοθήκης
     view_module_source: προβολή πηγής δομοστοιχείου
     reload_from_source: επαναφόρτωση από πηγή
+    kind:
+      exercise: Άσκηση
+      discussion: Συζήτηση
+      training: Εκπαίδευση
+    view_all: Δείτε όλες τις ασκήσεις
+  update_username:
+    label: Νέο όνομα χρήστη
+    button: Ενημέρωση
   uploads:
+    article_name: Όνομα άρθρου
+    categories: Κατηγορίες
+    date: 'Ημερομηνία:'
+    description: Περιγραφή
+    file_name: Όνομα αρχείου
+    image: Εικόνα
+    license: 'Άδεια χρήσης:'
     uploaded_at: Ώρα ανεβάσματος
     uploader: Ανεβαστής
     uploaded_on: Ανέβηκε στις
     usage_doc: Αριθμός λημμάτων Βικιπαίδειας στα οποία εμφανίζεται η φωτογραφία.
     usage_count_gallery_tile: Χρησιμοποιήθηκε σε %{usage_count} λήμματα
+    usages: Χρήσεις
+    source: 'Πηγή:'
   users:
+    chars_added: Προσθήκη Χαρακτήρων<br> (άρθρο | χρήστης | πρόχειρο)
+    chars_added_wikidata: Προσθήκη Χαρακτήρων<br> (αντικείμενο | χρήστης | πρόχειρο)
+    contributions: Συνεισφορές χρήστη
     contributions_history_full: Προβολή πλήρους ιστορικού συνεισφορών
+    editors: Συντάκτες
+    edits: επεξεργασίες
+    edits_by: 'Επεξεργασίες από:'
+    enrolled_success: '%{username} προστέθηκε με επιτυχία!'
+    first_name: Κύριο όνομα
+    last_name: Επώνυμο
+    loading: Φόρτωση χρηστών...
+    characters_added_mainspace: Προσθήκη Χαρακτήρων (άρθρο)
+    characters_added_mainspace_wikidata: Προσθήκη Χαρακτήρων (αντικείμενο)
+    characters_added_userspace: Προσθήκη Χαρακτήρων (χρήστης)
+    characters_added_draftspace: Προσθήκη Χαρακτήρων (πρόχειρο)
+    name: Όνομα
+    none: Δεν υπάρχουν συμμετέχοντες.
+    no_articles: Δεν υπάρχουν άρθρα
+    no_articles_wikidata: Δεν υπάρχουν αντικείμενα
+    no_revisions: (χωρίς αναθεωρήσεις)
+    profile: προφίλ
+    recent_revisions: Πρόσφατες επεξεργασίες
+    references_count: Προσθήκη Αναφορών
+    references_doc: Ο αριθμός των αναφορών που προστέθηκαν ή αφαιρέθηκαν από αυτόν
+      τον συντάκτη
+    revisions: Αναθεωρήσεις
+    sub_navigation:
+      assignments_and_exercises: Αναθέσεις & Ασκήσεις
+      editor_overview: Επισκόπηση Συντάκτη
     total_uploads: Συνολικές μεταφορτώσεις
+    training_module_status: Κατάσταση
+    user_training_status: Κατάσταση εκπαίδευσης
+    username: Όνομα χρήστη
+    username_placeholder: Όνομα χρήστη
+    role:
+      visitor: Επισκέπτης
+      student: Μαθητής
+      instructor: Εκπαιδευτής
+      campus_volunteer: Εθελοντής πανεπιστημιούπολης
+      online_volunteer: Διαδικτυακός εθελοντής
   user_profiles:
     location_placeholder: Πρόσθεσε την τοποθεσία σου (προαιρετικό)
   wizard:
     assignment_type: Τι θα ολοκληρώσουν οι σπουδαστές για την ανάθεση τους από Wikipedia?
+    summary: Σύνοψη
+  survey:
+    email:
+      headline: Γειά σας, %{username}
+      course: 'Μάθημα: %{course_info}'
+      closing: Με εκτίμηση,
+      signed: '- η ομάδα του Wiki Education'
   onboarding:
     supplementary:
       why_are_you_here: Τι θα θέλατε να κάνετε;
@@ -383,4 +805,28 @@ el:
     submit: Υποβολή
     tools: Εργαλεία
     unassign_article_self: Ξεανάθεση άρθρου
+  news:
+    footer:
+      P&E_dashboard:
+        link_text: Wikimedia
+    options:
+      news_content:
+        delete_news: Διαγραφή Νέων
+        confirm_delete: Επιβεβαίωση
+        cancel_delete: Ακύρωση
+        cancel_edit: Ακύρωση επεξεργασίας
+        edit_news: Επεξεργασία Νέων
+        update_news: Ενημέρωση Νέων
+      create_news:
+        cancel_post: Ακύρωση ανάρτησης
+        confirm_post: Επιβεβαίωση ανάρτησης
+        discard_post: Απόρριψη Νέων
+        post_news: Δημοσίευση Νέων
+  notes:
+    title: Τίτλος
+    cancel_note_creation: Ακύρωση
+    cancel_edit_note: Ακύρωση
+    save_note: Αποθήκευση
+  tagged_courses:
+    download_csv: Λήψη CSV
 ...
