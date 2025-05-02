@@ -2,8 +2,6 @@
 
 require 'rails_helper'
 
-require "#{Rails.root}/lib/importers/revision_importer"
-
 describe UpdateWikidataStatsTimeslice do
   describe 'update_wikidata_statistics' do
     let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }
