@@ -504,7 +504,7 @@ describe 'the course page', type: :feature, js: true do
     end
   end
 
-  describe '/manual_update_timeslice' do
+  describe '/manual_update' do
     it 'updates the course cache' do
       user = create(:user)
       course = Course.find(course_id)
@@ -519,7 +519,7 @@ describe 'the course page', type: :feature, js: true do
         .at_least(1)
       expect(AverageViewsImporter).to receive(:update_outdated_average_views)
       expect_any_instance_of(CourseUploadImporter).to receive(:run)
-      visit "/courses/#{slug}/manual_update_timeslice"
+      visit "/courses/#{slug}/manual_update"
       # this is 2 since there's another user(DSMalhotra) for testing the activity view
       updated_user_count = user_count + 2
       expect(page).to have_content "#{updated_user_count}\nStudent Editors"

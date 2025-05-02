@@ -33,7 +33,7 @@ describe 'Namespace-specific stats', type: :feature, js: true do
   end
 
   it 'generates and renders stats for Cookbook namespace on en.wikibooks.org' do
-    visit "/courses/#{course.slug}/manual_update_timeslice"
+    visit "/courses/#{course.slug}/manual_update"
     expect(page).to have_content 'en.wikibooks.org - Mainspace'
     expect(page).to have_content "0\nTotal Edits"
 

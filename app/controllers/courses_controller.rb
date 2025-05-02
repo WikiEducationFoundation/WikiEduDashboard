@@ -228,7 +228,7 @@ class CoursesController < ApplicationController
     TagManager.new(@course).manage(request)
   end
 
-  def manual_update_timeslice
+  def manual_update
     require_super_admin_permissions
     @course = find_course_by_slug(params[:id])
     UpdateCourseStatsTimeslice.new(@course)
