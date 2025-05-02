@@ -21,7 +21,6 @@
 
 require 'rails_helper'
 require "#{Rails.root}/lib/importers/article_importer"
-require "#{Rails.root}/lib/articles_courses_cleaner"
 
 describe ArticleCourseTimeslice, type: :model do
   let(:article) { create(:article) }
