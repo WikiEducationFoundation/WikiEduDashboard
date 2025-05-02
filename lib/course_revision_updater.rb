@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 require_dependency "#{Rails.root}/lib/replica"
-require_dependency "#{Rails.root}/lib/importers/revision_importer"
 require_dependency "#{Rails.root}/lib/revision_data_manager"
 
 #= Fetches and imports new revisions for courses and creates ArticlesCourses records
