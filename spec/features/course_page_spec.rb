@@ -390,6 +390,10 @@ describe 'the course page', type: :feature, js: true do
       CoursesUsers.update_all_caches_from_timeslices course.courses_users
     end
 
+    after do
+      travel_back
+    end
+
     it 'shows a number of most recent revisions for a student' do
       js_visit "/courses/#{slug}/students"
       sleep 1
