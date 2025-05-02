@@ -126,8 +126,6 @@ Rails.application.routes.draw do
     get 'courses/new' => 'courses#new',
         constraints: { id: /.*/ } # repeat of resources
 
-    get 'courses/*id/manual_update' => 'courses#manual_update',
-        :as => :manual_update, constraints: { id: /.*/ }
     get 'courses/*id/manual_update_timeslice' => 'courses#manual_update_timeslice',
         :as => :manual_update_timeslice, constraints: { id: /.*/ }
     get 'courses/*id/notify_untrained' => 'courses#notify_untrained',
