@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/modified_revisions_manager"
-
 #= Deletes duplicate Article records that differ by ID but match by title and namespace
 class DuplicateArticleDeleter
   def initialize(wiki = nil)
@@ -12,19 +10,6 @@ class DuplicateArticleDeleter
   ###############
   # Entry point #
   ###############
-  def resolve_duplicates(articles = nil)
-    grouped = articles_grouped_by_title_and_namespace(articles)
-    @deleted_ids = []
-    grouped.each do |article_group|
-      delete_duplicates_in(article_group)
-    end
-
-    # At this stage check to see if the deleted articles' revisions still exist
-    # if so, move them to their new article ID
-    limbo_revisions = Revision.where(article_id: @deleted_ids)
-    ModifiedRevisionsManager.new(@wiki).move_or_delete_revisions limbo_revisions
-  end
-
   def resolve_duplicates_for_timeslices(articles)
     grouped = articles_grouped_by_title_and_namespace(articles)
     @deleted_ids = []
