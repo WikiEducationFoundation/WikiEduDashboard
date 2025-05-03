@@ -106,6 +106,7 @@ else
 fi
 
 printf '[*] Installing Gems... \n'
+output_line "bundle config build.nio4r --with-cflags='-Wno-incompatible-pointer-types'"
 output_line "bundle install" && print_success "${CLEAR_LINE}[+] Gems installed\n"
 
 printf '[*] Checking for application configurations... \n'
