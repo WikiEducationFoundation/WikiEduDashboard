@@ -14,7 +14,7 @@ make_copy_of 'https://outreachdashboard.wmflabs.org/courses/CodeTheCity/WODD-Wik
 @course = Course.first
 
 profile = StackProf.run(mode: :wall, raw: true, interval: 10000) do
-  UpdateCourseStats.new(@course)
+  UpdateCourseStatsTimeslice.new(@course)
 end
 
 # Drag this file into https://speedscope.app

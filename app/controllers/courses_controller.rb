@@ -231,13 +231,6 @@ class CoursesController < ApplicationController
   def manual_update
     require_super_admin_permissions
     @course = find_course_by_slug(params[:id])
-    UpdateCourseStats.new(@course)
-    redirect_to "/courses/#{@course.slug}"
-  end
-
-  def manual_update_timeslice
-    require_super_admin_permissions
-    @course = find_course_by_slug(params[:id])
     UpdateCourseStatsTimeslice.new(@course)
     redirect_to "/courses/#{@course.slug}"
   end

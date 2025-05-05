@@ -22,7 +22,7 @@ describe 'Namespace-specific stats', type: :feature, js: true do
     JoinCourse.new(course:, user: user1, role: 0)
     JoinCourse.new(course:, user: user2, role: 0)
     login_as superadmin
-    allow(UpdateCourseStats).to receive(:new)
+    allow(UpdateCourseStatsTimeslice).to receive(:new)
     create(:course_stats,
            stats_hash: { 'en.wikibooks.org-namespace-0':
     { edited_count: 1, new_count: 2, revision_count: 3,
