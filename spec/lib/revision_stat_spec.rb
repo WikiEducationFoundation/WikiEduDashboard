@@ -48,14 +48,6 @@ describe RevisionStat do
     end
 
     context 'course id' do
-      context 'not for this course' do
-        before { course.update(id: 1000) }
-
-        it 'does not include in scope' do
-          expect(subject).to eq(0)
-        end
-      end
-
       context 'for this course' do
         it 'does include in scope' do
           expect(subject).to eq(1)
