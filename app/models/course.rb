@@ -528,6 +528,10 @@ class Course < ApplicationRecord
     flags[:stay_in_sandbox].present?
   end
 
+  def no_sandboxes?
+    flags[:no_sandboxes].present?
+  end
+
   def retain_available_articles?
     flags[:retain_available_articles].present?
   end
@@ -595,10 +599,6 @@ class Course < ApplicationRecord
 
   def approved_at
     campaigns_courses.first&.created_at
-  end
-
-  def no_sandboxes?
-    flags[:no_sandboxes].present?
   end
 
   def assigned_articles

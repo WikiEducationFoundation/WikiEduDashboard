@@ -759,6 +759,8 @@ en:
       Your request for an account has been created. Please inform your students to check
       their email inbox to get their new password
     no_campaign: To make this program active and allow users to join, it must be added to a campaign. If you're unsure of which campaign to add, use 'Miscellanea'.
+    no_sandboxes: No sandboxes
+    no_sandboxes_info: When enabled, the course will be No Sandbox mode. Be sure to change the tags and timeline content too, if necessary.
     nocourses: You are not participating in any courses.
     nocourse: has not participated in any courses.
     none: None
