@@ -93,7 +93,7 @@ const CourseCreator = createReactClass({
     return (
       <div className={`wizard__panel__controls ${hidden ? 'hidden' : ''}`}>
         <div className="left">
-          <button onClick={backFunction || this.backToCourseForm} className="dark button">Back</button>
+          <button onClick={backFunction || this.backToCourseForm} className="dark button">{I18n.t('application.back')}</button>
           <p className="tempCourseIdText">{this.state.tempCourseId}</p>
         </div>
         <div className="right">

@@ -29,7 +29,7 @@ const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
   const homeLink = `${courseLink}/home`;
 
   // ///////////////
-  // Timeline link /
+  // Variable tabs /
   // ///////////////
   let timeline;
   if (course.timeline_enabled) {
@@ -51,10 +51,19 @@ const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
     );
   }
 
+  let users;
+  if (course.type !== 'SingleUser') {
+    const studentsLink = `${courseLink}/students`;
+    users = (
+      <div className="nav__item" id="students-link">
+        <p><NavLink to={studentsLink} className={({ isActive }) => (isActive ? 'active' : '')}>{CourseUtils.i18n('students_short', course.string_prefix)}</NavLink></p>
+      </div>
+    );
+  }
+
   // //////////////
   // Common tabs //
   // //////////////
-  const studentsLink = `${courseLink}/students`;
   const articlesLink = `${courseLink}/articles`;
   const uploadsLink = `${courseLink}/uploads`;
   const activityLink = `${courseLink}/activity`;
@@ -79,9 +88,7 @@ const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
           <p><NavLink to={homeLink} className={({ isActive }) => (isActive ? 'active' : homeLinkClassName)}>{I18n.t('courses.overview')}</NavLink></p>
         </div>
         {timeline}
-        <div className="nav__item" id="students-link">
-          <p><NavLink to={studentsLink} className={({ isActive }) => (isActive ? 'active' : '')}>{CourseUtils.i18n('students_short', course.string_prefix)}</NavLink></p>
-        </div>
+        {users}
         <div className="nav__item" id="articles-link">
           <p><NavLink to={articlesLink} className={({ isActive }) => (isActive ? 'active' : '')}>{CourseUtils.i18n('articles_short', course.wiki_string_prefix)}</NavLink></p>
         </div>

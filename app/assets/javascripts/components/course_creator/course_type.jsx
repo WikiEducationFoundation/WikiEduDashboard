@@ -19,6 +19,11 @@ const CourseType = ({ back, hasClonableCourses, wizardClass, wizardAction }) => 
       name: I18n.t('courses.creator.course_types.article_scoped_program_name'),
       type: 'ArticleScopedProgram',
       description: I18n.t('courses.creator.course_types.article_scoped_program_description')
+    },
+    {
+      name: I18n.t('courses.creator.course_types.single_user_name'),
+      type: 'SingleUser',
+      description: I18n.t('courses.creator.course_types.single_user_description')
     }
   ];
 

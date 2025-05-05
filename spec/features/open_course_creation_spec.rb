@@ -103,4 +103,27 @@ describe 'open course creation', type: :feature, js: true do
     expect(Course.last.type).to eq('Editathon')
     expect(Course.last.passcode).to eq('passcode')
   end
+
+  it 'lets a user make a SingleUser program with simplified UI' do
+    visit root_path
+    click_link 'Create an Independent Program'
+    find('.program-description', text: /Individual Editor/).click
+    fill_out_open_course_creator_form
+    click_button 'Next'
+    fill_out_open_course_creator_dates_form
+    click_button 'Create my Program!'
+    click_button 'Edit Details'
+    expect(page).to have_content 'Individual Editor'
+    expect(Course.last.type).to eq('SingleUser')
+    expect(Course.last.user_count).to eq(1)
+    expect(Course.last.campaigns.count).to eq(1)
+    expect(page).not_to have_content 'Editors'
+
+    # Change the course type and see the previous-missing 'Editors' tab
+    within '.course_type_selector' do
+      find('input').send_keys('Generic Course', :enter)
+    end
+    click_button 'Save'
+    expect(page).to have_content 'Editors'
+  end
 end

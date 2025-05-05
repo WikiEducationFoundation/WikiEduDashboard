@@ -599,6 +599,11 @@ describe Course, type: :model do
       expect(described_class.last.class).to eq(FellowsCohort)
     end
 
+    it 'allows SingleUser type' do
+      course.update(type: 'SingleUser')
+      expect(described_class.last.class).to eq(SingleUser)
+    end
+
     it 'does not allow creation of arbitrary types' do
       expect { arbitrary_course_type }.to raise_error(ActiveRecord::RecordInvalid)
     end
