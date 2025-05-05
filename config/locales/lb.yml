@@ -604,7 +604,7 @@ lb:
     table_of_contents: Inhaltsverzeechnes
     training_library: Formatiouns-Bibliothéik
     done: Fäerdeg!
-    invalid: Pardon dee Slide gëtt et net!
+    invalid: Pardon, dee Slide gëtt et net!
     check_answer: Äntwert nokucken
     kind:
       exercise: Exercice
