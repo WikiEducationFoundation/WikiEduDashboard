@@ -40,6 +40,8 @@ describe 'the course page', type: :feature, js: true do
     { 'update_logs' => { 1 => { 'start_time' => 2.hours.ago, 'end_time' => 1.hour.ago } },
       'academic_system' => 'semester' }
   end
+  let(:array_revisions) { [] }
+  let(:course_id) { 10001 }
 
   before do
     ActionController::Base.allow_forgery_protection = true
@@ -47,7 +49,7 @@ describe 'the course page', type: :feature, js: true do
     page.current_window.resize_to(1920, 1080)
 
     course = create(:course,
-                    id: 10001,
+                    id: course_id,
                     title: 'This.course',
                     slug:,
                     start: course_start.to_date,
@@ -72,7 +74,7 @@ describe 'the course page', type: :feature, js: true do
 
       create(:courses_user,
              id: i.to_s,
-             course_id: 10001,
+             course_id:,
              user_id: i.to_s)
     end
     # for testing Activity using Media Wiki API
@@ -93,8 +95,7 @@ describe 'the course page', type: :feature, js: true do
              id: i,
              title: "Article #{i}",
              namespace: 0,
-             wiki_id: es_wiktionary.id,
-             rating: ratings[(i + 5) % 10])
+             wiki_id: es_wiktionary.id) # non-en.wiki articles don't have rating
     end
 
     # Add some revisions within the course dates
@@ -102,17 +103,17 @@ describe 'the course page', type: :feature, js: true do
       # Make half of the articles new ones.
       newness = i <= article_count ? i % 2 : 0
 
-      create(:revision,
-             id: i.to_s,
-             user_id: ((i % user_count) + 1).to_s,
-             article_id: ((i % article_count) + 1).to_s,
-             date: '2015-03-01'.to_date,
-             characters: 2,
-             views: 10,
-             new_article: newness)
+      array_revisions << create(:revision,
+                                id: i.to_s,
+                                user_id: ((i % user_count) + 1).to_s,
+                                article_id: ((i % article_count) + 1).to_s,
+                                date: '2015-03-01'.to_date,
+                                characters: 2,
+                                new_article: newness,
+                                scoped: true)
     end
 
-    # Add articles / revisions before the course starts and after it ends.
+    # Add articles not related to the course
     create(:article,
            id: article_count + 1,
            title: 'Before',
@@ -121,22 +122,6 @@ describe 'the course page', type: :feature, js: true do
            id: article_count + 2,
            title: 'After',
            namespace: 0)
-    create(:revision,
-           id: (revision_count + 1).to_s,
-           user_id: 1,
-           article_id: (article_count + 1).to_s,
-           date: '2014-12-31'.to_date,
-           characters: 9000,
-           views: 9999,
-           new_article: 1)
-    create(:revision,
-           id: (revision_count + 2).to_s,
-           user_id: 1,
-           article_id: (article_count + 2).to_s,
-           date: '2016-01-01'.to_date,
-           characters: 9000,
-           views: 9999,
-           new_article: 1)
 
     week = create(:week,
                   course_id: course.id)
@@ -145,10 +130,10 @@ describe 'the course page', type: :feature, js: true do
            week_id: week.id,
            content: 'blocky block')
 
-    ArticlesCourses.update_from_course(course)
-    ArticlesCourses.update_all_caches(course.articles_courses)
-    CoursesUsers.update_all_caches(CoursesUsers.ready_for_update)
-    Course.update_all_caches
+    ArticlesCourses.update_from_course_revisions(course, array_revisions)
+    ArticlesCourses.update_all_caches_from_timeslices(course.articles_courses)
+    CoursesUsers.update_all_caches_from_timeslices(course.courses_users)
+    course.update_cache_from_timeslices
 
     stub_token_request
   end
@@ -277,15 +262,18 @@ describe 'the course page', type: :feature, js: true do
       new_first_rating = page.find(:css, 'table.articles', match: :first).first('td .rating p')
       expect(new_first_rating).to have_content '-'
       title = page.find(:css, 'table.articles', match: :first).first('td .title')
-      expect(title).to have_content 'es:wiktionary:Article'
+      expect(title).to have_content 'Article 4'
     end
 
     it 'does not show ratings for non Wikipedia articles' do
+      # Add rating to two es.wiktionary articles
+      Article.find(9).update(rating: 'ga')
+      Article.find(10).update(rating: 'start')
+      articles_with_raiting = Course.find(course_id).articles.where.not(rating: nil).count
       js_visit "/courses/#{slug}/articles"
       sleep 1
-      rows = page.all('tr.article').count
       ratings = page.all('.rating').count
-      expect(rows).to be > ratings
+      expect(articles_with_raiting).to be > ratings
     end
 
     it 'includes a list of available articles' do
@@ -392,12 +380,18 @@ describe 'the course page', type: :feature, js: true do
 
   describe 'students view' do
     before do
-      Revision.last.update(date: 2.days.ago, user_id: User.first.id)
-      CoursesUsers.last.update(
-        course_id: Course.find_by(slug:).id,
-        user_id: User.first.id
-      )
-      CoursesUsers.update_all_caches CoursesUsers.all
+      travel_to Date.new(2015, 12, 30)
+      course = Course.find(course_id)
+      CourseUserWikiTimeslice.create(course_id:, user_id: course.students.first.id,
+                                     wiki_id: home_wiki.id, revision_count: 2, start: 2.days.ago,
+                                     end: 1.day.ago)
+      CourseWikiTimeslice.create(course_id:, wiki_id: home_wiki.id, start: 7.days.ago,
+                                 end: 6.days.ago)
+      CoursesUsers.update_all_caches_from_timeslices course.courses_users
+    end
+
+    after do
+      travel_back
     end
 
     it 'shows a number of most recent revisions for a student' do
@@ -408,7 +402,7 @@ describe 'the course page', type: :feature, js: true do
       within(student_row) do
         expect(page).to have_content User.first.username
         within 'td:nth-of-type(4)' do
-          expect(page.text).to eq('1')
+          expect(page.text).to eq('2')
         end
       end
     end
@@ -513,7 +507,7 @@ describe 'the course page', type: :feature, js: true do
   describe '/manual_update' do
     it 'updates the course cache' do
       user = create(:user)
-      course = Course.find(10001)
+      course = Course.find(course_id)
       create(:courses_user,
              course:,
              user:,
@@ -521,8 +515,8 @@ describe 'the course page', type: :feature, js: true do
       login_as(super_admin)
       stub_oauth_edit
 
-      expect(CourseRevisionUpdater).to receive(:import_revisions)
-      expect(RevisionScoreImporter).to receive(:update_revision_scores_for_course)
+      expect_any_instance_of(CourseRevisionUpdater).to receive(:fetch_data_for_course_wiki)
+        .at_least(1)
       expect(AverageViewsImporter).to receive(:update_outdated_average_views)
       expect_any_instance_of(CourseUploadImporter).to receive(:run)
       visit "/courses/#{slug}/manual_update"
@@ -553,8 +547,6 @@ describe 'the course page', type: :feature, js: true do
     before do
       create(:articles_course, article:, course:)
       create(:articles_course, article: article2, course:)
-      create(:revision, article_id: article.id, user_id: user.id, date: course.start + 1.hour)
-      create(:revision, article_id: article2.id, user_id: user.id, date: course.start + 1.hour)
       course.students << user
     end
 
@@ -577,10 +569,10 @@ describe 'the course page', type: :feature, js: true do
       it 'marks an article to be excluded once it is untracked' do
         login_as(admin)
         js_visit "/courses/#{course.slug}/articles"
-        expect(course.tracked_revisions.count).to eq(course.revisions.count)
+        expect(course.articles_courses.tracked.count).to eq(course.articles_courses.count)
         first('.tracking').click
         sleep 1
-        expect(course.tracked_revisions.count).to be < course.revisions.count
+        expect(course.articles_courses.tracked.count).to be < course.articles_courses.count
       end
     end
 
