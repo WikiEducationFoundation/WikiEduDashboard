@@ -265,6 +265,7 @@ class Course < ApplicationRecord
     Editathon
     FellowsCohort
     LegacyCourse
+    SingleUser
     VisitingScholarship
   ].freeze
   validates_inclusion_of :type, in: COURSE_TYPES
@@ -608,6 +609,11 @@ class Course < ApplicationRecord
     assigned_articles.filter do |article|
       article.wiki_id == assignment_wiki_id && mw_page_ids.include?(article.mw_page_id)
     end
+  end
+
+  # Overridden for SingleUser
+  def add_creator_as_editor?
+    false
   end
 
   #################

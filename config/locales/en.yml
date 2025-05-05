@@ -588,6 +588,8 @@ en:
         edit_a_thon_description: An Edit-A-Thon program will track edits to any articles or mainspace pages. By default, no automated edits will be made for this program.
         article_scoped_program_name: Article Scoped Program
         article_scoped_program_description: This program type only tracks edits for assigned articles or categories. Use this type if you want to limit the statistics to a known collection of articles or topic areas. By default, automated wiki edits are turned on.
+        single_user_name: Individual Editor
+        single_user_description: This program type is intended for tracking your own contributions, with a simplified interface. Use this type if you don't need to track edits by any other users.
       create_button: Create my Course!
       create_label: Create New Course
       create_new: Create a New Course
