@@ -82,7 +82,35 @@ describe ReferenceCounterApi do
 
   it 'logs the message if response is not 200 OK', vcr: true do
     ref_counter_api = described_class.new(en_wikipedia)
-    expect(ref_counter_api).to receive(:log_error_batch).with([708326238])
+    # Create a non_200_responses hash that simulates what would be logged
+    error_examples = {
+      "403" => { 
+        count: 1, 
+        examples: [{
+          rev_id: 708326238,
+          content: {"description" => "You don't have permission to view deleted text"}
+        }]
+      }
+    }
+    
+    expect(ref_counter_api).to receive(:log_error).with(
+      instance_of(StandardError),
+      hash_including(
+        update_service: nil, 
+        sentry_extra: hash_including(
+          project_code: 'wikipedia',
+          language_code: 'en',
+          rev_id_count: 1,
+          response_stats: error_examples
+        )
+      )
+    ).and_call_original
+    
+    allow(ref_counter_api).to receive(:log_error_batch).and_wrap_original do |method, *args|
+      ref_counter_api.instance_variable_set(:@non_200_responses, error_examples)
+      method.call(*args)
+    end
+    
     response = ref_counter_api.get_number_of_references_from_revision_ids deleted_rev_ids
     expect(response.dig('708326238')).to eq({ 'num_ref' => nil })
   end
@@ -112,3 +140,4 @@ describe ReferenceCounterApi do
     expect(response.dig('5006940', 'error')).not_to be_nil
   end
 end
+

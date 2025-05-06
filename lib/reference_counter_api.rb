@@ -63,7 +63,19 @@ class ReferenceCounterApi
     return { 'num_ref' => nil } if non_transient_error? response.status
     
     # Track non-200 responses for batch logging
-    status_key = response.status.to_s
+    track_non_200_response(response.status, rev_id, parsed_response)
+    
+    return { 'num_ref' => nil, 'error' => parsed_response }
+  rescue StandardError => e
+    tries -= 1
+    retry unless tries.zero?
+    @errors << e
+    return { 'num_ref' => nil, 'error' => e }
+  end
+
+  # Tracks non-200 responses for batch logging
+  def track_non_200_response(status, rev_id, parsed_response)
+    status_key = status.to_s
     @non_200_responses[status_key] ||= { count: 0, examples: [] }
     @non_200_responses[status_key][:count] += 1
     
@@ -74,13 +86,6 @@ class ReferenceCounterApi
         content: parsed_response
       }
     end
-    
-    return { 'num_ref' => nil, 'error' => parsed_response }
-  rescue StandardError => e
-    tries -= 1
-    retry unless tries.zero?
-    @errors << e
-    return { 'num_ref' => nil, 'error' => e }
   end
 
   class InvalidProjectError < StandardError
@@ -135,3 +140,4 @@ class ReferenceCounterApi
     language_code: @language_code, error_count: @errors.count })
   end
 end
+
