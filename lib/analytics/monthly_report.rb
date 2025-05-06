@@ -50,8 +50,8 @@ class MonthlyReport
   end
 
   def monthly_articles_edited_for(courses, month, year)
-    revisions = revisions_during_month(courses, month, year)
-    article_count(revisions)
+    timeslices = article_course_timeslices_during_month(courses, month, year)
+    article_count(timeslices)
   end
 
   def monthly_uploads_for(courses, month, year)
@@ -63,24 +63,24 @@ class MonthlyReport
     uploads.count
   end
 
-  def revision_ids_for(courses)
-    revision_ids = []
+  def act_ids_for(courses)
+    act_ids = []
     courses.each do |course|
-      revision_ids += course.tracked_revisions.pluck(:id)
+      act_ids += course.article_course_timeslices.pluck(:id)
     end
-    revision_ids.uniq
+    act_ids
   end
 
-  def revisions_during_month(courses, month, year)
-    all_course_revision_ids = revision_ids_for(courses)
-    Revision
-      .where(id: all_course_revision_ids)
-      .where('extract(month from date) = ?', month)
-      .where('extract(year from date) = ?', year)
+  def article_course_timeslices_during_month(courses, month, year)
+    all_act_ids = act_ids_for(courses)
+    ArticleCourseTimeslice
+      .where(id: all_act_ids)
+      .where('extract(month from start) = ?', month)
+      .where('extract(year from start) = ?', year)
   end
 
-  def article_count(revisions)
-    article_ids = revisions.pluck(:article_id)
+  def article_count(timeslices)
+    article_ids = timeslices.pluck(:article_id)
     articles = Article.where(id: article_ids, namespace: 0, deleted: false)
     articles.distinct.count
   end
