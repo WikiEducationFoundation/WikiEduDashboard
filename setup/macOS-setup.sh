@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+unset SDKROOT
+
 . "$(dirname "$0")/color-helpers.sh"
 
 clear
