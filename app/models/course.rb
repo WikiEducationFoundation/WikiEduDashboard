@@ -333,6 +333,10 @@ class Course < ApplicationRecord
              .where(wiki_id: wiki_ids)
   end
 
+  def tracked_article_course_timeslices
+    article_course_timeslices.where(tracked: true)
+  end
+
   def tracked_namespaces
     courses_wikis.map do |course_wiki|
       wiki = course_wiki.wiki

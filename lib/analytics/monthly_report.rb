@@ -66,7 +66,7 @@ class MonthlyReport
   def act_ids_for(courses)
     act_ids = []
     courses.each do |course|
-      act_ids += course.article_course_timeslices.pluck(:id)
+      act_ids += course.tracked_article_course_timeslices.pluck(:id)
     end
     act_ids
   end

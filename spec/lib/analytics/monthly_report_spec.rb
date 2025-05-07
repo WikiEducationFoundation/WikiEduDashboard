@@ -56,6 +56,18 @@ describe MonthlyReport do
         expect(subject[:'2025-4']).to(eq({ articles_edited: 6, uploads: 6 }))
         expect(subject[:'2024-4']).to(eq({ articles_edited: 4, uploads: 8 }))
       end
+
+      it 'counts only articles in namespace' do
+        Article.find(1).update(namespace: Article::Namespaces::WIKIJUNIOR)
+        expect(subject[:'2025-4']).to(eq({ articles_edited: 5, uploads: 6 }))
+        expect(subject[:'2024-4']).to(eq({ articles_edited: 4, uploads: 8 }))
+      end
+
+      it 'counts only tracked articles' do
+        ArticleCourseTimeslice.where(course_id: 1, article_id: 1).update_all(tracked: false) # rubocop:disable Rails/SkipsModelValidations
+        expect(subject[:'2025-4']).to(eq({ articles_edited: 5, uploads: 6 }))
+        expect(subject[:'2024-4']).to(eq({ articles_edited: 4, uploads: 8 }))
+      end
     end
 
     context 'when timeslices are empty' do
