@@ -72,7 +72,8 @@ describe CourseStatistics do
 
     it 'counts only tracked articles' do
       ArticleCourseTimeslice.find_by(course_id: 1, article_id: 1).update(tracked: false)
-      expect(subject[:articles_edited]).to eq(course_ids.count - 1)
+      ArticleCourseTimeslice.find_by(course_id: 2, article_id: 2).update(revision_count: 0)
+      expect(subject[:articles_edited]).to eq(course_ids.count - 2)
     end
 
     it 'counts only articles in namespace' do
