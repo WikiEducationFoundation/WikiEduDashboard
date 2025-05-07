@@ -11,10 +11,13 @@ class CourseStatistics
   def initialize(course_ids, opts = {})
     @course_ids = course_ids
     @opts = opts
-    find_contribution_ids
+    # find_contribution_ids
+    find_course_counts
+    find_upload_ids
     find_upload_usage
     find_user_counts
-    find_article_counts
+    find_new_article_ids
+    find_edited_article_ids
   end
 
   # For a set of course ids, generate a human-readable summary of what the users
@@ -27,15 +30,15 @@ class CourseStatistics
       trained_students: @trained_student_count,
       characters_added: @characters_added,
       words_added: @words_added,
-      revisions: @revision_ids.count,
-      articles_edited: @article_ids.count,
+      revisions: @revision_count,
+      articles_edited: @edited_article_ids.count,
       articles_created: @surviving_article_ids.count,
       articles_deleted: @deleted_article_ids.count,
       references_added: @references_added,
       file_uploads: @upload_ids.count,
       files_in_use: @used_count,
       global_usages: @usage_count,
-      cumulative_page_views_estimate: Course.where(id: @course_ids).sum(:view_sum)
+      cumulative_page_views_estimate: @view_sum
     }
 
     report = { @opts[:campaign].to_sym => report } if @opts[:campaign]
@@ -44,7 +47,7 @@ class CourseStatistics
   # rubocop:enable Metrics/MethodLength
 
   def articles_edited
-    Article.where(namespace: 0, id: @page_ids)
+    Article.where(namespace: 0, id: @all_article_ids)
   end
 
   ################
@@ -53,27 +56,18 @@ class CourseStatistics
 
   private
 
-  def find_contribution_ids
-    @revision_ids = []
-    @page_ids = []
-    @upload_ids = []
-
-    @course_ids.each do |course_id|
-      gather_contribution_ids_for_course(course_id)
-    end
-
-    @revision_ids = @revision_ids.flatten.uniq
-    @page_ids = @page_ids.flatten.uniq
-    @upload_ids = @upload_ids.flatten.uniq
-    @article_ids = Article.where(namespace: 0, id: @page_ids, deleted: false).pluck(:id)
+  def find_course_counts
+    @courses = Course.where(id: @course_ids)
+    @view_sum = @courses.sum(:view_sum)
+    @revision_count = @courses.sum(:revision_count)
   end
 
-  def gather_contribution_ids_for_course(course_id)
-    course = Course.find(course_id)
-    course_revisions = course.tracked_revisions
-    @revision_ids << course_revisions.pluck(:id)
-    @page_ids << course_revisions.pluck(:article_id)
-    @upload_ids << course.uploads.pluck(:id)
+  def find_upload_ids
+    @upload_ids = []
+    @courses.each do |course|
+      @upload_ids << course.uploads.pluck(:id)
+    end
+    @upload_ids = @upload_ids.flatten.uniq
   end
 
   def find_upload_usage
@@ -95,12 +89,30 @@ class CourseStatistics
     @trained_student_count = User.where(id: @pure_student_ids, trained: true).count
   end
 
-  def find_article_counts
-    new_revisions = Revision.where(id: @revision_ids, new_article: true)
-    new_page_ids = new_revisions.pluck(:article_id).uniq
-    created_articles = Article.where(namespace: 0, id: new_page_ids)
+  def find_new_article_ids
+    new_article_ids = []
+    @courses.each do |course|
+      new_article_ids += course.tracked_article_course_timeslices
+                               .where('revision_count > 0')
+                               .where(new_article: true)
+                               .pluck(:article_id)
+                               .uniq
+    end
 
+    created_articles = Article.where(namespace: 0, id: new_article_ids)
     @surviving_article_ids = created_articles.where(deleted: false).pluck(:id)
     @deleted_article_ids = created_articles.where(deleted: true).pluck(:id)
+  end
+
+  def find_edited_article_ids
+    @all_article_ids = []
+    @courses.each do |course|
+      @all_article_ids += course.tracked_article_course_timeslices
+                                .where('revision_count > 0')
+                                .pluck(:article_id)
+                                .uniq
+    end
+    @edited_article_ids = Article.where(namespace: 0, id: @all_article_ids,
+                                        deleted: false).pluck(:id)
   end
 end

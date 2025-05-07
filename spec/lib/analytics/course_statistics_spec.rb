@@ -5,6 +5,7 @@ require "#{Rails.root}/lib/analytics/course_statistics"
 
 describe CourseStatistics do
   let(:course_ids) { [1, 2, 3, 10001, 10002, 10003] }
+  let(:wiki) { Wiki.get_or_create(project: 'wikipedia', language: 'en') }
 
   before do
     course_ids.each do |i|
@@ -15,18 +16,23 @@ describe CourseStatistics do
       # First user in course working within course dates
       create(:user, id:, username: "user#{id}")
       create(:courses_user, id:, user_id: id, course_id: id, role: 0)
-      create(:revision, date: 1.day.ago, article_id: id, user_id: id, characters: 1000)
       create(:article, id:, title: "Article_#{id}", namespace: Article::Namespaces::MAINSPACE)
       create(:commons_upload, id:, user_id: id, uploaded_at: 1.day.ago, usage_count: 1)
 
-      # Second user in course working outside course dates
-      create(:user, id: id2, username: "second_user#{id}")
-      create(:courses_user, id: id2, user_id: id2, course_id: id2, role: 0)
-      create(:revision, date: 2.years.ago, article_id: id2, user_id: id2)
-      create(:article, id: id2, title: "Article_#{id2}")
-      create(:commons_upload, id: id2, user_id: id2, uploaded_at: 2.years.ago, usage_count: 1)
-      ArticlesCourses.update_from_course(Course.find(id))
-      CoursesUsers.update_all_caches(CoursesUsers.ready_for_update)
+      # The user also has common uploads before the course dates
+      create(:commons_upload, id: id2, user_id: id, uploaded_at: 2.years.ago, usage_count: 1)
+
+      # Create timeslices
+      create(:course_wiki_timeslice, course_id: id, wiki:, revision_count: id,
+      start: 1.month.ago, end: 1.month.ago + 1.day)
+      create(:article_course_timeslice, course_id: id, article_id: id, revision_count: 1,
+      new_article: id == 1, start: 1.month.ago, end: 1.month.ago + 1.day)
+      create(:course_user_wiki_timeslice, course_id: id, user_id: id, wiki:, character_sum_ms: id,
+      references_count: id, start: 1.month.ago, end: 1.month.ago + 1.day)
+
+      # Update caches
+      CoursesUsers.find_by(course_id: id, user_id: id).update_cache_from_timeslices
+      Course.find(id).update_cache_from_timeslices
     end
   end
 
@@ -39,25 +45,39 @@ describe CourseStatistics do
       expect(output[:students_excluding_instructors]).to eq(0)
     end
 
-    it 'counts articles, revisions and uploads from during courses' do
+    it 'counts courses, students, revisions and articles' do
       expect(subject[:course_count]).to eq(course_ids.count)
       expect(subject[:students_excluding_instructors]).to eq(course_ids.count)
-      expect(subject[:file_uploads]).to eq(course_ids.count)
-      expect(subject[:revisions]).to eq(course_ids.count)
+      expect(subject[:revisions]).to eq(30012)
       expect(subject[:articles_edited]).to eq(course_ids.count)
+      expect(subject[:articles_created]).to eq(1)
+      expect(subject[:articles_deleted]).to eq(0)
+      expect(subject[:characters_added]).to eq(30012)
+      expect(subject[:words_added]).to eq(5799)
+      expect(subject[:references_added]).to eq(30012)
+    end
+
+    it 'counts new articles that got deleted' do
+      Article.find(1).update(deleted: true)
+      expect(subject[:articles_created]).to eq(0)
+      expect(subject[:articles_deleted]).to eq(1)
+    end
+
+    it 'counts uploads from during courses' do
+      expect(subject[:file_uploads]).to eq(course_ids.count)
       expect(subject[:file_uploads]).to eq(course_ids.count)
       expect(subject[:files_in_use]).to eq(course_ids.count)
       expect(subject[:global_usages]).to eq(course_ids.count)
-      expect(subject[:characters_added]).to be > 0
-      expect(subject[:words_added]).to be > 0
     end
 
-    it 'counts only tracked revisions and articles' do
-      create(:articles_course, course_id: 1, article_id: 1, tracked: false)
-      CoursesUsers.update_all_caches(CoursesUsers.where(id: 1))
+    it 'counts only tracked articles' do
+      ArticleCourseTimeslice.find_by(course_id: 1, article_id: 1).update(tracked: false)
       expect(subject[:articles_edited]).to eq(course_ids.count - 1)
-      expect(subject[:revisions]).to eq(course_ids.count - 1)
-      expect(subject[:characters_added]).to eq(5000) # Characters added should be reduced from 6000
+    end
+
+    it 'counts only articles in namespace' do
+      Article.find(1).update(namespace: Article::Namespaces::WIKIJUNIOR)
+      expect(subject[:articles_edited]).to eq(course_ids.count - 1)
     end
   end
 
@@ -67,10 +87,11 @@ describe CourseStatistics do
       expect(output).to be_empty
     end
 
-    it 'returns articles edited during courses' do
+    it 'returns articles in namespace' do
+      Article.find(2).update(namespace: Article::Namespaces::WIKIJUNIOR)
       output = described_class.new(course_ids).articles_edited
       expect(output).to include(Article.find(1))
-      expect(output).not_to include(Article.find(101))
+      expect(output).not_to include(Article.find(2))
     end
   end
 end
