@@ -11,7 +11,6 @@ class CourseStatistics
   def initialize(course_ids, opts = {})
     @course_ids = course_ids
     @opts = opts
-    # find_contribution_ids
     find_course_counts
     find_upload_ids
     find_upload_usage
