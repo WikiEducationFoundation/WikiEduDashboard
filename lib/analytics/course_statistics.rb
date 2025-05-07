@@ -93,7 +93,6 @@ class CourseStatistics
     new_article_ids = []
     @courses.each do |course|
       new_article_ids += course.tracked_article_course_timeslices
-                               .where('revision_count > 0')
                                .where(new_article: true)
                                .pluck(:article_id)
                                .uniq
@@ -108,7 +107,6 @@ class CourseStatistics
     @all_article_ids = []
     @courses.each do |course|
       @all_article_ids += course.tracked_article_course_timeslices
-                                .where('revision_count > 0')
                                 .pluck(:article_id)
                                 .uniq
     end

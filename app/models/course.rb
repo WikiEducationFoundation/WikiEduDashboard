@@ -334,7 +334,12 @@ class Course < ApplicationRecord
   end
 
   def tracked_article_course_timeslices
-    article_course_timeslices.where(tracked: true)
+    # This method tries to replicate the idea of "tracked revisions"
+    # 'revision_count > 0' condition is because we may create empty timeslices
+    # due to system revisions
+    # 'tracked: true' condition is to avoid timeslices for untracked articles courses
+    article_course_timeslices.where('revision_count > 0')
+                             .where(tracked: true)
   end
 
   def tracked_namespaces

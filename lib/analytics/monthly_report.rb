@@ -75,7 +75,6 @@ class MonthlyReport
     all_act_ids = act_ids_for(courses)
     ArticleCourseTimeslice
       .where(id: all_act_ids)
-      .where('revision_count > 0') # we may create empty timeslices due to system revisions
       .where('extract(month from start) = ?', month)
       .where('extract(year from start) = ?', year)
   end
