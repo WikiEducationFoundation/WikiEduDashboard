@@ -138,4 +138,3 @@ class ReferenceCounterApi
     language_code: @language_code, error_count: @errors.count })
   end
 end
-

@@ -140,4 +140,3 @@ describe ReferenceCounterApi do
     expect(response.dig('5006940', 'error')).not_to be_nil
   end
 end
-
