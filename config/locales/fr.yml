@@ -733,6 +733,10 @@ fr:
       du cours, l’ID de révision, l’ID de l’article, les nouvelles pages et les nombres
       totaux de visites de pages.
     data_download_info: Télécharger les données au format CSV.
+    data_download_warning: Ce cours n'est pas encore à jour avec le nouveau système.
+      Les statistiques peuvent être incomplètes. Avant de les télécharger, veuillez
+      planifier une mise à jour des données pour ce cours et attendre sa fin. S'il
+      s'agit d'un cours en cours, veuillez attendre pour la fin de la mise à jour.
     data_overview: Données de compte-rendu
     data_overview_info: Les données de compte-rendu fournissent des statistiques cumulées
       pour l’ensemble du projet.
