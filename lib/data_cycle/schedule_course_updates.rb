@@ -3,7 +3,6 @@
 require_dependency "#{Rails.root}/lib/data_cycle/batch_update_logging"
 require_dependency "#{Rails.root}/lib/data_cycle/course_queue_sorting"
 require_dependency "#{Rails.root}/app/workers/course_data_update_worker"
-require_dependency "#{Rails.root}/app/workers/update_wikidata_stats_worker"
 
 # Puts courses into sidekiq queues for data updates
 class ScheduleCourseUpdates

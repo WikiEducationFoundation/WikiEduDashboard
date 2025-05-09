@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/revision_stat"
 require_dependency "#{Rails.root}/lib/revision_stat_timeslice"
 require_dependency "#{Rails.root}/lib/course_training_progress_manager"
 
@@ -108,7 +107,7 @@ class CourseCacheManager
   end
 
   def update_recent_revision_count
-    @course.recent_revision_count = RevisionStat.get_records(course: @course)
+    # @course.recent_revision_count = RevisionStat.get_records(course: @course)
   end
 
   def update_recent_revision_count_from_timeslices

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require_relative '../../app/presenters/individual_statistics_presenter'
 
 describe IndividualStatisticsTimeslicePresenter do
   describe 'individual_article_views' do
