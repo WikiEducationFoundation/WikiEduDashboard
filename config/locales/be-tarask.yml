@@ -123,6 +123,9 @@ be-tarask:
           Не карыстайцеся назвай школы ці арганізацыі.
       additional_advice:
         heading: Парада
+        anonymous_username_recommendation: Вікі Адукацыя раіць абраць ананімнае імя
+          карыстальніка, якое б не ўключала вашае сапраўднае імя ці іншую асабовую
+          інфармацыю.
     sign_up_help: Каб карыстацца панэльлю, Вы мусіце ўвайсьці празь Вікіпэдыю і даць
       дазвол на доступ да Вашага ўліковага запісу. Вы можаце ўвайсьці праз існы ўліковы
       запіс Вікіпэдыі або стварыць новы. Калі не атрымліваецца стварыць уліковы запіс,
@@ -167,7 +170,9 @@ be-tarask:
       tracked: Адсочваныя
       untracked: Неадсочваныя
       tracked_and_untracked: Адсочваныя і неадсочваныя
+    filter_text: 'Фільтры:'
     find: Знайсьці артыкулы
+    how_to_find: Як знайсьці артыкул
     hide: Схаваць
     history: (гісторыя)
     label: Артыкулы
@@ -283,6 +288,9 @@ be-tarask:
     milestones:
       title: Дасягненьні
   campaign:
+    active_campaigns: Актыўныя кампаніі
+    all_campaigns: Усе кампаніі
+    campaigns: Кампаніі
     create_campaign: Стварыць новую кампанію
     create_my_campaign: Стварыць сваю кампанію!
     customize_passcode: дапомны код доступу
@@ -295,7 +303,9 @@ be-tarask:
     disable_account_requests: Адключыць запыты ўліковых запісаў
     enable_account_requests: Уключыць запыты ўліковых запісаў
     newest_campaigns: Найноўшыя кампаніі
+    featured_campaigns: Абраныя кампаніі
     none: Няма
+    search_campaigns: Пошук кампаніяў
   categories:
     name: Назва
     category_name: Назва катэгорыі
@@ -342,12 +352,22 @@ be-tarask:
     course_description: Курсы
     courses: Курсы
     creator:
+      course_types:
+        single_user_description: Праграма такога тыпу прызначаная для адсочваньня
+          ўласнага ўнёску з спрошчаным інтэрфэйсам. Карыстайцеся гэтым тыпам, калі
+          вам не патрэбна сачыць за ўнёскам іншых удзельнікаў.
       expected_number: Чаканая колькасьць студэнтаў
+    data_uploads: Зьвесткі пра загрузкі ў Вікісховішча
+    download_stats_data: Спампаваць статыстыку
+    embed_course_stats: Убудаваць статыстыку курсу
     error:
       user_exists_on_wiki: Прабачце, %{username} не зьяўляецца існым удзельнікам на
         %{domain}.
     invitation: Вас запрасілі далучыцца да %{title}. Каб далучыцца, вы маеце ўвайсьці
       ў сыстэму з уліковым запісам у Вікіпэдыі.
+    invitation_username_advice: Калі вы яшчэ ня маеце ўліковага запісу Вікіпэдыі,
+      зарэгіструйцеся зараз. Вашае імя карыстальніка можа быць як ананімным, так і
+      з вашымі зьвесткамі — як пажадаеце (супольныя ўліковыя запісы забароненыя).
     join: Далучыцца
     join_course: Далучыцца да курсу
     join_prompt: Далучыцца да «%{title}»?
@@ -381,6 +401,7 @@ be-tarask:
       вылічаная як сярэдняя колькасьць за дзень у гэты пэрыяд.
     revisions_none: Гэты курс ня мае нядаўніх рэдагаваньняў Вікіпэдыі.
     school: Школа
+    school_and_term: Установа/Тэрмін
     start: Пачатак
     start_typing: Пачаць увод
     students: Студэнты
@@ -409,13 +430,53 @@ be-tarask:
       быў быць выкананы да %{date}.
     unsubmitted: Няздадзеныя курсы
     untrained: Ненавучаныя
+  courses_generic:
+    campaigns: 'Кампаніі:'
+    creator:
+      course_school: Установа
+    end: Канец адсочваньня дзейнасьці
+    instructors: Арганізатары
+    school: Установа
+    school_and_term: Установа/Калі
+    start: Пачатак адсочваньня дзейнасьці
+    student_editors: Рэдактары
+    students: Рэдактары
+    students_taught: Агулам рэдактараў
+    students_short: Рэдактары
+    view_other: Паглядзець іншыя кампаніі
+  instructor_view:
+    assigned_articles_wikidata: Прызначаныя элемэнты
+  metrics:
+    articles_edited_wikidata: Адрэдагаваныя элемэнты
+    articles_edited_generic_wikidata: Адрэдагаваныя элемэнты
+    edit_count_description: Агулам рэдагаваньняў
+    references_count: Дададзена крыніцаў
+    upload_count: Загрузкі ў Вікісховішча
+    view_count_description_wikidata: Прагляды элемэнта
+    interwiki_links_added: Дададзеныя інтэрвікі
+    references_added: Дададзена крыніцаў
+    restorations_performed: Выкананыя аднаўленьні
+  namespace:
+    main: Асноўная прастора
   revisions:
+    references: Дададзена крыніцаў
     diff_show: Паказаць
     diff_hide: Схаваць
+  settings:
+    categories:
+      featured_campaigns: Абраныя кампаніі
   timeline:
     discard_all_changes: Адкінуць усе зьмены
   uploads:
     label: Загрузкі
+  users:
+    editors: Рэдактары
+    references_count: Дададзена крыніцаў
+    references_doc: Лік крыніцаў, дададзеных ці выдаленых гэтым рэдактарам
+    sub_navigation:
+      assignments_and_exercises: Заданьні і практыкаваньні
+  user_profiles:
+    institution_placeholder: Назва ўстановы (неабавязкова)
   article_finder:
     article_finder_wikidata: Шукальнік прадметаў
     fetched_articles_wikidata: Атрыманыя прадметы

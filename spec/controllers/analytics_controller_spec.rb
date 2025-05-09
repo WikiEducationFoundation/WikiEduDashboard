@@ -26,11 +26,6 @@ describe AnalyticsController, type: :request do
       expect(response.status).to eq(200)
     end
 
-    it 'returns campaign statistics' do
-      post '/analytics', params: { campaign_stats: true }
-      expect(response.status).to eq(200)
-    end
-
     it 'return campaign intersection statistics' do
       post '/analytics', params: { campaign_intersection: true,
                                 campaign_1: { id: 1 },

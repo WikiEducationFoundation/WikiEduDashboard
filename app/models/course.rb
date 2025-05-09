@@ -265,6 +265,7 @@ class Course < ApplicationRecord
     Editathon
     FellowsCohort
     LegacyCourse
+    SingleUser
     VisitingScholarship
   ].freeze
   validates_inclusion_of :type, in: COURSE_TYPES
@@ -330,6 +331,15 @@ class Course < ApplicationRecord
   def tracked_revisions
     revisions.where.not(article_id: articles_courses.not_tracked.pluck(:article_id))
              .where(wiki_id: wiki_ids)
+  end
+
+  def tracked_article_course_timeslices
+    # This method tries to replicate the idea of "tracked revisions"
+    # 'revision_count > 0' condition is because we may create empty timeslices
+    # due to system revisions
+    # 'tracked: true' condition is to avoid timeslices for untracked articles courses
+    article_course_timeslices.where('revision_count > 0')
+                             .where(tracked: true)
   end
 
   def tracked_namespaces
@@ -527,6 +537,10 @@ class Course < ApplicationRecord
     flags[:stay_in_sandbox].present?
   end
 
+  def no_sandboxes?
+    flags[:no_sandboxes].present?
+  end
+
   def retain_available_articles?
     flags[:retain_available_articles].present?
   end
@@ -596,10 +610,6 @@ class Course < ApplicationRecord
     campaigns_courses.first&.created_at
   end
 
-  def no_sandboxes?
-    flags[:no_sandboxes].present?
-  end
-
   def assigned_articles
     @assigned_articles ||= Article.where(id: assigned_article_ids).to_a
   end
@@ -608,6 +618,11 @@ class Course < ApplicationRecord
     assigned_articles.filter do |article|
       article.wiki_id == assignment_wiki_id && mw_page_ids.include?(article.mw_page_id)
     end
+  end
+
+  # Overridden for SingleUser
+  def add_creator_as_editor?
+    false
   end
 
   #################

@@ -38,7 +38,7 @@ const MyArticlesContainer = ({ current_user }) => {
   } = processAssignments({ assignments, course, current_user });
 
   const rightUserType = current_user.isStudent || current_user.isInstructor;
-  if (loading || !rightUserType) return null;
+  if (loading || !rightUserType || course.type === 'SingleUser') return null;
   let noArticlesMessage;
   if (!assigned.length && current_user.isStudent) {
     if (Features.wikiEd) {
