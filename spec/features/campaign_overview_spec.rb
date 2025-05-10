@@ -13,6 +13,7 @@ end
 describe 'campaign overview page', type: :feature, js: true do
   let(:slug)  { 'spring_2016' }
   let(:user)  { create(:user) }
+  let(:wiki) { Wiki.get_or_create(project: 'wikipedia', language: 'en') }
   let(:campaign) do
     create(:campaign,
            title: 'Spring 2016 campaign',
@@ -62,21 +63,21 @@ describe 'campaign overview page', type: :feature, js: true do
                user_id: i + campaign_course_count,
                role: CoursesUsers::Roles::STUDENT_ROLE)
 
-        # article = create(:article,
-        #                  id: i,
-        #                  title: 'Selfie',
-        #                  namespace: 0)
-        # create(:articles_course,
-        #        course_id: course1.id,
-        #        article_id: article.id)
-        # create(:revision,
-        #        id: i,
-        #        user_id: i,
-        #        article_id: i,
-        #        date: 6.days.ago,
-        #        characters: 9000)
+        create(:course_wiki_timeslice, course: course1, wiki:, character_sum: 9,
+               references_count: 2, revision_count: 1, start: 6.days.ago, end: 5.days.ago)
+        create(:course_wiki_timeslice, course: course2, wiki:, character_sum: 12,
+               references_count: 3, revision_count: 1, start: 6.days.ago, end: 5.days.ago)
+        article = create(:article,
+                         id: i,
+                         title: 'Selfie',
+                         namespace: 0,
+                         average_views: 5)
+        create(:articles_course,
+               course_id: course1.id,
+               article_id: article.id,
+               first_revision: 6.days.ago)
       end
-      Course.update_all_caches
+      Course.all.each(&:update_cache_from_timeslices)
     end
 
     it 'displays stats accurately' do
@@ -94,17 +95,17 @@ describe 'campaign overview page', type: :feature, js: true do
       expect(page.find('.stat-display')).to have_content stat_text
 
       # Words added
-      word_count = WordCount.from_characters Course.all.sum(:character_sum)
+      word_count = WordCount.from_characters campaign.courses.sum(:character_sum)
       stat_text = "#{word_count}\n#{I18n.t('metrics.word_count')}"
       expect(page.find('.stat-display')).to have_content stat_text
 
       # References added
-      references_count = Course.all.sum(:references_count)
+      references_count = campaign.courses.sum(:references_count)
       stat_text = "#{references_count}\n#{I18n.t('metrics.references_count')}"
       expect(page.find('.stat-display')).to have_content stat_text
 
       # Views
-      view_count = Course.all.sum(:view_sum)
+      view_count = campaign.courses.sum(:view_sum)
       stat_text = "#{view_count}\n#{I18n.t('metrics.view_count_description')}"
       expect(page.find('.stat-display')).to have_content stat_text
     end
