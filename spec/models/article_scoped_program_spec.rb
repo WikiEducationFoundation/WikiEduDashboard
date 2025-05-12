@@ -71,7 +71,6 @@ describe ArticleScopedProgram, type: :model do
 
     let(:asp) do
       create(:article_scoped_program,
-             id: 10001,
              start: 2.days.ago,
              end: Time.zone.today + 2.days)
     end
