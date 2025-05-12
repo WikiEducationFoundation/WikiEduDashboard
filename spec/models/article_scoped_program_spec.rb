@@ -50,36 +50,74 @@
 #
 
 require 'rails_helper'
+require "#{Rails.root}/lib/replica"
 
 describe ArticleScopedProgram, type: :model do
   describe 'update caches' do
     before do
-      asp = create(:article_scoped_program,
-                   id: 10001,
-                   start: 1.year.ago,
-                   end: Time.zone.today + 1.year)
-      editor = create(:user)
       create(:courses_user,
              user_id: editor.id,
              course_id: asp.id,
              role: CoursesUsers::Roles::STUDENT_ROLE)
-      random_article = create(:article, title: 'Random', id: 1, namespace: 0)
-      assigned_article = create(:article, title: 'Assigned', id: 2, namespace: 0)
       create(:assignment, user_id: editor.id, course_id: asp.id,
                           article_id: 2, article_title: 'Assigned')
-      create(:revision, id: 1, user_id: editor.id,
-                        article_id: random_article.id, date: 1.day.ago)
-      create(:revision, id: 2, user_id: editor.id,
-                        article_id: assigned_article.id, date: 1.day.ago)
-      ArticlesCourses.update_from_course(asp)
-      ArticlesCourses.update_all_caches(asp.articles_courses)
-      CoursesUsers.update_all_caches(CoursesUsers.ready_for_update)
-      Course.update_all_caches
+
+      allow(Replica).to receive(:new).and_return(replica_instance)
+      allow(replica_instance).to receive(:get_revisions).and_return(revisions)
+      VCR.use_cassette 'course_update' do
+        UpdateCourseStatsTimeslice.new(asp)
+      end
     end
 
-    let(:out_of_scope_rev) { Revision.find(1) }
-    let(:in_scope_rev) { Revision.find(2) }
-    let(:asp) { Course.find(10001) }
+    let(:asp) do
+      create(:article_scoped_program,
+             id: 10001,
+             start: 2.days.ago,
+             end: Time.zone.today + 2.days)
+    end
+    let(:editor) { create(:user) }
+    let(:random_article) { create(:article, title: 'Random', namespace: 0) }
+    let(:assigned_article) { create(:article, title: 'Assigned', namespace: 0) }
+    let(:replica_instance) { instance_double(Replica) }
+    let(:chars) { 1234 }
+    let(:revisions) do
+      [
+        [
+          random_article.mw_page_id.to_s,
+          {
+            'article' => {
+              'mw_page_id' => random_article.mw_page_id.to_s,
+              'title' => random_article.title,
+              'namespace' => '0',
+              'wiki_id' => 1
+            },
+            'revisions' => [
+              { 'mw_rev_id' => '849116430', 'date' => 1.day.ago.strftime('%Y%m%d'),
+                'characters' => '569', 'mw_page_id' => random_article.mw_page_id.to_s,
+                'username' => editor.username, 'new_article' => 'false',
+                'system' => 'false', 'wiki_id' => 1 }
+            ]
+          }
+        ],
+        [
+          assigned_article.mw_page_id.to_s,
+          {
+            'article' => {
+              'mw_page_id' => assigned_article.mw_page_id.to_s,
+              'title' => assigned_article.title,
+              'namespace' => '0',
+              'wiki_id' => 1
+            },
+            'revisions' => [
+              { 'mw_rev_id' => '849116431', 'date' => 1.day.ago.strftime('%Y%m%d'),
+                'characters' => chars, 'mw_page_id' => assigned_article.mw_page_id.to_s,
+                'username' => editor.username, 'new_article' => 'false',
+                'system' => 'false', 'wiki_id' => 1 }
+            ]
+          }
+        ]
+      ]
+    end
 
     it 'onlies count assigned articles' do
       expect(asp.article_count).to eq(1)
@@ -94,7 +132,7 @@ describe ArticleScopedProgram, type: :model do
     end
 
     it 'onlies count characters for assigned articles' do
-      expect(asp.character_sum).to eq(in_scope_rev.characters)
+      expect(asp.character_sum).to eq(chars)
     end
   end
 
