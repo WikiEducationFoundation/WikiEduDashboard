@@ -115,6 +115,8 @@ describe CourseAlertManager do
     let(:course_start) { 2.months.ago }
 
     context 'when a course has no students' do
+      let(:user_count) { 0 }
+
       it 'does not create an alert' do
         expect(course.students.count).to eq(0)
         subject.create_untrained_students_alerts
@@ -125,11 +127,10 @@ describe CourseAlertManager do
     context 'when a course has no training modules' do
       before do
         enroll_student
-        course.update_cache
       end
 
       it 'does not create an alert' do
-        expect(course.user_count).to eq(1)
+        expect(course.students.count).to eq(1)
         subject.create_untrained_students_alerts
         expect(Alert.count).to eq(0)
       end
@@ -140,15 +141,12 @@ describe CourseAlertManager do
         week = Week.new
         week.blocks << Block.new(training_module_ids: [1, 2, 3])
         course.weeks << week
-        create(:courses_user,
-               course:,
-               user:,
-               role: CoursesUsers::Roles::STUDENT_ROLE)
+        enroll_student
         create(:campaigns_course, course:, campaign: Campaign.first)
-        course.update_cache
       end
 
       it 'creates an alert' do
+        expect(course.students.count).to eq(1)
         expect_any_instance_of(UntrainedStudentsAlertMailer)
           .to receive(:email).and_return(mock_mailer)
         subject.create_untrained_students_alerts
