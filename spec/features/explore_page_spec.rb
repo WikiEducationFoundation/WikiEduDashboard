@@ -174,35 +174,20 @@ describe 'the explore page', type: :feature, js: true do
   end
 
   describe 'rows' do
-    let(:refs_tags_key) { 'feature.wikitext.revision.ref_tags' }
+    let(:wiki) { Wiki.get_or_create(project: 'wikipedia', language: 'en') }
 
     it 'shows the stats accurately' do
-      create(:article, id: 1,
-                       title: 'Selfie',
-                       namespace: 0)
-      create(:articles_course,
-             course:,
-             article_id: 1)
-      create(:revision,
-             user:,
-             article_id: 1,
-             date: 6.days.ago,
-             characters: 9000,
-             features: {
-               refs_tags_key => 22
-             },
-             features_previous: {
-               refs_tags_key => 17
-             })
-      Course.update_all_caches
+      create(:course_wiki_timeslice, course:, wiki:, references_count: 3,
+             start: 6.days.ago, end: 5.days.ago)
+      Course.all.each(&:update_cache_from_timeslices)
       visit '/explore'
       # Number of courses
       num_courses_human = page.find('#campaigns_list tr:first-child .num-courses-human').text
       expect(num_courses_human).to eq('1')
 
-      # Recent revisions
-      num_revisions = page.find('#active_courses .table tbody tr:first-child .revisions').text
-      expect(num_revisions).to eq('1')
+      # References added
+      num_references = page.find('#active_courses .table tbody tr:first-child .references').text
+      expect(num_references).to eq('3')
     end
   end
 

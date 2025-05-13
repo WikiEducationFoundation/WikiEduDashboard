@@ -83,7 +83,7 @@ el:
     print: Εκτύπωση
   article_statuses:
     not_yet_started: Ξεκινώντας
-    in_progress: Δουλεύω στο Sandbox
+    in_progress: Δουλεύω στο Αμμοδοχείο
     ready_for_review: Επέκταση Προσχεδίου
     ready_for_mainspace: Μεταφέρω την εργασία στον κύριο χώρο
     reading_the_article: Διαβάζοντας Άρθρα
@@ -206,6 +206,7 @@ el:
     confirm_deletion: Είστε σίγουροι ότι θέλετε να διαγράψετε αυτή την ανάθεση;
     delete: Αφαίρεση και Διαγραφή
     editors: Ανατέθηκε σε
+    change_sandbox_url: Αλλαγή αμμοδοχείου
     group_members: Μέλη ομάδας
     label: Ανάθεση
     label_all: Ανάθεση όλων
@@ -220,6 +221,7 @@ el:
     review_other: Ανάθεση ομότιμης αναθεώρησης
     review_self: Αναθεώρηση ενός άρθρου
     review_self_wikidata: Έλεγχος ενός αντικειμένου
+    sandbox_draft_link: Πρόχειρο Αμμοδοχείου
     select: Διαλέξτε
     submit: Υποβολή
   blocks:
@@ -438,6 +440,7 @@ el:
     new_account_username_invalid: Αυτό δεν είναι έγκυρο όνομα χρήστη
     new_account_username_placeholder: Συντάκτης βίκι 123
     new_account_submit: Αίτηση λογαριασμού
+    no_sandboxes: Κανένα αμμοδοχείο
     none: Κανένα
     no_available_actions: Μη διαθέσιμες δράσεις
     ores_plot: ORES
@@ -452,6 +455,7 @@ el:
     search_courses: Αναζήτηση μαθημάτων
     start: Έναρξη
     start_typing: Ξεκινήστε την πληκτρολόγηση
+    stay_in_sandbox: Μείνετε στο αμμοδοχείο
     student: Μαθητής
     students: Σπουδαστές
     students_taught: Σπουδαστές που διδάχθηκαν
@@ -605,7 +609,7 @@ el:
     missing_data_info: Συνήθη ζητήματα περιλαμβάνουν
     per_user: '%{number}/χρήστη'
     revisions: Πρόσφατες επεξεργασίες
-    references_count: Προσθήκη Αναφορών
+    references_count: Προσθήκες Αναφορών
     tags: Ετικέτες
     total_updates: Συνολικός αριθμός ενημερώσεων έως τώρα
     update_status_heading: Ενημέρωση κατάστασης
@@ -629,16 +633,19 @@ el:
     total_revisions: Συνολικές αναθεωρήσεις
     claims: Αξιώσεις
     aliases: Ψευδώνυμα
-    merged: Συγχωνεύτηκε
-    created: Δημιουργήθηκε
-    changed: Άλλαξε
-    removed: Αφαιρέθηκε
-    cleared: Καθαρίστηκε
-    added: Προστέθηκε
+    merged: Συγχωνεύτηκαν
+    created: Δημιουργήθηκαν
+    changed: Άλλαξαν
+    removed: Αφαιρέθηκαν
+    cleared: Καθαρίστηκαν
+    added: Προστέθηκαν
     descriptions: Περιγραφές
     labels: Ετικέτες
     other_updates: Άλλες ενημερώσεις
-    references_added: Προσθήκη αναφορών
+    redirects_created: Δημιουργημένες ανακατευθύνσεις
+    references_added: Προσθήκες αναφορών
+    restorations_performed: Εκτελεσμένες επαναφορές
+    reverts_performed: Εκτελεσμένες αναιρέσεις
   namespace:
     all: Όλοι
     main: Κύριος χώρος
@@ -677,7 +684,7 @@ el:
     usage_count: Πλήθος χρήσεων
   revisions:
     chars_added: Χαρακτήρες που προστέθηκαν
-    references: Προσθήκη Αναφορών
+    references: Προσθήκες Αναφορών
     date_time: Ημέρα/Ώρα
     diff_show: Εμφάνιση
     diff_hide: Απόκρυψη
@@ -746,6 +753,7 @@ el:
       exercise: Άσκηση
       discussion: Συζήτηση
       training: Εκπαίδευση
+    exercise_sandbox: Αμμοδόχος Άσκησης
     view_all: Δείτε όλες τις ασκήσεις
   update_username:
     label: Νέο όνομα χρήστη
@@ -782,8 +790,8 @@ el:
     assign_articles_done: Έγινε
     assigned: Ανατεθειμένα άρθρα
     assigned_wikidata: Ανατεθειμένα αντικείμενα
-    chars_added: Προσθήκη Χαρακτήρων<br> (άρθρο | χρήστης | πρόχειρο)
-    chars_added_wikidata: Προσθήκη Χαρακτήρων<br> (αντικείμενο | χρήστης | πρόχειρο)
+    chars_added: Προσθήκες Χαρακτήρων<br> (άρθρο | χρήστης | πρόχειρο)
+    chars_added_wikidata: Προσθήκες Χαρακτήρων<br> (αντικείμενο | χρήστης | πρόχειρο)
     contributions: Συνεισφορές χρήστη
     contributions_history_full: Προβολή πλήρους ιστορικού συνεισφορών
     contributions_more: Δείτε περισσότερες συνεισφορές
@@ -798,10 +806,10 @@ el:
     first_name: Κύριο όνομα
     last_name: Επώνυμο
     loading: Φόρτωση χρηστών...
-    characters_added_mainspace: Προσθήκη Χαρακτήρων (άρθρο)
-    characters_added_mainspace_wikidata: Προσθήκη Χαρακτήρων (αντικείμενο)
-    characters_added_userspace: Προσθήκη Χαρακτήρων (χρήστης)
-    characters_added_draftspace: Προσθήκη Χαρακτήρων (πρόχειρο)
+    characters_added_mainspace: Προσθήκες Χαρακτήρων (άρθρο)
+    characters_added_mainspace_wikidata: Προσθήκες Χαρακτήρων (αντικείμενο)
+    characters_added_userspace: Προσθήκες Χαρακτήρων (χρήστης)
+    characters_added_draftspace: Προσθήκες Χαρακτήρων (πρόχειρο)
     name: Όνομα
     none: Δεν υπάρχουν συμμετέχοντες.
     no_articles: Δεν υπάρχουν άρθρα
@@ -815,15 +823,16 @@ el:
       other: '%{count} αντικείμενα'
     profile: προφίλ
     recent_revisions: Πρόσφατες επεξεργασίες
-    references_count: Προσθήκη Αναφορών
+    references_count: Προσθήκες Αναφορών
     requested_account_status:
       success_message: 'Επιτυχία: %{result_description}'
       failure_message: 'Αποτυχία: %{result_description}'
-    revision_characters_and_views: 'Προσθήκη χαρακτήρων: %{characters}, Προβολές:
+    revision_characters_and_views: 'Προσθήκες χαρακτήρων: %{characters}, Προβολές:
       %{views}'
     references_doc: Ο αριθμός των αναφορών που προστέθηκαν ή αφαιρέθηκαν από αυτόν
       τον συντάκτη
     revisions: Αναθεωρήσεις
+    sandboxes: αμμοδοχεία
     sub_navigation:
       assignments_and_exercises: Αναθέσεις & Ασκήσεις
       editor_overview: Επισκόπηση Συντάκτη
