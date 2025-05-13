@@ -21,8 +21,6 @@
 #  references_count       :integer          default(0)
 #
 
-require_dependency "#{Rails.root}/lib/course_cleanup_manager"
-
 #= Course + User join model
 class CoursesUsers < ApplicationRecord
   belongs_to :course
@@ -130,7 +128,6 @@ class CoursesUsers < ApplicationRecord
   def cleanup
     Assignment.where(user_id:, course_id:).destroy_all
     survey_notifications.destroy_all
-    CourseCleanupManager.new(course, user).cleanup_articles
   end
 
   #################
