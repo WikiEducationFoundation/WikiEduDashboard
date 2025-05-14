@@ -64,12 +64,14 @@ describe Course, type: :model do
           id: 1,
           username: 'Ragesoss').save
 
-    build(:course,
-          id: 1,
-          start: Time.zone.today - 1.month,
-          end: Time.zone.today + 1.month,
-          passcode: 'pizza',
-          title: 'Underwater basket-weaving').save
+    create(:course,
+           id: 1,
+           start: Time.zone.today - 1.month,
+           end: Time.zone.today + 1.month,
+           passcode: 'pizza',
+           title: 'Underwater basket-weaving')
+
+    wiki = Wiki.get_or_create(project: 'wikipedia', language: 'en')
 
     build(:article,
           id: 1,
@@ -77,18 +79,14 @@ describe Course, type: :model do
           average_views: 1234,
           namespace: 0).save
 
-    build(:revision,
-          id: 1,
-          user_id: 1,
-          article_id: 1,
-          date: 1.day.ago,
-          characters: 9000,
-          features: {
-            refs_tags_key => 22
-          },
-          features_previous: {
-            refs_tags_key => 17
-          }).save
+    create(:course_wiki_timeslice,
+           course_id: 1,
+           wiki:,
+           character_sum: 9000,
+           references_count: 5,
+           revision_count: 1,
+           start: 6.days.ago,
+           end: 5.days.ago)
 
     # Assign the article to the user.
     build(:assignment,
@@ -108,15 +106,12 @@ describe Course, type: :model do
     build(:articles_course,
           id: 1,
           article_id: 1,
-          course_id: 1).save
+          course_id: 1,
+          first_revision: 1.day.ago).save
 
     # Update caches
-    ArticlesCourses.update_all_caches(ArticlesCourses.all)
-    CoursesUsers.update_all_caches(CoursesUsers.ready_for_update)
-    described_class.update_all_caches
-
-    # Fetch the created CoursesUsers entry
     course = described_class.all.first
+    course.update_cache_from_timeslices
 
     expect(course.character_sum).to eq(9000)
     expect(course.references_count).to eq(5)
@@ -244,7 +239,7 @@ describe Course, type: :model do
     let!(:cu2)    { create(:courses_user, course_id: course.id, user_id: user2.id, role: role2) }
     let!(:cu3)    { create(:courses_user, course_id: course.id, user_id: user3, role: role3) }
 
-    before  { course.update_cache }
+    before  { course.update_cache_from_timeslices }
 
     context 'students in course, no instructor-students' do
       let(:role1) { CoursesUsers::Roles::STUDENT_ROLE }
@@ -284,7 +279,7 @@ describe Course, type: :model do
       sandbox = create(:article, namespace: Article::Namespaces::TALK)
       create(:revision, article_id: sandbox.id, user_id: student.id)
 
-      course.update_cache
+      course.update_cache_from_timeslices
       expect(course.article_count).to eq(1)
     end
   end
@@ -305,7 +300,7 @@ describe Course, type: :model do
       sandbox = create(:article, namespace: Article::Namespaces::TALK)
       create(:revision, article_id: sandbox.id, user_id: student.id)
 
-      course.update_cache
+      course.update_cache_from_timeslices
       expect(course.new_article_count).to eq(1)
     end
   end
@@ -331,7 +326,7 @@ describe Course, type: :model do
       end
 
       it 'returns the whole student count if no training modules are assigned' do
-        course.update_cache
+        course.update_cache_from_timeslices
         expect(course.trained_count).to eq(3)
       end
 
@@ -339,7 +334,7 @@ describe Course, type: :model do
         week = create(:week, course:)
         create(:block, week:, training_module_ids: [1, 2])
         travel_to Time.zone.local(2016, 1, 2)
-        course.update_cache
+        course.update_cache_from_timeslices
         expect(course.trained_count).to eq(3)
       end
 
@@ -357,7 +352,7 @@ describe Course, type: :model do
         create(:training_modules_users, training_module_id: 2, user_id: 2,
                                         completed_at: nil)
         travel_to Time.zone.local(2016, 10, 1)
-        course.update_cache
+        course.update_cache_from_timeslices
         expect(course.trained_count).to eq(1)
       end
     end
@@ -368,7 +363,7 @@ describe Course, type: :model do
       end
 
       it 'returns the number of students who have completed on-wiki training' do
-        course.update_cache
+        course.update_cache_from_timeslices
         expect(course.trained_count).to eq(2)
       end
     end
