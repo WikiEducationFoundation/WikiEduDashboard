@@ -113,6 +113,7 @@ describe Course, type: :model do
     course = described_class.all.first
     course.update_cache_from_timeslices
 
+    puts Time.zone.today
     expect(course.character_sum).to eq(9000)
     expect(course.references_count).to eq(5)
     expect(course.view_sum).to eq(1234)
