@@ -31,7 +31,7 @@ class MassEnrollmentController < ApplicationController
 
   private
 
-  MAX_COURSE_USERS = 150
+  MAX_COURSE_USERS = 400
   def too_many_users?(usernames_list)
     return false if @course.flags[:no_max_users]
     @course.students.count + usernames_list.count > MAX_COURSE_USERS
