@@ -30,6 +30,10 @@ describe ArticlesCourses, type: :model do
     travel_to Date.new(2024, 7, 16)
   end
 
+  after do
+    travel_back
+  end
+
   describe '.update_all_caches' do
     let(:instructor) { create(:instructor) }
 
