@@ -35,6 +35,10 @@ describe TimesliceManager do
     course.reload
   end
 
+  after do
+    travel_back
+  end
+
   describe '#create_course_wiki_timeslices_for_new_records' do
     before do
       create(:courses_wikis, wiki: wikibooks, course:)

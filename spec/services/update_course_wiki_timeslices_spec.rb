@@ -23,6 +23,10 @@ describe UpdateCourseWikiTimeslices do
     JoinCourse.new(course:, user:, role: 0)
   end
 
+  after do
+    travel_back
+  end
+
   context 'when debugging is not enabled' do
     it 'posts no Sentry logs' do
       expect(Sentry).not_to receive(:capture_message)

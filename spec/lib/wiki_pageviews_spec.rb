@@ -161,6 +161,10 @@ describe WikiPageviews do
 
       before { travel_to Date.new(2023, 10, 18) }
 
+      after do
+        travel_back
+      end
+
       it 'returns 0' do
         VCR.use_cassette 'wiki_pageviews/404_handling' do
           expect(subject).to eq(0)
