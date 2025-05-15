@@ -71,6 +71,9 @@
 # Comma-separated list of OAuth client IDs used by the system for Wiki edits
   oauth_ids: '252,212'
 
+# User Agent should follow https://foundation.wikimedia.org/wiki/Policy:Wikimedia_Foundation_User-Agent_Policy
+  user_agent: 'WikiEduDashboard Dev/1.0 (https://github.com/WikiEducationFoundation/WikiEduDashboard)'
+
 # Page ID of the page that is used to indicate training completion. If a user
 # has edited this page, they will be counted as having completed training.
   training_page_id: '36892501'

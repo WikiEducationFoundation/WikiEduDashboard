@@ -21,6 +21,7 @@
   wikipedia_secret: '****'
 
   oauth_ids: '271'
+  user_agent: 'Peony Dashboard/1.0 (outreachdashboard.wmflabs.org; sage@wikiedu.org)'
 # Older OAuth IDs
 # oauth_ids: '252,212'
 
