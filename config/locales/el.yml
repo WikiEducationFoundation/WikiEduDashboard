@@ -549,6 +549,7 @@ el:
     end: Λήξη παρακολούθησης δραστηριότητας
     enroll: Προσθήκη Συντάκτη
     enrollment: Προσθήκη/Αφαίρεση Συντακτών
+    courses_enrolled: Συμμετοχές προγραμμάτων
     expected_students: Αναμενόμενοι Συντάκτες
     instructors: Διοργανωτές
     join_course: Συμμετοχή στο πρόγραμμα
@@ -605,6 +606,8 @@ el:
     close_modal: Κλείσιμο
     date_time: Ημέρα/Ώρα
     edit_count_description: Συνολικές επεξεργασίες
+    error_count_message: Ο πίνακας εργασίας αντιμετώπισε %{error_count} σφάλμα(τα)
+      κατά την διάρκεια της πιο πρόσφατης ενημέρωσης.
     missing_data_heading: Ελλιπή ή μη αναμενόμενα αποτελέσματα;
     missing_data_info: Συνήθη ζητήματα περιλαμβάνουν
     per_user: '%{number}/χρήστη'
@@ -612,7 +615,7 @@ el:
     references_count: Προσθήκες Αναφορών
     tags: Ετικέτες
     total_updates: Συνολικός αριθμός ενημερώσεων έως τώρα
-    update_status_heading: Ενημέρωση κατάστασης
+    update_status_heading: Κατάσταση ενημέρωσης
     update_statistics_link: Δείτε περισσότερα
     upload_count: Μεταφορτώσεις Commons
     uploads_in_use_count:
