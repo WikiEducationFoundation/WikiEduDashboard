@@ -97,11 +97,11 @@ describe 'Training', type: :feature, js: true do
 
     it 'updates the last_slide_completed upon viewing a slide (not after clicking `next`)' do
       click_link 'Start'
-      sleep 1.5
+      sleep 1
       tmu = TrainingModulesUsers.find_by(user_id: user.id, training_module_id: module_2.id)
       expect(tmu.last_slide_completed).to eq(module_2.slides.first.slug)
       click_link 'Next Page'
-      sleep 1.5
+      sleep 1
       expect(tmu.reload.last_slide_completed).to eq(module_2.slides.second.slug)
     end
 
@@ -116,11 +116,12 @@ describe 'Training', type: :feature, js: true do
 
     it 'sets the module completed on viewing the last slide' do
       login_as(user, scope: :user)
-      sleep 1
       click_link 'Start'
       tmu = TrainingModulesUsers.find_by(user_id: user.id, training_module_id: module_2.id)
       visit "/training/students/#{module_2.slug}/#{module_2.slides.last.slug}"
-      sleep 2
+      expect(page).to have_link 'Done!'
+      click_link 'Explore'
+      expect(page).to have_content 'Active Courses'
       expect(tmu.reload.completed_at).to be_between(1.minute.ago, 1.minute.from_now)
     end
 
@@ -131,7 +132,9 @@ describe 'Training', type: :feature, js: true do
                                          training_module_id: new_instructor_orientation_module.id)
       visit "/training/students/#{new_instructor_orientation_module.slug}
                                 /#{new_instructor_orientation_module.slides.last.slug}"
-      sleep 2
+      expect(page).to have_link 'Done!'
+      click_link 'Done!'
+      expect(page).to have_link 'Create Course'
       expect(tmu.reload.completed_at).to be_between(1.minute.ago, 1.minute.from_now)
       expect(user.reload.permissions).to eq(User::Permissions::INSTRUCTOR)
     end
@@ -217,25 +220,26 @@ describe 'Training', type: :feature, js: true do
     context 'logged in user' do
       it 'redirects to their dashboard' do
         login_as(user, scope: :user)
-        sleep 1
         visit "/training/students/#{module_2.slug}/#{module_2.slides.last.slug}"
-        sleep 1
+        expect(page).to have_link 'Done!'
         within '.training__slide__footer' do
           click_link 'Done!'
         end
-        sleep 1
+        expect(page).to have_content 'Welcome!'
         expect(page).to have_current_path(root_path)
       end
     end
 
     context 'logged out user' do
       it 'redirects to library index page' do
-        logout(:user)
+        click_link 'Log out'
+        expect(page).to have_content 'Signed out successfully.'
         visit "/training/students/#{module_2.slug}/#{module_2.slides.last.slug}"
-        sleep 1
+        expect(page).to have_link 'Done!'
         within '.training__slide__footer' do
           click_link 'Done!'
         end
+        expect(page).to have_content 'Student Training Modules'
         expect(page).to have_current_path('/training/students')
       end
     end
@@ -259,7 +263,7 @@ def go_through_module_from_start_to_finish(training_module)
   visit "/training/students/#{training_module.slug}"
   click_link 'Start'
   click_through_slides(training_module)
-  sleep 1
+  expect(page).not_to have_link 'Done!'
   expect(TrainingModulesUsers.find_by(
     user_id: 1,
     training_module_id: training_module.id
@@ -284,7 +288,7 @@ def check_slide_contents(slide, slide_number, slide_count)
 end
 
 def proceed_to_next_slide
-  if page.has_selector?('.alert-box-container')
+  if page.has_selector?('.alert-box-container', wait: 0)
     within('.alert-box-container') do
       find('.alert-button').click
     end
