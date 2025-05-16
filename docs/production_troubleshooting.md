@@ -36,3 +36,18 @@ Currently, mysql/mariadb use utf8mb4 by default and newly created databases will
 * `ALTER TABLE ticket_dispenser_messages CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;`
 
 (It ran very quickly on 20k rows.)
+
+## Database slow queries monitoring
+
+MariaDB has a feature to log all queries or all slow queries to provide for many different types of logging and analysis.
+* Resources:
+  * [official documentation](https://mariadb.com/kb/en/slow-query-log-overview/)
+
+* Basic commands to enable and use it:
+  * Ssh the database server: `ssh peony-database.globaleducation.eqiad1.wikimedia.cloud`
+  * Check current configuration file: `cat /etc/mysql/my.cnf`
+  * Enable the feature by setting `slow_query_log=ON` on the configuration file.
+  * Set the number of seconds that defines a slow query by setting `long_query_time` system variable. It uses a units of seconds. For example, `long_query_time=60` sets the slow query threshold to 1 minute.
+  * Check the last slow queries logged: `sudo tail -300 /srv/mysql/peony-database-slow.log`.
+
+Note: changes require a MariaDB server restart to take effect.
