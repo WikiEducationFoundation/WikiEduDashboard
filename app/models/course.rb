@@ -629,10 +629,6 @@ class Course < ApplicationRecord
   # Cache methods #
   #################
 
-  def update_cache
-    CourseCacheManager.new(self).update_cache
-  end
-
   def update_cache_from_timeslices
     CourseCacheManager.new(self).update_cache_from_timeslices course_wiki_timeslices
   end

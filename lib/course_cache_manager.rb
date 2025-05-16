@@ -9,22 +9,6 @@ class CourseCacheManager
     @course = course
   end
 
-  def update_cache
-    update_character_sum
-    update_references_count
-    update_view_sum
-    update_user_count
-    update_trained_count
-    update_revision_count
-    update_recent_revision_count
-    update_article_count
-    update_new_article_count
-    update_upload_count
-    update_uploads_in_use_count
-    update_upload_usages_count
-    @course.save
-  end
-
   # Expects a CourseWikiTimeslice::ActiveRecord_Associations_CollectionProxy to
   # calculate course caches
   def update_cache_from_timeslices(course_wiki_timeslices)
@@ -54,24 +38,6 @@ class CourseCacheManager
   # Cache updaters #
   ##################
 
-  def update_character_sum
-    # Do not consider revisions with negative byte changes
-    @course.character_sum = @course.courses_users
-                                   .where(role: CoursesUsers::Roles::STUDENT_ROLE)
-                                   .sum(:character_sum_ms)
-  end
-
-  def update_references_count
-    @course.references_count = @course.courses_users
-                                      .where(role: CoursesUsers::Roles::STUDENT_ROLE)
-                                      .sum(:references_count)
-  end
-
-  def update_view_sum
-    # TODO: fix issue #5911
-    @course.view_sum = @course.articles_courses.tracked.live.sum(:view_count)
-  end
-
   def update_view_sum_based_on_first_revision
     # This query calculates the views for the entire course based on the first revision for
     # every article course and the average views for every article (related to an article course).
@@ -100,14 +66,6 @@ class CourseCacheManager
                       @course.students.trained.size
                     end
     @course.trained_count = trained_count
-  end
-
-  def update_revision_count
-    @course.revision_count = @course.tracked_revisions.live.size
-  end
-
-  def update_recent_revision_count
-    @course.recent_revision_count = RevisionStat.get_records(course: @course)
   end
 
   def update_recent_revision_count_from_timeslices
