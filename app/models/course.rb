@@ -83,30 +83,12 @@ class Course < ApplicationRecord
   #########################
   # Activity by the users #
   #########################
-  # :revisions and :all_revisions have the same default implementation,
-  # but a course type may override :revisions.
-  has_many(:revisions, lambda do |course|
-    where('date >= ?', course.start).where('date <= ?', course.end)
-  end, through: :students)
-
-  has_many(:all_revisions, lambda do |course|
-    where('date >= ?', course.start).where('date <= ?', course.end)
-  end, through: :students)
-
-  # Same as revisions, but isn't bounded by the course end date
-  has_many(:recent_revisions, lambda do |course|
-    where('date >= ?', course.start)
-  end, through: :students, source: :revisions)
-
   has_many(:uploads, lambda do |course|
     where('uploaded_at >= ?', course.start).where('uploaded_at <= ?', course.end)
   end, through: :students)
 
   has_many :articles_courses, class_name: 'ArticlesCourses', dependent: :destroy
   has_many :articles, -> { distinct }, through: :articles_courses
-  has_many :pages_edited, -> { distinct }, source: :article, through: :revisions
-  has_many :sandboxes, -> { distinct.sandbox }, source: :article, through: :revisions
-
   has_many :assignments, dependent: :destroy
 
   has_many :categories_courses, class_name: 'CategoriesCourses', dependent: :destroy
@@ -326,11 +308,6 @@ class Course < ApplicationRecord
     @training_module_ids ||= Block.joins(:week).where(weeks: { course_id: id })
                                   .where.not('training_module_ids = ?', [].to_yaml)
                                   .collect(&:training_module_ids).flatten
-  end
-
-  def tracked_revisions
-    revisions.where.not(article_id: articles_courses.not_tracked.pluck(:article_id))
-             .where(wiki_id: wiki_ids)
   end
 
   def tracked_article_course_timeslices
