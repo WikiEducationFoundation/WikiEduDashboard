@@ -137,10 +137,6 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
     course.articles_courses.pluck(:article_id)
   end
 
-  def self.update_all_caches(articles_courses)
-    articles_courses.find_each(&:update_cache)
-  end
-
   def self.update_required_caches_from_timeslices(course)
     ArticlesCourses.where(article_id: articles_courses_to_update(course))
                    .find_each(&:update_cache_from_timeslices)
