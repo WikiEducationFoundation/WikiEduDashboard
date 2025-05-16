@@ -96,46 +96,6 @@ describe ArticlesCourses, type: :model do
     end
   end
 
-  describe '.update_from_course' do
-    let(:course) { create(:course, start: 1.year.ago, end: 1.day.ago) }
-    let(:another_course) { create(:course, slug: 'something else') }
-    let(:user) { create(:user) }
-    let(:article) { create(:article, namespace: 0) }
-    let(:article2) { create(:article, title: 'Second Article', namespace: 0) }
-    let(:talk_page) { create(:article, title: 'Talk page', namespace: 1) }
-
-    before do
-      create(:courses_user, user:, course:,
-                            role: CoursesUsers::Roles::STUDENT_ROLE)
-      create(:revision, article:, user:, date: 1.week.ago,
-                        system: true, new_article: true)
-      create(:revision, article:, user:, date: 6.days.ago)
-      # old revision before course
-      create(:revision, article: article2, user:, date: 2.years.ago)
-      create(:revision, article: talk_page, user:, date: 1.week.ago)
-    end
-
-    it 'creates new ArticlesCourses records from course revisions' do
-      described_class.update_from_course(Course.last)
-      expect(described_class.count).to eq(1)
-      # Should be counted as new even though the first edit was a system edit.
-      described_class.last.update_cache
-      expect(described_class.last.new_article).to eq(true)
-    end
-
-    it 'destroys ArticlesCourses that do not correspond to course revisions' do
-      create(:articles_course, id: 500, article: article2, course:)
-      create(:articles_course, id: 501, article: article2, course: another_course)
-      described_class.update_from_course(course)
-      expect(described_class.exists?(500)).to eq(false)
-      # only destroys for the course specified, not other recoreds that also
-      # don't correspond to their own course.
-      expect(described_class.exists?(501)).to eq(true)
-      described_class.update_from_course(another_course)
-      expect(described_class.exists?(501)).to eq(false)
-    end
-  end
-
   describe '.update_from_course_revisions' do
     let(:article2) { create(:article, title: 'Second Article', namespace: 0, wiki_id: 2) }
     let(:article3) { create(:article, title: 'Third Article', namespace: 0) }

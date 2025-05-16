@@ -22,7 +22,7 @@ require_dependency "#{Rails.root}/lib/timeslice_manager"
 #= ArticlesCourses is a join model between Article and Course.
 #= It represents a mainspace Wikipedia article that has been worked on by a
 #= student in a course.
-class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
+class ArticlesCourses < ApplicationRecord
   belongs_to :article
   belongs_to :course
 
@@ -146,36 +146,6 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
     articles_courses.find_each(&:update_cache_from_timeslices)
   end
 
-  def self.update_from_course(course)
-    course_article_ids = course.articles.where(wiki: course.wikis).pluck(:id)
-    revision_article_ids = article_ids_by_namespaces(course)
-
-    # Remove all the ArticlesCourses that do not correspond to course revisions.
-    # That may happen if the course dates changed, so some revisions are no
-    # longer part of the course.
-    # Also remove records for articles that aren't on a tracked wiki.
-    valid_article_ids = revision_article_ids & course_article_ids
-    destroy_invalid_records(course, valid_article_ids)
-
-    # Add new ArticlesCourses
-    # Using `insert_all` is massively more efficient than inserting them one at a time.
-    article_ids_without_ac = revision_article_ids - course_article_ids
-    tracked_wiki_ids = course.wikis.pluck(:id)
-    new_article_ids = Article.where(id: article_ids_without_ac, wiki_id: tracked_wiki_ids)
-                             .pluck(:id)
-    new_records = new_article_ids.map do |id|
-      { article_id: id, course_id: course.id }
-    end
-
-    return if new_records.empty?
-    # Do this is batches to avoid running the MySQL server out of memory
-    new_records.each_slice(5000) do |new_record_slice|
-      # rubocop:disable Rails/SkipsModelValidations
-      insert_all new_record_slice
-      # rubocop:enable Rails/SkipsModelValidations
-    end
-  end
-
   def self.update_from_course_revisions(course, revisions)
     revisions = revisions.select(&:scoped)
     course_article_ids = course.articles.where(wiki: course.wikis).pluck(:id)
@@ -202,26 +172,6 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
       insert_all new_record_slice
       # rubocop:enable Rails/SkipsModelValidations
     end
-  end
-
-  def self.destroy_invalid_records(course, valid_article_ids)
-    course_ac_records = course.articles_courses.pluck(:id, :article_id)
-    course_ac_records.each do |(id, article_id)|
-      next if valid_article_ids.include?(article_id)
-      find(id).destroy
-    end
-  end
-
-  def self.article_ids_by_namespaces(course)
-    # Return article ids from revisions corresponding to tracked wikis and namespaces
-    article_ids = []
-    course.tracked_namespaces.map do |wiki_ns|
-      wiki = wiki_ns[:wiki]
-      namespace = wiki_ns[:namespace]
-      article_ids << course.revisions.joins(:article).where(articles: { wiki:, namespace: })
-                           .distinct.pluck(:article_id)
-    end
-    return article_ids.flatten
   end
 
   def self.article_ids_by_namespaces_from_revisions(course, revisions)
