@@ -4,7 +4,7 @@ import {
   format,
   parseISO,
   isAfter,
-  differenceInMonths,
+  // differenceInMonths,
   startOfWeek,
   addDays,
   differenceInWeeks,
@@ -91,14 +91,13 @@ const CourseDateUtils = {
     return updatedCourse;
   },
 
-  // Maximum tracking length of a year, plus a little bit of wiggle room.
-  // We want to make sure long-running events get broken up into smaller
-  // segments, because huge long-running courses cause performance problems
-  // with the Dashboard data update process.
-  MAX_MONTHS: 13,
-
-  courseTooLong(course) {
-    return differenceInMonths(toDate(course.end), toDate(course.start)) > this.MAX_MONTHS;
+  // As of 2025, very long courses are no longer a significant performance concern,
+  // but we can implement restrictions again if there's a need.
+  // See also the `dates_too_long` interface message that indicates the max length.
+  // MAX_MONTHS: 13,
+  courseTooLong(_course) {
+    // return differenceInMonths(toDate(course.end), toDate(course.start)) > this.MAX_MONTHS;
+    return false;
   },
 
   moreWeeksThanAvailable(course, weeks, exceptions) {

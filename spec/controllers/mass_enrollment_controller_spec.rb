@@ -11,6 +11,7 @@ describe MassEnrollmentController, type: :request do
   let(:usernames) do
     "#{user.username}\r\n#{user2.username}\r\nNotARealUserOnWikipedia"
   end
+  let(:overmax) { MassEnrollmentController::MAX_COURSE_USERS + 10 }
 
   describe '#index' do
     it 'loads for admins' do
@@ -46,7 +47,7 @@ describe MassEnrollmentController, type: :request do
     end
 
     context 'when the username list is too long' do
-      let(:usernames) { (1..160).map { |i| "Username_#{i}" }.join("\n") }
+      let(:usernames) { (1..overmax).map { |i| "Username_#{i}" }.join("\n") }
 
       it 'returns an error message' do
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
@@ -56,7 +57,7 @@ describe MassEnrollmentController, type: :request do
     end
 
     context 'when the :no_max_users flag is set' do
-      let(:usernames) { (1..160).map { |i| "Username_#{i}" }.join("\n") }
+      let(:usernames) { (1..overmax).map { |i| "Username_#{i}" }.join("\n") }
       let(:course) do
         create(:course, start: 1.day.ago, end: 1.day.from_now, slug: slug_params,
                         flags: { no_max_users: true })

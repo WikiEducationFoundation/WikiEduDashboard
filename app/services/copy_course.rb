@@ -17,9 +17,7 @@ class CopyCourse # rubocop:disable Metrics/ClassLength
     @timeline_data = retrieve_timeline_data
     # This only works if the wiki_education envvar is set differently from the
     # server where the course being copied lives.
-    # I don't care about timeline data, so I commented it out to avoid the error.
-    # TODO: undo this comment
-    # copy_timeline_data
+    copy_timeline_data
     return { course: @course, error: nil }
   rescue ActiveRecord::RecordNotUnique
     return { course: Course.find_by(slug: @course_data['slug']), error: nil }
