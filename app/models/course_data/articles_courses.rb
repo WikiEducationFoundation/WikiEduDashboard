@@ -42,17 +42,14 @@ class ArticlesCourses < ApplicationRecord
   # Instance methods #
   ####################
   def view_count
-    update_cache unless self[:view_count]
     self[:view_count]
   end
 
   def character_sum
-    update_cache unless self[:character_sum]
     self[:character_sum]
   end
 
   def references_count
-    update_cache unless self[:references_count]
     self[:references_count]
   end
 
@@ -60,34 +57,8 @@ class ArticlesCourses < ApplicationRecord
     self[:new_article]
   end
 
-  def live_manual_revisions
-    course.revisions.live.where(article_id:)
-  end
-
   def all_revisions
     course.all_revisions.where(article_id:)
-  end
-
-  def article_revisions
-    article.revisions.where('date >= ?', course.start).where('date <= ?', course.end)
-  end
-
-  def update_cache
-    revisions = live_manual_revisions.load
-
-    self.character_sum = revisions.sum { |r| r.characters.to_i.positive? ? r.characters : 0 }
-    self.references_count = revisions.sum(&:references_added)
-    self.view_count = views_since_earliest_revision(revisions)
-    self.user_ids = associated_user_ids(revisions)
-
-    # We use the 'all_revisions' scope so that the dashboard system edits that
-    # create sandboxes are not excluded, since those are often wind up being the
-    # first edit of a mainspace article's revision history
-    self.new_article = new_article || # If it's already known to be new, that won't change
-                       all_revisions.exists?(new_article: true) || # First edit was by a student
-                       # First edit was done automatically by the Dashboard during the course
-                       article_revisions.exists?(new_article: true, system: true)
-    save
   end
 
   def update_cache_from_timeslices
@@ -97,18 +68,6 @@ class ArticlesCourses < ApplicationRecord
     self.new_article = article_course_timeslices.any?(&:new_article)
     self.first_revision = article_course_timeslices.minimum(:first_revision)
     save
-  end
-
-  def views_since_earliest_revision(revisions)
-    return if revisions.blank?
-    return if article.average_views.nil?
-    days = (Time.now.utc.to_date - revisions.min_by(&:date).date.to_date).to_i
-    days * article.average_views
-  end
-
-  def associated_user_ids(revisions)
-    return [] if revisions.blank?
-    revisions.filter_map(&:user_id).uniq
   end
 
   #################
