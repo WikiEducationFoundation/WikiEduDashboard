@@ -637,13 +637,6 @@ class Course < ApplicationRecord
     CourseCacheManager.new(self).update_cache_from_timeslices course_wiki_timeslices
   end
 
-  #################
-  # Class methods #
-  #################
-  def self.update_all_caches
-    ready_for_update.each(&:update_cache)
-  end
-
   # Ensures weeks for a course have order 1..weeks.count
   # This is dangerous if creating or reordering timeline content except via
   # TimelineController, where every week is processed from the submitted params,
