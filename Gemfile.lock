@@ -192,7 +192,7 @@ GEM
     crass (1.0.6)
     css_parser (1.14.0)
       addressable
-    dalli (3.2.3)
+    dalli (3.2.8)
     debug_inspector (1.1.0)
     deep_cloneable (3.2.0)
       activerecord (>= 3.1.0, < 8)
