@@ -14,6 +14,10 @@ describe DefaultCampaignUpdate do
       travel_to Date.new(2024, 7, 1)
     end
 
+    after do
+      travel_back
+    end
+
     context 'when current term exists as campaign' do
       it 'sets current term as default campaign' do
         create(:campaign, id: 1, slug: 'fall_2024')
@@ -39,6 +43,10 @@ describe DefaultCampaignUpdate do
   context 'when spring semester starts' do
     before do
       travel_to Date.new(2024, 1, 1)
+    end
+
+    after do
+      travel_back
     end
 
     context 'when current term exists as campaign' do

@@ -59,7 +59,6 @@ class CourseCloneManager
     @clone.type = 'ClassroomProgramCourse' if @clone.legacy?
     @clone.save!
     @clone = Course.find(@clone.id) # Re-load the course to ensure correct course type
-    @clone.update_cache
   end
 
   def update_title_and_slug

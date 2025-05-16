@@ -31,6 +31,10 @@ describe TimesliceCleaner do
     course.reload
   end
 
+  after do
+    travel_back
+  end
+
   describe '#delete_course_user_timeslices_for_deleted_course_users' do
     before do
       create(:course_user_wiki_timeslice, course:, user_id: 1, wiki: enwiki)

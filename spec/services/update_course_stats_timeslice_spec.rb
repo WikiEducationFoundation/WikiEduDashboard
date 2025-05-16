@@ -39,6 +39,10 @@ describe UpdateCourseStatsTimeslice do
       course.wikis << Wiki.get_or_create(language: nil, project: 'wikidata')
     end
 
+    after do
+      travel_back
+    end
+
     it 'imports average views of edited articles' do
       VCR.use_cassette 'course_update' do
         subject
@@ -140,6 +144,10 @@ describe UpdateCourseStatsTimeslice do
       travel_to Date.new(2018, 11, 28)
       course.campaigns << Campaign.first
       JoinCourse.new(course:, user:, role: 0)
+    end
+
+    after do
+      travel_back
     end
 
     it 'tracks update errors properly in Replica' do

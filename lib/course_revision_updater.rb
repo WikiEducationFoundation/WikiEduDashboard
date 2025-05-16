@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 require_dependency "#{Rails.root}/lib/replica"
-require_dependency "#{Rails.root}/lib/importers/revision_importer"
 require_dependency "#{Rails.root}/lib/revision_data_manager"
 
 #= Fetches and imports new revisions for courses and creates ArticlesCourses records
@@ -8,23 +7,9 @@ class CourseRevisionUpdater
   ###############
   # Entry point #
   ###############
-  def self.import_revisions(course, all_time:, update_service: nil)
-    updater = new(course, update_service:)
-    return if updater.no_point_in_importing_revisions?
-    updater.update_revisions_for_relevant_wikis(all_time)
-    ArticlesCourses.update_from_course(course)
-  end
-
   def initialize(course, update_service: nil)
     @course = course
     @update_service = update_service
-  end
-
-  def update_revisions_for_relevant_wikis(all_time)
-    @course.wikis.each do |wiki|
-      RevisionImporter.new(wiki, @course, update_service: @update_service)
-                      .import_revisions_for_course(all_time:)
-    end
   end
 
   def no_point_in_importing_revisions?
