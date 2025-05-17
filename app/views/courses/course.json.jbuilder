@@ -5,7 +5,7 @@ json.course do
 
   json.call(@course, :id, :title, :description, :start, :end, :school,
             :subject, :slug, :url, :submitted, :expected_students, :timeline_start,
-            :timeline_end, :day_exceptions, :weekdays, :no_day_exceptions,
+            :timeline_end, :day_exceptions, :weekdays, :no_day_exceptions, :no_meeting_days,
             :updated_at, :string_prefix, :use_start_and_end_times, :type,
             :home_wiki, :character_sum,  :upload_count, :uploads_in_use_count,
             :upload_usages_count, :cloned_status, :flags, :level, :format, :private,
