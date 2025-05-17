@@ -93,7 +93,7 @@ const Timeline = createReactClass({
   deleteAllWeeks() {
     if (confirm(I18n.t('timeline.delete_weeks_confirmation'))) {
       return this.props.deleteAllWeeks(this.props.course.slug)
-               .then(() => { return window.location.reload(); });
+        .then(() => { return window.location.reload(); });
     }
   },
 
@@ -261,6 +261,7 @@ const Timeline = createReactClass({
               weeksBeforeTimeline={weeksBeforeTimeline}
               trainingLibrarySlug={this.props.course.training_library_slug}
               current_user={this.props.current_user}
+              no_meeting_days={this.props.course.no_meeting_days}
               moveBlock={this._moveBlock}
             />
           </div>
