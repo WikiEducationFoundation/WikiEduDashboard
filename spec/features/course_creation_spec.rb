@@ -248,7 +248,7 @@ describe 'New course creation and editing', type: :feature do
       expect(saved_course.subject).to eq('Chemistry')
       expect(saved_course.format).to eq('In-person')
     end
-   
+
     it 'allows the user to create a course with no meeting days set' do
       allow_any_instance_of(User).to receive(:returning_instructor?).and_return(true)
       click_link 'Create Course'
@@ -309,7 +309,7 @@ describe 'New course creation and editing', type: :feature do
       end_input = find('input.end', match: :first).value
       expect(end_input.to_date).to be_within(1.day).of(end_date.to_date)
 
-      #click checkbox to opt out of meeting days
+      # Click checkbox to opt out of meeting days
       find('input.no-meeting-day-checkbox').click
       within('.wizard__panel.active') do
         expect(page).to have_css('button.dark')
@@ -318,10 +318,9 @@ describe 'New course creation and editing', type: :feature do
       within('.wizard__panel.active') do
         expect(page).not_to have_css('button.dark[disabled=disabled]')
       end
-    
+
       click_button 'Next'
       sleep 1
-
 
       # This is the assignment type chooser
       # Translation assignment
