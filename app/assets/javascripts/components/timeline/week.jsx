@@ -33,7 +33,9 @@ const Week = createReactClass({
     all_training_modules: PropTypes.array,
     weeksBeforeTimeline: PropTypes.number,
     trainingLibrarySlug: PropTypes.string.isRequired,
-    current_user: PropTypes.object
+    current_user: PropTypes.object,
+    no_meeting_days: PropTypes.bool
+
   },
   getInitialState() {
     return { focusedBlockId: null, isHover: false };
@@ -77,7 +79,7 @@ const Week = createReactClass({
     let weekDatesContent;
     let meetDates;
     if (this.props.meetings && this.props.meetings.length > 0) {
-      meetDates = `Meetings: ${this.props.meetings.join(', ')}`;
+      meetDates = !this.props.no_meeting_days ? `Meetings: ${this.props.meetings.join(', ')}` : "";
     }
     if (this.props.meetings) {
       weekDatesContent = `${dateCalc.start()} - ${dateCalc.end()}`;
