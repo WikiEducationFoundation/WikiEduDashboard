@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'net/http'
 require_dependency "#{Rails.root}/lib/importers/user_importer"
-require_dependency "#{Rails.root}/app/services/update_course_stats"
+require_dependency "#{Rails.root}/app/services/update_course_stats_timeslice"
 require_dependency "#{Rails.root}/lib/timeslice_manager"
 
 def make_copy_of(url)
@@ -79,7 +79,7 @@ def populate_dashboard
         # Add the course to the campaign if it doesn't already exist
         default_campaign.courses << course
         puts "Getting data for #{course.slug}..."
-        UpdateCourseStats.new(course)
+        UpdateCourseStatsTimeslice.new(course)
       end
     rescue ActiveRecord::RecordInvalid => e
       # Handle specific error when record creation fails

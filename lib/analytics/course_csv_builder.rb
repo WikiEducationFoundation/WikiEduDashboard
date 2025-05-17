@@ -104,7 +104,11 @@ class CourseCsvBuilder
   end
 
   def revisions_by_namespace(namespace)
-    @course.tracked_revisions.joins(:article).where(articles: { namespace: }).count
+    @course.scoped_article_timeslices
+           .where(tracked: true)
+           .joins(:article)
+           .where(articles: { namespace: })
+           .sum(&:revision_count)
   end
 
   def training_completion_rate

@@ -28,8 +28,6 @@ class AnalyticsController < ApplicationController
   def results
     if params[:monthly_report]
       monthly_report
-    elsif params[:campaign_stats]
-      campaign_stats
     elsif params[:campaign_intersection]
       campaign_intersection
     end
@@ -107,16 +105,6 @@ class AnalyticsController < ApplicationController
 
   def monthly_report
     @monthly_report = MonthlyReport.run
-  end
-
-  def campaign_stats
-    @campaign_stats = {}
-    @articles_edited = {}
-    Campaign.all.each do |campaign|
-      course_ids = campaign.courses.pluck(:id)
-      stats = CourseStatistics.new(course_ids, campaign: campaign.slug)
-      @campaign_stats.merge! stats.report_statistics
-    end
   end
 
   def campaign_intersection

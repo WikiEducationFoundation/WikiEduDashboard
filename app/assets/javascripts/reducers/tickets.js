@@ -32,7 +32,8 @@ const SORT_DESCENDING = {
   course_title: true,
   status: true,
   owner: true,
-  actions: true
+  actions: true,
+  updated_at: true
 };
 
 const replaceTicket = (tickets, newTicket) => {
@@ -95,9 +96,11 @@ export default function (state = initialState, action) {
       };
     }
     case RECEIVE_TICKETS: {
+      const allTickets = state.all.concat(action.data);
+      const sorted = sortByKey(allTickets, 'updated_at', null, true).newModels; // Show recently updated tickets first.
       return {
         ...state,
-        all: state.all.concat(action.data),
+        all: sorted,
         loading: false
       };
     }

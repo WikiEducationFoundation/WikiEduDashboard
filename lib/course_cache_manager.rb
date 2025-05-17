@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/revision_stat"
 require_dependency "#{Rails.root}/lib/revision_stat_timeslice"
 require_dependency "#{Rails.root}/lib/course_training_progress_manager"
 

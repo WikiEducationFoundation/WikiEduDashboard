@@ -35,10 +35,16 @@ const CourseStatsDownloadModal = ({ course }) => {
     );
   }
 
+  let warning;
+  if (!course.timeslice_update_ran) {
+    warning = <div className="warning">{I18n.t('courses.data_download_warning')}</div>;
+  }
+
   return (
     <div className="basic-modal course-stats-download-modal">
       <button onClick={hideStats} className="pull-right article-viewer-button icon-close" />
       <h2>{I18n.t('courses.data_download_info')}</h2>
+      {warning}
       <hr />
       <p>
         <a href={overviewCsvLink} className="button right">{I18n.t('courses.data_overview')}</a>

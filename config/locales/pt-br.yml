@@ -18,6 +18,7 @@
 # Author: HenriqueCrang
 # Author: Isabelle Belato
 # Author: Ixocactus
+# Author: Jessicamss93
 # Author: Joalpe
 # Author: Jurema Oliveira
 # Author: Lc97
@@ -537,6 +538,8 @@ pt-br:
       tarefas. A atribuição de módulos de treinamento é uma parte essencial das melhores
       práticas da Wiki Ed.
     alerts: Alertas
+    does_not_exist: O item não existe. Crie uma página de ambiente de teste isolado
+      e dê permissão a você mesmo para receber sugestões.
     all_courses: Todos os cursos
     already_enrolled: Você já é parte de '%{title}'!
     already_exists: Isso já existe para este curso!
@@ -656,6 +659,7 @@ pt-br:
           dos artigos e categorias atribuídos. Use-o se pretende delimitar as estatísticas
           a um determinado conjunto de artigos ou assuntos. Por padrão, as edições
           automatizadas do wiki estão ativadas.
+        single_user_name: Editor individual
       create_button: Criar meu curso!
       create_label: Criar novo curso
       create_new: Criar um novo curso
@@ -708,6 +712,10 @@ pt-br:
       o identificador da revisão, o identificador do artigo, que páginas são novas
       e os totais de visitas às páginas.
     data_download_info: Baixar os dados no formato CSV.
+    data_download_warning: Esse curso ainda não está atualizado dentro do novo sistema.
+      As estatísticas estão incompletas. Antes de baixá-las, por favor, agende uma
+      atualização de dados para esse curso e aguarde até que ela termine. Se o curso
+      estiver em andamento, por favor, aguarde até que a atualização esteja completa.
     data_overview: Dados do resumo
     data_overview_info: Os dados do resumo fornecem as estatísticas acumuladas para
       todo o projeto.
@@ -836,6 +844,7 @@ pt-br:
     no_campaign: Para tornar este programa ativo e permitir que os usuários participem,
       ele deve ser adicionado a uma campanha. Se não tiver certeza de qual campanha
       adicionar, use "Miscelânea".
+    no_sandboxes: Sem ambientes de teste isolados
     nocourses: Você não está participando em nenhum curso
     nocourse: Não participou de nenhum curso.
     none: Nenhum
@@ -874,7 +883,8 @@ pt-br:
       para aprovação pela equipe da Wiki Educação. Depois de aprovado, você receberá
       um URL de inscrição que os alunos podem usar para participar do curso e acessar
       os treinamentos. (Nota: você ainda poderá fazer edições mais tarde.)'
-    revisions_doc: Número de edições nos últimos %{timeframe} dias
+    revisions_doc: Número estimado de edições nos últimos %{timeframe} dias, baseado
+      na média de edições por dia no último período.
     revisions_none: Este curso não tem atividade recente de edição na Wikipédia.
     school: Escola
     school_and_term: Instituição/Quando
@@ -977,8 +987,16 @@ pt-br:
       email
     send_notification_button_text: Enviar
     notification_sent_success: Mensagem enviada para todos os instrutores de %{courseTitle}
+    notification_send_error_no_internet: Não é possível enviar a solicitação. Verifique
+      se você está conectado(a) a internet.
+    notification_send_error_server: 'Erro de servidor: Não é possível enviar a notificação
+      (%{status} %{statusText})'
+    notification_empty_message: Título ou Mensagem não podem ser vazios
+    confirm_send_notification: Enviar para todos os instrutores deste curso?
     write_subject: Assunto
     write_message_placeholder: Mensagem
+    sending_notification: Enviando...
+    bcc_to_salesforce: BCC para Salesforce
   courses_generic:
     school_system: Sistema acadêmico
     add_campaign: Adicionar campanha
@@ -1044,7 +1062,25 @@ pt-br:
       save_cloned_course: Salvar
       start_date: Início da atividade de monitorização
       scoping_methods:
+        scoping_methods: Métodos de escopo
+        configure: Configurar métodos de escopo
+        categories: Categorias
+        categories_short_desc: O recurso de categoria na wiki é usado para coletar
+          artigos relacionados. Você pode usar o nome da categoria para dizer ao Dashboard
+          para acompanhar todos os artigos naquela categoria.
+        categories_desc: |-
+          Acompanhar uma categoria significa que o Dashboard contará as edições para qualquer artigo naquela categoria. Por definição (profundidade 0), somente os artigos que estão inseridos diretamente naquela categoria serão acompanhados.
+          Você pode aumentar o valor da profundidade (até no máximo 3) se você quiser incluir artigos que estão em subcategorias daquela categoria. Certifique-se de procurar a categoria primeiro para ter certeza que as subcategorias correspondem ao que você pretende acompanhar.
         templates: Predefinições
+        petscan: PetScan
+        petscan_short_desc: PetScan é uma ferramenta que habilita você a consultar
+          páginas wiki com base em uma ampla gama de critérios - incluindo categorias,
+          modelos, wikilinks, e muitos outros. Você pode usar a consulta do PetScan
+          ID para configurar um conjunto de artigos para acompanhar no Dashboard.
+        pagepile: PagePile
+        pagepile_short_desc: PagePile é uma ferramenta que permite criar uma lista
+          de páginas que não muda ao longo do tempo e é identificada por um único
+          ID.
     delete_course: Eliminar programa
     edit_course_dates: Editar datas do projeto
     end: Fim da atividade de monitorização

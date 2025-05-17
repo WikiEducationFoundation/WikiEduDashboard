@@ -17,6 +17,7 @@ enable_get_help_button: 'true'
 wikipedia_token: <SECRET>
 wikipedia_secret: <SECRET>
 oauth_ids: '218,306,542'
+user_agent: 'Wiki Education Dashboard/1.0 (dashboard.wikiedu.org; sage@wikiedu.org)'
 
 course_prefix: "Wikipedia:Wiki_Ed"
 course_announcement_page: 'Wikipedia:Education_noticeboard/Wiki_Ed_course_submissions'

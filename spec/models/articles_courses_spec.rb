@@ -19,7 +19,6 @@
 
 require 'rails_helper'
 require "#{Rails.root}/lib/importers/article_importer"
-require "#{Rails.root}/lib/articles_courses_cleaner"
 
 describe ArticlesCourses, type: :model do
   let(:article) { create(:article, average_views: 1234) }
@@ -29,6 +28,10 @@ describe ArticlesCourses, type: :model do
 
   before do
     travel_to Date.new(2024, 7, 16)
+  end
+
+  after do
+    travel_back
   end
 
   describe '.update_all_caches' do

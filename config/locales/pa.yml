@@ -236,6 +236,8 @@ pa:
     empty_week_3: ਜਾਂ
     gradeable_value: ਮੁੱਲ
     save_all_changes: ਸੱਭ ਸੰਭਾਲੋ
+  update_username:
+    label: ਨਵਾਂ ਵਰਤੋਂਕਾਰ-ਨਾਂ
   uploads:
     article_name: ਲੇਖ ਦਾ ਨਾਮ
     file_name: ਫ਼ਾਈਲ ਦਾ ਨਾਂ

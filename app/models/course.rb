@@ -265,6 +265,7 @@ class Course < ApplicationRecord
     Editathon
     FellowsCohort
     LegacyCourse
+    SingleUser
     VisitingScholarship
   ].freeze
   validates_inclusion_of :type, in: COURSE_TYPES
@@ -332,6 +333,15 @@ class Course < ApplicationRecord
              .where(wiki_id: wiki_ids)
   end
 
+  def tracked_article_course_timeslices
+    # This method tries to replicate the idea of "tracked revisions"
+    # 'revision_count > 0' condition is because we may create empty timeslices
+    # due to system revisions
+    # 'tracked: true' condition is to avoid timeslices for untracked articles courses
+    article_course_timeslices.where('revision_count > 0')
+                             .where(tracked: true)
+  end
+
   def tracked_namespaces
     courses_wikis.map do |course_wiki|
       wiki = course_wiki.wiki
@@ -354,6 +364,12 @@ class Course < ApplicationRecord
   # A course type may override this implementation.
   def filter_revisions(_wiki, revisions)
     revisions
+  end
+
+  # The default implemention retrieves all the ACTs.
+  # A course type may override this implementation.
+  def scoped_article_timeslices
+    article_course_timeslices
   end
 
   def scoped_article_titles(wiki)
@@ -521,6 +537,10 @@ class Course < ApplicationRecord
     flags[:stay_in_sandbox].present?
   end
 
+  def no_sandboxes?
+    flags[:no_sandboxes].present?
+  end
+
   def retain_available_articles?
     flags[:retain_available_articles].present?
   end
@@ -540,6 +560,14 @@ class Course < ApplicationRecord
   # TODO: find a better way to check if the course was already updated
   def was_course_ever_updated?
     flags['update_logs'].present?
+  end
+
+  # Determines if at least one timeslice update ran for the course based on the
+  # 'processed' field into update_logs flag.
+  def timeslice_update_ran?
+    update_logs = flags['update_logs']
+    return false unless update_logs
+    update_logs.values.any? { |f| f.key?('processed') }
   end
 
   # Overridden for ClassroomProgramCourse
@@ -582,10 +610,6 @@ class Course < ApplicationRecord
     campaigns_courses.first&.created_at
   end
 
-  def no_sandboxes?
-    flags[:no_sandboxes].present?
-  end
-
   def assigned_articles
     @assigned_articles ||= Article.where(id: assigned_article_ids).to_a
   end
@@ -594,6 +618,11 @@ class Course < ApplicationRecord
     assigned_articles.filter do |article|
       article.wiki_id == assignment_wiki_id && mw_page_ids.include?(article.mw_page_id)
     end
+  end
+
+  # Overridden for SingleUser
+  def add_creator_as_editor?
+    false
   end
 
   #################

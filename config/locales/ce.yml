@@ -26,7 +26,7 @@ ce:
     recent_activity: Дукха хан йоцуш дийнарг
     report_problem: Проблемех хаам бар
     request_account: Аккаунт йехар
-    request_account_create: Кхолла аккаунт
+    request_account_create: Аккаунт кхолла
     search: хаттар ло
     sign_up_wikipedia: Йа Википедин чугӀо
     sign_up_log_in_extended: Википедехула
@@ -229,7 +229,7 @@ ce:
     word_count_average: Дешнийн йукъара дукхалла
     general: Йукъара
     total_revisions: Йерриге верси
-    aliases: Алиасаш
+    aliases: Синонимаш
     merged: Вовшахтоьхна
     created: Кхоьллина
     changed: Хийцайелла

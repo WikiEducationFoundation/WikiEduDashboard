@@ -17,4 +17,10 @@ module CustomRevisionFilter
     end
     filtered_data
   end
+
+  # For only-scoped-articles courses, we want to retrieve only the ACTs related
+  # to scoped articles.
+  def scoped_article_timeslices
+    article_course_timeslices.where(article_id: scoped_article_ids)
+  end
 end

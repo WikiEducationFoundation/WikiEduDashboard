@@ -26,11 +26,6 @@ describe AnalyticsController, type: :request do
       expect(response.status).to eq(200)
     end
 
-    it 'returns campaign statistics' do
-      post '/analytics', params: { campaign_stats: true }
-      expect(response.status).to eq(200)
-    end
-
     it 'return campaign intersection statistics' do
       post '/analytics', params: { campaign_intersection: true,
                                 campaign_1: { id: 1 },
@@ -110,13 +105,7 @@ describe AnalyticsController, type: :request do
   end
 
   describe '#course_wikidata_csv' do
-    let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }
-    let(:course) { create(:course, slug: 'foo/bar_(baz)', home_wiki: wikidata) }
-
-    before do
-      stub_wiki_validation
-      UpdateWikidataStats.new(course)
-    end
+    let(:course) { create(:course, slug: 'foo/bar_(baz)') }
 
     it 'returns a CSV' do
       get '/course_wikidata_csv', params: { course: course.slug }

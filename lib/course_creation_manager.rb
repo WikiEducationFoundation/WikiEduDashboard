@@ -122,6 +122,8 @@ class CourseCreationManager
                    role: CoursesUsers::Roles::INSTRUCTOR_ROLE,
                    real_name: @instructor.real_name,
                    role_description: @role_description)
+    return unless @course.add_creator_as_editor?
+    JoinCourse.new(user: @instructor, course: @course, role: CoursesUsers::Roles::STUDENT_ROLE)
   end
 
   def add_tags_to_course

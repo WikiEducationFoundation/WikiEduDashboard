@@ -158,20 +158,27 @@ class Replica
   # rubocop:enable Metrics/PerceivedComplexity
 
   def do_query(endpoint, query)
-    url = compile_query_url(endpoint, query)
-    Net::HTTP::get_response(URI.parse(url))
+    url = URI.parse compile_query_url(endpoint, query)
+    req = Net::HTTP::Get.new(url)
+    req.add_field('User-Agent', ENV['user_agent'])
+    Net::HTTP.start(url.host, url.port, use_ssl: true) { |http| http.request(req) }
   end
 
   REPLICA_TOOL_URL = 'https://replica-revision-tools.wmcloud.org/'
 
   def do_post(endpoint, key, data)
-    url = "#{REPLICA_TOOL_URL}#{endpoint}"
+    url = URI.parse "#{REPLICA_TOOL_URL}#{endpoint}"
     database_params = project_database_params_post
-    Net::HTTP::post_form(URI.parse(url),
-                         'db' => database_params['db'],
-                         'lang' => database_params['lang'],
-                         'project' => database_params['project'],
-                         key => data)
+    form_data = { 'db' => database_params['db'],
+                  'lang' => database_params['lang'],
+                  'project' => database_params['project'],
+                   key => data }
+
+    req = Net::HTTP::Post.new(url.path)
+    req.add_field('User-Agent', ENV['user_agent'])
+    req.body = URI.encode_www_form(form_data)
+
+    Net::HTTP.start(url.host, url.port, use_ssl: true) { |http| http.request(req) }
   end
 
   # Query URL for the WikiEduDashboardTools repository

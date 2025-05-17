@@ -2,7 +2,6 @@
 
 require 'rails_helper'
 require "#{Rails.root}/lib/revision_data_manager"
-require "#{Rails.root}/lib/articles_courses_cleaner"
 
 describe RevisionDataManager do
   describe '#fetch_revision_data_for_course' do

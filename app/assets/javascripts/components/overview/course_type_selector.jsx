@@ -12,7 +12,8 @@ const CourseTypeSelector = (props) => {
       Editathon: 'Edit-a-thon',
       BasicCourse: 'Generic Course',
       ArticleScopedProgram: 'Article Scoped Program',
-      FellowsCohort: 'Wikipedia Fellows Cohort'
+      FellowsCohort: 'Wikipedia Fellows Cohort',
+      SingleUser: 'Individual Editor'
     }[type];
   };
 
@@ -38,7 +39,7 @@ const CourseTypeSelector = (props) => {
     const currentType = _getFormattedCourseType(props.course.type);
     let selector = (
       <span>
-        <strong>Type:</strong> {currentType}
+        <strong>{I18n.t('courses.course_type_label')}</strong> {currentType}
       </span>
     );
 
@@ -48,6 +49,9 @@ const CourseTypeSelector = (props) => {
         { value: 'Editathon', label: _getFormattedCourseType('Editathon') },
         { value: 'ArticleScopedProgram', label: _getFormattedCourseType('ArticleScopedProgram') },
       ];
+      if (props.course.student_count === 1) {
+        options.push({ value: 'SingleUser', label: _getFormattedCourseType('SingleUser') });
+      }
       if (Features.wikiEd) {
         options = [
           { value: 'ClassroomProgramCourse', label: _getFormattedCourseType('ClassroomProgramCourse') },

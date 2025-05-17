@@ -231,13 +231,6 @@ class CoursesController < ApplicationController
   def manual_update
     require_super_admin_permissions
     @course = find_course_by_slug(params[:id])
-    UpdateCourseStats.new(@course)
-    redirect_to "/courses/#{@course.slug}"
-  end
-
-  def manual_update_timeslice
-    require_super_admin_permissions
-    @course = find_course_by_slug(params[:id])
     UpdateCourseStatsTimeslice.new(@course)
     redirect_to "/courses/#{@course.slug}"
   end
@@ -367,27 +360,32 @@ class CoursesController < ApplicationController
   end
 
   def update_flags
-    update_boolean_flag :timeline_enabled
-    update_boolean_flag :wiki_edits_enabled
-    update_boolean_flag :online_volunteers_enabled
-    update_boolean_flag :disable_student_emails
-    update_boolean_flag :stay_in_sandbox
-    update_boolean_flag :retain_available_articles
+    update_boolean_flags
     update_edit_settings
     update_academic_system
     update_course_format
     update_last_reviewed
   end
 
-  def update_boolean_flag(flag)
-    case params.dig(:course, flag)
-    when true
-      @course.flags[flag] = true
-      @course.save
-    when false
-      @course.flags[flag] = false
-      @course.save
+  UPDATABLE_FLAGS = [
+    :timeline_enabled,
+    :wiki_edits_enabled,
+    :online_volunteers_enabled,
+    :disable_student_emails,
+    :stay_in_sandbox,
+    :no_sandboxes,
+    :retain_available_articles
+  ].freeze
+  def update_boolean_flags
+    UPDATABLE_FLAGS.each do |flag|
+      case params.dig(:course, flag)
+      when true
+        @course.flags[flag] = true
+      when false
+        @course.flags[flag] = false
+      end
     end
+    @course.save
   end
 
   EDIT_SETTING_KEYS = %w[

@@ -62,15 +62,19 @@ const OverviewStats = ({ course }) => {
     return <div className="stat-display" />;
   }
 
-  let editors = (
-    <OverviewStat
-      id="student-editors"
-      className={valueClass('student_count')}
-      stat={course.student_count}
-      statMsg={CourseUtils.i18n('student_editors', course.string_prefix)}
-      renderZero={true}
-    />
-  );
+  let editors;
+  if (course.type !== 'SingleUser') {
+    editors = (
+      <OverviewStat
+        id="student-editors"
+        className={valueClass('student_count')}
+        stat={course.student_count}
+        statMsg={CourseUtils.i18n('student_editors', course.string_prefix)}
+        renderZero={true}
+      />
+    );
+  }
+
   if (course.timeline_enabled) {
     const trainedInfo = [[course.trained_count, I18n.t('metrics.are_trained')]];
     editors = (
