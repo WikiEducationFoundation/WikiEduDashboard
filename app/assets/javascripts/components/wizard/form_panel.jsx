@@ -21,9 +21,9 @@ const FormPanel = (props) => {
     const course = props.course;
     course.no_meeting_days = checked;
     if (checked) {
-      course.weekdays = "1111111";
+      course.weekdays = '1111111';
     } else {
-      course.weekdays = "0000000";
+      course.weekdays = '0000000';
     }
     return props.updateCourse(course);
   };

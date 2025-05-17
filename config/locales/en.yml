@@ -1688,7 +1688,8 @@ en:
     minimum_options:
       one: Please select %{count} or more options.
       other: Please select %{count} or more options.
-    no_class_holidays: I have no class holidays
+    no_class_holidays: I have no class holidays.
+    no_meetings: Would you like to opt out of Meeting days
     read_less: Read Less
     read_more: Read More
     review_selections: >
