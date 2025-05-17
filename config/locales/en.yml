@@ -519,6 +519,7 @@ en:
       select_meeting_days: Select the days of the week on which your class meets.
     cancel: "Cancel"
     character_doc: The sum of characters added to mainspace articles by the course's students during the course term
+    no_meeting_weeks: Do not include meeting weeks
     campaigns: "Campaigns:"
     campaign_articles: "%{title} Articles"
     campaign_courses: "%{title} Courses"
