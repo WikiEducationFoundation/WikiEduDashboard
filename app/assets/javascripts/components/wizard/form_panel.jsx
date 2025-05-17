@@ -16,13 +16,13 @@ const FormPanel = (props) => {
     toPass.no_day_exceptions = checked;
     return props.updateCourse(toPass);
   };
-  const handleNoMeetingDays = () =>{
+  const handleNoMeetingDays = () => {
     const { checked } = noMeetingDates.current
     const course = props.course;
     course.no_meeting_days = checked
-    if(checked){
+    if (checked) {
       course.weekdays = "1111111"
-    }else {
+    } else {
       course.weekdays = "0000000"
     }
     return props.updateCourse(course)
@@ -42,7 +42,7 @@ const FormPanel = (props) => {
   };
 
   const nextEnabled = () => {
-    if (__guard__(props.course.weekdays, x => x.indexOf(1)) >= 0 || props.course.no_meeting_days) {        
+    if (__guard__(props.course.weekdays, x => x.indexOf(1)) >= 0 || props.course.no_meeting_days) {
       return true;
     }
     return false;
@@ -105,13 +105,13 @@ const FormPanel = (props) => {
         </div>
       </div>
       <label> {"Would you want to opt out of meeting days"}
-          <input
-            type="checkbox"
-            onChange={handleNoMeetingDays}
-            value={props.course.no_meeting_days}
-            ref={noMeetingDates}
-          />
-        </label>
+        <input
+          type="checkbox"
+          onChange={handleNoMeetingDays}
+          value={props.course.no_meeting_days}
+          ref={noMeetingDates}
+        />
+      </label>
       <hr />
       <div className="wizard__form course-dates course-dates__step">
         <Calendar
