@@ -32,7 +32,7 @@ const FormPanel = (props) => {
     return props.updateCourse(updatedCourse);
   };
 
-  const saveCourse = () => {
+  const saveCourse = () => {    
     if (props.isValid) {
       props.persistCourse(props.course.slug);
       return true;
@@ -42,7 +42,7 @@ const FormPanel = (props) => {
   };
 
   const nextEnabled = () => {
-    if (__guard__(props.course.weekdays, x => x.indexOf(1)) >= 0 || props.course.no_meeting_days) {        
+    if (__guard__(props.course.weekdays, x => x.indexOf(1)) >= 0 || props.course.no_meeting_days) {
       return true;
     }
     return false;
@@ -110,7 +110,8 @@ const FormPanel = (props) => {
             onChange={handleNoMeetingDays}
             value={props.course.no_meeting_days}
             ref={noMeetingDates}
-          />
+            className="no-meeting-day-checkbox"
+        />
         </label>
       <hr />
       <div className="wizard__form course-dates course-dates__step">

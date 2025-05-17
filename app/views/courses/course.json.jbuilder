@@ -5,7 +5,7 @@ json.course do
 
   json.call(@course, :id, :title, :description, :start, :end, :school,
             :subject, :slug, :url, :submitted, :expected_students, :timeline_start,
-            :timeline_end, :day_exceptions, :weekdays, :no_day_exceptions, :no_meeting_days,
+            :timeline_end, :day_exceptions, :weekdays, :no_day_exceptions,
             :updated_at, :string_prefix, :use_start_and_end_times, :type,
             :home_wiki, :character_sum,  :upload_count, :uploads_in_use_count,
             :upload_usages_count, :cloned_status, :flags, :level, :format, :private,
@@ -29,6 +29,7 @@ json.course do
   json.progress_tracker_enabled @course.progress_tracker_enabled?
   json.stay_in_sandbox @course.stay_in_sandbox?
   json.no_sandboxes @course.no_sandboxes?
+  json.no_meeting_days @course.no_meeting_days?
   json.retain_available_articles @course.retain_available_articles?
   json.review_bibliography @course.review_bibliography?
   json.term @course.cloned_status == 1 ? '' : @course.term

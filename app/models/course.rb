@@ -522,6 +522,10 @@ class Course < ApplicationRecord
     flags[:no_sandboxes].present?
   end
 
+  def no_meeting_days?
+    flags[:no_meeting_days].present?
+  end
+
   def retain_available_articles?
     flags[:retain_available_articles].present?
   end
