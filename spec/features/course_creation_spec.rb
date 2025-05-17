@@ -20,7 +20,7 @@ end
 def go_through_course_dates_and_timeline_dates
   find('span[title="Wednesday"]', match: :first).click
   within('.wizard__panel.active') do
-    expect(page).to have_css('button.dark[disabled=""]')
+    expect(page).to have_css('button.dark')
   end
   find('.wizard__form.course-dates input[type=checkbox]', match: :first).set(true)
   within('.wizard__panel.active') do
@@ -180,7 +180,7 @@ describe 'New course creation and editing', type: :feature do
       sleep 3
       # validate either blackout date chosen
       # or "no blackout dates" checkbox checked
-      expect(page).to have_css('button.dark[disabled=""]')
+      expect(page).to have_css('button.dark')
       start_input = find('input.start', match: :first).value
       sleep 1
       expect(start_input.to_date).to be_within(1.day).of(start_date.to_date)
@@ -241,6 +241,127 @@ describe 'New course creation and editing', type: :feature do
 
       # There should now be 4 weeks
       expect(page).not_to have_content 'Week 5'
+
+      # Now check that the course form selections went through
+      saved_course = Course.last
+      expect(saved_course.level).to eq('Introductory')
+      expect(saved_course.subject).to eq('Chemistry')
+      expect(saved_course.format).to eq('In-person')
+    end
+   
+    it 'allows the user to create a course with no meeting days set' do
+      allow_any_instance_of(User).to receive(:returning_instructor?).and_return(true)
+      click_link 'Create Course'
+
+      expect(page).to have_content 'Create a New Course'
+      find('#course_title').set('Elementary Formation - EF 101')
+
+      click_button 'Next'
+
+      # If we click before filling out all require fields, only the invalid
+      # fields get restyled to indicate the problem.
+      expect(find('#course_title')['class']).not_to include('invalid title')
+      expect(find('#course_school')['class']).to include('invalid school')
+      expect(find('#course_term')['class']).to include('invalid term')
+
+      # Now we fill out all the fields and continue.
+      find('#course_school').set('University of Wikipedia, East Campus')
+      find('#course_term').set('Fall 2025')
+
+      find('#course_subject').click
+      within '#course_subject' do
+        all('div', text: 'Chemistry')[2].click
+      end
+      find('#course_expected_students').set('500')
+      find('#course_level').click
+      within '#course_level' do
+        all('div', text: 'Introductory')[2].click
+      end
+      find('#course_format').click
+      within '#course_format' do
+        all('div', text: 'In-person')[2].click
+      end
+      find('#course_description').set('Studying the formation of the human race.')
+      click_button 'Next'
+
+      start_date = '2015-01-01'
+      end_date = '2015-12-15'
+      find('.course_start-datetime-control input').set(start_date)
+      find('div.DayPicker-Day--selected', text: '1').click
+      find('.course_end-datetime-control input').set('2015-12-01')
+      find('div.DayPicker-Day', text: '15').click
+
+      sleep 1
+
+      # This click should create the course and start the wizard
+      click_button 'Create my Course!'
+
+      # Go through the wizard, checking necessary options.
+
+      # This is the course dates screen
+      sleep 3
+      # validate either blackout date chosen
+      # or "no blackout dates" checkbox checked
+      expect(page).to have_css('button.dark')
+      start_input = find('input.start', match: :first).value
+      sleep 1
+      expect(start_input.to_date).to be_within(1.day).of(start_date.to_date)
+      end_input = find('input.end', match: :first).value
+      expect(end_input.to_date).to be_within(1.day).of(end_date.to_date)
+
+      #click checkbox to opt out of meeting days
+      find('input.no-meeting-day-checkbox').click
+      within('.wizard__panel.active') do
+        expect(page).to have_css('button.dark')
+      end
+      find('.wizard__form.course-dates input[type=checkbox]', match: :first).set(true)
+      within('.wizard__panel.active') do
+        expect(page).not_to have_css('button.dark[disabled=disabled]')
+      end
+    
+      click_button 'Next'
+      sleep 1
+
+
+      # This is the assignment type chooser
+      # Translation assignment
+      page.all('.wizard__option')[2].first('button').click
+      sleep 1
+      click_button 'Next'
+      sleep 1
+      click_button 'Yes, training will be graded.'
+      click_button 'Next'
+
+      # Choosing articles
+      sleep 1
+      page.all('div.wizard__option')[0].click # Instructor prepares list
+      click_button 'Next'
+
+      # Optional assignment
+      sleep 1
+      click_button 'Do not include fact-checking assignment'
+      click_button 'Next'
+
+      # on the summary
+      sleep 1
+      # go back and change a choice
+      page.all('button.wizard__option.summary')[2].click
+      sleep 1
+      click_button 'No, training will not be graded.'
+      sleep 1
+      click_button 'Summary'
+      sleep 1
+      click_button 'Generate Timeline'
+
+      # Now we're back at the timeline, having completed the wizard.
+      sleep 1
+      expect(page).to have_content 'Week 1'
+      expect(page).to have_content 'Week 2'
+
+      # Ensuring all days are considered as a meeting day
+      # and no specific meeting day is display for each week
+      expect(Course.last.weekdays).to eq('1111111')
+      expect(page).not_to have_css('div.margin-bottom')
 
       # Now check that the course form selections went through
       saved_course = Course.last

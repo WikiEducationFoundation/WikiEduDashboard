@@ -111,6 +111,7 @@ const FormPanel = (props) => {
           onChange={handleNoMeetingDays}
           value={props.course.no_meeting_days}
           ref={noMeetingDates}
+          className="no-meeting-day-checkbox"
         />
       </label>
       <hr />
