@@ -66,6 +66,7 @@ const Panel = (props) => {
           index={i}
           multiple={props.panel.type === 0}
           open_weeks={props.open_weeks}
+          no_meeting_days={props.course.no_meeting_days}
           selectWizardOption={props.selectWizardOption}
         />
       );

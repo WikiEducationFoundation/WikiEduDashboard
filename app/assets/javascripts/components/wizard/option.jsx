@@ -9,7 +9,8 @@ const Option = ({
   option,
   open_weeks,
   multiple,
-  selectWizardOption
+  selectWizardOption,
+  no_meeeting_days,
 }) => {
   const descriptionRef = useRef(null);
 
@@ -22,7 +23,8 @@ const Option = ({
     descriptionRef?.current?.classList.toggle('open');
   };
 
-  const disabled = option.min_weeks && option.min_weeks > open_weeks;
+  
+  const disabled = (option.min_weeks && option.min_weeks > open_weeks) || no_meeeting_days;
   let className = 'wizard__option section-header';
   if (option.small) {
     className += ' wizard__option__small';
@@ -94,7 +96,8 @@ Option.propTypes = {
   option: PropTypes.object.isRequired,
   open_weeks: PropTypes.number.isRequired,
   multiple: PropTypes.bool,
-  selectWizardOption: PropTypes.func.isRequired
+  selectWizardOption: PropTypes.func.isRequired,
+  course: PropTypes.object
 };
 
 export default Option;
