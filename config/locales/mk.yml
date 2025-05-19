@@ -6,8 +6,23 @@
 # Author: Vlad5250
 ---
 mk:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: илј.
+          million: мил.
+          billion: млрд.
+          trillion: бил.
+          quadrillion: блј.
+  accessibility:
+    number_field: Ова е бројно поле. Копчињата, како што се прикажуваат на највеќето
+      прелистувачи, ќе ја зголемуваат и намалуваат вредноста.
   application:
+    back: Назад
     cancel: Откажи
+    cookie_consent_acknowledge: Разбирам
     cookie_consent_see_more: Погледај уште.
     dashboard: Управувачница на Образовниот програм
     documentation: Документација
@@ -32,7 +47,9 @@ mk:
     request_account: Побарај сметка
     request_account_create: Направи сметка
     search: поставете прашање
-    search_results: 'Исход за: „%{search_terms}“'
+    search_results:
+      one: '%{count} Исходна ставка за: ''%{search_terms}'''
+      other: '%{count} Исходни ставки за: ''%{search_terms}'''
     no_results: Не најдов ништо за „%{query}“
     sign_up_extended: Зачленување со Википедија
     sign_up_wikipedia: Или пак зачленете се на Википедија
@@ -74,7 +91,7 @@ mk:
     edited: Уредени статии
     edited_by: 'Уредено од:'
     edited_mobile: Статии
-    edited_none: '%{title} нема уредено ниедна статија.'
+    edited_none: Сè уште нема ниедна уредена статија.
     filter:
       wiki_all: Сите
       new: Нови
@@ -191,7 +208,7 @@ mk:
     campaigns: 'Походи:'
     campaign_articles: '%{title} Статии'
     campaign_courses: '%{title} Курсеви'
-    campaign_users: '%{title} Уредници'
+    campaign_users: Уредници на %{title}
     course: Курс
     course_dates_calendar_instructions: Изберете ги датумите зада ги додадете или
       отстраните од распоредот (на пр. празници, слободни денови). Стиснете на датумот
@@ -352,6 +369,8 @@ mk:
     edit_description: Уреди опис
     edit_details: Уреди поединости
     edit_template: Уреди предлошка
+  instructor_view:
+    overview: Преглед на %{prefix}
   metrics:
     activity: Скорешни активности
     articles_created: Создадени статии
@@ -606,5 +625,5 @@ mk:
     started: Започнато
     not_started: Не започнато
   multi_wiki:
-    selector_placeholder: Избор на вики
+    selector_placeholder: Почнете со внесување на викидомен
 ...
