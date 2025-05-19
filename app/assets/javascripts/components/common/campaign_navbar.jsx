@@ -46,9 +46,10 @@ const CampaignNavbar = ({ campaign }) => {
                 <a href={`/campaigns/${campaign.slug}/users`}>{CourseUtils.i18n('students', campaign.course_string_prefix)}</a>
               </p>
             </div>
-            <div className="nav__item">
+            {/* Disabling ores plot feature for every campaign until re-implementing. See issue #6327 */}
+            {/* <div className="nav__item">
               <p><NavLink to={`/campaigns/${campaign.slug}/ores_plot`}>{I18n.t('courses.ores_plot')}</NavLink></p>
-            </div>
+            </div> */}
             <div className="nav__item">
               <p><NavLink to={`/campaigns/${campaign.slug}/alerts`}>{I18n.t('courses.alerts')}</NavLink></p>
             </div>
