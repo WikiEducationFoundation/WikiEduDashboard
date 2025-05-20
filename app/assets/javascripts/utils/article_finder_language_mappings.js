@@ -286,8 +286,11 @@ export const LiftwingWeights = {
 
 // Update the server side mapping in sync.
 export const ORESSupportedWiki = {
-  projects: ['wikipedia', 'wikidata'],
-  languages: ['en', 'gl', 'fr', 'simple', 'tr', 'ru', 'eu', 'fa', 'sv']
+  // Disabling ores plot feature for every project/language until re-implementing. See issue #6327
+  // projects: ['wikipedia', 'wikidata'],
+  // languages: ['en', 'gl', 'fr', 'simple', 'tr', 'ru', 'eu', 'fa', 'sv']
+  projects: [],
+  languages: []
 };
 
 // Refer: https://xtools.wmflabs.org/api/project/assessments

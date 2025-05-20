@@ -13,10 +13,12 @@ describe 'ORES plots', type: :feature do
     end
 
     it 'rerenders via the refresh link', js: true do
+      pending 'This fails because ores plot feature was disabled from frontend. See issue #6327'
       visit "/courses/#{escaped_slug course.slug}/articles/edited"
       click_button 'Change in Structural Completeness'
       click_link 'Refresh Cached Data'
       expect(page).to have_text('This graph visualizes')
+      pass_pending_spec
     end
   end
 
