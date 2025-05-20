@@ -3,40 +3,42 @@
 # Rubocop now wants us to remove instance methods from helpers. This is a good idea
 # but will require a bit of refactoring. Find other instances of this disabling
 # and fix all at once.
-# rubocop:disable Rails/HelperInstanceVariable
 
 require 'sentimental'
 
 module QuestionResultsHelper
-  def question_results_data(question, survey_user_cache)
-    answers = question_answers(question, survey_user_cache)
+  def question_results_data(question, answers, id_to_answer_groups, users, survey_user_cache)
+    processed_answers = question_answers(question, answers, id_to_answer_groups, users,
+                                         survey_user_cache)
     {
       type: question_type_to_string(question),
       question:,
-      sentiment: question.track_sentiment ? question_answers_average_sentiment(answers) : nil,
+      sentiment: question.track_sentiment ? question_answers_average_sentiment(processed_answers) : nil, # rubocop:disable Layout/LineLength
       answer_options: question.answer_options.split(Rapidfire.answers_delimiter),
-      answers: parse_answers(question),
-      answers_data: answers,
+      answers: parse_answers(question, answers),
+      answers_data: processed_answers,
       grouped_question: question.validation_rules[:question_question],
       follow_up_question_text: question.follow_up_question_text,
-      follow_up_answers: follow_up_answers(answers)
+      follow_up_answers: follow_up_answers(processed_answers)
     }.to_json
   end
 
-  def parse_answers(question)
-    answers = question.answers.pluck(:answer_text).compact
-    answers.map { |a| a.split(Rapidfire.answers_delimiter) }.flatten
+  def parse_answers(_question, answers)
+    answers_text = answers&.pluck(:answer_text)&.compact
+    answers_text&.map { |a| a.split(Rapidfire.answers_delimiter) }&.flatten
   end
 
-  def question_answers(question, survey_user_cache)
-    question.answers.map do |answer|
-      if survey_user_cache.key?(answer.user.id)
-        course = survey_user_cache[answer.user.id]
+  def question_answers(question, answers, id_to_answer_groups, users, survey_user_cache)
+    answers&.map do |answer|
+      user_id = id_to_answer_groups[answer.answer_group_id][0].user_id
+      user = users[user_id][0]
+      if survey_user_cache.key?(user_id)
+        course = survey_user_cache[user_id]
       else
-        course = answer.course(@survey.id, answer.user)
-        survey_user_cache[answer.user.id] = course
+        course = answer.course(@survey.id, user)
+        survey_user_cache[user_id] = course
       end
-      { data: answer, user: answer.user, course:, campaigns: course&.campaigns,
+      { data: answer, user:, course:, campaigns: course&.campaigns,
         tags: course&.tags, sentiment: calculate_sentiment(question, answer) }
     end
   end
@@ -81,7 +83,7 @@ module QuestionResultsHelper
 
   def follow_up_answers(answers)
     follow_ups = {}
-    answers.each do |answer|
+    answers&.each do |answer|
       answer_record = answer[:data]
       next unless answer_record.follow_up_answer_text.present?
       follow_ups[answer_record.id] = answer_record.follow_up_answer_text
@@ -90,4 +92,3 @@ module QuestionResultsHelper
     return follow_ups
   end
 end
-# rubocop:enable Rails/HelperInstanceVariable

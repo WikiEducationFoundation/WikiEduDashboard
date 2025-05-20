@@ -19,15 +19,16 @@ Rails.application.config.to_prepare do
     has_one :user, through: :answer_group
 
     def notification(survey_id, curr_user=nil)
+      notifications = []
       if curr_user.nil?
         # if curr_user is nil, then we haven't preloaded the user's notifications
-        notifications = user.survey_notifications.completed.includes(survey_assignment: :survey)
+        # notifications = user.survey_notifications.completed.includes(survey_assignment: :survey)
       else
         # if it isn't nil, then we have preloaded the user's notifications via includes in app/views/surveys/_question_group.html.haml
-        notifications = curr_user.survey_notifications.completed.includes(survey_assignment: :survey)
+        # notifications = curr_user.survey_notifications.completed.includes(survey_assignment: :survey)
       end
       return nil if notifications.empty?
-      notifications.map {|n| n if n.survey.id == survey_id }.compact.first
+      # notifications.map {|n| n if n.survey.id == survey_id }.compact.first
     end
 
     def course(survey_id, curr_user=nil)

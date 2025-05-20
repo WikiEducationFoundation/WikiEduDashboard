@@ -18,7 +18,7 @@ class SurveysController < ApplicationController
     results
   ]
   before_action :ensure_logged_in
-  before_action :set_question_groups, only: %i[
+  before_action :prepare_survey_data, only: %i[
     show
     edit
     edit_question_groups
@@ -151,10 +151,68 @@ class SurveysController < ApplicationController
     @survey = Survey.find(params[:id])
   end
 
-  def set_question_groups
-    @question_groups = Rapidfire::QuestionGroup.all
-    @surveys_question_groups = SurveysQuestionGroup.by_position(params[:id])
+  def prepare_survey_data
+    load_survey_question_groups
+    load_question_groups
+    load_questions
+    load_answers
+    count_answers_per_question
+    build_answer_group_builders
+    build_answer_group_user_cache
+
     @survey_user_cache = {}
+  end
+
+  # Fetch surveys question groups with position ordering for the given survey
+  def load_survey_question_groups
+    @surveys_question_groups = SurveysQuestionGroup.by_position(params[:id])
+    @rapidfire_question_group_ids = @surveys_question_groups.pluck(:rapidfire_question_group_id)
+  end
+
+  # Load question group with a single query
+  def load_question_groups
+    @rapidfire_question_groups = Rapidfire::QuestionGroup.where(id: @rapidfire_question_group_ids).to_a
+  end
+
+  # Load questions with groups in one query, index them by ID, and extract their IDs.
+  def load_questions
+    questions = Rapidfire::Question.includes(:question_group)
+                                   .where(question_group_id: @rapidfire_question_group_ids).to_a
+    @rapidfire_questions_by_id = questions.index_by(&:id)
+    @question_ids = questions.map(&:id)
+  end
+
+  # Fetch answers along with their answer_groups in one query (eager loading)and group them by question ID for easy access
+  def load_answers
+    @rapidfire_answers = Rapidfire::Answer.includes(:answer_group).where(question_id: @question_ids)
+    @rapidfire_answers_by_question_id = @rapidfire_answers.group_by(&:question_id)
+  end
+
+  # Count how many answers each question received
+  def count_answers_per_question
+    @question_answers_count = Hash.new(0)
+    @rapidfire_answers.each { |answer| @question_answers_count[answer.question_id] += 1 }
+  end
+
+  def build_answer_group_builders
+    @answer_group_builders_by_id = @rapidfire_question_groups.to_h do |question_group|
+      [question_group.id, Rapidfire::AnswerGroupBuilder.new(
+        params: {},
+        user: current_user,
+        question_group:
+      )]
+    end
+  end
+
+  # Load unique answer groups from answers and build user lookup by ID
+  def build_answer_group_user_cache
+    # Extract unique answer groups and build mapping
+    @rapidfire_answer_groups = @rapidfire_answers.map(&:answer_group).uniq(&:id)
+    @rapidfire_answer_groups_by_id = @rapidfire_answer_groups.group_by(&:id)
+
+    # Extract user IDs and fetch users in a single query
+    user_ids = @rapidfire_answer_groups.map(&:user_id).uniq.compact
+    @users_by_id = User.where(id: user_ids).index_by(&:id)
   end
 
   # This removes the question groups that do not apply to the course, because
