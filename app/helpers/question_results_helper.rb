@@ -31,7 +31,7 @@ module QuestionResultsHelper
   def question_answers(question, answers, id_to_answer_groups, users, survey_user_cache)
     answers&.map do |answer|
       user_id = id_to_answer_groups[answer.answer_group_id][0].user_id
-      user = users[user_id][0]
+      user = users[user_id]
       if survey_user_cache.key?(user_id)
         course = survey_user_cache[user_id]
       else
