@@ -15,11 +15,12 @@ describe TimesliceManager do
   let(:article2) { create(:article, wiki_id: wikidata.id) }
   let(:article3) { create(:article, wiki_id: wikidata.id) }
   let(:new_course_users) { [] }
+  let(:today) { Date.new(2024, 1, 21) }
 
   before do
     stub_wiki_validation
     stub_const('TimesliceManager::TIMESLICE_DURATION', 86400)
-    travel_to Date.new(2024, 1, 21)
+    travel_to today
     enwiki_course
     wikidata_course
 
@@ -168,6 +169,50 @@ describe TimesliceManager do
         expect(course_wiki_timeslices.where(last_mw_rev_datetime: nil).size).to eq(109)
         expect(course_wiki_timeslices.first.last_mw_rev_datetime).to eq('20240101194045')
         expect(course_wiki_timeslices.third.last_mw_rev_datetime).to eq('20240103030910')
+      end
+    end
+  end
+
+  describe '#get_latest_start_time_for_wiki' do
+    let(:subject) { timeslice_manager.get_latest_start_time_for_wiki(enwiki) }
+
+    before do
+      timeslice_manager.create_timeslices_for_new_course_wiki_records([enwiki])
+    end
+
+    context 'when course start and end dates are in the past' do
+      before do
+        travel_to Date.new(2024, 6, 21)
+      end
+
+      after do
+        travel_back
+      end
+
+      it 'returns end of course' do
+        expect(subject).to eq(course.end.beginning_of_day)
+      end
+    end
+
+    context 'when course start is past and course end is future' do
+      it 'returns today' do
+        expect(subject).to eq(today)
+      end
+    end
+
+    context 'when course start and end dates are future' do
+      before do
+        travel_to Date.new(2023, 6, 21)
+      end
+
+      after do
+        travel_back
+      end
+
+      it 'returns nil and logs exception' do
+        allow(Sentry).to receive(:capture_exception)
+        expect(subject).to eq(nil)
+        expect(Sentry).to have_received(:capture_exception)
       end
     end
   end
