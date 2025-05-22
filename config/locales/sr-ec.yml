@@ -24,7 +24,6 @@ sr-ec:
   number:
     human:
       decimal_units:
-        format: '%n%u'
         units:
           thousand: хиљ.
           million: мил.
@@ -65,7 +64,9 @@ sr-ec:
     request_account: Захтевај налог
     request_account_create: Отвори налог
     search: постави питање
-    search_results: 'Резултати за: „%{search_terms}”'
+    search_results:
+      one: '%{count} Резултат за: ''%{search_terms}'''
+      other: '%{count} Резултат за: ''%{search_terms}'''
     no_results: Нема пронађених резултата за термин „%{query}”
     show_current_revision: Прикажи тренутну верзију
     show_last_revision: Прикажи последњу измењену верзију
@@ -83,6 +84,15 @@ sr-ec:
     opt_yes: да
     opt_no: не
     print: Штампај
+  article_statuses:
+    not_yet_started: Увод
+    in_progress: Рад у песку
+    ready_for_review: Проширивае нацрта
+    ready_for_mainspace: Премештање рада у главни именски простор
+    reading_the_article: Читање чланка
+    providing_feedback: Пружање повратних информација
+    post_to_talk: Објављивање на страници за разговор
+    peer_review_completed: Прегледање је завршено
   dashboard:
     create_note: Кликните на „Направи курс“ да бисте направили свој први курс.
     create_preparation_note: Будите сигурни да имате свој академски календар при руци
@@ -113,6 +123,15 @@ sr-ec:
     explore: Истражи
     log_in: Пријава са Википедијом
     sign_up: Отвори налог са Википедијом
+    registration_advice:
+      username_rules:
+        heading: Правила о корисничком имену
+        avoid_offensive_usernames: Не бирајте корисничко име које је увредљиво, обмањујуће,
+          ометајуће или промотивно.
+        represent_individual: Корисничка имена морају представљати појединачног уредника.
+          Не користите име школе или организације.
+      additional_advice:
+        heading: Савет
     sign_up_help: Да бисте користили контролну таблу, морате да се пријавите преко
       Википедије и дате јој дозволу за приступ свом налогу. Можете се пријавити са
       постојећим налогом на Википедији, или направити нови. Уколико не можете да направите
@@ -126,9 +145,11 @@ sr-ec:
     label: Активност
   articles:
     articles: Чланци
+    article_not_found: Овај чланак није још увек направљен.
     article_development: (развој чланка)
     articles_shown: Приказују се %{count} од %{total}
     assigned: Додељени чланци
+    assignments_none: Нема додељених чланака.
     available: Доступни чланци
     no_available: Нема доступних чланака
     next: Следећи
@@ -147,7 +168,7 @@ sr-ec:
     edited: Уређени чланци
     edited_by: 'Изменио/ла:'
     edited_mobile: Чланци
-    edited_none: '%{title} није уредио нити један чланак.'
+    edited_none: Нема уређених чланака.
     filter:
       wiki_all: Све
       new: Ново
@@ -157,10 +178,13 @@ sr-ec:
       untracked: Отпраћено
       tracked_and_untracked: Праћено и отпраћено
     filter_text: 'Филтери:'
+    find: Пронађи чланке
+    how_to_find: Како пронаћи чланке
     hide: Сакриј
     history: (историја)
     label: Чланци
     loading: Учитавање чланака…
+    mark_as_complete: Означи као завршено
     new: (ново)
     none: Овај курс није уредио ниједан чланак.
     rating: Класа
@@ -211,20 +235,47 @@ sr-ec:
       оцена обично сугерише да чланак прати Википедијине конвенције за структуру доброг
       чланка, али не узима у обзир сам садржај. (Ове оцене су доступне само за чланке
       на Википедији на енглеском језику.)
+    articles_short: Чланци
+    page_logs: (дневници странице)
     tracked_articles: Праћени чланци
     view_articles: Види чланке
+  items:
+    items: Ставке
+    lexeme: Лексема
+    article_not_found: Ова ставка још увек није направљена.
+    assigned: Додељене ставке
+    assignments_none: Нема додељених ставки.
+    available: Доступне ставке
+    edited: Ставки измењено
+    edited_none: Нема уређених ставки.
+    find: Пронађи ставке
+    how_to_find: Како пронаћи ставке
+    preview: Кратак преглед ставке
+    search: Претражи ставку на Википодацима
+    title_example: Назив ставке
+  articles_wikidata:
+    articles_short: Ставке
+  articles_generic:
+    articles_short: Странице
   assignments:
     article: Чланак %{title} је сада додељен Вама.
     article_link: Чланак
+    article_link_wikidata: Ставка
     already_exists: Овај задатак већ постоји!
     title_too_large: Наслов не би требало да има више од 255 знакова
     assignees: Додељено
     assign_other: Додели/уклони чланак
+    assign_other_wikidata: Додели/Уклони ставку
     add_available: Додај доступне чланке
+    add_available_wikidata: Додај доступне ставке
     add_available_placeholder: Додајте један наслов чланка или URL у једном реду
     add_available_submit: Додај чланке
+    add_available_submit_wikidata: Додај ставке
     assign_self: Додели ми чланак
+    assign_self_wikidata: Додели ми ставку
     assign_tooltip: Додељени чланак је онај који планирате да направите или побољшате.
+    assign_tooltip_wikidata: Додељена ставка је она коју планирате да направите или
+      побољшате.
     bibliography: Библиографија
     clone: Клонирај
     confirm_add_available: Да ли сте сигурни да желите да додате %{title}?
@@ -232,18 +283,20 @@ sr-ec:
     confirm_deletion: Желите ли заиста да избришете овај задатак?
     delete: Уклони и обриши
     editors: Додељено
+    change_sandbox_url: Промени песак
     group_members: Чланови групе
     label: Додели
     label_all: Додели све
     loading: Учитавање задатака…
     none_short: Нема додељених чланака
+    none_short_wikidata: Нема додељених ставки
     none: Овај курс не садржи додељене чланке.
     no_available: Курс нема доступне чланке.
     peer_review_count: '%{currentCount}/%{total} изабрано'
     remove: Уклони
     reviewers: Прегледач(и)
-    review_other: Додели преглед
     review_self: Прегледај чланак
+    review_self_wikidata: Прегледај ставку
     review_tooltip: Ово је за чланке које планирате да прегледате или о којима желите
       да пружите повратне информације.
     sandbox_draft_link: Нацрт песка
@@ -286,36 +339,48 @@ sr-ec:
     data_instructors: Наставници
     data_editors_by_course: Уредници по курсу
     data_editor_usernames: Корисничка имена уредника
+    data_wikidata: Статистика Википодатака
     default_course_type: Подразумевана врста курса
     default_passcode: Подразумевана лозинка
     default_passcode_explanation: 'Подразумевано, нови програми у овој кампањи треба
       да имају:'
     description: Опис
     delete_campaign: Обриши ову кампању
+    delete_course_tooltip: Обриши и уклони из кампање.
     disable_account_requests: Онемогући захтевање налога
     enable_account_requests: Омогући захтевање налога
+    newest_campaigns: Новије кампање
+    featured_campaigns: Истакнуте кампање
+    instructors_course: инструктори по курсу
     no_alerts: Ова кампања нема упозорења
     no_passcode: нема лозинке
     none: Ништа
     organizers: Организатори
     organizer_added: '%{user} је сада организатор кампање „%{title}”'
     organizer_removed: '%{user} више није организатор кампање „%{title}”'
+    pages_edited_small: измењено страница
     program_template: Шаблон програма
     program_template_tooltip: Кад организатор направи програм у овој кампањи, текст
       из ове површи ће бити искоришћен као опис на страници програма
     random_passcode: случајна лозинка
+    remove_course_tooltip: Уклони из кампање.
     requested_accounts: Захтевани налози
+    resolve: Реши
+    revision_data: подаци о изменама
     students_small: студенти
+    student_course: студенти по курсу
     title: Наслов
+    too_large: Ова кампања је превелика за приказ тражених података.
     slug: Жетон
     search_campaigns: Претражи кампање
     use_start_end_dates: Користи датуме почетка и завршетка
+    search: Претражи
   categories:
     add_category: Додај категорију
     add_psid: Додај PetScan PSID
     add_template: Додај шаблон
     add_this_category: Додај категорије
-    add_this_psid: Додај овај PSID
+    add_this_psid: Додај PetScan PSID-ове
     add_this_template: Додај шаблоне
     depth: Дубина подкатегорије
     articles_count: Број чланака
@@ -347,10 +412,18 @@ sr-ec:
     archived: Архивирани курсеви
     actions: Радње
     articles: Чланци
+    article_viewer: Прегледач чланака
+    article_viewer_wikidata: Прегледач ставки
+    articles_i_will_create: Чланци које ћу направити
+    articles_i_will_create_wikidata: Ставке које ћу направити
+    articles_i_am_updating: Чланци које уређујем
+    articles_i_am_updating_wikidata: Ставке које уређујем
     assignment_headings:
       assigned_articles: Додељени чланци
+      assigned_articles_wikidata: Додељене ставке
       assigned_reviews: Додељени прегледи
       available_articles: Додељени чланци
+      available_articles_wikidata: Доступне ставке
       available_reviews: Чланци одељења
     assignment_end: Крај додељивања
     assignment_start: Почетак додељивања
@@ -376,6 +449,7 @@ sr-ec:
       измене ће се увести, а затим ће се страница поново учитати. Овај процес може
       потрајати неко време.
     course: Курс
+    course_type_label: 'Врста:'
     course_dates_calendar_instructions: Одаберите датуме како бисте их додали или
       уклонили са распореда (нпр. празници, распусти). Кликните на датум да бисте
       променили стање између неселектованог, селектованог и празничног. Датуми активности
@@ -417,6 +491,8 @@ sr-ec:
       course_term: Полугодиште курса
       course_term_placeholder: Полугодиште
       course_title: Назив курса
+      course_types:
+        basic_course_name: Основни програм
       create_button: Направи мој курс!
       create_label: Направи нови курс
       create_new: Направи нови курс
@@ -428,13 +504,6 @@ sr-ec:
       intro: Назив, школа и полугодиште креирају адресу странице Вашег курса и не
         могу се променити. Све остало можете променити касније. Кликните „Направи
         мој курс!” да бисте започели градњу временске линије за Ваш задатак на Википедији.
-      new_or_clone: Сада можете да креирате нови курс помоћу чаробњака за прављење
-        задатака. Ако имате прилагођену временску линију са претходног курса коју
-        желите да поново користите, можете је копирати и потом можете увести нове
-        датуме. (Уколико нисте значајно прилагодили временску линију раније, препоручујемо
-        да покренете нови курс како бисте имали најскорију верзију опција за задатке).
-        Такође можете да користите опцију клонирања за креирање додатних делова за
-        курс који сте већ поставили.
       no_class_holidays: Немам празника
       role_description: Ваша улога на курсу
       role_description_options:
@@ -533,6 +602,7 @@ sr-ec:
     loading: Учитавање…
     milestones_none: Овај курс тренутно нема ниједан миљоказ.
     my_articles: Моји чланци
+    my_articles_wikidata: Моје ставке
     needs_update: Закажи ажурирање података
     new_week: Додај нову недељу
     new_account_check_username: Провери доступност корисничког имена
@@ -553,6 +623,7 @@ sr-ec:
       за нови налог на имејл адресу.
     new_account_submitted_admin: Ваш захтев за налог је направљен. Обавестите своје
       ученике да провере своје пријемно сандуче имејла да би добили нову лозинку
+    no_sandboxes: Нема пескова
     nocourses: Не учествујете ни у једном курсу.
     nocourse: није учествовао ни у једном курсу.
     none: Нема
@@ -587,6 +658,7 @@ sr-ec:
     start: Започни
     start_typing: Започни куцање
     stay_in_sandbox: Остани у песку
+    student: Студент
     students: Студенти
     students_taught: Студенти подучавају
     students_count: '# Студенти'
@@ -597,8 +669,6 @@ sr-ec:
       додајте га у кампању на страници Прегледа.
     submitted_and_pending_heading: Послато и чека одобрење
     submitted_heading: Поднети курсеви
-    submitted_note: Ваш курс је поднет. Особље Вики едукације ће га прегледати и ступити
-      у контакт са било којим питањима.
     suggestions_feedback: Да ли имате предлоге за побољшање ове алатке? Уколико их
       имате, обавестите нас!
     suggestions_sending: Слање повратних информација…
@@ -676,8 +746,10 @@ sr-ec:
     add_campaign: Додај кампању
     all_courses: Сви програми
     archived: Архивирани програми
+    articles_i_am_reviewing: Чланци које прегледавам
     assignment_headings:
       available_reviews: Доступно за преглед
+      available_reviews_wikidata: Доступно за преглед
     assignment_end: Крај догађаја
     assignments_none: Овај курс не садржи додељене чланке.
     assignment_start: Почетак догађаја
@@ -729,6 +801,10 @@ sr-ec:
       scoping_methods:
         categories: Категорије
         templates: Шаблони
+        categories_include_OR: Чланци који садрже БИЛО КОЈУ од ових категорија ће
+          бити праћени
+        templates_include_OR: Чланци који садрже БИЛО КОЈИ од ових шаблона ће бити
+          праћени
         start_typing_to_search: Претрага
     delete_course: Обриши програм
     edit_course_dates: Измени датуме пројекта
@@ -754,6 +830,7 @@ sr-ec:
     search_courses: Претражи програме
     start: Праћење активности почиње
     student_editors: Уредници
+    student: Уредник
     students: Уредници
     students_taught: Укупно уредника
     students_none: Овај курс нема уреднике.
@@ -782,6 +859,11 @@ sr-ec:
   instructor_view:
     assignments_table:
       article_name: Име
+      relevant_links: Релевантне везе
+    assigned_articles: Додељени чланци
+    assigned_articles_wikidata: Додељене ставке
+    bad_work:
+      learn_more_button: Сазнајте више
   metrics:
     label: Активност курса
     last_update: Последње ажурирање статистике
@@ -791,9 +873,11 @@ sr-ec:
     articles_created: Направљених чланака
     articles_created_wikidata: Ставки направљено
     articles_created_generic: Направљено страница
+    articles_created_generic_wikidata: Ставки направљено
     articles_edited: Уређених чланака
     articles_edited_wikidata: Ставки измењено
     articles_edited_generic: Измењено страница
+    articles_edited_generic_wikidata: Ставки измењено
     bytes_added: Додато бајтова
     characters: Знакова
     char_added: Додато знакова
@@ -802,12 +886,17 @@ sr-ec:
     close_modal: Затвори
     date_time: Датум/време
     edit_count_description: Укупно измена
+    last_reviewed: Последњи пут прегледано
     missing_data_heading: Резултати су неочекивани или недостају?
+    missing_data_info: Чести проблеми садрже
     per_user: '%{number}/корисник'
     revisions: Скорашње измене
     references_count: Додато референци
+    replag_link: Провери кашњење у репликацији
     tags: Ознаке
+    total_updates: Укупан број ажурирања до сада
     update_status_heading: Ажурирај стање
+    update_statistics_link: Погледај више
     upload_count: Отпремања на Оставу
     uploads_in_use_count:
       one: датотека коришћења у чланку
@@ -816,15 +905,57 @@ sr-ec:
       one: укупно коришћење на свим језицима
       other: укупна коришћења на свим језицима
     view_count_description: Прегледа чланака
+    view_count_description_wikidata: Прегледи ставке
     view_data_unavailable: Нема података
     view: Прегледа
     word_count: Додате речи
     word_count_average: Просечан број речи
+    general: Опште
+    total_revisions: Укупно измена
+    aliases: Псеудоними
+    merged: Спојено
+    created: Направљено
+    changed: Измењено
+    removed: Уклоњено
+    cleared: Очишћено
+    added: Додато
+    descriptions: Описи
+    interwiki_links_added: Додато међувики линкова
+    labels: Ознаке
+    no_data: Нема података
+    other_updates: Остала ажурирања
+    qualifiers_added: Додато квалификатора
+    redirects_created: Додато преусмерења
+    references_added: Додато референци
   namespace:
+    all: Све
     main: Главни именски простор
     main_char_added: Додато слова у ГИП
+    article: Чланак
+    talk: Разговор
     user: Кориснички простор
     user_char_added: Додано слова у КП
+    project: Пројекат
+    file: Датотека
+    mediaWiki: Медијавики
+    template: Шаблон
+    help: Помоћ
+    category: Категорија
+    page: Страница
+    book: Књига
+    translation: Превод
+    draft: Нацрт
+    property: Својство
+    query: Упит
+    lexeme: Лексема
+    appendix: Додатак
+    portal: Портал
+    school: Школа
+    author: Аутор
+    cookbook: Кувар
+    rhymes: Риме
+    index: Индекс
+    collection: Збирка
   recent_activity:
     active_courses: Чланак је активан у
     article_title: Наслов
@@ -862,12 +993,16 @@ sr-ec:
     title: Наслов
     view_on_wiki: Види разлику на викију
     see_more: Погледај више
+    show_all: Прикажи све
   resources:
     label: Ресурси
     header: Ресурси и тренинг
   settings:
     categories:
       other_settings: Остала подешавања
+      featured_campaigns: Истакнуте кампање
+      special_users: Посебни корисници
+      admin_users: Администратори
       users: Корисници
     admin_users:
       new:
@@ -884,6 +1019,9 @@ sr-ec:
         already_instructor: '%{username} је већ инструктор!'
         demote_success: '%{username} је сада инструктор.'
         no_super_admin: Не можете да опозовете администраторски статус супер администратору.
+    featured_campaigns:
+      add_button: Додај кампању
+      remove_button: Уклони кампању
     special_users:
       new:
         form_label: Додели привилегије „Посебан корисник”
@@ -898,9 +1036,12 @@ sr-ec:
         already_is_not: Корисник %{username} није посебан!
         demote_success: '%{username} је сада само корисник.'
   status:
+    active_jobs: Активни послови
+    active_jobs_doc: Број послова који се тренутно обрађују.
     default: Подразумевано
     no_info: Нема података.
     purpose: Сврха
+    size: Величина
     status: Статус
   suggestions:
     editing: Уређивање предлога
@@ -946,6 +1087,8 @@ sr-ec:
       Покрените „rake batch:resume“ како бисте наставили ажурирања.
   tickets:
     none: Нема тикета
+    search_bar_placeholder: Претражи тикете
+    chose_search_type: Изаберите тип претраге
   timeline:
     add_week: Додај недељу
     arrange_timeline: Уреди временску линију
@@ -960,6 +1103,7 @@ sr-ec:
     block_custom: Прилагођено
     block_in_class: На часу
     block_milestone: Миљоказ
+    block_resources: Ресурси
     block_type: Тип блока се користи да пренесе информације Вашим студентима о овој
       ставки на њиховој временској линији и за изградњу корисних алатки за Вас (као
       што је преглед миљоказа на страници за преглед)
@@ -1021,8 +1165,12 @@ sr-ec:
     view_library_source: изворник библиотеке
     view_module_source: изворник модула
     reload_from_source: поново учитај из изворника
+    kind:
+      discussion: Дискусија
+      training: Обука
     view_all: Види све вежбе
   update_username:
+    username_updated: Корисничко име је успешно промењено!
     label: Ново корисничко име
   uploads:
     article_name: Назив чланка
@@ -1032,6 +1180,7 @@ sr-ec:
     date: 'Датум:'
     description: Опис
     file_name: Назив датотеке
+    file_usage: Употреба датотеке на другим викијима
     header: Датотеке отпремљене на Оставу
     image: Слика
     label: Отпремања
@@ -1056,8 +1205,10 @@ sr-ec:
   users:
     already_enrolled: Овај корисник се већ уписао!
     assign_articles: Додели чланке
+    assign_articles_wikidata: Додели ставку
     assign_articles_done: Готово
     assigned: Додељени чланци
+    assigned_wikidata: Додељене ставке
     assignees: Додељени корисници
     loading_authorship_data: Учитавање података о ауторству
     authorship_data_not_fetched: Није могуће преузети податке о ауторству
@@ -1089,20 +1240,29 @@ sr-ec:
     name: Име
     none: Овај курс нема учесника.
     no_articles: Нема чланака
+    no_articles_wikidata: Нема ставки
     no_revisions: (нема измена)
     number_of_articles:
       one: '%{count} чланак'
       other: '%{count} чланака'
+    number_of_articles_wikidata:
+      one: '%{count} ставка'
+      other: '%{count} ставки'
+    profile: профил
     recent_revisions: Скорашње измене
     references_count: Додато референци
     remove_confirmation: Да ли сте сигурни да желите да уклоните %{username}?
     request_confirmation: Желите ли да затражите овај налог?
+    requested_account_status:
+      success_message: 'Успешно: %{result_description}'
+      failure_message: 'Грешка: %{result_description}'
     revision_characters_and_views: 'Знакова додато: %{characters}, Прегледа: %{views}'
     revisions_doc: Процена броја измена које је овај уредник направио у протеклих
       7 дана, на основу просечног броја измена по дану за претходни период.
     references_doc: Број референци које су додате или уклоњене од стране овог уредника
     reviewers: Прегледач(и)
     reviewing: Прегледање
+    revisions: Измене
     sandboxes: песци
     total_uploads: Укупно отпремања
     training_complete:
@@ -1119,6 +1279,9 @@ sr-ec:
       other: завршена %{completed_count}/%{count} модула тренинга
     training_module_name: Модул обуке
     training_module_status: Статус
+    training_module_time:
+      minutes: мин
+      seconds: сек
     user_training_status: Статус обуке
     user_no_training_status: Овај уредник није завршио обуку.
     up_to_date_with_training: су ажурни са обуком
@@ -1128,6 +1291,7 @@ sr-ec:
     username_placeholder: Корисничко име
     useremail_placeholder: Имејл
     userpasscode_placeholder: Лозинка
+    words_added: Речи додато<br>(чланак | корисник | скица)
     role:
       description: Права у курсу
       visitor: Посетилац
@@ -1265,8 +1429,11 @@ sr-ec:
       why_are_you_here: Шта бисте желели да урадите?
   article_finder:
     add_available_article: Додај као доступан чланак
+    add_available_article_wikidata: Додај као доступну ставку
     article_finder: Проналазач чланака
+    article_finder_wikidata: Проналазач ставки
     article_quality: Квалитет чланка (0-100)
+    article_quality_wikidata: Квалитет ставке (0-100)
     assign_article_self: Доделите себи
     average_views: Просећан број приказа по дану
     category_search: Претрага категорија
@@ -1276,15 +1443,20 @@ sr-ec:
     fetching_pageviews: Добављање приказа страница
     fetching_revisions: Добављање измена странице
     fetched_articles: Изабрани чланци
+    fetched_articles_wikidata: Преузете ставке
     filtered_articles: Филтрирани чланци
+    filtered_articles_wikidata: Филтриране ставке
     hide_options: Сакриј опције
     keyword_search: Претрага кључних речи
     minimum_views_label: Најмање приказа
     more_results: Још резултата
     no_article_found: Нису пронађени чланци у овој категорији
+    no_article_found_wikidata: Нису пронађене ставке за ову категорију
     page_assessment_class: Час
+    page_views_not_found: Прегледи странице нису пронађени!
     relevanceIndex: Индекс релевантности
     remove_article: Уклони чланак
+    remove_article_wikidata: Уклони ставке
     search: Претражи
     searching_articles: Претраживање чланака
     search_placeholder: Унесите своје кључне речи
@@ -1296,13 +1468,24 @@ sr-ec:
   training_status:
     completed: Завршено
     continue: Настави
+    completed_at: Завршено у
+    completion_time: Време завршетка
+    late: Касно
     view: Прикажи
     started: Започето
     not_started: Није започето
     due: до %{due_date}
   news:
+    nav_tooltip: Вести и скорашње измене
+    add_news: Додај вести
     post_confirmation:
       confirmation: Потврдите.
+    delete_confirmation:
+      confirmation: Потврдите.
+    no_updates:
+      check_later: Проверите касније.
+    header:
+      P&E_dashboard_title: Вести и скорашње измене
     footer:
       P&E_dashboard:
         link_text: Викимедија
@@ -1318,10 +1501,28 @@ sr-ec:
       create_news_error: Дошло је до грешке приликом креирања садржаја вести. Покушајте
         поново.
       empty_create_news_content_error: Унесите садржај вести пре објављивања.
+    text_area_input:
+      placeholder: Додај вести и скорашње измене
   notes:
+    title: Наслов
+    note_title: Наслов белешке
+    note_text: Текст белешке
+    created: Белешка је успешно направљена.
+    updated: Белешка је успешно измењена.
     failure: Грешка! Покушајте поново касније.
+    edited_by: Изменио/ла
+    last_edited_by: Приказује име администратора који је последњи изменио белешку.
+    deleted: Белешка је успешно обрисана. Више није доступна у вашим белешкама.
+    delete_note_confirmation: 'Брисање белешке: Ова акција ће трајно обрисати белешку.
+      Да ли сте сигурни да желите да наставите?'
+    delete_note_error: Није могуће обрисати белешку. Покушајте поново.
+    create_note: Нправи белешку
     cancel_note_creation: Откажи
+    post_note: Објави
+    edit_note: Измени белешку
+    cancel_edit_note: Откажи
     save_note: Сачувај
+    delete_note: Обриши белешку
   tagged_courses:
     download_csv: Преузми као CSV
 ...
