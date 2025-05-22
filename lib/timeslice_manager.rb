@@ -50,19 +50,22 @@ class TimesliceManager
     last_datetime
   end
 
-  # Returns a datetime with the date to stop getting revisions.
+  # Returns a datetime with the date to stop getting revisions:
+  # - If the course hasn't started yet: use the timeslice for the course start date.
+  # - If the course is ongoing: use the timeslice for today.
+  # - If the course has ended: use the timeslice for the course end date.
   def get_latest_start_time_for_wiki(wiki)
     @course.reload
     end_of_course = @course.end
     today = Time.zone.now
     end_of_update_period = [end_of_course, today].min
+    timeslice = CourseWikiTimeslice.for_course_and_wiki(@course, wiki)
+                                   .for_datetime(end_of_update_period)
+                                   .first
+    return timeslice.start unless timeslice.nil?
+    # If timeslice is nil, then the course hasn't started yet and we use the course start timeslice
     CourseWikiTimeslice.for_course_and_wiki(@course, wiki)
-                       .for_datetime(end_of_update_period)
-                       .first
-                       .start
-  rescue NoMethodError => e
-    Sentry.capture_exception e, extra: { course_id: @course.id, wiki_id: wiki.id,
-                                         datetime: end_of_update_period }
+                       .for_datetime(@course.start).first.start
   end
 
   # Given an array of revision data per wiki, it updates the last_mw_rev_datetime field

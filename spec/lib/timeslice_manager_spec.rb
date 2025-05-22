@@ -209,10 +209,8 @@ describe TimesliceManager do
         travel_back
       end
 
-      it 'returns nil and logs exception' do
-        allow(Sentry).to receive(:capture_exception)
-        expect(subject).to eq(nil)
-        expect(Sentry).to have_received(:capture_exception)
+      it 'returns course start date' do
+        expect(subject).to eq(course.start)
       end
     end
   end
