@@ -176,12 +176,9 @@ describe TimesliceManager do
   describe '#get_latest_start_time_for_wiki' do
     let(:subject) { timeslice_manager.get_latest_start_time_for_wiki(enwiki) }
 
-    before do
-      timeslice_manager.create_timeslices_for_new_course_wiki_records([enwiki])
-    end
-
     context 'when course start and end dates are in the past' do
       before do
+        timeslice_manager.create_timeslices_for_new_course_wiki_records([enwiki])
         travel_to Date.new(2024, 6, 21)
       end
 
@@ -195,6 +192,14 @@ describe TimesliceManager do
     end
 
     context 'when course start is past and course end is future' do
+      before do
+        timeslice_manager.create_timeslices_for_new_course_wiki_records([enwiki])
+      end
+
+      after do
+        travel_back
+      end
+
       it 'returns today' do
         expect(subject).to eq(today)
       end
@@ -202,6 +207,7 @@ describe TimesliceManager do
 
     context 'when course start and end dates are future' do
       before do
+        timeslice_manager.create_timeslices_for_new_course_wiki_records([enwiki])
         travel_to Date.new(2023, 6, 21)
       end
 
@@ -211,6 +217,14 @@ describe TimesliceManager do
 
       it 'returns course start date' do
         expect(subject).to eq(course.start)
+      end
+    end
+
+    context 'when the timeslice does not exist' do
+      it 'logs the error' do
+        allow(Sentry).to receive(:capture_exception)
+        expect(subject).to eq(nil)
+        expect(Sentry).to have_received(:capture_exception)
       end
     end
   end
