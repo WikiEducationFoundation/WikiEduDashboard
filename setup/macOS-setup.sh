@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# unset SDKROOT set by xcode tools to resolve bug in ruby 3.1.2
+# https://github.com/rbenv/ruby-build/discussions/2123
 unset SDKROOT
 
 . "$(dirname "$0")/color-helpers.sh"
