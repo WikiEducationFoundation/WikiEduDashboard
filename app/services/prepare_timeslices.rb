@@ -2,6 +2,7 @@
 
 require_dependency "#{Rails.root}/lib/data_cycle/update_debugger"
 require_dependency "#{Rails.root}/lib/timeslice_cleaner"
+require_dependency "#{Rails.root}/lib/timeslice_manager"
 
 # Ensures that the necessary timeslices are created prior to a new update
 # of the course statistics.
