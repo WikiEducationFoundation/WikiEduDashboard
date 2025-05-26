@@ -43,4 +43,28 @@ describe UpdateLogger do
       expect(delay).to be(nil)
     end
   end
+
+  describe '.update_course' do
+    let(:course) { create(:course) }
+    let(:start_time) { Time.zone.now }
+    let(:end_time) { Time.zone.now + 1.day }
+
+    before do
+      # Add unfinished updates
+      described_class.update_course_with_unifinished_update(course, 'start_time' => start_time)
+    end
+
+    it 'removes unfinished update log if the update finished' do
+      # Expect unfinished_update_logs flag to exist
+      expect(course.flags['unfinished_update_logs'][1]['start_time']).to eq(start_time)
+
+      # Update logs once the update finished
+      described_class.update_course(course, 'start_time' => start_time, 'end_time' => end_time)
+
+      # Expect update_logs flag to exist
+      expect(course.flags['update_logs'][1]['start_time']).to eq(start_time)
+      # Expect unfinished_update_logs flag to no longer exist
+      expect(course.flags['unfinished_update_logs'].first).to eq(nil)
+    end
+  end
 end
