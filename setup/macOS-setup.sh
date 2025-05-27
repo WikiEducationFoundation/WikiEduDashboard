@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# unset SDKROOT set by xcode tools to resolve bug in ruby 3.1.2
+# https://github.com/rbenv/ruby-build/discussions/2123
+unset SDKROOT
+
 . "$(dirname "$0")/color-helpers.sh"
 
 clear
@@ -106,6 +110,7 @@ else
 fi
 
 printf '[*] Installing Gems... \n'
+output_line "bundle config build.nio4r --with-cflags='-Wno-incompatible-pointer-types'"
 output_line "bundle install" && print_success "${CLEAR_LINE}[+] Gems installed\n"
 
 printf '[*] Checking for application configurations... \n'
