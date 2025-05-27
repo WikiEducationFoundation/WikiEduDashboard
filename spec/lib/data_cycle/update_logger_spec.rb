@@ -51,7 +51,7 @@ describe UpdateLogger do
 
     before do
       # Add unfinished updates
-      described_class.update_course_with_unifinished_update(course, 'start_time' => start_time)
+      described_class.update_course_with_unfinished_update(course, 'start_time' => start_time)
     end
 
     it 'removes unfinished update log if the update finished' do

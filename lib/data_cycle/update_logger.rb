@@ -30,7 +30,7 @@ class UpdateLogger
     logs&.keys&.max || 0
   end
 
-  def self.update_course_with_unifinished_update(course, new_logs)
+  def self.update_course_with_unfinished_update(course, new_logs)
     logs = course.flags['unfinished_update_logs']
     updated_logs = new(logs).update(new_logs)
     course.flags['unfinished_update_logs'] = updated_logs
