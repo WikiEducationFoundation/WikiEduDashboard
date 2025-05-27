@@ -2,7 +2,7 @@
 
 #= Creates/Updates ArticleCourseTimeslice, CourseUserWikiTimeslice
 # and CourseWikiTimeslice records.
-class TimesliceManager
+class TimesliceManager # rubocop:disable Metrics/ClassLength
   def initialize(course)
     @course = course
   end
@@ -50,19 +50,20 @@ class TimesliceManager
     last_datetime
   end
 
-  # Returns a datetime with the date to stop getting revisions.
+  # Returns a datetime with the date to stop getting revisions:
+  # - If the course hasn't started yet: use the timeslice for the course start date.
+  # - If the course is ongoing: use the timeslice for today.
+  # - If the course has ended: use the timeslice for the course end date.
   def get_latest_start_time_for_wiki(wiki)
     @course.reload
-    end_of_course = @course.end
-    today = Time.zone.now
-    end_of_update_period = [end_of_course, today].min
+    datetime = limit_date
     CourseWikiTimeslice.for_course_and_wiki(@course, wiki)
-                       .for_datetime(end_of_update_period)
+                       .for_datetime(datetime)
                        .first
                        .start
-  rescue NoMethodError => e
+  rescue NoMethodError => e # Log the error if the timeslice doesn't exist, as it's not expected
     Sentry.capture_exception e, extra: { course_id: @course.id, wiki_id: wiki.id,
-                                         datetime: end_of_update_period }
+                                          datetime: }
   end
 
   # Given an array of revision data per wiki, it updates the last_mw_rev_datetime field
@@ -192,5 +193,12 @@ class TimesliceManager
   def get_course_wiki_timeslices(wiki, period_start, period_end)
     CourseWikiTimeslice.for_course_and_wiki(@course, wiki).for_revisions_between(period_start,
                                                                                  period_end)
+  end
+
+  def limit_date
+    today = Time.zone.now
+    return @course.start if today < @course.start # the course hasn't started yet
+    return @course.end if today > @course.end # the course has ended
+    today # the course is ongoing
   end
 end

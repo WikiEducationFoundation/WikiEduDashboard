@@ -189,4 +189,19 @@ describe UpdateCourseWikiTimeslices do
       end
     end
   end
+
+  context 'when course start and end dates are future' do
+    before do
+      travel_to Date.new(2017, 12, 1)
+    end
+
+    after do
+      travel_back
+    end
+
+    it 'does not fail' do
+      subject
+      expect(course.course_wiki_timeslices.count).to eq(14)
+    end
+  end
 end
