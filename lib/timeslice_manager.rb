@@ -2,7 +2,7 @@
 
 #= Creates/Updates ArticleCourseTimeslice, CourseUserWikiTimeslice
 # and CourseWikiTimeslice records.
-class TimesliceManager # rubocop:disable Metrics/ClassLength
+class TimesliceManager
   def initialize(course)
     @course = course
   end
