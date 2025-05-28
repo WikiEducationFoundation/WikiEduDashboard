@@ -65,6 +65,7 @@ class UpdateLogger
 
   # Deletes the unfinished_update_logs record for start_time since the update did finish.
   def delete_unfinished_log(new_logs, unfinished_logs)
+    return if unfinished_logs.nil?
     unfinished_logs.delete_if do |_, log|
       log['start_time'] == new_logs['start_time']
     end
