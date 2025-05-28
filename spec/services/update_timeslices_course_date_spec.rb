@@ -4,8 +4,9 @@ require 'rails_helper'
 require "#{Rails.root}/lib/timeslice_manager"
 
 describe UpdateTimeslicesCourseDate do
+  # Use basic_course to not override the end datetime with end_of_day
   let(:start) { '2021-01-24'.to_datetime }
-  let(:course) { create(:course, start:, end: '2021-01-30') }
+  let(:course) { create(:basic_course, start:, end: '2021-01-30') }
   let(:enwiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
   let(:updater) { described_class.new(course).run }
   let(:user1) { create(:user, username: 'Ragesoss') }
@@ -81,6 +82,27 @@ describe UpdateTimeslicesCourseDate do
       # Article course for article 1 was deleted
       expect(course.articles_courses.count).to eq(1)
       expect(course.article_course_timeslices.count).to eq(1)
+    end
+  end
+
+  context 'when the end date changed to the next date' do
+    before do
+      course.update(end: '2021-01-31')
+    end
+
+    it 'adds new timeslices that needs_update' do
+      # There are two users, two articles and one wiki
+      expect(course.course_wiki_timeslices.count).to eq(7)
+      expect(course.course_wiki_timeslices.needs_update.count).to eq(0)
+      expect(course.course_user_wiki_timeslices.count).to eq(3)
+      expect(course.article_course_timeslices.count).to eq(2)
+
+      described_class.new(course).run
+      # Timeslice for 2021-01-31 was added
+      expect(course.course_wiki_timeslices.count).to eq(8)
+      expect(course.course_wiki_timeslices.needs_update.count).to eq(2)
+      expect(course.course_user_wiki_timeslices.count).to eq(3)
+      expect(course.article_course_timeslices.count).to eq(2)
     end
   end
 

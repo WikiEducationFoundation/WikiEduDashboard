@@ -6,9 +6,12 @@ class UpdateLogger
   ################
   def self.update_course(course, new_logs)
     logs = course.flags['update_logs']
-    updated_logs = new(logs).update(new_logs)
+    updater = new(logs)
+    updated_logs = updater.update(new_logs)
     course.flags['update_logs'] = updated_logs
     course.flags['average_update_delay'] = average_delay(updated_logs)
+    course.flags['unfinished_update_logs'] =
+      updater.delete_unfinished_log(new_logs, course.flags['unfinished_update_logs'])
     course.save
   end
 
@@ -25,6 +28,13 @@ class UpdateLogger
     setting = Setting.find_or_create_by(key: 'metrics_update')
     logs = setting.value['constant_update']
     logs&.keys&.max || 0
+  end
+
+  def self.update_course_with_unfinished_update(course, new_logs)
+    logs = course.flags['unfinished_update_logs']
+    updated_logs = new(logs).update(new_logs)
+    course.flags['unfinished_update_logs'] = updated_logs
+    course.save
   end
 
   ###########
@@ -51,5 +61,13 @@ class UpdateLogger
     @log_hash[@update_number] = new_logs
     @log_hash.delete(@log_hash.keys.min) until @log_hash.count <= MAX_UPDATES
     @log_hash
+  end
+
+  # Deletes the unfinished_update_logs record for start_time since the update did finish.
+  def delete_unfinished_log(new_logs, unfinished_logs)
+    return if unfinished_logs.nil?
+    unfinished_logs.delete_if do |_, log|
+      log['start_time'] == new_logs['start_time']
+    end
   end
 end

@@ -13,6 +13,7 @@
 # Author: Pitke
 # Author: Pyscowicz
 # Author: Rönttönen
+# Author: Samoasambia
 # Author: Silvonen
 # Author: Surjection
 # Author: Susannaanas
@@ -35,8 +36,10 @@ fi:
     number_field: Tämä kenttä on numeroita varten. Useimpien selainten tuottamat painikkeet
       suurentavat ja pienentävät syötettä.
   application:
+    back: Takaisin
     cancel: Peruuta
     cookie_consent_acknowledge: Ymmärrän
+    cookie_consent_see_more: Lisätietoa.
     create_accounts: Luo Wikipedia-tilit
     dashboard: Wiki Ed -ohjausnäkymä
     documentation: Ohjeet
@@ -65,6 +68,8 @@ fi:
       one: '%{count} Hakutulos: ''%{search_terms}'''
       other: '%{count} Hakutulokset: ''%{search_terms}'''
     no_results: Ei tuloksia haulle '%{query}'
+    show_current_revision: Näytä nykyinen versio
+    show_last_revision: Näytä viimeksi muokattu versio
     sign_up_extended: Luo tunnus Wikipedian kautta
     sign_up_wikipedia: Tai kirjaudu sisään Wikipediassa
     sign_up_log_in_extended: Wikipedialla
@@ -78,6 +83,7 @@ fi:
     opt_out: Ei
     opt_yes: kyllä
     opt_no: ei
+    print: Tulosta
   article_statuses:
     not_yet_started: Aloittaminen
   dashboard:
@@ -110,6 +116,9 @@ fi:
     explore: Tutustu
     log_in: Kirjaudu sisään Wikipedian kautta
     sign_up: Luo tunnus Wikipedian kautta
+    registration_advice:
+      username_rules:
+        heading: Käyttäjänimisäännös
     sign_up_help: Sinun täytyy kirjautua Wikipedian kautta, ja antaa ohjausnäkymälle
       oikeus käyttää tiliäsi. Voit käyttää olemassa olevaa Wikipedia-tunnusta tai
       luoda uuden. Jos et pysty luomaan tunnusta, ota yhteyttä dashboard@wikiedu.org.
@@ -291,8 +300,8 @@ fi:
     add_category: Lisää luokka
     add_psid: Lisää PetScan PSID
     add_template: Lisää malline
-    add_this_category: Lisää tämä luokka
-    add_this_template: Lisää tämä malline
+    add_this_category: Lisää luokkia
+    add_this_template: Lisää mallineita
     name: Nimi
     category_name: Luokan nimi
     template_name: Mallineen nimi
@@ -645,7 +654,7 @@ fi:
     uploads_none: Tämä projekti ei ole tuottanut yhtään kuvaa tai muuta mediatiedostoa
       Wikimedia Commonsiin.
     view_other: Selaa muita kampanjoita
-    view_page: Näytä ohjelmasivu
+    view_page: Näytä sivu
     word_count_doc: Osallistujien lisäämien sanojen arvioitu lukumäärä päänimiavaruuden
       artikkeleihin lukukauden ajalta.
     yourcourses: Omat ohjelmat
@@ -741,7 +750,7 @@ fi:
     diff: ero
     diff_show: Näytä
     diff_hide: Piilota
-    edit_time_span: Muokkauksia tehtiin välillä %{first_time}— %{last_time}
+    edit_time_span: 'Muokkauksia tehtiin välillä: %{first_time}— %{last_time}'
     edited_by: Muokannut
     edited_on: Muokattu %{edit_date}
     loading: Ladataan versioita...
@@ -1032,7 +1041,7 @@ fi:
     article_finder: Artikkelihaku
     article_finder_wikidata: Kohteen löytäjä
     article_quality: Artikkelin laatu (0–100)
-    article_quality_wikidata: Kohteen laatu(0-100)
+    article_quality_wikidata: Kohteen laatu (0-100)
     category_search: Luokkahaku
     fetched_articles: Löydetyt artikkelit
     hide_options: Piilota asetukset

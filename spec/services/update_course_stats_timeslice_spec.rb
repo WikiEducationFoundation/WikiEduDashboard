@@ -139,9 +139,10 @@ describe UpdateCourseStatsTimeslice do
   context 'sentry course update error tracking' do
     let(:flags) { { debug_updates: true } }
     let(:user) { create(:user, username: 'Ragesoss') }
+    let(:date) { Date.new(2018, 11, 28) }
 
     before do
-      travel_to Date.new(2018, 11, 28)
+      travel_to date
       course.campaigns << Campaign.first
       JoinCourse.new(course:, user:, role: 0)
     end
@@ -197,6 +198,20 @@ describe UpdateCourseStatsTimeslice do
       expect(Sentry).to have_received(:capture_exception)
         .at_least(1).times.with anything, hash_including(tags: { update_service_id: sentry_tag_uuid,
                                                                 course: course.slug })
+    end
+
+    it 'updates unfinished update log flag if the process crashes midway' do
+      expect(course.flags['unfinished_update_logs']).to be_nil
+      # Stub import_uploads to raise an error
+      allow_any_instance_of(described_class).to receive(:import_uploads)
+        .and_raise(StandardError, 'simulate failure')
+
+      # Rescue the expected error to prevent spec from failing
+      begin
+        described_class.new(course)
+      rescue StandardError
+        expect(course.flags['unfinished_update_logs'][1]['start_time']).to eq(date)
+      end
     end
 
     context 'when a Programs & Events Dashboard course has a potentially long update time' do

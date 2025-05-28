@@ -64,7 +64,7 @@ class UpdateTimeslicesCourseDate
     # Each wiki may use a different timeslice duration, so this has to be done per wiki
     @course.wikis.each do |wiki|
       max_course_end = CourseWikiTimeslice.for_course_and_wiki(@course, wiki).maximum(:end)
-      add_wiki_timeslices_up_to_new_end_date(wiki) unless max_course_end >= @course.end
+      add_wiki_timeslices_up_to_new_end_date(wiki) unless max_course_end > @course.end
     end
   end
 

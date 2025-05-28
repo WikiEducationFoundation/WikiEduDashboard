@@ -377,7 +377,6 @@ class CoursesController < ApplicationController
     :retain_available_articles
   ].freeze
   def update_boolean_flags
-    puts @course.flags
     UPDATABLE_FLAGS.each do |flag|
       case params.dig(:course, flag)
       when true
