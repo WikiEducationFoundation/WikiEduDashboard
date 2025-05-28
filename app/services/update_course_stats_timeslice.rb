@@ -26,7 +26,8 @@ class UpdateCourseStatsTimeslice
     @full_update = @course.needs_update
     @debugger = UpdateDebugger.new(@course)
 
-    @start_time = Time.zone.now
+    @start_time = Time.zone.now.to_datetime
+    UpdateLogger.update_course_with_unfinished_update(@course, 'start_time' => @start_time)
     import_uploads
     update_categories
     update_article_status if should_update_article_status?
@@ -104,9 +105,9 @@ class UpdateCourseStatsTimeslice
 
   def log_end_of_update
     @course.update(needs_update: false)
-    @end_time = Time.zone.now
-    UpdateLogger.update_course(@course, 'start_time' => @start_time.to_datetime,
-                                         'end_time' => @end_time.to_datetime,
+    @end_time = Time.zone.now.to_datetime
+    UpdateLogger.update_course(@course, 'start_time' => @start_time,
+                                         'end_time' => @end_time,
                                          'sentry_tag_uuid' => sentry_tag_uuid,
                                          'error_count' => error_count,
                                          'processed' => @processed,
