@@ -432,13 +432,18 @@ describe ArticleStatusManagerTimeslice do
         expect(article_to_update.reload.title).to eq('Homosexuality_in_modern_sports')
       end
 
-      it 'moves revisions after mw_page_id collisions with an undeleted article' do
+      it 'marks timeslices as needs_update when mw_page_id collisions with an undeleted article' do
         deleted_article = create(:article, mw_page_id: 26788997, deleted: true)
         create(:articles_course, course:, article: deleted_article)
+        create(:course_wiki_timeslice, course:, wiki:, start: 2.days.ago.beginning_of_day,
+              end: 1.day.ago.beginning_of_day)
+        expect(course.course_wiki_timeslices.first.needs_update).to eq(false)
+        create(:article_course_timeslice, course:, article_id: deleted_article.id,
+              start: 2.days.ago.beginning_of_day, end: 1.day.ago.beginning_of_day)
         VCR.use_cassette 'article_status_manager/duplicate_mw_page_ids' do
           described_class.new(course).update_status([deleted_article])
         end
-        expect(deleted_article.revisions.count).to eq(0)
+        expect(course.course_wiki_timeslices.first.needs_update).to eq(true)
       end
 
       it 'updates associated Assignment records with the new title' do
