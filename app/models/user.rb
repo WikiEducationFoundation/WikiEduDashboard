@@ -65,6 +65,7 @@ class User < ApplicationRecord
   has_many :supported_courses, -> { distinct }, through: :staff_roles, source: :course
 
   has_many :campaigns, -> { distinct }, through: :campaigns_users
+  has_many :course_user_wiki_timeslices
   has_many :assignments
   has_many :uploads, class_name: 'CommonsUpload'
   has_many :training_modules_users, class_name: 'TrainingModulesUsers'
