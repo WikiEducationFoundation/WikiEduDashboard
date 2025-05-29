@@ -42,8 +42,12 @@ class ArticlesCourses < ApplicationRecord # rubocop:disable Metrics/ClassLength
   # Instance methods #
   ####################
   def view_count
-    update_cache unless self[:view_count]
-    self[:view_count]
+    # view_count AC Field is no longer used in the timeslice system
+    # however, this is a hack to display article views for historical courses
+    # that will not receive a new update
+    return self[:view_count] if self[:first_revision].nil? || self[:average_views].nil?
+    days = (Time.now.utc.to_date - self[first_revision.to_date]).to_i
+    (days * self[:average_views]).to_i
   end
 
   def character_sum
