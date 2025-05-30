@@ -86,7 +86,9 @@ const Article = ({ article, index, course, fetchArticleDetails, updateArticleTra
           {!isDeleted
             ? (
               <small>
-                <a href={historyUrl} target="_blank" className="inline">{I18n.t('articles.history')}</a> | <ArticleGraphs article={article} />
+                {/* Disabling article development plot feature until re-implementing. See issue #6337 */}
+                {/* <a href={historyUrl} target="_blank" className="inline">{I18n.t('articles.history')}</a> | <ArticleGraphs article={article} /> */}
+                <a href={historyUrl} target="_blank" className="inline">{I18n.t('articles.history')}</a>
               </small>
             )
             : (
