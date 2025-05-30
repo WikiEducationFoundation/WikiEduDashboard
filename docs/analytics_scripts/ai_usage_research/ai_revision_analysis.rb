@@ -16,7 +16,7 @@ headers = %w[title namespace mw_page_id deleted campaign course course_end_date 
 results = [headers]
 
 i = 0
-articles_to_analyze.each do |row|
+articles_to_analyze[1..].each do |row|
   i+= 1
   puts i
   result_row = row
@@ -41,6 +41,6 @@ articles_to_analyze.each do |row|
   results << result_row
 end
 
-CSV.open("/home/sage/WikiEduDashboard/new_articles_by_term_analyzed.csv", 'wb') do |csv|
+CSV.open("/home/sage/WikiEduDashboard/new_articles_by_term_since_2022_analyzed_part_4.csv", 'wb') do |csv|
   results.each { |line| csv << line }
 end

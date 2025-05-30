@@ -19,6 +19,7 @@ class RevAnalyzer
   def analyze
     @rev_at_date = rev_at_date(@mw_page_id, @timestamp)
     return unless @rev_at_date
+    return unless @rev_at_date['*']
     @redirect =  @rev_at_date['*'].include? '#REDIRECT'
     return if @redirect
     @rev_id = @rev_at_date['revid']
