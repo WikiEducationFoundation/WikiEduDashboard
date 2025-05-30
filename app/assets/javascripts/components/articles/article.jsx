@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import CourseUtils from '../../utils/course_utils.js';
 import ArticleViewer from '@components/common/ArticleViewer/containers/ArticleViewer.jsx';
 import DiffViewer from '../revisions/diff_viewer.jsx';
-import ArticleGraphs from './article_graphs.jsx';
 import Switch from 'react-switch';
 import { toWikiDomain } from '../../utils/wiki_utils.js';
 import { stringify } from 'query-string';
