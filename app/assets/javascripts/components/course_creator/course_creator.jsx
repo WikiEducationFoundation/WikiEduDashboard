@@ -206,8 +206,21 @@ const CourseCreator = createReactClass({
       this.props.setInvalid('description', I18n.t('application.field_required'));
       return false;
     }
+    if (!this.termIncludesYear()) {
+      this.props.setInvalid('term', I18n.t('application.field_invalid_term'));
+      return false;
+  }
     return true;
   },
+
+  termIncludesYear() {
+  // Check if term contains at least 2 consecutive digits (indicating year)
+  const hasYear = /\d{2,}/.test(this.props.course.term);
+  if (!hasYear) {
+    return false;
+  }
+  return true;
+},
 
   slugPartsAreValid() {
     if (!this.props.course.title.match(CourseUtils.courseSlugRegex())) { return false; }
