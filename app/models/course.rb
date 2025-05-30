@@ -116,6 +116,10 @@ class Course < ApplicationRecord
   has_many :course_user_wiki_timeslices, dependent: :destroy
   has_many :course_wiki_timeslices, dependent: :destroy
 
+  has_many :sandboxes, lambda {
+    distinct.sandbox
+  }, source: :article, through: :article_course_timeslices
+
   serialize :flags, Hash
 
   module ClonedStatus
