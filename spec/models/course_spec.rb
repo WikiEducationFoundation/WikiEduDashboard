@@ -848,34 +848,6 @@ describe Course, type: :model do
     end
   end
 
-  describe '#pages_edited' do
-    let(:course) { create(:course) }
-    let(:user) { create(:user) }
-    # Article edited during the course
-    let(:article) { create(:article, namespace: 1) }
-    let!(:revision) do
-      create(:revision, date: course.start + 1.minute,
-                        article_id: article.id,
-                        user_id: user.id)
-    end
-    # Article edited outside the course
-    let(:article2) { create(:article) }
-    let!(:revision2) do
-      create(:revision, date: course.start - 1.week,
-                        article_id: article2.id,
-                        user_id: user.id)
-    end
-
-    before do
-      course.students << user
-    end
-
-    it 'returns Article records via course revisions' do
-      expect(course.pages_edited).to include(article)
-      expect(course.pages_edited).not_to include(article2)
-    end
-  end
-
   describe '#submitted_at' do
     let(:course) { create(:course) }
 

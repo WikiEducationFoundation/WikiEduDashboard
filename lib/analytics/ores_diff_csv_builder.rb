@@ -34,14 +34,17 @@ class OresDiffCsvBuilder
   end
 
   def article_row(articles_course, course)
+    # TODO: implement this without revisions
     article = articles_course.article
-    ordered_revisions = articles_course.all_revisions.order('date ASC')
-    first_revision = ordered_revisions.first
-    last_revision = ordered_revisions.last
+    # ordered_revisions = articles_course.all_revisions.order('date ASC')
+    # first_revision = ordered_revisions.first
+    # last_revision = ordered_revisions.last
     [
       article.title,
-      first_revision&.wp10_previous || 0.0,
-      last_revision&.wp10 || 0.0,
+      0.0,
+      0.0,
+      # first_revision&.wp10_previous || 0.0,
+      # last_revision&.wp10 || 0.0,
       articles_course.character_sum,
       article.url,
       course.slug

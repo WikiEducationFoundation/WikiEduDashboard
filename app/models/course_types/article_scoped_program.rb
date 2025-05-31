@@ -51,11 +51,6 @@
 
 class ArticleScopedProgram < Course
   include CustomRevisionFilter
-  has_many(:revisions, lambda do |course|
-    where('date >= ?', course.start)
-    .where('date <= ?', course.end)
-    .where(article_id: course.scoped_article_ids)
-  end, through: :students)
 
   def wiki_course_page_enabled?
     return super if edit_settings_present?
