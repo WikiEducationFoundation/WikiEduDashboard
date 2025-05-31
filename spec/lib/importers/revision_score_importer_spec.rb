@@ -65,16 +65,6 @@ describe RevisionScoreImporter do
                               mw_page_id: 123456)
   end
 
-  it 'does not try to query deleted revisions' do
-    revisions = described_class.new.send(:unscored_revisions)
-    expect(revisions.where(mw_rev_id: 1).count).to eq(0)
-  end
-
-  it 'does not try to query previous revisions for first revision' do
-    revisions = described_class.new.send(:unscored_previous_revisions)
-    expect(revisions.where(mw_rev_id: 641962088).count).to eq(0)
-  end
-
   describe '#get_revision_scores' do
     it 'returns empty array if no revisions' do
       revisions = described_class.new.get_revision_scores([])

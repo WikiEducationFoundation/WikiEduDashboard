@@ -94,21 +94,6 @@ class RevisionScoreImporter
     end
   end
 
-  def mainspace_userspace_and_draft_revisions
-    all_revisions = @course&.revisions || Revision
-    all_revisions.joins(:article)
-                 .where(wiki_id: @wiki.id, deleted: false)
-                 .where(articles: { namespace: [0, 2, 118] })
-  end
-
-  def unscored_revisions
-    mainspace_userspace_and_draft_revisions.where(features: nil)
-  end
-
-  def unscored_previous_revisions
-    mainspace_userspace_and_draft_revisions.where(features_previous: nil, new_article: false)
-  end
-
   def get_parent_revisions(rev_batch)
     rev_query = parent_revisions_query non_new_revisions(rev_batch)
 
