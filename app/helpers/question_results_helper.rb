@@ -8,29 +8,43 @@ require 'sentimental'
 
 module QuestionResultsHelper
   def question_results_data(question, answers, id_to_answer_groups, users, survey_user_cache)
-    processed_answers = question_answers(question, answers, id_to_answer_groups, users,
-                                         survey_user_cache)
+    processed_answers = prepare_answers_data(question, answers, id_to_answer_groups, users,
+                                              survey_user_cache)
     {
       type: question_type_to_string(question),
       question:,
       sentiment: question.track_sentiment ? question_answers_average_sentiment(processed_answers) : nil, # rubocop:disable Layout/LineLength
       answer_options: question.answer_options.split(Rapidfire.answers_delimiter),
-      answers: parse_answers(question, answers),
-      answers_data: processed_answers,
-      grouped_question: question.validation_rules[:question_question],
+      answers: parse_answers(answers),
+      answers_data: question.type.eql?('Rapidfire::Questions::Text') ? processed_answers : nil,
+      grouped_question: question.validation_rules[:grouped_question],
       follow_up_question_text: question.follow_up_question_text,
-      follow_up_answers: follow_up_answers(processed_answers)
+      follow_up_answers: follow_ups?(answers) ? follow_up_answers(processed_answers) : {}
     }.to_json
   end
 
-  def parse_answers(_question, answers)
-    answers_text = answers&.pluck(:answer_text)&.compact
-    answers_text&.map { |a| a.split(Rapidfire.answers_delimiter) }&.flatten
+  def prepare_answers_data(question, answers, id_to_answer_groups, users, survey_user_cache)
+    if question.track_sentiment? || question.type.eql?('Rapidfire::Questions::Text') || follow_ups?(answers) # rubocop:disable Layout/LineLength
+      question_answers(question, answers, id_to_answer_groups, users, survey_user_cache)
+    end
+  end
+
+  def follow_ups?(answers)
+    answers&.any? { |answer| answer.follow_up_answer_text.present? } || false
+  end
+
+  def parse_answers(answers)
+    return [] if answers.nil?
+
+    answers
+      .filter_map(&:answer_text)
+      .flat_map { |text| text.to_s.split(Rapidfire.answers_delimiter) }
+      .reject(&:blank?)
   end
 
   def question_answers(question, answers, id_to_answer_groups, users, survey_user_cache)
     answers&.map do |answer|
-      user_id = id_to_answer_groups[answer.answer_group_id][0].user_id
+      user_id = id_to_answer_groups[answer.answer_group_id].user_id
       user = users[user_id]
       if survey_user_cache.key?(user_id)
         course = survey_user_cache[user_id]

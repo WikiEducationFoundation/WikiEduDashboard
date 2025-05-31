@@ -16,7 +16,8 @@
           %div.block.not-seen.disabled{:class => "survey__question--matrix #{question_presenter.question_type}"}
 
       = f.fields_for("#{answer.question.id}", answer) do |answer_form|
-        = render partial: "rapidfire/answers/matrix_question_text", locals: {f: f, answer: answer, name: question_group.name}
+        - if question_is_grouped?(answer)
+          = render partial: "rapidfire/answers/matrix_question_text", locals: {f: f, answer: answer, name: question_group.name}
 
         - if !question_presenter.grouped_question?
           <div class="block__container"><div data-survey-block="#{index + 1}" id="question_#{answer.question.id}" class="block disabled not-seen question-type--#{question_presenter.question_type} #{answer.errors.any? ? block--errors : ''} #{question_presenter.required_class}"> 
