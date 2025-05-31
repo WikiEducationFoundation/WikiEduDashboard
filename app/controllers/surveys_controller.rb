@@ -18,7 +18,7 @@ class SurveysController < ApplicationController
     results
   ]
   before_action :ensure_logged_in
-  before_action :set_question_groups, only: %i[
+  before_action :prepare_survey_data, only: %i[
     show
     edit
     edit_question_groups
@@ -151,10 +151,81 @@ class SurveysController < ApplicationController
     @survey = Survey.find(params[:id])
   end
 
-  def set_question_groups
-    @question_groups = Rapidfire::QuestionGroup.all
-    @surveys_question_groups = SurveysQuestionGroup.by_position(params[:id])
+  def prepare_survey_data
+    load_question_groups_for_survey
+    load_questions
+    load_and_index_answers_with_counts
+    build_answer_group_builders
+    build_answer_group_user_cache
     @survey_user_cache = {}
+  end
+
+  # Load question groups for a given survey, preserving position order
+  def load_question_groups_for_survey
+    @surveys_question_groups = SurveysQuestionGroup.by_position(params[:id])
+    @rapidfire_question_group_ids = @surveys_question_groups.pluck(:rapidfire_question_group_id)
+    @rapidfire_question_groups = Rapidfire::QuestionGroup.where(id: @rapidfire_question_group_ids)
+  end
+
+  # Load questions with groups in one query, index them by ID, and extract their IDs.
+  def load_questions
+    @rapidfire_questions_by_id = {}
+    @question_ids = []
+
+    Rapidfire::Question.includes(:question_group)
+                       .where(question_group_id: @rapidfire_question_group_ids)
+                       .find_each do |question|
+      @rapidfire_questions_by_id[question.id] = question
+      @question_ids << question.id
+    end
+  end
+
+  # Eager load answers with their groups, index them by question ID, and count per question.
+  def load_and_index_answers_with_counts
+    @rapidfire_answers_by_question_id = Hash.new { |h, k| h[k] = [] }
+    @question_answers_count = Hash.new(0)
+    @all_rapidfire_answers = []
+
+      Rapidfire::Answer.includes(:answer_group)
+                       .where(question_id: @question_ids)
+                       .each do |answer|
+        @rapidfire_answers_by_question_id[answer.question_id] << answer
+        @question_answers_count[answer.question_id] += 1
+        @all_rapidfire_answers << answer
+      end
+  end
+
+  # Initialize answer group builders for each question group, keyed by group ID.
+  def build_answer_group_builders
+    @answer_group_builders_by_id = @rapidfire_question_groups.to_h do |question_group|
+      [question_group.id, Rapidfire::AnswerGroupBuilder.new(
+        params: {},
+        user: current_user,
+        question_group:
+      )]
+    end
+  end
+
+  # Extracts unique answer groups and preloads their users in a single pass
+  def build_answer_group_user_cache
+    seen_group_ids = Set.new
+    user_ids = Set.new
+    @rapidfire_answer_groups = []
+
+    @all_rapidfire_answers.each do |answer|
+      group = answer.answer_group
+      next if seen_group_ids.include?(group.id)
+
+      seen_group_ids.add(group.id)
+      @rapidfire_answer_groups << group
+      user_ids.add(group.user_id) if group.user_id
+    end
+
+    # Simple hash since we know IDs are unique
+    @rapidfire_answer_groups_by_id = @rapidfire_answer_groups.index_by(&:id)
+
+    # Single user query
+    @users_by_id = User.where(id: user_ids.to_a).index_by(&:id)
   end
 
   # This removes the question groups that do not apply to the course, because
@@ -197,6 +268,7 @@ class SurveysController < ApplicationController
   end
 
   def ensure_logged_in
+    puts 'HEllo world'
     return if params.include?('preview') # allow preview even by logged out users
     return true if current_user
     render 'login'
