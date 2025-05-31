@@ -57,10 +57,6 @@ class ArticlesCourses < ApplicationRecord
     self[:new_article]
   end
 
-  def all_revisions
-    course.all_revisions.where(article_id:)
-  end
-
   def update_cache_from_timeslices
     self.character_sum = article_course_timeslices.sum(&:character_sum)
     self.references_count = article_course_timeslices.sum(&:references_count)
