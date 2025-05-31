@@ -91,10 +91,12 @@ describe 'Articles Edited view', type: :feature, js: true do
   end
 
   it 'article development graphs fetch and render edit data' do
+    pending 'This fails because article development was disabled from frontend. See issue #6337'
     visit "/courses/#{slug}/articles"
     expect(page).to have_content('Article en.wiki')
     find('a', text: '(article development)', match: :first).click
     expect(page).to have_content('Edit Size')
+    pass_pending_spec
   end
 
   it 'wiki filter works and updates the URL' do
