@@ -23,7 +23,14 @@ const NewsNavIcon = ({ setIsOpen }) => {
   useEffect(() => {
     const fetchNewsData = async () => {
       try {
-        const newsContentList = await API.fetchNews(newsType);
+        let newsContentList = [];
+
+        // Skip fetching account requests if on a survey page.
+        // Survey tabs cause full page reloads, which would trigger unnecessary API calls.
+        // Admins can view updated requests/notifications from the homepage instead.
+        if (!location.pathname.startsWith('/survey')) {
+          newsContentList = await API.fetchNews(newsType);
+        }
 
         // Retrieve the last fetch timestamp from the cookie
         const userLastFetchTimestamp = Cookies.get(`lastFetchTimestamp_${newsType}`);

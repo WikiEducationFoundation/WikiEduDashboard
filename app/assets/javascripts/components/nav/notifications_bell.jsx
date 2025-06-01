@@ -15,10 +15,15 @@ const NotificationsBell = () => {
         .catch(err => err);
     }
 
-    request('/requested_accounts.json')
-      .then(res => res.json())
-      .then(({ requested_accounts }) => setHasRequestedAccounts(requested_accounts))
-      .catch(err => err); // If this errors, we're going to ignore it
+    // Skip fetching account requests if on a survey page.
+    // Survey tabs cause full page reloads, which would trigger unnecessary API calls.
+    // Admins can view updated requests/notifications from the homepage instead.
+    if (!location.pathname.startsWith('/survey')) {
+      request('/requested_accounts.json')
+        .then(res => res.json())
+        .then(({ requested_accounts }) => setHasRequestedAccounts(requested_accounts))
+        .catch(err => err); // If this errors, we're going to ignore it
+    }
   }, []);
 
   const path = Features.wikiEd ? '/admin' : '/requested_accounts';
