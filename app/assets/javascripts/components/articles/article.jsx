@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import CourseUtils from '../../utils/course_utils.js';
 import ArticleViewer from '@components/common/ArticleViewer/containers/ArticleViewer.jsx';
 import DiffViewer from '../revisions/diff_viewer.jsx';
-import ArticleGraphs from './article_graphs.jsx';
 import Switch from 'react-switch';
 import { toWikiDomain } from '../../utils/wiki_utils.js';
 import { stringify } from 'query-string';
@@ -86,7 +85,9 @@ const Article = ({ article, index, course, fetchArticleDetails, updateArticleTra
           {!isDeleted
             ? (
               <small>
-                <a href={historyUrl} target="_blank" className="inline">{I18n.t('articles.history')}</a> | <ArticleGraphs article={article} />
+                {/* Disabling article development plot feature until re-implementing. See issue #6337 */}
+                {/* <a href={historyUrl} target="_blank" className="inline">{I18n.t('articles.history')}</a> | <ArticleGraphs article={article} /> */}
+                <a href={historyUrl} target="_blank" className="inline">{I18n.t('articles.history')}</a>
               </small>
             )
             : (
