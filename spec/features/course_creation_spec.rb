@@ -50,6 +50,9 @@ def go_through_researchwrite_wizard
   click_button 'Next' # Default "Improving representation" option
   sleep 1
 
+  click_button 'Next' # Default "Sandboxes" option
+  sleep 1
+
   # Working in groups
   find('.wizard__option', match: :first).find('button', match: :first).click
   click_button 'Next'
@@ -75,7 +78,9 @@ def go_through_researchwrite_wizard
   click_button 'Next' # Default 3 discussions
   sleep 1
 
-  click_button 'Next' # No supplementary assignments except the default
+  # Select the non-default extra credit option
+  find('h3', text: 'Extra credit assignment').click
+  click_button 'Next'
   sleep 1
 
   # DYK/GA option removed for ~Spring 2021
@@ -124,7 +129,7 @@ describe 'New course creation and editing', type: :feature do
   end
 
   describe 'course workflow', js: true do
-    let(:expected_course_blocks) { 26 }
+    let(:expected_course_blocks) { 27 }
     let(:module_name) { 'Get started on Wikipedia' }
 
     it 'allows the user to create a course' do
