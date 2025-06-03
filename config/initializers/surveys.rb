@@ -120,7 +120,7 @@ Rails.application.config.to_prepare do
                 'Follow Up Answer',
                 'Username',
                 'User Email']
-        answers.order(:answer_text).collect do |answer|
+        answers.includes(:user).order(:answer_text).collect do |answer|
           csv << [
             question_text,
             validation_rules[:grouped_question],
