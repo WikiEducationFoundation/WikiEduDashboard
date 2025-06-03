@@ -173,7 +173,8 @@ class SurveysController < ApplicationController
 
   # Load questions with groups in one query, index them by ID, and extract their IDs.
   def load_questions
-    @rapidfire_questions_by_id = {} # Used in views: results.html.haml, show.html.haml
+    # Used in SurveysHelper#question_group_locals via views: results.html.haml, show.html.haml
+    @rapidfire_questions_by_id = {}
     @question_ids = []
 
     Rapidfire::Question.includes(:question_group)
