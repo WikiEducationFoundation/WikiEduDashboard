@@ -483,6 +483,21 @@
       blurb: In courses that emphasize traditional research skills and the development of original ideas through a term paper, Wikipedia's policy of "no original research" may be too restrictive. Many instructors pair Wikipedia writing with a complementary research paper; students’ Wikipedia articles serve as a literature review, and the students go on to develop their own ideas and arguments in the offline research paper.
       description:
       logic: original_research_paper
+
+    -
+      title: Extra credit assignment
+      blurb: You may offer your students the option of editing an additional Wikipedia article for extra credit.
+      description: |
+        Students who choose this option will contribute to a second Wikipedia entry by following the steps outlined
+        on the course timeline for their main entry. Students will be asked to pursue this option early in the course
+        so they have enough time to research and draft their content for the additional contribution. Students should
+        only choose this extra credit option if they have the time and capacity to make a well-thought out and
+        carefully written contribution.
+
+        This exercise will allow students to magnify their impact and become more deeply involved in the editing process.   
+
+        You will decide how much additional credit to offer students who choose this option.
+      logic: additional_article_extra_credit
 # -
 #   key: dyk_and_ga
 #   title: Wikipedia quality review processes

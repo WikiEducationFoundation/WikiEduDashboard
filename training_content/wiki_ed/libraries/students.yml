@@ -121,6 +121,9 @@ categories:
       - slug: assignment-journal
         name: 'Exercise: Keep weekly journal'
         description: Keep a weekly journal to reflect on the Wikipedia assignment.
+      - slug: extra-credit-article
+        name: 'Exercise: Select an extra credit article'
+        description: Optionally, choose another article to work on for extra credit.
   - title: Discussions
     description: |
       Prompts for in-class discussions
