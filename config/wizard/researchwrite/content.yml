@@ -179,6 +179,13 @@ essentials:
         training_module_ids: [38] # Exercise: Finalizing your topic / create bibliography
         content: |
 
+      -
+        if: additional_article_extra_credit
+        title: "Select an additional article for extra credit (Optional)"
+        kind: 1
+        training_module_ids: [70] # Extra credit: choose an additional article
+        content: |
+
   - # Week five
     weight: 4
     blocks:
