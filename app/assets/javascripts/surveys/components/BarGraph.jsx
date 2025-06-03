@@ -3,14 +3,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { answerTotals } from './utils';
 
-const BarGraph = (props) => {
-  const answers = answerTotals(props);
-  const totalAnswers = props.answers.length;
+const BarGraph = ({ answers, answer_options }) => {
+  const optionCounts = answerTotals(answers, answer_options);
+  const totalAnswers = answers.length;
 
   return (
     <div className="results__bar-graph">
-      {keys(answers).map((key) => {
-        const total = answers[key];
+      {keys(optionCounts).map((key) => {
+        const total = optionCounts[key];
         const width = ((total / totalAnswers) * 100).toFixed(2);
         const nullWidth = isNaN(width);
         const widthPercent = nullWidth ? '0%' : `${width}%`;
