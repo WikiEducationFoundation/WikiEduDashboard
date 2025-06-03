@@ -83,39 +83,40 @@ module SurveysHelper
     answer.question.validation_rules[:grouped_question]
   end
 
-  # rubocop:disable Metrics/MethodLength
-  def question_group_locals(surveys_question_group, index, total, is_results_view:)
-    @question_group = surveys_question_group.rapidfire_question_group
-    @answer_group_builder = Rapidfire::AnswerGroupBuilder.new(params: {},
-                                                              user: current_user,
-                                                              question_group: @question_group)
-    @questions = surveys_question_group
-                 .rapidfire_question_group
-                 .questions
-                 .includes(answers: { user: :survey_notifications })
+  def question_group_locals(group, index, is_results_view:, answer_group_builders_by_id:, rapidfire_questions_by_id:) # rubocop:disable Layout/LineLength
+    @question_group = group
+    @answer_group_builder = answer_group_builders_by_id[@question_group.id]
+    @id_to_question = rapidfire_questions_by_id
+    prepare_question_data(is_results_view)
 
-    @id_to_question = {}
-    @questions.each do |question|
-      @id_to_question[question.id] = question
-    end
-
-    @question_answers_count = Rapidfire::Answer
-                              .where(question_id: @questions.pluck(:id))
-                              .group(:question_id).count
-
-    @answer_group_builder.answers.each do |answer|
-      question = @id_to_question[answer.question_id]
-      answer.question = question
-    end
-
-    return { question_group: @question_group,
-      answer_group_builder: @answer_group_builder,
+    return {
+      question_group: @question_group,
       question_group_index: index,
-      surveys_question_group:,
-      total:,
-      results: is_results_view }
+      answer_group_builder: @answer_group_builder,
+      results: is_results_view
+    }
   end
-  # rubocop:enable Metrics/MethodLength
+
+  def prepare_question_data(results)
+    question_presenters = @answer_group_builder.answers.map.with_index do |answer, index|
+      answer.question = @id_to_question[answer.question_id]
+      RapidfireQuestionPresenter.new(answer, index:, answer_group_builder: @answer_group_builder,
+      is_results_view: results)
+    end
+
+    @visible_questions = question_presenters.reject do |presenter|
+      presenter.results_view? && presenter.text_only?
+    end
+  end
+
+  def question_row_classes(presenter, index, is_end_of_group)
+    classes = ['survey__question-row']
+    classes << 'matrix-row' if presenter.grouped_question?
+    classes << presenter.required_class
+    classes << (index.even? ? '' : 'odd')
+    classes << 'last' if is_end_of_group
+    classes.join(' ').strip
+  end
 
   def question_conditional_string(question)
     return '' if question.nil?

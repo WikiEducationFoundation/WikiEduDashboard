@@ -2,6 +2,8 @@
 
 # Presenter for question / answer fields in a survey
 class RapidfireQuestionPresenter
+  attr_reader :answer
+
   def initialize(answer, index:, answer_group_builder:, is_results_view:)
     @answer = answer # represents an unsaved blank answer for a Rapidfire::Question
     @index = index # question index within a Rapidfire::QuestionGroup

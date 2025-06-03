@@ -4,7 +4,7 @@
       Preview Mode
       = link_to t('question_groups.edit_question_group'), edit_question_group_path(@question_group), class: "button"
 .loading{"data-survey-form-container" => ""}
-  = render partial: "surveys/question_group", locals: { |
+  = render partial: "surveys/preview_question_group", locals: { |
       question_group: @question_group,                  |
       answer_group_builder: @answer_group_builder,      |
       question_group_index: 0,                          |
