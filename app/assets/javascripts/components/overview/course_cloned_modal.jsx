@@ -125,10 +125,20 @@ const CourseClonedModal = createReactClass({
       course: updatedCourse
     });
   },
+  termIncludesYear() {
+  // Check if term contains at least 2 consecutive digits (indicating year)
+  const hasYear = /\d{2,}/.test(this.state.course.term);
+  if (!hasYear) {
+    this.props.setInvalid('term', I18n.t('courses.creator.field_invalid_term'));
+    return false;
+  }
+  return true;
+},
 
   saveCourse() {
     this.props.activateValidations();
-    if (this.props.isValid) {
+    const termValid = this.termIncludesYear();
+    if (this.props.isValid && termValid) {
       this.props.setInvalid('exists', I18n.t('courses.creator.checking_for_uniqueness'), true);
       const { slug } = this.state.course;
       const updatedCourse = CourseUtils.cleanupCourseSlugComponents(this.state.course);
@@ -344,7 +354,7 @@ const CourseClonedModal = createReactClass({
           validation={CourseUtils.courseSlugRegex()}
           editable={true}
           label={CourseUtils.i18n('creator.course_term', i18nPrefix)}
-          placeholder={CourseUtils.i18n('creator.course_term_placeholder', i18nPrefix)}
+          placeholder={`${CourseUtils.i18n('creator.course_term_placeholder', i18nPrefix)} (including year)`}
         />
         {infoIcon}
       </div>
