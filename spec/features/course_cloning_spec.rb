@@ -32,8 +32,8 @@ describe 'cloning a course', js: true do
     create(:course, start: 1.year.from_now.to_date,
                     title: 'CourseToClone',
                     school: 'OriginalSchool',
-                    term: 'OriginalTerm',
-                    slug: 'OriginalSchool/CourseToClone_(OriginalTerm)',
+                    term: 'OriginalTerm 2025',
+                    slug: 'OriginalSchool/CourseToClone_(OriginalTerm_2025)',
                     subject: 'OrginalSubject',
                     end: 2.years.from_now.to_date, submitted: true,
                     expected_students: 0,
@@ -72,7 +72,7 @@ describe 'cloning a course', js: true do
 
     # interact_with_clone_form
     find('input#course_term').click
-    fill_in 'course_term', with: 'OriginalTerm' # Same as original, not allowed
+    fill_in 'course_term', with: 'OriginalTerm 2025' # Same as original, not allowed
     fill_in 'course_subject', with: subject
 
     within '#details_column' do
@@ -137,7 +137,7 @@ describe 'cloning a course', js: true do
 
     # interact_with_clone_form
     find('input#course_term').click
-    fill_in 'course_term', with: 'OriginalTerm' # Same as original, not allowed
+    fill_in 'course_term', with: 'OriginalTerm 2025' # Same as original, not allowed
     fill_in 'course_subject', with: subject
 
     within '#details_column' do
