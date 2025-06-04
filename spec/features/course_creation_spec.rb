@@ -266,8 +266,8 @@ describe 'New course creation and editing', type: :feature do
              id: 10001,
              title: 'Course',
              school: 'University',
-             term: 'Term',
-             slug: 'University/Course_(Term)',
+             term: 'Term 2025',
+             slug: 'University/Course_(Term_2025)',
              submitted: false,
              passcode: 'passcode',
              start: '2015-08-24'.to_date,
@@ -279,7 +279,7 @@ describe 'New course creation and editing', type: :feature do
       expect(page).to have_content 'Create a New Course'
       find('#course_title').set('Course')
       find('#course_school').set('University')
-      find('#course_term').set('Term')
+      find('#course_term').set('Term 2025')
       find('#course_subject').set('Advanced Studies')
       find('#course_expected_students').set('15')
       find('#course_description').set('My course')
@@ -302,8 +302,8 @@ describe 'New course creation and editing', type: :feature do
              id: 10001,
              title: 'Course',
              school: 'University',
-             term: 'Term',
-             slug: 'University/Course_(Term)',
+             term: 'Term 2025',
+             slug: 'University/Course_(Term_2025)',
              submitted: false,
              passcode: 'passcode',
              start: '2015-08-24'.to_date,
@@ -343,8 +343,8 @@ describe 'New course creation and editing', type: :feature do
              id: 10001,
              title: 'Course',
              school: 'University',
-             term: 'Term',
-             slug: 'University/Course_(Term)',
+             term: 'Term 2025',
+             slug: 'University/Course_(Term 2025)',
              submitted: false,
              passcode: 'passcode',
              start: '2015-09-01'.to_date,
