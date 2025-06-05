@@ -41,6 +41,22 @@ const CourseForm = (props) => {
     }
   }, []);
 
+  const termValidation = (value) => {
+  // First check basic slug regex
+  if (!CourseUtils.courseSlugRegex().test(value)) {
+    return false;
+  }
+
+  if (props.defaultCourse === 'ClassroomProgramCourse') {
+    // Check if term contains at least 2 consecutive digits (indicating year)
+    const hasYear = /\d{2,}/.test(value);
+    return hasYear;
+  }
+
+  return true;
+};
+
+
 
   let term;
   let courseSubject;
@@ -61,7 +77,8 @@ const CourseForm = (props) => {
         value={props.course.term}
         value_key="term"
         required
-        validation={CourseUtils.courseSlugRegex()}
+        validation={termValidation}
+        invalidMessage={I18n.t('application.field_invalid_term')}
         editable
         label={CourseUtils.i18n('creator.course_term', props.stringPrefix)}
         placeholder={CourseUtils.i18n(
@@ -216,6 +233,8 @@ const CourseForm = (props) => {
       <Link className="button" to="/" id="course_cancel">{I18n.t('application.cancel')}</Link>
     );
   }
+
+
 
   return (
     <div className={props.courseFormClass}>
