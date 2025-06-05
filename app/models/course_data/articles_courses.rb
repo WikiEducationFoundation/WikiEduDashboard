@@ -41,22 +41,6 @@ class ArticlesCourses < ApplicationRecord
   ####################
   # Instance methods #
   ####################
-  def view_count
-    self[:view_count]
-  end
-
-  def character_sum
-    self[:character_sum]
-  end
-
-  def references_count
-    self[:references_count]
-  end
-
-  def new_article
-    self[:new_article]
-  end
-
   def update_cache_from_timeslices
     self.character_sum = article_course_timeslices.sum(&:character_sum)
     self.references_count = article_course_timeslices.sum(&:references_count)
