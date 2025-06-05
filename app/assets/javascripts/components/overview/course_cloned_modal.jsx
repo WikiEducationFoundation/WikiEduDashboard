@@ -354,7 +354,7 @@ const CourseClonedModal = createReactClass({
           validation={CourseUtils.courseSlugRegex()}
           editable={true}
           label={CourseUtils.i18n('creator.course_term', i18nPrefix)}
-          placeholder={`${CourseUtils.i18n('creator.course_term_placeholder', i18nPrefix)} (including year)`}
+          placeholder={CourseUtils.i18n('creator.course_term_placeholder', i18nPrefix)}
         />
         {infoIcon}
       </div>
