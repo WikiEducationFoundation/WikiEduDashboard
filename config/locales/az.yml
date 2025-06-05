@@ -15,8 +15,8 @@ az:
       decimal_units:
         format: '%n%u'
         units:
-          thousand: min
-          million: mln
+          thousand: K
+          million: M
           billion: mlrd
           trillion: T
           quadrillion: Q
@@ -45,7 +45,7 @@ az:
     greeting: Salam!
     help: Kömək
     home: Ana səhifə
-    log_in_extended: Vikipediya ilə daxil olun
+    log_in_extended: Vikipediya ilə daxil ol
     log_in: Daxil ol
     log_out: Sistemdən çıx
     my_dashboard: Panelim
@@ -59,8 +59,8 @@ az:
     no_results: '''%{query}'' üçün nəticə yoxdur.'
     show_current_revision: Mövcud versiyanı göstər
     show_last_revision: Son redaktə edilmiş versiyanı göstər
-    sign_up_extended: Vikipediya ilə qeydiyyatdan keçin
-    sign_up_wikipedia: Və ya Vikipediyada qeydiyyatdan keçin
+    sign_up_extended: Vikipediya ilə qeydiyyatdan keç
+    sign_up_wikipedia: və ya Vikipediyada qeydiyyatdan keçin
     sign_up_log_in_extended: Vikipediya
     sign_up: Qeydiyyatdan keç
     submit: Təsdiq et
@@ -111,8 +111,8 @@ az:
       bilərsiniz.
   home:
     explore: Araşdır
-    log_in: Vikipediya ilə daxil olun
-    sign_up: Vikipediya ilə qeydiyyatdan keçin
+    log_in: Vikipediya ilə daxil ol
+    sign_up: Vikipediya ilə qeydiyyatdan keç
     registration_advice:
       username_rules:
         heading: İstifadəçi adı qaydaları
@@ -275,21 +275,68 @@ az:
   campaign:
     default_passcode: Standart parol
   courses:
+    accounts_generation_explanation: Bu, iştirakçılara özləri yeni hesablar yaratmaq
+      əvəzinə, e-poçt ünvanlarını və istədikləri istifadəçi adlarını daxil etməyə
+      imkan verəcək. Bundan sonra siz bu İdarə Panelindən hesablar yarada və eyni
+      zamanda onları proqram iştirakçıları kimi əlavə edə biləcəksiniz.
     course_description: Kurslar
     courses: Kurslar
     current: Cari kurslar
     duration: Kursun müddəti
+    home_wiki: Əsas viki
+    invitation: Siz %{title} tədbirinə qoşulmağa dəvət olunmusunuz. Qoşulmaq üçün,
+      Vikipediya hesabınız ilə giriş etməlisiniz.
+    invitation_username_advice: Əgər Vikipediya hesabınız yoxdursa, indi qeydiyyatdan
+      keçin. İstifadəçi adınız istədiyiniz qədər anonim ola bilər. (Paylaşılan hesablara
+      icazə verilmir.)
+    join_details: Bu tədbirə qoşulmaq üçün təşkilatçıdan keçid kodunu və ya parolun
+      olduğu qeydiyyat linkini əldə etməlisiniz. Əgər bunu almamısınızsa, təşkilatçı
+      ilə əlaqə saxlayın.
     new_week: Yeni həftə əlavə et
+    new_account_check_username: İstifadəçi adının mövcudluğunu yoxla
+    new_account_email: E-poçt ünvanı
+    new_account_info: Hesab tələb etmək üçün e-poçt ünvanınızı və istədiyiniz istifadəçi
+      adını daxil edin. Təşkilatçılardan biri hesabı yaratdıqda parol sizə e-poçtla
+      göndəriləcək.
+    new_account_info_admin: Yeni redaktor üçün hesab yaratmaq üçün onların e-poçt
+      ünvanını və istədiyi istifadəçi adını daxil edin. Hesab yaradıldıqdan sonra
+      parol onlara e-poçtla göndəriləcək.
+    new_account_username: İstifadəçi adı
+    new_account_username_taken: Bu istifadəçi adı artıq götürülüb. Başqasını seçin.
+    new_account_submit: Hesabı istə
+    new_account_submitted: Hesab üçün sorğunuz göndərildi. Bu proqramın təşkilatçısı
+      hesab yaratmaq prosesini indi yekunlaşdıra bilər. Yaradılandan sonra siz e-poçt
+      vasitəsilə yeni hesabınız üçün parol alacaqsınız.
+    no_campaign: Bu proqramı aktiv etmək və istifadəçilərin qoşulmasına icazə vermək
+      üçün o, kampaniyaya əlavə edilməlidir. Hansı kampaniyanı əlavə edəcəyinizə əmin
+      deyilsinizsə, "Miscellanea" istifadə edin.
+    overview: Ana səhifə
     school: Məktəb
     stay_in_sandbox: Qaralamada qalın
     students: Tələbələr
     students_short: Tələbələr
     submitted_at: Göndərilib
     title: Başlıq
+  courses_generic:
+    student_editors: Redaktorlar
+    students: Redaktorlar
+    students_short: Redaktorlar
   metrics:
     last_update: Son statistik məlumatların yeniləməsi
     next_update: Növbəti təxmini güncəlləştirmə
+    articles_created: Yeni məqalə
+    articles_edited: redaktə edilən məqalə
+    bytes_added: əlavə olunan bayt
     date_time: Tarix/Vaxt
+    edit_count_description: toplam redaktə
   revisions:
     date_time: Tarix/Vaxt
+  uploads:
+    label: Yükləmələr
+    license: 'Lisenziya:'
+  users:
+    editors: redaktor
+    request_confirmation: Bu hesabı tələb etmək istədiyindən əminsiniz?
+    requested_account_status:
+      success_message: 'Uğurlu: %{result_description}'
 ...

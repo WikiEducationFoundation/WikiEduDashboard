@@ -7,6 +7,7 @@
 # Author: By erdo can
 # Author: Can
 # Author: Chansey
+# Author: Cobija
 # Author: Elftrkn
 # Author: Evrifaessa
 # Author: HakanIST
@@ -964,11 +965,11 @@ tr:
     activity: Son Etkinlik
     are_trained: eğitim ile güncel
     articles_created: Oluşturulan Maddeler
-    articles_created_wikidata: Oluşturulan Öğeler
+    articles_created_wikidata: Oluşturulan Ögeler
     articles_created_generic: Oluşturulan Sayfalar
     articles_created_generic_wikidata: Oluşturlan Ögeler
     articles_edited: Düzenlenen Maddeler
-    articles_edited_wikidata: Düzenlenmiş Öğeler
+    articles_edited_wikidata: Düzenlenmiş Ögeler
     articles_edited_generic: Düzenlenmiş Sayfalar
     articles_edited_generic_wikidata: Düzenlenmiş Ögeler
     article_scoped_program_info: Bu, yalnızca atanan maddelerde ve kategorilerde yapılan
@@ -1531,7 +1532,7 @@ tr:
     show_options: Seçenekleri Göster
     subheading_message: Haydi, üzerinde çalışmak için uygun bir Vikipedi makalesi
       bulalım
-    subheading_message_wikidata: Hadi, üzerinde çalışmak için bir Wikidata ögesi bulalım.
+    subheading_message_wikidata: Hadi, üzerinde çalışmak için bir Vikiveri ögesi bulalım.
     submit: Gönder
     tools: Araçlar
     unassign_article_self: Atanmamış Maddeler

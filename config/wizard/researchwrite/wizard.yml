@@ -96,17 +96,18 @@
 -
   key: sandboxes
   title: Starting in sandboxes
-  only_if: returning_instructor # filter out unless the course's return_instructor property is true
+  # only_if: returning_instructor
   description: |
-    In Fall 2024, Wiki Education is experimenting with having students directly improve the live versions of their assigned articles,
-    rather than preparing complete drafts of their changes in sandboxes before moving live. This may simplify the project,
-    encourage incremental changes and community interaction, and eliminate the error-prone step of copying student work from a
-    sandbox into a live article. (Students creating new articles, rather than improving existing ones, will still prepare
+    For improving existing articles, we support two different strategies: have students prepare their initial improvements
+    in a Wikipedia sandbox, or have students directly improve the live versions incrementally. Sandboxes will give you a
+    chance to review student work before it reaches Wikipedia readers, but working live encourages incremental changes, provides
+    more opportunity for community interaction, and eliminates the error-prone step of copying student work from a
+    sandbox into a live article. Most instructors who have tried both strategies find that bypassing sandboxes and
+    working live simplifies the project. (Students creating new articles, rather than improving existing ones, will still prepare
     their initial drafts in a sandbox.)
 
-    Choose 'Prepare drafts in sandboxes' if you would like to use sandbox drafts as you have in previous Wiki Education assignments. If you would like to
-    try having students work incrementally on the live articles instead, choose 'Work live without sandbox drafts'.
-  
+    Choose 'Prepare drafts in sandboxes' if you would like to use sandbox drafts. If you would like students to work incrementally on
+    the live articles instead, choose 'Work live without sandbox drafts'.
   type: 1 # single choice
   minimum: 1
   options:
@@ -114,52 +115,52 @@
       title: Prepare drafts in sandboxes
       tag: yes_sandboxes
       logic: yes_sandboxes
-      selected: true # selected by default
     -
       title: Work live without sandbox drafts
       tag: no_sandboxes
       logic: no_sandboxes
+      selected: true # selected by default
 
 -
   key: working_in_groups
-  title: Working in groups
+  title: Working individually or in groups
   description: |
-    Wikipedia assignments work well as individual or group projects.
-    In either case, students have a chance to make a substantial quality
-    contribution to Wikipedia. Your decision to include collaboration should
-    take into account the following factors:
+    Wikipedia assignments work well as individual or group projects. In either case,
+    students have a chance to make a substantial quality contribution to Wikipedia.
 
-    **When students work individually:**
+    **Our recommendations:**
+
+    If you’re teaching a class with 40 students or fewer, we recommend that they work individually.
+    If you’re teaching a class with more than 40 students, we recommend they work in groups.
+
+
+    **When students work individually, they can:**
  
-      * They can independently control the way they navigate and participate on Wikipedia.
-      * Students can experience every aspect of contributing to Wikipedia from choosing their
-      topic to finding sources to updating their chosen entry.
-      * You, the instructor, will have to assess a larger number of Wikipedia contributions.
+      * independently control the way they navigate and participate on Wikipedia.
+      * experience every aspect of contributing to Wikipedia, from choosing their
+      topic and finding sources to updating their chosen entry.
+      * work on the topics they personally care about most.
+      * make a greater impact on Wikipedia.
 
-    **When they work in groups:**
+    **When students work in groups:**
       * They may have an easier time overcoming some of the first-time challenges of contributing to Wikipedia.
-      * Depending on how you structure your groups, students may only participate in one aspect of contributing to
-      Wikipedia (e.g., one student might gather sources, while another writes up the contribution).
-      * You will have fewer entries to assess.
+      * They may focus on one aspect of contributing to Wikipedia (e.g., one student might gather sources, while another writes up the contribution).
+      * They might find it easier to socialize and connect.
+      * They’ll work on fewer articles overall which means you’ll have less content to assess.
     
-    If you decide to have your students work in groups at any point of their Wikipedia assignment,
-    your timeline will include some recommendations to ensure that each student gets credit for their work on Wikipedia.
-
-    Note: if your course will have more than 50 students, we strongly recommend that you choose
-    group work for your Wikipedia assignment. 
-
-    #### Will your students be working in groups or individually during this Wikipedia assignment? 
+    #### Will your students be working in groups or individually during this Wikipedia assignment?
+ 
   type: 1 # single choice
   minimum: 1
   options:
     -
-      title: In groups
-      tag: working_in_groups
-      logic: working_in_groups
-    -
       title: Individually
       tag: working_individually
       logic: working_individually
+    -
+      title: In groups
+      tag: working_in_groups
+      logic: working_in_groups
 
 -
   key: choosing_articles
@@ -482,6 +483,21 @@
       blurb: In courses that emphasize traditional research skills and the development of original ideas through a term paper, Wikipedia's policy of "no original research" may be too restrictive. Many instructors pair Wikipedia writing with a complementary research paper; students’ Wikipedia articles serve as a literature review, and the students go on to develop their own ideas and arguments in the offline research paper.
       description:
       logic: original_research_paper
+
+    -
+      title: Extra credit assignment
+      blurb: You may offer your students the option of editing an additional Wikipedia article for extra credit.
+      description: |
+        Students who choose this option will contribute to a second Wikipedia entry by following the steps outlined
+        on the course timeline for their main entry. Students will be asked to pursue this option early in the course
+        so they have enough time to research and draft their content for the additional contribution. Students should
+        only choose this extra credit option if they have the time and capacity to make a well-thought out and
+        carefully written contribution.
+
+        This exercise will allow students to magnify their impact and become more deeply involved in the editing process.   
+
+        You will decide how much additional credit to offer students who choose this option.
+      logic: additional_article_extra_credit
 # -
 #   key: dyk_and_ga
 #   title: Wikipedia quality review processes

@@ -33,6 +33,9 @@ categories:
       - slug: working-live
         name: Working live on Wikipedia
         description: How to work incrementally to improve a live article
+      - slug: generative-ai
+        name: Using generative AI tools with Wikipedia
+        description: Guidance for using AI tools while working on Wikipedia
 
   - title: Special topics
     description: |
@@ -85,9 +88,12 @@ categories:
       - slug: 'choose-topic-exercise'
         name: 'Exercise: Choose your article'
         description: Find possible topics to work on by exploring Wikipedia.
-      - slug: finalize-topic-exercise
+      - slug: bibliography-exercise
         name: 'Exercise: Building your bibliography'
         description: Decide which topic to work on, and begin finding sources.
+      - slug: outline-exercise
+        name: 'Exercise: Outline proposed changes'
+        description: Create a prose outline of the changes you plan to make.
       - slug: 'choose-topic-from-list-exercise'
         name: 'Exercise: Choose your article (from a list)'
         description: Select an article to work on from your class's list, and begin finding sources.
@@ -121,6 +127,9 @@ categories:
       - slug: assignment-journal
         name: 'Exercise: Keep weekly journal'
         description: Keep a weekly journal to reflect on the Wikipedia assignment.
+      - slug: extra-credit-article
+        name: 'Exercise: Select an extra credit article'
+        description: Optionally, choose another article to work on for extra credit.
   - title: Discussions
     description: |
       Prompts for in-class discussions
