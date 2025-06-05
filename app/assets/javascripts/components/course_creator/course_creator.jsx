@@ -209,19 +209,6 @@ const CourseCreator = createReactClass({
     return true;
   },
 
-  termIncludesYear() {
-    if (this.programName !== 'ClassroomProgramCourse') {
-      return true;
-    }
-  // Check if term contains at least 2 consecutive digits (indicating year)
-  const hasYear = /\d{2,}/.test(this.props.course.term);
-  if (!hasYear) {
-    this.props.setInvalid('term', I18n.t('application.field_invalid_term'));
-    return false;
-  }
-  return true;
-},
-
   slugPartsAreValid() {
     if (!this.props.course.title.match(CourseUtils.courseSlugRegex())) { return false; }
     if (!this.props.course.school.match(CourseUtils.courseSlugRegex())) { return false; }
@@ -257,7 +244,7 @@ const CourseCreator = createReactClass({
 
   showCourseDates() {
     this.props.activateValidations();
-    if (this.expectedStudentsIsValid() && this.titleSubjectAndDescriptionAreValid() && this.termIncludesYear()) {
+    if (this.expectedStudentsIsValid() && this.titleSubjectAndDescriptionAreValid()) {
       this.props.resetValidations();
       return this.setState({
         showCourseDates: true,
