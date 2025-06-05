@@ -1,0 +1,7 @@
+name: 'Outline proposed changes'
+id: 73
+kind: 'exercise'
+description: |
+  Review your sources and create an outline of the changes you plan to make to your assigned article.
+slides:
+  - slug: outline-proposed-changes #3803

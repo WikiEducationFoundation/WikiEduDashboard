@@ -167,16 +167,16 @@ essentials:
 
       -
         if: explore_to_find_articles
-        title: Finalize your topic and find sources
+        title: Finalize your topic, find sources, plan your changes
         kind: 1
-        training_module_ids: [38] # Exercise: Finalizing your topic / create bibliography
+        training_module_ids: [72, 73] # Exercise: Bibliography, Exercise: Outline
         content: |
 
       -
         if: choose_articles_from_list
-        title: Find sources and create a bibliography
+        title: Find sources, create a bibliography, plan your changes
         kind: 1
-        training_module_ids: [38] # Exercise: Finalizing your topic / create bibliography
+        training_module_ids: [72, 73] # Exercise: Bibliography, Exercise: Outline
         content: |
 
       -
