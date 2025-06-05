@@ -22,6 +22,7 @@
 # Author: S4b1nuz E.656
 # Author: Sarah Bernabei
 # Author: Statix64
+# Author: Wheelygay
 # Author: Wikitoni
 ---
 it:
@@ -71,6 +72,8 @@ it:
       one: '%{count} risultato per: ''%{search_terms}'''
       other: '%{count} risultati per: ''%{search_terms}'''
     no_results: Nessun risultato trovato per '%{query}'
+    show_current_revision: Mostra versione attuale
+    show_last_revision: Mostra l'ultima versione modificata
     sign_up_extended: Registrati con Wikipedia
     sign_up_wikipedia: Oppure fai login su Wikipedia
     sign_up_log_in_extended: con Wikipedia
@@ -117,6 +120,9 @@ it:
     explore: Esplora
     log_in: Accedi con Wikipedia
     sign_up: Registrati con Wikipedia
+    registration_advice:
+      username_rules:
+        heading: Regole per il nome utente
     sign_up_help: Per utilizzare il pannello di controllo, dovrai fare login tramite
       Wikipedia e fornire autorizzazione per accedere alla tua utenza. Puoi accedere
       con una utenza esistente di Wikipedia o crearne una nuova. Se non riesci a creare
