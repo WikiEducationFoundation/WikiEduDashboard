@@ -12,37 +12,11 @@ class RevisionScoreImporter
   ################
   # Entry points #
   ################
-  def self.update_revision_scores_for_course(course, update_service: nil)
-    course.wikis.each do |wiki|
-      importer = new(wiki:, course:, update_service:)
-      importer.update_revision_scores
-      importer.update_previous_revision_scores
-    end
-  end
-
   def initialize(language: 'en', project: 'wikipedia', wiki: nil, course: nil, update_service: nil)
     @course = course
     @update_service = update_service
     @wiki = wiki || Wiki.get_or_create(language:, project:)
     @api_handler = RevisionScoreApiHandler.new(wiki: @wiki, update_service:)
-  end
-
-  def update_revision_scores
-    batches = (unscored_revisions.count / BATCH_SIZE) + 1
-    unscored_revisions.in_batches(of: BATCH_SIZE).each.with_index do |rev_batch, i|
-      Rails.logger.debug { "Pulling revisions: batch #{i + 1} of #{batches}" }
-      get_and_save_scores rev_batch
-    end
-  end
-
-  def update_previous_revision_scores
-    batches = (unscored_previous_revisions.count / BATCH_SIZE) + 1
-    unscored_previous_revisions
-      .in_batches(of: BATCH_SIZE)
-      .each.with_index do |rev_batch, i|
-      Rails.logger.debug { "Getting wp10_previous: batch #{i + 1} of #{batches}" }
-      get_and_save_previous_scores rev_batch
-    end
   end
 
   # Takes an array of Revision records, and returns an array of Revisions records
@@ -118,21 +92,6 @@ class RevisionScoreImporter
       Revision.find_by(mw_rev_id: mw_rev_id.to_i, wiki: @wiki)
               .update(wp10_previous:, features_previous:)
     end
-  end
-
-  def mainspace_userspace_and_draft_revisions
-    all_revisions = @course&.revisions || Revision
-    all_revisions.joins(:article)
-                 .where(wiki_id: @wiki.id, deleted: false)
-                 .where(articles: { namespace: [0, 2, 118] })
-  end
-
-  def unscored_revisions
-    mainspace_userspace_and_draft_revisions.where(features: nil)
-  end
-
-  def unscored_previous_revisions
-    mainspace_userspace_and_draft_revisions.where(features_previous: nil, new_article: false)
   end
 
   def get_parent_revisions(rev_batch)

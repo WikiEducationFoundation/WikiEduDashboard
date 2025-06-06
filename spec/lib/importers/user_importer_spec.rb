@@ -196,11 +196,13 @@ describe UserImporter do
         original = create(:user, username: 'Ragesock', global_id: 14093230)
         dupe = create(:user, username: ' Ragesock')
         create(:courses_user, user: dupe, course:)
+        create(:course_user_wiki_timeslice, course:, user: dupe, wiki: enwiki)
 
         expect(Sentry).to receive(:capture_exception).and_call_original
         described_class.update_user_from_wiki(dupe, MetaWiki.new)
 
         expect(original.courses_users.count).to eq(1)
+        expect(original.course_user_wiki_timeslices.count).to eq(1)
       end
     end
 

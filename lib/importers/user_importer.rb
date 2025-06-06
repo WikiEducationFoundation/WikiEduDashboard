@@ -128,7 +128,7 @@ class UserImporter
 
     # We can use the more efficient `update_all` since there are no callbacks on revisions
     # rubocop:disable Rails/SkipsModelValidations
-    user.revisions.update_all(user_id: existing_user.id)
+    user.course_user_wiki_timeslices.update_all(user_id: existing_user.id)
     # rubocop:enable Rails/SkipsModelValidations
 
     user.courses_users.each do |cu|

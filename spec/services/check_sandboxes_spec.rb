@@ -12,7 +12,7 @@ describe CheckSandboxes do
 
   before do
     create(:courses_user, course:, user:)
-    create(:revision, article: sandbox, user:, date: course.start + 1.day)
+    create(:article_course_timeslice, article: sandbox, course:)
   end
 
   it 'returns a list of unreliable source rule violations' do

@@ -87,10 +87,6 @@ class CoursesUsers < ApplicationRecord
     "#{course.home_wiki.base_url}/wiki/User_talk:#{user.url_encoded_username}"
   end
 
-  def assigned_article_title
-    self[:assigned_article_title]
-  end
-
   def content_expert
     role.positive? && user.permissions == 1 && user.greeter == true
   end
