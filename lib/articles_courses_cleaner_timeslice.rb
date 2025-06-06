@@ -40,6 +40,10 @@ class ArticlesCoursesCleanerTimeslice # rubocop:disable Metrics/ClassLength
     new(course).reset(articles)
   end
 
+  def self.reset_articles_in_untracked_namespaces(course)
+    new(course).reset_articles_in_untracked_namespaces
+  end
+
   def initialize(course)
     @course = course
   end
@@ -129,16 +133,7 @@ class ArticlesCoursesCleanerTimeslice # rubocop:disable Metrics/ClassLength
       reset(article_batch)
     end
 
-    @course.articles.in_batches do |article_batch|
-      tracked = @course.tracked_namespaces.each.flat_map do |wiki_ns|
-        wiki_id = wiki_ns[:wiki].id
-        namespace = wiki_ns[:namespace]
-        article_batch.where(wiki_id:, namespace:).pluck(:id)
-      end
-      # Find articles with articles_courses records but not in tracked namespaces
-      untracked_articles = article_batch.where.not(id: tracked)
-      reset(untracked_articles)
-    end
+    reset_articles_in_untracked_namespaces
   end
 
   def reset_undeleted_or_retracked_articles
@@ -161,6 +156,19 @@ class ArticlesCoursesCleanerTimeslice # rubocop:disable Metrics/ClassLength
   def reset(articles, wiki = nil)
     mark_as_needs_update(articles, wiki)
     delete_article_course(articles.pluck(:id))
+  end
+
+  def reset_articles_in_untracked_namespaces
+    @course.articles.in_batches do |article_batch|
+      tracked = @course.tracked_namespaces.each.flat_map do |wiki_ns|
+        wiki_id = wiki_ns[:wiki].id
+        namespace = wiki_ns[:namespace]
+        article_batch.where(wiki_id:, namespace:).pluck(:id)
+      end
+      # Find articles with articles_courses records but not in tracked namespaces
+      untracked_articles = article_batch.where.not(id: tracked)
+      reset(untracked_articles)
+    end
   end
 
   private
