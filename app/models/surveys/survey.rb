@@ -45,10 +45,11 @@ class Survey < ApplicationRecord
   end
 
   def to_csv
+    prepare_data_for_csv
     CSV.generate do |csv|
       csv << csv_header
-      respondents.each do |respondent|
-        response_row = [respondent.username, course_for(respondent)] + response(respondent)
+      @users_by_id.each do |id, user|
+        response_row = [user.username, course_slug_for_user(id)] + response(user)
         csv << response_row
       end
     end
@@ -56,11 +57,12 @@ class Survey < ApplicationRecord
 
   private
 
-  def respondents
-    user_ids = Rapidfire::AnswerGroup
-               .where(question_group_id: rapidfire_question_groups.pluck(:id))
-               .pluck(:user_id)
-    User.where(id: user_ids)
+  # Initializes all data needed for CSV export
+  def prepare_data_for_csv
+    survey_assignment_ids # Load survey assignments
+    survey_responding_users_by_id # Load responding users
+    notifications_by_user_id # Load user notifications
+    courses_by_id # Load relevant courses
   end
 
   def csv_header
@@ -86,13 +88,75 @@ class Survey < ApplicationRecord
     end
   end
 
-  def course_for(user)
+  # Gets all survey assignment IDs for this survey
+  def survey_assignment_ids
     @survey_assignment_ids ||= SurveyAssignment.where(survey_id: id).pluck(:id)
-    notification = user.survey_notifications
-                       .where(survey_assignment_id: @survey_assignment_ids)
-                       .first
-    # If there's no course from a notification, fall back to the user's latest course
-    notification&.course_id ? Course.find(notification.course_id).slug : user.courses.last&.slug
+  end
+
+  # Gets users who have responded to this survey, indexed by user ID
+  def survey_responding_users_by_id
+    user_ids = Rapidfire::AnswerGroup
+               .where(question_group_id: rapidfire_question_groups.pluck(:id))
+               .pluck(:user_id)
+    @users_by_id = User.select(:id, :username).where(id: user_ids).index_by(&:id)
+  end
+
+  # Gets the primary survey notification for each user, indexed by user ID
+  # Returns a hash structure: { user_id => SurveyNotification object }
+  # Example: { 771 => #<SurveyNotification id: 5969, course_id: 10236> }
+  # Each notification object contains: id and course_id attributes
+  # Only the first (oldest) notification per user is kept if multiple exist
+  def notifications_by_user_id
+    @notifications_by_user_id ||= SurveyNotification
+                                  .joins(:courses_user)
+                                  .where(
+                                    courses_users: { user_id: @users_by_id.keys },
+                                    survey_assignment_id: @survey_assignment_ids
+                                  )
+                                  .select(
+                                    'survey_notifications.id',
+                                    'survey_notifications.course_id',
+                                    'courses_users.user_id AS user_id'
+                                  )
+                                  .order('survey_notifications.id')
+                                  .group_by(&:user_id)
+                                  .transform_values(&:first)
+  end
+
+  # Gets courses relevant to survey notifications, indexed by course ID
+  def courses_by_id
+    @courses_by_id ||= load_courses_by_id(notification_course_ids)
+  end
+
+  # Extracts unique course IDs from all survey notifications
+  def notification_course_ids
+    @notifications_by_user_id.values.map(&:course_id).uniq
+  end
+
+  # Loads courses by their IDs and returns them indexed by ID
+  def load_courses_by_id(course_ids)
+    Course
+      .where(id: course_ids)
+      .select(:id, :slug)
+      .index_by(&:id)
+  end
+
+  # Gets the course slug for a specific user from their survey notification
+  def course_slug_for_user(user_id)
+    # Get the course ID from the user's survey notification
+    course_id = @notifications_by_user_id[user_id]&.course_id
+
+    # Return the course slug from cached courses, or fall back to user's latest course
+    @courses_by_id[course_id]&.slug || fallback_course_slug_for_user(user_id)&.slug
+  end
+
+  # Fallback: gets user's most recent course slug if no notification course exists
+  def fallback_course_slug_for_user(user_id)
+    Course.joins(:courses_users)
+          .where(courses_users: { user_id: })
+          .select(:slug)
+          .distinct
+          .last
   end
 
   def question_groups_in_order

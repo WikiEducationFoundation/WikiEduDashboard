@@ -18,7 +18,7 @@
 #
 
 class SurveyNotification < ApplicationRecord
-  belongs_to :courses_user, class_name: 'CoursesUsers'
+  belongs_to :courses_user, class_name: 'CoursesUsers', foreign_key: 'courses_users_id'
   belongs_to :survey_assignment
   belongs_to :course
 
