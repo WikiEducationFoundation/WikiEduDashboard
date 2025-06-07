@@ -12,5 +12,5 @@
       %span Download Survey Results CSV
 
   .results
-    - @surveys_question_groups.includes(rapidfire_question_group: { questions: { answers: { answer_group: :user}}}).each_with_index do |group, index|
-      = render partial: "question_group", locals: question_group_locals(group, index, @surveys_question_groups.length, is_results_view: true)
+    - @rapidfire_question_groups.each_with_index do |group, index|
+      = render partial: "question_group", locals: question_group_locals(group, index, is_results_view: true, answer_group_builders_by_id: @answer_group_builders_by_id, rapidfire_questions_by_id: @rapidfire_questions_by_id)
