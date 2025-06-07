@@ -151,16 +151,32 @@ class SurveysController < ApplicationController
     @survey = Survey.find(params[:id])
   end
 
-  # Loads and caches all survey data (question groups, questions, answers, users, courses)
-  # for efficient rendering in survey results and detail views. Reduces N+1 queries by
-  # eager loading and indexing data upfront.
+  # Loads and caches survey data based on the specific action's requirements.
+  # Optimizes performance by loading only necessary data for each action:
+  # - 'show': Basic data for survey display (avoids expensive answer processing)
+  # - 'results': Full dataset including answer counts and user data for admin analysis
+  # - 'edit'/'edit_question_groups': Minimal data for survey editing interface
   def prepare_survey_data
-    load_question_groups_for_survey
-    load_questions
-    load_and_index_answers_with_counts
-    build_answer_group_builders
-    build_answer_group_user_cache
-    survey_courses_cache
+    case action_name
+    when 'show'
+      load_question_groups_for_survey
+      load_questions
+      build_answer_group_builders
+    when 'results'
+      load_question_groups_for_survey
+      load_questions
+      load_and_index_answers_with_counts
+      build_answer_group_builders
+      build_answer_group_user_cache
+      survey_courses_cache
+    when 'edit', 'edit_question_groups'
+      load_question_groups_for_survey_edit
+    end
+  end
+
+  # Loads basic survey question groups for editing interface.
+  def load_question_groups_for_survey_edit
+    @surveys_question_groups = SurveysQuestionGroup.by_position(params[:id])
   end
 
   # Load question groups for a given survey, preserving position order
