@@ -33,3 +33,14 @@ fall_ke.each do |course|
   block.save
   puts course.slug
 end
+
+# This script replaces the deprecated 'bibliography + outline' exercise
+# with separate 'bibliography' and 'outline' exercises
+# [38] => [72, 73]
+ClassroomProgramCourse.where('start > ?', '2025-07-01'.to_date).each do |course|
+  block = course.blocks.where(training_module_ids: [38]).first
+  next unless block
+  block.training_module_ids = [72,73]
+  block.save
+  puts course.slug
+end

@@ -106,18 +106,23 @@ class CourseCloneManager
     @clone.reload
   end
 
-  # Replace first module with second one.
-  # Make this into an array-of-arrays and loop through, if additional replacements are needed.
-  MODULE_REPLACEMENTS = [35, 69].freeze # old "Add a fact" becomes new biography-focused version
+  # Replace first module with rest.
+  MODULE_REPLACEMENTS = [
+    [35, 69], # old "Add a fact" becomes new biography-focused version
+    [38, 72, 73] # old "Bibliography + Outline" module with new separate modules
+  ].freeze
 
   def update_wiki_ed_training_modules
     return unless Features.wiki_ed?
 
-    to_replace, replace_with = MODULE_REPLACEMENTS
-    @clone.blocks.each do |block|
-      next unless block.training_module_ids.include? to_replace
-      updated_module_ids = block.training_module_ids - [to_replace] + [replace_with]
-      block.update(training_module_ids: updated_module_ids)
+    MODULE_REPLACEMENTS.each do |replacement|
+      # to_replace is a single_id, replace_with is an array of the rest
+      to_replace, *replace_with = replacement
+      @clone.blocks.each do |block|
+        next unless block.training_module_ids.include? to_replace
+        updated_module_ids = block.training_module_ids - [to_replace] + replace_with
+        block.update(training_module_ids: updated_module_ids)
+      end
     end
   end
 
