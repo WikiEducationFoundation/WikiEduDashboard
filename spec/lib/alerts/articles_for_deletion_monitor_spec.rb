@@ -47,7 +47,7 @@ describe ArticlesForDeletionMonitor do
                                  speedy: 'Category:Speedy deletion')
 
       allow_any_instance_of(CategoryImporter).to receive(:page_titles_for_category)
-        .with('Category:AfD debates', 2)
+        .with('Category:AfD debates', 2, 4)
         .and_return(['Wikipedia:Articles for deletion/One page',
                      'Wikipedia:Articles for deletion/Another page',
                      'Category:Some category'])
