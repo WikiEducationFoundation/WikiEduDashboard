@@ -6,6 +6,7 @@ class AssignmentPipeline
 
   module AssignmentStatuses
     NOT_YET_STARTED = 'not_yet_started'
+    BIBLIOGRAPHY_COMPLETE = 'bibliography_complete'
     IN_PROGRESS = 'in_progress'
     READY_FOR_REVIEW = 'ready_for_review'
     READY_FOR_MAINSPACE = 'ready_for_mainspace'
@@ -30,6 +31,7 @@ class AssignmentPipeline
   PIPELINES = {
     assignment: [
       AssignmentStatuses::NOT_YET_STARTED,
+      AssignmentStatuses::BIBLIOGRAPHY_COMPLETE,
       AssignmentStatuses::IN_PROGRESS,
       AssignmentStatuses::READY_FOR_REVIEW,
       AssignmentStatuses::READY_FOR_MAINSPACE,
@@ -42,6 +44,13 @@ class AssignmentPipeline
       ReviewStatuses::PEER_REVIEW_COMPLETED
     ].freeze,
     bibliography_sandbox: [
+      SandboxStatuses::DOES_NOT_EXIST,
+      SandboxStatuses::EXISTS_IN_USERSPACE,
+      SandboxStatuses::EXISTS_IN_DRAFT_SPACE,
+      SandboxStatuses::EXISTS_IN_MAINSPACE,
+      SandboxStatuses::EXISTS_ELSEWHERE
+    ].freeze,
+    outline_sandbox: [
       SandboxStatuses::DOES_NOT_EXIST,
       SandboxStatuses::EXISTS_IN_USERSPACE,
       SandboxStatuses::EXISTS_IN_DRAFT_SPACE,
@@ -88,6 +97,10 @@ class AssignmentPipeline
 
   def bibliography_sandbox_status
     @assignment.flags.dig(@key, :bibliography) || SandboxStatuses::DOES_NOT_EXIST
+  end
+
+  def outline_sandbox_status
+    @assignment.flags.dig(@key, :outline) || SandboxStatuses::DOES_NOT_EXIST
   end
 
   def peer_review_sandbox_status

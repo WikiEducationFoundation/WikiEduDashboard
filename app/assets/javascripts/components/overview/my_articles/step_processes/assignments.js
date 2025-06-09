@@ -6,13 +6,23 @@ export default (assignment, course) => {
   if (course.stay_in_sandbox) {
     return [
       completeBibliography(assignment, reviewBibliography),
+      completeOutline(assignment),
       createInSandbox(assignment),
       expandYourDraft(assignment),
       prepareForMainspace(assignment)
     ];
   }
+  if (course.no_sandboxes) {
+    return [
+      completeBibliography(assignment, reviewBibliography),
+      completeOutline(assignment),
+      makeYourEdits(assignment)
+    ];
+  }
+
   return [
     completeBibliography(assignment, reviewBibliography),
+    completeOutline(assignment),
     createInSandbox(assignment),
     expandYourDraft(assignment),
     moveYourWork(assignment)
@@ -33,6 +43,11 @@ const completeBibliography = (assignment, reviewBibliography) => {
         title: 'Bibliography',
         path: `${assignment.sandboxUrl}/Bibliography?veaction=edit&preload=Template:Dashboard.wikiedu.org_bibliography`,
         external: true
+      },
+      {
+        title: 'Outline',
+        path: `${assignment.sandboxUrl}/Outline?veaction=edit&preload=Template:Dashboard.wikiedu.org_outline`,
+        external: true
       }
     ]
   };
@@ -41,6 +56,23 @@ const completeBibliography = (assignment, reviewBibliography) => {
     bibliographyStep.stepAction = submitReviewRequestAlert;
   }
   return bibliographyStep;
+};
+
+const completeOutline = (assignment) => {
+  const outlineStep = {
+    title: 'Outline your changes',
+    content: 'Create an outline of the changes you plan to make, based on the sources from your bibliography.',
+    status: 'bibliography_complete',
+    trainings: [
+      {
+        title: 'Outline',
+        path: `${assignment.sandboxUrl}/Outline?veaction=edit&preload=Template:Dashboard.wikiedu.org_outline`,
+        external: true
+      }
+    ]
+  };
+
+  return outlineStep;
 };
 
 const createInSandbox = (assignment) => {
@@ -120,6 +152,25 @@ const prepareForMainspace = (assignment) => {
         title: 'Sandbox',
         path: assignment.sandboxUrl,
         external: true
+      },
+      {
+        title: 'Article',
+        path: assignment.article_url,
+        external: true
+      }
+    ]
+  };
+};
+
+const makeYourEdits = (assignment) => {
+  return {
+    title: 'Make your edits',
+    content: 'It\'s time to start improving the live article!',
+    status: 'ready_for_live_edits',
+    trainings: [
+      {
+        title: 'Related Training Modules',
+        path: 'resources#editing-live'
       },
       {
         title: 'Article',
