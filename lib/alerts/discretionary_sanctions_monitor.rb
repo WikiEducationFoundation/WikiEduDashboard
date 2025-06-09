@@ -36,6 +36,7 @@ class DiscretionarySanctionsMonitor
   DS_CATEGORY = 'Category:Wikipedia pages about contentious topics'
   DS_CATEGORY_DEPTH = 1
   def find_pages_tagged_for_discretionary_sanctions
+    # These are all talk pages, so the default namespaces for CategoryImporter are fine.
     @ds_talk_titles = CategoryImporter.new(@wiki)
                                       .page_titles_for_category(DS_CATEGORY, DS_CATEGORY_DEPTH)
   end

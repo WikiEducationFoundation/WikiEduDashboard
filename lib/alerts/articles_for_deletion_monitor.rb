@@ -76,6 +76,8 @@ class ArticlesForDeletionMonitor
   def find_proposed_deletions
     category = @settings[:PROD]
     depth = 0
+    # Proposed deletion category is used for mainspace articles, so the default namespaces work.
+    # https://en.wikipedia.org/wiki/Category:Proposed_deletion
     @prod_article_titles = CategoryImporter.new(@wiki).page_titles_for_category(category, depth)
   end
 
@@ -84,6 +86,9 @@ class ArticlesForDeletionMonitor
     # This captures the main CSD categories, but excludes more complicated things
     # that are further down the category tree.
     depth = 1
+    # CSD can apply to any namespace, but is mainly relevant for mainspace.
+    # Checking only against the default namespaces of main and talk is okay.
+    # https://en.wikipedia.org/wiki/Category:Candidates_for_speedy_deletion
     @csd_article_titles = CategoryImporter.new(@wiki).page_titles_for_category(category, depth)
   end
 

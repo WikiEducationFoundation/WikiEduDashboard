@@ -36,6 +36,7 @@ class HighQualityArticleMonitor
   FA_CATEGORY = 'Category:Featured articles'
   GA_CATEGORY = 'Category:Good articles'
   def find_good_and_featured_articles
+    # These are all mainspaces pages, so the default namespaces for CategoryImporter are fine.
     @fa_titles = CategoryImporter.new(@wiki).page_titles_for_category(FA_CATEGORY)
     @ga_titles = CategoryImporter.new(@wiki).page_titles_for_category(GA_CATEGORY)
   end

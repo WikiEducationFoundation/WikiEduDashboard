@@ -29,6 +29,7 @@ class GANominationMonitor
   GA_CATEGORY = 'Category:Good article nominees'
   GA_CATEGORY_DEPTH = 0
   def find_pending_ga_nominations
+    # These are all talk pages, so the default namespaces for CategoryImporter are fine.
     @ga_titles = CategoryImporter.new(@wiki)
                                  .page_titles_for_category(GA_CATEGORY, GA_CATEGORY_DEPTH)
   end

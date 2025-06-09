@@ -33,6 +33,7 @@ class ProtectedArticleMonitor
   FULLY_PROTECTED_CATEGORY = 'Category:Wikipedia fully protected pages'
   XC_CATEGORY = 'Category:Wikipedia extended-confirmed-protected pages'
   def find_protected_articles
+    # We care about mainspace articles here, so the default CategoryImporter namespaces are fine.
     @fp_titles = CategoryImporter.new(@wiki).page_titles_for_category(FULLY_PROTECTED_CATEGORY)
     @xc_titles = CategoryImporter.new(@wiki).page_titles_for_category(XC_CATEGORY)
   end
