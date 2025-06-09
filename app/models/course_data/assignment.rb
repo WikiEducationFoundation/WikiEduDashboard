@@ -102,6 +102,10 @@ class Assignment < ApplicationRecord
     "#{sandbox_pagename}/Bibliography"
   end
 
+  def outline_pagename
+    "#{sandbox_pagename}/Outline"
+  end
+
   def peer_review_pagename
     # This same url pattern is used elsewhere; search for `_Peer_Review`.
     # Ideally, we would remove this duplicated logic and use the Assignment
