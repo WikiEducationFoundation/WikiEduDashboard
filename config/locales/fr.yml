@@ -481,6 +481,12 @@ fr:
     delete_course_tooltip: Supprimer et retirer de la campagne.
     disable_account_requests: Désactiver les demandes de compte
     enable_account_requests: Activer les demandes de compte
+    enable_account_requests_doc: La fonctionnalité de demandes de compte ajoute un
+      formulaire de demande de compte au lien d’inscription à un événement. Les utilisateurs
+      qui n’ont pas encore de compte peuvent saisir leur adresse courriel et le nom
+      d’utilisateur souhaité, et les facilitateurs peuvent utiliser le tableau de
+      bord pour créer les comptes demandés. Les utilisateurs faisant une demande de
+      compte sont automatiquement ajoutés à l’événement dès la création du compte.
     newest_campaigns: Nouvelles campagnes
     featured_campaigns: Campagnes mises en avant
     instructors_course: instructeurs par cours
@@ -502,6 +508,8 @@ fr:
     students_small: étudiants
     student_course: étudiants par cours
     title: Titre
+    too_large: Cette campagne est trop grande pour que les données demandées puissent
+      être affichées.
     too_many_articles: La liste des articles modifiés pour cette campagne est trop
       longue pour être affichée. Veuillez consulter les cours / programmes / événements
       individuels pour voir les articles modifiés.
@@ -658,8 +666,8 @@ fr:
         contributions que feront vos étudiants.
       course_private: Programme privé (visible uniquement par les administrateurs
         et les facilitateurs)
-      course_ta_support: Ce cours aura-t-il des instructeurs ou des assistants de
-        professeurs supplémentaires ?
+      course_ta_support: Le cours aura des instructeurs ou des assistants de professeurs
+        supplémentaires
       course_school: École du cours
       course_subject: Sujet du cours
       course_term: Période du cours
@@ -681,6 +689,10 @@ fr:
           articles assignés ainsi que des catégories. Utilisez ce type si vous voulez
           restreindre les statistiques à une collection d’articles connue ou de domaines
           du sujet. Par défaut, les modifications de wiki automatisées sont activées.
+        single_user_name: Contributeur individuel
+        single_user_description: Ce type de programme est conçu pour suivre vos propres
+          contributions, avec une interface simplifiée. Utilisez-le si vous n’avez
+          pas besoin de suivre les modifications des autres utilisateurs.
       create_button: Créer mon cours !
       create_label: Créer un nouveau cours
       create_new: Créer un nouveau cours
@@ -876,6 +888,9 @@ fr:
     no_campaign: Pour rendre ce programme actif et permettre aux utilisateurs de le
       rejoindre, il doit être ajouté à une campagne. Si vous ne savez pas bien quelle
       campagne ajouter, utilisez « Divers ».
+    no_sandboxes: Sans bacs à sable
+    no_sandboxes_info: Une fois activé, le cours sera en mode « Sans bacs à sable ».
+      N’oubliez pas de modifier les balises et le contenu de la chronologie si nécessaire.
     nocourses: Vous ne participez à aucun cours.
     nocourse: n’a participé à aucun cours.
     none: Aucun
@@ -917,7 +932,9 @@ fr:
       recevrez une URL d’inscription que les étudiants pourront utiliser pour rejoindre
       le cours et accéder aux contenus de formation (note : vous pourrez toujours
       faire des modifications ultérieurement).'
-    revisions_doc: Le nombre de modifications dans les %{timeframe} jours passés
+    revisions_doc: Le nombre estimé de modifications sur les %{timeframe} derniers
+      jours, basé sur la moyenne du nombre de modifications par jour sur la dernière
+      période.
     revisions_none: Ce cours n’a aucune activité récente de modification de Wikipédia.
     school: École
     school_and_term: Institution / Période
@@ -1480,14 +1497,54 @@ fr:
         already_is_not: '%{username} n’est pas un utilisateur spécial !'
         demote_success: '%{username} est dorénavant un(e) simple utilisateur/trice.'
   status:
+    active_jobs: Tâches en cours
+    active_jobs_doc: Le nombre de tâches en cours de traitement.
+    all_queues_operational: Toutes les files d’attente sont opérationnelles
+    all_queues_not_operational: Toutes les files d’attente sont opérationnelles sauf
+    constant_update: Mise à jour constante
+    constant_update_description: Les mises à jour constantes sont indépendantes des
+      statistiques principales du cours, récupérant les métadonnées de révision, générant
+      des alertes et effectuant d’autres tâches coûteuses en données et en traffic
+      réseau, pour tous les cours actuels.
+    constant_update_doc: Gère les tâches transactionnelles telles que les modifications
+      de wikis et l’envoi de courriels.
     daily_update: Mise à jour quotidienne
+    daily_update_description: Les mises à jour quotidiennes permettent de récupérer
+      des données supplémentaires et d’effectuer d’autres tâches qui n’ont pas besoin
+      d’être effectuées plusieurs fois par jour.
+    daily_update_doc: Gère les tâches de mise à jour de données de longue durée une
+      fois par jour.
     default: Par défaut
+    default_description: Planifie les mises à jour des cours en triant les cours dans
+      des files d’attente en fonction de leur durée.
+    default_doc: Gère les tâches fréquemment exécutées, telles que l’ajout de cours
+      aux files d’attente de mise à jour.
+    enqueued_jobs: Tâches en file d’attente
+    enqueued_jobs_doc: Le nombre de tâches actuellement en file d’attente dans toutes
+      les files d’attente.
     latency: Latence
+    latency_doc: Temps d’attente avant le début du traitement des tâches dans la file
+      d’attente. Une latence élevée peut indiquer un système occupé ou des retards
+      de traitement.
+    long_update: Mise à jour longue
+    long_update_description: Les mises à jour longues traitent les cours avec plus
+      de 10 000 révisions.
+    long_update_doc: Gère les mises à jour des grands cours.
+    medium_update: Mise à jour moyenne
+    medium_update_description: Les mises à jour moyennes traitent les cours avec moins
+      de 10 000 révisions.
+    medium_update_doc: Gère les mises à jour des cours de taille standard.
     no_info: Aucune information disponible.
     purpose: But
+    queues_overview: Présentation des files d’attente
     queue: File d’attente
     short_update: Mise à jour courte
+    short_update_description: Les mises à jour moyennes traitent les cours avec moins
+      de 1 000 révisions.
+    short_update_doc: Gère les mises à jour des petits cours.
+    sidekiq_stats: Statistiques de Sidekiq
     size: Taille
+    size_doc: Le nombre de tâches dans une file d’attente.
     status: État
   suggestions:
     editing: Modification des suggestions
@@ -1560,6 +1617,7 @@ fr:
     block_custom: Personnalisé
     block_in_class: En classe
     block_milestone: Jalon
+    block_resources: Ressources
     block_type: Le type bloc est utilisé pour communiquer à vos étudiants sur cet
       élément dans leur agenda et pour construire des outils utiles pour vous (comme
       la visualisation des jalons sur la page Vue d’ensemble).
@@ -1578,6 +1636,7 @@ fr:
       Cette opération ne pourra pas être annulée.
     discard_all_changes: Abandonner toutes les modifications
     delete_timeline_and_start_over: Supprimer l’agenda
+    done: Terminé
     due_default: Attendu la semaine prochaine
     edit_titles: Modifier les titres de semaine
     edit_titles_info: Modifier les titres de semaine dans l’agenda. Seules les semaines
@@ -1761,8 +1820,9 @@ fr:
       success_message: 'Succès : %{result_description}'
       failure_message: 'Échec : %{result_description}'
     revision_characters_and_views: 'Caractères ajoutés : %{characters} ; vues : %{views}'
-    revisions_doc: Le nombre de modifications faites par cette personne durant les
-      7 derniers jours
+    revisions_doc: Le nombre estimé de modifications faites par ce contributeur durant
+      les 7 derniers jours, basé sur la moyenne du nombre de modifications par jour
+      sur la dernière période.
     references_doc: Le nombre de références ajoutées ou retirées par cette personne
     reviewers: Relecteur(s)
     reviewing: Relecture en cours
@@ -1865,6 +1925,7 @@ fr:
       correctement vos affectations. Cliquer sur la date pour basculer entre non sélectionnée,
       sélectionnée et en vacances. Si vous n’avez pas de vacances, cocher « Je n’ai
       pas de congés scolaires » ci-dessous.
+    confirm_course_dates: Confirmer les dates de début et de fin du cours.
     confirm_dates: Choisir les dates du cours, les réunions hebdomadaires et les congés
       pour votre cours.
     course_dates: Dates du cours
@@ -1875,6 +1936,7 @@ fr:
     minimum_options:
       one: Veuillez sélectionner au moins %{count} option.
       other: Veuillez sélectionner au moins %{count} options.
+    no_class_holidays: Je n’ai pas de congés scolaires
     read_less: Lire moins
     read_more: Lire davantage
     review_selections: Veuillez vérifier vos sélections ci-dessous. Cliquez pour modifier
@@ -1959,6 +2021,7 @@ fr:
       message: Ceci est un rappel au sujet du sondage sur votre cours, %{course_title}.
         Les résultats de ce sondage nous aideront à améliorer notre soutien pour des
         affectations sur Wikipédia comme la vôtre.
+    edit_survey: Modifier le sondage
   feedback_form_responses:
     no_responses: Il n’y a encore aucune réponse de commentaire.
   wiki_api:
@@ -2140,4 +2203,6 @@ fr:
       weekday_selected: '{{weekday}} sélectionné, Appuyez sur la touche Entrée pour
         désélectionner'
       weekday_unselected: '{{weekday}} non sélectionné'
+  question_groups:
+    edit_question_group: Modifier le groupe de questions
 ...
