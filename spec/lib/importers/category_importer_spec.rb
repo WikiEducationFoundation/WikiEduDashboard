@@ -5,7 +5,8 @@ require "#{Rails.root}/lib/importers/category_importer"
 
 describe CategoryImporter do
   let(:wiki) { Wiki.default_wiki }
-  let(:subject) { described_class.new(wiki).page_titles_for_category(category, depth) }
+  let(:namespace) { nil }
+  let(:subject) { described_class.new(wiki).page_titles_for_category(category, depth, namespace) }
 
   describe '.page_titles_for_category' do
     context 'for depth 0' do
@@ -37,6 +38,18 @@ describe CategoryImporter do
 
           # this is a subcategory which should not be included
           expect(subject).not_to include('Category:Monty Python members')
+        end
+      end
+    end
+
+    context 'for AfD debates' do
+      let(:category) { 'Category:AfD debates' }
+      let(:depth) { 2 }
+      let(:namespace) { Article::Namespaces::PROJECT }
+
+      it 'returns page titles' do
+        VCR.use_cassette 'category_importer/afd_page_titles' do
+          expect(subject.count).to be_positive
         end
       end
     end

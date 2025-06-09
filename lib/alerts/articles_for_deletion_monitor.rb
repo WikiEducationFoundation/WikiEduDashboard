@@ -69,7 +69,8 @@ class ArticlesForDeletionMonitor
   def find_deletion_discussions
     category = @settings[:AFD]
     depth = 2
-    @afd_titles = CategoryImporter.new(@wiki).page_titles_for_category(category, depth)
+    namespace = Article::Namespaces::PROJECT
+    @afd_titles = CategoryImporter.new(@wiki).page_titles_for_category(category, depth, namespace)
   end
 
   def find_proposed_deletions
