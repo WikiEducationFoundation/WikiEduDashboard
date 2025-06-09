@@ -18,12 +18,13 @@ class SurveysController < ApplicationController
     results
   ]
   before_action :ensure_logged_in
-  before_action :prepare_survey_data, only: %i[
-    show
-    edit
-    edit_question_groups
-    results
-  ]
+
+  # Prepares survey data tailored to each controller action.
+  # Ensures minimal data loading and avoids unnecessary overhead.
+  before_action :prepare_show_survey_data, only: [:show]
+  before_action :prepare_results_survey_data, only: [:results]
+  before_action :prepare_edit_survey_data, only: %i[edit edit_question_groups]
+
   before_action :check_if_closed, only: [:show]
   before_action :set_notification, only: [:show]
 
@@ -151,27 +152,23 @@ class SurveysController < ApplicationController
     @survey = Survey.find(params[:id])
   end
 
-  # Loads and caches survey data based on the specific action's requirements.
-  # Optimizes performance by loading only necessary data for each action:
-  # - 'show': Basic data for survey display (avoids expensive answer processing)
-  # - 'results': Full dataset including answer counts and user data for admin analysis
-  # - 'edit'/'edit_question_groups': Minimal data for survey editing interface
-  def prepare_survey_data
-    case action_name
-    when 'show'
-      load_question_groups_for_survey
-      load_questions
-      build_answer_group_builders
-    when 'results'
-      load_question_groups_for_survey
-      load_questions
-      load_and_index_answers_with_counts
-      build_answer_group_builders
-      build_answer_group_user_cache
-      survey_courses_cache
-    when 'edit', 'edit_question_groups'
-      load_question_groups_for_survey_edit
-    end
+  def prepare_show_survey_data
+    load_question_groups_for_survey
+    load_questions
+    build_answer_group_builders
+  end
+
+  def prepare_edit_survey_data
+    load_question_groups_for_survey_edit
+  end
+
+  def prepare_results_survey_data
+    load_question_groups_for_survey
+    load_questions
+    load_and_index_answers_with_counts
+    build_answer_group_builders
+    build_answer_group_user_cache
+    survey_courses_cache
   end
 
   # Loads basic survey question groups for editing interface.
