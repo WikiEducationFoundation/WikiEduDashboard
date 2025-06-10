@@ -298,6 +298,7 @@ en:
     add_available_placeholder_wikidata: Add one item title or URL per line
     add_available_submit: Add articles
     add_available_submit_wikidata: Add items
+    add_placeholder: Enter an article title or URL
     assign_self: Assign myself an article
     assign_self_wikidata: Assign myself an item
     assign_tooltip: An assigned article is one that you plan to create or improve.

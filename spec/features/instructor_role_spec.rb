@@ -136,13 +136,13 @@ describe 'Instructor users', :js, type: :feature do
       first('.student-selection .student').click
 
       find('button.border', text: 'Assign/remove an article', match: :first).click
-      within('#users') { find('textarea', match: :first).set('Article 1') }
+      within('#users') { find('input', match: :first).set('Article 1') }
       click_button 'Assign'
       click_button 'Done'
 
       # Assign a review
       find('button.border', text: 'Assign/remove a peer review', match: :first).click
-      within('#users') { find('textarea', match: :first).set('Article 2') }
+      within('#users') { find('input', match: :first).set('Article 2') }
       click_button 'Assign'
       click_button 'Done'
 
