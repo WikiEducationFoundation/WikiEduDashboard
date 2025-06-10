@@ -2,6 +2,7 @@
 
 require_dependency "#{Rails.root}/lib/course_revision_updater"
 require_dependency "#{Rails.root}/lib/article_status_manager_timeslice"
+require_dependency "#{Rails.root}/lib/article_namespaces_manager"
 require_dependency "#{Rails.root}/lib/importers/course_upload_importer"
 require_dependency "#{Rails.root}/lib/data_cycle/update_logger"
 require_dependency "#{Rails.root}/lib/analytics/histogram_plotter"
@@ -30,7 +31,7 @@ class UpdateCourseStatsTimeslice
     UpdateLogger.update_course_with_unfinished_update(@course, 'start_time' => @start_time)
     import_uploads
     update_categories
-    update_article_status if should_update_article_status?
+    update_articles
     @processed, @reprocessed = UpdateCourseWikiTimeslices.new(@course, @debugger,
                                                               update_service: self)
                                                          .run(all_time: @full_update)
@@ -59,6 +60,16 @@ class UpdateCourseStatsTimeslice
   def update_article_status
     ArticleStatusManagerTimeslice.update_article_status_for_course(@course)
     @debugger.log_update_progress :article_status_updated
+  end
+
+  def update_article_namespaces
+    ArticleNamespacesManager.new(@course)
+    @debugger.log_update_progress :article_namespaces_updated
+  end
+
+  def update_articles
+    update_article_status if should_update_article_status?
+    update_article_namespaces
   end
 
   def update_average_pageviews
