@@ -204,4 +204,30 @@ describe UpdateCourseWikiTimeslices do
       expect(course.course_wiki_timeslices.count).to eq(14)
     end
   end
+
+  context 'when a full update is required' do
+    before do
+      course.update(needs_update: true)
+    end
+
+    it 'sets needs_update to false if update is successful' do
+      updater.run(all_time: true)
+      expect(course.needs_update).to eq(false)
+      expect(course.course_wiki_timeslices.where(needs_update: true).count).to eq(0)
+    end
+
+    it 'sets needs_update to false even if the update fails' do
+      # Stub something to raise an error
+      allow_any_instance_of(CourseRevisionUpdater).to receive(:fetch_data_for_course_wiki)
+        .and_raise(StandardError, 'simulate failure')
+
+      # Rescue the expected error to prevent spec from failing
+      begin
+        updater.run(all_time: true)
+      rescue StandardError
+        expect(course.needs_update).to eq(false)
+        expect(course.course_wiki_timeslices.where(needs_update: true).count).to be > 0
+      end
+    end
+  end
 end
