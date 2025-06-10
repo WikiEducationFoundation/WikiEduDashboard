@@ -48,7 +48,7 @@ class Survey < ApplicationRecord
     CSV.generate do |csv|
       csv << csv_header
       respondents.each do |respondent|
-        response_row = [respondent.username, course_for(respondent)] + response(respondent)
+        response_row = [respondent.username, course_slug(respondent)] + response(respondent)
         csv << response_row
       end
     end
@@ -60,7 +60,13 @@ class Survey < ApplicationRecord
     user_ids = Rapidfire::AnswerGroup
                .where(question_group_id: rapidfire_question_groups.pluck(:id))
                .pluck(:user_id)
-    User.where(id: user_ids)
+
+    User.where(id: user_ids).includes(survey_notifications: :course)
+        .where(survey_notifications: { survey_assignment_id: survey_assignment_ids })
+  end
+
+  def survey_assignment_ids
+    @survey_assignment_ids ||= survey_assignments.pluck(:id)
   end
 
   def csv_header
@@ -86,13 +92,9 @@ class Survey < ApplicationRecord
     end
   end
 
-  def course_for(user)
-    @survey_assignment_ids ||= SurveyAssignment.where(survey_id: id).pluck(:id)
-    notification = user.survey_notifications
-                       .where(survey_assignment_id: @survey_assignment_ids)
-                       .first
+  def course_slug(user)
     # If there's no course from a notification, fall back to the user's latest course
-    notification&.course_id ? Course.find(notification.course_id).slug : user.courses.last&.slug
+    user.survey_notifications.first&.course&.slug || user.courses.last&.slug
   end
 
   def question_groups_in_order

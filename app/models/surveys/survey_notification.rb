@@ -77,10 +77,6 @@ class SurveyNotification < ApplicationRecord
     CoursesUsers.find(courses_users_id).user
   end
 
-  def course
-    Course.find(course_id)
-  end
-
   private
 
   def nonsafe_email_environment?
