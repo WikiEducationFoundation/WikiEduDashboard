@@ -8,6 +8,7 @@ class AssignmentPipeline
     NOT_YET_STARTED = 'not_yet_started'
     BIBLIOGRAPHY_COMPLETE = 'bibliography_complete'
     IN_PROGRESS = 'in_progress'
+    READY_FOR_LIVE_EDITS = 'ready_for_live_edits'
     READY_FOR_REVIEW = 'ready_for_review'
     READY_FOR_MAINSPACE = 'ready_for_mainspace'
     ASSIGNMENT_COMPLETED = 'assignment_completed'
@@ -35,6 +36,12 @@ class AssignmentPipeline
       AssignmentStatuses::IN_PROGRESS,
       AssignmentStatuses::READY_FOR_REVIEW,
       AssignmentStatuses::READY_FOR_MAINSPACE,
+      AssignmentStatuses::ASSIGNMENT_COMPLETED
+    ].freeze,
+    no_sandbox_assignment: [
+      AssignmentStatuses::NOT_YET_STARTED,
+      AssignmentStatuses::BIBLIOGRAPHY_COMPLETE,
+      AssignmentStatuses::READY_FOR_LIVE_EDITS,
       AssignmentStatuses::ASSIGNMENT_COMPLETED
     ].freeze,
     review: [
@@ -75,7 +82,11 @@ class AssignmentPipeline
 
   def initialize(assignment:)
     @assignment = assignment
-    @key = assignment.editing? ? :assignment : :review
+    @key = if assignment.editing?
+             assignment.course.no_sandboxes? ? :no_sandbox_assignment : :assignment
+           else
+             :review
+           end
     @all_statuses = PIPELINES[@key]
   end
 

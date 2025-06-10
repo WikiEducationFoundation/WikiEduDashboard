@@ -111,7 +111,7 @@ describe 'multiwiki assignments', type: :feature, js: true do
       button.click
       within('#users') do
         first('input').set('https://incubator.wikimedia.org/wiki/Wp/kiu/Heyder_Cansa',
-                              rapid: false)
+                           rapid: false)
       end
       click_button 'Assign'
       visit "/courses/#{course.slug}/students/articles"

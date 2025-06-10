@@ -35,6 +35,21 @@ describe AssignmentPipeline do
 
         actual = pipeline.all_statuses
         expect(actual.length).to equal(6)
+        expect(actual).not_to include('ready_for_live_edits')
+        expect(actual).to include('in_progress')
+      end
+
+      context 'when course#no_sandboxes?' do
+        let(:course) { create(:course, flags: { no_sandboxes: true }) }
+
+        it 'returns different statuses for a no-sandboxes course' do
+          pipeline = described_class.new(assignment:)
+
+          actual = pipeline.all_statuses
+          expect(actual.length).to equal(4)
+          expect(actual).to include('ready_for_live_edits')
+          expect(actual).not_to include('in_progress')
+        end
       end
     end
 

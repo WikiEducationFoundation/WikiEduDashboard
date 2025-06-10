@@ -194,6 +194,7 @@ en:
     label: Articles
     loading: Loading articles...
     mark_as_complete: Mark as Complete
+    mark_as_incomplete: Mark as Incomplete
     new: (new)
     none: This course has not edited any articles.
     preview: Brief preview of Article

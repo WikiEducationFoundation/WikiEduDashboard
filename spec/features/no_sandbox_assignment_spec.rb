@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'Assignments for No Sandbox courses', type: :feature, js: true, focus: true do
+describe 'Assignments for No Sandbox courses', type: :feature, js: true do
   let(:student) { create(:user) }
   let(:classmate) { create(:user, username: 'Classmate') }
   let(:no_sandboxes_flag) { { no_sandboxes: true } }
@@ -29,19 +29,21 @@ describe 'Assignments for No Sandbox courses', type: :feature, js: true, focus: 
     click_button 'Assign'
     click_button 'Done'
     find('.progress-tracker').click
+
     expect(find(:css, '.step.active')).to have_content 'Complete your bibliography'
-    expect(page).to have_content 'Outline your changes'
-    expect(page).to have_content 'Make your edits'
     within(:css, '.step.active') do
       click_button 'Mark Complete'
     end
-
     expect(find(:css, '.step.active')).to have_content 'Outline your changes'
     within(:css, '.step.active') do
       click_button 'Mark Complete'
     end
-
     expect(find(:css, '.step.active')).to have_content 'Make your edits'
-
+    within(:css, '.step.active') do
+      click_button 'Mark Complete'
+    end
+    expect(page).to have_content "You've marked your article as complete"
+    click_button 'Mark as Incomplete'
+    expect(page).not_to have_content "You've marked your article as complete"
   end
 end
