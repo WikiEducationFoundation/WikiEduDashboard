@@ -115,7 +115,6 @@ class UpdateCourseStatsTimeslice
   end
 
   def log_end_of_update
-    @course.update(needs_update: false)
     @end_time = Time.zone.now.to_datetime
     UpdateLogger.update_course(@course, 'start_time' => @start_time,
                                          'end_time' => @end_time,
