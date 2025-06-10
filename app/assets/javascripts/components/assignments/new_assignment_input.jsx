@@ -40,6 +40,7 @@ const NewAssignmentInput = ({
 
   return (
     <form
+      id="assignment-input"
       onSubmit={assign}
       style={{
       display: 'flex',
