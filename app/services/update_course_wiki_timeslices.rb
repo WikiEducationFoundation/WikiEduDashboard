@@ -21,6 +21,7 @@ class UpdateCourseWikiTimeslices # rubocop:disable Metrics/ClassLength
 
   def run(all_time:)
     pre_update(all_time)
+    @course.update(needs_update: false)
     fetch_data_and_process_timeslices_for_every_wiki(all_time)
     [@processed_timeslices, @reprocessed_timeslices]
   end

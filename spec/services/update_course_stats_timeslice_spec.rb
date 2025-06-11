@@ -29,6 +29,19 @@ describe UpdateCourseStatsTimeslice do
     end
   end
 
+  context 'when needs_update course flag is set' do
+    before do
+      course.update(needs_update: true)
+    end
+
+    it 'makes a full update' do
+      expect_any_instance_of(UpdateCourseWikiTimeslices).to receive(:run).with(all_time: true)
+                                                                         .and_call_original
+      subject
+      expect(course.needs_update).to eq(false)
+    end
+  end
+
   context 'when there are revisions' do
     before do
       stub_wiki_validation

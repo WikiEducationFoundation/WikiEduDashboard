@@ -21,7 +21,10 @@ class PrepareTimeslices
     # Destroy articles courses records to re-create article courses timeslices, except for
     # untracked articles courses so that we don't miss they're untracked.
     @course.articles_courses.tracked.destroy_all
-    @timeslice_manager.create_timeslices_for_new_course_wiki_records(@course.wikis)
+    # Re-create timeslices, all of them set to be reprocessed so that if the full update process
+    # dies, it continues from the last point on the next update.
+    @timeslice_manager.create_timeslices_for_new_course_wiki_records(@course.wikis,
+                                                                     needs_update: true)
     @debugger.log_update_progress :timeslices_recreated
   end
 
