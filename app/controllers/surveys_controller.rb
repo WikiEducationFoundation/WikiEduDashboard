@@ -33,7 +33,8 @@ class SurveysController < ApplicationController
   # GET /surveys
   # GET /surveys.json
   def index
-    @surveys = Survey.all
+    @surveys = Survey.includes(:versions, :survey_assignments,
+                               rapidfire_question_groups: :questions).all
   end
 
   def results_index
