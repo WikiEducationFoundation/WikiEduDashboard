@@ -1,6 +1,6 @@
 .survey__admin-row.survey__admin-row--assignment
   .survey__admin-row__title
-    .contextual Target Campaign#{survey_assignment.campaigns.count > 1 ? 's' : ''}:
+    .contextual Target Campaign#{survey_assignment.campaigns.size > 1 ? 's' : ''}:
     %strong= survey_assignment.campaigns.pluck(:title).join(', ')
     .contextual Target User:
     %span.emphasis= user_role(survey_assignment)
@@ -16,10 +16,6 @@
       .survey__admin-row__col__detail
         .contextual Notification Schedule:
         %span= notification_schedule_summary(survey_assignment)
-
-      -# .survey__admin-row__col__detail
-      -#   .contextual Assignment #:
-      -#   %span ##{survey_assignment.id}
 
       .survey__admin-row__col.survey__admin-row__col--actions
         = "##{survey_assignment.id}"
@@ -40,36 +36,9 @@
 
       .survey__admin-row__col__detail
         .contextual Number of Courses
-        %span= survey_assignment.courses.count
-
+        %span= survey_assignment.courses.size
       .survey__admin-row__col__detail
         .contextual Estimated Recipients
         - total = survey_assignment.target_user_count
         %span= total
         %span= user_role(survey_assignment, total)
-
-
-    -# %div.clearfix
-    -#   %button{:data => {:toggle_courses_table => true}}
-    -#     %span Expand
-    -#     %span.icon.icon-arrow-down
-
-  -# .survey__admin-row__col
-  -#   %strong Notes:
-  -#   %span= survey_assignment.notes
-
-  -# .survey__admin-row__expanded{:data => {:sortable_courses => true}}
-  -#   %table.survey-assignment__courses
-  -#     %thead
-  -#       %tr
-  -#         %th
-  -#           %button{:class => 'sort', :data => {:sort => 'title'}} Title
-  -#         %th
-  -#           %button{:class => 'sort', :data => {:sort => 'id'}} Id
-  -#
-  -#     %tbody.list
-  -#       - survey_assignment.campaigns.each do |campaign|
-  -#         - campaign.courses.each do |course|
-  -#           %tr
-  -#             %td{ :class => 'title' }= pretty_course_title(course)
-  -#             %td{ :class => 'id' }= course.id

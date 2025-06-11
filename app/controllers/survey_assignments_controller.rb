@@ -16,7 +16,8 @@ class SurveyAssignmentsController < ApplicationController
   # GET /survey_assignments
   # GET /survey_assignments.json
   def index
-    @survey_assignments = SurveyAssignment.all
+    @survey_assignments = SurveyAssignment.includes(:campaigns, :survey, :survey_notifications,
+                                                    :courses).all
   end
 
   # GET /survey_assignments/1
