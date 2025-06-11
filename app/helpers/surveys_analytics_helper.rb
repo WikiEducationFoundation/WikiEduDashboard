@@ -2,17 +2,17 @@
 
 module SurveysAnalyticsHelper
   def survey_status(survey, count = false)
-    assignments = SurveyAssignment.published.where(survey_id: survey.id)
-    return assignments.count if count
-    return "In Use (#{assignments.count})" unless assignments.empty?
-    return '--'
+    assignments = survey.survey_assignments.select(&:published?)
+    return assignments.size if count
+    return "In Use (#{assignments.size})" unless assignments.empty?
+    '--'
   end
 
   def survey_question_stats(survey)
     question_groups = survey.rapidfire_question_groups
-    qg_count = question_groups.count
+    qg_count = question_groups.size
     question_total = 0
-    question_groups.collect { |qg| question_total += qg.questions.count }
+    question_groups.collect { |qg| question_total += qg.questions.size }
     "#{qg_count} | #{question_total}"
   end
 
