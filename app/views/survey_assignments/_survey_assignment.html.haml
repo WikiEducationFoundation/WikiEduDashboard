@@ -1,6 +1,6 @@
 .survey__admin-row.survey__admin-row--assignment
   .survey__admin-row__title
-    .contextual Target Campaign#{survey_assignment.campaigns.count > 1 ? 's' : ''}:
+    .contextual Target Campaign#{survey_assignment.campaigns.size > 1 ? 's' : ''}:
     %strong= survey_assignment.campaigns.pluck(:title).join(', ')
     .contextual Target User:
     %span.emphasis= user_role(survey_assignment)
@@ -40,8 +40,7 @@
 
       .survey__admin-row__col__detail
         .contextual Number of Courses
-        %span= survey_assignment.courses.count
-
+        %span= survey_assignment.courses.size
       .survey__admin-row__col__detail
         .contextual Estimated Recipients
         - total = survey_assignment.target_user_count

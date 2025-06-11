@@ -38,14 +38,13 @@ module SurveysAnalyticsHelper
   end
 
   def assignment_response(survey_assignment)
-    completed = survey_assignment.survey_notifications.completed.length
+    completed = survey_assignment.survey_notifications.count(&:completed)
     notified = survey_assignment.survey_notifications.length
     response_summary_string(completed, notified)
   end
 
   def assignment_dismissal(survey_assignment)
-    dismissed = survey_assignment.survey_notifications
-                                 .where(dismissed: true, completed: false).length
+    dismissed = survey_assignment.survey_notifications.count { |n| !n.completed && n.dismissed }
     notified = survey_assignment.survey_notifications.length
     response_summary_string(dismissed, notified)
   end
