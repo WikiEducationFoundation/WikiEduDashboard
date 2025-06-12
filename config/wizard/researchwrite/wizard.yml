@@ -555,9 +555,9 @@
 
 -
   key: other_assignments
-  title: Other assignments
+  title: What portion of your course will the Wikipedia assignment comprise?
   description: |
-    What portion of your course will the Wikipedia assignment comprise?
+    We recommend that your Wikipedia assignment make up at minimum 20% of the overall course grade.
   type: 1 # single choice
   minimum: 1
   options:
