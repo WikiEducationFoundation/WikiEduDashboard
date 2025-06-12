@@ -1617,6 +1617,7 @@ fr:
     block_custom: Personnalisé
     block_in_class: En classe
     block_milestone: Jalon
+    block_handouts: Polycopiés
     block_resources: Ressources
     block_type: Le type bloc est utilisé pour communiquer à vos étudiants sur cet
       élément dans leur agenda et pour construire des outils utiles pour vous (comme

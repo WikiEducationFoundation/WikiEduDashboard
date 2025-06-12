@@ -1331,6 +1331,7 @@ pt-br:
       de direitos de autor.
     recent_edits: Edições recentes
     recent_uploads: Últimos envios
+    report: Reportar
     revision_author: Autor da revisão
     revision_datetime: Data/Horário da revisão
     revision_score: Pontuação da revisão
@@ -1361,6 +1362,8 @@ pt-br:
     header: Recursos e Treinamento
   settings:
     categories:
+      other_settings: Outras configurações
+      special_users: Usuários especiais
       users: Usuários
     admin_users:
       new:
@@ -1395,10 +1398,12 @@ pt-br:
         already_is_not: '%{username} não é um usuário especial!'
         demote_success: '%{username} agora é apenas um usuário.'
   status:
+    default: Padrão
     no_info: Nenhuma informação disponível.
     purpose: Propósito
     queues_overview: Visão geral das filas
     short_update: Atualização curta
+    size: Tamanho
   suggestions:
     editing: Editando sugestões
     suggestion_docs:
@@ -1466,6 +1471,7 @@ pt-br:
     block_custom: Personalizar
     block_in_class: Em classe
     block_milestone: Marco
+    block_resources: Recursos
     block_type: O tipo de bloco é usado para comunicar a seus estudantes sobre este
       item em seus cronogramas e para desenvolver ferramentas úteis para você (como
       a descrição de marcos na página de Visão Geral)
@@ -1894,6 +1900,7 @@ pt-br:
   multi_wiki:
     selector_placeholder: Comece a digitar um domínio de wiki
   news:
+    add_news: Adicionar notícia
     post_confirmation:
       confirmation: Confirme.
     delete_confirmation:
@@ -1922,8 +1929,10 @@ pt-br:
         confirm_post: Confirmar post
         discard_post: Descartar notícias
   notes:
+    title: Título
     failure: Erro! Tente novamente mais tarde.
     edited_by: 'Editado por:'
+    create_note: Criar nota
     cancel_note_creation: Cancelar
     post_note: Postar
     edit_note: Editar nota
@@ -1939,4 +1948,6 @@ pt-br:
         note_delete_button_focused: Apagar a nota {{title}}
         note_edit_mode: Modo de edição para a nota {{title}} ativado. Você agora pode
           editar o título e o conteúdo.
+  tagged_courses:
+    download_csv: Baixar CSV
 ...
