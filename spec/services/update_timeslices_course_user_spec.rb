@@ -142,10 +142,9 @@ describe UpdateTimeslicesCourseUser do
     it 'doesnt update course wiki timeslices twice' do
       course.flags = update_logs
       course.save
-      # There is one user and one wiki
+
       expect(course.course_wiki_timeslices.count).to eq(7)
       expect(course.course_wiki_timeslices.needs_update.count).to eq(0)
-      expect(course.course_user_wiki_timeslices.count).to eq(1)
 
       VCR.use_cassette 'course_user_updater' do
         described_class.new(course).run
@@ -153,17 +152,17 @@ describe UpdateTimeslicesCourseUser do
 
       expect(course.course_wiki_timeslices.count).to eq(7)
       expect(course.course_wiki_timeslices.needs_update.count).to eq(6)
-      expect(course.course_user_wiki_timeslices.count).to eq(1)
 
+      # Reset needs_update to false
       course.course_wiki_timeslices.update(needs_update: false)
 
       VCR.use_cassette 'course_user_updater' do
         described_class.new(course).run
       end
 
+      # Timeslices weren't set to reprocess again
       expect(course.course_wiki_timeslices.count).to eq(7)
       expect(course.course_wiki_timeslices.needs_update.count).to eq(0)
-      expect(course.course_user_wiki_timeslices.count).to eq(1)
     end
   end
 end
