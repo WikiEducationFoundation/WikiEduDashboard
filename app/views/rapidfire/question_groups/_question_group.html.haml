@@ -3,13 +3,13 @@
     %strong.name= question_group.name
   .survey__admin-row__col
     .contextual Status
-    %strong.question-group-color.status= question_group_status(question_group)
+    %strong.question-group-color.status= question_group_status(@survey_question_groups[question_group.id], @surveys)
   .survey__admin-row__col
     .contextual Questions
-    %strong= question_group.questions.count
+    %strong= @rapidfire_questions[question_group.id].length
   .survey__admin-row__col
     .contextual Last Author
-    %span.author= survey_author(question_group)
+    %span.author= question_group_survey_author(@latest_question_groups_version[question_group.id])
   -# .survey__admin-row__col
   -#   .contextual Created
   -#   %span= question_group.created_at.strftime("%B %d, %Y")
@@ -23,7 +23,7 @@
       = link_to "Clone", "/surveys/question_group/clone/#{question_group.id}", method: :post
     -# .course-list__col
     -#   = link_to "Add Question", new_question_group_question_path(question_group)
-    - if question_group.questions.length > 0
+    - if @rapidfire_questions[question_group.id].length > 0
       .course-list__col
         = link_to "Preview", "#{new_question_group_answer_group_path(question_group)}?preview"
     .course-list__col
