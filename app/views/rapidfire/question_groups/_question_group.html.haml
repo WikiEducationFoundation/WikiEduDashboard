@@ -6,7 +6,7 @@
     %strong.question-group-color.status= question_group_status(@survey_question_groups[question_group.id], @surveys)
   .survey__admin-row__col
     .contextual Questions
-    %strong= @rapidfire_questions[question_group.id].length
+    %strong= @rapidfire_questions&.dig(question_group.id)&.length || 0
   .survey__admin-row__col
     .contextual Last Author
     %span.author= question_group_survey_author(@latest_question_groups_version[question_group.id])
@@ -23,7 +23,7 @@
       = link_to "Clone", "/surveys/question_group/clone/#{question_group.id}", method: :post
     -# .course-list__col
     -#   = link_to "Add Question", new_question_group_question_path(question_group)
-    - if @rapidfire_questions[question_group.id].length > 0
+    - if @rapidfire_questions && @rapidfire_questions[question_group.id]&.any?
       .course-list__col
         = link_to "Preview", "#{new_question_group_answer_group_path(question_group)}?preview"
     .course-list__col
