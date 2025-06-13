@@ -31,10 +31,10 @@ module SurveysAnalyticsHelper
   def question_group_status(survey_question_groups, surveys)
     return '--' if survey_question_groups.blank?
     total_published_surveys = 0
-      survey_question_groups.each do |sqg|
-        next if surveys[sqg.survey_id].blank?
-        total_published_surveys += survey_status(surveys[sqg.survey_id].first, true)
-      end
+    survey_question_groups.each do |sqg|
+      next if surveys[sqg.survey_id].blank?
+      total_published_surveys += survey_status(surveys[sqg.survey_id].first, true)
+    end
     return '--' if total_published_surveys.zero?
     return "In Use (#{total_published_surveys})"
   end
