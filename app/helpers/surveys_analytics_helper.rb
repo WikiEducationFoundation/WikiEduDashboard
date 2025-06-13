@@ -52,11 +52,11 @@ module SurveysAnalyticsHelper
   def survey_response(survey)
     completed = 0
     survey.survey_assignments.each do |sa|
-      completed += sa.survey_notifications.completed.count
+      completed += sa.survey_notifications.count(&:completed)
     end
     notified = 0
     survey.survey_assignments.each do |sa|
-      notified += sa.survey_notifications.count
+      notified += sa.survey_notifications.size
     end
     response_summary_string(completed, notified)
   end

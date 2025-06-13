@@ -38,7 +38,8 @@ class SurveysController < ApplicationController
   end
 
   def results_index
-    @surveys = Survey.all
+    @surveys = Survey.includes(survey_assignments: :survey_notifications,
+                               rapidfire_question_groups: :questions).all
   end
 
   def results
