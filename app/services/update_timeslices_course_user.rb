@@ -28,9 +28,9 @@ class UpdateTimeslicesCourseUser
 
     # Users that were added after the last course update start are considered new
     # It's not safe to rely on new_user_ids = current_user_ids - processed_users
-    course_update_start = @course.flags['update_logs'].values.last['start_time']
+    @course_update_start = @course.flags['update_logs'].values.last['start_time']
     new_user_ids = @course.students.where('courses_users.created_at >= ?',
-                                          course_update_start).pluck(:id)
+                                          @course_update_start).pluck(:id)
     add_user_ids(new_user_ids)
   end
 
@@ -45,6 +45,9 @@ class UpdateTimeslicesCourseUser
     @course.wikis.each do |wiki|
       fetch_users_revisions_for_wiki(wiki, user_ids)
     end
+    # Update created_at field for courses users to prevent re-marking them as newly added
+    @course.courses_users.where(user_id: user_ids)
+           .update_all(created_at: @course_update_start - 1.second) # rubocop:disable Rails/SkipsModelValidations
   end
 
   def fetch_users_revisions_for_wiki(wiki, user_ids)
