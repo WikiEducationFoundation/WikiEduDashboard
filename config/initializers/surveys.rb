@@ -48,6 +48,25 @@ Rails.application.config.to_prepare do
     before_action :require_admin_permissions
     before_action :set_tags, only: [:new, :edit]
 
+    def index
+      @question_groups = Rapidfire::QuestionGroup.all
+  
+      # Extract all question group IDs from @question_groups
+      question_groups_id = @question_groups.pluck(:id)
+      
+      # Group survey-question group mappings by question group ID
+      @survey_question_groups = SurveysQuestionGroup.where(rapidfire_question_group_id: question_groups_id).group_by(&:rapidfire_question_group_id)
+      
+      # Fetch surveys linked to question groups, preload assignments, and group by survey ID
+      @surveys = Survey.includes(:survey_assignments).where(id: @survey_question_groups.values.flatten.map(&:survey_id).uniq).group_by(&:id)
+      
+      # Group all questions by their question group ID
+      @rapidfire_questions = Rapidfire::Question.where(question_group_id: question_groups_id).group_by(&:question_group_id) 
+      
+      # Get the latest version for each question group using PaperTrail versioning
+      @latest_question_groups_version = PaperTrail::Version.where(item_type: 'Rapidfire::QuestionGroup', item_id: question_groups_id).group_by(&:item_id).transform_values(&:last)
+    end
+
     def new
       @question_group = Rapidfire::QuestionGroup.new
       @question_group_tags = []
