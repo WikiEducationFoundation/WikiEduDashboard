@@ -13,3 +13,5 @@
     %div= survey_response(survey)
   .survey__admin-row__col.survey__admin-row__col--actions
     = link_to 'Results', survey_results_path(survey)
+    = link_to survey_results_path(survey, format: 'csv'), class: 'download-button', style: 'margin-left: 5px;' do
+      %span Download CSV
