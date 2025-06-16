@@ -61,8 +61,8 @@ class Survey < ApplicationRecord
                .where(question_group_id: rapidfire_question_groups.pluck(:id))
                .pluck(:user_id)
 
-    User.where(id: user_ids).includes(survey_notifications: :course)
-        .where(survey_notifications: { survey_assignment_id: survey_assignment_ids })
+    @respondents ||= User.where(id: user_ids).includes(survey_notifications: :course)
+                         .where(survey_notifications: { survey_assignment_id: survey_assignment_ids }) # rubocop:disable Layout/LineLength
   end
 
   def survey_assignment_ids
@@ -83,8 +83,18 @@ class Survey < ApplicationRecord
     %w[username course] + question_headers
   end
 
+  def answer_groups_by_user_id
+    @answer_groups_by_user_id ||= begin
+      user_ids = @respondents.pluck(:id)
+      Rapidfire::AnswerGroup
+        .where(user_id: user_ids)
+        .select(:id, :user_id)
+        .group_by(&:user_id)
+    end
+  end
+
   def response(user)
-    answer_group_ids = Rapidfire::AnswerGroup.where(user_id: user.id).pluck(:id)
+    answer_group_ids = answer_groups_by_user_id[user.id].map(&:id)
     questions_with_separate_followups.map do |question_hash|
       answer = Rapidfire::Answer.where(answer_group_id: answer_group_ids,
                                        question_id: question_hash[:question].id).first
