@@ -98,13 +98,16 @@ class Survey < ApplicationRecord
   end
 
   def question_groups_in_order
-    @question_groups_in_order ||= SurveysQuestionGroup.where(survey_id: id).order(:position)
-                                                      .map(&:rapidfire_question_group)
+    @question_groups_in_order ||= SurveysQuestionGroup
+                                  .includes(rapidfire_question_group: :questions)
+                                  .where(survey_id: id)
+                                  .order(:position)
+                                  .map(&:rapidfire_question_group)
   end
 
   def questions_in_order
     @questions_in_order ||= question_groups_in_order.map do |question_group|
-      question_group.questions.order(:position)
+      question_group.questions.sort_by(&:position)
     end.to_a.flatten
   end
 
