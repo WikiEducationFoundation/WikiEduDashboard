@@ -93,11 +93,38 @@ class Survey < ApplicationRecord
     end
   end
 
-  def response(user)
+  def prepare_rapidfire_answers
+    @answers ||= begin
+      answer_group_ids = answer_groups_by_user_id.values.flatten.map(&:id)
+      question_ids = questions_with_separate_followups.map { |q| q[:question].id }
+
+      Rapidfire::Answer.where(
+        answer_group_id: answer_group_ids,
+        question_id: question_ids
+      )
+    end
+
+    @answers_by_group_and_question ||= @answers.group_by do |answer|
+      [answer.answer_group_id, answer.question_id]
+    end
+  end
+
+  # This method is intended to be called only through `to_csv`.
+  # It relies on `prepare_rapidfire_answers`, which loads data for all respondents
+  # ahead of time. Calling `response` independently will not work correctly, as it
+  # assumes that this data is already loaded. Do not use this method outside of the
+  # `to_csv` flow.
+  def response(user) # rubocop:disable Metrics/CyclomaticComplexity
     answer_group_ids = answer_groups_by_user_id[user.id].map(&:id)
+    prepare_rapidfire_answers
+
     questions_with_separate_followups.map do |question_hash|
-      answer = Rapidfire::Answer.where(answer_group_id: answer_group_ids,
-                                       question_id: question_hash[:question].id).first
+      question_id = question_hash[:question].id
+
+      answer = answer_group_ids.map do |group_id|
+        @answers_by_group_and_question[[group_id, question_id]]&.first
+      end.find(&:present?)
+
       question_hash[:followup] ? answer&.follow_up_answer_text : answer&.answer_text
     end
   end
