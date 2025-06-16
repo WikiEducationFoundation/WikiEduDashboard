@@ -26,13 +26,13 @@ const FormPanel = (props) => {
       course.weekdays = '0000000';
     }
     return props.updateCourse(course);
-  }
+  };
   const updateCourseDates = (valueKey, value) => {
     const updatedCourse = CourseDateUtils.updateCourseDates(props.course, valueKey, value);
     return props.updateCourse(updatedCourse);
   };
 
-  const saveCourse = () => {    
+  const saveCourse = () => {
     if (props.isValid) {
       props.persistCourse(props.course.slug);
       return true;
@@ -105,14 +105,14 @@ const FormPanel = (props) => {
         </div>
       </div>
       <label> {I18n.t('wizard.no_meetings')}
-          <input
-            type="checkbox"
-            onChange={handleNoMeetingDays}
-            value={props.course.no_meeting_days}
-            ref={noMeetingDates}
-            className="no-meeting-day-checkbox"
+        <input
+          type="checkbox"
+          onChange={handleNoMeetingDays}
+          value={props.course.no_meeting_days}
+          ref={noMeetingDates}
+          className="no-meeting-day-checkbox"
         />
-        </label>
+      </label>
       <hr />
       <div className="wizard__form course-dates course-dates__step">
         <Calendar
