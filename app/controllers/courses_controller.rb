@@ -374,6 +374,7 @@ class CoursesController < ApplicationController
     :disable_student_emails,
     :stay_in_sandbox,
     :no_sandboxes,
+    :no_meeting_days,
     :retain_available_articles
   ].freeze
   def update_boolean_flags
@@ -441,7 +442,8 @@ class CoursesController < ApplicationController
       .permit(:id, :title, :description, :school, :term, :slug, :subject,
               :expected_students, :start, :end, :submitted, :passcode,
               :timeline_start, :timeline_end, :day_exceptions, :weekdays,
-              :no_day_exceptions, :cloned_status, :type, :level, :private, :withdrawn)
+              :no_day_exceptions, :cloned_status, :type,
+              :level, :private, :withdrawn)
   end
 
   def update_params

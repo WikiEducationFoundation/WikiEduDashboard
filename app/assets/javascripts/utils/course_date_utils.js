@@ -157,7 +157,7 @@ const CourseDateUtils = {
       // eslint-disable-next-line no-restricted-syntax
       for (const i of range(firstDayOfWeek, 6, true)) {
         const day = addDays(weekStart, i);
-        if (course && ((this.courseMeets(course.weekdays, i, format(day, 'yyyyMMdd'), exceptions) && !isAfter(day, weekendDate)) || course.no_meeting_days)) {          
+        if (course && ((this.courseMeets(course.weekdays, i, format(day, 'yyyyMMdd'), exceptions) && !isAfter(day, weekendDate)) || course.no_meeting_days)) {
           ms.push(format(day, 'EEEE (MM/dd)'));
         }
       }
