@@ -23,7 +23,7 @@ const Option = ({
     descriptionRef?.current?.classList.toggle('open');
   };
 
-  
+
   const disabled = (option.min_weeks && option.min_weeks > open_weeks) || no_meeeting_days;
   let className = 'wizard__option section-header';
   if (option.small) {
