@@ -16,13 +16,13 @@ const FormPanel = (props) => {
     toPass.no_day_exceptions = checked;
     return props.updateCourse(toPass);
   };
-  const handleNoMeetingDays = () =>{
+  const handleNoMeetingDays = () => {
     const { checked } = noMeetingDates.current;
     const course = props.course;
     course.no_meeting_days = checked;
-    if(checked){
+    if (checked) {
       course.weekdays = '1111111';
-    }else {
+    } else {
       course.weekdays = '0000000';
     }
     return props.updateCourse(course);
