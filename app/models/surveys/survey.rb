@@ -109,6 +109,11 @@ class Survey < ApplicationRecord
     end
   end
 
+  # This method is intended to be called only through `to_csv`.
+  # It relies on `prepare_rapidfire_answers`, which loads data for all respondents
+  # ahead of time. Calling `response` independently will not work correctly, as it
+  # assumes that this data is already loaded. Do not use this method outside of the
+  # `to_csv` flow.
   def response(user) # rubocop:disable Metrics/CyclomaticComplexity
     answer_group_ids = answer_groups_by_user_id[user.id].map(&:id)
     prepare_rapidfire_answers
