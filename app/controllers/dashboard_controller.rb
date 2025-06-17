@@ -40,7 +40,12 @@ class DashboardController < ApplicationController
 
     return unless current_user.admin?
     @submitted = Course.submitted_but_unapproved
-    @strictly_current = current_user.courses.strictly_current.includes(:students)
+    @strictly_current = if Features.wiki_ed?
+                          # Reduce number of queries to show ungreeted student count using includes(:students) # rubocop:disable Layout/LineLength
+                          current_user.courses.strictly_current.includes(:students)
+                        else
+                          current_user.courses.strictly_current
+                        end
   end
 
   def current_courses
