@@ -55,6 +55,20 @@ describe DashboardController, type: :request do
         expect(assigns(:blog_posts)).to eq([])
       end
     end
+
+    context 'when Wiki Ed feature is disabled' do
+      before do
+        allow(Features).to receive(:wiki_ed?).and_return(false)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+        create(:courses_user, user_id: admin.id, course_id: course.id)
+      end
+
+      it 'does not eager-load students for strictly_current courses' do
+        get '/course_creator'
+        expect(assigns(:pres)).to be_a(DashboardPresenter)
+        expect(assigns(:pres).past.count).to eq(1)
+      end
+    end
   end
 
   describe '#my_account' do
