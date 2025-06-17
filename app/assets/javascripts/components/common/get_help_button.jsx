@@ -237,7 +237,7 @@ const GetHelpButton = createReactClass({
 
     return (
       <div className="pop__container">
-        <button className="dark button small" onClick={this.props.open}>Get Help</button>
+        <button className="dark button small get-help" onClick={this.props.open}>Get Help</button>
         <div className={`pop ${this.props.is_open ? 'open' : ''}`}>
           <div className="pop__padded-content">
             {content}

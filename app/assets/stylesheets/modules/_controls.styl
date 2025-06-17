@@ -147,6 +147,8 @@ nav.sub-navigation
     &:hover
       background-color saturate(lighten(bayoux, 25%), 20%)
       border-color saturate(lighten(bayoux, 25%), 20%)
+    &.get-help
+      animation button-pulse 5s ease infinite
 
   &.small
     font-size 12px
@@ -249,3 +251,17 @@ tr.students .button.plus
   font-size 15px
   color body-color
 
+@keyframes button-pulse {
+	0% {
+		background-color: bayoux
+    border-color: bayoux
+	}
+	50% {
+		background-color: sprout
+    border-color: sprout
+	}
+	100% {
+		background-position: bayoux
+    border-color: bayoux
+	}
+}
