@@ -22,16 +22,18 @@ module SurveysAnalyticsHelper
     return user.username unless user.nil?
   end
 
-  def question_group_status(question_group)
-    survey_question_groups = SurveysQuestionGroup.where(
-      rapidfire_question_group_id: question_group.id
-    )
+  def question_group_survey_author(version)
+    return '--' if version.blank? || version.whodunnit.nil?
+    user = User.find(version.whodunnit)
+    return user.username unless user.nil?
+  end
 
-    return '--' if survey_question_groups.empty?
+  def question_group_status(survey_question_groups, surveys)
+    return '--' if survey_question_groups.blank?
     total_published_surveys = 0
     survey_question_groups.each do |sqg|
-      next if sqg.survey.nil?
-      total_published_surveys += survey_status(sqg.survey, true)
+      next if surveys[sqg.survey_id].blank?
+      total_published_surveys += survey_status(surveys[sqg.survey_id].first, true)
     end
     return '--' if total_published_surveys.zero?
     return "In Use (#{total_published_surveys})"
