@@ -1,13 +1,11 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/experiments/spring2018_cmu_experiment"
-
 class ExperimentsPresenter
   def initialize(course)
     @course = course
   end
 
-  ACTIVE_EXPERIMENTS = [Spring2018CmuExperiment].freeze
+  ACTIVE_EXPERIMENTS = [].freeze
   def experiment
     @experiment ||= ACTIVE_EXPERIMENTS.find do |exp|
       @course.flags[exp::STATUS_KEY] == 'email_sent'
