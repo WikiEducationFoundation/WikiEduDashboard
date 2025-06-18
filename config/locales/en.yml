@@ -1677,7 +1677,6 @@ en:
       holiday state. If you have no holidays, check "I have no class holidays"
       below.
     no_meetings: Would you want to opt out of meeting days
-    no_meeting: Would you like to opt out of Meetings days
     confirm_course_dates: Confirm the course's start and end dates.
     confirm_dates: Choose the course dates, weekly meetings, and holidays for your course.
     course_dates: Course Dates
