@@ -29,3 +29,14 @@ end
 CSV.open("/home/sage/instructors_and_courses.csv", 'wb') do |csv|
   data.each { |line| csv << line }
 end
+
+# Course descriptions
+headers = %w[course_slug description]
+data = [headers]
+ClassroomProgramCourse.nonprivate.each do |course|
+  data << [course.slug, course.description]
+end
+
+CSV.open("/home/sage/course_descriptions.csv", 'wb') do |csv|
+  data.each { |line| csv << line }
+end
