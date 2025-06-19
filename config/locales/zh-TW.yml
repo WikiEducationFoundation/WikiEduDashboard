@@ -492,7 +492,7 @@ zh-TW:
       course_description: 課程說明
       course_description_placeholder: 您的課程會涵蓋什麼？必且會讓學生們在維基百科上做出那些事情？請包含足夠的詳細內容，讓其他維基百科編者能有充分理解的感覺，來方便您的學生做出貢獻。
       course_private: 非公開方案（僅可被管理員和主持者檢視）
-      course_ta_support: 此課程有額外的導師或助教嗎？
+      course_ta_support: 此課程有額外的導師或助教
       course_school: 課程學校
       course_subject: 課程科目
       course_term: 課程學期
@@ -507,6 +507,7 @@ zh-TW:
         article_scoped_program_name: 條目範圍方案
         article_scoped_program_description: 此方案僅會追蹤分配的條目或分類的編輯。若您想要對已知條目或主題領域收集做出統計方面的限制，請使用此類型。按預設會開啟自動化
           wiki 編輯。
+        single_user_name: 個人編輯者
       create_button: 建立我的課程！
       create_label: 建立新的課程
       create_new: 建立一個新的課程

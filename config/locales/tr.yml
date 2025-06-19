@@ -709,7 +709,7 @@ tr:
     passcode: Parola Kodu
     passcode_none: Şifre yok
     passcode_prompt: 'Katılmak için şifreyi girin:'
-    please_log_in: Lütfen giriş yapın.
+    please_log_in: Lütfen oturum açın.
     private: Özel
     published: 'Kursunuz yayınlandı! Öğrenciler aşağıdaki URL’yi ziyaret ederek kursa
       kayıt olabilirler:'
