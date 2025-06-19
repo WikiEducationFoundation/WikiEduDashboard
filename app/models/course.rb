@@ -305,7 +305,7 @@ class Course < ApplicationRecord
   end
 
   def training_modules
-    @training_modules ||= TrainingModule.all.select { |tm| training_module_ids.include?(tm.id) }
+    @training_modules ||= TrainingModule.where(id: training_module_ids)
   end
 
   def training_module_ids
