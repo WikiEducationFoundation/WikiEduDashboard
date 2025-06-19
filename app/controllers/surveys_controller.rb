@@ -15,14 +15,12 @@ class SurveysController < ApplicationController
     destroy
     edit_question_groups
     course_select
-    results
   ]
   before_action :ensure_logged_in
   before_action :set_question_groups, only: %i[
     show
     edit
     edit_question_groups
-    results
   ]
   before_action :check_if_closed, only: [:show]
   before_action :set_notification, only: [:show]
@@ -39,17 +37,6 @@ class SurveysController < ApplicationController
 
   def results_index
     @surveys = Survey.all
-  end
-
-  def results
-    protect_confidentiality { return }
-    respond_to do |format|
-      format.html
-      format.csv do
-        filename = "#{@survey.name}-results#{Time.zone.today}.csv"
-        send_data @survey.to_csv, filename:
-      end
-    end
   end
 
   # GET /surveys/1
@@ -155,7 +142,6 @@ class SurveysController < ApplicationController
   def set_question_groups
     @question_groups = Rapidfire::QuestionGroup.all
     @surveys_question_groups = SurveysQuestionGroup.by_position(params[:id])
-    @survey_user_cache = {}
   end
 
   # This removes the question groups that do not apply to the course, because
