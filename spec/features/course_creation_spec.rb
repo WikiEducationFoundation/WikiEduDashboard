@@ -94,8 +94,8 @@ def go_through_researchwrite_wizard
   click_button 'Next'
   sleep 1
   # # sandboxes unacceptable
-  # omniclick find('.wizard__option', match: :first).find('button', match: :first)
-  # click_button 'Next'
+  omniclick find('.wizard__option', match: :first).find('button', match: :first)
+  click_button 'Next'
   sleep 1
 
   click_button 'Generate Timeline'
@@ -124,7 +124,7 @@ describe 'New course creation and editing', type: :feature do
   end
 
   describe 'course workflow', js: true do
-    let(:expected_course_blocks) { 26 }
+    let(:expected_course_blocks) { 24 }
     let(:module_name) { 'Get started on Wikipedia' }
 
     it 'allows the user to create a course' do
