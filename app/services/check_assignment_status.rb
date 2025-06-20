@@ -34,6 +34,10 @@ class CheckAssignmentStatus
       key: :bibliography,
       wiki: assignment.wiki,
       pagename: assignment.bibliography_pagename }
+    sandboxes << { assignment:,
+      key: :outline,
+      wiki: assignment.wiki,
+      pagename: assignment.outline_pagename }
   end
 
   def self.add_review_sandbox(sandboxes, assignment)

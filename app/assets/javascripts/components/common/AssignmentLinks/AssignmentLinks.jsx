@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 // Components
 import BibliographyLink from './BibliographyLink';
+import OutlineLink from './OutlineLink';
 import EditorLink from './EditorLink';
 import SandboxLink from './SandboxLink';
 import GroupMembersLink from './GroupMembersLink';
@@ -37,6 +38,9 @@ const AssignmentLinks = ({ assignment, courseType, user, course, project, editMo
   }
 
   if (courseType === 'ClassroomProgramCourse') {
+    actions.unshift(
+      <OutlineLink key={`outline-${id}`} assignment={assignment} />
+    );
     actions.unshift(
       <BibliographyLink key={`bibliography-${id}`} assignment={assignment} />
     );
