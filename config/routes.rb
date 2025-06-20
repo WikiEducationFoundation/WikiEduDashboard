@@ -406,7 +406,7 @@ Rails.application.routes.draw do
   resources :survey_assignments, path: 'surveys/assignments'
   post '/survey_assignments/:id/send_test_email' => 'survey_assignments#send_test_email', as: 'send_test_email'
   put '/surveys/question_position' => 'questions#update_position'
-  get '/survey/results/:id' => 'surveys#results', as: 'survey_results'
+  get '/survey/results/:id' => 'survey_results#results', as: 'survey_results'
   get '/survey/question/results/:id' => 'questions#results', as: 'question_results'
   get '/surveys/question_group_question/:id' => 'questions#question'
   get '/surveys/:id/question_group' => 'surveys#edit_question_groups', :as => "edit_question_groups"
