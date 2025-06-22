@@ -3,13 +3,12 @@
 # Rubocop now wants us to remove instance methods from helpers. This is a good idea
 # but will require a bit of refactoring. Find other instances of this disabling
 # and fix all at once.
-# rubocop:disable Rails/HelperInstanceVariable
 
 require 'sentimental'
 
 module QuestionResultsHelper
-  def question_results_data(question, survey_user_cache)
-    answers = question_answers(question, survey_user_cache)
+  def question_results_data(question, users)
+    answers = question_answers(question, users)
     {
       type: question_type_to_string(question),
       question:,
@@ -28,14 +27,10 @@ module QuestionResultsHelper
     answers.map { |a| a.split(Rapidfire.answers_delimiter) }.flatten
   end
 
-  def question_answers(question, survey_user_cache)
+  def question_answers(question, users)
     question.answers.map do |answer|
-      if survey_user_cache.key?(answer.user.id)
-        course = survey_user_cache[answer.user.id]
-      else
-        course = answer.course(@survey.id, answer.user)
-        survey_user_cache[answer.user.id] = course
-      end
+      user = users[answer.answer_group.user_id]
+      course = user.respond_to?(:survey_course) ? user.survey_course : nil
       { data: answer, user: answer.user, course:, campaigns: course&.campaigns,
         tags: course&.tags, sentiment: calculate_sentiment(question, answer) }
     end
@@ -90,4 +85,3 @@ module QuestionResultsHelper
     return follow_ups
   end
 end
-# rubocop:enable Rails/HelperInstanceVariable
