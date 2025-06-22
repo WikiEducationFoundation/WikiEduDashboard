@@ -83,7 +83,7 @@ module SurveysHelper
     answer.question.validation_rules[:grouped_question]
   end
 
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength,Lint/MissingCopEnableDirective
   def question_group_locals(surveys_question_group, index, total, is_results_view:)
     @question_group = surveys_question_group.rapidfire_question_group
     @answer_group_builder = Rapidfire::AnswerGroupBuilder.new(params: {},
