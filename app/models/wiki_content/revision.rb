@@ -40,8 +40,8 @@ class Revision < ApplicationRecord
   validates :mw_page_id, presence: true
   validates :mw_rev_id, presence: true
 
-  serialize :features, Hash
-  serialize :features_previous, Hash
+  serialize :features, coder: YAML, type: Hash
+  serialize :features_previous, coder: YAML, type: Hash
 
   attr_accessor :scoped, :error
 

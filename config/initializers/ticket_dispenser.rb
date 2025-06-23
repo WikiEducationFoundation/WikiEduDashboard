@@ -21,6 +21,7 @@ Rails.application.config.to_prepare do
   end
 
   TicketDispenser::Message.class_eval do
+    serialize :details, coder: YAML, type: Hash
     def serialized_sender
       return {} if sender.nil?
       {

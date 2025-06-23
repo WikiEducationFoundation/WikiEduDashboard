@@ -36,7 +36,7 @@ class ArticlesCourses < ApplicationRecord
   scope :tracked, -> { where(tracked: true).distinct }
   scope :not_tracked, -> { where(tracked: false).distinct }
 
-  serialize :user_ids, Array # This text field only stores user ids as text
+  serialize :user_ids, coder: YAML, type: Array # This text field only stores user ids as text
 
   ####################
   # Instance methods #
