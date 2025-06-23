@@ -580,7 +580,7 @@ GEM
     sshkit (1.21.3)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
-    stackprof (0.2.23)
+    stackprof (0.2.27)
     strscan (3.0.1)
     temple (0.8.2)
     terrapin (1.0.1)
