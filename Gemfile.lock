@@ -193,6 +193,9 @@ GEM
       bigdecimal
       rexml
     crass (1.0.6)
+    cronex (0.15.0)
+      tzinfo
+      unicode (>= 0.4.4.5)
     css_parser (1.14.0)
       addressable
     dalli (3.2.3)
@@ -211,7 +214,7 @@ GEM
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     erubi (1.11.0)
-    et-orbi (1.2.7)
+    et-orbi (1.2.11)
       tzinfo
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
@@ -254,14 +257,14 @@ GEM
     figaro (1.2.0)
       thor (>= 0.14.0, < 2)
     formatador (0.3.0)
-    fugit (1.9.0)
-      et-orbi (~> 1, >= 1.2.7)
+    fugit (1.11.1)
+      et-orbi (~> 1, >= 1.2.11)
       raabro (~> 1.4)
     fuzzily_reloaded (1.0.1)
       activerecord (>= 5.1)
     glob (0.4.0)
-    globalid (1.0.1)
-      activesupport (>= 5.0)
+    globalid (1.2.1)
+      activesupport (>= 6.1)
     griddler (1.5.2)
       htmlentities
       rails (>= 3.2.0)
@@ -304,7 +307,7 @@ GEM
     http-cookie (1.0.5)
       domain_name (~> 0.5)
     http_accept_language (2.1.1)
-    i18n (1.14.6)
+    i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     i18n-js (4.2.2)
       glob (>= 0.4.0)
@@ -325,7 +328,7 @@ GEM
     listen (3.7.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
-    logger (1.6.5)
+    logger (1.7.0)
     loofah (2.19.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -344,7 +347,7 @@ GEM
     mime-types-data (3.2025.0107)
     mini_mime (1.1.2)
     mini_portile2 (2.8.9)
-    minitest (5.25.4)
+    minitest (5.25.5)
     msgpack (1.5.4)
     multipart-post (2.2.3)
     mysql2 (0.5.4)
@@ -566,10 +569,11 @@ GEM
       logger
       rack (>= 2.2.4)
       redis-client (>= 0.22.2)
-    sidekiq-cron (1.12.0)
-      fugit (~> 1.8)
+    sidekiq-cron (2.3.0)
+      cronex (>= 0.13.0)
+      fugit (~> 1.8, >= 1.11.1)
       globalid (>= 1.0.1)
-      sidekiq (>= 6)
+      sidekiq (>= 6.5.0)
     sidekiq-unique-jobs (7.1.27)
       brpoplpush-redis_script (> 0.1.1, <= 2.0.0)
       concurrent-ruby (~> 1.0, >= 1.0.5)
@@ -600,6 +604,7 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.8.2)
+    unicode (0.4.4.5)
     unicode-display_width (2.2.0)
     validates_email_format_of (1.7.2)
       i18n
