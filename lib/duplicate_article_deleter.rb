@@ -34,9 +34,10 @@ class DuplicateArticleDeleter
   private
 
   def articles_grouped_by_title_and_namespace(articles)
-    articles ||= Article.where(deleted: false, wiki_id: @wiki.id)
-    titles = articles.map(&:title)
-    Article.where(title: titles, wiki_id: @wiki.id).group(%w[title namespace]).count
+    Article.where(namespace: articles.pluck(:namespace).uniq,
+                  title: articles.pluck(:title),
+                  wiki_id: @wiki.id)
+           .group(%w[title namespace]).count
   end
 
   def delete_duplicates_in(article_group)
