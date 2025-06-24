@@ -9,9 +9,10 @@ describe UpdateWikidataStatsTimeslice do
       create(:course, start: Date.new(2022, 1, 5), end: Date.new(2022, 1, 7),
                       home_wiki: wikidata)
     end
-    let(:revision1) { create(:revision, wiki: wikidata, mw_rev_id: 1556860240) }
-    let(:revision2) { create(:revision, wiki: wikidata, mw_rev_id: 99682036) }
-    let(:revisions) { [revision1, revision2] }
+    let(:revision1) { create(:revision, wiki: wikidata, mw_rev_id: 1556860240, scoped: true) }
+    let(:revision2) { create(:revision, wiki: wikidata, mw_rev_id: 99682035, scoped: true) }
+    let(:unscoped_revision) { create(:revision, wiki: wikidata, mw_rev_id: 99682036) }
+    let(:revisions) { [revision1, revision2, unscoped_revision] }
     let(:updater) { described_class.new(course) }
 
     before do
@@ -23,9 +24,11 @@ describe UpdateWikidataStatsTimeslice do
         expect(rev.summary).to be_nil
       end
       updater.update_revisions_with_stats(revisions)
-      revisions.each do |rev|
-        expect(rev.summary).not_to be_nil
-      end
+      expect(revision1.summary).not_to be_nil
+      expect(revision1.summary).not_to eq('null')
+      expect(revision2.summary).not_to be_nil
+      expect(revision2.summary).not_to eq('null')
+      expect(unscoped_revision.summary).to be_nil
     end
 
     it 'creates record in CourseStat table', :vcr do

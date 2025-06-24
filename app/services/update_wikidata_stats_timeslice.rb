@@ -80,6 +80,7 @@ class UpdateWikidataStatsTimeslice
     revision_ids = revisions.select(&:scoped).pluck(:mw_rev_id)
     analyzed_revisions = WikidataDiffAnalyzer.analyze(revision_ids)[:diffs]
     revisions.each do |revision|
+      next unless revision.scoped
       rev_id = revision.mw_rev_id
       individual_stat = analyzed_revisions[rev_id]
       serialized_stat = individual_stat.to_json
