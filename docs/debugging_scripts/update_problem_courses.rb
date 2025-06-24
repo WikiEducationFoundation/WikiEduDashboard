@@ -14,3 +14,14 @@ long_update_courses = Course.ready_for_update.filter { |c| c.flags[:very_long_up
 
 concerning_ids = ids - long_update_courses
 puts concerning_ids
+
+# Find courses from a campaign that haven't successfully updated since the end date
+campaign = Campaign.find_by_slug 'coordinate_me_2025'
+campaign.courses.each do |course|
+  puts course.slug, course.id
+  last_update_log = course.flags['update_logs'].values.last
+  puts "last update: #{last_update_log['end_time']}"
+  puts "errors: #{last_update_log['error_count']}"
+  puts "reprocessed: #{last_update_log['reprocessed']}"
+end; nil
+
