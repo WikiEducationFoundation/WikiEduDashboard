@@ -76,9 +76,11 @@ class UpdateWikidataStatsTimeslice
   # the wikidata stats. wikidata-diff-analyzer gem is used to fetch the stats.
   # Returns the updated array.
   def update_revisions_with_stats(revisions)
-    revision_ids = revisions.pluck(:mw_rev_id)
+    # We will only use the diff stats for in-scope revisions, and this is very slow.
+    revision_ids = revisions.select(&:scoped).pluck(:mw_rev_id)
     analyzed_revisions = WikidataDiffAnalyzer.analyze(revision_ids)[:diffs]
     revisions.each do |revision|
+      next unless revision.scoped
       rev_id = revision.mw_rev_id
       individual_stat = analyzed_revisions[rev_id]
       serialized_stat = individual_stat.to_json
