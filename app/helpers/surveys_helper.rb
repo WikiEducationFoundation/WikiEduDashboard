@@ -89,10 +89,13 @@ module SurveysHelper
     @answer_group_builder = Rapidfire::AnswerGroupBuilder.new(params: {},
                                                               user: current_user,
                                                               question_group: @question_group)
+
+    includes_options = is_results_view ? { answers: :user } : :answers
+
     @questions = surveys_question_group
-                 .rapidfire_question_group
-                 .questions
-                 .includes(answers: :user)
+                  .rapidfire_question_group
+                  .questions
+                  .includes(includes_options)
 
     @id_to_question = {}
     @questions.each do |question|
@@ -103,7 +106,7 @@ module SurveysHelper
                               .where(question_id: @questions.pluck(:id))
                               .group(:question_id).count
 
-    enrich_answers_with_users_and_courses
+    enrich_answers_with_users_and_courses(is_results_view)
 
     return { question_group: @question_group,
       answer_group_builder: @answer_group_builder,
@@ -113,14 +116,18 @@ module SurveysHelper
       results: is_results_view }
   end
 
-  def enrich_answers_with_users_and_courses
+  def enrich_answers_with_users_and_courses(is_results_view)
     @user_ids = Set.new # Initialize a Set to collect unique user IDs from answers
 
     @answer_group_builder.answers.each do |answer|
       question = @id_to_question[answer.question_id]
       answer.question = question
-      store_user_ids(question.answers.map(&:user)) # Collect user IDs from answers to later fetch user info # rubocop:disable Layout/LineLength
+      if is_results_view
+        store_user_ids(question.answers.map(&:user)) # Collect user IDs from answers to later fetch user info # rubocop:disable Layout/LineLength
+      end
     end
+
+    return unless is_results_view
 
     store_users_by_id # Fetch and store user records in a hash indexed by ID
     user_survey_courses # Attach course data to each user via dynamic method
