@@ -109,7 +109,14 @@ class ArticlesForDeletionMonitor
   end
 
   def set_article_ids
-    @article_ids = Article.where(title: @page_titles, wiki_id: @wiki.id).pluck(:id)
+    # Use only relevant namespaces:
+    # - MAINSPACE: actual articles
+    # - TALK: occasionally tagged for deletion
+    # - PROJECT: AfD discussion pages (e.g., Wikipedia:Articles_for_deletion/...)
+    # Matches CategoryImporter scope and supports index-efficient queries.
+    namespace = [Article::Namespaces::MAINSPACE, Article::Namespaces::TALK,
+                 Article::Namespaces::PROJECT]
+    @article_ids = Article.where(namespace:, title: @page_titles, wiki_id: @wiki.id).pluck(:id)
   end
 
   def create_alert(articles_course)
