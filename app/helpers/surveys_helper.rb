@@ -93,9 +93,9 @@ module SurveysHelper
     includes_options = is_results_view ? { answers: :user } : :answers
 
     @questions = surveys_question_group
-                  .rapidfire_question_group
-                  .questions
-                  .includes(includes_options)
+                 .rapidfire_question_group
+                 .questions
+                 .includes(includes_options)
 
     @id_to_question = {}
     @questions.each do |question|
