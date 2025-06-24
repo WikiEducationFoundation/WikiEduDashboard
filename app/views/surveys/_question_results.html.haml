@@ -1,4 +1,4 @@
-%div{data: { question_results: question_results_data(question, survey_user_cache) }}
+%div{data: { question_results: question_results_data(question, users) }}
 .results__question-footer
   %strong= respondents(question, @question_answers_count)
   = link_to "Download Results CSV", question_results_path(question, format: 'csv')

@@ -83,16 +83,19 @@ module SurveysHelper
     answer.question.validation_rules[:grouped_question]
   end
 
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength,Lint/MissingCopEnableDirective
   def question_group_locals(surveys_question_group, index, total, is_results_view:)
     @question_group = surveys_question_group.rapidfire_question_group
     @answer_group_builder = Rapidfire::AnswerGroupBuilder.new(params: {},
                                                               user: current_user,
                                                               question_group: @question_group)
+
+    includes_options = is_results_view ? { answers: :user } : :answers
+
     @questions = surveys_question_group
                  .rapidfire_question_group
                  .questions
-                 .includes(answers: { user: :survey_notifications })
+                 .includes(includes_options)
 
     @id_to_question = {}
     @questions.each do |question|
@@ -103,10 +106,7 @@ module SurveysHelper
                               .where(question_id: @questions.pluck(:id))
                               .group(:question_id).count
 
-    @answer_group_builder.answers.each do |answer|
-      question = @id_to_question[answer.question_id]
-      answer.question = question
-    end
+    enrich_answers_with_users_and_courses(is_results_view)
 
     return { question_group: @question_group,
       answer_group_builder: @answer_group_builder,
@@ -115,7 +115,71 @@ module SurveysHelper
       total:,
       results: is_results_view }
   end
-  # rubocop:enable Metrics/MethodLength
+
+  def enrich_answers_with_users_and_courses(is_results_view)
+    @user_ids = Set.new # Initialize a Set to collect unique user IDs from answers
+
+    @answer_group_builder.answers.each do |answer|
+      question = @id_to_question[answer.question_id]
+      answer.question = question
+      if is_results_view
+        store_user_ids(question.answers.map(&:user)) # Collect user IDs from answers to later fetch user info # rubocop:disable Layout/LineLength
+      end
+    end
+
+    return unless is_results_view
+
+    store_users_by_id # Fetch and store user records in a hash indexed by ID
+    user_survey_courses # Attach course data to each user via dynamic method
+  end
+
+  def store_user_ids(users)
+    users.each { |user| @user_ids.add(user.id) }
+  end
+
+  def store_users_by_id
+    @users_by_id = User.where(id: @user_ids.to_a).select(:id, :username).index_by(&:id)
+  end
+
+  # Attaches course data to users via dynamic method for easy access to course campaigns and tags
+  def user_survey_courses
+    # Step 1: Fetch the first completed survey notification for each user
+    # that is associated with the given survey.
+    notifications_by_user = SurveyNotification
+                            .joins(:courses_user, :survey_assignment)
+                            .where(
+                              courses_users: { user_id: @users_by_id.keys },
+                              completed: true,
+                              survey_assignments: { survey_id: @survey.id }
+                            )
+                            .select(
+                              'survey_notifications.id',
+                              'survey_notifications.course_id',
+                              'courses_users.user_id AS user_id'
+                            )
+                            .order('survey_notifications.id')
+                            .group_by(&:user_id)
+                            .transform_values(&:first)
+
+    # Step 2: Collect all unique course IDs from these notifications.
+    course_ids = notifications_by_user.values.map(&:course_id).uniq
+
+    # # Step 3: Eager-load campaigns and tags for all relevant courses,
+    courses_by_id = Course.where(id: course_ids)
+                          .select(:id, :title)
+                          .includes(:campaigns, :tags)
+                          .index_by(&:id)
+
+    # Step 4: Attach the corresponding course to each user using a dynamic method.
+    # This allows easy access to `user.survey_course` elsewhere in the app.
+    # Currently it's being used by QuestionResultsHelper#build_question_answer_data
+    notifications_by_user.each do |user_id, notification|
+      user = @users_by_id[user_id]
+      course = courses_by_id[notification.course_id]
+      # Dynamically define a method to access course on user
+      user.define_singleton_method(:survey_course) { course }
+    end
+  end
 
   def question_conditional_string(question)
     return '' if question.nil?
