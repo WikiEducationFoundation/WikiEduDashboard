@@ -34,8 +34,9 @@ class RevisionOnMemory
   attribute :features, default: -> { {} }
   attribute :features_previous, default: -> { {} }
   attribute :summary, default: -> { {} }
+  attribute :characters, :integer, default: 0
 
-  attr_accessor :date, :characters, :article_id, :mw_page_id, :user_id, :new_article,
+  attr_accessor :date, :article_id, :mw_page_id, :user_id, :new_article,
                 :system, :wiki_id, :scoped, :error,
                 :wp10, :wp10_previous, :deleted
 
