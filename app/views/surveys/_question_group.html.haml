@@ -35,7 +35,7 @@
 
           - if results
             = render partial: "rapidfire/answers/question_text", locals: {f: answer_form, answer: answer}
-            = render partial: "question_results", locals: { question: @id_to_question[answer.question.id], users: @users_by_id  }
+            = render partial: "question_results", locals: { question: @id_to_question[answer.question.id], answers: @rapidfire_answers_by_question_id[answer.question.id], id_to_answer_groups: @rapidfire_answer_groups_by_id, users: @users_by_id  }
           - else
             = render_answer_form_helper(answer, answer_form)
 
