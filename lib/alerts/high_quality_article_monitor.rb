@@ -51,7 +51,12 @@ class HighQualityArticleMonitor
   end
 
   def set_article_ids
-    @article_ids = Article.where(title: @page_titles, wiki_id: @wiki.id).pluck(:id)
+    # Restrict to relevant namespaces:
+    # - MAINSPACE (0): Good/Featured articles reside here
+    # - TALK (1): Included for completeness, though these categories typically apply to mainspace
+    # Helps ensure index-efficient lookups and avoids irrelevant matches
+    namespace = [Article::Namespaces::MAINSPACE, Article::Namespaces::TALK]
+    @article_ids = Article.where(namespace:, title: @page_titles, wiki_id: @wiki.id).pluck(:id)
   end
 
   def create_edit_alert(articles_course)
