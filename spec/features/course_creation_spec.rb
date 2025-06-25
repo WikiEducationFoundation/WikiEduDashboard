@@ -310,11 +310,10 @@ describe 'New course creation and editing', type: :feature do
       expect(end_input.to_date).to be_within(1.day).of(end_date.to_date)
 
       # Click checkbox to opt out of meeting days
-      find('input.no-meeting-day-checkbox').click
+      find('label.switch').click
       within('.wizard__panel.active') do
         expect(page).to have_css('button.dark')
       end
-      find('.wizard__form.course-dates input[type=checkbox]', match: :first).set(true)
       within('.wizard__panel.active') do
         expect(page).not_to have_css('button.dark[disabled=disabled]')
       end

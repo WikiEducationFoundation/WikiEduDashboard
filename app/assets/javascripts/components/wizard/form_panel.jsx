@@ -54,6 +54,25 @@ const FormPanel = (props) => {
     ? <h2><span>1.</span><small> {I18n.t('wizard.confirm_course_dates')} </small></h2>
     : <p>{I18n.t('wizard.confirm_course_dates')}</p>;
 
+  const meetingDays = (
+    <div className="wizard__form course-dates course-dates__step">
+      <Calendar
+        course={props.course}
+        editable={true}
+        save={true}
+        calendarInstructions={I18n.t('wizard.calendar_instructions')}
+        updateCourse={props.updateCourse}
+      />
+      <label> {I18n.t('wizard.no_class_holidays')}
+        <input
+          type="checkbox"
+          onChange={setNoBlackoutDatesChecked}
+          ref={noDates}
+        />
+      </label>
+    </div>
+  );
+
   const rawOptions = (
     <div>
       <div className="course-dates__step">
@@ -104,32 +123,23 @@ const FormPanel = (props) => {
           />
         </div>
       </div>
-      <label> {I18n.t('wizard.no_meetings')}
-        <input
-          type="checkbox"
-          onChange={handleNoMeetingDays}
-          value={props.course.no_meeting_days}
-          ref={noMeetingDates}
-          className="no-meeting-day-checkbox"
-        />
-      </label>
-      <hr />
-      <div className="wizard__form course-dates course-dates__step">
-        <Calendar
-          course={props.course}
-          editable={true}
-          save={true}
-          calendarInstructions={I18n.t('wizard.calendar_instructions')}
-          updateCourse={props.updateCourse}
-        />
-        <label> {I18n.t('wizard.no_class_holidays')}
+      <hr/>
+      <div className="switch-container">
+        <span>{I18n.t('wizard.no_meetings')}</span>
+        <label className="switch">
           <input
             type="checkbox"
-            onChange={setNoBlackoutDatesChecked}
-            ref={noDates}
+            onChange={handleNoMeetingDays}
+            checked={!!props.course.no_meeting_days}
+            ref={noMeetingDates}
+            className="no-meeting-day-checkbox"
           />
+          <span className="slider round"/>
         </label>
       </div>
+      <span className="no-meeting-notes">{I18n.t('wizard.no_meetings_notes')}</span>
+      <hr/>
+      {!props.course.no_meeting_days && meetingDays}
     </div>
   );
 

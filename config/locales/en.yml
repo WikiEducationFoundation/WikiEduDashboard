@@ -1676,7 +1676,9 @@ en:
       assignments. Click the date to change between unselected, selected, and
       holiday state. If you have no holidays, check "I have no class holidays"
       below.
-    no_meetings: Would you want to opt out of meeting days
+    no_meetings: Do not include meeting days or holidays/breaks in the course timeline
+    no_meetings_notes: "Note: If you don't include meeting days and your course includes
+     vacation weeks, you may need to manually adjust the timeline to account for them."
     confirm_course_dates: Confirm the course's start and end dates.
     confirm_dates: Choose the course dates, weekly meetings, and holidays for your course.
     course_dates: Course Dates
