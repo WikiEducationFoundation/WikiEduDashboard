@@ -14,7 +14,7 @@ module QuestionResultsHelper
       question:,
       sentiment: question.track_sentiment ? question_answers_average_sentiment(processed_answers) : nil, # rubocop:disable Layout/LineLength
       answer_options: question.answer_options.split(Rapidfire.answers_delimiter),
-      answers: parse_answers(question),
+      answers: parse_answers(answers),
       answers_data: processed_answers,
       grouped_question: question.validation_rules[:question_question],
       follow_up_question_text: question.follow_up_question_text,
@@ -22,9 +22,13 @@ module QuestionResultsHelper
     }.to_json
   end
 
-  def parse_answers(question)
-    answers = question.answers.pluck(:answer_text).compact
-    answers.map { |a| a.split(Rapidfire.answers_delimiter) }.flatten
+  def parse_answers(answers)
+    return [] if answers.nil?
+
+    answers
+      .filter_map(&:answer_text)
+      .flat_map { |text| text.to_s.split(Rapidfire.answers_delimiter) }
+      .reject(&:blank?)
   end
 
   def question_answers(question, answers, id_to_answer_groups, users)
