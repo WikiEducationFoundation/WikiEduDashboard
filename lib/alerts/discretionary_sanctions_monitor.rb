@@ -57,7 +57,12 @@ class DiscretionarySanctionsMonitor
   end
 
   def set_article_ids
-    @article_ids = Article.where(title: @page_titles, wiki_id: @wiki.id).pluck(:id)
+    # Use only relevant namespaces:
+    # - MAINSPACE: actual articles
+    # - TALK: occasionally tagged for deletion
+    # Matches CategoryImporter scope and supports index-efficient queries.
+    namespace = [Article::Namespaces::MAINSPACE, Article::Namespaces::TALK]
+    @article_ids = Article.where(namespace:, wiki_id: @wiki.id, title: @page_titles).pluck(:id)
   end
 
   def create_edit_alert(articles_course)
