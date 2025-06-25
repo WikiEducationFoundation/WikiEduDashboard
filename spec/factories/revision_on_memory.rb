@@ -2,6 +2,6 @@
 
 FactoryBot.define do
   factory :revision_on_memory do
-    nil
+    wiki_id { 1 }
   end
 end
