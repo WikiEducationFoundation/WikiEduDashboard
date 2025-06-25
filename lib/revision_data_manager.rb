@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/article_utils"
 require_dependency "#{Rails.root}/lib/replica"
 require_dependency "#{Rails.root}/lib/importers/article_importer"
 require_dependency "#{Rails.root}/app/helpers/encoding_helper"
@@ -78,15 +79,12 @@ class RevisionDataManager
     DuplicateArticleDeleter.new(@wiki).resolve_duplicates_for_timeslices(@articles)
   end
 
-  # Returns a list of revisions for users during the given period:
-  # [all_sub_data, sub_data].
-  # - all_sub_data: all revisions within the period.
-  # - scoped_sub_data: revisions filtered based on the course type.
+  # Returns revisions for users during the given period.
   def get_course_revisions(users, start, end_date)
     all_sub_data = get_revisions(users, start, end_date)
-    # Filter revisions based on the course type.
+    # Update the all_sub_data hash to mark scoped articles.
     # Important for ArticleScopedProgram/VisitingScholarship courses
-    @course.filter_revisions(@wiki, all_sub_data)
+    mark_scoped_articles(@wiki, all_sub_data)
   end
 
   # Get revisions made by a set of users between two dates.
@@ -131,7 +129,6 @@ class RevisionDataManager
   end
 
   # Returns revisions from all_sub_data.
-  # scoped_sub_data contains filtered data according to the course type.
   def sub_data_to_revision_attributes(all_sub_data, users, articles: nil)
     all_sub_data.flat_map do |_a_id, article_data|
       article_data['revisions'].map do |rev_data|
@@ -140,8 +137,16 @@ class RevisionDataManager
     end.uniq(&:mw_rev_id)
   end
 
-  def scoped_revision?(article_data)
-    article_data['scoped'].nil? ? true : article_data['scoped']
+  # Updates the revision data with a new 'scoped' field inside the article data.
+  # This field indicates if the article is scoped based on the course type.
+  def mark_scoped_articles(wiki, revisions)
+    revisions.each do |_, details|
+      article_title = details['article']['title']
+      formatted_article_title = ArticleUtils.format_article_title(article_title, wiki)
+      mw_page_id = details['article']['mw_page_id'].to_i
+      details['article']['scoped'] =
+        @course.scoped_article?(wiki, formatted_article_title, mw_page_id)
+    end
   end
 
   # Creates a revision record for the given revision data.
@@ -157,7 +162,7 @@ class RevisionDataManager
           new_article: string_to_boolean(rev_data['new_article']),
           system: string_to_boolean(rev_data['system']),
           wiki_id: rev_data['wiki_id'],
-          scoped: scoped_revision?(article_data)
+          scoped: article_data['scoped']
         })
   end
 

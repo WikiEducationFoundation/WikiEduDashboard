@@ -63,7 +63,7 @@ describe RevisionDataManager do
             'title' => 'Draft article',
             'namespace' => '118',
             'wiki_id' => 1
-          },
+        },
           'revisions' => [
             { 'mw_rev_id' => '456', 'date' => '20180706', 'characters' => '569',
               'mw_page_id' => '123', 'username' => 'Ragesoss', 'new_article' => 'false',
@@ -72,7 +72,7 @@ describe RevisionDataManager do
         }
       ]
     end
-    let(:filtered_data1) do
+    let(:scoped_data1) do
       [
         '777',
         {
@@ -91,7 +91,7 @@ describe RevisionDataManager do
         }
       ]
     end
-    let(:filtered_data2) do
+    let(:non_scoped_data2) do
       [
         '123',
         {
@@ -140,7 +140,7 @@ describe RevisionDataManager do
 
     it 'creates articles for all revisions even for article scoped programs' do
       allow_any_instance_of(described_class).to receive(:get_course_revisions)
-        .and_return([filtered_data1, filtered_data2])
+        .and_return([scoped_data1, non_scoped_data2])
 
       article_importer = instance_double(ArticleImporter)
       allow(ArticleImporter).to receive(:new).and_return(article_importer)
@@ -159,6 +159,23 @@ describe RevisionDataManager do
         # characters value, defaulting to zero if nil.
         subject2.each { |rev| expect(rev.characters).not_to be_nil }
       end
+    end
+
+    it 'marks scoped revisions based on scoped articles' do
+      allow(instance_class).to receive(:get_revisions).and_return([data1, data2])
+      expect(subject.first.scoped).to eq(true)
+      expect(subject.second.scoped).to eq(true)
+    end
+
+    it 'marks scoped revisions based on scoped articles for artcile scoped programs' do
+      # Use article scoped course since otherwise all revisions are scoped
+      scoped_course = create(:article_scoped_program, start: '2018-01-01', end: '2018-12-31')
+      scoped_instance_class = described_class.new(home_wiki, scoped_course)
+      allow(scoped_instance_class).to receive(:get_revisions).and_return([data1, data2])
+      allow(scoped_course).to receive(:scoped_article_titles).and_return(['Draft_article'])
+      revisions = scoped_instance_class.fetch_revision_data_for_course('20180706', '20180707')
+      expect(revisions.first.scoped).to eq(false)
+      expect(revisions.second.scoped).to eq(true)
     end
   end
 
