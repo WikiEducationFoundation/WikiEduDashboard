@@ -152,7 +152,7 @@ class RevisionDataManager
   # Creates a revision record for the given revision data.
   def create_revision(rev_data, article_data, users, articles)
     mw_page_id = rev_data['mw_page_id'].to_i
-    Revision.new({
+    RevisionOnMemory.new({
           mw_rev_id: rev_data['mw_rev_id'],
           date: rev_data['date'],
           characters: rev_data['characters'] || 0,
