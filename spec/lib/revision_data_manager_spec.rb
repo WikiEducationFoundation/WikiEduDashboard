@@ -72,7 +72,44 @@ describe RevisionDataManager do
         }
       ]
     end
-    let(:filtered_sub_data) { [data1] }
+    let(:filtered_data1) do
+      [
+        '777',
+        {
+          'article' => {
+            'mw_page_id' => '777',
+            'title' => 'Ragesoss/citing_sources',
+            'namespace' => '4',
+            'wiki_id' => 1,
+            'scoped' => true
+          },
+          'revisions' => [
+            { 'mw_rev_id' => '849116430', 'date' => '20180706', 'characters' => '569',
+              'mw_page_id' => '777', 'username' => 'Ragesoss', 'new_article' => 'false',
+              'system' => 'false', 'wiki_id' => 1 }
+          ]
+        }
+      ]
+    end
+    let(:filtered_data2) do
+      [
+        '123',
+        {
+          'article' => {
+            'mw_page_id' => '123',
+            'title' => 'Draft article',
+            'namespace' => '118',
+            'wiki_id' => 1,
+            'scoped' => false
+          },
+          'revisions' => [
+            { 'mw_rev_id' => '456', 'date' => '20180706', 'characters' => '569',
+              'mw_page_id' => '123', 'username' => 'Ragesoss', 'new_article' => 'false',
+              'system' => 'false', 'wiki_id' => 1 }
+          ]
+        }
+      ]
+    end
 
     before do
       create(:courses_user, course:, user:)
@@ -103,7 +140,7 @@ describe RevisionDataManager do
 
     it 'creates articles for all revisions even for article scoped programs' do
       allow_any_instance_of(described_class).to receive(:get_course_revisions)
-        .and_return([sub_data, filtered_sub_data])
+        .and_return([filtered_data1, filtered_data2])
 
       article_importer = instance_double(ArticleImporter)
       allow(ArticleImporter).to receive(:new).and_return(article_importer)

@@ -22,7 +22,7 @@ class RevisionDataManager
   # Returns an array of Revision records.
   # As a side effect, it imports Article records.
   def fetch_revision_data_for_course(timeslice_start, timeslice_end)
-    all_sub_data, scoped_sub_data = get_course_revisions(@course.students, timeslice_start,
+    all_sub_data = get_course_revisions(@course.students, timeslice_start,
                                                          timeslice_end)
     @revisions = []
 
@@ -41,7 +41,6 @@ class RevisionDataManager
     article_dict = @articles.each_with_object({}) { |a, memo| memo[a.mw_page_id] = a.id }
     @revisions = sub_data_to_revision_attributes(all_sub_data,
                                                  users,
-                                                 scoped_sub_data:,
                                                  articles: article_dict)
     return @revisions
   end
@@ -61,10 +60,10 @@ class RevisionDataManager
   # This method gets revisions for some specific users.
   # It does not fetch scores. It has no side effects.
   def fetch_revision_data_for_users(users, timeslice_start, timeslice_end)
-    all_sub_data, scoped_sub_data = get_course_revisions(users, timeslice_start, timeslice_end)
+    all_sub_data = get_course_revisions(users, timeslice_start, timeslice_end)
     users = user_dict_from_sub_data(all_sub_data)
 
-    sub_data_to_revision_attributes(all_sub_data, users, scoped_sub_data:)
+    sub_data_to_revision_attributes(all_sub_data, users)
   end
 
   ###########
@@ -87,7 +86,7 @@ class RevisionDataManager
     all_sub_data = get_revisions(users, start, end_date)
     # Filter revisions based on the course type.
     # Important for ArticleScopedProgram/VisitingScholarship courses
-    [all_sub_data, @course.filter_revisions(@wiki, all_sub_data)]
+    @course.filter_revisions(@wiki, all_sub_data)
   end
 
   # Get revisions made by a set of users between two dates.
@@ -133,25 +132,20 @@ class RevisionDataManager
 
   # Returns revisions from all_sub_data.
   # scoped_sub_data contains filtered data according to the course type.
-  def sub_data_to_revision_attributes(all_sub_data, users, scoped_sub_data: nil, articles: nil)
+  def sub_data_to_revision_attributes(all_sub_data, users, articles: nil)
     all_sub_data.flat_map do |_a_id, article_data|
       article_data['revisions'].map do |rev_data|
-        create_revision(rev_data, scoped_sub_data, users, articles)
+        create_revision(rev_data, article_data['article'], users, articles)
       end
     end.uniq(&:mw_rev_id)
   end
 
-  def scoped_revision?(scoped_sub_data, mw_page_id, mw_rev_id)
-    scoped_sub_data.any? do |_, entry|
-      next unless entry.is_a?(Hash) && entry['article'] && entry['revisions']
-
-      entry['article']['mw_page_id'] == mw_page_id.to_s &&
-        entry['revisions'].any? { |rev| rev['mw_rev_id'] == mw_rev_id.to_s }
-    end
+  def scoped_revision?(article_data)
+    article_data['scoped'].nil? ? true : article_data['scoped']
   end
 
   # Creates a revision record for the given revision data.
-  def create_revision(rev_data, scoped_sub_data, users, articles)
+  def create_revision(rev_data, article_data, users, articles)
     mw_page_id = rev_data['mw_page_id'].to_i
     Revision.new({
           mw_rev_id: rev_data['mw_rev_id'],
@@ -163,7 +157,7 @@ class RevisionDataManager
           new_article: string_to_boolean(rev_data['new_article']),
           system: string_to_boolean(rev_data['system']),
           wiki_id: rev_data['wiki_id'],
-          scoped: scoped_revision?(scoped_sub_data, mw_page_id, rev_data['mw_rev_id'])
+          scoped: scoped_revision?(article_data)
         })
   end
 
