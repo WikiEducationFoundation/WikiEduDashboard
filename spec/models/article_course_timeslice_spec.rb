@@ -24,13 +24,14 @@ require "#{Rails.root}/lib/importers/article_importer"
 
 describe ArticleCourseTimeslice, type: :model do
   let(:article) { create(:article) }
+  let(:article_id) { article.id }
   let(:user) { create(:user) }
   let(:start) { 1.month.ago.beginning_of_day }
   let(:course) { create(:course, start:, end: 1.month.from_now.beginning_of_day) }
   let(:wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
   let(:article_course) { create(:articles_course, article:, course:) }
   let(:revision1) do
-    build(:revision, article:,
+    build(:revision_on_memory, article_id:,
            characters: 123,
            features: { 'num_ref' => 4 },
            features_previous: { 'num_ref' => 0 },
@@ -39,7 +40,7 @@ describe ArticleCourseTimeslice, type: :model do
            new_article: true)
   end
   let(:revision2) do
-    build(:revision, article:,
+    build(:revision_on_memory, article_id:,
            characters: -65,
            features: { 'num_ref' => 1 },
            features_previous: { 'num_ref' => 2 },
@@ -47,7 +48,7 @@ describe ArticleCourseTimeslice, type: :model do
            date: start + 10.hours)
   end
   let(:revision3) do
-    build(:revision, article:,
+    build(:revision_on_memory, article_id:,
            characters: 225,
            features: { 'num_ref' => 3 },
            features_previous: { 'num_ref' => 3 },
@@ -55,7 +56,7 @@ describe ArticleCourseTimeslice, type: :model do
            date: start + 12.hours)
   end
   let(:revision4) do
-    build(:revision, article:,
+    build(:revision_on_memory, article_id:,
             characters: 34,
             deleted: true, # deleted revision
             features: { 'num_ref' => 2 },
@@ -64,7 +65,7 @@ describe ArticleCourseTimeslice, type: :model do
             date: start + 16.hours)
   end
   let(:revision5) do
-    build(:revision, article:,
+    build(:revision_on_memory, article_id:,
            characters: 120,
            features: { 'num_ref' => 3 },
            features_previous: { 'num_ref' => 3 },
@@ -85,9 +86,9 @@ describe ArticleCourseTimeslice, type: :model do
 
   describe '.update_article_course_timeslices' do
     before do
-      revisions << build(:revision, article:, user_id: 1, date: start + 26.hours)
-      revisions << build(:revision, article:, user_id: 3, date: start + 50.hours)
-      revisions << build(:revision, article:, user_id: 7, date: start + 51.hours)
+      revisions << build(:revision_on_memory, article_id:, user_id: 1, date: start + 26.hours)
+      revisions << build(:revision_on_memory, article_id:, user_id: 3, date: start + 50.hours)
+      revisions << build(:revision_on_memory, article_id:, user_id: 7, date: start + 51.hours)
 
       create(:course_wiki_timeslice, course:, wiki:, start:, end: start + 1.day)
       create(:course_wiki_timeslice, course:, wiki:, start: start + 1.day,
