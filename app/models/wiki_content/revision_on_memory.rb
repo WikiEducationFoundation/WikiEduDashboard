@@ -1,15 +1,43 @@
 # frozen_string_literal: true
 
+#  id                :integer          not null, primary key
+#  characters        :integer          default(0)
+#  created_at        :datetime
+#  updated_at        :datetime
+#  user_id           :integer
+#  article_id        :integer
+#  views             :bigint           default(0)
+#  date              :datetime
+#  new_article       :boolean          default(FALSE)
+#  deleted           :boolean          default(FALSE)
+#  wp10              :float(24)
+#  wp10_previous     :float(24)
+#  system            :boolean          default(FALSE)
+#  ithenticate_id    :integer
+#  wiki_id           :integer
+#  mw_rev_id         :integer
+#  mw_page_id        :integer
+#  features          :text(65535)
+#  features_previous :text(65535)
+#  summary           :text(65535)
+
 class RevisionOnMemory
   include ActiveModel::Model
+  include ActiveModel::Attributes
   # Helps with importing data
   alias_attribute :rev_id, :mw_rev_id
 
   validates :mw_page_id, presence: true
   validates :mw_rev_id, presence: true
 
-  attr_accessor :mw_rev_id, :date, :characters, :article_id, :mw_page_id, :user_id, :new_article,
-                :system, :wiki_id, :scoped, :features, :features_previous, :summary, :error
+  attribute :mw_rev_id, :integer
+  attribute :features, default: -> { {} }
+  attribute :features_previous, default: -> { {} }
+  attribute :summary, default: -> { {} }
+
+  attr_accessor :date, :characters, :article_id, :mw_page_id, :user_id, :new_article,
+                :system, :wiki_id, :scoped, :error,
+                :wp10, :wp10_previous, :deleted
 
   ####################
   # Instance methods #
