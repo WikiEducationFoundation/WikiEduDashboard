@@ -341,10 +341,10 @@ class Course < ApplicationRecord
     false
   end
 
-  # The default implemention retrieves all the revisions.
+  # The default implementation retrieves always true.
   # A course type may override this implementation.
-  def filter_revisions(_wiki, revisions)
-    revisions
+  def scoped_article?(_wiki, _title, _mw_page_id)
+    true
   end
 
   # The default implemention retrieves all the ACTs.
