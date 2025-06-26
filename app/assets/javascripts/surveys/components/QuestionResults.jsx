@@ -11,12 +11,19 @@ const QuestionResults = (props) => {
       case 'radio':
       case 'checkbox':
       case 'select':
-        return <BarGraph {...question} />;
+        return <BarGraph answer_options = {question.answer_options} answers = {question.answers} />;
       case 'rangeinput':
-        return <RangeGraph {...question} />;
+        return <RangeGraph question = {question.question} answers = {question.answers} />;
       case 'text':
       case 'long':
-        return <TextResults {...question} />;
+        return (
+          <TextResults
+            answers_data={question.answers_data}
+            follow_up_answers={question.follow_up_answers}
+            sentiment={question.sentiment}
+            question={question.question}
+          />
+        );
       default:
         return null;
     }
@@ -25,7 +32,7 @@ const QuestionResults = (props) => {
   return (
     <div>
       {_renderQuestionResults(props)}
-      <FollowUpQuestionResults {...props} />
+      { Object.keys(props.follow_up_answers).length && <FollowUpQuestionResults {...props} /> }
     </div>
   );
 };
