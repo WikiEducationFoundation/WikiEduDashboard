@@ -90,9 +90,7 @@ module SurveysHelper
                                                               user: current_user,
                                                               question_group: @question_group)
 
-    @questions = surveys_question_group
-                 .rapidfire_question_group
-                 .questions
+    @questions = Rapidfire::Question.where(question_group_id: @question_group.id)
 
     @id_to_question = {}
     @questions.each do |question|
