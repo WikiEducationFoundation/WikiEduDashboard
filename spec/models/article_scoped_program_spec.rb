@@ -134,4 +134,30 @@ describe ArticleScopedProgram, type: :model do
       expect(asp.character_sum).to eq(chars)
     end
   end
+
+  describe '#scoped_article?' do
+    before do
+      create(:article, title: 'Category_article')
+      create(:article, title: 'Unassigned_article', mw_page_id: 400)
+      create(:assignment, course:, article:, article_title: article.title, wiki:)
+      create(:categories_courses, course:, category:)
+    end
+
+    let(:wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
+    let(:course) { create(:article_scoped_program, start: '2018-01-01', end: '2018-12-31') }
+    let(:category) { create(:category, wiki:, article_titles: ['Category_article']) }
+    let(:article) { create(:article, title: 'Assigned_article', mw_page_id: 345) }
+
+    it 'considers articles in categories as scoped articles' do
+      expect(course.scoped_article?(wiki, 'Category_article', 90)).to eq(true)
+    end
+
+    it 'considers assigned articles as scoped articles even though the title changed' do
+      expect(course.scoped_article?(wiki, 'assigned article', 345)).to eq(true)
+    end
+
+    it 'returns false for unassigned articles' do
+      expect(course.scoped_article?(wiki, 'Unassigned_article', 400)).to eq(false)
+    end
+  end
 end
