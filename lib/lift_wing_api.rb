@@ -122,7 +122,7 @@ class LiftWingApi
 
   def build_error_response(error)
     deleted = deleted?(error)
-    error_response = { 'wp10' => nil, 'features' => nil, 'deleted' => deleted, 'prediction' => nil }
+    error_response = { 'wp10' => nil, 'features' => {}, 'deleted' => deleted, 'prediction' => nil }
     # Add error field only if the revision was not deleted
     error_response['error'] = error unless non_transient_error?(error)
 
