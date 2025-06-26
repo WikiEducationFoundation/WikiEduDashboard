@@ -8,18 +8,32 @@ require 'sentimental'
 
 module QuestionResultsHelper
   def question_results_data(question, answers, id_to_answer_groups, users)
-    processed_answers = question_answers(question, answers, id_to_answer_groups, users)
+    processed_answers = prepare_answers_data(question, answers, id_to_answer_groups, users)
     {
       type: question_type_to_string(question),
       question:,
-      sentiment: question.track_sentiment ? question_answers_average_sentiment(processed_answers) : nil, # rubocop:disable Layout/LineLength
+      sentiment: question.track_sentiment ? question_answers_average_sentiment(processed_answers) : {}, # rubocop:disable Layout/LineLength
       answer_options: question.answer_options.split(Rapidfire.answers_delimiter),
       answers: parse_answers(answers),
-      answers_data: processed_answers,
-      grouped_question: question.validation_rules[:question_question],
+      answers_data: check_question_type?(question) ? processed_answers : [],
+      grouped_question: question.validation_rules[:grouped_question],
       follow_up_question_text: question.follow_up_question_text,
-      follow_up_answers: follow_up_answers(processed_answers)
+      follow_up_answers: follow_ups?(answers) ? follow_up_answers(processed_answers) : {}
     }.to_json
+  end
+
+  def prepare_answers_data(question, answers, id_to_answer_groups, users)
+    if question.track_sentiment? || check_question_type?(question) || follow_ups?(answers)
+      build_question_answer_data(question, answers, id_to_answer_groups, users)
+    end
+  end
+
+  def check_question_type?(question)
+    %w[Rapidfire::Questions::Text Rapidfire::Questions::Long].include?(question.type)
+  end
+
+  def follow_ups?(answers)
+    answers&.any? { |answer| answer.follow_up_answer_text.present? } || false
   end
 
   def parse_answers(answers)
@@ -31,7 +45,8 @@ module QuestionResultsHelper
       .reject(&:blank?)
   end
 
-  def question_answers(question, answers, id_to_answer_groups, users)
+  # Builds answer data with user/course info, caching expensive course lookups
+  def build_question_answer_data(question, answers, id_to_answer_groups, users)
     return [] unless answers
 
     answers.map do |answer|
