@@ -41,7 +41,7 @@ const Meetings = (props) => {
   const saveDisabledClass = (course) => {
     const blackoutDatesSelected = course.day_exceptions && course.day_exceptions.length > 0;
     const anyDatesSelected = course.weekdays && course.weekdays.indexOf(1) >= 0;
-    const enable = blackoutDatesSelected || (anyDatesSelected && props.course.no_day_exceptions) || course.no_meeting_days;
+    const enable = blackoutDatesSelected || anyDatesSelected || course.no_meeting_days;
     if (enable) { return ''; }
     return 'disabled';
   };
