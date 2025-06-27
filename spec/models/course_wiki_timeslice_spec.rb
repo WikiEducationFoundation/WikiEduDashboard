@@ -86,10 +86,10 @@ scoped: true)
 scoped: true)
     array_revisions << build(:revision_on_memory, article_id:, user_id: 2, date: start + 3.hours,
 scoped: true)
-    array_revisions << build(:revision_on_memory, article_id:, user_id: 2, date: start + 3.hours, system: true,
-                             scoped: true)
-    array_revisions << build(:revision_on_memory, article_id:, deleted: true, user_id: 1, date: start + 8.hours,
-                             scoped: true)
+    array_revisions << build(:revision_on_memory, article_id:, user_id: 2, date: start + 3.hours,
+                             system: true, scoped: true)
+    array_revisions << build(:revision_on_memory, article_id:, deleted: true, user_id: 1,
+                             date: start + 8.hours, scoped: true)
   end
 
   describe '.update_course_wiki_timeslices' do
