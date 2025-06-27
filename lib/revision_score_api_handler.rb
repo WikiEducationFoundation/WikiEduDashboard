@@ -29,14 +29,14 @@ class RevisionScoreApiHandler
   #   ...,
   #   "rev_n"=>
   #     { "wp10"=>0.2929458626376752846e2,
-  #       "features"=> nil,
+  #       "features"=> {},
   #       "deleted"=>false,
   #       "prediction"=>"Start",
   #       "start" => false }
   # }
   #
   # For wikidata, "features" key contains Liftwing features. For other wikis, "features"
-  # key contains reference-counter response (or nil).
+  # key contains reference-counter response (or empty hash).
   def get_revision_data(rev_batch)
     scores = maybe_get_lift_wing_data rev_batch
     scores.deep_merge!(maybe_get_reference_data(rev_batch))
