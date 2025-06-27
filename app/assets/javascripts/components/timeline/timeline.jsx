@@ -261,6 +261,7 @@ const Timeline = createReactClass({
               weeksBeforeTimeline={weeksBeforeTimeline}
               trainingLibrarySlug={this.props.course.training_library_slug}
               current_user={this.props.current_user}
+              no_meeting_days={this.props.course.no_meeting_days}
               moveBlock={this._moveBlock}
             />
           </div>
