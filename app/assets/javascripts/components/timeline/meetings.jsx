@@ -8,9 +8,11 @@ import DatePicker from '../common/date_picker.jsx';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 import { updateCourse, persistCourse } from '../../actions/course_actions';
 import { isValid } from '../../selectors';
+import NoMeetingDaysSwitch from '@components/common/no_meeting_days_switch.jsx';
 
 const Meetings = (props) => {
   const noDatesRef = useRef();
+  const noMeetingDates = useRef();
 
   const updateCourseHandler = (valueKey, value) => {
     const toPass = props.course;
@@ -39,7 +41,7 @@ const Meetings = (props) => {
   const saveDisabledClass = (course) => {
     const blackoutDatesSelected = course.day_exceptions && course.day_exceptions.length > 0;
     const anyDatesSelected = course.weekdays && course.weekdays.indexOf(1) >= 0;
-    const enable = blackoutDatesSelected || (anyDatesSelected && props.course.no_day_exceptions);
+    const enable = blackoutDatesSelected || (anyDatesSelected && props.course.no_day_exceptions) || course.no_meeting_days;
     if (enable) { return ''; }
     return 'disabled';
   };
@@ -51,6 +53,30 @@ const Meetings = (props) => {
   let courseLinkClass = 'dark button ';
   courseLinkClass += saveDisabledClass(course);
   const courseLinkTarget = `/courses/${course.slug}/timeline`;
+
+  const meetingDays = (
+    <>
+      <hr />
+      <div className="wizard__form course-dates course-dates__step">
+        <Calendar
+          course={course}
+          save={true}
+          editable={true}
+          calendarInstructions={I18n.t('courses.course_dates_calendar_instructions')}
+          weeks={props.weeks}
+          updateCourse={props.updateCourse}
+        />
+        <label> {I18n.t('timeline.no_class_holidays')}
+          <input
+            type="checkbox"
+            onChange={updateCheckbox}
+            ref={noDatesRef}
+            checked={props.course.day_exceptions === '' && props.course.no_day_exceptions}
+          />
+        </label>
+      </div>
+    </>
+  );
 
   return (
     <Modal >
@@ -105,24 +131,12 @@ const Meetings = (props) => {
           </div>
         </div>
         <hr />
-        <div className="wizard__form course-dates course-dates__step">
-          <Calendar
-            course={course}
-            save={true}
-            editable={true}
-            calendarInstructions={I18n.t('courses.course_dates_calendar_instructions')}
-            weeks={props.weeks}
-            updateCourse={props.updateCourse}
-          />
-          <label> {I18n.t('timeline.no_class_holidays')}
-            <input
-              type="checkbox"
-              onChange={updateCheckbox}
-              ref={noDatesRef}
-              checked={props.course.day_exceptions === '' && props.course.no_day_exceptions}
-            />
-          </label>
-        </div>
+        <NoMeetingDaysSwitch
+          noMeetingDates={noMeetingDates}
+          course={props.course}
+          updateCourse={props.updateCourse}
+        />
+        {!props.course.no_meeting_days && meetingDays}
         <div className="wizard__panel__controls">
           <div className="left" />
           <div className="right">
