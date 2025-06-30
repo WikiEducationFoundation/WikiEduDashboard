@@ -47,8 +47,7 @@ class PetScanApi
     conn
   end
 
-  TYPICAL_ERRORS = [Faraday::TimeoutError,
-                    Errno::EHOSTUNREACH].freeze
+  TYPICAL_ERRORS = [Errno::EHOSTUNREACH].freeze
 
   # The petscan request may take more than default timeout to complete so we set it to 4 minutes
   TIMEOUT = 240
