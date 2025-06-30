@@ -42,10 +42,13 @@ class PetScanApi
 
   def petscan
     conn = Faraday.new(url: 'https://petscan.wmcloud.org')
+    conn.options.timeout = TIMEOUT
     conn.headers['User-Agent'] = ENV['dashboard_url'] + ' ' + Rails.env
     conn
   end
 
-  TYPICAL_ERRORS = [Faraday::TimeoutError,
-                    Errno::EHOSTUNREACH].freeze
+  TYPICAL_ERRORS = [Errno::EHOSTUNREACH].freeze
+
+  # The petscan request may take more than default timeout to complete so we set it to 4 minutes
+  TIMEOUT = 240
 end
