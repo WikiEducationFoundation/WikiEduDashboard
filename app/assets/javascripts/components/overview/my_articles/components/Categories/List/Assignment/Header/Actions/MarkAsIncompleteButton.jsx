@@ -19,7 +19,7 @@ export const MarkAsIncompleteButton = (props) => {
         className="button danger small"
         onClick={update({ ...props, dispatch })}
       >
-        {I18n.t('articles.mark_as_complete')}
+        {I18n.t('articles.mark_as_incomplete')}
       </button>
     </div>
   );
