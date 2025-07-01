@@ -12,8 +12,7 @@ class PetScanApi
   rescue StandardError => e
     log_error(e, update_service:,
               sentry_extra: { psid:, api_url: url })
-    raise e unless TYPICAL_ERRORS.include?(e.class)
-    return {}
+    raise e
   end
 
   def page_titles_for_psid(psid, update_service: nil)
@@ -46,8 +45,6 @@ class PetScanApi
     conn.headers['User-Agent'] = ENV['dashboard_url'] + ' ' + Rails.env
     conn
   end
-
-  TYPICAL_ERRORS = [Errno::EHOSTUNREACH].freeze
 
   # The petscan request may take more than default timeout to complete so we set it to 4 minutes
   TIMEOUT = 240

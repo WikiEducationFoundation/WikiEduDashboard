@@ -78,7 +78,7 @@ RSpec.describe Category, type: :model do
     end
 
     context 'for psid-source Category' do
-      let(:category) { create(:category, name: 9964305, source: 'psid') }
+      let(:category) { create(:category, name: 9964305, source: 'psid', article_titles: ['Q0']) }
       let(:course) { create(:course) }
       let!(:article) { create(:article, title: 'A cappella') }
 
@@ -95,10 +95,11 @@ RSpec.describe Category, type: :model do
         pass_pending_spec
       end
 
-      it 'fails gracefully when PetScan is unreachable' do
+      it 'fails when PetScan is unreachable but article_titles is not cleared' do
+        expect(category.article_titles).to eq(['Q0'])
         expect_any_instance_of(PetScanApi).to receive(:petscan).and_raise(Errno::EHOSTUNREACH)
         described_class.refresh_categories_for(course)
-        expect(described_class.last.article_ids).to be_empty
+        expect(described_class.last.article_titles).to eq(['Q0'])
       end
     end
 
