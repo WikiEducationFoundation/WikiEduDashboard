@@ -61,6 +61,18 @@ RSpec.describe Category, type: :model do
       end
     end
 
+    context 'for a category labeled with error' do
+      let(:category) do
+        create(:category, name: 'Harvard_University', source: 'categoryError')
+      end
+      let(:course) { create(:course) }
+
+      it 'does not try to update the category' do
+        expect(ArticleUtils).not_to receive(:format_article_title)
+        described_class.refresh_categories_for(course)
+      end
+    end
+
     context 'for category-source Category' do
       let(:category) { create(:category, name: 'Homo sapiens fossils') }
       let(:course) { create(:course) }
