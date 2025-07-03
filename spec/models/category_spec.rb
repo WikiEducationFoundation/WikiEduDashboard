@@ -73,6 +73,30 @@ RSpec.describe Category, type: :model do
       end
     end
 
+    context 'for a category with too many articles' do
+      let(:category) do
+        create(:category, name: 9964305, source: 'psid', article_titles: ['Q0'])
+      end
+      let(:course) { create(:course) }
+
+      it 'labels the source with error' do
+        allow_any_instance_of(PetScanApi).to receive(:page_titles_for_psid).and_return(%w[Q1 Q2])
+        call_count = 0
+        allow_any_instance_of(described_class).to receive(:save)
+          .and_wrap_original do |original_method, *args, &block|
+          if call_count == 0
+            call_count += 1
+            raise ActiveRecord::ValueTooLong
+          else
+            original_method.call(*args, &block)
+          end
+        end
+
+        described_class.refresh_categories_for(course)
+        expect(category.reload.source).to eq('psidError')
+      end
+    end
+
     context 'for category-source Category' do
       let(:category) { create(:category, name: 'Homo sapiens fossils') }
       let(:course) { create(:course) }
