@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_15_163420) do
+ActiveRecord::Schema[7.0].define(version: 2025_07_03_191048) do
   create_table "alerts", id: :integer, charset: "utf8mb4", force: :cascade do |t|
     t.integer "course_id"
     t.integer "user_id"
@@ -324,7 +324,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_15_163420) do
     t.integer "total_uploads"
     t.integer "references_count", default: 0
     t.index ["course_id", "user_id", "role"], name: "index_courses_users_on_course_id_and_user_id_and_role", unique: true
-    t.index ["course_id"], name: "index_courses_users_on_course_id"
     t.index ["user_id"], name: "index_courses_users_on_user_id"
   end
 
