@@ -79,7 +79,7 @@ RSpec.describe Category, type: :model do
       end
       let(:course) { create(:course) }
 
-      it 'labels the source with error' do
+      it 'labels the source with error and article_titles is not cleared' do
         allow_any_instance_of(PetScanApi).to receive(:page_titles_for_psid).and_return(%w[Q1 Q2])
         call_count = 0
         allow_any_instance_of(described_class).to receive(:save)
@@ -94,6 +94,7 @@ RSpec.describe Category, type: :model do
 
         described_class.refresh_categories_for(course)
         expect(category.reload.source).to eq('psidError')
+        expect(category.article_titles).to eq(['Q0'])
       end
     end
 
