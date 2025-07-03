@@ -50,10 +50,15 @@ class CoursesPresenter
     articles
   end
 
+  def campaign_articles_courses_count
+    campaigns_courses_ids = CampaignsCourses.where(campaign_id: campaign.id).pluck(:course_id)
+    ArticlesCourses.where(course_id: campaigns_courses_ids).count
+  end
+
   # If there are too many articles, rendering a page of them can take a very long time.
   ARTICLE_LIMIT = 50000
   def too_many_articles?
-    @too_many ||= campaign.articles_courses.count > ARTICLE_LIMIT
+    @too_many ||= campaign_articles_courses_count > ARTICLE_LIMIT
   end
 
   def tag_articles
