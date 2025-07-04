@@ -12,8 +12,7 @@ class PetScanApi
   rescue StandardError => e
     log_error(e, update_service:,
               sentry_extra: { psid:, api_url: url })
-    raise e unless TYPICAL_ERRORS.include?(e.class)
-    return {}
+    raise e
   end
 
   def page_titles_for_psid(psid, update_service: nil)

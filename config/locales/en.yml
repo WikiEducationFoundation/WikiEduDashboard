@@ -465,6 +465,7 @@ en:
     remove: Remove
     tracked_categories: Tracked Categories, PSID, PagePile id & Templates
     timestamp: Last Updated On
+    category_error: This scoping method has too many items to be updated. Please try using smaller ones.
 
   courses:
     school_system: Academic System

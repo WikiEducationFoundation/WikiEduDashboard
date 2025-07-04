@@ -38,6 +38,13 @@ class Category < ApplicationRecord
     less_than_or_equal_to: 3
   }
 
+  VALID_SOURCES = %w[
+    category
+    psid
+    pileid
+    template
+  ].freeze
+
   def self.get_or_create(wiki:, name:, depth:, source:)
     if source == 'pileid'
       get_or_create_by_pileid(wiki:, name:, depth:, source:)
@@ -66,6 +73,8 @@ class Category < ApplicationRecord
   end
 
   def refresh_titles(update_service: nil)
+    # Do not try to refresh titles for error sources
+    return unless VALID_SOURCES.include? source
     self.article_titles = title_list_from_wiki(update_service:).map do |title|
       sanitize_4_byte_string ArticleUtils.format_article_title(title)
     end
@@ -75,6 +84,15 @@ class Category < ApplicationRecord
     # updation (SQL update query) in the category
     touch(:updated_at)
     # rubocop:enable Rails/SkipsModelValidations
+  rescue ActiveRecord::ValueTooLong
+    # This means we couldn't save the article titles in the db because they're too long.
+    # Revert article_titles change
+    self.article_titles = attribute_was(:article_titles)
+    # Update source to indicate it's a source with error
+    self.source = source + 'Error'
+    save
+  rescue StandardError
+    # If something went wrong when refresing titles, we don't want to replace article_titles field.
   end
 
   def article_ids
