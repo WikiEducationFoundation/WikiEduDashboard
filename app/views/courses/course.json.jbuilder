@@ -29,6 +29,7 @@ json.course do
   json.progress_tracker_enabled @course.progress_tracker_enabled?
   json.stay_in_sandbox @course.stay_in_sandbox?
   json.no_sandboxes @course.no_sandboxes?
+  json.no_meeting_days @course.no_meeting_days?
   json.retain_available_articles @course.retain_available_articles?
   json.review_bibliography @course.review_bibliography?
   json.term @course.cloned_status == 1 ? '' : @course.term
