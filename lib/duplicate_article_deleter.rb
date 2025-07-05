@@ -35,15 +35,14 @@ class DuplicateArticleDeleter
 
   def articles_grouped_by_title_and_namespace(articles)
     Article.where(namespace: articles.pluck(:namespace).uniq,
-                  title: articles.pluck(:title),
-                  wiki_id: @wiki.id)
-           .group(%w[title namespace]).count
+                  wiki_id: @wiki.id,
+                  title: articles.pluck(:title)).group(%w[namespace wiki_id title]).count
   end
 
   def delete_duplicates_in(article_group)
     return unless article_group[1] > 1
-    title = article_group[0][0]
-    namespace = article_group[0][1]
+    title = article_group[0][2]
+    namespace = article_group[0][0]
     Rails.logger.debug { "Resolving duplicates for '#{title}, ns #{namespace}'" }
     @deleted_ids += delete_duplicates(title, namespace)
   end
