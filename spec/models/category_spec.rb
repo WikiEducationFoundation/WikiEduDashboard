@@ -61,6 +61,43 @@ RSpec.describe Category, type: :model do
       end
     end
 
+    context 'for a category labeled with error' do
+      let(:category) do
+        create(:category, name: 'Harvard_University', source: 'categoryError')
+      end
+      let(:course) { create(:course) }
+
+      it 'does not try to update the category' do
+        expect(ArticleUtils).not_to receive(:format_article_title)
+        described_class.refresh_categories_for(course)
+      end
+    end
+
+    context 'for a category with too many articles' do
+      let(:category) do
+        create(:category, name: 9964305, source: 'psid', article_titles: ['Q0'])
+      end
+      let(:course) { create(:course) }
+
+      it 'labels the source with error and article_titles is not cleared' do
+        allow_any_instance_of(PetScanApi).to receive(:page_titles_for_psid).and_return(%w[Q1 Q2])
+        call_count = 0
+        allow_any_instance_of(described_class).to receive(:save)
+          .and_wrap_original do |original_method, *args, &block|
+          if call_count == 0
+            call_count += 1
+            raise ActiveRecord::ValueTooLong
+          else
+            original_method.call(*args, &block)
+          end
+        end
+
+        described_class.refresh_categories_for(course)
+        expect(category.reload.source).to eq('psidError')
+        expect(category.article_titles).to eq(['Q0'])
+      end
+    end
+
     context 'for category-source Category' do
       let(:category) { create(:category, name: 'Homo sapiens fossils') }
       let(:course) { create(:course) }
@@ -95,10 +132,12 @@ RSpec.describe Category, type: :model do
         pass_pending_spec
       end
 
-      it 'fails gracefully when PetScan is unreachable' do
+      it 'fails when PetScan is unreachable but article_titles is not cleared' do
+        category.update(article_titles: ['Q0'])
+        expect(category.article_titles).to eq(['Q0'])
         expect_any_instance_of(PetScanApi).to receive(:petscan).and_raise(Errno::EHOSTUNREACH)
         described_class.refresh_categories_for(course)
-        expect(described_class.last.article_ids).to be_empty
+        expect(described_class.last.article_titles).to eq(['Q0'])
       end
     end
 
@@ -126,11 +165,12 @@ RSpec.describe Category, type: :model do
         pass_pending_spec
       end
 
-      it 'fails gracefully when fetching a PagePile errors' do
+      it 'fails when fetching a PagePile errors but article_titles is not cleared' do
+        category.update(article_titles: ['Q0'])
         expect_any_instance_of(PagePileApi).to receive(:pagepile).and_raise(StandardError)
         expect(Sentry).to receive(:capture_exception)
         described_class.refresh_categories_for(course)
-        expect(described_class.last.article_titles).to be_empty
+        expect(described_class.last.article_titles).to eq(['Q0'])
       end
     end
 
