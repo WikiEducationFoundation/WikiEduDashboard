@@ -25,7 +25,6 @@ class Alert < ApplicationRecord
   belongs_to :course
   belongs_to :user
   belongs_to :target_user, class_name: 'User'
-  belongs_to :revision
 
   include ArticleHelper
 
@@ -145,6 +144,15 @@ class Alert < ApplicationRecord
     return if target_user.nil?
     AlertMailer.send_alert_email(self, target_user)
     update(email_sent_at: Time.zone.now)
+  end
+
+  # Returns the web diff url for the revision, e.g.,
+  # https://en.wikipedia.org/w/index.php?title=Eva_Hesse&diff=prev&oldid=655980945
+  # Note: this will break the url for old alerts
+  def revision_url
+    return if article.nil? || revision_id.nil?
+    title = article.escaped_full_title
+    "#{article.wiki.base_url}/w/index.php?title=#{title}&diff=prev&oldid=#{revision_id}"
   end
 
   # Disable emails for specific alert types in application.yml, like so:
