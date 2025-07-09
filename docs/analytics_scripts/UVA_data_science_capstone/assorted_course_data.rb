@@ -88,3 +88,15 @@ CSV.open('/home/sage/all_survey_questions.csv', 'wb') do |csv|
     csv << line
   end
 end
+
+# Basic course metrics
+csv_data = [['course_slug', 'character_sum', 'user_count', 'expected_students', 'article_count', 'new_article_count', 'revision_count', 'upload_count', 'uploads_in_use_count', 'upload_usages_count', 'references_count']]
+ClassroomProgramCourse.nonprivate.each do |course|
+  csv_data << [course.slug, course.character_sum, course.user_count, course.expected_students, course.article_count, course.new_article_count, course.revision_count, course.upload_count, course.uploads_in_use_count, course.upload_usages_count, course.references_count]
+end; nil
+
+CSV.open('/home/sage/courses_with_main_stats.csv', 'wb') do |csv|
+  csv_data.each do |line|
+    csv << line
+  end
+end; nil
