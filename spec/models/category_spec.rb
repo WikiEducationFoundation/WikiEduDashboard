@@ -118,6 +118,7 @@ RSpec.describe Category, type: :model do
       let(:category) { create(:category, name: 9964305, source: 'psid') }
       let(:course) { create(:course) }
       let!(:article) { create(:article, title: 'A cappella') }
+      let(:error_response) { { 'error' => 'PageList::run_batch_query: SQL query error[1]' } }
 
       it 'updates article titles for categories associated with courses' do
         # Pending is used here to make sure that the build passes when PetScan is down
@@ -136,6 +137,14 @@ RSpec.describe Category, type: :model do
         category.update(article_titles: ['Q0'])
         expect(category.article_titles).to eq(['Q0'])
         expect_any_instance_of(PetScanApi).to receive(:petscan).and_raise(Errno::EHOSTUNREACH)
+        described_class.refresh_categories_for(course)
+        expect(described_class.last.article_titles).to eq(['Q0'])
+      end
+
+      it 'fails when PetScan is invalid but article_titles is not cleared' do
+        category.update(article_titles: ['Q0'])
+        expect(category.article_titles).to eq(['Q0'])
+        expect_any_instance_of(PetScanApi).to receive(:get_data).and_return(error_response)
         described_class.refresh_categories_for(course)
         expect(described_class.last.article_titles).to eq(['Q0'])
       end
