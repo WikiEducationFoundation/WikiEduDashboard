@@ -2,6 +2,7 @@
 
 require_dependency "#{Rails.root}/lib/word_count"
 require_dependency "#{Rails.root}/lib/analytics/histogram_plotter"
+require_dependency "#{Rails.root}/app/presenters/query/ranked_articles_courses_query"
 
 #= Presenter for courses / campaign view
 class CoursesPresenter
@@ -43,7 +44,7 @@ class CoursesPresenter
 
     {
       articles_courses: paginated_articles_courses,
-      courses: load_courses.index_by(&:id),
+      courses: course_ids_and_slugs.index_by(&:id),
       articles: fetched_articles
     }
   end
@@ -54,55 +55,44 @@ class CoursesPresenter
   end
 
   # Load only needed course data, grouped by ID
-  def load_courses
+  def course_ids_and_slugs
     @courses ||= Course.where(id: campaigns_courses_ids, private: false).select(:id, :slug)
   end
 
-  # Build subquery for ranked articles with pagination and optional sorting
-  def ranked_articles_subquery
-    ArticlesCourses
-      .includes(:article)
-      .where(course_id: load_courses.map(&:id), tracked: true)
-      .select(:id)
-      .then { |q| too_many_articles? ? q : q.order('articles.deleted ASC, articles_courses.character_sum DESC') } # rubocop:disable Layout/LineLength
-      .limit(per_page)
-      .offset(offset)
-  end
-
-  # Create deferred join scope using ranked subquery for performance
+  PER_PAGE = 100
+  # Returns a scoped query for ranked articles_courses using a deferred join via RankedArticlesCoursesQuery
   def articles_courses_scope
-    @articles_courses_scope ||= ArticlesCourses
-                                .joins("INNER JOIN (#{ranked_articles_subquery.to_sql}) AS ranked_articles USING (id)") # rubocop:disable Layout/LineLength
-                                .select(:article_id, :course_id, :character_sum, :references_count, :view_count) # rubocop:disable Layout/LineLength
+    return @articles_courses_scope unless @articles_courses_scope.nil?
+
+    @articles_courses_scope = RankedArticlesCoursesQuery.new(
+      courses: course_ids_and_slugs,
+      per_page: PER_PAGE,
+      offset:,
+      too_many: too_many_articles?
+    ).scope
   end
 
   # Fetch and index articles by ID for efficient lookup
   def fetched_articles
-    @fetched_articles ||= begin
-      article_ids = articles_courses_scope.map(&:article_id).uniq
-      Article
-        .includes(:wiki)
-        .where(id: article_ids)
-        .select(:id, :title, :deleted, :wiki_id, :namespace)
-        .index_by(&:id)
-    end
+    return @fetched_articles unless @fetched_articles.nil?
+
+    @fetched_articles = Article
+                        .includes(:wiki)
+                        .where(id: articles_courses_scope.map(&:article_id).uniq)
+                        .select(:id, :title, :deleted, :wiki_id, :namespace)
+                        .index_by(&:id)
   end
 
   # Create paginated collection for articles_courses data
   def paginated_articles_courses
-    WillPaginate::Collection.create(current_page, per_page, total_articles_count) do |pager|
+    WillPaginate::Collection.create(current_page, PER_PAGE, total_articles_count) do |pager|
       pager.replace(articles_courses_scope)
     end
   end
 
   # Count total articles for pagination metadata
   def total_articles_count
-    ArticlesCourses.where(course_id: load_courses.map(&:id), tracked: true).count
-  end
-
-  # Number of items per page
-  def per_page
-    100
+    ArticlesCourses.where(course_id: course_ids_and_slugs.map(&:id), tracked: true).count
   end
 
   # Current page number with fallback to 1
@@ -112,7 +102,7 @@ class CoursesPresenter
 
   # Calculate offset for pagination
   def offset
-    (current_page - 1) * per_page
+    (current_page - 1) * PER_PAGE
   end
 
   # If there are too many articles, rendering a page of them can take a very long time.
