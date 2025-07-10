@@ -51,30 +51,6 @@ class Revision < ApplicationRecord
   # Instance methods #
   ####################
 
-  # reference-counter API value
-  REFERENCE_COUNT = 'num_ref'
-  # LiftWing API values
-  WIKITEXT_REF_TAGS = 'feature.wikitext.revision.ref_tags'
-  WIKIDATA_REFERENCES = 'feature.len(<datasource.wikidatawiki.revision.references>)'
-  WIKI_SHORTENED_REF_TAGS = 'feature.enwiki.revision.shortened_footnote_templates'
-
-  # Returns the number of references for a given revision id, based on its features.
-  # If REFERENCE_COUNT field is present, then use it. This number of references comes from
-  # the reference-counter API.
-  # Otherwise, it uses values from the LiftWing API.
-  def references_count(rev_features)
-    return nil if rev_features.empty?
-    rev_features[REFERENCE_COUNT] ||
-      ((rev_features[WIKITEXT_REF_TAGS] || rev_features[WIKIDATA_REFERENCES] || 0) +
-        (rev_features[WIKI_SHORTENED_REF_TAGS] || 0))
-  end
-
-  def references_added
-    return (references_count(features) || 0) if new_article
-    return 0 unless references_count(features) && references_count(features_previous)
-    references_count(features) - references_count(features_previous)
-  end
-
   # Generally, the summary field captured edit summary comment of an edit until August 2023
   # This code is for a switch to save diff_stats instead(output hash generated from
   # wikidata-diff-analyzer gem)
