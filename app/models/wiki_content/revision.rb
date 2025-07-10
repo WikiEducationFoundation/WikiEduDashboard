@@ -24,15 +24,11 @@
 #  features_previous :text(65535)
 #  summary           :text(65535)
 #
-require 'json'
 #= Revision model
 class Revision < ApplicationRecord
   belongs_to :user
   belongs_to :article
   belongs_to :wiki
-  scope :live, -> { where(deleted: false) }
-  scope :user, -> { where(system: false) }
-  scope :namespace, ->(ns) { joins(:article).where(articles: { namespace: ns }) }
 
   # Helps with importing data
   alias_attribute :rev_id, :mw_rev_id
@@ -42,8 +38,4 @@ class Revision < ApplicationRecord
 
   serialize :features, Hash
   serialize :features_previous, Hash
-
-  attr_accessor :scoped, :error
-
-  include ArticleHelper
 end
