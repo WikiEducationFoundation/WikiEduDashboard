@@ -51,14 +51,6 @@ class Revision < ApplicationRecord
   # Instance methods #
   ####################
 
-  # Returns the web diff url for the revision, e.g.,
-  # https://en.wikipedia.org/w/index.php?title=Eva_Hesse&diff=prev&oldid=655980945
-  def url
-    return if article.nil?
-    title = article.escaped_full_title
-    "#{wiki.base_url}/w/index.php?title=#{title}&diff=prev&oldid=#{mw_rev_id}"
-  end
-
   # reference-counter API value
   REFERENCE_COUNT = 'num_ref'
   # LiftWing API values
