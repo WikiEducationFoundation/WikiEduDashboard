@@ -288,25 +288,4 @@ describe Revision, type: :model do
       expect(revision.user_id).to eq(1)
     end
   end
-
-  describe '#url' do
-    let(:article) { create(:article, title: 'Vectors_in_gene_therapy') }
-    let(:talk_page) { create(:article, title: 'Selfie', namespace: Article::Namespaces::TALK) }
-
-    it 'returns a diff url for the revision' do
-      revision = create(:revision,
-                        mw_rev_id: 637221390,
-                        article_id: article.id)
-      url = revision.url
-      expect(url).to eq('https://en.wikipedia.org/w/index.php?title=Vectors_in_gene_therapy&diff=prev&oldid=637221390')
-    end
-
-    it 'includes the prefix for non-mainspace articles' do
-      revision = create(:revision,
-                        mw_rev_id: 637221390,
-                        article_id: talk_page.id)
-      url = revision.url
-      expect(url).to eq('https://en.wikipedia.org/w/index.php?title=Talk:Selfie&diff=prev&oldid=637221390')
-    end
-  end
 end

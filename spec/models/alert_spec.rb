@@ -144,4 +144,28 @@ describe Alert do
       described_class.last.email_course_admins
     end
   end
+
+  describe '#revision_url' do
+    let(:article) { create(:article, title: 'Vectors_in_gene_therapy') }
+    let(:talk_page) { create(:article, title: 'Selfie', namespace: Article::Namespaces::TALK) }
+    let(:mw_rev_id) { 637221390 }
+
+    it 'returns a diff url for the revision' do
+      alert = described_class.create(article_id: article.id,
+                                     course_id: course.id,
+                                     revision_id: mw_rev_id,
+                                     user_id: user.id)
+      url = alert.revision_url
+      expect(url).to eq('https://en.wikipedia.org/w/index.php?title=Vectors_in_gene_therapy&diff=prev&oldid=637221390')
+    end
+
+    it 'includes the prefix for non-mainspace articles' do
+      alert = described_class.create(article_id: talk_page.id,
+                                     course_id: course.id,
+                                     revision_id: mw_rev_id,
+                                     user_id: user.id)
+      url = alert.revision_url
+      expect(url).to eq('https://en.wikipedia.org/w/index.php?title=Talk:Selfie&diff=prev&oldid=637221390')
+    end
+  end
 end
