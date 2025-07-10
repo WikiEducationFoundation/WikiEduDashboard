@@ -61,7 +61,7 @@ class CoursesPresenter
   end
 
   PER_PAGE = 100
-  # Returns a scoped query for ranked articles_courses using a deferred join via RankedArticlesCoursesQuery
+  # Returns a scoped query for ranked articles_courses using a deferred join via RankedArticlesCoursesQuery # rubocop:disable Layout/LineLength
   def articles_courses_scope
     return @articles_courses_scope unless @articles_courses_scope.nil?
 
