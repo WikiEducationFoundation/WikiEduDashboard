@@ -119,7 +119,7 @@ class Alert < ApplicationRecord
 
   # Returns the web diff url for the revision, e.g.,
   # https://en.wikipedia.org/w/index.php?title=Eva_Hesse&diff=prev&oldid=655980945
-  # Note: this will break the url for old alerts
+  # Note: this assumes revision_id field contains a mediawiki revision id
   def revision_url
     return if article.nil? || revision_id.nil?
     title = article.escaped_full_title
