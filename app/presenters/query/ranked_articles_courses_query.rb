@@ -12,6 +12,15 @@ class RankedArticlesCoursesQuery
     @too_many = too_many
   end
 
+  # Builds the final scope by joining the subquery on ID, used to fetch paginated and ranked results. # rubocop:disable Layout/LineLength
+  def scope
+    ArticlesCourses
+      .joins("INNER JOIN (#{subquery.to_sql}) AS ranked_articles USING (id)")
+      .select(:article_id, :course_id, :character_sum, :references_count, :view_count)
+  end
+
+  private
+
   # Builds a subquery that includes optional ordering and pagination depending on the "too_many" flag. # rubocop:disable Layout/LineLength
   def subquery
     ArticlesCourses
@@ -23,12 +32,5 @@ class RankedArticlesCoursesQuery
       end
       .limit(@per_page)
       .offset(@offset)
-  end
-
-  # Builds the final scope by joining the subquery on ID, used to fetch paginated and ranked results. # rubocop:disable Layout/LineLength
-  def scope
-    ArticlesCourses
-      .joins("INNER JOIN (#{subquery.to_sql}) AS ranked_articles USING (id)")
-      .select(:article_id, :course_id, :character_sum, :references_count, :view_count)
   end
 end
