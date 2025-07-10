@@ -59,13 +59,6 @@ class Revision < ApplicationRecord
     "#{wiki.base_url}/w/index.php?title=#{title}&diff=prev&oldid=#{mw_rev_id}"
   end
 
-  # Returns all of the revision author's courses where the revision occured
-  # within the course start/end dates.
-  def infer_courses_from_user
-    return [] if user.blank?
-    user.courses.where('start <= ?', date).where('end >= ?', date)
-  end
-
   # reference-counter API value
   REFERENCE_COUNT = 'num_ref'
   # LiftWing API values
