@@ -56,7 +56,8 @@ class CoursesPresenter
 
   # Load only needed course data, grouped by ID
   def course_ids_and_slugs
-    @courses ||= Course.where(id: campaigns_courses_ids, private: false).select(:id, :slug)
+    @course_ids_and_slugs ||= Course.where(id: campaigns_courses_ids, private: false).select(:id,
+                                                                                             :slug)
   end
 
   PER_PAGE = 100
