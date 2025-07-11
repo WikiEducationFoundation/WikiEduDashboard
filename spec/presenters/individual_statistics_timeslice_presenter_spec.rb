@@ -19,7 +19,7 @@ describe IndividualStatisticsTimeslicePresenter do
       before do
         create(:commons_upload, user_id: user.id, usage_count: 1,
                                 uploaded_at: start + 1.minute)
-        array_revisions << create(:revision, views: 100, user_id: user.id, article_id: article.id,
+        array_revisions << build(:revision_on_memory, user_id: user.id, article_id: article.id,
                           date: start + 1.minute, new_article: true, characters: 100,
                           features: {
                             refs_tags_key => 22
