@@ -157,7 +157,11 @@ class TimesliceManager
 
   # Takes an ActiveRecord::Relation of CourseWikiTimeslices and an array of revisions.
   # Updates the last_mw_rev_datetime field based on those revisions.
-  def update_timeslices(timeslices, revisions)
+  def update_timeslices(timeslices, revisions) # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity
+    # First of all, clean the last_mw_rev_datetime. This is necessary when there are no
+    # revisions for the timeslice and last_mw_rev_datetime already has a datetime.
+    timeslices.each { |t| t.last_mw_rev_datetime = nil }
+
     # Iterate over the fetched revisions and update the last_mw_rev_datetime
     revisions.each do |revision|
       # Get the timeslice that we want to update

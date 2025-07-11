@@ -164,6 +164,7 @@ describe UpdateCourseWikiTimeslices do
           expect_any_instance_of(CourseRevisionUpdater).to receive(:fetch_data_for_course_wiki)
             .with(wiki, start_time, end_time, only_new: true)
             .once
+            .and_call_original
         end
       end
 
