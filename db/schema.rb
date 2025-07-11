@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_15_163420) do
+ActiveRecord::Schema[7.0].define(version: 2025_07_11_134708) do
   create_table "alerts", id: :integer, charset: "utf8mb4", force: :cascade do |t|
     t.integer "course_id"
     t.integer "user_id"
@@ -47,6 +47,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_15_163420) do
     t.datetime "updated_at", null: false
     t.datetime "first_revision"
     t.index ["article_id", "course_id", "start", "end"], name: "article_course_timeslice_by_article_course_start_and_end", unique: true
+    t.index ["course_id", "tracked"], name: "article_course_timeslice_by_course_id_and_tracked"
     t.index ["course_id", "updated_at", "article_id"], name: "article_course_timeslice_by_updated_at"
   end
 
