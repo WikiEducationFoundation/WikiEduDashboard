@@ -100,3 +100,16 @@ CSV.open('/home/sage/courses_with_main_stats.csv', 'wb') do |csv|
     csv << line
   end
 end; nil
+
+# Get range details for RangeInput questions
+csv_data = [['question_id', 'range_minimum', 'range_maximum', 'range_increment', 'range_divisions', 'range_format']]
+Rapidfire::Questions::RangeInput.all.each do |q|
+  rules = q.validation_rules
+  csv_data << [q.id, rules[:range_minimum], rules[:range_maximum], rules[:range_increment], rules[:range_divisions], rules[:range_format]]
+end; nil
+
+CSV.open('/home/sage/range_input_questions.csv', 'wb') do |csv|
+  csv_data.each do |line|
+    csv << line
+  end
+end; nil
