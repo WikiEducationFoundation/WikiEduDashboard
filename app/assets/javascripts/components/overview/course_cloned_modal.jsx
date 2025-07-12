@@ -125,20 +125,23 @@ const CourseClonedModal = createReactClass({
       course: updatedCourse
     });
   },
-  termIncludesYear() {
-  // Check if term contains at least 2 consecutive digits (indicating year)
-  const hasYear = /\d{2,}/.test(this.state.course.term);
-  if (!hasYear) {
-    this.props.setInvalid('term', I18n.t('courses.creator.field_invalid_term'));
-    return false;
-  }
-  return true;
-},
+  termValidation(value) {
+    // First check basic slug regex
+    if (!CourseUtils.courseSlugRegex().test(value)) {
+      return false;
+    }
+
+   if (value) {
+    const hasYear = /\d{2,}/.test(value);
+    return hasYear;
+   }
+
+    return true;
+  },
 
   saveCourse() {
     this.props.activateValidations();
-    const termValid = this.termIncludesYear();
-    if (this.props.isValid && termValid) {
+    if (this.props.isValid) {
       this.props.setInvalid('exists', I18n.t('courses.creator.checking_for_uniqueness'), true);
       const { slug } = this.state.course;
       const updatedCourse = CourseUtils.cleanupCourseSlugComponents(this.state.course);
@@ -351,7 +354,8 @@ const CourseClonedModal = createReactClass({
           value={this.state.course.term}
           value_key="term"
           required={isRequiredTermField}
-          validation={CourseUtils.courseSlugRegex()}
+          validation={this.termValidation}
+          invalidMessage={I18n.t('courses.creator.field_invalid_term')}
           editable={true}
           label={CourseUtils.i18n('creator.course_term', i18nPrefix)}
           placeholder={CourseUtils.i18n('creator.course_term_placeholder', i18nPrefix)}
