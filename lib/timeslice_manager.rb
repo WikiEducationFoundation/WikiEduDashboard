@@ -157,10 +157,10 @@ class TimesliceManager
 
   # Takes an ActiveRecord::Relation of CourseWikiTimeslices and an array of revisions.
   # Updates the last_mw_rev_datetime field based on those revisions.
-  def update_timeslices(timeslices, revisions) # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity
+  def update_timeslices(timeslices, revisions)
     # First of all, clean the last_mw_rev_datetime. This is necessary when there are no
     # revisions for the timeslice and last_mw_rev_datetime already has a datetime.
-    timeslices.each { |t| t.last_mw_rev_datetime = nil }
+    clean_last_mw_rev_datetime(timeslices)
 
     # Iterate over the fetched revisions and update the last_mw_rev_datetime
     revisions.each do |revision|
@@ -169,11 +169,7 @@ class TimesliceManager
 
       if timeslice.nil?
         # This scenario is unexpected, so we log the message to understand why this happens.
-        Sentry.capture_message 'No timeslice found for revision date',
-                               level: 'warning',
-                               extra: { course_name: @course.slug,
-                                        wiki: revision.wiki.id,
-                                        date: revision.date }
+        log_error(revision)
         next
       end
       # Next if the last_mw_rev_datetime field is after the revision date
@@ -204,5 +200,17 @@ class TimesliceManager
     return @course.start if today < @course.start # the course hasn't started yet
     return @course.end if today > @course.end # the course has ended
     today # the course is ongoing
+  end
+
+  def clean_last_mw_rev_datetime(timeslices)
+    timeslices.each { |t| t.last_mw_rev_datetime = nil }
+  end
+
+  def log_error(revision)
+    Sentry.capture_message 'No timeslice found for revision date',
+                           level: 'warning',
+                           extra: { course_name: @course.slug,
+                                   wiki: revision.wiki.id,
+                                   date: revision.date }
   end
 end
