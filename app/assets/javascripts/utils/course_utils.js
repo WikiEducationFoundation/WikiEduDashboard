@@ -51,6 +51,18 @@ export default class CourseUtils {
     });
   }
 
+  static cleanRedirectUrl(url) {
+    // Remove redirect=no parameter and convert index.php URLs to clean /wiki/ URLs
+    if (url.includes('redirect=no')) {
+      const match = url.match(/([a-z-]+)\.(?:m\.)?(wik[a-z]+)\.org\/w\/index\.php\?title=([^&]+)/);
+      if (match) {
+        const [, language, project, title] = match;
+        return `https://${language}.${project}.org/wiki/${title}`;
+       }
+      }
+      return url;
+  }
+
   // Takes user input — either a URL or the title of an article —
   // and returns an article object, including the project and language
   // if that can be pattern matched from URL input.
@@ -66,7 +78,9 @@ export default class CourseUtils {
       };
     }
 
-    const urlParts = /([a-z-]+)\.(?:m\.)?(wik[a-z]+)\.org\/wiki\/([^#]*)/.exec(articleTitle);
+    const cleanedUrl = this.cleanRedirectUrl(articleTitle);
+
+    const urlParts = /([a-z-]+)\.(?:m\.)?(wik[a-z]+)\.org\/wiki\/([^#]*)/.exec(cleanedUrl);
     if (urlParts && urlParts.length > 3) {
       const title = decodeURIComponent(urlParts[3]).replace(/_/g, ' ');
       const project = urlParts[2];
@@ -75,7 +89,7 @@ export default class CourseUtils {
         title,
         project,
         language,
-        article_url: articleTitle
+        article_url: cleanedUrl
       };
     }
 
@@ -101,7 +115,7 @@ export default class CourseUtils {
           title,
           project,
           language,
-           article_url: articleTitle,
+           article_url: cleanedUrl,
         };
       }
 
