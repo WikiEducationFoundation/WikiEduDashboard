@@ -92,6 +92,7 @@ const Calendar = createReactClass({
         return !this.inrange(day);
       },
       ['selected']: (day) => {
+        if (this.props.course.no_meeting_days) return false;
         if ((this.props.course.weekdays !== undefined) && this.props.course.weekdays.charAt(day) === '1') {
           return true;
         } else if (day < 8) {
