@@ -55,15 +55,23 @@ describe UpdateWikidataStatsTimeslice do
         end
 
         updater.update_revisions_with_stats(revisions)
+        expect(revision1.summary).not_to be_nil
+        expect(revision1.summary).not_to eq('null')
+        expect(revision2.summary).not_to be_nil
+        expect(revision2.summary).not_to eq('null')
       end
 
-      it 'logs error once and raises error if request fails 3 times' do
+      it 'logs error once and marks revisions with error if request fails 3 times' do
         allow(WikidataDiffAnalyzer).to receive(:analyze)
           .and_raise(MediawikiApi::HttpError, '')
         expect(updater).to receive(:log_error).once
-        expect do
-          updater.update_revisions_with_stats(revisions)
-        end.to raise_error(MediawikiApi::HttpError)
+        updater.update_revisions_with_stats(revisions)
+        expect(revision1.summary).to be_nil
+        expect(revision1.error).to eq(true)
+        expect(revision2.summary).to be_nil
+        expect(revision2.error).to eq(true)
+        expect(unscoped_revision.summary).to be_nil
+        expect(unscoped_revision.error).to be_nil
       end
     end
   end

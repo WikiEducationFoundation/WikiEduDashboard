@@ -89,6 +89,10 @@ class UpdateWikidataStatsTimeslice
       revision.summary = serialized_stat
     end
     revisions
+  rescue WikidataDiffAnalyzerError
+    # If the request to WikidataDiffAnalyzer failed, mark revisions with error
+    revisions.select(&:scoped).each { |rev| rev.error = true }
+    revisions
   end
 
   # Given an array of revisions, it builds the stats for those revisions
@@ -135,7 +139,7 @@ class UpdateWikidataStatsTimeslice
     tries -= 1
     retry unless tries.zero?
     log_error(e, sentry_extra: { revision_ids: })
-    raise e
+    raise WikidataDiffAnalyzerError
   end
 
   def sum_up_stats(individual_stats)
@@ -167,4 +171,6 @@ class UpdateWikidataStatsTimeslice
   rescue JSON::ParserError
     nil # Return nil if parsing fails (i.e., not diff_stats)
   end
+
+  class WikidataDiffAnalyzerError < StandardError; end
 end
