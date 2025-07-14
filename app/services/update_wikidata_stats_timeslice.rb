@@ -79,10 +79,9 @@ class UpdateWikidataStatsTimeslice
   # Returns the updated array.
   def update_revisions_with_stats(revisions)
     # We will only use the diff stats for in-scope revisions, and this is very slow.
-    revision_ids = revisions.select(&:scoped).map(&:mw_rev_id)
-    analyzed_revisions = analyze_revisions(revision_ids)
-    revisions.each do |revision|
-      next unless revision.scoped
+    scoped_revisions = revisions.select(&:scoped)
+    analyzed_revisions = analyze_revisions(scoped_revisions.map(&:mw_rev_id))
+    scoped_revisions.each do |revision|
       rev_id = revision.mw_rev_id
       individual_stat = analyzed_revisions[rev_id]
       serialized_stat = individual_stat.to_json
@@ -90,8 +89,8 @@ class UpdateWikidataStatsTimeslice
     end
     revisions
   rescue WikidataDiffAnalyzerError
-    # If the request to WikidataDiffAnalyzer failed, mark revisions with error
-    revisions.select(&:scoped).each { |rev| rev.error = true }
+    # If the request to WikidataDiffAnalyzer failed, mark scoped revisions with error
+    scoped_revisions.each { |rev| rev.error = true }
     revisions
   end
 
