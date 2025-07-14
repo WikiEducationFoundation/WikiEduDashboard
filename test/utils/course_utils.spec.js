@@ -220,7 +220,7 @@ describe('courseUtils.articleFromTitleInput', () => {
     expect(output.title).toBe('Mesut Özil');
     expect(output.project).toBe('wikipedia');
     expect(output.language).toBe('en');
-    expect(output.article_url).toBe(input);
+    expect(output.article_url).toBe('https://en.wikipedia.org/wiki/Mesut%20%C3%96zil:REDLINK');
   });
 });
 
