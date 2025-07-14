@@ -5,6 +5,7 @@
 # Author: Alacabe
 # Author: Appleuseryu
 # Author: Ash Crow
+# Author: Bananax47
 # Author: Benoit Rochon
 # Author: C13m3n7
 # Author: Dcausse
@@ -542,6 +543,8 @@ fr:
     remove: Retirer
     tracked_categories: Catégories suivies, PSID, identifiants de PagePile et modèles
     timestamp: Dernière mise à jour du
+    category_error: Cette méthode de ciblage comporte trop d'éléments pour être mise
+      à jour. Veuillez essayer d'en utiliser de plus petits.
   courses:
     school_system: Système académique
     assignment_edits_enabled: Modifications des affectations activées
