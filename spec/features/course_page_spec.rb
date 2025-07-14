@@ -102,14 +102,13 @@ describe 'the course page', type: :feature, js: true do
       # Make half of the articles new ones.
       newness = i <= article_count ? i % 2 : 0
 
-      array_revisions << create(:revision,
-                                id: i.to_s,
-                                user_id: ((i % user_count) + 1).to_s,
-                                article_id: ((i % article_count) + 1).to_s,
-                                date: '2015-03-01'.to_date,
-                                characters: 2,
-                                new_article: newness,
-                                scoped: true)
+      array_revisions << build(:revision_on_memory,
+                               user_id: ((i % user_count) + 1).to_s,
+                               article_id: ((i % article_count) + 1).to_s,
+                               date: '2015-03-01'.to_date,
+                               characters: 2,
+                               new_article: newness,
+                               scoped: true)
     end
 
     # Add articles not related to the course

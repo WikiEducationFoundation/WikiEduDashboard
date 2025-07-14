@@ -29,9 +29,9 @@
     Article:
     %a.link{href: @alert.article.url}= @alert.article.title
 
-- if @alert.revision
+- if @alert.revision_id
   %p.paragraph
-    %a.link{href: @alert.revision.url} diff
+    %a.link{href: @alert.revision_url} diff
 
 - if @details.present?
   %p.paragraph.preserve-whitespace

@@ -21,11 +21,6 @@ describe SuspectedPlagiarismMailer do
   end
 
   let(:article) { create(:article) }
-  let(:revision) do
-    create(:revision, article_id: article.id,
-                      user_id: user.id,
-                      ithenticate_id: 10)
-  end
 
   let(:details) do
     {

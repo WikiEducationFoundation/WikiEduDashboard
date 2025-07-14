@@ -22,7 +22,9 @@ require "#{Rails.root}/lib/importers/article_importer"
 
 describe ArticlesCourses, type: :model do
   let(:article) { create(:article, average_views: 1234) }
+  let(:article_id) { article.id }
   let(:user) { create(:user, id: 1) }
+  let(:user_id) { user.id }
   let(:course) { create(:course, start: '2024-06-16', end: '2024-08-16') }
   let(:refs_tags_key) { 'feature.wikitext.revision.ref_tags' }
 
@@ -105,20 +107,22 @@ describe ArticlesCourses, type: :model do
     before do
       create(:courses_user, user:, course:,
                             role: CoursesUsers::Roles::STUDENT_ROLE)
-      array_revisions << build(:revision, article:, user:, date: '2024-07-07',
+      array_revisions << build(:revision_on_memory, article_id:, user_id:, date: '2024-07-07',
                         system: true, new_article: true, scoped: true)
-      array_revisions << build(:revision, article:, user:, date: '2024-07-06 20:05:10',
-                        system: true, new_article: true, scoped: true)
-      array_revisions << build(:revision, article:, user:, date: '2024-07-06 20:06:11',
-                        system: true, new_article: true, scoped: true)
-      array_revisions << build(:revision, article:, user:, date: '2024-07-08 20:03:01',
-                        system: true, new_article: true, scoped: true)
-      array_revisions << build(:revision, article: article3, user:, date: '2024-07-07',
-                        system: true, new_article: true, scoped: true)
+      array_revisions << build(:revision_on_memory, article_id:, user_id:,
+                        date: '2024-07-06 20:05:10', system: true, new_article: true, scoped: true)
+      array_revisions << build(:revision_on_memory, article_id:, user_id:,
+                        date: '2024-07-06 20:06:11', system: true, new_article: true, scoped: true)
+      array_revisions << build(:revision_on_memory, article_id:, user_id:,
+                        date: '2024-07-08 20:03:01', system: true, new_article: true, scoped: true)
+      array_revisions << build(:revision_on_memory, article_id: article3.id, user_id:,
+                        date: '2024-07-07', system: true, new_article: true, scoped: true)
       # revision for a non-tracked wiki
-      array_revisions << build(:revision, article: article2, user:, date: '2024-07-06')
+      array_revisions << build(:revision_on_memory, article_id: article2.id, user_id:,
+                        date: '2024-07-06')
       # revision for a non-tracked namespace
-      array_revisions << build(:revision, article: talk_page, user:, date: '2024-07-07')
+      array_revisions << build(:revision_on_memory, article_id: talk_page.id, user_id:,
+                        date: '2024-07-07')
     end
 
     it 'creates new ArticlesCourses records from course revisions' do
