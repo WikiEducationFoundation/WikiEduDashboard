@@ -2,6 +2,8 @@
 
 require 'rails_helper'
 require "#{Rails.root}/lib/assignment_manager"
+require "#{Rails.root}/lib/course_revision_updater"
+require "#{Rails.root}/lib/importers/course_upload_importer"
 
 MILESTONE_BLOCK_KIND = 2
 
@@ -515,6 +517,7 @@ describe 'the course page', type: :feature, js: true do
 
       expect_any_instance_of(CourseRevisionUpdater).to receive(:fetch_data_for_course_wiki)
         .at_least(1)
+        .and_call_original
       expect(AverageViewsImporter).to receive(:update_outdated_average_views)
       expect_any_instance_of(CourseUploadImporter).to receive(:run)
       visit "/courses/#{slug}/manual_update"

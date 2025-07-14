@@ -164,6 +164,7 @@ describe UpdateCourseWikiTimeslices do
           expect_any_instance_of(CourseRevisionUpdater).to receive(:fetch_data_for_course_wiki)
             .with(wiki, start_time, end_time, only_new: true)
             .once
+            .and_call_original
         end
       end
 
@@ -179,13 +180,24 @@ describe UpdateCourseWikiTimeslices do
       # Create timeslices
       TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records(course.wikis)
       # Set timeslices to reprocess
-      course.course_wiki_timeslices.first.update(needs_update: true)
+      course.course_wiki_timeslices.first.update(revision_count: 15,
+                                                 last_mw_rev_datetime: '2018-11-24 10:25:00',
+                                                 needs_update: true)
     end
 
     it 'does not fail and logs no errors' do
       VCR.use_cassette 'course_update' do
         expect(Sentry).not_to receive(:capture_message)
         subject
+      end
+    end
+
+    it 'cleans old caches' do
+      VCR.use_cassette 'course_update' do
+        subject
+        expect(course.course_wiki_timeslices.first.revision_count).to eq(0)
+        expect(course.course_wiki_timeslices.first.needs_update).to eq(false)
+        expect(course.course_wiki_timeslices.first.last_mw_rev_datetime).to eq(nil)
       end
     end
   end
