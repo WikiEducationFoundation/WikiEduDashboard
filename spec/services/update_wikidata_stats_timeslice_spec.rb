@@ -40,5 +40,31 @@ describe UpdateWikidataStatsTimeslice do
       expect(CourseStat.last.stats_hash).not_to be_nil
       expect(CourseStat.last.course_id).to eq(Course.last.id)
     end
+
+    context 'request fails' do
+      it 'retries 3 times', :vcr do
+        call_count = 0
+        allow(WikidataDiffAnalyzer).to receive(:analyze)
+          .and_wrap_original do |original_method, *args, &block|
+          if call_count < 2
+            call_count += 1
+            raise MediawikiApi::HttpError
+          else
+            original_method.call(*args, &block)
+          end
+        end
+
+        updater.update_revisions_with_stats(revisions)
+      end
+
+      it 'logs error once and raises error if request fails 3 times' do
+        allow(WikidataDiffAnalyzer).to receive(:analyze)
+          .and_raise(MediawikiApi::HttpError, '')
+        expect(updater).to receive(:log_error).once
+        expect do
+          updater.update_revisions_with_stats(revisions)
+        end.to raise_error(MediawikiApi::HttpError)
+      end
+    end
   end
 end
