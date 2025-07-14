@@ -9,9 +9,15 @@ describe UpdateWikidataStatsTimeslice do
       create(:course, start: Date.new(2022, 1, 5), end: Date.new(2022, 1, 7),
                       home_wiki: wikidata)
     end
-    let(:revision1) { create(:revision, wiki: wikidata, mw_rev_id: 1556860240, scoped: true) }
-    let(:revision2) { create(:revision, wiki: wikidata, mw_rev_id: 99682035, scoped: true) }
-    let(:unscoped_revision) { create(:revision, wiki: wikidata, mw_rev_id: 99682036) }
+    let(:revision1) do
+      build(:revision_on_memory, wiki_id: wikidata.id, mw_rev_id: 1556860240, scoped: true)
+    end
+    let(:revision2) do
+      build(:revision_on_memory, wiki_id: wikidata.id, mw_rev_id: 99682035, scoped: true)
+    end
+    let(:unscoped_revision) do
+      build(:revision_on_memory, wiki_id: wikidata.id, mw_rev_id: 99682036)
+    end
     let(:revisions) { [revision1, revision2, unscoped_revision] }
     let(:updater) { described_class.new(course) }
 

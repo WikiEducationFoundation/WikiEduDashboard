@@ -48,11 +48,6 @@ describe 'Articles Edited view', type: :feature, js: true do
 
     course.campaigns << Campaign.first
     create(:courses_user, course:, user:)
-    create(:revision, article: article_en_wiki, user:, date: '2019-01-01')
-    create(:revision, article: new_article_es_wiktionary, user:, date: '2018-01-01')
-    create(:revision, article: article_wikidata, user:, date: '2020-04-01')
-    create(:revision, article: new_article_wikidata, user:, date: '2020-03-01')
-    create(:revision, article: untracked_article_wikidata, user:, date: '2020-05-01')
 
     create(
       :articles_course,
