@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 require_dependency "#{Rails.root}/lib/wikidata_summary_parser"
+require_dependency "#{Rails.root}/lib/errors/api_error_handling"
 # require the installed wikidata-diff-analyzer gem
 require 'wikidata-diff-analyzer'
 
 class UpdateWikidataStatsTimeslice
+  include ApiErrorHandling
   # This hash contains the keys of the wikidata-diff-analyzer output hash
   # and maps them to the values used in the UI and CourseStat Hash
   STATS_CLASSIFICATION = {
@@ -78,7 +80,7 @@ class UpdateWikidataStatsTimeslice
   def update_revisions_with_stats(revisions)
     # We will only use the diff stats for in-scope revisions, and this is very slow.
     revision_ids = revisions.select(&:scoped).pluck(:mw_rev_id)
-    analyzed_revisions = WikidataDiffAnalyzer.analyze(revision_ids)[:diffs]
+    analyzed_revisions = analyze_revisions(revision_ids)
     revisions.each do |revision|
       next unless revision.scoped
       rev_id = revision.mw_rev_id
@@ -121,6 +123,20 @@ class UpdateWikidataStatsTimeslice
   end
 
   private
+
+  TYPICAL_ERRORS = [].freeze
+
+  RETRY_COUNT = 3
+
+  def analyze_revisions(revision_ids)
+    tries ||= RETRY_COUNT
+    WikidataDiffAnalyzer.analyze(revision_ids)[:diffs]
+  rescue StandardError => e
+    tries -= 1
+    retry unless tries.zero?
+    log_error(e, sentry_extra: { revision_ids: })
+    raise e
+  end
 
   def sum_up_stats(individual_stats)
     total_stats = {}
