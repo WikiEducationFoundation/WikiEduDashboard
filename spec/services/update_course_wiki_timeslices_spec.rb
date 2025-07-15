@@ -19,7 +19,7 @@ describe UpdateCourseWikiTimeslices do
     stub_const('TimesliceManager::TIMESLICE_DURATION', 86400)
     travel_to Date.new(2018, 12, 1)
     course.campaigns << Campaign.first
-    course.wikis << Wiki.get_or_create(language: nil, project: 'wikidata')
+    course.wikis << wikidata
     JoinCourse.new(course:, user:, role: 0)
   end
 
@@ -180,9 +180,15 @@ describe UpdateCourseWikiTimeslices do
       # Create timeslices
       TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records(course.wikis)
       # Set timeslices to reprocess
-      course.course_wiki_timeslices.first.update(revision_count: 15,
-                                                 last_mw_rev_datetime: '2018-11-24 10:25:00',
-                                                 needs_update: true)
+      course.course_wiki_timeslices.where(wiki: enwiki)
+            .first.update(revision_count: 15,
+                          last_mw_rev_datetime: '2018-11-24 10:25:00',
+                          needs_update: true)
+      course.course_wiki_timeslices.where(wiki: wikidata)
+            .first.update(revision_count: 15,
+                          last_mw_rev_datetime: '2018-11-24 10:25:00',
+                          stats: { 'total revisions:': 15 },
+                          needs_update: true)
     end
 
     it 'does not fail and logs no errors' do
@@ -195,9 +201,15 @@ describe UpdateCourseWikiTimeslices do
     it 'cleans old caches' do
       VCR.use_cassette 'course_update' do
         subject
-        expect(course.course_wiki_timeslices.first.revision_count).to eq(0)
-        expect(course.course_wiki_timeslices.first.needs_update).to eq(false)
-        expect(course.course_wiki_timeslices.first.last_mw_rev_datetime).to eq(nil)
+        enwiki_timeslice = course.course_wiki_timeslices.where(wiki: enwiki).first
+        expect(enwiki_timeslice.revision_count).to eq(0)
+        expect(enwiki_timeslice.needs_update).to eq(false)
+        expect(enwiki_timeslice.last_mw_rev_datetime).to eq(nil)
+        wikidata_timeslice = course.course_wiki_timeslices.where(wiki: wikidata).first
+        expect(wikidata_timeslice.revision_count).to eq(0)
+        expect(wikidata_timeslice.needs_update).to eq(false)
+        expect(wikidata_timeslice.last_mw_rev_datetime).to eq(nil)
+        expect(wikidata_timeslice.stats['total revisions']).to eq(0)
       end
     end
   end
