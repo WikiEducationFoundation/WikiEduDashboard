@@ -150,16 +150,16 @@ describe TimesliceManager do
   end
 
   describe '#update_last_mw_rev_datetime' do
-    let(:revision1) { create(:revision, date: '2024-01-01 15:45:53') }
-    let(:revision2) { create(:revision, date: '2024-01-01 19:40:45') }
-    let(:revision3) { create(:revision, date: '2024-01-01 13:40:45') }
-    let(:revision4) { create(:revision, date: '2024-01-03 03:09:10') }
-    let(:revisions) { [revision1, revision2, revision3, revision4] }
-    let(:new_fetched_data) do
-      { enwiki => { start: '20240101090035', end: '20240104101340', revisions: } }
-    end
-
     context 'when there were updates' do
+      let(:revision1) { create(:revision, date: '2024-01-01 15:45:53') }
+      let(:revision2) { create(:revision, date: '2024-01-01 19:40:45') }
+      let(:revision3) { create(:revision, date: '2024-01-01 13:40:45') }
+      let(:revision4) { create(:revision, date: '2024-01-03 03:09:10') }
+      let(:revisions) { [revision1, revision2, revision3, revision4] }
+      let(:new_fetched_data) do
+        { enwiki => { start: '20240101090035', end: '20240104101340', revisions: } }
+      end
+
       it 'updates last_mw_rev_datetime for every course wiki' do
         timeslice_manager.create_timeslices_for_new_course_wiki_records([enwiki])
         course_wiki_timeslices = course.course_wiki_timeslices.where(wiki_id: enwiki.id)
@@ -169,6 +169,23 @@ describe TimesliceManager do
         expect(course_wiki_timeslices.where(last_mw_rev_datetime: nil).size).to eq(109)
         expect(course_wiki_timeslices.first.last_mw_rev_datetime).to eq('20240101194045')
         expect(course_wiki_timeslices.third.last_mw_rev_datetime).to eq('20240103030910')
+      end
+    end
+
+    context 'when there are no revisions' do
+      let(:new_fetched_data) do
+        { enwiki => { start: '20240101', end: '20240102', revisions: [] } }
+      end
+
+      it 'cleans last_mw_rev_datetime' do
+        timeslice_manager.create_timeslices_for_new_course_wiki_records([enwiki])
+        timeslice = course.course_wiki_timeslices.where(wiki_id: enwiki.id,
+                                                        start: '2024-01-01').first
+        timeslice.update(last_mw_rev_datetime: '2024-01-01 19:40:45')
+        expect(course.course_wiki_timeslices.first.last_mw_rev_datetime).to eq('20240101194045')
+        timeslice_manager.update_last_mw_rev_datetime(new_fetched_data)
+        # last_mw_rev_datetime was set to nil
+        expect(course.course_wiki_timeslices.first.last_mw_rev_datetime).to eq(nil)
       end
     end
   end
