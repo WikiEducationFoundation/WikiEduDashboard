@@ -15,9 +15,6 @@ const CampaignRow = ({ campaign }) => {
       <td>
         <a href={`/campaigns/${campaign.slug}/articles_csv.csv`}>{I18n.t('campaign.pages_edited_small')}</a>
       </td>
-      <td>
-        <a href={`/campaigns/${campaign.slug}/revisions_csv.csv`}>{I18n.t('campaign.revision_data')}</a>
-      </td>
     </tr>
   );
 };
