@@ -55,7 +55,8 @@ class CourseRevisionUpdater
   end
 
   def empty_response(wiki, timeslice_start, timeslice_end)
-    format_revision_response(wiki, timeslice_start, timeslice_end, [], false)
+    new_revisions = new_revisions?([], wiki, timeslice_start)
+    format_revision_response(wiki, timeslice_start, timeslice_end, [], new_revisions)
   end
 
   # Fetches revisions and maybe scores for them.

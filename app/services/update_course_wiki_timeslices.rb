@@ -93,9 +93,8 @@ class UpdateCourseWikiTimeslices
       timeslice_end.strftime('%Y%m%d%H%M%S'),
       only_new:
     )
-    # Return if only_new was true but no new data was found
-    return unless new_data?(wiki)
-    fetch_wikidata_stats(wiki) if wiki.project == 'wikidata' && @revisions.present?
+    # Only fetch wikidata stats if wikidata and there is new data
+    fetch_wikidata_stats(wiki) if wiki.project == 'wikidata' && new_data?(wiki)
   end
 
   def new_data?(wiki)
