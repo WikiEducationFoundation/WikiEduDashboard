@@ -7,7 +7,6 @@ describe 'user profile pages', type: :feature, js: true do
   let(:course) { create(:course) }
   let(:course2) { create(:course, slug: 'course/2') }
   let(:article) { create(:article) }
-  let!(:revision) { create(:revision, date: course.start + 1.hour, user:, article:) }
 
   before do
     create(:courses_user, user:, course:, role: CoursesUsers::Roles::STUDENT_ROLE)

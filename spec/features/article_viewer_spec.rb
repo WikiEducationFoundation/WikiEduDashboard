@@ -13,7 +13,6 @@ describe 'Article Viewer', type: :feature, js: true do
     create(:courses_user, course:, user:)
     create(:courses_user, course:, user: instructor,
                           role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
-    create(:revision, article:, user:, date: '2019-01-01')
     create(:articles_course, course:, article:, user_ids: [user.id])
   end
 

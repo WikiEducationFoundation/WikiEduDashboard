@@ -30,6 +30,7 @@ describe CourseUserWikiTimeslice, type: :model do
   let(:start) { '2015-01-01'.to_date }
   let(:course) { create(:course, start:, end: '2015-07-01'.to_date) }
   let(:article) { create(:article, title: 'Selfie') }
+  let(:article_id) { article.id }
   let(:talk_page) { create(:article, title: 'Selfie', namespace: Article::Namespaces::TALK) }
   let(:sandbox) { create(:article, title: 'User/Selfie', namespace: Article::Namespaces::USER) }
   let(:draft) { create(:article, title: 'Selfie', namespace: Article::Namespaces::DRAFT) }
@@ -50,7 +51,7 @@ describe CourseUserWikiTimeslice, type: :model do
            revision_count: 23)
   end
   let(:revision0) do
-    build(:revision, article:, date: start,
+    build(:revision_on_memory, article_id:, date: start,
            characters: 123,
            features: { 'num_ref' => 8 },
            features_previous: { 'num_ref' => 1 },
@@ -58,7 +59,7 @@ describe CourseUserWikiTimeslice, type: :model do
            scoped: true)
   end
   let(:revision1) do
-    build(:revision, article: talk_page, date: start,
+    build(:revision_on_memory, article_id: talk_page.id, date: start,
            characters: 200,
            features: { 'num_ref' => 12 },
            features_previous: { 'num_ref' => 10 },
@@ -66,7 +67,7 @@ describe CourseUserWikiTimeslice, type: :model do
            scoped: true)
   end
   let(:revision2) do
-    build(:revision, article: sandbox, date: start,
+    build(:revision_on_memory, article_id: sandbox.id, date: start,
            characters: -65,
            features: { 'num_ref' => 1 },
            features_previous: { 'num_ref' => 2 },
@@ -74,7 +75,7 @@ describe CourseUserWikiTimeslice, type: :model do
            scoped: true)
   end
   let(:revision3) do
-    build(:revision, article: draft, date: start,
+    build(:revision_on_memory, article_id: draft.id, date: start,
            characters: 225,
            features: { 'num_ref' => 3 },
            features_previous: { 'num_ref' => 3 },
@@ -82,7 +83,7 @@ describe CourseUserWikiTimeslice, type: :model do
            scoped: true)
   end
   let(:revision4) do
-    build(:revision, article:, date: start,
+    build(:revision_on_memory, article_id:, date: start,
             characters: 34,
             deleted: true, # deleted revision
             features: { 'num_ref' => 2 },
@@ -91,7 +92,7 @@ describe CourseUserWikiTimeslice, type: :model do
             scoped: true)
   end
   let(:revision5) do
-    build(:revision, article_id: -1, # revision for a non-existing article
+    build(:revision_on_memory, article_id: -1, # revision for a non-existing article
             date: start,
             characters: 34,
             deleted: false,
@@ -101,7 +102,7 @@ describe CourseUserWikiTimeslice, type: :model do
             scoped: true)
   end
   let(:revision6) do
-    build(:revision, article: draft, date: start,
+    build(:revision_on_memory, article_id: draft.id, date: start,
            characters: 220,
            features: { 'num_ref' => 1 },
            features_previous: { 'num_ref' => 0 },
@@ -115,11 +116,11 @@ describe CourseUserWikiTimeslice, type: :model do
   describe '.update_course_user_wiki_timeslices' do
     before do
       TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records(course.wikis)
-      revisions << build(:revision, article:, user_id: user.id, date: start + 26.hours,
+      revisions << build(:revision_on_memory, article_id:, user_id: user.id, date: start + 26.hours,
                          scoped: true)
-      revisions << build(:revision, article:, user_id: user.id, date: start + 50.hours,
+      revisions << build(:revision_on_memory, article_id:, user_id: user.id, date: start + 50.hours,
                          scoped: true)
-      revisions << build(:revision, article:, user_id: user.id, date: start + 51.hours,
+      revisions << build(:revision_on_memory, article_id:, user_id: user.id, date: start + 51.hours,
                          scoped: true)
     end
 
