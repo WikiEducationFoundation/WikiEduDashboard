@@ -10,7 +10,7 @@ class CampaignsController < ApplicationController
   before_action :set_campaign, only: %i[overview programs articles users edit
                                         update destroy add_organizer remove_organizer
                                         remove_course courses ores_plot articles_csv
-                                         alerts students instructors
+                                        alerts students instructors
                                         wikidata active_courses]
   before_action :require_create_permissions, only: [:create]
   before_action :require_write_permissions, only: %i[update destroy add_organizer
