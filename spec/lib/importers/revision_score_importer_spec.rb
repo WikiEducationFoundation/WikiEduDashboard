@@ -12,57 +12,39 @@ describe RevisionScoreImporter do
            mw_page_id: 45010238,
            title: 'Manspreading',
            namespace: 0)
-    create(:revision,
-           mw_rev_id: 675892696, # latest revision as of 2015-08-19
-           article_id: 45010238,
-           mw_page_id: 45010238)
-    array_revisions << create(:revision,
-                              mw_rev_id: 641962088, # first revision, barely a stub
-                              article_id: 45010238,
-                              mw_page_id: 45010238,
-                              new_article: true)
-    create(:revision,
-           mw_rev_id: 1, # arbitrary deleted revision
-           deleted: true,
-           article_id: 45010238,
-           mw_page_id: 45010238)
-
+    array_revisions << build(:revision_on_memory,
+                             mw_rev_id: 641962088, # first revision, barely a stub
+                             article_id: 45010238,
+                             mw_page_id: 45010238,
+                             new_article: true)
     create(:article,
            id: 1538038,
            mw_page_id: 1538038,
            title: 'Performativity',
            namespace: 0)
-    array_revisions << create(:revision,
-                              mw_rev_id: 662106477, # revision from 2015-05-13
-                              article_id: 1538038,
-                              mw_page_id: 1538038)
-    create(:revision,
-           mw_rev_id: 46745264, # revision from 2006-04-03
-           article_id: 1538038,
-           mw_page_id: 1538038)
-    create(:revision,
-           mw_rev_id: 777777777, # does not exist
-           article_id: 1538038,
-           mw_page_id: 1538038)
+    array_revisions << build(:revision_on_memory,
+                             mw_rev_id: 662106477, # revision from 2015-05-13
+                             article_id: 1538038,
+                             mw_page_id: 1538038)
     create(:article,
            id: 456,
            mw_page_id: 49505160,
            title: 'Philip_James_Rutledge',
            namespace: 0)
-    array_revisions << create(:revision, # deleted revision
-                              mw_rev_id: 708326238,
-                              article_id: 456,
-                              mw_page_id: 49505160)
+    array_revisions << build(:revision_on_memory, # deleted revision
+                             mw_rev_id: 708326238,
+                             article_id: 456,
+                             mw_page_id: 49505160)
     create(:article,
            id: 678,
            mw_page_id: 123456,
            title: 'Premi_O_Premi',
            namespace: 0)
 
-    array_revisions << create(:revision, # deleted revision
-                              mw_rev_id: 753277075,
-                              article_id: 678,
-                              mw_page_id: 123456)
+    array_revisions << build(:revision_on_memory, # deleted revision
+                             mw_rev_id: 753277075,
+                             article_id: 678,
+                             mw_page_id: 123456)
   end
 
   describe '#get_revision_scores' do

@@ -2,6 +2,8 @@
 
 require 'rails_helper'
 require "#{Rails.root}/lib/assignment_manager"
+require "#{Rails.root}/lib/course_revision_updater"
+require "#{Rails.root}/lib/importers/course_upload_importer"
 
 MILESTONE_BLOCK_KIND = 2
 
@@ -102,14 +104,13 @@ describe 'the course page', type: :feature, js: true do
       # Make half of the articles new ones.
       newness = i <= article_count ? i % 2 : 0
 
-      array_revisions << create(:revision,
-                                id: i.to_s,
-                                user_id: ((i % user_count) + 1).to_s,
-                                article_id: ((i % article_count) + 1).to_s,
-                                date: '2015-03-01'.to_date,
-                                characters: 2,
-                                new_article: newness,
-                                scoped: true)
+      array_revisions << build(:revision_on_memory,
+                               user_id: ((i % user_count) + 1).to_s,
+                               article_id: ((i % article_count) + 1).to_s,
+                               date: '2015-03-01'.to_date,
+                               characters: 2,
+                               new_article: newness,
+                               scoped: true)
     end
 
     # Add articles not related to the course
@@ -516,6 +517,7 @@ describe 'the course page', type: :feature, js: true do
 
       expect_any_instance_of(CourseRevisionUpdater).to receive(:fetch_data_for_course_wiki)
         .at_least(1)
+        .and_call_original
       expect(AverageViewsImporter).to receive(:update_outdated_average_views)
       expect_any_instance_of(CourseUploadImporter).to receive(:run)
       visit "/courses/#{slug}/manual_update"

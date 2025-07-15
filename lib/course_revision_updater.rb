@@ -31,7 +31,7 @@ class CourseRevisionUpdater
   # revisions for that timeslice. The new_data field is true if new revisions were found.
   # This optimization was added to improve performance.
   def fetch_data_for_course_wiki(wiki, ts_start, ts_end, only_new: false)
-    return {} if no_point_in_importing_revisions?
+    return empty_response(wiki, ts_start, ts_end) if no_point_in_importing_revisions?
     revision_data, new_revisions = fetch_data(wiki, ts_start, ts_end, only_new:)
     response = format_revision_response(wiki, ts_start, ts_end, revision_data, new_revisions)
     # Get an array with all revisions
@@ -52,6 +52,11 @@ class CourseRevisionUpdater
     revisions[:revisions] = revision_data
     results[wiki] = revisions
     results
+  end
+
+  def empty_response(wiki, timeslice_start, timeslice_end)
+    new_revisions = new_revisions?([], wiki, timeslice_start)
+    format_revision_response(wiki, timeslice_start, timeslice_end, [], new_revisions)
   end
 
   # Fetches revisions and maybe scores for them.
