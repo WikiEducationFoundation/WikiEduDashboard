@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import CourseList from './course_list';
 import CourseRow from './course_row';
 
-// this comes from lib/revision_stat.rb
+// this comes from lib/revision_stat_timeslice.rb
 const REVISION_TIMEFRAME = 7; // this is in days
 
 const default_course_string_prefix = Features.default_course_string_prefix;
