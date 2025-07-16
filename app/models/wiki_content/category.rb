@@ -78,7 +78,14 @@ class Category < ApplicationRecord
   end
 
   def article_ids
-    @article_ids ||= Article.where(namespace: 0, wiki_id:, title: article_titles).pluck(:id)
+    return @article_ids if @article_ids.present?
+
+    @article_ids = []
+    article_titles.each_slice(500) do |titles_batch|
+      @article_ids.concat(Article.where(namespace: 0, wiki_id:, title: titles_batch).pluck(:id))
+    end
+
+    @article_ids.uniq! || @article_ids
   end
 
   def name_with_prefix
