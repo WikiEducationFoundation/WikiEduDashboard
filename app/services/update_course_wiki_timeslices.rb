@@ -7,7 +7,7 @@ require_dependency "#{Rails.root}/lib/data_cycle/update_debugger"
 #= Pulls in new revisions for a single course and updates the corresponding timeslices records.
 # It updates all the tracked wikis for the course, from the latest start time for every wiki
 # up to the end of update (today or end date course).
-class UpdateCourseWikiTimeslices
+class UpdateCourseWikiTimeslices # rubocop:disable Metrics/ClassLength
   def initialize(course, debugger, update_service: nil)
     @course = course
     @timeslice_manager = TimesliceManager.new(@course)
@@ -35,10 +35,6 @@ class UpdateCourseWikiTimeslices
 
   def fetch_data_and_process_timeslices_for_every_wiki(all_time)
     @course.wikis.each do |wiki|
-      # Sometimes we need to reprocess timeslices due to changes such as
-      # users removed from a course.
-      fetch_data_and_reprocess_timeslices(wiki)
-
       # Get start time from first timeslice to update
       first_start = if all_time
                       CourseWikiTimeslice.for_course_and_wiki(@course, wiki)
@@ -48,6 +44,10 @@ class UpdateCourseWikiTimeslices
                     end
       # Get start time from latest timeslice to update
       latest_start = @timeslice_manager.get_latest_start_time_for_wiki(wiki)
+
+      # Sometimes we need to reprocess timeslices due to changes such as
+      # users removed from a course.
+      fetch_data_and_reprocess_timeslices(wiki, first_start)
 
       fetch_data_and_process_timeslices(wiki, first_start, latest_start)
       @debugger.log_update_progress "timeslices_processed_#{wiki.id}".to_sym
@@ -71,10 +71,16 @@ class UpdateCourseWikiTimeslices
     end
   end
 
-  def fetch_data_and_reprocess_timeslices(wiki)
+  def fetch_data_and_reprocess_timeslices(wiki, ingestion_start)
     to_reprocess = CourseWikiTimeslice.for_course_and_wiki(@course, wiki).needs_update
     to_reprocess.each do |t|
       start_date = [t.start, @course.start].max
+      # Never reprocess a future timeslice
+      if start_date > ingestion_start
+        t.update(needs_update: false)
+        next
+      end
+
       end_date = [t.end - 1.second, @course.end].min
 
       log_reprocessing(wiki, start_date, end_date)

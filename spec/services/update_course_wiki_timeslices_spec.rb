@@ -172,6 +172,30 @@ describe UpdateCourseWikiTimeslices do
         subject
       end
     end
+
+    it 'never reprocess future timeslices' do
+      TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records(course.wikis)
+
+      # Set one timeslice with last_mw_rev_datetime different from nil to be the ingestion start
+      CourseWikiTimeslice.find_by(course:, wiki: enwiki, start: '2018-11-26 00:00:00')
+                         .update(last_mw_rev_datetime: '2018-11-26 14:05:30')
+
+      # Set two future timeslices as needs_update
+      CourseWikiTimeslice.find_by(course:, wiki: enwiki, start: '2018-11-29 00:00:00')
+                         .update(needs_update: true)
+      CourseWikiTimeslice.find_by(course:, wiki: enwiki, start: '2018-11-30 00:00:00')
+                         .update(needs_update: true)
+
+      # fetch_data_for_course_wiki gets called 12 times:
+      # 0 for reprocessing + 5 from [2018-11-26, 2018-11-30] for wikipedia
+      # + 7 from [2018-11-24, 2018-11-30] for wikidata
+      expect_any_instance_of(CourseRevisionUpdater).to receive(:fetch_data_for_course_wiki)
+        .exactly(12).times.and_call_original
+
+      VCR.use_cassette 'course_update' do
+        updater.run(all_time: false)
+      end
+    end
   end
 
   context 'when there is no point in importing revisions' do
@@ -235,7 +259,9 @@ describe UpdateCourseWikiTimeslices do
     end
 
     it 'sets needs_update to false if update is successful' do
-      updater.run(all_time: true)
+      VCR.use_cassette 'course_update' do
+        updater.run(all_time: true)
+      end
       expect(course.needs_update).to eq(false)
       expect(course.course_wiki_timeslices.where(needs_update: true).count).to eq(0)
     end
