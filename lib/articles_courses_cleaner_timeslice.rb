@@ -159,8 +159,6 @@ class ArticlesCoursesCleanerTimeslice # rubocop:disable Metrics/ClassLength
   end
 
   def reset_articles_in_untracked_namespaces
-    # Get relevant article IDs for the course
-
     @course.all_articles.in_batches do |article_batch|
       tracked = @course.tracked_namespaces.each.flat_map do |wiki_ns|
         wiki_id = wiki_ns[:wiki].id
