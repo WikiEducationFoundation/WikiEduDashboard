@@ -19,7 +19,7 @@ describe UpdateCourseWikiTimeslices do
     stub_const('TimesliceManager::TIMESLICE_DURATION', 86400)
     travel_to Date.new(2018, 12, 1)
     course.campaigns << Campaign.first
-    course.wikis << Wiki.get_or_create(language: nil, project: 'wikidata')
+    course.wikis << wikidata
     JoinCourse.new(course:, user:, role: 0)
   end
 
@@ -164,11 +164,36 @@ describe UpdateCourseWikiTimeslices do
           expect_any_instance_of(CourseRevisionUpdater).to receive(:fetch_data_for_course_wiki)
             .with(wiki, start_time, end_time, only_new: true)
             .once
+            .and_call_original
         end
       end
 
       VCR.use_cassette 'course_update' do
         subject
+      end
+    end
+
+    it 'never reprocess future timeslices' do
+      TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records(course.wikis)
+
+      # Set one timeslice with last_mw_rev_datetime different from nil to be the ingestion start
+      CourseWikiTimeslice.find_by(course:, wiki: enwiki, start: '2018-11-26 00:00:00')
+                         .update(last_mw_rev_datetime: '2018-11-26 14:05:30')
+
+      # Set two future timeslices as needs_update
+      CourseWikiTimeslice.find_by(course:, wiki: enwiki, start: '2018-11-29 00:00:00')
+                         .update(needs_update: true)
+      CourseWikiTimeslice.find_by(course:, wiki: enwiki, start: '2018-11-30 00:00:00')
+                         .update(needs_update: true)
+
+      # fetch_data_for_course_wiki gets called 12 times:
+      # 0 for reprocessing + 5 from [2018-11-26, 2018-11-30] for wikipedia
+      # + 7 from [2018-11-24, 2018-11-30] for wikidata
+      expect_any_instance_of(CourseRevisionUpdater).to receive(:fetch_data_for_course_wiki)
+        .exactly(12).times.and_call_original
+
+      VCR.use_cassette 'course_update' do
+        updater.run(all_time: false)
       end
     end
   end
@@ -179,13 +204,36 @@ describe UpdateCourseWikiTimeslices do
       # Create timeslices
       TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records(course.wikis)
       # Set timeslices to reprocess
-      course.course_wiki_timeslices.first.update(needs_update: true)
+      course.course_wiki_timeslices.where(wiki: enwiki)
+            .first.update(revision_count: 15,
+                          last_mw_rev_datetime: '2018-11-24 10:25:00',
+                          needs_update: true)
+      course.course_wiki_timeslices.where(wiki: wikidata)
+            .first.update(revision_count: 15,
+                          last_mw_rev_datetime: '2018-11-24 10:25:00',
+                          stats: { 'total revisions:': 15 },
+                          needs_update: true)
     end
 
     it 'does not fail and logs no errors' do
       VCR.use_cassette 'course_update' do
         expect(Sentry).not_to receive(:capture_message)
         subject
+      end
+    end
+
+    it 'cleans old caches' do
+      VCR.use_cassette 'course_update' do
+        subject
+        enwiki_timeslice = course.course_wiki_timeslices.where(wiki: enwiki).first
+        expect(enwiki_timeslice.revision_count).to eq(0)
+        expect(enwiki_timeslice.needs_update).to eq(false)
+        expect(enwiki_timeslice.last_mw_rev_datetime).to eq(nil)
+        wikidata_timeslice = course.course_wiki_timeslices.where(wiki: wikidata).first
+        expect(wikidata_timeslice.revision_count).to eq(0)
+        expect(wikidata_timeslice.needs_update).to eq(false)
+        expect(wikidata_timeslice.last_mw_rev_datetime).to eq(nil)
+        expect(wikidata_timeslice.stats['total revisions']).to eq(0)
       end
     end
   end
@@ -211,7 +259,9 @@ describe UpdateCourseWikiTimeslices do
     end
 
     it 'sets needs_update to false if update is successful' do
-      updater.run(all_time: true)
+      VCR.use_cassette 'course_update' do
+        updater.run(all_time: true)
+      end
       expect(course.needs_update).to eq(false)
       expect(course.course_wiki_timeslices.where(needs_update: true).count).to eq(0)
     end

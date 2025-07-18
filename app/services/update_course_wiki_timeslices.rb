@@ -35,10 +35,6 @@ class UpdateCourseWikiTimeslices # rubocop:disable Metrics/ClassLength
 
   def fetch_data_and_process_timeslices_for_every_wiki(all_time)
     @course.wikis.each do |wiki|
-      # Sometimes we need to reprocess timeslices due to changes such as
-      # users removed from a course.
-      fetch_data_and_reprocess_timeslices(wiki)
-
       # Get start time from first timeslice to update
       first_start = if all_time
                       CourseWikiTimeslice.for_course_and_wiki(@course, wiki)
@@ -48,6 +44,10 @@ class UpdateCourseWikiTimeslices # rubocop:disable Metrics/ClassLength
                     end
       # Get start time from latest timeslice to update
       latest_start = @timeslice_manager.get_latest_start_time_for_wiki(wiki)
+
+      # Sometimes we need to reprocess timeslices due to changes such as
+      # users removed from a course.
+      fetch_data_and_reprocess_timeslices(wiki, first_start)
 
       fetch_data_and_process_timeslices(wiki, first_start, latest_start)
       @debugger.log_update_progress "timeslices_processed_#{wiki.id}".to_sym
@@ -71,16 +71,22 @@ class UpdateCourseWikiTimeslices # rubocop:disable Metrics/ClassLength
     end
   end
 
-  def fetch_data_and_reprocess_timeslices(wiki)
+  def fetch_data_and_reprocess_timeslices(wiki, ingestion_start)
     to_reprocess = CourseWikiTimeslice.for_course_and_wiki(@course, wiki).needs_update
     to_reprocess.each do |t|
       start_date = [t.start, @course.start].max
+      # Never reprocess a future timeslice
+      if start_date > ingestion_start
+        t.update(needs_update: false)
+        next
+      end
+
       end_date = [t.end - 1.second, @course.end].min
 
       log_reprocessing(wiki, start_date, end_date)
 
       fetch_data(wiki, start_date, end_date, only_new: false)
-      process_timeslices(wiki) if data?
+      process_timeslices(wiki)
       @reprocessed_timeslices += 1
     end
   end
@@ -93,17 +99,12 @@ class UpdateCourseWikiTimeslices # rubocop:disable Metrics/ClassLength
       timeslice_end.strftime('%Y%m%d%H%M%S'),
       only_new:
     )
-    # Return if only_new was true but no new data was found
-    return unless new_data?(wiki)
-    fetch_wikidata_stats(wiki) if wiki.project == 'wikidata' && @revisions.present?
-  end
-
-  def data?
-    @revisions.present?
+    # Only fetch wikidata stats if wikidata and there is new data
+    fetch_wikidata_stats(wiki) if wiki.project == 'wikidata' && new_data?(wiki)
   end
 
   def new_data?(wiki)
-    data? && @revisions[wiki][:new_data]
+    @revisions[wiki][:new_data]
   end
 
   # Only for wikidata project, fetch wikidata stats

@@ -153,7 +153,8 @@ describe CourseRevisionUpdater do
 
       it 'skips import if no tracked articles' do
         expect(scoped_instance_class).not_to receive(:fetch_data)
-        scoped_instance_class.fetch_data_for_course_wiki(wiki, start_date, end_date)
+        response = scoped_instance_class.fetch_data_for_course_wiki(wiki, start_date, end_date)
+        expect(response[wiki][:revisions]).to eq([])
       end
     end
   end
