@@ -118,18 +118,6 @@ const API = {
     return response.json();
   },
 
-  async fetchDykArticles(opts = {}) {
-    const response = await request(`/revision_analytics/dyk_eligible.json?scoped=${opts.scoped || false}`);
-
-    if (!response.ok) {
-      logErrorMessage(response);
-      const data = await response.text();
-      response.responseText = data;
-      throw response;
-    }
-    return response.json();
-  },
-
   async fetchRecentUploads(opts = {}) {
     const response = await request(`/revision_analytics/recent_uploads.json?scoped=${opts.scoped || false}`);
 

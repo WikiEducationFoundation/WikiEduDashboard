@@ -77,7 +77,7 @@ class UpdateWikidataStatsTimeslice
   # Returns the updated array.
   def update_revisions_with_stats(revisions)
     # We will only use the diff stats for in-scope revisions, and this is very slow.
-    revision_ids = revisions.select(&:scoped).pluck(:mw_rev_id)
+    revision_ids = revisions.select(&:scoped).map(&:mw_rev_id)
     analyzed_revisions = WikidataDiffAnalyzer.analyze(revision_ids)[:diffs]
     revisions.each do |revision|
       next unless revision.scoped
@@ -99,7 +99,7 @@ class UpdateWikidataStatsTimeslice
     # create a sum of stats after deserializing the stats for each revision object
     revisions.each do |revision|
       # Deserialize the summary field to get the stats
-      deserialized_stat = summary(revision)
+      deserialized_stat = revision.diff_stats
       next if deserialized_stat.nil?
       # create a stats which sums up each field of the deserialized_stat and create a stats hash
       deserialized_stat.each do |key, value|
@@ -141,14 +141,5 @@ class UpdateWikidataStatsTimeslice
 
   def wikidata
     Wiki.get_or_create(language: nil, project: 'wikidata')
-  end
-
-  # This function parses the serialized stats saved in the summary field, in case of any errors
-  # it returns nil meaning the field contains an edit summary
-  def summary(revision)
-    summary = revision.summary
-    JSON.parse(summary) if summary.present? && summary.start_with?('{', '[')
-  rescue JSON::ParserError
-    nil # Return nil if parsing fails (i.e., not diff_stats)
   end
 end

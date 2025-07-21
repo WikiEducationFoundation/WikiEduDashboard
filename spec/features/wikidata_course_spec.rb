@@ -12,7 +12,6 @@ describe 'A Wikidata course', type: :feature, js: true do
     stub_wiki_validation
     course.campaigns << Campaign.first
     create(:courses_user, course:, user:)
-    create(:revision, article:, user:, date: '2019-01-01')
     create(:articles_course, course:, article:, user_ids: [user.id])
     create(:course_stats,
            stats_hash: { 'www.wikidata.org' => {

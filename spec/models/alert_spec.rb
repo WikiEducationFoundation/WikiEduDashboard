@@ -38,7 +38,7 @@ end
 describe Alert do
   let(:article) { create(:article) }
   let(:course) { create(:course) }
-  let(:revision) { create(:revision) }
+  let(:mw_revision_id) { 456123 }
   let(:user) { create(:user) }
   let(:alert) { create(:alert, type: 'ArticlesForDeletionAlert', resolved: false) }
   let(:active_course_alert) { create(:active_course_alert) }
@@ -59,7 +59,7 @@ describe Alert do
         described_class.create(type:,
                                article:,
                                course:,
-                               revision:,
+                               revision_id: mw_revision_id,
                                user:,
                                subject_id: alert_subject(type)&.id)
         expect(described_class.last.main_subject).to be_a(String)
@@ -71,7 +71,7 @@ describe Alert do
         described_class.create(type:,
                                article_id: article.id,
                                course_id: course.id,
-                               revision_id: revision.id,
+                               revision_id: mw_revision_id,
                                user_id: user.id)
         expect(described_class.last.url).to be_a(String)
       end
@@ -82,7 +82,7 @@ describe Alert do
         described_class.create(type:,
                                article_id: article.id,
                                course_id: course.id,
-                               revision_id: revision.id,
+                               revision_id: mw_revision_id,
                                user_id: user.id)
         expect(described_class.last.resolve_explanation).to be_a(String)
       end
@@ -123,7 +123,7 @@ describe Alert do
       described_class.create(type: 'ProductiveCourseAlert',
                              article_id: article.id,
                              course_id: course.id,
-                             revision_id: revision.id,
+                             revision_id: mw_revision_id,
                              user_id: user.id,
                              target_user_id: user.id)
       described_class.last.email_content_expert
@@ -138,10 +138,34 @@ describe Alert do
       described_class.create(type: 'ActiveCourseAlert',
                              article_id: article.id,
                              course_id: course.id,
-                             revision_id: revision.id,
+                             revision_id: mw_revision_id,
                              user_id: user.id,
                              target_user_id: user.id)
       described_class.last.email_course_admins
+    end
+  end
+
+  describe '#revision_url' do
+    let(:article) { create(:article, title: 'Vectors_in_gene_therapy') }
+    let(:talk_page) { create(:article, title: 'Selfie', namespace: Article::Namespaces::TALK) }
+    let(:mw_rev_id) { 637221390 }
+
+    it 'returns a diff url for the revision' do
+      alert = described_class.create(article_id: article.id,
+                                     course_id: course.id,
+                                     revision_id: mw_rev_id,
+                                     user_id: user.id)
+      url = alert.revision_url
+      expect(url).to eq('https://en.wikipedia.org/w/index.php?title=Vectors_in_gene_therapy&diff=prev&oldid=637221390')
+    end
+
+    it 'includes the prefix for non-mainspace articles' do
+      alert = described_class.create(article_id: talk_page.id,
+                                     course_id: course.id,
+                                     revision_id: mw_rev_id,
+                                     user_id: user.id)
+      url = alert.revision_url
+      expect(url).to eq('https://en.wikipedia.org/w/index.php?title=Talk:Selfie&diff=prev&oldid=637221390')
     end
   end
 end

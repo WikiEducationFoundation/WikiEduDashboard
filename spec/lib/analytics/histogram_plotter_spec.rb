@@ -9,9 +9,6 @@ describe HistogramPlotter do
   end
   let(:opts) { { existing_only: true, minimum_improvement: 1 } }
   let(:article) { create(:article) }
-  let(:revision) do
-    create(:revision, article:, date: 1.day.ago, wp10: 70, wp10_previous: 1)
-  end
 
   before do
     FileUtils.rm_rf "#{Rails.root}/public/assets/system"

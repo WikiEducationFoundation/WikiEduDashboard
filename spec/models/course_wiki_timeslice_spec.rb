@@ -25,6 +25,7 @@ describe CourseWikiTimeslice, type: :model do
   let(:wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
   let(:array_revisions) { [] }
   let(:article) { create(:article, id: 1, namespace: 0) }
+  let(:article_id) { article.id }
   let(:course) do
     create(:course, start: Time.zone.today - 1.month, end: Time.zone.today + 1.month)
   end
@@ -79,23 +80,26 @@ role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
            references_count: 4,
            revision_count: 4)
 
-    array_revisions << build(:revision, article:, user_id: 1, date: start, scoped: true)
-    array_revisions << build(:revision, article:, user_id: 1, date: start + 2.hours, scoped: true)
-    array_revisions << build(:revision, article:, user_id: 2, date: start + 3.hours, scoped: true)
-    array_revisions << build(:revision, article:, user_id: 2, date: start + 3.hours, system: true,
-                             scoped: true)
-    array_revisions << build(:revision, article:, deleted: true, user_id: 1, date: start + 8.hours,
-                             scoped: true)
+    array_revisions << build(:revision_on_memory, article_id:, user_id: 1, date: start,
+scoped: true)
+    array_revisions << build(:revision_on_memory, article_id:, user_id: 1, date: start + 2.hours,
+scoped: true)
+    array_revisions << build(:revision_on_memory, article_id:, user_id: 2, date: start + 3.hours,
+scoped: true)
+    array_revisions << build(:revision_on_memory, article_id:, user_id: 2, date: start + 3.hours,
+                             system: true, scoped: true)
+    array_revisions << build(:revision_on_memory, article_id:, deleted: true, user_id: 1,
+                             date: start + 8.hours, scoped: true)
   end
 
   describe '.update_course_wiki_timeslices' do
     before do
       TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records([wiki])
-      array_revisions << build(:revision, article:, user_id: 1, date: start + 26.hours,
+      array_revisions << build(:revision_on_memory, article_id:, user_id: 1, date: start + 26.hours,
                                scoped: true)
-      array_revisions << build(:revision, article:, user_id: 1, date: start + 50.hours,
+      array_revisions << build(:revision_on_memory, article_id:, user_id: 1, date: start + 50.hours,
                                scoped: true)
-      array_revisions << build(:revision, article:, user_id: 1, date: start + 51.hours,
+      array_revisions << build(:revision_on_memory, article_id:, user_id: 1, date: start + 51.hours,
                                scoped: true)
     end
 
@@ -159,8 +163,9 @@ role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
     context 'if revision with error' do
       before do
         TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records([wiki])
-        array_revisions << build(:revision, article:, user_id: 1, date: start + 51.hours,
-        scoped: true, error: true) # add revision with error
+        array_revisions << build(:revision_on_memory, article_id:, user_id: 1,
+                                 date: start + 51.hours, scoped: true,
+                                 error: true) # add revision with error
       end
 
       it 'keeps needs_update flag if revisions with error' do
