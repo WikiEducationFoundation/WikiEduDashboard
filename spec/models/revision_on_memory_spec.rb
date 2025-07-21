@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe Revision, type: :model do
+describe RevisionOnMemory, type: :model do
   describe '#references_added' do
     let(:reference_count_key) { 'num_ref' }
     let(:refs_tags_key) { 'feature.wikitext.revision.ref_tags' }

@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class RevisionOnMemory
-  include ActiveModel::Model
+  # Include this to add validations
+  include ActiveModel::Validations
+  # Include this to define attributes
   include ActiveModel::Attributes
   # Helps with importing data
   alias_attribute :rev_id, :mw_rev_id
