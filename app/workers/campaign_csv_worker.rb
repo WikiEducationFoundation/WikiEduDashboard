@@ -29,8 +29,6 @@ class CampaignCsvWorker
       builder.courses_to_csv
     when 'articles'
       builder.articles_to_csv
-    when 'revisions'
-      builder.revisions_to_csv
     when 'wikidata'
       builder.wikidata_to_csv
     end
