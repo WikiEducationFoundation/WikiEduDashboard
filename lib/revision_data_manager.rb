@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/article_utils"
 require_dependency "#{Rails.root}/lib/replica"
 require_dependency "#{Rails.root}/lib/importers/article_importer"
 require_dependency "#{Rails.root}/app/helpers/encoding_helper"
@@ -22,8 +23,8 @@ class RevisionDataManager
   # Returns an array of Revision records.
   # As a side effect, it imports Article records.
   def fetch_revision_data_for_course(timeslice_start, timeslice_end)
-    all_sub_data, scoped_sub_data = get_course_revisions(@course.students, timeslice_start,
-                                                         timeslice_end)
+    all_sub_data = get_course_revisions(@course.students, timeslice_start,
+                                        timeslice_end)
     @revisions = []
 
     # Extract all article data from the slice. Outputs a hash with article attrs.
@@ -41,7 +42,6 @@ class RevisionDataManager
     article_dict = @articles.each_with_object({}) { |a, memo| memo[a.mw_page_id] = a.id }
     @revisions = sub_data_to_revision_attributes(all_sub_data,
                                                  users,
-                                                 scoped_sub_data:,
                                                  articles: article_dict)
     return @revisions
   end
@@ -61,10 +61,10 @@ class RevisionDataManager
   # This method gets revisions for some specific users.
   # It does not fetch scores. It has no side effects.
   def fetch_revision_data_for_users(users, timeslice_start, timeslice_end)
-    all_sub_data, scoped_sub_data = get_course_revisions(users, timeslice_start, timeslice_end)
+    all_sub_data = get_course_revisions(users, timeslice_start, timeslice_end)
     users = user_dict_from_sub_data(all_sub_data)
 
-    sub_data_to_revision_attributes(all_sub_data, users, scoped_sub_data:)
+    sub_data_to_revision_attributes(all_sub_data, users)
   end
 
   ###########
@@ -79,15 +79,12 @@ class RevisionDataManager
     DuplicateArticleDeleter.new(@wiki).resolve_duplicates_for_timeslices(@articles)
   end
 
-  # Returns a list of revisions for users during the given period:
-  # [all_sub_data, sub_data].
-  # - all_sub_data: all revisions within the period.
-  # - scoped_sub_data: revisions filtered based on the course type.
+  # Returns revisions for users during the given period.
   def get_course_revisions(users, start, end_date)
     all_sub_data = get_revisions(users, start, end_date)
-    # Filter revisions based on the course type.
+    # Update the all_sub_data hash to mark scoped articles.
     # Important for ArticleScopedProgram/VisitingScholarship courses
-    [all_sub_data, @course.filter_revisions(@wiki, all_sub_data)]
+    mark_scoped_articles(@wiki, all_sub_data)
   end
 
   # Get revisions made by a set of users between two dates.
@@ -132,26 +129,28 @@ class RevisionDataManager
   end
 
   # Returns revisions from all_sub_data.
-  # scoped_sub_data contains filtered data according to the course type.
-  def sub_data_to_revision_attributes(all_sub_data, users, scoped_sub_data: nil, articles: nil)
+  def sub_data_to_revision_attributes(all_sub_data, users, articles: nil)
     all_sub_data.flat_map do |_a_id, article_data|
       article_data['revisions'].map do |rev_data|
-        create_revision(rev_data, scoped_sub_data, users, articles)
+        create_revision(rev_data, article_data['article'], users, articles)
       end
     end.uniq(&:mw_rev_id)
   end
 
-  def scoped_revision?(scoped_sub_data, mw_page_id, mw_rev_id)
-    scoped_sub_data.any? do |_, entry|
-      next unless entry.is_a?(Hash) && entry['article'] && entry['revisions']
-
-      entry['article']['mw_page_id'] == mw_page_id.to_s &&
-        entry['revisions'].any? { |rev| rev['mw_rev_id'] == mw_rev_id.to_s }
+  # Updates the revision data with a new 'scoped' field inside the article data.
+  # This field indicates if the article is scoped based on the course type.
+  def mark_scoped_articles(wiki, revisions)
+    revisions.each do |_, details|
+      article_title = details['article']['title']
+      formatted_article_title = ArticleUtils.format_article_title(article_title, wiki)
+      mw_page_id = details['article']['mw_page_id'].to_i
+      details['article']['scoped'] =
+        @course.scoped_article?(wiki, formatted_article_title, mw_page_id)
     end
   end
 
   # Creates a revision record for the given revision data.
-  def create_revision(rev_data, scoped_sub_data, users, articles)
+  def create_revision(rev_data, article_data, users, articles)
     mw_page_id = rev_data['mw_page_id'].to_i
     RevisionOnMemory.new({
           mw_rev_id: rev_data['mw_rev_id'],
@@ -163,7 +162,7 @@ class RevisionDataManager
           new_article: string_to_boolean(rev_data['new_article']),
           system: string_to_boolean(rev_data['system']),
           wiki_id: rev_data['wiki_id'],
-          scoped: scoped_revision?(scoped_sub_data, mw_page_id, rev_data['mw_rev_id'])
+          scoped: article_data['scoped']
         })
   end
 

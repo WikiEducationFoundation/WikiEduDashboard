@@ -40,3 +40,76 @@ end
 CSV.open("/home/sage/course_descriptions.csv", 'wb') do |csv|
   data.each { |line| csv << line }
 end
+
+# Training completion data
+
+csv_data = [['username', 'training_module', 'last_slide_completed', 'module_completion_date', 'started_at', 'last_slide_completed_at']]
+
+TrainingModule.all.each do |tm|
+  puts tm.slug
+  tmus = TrainingModulesUsers.where(training_module_id: tm.id).includes(:user)
+  puts tmus.count
+  tmus.each do |tmu|
+    csv_data << [tmu.user&.username, tm.slug, tmu.last_slide_completed, tmu.completed_at, tmu.created_at, tmu.updated_at]
+  end
+end
+
+CSV.open('/home/sage/training_completion_all_users.csv', 'wb') do |csv|
+  csv_data.each do |line|
+    csv << line
+  end
+end
+
+# All instructors and students by course
+
+csv_data = [['course_slug', 'username', 'role', 'enrolled_at']]
+roles = { 1 => 'instructor', 0 => 'student' }
+ClassroomProgramCourse.nonprivate.each do |course|
+  course.courses_users.includes(:user).each do |cu|
+    next unless [0, 1].include?(cu.role)
+    csv_data << [course.slug, cu.user.username, roles[cu.role], cu.created_at]
+  end
+end; nil
+
+CSV.open('/home/sage/student_program_users.csv', 'wb') do |csv|
+  csv_data.each do |line|
+    csv << line
+  end
+end
+
+# Survey questions
+csv_data = [['question_id', 'question_type', 'question_text', 'answer_options', 'follow_up_question_text']]
+Rapidfire::Question.all.each do |q|
+  csv_data << [q.id, q.type, q.question_text, q.answer_options, q.follow_up_question_text]
+end
+
+CSV.open('/home/sage/all_survey_questions.csv', 'wb') do |csv|
+  csv_data.each do |line|
+    csv << line
+  end
+end
+
+# Basic course metrics
+csv_data = [['course_slug', 'character_sum', 'user_count', 'expected_students', 'article_count', 'new_article_count', 'revision_count', 'upload_count', 'uploads_in_use_count', 'upload_usages_count', 'references_count']]
+ClassroomProgramCourse.nonprivate.each do |course|
+  csv_data << [course.slug, course.character_sum, course.user_count, course.expected_students, course.article_count, course.new_article_count, course.revision_count, course.upload_count, course.uploads_in_use_count, course.upload_usages_count, course.references_count]
+end; nil
+
+CSV.open('/home/sage/courses_with_main_stats.csv', 'wb') do |csv|
+  csv_data.each do |line|
+    csv << line
+  end
+end; nil
+
+# Get range details for RangeInput questions
+csv_data = [['question_id', 'range_minimum', 'range_maximum', 'range_increment', 'range_divisions', 'range_format']]
+Rapidfire::Questions::RangeInput.all.each do |q|
+  rules = q.validation_rules
+  csv_data << [q.id, rules[:range_minimum], rules[:range_maximum], rules[:range_increment], rules[:range_divisions], rules[:range_format]]
+end; nil
+
+CSV.open('/home/sage/range_input_questions.csv', 'wb') do |csv|
+  csv_data.each do |line|
+    csv << line
+  end
+end; nil

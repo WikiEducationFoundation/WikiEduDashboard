@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 
 class RevisionOnMemory
+  # Include this because it is the recommended approach to implement model-like Ruby classes
   include ActiveModel::Model
+  # Include this to define attributes
   include ActiveModel::Attributes
   # Helps with importing data
   alias_attribute :rev_id, :mw_rev_id
-
-  validates :mw_page_id, presence: true
-  validates :mw_rev_id, presence: true
 
   attribute :mw_rev_id, :integer
   attribute :features, default: -> { {} }

@@ -184,15 +184,15 @@ ps:
     categories:
       users: کارنان
   timeline:
-    add_week: اونۍ ورگډول
+    add_week: اوونۍ ورگډول
     block_in_class: په ټولگي کې
     course_dates: کورس نېټې
     empty_week_3: يا
     gradeable_value: ارزښت
     save_all_changes: ټول خوندي کول
-    this_week_title_default: دا اونۍ
+    this_week_title_default: دا اوونۍ
     title: وخت‌کرښه
-    week_number: اونۍ %{number}
+    week_number: اوونۍ %{number}
   training:
     start: پيلول
     view: کتل
@@ -244,5 +244,5 @@ ps:
     download_csv: CSV ښکته کول
   weekday_picker:
     aria:
-      weekday_unselected: '{{د اونۍ ورځ}} ناټاکلی'
+      weekday_unselected: '{{د اوونۍ ورځ}} ناټاکلې'
 ...

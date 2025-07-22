@@ -90,23 +90,19 @@ module SurveysHelper
                                                               user: current_user,
                                                               question_group: @question_group)
 
-    includes_options = is_results_view ? { answers: :user } : :answers
-
-    @questions = surveys_question_group
-                 .rapidfire_question_group
-                 .questions
-                 .includes(includes_options)
+    @questions = Rapidfire::Question.where(question_group_id: @question_group.id)
 
     @id_to_question = {}
     @questions.each do |question|
       @id_to_question[question.id] = question
     end
 
-    @question_answers_count = Rapidfire::Answer
-                              .where(question_id: @questions.pluck(:id))
-                              .group(:question_id).count
+    enrich_answers_with_question
 
-    enrich_answers_with_users_and_courses(is_results_view)
+    if is_results_view
+      load_and_prepare_question_answers
+      load_answer_group_and_user
+    end
 
     return { question_group: @question_group,
       answer_group_builder: @answer_group_builder,
@@ -116,29 +112,49 @@ module SurveysHelper
       results: is_results_view }
   end
 
-  def enrich_answers_with_users_and_courses(is_results_view)
-    @user_ids = Set.new # Initialize a Set to collect unique user IDs from answers
+  # Eager load answers with their groups, index them by question ID, and count per question.
+  def load_and_prepare_question_answers
+    # Used in QuestionResultsHelper#question_results_data via view: _question_group.html.haml
+    @rapidfire_answers_by_question_id = Hash.new { |h, k| h[k] = [] }
+    @question_answers_count = Hash.new(0) # Used in view: _question_results.html.haml
+    @all_rapidfire_answers = []
 
+    Rapidfire::Answer.includes(:answer_group)
+                     .where(question_id: @id_to_question.keys)
+                     .each do |answer|
+      @rapidfire_answers_by_question_id[answer.question_id] << answer
+      @question_answers_count[answer.question_id] += 1
+      @all_rapidfire_answers << answer
+    end
+  end
+
+  # Builds cache of unique answer groups and their associated users to avoid N+1 queries
+  def load_answer_group_and_user
+    seen_group_ids = Set.new
+    user_ids = Set.new
+    rapidfire_answer_groups = []
+
+    @all_rapidfire_answers.each do |answer|
+      group = answer.answer_group
+      next if seen_group_ids.include?(group.id)
+
+      seen_group_ids.add(group.id)
+      rapidfire_answer_groups << group
+      user_ids.add(group.user_id) if group.user_id
+    end
+
+    # Used in QuestionResultsHelper#question_results_data via view: _question_group.html.haml
+    @rapidfire_answer_groups_by_id = rapidfire_answer_groups.index_by(&:id)
+
+    # Used in QuestionResultsHelper#question_results_data via view: _question_group.html.haml
+    @users_by_id = User.where(id: user_ids.to_a).select(:id, :username).index_by(&:id)
+  end
+
+  def enrich_answers_with_question
     @answer_group_builder.answers.each do |answer|
       question = @id_to_question[answer.question_id]
       answer.question = question
-      if is_results_view
-        store_user_ids(question.answers.map(&:user)) # Collect user IDs from answers to later fetch user info # rubocop:disable Layout/LineLength
-      end
     end
-
-    return unless is_results_view
-
-    store_users_by_id # Fetch and store user records in a hash indexed by ID
-    user_survey_courses # Attach course data to each user via dynamic method
-  end
-
-  def store_user_ids(users)
-    users.each { |user| @user_ids.add(user.id) }
-  end
-
-  def store_users_by_id
-    @users_by_id = User.where(id: @user_ids.to_a).select(:id, :username).index_by(&:id)
   end
 
   # Attaches course data to users via dynamic method for easy access to course campaigns and tags

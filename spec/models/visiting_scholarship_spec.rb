@@ -135,62 +135,33 @@ describe VisitingScholarship, type: :model do
     end
   end
 
-  describe '#filter_revisions' do
+  describe '#scoped_article?' do
+    before do
+      create(:article, title: 'Category_article')
+      create(:article, title: 'Unassigned_article', mw_page_id: 400)
+      create(:assignment, course:, article:, article_title: article.title, wiki:)
+      create(:categories_courses, course:, category:)
+    end
+
     let(:wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
     let(:course) { create(:visiting_scholarship, start: '2018-01-01', end: '2018-12-31') }
-    let(:user) { create(:user, username: 'Ragesoss') }
-    let(:revisions) do
-      [
-        [
-          '112',
-          {
-            'article' => {
-              'mw_page_id' => '777',
-              'title' => 'Some title',
-              'namespace' => '4',
-              'wiki_id' => 1
-            },
-            'revisions' => [
-              { 'mw_rev_id' => '849116430', 'date' => '20180706', 'characters' => '569',
-                'mw_page_id' => '777', 'username' => 'Ragesoss', 'new_article' => 'false',
-                'system' => 'false', 'wiki_id' => 1 }
-            ]
-          }
-        ],
-        [
-          '789',
-          {
-            'article' => {
-              'mw_page_id' => '123',
-              'title' => 'Important article',
-              'namespace' => '118',
-              'wiki_id' => 1
-            },
-            'revisions' => [
-              { 'mw_rev_id' => '456', 'date' => '20180706', 'characters' => '569',
-                'mw_page_id' => '123', 'username' => 'Ragesoss', 'new_article' => 'false',
-                'system' => 'false', 'wiki_id' => 1 }
-            ]
-          }
-        ]
-      ]
-    end
-    let(:subject) do
-      course.filter_revisions(wiki, revisions)
+    let(:category) { create(:category, wiki:, article_titles: ['Category_article']) }
+    let(:article) { create(:article, title: 'Assigned_article', mw_page_id: 345) }
+
+    it 'does not consider articles in categories as scoped articles' do
+      expect(course.scoped_article?(wiki, 'Category_article', 90)).to eq(false)
     end
 
-    before do
-      create(:courses_user, course:, user:)
-      create(:article, id: 1, title: 'Important article', mw_page_id: 123, wiki_id: 1,
-             namespace: 118)
-      create(:assignment, course:, user:, article_id: 1, article_title: 'Important article')
+    it 'considers assigned articles as scoped articles even though the title changed' do
+      expect(course.scoped_article?(wiki, 'assigned article', 345)).to eq(true)
     end
 
-    it 'only returns revisions for assignments' do
-      revisions = subject
-      # Returns only revisions for assignments
-      expect(revisions.length).to eq(1)
-      expect(revisions[0][1]['article']['title']).to eq('Important article')
+    it 'considers assigned articles as scoped articles based on title' do
+      expect(course.scoped_article?(wiki, 'Assigned_article', 340)).to eq(true)
+    end
+
+    it 'returns false for unassigned articles' do
+      expect(course.scoped_article?(wiki, 'Unassigned_article', 400)).to eq(false)
     end
   end
 end

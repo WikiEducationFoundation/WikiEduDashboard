@@ -62,9 +62,9 @@ lb:
     details: Detailer
     confirm: OK
     opt_in: Jo
-    opt_out: Neen
+    opt_out: Nee
     opt_yes: jo
-    opt_no: neen
+    opt_no: nee
     print: Drécken
   article_statuses:
     not_yet_started: Fir unzefänken
@@ -307,7 +307,7 @@ lb:
         aneren Titel, enger anerer Schoul oder enger anerer Dauer.
       user_exists: Pardon, de Benotzer %{username} gëtt et net.
       user_exists_on_wiki: Pardon, de Benotzer %{username} gëtt et net op %{domain}.
-      invalid_language_or_project: Net valabel Sprooch/Projet
+      invalid_language_or_project: Ongülteg Sprooch/Projet
       invalid_slug: Schoul/Titel eidel fir de Cours.
       duplicate_slug: Et gëtt schonn e Programm mam Numm %{slug}.
     features_feedback: 'Automatiséiert Virschléi:'
@@ -711,7 +711,7 @@ lb:
     summary: Resumé
   error:
     form_errors: Kuckt de Formulaire wgl. no Feeler no.
-    invalid_date: '%{key} Datum ass net valabel'
+    invalid_date: De %{key}datum ass ongülteg
     invalid_file_format: De Fichier konnt net gespäichert ginn. Luet wgl. e PDF oder
       e Word-Dokument erop.
     start_date_before_end_date: Den Ufanksdatum muss virum Schlussdatum leien

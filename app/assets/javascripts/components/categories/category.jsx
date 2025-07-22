@@ -19,16 +19,34 @@ const Category = ({ course, category, remove, editable }) => {
   const catName = CourseUtils.formattedCategoryName(category, course.home_wiki);
   let depth;
   let link;
-  if (category.source === 'category') {
+  if (category.source.includes('category')) {
     depth = category.depth;
   }
-  if (category.source === 'psid') {
+  if (category.source.includes('psid')) {
     link = `https://petscan.wmcloud.org/?psid=${category.name}`;
-  } else if (category.source === 'pileid') {
+  } else if (category.source.includes('pileid')) {
     link = `https://pagepile.toolforge.org/api.php?id=${category.name}&action=get_data`;
   } else {
     link = `https://${course.home_wiki.language}.${course.home_wiki.project}.org/wiki/${catName}`;
   }
+  const errored = category.source.includes('Error');
+
+  const cateNameLink = (
+    <a target="_blank" href={link}>
+      {catName}
+    </a>
+  );
+
+  const cateNameLinkWarning = (
+    <div className="tooltip-trigger">
+      {cateNameLink}
+      <span className="tooltip-indicator" />
+      <div className="tooltip dark">
+        <p>{I18n.t('categories.category_error')}</p>
+      </div>
+    </div>
+  );
+
   const lastUpdate = toDate(category.updated_at);
   let lastUpdateMessage;
   const beenUpdated = !isSameDay(toDate(category.created_at), lastUpdate);
@@ -41,11 +59,9 @@ const Category = ({ course, category, remove, editable }) => {
   }
   return (
     <>
-      <tr>
+      <tr className={errored ? 'warning-background' : undefined}>
         <td>
-          <a target="_blank" href={link}>
-            {catName}
-          </a>
+          {errored ? cateNameLinkWarning : cateNameLink}
         </td>
         <td>{depth}</td>
         <td>

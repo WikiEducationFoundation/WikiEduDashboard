@@ -17,9 +17,10 @@ class DYKNominationMonitor
   end
 
   def create_alerts_from_page_titles
+    namespace = Article::Namespaces::MAINSPACE
     course_articles = ArticlesCourses.joins(:article)
                                      .where(course: Course.current)
-                                     .where(articles: { title: @page_titles, wiki_id: @wiki.id })
+                                     .where(articles: { title: @page_titles, wiki_id: @wiki.id, namespace: }) # rubocop:disable Layout/LineLength
     course_articles.each do |articles_course|
       create_alert(articles_course)
     end

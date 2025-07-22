@@ -37,7 +37,7 @@ class PagePileApi
   rescue StandardError => e
     log_error(e, update_service:,
               sentry_extra: { api_url: url })
-    @pile_data = {}
+    raise e
   end
 
   # This ensures the Category has the same wiki as the PagePile.

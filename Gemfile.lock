@@ -46,15 +46,6 @@ GIT
       jwt (~> 2.0)
       omniauth-oauth
 
-GIT
-  remote: https://github.com/ragesoss/piwik-ruby-tracking
-  revision: 1181569b72fb719d72458d2c72a093aa87bac23d
-  specs:
-    piwik_analytics (2.0.0)
-      actionpack
-      activesupport
-      rails (>= 3.0.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -663,7 +654,6 @@ DEPENDENCIES
   openssl (~> 3)
   pandoc-ruby
   paper_trail
-  piwik_analytics!
   premailer-rails
   pry-rails
   puma

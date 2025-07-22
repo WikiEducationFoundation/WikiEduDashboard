@@ -608,7 +608,7 @@ nl:
       het onderwijsprogramma en andere lange, goed gestructureerde programma's.
     timeline_nav: Ga naar Tijdlijn
     time_zone_message: Begin- en eindtijden worden weergegeven in uw lokale tijdzone.
-    title: Naam
+    title: Titel
     training_due: De trainingsmodule "%{title}" is toegekend voor deze cursus en vervalt
       op %{date}.
     training_nav: Ga naar de training

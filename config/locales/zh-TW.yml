@@ -75,7 +75,7 @@ zh-TW:
     submit: 送出
     training: 培訓
     change: 變更
-    details: 詳細內容
+    details: 詳細資訊
     confirm: 好
     opt_in: 是
     opt_out: 否
@@ -406,6 +406,7 @@ zh-TW:
     remove: 移除
     tracked_categories: 已追蹤分類、PSID、頁面檔案 ID 與模板
     timestamp: 最後更新於
+    category_error: 此範圍方法需要更新的項目過多。請嘗試使用較少的項目。
   courses:
     school_system: 學院系統
     assignment_edits_enabled: 分配編輯已啟用
@@ -508,6 +509,7 @@ zh-TW:
         article_scoped_program_description: 此方案僅會追蹤分配的條目或分類的編輯。若您想要對已知條目或主題領域收集做出統計方面的限制，請使用此類型。按預設會開啟自動化
           wiki 編輯。
         single_user_name: 個人編輯者
+        single_user_description: 此方案類型旨在透過簡化介面來追蹤您自己的貢獻。如果您不需要追蹤其他使用者的編輯，請使用此類型。
       create_button: 建立我的課程！
       create_label: 建立新的課程
       create_new: 建立一個新的課程
@@ -540,6 +542,7 @@ zh-TW:
       URL。
     data_revisions_info: 修訂資料包含課程修訂次數、修訂 ID、條目 ID，該頁面為新的頁面和頁面瀏覽次數總計。
     data_download_info: 以 CSV 格式下載資料。
+    data_download_warning: 此課程尚未在新系統中更新，統計內容可能會不完整。在下載前，請安排此課程的資料更新並等待更新完成。如果這是一門持續的課程，請等待目前的更新完成。
     data_overview: 概要資料
     data_overview_info: 概要資料提供出整體專案的累計統計。
     data_edits: 編輯資料
@@ -634,6 +637,8 @@ zh-TW:
     new_account_submitted: 您的帳號申請已提交。此方案的主持者現在完成您的帳戶創建。一旦創建後，您將會透過電子郵件收到新帳號的密碼。
     new_account_submitted_admin: 您申請的帳戶已創建。請通知您的學生檢查其電子郵件收件箱以獲取密碼
     no_campaign: 要讓此方案生效並允許使用者加入，需要添加一項競賽。若您不確定要添加何種競賽，請使用「雜集」。
+    no_sandboxes: 沒有沙盒
+    no_sandboxes_info: 啟用後，課程將不再使用沙盒模式。若有必要，請務必更改標籤和時間軸內容。
     nocourses: 您尚未參加任何課程。
     nocourse: 未參與任何課程。
     none: 無
@@ -1128,7 +1133,29 @@ zh-TW:
     constant_update_description: 對於所有當前課程，持續更新獨立於主要課程統計資料、提取修訂元資料、產生警報以及執行其他資料和網路密集型任務。
     constant_update_doc: 處理事務性工作，例如 wiki 編輯和發送電子郵件。
     daily_update: 每日更新
+    daily_update_description: 這會提取額外資料，並執行不需每天多次辦理的其他任務。
+    daily_update_doc: 處理每天一次長期運作的資料更新任務。
     default: 預設
+    default_description: 依據課程運作時間長短排序課程到佇列裡，來安排課程更新。
+    default_doc: 處理經常運作的任務，例如將課程新增至更新佇列。
+    enqueued_jobs: 入列的佇列任務
+    enqueued_jobs_doc: 所有佇列中目前入列的任務數目。
+    latency: 延遲
+    latency_doc: 作業在佇列中開始處理的等待時間。高延遲可能代表系統繁忙或處理延遲。
+    long_update: 漫長更新
+    long_update_description: 漫長更新會處理修訂次數多於 1000 次的課程。
+    long_update_doc: 處理大型課程的更新。
+    medium_update: 中等更新
+    medium_update_description: 中等更新會處理修訂次數少於 10000 次的課程。
+    medium_update_doc: 處理典型規模課程的更新。
+    no_info: 沒有可用資訊。
+    purpose: 目的
+    queues_overview: 佇列概要
+    queue: 佇列
+    short_update: 簡短更新
+    short_update_description: 簡短更新會處理修訂次數少於 1000 次的課程。
+    short_update_doc: 處理迷你課程的更新。
+    sidekiq_stats: Sidekiq 統計
     size: 大小
     size_doc: 佇列中的任務數。
     status: 狀態
@@ -1407,6 +1434,8 @@ zh-TW:
     location_placeholder: 新增所在位置（非必填）
     institution_placeholder: 機構名稱（非必填）
     image_link_placeholder: 添加連結到圖片（可選）
+    references_disclaimer: 如果同一使用者的編輯被視為多門課程的一部分，參考來源可能會被多算。
+    words_added_disclaimer: 如果同一使用者的編輯被視為多門課程的一部分，添加的單字可能會被多算。
   wiki_edits:
     notify_overdue:
       button_label: 提醒學生關於過期的培訓
